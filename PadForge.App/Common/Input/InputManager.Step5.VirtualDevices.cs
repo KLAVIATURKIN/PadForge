@@ -2622,7 +2622,8 @@ namespace PadForge.Common.Input
             _extendedPendingVendorId[padIndex] = build.Vid;
             _extendedPendingProductId[padIndex] = build.Pid;
 
-            return new HMaestroVirtualController(_hmaestroContext, effectiveProfile, type);
+            return new HMaestroVirtualController(_hmaestroContext, effectiveProfile, type,
+                HMaestroVirtualController.IdentityKeyFor(padIndex, type));
         }
 
         /// <summary>Copies the configuration a just-published HIDMaestro

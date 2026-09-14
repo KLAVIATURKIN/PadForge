@@ -182,7 +182,14 @@
          unstable in-progress work from the HIDMaestro repo. Update by
          copying the Release build of HIDMaestro.Core.dll from the
          HIDMaestro repo into Resources\HIDMaestro\ after tagging a
-         release there. Current: v1.7.3, which gives all four native
+         release there. Current: v1.8.0 (HM#60), which gives every
+         virtual controller a durable identity: the device paths, the
+         container id and the USB serial of the composite personas derive
+         from an identity key PadForge passes per slot, so a pad comes
+         back at the same paths after a restart, a reboot or a driver
+         upgrade and a program that stored a binding against the path
+         keeps it (#395, ChasePlane).
+         v1.7.3 before it gave all four native
          binaries a version resource. They had none: no CompanyName, no
          ProductName, no FileDescription. Unsigned on disk (the SDK
          Authenticode-signs the driver at install time, not at build time)

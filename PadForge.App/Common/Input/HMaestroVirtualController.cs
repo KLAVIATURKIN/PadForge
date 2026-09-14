@@ -145,11 +145,32 @@ namespace PadForge.Common.Input
         private bool _hasSubmitted;
         private const int SubmitKeepaliveMs = 16;
 
-        public HMaestroVirtualController(HMContext ctx, HMProfile profile, VirtualControllerType type)
+        /// <summary>The identity key handed to HIDMaestro for a slot's
+        /// virtual controller (HIDMaestro 1.8.0, HM#60). Every device path,
+        /// the container id and, for USB/IP personas, the USB serial derive
+        /// from it, so the pad comes back at the same paths after a
+        /// PadForge restart, a reboot or a driver upgrade, and a program
+        /// that stored a binding against the path keeps it (ChasePlane in
+        /// #395 keys on a hash of the path). The key names the slot and the
+        /// controller family, not the profile: the reporter switches among
+        /// Extended profiles on one slot and a different profile at the
+        /// same key keeps the identity and refreshes the descriptor. Two
+        /// families on one slot never overlap (Pass 2 waits for a retiring
+        /// pad), and their creation paths differ, so the family in the key
+        /// only keeps the derived container ids apart.</summary>
+        internal static string IdentityKeyFor(int padIndex, VirtualControllerType type)
+            => "padforge:slot" + padIndex.ToString(System.Globalization.CultureInfo.InvariantCulture)
+               + ":" + type.ToString();
+
+        private readonly string? _identityKey;
+
+        public HMaestroVirtualController(HMContext ctx, HMProfile profile, VirtualControllerType type,
+            string? identityKey = null)
         {
             _ctx = ctx ?? throw new ArgumentNullException(nameof(ctx));
             _profile = profile ?? throw new ArgumentNullException(nameof(profile));
             _type = type;
+            _identityKey = string.IsNullOrWhiteSpace(identityKey) ? null : identityKey;
 
             // Resolve the 6-slot canonical axis keys via the profile's
             // AxisMap, which maps wire HMAxis → semantic role string
@@ -248,7 +269,9 @@ namespace PadForge.Common.Input
         public void Connect()
         {
             if (IsConnected) return;
-            _controller = _ctx.CreateController(_profile);
+            // The key makes the pad's paths durable across lives (HM#60);
+            // a null key falls back to HIDMaestro's controller index.
+            _controller = _ctx.CreateController(_profile, _identityKey);
 
             // Fresh HMController = fresh shared section. Reset the idle-dedup
             // memory so the first frame always submits instead of waiting out
