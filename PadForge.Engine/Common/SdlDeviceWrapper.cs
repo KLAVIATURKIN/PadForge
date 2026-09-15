@@ -427,7 +427,16 @@ namespace PadForge.Engine
             }
 
             // Check rumble support via properties system (replaces SDL_JoystickHasRumble).
-            HasRumble = props != 0 && SDL_GetBooleanProperty(props, SDL_PROP_JOYSTICK_CAP_RUMBLE_BOOLEAN, false);
+            HasRumble = (props != 0 && SDL_GetBooleanProperty(props, SDL_PROP_JOYSTICK_CAP_RUMBLE_BOOLEAN, false))
+                // Hardware fact OR'd in, the way HasRumbleTriggers is for Xbox
+                // One+ pads below: a Padix PSX/USB converter (Buffalo BSGC101 /
+                // BSGC201) has two motors behind a 9-byte output report that
+                // PadForge writes itself (PadixConverterRawHidWriter). SDL only
+                // reports rumble for it when Buffalo's DirectInput effect plug-in
+                // is installed, and PadForge never drives that plug-in, so the
+                // flag must not depend on it. This allocates ForceFeedbackState
+                // and shows the Feedback tab with no vendor package (#440).
+                || PadixConverterIdentity.IsPlayStationConverter(VendorId, ProductId);
             // HAPTICDIAG (2026-07-24 rumble regression): ForceFeedbackState
             // .SetDeviceForces drops every rumble when HasRumble and
             // HasHaptic are both false, silently. That gate was invisible,
@@ -1576,6 +1585,15 @@ namespace PadForge.Engine
         public bool SetRumble(ushort lowFreq, ushort highFreq, uint durationMs = uint.MaxValue)
         {
             if (!HasRumble || Joystick == IntPtr.Zero)
+                return false;
+
+            // A Padix PSX/USB converter's motors belong to PadForge's own
+            // writer (PadixConverterRawHidWriter). With Buffalo's effect plug-in
+            // installed, SDL's DirectInput rumble would load that plug-in into
+            // the process and start a pulsed Sine effect beside the direct
+            // report, a second writer on the same motors. Every SDL rumble call
+            // for these devices is inert, including the zero at shutdown (#440).
+            if (PadixConverterIdentity.IsPlayStationConverter(VendorId, ProductId))
                 return false;
 
             if (IsSteamDeck)

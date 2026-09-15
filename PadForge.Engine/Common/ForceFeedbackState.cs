@@ -140,6 +140,13 @@ namespace PadForge.Engine
             return changed;
         }
 
+        /// <summary>Two-motor form of <see cref="TryRecordXboxImpulseSnapshot"/>
+        /// for direct writers without trigger motors (the Padix PSX/USB
+        /// converter). Same cache, same IsActive rule, triggers recorded as
+        /// zero.</summary>
+        public bool TryRecordMotorSnapshot(ushort leftMotor, ushort rightMotor)
+            => TryRecordXboxImpulseSnapshot(leftMotor, rightMotor, 0, 0);
+
         // ─────────────────────────────────────────────
         //  Stop
         // ─────────────────────────────────────────────

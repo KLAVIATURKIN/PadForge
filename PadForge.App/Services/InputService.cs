@@ -10955,6 +10955,22 @@ namespace PadForge.Services
                             FanatecRawHidWriter.WritePedalRumble(source.DevicePath, throttle, brake);
                         }
                         else if (ud != null
+                            && PadForge.Engine.PadixConverterIdentity.IsPlayStationConverter(ud.VendorId, ud.ProdId))
+                        {
+                            // Padix PSX/USB converter sole-writer path (mirrors
+                            // InputManager.Step2's isPadixConverter gate): the relayed
+                            // motors go to the converter's 9-byte report, never to SDL
+                            // rumble, whose call is inert for these devices anyway (#440).
+                            var pvib = effect.Vibration;
+                            if (ud.ForceFeedbackState != null
+                                && ud.ForceFeedbackState.TryRecordMotorSnapshot(
+                                    pvib.LeftMotorSpeed, pvib.RightMotorSpeed))
+                            {
+                                PadForge.Common.Input.PadixConverterRawHidWriter.Write(
+                                    ud.DevicePath, pvib.LeftMotorSpeed, pvib.RightMotorSpeed);
+                            }
+                        }
+                        else if (ud != null
                             && PadForge.Engine.XboxControllerIdentity.IsImpulseTriggerDevice(ud.VendorId, ud.ProdId))
                         {
                             // Xbox One+ sole-writer path (mirrors InputManager.Step2's

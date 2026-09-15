@@ -687,12 +687,18 @@ namespace PadForge.Common.Input
             bool isFanatecPedal  = FanatecRawHidWriter.IsFanatecPedal(ud.VendorId, ud.ProdId);
             bool isThrustmasterWheel = ThrustmasterRawHidWriter.IsThrustmasterWheel(ud.VendorId, ud.ProdId);
             bool isVendorFfb = isLogitechWheel || isFanatecWheel || isFanatecPedal || isThrustmasterWheel;
-            if (!isXboxImpulse && !isVendorFfb)
+            // Padix PSX/USB converter (Buffalo BSGC101 / BSGC201): PadForge
+            // writes the converter's 9-byte motor report itself, the same
+            // sole-writer shape as the Xbox impulse path. SDL's rumble flag for
+            // it only says whether Buffalo's effect plug-in is installed, and
+            // that plug-in is never driven (#440).
+            bool isPadixConverter = PadForge.Engine.PadixConverterIdentity.IsPlayStationConverter(ud.VendorId, ud.ProdId);
+            if (!isXboxImpulse && !isVendorFfb && !isPadixConverter)
             {
                 if (ud.Device == null || (!ud.Device.HasRumble && !ud.Device.HasHaptic))
                     return;
             }
-            else if (isXboxImpulse && ud.Device == null)
+            else if ((isXboxImpulse || isPadixConverter) && ud.Device == null)
             {
                 return;
             }
@@ -788,6 +794,11 @@ namespace PadForge.Common.Input
                             {
                                 XboxImpulseHidWriter.Write(ud, 0, 0, 0, 0);
                                 ud.ForceFeedbackState.TryRecordXboxImpulseSnapshot(0, 0, 0, 0);
+                            }
+                            else if (isPadixConverter)
+                            {
+                                PadixConverterRawHidWriter.Write(ud.DevicePath, 0, 0);
+                                ud.ForceFeedbackState.TryRecordMotorSnapshot(0, 0);
                             }
                             else ud.ForceFeedbackState.StopDeviceForces(ud.Device);
                         }
@@ -1060,6 +1071,18 @@ namespace PadForge.Common.Input
                     XboxImpulseHidWriter.Write(
                         ud, combinedL, combinedR, combinedLT, combinedRT);
                 }
+                return;
+            }
+
+            if (isPadixConverter)
+            {
+                // Padix PSX/USB converter sole-writer path (#440). The 9-byte
+                // motor report goes straight to the converter's HID interface,
+                // and SetDeviceForces (SDL, and through it Buffalo's DirectInput
+                // effect plug-in when installed) is never reached. Change
+                // detection keeps the write off the polling cadence.
+                if (ud.ForceFeedbackState.TryRecordMotorSnapshot(combinedL, combinedR))
+                    PadixConverterRawHidWriter.Write(ud.DevicePath, combinedL, combinedR);
                 return;
             }
 

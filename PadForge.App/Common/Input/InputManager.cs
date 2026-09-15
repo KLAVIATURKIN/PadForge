@@ -1847,6 +1847,14 @@ namespace PadForge.Common.Input
                 {
                     if (ud?.ForceFeedbackState != null && ud.Device != null)
                     {
+                        // A Padix PSX/USB converter's SDL rumble is inert by
+                        // design (SdlDeviceWrapper.SetRumble), so its final zero
+                        // comes from the direct writer (#440).
+                        if (PadForge.Engine.PadixConverterIdentity.IsPlayStationConverter(ud.VendorId, ud.ProdId))
+                        {
+                            try { PadixConverterRawHidWriter.Write(ud.DevicePath, 0, 0); }
+                            catch { /* best effort */ }
+                        }
                         try { ud.ForceFeedbackState.StopDeviceForces(ud.Device); }
                         catch { /* best effort */ }
                     }
