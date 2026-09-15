@@ -2157,6 +2157,15 @@ namespace PadForge
                 _settingsService.MarkDirty();
                 _inputService.RefreshDeviceList();
                 _viewModel.Devices.RefreshSlotButtons();
+                // Re-arm the grid from the merged set before the handler
+                // returns. The stale guard above only cleared on the next
+                // RefreshMappingsCore, and nothing on this path promised
+                // one (RefreshDeviceList re-selects only when the selection
+                // changed). Until it ran, every edit on the slot's grid was
+                // skipped by the tier-1 push and never reached the virtual
+                // controller (discussion #396: mappings made after a type
+                // change took effect only after forging was restarted).
+                InputService.RefreshMappingsToViewModel(_viewModel.Pads[args.SlotIndex]);
             };
 
             DashboardPageView.SlotSwapRequested += (s, args) =>
@@ -4279,6 +4288,11 @@ namespace PadForge
                 // the next RefreshMappingsCore.
                 _viewModel.Pads[padIndex].MappingsViewLoaded = false;
                 _settingsService.MarkDirty();
+                // Re-arm the grid now (see the dashboard type handler and
+                // discussion #396): the stale guard above otherwise holds
+                // until the pad is navigated to again, and every grid edit
+                // made in between is dropped by the tier-1 push.
+                InputService.RefreshMappingsToViewModel(_viewModel.Pads[padIndex]);
             }
         }
 
@@ -4299,6 +4313,11 @@ namespace PadForge
                 // Stale-guard the Mappings view (see OnSidebarTypeXbox).
                 _viewModel.Pads[padIndex].MappingsViewLoaded = false;
                 _settingsService.MarkDirty();
+                // Re-arm the grid now (see the dashboard type handler and
+                // discussion #396): the stale guard above otherwise holds
+                // until the pad is navigated to again, and every grid edit
+                // made in between is dropped by the tier-1 push.
+                InputService.RefreshMappingsToViewModel(_viewModel.Pads[padIndex]);
             }
         }
 
@@ -4319,6 +4338,11 @@ namespace PadForge
                 // Stale-guard the Mappings view (see OnSidebarTypeXbox).
                 _viewModel.Pads[padIndex].MappingsViewLoaded = false;
                 _settingsService.MarkDirty();
+                // Re-arm the grid now (see the dashboard type handler and
+                // discussion #396): the stale guard above otherwise holds
+                // until the pad is navigated to again, and every grid edit
+                // made in between is dropped by the tier-1 push.
+                InputService.RefreshMappingsToViewModel(_viewModel.Pads[padIndex]);
             }
         }
 
@@ -4339,6 +4363,11 @@ namespace PadForge
                 // Stale-guard the Mappings view (see OnSidebarTypeXbox).
                 _viewModel.Pads[padIndex].MappingsViewLoaded = false;
                 _settingsService.MarkDirty();
+                // Re-arm the grid now (see the dashboard type handler and
+                // discussion #396): the stale guard above otherwise holds
+                // until the pad is navigated to again, and every grid edit
+                // made in between is dropped by the tier-1 push.
+                InputService.RefreshMappingsToViewModel(_viewModel.Pads[padIndex]);
             }
         }
 
@@ -4359,6 +4388,11 @@ namespace PadForge
                 // Stale-guard the Mappings view (see OnSidebarTypeXbox).
                 _viewModel.Pads[padIndex].MappingsViewLoaded = false;
                 _settingsService.MarkDirty();
+                // Re-arm the grid now (see the dashboard type handler and
+                // discussion #396): the stale guard above otherwise holds
+                // until the pad is navigated to again, and every grid edit
+                // made in between is dropped by the tier-1 push.
+                InputService.RefreshMappingsToViewModel(_viewModel.Pads[padIndex]);
             }
         }
 
@@ -4380,6 +4414,11 @@ namespace PadForge
                 // Stale-guard the Mappings view (see OnSidebarTypeXbox).
                 _viewModel.Pads[padIndex].MappingsViewLoaded = false;
                 _settingsService.MarkDirty();
+                // Re-arm the grid now (see the dashboard type handler and
+                // discussion #396): the stale guard above otherwise holds
+                // until the pad is navigated to again, and every grid edit
+                // made in between is dropped by the tier-1 push.
+                InputService.RefreshMappingsToViewModel(_viewModel.Pads[padIndex]);
             }
         }
 
@@ -4404,6 +4443,11 @@ namespace PadForge
                 // Stale-guard the Mappings view (see OnSidebarTypeXbox).
                 _viewModel.Pads[padIndex].MappingsViewLoaded = false;
                 _settingsService.MarkDirty();
+                // Re-arm the grid now (see the dashboard type handler and
+                // discussion #396): the stale guard above otherwise holds
+                // until the pad is navigated to again, and every grid edit
+                // made in between is dropped by the tier-1 push.
+                InputService.RefreshMappingsToViewModel(_viewModel.Pads[padIndex]);
             }
         }
 
