@@ -162,10 +162,10 @@ namespace PadForge.Common.Input
             => "padforge:slot" + padIndex.ToString(System.Globalization.CultureInfo.InvariantCulture)
                + ":" + type.ToString();
 
-        private readonly string? _identityKey;
+        private readonly string _identityKey;
 
         public HMaestroVirtualController(HMContext ctx, HMProfile profile, VirtualControllerType type,
-            string? identityKey = null)
+            string identityKey = null)
         {
             _ctx = ctx ?? throw new ArgumentNullException(nameof(ctx));
             _profile = profile ?? throw new ArgumentNullException(nameof(profile));
