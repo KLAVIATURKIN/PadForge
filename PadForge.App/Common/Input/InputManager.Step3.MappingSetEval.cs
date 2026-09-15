@@ -1789,6 +1789,21 @@ namespace PadForge.Common.Input
                     if (!string.IsNullOrEmpty(act.GateDescriptor)
                         && !SourceKindRuntimeReadButtonLikeBool(state, act.GateDescriptor, act.DeviceGuid, slotIndex))
                         return false;
+                    // A trigger rests at 0 on the shared axis array (the
+                    // wrapper fills a gamepad's Axis 2 / Axis 5 as 0..65535,
+                    // released = 0), and the bipolar read below maps that to
+                    // -1.0, so |axis| was 1.0 at rest and past every threshold:
+                    // the layer engaged the moment it was saved and let go
+                    // around half pull (#443). Trigger-class sources (a
+                    // gamepad trigger, a slider) read on the trigger scale
+                    // instead, 0 at rest and 1 fully pulled, and engage past
+                    // the threshold in that one direction. The half selector
+                    // has no meaning on a unipolar source and is not applied.
+                    if (IsUnipolarActivatorSource(act.Descriptor, act.DeviceGuid))
+                    {
+                        float pull = SourceKindRuntimeReadTriggerLikeFloat(state, act.Descriptor, act.DeviceGuid, slotIndex);
+                        return pull >= act.AxisThreshold;
+                    }
                     // v2: axis past threshold. ReadAxisLike returns [-1..+1].
                     float axisVal = SourceKindRuntimeReadAxisLikeFloat(state, act.Descriptor, act.DeviceGuid, slotIndex);
                     // v5 half stamp (translator v15): one signed direction
@@ -1946,6 +1961,34 @@ namespace PadForge.Common.Input
                 // collapse onto a shared empty-string key (#203 review).
                 SyntheticDirect(descriptor, deviceGuid),
                 slotIndex, "", 0, null, 0);
+
+        // The unipolar twin, for activator sources that rest at zero rather
+        // than at center: the same reader a trigger TARGET row uses, so a
+        // gamepad trigger reads 0 released and 1 fully pulled (#443).
+        private static float SourceKindRuntimeReadTriggerLikeFloat(CustomInputState state, string descriptor,
+            string deviceGuid, int slotIndex)
+            => SourceEvaluator.EvaluateForTriggerTarget(
+                state,
+                SyntheticDirect(descriptor, deviceGuid),
+                slotIndex, "", 0, null, 0);
+
+        /// <summary>True when an axis activator's source rests at zero and
+        /// only travels one way: a slider, or a trigger axis (Axis 2 /
+        /// Axis 5) named through the gamepad alias or read from a
+        /// gamepad-mapped device, whose SDL layout pins those two indices to
+        /// the triggers. A joystick's Axis 2 is a centered axis and stays on
+        /// the bipolar test. An "(Any Device)" activator naming a bare
+        /// "Axis 2" has no device to ask and stays bipolar too (#443).</summary>
+        private static bool IsUnipolarActivatorSource(string descriptor, string deviceGuid)
+        {
+            if (string.IsNullOrEmpty(descriptor)) return false;
+            string canonical = SourceCoercion.ResolveGamepadAlias(descriptor) ?? descriptor.Trim();
+            if (canonical.StartsWith("Slider ", System.StringComparison.Ordinal)) return true;
+            if (canonical != "Axis 2" && canonical != "Axis 5") return false;
+            if (SourceCoercion.IsGamepadAliasDescriptor(descriptor)) return true;
+            var dev = LookupUserDevice(deviceGuid);
+            return dev != null && dev.CapType == InputDeviceType.Gamepad;
+        }
 
         // Reuses the Engine's button-like reader without going through the
         // managed-cast SourceCoercion wrapper (we already know the activator
