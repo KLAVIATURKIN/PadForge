@@ -224,7 +224,6 @@
   <data name="Dashboard_EngineFlame_Idle" xml:space="preserve"><value>Motore inattivo. Clic per arrestarlo.</value></data>
   <data name="Dashboard_EngineFlame_Stopped" xml:space="preserve"><value>Motore arrestato. Clic per avviarlo.</value></data>
   <data name="Dashboard_SlotCard_Configure" xml:space="preserve"><value>Configura questo controller</value></data>
-  <data name="Dashboard_DeleteSlotConfirm_Format" xml:space="preserve"><value>Verrà rimossa l'assegnazione di {0} dispositivo/i.</value></data>
   <data name="Dashboard_MotionServer" xml:space="preserve"><value>Server di movimento</value></data>
   <data name="Dashboard_DsuDescription" xml:space="preserve"><value>Server DSU/CemuHook Motion Provider protocol per dati di giroscopio e accelerometro.</value></data>
   <data name="Dashboard_Chroma" xml:space="preserve"><value>Razer Chroma</value></data>

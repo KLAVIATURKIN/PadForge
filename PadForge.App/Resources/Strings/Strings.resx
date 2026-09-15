@@ -234,7 +234,6 @@
   <data name="Dashboard_EngineFlame_Idle" xml:space="preserve"><value>Engine idle. Click to stop.</value></data>
   <data name="Dashboard_EngineFlame_Stopped" xml:space="preserve"><value>Engine stopped. Click to start.</value></data>
   <data name="Dashboard_SlotCard_Configure" xml:space="preserve"><value>Configure this controller</value></data>
-  <data name="Dashboard_DeleteSlotConfirm_Format" xml:space="preserve"><value>{0} mapped device(s) will be unassigned.</value></data>
   <data name="FirstRun_Title" xml:space="preserve"><value>Light the Forge</value></data>
   <data name="FirstRun_Body" xml:space="preserve"><value>Connect a controller, pick an output type, and PadForge forges your inputs into it. A short tour shows you where everything lives.</value></data>
   <data name="FirstRun_Begin" xml:space="preserve"><value>Begin Tour</value></data>

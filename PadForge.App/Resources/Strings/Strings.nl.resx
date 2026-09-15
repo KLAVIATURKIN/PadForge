@@ -224,7 +224,6 @@
   <data name="Dashboard_EngineFlame_Idle" xml:space="preserve"><value>Engine inactief. Klik om te stoppen.</value></data>
   <data name="Dashboard_EngineFlame_Stopped" xml:space="preserve"><value>Engine gestopt. Klik om te starten.</value></data>
   <data name="Dashboard_SlotCard_Configure" xml:space="preserve"><value>Deze controller configureren</value></data>
-  <data name="Dashboard_DeleteSlotConfirm_Format" xml:space="preserve"><value>De toewijzing van {0} apparaat/apparaten wordt verwijderd.</value></data>
   <data name="Dashboard_MotionServer" xml:space="preserve"><value>Bewegingsserver</value></data>
   <data name="Dashboard_DsuDescription" xml:space="preserve"><value>DSU/CemuHook Motion Provider-protocolserver voor gyroscoop- en versnellingsmetergegevens.</value></data>
   <data name="Dashboard_Chroma" xml:space="preserve"><value>Razer Chroma</value></data>

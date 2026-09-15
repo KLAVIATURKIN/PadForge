@@ -317,7 +317,6 @@ public class Strings : INotifyPropertyChanged
     public string Dashboard_EngineFlame_Idle => Get("Dashboard_EngineFlame_Idle");
     public string Dashboard_EngineFlame_Stopped => Get("Dashboard_EngineFlame_Stopped");
     public string Dashboard_SlotCard_Configure => Get("Dashboard_SlotCard_Configure");
-    public string Dashboard_DeleteSlotConfirm_Format => Get("Dashboard_DeleteSlotConfirm_Format");
     public string FirstRun_Title => Get("FirstRun_Title");
     public string FirstRun_Body => Get("FirstRun_Body");
     public string FirstRun_Begin => Get("FirstRun_Begin");

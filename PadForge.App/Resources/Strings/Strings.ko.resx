@@ -224,7 +224,6 @@
   <data name="Dashboard_EngineFlame_Idle" xml:space="preserve"><value>엔진 유휴 상태. 클릭하면 중지됩니다.</value></data>
   <data name="Dashboard_EngineFlame_Stopped" xml:space="preserve"><value>엔진 중지됨. 클릭하면 시작됩니다.</value></data>
   <data name="Dashboard_SlotCard_Configure" xml:space="preserve"><value>이 컨트롤러 구성</value></data>
-  <data name="Dashboard_DeleteSlotConfirm_Format" xml:space="preserve"><value>매핑된 장치 {0}개의 할당이 해제됩니다.</value></data>
   <data name="Dashboard_MotionServer" xml:space="preserve"><value>모션 서버</value></data>
   <data name="Dashboard_DsuDescription" xml:space="preserve"><value>자이로 및 가속도계 데이터를 위한 DSU/CemuHook Motion Provider protocol 서버.</value></data>
   <data name="Dashboard_Chroma" xml:space="preserve"><value>Razer Chroma</value></data>

@@ -72,20 +72,10 @@ namespace PadForge.Views
         {
             if (sender is Button btn && btn.Tag is int slotIndex)
             {
-                // Destructive-verb guard (#175 phase 2 item 1a): the X asks
-                // before the slot and its device assignments go away. The
-                // mono detail line names the slot; the body carries the
-                // mapped-device count the SlotSummary already holds.
-                var summary = btn.DataContext as ViewModels.SlotSummary;
-                bool confirmed = ConfirmDialog.Show(
-                    Window.GetWindow(this),
-                    Strings.Instance.Main_DeleteVC,
-                    string.Format(Strings.Instance.Dashboard_DeleteSlotConfirm_Format,
-                        summary?.MappedDeviceCount ?? 0),
-                    Strings.Instance.Common_Delete,
-                    summary?.SlotLabel);
-                if (confirmed)
-                    DeleteSlotRequested?.Invoke(this, slotIndex);
+                // One click deletes, the same as the sidebar card's X. The
+                // confirmation #175 phase 2 put here was never wanted: slot
+                // setup and teardown stay a single click on every slot card.
+                DeleteSlotRequested?.Invoke(this, slotIndex);
             }
         }
 
