@@ -133,7 +133,8 @@ namespace PadForge.Common.Input
                 // (the documented MappingSource.DeviceGuid contract, same
                 // resolution the single-source per-target evaluators use).
                 var devState = string.IsNullOrEmpty(src.DeviceGuid)
-                    ? currentState : LookupDeviceState(src.DeviceGuid);
+                    ? (AnswersAnyDevice(currentDeviceGuid) ? currentState : null)
+                    : LookupDeviceState(src.DeviceGuid);
                 if (devState == null) continue;
                 float v = SourceEvaluator.EvaluateForTriggerTarget(
                     devState, src, slotIndex, row.Target, i, slotRuntime, dt,
@@ -1302,6 +1303,11 @@ namespace PadForge.Common.Input
                 if (!string.Equals(act.DeviceGuid ?? "", thisDeviceGuid ?? "", System.StringComparison.OrdinalIgnoreCase)
                     && !string.IsNullOrEmpty(act.DeviceGuid))
                     continue;
+                // (#431) An empty guid means whichever controller is on the
+                // slot. A pass for a row that never answers that wildcard
+                // leaves the activator state to the passes that do.
+                if (string.IsNullOrEmpty(act.DeviceGuid) && !AnswersAnyDevice(thisDeviceGuid))
+                    continue;
 
                 UpdateActivatorState(rt, i, act, activators, thisDeviceState, slotIndex);
             }
@@ -2302,6 +2308,10 @@ namespace PadForge.Common.Input
                 if (!string.Equals(src.Kind ?? "Direct", "InvertOnHold", System.StringComparison.Ordinal))
                     continue;
                 if (string.IsNullOrEmpty(src.ParamModifier)) continue;
+                // (#431) The pass device stands in for an empty guid only
+                // when it answers the wildcard at all.
+                if (string.IsNullOrEmpty(src.DeviceGuid) && !AnswersAnyDevice(fallbackDeviceGuid))
+                    continue;
                 // PostponeMapping suppression — when an activator with
                 // PostponeMapping=false names this same modifier descriptor,
                 // its press is "consumed" by the layer change and shouldn't
@@ -2423,12 +2433,16 @@ namespace PadForge.Common.Input
             for (int i = 0; i < guids.Count; i++)
             {
                 var g = guids[i];
+                // (#431) Rows that never answer the wildcard drop out of the
+                // span. Named sources reach them through LookupDeviceState.
+                if (!AnswersAnyDevice(g)) continue;
                 var st = (currentDeviceGuid != null
                           && string.Equals(g, currentDeviceGuid, System.StringComparison.OrdinalIgnoreCase))
                     ? currentState : LookupDeviceState(g);
                 if (st != null && !result.Contains(st)) result.Add(st);
             }
-            if (result.Count == 0 && currentState != null) result.Add(currentState);
+            if (result.Count == 0 && currentState != null && AnswersAnyDevice(currentDeviceGuid))
+                result.Add(currentState);
             return result;
         }
         [System.ThreadStatic] private static List<float> _contribFlagsBuf;
@@ -2457,7 +2471,7 @@ namespace PadForge.Common.Input
         private static bool SourceMatchesDevice(MappingSource src, string thisDeviceGuid)
         {
             if (src == null) return false;
-            if (string.IsNullOrEmpty(src.DeviceGuid)) return true; // "any device"
+            if (string.IsNullOrEmpty(src.DeviceGuid)) return AnswersAnyDevice(thisDeviceGuid); // "any device" (#431)
             return string.Equals(src.DeviceGuid, thisDeviceGuid, System.StringComparison.OrdinalIgnoreCase);
         }
 
@@ -2644,6 +2658,7 @@ namespace PadForge.Common.Input
             var memo = _devStateMemo ??= new Dictionary<string, UserDevice>(System.StringComparer.OrdinalIgnoreCase);
             memo.Clear();
             _devStateMemoActive = true;
+            _anyDeviceCacheGuid = null;
         }
 
         /// <summary>Disarms the memo at the end of a Step-3 pass so any code
@@ -2653,6 +2668,7 @@ namespace PadForge.Common.Input
         internal static void EndDeviceStateMemo()
         {
             _devStateMemoActive = false;
+            _anyDeviceCacheGuid = null;
         }
 
         // All-rest state for offline-pinned BOOL-LIKE reads (buttons read
@@ -2663,10 +2679,20 @@ namespace PadForge.Common.Input
 
         private static CustomInputState LookupDeviceState(string deviceGuid)
         {
+            var dev = LookupUserDevice(deviceGuid);
+            return (dev != null && dev.IsOnline) ? dev.InputState : null;
+        }
+
+        /// <summary>The device behind <paramref name="deviceGuid"/>, online
+        /// or not, through the per-pass memo when it is armed. The state
+        /// read above and the "(Any Device)" eligibility read below share
+        /// it, so a pass takes UserDevices.SyncRoot once per guid.</summary>
+        private static UserDevice LookupUserDevice(string deviceGuid)
+        {
             if (string.IsNullOrEmpty(deviceGuid)) return null;
             bool useMemo = _devStateMemoActive;
             if (useMemo && _devStateMemo.TryGetValue(deviceGuid, out var cachedDev))
-                return (cachedDev != null && cachedDev.IsOnline) ? cachedDev.InputState : null;
+                return cachedDev;
 
             UserDevice found = null;
             if (System.Guid.TryParse(deviceGuid, out var g))
@@ -2691,7 +2717,37 @@ namespace PadForge.Common.Input
                 }
             }
             if (useMemo) _devStateMemo[deviceGuid] = found;
-            return (found != null && found.IsOnline) ? found.InputState : null;
+            return found;
+        }
+
+        // Single-entry cache for AnswersAnyDevice: every single-source row
+        // asks once per source per device pass, and a pass hands the same
+        // string instance (UserSetting.InstanceGuidString) to every site, so
+        // a reference check answers the hot path without a dictionary probe.
+        // Armed and cleared with the memo, never consulted outside it.
+        [System.ThreadStatic] private static string _anyDeviceCacheGuid;
+        [System.ThreadStatic] private static bool _anyDeviceCacheAnswers;
+
+        /// <summary>True when the device behind <paramref name="deviceGuid"/>
+        /// may stand in for an empty-guid "(Any Device)" source (#431). An
+        /// unknown guid answers, so utility and test callers that never
+        /// registered a UserDevice keep the legacy resolution. The rows that
+        /// do not answer are listed on
+        /// <see cref="InputDeviceType.AnswersAnyDeviceSources"/>.</summary>
+        private static bool AnswersAnyDevice(string deviceGuid)
+        {
+            if (string.IsNullOrEmpty(deviceGuid)) return true;
+            bool useCache = _devStateMemoActive;
+            if (useCache && ReferenceEquals(deviceGuid, _anyDeviceCacheGuid))
+                return _anyDeviceCacheAnswers;
+            var dev = LookupUserDevice(deviceGuid);
+            bool answers = dev == null || InputDeviceType.AnswersAnyDeviceSources(dev.CapType);
+            if (useCache)
+            {
+                _anyDeviceCacheGuid = deviceGuid;
+                _anyDeviceCacheAnswers = answers;
+            }
+            return answers;
         }
 
         /// <summary>Memoized lookup for concrete-source sites. The captured
@@ -3181,7 +3237,12 @@ namespace PadForge.Common.Input
                 return true;
             CustomInputState devState;
             if (string.IsNullOrEmpty(src.DeviceGuid))
+            {
+                // (#431) A pass device that never answers "(Any Device)"
+                // reads rest, the offline-pinned shape below.
+                if (!AnswersAnyDevice(thisDeviceGuid)) return true;
                 devState = state;
+            }
             else
             {
                 devState = LookupDeviceState(src.DeviceGuid);
@@ -3252,7 +3313,12 @@ namespace PadForge.Common.Input
                 {
                     CustomInputState devState;
                     if (string.IsNullOrEmpty(src.DeviceGuid))
+                    {
+                        // (#431) A pass device that never answers "(Any Device)"
+                        // reads rest, the offline-pinned shape below.
+                        if (!AnswersAnyDevice(thisDeviceGuid)) return true;
                         devState = state;
+                    }
                     else
                     {
                         devState = LookupDeviceState(src.DeviceGuid);
@@ -3341,7 +3407,12 @@ namespace PadForge.Common.Input
 
                 CustomInputState devState;
                 if (string.IsNullOrEmpty(src.DeviceGuid))
+                {
+                    // (#431) A pass device that never answers "(Any Device)"
+                    // reads rest, the offline-pinned shape below.
+                    if (!AnswersAnyDevice(thisDeviceGuid)) { values.Add(0f); flags.Add(0f); continue; }
                     devState = state;
+                }
                 else
                 {
                     devState = LookupDeviceState(src.DeviceGuid);
@@ -3485,7 +3556,12 @@ namespace PadForge.Common.Input
                 {
                     CustomInputState devState;
                     if (string.IsNullOrEmpty(src.DeviceGuid))
+                    {
+                        // (#431) A pass device that never answers "(Any Device)"
+                        // reads rest, the offline-pinned shape below.
+                        if (!AnswersAnyDevice(thisDeviceGuid)) return true;
                         devState = state;
+                    }
                     else
                     {
                         devState = LookupDeviceState(src.DeviceGuid);

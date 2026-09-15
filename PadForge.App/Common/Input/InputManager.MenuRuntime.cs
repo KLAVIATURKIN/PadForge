@@ -321,6 +321,12 @@ namespace PadForge.Common.Input
                             ClearMenuRuntimeForMenu(slot, def.MenuId);
                         continue;
                     }
+                    // (#431) A device-free menu runs on whichever controller
+                    // is on the slot. Rows that never answer that wildcard
+                    // get no context, the same as a menu pinned elsewhere.
+                    if (string.IsNullOrEmpty(def.DeviceGuid)
+                        && !InputDeviceType.AnswersAnyDeviceSources(ud.CapType))
+                        continue;
                     if (!string.IsNullOrEmpty(def.DeviceGuid)
                         && !string.Equals(def.DeviceGuid, ud.InstanceGuidString,
                             StringComparison.OrdinalIgnoreCase))

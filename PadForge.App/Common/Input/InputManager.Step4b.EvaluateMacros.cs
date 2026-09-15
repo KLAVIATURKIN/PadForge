@@ -1672,6 +1672,10 @@ namespace PadForge.Common.Input
             {
                 var ud = FindOnlineDeviceByInstanceGuid(_slotTriggerGuidScratch[i]);
                 if (ud == null || !ud.IsOnline || ud.InputState == null) continue;
+                // (#431) Device-free entries mean whichever controller is on
+                // the slot. Rows that never answer that wildcard stay out of
+                // the scratch. Named entries never come through here.
+                if (!InputDeviceType.AnswersAnyDeviceSources(ud.CapType)) continue;
                 if (_slotTriggerDeviceCount == _slotTriggerDeviceScratch.Length)
                     Array.Resize(ref _slotTriggerDeviceScratch, _slotTriggerDeviceScratch.Length * 2);
                 _slotTriggerDeviceScratch[_slotTriggerDeviceCount++] = ud;

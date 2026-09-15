@@ -110,6 +110,25 @@ namespace PadForge.Engine
         // and the three translations, centered at rest.
         public const int HeadTracker = 34;
         public const int Tablet = 35;
+
+        /// <summary>True when a row of this type answers a source whose
+        /// DeviceGuid is empty, the "(Any Device)" wildcard that means
+        /// whichever controller is assigned to the slot. Controllers,
+        /// keyboards, mice and touchpads answer it. The rows that publish
+        /// their own vocabulary through the numbered Axis and Buttons
+        /// arrays do not: a head tracker's six centered pose axes, an NFC
+        /// reader's tag buttons, a microphone's phrase buttons, a
+        /// handheld's learned hidden buttons, a media strip's usages and a
+        /// tablet's pen state all start at index 0, so read through the
+        /// wildcard they impersonate the gamepad layout (#431: a resting
+        /// tracker held both triggers at half pull). These are the same
+        /// six rows the Mappings tab names instead of numbering. A named
+        /// source on any of them still reads.</summary>
+        public static bool AnswersAnyDeviceSources(int capType) => capType switch
+        {
+            HeadTracker or Nfc or Microphone or HandheldButtons or ConsumerControl or Tablet => false,
+            _ => true,
+        };
     }
 
     // ─────────────────────────────────────────────────────────────────
