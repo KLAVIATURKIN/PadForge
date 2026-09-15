@@ -51,6 +51,37 @@ public class WindowSettingsTests
         Assert.Equal(new[] { nameof(SettingsViewModel.CloseToTray), nameof(SettingsViewModel.CloseToTray) }, changes);
     }
 
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void AlwaysShowTrayIconPersistsAndDefaultsOff(bool on)
+    {
+        var serializer = new XmlSerializer(typeof(AppSettingsData));
+        using var writer = new StringWriter();
+        serializer.Serialize(writer, new AppSettingsData { AlwaysShowTrayIcon = on, CloseToTray = !on });
+        using var reader = new StringReader(writer.ToString());
+        var restored = (AppSettingsData)serializer.Deserialize(reader);
+        Assert.Equal(on, restored.AlwaysShowTrayIcon);
+        Assert.Equal(!on, restored.CloseToTray);
+
+        using var older = new StringReader("<AppSettingsData><CloseToTray>true</CloseToTray></AppSettingsData>");
+        Assert.False(((AppSettingsData)serializer.Deserialize(older)).AlwaysShowTrayIcon);
+        Assert.False(new AppSettingsData().AlwaysShowTrayIcon);
+
+        var settings = new SettingsViewModel();
+        var changes = new List<string>();
+        settings.PropertyChanged += (_, e) => changes.Add(e.PropertyName);
+        Assert.False(settings.AlwaysShowTrayIcon);
+        settings.AlwaysShowTrayIcon = true;
+        Assert.Equal(new[] { nameof(SettingsViewModel.AlwaysShowTrayIcon) }, changes);
+        Assert.False(settings.CloseToTray);
+        // The generic reset re-raises the property after setting it (see
+        // SettingResetTests), so only the name is pinned here, not a count.
+        settings.ResetSettingCommand.Execute(nameof(SettingsViewModel.AlwaysShowTrayIcon));
+        Assert.False(settings.AlwaysShowTrayIcon);
+        Assert.All(changes, name => Assert.Equal(nameof(SettingsViewModel.AlwaysShowTrayIcon), name));
+    }
+
     [Fact]
     public void WindowSettingReachesLoadSaveResetAndTheCheckbox()
     {
@@ -66,6 +97,14 @@ public class WindowSettingsTests
             "_viewModel.Settings.PropertyChanged +=", "_viewModel.Dashboard.PropertyChanged +="));
         Assert.Contains("IsChecked=\"{Binding CloseToTray}\"", view);
         Assert.Contains("Settings_CloseToTrayTip", view);
+        Assert.Contains("vm.AlwaysShowTrayIcon = appSettings.AlwaysShowTrayIcon;", Between(settings,
+            "private void LoadAppSettings(", "private AppSettingsData BuildAppSettings("));
+        Assert.Contains("AlwaysShowTrayIcon = vm.AlwaysShowTrayIcon,", settings[(settings.IndexOf("private AppSettingsData BuildAppSettings(", StringComparison.Ordinal))..]);
+        Assert.Contains("nameof(SettingsViewModel.AlwaysShowTrayIcon)", Between(window,
+            "_viewModel.Settings.PropertyChanged +=", "_viewModel.Dashboard.PropertyChanged +="));
+        Assert.Contains("IsChecked=\"{Binding AlwaysShowTrayIcon}\"", view);
+        Assert.Contains("Settings_AlwaysShowTrayIconTip", view);
+        Assert.True(SettingsViewModel.CanResetSetting(nameof(SettingsViewModel.AlwaysShowTrayIcon)));
     }
 
     [Fact]
@@ -76,7 +115,8 @@ public class WindowSettingsTests
         foreach (var path in files)
         {
             var resources = XDocument.Load(path).Root.Elements("data");
-            foreach (string key in new[] { "Settings_CloseToTray", "Settings_CloseToTrayTip" })
+            foreach (string key in new[] { "Settings_CloseToTray", "Settings_CloseToTrayTip",
+                                           "Settings_AlwaysShowTrayIcon", "Settings_AlwaysShowTrayIconTip" })
             {
                 var resource = Assert.Single(resources, node => (string)node.Attribute("name") == key);
                 Assert.False(string.IsNullOrWhiteSpace((string)resource.Element("value")), path + ": " + key);

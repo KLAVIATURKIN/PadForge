@@ -282,7 +282,9 @@
   <data name="Settings_WindowDesc" xml:space="preserve"><value>Comportamento all'avvio e alla riduzione a icona.</value></data>
   <data name="Settings_MinimizeToTray" xml:space="preserve"><value>Riduci nell'area di notifica</value></data>
   <data name="Settings_CloseToTray" xml:space="preserve"><value>Riduci nell'area di notifica alla chiusura</value></data>
-  <data name="Settings_CloseToTrayTip" xml:space="preserve"><value>PadForge continua a funzionare quando fai clic su Chiudi o premi Alt+F4. L'icona nell'area di notifica resta visibile, quindi Esci nel suo menu è disponibile in qualsiasi momento.</value></data>
+  <data name="Settings_CloseToTrayTip" xml:space="preserve"><value>PadForge continua a funzionare quando fai clic su Chiudi o premi Alt+F4. Seleziona Esci nel menu dell'area di notifica per chiudere il programma.</value></data>
+  <data name="Settings_AlwaysShowTrayIcon" xml:space="preserve"><value>Mostra sempre nell'area di notifica</value></data>
+  <data name="Settings_AlwaysShowTrayIconTip" xml:space="preserve"><value>Mantiene visibile l'icona nell'area di notifica mentre la finestra è aperta, così Esci nel suo menu è sempre a un clic.</value></data>
   <data name="Settings_StartMinimized" xml:space="preserve"><value>Avvia ridotto a icona</value></data>
   <data name="Settings_StartAtLogin" xml:space="preserve"><value>Avvia all'accesso</value></data>
   <data name="Settings_HidHide" xml:space="preserve"><value>Driver HidHide</value></data>

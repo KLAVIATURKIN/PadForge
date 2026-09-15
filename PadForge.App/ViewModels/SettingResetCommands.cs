@@ -19,6 +19,7 @@ namespace PadForge.ViewModels
             nameof(SelectedLanguage) or
             nameof(AutoStartEngine) or
             nameof(MinimizeToTray) or
+            nameof(AlwaysShowTrayIcon) or
             nameof(StartMinimized) or
             nameof(StartAtLogin) or
             nameof(EnablePollingOnFocusLoss) or
@@ -63,6 +64,11 @@ namespace PadForge.ViewModels
                 case nameof(MinimizeToTray):
                 {
                     MinimizeToTray = false;
+                    break;
+                }
+                case nameof(AlwaysShowTrayIcon):
+                {
+                    AlwaysShowTrayIcon = false;
                     break;
                 }
                 case nameof(StartMinimized):

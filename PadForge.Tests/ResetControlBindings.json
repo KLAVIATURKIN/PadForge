@@ -1021,6 +1021,12 @@
   },
   {
     "File": "PadForge.App/Views/SettingsPage.xaml",
+    "Id": "Reset_SettingsViewModel_AlwaysShowTrayIcon_139",
+    "Owner": "PadForge.ViewModels.SettingsViewModel",
+    "Property": "AlwaysShowTrayIcon"
+  },
+  {
+    "File": "PadForge.App/Views/SettingsPage.xaml",
     "Id": "Reset_SettingsViewModel_StartMinimized_132",
     "Owner": "PadForge.ViewModels.SettingsViewModel",
     "Property": "StartMinimized"

@@ -665,6 +665,14 @@ namespace PadForge.ViewModels
             get => _closeToTray;
             set => SetProperty(ref _closeToTray, value);
         }
+        private bool _alwaysShowTrayIcon;
+        /// <summary>Keep the tray icon up while the window is open (#439), so
+        /// Exit in its menu never needs the window closed first.</summary>
+        public bool AlwaysShowTrayIcon
+        {
+            get => _alwaysShowTrayIcon;
+            set => SetProperty(ref _alwaysShowTrayIcon, value);
+        }
 
         private bool _batteryNotifyEnabled = true;
 

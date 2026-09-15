@@ -342,7 +342,9 @@
   <data name="Settings_WindowDesc" xml:space="preserve"><value>Startup and minimize behavior.</value></data>
   <data name="Settings_MinimizeToTray" xml:space="preserve"><value>Minimize to System Tray</value></data>
   <data name="Settings_CloseToTray" xml:space="preserve"><value>Close to System Tray</value></data>
-  <data name="Settings_CloseToTrayTip" xml:space="preserve"><value>Keep PadForge running when you click Close or press Alt+F4. The tray icon stays visible, so Exit in its menu is available at any time.</value></data>
+  <data name="Settings_CloseToTrayTip" xml:space="preserve"><value>Keep PadForge running when you click Close or press Alt+F4. Use Exit in the system tray menu to quit.</value></data>
+  <data name="Settings_AlwaysShowTrayIcon" xml:space="preserve"><value>Always Show in System Tray</value></data>
+  <data name="Settings_AlwaysShowTrayIconTip" xml:space="preserve"><value>Keep the tray icon visible while the window is open, so Exit in its menu is always one click away.</value></data>
   <data name="Settings_StartMinimized" xml:space="preserve"><value>Start Minimized</value></data>
   <data name="Settings_StartAtLogin" xml:space="preserve"><value>Start at Login</value></data>
   <data name="Settings_HidHide" xml:space="preserve"><value>HidHide Driver</value></data>

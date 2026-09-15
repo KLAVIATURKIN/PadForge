@@ -282,7 +282,9 @@
   <data name="Settings_WindowDesc" xml:space="preserve"><value>起動時および最小化時の動作を設定します。</value></data>
   <data name="Settings_MinimizeToTray" xml:space="preserve"><value>システムトレイに最小化する</value></data>
   <data name="Settings_CloseToTray" xml:space="preserve"><value>閉じるときにシステムトレイへ格納</value></data>
-  <data name="Settings_CloseToTrayTip" xml:space="preserve"><value>閉じるボタンをクリックするかAlt+F4を押しても、PadForgeは動作を続けます。システムトレイのアイコンは表示されたままなので、いつでもそのメニューから「終了」を選択できます。</value></data>
+  <data name="Settings_CloseToTrayTip" xml:space="preserve"><value>閉じるボタンをクリックするかAlt+F4を押しても、PadForgeは動作を続けます。終了するには、システムトレイのメニューから「終了」を選択してください。</value></data>
+  <data name="Settings_AlwaysShowTrayIcon" xml:space="preserve"><value>常にシステムトレイに表示する</value></data>
+  <data name="Settings_AlwaysShowTrayIconTip" xml:space="preserve"><value>ウィンドウを開いている間もシステムトレイのアイコンを表示し、いつでもそのメニューから「終了」を選択できるようにします。</value></data>
   <data name="Settings_StartMinimized" xml:space="preserve"><value>最小化状態で起動する</value></data>
   <data name="Settings_StartAtLogin" xml:space="preserve"><value>ログイン時に起動する</value></data>
   <data name="Settings_HidHide" xml:space="preserve"><value>HidHide ドライバー</value></data>

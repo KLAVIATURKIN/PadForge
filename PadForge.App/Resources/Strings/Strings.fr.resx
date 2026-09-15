@@ -282,7 +282,9 @@
   <data name="Settings_WindowDesc" xml:space="preserve"><value>Comportement au démarrage et à la réduction.</value></data>
   <data name="Settings_MinimizeToTray" xml:space="preserve"><value>Réduire dans la zone de notification</value></data>
   <data name="Settings_CloseToTray" xml:space="preserve"><value>Réduire dans la zone de notification à la fermeture</value></data>
-  <data name="Settings_CloseToTrayTip" xml:space="preserve"><value>PadForge continue de fonctionner lorsque vous cliquez sur Fermer ou appuyez sur Alt+F4. L'icône de la zone de notification reste visible, donc Quitter dans son menu est disponible à tout moment.</value></data>
+  <data name="Settings_CloseToTrayTip" xml:space="preserve"><value>PadForge continue de fonctionner lorsque vous cliquez sur Fermer ou appuyez sur Alt+F4. Sélectionnez Quitter dans le menu de la zone de notification pour fermer le programme.</value></data>
+  <data name="Settings_AlwaysShowTrayIcon" xml:space="preserve"><value>Toujours afficher dans la zone de notification</value></data>
+  <data name="Settings_AlwaysShowTrayIconTip" xml:space="preserve"><value>Garde l'icône de la zone de notification visible pendant que la fenêtre est ouverte, pour que Quitter dans son menu soit toujours à un clic.</value></data>
   <data name="Settings_StartMinimized" xml:space="preserve"><value>Démarrer réduit</value></data>
   <data name="Settings_StartAtLogin" xml:space="preserve"><value>Démarrer à l'ouverture de session</value></data>
   <data name="Settings_HidHide" xml:space="preserve"><value>Pilote HidHide</value></data>

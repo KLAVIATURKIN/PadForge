@@ -2108,6 +2108,7 @@ namespace PadForge.Services
             vm.AutoStartEngine = appSettings.AutoStartEngine;
             vm.MinimizeToTray = appSettings.MinimizeToTray;
             vm.CloseToTray = appSettings.CloseToTray;
+            vm.AlwaysShowTrayIcon = appSettings.AlwaysShowTrayIcon;
             vm.BatteryNotifyEnabled = appSettings.BatteryNotifyEnabled;
             vm.BatteryNotifyThreshold = appSettings.BatteryNotifyThreshold;
             vm.BatteryNotifyVibrate = appSettings.BatteryNotifyVibrate;
@@ -4415,6 +4416,7 @@ namespace PadForge.Services
                 AutoStartEngine = vm.AutoStartEngine,
                 MinimizeToTray = vm.MinimizeToTray,
                 CloseToTray = vm.CloseToTray,
+                AlwaysShowTrayIcon = vm.AlwaysShowTrayIcon,
                 BatteryNotifyEnabled = vm.BatteryNotifyEnabled,
                 BatteryNotifyThreshold = vm.BatteryNotifyThreshold,
                 BatteryNotifyVibrate = vm.BatteryNotifyVibrate,
@@ -6018,6 +6020,10 @@ namespace PadForge.Services
 
         [XmlElement]
         public bool CloseToTray { get; set; }
+
+        /// <summary>Keep the tray icon up while the window is open (#439).</summary>
+        [XmlElement]
+        public bool AlwaysShowTrayIcon { get; set; }
 
         /// <summary>Low-battery notification (#293): edge-triggered balloon +
         /// status line, optional identify buzz on the device.</summary>
