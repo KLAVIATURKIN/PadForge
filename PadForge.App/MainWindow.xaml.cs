@@ -85,7 +85,8 @@ namespace PadForge
         private System.Windows.Forms.NotifyIcon _notifyIcon;
 
         /// <summary>Shows a tray balloon (#293 low-battery). TRAP handled: the
-        /// tray icon is Visible only while minimized to tray, and
+        /// tray icon is Visible only while the window is hidden in the tray
+        /// (or all the time with Close to System Tray on, #439), and
         /// ShowBalloonTip silently no-ops on an invisible icon, so the icon is
         /// shown transiently and restored ~12 s later unless the window
         /// minimized meanwhile.</summary>
@@ -102,8 +103,10 @@ namespace PadForge
                 restore.Tick += (s, e) =>
                 {
                     restore.Stop();
-                    // Keep the icon if the user minimized to tray meanwhile.
-                    if (_notifyIcon != null && WindowState != WindowState.Minimized)
+                    // Keep the icon if the user minimized to tray meanwhile,
+                    // or if Close to System Tray keeps it up (#439).
+                    if (_notifyIcon != null && WindowState != WindowState.Minimized
+                        && !_viewModel.Settings.CloseToTray)
                         _notifyIcon.Visible = false;
                 };
                 restore.Start();
@@ -569,6 +572,13 @@ namespace PadForge
 
                 if (e.PropertyName == nameof(SettingsViewModel.FlydigiEnhancedProtocol))
                     Common.Input.InputManager.ApplyFlydigiEnhancedProtocol(_viewModel.Settings.FlydigiEnhancedProtocol);
+                // (#439) Close to System Tray keeps the tray icon up while the
+                // window is open. Follow the toggle live, and leave the icon
+                // alone while the window is hidden in the tray, where it is
+                // already up.
+                if (e.PropertyName == nameof(SettingsViewModel.CloseToTray)
+                    && _notifyIcon != null && IsVisible)
+                    _notifyIcon.Visible = _viewModel.Settings.CloseToTray;
 
                 if (e.PropertyName is nameof(SettingsViewModel.SelectedThemeIndex)
                      or nameof(SettingsViewModel.AutoStartEngine)
@@ -2232,7 +2242,9 @@ namespace PadForge
                 && _viewModel.Settings.MinimizeToTray;
 
             // If starting minimized to tray, make the tray icon visible now.
-            if (ShouldStartMinimizedToTray)
+            // With Close to System Tray on the icon stays up from the start
+            // (#439), so Exit in its menu never needs the window closed first.
+            if (ShouldStartMinimizedToTray || _viewModel.Settings.CloseToTray)
                 _notifyIcon.Visible = true;
 
             // Per-group ordering is built into settings load now (see
@@ -7479,7 +7491,9 @@ namespace PadForge
                 Show();
                 WindowState = _isFullScreen ? WindowState.Maximized : WindowState.Normal;
                 Activate();
-                _notifyIcon.Visible = false;
+                // (#439) The icon stays up with Close to System Tray on, so Exit
+                // in its menu is one click away without closing the window.
+                _notifyIcon.Visible = _viewModel.Settings.CloseToTray;
                 if (_isFullScreen)
                     ForceToForeground(new System.Windows.Interop.WindowInteropHelper(this).Handle);
 
