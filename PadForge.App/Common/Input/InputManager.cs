@@ -484,6 +484,13 @@ namespace PadForge.Common.Input
         /// <summary>Per-slot battery charging flag, paired with <see cref="BatteryPercents"/>.</summary>
         public bool[] BatteryCharging { get; } = new bool[MaxPads];
 
+        /// <summary>Per slot, the assigned physical DualSense's payload bytes
+        /// 40..47 (trigger feedback, host timestamp echo, effect modes) packed
+        /// little-endian, refreshed beside the battery each tick (#433). Zero
+        /// when no DualSense is assigned or the SDL fork has not published
+        /// them. See <see cref="DualSenseStatusBytes"/>.</summary>
+        public ulong[] Ds5StatusBytes { get; } = new ulong[MaxPads];
+
         /// <summary>Per-slot hash of every assigned device's (percent, charging)
         /// so the Battery lightbar repaint kick fires on ANY device's change,
         /// not just the slot-collapsed first-match. Init -1 (never a real hash)
@@ -2827,6 +2834,7 @@ namespace PadForge.Common.Input
                 int batteryPercent = -1;
                 bool batteryCharging = false;
                 int batterySignature = 17;
+                ulong ds5StatusBytes = 0;
                 bool dsuSlot = dsuEnabled && padIndex < DsuMotionSnapshots.Length;
                 _motionAssignedDevices.Clear();
                 for (int i = 0; i < slotCount; i++)
@@ -2844,12 +2852,18 @@ namespace PadForge.Common.Input
                         batteryPercent = state.BatteryPercent;
                         batteryCharging = state.BatteryCharging;
                     }
+                    // (#433) The first assigned physical DualSense's trigger
+                    // feedback bytes ride to the virtual pad's report.
+                    if (ds5StatusBytes == 0
+                        && DualSenseStatusBytes.IsDualSense(ud.VendorId, ud.ProdId))
+                        ds5StatusBytes = DualSenseStatusBytes.Read(ud.Device.GamepadHandle);
                     batterySignature = batterySignature * 31
                         + state.BatteryPercent * 2 + (state.BatteryCharging ? 1 : 0);
                 }
 
                 BatteryPercents[padIndex] = batteryPercent;
                 BatteryCharging[padIndex] = batteryCharging;
+                Ds5StatusBytes[padIndex] = ds5StatusBytes;
                 if (_batterySignature[padIndex] != batterySignature)
                 {
                     _batterySignature[padIndex] = batterySignature;

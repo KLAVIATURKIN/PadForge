@@ -83,6 +83,28 @@ namespace PadForge.Common.Input
             return p;
         }
 
+        private static readonly Packer DualSensePacker = PackDualSenseUsbReport01;
+
+        /// <summary>True for every profile <see cref="PackDualSenseUsbReport01"/>
+        /// serves, the ones whose report carries trigger feedback bytes.</summary>
+        internal static bool IsDualSenseProfile(string profileId)
+            => !string.IsNullOrEmpty(profileId)
+            && ByProfileId.TryGetValue(profileId, out var p)
+            && p.Equals(DualSensePacker);
+
+        /// <summary>Stamps a physical DualSense's payload bytes 40..47 into a
+        /// packed DualSense report, little-endian from
+        /// <paramref name="statusBytes"/> (payload byte 40 from bits 0..7, byte
+        /// 47 from bits 56..63). Zero leaves the eight bytes as the packer
+        /// wrote them, which is the pre-#433 report. See
+        /// <see cref="DualSenseStatusBytes"/> for the field map.</summary>
+        internal static void ApplyDualSenseStatusBytes(Span<byte> dest, ulong statusBytes)
+        {
+            if (statusBytes == 0 || dest.Length < 48) return;
+            for (int i = 0; i < 8; i++)
+                dest[40 + i] = (byte)(statusBytes >> (8 * i));
+        }
+
         // ── DS4 USB Report 0x01 (DS4_REPORT_EX) ─────────────────────────────
         // Touchpad resolution per Sony firmware: 1920 × 943.
         private const int Ds4TouchWidth = 1920;
@@ -344,7 +366,14 @@ namespace PadForge.Common.Input
             dest[36] = (byte)((tp.Down1 ? 0x00 : 0x80) | ((tp.PacketCounter + 1) & 0x7F));
             PackTouch12(dest.Slice(37, 3), tp.X1, tp.Y1, DsTouchWidth, DsTouchHeight);
 
-            // Bytes 40-47 reserved (8 bytes, zeros).
+            // Bytes 40-47: a real DualSense reports the touch timestamp (40),
+            // the right and left adaptive-trigger feedback (41, 42: a stop-
+            // location nibble and a status nibble each), the host timestamp
+            // echo (43-46) and the active trigger-effect mode nibbles (47).
+            // Games with adaptive triggers read 41, 42 and 47 back (#433).
+            // The packer leaves them zero. Step 5 stamps the assigned physical
+            // pad's bytes through ApplyDualSenseStatusBytes once the SDL fork
+            // publishes them.
 
             // Timer 2 (bytes 48-51): another 32-bit counter — feed the same
             // sequence so games checking for monotonic timer don't trip.

@@ -2058,6 +2058,15 @@ namespace PadForge.Common.Input
                                         BatteryCharging[padIndex],
                                         unchecked((uint)_sonyFrameCounter++),
                                         rawReportScratch);
+                                    // (#433) A game with adaptive triggers reads
+                                    // the pad's trigger feedback bytes back. Carry
+                                    // the assigned physical DualSense's bytes
+                                    // 40..47 the way a real pad reports them.
+                                    // Zero, and so a no-op, until the SDL fork
+                                    // publishes them.
+                                    if (SonyReportPackers.IsDualSenseProfile(hmPs.ProfileId))
+                                        SonyReportPackers.ApplyDualSenseStatusBytes(
+                                            rawReportScratch, Ds5StatusBytes[padIndex]);
                                     hmPs.SubmitRawReport(rawReportScratch);
                                 }
                             }
