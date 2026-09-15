@@ -1089,19 +1089,27 @@
                             <TextBlock Text="{Binding Devices_Power, Source={x:Static strings:Strings.Instance}, Converter={StaticResource UpperConverter}}"
                                        Style="{StaticResource SectionEyebrow}" Margin="0,0,0,6"/>
 
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,4"
-                                        Visibility="{Binding SelectedDevice.ShowIdleDisconnect, Converter={StaticResource BoolToVisibilityConverter}}"
-                                        ToolTip="{Binding Devices_IdleDisconnectTooltip, Source={x:Static strings:Strings.Instance}}">
-                                <TextBlock Text="{Binding Devices_IdleDisconnect, Source={x:Static strings:Strings.Instance}}"
+                            <!-- Same shape as the Quick Charge row below: the
+                                 reset button docks at the pane's right edge and
+                                 the unit text fills what is left and wraps. As a
+                                 horizontal StackPanel the text had unbounded
+                                 width, so the reset button added in a31fda39
+                                 pushed "minutes (0 = never)" past the edge, where
+                                 the pane clipped it mid-word. -->
+                            <DockPanel LastChildFill="True" Margin="0,0,0,4"
+                                       Visibility="{Binding SelectedDevice.ShowIdleDisconnect, Converter={StaticResource BoolToVisibilityConverter}}"
+                                       ToolTip="{Binding Devices_IdleDisconnectTooltip, Source={x:Static strings:Strings.Instance}}">
+                                <reset:SettingResetButton DockPanel.Dock="Right" Command="{Binding ResetSelectedDeviceSettingCommand}" CommandParameter="IdleDisconnectMinutes" SettingLabel="{Binding Devices_IdleDisconnect, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_DeviceRowViewModel_IdleDisconnectMinutes_1094" Margin="8,0,0,0"/>
+                                <TextBlock DockPanel.Dock="Left" Text="{Binding Devices_IdleDisconnect, Source={x:Static strings:Strings.Instance}}"
                                            VerticalAlignment="Center" Margin="0,0,8,0"
                                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
-                                <TextBox Text="{Binding SelectedDevice.IdleDisconnectMinutes, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                <TextBox DockPanel.Dock="Left" Text="{Binding SelectedDevice.IdleDisconnectMinutes, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                          Width="60" VerticalAlignment="Center"
                                          LostFocus="IdleDisconnect_LostFocus"/>
-                                <reset:SettingResetButton Command="{Binding ResetSelectedDeviceSettingCommand}" CommandParameter="IdleDisconnectMinutes" SettingLabel="{Binding Devices_IdleDisconnect, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_DeviceRowViewModel_IdleDisconnectMinutes_1094" Margin="4,0,8,0"/>
                                 <TextBlock Text="{Binding Devices_IdleDisconnectMinutes, Source={x:Static strings:Strings.Instance}}"
+                                           TextWrapping="Wrap"
                                            VerticalAlignment="Center" Margin="8,0,0,0" Foreground="{DynamicResource TextFillColorTertiaryBrush}"/>
-                            </StackPanel>
+                            </DockPanel>
 
                             <!-- Quick Charge (#372): its own container, gated on
                                  ShowQuickCharge (see the section comment). Click,
