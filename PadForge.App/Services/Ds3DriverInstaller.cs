@@ -93,6 +93,12 @@ namespace PadForge.Services
                     EnsureConsumerParams();       // keep RawPDO=1/ExclusivePDO=0 if a prior install set them wrong
                     if (!IsPsmFilterPresent())
                         RepairPsmFilter(log);
+                    // (#204) A machine that installed an earlier bundle keeps
+                    // that driver forever unless something re-runs the INFs.
+                    // The 2.12.0 package closes the remote-disconnect
+                    // use-after-free behind the July 10 bugcheck, so an
+                    // older installed package is upgraded in place here.
+                    UpgradeInstalledDriversIfOlder(log);
                     EnsurePsmPatch(log);
                     return true;
                 }
@@ -1675,6 +1681,91 @@ namespace PadForge.Services
         }
 
         // ── install helpers ──────────────────────────────────────────────────────
+
+        /// <summary>The DriverVer version stamped into an INF, or null when
+        /// the line is absent or unreadable. The INF is the bundle's only
+        /// version source: no constant in code has to move on a bump.</summary>
+        internal static Version ParseInfDriverVersion(string infText)
+        {
+            if (string.IsNullOrEmpty(infText)) return null;
+            foreach (string raw in infText.Split('\n'))
+            {
+                string line = raw.Trim();
+                if (!line.StartsWith("DriverVer", StringComparison.OrdinalIgnoreCase)) continue;
+                int eq = line.IndexOf('=');
+                if (eq < 0) continue;
+                string value = line.Substring(eq + 1);
+                int comma = value.IndexOf(',');
+                string ver = (comma >= 0 ? value.Substring(comma + 1) : value).Trim();
+                int semi = ver.IndexOf(';');
+                if (semi >= 0) ver = ver.Substring(0, semi).Trim();
+                return Version.TryParse(ver, out var parsed) ? parsed : null;
+            }
+            return null;
+        }
+
+        /// <summary>True only when both versions are known and the bundle is
+        /// strictly newer. An unreadable installed version means leave the
+        /// machine's driver alone.</summary>
+        internal static bool ShouldUpgrade(Version installed, Version bundled)
+            => installed != null && bundled != null && bundled > installed;
+
+        /// <summary>File version of the BthPS3.sys the installed service points
+        /// at through its ImagePath, or null.</summary>
+        private static Version InstalledBthPs3Version()
+        {
+            try
+            {
+                using var k = Registry.LocalMachine.OpenSubKey(ServicesRoot + @"\BthPS3");
+                string image = k?.GetValue("ImagePath") as string;
+                if (string.IsNullOrEmpty(image)) return null;
+                string path = image.Trim('"');
+                const string sysRoot = @"\SystemRoot\";
+                if (path.StartsWith(sysRoot, StringComparison.OrdinalIgnoreCase))
+                    path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), path.Substring(sysRoot.Length));
+                else if (path.StartsWith(@"\??\", StringComparison.Ordinal))
+                    path = path.Substring(4);
+                else if (!Path.IsPathRooted(path))
+                    path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), path);
+                if (!File.Exists(path)) return null;
+                string fv = System.Diagnostics.FileVersionInfo.GetVersionInfo(path).FileVersion;
+                return Version.TryParse(fv, out var v) ? v : null;
+            }
+            catch { return null; }
+        }
+
+        /// <summary>Re-runs the three bundled INFs when the bundle's DriverVer
+        /// is newer than the installed BthPS3.sys, then cycles the radio so the
+        /// PSM filter and the profile driver reload on the new binaries. The
+        /// install call forces the INF (DIIRFLAG_FORCE_INF), so matching
+        /// devices take the package without waiting for a rank decision. A
+        /// failure is logged and the machine keeps the driver it had.</summary>
+        private static void UpgradeInstalledDriversIfOlder(Action<string> log)
+        {
+            try
+            {
+                string dir = ExtractDrivers();
+                string inf = Path.Combine(dir, "BthPS3_x64", "BthPS3.inf");
+                Version bundled = File.Exists(inf) ? ParseInfDriverVersion(File.ReadAllText(inf)) : null;
+                Version installed = InstalledBthPs3Version();
+                if (!ShouldUpgrade(installed, bundled)) return;
+                log($"Updating PlayStation Bluetooth drivers from {installed} to {bundled}...");
+                InstallInf(Path.Combine(dir, "BthPS3PSM_x64", "BthPS3PSM.inf"), log);
+                InstallInf(inf, log);
+                InstallInf(Path.Combine(dir, "BthPS3_x64", "BthPS3_PDO_NULL_Device.inf"), log);
+                CycleBluetoothRadio(log);
+                EnsureConsumerParams();
+                Version now = InstalledBthPs3Version();
+                string nowText = now?.ToString() ?? "unknown";
+                log(now != null && now >= bundled
+                    ? $"PlayStation Bluetooth drivers are now {now}."
+                    : $"PlayStation Bluetooth drivers still report {nowText}. A restart may finish the update.");
+            }
+            catch (Exception ex)
+            {
+                log("Could not update the PlayStation Bluetooth drivers: " + ex.Message);
+            }
+        }
 
         private static void InstallInf(string infPath, Action<string> log)
         {

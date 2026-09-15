@@ -2,7 +2,7 @@
 ; 
 ; BSD 3-Clause License
 ; 
-; Copyright (c) 2018-2025, Nefarius Software Solutions e.U.
+; Copyright (c) 2018-2026, Nefarius Software Solutions e.U.
 ; All rights reserved.
 ; 
 ; Redistribution and use in source and binary forms, with or without
@@ -38,15 +38,18 @@ ClassGuid = {e0cbf06c-cd8b-4647-bb8a-263b43f0f974}
 DriverPackageType = ClassFilter
 Provider = %ManufacturerName%
 CatalogFile = BthPS3PSM.cat
-DriverVer = 02/22/2025,2.10.470.0
+DriverVer = 09/15/2026,2.12.0.2037
 PnpLockdown = 1
  
 
 [SourceDisksNames]
 1 = %DiskName%,,,""
 
-[SourceDisksFiles]
-BthPS3PSM.sys = 1,,
+[SourceDisksFiles.amd64]
+BthPS3PSM.sys = 1,x64
+
+[SourceDisksFiles.arm64]
+BthPS3PSM.sys = 1,ARM64
 
 [DestinationDirs]
 DefaultDestDir = 12
@@ -56,13 +59,23 @@ BthPS3PSM.DriverFiles = 12
 OptionDesc = %BthPS3PSMServiceDesc%
 CopyFiles = BthPS3PSM.DriverFiles
 
+[DefaultInstall.NTarm64]
+OptionDesc = %BthPS3PSMServiceDesc%
+CopyFiles = BthPS3PSM.DriverFiles
+
 [DefaultUninstall.NTamd64]
+LegacyUninstall = 1
+
+[DefaultUninstall.NTarm64]
 LegacyUninstall = 1
 
 [BthPS3PSM.DriverFiles]
 BthPS3PSM.sys
 
 [DefaultInstall.NTamd64.Services]
+AddService = %BthPS3PSMServiceName%,,BthPS3PSM.Service
+
+[DefaultInstall.NTarm64.Services]
 AddService = %BthPS3PSMServiceName%,,BthPS3PSM.Service
 
 [BthPS3PSM.Service]
