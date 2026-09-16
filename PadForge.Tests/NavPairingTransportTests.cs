@@ -129,7 +129,7 @@ namespace PadForge.Tests
         /// the rule exists for.
         ///
         /// <para>Asserted against the source text because a lock-lifetime
-        /// contract has no in-process seam: proving it behaviourally needs a
+        /// contract has no in-process seam: proving it behaviorally needs a
         /// real WinUSB handle and a racing teardown. This pins the discipline
         /// against an edit that drops it, which is how the dock read shipped
         /// without it.</para></summary>

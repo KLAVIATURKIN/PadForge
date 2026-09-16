@@ -13,7 +13,7 @@ namespace PadForge.Tests
     /// 500 deg/s (GyroScale's full scale, then a hard clamp) while an
     /// ordinary aiming flick is 300-800 and a fast one passes 1500, and it
     /// was CADENCE-COUPLED, spending a fixed 15 px per poll so the same wrist
-    /// motion travelled sixteen times as far at 1 ms as at 16 ms.</para>
+    /// motion traveled sixteen times as far at 1 ms as at 16 ms.</para>
     /// <para>DS4Windows, the reference issue #79 named, multiplies the raw
     /// gyro value by elapsed time with no full scale and no clamp, adds a
     /// constant offset so the smallest rotation still registers, and bends

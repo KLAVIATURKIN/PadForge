@@ -92,8 +92,21 @@ function Kill-PadForge {
     # and nothing else ever happened). Suppress locally rather than globally.
     $old = $ErrorActionPreference
     $ErrorActionPreference = 'Continue'
-    try { & taskkill.exe /F /IM PadForge.exe 2>&1 | Out-Null } catch { }
+    for ($k = 1; $k -le 6; $k++) {
+        try { & taskkill.exe /F /IM PadForge.exe 2>&1 | Out-Null } catch { }
+        Start-Sleep 3
+        $live = @(Get-Process PadForge -ErrorAction SilentlyContinue).Count
+        if ($live -eq 0) { break }
+        Note "  kill attempt ${k}: $live instance(s) still up"
+    }
     $ErrorActionPreference = $old
+    # COUNT the processes, never trust the exit code. PadForge runs elevated,
+    # so taskkill reports success having killed nothing when this script is
+    # not, and every write after that lands under a live app that re-saves its
+    # own state over it. Refuse to continue rather than clobber the settings.
+    if (@(Get-Process PadForge -ErrorAction SilentlyContinue).Count -ne 0) {
+        throw 'PadForge survived the kill; refusing to write or restore settings it would clobber.'
+    }
 }
 
 # ---- The scenes. One slot per family, appearance written into the slot. ----
@@ -108,13 +121,16 @@ $scenes = @(
 
 # ---- Backup with the clobber guard (never overwrite an existing backup) ----
 $bak = "$PadForgeXml.bak"
+# STOP THE APP FIRST. The restore used to run ahead of the kill and then delete
+# the backup, so a live PadForge could save its own state over the owner's
+# settings with no copy left to recover from. The backup is the owner's real
+# settings and the current file is capture residue.
+Kill-PadForge
 if (Test-Path $bak) {
     Note "leftover backup found: restoring it BEFORE taking a new one"
     Copy-Item $bak $PadForgeXml -Force
     Remove-Item $bak -Force
 }
-Kill-PadForge
-Start-Sleep 3
 Copy-Item $PadForgeXml $bak -Force
 Note "backed up owner settings ($((Get-Item $bak).Length) bytes)"
 

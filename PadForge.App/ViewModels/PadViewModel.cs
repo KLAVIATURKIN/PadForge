@@ -339,6 +339,14 @@ namespace PadForge.ViewModels
                             SettingsService.RefreshMappingSetsFromLegacy();
                         }
 
+                        // The raw preview's change-detect shadow is keyed on
+                        // the raw arrays alone, and every byte in them is read
+                        // through THIS profile's wire table. Identical frames
+                        // across a same-type profile switch therefore skipped
+                        // the push and left the preview drawing the outgoing
+                        // profile's roles. The type change already drops the
+                        // shadow for the same reason.
+                        _hasLastRawSnapshot = false;
                         SyncExtendedConfigFromProfile();
                         // Force Customize on whenever the user picks the
                         // synthetic "Custom" entry — it's only useful as a
@@ -413,6 +421,14 @@ namespace PadForge.ViewModels
                 string.Equals(p.Id, _profileId, System.StringComparison.OrdinalIgnoreCase));
             if (profile == null) return;
 
+            // Triggers to zero FIRST. The two setters clamp against each
+            // other over a shared axis budget, so seeding sticks against a
+            // leftover trigger count silently drops the last stick: a
+            // stick-only passthrough layout wanting four sticks lands on
+            // three while two triggers are still on the books. The config's
+            // own ResetToDefaults and the page's apply both order it this way
+            // for this reason.
+            target.TriggerCount = 0;
             target.ThumbstickCount = profile.StickCount;
             target.TriggerCount = profile.TriggerCount;
             target.PovCount = profile.HasHat ? 1 : 0;
@@ -445,6 +461,10 @@ namespace PadForge.ViewModels
             // authority for these, the same way it is for Nintendo.
             if (MacroButtonNames.IsValveLetteredProfile(profile.Id))
             {
+                // Triggers to zero FIRST, for the same reason the seed above
+                // does it: the two setters clamp against each other over one
+                // axis budget, and this re-seed can raise the stick count.
+                target.TriggerCount = 0;
                 target.ThumbstickCount = Models2D.NintendoPreviewMap.StickCount(profile.Id);
                 target.TriggerCount = Models2D.NintendoPreviewMap.TriggerCount(profile.Id);
                 target.PovCount = Models2D.NintendoPreviewMap.DPadIsHat(profile.Id) ? 1 : 0;
@@ -531,9 +551,16 @@ namespace PadForge.ViewModels
             get => _extendedConfig;
             set
             {
-                if (_extendedConfig != null)
-                    _extendedConfig.PropertyChanged -= OnExtendedConfigPropertyChanged;
-                if (SetProperty(ref _extendedConfig, value) && value != null)
+                // Detach only when the instance actually changes. SetProperty
+                // returns false on reference equality, so assigning the same
+                // instance back unsubscribed and never resubscribed, leaving
+                // the view model deaf to its own config. The device-config
+                // property two screens down already reads this way.
+                var previous = _extendedConfig;
+                if (!SetProperty(ref _extendedConfig, value)) return;
+                if (previous != null)
+                    previous.PropertyChanged -= OnExtendedConfigPropertyChanged;
+                if (value != null)
                     value.PropertyChanged += OnExtendedConfigPropertyChanged;
             }
         }
@@ -690,7 +717,21 @@ namespace PadForge.ViewModels
         public event System.ComponentModel.PropertyChangedEventHandler ActiveDeviceConfigPropertyChanged;
 
         private void OnActiveDeviceConfigPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-            => ActiveDeviceConfigPropertyChanged?.Invoke(sender, e);
+        {
+            // A profile apply, a paste or a copy writes the equalizer bands into
+            // the SAME config instance the grid rows were decoded from, so the
+            // anchor reference never changes and the setter's rebuild never
+            // fires. The rows then still hold the OUTGOING bands and the next row
+            // edit re-encodes them over the ones just loaded, which is the
+            // clobber the setter's rebuild exists to prevent, arriving through a
+            // door it does not watch. Rebuild on the value change too, skipping
+            // the echo of our own push so a keystroke never tears its own grid.
+            if (!_pushingEqBands
+                && e?.PropertyName == nameof(DeviceSlotConfig.AudioEqBands)
+                && ReferenceEquals(sender, _deviceConfig))
+                RefreshEqBands();
+            ActiveDeviceConfigPropertyChanged?.Invoke(sender, e);
+        }
 
         /// <summary>Returns the per-device lighting config for the given
         /// device, creating a fresh default entry if none exists yet.
@@ -1372,6 +1413,10 @@ namespace PadForge.ViewModels
                     // as the gyro tunables.
                     // The mirror source is per device; re-point the combo at
                     // the newly selected device's value.
+                    // Ordered after the config swap below now, and shared with
+                    // the in-place identity nudge. Refreshing it here read the
+                    // OUTGOING device's endpoint and nothing raised the property
+                    // again after the bind, so the combo kept the old value.
                     if (SelectedConfigTab == AudioTabIndex) RefreshMirrorSources();
                     else OnPropertyChanged(nameof(SelectedMirrorSourceId));
                     // Swap the Lighting tab's bound config to the new
@@ -1419,8 +1464,24 @@ namespace PadForge.ViewModels
         /// </summary>
         public void NotifySelectedMappedDeviceIdentityChanged()
         {
+            // Everything the selected device projects, not just one flag. An
+            // unassign that rewrites the selected entry IN PLACE left every
+            // capability gate and the equalizer grid reading the previous
+            // device, because only the setter raised them.
             BindDeviceConfigForDevice(_selectedMappedDevice?.InstanceGuid ?? Guid.Empty);
             OnPropertyChanged(nameof(HasSelectedDevice));
+            OnPropertyChanged(nameof(SelectedDeviceHasSpeaker));
+            OnPropertyChanged(nameof(SelectedDeviceHasDspChain));
+            OnPropertyChanged(nameof(SelectedDeviceHasHeadphoneJack));
+            OnPropertyChanged(nameof(SelectedDeviceHasDs5AudioBuffer));
+            OnPropertyChanged(nameof(SelectedDeviceHasNoSpeaker));
+            OnPropertyChanged(nameof(SelectedDeviceHasHapticTones));
+            OnPropertyChanged(nameof(SelectedDeviceIsTritonPcm));
+            OnPropertyChanged(nameof(SelectedDeviceHasTouchpadPulse));
+            RefreshEqBands();
+            if (SelectedConfigTab == AudioTabIndex) RefreshMirrorSources();
+            else OnPropertyChanged(nameof(SelectedMirrorSourceId));
+            OnPropertyChanged(nameof(MirrorEngageSelectedInput));
             OnPropertyChanged(nameof(SelectedMappedDevice));
             SelectedDeviceChanged?.Invoke(this, _selectedMappedDevice);
         }
@@ -2232,6 +2293,17 @@ namespace PadForge.ViewModels
         /// layer's rows instead of the previous layer's.</summary>
         public event EventHandler LayerActivated;
 
+        /// <summary>Re-reads the active layer's rows into the grid without
+        /// changing which layer is active.
+        ///
+        /// <para>Callers that edited the active layer's rows underneath the
+        /// grid used to fake a change by assigning "Base" and then the mask
+        /// back. That is a no-op when the active layer IS Base, because the
+        /// setter returns on equality before raising anything, so a paste or
+        /// a clear on Base left the grid showing the pre-edit rows and the
+        /// next save pushed those stale rows back over the edit.</para></summary>
+        internal void ReloadActiveLayerRows() => LayerActivated?.Invoke(this, EventArgs.Empty);
+
         /// <summary>Raised before the active layer changes, while the grid still belongs to the old layer.</summary>
         public event EventHandler LayerChanging;
 
@@ -2790,6 +2862,12 @@ namespace PadForge.ViewModels
             AddKey(Strings.Instance.Key_RightCtrl, 0xA3);
             AddKey(Strings.Instance.Key_LeftAlt, 0xA4);
             AddKey(Strings.Instance.Key_RightAlt, 0xA5);
+            // The preview keyboard has always drawn these three and fires a
+            // record request when they are clicked. With no row to receive it
+            // the click was a silent no-op.
+            AddKey(Strings.Instance.Key_LWin, 0x5B);
+            AddKey(Strings.Instance.Key_RWin, 0x5C);
+            AddKey(Strings.Instance.Key_Apps, 0x5D);
 
             // ── Special keys ──
             AddKey(Strings.Instance.Key_Space, 0x20);
@@ -3277,7 +3355,12 @@ namespace PadForge.ViewModels
         // the clamp ceiling 180 admits the corpus outliers (113) while the
         // slider tops at 90.
         private double _gyroTiltRangeDeg = 25;
-        public double GyroTiltRangeDeg { get => _gyroTiltRangeDeg; set => SetProperty(ref _gyroTiltRangeDeg, Math.Clamp(value, 1, 180)); }
+        /// <summary>Full-deflection tilt angle. Capped at 90 because that is
+        /// what the reading can express: the angle comes from an arc sine of
+        /// one gravity component, so a wider range never reaches full
+        /// deflection and folds back past 90. The slider already stopped
+        /// there; this clamp let a hand-edited or imported profile past it.</summary>
+        public double GyroTiltRangeDeg { get => _gyroTiltRangeDeg; set => SetProperty(ref _gyroTiltRangeDeg, Math.Clamp(value, 1, 90)); }
         private double _gyroTiltInnerDz;
         public double GyroTiltInnerDz { get => _gyroTiltInnerDz; set => SetProperty(ref _gyroTiltInnerDz, Math.Clamp(value, 0, 89)); }
 
@@ -4320,6 +4403,18 @@ namespace PadForge.ViewModels
         private double _rightMotorDisplay;
         public double RightMotorDisplay { get => _rightMotorDisplay; set => SetProperty(ref _rightMotorDisplay, value); }
 
+        private double _rawLeftMotorDisplay;
+        /// <summary>The motor command the GAME put on the virtual pad, before
+        /// any device's settings. The feedback tab's raw bar reads this and its
+        /// output bar reads the selected device's scaled value, so the gap
+        /// between them is the user's settings. It used to read the slot meter,
+        /// which is already past every device's settings, so both bars showed
+        /// processed values under different labels.</summary>
+        public double RawLeftMotorDisplay { get => _rawLeftMotorDisplay; set => SetProperty(ref _rawLeftMotorDisplay, value); }
+
+        private double _rawRightMotorDisplay;
+        public double RawRightMotorDisplay { get => _rawRightMotorDisplay; set => SetProperty(ref _rawRightMotorDisplay, value); }
+
         private double _deviceLeftMotorDisplay;
         /// <summary>Selected device's own motor activity (its PadSetting's
         /// gain / motor strengths / audio rumble / constant force applied
@@ -4788,6 +4883,19 @@ namespace PadForge.ViewModels
             // and the saved XML would still carry the stale entries.
             _perDeviceSlotConfigs.Clear();
             DeviceConfig = new DeviceSlotConfig();
+
+            // The two SLOT-owned configs, which no load mirror can reach. They
+            // persist under the slot index rather than the device, so a
+            // deleted slot's product string, identifiers, force-feedback flag
+            // and whole MIDI bundle survived the delete, and the next save
+            // wrote them under whatever new slot took that index. The app-wide
+            // reset already calls both for this reason; this path did not.
+            //
+            // At the tail, in place, and never by replacing the instance: the
+            // count setters fire rebuilds, the window above is already
+            // quiesced, and the instances are subscribed to once at startup.
+            MidiConfig.ResetToDefaults();
+            ExtendedConfig.ResetToDefaults();
         }
 
         /// <summary>Audit 2026-07-18 (transition-to-empty): clears the
@@ -6109,10 +6217,21 @@ namespace PadForge.ViewModels
 
         /// <summary>A render endpoint the mirror can capture; Id "" = the
         /// system default device.</summary>
-        public sealed class MirrorSourceOption
+        /// <summary>One entry in an audio endpoint picker. Observable because
+        /// the refresh below RETAINS the instance on purpose (rebuilding the
+        /// list drops the ComboBox's selected item and WPF clears the
+        /// selection), so a caption change has to reach the binding through
+        /// the object rather than through the collection.</summary>
+        public sealed class MirrorSourceOption : ObservableObject
         {
             public string Id { get; set; }
-            public string Name { get; set; }
+
+            private string _name;
+            public string Name
+            {
+                get => _name;
+                set => SetProperty(ref _name, value);
+            }
         }
 
         public System.Collections.ObjectModel.ObservableCollection<MirrorSourceOption> MirrorSourceOptions { get; } = new();
@@ -6162,7 +6281,17 @@ namespace PadForge.ViewModels
                     for (int k = i; k < MirrorSourceOptions.Count; k++)
                         if (MirrorSourceOptions[k].Id == desired[i].Id) { j = k; break; }
                     if (j < 0) MirrorSourceOptions.Insert(i, desired[i]);
-                    else if (j != i) MirrorSourceOptions.Move(j, i);
+                    else
+                    {
+                        // Take the fresh caption with the retained instance.
+                        // Keeping the instance is deliberate, keeping its old
+                        // NAME was not: an endpoint that came back still read
+                        // "unavailable", a renamed one kept its old name, and
+                        // the system-default row kept the previous culture's
+                        // word for it.
+                        MirrorSourceOptions[j].Name = desired[i].Name;
+                        if (j != i) MirrorSourceOptions.Move(j, i);
+                    }
                 }
                 while (MirrorSourceOptions.Count > desired.Count)
                     MirrorSourceOptions.RemoveAt(MirrorSourceOptions.Count - 1);
@@ -6537,6 +6666,14 @@ namespace PadForge.ViewModels
                 var cfg = ExtendedConfig;
                 if (cfg != null && cfg.Customize)
                     return cfg.ForceFeedbackEnabled;
+                // The Deck persona decodes its vendor feature writes straight
+                // into the slot's feedback pack, so it has a real source with
+                // no PID block on the wire for this gate to find. Hiding the
+                // tab there hid a working feature. The other Valve profiles
+                // have no such decode, so they stay on the descriptor test.
+                if (PadForge.Common.Input.HMaestroVirtualController
+                        .DecodesFeedbackWithoutPidBlock(ProfileId))
+                    return true;
                 var profile = PadForge.Common.Input.HMaestroProfileCatalog
                     .GetProfileById(ProfileId);
                 return PadForge.Common.Input.HMaestroVirtualController
@@ -6691,7 +6828,17 @@ namespace PadForge.ViewModels
                     for (int k = i; k < RumbleAudioEndpointOptions.Count; k++)
                         if (RumbleAudioEndpointOptions[k].Id == desired[i].Id) { j = k; break; }
                     if (j < 0) RumbleAudioEndpointOptions.Insert(i, desired[i]);
-                    else if (j != i) RumbleAudioEndpointOptions.Move(j, i);
+                    else
+                    {
+                        // Take the fresh caption with the retained instance.
+                        // Keeping the instance is deliberate, keeping its old
+                        // NAME was not: an endpoint that came back still read
+                        // "unavailable", a renamed one kept its old name, and
+                        // the system-default row kept the previous culture's
+                        // word for it.
+                        RumbleAudioEndpointOptions[j].Name = desired[i].Name;
+                        if (j != i) RumbleAudioEndpointOptions.Move(j, i);
+                    }
                 }
                 while (RumbleAudioEndpointOptions.Count > desired.Count)
                     RumbleAudioEndpointOptions.RemoveAt(RumbleAudioEndpointOptions.Count - 1);
@@ -7048,7 +7195,12 @@ namespace PadForge.ViewModels
             get
             {
                 var s = Strings.Instance;
-                if (_outputType == VirtualControllerType.Nintendo)
+                // The SAME test the row reseed uses to decide a row is a lettered
+                // picker. Gating on the output type alone handed lettered
+                // Extended slots the Xbox target names while their rows carried
+                // wire indices, so the picker matched nothing and an edit wrote a
+                // name into a field the raw runtime parses as an index.
+                if (SocdUsesRawIndices && MacroButtonNames.IsLetteredProfile(ProfileId))
                 {
                     // Lettered pickers over the raw-index grammar (the
                     // engine parses "6:7"): Value is the index STRING so
@@ -7201,7 +7353,12 @@ namespace PadForge.ViewModels
         public RelayCommand AddSocdPairCommand =>
             _addSocdPairCommand ??= new RelayCommand(() =>
             {
-                SocdPairItems.Add(_outputType == VirtualControllerType.Nintendo
+                // Same classification again: a lettered raw profile gets a picker
+                // row over the index grammar, everything else raw gets the
+                // numeric editors. Keyed on the output type alone, a lettered
+                // Extended slot added a numeric row into a card whose loaded rows
+                // were pickers.
+                SocdPairItems.Add(SocdUsesRawIndices && MacroButtonNames.IsLetteredProfile(ProfileId)
                     ? new SlotSocdPairItem(this, "0", "1")
                     : SocdUsesRawIndices
                     ? new SlotSocdPairItem(this, 0, 1)
@@ -7229,11 +7386,16 @@ namespace PadForge.ViewModels
             _resetSocdCardCommand ??= new RelayCommand(() =>
             {
                 SocdMode = "";
-                if (SocdPairItems.Count > 0)
-                {
-                    SocdPairItems.Clear();
-                    OnSocdPairEdited();
-                }
+                SocdPairItems.Clear();
+                // The preserved tokens go too. They are pairs authored under
+                // the OTHER slot grammar, kept verbatim so an ordinary edit
+                // never erases them, and the publish below appends them back
+                // into the stored field. A card-level Reset All is not an
+                // ordinary edit: it says every pair is removed, and leaving
+                // them meant they returned as live pairs the moment the
+                // slot's grammar matched again.
+                _socdPreservedTokens.Clear();
+                OnSocdPairEdited();
             });
 
         /// <summary>One editable SOCD pair row (#240). Gamepad rows carry
@@ -7573,6 +7735,17 @@ namespace PadForge.ViewModels
 
         private void ClearAllMappings()
         {
+            // Stop any recording first. A Map All walk or a single-row record
+            // writes its result into the row instance when it completes, so
+            // one landing after this walk repopulated a row the user had just
+            // cleared, with nothing on screen to say why.
+            if (IsMapAllActive)
+            {
+                IsMapAllActive = false;
+                MapAllCancelRequested?.Invoke(this, EventArgs.Empty);
+            }
+            CurrentRecordingTarget = null;
+
             foreach (var m in Mappings)
             {
                 m.SourceDescriptor = string.Empty;

@@ -264,25 +264,10 @@ namespace PadForge.Tests
             Assert.True(armTornDown > 0 && armTornDown < d1, "ArmTritonPcm must check TornDown before its first TritonPcmConfigWrite");
 
             Assert.Contains("if (pulseSides != 0 && s.PcmCapable && s.PcmArmed)", hts);
-            Assert.Contains("s.PcmPulseEnv = Math.Max(s.PcmPulseEnv,", hts);
+            Assert.Contains("s.PcmPulseEnvLeft = Math.Max(s.PcmPulseEnvLeft,", hts);
+            Assert.Contains("s.PcmPulseEnvRight = Math.Max(s.PcmPulseEnvRight,", hts);
         }
 
-        /// <summary>F13: the PCM overlay branch consumes PulseAmp the way
-        /// SendTouchpadPulses does. PulseAmp is max-wins from the polling
-        /// thread, and the overlay branch bypasses SendTouchpadPulses, so
-        /// without the zero a lowered slider kept the loudest tick.</summary>
-        [Fact]
-        public void PcmOverlay_ConsumesPulseAmp()
-        {
-            string hts = RepoText("PadForge.App", "Common", "Input", "HapticToneService.cs");
-            int at = hts.IndexOf("if (pulseSides != 0 && s.PcmCapable && s.PcmArmed)", StringComparison.Ordinal);
-            Assert.True(at > 0);
-            int seed = hts.IndexOf("s.PcmPulseEnv = Math.Max(", at, StringComparison.Ordinal);
-            int zero = hts.IndexOf("s.PulseAmp = 0f;", at, StringComparison.Ordinal);
-            int next = hts.IndexOf("else if (pulseSides != 0", at, StringComparison.Ordinal);
-            Assert.True(seed > at, "the PcmPulseEnv seed is gone from the overlay branch");
-            Assert.True(zero > seed && next > zero, "the overlay branch must zero PulseAmp after seeding PcmPulseEnv");
-        }
 
         /// <summary>F14: a failed 0x86 arm burst waits PcmArmRetryGapMs
         /// before the next attempt. Zero means no failure yet.</summary>

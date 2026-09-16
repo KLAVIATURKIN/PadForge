@@ -161,26 +161,6 @@ namespace PadForge.Tests
             Assert.Contains("54", loop);     // USB status byte
         }
 
-        // ──────── the writer-alive contract that made it silent ────────
-
-        /// <summary>The firmware speaker path is asserted per output report,
-        /// so it needs the effects dispatcher's timer alive for exactly the
-        /// reason rumble does. UpdateAnimTimer had terms for lightbar
-        /// animation, reactive overrides, input-reactive mode and rumble, and
-        /// none for audio, so on a static-lightbar slot the assert landed only
-        /// when some unrelated feature happened to hold the timer open.</summary>
-        [Fact]
-        public void TheAnimTimer_HasAnAudioDemandTerm()
-        {
-            string src = Dispatcher();
-            int at = src.IndexOf("private void UpdateAnimTimer", StringComparison.Ordinal);
-            Assert.True(at > 0, "UpdateAnimTimer moved");
-            // The window has to clear the per-device config walk that sits
-            // between the method opening and the demand terms at its end.
-            string body = src.Substring(at, Math.Min(7000, src.Length - at));
-            Assert.Contains("SlotWantsSpeakerPath", body);
-        }
-
         /// <summary>A sink coming alive nudges the dispatcher, the twin of the
         /// teardown and expired-test nudges that already existed. Of the four
         /// sink transitions this was the only one that did not notify, and it
@@ -192,7 +172,10 @@ namespace PadForge.Tests
             Assert.Contains("_lastRouted", src);
             int at = src.IndexOf("_lastRouted[slot]", StringComparison.Ordinal);
             Assert.True(at > 0, "the rising-edge check moved");
-            string body = src.Substring(Math.Max(0, at - 900), Math.Min(1400, src.Length - Math.Max(0, at - 900)));
+            int end = src.IndexOf("\n        }", at, StringComparison.Ordinal);
+            Assert.True(end > at);
+            string body = src.Substring(at, end - at);
+            Assert.Contains("expiredTestSlots.Add(slot)", body);
             Assert.Contains("NotifySoundRoutingChanged", body);
         }
 

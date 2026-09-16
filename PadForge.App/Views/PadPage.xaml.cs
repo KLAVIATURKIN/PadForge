@@ -53,6 +53,7 @@ namespace PadForge.Views
         /// issue #73.
         /// </summary>
         private PadForge.ViewModels.ExtendedSlotConfig _currentExtendedConfig;
+        private PadForge.ViewModels.MidiSlotConfig _currentMidiConfig;
 
         /// <summary>Currently-subscribed MappedDeviceInfo for the selected
         /// device, tracked so the lightbar preview's Battery mode can follow
@@ -160,6 +161,19 @@ namespace PadForge.Views
             _currentExtendedConfig = _currentPadVm?.ExtendedConfig;
             if (_currentExtendedConfig != null)
                 _currentExtendedConfig.PropertyChanged += OnExtendedConfigBarPropertyChanged;
+
+            // The MIDI bar needs the same wire, for the same reason the
+            // Extended one does: a profile switch on the SAME slot mutates the
+            // config in place, with no OutputType or DataContext change, so
+            // nothing above would fire. The six boxes kept the outgoing
+            // profile's numbers, and the write-back reads all six whenever one
+            // loses focus, so a single click into Channel pushed five stale
+            // values over the profile that had just been applied.
+            if (_currentMidiConfig != null)
+                _currentMidiConfig.PropertyChanged -= OnMidiConfigBarPropertyChanged;
+            _currentMidiConfig = _currentPadVm?.MidiConfig;
+            if (_currentMidiConfig != null)
+                _currentMidiConfig.PropertyChanged += OnMidiConfigBarPropertyChanged;
 
             ApplyViewMode();
             SyncTabStripSelection();
@@ -437,16 +451,8 @@ namespace PadForge.Views
                         hasMouse = ud.IsMouse;
                         hasIrPointer = ud.HasIrCamera;
                         hasImpulseTriggers = ud.HasRumbleTriggers;
-                        // Gate on the SAME capability the engine consumes.
-                        // HasJoyCon2Mouse is naxes >= 8; the compass lane
-                        // (UpdateCompassEstimate, the calibration sweep,
-                        // and CompassYawCorrectionProvider) all require
-                        // HasSwitch2Magnetometer, which needs the wider
-                        // axis set an older SDL fork DLL does not report.
-                        // Gating the card on the looser flag offered the
-                        // whole feature (including a figure-8 calibration
-                        // that silently kept nothing) on hardware where it
-                        // could never run.
+                        // Compass UI follows the engine's magnetometer capability.
+                        // Mouse and magnetometer axes are enabled independently.
                         hasS2Mag = ud.Device is PadForge.Engine.SdlDeviceWrapper s2w
                                 && s2w.HasSwitch2Magnetometer;
                         hasTouchpad = ud.HasTouchpad;
@@ -679,7 +685,11 @@ namespace PadForge.Views
             // one.
             if (DataContext is PadViewModel vm)
             {
-                if (isMidi && (vm.SelectedConfigTab == 3 || vm.SelectedConfigTab == 4))
+                // VR hides Sticks and Triggers the same way MIDI does, and was
+                // the one collapsing predicate with no eviction here, so a user
+                // sitting on either when the slot became VR was left on a
+                // collapsed tab with no selected button.
+                if ((isMidi || isVrSlot) && (vm.SelectedConfigTab == 3 || vm.SelectedConfigTab == 4))
                     vm.SelectedConfigTab = 0;
                 else if (isKbm && vm.SelectedConfigTab == 4)
                     vm.SelectedConfigTab = 0;
@@ -1816,8 +1826,10 @@ namespace PadForge.Views
         private void ClearShiftRuntimeForTouchedSlots(string oldMask, string newMask)
         {
             if (_currentPadVm != null)
+            {
                 PadForge.Common.Input.InputManager.ClearShiftRuntime(_currentPadVm.PadIndex);
                 PadForge.Services.InputService.ClearMenuRuntimeForSlot(_currentPadVm.PadIndex);
+            }
             var sets = PadForge.Common.Input.SettingsManager.SlotMappingSets;
             if (sets == null) return;
             for (int i = 0; i < sets.Length; i++)
@@ -2035,7 +2047,14 @@ namespace PadForge.Views
             if (_currentPadVm == null) return;
             string mask = TagToLayerMask(sender);
             if (string.IsNullOrEmpty(mask)) return;
-            if (_shiftLayerClipboard == null || _shiftLayerClipboard.Count == 0) return;
+            // Null is "nothing has been copied". An EMPTY list is a layer the
+            // user copied that happened to have no rows, and pasting it is a
+            // real instruction to empty the destination. The count test folded
+            // the two together, so copying an empty layer and pasting it left
+            // the destination untouched with no sign that anything was
+            // refused. Copy always assigns a fresh list, so the two states
+            // never blur.
+            if (_shiftLayerClipboard == null) return;
 
             var slotMs = GetOrCreateSlotMappingSet(_currentPadVm.PadIndex);
             if (slotMs.Rows == null)
@@ -2072,9 +2091,12 @@ namespace PadForge.Views
             // a refresh on the active layer.
             if (string.Equals(_currentPadVm.ActiveLayerMask, mask, StringComparison.Ordinal))
             {
-                // Re-fire LayerActivated to drive the reload.
-                _currentPadVm.ActiveLayerMask = "Base";
-                _currentPadVm.ActiveLayerMask = mask;
+                // Re-read the rows without pretending the layer changed.
+                // The old two-step assignment could not raise anything when
+                // the active layer WAS Base, since the setter returns on
+                // equality, so a paste onto Base left the grid on the
+                // pre-paste rows and the next save wrote them back over it.
+                _currentPadVm.ReloadActiveLayerRows();
             }
             _currentPadVm.ConfigItemDirtyCallback?.Invoke();
         }
@@ -2098,8 +2120,10 @@ namespace PadForge.Views
 
             if (string.Equals(_currentPadVm.ActiveLayerMask, mask, StringComparison.Ordinal))
             {
-                _currentPadVm.ActiveLayerMask = "Base";
-                _currentPadVm.ActiveLayerMask = mask;
+                // Same reason as the paste handler above: a clear on Base
+                // raised nothing, so the cleared rows came back on the next
+                // save from a grid that never re-read them.
+                _currentPadVm.ReloadActiveLayerRows();
             }
             _currentPadVm.ConfigItemDirtyCallback?.Invoke();
         }
@@ -2199,7 +2223,17 @@ namespace PadForge.Views
                 {
                     var trimmed = new System.Collections.Generic.List<PadForge.Engine.Data.ShiftActivator>(
                         slotMs.ShiftActivators);
-                    trimmed.Remove(activator);
+                    // EVERY activator on the mask goes, not just the one the tab
+                    // resolved to. A layer is its mask and any number of
+                    // activators may engage it (the tab strip draws one tab per
+                    // layer for exactly that reason), so removing a single
+                    // reference deleted the layer's rows below and left the other
+                    // ways into it alive: the tab came straight back on the next
+                    // rebuild, engaging a layer with nothing in it, and its
+                    // macros stayed armed because the slot still declared it.
+                    trimmed.RemoveAll(
+                        a => a != null
+                             && string.Equals(a.LayerMask, mask, StringComparison.Ordinal));
                     slotMs.ShiftActivators = trimmed;
                 }
                 if (string.Equals(mask, "Base", StringComparison.Ordinal))
@@ -2764,6 +2798,11 @@ namespace PadForge.Views
                 || e.PropertyName == nameof(PadForge.ViewModels.ExtendedSlotConfig.ProductId))
             {
                 SyncExtendedConfigBar();
+                // TabTriggers gates on TriggerCount, and the count can change
+                // with no OutputType or DataContext change behind it, so the
+                // tab kept the outgoing layout's visibility.
+                if (e.PropertyName == nameof(PadForge.ViewModels.ExtendedSlotConfig.TriggerCount))
+                    SyncTabVisibility();
             }
         }
 
@@ -2946,6 +2985,18 @@ namespace PadForge.Views
 
         private void OnDeviceConfigChanged(object sender, PropertyChangedEventArgs e)
         {
+            // Marshal before the first interface touch, not inside the methods
+            // below. The forwarder raises on whatever thread wrote the config,
+            // and the poll thread writes it for macro lightbar actions. Only the
+            // preview sync carried the bounce, while the hex branches read focus
+            // and write text ahead of it, so a poll-thread write landing on one
+            // of those cases would throw before the guard was reached.
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.BeginInvoke(new Action(() => OnDeviceConfigChanged(sender, e)));
+                return;
+            }
+
             // Keep the HEX textboxes live-synced with the RGB sliders.
             // Skip the refresh while the user is mid-edit in the textbox
             // itself — *_Apply is what's writing the properties at that
@@ -3827,8 +3878,21 @@ namespace PadForge.Views
                 PrimaryButtonText = Strings.Instance.Pad_ExtendedClone_Apply,
                 CloseButtonText = Strings.Instance.Common_Cancel,
             };
+            var cfgAtOpen = vm.ExtendedConfig;
             if (await confirm.ShowDialogAsync() != Wpf.Ui.Controls.MessageBoxResult.Primary)
                 return;
+
+            // Re-validate everything the apply depends on, the discipline the
+            // layer-delete confirm on this page already follows. This confirm
+            // is not application-modal, so while it is up the user can switch
+            // slots, change the slot's type, apply a profile that replaces the
+            // config instance, or unassign the device. The apply writes both
+            // the page's own controls and the slot's layout, so landing it on
+            // a different slot rewrites a configuration nobody asked about.
+            if (!ReferenceEquals(DataContext, vm)) return;
+            if (vm.OutputType != Engine.VirtualControllerType.Extended) return;
+            if (!ReferenceEquals(vm.ExtendedConfig, cfgAtOpen)) return;
+            if (!ReferenceEquals(vm.SelectedMappedDevice, sel)) return;
 
             ApplyPassthroughClone(vm, sel.InstanceGuid, deviceName, clone);
         }
@@ -3935,6 +3999,19 @@ namespace PadForge.Views
                 string oldGuid = mi.PrimarySourceDeviceGuid ?? "";
                 string oldLabel = mi.PrimarySourceDeviceLabel ?? "";
                 int oldDeadZone = mi.MappingDeadZone;
+                // Everything else that primary carried. Rebuilding it from the
+                // descriptor and a couple of flags silently dropped the rest,
+                // so a displaced primary came back stripped: its output
+                // inversion gone, its bidirectional flag gone, its sensitivity
+                // and curve parameters back at their defaults. The neg-leg
+                // promotion this was modeled on really is nothing but a
+                // descriptor plus two flags; a whole primary is not.
+                bool oldInvertOutput = mi.InvertOutput;
+                bool oldBidirectional = mi.IsBidirectional;
+                double oldSensitivity = mi.Sensitivity;
+                double oldGyroSensitivity = mi.GyroSensitivity;
+                double oldMouseCursorSensitivity = mi.MouseCursorSensitivity;
+                double oldIrPointerSensitivity = mi.IrPointerSensitivity;
                 bool demote = !primaryIsCloneDevice && !string.IsNullOrEmpty(oldDesc)
                     && !string.IsNullOrEmpty(oldGuid);
 
@@ -3979,6 +4056,15 @@ namespace PadForge.Views
                             Invert = inv,
                             HalfAxis = half,
                             DeadZone = oldDeadZone,
+                            // The rest of what that primary carried. Without
+                            // these it came back stripped and behaved
+                            // differently from the source the user authored.
+                            InvertOutput = oldInvertOutput,
+                            Bidirectional = oldBidirectional,
+                            Sensitivity = oldSensitivity,
+                            GyroSensitivity = oldGyroSensitivity,
+                            MouseCursorSensitivity = oldMouseCursorSensitivity,
+                            IrPointerSensitivity = oldIrPointerSensitivity,
                         });
                     }
                 }
@@ -4016,6 +4102,16 @@ namespace PadForge.Views
 
         private bool _syncingMidiConfig;
 
+        /// <summary>Re-reads the MIDI bar when its config changes underneath
+        /// the page. A box the user is typing in keeps its text: the re-read
+        /// would otherwise destroy an in-flight edit and the caret with it.</summary>
+        private void OnMidiConfigBarPropertyChanged(object sender,
+            System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (_syncingMidiConfig) return;
+            SyncMidiConfigBar();
+        }
+
         private void SyncMidiConfigBar()
         {
             if (DataContext is not PadViewModel vm) return;
@@ -4026,12 +4122,20 @@ namespace PadForge.Views
             if (isMidi)
             {
                 _syncingMidiConfig = true;
-                MidiChannelBox.Text = vm.MidiConfig.Channel.ToString();
-                MidiCcCountBox.Text = vm.MidiConfig.CcCount.ToString();
-                MidiStartCcBox.Text = vm.MidiConfig.StartCc.ToString();
-                MidiNoteCountBox.Text = vm.MidiConfig.NoteCount.ToString();
-                MidiStartNoteBox.Text = vm.MidiConfig.StartNote.ToString();
-                MidiVelocityBox.Text = vm.MidiConfig.Velocity.ToString();
+                // Skip a box the user is typing in. This runs on a config
+                // change now, not only on a page load, so overwriting every
+                // box unconditionally would destroy an in-flight edit and the
+                // caret with it.
+                static void Set(System.Windows.Controls.TextBox box, string text)
+                {
+                    if (box != null && !box.IsKeyboardFocusWithin) box.Text = text;
+                }
+                Set(MidiChannelBox, vm.MidiConfig.Channel.ToString());
+                Set(MidiCcCountBox, vm.MidiConfig.CcCount.ToString());
+                Set(MidiStartCcBox, vm.MidiConfig.StartCc.ToString());
+                Set(MidiNoteCountBox, vm.MidiConfig.NoteCount.ToString());
+                Set(MidiStartNoteBox, vm.MidiConfig.StartNote.ToString());
+                Set(MidiVelocityBox, vm.MidiConfig.Velocity.ToString());
                 _syncingMidiConfig = false;
             }
         }
@@ -4202,6 +4306,14 @@ namespace PadForge.Views
             if (sender is not ComboBox cb)
                 return;
             HookDeviceAxisPickerRefresh(cb, axisPicker: false);
+            // Capture before the list is replaced, restore after. Swapping
+            // ItemsSource under a live two-way SelectedValue can push a
+            // default back into the action while the old selection is
+            // momentarily unresolvable, and this handler runs on Loaded and on
+            // every dropdown open, so merely LOOKING at the picker could blank
+            // the saved device. The refresh hook already guards its own call
+            // this way; the markup-wired paths did not.
+            using var keep = new PickerSelectionGuard(cb);
             if (_currentPadVm == null)
                 return;
 
@@ -4240,6 +4352,7 @@ namespace PadForge.Views
             if (sender is not ComboBox cb)
                 return;
             HookDeviceAxisPickerRefresh(cb, axisPicker: true);
+            using var keep = new PickerSelectionGuard(cb);
             if (cb.DataContext is not MacroAction action)
                 return;
 
@@ -4286,6 +4399,37 @@ namespace PadForge.Views
         /// its action subscription on Unloaded so recycled template
         /// instances never pile up handlers.
         /// </summary>
+        /// <summary>Holds a macro action's device and axis pair across a
+        /// picker repopulation.
+        ///
+        /// <para>Replacing ItemsSource under a live two-way SelectedValue can
+        /// write a default back into the bound object while the old selection
+        /// is momentarily unresolvable. The page already treats that as a
+        /// defect at the app-volume and microphone pickers, both of which
+        /// capture and restore by hand. This is the same guard, as a scope so
+        /// every path through a picker gets it rather than only the ones
+        /// someone remembered.</para></summary>
+        private readonly struct PickerSelectionGuard : IDisposable
+        {
+            private readonly MacroAction _action;
+            private readonly Guid _guid;
+            private readonly int _axisIndex;
+
+            public PickerSelectionGuard(ComboBox cb)
+            {
+                _action = cb?.DataContext as MacroAction;
+                _guid = _action?.SourceDeviceGuid ?? Guid.Empty;
+                _axisIndex = _action?.SourceDeviceAxisIndex ?? -1;
+            }
+
+            public void Dispose()
+            {
+                if (_action == null) return;
+                if (_action.SourceDeviceGuid != _guid) _action.SourceDeviceGuid = _guid;
+                if (_action.SourceDeviceAxisIndex != _axisIndex) _action.SourceDeviceAxisIndex = _axisIndex;
+            }
+        }
+
         private void HookDeviceAxisPickerRefresh(ComboBox cb, bool axisPicker)
         {
             if (cb.Tag is DeviceAxisPickerHook) return;

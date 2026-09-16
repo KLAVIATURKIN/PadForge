@@ -25,7 +25,22 @@ namespace PadForge.Engine
         public int NumButtons => _numKeys;
         public int RawButtonCount => 0;
         public int NumHats => 0;
-        public int[] SupportedButtonIndices => Array.Empty<int>();
+        /// <summary>Every key, densely. An empty array would now read as
+        /// "this keyboard has no keys": the contract separates an empty set
+        /// from an ungated one so a device that truly has none can say so.
+        /// Cached, and rebuilt if the key count ever moves.</summary>
+        public int[] SupportedButtonIndices
+        {
+            get
+            {
+                var cached = _denseButtonIndices;
+                if (cached != null && cached.Length == _numKeys) return cached;
+                var a = new int[Math.Max(0, _numKeys)];
+                for (int i = 0; i < a.Length; i++) a[i] = i;
+                return _denseButtonIndices = a;
+            }
+        }
+        private int[] _denseButtonIndices;
         public IntPtr GamepadHandle => IntPtr.Zero;
         public bool HasRumble => false;
         public bool HasRumbleTriggers => false;

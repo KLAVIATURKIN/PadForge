@@ -501,6 +501,7 @@ namespace PadForge.Common.Input
         private const uint XBUTTON1 = 0x0001;
         private const uint XBUTTON2 = 0x0002;
 
+        private const uint KEYEVENTF_EXTENDEDKEY = 0x0001;
         private const uint KEYEVENTF_KEYUP = 0x0002;
 
         [StructLayout(LayoutKind.Sequential)]
@@ -573,7 +574,12 @@ namespace PadForge.Common.Input
                     {
                         wVk = vk,
                         wScan = (ushort)MapVirtualKeyW(vk, 0),
-                        dwFlags = down ? 0u : KEYEVENTF_KEYUP
+                        // The E0 keys carry the extended flag or SendInput
+                        // types their numpad twin. Same table the keyboard
+                        // hook and the macro emitter use.
+                        dwFlags = (down ? 0u : KEYEVENTF_KEYUP)
+                            | (PadForge.Engine.Common.InputHookManager.IsExtendedKey(vk)
+                                ? KEYEVENTF_EXTENDEDKEY : 0u)
                     }
                 }
             };

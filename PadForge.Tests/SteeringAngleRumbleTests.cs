@@ -329,15 +329,109 @@ public class SteeringAngleRumbleTests
         rig.Publish(short.MinValue);
         var ps = rig.Assignment.GetPadSetting();
         ps.ForceOverall = "50";
-        rig.Manager.TriggerRouteEngagedLeft[0] = true;
-        Field<byte[]>(rig.Manager, "_routeSourceLeft")[0] = 1;
-        Field<double[]>(rig.Manager, "_routeScaleLeft")[0] = 1;
+        // The route is per (slot, device), because the twelve route fields
+        // live on each device's own PadSetting. A slot-wide runtime handed
+        // every device on the slot the first configured one's route.
+        SeedRouteCell(rig.Manager, 0, rig.Device.InstanceGuid, srcLeft: 1, scaleLeft: 1);
         ushort left = 0, right = 0;
-        rig.Manager.ApplyTriggerRoutingForSony(0, ps, new Vibration(), new Vibration(), new Vibration(), ref left, ref right);
+        rig.Manager.ApplyTriggerRoutingForSony(0, rig.Device.InstanceGuid, ps,
+            new Vibration(), new Vibration(), new Vibration(), ref left, ref right);
         Assert.Equal(32767, left);
         Assert.Equal(0, right);
         rig.Feedback();
         Assert.Equal(left, rig.Output.Sent.Last().Item1);
+    }
+
+    /// <summary>Seeds one device's route cell on a slot, appending to whatever
+    /// rows the slot already has. The cell type is private, so this walks the
+    /// published jagged array to find it.</summary>
+    private static void SeedRouteCell(InputManager mgr, int slot, Guid device,
+        byte srcLeft = 0, double scaleLeft = 1, bool redirectLeft = false,
+        byte srcRight = 0, double scaleRight = 1, bool redirectRight = false)
+    {
+        var rowsField = typeof(InputManager).GetField("_triggerRouteCfg",
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        Assert.NotNull(rowsField);
+        var rows = (Array)rowsField.GetValue(mgr);
+        Type cellType = rows.GetType().GetElementType().GetElementType();
+
+        object cell = Activator.CreateInstance(cellType, nonPublic: true);
+        void Set(string name, object value) => cellType.GetField(name).SetValue(cell, value);
+        Set("Slot", slot);
+        Set("Device", device);
+        Set("SrcLeft", srcLeft);
+        Set("ScaleLeft", scaleLeft);
+        Set("RedirectLeft", redirectLeft);
+        Set("EngagedLeft", srcLeft != 0);
+        Set("SrcRight", srcRight);
+        Set("ScaleRight", scaleRight);
+        Set("RedirectRight", redirectRight);
+        Set("EngagedRight", srcRight != 0);
+
+        var existing = (Array)rows.GetValue(slot);
+        int n = existing?.Length ?? 0;
+        var next = Array.CreateInstance(cellType, n + 1);
+        for (int i = 0; i < n; i++) next.SetValue(existing.GetValue(i), i);
+        next.SetValue(cell, n);
+        rows.SetValue(next, slot);
+    }
+
+    /// <summary>Two devices on one slot, each with its own route. Before the
+    /// runtime was keyed by (slot, device) there was one route per slot, so the
+    /// second device either inherited the first one's route or, under Redirect,
+    /// lost its main motors to a setting it never carried.</summary>
+    [Fact]
+    public void TwoDevicesOnOneSlotEachRouteTheirOwn()
+    {
+        using var rig = new Rig();
+        rig.Publish(short.MinValue);
+        var ps = rig.Assignment.GetPadSetting();
+        ps.ForceOverall = "50";
+        var other = Guid.NewGuid();
+
+        // This device routes the left main motor to the left trigger; the
+        // other device on the same slot routes nothing.
+        SeedRouteCell(rig.Manager, 0, rig.Device.InstanceGuid, srcLeft: 1, scaleLeft: 1);
+        SeedRouteCell(rig.Manager, 0, other);
+
+        ushort mine = 0, mineR = 0;
+        rig.Manager.ApplyTriggerRoutingForSony(0, rig.Device.InstanceGuid, ps,
+            new Vibration(), new Vibration(), new Vibration(), ref mine, ref mineR);
+        Assert.Equal(32767, mine);
+
+        ushort theirs = 0, theirsR = 0;
+        rig.Manager.ApplyTriggerRoutingForSony(0, other, ps,
+            new Vibration(), new Vibration(), new Vibration(), ref theirs, ref theirsR);
+        Assert.Equal(0, theirs);
+    }
+
+    /// <summary>The Sony main-motor redirect read the slot with no owner check
+    /// at all, so one device's Redirect silenced every other device's main
+    /// motors on the same slot.</summary>
+    [Fact]
+    public void ARedirectSilencesOnlyItsOwnDevice()
+    {
+        using var rig = new Rig();
+        rig.Publish(short.MinValue);
+        var other = Guid.NewGuid();
+
+        SeedRouteCell(rig.Manager, 0, rig.Device.InstanceGuid, srcLeft: 1, redirectLeft: true);
+        SeedRouteCell(rig.Manager, 0, other);
+
+        rig.Manager.GetTriggerRouteMainRedirect(0, rig.Device.InstanceGuid,
+            out bool mineL, out bool mineR);
+        Assert.True(mineL);
+        Assert.False(mineR);
+
+        rig.Manager.GetTriggerRouteMainRedirect(0, other, out bool theirsL, out bool theirsR);
+        Assert.False(theirsL);
+        Assert.False(theirsR);
+
+        // And a device with no cell at all is untouched.
+        rig.Manager.GetTriggerRouteMainRedirect(0, Guid.NewGuid(),
+            out bool strayL, out bool strayR);
+        Assert.False(strayL);
+        Assert.False(strayR);
     }
 
     [Fact]

@@ -145,22 +145,69 @@ namespace PadForge.Common.Input
         private bool _hasSubmitted;
         private const int SubmitKeepaliveMs = 16;
 
-        /// <summary>The identity key handed to HIDMaestro for a slot's
-        /// virtual controller (HIDMaestro 1.8.0, HM#60). Every device path,
-        /// the container id and, for USB/IP personas, the USB serial derive
-        /// from it, so the pad comes back at the same paths after a
-        /// PadForge restart, a reboot or a driver upgrade, and a program
-        /// that stored a binding against the path keeps it (ChasePlane in
-        /// #395 keys on a hash of the path). The key names the slot and the
-        /// controller family, not the profile: the reporter switches among
-        /// Extended profiles on one slot and a different profile at the
-        /// same key keeps the identity and refreshes the descriptor. Two
-        /// families on one slot never overlap (Pass 2 waits for a retiring
-        /// pad), and their creation paths differ, so the family in the key
-        /// only keeps the derived container ids apart.</summary>
-        internal static string IdentityKeyFor(int padIndex, VirtualControllerType type)
-            => "padforge:slot" + padIndex.ToString(System.Globalization.CultureInfo.InvariantCulture)
+        /// <summary>True for a profile whose inbound feedback is decoded here
+        /// rather than read off a PID block in its descriptor. A gate that
+        /// only inspects the descriptor cannot see these, and hiding the
+        /// feature for them hides something that works.
+        ///
+        /// <para>Declared beside the decode it names so the two cannot drift
+        /// apart: the Deck persona's vendor feature commands are handled in
+        /// this file's output path.</para></summary>
+        public static bool DecodesFeedbackWithoutPidBlock(string profileId) =>
+            string.Equals(profileId, "steam-deck-composite", StringComparison.OrdinalIgnoreCase);
+
+        /// <summary>The identity key handed to HIDMaestro for a virtual
+        /// controller (HIDMaestro 1.8.0, HM#60). Every device path, the
+        /// container id and, for USB/IP personas, the USB serial derive from
+        /// it, so the pad comes back at the same paths after a PadForge
+        /// restart, a reboot or a driver upgrade, and a program that stored a
+        /// binding against the path keeps it (ChasePlane in #395 keys on a
+        /// hash of the path).
+        ///
+        /// <para>The key names the VISUAL POSITION and the controller family,
+        /// not the profile and not the pad index. Pad index is data identity
+        /// and moves on a reorder, while the visual position is the anchor the
+        /// reorder rotates data around (rules b and c at the top of
+        /// InputManager.Step5.VirtualDevices.cs). Keyed on the pad index, a
+        /// reorder that reused the controller at one position and rebuilt
+        /// another left the rebuilt one asking for a key the reused one still
+        /// held, and left every pad that moved answering to paths derived from
+        /// the index it used to sit at.</para>
+        ///
+        /// <para>A different profile at the same key keeps the identity and
+        /// refreshes the descriptor, which is what switching among Extended
+        /// profiles on one slot needs. Two families at one position never
+        /// overlap (Pass 2 waits for a retiring pad), and their creation paths
+        /// differ, so the family in the key only keeps the derived container
+        /// ids apart.</para></summary>
+        /// <param name="visualPosition">The controller's position within its
+        /// own family's order list, which is the kernel-slot anchor.</param>
+        internal static string IdentityKeyFor(int visualPosition, VirtualControllerType type)
+            => "padforge:slot"
+               + visualPosition.ToString(System.Globalization.CultureInfo.InvariantCulture)
                + ":" + type.ToString();
+
+        /// <summary>The identity key for the pad at <paramref name="padIndex"/>,
+        /// resolved through <paramref name="groupOrder"/>, its family's order
+        /// list. The pad's index within that list is its visual position.
+        ///
+        /// <para>A pad the list does not carry has no visual position and so no
+        /// anchor. It falls back to a key of its own namespace rather than to
+        /// its pad index, because a pad index spent as a position number would
+        /// collide with whichever pad actually sits at that position.</para>
+        /// </summary>
+        internal static string IdentityKeyForPad(int padIndex, VirtualControllerType type,
+            IReadOnlyList<int> groupOrder)
+        {
+            if (groupOrder != null)
+            {
+                for (int v = 0; v < groupOrder.Count; v++)
+                    if (groupOrder[v] == padIndex) return IdentityKeyFor(v, type);
+            }
+            return "padforge:pad"
+                   + padIndex.ToString(System.Globalization.CultureInfo.InvariantCulture)
+                   + ":" + type.ToString();
+        }
 
         private readonly string _identityKey;
 
@@ -304,6 +351,20 @@ namespace PadForge.Common.Input
             IsConnected = true;
         }
 
+        /// <summary>Set under <c>_dispatcherLock</c> the moment teardown
+        /// begins, so a concurrent attach sees the retirement before this
+        /// controller's own dispose has finished. IsConnected cannot carry
+        /// that, because Disconnect early-outs on it and Dispose calls
+        /// Disconnect again after the destroy pass has.</summary>
+        private volatile bool _retiring;
+
+        /// <summary>Stamped by every accepted feedback update. A queued stop
+        /// carries the value it was armed with and gives way to any later
+        /// command, which a compare on the motor value alone could not do:
+        /// two pulses of equal strength and different lengths are
+        /// indistinguishable by magnitude.</summary>
+        private long _feedbackGeneration;
+
         public void Disconnect()
         {
             if (!IsConnected) return;
@@ -331,6 +392,15 @@ namespace PadForge.Common.Input
             // thread's destroy pass, and the two never synchronized.
             lock (_dispatcherLock)
             {
+                // Publish the retirement BEFORE releasing the gate. Clearing
+                // the field first and flipping the flag afterwards left an
+                // attach window as wide as the controller dispose, which is
+                // seconds on an xinputhid profile. A caller arriving in it
+                // saw connected plus null and constructed a replacement that
+                // registers itself in the static instance map and subscribes
+                // to the config, outliving this controller as exactly the
+                // zombie writer this lock was added to prevent.
+                _retiring = true;
                 try
                 {
                     _userEffectsDispatcher?.Dispose();
@@ -386,7 +456,7 @@ namespace PadForge.Common.Input
             // cleanup pass revisits.
             lock (_dispatcherLock)
             {
-                if (!IsConnected) return;
+                if (!IsConnected || _retiring) return;
 
                 var d = _userEffectsDispatcher;
                 if (d == null)
@@ -465,7 +535,14 @@ namespace PadForge.Common.Input
         /// touch a slider. No-op when no dispatcher is attached.</summary>
         public void ReApplyUserEffects()
         {
-            _userEffectsDispatcher?.ApplyOnce();
+            // Under the same gate as the attach. Reading the field bare could
+            // not throw, but it could drive physical output through a
+            // dispatcher teardown had disposed microseconds earlier.
+            lock (_dispatcherLock)
+            {
+                if (!IsConnected || _retiring) return;
+                _userEffectsDispatcher?.ApplyOnce();
+            }
         }
 
         public void Dispose()
@@ -952,12 +1029,20 @@ namespace PadForge.Common.Input
                 if (profileSticks[s].YAxis != HMAxis.None && yi >= 0)
                     _axesScratch[profileSticks[s].YAxis] = ToHmRange(Ax(yi));
             }
-            int triggersToWrite = System.Math.Min(triggers, profileTriggers.Count);
-            for (int t = 0; t < triggersToWrite; t++)
+            for (int t = 0; t < triggers; t++)
             {
                 int ti = TriggerIdx(t);
-                if (profileTriggers[t].Axis != HMAxis.None && ti >= 0)
-                    _axesScratch[profileTriggers[t].Axis] = ToHmRange(Ax(ti));
+                if (ti < 0) continue;
+                // The profile names a left and a right trigger and no more, so
+                // a third or fourth was built into the descriptor and shown in
+                // the grid while nothing ever wrote it. Past the named pair the
+                // axis is addressed by its declared key instead, which is what
+                // the encoder walks anyway.
+                HMAxis axis = t < profileTriggers.Count
+                    ? profileTriggers[t].Axis
+                    : DeclaredAxisAt(sticks, triggers, t);
+                if (axis != HMAxis.None)
+                    _axesScratch[axis] = ToHmRange(Ax(ti));
             }
 
             var state = new HMGamepadState
@@ -985,6 +1070,75 @@ namespace PadForge.Common.Input
 
             _controller.SubmitState(state);
         }
+
+        /// <summary>The usage the descriptor gave trigger <paramref name="t"/>,
+        /// for the triggers past the profile's named pair.
+        ///
+        /// <para>PadForge emits this descriptor itself, so the answer is the
+        /// SDK's own allocation order rather than a guess. Sticks claim pairs
+        /// from (X, Y), (Z, Rz), (Rx, Ry), (Slider, Dial); triggers then take
+        /// whatever is left of Rx, Ry, Slider, Dial in that order; and a
+        /// trigger past the pool is declared on its own Generic Desktop usage
+        /// by CreateHMaestroController's ExtraTriggerAxis, in the same
+        /// order.</para></summary>
+        private static HMAxis DeclaredAxisAt(int sticks, int triggers, int t)
+        {
+            // Usages the sticks already hold.
+            bool rxUsed = sticks >= 3, ryUsed = sticks >= 3;
+            bool sliderUsed = sticks >= 4, dialUsed = sticks >= 4;
+            int index = 0;
+            foreach (HMAxis candidate in new[] { HMAxis.Rx, HMAxis.Ry, HMAxis.Slider, HMAxis.Dial })
+            {
+                bool taken = candidate switch
+                {
+                    HMAxis.Rx => rxUsed,
+                    HMAxis.Ry => ryUsed,
+                    HMAxis.Slider => sliderUsed,
+                    _ => dialUsed,
+                };
+                if (taken) continue;
+                if (index == t) return candidate;
+                index++;
+            }
+            // Past the pool, in ExtraTriggerAxis's order.
+            return (t - index) switch
+            {
+                0 => HMAxis.Vbrx,
+                1 => HMAxis.Vbry,
+                2 => HMAxis.Vbrz,
+                _ => HMAxis.Vno,
+            };
+        }
+
+        /// <summary>Submits a frame this process packed against the descriptor
+        /// it built, for an Extended layout the fixed gamepad state cannot
+        /// express. Data bytes only: the descriptor carries a report id only
+        /// when force feedback is on, and the driver heads the frame either
+        /// way.
+        ///
+        /// <para>Carries the idle dedup the fixed path has. The raw submit has
+        /// none of its own, so without this an Extended slot would publish at
+        /// the full poll rate whether or not anything moved.</para></summary>
+        public void SubmitPackedExtendedReport(ReadOnlySpan<byte> report)
+        {
+            if (_controller == null || report.Length == 0) return;
+            TickFfb();
+
+            long now = System.Environment.TickCount64;
+            if (_lastPackedLength == report.Length
+                && now - _lastPackedTick < SubmitKeepaliveMs
+                && report.SequenceEqual(new ReadOnlySpan<byte>(_lastPacked, 0, _lastPackedLength)))
+                return;
+
+            report.CopyTo(_lastPacked.AsSpan());
+            _lastPackedLength = report.Length;
+            _lastPackedTick = now;
+            _controller.SubmitRawReport(report);
+        }
+
+        private readonly byte[] _lastPacked = new byte[64];
+        private int _lastPackedLength;
+        private long _lastPackedTick;
 
         /// <summary>Detaches this VC from the engine's feedback array
         /// (audit 2026-07-25, C38). Called synchronously by
@@ -1319,6 +1473,18 @@ namespace PadForge.Common.Input
                                 $"FFBXIN slot={idx} len={data.Length} bytes={hex.ToString().TrimEnd()}");
                         }
                     }
+                    // An LED-only SET_STATE is not a motor frame. The five-byte
+                    // input struct carries flags in byte 4 (0x01 LED, 0x02
+                    // vibration), and the reference client's own LED writer sends
+                    // exactly that shape with both motors zeroed on device add, on
+                    // destroy and on the port flip-flop. Decoding it as a vibration
+                    // write cut a game's rumble every time any client touched the
+                    // LED ring. Only the exact five-byte form is gated: at longer
+                    // lengths the dialect is unsettled (#350) and byte 4 is not
+                    // reliably the flags byte, so those keep the prior behavior.
+                    if (data.Length == 5 && (data[4] & 0x02) == 0 && (data[4] & 0x01) != 0)
+                        return;
+
                     vibrationStates[idx].LeftMotorSpeed = (ushort)(data[2] * 257);
                     vibrationStates[idx].RightMotorSpeed = (ushort)(data[3] * 257);
 
@@ -1345,8 +1511,11 @@ namespace PadForge.Common.Input
                 // classic pulse train (period u16 at 5, count u16 at 7,
                 // gain at 9). The persona's reports are id-less, so the
                 // command byte is data[0] and pkt.ReportId is 0.
+                // Through the shared predicate, so the profile id is spelled
+                // once. The Bass Shakers gate asks the same question, and two
+                // spellings would let the gate fall behind the decode.
                 if (pkt.Source == HMOutputSource.HidFeature
-                    && string.Equals(_profile.Id, "steam-deck-composite", StringComparison.OrdinalIgnoreCase)
+                    && DecodesFeedbackWithoutPidBlock(_profile.Id)
                     && data.Length >= 1)
                 {
                     switch (data[0])
@@ -1359,6 +1528,7 @@ namespace PadForge.Common.Input
                             // the u16 precision and land it directly.
                             vibrationStates[idx].LeftMotorSpeed = left;
                             vibrationStates[idx].RightMotorSpeed = right;
+                            System.Threading.Interlocked.Increment(ref _feedbackGeneration);
                             System.Threading.Volatile.Write(ref _inboundRumblePack,
                                 Engine.Common.LfeOutputState.Pack(left, right, 0, 0));
                             return;
@@ -1369,6 +1539,7 @@ namespace PadForge.Common.Input
                             ushort mag = (ushort)(Math.Clamp(v, 0, 255) * 257);
                             vibrationStates[idx].LeftMotorSpeed = mag;
                             vibrationStates[idx].RightMotorSpeed = mag;
+                            System.Threading.Interlocked.Increment(ref _feedbackGeneration);
                             System.Threading.Volatile.Write(ref _inboundRumblePack,
                                 Engine.Common.LfeOutputState.Pack(mag, mag, 0, 0));
                             return;
@@ -1383,20 +1554,34 @@ namespace PadForge.Common.Input
                             System.Threading.Volatile.Write(ref _inboundRumblePack,
                                 Engine.Common.LfeOutputState.Pack(mag, mag, 0, 0));
                             // A pulse train is finite: stop when it ends, the
-                            // way HC does. The delayed zero yields to any
-                            // newer command by only clearing an unchanged
-                            // value (same last-write-wins the motors use).
+                            // way HC does, and yield to any newer command.
+                            //
+                            // The yield used to be a magnitude compare, which
+                            // cannot tell a newer pulse of equal amplitude
+                            // from the one it queued against: two pulses of
+                            // the same strength and different lengths each
+                            // cut the other short. The generation is stamped
+                            // by every accepted feedback update, so only the
+                            // pulse that queued this stop can still own it.
+                            //
+                            // The slot is re-read rather than captured, too.
+                            // Unregister parks the index at -1 precisely so
+                            // late callbacks no-op, and a reorder moves it, so
+                            // a captured index landed on whatever successor
+                            // held that slot durMs later.
+                            long myGen = System.Threading.Interlocked.Increment(ref _feedbackGeneration);
                             int durMs = Math.Max(1, (int)Math.Ceiling(period * (long)count / 1000.0));
                             _ = System.Threading.Tasks.Task.Delay(durMs).ContinueWith(_ =>
                             {
                                 try
                                 {
-                                    if (idx >= 0 && idx < vibrationStates.Length
-                                        && vibrationStates[idx].LeftMotorSpeed == mag
-                                        && vibrationStates[idx].RightMotorSpeed == mag)
+                                    int liveIdx = FeedbackPadIndex;
+                                    if (System.Threading.Volatile.Read(ref _feedbackGeneration) == myGen
+                                        && liveIdx == idx
+                                        && liveIdx >= 0 && liveIdx < vibrationStates.Length)
                                     {
-                                        vibrationStates[idx].LeftMotorSpeed = 0;
-                                        vibrationStates[idx].RightMotorSpeed = 0;
+                                        vibrationStates[liveIdx].LeftMotorSpeed = 0;
+                                        vibrationStates[liveIdx].RightMotorSpeed = 0;
                                         System.Threading.Volatile.Write(ref _inboundRumblePack,
                                             Engine.Common.LfeOutputState.Pack(0, 0, 0, 0));
                                     }

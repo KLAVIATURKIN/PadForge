@@ -111,6 +111,13 @@ namespace PadForge.Common.Input
         // 1000 Hz poll thread let a mouse-move macro drop the poll rate to ~200 Hz.
         private Thread _mouseInjectorThread;
         private volatile bool _running;
+        // Stamped on every Start, bumped by every Stop. The running flag alone
+        // cannot retire a loop: Stop sets it false, a later Start sets it true
+        // again, and a loop that outlived the bounded join would resume against
+        // torn-down devices and race the new thread over the scratch buffers
+        // documented as poll-thread only. A loop runs only while its own stamp
+        // is current.
+        private int _runGeneration;
         private volatile bool _idle;
 
         /// <summary>The engine half of "Continue polling when window loses
@@ -542,30 +549,14 @@ namespace PadForge.Common.Input
         /// thread only.</summary>
         private readonly List<string> _gyroEngageGuidScratch = new();
 
-        /// <summary>Per-slot trigger-route engaged bits (issue #102), one each
-        /// for the left and right trigger. Settled once per tick by
-        /// <see cref="UpdateTriggerRouteEngageStates"/> (Hold tracks the
-        /// activator, Toggle flips on rising edge, AlwaysOn / empty descriptor
-        /// = always on). Read in the trigger routing pass
-        /// (<c>ScaleTriggerRumbleForDevice</c>) to gate the main-motor → trigger
-        /// routing per side.</summary>
+        /// <summary>Whether ANY device on the slot has its left / right route
+        /// engaged (issue #102). A summary, not the gate: the route is settled
+        /// per (slot, device) on the cells below, because two devices on one
+        /// slot can each carry their own route. Kept because it is the public
+        /// surface, and because a caller with no device in hand (a slot-level
+        /// readout) still wants the one-bit answer.</summary>
         public volatile bool[] TriggerRouteEngagedLeft = new bool[MaxPads];
         public volatile bool[] TriggerRouteEngagedRight = new bool[MaxPads];
-        private readonly bool[] _prevTriggerRouteLeftDown = new bool[MaxPads];
-        private readonly bool[] _prevTriggerRouteRightDown = new bool[MaxPads];
-
-        /// <summary>Per-slot resolved trigger-route config (issue #102), captured
-        /// from the same first-device-wins PadSetting the engaged bits use so the
-        /// routing pass reads one consistent slot config instead of re-resolving
-        /// per device. Source: 0 None, 1 MainLeft, 2 MainRight, 3 MaxOfBoth,
-        /// 4 SumOfBoth. Scale is the 0-200% slider as 0.0-2.0. Redirect = silence
-        /// the main motor(s) the route drew from on the physical write.</summary>
-        private readonly byte[] _routeSourceLeft = new byte[MaxPads];
-        private readonly byte[] _routeSourceRight = new byte[MaxPads];
-        private readonly double[] _routeScaleLeft = new double[MaxPads];
-        private readonly double[] _routeScaleRight = new double[MaxPads];
-        private readonly bool[] _routeRedirectLeft = new bool[MaxPads];
-        private readonly bool[] _routeRedirectRight = new bool[MaxPads];
 
         // Low-cadence config snapshot for the trigger-route settle (#102), mirroring
         // _mirrorEngageCfg / UpdateHapticMirrorEngageStates (#185). Walking settings.Items
@@ -573,15 +564,67 @@ namespace PadForge.Common.Input
         // the ~1 kHz loop; the route CONFIG changes only on user edit, so snapshot it at
         // 250 ms and keep only the live per-tick work (the activator's ButtonHeldProvider
         // read + edge/Toggle settle) hot. null slot = no active route.
-        private sealed class TriggerRouteCfg
+        /// <summary>One device's route on one slot (issue #102). The twelve
+        /// route fields live on that device's own PadSetting, so this is the
+        /// unit the runtime has to be keyed by. Before, the snapshot took the
+        /// FIRST device on the slot with an active route and every other device
+        /// inherited it, which routed pads that had no routing configured and,
+        /// under Redirect, silenced their main motors.
+        ///
+        /// <para>Config fields are rewritten by the 250 ms refresh. The engaged
+        /// and edge state is NOT, which is why the cell outlives the refresh:
+        /// a Toggle activator's sticky bit would reset four times a second on a
+        /// config object that is replaced. Same reason the haptic mirror's
+        /// snapshot holds an EngageCell reference rather than inlining the
+        /// state.</para>
+        ///
+        /// <para>Source: 0 None, 1 MainLeft, 2 MainRight, 3 MaxOfBoth,
+        /// 4 SumOfBoth. Scale is the 0-200% slider as 0.0-2.0. Redirect =
+        /// silence the main motor(s) the route drew from on the physical
+        /// write.</para></summary>
+        private sealed class TriggerRouteCell
         {
+            public int Slot;
+            public Guid Device;
             public byte SrcLeft, SrcRight;
             public double ScaleLeft, ScaleRight;
             public bool RedirectLeft, RedirectRight;
             public string ActLeft, ActLeftGuid, ActLeftMode;
             public string ActRight, ActRightGuid, ActRightMode;
+            /// <summary>Written by the poll thread, read by the Sony dispatcher
+            /// thread, hence volatile. The twin of the mirror's EngageCell
+            /// flag.</summary>
+            public volatile bool EngagedLeft;
+            public volatile bool EngagedRight;
+            /// <summary>Previous-tick button state for the Toggle edge. Poll
+            /// thread only.</summary>
+            public bool PrevLeftDown, PrevRightDown;
         }
-        private readonly TriggerRouteCfg[] _triggerRouteCfg = new TriggerRouteCfg[MaxPads];
+
+        /// <summary>The cells each slot publishes, jagged because there is no
+        /// cap on devices per slot (a fixed per-slot width is the bug that
+        /// shipped at round 33, S14). A row exists only for a device whose
+        /// route is actually active, so the scan a consumer runs is length 0 or
+        /// 1 on any ordinary slot. Rebuilt at 250 ms; a whole-row reference
+        /// store is atomic, so a reader sees the old rows or the new ones and
+        /// never a torn set.</summary>
+        private readonly TriggerRouteCell[][] _triggerRouteCfg = new TriggerRouteCell[MaxPads][];
+
+        /// <summary>The cells themselves, keyed so the engaged and edge state
+        /// survives a refresh. Concurrent because the refresh runs on the poll
+        /// thread while the dispatcher may be walking a published row.</summary>
+        private readonly System.Collections.Concurrent.ConcurrentDictionary<(int Slot, Guid Device), TriggerRouteCell>
+            _routeCells = new();
+
+        /// <summary>Previous and current cell sets, diffed each refresh so a
+        /// cell whose config disappeared (device unassigned, slot deleted,
+        /// routing switched off) is disengaged and dropped rather than left
+        /// holding a sticky Toggle for the next device to inherit. The mirror's
+        /// diff re-ASSERTS a retired cell, because an ungated sink must stay
+        /// audible. A retired route is the opposite: it must go quiet.</summary>
+        private readonly HashSet<TriggerRouteCell> _routeCellsPrev = new();
+        private readonly HashSet<TriggerRouteCell> _routeCellsNew = new();
+        private readonly List<TriggerRouteCell> _routeRowScratch = new();
         private long _triggerRouteCfgRefreshTick;
 
         /// <summary>Monotonic frame counter feeding the Sony Report 0x01
@@ -595,6 +638,11 @@ namespace PadForge.Common.Input
         /// consumers to skip processing while it is unchanged.</summary>
         private long _deckFrameCounter;
         private readonly byte[] _deckReportScratch = new byte[ValveReportPackers.MaxReportSize];
+
+        /// <summary>Scratch for an Extended layout the fixed gamepad state
+        /// cannot carry (#C292). Poll thread only, like the Valve buffer beside
+        /// it.</summary>
+        private readonly byte[] _extendedReportScratch = new byte[ExtendedReportPacker.MaxReportSize];
 
         /// <summary>
         /// DSU motion server reference. When set, the polling thread broadcasts
@@ -1316,7 +1364,8 @@ namespace PadForge.Common.Input
             _frequencyTimer.Restart();
             _frequencyCounter = 0;
 
-            _pollingThread = new Thread(PollingLoop)
+            int generation = System.Threading.Interlocked.Increment(ref _runGeneration);
+            _pollingThread = new Thread(() => PollingLoop(generation))
             {
                 Name = "PadForge.InputManager",
                 IsBackground = true,
@@ -1324,7 +1373,7 @@ namespace PadForge.Common.Input
             };
             _pollingThread.Start();
 
-            _mouseInjectorThread = new Thread(MouseInjectorLoop)
+            _mouseInjectorThread = new Thread(() => MouseInjectorLoop(generation))
             {
                 Name = "PadForge.MouseInjector",
                 IsBackground = true,
@@ -1342,9 +1391,9 @@ namespace PadForge.Common.Input
         /// via a 2 ms sleep (timeBeginPeriod(1) from the poll loop keeps the sleep
         /// near 2 ms); accumulated delta is never lost, only batched.
         /// </summary>
-        private void MouseInjectorLoop()
+        private void MouseInjectorLoop(int generation)
         {
-            while (_running)
+            while (_running && System.Threading.Volatile.Read(ref _runGeneration) == generation)
             {
                 bool injected = FlushPendingMouseInput();
                 if (injected)
@@ -1379,6 +1428,7 @@ namespace PadForge.Common.Input
 
             // Macro sounds die with the engine. Releases the WASAPI clients.
             SoundMacroService.StopAll();
+            AudioPassthroughService.Shutdown();
 
             // The Wii speaker and the Switch/Steam haptic-tone stream die
             // with the ENGINE, not with a profile apply. StopAll no longer
@@ -1399,16 +1449,28 @@ namespace PadForge.Common.Input
             RumbleAudioService.SilenceAll();
             RumbleAudioService.StopAll();
 
+            // Retire this run before the joins. The join stays bounded so the
+            // interface never hangs on shutdown, but a thread that outlives it
+            // must not be revivable: with only the running flag to test, the
+            // next Start would set it true again and the stalled loop would
+            // rejoin the pipeline beside the new one. A stale stamp ends it on
+            // its next iteration instead, and its finally still runs.
+            System.Threading.Interlocked.Increment(ref _runGeneration);
+
             if (_pollingThread != null && _pollingThread.IsAlive)
             {
-                _pollingThread.Join(timeout: TimeSpan.FromSeconds(3));
+                if (!_pollingThread.Join(timeout: TimeSpan.FromSeconds(3)))
+                    Engine.SdlDiagLog.WriteLine(
+                        "STOP poll thread still running after a 3 s join; teardown continues, the loop is retired by generation");
                 _pollingThread = null;
             }
 
             if (_mouseInjectorThread != null && _mouseInjectorThread.IsAlive)
             {
                 MouseWorkSignal.Set(); // unpark an idle injector for the join
-                _mouseInjectorThread.Join(timeout: TimeSpan.FromSeconds(1));
+                if (!_mouseInjectorThread.Join(timeout: TimeSpan.FromSeconds(1)))
+                    Engine.SdlDiagLog.WriteLine(
+                        "STOP mouse injector still running after a 1 s join; teardown continues, the loop is retired by generation");
                 _mouseInjectorThread = null;
             }
 
@@ -1464,7 +1526,7 @@ namespace PadForge.Common.Input
         /// for sub-millisecond waits, and the thread priority is AboveNormal so it
         /// doesn't starve other work.
         /// </summary>
-        private void PollingLoop()
+        private void PollingLoop(int generation)
         {
             // Keep timeBeginPeriod(1). It still helps multimedia timers and
             // other system timing used by SDL, HIDMaestro, and the UI dispatcher.
@@ -2198,9 +2260,10 @@ namespace PadForge.Common.Input
             if (now - _triggerRouteCfgRefreshTick >= 250)
             {
                 _triggerRouteCfgRefreshTick = now;
+                _routeCellsNew.Clear();
                 for (int slot = 0; slot < MaxPads; slot++)
                 {
-                    TriggerRouteCfg cfg = null;
+                    _routeRowScratch.Clear();
                     if (SettingsManager.SlotCreated[slot])
                     {
                         lock (settings.SyncRoot)
@@ -2214,69 +2277,102 @@ namespace PadForge.Common.Input
                                 bool lActive = RouteSideActive(p.LeftTriggerRouteSource, p.LeftTriggerRouteMode);
                                 bool rActive = RouteSideActive(p.RightTriggerRouteSource, p.RightTriggerRouteMode);
                                 if (!lActive && !rActive) continue;
-                                cfg = new TriggerRouteCfg
-                                {
-                                    SrcLeft = lActive ? ParseRouteSource(p.LeftTriggerRouteSource) : (byte)0,
-                                    SrcRight = rActive ? ParseRouteSource(p.RightTriggerRouteSource) : (byte)0,
-                                    ScaleLeft = ParseRouteScale(p.LeftTriggerRouteScale),
-                                    ScaleRight = ParseRouteScale(p.RightTriggerRouteScale),
-                                    RedirectLeft = p.LeftTriggerRouteMode == "Redirect",
-                                    RedirectRight = p.RightTriggerRouteMode == "Redirect",
-                                    ActLeft = p.LeftTriggerRouteActivator,
-                                    ActLeftGuid = p.LeftTriggerRouteActivatorDeviceGuid,
-                                    ActLeftMode = p.LeftTriggerRouteActivatorMode,
-                                    ActRight = p.RightTriggerRouteActivator,
-                                    ActRightGuid = p.RightTriggerRouteActivatorDeviceGuid,
-                                    ActRightMode = p.RightTriggerRouteActivatorMode,
-                                };
-                                break;
+                                // Every configured device gets a row. The old
+                                // loop stopped at the first one, which is what
+                                // made the slot carry a single route.
+                                var cell = _routeCells.GetOrAdd((slot, us.InstanceGuid),
+                                    static k => new TriggerRouteCell { Slot = k.Slot, Device = k.Device });
+                                cell.SrcLeft = lActive ? ParseRouteSource(p.LeftTriggerRouteSource) : (byte)0;
+                                cell.SrcRight = rActive ? ParseRouteSource(p.RightTriggerRouteSource) : (byte)0;
+                                cell.ScaleLeft = ParseRouteScale(p.LeftTriggerRouteScale);
+                                cell.ScaleRight = ParseRouteScale(p.RightTriggerRouteScale);
+                                cell.RedirectLeft = p.LeftTriggerRouteMode == "Redirect";
+                                cell.RedirectRight = p.RightTriggerRouteMode == "Redirect";
+                                cell.ActLeft = p.LeftTriggerRouteActivator;
+                                cell.ActLeftGuid = p.LeftTriggerRouteActivatorDeviceGuid;
+                                cell.ActLeftMode = p.LeftTriggerRouteActivatorMode;
+                                cell.ActRight = p.RightTriggerRouteActivator;
+                                cell.ActRightGuid = p.RightTriggerRouteActivatorDeviceGuid;
+                                cell.ActRightMode = p.RightTriggerRouteActivatorMode;
+                                _routeRowScratch.Add(cell);
+                                _routeCellsNew.Add(cell);
                             }
                         }
                     }
-                    _triggerRouteCfg[slot] = cfg;
+                    _triggerRouteCfg[slot] = _routeRowScratch.Count == 0
+                        ? null
+                        : _routeRowScratch.ToArray();
                 }
+
+                // Retire what the new snapshot no longer carries, so a device
+                // that stops routing (unassigned, slot deleted, mode switched
+                // to Off) cannot leave a sticky Toggle behind for whoever takes
+                // that (slot, device) pair next.
+                foreach (var old in _routeCellsPrev)
+                {
+                    if (_routeCellsNew.Contains(old)) continue;
+                    old.EngagedLeft = false;
+                    old.EngagedRight = false;
+                    old.PrevLeftDown = false;
+                    old.PrevRightDown = false;
+                    _routeCells.TryRemove((old.Slot, old.Device), out _);
+                }
+                _routeCellsPrev.Clear();
+                foreach (var c in _routeCellsNew) _routeCellsPrev.Add(c);
             }
 
             for (int slot = 0; slot < MaxPads; slot++)
             {
-                var cfg = _triggerRouteCfg[slot];
-                if (cfg == null)
+                var rows = _triggerRouteCfg[slot];
+                if (rows == null)
                 {
                     TriggerRouteEngagedLeft[slot] = false;
                     TriggerRouteEngagedRight[slot] = false;
-                    _prevTriggerRouteLeftDown[slot] = false;
-                    _prevTriggerRouteRightDown[slot] = false;
-                    _routeSourceLeft[slot] = 0;
-                    _routeSourceRight[slot] = 0;
                     continue;
                 }
 
-                // Publish resolved config every tick (trivial array writes) so the
-                // downstream routing pass stays unchanged.
-                _routeSourceLeft[slot] = cfg.SrcLeft;
-                _routeSourceRight[slot] = cfg.SrcRight;
-                _routeScaleLeft[slot] = cfg.ScaleLeft;
-                _routeScaleRight[slot] = cfg.ScaleRight;
-                _routeRedirectLeft[slot] = cfg.RedirectLeft;
-                _routeRedirectRight[slot] = cfg.RedirectRight;
+                bool anyLeft = false, anyRight = false;
+                for (int r = 0; r < rows.Length; r++)
+                {
+                    var cell = rows[r];
+                    bool srcL = cell.SrcLeft != 0;
+                    bool srcR = cell.SrcRight != 0;
 
-                bool srcL = cfg.SrcLeft != 0;
-                bool srcR = cfg.SrcRight != 0;
+                    // Settle unconditionally (the activator edge state must advance even
+                    // when the source is None) then AND with the source-active flag.
+                    bool leftSettled = SettleRouteActivator(
+                        slot, cell.ActLeft, cell.ActLeftGuid, cell.ActLeftMode,
+                        cell.PrevLeftDown, cell.EngagedLeft, out bool leftDown);
+                    cell.EngagedLeft = srcL && leftSettled;
+                    cell.PrevLeftDown = leftDown;
 
-                // Settle unconditionally (the activator edge state must advance even
-                // when the source is None) then AND with the source-active flag.
-                bool leftSettled = SettleRouteActivator(
-                    slot, cfg.ActLeft, cfg.ActLeftGuid, cfg.ActLeftMode,
-                    _prevTriggerRouteLeftDown, TriggerRouteEngagedLeft[slot], out bool leftDown);
-                TriggerRouteEngagedLeft[slot] = srcL && leftSettled;
-                _prevTriggerRouteLeftDown[slot] = leftDown;
+                    bool rightSettled = SettleRouteActivator(
+                        slot, cell.ActRight, cell.ActRightGuid, cell.ActRightMode,
+                        cell.PrevRightDown, cell.EngagedRight, out bool rightDown);
+                    cell.EngagedRight = srcR && rightSettled;
+                    cell.PrevRightDown = rightDown;
 
-                bool rightSettled = SettleRouteActivator(
-                    slot, cfg.ActRight, cfg.ActRightGuid, cfg.ActRightMode,
-                    _prevTriggerRouteRightDown, TriggerRouteEngagedRight[slot], out bool rightDown);
-                TriggerRouteEngagedRight[slot] = srcR && rightSettled;
-                _prevTriggerRouteRightDown[slot] = rightDown;
+                    anyLeft |= cell.EngagedLeft;
+                    anyRight |= cell.EngagedRight;
+                }
+                TriggerRouteEngagedLeft[slot] = anyLeft;
+                TriggerRouteEngagedRight[slot] = anyRight;
             }
+        }
+
+        /// <summary>This device's route on this slot, or null when it has
+        /// none. A linear walk of the slot's published rows: rows exist only
+        /// for devices with an active route, so the scan is length 0 or 1 on
+        /// any ordinary slot and beats hashing a tuple on a path that runs per
+        /// assigned device per tick.</summary>
+        private TriggerRouteCell FindRouteCell(int slot, Guid device)
+        {
+            if (slot < 0 || slot >= MaxPads || device == Guid.Empty) return null;
+            var rows = _triggerRouteCfg[slot];
+            if (rows == null) return null;
+            for (int i = 0; i < rows.Length; i++)
+                if (rows[i].Device == device) return rows[i];
+            return null;
         }
 
         /// <summary>Trigger-route source enum parse:
@@ -2307,19 +2403,23 @@ namespace PadForge.Common.Input
         /// the pre-redirect main motor so Redirect moves the energy to the trigger
         /// rather than dropping it. The macro override is independent of the route
         /// activator, so it contributes even when both routing sides are disengaged.</summary>
-        private void ApplyTriggerRouting(int slot, ushort mainL, ushort mainR,
+        private void ApplyTriggerRouting(int slot, Guid device, ushort mainL, ushort mainR,
             out ushort routedLeft, out ushort routedRight, out bool zeroMainL, out bool zeroMainR)
         {
             routedLeft = 0; routedRight = 0; zeroMainL = false; zeroMainR = false;
-            if (TriggerRouteEngagedLeft[slot])
+            // This device's own route, which is the only one that may touch its
+            // motors. The macro trigger override below is slot-level and still
+            // reaches every device.
+            var cell = FindRouteCell(slot, device);
+            if (cell != null && cell.EngagedLeft)
             {
-                routedLeft = RouteMain(_routeSourceLeft[slot], _routeScaleLeft[slot], mainL, mainR);
-                if (_routeRedirectLeft[slot]) MarkRedirect(_routeSourceLeft[slot], ref zeroMainL, ref zeroMainR);
+                routedLeft = RouteMain(cell.SrcLeft, cell.ScaleLeft, mainL, mainR);
+                if (cell.RedirectLeft) MarkRedirect(cell.SrcLeft, ref zeroMainL, ref zeroMainR);
             }
-            if (TriggerRouteEngagedRight[slot])
+            if (cell != null && cell.EngagedRight)
             {
-                routedRight = RouteMain(_routeSourceRight[slot], _routeScaleRight[slot], mainL, mainR);
-                if (_routeRedirectRight[slot]) MarkRedirect(_routeSourceRight[slot], ref zeroMainL, ref zeroMainR);
+                routedRight = RouteMain(cell.SrcRight, cell.ScaleRight, mainL, mainR);
+                if (cell.RedirectRight) MarkRedirect(cell.SrcRight, ref zeroMainL, ref zeroMainR);
             }
 
             // Macro trigger override (#102) max-combines with the routed value, the
@@ -2362,7 +2462,7 @@ namespace PadForge.Common.Input
         /// mirrors the Sony main-rumble provider (macro main rumble + constant force +
         /// per-device gain). Runs on the dispatcher thread, so it takes caller-owned
         /// scratch to stay off the input thread's buffers.</summary>
-        internal void ApplyTriggerRoutingForSony(int slot, PadSetting devicePs, Vibration raw,
+        internal void ApplyTriggerRoutingForSony(int slot, Guid device, PadSetting devicePs, Vibration raw,
             Vibration macroScratch, Vibration cfScratch, ref ushort triggerL, ref ushort triggerR)
         {
             if (slot < 0 || slot >= MaxPads || raw == null) return;
@@ -2370,7 +2470,7 @@ namespace PadForge.Common.Input
             var eff = ConstantForceEvaluator.Resolve(withMacro, devicePs, cfScratch);
             ScaleRumbleForDevice(eff.LeftMotorSpeed, eff.RightMotorSpeed, devicePs,
                 out ushort mainL, out ushort mainR);
-            ApplyTriggerRouting(slot, mainL, mainR,
+            ApplyTriggerRouting(slot, device, mainL, mainR,
                 out ushort routedLT, out ushort routedRT, out _, out _);
             if (routedLT > triggerL) triggerL = routedLT;
             if (routedRT > triggerR) triggerR = routedRT;
@@ -2380,14 +2480,16 @@ namespace PadForge.Common.Input
         /// engaged Redirect routing should silence each main motor on the physical
         /// DualSense, mirroring the Redirect zeroing the Xbox physical write applies in
         /// ApplyForceFeedback. The game-facing virtual-controller state is unaffected.</summary>
-        internal void GetTriggerRouteMainRedirect(int slot, out bool zeroMainL, out bool zeroMainR)
+        internal void GetTriggerRouteMainRedirect(int slot, Guid device,
+            out bool zeroMainL, out bool zeroMainR)
         {
             zeroMainL = false; zeroMainR = false;
-            if (slot < 0 || slot >= MaxPads) return;
-            if (TriggerRouteEngagedLeft[slot] && _routeRedirectLeft[slot])
-                MarkRedirect(_routeSourceLeft[slot], ref zeroMainL, ref zeroMainR);
-            if (TriggerRouteEngagedRight[slot] && _routeRedirectRight[slot])
-                MarkRedirect(_routeSourceRight[slot], ref zeroMainL, ref zeroMainR);
+            var cell = FindRouteCell(slot, device);
+            if (cell == null) return;
+            if (cell.EngagedLeft && cell.RedirectLeft)
+                MarkRedirect(cell.SrcLeft, ref zeroMainL, ref zeroMainR);
+            if (cell.EngagedRight && cell.RedirectRight)
+                MarkRedirect(cell.SrcRight, ref zeroMainL, ref zeroMainR);
         }
 
         /// <summary>Settles one trigger's route activator. Returns the engaged
@@ -2404,14 +2506,14 @@ namespace PadForge.Common.Input
         /// empty-descriptor rule stays "always on" for it too, because a
         /// button that does not exist is never held.</para></summary>
         internal static bool SettleRouteActivator(int slot, string descriptor, string deviceGuid,
-            string mode, bool[] prevDown, bool curEngaged, out bool buttonDown)
+            string mode, bool prevDown, bool curEngaged, out bool buttonDown)
         {
             buttonDown = !string.IsNullOrEmpty(descriptor)
                 && (SourceCoercion.ButtonHeldProvider?.Invoke(deviceGuid ?? "", descriptor, slot) ?? false);
             if (string.IsNullOrEmpty(mode)) mode = "Hold";
             if (mode == "AlwaysOn") return true;
             if (mode == "Toggle")
-                return (buttonDown && !prevDown[slot]) ? !curEngaged : curEngaged;
+                return (buttonDown && !prevDown) ? !curEngaged : curEngaged;
             if (mode == "ReleaseToEngage")
                 return string.IsNullOrEmpty(descriptor) || !buttonDown;
             return string.IsNullOrEmpty(descriptor) || buttonDown; // Hold: empty = always on
@@ -2451,11 +2553,10 @@ namespace PadForge.Common.Input
             {
                 TriggerRouteEngagedLeft[i] = false;
                 TriggerRouteEngagedRight[i] = false;
-                _prevTriggerRouteLeftDown[i] = false;
-                _prevTriggerRouteRightDown[i] = false;
-                _routeSourceLeft[i] = 0;
-                _routeSourceRight[i] = 0;
+                _triggerRouteCfg[i] = null;
             }
+            _routeCells.Clear();
+            _routeCellsPrev.Clear();
             // Force an immediate re-snapshot on the next poll: the config cache is
             // 250 ms-cadenced, so without this the reset (dropping sticky Toggle state
             // on a profile switch) would be re-applied from the STALE old-profile
@@ -3129,10 +3230,47 @@ namespace PadForge.Common.Input
 
         /// <summary>Checks the idle gate and publishes neutral DSU data before
         /// idle maintenance. No input evaluation or native submission runs here.</summary>
+        /// <summary>True once the idle entry edge has neutralized the outputs.
+        /// Cleared when the engine leaves idle so the next entry neutralizes
+        /// again.</summary>
+        private bool _idleNeutralized;
+
         internal bool BeginIdlePoll()
         {
-            if (!_idle) return false;
+            if (!_idle) { _idleNeutralized = false; return false; }
             Array.Clear(_steeringAngleFrames);
+            // Idle skips steps 3 to 5, and step 3 deliberately KEEPS the last
+            // output for a device that went offline without leaving the list
+            // (its no-transient-zero rule). A pad that sleeps mid-hold therefore
+            // left that frame latched on the virtual controller, and with the
+            // inactivity timeout at zero the slot idles immediately with the
+            // controller still alive, so nothing ever cleared it. One neutral
+            // submit on the entry edge, the same pair the focus-suspend edge
+            // runs. Nothing writes the combined outputs in idle, so one pass is
+            // enough.
+            if (!_idleNeutralized)
+            {
+                _idleNeutralized = true;
+                try
+                {
+                    // The DSU motion cache survives the neutralize. It is a
+                    // READ cache the interface and the motion server compare
+                    // timestamps against, not an output surface, and idle
+                    // deliberately republishes nothing from it: clearing it
+                    // would make the next real poll read a fresh sample as
+                    // unchanged. The neutral DSU broadcast below is what the
+                    // subscribers get meanwhile.
+                    var keptDsu = new MotionSnapshot[DsuMotionSnapshots.Length];
+                    Array.Copy(DsuMotionSnapshots, keptDsu, keptDsu.Length);
+                    using (EnterMenuPublication())
+                    {
+                        NeutralizeCombinedOutputs();
+                        UpdateVirtualDevices();
+                    }
+                    Array.Copy(keptDsu, DsuMotionSnapshots, keptDsu.Length);
+                }
+                catch (Exception ex) { RaiseError("Idle neutral edge", ex); }
+            }
             var server = DsuServer;
             if (server == null) return true;
 
@@ -3301,8 +3439,50 @@ namespace PadForge.Common.Input
                     available |= sample.HasMotion;
                 }
             }
-            return CombineMotionValues(row, requireGyro, _motionRowX,
+            var combined = CombineMotionValues(row, requireGyro, _motionRowX,
                 _motionRowY, _motionRowZ, available, timestampUs);
+            // An InvertOnHold source is a ROW modifier: skipped above so it
+            // contributes no value, and it flips the row's sign while its
+            // modifier is held. Every scalar lane applies that flip after the
+            // combine. Motion rows skipped the source and then dropped the flip
+            // as well, so the modifier did nothing at all. Post-combine, like
+            // the scalar lanes, because a custom expression over negated inputs
+            // is not the negation of its result.
+            if (combined.HasMotion && MotionRowInversionHeld(row, slotIndex))
+            {
+                if (requireGyro)
+                {
+                    combined.GyroPitch = -combined.GyroPitch;
+                    combined.GyroYaw = -combined.GyroYaw;
+                    combined.GyroRoll = -combined.GyroRoll;
+                }
+                else
+                {
+                    combined.AccelX = -combined.AccelX;
+                    combined.AccelY = -combined.AccelY;
+                    combined.AccelZ = -combined.AccelZ;
+                }
+            }
+            return combined;
+        }
+
+        /// <summary>Row-level held inversion for a motion row. A pinned
+        /// modifier reads its own device's state. An empty-guid modifier has no
+        /// "device being processed" here, because the motion lane is slot-level
+        /// rather than per-device, so it reads against each device assigned to
+        /// the slot and any held one flips the row, which is the same OR the
+        /// scalar lane produces across its per-device passes.</summary>
+        private bool MotionRowInversionHeld(MappingRow row, int slotIndex)
+        {
+            if (IsInvertOnHoldActive(row, null, null, slotIndex)) return true;
+            for (int i = 0; i < _motionAssignedDevices.Count; i++)
+            {
+                var ud = _motionAssignedDevices[i];
+                if (ud?.InputState == null) continue;
+                if (IsInvertOnHoldActive(row, ud.InputState, ud.InstanceGuidString, slotIndex))
+                    return true;
+            }
+            return false;
         }
 
         /// <summary>

@@ -2798,6 +2798,15 @@ namespace PadForge.Common.Input
             vks.Add(0xA4); vks.Add(0xA5); // L/R Alt
             // Special keys
             vks.Add(0x20); vks.Add(0x0D); vks.Add(0x1B); vks.Add(0x09); vks.Add(0x08); vks.Add(0x14);
+            // The four lock and system keys the mapping grid has always offered.
+            // This list is what the mapping walk iterates, so a target the grid
+            // advertises and this set omits is a row that saves, shows a binding
+            // and never fires.
+            vks.Add(0x90); vks.Add(0x91); vks.Add(0x2C); vks.Add(0x13);
+            // Windows and Menu. The preview keyboard draws all three and treats
+            // them as click-to-record targets, so leaving them out here made
+            // those three keys dead on both surfaces at once.
+            vks.Add(0x5B); vks.Add(0x5C); vks.Add(0x5D);
             // Navigation
             vks.Add(0x26); vks.Add(0x28); vks.Add(0x25); vks.Add(0x27); // arrows
             vks.Add(0x24); vks.Add(0x23); vks.Add(0x21); vks.Add(0x22); // home/end/pgup/pgdn

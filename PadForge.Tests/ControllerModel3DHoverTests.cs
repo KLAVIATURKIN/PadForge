@@ -561,7 +561,7 @@ namespace PadForge.Tests
                 // separates a barrel from a paddle that merely sits nearby:
                 // the DualSense Edge's left paddle is 9.8 mm off its stick's
                 // axis, a whole ring radius, while the Steam Deck's barrel is
-                // on it to a tenth of a millimetre.
+                // on it to a tenth of a millimeter.
                 double onAxis = rb.SizeX * 0.15;
 
                 foreach (var child in m.model3DGroup.Children)

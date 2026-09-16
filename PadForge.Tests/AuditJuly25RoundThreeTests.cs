@@ -138,15 +138,24 @@ namespace PadForge.Tests
             }
         }
 
-        // ── C17: the Repeat section is dead for a fires-at-release mode ──
+        // ── C17: only the until-release repeat is dead at release ──
 
+        /// <summary>C17 hid the whole Repeat section for ShortPress. The
+        /// claim held for one of the three repeat modes. A ShortPress run
+        /// begins with the trigger already released, which sets the
+        /// deferred-completion flag, and that flag gates the until-release
+        /// branch alone. A fixed count runs there like anywhere else, so the
+        /// section shows and the picker closes off Until Release by itself.
+        /// The engine side is pinned in ShortPressRepeatSectionTests.</summary>
         [Fact]
-        public void ShortPress_HidesTheRepeatSection()
+        public void ShortPress_KeepsTheRepeatSection_AndDropsOnlyUntilRelease()
         {
             var m = Macro(MacroTriggerMode.ShortPress);
-            Assert.False(m.ShowsRepeatSection);
+            Assert.True(m.ShowsRepeatSection);
+            Assert.False(m.SupportsUntilReleaseRepeat);
             m.TriggerMode = MacroTriggerMode.OnPress;
             Assert.True(m.ShowsRepeatSection);
+            Assert.True(m.SupportsUntilReleaseRepeat);
         }
 
         // ── C3: an unrepresentable scope stays visible ──

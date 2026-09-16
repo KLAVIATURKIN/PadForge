@@ -100,7 +100,7 @@ namespace PadForge.Common.Input
                 // that predate it.
                 if (TrySwitch2EffectPassthrough(gamepadHandle))
                     return true;
-                if (TrySwitch2PowerOff())
+                if (TrySwitch2PowerOff(serial))
                     return true;
             }
 
@@ -341,19 +341,29 @@ namespace PadForge.Common.Input
             return buf;
         }
 
-        /// <summary>Sends the shutdown command to every connected Switch 2
+        /// <summary>Sends the shutdown command to ONE connected Switch 2
         /// controller through a second GATT client session on the link the
-        /// SDL BLE driver already holds. Targeting is family-wide: the driver
-        /// exposes no per-joystick BLE address, so one chord shuts down every
-        /// connected Switch 2 pad. Service and characteristic UUIDs per
+        /// SDL BLE driver already holds.
+        ///
+        /// <para>Targeted by address. The driver stamps each joystick's serial
+        /// as its twelve-hex-digit Bluetooth address (SDL_ble_switch2joystick.c
+        /// formats <c>%012llx</c> from <c>ctrl-&gt;bluetooth_address</c> into
+        /// <c>joystick-&gt;serial</c> on open), so the record's own serial IS
+        /// the address this sweep matches. Before that, targeting was
+        /// family-wide on the belief that no per-joystick address existed, and
+        /// a chord meant for one pad powered off every connected Switch 2 in
+        /// the room. A caller with no serial still sweeps the family, which is
+        /// what the all-devices target mode asks for.</para>
+        ///
+        /// <para>Service and characteristic UUIDs per
         /// SDL_ble_switch2joystick.c:120,122; the command characteristic is
         /// write-without-response per the #153 hardware log. Blocking, worker
-        /// thread only.</summary>
-        private static bool TrySwitch2PowerOff()
+        /// thread only.</para></summary>
+        private static bool TrySwitch2PowerOff(string serial)
         {
             try
             {
-                return TrySwitch2PowerOffAsync().GetAwaiter().GetResult();
+                return TrySwitch2PowerOffAsync(serial).GetAwaiter().GetResult();
             }
             catch
             {
@@ -387,8 +397,23 @@ namespace PadForge.Common.Input
         private static readonly Guid Switch2ServiceUuid = new("ab7de9be-89fe-49ad-828f-118f09df7fd0");
         private static readonly Guid Switch2CommandUuid = new("649d4ac9-8eb7-4e6c-af44-1ea54fe5f005");
 
-        private static async System.Threading.Tasks.Task<bool> TrySwitch2PowerOffAsync()
+        private static async System.Threading.Tasks.Task<bool> TrySwitch2PowerOffAsync(string serial)
         {
+            // The caller's pad, as the driver spells it: twelve lowercase hex
+            // digits of the Bluetooth address. Anything else (an empty serial
+            // from the all-devices target mode, or a serial that is not an
+            // address) leaves the sweep family-wide, which is the behavior that
+            // mode wants.
+            ulong wantAddress = 0;
+            if (!string.IsNullOrEmpty(serial))
+            {
+                string hex = serial.Replace(":", "").Replace("-", "").Trim();
+                if (hex.Length == 12
+                    && !ulong.TryParse(hex, System.Globalization.NumberStyles.HexNumber,
+                            System.Globalization.CultureInfo.InvariantCulture, out wantAddress))
+                    wantAddress = 0;
+            }
+
             // Discovery is by CONNECTED LE device, not by service interface:
             // the GattDeviceService selector only surfaces services of PAIRED
             // devices (measured: zero instances while the pad was connected),
@@ -411,6 +436,9 @@ namespace PadForge.Common.Input
                 {
                     dev = await Windows.Devices.Bluetooth.BluetoothLEDevice.FromIdAsync(info.Id);
                     if (dev == null)
+                        continue;
+                    // The pad the caller named, when it named one.
+                    if (wantAddress != 0 && dev.BluetoothAddress != wantAddress)
                         continue;
                     var svcResult = await dev.GetGattServicesForUuidAsync(Switch2ServiceUuid,
                         Windows.Devices.Bluetooth.BluetoothCacheMode.Uncached);

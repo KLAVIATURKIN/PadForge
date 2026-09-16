@@ -26,7 +26,22 @@ namespace PadForge.Engine
         public int NumButtons => ConsumerUsageTable.TotalSlots;
         public int RawButtonCount => 0;
         public int NumHats => 0;
-        public int[] SupportedButtonIndices => Array.Empty<int>();
+        /// <summary>Every consumer-control slot, densely, for the reason the
+        /// keyboard wrapper gives: an empty array now means the device has no
+        /// buttons, which is not true here.</summary>
+        public int[] SupportedButtonIndices
+        {
+            get
+            {
+                int n = ConsumerUsageTable.TotalSlots;
+                var cached = _denseButtonIndices;
+                if (cached != null && cached.Length == n) return cached;
+                var a = new int[Math.Max(0, n)];
+                for (int i = 0; i < a.Length; i++) a[i] = i;
+                return _denseButtonIndices = a;
+            }
+        }
+        private int[] _denseButtonIndices;
         public IntPtr GamepadHandle => IntPtr.Zero;
         public bool HasRumble => false;
         public bool HasRumbleTriggers => false;

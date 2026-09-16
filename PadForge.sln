@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PadForge.SteamWorkshop", "P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PadForge.SteamWorkshop.Tests", "PadForge.SteamWorkshop.Tests\PadForge.SteamWorkshop.Tests.csproj", "{23E6392B-9DFE-4EB5-B48D-CD2D94AE27E0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PadForge.NativeChecks", "PadForge.NativeChecks\PadForge.NativeChecks.csproj", "{96B06144-443B-423D-AD3F-0E2A27E8B9F7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,18 @@ Global
 		{23E6392B-9DFE-4EB5-B48D-CD2D94AE27E0}.Release|x64.Build.0 = Release|Any CPU
 		{23E6392B-9DFE-4EB5-B48D-CD2D94AE27E0}.Release|x86.ActiveCfg = Release|Any CPU
 		{23E6392B-9DFE-4EB5-B48D-CD2D94AE27E0}.Release|x86.Build.0 = Release|Any CPU
+		{96B06144-443B-423D-AD3F-0E2A27E8B9F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96B06144-443B-423D-AD3F-0E2A27E8B9F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96B06144-443B-423D-AD3F-0E2A27E8B9F7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{96B06144-443B-423D-AD3F-0E2A27E8B9F7}.Debug|x64.Build.0 = Debug|Any CPU
+		{96B06144-443B-423D-AD3F-0E2A27E8B9F7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{96B06144-443B-423D-AD3F-0E2A27E8B9F7}.Debug|x86.Build.0 = Debug|Any CPU
+		{96B06144-443B-423D-AD3F-0E2A27E8B9F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96B06144-443B-423D-AD3F-0E2A27E8B9F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96B06144-443B-423D-AD3F-0E2A27E8B9F7}.Release|x64.ActiveCfg = Release|Any CPU
+		{96B06144-443B-423D-AD3F-0E2A27E8B9F7}.Release|x64.Build.0 = Release|Any CPU
+		{96B06144-443B-423D-AD3F-0E2A27E8B9F7}.Release|x86.ActiveCfg = Release|Any CPU
+		{96B06144-443B-423D-AD3F-0E2A27E8B9F7}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

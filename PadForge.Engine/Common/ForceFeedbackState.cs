@@ -55,18 +55,56 @@ namespace PadForge.Engine
         private ushort _cachedRightMotorSpeed;
         private ushort _cachedLeftTriggerMotorSpeed;
         private ushort _cachedRightTriggerMotorSpeed;
+        private bool _scalarNeedsWrite;
+        /// <summary>Direct-writer twin of <see cref="_scalarNeedsWrite"/>. The
+        /// impulse and converter paths record the snapshot BEFORE their write,
+        /// so a write the device refused left the cache holding a value the
+        /// motors never received and every later frame at that same value read
+        /// as unchanged and skipped the retry. Set on a refused write, consumed
+        /// by the next snapshot.</summary>
+        private bool _directWriteNeedsRetry;
 
         // Haptic effect tracking
         private int _hapticEffectId = -1;
         private bool _hapticEffectCreated;
 
-        // Directional haptic change detection
-        private uint _cachedEffectType;
-        private short _cachedSignedMag;
-        private ushort _cachedDirection;
-        private uint _cachedPeriod;
-        private bool _cachedHasCondition;
-        private bool _cachedHasDirectional;
+        internal delegate int CreateEffectHandler(IntPtr handle, ref SDL_HapticEffect effect);
+        internal delegate bool UpdateEffectHandler(IntPtr handle, int id, ref SDL_HapticEffect effect);
+        internal CreateEffectHandler CreateEffect = SDL_CreateHapticEffect;
+        internal UpdateEffectHandler UpdateEffect = SDL_UpdateHapticEffect;
+        internal Func<IntPtr, int, uint, bool> RunEffect = SDL_RunHapticEffect;
+        internal Func<IntPtr, int, bool> StopEffect = SDL_StopHapticEffect;
+        internal Action<IntPtr, int> DestroyEffect = SDL_DestroyHapticEffect;
+
+        // Copy mutable condition axes before delivery and acknowledge only success.
+        private DirectionalSnapshot? _cachedDirectional;
+
+        private readonly record struct ConditionSnapshot(short PositiveCoefficient,
+            short NegativeCoefficient, short Offset, uint DeadBand,
+            uint PositiveSaturation, uint NegativeSaturation)
+        {
+            internal static ConditionSnapshot Capture(ConditionAxisData value) => new(
+                value.PositiveCoefficient, value.NegativeCoefficient, value.Offset,
+                value.DeadBand, value.PositiveSaturation, value.NegativeSaturation);
+        }
+
+        private readonly record struct DirectionalSnapshot(bool HasDirectionalData,
+            bool HasConditionData, uint EffectType, short SignedMagnitude,
+            ushort Direction, uint Period, byte DeviceGain, int OverallGain,
+            ushort LeftMotorSpeed, ushort RightMotorSpeed, int ConditionAxisCount,
+            ConditionSnapshot Axis0, ConditionSnapshot Axis1)
+        {
+            internal static DirectionalSnapshot Capture(Vibration value, int overallGain)
+            {
+                int count = value.HasConditionData
+                    ? Math.Clamp(value.ConditionAxisCount, 0, Math.Min(value.ConditionAxes?.Length ?? 0, 2)) : 0;
+                return new(value.HasDirectionalData, value.HasConditionData, value.EffectType,
+                    value.SignedMagnitude, value.Direction, value.Period, value.DeviceGain,
+                    overallGain, value.LeftMotorSpeed, value.RightMotorSpeed, count,
+                    count > 0 ? ConditionSnapshot.Capture(value.ConditionAxes[0]) : default,
+                    count > 1 ? ConditionSnapshot.Capture(value.ConditionAxes[1]) : default);
+            }
+        }
 
         // Software auto-center spring (generic SDL wheels) change detection
         private bool _autoCenterActive;
@@ -121,7 +159,8 @@ namespace PadForge.Engine
             ushort leftMotor, ushort rightMotor,
             ushort leftTrigger, ushort rightTrigger)
         {
-            bool changed = leftMotor != _cachedLeftMotorSpeed
+            bool changed = _directWriteNeedsRetry
+                        || leftMotor != _cachedLeftMotorSpeed
                         || rightMotor != _cachedRightMotorSpeed
                         || leftTrigger != _cachedLeftTriggerMotorSpeed
                         || rightTrigger != _cachedRightTriggerMotorSpeed;
@@ -146,6 +185,12 @@ namespace PadForge.Engine
         /// zero.</summary>
         public bool TryRecordMotorSnapshot(ushort leftMotor, ushort rightMotor)
             => TryRecordXboxImpulseSnapshot(leftMotor, rightMotor, 0, 0);
+
+        /// <summary>Marks the snapshot just recorded as undelivered, so the next
+        /// call returns true at the same values instead of reporting unchanged.
+        /// The direct-writer counterpart of the success-gated scalar cache in
+        /// <see cref="SetDeviceForces"/>.</summary>
+        public void MarkDirectWriteFailed() => _directWriteNeedsRetry = true;
 
         // ─────────────────────────────────────────────
         //  Stop
@@ -193,12 +238,8 @@ namespace PadForge.Engine
             _cachedRightMotorSpeed = 0;
             _cachedLeftTriggerMotorSpeed = 0;
             _cachedRightTriggerMotorSpeed = 0;
-            _cachedEffectType = 0;
-            _cachedSignedMag = 0;
-            _cachedDirection = 0;
-            _cachedPeriod = 0;
-            _cachedHasDirectional = false;
-            _cachedHasCondition = false;
+            _scalarNeedsWrite = false;
+            _cachedDirectional = null;
             _autoCenterActive = false;
             _autoCenterCoeff = 0;
             LeftMotorSpeed = 0;
@@ -269,25 +310,18 @@ namespace PadForge.Engine
             // support, route through the directional path for true force direction.
             if (device.HasHaptic && (v.HasDirectionalData || v.HasConditionData))
             {
-                bool directionalChanged =
-                    v.HasDirectionalData != _cachedHasDirectional ||
-                    v.EffectType != _cachedEffectType ||
-                    v.SignedMagnitude != _cachedSignedMag ||
-                    v.Direction != _cachedDirection ||
-                    v.Period != _cachedPeriod ||
-                    v.HasConditionData != _cachedHasCondition;
-
-                if (!directionalChanged)
+                var snapshot = DirectionalSnapshot.Capture(v, overallGain);
+                if (_cachedDirectional == snapshot)
                     return;
 
                 bool success;
-                if (v.HasConditionData && v.ConditionAxes != null && v.ConditionAxisCount > 0)
+                if (snapshot.HasConditionData && snapshot.ConditionAxisCount > 0)
                 {
-                    success = SetConditionHapticForces(device, v, overallGain);
+                    success = SetConditionHapticForces(device, snapshot, overallGain);
                 }
-                else if (v.HasDirectionalData)
+                else if (snapshot.HasDirectionalData)
                 {
-                    success = SetDirectionalHapticForces(device, v, overallGain);
+                    success = SetDirectionalHapticForces(device, snapshot, overallGain);
                 }
                 else
                 {
@@ -309,15 +343,11 @@ namespace PadForge.Engine
 
                 if (success)
                 {
-                    _cachedHasDirectional = v.HasDirectionalData;
-                    _cachedEffectType = v.EffectType;
-                    _cachedSignedMag = v.SignedMagnitude;
-                    _cachedDirection = v.Direction;
-                    _cachedPeriod = v.Period;
-                    _cachedHasCondition = v.HasConditionData;
+                    _cachedDirectional = snapshot;
                     // Also update scalar cache to stay in sync.
-                    _cachedLeftMotorSpeed = v.LeftMotorSpeed;
-                    _cachedRightMotorSpeed = v.RightMotorSpeed;
+                    _cachedLeftMotorSpeed = snapshot.LeftMotorSpeed;
+                    _cachedRightMotorSpeed = snapshot.RightMotorSpeed;
+                    _scalarNeedsWrite = true;
                     // The game's effect now owns the shared haptic slot, so the
                     // auto-center spring (if any) is gone; force a re-apply the
                     // next idle frame instead of trusting the change-gate.
@@ -332,16 +362,11 @@ namespace PadForge.Engine
             }
 
             // ── Path 2: Standard scalar rumble ──
-            // If we were previously in the directional path, reset directional cache
-            // so re-entering the directional path is always detected as a change.
-            if (_cachedHasDirectional || _cachedHasCondition)
+            // Leaving a game effect must replace or stop its native effect even
+            // when scalar motor values match. Auto-centering can replace it below.
+            if (_cachedDirectional.HasValue)
             {
-                _cachedHasDirectional = false;
-                _cachedHasCondition = false;
-                _cachedEffectType = 0;
-                _cachedSignedMag = 0;
-                _cachedDirection = 0;
-                _cachedPeriod = 0;
+                _cachedDirectional = null;
             }
 
             // ── Path 1b: Software auto-center spring (generic FFB wheels) ──
@@ -380,8 +405,8 @@ namespace PadForge.Engine
             if (!device.HasRumbleTriggers && TryParseBool(ps.TriggerRumbleFold))
                 FoldTriggersIntoMains(v, ref finalLeft, ref finalRight);
 
-            // Main rumble — only send to hardware when values change.
-            if (finalLeft != _cachedLeftMotorSpeed || finalRight != _cachedRightMotorSpeed)
+            // Main rumble changes include retiring a directional effect.
+            if (_scalarNeedsWrite || finalLeft != _cachedLeftMotorSpeed || finalRight != _cachedRightMotorSpeed)
             {
                 bool scalarSuccess;
                 if (device.HasHaptic)
@@ -416,6 +441,7 @@ namespace PadForge.Engine
                 {
                     _cachedLeftMotorSpeed = finalLeft;
                     _cachedRightMotorSpeed = finalRight;
+                    _scalarNeedsWrite = false;
                 }
             }
 
@@ -559,7 +585,7 @@ namespace PadForge.Engine
         /// For wheels (1 axis): projects the polar direction onto the steering axis.
         /// Falls back to scalar SetHapticForces if the device lacks the required effect type.
         /// </summary>
-        private bool SetDirectionalHapticForces(ISdlInputDevice device, Vibration v, int overallGain)
+        private bool SetDirectionalHapticForces(ISdlInputDevice device, DirectionalSnapshot v, int overallGain)
         {
             // Apply device-level and overall gains to magnitude.
             double gainScale = (v.DeviceGain / 255.0) * (overallGain / 100.0);
@@ -653,7 +679,7 @@ namespace PadForge.Engine
         /// Sends a condition effect (spring/damper/friction/inertia) to an SDL haptic device
         /// with full per-axis coefficients. Falls back to scalar rumble if unsupported.
         /// </summary>
-        private bool SetConditionHapticForces(ISdlInputDevice device, Vibration v, int overallGain)
+        private bool SetConditionHapticForces(ISdlInputDevice device, DirectionalSnapshot v, int overallGain)
         {
             uint features = device.HapticFeatures;
             uint effectType = v.EffectType;
@@ -679,10 +705,10 @@ namespace PadForge.Engine
             effect.condition.length = SDL_HAPTIC_INFINITY;
 
             // Copy per-axis condition data (axis 0 = X, axis 1 = Y).
-            int axisCount = Math.Min(v.ConditionAxisCount, 2);
+            int axisCount = v.ConditionAxisCount;
             for (int i = 0; i < axisCount; i++)
             {
-                var ca = v.ConditionAxes[i];
+                var ca = i == 0 ? v.Axis0 : v.Axis1;
                 // Scale coefficients: HID -10000..+10000 → SDL -32767..+32767 with gain.
                 short rCoeff = (short)Math.Clamp(ca.PositiveCoefficient * gainScale * 32767 / 10000, -32767, 32767);
                 short lCoeff = (short)Math.Clamp(ca.NegativeCoefficient * gainScale * 32767 / 10000, -32767, 32767);
@@ -804,6 +830,7 @@ namespace PadForge.Engine
             {
                 _autoCenterActive = true;
                 _autoCenterCoeff = coeff;
+                _scalarNeedsWrite = true;
             }
             return ok;
         }
@@ -868,7 +895,7 @@ namespace PadForge.Engine
         /// <summary>
         /// Creates or updates the haptic effect on the device. On first call, creates
         /// the effect and runs it. On subsequent calls, updates the existing effect
-        /// in-place (avoids create/destroy churn).
+        /// in place. Failed starts release the allocation so the next call retries playback.
         /// </summary>
         private bool ApplyHapticEffect(ISdlInputDevice device, ref SDL_HapticEffect effect)
         {
@@ -878,34 +905,40 @@ namespace PadForge.Engine
 
             if (!_hapticEffectCreated)
             {
-                _hapticEffectId = SDL_CreateHapticEffect(haptic, ref effect);
+                _hapticEffectId = CreateEffect(haptic, ref effect);
                 if (_hapticEffectId < 0)
                 {
                     return false;
                 }
                 _hapticEffectCreated = true;
 
-                bool run = SDL_RunHapticEffect(haptic, _hapticEffectId, SDL_HAPTIC_INFINITY);
-                return run;
+                return RunCreatedEffect(device, haptic);
             }
             else
             {
-                bool upd = SDL_UpdateHapticEffect(haptic, _hapticEffectId, ref effect);
+                bool upd = UpdateEffect(haptic, _hapticEffectId, ref effect);
                 if (!upd)
                 {
-                    // Update failed — effect may be stale (e.g., another app acquired the
-                    // device in Exclusive mode and released it). Destroy and recreate.
+                    // Recreate after a rejected update, including type changes.
                     StopAndDestroyHapticEffect(device);
-                    _hapticEffectId = SDL_CreateHapticEffect(haptic, ref effect);
+                    _hapticEffectId = CreateEffect(haptic, ref effect);
                     if (_hapticEffectId < 0)
                     {
                         return false;
                     }
                     _hapticEffectCreated = true;
-                    return SDL_RunHapticEffect(haptic, _hapticEffectId, SDL_HAPTIC_INFINITY);
+                    return RunCreatedEffect(device, haptic);
                 }
                 return true;
             }
+        }
+
+        private bool RunCreatedEffect(ISdlInputDevice device, IntPtr haptic)
+        {
+            if (RunEffect(haptic, _hapticEffectId, SDL_HAPTIC_INFINITY))
+                return true;
+            StopAndDestroyHapticEffect(device);
+            return false;
         }
 
         /// <summary>
@@ -913,14 +946,17 @@ namespace PadForge.Engine
         /// </summary>
         private void StopAndDestroyHapticEffect(ISdlInputDevice device)
         {
+            _cachedDirectional = null;
+            _autoCenterActive = false;
+            _scalarNeedsWrite = true;
             if (!_hapticEffectCreated || _hapticEffectId < 0)
                 return;
 
             IntPtr haptic = device.HapticHandle;
             if (haptic != IntPtr.Zero)
             {
-                SDL_StopHapticEffect(haptic, _hapticEffectId);
-                SDL_DestroyHapticEffect(haptic, _hapticEffectId);
+                StopEffect(haptic, _hapticEffectId);
+                DestroyEffect(haptic, _hapticEffectId);
             }
 
             _hapticEffectId = -1;

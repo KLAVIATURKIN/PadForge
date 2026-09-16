@@ -723,7 +723,7 @@ namespace PadForge.Engine.Touchpad
                         2 => "DoubleTap",
                         _ => "TripleTap"
                     };
-                    ctx.FiredGesturesThisFrame.Add($"Touchpad {padIdx} {tapName}");
+                    FireSingleFinger(padIdx, ctx, tapName, start);
                     if (ctx.RecentTapCount >= 3) ctx.RecentTapCount = 0;
                     return;
                 }
@@ -737,7 +737,7 @@ namespace PadForge.Engine.Touchpad
                 {
                     string dir = ClassifyDirection(end - start, settings.EnableEightWaySwipes);
                     if (dir != null)
-                        ctx.FiredGesturesThisFrame.Add($"Touchpad {padIdx} Swipe{dir}");
+                        FireSingleFinger(padIdx, ctx, "Swipe" + dir, start);
                 }
 
                 // Tier 3 shape match for single-finger custom + in-box.
@@ -888,9 +888,38 @@ namespace PadForge.Engine.Touchpad
             }
         }
 
+        /// <summary>Records a fired single-finger gesture under its whole-pad
+        /// name AND under its half-qualified name, taken from where the gesture
+        /// STARTED.
+        ///
+        /// <para>Steam splits one physical trackpad (DualShock 4 / DualSense,
+        /// which register exactly one touchpad) into a left and a right virtual
+        /// pad. An imported config binds each half separately, and a gesture
+        /// with no half in its name answered both, so a swipe anywhere on the
+        /// pad fired bindings meant for one side only. The half rides the name
+        /// because the gesture fires at lift, when no finger is left to gate
+        /// on: a contact gate evaluated on that tick reads false and would kill
+        /// the fire outright.</para>
+        ///
+        /// <para>The split is X &lt; 0.5, the same line every windowed
+        /// descriptor uses (SourceCoercion.FingerInTouchpadHalf). The touch
+        /// spots' own 0.4 split is a different feature and stays where it
+        /// is.</para>
+        ///
+        /// <para>Single-finger only. Multi-finger families have no
+        /// half-hosted consumer: every half-aware emitter on the import side
+        /// produces a one-finger swipe or tap.</para></summary>
+        private static void FireSingleFinger(int padIdx, TouchpadGestureContext ctx,
+            string name, Vector2 origin)
+        {
+            ctx.FiredGesturesThisFrame.Add($"Touchpad {padIdx} {name}");
+            ctx.FiredGesturesThisFrame.Add(
+                $"Touchpad {padIdx} {name} " + (origin.X < 0.5f ? "Left" : "Right"));
+        }
+
         /// <summary>Classifies a delta vector into "Up"/"Down"/"Left"/"Right"
         /// (4-way) or those plus "NE"/"NW"/"SE"/"SW" (8-way). Touchpad
-        /// space convention: X grows right, Y grows down — same as SDL
+        /// space convention: X grows right, Y grows down, the same as SDL
         /// and PTP. So "Up" = negative Y, "Down" = positive Y.</summary>
         private static string ClassifyDirection(Vector2 d, bool eightWay)
         {

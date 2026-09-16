@@ -137,6 +137,7 @@ namespace PadForge.Engine.Touchpad
                     // cycle-backward button is read through the same
                     // runtime lane, so it arms identically.
                     any |= Classify(act.GateDescriptor, ref need);
+                    any |= Classify(act.Gate2Descriptor, ref need);
                     any |= Classify(act.CyclePrevDescriptor, ref need);
                 }
             }
@@ -252,6 +253,14 @@ namespace PadForge.Engine.Touchpad
         private static bool TryClassifyName(string name, out Needs need)
         {
             need = new Needs();
+            // A half-hosted trackpad qualifies its gestures with the half they
+            // started on ("SwipeUp Left"). The half decides WHICH binding
+            // answers, never which family has to be armed, so it comes off
+            // before the table below sees the name.
+            if (name.EndsWith(" Left", StringComparison.Ordinal))
+                name = name.Substring(0, name.Length - 5);
+            else if (name.EndsWith(" Right", StringComparison.Ordinal))
+                name = name.Substring(0, name.Length - 6);
             switch (name)
             {
                 case "StickX":

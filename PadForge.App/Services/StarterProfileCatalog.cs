@@ -818,7 +818,7 @@ namespace PadForge.Services
         };
 
         /// <summary>Racing: finer throttle and brake, calmer steering, on any
-        /// pad. A pad gives about a centimetre of travel to cover full lock,
+        /// pad. A pad gives about a centimeter of travel to cover full lock,
         /// so a linear map makes small corrections at speed impossible.
         ///
         /// <para>The steering curve is an exponent above 1, which shrinks
@@ -1217,11 +1217,25 @@ namespace PadForge.Services
             // Press every key in order, then release in reverse, so a chord
             // (Win+Ctrl+O) holds its modifiers across the final key and a
             // single key is a plain tap.
-            var actions = new List<ActionData>(keys.Length * 2);
-            foreach (var vk in keys)
-                actions.Add(new ActionData { Type = MacroActionType.KeyPress, KeyCode = vk });
-            for (int i = keys.Length - 1; i >= 0; i--)
-                actions.Add(new ActionData { Type = MacroActionType.KeyRelease, KeyCode = keys[i] });
+            // ONE action carrying the whole chord, not one action per key. The
+            // executor releases a press at its own duration before it advances,
+            // so a press-per-key list made a three-key chord three sequential
+            // fifty-millisecond taps and the modifiers were never down with the
+            // final key. The multi-key string form presses in order and releases
+            // in reverse inside the single action, which is the hold a chord
+            // needs. A single key keeps the plain code form it already had.
+            var actions = new List<ActionData>(2);
+            if (keys.Length == 1)
+            {
+                actions.Add(new ActionData { Type = MacroActionType.KeyPress, KeyCode = keys[0] });
+                actions.Add(new ActionData { Type = MacroActionType.KeyRelease, KeyCode = keys[0] });
+            }
+            else
+            {
+                string chord = string.Concat(keys.Select(k => "{" + (Common.VirtualKey)k + "}"));
+                actions.Add(new ActionData { Type = MacroActionType.KeyPress, KeyString = chord });
+                actions.Add(new ActionData { Type = MacroActionType.KeyRelease, KeyString = chord });
+            }
 
             return new MacroData
             {
@@ -1235,6 +1249,13 @@ namespace PadForge.Services
                 // The row lane may also bind this button; consuming the
                 // trigger here would suppress it.
                 ConsumeTriggerButtons = false,
+                // Base scope, not the empty "any layer" default. The Quiet layer
+                // silences rows by replacing the base with nothing, but the macro
+                // gate reads an empty mask as every layer, so a pad muted through
+                // Quiet still typed its macro keys. Every other starter layer
+                // inherits unmapped targets, so Base falls through there and only
+                // Quiet closes this.
+                LayerMask = "Base",
                 TriggerMode = mode,
                 Actions = actions.ToArray(),
             };
@@ -1262,6 +1283,9 @@ namespace PadForge.Services
                 TriggerSource = MacroTriggerSource.InputDevice,
                 TriggerInputs = spec, TriggerButtons = 0, TriggerAxisTargets = null,
                 ConsumeTriggerButtons = false,
+                // Base scope, same reason as the key macro: an empty mask reads
+                // as every layer and left a Quiet-muted pad recentering.
+                LayerMask = "Base",
                 TriggerMode = MacroTriggerMode.HoldForMs, TriggerHoldMs = holdMs,
                 Actions = new[] { new ActionData { Type = MacroActionType.GyroRecenter } },
             };

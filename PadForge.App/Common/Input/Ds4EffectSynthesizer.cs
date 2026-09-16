@@ -149,7 +149,9 @@ namespace PadForge.Common.Input
         //  Lightbar resolution
         // ────────────────────────────────────────────────
 
-        private static void ResolveLightbarRgb(
+        /// <summary>Composes macro and reactive colors over the base mode.
+        /// Callers can supply their device's player-identity color.</summary>
+        internal static void ResolveLightbarRgb(
             DeviceSlotConfig cfg,
             float audioPeak,
             long nowMs,
@@ -158,7 +160,8 @@ namespace PadForge.Common.Input
             float pulseIntensity,
             byte batteryPercent,
             int playerNumber,
-            out byte r, out byte g, out byte b)
+            out byte r, out byte g, out byte b,
+            (byte R, byte G, byte B)? identityColor = null)
         {
             // Player-identity idle floor (#191): when the lighting is
             // fully unconfigured (no macro, mode at the PlayerNumber
@@ -174,9 +177,9 @@ namespace PadForge.Common.Input
                     && cfg.InputReactiveMode == InputReactiveMode.Off);
             if (unconfigured)
             {
-                if (playerNumber > 0)
+                if (playerNumber > 0 || identityColor.HasValue)
                 {
-                    (r, g, b) = PlayerIdentityDefaults.ColorFor(playerNumber);
+                    (r, g, b) = identityColor ?? PlayerIdentityDefaults.ColorFor(playerNumber);
                     return;
                 }
                 r = 0; g = 0; b = 0;
@@ -207,8 +210,8 @@ namespace PadForge.Common.Input
             byte baseR = 0, baseG = 0, baseB = 0;
             if (cfg.LightbarMode == LightbarMode.PlayerNumber)
             {
-                if (playerNumber > 0)
-                    (baseR, baseG, baseB) = PlayerIdentityDefaults.ColorFor(playerNumber);
+                if (playerNumber > 0 || identityColor.HasValue)
+                    (baseR, baseG, baseB) = identityColor ?? PlayerIdentityDefaults.ColorFor(playerNumber);
             }
             else if (cfg.LightbarMode != LightbarMode.Off)
             {

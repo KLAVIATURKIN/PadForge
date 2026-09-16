@@ -22,7 +22,7 @@ namespace PadForge.Common
     /// <para>Remeasures when ItemsSource changes identity, which is exactly
     /// what a live language switch does (the option lists rebuild and the
     /// bindings hand the combo a new list instance). The hook subscribes on
-    /// Loaded and unsubscribes on Unloaded, because
+    /// Loaded and detaches when unloaded or disabled, because
     /// DependencyPropertyDescriptor.AddValueChanged roots the element:
     /// without the symmetric remove, regenerated item-template combos (menu
     /// cell rows) would leak.</para>
@@ -51,10 +51,18 @@ namespace PadForge.Common
 
         public static readonly DependencyProperty WidthGroupProperty =
             DependencyProperty.RegisterAttached("WidthGroup", typeof(string),
-                typeof(ComboBoxWidthBehavior), new PropertyMetadata(null));
+                typeof(ComboBoxWidthBehavior), new PropertyMetadata(null, OnWidthGroupChanged));
 
         public static void SetWidthGroup(DependencyObject d, string value) => d.SetValue(WidthGroupProperty, value);
         public static string GetWidthGroup(DependencyObject d) => (string)d.GetValue(WidthGroupProperty);
+
+        private static void OnWidthGroupChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is not ComboBox cb || !cb.IsLoaded || !GetSizeToItems(cb)) return;
+            Unregister(cb, e.OldValue as string);
+            Register(cb);
+            Resize(cb);
+        }
 
         /// <summary>Explicit remeasure trigger (#413). The behavior watches
         /// ItemsSource IDENTITY, which is right for the option lists that
@@ -96,15 +104,18 @@ namespace PadForge.Common
             {
                 cb.Loaded -= OnLoaded;
                 cb.Unloaded -= OnUnloaded;
+                OnUnloaded(cb, null);
             }
         }
 
         private static void OnLoaded(object sender, RoutedEventArgs e)
         {
             var cb = (ComboBox)sender;
-            DependencyPropertyDescriptor
-                .FromProperty(ItemsControl.ItemsSourceProperty, typeof(ComboBox))
-                .AddValueChanged(cb, OnItemsSourceChanged);
+            if (!GetSizeToItems(cb)) return;
+            var descriptor = DependencyPropertyDescriptor
+                .FromProperty(ItemsControl.ItemsSourceProperty, typeof(ComboBox));
+            descriptor.RemoveValueChanged(cb, OnItemsSourceChanged);
+            descriptor.AddValueChanged(cb, OnItemsSourceChanged);
             Register(cb);
             Resize(cb);
         }
@@ -119,6 +130,7 @@ namespace PadForge.Common
             // ref, not yet collected) and would otherwise pin the group
             // maximum at its last measurement.
             cb.SetValue(MeasuredWidthProperty, 0.0);
+            Unregister(cb, GetWidthGroup(cb));
         }
 
         private static void OnItemsSourceChanged(object sender, EventArgs e)
@@ -139,6 +151,7 @@ namespace PadForge.Common
 
         private static void Resize(ComboBox cb)
         {
+            if (!cb.IsLoaded || !GetSizeToItems(cb)) return;
             double measured = MeasureWidestItem(cb);
             if (measured <= 0) return;
             cb.SetValue(MeasuredWidthProperty, measured);
@@ -150,20 +163,35 @@ namespace PadForge.Common
                 return;
             }
 
-            // Group max over LOADED live members, applied to every one so
-            // the whole column moves together (dead entries prune here;
-            // unloaded members neither contribute nor get resized, so a
-            // regenerated template's leftovers cannot pin the group wide).
-            double groupMax = measured;
+            ReapplyGroup(group, list);
+        }
+
+        private static void Unregister(ComboBox cb, string group)
+        {
+            if (string.IsNullOrEmpty(group) || !_groups.TryGetValue(group, out var list)) return;
+            list.RemoveAll(wr => !wr.TryGetTarget(out var member) || ReferenceEquals(member, cb));
+            ReapplyGroup(group, list);
+        }
+
+        private static void ReapplyGroup(string group, List<WeakReference<ComboBox>> list)
+        {
+            // Retired controls stop contributing immediately. Snapshot active
+            // members before Width changes can trigger another lifecycle event.
+            double groupMax = 0;
+            var active = new List<ComboBox>();
             for (int i = list.Count - 1; i >= 0; i--)
             {
-                if (!list[i].TryGetTarget(out var member)) { list.RemoveAt(i); continue; }
-                if (!member.IsLoaded) continue;
+                if (!list[i].TryGetTarget(out var member) || !member.IsLoaded
+                    || !GetSizeToItems(member) || GetWidthGroup(member) != group)
+                { list.RemoveAt(i); continue; }
+                active.Add(member);
                 double w = (double)member.GetValue(MeasuredWidthProperty);
                 if (w > groupMax) groupMax = w;
             }
-            for (int i = 0; i < list.Count; i++)
-                if (list[i].TryGetTarget(out var member) && member.IsLoaded)
+            if (list.Count == 0) _groups.Remove(group);
+            if (groupMax <= 0) return;
+            foreach (var member in active)
+                if (member.IsLoaded && GetSizeToItems(member) && GetWidthGroup(member) == group)
                     member.Width = groupMax;
         }
 

@@ -179,9 +179,18 @@ namespace PadForge.ViewModels
         {
             // Rebuild-before-raise, with no reliance on handler order.
             EnsureOptionsCultureCurrent();
+            // Every replaced list needs its selected value re-raised right
+            // after it, the rule the layer-dependent raise already states: the
+            // rebuild hands the combo brand-new option instances, a selector
+            // drops its selection when its items are replaced, and only a
+            // re-raise makes the picker re-resolve the preserved value instead
+            // of rendering blank over it. Kind and host half were the two lists
+            // rebuilt here without it.
             OnPropertyChanged(nameof(KindOptions));
+            OnPropertyChanged(nameof(KindIndex));
             OnPropertyChanged(nameof(HostOptions));
             OnPropertyChanged(nameof(HostHalfOptions));
+            OnPropertyChanged(nameof(HostHalfIndex));
             OnPropertyChanged(nameof(FireOptions));
             OnPropertyChanged(nameof(FireTypeIndex));
             OnPropertyChanged(nameof(SelectedHost));
@@ -845,10 +854,25 @@ namespace PadForge.ViewModels
             string d = (descriptor ?? "").Trim();
             if (d.Length == 0) return emptyLabel;
             var provided = InputChoicesProvider?.Invoke();
+            // Resolve in THIS menu's scope, not by first descriptor hit. Menu
+            // inputs carry no device of their own: they are built with an empty
+            // identity and the runtime evaluates them on the host device. The
+            // old walk named whichever group listed the descriptor first, so a
+            // menu pinned to the second controller reported the first one's name
+            // under an input the runtime reads on the second.
             if (provided != null)
+            {
+                string wantGuid = (Entry.DeviceGuid ?? "").ToLowerInvariant();
+                InputChoice descriptorOnly = null;
                 foreach (var c in provided)
-                    if (c != null && string.Equals(c.Descriptor, d, StringComparison.Ordinal))
+                {
+                    if (c == null || !string.Equals(c.Descriptor, d, StringComparison.Ordinal)) continue;
+                    descriptorOnly ??= c;
+                    if (string.Equals(c.DeviceGuid ?? "", wantGuid, StringComparison.OrdinalIgnoreCase))
                         return c.DeviceLabel;
+                }
+                if (descriptorOnly != null) return descriptorOnly.DeviceLabel;
+            }
             return Strings.Instance.Mapping_AnyDevice;
         }
 
@@ -1460,6 +1484,10 @@ namespace PadForge.ViewModels
             OnPropertyChanged(nameof(KeyOptions));
             OnPropertyChanged(nameof(ButtonOptions));
             OnPropertyChanged(nameof(MacroOptions));
+            // The binding kind was the one selected value not re-raised after
+            // its own list was replaced, so that combo went blank on a language
+            // switch while its three neighbors re-resolved.
+            OnPropertyChanged(nameof(BindingKind));
             OnPropertyChanged(nameof(SelectedKeyVk));
             OnPropertyChanged(nameof(SelectedButtonFlag));
             OnPropertyChanged(nameof(SelectedMacroName));

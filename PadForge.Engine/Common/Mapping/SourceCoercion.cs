@@ -803,13 +803,17 @@ namespace PadForge.Engine.Common.Mapping
         // alphas must not share (and double-advance) one EMA state.
         private sealed class GyroEmaState
         {
-            // Six lanes: 0/1/2 primary pitch/yaw/roll, 3/4/5 the aux gyro's
-            // (#252). The aux shares the device GUID, so without its own
-            // lanes it would either share the primary's filter state or,
-            // worse, index past the array and read back UNSMOOTHED while
-            // looking wired.
-            public readonly float[] Values = new float[6];
-            public readonly ulong[] Seq = new ulong[6];
+            // Nine lanes: 0/1/2 the fused bare family's pitch/yaw/roll,
+            // 3/4/5 the aux gyro's (#252), 6/7/8 the explicit right
+            // family's (#271 item 6). All three share the device GUID, so
+            // without its own lanes a family would either share another's
+            // filter state or, worse, index past the array and read back
+            // UNSMOOTHED while looking wired. The right family was added to
+            // the lane math and not to this array, so it took the second
+            // half of that: the bounds guard returned the raw rate and the
+            // smoothing the profile asked for never ran.
+            public readonly float[] Values = new float[9];
+            public readonly ulong[] Seq = new ulong[9];
         }
         // Tuple key, NOT a composed string: the lookup below runs per axis
         // per gyro row per poll (up to 1 kHz), and building
@@ -2629,12 +2633,20 @@ namespace PadForge.Engine.Common.Mapping
         }
 
         /// <summary>Drops ONE device's captured lean/tilt neutral (#292):
-        /// the Gyro Recenter macro's per-slot path, which must re-zero the
-        /// resting grip for the slot's devices without disturbing another
-        /// slot's captured grips. Keys are canonicalized (see
-        /// <see cref="LeanNeutralKey"/>), so the caller's guid format
-        /// cannot miss a latch made from a differently-cased profile
-        /// string.</summary>
+        /// the Gyro Recenter macro's path, which re-zeroes the resting grip
+        /// for the named devices.
+        ///
+        /// <para>Every slot's latch for that device goes, because the caller
+        /// names a device and not a (device, slot). The summary used to
+        /// promise the opposite, that another slot's captured grips were
+        /// left alone. That stopped being true when the keys took the slot,
+        /// and no caller can ask for the narrower behavior: the only
+        /// production caller takes a list of guids with no slot in its
+        /// signature.</para>
+        ///
+        /// <para>Keys are canonicalized (see <see cref="LeanNeutralKey"/>),
+        /// so the caller's guid format cannot miss a latch made from a
+        /// differently-cased profile string.</para></summary>
         public static void ResetGyroLeanNeutral(string deviceGuid)
         {
             // Keys carry the slot now, so retire every slot's latch for this
@@ -2800,6 +2812,15 @@ namespace PadForge.Engine.Common.Mapping
             {
                 double range = src.ParamTiltRangeDeg;
                 if (range < 1.0 || range > 180.0) range = GyroTiltDefaultRangeDeg;
+                // The lean angle comes from an arc sine of one gravity
+                // component, which tops out at 90 degrees. A range past
+                // that can never reach full deflection, and worse, the
+                // angle folds back: at 160 degrees of physical tilt the
+                // derived angle is 20, so leaning further reads as leaning
+                // less. The editor slider already stops at 90. This holds a
+                // hand-edited or imported profile to what the math can
+                // express instead of giving it a curve that unwinds.
+                if (range > 90.0) range = 90.0;
                 double dz = Math.Clamp(src.ParamTiltInnerDz, 0.0, range - 0.5);
                 double mag = (Math.Abs(leanDeg) - dz) / (range - dz);
                 mag = Math.Clamp(mag, 0.0, 1.0);
@@ -3273,9 +3294,21 @@ namespace PadForge.Engine.Common.Mapping
                 // Channel 3 gives the R family its own ring: channel 0 is
                 // the fused bare family (the passthrough uses 1/2), and
                 // the key tuple is (guid, slot, aux, channel).
+                //
+                // A Roll row takes its own ring too (4 fused or left, 5
+                // right), the rule the legacy lane below and the
+                // passthrough above already follow. In Local space a Roll
+                // row carries roll in the yaw variable, so sharing the aim
+                // ring let whichever row ran last leave its sample in the
+                // window the other averages, for as long as the window is
+                // deep. Horizontal deliberately stays on the yaw ring: it
+                // is the yaw-equivalent blend, meant to replace a yaw row
+                // rather than sit beside one.
                 (yaw, pitch) = ApplyDualThresholdSmoothing(
                     deviceGuid, slotIndex, yaw, pitch, tuning, aux,
-                    channel: side == GyroSide.Right ? 3 : 0);
+                    channel: isRollSource
+                        ? (side == GyroSide.Right ? 5 : 4)
+                        : (side == GyroSide.Right ? 3 : 0));
             }
             else if (tuning.SmoothingAlpha > 0f)
             {
@@ -3755,6 +3788,14 @@ namespace PadForge.Engine.Common.Mapping
             // consumes Invert as the direction selector, and the non-half
             // any-direction test makes Invert irrelevant.
             if (IsGravityTiltFamilyDescriptor(desc)) return raw;
+            // The Motion Lean pair (#364) declares the gravity-tilt
+            // family's wedge grammar and reads Invert the same way, so it
+            // takes the same exemption. Flipping here left an inverted
+            // half-axis lean row PRESSED at rest and released on the very
+            // direction the user asked for. Without HalfAxis it was worse:
+            // the any-direction test is false at rest, so the flip held the
+            // button down whenever the pad was still.
+            if (IsMotionLeanDescriptor(desc) || IsMotionLeanAuxDescriptor(desc)) return raw;
             // The touchpad ring (v26) consumes Invert as its inner/outer
             // selector, the stick ring's contract on the touch surface.
             if (TryParseTouchpadRing(desc, out _, out _, out _)) return raw;
@@ -4189,12 +4230,20 @@ namespace PadForge.Engine.Common.Mapping
         {
             if (state == null || src == null || dtSeconds <= 0f) return (0f, 0f);
             if (!TryParseTouchpadAxis(CanonicalDescriptor(src.Descriptor),
-                    out int padIdx, out int fingerIdx, out int axisOffset, out _))
+                    out int padIdx, out int fingerIdx, out int axisOffset, out int half))
                 return (0f, 0f);
             if (axisOffset != 0 && axisOffset != 1) return (0f, 0f);   // pressure is not motion
 
             var pad = GetTouchpad(state, padIdx);
             if (pad?.FingerDown == null || fingerIdx < 0 || fingerIdx >= pad.FingerDown.Length)
+                return (0f, 0f);
+            // A windowed source only answers while the finger is inside its
+            // window, the per-sample gate the relative-delta contract states
+            // and the axis lane already applies. The window was parsed and
+            // thrown away here, so a row authored as "X Left" drove the
+            // cursor from anywhere on the pad and the half the user picked
+            // in the picker did nothing at all.
+            if (!FingerInTouchpadWindowForAxis(pad, fingerIdx, half, axisOffset))
                 return (0f, 0f);
 
             string dev = EffectiveDeviceGuid(src, deviceGuid);
@@ -4224,10 +4273,24 @@ namespace PadForge.Engine.Common.Mapping
                 if (ball.FrameSeq != _pollFrameSeq)
                 {
                     ball.FrameSeq = _pollFrameSeq;
-                    AdvanceTouchBall(ball, pad, fingerIdx, tp, dtSeconds, nowTicks, ticksPerSecond, src);
+                    AdvanceTouchBall(ball, pad, fingerIdx, tp, dtSeconds, nowTicks, ticksPerSecond);
                 }
-                float cx = ball.FrameCountsX, cy = ball.FrameCountsY;
-                return forX ? (cx, 0f) : (0f, cy);
+                // The SOURCE picks which component to read and the target
+                // row picks where it lands. Reading by the target alone
+                // meant a "Finger N Y" source bound to Mouse X quietly
+                // delivered X, so the axis the user chose was ignored and
+                // the row looked like it worked.
+                //
+                // The row's own Sensitivity applies here rather than inside
+                // the ball, because the ball integrates once per poll for
+                // whichever row reached it first. Folding a row's scale into
+                // that shared step handed the first row's sensitivity to
+                // both axes and left the other row's inert. At the default
+                // scale of 1 this is the identity, so nothing moves for a
+                // row that never set it.
+                float v = axisOffset == 0 ? ball.FrameCountsX : ball.FrameCountsY;
+                v *= PerSourceSensitivity(src);
+                return forX ? (v, 0f) : (0f, v);
             }
         }
 
@@ -4254,7 +4317,7 @@ namespace PadForge.Engine.Common.Mapping
         private static void AdvanceTouchBall(
             TouchBall ball, TouchpadInputState pad, int fingerIdx,
             PadForge.Engine.Touchpad.TouchpadGestureSettings tp,
-            float dtSeconds, long nowTicks, long ticksPerSecond, MappingSource src)
+            float dtSeconds, long nowTicks, long ticksPerSecond)
         {
             ball.FrameCountsX = 0f;
             ball.FrameCountsY = 0f;
@@ -4368,7 +4431,7 @@ namespace PadForge.Engine.Common.Mapping
                     }
                 }
 
-                EmitBallCounts(ball, tp, dtSeconds, src);
+                EmitBallCounts(ball, tp, dtSeconds);
                 return;
             }
 
@@ -4430,7 +4493,7 @@ namespace PadForge.Engine.Common.Mapping
             DecayVelocity(ref ball.VelX, ref ball.VelY, decel, dtSeconds);
 
             if (ball.VelX == 0f && ball.VelY == 0f) return;
-            EmitBallCounts(ball, tp, dtSeconds, src);
+            EmitBallCounts(ball, tp, dtSeconds);
         }
 
         /// <summary>Velocity to mouse counts: sensitivity, invert, and the
@@ -4438,11 +4501,13 @@ namespace PadForge.Engine.Common.Mapping
         /// feel identical.</summary>
         private static void EmitBallCounts(
             TouchBall ball, PadForge.Engine.Touchpad.TouchpadGestureSettings tp,
-            float dtSeconds, MappingSource src)
+            float dtSeconds)
         {
-            float rowSens = PerSourceSensitivity(src);
-            float sx = (tp?.MouseSensitivityX ?? 1f) * rowSens;
-            float sy = (tp?.MouseSensitivityY ?? 1f) * rowSens;
+            // Pad-level scales only. The ball is shared by both mouse axes
+            // and integrates once per poll, so anything belonging to ONE
+            // mapping row is applied by that row at its own read instead.
+            float sx = tp?.MouseSensitivityX ?? 1f;
+            float sy = tp?.MouseSensitivityY ?? 1f;
 
             float cx = ball.VelX * dtSeconds * TouchCountsPerPadWidth * sx;
             float cy = ball.VelY * dtSeconds * TouchCountsPerPadWidth * sy;
@@ -4479,7 +4544,7 @@ namespace PadForge.Engine.Common.Mapping
             }
             else
             {
-                // Simple, and the fallback for an absent or unrecognised value:
+                // Simple, and the fallback for an absent or unrecognized value:
                 // this string round-trips through XML a user can hand-edit, so
                 // anything unknown must read as the default rather than
                 // throwing or silently picking the other profile. With
@@ -4572,7 +4637,7 @@ namespace PadForge.Engine.Common.Mapping
         /// the ceiling the hand kept turning and the cursor did not. And it
         /// was CADENCE-COUPLED, because the KBM controller spends a fixed
         /// 15 px per poll at full deflection, so the same wrist motion
-        /// travelled sixteen times as far at a 1 ms poll interval as at
+        /// traveled sixteen times as far at a 1 ms poll interval as at
         /// 16 ms.</para>
         /// <para>Both references this feature was built against do neither.
         /// DS4Windows, named in issue #79 as the thing to match, multiplies
@@ -4875,10 +4940,16 @@ namespace PadForge.Engine.Common.Mapping
                         return state.Midi.Cc[mi] > (int)(127 * cdz / 100.0);
                     case 'U': return state.Midi.CcUp[mi];   // encoder CW pulse
                     case 'D': return state.Midi.CcDown[mi]; // encoder CCW pulse
+                    // Bend as a button: past the source deadzone in either
+                    // direction, default half scale, the CC arm contract on
+                    // the 16-bit span MidiInputState stores. 50 percent of
+                    // 32767 is the half this used to hardcode, so a row that
+                    // never set a deadzone is bit-identical.
                     case 'P':
+                        int pdz = EffectiveThresholdPercent(src, 50);
                         int pdelta = state.Midi.PitchBend - MidiInputState.PitchBendCenter;
                         if (pdelta < 0) pdelta = -pdelta;
-                        return pdelta > 32767 / 2;
+                        return pdelta > (int)(32767 * pdz / 100.0);
                 }
                 return false;
             }
@@ -5805,10 +5876,15 @@ namespace PadForge.Engine.Common.Mapping
                 // emit "Touchpad 1 Click" for right-pad clicks, and the old
                 // padIdx!=0 bail made every such row permanently false.
                 if (padIdx != 0)
-                    return state.Touchpads != null
-                        && padIdx < state.Touchpads.Length
-                        && state.Touchpads[padIdx] != null
-                        && state.Touchpads[padIdx].Clicked;
+                {
+                    // Through the shared lookup, which checks both bounds.
+                    // This arm checked only the upper one, so a descriptor
+                    // carrying a negative pad index indexed the array at
+                    // that value and threw. The two arms around it already
+                    // read unavailable instead.
+                    var npad = GetTouchpad(state, padIdx);
+                    return npad != null && npad.Clicked;
+                }
                 if (state.Buttons == null || state.Buttons.Length <= 16) return false;
                 return state.Buttons[16];
             }
@@ -6683,6 +6759,15 @@ namespace PadForge.Engine.Common.Mapping
                 size = (float)src.ParamPointerExtent;
                 centerFrac = (float)src.ParamPointerCenter;
             }
+
+            // Invert flips the DIRECTION inside the region, not the region
+            // itself. The wrapper negates whatever this returns, and the
+            // region's own offset is part of that, so an inverted off-center
+            // region mirrored to the opposite side of the screen: a rectangle
+            // authored on the left answered on the right. Flipping the center
+            // here cancels the wrapper's negation of the offset and leaves it
+            // negating only the reading, which is what Invert means.
+            if (src.Invert) centerFrac = 1f - centerFrac;
 
             float v = raw * 2f - 1f;
             v = (centerFrac * 2f - 1f) + v * size;

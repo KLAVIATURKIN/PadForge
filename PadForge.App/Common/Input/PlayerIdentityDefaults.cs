@@ -12,7 +12,7 @@ namespace PadForge.Common.Input
     /// what an untouched pad used to show (extinguished pips on the
     /// DualSense, a black-painted lightbar on the DualShock 4).
     ///
-    /// Tables are byte-for-byte the shipping implementations'. Colors:
+    /// The hardware tables follow the shipping implementations. Colors:
     /// Linux hid-playstation.c player_colors ("Use same player colors
     /// as PlayStation 4") and SDL_hidapi_ps5.c SetLedsForPlayerIndex,
     /// which extend the canonical four with orange / teal / white for
@@ -36,6 +36,15 @@ namespace PadForge.Common.Input
 
         private static readonly byte[] Pips =
             { 0x04, 0x0A, 0x15, 0x1B, 0x1F, 0x11, 0x0E };
+
+        // Preserve the browser preview's display palette.
+        private static readonly (byte R, byte G, byte B)[] WebColors =
+        {
+            (0x00, 0x40, 0xFF), (0xFF, 0x00, 0x40), (0x00, 0xFF, 0x40), (0xFF, 0x00, 0xFF),
+        };
+
+        internal static (byte R, byte G, byte B) WebColorFor(int playerNumber)
+            => WebColors[Math.Clamp(playerNumber - 1, 0, WebColors.Length - 1)];
 
         /// <summary>Sony player color for a 1-based virtual controller
         /// number. Numbers past 7 wrap like SDL's player index does.</summary>

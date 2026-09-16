@@ -468,38 +468,10 @@
                                 <Grid.Style>
                                     <Style TargetType="Grid">
                                         <Style.Triggers>
-                                            <!-- Heat requires fuel (#175): the enable glow
-                                                 only ignites once devices are mapped. -->
                                             <MultiDataTrigger>
                                                 <MultiDataTrigger.Conditions>
                                                     <Condition Binding="{Binding IsEnabled}" Value="True"/>
                                                     <Condition Binding="{Binding HasMappedDevices}" Value="True"/>
-                                                </MultiDataTrigger.Conditions>
-                                                <MultiDataTrigger.EnterActions>
-                                                    <BeginStoryboard>
-                                                        <Storyboard>
-                                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:0.3">
-                                                                <DoubleAnimation.EasingFunction>
-                                                                    <CubicEase EasingMode="EaseOut"/>
-                                                                </DoubleAnimation.EasingFunction>
-                                                            </DoubleAnimation>
-                                                        </Storyboard>
-                                                    </BeginStoryboard>
-                                                </MultiDataTrigger.EnterActions>
-                                                <MultiDataTrigger.ExitActions>
-                                                    <BeginStoryboard>
-                                                        <Storyboard>
-                                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:1.2">
-                                                                <DoubleAnimation.EasingFunction>
-                                                                    <CubicEase EasingMode="EaseIn"/>
-                                                                </DoubleAnimation.EasingFunction>
-                                                            </DoubleAnimation>
-                                                        </Storyboard>
-                                                    </BeginStoryboard>
-                                                </MultiDataTrigger.ExitActions>
-                                            </MultiDataTrigger>
-                                            <MultiDataTrigger>
-                                                <MultiDataTrigger.Conditions>
                                                     <Condition Binding="{Binding IsVirtualControllerConnected}" Value="True"/>
                                                     <Condition Binding="{Binding Source={x:Static SystemParameters.ClientAreaAnimation}}" Value="True"/>
                                                     <!-- Ambient gate (2026-07-16): a permanent breathe pays WPF's
@@ -548,6 +520,8 @@
                                                  Opacity="0" outranks trigger setters. -->
                                             <MultiDataTrigger>
                                                 <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding IsEnabled}" Value="True"/>
+                                                    <Condition Binding="{Binding HasMappedDevices}" Value="True"/>
                                                     <Condition Binding="{Binding IsVirtualControllerConnected}" Value="True"/>
                                                     <Condition Binding="{Binding Source={x:Static SystemParameters.ClientAreaAnimation}}" Value="False"/>
                                                 </MultiDataTrigger.Conditions>
@@ -562,6 +536,50 @@
                                                     <BeginStoryboard>
                                                         <Storyboard>
                                                             <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:0"/>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </MultiDataTrigger.ExitActions>
+                                            </MultiDataTrigger>
+                                            <!-- ORDER IS THE CONTRACT. All three
+                                                 triggers animate this one Opacity, and
+                                                 the last exit to begin decides where it
+                                                 rests. An unassign raises HasMappedDevices
+                                                 before IsVirtualControllerConnected, so
+                                                 with this trigger declared first its exit
+                                                 to 0 ran and the connected exit to 0.5
+                                                 landed after it, leaving a warm glow on a
+                                                 card with no devices. The cold exit is
+                                                 declared LAST so it wins, and the two
+                                                 connected triggers below now carry the
+                                                 same fuel conditions so every exit fires
+                                                 on one notification rather than across
+                                                 ticks. -->
+                                            <!-- Heat requires fuel (#175): the enable glow
+                                                 only ignites once devices are mapped. -->
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding IsEnabled}" Value="True"/>
+                                                    <Condition Binding="{Binding HasMappedDevices}" Value="True"/>
+                                                </MultiDataTrigger.Conditions>
+                                                <MultiDataTrigger.EnterActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:0.3">
+                                                                <DoubleAnimation.EasingFunction>
+                                                                    <CubicEase EasingMode="EaseOut"/>
+                                                                </DoubleAnimation.EasingFunction>
+                                                            </DoubleAnimation>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </MultiDataTrigger.EnterActions>
+                                                <MultiDataTrigger.ExitActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:1.2">
+                                                                <DoubleAnimation.EasingFunction>
+                                                                    <CubicEase EasingMode="EaseIn"/>
+                                                                </DoubleAnimation.EasingFunction>
+                                                            </DoubleAnimation>
                                                         </Storyboard>
                                                     </BeginStoryboard>
                                                 </MultiDataTrigger.ExitActions>

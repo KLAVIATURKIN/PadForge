@@ -32,7 +32,7 @@ namespace PadForge.Tests
             try
             {
                 SourceCoercion.ButtonHeldProvider = (_, _, _) => held;
-                var prev = new bool[16];
+                bool prev = false;
                 bool engaged = InputManager.SettleRouteActivator(0, "Button 3", "", mode, prev, false, out _);
                 Assert.Equal(expectedEngaged, engaged);
             }
@@ -51,8 +51,8 @@ namespace PadForge.Tests
                 foreach (bool held in new[] { true, false })
                 {
                     SourceCoercion.ButtonHeldProvider = (_, _, _) => held;
-                    bool hold = InputManager.SettleRouteActivator(0, "Button 3", "", "Hold", new bool[16], false, out _);
-                    bool rte = InputManager.SettleRouteActivator(0, "Button 3", "", "ReleaseToEngage", new bool[16], false, out _);
+                    bool hold = InputManager.SettleRouteActivator(0, "Button 3", "", "Hold", false, false, out _);
+                    bool rte = InputManager.SettleRouteActivator(0, "Button 3", "", "ReleaseToEngage", false, false, out _);
                     Assert.NotEqual(hold, rte);
                 }
             }
@@ -65,8 +65,8 @@ namespace PadForge.Tests
         [Fact]
         public void RouteActivator_EmptyDescriptor_AlwaysOn_InReleaseToEngage()
         {
-            Assert.True(InputManager.SettleRouteActivator(0, "", "", "ReleaseToEngage", new bool[16], false, out _));
-            Assert.True(InputManager.SettleRouteActivator(0, "", "", "Hold", new bool[16], false, out _));
+            Assert.True(InputManager.SettleRouteActivator(0, "", "", "ReleaseToEngage", false, false, out _));
+            Assert.True(InputManager.SettleRouteActivator(0, "", "", "Hold", false, false, out _));
         }
 
         // ── Reset All on the Sound Output card covers the whole card ───────

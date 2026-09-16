@@ -91,7 +91,10 @@ namespace PadForge.Engine
         /// Computed once at <see cref="Open"/> time and used by the Devices
         /// preview to avoid showing button slots the device doesn't have.
         /// </summary>
-        public int[] SupportedButtonIndices { get; private set; } = Array.Empty<int>();
+        /// <para>Null until <see cref="Open"/> computes it, because an empty
+        /// array now means "this device has no buttons" rather than "nobody
+        /// has asked yet".</para>
+        public int[] SupportedButtonIndices { get; private set; }
 
         /// <summary>The axis twin of <see cref="SupportedButtonIndices"/>: the
         /// standard slots this pad physically has (SDL_GamepadHasAxis) plus the
@@ -500,9 +503,8 @@ namespace PadForge.Engine
                     // so we synthesize them: a per-pad monotonic counter
                     // increments each time a finger slot transitions from
                     // up to down. The currently-assigned ID for each slot
-                    // is held across polling ticks (the CustomInputState is
-                    // re-allocated each tick) and written into the snapshot
-                    // each frame.
+                    // is held across polling ticks and copied into each
+                    // reset, reused state buffer.
                     _padFingerCounts = new int[numPads];
                     _padContactIdNext = new int[numPads];
                     _padCurrentContactIds = new int[numPads][];
@@ -559,10 +561,6 @@ namespace PadForge.Engine
             // 6/7 for a Joy-Con 2 L (PID 0x2067) or R (PID 0x2066) when its mouse
             // hint is set (SDL#8, raw axis count 8). Same raw-naxes contract idiom
             // as the Wii IR axes and the Joy-Con NIR scalar above.
-            HasJoyCon2Mouse = VendorId == 0x057E
-                && (ProductId == 0x2066 || ProductId == 0x2067)
-                && Joystick != IntPtr.Zero && SDL_GetNumJoystickAxes(Joystick) >= 8;
-
             // Switch 2 magnetometer (#271 item 5, SDL#25 fork cfcdeb26e0).
             // The BLE driver posts the raw int16 sample on the three axes
             // AFTER whichever mouse axes exist; the raw axis count is the
@@ -571,10 +569,7 @@ namespace PadForge.Engine
             // Joy-Con 2 decode paths only; the Pro 2 decoder is not wired
             // (fork's own scope note), and BLE devices never combine, so
             // the PIDs are the two singles.
-            HasSwitch2Magnetometer = VendorId == 0x057E
-                && (ProductId == 0x2066 || ProductId == 0x2067)
-                && Joystick != IntPtr.Zero
-                && SDL_GetNumJoystickAxes(Joystick) >= (HasJoyCon2Mouse ? 11 : 9);
+            UpdateSwitch2AxisCapabilities();
 
             // NFC reader (issue #241/#248, SDL#15). The NFC/IR MCU lives on
             // the classic Switch right Joy-Con (PID 0x2007) and Pro
@@ -602,9 +597,7 @@ namespace PadForge.Engine
             // data with their own dedicated sources, not usable raw axes, and a
             // never-settling sensor value in the generic Axis[] array would poison
             // the input-activity detectors (recorder / sticky-shift / idle).
-            HasExtraGenericAxes = GameController != IntPtr.Zero
-                && RawAxisCount > 6
-                && !HasIrCamera && !HasJoyConIr && !HasJoyCon2Mouse;
+            UpdateExtraAxisCapabilities();
 
             // AFTER HasExtraGenericAxes, never before: the axis list's upper
             // bound IS that flag, so computing it earlier silently truncated
@@ -974,16 +967,27 @@ namespace PadForge.Engine
         private int _jc2MousePrevX, _jc2MousePrevY;
         private bool _jc2MouseHasPrev;
 
-        /// <summary>Reads the raw magnetometer triple (#271 item 5). Axis
-        /// base follows the availability contract: the mag axes sit after
-        /// whichever mouse axes exist (SDL_ble_switch2joystick.c
-        /// BLE_PostMagnetometerAxes: base = gamepad count + mouse pair).
-        /// The all-zero triple marks the stream inactive; a real sample
-        /// crossing exactly (0,0,0) costs one skipped update, not a wrong
-        /// heading, the mouse reader's trade.</summary>
+        internal void UpdateSwitch2AxisCapabilities()
+        {
+            bool supported = VendorId == 0x057E && (ProductId == 0x2066 || ProductId == 0x2067)
+                && Joystick != IntPtr.Zero;
+            HasJoyCon2Mouse = supported && (RawAxisCount == 8 || RawAxisCount >= 11);
+            HasSwitch2Magnetometer = supported && RawAxisCount >= (HasJoyCon2Mouse ? 11 : 9);
+        }
+
+        internal void UpdateExtraAxisCapabilities()
+        {
+            HasExtraGenericAxes = GameController != IntPtr.Zero && RawAxisCount > 6
+                && !HasIrCamera && !HasJoyConIr && !HasJoyCon2Mouse && !HasSwitch2Magnetometer;
+        }
+
+        internal int Switch2MagnetometerAxisBase => HasJoyCon2Mouse ? 8 : 6;
+
+        /// <summary>Reads the magnetometer axes after the optional mouse pair.
+        /// An all-zero triple marks the stream inactive.</summary>
         private void ReadSwitch2Magnetometer()
         {
-            int magBase = HasJoyCon2Mouse ? 8 : 6;
+            int magBase = Switch2MagnetometerAxisBase;
             short mx = SDL_GetJoystickAxis(Joystick, magBase);
             short my = SDL_GetJoystickAxis(Joystick, magBase + 1);
             short mz = SDL_GetJoystickAxis(Joystick, magBase + 2);
@@ -1130,11 +1134,11 @@ namespace PadForge.Engine
         ///            [6]=Back, [7]=Start, [8]=LS, [9]=RS, [10]=Guide
         ///   POV[0]: D-pad synthesized from gamepad D-pad buttons.
         /// </summary>
-        // ── Pooled state buffers (perf audit 2026-07-20) ──
+        // Pooled state buffers.
         // Two per-wrapper CustomInputState instances, alternated per read.
-        // Retainer footprint (agents, this audit): the published instance
-        // must stay intact for exactly one tick (ud.OldInputState's idle
-        // compare) and no consumer holds it longer, so two buffers
+        // The published instance must stay intact for exactly one tick
+        // for ud.OldInputState's idle compare. No consumer holds it longer,
+        // so two buffers
         // suffice. ResetForReuse restores exact fresh-construction
         // semantics (reflection-guarded by CustomInputStateMirrorTests),
         // so decoders that rely on fresh-zero fields stay correct.
@@ -1434,11 +1438,11 @@ namespace PadForge.Engine
         private int _cachedBatteryPercent = -1;
         private bool _cachedBatteryCharging;
 
-        // Per-touchpad scratch — sized once at OpenInternal time when
+        // Per-touchpad scratch, sized once at OpenInternal time when
         // HasTouchpad is true. _padFingerCounts is the per-pad finger
         // slot count from SDL_GetNumGamepadTouchpadFingers; the contact-
         // ID counter and per-slot current ID survive across polling ticks
-        // even though the CustomInputState gets re-allocated each tick.
+        // while each reused CustomInputState is reset before the next read.
         private int[] _padFingerCounts;
         private int[] _padContactIdNext;
         private int[][] _padCurrentContactIds;
@@ -2005,6 +2009,10 @@ namespace PadForge.Engine
                     int sdlButton = GamepadButtonForPosition(i);
                     include = sdlButton >= 0 && SDL_GamepadHasButton(GameController, sdlButton);
                 }
+                else if (isGamepad && _mappedRawButtonIndices != null)
+                {
+                    include = !_mappedRawButtonIndices.Contains(i);
+                }
                 if (!include) continue;
 
                 var item = new DeviceObjectItem();
@@ -2245,24 +2253,17 @@ namespace PadForge.Engine
         /// the SDL_GamepadHasButton probe); null before the probe runs.</summary>
         private bool[] _extButtonPresent;
 
-        // ── Button-surface trace (PADFORGE_DIAG only) ──
-        //
-        // Answers "why does this button do nothing" at the layer the answer
-        // lives on, instead of downstream where every cause looks the same.
-        // The surface line says which positions this pad is even allowed to
-        // report; the edge lines say which ones actually move, and give the
-        // RAW joystick bit beside the gamepad-position bit for the same press.
-        // Reading the pair:
-        //   gp=1 raw=1   the press arrived and was decoded. Anything still
-        //                wrong is downstream of this device.
-        //   gp=0 raw=1   the pad sent it and SDL's gamepad MAPPING drops it.
-        //   gp=0 raw=0   nothing arrived at all: the pad is not sending it on
-        //                this transport, or the report is being misparsed.
-        // A press of a button that works is the positive control: it must
-        // produce an edge line in the same window, or the trace itself is
-        // dead and proves nothing.
+        // Button-surface trace while diagnostics are enabled.
+        // BTNEDGE uses PadForge gamepad positions. RAWBTNEDGE uses SDL
+        // joystick indices. Their numbers have no implied correspondence.
+        // Observe both independently so a raw edge remains visible when the
+        // gamepad mapping drops it. SDL state is downstream of driver parsing.
+        // A working button must produce an edge in the same log window before
+        // the absence of another edge can support a diagnosis.
         private bool[] _diagPrevButtons;
+        private bool[] _diagPrevRawButtons;
         private bool _diagSurfaceLogged;
+        internal Func<IntPtr, int, bool> DiagnosticRawButtonReader = SDL_GetJoystickButton;
 
         private void TraceButtonSurface(CustomInputState state)
         {
@@ -2290,11 +2291,23 @@ namespace PadForge.Engine
             {
                 if (state.Buttons[i] == _diagPrevButtons[i]) continue;
                 _diagPrevButtons[i] = state.Buttons[i];
-                bool raw = false;
-                try { if (Joystick != IntPtr.Zero && i < RawButtonCount) raw = SDL_GetJoystickButton(Joystick, i); }
-                catch { }
                 SdlDiagLog.WriteLine(
-                    "BTNEDGE pos=" + i + " gp=" + (state.Buttons[i] ? 1 : 0) + " raw=" + (raw ? 1 : 0)
+                    "BTNEDGE pos=" + i + " gp=" + (state.Buttons[i] ? 1 : 0)
+                    + " dev=" + (Name ?? "?"));
+            }
+
+            if (Joystick == IntPtr.Zero || RawButtonCount <= 0) return;
+            if (_diagPrevRawButtons == null || _diagPrevRawButtons.Length != RawButtonCount)
+                _diagPrevRawButtons = new bool[RawButtonCount];
+            for (int i = 0; i < RawButtonCount; i++)
+            {
+                bool down;
+                try { down = DiagnosticRawButtonReader(Joystick, i); }
+                catch { continue; }
+                if (down == _diagPrevRawButtons[i]) continue;
+                _diagPrevRawButtons[i] = down;
+                SdlDiagLog.WriteLine(
+                    "RAWBTNEDGE index=" + i + " down=" + (down ? 1 : 0)
                     + " dev=" + (Name ?? "?"));
             }
         }

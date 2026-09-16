@@ -17,8 +17,8 @@
         the ShiftLayerFlyout precedent: WS_EX_NOACTIVATE | WS_EX_TOOLWINDOW
         | WS_EX_TRANSPARENT applied on Loaded, so it never steals focus
         from the game and never eats a click. Content is built in code
-        (wedge paths for radial rings, bordered cells for grids) and only
-        the hover highlight is restyled per UI tick.
+        (wedge paths for radial rings, bordered cells for grids). Menu and
+        appearance changes rebuild the visuals. Other ticks update hover.
     -->
     <Grid>
         <Canvas x:Name="MenuCanvas"/>

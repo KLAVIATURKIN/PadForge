@@ -63,11 +63,19 @@ namespace PadForge.Services
         // so a superseded timer still clears whatever no newer pulse claimed.
         // UI thread only.
         private readonly long[,] _testPulseMotorGeneration =
-            new long[InputManager.MaxPads, 4];
+            new long[InputManager.MaxPads, 5];
         private const int PulseFieldMainLeft = 0;
         private const int PulseFieldMainRight = 1;
         private const int PulseFieldTriggerLeft = 2;
         private const int PulseFieldTriggerRight = 3;
+        // The directional block belongs here too, not on the slot-wide counter.
+        // Only the main lane ever writes it, so calling it shared was wrong: an
+        // impulse pulse bumped the slot generation, the main timer bailed before
+        // its directional clear, and the impulse timer never performs one. An
+        // Extended slot was then left with HasDirectionalData latched true, which
+        // holds a wheel at a constant force and makes ConstantForceEvaluator read
+        // the slot as game-driven, silencing the user's own Constant Force.
+        private const int PulseFieldDirectional = 4;
         // Gesture fired-key compose cache; see the provider (round 33, C14).
         private static readonly System.Collections.Concurrent.ConcurrentDictionary<(int, string), string>
             s_gestureFiredKeyCache = new();
@@ -261,15 +269,33 @@ namespace PadForge.Services
                     if (isMouse)
                     {
                         double adx = (double)_dx / n, ady = (double)_dy / n, asc = (double)_scroll / n;
-                        s.MouseRawDX = (int)Math.Round(adx);
-                        s.MouseRawDY = (int)Math.Round(ady);
+                        // The raw count fields are INTEGERS, so the per-poll
+                        // average rounds. Zeroing the sums threw the remainder
+                        // away, and a drag adding up to fewer counts than the
+                        // batch had polls rounded to nothing: three counts over
+                        // eight polls is 0.375 each, rounds to zero, and the
+                        // peer's gesture recognizer and idle detector both read
+                        // a motionless mouse. Carry the remainder so slow motion
+                        // accumulates until it crosses a whole count.
+                        //
+                        // Scroll keeps the plain reset. Axis[2] is the wrapper's
+                        // 25 ms window SUM re-read every poll, a held level
+                        // rather than a per-poll delta, so a carried remainder
+                        // there would smear it.
+                        int qdx = (int)Math.Round(adx), qdy = (int)Math.Round(ady);
+                        s.MouseRawDX = qdx;
+                        s.MouseRawDY = qdy;
                         s.Axis[0] = Math.Clamp(32767 + (int)(adx * 2048), 0, 65535);
                         s.Axis[1] = Math.Clamp(32767 + (int)(ady * 2048), 0, 65535);
                         s.Axis[2] = Math.Clamp(32767 + (int)(asc * 128), 0, 65535);
+                        // Subtract what the consumer re-reads once per poll
+                        // until the next frame lands, not the whole sum.
+                        _dx -= (long)qdx * n;
+                        _dy -= (long)qdy * n;
                     }
                     s.JoyCon2MouseDX = (float)(_jc2dx / n);
                     s.JoyCon2MouseDY = (float)(_jc2dy / n);
-                    _dx = 0; _dy = 0; _scroll = 0;
+                    _scroll = 0;
                     _jc2dx = 0; _jc2dy = 0;
                     _polls = 0;
                 }
@@ -735,6 +761,34 @@ namespace PadForge.Services
         //  Start / Stop
         // ─────────────────────────────────────────────
 
+        // A sink built purely from remote-audio demand carries a sentinel
+        // rather than a slot, and a voice-only microphone lane can resolve a
+        // negative one. Neither indexes a pad, so a slot-only lookup answered
+        // both with the stock default and a configured output path or buffer
+        // length went unread on exactly those pads. A real slot still answers
+        // only for itself; an unreal one falls back to the device's own config.
+        private DeviceSlotConfig ResolveDeviceAudioConfig(int slot, Guid deviceGuid)
+        {
+            if (deviceGuid == Guid.Empty) return null;
+            if ((uint)slot < _mainVm.Pads.Count) return _mainVm.Pads[slot].PeekDeviceConfig(deviceGuid);
+            foreach (var pad in _mainVm.Pads)
+            {
+                var found = pad.PeekDeviceConfig(deviceGuid);
+                if (found != null) return found;
+            }
+            return null;
+        }
+
+        internal int ResolveDeviceAudioOutputPath(int slot, Guid deviceGuid)
+        {
+            var cfg = ResolveDeviceAudioConfig(slot, deviceGuid);
+            return cfg == null ? 0 : AudioPassthroughService.ResolveOutputPath((int)cfg.AudioOutputPath, deviceGuid);
+        }
+
+        internal int ResolveDeviceAudioBufferLength(int slot, Guid deviceGuid)
+            => ResolveDeviceAudioConfig(slot, deviceGuid)?.Ds5AudioBufferLength
+               ?? AudioPassthroughService.Ds5AudioBufferLengthDefault;
+
         /// <summary>
         /// Creates the InputManager, subscribes to events, starts the engine
         /// and the UI update timer.
@@ -995,7 +1049,8 @@ namespace PadForge.Services
                             _inputManager.ScaleRumbleForDevice(
                                 effective.LeftMotorSpeed, effective.RightMotorSpeed,
                                 rowPs, out ushort rowL, out ushort rowR);
-                            _inputManager.GetTriggerRouteMainRedirect(slot, out bool zMainL, out bool zMainR);
+                            _inputManager.GetTriggerRouteMainRedirect(slot, deviceGuid,
+                                out bool zMainL, out bool zMainR);
                             if (zMainL) rowL = 0;
                             if (zMainR) rowR = 0;
                             TouchpadPulseService.MixIntoMotors(ref rowL, ref rowR,
@@ -1020,7 +1075,7 @@ namespace PadForge.Services
                                 _inputManager.ScaleTriggerRumbleForDevice(
                                     trigEff.LeftTriggerMotorSpeed, trigEff.RightTriggerMotorSpeed,
                                     rowPs, out ushort foldL, out ushort foldR);
-                                _inputManager.ApplyTriggerRoutingForSony(slot, rowPs, slotRaw,
+                                _inputManager.ApplyTriggerRoutingForSony(slot, deviceGuid, rowPs, slotRaw,
                                     _routeMainScratchSony, _routeCfScratchSony, ref foldL, ref foldR);
                                 if (foldL > rowL) rowL = foldL;
                                 if (foldR > rowR) rowR = foldR;
@@ -1052,7 +1107,8 @@ namespace PadForge.Services
                     _inputManager.ScaleRumbleForDevice(
                         effective.LeftMotorSpeed, effective.RightMotorSpeed,
                         null, out ushort scaledL, out ushort scaledR);
-                    _inputManager.GetTriggerRouteMainRedirect(padIndex, out bool zMainL, out bool zMainR);
+                    _inputManager.GetTriggerRouteMainRedirect(padIndex, deviceGuid,
+                        out bool zMainL, out bool zMainR);
                     if (zMainL) scaledL = 0;
                     if (zMainR) scaledR = 0;
                     TouchpadPulseService.MixIntoMotors(ref scaledL, ref scaledR,
@@ -1114,6 +1170,7 @@ namespace PadForge.Services
 
                 ushort maxL = 0, maxR = 0;
                 bool anyRow = false;
+                bool sawRow = false;
                 var settings = SettingsManager.UserSettings;
                 if (settings != null && deviceGuid != Guid.Empty)
                 {
@@ -1126,6 +1183,12 @@ namespace PadForge.Services
                             if (us.InstanceGuid != deviceGuid) continue;
                             int slot = us.MapTo;
                             if (slot < 0 || slot >= InputManager.MaxPads) continue;
+                            // Same flag the main-motor provider carries, set
+                            // BEFORE the test-target filter: "this device has
+                            // assignment rows" and "those rows contributed" are
+                            // different facts, and only the first may gate the
+                            // row-less fallback below.
+                            sawRow = true;
                             var tt = _inputManager.TestRumbleTargetGuid[slot];
                             if (tt != Guid.Empty && tt != deviceGuid) continue;
 
@@ -1138,7 +1201,7 @@ namespace PadForge.Services
                             _inputManager.ScaleTriggerRumbleForDevice(
                                 effective.LeftTriggerMotorSpeed, effective.RightTriggerMotorSpeed,
                                 rowPs, out ushort rowL, out ushort rowR);
-                            _inputManager.ApplyTriggerRoutingForSony(slot, rowPs, slotRaw,
+                            _inputManager.ApplyTriggerRoutingForSony(slot, deviceGuid, rowPs, slotRaw,
                                 _routeMainScratchSony, _routeCfScratchSony, ref rowL, ref rowR);
 
                             if (rowL > maxL) maxL = rowL;
@@ -1148,8 +1211,13 @@ namespace PadForge.Services
                     }
                 }
 
-                if (!anyRow)
+                if (!anyRow && !sawRow)
                 {
+                    // Rows that existed but were ALL skipped (a foreign test
+                    // target, a missing pack) must not reach the row-less
+                    // fallback: it re-reads padIndex's raw pack, a slot this
+                    // device may no longer be assigned to. Same rule the
+                    // main-motor provider states.
                     var raw = _inputManager.VibrationStates[padIndex];
                     if (raw == null) return ((byte)0, (byte)0);
                     var effective = ConstantTriggerForceEvaluator.Resolve(
@@ -1157,7 +1225,9 @@ namespace PadForge.Services
                     _inputManager.ScaleTriggerRumbleForDevice(
                         effective.LeftTriggerMotorSpeed, effective.RightTriggerMotorSpeed,
                         null, out ushort scaledL, out ushort scaledR);
-                    _inputManager.ApplyTriggerRoutingForSony(padIndex, null, raw,
+                    // No settings matched this device, so there is no route of
+                    // its own to apply and the empty identity routes nothing.
+                    _inputManager.ApplyTriggerRoutingForSony(padIndex, Guid.Empty, null, raw,
                         _routeMainScratchSony, _routeCfScratchSony, ref scaledL, ref scaledR);
                     maxL = scaledL;
                     maxR = scaledR;
@@ -1191,35 +1261,10 @@ namespace PadForge.Services
             // Reads the engine's MacroSnapshots (atomically swapped by
             // SyncMacroSnapshots below), so the audio worker never touches
             // the live ViewModel collections.
-            // Device output path for the USB mirror's channel shaper.
-            // Walks the pads' per-device configs on the calling thread;
-            // DeviceSlotConfig property reads are plain fields.
-            AudioPassthroughService.DeviceAudioOutputPathProvider = deviceGuid =>
-            {
-                if (deviceGuid == Guid.Empty) return 0;
-                foreach (var padVm in _mainVm.Pads)
-                {
-                    var cfg = padVm.PeekDeviceConfig(deviceGuid);
-                    if (cfg != null)
-                        return AudioPassthroughService.ResolveOutputPath(
-                            (int)cfg.AudioOutputPath, deviceGuid);
-                }
-                return 0;
-            };
-
-            // #314: same walk as the output-path provider above, so the
-            // buffer length resolves from the same per-device config.
-            AudioPassthroughService.DeviceAudioBufferLengthProvider = deviceGuid =>
-            {
-                if (deviceGuid == Guid.Empty)
-                    return AudioPassthroughService.Ds5AudioBufferLengthDefault;
-                foreach (var padVm in _mainVm.Pads)
-                {
-                    var cfg = padVm.PeekDeviceConfig(deviceGuid);
-                    if (cfg != null) return cfg.Ds5AudioBufferLength;
-                }
-                return AudioPassthroughService.Ds5AudioBufferLengthDefault;
-            };
+            // Audio settings belong to the sink's current (slot, device).
+            // Reads stay free of settings locks on the render thread.
+            AudioPassthroughService.DeviceAudioOutputPathProvider = ResolveDeviceAudioOutputPath;
+            AudioPassthroughService.DeviceAudioBufferLengthProvider = ResolveDeviceAudioBufferLength;
 
             AudioPassthroughService.SlotWantsMacroAudioProvider = slot =>
             {
@@ -1512,7 +1557,11 @@ namespace PadForge.Services
                 if (string.IsNullOrEmpty(descriptor)) return true; // unconfigured = pass-through
                 if (string.IsNullOrEmpty(deviceGuid) || !Guid.TryParse(deviceGuid, out var g)) return false;
                 var ud = FindUserDevice(g);
-                if (ud == null || ud.InputState == null) return false;
+                // Online only, the rule the mapping path applies and records:
+                // a failed read marks a device offline without clearing its
+                // state, so reading it anyway resurrects whatever was held at
+                // the moment the read failed.
+                if (ud == null || !ud.IsOnline || ud.InputState == null) return false;
                 buttonHeldSynth.DeviceGuid = deviceGuid;
                 buttonHeldSynth.Descriptor = descriptor;
                 return PadForge.Engine.Common.Mapping.SourceCoercion.EvaluateForButtonTarget(
@@ -1537,7 +1586,11 @@ namespace PadForge.Services
             // if the setting is missing or invalid.
             PadForge.Engine.Common.Mapping.SourceCoercion.PollHzProvider = () =>
             {
-                int ms = _mainVm?.Settings?.PollingRateMs ?? 0;
+                // The rate the loop is ACTUALLY running at. A profile can
+                // override the global setting, and the resolved value lives on
+                // the manager, so reading the setting reported a rate the loop
+                // was not using and sized the gyro smoothing window from it.
+                int ms = _inputManager?.PollingIntervalMs ?? (_mainVm?.Settings?.PollingRateMs ?? 0);
                 return ms > 0 ? 1000f / ms : 60f;
             };
 
@@ -2285,6 +2338,20 @@ namespace PadForge.Services
             // Start engine background thread.
             _inputManager.Start();
 
+            // Start is void and returns without running when the backend fails
+            // to initialize (a missing library, a refused init). Everything
+            // below used to run anyway and publish the running state, so the
+            // interface read Running on an engine with no poll thread, the
+            // toggle offered Stop, and every retry hit Start's own
+            // already-running guard forever. Tear the half-built session down
+            // instead, so the user can fix the cause and press Start again. The
+            // failure text already reached the status bar.
+            if (!_inputManager.IsRunning)
+            {
+                Stop();
+                return;
+            }
+
             // Start DSU motion server if enabled.
             StartDsuServerIfEnabled();
 
@@ -2787,6 +2854,13 @@ namespace PadForge.Services
                 var selectedDeviceVibration = _inputManager.SelectedDeviceVibrationStates[i];
 
                 padVm.UpdateFromEngineState(gp, vibration, selectedDeviceVibration);
+                // Third feed: the slot's vibration state is the command as it
+                // arrived from the game, before each device's settings are
+                // applied. The feedback tab's raw bar needs that one, not the
+                // slot maximum the preview tab uses.
+                var rawVibration = _inputManager.VibrationStates[i];
+                padVm.RawLeftMotorDisplay = rawVibration.LeftMotorSpeed / 65535.0;
+                padVm.RawRightMotorDisplay = rawVibration.RightMotorSpeed / 65535.0;
                 padVm.UpdateFromTouchpadState(_inputManager.CombinedTouchpadStates[i]);
 
                 // For custom Extended slots, also push the combined RawHidState.
@@ -3574,7 +3648,7 @@ namespace PadForge.Services
                     : Strings.Instance.Common_Idle;
             }
 
-            int xboxCount = 0, playstationCount = 0, nintendoCount = 0, extendedCount = 0, midiCount = 0, vrCount = 0, globalCount = 0;
+            int xboxCount = 0, playstationCount = 0, nintendoCount = 0, extendedCount = 0, midiCount = 0, kbmCount = 0, vrCount = 0, globalCount = 0;
             foreach (var slot in dash.SlotSummaries)
             {
                 globalCount++;
@@ -3605,6 +3679,14 @@ namespace PadForge.Services
                     case VirtualControllerType.Vr:
                         vrCount++;
                         slot.TypeInstanceLabel = LiveValueString(vrCount);
+                        break;
+                    // Its own number, the way the sidebar already counts it.
+                    // Falling through to the default consumed an Xbox number,
+                    // so every later Xbox card shifted up one and the same
+                    // slot read differently on the two pages.
+                    case VirtualControllerType.KeyboardMouse:
+                        kbmCount++;
+                        slot.TypeInstanceLabel = LiveValueString(kbmCount);
                         break;
                     default:
                         xboxCount++;
@@ -3684,7 +3766,14 @@ namespace PadForge.Services
                     bool sonyLightbar = ud.VendorId == 0x054C
                         && (ud.ProdId == 0x0CE6 || ud.ProdId == 0x0DF2
                          || ud.ProdId == 0x05C4 || ud.ProdId == 0x09CC || ud.ProdId == 0x0BA0);
-                    capLightbar |= sonyLightbar
+                    // A PS Move sphere (#277) and a browser pad's drawn bar are
+                    // lightbars the Lighting tab already shows and edits, so the
+                    // card owed them a stage. Kept OUT of sonyLightbar, which
+                    // also gates the Audio stage below: neither has a speaker.
+                    bool otherLightbar =
+                        (ud.VendorId == 0x054C && ud.ProdId == 0x03D5)
+                        || (ud.Device is PadForge.Engine.WebControllerDevice wlb && wlb.HasLightbar);
+                    capLightbar |= sonyLightbar || otherLightbar
                         || PadForge.Common.Input.XboxGipGuideLedWriter.IsXboxGipPathed(ud)
                         || PadForge.Common.Input.SteamHomeLedSetter.IsSteamController2015(ud.VendorId, ud.ProdId)
                         || PadForge.Common.Input.SwitchHomeLedSetter.IsSwitchHomeLedDevice(ud.VendorId, ud.ProdId);
@@ -3757,7 +3846,7 @@ namespace PadForge.Services
                 if (ps != null && capSticks)
                 {
                     var parts = new List<string>();
-                    AppendStickStageTokens(parts, ps);
+                    AppendStickStageTokens(parts, ps, isKbm);
                     AddLine(stickLines, ref stickHot, guid, parts);
                 }
                 if (ps != null && capTriggers)
@@ -3779,6 +3868,10 @@ namespace PadForge.Services
                 bool sonyLightbar = ud != null && ud.VendorId == 0x054C
                     && (ud.ProdId == 0x0CE6 || ud.ProdId == 0x0DF2
                      || ud.ProdId == 0x05C4 || ud.ProdId == 0x09CC || ud.ProdId == 0x0BA0);
+                // A lightbar without the Sony speaker or indicator hardware.
+                bool otherLightbar = ud != null
+                    && ((ud.VendorId == 0x054C && ud.ProdId == 0x03D5)
+                     || (ud.Device is PadForge.Engine.WebControllerDevice wlb2 && wlb2.HasLightbar));
                 bool devAudio = sonyLightbar
                     || (ud != null && (WiiSpeakerService.DeviceHasSpeaker(ud)
                                     || HapticToneService.DeviceHasHaptics(ud)));
@@ -3793,19 +3886,25 @@ namespace PadForge.Services
                     && (PadForge.Common.Input.XboxGipGuideLedWriter.IsXboxGipPathed(ud)
                      || PadForge.Common.Input.SteamHomeLedSetter.IsSteamController2015(ud.VendorId, ud.ProdId)
                      || PadForge.Common.Input.SwitchHomeLedSetter.IsSwitchHomeLedDevice(ud.VendorId, ud.ProdId));
-                if (sonyLightbar || devGuideLed)
+                if (sonyLightbar || otherLightbar || devGuideLed)
                 {
                     // Lighting defaults: LightbarMode.PlayerNumber base +
                     // InputReactiveMode.Off overlay (DeviceSlotConfig
                     // field initializers). Tokens = the picked mode names,
                     // including the deliberate Off (hard dark).
                     var parts = new List<string>();
-                    if (cfg != null && sonyLightbar)
+                    // Bar modes ride every lightbar family, Move and browser pad
+                    // included. The indicator block below stays DualSense
+                    // hardware only, the way the Lighting tab splits them.
+                    if (cfg != null && (sonyLightbar || otherLightbar))
                     {
                         if (cfg.LightbarMode != LightbarMode.PlayerNumber)
                             AddToken(parts, MacroAction.LightbarModeDisplayName(cfg.LightbarMode));
                         if (cfg.InputReactiveMode != InputReactiveMode.Off)
                             AddToken(parts, InputReactiveModeDisplayName(cfg.InputReactiveMode));
+                    }
+                    if (cfg != null && sonyLightbar)
+                    {
                         // Indicator LEDs. Defaults: PlayerLedMode
                         // PlayerNumber, PlayerLedBrightness High,
                         // MicLedMode Off (DeviceSlotConfig field
@@ -3963,8 +4062,23 @@ namespace PadForge.Services
         /// deadzone / anti-deadzone / linear / center offset "0", max range
         /// "100" (Neg variants empty = default), deadzone shape "2"
         /// (ScaledRadial), sensitivity curves "0" (linear), inverts "0".</summary>
-        private static void AppendStickStageTokens(List<string> parts, PadSetting ps)
+        private static void AppendStickStageTokens(List<string> parts, PadSetting ps, bool pointerSticks)
         {
+            // Speed multiplier, default 1. A POINTER-stick knob only (keyboard
+            // and mouse stick 0 is the cursor, stick 1 the wheel; owner ruling
+            // 2026-07-27), so a gamepad slot must not read hot off a value its
+            // lane ignores. Without this the Sticks stage read STOCK on a
+            // keyboard and mouse slot whose live tab showed a changed value.
+            if (pointerSticks)
+            {
+                var sic = System.Globalization.CultureInfo.InvariantCulture;
+                float lspd = TryParseFloatPs(ps.LeftThumbSensitivity, 1f);
+                float rspd = TryParseFloatPs(ps.RightThumbSensitivity, 1f);
+                if (Math.Abs(lspd - 1f) > 0.0001f)
+                    AddToken(parts, "L SPEED " + lspd.ToString("0.##", sic) + "x");
+                if (Math.Abs(rspd - 1f) > 0.0001f)
+                    AddToken(parts, "R SPEED " + rspd.ToString("0.##", sic) + "x");
+            }
             AppendStickSideTokens(parts, "L",
                 ps.LeftThumbDeadZoneX, ps.LeftThumbDeadZoneY,
                 ps.LeftThumbAntiDeadZoneX, ps.LeftThumbAntiDeadZoneY, ps.LeftThumbAntiDeadZone,
@@ -4308,13 +4422,6 @@ namespace PadForge.Services
         /// is cheap.</summary>
         private string _lastGuideLedApplySummary;
 
-        /// <summary>The Sony player colors (blue/red/green/pink), used for
-        /// the web lightbar when no explicit Lighting color is configured.</summary>
-        private static readonly (byte r, byte g, byte b)[] _webPlayerColors =
-        {
-            (0x00, 0x40, 0xFF), (0xFF, 0x00, 0x40), (0x00, 0xFF, 0x40), (0xFF, 0x00, 0xFF),
-        };
-
         private (byte r, byte g, byte b) ResolveWebLightbar(ViewModels.PadViewModel padVm, Guid instanceGuid, int playerNumber)
         {
             try
@@ -4324,19 +4431,13 @@ namespace PadForge.Services
                     if (cfg.LightbarMode == ViewModels.LightbarMode.Off)
                         return (0, 0, 0);
                     if (cfg.LightbarMode != ViewModels.LightbarMode.PlayerNumber)
-                        // The base color, which is the right answer for a
-                        // static pick and a reasonable seed for anything else.
-                        // Animated modes are no longer this lane's job:
-                        // UserEffectsDispatcher runs the same color core for
-                        // this device that it runs for a physical pad, at
-                        // dispatch rate, and overwrites whatever this 30-second
-                        // lane last set. This still matters for the first paint
-                        // and while the engine is stopped.
+                        // With no live dispatcher, seed the preview from the
+                        // stored base color. Live lighting uses the dispatcher.
                         return (cfg.LightbarRed, cfg.LightbarGreen, cfg.LightbarBlue);
                 }
             }
             catch { }
-            return _webPlayerColors[Math.Clamp(playerNumber - 1, 0, _webPlayerColors.Length - 1)];
+            return PlayerIdentityDefaults.WebColorFor(playerNumber);
         }
 
         internal void ApplyGuideLeds()
@@ -4356,20 +4457,47 @@ namespace PadForge.Services
                 // from a silent writer, both lanes in the same log window.
                 int configured = 0, xboxPathed = 0, steam2015 = 0, switchHome = 0, offline = 0, peer = 0;
 
+                // One writer per DEVICE, not per assignment row. A shared device
+                // walked this loop once per slot and every lane below wrote
+                // unconditionally, so the LAST slot in order took the browser
+                // player number and bar color, the Xbox Guide brightness and the
+                // relayed peer percent, and two slots with different configs
+                // flipped the Switch home LED on every pass, since change
+                // detection sees each slot's value as a change. Elect the same
+                // winner the Steam hint below already elects: the slot with the
+                // smallest displayed player number.
+                var ledOwnerNumber = new Dictionary<Guid, int>();
+                foreach (var p in _mainVm.Pads)
+                {
+                    if (p == null) continue;
+                    foreach (var d in p.MappedDevices)
+                    {
+                        if (d == null || d.InstanceGuid == Guid.Empty) continue;
+                        int pn = SettingsManager.SlotOrders.GetGlobalSlotNumber(p.PadIndex);
+                        if (pn <= 0) pn = p.PadIndex + 1;
+                        if (!ledOwnerNumber.TryGetValue(d.InstanceGuid, out int cur) || pn < cur)
+                            ledOwnerNumber[d.InstanceGuid] = pn;
+                    }
+                }
+
                 foreach (var padVm in _mainVm.Pads)
                 {
                     if (padVm == null) continue;
+                    int padNumber = SettingsManager.SlotOrders.GetGlobalSlotNumber(padVm.PadIndex);
+                    if (padNumber <= 0) padNumber = padVm.PadIndex + 1;
                     foreach (var dev in padVm.MappedDevices)
                     {
                         if (dev == null || dev.InstanceGuid == Guid.Empty) continue;
+                        if (ledOwnerNumber.TryGetValue(dev.InstanceGuid, out int ownerNumber)
+                            && ownerNumber != padNumber) continue;
 
                         // Web controller identity (#296, eVenent's ask): the
                         // phone renders a lightbar and player pips. Player
                         // number is the slot's displayed number; the bar
                         // follows the device's Lighting config when one is
                         // set, else the Sony player-color convention. Animated
-                        // modes are driven by UserEffectsDispatcher at dispatch
-                        // rate; this lane sets the resting color.
+                        // modes and overrides use the live dispatcher. Without
+                        // one, this lane supplies the stored resting color.
                         {
                             var wud = FindUserDevice(dev.InstanceGuid);
                             if (wud?.Device is PadForge.Engine.WebControllerDevice web && wud.IsOnline)
@@ -4377,8 +4505,11 @@ namespace PadForge.Services
                                 int wn = SettingsManager.SlotOrders.GetGlobalSlotNumber(padVm.PadIndex);
                                 if (wn <= 0) wn = padVm.PadIndex + 1;
                                 web.SetPlayerNumber(wn);
-                                var (wr, wg, wb) = ResolveWebLightbar(padVm, dev.InstanceGuid, wn);
-                                web.SetLed(wr, wg, wb);
+                                if (!UserEffectsDispatcher.TryApplyOnce(padVm.PadIndex))
+                                {
+                                    var (wr, wg, wb) = ResolveWebLightbar(padVm, dev.InstanceGuid, wn);
+                                    web.SetLed(wr, wg, wb);
+                                }
                             }
                         }
 
@@ -5300,9 +5431,20 @@ namespace PadForge.Services
                     mapping.CurrentValueText = LiveValueString(combined.Value);
                     // Rowfire (#175): discrete targets fire on any nonzero,
                     // axes need a deadband so resting sticks stay dark.
+                    // 1500 is on the plus or minus 32767 stick scale every
+                    // analog target carries EXCEPT a MIDI control change, which
+                    // is the 7-bit wire value: 0 to 127, resting at 64. On that
+                    // scale the test could never be true, so a knob the user was
+                    // turning stayed dark on every MIDI slot. Same proportional
+                    // deadband measured from that target's own rest: 1500 of
+                    // 32767 is 4.6 percent of full scale, and 2 of the control
+                    // change's 64-count half-range is 4.7 percent.
+                    bool isMidiCc = target.StartsWith("MidiCC", StringComparison.Ordinal);
                     mapping.IsInputActive = mapping.IsTargetDiscrete
                         ? combined.Value != 0
-                        : Math.Abs(combined.Value) > 1500;
+                        : isMidiCc
+                            ? Math.Abs(combined.Value - 64) > 2
+                            : Math.Abs(combined.Value) > 1500;
                     continue;
                 }
 
@@ -6290,8 +6432,11 @@ namespace PadForge.Services
             // Gyro Lean / Gyro Tilt resting grip (#292): the issue and
             // the docs promise Gyro Recenter re-zeroes it, and until now
             // nothing did (only a profile switch cleared the dict). The
-            // dict is a ConcurrentDictionary keyed by device guid string,
-            // so per-device removal leaves other slots' grips alone.
+            // keys carry the slot as well as the device, and this call
+            // names devices only, so every slot's grip for the named
+            // devices is retired. The comment here used to claim other
+            // slots were left alone, which was true before the keys took
+            // the slot and has not been since.
             for (int i = 0; i < guids.Count; i++)
                 PadForge.Engine.Common.Mapping.SourceCoercion.ResetGyroLeanNeutral(
                     guids[i].ToString());
@@ -7162,7 +7307,11 @@ namespace PadForge.Services
                     // more than one touchpad surface (Triton / Steam
                     // Deck / SC original). Single-pad devices keep the
                     // bare gesture name to avoid label clutter.
-                    int numPads = 1;
+                    // Persisted CapTouchpadCount is the offline fallback, the
+                    // same one the in-box list uses. Counting only the live
+                    // snapshot made an offline dual-pad device count one pad
+                    // here while the in-box entries beside it counted two.
+                    int numPads = udi.CapTouchpadCount > 0 ? udi.CapTouchpadCount : 1;
                     {
                         // Published snapshot, not Device.GetCurrentState
                         // (pooled-buffer sole-reader contract).
@@ -7181,31 +7330,44 @@ namespace PadForge.Services
                                        || string.Equals(cg.DeviceClass, "any", System.StringComparison.OrdinalIgnoreCase)
                                        || string.Equals(cg.DeviceClass, devClass, System.StringComparison.OrdinalIgnoreCase);
                         if (!classOk) continue;
-                        int padIdx = cg.TouchpadIndex < 0 ? 0 : cg.TouchpadIndex;
-                        // Per-pad settings gate: respects the user's
-                        // Touchpad-tab toggles same as the in-box list.
-                        // "InBoxOnly" mode hides custom; disabled pads
-                        // contribute nothing.
-                        var ps = tpSettingsForPad?.Invoke(padIdx);
-                        if (ps != null)
+                        // TouchpadIndex -1 is the "any pad" wildcard, and the
+                        // recorder writes it on every gesture it saves. The
+                        // shape templates handed to the engine carry no pad
+                        // filter, so the recognizer fires the gesture on
+                        // whichever pad drew it. Collapsing the wildcard to pad
+                        // zero published one descriptor and left every other
+                        // pad's firing with nothing in the grid to bind. Walk
+                        // each pad the device has, the same loop the in-box list
+                        // runs. An explicit index still publishes exactly one.
+                        int firstPad = cg.TouchpadIndex < 0 ? 0 : cg.TouchpadIndex;
+                        int lastPad = cg.TouchpadIndex < 0 ? numPads - 1 : cg.TouchpadIndex;
+                        for (int padIdx = firstPad; padIdx <= lastPad; padIdx++)
                         {
-                            if (!ps.Enabled) continue;
-                            if (string.Equals(ps.Mode, "InBoxOnly", System.StringComparison.OrdinalIgnoreCase))
-                                continue;
+                            // Per-pad settings gate: respects the user's
+                            // Touchpad-tab toggles same as the in-box list.
+                            // "InBoxOnly" mode hides custom; disabled pads
+                            // contribute nothing.
+                            var ps = tpSettingsForPad?.Invoke(padIdx);
+                            if (ps != null)
+                            {
+                                if (!ps.Enabled) continue;
+                                if (string.Equals(ps.Mode, "InBoxOnly", System.StringComparison.OrdinalIgnoreCase))
+                                    continue;
+                            }
+                            // Display pad number is 1-based (matches the in-box
+                            // gesture prefix in MappingDisplayResolver and the
+                            // Devices previews); the Descriptor below stays 0-based.
+                            string display = multiPad
+                                ? string.Format(si.Mapping_TouchpadGesture_PadPrefix_Format, padIdx + 1, cg.Name)
+                                : cg.Name;
+                            flat.Add(new PadForge.ViewModels.InputChoice
+                            {
+                                Descriptor = $"Touchpad {padIdx} Custom_{cg.Name}",
+                                DisplayName = display,
+                                DeviceGuid = key,
+                                DeviceLabel = label,
+                            });
                         }
-                        // Display pad number is 1-based (matches the in-box
-                        // gesture prefix in MappingDisplayResolver and the
-                        // Devices previews); the Descriptor below stays 0-based.
-                        string display = multiPad
-                            ? string.Format(si.Mapping_TouchpadGesture_PadPrefix_Format, padIdx + 1, cg.Name)
-                            : cg.Name;
-                        flat.Add(new PadForge.ViewModels.InputChoice
-                        {
-                            Descriptor = $"Touchpad {padIdx} Custom_{cg.Name}",
-                            DisplayName = display,
-                            DeviceGuid = key,
-                            DeviceLabel = label,
-                        });
                     }
                 }
             }
@@ -7269,6 +7431,44 @@ namespace PadForge.Services
         //  Copy / Paste settings
         // ─────────────────────────────────────────────
 
+        /// <summary>Re-keys the per-device Touchpad and Mouse entries a copy
+        /// just wrote onto the device that RECEIVED the copy. Both families are
+        /// guid-keyed and the deep copy carries the donor's key verbatim, so a
+        /// copy onto any other device (Copy From, clipboard paste, the
+        /// ProductGuid fallback in <see cref="ApplyPerDeviceSettingsToSlot"/>)
+        /// left every entry addressed to a device this PadSetting does not
+        /// belong to. The runtime resolvers match the owning device's guid
+        /// exactly, so the copied gesture tuning was stored and never read.
+        ///
+        /// <para>A mouse gesture's engage pin follows only when it named the
+        /// donor itself. A pin naming a different device is a deliberate
+        /// cross-device choice and stays put.</para></summary>
+        private static void RetargetPerDeviceSettingsAfterCopy(PadSetting ps, Guid targetGuid)
+        {
+            if (ps == null || targetGuid == Guid.Empty) return;
+            string to = targetGuid.ToString();
+            if (ps.TouchpadSettings != null)
+            {
+                foreach (var e in ps.TouchpadSettings)
+                    if (e != null) e.DeviceGuid = to;
+            }
+            if (ps.MouseGestureSettings != null)
+            {
+                foreach (var e in ps.MouseGestureSettings)
+                {
+                    if (e == null) continue;
+                    string donor = e.DeviceGuid;
+                    e.DeviceGuid = to;
+                    if (e.Settings != null && !string.IsNullOrEmpty(donor)
+                        && string.Equals(e.Settings.CustomEngageDeviceGuid, donor,
+                            StringComparison.OrdinalIgnoreCase))
+                    {
+                        e.Settings.CustomEngageDeviceGuid = to;
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// Applies a source PadSetting to the currently selected device in the given pad slot.
         /// Used by both clipboard Paste and "Copy From" operations.
@@ -7291,6 +7491,11 @@ namespace PadForge.Services
 
             // Copy all settings from the source.
             ps.CopyFrom(source);
+
+            // The copy carries the donor's guid on every per-device Touchpad and
+            // Mouse entry. Address them to the device receiving the copy, or the
+            // runtime resolvers miss them and serve defaults.
+            RetargetPerDeviceSettingsAfterCopy(ps, selected.InstanceGuid);
 
             // Issue #61 — also paste the multi-source ExtraSources +
             // CombineMode + Custom formula payload onto the target
@@ -7352,6 +7557,11 @@ namespace PadForge.Services
 
             // Copy with cross-layout translation.
             ps.CopyFromTranslated(source, sourceType, sourceIsExtended, targetType, targetIsExtended);
+
+            // The copy carries the donor's guid on every per-device Touchpad and
+            // Mouse entry. Address them to the device receiving the copy, or the
+            // runtime resolvers miss them and serve defaults.
+            RetargetPerDeviceSettingsAfterCopy(ps, targetGuid);
 
             // Multi-source rows only round-trip when source and target
             // share a layout — cross-layout target names don't line up.
@@ -7470,6 +7680,25 @@ namespace PadForge.Services
             }
             if (targetSlotDevices.Count == 0) return;
 
+            // Reserve every target an entry matches EXACTLY before any product
+            // fallback runs, and give each target to one entry only. Two
+            // same-model pads on the target slot used to collapse onto whichever
+            // one the manifest listed first: the fallback re-matched a device an
+            // exact-instance entry had already written, so the later entry
+            // overwrote that copy and the second pad got nothing. Same
+            // reservation the profile-apply lane makes with its consumed set.
+            var claimedTargets = new System.Collections.Generic.HashSet<Guid>();
+            foreach (var entry in entries)
+            {
+                if (entry == null || string.IsNullOrEmpty(entry.PadSettingJson)) continue;
+                if (!Guid.TryParse(entry.InstanceGuid, out var exactInstance)) continue;
+                foreach (var tu in targetSlotDevices)
+                {
+                    if (tu.InstanceGuid == exactInstance)
+                    { claimedTargets.Add(tu.InstanceGuid); break; }
+                }
+            }
+
             foreach (var entry in entries)
             {
                 if (entry == null || string.IsNullOrEmpty(entry.PadSettingJson)) continue;
@@ -7494,6 +7723,10 @@ namespace PadForge.Services
                 {
                     foreach (var tu in targetSlotDevices)
                     {
+                        // Skip a device another entry already owns so the
+                        // fallback moves to the next same-model unit instead of
+                        // overwriting a copy that is already correct.
+                        if (claimedTargets.Contains(tu.InstanceGuid)) continue;
                         if (tu.ProductGuid == srcProduct)
                         { matchTarget = tu.InstanceGuid; break; }
                     }
@@ -7501,6 +7734,7 @@ namespace PadForge.Services
 
                 // No match → skip. Paste does not auto-create devices.
                 if (matchTarget == Guid.Empty) continue;
+                claimedTargets.Add(matchTarget);
 
                 // Re-deserialize the nested PadSetting so we get a fresh
                 // instance with no cross-entry state aliasing.
@@ -7767,22 +8001,16 @@ namespace PadForge.Services
             public string BaseIcon { get; set; } = "";
         }
 
-        /// <summary>Builds the shift-layer clipboard snapshot JSON for a slot,
-        /// or null when the slot has no shift authoring. Device GUIDs are kept
-        /// source-side; the paste path retargets them.</summary>
+        /// <summary>Builds a shift-layer clipboard snapshot, including empty
+        /// authoring. Returns null for an invalid slot. Paste retargets device GUIDs.</summary>
         public static string BuildShiftLayerSnapshotJson(int padIndex)
         {
             var sets = SettingsManager.SlotMappingSets;
             if (sets == null || padIndex < 0 || padIndex >= sets.Length) return null;
-            var ms = sets[padIndex];
-            if (ms == null) return null;
-            bool hasActivators = ms.ShiftActivators != null && ms.ShiftActivators.Count > 0;
-            bool hasBase = !string.IsNullOrEmpty(ms.BaseLayerName)
-                || !string.IsNullOrEmpty(ms.BaseColor) || !string.IsNullOrEmpty(ms.BaseIcon);
-            if (!hasActivators && !hasBase) return null;
+            var ms = sets[padIndex] ?? new Engine.Data.MappingSet();
             var snap = new ShiftLayerSnapshot
             {
-                Activators = ms.ShiftActivators,
+                Activators = ms.ShiftActivators ?? new System.Collections.Generic.List<Engine.Data.ShiftActivator>(),
                 BaseLayerName = ms.BaseLayerName ?? "",
                 BaseColor = ms.BaseColor ?? "",
                 BaseIcon = ms.BaseIcon ?? "",
@@ -7827,18 +8055,14 @@ namespace PadForge.Services
             slotMs.BaseIcon = built.BaseIcon;
         }
 
-        /// <summary>Builds the menu (#9 B-17) clipboard snapshot JSON for a
-        /// slot, or null when the slot authors no menus. The menu twin of
-        /// <see cref="BuildShiftLayerSnapshotJson"/>: menus live on the
-        /// MappingSet like shift activators, so Copy must carry them or the
-        /// paste path drops the Menus tab.</summary>
+        /// <summary>Builds a menu clipboard snapshot, including an empty list.
+        /// Returns null for an invalid slot.</summary>
         public static string BuildMenusSnapshotJson(int padIndex)
         {
             var sets = SettingsManager.SlotMappingSets;
             if (sets == null || padIndex < 0 || padIndex >= sets.Length) return null;
             var ms = sets[padIndex];
-            if (ms?.Menus == null || ms.Menus.Count == 0) return null;
-            return System.Text.Json.JsonSerializer.Serialize(ms.Menus,
+            return System.Text.Json.JsonSerializer.Serialize(ms?.Menus ?? new System.Collections.Generic.List<Engine.Menus.MenuDefinitionEntry>(),
                 new System.Text.Json.JsonSerializerOptions { WriteIndented = false });
         }
 
@@ -7866,17 +8090,7 @@ namespace PadForge.Services
         {
             var sets = SettingsManager.SlotMappingSets;
             if (sets == null || padIndex < 0 || padIndex >= sets.Length) return null;
-            var ms = sets[padIndex];
-            if (ms == null) return null;
-
-            bool any = ms.RumbleAudio != null
-                || !string.IsNullOrEmpty(ms.SocdMode)
-                || !string.IsNullOrEmpty(ms.SocdPairs)
-                || ms.KeepAwakeEnabled
-                || !string.IsNullOrEmpty(ms.KeepAwakeAxis)
-                || ms.KeepAwakeDeflection != 0
-                || ms.KeepAwakeMotion;
-            if (!any) return null;
+            var ms = sets[padIndex] ?? new Engine.Data.MappingSet();
 
             var snap = new SlotSetExtrasSnapshot
             {
@@ -7979,7 +8193,11 @@ namespace PadForge.Services
             // survive the swap, so the pasted definitions could fire from
             // the old menus' in-flight gesture. Same reset ApplyProfile
             // performs. Null pre-engine-start.
-            _inputManagerStatic?.ResetMenuRuntime();
+            // Slot-scoped: this edit touched ONE slot, and the global reset
+            // clears every slot's menu contexts and drivers and drops any open
+            // overlay, so editing slot 1 closed a menu on slot 3. The whole
+            // profile swap keeps the global reset, which is what it is for.
+            _inputManagerStatic?.ClearMenuRuntimeForSlot(padIndex);
         }
 
         /// <summary>Whole-slot snapshot of every row in the given slot's
@@ -8015,6 +8233,17 @@ namespace PadForge.Services
                 });
             }
             return result;
+        }
+
+        internal static void ApplySlotRowsFromClipboard(int padIndex, PadSetting source, bool sameLayout)
+        {
+            // Empty whole-slot rows clear the target. Missing rows keep the
+            // legacy device-scoped path available to the later tuning copy.
+            if (source?.SlotMultiSourceRows != null && sameLayout)
+            {
+                ApplySlotMappingSetFromRows(padIndex, source.SlotMultiSourceRows);
+                source.DeviceScopedMultiSourceRows = null;
+            }
         }
 
         /// <summary>Paste companion: replaces a target slot's MappingSet
@@ -8336,7 +8565,11 @@ namespace PadForge.Services
             // Same menu-runtime reset the profile apply performs: stale
             // (slot, device, menu id) contexts must not fire the copied
             // menus from an in-flight gesture. Null pre-engine-start.
-            _inputManagerStatic?.ResetMenuRuntime();
+            // Slot-scoped: this edit touched ONE slot, and the global reset
+            // clears every slot's menu contexts and drivers and drops any open
+            // overlay, so editing slot 1 closed a menu on slot 3. The whole
+            // profile swap keeps the global reset, which is what it is for.
+            _inputManagerStatic?.ClearMenuRuntimeForSlot(targetSlot);
         }
 
         /// <summary>Returns true if the given slot's MappingSet carries any
@@ -9003,6 +9236,11 @@ namespace PadForge.Services
             // those touch PadVMs, settings, and the swap pipeline.
             _dispatcher.BeginInvoke(new Action(() =>
             {
+                // Bind the queued hop to the engine that raised it, the way
+                // the device-update and tablet-capture callbacks do. A stop or
+                // a restart between the fire and this callback otherwise sends
+                // a dead engine's timeout into the current one's lifecycle.
+                if (!ReferenceEquals(sender, _inputManager)) return;
                 SlotInactivityTimedOut?.Invoke(this, padIndex);
             }));
         }
@@ -9019,7 +9257,12 @@ namespace PadForge.Services
         {
             _dispatcher.BeginInvoke(new Action(() =>
             {
-                if (_inputManager == null) return;
+                // Identity, not just null: the cascade below destroys live
+                // virtual controllers on whatever manager is current, and a
+                // null check passes on a replacement engine. An event from the
+                // previous engine has nothing to say about this one's slots.
+                // This subsumes the null check it replaces.
+                if (!ReferenceEquals(sender, _inputManager)) return;
                 if (padIndex < 0 || padIndex >= InputManager.MaxPads) return;
                 if (!SettingsManager.SlotCreated[padIndex]) return;
                 var slotType = _mainVm.Pads[padIndex].OutputType;
@@ -9907,6 +10150,14 @@ namespace PadForge.Services
 
                     // 1. Learn our public endpoint (reuses the bound UDP socket).
                     var stun = await server.ProbePublicEndpointAsync(ct).ConfigureAwait(false);
+                    // The probe returns NORMALLY when the token trips mid-flight:
+                    // it breaks its server loop instead of throwing. A lane stopped
+                    // or restarted during STUN therefore went right on to publish
+                    // its code, listeners and timers over the lane that replaced
+                    // it, and the port-change path is a Stop then Start. Ours only
+                    // while both the token and the server field still say so, the
+                    // same ReferenceEquals gate the frame lanes use.
+                    if (ct.IsCancellationRequested || !ReferenceEquals(_linkServer, server)) return;
                     var pub = stun?.PublicEndpoint;
                     var priv = LocalLanEndpoint(server.Port);
                     PadForge.Engine.SdlDiagLog.WriteLine(
@@ -9926,7 +10177,15 @@ namespace PadForge.Services
                     // 2. Mint + publish this PC's shareable self-contained code,
                     // carrying our NAT profile so a peer knows to predict ports
                     // if we are behind a symmetric CGNAT.
-                    var expiry = DateTimeOffset.UtcNow.AddHours(1);
+                    // Session-scale, not an hour. The keepalive pins this
+                    // mapping for as long as the link runs, and the code is only
+                    // reissued when the address MOVES, so a one-hour stamp left
+                    // the shown code dead on any session that outlived it while
+                    // the addresses it carries were still good. The code is a
+                    // locator, and pairing still goes through the short
+                    // authentication string, so nothing is unlocked by the
+                    // longer window.
+                    var expiry = DateTimeOffset.UtcNow.AddHours(24);
                     string code = PadForge.Engine.RemoteLink.LinkCode.EncodeSelfContained(pub, priv, identity.Fingerprint, expiry, server.Nat);
                     _ = _dispatcher.BeginInvoke(() => _mainVm.Dashboard.RemoteLinkMyCode = code);
 
@@ -9941,7 +10200,7 @@ namespace PadForge.Services
                             var freshPriv = LocalLanEndpoint(server.Port);
                             string fresh = PadForge.Engine.RemoteLink.LinkCode.EncodeSelfContained(
                                 moved, freshPriv, identity.Fingerprint,
-                                DateTimeOffset.UtcNow.AddHours(1), server.Nat);
+                                DateTimeOffset.UtcNow.AddHours(24), server.Nat); // same session-scale window as the first mint
                             _ = _dispatcher.BeginInvoke(() => _mainVm.Dashboard.RemoteLinkMyCode = fresh);
                             // The code changed, so the derived relay identity
                             // changed: listen on the new one.
@@ -9976,8 +10235,19 @@ namespace PadForge.Services
                     // click Connect, so both actively punch. No passive arming.)
 
                     // 3. DHT presence loop for pair-once-connect-anytime.
-                    _dhtTransport = new PadForge.Engine.RemoteLink.Dht.UdpKrpcTransport();
+                    var transport = new PadForge.Engine.RemoteLink.Dht.UdpKrpcTransport();
                     var boot = await PadForge.Engine.RemoteLink.Dht.UdpKrpcTransport.ResolveBootstrapAsync(ct).ConfigureAwait(false);
+                    // Bootstrap DNS also returns normally on a canceled token, since
+                    // it skips unresolvable hosts and swallows the cancel, so
+                    // re-check before the socket lands in the field the teardown
+                    // disposes. A losing lane closes its OWN transport instead of
+                    // stamping it over the newer lane's.
+                    if (ct.IsCancellationRequested || !ReferenceEquals(_linkServer, server))
+                    {
+                        try { transport.Dispose(); } catch { }
+                        return;
+                    }
+                    _dhtTransport = transport;
                     PadForge.Engine.SdlDiagLog.WriteLine($"RLInternet DHT: {boot.Count} bootstrap nodes resolved");
                     if (boot.Count > 0)
                     {
@@ -9991,7 +10261,15 @@ namespace PadForge.Services
                         var presence = new PadForge.Engine.RemoteLink.Dht.PresenceService(store);
                         _internetService = new PadForge.Engine.RemoteLink.Dht.RemoteLinkInternetService(
                             presence, identity.PublicKey, identity.ExportPrivateKey(),
-                            localCandidates: () => CurrentLocalCandidates(server.Port, pub, priv),
+                            // Read the endpoints at PUBLICATION time, not the pair the
+                            // startup probe saw: the keepalive updates PublicEndpoint
+                            // whenever the mapping moves, and a laptop that changes
+                            // networks gets a new LAN address. Capturing them advertised
+                            // dead candidates for the rest of the session, even after the
+                            // shown code had been re-minted. A null private endpoint makes
+                            // the helper re-resolve the LAN address, the same live read
+                            // PublishCodeCallRequestAsync does.
+                            localCandidates: () => CurrentLocalCandidates(server.Port, server.PublicEndpoint, null),
                             connectByPunch: async (peerKey, endpoints, nonce, asInitiator, ict) =>
                             {
                                 var s = _linkServer;
@@ -10033,11 +10311,21 @@ namespace PadForge.Services
                 if (cap == null || peerKey == null) continue; // paired before the lane, or malformed
                 byte selfDir = PadForge.Engine.RemoteLink.Dht.PresenceRecord.DirectionFor(_remoteLinkIdentity.Fingerprint, PeerCrypto.Fingerprint(peerKey));
                 byte peerDir = selfDir == 0 ? (byte)1 : (byte)0;
+                // Both reconnect switches gate the DIAL here exactly as they gate
+                // the LAN dial in OnLinkPeersChanged. The internet lane read
+                // neither, so a peer the user had told PadForge not to reconnect to
+                // was still dialed through the identity relay every minute.
+                // IsConnected is what suppresses the dial inside TryReconnectAsync,
+                // so a peer that must not be dialed enters the pass already marked.
+                // Presence is still published for it, the internet twin of the LAN
+                // beacon that keeps running with auto-reconnect off, so the peer can
+                // still reach us.
+                bool mayDial = _mainVm.Dashboard.AutoReconnect && t.ReconnectEnabled;
                 peers.Add(new PadForge.Engine.RemoteLink.Dht.RemoteLinkInternetService.Peer
                 {
                     PeerPublicKey = peerKey, Capability = cap,
                     SelfDirection = selfDir, PeerDirection = peerDir,
-                    IsConnected = connected.Contains(t.FingerprintHex) || server.IsPeerConnecting(t.FingerprintHex),
+                    IsConnected = !mayDial || connected.Contains(t.FingerprintHex) || server.IsPeerConnecting(t.FingerprintHex),
                 });
             }
             if (peers.Count == 0) return;
@@ -11020,7 +11308,17 @@ namespace PadForge.Services
                         }
                         else if (source.VendorId == 0x054C && source.ProductId == 0x0268)
                         {
-                            PadForge.Common.Input.Ds3DirectService.TrySetPlayerNumber(source.SdlInstanceId, n);
+                            // The direct service owns the BLUETOOTH DS3's LED and
+                            // matches by instance id, so it refuses a WIRED one. A USB
+                            // DS3 is a real SDL joystick whose driver lights LED 1-4
+                            // from the player index, and the wrapper's own allowlist
+                            // already excludes the virtual Bluetooth instance, so the
+                            // fallback cannot produce a second writer. Routing only to
+                            // the service dropped the relayed number for every wired
+                            // DS3, which the local path lights through that wrapper.
+                            if (!PadForge.Common.Input.Ds3DirectService.TrySetPlayerNumber(source.SdlInstanceId, n)
+                                && source is PadForge.Engine.SdlDeviceWrapper ds3Wrap && n > 0)
+                                ds3Wrap.SetPlayerIndex(n - 1);
                         }
                         else if (source.VendorId == 0x054C && source.ProductId == 0x03D5)
                         {
@@ -11983,16 +12281,31 @@ namespace PadForge.Services
         private void EnsureHidHideCloaksAdopted()
         {
             if (_hidHideCloaksAdopted) return;
-            _hidHideCloaksAdopted = true;
-            if (!_mainVm.Settings.KeepHidHideCloaksBetweenLaunches) return;
+            if (!_mainVm.Settings.KeepHidHideCloaksBetweenLaunches)
+            {
+                // Nothing was kept, so there is nothing to take ownership of
+                // and the one-shot latch is the right answer here.
+                _hidHideCloaksAdopted = true;
+                return;
+            }
             try
             {
+                // Latch AFTER the read succeeds. Set on entry, one refused read
+                // of the exclusive control device retired adoption for the whole
+                // process: the managed set stayed empty, the sync computed its
+                // removals from nothing, and the kept cloaks could never be
+                // retired. A negative count is a failed read, zero is an empty
+                // list, and only the second is an answer. A retry re-seeds from
+                // the driver's list, which already holds anything this session
+                // wrote, so it can only widen ownership, never lose it.
                 int adopted = HidHideController.AdoptExistingAsManaged();
+                if (adopted < 0) return;
+                _hidHideCloaksAdopted = true;
                 if (adopted > 0)
                     PadForge.Engine.SdlDiagLog.WriteLine(
                         $"HIDHIDE adopted {adopted} kept entr{(adopted == 1 ? "y" : "ies")} from the previous session");
             }
-            catch { /* best effort */ }
+            catch { /* best effort, the next apply retries */ }
         }
 
         /// <summary>
@@ -12280,7 +12593,18 @@ namespace PadForge.Services
                                         cacheUpdated = true;
                                     }
                                 }
-                                foreach (var id in ud.HidHideInstanceIds)
+                                // The cache belongs to this RECORD but was
+                                // filled by lookups that answer for the MODEL, so
+                                // a build before the gate above could leave a twin
+                                // pad's node on it, and the serial filter that
+                                // scoped the live ids never reached these.
+                                // Re-check at the point of use: a cached node that
+                                // is present and reports a different serial is the
+                                // other pad's and is dropped. A node that cannot be
+                                // read is kept, which is what carries an offline
+                                // sibling's id across a disconnect.
+                                foreach (var id in SelectHidHideSweepNodes(ud.SerialNumber,
+                                             ud.HidHideInstanceIds, true, null, out _, out _, out _))
                                 {
                                     // A cached id from before a sibling row was
                                     // left visible follows that row now.
@@ -12292,7 +12616,12 @@ namespace PadForge.Services
                             else if (ud.HidHideInstanceIds.Count > 0)
                             {
                                 // Device is offline. Use cached IDs to pre-emptively blacklist.
-                                foreach (var cachedId in ud.HidHideInstanceIds)
+                                // Same ownership re-check as the online branch: an
+                                // id resolving to a node another pad is reporting
+                                // right now is not this record's to hide, and an
+                                // unreadable one still pre-empts as it always has.
+                                foreach (var cachedId in SelectHidHideSweepNodes(ud.SerialNumber,
+                                             ud.HidHideInstanceIds, true, null, out _, out _, out _))
                                 {
                                     if (keepOut(cachedId)) { kept.Add(cachedId); continue; }
                                     foreach (var expandedId in HidHideController.ExpandToBaseContainerAndChildren(cachedId, keepOut, kept))
@@ -12613,7 +12942,16 @@ namespace PadForge.Services
                                     !string.Equals(src.DeviceGuid, deviceGuidStr, StringComparison.OrdinalIgnoreCase))
                                     continue;
 
-                                // Collect exactly the descriptors each kind reads
+                                // The gate legs first. They are read as input on
+                                // this same device, whatever the kind, and were
+                                // never collected, so a key used to gate a
+                                // suppressed source stayed unconsumed and leaked
+                                // to the foreground app. The touchpad auto-arm
+                                // classifier already walks both of them.
+                                AddDescriptor(src.GateDescriptor);
+                                AddDescriptor(src.Gate2Descriptor);
+
+                                // Then exactly the descriptors each kind reads
                                 // as input, mirroring SourceEvaluator's dispatch.
                                 switch (src.Kind ?? "Direct")
                                 {
@@ -12757,7 +13095,7 @@ namespace PadForge.Services
                     devVm.Devices.Add(row);
                 }
 
-                PopulateDeviceRow(row, ud);
+                PopulateDeviceRow(row, ud, snapshot);
             }
 
             // Remove rows for devices that are no longer valid or are virtual.
@@ -12852,7 +13190,10 @@ namespace PadForge.Services
         /// <summary>
         /// Populates a DeviceRowViewModel from a UserDevice.
         /// </summary>
-        private void PopulateDeviceRow(DeviceRowViewModel row, UserDevice ud)
+        // snapshot: the caller's device-list snapshot, for the same
+        // sole-present-device gate ApplyDeviceHiding runs before it trusts a
+        // vendor and product lookup to belong to this record.
+        private void PopulateDeviceRow(DeviceRowViewModel row, UserDevice ud, UserDevice[] snapshot)
         {
             row.InstanceGuid = ud.InstanceGuid;
             row.SdlGuid = ud.SdlGuid;
@@ -12873,13 +13214,15 @@ namespace PadForge.Services
             // Same live-first preference as the button count below: a pad
             // missing sticks, triggers or pressure slots must summarize the
             // same either side of the online boundary.
-            int liveAxes = ud.Device?.SupportedAxisIndices?.Length ?? 0;
-            row.AxisCount = liveAxes > 0 ? liveAxes : ud.CapAxeCount;
+            // Null falls back to the recorded count; an empty set is a real
+            // count of zero and must not fall back past itself.
+            int[] liveAxisSet = ud.Device?.SupportedAxisIndices;
+            row.AxisCount = liveAxisSet != null ? liveAxisSet.Length : ud.CapAxeCount;
             // Prefer the live device's gated count (Xbox 360 → 11, Elite with paddles → 15+)
             // so the Devices summary doesn't always read 21 on SDL3 gamepads.
             // Falls back to CapButtonCount when the device is offline.
-            int liveBtns = ud.Device?.SupportedButtonIndices?.Length ?? 0;
-            row.ButtonCount = liveBtns > 0 ? liveBtns : ud.CapButtonCount;
+            int[] liveButtonSet = ud.Device?.SupportedButtonIndices;
+            row.ButtonCount = liveButtonSet != null ? liveButtonSet.Length : ud.CapButtonCount;
             row.PovCount = ud.CapPovCount;
             // Rumble mirrors the Pad page gate (PadPage.SyncTabVisibility):
             // impulse-trigger Xbox pads and the Sony lightbar family rumble
@@ -12960,9 +13303,18 @@ namespace PadForge.Services
                 // cache with the opposite contract, and a UI row refresh
                 // destroyed exactly the offline sibling's id the apply path had
                 // deliberately kept.
-                foreach (var realId in realIds)
-                    if (!ud.HidHideInstanceIds.Contains(realId))
-                        ud.HidHideInstanceIds.Add(realId);
+                //
+                // Admit under the SAME ownership rule the apply path uses. The
+                // lookup above resolves by vendor and product id, which answers
+                // for the model, so with two identical pads attached this row
+                // cached the twin's nodes and the next apply hid a pad whose own
+                // row says visible. A display convenience must not widen what
+                // gets cloaked.
+                if (realIds.Count > 0)
+                    foreach (var realId in SelectHidHideSweepNodes(ud.SerialNumber, realIds,
+                                 HidHideSiblingSweepAllowed(snapshot, ud), null, out _, out _, out _))
+                        if (!ud.HidHideInstanceIds.Contains(realId))
+                            ud.HidHideInstanceIds.Add(realId);
             }
             else
                 row.HidHideInstancePath = string.Empty;
@@ -14205,9 +14557,17 @@ namespace PadForge.Services
             if (!ud.ForceRawJoystickMode)
             {
                 // Live positions when connected, recorded positions when not.
+                // A live empty set means the device has no buttons, so it is
+                // answered with no buttons. Only a live NULL falls back to the
+                // recorded set, and the recorded set keeps its older reading,
+                // where null and empty both mean "never observed".
                 int[] sparse = ud.Device?.SupportedButtonIndices;
-                if (sparse == null || sparse.Length == 0) sparse = ud.CapButtonIndices;
-                if (sparse != null && sparse.Length > 0)
+                if (sparse == null)
+                {
+                    sparse = ud.CapButtonIndices;
+                    if (sparse != null && sparse.Length == 0) sparse = null;
+                }
+                if (sparse != null)
                 {
                     if (sparse[sparse.Length - 1] < max) return sparse;
                     var trimmed = new System.Collections.Generic.List<int>(sparse.Length);
@@ -14217,7 +14577,16 @@ namespace PadForge.Services
             }
 
             int count = Math.Min(
-                ud.ForceRawJoystickMode && ud.RawButtonCount > 0 ? ud.RawButtonCount : ud.CapButtonCount,
+                // The NATIVE count, from the wrapper. Force-raw reads the
+                // joystick surface, which fills only the device's own buttons.
+                // The stored count is maxed with the standardized one so the
+                // macro recorder can cap its scan at the populated range, and
+                // that over-counts here: a gamepad-opened pad with thirteen
+                // physical buttons drew twenty-two preview cells, nine of which
+                // nothing ever moves. Offline keeps the stored value, where a
+                // force-raw preview has nothing live to draw anyway.
+                ud.ForceRawJoystickMode && (ud.Device?.RawButtonCount ?? ud.RawButtonCount) > 0
+                    ? (ud.Device?.RawButtonCount ?? ud.RawButtonCount) : ud.CapButtonCount,
                 max);
             if (count <= 0) return Array.Empty<int>();
             int[] dense = new int[count];
@@ -14416,8 +14785,13 @@ namespace PadForge.Services
             if (_inputManager == null || padIndex < 0 || padIndex >= InputManager.MaxPads)
                 return;
 
-            if (deviceGuid.HasValue && deviceGuid.Value != Guid.Empty)
-                _inputManager.TestRumbleTargetGuid[padIndex] = deviceGuid.Value;
+            // Every pulse writes its OWN target, Guid.Empty included. Setting
+            // the filter only for a concrete device let an all-device pulse
+            // inherit the previous targeted pulse's filter until THAT pulse's
+            // 500 ms timer expired, so Test Left Motor pressed right after a
+            // device Test Rumble reached one device instead of the slot.
+            _inputManager.TestRumbleTargetGuid[padIndex] =
+                deviceGuid.HasValue ? deviceGuid.Value : Guid.Empty;
 
             var vib = _inputManager.VibrationStates[padIndex];
             if (left) vib.LeftTriggerMotorSpeed = 65535;
@@ -14456,9 +14830,12 @@ namespace PadForge.Services
             if (_inputManager == null || padIndex < 0 || padIndex >= InputManager.MaxPads)
                 return;
 
-            // Set device-level filter so the background thread only rumbles the target device.
-            if (deviceGuid.HasValue && deviceGuid.Value != Guid.Empty)
-                _inputManager.TestRumbleTargetGuid[padIndex] = deviceGuid.Value;
+            // Set device-level filter so the background thread only rumbles the
+            // target device. Written unconditionally, like the impulse twin: a
+            // null target means ALL devices, and skipping the write left the
+            // previous targeted pulse's filter standing for up to 500 ms.
+            _inputManager.TestRumbleTargetGuid[padIndex] =
+                deviceGuid.HasValue ? deviceGuid.Value : Guid.Empty;
 
             var vib = _inputManager.VibrationStates[padIndex];
 
@@ -14481,13 +14858,15 @@ namespace PadForge.Services
             if (right) vib.RightMotorSpeed = 65535;
 
             // Schedule clearing after 500ms. Generation-gated in two tiers: see
-            // the twin in SendTestImpulseTrigger. Motors are stamped per field
-            // because the lanes write disjoint ones; the target filter and the
-            // directional block are genuinely shared, so only the newest pulse
-            // on the slot clears those.
+            // the twin in SendTestImpulseTrigger. Motors and the directional
+            // block are stamped per field because only one lane writes each.
+            // The target filter is the one genuinely shared piece, so only the
+            // newest pulse on the slot clears that.
             long myGen = ++_testPulseGeneration[padIndex];
             long myLeftGen = left ? ++_testPulseMotorGeneration[padIndex, PulseFieldMainLeft] : 0;
             long myRightGen = right ? ++_testPulseMotorGeneration[padIndex, PulseFieldMainRight] : 0;
+            long myDirGen = (isExtended && (left != right))
+                ? ++_testPulseMotorGeneration[padIndex, PulseFieldDirectional] : 0;
             var clearTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(500) };
             clearTimer.Tick += (s2, e2) =>
             {
@@ -14502,19 +14881,24 @@ namespace PadForge.Services
                 if (right && _testPulseMotorGeneration[padIndex, PulseFieldMainRight] == myRightGen)
                     vib.RightMotorSpeed = 0;
 
-                if (_testPulseGeneration[padIndex] != myGen) return;
-                // Same condition the SET above uses. Clearing under the looser
-                // `isExtended` alone meant the both-motors Test Rumble path
-                // (left and right together, so the set was skipped) still wiped
-                // four directional fields it never wrote, on a shared
-                // VibrationStates entry that another writer may own.
-                if (isExtended && (left != right))
+                // Same condition the SET above uses, plus this lane's OWN
+                // generation. Clearing under the looser `isExtended` alone meant
+                // the both-motors Test Rumble path (left and right together, so
+                // the set was skipped) still wiped four directional fields it
+                // never wrote. Sitting BELOW the slot-wide gate was the other
+                // half: the impulse lane bumps that counter without ever owning
+                // a directional field, so this clear never ran and the block
+                // latched for good.
+                if (isExtended && (left != right)
+                    && _testPulseMotorGeneration[padIndex, PulseFieldDirectional] == myDirGen)
                 {
                     vib.HasDirectionalData = false;
                     vib.SignedMagnitude = 0;
                     vib.Direction = 0;
                     vib.EffectType = 0;
                 }
+
+                if (_testPulseGeneration[padIndex] != myGen) return;
                 _inputManager.TestRumbleTargetGuid[padIndex] = Guid.Empty;
             };
             clearTimer.Start();
@@ -14547,18 +14931,28 @@ namespace PadForge.Services
                     var ud = FindUserDevice(instanceGuid);
                     if (ud?.Device == null || !ud.IsOnline) return;
 
-                    int pad = -1;
-                    try
+                    // Re-resolvable, because the train spans seconds of awaits
+                    // and the route can change under it. Resolving once and
+                    // holding it let a pulse fire at a slot the device had
+                    // already left, and SendTestRumble writes the SLOT's
+                    // TestRumbleTargetGuid, so that slot's filter named a guid
+                    // nothing on it carried and its own rumble went silent.
+                    int ResolvePad()
                     {
-                        foreach (var p in _mainVm.Pads)
+                        try
                         {
-                            if (p == null) continue;
-                            foreach (var d in p.MappedDevices)
-                                if (d != null && d.InstanceGuid == instanceGuid) { pad = p.PadIndex; break; }
-                            if (pad >= 0) break;
+                            foreach (var p in _mainVm.Pads)
+                            {
+                                if (p == null) continue;
+                                foreach (var d in p.MappedDevices)
+                                    if (d != null && d.InstanceGuid == instanceGuid) return p.PadIndex;
+                            }
                         }
+                        catch { }
+                        return -1;
                     }
-                    catch { }
+
+                    int pad = ResolvePad();
 
                     if (pad >= 0)
                     {
@@ -14568,6 +14962,11 @@ namespace PadForge.Services
                         // a distinct triple without fighting the clear timer.
                         for (int i = 0; i < 3; i++)
                         {
+                            // Revalidate per pulse, not once per train. Unplug or
+                            // reassign mid-train and the remaining pulses would
+                            // otherwise pin a slot the device no longer belongs to.
+                            var cur = FindUserDevice(instanceGuid);
+                            if (cur == null || !cur.IsOnline || ResolvePad() != pad) return;
                             int padCopy = pad;
                             _dispatcher.Invoke(() => SendTestRumble(padCopy, instanceGuid));
                             await System.Threading.Tasks.Task.Delay(700).ConfigureAwait(false);
@@ -14578,16 +14977,47 @@ namespace PadForge.Services
                         // No owner: GBM's exact cadence, 200 on / 200 off
                         // twice, then a 500 ms tail.
                         var dev = ud.Device;
+                        // A Padix PSX/USB converter's motors sit behind the 9-byte
+                        // report PadForge writes itself, and every SDL rumble call
+                        // for that family is inert by design (#440), so this train
+                        // buzzed nothing and Identify had no writer at all. Same
+                        // raw lane the sole-writer paths use.
+                        bool padix = PadForge.Engine.PadixConverterIdentity
+                            .IsPlayStationConverter(ud.VendorId, ud.ProdId);
+                        void Buzz(ushort level)
+                        {
+                            if (padix)
+                            {
+                                // Identify is a one-shot user action, not the poll
+                                // lane, so the write is unconditional: a snapshot
+                                // that already matched would otherwise dedup the
+                                // buzz away and Identify would stay silent. The
+                                // snapshot still moves, or the mapped lane's change
+                                // detection would later skip a zero and strand the
+                                // motors.
+                                ud.ForceFeedbackState?.TryRecordMotorSnapshot(level, level);
+                                PadForge.Common.Input.PadixConverterRawHidWriter.Write(
+                                    ud.DevicePath, level, level);
+                            }
+                            else if (level != 0) dev.SetRumble(level, level);
+                            else dev.StopRumble();
+                        }
                         for (int i = 0; i < 2; i++)
                         {
-                            dev.SetRumble(65535, 65535);
+                            Buzz(65535);
                             await System.Threading.Tasks.Task.Delay(200).ConfigureAwait(false);
-                            dev.StopRumble();
+                            Buzz(0);
                             await System.Threading.Tasks.Task.Delay(200).ConfigureAwait(false);
+                            // Checked while the motors are already at zero, so
+                            // bailing here can never strand one spinning. A device
+                            // that gained a slot mid-train now has a sole writer,
+                            // and this lane must stop writing it directly.
+                            var cur = FindUserDevice(instanceGuid);
+                            if (cur == null || !cur.IsOnline || ResolvePad() >= 0) return;
                         }
-                        dev.SetRumble(65535, 65535);
+                        Buzz(65535);
                         await System.Threading.Tasks.Task.Delay(500).ConfigureAwait(false);
-                        dev.StopRumble();
+                        Buzz(0);
                     }
                 }
                 catch { /* identify is best-effort */ }
@@ -15844,9 +16274,12 @@ namespace PadForge.Services
             var list = new List<KbmSlotConfigData>();
             for (int i = 0; i < _mainVm.Pads.Count; i++)
             {
-                if (!SettingsManager.SlotCreated[i] ||
-                    _mainVm.Pads[i].OutputType != VirtualControllerType.KeyboardMouse)
-                    continue;
+                // Every CREATED slot, whatever its current type. A slot that
+                // is not Keyboard and Mouse right now can still hold parked
+                // surface and SOCD settings, and the reader restores them for
+                // any created slot, so filtering here dropped them from a
+                // named-profile save and lost them on the next load.
+                if (!SettingsManager.SlotCreated[i]) continue;
                 var cfg = _mainVm.Pads[i].KbmConfig;
                 list.Add(new KbmSlotConfigData
                 {
@@ -16230,7 +16663,13 @@ namespace PadForge.Services
             {
                 ushort pid = ud.ProdId;
                 if (pid == 0x1205) return "steamdeck";   // Deck OLED + LCD
-                if (pid == 0x11FF) return "steamcontroller";
+                // Through the shared predicate. The literal here named a
+                // product id that exists nowhere else in this repository,
+                // while the real 2015 family is spelled out identically in
+                // three other files, so this arm never matched and every
+                // Steam Controller resolved as "any".
+                if (PadForge.Common.Input.SteamHomeLedSetter.IsSteamController2015(ud.VendorId, pid))
+                    return "steamcontroller";
                 if (pid == 0x35F0 || pid == 0x35F1) return "triton"; // Steam Controller 2026
             }
             return "any";
@@ -16347,6 +16786,15 @@ namespace PadForge.Services
             // DEEP CLONE on apply so live mutations (auto-map on device
             // reassignment, in-tab edits) don't poison the profile's
             // stored snapshot.
+            // The stale window opens with the FIRST domain write, not at the
+            // ViewModel rebuild hundreds of lines below. From this clone on, the
+            // MappingSets belong to the incoming profile while every pad's grid
+            // still holds the outgoing profile's rows, and that disagreement is
+            // the whole reason the flag exists. The default-profile swap already
+            // opens its own window this way.
+            VmMappingsStale = true;
+            try
+            {
             if (profile.SlotMappingSets != null)
             {
                 var live = SettingsManager.SlotMappingSets;
@@ -16596,6 +17044,14 @@ namespace PadForge.Services
                         _mainVm.Pads[idx].OutputType == VirtualControllerType.Extended)
                     {
                         var cfg = _mainVm.Pads[idx].ExtendedConfig;
+                        // Triggers to zero FIRST: the two setters clamp against each
+                        // other over one axis budget, so writing sticks against a
+                        // leftover trigger count silently drops the last stick.
+                        cfg.TriggerCount = 0;
+                        // Triggers to zero FIRST: the two setters clamp against each
+                        // other over one axis budget, so writing sticks against a
+                        // leftover trigger count silently drops the last stick.
+                        cfg.TriggerCount = 0;
                         cfg.ThumbstickCount = cfgData.ThumbstickCount;
                         cfg.TriggerCount = cfgData.TriggerCount;
                         cfg.PovCount = cfgData.PovCount;
@@ -16763,9 +17219,9 @@ namespace PadForge.Services
             // Authoritative Workshop set whose rows all carry a concrete
             // DeviceGuid and raw "Button N" descriptors, with not one
             // abstract "Gamepad ..." source left in the file.
-            VmMappingsStale = true;
-            try
-            {
+            // The flag is already held: it opens at the mapping-set swap above,
+            // where the outgoing-versus-incoming disagreement starts, and the
+            // finally below closes it after the last pad rehydrates.
             SlotAppearancePersistence.Apply(_mainVm.Pads, slotAppearances);
             UpdatePadDeviceInfo();
 
@@ -16868,7 +17324,17 @@ namespace PadForge.Services
             // drives a nested ApplyProfile, and the nested kick queued a
             // second full COM pass per user-visible apply.
             if (!_compactingSlots)
+            {
+                if (_inputManager?.IsRunning == true)
+                {
+                    AudioPassthroughService.Reconcile();
+                    WiiSpeakerService.Reconcile();
+                    HapticToneService.Reconcile();
+                }
+                else
+                    AudioPassthroughService.RequestReconcile();
                 PadForge.Common.Input.RumbleAudioService.RequestReconcile();
+            }
         }
 
         /// <summary>
@@ -17696,10 +18162,10 @@ namespace PadForge.Services
                 MappingSet ms = (slot >= 0 && slot < SettingsManager.SlotMappingSets.Length)
                     ? SettingsManager.SlotMappingSets[slot] : null;
                 string mouseGuid = GuidString(instanceGuid);
-                gp.ThumbLX = MouseCursorStickValue(ms, "LeftThumbAxisX", mouseGuid);
-                gp.ThumbLY = MouseCursorStickValue(ms, "LeftThumbAxisY", mouseGuid);
-                gp.ThumbRX = MouseCursorStickValue(ms, "RightThumbAxisX", mouseGuid);
-                gp.ThumbRY = MouseCursorStickValue(ms, "RightThumbAxisY", mouseGuid);
+                gp.ThumbLX = MouseCursorStickValue(ms, "LeftThumbAxisX", mouseGuid, devState, slot);
+                gp.ThumbLY = MouseCursorStickValue(ms, "LeftThumbAxisY", mouseGuid, devState, slot);
+                gp.ThumbRX = MouseCursorStickValue(ms, "RightThumbAxisX", mouseGuid, devState, slot);
+                gp.ThumbRY = MouseCursorStickValue(ms, "RightThumbAxisY", mouseGuid, devState, slot);
                 return gp;
             }
 
@@ -17727,9 +18193,10 @@ namespace PadForge.Services
         /// sensitivity, clamp, Invert) and <c>WriteBipolarAxisTarget</c> (Y negated),
         /// so the Sticks-tab preview tracks the cursor on whatever stick it's mapped
         /// to without depending on per-slot multi-source dedup.</summary>
-        private static short MouseCursorStickValue(MappingSet ms, string target, string mouseGuid)
+        private static short MouseCursorStickValue(MappingSet ms, string target, string mouseGuid,
+            CustomInputState devState, int slotIndex)
         {
-            if (ms?.Rows == null) return 0;
+            if (ms?.Rows == null || devState == null) return 0;
             var provider = PadForge.Engine.Common.Mapping.SourceCoercion.MouseCursorProvider;
             if (provider == null) return 0;
 
@@ -17742,16 +18209,31 @@ namespace PadForge.Services
                 {
                     var src = row.Sources[s];
                     if (src == null) continue;
-                    if (!string.Equals(src.DeviceGuid ?? "", mouseGuid, StringComparison.OrdinalIgnoreCase)) continue;
+                    // Device match is the RUNTIME rule, not an exact compare:
+                    // an empty DeviceGuid is (Any Device), which a mouse answers
+                    // (#431). The old compare skipped it, so a wildcard Mouse
+                    // Position source drove the stick while the preview sat
+                    // centered.
+                    if (!string.IsNullOrEmpty(src.DeviceGuid)
+                        && !string.Equals(src.DeviceGuid, mouseGuid, StringComparison.OrdinalIgnoreCase)) continue;
                     if (!PadForge.Engine.Common.Mapping.SourceCoercion.IsMouseCursorDescriptor(src.Descriptor)) continue;
+                    // Consumed and postponed sources are suppressed in dispatch,
+                    // so the preview suppresses them too, the same rule the
+                    // trigger preview applies one tab over.
+                    if (InputManager.IsSourceSuppressedPostpone(slotIndex, src.DeviceGuid, src.Descriptor)) continue;
 
-                    var (nx, ny) = provider();
-                    string d = src.Descriptor ?? "";
-                    float v = d.EndsWith(" X", StringComparison.Ordinal) ? nx
-                            : d.EndsWith(" Y", StringComparison.Ordinal) ? ny : 0f;
-                    v *= (float)src.MouseCursorSensitivity;
-                    if (v < -1f) v = -1f; else if (v > 1f) v = 1f;
-                    if (src.Invert) v = -v;
+                    // Read through the evaluator instead of repeating its math.
+                    // The hand-rolled copy reproduced the component select, the
+                    // sensitivity, the clamp and Invert but NOT the per-source
+                    // gates, so a gated cursor source previewed live while its
+                    // gate was released. Runtime is null and the delta zero on
+                    // purpose: the stateful kinds short-circuit there and never
+                    // advance the poll thread's accumulators. The Y negation
+                    // stays here because it belongs to the bipolar write this
+                    // preview stands in for.
+                    float v = PadForge.Engine.Common.Mapping.SourceEvaluator
+                        .EvaluateForBipolarAxisTarget(devState, src, slotIndex, target, s, null, 0,
+                            evaluatedDeviceGuid: mouseGuid);
                     if (negateY) v = -v;
                     return (short)Math.Clamp((int)(v * 32767f), short.MinValue, short.MaxValue);
                 }

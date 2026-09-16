@@ -105,7 +105,7 @@ namespace PadForge.Models3D
             // Stand it on the pad's OWN center, not the fitted plane's. The
             // plane is fitted from the four quarters as well as the center
             // disc, and the quarters are bowl walls, so its midpoint sits a
-            // millimetre or so off the pad's axis. The disc is the axis.
+            // millimeter or so off the pad's axis. The disc is the axis.
             var disc = TouchpadRight.Bounds;
             var discCenter = new Point3D(disc.X + disc.SizeX / 2,
                                          disc.Y + disc.SizeY / 2,

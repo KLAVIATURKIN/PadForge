@@ -450,11 +450,9 @@ namespace PadForge.Tests
 
         /// <summary>A failed jack-watch open must not un-register itself.
         ///
-        /// <para>Removing the entry made the next five-second reconcile see no
-        /// watch and start another thread that failed the same way, forever,
-        /// one FAILED line each. The entry stands as the record that this path
-        /// and transport were tried, so a retry costs a genuine change rather
-        /// than the clock.</para></summary>
+        /// <para>The entry carries the retry deadline and failure-log history.
+        /// Removing it would discard both and let repeated reconciliation
+        /// reopen the same failed path without a backoff.</para></summary>
         [Fact]
         public void JackWatch_AFailedOpen_MarksTheEntryRatherThanRemovingIt()
         {

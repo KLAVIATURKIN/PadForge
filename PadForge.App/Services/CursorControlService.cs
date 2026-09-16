@@ -226,9 +226,19 @@ namespace PadForge.Services
         /// then keeps the cursor inside the inset rectangle, writing only when a
         /// clamped axis is outside. A second call releases it.</summary>
         public void ToggleClamp(CursorClampMode mode, int insetX, int insetY)
+            => SetClamp(!_isClamped, mode, insetX, insetY);
+
+        /// <summary>Sets the clamp to an explicit state. The toggle above flips,
+        /// which is right for a one-button clamp and wrong for an engage and
+        /// release PAIR: either leg can be delayed or canceled, and a pair built
+        /// from two flips inverts the moment they land out of order or one is
+        /// dropped, leaving the cursor trapped with nothing holding the trigger.
+        /// An explicit state is idempotent, so a repeated engage or an orphaned
+        /// release still lands where the trigger says.</summary>
+        public void SetClamp(bool engaged, CursorClampMode mode, int insetX, int insetY)
         {
             if (_disposed) return;
-            if (_isClamped) { _isClamped = false; return; }
+            if (!engaged) { _isClamped = false; return; }
             _clampMode = mode;
             _clampInsetX = insetX;
             _clampInsetY = insetY;

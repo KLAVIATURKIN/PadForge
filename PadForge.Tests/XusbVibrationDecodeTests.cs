@@ -35,16 +35,21 @@ namespace PadForge.Tests
             string src = RepoText("PadForge.App", "Common", "Input", "HMaestroVirtualController.cs");
             int at = src.IndexOf("pkt.Source == HMOutputSource.XInput", StringComparison.Ordinal);
             Assert.True(at > 0);
-            // The branch body, up to its return.
-            int end = src.IndexOf("return;", at, StringComparison.Ordinal);
+            // The branch body, through the trigger-lane clear that ends it.
+            // The window used to stop at the first return, which the LED-only
+            // guard now sits on, so it would have cut the branch in half.
+            int end = src.IndexOf("_inboundRumblePack", at, StringComparison.Ordinal);
+            Assert.True(end > at, "the inbound pack write that ends the branch is gone");
             string branch = src.Substring(at, end - at);
 
             // Motors decode from bytes 2 and 3 of the five-byte struct.
             Assert.Contains("data[2]", branch);
             Assert.Contains("data[3]", branch);
-            // The flags byte and beyond are never motor data.
-            Assert.DoesNotContain("data[4]", branch);
+            // Byte 4 is the FLAGS byte and is read only to refuse an LED-only
+            // write. It is never motor data, and byte 5 is never read at all.
+            Assert.DoesNotContain("MotorSpeed = (ushort)(data[4]", branch);
             Assert.DoesNotContain("data[5]", branch);
+            Assert.Contains("if (data.Length == 5 && (data[4] & 0x02) == 0 && (data[4] & 0x01) != 0)", branch);
             // And an XUSB vibration write clears the trigger lane.
             Assert.Contains("LeftTriggerMotorSpeed = 0", branch);
             Assert.Contains("RightTriggerMotorSpeed = 0", branch);

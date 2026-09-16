@@ -26,7 +26,7 @@ namespace PadForge.Tests
         /// <summary>Keys that live in the Wpf.Ui control library rather than
         /// in this repo's markup, so scanning our own files cannot see them.
         /// The library names its implicit styles Default*Style uniformly;
-        /// anything else has to be listed by hand, because an unrecognised
+        /// anything else has to be listed by hand, because an unrecognized
         /// key is a defect until someone decides otherwise.</summary>
         private static bool IsLibraryKey(string key)
             => (key.StartsWith("Default", StringComparison.Ordinal)

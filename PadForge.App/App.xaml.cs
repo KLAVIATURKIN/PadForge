@@ -247,10 +247,13 @@ namespace PadForge
 
             // Sweep any HIDMaestro virtual devices left over from a prior
             // session that didn't cleanly dispose (crash, force-kill,
-            // power loss). Sweep runs on a background thread so OnStartup
-            // returns immediately; InputManager.UpdateDevices awaits this
-            // task before the first enumeration so stale HM HIDs are gone
-            // by the time PadForge looks at its device list.
+            // power loss). Sweep runs on a background thread so startup returns
+            // immediately. Nothing waits on it before enumeration: the library
+            // filters the virtual devices out whether or not the prior session's
+            // kernel cleanup has finished, and blocking the polling thread on
+            // the sweep is what pinned startup at ninety seconds. The task is
+            // exposed only so the window can show the cleanup overlay while it
+            // runs.
             //
             // preserveInstall: TRUE. This is a launch sweep, and HM's own
             // doc names that as the case for it. Devices and orphans are

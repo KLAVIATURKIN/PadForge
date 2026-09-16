@@ -127,7 +127,19 @@ namespace PadForge.Common.Input
         {
             if (!_byPath.TryGetValue(path, out var target)) return false;
             lock (target.Gate)
-                return target.Vibration is { Item6: true } && ShipVibration(target, new Vibration());
+            {
+                // A stop is never deduped away. Every other sticky family folds
+                // a repeat, which is right for a held state and wrong for this
+                // one: the output lane has no acknowledgement and no retry, so a
+                // dropped datagram carrying a stop left the peer's pad running
+                // until something else changed the value. A pad left rumbling is
+                // the one case here with a hardware consequence. The latch gate
+                // is unchanged, so a target with nothing running still answers
+                // false and ships nothing.
+                if (target.Vibration is not { Item6: true }) return false;
+                target.Vibration = default;
+                return ShipVibration(target, new Vibration());
+            }
         }
 
         public static bool ShipWheel(string path, bool hasCond, bool dir, short force, short peak,

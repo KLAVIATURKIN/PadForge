@@ -134,7 +134,7 @@ namespace PadForge.Services
             public VoicePcmStream Pcm;                                          // SAPI fallback only
             public IVoicePcmSink Sink;              // where producers write, either engine
             public long MuteProducersUntilTicks;    // self-test owns the pipe below this
-            public WasapiCapture Capture;   // null when the pad tee feeds it
+            public IWaveIn Capture;   // null when the pad tee feeds it
             public int Gen;
         }
 
@@ -759,10 +759,8 @@ namespace PadForge.Services
             sink.Write(outBuf);
         }
 
-        // ── WASAPI capture into a session's stream: any endpoint, any
-        // format, resampled to 16 kHz mono. Format handling mirrors the
-        // persona mic capture (float or int16, downmix by average).
-        private static WasapiCapture OpenEndpointCapture(string endpointId, Session ses)
+        // Uncompressed endpoint capture, downmixed and resampled to 16 kHz mono.
+        private static IWaveIn OpenEndpointCapture(string endpointId, Session ses)
         {
             try
             {
@@ -775,78 +773,86 @@ namespace PadForge.Services
             catch { return null; }
         }
 
-        private static WasapiCapture StartCapture(MMDevice dev, Session ses)
+        private static IWaveIn StartCapture(MMDevice dev, Session ses)
         {
-            var sink = ses.Sink;
-            var cap = new WasapiCapture(dev);
-            int inRate = cap.WaveFormat.SampleRate;
-            int inCh = cap.WaveFormat.Channels;
-            bool isFloat = cap.WaveFormat.Encoding == WaveFormatEncoding.IeeeFloat
-                || (cap.WaveFormat is WaveFormatExtensible wfx
-                    && wfx.SubFormat == new Guid("00000003-0000-0010-8000-00aa00389b71"));
-            int inStride = inCh * (isFloat ? 4 : 2);
-            double pos = 0, step = inRate / 16000.0;
-            long capCalls = 0, capBytesOut = 0, capNextLog = 0;
-            int capPeak = 0;
-            cap.DataAvailable += (_, a) =>
+            string name = dev.FriendlyName;
+            return StartEndpointCapture(new WasapiCapture(dev), ses.Sink,
+                () => Environment.TickCount64 < Volatile.Read(ref ses.MuteProducersUntilTicks), name);
+        }
+
+        internal static IWaveIn StartEndpointCapture(IWaveIn cap, IVoicePcmSink sink,
+            Func<bool> producerMuted, string endpointName)
+        {
+            if (cap == null) return null;
+            bool started = false;
+            try
             {
-                int frames = a.BytesRecorded / inStride;
-                if (frames <= 0) return;
-                // Liveness proof: one line on the first callback, then a
-                // 5 s heartbeat with the format and throughput, so a dead
-                // or silent capture names itself in the log.
-                capCalls++;
-                long nowT = Environment.TickCount64;
-                if (capNextLog == 0)
+                if (sink == null || !CapturePcmFormat.TryCreate(cap.WaveFormat, out var format)) return null;
+                int inRate = format.SampleRate;
+                int inCh = format.Channels;
+                int inStride = format.BlockAlign;
+                double pos = 0, step = inRate / 16000.0;
+                long capCalls = 0, capBytesOut = 0, capNextLog = 0;
+                int capPeak = 0;
+                cap.DataAvailable += (_, a) =>
                 {
-                    capNextLog = nowT + 5000;
-                    Engine.SdlDiagLog.WriteLine("VOICE capture alive: " + dev.FriendlyName
-                        + " fmt=" + cap.WaveFormat.SampleRate + "Hz/" + inCh + "ch/"
-                        + (isFloat ? "f32" : "i16"));
-                }
-                else if (nowT >= capNextLog)
-                {
-                    capNextLog = nowT + 5000;
-                    Engine.SdlDiagLog.WriteLine("VOICE capture stats: " + dev.FriendlyName
-                        + " callbacks=" + capCalls + " bytesTo16k=" + capBytesOut
-                        + " peak16k=" + capPeak + "/32767");
-                    capPeak = 0;
-                }
-                if (ListeningMode != 0 && !ListenGateOpen) { pos = 0; return; }
-                // The self-test owns the pipe while it injects: mixing live
-                // room audio into the synthesized phrase shreds both.
-                if (Environment.TickCount64 < System.Threading.Volatile.Read(ref ses.MuteProducersUntilTicks)) return;
-                float Mono(int f)
-                {
-                    float sum = 0f;
-                    for (int c = 0; c < inCh; c++)
-                        sum += isFloat
-                            ? BitConverter.ToSingle(a.Buffer, f * inStride + c * 4)
-                            : BitConverter.ToInt16(a.Buffer, f * inStride + c * 2) / 32768f;
-                    return sum / inCh;
-                }
-                Span<byte> outBuf = stackalloc byte[(int)(frames / step) * 2 + 8];
-                int n = 0;
-                while (pos < frames - 1)
-                {
-                    int i0 = (int)pos;
-                    float frac = (float)(pos - i0);
-                    float s0 = Mono(i0);
-                    float v = s0 + (Mono(i0 + 1) - s0) * frac;
-                    short q = (short)Math.Clamp((int)(v * 32767f), short.MinValue, short.MaxValue);
-                    int aq = q < 0 ? -q : q;
-                    if (aq > capPeak) capPeak = aq;
-                    outBuf[n++] = (byte)(q & 0xFF);
-                    outBuf[n++] = (byte)((q >> 8) & 0xFF);
-                    pos += step;
-                }
-                pos -= frames;
-                if (pos < 0) pos = 0;
-                if (n > 0) { capBytesOut += n; sink.Write(outBuf[..n]); }
-            };
-            try { cap.StartRecording(); }
-            catch { try { cap.Dispose(); } catch { } throw; }
-            return cap;
+                    int frames = a.BytesRecorded / inStride;
+                    if (frames <= 0) return;
+                    // Liveness proof: one line on the first callback, then a
+                    // 5 s heartbeat with the format and throughput, so a dead
+                    // or silent capture names itself in the log.
+                    capCalls++;
+                    long nowT = Environment.TickCount64;
+                    if (capNextLog == 0)
+                    {
+                        capNextLog = nowT + 5000;
+                        Engine.SdlDiagLog.WriteLine("VOICE capture alive: " + endpointName
+                            + " fmt=" + inRate + "Hz/" + inCh + "ch/" + format.SampleLabel);
+                    }
+                    else if (nowT >= capNextLog)
+                    {
+                        capNextLog = nowT + 5000;
+                        Engine.SdlDiagLog.WriteLine("VOICE capture stats: " + endpointName
+                            + " callbacks=" + capCalls + " bytesTo16k=" + capBytesOut
+                            + " peak16k=" + capPeak + "/32767");
+                        capPeak = 0;
+                    }
+                    if (ListeningMode != 0 && !ListenGateOpen) { pos = 0; return; }
+                    // The self-test owns the pipe while it injects: mixing live
+                    // room audio into the synthesized phrase shreds both.
+                    if (producerMuted?.Invoke() == true) return;
+                    float Mono(int f)
+                    {
+                        float sum = 0f;
+                        for (int c = 0; c < inCh; c++)
+                            sum += format.Read(a.Buffer, f * inStride + c * format.BytesPerSample);
+                        return sum / inCh;
+                    }
+                    Span<byte> outBuf = stackalloc byte[(int)(frames / step) * 2 + 8];
+                    int n = 0;
+                    while (pos < frames - 1)
+                    {
+                        int i0 = (int)pos;
+                        float frac = (float)(pos - i0);
+                        float s0 = Mono(i0);
+                        float v = s0 + (Mono(i0 + 1) - s0) * frac;
+                        short q = (short)Math.Clamp((int)(v * 32767f), short.MinValue, short.MaxValue);
+                        int aq = q < 0 ? -q : q;
+                        if (aq > capPeak) capPeak = aq;
+                        outBuf[n++] = (byte)(q & 0xFF);
+                        outBuf[n++] = (byte)((q >> 8) & 0xFF);
+                        pos += step;
+                    }
+                    pos -= frames;
+                    if (pos < 0) pos = 0;
+                    if (n > 0) { capBytesOut += n; sink.Write(outBuf[..n]); }
+                };
+                cap.StartRecording();
+                started = true;
+                return cap;
+            }
+            catch { return null; }
+            finally { if (!started) { try { cap.Dispose(); } catch { } } }
         }
 
         public void Dispose()

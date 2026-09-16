@@ -287,6 +287,15 @@ namespace PadForge.Services
                 {
                     foreach (var ps in data.PadSettings)
                     {
+                        // Applied per device below, on that device's own cloned
+                        // settings. Rewriting the shared template judged the whole
+                        // checksum group on ANY one paired device and handed the
+                        // rewrite to the others, which is the retarget this gate
+                        // exists to prevent. The touchpad flag joins the count
+                        // because the count shipped AFTER the era this migration
+                        // judges, so it reads zero on exactly the legacy configs
+                        // that need it, and every other consumer already falls
+                        // back the same way.
                         if (ps?.TouchpadClick != "Button 11") continue;
                         bool pairedTouchpadDevice = false;
                         if (data.Settings != null && data.Devices != null)
@@ -298,7 +307,7 @@ namespace PadForge.Services
                                 foreach (var ud in data.Devices)
                                 {
                                     if (ud != null && ud.InstanceGuid == us.InstanceGuid
-                                        && ud.CapTouchpadCount > 0)
+                                        && (ud.CapTouchpadCount > 0 || ud.HasTouchpad))
                                     {
                                         pairedTouchpadDevice = true;
                                         break;
@@ -320,8 +329,20 @@ namespace PadForge.Services
                 // ghost, which silently broke the type-switch automap
                 // (CreateDefaultPadSetting saw CapType 0 and authored an
                 // empty PadSetting). Richest record per guid wins.
+                // A reload runs with the engine live (the Settings page's own
+                // Reload button), and the runtime binds a device's open handle to
+                // its RECORD, not to the collection. Dropping the records
+                // stranded that binding: the offline transition is reachable only
+                // through a record, so a reload skipped the wheel, LED and
+                // feedback re-arm a real disconnect performs, and a browser or
+                // peer pad had no way back at all, because only a fresh connect
+                // registers one. Carry the live runtime state onto the loaded
+                // twin, and keep a live record the file does not describe.
                 lock (SettingsManager.UserDevices.SyncRoot)
                 {
+                    var liveRecords = new Dictionary<Guid, UserDevice>();
+                    foreach (var prev in SettingsManager.UserDevices.Items)
+                        if (prev?.Device != null) liveRecords[prev.InstanceGuid] = prev;
                     SettingsManager.UserDevices.Items.Clear();
                     if (data.Devices != null)
                     {
@@ -334,6 +355,8 @@ namespace PadForge.Services
                             if (ud?.DevicePath != null
                                 && ud.DevicePath.StartsWith("voice://", StringComparison.Ordinal))
                             { voicePurged++; continue; }
+                            if (ud != null && liveRecords.Remove(ud.InstanceGuid, out var prevLive))
+                                CarryRuntimeState(prevLive, ud);
                             SettingsManager.UserDevices.Items.Add(ud);
                         }
                         if (dropped > 0)
@@ -679,10 +702,16 @@ namespace PadForge.Services
         /// 1. Deduplicates row Sources by (DeviceGuid, Descriptor, Invert,
         ///    HalfAxis, InvertOutput, Kind, GateDescriptor). Heals the
         ///    per-save accumulation bug from earlier multi-source builds.
-        /// 2. Drops sources whose owning device is not gamepad-class for
-        ///    gamepad-class targets. Heals the "joystick stuck left"
-        ///    symptom caused by stale auto-mapped gamepad descriptors on
-        ///    keyboard/mouse/touchpad PadSettings polluting the row.
+        /// 2. Strips rows left with no sources, except empty motion rows
+        ///    (they disable automatic DSU selection) and empty NoInherit
+        ///    rows (they block layer fallback). Both are authored states.
+        /// It does NOT drop a source because its device is not gamepad-class.
+        /// That filter lived here once and clobbered legitimate cross-device
+        /// rows, a keyboard key on ButtonA being the ordinary case, so it was
+        /// removed. The one place a device-class gate still runs is the
+        /// legacy migration in BuildOneSlotFromLegacy, which carries an
+        /// IsGamepadEligible flag into MappingSetMigrator for gamepad-only
+        /// targets.
         /// Internal for the PadForge.Tests dedup pins.
         /// </summary>
         internal static void SanitizeMappingSet(MappingSet ms, int slot)
@@ -708,7 +737,7 @@ namespace PadForge.Services
             {
                 // Custom source positions are significant, including duplicates.
                 if (row?.Sources == null || row.CombineMode == "Custom") continue;
-                var seen = new HashSet<(string, string, bool, bool, bool, string, string, string)>();
+                var seen = new HashSet<(string, string, bool, bool, bool, string, string, string, string, string, string)>();
                 int writeIdx = 0;
                 for (int i = 0; i < row.Sources.Count; i++)
                 {
@@ -718,9 +747,15 @@ namespace PadForge.Services
                     // reason GateDescriptor did: two wedge sources sharing
                     // everything but the second AND companion are distinct
                     // reads, and the shorter key deleted one on every load.
+                    // The parameter fields join the key because the
+                    // descriptorless kinds are read through them and not through
+                    // the descriptor, which they leave empty on purpose. Two
+                    // incremental sources on one device therefore keyed
+                    // identically, and the second was deleted on every load.
                     var key = ((s.DeviceGuid ?? "").ToLowerInvariant(), s.Descriptor ?? "",
                         s.Invert, s.HalfAxis, s.InvertOutput, s.Kind ?? "", s.GateDescriptor ?? "",
-                        s.Gate2Descriptor ?? "");
+                        s.Gate2Descriptor ?? "", s.ParamUp ?? "", s.ParamDown ?? "",
+                        s.ParamModifier ?? "");
                     if (!seen.Add(key)) continue;
                     row.Sources[writeIdx++] = s;
                 }
@@ -733,6 +768,28 @@ namespace PadForge.Services
             ms.Rows.RemoveAll(r => r == null
                 || ((r.Sources == null || r.Sources.Count == 0) && !r.NoInherit
                     && !MappingSetMigrator.IsMotionTarget(r.Target)));
+        }
+
+        /// <summary>Moves the runtime-only half of a device record onto its
+        /// freshly loaded twin. Everything here is serializer-ignored and owned
+        /// by the polling thread, so a settings reload has to hand it over
+        /// rather than let it die with the record the file replaced.</summary>
+        private static void CarryRuntimeState(UserDevice from, UserDevice to)
+        {
+            to.Device = from.Device;
+            to.IsOnline = from.IsOnline;
+            to.InputState = from.InputState;
+            to.InputStateSeq = from.InputStateSeq;
+            to.OldInputState = from.OldInputState;
+            to.PtpStatePool = from.PtpStatePool;
+            to.DeviceObjects = from.DeviceObjects;
+            to.ActuatorCount = from.ActuatorCount;
+            to.ForceFeedbackState = from.ForceFeedbackState;
+            to.LastActiveTick = from.LastActiveTick;
+            to.IdleTrackedConnection = from.IdleTrackedConnection;
+            to.LastIdleCheckTick = from.LastIdleCheckTick;
+            to.LastQuickChargeCheckTick = from.LastQuickChargeCheckTick;
+            to.QuickChargePrevCharging = from.QuickChargePrevCharging;
         }
 
         /// <summary>A UserSetting the legacy-orphan sweep may drop: parked
@@ -984,7 +1041,20 @@ namespace PadForge.Services
                         // the new schema's per-source bool flags are
                         // the source of truth, matching how the
                         // migrator emits sources.
-                        bool inv = false, half = false;
+                        //
+                        // The prefix-exempt families never carry the encoding:
+                        // their names start with the same letter the prefix uses
+                        // and prefixing would double it, which is why the rebuild
+                        // leaves them whole and says their invert rides the row
+                        // flag. Nothing read that flag, so every scan below
+                        // reported not inverted and the user's own checkbox was
+                        // dropped on every save while the engine kept honoring
+                        // the stored value. Seed from the row for those families.
+                        // The scan is a no-op on them.
+                        bool exemptPrimary = PadForge.Engine.Common.Mapping.SourceCoercion
+                            .IsPrefixExemptDescriptor(primaryDesc);
+                        bool inv = exemptPrimary && mapping.IsInverted;
+                        bool half = exemptPrimary && mapping.IsHalfAxis;
                         string clean = primaryDesc;
                         if (clean.StartsWith("IH", StringComparison.OrdinalIgnoreCase))
                         { inv = true; half = true; clean = clean.Substring(2); }
@@ -1542,16 +1612,21 @@ namespace PadForge.Services
         /// One body shared by the startup load (LoadPadSettings) and the
         /// device-switch load (InputService.LoadPadSettingToViewModel) so
         /// the two legs cannot drift.</summary>
-        internal static void LoadFlickStickCard(PadViewModel padVm, PadSetting ps)
+        internal static void LoadFlickStickCard(PadViewModel padVm, PadSetting ps, Guid deviceGuid = default)
         {
             if (padVm == null || ps == null) return;
+            // The startup leg knows the device whose PadSetting this is. The
+            // device-switch leg loads the selected device, so fall back to it
+            // rather than seeding from whatever source happens to come first.
+            if (deviceGuid == Guid.Empty) deviceGuid = padVm.SelectedMappedDevice?.InstanceGuid ?? Guid.Empty;
             // Both legs below fill every card field, so the VM is seeded
             // from here on and the save-side stamp may trust its values.
             _flickStickCardSeeded.AddOrUpdate(padVm, null);
             string dots = ps.GetRawMapping("FlickStickDots");
             if (string.IsNullOrEmpty(dots))
             {
-                var seed = FindSlotFlickStickSource(padVm.PadIndex);
+                var seed = FindSlotFlickStickSource(padVm.PadIndex,
+                    deviceGuid == Guid.Empty ? null : deviceGuid.ToString());
                 if (seed != null)
                 {
                     padVm.FlickCountsPer360 = seed.ParamFlickCountsPer360;
@@ -1601,26 +1676,43 @@ namespace PadForge.Services
             ps.SetRawMapping("FlickStickRotationOffset", padVm.FlickRotationOffset.ToString(ic));
         }
 
-        /// <summary>First "Flick Stick ..." source in a slot's MappingSet, or
-        /// null. The load legs seed the Flick Stick card from it when the
-        /// device's PadSetting has never stored the card, so a Workshop
-        /// import's translator-carried tuning surfaces instead of defaults.</summary>
-        internal static Engine.Data.MappingSource FindSlotFlickStickSource(int slot)
+        /// <summary>The "Flick Stick ..." source in a slot's MappingSet that
+        /// belongs to <paramref name="deviceGuid"/>, else one pinned to no
+        /// device, else null. The load legs seed the Flick Stick card from it
+        /// when that device's PadSetting has never stored the card, so a
+        /// Workshop import's translator-carried tuning surfaces instead of
+        /// defaults.
+        ///
+        /// <para>The receiving device decides. Returning the slot's first
+        /// flick source regardless of owner handed a second device the first
+        /// one's tuning. An empty source guid is the "any device" sentinel and
+        /// stays eligible for every device, which is what keeps a Workshop
+        /// import seeding at all: its rows carry no concrete device.</para></summary>
+        internal static Engine.Data.MappingSource FindSlotFlickStickSource(int slot, string deviceGuid)
         {
             var sets = SettingsManager.SlotMappingSets;
             if (sets == null || slot < 0 || slot >= sets.Length) return null;
             var rows = sets[slot]?.Rows;
             if (rows == null) return null;
+            Engine.Data.MappingSource wildcard = null;
             foreach (var row in rows)
             {
                 var sources = row?.Sources;
                 if (sources == null) continue;
                 foreach (var src in sources)
-                    if (src != null
-                        && Engine.Common.Mapping.SourceCoercion.IsFlickStickDescriptor(src.Descriptor))
+                {
+                    if (src == null
+                        || !Engine.Common.Mapping.SourceCoercion.IsFlickStickDescriptor(src.Descriptor))
+                        continue;
+                    string owner = src.DeviceGuid ?? "";
+                    if (!string.IsNullOrEmpty(deviceGuid)
+                        && string.Equals(owner, deviceGuid, StringComparison.OrdinalIgnoreCase))
                         return src;
+                    if (owner.Length == 0 || owner == Guid.Empty.ToString())
+                        wildcard ??= src;
+                }
             }
-            return null;
+            return wildcard;
         }
 
         // The bare stick-axis descriptor a given device reads for <paramref name="target"/>
@@ -1784,7 +1876,12 @@ namespace PadForge.Services
         {
             if (row?.Sources == null) return false;
             bool wasAuthoredEmpty = MappingSetMigrator.IsEmptyMotionRow(row);
-            if (!MappingSetMigrator.IsMotionTarget(row.Target) || row.CombineMode != "Custom")
+            // A custom row's source POSITIONS are its expression's arguments on
+            // every target family, not only motion. Compacting a non-motion
+            // custom row silently renumbered them: dropping the device behind the
+            // first argument promoted the second into its place and left the
+            // expression reading the wrong input.
+            if (row.CombineMode != "Custom")
             {
                 int removed = row.Sources.RemoveAll(remove);
                 return removed > 0 && row.Sources.Count == 0
@@ -2403,6 +2500,10 @@ namespace PadForge.Services
                 var d = dst.ExtendedConfig;
                 if (s != null && d != null)
                 {
+                    // Triggers to zero FIRST: the two setters clamp against each
+                    // other over one axis budget, so writing sticks against a
+                    // leftover trigger count silently drops the last stick.
+                    d.TriggerCount = 0;
                     d.ThumbstickCount = s.ThumbstickCount;
                     d.TriggerCount = s.TriggerCount;
                     d.PovCount = s.PovCount;
@@ -2546,7 +2647,11 @@ namespace PadForge.Services
                 // changed touch level keeps the config alive while the
                 // toggle is momentarily off (the #185/#202 keep-alive rule).
                 || c.TouchpadSyntheticPressure
-                || c.TouchpadSyntheticTouchPercent != 50);
+                || c.TouchpadSyntheticTouchPercent != 50
+                // An input-reactive overlay is a deliberate configuration on
+                // its own: it rides OVER the base mode, so a slot carrying
+                // only an overlay above a default base is configured.
+                || c.InputReactiveMode != ViewModels.InputReactiveMode.Off);
 
         /// <summary>VM-shape twin of <see cref="IsDeviceSlotConfigDataConfigured"/>,
         /// for the in-process Copy From path.</summary>
@@ -2575,7 +2680,9 @@ namespace PadForge.Services
                 || c.AudioPersonaHapticsEnabled || c.AudioPersonaHapticsGain != 100
                 || c.AudioTritonLowPassHz != 250
                 || c.TouchpadSyntheticPressure
-                || c.TouchpadSyntheticTouchPercent != 50);
+                || c.TouchpadSyntheticTouchPercent != 50
+                // Same overlay rule as the DTO twin above.
+                || c.InputReactiveMode != ViewModels.InputReactiveMode.Off);
 
         public void ApplyDeviceSlotConfigsToSlot(int slotIndex,
             ViewModels.DeviceSlotConfigData[] configs)
@@ -2674,6 +2781,10 @@ namespace PadForge.Services
             if (padVm.OutputType != Engine.VirtualControllerType.Extended) return;
             var d = padVm.ExtendedConfig;
             if (d == null) return;
+            // Triggers to zero FIRST: the two setters clamp against each
+            // other over one axis budget, so writing sticks against a
+            // leftover trigger count silently drops the last stick.
+            d.TriggerCount = 0;
             d.ThumbstickCount = cfg.ThumbstickCount;
             d.TriggerCount = cfg.TriggerCount;
             d.PovCount = cfg.PovCount;
@@ -2785,6 +2896,11 @@ namespace PadForge.Services
                     _mainVm.Pads[idx].OutputType == Engine.VirtualControllerType.Extended)
                 {
                     var cfg = _mainVm.Pads[idx].ExtendedConfig;
+                    // Triggers to zero FIRST: the two setters clamp against
+                    // each other over one axis budget, so writing sticks
+                    // against a leftover trigger count silently drops the
+                    // last stick.
+                    cfg.TriggerCount = 0;
                     cfg.ThumbstickCount = cfgData.ThumbstickCount;
                     cfg.TriggerCount = cfgData.TriggerCount;
                     cfg.PovCount = cfgData.PovCount;
@@ -3025,11 +3141,15 @@ namespace PadForge.Services
                     // corresponding) so the visual result matches what users
                     // had before — a black base with a reactive flash. Users
                     // can re-pick a richer base mode under the overlay later.
-                    if (cfgData.InputReactiveMode != ViewModels.InputReactiveMode.Off)
-                    {
-                        cfg.InputReactiveMode = cfgData.InputReactiveMode;
-                    }
-                    else
+                    // Resolve the incoming overlay FIRST, Off included. An
+                    // incoming Off is an authored "no overlay", so applying
+                    // one config over another has to clear what the
+                    // destination carried. Leaving the assignment inside the
+                    // non-Off arm meant a current-format save with no overlay
+                    // matched none of the legacy cases below and silently kept
+                    // the previous profile's overlay.
+                    cfg.InputReactiveMode = cfgData.InputReactiveMode;
+                    if (cfgData.InputReactiveMode == ViewModels.InputReactiveMode.Off)
                     {
                         switch (cfg.LightbarMode)
                         {
@@ -3300,7 +3420,7 @@ namespace PadForge.Services
                 // Load Flick Stick card tuning (#225), same per-(device, slot)
                 // extended-mapping bag; seeds from a Workshop import's flick
                 // source when the card was never stored.
-                LoadFlickStickCard(padVm, ps);
+                LoadFlickStickCard(padVm, ps, us.InstanceGuid);
 
                 // Load audio bass rumble settings.
                 padVm.AudioRumbleEnabled = ps.AudioRumbleEnabled == "1";
@@ -3590,7 +3710,10 @@ namespace PadForge.Services
                 SwitchLayerMask = ad.SwitchLayerMask ?? "Base",
                 GuideLedPercent = ad.GuideLedPercent,
                 SoundFilePath = ad.SoundFilePath ?? string.Empty,
-                SoundVolume = ad.SoundVolume > 0 ? ad.SoundVolume : 100,
+                // A saved 0 means muted and must survive. ActionData's own
+                // initializer supplies 100 when a legacy action omits the
+                // value, so nothing here needs to re-supply it.
+                SoundVolume = ad.SoundVolume,
                 SoundLoop = ad.SoundLoop,
                 SetGyroEngagedMode = ad.SetGyroEngagedMode,
                 RumbleHoldMode = ad.RumbleHoldMode,
@@ -4730,9 +4853,12 @@ namespace PadForge.Services
             var list = new System.Collections.Generic.List<ViewModels.KbmSlotConfigData>();
             for (int i = 0; i < _mainVm.Pads.Count; i++)
             {
-                if (!SettingsManager.SlotCreated[i] ||
-                    _mainVm.Pads[i].OutputType != Engine.VirtualControllerType.KeyboardMouse)
-                    continue;
+                // Every CREATED slot, whatever its current type. A slot that
+                // is not Keyboard and Mouse right now can still hold parked
+                // surface and SOCD settings, and the reader restores them for
+                // any created slot, so filtering here dropped them from a
+                // named-profile save and lost them on the next load.
+                if (!SettingsManager.SlotCreated[i]) continue;
                 var cfg = _mainVm.Pads[i].KbmConfig;
                 list.Add(new ViewModels.KbmSlotConfigData
                 {
@@ -6730,7 +6856,9 @@ namespace PadForge.Services
         [XmlElement]
         public string SoundFilePath { get; set; }
 
-        /// <summary>Per-action sound volume percentage (1-100). Default 100.</summary>
+        /// <summary>Per-action sound volume percentage (0-100). Default 100.
+        /// Zero is muted and must survive a load: the initializer is what
+        /// supplies 100 to a legacy action that omits the element.</summary>
         [XmlElement]
         public int SoundVolume { get; set; } = 100;
 

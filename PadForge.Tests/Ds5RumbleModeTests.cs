@@ -153,6 +153,55 @@ namespace PadForge.Tests
             Assert.Equal(Improved, ov.RumbleFlag2Bits);
         }
 
+        /// <summary>A rumble-only write claims neither the lightbar setup nor
+        /// the player LED brightness.
+        ///
+        /// <para>The mirror used to treat ANY nonzero validFlag2 as a claim on
+        /// both, so a game rumbling with bytes 41 and 42 at zero registered an
+        /// external brightness of ZERO for the whole grace window. Zero is the
+        /// High setting, so a user who chose Medium or Low had it overridden
+        /// to High for as long as the rumble ran. The bit map is named from
+        /// duaLib beside the synthesizer's own constants, and the passthrough
+        /// merge already honors it.</para></summary>
+        [Fact]
+        public void Mirror_RumbleOnly_ClaimsNeitherBrightnessNorLightbarSetup()
+        {
+            const int pad = 12;
+            UserEffectsDispatcher.NotifyExternalSubsystems(pad, GamePayload(0x00, Improved, 5, 6));
+            var ov = UserEffectsDispatcher.PeekExternalOverrides(pad);
+
+            Assert.True(ov.RumbleRight.HasValue, "the rumble itself must still be mirrored");
+            Assert.False(ov.LedBrightness.HasValue,
+                "a rumble-only write claimed the player LED brightness");
+            Assert.False(ov.LightbarSetup.HasValue,
+                "a rumble-only write claimed the lightbar setup");
+        }
+
+        /// <summary>The two bits that DO claim those bytes still claim them,
+        /// so the gate discriminates rather than simply refusing.</summary>
+        [Theory]
+        [InlineData((byte)0x01, true, false)]   // AllowLightBrightnessChange
+        [InlineData((byte)0x02, false, true)]   // AllowColorLightFadeAnimation
+        [InlineData((byte)0x03, true, true)]
+        public void Mirror_EachValidFlag2BitClaimsItsOwnByte(
+            byte vf2, bool expectBrightness, bool expectSetup)
+        {
+            // Its own pad per case: the mirror is per-pad static state with a
+            // grace window, so a shared index would carry one case's claim
+            // into the next.
+            int pad = vf2;
+            var payload = GamePayload(0x00, vf2, 0, 0);
+            payload[41] = 0x11;   // lightbarSetup
+            payload[42] = 0x22;   // ledBrightness
+            UserEffectsDispatcher.NotifyExternalSubsystems(pad, payload);
+            var ov = UserEffectsDispatcher.PeekExternalOverrides(pad);
+
+            Assert.Equal(expectBrightness, ov.LedBrightness.HasValue);
+            Assert.Equal(expectSetup, ov.LightbarSetup.HasValue);
+            if (expectBrightness) Assert.Equal((byte)0x22, ov.LedBrightness.Value);
+            if (expectSetup) Assert.Equal((byte)0x11, ov.LightbarSetup.Value);
+        }
+
         [Fact]
         public void Mirror_FlaggedZero_IsAStop()
         {

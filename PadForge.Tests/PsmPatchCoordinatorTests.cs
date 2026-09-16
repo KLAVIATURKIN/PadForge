@@ -416,8 +416,19 @@ namespace PadForge.Tests
 
             Assert.Single(result.Paired);
             Assert.Equal(3, starts.Count);
-            Assert.True(Stopwatch.GetElapsedTime(starts[0], starts[1]).TotalMilliseconds >= 90);
-            Assert.True(Stopwatch.GetElapsedTime(starts[1], starts[2]).TotalMilliseconds >= 90);
+            // Half the nominal 100 ms pace, not 90 percent of it. The pacing
+            // is a Task.Delay, which fires on a timer tick and may complete a
+            // tick EARLY, and the tick length is process-wide: the audio
+            // passthrough and DualSense dispatcher both call timeBeginPeriod,
+            // so the quantum this test runs under depends on which other tests
+            // shared the host. A 10 ms margin on a 15.6 ms quantum was
+            // asserting the timer's precision rather than the behavior, and it
+            // failed once on 2026-09-16 for exactly that reason and never
+            // reproduced. What the code promises is that a fast empty pass is
+            // PACED rather than spun: an unpaced retry lands near zero, so this
+            // still goes red the moment the delay is removed.
+            Assert.True(Stopwatch.GetElapsedTime(starts[0], starts[1]).TotalMilliseconds >= 50);
+            Assert.True(Stopwatch.GetElapsedTime(starts[1], starts[2]).TotalMilliseconds >= 50);
             Assert.Equal(1, rig.RestoreCalls);
             Assert.Equal(1, rig.EnableCalls);
         }

@@ -771,7 +771,7 @@ namespace PadForge.SteamWorkshop.Translation
                         case "doubletap":
                             return new ResolvedSource
                             {
-                                Descriptor = $"Touchpad {p} DoubleTap",
+                                Descriptor = $"Touchpad {p} DoubleTap{HalfSuffix(half)}",
                                 TrackpadFeature = FeatureTaps,
                             };
                         default:

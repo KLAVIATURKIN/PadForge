@@ -414,18 +414,24 @@ namespace PadForge.Common.Input
     /// <summary>
     /// The FreeTrack 2.0 client side (issue #355), the reference
     /// freetrackclient.c: <c>CreateFileMapping</c> on <c>FT_SharedMem</c> so
-    /// launch order does not matter, a 16 ms wait on <c>FT_Mutext</c> per
-    /// read, then a copy of the heap. When the mutex cannot be created this
-    /// reads unlocked, which the reference client does NOT do (its FTGetData
-    /// copies nothing at all in that case). A torn pose is a worse answer
-    /// than a stale one, but no answer at all is worse still for a source
-    /// whose only job is to report one.
+    /// launch order does not matter, a wait on <c>FT_Mutext</c> per read,
+    /// then a copy of the heap. Two differences, both forced by where this
+    /// runs. The read happens inline on the input polling thread, so the
+    /// mutex is taken without waiting and a busy tick keeps the previous
+    /// pose. The reference's 16 ms is a game frame's budget, not a poll
+    /// tick's, and waiting on another process's writer stalled the whole
+    /// poll loop. The heap is never copied without the mutex, which matches
+    /// FTGetData: its copy sits inside the wait test, so a mutex it could
+    /// not open means it copies nothing. A torn pose is worse than a stale
+    /// one, and the silence timeout already reports a writer that stops.
     /// </summary>
     internal sealed class FreeTrackReader : IDisposable
     {
         public const string HeapName = "FT_SharedMem";
         public const string MutexName = "FT_Mutext";
-        private const int MutexWaitMs = 16;
+        /// <summary>Zero. The polling thread never blocks on the writer;
+        /// a contested tick reports no new pose and the last one stands.</summary>
+        private const int MutexWaitMs = 0;
 
         private MemoryMappedFile _mmf;
         private MemoryMappedViewAccessor _view;
@@ -453,12 +459,21 @@ namespace PadForge.Common.Input
                 return false;
             }
             try { _mutex = new Mutex(false, _mutexName); }
-            catch { _mutex = null; }
+            catch (Exception ex)
+            {
+                // No mutex means no safe copy. FTGetData reads nothing when it
+                // cannot take the mutex, so an unlocked read here would be a
+                // torn pose the reference never produces.
+                SdlDiagLog.WriteLine("Head tracker: FreeTrack mutex failed " + ex.Message);
+                Dispose();
+                return false;
+            }
             return true;
         }
 
         /// <summary>Copies the heap into <paramref name="dst"/>. False when
-        /// the mutex was busy past the wait or the view is gone.</summary>
+        /// the writer holds the mutex, the mutex is gone, or the view is
+        /// gone. The caller keeps the pose it already has.</summary>
         public bool TryRead(byte[] dst)
         {
             var view = _view;
@@ -467,12 +482,10 @@ namespace PadForge.Common.Input
             try
             {
                 var m = _mutex;
-                if (m != null)
-                {
-                    try { held = m.WaitOne(MutexWaitMs); }
-                    catch (AbandonedMutexException) { held = true; }
-                    if (!held) return false;
-                }
+                if (m == null) return false;
+                try { held = m.WaitOne(MutexWaitMs); }
+                catch (AbandonedMutexException) { held = true; }
+                if (!held) return false;
                 view.ReadArray(0, dst, 0, dst.Length);
                 return true;
             }

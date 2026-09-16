@@ -171,7 +171,7 @@ namespace PadForge.Services
                     // The translator's "WhileHeld" clamp is semantic; the
                     // engine clamp is a toggle primitive (#110), so it lowers
                     // to an engage-on-press / release-on-release pair.
-                    list.AddRange(BuildRegionClampPair(m, xboxSlot));
+                    list.AddRange(BuildRegionClampPair(m, xboxSlot, ++pairSeq));
                     continue;
                 }
                 if (m?.Action == TranslatedMacroAction.HoldKey
@@ -678,7 +678,7 @@ namespace PadForge.Services
         /// carry a device-free InputDevice trigger (wave 3): both pair
         /// members get the same descriptor entries, engaging on the touch
         /// edge and releasing on the lift.</summary>
-        private static MacroData[] BuildRegionClampPair(TranslatedMacro m, int xboxSlot)
+        private static MacroData[] BuildRegionClampPair(TranslatedMacro m, int xboxSlot, int pairId)
         {
             int scale = Math.Clamp(m.RegionScalePercent, 1, 100);
             int insetX = RegionInsetPixels(scale, GetSystemMetrics(SM_CXSCREEN));
@@ -692,6 +692,15 @@ namespace PadForge.Services
                     CursorClampMode = ViewModels.CursorClampMode.XAndY,
                     CursorClampInsetX = insetX,
                     CursorClampInsetY = insetY,
+                    // Each leg says which state it WANTS, the hold pair's rule.
+                    // The clamp primitive flips, and two flips carrying activator
+                    // delays invert whenever one arrives late or is canceled: a
+                    // release inside the engage delay, or a re-press inside the
+                    // release delay, left the region engaged with nothing held. A
+                    // desired state is idempotent, so neither can.
+                    LatchDirection = mode == MacroTriggerMode.OnRelease
+                        ? ViewModels.MacroLatchDirection.Off
+                        : ViewModels.MacroLatchDirection.On,
                 };
                 // Activator delays (v18): the engage leg waits
                 // delay_start after the press, the release leg waits

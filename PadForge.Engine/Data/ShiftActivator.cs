@@ -215,8 +215,24 @@ namespace PadForge.Engine.Data
         /// had no faithful activator shape. Read against the activator's
         /// own device. Empty (default) = no gate. Ignored by the Button /
         /// Chord kinds (Button reads one bool; Chord already has its
-        /// second leg).</summary>
+        /// second leg). <see cref="Gate2Descriptor"/> is the leg that is NOT
+        /// kind-specific.</summary>
         [XmlAttribute] public string GateDescriptor { get; set; } = "";
+
+        /// <summary>A THIRD input that must also be held, on EVERY kind.
+        ///
+        /// <para>The first two legs are both spoken for on a gated wedge. A
+        /// trackpad D-pad wedge already carries its half's contact or
+        /// windowed-click gate, and chording it with a bumper needs one more
+        /// slot. A row binding on that chord got it (MappingSource has a
+        /// second gate, and a macro trigger appends a second ANDed entry), so
+        /// a key press on the chord waited for the bumper while a layer or
+        /// mode shift on the SAME chord engaged without it.</para>
+        ///
+        /// <para>Read against the activator's own device, like
+        /// <see cref="GateDescriptor"/>. Empty (default) = no third leg, which
+        /// is every activator authored before this field.</para></summary>
+        [XmlAttribute] public string Gate2Descriptor { get; set; } = "";
 
         // ── v9 field (#370 follow-up) ──
 

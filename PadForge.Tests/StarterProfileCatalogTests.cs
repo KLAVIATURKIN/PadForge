@@ -175,7 +175,7 @@ namespace PadForge.Tests
                     if (!row.Target.StartsWith("Kbm", StringComparison.Ordinal)) continue;
                     if (row.Target.StartsWith("KbmKey", StringComparison.Ordinal)) continue;
                     Assert.True(known.Contains(row.Target),
-                        $"starter '{key}' uses unrecognised KbM target '{row.Target}'");
+                        $"starter '{key}' uses unrecognized KbM target '{row.Target}'");
                 }
         }
 
@@ -705,17 +705,32 @@ namespace PadForge.Tests
         /// Valve's Show Keyboard on X (Win+Ctrl+O) and the Windows key. Both
         /// were dropped as "not reachable" when the profile first shipped.
         /// </summary>
+        /// <summary>Every key one action presses. A single key rides the plain
+        /// code field; a chord rides the multi-key string, which is what keeps
+        /// its modifiers down across the final key.</summary>
+        static List<int> ChordKeys(ActionData a)
+        {
+            if (a == null) return new List<int>();
+            if (!string.IsNullOrEmpty(a.KeyString))
+                return PadForge.ViewModels.MacroAction.ParseKeyString(a.KeyString).ToList();
+            return a.KeyCode != 0 ? new List<int> { a.KeyCode } : new List<int>();
+        }
+
         [Fact]
         public void Desktop_ReachesShowKeyboardAndTheWindowsKey()
         {
             var p = StarterProfileCatalog.Find("desktop").Build();
             Assert.NotEmpty(p.Macros);
 
+            // ONE press action carrying all three keys, not three actions. The
+            // executor releases a press at its own duration before it advances,
+            // so a press per key made the chord three sequential taps with the
+            // modifiers never down alongside the final key.
             var chord = p.Macros.FirstOrDefault(m =>
-                m.Actions.Count(a => a.Type == MacroActionType.KeyPress) == 3);
+                m.Actions.Any(a => a.Type == MacroActionType.KeyPress
+                                   && ChordKeys(a).Count == 3));
             Assert.True(chord != null, "Desktop has no Show Keyboard chord");
-            var pressed = chord.Actions.Where(a => a.Type == MacroActionType.KeyPress)
-                                       .Select(a => a.KeyCode).ToList();
+            var pressed = ChordKeys(chord.Actions.First(a => a.Type == MacroActionType.KeyPress));
             Assert.Contains(0x5B, pressed);   // Win
             Assert.Contains(0xA2, pressed);   // Ctrl
             Assert.Contains(0x4F, pressed);   // O
@@ -733,8 +748,10 @@ namespace PadForge.Tests
             var p = StarterProfileCatalog.Find("pointclick").Build();
             Assert.Contains(p.Macros, m =>
             {
+                // One press action carrying both keys, so the modifier is still
+                // down when Tab goes.
                 var k = m.Actions.Where(a => a.Type == MacroActionType.KeyPress)
-                                 .Select(a => a.KeyCode).ToList();
+                                 .SelectMany(ChordKeys).ToList();
                 return k.Count == 2 && k.Contains(0xA0) && k.Contains(0x09);
             });
         }
@@ -927,9 +944,10 @@ namespace PadForge.Tests
             Assert.DoesNotContain("Gamepad RightShoulder", DescriptorsOf("pointclick", "KbmKey09"));
 
             var p = StarterProfileCatalog.Find("pointclick").Build();
-            var back = p.Macros.Single(m => m.Actions.Any(a => a.KeyCode == 0xA0));   // Shift+Tab
+            var back = p.Macros.Single(m => m.Actions.Any(a => ChordKeys(a).Contains(0xA0)));  // Shift+Tab
             Assert.Contains("RightShoulder", back.TriggerInputs);
-            Assert.Contains(back.Actions, a => a.Type == MacroActionType.KeyPress && a.KeyCode == 0x09);
+            Assert.Contains(back.Actions, a => a.Type == MacroActionType.KeyPress
+                                               && ChordKeys(a).Contains(0x09));
         }
 
         /// <summary>Strategy reaches Pause/Break. It is outside the KbM row

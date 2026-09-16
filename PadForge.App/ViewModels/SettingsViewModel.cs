@@ -160,8 +160,16 @@ namespace PadForge.ViewModels
                     // Apply the culture so the UI thread and resource lookups use
                     // the saved language immediately (without raising CultureChanged
                     // since the UI hasn't been built yet at load time).
-                    Thread.CurrentThread.CurrentUICulture = match;
-                    CultureInfo.DefaultThreadCurrentUICulture = match;
+                    // Through the shared culture-change path, not two raw
+                    // assignments. The note above assumed this only ran before
+                    // the interface existed, but a reload runs it on a live
+                    // window: the thread culture moved and nothing told the
+                    // bindings or the culture handlers, so a reload to a
+                    // different saved language left the visible text in the old
+                    // one. At startup nothing is subscribed yet, so the extra
+                    // notification costs nothing.
+                    if (!Equals(CultureInfo.CurrentUICulture, match))
+                        PadForge.Resources.Strings.Strings.ChangeCulture(match);
                     OnPropertyChanged(nameof(SelectedLanguage));
                 }
             }

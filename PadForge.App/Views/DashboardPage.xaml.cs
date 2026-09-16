@@ -191,8 +191,15 @@ namespace PadForge.Views
 
         private void WireDragHandlers()
         {
+            // Detach before attach. The loaded event can fire again without a
+            // paired unload when the element re-enters the tree, and this method
+            // runs from it, so a re-entry stacked a second copy of every
+            // handler. Same rule the pad page already follows.
+            SlotsItemsControl.PreviewMouseMove -= OnDragMove;
             SlotsItemsControl.PreviewMouseMove += OnDragMove;
+            SlotsItemsControl.PreviewMouseLeftButtonUp -= OnDragEnd;
             SlotsItemsControl.PreviewMouseLeftButtonUp += OnDragEnd;
+            SlotsItemsControl.PreviewKeyDown -= OnDragKeyDown;
             SlotsItemsControl.PreviewKeyDown += OnDragKeyDown;
             // THE DRAG'S ONLY OTHER EXIT. BeginDrag hides the source card
             // (Opacity 0) and takes mouse capture; EndDrag is what puts it
@@ -209,8 +216,14 @@ namespace PadForge.Views
 
         private void SlotCard_Loaded(object sender, RoutedEventArgs e)
         {
+            // Detach first: a card border can raise the loaded event more than
+            // once over its life, and each extra pass added another copy of this
+            // handler to the same element.
             if (sender is Border card)
+            {
+                card.PreviewMouseLeftButtonDown -= OnCardMouseDown;
                 card.PreviewMouseLeftButtonDown += OnCardMouseDown;
+            }
         }
 
         private void OnCardMouseDown(object sender, MouseButtonEventArgs e)

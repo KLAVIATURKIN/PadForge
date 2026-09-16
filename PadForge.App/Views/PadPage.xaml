@@ -369,7 +369,13 @@
                         <GradientStop Color="#00FF6B2C" Offset="0.6"/>
                     </LinearGradientBrush>
                 </Border.Background>
-            <DockPanel LastChildFill="False" VerticalAlignment="Center">
+            <!-- C275: a WrapPanel, not a DockPanel. Measured at the 900
+                 window minimum with the navigation pane open, the tier needs
+                 1316.7 and has 648, and the left cluster alone takes 788.7, so
+                 right-docked tabs were given a negative width and vanished.
+                 Wrapping puts the tab strip on its own line when the line runs
+                 out and keeps the single line wherever it still fits. -->
+            <WrapPanel Orientation="Horizontal" VerticalAlignment="Center">
 
                 <!-- Scope label (#175 iteration 2): without it the two tiers
                      read as arbitrary strips. -->
@@ -544,7 +550,7 @@
                         <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="KbmSurfaces" Visibility="{Binding Visibility, ElementName=KbmSurfacesCombo}" SettingLabel="{Binding ResetLabel_InputSurfaces, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_PadViewModel_KbmSurfaces_531"/>
                     </StackPanel>
                 </Border>
-<StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+<StackPanel Orientation="Horizontal">
                 <!-- The active-profile pill lives in the status bar ONLY.
                      A copy sat here (#175 item 8) until a user read it as a
                      per-pad profile selector (2026-07-05). Profiles are
@@ -614,7 +620,7 @@
                 </RadioButton>
                 </StackPanel>
 
-            </DockPanel>
+            </WrapPanel>
             </Border>
 
             <!-- Tier 2: the physical device and its capability tabs. -->
@@ -648,7 +654,7 @@
                 <ComboBox ItemsSource="{Binding MappedDevices}"
                           SelectedItem="{Binding SelectedMappedDevice, Mode=TwoWay}"
                           BorderBrush="#4D58B6E4" Background="#0D58B6E4"
-                          MinWidth="200" Margin="4,2" VerticalAlignment="Center">
+                          MinWidth="200" MaxWidth="320" Margin="4,2" VerticalAlignment="Center">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -1445,18 +1451,25 @@
                                         </TextBox.ToolTip>
                                     </TextBox>
                                 </DockPanel>
+                                <!-- The default color lives in the style, not on the
+                                     element: a local value outranks a trigger setter, so
+                                     with it here neither the invalid red nor the warning
+                                     orange could ever apply and the formula status stayed
+                                     gray whatever the expression did. The mapping table's
+                                     twin already reads this way. Warning is declared
+                                     BEFORE invalid so invalid wins when both hold. -->
                                 <TextBlock Text="{Binding CustomExpressionStatus}"
                                            FontFamily="{StaticResource TelemetryFontFamily}"
-                                           FontSize="11" Margin="0,0,0,6"
-                                           Foreground="{DynamicResource TextFillColorSecondaryBrush}">
+                                           FontSize="11" Margin="0,0,0,6">
                                     <TextBlock.Style>
                                         <Style TargetType="TextBlock">
+                                            <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}"/>
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding IsCustomExpressionInvalid}" Value="True">
-                                                    <Setter Property="Foreground" Value="#E81123"/>
-                                                </DataTrigger>
                                                 <DataTrigger Binding="{Binding IsCustomExpressionWarning}" Value="True">
                                                     <Setter Property="Foreground" Value="#CA5010"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding IsCustomExpressionInvalid}" Value="True">
+                                                    <Setter Property="Foreground" Value="#E81123"/>
                                                 </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
@@ -1681,7 +1694,8 @@
                                                               DisplayMemberPath="Name"
                                                               MinWidth="160" Margin="0,0,8,0"
                                                               Visibility="{Binding Source, Converter={StaticResource EnumEqualityVisibilityConverter}, ConverterParameter=OutputController}"/>
-                                                    <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="OutputChannel" SettingLabel="{Binding ResetLabel_OutputChannel, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_MacroExpressionVariable_OutputChannel_1658" Margin="4,0,8,0"/>
+                                                    <!-- Gated with the control it resets: an ungated reset left a lone button behind a hidden setting. -->
+                                                    <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="OutputChannel" SettingLabel="{Binding ResetLabel_OutputChannel, Source={x:Static strings:Strings.Instance}}" Visibility="{Binding Source, Converter={StaticResource EnumEqualityVisibilityConverter}, ConverterParameter=OutputController}" AutomationProperties.AutomationId="Reset_MacroExpressionVariable_OutputChannel_1658" Margin="4,0,8,0"/>
                                                     <TextBlock Text="{Binding DisplaySummary}"
                                                                VerticalAlignment="Center"
                                                                FontStyle="Italic"
@@ -3393,7 +3407,7 @@
                                           SelectedValuePath="Tag" MinWidth="120">
                                     <ComboBoxItem Content="{Binding Macro_Once, Source={x:Static strings:Strings.Instance}}" Tag="{x:Static vm:MacroRepeatMode.Once}"/>
                                     <ComboBoxItem Content="{Binding Macro_FixedCount, Source={x:Static strings:Strings.Instance}}" Tag="{x:Static vm:MacroRepeatMode.FixedCount}"/>
-                                    <ComboBoxItem Content="{Binding Macro_UntilRelease, Source={x:Static strings:Strings.Instance}}" Tag="{x:Static vm:MacroRepeatMode.UntilRelease}"/>
+                                    <ComboBoxItem Content="{Binding Macro_UntilRelease, Source={x:Static strings:Strings.Instance}}" Tag="{x:Static vm:MacroRepeatMode.UntilRelease}" IsEnabled="{Binding SupportsUntilReleaseRepeat}"/>
                                 </ComboBox>
                                 <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="RepeatMode" SettingLabel="{Binding Macro_RepeatMode, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_MacroItem_RepeatMode_3262"/>
                             </StackPanel>
@@ -5093,7 +5107,8 @@
                                                                       Visibility="{Binding IsInvertOutputApplicable, Converter={StaticResource BoolToVisibilityConverter}}"
                                                                       Foreground="{DynamicResource TextFillColorTertiaryBrush}" FontSize="11.5"
                                                                       Margin="0,0,6,0" VerticalAlignment="Center"/>
-                                                            <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="InvertOutput" SettingLabel="{Binding Pad_InvertOutput, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_MappingSourceItem_InvertOutput_4943"/>
+                                                            <!-- Gated with the control it resets: an ungated reset left a lone button behind a hidden setting. -->
+                                                            <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="InvertOutput" SettingLabel="{Binding Pad_InvertOutput, Source={x:Static strings:Strings.Instance}}" Visibility="{Binding IsInvertOutputApplicable, Converter={StaticResource BoolToVisibilityConverter}}" AutomationProperties.AutomationId="Reset_MappingSourceItem_InvertOutput_4943"/>
                                                         </StackPanel>
                                                         <!-- Per-source gyro sensitivity. Only renders for
                                                              gyro descriptors so non-gyro sources don't see a
@@ -5959,7 +5974,8 @@
                                                       Foreground="{DynamicResource TextFillColorTertiaryBrush}" FontSize="11.5"
                                                       Margin="0,0,6,0"
                                                       VerticalAlignment="Center"/>
-                                            <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="InvertOutput" SettingLabel="{Binding Pad_InvertOutput, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_MappingItem_InvertOutput_5776" Margin="4,0,8,0"/>
+                                            <!-- Gated with the control it resets: an ungated reset left a lone button behind a hidden setting. -->
+                                            <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="InvertOutput" SettingLabel="{Binding Pad_InvertOutput, Source={x:Static strings:Strings.Instance}}" Visibility="{Binding IsInvertOutputApplicable, Converter={StaticResource BoolToVisibilityConverter}}" AutomationProperties.AutomationId="Reset_MappingItem_InvertOutput_5776" Margin="4,0,8,0"/>
                                             <!-- NoInherit toggle. Only meaningful when authoring
                                                  a shift layer whose activator has InheritUnmapped
                                                  enabled — replace-mode layers (the default) block
@@ -5972,7 +5988,8 @@
                                                       Foreground="{DynamicResource TextFillColorTertiaryBrush}" FontSize="11.5"
                                                       VerticalAlignment="Center"
                                                       Visibility="{Binding DataContext.IsActiveLayerInheriting, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                            <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="NoInherit" SettingLabel="{Binding Pad_Shift_NoInherit, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_MappingItem_NoInherit_5788" Margin="4,0,8,0"/>
+                                            <!-- Gated with the control it resets: an ungated reset left a lone button behind a hidden setting. -->
+                                            <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="NoInherit" SettingLabel="{Binding Pad_Shift_NoInherit, Source={x:Static strings:Strings.Instance}}" Visibility="{Binding DataContext.IsActiveLayerInheriting, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource BoolToVisibilityConverter}}" AutomationProperties.AutomationId="Reset_MappingItem_NoInherit_5788" Margin="4,0,8,0"/>
                                             <!-- Per-source gyro sensitivity for the primary source.
                                                  Mirrors the ExtraSource gyro-sensitivity row; only
                                                  renders for gyro descriptors so non-gyro primaries
@@ -6323,8 +6340,15 @@
                                                 </StackPanel.Style>
                                                 <TextBlock Text="{Binding Pad_Touchpad_MouseMomentumDecay, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource DzLabel}"
                                                            ToolTip="{Binding Pad_StickMomentumGlide_Tooltip, Source={x:Static strings:Strings.Instance}}"/>
+                                                <!-- TickFrequency overrides the shared style's 0.1.
+                                                     The style ticks on the same grid for every
+                                                     slider, and snapping is on, so a 0.80 to 1.00
+                                                     range offered exactly three values while the
+                                                     box beside it promised two decimals. The
+                                                     touchpad twin of this setting already sets it. -->
                                                 <Slider Value="{Binding MomentumGlide, Mode=TwoWay}"
                                                         Minimum="0.80" Maximum="1.00" SmallChange="0.01" LargeChange="0.05"
+                                                        TickFrequency="0.01"
                                                         Style="{StaticResource DzSlider}"
                                                         ToolTip="{Binding Pad_StickMomentumGlide_Tooltip, Source={x:Static strings:Strings.Instance}}"/>
                                                 <TextBox Text="{Binding MomentumGlide, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat={}{0:0.00}}"
@@ -7066,7 +7090,13 @@
                             <!-- Hold + Decay — the reactive pulse on lock: hold the color at full for
                                  Hold ms, then fade back over Decay ms (matches the macro lightbar). -->
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
-                                <TextBlock Text="{Binding Macro_LightbarHold_Label, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource DzLabel}"/>
+                                <!-- The DURATION key, not Macro_LightbarHold_Label: that
+                                     one labels the mode picker, and translators read it
+                                     that way (de "Modus", es "Modo", it "Modalita",
+                                     pt-BR "Modo"), so this row said "Mode" above a
+                                     millisecond slider in four locales. Same correction
+                                     the macro lightbar rows already carry. -->
+                                <TextBlock Text="{Binding Macro_TriggerHoldMs_Label, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource DzLabel}"/>
                                 <Slider Value="{Binding SteeringLockLightbarHoldMs, Mode=TwoWay}" Minimum="0" Maximum="2000" Style="{StaticResource DzSlider}"/>
                                 <TextBox Text="{Binding SteeringLockLightbarHoldMs, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Style="{StaticResource DzValueEdit}"/>
                                 <TextBlock Text="ms" Style="{StaticResource DzPercent}"/>
@@ -7107,14 +7137,18 @@
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                                     <TextBlock Text="{Binding Settings_FlickCountsPer360, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource DzLabel}"
                                                ToolTip="{Binding Settings_FlickCountsPer360_Tooltip, Source={x:Static strings:Strings.Instance}}"/>
-                                    <Slider Value="{Binding FlickCountsPer360, Mode=TwoWay}" Minimum="100" Maximum="30000" Style="{StaticResource DzSlider}"/>
+                                    <Slider Value="{Binding FlickCountsPer360, Mode=TwoWay}" Minimum="100" Maximum="100000" Style="{StaticResource DzSlider}"/>
                                     <TextBox Text="{Binding FlickCountsPer360, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Style="{StaticResource DzValueEdit}"/>
                                     <ui:Button Command="{Binding ResetFlickCountsPer360Command}" Style="{StaticResource ResetButton}" ToolTip="{Binding Pad_ResetFlickCountsPer360, Source={x:Static strings:Strings.Instance}}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                                     <TextBlock Text="{Binding Settings_FlickTime, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource DzLabel}"
                                                ToolTip="{Binding Settings_FlickTime_Tooltip, Source={x:Static strings:Strings.Instance}}"/>
-                                    <Slider Value="{Binding FlickTime, Mode=TwoWay}" Minimum="0.01" Maximum="1" Style="{StaticResource DzSlider}"/>
+                                    <!-- The value the model accepts. A lower ceiling here
+                                         silently clamped a stored or imported value on the
+                                         first realization and wrote the clamped number back
+                                         through the two-way binding. -->
+                                    <Slider Value="{Binding FlickTime, Mode=TwoWay}" Minimum="0.01" Maximum="2" Style="{StaticResource DzSlider}"/>
                                     <TextBox Text="{Binding FlickTime, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Style="{StaticResource DzValueEdit}"/>
                                     <TextBlock Text="s" Style="{StaticResource DzPercent}"/>
                                     <ui:Button Command="{Binding ResetFlickTimeCommand}" Style="{StaticResource ResetButton}" ToolTip="{Binding Pad_ResetFlickTime, Source={x:Static strings:Strings.Instance}}"/>
@@ -7491,11 +7525,11 @@
                                            FontFamily="{StaticResource TelemetryFontFamily}" FontSize="11" Width="32"
                                            Foreground="{DynamicResource TextFillColorTertiaryBrush}"/>
                                 <ProgressBar Grid.Row="1" Grid.Column="2" Margin="0,0,12,6"
-                                             Value="{Binding LeftMotorDisplay, Mode=OneWay}"
+                                             Value="{Binding RawLeftMotorDisplay, Mode=OneWay}"
                                              Minimum="0" Maximum="1" VerticalAlignment="Center"
                                              Style="{StaticResource InstrumentBarRaw}"/>
                                 <TextBlock Grid.Row="1" Grid.Column="3" Margin="0,0,0,6"
-                                           Text="{Binding LeftMotorDisplay, Mode=OneWay, StringFormat=P0}"
+                                           Text="{Binding RawLeftMotorDisplay, Mode=OneWay, StringFormat=P0}"
                                            FontFamily="{StaticResource TelemetryFontFamily}" FontSize="12"
                                            MinWidth="40" TextAlignment="Right" VerticalAlignment="Center"
                                            Foreground="{DynamicResource ColdBrush}"/>
@@ -7521,11 +7555,11 @@
                                            FontFamily="{StaticResource TelemetryFontFamily}" FontSize="11" Width="32"
                                            Foreground="{DynamicResource TextFillColorTertiaryBrush}"/>
                                 <ProgressBar Grid.Row="3" Grid.Column="2" Margin="0,0,12,6"
-                                             Value="{Binding RightMotorDisplay, Mode=OneWay}"
+                                             Value="{Binding RawRightMotorDisplay, Mode=OneWay}"
                                              Minimum="0" Maximum="1" VerticalAlignment="Center"
                                              Style="{StaticResource InstrumentBarRaw}"/>
                                 <TextBlock Grid.Row="3" Grid.Column="3" Margin="0,0,0,6"
-                                           Text="{Binding RightMotorDisplay, Mode=OneWay, StringFormat=P0}"
+                                           Text="{Binding RawRightMotorDisplay, Mode=OneWay, StringFormat=P0}"
                                            FontFamily="{StaticResource TelemetryFontFamily}" FontSize="12"
                                            MinWidth="40" TextAlignment="Right" VerticalAlignment="Center"
                                            Foreground="{DynamicResource ColdBrush}"/>
@@ -8605,10 +8639,11 @@
                                      Visible only when LightbarMode = ColorCycle so the
                                      palette sits directly below the dropdown that
                                      reveals it. The InputReactive Cycle overlay has
-                                     its own palette instance below the InputReactive
-                                     dropdown (same data, different position) so the
-                                     editor doesn't appear above the dropdown that
-                                     summoned it. ShowPaletteForBase / ShowPaletteForOverlay
+                                     its own palette below the InputReactive dropdown,
+                                     with its OWN colors, so the editor doesn't appear
+                                     above the dropdown that summoned it. The two were
+                                     briefly wired to one collection and editing either
+                                     changed the other, which was never intended. ShowPaletteForBase / ShowPaletteForOverlay
                                      are mutually exclusive — palette renders exactly
                                      once at any time. -->
                                 <StackPanel Visibility="{Binding DeviceConfig.ShowPaletteForBase, Converter={StaticResource BoolToVisibilityConverter}}">
@@ -9272,8 +9307,9 @@
                                      base mode above: a button-press flashes the chosen
                                      reactive color and decays back to the base. Off keeps
                                      the base mode untouched. Random rolls a hue per press,
-                                     Cycle steps through the palette, Fixed flashes the
-                                     base RGB color. Placed at the bottom of the lightbar
+                                     Cycle steps through the palette, Fixed flashes its
+                                     OWN configured color, independent of the base RGB
+                                     (its picker is below). Placed at the bottom of the lightbar
                                      card so the LightbarMode dropdown's mode-specific
                                      settings sit immediately under it without the
                                      InputReactive controls breaking up the visual flow. -->
@@ -9323,9 +9359,9 @@
                                 <!-- Palette (variable count) — Overlay instance.
                                      Visible only when InputReactive = Cycle AND
                                      LightbarMode != ColorCycle (so this never co-renders
-                                     with the Base palette instance above). Same data,
-                                     placed here so the palette sits directly below the
-                                     InputReactive dropdown that revealed it. -->
+                                     with the Base palette instance above). Its own
+                                     colors, placed here so the palette sits directly
+                                     below the InputReactive dropdown that revealed it. -->
                                 <StackPanel Visibility="{Binding DeviceConfig.ShowPaletteForOverlay, Converter={StaticResource BoolToVisibilityConverter}}">
                                     <TextBlock Text="{Binding Pad_Lighting_PaletteHeader, Source={x:Static strings:Strings.Instance}}"
                                                FontWeight="SemiBold" Margin="0,0,0,6"/>
@@ -9925,7 +9961,10 @@
                                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                                         <TextBlock Text="{Binding Pad_GyroTilt_Deadzone, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource DzLabel}"
                                                    ToolTip="{Binding Pad_GyroTilt_Deadzone_Tooltip, Source={x:Static strings:Strings.Instance}}"/>
-                                        <Slider Value="{Binding GyroTiltInnerDz, Mode=TwoWay}" Minimum="0" Maximum="45" Style="{StaticResource DzSlider}"
+                                        <!-- The model's ceiling, which sits just under the
+                                             range's own cap. A lower one here clamped a
+                                             stored value back on realization. -->
+                                        <Slider Value="{Binding GyroTiltInnerDz, Mode=TwoWay}" Minimum="0" Maximum="89" Style="{StaticResource DzSlider}"
                                                 ToolTip="{Binding Pad_GyroTilt_Deadzone_Tooltip, Source={x:Static strings:Strings.Instance}}"/>
                                         <TextBox Text="{Binding GyroTiltInnerDz, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Style="{StaticResource DzValueEdit}"/>
                                         <TextBlock Text="&#176;" Style="{StaticResource DzPercent}"/>
@@ -12120,12 +12159,24 @@
                                              double click to enter edit mode, which reads as
                                              "it will not let me edit anything". -->
                                         <Grid Margin="0,0,0,2">
+                                            <!-- MEASURED with tools/rowmeasure.
+                                                 Every column carries a 28 by 28
+                                                 reset plus its 4 margin, which the
+                                                 original numbers predate: the
+                                                 checkbox column needed 74 against
+                                                 42, and the three editors 103, 96
+                                                 and 98 against 96, 88 and 78. A
+                                                 grid does not clip, so the resets
+                                                 drew over their neighbors. The type
+                                                 picker measures 89 against its 150
+                                                 and is left alone. Header and rows
+                                                 below must stay identical. -->
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="42"/>
-                                                <ColumnDefinition Width="150"/>
-                                                <ColumnDefinition Width="96"/>
-                                                <ColumnDefinition Width="88"/>
                                                 <ColumnDefinition Width="78"/>
+                                                <ColumnDefinition Width="150"/>
+                                                <ColumnDefinition Width="108"/>
+                                                <ColumnDefinition Width="100"/>
+                                                <ColumnDefinition Width="102"/>
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
                                             <TextBlock Grid.Column="0" Text="{Binding Pad_Audio_EqCol_On, Source={x:Static strings:Strings.Instance}}" Foreground="{DynamicResource TextFillColorTertiaryBrush}" FontSize="11"/>
@@ -12138,12 +12189,18 @@
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
                                                     <Grid Margin="0,1,0,1">
+                                                        <!-- Identical to the header
+                                                             grid above. They are two
+                                                             grids, not one, so a
+                                                             width changed in one and
+                                                             not the other silently
+                                                             misaligns every heading. -->
                                                         <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="42"/>
-                                                            <ColumnDefinition Width="150"/>
-                                                            <ColumnDefinition Width="96"/>
-                                                            <ColumnDefinition Width="88"/>
                                                             <ColumnDefinition Width="78"/>
+                                                            <ColumnDefinition Width="150"/>
+                                                            <ColumnDefinition Width="108"/>
+                                                            <ColumnDefinition Width="100"/>
+                                                            <ColumnDefinition Width="102"/>
                                                             <ColumnDefinition Width="*"/>
                                                         </Grid.ColumnDefinitions>
                                                         <StackPanel Orientation="Horizontal" Grid.Column="0" VerticalAlignment="Center">

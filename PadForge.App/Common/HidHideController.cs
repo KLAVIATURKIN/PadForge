@@ -519,7 +519,12 @@ namespace PadForge.Common
             lock (_lock)
             {
                 var list = GetBlacklist();
-                if (list == null) return 0;
+                // -1, not 0. A failed read and an empty list are different
+                // answers, and the caller latches "adopted, never again" on one
+                // of them. Reporting both as zero let a single refused open
+                // retire adoption for the life of the process, with every kept
+                // cloak left in the driver and nothing able to name it.
+                if (list == null) return -1;
                 _managedDeviceIds.Clear();
                 foreach (var id in list)
                     if (!string.IsNullOrEmpty(id))
@@ -988,8 +993,16 @@ namespace PadForge.Common
         {
             if (string.IsNullOrEmpty(hidInstanceId)) return new List<string>();
 
+            // Every fallback below degrades to the node we were handed, and
+            // that node still follows the keep-out set (#400). Returning it raw
+            // skipped the one contract the compose step was moved here to own,
+            // so a phantom or container-less node on a row the user left visible
+            // got blacklisted anyway and never reached the kept list.
+            List<string> PrimaryOnly() =>
+                ComposeBlacklist(hidInstanceId, null, default, null, keepOut, keptOut);
+
             if (CM_Locate_DevNodeW(out uint hidDevInst, hidInstanceId, CM_LOCATE_DEVNODE_PHANTOM) != CR_SUCCESS)
-                return new List<string> { hidInstanceId };
+                return PrimaryOnly();
 
             Guid hidContainerId = GetContainerId(hidDevInst);
 
@@ -1005,7 +1018,7 @@ namespace PadForge.Common
             bool systemScoped = hidContainerId == GUID_CONTAINER_ID_SYSTEM;
             string scopeToken = systemScoped ? VidPidToken(hidInstanceId) : null;
             if (hidContainerId == Guid.Empty || (systemScoped && scopeToken == null))
-                return new List<string> { hidInstanceId };
+                return PrimaryOnly();
 
             // Walk parents while the node stays inside the same physical
             // device, recording each intermediate node. The last one that
@@ -1050,7 +1063,7 @@ namespace PadForge.Common
                 // Same contract as ContainerKeyOf and ChainInstanceIds, which
                 // both already catch here: cfgmgr32 trouble degrades to the
                 // node we were handed rather than escaping into the apply loop.
-                return new List<string> { hidInstanceId };
+                return PrimaryOnly();
             }
         }
 

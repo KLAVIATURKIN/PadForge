@@ -94,6 +94,8 @@
     })();
     (function() {
         var ws = null;
+        var connectTimer = null;
+        var reconnectTimer = null;
         var statusEl = document.getElementById('status');
         var touchpad = document.getElementById('touchpad');
         var clickButton = document.getElementById('clickButton');
@@ -117,7 +119,16 @@
         }
 
         function connect() {
-            if (ws) { try { ws.close(); } catch(e) {} }
+            if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) return;
+            clearTimeout(reconnectTimer);
+            reconnectTimer = null;
+            clearTimeout(connectTimer);
+            connectTimer = null;
+            if (ws) {
+                var retiring = ws;
+                ws = null;
+                try { retiring.close(); } catch(e) {}
+            }
             var host = location.host;
             // Match the page's scheme. #296 phase 0 binds a self-signed cert and
             // serves https:// whenever the binding succeeds, which is whenever
@@ -126,23 +137,43 @@
             // touchpad layout was the only client that did not derive this, so
             // it was the only one that failed on the default lane.
             var proto = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            ws = new WebSocket(proto + '//' + host + '/ws?type=touchpad&id=' + encodeURIComponent(clientId));
+            var socket = new WebSocket(proto + '//' + host + '/ws?type=touchpad&id=' + encodeURIComponent(clientId));
+            ws = socket;
             // Timeout: if connection doesn't open within 3s, force-retry.
-            var timer = setTimeout(function() {
-                if (ws.readyState !== 1) { try { ws.close(); } catch(e) {} connect(); }
+            connectTimer = setTimeout(function() {
+                if (ws !== socket) return;
+                connectTimer = null;
+                if (socket.readyState !== WebSocket.OPEN) {
+                    // Retire before close so its delayed callbacks cannot own the retry.
+                    ws = null;
+                    try { socket.close(); } catch(e) {}
+                    connect();
+                }
             }, 3000);
-            ws.onopen = function() {
-                clearTimeout(timer);
+            socket.onopen = function() {
+                if (ws !== socket) { try { socket.close(); } catch(e) {} return; }
+                clearTimeout(connectTimer);
+                connectTimer = null;
                 statusEl.textContent = 'Connected';
                 statusEl.className = 'status connected';
             };
-            ws.onclose = function() {
-                clearTimeout(timer);
+            socket.onclose = function() {
+                if (ws !== socket) return;
+                ws = null;
+                clearTimeout(connectTimer);
+                connectTimer = null;
                 statusEl.textContent = 'Reconnecting...';
                 statusEl.className = 'status';
-                setTimeout(connect, 500);
+                clearTimeout(reconnectTimer);
+                reconnectTimer = setTimeout(function() {
+                    reconnectTimer = null;
+                    connect();
+                }, 500);
             };
-            ws.onerror = function() { ws.close(); };
+            socket.onerror = function() {
+                if (ws !== socket) return;
+                try { socket.close(); } catch(e) {}
+            };
         }
 
         function send(msg) {

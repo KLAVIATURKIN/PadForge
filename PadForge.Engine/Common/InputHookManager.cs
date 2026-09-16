@@ -321,7 +321,7 @@ namespace PadForge.Engine.Common
 
         // Keys whose scan code carries the E0 prefix. Without the extended
         // flag SendInput types the numpad twin (Insert becomes Numpad 0).
-        private static bool IsExtendedKey(int vk) => vk switch
+        public static bool IsExtendedKey(int vk) => vk switch
         {
             0xA3 or 0xA5 => true,           // RControl, RMenu
             0x2D or 0x2E => true,           // Insert, Delete

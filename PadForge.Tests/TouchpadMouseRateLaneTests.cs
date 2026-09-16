@@ -52,6 +52,7 @@ namespace PadForge.Tests
         }
 
         private static MappingSource XSource() => new() { Descriptor = "Touchpad 0 Finger 0 X" };
+        private static MappingSource YSource() => new() { Descriptor = "Touchpad 0 Finger 0 Y" };
         private static long TicksAt(float seconds) => (long)(seconds * Freq);
 
         private static float Counts(CustomInputState st, long ticks, MappingSource src, int slot)
@@ -444,12 +445,24 @@ namespace PadForge.Tests
         /// twice and desynchronise the pair.</summary>
         private static (float X, float Y) ReadBoth(CustomInputState st, long ticks, MappingSource src, int slot)
         {
+            // Each mouse axis is its own mapping row with its own source, and
+            // the source names the component it reads. Passing one source for
+            // both calls made the Y read return the X component, which turned
+            // the diagonal guard below into a comparison of a number with
+            // itself. The Y row inherits the given source's tuning so a test
+            // that sets Sensitivity or a half window still covers both axes.
+            var ySrc = new MappingSource
+            {
+                Descriptor = (src.Descriptor ?? "").Replace(" X", " Y"),
+                DeviceGuid = src.DeviceGuid,
+                Sensitivity = src.Sensitivity,
+            };
             SourceCoercion.BeginPollFrame();
             var (x, _) = SourceCoercion.ReadTouchpadMouseCounts(
                 st, src, slot, deviceGuid: "", dtSeconds: PollDt,
                 forX: true, nowTicks: ticks, ticksPerSecond: Freq);
             var (_, y) = SourceCoercion.ReadTouchpadMouseCounts(
-                st, src, slot, deviceGuid: "", dtSeconds: PollDt,
+                st, ySrc, slot, deviceGuid: "", dtSeconds: PollDt,
                 forX: false, nowTicks: ticks, ticksPerSecond: Freq);
             return (x, y);
         }
@@ -1121,7 +1134,7 @@ namespace PadForge.Tests
                 Counts(PadAt(0.20f), TicksAt(0.000f), src, slot);
                 Counts(PadAt(0.22f), TicksAt(0.004f), src, slot);
 
-                // 300 ms unread; the finger travelled to the far edge.
+                // 300 ms unread; the finger traveled to the far edge.
                 float onResume = Counts(PadAt(0.90f), TicksAt(0.305f), src, slot);
                 Assert.Equal(0f, onResume);
 

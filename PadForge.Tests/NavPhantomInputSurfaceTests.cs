@@ -225,9 +225,9 @@ namespace PadForge.Tests
         public void TheAxisList_IsComputedAfterTheFlagThatBoundsIt()
         {
             string src = Read("PadForge.Engine", "Common", "SdlDeviceWrapper.cs");
-            int flag = src.IndexOf("HasExtraGenericAxes = GameController != IntPtr.Zero", StringComparison.Ordinal);
+            int flag = src.IndexOf("UpdateExtraAxisCapabilities();", StringComparison.Ordinal);
             int list = src.IndexOf("SupportedAxisIndices = ComputeSupportedAxisIndices();", StringComparison.Ordinal);
-            Assert.True(flag > 0, "the HasExtraGenericAxes assignment moved");
+            Assert.True(flag > 0, "the extra-axis capability refresh moved");
             Assert.True(list > 0, "the SupportedAxisIndices assignment moved");
             Assert.True(list > flag,
                 "SupportedAxisIndices must be computed after HasExtraGenericAxes: "

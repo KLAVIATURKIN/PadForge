@@ -61,7 +61,7 @@ internal static class Program
         long logStart = LogLength(diagPath);
 
         // Capture FIRST, in a quiet window. The pad's microphone sits
-        // centimetres from its speaker, so measuring capture right after
+        // centimeters from its speaker, so measuring capture right after
         // rendering a test tone reads the tone back acoustically: on
         // 2026-07-31 that produced rms 0.5751 at crest 1.7x, which is the
         // signature of a sine (1.41x), not of noise (3-4x), and tripped

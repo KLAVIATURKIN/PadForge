@@ -100,19 +100,26 @@ namespace PadForge.Tests
             Assert.True(got.KeepAwakeMotion);
         }
 
-        /// <summary>A slot that authored none of it produces no payload, so an
-        /// ordinary Copy does not grow a block of defaults that would then
-        /// overwrite a destination's real configuration with nothing.</summary>
+        /// <summary>Whole-slot copying carries defaults so a clean source
+        /// clears the destination's previous configuration.</summary>
         [Fact]
-        public void Build_OnAnUnauthoredSlot_ProducesNothing()
+        public void Build_OnAnEmptySlot_ClearsTheDestinationsExtras()
         {
             using var _s = Seed(Blank());
-            Assert.Null(InputService.BuildSlotSetExtrasJson(Slot));
+            string json = InputService.BuildSlotSetExtrasJson(Slot);
+            Reseed(Authored());
+            InputService.ApplySlotSetExtrasJson(Slot, json, sameLayout: true);
+            var got = SettingsManager.SlotMappingSets[Slot];
+            Assert.Null(got.RumbleAudio);
+            Assert.Equal("", got.SocdMode);
+            Assert.Equal("", got.SocdPairs);
+            Assert.False(got.KeepAwakeEnabled);
+            Assert.Equal("", got.KeepAwakeAxis);
+            Assert.Equal(0, got.KeepAwakeDeflection);
+            Assert.False(got.KeepAwakeMotion);
         }
 
-        /// <summary>Each field on its own keeps the payload alive. Written as
-        /// a theory because the any-authoring gate is the kind of list a new
-        /// field gets forgotten from.</summary>
+        /// <summary>Each authored field survives without relying on another field.</summary>
         [Theory]
         [InlineData("rumble")]
         [InlineData("socdmode")]
@@ -121,7 +128,7 @@ namespace PadForge.Tests
         [InlineData("keepawakeaxis")]
         [InlineData("keepawakedeflection")]
         [InlineData("keepawakemotion")]
-        public void Build_AnySingleAuthoredField_ProducesAPayload(string which)
+        public void Build_CarriesEachAuthoredFieldOnItsOwn(string which)
         {
             var ms = Blank();
             switch (which)
@@ -135,7 +142,20 @@ namespace PadForge.Tests
                 case "keepawakemotion": ms.KeepAwakeMotion = true; break;
             }
             using var _s = Seed(ms);
-            Assert.False(string.IsNullOrEmpty(InputService.BuildSlotSetExtrasJson(Slot)));
+            string json = InputService.BuildSlotSetExtrasJson(Slot);
+            Reseed(Blank());
+            InputService.ApplySlotSetExtrasJson(Slot, json, sameLayout: true);
+            var got = SettingsManager.SlotMappingSets[Slot];
+            switch (which)
+            {
+                case "rumble": Assert.NotNull(got.RumbleAudio); break;
+                case "socdmode": Assert.Equal("Neutral", got.SocdMode); break;
+                case "socdpairs": Assert.Equal("DPadLeft|DPadRight", got.SocdPairs); break;
+                case "keepawake": Assert.True(got.KeepAwakeEnabled); break;
+                case "keepawakeaxis": Assert.Equal("LeftThumbX", got.KeepAwakeAxis); break;
+                case "keepawakedeflection": Assert.Equal(5, got.KeepAwakeDeflection); break;
+                case "keepawakemotion": Assert.True(got.KeepAwakeMotion); break;
+            }
         }
 
         // ── the endpoint contract ───────────────────────────────────────────
@@ -284,10 +304,12 @@ namespace PadForge.Tests
             int pasteEnd = src.IndexOf("private void OnCopyFrom", paste, StringComparison.Ordinal);
             string body = src.Substring(paste, pasteEnd - paste);
 
+            int rows = body.IndexOf("InputService.ApplySlotRowsFromClipboard(padVm.PadIndex", StringComparison.Ordinal);
             int apply = body.IndexOf("ApplySlotSetExtrasJson(padVm.PadIndex", StringComparison.Ordinal);
             int reload = body.IndexOf("padVm.ReloadRumbleAudio()", StringComparison.Ordinal);
             int kick = body.IndexOf("RumbleAudioService.RequestReconcile()", StringComparison.Ordinal);
             Assert.True(apply > 0, "positive control: the extras apply is in the paste");
+            Assert.True(rows > 0 && rows < apply, "whole-slot rows must be applied before their companion settings");
             Assert.True(kick > 0, "the paste must kick the shaker renderer");
             Assert.True(kick > apply, "the kick must follow the apply, or it reconciles the old reference");
             Assert.True(kick > reload, "the kick follows the card reload, the same tail the others sit in");

@@ -1226,7 +1226,10 @@ namespace PadForge.ViewModels
             Add(0x20, "", 3.75, y5, 6.25);
             Add(0xA5, "Alt", 10, y5, 1.25);
             Add(0x5C, "Win", 11.25, y5, 1.25);
-            Add(0x5D, "Fn", 12.5, y5, 1.25);
+            // 0x5D is the context-menu key, which is what this row's own
+            // comment calls it. "Fn" named a key that never reaches the system
+            // as a virtual-key code at all.
+            Add(0x5D, "Menu", 12.5, y5, 1.25);
             Add(0xA3, "Ctrl", 13.75, y5, 1.25);
 
             // ── Navigation cluster ──

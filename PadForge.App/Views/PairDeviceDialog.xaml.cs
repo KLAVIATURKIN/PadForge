@@ -24,6 +24,13 @@ namespace PadForge.Views
         private bool _scanning;
         private bool _pairedAny;
 
+        /// <summary>True only when the Wii inquiry scan actually paired
+        /// something. The caller's Wii driver re-scan is an eleven-second hint
+        /// toggle that drops and re-opens every connected Wii Remote, so a
+        /// canceled dialog and the DualShock 3 and Move ceremonies, which never
+        /// touch that driver, must not pay for it.</summary>
+        public bool PairedWii { get; private set; }
+
         public PairDeviceDialog()
         {
             InitializeComponent();
@@ -183,6 +190,7 @@ namespace PadForge.Views
                 if (pass.Paired.Count > 0)
                 {
                     _pairedAny = true;
+                    PairedWii = true;
                     SetStatus(string.Format(Strings.Instance.WiiPair_SuccessFormat,
                         string.Join(", ", pass.Paired)), success: true);
                 }

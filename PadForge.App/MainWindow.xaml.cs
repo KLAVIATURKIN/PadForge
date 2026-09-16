@@ -68,6 +68,13 @@ namespace PadForge
         private MappingItem _pendingNegMapping;
         /// <summary>Saved positive descriptor while recording the negative direction.</summary>
         private string _savedPosDescriptor;
+        /// <summary>The positive leg's own device identity, held across the
+        /// negative recording. Completing a recording re-stamps the row from
+        /// whichever device fired the negative, so restoring the descriptor
+        /// alone left a two-device pair reading the negative device on both
+        /// legs. Written and read together with the descriptor above.</summary>
+        private string _savedPosDeviceGuid;
+        private string _savedPosDeviceLabel;
         /// <summary>Set when the neg-first quadrant chain starts its second
         /// (positive) phase. PromoteNegDescriptorToExtraSource empties
         /// NegSourceDescriptor at the end of phase one, so the normal-path
@@ -105,7 +112,11 @@ namespace PadForge
                     restore.Stop();
                     // Keep the icon if the user minimized to tray meanwhile,
                     // or if Always Show in System Tray keeps it up (#439).
-                    if (_notifyIcon != null && WindowState != WindowState.Minimized
+                    // Visibility, not window state: Close to Tray hides a
+                    // window whose state is still Normal, so hiding the icon
+                    // here removed the only way back to a running app.
+                    if (_notifyIcon != null && IsVisible
+                        && WindowState != WindowState.Minimized
                         && !_viewModel.Settings.AlwaysShowTrayIcon)
                         _notifyIcon.Visible = false;
                 };
@@ -511,7 +522,17 @@ namespace PadForge
                 // Recalculate input suppression sets after save pushes ViewModel mappings to PadSettings.
                 _inputService.ApplyAutomaticDeviceHiding();
             };
-            _viewModel.Settings.ReloadRequested += (s, e) => _settingsService.Reload();
+            _viewModel.Settings.ReloadRequested += (s, e) =>
+            {
+                _settingsService.Reload();
+                // Reload replaces the global macro store wholesale, and the
+                // Profiles page rows are built from it once, in the constructor.
+                // Without the rebuild the page kept the pre-reload rows and the
+                // next row edit wrote those stale rows straight back over the
+                // reloaded ones. Same clear the reset path performs.
+                _viewModel.Settings.ProfileShortcuts.Clear();
+                LoadProfileShortcuts();
+            };
             _viewModel.Settings.ResetRequested += (s, e) =>
             {
                 // Reset to Defaults also tears down every virtual controller
@@ -603,7 +624,8 @@ namespace PadForge
                      or nameof(SettingsViewModel.Use2DControllerView)
                      or nameof(SettingsViewModel.EnableAutoProfileSwitching)
                      or nameof(SettingsViewModel.EnableCommunityConfigLookup)
-                     or nameof(SettingsViewModel.ShowLegacyWorkshopConfigs))
+                     or nameof(SettingsViewModel.ShowLegacyWorkshopConfigs)
+                     or nameof(SettingsViewModel.EnableExternalControl))
                     _settingsService.MarkDirty();
             };
 
@@ -833,7 +855,13 @@ namespace PadForge
                 // A just-paired Wii controller is grabbed by SDL mid-pairing and
                 // dropped. Force SDL to cleanly re-open it so it appears without
                 // an app restart (#116).
-                _inputService.RescanWiiControllers();
+                // Gated on a Wii pairing having actually landed: the re-scan
+                // toggles the Wii driver off and on for about eleven seconds,
+                // which drops every connected Wii Remote, and it used to run on
+                // a canceled dialog and on the DualShock 3 and Move ceremonies,
+                // which leave that driver alone.
+                if (dialog.PairedWii)
+                    _inputService.RescanWiiControllers();
                 _inputService.RefreshDeviceList();
                 _viewModel.StatusText = Strings.Instance.Status_DeviceListRefreshed;
             };
@@ -1422,7 +1450,8 @@ namespace PadForge
                         nameof(PadViewModel.FlickSnapStrength) or
                         nameof(PadViewModel.FlickForwardDeadzone) or
                         nameof(PadViewModel.FlickSmoothing) or
-                        nameof(PadViewModel.FlickOnEngage))
+                        nameof(PadViewModel.FlickOnEngage) or
+                        nameof(PadViewModel.FlickRotationOffset))
                     {
                         _settingsService.MarkDirty();
                     }
@@ -1476,7 +1505,20 @@ namespace PadForge
                 // on whichever device the user has selected route here.
                 pad.ActiveDeviceConfigPropertyChanged += (s, e) =>
                 {
-                    _settingsService.MarkDirty();
+                    // The macro override fields are runtime state the engine
+                    // writes on every lightbar macro fire, seven writes a shot,
+                    // and the file does not carry any of them. Marking dirty for
+                    // them ran the whole two-tier autosave: a quarter-second
+                    // view-model push for as long as the macro repeated, then a
+                    // full serialize and disk write after it stopped.
+                    if (e.PropertyName is not (nameof(ViewModels.DeviceSlotConfig.MacroOverrideR)
+                        or nameof(ViewModels.DeviceSlotConfig.MacroOverrideG)
+                        or nameof(ViewModels.DeviceSlotConfig.MacroOverrideB)
+                        or nameof(ViewModels.DeviceSlotConfig.MacroOverrideStartUtc)
+                        or nameof(ViewModels.DeviceSlotConfig.MacroOverrideHoldEndUtc)
+                        or nameof(ViewModels.DeviceSlotConfig.MacroOverrideExpiresAtUtc)
+                        or nameof(ViewModels.DeviceSlotConfig.MacroOverrideHoldMode)))
+                        _settingsService.MarkDirty();
                     if (e.PropertyName == nameof(ViewModels.DeviceSlotConfig.AudioLightbarEnabled))
                         _inputService.SyncAudioBassDetector();
                     // Guide Button LED (#209): apply mode / brightness
@@ -1700,6 +1742,20 @@ namespace PadForge
                     // promoted source inherits the correct DeviceGuid.
                     negMapping.PromoteNegDescriptorToExtraSource();
 
+                    // Only NOW may the positive leg's device go back on the row:
+                    // the promote above reads the primary device to stamp the
+                    // negative source, so the negative device has to still be
+                    // there when it runs.
+                    if (hadSavedPos)
+                    {
+                        negMapping.PrimarySourceDeviceGuid = _savedPosDeviceGuid;
+                        negMapping.PrimarySourceDeviceLabel = _savedPosDeviceLabel;
+                        if (Guid.TryParse(_savedPosDeviceGuid, out var rgPos) && rgPos != Guid.Empty)
+                            InputService.ResolveDisplayText(negMapping, rgPos);
+                    }
+                    _savedPosDeviceGuid = null;
+                    _savedPosDeviceLabel = null;
+
                     if (!hadSavedPos && negMapping.HasNegDirection && !activePad.IsMapAllActive)
                     {
                         // Came from a neg-quadrant click — now auto-prompt for the positive direction.
@@ -1767,6 +1823,8 @@ namespace PadForge
                 {
                     // Save the positive descriptor before the recorder overwrites it.
                     _savedPosDescriptor = result.Mapping.SourceDescriptor;
+                    _savedPosDeviceGuid = result.Mapping.PrimarySourceDeviceGuid;
+                    _savedPosDeviceLabel = result.Mapping.PrimarySourceDeviceLabel;
                     _pendingNegMapping = result.Mapping;
 
                     // Neg X = left, Neg Y = up (Y inverted by NegateAxis in Step 3).
@@ -2268,6 +2326,14 @@ namespace PadForge
             RefreshHidHideStatus();
             StartDriverStatusTimer();
 
+            // Same reason as the two above: this used to sit in the loaded
+            // handler, which a start-to-tray session never runs, so the device
+            // arrival hook and the shutdown refusal stayed unwired for the whole
+            // session unless the user happened to open the window. The helper
+            // forces the window handle itself, and a window keeps that handle
+            // across hide and show, so wiring here holds for the session.
+            SetupHidArrivalHook();
+
             // Status decay (#175 item 7): every StatusText write cancels any
             // fade in progress and restores full opacity, so fresh text never
             // inherits a dimmed or mid-animation state.
@@ -2419,7 +2485,9 @@ namespace PadForge
             IsVisibleChanged += (_, _) => UpdateWindowRenderability();
 
             SetupNativeTooltip();
-            SetupHidArrivalHook();
+
+            // The native window hooks moved to the constructor, beside the
+            // driver detection, for the reason stated there.
 
             // Driver detection and timer are initialized in the constructor so they
             // work even when starting minimized to tray (where OnLoaded never fires).
@@ -4331,7 +4399,11 @@ namespace PadForge
                 // SlotTypeChangeRequested handler for the 2026-07-22
                 // automap-loss root cause this order prevents.
                 SettingsManager.ReAutoMapSlot(padIndex, VirtualControllerType.Extended,
-                    ProfileIdForTypeChange(padIndex, VirtualControllerType.Extended));
+                    ProfileIdForTypeChange(padIndex, VirtualControllerType.Extended),
+                    // The slot's layout, so an unlettered profile gets a raw
+                    // automap instead of the gamepad fields its surface never
+                    // reads.
+                    _viewModel.Pads[padIndex].ExtendedConfig);
                 SettingsService.RefreshMappingSetsFromLegacy();
                 _viewModel.Pads[padIndex].OutputType = VirtualControllerType.Extended;
                 _inputService.MoveSlotToGroupTail(padIndex);
@@ -4489,6 +4561,12 @@ namespace PadForge
         private bool _dragIsSwapMode;       // true = swap with card under cursor; false = insert between cards
         private int _dragSwapTargetPadIndex = -1;
         private System.Windows.Controls.Border _dragSwapHighlight; // card currently highlighted for swap
+        // The two values the drag paints over. A card's resting border is one of
+        // three and its resting opacity one of three, so clearing to transparent
+        // and full was right for neither, and a canceled drag rebuilds no
+        // section, so the wrong value stood until something else redrew it.
+        private System.Windows.Media.Brush _dragSwapHighlightPriorBrush;
+        private double _cardDragSourcePriorOpacity = 1;
 
         /// <summary>Records the mouse-down point on a card border (per-card handler).</summary>
         private void OnCardDragStart(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -4583,6 +4661,7 @@ namespace PadForge
             _insertionAdorner = new InsertionLineAdorner(NavView, accentBrush);
             _dragAdornerLayer.Add(_insertionAdorner);
 
+            _cardDragSourcePriorOpacity = _cardDragSource.Opacity;
             _cardDragSource.Opacity = 0;
             _isDraggingCard = true;
             _dragDropIndex = _dragSourceVisualPos;
@@ -4752,6 +4831,7 @@ namespace PadForge
                 {
                     var accent = FindResource("SystemAccentColorSecondaryBrush") as System.Windows.Media.Brush
                               ?? System.Windows.Media.Brushes.DodgerBlue;
+                    _dragSwapHighlightPriorBrush = card.BorderBrush;
                     card.BorderBrush = accent;
                     _dragSwapHighlight = card;
                     break;
@@ -4762,7 +4842,8 @@ namespace PadForge
         private void ClearSwapHighlight()
         {
             if (_dragSwapHighlight == null) return;
-            _dragSwapHighlight.BorderBrush = System.Windows.Media.Brushes.Transparent;
+            _dragSwapHighlight.BorderBrush = _dragSwapHighlightPriorBrush;
+            _dragSwapHighlightPriorBrush = null;
             _dragSwapHighlight = null;
         }
 
@@ -4772,7 +4853,7 @@ namespace PadForge
             _isDraggingCard = false;
 
             if (_cardDragSource != null)
-                _cardDragSource.Opacity = 1;
+                _cardDragSource.Opacity = _cardDragSourcePriorOpacity;
 
             ClearSwapHighlight();
 
@@ -6197,6 +6278,13 @@ namespace PadForge
             }
             finally
             {
+                // The struct holds a marshaled string, so StructureToPtr
+                // allocated a native copy into the block and FreeHGlobal
+                // releases only the block. The control copies the text when
+                // the tool is added, so destroying it here is safe. This runs
+                // on every size and DPI change, which is once per layout pass
+                // during a drag-resize.
+                System.Runtime.InteropServices.Marshal.DestroyStructure<TOOLINFO>(pti);
                 System.Runtime.InteropServices.Marshal.FreeHGlobal(pti);
             }
         }
@@ -6322,6 +6410,12 @@ namespace PadForge
                 _isFullScreen = false;
                 WindowStyle = WindowStyle.SingleBorderWindow;
                 FullScreenIcon.Text = "\uE740";
+                // And record it. The button path saves this; leaving through
+                // the title bar did not, so the saved flag stayed true and the
+                // next launch came up full screen, which also suppressed the
+                // saved maximized restore.
+                _viewModel.Settings.MainWindowFullScreen = false;
+                _settingsService.MarkDirty();
             }
         }
 
@@ -6480,36 +6574,58 @@ namespace PadForge
             var selected = _viewModel.Settings.SelectedProfile;
             if (selected == null) return;
 
-            // The Default entry isn't a stored ProfileData row — export a
-            // snapshot of the current settings instead.
+            // Fold the live edits into whichever snapshot owns them first, the
+            // same call every profile switch makes. Export reads stored state,
+            // and the only thing that refreshed it was the delayed autosave, so
+            // an export taken during an editing burst shipped the profile's
+            // pre-edit mappings.
+            _inputService.SaveActiveProfileState();
+
+            // The Default entry is not a stored row. Its state is PARKED in the
+            // pending snapshot whenever a named profile is active, and the call
+            // above refreshed that snapshot when Default itself is active.
+            // Taking a fresh snapshot instead exported whichever profile
+            // happened to be running and labeled it Default.
             ProfileData profile;
+            string exportName = selected.Name;
             if (selected.IsDefault)
             {
-                profile = _inputService.SnapshotCurrentProfile();
+                profile = SettingsManager.PendingDefaultSnapshot
+                          ?? _inputService.SnapshotCurrentProfile();
                 if (profile == null) return;
-                profile.Name = selected.Name;
             }
             else
             {
                 profile = SettingsManager.Profiles.Find(p => p.Id == selected.Id);
                 if (profile == null) return;
+                exportName = profile.Name;
             }
 
             var dlg = new Microsoft.Win32.SaveFileDialog
             {
                 Title = Strings.Instance.Profiles_Export,
-                FileName = profile.Name + PadForge.Common.ProfileTransfer.FileExtension,
+                FileName = exportName + PadForge.Common.ProfileTransfer.FileExtension,
                 Filter = $"PadForge profile (*{PadForge.Common.ProfileTransfer.FileExtension})|*{PadForge.Common.ProfileTransfer.FileExtension}",
             };
             if (dlg.ShowDialog() != true) return;
+            // The parked Default snapshot is live state the revert path
+            // applies, so it carries the export name for the write only.
+            // Stamping the display name into it permanently would persist a
+            // localized name into the saved snapshot.
+            string priorName = profile.Name;
             try
             {
+                profile.Name = exportName;
                 PadForge.Common.ProfileTransfer.Export(profile, dlg.FileName);
-                _viewModel.StatusText = string.Format(Strings.Instance.Status_ProfileExported_Format, profile.Name);
+                _viewModel.StatusText = string.Format(Strings.Instance.Status_ProfileExported_Format, exportName);
             }
             catch (Exception ex)
             {
                 _viewModel.SetStatus(ex.Message, persist: true);
+            }
+            finally
+            {
+                profile.Name = priorName;
             }
         }
 
@@ -6674,10 +6790,15 @@ namespace PadForge
                     }
                 }
 
+                // Count what the store actually answered for. A removed,
+                // banned or omitted item never reaches the fresh map, so
+                // reporting the imported total said "N checked" about profiles
+                // nothing checked and called them current.
                 if (stale.Count == 0)
                 {
                     _viewModel.StatusText = string.Format(
-                        Strings.Instance.Status_WorkshopProfilesCurrent_Format, imported.Count);
+                        Strings.Instance.Status_WorkshopProfilesCurrent_Format,
+                        imported.Count(x => freshById.ContainsKey(x.Source.PublishedFileId)));
                     return;
                 }
 
@@ -6746,6 +6867,11 @@ namespace PadForge
 
             if (applyAfter)
             {
+                // Applying from the browse dialog is a manual switch, the same
+                // as the Load button and the status-bar switcher: it records
+                // the override and releases any scripted hold. This lane was
+                // the one that did not.
+                _inputService.NoteManualProfileSwitch();
                 _inputService.LoadProfile(profile.Id);
                 _viewModel.Settings.ActiveProfileInfo = profile.Name;
                 _settingsService.MarkDirty();
@@ -6952,7 +7078,9 @@ namespace PadForge
                     or nameof(MappingItem.NoInherit)
                     or nameof(MappingItem.TrimDeadzone)
                     or nameof(MappingItem.TrimRate)
-                    or nameof(MappingItem.TrimResetOnRelease))
+                    or nameof(MappingItem.TrimResetOnRelease)
+                    or nameof(MappingItem.InvertOutput)
+                    or nameof(MappingItem.ParamAccel))
                 {
                     _settingsService.MarkDirty();
 
@@ -7043,7 +7171,9 @@ namespace PadForge
                         or nameof(MappingSourceItem.ParamAttackTime)
                         or nameof(MappingSourceItem.ParamReleaseTime)
                         or nameof(MappingSourceItem.ParamAutocenter)
-                        or nameof(MappingSourceItem.ParamReverseMultiplier))
+                        or nameof(MappingSourceItem.ParamReverseMultiplier)
+                        or nameof(MappingSourceItem.InvertOutput)
+                        or nameof(MappingSourceItem.ParamAccel))
                         _settingsService.MarkDirty();
                 };
             }
@@ -7527,14 +7657,23 @@ namespace PadForge
 
         private void RestoreFromTray()
         {
-            if (_isRestoring || IsVisible) return;
+            // Reentrancy only. This used to bail on visibility as well, but a
+            // window minimized to the TASKBAR is still visible by the toolkit's
+            // reckoning, so with Always Show in System Tray on, the tray's Show
+            // and its double-click did nothing at all.
+            if (_isRestoring) return;
             _isRestoring = true;
             try
             {
+                bool wasHidden = !IsVisible;
                 if (_isFullScreen)
                     WindowStyle = WindowStyle.None;
-                Show();
-                WindowState = _isFullScreen ? WindowState.Maximized : WindowState.Normal;
+                if (wasHidden) Show();
+                // Only a hidden or minimized window needs a state change. A
+                // visible background window keeps whatever state it has, or
+                // bringing it forward would un-maximize it.
+                if (wasHidden || WindowState == WindowState.Minimized)
+                    WindowState = _isFullScreen ? WindowState.Maximized : WindowState.Normal;
                 Activate();
                 // (#439) The icon stays up with Always Show in System Tray on, so
                 // Exit in its menu is one click away without closing the window.
@@ -7548,22 +7687,15 @@ namespace PadForge
                 {
                     OnThemeChanged(this, _viewModel.Settings.SelectedThemeIndex);
 
-                    // TitleBar.ButtonsForeground may not resolve on first show.
-                    // Clear any stale local value so the XAML binding re-establishes,
-                    // then nudge with a direct set that won't stick past the next
-                    // theme change (ClearValue lets the binding win again next time).
-                    FullScreenIcon.ClearValue(System.Windows.Controls.TextBlock.ForegroundProperty);
-                    FullScreenIcon.InvalidateProperty(System.Windows.Controls.TextBlock.ForegroundProperty);
-
-                    // If the binding still hasn't resolved, force-set as fallback.
-                    if (FullScreenIcon.Foreground is not System.Windows.Media.SolidColorBrush scb
-                        || scb.Color == System.Windows.Media.Colors.Black)
-                    {
-                        bool isDark = Wpf.Ui.Appearance.ApplicationThemeManager.GetAppTheme()
-                            == Wpf.Ui.Appearance.ApplicationTheme.Dark;
-                        if (isDark)
-                            FullScreenIcon.Foreground = System.Windows.Media.Brushes.White;
-                    }
+                    // Re-install the constructor's binding rather than clearing
+                    // the property: there is no markup binding underneath to fall
+                    // back to, so clearing destroyed the only one and the white
+                    // fallback that followed became a permanent local value the
+                    // theme could never overwrite. The icon then stayed white in
+                    // the light theme for the rest of the session after any tray
+                    // restore.
+                    FullScreenIcon.SetBinding(System.Windows.Controls.TextBlock.ForegroundProperty,
+                        new System.Windows.Data.Binding(nameof(AppTitleBar.ButtonsForeground)) { Source = AppTitleBar });
                 });
             }
             finally { _isRestoring = false; }
@@ -7707,12 +7839,8 @@ namespace PadForge
                 // otherwise route only the device-scoped slice through
                 // ApplyMultiSourceRowsToCurrentDevice, retargeting all
                 // sources onto the currently-selected device.
-                if (ps.SlotMultiSourceRows != null && ps.SlotMultiSourceRows.Count > 0
-                    && MappingTranslation.IsSameLayout(srcType, srcIsExtended, targetType, targetIsExtended))
-                {
-                    InputService.ApplySlotMappingSetFromRows(padVm.PadIndex, ps.SlotMultiSourceRows);
-                    ps.DeviceScopedMultiSourceRows = null;
-                }
+                InputService.ApplySlotRowsFromClipboard(padVm.PadIndex, ps,
+                    MappingTranslation.IsSameLayout(srcType, srcIsExtended, targetType, targetIsExtended));
 
                 // Apply the slot's shift authoring (activators + Base appearance)
                 // on a same-layout paste, after the row replace above rebuilt the
@@ -7755,14 +7883,16 @@ namespace PadForge
                 // that one". A payload with no macros clears the destination's
                 // for the same reason an empty rows list does.
                 //
-                // Each macro goes through the same LoadMacroFromData and
-                // layer re-scope the single-macro paste and Copy From use
-                // (audit 2026-07-25 C8), so the trigger is translated to the
-                // destination's output type and a LayerMask the destination
-                // does not declare is dropped rather than left gating the
-                // macro on a foreign slot's layer. TriggerDeviceGuid travels
-                // verbatim, exactly as it does on those two paths: the runtime
-                // treats a device that is not on the slot as an inert trigger.
+                // Each macro goes through the same load and layer re-scope the
+                // single-macro paste and Copy From use (audit 2026-07-25 C8).
+                // The trigger bits travel VERBATIM: what the destination type
+                // sets is the display style, the custom-button width and the raw
+                // profile id, not the button values, so an Xbox to Extended copy
+                // keeps the source's trigger buttons and may read as inert until
+                // it is re-bound. A layer the destination does not declare is
+                // dropped rather than left gating the macro on a foreign slot's
+                // layer, and the trigger device travels verbatim too: the
+                // runtime treats a device that is not on the slot as inert.
                 ApplySlotMacrosFromClipboard(padVm, ps.SlotMacrosJson);
 
                 _inputService.ApplyPadSettingToCurrentDeviceTranslated(
@@ -7770,7 +7900,7 @@ namespace PadForge
                     srcType, srcIsExtended,
                     targetType, targetIsExtended);
 
-                // Unpack the per-slot config tabs that travelled through the
+                // Unpack the per-slot config tabs that traveled through the
                 // clipboard JSON as opaque strings on PadSetting. Same semantics
                 // as the in-process Copy From: device features copy
                 // unconditionally (physical-device passthrough), Extended /
@@ -8073,12 +8203,30 @@ namespace PadForge
             if (srcSlot < 0 || srcSlot >= _viewModel.Pads.Count) return;
             var source = _viewModel.Pads[srcSlot];
 
+            // Hold-pair identifiers are allocated per source profile, counting
+            // from one, not per slot, so two profiles' first pairs both carry
+            // one. Appending one slot's pairs beside another's let a cancel or
+            // an unlatch reach a pair that had nothing to do with the leg that
+            // fired. Each copied pair takes one fresh identifier past the
+            // highest already here, so its two legs stay together and neither
+            // lands on one this slot is using.
+            int nextPairId = 0;
+            foreach (var present in padVm.Macros)
+                if (present != null && present.PairId > nextPairId) nextPairId = present.PairId;
+            var copiedPairIds = new Dictionary<int, int>();
+
             MacroItem last = null;
             foreach (var macro in source.Macros.ToList())
             {
                 var data = SettingsService.BuildMacroDataForMacro(macro, padVm.PadIndex);
                 var clone = SettingsService.LoadMacroFromData(data, padVm.OutputType, padVm.ExtendedConfig?.ButtonCount, padVm.ProfileId);
                 clone.PadIndex = padVm.PadIndex;
+                if (clone.PairId != 0)
+                {
+                    if (!copiedPairIds.TryGetValue(clone.PairId, out int fresh))
+                        copiedPairIds[clone.PairId] = fresh = ++nextPairId;
+                    clone.PairId = fresh;
+                }
                 // Same rule as the paste path above (audit C8).
                 if (!DestinationDeclaresLayer(padVm, clone.LayerMask)) clone.LayerMask = "";
                 padVm.Macros.Add(clone);
@@ -8254,7 +8402,15 @@ namespace PadForge
                 // copied just the picked device's slice, so a slot whose
                 // source rows mixed devices (e.g. a gamepad axis + keyboard
                 // buttons on the same stick row) lost the keyboard half.
-                if (srcEntry.SourceSlot >= 0 && srcEntry.SourceSlot != padVm.PadIndex)
+                // Same layout boundary the clipboard paste applies before it
+                // replaces rows wholesale. Without it, copying a MIDI or a
+                // keyboard and mouse slot onto a gamepad slot installed the
+                // source layout's target names verbatim AND cleared the
+                // device-scoped rows below, which switched off the one path that
+                // knows how to translate them. The other branch covers it.
+                if (srcEntry.SourceSlot >= 0 && srcEntry.SourceSlot != padVm.PadIndex
+                    && MappingTranslation.IsSameLayout(srcEntry.OutputType, srcEntry.IsExtended,
+                        targetOutputType, targetIsExtended))
                 {
                     InputService.ReplaceSlotMappingSet(padVm.PadIndex, srcEntry.SourceSlot);
                     // Don't also run the per-device multi-source merge below —
@@ -8320,6 +8476,11 @@ namespace PadForge
                 padVm.ReloadRumbleAudio();
                 // And the SOCD card (#240), same lifetime.
                 padVm.ReloadSocd();
+                // Keep Awake (#270) rides the same swapped set. The paste path
+                // reloads it for this reason and this one was missing it, so
+                // the card kept showing the destination's old values while the
+                // copied ones were live.
+                padVm.ReloadKeepAwake();
 
                 _settingsService.MarkDirty();
                 _viewModel.StatusText = Strings.Instance.Status_SettingsCopiedFromDevice;

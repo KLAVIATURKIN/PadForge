@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.4" />
+    <PackageReference Include="Jint" Version="4.16.2" PrivateAssets="all" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageReference Include="xunit" Version="2.9.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
@@ -22,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\PadForge.Engine\PadForge.Engine.csproj" />
     <ProjectReference Include="..\PadForge.App\PadForge.App.csproj" />
+    <ProjectReference Include="..\PadForge.NativeChecks\PadForge.NativeChecks.csproj" ReferenceOutputAssembly="false" />
     <!-- Same pre-built SDK DLL the App references. Reference items don't
          flow transitively, and the FFB LFE-lane tests construct
          HMaestroFfbDecoder, whose ctor parameter is the SDK's

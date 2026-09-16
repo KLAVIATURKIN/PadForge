@@ -300,6 +300,11 @@ namespace PadForge.SteamWorkshop.Tests
                     sb.Append(" | ").Append(a.Descriptor);
                     if (!string.IsNullOrEmpty(a.ChordSecondDescriptor))
                         sb.Append(" & ").Append(a.ChordSecondDescriptor);
+                    // The other two AND legs, non-default only.
+                    if (!string.IsNullOrEmpty(a.GateDescriptor))
+                        sb.Append(" & ").Append(a.GateDescriptor);
+                    if (!string.IsNullOrEmpty(a.Gate2Descriptor))
+                        sb.Append(" & ").Append(a.Gate2Descriptor);
                     if (a.Kind != "Button") sb.Append(" | kind=").Append(a.Kind);
                     if (a.DelayMs > 0) sb.Append(" | delay=").Append(a.DelayMs).Append("ms");
                     // v22 release linger: non-default only, pre-v22

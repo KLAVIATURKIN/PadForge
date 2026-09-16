@@ -487,15 +487,25 @@ namespace PadForge.Tests
             var nat = new SimNat();
             var epA = new IPEndPoint(IPAddress.Parse("10.19.90.40"), 27500);
             var epB = new IPEndPoint(IPAddress.Parse("10.19.90.46"), 27500);
-            byte[] captured = null;
             var tA = nat.Endpoint(epA);
             var tB = nat.Endpoint(epB);
-            tB.OnDatagram = (from, dg) => captured ??= dg;
+            // Wait for the first probe instead of punching against a fixed
+            // deadline. A 300 ms window made a loaded machine decide whether
+            // the dialer identified itself, and the completion source also
+            // publishes the datagram across the sender's thread.
+            var arrived = new TaskCompletionSource<byte[]>(
+                TaskCreationOptions.RunContinuationsAsynchronously);
+            tB.OnDatagram = (from, dg) => arrived.TrySetResult(dg);
 
             var pa = new HolePuncher(tA, nonce, TimeSpan.FromMilliseconds(10),
                 selfEndpoints: new[] { epA }, selfFingerprint: fpA);
-            using var cts = new CancellationTokenSource(TimeSpan.FromMilliseconds(300));
-            await pa.PunchAsync(new[] { epB }, cts.Token);
+            using var cts = new CancellationTokenSource();
+            var punching = pa.PunchAsync(new[] { epB }, cts.Token);
+            var first = await Task.WhenAny(arrived.Task, Task.Delay(TimeSpan.FromSeconds(10)));
+            cts.Cancel();
+            try { await punching; } catch (OperationCanceledException) { }
+            Assert.True(ReferenceEquals(first, arrived.Task), "no probe arrived within 10 s");
+            byte[] captured = await arrived.Task;
 
             Assert.NotNull(captured);
             Assert.True(HolePuncher.TryParseProbe(captured, out byte tag, out var senderPrefix, out var gotNonce));

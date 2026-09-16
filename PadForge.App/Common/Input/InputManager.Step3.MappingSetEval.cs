@@ -53,6 +53,22 @@ namespace PadForge.Common.Input
             // (#291), the same reasoning as the steering accumulators: a
             // re-authored mapping must not inherit a mid-flight ball.
             SourceCoercion.ResetTouchMomentumForSlot(slotIndex);
+            // And the Base-row index built from the rows being replaced. An
+            // in-place edit that keeps the row count would otherwise keep
+            // resolving the old rows, because the list reference is unchanged.
+            var setsForReset = SettingsManager.SlotMappingSets;
+            if (setsForReset != null && slotIndex < setsForReset.Length)
+            {
+                var setForReset = setsForReset[slotIndex];
+                if (setForReset != null) s_baseRowCaches.Remove(setForReset);
+            }
+            // And its stick-trim levels. The all-slots twin
+            // (ClearSourceKindRuntime) already cleared these, so a per-slot
+            // reset that skipped them let replaced rows inherit a previous
+            // trim level whenever TrimResetOnRelease was off. Keys carry the
+            // slot, so prune this slot's entries and leave the others alone.
+            foreach (var key in _stickTrimStates.Keys)
+                if (key.Slot == slotIndex) _stickTrimStates.TryRemove(key, out _);
         }
 
         // ─────────────────────────────────────────────
@@ -122,6 +138,11 @@ namespace PadForge.Common.Input
             var slotRuntime = (slotIndex >= 0 && slotIndex < _slotSourceKindRuntime.Length)
                 ? _slotSourceKindRuntime[slotIndex] : null;
 
+            // Lazily filled on the first empty-guid source, the shape the three
+            // positional contribution builders already use.
+            List<CustomInputState> trimSlotStates = null;
+            List<string> trimSlotOwners = null;
+
             float gate = 0f;
             for (int i = 0; i < srcsCount; i++)
             {
@@ -132,9 +153,26 @@ namespace PadForge.Common.Input
                 // Empty DeviceGuid = "the device currently being evaluated"
                 // (the documented MappingSource.DeviceGuid contract, same
                 // resolution the single-source per-target evaluators use).
-                var devState = string.IsNullOrEmpty(src.DeviceGuid)
-                    ? (AnswersAnyDevice(currentDeviceGuid) ? currentState : null)
-                    : LookupDeviceState(src.DeviceGuid);
+                if (string.IsNullOrEmpty(src.DeviceGuid))
+                {
+                    // "any device": this row is evaluated ONCE per frame (the
+                    // multi-source de-dup, and the replay guard hands the same
+                    // answer to every later caller), so reading only the
+                    // first-evaluated device's state dropped a gate held on any
+                    // other device on the slot. Take the strongest pull across
+                    // the slot, each device read under its own identity.
+                    if (trimSlotStates == null)
+                        trimSlotStates = GetSlotDeviceStates(slotIndex, currentState, currentDeviceGuid, out trimSlotOwners);
+                    for (int d = 0; d < trimSlotStates.Count; d++)
+                    {
+                        float av = SourceEvaluator.EvaluateForTriggerTarget(
+                            trimSlotStates[d], src, slotIndex, row.Target, i, slotRuntime, dt,
+                            evaluatedDeviceGuid: trimSlotOwners[d]);
+                        if (av > gate) gate = av;
+                    }
+                    continue;
+                }
+                var devState = LookupDeviceState(src.DeviceGuid);
                 if (devState == null) continue;
                 float v = SourceEvaluator.EvaluateForTriggerTarget(
                     devState, src, slotIndex, row.Target, i, slotRuntime, dt,
@@ -154,14 +192,31 @@ namespace PadForge.Common.Input
             if (held && trimIdx >= 0)
             {
                 var trimSrc = srcs[trimIdx];
-                var trimState = string.IsNullOrEmpty(trimSrc.DeviceGuid)
-                    ? currentState : LookupDeviceState(trimSrc.DeviceGuid);
-                if (trimState != null
-                    && !IsSourceSuppressedPostpone(slotIndex, trimSrc.DeviceGuid, trimSrc.Descriptor))
+                if (!IsSourceSuppressedPostpone(slotIndex, trimSrc.DeviceGuid, trimSrc.Descriptor))
                 {
-                    float v = SourceEvaluator.EvaluateForBipolarAxisTarget(
-                        trimState, trimSrc, slotIndex, row.Target, trimIdx, slotRuntime, dt,
-                        evaluatedDeviceGuid: currentDeviceGuid);
+                    float v = 0f;
+                    if (string.IsNullOrEmpty(trimSrc.DeviceGuid))
+                    {
+                        // Signed read, so the strongest deflection wins by
+                        // magnitude rather than by max, the same selection the
+                        // bipolar builder applies to an any-device pair.
+                        if (trimSlotStates == null)
+                            trimSlotStates = GetSlotDeviceStates(slotIndex, currentState, currentDeviceGuid, out trimSlotOwners);
+                        for (int d = 0; d < trimSlotStates.Count; d++)
+                        {
+                            float tv = SourceEvaluator.EvaluateForBipolarAxisTarget(
+                                trimSlotStates[d], trimSrc, slotIndex, row.Target, trimIdx, slotRuntime, dt,
+                                evaluatedDeviceGuid: trimSlotOwners[d]);
+                            if (System.Math.Abs(tv) > System.Math.Abs(v)) v = tv;
+                        }
+                    }
+                    else
+                    {
+                        var trimState = LookupDeviceState(trimSrc.DeviceGuid);
+                        v = trimState == null ? 0f : SourceEvaluator.EvaluateForBipolarAxisTarget(
+                            trimState, trimSrc, slotIndex, row.Target, trimIdx, slotRuntime, dt,
+                            evaluatedDeviceGuid: currentDeviceGuid);
+                    }
                     st.Level = AdvanceStickTrimLevel(
                         st.Level, v, row.TrimDeadzone, row.TrimRate, dt);
                 }
@@ -1291,6 +1346,10 @@ namespace PadForge.Common.Input
             var rt = _shiftRuntime[slotIndex] ??= new ShiftRuntime();
             rt.EnsureSize(activators.Count);
 
+            // Filled on the first wildcard activator and reused for the rest, so
+            // the settings walk happens at most once per resolve.
+            List<CustomInputState> wildcardStates = null;
+
             for (int i = 0; i < activators.Count; i++)
             {
                 var act = activators[i];
@@ -1302,12 +1361,41 @@ namespace PadForge.Common.Input
                 // gates this slot's sources on every device pass.
                 if (!string.Equals(act.DeviceGuid ?? "", thisDeviceGuid ?? "", System.StringComparison.OrdinalIgnoreCase)
                     && !string.IsNullOrEmpty(act.DeviceGuid))
+                {
+                    // A device that leaves mid-hold runs no pass of its own, so
+                    // its Hold or Sticky layer stayed engaged for the life of the
+                    // process with nothing left to release it. Settle it as
+                    // released from another device's pass once its state is gone.
+                    // The input is forced rather than read, because the all-rest
+                    // state is bool-like only and an Axis activator would decode
+                    // its zeroed axes as full deflection and engage on the very
+                    // disconnect that should release it.
+                    if (LookupDeviceState(act.DeviceGuid) != null) continue;
+                    UpdateActivatorState(rt, i, act, activators, OfflinePinnedRestState, slotIndex,
+                        inputOverrideReleased: true);
                     continue;
+                }
                 // (#431) An empty guid means whichever controller is on the
                 // slot. A pass for a row that never answers that wildcard
                 // leaves the activator state to the passes that do.
                 if (string.IsNullOrEmpty(act.DeviceGuid) && !AnswersAnyDevice(thisDeviceGuid))
                     continue;
+
+                if (string.IsNullOrEmpty(act.DeviceGuid))
+                {
+                    // An "any device" activator owns ONE latch per slot but was
+                    // advanced once per eligible pass against that pass's own
+                    // device: the device holding the button raised the edge and
+                    // the idle device cleared it in the same frame, which
+                    // flipped a Toggle every frame and left a Hold to pass
+                    // order. Advance it against whichever slot device is
+                    // actually pressing, so every pass in the frame reads the
+                    // same input and the later passes settle to no-ops.
+                    wildcardStates ??= GetSlotDeviceStates(slotIndex, thisDeviceState, thisDeviceGuid, out _);
+                    UpdateActivatorState(rt, i, act, activators,
+                        PickWildcardActivatorState(act, wildcardStates, thisDeviceState, slotIndex), slotIndex);
+                    continue;
+                }
 
                 UpdateActivatorState(rt, i, act, activators, thisDeviceState, slotIndex);
             }
@@ -1348,6 +1436,14 @@ namespace PadForge.Common.Input
                 {
                     AddPostponeKey(suppressed, a.ChordSecondDeviceGuid, a.ChordSecondDescriptor);
                 }
+                // The other two legs read against the activator's own device.
+                // The Axis kind's gate was never suppressed, so a wedge layer
+                // held down leaked its own contact key to the foreground app;
+                // the third leg would have done the same.
+                if (!string.IsNullOrEmpty(a.GateDescriptor))
+                    AddPostponeKey(suppressed, a.DeviceGuid, a.GateDescriptor);
+                if (!string.IsNullOrEmpty(a.Gate2Descriptor))
+                    AddPostponeKey(suppressed, a.DeviceGuid, a.Gate2Descriptor);
             }
             PublishKeySetIfChanged(_suppressedSourcesBySlot, suppressed, slotIndex);
 
@@ -1375,16 +1471,38 @@ namespace PadForge.Common.Input
         /// per-mode latch state on <paramref name="rt"/>, and maintains the
         /// engagement stack. Supports Hold / Toggle / Custom / Cycle /
         /// Sticky modes plus the v2 Delay debounce + Chord/Axis kinds.</summary>
+        /// <summary>The slot device an "any device" activator advances against:
+        /// the first assigned device reading it down, else the pass's own device
+        /// so a released activator still settles. The choice is the same for
+        /// every device pass in a frame, which is what keeps the shared latch
+        /// from flapping between them.</summary>
+        private static CustomInputState PickWildcardActivatorState(
+            ShiftActivator act, List<CustomInputState> slotStates,
+            CustomInputState fallback, int slotIndex)
+        {
+            if (slotStates == null) return fallback;
+            for (int d = 0; d < slotStates.Count; d++)
+            {
+                var st = slotStates[d];
+                if (st != null && ReadActivatorInput(act, st, slotIndex)) return st;
+            }
+            return fallback;
+        }
+
         private static void UpdateActivatorState(
             ShiftRuntime rt,
             int actIdx,
             ShiftActivator act,
             System.Collections.Generic.List<ShiftActivator> activators,
             CustomInputState state,
-            int slotIndex)
+            int slotIndex,
+            bool inputOverrideReleased = false)
         {
             // ── Read the activator's current input ──
-            bool inputDown = ReadActivatorInput(act, state, slotIndex);
+            // The override settles an activator whose pinned device is gone.
+            // Forcing the read is the point: the all-rest state is safe for
+            // bool-like reads only, so an Axis activator must not decode it.
+            bool inputDown = !inputOverrideReleased && ReadActivatorInput(act, state, slotIndex);
 
             // ── v9 host-layer condition (#370 follow-up): when
             //    HostLayerMask is set, the press only counts if that layer
@@ -1754,6 +1872,14 @@ namespace PadForge.Common.Input
             // they never self-engage and are reached only via Cycle / Custom jump.
             if (string.IsNullOrEmpty(act.Descriptor)) return false;
 
+            // The third leg, ahead of the kind switch because it belongs to no
+            // kind. A gated wedge spends both of the kind's own legs on the
+            // wedge and its contact window, and the chord partner rides here.
+            // Same shape as the row side's second gate companion.
+            if (!string.IsNullOrEmpty(act.Gate2Descriptor)
+                && !SourceKindRuntimeReadButtonLikeBool(state, act.Gate2Descriptor, act.DeviceGuid, slotIndex))
+                return false;
+
             string kind = act.Kind ?? "Button";
             switch (kind)
             {
@@ -1975,10 +2101,16 @@ namespace PadForge.Common.Input
         /// <summary>True when an axis activator's source rests at zero and
         /// only travels one way: a slider, or a trigger axis (Axis 2 /
         /// Axis 5) named through the gamepad alias or read from a
-        /// gamepad-mapped device, whose SDL layout pins those two indices to
+        /// gamepad-MAPPED device, whose SDL layout pins those two indices to
         /// the triggers. A joystick's Axis 2 is a centered axis and stays on
         /// the bipolar test. An "(Any Device)" activator naming a bare
-        /// "Axis 2" has no device to ask and stays bipolar too (#443).</summary>
+        /// "Axis 2" has no device to ask and stays bipolar too (#443).
+        ///
+        /// <para>Force Raw Joystick Mode bypasses SDL's gamepad remapping and
+        /// reads raw joystick indices, so a gamepad in that mode is not
+        /// reporting the trigger layout and its Axis 2 can rest centered.
+        /// Same pairing SettingsManager uses wherever the gamepad layout is
+        /// assumed.</para></summary>
         private static bool IsUnipolarActivatorSource(string descriptor, string deviceGuid)
         {
             if (string.IsNullOrEmpty(descriptor)) return false;
@@ -1987,7 +2119,7 @@ namespace PadForge.Common.Input
             if (canonical != "Axis 2" && canonical != "Axis 5") return false;
             if (SourceCoercion.IsGamepadAliasDescriptor(descriptor)) return true;
             var dev = LookupUserDevice(deviceGuid);
-            return dev != null && dev.CapType == InputDeviceType.Gamepad;
+            return dev != null && dev.CapType == InputDeviceType.Gamepad && !dev.ForceRawJoystickMode;
         }
 
         // Reuses the Engine's button-like reader without going through the
@@ -2363,9 +2495,15 @@ namespace PadForge.Common.Input
                 string modifierDeviceGuid = string.IsNullOrEmpty(src.DeviceGuid) ? fallbackDeviceGuid : src.DeviceGuid;
                 if (IsSourceSuppressedPostpone(slotIndex, modifierDeviceGuid, src.ParamModifier))
                     continue;
+                // A pinned modifier whose device is offline reads RELEASED.
+                // Falling back to the pass device's state let an absent
+                // device borrow whatever button shared that descriptor on the
+                // device being processed, and silently invert the row. The
+                // cycle and chord companions above already use this sentinel;
+                // this was the twin that kept the old fallback.
                 CustomInputState s = string.IsNullOrEmpty(src.DeviceGuid)
                     ? fallbackState
-                    : (LookupDeviceState(src.DeviceGuid) ?? fallbackState);
+                    : (LookupDeviceState(src.DeviceGuid) ?? OfflinePinnedRestState);
                 // Both keys ride along, same as all five sibling call sites.
                 // Dropping them collapsed every stateful modifier family (IR
                 // Offscreen's debounce store, the IR EMA keys, menu fires,
@@ -2429,6 +2567,11 @@ namespace PadForge.Common.Input
         [System.ThreadStatic] private static List<bool> _contribBoolBuf;
         [System.ThreadStatic] private static List<CustomInputState> _slotDeviceStatesBuf;
         [System.ThreadStatic] private static List<string> _slotDeviceGuidsBuf;
+        // The device each returned state belongs to, so a wildcard read can be
+        // attributed to the device it actually came from. Passing the first
+        // pass's guid for every device merged their per-(slot, device) tuning,
+        // gesture and delta-tracker state onto one key.
+        [System.ThreadStatic] private static List<string> _slotStateOwnerGuidsBuf;
 
         /// <summary>Online input states of every device assigned to a slot.
         /// A multi-source row is evaluated ONCE per slot (the
@@ -2451,12 +2594,19 @@ namespace PadForge.Common.Input
         /// before the next call. Falls back to [currentState] when the slot has
         /// no enumerable devices (utility / preview callers pass slotIndex -1).</para></summary>
         private static List<CustomInputState> GetSlotDeviceStates(
-            int slotIndex, CustomInputState currentState, string currentDeviceGuid)
+            int slotIndex, CustomInputState currentState, string currentDeviceGuid,
+            out List<string> ownerGuids)
         {
             var result = _slotDeviceStatesBuf ??= new List<CustomInputState>(4);
             result.Clear();
             var guids = _slotDeviceGuidsBuf ??= new List<string>(4);
             guids.Clear();
+            // Parallel to the result, one entry per state actually returned.
+            // The collection list above is pre-filter and its indexes do not
+            // line up.
+            var owners = _slotStateOwnerGuidsBuf ??= new List<string>(4);
+            owners.Clear();
+            ownerGuids = owners;
             var settings = SettingsManager.UserSettings;
             if (slotIndex >= 0 && settings?.Items != null)
             {
@@ -2482,10 +2632,13 @@ namespace PadForge.Common.Input
                 var st = (currentDeviceGuid != null
                           && string.Equals(g, currentDeviceGuid, System.StringComparison.OrdinalIgnoreCase))
                     ? currentState : LookupDeviceState(g);
-                if (st != null && !result.Contains(st)) result.Add(st);
+                if (st != null && !result.Contains(st)) { result.Add(st); owners.Add(g); }
             }
             if (result.Count == 0 && currentState != null && AnswersAnyDevice(currentDeviceGuid))
+            {
                 result.Add(currentState);
+                owners.Add(currentDeviceGuid);
+            }
             return result;
         }
         [System.ThreadStatic] private static List<float> _contribFlagsBuf;
@@ -2505,6 +2658,11 @@ namespace PadForge.Common.Input
         private sealed class BaseRowCache
         {
             public int Count = -1;
+            /// <summary>The row list this index was built from. The save and
+            /// merge paths publish a REBUILT list by reference assignment, so
+            /// an equal-length republication changes this even when the count
+            /// does not. Counting alone left the old rows cached forever.</summary>
+            public List<MappingRow> BuiltFrom;
             public readonly Dictionary<string, MappingRow> Rows =
                 new(64, System.StringComparer.Ordinal);
         }
@@ -2552,6 +2710,13 @@ namespace PadForge.Common.Input
             {
                 var rows = mappingSet.Rows;
                 if (rows == null) return 0;
+                // The same effective row the runtime would pick. The walk was by
+                // target alone, so the preview could show a Base row while a
+                // shift layer was producing the output, or a shift row that is
+                // not engaged when it precedes Base in the list. The engaged
+                // read below is inspect-only (no activator state advances), so
+                // this stays safe off the polling thread.
+                string activeMask = GetEngagedLayerMask(slotIndex, mappingSet);
                 for (int r = 0; r < rows.Count; r++)
                 {
                     var row = rows[r];
@@ -2561,6 +2726,7 @@ namespace PadForge.Common.Input
                     var rowSources = row?.Sources;
                     if (rowSources == null) continue;
                     if (!string.Equals(row.Target, target, System.StringComparison.Ordinal)) continue;
+                    if (!PreviewRowIsEffective(mappingSet, row, activeMask, target)) continue;
 
                     if (string.Equals(row.CombineMode, "StickTrim", System.StringComparison.Ordinal))
                     {
@@ -2614,6 +2780,51 @@ namespace PadForge.Common.Input
                 // Sources resolves on the next frame; never throw into the UI update.
             }
             return 0;
+        }
+
+        /// <summary>Preview twin of the runtime's layer-row picking. Base
+        /// active: Base rows only. A layer active: that layer's rows once they
+        /// carry sources, and a Base row only when the engaged activator
+        /// inherits unmapped targets and no matching-layer row covers this one.
+        /// Kept beside the preview rather than shared with the row loop, which
+        /// resolves coverage for every target at once.</summary>
+        private static bool PreviewRowIsEffective(
+            MappingSet mappingSet, MappingRow row, string activeMask, string target)
+        {
+            string rowLayer = row.LayerMask ?? "Base";
+            if (string.Equals(activeMask, "Base", System.StringComparison.Ordinal))
+                return string.Equals(rowLayer, "Base", System.StringComparison.Ordinal);
+            if (string.Equals(rowLayer, activeMask, System.StringComparison.Ordinal))
+                return row.Sources != null && row.Sources.Count > 0;
+            if (!string.Equals(rowLayer, "Base", System.StringComparison.Ordinal)) return false;
+
+            bool inherit = false;
+            var acts = mappingSet.ShiftActivators;
+            if (acts != null)
+            {
+                for (int i = 0; i < acts.Count; i++)
+                {
+                    var a = acts[i];
+                    if (a == null || !string.Equals(a.LayerMask, activeMask, System.StringComparison.Ordinal)) continue;
+                    inherit = a.InheritUnmapped;
+                    break;
+                }
+            }
+            if (!inherit) return false;
+
+            var rows = mappingSet.Rows;
+            if (rows != null)
+            {
+                for (int i = 0; i < rows.Count; i++)
+                {
+                    var r = rows[i];
+                    if (r == null) continue;
+                    if (!string.Equals(r.LayerMask, activeMask, System.StringComparison.Ordinal)) continue;
+                    if (!string.Equals(r.Target, target, System.StringComparison.Ordinal)) continue;
+                    if ((r.Sources != null && r.Sources.Count > 0) || r.NoInherit) return false;
+                }
+            }
+            return true;
         }
 
         private static float ClampBipolar(float v)
@@ -2911,6 +3122,7 @@ namespace PadForge.Common.Input
             }
 
             List<CustomInputState> slotStates = null; // lazily filled on the first empty-guid side
+            List<string> slotOwners = null;
             for (int i = 0; i < srcsCount; i++)
             {
                 if (i == negPairIndex) continue;
@@ -2937,7 +3149,8 @@ namespace PadForge.Common.Input
                     // concrete side reads its own fixed device. The neg pair's
                     // (pos + neg) is formed per device, then max-abs selects the
                     // device with the strongest deflection.
-                    slotStates ??= GetSlotDeviceStates(slotIndex, currentState, currentDeviceGuid);
+                    if (slotStates == null)
+                        slotStates = GetSlotDeviceStates(slotIndex, currentState, currentDeviceGuid, out slotOwners);
                     var posFixed = posAny ? null : LookupDeviceStateFast(src.DeviceGuid, currentState, currentDeviceGuid);
                     var negFixed = (useNeg && !negAny) ? LookupDeviceStateFast(negSrc.DeviceGuid, currentState, currentDeviceGuid) : null;
                     float best = 0f;
@@ -2945,16 +3158,19 @@ namespace PadForge.Common.Input
                     {
                         var pState = posAny ? slotStates[d] : posFixed;
                         if (pState == null) continue;
+                        // Each device is read under ITS OWN identity. A pinned
+                        // source ignores this argument, so it is correct for
+                        // both sides.
                         float v = SourceEvaluator.EvaluateForBipolarAxisTarget(
                             pState, src, slotIndex, row.Target, i, slotRuntime, dt,
-                            evaluatedDeviceGuid: currentDeviceGuid);
+                            evaluatedDeviceGuid: slotOwners[d]);
                         if (useNeg)
                         {
                             var nState = negAny ? slotStates[d] : negFixed;
                             if (nState != null)
                                 v += SourceEvaluator.EvaluateForBipolarAxisTarget(
                                     nState, negSrc, slotIndex, row.Target, 1, slotRuntime, dt,
-                                    evaluatedDeviceGuid: currentDeviceGuid);
+                                    evaluatedDeviceGuid: slotOwners[d]);
                         }
                         if (System.Math.Abs(v) > System.Math.Abs(best)) best = v;
                     }
@@ -2991,6 +3207,7 @@ namespace PadForge.Common.Input
             list.Clear();
             var srcs = SnapshotSources(row, out int srcsCount);
             List<CustomInputState> slotStates = null; // lazily filled on the first empty-guid source
+            List<string> slotOwners = null;
             for (int i = 0; i < srcsCount; i++)
             {
                 var src = srcs[i];
@@ -3003,13 +3220,16 @@ namespace PadForge.Common.Input
                     // "any device": take the strongest pull across the slot's
                     // devices (this row is evaluated once, so it must span all
                     // devices, not just the first-evaluated one).
-                    slotStates ??= GetSlotDeviceStates(slotIndex, currentState, currentDeviceGuid);
+                    if (slotStates == null)
+                        slotStates = GetSlotDeviceStates(slotIndex, currentState, currentDeviceGuid, out slotOwners);
                     float mx = 0f;
                     for (int d = 0; d < slotStates.Count; d++)
                     {
+                        // Each device read under its own identity, so per-device
+                        // tuning and delta trackers stay on their own key.
                         float t = SourceEvaluator.EvaluateForTriggerTarget(
                             slotStates[d], src, slotIndex, row.Target, i, slotRuntime, dt,
-                            evaluatedDeviceGuid: currentDeviceGuid);
+                            evaluatedDeviceGuid: slotOwners[d]);
                         if (t > mx) mx = t;
                     }
                     list.Add(mx);
@@ -3034,6 +3254,7 @@ namespace PadForge.Common.Input
             list.Clear();
             var srcs = SnapshotSources(row, out int srcsCount);
             List<CustomInputState> slotStates = null; // lazily filled on the first empty-guid source
+            List<string> slotOwners = null;
             for (int i = 0; i < srcsCount; i++)
             {
                 var src = srcs[i];
@@ -3046,14 +3267,17 @@ namespace PadForge.Common.Input
                     // "any device": OR the button read across every device on
                     // the slot (this row is evaluated once, so it must span all
                     // devices, not just the first-evaluated one).
-                    slotStates ??= GetSlotDeviceStates(slotIndex, currentState, currentDeviceGuid);
+                    if (slotStates == null)
+                        slotStates = GetSlotDeviceStates(slotIndex, currentState, currentDeviceGuid, out slotOwners);
                     bool any = false;
                     for (int d = 0; d < slotStates.Count; d++)
                     {
+                        // Each device read under its own identity, so per-device
+                        // tuning and debounce state stay on their own key.
                         if (SourceEvaluator.EvaluateForButtonTarget(
                             slotStates[d], src, globalAxisToButtonThreshold,
                             slotIndex, row.Target, i, slotRuntime, dt,
-                            evaluatedDeviceGuid: currentDeviceGuid)) { any = true; break; }
+                            evaluatedDeviceGuid: slotOwners[d])) { any = true; break; }
                     }
                     list.Add(any ? 1f : 0f);
                     continue;
@@ -3088,13 +3312,21 @@ namespace PadForge.Common.Input
         // ─────────────────────────────────────────────
 
         /// <summary>Looks up the Base-layer <see cref="MappingRow"/> for a
-        /// target by name via a polling-thread-local dictionary cache.
-        /// Mirrors the row filter used by
-        /// <see cref="ApplyMappingSetToGamepad"/>. KBM mapping calls this
-        /// ~104×/slot/cycle (one per keyboard key + mouse button + axis);
+        /// target by name via a per-MappingSet dictionary cache. The table is
+        /// weak-keyed and SHARED across threads, not thread-local: it replaced
+        /// a thread-static single entry that thrashed. Mirrors the row filter
+        /// used by <see cref="ApplyMappingSetToGamepad"/>. KBM mapping calls
+        /// this ~104×/slot/cycle (one per keyboard key + mouse button + axis);
         /// without the cache each call was O(rows) with a per-call array
-        /// allocation. The cache rebuilds when MappingSet identity OR
-        /// Rows.Count changes — same race tolerance as the prior path.</summary>
+        /// allocation.
+        ///
+        /// <para>The index rebuilds when the MappingSet's row LIST is
+        /// republished or its length changes. Length alone was not enough: the
+        /// save and merge paths assign a rebuilt list of the same length, and
+        /// a slot whose rows are replaced wholesale also drops its entry
+        /// through <see cref="ResetSourceKindRuntimeForSlot"/>, so an edit that
+        /// keeps the count cannot leave obsolete Base rows resolving
+        /// forever.</para></summary>
         private static MappingRow FindBaseRowForTarget(MappingSet mappingSet, string targetName)
         {
             if (mappingSet == null || string.IsNullOrEmpty(targetName)) return null;
@@ -3103,7 +3335,7 @@ namespace PadForge.Common.Input
 
             int currentCount = rows.Count;
             var cache = s_baseRowCaches.GetOrCreateValue(mappingSet);
-            if (cache.Count != currentCount)
+            if (cache.Count != currentCount || !ReferenceEquals(cache.BuiltFrom, rows))
             {
                 var baseRows = cache.Rows;
                 baseRows.Clear();
@@ -3123,6 +3355,7 @@ namespace PadForge.Common.Input
                 }
 
                 cache.Count = currentCount;
+                cache.BuiltFrom = rows;
             }
 
             return cache.Rows.TryGetValue(targetName, out var row) ? row : null;
@@ -3630,12 +3863,21 @@ namespace PadForge.Common.Input
         }
 
         /// <summary>Memoized pad/finger parse for "Touchpad N Finger M X|Y"
-        /// descriptors. Descriptors are immutable config vocabulary and this
-        /// parse ran per touchpad source per row per poll, allocating a
-        /// Split array each time (audit 1n). Finger is -1 when the
-        /// descriptor carries no explicit Finger clause, so the caller can
-        /// substitute its own default. Capped like the Step 3 descriptor
-        /// cache so pathological configs stay bounded.</summary>
+        /// descriptors, INCLUDING the region-windowed forms that carry a
+        /// trailing window token ("... X Left", "... Y Upper", and the
+        /// quadrant-in-half composes). Descriptors are immutable config
+        /// vocabulary and this parse ran per touchpad source per row per
+        /// poll, allocating a Split array each time (audit 1n). Finger is -1
+        /// when the descriptor carries no explicit Finger clause, so the
+        /// caller can substitute its own default. Capped like the Step 3
+        /// descriptor cache so pathological configs stay bounded.
+        ///
+        /// <para>Matching an exact token count read the explicit finger only
+        /// on the unwindowed five-token spelling. A windowed source then fell
+        /// back to the caller's default finger and tested contact on the
+        /// wrong finger. SourceCoercion.TryParseTouchpadAxis, the validated
+        /// grammar, accepts five or six tokens, so the finger is read
+        /// whenever the Finger clause is present and well formed.</para></summary>
         private static readonly System.Collections.Concurrent.ConcurrentDictionary<
             string, (int Pad, int Finger)> _touchpadPadFingerCache = new();
 
@@ -3649,7 +3891,7 @@ namespace PadForge.Common.Input
             var parts = descriptor.Split(new[] { ' ' }, System.StringSplitOptions.RemoveEmptyEntries);
             if (parts.Length >= 2 && int.TryParse(parts[1], out int parsedPad))
                 padIdx = parsedPad;
-            if (parts.Length == 5
+            if (parts.Length >= 5
                 && string.Equals(parts[2], "Finger", System.StringComparison.Ordinal)
                 && int.TryParse(parts[3], out int parsedFinger))
             {

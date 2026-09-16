@@ -301,6 +301,14 @@ namespace PadForge.Engine.RemoteLink
                         SdlDiagLog.WriteLine($"STUN keepalive tick {tick}: no response (re-resolving next tick)");
                         return;
                     }
+                    // The mapping belongs to the socket that probed. A tick
+                    // already inside the await when the stop ran would otherwise
+                    // publish it back over the null the stop just wrote, and the
+                    // moved guard below hides that: the previous value is null
+                    // after a stop, so the stale address lands with no log line
+                    // at all. Disposing a timer does not wait for a callback in
+                    // flight, so this check is the only thing ordering the two.
+                    if (!IsRunning || !ReferenceEquals(_udp, sock)) return;
                     var prev = PublicEndpoint;
                     PublicEndpoint = ep;
                     if (prev != null && !prev.Equals(ep))
@@ -364,8 +372,13 @@ namespace PadForge.Engine.RemoteLink
                 var profile = NatProfile.Classify(addr, observedPorts);
                 bool hardNat = profile.Kind == NatKind.SymmetricRandom; // only random symmetric is truly un-punchable
 
-                // Only meaningful for the socket that asked: Stop() clears these
-                // so a restarted socket never advertises the old mapping.
+                // Only meaningful for the socket that asked: the stop clears
+                // these so a restarted socket never advertises the old mapping.
+                // That holds only while this probe still owns the socket. The
+                // probe awaits every server in turn, so a stop partway through
+                // used to be undone here, one line after the comment claiming
+                // it could not be.
+                if (!IsRunning || !ReferenceEquals(_udp, sock)) return null;
                 PublicEndpoint = first;
                 IsHardNat = hardNat;
                 Nat = profile;
@@ -2188,6 +2201,13 @@ namespace PadForge.Engine.RemoteLink
                     existing.Info.NumAxes = info.NumAxes;
                     existing.Info.NumButtons = info.NumButtons;
                     existing.Info.NumHats = info.NumHats;
+                    // The raw counts travel with the standardized ones or the
+                    // pair splits: the raw axis count is the larger of the two,
+                    // so refreshing only the standardized one moved half of one
+                    // answer and left the rest at registration values.
+                    existing.Info.RawButtonCount = info.RawButtonCount;
+                    existing.Info.RawAxisCount = info.RawAxisCount;
+                    existing.Info.HasExtraGenericAxes = info.HasExtraGenericAxes;
                     existing.Info.InputDeviceType = info.InputDeviceType;
                     next[info.Slot] = existing;
                     // Re-register only when the slot moved, so the slot-stamped output route refreshes.

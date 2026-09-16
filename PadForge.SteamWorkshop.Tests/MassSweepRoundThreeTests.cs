@@ -436,6 +436,68 @@ namespace PadForge.SteamWorkshop.Tests
                 "Touchpad 0 Click Left", "Gamepad RightShoulder");
         }
 
+        [Fact]
+        public void ALayerVerbOnAGatedChordKeepsThePartnerToo()
+        {
+            // The same wild shape as the row case above, with a layer verb
+            // instead of a scroll. The activator path copied one gate where
+            // the row and macro paths copied two, so this engaged on the
+            // wedge and its click alone and the bumper was never required.
+            string vdf = HeadPs5
+                + Group(1, "dpad", Inputs(
+                    Inp("dpad_north", "controller_action HOLD_LAYER 2 0 0", "chord",
+                        ActSettings(("chord_button", "2")))))
+                + Group(2, "switches", Inputs(Inp("button_menu", "key_press E")))
+                + Preset(0, "Default", (1, "left_trackpad active"))
+                + Preset(1, "Alt", (2, "switch active"))
+                + "}\n";
+            var p = Translate(vdf);
+            Assert.DoesNotContain(p.Report.Entries,
+                e => e.ReasonKey == TranslationReasons.ActivatorInputNotSupported);
+
+            var act = p.XboxMappingSet.ShiftActivators
+                .Concat(p.KbmMappingSet.ShiftActivators)
+                .First(a => a.Descriptor == "Touchpad 0 DPadUp");
+            Assert.Equal("Chord", act.Kind);
+            Assert.Equal("Touchpad 0 Click Left", act.ChordSecondDescriptor);
+            Assert.Equal("Gamepad RightShoulder", act.Gate2Descriptor);
+        }
+
+        [Fact]
+        public void BothHalvesKeepTheirOwnChordPartner()
+        {
+            // Two gated wedges on one physical pad, one per half, each
+            // chorded with a different shoulder. They share a descriptor and
+            // a layer and differ only in their two AND legs, so the trigger
+            // identity has to carry both legs or the second is folded into
+            // the first and one half stops needing its partner.
+            string vdf = HeadPs5
+                + Group(1, "dpad", Inputs(
+                    Inp("dpad_north", "controller_action HOLD_LAYER 2 0 0", "chord",
+                        ActSettings(("chord_button", "2")))))
+                + Group(3, "dpad", Inputs(
+                    Inp("dpad_north", "controller_action HOLD_LAYER 2 0 0", "chord",
+                        ActSettings(("chord_button", "3")))))
+                + Group(2, "switches", Inputs(Inp("button_menu", "key_press E")))
+                + Preset(0, "Default", (1, "left_trackpad active"), (3, "right_trackpad active"))
+                + Preset(1, "Alt", (2, "switch active"))
+                + "}\n";
+            var p = Translate(vdf);
+
+            var wedges = p.XboxMappingSet.ShiftActivators
+                .Concat(p.KbmMappingSet.ShiftActivators)
+                .Where(a => a.Descriptor == "Touchpad 0 DPadUp")
+                .ToList();
+
+            Assert.Equal(2, wedges.Count);
+            // Each half kept its own click window...
+            Assert.Contains(wedges, a => a.ChordSecondDescriptor == "Touchpad 0 Click Left");
+            Assert.Contains(wedges, a => a.ChordSecondDescriptor == "Touchpad 0 Click Right");
+            // ...and neither lost its partner on the third leg.
+            Assert.All(wedges, a => Assert.StartsWith("Gamepad ", a.Gate2Descriptor));
+            Assert.Equal(2, wedges.Select(a => a.Gate2Descriptor).Distinct().Count());
+        }
+
         // ─── Analog activator ───────────────────────────────────────────
 
         [Fact]

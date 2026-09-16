@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 using System.Threading;
 using NAudio.CoreAudioApi;
 using NAudio.CoreAudioApi.Interfaces;
@@ -219,6 +218,11 @@ namespace PadForge.Common.Input
             try
             {
                 _capture = new FastLoopbackCapture();
+                if (!CapturePcmFormat.TryCreate(_capture.WaveFormat, out _))
+                {
+                    StopCapture();
+                    return false;
+                }
                 int sampleRate = _capture.WaveFormat.SampleRate;
                 RecalcAlpha(sampleRate);
                 Array.Clear(_filterStates);
@@ -272,15 +276,14 @@ namespace PadForge.Common.Input
         {
             if (e.BytesRecorded == 0) return;
 
-            var floatSpan = MemoryMarshal.Cast<byte, float>(
-                new ReadOnlySpan<byte>(e.Buffer, 0, e.BytesRecorded));
-
-            int channels = _capture?.WaveFormat?.Channels ?? 2;
-            int frameCount = floatSpan.Length / channels;
+            var waveFormat = (sender as IWaveIn)?.WaveFormat ?? _capture?.WaveFormat;
+            if (!CapturePcmFormat.TryCreate(waveFormat, out var format)) return;
+            int channels = format.Channels;
+            int frameCount = e.BytesRecorded / format.BlockAlign;
             if (frameCount == 0) return;
 
             // Recalculate alpha if cutoff changed (main + trigger paths).
-            int sr = _capture?.WaveFormat?.SampleRate ?? 48000;
+            int sr = format.SampleRate;
             float currentAlpha = _alpha;
             {
                 double twoPiCutoff = 2.0 * Math.PI * _cutoffHz;
@@ -315,12 +318,12 @@ namespace PadForge.Common.Input
             float triggerSumSq = 0f;
             float fullPeak = 0f;
 
-            for (int i = 0; i < floatSpan.Length; i += channels)
+            for (int i = 0; i < frameCount; i++)
             {
                 // Mix to mono (average channels).
                 float sample = 0f;
-                for (int ch = 0; ch < channels && (i + ch) < floatSpan.Length; ch++)
-                    sample += floatSpan[i + ch];
+                for (int ch = 0; ch < channels; ch++)
+                    sample += format.Read(e.Buffer, i * format.BlockAlign + ch * format.BytesPerSample);
                 sample /= channels;
 
                 // Tap the mono signal BEFORE the IIR low-pass — this is

@@ -89,14 +89,10 @@ namespace PadForge.Services
 
             foreach (var pair in values)
             {
-                // Seed standard fields so a held Base binding is never blanked between writes.
-                pair.Key.ClearMappingDescriptors(pair.Value);
+                // Publish descriptor and companion seeds before the compatibility writes.
+                pair.Key.ClearMappingDescriptors(pair.Value, deadzones[pair.Key], bidirectional[pair.Key]);
                 foreach (var value in pair.Value)
                     SettingsService.SetPadSettingProperty(pair.Key, value.Key, value.Value);
-                foreach (var value in deadzones[pair.Key])
-                    pair.Key.SetMappingDeadZone(value.Key, value.Value);
-                foreach (var value in bidirectional[pair.Key])
-                    pair.Key.SetMappingBidirectional(value.Key, value.Value);
             }
         }
 

@@ -90,9 +90,10 @@ namespace PadForge.Common.Input
         // at 64. The missing ~10,500 per second were leaking their buffers, at
         // which point ArrayPool simply allocates more and the GC pays for it.
         //
-        // A single slot removes the whole class: the producer swaps its payload
-        // in and immediately returns whatever it displaced, so nothing is ever
-        // silently dropped and nothing can leak, however fast the game writes.
+        // A single slot removes the whole class: the producer folds its payload
+        // into whatever is waiting and immediately returns both inputs, so
+        // nothing is ever silently dropped and nothing can leak, however fast
+        // the game writes.
         private readonly object _latchLock = new();
         private Ds5Effect _latest;
         private bool _hasLatest;
@@ -207,10 +208,10 @@ namespace PadForge.Common.Input
         // (Family explainer for BOTH floors below.)
         //
         // Every payload on this lane is STATE, not an event: a trigger
-        // program, a lightbar color, rumble levels. Each one supersedes the
-        // last, so sending the newest at a cap is indistinguishable at the
-        // pad from sending all of them, and 8 ms is far finer than any of it
-        // is perceived at.
+        // program, a lightbar color, rumble levels. Frames that arrive inside
+        // one interval are merged, not dropped, so sending the merged frame at
+        // a cap leaves the pad in the state all of them would have left it in,
+        // and 8 ms is far finer than any of it is perceived at.
         //
         // What it prevents: this dispatcher forwarded one packet per
         // packet the game wrote, and the design assumption written at the top
@@ -592,11 +593,12 @@ namespace PadForge.Common.Input
             _hbWorstWriteMs = 0;
         }
 
-        /// <summary>HM polling thread enqueues here. Returns immediately
-        /// after a buffer rent, copy, and channel write — no blocking I/O.
-        /// On overflow (DropWrite mode) <c>TryWrite</c> returns false and
-        /// the rented buffer is returned to the pool so it doesn't leak.
-        /// On Dispose race the same branch handles it.</summary>
+        /// <summary>The polling thread enqueues here. Returns immediately
+        /// after a buffer rent, a copy and one latch merge, with no blocking
+        /// I/O. The state lane has no channel: a payload that arrives while one
+        /// waits is merged into it and both inputs go straight back to the
+        /// pool, so nothing is dropped and nothing leaks. A disposal that flips
+        /// the flag mid-flight is drained by the same method.</summary>
         public void Enqueue(byte reportId, ReadOnlySpan<byte> payload)
         {
             if (_disposed) return;
@@ -757,7 +759,17 @@ namespace PadForge.Common.Input
             // The worker may be inside a physical write, which waits up to
             // LaneWriteTimeoutMs for the completion, so give it that plus the
             // pacing delay before the release frame goes out behind it.
-            try { _worker?.Wait(TimeSpan.FromMilliseconds(1500)); } catch { }
+            //
+            // Whether it actually exited is the release's precondition, and the
+            // answer was being thrown away: the bounded wait returns false on a
+            // timeout rather than throwing, so a still-running worker read the
+            // same as a stopped one. This window is not a bound on the worker
+            // either. A canceled raw write drains through an unbounded result
+            // call, and the feature write is synchronous, so both can outlast
+            // it. Writing the release behind a live worker is exactly the
+            // ordering the note above exists to prevent.
+            bool workerExited = true;
+            try { workerExited = _worker == null || _worker.Wait(TimeSpan.FromMilliseconds(1500)); } catch { }
 
             // The release itself. The idle release needs fifteen seconds of
             // silence to fire, and PadForge closing is the one case where
@@ -767,7 +779,7 @@ namespace PadForge.Common.Input
             // waited. Whatever the game left loaded then stays loaded
             // forever, because the only thing that would have cleared it
             // just exited.
-            if (_drivingState && !_skipShutdownRelease)
+            if (_drivingState && !_skipShutdownRelease && workerExited)
             {
                 _drivingState = false;
                 System.Threading.Volatile.Write(ref _lightbarDrivenTicks, 0);
@@ -1291,6 +1303,17 @@ namespace PadForge.Common.Input
                     if (ud.InstanceGuid != deviceGuid) continue;
                     if (!ud.IsOnline) return false;
                     if (ud.VendorId != SonyVid) return false;
+                    // A pad this lane cannot write is not a pass-through target,
+                    // however Sony its identifiers are. Since #434 the lane
+                    // writes over its own handle, keyed on the device path, and
+                    // a peer device lives on another machine: the resolver skips
+                    // it and nothing is forwarded. Answering yes here still
+                    // zeroed the mirror's rumble bytes, so a remote DualSense
+                    // got silence from both writers at once. The relay carries
+                    // the mirror's frame for those, and the mirror is then the
+                    // only writer, which is the whole reason this predicate
+                    // exists.
+                    if (RemoteLinkOutputRouter.IsPeerPath(ud.DevicePath)) return false;
                     return ud.ProdId == PidStandard || ud.ProdId == PidEdge;
                 }
             }

@@ -184,11 +184,10 @@ namespace PadForge.Engine.RemoteLink
             Name = info.Name;
             VendorId = info.VendorId;
             ProductId = info.ProductId;
-            NumAxes = info.NumAxes;
-            NumButtons = info.NumButtons;
-            NumHats = info.NumHats;
-            // Never below NumButtons: a 0 (old peer) or a device with no
-            // extras falls back to the standardized count.
+            // Never below the standardized count: a zero (an older peer) or a
+            // device with no extras falls back to it. Snapshotted, unlike the
+            // public property, because it sizes the dense fallback array once
+            // and that array's length must not move under readers.
             _rawButtonCount = Math.Max(info.NumButtons, info.RawButtonCount);
 
             DevicePath = $"peer://{Short(info.PeerFingerprintHex)}/{info.PeerLocalDeviceId}";
@@ -200,7 +199,11 @@ namespace PadForge.Engine.RemoteLink
             // extras reach, not just the standardized 22.
             // Prefer the OWNER's real sparse set. Synthesizing a dense range
             // here listed buttons the physical device does not have.
-            if (info.SupportedButtonIndices is { Length: > 0 })
+            // Null means the owner said nothing (an older peer, or a device
+            // that does not gate), and only then is a dense range synthesized.
+            // An EMPTY set is the owner saying the device has none, which the
+            // v8 tail carries precisely so it stops arriving here as dense.
+            if (info.SupportedButtonIndices != null)
             {
                 _supportedButtonIndices = (int[])info.SupportedButtonIndices.Clone();
             }
@@ -209,7 +212,7 @@ namespace PadForge.Engine.RemoteLink
                 _supportedButtonIndices = new int[Math.Max(0, _rawButtonCount)];
                 for (int i = 0; i < _supportedButtonIndices.Length; i++) _supportedButtonIndices[i] = i;
             }
-            if (info.SupportedAxisIndices is { Length: > 0 })
+            if (info.SupportedAxisIndices != null)
             {
                 _supportedAxisIndices = (int[])info.SupportedAxisIndices.Clone();
             }
@@ -232,11 +235,19 @@ namespace PadForge.Engine.RemoteLink
 
         public uint SdlInstanceId { get; }
         public string Name { get; }
-        public int NumAxes { get; }
-        public int NumButtons { get; }
+        /// <summary>Live from the info object, the same contract the raw axis
+        /// count and the serial below already keep. The device-list reconcile
+        /// refreshes these counts in place on an already-registered device (a
+        /// Joy-Con pair joining, a wheel gaining axes), and a constructor
+        /// snapshot never saw any of it, so the raw axis count moved while the
+        /// standardized one stayed at the value the device was born with. One
+        /// capability, two answers. The private field below stays a snapshot,
+        /// because the dense button fallback is sized once, at registration.</summary>
+        public int NumAxes => Info.NumAxes;
+        public int NumButtons => Info.NumButtons;
         private readonly int _rawButtonCount;
-        public int RawButtonCount => _rawButtonCount;
-        public int NumHats { get; }
+        public int RawButtonCount => Math.Max(Info.NumButtons, Info.RawButtonCount);
+        public int NumHats => Info.NumHats;
         public int[] SupportedButtonIndices => _supportedButtonIndices;
         /// <summary>The owner's real raw axis count. The interface defaults
         /// (RawAxisCount => NumAxes, HasExtraGenericAxes => false) silently
@@ -373,7 +384,12 @@ namespace PadForge.Engine.RemoteLink
             // pad does not physically have (the sparse set).
             int axes = Math.Max(RawAxisCount, 0);
             var supportedAxes = _supportedAxisIndices;
-            bool axesSparse = supportedAxes != null && supportedAxes.Length > 0 && supportedAxes.Length != axes;
+            // Any non-null set is the answer, including an empty one: the owner
+            // saying the pad has no axes is a different claim from the owner
+            // saying nothing, and only the second one synthesizes a dense range.
+            // Length is not part of the test. A set as long as the count but
+            // naming different positions used to be emitted as 0..n-1.
+            bool axesSparse = supportedAxes != null;
             // RawButtonCount, not NumButtons: emit a pickable object for every
             // raw button the owner ships, including the extras past the 22
             // standardized gamepad slots. Falls back to NumButtons for old
@@ -384,7 +400,7 @@ namespace PadForge.Engine.RemoteLink
             // phantom entries in the consumer's picker and hid A/B/X/Y behind
             // "Button 1..N".
             var supported = _supportedButtonIndices;
-            bool sparse = supported != null && supported.Length > 0 && supported.Length != buttons;
+            bool sparse = supported != null;
             int povs = Math.Max(NumHats, 0);
             int buttonSlots = sparse ? supported.Length : buttons;
             int axisSlots = axesSparse ? supportedAxes.Length : axes;

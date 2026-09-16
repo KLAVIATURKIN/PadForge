@@ -124,7 +124,7 @@ namespace PadForge.Engine.RemoteLink
         /// <summary>Records the peer's self-reported machine name, learned in
         /// the handshake, so its devices are labeled "(Their PC)" even when LAN
         /// discovery never ran. The punch / code path has no discovery, which is
-        /// why remote devices arrived unlabelled there. Never overwrites a
+        /// why remote devices arrived unlabeled there. Never overwrites a
         /// user-set Name; only fills the HostName the label falls back to.</summary>
         public bool SetHostName(byte[] publicKey, string hostName)
         {

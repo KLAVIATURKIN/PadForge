@@ -21,8 +21,8 @@ namespace PadForge.Common.Input
         ///   1. Save the current state as OldInputState (preserved for any consumer
         ///      that needs change detection on the next cycle).
         ///   2. Read a new state snapshot from SDL.
-        ///   3. Apply force feedback if the device supports rumble and a game
-        ///      is sending vibration data via ViGEmBus.
+        ///   3. Apply supported force feedback from HIDMaestro output and
+        ///      configured effects.
         /// </summary>
         private void UpdateInputStates()
         {
@@ -141,8 +141,8 @@ namespace PadForge.Common.Input
 
                     // Idle disconnect countdown (#162). Tracks last activity at
                     // poll rate, checks the countdown ~1 Hz, and hands the
-                    // radio I/O to the threadpool. DS4Windows gates mirrored:
-                    // BT only, never while charging (DS4Device.cs:1437-1491).
+                    // radio I/O to the thread pool. Charging does not block
+                    // the idle timeout.
                     UpdateIdleDisconnect(ud, newState);
 
                     // Touchpad gesture engine — runs once per device per
@@ -205,15 +205,9 @@ namespace PadForge.Common.Input
             // The dispatcher merges these with its lightbar-animation
             // logic in UpdateAnimTimer to decide whether to keep its
             // 33 ms timer running.
-            //
-            // Cost: one walk of UserSettings.Items per slot per polling
-            // tick under the SyncRoot lock. ~16 slots × ~16 user
-            // settings worst case, well under a microsecond on warm
-            // cache. The lock is held briefly enough that UI-thread
-            // mutations (device assignment, profile load) don't see
-            // measurable contention.
+            // Per-slot settings and Sony assignment groups are snapshotted
+            // every 250 ms. Each polling tick consumes those cached facts.
             var settingsForPoke = SettingsManager.UserSettings;
-            // 250 ms snapshot refresh of the per-slot poke facts.
             long pokeNow = System.Environment.TickCount64;
             if (pokeNow - _sonyPokeCfgRefreshTick >= 250)
             {
@@ -437,12 +431,13 @@ namespace PadForge.Common.Input
         }
 
         /// <summary>Idle disconnect countdown for one device (#162), the
-        /// DS4Windows shape (DS4Device.cs:1437-1491): refresh the activity
+        /// DS4Windows activity-stamp pattern (DS4Device.cs:1437-1491): refresh the activity
         /// stamp whenever the input is non-idle, and once the stamp ages past
         /// the per-device timeout, drop the Bluetooth link on a worker so the
         /// controller sleeps. Gamepad-typed devices use the absolute idle
         /// test; everything else uses change detection against the previous
-        /// poll. Never fires on USB paths or while charging.</summary>
+        /// poll. BluetoothLinkHelper decides target eligibility. Charging
+        /// does not pause the idle countdown.</summary>
         private static void UpdateIdleDisconnect(UserDevice ud, CustomInputState state)
         {
             long now = Environment.TickCount64;
@@ -649,7 +644,9 @@ namespace PadForge.Common.Input
 
         /// <summary>
         /// Applies force feedback (rumble) to a device based on the vibration
-        /// state received from games via ViGEmBus.
+        /// state received from games through the virtual controller. The v2 bus
+        /// no longer carries any of this, so naming it here sent readers to the
+        /// wrong driver.
         ///
         /// When a device is mapped to multiple slots, vibration from all slots
         /// is combined (max of each motor) so rumble from any game reaches the
@@ -805,6 +802,31 @@ namespace PadForge.Common.Input
                     }
                     finally { System.Threading.Monitor.Exit(ud.OutputSync); }
                 }
+                else if (isVendorFfb && !string.IsNullOrEmpty(ud.DevicePath)
+                    && _appliedWheelFfb.ContainsKey(ud.DevicePath)
+                    && System.Threading.Monitor.TryEnter(ud.OutputSync))
+                {
+                    // A vendor wheel or pedal holds its last force in firmware
+                    // and has no force-feedback state to go inactive, so the
+                    // branch above could never reach it and an unassigned wheel
+                    // kept pulling for the life of the process. Stop the
+                    // family's own force and drop the signature, or a
+                    // reassignment would match the stale entry and skip the
+                    // write that re-establishes the force.
+                    try
+                    {
+                        if (!RemoteLinkOutputRouter.IsClaimedByPeer(ud.DevicePath)
+                            && !RemoteLinkOutputRouter.PeerWroteLast(ud.DevicePath))
+                        {
+                            if (isFanatecPedal) FanatecRawHidWriter.WritePedalRumble(ud.DevicePath, 0, 0);
+                            else if (isLogitechWheel) LogitechRawHidWriter.WriteStopEffect(ud.DevicePath, 0);
+                            else if (isFanatecWheel) FanatecRawHidWriter.WriteWheelConstantForce(ud.DevicePath, 0, ud.ProdId);
+                            else ThrustmasterRawHidWriter.WriteStop(ud.DevicePath);
+                            _appliedWheelFfb.TryRemove(ud.DevicePath, out _);
+                        }
+                    }
+                    finally { System.Threading.Monitor.Exit(ud.OutputSync); }
+                }
                 return;
             }
 
@@ -819,6 +841,9 @@ namespace PadForge.Common.Input
             ushort combinedLT = 0, combinedRT = 0;
             Vibration directionalSource = null;
             PadSetting firstPadSetting = null;
+            // The setting belonging to whichever device actually produced the
+            // directional force, as distinct from the first device processed.
+            PadSetting directionalPadSetting = null;
             // #271 item 3 scratch, hoisted out of the loop (stackalloc in
             // a loop accumulates stack per iteration).
             Span<byte> atLeftBlock = stackalloc byte[11];
@@ -869,7 +894,7 @@ namespace PadForge.Common.Input
                 // per-trigger activator is engaged. Computed from the pre-redirect
                 // main motor; Redirect then silences the main motor(s) the route
                 // drew from on this physical write.
-                ApplyTriggerRouting(padIndex, scaledL, scaledR,
+                ApplyTriggerRouting(padIndex, ud.InstanceGuid, scaledL, scaledR,
                     out ushort routedLT, out ushort routedRT,
                     out bool zeroMainL, out bool zeroMainR);
                 if (zeroMainL) scaledL = 0;
@@ -969,6 +994,11 @@ namespace PadForge.Common.Input
                     dcap.ConditionAxisCount = effective.ConditionAxisCount;
                     dcap.ConditionAxes = effective.ConditionAxes;
                     directionalSource = dcap;
+                    // The gain belongs with the force. Reading it from the
+                    // first device PROCESSED rather than the first device with
+                    // a force meant a slot whose second device produced the
+                    // effect had it scaled by the first device's setting.
+                    directionalPadSetting = devicePs;
                 }
 
                 if (firstPadSetting == null)
@@ -1001,9 +1031,22 @@ namespace PadForge.Common.Input
             }
             else
             {
-                // Clear stale directional data from previous frame.
+                // Clear stale directional data from previous frame. The whole
+                // payload goes, not just the two flags: this object is one
+                // instance reused for every device on every tick, and the
+                // wheel rumble read multiplies by DeviceGain with no flag to
+                // gate on, so a previous effect's gain of 128 silently halved
+                // the NEXT device's buzz until something else overwrote it.
+                // Neutral is 255, which is both the field's own default and
+                // what the constant-force evaluator writes.
                 _combinedVibration.HasDirectionalData = false;
                 _combinedVibration.HasConditionData = false;
+                _combinedVibration.DeviceGain = 255;
+                _combinedVibration.EffectType = 0;
+                _combinedVibration.SignedMagnitude = 0;
+                _combinedVibration.Direction = 0;
+                _combinedVibration.Period = 0;
+                _combinedVibration.ConditionAxisCount = 0;
             }
 
             // Reverse output relay (#138): a "peer://" device lives on another PC.
@@ -1022,7 +1065,7 @@ namespace PadForge.Common.Input
                 // Scale a COPY of the condition axes so the shared source state isn't mutated (#138 F30).
                 if (_combinedVibration.HasDirectionalData || _combinedVibration.HasConditionData)
                 {
-                    int og = int.TryParse(firstPadSetting?.ForceOverall, out int fg) ? System.Math.Clamp(fg, 0, 100) : 100;
+                    int og = int.TryParse((directionalPadSetting ?? firstPadSetting)?.ForceOverall, out int fg) ? System.Math.Clamp(fg, 0, 100) : 100;
                     if (og != 100)
                     {
                         double s = og / 100.0;
@@ -1068,8 +1111,13 @@ namespace PadForge.Common.Input
                 if (ud.ForceFeedbackState.TryRecordXboxImpulseSnapshot(
                         combinedL, combinedR, combinedLT, combinedRT))
                 {
-                    XboxImpulseHidWriter.Write(
-                        ud, combinedL, combinedR, combinedLT, combinedRT);
+                    // Keep a refused write eligible for retry. The snapshot is
+                    // taken before the write, so latching it on a failure left
+                    // the motors on their last accepted value with every later
+                    // identical frame reporting unchanged.
+                    if (!XboxImpulseHidWriter.Write(
+                            ud, combinedL, combinedR, combinedLT, combinedRT))
+                        ud.ForceFeedbackState.MarkDirectWriteFailed();
                 }
                 return;
             }
@@ -1082,7 +1130,13 @@ namespace PadForge.Common.Input
                 // effect plug-in when installed) is never reached. Change
                 // detection keeps the write off the polling cadence.
                 if (ud.ForceFeedbackState.TryRecordMotorSnapshot(combinedL, combinedR))
-                    PadixConverterRawHidWriter.Write(ud.DevicePath, combinedL, combinedR);
+                {
+                    // Same rule as the impulse path above: the snapshot records
+                    // intent, not delivery, so a refused write must re-arm or
+                    // the identical next frame never retries.
+                    if (!PadixConverterRawHidWriter.Write(ud.DevicePath, combinedL, combinedR))
+                        ud.ForceFeedbackState.MarkDirectWriteFailed();
+                }
                 return;
             }
 
@@ -1097,7 +1151,7 @@ namespace PadForge.Common.Input
                 // strings change only on user edit but parsed per wheel
                 // per 1 kHz tick.
                 int overallGain = System.Math.Clamp(
-                    TryParseIntStatic(firstPadSetting?.ForceOverall, 100), 0, 100);
+                    TryParseIntStatic((directionalPadSetting ?? firstPadSetting)?.ForceOverall, 100), 0, 100);
                 if (isFanatecPedal)
                 {
                     byte brake    = (byte)(combinedL >> 8); // XInput left  -> brake
@@ -1120,7 +1174,17 @@ namespace PadForge.Common.Input
                     // an oscillating constant force on the steering axis (a buzz),
                     // mirroring the Sine haptic strategy joysticks get in SetHapticForces.
                     // Real directional FFB takes precedence; rumble fills in otherwise.
-                    short wheelForce = level != 0 ? level : ForceFeedbackState.ComputeWheelRumbleLevel(cv, overallGain);
+                    // ForceOverall is NOT passed again here. The motors in cv
+                    // were already scaled by it (the per-device rumble scale
+                    // applies leftGain, rightGain and overallGain), and this
+                    // helper applies it a second time, so the setting was
+                    // squared: 50 percent produced a 25 percent buzz. The
+                    // directional twin below is unaffected, because it reads
+                    // the signed magnitude, which the rumble scale never
+                    // touches, so its gain is the first and only application.
+                    // A setting of zero still silences, since the scale
+                    // already zeroed the motors.
+                    short wheelForce = level != 0 ? level : ForceFeedbackState.ComputeWheelRumbleLevel(cv, 100);
                     // Auto-center strength (Wheel-tab slider). Fanatec has no firmware
                     // autocenter and ftec_set_range's f5 disables its stock spring, so
                     // Fanatec centering is a per-frame software spring (slot 1); Logitech
@@ -1413,6 +1477,14 @@ namespace PadForge.Common.Input
             // inherit Force Feedback's bass cutoff / sensitivity.
             bool mainSet = false;
             bool triggerSet = false;
+            // A per-SLOT scan sizes from the record count, never from the slot
+            // count. _instanceGuidBuffer is one slot per entry because it holds
+            // one DEVICE's slots, a slot can carry more devices than there are
+            // slots, and the buffer overload truncates silently at the buffer's
+            // length, so past the sixteenth device on a slot the detector
+            // simply stopped seeing it. Same growth guard the motion sweep uses.
+            if (_padIndexBuffer.Length < settings.Count)
+                _padIndexBuffer = new UserSetting[settings.Count];
             for (int padIndex = 0; padIndex < MaxPads; padIndex++)
             {
                 if (mainSet && triggerSet) break;
@@ -1420,37 +1492,40 @@ namespace PadForge.Common.Input
                 // Buffer overload: the List-returning FindByPadIndex
                 // allocates per call and this loop runs per slot per
                 // 1 kHz tick while audio features are enabled.
-                int slotCount = settings.FindByPadIndex(padIndex, _instanceGuidBuffer);
+                int slotCount = settings.FindByPadIndex(padIndex, _padIndexBuffer);
                 if (slotCount == 0) continue;
-                // Prefer SelectedMappedDevice's PadSetting (matches the
-                // tab the user is editing); fall back to the first
-                // mapped device on the slot.
-                PadSetting ps = null;
-                if (selected != Guid.Empty)
+                // Every mapped device on the slot is a candidate. Audio rumble
+                // is a per-(device, slot) setting, so stopping at the selected
+                // device hid a second device's enabled chain and left the shared
+                // detector on another slot's sensitivity and cutoff, or on the
+                // previous tick's. Pass zero is the selected device alone, so it
+                // still wins among the devices that enable a chain; pass one is
+                // the rest of the slot in its stable settings order.
+                for (int pass = 0; pass < 2 && !(mainSet && triggerSet); pass++)
                 {
                     for (int i = 0; i < slotCount; i++)
                     {
-                        if (_instanceGuidBuffer[i].InstanceGuid == selected)
-                        {
-                            ps = _instanceGuidBuffer[i].GetPadSetting();
-                            break;
-                        }
-                    }
-                }
-                if (ps == null) ps = _instanceGuidBuffer[0].GetPadSetting();
-                if (ps == null) continue;
+                        var usAudio = _padIndexBuffer[i];
+                        if (usAudio == null) continue;
+                        bool isSelected = selected != Guid.Empty && usAudio.InstanceGuid == selected;
+                        if (pass == 0 ? !isSelected : isSelected) continue;
+                        var ps = usAudio.GetPadSetting();
+                        if (ps == null) continue;
 
-                if (!mainSet && ps.AudioRumbleEnabled == "1")
-                {
-                    detector.Sensitivity = TryParseFloat(ps.AudioRumbleSensitivity, 4f);
-                    detector.CutoffHz = TryParseFloat(ps.AudioRumbleCutoffHz, 80f);
-                    mainSet = true;
-                }
-                if (!triggerSet && ps.AudioRumbleTriggersEnabled == "1")
-                {
-                    detector.TriggerSensitivity = TryParseFloat(ps.AudioRumbleTriggersSensitivity, 4f);
-                    detector.TriggerCutoffHz = TryParseFloat(ps.AudioRumbleTriggersCutoffHz, 80f);
-                    triggerSet = true;
+                        if (!mainSet && ps.AudioRumbleEnabled == "1")
+                        {
+                            detector.Sensitivity = TryParseFloat(ps.AudioRumbleSensitivity, 4f);
+                            detector.CutoffHz = TryParseFloat(ps.AudioRumbleCutoffHz, 80f);
+                            mainSet = true;
+                        }
+                        if (!triggerSet && ps.AudioRumbleTriggersEnabled == "1")
+                        {
+                            detector.TriggerSensitivity = TryParseFloat(ps.AudioRumbleTriggersSensitivity, 4f);
+                            detector.TriggerCutoffHz = TryParseFloat(ps.AudioRumbleTriggersCutoffHz, 80f);
+                            triggerSet = true;
+                        }
+                        if (mainSet && triggerSet) break;
+                    }
                 }
             }
         }
@@ -1492,6 +1567,12 @@ namespace PadForge.Common.Input
         public void ComputeFinalVibrationStates()
         {
             var settings = SettingsManager.UserSettings;
+            // Per-slot scan, so the buffer sizes from the record count. The
+            // slot-length buffer used to serve here and the overload truncates
+            // at the buffer's length, so a slot's seventeenth device onward
+            // never reached the rumble scale.
+            if (settings != null && _padIndexBuffer.Length < settings.Count)
+                _padIndexBuffer = new UserSetting[settings.Count];
             for (int padIndex = 0; padIndex < MaxPads; padIndex++)
             {
                 // Skip uncreated slots, matching the sibling per-slot loops (Step2
@@ -1517,7 +1598,7 @@ namespace PadForge.Common.Input
                 Vibration selectedDirectional = null;
                 Guid selectedGuid = SelectedDeviceGuids[padIndex];
                 int slotCount = settings != null
-                    ? settings.FindByPadIndex(padIndex, _instanceGuidBuffer) : 0;
+                    ? settings.FindByPadIndex(padIndex, _padIndexBuffer) : 0;
 
                 if (slotCount == 0)
                 {
@@ -1552,7 +1633,7 @@ namespace PadForge.Common.Input
 
                 for (int i = 0; i < slotCount; i++)
                 {
-                    var us = _instanceGuidBuffer[i];
+                    var us = _padIndexBuffer[i];
                     if (us == null) continue;
                     var devicePs = us.GetPadSetting();
                     // Rebuild from the baseline for each device. The previous device
@@ -1578,7 +1659,7 @@ namespace PadForge.Common.Input
                     // #102 trigger routing for the motor meters: mirror the
                     // hardware path so the FFB-tab meter reflects what the user is
                     // tuning the route Scale against.
-                    ApplyTriggerRouting(padIndex, scaledL, scaledR,
+                    ApplyTriggerRouting(padIndex, us.InstanceGuid, scaledL, scaledR,
                         out ushort routedLT, out ushort routedRT,
                         out bool zeroMainL, out bool zeroMainR);
                     if (zeroMainL) scaledL = 0;

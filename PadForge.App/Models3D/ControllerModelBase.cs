@@ -130,7 +130,7 @@ namespace PadForge.Models3D
             /// <para>The 2015 Steam Controller's pads are circles: their
             /// outlines fill 0.786 of their own bounding square against the
             /// 0.785 a circle gives, with a radius steady to a twentieth of
-            /// a millimetre. The 2026's and the Deck's are rounded squares
+            /// a millimeter. The 2026's and the Deck's are rounded squares
             /// at 0.975 and 0.983.</para></summary>
             public readonly double Radius;
 
@@ -198,7 +198,7 @@ namespace PadForge.Models3D
         /// 2026's pad mesh runs 38 mm deep and its front face is a 3 mm
         /// slab carrying 1775 of the 1800 outward-facing triangles, with the
         /// boss more than 20 mm behind. All three Valve faces come out flat
-        /// to half a millimetre, so a plane is the whole story.</para>
+        /// to half a millimeter, so a plane is the whole story.</para>
         ///
         /// <para>The axes are built from the normal rather than fitted, so
         /// they cannot come out arbitrary: U is the normal crossed with the

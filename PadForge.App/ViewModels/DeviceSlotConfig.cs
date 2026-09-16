@@ -35,20 +35,31 @@ namespace PadForge.ViewModels
         // not retrigger DispatchSnapshot — the entry's PropertyChanged
         // is internal to the entry and the parent collection wouldn't
         // see it.
+        // Subscribed entries tracked explicitly, the reactive twin's idiom: a
+        // clear raises its notification AFTER emptying the collection, so a
+        // handler that re-walks the sender walks nothing and every dropped entry
+        // keeps a live handler into this config.
+        private readonly List<LightbarPaletteEntry> _basePaletteEntriesHooked = new();
+
         private void HookPalette(ObservableCollection<LightbarPaletteEntry> coll)
         {
             if (coll == null) return;
             coll.CollectionChanged += OnPaletteCollectionChanged;
             foreach (var entry in coll)
-                if (entry != null) entry.PropertyChanged += OnPaletteEntryChanged;
+                if (entry != null)
+                {
+                    entry.PropertyChanged += OnPaletteEntryChanged;
+                    _basePaletteEntriesHooked.Add(entry);
+                }
         }
 
         private void UnhookPalette(ObservableCollection<LightbarPaletteEntry> coll)
         {
             if (coll == null) return;
             coll.CollectionChanged -= OnPaletteCollectionChanged;
-            foreach (var entry in coll)
-                if (entry != null) entry.PropertyChanged -= OnPaletteEntryChanged;
+            foreach (var hooked in _basePaletteEntriesHooked)
+                hooked.PropertyChanged -= OnPaletteEntryChanged;
+            _basePaletteEntriesHooked.Clear();
         }
 
         private void OnPaletteCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -63,22 +74,33 @@ namespace PadForge.ViewModels
             // this trap (audit 2026-07-24, lens 1q).
             if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Reset)
             {
+                foreach (var hooked in _basePaletteEntriesHooked)
+                    hooked.PropertyChanged -= OnPaletteEntryChanged;
+                _basePaletteEntriesHooked.Clear();
                 if (sender is ObservableCollection<LightbarPaletteEntry> coll)
                     foreach (var entry in coll)
                         if (entry != null)
                         {
-                            entry.PropertyChanged -= OnPaletteEntryChanged;
                             entry.PropertyChanged += OnPaletteEntryChanged;
+                            _basePaletteEntriesHooked.Add(entry);
                         }
                 OnPropertyChanged(nameof(LightbarPalette));
                 return;
             }
             if (e.OldItems != null)
                 foreach (LightbarPaletteEntry old in e.OldItems)
-                    if (old != null) old.PropertyChanged -= OnPaletteEntryChanged;
+                    if (old != null)
+                    {
+                        old.PropertyChanged -= OnPaletteEntryChanged;
+                        _basePaletteEntriesHooked.Remove(old);
+                    }
             if (e.NewItems != null)
                 foreach (LightbarPaletteEntry add in e.NewItems)
-                    if (add != null) add.PropertyChanged += OnPaletteEntryChanged;
+                    if (add != null)
+                    {
+                        add.PropertyChanged += OnPaletteEntryChanged;
+                        _basePaletteEntriesHooked.Add(add);
+                    }
             OnPropertyChanged(nameof(LightbarPalette));
         }
 
@@ -910,7 +932,13 @@ namespace PadForge.ViewModels
             // dropdown and once below it, both bound to the same colors. Three
             // comments (here and at PadPage.xaml:8142) asserted the exclusion
             // that this line now actually performs (round 34).
-            && _lightbarMode != LightbarMode.ColorCycle;
+            ;
+            // The base-is-cycle exclusion belonged to the era when both modes
+            // stepped ONE collection, where a second editor was a duplicate view
+            // of the same colors. They own separate collections now, so the
+            // exclusion hid the overlay's OWN palette whenever the base was also
+            // a cycle, while the dispatcher kept stepping it. Two editors on
+            // screen is the correct rendering of two palettes.
 
         /// <summary>True when the input-reactive overlay is the
         /// Fixed variant — the color picker for the per-press flash

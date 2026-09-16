@@ -178,11 +178,12 @@ namespace SDL3
         public static uint[] SDL_GetJoysticks()
         {
             IntPtr ptr = _SDL_GetJoysticks(out int count);
-            if (ptr == IntPtr.Zero || count <= 0)
+            if (ptr == IntPtr.Zero)
                 return Array.Empty<uint>();
 
             try
             {
+                if (count <= 0) return Array.Empty<uint>();
                 var ids = new uint[count];
                 for (int i = 0; i < count; i++)
                     ids[i] = unchecked((uint)Marshal.ReadInt32(ptr, i * 4));
@@ -1029,11 +1030,12 @@ namespace SDL3
         public static uint[] SDL_GetKeyboards()
         {
             IntPtr ptr = _SDL_GetKeyboards(out int count);
-            if (ptr == IntPtr.Zero || count <= 0)
+            if (ptr == IntPtr.Zero)
                 return Array.Empty<uint>();
 
             try
             {
+                if (count <= 0) return Array.Empty<uint>();
                 var ids = new uint[count];
                 for (int i = 0; i < count; i++)
                     ids[i] = unchecked((uint)Marshal.ReadInt32(ptr, i * 4));
@@ -1073,11 +1075,12 @@ namespace SDL3
         public static uint[] SDL_GetMice()
         {
             IntPtr ptr = _SDL_GetMice(out int count);
-            if (ptr == IntPtr.Zero || count <= 0)
+            if (ptr == IntPtr.Zero)
                 return Array.Empty<uint>();
 
             try
             {
+                if (count <= 0) return Array.Empty<uint>();
                 var ids = new uint[count];
                 for (int i = 0; i < count; i++)
                     ids[i] = unchecked((uint)Marshal.ReadInt32(ptr, i * 4));

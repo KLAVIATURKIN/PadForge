@@ -117,11 +117,12 @@ namespace PadForge.Common.Input
         /// <summary>Set by <see cref="AudioPassthroughService"/>: when a slot
         /// has at least one live controller sink, the system-default fallback
         /// output is torn down (sounds go to the controller instead).</summary>
-        internal static void SetSlotControllerRouted(int slot, bool routed)
+        internal static void SetSlotControllerRouted(int slot, bool routed, Func<bool> current = null)
         {
             if ((uint)slot >= MaxPads) return;
             lock (_lock)
             {
+                if (current != null && !current()) return;
                 if (_controllerRouted[slot] == routed) return;
                 _controllerRouted[slot] = routed;
                 if (routed) TeardownSlotOutput_NoLock(slot);
@@ -256,7 +257,7 @@ namespace PadForge.Common.Input
             }
         }
 
-        /// <summary>Engine shutdown: stop everything, release audio clients.</summary>
+        /// <summary>Stops all macro sounds and releases their audio clients.</summary>
         public static void StopAll()
         {
             lock (_lock)
@@ -269,11 +270,9 @@ namespace PadForge.Common.Input
                     TeardownSlotOutput_NoLock(s);
                 }
             }
-            // AudioPassthroughService keeps riding this method: it has no
-            // suppression latch, so its Reconcile (driven from the effects
-            // dispatcher, the Audio tab, and engine start) rebuilds it on
-            // demand and a profile apply costs it nothing but a restart.
-            AudioPassthroughService.Shutdown();
+            // System audio belongs to the engine. LoadMacros reaches this
+            // method on profile switches, including switches to controllers
+            // with no composite audio persona to restart the mirror.
             // WiiSpeakerService and HapticToneService deliberately do NOT
             // ride this method, the same carve-out RumbleAudioService got
             // below and for the same reason. Both latch _suppressed in

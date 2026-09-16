@@ -111,9 +111,11 @@ namespace PadForge.Tests
         /// the first timer bailed at the generation check before its own clear,
         /// and the second never touched a field it had not set.
         ///
-        /// <para>Motors must be stamped per field. The target filter and the
-        /// directional block stay on the slot-wide counter, which is correct for
-        /// state both lanes genuinely share.</para></summary>
+        /// <para>Motors must be stamped per field, and so must the directional
+        /// block: only the main lane ever writes it, so the impulse lane bumping
+        /// the slot counter used to veto the one clear that existed, and nothing
+        /// else performs one. The target filter is the single piece both lanes
+        /// genuinely share, so it alone stays on the slot-wide counter.</para></summary>
         [Fact]
         public void TestPulseMotorClears_AreStampedPerFieldNotPerSlot()
         {
@@ -262,7 +264,7 @@ namespace PadForge.Tests
             Assert.Contains("LegacyBaseMappingProjection.Write(padVm,", caller);
             string projection = Src("PadForge.App/Services/LegacyBaseMappingProjection.cs");
             // The caller's Base projection still seeds the per-device clear.
-            Assert.Contains("ClearMappingDescriptors(pair.Value)", projection);
+            Assert.Contains("ClearMappingDescriptors(pair.Value, deadzones[pair.Key], bidirectional[pair.Key])", projection);
             Assert.DoesNotMatch(new Regex(@"ClearMappingDescriptors\(\s*\)"), projection);
         }
     }

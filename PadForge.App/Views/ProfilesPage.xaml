@@ -795,11 +795,23 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Grid Margin="0,0,0,6">
+                                    <!-- Star columns with a floor and a cap, not
+                                         Auto around fixed widths. MEASURED with
+                                         tools/rowmeasure: the three fixed pickers
+                                         plus their resets and the action cluster
+                                         came to 936 against a declared window
+                                         minimum of 900, and the page scroller has
+                                         no horizontal bar, so the buttons fell
+                                         outside the clip. The mode picker's own
+                                         natural width is 156, so the floor here
+                                         keeps every control reachable at the
+                                         minimum and the cap keeps the designed
+                                         size on a wide window. -->
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="3*" MinWidth="120" MaxWidth="328"/>
+                                        <ColumnDefinition Width="2*" MinWidth="120" MaxWidth="178"/>
+                                        <ColumnDefinition Width="3*" MinWidth="120" MaxWidth="328"/>
+                                        <ColumnDefinition Width="*" MinWidth="40"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
 
@@ -813,8 +825,7 @@
                                         <ComboBox
                                                   ItemsSource="{Binding SwitchModes}"
                                                   SelectedValue="{Binding SwitchMode}"
-                                                  SelectedValuePath="Mode"
-                                                  Width="290">
+                                                  SelectedValuePath="Mode">
                                             <ComboBox.ItemTemplate>
                                                 <DataTemplate>
                                                     <TextBlock Text="{Binding DisplayName}"
@@ -833,8 +844,7 @@
                                                   SelectedValue="{Binding TargetProfileId}"
                                                   SelectedValuePath="ProfileId"
                                                   DisplayMemberPath="DisplayName"
-                                                  DropDownOpened="ProfileChoices_DropDownOpened"
-                                                  Width="140"/>
+                                                  DropDownOpened="ProfileChoices_DropDownOpened"/>
                                     </DockPanel>
 
                                     <!-- Device dropdown — matches the SwitchMode dropdown width. -->
@@ -845,8 +855,7 @@
                                                   SelectedValue="{Binding TriggerDeviceGuid}"
                                                   SelectedValuePath="DeviceGuid"
                                                   DisplayMemberPath="DisplayName"
-                                                  DropDownOpened="DeviceChoices_DropDownOpened"
-                                                  Width="290"/>
+                                                  DropDownOpened="DeviceChoices_DropDownOpened"/>
                                     </DockPanel>
 
                                     <!-- Button combo display (fills remaining space, marquee scrolls if too long) -->

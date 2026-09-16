@@ -220,8 +220,10 @@ namespace PadForge.Tests
                 NumAxes = 6, NumButtons = 22, RawButtonCount = 22,
             };
             var full = LinkConnection.EncodeDeviceList(new[] { info }, "");
-            // Chop the v6 tail ([magic][maskLen=0] = 2).
-            var older = new byte[full.Length - 2];
+            // Chop everything from the v6 tail on: v6 ([magic][maskLen=0] = 2),
+            // v7 ([magic][axisMask=0][guidLen=0 (2B)] = 4) and v8
+            // ([magic][flags=0] = 2).
+            var older = new byte[full.Length - 8];
             Array.Copy(full, older, older.Length);
 
             var round = LinkConnection.DecodeDeviceList(older);
@@ -337,10 +339,11 @@ namespace PadForge.Tests
             // [magic][rawAxisCount=0] = 2 (#193 over the wire), the v5 ext
             // [magic][nameLen=0 (2B)] = 3 (the peer machine name), and the v6
             // ext [magic][maskLen=0] = 2 (the supported-button mask, dense for
-            // this record), and the v7 ext [magic][axisMask=0][guidLen=0 (2B)]
-            // = 4 (supported axes + SDL GUID). The v1 section length falls
-            // out of it.
-            int v1Len = bare.Length - 21;
+            // this record), the v7 ext [magic][axisMask=0][guidLen=0 (2B)]
+            // = 4 (supported axes + SDL GUID), and the v8 ext [magic][flags=0]
+            // = 2 (which of those two sets were empty on purpose). The v1
+            // section length falls out of it.
+            int v1Len = bare.Length - 23;
             Assert.Equal(0xE2, bare[v1Len]);
 
             var corrupt = new byte[v1Len + 3];

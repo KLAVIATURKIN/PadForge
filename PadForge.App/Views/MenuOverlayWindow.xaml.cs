@@ -17,10 +17,8 @@ namespace PadForge.Views
     /// WM_MOUSEACTIVATE refusal) that renders the engaged menu's cells and
     /// highlights the hovered one. Owned by InputService, which pulls
     /// InputManager.ActiveMenuOverlay on the ~30 Hz UI timer and calls
-    /// <see cref="UpdateFromSnapshot"/>; geometry rebuilds only when the
-    /// menu identity or shape changes, per-tick work is the hover restyle.
-    /// Theme-aware through the same dark / light brush pairs the flyout
-    /// uses, re-applied on every rebuild.
+    /// <see cref="UpdateFromSnapshot"/>. Menu or appearance changes rebuild
+    /// the visuals. Other ticks update the hover style.
     /// </summary>
     public partial class MenuOverlayWindow : Window
     {
@@ -52,6 +50,7 @@ namespace PadForge.Views
 
         private MenuDefinitionEntry _menu;
         private string _geometrySig;
+        private (Wpf.Ui.Appearance.ApplicationTheme Theme, Brush Accent, Color? Color, double Opacity) _appearance;
         private int _hovered = int.MinValue;
         private readonly Dictionary<int, Shape> _cellShapes = new();
         private readonly Dictionary<int, TextBlock> _cellLabels = new();
@@ -81,8 +80,8 @@ namespace PadForge.Views
         }
 
         /// <summary>Renders the snapshot: null hides the overlay, a new /
-        /// reshaped menu rebuilds the geometry, and a same-menu tick only
-        /// restyles the hover highlight.</summary>
+        /// reshaped menu or changed appearance rebuilds the visuals. Other
+        /// same-menu ticks update the hover style.</summary>
         public void UpdateFromSnapshot(Common.Input.InputManager.MenuOverlayState snap)
         {
             if (snap?.Menu == null)
@@ -94,6 +93,10 @@ namespace PadForge.Views
             }
 
             var menu = snap.Menu;
+            var accent = Application.Current?.TryFindResource("SystemAccentColorPrimaryBrush") as Brush;
+            var appearance = (Wpf.Ui.Appearance.ApplicationThemeManager.GetAppTheme(),
+                accent, (accent as SolidColorBrush)?.Color, accent?.Opacity ?? 1);
+            bool appearanceChanged = appearance != _appearance;
             // The sig exists to detect IN-PLACE menu mutation (config edits
             // while displayed). Rebuilding the StringBuilder+string per
             // 30 Hz tick was steady churn during gameplay menus; a 250 ms
@@ -101,7 +104,7 @@ namespace PadForge.Views
             // REFERENCE change still rebuilds immediately.
             long sigNow = Environment.TickCount64;
             string sig;
-            if (!ReferenceEquals(menu, _menu) || sigNow - _sigCheckedTick >= 250)
+            if (!ReferenceEquals(menu, _menu) || appearanceChanged || sigNow - _sigCheckedTick >= 250)
             {
                 sig = GeometrySig(menu);
                 _sigCheckedTick = sigNow;
@@ -110,10 +113,11 @@ namespace PadForge.Views
             {
                 sig = _geometrySig;
             }
-            if (!ReferenceEquals(menu, _menu) || sig != _geometrySig)
+            if (!ReferenceEquals(menu, _menu) || sig != _geometrySig || appearanceChanged)
             {
                 _menu = menu;
                 _geometrySig = sig;
+                _appearance = appearance;
                 _hovered = int.MinValue;
                 RefreshThemeBrushes();
                 if (menu.Kind == MenuKind.Radial) BuildRadial(menu);

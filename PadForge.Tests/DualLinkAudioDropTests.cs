@@ -107,7 +107,7 @@ namespace PadForge.Tests
         public void Reconcile_RearmsOnABluetoothPath()
         {
             string aps = RepoText("PadForge.App", "Common", "Input", "AudioPassthroughService.cs");
-            Assert.Contains("if (isBt) lock (_dualDropLock) _dualDropDoneForPath.Remove(guid);", aps);
+            Assert.Matches(@"if \(isBt\)\s*lock \(_lock\)\s*\{\s*if \(!IsCurrentAudioWorker\(worker\)\) return;\s*lock \(_dualDropLock\) _dualDropDoneForPath.Remove\(guid\);\s*\}", aps);
         }
 
         private static string RepoText(params string[] parts)

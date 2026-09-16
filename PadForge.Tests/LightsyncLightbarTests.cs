@@ -242,7 +242,19 @@ namespace PadForge.Tests
             // up), then a fresh instance.
             long t0 = Environment.TickCount64;
             oldSvc.Dispose();
-            Assert.True(Environment.TickCount64 - t0 < 2000, "Stop must return after its bounded wait");
+            // What "bounded" means here is that Stop gave up on a worker still
+            // inside the SDK, and the gate proves it: the worker cannot leave
+            // that call until the test releases it further down, so a Stop
+            // that waited for the worker could not have returned at all.
+            //
+            // The elapsed time used to be the whole assertion, at a 2000 ms
+            // budget for a 200 ms wait. That is a measure of how busy the
+            // machine is, not of what the code did, and it failed once in a
+            // full-suite run that had a solution build running beside it. The
+            // deadline stays only as a hang guard, wide enough that no
+            // scheduling stall can reach it.
+            Assert.False(gate.IsSet, "the gate opened early, so this proves nothing about Stop");
+            Assert.True(Environment.TickCount64 - t0 < 60000, "Stop never returned");
             int oldStatesAfterStop;
             lock (oldStates) oldStatesAfterStop = oldStates.Count;
 
@@ -314,7 +326,19 @@ namespace PadForge.Tests
 
             long t0 = Environment.TickCount64;
             oldSvc.Dispose();
-            Assert.True(Environment.TickCount64 - t0 < 2000, "Stop must return after its bounded wait");
+            // What "bounded" means here is that Stop gave up on a worker still
+            // inside the SDK, and the gate proves it: the worker cannot leave
+            // that call until the test releases it further down, so a Stop
+            // that waited for the worker could not have returned at all.
+            //
+            // The elapsed time used to be the whole assertion, at a 2000 ms
+            // budget for a 200 ms wait. That is a measure of how busy the
+            // machine is, not of what the code did, and it failed once in a
+            // full-suite run that had a solution build running beside it. The
+            // deadline stays only as a hang guard, wide enough that no
+            // scheduling stall can reach it.
+            Assert.False(gate.IsSet, "the gate opened early, so this proves nothing about Stop");
+            Assert.True(Environment.TickCount64 - t0 < 60000, "Stop never returned");
             int oldStatesAfterStop;
             lock (oldStates) oldStatesAfterStop = oldStates.Count;
 

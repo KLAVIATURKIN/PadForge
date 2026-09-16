@@ -372,14 +372,14 @@ namespace PadForge.Engine.Data
                     string desc = getMapping(ps, target);
                     if (!string.IsNullOrEmpty(desc))
                     {
-                        var src = BuildSource(guid, desc, ps?.GetMappingDeadZone(target));
+                        var src = BuildSource(guid, desc, ps?.GetMappingDeadZone(target), ps?.GetMappingBidirectional(target));
                         if (src != null) sources.Add(src);
                     }
 
                     if (!axisLike) continue;
                     string negDesc = getMapping(ps, target + "Neg");
                     if (string.IsNullOrEmpty(negDesc)) continue;
-                    var negSrc = BuildSource(guid, negDesc, ps?.GetMappingDeadZone(target));
+                    var negSrc = BuildSource(guid, negDesc, ps?.GetMappingDeadZone(target), ps?.GetMappingBidirectional(target));
                     if (negSrc == null) continue;
                     // Same polarity rule as AppendBipolarRow's negative leg.
                     if (Common.Mapping.SourceCoercion.InvertConsumedByHalfAxisRead(negSrc))
@@ -436,14 +436,14 @@ namespace PadForge.Engine.Data
                     string raw = ps?.GetRawMapping(target);
                     if (!string.IsNullOrEmpty(raw))
                     {
-                        var src = BuildSource(guid, raw, ps?.GetMappingDeadZone(target));
+                        var src = BuildSource(guid, raw, ps?.GetMappingDeadZone(target), ps?.GetMappingBidirectional(target));
                         if (src != null) sources.Add(src);
                     }
 
                     if (!target.StartsWith("RawAxis", StringComparison.Ordinal)) continue;
                     string rawNeg = ps?.GetRawMapping(target + "Neg");
                     if (string.IsNullOrEmpty(rawNeg)) continue;
-                    var negSrc = BuildSource(guid, rawNeg, ps?.GetMappingDeadZone(target));
+                    var negSrc = BuildSource(guid, rawNeg, ps?.GetMappingDeadZone(target), ps?.GetMappingBidirectional(target));
                     if (negSrc == null) continue;
                     // Same polarity rule as AppendBipolarRow's negative leg.
                     if (Common.Mapping.SourceCoercion.InvertConsumedByHalfAxisRead(negSrc))
@@ -473,11 +473,18 @@ namespace PadForge.Engine.Data
             var sources = new List<MappingSource>();
             foreach (var (guid, ps, isGamepad) in devices)
             {
-                if (gamepadOnly && !isGamepad) continue;
                 var raw = GetField(ps, target);
+                // The class gate exists for ONE artifact: a stale auto-mapped
+                // ANALOG AXIS left on a keyboard, mouse or touchpad setting,
+                // which reads an uninitialized axis and lands at full negative
+                // deflection, the stuck-stick report. A button or hat descriptor
+                // on those devices is ordinary cross-device authoring, a keyboard
+                // key on a face button, and excluding the whole class deleted it
+                // during migration, the same rows the sanitizer stopped dropping.
+                if (gamepadOnly && !isGamepad && IsLegacyAnalogAxisDescriptor(raw)) continue;
                 if (string.IsNullOrEmpty(raw)) continue;
 
-                var src = BuildSource(guid, raw, ps?.GetMappingDeadZone(target));
+                var src = BuildSource(guid, raw, ps?.GetMappingDeadZone(target), ps?.GetMappingBidirectional(target));
                 if (src != null) sources.Add(src);
             }
             if (sources.Count == 0) return;
@@ -505,7 +512,7 @@ namespace PadForge.Engine.Data
                 var rawPrimary = GetField(ps, primary);
                 if (!string.IsNullOrEmpty(rawPrimary))
                 {
-                    var src = BuildSource(guid, rawPrimary, ps?.GetMappingDeadZone(target));
+                    var src = BuildSource(guid, rawPrimary, ps?.GetMappingDeadZone(target), ps?.GetMappingBidirectional(target));
                     if (src != null) sources.Add(src);
                 }
 
@@ -514,7 +521,7 @@ namespace PadForge.Engine.Data
                     var rawNeg = GetField(ps, neg);
                     if (!string.IsNullOrEmpty(rawNeg))
                     {
-                        var src = BuildSource(guid, rawNeg, ps?.GetMappingDeadZone(target));
+                        var src = BuildSource(guid, rawNeg, ps?.GetMappingDeadZone(target), ps?.GetMappingBidirectional(target));
                         if (src != null)
                         {
                             // Negative source: flip the OUTPUT sign relative to
@@ -572,7 +579,7 @@ namespace PadForge.Engine.Data
                     || !string.IsNullOrEmpty(ps.DPadRight);
                 if (hasIndividuals) continue;
 
-                var src = BuildSource(guid, combined, ps.GetMappingDeadZone(CombinedDPadTarget));
+                var src = BuildSource(guid, combined, ps.GetMappingDeadZone(CombinedDPadTarget), ps.GetMappingBidirectional(CombinedDPadTarget));
                 if (src != null) sources.Add(src);
             }
 
@@ -592,9 +599,26 @@ namespace PadForge.Engine.Data
         /// "POV 0 Up", "Slider 0") into a <see cref="MappingSource"/>.
         /// The "I" / "H" / "IH" prefixes encode invert / half-axis flags;
         /// the new schema splits those into per-source bool flags so the
-        /// stored Descriptor is the unprefixed form.
+        /// stored Descriptor is the unprefixed form. Bidirectional is an
+        /// independent per-target companion, not part of the prefix grammar.
         /// </summary>
-        private static MappingSource BuildSource(string deviceGuid, string rawDescriptor, string deadZoneStr)
+        /// <summary>True when a legacy descriptor reads an analog axis, after
+        /// the same prefix strip <see cref="BuildSource"/> performs. This is the
+        /// only descriptor class that rests at full negative deflection on a
+        /// device that never populates the axis.</summary>
+        private static bool IsLegacyAnalogAxisDescriptor(string rawDescriptor)
+        {
+            if (string.IsNullOrWhiteSpace(rawDescriptor)) return false;
+            string s = rawDescriptor.Trim();
+            if (s.StartsWith("IH", StringComparison.OrdinalIgnoreCase)) s = s.Substring(2);
+            else if ((s.StartsWith("H", StringComparison.OrdinalIgnoreCase)
+                      || s.StartsWith("I", StringComparison.OrdinalIgnoreCase))
+                     && s.Length > 1 && !char.IsDigit(s[1])) s = s.Substring(1);
+            return s.StartsWith("Axis", StringComparison.OrdinalIgnoreCase)
+                || s.StartsWith("Slider", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static MappingSource BuildSource(string deviceGuid, string rawDescriptor, string deadZoneStr, string bidirectionalStr)
         {
             if (string.IsNullOrWhiteSpace(rawDescriptor) || rawDescriptor == "0") return null;
 
@@ -635,6 +659,7 @@ namespace PadForge.Engine.Data
                 Invert = inverted,
                 HalfAxis = halfAxis,
                 DeadZone = dz,
+                Bidirectional = bidirectionalStr == "1",
             };
         }
 

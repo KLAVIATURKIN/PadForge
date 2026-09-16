@@ -1509,9 +1509,15 @@ namespace PadForge.Common
                 // used to renumber every button the moment a device went
                 // offline (discussion #344). Only a device never seen online
                 // reaches the dense range below.
+                // Same split as the Devices picker: a live empty set is an
+                // answer, a live null is not.
                 var sparse = ud.Device?.SupportedButtonIndices;
-                if (sparse == null || sparse.Length == 0) sparse = ud.CapButtonIndices;
-                if (sparse != null && sparse.Length > 0)
+                if (sparse == null)
+                {
+                    sparse = ud.CapButtonIndices;
+                    if (sparse != null && sparse.Length == 0) sparse = null;
+                }
+                if (sparse != null)
                 {
                     foreach (int i in sparse)
                     {
@@ -1561,10 +1567,46 @@ namespace PadForge.Common
             // not duplicated here.
             if (ud.CapType == PadForge.Engine.InputDeviceType.Gamepad && !UseRawNumberedNaming(ud))
             {
-                foreach (var (member, _) in PadForge.Engine.Common.Mapping.SourceCoercion.GamepadAliasTable)
+                // Gate each alias on the canonical read it resolves to. The raw
+                // blocks above already asked the device which slots it populates,
+                // so a pad without a right stick drops those indices there.
+                // Emitting the alias family dense put every one of them straight
+                // back under an abstract name that hid the fact they read
+                // nothing. Membership in what the raw pass emitted IS the
+                // capability answer, so the gate cannot drift from it. Hat
+                // aliases stay ungated on purpose: a pad can carry a directional
+                // pad the capability list reports as buttons rather than a hat,
+                // and gating there would remove a working binding to fix a
+                // phantom one.
+                var emitted = new System.Collections.Generic.HashSet<string>(
+                    System.StringComparer.Ordinal);
+                bool sawAxis = false, sawButton = false;
+                foreach (var c in list)
+                {
+                    if (c?.Descriptor == null) continue;
+                    emitted.Add(c.Descriptor);
+                    if (c.Descriptor.StartsWith("Axis ", System.StringComparison.Ordinal)) sawAxis = true;
+                    else if (c.Descriptor.StartsWith("Button ", System.StringComparison.Ordinal)) sawButton = true;
+                }
+                // A pad this app has never seen online reports no slots at all.
+                // Subtracting from nothing would strip the whole family, so an
+                // empty surface keeps the dense behavior, the same never-seen
+                // fallback the raw blocks take.
+                bool AliasSupported(string canonical)
+                {
+                    if (canonical == null) return true;
+                    if (canonical.StartsWith("Axis ", System.StringComparison.Ordinal))
+                        return !sawAxis || emitted.Contains(canonical);
+                    if (canonical.StartsWith("Button ", System.StringComparison.Ordinal))
+                        return !sawButton || emitted.Contains(canonical);
+                    return true;
+                }
+
+                foreach (var (member, canonical) in PadForge.Engine.Common.Mapping.SourceCoercion.GamepadAliasTable)
                 {
                     string memberDisplay = GamepadMemberDisplay(member);
                     if (memberDisplay == null) continue;
+                    if (!AliasSupported(canonical)) continue;
                     list.Add(new InputChoice
                     {
                         Descriptor = "Gamepad " + member,
@@ -1578,14 +1620,23 @@ namespace PadForge.Common
                 // and the tuning rides the Flick Stick card on the Sticks
                 // tab. Same gamepad gate as the alias family: the read is
                 // the canonical stick pair.
-                list.Add(new InputChoice { Descriptor = PadForge.Engine.Common.Mapping.SourceCoercion.FlickStickRightDescriptor, DisplayName = si.Mapping_FlickStickRight });
-                list.Add(new InputChoice { Descriptor = PadForge.Engine.Common.Mapping.SourceCoercion.FlickStickLeftDescriptor,  DisplayName = si.Mapping_FlickStickLeft });
+                // The compound stick sources read a PAIR of canonical axes, so
+                // they inherit the same gate: a pad without a right stick has
+                // none to flick or ring.
+                bool leftStickOk = AliasSupported("Axis 0") && AliasSupported("Axis 1");
+                bool rightStickOk = AliasSupported("Axis 3") && AliasSupported("Axis 4");
+                if (rightStickOk)
+                    list.Add(new InputChoice { Descriptor = PadForge.Engine.Common.Mapping.SourceCoercion.FlickStickRightDescriptor, DisplayName = si.Mapping_FlickStickRight });
+                if (leftStickOk)
+                    list.Add(new InputChoice { Descriptor = PadForge.Engine.Common.Mapping.SourceCoercion.FlickStickLeftDescriptor,  DisplayName = si.Mapping_FlickStickLeft });
 
                 // Stick deflection rings (translator v17): whole-stick
                 // magnitude reads, same gamepad gate and pair resolution
                 // as flick stick.
-                list.Add(new InputChoice { Descriptor = PadForge.Engine.Common.Mapping.SourceCoercion.LeftStickRingDescriptor,  DisplayName = string.Format(si.Mapping_Gamepad_Format, si.Mapping_LeftStickRing) });
-                list.Add(new InputChoice { Descriptor = PadForge.Engine.Common.Mapping.SourceCoercion.RightStickRingDescriptor, DisplayName = string.Format(si.Mapping_Gamepad_Format, si.Mapping_RightStickRing) });
+                if (leftStickOk)
+                    list.Add(new InputChoice { Descriptor = PadForge.Engine.Common.Mapping.SourceCoercion.LeftStickRingDescriptor,  DisplayName = string.Format(si.Mapping_Gamepad_Format, si.Mapping_LeftStickRing) });
+                if (rightStickOk)
+                    list.Add(new InputChoice { Descriptor = PadForge.Engine.Common.Mapping.SourceCoercion.RightStickRingDescriptor, DisplayName = string.Format(si.Mapping_Gamepad_Format, si.Mapping_RightStickRing) });
             }
 
             // Touchpad raw sources (per-finger axes + click) for devices
@@ -2054,7 +2105,18 @@ namespace PadForge.Common
                 ? PadForge.Engine.PrecisionTouchpadReader.PtpMaxFingers
                 : 2;
             int[] perPadFingers = new int[numPads];
-            for (int i = 0; i < numPads; i++) perPadFingers[i] = fallbackFingers;
+            for (int i = 0; i < numPads; i++)
+                // Persisted per-pad counts first, the raw picker's rule. This
+                // block went straight to the per-type constant and threw the
+                // saved answer away, so an offline single-finger pad still
+                // offered two-finger gestures it cannot produce. The constant
+                // stays the fallback for configs that predate the field, which
+                // is where the system touchpad's own maximum belongs: it has no
+                // wrapper, so it never fills the array.
+                perPadFingers[i] = (ud.CapTouchpadFingerCounts != null
+                                    && i < ud.CapTouchpadFingerCounts.Length)
+                    ? ud.CapTouchpadFingerCounts[i]
+                    : fallbackFingers;
             {
                 var state = ud.InputState;
                 if (state?.Touchpads != null && state.Touchpads.Length > 0)
@@ -2285,7 +2347,31 @@ namespace PadForge.Common
                 Descriptor = $"Touchpad {padIdx} {name}",
                 DisplayName = string.IsNullOrEmpty(display) ? name : display,
             });
+            // Half-qualified twins, pad 0 only, the same rule the windowed
+            // finger sources follow: the halves model Steam's split of a
+            // SINGLE physical pad, and a multi-pad device has a real pad per
+            // half. A gesture fires under both its whole-pad name and the half
+            // it started on, so both are bindable.
+            if (padIdx != 0 || !IsHalfQualifiableGesture(name)) return;
+            foreach (string half in new[] { "Left", "Right" })
+            {
+                list.Add(new InputChoice
+                {
+                    Descriptor = $"Touchpad {padIdx} {name} {half}",
+                    DisplayName = (string.IsNullOrEmpty(display) ? name : display)
+                        + " (" + TouchpadWindowPhrase(half) + ")",
+                });
+            }
         }
+
+        /// <summary>The gesture families the recognizer qualifies by half:
+        /// single-finger taps and swipes. Multi-finger families are not
+        /// qualified, so advertising halves for them would offer sources
+        /// nothing ever fires.</summary>
+        private static bool IsHalfQualifiableGesture(string name)
+            => name == "Tap" || name == "DoubleTap" || name == "TripleTap"
+               || (name.StartsWith("Swipe", System.StringComparison.Ordinal)
+                   && name.Length > "Swipe".Length);
 
         /// <summary>Resolves a bare touchpad gesture name (the descriptor
         /// with "Touchpad {pad} " stripped) to its localized label. Used
@@ -2309,6 +2395,18 @@ namespace PadForge.Common
                         + " (" + RadialZoneAngleLabel(zc, z) + ")";
                 return null;
             }
+            // Half-qualified single-finger names ("SwipeUp Left") resolve to
+            // their base label with the half phrase appended, the shape every
+            // other windowed source already renders.
+            foreach (string half in new[] { "Left", "Right" })
+            {
+                if (!gestureName.EndsWith(" " + half, System.StringComparison.Ordinal)) continue;
+                string bare = gestureName.Substring(0, gestureName.Length - half.Length - 1);
+                if (!IsHalfQualifiableGesture(bare)) break;
+                string baseLabel = ResolveTouchpadGestureLabel(si, bare);
+                return baseLabel == null ? null : baseLabel + " (" + TouchpadWindowPhrase(half) + ")";
+            }
+
             // Single-token in-box names map 1:1 onto their string keys
             // (TouchLeft, SwipeUp, Pinch, StickX, DPadUp, Circle, ...).
             // Strings.Get returns the key itself when no resource

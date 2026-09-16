@@ -40,12 +40,14 @@ namespace PadForge.SteamWorkshop.Tests
 
             Assert.Equal("Custom", row.CombineMode);
 
-            // A button gate is && and an axis gate is multiplication by the
-            // gate's 0/1 read. Both are the same contract, expressed for the
+            // A button gate is a conjunction and an axis gate multiplies by
+            // the gate's BOOLEAN read, not by its raw value: a chord partner
+            // can be a trigger or a stick ring, whose released reading is not
+            // zero. Both spellings are the same contract expressed for the
             // target's type, so accept whichever the row's own type produced
             // rather than hard-coding one and mislabeling the other a failure.
             string button = Term(i, gates.Length, "&&");
-            string axis = Term(i, gates.Length, "*");
+            string axis = AxisTerm(i, gates.Length);
             string expr = row.CombineExpression ?? "";
             Assert.True(expr.Contains(button) || expr.Contains(axis),
                 $"'{primary}' is not gated in the row's expression.{System.Environment.NewLine}"
@@ -61,6 +63,16 @@ namespace PadForge.SteamWorkshop.Tests
             string t = "s[" + index + "]";
             for (int g = 0; g < gateCount; g++)
                 t = "(" + t + " " + op + " s[" + (index + 1 + g) + "])";
+            return t;
+        }
+
+        /// <summary>The axis spelling: the gate is compared to zero so it
+        /// contributes one or nothing, never its own analog reading.</summary>
+        private static string AxisTerm(int index, int gateCount)
+        {
+            string t = "s[" + index + "]";
+            for (int g = 0; g < gateCount; g++)
+                t = "(" + t + " * (s[" + (index + 1 + g) + "] != 0))";
             return t;
         }
 

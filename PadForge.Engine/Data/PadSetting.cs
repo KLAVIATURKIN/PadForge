@@ -161,12 +161,12 @@ namespace PadForge.Engine.Data
         [XmlElement] public string RightThumbDeadZoneShape { get; set; } = "2";
 
         /// <summary>
-        /// Left stick anti-deadzone (0–100%). Offsets the output range minimum
-        /// so small physical movements register past the game's built-in deadzone.
+        /// Legacy unified left stick anti-deadzone (0-100%). Consumed during
+        /// migration into the per-axis X/Y properties.
         /// </summary>
         [XmlElement] public string LeftThumbAntiDeadZone { get; set; } = "0";
 
-        /// <summary>Right stick anti-deadzone (0–100%). Legacy unified property — use per-axis X/Y instead.</summary>
+        /// <summary>Legacy unified right stick anti-deadzone (0-100%). Consumed during migration into per-axis X/Y properties.</summary>
         [XmlElement] public string RightThumbAntiDeadZone { get; set; } = "0";
 
         /// <summary>Left stick anti-deadzone X axis (0–100%).</summary>
@@ -895,20 +895,22 @@ namespace PadForge.Engine.Data
         /// <summary>Gets an Extended mapping value by key (e.g., "RawAxis0", "RawBtn5").</summary>
         public string GetRawMapping(string key)
         {
-            EnsureRawMappingDict();
             // Under the lock: the poll thread reads (Step 3 raw eval) while
             // the UI thread writes (grid edits, tuning saves); a plain
             // Dictionary corrupts under concurrent read+write.
             lock (_rawDictLock)
+            {
+                EnsureRawMappingDict();
                 return _rawMappingDict.TryGetValue(key, out var val) ? val : "";
+            }
         }
 
         /// <summary>Sets a raw-surface mapping value by key.</summary>
         public void SetRawMapping(string key, string value)
         {
-            EnsureRawMappingDict();
             lock (_rawDictLock)
             {
+                EnsureRawMappingDict();
                 if (string.IsNullOrEmpty(value))
                     _rawMappingDict.Remove(key);
                 else
@@ -919,9 +921,9 @@ namespace PadForge.Engine.Data
         /// <summary>Flushes the Extended mapping dict back to the serializable array.</summary>
         public void FlushRawMappings()
         {
-            if (_rawMappingDict == null) return; // Not initialized — array is canonical.
             lock (_rawDictLock)
             {
+                if (_rawMappingDict == null) return; // The array is canonical until initialization.
                 if (_rawMappingDict.Count == 0)
                 {
                     RawMappingEntries = null;
@@ -983,16 +985,18 @@ namespace PadForge.Engine.Data
         // TryGetValue on the 1 kHz thread (round 34).
         public string GetMidiMapping(string key)
         {
-            EnsureMidiDict();
             lock (_midiDictLock)
+            {
+                EnsureMidiDict();
                 return _midiMappingDict.TryGetValue(key, out var val) ? val : "";
+            }
         }
 
         public void SetMidiMapping(string key, string value)
         {
-            EnsureMidiDict();
             lock (_midiDictLock)
             {
+                EnsureMidiDict();
                 if (string.IsNullOrEmpty(value))
                     _midiMappingDict.Remove(key);
                 else
@@ -1002,9 +1006,9 @@ namespace PadForge.Engine.Data
 
         public void FlushMidiMappings()
         {
-            if (_midiMappingDict == null) return; // Not initialized. Array is canonical.
             lock (_midiDictLock)
             {
+                if (_midiMappingDict == null) return; // Not initialized. Array is canonical.
                 if (_midiMappingDict.Count == 0)
                 {
                     MidiMappingEntries = null;
@@ -1056,16 +1060,18 @@ namespace PadForge.Engine.Data
 
         public string GetVrMapping(string key)
         {
-            EnsureVrDict();
             lock (_vrDictLock)
+            {
+                EnsureVrDict();
                 return _vrMappingDict.TryGetValue(key, out var val) ? val : "";
+            }
         }
 
         public void SetVrMapping(string key, string value)
         {
-            EnsureVrDict();
             lock (_vrDictLock)
             {
+                EnsureVrDict();
                 if (string.IsNullOrEmpty(value))
                     _vrMappingDict.Remove(key);
                 else
@@ -1075,9 +1081,9 @@ namespace PadForge.Engine.Data
 
         public void FlushVrMappings()
         {
-            if (_vrMappingDict == null) return; // Not initialized. Array is canonical.
             lock (_vrDictLock)
             {
+                if (_vrMappingDict == null) return; // Not initialized. Array is canonical.
                 if (_vrMappingDict.Count == 0)
                 {
                     VrMappingEntries = null;
@@ -1130,16 +1136,18 @@ namespace PadForge.Engine.Data
         // twins above (round 34).
         public string GetKbmMapping(string key)
         {
-            EnsureKbmDict();
             lock (_kbmDictLock)
+            {
+                EnsureKbmDict();
                 return _kbmMappingDict.TryGetValue(key, out var val) ? val : "";
+            }
         }
 
         public void SetKbmMapping(string key, string value)
         {
-            EnsureKbmDict();
             lock (_kbmDictLock)
             {
+                EnsureKbmDict();
                 if (string.IsNullOrEmpty(value))
                     _kbmMappingDict.Remove(key);
                 else
@@ -1149,9 +1157,9 @@ namespace PadForge.Engine.Data
 
         public void FlushKbmMappings()
         {
-            if (_kbmMappingDict == null) return;
             lock (_kbmDictLock)
             {
+                if (_kbmMappingDict == null) return;
                 if (_kbmMappingDict.Count == 0)
                 {
                     KbmMappingEntries = null;
@@ -1209,16 +1217,18 @@ namespace PadForge.Engine.Data
 
         public string GetMappingDeadZone(string key)
         {
-            EnsureMappingDeadZoneDict();
             lock (_mappingDeadZoneDictLock)
+            {
+                EnsureMappingDeadZoneDict();
                 return _mappingDeadZoneDict.TryGetValue(key, out var val) ? val : "";
+            }
         }
 
         public void SetMappingDeadZone(string key, string value)
         {
-            EnsureMappingDeadZoneDict();
             lock (_mappingDeadZoneDictLock)
             {
+                EnsureMappingDeadZoneDict();
                 if (string.IsNullOrEmpty(value) || value == "0" || value == "50")
                     _mappingDeadZoneDict.Remove(key);
                 else
@@ -1228,9 +1238,9 @@ namespace PadForge.Engine.Data
 
         public void FlushMappingDeadZones()
         {
-            if (_mappingDeadZoneDict == null) return;
             lock (_mappingDeadZoneDictLock)
             {
+                if (_mappingDeadZoneDict == null) return;
                 if (_mappingDeadZoneDict.Count == 0)
                 {
                     MappingDeadZoneEntries = null;
@@ -1290,16 +1300,18 @@ namespace PadForge.Engine.Data
 
         public string GetMappingBidirectional(string key)
         {
-            EnsureMappingBidirectionalDict();
             lock (_mappingBidirectionalDictLock)
+            {
+                EnsureMappingBidirectionalDict();
                 return _mappingBidirectionalDict.TryGetValue(key, out var val) ? val : "";
+            }
         }
 
         public void SetMappingBidirectional(string key, string value)
         {
-            EnsureMappingBidirectionalDict();
             lock (_mappingBidirectionalDictLock)
             {
+                EnsureMappingBidirectionalDict();
                 if (string.IsNullOrEmpty(value) || value == "0")
                     _mappingBidirectionalDict.Remove(key);
                 else
@@ -1309,9 +1321,9 @@ namespace PadForge.Engine.Data
 
         public void FlushMappingBidirectional()
         {
-            if (_mappingBidirectionalDict == null) return;
             lock (_mappingBidirectionalDictLock)
             {
+                if (_mappingBidirectionalDict == null) return;
                 if (_mappingBidirectionalDict.Count == 0)
                 {
                     MappingBidirectionalEntries = null;
@@ -1352,7 +1364,8 @@ namespace PadForge.Engine.Data
 
         /// <summary>
         /// Migrates legacy unified anti-deadzone values to per-axis properties.
-        /// Call after deserialization when loading old settings files.
+        /// Consumes the legacy values even when modern axis values take precedence.
+        /// Later edits to zero must survive repeated loads and view rebinding.
         /// </summary>
         public void MigrateAntiDeadZones()
         {
@@ -1368,6 +1381,8 @@ namespace PadForge.Engine.Data
                 RightThumbAntiDeadZoneX = RightThumbAntiDeadZone;
                 RightThumbAntiDeadZoneY = RightThumbAntiDeadZone;
             }
+            LeftThumbAntiDeadZone = "0";
+            RightThumbAntiDeadZone = "0";
         }
 
         /// <summary>
@@ -1622,38 +1637,47 @@ namespace PadForge.Engine.Data
             sb.Append(MotionAccel); sb.Append('|');
 
             // Extended custom mappings (sorted for deterministic checksum)
-            EnsureRawMappingDict();
-            if (_rawMappingDict.Count > 0)
+            lock (_rawDictLock)
             {
-                var keys = new List<string>(_rawMappingDict.Keys);
-                keys.Sort(StringComparer.Ordinal);
-                foreach (var key in keys)
+                EnsureRawMappingDict();
+                if (_rawMappingDict.Count > 0)
                 {
-                    sb.Append(key); sb.Append('='); sb.Append(_rawMappingDict[key]); sb.Append('|');
+                    var keys = new List<string>(_rawMappingDict.Keys);
+                    keys.Sort(StringComparer.Ordinal);
+                    foreach (var key in keys)
+                    {
+                        sb.Append(key); sb.Append('='); sb.Append(_rawMappingDict[key]); sb.Append('|');
+                    }
                 }
             }
 
             // MIDI custom mappings (sorted for deterministic checksum)
-            EnsureMidiDict();
-            if (_midiMappingDict.Count > 0)
+            lock (_midiDictLock)
             {
-                var midiKeys = new List<string>(_midiMappingDict.Keys);
-                midiKeys.Sort(StringComparer.Ordinal);
-                foreach (var key in midiKeys)
+                EnsureMidiDict();
+                if (_midiMappingDict.Count > 0)
                 {
-                    sb.Append(key); sb.Append('='); sb.Append(_midiMappingDict[key]); sb.Append('|');
+                    var midiKeys = new List<string>(_midiMappingDict.Keys);
+                    midiKeys.Sort(StringComparer.Ordinal);
+                    foreach (var key in midiKeys)
+                    {
+                        sb.Append(key); sb.Append('='); sb.Append(_midiMappingDict[key]); sb.Append('|');
+                    }
                 }
             }
 
             // KBM custom mappings (sorted for deterministic checksum)
-            EnsureKbmDict();
-            if (_kbmMappingDict.Count > 0)
+            lock (_kbmDictLock)
             {
-                var kbmKeys = new List<string>(_kbmMappingDict.Keys);
-                kbmKeys.Sort(StringComparer.Ordinal);
-                foreach (var key in kbmKeys)
+                EnsureKbmDict();
+                if (_kbmMappingDict.Count > 0)
                 {
-                    sb.Append(key); sb.Append('='); sb.Append(_kbmMappingDict[key]); sb.Append('|');
+                    var kbmKeys = new List<string>(_kbmMappingDict.Keys);
+                    kbmKeys.Sort(StringComparer.Ordinal);
+                    foreach (var key in kbmKeys)
+                    {
+                        sb.Append(key); sb.Append('='); sb.Append(_kbmMappingDict[key]); sb.Append('|');
+                    }
                 }
             }
 
@@ -1662,24 +1686,27 @@ namespace PadForge.Engine.Data
             // missing here lets two devices whose settings differ only in
             // that lane collapse into one stored object and the loser
             // silently adopts the survivor's rows on reload.
-            EnsureVrDict();
-            if (_vrMappingDict.Count > 0)
+            lock (_vrDictLock)
             {
-                var vrKeys = new List<string>(_vrMappingDict.Keys);
-                vrKeys.Sort(StringComparer.Ordinal);
-                foreach (var key in vrKeys)
+                EnsureVrDict();
+                if (_vrMappingDict.Count > 0)
                 {
-                    sb.Append(key); sb.Append('='); sb.Append(_vrMappingDict[key]); sb.Append('|');
+                    var vrKeys = new List<string>(_vrMappingDict.Keys);
+                    vrKeys.Sort(StringComparer.Ordinal);
+                    foreach (var key in vrKeys)
+                    {
+                        sb.Append(key); sb.Append('='); sb.Append(_vrMappingDict[key]); sb.Append('|');
+                    }
                 }
             }
 
             // Per-mapping deadzones (sorted for deterministic checksum)
-            EnsureMappingDeadZoneDict();
             // Under the dict's lock like every other access: this walks the
             // keys and indexes back into the dict, so a concurrent UI-thread
             // Set would otherwise invalidate the enumeration mid-checksum.
             lock (_mappingDeadZoneDictLock)
             {
+                EnsureMappingDeadZoneDict();
                 if (_mappingDeadZoneDict.Count > 0)
                 {
                     sb.Append("MDZ:");
@@ -1696,9 +1723,9 @@ namespace PadForge.Engine.Data
             // Without these in the checksum, two devices identical except for a
             // per-mapping Bidirectional flag collide on SaveToFile's dedup and
             // the dropped device inherits the survivor's flag.
-            EnsureMappingBidirectionalDict();
             lock (_mappingBidirectionalDictLock)
             {
+                EnsureMappingBidirectionalDict();
                 if (_mappingBidirectionalDict.Count > 0)
                 {
                     sb.Append("MBD:");
@@ -1884,24 +1911,18 @@ namespace PadForge.Engine.Data
             (_vrMappingDict != null && _vrMappingDict.Count > 0);
 
         /// <summary>
-        /// Clears all mapping descriptors (standard, Extended, MIDI, and KBM) plus the
-        /// per-mapping deadzone/bidirectional companions keyed by those target names,
-        /// while preserving stick deadzone, force feedback, and other non-mapping
-        /// configuration. Call before writing a new set of mappings to prevent stale
-        /// leftovers from a previous mapping layout (e.g., switching Xbox preset →
-        /// custom Extended).
+        /// Replaces standard, raw, MIDI, keyboard/mouse, and VR descriptors and
+        /// their deadzone/bidirectional companions. Preserves per-device tuning.
+        /// Each dictionary replacement shares its readers' operation lock.
         /// </summary>
-        /// <param name="seed">Optional final values, keyed by property name. When
-        /// supplied, each standard descriptor property is assigned its seeded value
-        /// (or "" when absent) in a SINGLE pass instead of being blanked for the
-        /// caller to refill. That matters because the ~1 kHz poll thread reads these
-        /// properties directly (InputManager.Step3.UpdateOutputStates reads ButtonA,
-        /// GetMappingDeadZone("ButtonA"), and the same triple for every target), so a
-        /// blank-then-refill leaves a window in which a tick sees empty descriptors
-        /// and drives the pad to neutral for that frame. Callers on a frequent path
-        /// MUST pass a seed. Callers that genuinely want everything cleared pass
-        /// null.</param>
-        public void ClearMappingDescriptors(IReadOnlyDictionary<string, string> seed = null)
+        /// <param name="seed">Final descriptor values keyed by target. Frequent
+        /// writers supply these values so polling never sees a temporary blank.
+        /// Omitted descriptors are cleared.</param>
+        /// <param name="deadZoneSeed">Final per-target deadzones. Default values are omitted.</param>
+        /// <param name="bidirectionalSeed">Final per-target bidirectional flags.</param>
+        public void ClearMappingDescriptors(IReadOnlyDictionary<string, string> seed = null,
+            IReadOnlyDictionary<string, string> deadZoneSeed = null,
+            IReadOnlyDictionary<string, string> bidirectionalSeed = null)
         {
             // Standard mapping properties. Assigned once each, from the seed when
             // the caller supplied one, so no property is ever transiently empty
@@ -1949,42 +1970,57 @@ namespace PadForge.Engine.Data
             TouchpadContact2 = V(nameof(TouchpadContact2));
             TouchpadClick = V(nameof(TouchpadClick));
 
-            // Extended mapping dict: clear only the input-routing descriptors and PRESERVE
-            // per-device tuning that shares this dict (steering Stick{g}Steer*, Extended
-            // stick/trigger deadzone/range/curve). Nulling the whole dict here destroyed a
-            // device's steering on every save that ran the descriptor-bleed cleanup (a
-            // device-switch flush): the steering keys vanished and read back as Direct on the
-            // next load. Stick deadzone/range live in named properties, which is why only
-            // steering (and Extended tuning) hit this.
-            if (_rawMappingDict != null
-                || (RawMappingEntries != null && RawMappingEntries.Length > 0))
+            // Raw descriptors share storage with device tuning. Copy that tuning
+            // before publishing the replacement descriptors under the same lock.
+            lock (_rawDictLock)
             {
                 EnsureRawMappingDict();
                 var preserved = new Dictionary<string, string>(StringComparer.Ordinal);
                 foreach (var kvp in _rawMappingDict)
                     if (IsPerDeviceTuningKey(kvp.Key))
                         preserved[kvp.Key] = kvp.Value;
+                foreach (var kvp in CopyMappingSeed(seed, "Raw"))
+                    preserved[kvp.Key] = kvp.Value;
                 _rawMappingDict = preserved;
+                RawMappingEntries = null;
             }
-            RawMappingEntries = null; // re-flushed from the dict on save
+            lock (_midiDictLock)
+            {
+                _midiMappingDict = CopyMappingSeed(seed, "Midi");
+                MidiMappingEntries = null;
+            }
+            lock (_kbmDictLock)
+            {
+                _kbmMappingDict = CopyMappingSeed(seed, "Kbm");
+                KbmMappingEntries = null;
+            }
+            lock (_vrDictLock)
+            {
+                _vrMappingDict = CopyMappingSeed(seed, "Vr");
+                VrMappingEntries = null;
+            }
+            lock (_mappingDeadZoneDictLock)
+            {
+                _mappingDeadZoneDict = CopyMappingSeed(deadZoneSeed, null, static value => value != "0" && value != "50");
+                MappingDeadZoneEntries = null;
+            }
+            lock (_mappingBidirectionalDictLock)
+            {
+                _mappingBidirectionalDict = CopyMappingSeed(bidirectionalSeed, null, static value => value != "0");
+                MappingBidirectionalEntries = null;
+            }
+        }
 
-            // MIDI/KBM/VR mapping dictionaries and arrays (no tuning shares these).
-            MidiMappingEntries = null;
-            _midiMappingDict = null;
-            KbmMappingEntries = null;
-            _kbmMappingDict = null;
-            VrMappingEntries = null;
-            _vrMappingDict = null;
-
-            // Per-mapping deadzone/bidirectional companions are keyed by the target
-            // names cleared above: entries for a previous layout would otherwise
-            // survive the switch and re-apply through MappingSetMigrator.BuildSource
-            // and the legacy runtime grid. The sole caller rewrites both for every
-            // current mapping right after this clear, so live values are safe.
-            MappingDeadZoneEntries = null;
-            _mappingDeadZoneDict = null;
-            MappingBidirectionalEntries = null;
-            _mappingBidirectionalDict = null;
+        private static Dictionary<string, string> CopyMappingSeed(IReadOnlyDictionary<string, string> seed,
+            string prefix, Func<string, bool> includeValue = null)
+        {
+            var result = new Dictionary<string, string>(StringComparer.Ordinal);
+            if (seed == null) return result;
+            foreach (var pair in seed)
+                if ((prefix == null || pair.Key.StartsWith(prefix, StringComparison.Ordinal))
+                    && !string.IsNullOrEmpty(pair.Value) && (includeValue == null || includeValue(pair.Value)))
+                    result[pair.Key] = pair.Value;
+            return result;
         }
 
         /// <summary>True for Extended-dict keys that are per-device TUNING (steering mode +
@@ -2499,9 +2535,9 @@ namespace PadForge.Engine.Data
                 dict["__MultiSourceRows"] = JsonSerializer.Serialize(DeviceScopedMultiSourceRows);
             }
 
-            // Whole-slot snapshot — preserves source DeviceGuids so multi-
-            // device slots survive Copy / Paste.
-            if (SlotMultiSourceRows != null && SlotMultiSourceRows.Count > 0)
+            // Whole-slot snapshots preserve source DeviceGuids. An empty list
+            // is an authored clear. Null means the payload has no whole-slot rows.
+            if (SlotMultiSourceRows != null)
             {
                 dict["__SlotRows"] = JsonSerializer.Serialize(SlotMultiSourceRows);
             }
@@ -2545,6 +2581,7 @@ namespace PadForge.Engine.Data
 
                 var ps = new PadSetting();
                 var type = typeof(PadSetting);
+                bool recognizedContent = false;
 
                 foreach (var kvp in dict)
                 {
@@ -2631,14 +2668,22 @@ namespace PadForge.Engine.Data
                             ps.SlotMacrosJson = kvp.Value;
                         else if (kvp.Key == "__SlotPerDeviceSettings")
                             ps.SlotPerDeviceSettingsJson = kvp.Value;
+                        else
+                            continue;
+                        recognizedContent = true;
                         continue;
                     }
                     var prop = type.GetProperty(kvp.Key);
-                    if (prop != null && prop.PropertyType == typeof(string) && prop.CanWrite)
+                    if (Array.IndexOf(CopyablePropertyNames, kvp.Key) >= 0
+                        && prop != null && prop.PropertyType == typeof(string) && prop.CanWrite)
+                    {
                         prop.SetValue(ps, kvp.Value ?? "");
+                        recognizedContent = true;
+                    }
                 }
 
-                return ps;
+                // Layout metadata alone carries no settings to apply.
+                return recognizedContent ? ps : null;
             }
             catch
             {
@@ -2828,23 +2873,35 @@ namespace PadForge.Engine.Data
             if (targetType is VirtualControllerType.Extended or VirtualControllerType.Nintendo
                 && targetIsExtended)
             {
-                RawMappingEntries = null;
-                _rawMappingDict = null;
+                lock (_rawDictLock)
+                {
+                    RawMappingEntries = null;
+                    _rawMappingDict = null;
+                }
             }
             else if (targetType == VirtualControllerType.Midi)
             {
-                MidiMappingEntries = null;
-                _midiMappingDict = null;
+                lock (_midiDictLock)
+                {
+                    MidiMappingEntries = null;
+                    _midiMappingDict = null;
+                }
             }
             else if (targetType == VirtualControllerType.KeyboardMouse)
             {
-                KbmMappingEntries = null;
-                _kbmMappingDict = null;
+                lock (_kbmDictLock)
+                {
+                    KbmMappingEntries = null;
+                    _kbmMappingDict = null;
+                }
             }
             else if (targetType == VirtualControllerType.Vr)
             {
-                VrMappingEntries = null;
-                _vrMappingDict = null;
+                lock (_vrDictLock)
+                {
+                    VrMappingEntries = null;
+                    _vrMappingDict = null;
+                }
             }
             else
             {
@@ -2915,18 +2972,36 @@ namespace PadForge.Engine.Data
             source.FlushMappingBidirectional();
 
             // Deep-copy arrays and invalidate our cached dictionaries.
-            RawMappingEntries = DeepCopyMappings(source.RawMappingEntries);
-            _rawMappingDict = null;
-            MidiMappingEntries = DeepCopyMappings(source.MidiMappingEntries);
-            _midiMappingDict = null;
-            KbmMappingEntries = DeepCopyMappings(source.KbmMappingEntries);
-            _kbmMappingDict = null;
-            VrMappingEntries = DeepCopyMappings(source.VrMappingEntries);
-            _vrMappingDict = null;
-            MappingDeadZoneEntries = DeepCopyMappings(source.MappingDeadZoneEntries);
-            _mappingDeadZoneDict = null;
-            MappingBidirectionalEntries = DeepCopyMappings(source.MappingBidirectionalEntries);
-            _mappingBidirectionalDict = null;
+            lock (_rawDictLock)
+            {
+                RawMappingEntries = DeepCopyMappings(source.RawMappingEntries);
+                _rawMappingDict = null;
+            }
+            lock (_midiDictLock)
+            {
+                MidiMappingEntries = DeepCopyMappings(source.MidiMappingEntries);
+                _midiMappingDict = null;
+            }
+            lock (_kbmDictLock)
+            {
+                KbmMappingEntries = DeepCopyMappings(source.KbmMappingEntries);
+                _kbmMappingDict = null;
+            }
+            lock (_vrDictLock)
+            {
+                VrMappingEntries = DeepCopyMappings(source.VrMappingEntries);
+                _vrMappingDict = null;
+            }
+            lock (_mappingDeadZoneDictLock)
+            {
+                MappingDeadZoneEntries = DeepCopyMappings(source.MappingDeadZoneEntries);
+                _mappingDeadZoneDict = null;
+            }
+            lock (_mappingBidirectionalDictLock)
+            {
+                MappingBidirectionalEntries = DeepCopyMappings(source.MappingBidirectionalEntries);
+                _mappingBidirectionalDict = null;
+            }
 
             // Touchpad gesture settings — typed per-(device, pad) entries.
             // Reflection-driven CopyablePropertyNames can't touch typed

@@ -536,7 +536,7 @@ namespace PadForge.Services
                 if (!IsWinUsbPackageTrusted(out string signer))
                 {
                     log($"WinUSB driver package is still untrusted (signer: {signer ?? "unknown"}); "
-                        + "Windows would refuse the install, so the DS3 stays on the inbox HID driver.");
+                        + $"Windows would refuse the install, so the {padLabel} stays on the inbox HID driver.");
                     _lastWinUsbFailure = "driver-untrusted";
                     return false;
                 }
@@ -581,14 +581,18 @@ namespace PadForge.Services
                         && now.All(n => n.Service.Equals("WINUSB", StringComparison.OrdinalIgnoreCase))
                         && HasActiveWinUsbInterface(pidToken.ToLowerInvariant()))
                     {
-                        log("DS3 bound to WinUSB.");
+                        log($"{padLabel} bound to WinUSB.");
                         return true;
                     }
                     Thread.Sleep(250);
                 }
-                var final = ListDs3UsbNodes();
+                // The pad this call is about, not the DualShock 3. Enumerating
+                // that family here reported no DualShock 3 node for a Navigation
+                // controller sitting on the cable, which is the wrong-pad
+                // diagnostic the shared enumeration was added to end.
+                var final = ListSonyUsbNodes(pidToken);
                 log("WinUSB bind did not land: "
-                    + (final.Count == 0 ? "no DS3 node present"
+                    + (final.Count == 0 ? $"no {padLabel} node present"
                         : string.Join(", ", final.Select(n => $"{n.InstanceId} on {(n.Service.Length == 0 ? "(no driver)" : n.Service)}"))));
                 return false;
             }
@@ -1676,7 +1680,11 @@ namespace PadForge.Services
             foreach (byte b in radioMacBigEndian) sb.Append(b.ToString("x2"));
             int rc = RegCreateKeyEx(HKLM, BthPortKeysKey + sb, 0, null, REG_OPTION_BACKUP_RESTORE,
                 KEY_READ | KEY_WRITE, IntPtr.Zero, out IntPtr hk, out _);
-            if (rc != 0) { log($"Opening the pairing-key store failed (rc={rc})."); return IntPtr.Zero; }
+            // Null-safe: the anchor probe passes no logger, and a bare call
+            // here threw on the one path that matters (a refused open), so a
+            // failed read surfaced as a null reference that aborted the dock's
+            // whole auto-pair instead of answering that there is no anchor.
+            if (rc != 0) { log?.Invoke($"Opening the pairing-key store failed (rc={rc})."); return IntPtr.Zero; }
             return hk;
         }
 

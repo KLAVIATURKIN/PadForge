@@ -480,6 +480,7 @@ namespace PadForge.Common.Input
         private readonly string[] _extendedPendingProductString = new string[MaxPads];
         private readonly CustomControllerLayout[] _extendedPendingLayout = new CustomControllerLayout[MaxPads];
         private readonly bool[] _extendedPendingFfbEnabled = new bool[MaxPads];
+        private readonly bool[] _extendedPendingCustomize = new bool[MaxPads];
         private readonly int[] _extendedPendingVendorId = new int[MaxPads];
         private readonly int[] _extendedPendingProductId = new int[MaxPads];
 
@@ -548,6 +549,7 @@ namespace PadForge.Common.Input
         /// descriptor with or without the PID block to match.
         /// </summary>
         private readonly bool[] _extendedAppliedFfbEnabled = new bool[MaxPads];
+        private readonly bool[] _extendedAppliedCustomize = new bool[MaxPads];
 
         /// <summary>Applied VID/PID snapshot per slot. Mismatch vs the desired
         /// SlotExtendedVendorId/ProductId triggers destroy + recreate so
@@ -932,7 +934,20 @@ namespace PadForge.Common.Input
         // slot blocks continuously for the whole window, because a changing
         // blocker resets the timer.
         private const long OrderWaitMaxMs = 45_000;
-        private readonly int[] _orderWaitBlocker = new int[MaxPads];
+        // Seeded to the not-blocked sentinel, not to zero. Zero is pad 0, a
+        // real blocker index, so a slot blocked by pad 0 read as already
+        // waiting on it, skipped the branch that stamps the start tick, and
+        // left the tick at zero, which the expiry test treats as never. The
+        // 45 second bound that breaks an ordering deadlock was off for that
+        // one case. Same shape as the FFB array's initializer above.
+        private readonly int[] _orderWaitBlocker = InitOrderWaitBlockers();
+
+        private static int[] InitOrderWaitBlockers()
+        {
+            var a = new int[MaxPads];
+            for (int i = 0; i < a.Length; i++) a[i] = -1;
+            return a;
+        }
         private readonly long[] _orderWaitSinceTick = new long[MaxPads];
 
         /// <summary>True when the visual-order wait has run its full window
@@ -1108,10 +1123,16 @@ namespace PadForge.Common.Input
                         asyncDispose: vc is HMaestroVirtualController or MidiVirtualController);
                     _virtualControllers[padIndex] = null;
                     _createFailed[padIndex] = false; // Type change — allow retry
-                    // The old profile slug belongs to the old category and is
-                    // not valid for the new one. Clear it so CreateVirtualController
-                    // falls back to the new category's default profile.
-                    SlotProfileIds[padIndex] = null;
+                    // A slug from the OLD category is not valid for the new one,
+                    // so it goes and the create falls back to the new category's
+                    // default. A slug that already belongs to the NEW category
+                    // stays: the profile-apply path publishes the type and the
+                    // slug together, and clearing it there built the slot on the
+                    // default and then tore it down and rebuilt it on the intended
+                    // profile, which on an Xbox-family device is two multi-second
+                    // drops the user sees as a reconnect.
+                    if (!ProfileBelongsToType(SlotProfileIds[padIndex], SlotControllerTypes[padIndex]))
+                        SlotProfileIds[padIndex] = null;
                     vc = null;
                 }
 
@@ -1931,6 +1952,18 @@ namespace PadForge.Common.Input
                                     _deckReportScratch);
                                 hmExt.SubmitRawReport(new ReadOnlySpan<byte>(_deckReportScratch, 0, valvePacker.Size));
                             }
+                            else if (ExtendedReportPacker.NeedsRawReport(layout))
+                            {
+                                // Past 32 buttons or one hat the fixed gamepad
+                                // state has nowhere to put the rest, so the
+                                // frame is packed against the descriptor this
+                                // slot's own build emitted and submitted raw.
+                                int packedLen = ExtendedReportPacker.Pack(
+                                    CombinedRawHidStates[padIndex], layout, _extendedReportScratch);
+                                if (packedLen > 0)
+                                    hmExt.SubmitPackedExtendedReport(
+                                        new ReadOnlySpan<byte>(_extendedReportScratch, 0, packedLen));
+                            }
                             else
                             hmExt.SubmitRawHidState(
                                 CombinedRawHidStates[padIndex],
@@ -1973,6 +2006,15 @@ namespace PadForge.Common.Input
                             // curves and deadzones never see it, and real
                             // output at or above the held level passes
                             // through unchanged.
+                            // Live frames only. Two paths arrive here with a
+                            // deliberately cleared output, and the hold turned both
+                            // back into a pushed stick: the disconnect transition
+                            // frame, which is the LAST submit before the wire
+                            // freezes for the whole grace period, and the focus
+                            // suspend edge plus its upkeep, which neutralize
+                            // precisely so the virtual pad reads at rest while the
+                            // engine is stopped.
+                            if (_slotInactiveCounter[padIndex] == 0 && !_focusSuspended)
                             {
                                 var kaSets = SettingsManager.SlotMappingSets;
                                 var kaMs = (kaSets != null && padIndex < kaSets.Length)
@@ -2332,6 +2374,26 @@ namespace PadForge.Common.Input
         /// ViewModel's ProfileId so the profile-picker dropdown shows the
         /// selected default immediately on slot create).
         /// </summary>
+        /// <summary>True when a catalog slug is one the given controller type
+        /// can actually be built from. An empty slug belongs to every type,
+        /// because the create resolves it to that type's default.</summary>
+        private static bool ProfileBelongsToType(string profileId, VirtualControllerType type)
+        {
+            if (string.IsNullOrEmpty(profileId)) return true;
+            var list = type switch
+            {
+                VirtualControllerType.Xbox => HMaestroProfileCatalog.XboxProfiles,
+                VirtualControllerType.PlayStation => HMaestroProfileCatalog.PlayStationProfiles,
+                VirtualControllerType.Nintendo => HMaestroProfileCatalog.NintendoProfiles,
+                VirtualControllerType.Extended => HMaestroProfileCatalog.ExtendedProfiles,
+                _ => null,
+            };
+            if (list == null) return false;
+            for (int i = 0; i < list.Count; i++)
+                if (string.Equals(list[i]?.Id, profileId, StringComparison.Ordinal)) return true;
+            return false;
+        }
+
         public static string GetDefaultProfileId(VirtualControllerType type) => type switch
         {
             VirtualControllerType.Xbox => DefaultXboxProfileId,
@@ -2508,6 +2570,15 @@ namespace PadForge.Common.Input
 
             HMProfile effectiveProfile = baseProfile;
 
+            // A profile with its own packer submits a fixed native frame, chosen
+            // by profile id in the submit path, so its descriptor is not derived
+            // from the layout counts and must not be rebuilt from them. Customize
+            // was rebuilding it anyway, which swapped the persona's descriptor
+            // for a generic one while the packer kept emitting the persona's
+            // bytes. Identity overrides still apply; only the descriptor rebuild
+            // is off the table here.
+            bool fixedWireFrame = ValveReportPackers.ForProfile(profileId) != null;
+
             if (type == VirtualControllerType.Extended && build.Customize)
             {
                 string userProductString = build.ProductString;
@@ -2527,6 +2598,7 @@ namespace PadForge.Common.Input
                 int profButtons = baseProfile.ButtonCount;
 
                 bool layoutOverrides =
+                    !fixedWireFrame &&
                     (userSticks > 0 || userTriggers > 0 || userPovs > 0 || userButtons > 0) &&
                     (userSticks != profSticks
                      || userTriggers != profTriggers
@@ -2551,7 +2623,7 @@ namespace PadForge.Common.Input
                 // descriptor was reused as-is, and a no-FFB catalog
                 // descriptor stayed no-FFB regardless of the toggle.
                 bool forceFeedbackEnabled = build.Ffb;
-                bool ffbOverrides = true;
+                bool ffbOverrides = !fixedWireFrame;
 
                 // VID/PID override (0 = use the profile's value). Counts as an
                 // override only when non-zero AND different from the base profile,
@@ -2595,9 +2667,28 @@ namespace PadForge.Common.Input
                             var descBuilder = new HidDescriptorBuilder().Joystick();
                             for (int s = 0; s < sticks; s++)
                                 descBuilder.AddStick(s == 0 ? "Left" : "Right", 16);
-                            for (int t = 0; t < triggers; t++)
+                            // The SDK's trigger allocator draws from a pool of
+                            // four usages (Rx, Ry, Slider, Dial) that the stick
+                            // allocator claims from first, and THROWS when the
+                            // pool runs out. A legal trigger-heavy layout (no
+                            // sticks and up to eight triggers) exhausted it, and
+                            // the catch below quietly ran the catalog profile
+                            // instead of the layout the user configured. The
+                            // extras take their own Generic Desktop usages,
+                            // which the SDK's role classifier claims none of, so
+                            // they arrive as plain axes and cannot steal the
+                            // left or right trigger role from the real ones.
+                            int pooledTriggers = System.Math.Min(triggers,
+                                System.Math.Max(0, 4 - System.Math.Max(0, sticks - 2) * 2));
+                            for (int t = 0; t < pooledTriggers; t++)
                                 descBuilder.AddTrigger(t == 0 ? "Left" : "Right", 16);
-                            if (povs > 0)
+                            for (int t = pooledTriggers; t < triggers; t++)
+                                descBuilder.AddAxis(ExtraTriggerAxis(t - pooledTriggers), 16, 0, 65535);
+                            // One hat per declared POV. A single AddHat left
+                            // three of a four-hat layout with no field at all,
+                            // so the grid offered POV rows the wire could never
+                            // carry.
+                            for (int h = 0; h < povs; h++)
                                 descBuilder.AddHat();
                             if (buttons > 0)
                                 descBuilder.AddButtons(buttons);
@@ -2608,9 +2699,18 @@ namespace PadForge.Common.Input
 
                         effectiveProfile = builder.Build();
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+                        // Fall back so one bad field does not cost the user the
+                        // whole slot, but SAY SO. The applied snapshot below
+                        // records the requested values either way, and the
+                        // rebuild gate compares against that snapshot, so a
+                        // silent fallback left the live descriptor on the catalog
+                        // profile with nothing to ever reconcile it: the card
+                        // showed a custom layout the device never had.
                         effectiveProfile = baseProfile;
+                        RaiseError($"Extended customization for pad {padIndex} could not be built; "
+                                   + $"the slot is running the catalog profile '{profileId}' instead.", ex);
                     }
                 }
                 else
@@ -2628,12 +2728,33 @@ namespace PadForge.Common.Input
             _extendedPendingProductString[padIndex] = build.ProductString ?? string.Empty;
             _extendedPendingLayout[padIndex] = build.Layout;
             _extendedPendingFfbEnabled[padIndex] = build.Ffb;
+            _extendedPendingCustomize[padIndex] = build.Customize;
             _extendedPendingVendorId[padIndex] = build.Vid;
             _extendedPendingProductId[padIndex] = build.Pid;
 
+            // The key anchors to this pad's position in its own family's order
+            // list, not to its pad index (rules b and c at the top of this
+            // file). Snapshot rather than walk the live list: this runs on the
+            // async connect task and the list is the UI thread's to mutate.
             return new HMaestroVirtualController(_hmaestroContext, effectiveProfile, type,
-                HMaestroVirtualController.IdentityKeyFor(padIndex, type));
+                HMaestroVirtualController.IdentityKeyForPad(padIndex, type,
+                    SettingsManager.SlotOrders.GetOrderSnapshotFor(type)));
         }
+
+        /// <summary>The usage a trigger past the SDK's four-slot pool is
+        /// declared on. Generic Desktop, and deliberately outside every usage
+        /// the SDK's role classifier names, so an extra trigger is addressable
+        /// by its own key and can never be reclassified as the left or right
+        /// trigger over a real one. Four is the most any legal layout needs:
+        /// eight triggers is only reachable with no sticks, and the pool
+        /// carries the first four.</summary>
+        private static HIDMaestro.HMAxis ExtraTriggerAxis(int index) => index switch
+        {
+            0 => HIDMaestro.HMAxis.Vbrx,
+            1 => HIDMaestro.HMAxis.Vbry,
+            2 => HIDMaestro.HMAxis.Vbrz,
+            _ => HIDMaestro.HMAxis.Vno,
+        };
 
         /// <summary>Copies the configuration a just-published HIDMaestro
         /// controller was built with into the applied arrays Pass 1 compares
@@ -2644,6 +2765,7 @@ namespace PadForge.Common.Input
             _extendedAppliedProductString[padIndex] = _extendedPendingProductString[padIndex];
             _extendedAppliedLayout[padIndex] = _extendedPendingLayout[padIndex];
             _extendedAppliedFfbEnabled[padIndex] = _extendedPendingFfbEnabled[padIndex];
+            _extendedAppliedCustomize[padIndex] = _extendedPendingCustomize[padIndex];
             _extendedAppliedVendorId[padIndex] = _extendedPendingVendorId[padIndex];
             _extendedAppliedProductId[padIndex] = _extendedPendingProductId[padIndex];
         }
@@ -2763,7 +2885,15 @@ namespace PadForge.Common.Input
                 || desired.Buttons != applied.Buttons
                 || SlotExtendedFfbEnabled[padIndex] != _extendedAppliedFfbEnabled[padIndex]
                 || SlotExtendedVendorId[padIndex] != _extendedAppliedVendorId[padIndex]
-                || SlotExtendedProductId[padIndex] != _extendedAppliedProductId[padIndex];
+                || SlotExtendedProductId[padIndex] != _extendedAppliedProductId[padIndex]
+                // The Customize flag decides whether the descriptor is the
+                // catalog profile's own or a generic build, so flipping it
+                // changes the wire. It had no applied counterpart, and the
+                // other eight values can be identical across the flip (they
+                // are pushed as Customize-gated defaults when it is off), so
+                // ticking or clearing the box moved nothing this compared and
+                // the live device kept whichever descriptor it was born with.
+                || SlotExtendedCustomize[padIndex] != _extendedAppliedCustomize[padIndex];
         }
 
         /// <summary>
@@ -2995,6 +3125,16 @@ namespace PadForge.Common.Input
                 var vc = reuseAtPosition[V];
                 if (vc == null) continue;
 
+                // A controller the placeholder skip above left in place still
+                // owns its pad index, and nothing cleared it in step 2. Writing
+                // over the pointer stranded it: no reference left to dispose it,
+                // so its kernel device stayed on the bus and its audio feed was
+                // never retired. Its own destination was an inactive position, so
+                // it is not needed there either. Retire it before taking the index.
+                var displaced = _virtualControllers[newPad];
+                if (displaced != null && !ReferenceEquals(displaced, vc))
+                    DestroyVirtualController(newPad, asyncDispose: true);
+
                 _virtualControllers[newPad] = vc;
                 _personaAudioFeeds[newPad] = reuseAudioAtPosition[V];
                 _extendedAppliedProductString[newPad] = stateExtendedAppliedProductString[V];
@@ -3225,6 +3365,7 @@ namespace PadForge.Common.Input
             _extendedAppliedProductString[padIndex] = null;
             _extendedAppliedLayout[padIndex] = default;
             _extendedAppliedFfbEnabled[padIndex] = false;
+            _extendedAppliedCustomize[padIndex] = false;
             _extendedAppliedVendorId[padIndex] = 0;
             _extendedAppliedProductId[padIndex] = 0;
 

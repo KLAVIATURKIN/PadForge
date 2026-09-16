@@ -200,7 +200,7 @@ namespace PadForge.Engine.RemoteLink
                 string peerLabel = trust?.ResolvePeerLabel(peerFpHex);
                 // Handshake-carried name is the authoritative fallback: the
                 // punch / code path never runs LAN discovery, so without it the
-                // peer's devices would show unlabelled.
+                // peer's devices would show unlabeled.
                 if (string.IsNullOrWhiteSpace(peerLabel)) peerLabel = peerMachineName;
                 if (!string.IsNullOrWhiteSpace(peerLabel))
                     info.Name = $"{info.Name} ({peerLabel})";
@@ -261,7 +261,7 @@ namespace PadForge.Engine.RemoteLink
         // device). Device rows are suffixed with the owning peer's name so a
         // consumer can tell "DualSense (Living Room PC)" from its own pad. That
         // name used to arrive ONLY via LAN discovery, so the punch / code path
-        // (no discovery) left every remote device unlabelled and the list read
+        // (no discovery) left every remote device unlabeled and the list read
         // as one undifferentiated pile (owner report 2026-08-11). Carrying it
         // in the handshake makes labeling independent of how the peer was
         // found. Same append-only guarantees: an old peer stops before it.
@@ -292,6 +292,16 @@ namespace PadForge.Engine.RemoteLink
         //    sdl_guid query parameter when it is empty, so a mapping report
         //    filed for a peer's pad was silently incomplete.
         private const byte DeviceListExtV7Magic = 0xE8;
+
+        // Eighth extension tail: one flag byte per device, bit 0 for the
+        // button set and bit 1 for the axis set, each set when that set is
+        // explicitly EMPTY. The v6 and v7 masks spell "dense" as a single 0
+        // byte, and an empty set had no other spelling, so a pad whose owner
+        // knows it has no sticks arrived on the consumer advertising all six,
+        // and the consumer's default profile auto-bound both of them. The flag
+        // rides its own tail rather than a reserved mask length so an older
+        // peer, which stops before it, is unaffected.
+        private const byte DeviceListExtV8Magic = 0xE9;
 
         // Shared by the handshake exchange AND the post-connect DeviceList sync (#138).
         // Each entry leads with the owner's STABLE slot, and caps now carry HasHaptic +
@@ -422,6 +432,20 @@ namespace PadForge.Engine.RemoteLink
                 WriteIndexMask(buf, devices[i].SupportedAxisIndices,
                     Math.Max(devices[i].RawAxisCount, devices[i].NumAxes));
                 WriteString(buf, devices[i].SdlGuid ?? "");
+            }
+
+            // v8 tail: which of those sets were empty on purpose.
+            buf.Add(DeviceListExtV8Magic);
+            for (int i = 0; i < count; i++)
+            {
+                byte empties = 0;
+                if (IsExplicitlyEmpty(devices[i].SupportedButtonIndices,
+                        Math.Max(devices[i].RawButtonCount, devices[i].NumButtons)))
+                    empties |= 1;
+                if (IsExplicitlyEmpty(devices[i].SupportedAxisIndices,
+                        Math.Max(devices[i].RawAxisCount, devices[i].NumAxes)))
+                    empties |= 2;
+                buf.Add(empties);
             }
             return buf.ToArray();
         }
@@ -674,6 +698,41 @@ namespace PadForge.Engine.RemoteLink
                         info.SupportedAxisIndices = null;
                         info.SdlGuid = null;
                     }
+                    v1ExtOk = false; // cursor unreliable: do not read v8
+                }
+            }
+
+            // v8 tail: the explicit-empty flags for the two sets above. Its own
+            // guard. An older peer stops before it, which leaves both sets
+            // reading dense exactly as they did before the tail existed.
+            if (v1ExtOk)
+            {
+                try
+                {
+                    if (o < data.Length && data[o] == DeviceListExtV8Magic)
+                    {
+                        o++;
+                        for (int i = 0; i < count; i++)
+                        {
+                            byte empties = data[o++];
+                            if ((empties & 1) != 0) list[i].SupportedButtonIndices = Array.Empty<int>();
+                            if ((empties & 2) != 0) list[i].SupportedAxisIndices = Array.Empty<int>();
+                        }
+                    }
+                }
+                catch
+                {
+                    // Undo a half-applied tail rather than leave a device
+                    // claiming it has no controls on the strength of a
+                    // truncated byte. Back to dense, which is what every peer
+                    // without this tail already gets.
+                    foreach (var info in list)
+                    {
+                        if (info.SupportedButtonIndices is { Length: 0 })
+                            info.SupportedButtonIndices = null;
+                        if (info.SupportedAxisIndices is { Length: 0 })
+                            info.SupportedAxisIndices = null;
+                    }
                 }
             }
             return list;
@@ -708,6 +767,16 @@ namespace PadForge.Engine.RemoteLink
             buf.Add((byte)maskLen);
             buf.AddRange(mask);
         }
+
+        /// <summary>True when a supported-index set says the device has NONE
+        /// of that control, rather than saying nothing (null) or saying it has
+        /// them all. WriteIndexMask spells all three as one 0 byte, so the v8
+        /// tail carries this bit to tell the first case from the other two.
+        /// A device whose dense count is zero is not "explicitly empty": empty
+        /// and dense agree there, and the flag would cost a byte to say
+        /// nothing.</summary>
+        private static bool IsExplicitlyEmpty(int[] idx, int dense)
+            => idx != null && idx.Length == 0 && dense > 0;
 
         private static int[] ReadIndexMask(byte[] data, ref int o) => ReadButtonMask(data, ref o);
 

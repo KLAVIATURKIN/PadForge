@@ -111,7 +111,8 @@ namespace PadForge.Common.Input
         /// <summary>Encodes <paramref name="fields"/> through
         /// <paramref name="profile"/>'s <c>extendedOutputReport</c> spec
         /// and writes the resulting bytes to the device at
-        /// <paramref name="devicePath"/>. Returns true on success.
+        /// <paramref name="devicePath"/>. Returns true after a local write or
+        /// relay acceptance. A deferred local write returns false.
         /// CRC32 footers (BT) are computed by the encoder; the caller
         /// supplies semantic fields, never byte offsets.</summary>
         public static bool Write(
@@ -146,15 +147,14 @@ namespace PadForge.Common.Input
                 // A peer:// path is never classified Bluetooth, so these are the only two
                 // ids the consumer encoder produces here — accept both or DS4 output is
                 // silently dropped on the owner (#138 F29).
-                if (packet.Length >= 2 && (packet[0] == 0x02 || packet[0] == 0x05))
-                    RemoteLinkOutputRouter.ShipSonyEffect(devicePath, packet.AsSpan(1));
-                return true; // handled remotely; no local write
+                return packet.Length >= 2 && (packet[0] == 0x02 || packet[0] == 0x05)
+                    && RemoteLinkOutputRouter.ShipSonyEffect(devicePath, packet.AsSpan(1));
             }
 
             // Sole-writer guard (#138): a remote game holds the output lease on this LOCAL
-            // shared DualSense/DS4 — skip the local write so the inbound relay is the sole
-            // writer. Report success so the pipeline doesn't treat the skip as a failure.
-            if (RemoteLinkOutputRouter.IsClaimedByPeer(devicePath)) return true;
+            // shared DualSense/DS4. Defer the local write and retain its pending
+            // transitions until the peer releases ownership.
+            if (RemoteLinkOutputRouter.IsClaimedByPeer(devicePath)) return false;
 
             if (!Ds5WriteTrace.Enabled || packet.Length <= 3)
                 return WriteRaw(devicePath, packet);

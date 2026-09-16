@@ -295,10 +295,8 @@ namespace PadForge.Common.Input
             return true;
         }
 
-        /// <summary>Returns the sphere to the player-color idle floor. The
-        /// lighting dispatcher calls this for PlayerNumber mode, whose color
-        /// authority is the identity floor (the shared color core returns
-        /// black for it; the DS4/DS5 paths apply identity elsewhere too).</summary>
+        /// <summary>Returns the sphere to the player-color idle floor after
+        /// the last active overlay or macro releases its color claim.</summary>
         public static bool ReleaseLedClaim(uint sdlInstanceId)
         {
             var svc = _current;

@@ -212,6 +212,7 @@ namespace PadForge.Common.Input
 
             // USB
             public IWavePlayer Player;
+            public EventHandler<StoppedEventArgs> PlayerStopped;
 
             // BT
             public IntPtr BtHandle = new IntPtr(-1);
@@ -235,7 +236,10 @@ namespace PadForge.Common.Input
             private readonly GCHandle[] _pin = new GCHandle[Slots];
             private readonly IntPtr[] _ev = new IntPtr[Slots];
             private readonly IntPtr[] _ol = new IntPtr[Slots];
+            private readonly IntPtr[] _handles = new IntPtr[Slots];
+            private readonly Action<IntPtr, IntPtr> _cancel;
             private int _next;
+            internal System.Threading.Tasks.Task Cleanup { get; private set; } = System.Threading.Tasks.Task.CompletedTask;
 
             // TrySend runs on the BT thread, Dispose on the worker: a send
             // already past the sink's Tx null-check could otherwise touch
@@ -244,8 +248,9 @@ namespace PadForge.Common.Input
             private readonly object _gate = new();
             private bool _disposed;
 
-            public BtWritePool(int reportSize)
+            public BtWritePool(int reportSize, Action<IntPtr, IntPtr> cancel = null)
             {
+                _cancel = cancel ?? ((handle, overlap) => NativeMethods.CancelIoEx(handle, overlap));
                 for (int i = 0; i < Slots; i++)
                 {
                     _buf[i] = new byte[reportSize];
@@ -277,6 +282,7 @@ namespace PadForge.Common.Input
                     for (int o = 0; o < OverlappedSize - 8; o += 8)
                         Marshal.WriteInt64(_ol[s], o, 0);
                     Marshal.WriteIntPtr(_ol[s], 24, _ev[s]);
+                    _handles[s] = handle;
 
                     if (!NativeMethods.WriteFileRaw(handle, _pin[s].AddrOfPinnedObject(),
                             (uint)len, IntPtr.Zero, _ol[s]))
@@ -293,7 +299,8 @@ namespace PadForge.Common.Input
                 }
             }
 
-            /// <summary>Caller must CancelIo the handle first.</summary>
+            /// <summary>Close send admission, cancel writes from any thread,
+            /// and retain each slot until its native completion arrives.</summary>
             public void Dispose()
             {
                 lock (_gate)
@@ -302,31 +309,49 @@ namespace PadForge.Common.Input
                     _disposed = true;
                     for (int i = 0; i < Slots; i++)
                     {
-                        // Free a slot only when its drain wait signaled: the kernel
-                        // keeps referencing the pinned buffer and native OVERLAPPED
-                        // until the canceled completion fires, so a slot whose
-                        // write is still in flight after 100 ms is deliberately
-                        // leaked (bounded, pathological-path-only) instead of
-                        // handing the BT stack freed memory to complete into.
-                        bool drained = true;
-                        if (_ev[i] != IntPtr.Zero)
-                            drained = NativeMethods.WaitForSingleObject(_ev[i], 100) == 0;
-                        if (!drained) { _ev[i] = IntPtr.Zero; _ol[i] = IntPtr.Zero; _pin[i] = default; continue; }
-                        if (_ev[i] != IntPtr.Zero)
-                        {
-                            NativeMethods.CloseHandle(_ev[i]);
-                            _ev[i] = IntPtr.Zero;
-                        }
-                        if (_ol[i] != IntPtr.Zero) { Marshal.FreeHGlobal(_ol[i]); _ol[i] = IntPtr.Zero; }
-                        if (_pin[i].IsAllocated) _pin[i].Free();
+                        if (_handles[i] != IntPtr.Zero && _handles[i] != new IntPtr(-1))
+                            _cancel(_handles[i], _ol[i]);
                     }
+                    var pending = new List<int>();
+                    for (int i = 0; i < Slots; i++)
+                    {
+                        if (_ev[i] == IntPtr.Zero || NativeMethods.WaitForSingleObject(_ev[i], 100) == 0)
+                            ReleaseSlot(i);
+                        else
+                            pending.Add(i);
+                    }
+                    if (pending.Count > 0)
+                        Cleanup = System.Threading.Tasks.Task.Run(() =>
+                        {
+                            // Handle closure can finish a cancellation after the
+                            // bounded drain. Keep storage owned until then.
+                            foreach (int slot in pending)
+                                if (NativeMethods.WaitForSingleObject(_ev[slot], uint.MaxValue) == 0)
+                                    lock (_gate) ReleaseSlot(slot);
+                        });
                 }
+            }
+
+            private void ReleaseSlot(int slot)
+            {
+                if (_ev[slot] != IntPtr.Zero) NativeMethods.CloseHandle(_ev[slot]);
+                _ev[slot] = IntPtr.Zero;
+                if (_ol[slot] != IntPtr.Zero) Marshal.FreeHGlobal(_ol[slot]);
+                _ol[slot] = IntPtr.Zero;
+                if (_pin[slot].IsAllocated) _pin[slot].Free();
+                _handles[slot] = IntPtr.Zero;
             }
         }
 
         private static readonly Dictionary<Guid, Sink> _sinks = new();
         private static Thread _btThread;
         private static Thread _workerThread;
+        internal static Action<Thread> AudioWorkerPassCompleted;
+        internal static Action<int> AudioRoutingNotified;
+        internal static TimeProvider AudioPacingClock = TimeProvider.System;
+        internal static Action<bool> AudioPacingBoundary;
+        private static bool IsCurrentAudioWorker(Thread worker)
+            => _running && ReferenceEquals(System.Threading.Volatile.Read(ref _workerThread), worker);
         private static readonly AutoResetEvent _workSignal = new(false);
         private static volatile bool _running;
 
@@ -351,13 +376,14 @@ namespace PadForge.Common.Input
         {
             public string EndpointId;
             public Guid Container;
-            public WasapiLoopbackCapture Cap;
+            public IWaveIn Cap;
             public volatile bool Dead;   // RecordingStopped fired; worker recreates
             public readonly float[] Ring = new float[RingFrames * 2];
             public long Write;           // total frames written (monotonic), under lock(Ring)
         }
 
         private static readonly Dictionary<string, CaptureEntry> _captures = new(StringComparer.Ordinal);
+        internal static Func<string, CaptureEntry> LoopbackCaptureFactory = StartCaptureEntry;
 
         /// <summary>Worker-only. Maintains one capture per distinct mirror
         /// source among passthrough-enabled sinks. A sink's MirrorSourceId of
@@ -365,11 +391,14 @@ namespace PadForge.Common.Input
         /// default change follows automatically (DSY-v2's validate cadence).
         /// Brief locks around state; all COM and capture start/stop happens
         /// unlocked so no other thread ever waits on device I/O.</summary>
-        private static void ReconcileCapturesOnWorker()
+        private static void ReconcileCapturesOnWorker(Thread worker)
         {
             List<Sink> mirrors;
             lock (_lock)
-                mirrors = _running ? _sinks.Values.Where(s => s.PassthroughOn).ToList() : new List<Sink>();
+            {
+                if (!IsCurrentAudioWorker(worker)) return;
+                mirrors = _sinks.Values.Where(s => s.PassthroughOn).ToList();
+            }
 
             string defaultId = "";
             try
@@ -391,6 +420,7 @@ namespace PadForge.Common.Input
             var drop = new List<CaptureEntry>();
             lock (_lock)
             {
+                if (!IsCurrentAudioWorker(worker)) return;
                 foreach (var kv in _captures.ToList())
                 {
                     if (wantedIds.Contains(kv.Key) && !kv.Value.Dead) continue;
@@ -404,14 +434,18 @@ namespace PadForge.Common.Input
             foreach (var id in wantedIds)
             {
                 bool have;
-                lock (_lock) have = _captures.ContainsKey(id);
+                lock (_lock)
+                {
+                    if (!IsCurrentAudioWorker(worker)) return;
+                    have = _captures.ContainsKey(id);
+                }
                 if (have) continue;
-                var entry = StartCaptureEntry(id);
+                var entry = LoopbackCaptureFactory(id);
                 if (entry == null) continue;
                 bool committed = false;
                 lock (_lock)
                 {
-                    if (_running && !_captures.ContainsKey(id)) { _captures[id] = entry; committed = true; }
+                    if (IsCurrentAudioWorker(worker) && !_captures.ContainsKey(id)) { _captures[id] = entry; committed = true; }
                 }
                 if (!committed) StopCaptureEntry(entry);
             }
@@ -420,6 +454,7 @@ namespace PadForge.Common.Input
             // endpoint, which must never feed back into itself.
             lock (_lock)
             {
+                if (!IsCurrentAudioWorker(worker)) return;
                 foreach (var s in _sinks.Values)
                 {
                     if (!s.PassthroughOn) { s.Capture = null; continue; }
@@ -444,40 +479,37 @@ namespace PadForge.Common.Input
                 {
                     return null;
                 }
-                var entry = new CaptureEntry
-                {
-                    EndpointId = endpointId,
-                    Container = GetEndpointContainerId(dev),
-                };
-                var cap = new WasapiLoopbackCapture(dev);
-                int srcRate = cap.WaveFormat.SampleRate;
-                int srcCh = cap.WaveFormat.Channels;
-                int bytesPerSample = cap.WaveFormat.BitsPerSample / 8;
-                bool isFloat = cap.WaveFormat.Encoding == WaveFormatEncoding.IeeeFloat;
-                double step = (double)srcRate / Rate;
+                return CreateCaptureEntry(endpointId, GetEndpointContainerId(dev), new WasapiLoopbackCapture(dev));
+            }
+            catch { return null; }
+        }
+
+        /// <summary>Takes ownership of a capture and wires its sample callback.
+        /// Unsupported formats and failed starts release the capture.</summary>
+        internal static CaptureEntry CreateCaptureEntry(string endpointId, Guid container, IWaveIn cap)
+        {
+            if (cap == null) return null;
+            bool started = false;
+            try
+            {
+                if (!CapturePcmFormat.TryCreate(cap.WaveFormat, out var format)) return null;
+                var entry = new CaptureEntry { EndpointId = endpointId, Container = container, Cap = cap };
+                double step = (double)format.SampleRate / Rate;
 
                 double pos = 0;
                 cap.DataAvailable += (s, e) =>
                 {
                     // Convert to 48 kHz stereo float and append to the ring.
-                    int srcFrames = e.BytesRecorded / (bytesPerSample * srcCh);
+                    int srcFrames = e.BytesRecorded / format.BlockAlign;
                     if (srcFrames <= 0) return;
                     lock (entry.Ring)
                     {
                         for (; pos < srcFrames; pos += step)
                         {
                             int f = (int)pos;
-                            float l, r;
-                            if (isFloat)
-                            {
-                                l = BitConverter.ToSingle(e.Buffer, (f * srcCh + 0) * 4);
-                                r = srcCh > 1 ? BitConverter.ToSingle(e.Buffer, (f * srcCh + 1) * 4) : l;
-                            }
-                            else // 16-bit PCM
-                            {
-                                l = BitConverter.ToInt16(e.Buffer, (f * srcCh + 0) * 2) / 32768f;
-                                r = srcCh > 1 ? BitConverter.ToInt16(e.Buffer, (f * srcCh + 1) * 2) / 32768f : l;
-                            }
+                            int offset = f * format.BlockAlign;
+                            float l = format.Read(e.Buffer, offset);
+                            float r = format.Channels > 1 ? format.Read(e.Buffer, offset + format.BytesPerSample) : l;
                             long idx = (entry.Write % RingFrames) * 2;
                             entry.Ring[idx] = l;
                             entry.Ring[idx + 1] = r;
@@ -488,12 +520,16 @@ namespace PadForge.Common.Input
                 };
                 cap.RecordingStopped += (s, e) => entry.Dead = true; // worker recreates
                 cap.StartRecording();
-                entry.Cap = cap;
+                started = true;
                 return entry;
             }
             catch
             {
                 return null;
+            }
+            finally
+            {
+                if (!started) { try { cap.Dispose(); } catch { } }
             }
         }
 
@@ -707,16 +743,16 @@ namespace PadForge.Common.Input
         /// (E_INVALIDARG — the DS5 endpoint is extensible float 48k 4ch),
         /// and NAudio's ISampleProvider Init path refuses extensible-float,
         /// so the float→byte hop happens here.</summary>
-        /// <summary>Device's configured AudioOutputPath as an int
+        /// <summary>Owning slot and device's configured AudioOutputPath as an int
         /// (DeviceSlotConfig enum: 0 Automatic .. 4 SpeakerOnly).
         /// Wired by InputService; null / throw resolves 0.</summary>
-        internal static Func<Guid, int> DeviceAudioOutputPathProvider;
+        internal static Func<int, Guid, int> DeviceAudioOutputPathProvider;
 
-        /// <summary>Device's configured DualSense BT audio buffer length.
+        /// <summary>Owning slot and device's configured DualSense BT audio buffer length.
         /// Wired by InputService. A null provider or a throw resolves to
         /// <see cref="Ds5AudioBufferLengthDefault"/>, so a missing wire
         /// cannot change what goes on the wire.</summary>
-        internal static Func<Guid, int> DeviceAudioBufferLengthProvider;
+        internal static Func<int, Guid, int> DeviceAudioBufferLengthProvider;
 
         /// <summary>The shipped default, and the reference implementation's
         /// own (DS5Dongle src/config.cpp:100 falls back to 48).
@@ -755,11 +791,11 @@ namespace PadForge.Common.Input
 
         /// <summary>The buffer-length byte to put in this device's packet
         /// 0x11 header.</summary>
-        private static byte ResolveAudioBufferLength(Guid deviceGuid)
+        private static byte ResolveAudioBufferLength(int slot, Guid deviceGuid)
         {
             try
             {
-                int v = DeviceAudioBufferLengthProvider?.Invoke(deviceGuid)
+                int v = DeviceAudioBufferLengthProvider?.Invoke(slot, deviceGuid)
                         ?? Ds5AudioBufferLengthDefault;
                 return ClampAudioBufferLength(v);
             }
@@ -851,14 +887,18 @@ namespace PadForge.Common.Input
             public IntPtr Handle = IntPtr.Zero;
             public string Path;
             public bool IsBt;
-            /// <summary>The open never succeeded, so no thread is running
-            /// behind this entry. It stays registered anyway, as the record
-            /// that this (path, transport) was tried.</summary>
+            /// <summary>The last open failed. Keep the entry until the retry
+            /// deadline so repeated reconciliation does not spin up readers.</summary>
             public volatile bool OpenFailed;
+            public long RetryAfterTick;
+            public bool ReportOpenFailure = true;
+            public System.Threading.Tasks.Task Cancellation = System.Threading.Tasks.Task.CompletedTask;
         }
 
+        private const long JackWatchRetryMs = 5000;
         private static readonly object _jackLock = new();
         private static readonly Dictionary<Guid, JackWatch> _jackWatch = new();
+        internal static Action<Guid, bool, byte[], int> JackWatchReadBoundary;
 
         /// <summary>True while a persona lane already reads this pad's status
         /// byte, so the sink-owned watch stays out of its way.</summary>
@@ -876,16 +916,19 @@ namespace PadForge.Common.Input
             if (PersonaCoversJack(pad)) { StopJackWatch(pad); return; }
             lock (_jackLock)
             {
+                bool repeatedFailure = false;
                 if (_jackWatch.TryGetValue(pad, out var cur))
                 {
-                    // Same pad on the same path and transport: nothing to do.
-                    // A transport flip (BT <-> USB re-pair) changes the report
-                    // framing AND the byte offset, so that one restarts.
+                    // Keep a healthy reader. A failed open retries after its
+                    // deadline. A changed path or transport restarts immediately.
                     if (cur.IsBt == isBt && string.Equals(cur.Path, hidPath, StringComparison.OrdinalIgnoreCase))
-                        return;
+                    {
+                        if (!cur.OpenFailed || Environment.TickCount64 < cur.RetryAfterTick) return;
+                        repeatedFailure = true;
+                    }
                     StopJackWatch_NoLock(pad);
                 }
-                var w = new JackWatch { Path = hidPath, IsBt = isBt };
+                var w = new JackWatch { Path = hidPath, IsBt = isBt, ReportOpenFailure = !repeatedFailure };
                 var th = new System.Threading.Thread(() => JackWatchLoop(w, pad))
                 { IsBackground = true, Name = "PadForge.JackWatch" };
                 w.Thread = th;
@@ -904,12 +947,26 @@ namespace PadForge.Common.Input
             if (!_jackWatch.TryGetValue(pad, out var w)) return;
             _jackWatch.Remove(pad);
             w.Stop = true;
-            // Close the handle to break the blocking read. The loop owns no
-            // other exit: ReadFileSync parks until a report arrives, and an
-            // idle pad can be quiet for a long time.
+            // The reader owns its handle through the final read and close.
+            // Cancel without invalidating a handle it can still use.
             var h = w.Handle;
-            w.Handle = IntPtr.Zero;
-            if (h != IntPtr.Zero && h != new IntPtr(-1)) NativeMethods.CloseHandle(h);
+            if (h == IntPtr.Zero || h == new IntPtr(-1)) return;
+            NativeMethods.CancelIoEx(h, IntPtr.Zero);
+            w.Cancellation = System.Threading.Tasks.Task.Run(() =>
+            {
+                // Stop can land after the loop's guard but before ReadFile.
+                // Repeat cancellation until that reader drains. The same lock
+                // protects the reader's close, so a reused handle is never canceled.
+                while (w.Thread?.IsAlive == true)
+                {
+                    lock (_jackLock)
+                    {
+                        if (w.Handle == IntPtr.Zero) return;
+                        NativeMethods.CancelIoEx(w.Handle, IntPtr.Zero);
+                    }
+                    if (w.Thread.Join(25)) return;
+                }
+            });
         }
 
         /// <summary>Reads the pad's input report and notes the
@@ -926,17 +983,17 @@ namespace PadForge.Common.Input
             IntPtr h = NativeMethods.OpenHidSync(w.Path);
             if (h == IntPtr.Zero || h == new IntPtr(-1))
             {
-                Engine.SdlDiagLog.WriteLine("JACKWATCH open FAILED bt=" + w.IsBt);
-                // Stay in the registry and mark the entry dead. Removing it
-                // here made EnsureJackWatch see no entry on the next 5 s
-                // reconcile and start another thread that failed the same way,
-                // forever, one FAILED line each. The entry now stands as the
-                // record that this path and transport were tried, so a retry
-                // costs a genuine change (a re-pair, a transport flip) rather
-                // than the clock. Shutdown and the stale sweep still drain it.
+                if (w.ReportOpenFailure)
+                    Engine.SdlDiagLog.WriteLine("JACKWATCH open FAILED bt=" + w.IsBt);
+                // Retain the deadline and failure history for this path. A
+                // transient open failure must not disable jack detection until
+                // the next transport change or engine restart.
                 lock (_jackLock)
                     if (_jackWatch.TryGetValue(pad, out var cur) && ReferenceEquals(cur, w))
+                    {
+                        cur.RetryAfterTick = Environment.TickCount64 + JackWatchRetryMs;
                         cur.OpenFailed = true;
+                    }
                 return;
             }
             lock (_jackLock)
@@ -954,7 +1011,10 @@ namespace PadForge.Common.Input
             {
                 while (!w.Stop)
                 {
-                    if (!NativeMethods.ReadFileSync(h, report, report.Length, out int got) || got < need)
+                    JackWatchReadBoundary?.Invoke(pad, true, report, 0);
+                    bool read = NativeMethods.ReadFileSync(h, report, report.Length, out int got);
+                    JackWatchReadBoundary?.Invoke(pad, false, report, got);
+                    if (!read || got < need)
                     {
                         if (w.Stop) break;
                         System.Threading.Thread.Sleep(50);
@@ -962,10 +1022,20 @@ namespace PadForge.Common.Input
                     }
                     if (report[0] != wantId) continue;
                     bool plugged = (report[bitByte] & 0x01) != 0;
-                    if (!haveLast || plugged != last)
+                    bool changed;
+                    lock (_jackLock)
                     {
-                        haveLast = true; last = plugged;
-                        NoteHeadphoneJack(pad, plugged);
+                        if (w.Stop || !_jackWatch.TryGetValue(pad, out var current)
+                            || !ReferenceEquals(current, w)) break;
+                        changed = !haveLast || plugged != last;
+                        if (changed)
+                        {
+                            haveLast = true; last = plugged;
+                            NoteHeadphoneJack(pad, plugged);
+                        }
+                    }
+                    if (changed)
+                    {
                         // The resolver + the dispatcher's change gating turn
                         // this into the route re-arm.
                         UserEffectsDispatcher.NotifySoundRoutingChanged(SlotOfDevice(pad));
@@ -980,9 +1050,8 @@ namespace PadForge.Common.Input
                 {
                     if (_jackWatch.TryGetValue(pad, out var cur) && ReferenceEquals(cur, w))
                         _jackWatch.Remove(pad);
-                    var own = w.Handle;
                     w.Handle = IntPtr.Zero;
-                    if (own != IntPtr.Zero && own != new IntPtr(-1)) NativeMethods.CloseHandle(own);
+                    NativeMethods.CloseHandle(h);
                 }
             }
         }
@@ -1037,16 +1106,18 @@ namespace PadForge.Common.Input
             private float[] _pull = new float[4096];
             private float[] _frames = new float[8192];
 
-            public UsbFrameProvider(ISampleProvider src, WaveFormat endpointFormat, Guid deviceGuid = default)
+            public UsbFrameProvider(ISampleProvider src, WaveFormat endpointFormat, Sink sink)
             {
                 _src = src;
                 WaveFormat = endpointFormat;
                 _outChannels = endpointFormat.Channels;
-                _deviceGuid = deviceGuid;
+                _deviceGuid = sink.DeviceGuid;
+                _sink = sink;
             }
 
             public WaveFormat WaveFormat { get; }
             private readonly Guid _deviceGuid;
+            private readonly Sink _sink;
             private short[] _haptic = Array.Empty<short>();
 
             public int Read(byte[] buffer, int offset, int count)
@@ -1068,19 +1139,15 @@ namespace PadForge.Common.Input
                 if (haveHaptics)
                 {
                     if (_haptic.Length < frames * 2) _haptic = new short[frames * 2];
-                    // Read through the CAPTURED ring, never re-index. This
-                    // runs on NAudio's WASAPI render thread while
-                    // RetirePersonaFeed can TryRemove the same key; the
-                    // indexer's KeyNotFoundException would kill the render
-                    // thread outright, and SinkAlive treats a non-null
-                    // Player as healthy, so the reconcile never rebuilt it.
+                    // Keep the captured ring while its producer retires it.
+                    // Re-indexing after removal can abort the render thread.
                     hring.ReadFrames(_haptic, frames);
                 }
 
-                // Resolve the device's output path once per Read (the
-                // provider walks a small config map; ~100 calls/s).
+                // A live transport can move to another slot without a rebuild.
+                // Read its current owner for each output block.
                 int outPath = 0;
-                try { outPath = DeviceAudioOutputPathProvider?.Invoke(_deviceGuid) ?? 0; }
+                try { outPath = DeviceAudioOutputPathProvider?.Invoke(_sink.Slot, _deviceGuid) ?? 0; }
                 catch { }
 
                 for (int f = 0; f < frames; f++)
@@ -1261,6 +1328,23 @@ namespace PadForge.Common.Input
         // renders it to the real pad speaker through the existing Sink transport.
         private static readonly System.Collections.Concurrent.ConcurrentDictionary<Guid, RemoteAudioRing> _remoteRings = new();
         private static readonly System.Collections.Concurrent.ConcurrentDictionary<Guid, long> _remoteAudioDemand = new();
+        private static readonly object _remoteAudioGate = new();
+        internal static Action<Guid> RemoteAudioExpiring;
+
+        internal static bool TryExpireRemoteAudio(Guid deviceGuid, long observed, long now)
+        {
+            if (now - observed <= 2000) return false;
+            lock (_remoteAudioGate)
+            {
+                if (((ICollection<KeyValuePair<Guid, long>>)_remoteAudioDemand)
+                    .Remove(new KeyValuePair<Guid, long>(deviceGuid, observed)))
+                {
+                    RemoteAudioExpiring?.Invoke(deviceGuid);
+                    _remoteRings.TryRemove(deviceGuid, out _);
+                }
+            }
+            return true;
+        }
 
         // Owner-side diagnostics (#138 audio): blocks the ring received vs. audible
         // frames the device transport actually pulled. Surfaced in the SNAP line so an
@@ -1278,10 +1362,14 @@ namespace PadForge.Common.Input
         {
             if (s16StereoPcm == null || s16StereoPcm.Length < 4) return;
             System.Threading.Interlocked.Increment(ref _remoteAudioRxBlocks);
-            var ring = _remoteRings.GetOrAdd(physicalDeviceGuid, _ => new RemoteAudioRing());
-            ring.WriteS16(s16StereoPcm);
-            bool isNew = !_remoteAudioDemand.ContainsKey(physicalDeviceGuid);
-            _remoteAudioDemand[physicalDeviceGuid] = Environment.TickCount64;
+            bool isNew;
+            lock (_remoteAudioGate)
+            {
+                var ring = _remoteRings.GetOrAdd(physicalDeviceGuid, _ => new RemoteAudioRing());
+                ring.WriteS16(s16StereoPcm);
+                isNew = !_remoteAudioDemand.ContainsKey(physicalDeviceGuid);
+                _remoteAudioDemand[physicalDeviceGuid] = Environment.TickCount64;
+            }
             if (isNew)
             {
                 lock (_lock) EnsureThreads_NoLock();
@@ -1483,8 +1571,10 @@ namespace PadForge.Common.Input
             public volatile bool UsbJackStop;
             public Guid UsbJackPadGuid;
             public IntPtr UsbJackHandle;
+            public PersonaReader UsbJackReader;
             public volatile bool BtMicStop;
             public IntPtr BtMicHandle;
+            public PersonaReader BtMicReader;
             /// <summary>The pad whose Bluetooth mic this feed decodes
             /// (Guid.Empty when none). Held in an immutable box behind a
             /// volatile reference: the cross-feed helpers
@@ -1522,13 +1612,8 @@ namespace PadForge.Common.Input
             public int UsbJackGenBox;
             public int BtMicGenBox;
 
-            // Serializes the two HID reader lanes' start/stop/publish/close.
-            // The generation gate alone decides OWNERSHIP but cannot make the
-            // handle steal atomic: two concurrent Stop callers (reconcile
-            // pass vs RetirePersonaFeed at shutdown) could both snapshot the
-            // same handle before either zeroed the field and close it twice,
-            // the handle-recycle defect class. No Stop joins a reader thread,
-            // so nothing can deadlock on this. Blocking reads stay OUTSIDE.
+            // Serializes lane starts, retirement, and handle publication.
+            // Readers own handle closure. Blocking reads stay outside this lock.
             public readonly object HidLaneLock = new object();
             // Set by RetirePersonaFeed before its Stops: a reconcile pass
             // holding this feed from before the removal must not Start a new
@@ -1889,10 +1974,11 @@ namespace PadForge.Common.Input
         /// callback never walks settings. Also starts/moves the mic
         /// capture to the first USB pad in the set.</summary>
         internal static void RefreshPersonaTargets(PersonaFeed feed, int slot, int generation,
-            List<(Guid Guid, string Path, bool IsBt, bool IsDs4)> pads)
+            List<(Guid Guid, string Path, bool IsBt, bool IsDs4)> pads, Thread audioWorker = null)
         {
             lock (_personaIoGate)
             {
+                if (audioWorker != null && !IsCurrentAudioWorker(audioWorker)) return;
                 DrainRetiredPersonaFeeds();
                 if (!IsCurrentPersonaFeed(feed, slot, generation)) return;
                 if (feed.NativeRouteGeneration != generation)
@@ -1979,13 +2065,63 @@ namespace PadForge.Common.Input
             }
         }
 
-        /// <summary>Start the BT DualSense mic reader: a second synchronous
-        /// HID handle on the pad, filtering input report 0x31 for the
-        /// HasMic bit and Opus-decoding the fixed 71-byte mono packet at
-        /// [3..73] (48 kHz, 480 samples, 10 ms). The composite's capture
-        /// endpoint is stereo, so the mono decode is duplicated. The mic
-        /// OPEN command itself is sent by the BT tick (ManageDs5MicOpen)
-        /// through the sink's writer, keeping one write lane.</summary>
+        internal sealed class PersonaReader
+        {
+            public readonly object Gate = new();
+            public System.Threading.Thread Thread;
+            public IntPtr Handle;
+            public System.Threading.Tasks.Task Cancellation = System.Threading.Tasks.Task.CompletedTask;
+        }
+
+        private static void CancelPersonaReader(PersonaReader reader)
+        {
+            if (reader == null) return;
+            lock (reader.Gate)
+                if (reader.Handle != IntPtr.Zero) NativeMethods.CancelIoEx(reader.Handle, IntPtr.Zero);
+            reader.Cancellation = System.Threading.Tasks.Task.Run(() =>
+            {
+                // Also cancel a read admitted just after the first request.
+                // This gate is separate from the lane's stop/write gate.
+                while (reader.Thread.IsAlive)
+                {
+                    lock (reader.Gate)
+                    {
+                        if (reader.Handle == IntPtr.Zero) return;
+                        NativeMethods.CancelIoEx(reader.Handle, IntPtr.Zero);
+                    }
+                    if (reader.Thread.Join(25)) return;
+                }
+            });
+        }
+
+        private static void ClosePersonaReader(PersonaFeed feed, PersonaReader reader, bool bluetooth)
+        {
+            lock (feed.HidLaneLock)
+            {
+                if (bluetooth && ReferenceEquals(feed.BtMicReader, reader))
+                {
+                    feed.BtMicReader = null;
+                    feed.BtMicHandle = IntPtr.Zero;
+                }
+                else if (!bluetooth && ReferenceEquals(feed.UsbJackReader, reader))
+                {
+                    feed.UsbJackReader = null;
+                    feed.UsbJackHandle = IntPtr.Zero;
+                }
+                lock (reader.Gate)
+                {
+                    var handle = reader.Handle;
+                    reader.Handle = IntPtr.Zero;
+                    if (handle != IntPtr.Zero) NativeMethods.CloseHandle(handle);
+                }
+            }
+        }
+
+        internal static Action<PersonaFeed, bool> PersonaReaderOpening;
+        internal static Action<PersonaFeed, bool, bool, byte[], int> PersonaReadBoundary;
+
+        /// <summary>Start a synchronous reader for microphone input reports.
+        /// The BT tick sends the open command through the sink's writer.</summary>
         private static void StartBtMic(PersonaFeed feed, Guid padGuid, string hidPath, int generation)
         {
           lock (feed.HidLaneLock)
@@ -2029,26 +2165,17 @@ namespace PadForge.Common.Input
         {
             lock (feed.HidLaneLock)
             {
-                if (feed.UsbJackThread == null) { feed.UsbJackPadGuid = Guid.Empty; return; }
                 // Retire the generation FIRST: a Start racing this Stop resets
                 // UsbJackStop, and only the generation can still tell the old
                 // loop that it no longer owns the lane.
                 feed.UsbJackGen = 0;
                 feed.UsbJackStop = true;
-                // CANCEL, never close. THE READER OWNS ITS HANDLE. Closing
-                // here raced the reader's own blocking read: the loop can
-                // pass its generation check, be preempted before entering
-                // ReadFile, and resume after this close, at which point the
-                // numeric handle value may already belong to something else
-                // entirely and the retired reader reads THAT. The generation
-                // gate stops a second CLOSE but cannot stop stale I/O.
-                // CancelIoEx unblocks the pending read without invalidating
-                // the handle, the reader sees the retired generation and
-                // exits, and its epilogue does the one close.
-                var h = feed.UsbJackHandle;
-                if (h != IntPtr.Zero) NativeMethods.CancelIoEx(h, IntPtr.Zero);
+                var reader = feed.UsbJackReader;
+                feed.UsbJackReader = null;
+                feed.UsbJackHandle = IntPtr.Zero;
                 feed.UsbJackThread = null;
                 feed.UsbJackPadGuid = Guid.Empty;
+                CancelPersonaReader(reader);
             }
         }
 
@@ -2059,6 +2186,7 @@ namespace PadForge.Common.Input
         /// single-writer contract.</summary>
         private static void UsbJackLoop(PersonaFeed feed, string hidPath, int gen, int generation)
         {
+            PersonaReaderOpening?.Invoke(feed, false);
             IntPtr h = NativeMethods.OpenHidSync(hidPath);
             if (h == IntPtr.Zero || h == new IntPtr(-1))
             {
@@ -2070,60 +2198,64 @@ namespace PadForge.Common.Input
             // newer reader; close our own and leave instead. Check-then-
             // publish is atomic under the lane lock, so a Stop can no longer
             // slip between the check and the publish and miss this handle.
+            var reader = new PersonaReader { Thread = System.Threading.Thread.CurrentThread, Handle = h };
+            Guid padGuid;
             lock (feed.HidLaneLock)
             {
                 if (feed.Retired || feed.RouteGeneration != generation || feed.UsbJackGen != gen) { NativeMethods.CloseHandle(h); return; }
                 feed.UsbJackHandle = h;
+                feed.UsbJackReader = reader;
+                padGuid = feed.UsbJackPadGuid;
             }
-            var report = new byte[64];
-            bool haveLast = false; bool last = false;
-            // Read through the LOCAL handle throughout: the shared field
-            // belongs to whichever generation currently owns the lane.
-            while (!feed.Retired && feed.RouteGeneration == generation && !feed.UsbJackStop && feed.UsbJackGen == gen)
+            try
             {
-                if (!NativeMethods.ReadFileSync(h, report, report.Length, out int got) || got < 55)
+                var report = new byte[64];
+                bool haveLast = false; bool last = false;
+                // Read through the LOCAL handle throughout: the shared field
+                // belongs to whichever generation currently owns the lane.
+                while (!feed.Retired && feed.RouteGeneration == generation && !feed.UsbJackStop && feed.UsbJackGen == gen)
                 {
-                    if (feed.UsbJackStop || feed.UsbJackGen != gen) break;
-                    System.Threading.Thread.Sleep(50);
-                    continue;
-                }
-                if (report[0] != 0x01) continue;
-                bool plugged = (report[54] & 0x01) != 0;
-                if (!haveLast || plugged != last)
-                {
-                    haveLast = true; last = plugged;
-                    NoteHeadphoneJack(feed.UsbJackPadGuid, plugged);
-                    Engine.SdlDiagLog.WriteLine("PERSONA jack usb plugged=" + plugged);
+                    PersonaReadBoundary?.Invoke(feed, false, true, report, 0);
+                    bool read = NativeMethods.ReadFileSync(h, report, report.Length, out int got);
+                    PersonaReadBoundary?.Invoke(feed, false, false, report, got);
+                    if (!read || got < 55)
+                    {
+                        if (feed.UsbJackStop || feed.UsbJackGen != gen) break;
+                        System.Threading.Thread.Sleep(50);
+                        continue;
+                    }
+                    lock (feed.CallbackGate)
+                    lock (feed.HidLaneLock)
+                    {
+                        if (feed.Retired || feed.RouteGeneration != generation || feed.UsbJackGen != gen) break;
+                        if (report[0] != 0x01) continue;
+                        bool plugged = (report[54] & 0x01) != 0;
+                        if (!haveLast || plugged != last)
+                        {
+                            haveLast = true; last = plugged;
+                            NoteHeadphoneJack(padGuid, plugged);
+                            Engine.SdlDiagLog.WriteLine("PERSONA jack usb plugged=" + plugged);
+                        }
+                    }
                 }
             }
-            // Close ONLY when this loop still owns the lane, meaning it
-            // exited on its own (device died, read failed) and nobody else
-            // has touched the handle. On the Stop path the generation was
-            // retired and Stop ALREADY closed this handle, so a second
-            // CloseHandle here would land on a handle VALUE the OS may
-            // have re-issued to any other thread in the meantime. A
-            // duplicate close is never harmless; it is the handle-recycle
-            // defect class.
-            // This thread opened the handle, so this thread closes it, always
-            // and exactly once. The generation check only decides whether the
-            // PUBLISHED field is still ours to clear; a newer generation's
-            // handle must not be wiped from under it.
-            lock (feed.HidLaneLock)
+            finally
             {
-                if (feed.UsbJackGen == gen) feed.UsbJackHandle = IntPtr.Zero;
+                ClosePersonaReader(feed, reader, false);
             }
-            NativeMethods.CloseHandle(h);
         }
 
         private static void StopBtMic(PersonaFeed feed)
         {
           lock (feed.HidLaneLock)
           {
-            if (feed.BtMicThread == null) { feed.BtMicPadGuid = Guid.Empty; return; }
             // Retire the generation first (see StopUsbJack).
             feed.BtMicGen = 0;
             feed.BtMicStop = true;
             var h = feed.BtMicHandle;
+            var reader = feed.BtMicReader;
+            feed.BtMicReader = null;
+            feed.BtMicHandle = IntPtr.Zero;
             // Send the mic CLOSE on the reader's own handle. The BT tick's
             // close path needs a live sink, and a slot switched to a
             // non-composite profile tears the sink down before a tick can
@@ -2143,13 +2275,18 @@ namespace PadForge.Common.Input
                     // counter died with the sink this path outlives, so the
                     // close carries 0, the value the session ends on.
                     var close = new byte[Ds5HapticBtReportSize];
-                    FillDs5MicToggle(close, false, feed.BtMicPadGuid, 0);
+                    FillDs5MicToggle(close, false, feed.Slot, feed.BtMicPadGuid, 0);
                     NativeMethods.WriteFileSyncBestEffort(h, close, Ds5HapticBtReportSize);
                     Engine.SdlDiagLog.WriteLine("PERSONA mic CLOSE sent (reader handle, stop path)");
                 }
                 catch { }
-                NativeMethods.CancelIoEx(h, IntPtr.Zero);
             }
+            // Cancel only once the close is on the wire. CancelPersonaReader
+            // arms a loop that repeats its cancel until the reader thread
+            // exits, and that thread cannot exit while this method holds the
+            // lane lock, so cancelling first aborted the very close write this
+            // block exists to deliver and left the pad's mic session latched.
+            CancelPersonaReader(reader);
             feed.BtMicThread = null;
             feed.BtMicPadGuid = Guid.Empty;
           }
@@ -2157,6 +2294,7 @@ namespace PadForge.Common.Input
 
         private static void BtMicLoop(PersonaFeed feed, string hidPath, int gen, int generation)
         {
+            PersonaReaderOpening?.Invoke(feed, true);
             IntPtr h = NativeMethods.OpenHidSync(hidPath);
             if (h == IntPtr.Zero || h == new IntPtr(-1))
             {
@@ -2167,260 +2305,273 @@ namespace PadForge.Common.Input
             // our own handle rather than publishing it over the live
             // reader's. See UsbJackLoop; atomic under the lane lock there
             // and here for the same reason.
+            var reader = new PersonaReader { Thread = System.Threading.Thread.CurrentThread, Handle = h };
+            Guid padGuid;
             lock (feed.HidLaneLock)
             {
                 if (feed.Retired || feed.RouteGeneration != generation || feed.BtMicGen != gen) { NativeMethods.CloseHandle(h); return; }
                 feed.BtMicHandle = h;
+                feed.BtMicReader = reader;
+                padGuid = feed.BtMicPadGuid;
             }
-            // Channel count is BtMicChannels, whose own doc block below
-            // records the wire evidence. The decoder is built from that
-            // constant so the two can never disagree.
-            var dec = OpusCodecFactory.CreateDecoder(Rate, BtMicChannels);
-            var report = new byte[547]; // BT DS5 input caps length; 0x31 arrives in the first 78
-            var pcm = new short[BtMicFrameSamples * BtMicChannels];
-            var outBuf = new byte[BtMicFrameSamples * 4];
-            long lastLog = 0;
-            // Local handle + generation, exactly as UsbJackLoop documents.
-            while (!feed.Retired && feed.RouteGeneration == generation && !feed.BtMicStop && feed.BtMicGen == gen)
+            try
             {
-                if (!NativeMethods.ReadFileSync(h, report, report.Length, out int got) || got < 78)
+                // Channel count is BtMicChannels, whose own doc block below
+                // records the wire evidence. The decoder is built from that
+                // constant so the two can never disagree.
+                var dec = OpusCodecFactory.CreateDecoder(Rate, BtMicChannels);
+                bool decoderStale = false;
+                var report = new byte[547]; // BT DS5 input caps length; 0x31 arrives in the first 78
+                var pcm = new short[BtMicFrameSamples * BtMicChannels];
+                var outBuf = new byte[BtMicFrameSamples * 4];
+                long lastLog = 0;
+                // Local handle + generation, exactly as UsbJackLoop documents.
+                while (!feed.Retired && feed.RouteGeneration == generation && !feed.BtMicStop && feed.BtMicGen == gen)
                 {
-                    if (feed.BtMicStop || feed.BtMicGen != gen) break;
-                    System.Threading.Thread.Sleep(50);
-                    continue;
-                }
-                if (report[0] != 0x31) continue;
-                if ((report[1] & 0x02) == 0)
-                {
-                    // A plain state report (no mic payload). Sample the
-                    // pad's audio status byte while we have it: duaLib
-                    // dataStructures.h /*53.0*/ PluggedHeadphones,
-                    // /*53.1*/ PluggedMic, /*53.2*/ MicMuted ("muted by
-                    // powersave/mute command"). Packet starts at data[2]
-                    // on BT, so packet 53 is report[55].
-                    if (got >= 56)
+                    PersonaReadBoundary?.Invoke(feed, true, true, report, 0);
+                    bool read = NativeMethods.ReadFileSync(h, report, report.Length, out int got);
+                    PersonaReadBoundary?.Invoke(feed, true, false, report, got);
+                    lock (feed.CallbackGate)
+                    lock (feed.HidLaneLock)
+                        if (feed.Retired || feed.RouteGeneration != generation || feed.BtMicGen != gen) break;
+                    if (!read || got < 78)
                     {
-                        _btMicPadStatus = report[55];
-                        // Feed the Follow Headphone Jack route (bit 0 =
-                        // PluggedHeadphones). The resolver + the
-                        // dispatcher's change gating do the re-arm.
-                        NoteHeadphoneJack(feed.BtMicPadGuid, (report[55] & 0x01) != 0);
+                        if (feed.BtMicStop || feed.BtMicGen != gen) break;
+                        System.Threading.Thread.Sleep(50);
+                        continue;
                     }
-                    continue;
-                }
-                // Idle skip. With no consumer draining the capture
-                // endpoint the HM ring saturates, and every frame we
-                // decode is then thrown away by the whole-block guard
-                // further down. Measured idling on hardware:
-                // blocksDropped=13846 of ~15000 received, so ~92% of
-                // the Opus decodes plus their gain, interleave and RMS
-                // passes were pure waste at 100 frames/s. That is free
-                // on a desktop and is not free on the Atom x5-Z8350
-                // floor this app supports.
-                //
-                // Deliberately NOT gated on IsStreaming alone. If the
-                // ring has room we decode, so a consumer that opens the
-                // endpoint mid-stream is served immediately rather than
-                // waiting for the next status poll. And if IsStreaming
-                // were ever wrong, a real drain empties the ring and
-                // MicSubmitFits goes true, so the skip self-corrects
-                // instead of silencing the lane.
-                //
-                // The reader loop itself keeps running either way: the
-                // session stays open and the pad's audio status byte
-                // above stays fresh. Only the decode is skipped.
-                var mic = feed.Audio.Microphone;
-                int outCh = Math.Max(1, mic.Channels);
-                if (!mic.IsStreaming
-                    && !_micGuardDisabled
-                    && !MicSubmitFits(mic.BufferedBytes, BtMicFrameSamples * outCh * 2)
-                    && !PadForge.Services.VoiceMacroService.PadMicWanted(feed.BtMicPadGuid))
-                {
-                    // Count the frame anyway. It arrived, we simply chose
-                    // not to decode it, and rxFrames is how a reader tells
-                    // a live lane from a dead one.
-                    feed.BtMicRxFrames++;
-                    _micBlocksDropped++;
-                    _micDecoderStale = true;
-                    // The periodic report below sits after the decode, so
-                    // skipping it would take the whole mic lane dark in the
-                    // log for as long as no consumer is listening. Emit the
-                    // idle heartbeat on the same cadence instead.
-                    long nowIdle = Environment.TickCount64;
-                    if (nowIdle - lastLog >= 2000)
+                    if (report[0] != 0x31) continue;
+                    if ((report[1] & 0x02) == 0)
                     {
-                        lastLog = nowIdle;
-                        Engine.SdlDiagLog.WriteLine("PERSONA mic IDLE decode skipped (no consumer)"
-                            + " rxFrames=" + feed.BtMicRxFrames
-                            + " blocksDropped=" + _micBlocksDropped
-                            + " buffered=" + mic.BufferedBytes + "/" + HmMicRingBytes
-                            + " padMuted=" + ((_btMicPadStatus & 0x04) != 0));
-                    }
-                    continue;
-                }
-
-                // Opus carries state across packets, so resuming after a
-                // skipped run must not feed the decoder a stream with a
-                // hole in it. Reset once on resume and start clean.
-                if (_micDecoderStale) { dec.ResetState(); _micDecoderStale = false; }
-
-                int n;
-                try { n = dec.Decode(report.AsSpan(3, BtMicPayloadBytes), pcm.AsSpan(), BtMicFrameSamples, false); }
-                catch { continue; }
-                if (n <= 0) continue;
-                feed.BtMicRxFrames++;
-                // Voice macros (issue #317): the pad's phrases ride the pad,
-                // and this tee is how its Bluetooth microphone reaches that
-                // pad's own recognition session. Pre-gain, because MicGain
-                // shapes what Windows hears, not what recognition should.
-                if (PadForge.Services.VoiceMacroService.PadMicWanted(feed.BtMicPadGuid))
-                    PadForge.Services.VoiceMacroService.SubmitPadMic48k(feed.BtMicPadGuid, pcm.AsSpan(0, n * BtMicChannels), BtMicChannels);
-                int samples = n * BtMicChannels;
-                int peak = 0; long sumSq = 0;
-                for (int i = 0; i < samples; i++) { int a = pcm[i]; if (a < 0) a = -a; if (a > peak) peak = a; sumSq += (long)pcm[i] * pcm[i]; }
-                if (peak > _btMicPeak) _btMicPeak = peak;
-                // Decode-correctness probe: the Opus TOC (first payload
-                // byte) encodes config/stereo/frame-count and is near
-                // constant for a fixed-format stream. A stable TOC means
-                // the 71-byte frame is being read at the right offset; a
-                // scattered TOC means we are feeding the decoder bytes
-                // that are not the start of an Opus packet, which decodes
-                // as noise while silence frames still decode to zeros.
-                _btMicToc = report[3];
-                if (report[3] != _btMicTocFirst) { if (_btMicTocFirst == 0xFFFF) _btMicTocFirst = report[3]; else _btMicTocVary++; }
-                _btMicRmsAcc += sumSq / Math.Max(1, samples);
-                _btMicRmsCount++;
-                float gain = feed.MicMuted ? 0f : feed.MicGain;
-                // The composite's capture endpoint is 2 ch / 48 kHz, the
-                // same shape the pad encodes, so stereo passes straight
-                // through. A mono endpoint gets the channel average.
-                for (int i = 0; i < n; i++)
-                {
-                    if (outCh >= BtMicChannels)
-                    {
-                        for (int c = 0; c < outCh; c++)
+                        // A plain state report (no mic payload). Sample the
+                        // pad's audio status byte while we have it: duaLib
+                        // dataStructures.h /*53.0*/ PluggedHeadphones,
+                        // /*53.1*/ PluggedMic, /*53.2*/ MicMuted ("muted by
+                        // powersave/mute command"). Packet starts at data[2]
+                        // on BT, so packet 53 is report[55].
+                        if (got >= 56)
                         {
-                            int src = i * BtMicChannels + Math.Min(c, BtMicChannels - 1);
-                            short s16 = (short)Math.Clamp(pcm[src] * gain, short.MinValue, short.MaxValue);
-                            int o = (i * outCh + c) * 2;
-                            outBuf[o] = (byte)s16;
-                            outBuf[o + 1] = (byte)(s16 >> 8);
+                            lock (feed.CallbackGate)
+                            lock (feed.HidLaneLock)
+                            {
+                                if (feed.Retired || feed.RouteGeneration != generation || feed.BtMicGen != gen) break;
+                                _btMicPadStatus = report[55];
+                                NoteHeadphoneJack(padGuid, (report[55] & 0x01) != 0);
+                            }
+                        }
+                        continue;
+                    }
+                    // Idle skip. With no consumer draining the capture
+                    // endpoint the HM ring saturates, and every frame we
+                    // decode is then thrown away by the whole-block guard
+                    // further down. Measured idling on hardware:
+                    // blocksDropped=13846 of ~15000 received, so ~92% of
+                    // the decodes plus their gain, interleave and RMS
+                    // passes were pure waste at 100 frames/s. That is free
+                    // on a desktop and is not free on the Atom x5-Z8350
+                    // floor this app supports.
+                    //
+                    // Deliberately NOT gated on IsStreaming alone. If the
+                    // ring has room we decode, so a consumer that opens the
+                    // endpoint mid-stream is served immediately rather than
+                    // waiting for the next status poll. And if IsStreaming
+                    // were ever wrong, a real drain empties the ring and
+                    // MicSubmitFits goes true, so the skip self-corrects
+                    // instead of silencing the lane.
+                    //
+                    // The reader loop itself keeps running either way: the
+                    // session stays open and the pad's audio status byte
+                    // above stays fresh. Only the decode is skipped.
+                    var mic = feed.Audio.Microphone;
+                    int outCh = Math.Max(1, mic.Channels);
+                    if (!mic.IsStreaming
+                        && !_micGuardDisabled
+                        && !MicSubmitFits(mic.BufferedBytes, BtMicFrameSamples * outCh * 2)
+                        && !PadForge.Services.VoiceMacroService.PadMicWanted(padGuid))
+                    {
+                        // Count the frame anyway. It arrived, we simply chose
+                        // not to decode it, and rxFrames is how a reader tells
+                        // a live lane from a dead one.
+                        feed.BtMicRxFrames++;
+                        _micBlocksDropped++;
+                        decoderStale = true;
+                        // The periodic report below sits after the decode, so
+                        // skipping it would take the whole mic lane dark in the
+                        // log for as long as no consumer is listening. Emit the
+                        // idle heartbeat on the same cadence instead.
+                        long nowIdle = Environment.TickCount64;
+                        if (nowIdle - lastLog >= 2000)
+                        {
+                            lastLog = nowIdle;
+                            Engine.SdlDiagLog.WriteLine("PERSONA mic IDLE decode skipped (no consumer)"
+                                + " rxFrames=" + feed.BtMicRxFrames
+                                + " blocksDropped=" + _micBlocksDropped
+                                + " buffered=" + mic.BufferedBytes + "/" + HmMicRingBytes
+                                + " padMuted=" + ((_btMicPadStatus & 0x04) != 0));
+                        }
+                        continue;
+                    }
+
+                    // The decoder carries state across packets, so resuming after a
+                    // skipped run must not feed the decoder a stream with a
+                    // hole in it. Reset once on resume and start clean.
+                    if (decoderStale) { dec.ResetState(); decoderStale = false; }
+
+                    int n;
+                    try { n = dec.Decode(report.AsSpan(3, BtMicPayloadBytes), pcm.AsSpan(), BtMicFrameSamples, false); }
+                    catch { continue; }
+                    if (n <= 0) continue;
+                    feed.BtMicRxFrames++;
+                    // Voice macros (issue #317): the pad's phrases ride the pad,
+                    // and this tee is how its Bluetooth microphone reaches that
+                    // pad's own recognition session. Pre-gain, because MicGain
+                    // shapes what Windows hears, not what recognition should.
+                    // Voice sessions own their retirement. Their lock must stay
+                    // outside the persona gates. Keep the reader's captured pad.
+                    if (!feed.Retired && feed.RouteGeneration == generation && feed.BtMicGen == gen
+                        && PadForge.Services.VoiceMacroService.PadMicWanted(padGuid))
+                        PadForge.Services.VoiceMacroService.SubmitPadMic48k(padGuid, pcm.AsSpan(0, n * BtMicChannels), BtMicChannels);
+                    int samples = n * BtMicChannels;
+                    int peak = 0; long sumSq = 0;
+                    for (int i = 0; i < samples; i++) { int a = pcm[i]; if (a < 0) a = -a; if (a > peak) peak = a; sumSq += (long)pcm[i] * pcm[i]; }
+                    if (peak > _btMicPeak) _btMicPeak = peak;
+                    // Decode-correctness probe: the codec TOC (first payload
+                    // byte) encodes config/stereo/frame-count and is near
+                    // constant for a fixed-format stream. A stable TOC means
+                    // the 71-byte frame is being read at the right offset; a
+                    // scattered TOC means we are feeding the decoder bytes
+                    // that are not the start of an encoded packet, which decodes
+                    // as noise while silence frames still decode to zeros.
+                    _btMicToc = report[3];
+                    if (report[3] != _btMicTocFirst) { if (_btMicTocFirst == 0xFFFF) _btMicTocFirst = report[3]; else _btMicTocVary++; }
+                    _btMicRmsAcc += sumSq / Math.Max(1, samples);
+                    _btMicRmsCount++;
+                    float gain = feed.MicMuted ? 0f : feed.MicGain;
+                    // The composite's capture endpoint is 2 ch / 48 kHz, the
+                    // same shape the pad encodes, so stereo passes straight
+                    // through. A mono endpoint gets the channel average.
+                    for (int i = 0; i < n; i++)
+                    {
+                        if (outCh >= BtMicChannels)
+                        {
+                            for (int c = 0; c < outCh; c++)
+                            {
+                                int src = i * BtMicChannels + Math.Min(c, BtMicChannels - 1);
+                                short s16 = (short)Math.Clamp(pcm[src] * gain, short.MinValue, short.MaxValue);
+                                int o = (i * outCh + c) * 2;
+                                outBuf[o] = (byte)s16;
+                                outBuf[o + 1] = (byte)(s16 >> 8);
+                            }
+                        }
+                        else
+                        {
+                            int mix = (pcm[i * BtMicChannels] + pcm[i * BtMicChannels + 1]) / 2;
+                            short s16 = (short)Math.Clamp(mix * gain, short.MinValue, short.MaxValue);
+                            outBuf[i * 2] = (byte)s16;
+                            outBuf[i * 2 + 1] = (byte)(s16 >> 8);
+                        }
+                    }
+                    // Bisect probe (PADFORGE_MICTONE=1): replace the decoded
+                    // capture with a known 440 Hz half-scale sine. If Windows
+                    // then receives a clean tone, our submit path and HM are
+                    // sound and the fault is upstream in the decode. If it
+                    // still receives noise, the corruption is below Submit.
+                    if (_micToneProbe)
+                    {
+                        for (int i = 0; i < n; i++)
+                        {
+                            short s16 = (short)(Math.Sin(_micTonePhase) * _micToneAmp);
+                            _micTonePhase += 2 * Math.PI * 440.0 / Rate;
+                            if (_micTonePhase > 2 * Math.PI) _micTonePhase -= 2 * Math.PI;
+                            for (int c = 0; c < outCh; c++)
+                            {
+                                int o = (i * outCh + c) * 2;
+                                outBuf[o] = (byte)s16;
+                                outBuf[o + 1] = (byte)(s16 >> 8);
+                            }
+                        }
+                    }
+                    // Measure EXACTLY what leaves us, post-gain and post-
+                    // interleave, so the submitted bytes can be compared with
+                    // a consumer-side capture without inference.
+                    int subBytes = n * outCh * 2;
+                    long subSq = 0; int subPeak = 0;
+                    for (int i = 0; i + 1 < subBytes; i += 2)
+                    {
+                        short v = (short)(outBuf[i] | (outBuf[i + 1] << 8));
+                        int a = v < 0 ? -v : v;
+                        if (a > subPeak) subPeak = a;
+                        subSq += (long)v * v;
+                    }
+                    _subRmsAcc += subSq / Math.Max(1, subBytes / 2);
+                    _subRmsCount++;
+                    if (subPeak > _subPeak) _subPeak = subPeak;
+                    // Submit WHOLE blocks only. HM's mic ring truncates a submit
+                    // to its free byte count, and that count is computed as
+                    // (capacity - 1 - buffered), so it can be ODD. A partial
+                    // copy ending mid-frame misaligns the ring permanently:
+                    // every later sample is then read one byte off, the low
+                    // byte becomes the high byte, and quiet audio arrives as a
+                    // full-scale sawtooth. Diagnosed 2026-07-31 by submitting a
+                    // known 440 Hz sine at amplitude 1000 and reading the
+                    // captured samples back: a ramp stepping +0.445 per sample
+                    // and wrapping at +/-1, which is exactly our per-sample
+                    // delta (57 units) promoted by 256. Dropping a whole block
+                    // costs 10 ms of capture and keeps the stream aligned;
+                    // letting it truncate costs every sample thereafter.
+                    // HM v1.4.1 (HM#41) fixed the ring-side truncation, so this
+                    // guard is redundant against that build and later. Kept as
+                    // defense in depth: it costs one comparison per 10 ms block
+                    // and it protects against an older SDK being dropped in.
+                    // PADFORGE_MICNOGUARD=1 disables it, which is how HM's fix
+                    // was verified here rather than merely assumed.
+                    if (_micGuardDisabled || MicSubmitFits(mic.BufferedBytes, subBytes))
+                    {
+                        lock (feed.CallbackGate)
+                        lock (feed.HidLaneLock)
+                        {
+                            if (feed.Retired || feed.RouteGeneration != generation || feed.BtMicGen != gen) break;
+                            mic.Submit(outBuf.AsSpan(0, subBytes));
                         }
                     }
                     else
                     {
-                        int mix = (pcm[i * BtMicChannels] + pcm[i * BtMicChannels + 1]) / 2;
-                        short s16 = (short)Math.Clamp(mix * gain, short.MinValue, short.MaxValue);
-                        outBuf[i * 2] = (byte)s16;
-                        outBuf[i * 2 + 1] = (byte)(s16 >> 8);
+                        _micBlocksDropped++;
                     }
-                }
-                // Bisect probe (PADFORGE_MICTONE=1): replace the decoded
-                // capture with a known 440 Hz half-scale sine. If Windows
-                // then receives a clean tone, our submit path and HM are
-                // sound and the fault is upstream in the decode. If it
-                // still receives noise, the corruption is below Submit.
-                if (_micToneProbe)
-                {
-                    for (int i = 0; i < n; i++)
+                    long now2 = Environment.TickCount64;
+                    if (now2 - lastLog >= 2000)
                     {
-                        short s16 = (short)(Math.Sin(_micTonePhase) * _micToneAmp);
-                        _micTonePhase += 2 * Math.PI * 440.0 / Rate;
-                        if (_micTonePhase > 2 * Math.PI) _micTonePhase -= 2 * Math.PI;
-                        for (int c = 0; c < outCh; c++)
-                        {
-                            int o = (i * outCh + c) * 2;
-                            outBuf[o] = (byte)s16;
-                            outBuf[o + 1] = (byte)(s16 >> 8);
-                        }
+                        lastLog = now2;
+                        int subRms = _subRmsCount > 0 ? (int)Math.Sqrt(_subRmsAcc / _subRmsCount) : 0;
+                        Engine.SdlDiagLog.WriteLine("PERSONA mic blocksDropped=" + _micBlocksDropped
+                            + " buffered=" + mic.BufferedBytes + "/" + HmMicRingBytes);
+                        Engine.SdlDiagLog.WriteLine("PERSONA mic SUBMITTED rms=" + subRms
+                            + " peak=" + _subPeak + "  (normalized rms=" + (subRms / 32768.0).ToString("F4") + ")");
+                        _subRmsAcc = 0; _subRmsCount = 0; _subPeak = 0;
+                        int rms = _btMicRmsCount > 0 ? (int)Math.Sqrt(_btMicRmsAcc / _btMicRmsCount) : 0;
+                        _btMicRmsAcc = 0; _btMicRmsCount = 0;
+                        Engine.SdlDiagLog.WriteLine("PERSONA mic rms=" + rms + " peak=" + _btMicPeak
+                            + " toc=0x" + _btMicToc.ToString("X2")
+                            + " tocFirst=0x" + (_btMicTocFirst == 0xFFFF ? 0 : _btMicTocFirst).ToString("X2")
+                            + " tocVary=" + _btMicTocVary);
+                        byte st = _btMicPadStatus;
+                        Engine.SdlDiagLog.WriteLine("PERSONA mic padMuted=" + ((st & 0x04) != 0)
+                            + " padMicPlugged=" + ((st & 0x02) != 0)
+                            + " padHeadphones=" + ((st & 0x01) != 0)
+                            + " statusByte=0x" + st.ToString("X2"));
+                        Engine.SdlDiagLog.WriteLine("PERSONA mic rxFrames=" + feed.BtMicRxFrames
+                            + " buffered=" + mic.BufferedBytes
+                            + " hostStreaming=" + mic.IsStreaming
+                            + " peak=" + _btMicPeak
+                            + " gain=" + (feed.MicMuted ? 0f : feed.MicGain).ToString("F2"));
+                        _btMicPeak = 0;
                     }
-                }
-                // Measure EXACTLY what leaves us, post-gain and post-
-                // interleave, so the submitted bytes can be compared with
-                // a consumer-side capture without inference.
-                int subBytes = n * outCh * 2;
-                long subSq = 0; int subPeak = 0;
-                for (int i = 0; i + 1 < subBytes; i += 2)
-                {
-                    short v = (short)(outBuf[i] | (outBuf[i + 1] << 8));
-                    int a = v < 0 ? -v : v;
-                    if (a > subPeak) subPeak = a;
-                    subSq += (long)v * v;
-                }
-                _subRmsAcc += subSq / Math.Max(1, subBytes / 2);
-                _subRmsCount++;
-                if (subPeak > _subPeak) _subPeak = subPeak;
-                // Submit WHOLE blocks only. HM's mic ring truncates a submit
-                // to its free byte count, and that count is computed as
-                // (capacity - 1 - buffered), so it can be ODD. A partial
-                // copy ending mid-frame misaligns the ring permanently:
-                // every later sample is then read one byte off, the low
-                // byte becomes the high byte, and quiet audio arrives as a
-                // full-scale sawtooth. Diagnosed 2026-07-31 by submitting a
-                // known 440 Hz sine at amplitude 1000 and reading the
-                // captured samples back: a ramp stepping +0.445 per sample
-                // and wrapping at +/-1, which is exactly our per-sample
-                // delta (57 units) promoted by 256. Dropping a whole block
-                // costs 10 ms of capture and keeps the stream aligned;
-                // letting it truncate costs every sample thereafter.
-                // HM v1.4.1 (HM#41) fixed the ring-side truncation, so this
-                // guard is redundant against that build and later. Kept as
-                // defense in depth: it costs one comparison per 10 ms block
-                // and it protects against an older SDK being dropped in.
-                // PADFORGE_MICNOGUARD=1 disables it, which is how HM's fix
-                // was verified here rather than merely assumed.
-                if (_micGuardDisabled || MicSubmitFits(mic.BufferedBytes, subBytes))
-                {
-                    lock (feed.CallbackGate)
-                    {
-                        if (feed.Retired || feed.RouteGeneration != generation) break;
-                        mic.Submit(outBuf.AsSpan(0, subBytes));
-                    }
-                }
-                else
-                {
-                    _micBlocksDropped++;
-                }
-                long now2 = Environment.TickCount64;
-                if (now2 - lastLog >= 2000)
-                {
-                    lastLog = now2;
-                    int subRms = _subRmsCount > 0 ? (int)Math.Sqrt(_subRmsAcc / _subRmsCount) : 0;
-                    Engine.SdlDiagLog.WriteLine("PERSONA mic blocksDropped=" + _micBlocksDropped
-                        + " buffered=" + mic.BufferedBytes + "/" + HmMicRingBytes);
-                    Engine.SdlDiagLog.WriteLine("PERSONA mic SUBMITTED rms=" + subRms
-                        + " peak=" + _subPeak + "  (normalized rms=" + (subRms / 32768.0).ToString("F4") + ")");
-                    _subRmsAcc = 0; _subRmsCount = 0; _subPeak = 0;
-                    int rms = _btMicRmsCount > 0 ? (int)Math.Sqrt(_btMicRmsAcc / _btMicRmsCount) : 0;
-                    _btMicRmsAcc = 0; _btMicRmsCount = 0;
-                    Engine.SdlDiagLog.WriteLine("PERSONA mic rms=" + rms + " peak=" + _btMicPeak
-                        + " toc=0x" + _btMicToc.ToString("X2")
-                        + " tocFirst=0x" + (_btMicTocFirst == 0xFFFF ? 0 : _btMicTocFirst).ToString("X2")
-                        + " tocVary=" + _btMicTocVary);
-                    byte st = _btMicPadStatus;
-                    Engine.SdlDiagLog.WriteLine("PERSONA mic padMuted=" + ((st & 0x04) != 0)
-                        + " padMicPlugged=" + ((st & 0x02) != 0)
-                        + " padHeadphones=" + ((st & 0x01) != 0)
-                        + " statusByte=0x" + st.ToString("X2"));
-                    Engine.SdlDiagLog.WriteLine("PERSONA mic rxFrames=" + feed.BtMicRxFrames
-                        + " buffered=" + mic.BufferedBytes
-                        + " hostStreaming=" + mic.IsStreaming
-                        + " peak=" + _btMicPeak
-                        + " gain=" + (feed.MicMuted ? 0f : feed.MicGain).ToString("F2"));
-                    _btMicPeak = 0;
                 }
             }
-            // Ownership-gated close, exactly as UsbJackLoop's epilogue
-            // documents: Stop owns the close on the retirement path.
-            // Reader-owns-its-handle, exactly as UsbJackLoop's epilogue
-            // documents: the generation only decides whether the published
-            // field is still ours to clear, and the close is unconditional
-            // because no other thread performs it.
-            lock (feed.HidLaneLock)
+            finally
             {
-                if (feed.BtMicGen == gen) feed.BtMicHandle = IntPtr.Zero;
+                ClosePersonaReader(feed, reader, true);
             }
-            NativeMethods.CloseHandle(h);
         }
 
         /// <summary>Find the feed whose BT mic source is this pad. Sinks are
@@ -2495,7 +2646,6 @@ namespace PadForge.Common.Input
         private static long _btMicRmsAcc; private static int _btMicRmsCount;
         private static long _subRmsAcc; private static int _subRmsCount, _subPeak;
         private static long _micBlocksDropped;
-        private static bool _micDecoderStale;
         private static readonly bool _micGuardDisabled =
             Environment.GetEnvironmentVariable("PADFORGE_MICNOGUARD") == "1";
         /// <summary>HM's microphone ring capacity: UsbAudioEngine sizes it
@@ -2558,19 +2708,14 @@ namespace PadForge.Common.Input
             {
                 var cap = candidate = PersonaMicCaptureFactory(hidPath);
                 if (cap == null) return;
+                if (!CapturePcmFormat.TryCreate(cap.WaveFormat, out var format)) return;
                 cap.DataAvailable += (_, a) =>
                 {
                     if (feed.Retired || feed.RouteGeneration != generation) return;
                     var mic = feed.Audio.Microphone;
                     float gain = feed.MicMuted ? 0f : feed.MicGain;
-                    int inCh = cap.WaveFormat.Channels, outCh = mic.Channels;
-                    // Shared-mode capture is the endpoint mix format:
-                    // IeeeFloat directly, or Extensible wrapping the float
-                    // subformat GUID (KSDATAFORMAT_SUBTYPE_IEEE_FLOAT).
-                    bool isFloat = cap.WaveFormat.Encoding == WaveFormatEncoding.IeeeFloat
-                        || (cap.WaveFormat is WaveFormatExtensible wfx
-                            && wfx.SubFormat == new Guid("00000003-0000-0010-8000-00aa00389b71"));
-                    int inStride = inCh * (isFloat ? 4 : 2);
+                    int inCh = format.Channels, outCh = mic.Channels;
+                    int inStride = format.BlockAlign;
                     int frames = a.BytesRecorded / inStride;
                     if (frames <= 0) return;
 
@@ -2580,9 +2725,7 @@ namespace PadForge.Common.Input
                     if (feed.MicFloatSrc.Length < frames * outCh)
                         feed.MicFloatSrc = new float[frames * outCh];
                     float Sample(int f, int c)
-                        => isFloat
-                            ? BitConverter.ToSingle(a.Buffer, f * inStride + c * 4)
-                            : BitConverter.ToInt16(a.Buffer, f * inStride + c * 2) / 32768f;
+                        => format.Read(a.Buffer, f * inStride + c * format.BytesPerSample);
                     for (int f = 0; f < frames; f++)
                     {
                         if (outCh == 1 && inCh > 1)
@@ -2608,17 +2751,17 @@ namespace PadForge.Common.Input
                     // which is a silently dead virtual mic.
                     float[] outFloat = feed.MicFloatSrc;
                     int outFrames = frames;
-                    if (cap.WaveFormat.SampleRate != mic.SampleRateHz)
+                    if (format.SampleRate != mic.SampleRateHz)
                     {
                         if (feed.MicCarry.Length != outCh)
                         {
                             feed.MicCarry = new float[outCh];
                             feed.MicPhase = 0;
                         }
-                        int capOut = (int)(frames * (double)mic.SampleRateHz / cap.WaveFormat.SampleRate) + 4;
+                        int capOut = (int)(frames * (double)mic.SampleRateHz / format.SampleRate) + 4;
                         if (feed.MicFloatDst.Length < capOut * outCh)
                             feed.MicFloatDst = new float[capOut * outCh];
-                        double step = cap.WaveFormat.SampleRate / (double)mic.SampleRateHz;
+                        double step = format.SampleRate / (double)mic.SampleRateHz;
                         double ph = feed.MicPhase;
                         outFrames = LinearResampleInterleaved(
                             feed.MicFloatSrc.AsSpan(0, frames * outCh), frames, outCh,
@@ -2676,6 +2819,10 @@ namespace PadForge.Common.Input
             _workSignal.Set();
         }
 
+        /// <summary>Refreshes routing on the existing worker after a profile
+        /// transition. A stopped engine stays stopped.</summary>
+        public static void RequestReconcile() => _workSignal.Set();
+
         /// <summary>Engine shutdown. Detaches all state under the lock, then
         /// disposes the transports outside it; the streaming threads observe
         /// <see cref="_running"/> and exit. Restartable: the next
@@ -2690,33 +2837,18 @@ namespace PadForge.Common.Input
                 drop = _sinks.Values.ToList();
                 _sinks.Clear();
                 foreach (var s in drop)
-                    if (SinkAlive(s)) _speakerPathCleared.Add(s.DeviceGuid);
+                    if (SinkHasTransport(s) && !s.IsPeer) _speakerPathCleared.Add(s.DeviceGuid);
                 caps = _captures.Values.ToList();
                 _captures.Clear();
+                lock (_remoteAudioGate)
+                {
+                    _remoteRings.Clear();
+                    _remoteAudioDemand.Clear();
+                }
+                Array.Clear(_lastRouted, 0, _lastRouted.Length);
+                lock (_jackLock)
+                    foreach (var pad in _jackWatch.Keys.ToArray()) StopJackWatch_NoLock(pad);
             }
-            // Remote-audio bookkeeping dies with the engine (restartable path):
-            // a peer stream after the next start re-adds both entries.
-            _remoteRings.Clear();
-            _remoteAudioDemand.Clear();
-
-            // The routed edge detector dies with it too, and for a sharper
-            // reason. The worker exits WITHOUT a final reconcile (Shutdown
-            // drops _running and the loop re-checks it before running again),
-            // so nothing ever writes the falling edge. Left standing, every
-            // slot that held a sink comes back from a restart already reading
-            // routed, the rising edge never fires, and the firmware speaker
-            // path is never asserted: a healthy sink streaming Opus into a
-            // muted path, which is precisely the defect the edge was added to
-            // cure.
-            Array.Clear(_lastRouted, 0, _lastRouted.Length);
-
-            // Jack watches are sink-scoped, so a shutdown that keeps them
-            // keeps a parallel read handle open on every DualSense with no
-            // sink left to want it. Draining here also lets the next start
-            // re-open on whatever transport the pad came back on.
-            List<Guid> jacks;
-            lock (_jackLock) jacks = _jackWatch.Keys.ToList();
-            foreach (var g in jacks) StopJackWatch(g);
             _workSignal.Set();
             foreach (var s in drop) DisposeTransport(s);
             foreach (var c in caps) StopCaptureEntry(c);
@@ -2729,7 +2861,9 @@ namespace PadForge.Common.Input
 
         // A peer sink has no local transport; it's "alive" by virtue of being a
         // network shipper (its mix is pulled by the stream thread's peer lane).
-        private static bool SinkAlive(Sink s) => s.Player != null || s.BtHandle != new IntPtr(-1) || s.IsPeer;
+        private static bool SinkHasTransport(Sink s) => s.Player != null || s.BtHandle != new IntPtr(-1);
+        private static bool SinkAlive(Sink s) => !s.TransportFailed
+            && (s.Player?.PlaybackState == PlaybackState.Playing || s.BtHandle != new IntPtr(-1) || s.IsPeer);
 
         /// <summary>Whether a slot's CURRENT macro configuration contains
         /// any PlaySound action. Wired by InputService to read the
@@ -2751,8 +2885,9 @@ namespace PadForge.Common.Input
         /// froze the UI (Reconcile ran on the UI thread), the engine (macro
         /// placement) and the effects dispatcher (per-report
         /// WantsSpeakerPath) all at once.</summary>
-        private static void ReconcileOnWorker()
+        private static void ReconcileOnWorker(Thread worker)
         {
+            if (!IsCurrentAudioWorker(worker)) return;
             // Phase 1 — desired state, no locks (SettingsManager and the
             // config provider take their own locks; never nest them under
             // ours).
@@ -2763,6 +2898,7 @@ namespace PadForge.Common.Input
                 // read outside _lock (the provider walks the engine's own
                 // snapshot and takes no locks of ours).
                 bool demand = SlotWantsMacroAudioProvider?.Invoke(slot) ?? false;
+                if (!IsCurrentAudioWorker(worker)) return;
                 // Persona demand: a composite VC on the slot builds its
                 // pads' transports even with passthrough off and no
                 // macros, exactly like the remote-audio demand. The same
@@ -2774,6 +2910,7 @@ namespace PadForge.Common.Input
                 foreach (var (guid, ud) in EnumerateAssignedSonyPads(slot))
                 {
                     var (ptOn, mirrorSrc) = ReadPassthroughConfig(slot, guid);
+                    if (!IsCurrentAudioWorker(worker)) return;
                     // Remote output relay (#138): a "peer://" pad lives on another PC, so
                     // it has NO local transport. Build the SAME per-pad sink a local Sony
                     // pad gets — MacroMixer (test tone + slot macros) + passthrough Capture
@@ -2797,7 +2934,12 @@ namespace PadForge.Common.Input
                     // #387: a Bluetooth-pathed record re-arms the dual-link
                     // drop, so an unplug, Bluetooth session, and replug gets
                     // a fresh drop on the next wired sink build.
-                    if (isBt) lock (_dualDropLock) _dualDropDoneForPath.Remove(guid);
+                    if (isBt)
+                        lock (_lock)
+                        {
+                            if (!IsCurrentAudioWorker(worker)) return;
+                            lock (_dualDropLock) _dualDropDoneForPath.Remove(guid);
+                        }
                     bool isDs4 = Ds4Pids.Contains((ushort)ud.ProdId);
                     // DS4 audio is BLUETOOTH-ONLY: the wired DS4 exposes no
                     // USB audio interface at all (ds4mac docs §3.1 — HID
@@ -2815,7 +2957,7 @@ namespace PadForge.Common.Input
                     personaPads?.Add((guid, ud.DevicePath, isBt, isDs4));
                     desired.Add((slot, guid, ud.DevicePath, isBt, isDs4, ptOn, mirrorSrc, false, false));
                 }
-                if (personaDemand) RefreshPersonaTargets(personaFeed, slot, personaGeneration, personaPads);
+                if (personaDemand) RefreshPersonaTargets(personaFeed, slot, personaGeneration, personaPads, worker);
             }
 
             // Owner: a paired peer is streaming speaker audio for one of OUR physical
@@ -2824,19 +2966,7 @@ namespace PadForge.Common.Input
             long nowDemand = Environment.TickCount64;
             foreach (var kv in _remoteAudioDemand)
             {
-                if (nowDemand - kv.Value > 2000)
-                {
-                    // Prune, don't just skip: neither dictionary had any removal
-                    // path, so BT re-pair guid churn grew orphans for the process
-                    // lifetime. The conditional pair-remove keys on the exact
-                    // observed timestamp so a demand FeedRemoteAudio just refreshed
-                    // survives; a resumed stream re-adds via GetOrAdd. A Sink still
-                    // holding the ring keeps it alive until its own teardown.
-                    if (((System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<Guid, long>>)_remoteAudioDemand)
-                            .Remove(kv))
-                        _remoteRings.TryRemove(kv.Key, out _);
-                    continue;
-                }
+                if (TryExpireRemoteAudio(kv.Key, kv.Value, nowDemand)) continue;
                 var ud = SettingsManager.FindDeviceByInstanceGuid(kv.Key);
                 if (ud == null || !ud.IsOnline || string.IsNullOrEmpty(ud.DevicePath)) continue;
                 if ((ud.DevicePath ?? "").StartsWith("peer://", StringComparison.Ordinal)) continue;
@@ -2851,7 +2981,7 @@ namespace PadForge.Common.Input
             var toBuild = new List<Sink>();
             lock (_lock)
             {
-                if (!_running) return;
+                if (!IsCurrentAudioWorker(worker)) return;
                 var wanted = new HashSet<Guid>();
                 foreach (var d in desired)
                 {
@@ -2890,14 +3020,17 @@ namespace PadForge.Common.Input
                     sink.PassthroughOn = d.PtOn;
                     sink.MirrorSourceId = d.MirrorSrc ?? "";
                     sink.RemoteFed = d.RemoteFed;
-                    if (d.RemoteFed) sink.Remote = _remoteRings.TryGetValue(d.Guid, out var rr) ? rr : null;
+                    if (d.RemoteFed)
+                        lock (_remoteAudioGate)
+                            sink.Remote = _remoteRings.TryGetValue(d.Guid, out var rr) ? rr : null;
                     // Set before the SinkAlive check below: a peer sink is "alive" with no
                     // transport, so it's never queued for a BT/USB build (toBuild).
                     sink.IsPeer = d.IsPeer;
-                    if (sink.TransportFailed || (transportShapeChanged && SinkAlive(sink) && !sink.IsPeer))
+                    bool playerStopped = sink.Player != null && sink.Player.PlaybackState != PlaybackState.Playing;
+                    if (sink.TransportFailed || playerStopped || (transportShapeChanged && SinkAlive(sink) && !sink.IsPeer))
                     {
                         Engine.SdlDiagLog.WriteLine("SINK detach guid=" + d.Guid.ToString("N").Substring(0, 8)
-                            + (sink.TransportFailed ? " reason=failed" : " reason=shape")
+                            + (sink.TransportFailed || playerStopped ? " reason=failed" : " reason=shape")
                             + " nowBt=" + d.IsBt);
                         // Detach clears the transport, so the SinkAlive check
                         // below queues the rebuild on the NEW shape this pass.
@@ -2931,7 +3064,8 @@ namespace PadForge.Common.Input
                 // array, and this file's rule is that filter arrays are never
                 // built under _lock. Phase 3 is the unlocked half.
                 s.Dsp.Reset();
-                BuildTransportOnWorker(s);
+                if (!IsCurrentAudioWorker(worker)) return;
+                BuildTransportOnWorker(s, worker);
             }
 
             // Phase 3b: headphone-jack watches follow the sink set. The jack
@@ -2940,16 +3074,20 @@ namespace PadForge.Common.Input
             // Jack to owning a virtual DualSense. DualSense only: the status
             // byte is duaLib's DS5 shape, and no DS4 path follows the jack.
             var jackWanted = new HashSet<Guid>();
-            foreach (var d in desired)
+            lock (_lock)
             {
-                if (d.IsDs4 || d.IsPeer) continue;
-                jackWanted.Add(d.Guid);
-                EnsureJackWatch(d.Guid, d.Path, d.IsBt);
+                if (!IsCurrentAudioWorker(worker)) return;
+                foreach (var d in desired)
+                {
+                    if (d.IsDs4 || d.IsPeer) continue;
+                    jackWanted.Add(d.Guid);
+                    EnsureJackWatch(d.Guid, d.Path, d.IsBt);
+                }
+                List<Guid> jackStale;
+                lock (_jackLock)
+                    jackStale = _jackWatch.Keys.Where(g => !jackWanted.Contains(g)).ToList();
+                foreach (var g in jackStale) StopJackWatch(g);
             }
-            List<Guid> jackStale;
-            lock (_jackLock)
-                jackStale = _jackWatch.Keys.Where(g => !jackWanted.Contains(g)).ToList();
-            foreach (var g in jackStale) StopJackWatch(g);
 
             // Phase 3c: push the DSP settings into each sink's chain (#347).
             // Sinks are resolved under the lock and configured OUTSIDE it,
@@ -2960,8 +3098,11 @@ namespace PadForge.Common.Input
             {
                 var pending = new List<(Sink S, Guid G, int Slot)>();
                 lock (_lock)
+                {
+                    if (!IsCurrentAudioWorker(worker)) return;
                     foreach (var d in desired)
                         if (_sinks.TryGetValue(d.Guid, out var sk)) pending.Add((sk, d.Guid, d.Slot));
+                }
 
                 foreach (var (sk, guid, slot) in pending)
                 {
@@ -2983,7 +3124,7 @@ namespace PadForge.Common.Input
             }
 
             // Phase 4 — loopback captures (own brief locks).
-            ReconcileCapturesOnWorker();
+            ReconcileCapturesOnWorker(worker);
 
             // Phase 5 — macro-routing notify, outside _lock: it takes
             // SoundMacroService's lock and can tear down a WasapiOut.
@@ -2991,6 +3132,7 @@ namespace PadForge.Common.Input
             var expiredTestSlots = new List<int>();
             lock (_lock)
             {
+                if (!IsCurrentAudioWorker(worker)) return;
                 foreach (var s in _sinks.Values)
                     if (SinkAlive(s) && (uint)s.Slot < MaxPads) routed[s.Slot] = true;
 
@@ -3009,26 +3151,22 @@ namespace PadForge.Common.Input
                     if (_sinks.TryGetValue(kv.Key, out var sink) && (uint)sink.Slot < MaxPads)
                         expiredTestSlots.Add(sink.Slot);
                 }
+                for (int slot = 0; slot < MaxPads; slot++)
+                {
+                    if (routed[slot] != _lastRouted[slot]) expiredTestSlots.Add(slot);
+                    _lastRouted[slot] = routed[slot];
+                }
             }
+            Func<bool> current = () => IsCurrentAudioWorker(worker);
             for (int slot = 0; slot < MaxPads; slot++)
-                SoundMacroService.SetSlotControllerRouted(slot, routed[slot]);
-
-            // A slot that just GAINED a live sink needs the same nudge the
-            // teardown and expired-test paths already send. This was the one
-            // sink transition of the four that did not notify, and it is the
-            // arm direction: the dispatcher writes on events, so with no event
-            // the firmware speaker path was never asserted and a perfectly
-            // healthy sink streamed Opus into a muted path. Silent, no error,
-            // and a restart "fixed" it only because startup ordering happened
-            // to put an ApplyOnce after the sink came up.
-            for (int slot = 0; slot < MaxPads; slot++)
-            {
-                if (routed[slot] && !_lastRouted[slot]) expiredTestSlots.Add(slot);
-                _lastRouted[slot] = routed[slot];
-            }
+                SoundMacroService.SetSlotControllerRouted(slot, routed[slot], current);
 
             foreach (int slot in expiredTestSlots.Distinct())
-                UserEffectsDispatcher.NotifySoundRoutingChanged(slot);
+                if (IsCurrentAudioWorker(worker))
+                {
+                    UserEffectsDispatcher.NotifySoundRoutingChanged(slot);
+                    AudioRoutingNotified?.Invoke(slot);
+                }
         }
 
         /// <summary>Move a sink's transport onto a carrier so it can be
@@ -3037,15 +3175,17 @@ namespace PadForge.Common.Input
         {
             // A peer sink has no local firmware speaker path to restore — its guid is
             // a remote device the local DS5 effects dispatcher never touches.
-            if (SinkAlive(s) && !s.IsPeer) _speakerPathCleared.Add(s.DeviceGuid);
+            if (SinkHasTransport(s) && !s.IsPeer) _speakerPathCleared.Add(s.DeviceGuid);
             var carrier = new Sink
             {
                 DeviceGuid = s.DeviceGuid,
                 Player = s.Player,
+                PlayerStopped = s.PlayerStopped,
                 BtHandle = s.BtHandle,
                 Tx = s.Tx,
             };
             s.Player = null;
+            s.PlayerStopped = null;
             s.BtHandle = new IntPtr(-1);
             s.Tx = null;
             s.Ds5OpusEncoder = null;   // rebuilt sinks start with a fresh encoder
@@ -3058,14 +3198,17 @@ namespace PadForge.Common.Input
 
         private static void DisposeTransport(Sink s)
         {
-            try { s.Player?.Stop(); } catch { }
-            try { s.Player?.Dispose(); } catch { }
+            var player = s.Player;
+            var stopped = s.PlayerStopped;
             s.Player = null;
+            s.PlayerStopped = null;
+            try { if (player != null && stopped != null) player.PlaybackStopped -= stopped; } catch { }
+            try { player?.Stop(); } catch { }
+            try { player?.Dispose(); } catch { }
             if (s.BtHandle != new IntPtr(-1))
             {
                 // In-flight overlapped writes must be canceled and their
                 // pool drained before the handle and buffers go away.
-                NativeMethods.CancelIo(s.BtHandle);
                 s.Tx?.Dispose();
                 s.Tx = null;
                 NativeMethods.CloseHandle(s.BtHandle);
@@ -3122,7 +3265,7 @@ namespace PadForge.Common.Input
             }
         }
 
-        private static void BuildTransportOnWorker(Sink s)
+        private static void BuildTransportOnWorker(Sink s, Thread worker)
         {
             Engine.SdlDiagLog.WriteLine("SINK build guid=" + s.DeviceGuid.ToString("N").Substring(0, 8)
                 + " isBt=" + s.IsBt + " isPeer=" + s.IsPeer
@@ -3165,7 +3308,7 @@ namespace PadForge.Common.Input
 
                 lock (_lock)
                 {
-                    if (_running && _sinks.TryGetValue(s.DeviceGuid, out var cur)
+                    if (IsCurrentAudioWorker(worker) && _sinks.TryGetValue(s.DeviceGuid, out var cur)
                         && ReferenceEquals(cur, s) && !SinkAlive(s))
                     {
                         s.BtHandle = h;
@@ -3185,8 +3328,8 @@ namespace PadForge.Common.Input
                         return;
                     }
                 }
-                NativeMethods.CloseHandle(h);
                 tx.Dispose();
+                NativeMethods.CloseHandle(h);
                 return;
             }
 
@@ -3275,35 +3418,73 @@ namespace PadForge.Common.Input
                     int channels = feedFormat.Channels;
                     Engine.SdlDiagLog.WriteLine("SINK build USB endpoint OK guid=" + s.DeviceGuid.ToString("N").Substring(0, 8)
                         + " ch=" + channels);
-                    var feed = new UsbFrameProvider(s.Source, feedFormat, s.DeviceGuid);
+                    var feed = new UsbFrameProvider(s.Source, feedFormat, s);
                     // 30 ms event-driven buffer — on USB this buffer sits in
                     // BOTH the macro and mirror paths, so halving it from 60
                     // tightens everything the pad plays.
                     var player = new WasapiOut(match, AudioClientShareMode.Shared, true, 30);
-                    player.Init(feed);
-                    player.Play();
-                    bool committed = false;
-                    lock (_lock)
-                    {
-                        if (_running && _sinks.TryGetValue(s.DeviceGuid, out var cur)
-                            && ReferenceEquals(cur, s) && !SinkAlive(s))
-                        {
-                            s.Player = player;
-                            committed = true;
-                        }
-                    }
-                    if (!committed)
-                    {
-                        try { player.Stop(); } catch { }
-                        try { player.Dispose(); } catch { }
-                        return;
-                    }
+                    if (!TryStartUsbPlayer(s, player, feed, worker)) return;
                 }
             }
             catch
             {
                 // Best-effort: a failed USB sink build retries on the
                 // worker's next 5 s pass.
+            }
+        }
+
+        private static bool TryStartUsbPlayer(Sink sink, IWavePlayer player, IWaveProvider feed, Thread worker)
+        {
+            bool committed = false;
+            bool stopped = false;
+            EventHandler<StoppedEventArgs> onStopped = (_, args) =>
+            {
+                bool wake;
+                lock (_lock)
+                {
+                    stopped = true;
+                    wake = ReferenceEquals(sink.Player, player)
+                        && _sinks.TryGetValue(sink.DeviceGuid, out var current) && ReferenceEquals(current, sink);
+                    if (wake) sink.TransportFailed = true;
+                }
+                if (wake)
+                {
+                    Engine.SdlDiagLog.WriteLine("SINK playback stopped guid=" + sink.DeviceGuid.ToString("N").Substring(0, 8)
+                        + (args.Exception == null ? "" : " " + args.Exception.GetType().Name + ": " + args.Exception.Message));
+                    _workSignal.Set();
+                }
+            };
+            try
+            {
+                player.PlaybackStopped += onStopped;
+                player.Init(feed);
+                player.Play();
+                lock (_lock)
+                {
+                    if (!stopped && player.PlaybackState == PlaybackState.Playing
+                        && IsCurrentAudioWorker(worker) && _sinks.TryGetValue(sink.DeviceGuid, out var current)
+                        && ReferenceEquals(current, sink) && !SinkAlive(sink))
+                    {
+                        sink.Player = player;
+                        sink.PlayerStopped = onStopped;
+                        committed = true;
+                    }
+                }
+                return committed;
+            }
+            catch (Exception ex)
+            {
+                Engine.SdlDiagLog.WriteLine("SINK USB startup FAILED " + ex.GetType().Name + ": " + ex.Message);
+                return false;
+            }
+            finally
+            {
+                if (!committed)
+                {
+                    try { player.PlaybackStopped -= onStopped; } catch { }
+                    try { player.Stop(); } catch { }
+                    try { player.Dispose(); } catch { }
+                }
             }
         }
 
@@ -3544,7 +3725,9 @@ namespace PadForge.Common.Input
             var me = Thread.CurrentThread;
             while (_running && ReferenceEquals(_workerThread, me))
             {
-                try { ReconcileOnWorker(); } catch { }
+                try { ReconcileOnWorker(me); } catch { }
+                AudioWorkerPassCompleted?.Invoke(me);
+                if (!IsCurrentAudioWorker(me)) break;
                 _workSignal.WaitOne(5000);
             }
         }
@@ -3580,14 +3763,16 @@ namespace PadForge.Common.Input
                 var hapticPcm = new short[Ds5HapticFramesPerTick * 2];
                 var hapticReport = new byte[Ds5HapticBtReportSize];
                 const double CadenceMs = 10.0 + 2.0 / 3.0;
+                var clock = AudioPacingClock;
                 // 20 ms cushion: just enough to absorb WASAPI loopback's
                 // ~10 ms bursty delivery, bringing the mirror within ~15 ms
                 // of the macro path (owner request 2026-06-12). The original
                 // 45 ms was chosen mid-dropout-war, before the async write
                 // pool / high-res timer / skip-not-burst fixes removed the
                 // sender-side jitter it was also covering for.
-                long cadTicks = (long)(CadenceMs * TimeSpan.TicksPerMillisecond);
-                long next = DateTime.UtcNow.Ticks + cadTicks;
+                double ticksPerMillisecond = clock.TimestampFrequency / 1000d;
+                long cadTicks = Math.Max(1, (long)(CadenceMs * ticksPerMillisecond));
+                long next = clock.GetTimestamp() + cadTicks;
                 var me = Thread.CurrentThread;
 
                 // Reused scratch: the LINQ Where().ToList() pair allocated
@@ -3598,6 +3783,7 @@ namespace PadForge.Common.Input
                 var minusOne = new IntPtr(-1);
                 while (_running && ReferenceEquals(_btThread, me))
                 {
+                    AudioPacingBoundary?.Invoke(true);
                     btSinks.Clear();
                     lock (_lock)
                         foreach (var s in _sinks.Values)
@@ -3759,18 +3945,13 @@ namespace PadForge.Common.Input
                     // deliveries — the exact burst the firmware drops — and
                     // each one also drains 512 ring frames with no real time
                     // passing. The pad conceals a missing frame gracefully.
-                    long nowTicks = DateTime.UtcNow.Ticks;
-                    double waitMs = (next - nowTicks) / (double)TimeSpan.TicksPerMillisecond;
-                    if (waitMs > 0)
-                    {
-                        if (hrTimer != IntPtr.Zero) NativeMethods.HighResWait(hrTimer, waitMs);
-                        else Thread.Sleep((int)Math.Max(1, waitMs));
-                        next += cadTicks;
-                    }
-                    else
-                    {
-                        next = nowTicks + cadTicks;
-                    }
+                    AudioPacingBoundary?.Invoke(false);
+                    long nowTicks = clock.GetTimestamp();
+                    if (next <= nowTicks) next = nowTicks + cadTicks;
+                    double waitMs = (next - nowTicks) / ticksPerMillisecond;
+                    if (hrTimer != IntPtr.Zero) NativeMethods.HighResWait(hrTimer, waitMs);
+                    else Thread.Sleep((int)Math.Max(1, waitMs));
+                    next += cadTicks;
                 }
             }
             finally
@@ -3891,7 +4072,7 @@ namespace PadForge.Common.Input
                                            short[] hapticPcm = null)
         {
             int outPath = 0;
-            try { outPath = DeviceAudioOutputPathProvider?.Invoke(s.DeviceGuid) ?? 0; }
+            try { outPath = DeviceAudioOutputPathProvider?.Invoke(s.Slot, s.DeviceGuid) ?? 0; }
             catch { }
             // Mono sinks get a mono frame (see Ds5BtFrameNeedsMonoFold):
             // the split/mono headset paths by register semantics, and the
@@ -3919,7 +4100,7 @@ namespace PadForge.Common.Input
                 // single audio session see a counter that jumped back and
                 // forth, and it stalled for about a second and then resumed
                 // only one of the two.
-                BuildDs5BtCombinedReport(ResolveAudioBufferLength(s.DeviceGuid),
+                BuildDs5BtCombinedReport(ResolveAudioBufferLength(s.Slot, s.DeviceGuid),
                                          report, s.Ds5Seq, s.Ds5PktCounter, MicOpenFor(s),
                                          hapticPcm, opus, n, Ds5BtAudioLanePid(outPath));
                 s.Ds5Seq = (s.Ds5Seq + 1) & 0x0F;
@@ -3948,7 +4129,7 @@ namespace PadForge.Common.Input
             report[2] = 0x11 | 0x80;
             report[3] = 7;
             report[4] = Ds5MicSessionByte(MicOpenFor(s));
-            report[9] = ResolveAudioBufferLength(s.DeviceGuid);
+            report[9] = ResolveAudioBufferLength(s.Slot, s.DeviceGuid);
             report[10] = s.Ds5PktCounter++;
             // Audio lane packet: 0x13 speaker / 0x16 headset, one Opus
             // frame filling the slot.
@@ -4152,7 +4333,7 @@ namespace PadForge.Common.Input
         private static void SendDs5BtHapticOnly(Sink s, short[] pcm, byte[] report)
         {
             BuildDs5BtHapticReport(report, s.Ds5Seq, s.Ds5PktCounter,
-                                   ResolveAudioBufferLength(s.DeviceGuid),
+                                   ResolveAudioBufferLength(s.Slot, s.DeviceGuid),
                                    MicOpenFor(s), pcm);
             s.Ds5Seq = (s.Ds5Seq + 1) & 0x0F;
             s.Ds5PktCounter++;
@@ -4332,7 +4513,7 @@ namespace PadForge.Common.Input
 
         private static void SendDs5BtMicToggle(Sink s, byte[] report, bool open)
         {
-            FillDs5MicToggle(report, open, s.DeviceGuid, s.Ds5PktCounter++);
+            FillDs5MicToggle(report, open, s.Slot, s.DeviceGuid, s.Ds5PktCounter++);
             if (s.Tx != null) s.Tx.TrySend(s.BtHandle, report, out _);
         }
 
@@ -4341,7 +4522,7 @@ namespace PadForge.Common.Input
         /// voice-only lane. Report 0x32 carrying packet 0x11 (byte 4 = 0xFF
         /// open / 0xFE close) plus an empty 0x12 haptic packet, CRC32 at
         /// the tail.</summary>
-        private static void FillDs5MicToggle(byte[] report, bool open, Guid deviceGuid, byte pktCounter)
+        private static void FillDs5MicToggle(byte[] report, bool open, int slot, Guid deviceGuid, byte pktCounter)
         {
             Array.Clear(report, 0, Ds5HapticBtReportSize);
             report[0] = 0x32;
@@ -4349,7 +4530,7 @@ namespace PadForge.Common.Input
             report[2] = 0x11 | 0x80;
             report[3] = 7;
             report[4] = open ? (byte)0xFF : (byte)0xFE;
-            report[9] = ResolveAudioBufferLength(deviceGuid);
+            report[9] = ResolveAudioBufferLength(slot, deviceGuid);
             report[10] = pktCounter;
             report[11] = 0x12 | 0x80;
             report[12] = 64;                        // 64 zero haptic bytes follow
@@ -4361,6 +4542,21 @@ namespace PadForge.Common.Input
         }
 
         // ── Voice-only Bluetooth mic session (issue #317) ──
+
+        private static int ResolveVoiceMicSlot(Guid deviceGuid)
+        {
+            int sinkSlot = SlotOfDevice(deviceGuid);
+            if (sinkSlot >= 0) return sinkSlot;
+            var settings = SettingsManager.UserSettings;
+            if (settings == null) return -1;
+            int owner = -1;
+            lock (settings.SyncRoot)
+                foreach (var setting in settings.Items)
+                    if (setting != null && setting.InstanceGuid == deviceGuid
+                        && (uint)setting.MapTo < MaxPads && (owner < 0 || setting.MapTo < owner))
+                        owner = setting.MapTo;
+            return owner;
+        }
         //
         // A DualSense on a NON-full profile has no persona feed, so nothing
         // opens its microphone session and its embedded mic surfaces
@@ -4489,7 +4685,7 @@ namespace PadForge.Common.Input
                     }
                     else if (wantOpen && !sessionOpen)
                     {
-                        FillDs5MicToggle(toggle, true, lane.Pad, lane.Counter++);
+                        FillDs5MicToggle(toggle, true, ResolveVoiceMicSlot(lane.Pad), lane.Pad, lane.Counter++);
                         NativeMethods.WriteFileSyncBestEffort(h, toggle, Ds5HapticBtReportSize);
                         sessionOpen = true;
                         openSentTicks = now;
@@ -4502,7 +4698,7 @@ namespace PadForge.Common.Input
                     {
                         // The persona lane's proven retry: the pad drops an
                         // open now and then, and frames are the only ack.
-                        FillDs5MicToggle(toggle, true, lane.Pad, lane.Counter++);
+                        FillDs5MicToggle(toggle, true, ResolveVoiceMicSlot(lane.Pad), lane.Pad, lane.Counter++);
                         NativeMethods.WriteFileSyncBestEffort(h, toggle, Ds5HapticBtReportSize);
                         openSentTicks = now;
                         openTries++;
@@ -4515,7 +4711,7 @@ namespace PadForge.Common.Input
                         // the session: another writer closed it underneath
                         // us (the mirror of the handoff hazard). Take it
                         // back.
-                        FillDs5MicToggle(toggle, true, lane.Pad, lane.Counter++);
+                        FillDs5MicToggle(toggle, true, ResolveVoiceMicSlot(lane.Pad), lane.Pad, lane.Counter++);
                         NativeMethods.WriteFileSyncBestEffort(h, toggle, Ds5HapticBtReportSize);
                         openSentTicks = now;
                         lastFrameTicks = now;
@@ -4533,7 +4729,7 @@ namespace PadForge.Common.Input
                     }
                     else if (!wantOpen && sessionOpen)
                     {
-                        FillDs5MicToggle(toggle, false, lane.Pad, lane.Counter++);
+                        FillDs5MicToggle(toggle, false, ResolveVoiceMicSlot(lane.Pad), lane.Pad, lane.Counter++);
                         NativeMethods.WriteFileSyncBestEffort(h, toggle, Ds5HapticBtReportSize);
                         sessionOpen = false;
                         decoderStale = true;
@@ -4586,7 +4782,7 @@ namespace PadForge.Common.Input
                 {
                     try
                     {
-                        FillDs5MicToggle(toggle, false, lane.Pad, lane.Counter++);
+                        FillDs5MicToggle(toggle, false, ResolveVoiceMicSlot(lane.Pad), lane.Pad, lane.Counter++);
                         NativeMethods.WriteFileSyncBestEffort(h, toggle, Ds5HapticBtReportSize);
                         Engine.SdlDiagLog.WriteLine("VOICE bt-mic CLOSE sent (stop)");
                     }
@@ -4911,9 +5107,8 @@ namespace PadForge.Common.Input
             [DllImport("kernel32.dll", SetLastError = true)]
             private static extern bool ReadFile(IntPtr h, byte[] buf, int n, out int read, IntPtr overlapped);
 
-            /// <summary>Blocking read on a synchronous HID handle. Aborted
-            /// by closing the handle from another thread (the BT mic
-            /// reader's stop path).</summary>
+            /// <summary>Blocking read on a synchronous HID handle.
+            /// CancelIoEx interrupts a pending read without closing the handle.</summary>
             public static bool ReadFileSync(IntPtr h, byte[] buf, int n, out int read)
             {
                 read = 0;

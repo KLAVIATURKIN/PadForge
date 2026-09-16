@@ -414,6 +414,45 @@ namespace PadForge.Tests
             Tick(im, m, stamped: false);
             Assert.Contains((ushort)0x41, im._desiredLatchedKeys);
             Assert.True(action.KeyToggleLatched);
+
+            // And on EVERY later tick, which is where this used to break. The
+            // stamp retires on the second unstamped tick, and the retirement
+            // skipped the rest of the loop body, latch pass included, so the
+            // key dropped out of the desired set while the latch bit stayed
+            // set. The reconcile released it and the next cell press toggled
+            // the macro OFF instead of on.
+            for (int i = 0; i < 6; i++)
+            {
+                im._desiredLatchedKeys.Clear();
+                Tick(im, m, stamped: false);
+                Assert.Contains((ushort)0x41, im._desiredLatchedKeys);
+                Assert.True(action.KeyToggleLatched);
+            }
+        }
+
+        /// <summary>The retirement still happens once the macro holds
+        /// nothing. It exists so a macro fired from a cell stops evaluating
+        /// at poll rate forever, and gating it on live state must not turn it
+        /// off for the ordinary case.</summary>
+        [Fact]
+        public void CellOnly_WithNothingLatched_StillRetires()
+        {
+            var im = new InputManager();
+            var action = new MacroAction { Type = MacroActionType.ToggleKey, KeyCode = 0x41 };
+            var m = CellOnlyMacro(MacroTriggerMode.OnPress, action);
+
+            Tick(im, m, stamped: true);
+            Tick(im, m, stamped: true);
+            Tick(im, m, stamped: true);
+            Assert.False(m.IsExecuting);
+
+            // The user pressed the cell a second time, so the latch is off and
+            // the macro now holds nothing at all.
+            action.KeyToggleLatched = false;
+
+            for (int i = 0; i < 4; i++) Tick(im, m, stamped: false);
+
+            Assert.Equal(-1, m.MenuTriggerTick);
         }
 
         /// <summary>A macro that was NEVER stamped and has no trigger of

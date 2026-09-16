@@ -135,7 +135,8 @@ namespace PadForge.Services
             {
                 if (existingPs != null)
                     SettingsService.StripDeviceFromSlot(instanceGuid, slotIndex);
-                var ps = SettingsManager.CreateDefaultPadSetting(udForGuid, outputType, slotProfileId);
+                var ps = SettingsManager.CreateDefaultPadSetting(udForGuid, outputType, slotProfileId,
+                    _mainVm.Pads[slotIndex].ExtendedConfig);
                 us.SetPadSetting(ps);
                 us.PadSettingChecksum = ps.PadSettingChecksum;
             }
@@ -233,7 +234,8 @@ namespace PadForge.Services
             {
                 if (existingPs != null)
                     SettingsService.StripDeviceFromSlot(instanceGuid, slotIndex);
-                var ps = SettingsManager.CreateDefaultPadSetting(udForGuid, outputType, slotProfileId);
+                var ps = SettingsManager.CreateDefaultPadSetting(udForGuid, outputType, slotProfileId,
+                    _mainVm.Pads[slotIndex].ExtendedConfig);
                 us.SetPadSetting(ps);
                 us.PadSettingChecksum = ps.PadSettingChecksum;
             }
@@ -430,9 +432,27 @@ namespace PadForge.Services
             if (row != null)
                 row.SetAssignedSlots(new System.Collections.Generic.List<int>());
 
+            // Retiring EVERY route is the final-assignment case by definition, so
+            // it owes the same cleanup the single-slot path does when the last
+            // one leaves: hiding and consumption are assignment state, and a
+            // device left flagged after its last route went stays cloaked with
+            // nothing routing it.
+            var device = SettingsManager.FindDeviceByInstanceGuid(instanceGuid);
+            if (device != null)
+            {
+                device.HidHideEnabled = false;
+                device.ConsumeInputEnabled = false;
+                if (row != null)
+                {
+                    row.HidHideEnabled = false;
+                    row.ConsumeInputEnabled = false;
+                }
+            }
+
             _settingsService.MarkDirty();
 
             DeviceAssignmentChanged?.Invoke(this, EventArgs.Empty);
+            DeviceHidingStateChanged?.Invoke(this, EventArgs.Empty);
         }
 
         // ─────────────────────────────────────────────

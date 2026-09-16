@@ -265,7 +265,26 @@ namespace PadForge.SteamWorkshop.Cache
                 {
                     Directory.CreateDirectory(dir);
                     File.WriteAllBytes(tmpPath, data);
-                    File.Move(tmpPath, finalPath, overwrite: true);
+                    // Retry the publish briefly. The common loser of this race is
+                    // not another PadForge write but a scanner or indexer holding
+                    // the file it just watched appear, which clears in
+                    // milliseconds. Giving up on the first IOException threw the
+                    // entry away and cost the caller a whole refetch, which is a
+                    // real network round trip for a user and a nondeterministic
+                    // call count for anything counting fetches.
+                    for (int attempt = 0; ; attempt++)
+                    {
+                        try
+                        {
+                            File.Move(tmpPath, finalPath, overwrite: true);
+                            break;
+                        }
+                        catch (Exception ex) when (attempt < 4
+                            && (ex is IOException or UnauthorizedAccessException))
+                        {
+                            System.Threading.Thread.Sleep(10 * (attempt + 1));
+                        }
+                    }
                 }
                 catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
                 {

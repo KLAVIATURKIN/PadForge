@@ -879,7 +879,7 @@ namespace PadForge.Services
                     return;
                 }
                 _log($"Move dock: {macHex} is not paired to this PC - pairing now (this briefly restarts Bluetooth).");
-                var result = RunMovePairing();
+                var result = RunMovePairing(default, macHex);
                 _log(result.Success
                     ? "Move dock: paired. Unplug the pad and press its PS button to connect."
                     : $"Move dock: auto-pair did not complete ({result.Error}). Use Devices > Pair Device to retry.");
@@ -892,7 +892,11 @@ namespace PadForge.Services
         /// Navigation controller docked over USB. Mirrors <see cref="RunPairing"/>'s
         /// shape: sixpair analogue, remembered-device record, radio cycle, PSM
         /// arm, child watch.</summary>
-        public PairResult RunMovePairing(CancellationToken ct = default)
+        /// <param name="expectedMacHex">The address the DOCK named, when the
+        /// caller has one. The enumeration below finds a family, not a pad, so
+        /// without this a second docked pad of the family got the ceremony. Null
+        /// keeps the manual dialog's first-available behavior.</param>
+        public PairResult RunMovePairing(CancellationToken ct = default, string expectedMacHex = null)
         {
             var r = new PairResult();
 
@@ -911,7 +915,7 @@ namespace PadForge.Services
             bool nav = false;
             try
             {
-                var result = RunMovePairingCore(r, ct);
+                var result = RunMovePairingCore(r, ct, expectedMacHex);
                 nav = _lastCeremonyWasNav;
                 return result;
             }
@@ -1025,8 +1029,8 @@ namespace PadForge.Services
         }
 
         /// <summary>The devnode instance id behind an interface path.
-        /// <c>\?thps3bus#{guid}&amp;dev&amp;vid_054c&amp;pid_0268#a&amp;1&amp;bthps3_device_01#{iface}</c>
-        /// becomes <c>bthps3bus\{guid}&amp;dev&amp;vid_054c&amp;pid_0268&amp;1&amp;bthps3_device_01</c>:
+        /// <c>\\?\bthps3bus#{guid}&amp;dev&amp;vid_054c&amp;pid_0268#a&amp;1&amp;bthps3_device_01#{iface}</c>
+        /// becomes <c>bthps3bus\{guid}&amp;dev&amp;vid_054c&amp;pid_0268\a&amp;1&amp;bthps3_device_01</c>:
         /// drop the prefix and the trailing interface GUID, then the
         /// remaining hashes are separators. Exact per pad, which is what
         /// makes two of the same model unambiguous.</summary>
@@ -1132,7 +1136,7 @@ namespace PadForge.Services
                     return;
                 }
                 _log($"Navigation dock: {macHex} is not paired to this PC - pairing now (this briefly restarts Bluetooth).");
-                var result = RunMovePairing();
+                var result = RunMovePairing(default, macHex);
                 _log(result.Success
                     ? "Navigation dock: paired. Unplug the pad and press its PS button to connect."
                     : $"Navigation dock: auto-pair did not complete ({result.Error}). Use Devices > Pair Device to retry.");
@@ -1150,7 +1154,7 @@ namespace PadForge.Services
             PadForge.Common.Input.PsMoveDirectService.MintIdentityRow(_log);
         }
 
-        private PairResult RunMovePairingCore(PairResult r, CancellationToken ct)
+        private PairResult RunMovePairingCore(PairResult r, CancellationToken ct, string expectedMacHex = null)
         {
             byte[] radio = ReadRadioMac();
             if (radio == null) { _log("No Bluetooth radio found."); r.Error = "no-radio"; return r; }
@@ -1211,12 +1215,13 @@ namespace PadForge.Services
                 }
                 if (ct.IsCancellationRequested) { r.Error = "canceled"; return r; }
 
-                if (!NavSixpair(radio, out macHex, out string navErr))
+                if (!NavSixpair(radio, out macHex, out string navErr, expectedMacHex))
                 { r.Error = navErr; return r; }
             }
             else
             {
-                if (!MoveSixpair(dev.Value.AddrPath ?? dev.Value.DataPath, radio, out macHex, out string moveErr))
+                if (!MoveSixpair(dev.Value.AddrPath ?? dev.Value.DataPath, radio, out macHex, out string moveErr,
+                        expectedMacHex))
                 { r.Error = moveErr; return r; }
 
                 // Calibration capture rides the same dock (psmoveapi reads it
@@ -1291,7 +1296,8 @@ namespace PadForge.Services
         /// 0x05 writes the new host at bytes 1-6, little-endian, in a 23-byte
         /// report (psmove.c:64-69, 1104-1130). Read-before-write and read-back
         /// mirror the DS3 ceremony's commit discipline.</summary>
-        private bool MoveSixpair(string path, byte[] radioBigEndian, out string macHex, out string error)
+        private bool MoveSixpair(string path, byte[] radioBigEndian, out string macHex, out string error,
+            string expectedMacHex = null)
         {
             macHex = null; error = null;
             IntPtr h = OpenHidPath(path);
@@ -1312,6 +1318,20 @@ namespace PadForge.Services
                 byte[] hostBefore = new byte[6];
                 for (int i = 0; i < 6; i++) hostBefore[i] = btg[15 - i];
                 _log($"Master before pairing: {Hex(hostBefore, ':')}");
+
+                // The dock knows WHICH pad raised the event; the enumeration
+                // above only knows a family. With two family pads on the cable
+                // the two disagree, and the write below would move the wrong
+                // pad's host address. Check before writing, never after: a
+                // manual pairing passes no expectation and keeps its
+                // first-available behavior.
+                if (expectedMacHex != null
+                    && !string.Equals(macHex, expectedMacHex, StringComparison.OrdinalIgnoreCase))
+                {
+                    _log($"The docked pad reports {macHex}, not {expectedMacHex}; "
+                         + "not pairing it. Dock one pad at a time, or pair it from the Devices page.");
+                    error = "wrong-pad"; return false;
+                }
 
                 byte[] bts = new byte[23];
                 bts[0] = 0x05;
@@ -1338,7 +1358,16 @@ namespace PadForge.Services
                 }
                 else
                 {
-                    _log("Host address written (the read-back failed; commit not confirmed).");
+                    // The DualShock 3's rule, and the Move has no exception to
+                    // it: the pad answered this exact read at the top of the
+                    // ceremony, which is where its address came from, so a
+                    // failure now is a mid-ceremony disconnect rather than a
+                    // clone refusing the read. A write that returned true is not
+                    // commit proof, so reporting success here would register a
+                    // pairing for a pad that may still hold its old host.
+                    _log("Host address read-back failed after the write: the pad was "
+                         + "disconnected during pairing. Plug it back in and pair again.");
+                    error = "sixpair-not-committed"; return false;
                 }
                 return true;
             }
@@ -1367,7 +1396,8 @@ namespace PadForge.Services
         /// what made the old HID framing argue with itself about whether the
         /// address began at offset 3, 4 or 5.</para>
         /// </summary>
-        private bool NavSixpair(byte[] radioBigEndian, out string macHex, out string error)
+        private bool NavSixpair(byte[] radioBigEndian, out string macHex, out string error,
+            string expectedMacHex = null)
         {
             macHex = null; error = null;
 
@@ -1431,8 +1461,25 @@ namespace PadForge.Services
                     macHex = Hex(mac, null).ToLowerInvariant();
                     _log($"Navigation address: {Hex(mac, ':')}");
 
+                    // Same identity check the Move branch makes, before the
+                    // write: the dock names one pad, the enumeration finds a
+                    // family, and a mismatch means the ceremony is about to
+                    // repoint a pad nobody asked about.
+                    if (expectedMacHex != null
+                        && !string.Equals(macHex, expectedMacHex, StringComparison.OrdinalIgnoreCase))
+                    {
+                        _log($"The docked pad reports {macHex}, not {expectedMacHex}; "
+                             + "not pairing it. Dock one pad at a time, or pair it from the Devices page.");
+                        error = "wrong-pad"; return false;
+                    }
+
                     byte[] before = new byte[8];
-                    if (GetFeature(ifh, 0xF5, before))
+                    // Keep the answer, not just the log line: it is what tells a
+                    // mid-ceremony disconnect apart from a clone that never
+                    // answers the read, which is the DualShock 3 ceremony's own
+                    // split.
+                    bool f5Readable = GetFeature(ifh, 0xF5, before);
+                    if (f5Readable)
                         _log($"Master before sixpair: {Hex(before[2..8], ':')}");
 
                     byte[] set = new byte[8];
@@ -1459,9 +1506,23 @@ namespace PadForge.Services
                         }
                         _log("Sixpair written and confirmed.");
                     }
+                    else if (f5Readable)
+                    {
+                        // Answered the same read moments ago, so this is the pad
+                        // leaving the bus rather than a refusal. The DualShock 3
+                        // sibling treats it as an unconfirmed commit and so does
+                        // this: a control transfer that returned true is not
+                        // proof the firmware stored the master.
+                        _log("Sixpair read-back failed after the write: the pad was "
+                             + "disconnected during pairing. Plug it back in and pair again.");
+                        error = "sixpair-not-committed"; return false;
+                    }
                     else
                     {
-                        _log("Sixpair written (the read-back failed; commit not confirmed).");
+                        // Never answered the read at all (clones refuse it while
+                        // accepting the write). Keep the tolerant behavior, and
+                        // say what was actually proven.
+                        _log("Sixpair written (this pad does not answer the read-back).");
                     }
                     return true;
                 }

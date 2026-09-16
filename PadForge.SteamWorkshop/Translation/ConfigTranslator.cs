@@ -235,6 +235,12 @@ namespace PadForge.SteamWorkshop.Translation
             /// half click gated on its half's touch spot, #9 B-1).
             /// Materializes as Kind=Chord with ChordSecondDescriptor.</summary>
             public string GateDescriptor = "";
+            /// <summary>SECOND AND companion, for the shape ChordHost
+            /// produces when it chords an ALREADY gated wedge: the wedge keeps
+            /// its contact or click gate and the chord partner lands here.
+            /// Materializes as ShiftActivator.Gate2Descriptor, which every
+            /// kind reads.</summary>
+            public string Gate2Descriptor = "";
             /// <summary>Layer of the preset hosting the binding. A lone
             /// CHANGE_PRESET to Base lowers to a single-stop Cycle through
             /// this layer (the runtime has no one-way jump).</summary>
@@ -1756,7 +1762,9 @@ namespace PadForge.SteamWorkshop.Translation
                     : new ResolvedSource
                     {
                         Descriptor = $"Touchpad {PhysicalSlotResolver.TrackpadIndex(slot, run.SinglePadTrackpads)} "
-                            + (memberFlip ? "SwipeUp" : "SwipeDown"),
+                            + (memberFlip ? "SwipeUp" : "SwipeDown")
+                            + PhysicalSlotResolver.HalfSuffix(
+                                PhysicalSlotResolver.HalfFor(slot, run.SinglePadTrackpads)),
                         TrackpadFeature = PhysicalSlotResolver.FeatureSwipes,
                     };
                 string inputPath = $"{path}/{memberName}";
@@ -1866,7 +1874,9 @@ namespace PadForge.SteamWorkshop.Translation
                     }
                     : new ResolvedSource
                     {
-                        Descriptor = $"Touchpad {PhysicalSlotResolver.TrackpadIndex(slot, run.SinglePadTrackpads)} SwipeDown",
+                        Descriptor = $"Touchpad {PhysicalSlotResolver.TrackpadIndex(slot, run.SinglePadTrackpads)} SwipeDown"
+                            + PhysicalSlotResolver.HalfSuffix(
+                                PhysicalSlotResolver.HalfFor(slot, run.SinglePadTrackpads)),
                         TrackpadFeature = PhysicalSlotResolver.FeatureSwipes,
                     };
                 var cycle = new TranslatedMacro
@@ -1917,6 +1927,8 @@ namespace PadForge.SteamWorkshop.Translation
             SteamSlot slot, string layer, string path, Dictionary<string, string> settings)
         {
             int p = PhysicalSlotResolver.TrackpadIndex(slot, run.SinglePadTrackpads);
+            string swipeSfx = PhysicalSlotResolver.HalfSuffix(
+                PhysicalSlotResolver.HalfFor(slot, run.SinglePadTrackpads));
             foreach (var inputName in group.Inputs.Keys.OrderBy(k => k, StringComparer.Ordinal))
             {
                 string dir = inputName.ToLowerInvariant() switch
@@ -1951,7 +1963,10 @@ namespace PadForge.SteamWorkshop.Translation
                 }
                 var source = new ResolvedSource
                 {
-                    Descriptor = $"Touchpad {p} {dir}",
+                    // The half the swipe STARTED on. The gesture fires at lift,
+                    // so a contact gate would read false on that tick; the
+                    // recognizer qualifies the fired name instead.
+                    Descriptor = $"Touchpad {p} {dir}{swipeSfx}",
                     TrackpadFeature = PhysicalSlotResolver.FeatureSwipes,
                 };
                 TranslateInput(run, preset, input, source, clickGate: null, layer, inputPath);
@@ -2801,6 +2816,17 @@ namespace PadForge.SteamWorkshop.Translation
                     string target = left ? "RightTrigger" : "LeftTrigger";
                     var src = new MappingSource { Descriptor = sourceDesc };
                     if (dzPct > 0) src.DeadZone = dzPct;
+                    // The deadzone alone is the BUTTON threshold: the pull read
+                    // never looks at it, and the fold only moves an inner radius
+                    // onto the trigger's own card when a shape is stamped beside
+                    // it. Without the shape the authored deadzone reached nothing
+                    // and still reported clean. Axial, since a trigger is one
+                    // dimensional and has no shape card of its own.
+                    if (dzPct > 0)
+                    {
+                        src.ParamStickDeadZoneShape = 1;
+                        src.ParamStickDeadZoneInner = StickInnerFraction(dzPct);
+                    }
                     curve.StampAxis(src, isX: true);
                     AddRowSource(run, isKbm: false, layer, target,
                         src, isAxis: true,
@@ -2811,7 +2837,8 @@ namespace PadForge.SteamWorkshop.Translation
                 {
                     run.AddMatchedAnalog(layer, left ? "LeftTrigger" : "RightTrigger",
                         sourceDesc, path, dzPct,
-                        curve.Exponent, curve.RangeOuter, curve.SensX, curve.Anti);
+                        curve.Exponent, curve.RangeOuter, curve.SensX, curve.Anti,
+                        stickShape: dzPct > 0 ? 1 : 0);
                 }
             }
 
@@ -3546,7 +3573,7 @@ namespace PadForge.SteamWorkshop.Translation
             {
                 var tap = new ResolvedSource
                 {
-                    Descriptor = $"Touchpad {pad} DoubleTap",
+                    Descriptor = $"Touchpad {pad} DoubleTap{TouchpadHalfSuffixOf(source)}",
                     TrackpadFeature = PhysicalSlotResolver.FeatureTaps,
                 };
                 int tapMacrosBefore = run.Profile.Macros.Count;
@@ -3631,6 +3658,19 @@ namespace PadForge.SteamWorkshop.Translation
                         {
                             run.Report.Add(TranslationStatus.Skipped, TranslationReasons.UnknownMouseButton,
                                 actPath, binding.Raw, args: binding.Param);
+                            break;
+                        }
+                        if (toggle)
+                        {
+                            // The key and virtual-controller arms of this same
+                            // switch read the activator's toggle first. This one
+                            // went straight to the hold, so a double press
+                            // authored to LATCH the mouse button only held it
+                            // while the input was down. The repeat flag composes
+                            // the pulsed latch, the established shape.
+                            anyCarry |= EmitMouseToggleMacro(run, binding, source, actPath, btn,
+                                input.Name, triggerMode: "DoublePress",
+                                pulse: holdRepeats, pulseIntervalMs: intervalMs);
                             break;
                         }
                         var macro = new TranslatedMacro
@@ -3794,6 +3834,23 @@ namespace PadForge.SteamWorkshop.Translation
 
             if (anyCarry)
                 ConsumeActivatorDelays(run, activator, actPath, macrosBefore, dpActivatorsBefore);
+        }
+
+        /// <summary>The half a touchpad-hosted source sits on, as the trailing
+        /// " Left" / " Right" the descriptor grammar uses, or "" for a
+        /// whole-pad source. Recovered from the source rather than passed in,
+        /// because the double-press lowering receives only the source it is
+        /// re-hosting. Both places a half can ride are checked: the descriptor
+        /// suffix and the contact gate.</summary>
+        private static string TouchpadHalfSuffixOf(ResolvedSource source)
+        {
+            foreach (string d in new[] { source?.Descriptor, source?.GateDescriptor })
+            {
+                if (string.IsNullOrEmpty(d)) continue;
+                if (d.EndsWith(" Left", StringComparison.Ordinal)) return " Left";
+                if (d.EndsWith(" Right", StringComparison.Ordinal)) return " Right";
+            }
+            return "";
         }
 
         /// <summary>Physical touchpad index of a resolved source
@@ -4556,17 +4613,23 @@ namespace PadForge.SteamWorkshop.Translation
                     // axis latch or pulse primitive and keep their notes.
                     if (xt.IsStickAxis)
                     {
-                        if (onRelease)
-                        {
-                            EmitVcAxisTapMacro(run, binding, source, path, xt, inputName);
-                            break;
-                        }
                         if (toggle)
                         {
+                            // Chosen BEFORE the release arm, the order the key
+                            // and mouse-button siblings already use: taking the
+                            // one-shot tap first turned a release activator's
+                            // authored latch into a single tap and lost the latch
+                            // entirely.
                             // v18: the axis latch replaces the momentary
                             // row; hold_repeats composes the pulsed latch.
                             EmitVcAxisToggleMacro(run, binding, source, path, xt, inputName,
+                                triggerMode: onRelease ? "OnRelease" : null,
                                 pulse: holdRepeats, pulseIntervalMs: intervalMs);
+                            break;
+                        }
+                        if (onRelease)
+                        {
+                            EmitVcAxisTapMacro(run, binding, source, path, xt, inputName);
                             break;
                         }
                         if (holdRepeats)
@@ -4710,7 +4773,7 @@ namespace PadForge.SteamWorkshop.Translation
                     // Pulse-gesture hosts (double taps, swipes, v26) ride
                     // the one-shot latching arm, the flick-host rule.
                     TranslateModeShift(run, preset, binding, source, path, toggle: toggle,
-                        oneShotHost: IsGesturePulseHost(source));
+                        oneShotHost: IsGesturePulseHost(source), onRelease: onRelease);
                     break;
 
                 case "controller_action":
@@ -5531,7 +5594,7 @@ namespace PadForge.SteamWorkshop.Translation
 
         private void TranslateModeShift(Run run, SteamInputPreset preset, SteamInputBinding binding,
             ResolvedSource source, string path, int activatorDelayMs = 0, bool toggle = false,
-            bool oneShotHost = false, int doublePressMs = 0)
+            bool oneShotHost = false, int doublePressMs = 0, bool onRelease = false)
         {
             // Param: "{slot} {groupId}". The layer holds the groups the
             // preset marks "{slot} active modeshift".
@@ -5576,12 +5639,25 @@ namespace PadForge.SteamWorkshop.Translation
                 // state, so it always latches.
                 Mode = toggle || oneShotHost ? "Toggle" : "Hold",
                 InheritUnmapped = true, // mode shift overlays the slot; everything else keeps working
+                // The edge the user authored, the way the layer verbs carry
+                // it. A Toggle latches on whichever edge it is given; a Hold
+                // is level-driven, engaged while the input is down, so both
+                // its edges already have jobs and a release host cannot be
+                // expressed. This arm carried neither the flag nor the note,
+                // so a release-hosted mode shift engaged on press in silence.
+                FireOnRelease = onRelease && (toggle || oneShotHost),
                 DelayMs = activatorDelayMs,
                 DoublePressMs = doublePressMs,
                 Path = path,
             };
             FillActivatorInput(req, source);
             run.Activators.Add(req);
+            if (onRelease && !(toggle || oneShotHost))
+            {
+                run.Report.Add(TranslationStatus.Partial,
+                    TranslationReasons.LayerReleaseEdgeApproximated,
+                    path, binding.Raw, args: "MODE_SHIFT");
+            }
         }
 
         /// <summary><paramref name="triggerModeOverride"/> (v17) replaces
@@ -6292,6 +6368,11 @@ namespace PadForge.SteamWorkshop.Translation
         {
             req.Descriptor = source.Descriptor;
             req.GateDescriptor = source.GateDescriptor ?? "";
+            // ChordHost gives an already-gated wedge its chord partner on the
+            // SECOND companion. Reading only the first dropped the partner, so
+            // a layer or mode shift on that chord engaged on the wedge alone
+            // while a key press on the same chord still waited for both.
+            req.Gate2Descriptor = source.Gate2Descriptor ?? "";
             if (source.HalfAxis && !source.IsAnalogTriggerPull)
             {
                 req.Kind = "Axis";
@@ -6432,7 +6513,17 @@ namespace PadForge.SteamWorkshop.Translation
                 foreach (int gi in gateIdx)
                 {
                     string gv = "s[" + gi.ToString(CultureInfo.InvariantCulture) + "]";
-                    term = isAxis ? "(" + term + " * " + gv + ")" : "(" + term + " && " + gv + ")";
+                    // A gate is a BOOLEAN, on an axis row as much as a button
+                    // row. Multiplying by the raw read made it an analog
+                    // multiplier, and a chord partner can be a trigger or a
+                    // stick ring: a released trigger reads about minus one on
+                    // the bipolar scale, so the gate inverted the source it was
+                    // supposed to hold shut, and a partial pull passed a
+                    // fraction of it. The comparison restores the AND the
+                    // per-source field meant, on either row family.
+                    term = isAxis
+                        ? "(" + term + " * (" + gv + " != 0))"
+                        : "(" + term + " && " + gv + ")";
                 }
                 terms.Add(term);
             }
@@ -6473,11 +6564,19 @@ namespace PadForge.SteamWorkshop.Translation
         /// expression language's ternary.</summary>
         private static string FoldMaxAbs(List<string> terms)
         {
-            string acc = terms[0];
-            for (int i = 1; i < terms.Count; i++)
-            {
-                acc = "(abs(" + acc + ") >= abs(" + terms[i] + ") ? " + acc + " : " + terms[i] + ")";
-            }
+            // The pairwise fold this replaces embedded the accumulator TWICE per
+            // added term, so the expression DOUBLED in length with every source:
+            // a wide gated axis row built a string measured in megabytes, which
+            // the parser then walked on every tick. Naming the peak once and
+            // scanning the terms against it is quadratic instead, and the first
+            // term that reaches the peak wins, which is the tie order both the
+            // pairwise fold and the runtime's own combine already had.
+            var mags = new List<string>(terms.Count);
+            foreach (string t in terms) mags.Add("abs(" + t + ")");
+            string peak = "max(" + string.Join(", ", mags) + ")";
+            string acc = terms[terms.Count - 1];
+            for (int i = terms.Count - 2; i >= 0; i--)
+                acc = "(abs(" + terms[i] + ") >= " + peak + " ? " + terms[i] + " : " + acc + ")";
             return acc;
         }
 
@@ -6571,14 +6670,33 @@ namespace PadForge.SteamWorkshop.Translation
             // bitmask AND the analog-trigger target name. A combined-output
             // macro trigger is unreachable the same way in either shape, and
             // the axis shape is the one an autofire on a trigger pull takes.
-            ushort fedBits = 0;
-            var fedAxes = new HashSet<string>(StringComparer.Ordinal);
+            // Feeders are PER LAYER. The row picker takes the engaged layer's
+            // own row, falls back to the base only when that layer inherits
+            // unmapped targets, and never reads a third layer's rows, while
+            // every macro is stamped with the layer it was authored in. Unioning
+            // every layer's rows therefore called a trigger fed when its only
+            // feeder sat on a layer that cannot be engaged while the macro can
+            // fire, and the macro kept an output bit nothing drives.
+            var fedBitsByLayer = new Dictionary<string, ushort>(StringComparer.Ordinal);
+            var fedAxesByLayer = new Dictionary<string, HashSet<string>>(StringComparer.Ordinal);
             foreach (var row in profile.XboxMappingSet.Rows)
             {
                 if (row?.Sources == null || row.Sources.Count == 0) continue;
-                fedBits |= XInputTargetTable.BitForTarget(row.Target);
-                if (!string.IsNullOrEmpty(row.Target)) fedAxes.Add(row.Target);
+                string rowLayer = string.IsNullOrEmpty(row.LayerMask) ? "Base" : row.LayerMask;
+                fedBitsByLayer[rowLayer] = (ushort)(fedBitsByLayer.GetValueOrDefault(rowLayer)
+                    | XInputTargetTable.BitForTarget(row.Target));
+                if (string.IsNullOrEmpty(row.Target)) continue;
+                if (!fedAxesByLayer.TryGetValue(rowLayer, out var axes))
+                    fedAxesByLayer[rowLayer] = axes = new HashSet<string>(StringComparer.Ordinal);
+                axes.Add(row.Target);
             }
+            // A layer whose activator inherits unmapped targets still lets the
+            // base drive what it does not map, so the base counts as a feeder
+            // there and nowhere else.
+            var inheritsBase = new HashSet<string>(StringComparer.Ordinal);
+            foreach (var a in profile.XboxMappingSet.ShiftActivators)
+                if (a != null && a.InheritUnmapped && !string.IsNullOrEmpty(a.LayerMask))
+                    inheritsBase.Add(a.LayerMask);
 
             foreach (var m in profile.Macros)
             {
@@ -6590,8 +6708,19 @@ namespace PadForge.SteamWorkshop.Translation
                 bool isAxisTrigger = !string.IsNullOrEmpty(m.TriggerAxisTarget);
                 if (!isButtonTrigger && !isAxisTrigger) continue;
                 // Fed by at least one row: the indirect trigger works.
+                string macroLayer = string.IsNullOrEmpty(m.LayerMask) ? "Base" : m.LayerMask;
+                ushort fedBits = fedBitsByLayer.GetValueOrDefault(macroLayer);
+                bool axisFed = fedAxesByLayer.TryGetValue(macroLayer, out var macroAxes)
+                    && macroAxes.Contains(m.TriggerAxisTarget ?? "");
+                if (!string.Equals(macroLayer, "Base", StringComparison.Ordinal)
+                    && inheritsBase.Contains(macroLayer))
+                {
+                    fedBits |= fedBitsByLayer.GetValueOrDefault("Base");
+                    axisFed |= fedAxesByLayer.TryGetValue("Base", out var baseAxes)
+                        && baseAxes.Contains(m.TriggerAxisTarget ?? "");
+                }
                 if (isButtonTrigger && (m.TriggerXboxButtons & fedBits) != 0) continue;
-                if (isAxisTrigger && fedAxes.Contains(m.TriggerAxisTarget)) continue;
+                if (isAxisTrigger && axisFed) continue;
                 // Unfed, and no descriptor to fall back to: leave it alone and
                 // let the existing report entry stand rather than silently
                 // producing a trigger-less macro.
@@ -6817,19 +6946,46 @@ namespace PadForge.SteamWorkshop.Translation
         /// does not itself engage the layer, which is the case where the
         /// Cycle is the only way back and the original note still holds.
         /// </para></summary>
+        /// <summary>What makes one activator's input a different INPUT from
+        /// another's on the same layer: the descriptor plus the legs that
+        /// select which part of it fires. The merge path names these three
+        /// and the reasons are the same here. A single-pad left-half click
+        /// and a right-half click share the pad-click descriptor and differ
+        /// only in gate. Opposite flick directions share an axis descriptor
+        /// and differ only in half.
+        ///
+        /// <para>Timing and edge are deliberately NOT here. They separate two
+        /// TRIGGERS on one input, which is what the emit dedup and the jump
+        /// merge care about, but an engage and its return are routinely
+        /// authored with different timing on the same button, and the corpus
+        /// witnesses this pass was written for (a shoulder on 3456927474, the
+        /// rear paddles on 3725174032) are exactly that shape. Including them
+        /// stopped the drop firing on the cases it exists for.</para></summary>
+        private static string ActivatorInputKey(ActivatorRequest a) =>
+            $"{a.LayerMask}|{a.Descriptor}|{a.GateDescriptor}|{a.Gate2Descriptor}"
+            + $"|{(a.AxisHalf ? 1 : 0)}{(a.AxisInvert ? 1 : 0)}";
+
         private static void DropRemovesCoveredByTheirOwnToggle(Run run)
         {
             // Toggle and Hold are the two ENGAGE modes. A Cycle is not one:
             // it is a stepper, and two steppers on one input is the merge
             // path's business, not this one's.
-            var engaged = new HashSet<(string Layer, string Descriptor)>();
+            // The whole input is the identity, not the descriptor alone. The
+            // merge path spells out why: a single-pad left-half click and a
+            // right-half click share the pad-click descriptor and differ only
+            // in gate, opposite flick directions differ only in half, and a
+            // long press and a full press are two triggers. Keying on layer
+            // plus descriptor made a right-half return look like it was
+            // covered by a left-half engage, and the return was deleted with
+            // no way back to the layer.
+            var engaged = new HashSet<string>(StringComparer.Ordinal);
             foreach (var a in run.Activators)
             {
                 if ((string.Equals(a.Mode, "Toggle", StringComparison.Ordinal)
                         || string.Equals(a.Mode, "Hold", StringComparison.Ordinal))
                     && !string.IsNullOrEmpty(a.LayerMask)
                     && !string.IsNullOrEmpty(a.Descriptor))
-                    engaged.Add((a.LayerMask, a.Descriptor));
+                    engaged.Add(ActivatorInputKey(a));
             }
             if (engaged.Count == 0) return;
 
@@ -6840,7 +6996,7 @@ namespace PadForge.SteamWorkshop.Translation
                 // own layer, plus Base.
                 && string.Equals(a.CycleLayers, a.LayerMask, StringComparison.Ordinal)
                 && !string.IsNullOrEmpty(a.Descriptor)
-                && engaged.Contains((a.LayerMask, a.Descriptor))).ToList();
+                && engaged.Contains(ActivatorInputKey(a))).ToList();
             if (dropped.Count == 0) return;
 
             foreach (var a in dropped) run.Activators.Remove(a);
@@ -6886,7 +7042,12 @@ namespace PadForge.SteamWorkshop.Translation
                 // user's two triggers stopped working (round 34).
                 // MergeSameInputJumpsIntoCycles already treats DoublePressMs
                 // this way; this key now agrees with it.
-                if (!seen.Add($"{req.LayerMask}|{req.Descriptor}|{req.GateDescriptor}|{req.Mode}|{req.JumpToLayer}|{req.CycleLayers}|{(req.AxisHalf ? 1 : 0)}{(req.AxisInvert ? 1 : 0)}|{req.DelayMs}|{req.ReleaseDelayMs}|{req.DoublePressMs}")) continue;
+                // The edge and the axis threshold are identity too. A
+                // Full_Press and a Release activator carrying the same verb on
+                // one input differ in nothing else, so the second read as a
+                // duplicate and was dropped, which is the same class of loss
+                // the timing fields above were added to stop.
+                if (!seen.Add($"{req.LayerMask}|{req.Descriptor}|{req.GateDescriptor}|{req.Gate2Descriptor}|{req.Mode}|{req.JumpToLayer}|{req.CycleLayers}|{(req.AxisHalf ? 1 : 0)}{(req.AxisInvert ? 1 : 0)}|{req.DelayMs}|{req.ReleaseDelayMs}|{req.DoublePressMs}|{(req.FireOnRelease ? 1 : 0)}|{req.AxisThreshold.ToString("R", System.Globalization.CultureInfo.InvariantCulture)}")) continue;
 
                 // Layer-gated macros are layer CONTENT too (v25,
                 // always_on_action): a set whose only authored binding is
@@ -6965,6 +7126,9 @@ namespace PadForge.SteamWorkshop.Translation
                     // kind (a gated wedge, v26) reads GateDescriptor.
                     ChordSecondDescriptor = req.Kind == "Chord" ? req.GateDescriptor : "",
                     GateDescriptor = req.Kind == "Axis" ? req.GateDescriptor : "",
+                    // The third leg has no kind of its own, so it passes
+                    // through whichever carrier the two above took.
+                    Gate2Descriptor = req.Gate2Descriptor,
                     AxisThreshold = req.AxisThreshold,
                     AxisHalf = req.AxisHalf,
                     AxisInvert = req.AxisInvert,
@@ -7066,7 +7230,7 @@ namespace PadForge.SteamWorkshop.Translation
                 // button are different triggers. Folding them erased the
                 // hold threshold, so a quick tap stepped the preset ring
                 // where Steam requires a hold (round 34).
-                .GroupBy(a => $"{a.Kind}|{a.Descriptor}|{a.GateDescriptor}|{(a.AxisHalf ? 1 : 0)}{(a.AxisInvert ? 1 : 0)}|{a.DoublePressMs}|{a.DelayMs}", StringComparer.Ordinal)
+                .GroupBy(a => $"{a.Kind}|{a.Descriptor}|{a.GateDescriptor}|{a.Gate2Descriptor}|{(a.AxisHalf ? 1 : 0)}{(a.AxisInvert ? 1 : 0)}|{a.DoublePressMs}|{a.DelayMs}", StringComparer.Ordinal)
                 .Where(g => g.Select(a => a.JumpToLayer).Distinct(StringComparer.Ordinal).Count() > 1)
                 .ToList();
 
@@ -7095,14 +7259,34 @@ namespace PadForge.SteamWorkshop.Translation
                     Descriptor = first.Descriptor,
                     Kind = first.Kind,
                     GateDescriptor = first.GateDescriptor,
+                    Gate2Descriptor = first.Gate2Descriptor,
                     AxisThreshold = first.AxisThreshold,
                     AxisHalf = first.AxisHalf,
                     AxisInvert = first.AxisInvert,
                     DoublePressMs = first.DoublePressMs,
+                    // The timing fields are part of the trigger, and the key
+                    // above already groups on DelayMs for that reason. They
+                    // were then left off the merged request, so two long-press
+                    // jumps on one button folded into a ring a quick tap could
+                    // step, which is the very failure the key comment records.
+                    DelayMs = first.DelayMs,
+                    ReleaseDelayMs = first.ReleaseDelayMs,
+                    InheritUnmapped = first.InheritUnmapped,
                     CycleLayers = string.Join("|", stops),
                     CycleIncludeBase = includeBase,
                     Path = first.Path,
                 });
+
+                // A Cycle steps on the press edge, so a release-hosted member
+                // loses its edge here. The set-cycle path reports exactly this
+                // rather than carrying a flag the mode cannot honor, and this
+                // one now says so too instead of dropping it in silence.
+                foreach (var m in members.Where(m => m.FireOnRelease))
+                {
+                    run.Report.Add(TranslationStatus.Partial,
+                        TranslationReasons.LayerReleaseEdgeApproximated,
+                        m.Path, "", args: "CHANGE_PRESET");
+                }
             }
         }
 

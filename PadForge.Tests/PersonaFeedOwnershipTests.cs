@@ -35,6 +35,14 @@ public sealed class PersonaFeedOwnershipTests : IDisposable
 
     public PersonaFeedOwnershipTests()
     {
+        // These tests drive capture publication directly. A worker retained
+        // across an earlier profile test would reconcile their synthetic routes.
+        AudioPassthroughService.Shutdown();
+        foreach (string name in new[] { "_workerThread", "_btThread" })
+        {
+            var worker = typeof(AudioPassthroughService).GetField(name, StaticPrivate)!.GetValue(null) as Thread;
+            if (worker?.IsAlive == true) Assert.True(worker.Join(5000));
+        }
         SettingsManager.UserSettings = new SettingsCollection();
         SettingsManager.UserDevices = new DeviceCollection();
         SettingsManager.SlotCreated[Pad] = SettingsManager.SlotCreated[NextPad] = true;
@@ -433,7 +441,7 @@ public sealed class PersonaFeedOwnershipTests : IDisposable
     }
 
     [Fact]
-    public void ProfileAudioShutdownKeepsTheLiveOwnerAndCapture()
+    public void RestartableAudioShutdownKeepsTheLiveOwnerAndCapture()
     {
         var audio = Audio();
         var im = Manager(_ => audio);
@@ -450,7 +458,7 @@ public sealed class PersonaFeedOwnershipTests : IDisposable
         Assert.Equal(1, captureOpens);
         Assert.Same(capture, feed.Mic);
 
-        // Profile applies stop the restartable audio service, not its VC owner.
+        // Restartable transport shutdown does not retire a live persona owner.
         AudioPassthroughService.Shutdown();
         RunCleanup();
         Assert.False(feed.Owner.Closed);

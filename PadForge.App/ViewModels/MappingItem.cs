@@ -1391,6 +1391,24 @@ namespace PadForge.ViewModels
                     || desc.StartsWith("IR Pointer ", StringComparison.Ordinal)
                     || desc.StartsWith("IR Brightness", StringComparison.Ordinal)
                     || desc.StartsWith("Balance ", StringComparison.Ordinal)
+                    // The four families the extra-source twin already admits and
+                    // this one did not, so the same source hid its deadzone knob
+                    // on the primary row and showed it one row down. Each reads
+                    // the per-source deadzone for a button target: gyro at its
+                    // own scale, mouse position and an absolute control change
+                    // through the shared threshold, and the continuous gesture
+                    // axes the same way. The encoder pulses are edge-fired and
+                    // read no threshold, so they stay out. The gesture test sits
+                    // HERE, ahead of the blanket touchpad exclusion that would
+                    // otherwise swallow it.
+                    || desc.StartsWith("Gyro ", StringComparison.Ordinal)
+                    || desc.StartsWith("Mouse Position ", StringComparison.Ordinal)
+                    || (desc.StartsWith("Midi CC ", StringComparison.Ordinal)
+                        && !desc.EndsWith(" Up", StringComparison.Ordinal)
+                        && !desc.EndsWith(" Down", StringComparison.Ordinal))
+                    || (PadForge.Engine.Common.Mapping.SourceCoercion.IsTouchpadGestureDescriptor(desc)
+                        && PadForge.Engine.Common.Mapping.SourceCoercion.TryParseTouchpadGesture(desc, out _, out string gestureName)
+                        && PadForge.Engine.Common.Mapping.SourceCoercion.IsTouchpadGestureAxis(gestureName))
                     // Absolute pointer (#9 B-15): continuous position whose
                     // button coercion thresholds on the per-source DeadZone
                     // like the IR pointer (same set the grid's
@@ -1791,7 +1809,15 @@ namespace PadForge.ViewModels
         /// user picked Custom for the combine mode. Gates the formula
         /// editor so it disappears when the row falls back to single-
         /// source (e.g. the user removed the last extra source).</summary>
-        public bool ShouldShowCustomExpression => IsMultiSource && IsCustomCombine;
+        /// <remarks>The touchpad axis targets are the exception: their
+        /// evaluator runs a custom formula at ANY source count, because the
+        /// active-flag channel makes a one-source formula meaningful (it
+        /// overrides the sticky hold-last-position default). Requiring more than
+        /// one source there hid a formula the engine was still evaluating, so
+        /// the row could not be read or undone from the grid. Every other family
+        /// gates on more than one contributing source.</remarks>
+        public bool ShouldShowCustomExpression =>
+            IsCustomCombine && (IsMultiSource || IsTouchpadAxisTarget);
 
         public bool IsStickTrimCombine => string.Equals(_combineMode, "StickTrim", StringComparison.Ordinal);
 

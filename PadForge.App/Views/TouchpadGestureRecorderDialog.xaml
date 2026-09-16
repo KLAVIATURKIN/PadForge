@@ -123,11 +123,24 @@
                            VerticalAlignment="Center" Margin="12,0,0,0"/>
             </StackPanel>
 
-            <!-- Sample-count picker -->
-            <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="0,8,0,0">
-                <TextBlock Text="{Binding Recorder_SampleCount_Label, Source={x:Static strings:Strings.Instance}}"
+            <!-- Sample-count picker. A Grid, not a horizontal stack: a
+                 horizontal stack measures its children against infinite width,
+                 so the hint's wrap attribute never fired and the line ran off
+                 the right edge of a 640 window that cannot be resized. MEASURED
+                 with tools/rowmeasure: the label, picker and reset take 251 of
+                 the 608 usable, and the hint needs 546 on one line in French,
+                 so it cannot fit. The star column gives it the 357 that remain,
+                 which every locale wraps into. -->
+            <Grid Grid.Row="5" Margin="0,8,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="{Binding Recorder_SampleCount_Label, Source={x:Static strings:Strings.Instance}}"
                            VerticalAlignment="Center" Margin="0,0,8,0"/>
-                <ComboBox x:Name="SampleCountBox" Width="60" SelectedIndex="1"
+                <ComboBox Grid.Column="1" x:Name="SampleCountBox" Width="60" SelectedIndex="1"
                           VerticalAlignment="Center"
                           SelectionChanged="SampleCountBox_SelectionChanged"
                           ScrollViewer.VerticalScrollBarVisibility="Visible">
@@ -135,12 +148,12 @@
                     <ComboBoxItem Content="3"/>
                     <ComboBoxItem Content="5"/>
                 </ComboBox>
-                <reset:SettingResetButton Click="ResetSampleCount_Click" Tag="" Visibility="{Binding Visibility, ElementName=SampleCountBox}" IsEnabled="{Binding IsEnabled, ElementName=SampleCountBox}" SettingLabel="{Binding Recorder_SampleCount_Label, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_?dialog_SampleCountBox_132" Margin="4,0,8,0"/>
-                <TextBlock Text="{Binding Recorder_SampleCount_Hint, Source={x:Static strings:Strings.Instance}}"
+                <reset:SettingResetButton Grid.Column="2" Click="ResetSampleCount_Click" Tag="" Visibility="{Binding Visibility, ElementName=SampleCountBox}" IsEnabled="{Binding IsEnabled, ElementName=SampleCountBox}" SettingLabel="{Binding Recorder_SampleCount_Label, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_?dialog_SampleCountBox_132" Margin="4,0,8,0"/>
+                <TextBlock Grid.Column="3" Text="{Binding Recorder_SampleCount_Hint, Source={x:Static strings:Strings.Instance}}"
                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                            FontSize="12" VerticalAlignment="Center" Margin="12,0,0,0"
                            TextWrapping="Wrap"/>
-            </StackPanel>
+            </Grid>
 
             <!-- Footer band (#175 dialog language): Save is the dialog's
                  primary affirmative and wears the ember accent. Try Again

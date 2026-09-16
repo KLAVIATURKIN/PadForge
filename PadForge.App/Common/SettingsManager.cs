@@ -730,9 +730,17 @@ namespace PadForge.Common.Input
         /// Nintendo automaps are wire-relative and the two Switch families
         /// share almost no indices, so this decides which wire the defaults
         /// bind. Null falls back to the original Pro Controller's.</param>
+        /// <param name="extended">The slot's own Extended layout, when the
+        /// caller has one. An Extended slot reads the RAW surface unconditionally
+        /// and its axis order interleaves sticks with triggers, so the target
+        /// index for a stick or a trigger depends on how many of each the slot
+        /// declares. Without it the generator fell through to the standard
+        /// gamepad fields, which that surface never reads, and the slot came up
+        /// with no automap at all.</param>
         public static PadSetting CreateDefaultPadSetting(UserDevice ud,
             Engine.VirtualControllerType outputType = Engine.VirtualControllerType.Xbox,
-            string profileId = null)
+            string profileId = null,
+            ViewModels.ExtendedSlotConfig extended = null)
         {
             var ps = new PadSetting();
 
@@ -827,6 +835,42 @@ namespace PadForge.Common.Input
                     if (HasButton(9)) ps.SetVrMapping("VrRStickClick", "Button 9");
                     ps.FlushVrMappings();
 
+                    ps.UpdateChecksum();
+                    return ps;
+                }
+
+                // An unlettered Extended profile has no role table, so its grid
+                // rows are numbered and the honest default is positional: the
+                // source's Nth stick drives the slot's Nth stick and the same for
+                // triggers and buttons. Both sides interleave, so the indices are
+                // computed from the slot's declared counts rather than assumed.
+                if (outputType == Engine.VirtualControllerType.Extended
+                    && extended != null
+                    && !Models2D.NintendoPreviewMap.IsLettered(profileId))
+                {
+                    extended.ComputeAxisLayout(out int[] slotX, out int[] slotY, out int[] slotTrig);
+                    // The source is the standard order this generator already
+                    // uses below: stick g at 3g and 3g+1, trigger t at 3t+2 for
+                    // the interleaved groups, which is exactly LX LY LT RX RY RT
+                    // on an ordinary pad.
+                    int srcInterleave = Math.Min(2, 2);
+                    for (int g = 0; g < slotX.Length; g++)
+                    {
+                        int sx = g < srcInterleave ? g * 3 : srcInterleave * 3 + (g - srcInterleave) * 2;
+                        if (HasAxis(sx)) ps.SetRawMapping($"RawAxis{slotX[g]}", $"Axis {sx}");
+                        if (HasAxis(sx + 1)) ps.SetRawMapping($"RawAxis{slotY[g]}", $"Axis {sx + 1}");
+                    }
+                    for (int t = 0; t < slotTrig.Length; t++)
+                    {
+                        int st = t < srcInterleave ? t * 3 + 2 : -1;
+                        if (st >= 0 && HasAxis(st)) ps.SetRawMapping($"RawAxis{slotTrig[t]}", $"Axis {st}");
+                    }
+                    for (int b = 0; b < extended.ButtonCount; b++)
+                        if (HasButton(b)) ps.SetRawMapping($"RawBtn{b}", $"Button {b}");
+                    if (extended.PovCount > 0 && HasHat())
+                        foreach (string dir in new[] { "Up", "Down", "Left", "Right" })
+                            ps.SetRawMapping($"RawPov0{dir}", $"POV 0 {dir}");
+                    ps.FlushRawMappings();
                     ps.UpdateChecksum();
                     return ps;
                 }
@@ -1309,8 +1353,11 @@ namespace PadForge.Common.Input
             => padIndex >= 0 && padIndex < _nintendoWireStamp.Length
                 ? _nintendoWireStamp[padIndex] : null;
 
+        /// <param name="extended">The slot's Extended layout, threaded through
+        /// so an unlettered Extended slot gets a raw automap rather than the
+        /// standard gamepad fields its surface never reads.</param>
         public static void ReAutoMapSlot(int padIndex, Engine.VirtualControllerType outputType,
-            string profileId = null)
+            string profileId = null, ViewModels.ExtendedSlotConfig extended = null)
         {
             var settings = UserSettings;
             if (settings == null) return;
@@ -1341,7 +1388,7 @@ namespace PadForge.Common.Input
             foreach (var us in slotSettings)
             {
                 var ud = FindDeviceByInstanceGuid(us.InstanceGuid);
-                var ps = CreateDefaultPadSetting(ud, outputType, profileId);
+                var ps = CreateDefaultPadSetting(ud, outputType, profileId, extended);
                 us.SetPadSetting(ps);
                 us.PadSettingChecksum = ps.PadSettingChecksum;
                 // Permanent automap-decision diagnostics (2026-07-22): a

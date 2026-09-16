@@ -197,14 +197,13 @@ namespace PadForge.Tests
             Assert.True(sleep > 0, "the idle coarse sleep is gone");
             string idleTail = hts.Substring(sleep, 700);
             Assert.Contains("if (s.PersonaOn || s.MirrorOn)", idleTail);
-            Assert.Contains("s.IdleDrainBlocks += IdleCatchUpDrain(drainDepthMs, drainBlock);", idleTail);
+            Assert.Contains("s.IdleDrainBlocks += IdleCatchUpDrainOwned(drainDepthMs, drainBlock);", idleTail);
 
-            int block = hts.IndexOf("Func<bool> drainBlock = () =>", StringComparison.Ordinal);
+            int block = hts.IndexOf("Func<(bool Read, bool Content)> drainBlock = () =>", StringComparison.Ordinal);
             Assert.True(block > 0, "the drain-block closure is gone");
             string blockBody = hts.Substring(block, 1200);
-            Assert.Contains("s.Handle != IntPtr.Zero", blockBody);
-            Assert.Contains("StreamTritonPcmTick(s, 0f, 0f, testActive: false, remoteActive: false, wakeMs)", blockBody);
-            Assert.Contains("s.LastContentMs = wakeMs; return true;", blockBody);
+            Assert.Contains("DrainIdlePcm(s, wakeMs)", blockBody);
+            Assert.Contains("s.LastContentMs = wakeMs; return (true, true);", blockBody);
         }
 
         /// <summary>The depth closure reads BOTH wall-clock producers:

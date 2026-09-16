@@ -348,6 +348,12 @@ namespace PadForge.ViewModels
             Add(s.Key_RightCtrl, 0xA3);
             Add(s.Key_LeftAlt, 0xA4);
             Add(s.Key_RightAlt, 0xA5);
+            // Same three the mapping grid gained. This list's contract is that
+            // it mirrors the grid, so a key pickable there and missing here is
+            // the drift the contract exists to stop.
+            Add(s.Key_LWin, 0x5B);
+            Add(s.Key_RWin, 0x5C);
+            Add(s.Key_Apps, 0x5D);
 
             Add(s.Key_Space, 0x20);
             Add(s.Key_Enter, 0x0D);

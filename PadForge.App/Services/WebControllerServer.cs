@@ -926,22 +926,43 @@ namespace PadForge.Services
                             .Remove(new System.Collections.Generic.KeyValuePair<string, ClientSession>(compositeKey, session));
                         if (stillRegistered)
                         {
-                            device.SetConnected(false);
-                            DeviceDisconnected?.Invoke(device);
+                            // Swallowed like the retire's disconnect and the
+                            // connect above. This is the finally: a throw here
+                            // escaped it after the session was already out of
+                            // the map, so the cancel, the socket disposal and
+                            // the token disposal below were all skipped with
+                            // nothing left to retry them. The forwarded pad's
+                            // deadline task then woke once a second forever on a
+                            // token nobody would ever cancel.
+                            try
+                            {
+                                device.SetConnected(false);
+                                DeviceDisconnected?.Invoke(device);
+                            }
+                            catch { /* best effort */ }
                         }
                     }
                     PublishSessionStatus(generation, stillRegistered);
 
+                    // Cancel BEFORE the handshake, not after. Disposal does not
+                    // cancel, and the forwarded pad's deadline task (#402) waits
+                    // on this token. The close waits for the CLIENT's own close
+                    // frame, so a page that went away without sending one held
+                    // the handshake open with no bound at all, and the deadline
+                    // task woke once a second behind it, holding the session and
+                    // its device until the transport itself gave up. The
+                    // handshake is a courtesy to a client that is still there,
+                    // so it gets a courtesy's worth of time.
+                    try { cts.Cancel(); } catch { }
                     try
                     {
                         if (ws.State == WebSocketState.Open)
-                            await ws.CloseAsync(WebSocketCloseStatus.NormalClosure, null, CancellationToken.None);
+                        {
+                            using var closing = new CancellationTokenSource(TimeSpan.FromSeconds(2));
+                            await ws.CloseAsync(WebSocketCloseStatus.NormalClosure, null, closing.Token);
+                        }
                     }
                     catch { /* best effort */ }
-                    // Dispose does not cancel. The forwarded pad's deadline task
-                    // (#402) waits on this token, so cancel first or it wakes once a
-                    // second forever, holding the session and its device.
-                    try { cts.Cancel(); } catch { }
                     cts.Dispose();
                     // Dispose the WebSocket after CloseAsync (the documented close
                     // lifecycle). A late fire-and-forget rumble send would hit a

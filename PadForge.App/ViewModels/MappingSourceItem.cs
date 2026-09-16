@@ -145,10 +145,28 @@ namespace PadForge.ViewModels
         private InputChoice ResolveParamChoice(string descriptor)
         {
             if (ParentMappingItem == null || string.IsNullOrEmpty(descriptor)) return null;
+            // Match on device and descriptor with a descriptor-only fallback,
+            // the rule the state sync below already applies. The parameter
+            // fields carry NO device of their own: the runtime reads them on
+            // THIS source's device. Matching on descriptor alone returned
+            // whichever group listed it first, so a source pinned to the second
+            // controller showed the first one's name under a key the engine
+            // reads on the second, and re-picking the same descriptor from
+            // another device's group looked like no change at all.
+            string wantGuid = (_deviceGuid ?? "").ToLowerInvariant();
+            InputChoice descriptorOnlyMatch = null;
             foreach (var c in ParentMappingItem.AvailableInputs)
-                if (c != null && string.Equals(c.Descriptor, descriptor, StringComparison.Ordinal))
+            {
+                if (c == null || !string.Equals(c.Descriptor, descriptor, StringComparison.Ordinal))
+                    continue;
+                descriptorOnlyMatch ??= c;
+                if (string.Equals(c.DeviceGuid ?? "", wantGuid, StringComparison.OrdinalIgnoreCase))
                     return c;
-            return null;
+            }
+            // A keyboard key on a gamepad source is the normal case for the
+            // fallback: no entry carries the source's guid and the engine still
+            // reads the key off the state the grip resolves to.
+            return descriptorOnlyMatch;
         }
 
         // #111 audit fix A. A stateful kind (Ramp / Incremental) is keyed only by
@@ -1064,7 +1082,13 @@ namespace PadForge.ViewModels
                 Bidirectional = src.Bidirectional,
                 InvertOutput = src.InvertOutput,
                 ParamAccel = src.ParamAccel,
-                DeadZone = src.DeadZone,
+                // The editable range starts at one, so a legacy row's zero
+                // landed on one and turned a row that INHERITED the global
+                // threshold into a one percent hair trigger on the next save.
+                // Fifty is the engine's neutral sentinel (it reads zero and
+                // fifty identically), and it is what the primary's own
+                // hydration already stamps.
+                DeadZone = src.DeadZone > 0 ? src.DeadZone : 50,
                 ParamUp = src.ParamUp ?? "",
                 ParamDown = src.ParamDown ?? "",
                 ParamRate = src.ParamRate,

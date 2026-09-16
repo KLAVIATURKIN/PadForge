@@ -388,6 +388,8 @@ namespace PadForge.Common.Input
                 {
                     if (s.DeviceGuid != deviceGuid) continue;
                     if (amplitude > s.PulseAmp) s.PulseAmp = amplitude;
+                    if (bit == 1) s.PulseAmpLeft = Math.Max(s.PulseAmpLeft, amplitude);
+                    else s.PulseAmpRight = Math.Max(s.PulseAmpRight, amplitude);
                     Interlocked.Or(ref s.PulsePendingSides, bit);
                 }
             }
@@ -401,19 +403,30 @@ namespace PadForge.Common.Input
             PadForge.Engine.RemoteLink.LinkEffectTicket ticket = null)
         {
             if (ud == null || _suppressed || FamilyOf(ud) == Family.None) return;
-            var request = new RemoteToneRequest(ud, toneHz, amplitude, ticket);
-            bool found = false;
-            lock (_lock)
+            lock (ud.OutputSync)
             {
-                foreach (var sink in _sinks)
-                    if (sink.DeviceGuid == ud.InstanceGuid)
+                var request = new RemoteToneRequest(ud, toneHz, amplitude, ticket);
+                request.TryPublish(() =>
+                {
+                    bool found = false;
+                    lock (_lock)
                     {
-                        Volatile.Write(ref sink.RemoteRequest, request);
-                        found = true;
+                        if (_suppressed) return;
+                        foreach (var sink in _sinks)
+                            if (sink.DeviceGuid == ud.InstanceGuid)
+                            {
+                                var source = request.Source;
+                                var gamepad = source?.GamepadHandle ?? IntPtr.Zero;
+                                if (!CanReuseTransport(sink, FamilyOf(ud), ud.DevicePath, source, gamepad)) continue;
+                                RefreshSinkConnection(sink, ud, source, FamilyOf(ud), ud.DevicePath, gamepad);
+                                Volatile.Write(ref sink.RemoteRequest, request);
+                                found = true;
+                            }
                     }
+                    // Zeros replace pending starts under the same device gate.
+                    _remoteToneStarts.Submit(request, !found && request.Amplitude > 0);
+                });
             }
-            // Zeros replace an earlier pending request even when no sink exists yet.
-            _remoteToneStarts.Submit(request, !found && request.Amplitude > 0);
         }
 
         private static void BuildRemoteToneSink(RemoteToneRequest request, Func<RemoteToneRequest> latest)
@@ -425,28 +438,47 @@ namespace PadForge.Common.Input
             var sink = new Sink
             {
                 DeviceGuid = ud.InstanceGuid,
+                OwnerDevice = ud,
+                Connection = request.Source,
                 Slot = -1,
                 Family = FamilyOf(ud),
                 HidPath = ud.DevicePath,
                 GamepadHandle = request.Source?.GamepadHandle ?? IntPtr.Zero,
+                Remote = ud.DevicePath != null && ud.DevicePath.StartsWith("peer://", StringComparison.Ordinal),
                 RemoteDriven = true,
                 RemoteRequest = request,
                 MacroMixer = new MixingSampleProvider(WaveFormat.CreateIeeeFloatWaveFormat(MixRate, 2)) { ReadFully = true },
             };
             Sink existing;
+            Sink retired = null;
             lock (_lock)
             {
                 if (_suppressed) return;
                 existing = _sinks.Find(item => item.DeviceGuid == ud.InstanceGuid);
+                if (existing != null && !CanReuseTransport(existing, sink.Family, sink.HidPath, sink.Connection, sink.GamepadHandle))
+                {
+                    retired = existing;
+                    sink.Slot = existing.Slot;
+                    sink.RemoteDriven = existing.RemoteDriven;
+                    sink.MacroMixer = existing.MacroMixer;
+                    _sinks.Remove(existing);
+                    existing = null;
+                }
                 if (existing == null) _sinks.Add(sink);
             }
+            if (retired != null) TeardownSink(retired);
             if (existing != null)
             {
                 var current = latest();
                 current.TryPublish(latest, () =>
                 {
                     lock (_lock)
-                        if (!_suppressed && _sinks.Contains(existing)) Volatile.Write(ref existing.RemoteRequest, current);
+                        if (!_suppressed && _sinks.Contains(existing)
+                            && CanReuseTransport(existing, FamilyOf(ud), ud.DevicePath, current.Source, current.Source?.GamepadHandle ?? IntPtr.Zero))
+                        {
+                            RefreshSinkConnection(existing, ud, current.Source, FamilyOf(ud), ud.DevicePath, current.Source?.GamepadHandle ?? IntPtr.Zero);
+                            Volatile.Write(ref existing.RemoteRequest, current);
+                        }
                 });
                 return;
             }
@@ -496,6 +528,8 @@ namespace PadForge.Common.Input
         private sealed class Sink
         {
             public Guid DeviceGuid;
+            public Engine.Data.UserDevice OwnerDevice;
+            public Engine.ISdlInputDevice Connection;
             public int Slot;
             public Family Family;
             public string HidPath;
@@ -690,9 +724,11 @@ namespace PadForge.Common.Input
             // One-shot per-side pulses queued from the polling thread and
             // drained by the stream thread, the TestHz idiom. Sides is an
             // Interlocked bitmask (bit0 = pad 0 / left actuator, bit1 =
-            // pad 1 / right); Amp follows the file's torn-read tolerance.
+            // pad 1 / right). Sides and amplitudes are consumed together
+            // under the service lock.
             public int PulsePendingSides;
             public float PulseAmp;
+            public float PulseAmpLeft, PulseAmpRight;
             public long PulseLastSendMs;
             public bool PulseRemoteZeroPending;
 
@@ -709,8 +745,11 @@ namespace PadForge.Common.Input
             public long PcmLastContentMs;
             public int PcmCfgHz = 250;
             public float PcmSynthPhase;
-            public float PcmPulseEnv;
-            public float PcmPulsePhase;
+            public float PcmPulseEnvLeft, PcmPulseEnvRight;
+            public float PcmPulsePhaseLeft, PcmPulsePhaseRight;
+            public int PcmInputMode;
+            public float PcmInputHz;
+            public float PcmInputAmp;
             public float[] PcmFloatBuf;
             public short[] PcmPending;
             public int PcmPendingCount;
@@ -736,6 +775,48 @@ namespace PadForge.Common.Input
         private static volatile bool _suppressed;
         private static Timer _reconcileTimer;
         private static int _reconcileBusy;
+
+        private static bool UsesRawTransport(Family family, bool remote, IntPtr gamepad)
+            => !remote && !(family == Family.Steam && gamepad != IntPtr.Zero);
+
+        private static bool CanReuseTransport(Sink sink, Family family, string path,
+            Engine.ISdlInputDevice connection, IntPtr gamepad)
+        {
+            bool remote = path != null && path.StartsWith("peer://", StringComparison.Ordinal);
+            bool raw = UsesRawTransport(family, remote, gamepad);
+            return sink.Family == family && sink.Remote == remote
+                && UsesRawTransport(sink.Family, sink.Remote, sink.GamepadHandle) == raw
+                && (!raw || (ReferenceEquals(sink.Connection, connection)
+                    && string.Equals(sink.HidPath, path, StringComparison.OrdinalIgnoreCase)));
+        }
+
+        private static bool SinkConnectionIsCurrent(Sink sink)
+            => sink.OwnerDevice?.IsOnline == true
+                && ReferenceEquals(sink.OwnerDevice.Device, sink.Connection)
+                && sink.OwnerDevice.InstanceGuid == sink.DeviceGuid
+                && FamilyOf(sink.OwnerDevice) == sink.Family
+                && string.Equals(sink.OwnerDevice.DevicePath, sink.HidPath, StringComparison.OrdinalIgnoreCase);
+
+        private static void RefreshSinkConnection(Sink sink, Engine.Data.UserDevice owner,
+            Engine.ISdlInputDevice connection, Family family, string path, IntPtr gamepad)
+        {
+            if (!ReferenceEquals(sink.Connection, connection) || sink.GamepadHandle != gamepad
+                || !string.Equals(sink.HidPath, path, StringComparison.OrdinalIgnoreCase))
+            {
+                sink.SteamOn = false;
+                Interlocked.Exchange(ref sink.PulsePendingSides, 0);
+                sink.PulseAmp = 0;
+                sink.PulseAmpLeft = sink.PulseAmpRight = 0;
+                sink.PulseLastSendMs = 0;
+                sink.PulseRemoteZeroPending = false;
+            }
+            sink.OwnerDevice = owner;
+            sink.Family = family;
+            sink.HidPath = path;
+            sink.GamepadHandle = gamepad;
+            sink.Remote = path != null && path.StartsWith("peer://", StringComparison.Ordinal);
+            sink.Connection = connection;
+        }
 
         /// <summary>Starts the periodic reconcile so a Joy-Con/Pro/Steam controller
         /// assigned (or removed) mid-session builds/tears down its tone sink,
@@ -1068,7 +1149,8 @@ namespace PadForge.Common.Input
             if (Interlocked.Exchange(ref _reconcileBusy, 1) == 1) return;
             try
             {
-                var desired = new List<(int Slot, Guid Guid, string Path, Family Fam, IntPtr Gamepad)>();
+                var desired = new List<(int Slot, Guid Guid, string Path, Family Fam, IntPtr Gamepad,
+                    Engine.Data.UserDevice Owner, Engine.ISdlInputDevice Connection)>();
                 var settings = SettingsManager.UserSettings;
                 if (settings != null)
                 {
@@ -1100,7 +1182,8 @@ namespace PadForge.Common.Input
                         // connection (SteamSendBlob). Joy-Con, Deck, and the 2026
                         // Triton all write their own raw HID handle opened from
                         // DevicePath; the handle is captured but unused for those.
-                        desired.Add((mapTo, guid, ud.DevicePath, fam, ud.Device?.GamepadHandle ?? IntPtr.Zero));
+                        var connection = ud.Device;
+                        desired.Add((mapTo, guid, ud.DevicePath, fam, connection?.GamepadHandle ?? IntPtr.Zero, ud, connection));
                     }
                 }
 
@@ -1138,28 +1221,22 @@ namespace PadForge.Common.Input
                             bool superseded = desired.Exists(d => d.Guid == s.DeviceGuid);
                             bool stale = !remoteOnline.Contains(s.DeviceGuid)
                                 || (staleNow - (Volatile.Read(ref s.RemoteRequest)?.UntilMs ?? 0)) > 10_000;
-                            if (!superseded && !stale) continue;
+                            if (!superseded && !stale && SinkConnectionIsCurrent(s)) continue;
                         }
                         else
                         {
-                            // Keep the sink, but re-point it at the CURRENT
-                            // hardware. Matching on (guid, slot) alone and
-                            // continuing left the sink holding the handle and
-                            // path it was built with, so a device that
-                            // reconnected under the same guid kept a sink
-                            // writing to the dead handle: tones stopped and the
-                            // lane looked alive because the sink still existed.
+                            // Raw handles belong to their source connection.
+                            // Updating metadata cannot reopen a retired handle.
                             int keep = desired.FindIndex(
                                 d => d.Guid == s.DeviceGuid && d.Slot == s.Slot);
                             if (keep >= 0)
                             {
                                 var d = desired[keep];
-                                s.Family = d.Fam;
-                                s.HidPath = d.Path;
-                                s.GamepadHandle = d.Gamepad;
-                                s.Remote = d.Path != null
-                                    && d.Path.StartsWith("peer://", StringComparison.Ordinal);
-                                continue;
+                                if (CanReuseTransport(s, d.Fam, d.Path, d.Connection, d.Gamepad))
+                                {
+                                    RefreshSinkConnection(s, d.Owner, d.Connection, d.Fam, d.Path, d.Gamepad);
+                                    continue;
+                                }
                             }
                         }
                         toTeardown.Add(s);
@@ -1171,6 +1248,8 @@ namespace PadForge.Common.Input
                         var sink = new Sink
                         {
                             DeviceGuid = d.Guid,
+                            OwnerDevice = d.Owner,
+                            Connection = d.Connection,
                             Slot = d.Slot,
                             Family = d.Fam,
                             HidPath = d.Path,
@@ -1178,7 +1257,8 @@ namespace PadForge.Common.Input
                             // Consumer lane: a linked pad reduces locally and
                             // ships the tone pair; no hardware handle exists.
                             Remote = d.Path != null && d.Path.StartsWith("peer://", StringComparison.Ordinal),
-                            MacroMixer = new MixingSampleProvider(WaveFormat.CreateIeeeFloatWaveFormat(MixRate, 2)) { ReadFully = true },
+                            MacroMixer = toTeardown.FirstOrDefault(old => old.DeviceGuid == d.Guid && old.Slot == d.Slot)?.MacroMixer
+                                ?? new MixingSampleProvider(WaveFormat.CreateIeeeFloatWaveFormat(MixRate, 2)) { ReadFully = true },
                         };
                         _sinks.Add(sink);
                         toBuild.Add(sink);
@@ -1192,7 +1272,7 @@ namespace PadForge.Common.Input
                     // lane had NO diagnostics, so a dead sink was invisible
                     // and the first diagnosis was a guess. Transition-only,
                     // never per-tick.
-                    bool built = BuildSink(s);
+                    bool built = BuildSink(s) && s.Running;
                     PadForge.Engine.SdlDiagLog.WriteLine(
                         $"HAPTICDIAG build family={s.Family} slot={s.Slot} remote={s.Remote}"
                         + $" handle={(s.Handle != IntPtr.Zero ? "OPEN" : "NULL")} result={(built ? "ok" : "FAILED")}");
@@ -1214,6 +1294,8 @@ namespace PadForge.Common.Input
         /// blocks the stream loop (the init sleeps stay off that thread). The
         /// handle publishes under _lock only while the sink is still live;
         /// TeardownSink closes it from then on.</summary>
+        internal static Func<ushort, ushort, List<string>> PairRetryPathProvider = FindHidPaths;
+
         private static void RetryPairSecondHandles()
         {
             List<Sink> candidates;
@@ -1228,14 +1310,15 @@ namespace PadForge.Common.Input
                     && (string.IsNullOrEmpty(x.HidPath)
                         || !x.HidPath.StartsWith(@"\\?\", StringComparison.Ordinal))).ToList();
             }
+            if (candidates.Count == 0) return;
             // ONE enumeration for the whole pass. FindHidPaths walks every
             // present HID interface and opens each one to read its
             // attributes, with no early exit, so calling it per candidate
             // (twice, for both PIDs) meant a full device-wide open sweep per
             // pair sink every 3 s. The claim set is recomputed per candidate
             // from these lists, which is the part that has to stay per-sink.
-            var leftAll = FindHidPaths(NintendoVid, 0x2006);
-            var rightAll = FindHidPaths(NintendoVid, 0x2007);
+            var leftAll = PairRetryPathProvider(NintendoVid, 0x2006);
+            var rightAll = PairRetryPathProvider(NintendoVid, 0x2007);
             foreach (var s in candidates)
             {
                 // The missing child is the primary's opposite side.
@@ -1247,7 +1330,7 @@ namespace PadForge.Common.Input
                 if (h2 == IntPtr.Zero) continue;
                 lock (_lock)
                 {
-                    if (!_suppressed && _sinks.Contains(s) && s.PairSecondHandle == IntPtr.Zero)
+                    if (!_suppressed && _sinks.Contains(s) && SinkConnectionIsCurrent(s) && s.PairSecondHandle == IntPtr.Zero)
                     {
                         s.PairSecondHandle = h2;
                         h2 = IntPtr.Zero;
@@ -1441,6 +1524,11 @@ namespace PadForge.Common.Input
             s.MirrorOn = false;
         }
 
+        internal static Action<string> RawTransportOpening;
+        internal static Action<Guid, RemoteToneRequest> RemoteToneDispatchReady;
+        internal static Func<IntPtr, byte[], int, bool> FeatureReportWriter = HidD_SetFeature;
+        internal static Func<IntPtr, byte[], bool> PcmPacketWriter;
+
         /// <summary>Opens the device, runs the per-family init, starts the stream
         /// thread. Returns false if the handle could not be opened (caller drops
         /// the sink to retry). Runs OUTSIDE _lock. Same commit/race discipline as
@@ -1494,6 +1582,7 @@ namespace PadForge.Common.Input
                             s.PairSecondPath = second;
                         }
                     }
+                    RawTransportOpening?.Invoke(path);
                     h = CreateFileW(path, GENERIC_WRITE | GENERIC_READ, SHARE_RW,
                         IntPtr.Zero, OPEN_EXISTING, FILE_FLAG_OVERLAPPED, IntPtr.Zero);
                     if (h == INVALID || h == IntPtr.Zero) return false;
@@ -1615,7 +1704,7 @@ namespace PadForge.Common.Input
                 {
                     lock (_lock)
                     {
-                        if (_suppressed || !_sinks.Contains(s)) return;
+                        if (_suppressed || !_sinks.Contains(s) || !SinkConnectionIsCurrent(s)) return;
                         s.Handle = h;
                         h = IntPtr.Zero;
                         s.PairSecondHandle = h2;
@@ -2046,7 +2135,7 @@ namespace PadForge.Common.Input
             var buf = new byte[n];
             buf[0] = 0x00;
             Array.Copy(blob64, 0, buf, 1, Math.Min(blob64.Length, n - 1));
-            try { HidD_SetFeature(s.Handle, buf, buf.Length); } catch { }
+            try { FeatureReportWriter(s.Handle, buf, buf.Length); } catch { }
         }
 
         private static void SteamStop(Sink s)
@@ -2110,14 +2199,37 @@ namespace PadForge.Common.Input
         /// of blocks drained. Pure control flow, unit-tested directly;
         /// StreamLoop supplies the closures once per sink thread.</summary>
         internal static int IdleCatchUpDrain(Func<double> deepestBufferedMs, Func<bool> drainBlockHasContent)
+            => IdleCatchUpDrainOwned(deepestBufferedMs, () => (true, drainBlockHasContent()));
+
+        internal static int IdleCatchUpDrainOwned(Func<double> deepestBufferedMs,
+            Func<(bool Read, bool Content)> drainBlock)
         {
             int drained = 0;
             while (drained < IdleDrainMaxBlocks && deepestBufferedMs() > IdleDrainKeepMs)
             {
+                var result = drainBlock();
+                if (!result.Read) break;
                 drained++;
-                if (drainBlockHasContent()) break;
+                if (result.Content) break;
             }
             return drained;
+        }
+
+        private static (bool Read, bool Content) DrainIdlePcm(Sink sink, long now)
+        {
+            var owner = sink.OwnerDevice;
+            if (owner == null) return (false, false);
+            lock (owner.OutputSync)
+            {
+                lock (_lock)
+                    if (_suppressed || !sink.Running || !_sinks.Contains(sink)
+                        || !ReferenceEquals(owner, sink.OwnerDevice) || !SinkConnectionIsCurrent(sink)) return (false, false);
+                var request = Volatile.Read(ref sink.RemoteRequest);
+                if (sink.TestUntilMs > now || (request != null && request.UntilMs > now && request.IsCurrent))
+                    return (false, false);
+                if (sink.Handle == IntPtr.Zero) return (false, false);
+                return (true, StreamTritonPcmTick(sink, 0f, 0f, testActive: false, remoteActive: false, now));
+            }
         }
 
         private static bool StreamTritonPcmTick(Sink s, float toneHz, float amp,
@@ -2128,6 +2240,19 @@ namespace PadForge.Common.Input
             s.PcmPending ??= new short[PcmPendingCapFrames * 2];
             s.PcmPktScratch ??= new byte[Engine.Haptics.TritonPcmEncoder.PacketLength];
             var f = s.PcmFloatBuf;
+            int inputMode = testActive ? 1 : remoteActive ? 2 : 0;
+            float inputHz = inputMode == 0 ? 0f : Math.Clamp(toneHz, 1f, 3900f);
+            float inputAmp = inputMode == 0 ? 0f : Math.Clamp(amp, 0f, 1f);
+            if (s.PcmInputMode != inputMode || s.PcmInputHz != inputHz || s.PcmInputAmp != inputAmp)
+            {
+                // Pending samples have not reached the writer. A new control
+                // must not submit samples prepared for the preceding one.
+                s.PcmPendingCount = 0;
+                s.PcmSynthPhase = 0f;
+            }
+            s.PcmInputMode = inputMode;
+            s.PcmInputHz = inputHz;
+            s.PcmInputAmp = inputAmp;
 
             bool audible;
             if (testActive || remoteActive)
@@ -2169,29 +2294,9 @@ namespace PadForge.Common.Input
                 s.PcmSynthPhase = 0f;
             }
 
-            // Swipe-haptic overlay (#219 via #381): a short decaying burst
-            // summed into the stream.
-            if (s.PcmPulseEnv > 0.003f)
-            {
-                float step = (float)(2 * Math.PI * PcmPulseHz / Engine.Haptics.TritonPcmEncoder.SampleRate);
-                float env = s.PcmPulseEnv;
-                float decay = 0.9908f; // halves every ~75 samples (~9 ms)
-                for (int i = 0; i < PcmFramesPerTick; i++)
-                {
-                    float v = env * (float)Math.Sin(s.PcmPulsePhase);
-                    s.PcmPulsePhase += step;
-                    env *= decay;
-                    f[i * 2] += v;
-                    f[i * 2 + 1] += v;
-                }
-                s.PcmPulseEnv = env;
-                audible = true;
-            }
-            else if (s.PcmPulseEnv != 0f)
-            {
-                s.PcmPulseEnv = 0f;
-                s.PcmPulsePhase = 0f;
-            }
+            // Each side keeps its own amplitude, phase, and decay.
+            audible |= AddPcmPulse(f, 0, ref s.PcmPulseEnvLeft, ref s.PcmPulsePhaseLeft)
+                | AddPcmPulse(f, 1, ref s.PcmPulseEnvRight, ref s.PcmPulsePhaseRight);
 
             if (audible) s.PcmLastContentMs = nowMs;
             bool want = testActive || (nowMs - s.PcmLastContentMs) < PcmHangoverMs;
@@ -2258,7 +2363,10 @@ namespace PadForge.Common.Input
                     s.PcmPktScratch,
                     new ReadOnlySpan<short>(s.PcmPending, consumed, fpp * 2),
                     fpp, s.PcmMuLaw);
-                if (!s.PcmRing.TrySubmit(s.Handle, s.PcmPktScratch)) break;
+                bool submitted = PcmPacketWriter != null
+                    ? PcmPacketWriter(s.Handle, s.PcmPktScratch)
+                    : s.PcmRing.TrySubmit(s.Handle, s.PcmPktScratch);
+                if (!submitted) break;
                 consumed += fpp * 2;
             }
             if (consumed > 0)
@@ -2273,6 +2381,23 @@ namespace PadForge.Common.Input
                 PadForge.Engine.SdlDiagLog.WriteLine(
                     $"TRITONPCM stream mulaw={(s.PcmMuLaw ? 1 : 0)} pendingFrames={s.PcmPendingCount / 2} dropped={s.PcmDropCount} hardFail={s.PcmRing.HardFailures} lp={s.PcmCfgHz}"
                     + $" personaMs={(s.PersonaBuf != null ? s.PersonaBuf.BufferedDuration.TotalMilliseconds : 0):F0} idleDrained={s.IdleDrainBlocks}");
+            }
+            return true;
+        }
+
+        private static bool AddPcmPulse(float[] samples, int side, ref float envelope, ref float phase)
+        {
+            if (envelope <= 0.003f)
+            {
+                envelope = phase = 0f;
+                return false;
+            }
+            float step = (float)(2 * Math.PI * PcmPulseHz / Engine.Haptics.TritonPcmEncoder.SampleRate);
+            for (int i = 0; i < PcmFramesPerTick; i++)
+            {
+                samples[i * 2 + side] += envelope * (float)Math.Sin(phase);
+                phase += step;
+                envelope *= 0.9908f;
             }
             return true;
         }
@@ -2341,6 +2466,32 @@ namespace PadForge.Common.Input
 
         // ── Stream thread: reduce the mono mix to (freq, amp) per tick, encode
         //    per family, write one report. One report per tick, never bursting. ──
+        private static bool DispatchToneFrame(Sink s, float toneHz, float amp, bool streaming,
+            bool testActive, bool remoteActive, long nowMs)
+        {
+            if (s.Remote)
+            {
+                if (streaming || amp > 0f)
+                    RemoteLinkOutputRouter.ShipHapticTone(s.HidPath, toneHz, amp);
+            }
+            else if (s.Handle != IntPtr.Zero || s.GamepadHandle != IntPtr.Zero)
+            {
+                switch (s.Family)
+                {
+                    case Family.Steam: StreamSteamTick(s, toneHz, amp, streaming); break;
+                    case Family.Steam2026:
+                        if (s.PcmCapable)
+                            streaming = StreamTritonPcmTick(s, toneHz, amp, testActive, remoteActive, nowMs);
+                        else
+                            StreamTritonTick(s, toneHz, amp, streaming);
+                        break;
+                    case Family.SteamDeck: StreamSteamDeckTick(s, toneHz, amp, streaming); break;
+                    default: StreamJoyConTick(s, toneHz, amp, streaming, testActive, nowMs); break;
+                }
+            }
+            return streaming;
+        }
+
         private static void StreamLoop(Sink s)
         {
             var monoF = new float[SamplesPerTick];
@@ -2349,6 +2500,22 @@ namespace PadForge.Common.Input
             // AboveNormal + the 1 ms global timer while a tone is actually streaming.
             try { Thread.CurrentThread.Priority = ThreadPriority.BelowNormal; } catch { }
             bool fast = false;
+            Engine.ISdlInputDevice frameConnection = null;
+            (float Hz, float Amp, bool Streaming, bool Test, bool Remote, long Now) frame = default;
+            Func<RemoteToneRequest> latestRequest = () => Volatile.Read(ref s.RemoteRequest);
+            Action dispatch = () =>
+            {
+                lock (_lock)
+                {
+                    if (_suppressed || !s.Running || !_sinks.Contains(s)
+                        || !ReferenceEquals(frameConnection, s.Connection) || !SinkConnectionIsCurrent(s))
+                    {
+                        frame.Streaming = false;
+                        return;
+                    }
+                }
+                frame.Streaming = DispatchToneFrame(s, frame.Hz, frame.Amp, frame.Streaming, frame.Test, frame.Remote, frame.Now);
+            };
 
             // #371 follow-up: the idle catch-up drain's closures, allocated
             // once per sink thread (the idle loop must not churn the GC).
@@ -2369,7 +2536,7 @@ namespace PadForge.Common.Input
                 catch { }
                 return d;
             };
-            Func<bool> drainBlock = () =>
+            Func<(bool Read, bool Content)> drainBlock = () =>
             {
                 long wakeMs = Environment.TickCount64;
                 if (s.PcmCapable)
@@ -2377,15 +2544,14 @@ namespace PadForge.Common.Input
                     // The full tick: reads 10 ms, checks audibility, arms
                     // and submits when the backlog carries an onset. Only
                     // with a live handle; a sink mid-teardown skips it.
-                    return s.Handle != IntPtr.Zero
-                        && StreamTritonPcmTick(s, 0f, 0f, testActive: false, remoteActive: false, wakeMs);
+                    return DrainIdlePcm(s, wakeMs);
                 }
                 int n = 0;
                 try { n = s.MonoSource.Read(monoF, 0, SamplesPerTick); } catch { }
                 float pk = 0f;
                 for (int i = 0; i < n; i++) { float a = monoF[i]; if (a < 0f) a = -a; if (a > pk) pk = a; }
-                if (pk > 0.002f) { s.LastContentMs = wakeMs; return true; }
-                return false;
+                if (pk > 0.002f) { s.LastContentMs = wakeMs; return (true, true); }
+                return (true, false);
             };
             try
             {
@@ -2396,6 +2562,7 @@ namespace PadForge.Common.Input
 
                 while (s.Running)
                 {
+                    frameConnection = s.Connection;
                     int got = 0;
                     // #381: PCM-capable sinks read the mixer through their
                     // own stereo chain inside StreamTritonPcmTick; reading
@@ -2489,7 +2656,8 @@ namespace PadForge.Common.Input
                     bool testActive = s.TestUntilMs > nowMs;
                     var remoteRequest = Volatile.Read(ref s.RemoteRequest);
                     bool remoteActive = !testActive && remoteRequest != null
-                        && remoteRequest.UntilMs > nowMs && remoteRequest.IsCurrent;
+                        && remoteRequest.UntilMs > nowMs && remoteRequest.IsCurrent
+                        && ReferenceEquals(remoteRequest.Source, s.Connection);
                     if (testActive)
                     {
                         // Direct fixed test tone: a KNOWN frequency driven straight to
@@ -2541,61 +2709,29 @@ namespace PadForge.Common.Input
                     bool audible = amp > 0.02f;
                     if (audible) s.LastContentMs = nowMs;
                     bool streaming = testActive || (nowMs - s.LastContentMs) < HangoverMs;
+                    if (remoteActive) RemoteToneDispatchReady?.Invoke(s.DeviceGuid, remoteRequest);
 
-                    if (s.Remote)
+                    frame = (toneHz, amp, streaming, testActive, remoteActive, nowMs);
+                    var owner = s.OwnerDevice;
+                    if (owner == null) frame.Streaming = false;
+                    else lock (owner.OutputSync)
                     {
-                        // Consumer lane: ship the reduced pair to the owner while
-                        // anything plays; the zero frame that ends the stream is
-                        // sent once (the router dedups silent steady state).
-                        if (streaming || amp > 0f)
-                            RemoteLinkOutputRouter.ShipHapticTone(s.HidPath, toneHz, amp);
-                    }
-                    // Run when we have either a raw write handle or an SDL gamepad
-                    // handle (the Steam SDL_SendGamepadEffect path needs no raw handle).
-                    else if (s.Handle != IntPtr.Zero || s.GamepadHandle != IntPtr.Zero)
-                    {
-                        switch (s.Family)
+                        if (!ReferenceEquals(owner, s.OwnerDevice)) frame.Streaming = false;
+                        else if (remoteActive)
                         {
-                            // 2015 Steam Controller: classic 0x8f TriggerHapticPulse FEATURE report.
-                            case Family.Steam: StreamSteamTick(s, toneHz, amp, streaming); break;
-                            // SC2026 (Triton): the 0x83 LFO-tone OUTPUT report written directly to our
-                            // own HID handle. The Triton does not use 0x8f (confirmed: Valve's SDL
-                            // driver and OpenPuck's real-capture both drive it via output reports only).
-                            case Family.Steam2026:
-                                // #381: wired/dongle Tritons stream native
-                                // PCM; BLE keeps the 0x83 tone lane.
-                                if (s.PcmCapable)
-                                    streaming = StreamTritonPcmTick(s, toneHz, amp, testActive, remoteActive, nowMs);
-                                else
-                                    StreamTritonTick(s, toneHz, amp, streaming);
-                                break;
-                            case Family.SteamDeck: StreamSteamDeckTick(s, toneHz, amp, streaming); break;
-                            default: StreamJoyConTick(s, toneHz, amp, streaming, testActive, nowMs); break;
+                            // Keep the request and device gates through the actual write.
+                            if (!ReferenceEquals(owner, remoteRequest.Device)
+                                || !remoteRequest.TryPublish(latestRequest, dispatch)) frame.Streaming = false;
                         }
+                        else if (testActive || ReferenceEquals(remoteRequest, latestRequest())) dispatch();
+                        else frame.Streaming = false;
                     }
+                    streaming = frame.Streaming;
 
                     // #219 touchpad swipe-haptic ticks, drained after the tone
                     // dispatch so a pulse and a tone re-arm never land in the
                     // same tick out of order.
-                    int pulseSides = Interlocked.Exchange(ref s.PulsePendingSides, 0);
-                    if (pulseSides != 0 && s.PcmCapable && s.PcmArmed)
-                    {
-                        // #381: while the PCM stream owns the actuators the
-                        // swipe tick is synthesized into it (next tick's
-                        // overlay) instead of racing 0x82 against an active
-                        // stream, an interaction no reference documents.
-                        // PulseAmp is max-wins from the polling thread and
-                        // is consumed here the same way SendTouchpadPulses
-                        // consumes it: read, then zero, so a lowered slider
-                        // takes effect on the next swipe instead of the pad
-                        // keeping the loudest tick it ever queued (F13).
-                        s.PcmPulseEnv = Math.Max(s.PcmPulseEnv,
-                            Math.Clamp(s.PulseAmp, 0f, 1f) * 0.6f);
-                        s.PulseAmp = 0f;
-                        s.PcmLastContentMs = nowMs;
-                    }
-                    else if (pulseSides != 0 || s.PulseRemoteZeroPending)
-                        SendTouchpadPulses(s, pulseSides, nowMs);
+                    DispatchQueuedPulse(s, nowMs);
 
                     if (streaming)
                     {
@@ -2626,11 +2762,33 @@ namespace PadForge.Common.Input
                         // in wall-clock time; a sink without either cannot
                         // accumulate and keeps today's idle cost.
                         if (s.PersonaOn || s.MirrorOn)
-                            s.IdleDrainBlocks += IdleCatchUpDrain(drainDepthMs, drainBlock);
+                            s.IdleDrainBlocks += IdleCatchUpDrainOwned(drainDepthMs, drainBlock);
                     }
                 }
             }
             finally { if (fast) timeEndPeriod(1); }
+        }
+
+        private static void DispatchQueuedPulse(Sink s, long nowMs)
+        {
+            int pulseSides;
+            float amplitude, left, right;
+            lock (_lock)
+            {
+                pulseSides = Interlocked.Exchange(ref s.PulsePendingSides, 0);
+                amplitude = s.PulseAmp;
+                left = s.PulseAmpLeft;
+                right = s.PulseAmpRight;
+                s.PulseAmp = s.PulseAmpLeft = s.PulseAmpRight = 0f;
+            }
+            if (pulseSides != 0 && s.PcmCapable && s.PcmArmed)
+            {
+                if ((pulseSides & 1) != 0) s.PcmPulseEnvLeft = Math.Max(s.PcmPulseEnvLeft, Math.Clamp(left, 0f, 1f) * 0.6f);
+                if ((pulseSides & 2) != 0) s.PcmPulseEnvRight = Math.Max(s.PcmPulseEnvRight, Math.Clamp(right, 0f, 1f) * 0.6f);
+                s.PcmLastContentMs = nowMs;
+            }
+            else if (pulseSides != 0 || s.PulseRemoteZeroPending)
+                SendTouchpadPulses(s, pulseSides, amplitude, left, right, nowMs);
         }
 
         private static void StreamJoyConTick(Sink s, float toneHz, float amp, bool streaming, bool testActive, long nowMs)
@@ -2925,7 +3083,7 @@ namespace PadForge.Common.Input
             var buf = new byte[n];
             buf[0] = 0x00;
             Array.Copy(blob, 0, buf, 1, Math.Min(blob.Length, n - 1));
-            try { HidD_SetFeature(s.Handle, buf, buf.Length); } catch { }
+            try { FeatureReportWriter(s.Handle, buf, buf.Length); } catch { }
         }
 
         // ── #219 touchpad swipe-haptic tick delivery ──
@@ -2946,14 +3104,13 @@ namespace PadForge.Common.Input
         /// rendered for ~one stream tick so it lands as a short tick.</summary>
         private const float PulseRemoteToneHz = 880f;
 
-        private static void SendTouchpadPulses(Sink s, int sides, long nowMs)
+        private static void SendTouchpadPulses(Sink s, int sides, float amplitude, float left, float right, long nowMs)
         {
             if (s.Remote)
             {
                 if (sides != 0)
                 {
-                    float rAmp = Math.Clamp(s.PulseAmp, 0f, 1f);
-                    s.PulseAmp = 0f;
+                    float rAmp = Math.Clamp(amplitude, 0f, 1f);
                     RemoteLinkOutputRouter.ShipHapticTone(s.HidPath, PulseRemoteToneHz, rAmp);
                     s.PulseRemoteZeroPending = true;
                 }
@@ -2974,19 +3131,18 @@ namespace PadForge.Common.Input
             // burst lane on this handle).
             if (nowMs - s.PulseLastSendMs < 40)
             {
-                // Put the drained bits back. StreamLoop takes them with an
-                // Interlocked.Exchange before calling in, so returning here
-                // without restoring them dropped the pulse outright instead
-                // of coalescing it, and no later iteration could resend
-                // (the sides == 0 gate above returns forever). PulseAmp is
-                // still latched and QueueTouchpadPulse is max-wins, so the
-                // deferred burst carries the loudest queued amplitude.
-                Interlocked.Or(ref s.PulsePendingSides, sides);
+                // Restore the whole request and retain any newer, louder pulse.
+                lock (_lock)
+                {
+                    s.PulseAmp = Math.Max(s.PulseAmp, amplitude);
+                    s.PulseAmpLeft = Math.Max(s.PulseAmpLeft, left);
+                    s.PulseAmpRight = Math.Max(s.PulseAmpRight, right);
+                    Interlocked.Or(ref s.PulsePendingSides, sides);
+                }
                 return;
             }
             s.PulseLastSendMs = nowMs;
-            float pAmp = Math.Clamp(s.PulseAmp, 0f, 1f);
-            s.PulseAmp = 0f;
+            float pAmp = Math.Clamp(amplitude, 0f, 1f);
             if (pAmp <= 0f) return;
 
             switch (s.Family)

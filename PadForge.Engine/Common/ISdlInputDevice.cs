@@ -31,18 +31,26 @@ namespace PadForge.Engine
 
         /// <summary>
         /// Sparse list of button positions this device actually exposes.
-        /// Implementations that don't gate buttons can return a dense
-        /// 0..NumButtons-1 array. Used by the Devices preview to skip
-        /// positions the device doesn't physically have (e.g. paddles on
-        /// a controller that doesn't have any).
+        /// Used by the Devices preview to skip positions the device doesn't
+        /// physically have (e.g. paddles on a controller that doesn't have
+        /// any).
+        ///
+        /// <para>Three states, and they are not interchangeable. NULL means
+        /// the implementation does not gate buttons, so every index below the
+        /// count is real. A NON-EMPTY array means exactly those positions. An
+        /// EMPTY array means the device has NO buttons, which is a different
+        /// claim from making no claim. Implementations that do not gate must
+        /// return null or a dense 0..NumButtons-1 array, never an empty one.
+        /// </para>
         /// </summary>
         int[] SupportedButtonIndices { get; }
 
-        /// <summary>The axis positions this device actually has, sparse. Null
-        /// means "dense": every index below the axis count is real. Mirrors
-        /// <see cref="SupportedButtonIndices"/>, and exists because NumAxes is
-        /// the standardized 6-slot gamepad space rather than a count of the
-        /// pad's physical axes.</summary>
+        /// <summary>The axis positions this device actually has, sparse. Same
+        /// three states as <see cref="SupportedButtonIndices"/>: null means
+        /// dense, a non-empty array means exactly those, and an empty array
+        /// means the device has no axes at all. Exists because NumAxes is the
+        /// standardized 6-slot gamepad space rather than a count of the pad's
+        /// physical axes.</summary>
         int[] SupportedAxisIndices => null;
 
         /// <summary>

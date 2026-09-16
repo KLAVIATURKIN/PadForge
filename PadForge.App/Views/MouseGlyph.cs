@@ -82,7 +82,7 @@ namespace PadForge.Views
 
         /// <summary>One art layer, tinted by using it as an alpha mask over a
         /// flat brush. The shape comes from the artwork, the color from us,
-        /// so a control can light up without the art being recoloured or
+        /// so a control can light up without the art being recolored or
         /// redrawn.</summary>
         private static Shape Layer(string file, Brush fill, Rect at)
         {

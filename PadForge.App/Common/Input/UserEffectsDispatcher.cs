@@ -413,13 +413,13 @@ namespace PadForge.Common.Input
             public long PlayerIndTick;
             public byte PlayerInd;
 
-            // validFlag2-gated subsystems. PadForge always writes
-            // validFlag2 = 0xFF in its own packets so brightness +
-            // setup go through; when an external writer asserts
-            // validFlag2 (any nonzero) we capture both bytes and mirror
-            // them so the writer's intent (no-fade vs forced-fade
-            // lightbar setup, dim/medium/bright player-LED brightness)
-            // survives PadForge's animation cadence.
+            // validFlag2-gated subsystems. PadForge composes that byte per
+            // bit rather than writing a flat 0xFF, which is what made an
+            // external brightness impossible to hold. Each bit an external
+            // writer asserts captures its own byte, so the writer's intent
+            // (no-fade against forced-fade lightbar setup, dim, medium or
+            // bright player LED) survives PadForge's animation cadence, and a
+            // writer claiming only rumble claims neither of these.
             public long LightbarSetupTick;
             public byte LightbarSetup;
 
@@ -482,7 +482,8 @@ namespace PadForge.Common.Input
         /// the device (#334, second report). The standing FadeOut that
         /// d4c011f5 removed had been delivering this release by accident on
         /// every tick since the Lighting tab shipped.</para></summary>
-        private readonly HashSet<Guid> _btBarReleasePending = new();
+        private readonly System.Collections.Concurrent.ConcurrentDictionary<Guid, byte> _btBarReleasePending = new();
+        private readonly System.Collections.Concurrent.ConcurrentDictionary<Guid, long> _failedDeliveries = new();
         private readonly HashSet<Guid> _btBarReleaseSeen = new();
 
         // Devices assigned to this slot on the previous dispatch. A
@@ -528,15 +529,17 @@ namespace PadForge.Common.Input
         }
         private void OnAssignmentSetObserved(System.Collections.Generic.List<Guid> guids, DeviceCollection devices)
         {
-            if (!AssignmentSetChanged(guids, _lastAssignedGuids)) return;
-
             // Devices that left keep no ownership seed, so a later
             // re-assignment reseeds and emits its stop frame. These maps
             // are documented as devices.SyncRoot-only, and DispatchSnapshot
             // is NOT serialized per instance (static callers reach it via
-            // inst.DispatchSnapshot), so the lock is load-bearing here.
+            // inst.DispatchSnapshot). Compare, retire and publish the set
+            // under the same lock so concurrent observations cannot merge.
             lock (devices.SyncRoot)
             {
+                foreach (var device in _failedDeliveries.Keys)
+                    if (!guids.Contains(device)) _failedDeliveries.TryRemove(device, out _);
+                if (!AssignmentSetChanged(guids, _lastAssignedGuids)) return;
                 foreach (var g in _lastAssignedGuids)
                 {
                     if (guids.Contains(g)) continue;
@@ -550,19 +553,14 @@ namespace PadForge.Common.Input
                     _prevHeadphoneVolume.Remove(g);
                     _prevAudioOutputPath.Remove(g);
                 }
-            }
+                // A new assignment starts with no external lighting claim.
+                // Keep the established devices-before-external lock order.
+                lock (s_externalStateLock)
+                    s_externalState.Remove(_padIndex);
 
-            // Re-arm the identity floor for this slot. Dropping the whole
-            // per-slot record is the point: LightbarEverExternal and
-            // PlayerIndicatorEverExternal are both derived from ticks in it,
-            // and both should start clean for a newly assigned device.
-            lock (s_externalStateLock)
-            {
-                s_externalState.Remove(_padIndex);
+                _lastAssignedGuids.Clear();
+                foreach (var g in guids) _lastAssignedGuids.Add(g);
             }
-
-            _lastAssignedGuids.Clear();
-            foreach (var g in guids) _lastAssignedGuids.Add(g);
         }
         private static readonly Dictionary<int, ExternalSubsystemState> s_externalState = new();
         private static readonly object s_externalStateLock = new();
@@ -741,22 +739,32 @@ namespace PadForge.Common.Input
                     st.PlayerInd = effectPayload[43];
                 }
 
-                // validFlag2 (payload[38]) gates lightbarSetup (payload[41])
-                // and ledBrightness (payload[42]). We don't enumerate
-                // individual validFlag2 bits — Sony's bit map for this byte
-                // is documented inconsistently across community sources.
-                // Defensive heuristic: any nonzero validFlag2 means the
-                // external writer is asserting at least one of the
-                // lightbarSetup / ledBrightness updates, so capture both
-                // bytes. PadForge writes validFlag2 = 0xFF in its own
-                // packets so this clause won't loop back on us — OutputDecoded
-                // only fires for the virtual's host writes, not PadForge's
-                // raw HID output to the physical pad.
+                // validFlag2 (payload[38]) per bit, the map the synthesizer composes
+                // and the passthrough merge already honors: bit 0
+                // AllowLightBrightnessChange gates ledBrightness (byte 42), bit 1
+                // AllowColorLightFadeAnimation gates lightbarSetup (byte 41), and
+                // bit 2 is rumble, which claims neither byte.
+                //
+                // This arm used to treat ANY nonzero byte as a claim on both, on the
+                // grounds that the bit map was unsettled and that PadForge writes a
+                // flat 0xFF. Neither holds. The map is named from duaLib right above
+                // the synthesizer's own constants, the flat write was retired and a
+                // test forbids it, and eleven lines above this very method already
+                // reads bit 2 on its own.
+                //
+                // The cost was a game writing rumble alone. That sends bit 2 with
+                // bytes 41 and 42 zero, which this captured as an external claim of
+                // brightness ZERO for the whole grace window, and zero is the High
+                // setting, so a user on Medium or Low had it overridden to High for
+                // as long as the rumble ran.
                 byte vf2 = effectPayload[38];
-                if (vf2 != 0)
+                if ((vf2 & 0x02) != 0)
                 {
                     st.LightbarSetupTick = now;
                     st.LightbarSetup = effectPayload[41];
+                }
+                if ((vf2 & 0x01) != 0)
+                {
                     st.LedBrightnessTick = now;
                     st.LedBrightness = effectPayload[42];
                 }
@@ -1057,6 +1065,14 @@ namespace PadForge.Common.Input
             DispatchSnapshot();
         }
 
+        internal static bool TryApplyOnce(int padIndex)
+        {
+            if (!_instances.TryGetValue(padIndex, out var dispatcher)
+                || dispatcher._disposed || dispatcher._config == null) return false;
+            dispatcher.ApplyOnce();
+            return true;
+        }
+
         /// <summary>One apply pass on EVERY live dispatcher. Called after
         /// slot topology changes (create / delete / reorder) so each
         /// pad's player-identity idle floor (#191) picks up its new
@@ -1074,6 +1090,7 @@ namespace PadForge.Common.Input
         {
             if (_disposed) return;
             _disposed = true;
+            _failedDeliveries.Clear();
             StopAnimTimer();
             if (_config != null)
                 _config.PropertyChanged -= OnConfigChanged;
@@ -1165,90 +1182,31 @@ namespace PadForge.Common.Input
             inst.DispatchSnapshot();
         }
 
+        private static bool ConfigNeedsTimer(DeviceSlotConfig cfg) =>
+            cfg != null && (IsAnimated(cfg.LightbarMode)
+                || (cfg.HasActiveMacroLightbarOverride
+                    && cfg.MacroOverrideHoldMode == MacroLightbarHoldMode.Reactive)
+                || cfg.InputReactiveMode != InputReactiveMode.Off);
+
+        private bool HasTimerDemand()
+        {
+            if (_disposed || _config == null) return false;
+            var configs = SlotPerDeviceConfigsProvider?.Invoke(_padIndex);
+            if (configs != null && configs.Count > 0)
+            {
+                foreach (var pair in configs)
+                    if (ConfigNeedsTimer(pair.Value)) return true;
+            }
+            else if (ConfigNeedsTimer(_config)) return true;
+            return !_failedDeliveries.IsEmpty || _slotNeedsRumbleTimer
+                || AudioPassthroughService.SlotWantsSpeakerPath(_padIndex);
+        }
+
         private void UpdateAnimTimer()
         {
-            // Timer wants to run when:
-            //   - LightbarMode is animated (audio / breathing / etc.), or
-            //   - A Reactive macro override is in flight (intensity is
-            //     decaying and needs per-tick re-dispatch).
-            // A Sticky override has constant RGB and constant intensity
-            // (1.0), so the dispatcher just needs the one snapshot fired
-            // off the OnConfigChanged event. No timer required.
-            // Walk every per-device config on the slot — the timer runs
-            // when any device wants animation or has a reactive override
-            // in flight, not just the SelectedMappedDevice's. Falls back
-            // to the anchor _config when the per-device dictionary
-            // hasn't been wired yet (early startup).
-            bool wantTimer = false;
-            if (!_disposed)
-            {
-                var perDeviceCfgs = SlotPerDeviceConfigsProvider?.Invoke(_padIndex);
-                if (perDeviceCfgs != null && perDeviceCfgs.Count > 0)
-                {
-                    foreach (var kvp in perDeviceCfgs)
-                    {
-                        var devCfg = kvp.Value;
-                        if (devCfg == null) continue;
-                        if (IsAnimated(devCfg.LightbarMode))
-                        {
-                            wantTimer = true;
-                            break;
-                        }
-                        if (devCfg.HasActiveMacroLightbarOverride
-                            && devCfg.MacroOverrideHoldMode == MacroLightbarHoldMode.Reactive)
-                        {
-                            wantTimer = true;
-                            break;
-                        }
-                        // v3.2 input-reactive overlay needs the timer
-                        // running for both button-press edge detection
-                        // (DrainInputPulses fires only from OnAnimTick)
-                        // and for the pulse-intensity decay that fades
-                        // the flash back into the base color.
-                        if (devCfg.InputReactiveMode != InputReactiveMode.Off)
-                        {
-                            wantTimer = true;
-                            break;
-                        }
-                    }
-                }
-                else if (_config != null)
-                {
-                    bool reactiveOverrideRunning =
-                        _config.HasActiveMacroLightbarOverride
-                        && _config.MacroOverrideHoldMode == MacroLightbarHoldMode.Reactive;
-                    wantTimer = IsAnimated(_config.LightbarMode)
-                        || reactiveOverrideRunning
-                        || _config.InputReactiveMode != InputReactiveMode.Off;
-                }
-
-                // Polling-thread rumble poke. The dispatcher is the SOLE
-                // writer of DS5/DS4 effect packets, so it must keep its
-                // timer alive across every state where rumble bytes need
-                // to flow — game-rumble in flight (raw VibrationStates
-                // non-zero) and audio-rumble enabled on any per-device
-                // PadSetting. Without this gate, an idle-lightbar slot
-                // would have no writer at all once Step 2 stopped
-                // calling SDL_RumbleJoystick for Sony pads.
-                if (_slotNeedsRumbleTimer)
-                    wantTimer = true;
-
-                // Mirror / macro audio poke. The firmware speaker path and
-                // its volume byte ride the SAME output report as the rumble
-                // bytes above, and are asserted per report rather than
-                // latched, so they need the writer alive for exactly the
-                // same reason. This term was missing: on a slot whose
-                // lightbar is static, whose pad is not rumbling, and whose
-                // virtual controller is not a PlayStation one, nothing ran
-                // the dispatcher at all, so the assert landed only when some
-                // unrelated feature happened to hold the timer open. The
-                // sink streamed Opus the whole time into a muted path.
-                //
-                // Kept last and behind the short-circuit so the common idle
-                // slot never pays for the lookup.
-                if (!wantTimer && AudioPassthroughService.SlotWantsSpeakerPath(_padIndex))
-                    wantTimer = true;
-            }
+            // Animation, reactive overlays, rumble and speaker routing share
+            // one writer. Every demand keeps that writer alive.
+            bool wantTimer = HasTimerDemand();
 
             bool dispatchFinal = false;
             lock (_animTimerLock)
@@ -1295,19 +1253,13 @@ namespace PadForge.Common.Input
                 StopAnimTimerLocked();
         }
 
-        /// <summary>OnAnimTick's self-stop path: re-verify the polling-thread
-        /// rumble poke under the lock before stopping. The poke is
-        /// edge-triggered (OnPollingTickInstance calls UpdateAnimTimer only on
-        /// a need transition), so a rumble onset landing between the tick's
-        /// unlocked read and this stop would otherwise leave the slot with no
-        /// effect writer until the next rumble edge (audit F3). The lightbar
-        /// conditions need no re-check here: config changes always re-poke via
-        /// OnConfigChanged.</summary>
+        /// <summary>Rechecks every demand under the timer lock. A new
+        /// demand can arrive after the tick's snapshot and before its stop.</summary>
         private void StopAnimTimerIfStillIdle()
         {
             lock (_animTimerLock)
             {
-                if (_slotNeedsRumbleTimer) return; // onset raced the stop: keep running
+                if (HasTimerDemand()) return;
                 StopAnimTimerLocked();
             }
         }
@@ -1355,6 +1307,7 @@ namespace PadForge.Common.Input
             bool anyAnimated = false;
             bool anyReactiveRunning = false;
             bool anyAudioMode = false;
+            bool anyTimeDrivenMode = false;
             bool anyAudioPulseRandom = false;
             bool anyInputReactiveOverlay = false;
             float maxSensitivity = (float)cfg.AudioLightbarSensitivity;
@@ -1367,6 +1320,7 @@ namespace PadForge.Common.Input
                     if (devCfg == null) continue;
                     var devMode = devCfg.LightbarMode;
                     if (IsAnimated(devMode)) anyAnimated = true;
+                    if (IsAnimated(devMode) && !IsAudioMode(devMode)) anyTimeDrivenMode = true;
                     if (IsAudioMode(devMode))
                     {
                         anyAudioMode = true;
@@ -1387,18 +1341,22 @@ namespace PadForge.Common.Input
                 var mode = cfg.LightbarMode;
                 anyAnimated = IsAnimated(mode);
                 anyAudioMode = IsAudioMode(mode);
+                anyTimeDrivenMode = anyAnimated && !anyAudioMode;
                 anyAudioPulseRandom = mode == LightbarMode.AudioPulseRandom;
                 bool overrideActive = cfg.HasActiveMacroLightbarOverride;
                 anyReactiveRunning = overrideActive && cfg.MacroOverrideHoldMode == MacroLightbarHoldMode.Reactive;
                 anyInputReactiveOverlay = cfg.InputReactiveMode != InputReactiveMode.Off;
             }
 
+            bool outputNeedsDispatch = !_failedDeliveries.IsEmpty || _slotNeedsRumbleTimer
+                || AudioPassthroughService.SlotWantsSpeakerPath(_padIndex);
+
             // If no device wants an animated mode, no Reactive override,
-            // no input-reactive overlay, and no rumble work to push,
+            // no input-reactive overlay, and no output work to push,
             // dispatch one final snapshot (so a just-expired override
             // hands off cleanly) and stop the timer. Sticky holds don't
             // keep the timer running — RGB and intensity are constant.
-            if (!anyAnimated && !anyReactiveRunning && !anyInputReactiveOverlay && !_slotNeedsRumbleTimer)
+            if (!anyAnimated && !anyReactiveRunning && !anyInputReactiveOverlay && !outputNeedsDispatch)
             {
                 if (_lastTickOverrideActive)
                 {
@@ -1417,7 +1375,8 @@ namespace PadForge.Common.Input
             //     pulseIntensity decays smoothly back to base color.
             //   - Rumble work in flight → effect packet must carry the
             //     per-device rumble bytes (sole-writer model).
-            if (!anyAnimated && (anyReactiveRunning || anyInputReactiveOverlay || _slotNeedsRumbleTimer))
+            //   - Speaker routing needs its path and volume asserted.
+            if (!anyAnimated && (anyReactiveRunning || anyInputReactiveOverlay || outputNeedsDispatch))
             {
                 if (anyInputReactiveOverlay) DrainInputPulses();
                 DispatchSnapshot();
@@ -1490,15 +1449,12 @@ namespace PadForge.Common.Input
                 bool anyAudioPulseRainbow = (perDeviceCfgs != null && perDeviceCfgs.Count > 0)
                     ? AnyDeviceMode(perDeviceCfgs, LightbarMode.AudioPulseRainbow)
                     : cfg.LightbarMode == LightbarMode.AudioPulseRainbow;
-                // The two reactive terms belong here for the same reason they
-                // are in the tick-skip gate at the top of this method: an
-                // input-reactive overlay and a decaying Reactive macro override
-                // BOTH need a tick even when the audio peak is flat. Without
-                // them a steady peak, which includes silence, suppressed the
-                // whole dispatch, so button flashes and macro lightbar
-                // overrides simply never rendered while nothing was playing.
+                // A flat peak can skip only when no other demand needs a
+                // fresh snapshot. Another device's time animation, reactive
+                // overlays, rumble and speaker routing still need dispatch.
                 if (!zeroCrossing && !rumbleChanged && delta < 0.004f && !anyAudioPulseRainbow
-                    && !anyReactiveRunning && !anyInputReactiveOverlay)
+                    && !anyReactiveRunning && !anyInputReactiveOverlay
+                    && !anyTimeDrivenMode && !outputNeedsDispatch)
                     return;
                 _lastDispatchedPeak = scaled;
                 _lastDispatchedRumbleR = rRight;
@@ -1772,7 +1728,9 @@ namespace PadForge.Common.Input
             // one-shot this payload is spending, or Guid.Empty. The one-shot is
             // only consumed after the write for this entry actually lands, so a
             // stale-skip or a failed write leaves it armed for the next tick.
-            var pending = new List<(string Path, HMProfile Profile, IReadOnlyDictionary<string, object> Fields, long Seq, Guid SpeakerCleared, Guid BtBarReleased)>();
+            var pending = new List<(Guid Device, string Path, HMProfile Profile,
+                IReadOnlyDictionary<string, object> Fields, long Seq, long RecoveredThrough,
+                Guid SpeakerCleared, Guid BtBarReleased)>();
 
             lock (devices.SyncRoot)
             {
@@ -1811,6 +1769,7 @@ namespace PadForge.Common.Input
                     if (!guids.Contains(ud.InstanceGuid)) continue;
                     if (!ud.IsOnline)
                     {
+                        _failedDeliveries.TryRemove(ud.InstanceGuid, out _);
                         // Remember the outage so the return re-arms below.
                         _deviceWasOffline.Add(ud.InstanceGuid);
                         continue;
@@ -1841,7 +1800,7 @@ namespace PadForge.Common.Input
                         // A BT re-pair also puts the LEDs back under firmware
                         // control, so the connect release is owed again.
                         if (isDs5 && PlayStationEffectWriter.IsBluetoothPath(ud.DevicePath))
-                            _btBarReleasePending.Add(ud.InstanceGuid);
+                            _btBarReleasePending.TryAdd(ud.InstanceGuid, 0);
                         Engine.SdlDiagLog.WriteLine("DISPATCH re-arm (device returned) guid="
                             + ud.InstanceGuid.ToString("N").Substring(0, 8));
                     }
@@ -1854,7 +1813,7 @@ namespace PadForge.Common.Input
                         && PlayStationEffectWriter.IsBluetoothPath(ud.DevicePath))
                     {
                         _btBarReleaseSeen.Add(ud.InstanceGuid);
-                        _btBarReleasePending.Add(ud.InstanceGuid);
+                        _btBarReleasePending.TryAdd(ud.InstanceGuid, 0);
                     }
                     // Web controller lightbar: a phone drawing a DualShock 4
                     // or a DualSense renders the same bar the hardware has, so
@@ -1865,11 +1824,8 @@ namespace PadForge.Common.Input
                     // core (static / breathing / palette / audio / battery /
                     // input-reactive), delivered through its own writer.
                     //
-                    // ApplyGuideLeds also sets this device's color, but that
-                    // is a 30-second lane: fine for a static pick, unable to
-                    // animate. Its value is simply overwritten here on the
-                    // next dispatch, and PlayerNumber is left to it because
-                    // the identity floor is its job.
+                    // The identity refresh uses this dispatcher while it is
+                    // live, so it cannot overwrite an overlay or macro color.
                     if (ud.Device is PadForge.Engine.WebControllerDevice webPad && webPad.HasLightbar)
                     {
                         if (owners.TryGetValue(ud.InstanceGuid, out int webOwner) && webOwner != _padIndex)
@@ -1879,7 +1835,7 @@ namespace PadForge.Common.Input
                             && perDeviceCfgs.TryGetValue(ud.InstanceGuid, out var resolvedWeb))
                             webCfg = resolvedWeb;
                         webCfg ??= cfg;
-                        if (webCfg != null && webCfg.LightbarMode != LightbarMode.PlayerNumber)
+                        if (webCfg != null)
                         {
                             float webPeak = Math.Clamp(
                                 rawAudioPeak * (float)webCfg.AudioLightbarSensitivity, 0f, 1f);
@@ -1889,9 +1845,12 @@ namespace PadForge.Common.Input
                             // No battery to read from a browser, so Battery
                             // mode holds its full-charge end rather than
                             // pretending to a level it cannot know.
-                            var webColor = Ds5EffectSynthesizer.ComputeLightbarColorPublic(
-                                webCfg, webPeak, nowMs, _randomColor, webPulse, webPulseIntensity, 100);
-                            webPad.SetLed(webColor.r, webColor.g, webColor.b);
+                            int webPlayer = SettingsManager.SlotOrders.GetIdentityPlayerNumber(ud.InstanceGuid);
+                            if (webPlayer <= 0) webPlayer = _padIndex + 1;
+                            Ds4EffectSynthesizer.ResolveLightbarRgb(webCfg, webPeak, nowMs,
+                                _randomColor, webPulse, webPulseIntensity, 100, webPlayer,
+                                out byte wr, out byte wg, out byte wb, PlayerIdentityDefaults.WebColorFor(webPlayer));
+                            webPad.SetLed(wr, wg, wb);
                         }
                         continue;
                     }
@@ -1917,14 +1876,18 @@ namespace PadForge.Common.Input
                         moveCfg ??= cfg;
                         if (moveCfg != null && ud.Device is PadForge.Engine.SdlDeviceWrapper moveWrap)
                         {
-                            if (moveCfg.LightbarMode == LightbarMode.PlayerNumber)
+                            int movePlayer = SettingsManager.SlotOrders.GetIdentityPlayerNumber(ud.InstanceGuid);
+                            if (movePlayer <= 0) movePlayer = _padIndex + 1;
+                            float movePulseIntensity = ComputePulseIntensity(nowMs, moveCfg);
+                            bool moveOverride = moveCfg.ComputeMacroOverrideIntensity() > 0f;
+                            bool moveOverlay = moveCfg.InputReactiveMode != InputReactiveMode.Off
+                                && movePulseIntensity > 0f;
+                            if (moveCfg.LightbarMode == LightbarMode.PlayerNumber && !moveOverride && !moveOverlay)
                             {
-                                // PlayerNumber's color authority is the
-                                // service's identity floor (the shared core
-                                // returns black for this mode; DS4/DS5 apply
-                                // identity outside it too). Release any claim
-                                // so the floor resumes.
+                                // Release the composed color when the overlay
+                                // or macro ends, then restore the service's floor.
                                 bool released = Common.Input.PsMoveDirectService.ReleaseLedClaim(moveWrap.SdlInstanceId);
+                                Common.Input.PsMoveDirectService.TrySetPlayerNumber(moveWrap.SdlInstanceId, movePlayer);
                                 int floorSig = unchecked((int)0x7F000000) | (released ? 1 : 0);
                                 if (floorSig != _lastMoveSphereSig)
                                 {
@@ -1939,15 +1902,17 @@ namespace PadForge.Common.Input
                                     rawAudioPeak * (float)moveCfg.AudioLightbarSensitivity, 0f, 1f);
                                 var moveState = _deviceStates.TryGetValue(ud.InstanceGuid, out var mds) ? mds : null;
                                 uint movePulse = moveState?.PulseColor ?? 0;
-                                float movePulseIntensity = ComputePulseIntensity(nowMs, moveCfg);
                                 var power = Common.Input.PsMoveDirectService.GetPowerInfo(moveWrap.SdlInstanceId);
                                 // Unknown / charging reports Percent = -1;
                                 // Battery mode must read that as full, not
                                 // empty (2026-08-18 audit).
                                 int rawPct = power?.Percent ?? 100;
                                 byte movePct = (byte)Math.Clamp(rawPct < 0 ? 100 : rawPct, 0, 100);
-                                var sphere = Ds5EffectSynthesizer.ComputeLightbarColorPublic(
-                                    moveCfg, movePeak, nowMs, _randomColor, movePulse, movePulseIntensity, movePct);
+                                Ds4EffectSynthesizer.ResolveLightbarRgb(moveCfg, movePeak, nowMs,
+                                    _randomColor, movePulse, movePulseIntensity, movePct, movePlayer,
+                                    out byte sr, out byte sg, out byte sb,
+                                    PsMoveDirectService.DefaultSphereColor(movePlayer));
+                                var sphere = (r: sr, g: sg, b: sb);
                                 bool sphereOk = Common.Input.PsMoveDirectService.TrySetLed(
                                     moveWrap.SdlInstanceId, sphere.r, sphere.g, sphere.b);
                                 // Evidence line, change-gated AND rate-limited
@@ -1990,14 +1955,14 @@ namespace PadForge.Common.Input
                     if (owners.TryGetValue(ud.InstanceGuid, out int ownSlot) && ownSlot != _padIndex)
                     {
                         _ownedLastDispatch.Remove(ud.InstanceGuid);
+                        _failedDeliveries.TryRemove(ud.InstanceGuid, out _);
                         continue;
                     }
-                    // First dispatch as this device's owner: seed the
-                    // prev-state maps TRUE so the enable/drop-frame logic
-                    // emits the mandatory stop/disengage frame even when
-                    // this frame is zero (a prior owner may have left
-                    // rumble or an AT effect latched in firmware).
-                    if (_ownedLastDispatch.Add(ud.InstanceGuid))
+                    // New ownership or a failed delivery owes a full state
+                    // refresh. Re-arm the stop/disengage fields before building
+                    // the retry, even when the current values are zero.
+                    _failedDeliveries.TryGetValue(ud.InstanceGuid, out long recoveredThrough);
+                    if (_ownedLastDispatch.Add(ud.InstanceGuid) || recoveredThrough != 0)
                     {
                         _prevHadRumble[ud.InstanceGuid] = true;
                         _prevPadForgeWantsLeftTrig[ud.InstanceGuid] = true;
@@ -2381,7 +2346,7 @@ namespace PadForge.Common.Input
                         // built frame. Spent on delivery, not here: a frame
                         // the stale-skip drops must leave it armed.
                         bool btConnectRelease = isDs5
-                            && _btBarReleasePending.Contains(ud.InstanceGuid);
+                            && _btBarReleasePending.ContainsKey(ud.InstanceGuid);
                         var fields = isDs5
                             ? Ds5EffectSynthesizer.BuildFields(
                                 devCfg, devPeak, nowMs,
@@ -2488,8 +2453,9 @@ namespace PadForge.Common.Input
                         // order is capture order across every dispatching
                         // thread. The write loop below uses it to drop a
                         // capture that a newer one has already superseded.
-                        pending.Add((path, profile, fields,
+                        pending.Add((ud.InstanceGuid, path, profile, fields,
                             System.Threading.Interlocked.Increment(ref s_dispatchSeq),
+                            recoveredThrough,
                             speakerCleared,
                             btConnectRelease ? ud.InstanceGuid : Guid.Empty));
                     }
@@ -2508,6 +2474,7 @@ namespace PadForge.Common.Input
             // device. See the s_writeGate notes at the field declaration for
             // why this gate is a leaf and not an outer dispatch lock.
             if (pending.Count == 0) return;
+            bool deliveryStateChanged = false;
             lock (s_writeGate)
             {
                 foreach (var w in pending)
@@ -2521,29 +2488,41 @@ namespace PadForge.Common.Input
                         // and no further dispatch is scheduled to correct it.
                         if (s_lastWriteSeq.TryGetValue(w.Path, out var last) && last > w.Seq)
                             continue;
+                        // A prebuilt frame has not re-armed the transitions
+                        // lost by a later failure. Let the retry build fresh state.
+                        if (_failedDeliveries.TryGetValue(w.Device, out long failedAt)
+                            && failedAt > w.RecoveredThrough)
+                        {
+                            deliveryStateChanged = true;
+                            continue;
+                        }
                         s_lastWriteSeq[w.Path] = w.Seq;
-                        PlayStationEffectWriter.Write(w.Path, w.Profile, w.Fields);
-                        // The headphone-path restore actually reached the pad,
-                        // so spend the one-shot now. Reaching here past both the
-                        // stale-skip above and the catch below is the only proof
-                        // the bytes went out; consuming at build time burned it
-                        // on payloads that were then dropped, and the speaker
-                        // stayed latched with nothing left to restore it.
+                        if (!PlayStationEffectWriter.Write(w.Path, w.Profile, w.Fields))
+                        {
+                            _failedDeliveries[w.Device] = w.Seq;
+                            deliveryStateChanged = true;
+                            continue;
+                        }
+                        deliveryStateChanged |= _failedDeliveries.TryRemove(w.Device, out _);
+                        // Spend routing transitions after the writer accepts
+                        // this frame. Rejected or superseded writes leave them
+                        // pending for a fresh retry.
                         if (w.SpeakerCleared != Guid.Empty)
                             AudioPassthroughService.TryConsumeSpeakerPathCleared(w.SpeakerCleared);
                         // Same delivery contract for the BT LED release: the
                         // bytes went out, so the one-shot is spent. A dropped
                         // or failed frame leaves it armed for the next tick.
                         if (w.BtBarReleased != Guid.Empty)
-                            _btBarReleasePending.Remove(w.BtBarReleased);
+                            _btBarReleasePending.TryRemove(w.BtBarReleased, out _);
                     }
                     catch
                     {
-                        // Same best-effort contract as the synthesis loop: one
-                        // device's failed write must not skip the others.
+                        _failedDeliveries[w.Device] = w.Seq;
+                        deliveryStateChanged = true;
                     }
                 }
             }
+            if (deliveryStateChanged) UpdateAnimTimer();
         }
     }
 }

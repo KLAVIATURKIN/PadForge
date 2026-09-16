@@ -335,7 +335,18 @@ namespace PadForge.Engine.Data
         [XmlElement]
         public DateTime DateUpdated { get; set; }
 
-        /// <summary>Whether this device is currently enabled for mapping.</summary>
+        /// <summary>Record-level enable flag. Persisted and shown as the
+        /// "Disabled" status in the Devices list.
+        ///
+        /// <para>It does NOT gate input. No mapping or macro read consults it,
+        /// and no control writes it, so it is true for every device the app
+        /// itself creates. Only a hand-edited settings file or an imported
+        /// record can carry false. Gating input on it would be a new
+        /// behavior, and it needs a decision first: whether disabling a DEVICE
+        /// should silence it everywhere, which is distinct from the per-slot
+        /// assignment flag (UserSetting.IsEnabled) that already gates
+        /// assignments. Do not add that gate without settling which scope
+        /// wins.</para></summary>
         [XmlElement]
         public bool IsEnabled { get; set; } = true;
 
@@ -627,8 +638,12 @@ namespace PadForge.Engine.Data
             // Fall back to NumButtons for wrappers that don't expose a
             // sparse list (keyboard / touchpad return empty arrays, mice
             // return a dense 0..N-1).
-            int gatedButtons = wrapper.SupportedButtonIndices?.Length ?? 0;
-            if (gatedButtons <= 0) gatedButtons = wrapper.NumButtons;
+            // Null is "the wrapper does not gate", which falls back. An empty
+            // array is the wrapper saying the device HAS none, which must
+            // persist as zero rather than reappearing as the standardized slot
+            // count the moment the device goes offline.
+            var liveButtons = wrapper.SupportedButtonIndices;
+            int gatedButtons = liveButtons != null ? liveButtons.Length : wrapper.NumButtons;
 
             // The positions behind that count, kept so the offline listing
             // numbers buttons the way the live one does. Copied rather than
@@ -660,8 +675,11 @@ namespace PadForge.Engine.Data
             // pressure slots must not have the row summary report axes the
             // preview then declines to draw (discussion #344's complaint, on
             // the axis side).
-            int gatedAxes = wrapper.SupportedAxisIndices?.Length ?? 0;
-            if (gatedAxes > 0) effectiveAxisCount = System.Math.Min(gatedAxes, CustomInputState.MaxAxis);
+            // Same split as the buttons above: an empty set is a count of
+            // zero, not an absent opinion.
+            var liveAxes = wrapper.SupportedAxisIndices;
+            if (liveAxes != null)
+                effectiveAxisCount = System.Math.Min(liveAxes.Length, CustomInputState.MaxAxis);
             LoadCapabilities(
                 effectiveAxisCount,
                 gatedButtons,

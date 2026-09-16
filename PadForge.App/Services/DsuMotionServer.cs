@@ -274,9 +274,19 @@ namespace PadForge.Services
                 return;
 
             // Read payload length.
+            // The four-byte message type counts toward the declared length (the
+            // protocol says so outright), so a frame declaring less than that is
+            // short and gets dropped rather than dispatched off bytes the
+            // checksum never covered.
             ushort payloadLength = BinaryPrimitives.ReadUInt16LittleEndian(data.AsSpan(6));
-            if (HeaderSize + payloadLength > length)
+            if (payloadLength < 4 || HeaderSize + payloadLength > length)
                 return;
+            // Everything past the declared frame is padding: truncate, the way
+            // the protocol's own rule requires. The handlers used to bound their
+            // reads by the DATAGRAM length, so a client could park its flags,
+            // slot and address in trailing bytes that sat outside the checksum
+            // and still drive a subscription.
+            int frameLength = HeaderSize + payloadLength;
 
             // Verify CRC32.
             uint receivedCrc = BinaryPrimitives.ReadUInt32LittleEndian(data.AsSpan(8));
@@ -295,10 +305,10 @@ namespace PadForge.Services
                     HandleVersionRequest(sender);
                     break;
                 case MsgTypeControllerInfo:
-                    HandleControllerInfoRequest(data, length, sender);
+                    HandleControllerInfoRequest(data, frameLength, sender);
                     break;
                 case MsgTypePadData:
-                    HandlePadDataRequest(data, length, sender);
+                    HandlePadDataRequest(data, frameLength, sender);
                     break;
             }
         }
@@ -371,8 +381,18 @@ namespace PadForge.Services
 
                     if ((flags & 0x02) != 0)
                     {
-                        // Subscribe by MAC (we treat as all-slot).
-                        _allSlotSubscriptions[sender] = now;
+                        // Address-based registration names ONE controller (the
+                        // protocol's second flag), and the address a client can
+                        // name is the one this server stamps into its controller
+                        // info and every motion packet: five zero bytes then the
+                        // slot. Reading it as every pad sent a client that had
+                        // selected a single controller the rest of them as well.
+                        // An address that resolves to no slot registers nothing,
+                        // the way an address we never advertised matches no pad.
+                        if (data[HeaderSize + 6] == 0 && data[HeaderSize + 7] == 0
+                            && data[HeaderSize + 8] == 0 && data[HeaderSize + 9] == 0
+                            && data[HeaderSize + 10] == 0 && data[HeaderSize + 11] < MaxSlots)
+                            _subscriptions[(sender, (int)data[HeaderSize + 11])] = now;
                     }
                 }
                 RecountSubscribers();

@@ -109,7 +109,10 @@ namespace PadForge.Tests
             int dispatch = code.IndexOf("if (ud.ForceFeedbackState.TryRecordMotorSnapshot(combinedL, combinedR))", StringComparison.Ordinal);
             int sdl = code.IndexOf("ud.ForceFeedbackState.SetDeviceForces(ud, ud.Device, firstPadSetting, _combinedVibration);", StringComparison.Ordinal);
             Assert.True(dispatch > 0 && sdl > dispatch, "the converter dispatch must precede the SDL SetDeviceForces call");
-            Assert.Contains("PadixConverterRawHidWriter.Write(ud.DevicePath, combinedL, combinedR);\n                return;", code);
+            // The write is now success-gated so a refused one re-arms the
+            // snapshot for a retry, which moved it off the same line as the
+            // return that used to follow it.
+            Assert.Contains("if (!PadixConverterRawHidWriter.Write(ud.DevicePath, combinedL, combinedR))\n                        ud.ForceFeedbackState.MarkDirectWriteFailed();", code);
         }
 
         [Fact]

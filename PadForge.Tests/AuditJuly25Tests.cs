@@ -221,10 +221,11 @@ namespace PadForge.Tests
             // magic survives, A's caps parses, and B's read throws into the
             // catch.
             // (+3 for the v5 tail, [magic][nameLen=0], +3 for the v6 tail,
-            // [magic][maskA][maskB], and +7 for the v7 tail,
-            // [magic][axisMaskA][guidLenA(2B)][axisMaskB][guidLenB(2B)],
-            // now the last section.)
-            var truncated = new byte[full.Length - 17];
+            // [magic][maskA][maskB], +7 for the v7 tail,
+            // [magic][axisMaskA][guidLenA(2B)][axisMaskB][guidLenB(2B)], and
+            // +3 for the v8 tail, [magic][flagsA][flagsB], now the last
+            // section.)
+            var truncated = new byte[full.Length - 20];
             Array.Copy(full, truncated, truncated.Length);
 
             var list = LinkConnection.DecodeDeviceList(truncated);

@@ -49,6 +49,11 @@ namespace PadForge.ViewModels
 
         /// <summary>Re-encodes the rows into the config. Every row edit and
         /// every add, remove, import or clear goes through here.</summary>
+        /// <summary>True while this view model is the one writing the bands, so
+        /// the config's own change notification can tell our echo apart from an
+        /// outside write and rebuild only for the latter.</summary>
+        private bool _pushingEqBands;
+
         internal void PushEqBands()
         {
             if (_suppressEqPush) return;
@@ -56,7 +61,9 @@ namespace PadForge.ViewModels
             if (cfg == null) return;
             var list = new List<EqBand>(_eqBands.Count);
             foreach (var r in _eqBands) list.Add(r.ToBand());
-            cfg.AudioEqBands = EqBandCodec.Encode(list);
+            _pushingEqBands = true;
+            try { cfg.AudioEqBands = EqBandCodec.Encode(list); }
+            finally { _pushingEqBands = false; }
         }
 
         private RelayCommand _addEqBandCommand;

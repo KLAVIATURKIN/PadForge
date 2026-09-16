@@ -161,14 +161,7 @@ namespace PadForge.ViewModels
                 if (SetProperty(ref _isEnabled, value) && !value)
                 {
                     foreach (var action in Actions)
-                    {
-                        if (action == null) continue;
-                        action.VcToggleLatched = false;
-                        action.KeyToggleLatched = false;
-                        action.MouseToggleLatched = false;
-                        action.VcAxisToggleLatched = false;
-                        action.WheelToggleLatched = false;
-                    }
+                        action?.ClearVolatileLatches();
 
                     // End the RUN too, not just the latches. Clearing the five
                     // latch bits stopped the held outputs but left the sequence
@@ -957,8 +950,18 @@ namespace PadForge.ViewModels
                         // ':'. Unescape the pipe token Spec wrote.
                         string desc = string.Join(":", parts, 3, parts.Length - 3)
                             .Replace("&P", "|");
+                        // Both gesture families ride this tag, because both
+                        // are one-shot bools in a recognizer's fired set and
+                        // TryBuildTriggerEntry writes both to
+                        // GestureDescriptor. Admitting only the touchpad
+                        // prefix meant a mouse-gesture trigger wrote a spec
+                        // its own parser threw away, so the trigger was gone
+                        // the next time the profile loaded. The tail stays
+                        // gated so an unrelated tag cannot slip through.
                         if (string.IsNullOrWhiteSpace(desc)
-                            || !desc.StartsWith("Touchpad ", StringComparison.Ordinal))
+                            || !(desc.StartsWith("Touchpad ", StringComparison.Ordinal)
+                                 || PadForge.Engine.Common.Mapping.SourceCoercion
+                                        .IsMouseGestureDescriptor(desc)))
                             return null;
                         entry.GestureDescriptor = desc;
                         return entry;
@@ -1410,13 +1413,27 @@ namespace PadForge.ViewModels
             }
         }
 
-        /// <summary>Replaces the entry list. Used by the recorder when
-        /// finalizing a multi-device combo.</summary>
+        /// <summary>Replaces the entry list, which becomes authoritative.
+        /// Used by the recorder when finalizing a multi-device combo and by
+        /// the per-row remove.
+        ///
+        /// <para>The legacy single-device raw-button and POV mirrors are
+        /// dropped here. First access migrates those fields INTO the entry
+        /// list without clearing them, so both copies then describe the same
+        /// inputs, and the evaluator falls back to the legacy copy whenever
+        /// the entry list holds no button. Removing the last visible entry
+        /// therefore handed control to an invisible duplicate and the removed
+        /// button kept firing the macro. The entry list is what the editor
+        /// shows, so it decides. A caller that still wants the back-compat
+        /// mirror writes it after this returns, which is exactly what the
+        /// recorder does.</para></summary>
         public void SetTriggerInputEntries(List<TriggerInputEntry> entries)
         {
             ClearArmedTriggerWindows();
 
             _triggerInputEntries = entries ?? new List<TriggerInputEntry>();
+            _triggerRawButtons = System.Array.Empty<int>();
+            _triggerPovs = System.Array.Empty<string>();
             WireTriggerInputEntries();
             OnPropertyChanged(nameof(TriggerInputs));
             OnPropertyChanged(nameof(UsesRawTrigger));
@@ -1736,12 +1753,17 @@ namespace PadForge.ViewModels
         /// <summary>
         /// Number of buttons for custom Extended (from ExtendedConfig.ButtonCount).
         /// Propagated to actions for ButtonOptions generation.
+        ///
+        /// <para>Zero is legal. An axis-only Extended layout has no buttons,
+        /// and clamping to one offered a Button 1 the zero-word raw state can
+        /// never emit. The menu editor's RawButtonCount already reads it this
+        /// way, and the two pickers describe the same layout.</para>
         /// </summary>
         [System.Xml.Serialization.XmlIgnore]
         public int CustomButtonCount
         {
             get => _customButtonCount;
-            set => SetProperty(ref _customButtonCount, Math.Max(1, value));
+            set => SetProperty(ref _customButtonCount, Math.Max(0, value));
         }
 
         private string _extendedProfileId;
@@ -1835,6 +1857,7 @@ namespace PadForge.ViewModels
                     OnPropertyChanged(nameof(IsDoublePressMode));
                     OnPropertyChanged(nameof(ShowsInlineIntervalRow));
                     OnPropertyChanged(nameof(ShowsRepeatSection));
+                    OnPropertyChanged(nameof(SupportsUntilReleaseRepeat));
                     OnPropertyChanged(nameof(InlineIntervalToolTip));
                     OnPropertyChanged(nameof(TriggerPressWindowToolTip));
                     OnPropertyChanged(nameof(ShowsTriggerComboEditor));
@@ -1885,12 +1908,21 @@ namespace PadForge.ViewModels
         [System.Xml.Serialization.XmlIgnore]
         public bool ShowsRepeatSection =>
             _triggerMode != MacroTriggerMode.Turbo &&
-            _triggerMode != MacroTriggerMode.Toggle &&
-            // ShortPress starts with the trigger ALREADY released, so the
-            // deferred-completion flag is always set and the until-release
-            // repeat branch can never run (audit 2026-07-25, C17). Showing
-            // Repeat there let a user author a setting the engine provably
-            // ignores, the same dead-control class this gate exists for.
+            _triggerMode != MacroTriggerMode.Toggle;
+
+        /// <summary>False for ShortPress, where Until Release is the one
+        /// repeat setting the engine ignores.
+        ///
+        /// <para>A ShortPress run starts with the trigger ALREADY released, so
+        /// the deferred-completion flag is set and the until-release branch
+        /// can never run. That is true of Until Release only. A fixed count
+        /// works there exactly as it does elsewhere, because the executor arms
+        /// RemainingRepeats from RepeatCount for every mode and decrements it
+        /// independently of that flag. Hiding the whole section for ShortPress
+        /// therefore hid a live setting: a loaded or mode-switched fixed
+        /// repeat kept running with no way to see or edit it.</para></summary>
+        [System.Xml.Serialization.XmlIgnore]
+        public bool SupportsUntilReleaseRepeat =>
             _triggerMode != MacroTriggerMode.ShortPress;
 
         /// <summary>Tooltip for the inline interval row, following the
@@ -2380,15 +2412,7 @@ namespace PadForge.ViewModels
                 if (!c.IsValid)
                     return "✗ " + (c.Error ?? s.Pad_Formula_Status_ParseError);
 
-                int defined = _triggerExpressionVariables?.Count ?? 0;
-                var refs = c.ReferencedSingleLetterVars ?? "";
-                var outOfRange = new List<string>();
-                foreach (char letter in refs)
-                {
-                    int idx = letter - 'a';
-                    if (idx >= defined) outOfRange.Add(letter.ToString());
-                }
-                bool indexedOutOfRange = c.MaxIndexedRef >= defined;
+                FindExpressionRefsWithoutSource(c, out var outOfRange, out bool indexedOutOfRange);
                 if (outOfRange.Count == 0 && !indexedOutOfRange)
                     return s.Pad_Formula_Status_Valid;
 
@@ -2409,8 +2433,30 @@ namespace PadForge.ViewModels
         [System.Xml.Serialization.XmlIgnore]
         public bool IsCustomExpressionInvalid => !TriggerExpressionCompiled.IsValid;
 
-        /// <summary>True when the expression parses but references more variables
-        /// than the macro has defined.</summary>
+        /// <summary>Which referenced variables have no source behind them: the
+        /// single letters whose position is past the defined count, and whether
+        /// an s[n] reference is past it too.
+        ///
+        /// <para>One derivation, read by both the footer text and the warning
+        /// flag. They had two, and they disagreed: the flag compared the COUNT
+        /// of referenced letters against the defined count, so a formula using
+        /// only "z" with one variable counted one reference against one
+        /// variable and reported no warning, while the footer correctly named
+        /// z as having no source. Sparse letters are the ordinary case here,
+        /// because a user deletes a variable and leaves the formula.</para></summary>
+        private void FindExpressionRefsWithoutSource(
+            PadForge.Engine.Common.Mapping.MappingExpression.Compiled compiled,
+            out List<string> outOfRange, out bool indexedOutOfRange)
+        {
+            int defined = _triggerExpressionVariables?.Count ?? 0;
+            outOfRange = new List<string>();
+            foreach (char letter in compiled.ReferencedSingleLetterVars ?? "")
+                if (letter - 'a' >= defined) outOfRange.Add(letter.ToString());
+            indexedOutOfRange = compiled.MaxIndexedRef >= defined;
+        }
+
+        /// <summary>True when the expression parses but references a variable
+        /// the macro has not defined. Same rule as the footer text.</summary>
         [System.Xml.Serialization.XmlIgnore]
         public bool IsCustomExpressionWarning
         {
@@ -2418,10 +2464,8 @@ namespace PadForge.ViewModels
             {
                 var c = TriggerExpressionCompiled;
                 if (!c.IsValid) return false;
-                int refCount = c.ReferencedSingleLetterVars?.Length ?? 0;
-                int maxIdx = c.MaxIndexedRef;
-                int defined = _triggerExpressionVariables?.Count ?? 0;
-                return Math.Max(refCount, maxIdx + 1) > defined;
+                FindExpressionRefsWithoutSource(c, out var outOfRange, out bool indexedOutOfRange);
+                return outOfRange.Count > 0 || indexedOutOfRange;
             }
         }
 
@@ -2752,6 +2796,16 @@ namespace PadForge.ViewModels
                         _pulseWhileLatched = false;
                         OnPropertyChanged(nameof(PulseWhileLatched));
                     }
+
+                    // The latch bits belong to the type that set them. The
+                    // latch pass dispatches on Type, so retyping a latched
+                    // action away silently stopped its output while leaving
+                    // the bit set, and retyping back resumed the output with
+                    // no trigger press behind it. Same reasoning as the
+                    // macro-disable path, which clears the same bits so a
+                    // later re-enable cannot resurrect a stale latch.
+                    ClearVolatileLatches();
+
                     OnPropertyChanged(nameof(DisplayText));
                     OnPropertyChanged(nameof(IsButtonType));
                     OnPropertyChanged(nameof(IsKeyType));
@@ -3285,6 +3339,8 @@ namespace PadForge.ViewModels
 
         /// <summary>
         /// Number of buttons to show for Numbered style (from ExtendedConfig.ButtonCount).
+        /// Zero is legal, for the reason given on the macro's own property:
+        /// an axis-only layout has no buttons to offer.
         /// </summary>
         [System.Xml.Serialization.XmlIgnore]
         public int CustomButtonCount
@@ -3292,7 +3348,7 @@ namespace PadForge.ViewModels
             get => _customButtonCount;
             set
             {
-                if (SetProperty(ref _customButtonCount, Math.Max(1, value)) && _buttonStyle == MacroButtonStyle.Numbered)
+                if (SetProperty(ref _customButtonCount, Math.Max(0, value)) && _buttonStyle == MacroButtonStyle.Numbered)
                 {
                     _buttonOptions = null;
                     OnPropertyChanged(nameof(ButtonOptions));
@@ -3504,6 +3560,9 @@ namespace PadForge.ViewModels
                 {
                     OnPropertyChanged(nameof(DisplayText));
                     OnPropertyChanged(nameof(SelectedVirtualKey));
+                    // This is the fallback ParsedKeyCodes reads when the
+                    // string is empty, so it changes with this too.
+                    OnPropertyChanged(nameof(ParsedKeyCodes));
                 }
             }
         }
@@ -3743,10 +3802,20 @@ namespace PadForge.ViewModels
 
         private RelayCommand _clearKeyStringCommand;
 
-        /// <summary>Clears the KeyString.</summary>
+        /// <summary>Clears the key combo, both representations.
+        ///
+        /// <para>ParsedKeyCodes falls back to the legacy KeyCode when the
+        /// string is empty, which is how an old save still presses its key.
+        /// Clearing only the string therefore left a loaded legacy action
+        /// pressing the key the user had just cleared, with nothing visible
+        /// to explain it.</para></summary>
         [System.Xml.Serialization.XmlIgnore]
         public RelayCommand ClearKeyStringCommand =>
-            _clearKeyStringCommand ??= new RelayCommand(() => KeyString = "");
+            _clearKeyStringCommand ??= new RelayCommand(() =>
+            {
+                KeyString = "";
+                KeyCode = 0;
+            });
 
         private int _durationMs = 50;
 
@@ -4203,7 +4272,13 @@ namespace PadForge.ViewModels
         public int SoundVolume
         {
             get => _soundVolume;
-            set => SetProperty(ref _soundVolume, Math.Clamp(value, 0, 100));
+            set
+            {
+                // The action caption prints the volume, so it has to hear
+                // about a change to it.
+                if (SetProperty(ref _soundVolume, Math.Clamp(value, 0, 100)))
+                    OnPropertyChanged(nameof(DisplayText));
+            }
         }
 
         private bool _soundLoop;
@@ -4212,7 +4287,13 @@ namespace PadForge.ViewModels
         public bool SoundLoop
         {
             get => _soundLoop;
-            set => SetProperty(ref _soundLoop, value);
+            set
+            {
+                // Looping picks a different caption format, not just a
+                // different word inside one.
+                if (SetProperty(ref _soundLoop, value))
+                    OnPropertyChanged(nameof(DisplayText));
+            }
         }
 
         // ── Run program (for MacroActionType.RunProgram, user request) ──
@@ -4774,6 +4855,21 @@ namespace PadForge.ViewModels
         [System.Xml.Serialization.XmlIgnore]
         internal bool WheelToggleLatched { get; set; }
 
+        /// <summary>Drops every volatile Toggle latch this action holds.
+        ///
+        /// <para>Called where an action stops owning its current output:
+        /// the macro being disabled, and the action being retyped. The bits
+        /// are runtime-only and a fresh instance starts unlatched, so this
+        /// is a no-op on load and on copy.</para></summary>
+        internal void ClearVolatileLatches()
+        {
+            VcToggleLatched = false;
+            KeyToggleLatched = false;
+            MouseToggleLatched = false;
+            VcAxisToggleLatched = false;
+            WheelToggleLatched = false;
+        }
+
         private bool _pulseWhileLatched;
         /// <summary>Composes Steam's toggle + hold_repeats (v18): while the
         /// action's latch is engaged, the contribution pulses on the
@@ -4999,6 +5095,16 @@ namespace PadForge.ViewModels
         public RelayCommand ClearSourceCommand =>
             _clearSourceCommand ??= new RelayCommand(() =>
             {
+                // Stop an active recording first, the way the trigger Clear
+                // does. A running recorder writes the source back every
+                // polling tick, so clearing under it put the axis straight
+                // back and the user had to hit Clear twice.
+                if (IsRecordingSource)
+                {
+                    IsRecordingSource = false;
+                    RecordSourceRequested?.Invoke(this, EventArgs.Empty);
+                }
+
                 SourceDeviceGuid = Guid.Empty;
                 SourceDeviceAxisIndex = -1;
             });
@@ -5369,7 +5475,12 @@ namespace PadForge.ViewModels
         public int SourceDeviceAxisIndex
         {
             get => _sourceDeviceAxisIndex;
-            set => SetProperty(ref _sourceDeviceAxisIndex, value);
+            set
+            {
+                // The caption names the axis this reads from.
+                if (SetProperty(ref _sourceDeviceAxisIndex, value))
+                    OnPropertyChanged(nameof(DisplayText));
+            }
         }
 
         /// <summary>Human-readable display text for the action list.</summary>
@@ -6831,6 +6942,15 @@ namespace PadForge.ViewModels
         public RelayCommand ClearBindingCommand =>
             _clearBindingCommand ??= new RelayCommand(() =>
             {
+                // Same rule as the trigger and action-source Clear buttons:
+                // a running recorder refills the binding every polling tick,
+                // so it has to be stopped before the clear.
+                if (IsRecording)
+                {
+                    IsRecording = false;
+                    RecordRequested?.Invoke(this, EventArgs.Empty);
+                }
+
                 DeviceGuid = Guid.Empty;
                 RawButton = -1;
                 Pov = null;
@@ -7252,7 +7372,7 @@ namespace PadForge.ViewModels
                 "ButtonStart" => sc15 ? Strings.Instance.Btn_Start : Strings.Instance.Btn_Menu,
                 "ButtonGuide" => Strings.Instance.Btn_Steam,
                 "ButtonQuickAccess" => Strings.Instance.Btn_QuickAccess,
-                "LeftThumbButton" => sc15 ? Strings.Instance.Btn_L3 : Strings.Instance.Btn_L3,
+                "LeftThumbButton" => Strings.Instance.Btn_L3,
                 "RightThumbButton" => Strings.Instance.Btn_R3,
                 "Paddle1" => "R4",
                 "Paddle2" => "L4",
@@ -7301,9 +7421,15 @@ namespace PadForge.ViewModels
 
         /// <summary>Compact-label twin of <see cref="RawButtonLabel"/>
         /// ("Btn {N}" fallback) for the macro trigger chips and button
-        /// checkbox grid.</summary>
+        /// checkbox grid.
+        ///
+        /// <para>It resolves the same lettered families as its twin. Only the
+        /// numbered fallback is shorter. Resolving Nintendo alone meant a
+        /// Valve pad named the same button two ways in one profile: View in
+        /// the mapping grid and Btn 7 on the macro chip beside it.</para></summary>
         public static string RawButtonShortLabel(string profileId, int number) =>
             (IsNintendoLetteredProfile(profileId) ? NintendoLetteredLabel(profileId, number - 1) : null)
+            ?? (IsValveLetteredProfile(profileId) ? ValveLetteredLabel(profileId, number - 1) : null)
             ?? string.Format(Strings.Instance.Macro_Btn_Format, number);
 
         private static (string Label, ushort Flag)[] BuildXboxDefs() => new (string, ushort)[]
