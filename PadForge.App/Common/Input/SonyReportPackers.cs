@@ -18,7 +18,7 @@ namespace PadForge.Common.Input
     ///
     /// <list type="bullet">
     /// <item><b>DS4 Type 1</b> — sticks at 0–3, hat+buttons at 4–6, triggers
-    /// at 7–8, vendor blob 9–62 (timestamp 9–10, battery 11, gyro 12–17,
+    /// at 7–8, vendor blob 9–62 (timestamp 9–10, legacy battery 11, gyro 12–17,
     /// accel 18–23, touchpad packets at 32+). Layout sourced from
     /// <c>ViGEmClient/include/ViGEm/Common.h</c> <c>DS4_REPORT_EX</c> struct.</item>
     /// <item><b>DualSense USB</b> — sticks+triggers inline at 0–5, counter at 6,
@@ -173,9 +173,9 @@ namespace PadForge.Common.Input
             dest[9]  = (byte)(ts & 0xFF);
             dest[10] = (byte)(ts >> 8);
 
-            // Battery (byte 11): legacy bBatteryLvl. Modern readers (DS4Windows,
-            // SDL3, ds4drv) consult byte 30 instead, but byte 11 is the older
-            // surface and harmless to populate.
+            // Battery (byte 11): legacy bBatteryLvl. Every modern reader
+            // consults byte 29 below instead. No reference in the references
+            // folder reads this one, so it is written for older parsers only.
             dest[11] = ScaleDs4BatteryNibble(batteryPercent, charging);
 
             // Gyro (bytes 12-17), Accel (bytes 18-23): int16 LE.
@@ -188,11 +188,26 @@ namespace PadForge.Common.Input
 
             // Bytes 24-28 are reserved (zero from dest.Clear()).
 
-            // bBatteryLvlSpecial (byte 30): low nibble = battery level scaled
+            // bBatteryLvlSpecial (byte 29): low nibble = battery level scaled
             // to maxBatteryValue (8 when discharging, 11 when USB charging),
-            // bit 4 = USB charging flag. DS4 readers (Ryochan7's DS4Reader,
-            // DS4Windows) decode this byte for the canonical battery surface.
-            dest[30] = (byte)(ScaleDs4BatteryNibble(batteryPercent, charging)
+            // bit 4 = USB charging flag. This is the canonical battery surface
+            // every reader consults.
+            //
+            // 29, not 30. This buffer holds DATA BYTES ONLY: SubmitRawReport
+            // takes the frame without its report id and the driver heads it,
+            // and every other field here is numbered that way (timestamp 9,
+            // gyro 12, accel 18, touch 34, all matching SDL's PS4StatePacket_t,
+            // which SDL points at &data[1]). The references number theirs from
+            // the report id instead, so DS4Windows reads inputReport[30] while
+            // its own stick X sits at inputReport[1]. Taking that 30 across to
+            // a data-only buffer wrote the battery into a pad byte and left
+            // the real one at zero, and zero decodes as on-battery at the
+            // bottom of the scale: SDL_hidapi_ps4.c reads level 0 with the
+            // charging bit clear and reports 5 percent, so Steam and every
+            // other reader showed a flat low battery whatever the pad had.
+            // The DualSense packer was never wrong here, which is why that
+            // one always read correctly.
+            dest[29] = (byte)(ScaleDs4BatteryNibble(batteryPercent, charging)
                             | (charging ? 0x10 : 0x00));
 
             // bTouchPacketsN (byte 32): number of touch packets (0..3). PadForge
