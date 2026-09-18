@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
@@ -72,7 +73,7 @@ namespace PadForge.Tests
         private static int OwnMeshCount(string modelName)
             => typeof(ControllerModelBase).Assembly.GetManifestResourceNames()
                 .Count(n => n.Contains($".{modelName}.", StringComparison.OrdinalIgnoreCase)
-                            && n.EndsWith(".obj", StringComparison.OrdinalIgnoreCase));
+                            && n.EndsWith(MeshExtension, StringComparison.OrdinalIgnoreCase));
 
         /// <summary>A fallback resolves in one hop.
         ///
@@ -152,23 +153,103 @@ namespace PadForge.Tests
         }
 
         /// <summary>Resolves a mesh the way the loader does, a colorway's own
-        /// folder first and its shared one second, and hashes what it
-        /// finds.</summary>
+        /// folder first and its shared one second, and hashes the Wavefront
+        /// text it finds.
+        ///
+        /// <para>The text, not the resource. Meshes are embedded compressed,
+        /// and hashing the stored bytes would tie these anchors to the
+        /// compression settings rather than to the shell each colorway
+        /// renders.</para></summary>
         private static string ResolvedMeshHash(string modelName, string filename)
         {
-            var assembly = typeof(ControllerModelBase).Assembly;
             foreach (var candidate in Table().TryGetValue(modelName, out var shared)
                          ? new[] { modelName, shared }
                          : new[] { modelName })
             {
-                string suffix = $".{candidate}.{filename}";
-                string match = assembly.GetManifestResourceNames()
-                    .FirstOrDefault(n => n.EndsWith(suffix, StringComparison.OrdinalIgnoreCase));
-                if (match == null) continue;
-                using var stream = assembly.GetManifestResourceStream(match);
-                using var ms = new MemoryStream();
-                stream.CopyTo(ms);
-                return Convert.ToHexString(SHA256.HashData(ms.ToArray()));
+                var text = MeshText($".{candidate}.{MeshStem(filename)}");
+                if (text != null)
+                    return Convert.ToHexString(SHA256.HashData(text));
+            }
+            return null;
+        }
+
+        private static string MeshStem(string filename)
+            => Path.GetFileNameWithoutExtension(filename) + MeshExtension;
+
+        /// <summary>The extension meshes are embedded under. Compressed, so
+        /// not the extension the art tree uses.</summary>
+        private const string MeshExtension = ".objbr";
+
+        private static byte[] MeshText(string suffix)
+        {
+            var assembly = typeof(ControllerModelBase).Assembly;
+            string match = assembly.GetManifestResourceNames()
+                .FirstOrDefault(n => n.EndsWith(suffix, StringComparison.OrdinalIgnoreCase));
+            if (match == null) return null;
+            using var stream = assembly.GetManifestResourceStream(match);
+            return Decompress(stream);
+        }
+
+        private static byte[] Decompress(Stream stream)
+        {
+            using var expanded = new MemoryStream();
+            using (var brotli = new BrotliStream(stream, CompressionMode.Decompress))
+                brotli.CopyTo(expanded);
+            return expanded.ToArray();
+        }
+
+        /// <summary>Every mesh in the art tree reaches the assembly.
+        ///
+        /// <para>Meshes are packed at build time and embedded under a name
+        /// the target computes, which is a second place a mesh can be lost
+        /// without anything failing. It happened: each packed file is named
+        /// for the resource it becomes, so its name carries dots, and MSBuild
+        /// reads the segment before the extension as a culture when it
+        /// matches one. The Switch 2 Pro's GL.obj packed to a name ending
+        /// .Switch2Pro.GL.objbr, GL is Galician, and that mesh was routed
+        /// into a satellite assembly. The build stayed green and the pad lost
+        /// a button.</para>
+        ///
+        /// <para>Counting is not enough, since a lost mesh and a stray extra
+        /// cancel out, so every file is matched by name.</para></summary>
+        [Fact]
+        public void EveryMeshInTheArtTreeIsEmbedded()
+        {
+            string root = ArtTree();
+            Assert.True(root != null, "the 3DModels tree was not found beside the tests");
+
+            var embedded = new HashSet<string>(
+                typeof(ControllerModelBase).Assembly.GetManifestResourceNames()
+                    .Where(n => n.EndsWith(MeshExtension, StringComparison.OrdinalIgnoreCase)),
+                StringComparer.OrdinalIgnoreCase);
+
+            var missing = new List<string>();
+            foreach (var file in Directory.EnumerateFiles(root, "*.obj", SearchOption.AllDirectories))
+            {
+                string relative = Path.GetRelativePath(root, file).Replace('\\', '.');
+                string expected = "PadForge._3DModels." +
+                    relative.Substring(0, relative.Length - ".obj".Length) + MeshExtension;
+                if (!embedded.Contains(expected))
+                    missing.Add(expected);
+            }
+
+            Assert.True(missing.Count == 0,
+                $"{missing.Count} meshes are in the art tree but not in the assembly:\n  "
+                + string.Join("\n  ", missing.Take(20)));
+
+            int onDisk = Directory.GetFiles(root, "*.obj", SearchOption.AllDirectories).Length;
+            Assert.True(embedded.Count == onDisk,
+                $"{embedded.Count} meshes are embedded but {onDisk} are in the art tree");
+        }
+
+        private static string ArtTree()
+        {
+            var d = AppContext.BaseDirectory;
+            for (int i = 0; i < 8 && d != null; i++)
+            {
+                var candidate = Path.Combine(d, "PadForge.App", "3DModels");
+                if (Directory.Exists(candidate)) return candidate;
+                d = Path.GetDirectoryName(d);
             }
             return null;
         }
@@ -197,17 +278,16 @@ namespace PadForge.Tests
             long wasted = 0;
 
             foreach (var name in assembly.GetManifestResourceNames()
-                         .Where(n => n.EndsWith(".obj", StringComparison.OrdinalIgnoreCase))
+                         .Where(n => n.EndsWith(MeshExtension, StringComparison.OrdinalIgnoreCase))
                          .OrderBy(n => n, StringComparer.Ordinal))
             {
                 using var stream = assembly.GetManifestResourceStream(name);
-                using var ms = new MemoryStream();
-                stream.CopyTo(ms);
-                string hash = Convert.ToHexString(SHA256.HashData(ms.ToArray()));
+                byte[] text = Decompress(stream);
+                string hash = Convert.ToHexString(SHA256.HashData(text));
                 if (seen.TryGetValue(hash, out var first))
                 {
-                    wasted += ms.Length;
-                    clashes.Add($"{name} repeats {first} ({ms.Length / 1024} KB)");
+                    wasted += text.Length;
+                    clashes.Add($"{name} repeats {first} ({text.Length / 1024} KB)");
                 }
                 else
                 {

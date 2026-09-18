@@ -955,7 +955,12 @@ namespace PadForge.Models3D
             // MSBuild prefixes folder names starting with a digit (e.g. "3DModels" → "_3DModels")
             // but keeps hyphens and other characters as-is in resource names.
             // Search by suffix to avoid needing the exact prefix.
-            string suffix = $".{modelName}.{filename}";
+            //
+            // Meshes are embedded Brotli-compressed, under the same name with
+            // an objbr extension. Wavefront text is 184.6 MB of ASCII across
+            // the set, which the bundle's own deflate takes to 49.2 MB and
+            // Brotli to 32.4 MB.
+            string suffix = $".{modelName}.{Path.GetFileNameWithoutExtension(filename)}.objbr";
             string resourceName = null;
 
             foreach (var name in assembly.GetManifestResourceNames())
@@ -974,8 +979,16 @@ namespace PadForge.Models3D
             if (stream == null)
                 return null;
 
+            // ObjReader seeks, and a decompressing stream cannot, so the mesh
+            // is expanded up front the way the texture loader expands an image.
+            using var text = new MemoryStream();
+            using (var brotli = new System.IO.Compression.BrotliStream(
+                       stream, System.IO.Compression.CompressionMode.Decompress))
+                brotli.CopyTo(text);
+            text.Position = 0;
+
             var reader = new ObjReader();
-            var model = reader.Read(stream);
+            var model = reader.Read(text);
             return model;
         }
 

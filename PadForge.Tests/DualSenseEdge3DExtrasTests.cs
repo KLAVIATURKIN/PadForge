@@ -31,13 +31,19 @@ namespace PadForge.Tests
         private static string[] Resources()
             => typeof(ControllerModelBase).Assembly.GetManifestResourceNames();
 
+        /// <summary>The name a part file carries once embedded. Meshes ship
+        /// compressed, so the art tree's .obj becomes .objbr in the
+        /// assembly.</summary>
+        private static string Embedded(string partFile)
+            => System.IO.Path.GetFileNameWithoutExtension(partFile) + ".objbr";
+
         [Fact]
         public void EdgeAssetSet_CarriesAllSixPartFiles()
         {
             var names = Resources();
             foreach (var f in PartFiles)
                 Assert.Single(names, n => n.EndsWith(
-                    $".DualSenseEdge.Edge.{f}", StringComparison.OrdinalIgnoreCase));
+                    $".DualSenseEdge.Edge.{Embedded(f)}", StringComparison.OrdinalIgnoreCase));
         }
 
         /// <summary>No plain colorway may carry them: TryLoadModel gates
@@ -51,7 +57,8 @@ namespace PadForge.Tests
             foreach (var colorway in ControllerModelDualSense.AppearanceIds)
                 foreach (var f in PartFiles)
                     Assert.DoesNotContain(names, n => n.EndsWith(
-                        $".DualSense.{colorway}.{f}", StringComparison.OrdinalIgnoreCase));
+                        $".DualSense.{colorway}.{Embedded(f)}",
+                        StringComparison.OrdinalIgnoreCase));
         }
 
         [Fact]

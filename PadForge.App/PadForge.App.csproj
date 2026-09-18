@@ -125,7 +125,7 @@
     <EmbeddedResource Include="Resources\HidHide_1.5.230_x64.exe" />
     <!-- 3D controller model assets (adapted from Handheld Companion, CC BY-NC-SA 4.0;
          Switch2Pro set split from the purchased hado CGTrader model) -->
-    <EmbeddedResource Include="3DModels\**\*.obj" />
+    <!-- Meshes are embedded compressed, by the CompressMeshes target below. -->
     <EmbeddedResource Include="3DModels\**\*.png" />
     <EmbeddedResource Include="3DModels\**\*.jpg" />
     <!-- 2D controller model assets (Gamepad-Asset-Pack by AL2009man, MIT license) -->
@@ -226,5 +226,109 @@
       <HintPath>Resources\HIDMaestro\HIDMaestro.Core.dll</HintPath>
     </Reference>
   </ItemGroup>
+
+  <!-- Meshes are ASCII Wavefront text, which the single-file bundle deflates
+       to 49.2 MB. Brotli takes the same bytes to 32.4 MB, so they are
+       compressed here and the reader decompresses them. Artists keep plain
+       .obj files in the tree.
+
+       Compression is the slow part, about four minutes for all 671 at the
+       level that earns the 16.8 MB, so output older than its input is the
+       only thing recompressed. Meshes change rarely, so this costs one build
+       and then nothing. -->
+  <UsingTask TaskName="CompressMeshes" TaskFactory="RoslynCodeTaskFactory"
+             AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+    <ParameterGroup>
+      <Meshes ParameterType="Microsoft.Build.Framework.ITaskItem[]" Required="true" />
+      <OutputDir ParameterType="System.String" Required="true" />
+      <Compressed ParameterType="Microsoft.Build.Framework.ITaskItem[]" Output="true" />
+    </ParameterGroup>
+    <Task>
+      <Using Namespace="System" />
+      <Using Namespace="System.Collections.Generic" />
+      <Using Namespace="System.IO" />
+      <Using Namespace="Microsoft.Build.Framework" />
+      <Using Namespace="Microsoft.Build.Utilities" />
+      <Code Type="Fragment" Language="cs"><![CDATA[
+        // BrotliStream is reached by reflection because an inline task
+        // compiles against netstandard, which predates it. The task itself
+        // runs on the SDK's own runtime, where the type is present. Which
+        // assembly holds it has moved between releases, so both names are
+        // tried rather than one being assumed.
+        Type streamType = null, levelType = null;
+        foreach (var candidate in new[] { "System.IO.Compression.Brotli", "System.IO.Compression" })
+        {
+            try
+            {
+                var asm = System.Reflection.Assembly.Load(candidate);
+                streamType = streamType ?? asm.GetType("System.IO.Compression.BrotliStream");
+                levelType = levelType ?? asm.GetType("System.IO.Compression.CompressionLevel");
+            }
+            catch (Exception) { }
+        }
+        if (streamType == null || levelType == null)
+        {
+            Log.LogError("Brotli is not available to the build, so the meshes cannot be packed.");
+            return false;
+        }
+        object smallest = Enum.Parse(levelType, "SmallestSize");
+
+        var results = new List<ITaskItem>();
+        int written = 0;
+        Directory.CreateDirectory(OutputDir);
+
+        foreach (var mesh in Meshes)
+        {
+            string source = mesh.GetMetadata("FullPath");
+            string relative = mesh.GetMetadata("RelativeDir").Replace('\\', '.').Replace('/', '.');
+            string name = Path.GetFileNameWithoutExtension(source);
+            string logical = "PadForge._" + relative + name + ".objbr";
+            string target = Path.Combine(OutputDir, logical);
+
+            if (!File.Exists(target)
+                || File.GetLastWriteTimeUtc(target) < File.GetLastWriteTimeUtc(source))
+            {
+                using (var input = File.OpenRead(source))
+                using (var output = File.Create(target))
+                using (var brotli = (Stream)Activator.CreateInstance(
+                           streamType, new object[] { output, smallest, false }))
+                    input.CopyTo(brotli);
+                written++;
+            }
+
+            var item = new TaskItem(target);
+            item.SetMetadata("LogicalName", logical);
+            results.Add(item);
+        }
+
+        Compressed = results.ToArray();
+        Log.LogMessage(MessageImportance.High,
+            written == 0
+                ? "Meshes: " + Meshes.Length + " already compressed"
+                : "Meshes: compressed " + written + " of " + Meshes.Length);
+      ]]></Code>
+    </Task>
+  </UsingTask>
+
+  <Target Name="EmbedCompressedMeshes" BeforeTargets="PrepareForBuild">
+    <ItemGroup>
+      <MeshSource Include="3DModels\**\*.obj" />
+    </ItemGroup>
+    <CompressMeshes Meshes="@(MeshSource)" OutputDir="$(IntermediateOutputPath)meshes">
+      <Output TaskParameter="Compressed" ItemName="CompressedMesh" />
+    </CompressMeshes>
+    <ItemGroup>
+      <!-- WithCulture is not optional here. Each packed mesh is named for the
+           resource it becomes, so its file name carries dots, and MSBuild
+           reads the segment before the extension as a culture when it matches
+           one. Switch2Pro's GL.obj became PadForge._3DModels.Switch2Pro.GL.objbr,
+           whose GL is Galician, and that one mesh was routed into a satellite
+           assembly and vanished from the pad. -->
+      <EmbeddedResource Include="@(CompressedMesh)">
+        <LogicalName>%(CompressedMesh.LogicalName)</LogicalName>
+        <WithCulture>false</WithCulture>
+      </EmbeddedResource>
+    </ItemGroup>
+  </Target>
 
 </Project>
