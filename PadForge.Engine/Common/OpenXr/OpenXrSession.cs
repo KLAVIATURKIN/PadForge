@@ -22,6 +22,7 @@ namespace PadForge.Engine.Common.OpenXr
         private ulong _viewSpace;
         private int _sessionState = XR_SESSION_STATE_IDLE;
         private bool _began;
+        private IntPtr _eventBuffer;
         private readonly Action<string> _log;
 
         private PFN_xrGetInstanceProcAddr _getProc;
@@ -302,8 +303,13 @@ namespace PadForge.Engine.Common.OpenXr
         {
             lost = false;
             referenceSpaceChanged = false;
-            IntPtr buffer = Marshal.AllocHGlobal(sizeof(XrEventDataBuffer));
-            try
+            // Allocated once and reused. This runs about 125 times a second
+            // for as long as the feature is on, and the event union is 4 KB,
+            // so allocating it per poll was half a megabyte a second of
+            // pointless alloc and free.
+            if (_eventBuffer == IntPtr.Zero)
+                _eventBuffer = Marshal.AllocHGlobal(sizeof(XrEventDataBuffer));
+            IntPtr buffer = _eventBuffer;
             {
                 while (true)
                 {
@@ -339,7 +345,6 @@ namespace PadForge.Engine.Common.OpenXr
                     }
                 }
             }
-            finally { Marshal.FreeHGlobal(buffer); }
         }
 
         private void Begin()
@@ -422,6 +427,11 @@ namespace PadForge.Engine.Common.OpenXr
             try { if (_session != 0) _destroySession?.Invoke(_session); } catch (Exception) { }
             try { if (_instance != 0) _destroyInstance?.Invoke(_instance); } catch (Exception) { }
             _viewSpace = _baseSpace = _session = _instance = 0;
+            if (_eventBuffer != IntPtr.Zero)
+            {
+                Marshal.FreeHGlobal(_eventBuffer);
+                _eventBuffer = IntPtr.Zero;
+            }
             // The module is deliberately left loaded. A runtime that has had
             // an instance created and destroyed does not always survive being
             // unloaded and reloaded in the same process, and the handle costs

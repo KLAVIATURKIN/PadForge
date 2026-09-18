@@ -259,6 +259,37 @@ namespace PadForge.Tests
 
         /// <summary>The SteamVR path and this one are the same convention.
         /// Both are fed the same rotation and must agree.</summary>
+        /// <summary>Turning a pose into axes allocates nothing.
+        ///
+        /// <para>This runs about 125 times a second on a background thread
+        /// for as long as the feature is on. Anything allocating in here is
+        /// GC pressure a user never asked for, paid continuously while they
+        /// play.</para></summary>
+        [Fact]
+        public void FillingAPoseAllocatesNothing()
+        {
+            var baseline = default(OpenXrHeadPose.Baseline);
+            var pose = new double[HeadPose.PoseCount];
+            var axes = new int[HeadPose.AxisCount];
+
+            // Warm up, so first-call initialization is not measured.
+            for (int i = 0; i < 256; i++)
+            {
+                OpenXrHeadPose.TryFillPose(0.1, 1.6, 0.2, 0, 0.2, 0, 0.98,
+                                           ref baseline, pose);
+                HeadPose.FillAxes(pose, 90, 30, axes);
+            }
+
+            long before = GC.GetAllocatedBytesForCurrentThread();
+            for (int i = 0; i < 2000; i++)
+            {
+                OpenXrHeadPose.TryFillPose(0.1, 1.6, 0.2, 0, 0.2, 0, 0.98,
+                                           ref baseline, pose);
+                HeadPose.FillAxes(pose, 90, 30, axes);
+            }
+            Assert.Equal(0, GC.GetAllocatedBytesForCurrentThread() - before);
+        }
+
         [Theory]
         [InlineData(0, 1, 0, -35)]
         [InlineData(1, 0, 0, 22)]
