@@ -10028,7 +10028,7 @@ namespace PadForge.Services
 
         private void ClearWebControllerEndpoint()
         {
-            _mainVm.Dashboard.IsWebControllerRunning = falsel
+            _mainVm.Dashboard.IsWebControllerRunning = false;
             _mainVm.Dashboard.WebControllerClientCount = 0;
             _mainVm.Dashboard.WebControllerUrl = null;
             _mainVm.Dashboard.WebControllerQr = null;
