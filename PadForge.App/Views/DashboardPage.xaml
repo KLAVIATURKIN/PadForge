@@ -1851,6 +1851,17 @@
                             <TextBlock Text="&#xE72C;" FontFamily="Segoe MDL2 Assets" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
                         </ui:Button>
                     </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                        <CheckBox Content="{Binding Dashboard_HeadTrackingOpenXr, Source={x:Static strings:Strings.Instance}}"
+                                  x:Name="HeadTrackingOpenXrCheckBox"
+                                  ToolTip="{Binding Dashboard_HeadTrackingOpenXr_Tooltip, Source={x:Static strings:Strings.Instance}}"
+                                  Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                  IsChecked="{Binding HeadTrackingOpenXr}" VerticalAlignment="Center"/>
+                        <ui:Button x:Name="HeadTrackingOpenXrReset" Command="{Binding ResetHeadTrackingOpenXrCommand}" Style="{StaticResource EmberIconButton}" VerticalAlignment="Center"
+                                   ToolTip="{Binding Common_ResetToOff, Source={x:Static strings:Strings.Instance}}">
+                            <TextBlock Text="&#xE72C;" FontFamily="Segoe MDL2 Assets" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                        </ui:Button>
+                    </StackPanel>
                     <!-- One grid so the three boxes line up under labels of
                          different widths. Each row is the Motion Server port
                          row: label, box, reset. -->

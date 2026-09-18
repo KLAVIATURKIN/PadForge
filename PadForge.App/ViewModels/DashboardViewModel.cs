@@ -333,6 +333,28 @@ namespace PadForge.ViewModels
             }
         }
 
+        private bool _headTrackingOpenXr;
+
+        /// <summary>Reads the headset through an OpenXR runtime (issue #403).
+        ///
+        /// <para>Independent of the other two, and of SteamVR. It is the path
+        /// for a headset running on Virtual Desktop's runtime, where the
+        /// SteamVR consumer cannot help because it loads its native library
+        /// out of a SteamVR install.</para></summary>
+        public bool HeadTrackingOpenXr
+        {
+            get => _headTrackingOpenXr;
+            set
+            {
+                if (SetProperty(ref _headTrackingOpenXr, value))
+                    PadForge.Common.Input.HeadTrackingRuntime.OpenXrEnabled = value;
+            }
+        }
+
+        private RelayCommand _resetHeadTrackingOpenXrCommand;
+        public RelayCommand ResetHeadTrackingOpenXrCommand =>
+            _resetHeadTrackingOpenXrCommand ??= new RelayCommand(() => HeadTrackingOpenXr = false);
+
         private int _headTrackingRotationRange = PadForge.Common.Input.HeadTrackingRuntime.DefaultRotationRangeDeg;
 
         /// <summary>Degrees of head rotation at full axis deflection.</summary>

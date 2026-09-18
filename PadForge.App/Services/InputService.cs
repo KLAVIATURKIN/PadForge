@@ -4989,7 +4989,7 @@ namespace PadForge.Services
         {
             var dash = _mainVm.Dashboard;
             var im = _inputManager;
-            var ht = im != null && im.IsRunning && (dash.HeadTrackingEnabled || dash.HeadTrackingFreeTrack) ? im.HeadTracker : null;
+            var ht = im != null && im.IsRunning && (dash.HeadTrackingEnabled || dash.HeadTrackingFreeTrack || dash.HeadTrackingOpenXr) ? im.HeadTracker : null;
             if (ht == null)
             {
                 if (_headTrackingStatusVersion == HeadTrackingStatusStopped)

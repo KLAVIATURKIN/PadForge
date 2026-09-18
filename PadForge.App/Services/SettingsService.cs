@@ -2383,6 +2383,9 @@ namespace PadForge.Services
                 _mainVm.Dashboard.HeadTrackingFreeTrack = appSettings.HeadTrackingIndependentInputs
                     ? appSettings.HeadTrackingFreeTrack
                     : appSettings.HeadTrackingEnabled && appSettings.HeadTrackingFreeTrack;
+                _mainVm.Dashboard.HeadTrackingOpenXr = appSettings.HeadTrackingOpenXr;
+                PadForge.Common.Input.HeadTrackingRuntime.OpenXrRuntimeManifest =
+                    appSettings.HeadTrackingOpenXrRuntime;
             }
             finally { _applyingServiceToggles = false; }
             _mainVm.Dashboard.WebControllerPort = appSettings.WebControllerPort > 0
@@ -4581,6 +4584,8 @@ namespace PadForge.Services
                 HeadTrackingIndependentInputs = true,
                 HeadTrackingUdpPort = _mainVm.Dashboard.HeadTrackingUdpPort,
                 HeadTrackingFreeTrack = _mainVm.Dashboard.HeadTrackingFreeTrack,
+                HeadTrackingOpenXr = _mainVm.Dashboard.HeadTrackingOpenXr,
+                HeadTrackingOpenXrRuntime = PadForge.Common.Input.HeadTrackingRuntime.OpenXrRuntimeManifest,
                 HeadTrackingRotationRange = _mainVm.Dashboard.HeadTrackingRotationRange,
                 HeadTrackingTranslationRange = _mainVm.Dashboard.HeadTrackingTranslationRange,
                 WebControllerPort = _mainVm.Dashboard.WebControllerPort,
@@ -6082,6 +6087,17 @@ namespace PadForge.Services
         /// Legacy load applies the old master gate. New saves write the independent value.</summary>
         [XmlElement]
         public bool HeadTrackingFreeTrack { get; set; } = true;
+
+        /// <summary>OpenXR headset input (issue #403). Off by default: it
+        /// loads a runtime library and brings up a session, which nobody who
+        /// has not asked for it should pay for.</summary>
+        [XmlElement]
+        public bool HeadTrackingOpenXr { get; set; }
+
+        /// <summary>Manifest of the OpenXR runtime to read the headset from,
+        /// or empty for the machine's default.</summary>
+        [XmlElement]
+        public string HeadTrackingOpenXrRuntime { get; set; } = string.Empty;
 
         /// <summary>Degrees of head rotation at full axis deflection.</summary>
         [XmlElement]

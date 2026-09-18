@@ -294,11 +294,12 @@ namespace PadForge.Tests
                 "HandheldButtonsEnabled",
             })
                 Assert.Contains("nameof(SettingsViewModel." + prop + ")", mainWindow);
-            // Head tracking moved to the Dashboard (#355 move), so its five
+            // Head tracking moved to the Dashboard (#355 move), so its six
             // ride the Dashboard allowlist with the DSU server's pair.
             foreach (string prop in new[]
             {
                 "HeadTrackingEnabled", "HeadTrackingUdpPort", "HeadTrackingFreeTrack",
+                "HeadTrackingOpenXr",
                 "HeadTrackingRotationRange", "HeadTrackingTranslationRange",
             })
                 Assert.Contains("nameof(DashboardViewModel." + prop + ")", mainWindow);

@@ -643,6 +643,7 @@ namespace PadForge
                      or nameof(DashboardViewModel.HeadTrackingEnabled)
                      or nameof(DashboardViewModel.HeadTrackingUdpPort)
                      or nameof(DashboardViewModel.HeadTrackingFreeTrack)
+                     or nameof(DashboardViewModel.HeadTrackingOpenXr)
                      or nameof(DashboardViewModel.HeadTrackingRotationRange)
                      or nameof(DashboardViewModel.HeadTrackingTranslationRange)
                      or nameof(DashboardViewModel.EnableWebController)

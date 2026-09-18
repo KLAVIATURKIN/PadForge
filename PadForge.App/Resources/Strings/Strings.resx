@@ -2786,6 +2786,8 @@
   <data name="Dashboard_HeadTrackingEnable_Tooltip" xml:space="preserve"><value>Receive head tracking over UDP. FreeTrack input can be enabled separately.</value></data>
   <data name="Dashboard_HeadTrackingFreeTrack" xml:space="preserve"><value>Enable FreeTrack 2.0 Shared Memory Input</value></data>
   <data name="Dashboard_HeadTrackingFreeTrack_Tooltip" xml:space="preserve"><value>Read FreeTrack 2.0 shared memory without requiring UDP. Both inputs can run together.</value></data>
+  <data name="Dashboard_HeadTrackingOpenXr" xml:space="preserve"><value>Enable OpenXR Headset Input</value></data>
+  <data name="Dashboard_HeadTrackingOpenXr_Tooltip" xml:space="preserve"><value>Read a VR headset's position through an OpenXR runtime, with or without SteamVR. Works alongside the other two inputs.</value></data>
   <data name="Dashboard_HeadTrackingPort" xml:space="preserve"><value>UDP Port</value></data>
   <data name="Dashboard_HeadTrackingPort_Tooltip" xml:space="preserve"><value>The port OpenTrack's "UDP over network" output sends to. OpenTrack's default is 4242.</value></data>
   <data name="Dashboard_HeadTrackingRotationRange" xml:space="preserve"><value>Rotation Range (Degrees)</value></data>
