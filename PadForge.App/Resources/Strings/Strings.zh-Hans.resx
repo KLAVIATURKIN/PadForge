@@ -247,6 +247,9 @@
   <data name="Dashboard_LightbarMirrors" xml:space="preserve"><value>灯条镜像</value></data>
   <data name="Dashboard_EnableDsu" xml:space="preserve"><value>启用 DSU 体感服务器（CemuHook Motion Provider 协议）</value></data>
   <data name="Dashboard_Port" xml:space="preserve"><value>端口</value></data>
+  <data name="Dashboard_WebControllerPort" xml:space="preserve"><value>网页手柄端口</value></data>
+  <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Remote Link 端口</value></data>
+  <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>运动服务器端口</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>为 Cemu、Dolphin、Yuzu 等提供陀螺仪和加速度计数据。</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>适用于 OpenTrack 以及任何发送其 UDP 输出或写入 FreeTrack 2.0 共享内存的追踪器。</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>网页控制器</value></data>
@@ -2634,6 +2637,9 @@
   <data name="MacroAction_PointerModeSet_Format" xml:space="preserve"><value>设置指针模式：{0}</value></data>
   <data name="MacroAction_PointerModeSet_Tooltip" xml:space="preserve"><value>将槽位中所有支持IR的遥控器的Wii指针模式设置为下方所选模式。</value></data>
   <data name="Macro_PointerSetMode_Hint" xml:space="preserve"><value>选择此动作应用的指针模式。</value></data>
+  <data name="Macro_PointerSetModeName" xml:space="preserve"><value>指针模式</value></data>
+  <data name="Macro_SwitchLayerName" xml:space="preserve"><value>切换层</value></data>
+  <data name="Macro_GuideLedBrightnessName" xml:space="preserve"><value>Guide 指示灯亮度</value></data>
   <data name="MacroAction_Type_SwitchLayer" xml:space="preserve"><value>切换层</value></data>
   <data name="MacroAction_SwitchLayer_Format" xml:space="preserve"><value>切换到层{0}</value></data>
   <data name="Macro_SwitchLayer_Hint" xml:space="preserve"><value>将此插槽切换到所选的Shift层。该层保持激活，直到下一次切换、Latch或Cycle激活器或配置文件切换。Base返回基础层。配合上方的层限定，同一按钮可在不同层上执行不同跳转。</value></data>
@@ -2987,7 +2993,7 @@
   <data name="Settings_FlickRotationOffset_Tooltip" xml:space="preserve"><value>将整个快速转向映射旋转此角度。正值为顺时针。吸附在偏移之后应用。</value></data>
   <data name="Pad_ResetFlickRotationOffset" xml:space="preserve"><value>重置旋转偏移</value></data>
   <data name="Settings_FlickOnEngage_Tooltip" xml:space="preserve"><value>当承载 Flick Stick 的层在摇杆已偏移时激活，立即执行甩杆。关闭时镜头保持不动，并从当前摇杆角度开始跟踪旋转。</value></data>
-  <data name="Pad_ResetFlickOnEngage" xml:space="preserve"><value>重置为关闭</value></data>
+  <data name="Pad_ResetFlickOnEngage" xml:space="preserve"><value>重置“允许接合时轻拨”</value></data>
   <data name="Mapping_MouseGestureCustom" xml:space="preserve"><value>自定义</value></data>
   <data name="Pad_MouseGestures_Custom_Tooltip" xml:space="preserve"><value>使用从任意设备录制的输入（而不是鼠标按键）来待命识别器：可以是按键、手柄按钮或踏板等模拟输入。请在下方录制输入。</value></data>
   <data name="Pad_MouseGestures_CustomInput" xml:space="preserve"><value>自定义激活输入</value></data>
@@ -3594,6 +3600,7 @@
   <data name="Pad_SteeringAngleRumble_ResetStrength" xml:space="preserve"><value>重置强度（50%）</value></data>
   <data name="Pad_SteeringAngleRumble_ResetDeadzone" xml:space="preserve"><value>重置中心死区（2%）</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAll" xml:space="preserve"><value>重置转向角度振动</value></data>
+  <data name="Pad_SteeringAngleRumble_ResetEnable" xml:space="preserve"><value>重置“启用转向角震动”</value></data>
   <data name="ResetLabel_Profile" xml:space="preserve"><value>配置文件</value></data>
   <data name="ResetLabel_InputSurfaces" xml:space="preserve"><value>输入表面</value></data>
   <data name="ResetLabel_OutputChannel" xml:space="preserve"><value>输出通道</value></data>

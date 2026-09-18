@@ -247,6 +247,9 @@
   <data name="Dashboard_LightbarMirrors" xml:space="preserve"><value>Espelhamento da Barra de Luz</value></data>
   <data name="Dashboard_EnableDsu" xml:space="preserve"><value>Habilitar Servidor de Movimento DSU (CemuHook Motion Provider Protocol)</value></data>
   <data name="Dashboard_Port" xml:space="preserve"><value>Porta</value></data>
+  <data name="Dashboard_WebControllerPort" xml:space="preserve"><value>Porta do Controle Web</value></data>
+  <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Porta do Remote Link</value></data>
+  <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Porta do Servidor de Movimento</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Fornece dados de giroscópio e acelerômetro para Cemu, Dolphin, Yuzu, etc.</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Funciona com o OpenTrack e com qualquer rastreador que envie sua saída UDP ou grave na memória compartilhada do FreeTrack 2.0.</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Controle Web</value></data>
@@ -2628,6 +2631,9 @@
   <data name="MacroAction_PointerModeSet_Format" xml:space="preserve"><value>Definir modo do ponteiro: {0}</value></data>
   <data name="MacroAction_PointerModeSet_Tooltip" xml:space="preserve"><value>Define o modo do ponteiro Wii para o selecionado abaixo em cada controle com IR do slot.</value></data>
   <data name="Macro_PointerSetMode_Hint" xml:space="preserve"><value>Escolha o modo de ponteiro que esta ação aplica.</value></data>
+  <data name="Macro_PointerSetModeName" xml:space="preserve"><value>Modo do Ponteiro</value></data>
+  <data name="Macro_SwitchLayerName" xml:space="preserve"><value>Camada de Shift</value></data>
+  <data name="Macro_GuideLedBrightnessName" xml:space="preserve"><value>Brilho do LED Guide</value></data>
   <data name="MacroAction_Type_SwitchLayer" xml:space="preserve"><value>Trocar de Camada</value></data>
   <data name="MacroAction_SwitchLayer_Format" xml:space="preserve"><value>Trocar para a camada {0}</value></data>
   <data name="Macro_SwitchLayer_Hint" xml:space="preserve"><value>Leva este slot à camada shift escolhida. A camada permanece ativa até outra troca, um ativador Latch ou Cycle, ou uma troca de perfil. Base retorna à camada base. Limite este macro a uma camada acima para que o mesmo botão salte diferente por camada.</value></data>
@@ -2981,7 +2987,7 @@
   <data name="Settings_FlickRotationOffset_Tooltip" xml:space="preserve"><value>Gira todo o mapa de flick nestes graus. Positivo é no sentido horário. O encaixe se aplica após o deslocamento.</value></data>
   <data name="Pad_ResetFlickRotationOffset" xml:space="preserve"><value>Redefinir o Deslocamento de Rotação</value></data>
   <data name="Settings_FlickOnEngage_Tooltip" xml:space="preserve"><value>Quando a camada que hospeda o Flick Stick é ativada com o analógico já defletido, dispara o flick imediatamente. Desligado mantém a câmera parada e acompanha a rotação a partir do ângulo atual do analógico.</value></data>
-  <data name="Pad_ResetFlickOnEngage" xml:space="preserve"><value>Redefinir para Desligado</value></data>
+  <data name="Pad_ResetFlickOnEngage" xml:space="preserve"><value>Redefinir Permitir Flick ao Acionar</value></data>
   <data name="Mapping_MouseGestureCustom" xml:space="preserve"><value>Personalizado</value></data>
   <data name="Pad_MouseGestures_Custom_Tooltip" xml:space="preserve"><value>Arma o reconhecedor com uma entrada gravada de qualquer dispositivo em vez de um botão do mouse: uma tecla, um botão de gamepad ou uma entrada analógica como um pedal. Grave a entrada abaixo.</value></data>
   <data name="Pad_MouseGestures_CustomInput" xml:space="preserve"><value>Entrada de Ativação Personalizada</value></data>
@@ -3588,6 +3594,7 @@ Você pode tentar novamente mais tarde em Configurações.</value></data>
   <data name="Pad_SteeringAngleRumble_ResetStrength" xml:space="preserve"><value>Redefinir intensidade (50%)</value></data>
   <data name="Pad_SteeringAngleRumble_ResetDeadzone" xml:space="preserve"><value>Redefinir zona morta central (2%)</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAll" xml:space="preserve"><value>Redefinir vibração por ângulo de direção</value></data>
+  <data name="Pad_SteeringAngleRumble_ResetEnable" xml:space="preserve"><value>Redefinir Ativar Vibração por Ângulo de Direção</value></data>
   <data name="ResetLabel_Profile" xml:space="preserve"><value>Perfil</value></data>
   <data name="ResetLabel_InputSurfaces" xml:space="preserve"><value>Superfícies de entrada</value></data>
   <data name="ResetLabel_OutputChannel" xml:space="preserve"><value>Canal de saída</value></data>

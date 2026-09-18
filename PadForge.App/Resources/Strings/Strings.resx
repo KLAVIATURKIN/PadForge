@@ -283,6 +283,9 @@
   <data name="Dashboard_LightbarMirrors" xml:space="preserve"><value>Lightbar Mirrors</value></data>
   <data name="Dashboard_EnableDsu" xml:space="preserve"><value>Enable DSU Motion Server (CemuHook Motion Provider Protocol)</value></data>
   <data name="Dashboard_Port" xml:space="preserve"><value>Port</value></data>
+  <data name="Dashboard_WebControllerPort" xml:space="preserve"><value>Web Controller Port</value></data>
+  <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Remote Link Port</value></data>
+  <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Motion Server Port</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Provides gyro and accelerometer data to Cemu, Dolphin, Yuzu, etc.</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Works with OpenTrack and any tracker that sends its UDP output or writes FreeTrack 2.0 shared memory.</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Web Controller</value></data>
@@ -2414,7 +2417,7 @@
   <data name="Settings_FlickRotationOffset_Tooltip" xml:space="preserve"><value>Turns the whole flick map by this many degrees. Positive is clockwise. Snapping applies after the offset.</value></data>
   <data name="Pad_ResetFlickRotationOffset" xml:space="preserve"><value>Reset Rotation Offset</value></data>
   <data name="Settings_FlickOnEngage_Tooltip" xml:space="preserve"><value>When the layer hosting Flick Stick engages with the stick already deflected, fire the flick immediately. Off keeps the camera still and tracks rotation from the current stick angle.</value></data>
-  <data name="Pad_ResetFlickOnEngage" xml:space="preserve"><value>Reset to Off</value></data>
+  <data name="Pad_ResetFlickOnEngage" xml:space="preserve"><value>Reset Allow Flick on Engage</value></data>
   <data name="Pad_Steering_LockFeedback" xml:space="preserve"><value>Steering Lock Feedback</value></data>
   <data name="Pad_Steering_LockFeedback_Subtitle" xml:space="preserve"><value>When a stick set to a steering mode is turned all the way to full lock, play a cue (rumble, trigger, or lightbar) so you feel the limit. All off by default.</value></data>
   <data name="Pad_Steering_Lock_Rumble" xml:space="preserve"><value>Rumble Pulse on Lock</value></data>
@@ -2870,6 +2873,9 @@
   <data name="MacroAction_PointerModeSet_Format" xml:space="preserve"><value>Set pointer mode: {0}</value></data>
   <data name="MacroAction_PointerModeSet_Tooltip" xml:space="preserve"><value>Sets the Wii pointer mode to the one selected below for every IR-capable remote on the slot.</value></data>
   <data name="Macro_PointerSetMode_Hint" xml:space="preserve"><value>Pick the pointer mode this action applies.</value></data>
+  <data name="Macro_PointerSetModeName" xml:space="preserve"><value>Pointer Mode</value></data>
+  <data name="Macro_SwitchLayerName" xml:space="preserve"><value>Shift Layer</value></data>
+  <data name="Macro_GuideLedBrightnessName" xml:space="preserve"><value>Guide LED Brightness</value></data>
   <data name="MacroAction_Type_SwitchLayer" xml:space="preserve"><value>Switch Layer</value></data>
   <data name="MacroAction_SwitchLayer_Format" xml:space="preserve"><value>Switch to layer {0}</value></data>
   <data name="Macro_SwitchLayer_Hint" xml:space="preserve"><value>Jumps this slot to the chosen shift layer. The layer stays engaged until another switch, a Latch or Cycle activator, or a profile switch. Base returns to the base layer. Scope this macro to a layer above to make the same button jump differently per layer.</value></data>
@@ -3643,6 +3649,7 @@ You can retry later from Settings.</value></data>
   <data name="Pad_SteeringAngleRumble_ResetStrength" xml:space="preserve"><value>Reset Strength (50%)</value></data>
   <data name="Pad_SteeringAngleRumble_ResetDeadzone" xml:space="preserve"><value>Reset Center Deadzone (2%)</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAll" xml:space="preserve"><value>Reset Steering Angle Rumble</value></data>
+  <data name="Pad_SteeringAngleRumble_ResetEnable" xml:space="preserve"><value>Reset Enable Steering Angle Rumble</value></data>
   <data name="ResetLabel_Profile" xml:space="preserve"><value>Profile</value></data>
   <data name="ResetLabel_InputSurfaces" xml:space="preserve"><value>Input Surfaces</value></data>
   <data name="ResetLabel_OutputChannel" xml:space="preserve"><value>Output Channel</value></data>

@@ -247,6 +247,9 @@
   <data name="Dashboard_LightbarMirrors" xml:space="preserve"><value>Lightbar-spiegeling</value></data>
   <data name="Dashboard_EnableDsu" xml:space="preserve"><value>DSU-bewegingsserver inschakelen (CemuHook Motion Provider-protocol)</value></data>
   <data name="Dashboard_Port" xml:space="preserve"><value>Poort</value></data>
+  <data name="Dashboard_WebControllerPort" xml:space="preserve"><value>Webcontrollerpoort</value></data>
+  <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Remote Link-poort</value></data>
+  <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Motionserverpoort</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Levert gyroscoop- en versnellingsmetergegevens voor Cemu, Dolphin, Yuzu, enz.</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Werkt met OpenTrack en elke tracker die zijn UDP-uitvoer verzendt of naar het gedeelde geheugen van FreeTrack 2.0 schrijft.</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Webcontroller</value></data>
@@ -2654,6 +2657,9 @@
   <data name="MacroAction_PointerModeSet_Format" xml:space="preserve"><value>Aanwijzermodus instellen: {0}</value></data>
   <data name="MacroAction_PointerModeSet_Tooltip" xml:space="preserve"><value>Stelt de Wii-aanwijzermodus in op de hieronder gekozen modus voor elke IR-remote in het slot.</value></data>
   <data name="Macro_PointerSetMode_Hint" xml:space="preserve"><value>Kies de aanwijzermodus die deze actie toepast.</value></data>
+  <data name="Macro_PointerSetModeName" xml:space="preserve"><value>Aanwijzermodus</value></data>
+  <data name="Macro_SwitchLayerName" xml:space="preserve"><value>Shiftlaag</value></data>
+  <data name="Macro_GuideLedBrightnessName" xml:space="preserve"><value>Helderheid van Guide-led</value></data>
   <data name="MacroAction_Type_SwitchLayer" xml:space="preserve"><value>Van laag wisselen</value></data>
   <data name="MacroAction_SwitchLayer_Format" xml:space="preserve"><value>Naar laag {0} wisselen</value></data>
   <data name="Macro_SwitchLayer_Hint" xml:space="preserve"><value>Springt dit slot naar de gekozen shift-laag. De laag blijft actief tot een volgende wissel, een Latch- of Cycle-activator, of een profielwissel. Base keert terug naar de basislaag. Beperk deze macro hierboven tot een laag zodat dezelfde knop per laag anders springt.</value></data>
@@ -3007,7 +3013,7 @@
   <data name="Settings_FlickRotationOffset_Tooltip" xml:space="preserve"><value>Draait de hele flick-kaart met dit aantal graden. Positief is met de klok mee. Uitlijnen gebeurt na de verschuiving.</value></data>
   <data name="Pad_ResetFlickRotationOffset" xml:space="preserve"><value>Rotatieverschuiving herstellen</value></data>
   <data name="Settings_FlickOnEngage_Tooltip" xml:space="preserve"><value>Wanneer de laag met Flick Stick actief wordt terwijl de stick al is uitgeslagen, wordt de flick meteen uitgevoerd. Uit houdt de camera stil en volgt de rotatie vanaf de huidige stickhoek.</value></data>
-  <data name="Pad_ResetFlickOnEngage" xml:space="preserve"><value>Herstellen naar Uit</value></data>
+  <data name="Pad_ResetFlickOnEngage" xml:space="preserve"><value>Flick bij inschakelen toestaan opnieuw instellen</value></data>
   <data name="Mapping_MouseGestureCustom" xml:space="preserve"><value>Aangepast</value></data>
   <data name="Pad_MouseGestures_Custom_Tooltip" xml:space="preserve"><value>Activeert de herkenner met een opgenomen invoer van elk apparaat in plaats van een muisknop: een toets, een gamepadknop of een analoge invoer zoals een pedaal. Neem de invoer hieronder op.</value></data>
   <data name="Pad_MouseGestures_CustomInput" xml:space="preserve"><value>Aangepaste activeringsinvoer</value></data>
@@ -3614,6 +3620,7 @@ Je kunt het later opnieuw proberen via Instellingen.</value></data>
   <data name="Pad_SteeringAngleRumble_ResetStrength" xml:space="preserve"><value>Sterkte terugzetten (50%)</value></data>
   <data name="Pad_SteeringAngleRumble_ResetDeadzone" xml:space="preserve"><value>Dode zone rond midden terugzetten (2%)</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAll" xml:space="preserve"><value>Stuurhoektrilling terugzetten</value></data>
+  <data name="Pad_SteeringAngleRumble_ResetEnable" xml:space="preserve"><value>Stuurhoektrilling inschakelen opnieuw instellen</value></data>
   <data name="ResetLabel_Profile" xml:space="preserve"><value>Profiel</value></data>
   <data name="ResetLabel_InputSurfaces" xml:space="preserve"><value>Invoeroppervlakken</value></data>
   <data name="ResetLabel_OutputChannel" xml:space="preserve"><value>Uitvoerkanaal</value></data>

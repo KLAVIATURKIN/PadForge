@@ -247,6 +247,9 @@
   <data name="Dashboard_LightbarMirrors" xml:space="preserve"><value>Riflessi della barra luminosa</value></data>
   <data name="Dashboard_EnableDsu" xml:space="preserve"><value>Abilita server di movimento DSU (CemuHook Motion Provider protocol)</value></data>
   <data name="Dashboard_Port" xml:space="preserve"><value>Porta</value></data>
+  <data name="Dashboard_WebControllerPort" xml:space="preserve"><value>Porta del controller web</value></data>
+  <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Porta Remote Link</value></data>
+  <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Porta del server di movimento</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Fornisce dati di giroscopio e accelerometro a Cemu, Dolphin, Yuzu, ecc.</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Funziona con OpenTrack e con qualsiasi tracker che invii il suo output UDP o scriva nella memoria condivisa FreeTrack 2.0.</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Controller Web</value></data>
@@ -2656,6 +2659,9 @@
   <data name="MacroAction_PointerModeSet_Format" xml:space="preserve"><value>Imposta modalità puntatore: {0}</value></data>
   <data name="MacroAction_PointerModeSet_Tooltip" xml:space="preserve"><value>Imposta la modalità puntatore Wii su quella selezionata sotto per ogni telecomando IR dello slot.</value></data>
   <data name="Macro_PointerSetMode_Hint" xml:space="preserve"><value>Scegli la modalità puntatore applicata da questa azione.</value></data>
+  <data name="Macro_PointerSetModeName" xml:space="preserve"><value>Modalità puntatore</value></data>
+  <data name="Macro_SwitchLayerName" xml:space="preserve"><value>Livello shift</value></data>
+  <data name="Macro_GuideLedBrightnessName" xml:space="preserve"><value>Luminosità del LED Guide</value></data>
   <data name="MacroAction_Type_SwitchLayer" xml:space="preserve"><value>Cambia livello</value></data>
   <data name="MacroAction_SwitchLayer_Format" xml:space="preserve"><value>Passa al livello {0}</value></data>
   <data name="Macro_SwitchLayer_Hint" xml:space="preserve"><value>Porta questo slot al livello shift scelto. Il livello resta attivo fino a un altro cambio, un attivatore Latch o Cycle, o un cambio profilo. Base torna al livello base. Limita questa macro a un livello sopra per far saltare lo stesso pulsante in modo diverso per livello.</value></data>
@@ -3009,7 +3015,7 @@
   <data name="Settings_FlickRotationOffset_Tooltip" xml:space="preserve"><value>Ruota l'intera mappa flick di questi gradi. Positivo è in senso orario. Lo scatto si applica dopo lo scostamento.</value></data>
   <data name="Pad_ResetFlickRotationOffset" xml:space="preserve"><value>Reimposta lo scostamento di rotazione</value></data>
   <data name="Settings_FlickOnEngage_Tooltip" xml:space="preserve"><value>Quando il livello che ospita il Flick Stick si attiva con la levetta già deflessa, esegue subito il flick. Disattivato tiene ferma la telecamera e segue la rotazione dall'angolo attuale della levetta.</value></data>
-  <data name="Pad_ResetFlickOnEngage" xml:space="preserve"><value>Ripristina a Disattivato</value></data>
+  <data name="Pad_ResetFlickOnEngage" xml:space="preserve"><value>Reimposta Consenti flick all'attivazione</value></data>
   <data name="Mapping_MouseGestureCustom" xml:space="preserve"><value>Personalizzato</value></data>
   <data name="Pad_MouseGestures_Custom_Tooltip" xml:space="preserve"><value>Attiva il riconoscitore con un input registrato da qualsiasi dispositivo invece di un pulsante del mouse: un tasto, un pulsante del gamepad o un input analogico come un pedale. Registra l'input qui sotto.</value></data>
   <data name="Pad_MouseGestures_CustomInput" xml:space="preserve"><value>Input di attivazione personalizzato</value></data>
@@ -3616,6 +3622,7 @@ Puoi riprovare più tardi dalle Impostazioni.</value></data>
   <data name="Pad_SteeringAngleRumble_ResetStrength" xml:space="preserve"><value>Reimposta intensità (50%)</value></data>
   <data name="Pad_SteeringAngleRumble_ResetDeadzone" xml:space="preserve"><value>Reimposta zona morta centrale (2%)</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAll" xml:space="preserve"><value>Reimposta vibrazione in base all’angolo di sterzata</value></data>
+  <data name="Pad_SteeringAngleRumble_ResetEnable" xml:space="preserve"><value>Reimposta Abilita vibrazione angolo di sterzata</value></data>
   <data name="ResetLabel_Profile" xml:space="preserve"><value>Profilo</value></data>
   <data name="ResetLabel_InputSurfaces" xml:space="preserve"><value>Superfici di ingresso</value></data>
   <data name="ResetLabel_OutputChannel" xml:space="preserve"><value>Canale di uscita</value></data>

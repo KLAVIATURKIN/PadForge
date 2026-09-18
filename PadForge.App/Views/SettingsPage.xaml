@@ -76,7 +76,7 @@
                     <TextBlock Text="{Binding Settings_LanguageDesc, Source={x:Static strings:Strings.Instance}}"
                                Style="{StaticResource CardDescription}" Margin="0,0,0,12"/>
                     <DockPanel LastChildFill="True" HorizontalAlignment="Left">
-                        <reset:SettingResetButton DockPanel.Dock="Right" Command="{Binding ResetSettingCommand}" CommandParameter="SelectedLanguage" SettingLabel="{Binding Settings_LanguageDesc, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_SettingsViewModel_SelectedLanguage_80"/>
+                        <reset:SettingResetButton DockPanel.Dock="Right" Command="{Binding ResetSettingCommand}" CommandParameter="SelectedLanguage" SettingLabel="{Binding Settings_Language, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_SettingsViewModel_SelectedLanguage_80"/>
                         <ComboBox ItemsSource="{Binding AvailableLanguages}"
                                   SelectedItem="{Binding SelectedLanguage}"
                                   DisplayMemberPath="NativeName" Width="250"/>
@@ -130,10 +130,7 @@
                                   ToolTip="{Binding Settings_CloseToTrayTip, Source={x:Static strings:Strings.Instance}}"
                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                   IsChecked="{Binding CloseToTray}" VerticalAlignment="Center"/>
-                        <ui:Button x:Name="CloseToTrayReset" Command="{Binding ResetCloseToTrayCommand}" Style="{StaticResource EmberIconButton}" VerticalAlignment="Center"
-                                   ToolTip="{Binding Common_ResetToOff, Source={x:Static strings:Strings.Instance}}">
-                            <TextBlock Text="&#xE72C;" FontFamily="Segoe MDL2 Assets" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
-                        </ui:Button>
+                        <reset:SettingResetButton x:Name="CloseToTrayReset" Command="{Binding ResetCloseToTrayCommand}" SettingLabel="{Binding Settings_CloseToTray, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                         <CheckBox VerticalAlignment="Center" Content="{Binding Settings_AlwaysShowTrayIcon, Source={x:Static strings:Strings.Instance}}"

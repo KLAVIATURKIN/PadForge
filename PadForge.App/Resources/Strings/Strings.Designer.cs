@@ -366,6 +366,9 @@ public class Strings : INotifyPropertyChanged
     public string Dashboard_LightbarMirrors => Get("Dashboard_LightbarMirrors");
     public string Dashboard_EnableDsu => Get("Dashboard_EnableDsu");
     public string Dashboard_Port => Get("Dashboard_Port");
+    public string Dashboard_WebControllerPort => Get("Dashboard_WebControllerPort");
+    public string Dashboard_RemoteLinkPort => Get("Dashboard_RemoteLinkPort");
+    public string Dashboard_MotionServerPort => Get("Dashboard_MotionServerPort");
     public string Dashboard_DsuFooter => Get("Dashboard_DsuFooter");
     public string Dashboard_HeadTrackingFooter => Get("Dashboard_HeadTrackingFooter");
     public string Dashboard_WebController => Get("Dashboard_WebController");
@@ -2276,6 +2279,9 @@ public class Strings : INotifyPropertyChanged
     public string MacroAction_PointerModeSet_Format => Get("MacroAction_PointerModeSet_Format");
     public string MacroAction_PointerModeSet_Tooltip => Get("MacroAction_PointerModeSet_Tooltip");
     public string Macro_PointerSetMode_Hint => Get("Macro_PointerSetMode_Hint");
+    public string Macro_PointerSetModeName => Get("Macro_PointerSetModeName");
+    public string Macro_SwitchLayerName => Get("Macro_SwitchLayerName");
+    public string Macro_GuideLedBrightnessName => Get("Macro_GuideLedBrightnessName");
     public string MacroAction_Type_SwitchLayer => Get("MacroAction_Type_SwitchLayer");
     public string MacroAction_SwitchLayer_Format => Get("MacroAction_SwitchLayer_Format");
     public string Macro_SwitchLayer_Hint => Get("Macro_SwitchLayer_Hint");
@@ -3403,6 +3409,7 @@ public class Strings : INotifyPropertyChanged
     public string Pad_SteeringAngleRumble_ResetStrength => Get("Pad_SteeringAngleRumble_ResetStrength");
     public string Pad_SteeringAngleRumble_ResetDeadzone => Get("Pad_SteeringAngleRumble_ResetDeadzone");
     public string Pad_SteeringAngleRumble_ResetAll => Get("Pad_SteeringAngleRumble_ResetAll");
+    public string Pad_SteeringAngleRumble_ResetEnable => Get("Pad_SteeringAngleRumble_ResetEnable");
     public string ResetLabel_Profile => Get("ResetLabel_Profile");
     public string ResetLabel_InputSurfaces => Get("ResetLabel_InputSurfaces");
     public string ResetLabel_OutputChannel => Get("ResetLabel_OutputChannel");

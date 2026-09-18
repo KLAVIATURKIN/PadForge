@@ -247,6 +247,9 @@
   <data name="Dashboard_LightbarMirrors" xml:space="preserve"><value>라이트바 미러링</value></data>
   <data name="Dashboard_EnableDsu" xml:space="preserve"><value>DSU 모션 서버 활성화 (CemuHook Motion Provider protocol)</value></data>
   <data name="Dashboard_Port" xml:space="preserve"><value>포트</value></data>
+  <data name="Dashboard_WebControllerPort" xml:space="preserve"><value>웹 컨트롤러 포트</value></data>
+  <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Remote Link 포트</value></data>
+  <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>모션 서버 포트</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Cemu, Dolphin, Yuzu 등에 자이로 및 가속도계 데이터를 제공합니다.</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>OpenTrack 및 해당 UDP 출력을 보내거나 FreeTrack 2.0 공유 메모리에 쓰는 모든 트래커와 함께 작동합니다.</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>웹 컨트롤러</value></data>
@@ -2634,6 +2637,9 @@
   <data name="MacroAction_PointerModeSet_Format" xml:space="preserve"><value>포인터 모드 설정: {0}</value></data>
   <data name="MacroAction_PointerModeSet_Tooltip" xml:space="preserve"><value>슬롯의 모든 IR 지원 리모컨의 Wii 포인터 모드를 아래에서 선택한 모드로 설정합니다.</value></data>
   <data name="Macro_PointerSetMode_Hint" xml:space="preserve"><value>이 동작이 적용할 포인터 모드를 선택하세요.</value></data>
+  <data name="Macro_PointerSetModeName" xml:space="preserve"><value>포인터 모드</value></data>
+  <data name="Macro_SwitchLayerName" xml:space="preserve"><value>시프트 레이어</value></data>
+  <data name="Macro_GuideLedBrightnessName" xml:space="preserve"><value>Guide LED 밝기</value></data>
   <data name="MacroAction_Type_SwitchLayer" xml:space="preserve"><value>레이어 전환</value></data>
   <data name="MacroAction_SwitchLayer_Format" xml:space="preserve"><value>레이어 {0}(으)로 전환</value></data>
   <data name="Macro_SwitchLayer_Hint" xml:space="preserve"><value>이 슬롯을 선택한 시프트 레이어로 전환합니다. 레이어는 다음 전환, Latch/Cycle 활성화기 또는 프로필 전환까지 유지됩니다. Base는 기본 레이어로 돌아갑니다. 위의 레이어 범위와 결합하면 같은 버튼이 레이어마다 다르게 점프합니다.</value></data>
@@ -2987,7 +2993,7 @@
   <data name="Settings_FlickRotationOffset_Tooltip" xml:space="preserve"><value>플릭 맵 전체를 이 각도만큼 회전합니다. 양수는 시계 방향입니다. 스냅은 오프셋 다음에 적용됩니다.</value></data>
   <data name="Pad_ResetFlickRotationOffset" xml:space="preserve"><value>회전 오프셋 초기화</value></data>
   <data name="Settings_FlickOnEngage_Tooltip" xml:space="preserve"><value>Flick Stick이 있는 레이어가 스틱이 이미 기울어진 상태에서 활성화되면 즉시 플릭을 실행합니다. 끄면 카메라를 그대로 두고 현재 스틱 각도부터 회전을 추적합니다.</value></data>
-  <data name="Pad_ResetFlickOnEngage" xml:space="preserve"><value>꺼짐으로 초기화</value></data>
+  <data name="Pad_ResetFlickOnEngage" xml:space="preserve"><value>'engage 시 플릭 허용' 재설정</value></data>
   <data name="Mapping_MouseGestureCustom" xml:space="preserve"><value>사용자 지정</value></data>
   <data name="Pad_MouseGestures_Custom_Tooltip" xml:space="preserve"><value>마우스 버튼 대신 아무 장치에서 기록한 입력으로 인식기를 대기시킵니다. 키, 게임패드 버튼, 페달 같은 아날로그 입력을 사용할 수 있습니다. 아래에서 입력을 기록하세요.</value></data>
   <data name="Pad_MouseGestures_CustomInput" xml:space="preserve"><value>사용자 지정 활성화 입력</value></data>
@@ -3594,6 +3600,7 @@
   <data name="Pad_SteeringAngleRumble_ResetStrength" xml:space="preserve"><value>강도 초기화 (50%)</value></data>
   <data name="Pad_SteeringAngleRumble_ResetDeadzone" xml:space="preserve"><value>중앙 데드존 초기화 (2%)</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAll" xml:space="preserve"><value>조향 각도 진동 초기화</value></data>
+  <data name="Pad_SteeringAngleRumble_ResetEnable" xml:space="preserve"><value>'조향각 진동 사용' 재설정</value></data>
   <data name="ResetLabel_Profile" xml:space="preserve"><value>프로필</value></data>
   <data name="ResetLabel_InputSurfaces" xml:space="preserve"><value>입력 표면</value></data>
   <data name="ResetLabel_OutputChannel" xml:space="preserve"><value>출력 채널</value></data>

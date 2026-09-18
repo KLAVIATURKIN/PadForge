@@ -247,6 +247,9 @@
   <data name="Dashboard_LightbarMirrors" xml:space="preserve"><value>ライトバーのミラーリング</value></data>
   <data name="Dashboard_EnableDsu" xml:space="preserve"><value>DSU モーションサーバーを有効化 (CemuHook Motion Provider protocol)</value></data>
   <data name="Dashboard_Port" xml:space="preserve"><value>ポート</value></data>
+  <data name="Dashboard_WebControllerPort" xml:space="preserve"><value>Web コントローラー ポート</value></data>
+  <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Remote Link ポート</value></data>
+  <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>モーション サーバー ポート</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Cemu、Dolphin、Yuzu などにジャイロおよび加速度センサーのデータを提供します。</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>OpenTrack、およびその UDP 出力を送信するか FreeTrack 2.0 の共有メモリに書き込むあらゆるトラッカーで動作します。</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Web コントローラー</value></data>
@@ -2634,6 +2637,9 @@
   <data name="MacroAction_PointerModeSet_Format" xml:space="preserve"><value>ポインターモードを設定: {0}</value></data>
   <data name="MacroAction_PointerModeSet_Tooltip" xml:space="preserve"><value>スロット内のIR対応リモコンすべてのWiiポインターモードを、下で選択したモードに設定します。</value></data>
   <data name="Macro_PointerSetMode_Hint" xml:space="preserve"><value>このアクションが適用するポインターモードを選択します。</value></data>
+  <data name="Macro_PointerSetModeName" xml:space="preserve"><value>ポインター モード</value></data>
+  <data name="Macro_SwitchLayerName" xml:space="preserve"><value>シフト レイヤー</value></data>
+  <data name="Macro_GuideLedBrightnessName" xml:space="preserve"><value>Guide LED の明るさ</value></data>
   <data name="MacroAction_Type_SwitchLayer" xml:space="preserve"><value>レイヤー切替</value></data>
   <data name="MacroAction_SwitchLayer_Format" xml:space="preserve"><value>レイヤー{0}に切替</value></data>
   <data name="Macro_SwitchLayer_Hint" xml:space="preserve"><value>このスロットを選択したシフトレイヤーに切り替えます。レイヤーは次の切替、Latch/Cycleアクティベーター、またはプロファイル切替まで維持されます。Baseで基本レイヤーに戻ります。上のレイヤー限定と組み合わせると、同じボタンでレイヤーごとに異なるジャンプができます。</value></data>
@@ -2987,7 +2993,7 @@
   <data name="Settings_FlickRotationOffset_Tooltip" xml:space="preserve"><value>フリックマップ全体をこの角度だけ回転させます。正の値は時計回りです。スナップはオフセットの後に適用されます。</value></data>
   <data name="Pad_ResetFlickRotationOffset" xml:space="preserve"><value>回転オフセットをリセット</value></data>
   <data name="Settings_FlickOnEngage_Tooltip" xml:space="preserve"><value>Flick Stick を含むレイヤーが、スティックが既に倒れた状態で起動した場合、すぐにフリックを発動します。オフの場合はカメラを動かさず、現在のスティック角度からの回転を追跡します。</value></data>
-  <data name="Pad_ResetFlickOnEngage" xml:space="preserve"><value>オフにリセット</value></data>
+  <data name="Pad_ResetFlickOnEngage" xml:space="preserve"><value>「エンゲージ時のフリックを許可」をリセット</value></data>
   <data name="Mapping_MouseGestureCustom" xml:space="preserve"><value>カスタム</value></data>
   <data name="Pad_MouseGestures_Custom_Tooltip" xml:space="preserve"><value>マウスボタンの代わりに、任意のデバイスから記録した入力で認識を待機させます。キー、ゲームパッドのボタン、ペダルなどのアナログ入力が使えます。下で入力を記録してください。</value></data>
   <data name="Pad_MouseGestures_CustomInput" xml:space="preserve"><value>カスタム起動入力</value></data>
@@ -3594,6 +3600,7 @@
   <data name="Pad_SteeringAngleRumble_ResetStrength" xml:space="preserve"><value>強度を戻す（50%）</value></data>
   <data name="Pad_SteeringAngleRumble_ResetDeadzone" xml:space="preserve"><value>中央のデッドゾーンを戻す（2%）</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAll" xml:space="preserve"><value>ステアリング角度による振動をリセット</value></data>
+  <data name="Pad_SteeringAngleRumble_ResetEnable" xml:space="preserve"><value>「ステアリング角度の振動を有効にする」をリセット</value></data>
   <data name="ResetLabel_Profile" xml:space="preserve"><value>プロファイル</value></data>
   <data name="ResetLabel_InputSurfaces" xml:space="preserve"><value>入力サーフェス</value></data>
   <data name="ResetLabel_OutputChannel" xml:space="preserve"><value>出力チャンネル</value></data>

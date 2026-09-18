@@ -247,6 +247,9 @@
   <data name="Dashboard_LightbarMirrors" xml:space="preserve"><value>Lightbar-Spiegelungen</value></data>
   <data name="Dashboard_EnableDsu" xml:space="preserve"><value>DSU-Bewegungsserver aktivieren (CemuHook-Motion-Provider-Protokoll)</value></data>
   <data name="Dashboard_Port" xml:space="preserve"><value>Port</value></data>
+  <data name="Dashboard_WebControllerPort" xml:space="preserve"><value>Web-Controller-Port</value></data>
+  <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Remote-Link-Port</value></data>
+  <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Motion-Server-Port</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Stellt Gyroskop- und Beschleunigungsdaten für Cemu, Dolphin, Yuzu usw. bereit.</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Funktioniert mit OpenTrack und jedem Tracker, der dessen UDP-Ausgabe sendet oder in den FreeTrack 2.0 Shared Memory schreibt.</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Web-Controller</value></data>
@@ -2634,6 +2637,9 @@
   <data name="MacroAction_PointerModeSet_Format" xml:space="preserve"><value>Zeigermodus festlegen: {0}</value></data>
   <data name="MacroAction_PointerModeSet_Tooltip" xml:space="preserve"><value>Legt den Wii-Zeigermodus für jede IR-fähige Remote im Slot auf den unten gewählten Modus fest.</value></data>
   <data name="Macro_PointerSetMode_Hint" xml:space="preserve"><value>Wähle den Zeigermodus, den diese Aktion anwendet.</value></data>
+  <data name="Macro_PointerSetModeName" xml:space="preserve"><value>Zeigermodus</value></data>
+  <data name="Macro_SwitchLayerName" xml:space="preserve"><value>Umschaltebene</value></data>
+  <data name="Macro_GuideLedBrightnessName" xml:space="preserve"><value>Guide-LED-Helligkeit</value></data>
   <data name="MacroAction_Type_SwitchLayer" xml:space="preserve"><value>Ebene wechseln</value></data>
   <data name="MacroAction_SwitchLayer_Format" xml:space="preserve"><value>Zu Ebene {0} wechseln</value></data>
   <data name="Macro_SwitchLayer_Hint" xml:space="preserve"><value>Springt für diesen Slot zur gewählten Shift-Ebene. Die Ebene bleibt aktiv bis zum nächsten Wechsel, einem Latch- oder Cycle-Aktivator oder einem Profilwechsel. Basis kehrt zur Basisebene zurück. Mit einer Ebenen-Eingrenzung oben springt dieselbe Taste je Ebene unterschiedlich.</value></data>
@@ -2987,7 +2993,7 @@
   <data name="Settings_FlickRotationOffset_Tooltip" xml:space="preserve"><value>Dreht die gesamte Flick-Zuordnung um diese Gradzahl. Positiv ist im Uhrzeigersinn. Das Einrasten erfolgt nach dem Versatz.</value></data>
   <data name="Pad_ResetFlickRotationOffset" xml:space="preserve"><value>Rotationsversatz zurücksetzen</value></data>
   <data name="Settings_FlickOnEngage_Tooltip" xml:space="preserve"><value>Wenn die Ebene mit Flick Stick aktiviert wird, während der Stick bereits ausgelenkt ist, wird der Flick sofort ausgelöst. Aus hält die Kamera still und verfolgt die Drehung ab dem aktuellen Stick-Winkel.</value></data>
-  <data name="Pad_ResetFlickOnEngage" xml:space="preserve"><value>Auf Aus zurücksetzen</value></data>
+  <data name="Pad_ResetFlickOnEngage" xml:space="preserve"><value>Flick beim Aktivieren zurücksetzen</value></data>
   <data name="Mapping_MouseGestureCustom" xml:space="preserve"><value>Benutzerdefiniert</value></data>
   <data name="Pad_MouseGestures_Custom_Tooltip" xml:space="preserve"><value>Aktiviert die Erkennung mit einer aufgezeichneten Eingabe von einem beliebigen Gerät statt einer Maustaste: eine Taste, eine Gamepad-Taste oder eine analoge Eingabe wie ein Pedal. Zeichne die Eingabe unten auf.</value></data>
   <data name="Pad_MouseGestures_CustomInput" xml:space="preserve"><value>Benutzerdefinierte Aktivierungseingabe</value></data>
@@ -3594,6 +3600,7 @@ Du kannst es später in den Einstellungen erneut versuchen.</value></data>
   <data name="Pad_SteeringAngleRumble_ResetStrength" xml:space="preserve"><value>Stärke zurücksetzen (50%)</value></data>
   <data name="Pad_SteeringAngleRumble_ResetDeadzone" xml:space="preserve"><value>Mittlere Totzone zurücksetzen (2%)</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAll" xml:space="preserve"><value>Lenkwinkel-Vibration zurücksetzen</value></data>
+  <data name="Pad_SteeringAngleRumble_ResetEnable" xml:space="preserve"><value>Lenkwinkel-Vibration aktivieren zurücksetzen</value></data>
   <data name="ResetLabel_Profile" xml:space="preserve"><value>Profil</value></data>
   <data name="ResetLabel_InputSurfaces" xml:space="preserve"><value>Eingabeflächen</value></data>
   <data name="ResetLabel_OutputChannel" xml:space="preserve"><value>Ausgabekanal</value></data>
