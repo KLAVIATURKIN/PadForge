@@ -774,7 +774,7 @@ namespace PadForge.Models3D
         private static string[] TextureSuffixes(string modelName, string filename)
         {
             string stem = System.IO.Path.GetFileNameWithoutExtension(filename);
-            return new[] { $".{modelName}.{stem}.jpg", $".{modelName}.{stem}.png" };
+            return new[] { $".{modelName}.{stem}.jpg", $".{modelName}.{stem}.pngbr" };
         }
 
         private static bool EndsWithAny(string name, string[] suffixes)
@@ -801,7 +801,19 @@ namespace PadForge.Models3D
                     using var stream = assembly.GetManifestResourceStream(name);
                     if (stream == null) break;
                     var ms = new MemoryStream();
-                    stream.CopyTo(ms);
+                    if (name.EndsWith(".pngbr", StringComparison.OrdinalIgnoreCase))
+                    {
+                        // A PNG whose pixels are stored rather than deflated,
+                        // then packed. Unpacking gives back an ordinary PNG,
+                        // which is all the decoder ever sees.
+                        using var brotli = new System.IO.Compression.BrotliStream(
+                            stream, System.IO.Compression.CompressionMode.Decompress);
+                        brotli.CopyTo(ms);
+                    }
+                    else
+                    {
+                        stream.CopyTo(ms);
+                    }
                     ms.Position = 0;
                     var bmp = new System.Windows.Media.Imaging.BitmapImage();
                     bmp.BeginInit();

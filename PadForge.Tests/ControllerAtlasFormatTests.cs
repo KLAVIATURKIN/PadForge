@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using PadForge.Models3D;
 using Xunit;
@@ -115,15 +118,15 @@ namespace PadForge.Tests
 
             Assert.All(new[]
                 {
-                    "PadForge._3DModels.XboxSeries.Carbon.MainBody.png",
+                    "PadForge._3DModels.XboxSeries.Carbon.MainBody.pngbr",
                     "PadForge._3DModels.XboxSeries.Carbon.MainBody.jpg",
-                    "PadForge._3DModels.XboxSeries.Carbon.MainBodyBack.png",
+                    "PadForge._3DModels.XboxSeries.Carbon.MainBodyBack.pngbr",
                 },
                 name => Assert.False(EndsWithAny(name, suffixes),
                     $"{name} answered a request for Body"));
 
             Assert.True(EndsWithAny("PadForge._3DModels.XboxSeries.Carbon.Body.jpg", suffixes));
-            Assert.True(EndsWithAny("PadForge._3DModels.XboxSeries.Carbon.Body.png", suffixes));
+            Assert.True(EndsWithAny("PadForge._3DModels.XboxSeries.Carbon.Body.pngbr", suffixes));
         }
 
         /// <summary>Every atlas embedded in the assembly is reachable by the
@@ -135,7 +138,7 @@ namespace PadForge.Tests
             var assembly = typeof(ControllerModelBase).Assembly;
             var atlases = assembly.GetManifestResourceNames()
                 .Where(n => n.Contains("_3DModels.")
-                            && (n.EndsWith(".png", StringComparison.OrdinalIgnoreCase)
+                            && (n.EndsWith(".pngbr", StringComparison.OrdinalIgnoreCase)
                                 || n.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase)))
                 .ToArray();
 
@@ -157,8 +160,85 @@ namespace PadForge.Tests
         private static bool FamilyShipsAnyAtlas(string family)
             => typeof(ControllerModelBase).Assembly.GetManifestResourceNames()
                 .Any(n => n.Contains($"_3DModels.{family}.", StringComparison.OrdinalIgnoreCase)
-                          && (n.EndsWith(".png", StringComparison.OrdinalIgnoreCase)
+                          && (n.EndsWith(".pngbr", StringComparison.OrdinalIgnoreCase)
                               || n.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase)));
+
+        /// <summary>A packed atlas decodes to exactly the art tree's pixels.
+        ///
+        /// <para>Packing rewrites the file: the pixels are inflated out of
+        /// their deflate stream, written back as stored blocks so the result
+        /// is still a PNG carrying raw pixels, and the whole thing is
+        /// compressed. That is byte surgery in a build task, and every step
+        /// of it is a place to lose a row, a channel or an alpha byte while
+        /// the build stays green and the image still opens.</para>
+        ///
+        /// <para>So the comparison is pixel against pixel, packed against
+        /// source, alpha included.</para></summary>
+        [Fact]
+        public void EveryPackedAtlasDecodesToItsSourcePixels()
+        {
+            string root = ArtTree();
+            Assert.True(root != null, "the 3DModels tree was not found beside the tests");
+
+            var assembly = typeof(ControllerModelBase).Assembly;
+            var packed = assembly.GetManifestResourceNames()
+                .Where(n => n.EndsWith(".pngbr", StringComparison.OrdinalIgnoreCase))
+                .ToArray();
+            Assert.NotEmpty(packed);
+
+            int compared = 0;
+            foreach (var name in packed)
+            {
+                // PadForge._3DModels.<Family>[.<Appearance>].<Stem>.pngbr
+                var parts = name.Split('.');
+                string relative = Path.Combine(parts[2..^1]) + ".png";
+                string source = Path.Combine(root, relative);
+                Assert.True(File.Exists(source), $"{name} has no source at {source}");
+
+                using var stream = assembly.GetManifestResourceStream(name);
+                using var unpacked = new MemoryStream();
+                using (var brotli = new BrotliStream(stream, CompressionMode.Decompress))
+                    brotli.CopyTo(unpacked);
+                unpacked.Position = 0;
+
+                var fromAssembly = new FormatConvertedBitmap(
+                    BitmapFrame.Create(unpacked, BitmapCreateOptions.PreservePixelFormat,
+                                       BitmapCacheOption.OnLoad),
+                    PixelFormats.Bgra32, null, 0);
+                var fromDisk = new FormatConvertedBitmap(
+                    BitmapFrame.Create(new Uri(source), BitmapCreateOptions.PreservePixelFormat,
+                                       BitmapCacheOption.OnLoad),
+                    PixelFormats.Bgra32, null, 0);
+
+                Assert.True(fromAssembly.PixelWidth == fromDisk.PixelWidth
+                            && fromAssembly.PixelHeight == fromDisk.PixelHeight,
+                    $"{name} unpacked to {fromAssembly.PixelWidth}x{fromAssembly.PixelHeight}, "
+                    + $"but its source is {fromDisk.PixelWidth}x{fromDisk.PixelHeight}");
+
+                int stride = fromDisk.PixelWidth * 4;
+                var a = new byte[stride * fromDisk.PixelHeight];
+                var b = new byte[a.Length];
+                fromAssembly.CopyPixels(a, stride, 0);
+                fromDisk.CopyPixels(b, stride, 0);
+                Assert.True(a.AsSpan().SequenceEqual(b),
+                    $"{name} unpacks to different pixels than {relative}");
+                compared++;
+            }
+
+            Assert.True(compared == packed.Length);
+        }
+
+        private static string ArtTree()
+        {
+            var d = AppContext.BaseDirectory;
+            for (int i = 0; i < 8 && d != null; i++)
+            {
+                var candidate = Path.Combine(d, "PadForge.App", "3DModels");
+                if (Directory.Exists(candidate)) return candidate;
+                d = Path.GetDirectoryName(d);
+            }
+            return null;
+        }
 
         private static string[] TextureSuffixes(string modelName, string filename)
             => (string[])typeof(ControllerModelBase)

@@ -125,8 +125,8 @@
     <EmbeddedResource Include="Resources\HidHide_1.5.230_x64.exe" />
     <!-- 3D controller model assets (adapted from Handheld Companion, CC BY-NC-SA 4.0;
          Switch2Pro set split from the purchased hado CGTrader model) -->
-    <!-- Meshes are embedded compressed, by the CompressMeshes target below. -->
-    <EmbeddedResource Include="3DModels\**\*.png" />
+    <!-- Meshes and transparent atlases are packed by the EmbedPackedArt target
+         below. The opaque atlases are JPEG, which is already compressed. -->
     <EmbeddedResource Include="3DModels\**\*.jpg" />
     <!-- 2D controller model assets (Gamepad-Asset-Pack by AL2009man, MIT license) -->
     <Resource Include="2DModels\**\*.png" />
@@ -227,26 +227,37 @@
     </Reference>
   </ItemGroup>
 
-  <!-- Meshes are ASCII Wavefront text, which the single-file bundle deflates
-       to 49.2 MB. Brotli takes the same bytes to 32.4 MB, so they are
-       compressed here and the reader decompresses them. Artists keep plain
-       .obj files in the tree.
+  <!-- Meshes and transparent atlases are packed here rather than left to the
+       single-file bundle, and the reader unpacks them. Artists keep ordinary
+       .obj and .png files in the tree.
 
-       Compression is the slow part, about four minutes for all 671 at the
-       level that earns the 16.8 MB, so output older than its input is the
-       only thing recompressed. Meshes change rarely, so this costs one build
-       and then nothing. -->
-  <UsingTask TaskName="CompressMeshes" TaskFactory="RoslynCodeTaskFactory"
+       Meshes are ASCII Wavefront text, which the bundle deflates to 49.2 MB
+       and Brotli takes to 32.4 MB.
+
+       An atlas needs one step before Brotli can help. Its pixels are already
+       a deflate stream, and compressing a compressed stream gains about two
+       percent, so the data is inflated and written back with deflate's
+       stored blocks first. That leaves an ordinary PNG carrying raw pixels,
+       which Brotli then takes a third off. Nothing decodes the result except
+       WPF, which receives a normal PNG.
+
+       Packing is the slow part, minutes for the full set at the level that
+       earns the size, so output older than its input is the only thing
+       repacked. Art changes rarely, so this costs one build and then
+       nothing. -->
+  <UsingTask TaskName="PackAssets" TaskFactory="RoslynCodeTaskFactory"
              AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
     <ParameterGroup>
-      <Meshes ParameterType="Microsoft.Build.Framework.ITaskItem[]" Required="true" />
+      <Assets ParameterType="Microsoft.Build.Framework.ITaskItem[]" Required="true" />
       <OutputDir ParameterType="System.String" Required="true" />
-      <Compressed ParameterType="Microsoft.Build.Framework.ITaskItem[]" Output="true" />
+      <Packed ParameterType="Microsoft.Build.Framework.ITaskItem[]" Output="true" />
     </ParameterGroup>
     <Task>
       <Using Namespace="System" />
       <Using Namespace="System.Collections.Generic" />
       <Using Namespace="System.IO" />
+      <Using Namespace="System.IO.Compression" />
+      <Using Namespace="System.Text" />
       <Using Namespace="Microsoft.Build.Framework" />
       <Using Namespace="Microsoft.Build.Utilities" />
       <Code Type="Fragment" Language="cs"><![CDATA[
@@ -268,31 +279,129 @@
         }
         if (streamType == null || levelType == null)
         {
-            Log.LogError("Brotli is not available to the build, so the meshes cannot be packed.");
+            Log.LogError("Brotli is not available to the build, so the art cannot be packed.");
             return false;
         }
         object smallest = Enum.Parse(levelType, "SmallestSize");
+
+        var crcTable = new uint[256];
+        for (uint n = 0; n < 256; n++)
+        {
+            uint c = n;
+            for (int k = 0; k < 8; k++)
+                c = (c & 1) != 0 ? 0xEDB88320u ^ (c >> 1) : c >> 1;
+            crcTable[n] = c;
+        }
+        Func<byte[], uint> crc32 = bytes =>
+        {
+            uint c = 0xFFFFFFFFu;
+            for (int i = 0; i < bytes.Length; i++)
+                c = crcTable[(c ^ bytes[i]) & 0xFF] ^ (c >> 8);
+            return c ^ 0xFFFFFFFFu;
+        };
+
+        // A PNG whose pixels are stored rather than deflated. Same pixels,
+        // same header, still a PNG that any decoder reads.
+        Func<byte[], byte[]> storePixels = png =>
+        {
+            var pieces = new List<KeyValuePair<string, byte[]>>();
+            var deflated = new MemoryStream();
+            int at = 8;
+            while (at + 8 <= png.Length)
+            {
+                int len = (png[at] << 24) | (png[at + 1] << 16) | (png[at + 2] << 8) | png[at + 3];
+                string kind = Encoding.ASCII.GetString(png, at + 4, 4);
+                if (kind == "IDAT") deflated.Write(png, at + 8, len);
+                else
+                {
+                    var body = new byte[len];
+                    Array.Copy(png, at + 8, body, 0, len);
+                    pieces.Add(new KeyValuePair<string, byte[]>(kind, body));
+                }
+                at += 12 + len;
+            }
+
+            var zlib = deflated.ToArray();
+            byte[] pixels;
+            // Skip the two-byte zlib header and the four-byte Adler trailer.
+            using (var src = new MemoryStream(zlib, 2, zlib.Length - 6))
+            using (var inflate = new DeflateStream(src, CompressionMode.Decompress))
+            using (var grown = new MemoryStream())
+            {
+                inflate.CopyTo(grown);
+                pixels = grown.ToArray();
+            }
+
+            byte[] stored;
+            using (var ms = new MemoryStream())
+            {
+                ms.WriteByte(0x78);
+                ms.WriteByte(0x01);
+                using (var raw = new DeflateStream(ms, CompressionLevel.NoCompression, true))
+                    raw.Write(pixels, 0, pixels.Length);
+                uint a = 1, b = 0;
+                for (int i = 0; i < pixels.Length; i++)
+                {
+                    a = (a + pixels[i]) % 65521;
+                    b = (b + a) % 65521;
+                }
+                uint adler = (b << 16) | a;
+                ms.WriteByte((byte)(adler >> 24));
+                ms.WriteByte((byte)(adler >> 16));
+                ms.WriteByte((byte)(adler >> 8));
+                ms.WriteByte((byte)adler);
+                stored = ms.ToArray();
+            }
+
+            using (var outMs = new MemoryStream())
+            {
+                outMs.Write(png, 0, 8);
+                Action<string, byte[]> emit = (kind, body) =>
+                {
+                    var head = new byte[] { (byte)(body.Length >> 24), (byte)(body.Length >> 16),
+                                            (byte)(body.Length >> 8), (byte)body.Length };
+                    outMs.Write(head, 0, 4);
+                    var tagged = new byte[4 + body.Length];
+                    Encoding.ASCII.GetBytes(kind, 0, 4, tagged, 0);
+                    Array.Copy(body, 0, tagged, 4, body.Length);
+                    outMs.Write(tagged, 0, tagged.Length);
+                    uint c = crc32(tagged);
+                    outMs.Write(new byte[] { (byte)(c >> 24), (byte)(c >> 16),
+                                             (byte)(c >> 8), (byte)c }, 0, 4);
+                };
+                foreach (var piece in pieces)
+                {
+                    if (piece.Key == "IEND") break;
+                    emit(piece.Key, piece.Value);
+                }
+                emit("IDAT", stored);
+                emit("IEND", new byte[0]);
+                return outMs.ToArray();
+            }
+        };
 
         var results = new List<ITaskItem>();
         int written = 0;
         Directory.CreateDirectory(OutputDir);
 
-        foreach (var mesh in Meshes)
+        foreach (var asset in Assets)
         {
-            string source = mesh.GetMetadata("FullPath");
-            string relative = mesh.GetMetadata("RelativeDir").Replace('\\', '.').Replace('/', '.');
+            string source = asset.GetMetadata("FullPath");
+            string relative = asset.GetMetadata("RelativeDir").Replace('\\', '.').Replace('/', '.');
             string name = Path.GetFileNameWithoutExtension(source);
-            string logical = "PadForge._" + relative + name + ".objbr";
+            bool isImage = Path.GetExtension(source).Equals(".png", StringComparison.OrdinalIgnoreCase);
+            string logical = "PadForge._" + relative + name + (isImage ? ".pngbr" : ".objbr");
             string target = Path.Combine(OutputDir, logical);
 
             if (!File.Exists(target)
                 || File.GetLastWriteTimeUtc(target) < File.GetLastWriteTimeUtc(source))
             {
-                using (var input = File.OpenRead(source))
+                var body = File.ReadAllBytes(source);
+                if (isImage) body = storePixels(body);
                 using (var output = File.Create(target))
                 using (var brotli = (Stream)Activator.CreateInstance(
                            streamType, new object[] { output, smallest, false }))
-                    input.CopyTo(brotli);
+                    brotli.Write(body, 0, body.Length);
                 written++;
             }
 
@@ -301,22 +410,23 @@
             results.Add(item);
         }
 
-        Compressed = results.ToArray();
+        Packed = results.ToArray();
         Log.LogMessage(MessageImportance.High,
             written == 0
-                ? "Meshes: " + Meshes.Length + " already compressed"
-                : "Meshes: compressed " + written + " of " + Meshes.Length);
+                ? "Art: " + Assets.Length + " already packed"
+                : "Art: packed " + written + " of " + Assets.Length);
       ]]></Code>
     </Task>
   </UsingTask>
 
-  <Target Name="EmbedCompressedMeshes" BeforeTargets="PrepareForBuild">
+  <Target Name="EmbedPackedArt" BeforeTargets="PrepareForBuild">
     <ItemGroup>
-      <MeshSource Include="3DModels\**\*.obj" />
+      <ArtSource Include="3DModels\**\*.obj" />
+      <ArtSource Include="3DModels\**\*.png" />
     </ItemGroup>
-    <CompressMeshes Meshes="@(MeshSource)" OutputDir="$(IntermediateOutputPath)meshes">
-      <Output TaskParameter="Compressed" ItemName="CompressedMesh" />
-    </CompressMeshes>
+    <PackAssets Assets="@(ArtSource)" OutputDir="$(IntermediateOutputPath)meshes">
+      <Output TaskParameter="Packed" ItemName="CompressedMesh" />
+    </PackAssets>
     <ItemGroup>
       <!-- WithCulture is not optional here. Each packed mesh is named for the
            resource it becomes, so its file name carries dots, and MSBuild
