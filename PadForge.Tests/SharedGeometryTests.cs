@@ -106,6 +106,73 @@ namespace PadForge.Tests
                 $"{family}/{appearance ?? "default"}: the body carries no triangles");
         }
 
+        /// <summary>The body each sharing colorway renders, recorded from the
+        /// tree before its copy was dropped.
+        ///
+        /// <para>This is the anchor the rest of the file needs. Comparing a
+        /// colorway against the donor the table names proves nothing about
+        /// the table, because whatever donor it names is the one the colorway
+        /// then loads: point Robot at Electric Volt and the comparison still
+        /// succeeds while the pad renders the wrong shell. These hashes come
+        /// from outside the table, so a wrong entry has something to
+        /// contradict.</para>
+        ///
+        /// <para>MainBody is the mesh worth anchoring. It is the largest and
+        /// the most distinctive, no two shells in a family share one, and
+        /// every colorway has it.</para></summary>
+        private static readonly Dictionary<string, string> ExpectedBody =
+            new(StringComparer.OrdinalIgnoreCase)
+            {
+                ["DS4.MagmaRed"] = "3A26D4610D008ED547B463F96B816091DD4904D9EA79DA3F7DF36EC4F9994437",
+                ["DualSense.GrayCamo"] = "1702DA6BB482851B34006DD55BB6F312955056C37370AB66C19103E7B964B176",
+                ["DualSense.NovaPink"] = "1702DA6BB482851B34006DD55BB6F312955056C37370AB66C19103E7B964B176",
+                ["DualSense.DeepEarthSterling"] = "5B2CE41545FC36FA9AA9012AE7C25B9FA987005BF0BE50FCED7BD50C0481D6E5",
+                ["DualSense.DeepEarthVolcanic"] = "5B2CE41545FC36FA9AA9012AE7C25B9FA987005BF0BE50FCED7BD50C0481D6E5",
+                ["XboxSeries.Robot"] = "20E39C916AEAB4C8774F37156F0096F0DC1170DA0679A5A41B81E2C229105C82",
+                ["XboxSeries.PulseRed"] = "20E39C916AEAB4C8774F37156F0096F0DC1170DA0679A5A41B81E2C229105C82",
+                ["XboxSeries.DeepPink"] = "AB0CAF7858AB3A95C04384BC2239B37BE493E91FF266E0A7EA97F523AA7B9D3C",
+                ["XboxSeries.ShockBlue"] = "AB0CAF7858AB3A95C04384BC2239B37BE493E91FF266E0A7EA97F523AA7B9D3C",
+                ["XboxSeries.VelocityGreen"] = "AB0CAF7858AB3A95C04384BC2239B37BE493E91FF266E0A7EA97F523AA7B9D3C",
+                ["XboxSeries.Porsche75th"] = "AB0CAF7858AB3A95C04384BC2239B37BE493E91FF266E0A7EA97F523AA7B9D3C",
+                ["XboxSeries.DaystrikeCamo"] = "AB0CAF7858AB3A95C04384BC2239B37BE493E91FF266E0A7EA97F523AA7B9D3C",
+            };
+
+        [Theory]
+        [MemberData(nameof(SharedPairs))]
+        public void ASharingColorwayStillRendersItsOwnBody(string colorway, string donor)
+        {
+            Assert.True(ExpectedBody.ContainsKey(colorway),
+                $"{colorway} shares geometry but no body was recorded for it, so nothing "
+                + "would notice if it started rendering the wrong shell");
+
+            string actual = ResolvedMeshHash(colorway, "MainBody.obj");
+            Assert.True(ExpectedBody[colorway] == actual,
+                $"{colorway} resolves a body that is not the one it shipped with. It falls "
+                + $"back to {donor}, which is the wrong shell for it.");
+        }
+
+        /// <summary>Resolves a mesh the way the loader does, a colorway's own
+        /// folder first and its shared one second, and hashes what it
+        /// finds.</summary>
+        private static string ResolvedMeshHash(string modelName, string filename)
+        {
+            var assembly = typeof(ControllerModelBase).Assembly;
+            foreach (var candidate in Table().TryGetValue(modelName, out var shared)
+                         ? new[] { modelName, shared }
+                         : new[] { modelName })
+            {
+                string suffix = $".{candidate}.{filename}";
+                string match = assembly.GetManifestResourceNames()
+                    .FirstOrDefault(n => n.EndsWith(suffix, StringComparison.OrdinalIgnoreCase));
+                if (match == null) continue;
+                using var stream = assembly.GetManifestResourceStream(match);
+                using var ms = new MemoryStream();
+                stream.CopyTo(ms);
+                return Convert.ToHexString(SHA256.HashData(ms.ToArray()));
+            }
+            return null;
+        }
+
         /// <summary>Duplicate meshes stay negligible.
         ///
         /// <para>This is what keeps the 87 MB from growing back. Copying a
