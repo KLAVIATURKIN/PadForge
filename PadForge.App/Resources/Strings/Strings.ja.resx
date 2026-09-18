@@ -2388,6 +2388,16 @@
   <data name="Dashboard_HeadTrackingFreeTrack_Tooltip" xml:space="preserve"><value>UDPを使わずにFreeTrack 2.0の共有メモリを読み取ります。両方の入力を同時に使用できます。</value></data>
   <data name="Dashboard_HeadTrackingOpenXr" xml:space="preserve"><value>OpenXRヘッドセット入力を有効にする</value></data>
   <data name="Dashboard_HeadTrackingOpenXr_Tooltip" xml:space="preserve"><value>OpenXRランタイム経由でVRヘッドセットの位置を読み取ります。SteamVRの有無を問いません。他の2つの入力と同時に使用できます。</value></data>
+  <data name="Dashboard_HeadTrackingOpenXrRuntime" xml:space="preserve"><value>OpenXR ランタイム</value></data>
+  <data name="Dashboard_HeadTrackingOpenXrRuntime_Tooltip" xml:space="preserve"><value>ヘッドセットを読み取る OpenXR ランタイム。PadForge にのみ影響し、システムの既定値は変更しません。</value></data>
+  <data name="Dashboard_HeadTrackingOpenXrSystemDefault" xml:space="preserve"><value>システム既定</value></data>
+  <data name="HeadTracker_StatusOpenXr_Format" xml:space="preserve"><value>{0} から読み取り中</value></data>
+  <data name="HeadTracker_StatusOpenXrWaiting_Format" xml:space="preserve"><value>{0} がトラッキング済みの姿勢を報告するのを待機中</value></data>
+  <data name="HeadTracker_StatusOpenXrConnecting" xml:space="preserve"><value>OpenXR セッションを開始しています</value></data>
+  <data name="HeadTracker_StatusOpenXrNoRuntime" xml:space="preserve"><value>OpenXR ランタイムがインストールされていません</value></data>
+  <data name="HeadTracker_StatusOpenXrNoHeadset" xml:space="preserve"><value>OpenXR ランタイムはヘッドセットを報告していません</value></data>
+  <data name="HeadTracker_StatusOpenXrNotSupported" xml:space="preserve"><value>このランタイムはバックグラウンドセッションを提供できません</value></data>
+  <data name="HeadTracker_StatusOpenXrFailed" xml:space="preserve"><value>OpenXR セッションに失敗しました。診断ログを参照してください。</value></data>
   <data name="Dashboard_HeadTrackingPort" xml:space="preserve"><value>UDP ポート</value></data>
   <data name="Dashboard_HeadTrackingPort_Tooltip" xml:space="preserve"><value>OpenTrack の「UDP over network」出力の送信先ポート。OpenTrack の既定値は 4242 です。</value></data>
   <data name="Dashboard_HeadTrackingRotationRange" xml:space="preserve"><value>回転範囲（度）</value></data>

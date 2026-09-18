@@ -355,6 +355,107 @@ namespace PadForge.ViewModels
         public RelayCommand ResetHeadTrackingOpenXrCommand =>
             _resetHeadTrackingOpenXrCommand ??= new RelayCommand(() => HeadTrackingOpenXr = false);
 
+        /// <summary>One entry in the runtime picker. Empty
+        /// <see cref="ManifestPath"/> is the machine's default.</summary>
+        public sealed class OpenXrRuntimeChoice
+        {
+            public string ManifestPath { get; init; } = string.Empty;
+            public string Display { get; init; } = string.Empty;
+            public override string ToString() => Display;
+        }
+
+        private System.Collections.ObjectModel.ObservableCollection<OpenXrRuntimeChoice> _openXrRuntimes;
+
+        /// <summary>The runtimes installed on this machine, the system
+        /// default first.
+        ///
+        /// <para>Rebuilt whenever it is read rather than cached, because a
+        /// user installs Virtual Desktop or SteamVR while PadForge is
+        /// running and expects to find it in the list.</para></summary>
+        public System.Collections.ObjectModel.ObservableCollection<OpenXrRuntimeChoice> OpenXrRuntimes
+        {
+            get
+            {
+                _openXrRuntimes ??= new System.Collections.ObjectModel.ObservableCollection<OpenXrRuntimeChoice>();
+                RefreshOpenXrRuntimes();
+                return _openXrRuntimes;
+            }
+        }
+
+        /// <summary>Reloads the picker from the registry, keeping the current
+        /// selection when it is still installed.</summary>
+        public void RefreshOpenXrRuntimes()
+        {
+            _openXrRuntimes ??= new System.Collections.ObjectModel.ObservableCollection<OpenXrRuntimeChoice>();
+            string chosen = PadForge.Common.Input.HeadTrackingRuntime.OpenXrRuntimeManifest;
+            _openXrRuntimes.Clear();
+            _openXrRuntimes.Add(new OpenXrRuntimeChoice
+            {
+                ManifestPath = string.Empty,
+                Display = Strings.Instance.Dashboard_HeadTrackingOpenXrSystemDefault,
+            });
+            try
+            {
+                foreach (var entry in PadForge.Engine.Common.OpenXr.OpenXrRuntimeCatalog.Discover())
+                {
+                    if (!entry.LibraryExists) continue;
+                    _openXrRuntimes.Add(new OpenXrRuntimeChoice
+                    {
+                        ManifestPath = entry.ManifestPath,
+                        Display = entry.Name,
+                    });
+                }
+            }
+            catch (Exception) { }
+
+            // A runtime the user picked and then uninstalled must still show,
+            // or the box would silently read as the default while the saved
+            // setting still names the missing one.
+            if (!string.IsNullOrEmpty(chosen)
+                && !_openXrRuntimes.Any(r => string.Equals(r.ManifestPath, chosen,
+                                                           StringComparison.OrdinalIgnoreCase)))
+            {
+                _openXrRuntimes.Add(new OpenXrRuntimeChoice
+                {
+                    ManifestPath = chosen,
+                    Display = System.IO.Path.GetFileNameWithoutExtension(chosen),
+                });
+            }
+            OnPropertyChanged(nameof(SelectedOpenXrRuntime));
+        }
+
+        /// <summary>Which runtime this process negotiates with. Changing it
+        /// never touches the machine's ActiveRuntime.</summary>
+        public OpenXrRuntimeChoice SelectedOpenXrRuntime
+        {
+            get
+            {
+                string chosen = PadForge.Common.Input.HeadTrackingRuntime.OpenXrRuntimeManifest;
+                return OpenXrRuntimes.FirstOrDefault(
+                    r => string.Equals(r.ManifestPath, chosen, StringComparison.OrdinalIgnoreCase))
+                    ?? OpenXrRuntimes.FirstOrDefault();
+            }
+            set
+            {
+                string path = value?.ManifestPath ?? string.Empty;
+                if (string.Equals(PadForge.Common.Input.HeadTrackingRuntime.OpenXrRuntimeManifest, path,
+                                  StringComparison.OrdinalIgnoreCase))
+                    return;
+                PadForge.Common.Input.HeadTrackingRuntime.OpenXrRuntimeManifest = path;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(HeadTrackingOpenXrRuntimeChanged));
+            }
+        }
+
+        /// <summary>Bumped when the chosen runtime changes, so the settings
+        /// save picks it up the way it picks up the toggles.</summary>
+        public object HeadTrackingOpenXrRuntimeChanged => null;
+
+        private RelayCommand _resetHeadTrackingOpenXrRuntimeCommand;
+        public RelayCommand ResetHeadTrackingOpenXrRuntimeCommand =>
+            _resetHeadTrackingOpenXrRuntimeCommand ??= new RelayCommand(() =>
+                SelectedOpenXrRuntime = OpenXrRuntimes.FirstOrDefault());
+
         private int _headTrackingRotationRange = PadForge.Common.Input.HeadTrackingRuntime.DefaultRotationRangeDeg;
 
         /// <summary>Degrees of head rotation at full axis deflection.</summary>

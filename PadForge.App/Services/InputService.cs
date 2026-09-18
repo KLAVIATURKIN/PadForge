@@ -4955,10 +4955,19 @@ namespace PadForge.Services
                     return s.HeadTracker_StatusFreeTrack
                         + (ht.UdpEnabled && ht.UdpBindFailed
                             ? " " + string.Format(s.HeadTracker_StatusPortInUse_Format, ht.UdpPort) : string.Empty);
+                case PadForge.Common.Input.HeadTrackerSource.OpenXr:
+                    return string.Format(s.HeadTracker_StatusOpenXr_Format, ht.OpenXrRuntimeName);
                 default:
+                    // OpenXR first when it is the only backend on, because
+                    // every one of its states is the answer to "why is nothing
+                    // happening" and the UDP text below would answer a
+                    // question the user did not ask.
+                    if (ht.OpenXrEnabled && !ht.UdpEnabled && !ht.FreeTrackEnabled)
+                        return OpenXrStatus(s, ht);
                     if (!ht.UdpEnabled)
-                        return ht.FreeTrackFailed ? s.HeadTracker_StatusFreeTrackUnavailable
-                            : ht.FreeTrackEnabled ? s.HeadTracker_StatusFreeTrackWaiting : s.Common_Stopped;
+                        return (ht.FreeTrackFailed ? s.HeadTracker_StatusFreeTrackUnavailable
+                            : ht.FreeTrackEnabled ? s.HeadTracker_StatusFreeTrackWaiting : s.Common_Stopped)
+                            + (ht.OpenXrEnabled ? " " + OpenXrStatus(s, ht) : string.Empty);
                     // Both can fail at once, and hearing about only the port
                     // sends the user looking in the wrong place.
                     if (ht.UdpBindFailed)
@@ -4966,7 +4975,37 @@ namespace PadForge.Services
                             + (ht.FreeTrackFailed ? " " + s.HeadTracker_StatusFreeTrackAlso : string.Empty);
                     if (ht.FreeTrackFailed)
                         return string.Format(s.HeadTracker_StatusFreeTrackFailed_Format, ht.UdpPort);
-                    return string.Format(s.HeadTracker_StatusWaiting_Format, ht.UdpPort);
+                    return string.Format(s.HeadTracker_StatusWaiting_Format, ht.UdpPort)
+                        + (ht.OpenXrEnabled ? " " + OpenXrStatus(s, ht) : string.Empty);
+            }
+        }
+
+        /// <summary>Why the OpenXR backend is not delivering a pose.
+        ///
+        /// <para>Each state is a different thing to go and fix, and they are
+        /// not guessable from an empty row: no runtime installed, a runtime
+        /// with no headset attached, and a runtime that will not give a
+        /// session without owning the display all look identical to a user
+        /// who only sees axes that never move.</para></summary>
+        private static string OpenXrStatus(Strings s, PadForge.Common.Input.HeadTrackerDevice ht)
+        {
+            switch (ht.OpenXrState)
+            {
+                case PadForge.Engine.Common.OpenXr.OpenXrSourceState.NoRuntime:
+                    return s.HeadTracker_StatusOpenXrNoRuntime;
+                case PadForge.Engine.Common.OpenXr.OpenXrSourceState.NoHeadset:
+                    return s.HeadTracker_StatusOpenXrNoHeadset;
+                case PadForge.Engine.Common.OpenXr.OpenXrSourceState.NotSupported:
+                    return s.HeadTracker_StatusOpenXrNotSupported;
+                case PadForge.Engine.Common.OpenXr.OpenXrSourceState.Failed:
+                    return s.HeadTracker_StatusOpenXrFailed;
+                case PadForge.Engine.Common.OpenXr.OpenXrSourceState.Running:
+                    // Running with no pose yet: the session is up and the
+                    // headset has not reported a tracked pose, which is what
+                    // a headset sitting on a desk looks like.
+                    return string.Format(s.HeadTracker_StatusOpenXrWaiting_Format, ht.OpenXrRuntimeName);
+                default:
+                    return s.HeadTracker_StatusOpenXrConnecting;
             }
         }
 

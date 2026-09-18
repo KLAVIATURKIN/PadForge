@@ -2388,6 +2388,16 @@
   <data name="Dashboard_HeadTrackingFreeTrack_Tooltip" xml:space="preserve"><value>无需 UDP 即可读取 FreeTrack 2.0 共享内存。两种输入可以同时使用。</value></data>
   <data name="Dashboard_HeadTrackingOpenXr" xml:space="preserve"><value>启用 OpenXR 头显输入</value></data>
   <data name="Dashboard_HeadTrackingOpenXr_Tooltip" xml:space="preserve"><value>通过 OpenXR 运行时读取 VR 头显的位置，无论是否安装 SteamVR。可与另外两种输入同时使用。</value></data>
+  <data name="Dashboard_HeadTrackingOpenXrRuntime" xml:space="preserve"><value>OpenXR 运行时</value></data>
+  <data name="Dashboard_HeadTrackingOpenXrRuntime_Tooltip" xml:space="preserve"><value>从哪个 OpenXR 运行时读取头显。仅影响 PadForge，绝不会更改系统默认设置。</value></data>
+  <data name="Dashboard_HeadTrackingOpenXrSystemDefault" xml:space="preserve"><value>系统默认</value></data>
+  <data name="HeadTracker_StatusOpenXr_Format" xml:space="preserve"><value>正在读取 {0}</value></data>
+  <data name="HeadTracker_StatusOpenXrWaiting_Format" xml:space="preserve"><value>正在等待 {0} 报告已跟踪的姿态</value></data>
+  <data name="HeadTracker_StatusOpenXrConnecting" xml:space="preserve"><value>正在启动 OpenXR 会话</value></data>
+  <data name="HeadTracker_StatusOpenXrNoRuntime" xml:space="preserve"><value>未安装 OpenXR 运行时</value></data>
+  <data name="HeadTracker_StatusOpenXrNoHeadset" xml:space="preserve"><value>OpenXR 运行时未报告任何头显</value></data>
+  <data name="HeadTracker_StatusOpenXrNotSupported" xml:space="preserve"><value>此运行时无法提供后台会话</value></data>
+  <data name="HeadTracker_StatusOpenXrFailed" xml:space="preserve"><value>OpenXR 会话失败。请查看诊断日志。</value></data>
   <data name="Dashboard_HeadTrackingPort" xml:space="preserve"><value>UDP 端口</value></data>
   <data name="Dashboard_HeadTrackingPort_Tooltip" xml:space="preserve"><value>OpenTrack“UDP over network”输出的发送端口。OpenTrack 的默认值为 4242。</value></data>
   <data name="Dashboard_HeadTrackingRotationRange" xml:space="preserve"><value>旋转范围（度）</value></data>

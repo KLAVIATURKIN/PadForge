@@ -90,6 +90,8 @@ namespace PadForge.Common.Input
         private readonly bool _openXrEnabled;
         private readonly string _openXrManifest;
         private PadForge.Engine.Common.OpenXr.OpenXrHeadPoseSource _openXr;
+        private PadForge.Engine.Common.OpenXr.OpenXrSourceState _openXrLastState
+            = PadForge.Engine.Common.OpenXr.OpenXrSourceState.Stopped;
 
         private PooledInputStatePair _statePool;
 
@@ -291,9 +293,12 @@ namespace PadForge.Common.Input
         }
 
         /// <summary>What the OpenXR backend is doing, for the status line.
-        /// Stopped when it is switched off.</summary>
+        ///
+        /// <para>Falls back to the last state observed when the source object
+        /// is gone, so a row that has been told there is no runtime keeps
+        /// saying so instead of going blank.</para></summary>
         public PadForge.Engine.Common.OpenXr.OpenXrSourceState OpenXrState =>
-            _openXr?.State ?? PadForge.Engine.Common.OpenXr.OpenXrSourceState.Stopped;
+            _openXr?.State ?? _openXrLastState;
 
         /// <summary>The OpenXR runtime actually negotiated with, which is not
         /// always the one the user expects when several are installed.</summary>
@@ -384,6 +389,16 @@ namespace PadForge.Common.Input
         {
             if (_disposed || !_attached) return null;
             PollFreeTrack();
+            // The OpenXR backend changes state without a pose arriving: it can
+            // find no runtime, find no headset, or be refused a headless
+            // session, and each of those is the answer to "why is nothing
+            // happening". None of them reach Publish, so the status line would
+            // never rebuild without this.
+            if (_openXr != null && _openXr.State != _openXrLastState)
+            {
+                _openXrLastState = _openXr.State;
+                _statusVersion++;
+            }
             lock (_stateLock)
             {
                 long now = _now();

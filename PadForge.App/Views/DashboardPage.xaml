@@ -1862,6 +1862,21 @@
                             <TextBlock Text="&#xE72C;" FontFamily="Segoe MDL2 Assets" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
                         </ui:Button>
                     </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8"
+                                IsEnabled="{Binding HeadTrackingOpenXr}">
+                        <TextBlock Text="{Binding Dashboard_HeadTrackingOpenXrRuntime, Source={x:Static strings:Strings.Instance}}"
+                                   VerticalAlignment="Center" Margin="0,0,8,0"
+                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                        <ComboBox x:Name="HeadTrackingOpenXrRuntimeCombo" MinWidth="200"
+                                  ToolTip="{Binding Dashboard_HeadTrackingOpenXrRuntime_Tooltip, Source={x:Static strings:Strings.Instance}}"
+                                  ItemsSource="{Binding OpenXrRuntimes}"
+                                  SelectedItem="{Binding SelectedOpenXrRuntime, Mode=TwoWay}"
+                                  DisplayMemberPath="Display" VerticalAlignment="Center"/>
+                        <ui:Button x:Name="HeadTrackingOpenXrRuntimeReset" Command="{Binding ResetHeadTrackingOpenXrRuntimeCommand}" Style="{StaticResource EmberIconButton}" VerticalAlignment="Center"
+                                   ToolTip="{Binding Common_Reset, Source={x:Static strings:Strings.Instance}}">
+                            <TextBlock Text="&#xE72C;" FontFamily="Segoe MDL2 Assets" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                        </ui:Button>
+                    </StackPanel>
                     <!-- One grid so the three boxes line up under labels of
                          different widths. Each row is the Motion Server port
                          row: label, box, reset. -->

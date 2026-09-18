@@ -2647,6 +2647,16 @@ public class Strings : INotifyPropertyChanged
     public string Dashboard_HeadTrackingFreeTrack_Tooltip => Get("Dashboard_HeadTrackingFreeTrack_Tooltip");
     public string Dashboard_HeadTrackingOpenXr => Get("Dashboard_HeadTrackingOpenXr");
     public string Dashboard_HeadTrackingOpenXr_Tooltip => Get("Dashboard_HeadTrackingOpenXr_Tooltip");
+    public string Dashboard_HeadTrackingOpenXrRuntime => Get("Dashboard_HeadTrackingOpenXrRuntime");
+    public string Dashboard_HeadTrackingOpenXrRuntime_Tooltip => Get("Dashboard_HeadTrackingOpenXrRuntime_Tooltip");
+    public string Dashboard_HeadTrackingOpenXrSystemDefault => Get("Dashboard_HeadTrackingOpenXrSystemDefault");
+    public string HeadTracker_StatusOpenXr_Format => Get("HeadTracker_StatusOpenXr_Format");
+    public string HeadTracker_StatusOpenXrWaiting_Format => Get("HeadTracker_StatusOpenXrWaiting_Format");
+    public string HeadTracker_StatusOpenXrConnecting => Get("HeadTracker_StatusOpenXrConnecting");
+    public string HeadTracker_StatusOpenXrNoRuntime => Get("HeadTracker_StatusOpenXrNoRuntime");
+    public string HeadTracker_StatusOpenXrNoHeadset => Get("HeadTracker_StatusOpenXrNoHeadset");
+    public string HeadTracker_StatusOpenXrNotSupported => Get("HeadTracker_StatusOpenXrNotSupported");
+    public string HeadTracker_StatusOpenXrFailed => Get("HeadTracker_StatusOpenXrFailed");
     public string Dashboard_HeadTrackingPort => Get("Dashboard_HeadTrackingPort");
     public string Dashboard_HeadTrackingPort_Tooltip => Get("Dashboard_HeadTrackingPort_Tooltip");
     public string Dashboard_HeadTrackingRotationRange => Get("Dashboard_HeadTrackingRotationRange");

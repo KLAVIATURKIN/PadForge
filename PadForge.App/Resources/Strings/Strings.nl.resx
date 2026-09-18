@@ -2408,6 +2408,16 @@
   <data name="Dashboard_HeadTrackingFreeTrack_Tooltip" xml:space="preserve"><value>Lees gedeeld geheugen van FreeTrack 2.0 zonder UDP. Beide ingangen kunnen tegelijk worden gebruikt.</value></data>
   <data name="Dashboard_HeadTrackingOpenXr" xml:space="preserve"><value>OpenXR-headsetinvoer inschakelen</value></data>
   <data name="Dashboard_HeadTrackingOpenXr_Tooltip" xml:space="preserve"><value>Leest de positie van een VR-headset via een OpenXR-runtime, met of zonder SteamVR. Werkt samen met de andere twee invoeren.</value></data>
+  <data name="Dashboard_HeadTrackingOpenXrRuntime" xml:space="preserve"><value>OpenXR-runtime</value></data>
+  <data name="Dashboard_HeadTrackingOpenXrRuntime_Tooltip" xml:space="preserve"><value>Uit welke OpenXR-runtime de headset wordt gelezen. Dit geldt alleen voor PadForge en nooit voor de systeemstandaard.</value></data>
+  <data name="Dashboard_HeadTrackingOpenXrSystemDefault" xml:space="preserve"><value>Systeemstandaard</value></data>
+  <data name="HeadTracker_StatusOpenXr_Format" xml:space="preserve"><value>{0} wordt gelezen</value></data>
+  <data name="HeadTracker_StatusOpenXrWaiting_Format" xml:space="preserve"><value>Wachten tot {0} een gevolgde pose meldt</value></data>
+  <data name="HeadTracker_StatusOpenXrConnecting" xml:space="preserve"><value>De OpenXR-sessie wordt gestart</value></data>
+  <data name="HeadTracker_StatusOpenXrNoRuntime" xml:space="preserve"><value>Er is geen OpenXR-runtime geïnstalleerd</value></data>
+  <data name="HeadTracker_StatusOpenXrNoHeadset" xml:space="preserve"><value>De OpenXR-runtime meldt geen headset</value></data>
+  <data name="HeadTracker_StatusOpenXrNotSupported" xml:space="preserve"><value>Deze runtime kan geen achtergrondsessie leveren</value></data>
+  <data name="HeadTracker_StatusOpenXrFailed" xml:space="preserve"><value>De OpenXR-sessie is mislukt. Zie het diagnoselogboek.</value></data>
   <data name="Dashboard_HeadTrackingPort" xml:space="preserve"><value>UDP-poort</value></data>
   <data name="Dashboard_HeadTrackingPort_Tooltip" xml:space="preserve"><value>De poort waarnaar de uitvoer "UDP over network" van OpenTrack verstuurt. De standaardwaarde van OpenTrack is 4242.</value></data>
   <data name="Dashboard_HeadTrackingRotationRange" xml:space="preserve"><value>Rotatiebereik (graden)</value></data>
