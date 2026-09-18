@@ -124,8 +124,6 @@ namespace PadForge.Services
         public int ClientCount => _clients.Count;
 
         /// <summary>The URL the server is listening on.</summary>
-        public string Url => _localIp != null ? $"{(_https ? "https" : "http")}://{_localIp}:{_port}" : null;
-
         public string Url => _running && _localIp != null
             ? $"{(_https ? "https" : "http")}://{_localIp}:{_port}/"
             : null;
