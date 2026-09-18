@@ -2427,6 +2427,18 @@
   <data name="Dashboard_HeadTrackingRotationRange_Tooltip" xml:space="preserve"><value>Hoofdrotatie waarbij de assen gieren, stampen en rollen hun volledige uitslag bereiken.</value></data>
   <data name="Dashboard_HeadTrackingTranslationRange" xml:space="preserve"><value>Verplaatsingsbereik (cm)</value></data>
   <data name="Dashboard_HeadTrackingTranslationRange_Tooltip" xml:space="preserve"><value>Hoofdverplaatsing waarbij de assen X, Y en Z hun volledige uitslag bereiken.</value></data>
+  <data name="Dashboard_HeadTrackingAxisRanges" xml:space="preserve"><value>Bereik per as</value></data>
+  <data name="Dashboard_HeadTrackingAxisRangesDesc" xml:space="preserve"><value>Stel één as apart in. Nul volgt het bereik hierboven. Rotatie in graden, verplaatsing in centimeters.</value></data>
+  <data name="Dashboard_HeadTrackingAxisRangesReset" xml:space="preserve"><value>Gedeelde bereiken gebruiken</value></data>
+  <data name="Dashboard_HeadTrackingAxisRange_Tooltip" xml:space="preserve"><value>Beweging op deze as bij volledige uitslag. Nul volgt het gedeelde bereik hierboven.</value></data>
+  <data name="Dashboard_HeadTrackingAxisYaw" xml:space="preserve"><value>Gieren</value></data>
+  <data name="Dashboard_HeadTrackingAxisPitch" xml:space="preserve"><value>Stampen</value></data>
+  <data name="Dashboard_HeadTrackingAxisRoll" xml:space="preserve"><value>Rollen</value></data>
+  <data name="Dashboard_HeadTrackingAxisX" xml:space="preserve"><value>Naar links en rechts leunen</value></data>
+  <data name="Dashboard_HeadTrackingAxisY" xml:space="preserve"><value>Oprichten en hurken</value></data>
+  <data name="Dashboard_HeadTrackingAxisZ" xml:space="preserve"><value>Naar voren en achteren leunen</value></data>
+  <data name="Dashboard_HeadTrackingRecenter" xml:space="preserve"><value>Neutraal instellen</value></data>
+  <data name="Dashboard_HeadTrackingRecenter_Tooltip" xml:space="preserve"><value>Maakt je huidige positie het neutraal. Geldt alleen voor de OpenXR-headsetinvoer.</value></data>
   <data name="HeadTracker_StatusWaiting_Format" xml:space="preserve"><value>Wacht op een tracker op UDP-poort {0}.</value></data>
   <data name="HeadTracker_StatusUdp_Format" xml:space="preserve"><value>Ontvangt via UDP van {0}.</value></data>
   <data name="HeadTracker_StatusFreeTrack" xml:space="preserve"><value>Ontvangt van het gedeelde geheugen van FreeTrack.</value></data>

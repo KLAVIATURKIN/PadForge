@@ -295,6 +295,196 @@ namespace PadForge.Engine.Common.OpenXr
         [UnmanagedFunctionPointer(CallingConvention.Winapi)]
         public delegate int PFN_xrPollEvent(ulong instance, IntPtr eventData);
 
+        // ─── actions, for the motion controllers ───
+
+        public const int XR_TYPE_ACTION_STATE_BOOLEAN = 23;
+        public const int XR_TYPE_ACTION_STATE_FLOAT = 24;
+        public const int XR_TYPE_ACTION_STATE_POSE = 27;
+        public const int XR_TYPE_ACTION_SET_CREATE_INFO = 28;
+        public const int XR_TYPE_ACTION_CREATE_INFO = 29;
+        public const int XR_TYPE_ACTION_SPACE_CREATE_INFO = 38;
+        public const int XR_TYPE_INTERACTION_PROFILE_SUGGESTED_BINDING = 51;
+        public const int XR_TYPE_ACTION_STATE_GET_INFO = 58;
+        public const int XR_TYPE_SESSION_ACTION_SETS_ATTACH_INFO = 60;
+        public const int XR_TYPE_ACTIONS_SYNC_INFO = 61;
+
+        public const int XR_ACTION_TYPE_BOOLEAN_INPUT = 1;
+        public const int XR_ACTION_TYPE_FLOAT_INPUT = 2;
+        public const int XR_ACTION_TYPE_VECTOR2F_INPUT = 3;
+        public const int XR_ACTION_TYPE_POSE_INPUT = 4;
+
+        public const int XR_MAX_ACTION_NAME_SIZE = 64;
+        public const int XR_MAX_LOCALIZED_ACTION_NAME_SIZE = 128;
+        public const int XR_MAX_ACTION_SET_NAME_SIZE = 64;
+        public const int XR_MAX_LOCALIZED_ACTION_SET_NAME_SIZE = 128;
+
+        /// <summary>xrSyncActions answers this when another application holds
+        /// focus, which is the ordinary case for a background client while a
+        /// game is running. It is a SUCCESS code, so a "not negative" check
+        /// would publish an unsynchronized read as live input.</summary>
+        public const int XR_SESSION_NOT_FOCUSED = 8;
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct XrVector2f
+        {
+            public float x, y;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct XrActionSetCreateInfo
+        {
+            public int type;
+            public IntPtr next;
+            public fixed byte actionSetName[XR_MAX_ACTION_SET_NAME_SIZE];
+            public fixed byte localizedActionSetName[XR_MAX_LOCALIZED_ACTION_SET_NAME_SIZE];
+            public uint priority;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct XrActionCreateInfo
+        {
+            public int type;
+            public IntPtr next;
+            public fixed byte actionName[XR_MAX_ACTION_NAME_SIZE];
+            public int actionType;
+            public uint countSubactionPaths;
+            public IntPtr subactionPaths;
+            public fixed byte localizedActionName[XR_MAX_LOCALIZED_ACTION_NAME_SIZE];
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct XrActionSuggestedBinding
+        {
+            public ulong action;
+            public ulong binding;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct XrInteractionProfileSuggestedBinding
+        {
+            public int type;
+            public IntPtr next;
+            public ulong interactionProfile;
+            public uint countSuggestedBindings;
+            public IntPtr suggestedBindings;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct XrSessionActionSetsAttachInfo
+        {
+            public int type;
+            public IntPtr next;
+            public uint countActionSets;
+            public IntPtr actionSets;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct XrActiveActionSet
+        {
+            public ulong actionSet;
+            public ulong subactionPath;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct XrActionsSyncInfo
+        {
+            public int type;
+            public IntPtr next;
+            public uint countActiveActionSets;
+            public IntPtr activeActionSets;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct XrActionStateGetInfo
+        {
+            public int type;
+            public IntPtr next;
+            public ulong action;
+            public ulong subactionPath;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct XrActionStatePose
+        {
+            public int type;
+            public IntPtr next;
+            public uint isActive;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct XrActionStateFloat
+        {
+            public int type;
+            public IntPtr next;
+            public float currentState;
+            public uint changedSinceLastSync;
+            public long lastChangeTime;
+            public uint isActive;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct XrActionStateBoolean
+        {
+            public int type;
+            public IntPtr next;
+            public uint currentState;
+            public uint changedSinceLastSync;
+            public long lastChangeTime;
+            public uint isActive;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct XrActionSpaceCreateInfo
+        {
+            public int type;
+            public IntPtr next;
+            public ulong action;
+            public ulong subactionPath;
+            public XrPosef poseInActionSpace;
+        }
+
+        [UnmanagedFunctionPointer(CallingConvention.Winapi)]
+        public delegate int PFN_xrCreateActionSet(
+            ulong instance, ref XrActionSetCreateInfo createInfo, out ulong actionSet);
+
+        [UnmanagedFunctionPointer(CallingConvention.Winapi)]
+        public delegate int PFN_xrDestroyActionSet(ulong actionSet);
+
+        [UnmanagedFunctionPointer(CallingConvention.Winapi)]
+        public delegate int PFN_xrCreateAction(
+            ulong actionSet, ref XrActionCreateInfo createInfo, out ulong action);
+
+        [UnmanagedFunctionPointer(CallingConvention.Winapi)]
+        public delegate int PFN_xrStringToPath(
+            ulong instance, [MarshalAs(UnmanagedType.LPStr)] string pathString, out ulong path);
+
+        [UnmanagedFunctionPointer(CallingConvention.Winapi)]
+        public delegate int PFN_xrSuggestInteractionProfileBindings(
+            ulong instance, ref XrInteractionProfileSuggestedBinding suggestedBindings);
+
+        [UnmanagedFunctionPointer(CallingConvention.Winapi)]
+        public delegate int PFN_xrAttachSessionActionSets(
+            ulong session, ref XrSessionActionSetsAttachInfo attachInfo);
+
+        [UnmanagedFunctionPointer(CallingConvention.Winapi)]
+        public delegate int PFN_xrSyncActions(ulong session, ref XrActionsSyncInfo syncInfo);
+
+        [UnmanagedFunctionPointer(CallingConvention.Winapi)]
+        public delegate int PFN_xrGetActionStatePose(
+            ulong session, ref XrActionStateGetInfo getInfo, ref XrActionStatePose state);
+
+        [UnmanagedFunctionPointer(CallingConvention.Winapi)]
+        public delegate int PFN_xrGetActionStateFloat(
+            ulong session, ref XrActionStateGetInfo getInfo, ref XrActionStateFloat state);
+
+        [UnmanagedFunctionPointer(CallingConvention.Winapi)]
+        public delegate int PFN_xrGetActionStateBoolean(
+            ulong session, ref XrActionStateGetInfo getInfo, ref XrActionStateBoolean state);
+
+        [UnmanagedFunctionPointer(CallingConvention.Winapi)]
+        public delegate int PFN_xrCreateActionSpace(
+            ulong session, ref XrActionSpaceCreateInfo createInfo, out ulong space);
+
         /// <summary>A fixed-size UTF-8 name field as a string.</summary>
         public static string ReadFixedUtf8(byte* start, int capacity)
         {

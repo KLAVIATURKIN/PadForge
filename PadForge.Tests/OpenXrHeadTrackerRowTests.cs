@@ -22,6 +22,9 @@ namespace PadForge.Tests
     /// A sign flipped anywhere along that chain leaves a rider leaning the
     /// wrong way, which is not a failure any single step would report.</para>
     /// </summary>
+    // These read HeadTrackingRuntime's per-axis ranges live, so they
+    // share the statics collection rather than racing a test that pins one.
+    [Collection("SettingsManagerStatics")]
     public class OpenXrHeadTrackerRowTests
     {
         private static HeadTrackerDevice OpenXrRow(Func<long> now = null)

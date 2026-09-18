@@ -23,6 +23,7 @@ namespace PadForge.Engine.Common.OpenXr
         private int _sessionState = XR_SESSION_STATE_IDLE;
         private bool _began;
         private IntPtr _eventBuffer;
+        private OpenXrActions _actions;
         private readonly Action<string> _log;
 
         private PFN_xrGetInstanceProcAddr _getProc;
@@ -282,8 +283,65 @@ namespace PadForge.Engine.Common.OpenXr
                 return false;
             }
 
+            // Controllers are optional. A headset with none still works, and
+            // the action set has to be attached before the session begins, so
+            // this is the only place it can happen.
+            _actions = new OpenXrActions(_log);
+            if (!_actions.TryCreate(_instance, _session, name => ResolveRaw(name)))
+            {
+                _actions.Dispose();
+                _actions = null;
+            }
+
             failure = OpenXrSourceState.Running;
             return true;
+        }
+
+        /// <summary>Resolves a function by name, typed by the caller. Used by
+        /// the action set, which needs a dozen of them.</summary>
+        private Delegate ResolveRaw(string name)
+        {
+            if (_getProc(_instance, name, out IntPtr fn) != XR_SUCCESS || fn == IntPtr.Zero)
+                return null;
+            return name switch
+            {
+                "xrCreateActionSet" => Marshal.GetDelegateForFunctionPointer<PFN_xrCreateActionSet>(fn),
+                "xrDestroyActionSet" => Marshal.GetDelegateForFunctionPointer<PFN_xrDestroyActionSet>(fn),
+                "xrCreateAction" => Marshal.GetDelegateForFunctionPointer<PFN_xrCreateAction>(fn),
+                "xrStringToPath" => Marshal.GetDelegateForFunctionPointer<PFN_xrStringToPath>(fn),
+                "xrSuggestInteractionProfileBindings" =>
+                    Marshal.GetDelegateForFunctionPointer<PFN_xrSuggestInteractionProfileBindings>(fn),
+                "xrAttachSessionActionSets" =>
+                    Marshal.GetDelegateForFunctionPointer<PFN_xrAttachSessionActionSets>(fn),
+                "xrSyncActions" => Marshal.GetDelegateForFunctionPointer<PFN_xrSyncActions>(fn),
+                "xrGetActionStatePose" => Marshal.GetDelegateForFunctionPointer<PFN_xrGetActionStatePose>(fn),
+                "xrGetActionStateFloat" => Marshal.GetDelegateForFunctionPointer<PFN_xrGetActionStateFloat>(fn),
+                "xrGetActionStateBoolean" => Marshal.GetDelegateForFunctionPointer<PFN_xrGetActionStateBoolean>(fn),
+                "xrCreateActionSpace" => Marshal.GetDelegateForFunctionPointer<PFN_xrCreateActionSpace>(fn),
+                "xrLocateSpace" => Marshal.GetDelegateForFunctionPointer<PFN_xrLocateSpace>(fn),
+                "xrDestroySpace" => Marshal.GetDelegateForFunctionPointer<PFN_xrDestroySpace>(fn),
+                _ => null,
+            };
+        }
+
+        /// <summary>True when the runtime accepted a controller profile.</summary>
+        public bool HasControllers => _actions != null && _actions.Ready;
+
+        /// <summary>
+        /// Reads both controllers. The baselines are per hand, because a
+        /// controller put down and picked up again is not where it was.
+        /// </summary>
+        public void ReadHands(ref OpenXrHeadPose.Baseline left, ref OpenXrHeadPose.Baseline right,
+                              out OpenXrHandState leftState, out OpenXrHandState rightState)
+        {
+            leftState = OpenXrHandState.Empty;
+            rightState = OpenXrHandState.Empty;
+            if (_actions == null || !_actions.Ready || !_began) return;
+
+            bool live = _actions.Sync();
+            long time = NowXrTime();
+            leftState = _actions.Read(OpenXrHand.Left, _baseSpace, time, live, ref left);
+            rightState = _actions.Read(OpenXrHand.Right, _baseSpace, time, live, ref right);
         }
 
         private ulong CreateReferenceSpace(int type)
@@ -421,6 +479,8 @@ namespace PadForge.Engine.Common.OpenXr
 
         public void Dispose()
         {
+            try { _actions?.Dispose(); } catch (Exception) { }
+            _actions = null;
             try { End(); } catch (Exception) { }
             try { if (_viewSpace != 0) _destroySpace?.Invoke(_viewSpace); } catch (Exception) { }
             try { if (_baseSpace != 0) _destroySpace?.Invoke(_baseSpace); } catch (Exception) { }

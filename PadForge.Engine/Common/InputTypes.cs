@@ -110,6 +110,11 @@ namespace PadForge.Engine
         // and the three translations, centered at rest.
         public const int HeadTracker = 34;
         public const int Tablet = 35;
+        // A VR motion controller read through an OpenXR runtime (issue #403):
+        // six pose axes in the head tracker's convention, plus a thumbstick,
+        // a trigger, a grip and four buttons. Left and right are separate
+        // rows, so one going to sleep does not touch the other.
+        public const int VrController = 36;
 
         /// <summary>True when a row of this type answers a source whose
         /// DeviceGuid is empty, the "(Any Device)" wildcard that means
@@ -126,7 +131,8 @@ namespace PadForge.Engine
         /// source on any of them still reads.</summary>
         public static bool AnswersAnyDeviceSources(int capType) => capType switch
         {
-            HeadTracker or Nfc or Microphone or HandheldButtons or ConsumerControl or Tablet => false,
+            HeadTracker or Nfc or Microphone or HandheldButtons or ConsumerControl or Tablet
+                or VrController => false,
             _ => true,
         };
     }

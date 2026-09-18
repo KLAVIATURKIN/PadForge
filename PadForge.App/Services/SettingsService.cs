@@ -2384,6 +2384,10 @@ namespace PadForge.Services
                     ? appSettings.HeadTrackingFreeTrack
                     : appSettings.HeadTrackingEnabled && appSettings.HeadTrackingFreeTrack;
                 _mainVm.Dashboard.HeadTrackingOpenXr = appSettings.HeadTrackingOpenXr;
+                var savedRanges = appSettings.HeadTrackingAxisRanges;
+                for (int axis = 0; axis < 6; axis++)
+                    PadForge.Common.Input.HeadTrackingRuntime.SetAxisRange(
+                        axis, savedRanges != null && axis < savedRanges.Length ? savedRanges[axis] : 0);
                 PadForge.Common.Input.HeadTrackingRuntime.OpenXrRuntimeManifest =
                     appSettings.HeadTrackingOpenXrRuntime;
             }
@@ -4585,6 +4589,15 @@ namespace PadForge.Services
                 HeadTrackingUdpPort = _mainVm.Dashboard.HeadTrackingUdpPort,
                 HeadTrackingFreeTrack = _mainVm.Dashboard.HeadTrackingFreeTrack,
                 HeadTrackingOpenXr = _mainVm.Dashboard.HeadTrackingOpenXr,
+                HeadTrackingAxisRanges = new[]
+                {
+                    PadForge.Common.Input.HeadTrackingRuntime.GetAxisRangeOverride(0),
+                    PadForge.Common.Input.HeadTrackingRuntime.GetAxisRangeOverride(1),
+                    PadForge.Common.Input.HeadTrackingRuntime.GetAxisRangeOverride(2),
+                    PadForge.Common.Input.HeadTrackingRuntime.GetAxisRangeOverride(3),
+                    PadForge.Common.Input.HeadTrackingRuntime.GetAxisRangeOverride(4),
+                    PadForge.Common.Input.HeadTrackingRuntime.GetAxisRangeOverride(5),
+                },
                 HeadTrackingOpenXrRuntime = PadForge.Common.Input.HeadTrackingRuntime.OpenXrRuntimeManifest,
                 HeadTrackingRotationRange = _mainVm.Dashboard.HeadTrackingRotationRange,
                 HeadTrackingTranslationRange = _mainVm.Dashboard.HeadTrackingTranslationRange,
@@ -6093,6 +6106,13 @@ namespace PadForge.Services
         /// has not asked for it should pay for.</summary>
         [XmlElement]
         public bool HeadTrackingOpenXr { get; set; }
+
+        /// <summary>Per-axis ranges in HeadPose's order (yaw, pitch, roll, X,
+        /// Y, Z). Zero means the axis follows its family's shared range, which
+        /// is what every axis does until a user pins one, so an older file
+        /// with none of these keeps behaving exactly as it did.</summary>
+        [XmlElement]
+        public int[] HeadTrackingAxisRanges { get; set; }
 
         /// <summary>Manifest of the OpenXR runtime to read the headset from,
         /// or empty for the machine's default.</summary>

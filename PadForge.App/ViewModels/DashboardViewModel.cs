@@ -506,6 +506,97 @@ namespace PadForge.ViewModels
             }
         }
 
+        /// <summary>
+        /// The per-axis ranges, in HeadPose's order: yaw, pitch, roll, X, Y, Z.
+        /// Zero means the axis follows its family's range.
+        ///
+        /// <para>Per axis because the three translations are not one setting.
+        /// Head elevation on a bike wants a span of a few centimeters while
+        /// leaning wants twenty, and a single shared number cannot be
+        /// both.</para>
+        /// </summary>
+        public int HeadTrackingRangeYaw
+        {
+            get => AxisRange(0);
+            set => SetAxisRange(0, value, nameof(HeadTrackingRangeYaw));
+        }
+
+        public int HeadTrackingRangePitch
+        {
+            get => AxisRange(1);
+            set => SetAxisRange(1, value, nameof(HeadTrackingRangePitch));
+        }
+
+        public int HeadTrackingRangeRoll
+        {
+            get => AxisRange(2);
+            set => SetAxisRange(2, value, nameof(HeadTrackingRangeRoll));
+        }
+
+        public int HeadTrackingRangeX
+        {
+            get => AxisRange(3);
+            set => SetAxisRange(3, value, nameof(HeadTrackingRangeX));
+        }
+
+        public int HeadTrackingRangeY
+        {
+            get => AxisRange(4);
+            set => SetAxisRange(4, value, nameof(HeadTrackingRangeY));
+        }
+
+        public int HeadTrackingRangeZ
+        {
+            get => AxisRange(5);
+            set => SetAxisRange(5, value, nameof(HeadTrackingRangeZ));
+        }
+
+        // The box shows and writes the pin, not the range in force. Showing
+        // the resolved range would put the family's number in all six boxes,
+        // where it reads as six pinned axes, and typing that same number back
+        // would pin nothing because it already matched. A zero would also
+        // never survive the round trip: it would be written, then redisplayed
+        // as the family's value.
+        private static int AxisRange(int axis)
+            => PadForge.Common.Input.HeadTrackingRuntime.GetAxisRangeOverride(axis);
+
+        private void SetAxisRange(int axis, int value, string property)
+        {
+            if (PadForge.Common.Input.HeadTrackingRuntime.GetAxisRangeOverride(axis) == value) return;
+            PadForge.Common.Input.HeadTrackingRuntime.SetAxisRange(axis, value);
+            // The clamp can land somewhere other than what was typed, so the
+            // box is told to re-read rather than keep the entered number.
+            OnPropertyChanged(property);
+        }
+
+        private RelayCommand _resetHeadTrackingRangesCommand;
+
+        /// <summary>Puts every axis back on its family's range.</summary>
+        public RelayCommand ResetHeadTrackingRangesCommand =>
+            _resetHeadTrackingRangesCommand ??= new RelayCommand(() =>
+            {
+                for (int axis = 0; axis < 6; axis++)
+                    PadForge.Common.Input.HeadTrackingRuntime.SetAxisRange(axis, 0);
+                foreach (var name in new[]
+                         {
+                             nameof(HeadTrackingRangeYaw), nameof(HeadTrackingRangePitch),
+                             nameof(HeadTrackingRangeRoll), nameof(HeadTrackingRangeX),
+                             nameof(HeadTrackingRangeY), nameof(HeadTrackingRangeZ),
+                         })
+                    OnPropertyChanged(name);
+            });
+
+        private RelayCommand _headTrackingRecenterCommand;
+
+        /// <summary>Makes wherever the user is sitting now the neutral.
+        ///
+        /// <para>Only the OpenXR source has a neutral to move. OpenTrack and
+        /// FreeTrack carry whatever zero their own application was centered
+        /// on, which is where their users already set it.</para></summary>
+        public RelayCommand HeadTrackingRecenterCommand =>
+            _headTrackingRecenterCommand ??= new RelayCommand(
+                PadForge.Common.Input.HeadTrackingRuntime.Recenter);
+
         private RelayCommand _resetHeadTrackingTranslationRangeCommand;
         public RelayCommand ResetHeadTrackingTranslationRangeCommand =>
             _resetHeadTrackingTranslationRangeCommand ??= new RelayCommand(() =>

@@ -2407,6 +2407,18 @@
   <data name="Dashboard_HeadTrackingRotationRange_Tooltip" xml:space="preserve"><value>使偏航、俯仰和翻滚轴达到满偏的头部旋转量。</value></data>
   <data name="Dashboard_HeadTrackingTranslationRange" xml:space="preserve"><value>平移范围（厘米）</value></data>
   <data name="Dashboard_HeadTrackingTranslationRange_Tooltip" xml:space="preserve"><value>使 X、Y、Z 轴达到满偏的头部移动量。</value></data>
+  <data name="Dashboard_HeadTrackingAxisRanges" xml:space="preserve"><value>每轴范围</value></data>
+  <data name="Dashboard_HeadTrackingAxisRangesDesc" xml:space="preserve"><value>单独设置某个轴。0 表示沿用上方的范围。旋转以度为单位，位移以厘米为单位。</value></data>
+  <data name="Dashboard_HeadTrackingAxisRangesReset" xml:space="preserve"><value>使用共享范围</value></data>
+  <data name="Dashboard_HeadTrackingAxisRange_Tooltip" xml:space="preserve"><value>该轴达到满偏所需的移动量。0 表示沿用上方的共享范围。</value></data>
+  <data name="Dashboard_HeadTrackingAxisYaw" xml:space="preserve"><value>偏航</value></data>
+  <data name="Dashboard_HeadTrackingAxisPitch" xml:space="preserve"><value>俯仰</value></data>
+  <data name="Dashboard_HeadTrackingAxisRoll" xml:space="preserve"><value>翻滚</value></data>
+  <data name="Dashboard_HeadTrackingAxisX" xml:space="preserve"><value>左右倾身</value></data>
+  <data name="Dashboard_HeadTrackingAxisY" xml:space="preserve"><value>起身与下蹲</value></data>
+  <data name="Dashboard_HeadTrackingAxisZ" xml:space="preserve"><value>前后倾身</value></data>
+  <data name="Dashboard_HeadTrackingRecenter" xml:space="preserve"><value>设为中立</value></data>
+  <data name="Dashboard_HeadTrackingRecenter_Tooltip" xml:space="preserve"><value>将当前位置设为中立。仅适用于 OpenXR 头显输入。</value></data>
   <data name="HeadTracker_StatusWaiting_Format" xml:space="preserve"><value>正在 UDP 端口 {0} 等待追踪器。</value></data>
   <data name="HeadTracker_StatusUdp_Format" xml:space="preserve"><value>正在通过 UDP 从 {0} 接收。</value></data>
   <data name="HeadTracker_StatusFreeTrack" xml:space="preserve"><value>正在从 FreeTrack 共享内存接收。</value></data>

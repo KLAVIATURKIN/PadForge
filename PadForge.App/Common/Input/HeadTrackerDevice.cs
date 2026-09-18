@@ -281,10 +281,24 @@ namespace PadForge.Common.Input
 
             if (_openXrEnabled)
             {
+                // The controllers come off the same session as the headset, so
+                // they are created here and retired with it. A runtime with no
+                // controllers simply never publishes to them.
+                LeftHand = new OpenXrHandDevice(PadForge.Engine.Common.OpenXr.OpenXrHand.Left, _now);
+                RightHand = new OpenXrHandDevice(PadForge.Engine.Common.OpenXr.OpenXrHand.Right, _now);
+                LeftHand.Open();
+                RightHand.Open();
+
                 _openXr = new PadForge.Engine.Common.OpenXr.OpenXrHeadPoseSource(
                     () => string.IsNullOrWhiteSpace(_openXrManifest) ? null : _openXrManifest,
                     pose => Publish(pose, HeadTrackerSource.OpenXr, null),
-                    line => SdlDiagLog.WriteLine(line));
+                    line => SdlDiagLog.WriteLine(line),
+                    (left, right) =>
+                    {
+                        LeftHand?.Publish(left);
+                        RightHand?.Publish(right);
+                    },
+                    () => HeadTrackingRuntime.RecenterRequests);
                 _openXr.Start();
             }
 
@@ -305,6 +319,16 @@ namespace PadForge.Common.Input
         public string OpenXrRuntimeName => _openXr?.RuntimeName ?? string.Empty;
 
         public bool OpenXrEnabled => _openXrEnabled;
+
+        /// <summary>The motion controllers this session exposes, or null
+        /// when OpenXR input is off. They ride the headset's session and
+        /// are retired with it.</summary>
+        public OpenXrHandDevice LeftHand { get; private set; }
+        public OpenXrHandDevice RightHand { get; private set; }
+
+        /// <summary>True once a runtime has accepted a controller
+        /// profile. A headset with no controllers is ordinary.</summary>
+        public bool HasControllers => _openXr?.HasControllers ?? false;
 
         private void ReceiveLoop()
         {
@@ -405,8 +429,8 @@ namespace PadForge.Common.Input
                 bool live = _lastPoseTicks != 0 && now - _lastPoseTicks <= SilenceMs;
                 if (live)
                 {
-                    HeadPose.FillAxes(_pose, HeadTrackingRuntime.RotationRangeDeg,
-                        HeadTrackingRuntime.TranslationRangeCm, _state.Axis);
+                    HeadPose.FillAxesPerAxis(_pose, axis => HeadTrackingRuntime.GetAxisRange(axis),
+                        _state.Axis);
                 }
                 else
                 {
@@ -467,6 +491,10 @@ namespace PadForge.Common.Input
             // a compositor.
             try { _openXr?.Dispose(); } catch { }
             _openXr = null;
+            try { LeftHand?.Dispose(); } catch { }
+            try { RightHand?.Dispose(); } catch { }
+            LeftHand = null;
+            RightHand = null;
         }
 
         private static Guid Md5Guid(string identifier)

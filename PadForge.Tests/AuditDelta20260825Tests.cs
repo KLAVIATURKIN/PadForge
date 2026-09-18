@@ -301,6 +301,10 @@ namespace PadForge.Tests
                 "HeadTrackingEnabled", "HeadTrackingUdpPort", "HeadTrackingFreeTrack",
                 "HeadTrackingOpenXr",
                 "HeadTrackingRotationRange", "HeadTrackingTranslationRange",
+                // Per-axis ranges (#403). Each pins one axis away from its
+                // family, so each is a value a restart can lose on its own.
+                "HeadTrackingRangeYaw", "HeadTrackingRangePitch", "HeadTrackingRangeRoll",
+                "HeadTrackingRangeX", "HeadTrackingRangeY", "HeadTrackingRangeZ",
             })
                 Assert.Contains("nameof(DashboardViewModel." + prop + ")", mainWindow);
         }

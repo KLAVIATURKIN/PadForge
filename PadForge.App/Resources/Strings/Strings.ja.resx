@@ -2407,6 +2407,18 @@
   <data name="Dashboard_HeadTrackingRotationRange_Tooltip" xml:space="preserve"><value>ヨー、ピッチ、ロールの各軸が最大に振れる頭の回転量。</value></data>
   <data name="Dashboard_HeadTrackingTranslationRange" xml:space="preserve"><value>移動範囲（cm）</value></data>
   <data name="Dashboard_HeadTrackingTranslationRange_Tooltip" xml:space="preserve"><value>X、Y、Z の各軸が最大に振れる頭の移動量。</value></data>
+  <data name="Dashboard_HeadTrackingAxisRanges" xml:space="preserve"><value>軸ごとの範囲</value></data>
+  <data name="Dashboard_HeadTrackingAxisRangesDesc" xml:space="preserve"><value>軸を個別に設定します。0 は上の範囲に従います。回転は度、移動はセンチメートルです。</value></data>
+  <data name="Dashboard_HeadTrackingAxisRangesReset" xml:space="preserve"><value>共有範囲を使う</value></data>
+  <data name="Dashboard_HeadTrackingAxisRange_Tooltip" xml:space="preserve"><value>この軸で最大変位となる動き。0 は上の共有範囲に従います。</value></data>
+  <data name="Dashboard_HeadTrackingAxisYaw" xml:space="preserve"><value>ヨー</value></data>
+  <data name="Dashboard_HeadTrackingAxisPitch" xml:space="preserve"><value>ピッチ</value></data>
+  <data name="Dashboard_HeadTrackingAxisRoll" xml:space="preserve"><value>ロール</value></data>
+  <data name="Dashboard_HeadTrackingAxisX" xml:space="preserve"><value>左右に傾く</value></data>
+  <data name="Dashboard_HeadTrackingAxisY" xml:space="preserve"><value>起き上がる・かがむ</value></data>
+  <data name="Dashboard_HeadTrackingAxisZ" xml:space="preserve"><value>前後に傾く</value></data>
+  <data name="Dashboard_HeadTrackingRecenter" xml:space="preserve"><value>ニュートラルを設定</value></data>
+  <data name="Dashboard_HeadTrackingRecenter_Tooltip" xml:space="preserve"><value>現在の位置をニュートラルにします。OpenXR ヘッドセット入力にのみ適用されます。</value></data>
   <data name="HeadTracker_StatusWaiting_Format" xml:space="preserve"><value>UDP ポート {0} でトラッカーを待機しています。</value></data>
   <data name="HeadTracker_StatusUdp_Format" xml:space="preserve"><value>{0} から UDP で受信中。</value></data>
   <data name="HeadTracker_StatusFreeTrack" xml:space="preserve"><value>FreeTrack の共有メモリから受信中。</value></data>

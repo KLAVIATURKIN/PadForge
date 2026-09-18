@@ -2807,6 +2807,18 @@
   <data name="Dashboard_HeadTrackingRotationRange_Tooltip" xml:space="preserve"><value>Head rotation that moves the yaw, pitch, and roll axes to full deflection.</value></data>
   <data name="Dashboard_HeadTrackingTranslationRange" xml:space="preserve"><value>Translation Range (cm)</value></data>
   <data name="Dashboard_HeadTrackingTranslationRange_Tooltip" xml:space="preserve"><value>Head travel that moves the X, Y, and Z axes to full deflection.</value></data>
+  <data name="Dashboard_HeadTrackingAxisRanges" xml:space="preserve"><value>Per-Axis Range</value></data>
+  <data name="Dashboard_HeadTrackingAxisRangesDesc" xml:space="preserve"><value>Set one axis on its own. Zero follows the range above. Rotation is in degrees, travel in centimeters.</value></data>
+  <data name="Dashboard_HeadTrackingAxisRangesReset" xml:space="preserve"><value>Use the Shared Ranges</value></data>
+  <data name="Dashboard_HeadTrackingAxisRange_Tooltip" xml:space="preserve"><value>Movement on this axis at full deflection. Zero follows the shared range above.</value></data>
+  <data name="Dashboard_HeadTrackingAxisYaw" xml:space="preserve"><value>Yaw</value></data>
+  <data name="Dashboard_HeadTrackingAxisPitch" xml:space="preserve"><value>Pitch</value></data>
+  <data name="Dashboard_HeadTrackingAxisRoll" xml:space="preserve"><value>Roll</value></data>
+  <data name="Dashboard_HeadTrackingAxisX" xml:space="preserve"><value>Lean Left and Right</value></data>
+  <data name="Dashboard_HeadTrackingAxisY" xml:space="preserve"><value>Rise and Crouch</value></data>
+  <data name="Dashboard_HeadTrackingAxisZ" xml:space="preserve"><value>Lean Forward and Back</value></data>
+  <data name="Dashboard_HeadTrackingRecenter" xml:space="preserve"><value>Set Neutral</value></data>
+  <data name="Dashboard_HeadTrackingRecenter_Tooltip" xml:space="preserve"><value>Make your current position the neutral. Only applies to the OpenXR headset input.</value></data>
   <data name="HeadTracker_StatusWaiting_Format" xml:space="preserve"><value>Waiting for a tracker on UDP port {0}.</value></data>
   <data name="HeadTracker_StatusUdp_Format" xml:space="preserve"><value>Receiving over UDP from {0}.</value></data>
   <data name="HeadTracker_StatusFreeTrack" xml:space="preserve"><value>Receiving from FreeTrack shared memory.</value></data>

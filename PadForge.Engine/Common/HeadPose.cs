@@ -123,6 +123,29 @@ namespace PadForge.Engine.Common
             axes[AxisZ] = ToAxis(pose[TZ], translationRange);
         }
 
+        /// <summary>
+        /// As <see cref="FillAxes"/>, but with a range per axis rather than
+        /// one per family (issue #403).
+        ///
+        /// <para>The three translations are not one setting. Head elevation
+        /// on a bike wants a span of a few centimeters while leaning wants
+        /// twenty, and a single shared number cannot be both.</para>
+        ///
+        /// <para><paramref name="rangeFor"/> is asked for each axis in this
+        /// type's own index order, and answers in that axis's unit: degrees
+        /// for yaw, pitch and roll, centimeters for X, Y and Z.</para>
+        /// </summary>
+        public static void FillAxesPerAxis(ReadOnlySpan<double> pose, Func<int, double> rangeFor,
+                                           Span<int> axes)
+        {
+            axes[AxisYaw] = ToAxis(pose[Yaw], rangeFor(AxisYaw));
+            axes[AxisPitch] = ToAxis(-pose[Pitch], rangeFor(AxisPitch));
+            axes[AxisRoll] = ToAxis(pose[Roll], rangeFor(AxisRoll));
+            axes[AxisX] = ToAxis(pose[TX], rangeFor(AxisX));
+            axes[AxisY] = ToAxis(-pose[TY], rangeFor(AxisY));
+            axes[AxisZ] = ToAxis(pose[TZ], rangeFor(AxisZ));
+        }
+
         /// <summary>Every device axis at rest.</summary>
         public static void CenterAxes(Span<int> axes)
         {

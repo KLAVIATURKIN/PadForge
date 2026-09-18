@@ -2429,6 +2429,18 @@
   <data name="Dashboard_HeadTrackingRotationRange_Tooltip" xml:space="preserve"><value>Rotazione della testa che porta gli assi di imbardata, beccheggio e rollio alla deflessione massima.</value></data>
   <data name="Dashboard_HeadTrackingTranslationRange" xml:space="preserve"><value>Intervallo di traslazione (cm)</value></data>
   <data name="Dashboard_HeadTrackingTranslationRange_Tooltip" xml:space="preserve"><value>Spostamento della testa che porta gli assi X, Y e Z alla deflessione massima.</value></data>
+  <data name="Dashboard_HeadTrackingAxisRanges" xml:space="preserve"><value>Intervallo per asse</value></data>
+  <data name="Dashboard_HeadTrackingAxisRangesDesc" xml:space="preserve"><value>Imposta un asse singolarmente. Zero segue l'intervallo sopra. Rotazione in gradi, spostamento in centimetri.</value></data>
+  <data name="Dashboard_HeadTrackingAxisRangesReset" xml:space="preserve"><value>Usa gli intervalli condivisi</value></data>
+  <data name="Dashboard_HeadTrackingAxisRange_Tooltip" xml:space="preserve"><value>Movimento su questo asse a piena deflessione. Zero segue l'intervallo condiviso sopra.</value></data>
+  <data name="Dashboard_HeadTrackingAxisYaw" xml:space="preserve"><value>Imbardata</value></data>
+  <data name="Dashboard_HeadTrackingAxisPitch" xml:space="preserve"><value>Beccheggio</value></data>
+  <data name="Dashboard_HeadTrackingAxisRoll" xml:space="preserve"><value>Rollio</value></data>
+  <data name="Dashboard_HeadTrackingAxisX" xml:space="preserve"><value>Inclinarsi a sinistra e a destra</value></data>
+  <data name="Dashboard_HeadTrackingAxisY" xml:space="preserve"><value>Alzarsi e abbassarsi</value></data>
+  <data name="Dashboard_HeadTrackingAxisZ" xml:space="preserve"><value>Inclinarsi avanti e indietro</value></data>
+  <data name="Dashboard_HeadTrackingRecenter" xml:space="preserve"><value>Imposta il neutro</value></data>
+  <data name="Dashboard_HeadTrackingRecenter_Tooltip" xml:space="preserve"><value>Rende neutra la posizione attuale. Vale solo per l'ingresso visore OpenXR.</value></data>
   <data name="HeadTracker_StatusWaiting_Format" xml:space="preserve"><value>In attesa di un tracker sulla porta UDP {0}.</value></data>
   <data name="HeadTracker_StatusUdp_Format" xml:space="preserve"><value>Ricezione via UDP da {0}.</value></data>
   <data name="HeadTracker_StatusFreeTrack" xml:space="preserve"><value>Ricezione dalla memoria condivisa FreeTrack.</value></data>

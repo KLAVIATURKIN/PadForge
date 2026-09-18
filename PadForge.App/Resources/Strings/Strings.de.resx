@@ -2407,6 +2407,18 @@
   <data name="Dashboard_HeadTrackingRotationRange_Tooltip" xml:space="preserve"><value>Kopfdrehung, bei der die Achsen Gieren, Nicken und Rollen den Vollausschlag erreichen.</value></data>
   <data name="Dashboard_HeadTrackingTranslationRange" xml:space="preserve"><value>Verschiebungsbereich (cm)</value></data>
   <data name="Dashboard_HeadTrackingTranslationRange_Tooltip" xml:space="preserve"><value>Kopfbewegung, bei der die Achsen X, Y und Z den Vollausschlag erreichen.</value></data>
+  <data name="Dashboard_HeadTrackingAxisRanges" xml:space="preserve"><value>Bereich pro Achse</value></data>
+  <data name="Dashboard_HeadTrackingAxisRangesDesc" xml:space="preserve"><value>Eine Achse einzeln festlegen. Null folgt dem Bereich oben. Drehung in Grad, Bewegung in Zentimetern.</value></data>
+  <data name="Dashboard_HeadTrackingAxisRangesReset" xml:space="preserve"><value>Gemeinsame Bereiche verwenden</value></data>
+  <data name="Dashboard_HeadTrackingAxisRange_Tooltip" xml:space="preserve"><value>Bewegung auf dieser Achse bei voller Auslenkung. Null folgt dem gemeinsamen Bereich oben.</value></data>
+  <data name="Dashboard_HeadTrackingAxisYaw" xml:space="preserve"><value>Gieren</value></data>
+  <data name="Dashboard_HeadTrackingAxisPitch" xml:space="preserve"><value>Nicken</value></data>
+  <data name="Dashboard_HeadTrackingAxisRoll" xml:space="preserve"><value>Rollen</value></data>
+  <data name="Dashboard_HeadTrackingAxisX" xml:space="preserve"><value>Nach links und rechts lehnen</value></data>
+  <data name="Dashboard_HeadTrackingAxisY" xml:space="preserve"><value>Aufrichten und ducken</value></data>
+  <data name="Dashboard_HeadTrackingAxisZ" xml:space="preserve"><value>Nach vorn und hinten lehnen</value></data>
+  <data name="Dashboard_HeadTrackingRecenter" xml:space="preserve"><value>Neutral festlegen</value></data>
+  <data name="Dashboard_HeadTrackingRecenter_Tooltip" xml:space="preserve"><value>Die aktuelle Position als Neutral festlegen. Gilt nur für die OpenXR-Headset-Eingabe.</value></data>
   <data name="HeadTracker_StatusWaiting_Format" xml:space="preserve"><value>Warte auf einen Tracker an UDP-Port {0}.</value></data>
   <data name="HeadTracker_StatusUdp_Format" xml:space="preserve"><value>Empfang über UDP von {0}.</value></data>
   <data name="HeadTracker_StatusFreeTrack" xml:space="preserve"><value>Empfang aus dem FreeTrack Shared Memory.</value></data>

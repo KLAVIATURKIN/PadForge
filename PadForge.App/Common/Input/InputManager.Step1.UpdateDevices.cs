@@ -2586,6 +2586,16 @@ namespace PadForge.Common.Input
                             ud.IsOnline = true;
                             _headTrackerDevice = created;
                             MarkChanged(ref changed, "headtracker", "+ opened");
+                            // The controllers ride the same OpenXR session, so
+                            // they appear and retire with the headset row.
+                            foreach (var hand in new[] { created.LeftHand, created.RightHand })
+                            {
+                                if (hand == null) continue;
+                                UserDevice hud = FindOrCreateUserDevice(hand.InstanceGuid, hand.ProductGuid);
+                                hud.LoadFromExternalDevice(hand);
+                                hud.IsOnline = true;
+                                MarkChanged(ref changed, "openxrhand", "+ " + hand.Name);
+                            }
                         }
                         else created.Dispose();
                     }
@@ -2609,6 +2619,15 @@ namespace PadForge.Common.Input
                 ud.IsOnline = false;
                 ud.Device = null;
                 NeutralizeMappedOutputsFor(ud);
+            }
+            foreach (var hand in new[] { dev.LeftHand, dev.RightHand })
+            {
+                if (hand == null) continue;
+                var hud = FindOnlineDeviceByInstanceGuid(hand.InstanceGuid);
+                if (hud == null) continue;
+                hud.IsOnline = false;
+                hud.Device = null;
+                NeutralizeMappedOutputsFor(hud);
             }
             dev.Dispose();
             _headTrackerDevice = null;

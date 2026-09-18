@@ -48,6 +48,14 @@ namespace PadForge.Engine.Common.OpenXr
         private readonly Action<string> _log;
         private readonly Func<string> _runtimeChoice;
         private readonly Action<double[]> _publish;
+        private readonly Action<OpenXrHandState, OpenXrHandState> _publishHands;
+        private readonly Func<int> _recenterRequests;
+        private int _lastRecenter;
+
+        /// <summary>True once the runtime has accepted a controller profile.
+        /// A headset with no controllers is an ordinary case, so this being
+        /// false is not a failure.</summary>
+        public bool HasControllers { get; private set; }
 
         private Thread _thread;
         private volatile bool _running;
@@ -68,10 +76,14 @@ namespace PadForge.Engine.Common.OpenXr
         /// <param name="publish">Receives a pose in <see cref="HeadPose"/>'s
         /// convention. Called from the sampling thread.</param>
         public OpenXrHeadPoseSource(Func<string> runtimeChoice, Action<double[]> publish,
-                                    Action<string> log = null)
+                                    Action<string> log = null,
+                                    Action<OpenXrHandState, OpenXrHandState> publishHands = null,
+                                    Func<int> recenterRequests = null)
         {
+            _recenterRequests = recenterRequests ?? (() => 0);
             _runtimeChoice = runtimeChoice ?? (() => null);
             _publish = publish ?? (_ => { });
+            _publishHands = publishHands ?? ((_, _) => { });
             _log = log ?? (_ => { });
         }
 
@@ -115,7 +127,14 @@ namespace PadForge.Engine.Common.OpenXr
                 _runtimeName = session.RuntimeName;
                 _state = OpenXrSourceState.Running;
 
+                HasControllers = session.HasControllers;
+
                 var baseline = default(OpenXrHeadPose.Baseline);
+                // Each hand keeps its own neutral. A controller put down and
+                // picked up again is not where it was, and neither hand's
+                // loss should move the other's zero.
+                var leftBaseline = default(OpenXrHeadPose.Baseline);
+                var rightBaseline = default(OpenXrHeadPose.Baseline);
                 var pose = new double[HeadPose.PoseCount];
 
                 while (_running)
@@ -128,7 +147,34 @@ namespace PadForge.Engine.Common.OpenXr
                     // the captured neutral no longer describes where the user
                     // is. Recapturing beats carrying a baseline that now
                     // points somewhere else in the room.
-                    if (spaceChanged) baseline.Clear();
+                    if (spaceChanged)
+                    {
+                        baseline.Clear();
+                        leftBaseline.Clear();
+                        rightBaseline.Clear();
+                    }
+
+                    // A user asking to recenter is saying "this posture is my
+                    // neutral". Dropping the captured one makes the next
+                    // sample become it.
+                    int requested = _recenterRequests();
+                    if (requested != _lastRecenter)
+                    {
+                        _lastRecenter = requested;
+                        baseline.Clear();
+                        leftBaseline.Clear();
+                        rightBaseline.Clear();
+                        _log("OpenXR: neutral recaptured on request");
+                    }
+
+                    if (session.HasControllers)
+                    {
+                        session.ReadHands(ref leftBaseline, ref rightBaseline,
+                                          out var leftHand, out var rightHand);
+                        if (!leftHand.PoseValid) leftBaseline.Clear();
+                        if (!rightHand.PoseValid) rightBaseline.Clear();
+                        _publishHands(leftHand, rightHand);
+                    }
 
                     if (session.TryLocateHead(out var position, out var orientation))
                     {

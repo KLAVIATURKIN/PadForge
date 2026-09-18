@@ -2401,6 +2401,18 @@
   <data name="Dashboard_HeadTrackingRotationRange_Tooltip" xml:space="preserve"><value>Rotação da cabeça que leva os eixos de guinada, inclinação e rolagem à deflexão máxima.</value></data>
   <data name="Dashboard_HeadTrackingTranslationRange" xml:space="preserve"><value>Faixa de Translação (cm)</value></data>
   <data name="Dashboard_HeadTrackingTranslationRange_Tooltip" xml:space="preserve"><value>Deslocamento da cabeça que leva os eixos X, Y e Z à deflexão máxima.</value></data>
+  <data name="Dashboard_HeadTrackingAxisRanges" xml:space="preserve"><value>Alcance por Eixo</value></data>
+  <data name="Dashboard_HeadTrackingAxisRangesDesc" xml:space="preserve"><value>Defina um eixo separadamente. Zero segue o alcance acima. Rotação em graus, deslocamento em centímetros.</value></data>
+  <data name="Dashboard_HeadTrackingAxisRangesReset" xml:space="preserve"><value>Usar os Alcances Compartilhados</value></data>
+  <data name="Dashboard_HeadTrackingAxisRange_Tooltip" xml:space="preserve"><value>Movimento neste eixo em deflexão total. Zero segue o alcance compartilhado acima.</value></data>
+  <data name="Dashboard_HeadTrackingAxisYaw" xml:space="preserve"><value>Guinada</value></data>
+  <data name="Dashboard_HeadTrackingAxisPitch" xml:space="preserve"><value>Arfagem</value></data>
+  <data name="Dashboard_HeadTrackingAxisRoll" xml:space="preserve"><value>Rolagem</value></data>
+  <data name="Dashboard_HeadTrackingAxisX" xml:space="preserve"><value>Inclinar para a Esquerda e Direita</value></data>
+  <data name="Dashboard_HeadTrackingAxisY" xml:space="preserve"><value>Levantar e Agachar</value></data>
+  <data name="Dashboard_HeadTrackingAxisZ" xml:space="preserve"><value>Inclinar para Frente e para Trás</value></data>
+  <data name="Dashboard_HeadTrackingRecenter" xml:space="preserve"><value>Definir Neutro</value></data>
+  <data name="Dashboard_HeadTrackingRecenter_Tooltip" xml:space="preserve"><value>Torna sua posição atual o neutro. Aplica-se somente à entrada de headset OpenXR.</value></data>
   <data name="HeadTracker_StatusWaiting_Format" xml:space="preserve"><value>Aguardando um rastreador na porta UDP {0}.</value></data>
   <data name="HeadTracker_StatusUdp_Format" xml:space="preserve"><value>Recebendo por UDP de {0}.</value></data>
   <data name="HeadTracker_StatusFreeTrack" xml:space="preserve"><value>Recebendo da memória compartilhada do FreeTrack.</value></data>
