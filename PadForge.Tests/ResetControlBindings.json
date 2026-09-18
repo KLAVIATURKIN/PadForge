@@ -7,6 +7,12 @@
   },
   {
     "File": "PadForge.App/Views/DashboardPage.xaml",
+    "Id": "Reset_DashboardViewModel_WebControllerUseHttps",
+    "Owner": "PadForge.ViewModels.DashboardViewModel",
+    "Property": "WebControllerUseHttps"
+  },
+  {
+    "File": "PadForge.App/Views/DashboardPage.xaml",
     "Id": "Reset_DashboardViewModel_EnableRemoteLink_1578",
     "Owner": "PadForge.ViewModels.DashboardViewModel",
     "Property": "EnableRemoteLink"

@@ -6,22 +6,11 @@ using System.Security.Cryptography.X509Certificates;
 namespace PadForge.Services
 {
     /// <summary>
-    /// The HTTPS lane for the web controller (#296 phase 0). Motion sensors
-    /// (DeviceMotionEvent, and on iOS DeviceMotionEvent.requestPermission)
-    /// exist only in a secure context, and http://&lt;LAN-IP&gt; is never one.
-    /// So the server needs to serve https://, which needs a certificate.
-    ///
-    /// PadForge hosts nothing and asks nobody for a cert. It generates a
-    /// self-signed one at first enable (the app already runs elevated),
-    /// installs it to LocalMachine\My, and binds it to the port with
-    /// http.sys via netsh. The phone shows a one-time "not private" warning;
-    /// after the user proceeds the page is a secure context and the sensor
-    /// APIs appear. The certificate is a stable, reused identity: generated
-    /// once, kept in the store, rebound if the port changes.
-    ///
-    /// This is the standard self-signed-LAN pattern, not a workaround. The
-    /// alternative (a public CA) cannot issue for a private IP, and a trusted
-    /// local CA install is far more friction on a phone than one warning tap.
+    /// Prepares HTTPS when explicitly selected for the Web Controller
+    /// A reusable self-signed certificated is stored in LocalMachine\My and bound through HTTP.sys.
+    /// HTTP startup does not acquire this binding.
+    /// Remote browser motion APIs require a secure context; certificate trust
+    /// and sensor permission behavior depend on the client browser.
     /// </summary>
     internal static class WebControllerTls
     {
@@ -35,10 +24,11 @@ namespace PadForge.Services
 
         internal static IDisposable AcquireBinding(int port) => BindingPool.Acquire(port);
 
-        /// <summary>Ensures a certificate exists and is bound to the port.
-        /// Returns the cert thumbprint on success, or null if any step failed
-        /// (the caller then falls back to plain HTTP). Best-effort and
-        /// self-contained: every failure is swallowed and reported as null.</summary>
+        /// <summary>
+        /// Ensures a certificate exists and is bound to the port.
+        /// Returns the cert thumbprint on success, or null on failure
+        /// The caller rejects explicit HTTPS startup when this returns null.
+        /// </summary>
         public static string EnsureHttpsBinding(int port)
         {
             try
@@ -59,7 +49,7 @@ namespace PadForge.Services
                 if (occupied && !ours)
                 {
                     PadForge.Engine.SdlDiagLog.WriteLine(
-                        $"WEBTLS port {port} already has an sslcert binding owned by another application; serving http");
+                        $"WEBTLS port {port} already has an sslcert binding owned by another application; HTTPS unavailable(serving http)");
                     return null;
                 }
 
