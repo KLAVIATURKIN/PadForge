@@ -764,6 +764,27 @@ namespace PadForge.Models3D
                        (Color)ColorConverter.ConvertFromString("#5C5D60")));
         }
 
+        /// <summary>Atlases ship in whichever format suits the image: JPEG for
+        /// the opaque ones, PNG for those carrying transparency, since JPEG has
+        /// no alpha and costs more than PNG on a mostly empty decal. Callers name
+        /// the atlas without caring which, so every candidate extension is tried
+        /// against the same stem. Each candidate keeps the leading dot before the
+        /// model name and the trailing dot before the extension, which is what
+        /// stops "Body" from matching "MainBody".</summary>
+        private static string[] TextureSuffixes(string modelName, string filename)
+        {
+            string stem = System.IO.Path.GetFileNameWithoutExtension(filename);
+            return new[] { $".{modelName}.{stem}.jpg", $".{modelName}.{stem}.png" };
+        }
+
+        private static bool EndsWithAny(string name, string[] suffixes)
+        {
+            foreach (var s in suffixes)
+                if (name.EndsWith(s, StringComparison.OrdinalIgnoreCase))
+                    return true;
+            return false;
+        }
+
         /// <summary>As LoadTexturedMaterial, but returns null when the
         /// embedded resource does not exist (appearance folders may omit
         /// an atlas, e.g. a colorway whose trim merged into the body).</summary>
@@ -772,10 +793,10 @@ namespace PadForge.Models3D
             try
             {
                 var assembly = Assembly.GetExecutingAssembly();
-                string suffix = $".{resourceModelName ?? _resourceModelName}.{filename}";
+                var suffixes = TextureSuffixes(resourceModelName ?? _resourceModelName, filename);
                 foreach (var name in assembly.GetManifestResourceNames())
                 {
-                    if (!name.EndsWith(suffix, StringComparison.OrdinalIgnoreCase))
+                    if (!EndsWithAny(name, suffixes))
                         continue;
                     using var stream = assembly.GetManifestResourceStream(name);
                     if (stream == null) break;

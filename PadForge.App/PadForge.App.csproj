@@ -127,6 +127,7 @@
          Switch2Pro set split from the purchased hado CGTrader model) -->
     <EmbeddedResource Include="3DModels\**\*.obj" />
     <EmbeddedResource Include="3DModels\**\*.png" />
+    <EmbeddedResource Include="3DModels\**\*.jpg" />
     <!-- 2D controller model assets (Gamepad-Asset-Pack by AL2009man, MIT license) -->
     <Resource Include="2DModels\**\*.png" />
     <!-- Web controller frontend assets (embedded, served by WebControllerServer) -->
