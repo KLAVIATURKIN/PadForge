@@ -376,17 +376,35 @@ namespace PadForge.ViewModels
         {
             get
             {
-                _openXrRuntimes ??= new System.Collections.ObjectModel.ObservableCollection<OpenXrRuntimeChoice>();
-                RefreshOpenXrRuntimes();
+                // Populate once, and never raise a change notification from
+                // in here. SelectedOpenXrRuntime's getter reads this
+                // collection, so notifying from this getter makes WPF read the
+                // selection, which reads this getter again. That recursion
+                // ends as a stack overflow, which kills the process with no
+                // managed exception and no crash log.
+                if (_openXrRuntimes == null)
+                {
+                    _openXrRuntimes =
+                        new System.Collections.ObjectModel.ObservableCollection<OpenXrRuntimeChoice>();
+                    Repopulate();
+                }
                 return _openXrRuntimes;
             }
         }
 
         /// <summary>Reloads the picker from the registry, keeping the current
-        /// selection when it is still installed.</summary>
+        /// selection when it is still installed. Safe to call from a command
+        /// or a toggle, never from a property getter.</summary>
         public void RefreshOpenXrRuntimes()
         {
-            _openXrRuntimes ??= new System.Collections.ObjectModel.ObservableCollection<OpenXrRuntimeChoice>();
+            _openXrRuntimes ??=
+                new System.Collections.ObjectModel.ObservableCollection<OpenXrRuntimeChoice>();
+            Repopulate();
+            OnPropertyChanged(nameof(SelectedOpenXrRuntime));
+        }
+
+        private void Repopulate()
+        {
             string chosen = PadForge.Common.Input.HeadTrackingRuntime.OpenXrRuntimeManifest;
             _openXrRuntimes.Clear();
             _openXrRuntimes.Add(new OpenXrRuntimeChoice
@@ -421,7 +439,6 @@ namespace PadForge.ViewModels
                     Display = System.IO.Path.GetFileNameWithoutExtension(chosen),
                 });
             }
-            OnPropertyChanged(nameof(SelectedOpenXrRuntime));
         }
 
         /// <summary>Which runtime this process negotiates with. Changing it
