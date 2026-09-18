@@ -16,6 +16,11 @@ namespace PadForge.Common.Input
         None = 0,
         Udp = 1,
         FreeTrack = 2,
+
+        /// <summary>A VR headset read through an OpenXR runtime (issue #403).
+        /// The pose arrives in the same convention the other two use, so it
+        /// drives the same six axes and the same mappings.</summary>
+        OpenXr = 3,
     }
 
     /// <summary>
@@ -82,6 +87,10 @@ namespace PadForge.Common.Input
         private uint _ftLastId;
         private bool _ftSeen;
 
+        private readonly bool _openXrEnabled;
+        private readonly string _openXrManifest;
+        private PadForge.Engine.Common.OpenXr.OpenXrHeadPoseSource _openXr;
+
         private PooledInputStatePair _statePool;
 
         /// <summary>The <see cref="HeadTrackingRuntime.Version"/> this row
@@ -97,18 +106,23 @@ namespace PadForge.Common.Input
         {
             int version = HeadTrackingRuntime.Version;
             return new HeadTrackerDevice(HeadTrackingRuntime.Enabled, HeadTrackingRuntime.UdpPort,
-                HeadTrackingRuntime.FreeTrackEnabled, version, null);
+                HeadTrackingRuntime.FreeTrackEnabled, version, null,
+                openXr: HeadTrackingRuntime.OpenXrEnabled,
+                openXrManifest: HeadTrackingRuntime.OpenXrRuntimeManifest);
         }
 
         internal HeadTrackerDevice(int port, bool freeTrack, int configVersion, Func<long> now)
             : this(true, port, freeTrack, configVersion, now) { }
 
         internal HeadTrackerDevice(bool udp, int port, bool freeTrack, int configVersion, Func<long> now,
-            Func<FreeTrackReader> freeTrackFactory = null, Action<int> configureFirewall = null)
+            Func<FreeTrackReader> freeTrackFactory = null, Action<int> configureFirewall = null,
+            bool openXr = false, string openXrManifest = null)
         {
             _port = port;
             _udpEnabled = udp;
             _freeTrackEnabled = freeTrack;
+            _openXrEnabled = openXr;
+            _openXrManifest = openXrManifest ?? string.Empty;
             _freeTrackFactory = freeTrackFactory ?? (() => new FreeTrackReader());
             _configureFirewall = configureFirewall ?? (p =>
             {
@@ -117,7 +131,12 @@ namespace PadForge.Common.Input
             });
             ConfigVersion = configVersion;
             _now = now ?? (() => Environment.TickCount64);
-            Name = "Head Tracker (OpenTrack)";
+            // The row's identity below never changes, so a user's saved
+            // mappings survive turning a backend on or off. Only the label
+            // follows the configuration.
+            Name = openXr && !udp && !freeTrack
+                ? "Head Tracker (OpenXR)"
+                : "Head Tracker (OpenTrack)";
             DevicePath = "headtrack://opentrack";
             InstanceGuid = Md5Guid("pfheadtrack:opentrack");
             ProductGuid = Md5Guid("pfheadtrack-product");
@@ -258,9 +277,29 @@ namespace PadForge.Common.Input
                 }
             }
 
+            if (_openXrEnabled)
+            {
+                _openXr = new PadForge.Engine.Common.OpenXr.OpenXrHeadPoseSource(
+                    () => string.IsNullOrWhiteSpace(_openXrManifest) ? null : _openXrManifest,
+                    pose => Publish(pose, HeadTrackerSource.OpenXr, null),
+                    line => SdlDiagLog.WriteLine(line));
+                _openXr.Start();
+            }
+
             _attached = true;
             return true;
         }
+
+        /// <summary>What the OpenXR backend is doing, for the status line.
+        /// Stopped when it is switched off.</summary>
+        public PadForge.Engine.Common.OpenXr.OpenXrSourceState OpenXrState =>
+            _openXr?.State ?? PadForge.Engine.Common.OpenXr.OpenXrSourceState.Stopped;
+
+        /// <summary>The OpenXR runtime actually negotiated with, which is not
+        /// always the one the user expects when several are installed.</summary>
+        public string OpenXrRuntimeName => _openXr?.RuntimeName ?? string.Empty;
+
+        public bool OpenXrEnabled => _openXrEnabled;
 
         private void ReceiveLoop()
         {
@@ -383,6 +422,11 @@ namespace PadForge.Common.Input
         /// <summary>A FreeTrack heap image as one poll would read it.</summary>
         internal void InjectFreeTrackHeap(byte[] heap) => OnFreeTrackHeap(heap);
 
+        /// <summary>A headset pose as the OpenXR source would deliver it,
+        /// already in this row's convention.</summary>
+        internal void InjectOpenXrPose(double[] pose)
+            => Publish(pose, HeadTrackerSource.OpenXr, null);
+
         internal void AttachForTest() => _attached = true;
 
         public void Dispose()
@@ -402,6 +446,12 @@ namespace PadForge.Common.Input
             _socket = null;
             try { _freeTrack?.Dispose(); } catch { }
             _freeTrack = null;
+            // The OpenXR source owns native handles, so its stop is a real
+            // wait rather than a courtesy. It is bounded: every native call
+            // in its loop is a locate or an event poll, and neither blocks on
+            // a compositor.
+            try { _openXr?.Dispose(); } catch { }
+            _openXr = null;
         }
 
         private static Guid Md5Guid(string identifier)

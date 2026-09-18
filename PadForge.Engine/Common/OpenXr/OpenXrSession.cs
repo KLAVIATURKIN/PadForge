@@ -1,0 +1,432 @@
+using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using static PadForge.Engine.Common.OpenXr.OpenXrInterop;
+
+namespace PadForge.Engine.Common.OpenXr
+{
+    /// <summary>
+    /// One negotiated runtime, instance, headless session and reference
+    /// space, owned together because they are destroyed in that order
+    /// (issue #403).
+    ///
+    /// <para>Everything here runs on the sampling thread. Nothing is
+    /// thread-safe and nothing needs to be.</para>
+    /// </summary>
+    internal sealed unsafe class OpenXrSession : IDisposable
+    {
+        private IntPtr _module;
+        private ulong _instance;
+        private ulong _session;
+        private ulong _baseSpace;
+        private ulong _viewSpace;
+        private int _sessionState = XR_SESSION_STATE_IDLE;
+        private bool _began;
+        private readonly Action<string> _log;
+
+        private PFN_xrGetInstanceProcAddr _getProc;
+        private PFN_xrDestroyInstance _destroyInstance;
+        private PFN_xrCreateSession _createSession;
+        private PFN_xrDestroySession _destroySession;
+        private PFN_xrBeginSession _beginSession;
+        private PFN_xrEndSession _endSession;
+        private PFN_xrCreateReferenceSpace _createSpace;
+        private PFN_xrDestroySpace _destroySpace;
+        private PFN_xrLocateSpace _locateSpace;
+        private PFN_xrPollEvent _pollEvent;
+
+        public string RuntimeName { get; private set; } = string.Empty;
+
+        private OpenXrSession(Action<string> log) => _log = log ?? (_ => { });
+
+        /// <summary>
+        /// Negotiates with a runtime and brings up a headless session, or
+        /// returns null with the reason. The reason is a state rather than an
+        /// exception because every one of them is an ordinary machine
+        /// configuration, not a fault.
+        /// </summary>
+        public static OpenXrSession TryCreate(string manifestPath, Action<string> log,
+                                              out OpenXrSourceState failure)
+        {
+            failure = OpenXrSourceState.Failed;
+            var session = new OpenXrSession(log);
+            try
+            {
+                var entry = Choose(manifestPath);
+                if (entry == null || !entry.LibraryExists)
+                {
+                    failure = OpenXrSourceState.NoRuntime;
+                    session.Dispose();
+                    return null;
+                }
+
+                if (!session.Negotiate(entry, out failure)) { session.Dispose(); return null; }
+                if (!session.CreateInstance(out failure)) { session.Dispose(); return null; }
+                if (!session.CreateSession(out failure)) { session.Dispose(); return null; }
+                failure = OpenXrSourceState.Running;
+                return session;
+            }
+            catch (Exception ex)
+            {
+                log?.Invoke("OpenXR: session setup failed: " + ex.Message);
+                session.Dispose();
+                failure = OpenXrSourceState.Failed;
+                return null;
+            }
+        }
+
+        private static OpenXrRuntimeEntry Choose(string manifestPath)
+        {
+            if (!string.IsNullOrWhiteSpace(manifestPath))
+            {
+                try
+                {
+                    if (System.IO.File.Exists(manifestPath))
+                        return OpenXrRuntimeCatalog.TryParseManifest(
+                            manifestPath, System.IO.File.ReadAllText(manifestPath));
+                }
+                catch (Exception) { }
+                return null;
+            }
+            foreach (var entry in OpenXrRuntimeCatalog.Discover())
+                if (entry.LibraryExists) return entry;
+            return null;
+        }
+
+        private bool Negotiate(OpenXrRuntimeEntry entry, out OpenXrSourceState failure)
+        {
+            failure = OpenXrSourceState.NoRuntime;
+            if (!NativeLibrary.TryLoad(entry.LibraryPath, out _module)) return false;
+            if (!NativeLibrary.TryGetExport(_module, "xrNegotiateLoaderRuntimeInterface", out var negotiatePtr))
+                return false;
+
+            var negotiate = Marshal.GetDelegateForFunctionPointer<PFN_xrNegotiateLoaderRuntimeInterface>(
+                negotiatePtr);
+
+            var info = new XrNegotiateLoaderInfo
+            {
+                structType = XR_LOADER_INTERFACE_STRUCT_LOADER_INFO,
+                structVersion = 1,
+                structSize = (nuint)sizeof(XrNegotiateLoaderInfo),
+                minInterfaceVersion = XR_CURRENT_LOADER_RUNTIME_VERSION,
+                maxInterfaceVersion = XR_CURRENT_LOADER_RUNTIME_VERSION,
+                minApiVersion = MakeVersion(1, 0, 0),
+                maxApiVersion = MakeVersion(1, 1, 0xFFFFFFFF),
+            };
+            var request = new XrNegotiateRuntimeRequest
+            {
+                structType = XR_LOADER_INTERFACE_STRUCT_RUNTIME_REQUEST,
+                structVersion = 1,
+                structSize = (nuint)sizeof(XrNegotiateRuntimeRequest),
+            };
+
+            int result = negotiate(ref info, ref request);
+            if (result != XR_SUCCESS || request.getInstanceProcAddr == IntPtr.Zero)
+            {
+                _log($"OpenXR: {entry.Name} declined negotiation ({result})");
+                return false;
+            }
+
+            _getProc = Marshal.GetDelegateForFunctionPointer<PFN_xrGetInstanceProcAddr>(
+                request.getInstanceProcAddr);
+            RuntimeName = entry.Name;
+            return true;
+        }
+
+        private T Resolve<T>(string name) where T : Delegate
+        {
+            if (_getProc(_instance, name, out IntPtr fn) != XR_SUCCESS || fn == IntPtr.Zero)
+                return null;
+            return Marshal.GetDelegateForFunctionPointer<T>(fn);
+        }
+
+        private bool CreateInstance(out OpenXrSourceState failure)
+        {
+            failure = OpenXrSourceState.NotSupported;
+
+            var enumerate = Resolve<PFN_xrEnumerateInstanceExtensionProperties>(
+                "xrEnumerateInstanceExtensionProperties");
+            var create = Resolve<PFN_xrCreateInstance>("xrCreateInstance");
+            if (enumerate == null || create == null) return false;
+
+            if (!HasHeadless(enumerate))
+            {
+                _log($"OpenXR: {RuntimeName} does not offer {XR_MND_HEADLESS_EXTENSION_NAME}, " +
+                     "so a background session would need to own the display");
+                return false;
+            }
+
+            IntPtr extName = Marshal.StringToHGlobalAnsi(XR_MND_HEADLESS_EXTENSION_NAME);
+            IntPtr extArray = Marshal.AllocHGlobal(IntPtr.Size);
+            try
+            {
+                Marshal.WriteIntPtr(extArray, 0, extName);
+                var info = new XrInstanceCreateInfo
+                {
+                    type = XR_TYPE_INSTANCE_CREATE_INFO,
+                    enabledExtensionCount = 1,
+                    enabledExtensionNames = extArray,
+                };
+                info.applicationInfo.apiVersion = ApiVersion1_0;
+                WriteFixedUtf8(info.applicationInfo.applicationName, XR_MAX_APPLICATION_NAME_SIZE, "PadForge");
+                WriteFixedUtf8(info.applicationInfo.engineName, XR_MAX_ENGINE_NAME_SIZE, "PadForge");
+
+                int result = create(ref info, out _instance);
+                if (result != XR_SUCCESS)
+                {
+                    _log($"OpenXR: {RuntimeName} refused an instance ({result})");
+                    return false;
+                }
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(extArray);
+                Marshal.FreeHGlobal(extName);
+            }
+
+            _destroyInstance = Resolve<PFN_xrDestroyInstance>("xrDestroyInstance");
+            _createSession = Resolve<PFN_xrCreateSession>("xrCreateSession");
+            _destroySession = Resolve<PFN_xrDestroySession>("xrDestroySession");
+            _beginSession = Resolve<PFN_xrBeginSession>("xrBeginSession");
+            _endSession = Resolve<PFN_xrEndSession>("xrEndSession");
+            _createSpace = Resolve<PFN_xrCreateReferenceSpace>("xrCreateReferenceSpace");
+            _destroySpace = Resolve<PFN_xrDestroySpace>("xrDestroySpace");
+            _locateSpace = Resolve<PFN_xrLocateSpace>("xrLocateSpace");
+            _pollEvent = Resolve<PFN_xrPollEvent>("xrPollEvent");
+
+            ReadRuntimeName();
+            failure = OpenXrSourceState.Running;
+            return _createSession != null && _createSpace != null
+                && _locateSpace != null && _pollEvent != null;
+        }
+
+        private bool HasHeadless(PFN_xrEnumerateInstanceExtensionProperties enumerate)
+        {
+            if (enumerate(null, 0, out uint count, IntPtr.Zero) != XR_SUCCESS || count == 0)
+                return false;
+            int stride = sizeof(XrExtensionProperties);
+            IntPtr buffer = Marshal.AllocHGlobal(stride * (int)count);
+            try
+            {
+                for (uint i = 0; i < count; i++)
+                {
+                    var p = (XrExtensionProperties*)((byte*)buffer + i * stride);
+                    p->type = XR_TYPE_EXTENSION_PROPERTIES;
+                    p->next = IntPtr.Zero;
+                }
+                if (enumerate(null, count, out uint written, buffer) != XR_SUCCESS) return false;
+                for (uint i = 0; i < written; i++)
+                {
+                    var p = (XrExtensionProperties*)((byte*)buffer + i * stride);
+                    if (ReadFixedUtf8(p->extensionName, XR_MAX_EXTENSION_NAME_SIZE)
+                        == XR_MND_HEADLESS_EXTENSION_NAME)
+                        return true;
+                }
+                return false;
+            }
+            finally { Marshal.FreeHGlobal(buffer); }
+        }
+
+        private void ReadRuntimeName()
+        {
+            var get = Resolve<PFN_xrGetInstanceProperties>("xrGetInstanceProperties");
+            if (get == null) return;
+            IntPtr buffer = Marshal.AllocHGlobal(sizeof(XrInstanceProperties));
+            try
+            {
+                var p = (XrInstanceProperties*)buffer;
+                p->type = XR_TYPE_INSTANCE_PROPERTIES;
+                p->next = IntPtr.Zero;
+                if (get(_instance, buffer) != XR_SUCCESS) return;
+                string name = ReadFixedUtf8(p->runtimeName, XR_MAX_RUNTIME_NAME_SIZE);
+                if (!string.IsNullOrWhiteSpace(name)) RuntimeName = name;
+            }
+            finally { Marshal.FreeHGlobal(buffer); }
+        }
+
+        private bool CreateSession(out OpenXrSourceState failure)
+        {
+            failure = OpenXrSourceState.NoHeadset;
+            var getSystem = Resolve<PFN_xrGetSystem>("xrGetSystem");
+            if (getSystem == null) return false;
+
+            var systemInfo = new XrSystemGetInfo
+            {
+                type = XR_TYPE_SYSTEM_GET_INFO,
+                formFactor = XR_FORM_FACTOR_HEAD_MOUNTED_DISPLAY,
+            };
+            if (getSystem(_instance, ref systemInfo, out ulong systemId) != XR_SUCCESS)
+                return false;
+
+            failure = OpenXrSourceState.NotSupported;
+            // No graphics binding in next, which is what makes this headless.
+            var sessionInfo = new XrSessionCreateInfo
+            {
+                type = XR_TYPE_SESSION_CREATE_INFO,
+                systemId = systemId,
+            };
+            int result = _createSession(_instance, ref sessionInfo, out _session);
+            if (result != XR_SUCCESS)
+            {
+                _log($"OpenXR: {RuntimeName} refused a headless session ({result})");
+                return false;
+            }
+
+            _baseSpace = CreateReferenceSpace(XR_REFERENCE_SPACE_TYPE_STAGE);
+            if (_baseSpace == 0) _baseSpace = CreateReferenceSpace(XR_REFERENCE_SPACE_TYPE_LOCAL);
+            _viewSpace = CreateReferenceSpace(XR_REFERENCE_SPACE_TYPE_VIEW);
+            if (_baseSpace == 0 || _viewSpace == 0)
+            {
+                _log("OpenXR: no usable reference space");
+                return false;
+            }
+
+            failure = OpenXrSourceState.Running;
+            return true;
+        }
+
+        private ulong CreateReferenceSpace(int type)
+        {
+            var info = new XrReferenceSpaceCreateInfo
+            {
+                type = XR_TYPE_REFERENCE_SPACE_CREATE_INFO,
+                referenceSpaceType = type,
+            };
+            info.poseInReferenceSpace.orientation.w = 1f;   // identity
+            return _createSpace(_session, ref info, out ulong space) == XR_SUCCESS ? space : 0;
+        }
+
+        /// <summary>Drains the event queue. Returns false when the session is
+        /// gone for good.</summary>
+        public bool PumpEvents(out bool lost, out bool referenceSpaceChanged)
+        {
+            lost = false;
+            referenceSpaceChanged = false;
+            IntPtr buffer = Marshal.AllocHGlobal(sizeof(XrEventDataBuffer));
+            try
+            {
+                while (true)
+                {
+                    var header = (XrEventDataBuffer*)buffer;
+                    header->type = XR_TYPE_EVENT_DATA_BUFFER;
+                    header->next = IntPtr.Zero;
+                    int result = _pollEvent(_instance, buffer);
+                    if (result == XR_EVENT_UNAVAILABLE) return true;
+                    if (result != XR_SUCCESS) { lost = true; return false; }
+
+                    switch (header->type)
+                    {
+                        case XR_TYPE_EVENT_DATA_SESSION_STATE_CHANGED:
+                            var changed = (XrEventDataSessionStateChanged*)buffer;
+                            _sessionState = changed->state;
+                            if (_sessionState == XR_SESSION_STATE_READY && !_began) Begin();
+                            else if (_sessionState == XR_SESSION_STATE_STOPPING) End();
+                            else if (_sessionState == XR_SESSION_STATE_EXITING
+                                     || _sessionState == XR_SESSION_STATE_LOSS_PENDING)
+                            {
+                                lost = true;
+                                return false;
+                            }
+                            break;
+
+                        case XR_TYPE_EVENT_DATA_INSTANCE_LOSS_PENDING:
+                            lost = true;
+                            return false;
+
+                        case XR_TYPE_EVENT_DATA_REFERENCE_SPACE_CHANGE_PENDING:
+                            referenceSpaceChanged = true;
+                            break;
+                    }
+                }
+            }
+            finally { Marshal.FreeHGlobal(buffer); }
+        }
+
+        private void Begin()
+        {
+            if (_beginSession == null) return;
+            var info = new XrSessionBeginInfo
+            {
+                type = XR_TYPE_SESSION_BEGIN_INFO,
+                primaryViewConfigurationType = XR_VIEW_CONFIGURATION_TYPE_PRIMARY_STEREO,
+            };
+            if (_beginSession(_session, ref info) == XR_SUCCESS)
+            {
+                _began = true;
+                _log($"OpenXR: session running on {RuntimeName}");
+            }
+        }
+
+        private void End()
+        {
+            if (_began && _endSession != null) _endSession(_session);
+            _began = false;
+        }
+
+        /// <summary>
+        /// The headset pose in the base space, or false when the runtime says
+        /// it does not have one.
+        ///
+        /// <para>Both validity bits are required. A runtime that has lost
+        /// tracking still returns success and a pose, and using it would pin
+        /// a mapped stick at wherever the user last was.</para>
+        /// </summary>
+        public bool TryLocateHead(out XrVector3f position, out XrQuaternionf orientation)
+        {
+            position = default;
+            orientation = default;
+            if (!_began) return false;
+
+            var location = new XrSpaceLocation { type = XR_TYPE_SPACE_LOCATION };
+            long time = NowXrTime();
+            if (time == 0) return false;
+            if (_locateSpace(_viewSpace, _baseSpace, time, ref location) != XR_SUCCESS) return false;
+
+            const ulong needed = XR_SPACE_LOCATION_ORIENTATION_VALID_BIT
+                               | XR_SPACE_LOCATION_POSITION_VALID_BIT
+                               | XR_SPACE_LOCATION_ORIENTATION_TRACKED_BIT
+                               | XR_SPACE_LOCATION_POSITION_TRACKED_BIT;
+            if ((location.locationFlags & needed) != needed) return false;
+
+            position = location.pose.position;
+            orientation = location.pose.orientation;
+            return true;
+        }
+
+        /// <summary>
+        /// Now, as an XrTime.
+        ///
+        /// <para>A frame-free client has no predicted display time to use, so
+        /// it asks for the present. XrTime is nanoseconds on a runtime-chosen
+        /// clock, and on Windows that clock is the performance counter, which
+        /// is what XR_KHR_win32_convert_performance_counter_time converts.
+        /// Rather than take a dependency on that extension for one value, the
+        /// counter is converted here with the same arithmetic.</para>
+        /// </summary>
+        private static long NowXrTime()
+        {
+            long freq = System.Diagnostics.Stopwatch.Frequency;
+            if (freq <= 0) return 0;
+            long ticks = System.Diagnostics.Stopwatch.GetTimestamp();
+            // Split to keep the nanosecond scaling inside 64 bits.
+            long whole = ticks / freq;
+            long rest = ticks % freq;
+            return whole * 1_000_000_000L + rest * 1_000_000_000L / freq;
+        }
+
+        public void Dispose()
+        {
+            try { End(); } catch (Exception) { }
+            try { if (_viewSpace != 0) _destroySpace?.Invoke(_viewSpace); } catch (Exception) { }
+            try { if (_baseSpace != 0) _destroySpace?.Invoke(_baseSpace); } catch (Exception) { }
+            try { if (_session != 0) _destroySession?.Invoke(_session); } catch (Exception) { }
+            try { if (_instance != 0) _destroyInstance?.Invoke(_instance); } catch (Exception) { }
+            _viewSpace = _baseSpace = _session = _instance = 0;
+            // The module is deliberately left loaded. A runtime that has had
+            // an instance created and destroyed does not always survive being
+            // unloaded and reloaded in the same process, and the handle costs
+            // nothing.
+            _module = IntPtr.Zero;
+        }
+    }
+}

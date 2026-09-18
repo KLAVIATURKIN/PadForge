@@ -21,6 +21,8 @@ namespace PadForge.Common.Input
         private static volatile bool _enabled;
         private static volatile int _udpPort = DefaultUdpPort;
         private static volatile bool _freeTrackEnabled;
+        private static volatile bool _openXrEnabled;
+        private static volatile string _openXrRuntimeManifest = string.Empty;
         private static volatile int _rotationRangeDeg = DefaultRotationRangeDeg;
         private static volatile int _translationRangeCm = DefaultTranslationRangeCm;
         private static volatile int _version;
@@ -37,7 +39,43 @@ namespace PadForge.Common.Input
             }
         }
 
-        public static bool AnyEnabled => _enabled || _freeTrackEnabled;
+        /// <summary>Whether the headset is read through OpenXR (issue #403).
+        ///
+        /// <para>This is the path for a user whose headset runs on Virtual
+        /// Desktop's runtime with no SteamVR at all, which the SteamVR
+        /// consumer cannot serve: it loads its native library out of a
+        /// SteamVR install, so no SteamVR means no head input.</para></summary>
+        public static bool OpenXrEnabled
+        {
+            get => _openXrEnabled;
+            set
+            {
+                if (_openXrEnabled == value) return;
+                _openXrEnabled = value;
+                _version++;
+            }
+        }
+
+        /// <summary>Manifest of the OpenXR runtime to read the headset from,
+        /// or empty for the machine's default.
+        ///
+        /// <para>Naming one matters when a game uses Virtual Desktop's
+        /// runtime while the system default is another, which is the ordinary
+        /// arrangement for someone who also has SteamVR installed. Choosing
+        /// here changes only this process.</para></summary>
+        public static string OpenXrRuntimeManifest
+        {
+            get => _openXrRuntimeManifest ?? string.Empty;
+            set
+            {
+                string v = value ?? string.Empty;
+                if (string.Equals(_openXrRuntimeManifest, v, StringComparison.OrdinalIgnoreCase)) return;
+                _openXrRuntimeManifest = v;
+                if (_openXrEnabled) _version++;
+            }
+        }
+
+        public static bool AnyEnabled => _enabled || _freeTrackEnabled || _openXrEnabled;
 
         /// <summary>UDP port OpenTrack's "UDP over network" output sends to.</summary>
         public static int UdpPort
