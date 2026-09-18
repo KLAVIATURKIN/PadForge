@@ -908,13 +908,54 @@ namespace PadForge.Models3D
                 }
         }
 
+        /// <summary>Colorways whose meshes are a copy of another colorway's.
+        ///
+        /// <para>A colorway is paint. Most of them are the same molded shell
+        /// as a sibling, and shipping each one its own copy of the same 32
+        /// meshes cost 83.6 MB of byte-identical text. Each entry here names
+        /// the colorway that keeps the meshes, and only meshes that were
+        /// verified identical were dropped, so a colorway that really does
+        /// differ still ships its own.</para>
+        ///
+        /// <para>The lookup tries the colorway's own folder first, so a
+        /// colorway listed here that keeps some meshes of its own still uses
+        /// them. That is how Porsche 75th and Pulse Red work: 24 of their 32
+        /// are shared and the other 8 are theirs.</para>
+        ///
+        /// <para>Every target keeps its full mesh set, so a lookup falls back
+        /// once and never chains.</para></summary>
+        private static readonly Dictionary<string, string> SharedGeometry =
+            new(StringComparer.OrdinalIgnoreCase)
+            {
+                ["DS4.MagmaRed"] = "DS4.JetBlack",
+                ["DualSense.GrayCamo"] = "DualSense.CosmicRed",
+                ["DualSense.NovaPink"] = "DualSense.CosmicRed",
+                ["DualSense.DeepEarthSterling"] = "DualSense.DeepEarthCobalt",
+                ["DualSense.DeepEarthVolcanic"] = "DualSense.DeepEarthCobalt",
+                ["XboxSeries.Robot"] = "XboxSeries.Carbon",
+                ["XboxSeries.PulseRed"] = "XboxSeries.Carbon",
+                ["XboxSeries.DeepPink"] = "XboxSeries.ElectricVolt",
+                ["XboxSeries.ShockBlue"] = "XboxSeries.ElectricVolt",
+                ["XboxSeries.VelocityGreen"] = "XboxSeries.ElectricVolt",
+                ["XboxSeries.Porsche75th"] = "XboxSeries.ElectricVolt",
+                ["XboxSeries.DaystrikeCamo"] = "XboxSeries.ElectricVolt",
+            };
+
         protected Model3DGroup TryLoadModel(string filename)
+        {
+            var model = TryLoadModelFrom(_resourceModelName, filename);
+            if (model == null && SharedGeometry.TryGetValue(_resourceModelName, out var shared))
+                model = TryLoadModelFrom(shared, filename);
+            return model;
+        }
+
+        private static Model3DGroup TryLoadModelFrom(string modelName, string filename)
         {
             var assembly = Assembly.GetExecutingAssembly();
             // MSBuild prefixes folder names starting with a digit (e.g. "3DModels" → "_3DModels")
             // but keeps hyphens and other characters as-is in resource names.
             // Search by suffix to avoid needing the exact prefix.
-            string suffix = $".{_resourceModelName}.{filename}";
+            string suffix = $".{modelName}.{filename}";
             string resourceName = null;
 
             foreach (var name in assembly.GetManifestResourceNames())
