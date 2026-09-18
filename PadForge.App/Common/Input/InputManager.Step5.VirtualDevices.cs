@@ -2346,9 +2346,11 @@ namespace PadForge.Common.Input
         // capable PlayStation persona, the only one carrying the speaker,
         // the microphone and the channel 3/4 voice-coil haptics lane, so a
         // DualSense-aware game gets its native features on a new slot with
-        // no configuration. HM v1.4.2 renamed it "DualSense (PS5) - Full",
-        // so the picker's most-capable entry and the default now agree,
-        // which they did not when it read "(composite USB)".
+        // no configuration. HM v1.4.2 renamed it away from "(composite USB)"
+        // so the picker's most-capable entry and the default agree, and
+        // v1.8.1 settled the separator: it reads "DualSense (PS5): Full".
+        // The id is what this constant and every saved profile carry, and
+        // that has never moved, so the rename costs nothing here.
         //
         // One first-run cost this carries that dualshock-4-v2 did not: the
         // first composite create triggers HM's one-time embedded
