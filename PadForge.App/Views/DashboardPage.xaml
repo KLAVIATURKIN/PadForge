@@ -1496,33 +1496,33 @@
                 <TextBlock Text="&#xE774;" Style="{StaticResource SectionGlyph}"/>
                 <TextBlock Text="{Binding Dashboard_WebController, Source={x:Static strings:Strings.Instance}, Converter={StaticResource UpperConverter}}" Style="{StaticResource SectionTitle}"/>
             </StackPanel>
-            
-            <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 8">
-                <TextBlock Text="{Binding Dashboard_WebProtocol, Source={x:Static strings:Strings.Instance}}"
-                           VerticalAlignment="Center" Margin="0,0,8,0"
-                           Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                />
-                <ComboBox Width="200"
-                          AutomationProperties.AutomationId="WebControllerProtocolComboBox"
-                          AutomationProperties.Name="{Binding Dashboard_WebProtocol, Source={x:Static strings:Strings.Instance}}"
-                          SelectedIndex="{Binding WebControllerProtocolIndex, Mode=TwoWay}">
-                    <ComboBoxItem Content="HTTP"/>
-                    <ComboBoxItem Content="HTTPS"/>
-                </ComboBox>
-                <reset:SettingResetButton
-                    Command="{Binding ResetSettingCommand}"
-                    CommandParameter="WebControllerUseHttps"
-                    SettingLabel="{Binding Dashboard_WebProtocol, Source={x:Static strings:Strings.Instance}}"
-                    AutomationProperties.AutomationId="Reset_DashboardViewModel_WebControllerUseHttps"
-                />
-            </StackPanel>
-            <TextBlock Text="{Binding Dashboard_WebProtocolHint, Source={x:Static strings:Strings.Instance}}"
-                       TextWrapping="Wrap" Margin="0,0,0,8"
-                       Foreground="{DynamicResource TextFillColorTertiaryBrush}"
-            />
 
             <Border Style="{StaticResource CardBorder}" Margin="0,0,0,0">
                 <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 8">
+                        <TextBlock Text="{Binding Dashboard_WebProtocol, Source={x:Static strings:Strings.Instance}}"
+                                   VerticalAlignment="Center" Margin="0,0,8,0"
+                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        />
+                        <ComboBox Width="200"
+                                  AutomationProperties.AutomationId="WebControllerProtocolComboBox"
+                                  AutomationProperties.Name="{Binding Dashboard_WebProtocol, Source={x:Static strings:Strings.Instance}}"
+                                  SelectedIndex="{Binding WebControllerProtocolIndex, Mode=TwoWay}">
+                            <ComboBoxItem Content="HTTP"/>
+                            <ComboBoxItem Content="HTTPS"/>
+                        </ComboBox>
+                        <reset:SettingResetButton
+                            Command="{Binding ResetSettingCommand}"
+                            CommandParameter="WebControllerUseHttps"
+                            SettingLabel="{Binding Dashboard_WebProtocol, Source={x:Static strings:Strings.Instance}}"
+                            AutomationProperties.AutomationId="Reset_DashboardViewModel_WebControllerUseHttps"
+                        />
+                    </StackPanel>
+                    <TextBlock Text="{Binding Dashboard_WebProtocolHint, Source={x:Static strings:Strings.Instance}}"
+                               TextWrapping="Wrap" Margin="0,0,0,8"
+                               Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                    />
+                    
                     <TextBlock Text="{Binding Dashboard_WebDescription, Source={x:Static strings:Strings.Instance}}"
                                Style="{StaticResource CardDescription}" Margin="0,0,0,12"/>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
