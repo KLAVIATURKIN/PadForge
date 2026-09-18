@@ -135,8 +135,8 @@
     <!-- Offline voice recognition (#317). The model ships INSIDE the exe.
          It used to download on first use, which made voice macros unusable
          on a machine with no internet and wrote 68 MB into LocalAppData,
-         neither of which was ever asked for. ~39 MB compressed. -->
-    <EmbeddedResource Include="VoiceModels\*.zip" />
+         neither of which was ever asked for. Packed by EmbedPackedArt below,
+         which gets it to 35 MB. -->
   </ItemGroup>
 
   <ItemGroup>
@@ -380,6 +380,25 @@
             }
         };
 
+        // An archive whose members are stored rather than deflated. Same
+        // members, same names, still a zip that ZipArchive reads.
+        Func<string, byte[]> storeMembers = source =>
+        {
+            using (var ms = new MemoryStream())
+            {
+                using (var input = new ZipArchive(File.OpenRead(source), ZipArchiveMode.Read))
+                using (var output = new ZipArchive(ms, ZipArchiveMode.Create, true))
+                    foreach (var entry in input.Entries)
+                    {
+                        var copy = output.CreateEntry(entry.FullName, CompressionLevel.NoCompression);
+                        using (var from = entry.Open())
+                        using (var to = copy.Open())
+                            from.CopyTo(to);
+                    }
+                return ms.ToArray();
+            }
+        };
+
         var results = new List<ITaskItem>();
         int written = 0;
         Directory.CreateDirectory(OutputDir);
@@ -387,17 +406,35 @@
         foreach (var asset in Assets)
         {
             string source = asset.GetMetadata("FullPath");
-            string relative = asset.GetMetadata("RelativeDir").Replace('\\', '.').Replace('/', '.');
-            string name = Path.GetFileNameWithoutExtension(source);
-            bool isImage = Path.GetExtension(source).Equals(".png", StringComparison.OrdinalIgnoreCase);
-            string logical = "PadForge._" + relative + name + (isImage ? ".pngbr" : ".objbr");
+            // MSBuild prefixes a path segment that starts with a digit, which
+            // is why 3DModels becomes _3DModels. The packed name has to match
+            // what an unpacked resource would have been called.
+            var segments = asset.GetMetadata("RelativeDir")
+                                .Replace('/', '\\').Split(new[] { '\\' },
+                                                          StringSplitOptions.RemoveEmptyEntries);
+            var prefix = new StringBuilder("PadForge.");
+            foreach (var segment in segments)
+            {
+                if (segment.Length > 0 && char.IsDigit(segment[0])) prefix.Append('_');
+                prefix.Append(segment).Append('.');
+            }
+
+            string extension = Path.GetExtension(source).ToLowerInvariant();
+            string packedExtension = extension == ".png" ? ".pngbr"
+                                   : extension == ".zip" ? ".zipbr"
+                                   : ".objbr";
+            string logical = prefix.ToString()
+                           + Path.GetFileNameWithoutExtension(source) + packedExtension;
             string target = Path.Combine(OutputDir, logical);
 
             if (!File.Exists(target)
                 || File.GetLastWriteTimeUtc(target) < File.GetLastWriteTimeUtc(source))
             {
-                var body = File.ReadAllBytes(source);
-                if (isImage) body = storePixels(body);
+                byte[] body;
+                if (extension == ".png") body = storePixels(File.ReadAllBytes(source));
+                else if (extension == ".zip") body = storeMembers(source);
+                else body = File.ReadAllBytes(source);
+
                 using (var output = File.Create(target))
                 using (var brotli = (Stream)Activator.CreateInstance(
                            streamType, new object[] { output, smallest, false }))
@@ -423,6 +460,7 @@
     <ItemGroup>
       <ArtSource Include="3DModels\**\*.obj" />
       <ArtSource Include="3DModels\**\*.png" />
+      <ArtSource Include="VoiceModels\*.zip" />
     </ItemGroup>
     <PackAssets Assets="@(ArtSource)" OutputDir="$(IntermediateOutputPath)meshes">
       <Output TaskParameter="Packed" ItemName="CompressedMesh" />

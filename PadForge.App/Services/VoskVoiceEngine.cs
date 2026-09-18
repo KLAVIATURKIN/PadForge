@@ -25,7 +25,7 @@ namespace PadForge.Services
     internal static class VoskModelStore
     {
         private const string ModelName = "vosk-model-small-en-us-0.15";
-        private const string ModelResource = "PadForge.VoiceModels.vosk-model-small-en-us-0.15.zip";
+        private const string ModelResource = "PadForge.VoiceModels.vosk-model-small-en-us-0.15.zipbr";
 
         /// <summary>Where the embedded model is unpacked.
         ///
@@ -111,10 +111,27 @@ namespace PadForge.Services
 
                     string extractTo = Path.Combine(Root, ModelName + ".extract");
                     try { Directory.Delete(extractTo, true); } catch { }
-                    using (var zip = new System.IO.Compression.ZipArchive(
-                        src, System.IO.Compression.ZipArchiveMode.Read))
+
+                    // The model is packed: an archive whose members are stored
+                    // rather than deflated, compressed as a whole, which is
+                    // 4 MB smaller than the archive compressing its own
+                    // members. Unpacking gives the archive back. It goes to a
+                    // file rather than memory because it expands to 68 MB and
+                    // ZipArchive has to seek around it.
+                    string staged = Path.Combine(Root, ModelName + ".zip");
+                    try
                     {
-                        System.IO.Compression.ZipFileExtensions.ExtractToDirectory(zip, extractTo);
+                        using (var packed = new System.IO.Compression.BrotliStream(
+                                   src, System.IO.Compression.CompressionMode.Decompress))
+                        using (var file = File.Create(staged))
+                            packed.CopyTo(file);
+
+                        using (var zip = System.IO.Compression.ZipFile.OpenRead(staged))
+                            System.IO.Compression.ZipFileExtensions.ExtractToDirectory(zip, extractTo);
+                    }
+                    finally
+                    {
+                        try { File.Delete(staged); } catch { }
                     }
                     // The archive carries a single top-level folder named like
                     // the model, the same shape upstream's download had.
