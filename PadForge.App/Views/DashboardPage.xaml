@@ -1499,6 +1499,15 @@
 
             <Border Style="{StaticResource CardBorder}" Margin="0,0,0,0">
                 <StackPanel>
+                    <TextBlock Text="{Binding Dashboard_WebDescription, Source={x:Static strings:Strings.Instance}}"
+                               Style="{StaticResource CardDescription}" Margin="0,0,0,12"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                        <CheckBox VerticalAlignment="Center" AutomationProperties.AutomationId="EnableWebControllerCheckBox"
+                                  Content="{Binding Dashboard_EnableWeb, Source={x:Static strings:Strings.Instance}}"
+                                  Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                  IsChecked="{Binding EnableWebController}"/>
+                        <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="EnableWebController" SettingLabel="{Binding Dashboard_EnableWeb, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_DashboardViewModel_EnableWebController_1488"/>
+                    </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 8">
                         <TextBlock Text="{Binding Dashboard_WebProtocol, Source={x:Static strings:Strings.Instance}}"
                                    VerticalAlignment="Center" Margin="0,0,8,0"
@@ -1522,16 +1531,6 @@
                                TextWrapping="Wrap" Margin="0,0,0,8"
                                Foreground="{DynamicResource TextFillColorTertiaryBrush}"
                     />
-                    
-                    <TextBlock Text="{Binding Dashboard_WebDescription, Source={x:Static strings:Strings.Instance}}"
-                               Style="{StaticResource CardDescription}" Margin="0,0,0,12"/>
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                        <CheckBox VerticalAlignment="Center" AutomationProperties.AutomationId="EnableWebControllerCheckBox"
-                                  Content="{Binding Dashboard_EnableWeb, Source={x:Static strings:Strings.Instance}}"
-                                  Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                  IsChecked="{Binding EnableWebController}"/>
-                        <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="EnableWebController" SettingLabel="{Binding Dashboard_EnableWeb, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_DashboardViewModel_EnableWebController_1488"/>
-                    </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                         <TextBlock Text="{Binding Dashboard_Port, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"
                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
@@ -1545,6 +1544,7 @@
                             <TextBlock Text="&#xE72C;" FontFamily="Segoe MDL2 Assets" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
                         </ui:Button>
                     </StackPanel>
+                    
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
                         <!-- Serving = flame (#175 item 76). Running truth,
                              not the enable checkbox (#175 phase 2 item 2). -->
