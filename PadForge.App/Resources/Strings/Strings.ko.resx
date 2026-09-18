@@ -3608,4 +3608,13 @@
   <data name="ResetLabel_HoldMode" xml:space="preserve"><value>유지 모드</value></data>
   <data name="ResetLabel_PositionX" xml:space="preserve"><value>화면 위치 X</value></data>
   <data name="ResetLabel_PositionY" xml:space="preserve"><value>화면 위치 Y</value></data>
+  <data name="Dashboard_WebProtocol" xml:space="preserve">
+    <value>Protocol</value>
+  </data>
+  <data name="Dashboard_WebProtocolHint" xml:space="preserve">
+    <value>HTTP is default. HTTPS is needed for phone motion sensors.</value>
+  </data>
+  <data name="Server_WebHttpsBindingFailed" xml:space="preserve">
+    <value>Could not prepare HTTPS. Check certification/port binding permissions, or select HTTP explicitly.</value>
+  </data>
 </root>

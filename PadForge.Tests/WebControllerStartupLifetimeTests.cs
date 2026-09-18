@@ -19,21 +19,22 @@ namespace PadForge.Tests
             using var entered = new ManualResetEventSlim();
             using var release = new ManualResetEventSlim();
             int oldListeners = 0;
-            using var old = new WebControllerServer(port =>
+            using var old = new WebControllerServer((port, useHttps) =>
             {
+                Assert.True(useHttps);
                 var lease = pool.Acquire(port);
                 entered.Set();
                 if (!release.Wait(TimeSpan.FromSeconds(5))) { lease.Dispose(); throw new TimeoutException(); }
                 return lease;
             }, () => { oldListeners++; return new Listener(); });
             using var currentListener = new Listener();
-            using var current = new WebControllerServer(pool.Acquire, () => currentListener);
-            var start = Task.Run(() => old.Start(18080));
+            using var current = new WebControllerServer((port, useHttps) => useHttps ? pool.Acquire(port) : null, () => currentListener);
+            var start = Task.Run(() => old.Start(18080, useHttps: true));
             try
             {
                 Assert.True(entered.Wait(TimeSpan.FromSeconds(5)));
                 old.Dispose();
-                Assert.True(current.Start(18080));
+                Assert.True(current.Start(18080, useHttps: true));
             }
             finally { release.Set(); }
             Assert.False(await start.WaitAsync(TimeSpan.FromSeconds(5)));
@@ -72,7 +73,7 @@ namespace PadForge.Tests
             int removed = 0;
             var pool = new WebControllerBindingPool(_ => true, _ => removed++, cleanup.Enqueue);
             using var listener = new Listener();
-            using var server = new WebControllerServer(pool.Acquire, () => listener,
+            using var server = new WebControllerServer((port, useHttps) => useHttps ? pool.Acquire(port) : null, () => listener,
                 _ => throw new InvalidOperationException("thread start"));
             Assert.False(server.Start(18080));
             Assert.False(server.IsRunning);
@@ -85,7 +86,7 @@ namespace PadForge.Tests
         public void ThrowingStatusSubscriberDoesNotRejectASuccessfulStartOrStop()
         {
             using var listener = new Listener();
-            using var server = new WebControllerServer(_ => null, () => listener);
+            using var server = new WebControllerServer((port, useHttps) => null, () => listener);
             int delivered = 0;
             server.StatusChanged += (_, _) => throw new InvalidOperationException("subscriber");
             server.StatusChanged += (_, _) => delivered++;
@@ -105,7 +106,7 @@ namespace PadForge.Tests
             using var current = new Listener();
             Thread oldThread = null;
             int starts = 0;
-            using var server = new WebControllerServer(_ => null,
+            using var server = new WebControllerServer((port, useHttps) => null,
                 () => starts == 0 ? old : current,
                 thread => { if (starts++ == 0) oldThread = thread; thread.Start(); },
                 _ => { });
@@ -137,7 +138,7 @@ namespace PadForge.Tests
             });
             using var current = new Listener();
             int created = 0;
-            using var server = new WebControllerServer(_ => null,
+            using var server = new WebControllerServer((port, useHttps) => null,
                 () => Interlocked.Increment(ref created) == 1 ? old : current);
             var start = Task.Run(() => server.Start(18080));
             try
@@ -159,7 +160,7 @@ namespace PadForge.Tests
             using var first = new Listener();
             using var second = new Listener();
             int created = 0;
-            using var server = new WebControllerServer(_ => null,
+            using var server = new WebControllerServer((port, useHttps) => null,
                 () => ++created == 1 ? first : second);
             int statuses = 0;
             server.StatusChanged += (_, _) => statuses++;
@@ -188,7 +189,7 @@ namespace PadForge.Tests
         public void AStatusKeepsItsOriginGenerationWhenAnEarlierSubscriberStopsTheServer()
         {
             using var listener = new Listener();
-            using var server = new WebControllerServer(_ => null, () => listener);
+            using var server = new WebControllerServer((port, useHttps) => null, () => listener);
             bool stopNext = false;
             var received = new System.Collections.Generic.List<WebControllerServer.Status>();
             server.StatusChanged += (_, _) =>
@@ -246,26 +247,6 @@ namespace PadForge.Tests
         }
 
         [Fact]
-        public void HttpsFallbackSurvivesFailureToCloseTheRejectedListener()
-        {
-            var cleanup = new ConcurrentQueue<Action>();
-            var pool = new WebControllerBindingPool(_ => true, _ => { }, cleanup.Enqueue);
-            using var rejected = new Listener(() => throw new HttpListenerException(),
-                close: () => throw new InvalidOperationException("close"));
-            using var fallback = new Listener();
-            int created = 0;
-            using var server = new WebControllerServer(pool.Acquire, () => ++created == 1 ? rejected : fallback);
-            Assert.True(server.Start(18080));
-            Assert.False(server.IsHttps);
-            Assert.True(server.IsRunning);
-            Assert.Equal(1, rejected.Closes);
-            Assert.Equal(0, fallback.Closes);
-            Drain(cleanup);
-            server.Stop();
-            Assert.Equal(1, fallback.Closes);
-        }
-
-        [Fact]
         public void WebSocketConnectNotificationRemainsInsideTheGenerationCheckedRegistration()
         {
             var root = new System.IO.DirectoryInfo(AppContext.BaseDirectory);
@@ -299,7 +280,14 @@ namespace PadForge.Tests
             public bool IsListening { get; private set; }
             public int Closes;
             public int Reads;
-            public void Start(string prefix) { _start?.Invoke(); IsListening = true; }
+            public string Prefix {  get; private set; }
+
+            public void Start(string prefix)
+            {
+                Prefix = prefix;
+                _start?.Invoke();
+                IsListening = true;
+            }
             public HttpListenerContext GetContext()
             {
                 Interlocked.Increment(ref Reads);

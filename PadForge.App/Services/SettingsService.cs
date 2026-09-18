@@ -2366,7 +2366,12 @@ namespace PadForge.Services
 
             // Load web controller server settings.
             PadForge.Services.WebCustomLayoutStore.LoadFrom(appSettings.WebCustomLayoutsJson);
-            _mainVm.Dashboard.EnableWebController = appSettings.EnableWebController;
+            _mainVm.Dashboard.ApplyWebControllerSettings(
+                appSettings.EnableWebController,
+                appSettings.WebControllerPort > 0 ? appSettings.WebControllerPort : 8080,
+                appSettings.WebControllerUseHttps
+            );
+            
             // The service toggles' GLOBAL legs (three mirrors plus the
             // head tracking enable), the value that stands when the active
             // profile has no opinion. Under the guard, or the
@@ -2388,8 +2393,6 @@ namespace PadForge.Services
                     appSettings.HeadTrackingOpenXrRuntime;
             }
             finally { _applyingServiceToggles = false; }
-            _mainVm.Dashboard.WebControllerPort = appSettings.WebControllerPort > 0
-                ? appSettings.WebControllerPort : 8080;
             _mainVm.Dashboard.EnableRemoteLink = appSettings.EnableRemoteLink;
             _mainVm.Dashboard.AutoReconnect = appSettings.RemoteLinkAutoReconnect;
             _mainVm.Dashboard.RemoteLinkPort = appSettings.RemoteLinkPort >= 1024 && appSettings.RemoteLinkPort <= 65535
@@ -3969,9 +3972,12 @@ namespace PadForge.Services
                 _mainVm.Dashboard.EnableDsuMotionServer = active.EnableDsuMotionServer;
                 if (active.DsuMotionServerPort >= 1024 && active.DsuMotionServerPort <= 65535)
                     _mainVm.Dashboard.DsuMotionServerPort = active.DsuMotionServerPort;
-                _mainVm.Dashboard.EnableWebController = active.EnableWebController;
-                if (active.WebControllerPort >= 1024 && active.WebControllerPort <= 65535)
-                    _mainVm.Dashboard.WebControllerPort = active.WebControllerPort;
+                _mainVm.Dashboard.ApplyWebControllerSettings(
+                    active.EnableWebController,
+                    active.WebControllerPort >= 1024 && active.WebControllerPort <= 65535
+                        ? active.WebControllerPort : _mainVm.Dashboard.WebControllerPort,
+                    active.WebControllerUseHttps
+                );
                 _mainVm.Dashboard.EnableTouchpadOverlay = active.EnableTouchpadOverlay;
                 _mainVm.Dashboard.EnableMenuOverlay = active.EnableMenuOverlay;
                 _mainVm.Dashboard.EnableShiftLayerFlyout = active.EnableShiftLayerFlyout;
@@ -4156,6 +4162,7 @@ namespace PadForge.Services
             profile.DsuMotionServerPort = _mainVm.Dashboard.DsuMotionServerPort;
             profile.EnableWebController = _mainVm.Dashboard.EnableWebController;
             profile.WebControllerPort = _mainVm.Dashboard.WebControllerPort;
+            profile.WebControllerUseHttps = _mainVm.Dashboard.WebControllerUseHttps;
             profile.EnableTouchpadOverlay = _mainVm.Dashboard.EnableTouchpadOverlay;
             profile.EnableMenuOverlay = _mainVm.Dashboard.EnableMenuOverlay;
             profile.EnableShiftLayerFlyout = _mainVm.Dashboard.EnableShiftLayerFlyout;
@@ -4589,6 +4596,7 @@ namespace PadForge.Services
                 HeadTrackingRotationRange = _mainVm.Dashboard.HeadTrackingRotationRange,
                 HeadTrackingTranslationRange = _mainVm.Dashboard.HeadTrackingTranslationRange,
                 WebControllerPort = _mainVm.Dashboard.WebControllerPort,
+                WebControllerUseHttps = _mainVm.Dashboard.WebControllerUseHttps,
                 WebCustomLayoutsJson = PadForge.Services.WebCustomLayoutStore.Json,
                 EnableRemoteLink = _mainVm.Dashboard.EnableRemoteLink,
                 RemoteLinkAutoReconnect = _mainVm.Dashboard.AutoReconnect,
@@ -6362,6 +6370,9 @@ namespace PadForge.Services
         [XmlElement]
         public int WebControllerPort { get; set; } = 8080;
 
+        [XmlElement] 
+        public bool WebControllerUseHttps { get; set; } = false;
+
         /// <summary>Custom web-controller layouts built in the browser (#296
         /// phase 4), as a JSON array. Machine-scoped by design (a custom pad
         /// is this machine's hardware definition, not profile content).</summary>
@@ -7211,6 +7222,10 @@ namespace PadForge.Services
         /// <summary>Web controller server port for this profile.</summary>
         [XmlElement]
         public int WebControllerPort { get; set; } = 8080;
+
+        // <summary>Web controller server https mode for this profile.</summary>
+        [XmlElement] 
+        public bool WebControllerUseHttps { get; set; } = false;
 
         [XmlElement]
         public bool EnableTouchpadOverlay { get; set; }

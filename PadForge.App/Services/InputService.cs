@@ -9463,7 +9463,7 @@ namespace PadForge.Services
                 else
                     StopWebServer();
             }
-            else if (e.PropertyName == nameof(DashboardViewModel.WebControllerPort))
+            else if (e.PropertyName is nameof(DashboardViewModel.WebControllerPort) or nameof(DashboardViewModel.WebControllerUseHttps))
             {
                 if (_mainVm.Dashboard.EnableWebController)
                 {
@@ -9939,6 +9939,7 @@ namespace PadForge.Services
             if (_webServer != null)
                 return; // Already running.
 
+            bool useHttps = _mainVm.Dashboard.WebControllerUseHttps;
             _webServer = new WebControllerServer();
             _webServer.StatusChanged += OnWebServerStatusChanged;
             _webServer.DeviceConnected += device =>
@@ -9964,7 +9965,7 @@ namespace PadForge.Services
             System.Threading.Tasks.Task.Run(() =>
             {
                 bool ok = false;
-                try { ok = launching.Start(port); }
+                try { ok = launching.Start(port, useHttps); }
                 catch { ok = false; }
                 _dispatcher.BeginInvoke(() =>
                 {
@@ -9978,7 +9979,7 @@ namespace PadForge.Services
                     if (ReferenceEquals(_webServer, launching))
                     {
                         _webServer = null;
-                        _mainVm.Dashboard.IsWebControllerRunning = false;
+                        ClearWebControllerEndpoint();
                     }
                 });
             });
@@ -10008,18 +10009,30 @@ namespace PadForge.Services
 
         private void StopWebServer()
         {
-            if (_webServer == null)
-                return;
-
-            _webServer.StatusChanged -= OnWebServerStatusChanged;
-            _webServer.Dispose();
+            var stopping = _webServer;
             _webServer = null;
-            _mainVm.Dashboard.WebControllerStatus = Strings.Instance.Common_Stopped;
+            try
+            {
+                if (stopping != null)
+                {
+                    stopping.StatusChanged -= OnWebServerStatusChanged;
+                    stopping.Dispose();
+                }
+            }
+            finally
+            {
+                _mainVm.Dashboard.WebControllerStatus = Strings.Instance.Common_Stopped;
+                ClearWebControllerEndpoint();
+            }
+        }
+
+        private void ClearWebControllerEndpoint()
+        {
+            _mainVm.Dashboard.IsWebControllerRunning = falsel
             _mainVm.Dashboard.WebControllerClientCount = 0;
-            // Events are detached before Dispose, so no "Stopped" status
-            // flows through the handler; settle the flame here too (#175
-            // phase 2 item 2).
-            _mainVm.Dashboard.IsWebControllerRunning = false;
+            _mainVm.Dashboard.WebControllerUrl = null;
+            _mainVm.Dashboard.WebControllerQr = null;
+            _mainVm.Dashboard.HasWebControllerQr = false;
         }
 
         // ─────────────────────────────────────────────
@@ -16242,6 +16255,7 @@ namespace PadForge.Services
                 DsuMotionServerPort = _mainVm.Dashboard.DsuMotionServerPort,
                 EnableWebController = _mainVm.Dashboard.EnableWebController,
                 WebControllerPort = _mainVm.Dashboard.WebControllerPort,
+                WebControllerUseHttps = _mainVm.Dashboard.WebControllerUseHttps,
                 EnableTouchpadOverlay = _mainVm.Dashboard.EnableTouchpadOverlay,
                 EnableMenuOverlay = _mainVm.Dashboard.EnableMenuOverlay,
                 EnableShiftLayerFlyout = _mainVm.Dashboard.EnableShiftLayerFlyout,
@@ -17213,9 +17227,12 @@ namespace PadForge.Services
                 _mainVm.Dashboard.DsuMotionServerPort = profile.DsuMotionServerPort;
 
             // ── Apply web controller server settings ──
-            _mainVm.Dashboard.EnableWebController = profile.EnableWebController;
-            if (profile.WebControllerPort >= 1024 && profile.WebControllerPort <= 65535)
-                _mainVm.Dashboard.WebControllerPort = profile.WebControllerPort;
+            _mainVm.Dashboard.ApplyWebControllerSettings(
+                profile.EnableWebController,
+                profile.WebControllerPort >= 1024 && profile.WebControllerPort <= 65535
+                    ? profile.WebControllerPort : _mainVm.Dashboard.WebControllerPort,
+                profile.WebControllerUseHttps
+            );
 
             // ── Apply touchpad overlay settings ──
             _mainVm.Dashboard.EnableTouchpadOverlay = profile.EnableTouchpadOverlay;
@@ -17560,6 +17577,7 @@ namespace PadForge.Services
                     profile.DsuMotionServerPort = snapshot.DsuMotionServerPort;
                     profile.EnableWebController = snapshot.EnableWebController;
                     profile.WebControllerPort = snapshot.WebControllerPort;
+                    profile.WebControllerUseHttps = snapshot.WebControllerUseHttps;
                     profile.EnableTouchpadOverlay = snapshot.EnableTouchpadOverlay;
                     profile.EnableMenuOverlay = snapshot.EnableMenuOverlay;
                     profile.EnableShiftLayerFlyout = snapshot.EnableShiftLayerFlyout;
