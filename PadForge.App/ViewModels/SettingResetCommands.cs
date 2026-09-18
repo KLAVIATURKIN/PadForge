@@ -199,6 +199,7 @@ namespace PadForge.ViewModels
         internal static bool CanResetSetting(string name) => name is
             nameof(EnableDsuMotionServer) or
             nameof(EnableWebController) or
+            nameof(WebControllerUseHttps) or
             nameof(EnableRemoteLink) or
             nameof(AutoReconnect) or
             nameof(EnableTouchpadOverlay) or
@@ -217,6 +218,12 @@ namespace PadForge.ViewModels
                 {
                     EnableDsuMotionServer = false;
                     break;
+                }
+                case nameof(WebControllerUseHttps):
+                {
+                    WebControllerUseHttps = false;
+                    OnPropertyChanged(nameof(WebControllerProtocolIndex));
+                    return;
                 }
                 case nameof(EnableWebController):
                 {

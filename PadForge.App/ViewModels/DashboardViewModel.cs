@@ -736,6 +736,41 @@ namespace PadForge.ViewModels
             set => SetProperty(ref _webControllerPort, Math.Clamp(value, 1024, 65535));
         }
 
+        private bool _webControllerUseHttps; // false = HTTP by default
+
+        public bool WebControllerUseHttps
+        {
+            get => _webControllerUseHttps;
+            set
+            {
+                if (SetProperty(ref _webControllerUseHttps, value))
+                    OnPropertyChanged(nameof(WebControllerProtocolIndex));
+            }
+        }
+
+        public int WebControllerProtocolIndex
+        {
+            get =>  _webControllerUseHttps ? 1 : 0;
+            set
+            {
+                if (value is 0 or 1)
+                    WebControllerUseHttps = value == 1;
+            }
+        }
+        
+        // New helper. Invoke on the UI thread with a validated port.
+        internal void ApplyWebControllerSettings(bool enabled, int port, bool useHttps)
+        {
+            port = Math.Clamp(port, 1024, 65535);
+            if (EnableWebController == enabled && WebControllerPort == port && WebControllerUseHttps == useHttps)
+                return;
+
+            EnableWebController = false; // retire the old server before changing its endpoint
+            WebControllerPort = port;
+            WebControllerUseHttps = useHttps;
+            EnableWebController = enabled; // at most one start, with the final configuration
+        }
+
         private RelayCommand _resetWebPortCommand;
         public RelayCommand ResetWebPortCommand =>
             _resetWebPortCommand ??= new RelayCommand(() => WebControllerPort = 8080);

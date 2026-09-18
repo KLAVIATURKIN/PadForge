@@ -1508,6 +1508,29 @@
                                   IsChecked="{Binding EnableWebController}"/>
                         <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="EnableWebController" SettingLabel="{Binding Dashboard_EnableWeb, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_DashboardViewModel_EnableWebController_1488"/>
                     </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 8">
+                        <TextBlock Text="{Binding Dashboard_WebProtocol, Source={x:Static strings:Strings.Instance}}"
+                                   VerticalAlignment="Center" Margin="0,0,8,0"
+                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        />
+                        <ComboBox Width="200"
+                                  AutomationProperties.AutomationId="WebControllerProtocolComboBox"
+                                  AutomationProperties.Name="{Binding Dashboard_WebProtocol, Source={x:Static strings:Strings.Instance}}"
+                                  SelectedIndex="{Binding WebControllerProtocolIndex, Mode=TwoWay}">
+                            <ComboBoxItem Content="HTTP"/>
+                            <ComboBoxItem Content="HTTPS"/>
+                        </ComboBox>
+                        <reset:SettingResetButton
+                            Command="{Binding ResetSettingCommand}"
+                            CommandParameter="WebControllerUseHttps"
+                            SettingLabel="{Binding Dashboard_WebProtocol, Source={x:Static strings:Strings.Instance}}"
+                            AutomationProperties.AutomationId="Reset_DashboardViewModel_WebControllerUseHttps"
+                        />
+                    </StackPanel>
+                    <TextBlock Text="{Binding Dashboard_WebProtocolHint, Source={x:Static strings:Strings.Instance}}"
+                               TextWrapping="Wrap" Margin="0,0,0,8"
+                               Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                    />
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                         <TextBlock Text="{Binding Dashboard_Port, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"
                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
@@ -1517,6 +1540,7 @@
                                       SpinButtonPlacementMode="Inline" Width="200"/>
                         <reset:SettingResetButton Command="{Binding ResetWebPortCommand}" SettingLabel="{Binding Dashboard_WebControllerPort, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"/>
                     </StackPanel>
+                    
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
                         <!-- Serving = flame (#175 item 76). Running truth,
                              not the enable checkbox (#175 phase 2 item 2). -->

@@ -3665,4 +3665,13 @@ Puedes volver a intentarlo más tarde desde Configuración.</value></data>
   <data name="ResetLabel_HoldMode" xml:space="preserve"><value>Modo de mantenimiento</value></data>
   <data name="ResetLabel_PositionX" xml:space="preserve"><value>Posición en pantalla X</value></data>
   <data name="ResetLabel_PositionY" xml:space="preserve"><value>Posición en pantalla Y</value></data>
+  <data name="Dashboard_WebProtocol" xml:space="preserve">
+    <value>Protocol</value>
+  </data>
+  <data name="Dashboard_WebProtocolHint" xml:space="preserve">
+    <value>HTTP is default. HTTPS is needed for phone motion sensors.</value>
+  </data>
+  <data name="Server_WebHttpsBindingFailed" xml:space="preserve">
+    <value>Could not prepare HTTPS. Check certification/port binding permissions, or select HTTP explicitly.</value>
+  </data>
 </root>

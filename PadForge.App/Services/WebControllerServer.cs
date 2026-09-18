@@ -32,7 +32,7 @@ namespace PadForge.Services
 
         private IWebControllerListener _listener;
         private readonly object _lifecycleLock = new();
-        private readonly Func<int, IDisposable> _prepareEndpoint;
+        private readonly Func<int, bool, IDisposable> _prepareEndpoint;
         private readonly Func<IWebControllerListener> _createListener;
         private readonly Action<Thread> _startThread;
         private readonly Action<Thread> _joinThread;
@@ -44,8 +44,10 @@ namespace PadForge.Services
 
         public WebControllerServer() : this(null, null) { }
 
-        internal WebControllerServer(Func<int, IDisposable> prepareEndpoint,
-            Func<IWebControllerListener> createListener, Action<Thread> startThread = null,
+        internal WebControllerServer(
+            Func<int, bool, IDisposable> prepareEndpoint,
+            Func<IWebControllerListener> createListener,
+            Action<Thread> startThread = null,
             Action<Thread> joinThread = null)
         {
             _prepareEndpoint = prepareEndpoint ?? PrepareEndpoint;
@@ -122,7 +124,9 @@ namespace PadForge.Services
         public int ClientCount => _clients.Count;
 
         /// <summary>The URL the server is listening on.</summary>
-        public string Url => _localIp != null ? $"{(_https ? "https" : "http")}://{_localIp}:{_port}" : null;
+        public string Url => _running && _localIp != null
+            ? $"{(_https ? "https" : "http")}://{_localIp}:{_port}/"
+            : null;
 
         /// <summary>True when serving HTTPS (a secure context, required for the
         /// phone motion sensors, #296 phase 0).</summary>
@@ -132,7 +136,7 @@ namespace PadForge.Services
         //  Lifecycle
         // ─────────────────────────────────────────────
 
-        private IDisposable PrepareEndpoint(int port)
+        private IDisposable PrepareEndpoint(int port, bool useHttps)
         {
             if (_imageCache == null)
             {
@@ -142,10 +146,10 @@ namespace PadForge.Services
                     _imageCache = LoadImageCache();
             }
             Task.Run(() => EnsureFirewallRule(port));
-            return WebControllerTls.AcquireBinding(port);
+            return useHttps ? WebControllerTls.AcquireBinding(port) : null;
         }
 
-        public bool Start(int port = DefaultPort)
+        public bool Start(int port = DefaultPort, bool useHttps = false)
         {
             long generation;
             lock (_lifecycleLock)
@@ -163,23 +167,21 @@ namespace PadForge.Services
             try
             {
                 // Preparation can wait on the UI dispatcher. It holds no lifecycle lock.
-                pendingBinding = _prepareEndpoint(port);
-                bool https = pendingBinding != null;
+                pendingBinding = _prepareEndpoint(port, useHttps);
+                if (useHttps && pendingBinding == null)
+                {
+                    RaiseStatus(generation, Strings.Instance.Server_WebHttpsBindingFailed);
+                    return false;
+                }
+
+                bool https = useHttps;
                 string localIp = GetLocalIpAddress();
                 lock (_lifecycleLock)
-                    if (_disposed || generation != _startGeneration) return false;
+                    if (_disposed || generation != _startGeneration) 
+                        return false;
 
                 pending = _createListener();
-                try { pending.Start($"{(https ? "https" : "http")}://+:{port}/"); }
-                catch when (https)
-                {
-                    try { pending.Close(); } catch { }
-                    pendingBinding.Dispose();
-                    pendingBinding = null;
-                    https = false;
-                    pending = _createListener();
-                    pending.Start($"http://+:{port}/");
-                }
+                pending.Start($"{(https ? "https" : "http")}://+:{port}/");
 
                 pendingLifetime = new CancellationTokenSource();
                 var ownedListener = pending;

@@ -3470,4 +3470,7 @@ public class Strings : INotifyPropertyChanged
     public string ResetLabel_HoldMode => Get("ResetLabel_HoldMode");
     public string ResetLabel_PositionX => Get("ResetLabel_PositionX");
     public string ResetLabel_PositionY => Get("ResetLabel_PositionY");
+    public string Dashboard_WebProtocol => Get("Dashboard_WebProtocol");
+    public string Dashboard_WebProtocolHint => Get("Dashboard_WebProtocolHint");
+    public string Server_WebHttpsBindingFailed => Get("Server_WebHttpsBindingFailed");
 }

@@ -659,6 +659,7 @@ namespace PadForge
                      or nameof(DashboardViewModel.EnableLightsyncLightbar)
                      or nameof(DashboardViewModel.EnableSensaHaptics)
                      or nameof(DashboardViewModel.WebControllerPort)
+                     or nameof(DashboardViewModel.WebControllerUseHttps)
                      or nameof(DashboardViewModel.EnableRemoteLink)
                      or nameof(DashboardViewModel.AutoReconnect)
                      or nameof(DashboardViewModel.RemoteLinkPort)
