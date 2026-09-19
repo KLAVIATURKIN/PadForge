@@ -32,6 +32,8 @@ namespace PadForge.Common
             InputDeviceType.HandheldButtons => "\uE7F8", // DeviceLaptopNoPic (the machine itself, #343)
             InputDeviceType.SystemMotion => "\uE7F8",    // same machine, its sensor row
             InputDeviceType.HeadTracker => "\uE77B",     // Contact, a head (#355; verified in live segmdl2.ttf)
+            InputDeviceType.VrController => "\uF119",    // VR controller, the icon the slot art already uses (#403)
+            InputDeviceType.LogitechGKeys => "\uE765",   // KeyboardClassic: G-keys are keyboard keys (#454)
             _ => "\uE7FC"                                // Game
         };
     }

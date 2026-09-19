@@ -2384,6 +2384,7 @@ namespace PadForge.Services
                     ? appSettings.HeadTrackingFreeTrack
                     : appSettings.HeadTrackingEnabled && appSettings.HeadTrackingFreeTrack;
                 _mainVm.Dashboard.HeadTrackingOpenXr = appSettings.HeadTrackingOpenXr;
+                _mainVm.Dashboard.GKeysEnabled = appSettings.GKeysEnabled;
                 var savedRanges = appSettings.HeadTrackingAxisRanges;
                 for (int axis = 0; axis < 6; axis++)
                     PadForge.Common.Input.HeadTrackingRuntime.SetAxisRange(
@@ -4589,6 +4590,7 @@ namespace PadForge.Services
                 HeadTrackingUdpPort = _mainVm.Dashboard.HeadTrackingUdpPort,
                 HeadTrackingFreeTrack = _mainVm.Dashboard.HeadTrackingFreeTrack,
                 HeadTrackingOpenXr = _mainVm.Dashboard.HeadTrackingOpenXr,
+                GKeysEnabled = _mainVm.Dashboard.GKeysEnabled,
                 HeadTrackingAxisRanges = new[]
                 {
                     PadForge.Common.Input.HeadTrackingRuntime.GetAxisRangeOverride(0),
@@ -6106,6 +6108,12 @@ namespace PadForge.Services
         /// has not asked for it should pay for.</summary>
         [XmlElement]
         public bool HeadTrackingOpenXr { get; set; }
+
+        /// <summary>Logitech G-keys through the G-key SDK (issue #454). Off by
+        /// default: it loads a third-party library and opens a session with
+        /// the Logitech software.</summary>
+        [XmlElement]
+        public bool GKeysEnabled { get; set; }
 
         /// <summary>Per-axis ranges in HeadPose's order (yaw, pitch, roll, X,
         /// Y, Z). Zero means the axis follows its family's shared range, which

@@ -290,6 +290,8 @@ namespace PadForge.ViewModels
             "HandheldButtons" => Strings.Instance.DeviceType_HandheldButtons,
             "SystemMotion" => Strings.Instance.DeviceType_SystemMotion,
             "HeadTracker" => Strings.Instance.DeviceType_HeadTracker,
+            "VrController" => Strings.Instance.DeviceType_VrController,
+            "LogitechGKeys" => Strings.Instance.DeviceType_LogitechGKeys,
             _ => Strings.Instance.DeviceType_Device
         };
 

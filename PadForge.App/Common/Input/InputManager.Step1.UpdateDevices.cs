@@ -437,6 +437,7 @@ namespace PadForge.Common.Input
 
             // --- Phase 1i: head tracker, OpenTrack UDP + FreeTrack (issue #355) ---
             changed |= UpdateHeadTrackerDevice();
+            changed |= UpdateLogitechGKeysDevice();
 
             // --- Phase 2: Detect disconnected SDL devices (debounced) ---
             //
@@ -1479,6 +1480,18 @@ namespace PadForge.Common.Input
         private volatile HeadTrackerDevice _headTrackerDevice;
         private readonly object _headTrackerLock = new object();
         private volatile bool _headTrackerInputsSuppressed;
+
+        // Logitech G-keys (issue #454). The row opens without blocking I/O
+        // beyond a registry read and a library load, so the poll thread runs
+        // the whole lifecycle itself, the head tracker's shape.
+        private volatile LogitechGKeysDevice _logitechGKeysDevice;
+        private readonly object _logitechGKeysLock = new object();
+        private volatile bool _logitechGKeysInputsSuppressed;
+        private int _logitechGKeysVersion;
+
+        /// <summary>The live G-Keys row, null while the feature is off. Read
+        /// by the Dashboard status lane.</summary>
+        internal LogitechGKeysDevice LogitechGKeys => _logitechGKeysDevice;
 
         /// <summary>The live Head Tracker row, null while the feature is off
         /// or the row is retired. Read by the Dashboard status lane
@@ -2639,6 +2652,91 @@ namespace PadForge.Common.Input
             lock (_headTrackerLock)
             {
                 RetireHeadTrackerRow();
+            }
+        }
+
+        /// <summary>Phase 1j (issue #454). One row while the feature is on,
+        /// recreated when the user removes it from the Devices page (the NFC
+        /// recreate pattern). Off with nothing to retire: two volatile reads
+        /// and out.
+        ///
+        /// <para>The row opens even when the SDK is absent, so the Devices
+        /// list can carry the reason. A row that vanishes tells a user nothing
+        /// about why their G-keys are quiet.</para></summary>
+        private bool UpdateLogitechGKeysDevice()
+        {
+            if (_logitechGKeysInputsSuppressed)
+                return false;
+
+            bool enabled = LogitechGKeysRuntime.Enabled;
+            if (!enabled && _logitechGKeysDevice == null)
+                return false;
+
+            bool changed = false;
+            lock (_logitechGKeysLock)
+            {
+                if (_logitechGKeysInputsSuppressed)
+                    return false;
+
+                var dev = _logitechGKeysDevice;
+                if (dev != null)
+                {
+                    bool removedByUser = FindOnlineDeviceByInstanceGuid(dev.InstanceGuid) == null;
+                    bool reconfigured = _logitechGKeysVersion != LogitechGKeysRuntime.Version;
+                    if (!enabled || removedByUser || reconfigured)
+                    {
+                        RetireLogitechGKeysRow();
+                        MarkChanged(ref changed, "gkeys", !enabled ? "- (feature off)" : removedByUser ? "- (removed by user)" : "- (reconfigured)");
+                    }
+                }
+
+                if (enabled && _logitechGKeysDevice == null)
+                {
+                    try
+                    {
+                        var created = new LogitechGKeysDevice();
+                        if (created.Open())
+                        {
+                            UserDevice ud = FindOrCreateUserDevice(created.InstanceGuid, created.ProductGuid);
+                            ud.LoadFromExternalDevice(created);
+                            ud.IsOnline = true;
+                            _logitechGKeysDevice = created;
+                            _logitechGKeysVersion = LogitechGKeysRuntime.Version;
+                            MarkChanged(ref changed, "gkeys", "+ " + created.SourceState);
+                        }
+                        else created.Dispose();
+                    }
+                    catch (Exception ex)
+                    {
+                        RaiseError("Error opening Logitech G-Keys device", ex);
+                    }
+                }
+            }
+            return changed;
+        }
+
+        // Caller holds _logitechGKeysLock.
+        private void RetireLogitechGKeysRow()
+        {
+            var dev = _logitechGKeysDevice;
+            if (dev == null) return;
+            var ud = FindOnlineDeviceByInstanceGuid(dev.InstanceGuid);
+            if (ud != null)
+            {
+                ud.IsOnline = false;
+                ud.Device = null;
+                NeutralizeMappedOutputsFor(ud);
+            }
+            dev.Dispose();
+            _logitechGKeysDevice = null;
+        }
+
+        public void ShutdownLogitechGKeysInputs()
+        {
+            _logitechGKeysInputsSuppressed = true;
+            lock (_logitechGKeysLock)
+            {
+                RetireLogitechGKeysRow();
             }
         }
 

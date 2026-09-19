@@ -3593,6 +3593,7 @@ namespace PadForge.Common.Input
             ShutdownHeadsetMotionInputs();
             ShutdownHandheldInputs();
             ShutdownHeadTrackerInputs();
+            ShutdownLogitechGKeysInputs();
             ShutdownSdl();
             _gyroTiltStates.Clear();
             _disposed = true;

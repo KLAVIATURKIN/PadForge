@@ -252,6 +252,18 @@
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Porta do Servidor de Movimento</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Fornece dados de giroscópio e acelerômetro para Cemu, Dolphin, Yuzu, etc.</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Funciona com o OpenTrack e com qualquer rastreador que envie sua saída UDP ou grave na memória compartilhada do FreeTrack 2.0.</value></data>
+  <data name="Dashboard_GKeys" xml:space="preserve"><value>Teclas G da Logitech</value></data>
+  <data name="Dashboard_GKeysDesc" xml:space="preserve"><value>Lê as teclas G e os botões extras do mouse dos dispositivos Logitech, para mapeá-las aqui sem antes programá-las em outra tecla.</value></data>
+  <data name="Dashboard_GKeysEnable" xml:space="preserve"><value>Ativar as Teclas G da Logitech</value></data>
+  <data name="Dashboard_GKeysEnable_Tooltip" xml:space="preserve"><value>Lê as teclas G pelo SDK G-key da Logitech. Exige o Logitech Gaming Software 8.55 ou posterior em execução.</value></data>
+  <data name="Dashboard_GKeysFooter" xml:space="preserve"><value>O Logitech Gaming Software precisa estar em execução e o perfil do PadForge definido como Persistente ou Padrão, ou as teclas só funcionam enquanto o PadForge for a janela ativa.</value></data>
+  <data name="Dashboard_GKeysStatus_NoSdk" xml:space="preserve"><value>Nenhum SDK G-key da Logitech neste PC. Ele é instalado com o Logitech Gaming Software 8.55 ou posterior.</value></data>
+  <data name="Dashboard_GKeysStatus_PathStale" xml:space="preserve"><value>O SDK G-key está registrado, mas o arquivo sumiu. Reinstale o Logitech Gaming Software.</value></data>
+  <data name="Dashboard_GKeysStatus_LoadFailed" xml:space="preserve"><value>SDK G-key encontrado e não foi possível carregá-lo.</value></data>
+  <data name="Dashboard_GKeysStatus_WrongLibrary" xml:space="preserve"><value>Essa biblioteca não é o SDK G-key esperado.</value></data>
+  <data name="Dashboard_GKeysStatus_InitRefused" xml:space="preserve"><value>O SDK G-key não iniciou. Normalmente o Logitech Gaming Software não está em execução.</value></data>
+  <data name="Dashboard_GKeysStatus_NoKeysYet" xml:space="preserve"><value>Conectado, nenhuma tecla vista ainda. Defina o perfil do PadForge como Persistente no Logitech Gaming Software.</value></data>
+  <data name="Dashboard_GKeysStatus_Running_Format" xml:space="preserve"><value>Em execução, {0} eventos de tecla</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Controle Web</value></data>
   <data name="Dashboard_WebDescription" xml:space="preserve"><value>Sirva uma interface de gamepad para navegadores na sua rede local.</value></data>
   <data name="Dashboard_EnableWeb" xml:space="preserve"><value>Ativar Servidor de Controle Web</value></data>
@@ -2371,6 +2383,8 @@
   <data name="DeviceType_HandheldButtons" xml:space="preserve"><value>Botões de Portátil</value></data>
   <data name="DeviceType_SystemMotion" xml:space="preserve"><value>Movimento do Sistema</value></data>
   <data name="DeviceType_HeadTracker" xml:space="preserve"><value>Rastreador de Cabeça</value></data>
+  <data name="DeviceType_VrController" xml:space="preserve"><value>Controle de RV</value></data>
+  <data name="DeviceType_LogitechGKeys" xml:space="preserve"><value>Teclas G da Logitech</value></data>
   <data name="HeadTracker_Yaw" xml:space="preserve"><value>Guinada da Cabeça</value></data>
   <data name="HeadTracker_Pitch" xml:space="preserve"><value>Inclinação da Cabeça</value></data>
   <data name="HeadTracker_Roll" xml:space="preserve"><value>Rolagem da Cabeça</value></data>

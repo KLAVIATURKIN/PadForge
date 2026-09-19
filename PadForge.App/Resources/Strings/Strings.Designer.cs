@@ -371,6 +371,18 @@ public class Strings : INotifyPropertyChanged
     public string Dashboard_MotionServerPort => Get("Dashboard_MotionServerPort");
     public string Dashboard_DsuFooter => Get("Dashboard_DsuFooter");
     public string Dashboard_HeadTrackingFooter => Get("Dashboard_HeadTrackingFooter");
+    public string Dashboard_GKeys => Get("Dashboard_GKeys");
+    public string Dashboard_GKeysDesc => Get("Dashboard_GKeysDesc");
+    public string Dashboard_GKeysEnable => Get("Dashboard_GKeysEnable");
+    public string Dashboard_GKeysEnable_Tooltip => Get("Dashboard_GKeysEnable_Tooltip");
+    public string Dashboard_GKeysFooter => Get("Dashboard_GKeysFooter");
+    public string Dashboard_GKeysStatus_NoSdk => Get("Dashboard_GKeysStatus_NoSdk");
+    public string Dashboard_GKeysStatus_PathStale => Get("Dashboard_GKeysStatus_PathStale");
+    public string Dashboard_GKeysStatus_LoadFailed => Get("Dashboard_GKeysStatus_LoadFailed");
+    public string Dashboard_GKeysStatus_WrongLibrary => Get("Dashboard_GKeysStatus_WrongLibrary");
+    public string Dashboard_GKeysStatus_InitRefused => Get("Dashboard_GKeysStatus_InitRefused");
+    public string Dashboard_GKeysStatus_NoKeysYet => Get("Dashboard_GKeysStatus_NoKeysYet");
+    public string Dashboard_GKeysStatus_Running_Format => Get("Dashboard_GKeysStatus_Running_Format");
     public string Dashboard_WebController => Get("Dashboard_WebController");
     public string Dashboard_WebDescription => Get("Dashboard_WebDescription");
     public string Dashboard_EnableWeb => Get("Dashboard_EnableWeb");
@@ -2637,6 +2649,8 @@ public class Strings : INotifyPropertyChanged
     public string DeviceType_HandheldButtons => Get("DeviceType_HandheldButtons");
     public string DeviceType_SystemMotion => Get("DeviceType_SystemMotion");
     public string DeviceType_HeadTracker => Get("DeviceType_HeadTracker");
+    public string DeviceType_VrController => Get("DeviceType_VrController");
+    public string DeviceType_LogitechGKeys => Get("DeviceType_LogitechGKeys");
     public string HeadTracker_Yaw => Get("HeadTracker_Yaw");
     public string HeadTracker_Pitch => Get("HeadTracker_Pitch");
     public string HeadTracker_Roll => Get("HeadTracker_Roll");

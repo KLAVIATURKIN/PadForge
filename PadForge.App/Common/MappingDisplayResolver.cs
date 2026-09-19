@@ -2072,6 +2072,12 @@ namespace PadForge.Common
              // Head tracker axes are named (Head Yaw, Head Pitch, ...),
              // not "Axis N" (#355).
              ud.CapType != InputDeviceType.HeadTracker &&
+             // A VR controller's controls are named (Trigger, Thumbstick X,
+             // Menu Button), not "Button 0" (#403).
+             ud.CapType != InputDeviceType.VrController &&
+             // G-keys carry the Logitech software's own names, and the
+             // fallback still says which key in which mode (#454).
+             ud.CapType != InputDeviceType.LogitechGKeys &&
              ud.CapType != InputDeviceType.Tablet);
 
         /// <summary>Surfaces touchpad gesture descriptors in the input

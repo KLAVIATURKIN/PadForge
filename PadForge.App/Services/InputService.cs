@@ -3496,6 +3496,8 @@ namespace PadForge.Services
             // Head tracking card (#355): the Devices row's source line, on
             // the dashboard cadence. Two volatile reads when nothing moved.
             UpdateHeadTrackingStatus();
+            // G-Keys card (#454): same cadence, same shape.
+            UpdateGKeysStatus();
 
             // Snapshot devices under lock to avoid cross-thread collection-modified
             // exceptions when the engine's UpdateDevices runs concurrently.
@@ -5044,6 +5046,51 @@ namespace PadForge.Services
             _headTrackingStatusDevice = ht;
             _headTrackingStatusVersion = version;
             dash.HeadTrackingStatus = BuildHeadTrackerStatus(ht);
+        }
+
+        private string _gKeysStatusLast;
+
+        /// <summary>
+        /// The G-Keys card's source line (issue #454).
+        ///
+        /// <para>Four cases a user can act on, so a quiet G-key is never a
+        /// mystery: no SDK on the machine, the SDK is there but the Logitech
+        /// software is not running, running and hearing keys, or running and
+        /// hearing none. The last one is the persistent-profile trap, which is
+        /// why the count is in the line at all.</para>
+        /// </summary>
+        private void UpdateGKeysStatus()
+        {
+            var dash = _mainVm.Dashboard;
+            var im = _inputManager;
+            var row = im != null && im.IsRunning && dash.GKeysEnabled ? im.LogitechGKeys : null;
+
+            var s = Strings.Instance;
+            string status;
+            if (row == null) status = s.Common_Stopped;
+            else
+                status = row.SourceState switch
+                {
+                    PadForge.Engine.Common.Logitech.LogitechGKeyState.NoSdk => s.Dashboard_GKeysStatus_NoSdk,
+                    PadForge.Engine.Common.Logitech.LogitechGKeyState.SdkPathStale => s.Dashboard_GKeysStatus_PathStale,
+                    PadForge.Engine.Common.Logitech.LogitechGKeyState.LoadFailed => s.Dashboard_GKeysStatus_LoadFailed,
+                    PadForge.Engine.Common.Logitech.LogitechGKeyState.MissingExports => s.Dashboard_GKeysStatus_WrongLibrary,
+                    PadForge.Engine.Common.Logitech.LogitechGKeyState.InitRefused => s.Dashboard_GKeysStatus_InitRefused,
+                    // Connected and silent is the persistent-profile trap, so
+                    // it gets its own line instead of a count of zero.
+                    PadForge.Engine.Common.Logitech.LogitechGKeyState.Running when row.EventCount == 0 =>
+                        s.Dashboard_GKeysStatus_NoKeysYet,
+                    PadForge.Engine.Common.Logitech.LogitechGKeyState.Running =>
+                        string.Format(System.Globalization.CultureInfo.CurrentCulture,
+                                      s.Dashboard_GKeysStatus_Running_Format, row.EventCount),
+                    _ => s.Common_Stopped,
+                };
+
+            // The event count moves on every press, so the line is rebuilt
+            // only when the text actually changed.
+            if (string.Equals(_gKeysStatusLast, status, StringComparison.Ordinal)) return;
+            _gKeysStatusLast = status;
+            dash.GKeysStatus = status;
         }
 
         private void UpdateDevicesRawState()
@@ -10993,7 +11040,11 @@ namespace PadForge.Services
                             // from THIS machine's learned set.
                             if (devType == InputDeviceType.ConsumerControl || devType == InputDeviceType.Nfc
                                 || devType == InputDeviceType.Microphone || devType == InputDeviceType.HandheldButtons
-                                || devType == InputDeviceType.HeadTracker || devType == InputDeviceType.Tablet)
+                                || devType == InputDeviceType.HeadTracker || devType == InputDeviceType.Tablet
+                                // VR controller controls and G-keys are named too, and a
+                                // G-key's name comes from THIS machine's Logitech software.
+                                || devType == InputDeviceType.VrController
+                                || devType == InputDeviceType.LogitechGKeys)
                                 try { objects = dev.GetDeviceObjects(); } catch { }
                             var info = new RemotePeerDeviceInfo
                             {
@@ -13406,6 +13457,8 @@ namespace PadForge.Services
                 InputDeviceType.HandheldButtons => "HandheldButtons",
                 InputDeviceType.SystemMotion => "SystemMotion",
                 InputDeviceType.HeadTracker => "HeadTracker",
+                InputDeviceType.VrController => "VrController",
+                InputDeviceType.LogitechGKeys => "LogitechGKeys",
                 _ => "Device"
             };
             // Vendor daemon notice (#343): the sweep scans on its cadence;

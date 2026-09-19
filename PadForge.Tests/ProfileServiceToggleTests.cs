@@ -400,7 +400,15 @@ namespace PadForge.Tests
             int head = page.IndexOf("Binding Dashboard_HeadTracking,", StringComparison.Ordinal);
             int motion = page.IndexOf("Binding Dashboard_MotionServer,", StringComparison.Ordinal);
             Assert.True(remote > 0 && head > remote && motion > head, "Head Tracking sits between Remote Link and the Motion Server");
-            string card = page.Substring(head, motion - head);
+            // The card runs to the NEXT section, whichever that is, not to the
+            // Motion Server by name. The claim being guarded is that head
+            // tracking is ONE card, and a section added in between (G-Keys,
+            // #454) must not read as head tracking having grown a second one.
+            int nextSection = page.IndexOf("Style=\"{StaticResource SectionTitle}\"", head, StringComparison.Ordinal);
+            nextSection = page.IndexOf("Style=\"{StaticResource SectionTitle}\"", nextSection + 1, StringComparison.Ordinal);
+            Assert.True(nextSection > head && nextSection <= motion + 400,
+                        "no section header found after Head Tracking");
+            string card = page.Substring(head, nextSection - head);
             foreach (var needle in new[]
             {
                 "Binding Dashboard_HeadTrackingDesc,", "Binding Dashboard_HeadTrackingEnable,", "Binding HeadTrackingEnabled",
