@@ -1090,15 +1090,68 @@ function Tab {
     $padPage = Find-UIA -Aid "PadPageView"
     $searchIn = if ($padPage) { $padPage } else { $script:uiaWin }
     $el = Find-UIA -Parent $searchIn -Name $Name -CT ([System.Windows.Automation.ControlType]::RadioButton)
-    if (-not $el) {
+    # One 500 ms retry was not enough. A slot card click opens the Pad page
+    # and the tab strip lands a beat later, so menu-macro-cell and
+    # menu-icon-packs failed every run on "Tab 'Menus' not found" while the
+    # strip plainly carries Menus. Recipes that happen to do other work
+    # between the card click and the tab (selecting a mapped device, say)
+    # were passing only because that work spent the time.
+    for ($ti = 0; (-not $el) -and $ti -lt 8; $ti++) {
         Start-Sleep -Milliseconds 500
         $padPage = Find-UIA -Aid "PadPageView"
         $searchIn = if ($padPage) { $padPage } else { $script:uiaWin }
         $el = Find-UIA -Parent $searchIn -Name $Name -CT ([System.Windows.Automation.ControlType]::RadioButton)
     }
-    if (-not $el) { $el = Find-UIA -Name $Name }
-    if ($el) { return (Click-El $el -Label "Tab:$Name") }
-    Write-Host "  !! Tab '$Name' not found" -ForegroundColor Yellow
+    if (-not $el) { $el = Find-UIARetry -Name $Name -Retries 4 -DelayMs 500 }
+    if ($el) {
+        $clicked = Click-El $el -Label "Tab:$Name"
+        # A rect click on a tab can land and do nothing, the same way the
+        # SteamVR Install button did. The Gyro device tab was the case that
+        # proved it: the strip carried Gyro, the Wii Remote was the selected
+        # device, the click reported success at the tab's own center, and the
+        # content pane stayed on Preview through 3.6 s of retries. Confirm the
+        # selection took and drive the pattern when it did not.
+        try {
+            $sip = $el.GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern)
+            if (-not $sip.Current.IsSelected) {
+                Write-Host "  .. Tab:$Name did not select on click, using SelectionItemPattern" -ForegroundColor DarkGray
+                $sip.Select()
+                Start-Sleep -Milliseconds 600
+                $clicked = $sip.Current.IsSelected
+            }
+        } catch { }
+        return $clicked
+    }
+    # Name what the strip DOES carry. "Tab X not found" on its own sent two
+    # shots through four releases with nobody able to say whether the tab was
+    # absent, renamed, or just late.
+    $ppT = Find-UIA -Aid "PadPageView"
+    if ($ppT) {
+        $rbT = New-Object System.Windows.Automation.PropertyCondition(
+            [System.Windows.Automation.AutomationElement]::ControlTypeProperty,
+            [System.Windows.Automation.ControlType]::RadioButton)
+        $have = @($ppT.FindAll($TC, $rbT) | ForEach-Object { $_.Current.Name })
+        Write-Host ("  !! Tab '$Name' not found. Strip carries ({0}): {1}" -f $have.Count, ($have -join " | ")) -ForegroundColor Yellow
+    } else {
+        Write-Host "  !! Tab '$Name' not found, and PadPageView was not found either" -ForegroundColor Yellow
+    }
+    # Leave a picture. UIA saying "not there" is one layer, and the Grip card
+    # proved that layer can be wrong while the screen is right.
+    try {
+        [Win32]::ForceFG($script:hwnd)
+        Start-Sleep -Milliseconds 300
+        $tr = New-Object Win32+RECT
+        [Win32]::GetWindowRect($script:hwnd, [ref]$tr) | Out-Null
+        $tw = $tr.Right - $tr.Left; $th = $tr.Bottom - $tr.Top
+        $tbmp = New-Object System.Drawing.Bitmap($tw, $th)
+        $tg = [System.Drawing.Graphics]::FromImage($tbmp)
+        $tg.CopyFromScreen($tr.Left, $tr.Top, 0, 0, [System.Drawing.Size]::new($tw, $th))
+        $tg.Dispose()
+        $tp = Join-Path (Join-Path $env:TEMP "PadForge_Capture") (("tabfail-" + ($Name -replace "[^A-Za-z0-9]", "")) + ".png")
+        $tbmp.Save($tp, [System.Drawing.Imaging.ImageFormat]::Png)
+        $tbmp.Dispose()
+        Write-Host "  .. tab-failure screenshot: $tp" -ForegroundColor DarkGray
+    } catch { }
     return $false
 }
 
@@ -3023,8 +3076,28 @@ function Select-ListRowByName {
 # HasSelectedMenu, so "Cell Bindings" exists exactly when a menu is
 # selected. That makes the anchor the test: click a candidate, ask, and
 # only move on when the answer is yes.
+# Editor-open test. NOT "Cell Bindings": that text is on screen when the
+# editor is open and Find-UIA still cannot see it, the same blindness that
+# made pad-gyro-grip look impossible for four releases. PadPageView does not
+# expose the scrolled tab body as Text. It does expose ComboBoxes, and the
+# editor brings a pile of them (Style, Opens With, Click Input, Fire Mode,
+# Cells, one per cell binding) on top of the two the page always has.
+function Test-MenuEditorOpen {
+    $pp = Find-UIA -Aid "PadPageView"
+    if (-not $pp) { return $false }
+    $cb = New-Object System.Windows.Automation.PropertyCondition(
+        [System.Windows.Automation.AutomationElement]::ControlTypeProperty,
+        [System.Windows.Automation.ControlType]::ComboBox)
+    try { return ((Get-Count @($pp.FindAll($TC, $cb))) -ge 6) } catch { return $false }
+}
+
 function Open-MenuEditor {
     param([string]$Name)
+    # The assignment banner sits ACROSS THE TOP of the pad page and pushes
+    # everything below it down, which is what put all five candidate
+    # fractions above the first menu row. A screenshot at the failure caught
+    # it mid-prompt for the Realtek microphone array.
+    Dismiss-AssignBanner | Out-Null
     $candidates = @(0.242, 0.268, 0.294, 0.320, 0.216)
     foreach ($y in $candidates) {
         $el = Find-UIA -Name $Name
@@ -3037,12 +3110,63 @@ function Open-MenuEditor {
                              [int]($wr.Top  + $y * ($wr.Bottom - $wr.Top)))
             Start-Sleep -Milliseconds 800
         }
-        if ($null -ne (Get-Rect (Find-UIA -Name "Cell Bindings"))) {
+        if (Test-MenuEditorOpen) {
             Write-Host "  menu editor open (row click at $y H)" -ForegroundColor Green
             return $true
         }
         Write-Host "  menu row click at $y H did not open the editor; next candidate" -ForegroundColor DarkGray
     }
+    # The candidate fractions are a measurement of a layout, so they rot when
+    # the layout changes. Leave the evidence for re-measuring instead of
+    # making the next reader add a sixth guess.
+    try {
+        [Win32]::ForceFG($script:hwnd); Start-Sleep -Milliseconds 300
+        $mr = New-Object Win32+RECT
+        [Win32]::GetWindowRect($script:hwnd, [ref]$mr) | Out-Null
+        $mw = $mr.Right - $mr.Left; $mh = $mr.Bottom - $mr.Top
+        $mbmp = New-Object System.Drawing.Bitmap($mw, $mh)
+        $mg = [System.Drawing.Graphics]::FromImage($mbmp)
+        $mg.CopyFromScreen($mr.Left, $mr.Top, 0, 0, [System.Drawing.Size]::new($mw, $mh))
+        $mg.Dispose()
+        $mp = Join-Path (Join-Path $env:TEMP "PadForge_Capture") "menufail.png"
+        $mbmp.Save($mp, [System.Drawing.Imaging.ImageFormat]::Png)
+        $mbmp.Dispose()
+        Write-Host "  .. menu-editor failure screenshot: $mp" -ForegroundColor DarkGray
+    } catch { }
+    # Last resort: make one. Every path above depends on a menu already
+    # being there and on knowing where its row sits, and both have failed
+    # in every run since 4.4.0. Add is a real Button with a real UIA peer,
+    # it always exists on the tab, and the menu it creates is selected on
+    # creation, which is the state these shots actually need. A shot of a
+    # default menu is worth more than no shot.
+    $addBtn = Find-UIA -Name "Add" -CT ([System.Windows.Automation.ControlType]::Button)
+    if ($addBtn) {
+        Click-El $addBtn -Label "Add (create a menu)" -Delay 1200 | Out-Null
+        if (Test-MenuEditorOpen) {
+            Write-Host "  menu editor open (created a menu with Add)" -ForegroundColor Green
+            return $true
+        }
+    }
+    # Add is plainly on screen and Find-UIA cannot see it, because nothing in
+    # the pad page TAB BODY is reachable from this harness through UIA. That
+    # is one finding, not four: Grip, Cell Bindings, the menu rows and this
+    # button all failed the same way, and the tab STRIP is reachable while the
+    # body is not. So click Add where it is. Measured off a failure screenshot
+    # at 2582x1550: the button sits at 16.8% width, 16.2% height.
+    $ar = New-Object Win32+RECT
+    [Win32]::GetWindowRect($script:hwnd, [ref]$ar) | Out-Null
+    [Win32]::ForceFG($script:hwnd); Start-Sleep -Milliseconds 200
+    [Win32]::ClickAt([int]($ar.Left + 0.168 * ($ar.Right - $ar.Left)),
+                     [int]($ar.Top  + 0.162 * ($ar.Bottom - $ar.Top)))
+    Start-Sleep -Milliseconds 1500
+    # No verification here, because none is possible. Test-MenuEditorOpen
+    # counts ComboBoxes and the editor's combos live in the same invisible
+    # body as everything else, so it reads 2 (the header device and preset
+    # combos) whether the editor is open or shut. Add is deterministic: it
+    # creates a menu and selects it. Take the shot and let a human look at
+    # it, which is what the capture harness has always actually been for.
+    Write-Host "  clicked Add at its measured spot; capturing unverified" -ForegroundColor Yellow
+    return $true
     Write-Host "  !! no click opened the menu editor; the Menus tab has no menu selected" -ForegroundColor Red
     return $false
 }
@@ -3440,7 +3564,23 @@ if ($Only.Count -gt 0) {
                 $shF2 = Find-UIA -Aid "SlotsItemsControl"
                 $cdF2 = @()
                 if ($shF2) { try { $cdF2 = @($shF2.FindAll($TC, [System.Windows.Automation.Condition]::TrueCondition)) } catch { $cdF2 = @() } }
-                if ((Get-Count $cdF2) -ge 1) { Click-El $cdF2[0] -Label "Xbox Slot card (Menus)" -Delay 3000 | Out-Null }
+                if ((Get-Count $cdF2) -ge 1) {
+                    # NOT the card center. A slot card carries a row of
+                    # virtual-controller type icons across its middle, and
+                    # those icons swallow the click: the pointer lands, a
+                    # type tooltip opens, and the Dashboard stays put. A
+                    # screenshot taken at the failure showed exactly that,
+                    # with the Extended tooltip and the card X button up,
+                    # after four releases of "Tab 'Menus' not found". Click
+                    # the status line instead: it is card surface, and the
+                    # title row at 12% turned out to sit above the card.
+                    $rc = Get-Rect $cdF2[0]
+                    if ($null -ne $rc) {
+                        [Win32]::ClickAt([int]($rc.X + $rc.Width * 0.50), [int]($rc.Y + $rc.Height * 0.70))
+                        Write-Host ("  Click 'Xbox Slot card (Menus)' status line at ({0},{1})" -f [int]($rc.X + $rc.Width * 0.50), [int]($rc.Y + $rc.Height * 0.70))
+                        Start-Sleep -Milliseconds 3000
+                    }
+                }
                 # The pad page's tab strip realizes a beat after the card
                 # click, and one look is not an answer: the focused run got
                 # "Tab 'Menus' not found" on a slot whose strip carries it.
@@ -3471,15 +3611,35 @@ if ($Only.Count -gt 0) {
                     if (-not (Open-MenuEditor -Name "Combat Wheel")) {
                         Write-Host "  !! SKIPPED menu-macro-cell, menu-icon-packs" -ForegroundColor Red
                     }
+                    # Scroll-ToAnchor cannot be used here. "Cell Bindings"
+                    # and "Icon Packages" are both in the pad page TAB BODY,
+                    # and this harness cannot see that body through UIA at
+                    # all: the same lookup failure hid the Grip card, the Add
+                    # button and the menu rows. The tab STRIP is visible, the
+                    # body is not. So scroll by a measured amount and shoot.
+                    # menu-macro-cell is NOT captured, deliberately. The shot
+                    # must show a menu cell bound to a MACRO and nothing here
+                    # can produce one:
+                    #   - the injected Combat Wheel menu (cell 2 bound to
+                    #     Quick Combo) never appears on the slot this recipe
+                    #     opens; that page's menu list comes up empty,
+                    #   - a menu made with Add has every cell on None,
+                    #   - the Cell N binding ComboBox cannot be driven: it is
+                    #     in the pad page tab body, so UIA cannot find it, and
+                    #     a synthetic click at its measured rect does not open
+                    #     it, the same way the SteamVR Install button ignored
+                    #     one until it was driven through InvokePattern.
+                    # Shipping the Add menu's all-None Cell Bindings under a
+                    # caption that says "a menu cell bound to a macro" would
+                    # be a wrong picture, which is worse than no picture, so
+                    # the docs reference stays commented out until either the
+                    # injection lands on the right slot or the binding combo
+                    # becomes reachable.
                     if (Want "menu-macro-cell") {
-                        if (Scroll-ToAnchor -Anchor "Cell Bindings") {
-                            ScrollContent -Clicks -4; Start-Sleep -Milliseconds 400; Cap "menu-macro-cell"
-                        } else { Write-Host "  !! SKIPPED menu-macro-cell" -ForegroundColor Red }
+                        Write-Host "  !! menu-macro-cell not captured: no way to bind a cell to a macro from here (see the note above)" -ForegroundColor Yellow
                     }
                     if (Want "menu-icon-packs") {
-                        if (Scroll-ToAnchor -Anchor "Icon Packages") {
-                            ScrollContent -Clicks -4; Start-Sleep -Milliseconds 400; Cap "menu-icon-packs"
-                        } else { Write-Host "  !! SKIPPED menu-icon-packs" -ForegroundColor Red }
+                        ScrollContent -Clicks -22; Start-Sleep -Milliseconds 600; Cap "menu-icon-packs"
                     }
                     ScrollContent -Clicks 90
                 } else { Write-Host "  !! Menus tab not found -- SKIPPED menu-macro-cell, menu-icon-packs" -ForegroundColor Red }
@@ -3556,27 +3716,22 @@ if ($Only.Count -gt 0) {
                     Write-Host "  !! the assignment did not land; SKIPPING $($wiiWanted -join ', ')" -ForegroundColor Red
                 } else {
                     if (Want "pad-gyro-grip") {
+                        # Tab returns true only once the tab reports itself
+                        # SELECTED, so that is the render gate. There used to
+                        # be a second gate here that looked up a UIA element
+                        # named "Grip" and it failed every run from 4.4.0 on.
+                        # A screenshot taken at the moment of that failure
+                        # showed the Gyro tab open with the Grip card at the
+                        # top of the frame, reading "Held As: Pointing". The
+                        # card was never missing. PadPageView simply does not
+                        # carry the scrolled tab body in its UIA subtree here
+                        # (its Text descendants stop at the slot header and
+                        # the Extended config bar), so the lookup was asking
+                        # a layer that cannot answer. The guard went, not the
+                        # shot.
                         if (Tab "Gyro") {
                             Start-Sleep -Milliseconds 900
-                            # STILL UNRESOLVED, 2026-09-19. Ruled out this
-                            # round: the card is real and ungated (PadPage.xaml
-                            # Grip card, no Visibility binding), it is inside
-                            # the Gyro TabItem, it sits NEAR THE TOP of that
-                            # tab so it is not below the fold, and Tab "Gyro"
-                            # returns true (a failure there prints its own
-                            # message and this one did not). Scroll-ToAnchor
-                            # was tried and made no difference, which fits a
-                            # card that is already in view. The pad-pointer and
-                            # wii-pointer-mode shots in the same block, on the
-                            # same device, captured fine, so the slot binding
-                            # and tab switching both work. What has NOT been
-                            # checked is whether the Gyro tab's content is
-                            # realized in the UIA tree at all for an
-                            # accelerometer-only Wii Remote. Dump the tab's
-                            # descendants before guessing again.
-                            if ($null -eq (Get-Rect (Find-UIARetry -Name "Grip" -Retries 6 -DelayMs 600))) {
-                                Write-Host "  !! Grip card not reachable by UIA on the Gyro tab -- SKIPPED pad-gyro-grip" -ForegroundColor Red
-                            } else { Cap "pad-gyro-grip" }
+                            Cap "pad-gyro-grip"
                         } else { Write-Host "  !! Gyro tab not found -- SKIPPED pad-gyro-grip" -ForegroundColor Red }
                     }
                     if ((Want "pad-pointer") -or (Want "wii-pointer-mode")) {
