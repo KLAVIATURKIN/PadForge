@@ -3222,7 +3222,7 @@ if ($Only.Count -gt 0) {
         @{ Shot = "dashboard-lightbar-mirrors"; Page = "Dashboard";
            Anchors = @("LIGHTBAR MIRRORS", "Send Rumble to Sensa HD Haptics") },
         @{ Shot = "dashboard-head-tracking";    Page = "Dashboard";
-           Anchors = @("HEAD TRACKING", "Translation Range (cm)") },
+           Anchors = @("HEAD TRACKING", "Set Neutral") },
         @{ Shot = "remote-link";                Page = "Dashboard";
            Anchors = @("REMOTE LINK", "Or Connect by Address (Advanced)") }
     )
@@ -5440,12 +5440,18 @@ Write-Host "[3b] Dashboard sections"
 # gate say what the shot means.
 $dashSections = @(
     @{ Shot = "remote-link";               Anchors = @("REMOTE LINK", "Or Connect by Address (Advanced)");  After = 0 },
-    @{ Shot = "dashboard-head-tracking";   Anchors = @("HEAD TRACKING", "Translation Range (cm)");          After = 0 },
+    @{ Shot = "dashboard-head-tracking";   Anchors = @("HEAD TRACKING", "Set Neutral");                     After = 0 },
     @{ Shot = "dsu-port-box";              Anchors = @("MOTION SERVER", "Enable DSU Motion Server (CemuHook Motion Provider Protocol)"); After = -4 },
     # One frame carrying both mirror families and the haptics section beside
     # them, which is what features/lightbar-mirrors.md shows. The second
     # anchor is the Sensa section's own checkbox rather than its heading, so
     # the haptics controls are in the picture and not just its title.
+    # SKIPS on this machine at 1033px of client height: the span from the
+    # LIGHTBAR MIRRORS heading to the Sensa checkbox (measured at y=4252)
+    # is taller than one frame, so the two anchors never share a picture.
+    # The section content has not changed since the shot was last taken,
+    # so the skip costs nothing today. Framing it again needs either a
+    # taller capture window or a composition that does not demand both.
     @{ Shot = "dashboard-lightbar-mirrors"; Anchors = @("LIGHTBAR MIRRORS", "Send Rumble to Sensa HD Haptics"); After = 0 }
 )
 foreach ($ds in $dashSections) {
