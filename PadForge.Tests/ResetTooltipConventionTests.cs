@@ -148,6 +148,31 @@ namespace PadForge.Tests
             }
         }
 
+
+        /// <summary>
+        /// The per-axis ranges share one grid with the two ranges above them.
+        ///
+        /// <para>They first shipped in a grid of their own, so their label
+        /// column was sized by their own longest label and every box and
+        /// reset started at a different x than the rows above. The grid's own
+        /// comment says why it exists: one grid so the boxes line up under
+        /// labels of different widths. A closing grid tag between the two
+        /// means they have been split apart again.</para>
+        /// </summary>
+        [Fact]
+        public void ThePerAxisRangesShareTheGridThatAlignsTheRangesAboveThem()
+        {
+            string xaml = File.ReadAllText(Path.Combine(ViewsDir(), "DashboardPage.xaml"));
+            int first = xaml.IndexOf("HeadTrackingRotationRange, Mode=TwoWay", StringComparison.Ordinal);
+            int last = xaml.IndexOf("HeadTrackingRangeZ, Mode=TwoWay", StringComparison.Ordinal);
+            Assert.True(first > 0 && last > first, "the range rows were not found in order");
+
+            string between = xaml[first..last];
+            Assert.False(between.Contains("</Grid>", StringComparison.Ordinal),
+                "the per-axis ranges are in a different grid from the ranges above, so their "
+                + "boxes cannot line up with them");
+        }
+
         /// <summary>A SettingResetButton's label is the setting's NAME. Feed
         /// it a description and the tooltip becomes a paragraph.</summary>
         [Fact]
