@@ -6538,6 +6538,12 @@ namespace PadForge.SteamWorkshop.Translation
         /// did, so expanding a gate never changes how the sources merge.</summary>
         private static string JoinTerms(List<string> terms, string originalMode, bool isAxis)
         {
+            // Empty is guarded here rather than relied on from the caller. No
+            // live path reaches it (the caller returns early unless a non-null
+            // gated source exists, and that source always contributes a term),
+            // but the fold below indexes terms[Count - 1] and the invariant
+            // that saves it sits ninety lines away in another method.
+            if (terms.Count == 0) return "";
             if (terms.Count == 1) return terms[0];
             switch (originalMode)
             {

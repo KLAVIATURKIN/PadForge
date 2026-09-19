@@ -14674,6 +14674,16 @@ namespace PadForge.Services
                 }
                 if (sparse != null)
                 {
+                    // An empty set IS the answer, so return it before anything
+                    // indexes it. The offline branch above normalizes empty to
+                    // null and never reaches here with one; the live branch
+                    // does not, and this is the consumer both share. Taking
+                    // [Length - 1] on the empty array threw
+                    // IndexOutOfRangeException straight out of the Devices
+                    // page's UI timer for every row that reports no buttons,
+                    // which is the Head Tracker, MIDI input, Sony headset
+                    // motion and System motion rows (crash 2026-09-19).
+                    if (sparse.Length == 0) return sparse;
                     if (sparse[sparse.Length - 1] < max) return sparse;
                     var trimmed = new System.Collections.Generic.List<int>(sparse.Length);
                     foreach (int idx in sparse) if (idx < max) trimmed.Add(idx);

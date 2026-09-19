@@ -156,5 +156,54 @@ namespace PadForge.Tests
             Assert.Equal(Enumerable.Range(0, 15).ToArray(),
                 InputService.ResolveButtonIndices(back));
         }
+        /// <summary>
+        /// THE CRASH (2026-09-19, found by the 4.5.0 capture run). A row that
+        /// is ONLINE and reports NO buttons took
+        /// <c>sparse[sparse.Length - 1]</c> on an empty array and threw
+        /// IndexOutOfRangeException out of the Devices page's UI timer tick.
+        ///
+        /// <para>The method's own comment already stated the intent, "A live
+        /// empty set means the device has no buttons, so it is answered with
+        /// no buttons", and the offline branch normalized an empty array to
+        /// null so it could never reach the index. The live branch did not,
+        /// and the two branches shared the consumer.</para>
+        ///
+        /// <para>Shipping rows that return <c>Array.Empty&lt;int&gt;()</c>:
+        /// Head Tracker, MIDI input, Sony headset motion and System motion.
+        /// Previewing any of them on the Devices page crashed the dispatcher
+        /// on the next tick.</para>
+        /// </summary>
+        [Fact]
+        public void AnOnlineRowWithNoButtons_AnswersWithNoButtons()
+        {
+            var ud = new UserDevice
+            {
+                CapButtonCount = 0,
+                Device = new PadForge.Common.Input.SystemMotionDevice(null),
+            };
+            Assert.Empty(ud.Device.SupportedButtonIndices);
+
+            var got = InputService.ResolveButtonIndices(ud);
+
+            Assert.NotNull(got);
+            Assert.Empty(got);
+        }
+
+        /// <summary>The same shape with a stored count present. An online row
+        /// that says it has no buttons is answered with none, and the stored
+        /// count must not resurrect a dense list behind it.</summary>
+        [Fact]
+        public void AnOnlineRowWithNoButtons_IsNotDensifiedFromTheStoredCount()
+        {
+            var ud = new UserDevice
+            {
+                CapButtonCount = 12,
+                CapButtonIndices = new[] { 0, 1, 2 },
+                Device = new PadForge.Common.Input.SystemMotionDevice(null),
+            };
+
+            Assert.Empty(InputService.ResolveButtonIndices(ud));
+        }
+
     }
 }
