@@ -92,5 +92,77 @@ namespace PadForge.Tests
             // No divider at all before the header is the defect it replaced.
             Assert.True(upper || lower);
         }
+        /// <summary>
+        /// Every synthetic row must answer IsInternalVirtual, because HidHide
+        /// has no HID instance to cloak for any of them and the Input Hiding
+        /// section would otherwise render toggles that can never do anything.
+        ///
+        /// <para>The OpenXR hand rows and the Logitech G-keys row were added in
+        /// 4.5.0 and missed the list, which is the sibling-set gap this pins.</para>
+        /// </summary>
+        [Theory]
+        [InlineData("web://controller/1")]
+        [InlineData("overlay://touchpad/0")]
+        [InlineData("midi://in/0")]
+        [InlineData("peer://pc/1")]
+        [InlineData("nfc://reader/0")]
+        [InlineData("mic://capture/0")]
+        [InlineData("handheld://buttons")]
+        [InlineData("sensor://motion")]
+        [InlineData("headtrack://opentrack")]
+        [InlineData("openxr://hand/left")]
+        [InlineData("openxr://hand/right")]
+        [InlineData("logigkeys://local")]
+        public void EverySyntheticPath_IsInternalVirtual(string devicePath)
+        {
+            var vm = new DeviceRowViewModel { DevicePath = devicePath };
+            Assert.True(vm.IsInternalVirtual, devicePath + " must not offer HidHide toggles");
+        }
+
+        /// <summary>A real HID path is not synthetic. Without this the theory
+        /// above would pass against a property hard-coded to true.</summary>
+        [Fact]
+        public void ARealHidPath_IsNotInternalVirtual()
+        {
+            var vm = new DeviceRowViewModel { DevicePath = @"\?\hid#vid_054c&pid_042f" };
+            Assert.False(vm.IsInternalVirtual);
+        }
+
+        /// <summary>
+        /// Submitting a mapping opens a pre-filled GitHub issue about a piece of
+        /// hardware, so a row backed by a runtime or an SDK has nothing to
+        /// submit. VrController and LogitechGKeys missed this list in 4.5.0.
+        /// </summary>
+        [Theory]
+        [InlineData("Gamepad")]
+        [InlineData("Mouse")]
+        [InlineData("Keyboard")]
+        [InlineData("Touchpad")]
+        [InlineData("Tablet")]
+        [InlineData("Midi")]
+        [InlineData("Nfc")]
+        [InlineData("HeadsetMotion")]
+        [InlineData("Microphone")]
+        [InlineData("HandheldButtons")]
+        [InlineData("ConsumerControl")]
+        [InlineData("SystemMotion")]
+        [InlineData("HeadTracker")]
+        [InlineData("VrController")]
+        [InlineData("LogitechGKeys")]
+        public void RowsWithNoHardwareToDescribe_DoNotOfferSubmitMapping(string typeKey)
+        {
+            var vm = new DeviceRowViewModel { DeviceTypeKey = typeKey };
+            Assert.False(vm.ShowSubmitMapping, typeKey + " must not offer Submit Device Mapping");
+        }
+
+        /// <summary>A joystick still offers it, which is the whole point of the
+        /// button. Without this the theory above proves nothing.</summary>
+        [Fact]
+        public void AJoystick_StillOffersSubmitMapping()
+        {
+            var vm = new DeviceRowViewModel { DeviceTypeKey = "Joystick" };
+            Assert.True(vm.ShowSubmitMapping);
+        }
+
     }
 }

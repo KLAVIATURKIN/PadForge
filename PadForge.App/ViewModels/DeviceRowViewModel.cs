@@ -716,7 +716,13 @@ namespace PadForge.ViewModels
              // (#343) are synthetic too: nothing for HidHide to cloak.
              || _devicePath.StartsWith("handheld://", StringComparison.Ordinal)
              || _devicePath.StartsWith("sensor://", StringComparison.Ordinal)
-             || _devicePath.StartsWith("headtrack://", StringComparison.Ordinal));
+             || _devicePath.StartsWith("headtrack://", StringComparison.Ordinal)
+             // The OpenXR hand rows and the Logitech G-keys row are the same
+             // shape: a runtime or an SDK feeds them, and HidHide has no HID
+             // instance to cloak. Missing here, they rendered the Input Hiding
+             // section with toggles that could never do anything.
+             || _devicePath.StartsWith("openxr://", StringComparison.Ordinal)
+             || _devicePath.StartsWith("logigkeys://", StringComparison.Ordinal));
 
         /// <summary>True when at least one input-hiding toggle would be shown,
         /// so the "Input Hiding" section can hide its heading along with its
@@ -852,8 +858,12 @@ namespace PadForge.ViewModels
         /// <summary>True if this device is recognized as a gamepad (SDL or custom mapping).</summary>
         public bool IsGamepad => DeviceTypeKey == "Gamepad";
 
-        /// <summary>True if this device can have community mappings submitted (joysticks only, not gamepads/mice/keyboards).</summary>
-        public bool ShowSubmitMapping => DeviceTypeKey != "Gamepad" && DeviceTypeKey != "Mouse" && DeviceTypeKey != "Keyboard" && DeviceTypeKey != "Touchpad" && DeviceTypeKey != "Tablet" && DeviceTypeKey != "Midi" && DeviceTypeKey != "Nfc" && DeviceTypeKey != "HeadsetMotion" && DeviceTypeKey != "Microphone" && DeviceTypeKey != "HandheldButtons" && DeviceTypeKey != "ConsumerControl" && DeviceTypeKey != "SystemMotion" && DeviceTypeKey != "HeadTracker";
+        /// <summary>True if this device can have community mappings submitted.
+        /// Excluded: anything already mapped by SDL, and every synthetic row.
+        /// A mapping submission opens a pre-filled GitHub issue about a piece
+        /// of hardware, so a row backed by a runtime or an SDK rather than a
+        /// device has nothing to submit.</summary>
+        public bool ShowSubmitMapping => DeviceTypeKey != "Gamepad" && DeviceTypeKey != "Mouse" && DeviceTypeKey != "Keyboard" && DeviceTypeKey != "Touchpad" && DeviceTypeKey != "Tablet" && DeviceTypeKey != "Midi" && DeviceTypeKey != "Nfc" && DeviceTypeKey != "HeadsetMotion" && DeviceTypeKey != "Microphone" && DeviceTypeKey != "HandheldButtons" && DeviceTypeKey != "ConsumerControl" && DeviceTypeKey != "SystemMotion" && DeviceTypeKey != "HeadTracker" && DeviceTypeKey != "VrController" && DeviceTypeKey != "LogitechGKeys";
 
         /// <summary>True for an NFC reader (issue #150): shows the "Register/Manage
         /// NFC Tags" button, which opens the tap-to-name registration flow.
