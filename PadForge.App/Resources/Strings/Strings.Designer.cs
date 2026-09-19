@@ -636,6 +636,10 @@ public class Strings : INotifyPropertyChanged
     public string About_InputPlumberDesc => Get("About_InputPlumberDesc");
     public string About_Linuxmotehook => Get("About_Linuxmotehook");
     public string About_LinuxmotehookDesc => Get("About_LinuxmotehookDesc");
+    public string About_OpenXrRefs => Get("About_OpenXrRefs");
+    public string About_OpenXrRefsDesc => Get("About_OpenXrRefsDesc");
+    public string About_LogitechGKeyRefs => Get("About_LogitechGKeyRefs");
+    public string About_LogitechGKeyRefsDesc => Get("About_LogitechGKeyRefsDesc");
     public string About_Concentus => Get("About_Concentus");
     public string About_ConcentusDesc => Get("About_ConcentusDesc");
     public string About_SAxense => Get("About_SAxense");

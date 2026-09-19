@@ -251,7 +251,7 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Remote Link ポート</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>モーション サーバー ポート</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Cemu、Dolphin、Yuzu などにジャイロおよび加速度センサーのデータを提供します。</value></data>
-  <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>OpenTrack、およびその UDP 出力を送信するか FreeTrack 2.0 の共有メモリに書き込むあらゆるトラッカーで動作します。</value></data>
+  <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>OpenTrack や、UDP 出力を送信するまたは FreeTrack 2.0 の共有メモリに書き込むあらゆるトラッカー、およびこのマシンにインストールされたあらゆる OpenXR ランタイムで動作します。</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Logitech G キーを読み取る</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Logitech G-key SDK で G キーを読み取ります。Logitech Gaming Software 8.55 以降の実行と、PadForge プロファイルを「常設」にすることが必要です。そうでない場合、キーは PadForge がアクティブなウィンドウのときだけ動作します。</value></data>
   <data name="Settings_GKeysStatus_NoSdk" xml:space="preserve"><value>この PC に Logitech G-key SDK がありません。Logitech Gaming Software 8.55 以降と一緒にインストールされます。</value></data>
@@ -2412,7 +2412,7 @@
   <data name="VrCtl_Secondary" xml:space="preserve"><value>セカンダリボタン</value></data>
   <data name="VrCtl_Menu" xml:space="preserve"><value>メニューボタン</value></data>
   <data name="Dashboard_HeadTracking" xml:space="preserve"><value>ヘッド トラッキング</value></data>
-  <data name="Dashboard_HeadTrackingDesc" xml:space="preserve"><value>OpenTrack の UDP 出力または FreeTrack 2.0 の共有メモリから頭の姿勢を読み取り、ヘッド トラッカー デバイスの 6 軸（ヨー、ピッチ、ロール、3 方向の移動）として公開します。頭のヨーをスティック軸に割り当てると、両方の親指をボタンに置いたまま周囲を見回せます。</value></data>
+  <data name="Dashboard_HeadTrackingDesc" xml:space="preserve"><value>OpenTrack の UDP 出力、FreeTrack 2.0 の共有メモリ、または OpenXR ランタイム経由の VR ヘッドセットから頭部の姿勢を読み取り、Head Tracker デバイスの 6 軸 (ヨー、ピッチ、ロールと 3 つの平行移動) として公開します。頭のヨーをスティック軸に割り当てれば、両手の親指をボタンに置いたまま周囲を見回せます。</value></data>
   <data name="Dashboard_HeadTrackingEnable" xml:space="preserve"><value>UDPトラッキング入力を有効にする</value></data>
   <data name="Dashboard_HeadTrackingEnable_Tooltip" xml:space="preserve"><value>UDPでヘッドトラッキングを受信します。FreeTrack入力は個別に有効にできます。</value></data>
   <data name="Dashboard_HeadTrackingFreeTrack" xml:space="preserve"><value>FreeTrack 2.0共有メモリ入力を有効にする</value></data>
@@ -3527,6 +3527,10 @@
   <data name="About_LinuxmotehookDesc" xml:space="preserve">
     <value>グリップ設定が反映する Wii リモコンの持ち方向プリセット。linuxmotehook は Apache-2.0。WiimoteHook はドキュメントを通じて参照したクローズドソースのツール。コードは同梱しません。</value>
   </data>
+  <data name="About_OpenXrRefs" xml:space="preserve"><value>OpenXR の参照元</value></data>
+  <data name="About_OpenXrRefsDesc" xml:space="preserve"><value>ヘッドセットとモーションコントローラー入力を支えるランタイムインターフェイス、構造体レイアウト、レジストリキーは、Khronos の OpenXR-SDK ヘッダー (Apache-2.0) から読み取り、VirtualDesktop-OpenXR (MIT) と照合しました。PadForge はお使いの環境に入っているランタイムと通信し、Khronos のコードは同梱しません。</value></data>
+  <data name="About_LogitechGKeyRefs" xml:space="preserve"><value>Logitech G-key SDK の参照元</value></data>
+  <data name="About_LogitechGKeyRefsDesc" xml:space="preserve"><value>G キー入力を支えるイベントワードのレイアウトとライブラリのライフサイクルは、SDK の LogitechGkeyLib.h から読み取り、Mumble の GKey.cpp (BSD 3-Clause) と照合しました。PadForge は G HUB 自身のライブラリを読み込み、Logitech のコードは同梱しません。</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>このスロットで有効にする面を選びます。無効にした面は行が非表示になり送信も止まりますが、割り当ては保持されるため再度有効にすると元に戻ります。</value>
   </data>

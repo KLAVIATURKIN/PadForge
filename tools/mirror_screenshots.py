@@ -15,6 +15,7 @@ cannot explain every file it manages is not finished.
 Run from anywhere. Paths are resolved from this file's location.
 """
 
+import io
 import os
 import sys
 
@@ -69,6 +70,33 @@ def main():
         Image.open(os.path.join(SRC, f)).convert("RGB").save(
             os.path.join(REPO_SHOTS, base + ".jpg"), "JPEG", quality=88, optimize=True)
     print("repo screenshots refreshed:", len(pngs))
+
+    # The site asks for assets index.html has not got yet. The loop below
+    # walks the assets that already EXIST, so a capture whose shot landed in
+    # wiki/images but that the site has never had an asset for is invisible
+    # to it: the figure stays commented out waiting for a file nothing will
+    # ever create. Take index.html as the authority on what the site wants,
+    # comments included, and create anything with a source behind it.
+    wanted = set()
+    index_html = os.path.join(SITE, "index.html")
+    if os.path.exists(index_html):
+        import re
+        with io.open(index_html, encoding="utf-8") as fh:
+            wanted = set(re.findall(r'assets/(screenshot-[A-Za-z0-9._-]+)\.jpg', fh.read()))
+    created = []
+    for name in sorted(wanted):
+        if os.path.exists(os.path.join(SITE_ASSETS, name + ".jpg")):
+            continue
+        src = source_for(name[len("screenshot-"):])
+        if src is None:
+            continue
+        Image.open(src).convert("RGB").save(
+            os.path.join(SITE_ASSETS, name + ".jpg"), "JPEG", quality=88, optimize=True)
+        created.append(name)
+    if created:
+        print("site assets CREATED from a source the site had no asset for:", len(created))
+        for c in created:
+            print("   %s.jpg" % c)
 
     refreshed, unmapped = 0, []
     for jpg in sorted(f for f in os.listdir(SITE_ASSETS) if f.startswith("screenshot-") and f.endswith(".jpg")):

@@ -456,6 +456,17 @@ Protocol documentation references (no code from these projects ships)
   WiimoteHook (https://github.com/epigramx/WiimoteHook, closed source, read
   through its documentation): the Wii Remote hold-orientation presets the
   Grip setting mirrors.
+  OpenXR-SDK (https://github.com/KhronosGroup/OpenXR-SDK, Apache-2.0) and
+  VirtualDesktop-OpenXR (https://github.com/mbucchia/VirtualDesktop-OpenXR,
+  MIT): the runtime negotiation interface, structure layout, registry keys
+  and performance-counter time conversion behind headset and motion
+  controller input. PadForge talks to the runtime installed on the user's
+  own machine and ships no Khronos binary.
+  Mumble (https://github.com/mumble-voip/mumble, BSD 3-Clause): the
+  Logitech G-key SDK library search order and shutdown lifecycle, read
+  alongside LogitechGkeyLib.h from the SDK itself, which defines the event
+  word. PadForge loads G HUB's own library at run time and ships no
+  Logitech binary.
   PadForge's implementations are original C# and contain no code from
   these projects.
 

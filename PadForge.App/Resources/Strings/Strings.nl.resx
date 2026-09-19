@@ -251,7 +251,7 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Remote Link-poort</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Motionserverpoort</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Levert gyroscoop- en versnellingsmetergegevens voor Cemu, Dolphin, Yuzu, enz.</value></data>
-  <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Werkt met OpenTrack en elke tracker die zijn UDP-uitvoer verzendt of naar het gedeelde geheugen van FreeTrack 2.0 schrijft.</value></data>
+  <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Werkt met OpenTrack en met elke tracker die zijn UDP-uitvoer verstuurt of naar het gedeelde geheugen van FreeTrack 2.0 schrijft, en met elke OpenXR-runtime die op deze machine is geïnstalleerd.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Logitech G-toetsen lezen</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Leest G-toetsen via de Logitech G-key SDK. Vereist dat Logitech Gaming Software 8.55 of nieuwer draait en dat het PadForge-profiel op Permanent staat, anders werken de toetsen alleen terwijl PadForge het actieve venster is.</value></data>
   <data name="Settings_GKeysStatus_NoSdk" xml:space="preserve"><value>Geen Logitech G-key SDK op deze pc. Die wordt met Logitech Gaming Software 8.55 of nieuwer geïnstalleerd.</value></data>
@@ -2432,7 +2432,7 @@
   <data name="VrCtl_Secondary" xml:space="preserve"><value>Secundaire knop</value></data>
   <data name="VrCtl_Menu" xml:space="preserve"><value>Menuknop</value></data>
   <data name="Dashboard_HeadTracking" xml:space="preserve"><value>Hoofdtracking</value></data>
-  <data name="Dashboard_HeadTrackingDesc" xml:space="preserve"><value>Leest een hoofdpositie van de UDP-uitvoer van OpenTrack of van het gedeelde geheugen van FreeTrack 2.0 en toont die als zes assen op een Hoofdtracker-apparaat: gieren, stampen, rollen en de drie verplaatsingen. Wijs gieren toe aan een stick-as om rond te kijken terwijl beide duimen op de knoppen blijven.</value></data>
+  <data name="Dashboard_HeadTrackingDesc" xml:space="preserve"><value>Leest een hoofdpositie uit de UDP-uitvoer van OpenTrack, uit het gedeelde geheugen van FreeTrack 2.0 of uit een VR-headset via een OpenXR-runtime, en biedt die aan als zes assen op een Head Tracker-apparaat: gieren, stampen, rollen en de drie verplaatsingen. Wijs het gieren van je hoofd toe aan een stickas om rond te kijken terwijl beide duimen op de knoppen blijven.</value></data>
   <data name="Dashboard_HeadTrackingEnable" xml:space="preserve"><value>UDP-trackinginvoer inschakelen</value></data>
   <data name="Dashboard_HeadTrackingEnable_Tooltip" xml:space="preserve"><value>Ontvang hoofdtracking via UDP. FreeTrack-invoer kan afzonderlijk worden ingeschakeld.</value></data>
   <data name="Dashboard_HeadTrackingFreeTrack" xml:space="preserve"><value>FreeTrack 2.0-invoer via gedeeld geheugen inschakelen</value></data>
@@ -3547,6 +3547,10 @@ Je kunt het later opnieuw proberen via Instellingen.</value></data>
   <data name="About_LinuxmotehookDesc" xml:space="preserve">
     <value>Voorinstellingen voor de vasthoudrichting van de Wii Remote die de Greep-instelling weerspiegelt. linuxmotehook is Apache-2.0. WiimoteHook is een gesloten tool die via zijn documentatie is gelezen. Er wordt geen code meegeleverd.</value>
   </data>
+  <data name="About_OpenXrRefs" xml:space="preserve"><value>OpenXR-referenties</value></data>
+  <data name="About_OpenXrRefsDesc" xml:space="preserve"><value>De runtime-interface, de structuurindeling en de registersleutels achter invoer van headset en motioncontrollers, gelezen uit de Khronos OpenXR-SDK-headers (Apache-2.0) en getoetst aan VirtualDesktop-OpenXR (MIT). PadForge praat met je eigen geïnstalleerde runtime en levert geen Khronos-code mee.</value></data>
+  <data name="About_LogitechGKeyRefs" xml:space="preserve"><value>Referenties voor de Logitech G-key SDK</value></data>
+  <data name="About_LogitechGKeyRefsDesc" xml:space="preserve"><value>De indeling van het gebeurteniswoord en de levenscyclus van de bibliotheek achter G-toetsinvoer, gelezen uit LogitechGkeyLib.h in de SDK en getoetst aan GKey.cpp van Mumble (BSD 3-Clause). PadForge laadt de eigen bibliotheek van G HUB en levert geen Logitech-code mee.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>Kies welke helften van deze sleuf actief zijn. Een uitgeschakelde helft verbergt zijn rijen en stopt met verzenden, maar behoudt zijn toewijzingen zodat ze terugkomen als je hem weer inschakelt.</value>
   </data>

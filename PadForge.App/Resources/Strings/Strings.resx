@@ -287,7 +287,7 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Remote Link Port</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Motion Server Port</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Provides gyro and accelerometer data to Cemu, Dolphin, Yuzu, etc.</value></data>
-  <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Works with OpenTrack and any tracker that sends its UDP output or writes FreeTrack 2.0 shared memory.</value></data>
+  <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Works with OpenTrack and any tracker that sends its UDP output or writes FreeTrack 2.0 shared memory, and with any OpenXR runtime installed on this machine.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Read Logitech G-Keys</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Reads G-keys through the Logitech G-key SDK. Needs Logitech Gaming Software 8.55 or later running, with the PadForge profile set to Persistent, or the keys only work while PadForge is the active window.</value></data>
   <data name="Settings_GKeysStatus_NoSdk" xml:space="preserve"><value>No Logitech G-key SDK on this machine. It installs with Logitech Gaming Software 8.55 or later.</value></data>
@@ -2812,7 +2812,7 @@
   <data name="VrCtl_Secondary" xml:space="preserve"><value>Secondary Button</value></data>
   <data name="VrCtl_Menu" xml:space="preserve"><value>Menu Button</value></data>
   <data name="Dashboard_HeadTracking" xml:space="preserve"><value>Head Tracking</value></data>
-  <data name="Dashboard_HeadTrackingDesc" xml:space="preserve"><value>Reads a head pose from OpenTrack's UDP output or from the FreeTrack 2.0 shared memory and exposes it as six axes on a Head Tracker device: yaw, pitch, roll, and the three translations. Map head yaw to a stick axis to look around while both thumbs stay on the buttons.</value></data>
+  <data name="Dashboard_HeadTrackingDesc" xml:space="preserve"><value>Reads a head pose from OpenTrack’s UDP output, from the FreeTrack 2.0 shared memory, or from a VR headset through an OpenXR runtime, and exposes it as six axes on a Head Tracker device: yaw, pitch, roll, and the three translations. Map head yaw to a stick axis to look around while both thumbs stay on the buttons.</value></data>
   <data name="Dashboard_HeadTrackingEnable" xml:space="preserve"><value>Enable UDP Tracking Input</value></data>
   <data name="Dashboard_HeadTrackingEnable_Tooltip" xml:space="preserve"><value>Receive head tracking over UDP. FreeTrack input can be enabled separately.</value></data>
   <data name="Dashboard_HeadTrackingFreeTrack" xml:space="preserve"><value>Enable FreeTrack 2.0 Shared Memory Input</value></data>
@@ -3576,6 +3576,10 @@ You can retry later from Settings.</value></data>
   <data name="About_LinuxmotehookDesc" xml:space="preserve">
     <value>Wii Remote hold-orientation presets the Grip setting mirrors. linuxmotehook is Apache-2.0. WiimoteHook is a closed-source tool read through its documentation. No code ships.</value>
   </data>
+  <data name="About_OpenXrRefs" xml:space="preserve"><value>OpenXR references</value></data>
+  <data name="About_OpenXrRefsDesc" xml:space="preserve"><value>The runtime interface, structure layout and registry keys behind headset and motion controller input, read from the Khronos OpenXR-SDK headers (Apache-2.0) and cross-checked against VirtualDesktop-OpenXR (MIT). PadForge talks to your own installed runtime and ships no Khronos code.</value></data>
+  <data name="About_LogitechGKeyRefs" xml:space="preserve"><value>Logitech G-key SDK references</value></data>
+  <data name="About_LogitechGKeyRefsDesc" xml:space="preserve"><value>The event word layout and library lifecycle behind G-key input, read from LogitechGkeyLib.h in the SDK and cross-checked against Mumble’s GKey.cpp (BSD 3-Clause). PadForge loads G HUB’s own library and ships no Logitech code.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>Choose which halves of this slot are live. Turning a half off hides its rows and stops it from sending, and keeps its mappings so turning it back on restores them.</value>
   </data>

@@ -53,6 +53,29 @@ PadForge is for sim racers running wheels in games that only understand Xbox con
 </p>
 
 <details>
+<summary><b>New in 4.5.0:</b> a VR headset and its controllers as input, Logitech G-keys, a phone's controller through the browser, and an install a third smaller</summary>
+
+- **A VR headset drives a flat game.** Enable OpenXR Headset Input on the Dashboard and the headset's pose arrives on the Head Tracker device as the same six axes OpenTrack uses. PadForge talks to the runtime directly instead of through the Khronos loader, so it can pick a runtime for itself without touching the machine's default and no other program's API layers enter its process. The session draws nothing, so no VR game has to be running.
+- **Your VR controllers become gamepads.** Each hand is its own device row: six pose axes named like the head's, plus the thumbstick, trigger, grip, and four buttons. Oculus Touch, Valve Index, and the Khronos simple profile are all suggested and the runtime picks the match. Left and right are separate devices, and a controller set down returns its axes to rest after a second.
+- **Per-axis head tracking ranges.** Any one of the six axes can pin its own range while the rest follow the shared pair, for when neck rotation and leaning cover very different distances.
+- **Logitech G-keys, without burning a keycode.** Tick Read Logitech G-Keys in Settings and the G-keys arrive through Logitech's own SDK as their own device row: 29 keys in each of M1, M2 and M3, plus a Logitech mouse's buttons 6 through 20. No programming a G-key to type some real key that then fires in every other program.
+- **A controller paired to your phone, through the browser.** The Browser Gamepad page forwards any pad the phone or handheld can see over the Gamepad API, rumble included.
+- **Pens and drawing tablets are input devices.** Windows pen and tablet input binds like anything else.
+- **Keyboard and mouse surfaces.** A Preset chip, a preview that follows it, and a per-slot surface mode that persists.
+- **Menus gained a Layer picker, a stay-open mode, and per-cell icon size.**
+- **The install is a third smaller and starts faster.** 412.3 MB down to 289.2 MB, and startup from 6.26 s to 5.58 s. Each controller atlas now ships in the format that suits it, 352 duplicate meshes were dropped, and the meshes, atlases, and speech model are stored uncompressed inside a Brotli stream rather than deflated twice.
+- **Eight new Xbox Series skins**: Sonic the Hedgehog, Razer, Captain America, Boba Fett, The Mandalorian, Stormtrooper, Darth Vader, and Star Wars: Squadrons.
+- **Always Show in System Tray** is its own setting, so the tray icon no longer depends on Close to System Tray.
+- **A virtual pad reports a real battery level.** Two off-by-one defects, one in the DualShock 4 packer and one in HIDMaestro's XInput reply, had every virtual pad reading flat.
+- **A game's DualSense trigger feedback reaches the pad.** The virtual pad carries the physical DualSense's trigger feedback bytes instead of zeroing them, so a game that reads them back sees the truth.
+- **Rumble on Padix PlayStation converters**, written directly as the 9-byte motor report.
+- **Proportional steering-angle rumble** on wheels.
+- **Signed BthPS3 2.12.0** is bundled, and an older install is upgraded in place.
+- **Elite paddles heal themselves** across every transport and focus change.
+
+</details>
+
+<details>
 <summary><b>New in 4.4.0:</b> Valve hardware from an Extended slot, head tracking from OpenTrack, your desk lighting up with the pad, and the buttons a handheld PC hides</summary>
 
 - **Valve hardware from an Extended slot.** A Steam Deck Controller, a Steam Controller (Wired), a Steam Controller (2026), and Composite variants of the first two, each with Valve's own vendor and product IDs. The Composite and 2026 profiles pack Valve's native input frame with both trackpads and the rear buttons, and a one-to-one automap lands a real Valve pad's controls straight across. The two Steam Controller bodies in the 3D preview are meshed from Valve's published CAD.
@@ -692,7 +715,13 @@ Pair your PCs and share their controllers every way. A wheel on one drives a gam
 
 ### Head tracking
 ![The Head Tracking section on the Dashboard](screenshots/dashboard-head-tracking.jpg)
-OpenTrack over UDP and the FreeTrack 2.0 shared memory as one six-axis Head Tracker device. Set the UDP port, the rotation range in degrees, and the translation range in centimeters.
+OpenTrack over UDP, the FreeTrack 2.0 shared memory, and a VR headset through an OpenXR runtime, as one six-axis Head Tracker device. Set the UDP port, the rotation range in degrees, and the translation range in centimeters, and pin any single axis to its own range.
+
+### VR controller input
+With OpenXR headset input on, each hand controller is its own device row: six pose axes named like the head's, plus the thumbstick, trigger, grip, and four buttons. PadForge suggests bindings for Oculus Touch, Valve Index, and the Khronos simple profile, and the runtime picks the match. Not to be confused with a VR virtual controller slot, which is the opposite direction.
+
+### Logitech G-keys
+Read the G-keys on a Logitech keyboard, and a Logitech mouse's buttons 6 through 20, straight through the G-key SDK as their own device row. 29 keys in each of M1, M2 and M3. Needs Logitech Gaming Software 8.55 or later with the PadForge profile set to Persistent.
 
 ### Lightbar mirrors
 ![Lightbar Mirrors and Razer Sensa HD Haptics on the Dashboard](screenshots/dashboard-lightbar-mirrors.jpg)
@@ -846,6 +875,8 @@ PadForge stands on these projects. Please consider supporting them directly.
 | [Lenovo Legion Toolkit](https://github.com/BartoszCichecki/LenovoLegionToolkit) | The Lenovo WMI utility-event class the handheld hidden-button learner subscribes to, and the elevated IPC server pattern behind external profile control. Documentation only, no GPL code ships | GPL-3.0 |
 | [InputPlumber](https://github.com/ShadowBlip/InputPlumber) | Handheld PC identity strings and vendor-report notes cross-checked for the hidden-button learner. Documentation only, no GPL code ships | GPL-3.0 |
 | [linuxmotehook](https://github.com/v1993/linuxmotehook) and [WiimoteHook](https://github.com/epigramx/WiimoteHook) | Wii Remote hold-orientation presets the Grip setting mirrors. No code ships | Apache-2.0, closed source |
+| [OpenXR-SDK](https://github.com/KhronosGroup/OpenXR-SDK) and [VirtualDesktop-OpenXR](https://github.com/mbucchia/VirtualDesktop-OpenXR) | Runtime negotiation interface, structure layout, registry keys and performance-counter time conversion behind headset and motion controller input. PadForge talks to your own installed runtime and ships no Khronos code | Apache-2.0, MIT |
+| [Mumble](https://github.com/mumble-voip/mumble) | Logitech G-key SDK library search order and shutdown lifecycle, read alongside LogitechGkeyLib.h from the SDK itself. PadForge loads G HUB's own library and ships no Logitech code | BSD-3-Clause |
 | [SteamKit2](https://github.com/SteamRE/SteamKit) | .NET Steam network client the Steam Workshop controller-config import uses. Connects over an anonymous session, no Steam account needed | LGPL-2.1-only |
 | [protobuf-net](https://github.com/protobuf-net/protobuf-net) | Protocol Buffers serializer SteamKit2 uses for the Steam wire protocol, by Marc Gravell | Apache-2.0 |
 | [ZstdSharp](https://github.com/oleg-st/ZstdSharp) | Zstandard decompression SteamKit2 uses for Steam depot chunks. A C# port of the zstd compression library, by Oleg Stepanischev | MIT |
@@ -928,4 +959,6 @@ This project is licensed under **CC BY-NC-SA 4.0** (Creative Commons Attribution
 - **Lenovo Legion Toolkit** (GPL-3.0) documented the Lenovo WMI utility-event class the handheld hidden-button learner subscribes to and the elevated IPC server pattern behind external profile control. Read as documentation only, no GPL code ships.
 - **InputPlumber** (GPL-3.0) documented handheld PC identity strings and vendor-report notes cross-checked for the hidden-button learner. Read as documentation only, no GPL code ships.
 - **linuxmotehook** (Apache-2.0) and **WiimoteHook** (closed source, read through its documentation) documented the Wii Remote hold-orientation presets the Grip setting mirrors. No code from them ships.
+- **OpenXR-SDK** (Apache-2.0) and **VirtualDesktop-OpenXR** (MIT) documented the runtime negotiation interface, structure layout, registry keys and performance-counter time conversion behind headset and motion controller input. PadForge talks to the runtime installed on your own machine and ships no Khronos binary and no code from these projects.
+- **Mumble** (BSD-3-Clause) documented the Logitech G-key SDK library search order and shutdown lifecycle, read alongside LogitechGkeyLib.h from the SDK itself, which defines the event word. PadForge loads G HUB's own library at run time and ships no Logitech binary and no code from these projects.
 See [LICENSE](LICENSE) for the full license text.

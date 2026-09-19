@@ -251,7 +251,7 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Remote-Link-Port</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Motion-Server-Port</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Stellt Gyroskop- und Beschleunigungsdaten für Cemu, Dolphin, Yuzu usw. bereit.</value></data>
-  <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Funktioniert mit OpenTrack und jedem Tracker, der dessen UDP-Ausgabe sendet oder in den FreeTrack 2.0 Shared Memory schreibt.</value></data>
+  <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Funktioniert mit OpenTrack und jedem Tracker, der seine UDP-Ausgabe sendet oder den gemeinsamen FreeTrack-2.0-Speicher beschreibt, sowie mit jeder auf diesem Rechner installierten OpenXR-Laufzeit.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Logitech G-Tasten lesen</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Liest G-Tasten über das Logitech G-key SDK. Erfordert eine laufende Logitech Gaming Software 8.55 oder neuer, mit dem PadForge-Profil auf Dauerhaft, sonst funktionieren die Tasten nur, während PadForge das aktive Fenster ist.</value></data>
   <data name="Settings_GKeysStatus_NoSdk" xml:space="preserve"><value>Kein Logitech G-key SDK auf diesem PC. Es wird mit Logitech Gaming Software 8.55 oder neuer installiert.</value></data>
@@ -2412,7 +2412,7 @@
   <data name="VrCtl_Secondary" xml:space="preserve"><value>Sekundäre Taste</value></data>
   <data name="VrCtl_Menu" xml:space="preserve"><value>Menütaste</value></data>
   <data name="Dashboard_HeadTracking" xml:space="preserve"><value>Head-Tracking</value></data>
-  <data name="Dashboard_HeadTrackingDesc" xml:space="preserve"><value>Liest eine Kopfpose aus der UDP-Ausgabe von OpenTrack oder aus dem FreeTrack 2.0 Shared Memory und stellt sie als sechs Achsen eines Head-Tracker-Geräts bereit: Gieren, Nicken, Rollen und die drei Verschiebungen. Weisen Sie das Gieren einer Stick-Achse zu, um sich umzusehen, während beide Daumen auf den Tasten bleiben.</value></data>
+  <data name="Dashboard_HeadTrackingDesc" xml:space="preserve"><value>Liest eine Kopfhaltung aus der UDP-Ausgabe von OpenTrack, aus dem gemeinsamen FreeTrack-2.0-Speicher oder von einem VR-Headset über eine OpenXR-Laufzeit und stellt sie als sechs Achsen eines Head-Tracker-Geräts bereit: Gieren, Nicken, Rollen und die drei Verschiebungen. Ordnen Sie das Kopfgieren einer Stick-Achse zu, um sich umzusehen, während beide Daumen auf den Tasten bleiben.</value></data>
   <data name="Dashboard_HeadTrackingEnable" xml:space="preserve"><value>UDP-Tracking-Eingabe aktivieren</value></data>
   <data name="Dashboard_HeadTrackingEnable_Tooltip" xml:space="preserve"><value>Kopfbewegungen über UDP empfangen. FreeTrack kann unabhängig davon aktiviert werden.</value></data>
   <data name="Dashboard_HeadTrackingFreeTrack" xml:space="preserve"><value>FreeTrack-2.0-Eingabe über gemeinsamen Speicher aktivieren</value></data>
@@ -3527,6 +3527,10 @@ Du kannst es später in den Einstellungen erneut versuchen.</value></data>
   <data name="About_LinuxmotehookDesc" xml:space="preserve">
     <value>Voreinstellungen für die Halteausrichtung der Wii-Fernbedienung, die die Griff-Einstellung spiegelt. linuxmotehook ist Apache-2.0. WiimoteHook ist ein Closed-Source-Werkzeug, das über seine Dokumentation gelesen wurde. Kein Code wird ausgeliefert.</value>
   </data>
+  <data name="About_OpenXrRefs" xml:space="preserve"><value>OpenXR-Referenzen</value></data>
+  <data name="About_OpenXrRefsDesc" xml:space="preserve"><value>Die Laufzeitschnittstelle, das Strukturlayout und die Registrierungsschlüssel hinter der Eingabe von Headset und Motion-Controllern, gelesen aus den Khronos-OpenXR-SDK-Headern (Apache-2.0) und gegen VirtualDesktop-OpenXR (MIT) geprüft. PadForge spricht mit Ihrer eigenen installierten Laufzeit und liefert keinen Khronos-Code aus.</value></data>
+  <data name="About_LogitechGKeyRefs" xml:space="preserve"><value>Referenzen zum Logitech G-key SDK</value></data>
+  <data name="About_LogitechGKeyRefsDesc" xml:space="preserve"><value>Das Layout des Ereigniswortes und der Bibliothekslebenszyklus hinter der G-Tasten-Eingabe, gelesen aus LogitechGkeyLib.h im SDK und gegen Mumbles GKey.cpp (BSD 3-Clause) geprüft. PadForge lädt die eigene Bibliothek von G HUB und liefert keinen Logitech-Code aus.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>Legt fest, welche Hälften dieses Slots aktiv sind. Eine deaktivierte Hälfte blendet ihre Zeilen aus und sendet nichts mehr, behält aber ihre Zuweisungen, sodass sie beim Wiedereinschalten zurückkehren.</value>
   </data>

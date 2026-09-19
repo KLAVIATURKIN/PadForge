@@ -1871,17 +1871,17 @@
                                  pushes every box right. -->
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <TextBlock Text="{Binding Dashboard_HeadTrackingPort, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"
@@ -1982,9 +1982,9 @@
                                 Content="{Binding Dashboard_HeadTrackingRecenter, Source={x:Static strings:Strings.Instance}}"
                                 ToolTip="{Binding Dashboard_HeadTrackingRecenter_Tooltip, Source={x:Static strings:Strings.Instance}}"/>
                     </StackPanel>
-                    <!-- The Devices row's source line: which source is live,
-                         or why neither is. Stopped while the feature is off
-                         or the engine is down. -->
+                    <!-- The Devices row's source line: which of the three
+                         sources is live, or why none is. Stopped while the
+                         feature is off or the engine is down. -->
                     <TextBlock Text="{Binding HeadTrackingStatus}" FontSize="12"
                                FontFamily="{StaticResource TelemetryFontFamily}"
                                Foreground="{DynamicResource ColdBrush}" Margin="0,0,0,4"/>
