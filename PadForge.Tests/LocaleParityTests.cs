@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Text.RegularExpressions;
+using System.IO;
 using System.Globalization;
 using System.Resources;
 using PadForge.Resources.Strings;
@@ -76,5 +78,92 @@ namespace PadForge.Tests
             Assert.True(extra.Length == 0,
                 $"{locale} defines {extra.Length} key(s) the base resx does not: {string.Join(", ", extra)}");
         }
+        /// <summary>
+        /// A .resx value is XML text, not a C# string literal, so a backslash
+        /// is a backslash. A value written with \n renders as those two
+        /// characters, and the crash dialog read "An unexpected error
+        /// occurred:\n\nIndexOutOfRangeException...".
+        ///
+        /// <para>Not hypothetical. App_UnexpectedError_Format carried them in
+        /// all ten locales and the 4.5.0 capture run photographed the dialog
+        /// into four shipped screenshots. Real newlines survive the build
+        /// because every value element carries xml:space="preserve".</para>
+        ///
+        /// <para>Reads the .resx SOURCE rather than the compiled resources.
+        /// An incremental build does not reliably recompile a changed resx on
+        /// this tree (OneDrive mtime lag defeats MSBuild's up-to-date check),
+        /// so a satellite-based check can pass against a stale assembly and
+        /// prove nothing. The source is what a regression guard should pin.</para>
+        /// </summary>
+        [Theory]
+        [MemberData(nameof(AllResxFiles))]
+        public void NoStringRendersALiteralEscapeSequence(string fileName)
+        {
+            string path = Path.Combine(ResxDirectory(), fileName);
+            Assert.True(File.Exists(path), "missing resx: " + path);
+            string xml = File.ReadAllText(path);
+
+            var offenders = LiteralEscapeOffenders(xml);
+
+            Assert.True(offenders.Count == 0,
+                fileName + " has " + offenders.Count
+                + " value(s) carrying a literal escape sequence, which renders"
+                + " verbatim instead of breaking the line: "
+                + string.Join(", ", offenders));
+        }
+
+
+        /// <summary>Keys whose value carries a literal escape sequence.
+        /// Separate from the file walk so it can be driven with input the
+        /// test controls, which is the only way to show the check can
+        /// fail.</summary>
+        internal static List<string> LiteralEscapeOffenders(string xml)
+        {
+            var offenders = new List<string>();
+            foreach (Match m in Regex.Matches(
+                xml, @"<data name=""([^""]+)""[^>]*>\s*<value>(.*?)</value>",
+                RegexOptions.Singleline))
+            {
+                string v = m.Groups[2].Value;
+                if (v.Contains(@"\n") || v.Contains(@"\r") || v.Contains(@"\t"))
+                    offenders.Add(m.Groups[1].Value);
+            }
+            return offenders;
+        }
+
+        /// <summary>The check above reports zero on every shipped resx, which
+        /// is worthless unless it can report more than zero. Fed a value that
+        /// carries the defect and one that does not, it must separate them.</summary>
+        [Fact]
+        public void TheLiteralEscapeCheckSeparatesGoodFromBad()
+        {
+            string good = "<data name=" + Q + "Good" + Q + " xml:space=" + Q + "preserve" + Q + "><value>line one" + nl_literal + "line two</value></data>";
+            string bad  = "<data name=" + Q + "Bad" + Q + "  xml:space=" + Q + "preserve" + Q + "><value>line one" + backslash_n + "line two</value></data>";
+
+            Assert.Empty(LiteralEscapeOffenders(good));
+            Assert.Equal(new[] { "Bad" }, LiteralEscapeOffenders(bad));
+            Assert.Equal(new[] { "Bad" }, LiteralEscapeOffenders(good + bad));
+        }
+
+        private const string Q = "\"";
+        private const string nl_literal = "\n";
+        private static readonly string backslash_n = ((char)92).ToString() + "n";
+        /// <summary>The base resx and every shipped locale resx, by file name.</summary>
+        public static IEnumerable<object[]> AllResxFiles() =>
+            new[] { new object[] { "Strings.resx" } }
+                .Concat(Locales.Select(l => new object[] { "Strings." + l + ".resx" }));
+
+        /// <summary>Walks up from the test binary to the resx folder, the way
+        /// every other source-reading test in this suite does.</summary>
+        private static string ResxDirectory()
+        {
+            var dir = new DirectoryInfo(AppContext.BaseDirectory);
+            while (dir != null
+                && !Directory.Exists(Path.Combine(dir.FullName, "PadForge.App")))
+                dir = dir.Parent;
+            Assert.NotNull(dir);
+            return Path.Combine(dir.FullName, "PadForge.App", "Resources", "Strings");
+        }
+
     }
 }

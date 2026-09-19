@@ -936,7 +936,11 @@
   <data name="App_AlreadyRunning" xml:space="preserve"><value>PadForge è già in esecuzione.</value></data>
   <data name="App_FatalError" xml:space="preserve"><value>PadForge: Errore fatale</value></data>
   <data name="App_Error" xml:space="preserve"><value>PadForge: Errore</value></data>
-  <data name="App_UnexpectedError_Format" xml:space="preserve"><value>Si è verificato un errore imprevisto:\n\n{0}\n\n{1}</value></data>
+  <data name="App_UnexpectedError_Format" xml:space="preserve"><value>Si è verificato un errore imprevisto:
+
+{0}
+
+{1}</value></data>
   <data name="App_SuppressedErrors_Format" xml:space="preserve"><value>({0} errore/i aggiuntivo/i soppresso/i)</value></data>
 
   <!-- ═══ Polling Frequency ═══ -->

@@ -936,7 +936,11 @@
   <data name="App_AlreadyRunning" xml:space="preserve"><value>PadForge가 이미 실행 중입니다.</value></data>
   <data name="App_FatalError" xml:space="preserve"><value>PadForge: 치명적 오류</value></data>
   <data name="App_Error" xml:space="preserve"><value>PadForge: 오류</value></data>
-  <data name="App_UnexpectedError_Format" xml:space="preserve"><value>예기치 않은 오류가 발생했습니다:\n\n{0}\n\n{1}</value></data>
+  <data name="App_UnexpectedError_Format" xml:space="preserve"><value>예기치 않은 오류가 발생했습니다:
+
+{0}
+
+{1}</value></data>
   <data name="App_SuppressedErrors_Format" xml:space="preserve"><value>(추가 오류 {0}건이 표시되지 않음)</value></data>
 
   <!-- ═══ Polling Frequency ═══ -->
