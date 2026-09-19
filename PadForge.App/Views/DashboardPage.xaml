@@ -1913,6 +1913,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -1925,39 +1926,57 @@
                         <TextBlock Grid.Row="0" Text="{Binding Dashboard_HeadTrackingAxisYaw, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"
                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,8,6"/>
                         <ui:NumberBox Grid.Row="0" Grid.Column="1" Value="{Binding HeadTrackingRangeYaw, Mode=TwoWay}"
-                                      Minimum="0" Maximum="180" Margin="0,0,0,6"
+                                      Minimum="0" Maximum="180" Margin="0,0,8,6"
                                       SpinButtonPlacementMode="Inline" Width="200"
                                       ToolTip="{Binding Dashboard_HeadTrackingAxisRange_Tooltip, Source={x:Static strings:Strings.Instance}}"/>
+                        <reset:SettingResetButton Grid.Row="0" Grid.Column="2" Command="{Binding ResetHeadTrackingRangeYawCommand}"
+                                                  SettingLabel="{Binding Dashboard_HeadTrackingAxisYaw, Source={x:Static strings:Strings.Instance}}"
+                                                  VerticalAlignment="Center" Margin="0,0,0,6"/>
                         <TextBlock Grid.Row="1" Text="{Binding Dashboard_HeadTrackingAxisPitch, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"
                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,8,6"/>
                         <ui:NumberBox Grid.Row="1" Grid.Column="1" Value="{Binding HeadTrackingRangePitch, Mode=TwoWay}"
-                                      Minimum="0" Maximum="180" Margin="0,0,0,6"
+                                      Minimum="0" Maximum="180" Margin="0,0,8,6"
                                       SpinButtonPlacementMode="Inline" Width="200"
                                       ToolTip="{Binding Dashboard_HeadTrackingAxisRange_Tooltip, Source={x:Static strings:Strings.Instance}}"/>
+                        <reset:SettingResetButton Grid.Row="1" Grid.Column="2" Command="{Binding ResetHeadTrackingRangePitchCommand}"
+                                                  SettingLabel="{Binding Dashboard_HeadTrackingAxisPitch, Source={x:Static strings:Strings.Instance}}"
+                                                  VerticalAlignment="Center" Margin="0,0,0,6"/>
                         <TextBlock Grid.Row="2" Text="{Binding Dashboard_HeadTrackingAxisRoll, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"
                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,8,6"/>
                         <ui:NumberBox Grid.Row="2" Grid.Column="1" Value="{Binding HeadTrackingRangeRoll, Mode=TwoWay}"
-                                      Minimum="0" Maximum="180" Margin="0,0,0,6"
+                                      Minimum="0" Maximum="180" Margin="0,0,8,6"
                                       SpinButtonPlacementMode="Inline" Width="200"
                                       ToolTip="{Binding Dashboard_HeadTrackingAxisRange_Tooltip, Source={x:Static strings:Strings.Instance}}"/>
+                        <reset:SettingResetButton Grid.Row="2" Grid.Column="2" Command="{Binding ResetHeadTrackingRangeRollCommand}"
+                                                  SettingLabel="{Binding Dashboard_HeadTrackingAxisRoll, Source={x:Static strings:Strings.Instance}}"
+                                                  VerticalAlignment="Center" Margin="0,0,0,6"/>
                         <TextBlock Grid.Row="3" Text="{Binding Dashboard_HeadTrackingAxisX, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"
                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,8,6"/>
                         <ui:NumberBox Grid.Row="3" Grid.Column="1" Value="{Binding HeadTrackingRangeX, Mode=TwoWay}"
-                                      Minimum="0" Maximum="500" Margin="0,0,0,6"
+                                      Minimum="0" Maximum="500" Margin="0,0,8,6"
                                       SpinButtonPlacementMode="Inline" Width="200"
                                       ToolTip="{Binding Dashboard_HeadTrackingAxisRange_Tooltip, Source={x:Static strings:Strings.Instance}}"/>
+                        <reset:SettingResetButton Grid.Row="3" Grid.Column="2" Command="{Binding ResetHeadTrackingRangeXCommand}"
+                                                  SettingLabel="{Binding Dashboard_HeadTrackingAxisX, Source={x:Static strings:Strings.Instance}}"
+                                                  VerticalAlignment="Center" Margin="0,0,0,6"/>
                         <TextBlock Grid.Row="4" Text="{Binding Dashboard_HeadTrackingAxisY, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"
                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,8,6"/>
                         <ui:NumberBox Grid.Row="4" Grid.Column="1" Value="{Binding HeadTrackingRangeY, Mode=TwoWay}"
-                                      Minimum="0" Maximum="500" Margin="0,0,0,6"
+                                      Minimum="0" Maximum="500" Margin="0,0,8,6"
                                       SpinButtonPlacementMode="Inline" Width="200"
                                       ToolTip="{Binding Dashboard_HeadTrackingAxisRange_Tooltip, Source={x:Static strings:Strings.Instance}}"/>
+                        <reset:SettingResetButton Grid.Row="4" Grid.Column="2" Command="{Binding ResetHeadTrackingRangeYCommand}"
+                                                  SettingLabel="{Binding Dashboard_HeadTrackingAxisY, Source={x:Static strings:Strings.Instance}}"
+                                                  VerticalAlignment="Center" Margin="0,0,0,6"/>
                         <TextBlock Grid.Row="5" Text="{Binding Dashboard_HeadTrackingAxisZ, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"
                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,8,6"/>
                         <ui:NumberBox Grid.Row="5" Grid.Column="1" Value="{Binding HeadTrackingRangeZ, Mode=TwoWay}"
-                                      Minimum="0" Maximum="500" Margin="0,0,0,6"
+                                      Minimum="0" Maximum="500" Margin="0,0,8,6"
                                       SpinButtonPlacementMode="Inline" Width="200"
                                       ToolTip="{Binding Dashboard_HeadTrackingAxisRange_Tooltip, Source={x:Static strings:Strings.Instance}}"/>
+                        <reset:SettingResetButton Grid.Row="5" Grid.Column="2" Command="{Binding ResetHeadTrackingRangeZCommand}"
+                                                  SettingLabel="{Binding Dashboard_HeadTrackingAxisZ, Source={x:Static strings:Strings.Instance}}"
+                                                  VerticalAlignment="Center" Margin="0,0,0,6"/>
                     </Grid>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                         <Button Command="{Binding ResetHeadTrackingRangesCommand}"

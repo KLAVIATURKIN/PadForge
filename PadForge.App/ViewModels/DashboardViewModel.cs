@@ -586,6 +586,39 @@ namespace PadForge.ViewModels
                     OnPropertyChanged(name);
             });
 
+        // Every setting row carries its own reset, per the project's own
+        // paradigm. Zero is an axis's default because zero is what makes it
+        // follow the shared range, so a reset here is "stop pinning this one".
+        private RelayCommand _resetHeadTrackingRangeYawCommand;
+        public RelayCommand ResetHeadTrackingRangeYawCommand =>
+            _resetHeadTrackingRangeYawCommand ??= new RelayCommand(
+                () => HeadTrackingRangeYaw = 0);
+
+        private RelayCommand _resetHeadTrackingRangePitchCommand;
+        public RelayCommand ResetHeadTrackingRangePitchCommand =>
+            _resetHeadTrackingRangePitchCommand ??= new RelayCommand(
+                () => HeadTrackingRangePitch = 0);
+
+        private RelayCommand _resetHeadTrackingRangeRollCommand;
+        public RelayCommand ResetHeadTrackingRangeRollCommand =>
+            _resetHeadTrackingRangeRollCommand ??= new RelayCommand(
+                () => HeadTrackingRangeRoll = 0);
+
+        private RelayCommand _resetHeadTrackingRangeXCommand;
+        public RelayCommand ResetHeadTrackingRangeXCommand =>
+            _resetHeadTrackingRangeXCommand ??= new RelayCommand(
+                () => HeadTrackingRangeX = 0);
+
+        private RelayCommand _resetHeadTrackingRangeYCommand;
+        public RelayCommand ResetHeadTrackingRangeYCommand =>
+            _resetHeadTrackingRangeYCommand ??= new RelayCommand(
+                () => HeadTrackingRangeY = 0);
+
+        private RelayCommand _resetHeadTrackingRangeZCommand;
+        public RelayCommand ResetHeadTrackingRangeZCommand =>
+            _resetHeadTrackingRangeZCommand ??= new RelayCommand(
+                () => HeadTrackingRangeZ = 0);
+
         private RelayCommand _headTrackingRecenterCommand;
 
         /// <summary>Makes wherever the user is sitting now the neutral.

@@ -94,6 +94,60 @@ namespace PadForge.Tests
                 "reset icons whose tooltip names no setting:\n  " + string.Join("\n  ", offenders));
         }
 
+
+        /// <summary>
+        /// Every value row on the Dashboard carries its own reset.
+        ///
+        /// <para>The other tests here check what a reset SAYS. This one
+        /// checks that the reset EXISTS, which is the half that shipped
+        /// broken: the six per-axis head-tracking ranges landed as bare
+        /// number boxes next to rows that all had one. The paradigm gives
+        /// every tunable a one-click way back to its default, and the owner
+        /// has had to say so more than once.</para>
+        ///
+        /// <para>A row is measured up to the next number box, so a reset
+        /// belonging to a later row cannot cover for a missing one.</para>
+        /// </summary>
+        [Fact]
+        public void EveryNumberBoxOnTheDashboardHasItsOwnReset()
+        {
+            string file = Path.Combine(ViewsDir(), "DashboardPage.xaml");
+            string text = File.ReadAllText(file);
+            var starts = Regex.Matches(text, @"<ui:NumberBox\b").Select(m => m.Index).ToList();
+            Assert.True(starts.Count > 10, $"expected the Dashboard's number boxes, found {starts.Count}");
+
+            var offenders = new List<string>();
+            for (int i = 0; i < starts.Count; i++)
+            {
+                int next = i + 1 < starts.Count ? starts[i + 1] : text.Length;
+                int end = Math.Min(next, starts[i] + 1500);
+                string row = text[starts[i]..end];
+                if (row.Contains("reset:SettingResetButton", StringComparison.Ordinal)) continue;
+
+                var bound = Regex.Match(row, @"Value=""\{Binding ([A-Za-z0-9_]+)");
+                int line = text.Take(starts[i]).Count(c => c == '\n') + 1;
+                offenders.Add($"DashboardPage.xaml:{line} {(bound.Success ? bound.Groups[1].Value : "?")}");
+            }
+
+            Assert.True(offenders.Count == 0,
+                "value rows with no reset button of their own:\n  " + string.Join("\n  ", offenders));
+        }
+
+        /// <summary>The six per-axis head-tracking ranges each reset
+        /// themselves, not the family and not each other.</summary>
+        [Fact]
+        public void EachPerAxisRangeResetsOnlyItsOwnAxis()
+        {
+            string xaml = File.ReadAllText(Path.Combine(ViewsDir(), "DashboardPage.xaml"));
+            foreach (string axis in new[] { "Yaw", "Pitch", "Roll", "X", "Y", "Z" })
+            {
+                Assert.Contains($"ResetHeadTrackingRange{axis}Command", xaml);
+                // The label feeds the "Reset <name>" tooltip, so a bare glyph
+                // in a stack of six still says which one it is.
+                Assert.Contains($"Dashboard_HeadTrackingAxis{axis}, Source=", xaml);
+            }
+        }
+
         /// <summary>A SettingResetButton's label is the setting's NAME. Feed
         /// it a description and the tooltip becomes a paragraph.</summary>
         [Fact]
