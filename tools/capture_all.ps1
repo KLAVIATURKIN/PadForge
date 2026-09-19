@@ -3558,8 +3558,24 @@ if ($Only.Count -gt 0) {
                     if (Want "pad-gyro-grip") {
                         if (Tab "Gyro") {
                             Start-Sleep -Milliseconds 900
+                            # STILL UNRESOLVED, 2026-09-19. Ruled out this
+                            # round: the card is real and ungated (PadPage.xaml
+                            # Grip card, no Visibility binding), it is inside
+                            # the Gyro TabItem, it sits NEAR THE TOP of that
+                            # tab so it is not below the fold, and Tab "Gyro"
+                            # returns true (a failure there prints its own
+                            # message and this one did not). Scroll-ToAnchor
+                            # was tried and made no difference, which fits a
+                            # card that is already in view. The pad-pointer and
+                            # wii-pointer-mode shots in the same block, on the
+                            # same device, captured fine, so the slot binding
+                            # and tab switching both work. What has NOT been
+                            # checked is whether the Gyro tab's content is
+                            # realized in the UIA tree at all for an
+                            # accelerometer-only Wii Remote. Dump the tab's
+                            # descendants before guessing again.
                             if ($null -eq (Get-Rect (Find-UIARetry -Name "Grip" -Retries 6 -DelayMs 600))) {
-                                Write-Host "  !! Grip card not on the Gyro tab -- SKIPPED pad-gyro-grip" -ForegroundColor Red
+                                Write-Host "  !! Grip card not reachable by UIA on the Gyro tab -- SKIPPED pad-gyro-grip" -ForegroundColor Red
                             } else { Cap "pad-gyro-grip" }
                         } else { Write-Host "  !! Gyro tab not found -- SKIPPED pad-gyro-grip" -ForegroundColor Red }
                     }
