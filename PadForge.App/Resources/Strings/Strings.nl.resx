@@ -294,9 +294,9 @@
   <data name="Settings_MinimizeToTray" xml:space="preserve"><value>Minimaliseren naar systeemvak</value></data>
   <data name="Settings_CloseToTray" xml:space="preserve"><value>Bij sluiten naar systeemvak</value></data>
   <data name="Settings_CloseToTrayTip" xml:space="preserve"><value>PadForge blijft actief als u op Sluiten klikt of Alt+F4 indrukt. Kies Afsluiten in het systeemvakmenu om het programma af te sluiten.</value></data>
-  <data name="Settings_MinimizeToTrayTip" xml:space="preserve"><value>Minimaliseren verbergt het venster in het systeemvak in plaats van de taakbalk.</value></data>
-  <data name="Settings_StartMinimizedTip" xml:space="preserve"><value>Start met verborgen venster. PadForge blijft draaien en toewijzen.</value></data>
-  <data name="Settings_StartAtLoginTip" xml:space="preserve"><value>Start PadForge wanneer je je aanmeldt bij Windows.</value></data>
+  <data name="Settings_MinimizeToTrayTip" xml:space="preserve"><value>Houd PadForge in het systeemvak wanneer je het venster minimaliseert, in plaats van op de taakbalk.</value></data>
+  <data name="Settings_StartMinimizedTip" xml:space="preserve"><value>Houd het venster verborgen wanneer PadForge start. Het draait en wijst toe zoals altijd.</value></data>
+  <data name="Settings_StartAtLoginTip" xml:space="preserve"><value>Start PadForge automatisch wanneer je je aanmeldt bij Windows.</value></data>
   <data name="Settings_AlwaysShowTrayIcon" xml:space="preserve"><value>Altijd in systeemvak tonen</value></data>
   <data name="Settings_AlwaysShowTrayIconTip" xml:space="preserve"><value>Houdt het pictogram in het systeemvak zichtbaar terwijl het venster open is, zodat Afsluiten in het menu altijd één klik verwijderd is.</value></data>
   <data name="Settings_StartMinimized" xml:space="preserve"><value>Geminimaliseerd starten</value></data>

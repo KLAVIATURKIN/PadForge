@@ -354,9 +354,9 @@
   <data name="Settings_MinimizeToTray" xml:space="preserve"><value>Minimize to System Tray</value></data>
   <data name="Settings_CloseToTray" xml:space="preserve"><value>Close to System Tray</value></data>
   <data name="Settings_CloseToTrayTip" xml:space="preserve"><value>Keep PadForge running when you click Close or press Alt+F4. Use Exit in the system tray menu to quit.</value></data>
-  <data name="Settings_MinimizeToTrayTip" xml:space="preserve"><value>Minimizing the window hides it to the notification area instead of the taskbar.</value></data>
-  <data name="Settings_StartMinimizedTip" xml:space="preserve"><value>Starts with the window hidden. PadForge keeps running and mapping.</value></data>
-  <data name="Settings_StartAtLoginTip" xml:space="preserve"><value>Starts PadForge when you sign in to Windows.</value></data>
+  <data name="Settings_MinimizeToTrayTip" xml:space="preserve"><value>Keep PadForge in the notification area when you minimize the window, instead of on the taskbar.</value></data>
+  <data name="Settings_StartMinimizedTip" xml:space="preserve"><value>Keep the window hidden when PadForge starts. It runs and maps as usual.</value></data>
+  <data name="Settings_StartAtLoginTip" xml:space="preserve"><value>Start PadForge automatically when you sign in to Windows.</value></data>
   <data name="Settings_AlwaysShowTrayIcon" xml:space="preserve"><value>Always Show in System Tray</value></data>
   <data name="Settings_AlwaysShowTrayIconTip" xml:space="preserve"><value>Keep the tray icon visible while the window is open, so Exit in its menu is always one click away.</value></data>
   <data name="Settings_StartMinimized" xml:space="preserve"><value>Start Minimized</value></data>

@@ -124,7 +124,17 @@ $scenes = @(
     @{ Shot = "colorway-xbox-stellarshift";     Type = 0; Profile = "xbox-series-xs-bt"; Fam = "XboxSeries"; App = "StellarShift" },
     @{ Shot = "colorway-xbox-porsche";          Type = 0; Profile = "xbox-series-xs-bt"; Fam = "XboxSeries"; App = "Porsche75th" },
     @{ Shot = "colorway-xbox-velocitygreen";    Type = 0; Profile = "xbox-series-xs-bt"; Fam = "XboxSeries"; App = "VelocityGreen" },
-    @{ Shot = "colorway-xbox-remix";            Type = 0; Profile = "xbox-series-xs-bt"; Fam = "XboxSeries"; App = "Remix" }
+    @{ Shot = "colorway-xbox-remix";            Type = 0; Profile = "xbox-series-xs-bt"; Fam = "XboxSeries"; App = "Remix" },
+    # The eight skins this cycle added. Sonic leads the gallery, so it is
+    # captured first and the rest follow in the order the picker lists them.
+    @{ Shot = "colorway-xbox-sonic";            Type = 0; Profile = "xbox-series-xs-bt"; Fam = "XboxSeries"; App = "Sonic" },
+    @{ Shot = "colorway-xbox-razer";            Type = 0; Profile = "xbox-series-xs-bt"; Fam = "XboxSeries"; App = "Razer" },
+    @{ Shot = "colorway-xbox-captainamerica";   Type = 0; Profile = "xbox-series-xs-bt"; Fam = "XboxSeries"; App = "CaptainAmerica" },
+    @{ Shot = "colorway-xbox-bobafett";         Type = 0; Profile = "xbox-series-xs-bt"; Fam = "XboxSeries"; App = "BobaFett" },
+    @{ Shot = "colorway-xbox-mandalorian";      Type = 0; Profile = "xbox-series-xs-bt"; Fam = "XboxSeries"; App = "Mandalorian" },
+    @{ Shot = "colorway-xbox-stormtrooper";     Type = 0; Profile = "xbox-series-xs-bt"; Fam = "XboxSeries"; App = "Stormtrooper" },
+    @{ Shot = "colorway-xbox-darthvader";       Type = 0; Profile = "xbox-series-xs-bt"; Fam = "XboxSeries"; App = "DarthVader" },
+    @{ Shot = "colorway-xbox-squadrons";        Type = 0; Profile = "xbox-series-xs-bt"; Fam = "XboxSeries"; App = "Squadrons" }
 )
 
 # ---- Backup with the clobber guard (never overwrite an existing backup) ----

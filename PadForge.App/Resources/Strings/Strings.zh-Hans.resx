@@ -294,9 +294,9 @@
   <data name="Settings_MinimizeToTray" xml:space="preserve"><value>最小化到系统托盘</value></data>
   <data name="Settings_CloseToTray" xml:space="preserve"><value>关闭时最小化到系统托盘</value></data>
   <data name="Settings_CloseToTrayTip" xml:space="preserve"><value>点击关闭按钮或按 Alt+F4 后，PadForge 将继续运行。要退出程序，请在系统托盘菜单中选择“退出”。</value></data>
-  <data name="Settings_MinimizeToTrayTip" xml:space="preserve"><value>最小化时将窗口收进通知区域，而不是任务栏。</value></data>
-  <data name="Settings_StartMinimizedTip" xml:space="preserve"><value>以隐藏窗口启动。PadForge 继续运行并进行映射。</value></data>
-  <data name="Settings_StartAtLoginTip" xml:space="preserve"><value>登录 Windows 时启动 PadForge。</value></data>
+  <data name="Settings_MinimizeToTrayTip" xml:space="preserve"><value>最小化窗口时将 PadForge 留在通知区域，而不是任务栏。</value></data>
+  <data name="Settings_StartMinimizedTip" xml:space="preserve"><value>PadForge 启动时保持窗口隐藏。它照常运行并进行映射。</value></data>
+  <data name="Settings_StartAtLoginTip" xml:space="preserve"><value>登录 Windows 时自动启动 PadForge。</value></data>
   <data name="Settings_AlwaysShowTrayIcon" xml:space="preserve"><value>始终显示在系统托盘</value></data>
   <data name="Settings_AlwaysShowTrayIconTip" xml:space="preserve"><value>窗口打开时也保持显示系统托盘图标，随时可以在其菜单中选择“退出”。</value></data>
   <data name="Settings_StartMinimized" xml:space="preserve"><value>启动时最小化</value></data>

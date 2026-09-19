@@ -294,9 +294,9 @@
   <data name="Settings_MinimizeToTray" xml:space="preserve"><value>Minimizar para a Bandeja do Sistema</value></data>
   <data name="Settings_CloseToTray" xml:space="preserve"><value>Fechar para a Bandeja do Sistema</value></data>
   <data name="Settings_CloseToTrayTip" xml:space="preserve"><value>O PadForge continua em execução ao clicar em Fechar ou pressionar Alt+F4. Para encerrar o programa, selecione Sair no menu da bandeja do sistema.</value></data>
-  <data name="Settings_MinimizeToTrayTip" xml:space="preserve"><value>Minimizar oculta a janela na área de notificação em vez da barra de tarefas.</value></data>
-  <data name="Settings_StartMinimizedTip" xml:space="preserve"><value>Inicia com a janela oculta. O PadForge continua em execução e mapeando.</value></data>
-  <data name="Settings_StartAtLoginTip" xml:space="preserve"><value>Inicia o PadForge quando você entra no Windows.</value></data>
+  <data name="Settings_MinimizeToTrayTip" xml:space="preserve"><value>Mantenha o PadForge na área de notificação ao minimizar a janela, em vez de na barra de tarefas.</value></data>
+  <data name="Settings_StartMinimizedTip" xml:space="preserve"><value>Mantenha a janela oculta quando o PadForge iniciar. Ele continua em execução e mapeando como sempre.</value></data>
+  <data name="Settings_StartAtLoginTip" xml:space="preserve"><value>Inicie o PadForge automaticamente quando você entrar no Windows.</value></data>
   <data name="Settings_AlwaysShowTrayIcon" xml:space="preserve"><value>Sempre Mostrar na Bandeja do Sistema</value></data>
   <data name="Settings_AlwaysShowTrayIconTip" xml:space="preserve"><value>Mantém o ícone da bandeja do sistema visível enquanto a janela está aberta, então Sair no menu dele está sempre a um clique.</value></data>
   <data name="Settings_StartMinimized" xml:space="preserve"><value>Iniciar Minimizado</value></data>

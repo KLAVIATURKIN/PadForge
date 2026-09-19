@@ -294,9 +294,9 @@
   <data name="Settings_MinimizeToTray" xml:space="preserve"><value>In den Infobereich minimieren</value></data>
   <data name="Settings_CloseToTray" xml:space="preserve"><value>Beim Schließen in den Infobereich minimieren</value></data>
   <data name="Settings_CloseToTrayTip" xml:space="preserve"><value>PadForge läuft weiter, wenn Sie auf Schließen klicken oder Alt+F4 drücken. Wählen Sie Beenden im Infobereich-Menü, um das Programm zu beenden.</value></data>
-  <data name="Settings_MinimizeToTrayTip" xml:space="preserve"><value>Beim Minimieren wird das Fenster im Infobereich statt in der Taskleiste abgelegt.</value></data>
-  <data name="Settings_StartMinimizedTip" xml:space="preserve"><value>Startet mit ausgeblendetem Fenster. PadForge läuft und mappt weiter.</value></data>
-  <data name="Settings_StartAtLoginTip" xml:space="preserve"><value>Startet PadForge bei der Anmeldung bei Windows.</value></data>
+  <data name="Settings_MinimizeToTrayTip" xml:space="preserve"><value>Behalten Sie PadForge im Infobereich, wenn Sie das Fenster minimieren, statt in der Taskleiste.</value></data>
+  <data name="Settings_StartMinimizedTip" xml:space="preserve"><value>Halten Sie das Fenster beim Start von PadForge ausgeblendet. Es läuft und mappt wie gewohnt.</value></data>
+  <data name="Settings_StartAtLoginTip" xml:space="preserve"><value>Starten Sie PadForge automatisch, wenn Sie sich bei Windows anmelden.</value></data>
   <data name="Settings_AlwaysShowTrayIcon" xml:space="preserve"><value>Immer im Infobereich anzeigen</value></data>
   <data name="Settings_AlwaysShowTrayIconTip" xml:space="preserve"><value>Zeigt das Symbol im Infobereich auch bei geöffnetem Fenster, sodass Beenden in seinem Menü jederzeit erreichbar ist.</value></data>
   <data name="Settings_StartMinimized" xml:space="preserve"><value>Minimiert starten</value></data>

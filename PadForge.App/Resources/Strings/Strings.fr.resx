@@ -294,9 +294,9 @@
   <data name="Settings_MinimizeToTray" xml:space="preserve"><value>Réduire dans la zone de notification</value></data>
   <data name="Settings_CloseToTray" xml:space="preserve"><value>Réduire dans la zone de notification à la fermeture</value></data>
   <data name="Settings_CloseToTrayTip" xml:space="preserve"><value>PadForge continue de fonctionner lorsque vous cliquez sur Fermer ou appuyez sur Alt+F4. Sélectionnez Quitter dans le menu de la zone de notification pour fermer le programme.</value></data>
-  <data name="Settings_MinimizeToTrayTip" xml:space="preserve"><value>La réduction masque la fenêtre dans la zone de notification au lieu de la barre des tâches.</value></data>
-  <data name="Settings_StartMinimizedTip" xml:space="preserve"><value>Démarre avec la fenêtre masquée. PadForge continue de fonctionner et d’affecter.</value></data>
-  <data name="Settings_StartAtLoginTip" xml:space="preserve"><value>Lance PadForge à votre connexion à Windows.</value></data>
+  <data name="Settings_MinimizeToTrayTip" xml:space="preserve"><value>Gardez PadForge dans la zone de notification quand vous réduisez la fenêtre, plutôt que dans la barre des tâches.</value></data>
+  <data name="Settings_StartMinimizedTip" xml:space="preserve"><value>Gardez la fenêtre masquée au démarrage de PadForge. Il continue de fonctionner et d’affecter.</value></data>
+  <data name="Settings_StartAtLoginTip" xml:space="preserve"><value>Lancez PadForge automatiquement quand vous vous connectez à Windows.</value></data>
   <data name="Settings_AlwaysShowTrayIcon" xml:space="preserve"><value>Toujours afficher dans la zone de notification</value></data>
   <data name="Settings_AlwaysShowTrayIconTip" xml:space="preserve"><value>Garde l'icône de la zone de notification visible pendant que la fenêtre est ouverte, pour que Quitter dans son menu soit toujours à un clic.</value></data>
   <data name="Settings_StartMinimized" xml:space="preserve"><value>Démarrer réduit</value></data>
