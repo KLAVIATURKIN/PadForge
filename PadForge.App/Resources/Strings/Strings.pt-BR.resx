@@ -3524,7 +3524,7 @@ Você pode tentar novamente mais tarde em Configurações.</value></data>
   <data name="About_OpenXrRefs" xml:space="preserve"><value>Referências do OpenXR</value></data>
   <data name="About_OpenXrRefsDesc" xml:space="preserve"><value>A interface de tempo de execução, o layout das estruturas e as chaves de registro por trás da entrada do headset e dos controles de movimento, lidos dos cabeçalhos do OpenXR-SDK da Khronos (Apache-2.0) e conferidos com o VirtualDesktop-OpenXR (MIT). O PadForge fala com o tempo de execução instalado na sua máquina e não distribui código da Khronos.</value></data>
   <data name="About_LogitechGKeyRefs" xml:space="preserve"><value>Referências do SDK G-key da Logitech</value></data>
-  <data name="About_LogitechGKeyRefsDesc" xml:space="preserve"><value>O layout da palavra de evento e o ciclo de vida da biblioteca por trás da entrada das teclas G, lidos do LogitechGkeyLib.h no SDK e conferidos com o GKey.cpp do Mumble (BSD 3-Clause). O PadForge carrega a própria biblioteca do G HUB e não distribui código da Logitech.</value></data>
+  <data name="About_LogitechGKeyRefsDesc" xml:space="preserve"><value>O layout da palavra de evento e o ciclo de vida da biblioteca por trás da entrada das teclas G, lidos do LogitechGkeyLib.h no SDK e conferidos com o GKey.cpp do Mumble (BSD 3-Clause). O PadForge carrega a biblioteca que estiver na máquina e não distribui código da Logitech.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>Escolha quais metades deste slot ficam ativas. Desligar uma metade oculta suas linhas e para o envio, mas mantém os mapeamentos para que voltem ao religá-la.</value>
   </data>

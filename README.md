@@ -53,17 +53,17 @@ PadForge is for sim racers running wheels in games that only understand Xbox con
 </p>
 
 <details>
-<summary><b>New in 4.5.0:</b> a VR headset and its controllers as input, Logitech G-keys, a phone's controller through the browser, and an install a third smaller</summary>
+<summary><b>New in 4.5.0:</b> a VR headset and its controllers as input, Logitech G-keys, a phone's controller through the browser, and an install 30% smaller</summary>
 
 - **A VR headset drives a flat game.** Enable OpenXR Headset Input on the Dashboard and the headset's pose arrives on the Head Tracker device as the same six axes OpenTrack uses. PadForge talks to the runtime directly instead of through the Khronos loader, so it can pick a runtime for itself without touching the machine's default and no other program's API layers enter its process. The session draws nothing, so no VR game has to be running.
-- **Your VR controllers become gamepads.** Each hand is its own device row: six pose axes named like the head's, plus the thumbstick, trigger, grip, and four buttons. Oculus Touch, Valve Index, and the Khronos simple profile are all suggested and the runtime picks the match. Left and right are separate devices, and a controller set down returns its axes to rest after a second.
+- **Your VR controllers become gamepads.** Each hand is its own device row: six pose axes in the same order as the head's, named Controller rather than Head, plus the thumbstick, trigger, grip, and four buttons. Oculus Touch, Valve Index, and the Khronos simple profile are all suggested and the runtime picks the match. Left and right are separate devices, and a controller set down returns its axes to rest after a second.
 - **Per-axis head tracking ranges.** Any one of the six axes can pin its own range while the rest follow the shared pair, for when neck rotation and leaning cover very different distances.
 - **Logitech G-keys, without burning a keycode.** Tick Read Logitech G-Keys in Settings and the G-keys arrive through Logitech's own SDK as their own device row: 29 keys in each of M1, M2 and M3, plus a Logitech mouse's buttons 6 through 20. No programming a G-key to type some real key that then fires in every other program.
-- **A controller paired to your phone, through the browser.** The Browser Gamepad page forwards any pad the phone or handheld can see over the Gamepad API, rumble included.
-- **Pens and drawing tablets are input devices.** Windows pen and tablet input binds like anything else.
+- **A controller paired to your phone, through the browser.** The Browser Gamepad page forwards a pad the phone or handheld can see over the Gamepad API, with rumble where the browser offers it. iPhone Safari offers none. Controls past a slot's shape are dropped, and the page says how many.
+- **Pens and drawing tablets are input devices.** A Windows pen reports its barrel buttons, its eraser, inversion and in-range as named buttons, and its contact rides the touchpad lane. There is no tilt or twist, and the row is excluded from (Any Device) sources, so bind it by name.
 - **Keyboard and mouse surfaces.** A Preset chip, a preview that follows it, and a per-slot surface mode that persists.
 - **Menus gained a Layer picker, a stay-open mode, and per-cell icon size.**
-- **The install is a third smaller and starts faster.** 412.3 MB down to 289.2 MB, and startup from 6.26 s to 5.58 s. Each controller atlas now ships in the format that suits it, 352 duplicate meshes were dropped, and the meshes, atlases, and speech model are stored uncompressed inside a Brotli stream rather than deflated twice.
+- **The install is 30% smaller and starts faster.** 412.3 MB down to 289.2 MB, and startup from 6.26 s to 5.58 s. Each controller atlas now ships in the format that suits it, opaque ones as JPEG, and 352 duplicate meshes were dropped for a shared geometry table. The transparent atlases and the speech model are stored uncompressed inside a Brotli stream instead of being deflated and then compressed again, and the meshes are Brotli-packed rather than deflated.
 - **Eight new Xbox Series skins**: Sonic the Hedgehog, Razer, Captain America, Boba Fett, The Mandalorian, Stormtrooper, Darth Vader, and Star Wars: Squadrons.
 - **Always Show in System Tray** is its own setting, so the tray icon no longer depends on Close to System Tray.
 - **A virtual pad reports a real battery level.** Two off-by-one defects, one in the DualShock 4 packer and one in HIDMaestro's XInput reply, had every virtual pad reading flat.
@@ -718,7 +718,7 @@ Pair your PCs and share their controllers every way. A wheel on one drives a gam
 OpenTrack over UDP, the FreeTrack 2.0 shared memory, and a VR headset through an OpenXR runtime, as one six-axis Head Tracker device. Set the UDP port, the rotation range in degrees, and the translation range in centimeters, and pin any single axis to its own range.
 
 ### VR controller input
-With OpenXR headset input on, each hand controller is its own device row: six pose axes named like the head's, plus the thumbstick, trigger, grip, and four buttons. PadForge suggests bindings for Oculus Touch, Valve Index, and the Khronos simple profile, and the runtime picks the match. Not to be confused with a VR virtual controller slot, which is the opposite direction.
+With OpenXR headset input on, each hand controller is its own device row: six pose axes in the same order as the head's, named Controller rather than Head, plus the thumbstick, trigger, grip, and four buttons. PadForge suggests bindings for Oculus Touch, Valve Index, and the Khronos simple profile, and the runtime picks the match. Not to be confused with a VR virtual controller slot, which is the opposite direction.
 
 ### Logitech G-keys
 Read the G-keys on a Logitech keyboard, and a Logitech mouse's buttons 6 through 20, straight through the G-key SDK as their own device row. 29 keys in each of M1, M2 and M3. Needs Logitech Gaming Software 8.55 or later with the PadForge profile set to Persistent.

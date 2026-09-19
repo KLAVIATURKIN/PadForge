@@ -197,9 +197,9 @@
                                   IsChecked="{Binding GKeysEnabled}"/>
                         <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="GKeysEnabled" SettingLabel="{Binding Settings_GKeys, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_SettingsViewModel_GKeysEnabled_186"/>
                     </StackPanel>
-                    <!-- Which of the six cases the machine is in, so a quiet
-                         G-key is never a mystery. Empty while the feature is
-                         off, the polling-override note's shape. -->
+                    <!-- Which of the seven cases the machine is in, so a
+                         quiet G-key is never a mystery. Empty while the
+                         feature is off, the polling-override note's shape. -->
                     <TextBlock Text="{Binding GKeysStatus}"
                                Visibility="{Binding GKeysStatus, Converter={StaticResource StringToVisibility}}"
                                TextWrapping="Wrap" Margin="0,0,0,8"

@@ -902,7 +902,7 @@ namespace PadForge.ViewModels
 
         private string _gKeysStatus = string.Empty;
 
-        /// <summary>Which of the six states the machine is in, pushed by
+        /// <summary>Which of the seven states the machine is in, pushed by
         /// InputService. Empty while the feature is off, which collapses the
         /// line.</summary>
         public string GKeysStatus

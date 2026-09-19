@@ -5059,11 +5059,13 @@ namespace PadForge.Services
         /// <summary>
         /// The G-Keys card's source line (issue #454).
         ///
-        /// <para>Four cases a user can act on, so a quiet G-key is never a
-        /// mystery: no SDK on the machine, the SDK is there but the Logitech
-        /// software is not running, running and hearing keys, or running and
-        /// hearing none. The last one is the persistent-profile trap, which is
-        /// why the count is in the line at all.</para>
+        /// <para>Seven lines, so a quiet G-key is never a mystery. Five of
+        /// them are the source's failure states (no SDK, a registered path
+        /// whose file is gone, a load failure, a library that is not this SDK,
+        /// and an init the SDK refused). The sixth is running but hearing
+        /// nothing, which is the persistent-profile trap and is why the event
+        /// count is in the line at all. The seventh is running with keys
+        /// arriving.</para>
         /// </summary>
         private void UpdateGKeysStatus()
         {

@@ -3530,7 +3530,7 @@
   <data name="About_OpenXrRefs" xml:space="preserve"><value>OpenXR 参考来源</value></data>
   <data name="About_OpenXrRefsDesc" xml:space="preserve"><value>头昵和体感手柄输入背后的运行时接口、结构布局和注册表项，读自 Khronos OpenXR-SDK 头文件（Apache-2.0），并与 VirtualDesktop-OpenXR（MIT）比对。PadForge 与你自己安装的运行时通信，不随附 Khronos 代码。</value></data>
   <data name="About_LogitechGKeyRefs" xml:space="preserve"><value>Logitech G-key SDK 参考来源</value></data>
-  <data name="About_LogitechGKeyRefsDesc" xml:space="preserve"><value>G 键输入背后的事件字布局和库生命周期，读自 SDK 中的 LogitechGkeyLib.h，并与 Mumble 的 GKey.cpp（BSD 3-Clause）比对。PadForge 加载 G HUB 自带的库，不随附 Logitech 代码。</value></data>
+  <data name="About_LogitechGKeyRefsDesc" xml:space="preserve"><value>G 键输入背后的事件字布局和库生命周期，读自 SDK 中的 LogitechGkeyLib.h，并与 Mumble 的 GKey.cpp（BSD 3-Clause）比对。PadForge 加载本机上的库，不随附 Logitech 代码。</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>选择此插槽启用哪些部分。关闭的一侧会隐藏其行并停止发送，但映射会保留，重新开启后即可恢复。</value>
   </data>
