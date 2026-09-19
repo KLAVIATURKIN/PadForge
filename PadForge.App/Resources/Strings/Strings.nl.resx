@@ -2429,7 +2429,6 @@
   <data name="Dashboard_HeadTrackingTranslationRange_Tooltip" xml:space="preserve"><value>Hoofdverplaatsing waarbij de assen X, Y en Z hun volledige uitslag bereiken.</value></data>
   <data name="Dashboard_HeadTrackingAxisRanges" xml:space="preserve"><value>Bereik per as</value></data>
   <data name="Dashboard_HeadTrackingAxisRangesDesc" xml:space="preserve"><value>Stel één as apart in. Nul volgt het bereik hierboven. Rotatie in graden, verplaatsing in centimeters.</value></data>
-  <data name="Dashboard_HeadTrackingAxisRangesReset" xml:space="preserve"><value>Gedeelde bereiken gebruiken</value></data>
   <data name="Dashboard_HeadTrackingAxisRange_Tooltip" xml:space="preserve"><value>Beweging op deze as bij volledige uitslag. Nul volgt het gedeelde bereik hierboven.</value></data>
   <data name="Dashboard_HeadTrackingAxisYaw" xml:space="preserve"><value>Gieren</value></data>
   <data name="Dashboard_HeadTrackingAxisPitch" xml:space="preserve"><value>Stampen</value></data>

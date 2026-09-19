@@ -2431,7 +2431,6 @@
   <data name="Dashboard_HeadTrackingTranslationRange_Tooltip" xml:space="preserve"><value>Spostamento della testa che porta gli assi X, Y e Z alla deflessione massima.</value></data>
   <data name="Dashboard_HeadTrackingAxisRanges" xml:space="preserve"><value>Intervallo per asse</value></data>
   <data name="Dashboard_HeadTrackingAxisRangesDesc" xml:space="preserve"><value>Imposta un asse singolarmente. Zero segue l'intervallo sopra. Rotazione in gradi, spostamento in centimetri.</value></data>
-  <data name="Dashboard_HeadTrackingAxisRangesReset" xml:space="preserve"><value>Usa gli intervalli condivisi</value></data>
   <data name="Dashboard_HeadTrackingAxisRange_Tooltip" xml:space="preserve"><value>Movimento su questo asse a piena deflessione. Zero segue l'intervallo condiviso sopra.</value></data>
   <data name="Dashboard_HeadTrackingAxisYaw" xml:space="preserve"><value>Imbardata</value></data>
   <data name="Dashboard_HeadTrackingAxisPitch" xml:space="preserve"><value>Beccheggio</value></data>

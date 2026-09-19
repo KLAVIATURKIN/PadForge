@@ -1978,9 +1978,6 @@
                         </StackPanel>
                     </Grid>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                        <Button Command="{Binding ResetHeadTrackingRangesCommand}"
-                                Content="{Binding Dashboard_HeadTrackingAxisRangesReset, Source={x:Static strings:Strings.Instance}}"
-                                Margin="0,0,8,0"/>
                         <Button Command="{Binding HeadTrackingRecenterCommand}"
                                 Content="{Binding Dashboard_HeadTrackingRecenter, Source={x:Static strings:Strings.Instance}}"
                                 ToolTip="{Binding Dashboard_HeadTrackingRecenter_Tooltip, Source={x:Static strings:Strings.Instance}}"/>

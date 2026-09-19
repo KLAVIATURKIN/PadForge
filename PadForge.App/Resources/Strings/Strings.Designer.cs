@@ -2671,7 +2671,6 @@ public class Strings : INotifyPropertyChanged
     public string Dashboard_HeadTrackingTranslationRange_Tooltip => Get("Dashboard_HeadTrackingTranslationRange_Tooltip");
     public string Dashboard_HeadTrackingAxisRanges => Get("Dashboard_HeadTrackingAxisRanges");
     public string Dashboard_HeadTrackingAxisRangesDesc => Get("Dashboard_HeadTrackingAxisRangesDesc");
-    public string Dashboard_HeadTrackingAxisRangesReset => Get("Dashboard_HeadTrackingAxisRangesReset");
     public string Dashboard_HeadTrackingAxisRange_Tooltip => Get("Dashboard_HeadTrackingAxisRange_Tooltip");
     public string Dashboard_HeadTrackingAxisYaw => Get("Dashboard_HeadTrackingAxisYaw");
     public string Dashboard_HeadTrackingAxisPitch => Get("Dashboard_HeadTrackingAxisPitch");

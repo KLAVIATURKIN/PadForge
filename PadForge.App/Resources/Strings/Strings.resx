@@ -2809,7 +2809,6 @@
   <data name="Dashboard_HeadTrackingTranslationRange_Tooltip" xml:space="preserve"><value>Head travel that moves the X, Y, and Z axes to full deflection.</value></data>
   <data name="Dashboard_HeadTrackingAxisRanges" xml:space="preserve"><value>Per-Axis Range</value></data>
   <data name="Dashboard_HeadTrackingAxisRangesDesc" xml:space="preserve"><value>Set one axis on its own. Zero follows the range above. Rotation is in degrees, travel in centimeters.</value></data>
-  <data name="Dashboard_HeadTrackingAxisRangesReset" xml:space="preserve"><value>Use the Shared Ranges</value></data>
   <data name="Dashboard_HeadTrackingAxisRange_Tooltip" xml:space="preserve"><value>Movement on this axis at full deflection. Zero follows the shared range above.</value></data>
   <data name="Dashboard_HeadTrackingAxisYaw" xml:space="preserve"><value>Yaw</value></data>
   <data name="Dashboard_HeadTrackingAxisPitch" xml:space="preserve"><value>Pitch</value></data>

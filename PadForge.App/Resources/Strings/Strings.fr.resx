@@ -2409,7 +2409,6 @@
   <data name="Dashboard_HeadTrackingTranslationRange_Tooltip" xml:space="preserve"><value>Déplacement de la tête qui amène les axes X, Y et Z à la déflexion maximale.</value></data>
   <data name="Dashboard_HeadTrackingAxisRanges" xml:space="preserve"><value>Plage par axe</value></data>
   <data name="Dashboard_HeadTrackingAxisRangesDesc" xml:space="preserve"><value>Réglez un axe séparément. Zéro suit la plage ci-dessus. Rotation en degrés, déplacement en centimètres.</value></data>
-  <data name="Dashboard_HeadTrackingAxisRangesReset" xml:space="preserve"><value>Utiliser les plages partagées</value></data>
   <data name="Dashboard_HeadTrackingAxisRange_Tooltip" xml:space="preserve"><value>Mouvement sur cet axe à pleine amplitude. Zéro suit la plage partagée ci-dessus.</value></data>
   <data name="Dashboard_HeadTrackingAxisYaw" xml:space="preserve"><value>Lacet</value></data>
   <data name="Dashboard_HeadTrackingAxisPitch" xml:space="preserve"><value>Tangage</value></data>

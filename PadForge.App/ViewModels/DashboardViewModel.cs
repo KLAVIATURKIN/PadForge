@@ -569,23 +569,6 @@ namespace PadForge.ViewModels
             OnPropertyChanged(property);
         }
 
-        private RelayCommand _resetHeadTrackingRangesCommand;
-
-        /// <summary>Puts every axis back on its family's range.</summary>
-        public RelayCommand ResetHeadTrackingRangesCommand =>
-            _resetHeadTrackingRangesCommand ??= new RelayCommand(() =>
-            {
-                for (int axis = 0; axis < 6; axis++)
-                    PadForge.Common.Input.HeadTrackingRuntime.SetAxisRange(axis, 0);
-                foreach (var name in new[]
-                         {
-                             nameof(HeadTrackingRangeYaw), nameof(HeadTrackingRangePitch),
-                             nameof(HeadTrackingRangeRoll), nameof(HeadTrackingRangeX),
-                             nameof(HeadTrackingRangeY), nameof(HeadTrackingRangeZ),
-                         })
-                    OnPropertyChanged(name);
-            });
-
         // Every setting row carries its own reset, per the project's own
         // paradigm. Zero is an axis's default because zero is what makes it
         // follow the shared range, so a reset here is "stop pinning this one".

@@ -2409,7 +2409,6 @@
   <data name="Dashboard_HeadTrackingTranslationRange_Tooltip" xml:space="preserve"><value>使 X、Y、Z 轴达到满偏的头部移动量。</value></data>
   <data name="Dashboard_HeadTrackingAxisRanges" xml:space="preserve"><value>每轴范围</value></data>
   <data name="Dashboard_HeadTrackingAxisRangesDesc" xml:space="preserve"><value>单独设置某个轴。0 表示沿用上方的范围。旋转以度为单位，位移以厘米为单位。</value></data>
-  <data name="Dashboard_HeadTrackingAxisRangesReset" xml:space="preserve"><value>使用共享范围</value></data>
   <data name="Dashboard_HeadTrackingAxisRange_Tooltip" xml:space="preserve"><value>该轴达到满偏所需的移动量。0 表示沿用上方的共享范围。</value></data>
   <data name="Dashboard_HeadTrackingAxisYaw" xml:space="preserve"><value>偏航</value></data>
   <data name="Dashboard_HeadTrackingAxisPitch" xml:space="preserve"><value>俯仰</value></data>

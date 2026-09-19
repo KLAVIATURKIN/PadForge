@@ -249,28 +249,48 @@ namespace PadForge.Tests
         }
 
         [Fact]
-        public void TheResetCommandClearsAllSixAndTellsTheBoxes()
+        public void EachRowsResetClearsThatRowAndTellsItsBox()
         {
+            // Six per-row resets, one per axis. A bulk button that cleared all
+            // six shipped alongside them and was removed: it duplicated the
+            // six, and no other card carries a partial bulk reset.
             var vm = new DashboardViewModel();
             vm.HeadTrackingRangeYaw = 45;
             vm.HeadTrackingRangeZ = 8;
 
             var told = new System.Collections.Generic.List<string>();
             vm.PropertyChanged += (_, e) => told.Add(e.PropertyName);
-            vm.ResetHeadTrackingRangesCommand.Execute(null);
+
+            vm.ResetHeadTrackingRangeYawCommand.Execute(null);
+            Assert.False(HeadTrackingRuntime.AxisRangeIsPinned(HeadPose.AxisYaw));
+            // Clearing one row leaves every other pin where it was.
+            Assert.True(HeadTrackingRuntime.AxisRangeIsPinned(HeadPose.AxisZ));
+            Assert.Contains(nameof(DashboardViewModel.HeadTrackingRangeYaw), told);
+            Assert.DoesNotContain(nameof(DashboardViewModel.HeadTrackingRangeZ), told);
+
+            vm.ResetHeadTrackingRangeZCommand.Execute(null);
+            Assert.False(HeadTrackingRuntime.AxisRangeIsPinned(HeadPose.AxisZ));
+            Assert.Contains(nameof(DashboardViewModel.HeadTrackingRangeZ), told);
+        }
+
+        [Fact]
+        public void EveryAxisHasAResetCommandOfItsOwn()
+        {
+            var vm = new DashboardViewModel();
+            var commands = new[]
+            {
+                vm.ResetHeadTrackingRangeYawCommand, vm.ResetHeadTrackingRangePitchCommand,
+                vm.ResetHeadTrackingRangeRollCommand, vm.ResetHeadTrackingRangeXCommand,
+                vm.ResetHeadTrackingRangeYCommand, vm.ResetHeadTrackingRangeZCommand,
+            };
+            Assert.Equal(HeadPose.AxisCount, commands.Length);
+            Assert.All(commands, Assert.NotNull);
 
             for (int axis = 0; axis < HeadPose.AxisCount; axis++)
+                HeadTrackingRuntime.SetAxisRange(axis, axis <= HeadPose.AxisRoll ? 45 : 8);
+            foreach (var c in commands) c.Execute(null);
+            for (int axis = 0; axis < HeadPose.AxisCount; axis++)
                 Assert.False(HeadTrackingRuntime.AxisRangeIsPinned(axis));
-            foreach (string name in new[]
-                     {
-                         nameof(DashboardViewModel.HeadTrackingRangeYaw),
-                         nameof(DashboardViewModel.HeadTrackingRangePitch),
-                         nameof(DashboardViewModel.HeadTrackingRangeRoll),
-                         nameof(DashboardViewModel.HeadTrackingRangeX),
-                         nameof(DashboardViewModel.HeadTrackingRangeY),
-                         nameof(DashboardViewModel.HeadTrackingRangeZ),
-                     })
-                Assert.Contains(name, told);
         }
 
         [Fact]

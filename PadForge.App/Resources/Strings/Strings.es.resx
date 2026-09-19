@@ -2409,7 +2409,6 @@
   <data name="Dashboard_HeadTrackingTranslationRange_Tooltip" xml:space="preserve"><value>Desplazamiento de la cabeza que lleva los ejes X, Y y Z a la deflexión máxima.</value></data>
   <data name="Dashboard_HeadTrackingAxisRanges" xml:space="preserve"><value>Rango por eje</value></data>
   <data name="Dashboard_HeadTrackingAxisRangesDesc" xml:space="preserve"><value>Configura un eje por separado. Cero sigue el rango de arriba. Rotación en grados, desplazamiento en centímetros.</value></data>
-  <data name="Dashboard_HeadTrackingAxisRangesReset" xml:space="preserve"><value>Usar los rangos compartidos</value></data>
   <data name="Dashboard_HeadTrackingAxisRange_Tooltip" xml:space="preserve"><value>Movimiento en este eje a plena desviación. Cero sigue el rango compartido de arriba.</value></data>
   <data name="Dashboard_HeadTrackingAxisYaw" xml:space="preserve"><value>Guiñada</value></data>
   <data name="Dashboard_HeadTrackingAxisPitch" xml:space="preserve"><value>Cabeceo</value></data>

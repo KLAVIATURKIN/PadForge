@@ -2409,7 +2409,6 @@
   <data name="Dashboard_HeadTrackingTranslationRange_Tooltip" xml:space="preserve"><value>X、Y、Z の各軸が最大に振れる頭の移動量。</value></data>
   <data name="Dashboard_HeadTrackingAxisRanges" xml:space="preserve"><value>軸ごとの範囲</value></data>
   <data name="Dashboard_HeadTrackingAxisRangesDesc" xml:space="preserve"><value>軸を個別に設定します。0 は上の範囲に従います。回転は度、移動はセンチメートルです。</value></data>
-  <data name="Dashboard_HeadTrackingAxisRangesReset" xml:space="preserve"><value>共有範囲を使う</value></data>
   <data name="Dashboard_HeadTrackingAxisRange_Tooltip" xml:space="preserve"><value>この軸で最大変位となる動き。0 は上の共有範囲に従います。</value></data>
   <data name="Dashboard_HeadTrackingAxisYaw" xml:space="preserve"><value>ヨー</value></data>
   <data name="Dashboard_HeadTrackingAxisPitch" xml:space="preserve"><value>ピッチ</value></data>

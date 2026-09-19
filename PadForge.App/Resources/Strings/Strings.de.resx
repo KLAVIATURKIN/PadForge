@@ -2409,7 +2409,6 @@
   <data name="Dashboard_HeadTrackingTranslationRange_Tooltip" xml:space="preserve"><value>Kopfbewegung, bei der die Achsen X, Y und Z den Vollausschlag erreichen.</value></data>
   <data name="Dashboard_HeadTrackingAxisRanges" xml:space="preserve"><value>Bereich pro Achse</value></data>
   <data name="Dashboard_HeadTrackingAxisRangesDesc" xml:space="preserve"><value>Eine Achse einzeln festlegen. Null folgt dem Bereich oben. Drehung in Grad, Bewegung in Zentimetern.</value></data>
-  <data name="Dashboard_HeadTrackingAxisRangesReset" xml:space="preserve"><value>Gemeinsame Bereiche verwenden</value></data>
   <data name="Dashboard_HeadTrackingAxisRange_Tooltip" xml:space="preserve"><value>Bewegung auf dieser Achse bei voller Auslenkung. Null folgt dem gemeinsamen Bereich oben.</value></data>
   <data name="Dashboard_HeadTrackingAxisYaw" xml:space="preserve"><value>Gieren</value></data>
   <data name="Dashboard_HeadTrackingAxisPitch" xml:space="preserve"><value>Nicken</value></data>

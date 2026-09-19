@@ -2409,7 +2409,6 @@
   <data name="Dashboard_HeadTrackingTranslationRange_Tooltip" xml:space="preserve"><value>X, Y, Z 축이 최대로 움직이는 머리 이동량입니다.</value></data>
   <data name="Dashboard_HeadTrackingAxisRanges" xml:space="preserve"><value>축별 범위</value></data>
   <data name="Dashboard_HeadTrackingAxisRangesDesc" xml:space="preserve"><value>축을 개별적으로 설정합니다. 0은 위의 범위를 따릅니다. 회전은 도, 이동은 센티미터입니다.</value></data>
-  <data name="Dashboard_HeadTrackingAxisRangesReset" xml:space="preserve"><value>공유 범위 사용</value></data>
   <data name="Dashboard_HeadTrackingAxisRange_Tooltip" xml:space="preserve"><value>이 축에서 최대 편향이 되는 움직임입니다. 0은 위의 공유 범위를 따릅니다.</value></data>
   <data name="Dashboard_HeadTrackingAxisYaw" xml:space="preserve"><value>요</value></data>
   <data name="Dashboard_HeadTrackingAxisPitch" xml:space="preserve"><value>피치</value></data>
