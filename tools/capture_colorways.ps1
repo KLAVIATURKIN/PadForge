@@ -16,7 +16,11 @@
 param(
     [string]$OutputDir   = "C:\Users\sonic\OneDrive\Documents\GitHub\padforge.org\wiki\images",
     [string]$PadForgeExe = "C:\PadForge\PadForge.exe",
-    [string]$PadForgeXml = "C:\PadForge\PadForge.xml"
+    [string]$PadForgeXml = "C:\PadForge\PadForge.xml",
+    # Shot names to capture, for re-taking the one or two a run got wrong
+    # without spending twenty minutes on the eighteen it got right. Empty
+    # means every scene. Names match the Shot field below.
+    [string[]]$Only      = @()
 )
 
 Set-StrictMode -Version Latest
@@ -137,6 +141,19 @@ $scenes = @(
     @{ Shot = "colorway-xbox-squadrons";        Type = 0; Profile = "xbox-series-xs-bt"; Fam = "XboxSeries"; App = "Squadrons" }
 )
 
+if ($Only.Count -gt 0) {
+    # Accept both -Only a,b (one comma-joined string, which is what an
+    # elevated Start-Process -File hands over) and -Only a b.
+    $wanted = @($Only | ForEach-Object { $_ -split ',' } |
+                ForEach-Object { $_.Trim() } | Where-Object { $_ })
+    $scenes = @($scenes | Where-Object { $wanted -contains $_.Shot })
+    if ($scenes.Count -ne $wanted.Count) {
+        throw "asked for $($wanted.Count) scene(s), matched $($scenes.Count). Check the names against the Shot fields."
+    }
+    Note "filtered to $($scenes.Count) scene(s): $($Only -join ', ')"
+}
+$script:missed = @()
+
 # ---- Backup with the clobber guard (never overwrite an existing backup) ----
 $bak = "$PadForgeXml.bak"
 # STOP THE APP FIRST. The restore used to run ahead of the kill and then delete
@@ -250,18 +267,34 @@ try {
         # Switch Pro because the click had CHANGED the slot's type before
         # the shot. capture_all.ps1 carries the same rule for the same
         # reason ("Dashboard SlotsItemsControl cards, NOT the sidebar").
-        $slotsHost = $null
+        # RETRY the lookup, and never shoot a scene that failed to stage. A
+        # single try at a fixed 14s wait missed the card on two scenes of a
+        # 21-scene run and captured both anyway: the appearance popup was
+        # still open across the controller, and those two files would have
+        # mirrored to the site looking like a UI bug. A miss is a skipped
+        # shot, which leaves the previous good file in place and shows up in
+        # the log, not a picture nobody can trust.
         $aidCond = New-Object System.Windows.Automation.PropertyCondition(
             [System.Windows.Automation.AutomationElement]::AutomationIdProperty, "SlotsItemsControl")
-        $slotsHost = $script:uiaWin.FindFirst($TD, $aidCond)
         $card = $null
-        if ($slotsHost) {
-            $kids = $slotsHost.FindAll([System.Windows.Automation.TreeScope]::Children,
-                        [System.Windows.Automation.Condition]::TrueCondition)
-            if ($kids.Count -gt 0) { $card = $kids[0] }
+        for ($t = 1; $t -le 4; $t++) {
+            $slotsHost = $script:uiaWin.FindFirst($TD, $aidCond)
+            if ($slotsHost) {
+                $kids = $slotsHost.FindAll([System.Windows.Automation.TreeScope]::Children,
+                            [System.Windows.Automation.Condition]::TrueCondition)
+                if ($kids.Count -gt 0) { $card = $kids[0]; break }
+            }
+            Note "  dashboard slot card not up yet (try $t)"
+            Start-Sleep 4
         }
-        if ($card) { [void](Click-Rect $card "dashboard slot card 1") }
-        else { Note "  !! dashboard slot card not found" }
+        if (-not $card) {
+            Note "  !! SKIPPED $($sc.Shot): dashboard never realized the slot card"
+            $script:missed += $sc.Shot
+            Kill-PadForge
+            Start-Sleep 3
+            continue
+        }
+        [void](Click-Rect $card "dashboard slot card 1")
         Start-Sleep 2
         Shot $sc.Shot
 
@@ -278,4 +311,8 @@ finally {
     Start-Process $PadForgeExe
     Note "relaunched PadForge"
 }
-Note "=== DONE ==="
+if ($script:missed.Count -gt 0) {
+    Note "=== DONE with $($script:missed.Count) SKIPPED: $($script:missed -join ', ') ==="
+} else {
+    Note "=== DONE ==="
+}
