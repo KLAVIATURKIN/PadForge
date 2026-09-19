@@ -145,9 +145,75 @@ namespace PadForge.Tests
             Assert.Equal(new[] { "Bad" }, LiteralEscapeOffenders(good + bad));
         }
 
+        /// <summary>
+        /// No string may render a literal character reference such as
+        /// &amp;#176; where the character itself was meant.
+        ///
+        /// <para>The resx value is XML, so an ampersand written as
+        /// &amp;amp; decodes to a bare ampersand and the reference that
+        /// follows it never decodes at all. Settings_FlickCountsPer360
+        /// shipped as "Dots per 360&amp;amp;#176;" and the Flick Stick card
+        /// drew the six characters instead of the degree sign, while the
+        /// sibling tooltip on the next line and all nine other locales
+        /// carried the real character. One layer of escaping too many is
+        /// invisible in the file and obvious on screen.</para>
+        /// </summary>
+        [Theory]
+        [MemberData(nameof(AllResxFiles))]
+        public void NoStringRendersALiteralCharacterReference(string fileName)
+        {
+            string path = Path.Combine(ResxDirectory(), fileName);
+            Assert.True(File.Exists(path), "missing resx: " + path);
+            string xml = File.ReadAllText(path);
+
+            var offenders = DoubleEscapedEntityOffenders(xml);
+
+            Assert.True(offenders.Count == 0,
+                fileName + " has " + offenders.Count
+                + " value(s) whose escaped ampersand leaves a character"
+                + " reference to render verbatim: "
+                + string.Join(", ", offenders));
+        }
+
+        /// <summary>Keys whose value carries an escaped ampersand followed by
+        /// what would otherwise be a character or entity reference. Split out
+        /// from the file walk for the same reason as the check above: a
+        /// detector that only ever reports zero has not been shown to
+        /// work.</summary>
+        internal static List<string> DoubleEscapedEntityOffenders(string xml)
+        {
+            var offenders = new List<string>();
+            foreach (Match m in Regex.Matches(
+                xml, @"<data name=""([^""]+)""[^>]*>\s*<value>(.*?)</value>",
+                RegexOptions.Singleline))
+            {
+                if (Regex.IsMatch(m.Groups[2].Value,
+                        @"&amp;(#[0-9]+|#[xX][0-9a-fA-F]+|[a-zA-Z]+);"))
+                    offenders.Add(m.Groups[1].Value);
+            }
+            return offenders;
+        }
+
+        /// <summary>A real ampersand and a real character reference are both
+        /// legitimate. Only the two together are the defect, so the detector
+        /// has to pass the first two and catch the third.</summary>
+        [Fact]
+        public void TheCharacterReferenceCheckSeparatesGoodFromBad()
+        {
+            string amp  = "<data name=" + Q + "Amp" + Q + "><value>Black " + Amp + "amp; White</value></data>";
+            string deg  = "<data name=" + Q + "Deg" + Q + "><value>Dots per 360" + Amp + "#176;</value></data>";
+            string bad  = "<data name=" + Q + "Bad" + Q + "><value>Dots per 360" + Amp + "amp;#176;</value></data>";
+
+            Assert.Empty(DoubleEscapedEntityOffenders(amp));
+            Assert.Empty(DoubleEscapedEntityOffenders(deg));
+            Assert.Equal(new[] { "Bad" }, DoubleEscapedEntityOffenders(bad));
+            Assert.Equal(new[] { "Bad" }, DoubleEscapedEntityOffenders(amp + deg + bad));
+        }
+
         private const string Q = "\"";
         private const string nl_literal = "\n";
         private static readonly string backslash_n = ((char)92).ToString() + "n";
+        private const string Amp = "&";
         /// <summary>The base resx and every shipped locale resx, by file name.</summary>
         public static IEnumerable<object[]> AllResxFiles() =>
             new[] { new object[] { "Strings.resx" } }

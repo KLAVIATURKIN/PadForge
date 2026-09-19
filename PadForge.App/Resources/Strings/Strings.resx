@@ -2401,7 +2401,7 @@
   <data name="Pad_FlickStick_Header" xml:space="preserve"><value>Flick Stick</value></data>
   <data name="Pad_FlickStick_Subtitle" xml:space="preserve"><value>Settings for the Flick Stick inputs: point the stick and the camera turns to match, sweep the rim to fine-turn. Map "Flick Stick (Right Stick)" to Mouse X from the input dropdown in Mappings, on any layer.</value></data>
   <data name="Pad_FlickStick_Reset_All" xml:space="preserve"><value>Reset Flick Stick</value></data>
-  <data name="Settings_FlickCountsPer360" xml:space="preserve"><value>Dots per 360&amp;#176;</value></data>
+  <data name="Settings_FlickCountsPer360" xml:space="preserve"><value>Dots per 360°</value></data>
   <data name="Settings_FlickCountsPer360_Tooltip" xml:space="preserve"><value>Mouse counts for one full 360&#176; camera turn. Depends on the game's mouse sensitivity: raise it if a flick under-rotates, lower it if it over-rotates.</value></data>
   <data name="Pad_ResetFlickCountsPer360" xml:space="preserve"><value>Reset to 14400</value></data>
   <data name="Settings_FlickTime" xml:space="preserve"><value>Flick Time</value></data>
