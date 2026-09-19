@@ -777,6 +777,44 @@ namespace PadForge.Models3D
             return new[] { $".{modelName}.{stem}.jpg", $".{modelName}.{stem}.pngbr" };
         }
 
+        /// <summary>
+        /// Every embedded resource name, read once.
+        ///
+        /// <para>The manifest carries 721 packed assets plus everything else
+        /// in the assembly, and the old code asked for the whole list again
+        /// on every lookup. A colorway that borrows its meshes pays roughly
+        /// thirty-two lookups, and the first scan is guaranteed to miss, so
+        /// it paid for the full list twice per mesh.</para>
+        /// </summary>
+        private static string[] _resourceNames;
+
+        private static string[] ResourceNames =>
+            _resourceNames ??= Assembly.GetExecutingAssembly().GetManifestResourceNames();
+
+        /// <summary>
+        /// The first resource matching a suffix, trying the suffixes IN THE
+        /// ORDER GIVEN.
+        ///
+        /// <para>Order is the point. The texture list puts .jpg ahead of
+        /// .pngbr deliberately, and the old loop walked the RESOURCES and
+        /// took whichever matched any suffix first, so the winner was
+        /// manifest order. Nothing collides today, and a colorway that added
+        /// a transparent PNG beside its JPEG would have picked whichever the
+        /// manifest happened to list first.</para>
+        /// </summary>
+        private static string FindResource(string[] suffixes)
+        {
+            foreach (var suffix in suffixes)
+                foreach (var name in ResourceNames)
+                    if (EndsWithAny(name, new[] { suffix }))
+                        return name;
+            return null;
+        }
+
+        /// <summary>Whether a resource name ends with any of these suffixes.
+        /// The suffixes keep their leading dot, which is what stops "Body"
+        /// from matching "MainBody", and the atlas guard tests reach in here
+        /// to pin exactly that.</summary>
         private static bool EndsWithAny(string name, string[] suffixes)
         {
             foreach (var s in suffixes)
@@ -794,12 +832,11 @@ namespace PadForge.Models3D
             {
                 var assembly = Assembly.GetExecutingAssembly();
                 var suffixes = TextureSuffixes(resourceModelName ?? _resourceModelName, filename);
-                foreach (var name in assembly.GetManifestResourceNames())
+                string name = FindResource(suffixes);
+                if (name != null)
                 {
-                    if (!EndsWithAny(name, suffixes))
-                        continue;
                     using var stream = assembly.GetManifestResourceStream(name);
-                    if (stream == null) break;
+                    if (stream == null) return null;
                     var ms = new MemoryStream();
                     if (name.EndsWith(".pngbr", StringComparison.OrdinalIgnoreCase))
                     {
@@ -821,6 +858,14 @@ namespace PadForge.Models3D
                     bmp.StreamSource = ms;
                     bmp.EndInit();
                     bmp.Freeze();
+                    // OnLoad decodes everything at EndInit, so the buffer has
+                    // no reader left. It used to stay alive behind the frozen
+                    // bitmap's StreamSource, and since the atlases are now
+                    // STORED rather than deflated, what was pinned was the
+                    // expanded image: about 21 MB per Xbox Series model and
+                    // 33 MB for Starfield, on the large object heap, for as
+                    // long as the model lived.
+                    ms.Dispose();
                     var brush = new ImageBrush(bmp)
                     {
                         TileMode = TileMode.None,
@@ -975,15 +1020,7 @@ namespace PadForge.Models3D
             string suffix = $".{modelName}.{Path.GetFileNameWithoutExtension(filename)}.objbr";
             string resourceName = null;
 
-            foreach (var name in assembly.GetManifestResourceNames())
-            {
-                if (name.EndsWith(suffix, StringComparison.OrdinalIgnoreCase))
-                {
-                    resourceName = name;
-                    break;
-                }
-            }
-
+            resourceName = FindResource(new[] { suffix });
             if (resourceName == null)
                 return null;
 

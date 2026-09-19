@@ -36,6 +36,24 @@ namespace PadForge.Common.Input
         /// fires.</summary>
         public const int PulseMs = 175;
 
+        /// <summary>
+        /// How often the held set is re-read from the SDK rather than
+        /// inferred from events.
+        ///
+        /// <para>Events alone cannot be trusted to close a press. The SDK
+        /// only feeds an application whose Logitech profile is active, so a
+        /// key held while PadForge loses that profile never delivers its
+        /// release, and the button would stay asserted for the life of the
+        /// session. Unplugging the keyboard mid-press and restarting the
+        /// Logitech software reach the same state. Asking the SDK what is
+        /// actually held, a few times a second, is the recovery.</para>
+        ///
+        /// <para>Four times a second rather than every poll: this is 102
+        /// cross-DLL calls, which has no business running at the poll
+        /// rate.</para>
+        /// </summary>
+        public const int ResyncIntervalMs = 250;
+
         private readonly object _stateLock = new();
         private readonly bool[] _down = new bool[LogitechGKeyMap.TotalCount];
         private readonly long[] _pulseUntil = new long[LogitechGKeyMap.TotalCount];
@@ -162,6 +180,32 @@ namespace PadForge.Common.Input
             try { src?.Dispose(); } catch (Exception) { }
         }
 
+        private long _nextResync;
+
+        /// <summary>
+        /// Re-reads every key's true state from the SDK and drops any hold
+        /// the events got wrong.
+        ///
+        /// <para>Only clears. A press still arrives by callback, because the
+        /// poll can fall between a press and its release and the pulse is
+        /// what carries that edge. This closes holds that no release ever
+        /// came for.</para>
+        ///
+        /// <para>Caller holds <see cref="_stateLock"/>.</para>
+        /// </summary>
+        private void ResyncHeld(LogitechGKeySource src)
+        {
+            for (int b = 0; b < _down.Length; b++)
+            {
+                if (!_down[b]) continue;
+                if (!LogitechGKeyMap.Describe(b, out bool isMouse, out int keyOrButton, out int mode))
+                    continue;
+                bool held = isMouse ? src.IsMouseButtonPressed(keyOrButton)
+                                    : src.IsKeyPressed(keyOrButton, mode);
+                if (!held) _down[b] = false;
+            }
+        }
+
         /// <summary>An event from the SDK's thread. Nothing here may block:
         /// this call is on Logitech's dispatch path.</summary>
         private void OnGkeyEvent(LogitechGKeyInterop.GkeyCode code)
@@ -185,6 +229,13 @@ namespace PadForge.Common.Input
             lock (_stateLock)
             {
                 long now = Environment.TickCount64;
+                // A hold the SDK no longer reports is a release we never got.
+                var src = _source;
+                if (src != null && src.State == LogitechGKeyState.Running && now >= _nextResync)
+                {
+                    _nextResync = now + ResyncIntervalMs;
+                    ResyncHeld(src);
+                }
                 var s = _statePool.Next();
                 int n = Math.Min(_down.Length, s.Buttons.Length);
                 for (int b = 0; b < s.Buttons.Length; b++)

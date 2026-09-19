@@ -369,9 +369,12 @@ namespace PadForge.ViewModels
         /// <summary>The runtimes installed on this machine, the system
         /// default first.
         ///
-        /// <para>Rebuilt whenever it is read rather than cached, because a
-        /// user installs Virtual Desktop or SteamVR while PadForge is
-        /// running and expects to find it in the list.</para></summary>
+        /// <para>Populated once and then cached. An earlier version rebuilt
+        /// on every read, which is what a user who installs Virtual Desktop
+        /// mid-session would want, but the notification that made the picker
+        /// see the rebuild recursed through the selection's getter and took
+        /// the process down at launch. <see cref="RefreshOpenXrRuntimes"/> is
+        /// the explicit path, and it does not run from here.</para></summary>
         public System.Collections.ObjectModel.ObservableCollection<OpenXrRuntimeChoice> OpenXrRuntimes
         {
             get
@@ -557,6 +560,21 @@ namespace PadForge.ViewModels
         // would pin nothing because it already matched. A zero would also
         // never survive the round trip: it would be written, then redisplayed
         // as the family's value.
+        /// <summary>Tells the per-axis boxes and the runtime picker to
+        /// re-read, after something outside the view model wrote the statics
+        /// they display (a settings load, a reset to defaults).</summary>
+        public void NotifyHeadTrackingRangesChanged()
+        {
+            foreach (var name in new[]
+                     {
+                         nameof(HeadTrackingRangeYaw), nameof(HeadTrackingRangePitch),
+                         nameof(HeadTrackingRangeRoll), nameof(HeadTrackingRangeX),
+                         nameof(HeadTrackingRangeY), nameof(HeadTrackingRangeZ),
+                         nameof(SelectedOpenXrRuntime),
+                     })
+                OnPropertyChanged(name);
+        }
+
         private static int AxisRange(int axis)
             => PadForge.Common.Input.HeadTrackingRuntime.GetAxisRangeOverride(axis);
 

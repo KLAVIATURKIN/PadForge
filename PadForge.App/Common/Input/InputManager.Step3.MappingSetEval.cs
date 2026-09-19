@@ -2110,15 +2110,28 @@ namespace PadForge.Common.Input
         /// reads raw joystick indices, so a gamepad in that mode is not
         /// reporting the trigger layout and its Axis 2 can rest centered.
         /// Same pairing SettingsManager uses wherever the gamepad layout is
-        /// assumed.</para></summary>
+        /// assumed.</para>
+        ///
+        /// <para>A VR controller's trigger and grip are the same shape on a
+        /// different device type: they rest at zero and travel one way, but
+        /// they sit at Axis 8 and Axis 9 rather than 2 and 5, so the index
+        /// pairing above does not reach them. Without this they took the
+        /// bipolar branch, where a resting zero reads as full deflection and
+        /// the activator is engaged before the user touches anything, which
+        /// is exactly what #443 fixed for gamepad triggers.</para></summary>
         private static bool IsUnipolarActivatorSource(string descriptor, string deviceGuid)
         {
             if (string.IsNullOrEmpty(descriptor)) return false;
             string canonical = SourceCoercion.ResolveGamepadAlias(descriptor) ?? descriptor.Trim();
             if (canonical.StartsWith("Slider ", System.StringComparison.Ordinal)) return true;
+
+            var dev = LookupUserDevice(deviceGuid);
+            if (dev != null && dev.CapType == InputDeviceType.VrController)
+                return canonical == "Axis " + PadForge.Common.Input.OpenXrHandDevice.AxisTrigger
+                    || canonical == "Axis " + PadForge.Common.Input.OpenXrHandDevice.AxisSqueeze;
+
             if (canonical != "Axis 2" && canonical != "Axis 5") return false;
             if (SourceCoercion.IsGamepadAliasDescriptor(descriptor)) return true;
-            var dev = LookupUserDevice(deviceGuid);
             return dev != null && dev.CapType == InputDeviceType.Gamepad && !dev.ForceRawJoystickMode;
         }
 

@@ -151,22 +151,35 @@ namespace PadForge.Engine.Common.OpenXr
             var create = Resolve<PFN_xrCreateInstance>("xrCreateInstance");
             if (enumerate == null || create == null) return false;
 
-            if (!HasHeadless(enumerate))
+            var extensions = ReadExtensions(enumerate);
+            if (!extensions.Contains(XR_MND_HEADLESS_EXTENSION_NAME))
             {
                 _log($"OpenXR: {RuntimeName} does not offer {XR_MND_HEADLESS_EXTENSION_NAME}, " +
                      "so a background session would need to own the display");
                 return false;
             }
 
-            IntPtr extName = Marshal.StringToHGlobalAnsi(XR_MND_HEADLESS_EXTENSION_NAME);
-            IntPtr extArray = Marshal.AllocHGlobal(IntPtr.Size);
+            // Headless is required. The time conversion is asked for when the
+            // runtime has it, because XrTime is on a clock the runtime picks
+            // and only the runtime can convert into it.
+            bool wantsTime = extensions.Contains(
+                XR_KHR_WIN32_CONVERT_PERFORMANCE_COUNTER_TIME_EXTENSION_NAME);
+            var wanted = new List<string> { XR_MND_HEADLESS_EXTENSION_NAME };
+            if (wantsTime) wanted.Add(XR_KHR_WIN32_CONVERT_PERFORMANCE_COUNTER_TIME_EXTENSION_NAME);
+
+            var extNames = new IntPtr[wanted.Count];
+            IntPtr extArray = Marshal.AllocHGlobal(IntPtr.Size * wanted.Count);
             try
             {
-                Marshal.WriteIntPtr(extArray, 0, extName);
+                for (int i = 0; i < wanted.Count; i++)
+                {
+                    extNames[i] = Marshal.StringToHGlobalAnsi(wanted[i]);
+                    Marshal.WriteIntPtr(extArray, i * IntPtr.Size, extNames[i]);
+                }
                 var info = new XrInstanceCreateInfo
                 {
                     type = XR_TYPE_INSTANCE_CREATE_INFO,
-                    enabledExtensionCount = 1,
+                    enabledExtensionCount = (uint)wanted.Count,
                     enabledExtensionNames = extArray,
                 };
                 info.applicationInfo.apiVersion = ApiVersion1_0;
@@ -183,7 +196,8 @@ namespace PadForge.Engine.Common.OpenXr
             finally
             {
                 Marshal.FreeHGlobal(extArray);
-                Marshal.FreeHGlobal(extName);
+                foreach (var pName in extNames)
+                    if (pName != IntPtr.Zero) Marshal.FreeHGlobal(pName);
             }
 
             _destroyInstance = Resolve<PFN_xrDestroyInstance>("xrDestroyInstance");
@@ -195,17 +209,29 @@ namespace PadForge.Engine.Common.OpenXr
             _destroySpace = Resolve<PFN_xrDestroySpace>("xrDestroySpace");
             _locateSpace = Resolve<PFN_xrLocateSpace>("xrLocateSpace");
             _pollEvent = Resolve<PFN_xrPollEvent>("xrPollEvent");
+            if (wantsTime)
+            {
+                _convertTime = Resolve<PFN_xrConvertWin32PerformanceCounterToTimeKHR>(
+                    "xrConvertWin32PerformanceCounterToTimeKHR");
+                if (_convertTime == null)
+                    _log($"OpenXR: {RuntimeName} advertised the time conversion and did not export it");
+            }
 
             ReadRuntimeName();
-            failure = OpenXrSourceState.Running;
-            return _createSession != null && _createSpace != null
+            // Only claim Running once the entry points this needs are all
+            // there. Setting it before the check reported a healthy source
+            // for a runtime that never started.
+            bool complete = _createSession != null && _createSpace != null
                 && _locateSpace != null && _pollEvent != null;
+            failure = complete ? OpenXrSourceState.Running : OpenXrSourceState.NotSupported;
+            return complete;
         }
 
-        private bool HasHeadless(PFN_xrEnumerateInstanceExtensionProperties enumerate)
+        private HashSet<string> ReadExtensions(PFN_xrEnumerateInstanceExtensionProperties enumerate)
         {
+            var names = new HashSet<string>(StringComparer.Ordinal);
             if (enumerate(null, 0, out uint count, IntPtr.Zero) != XR_SUCCESS || count == 0)
-                return false;
+                return names;
             int stride = sizeof(XrExtensionProperties);
             IntPtr buffer = Marshal.AllocHGlobal(stride * (int)count);
             try
@@ -216,15 +242,13 @@ namespace PadForge.Engine.Common.OpenXr
                     p->type = XR_TYPE_EXTENSION_PROPERTIES;
                     p->next = IntPtr.Zero;
                 }
-                if (enumerate(null, count, out uint written, buffer) != XR_SUCCESS) return false;
+                if (enumerate(null, count, out uint written, buffer) != XR_SUCCESS) return names;
                 for (uint i = 0; i < written; i++)
                 {
                     var p = (XrExtensionProperties*)((byte*)buffer + i * stride);
-                    if (ReadFixedUtf8(p->extensionName, XR_MAX_EXTENSION_NAME_SIZE)
-                        == XR_MND_HEADLESS_EXTENSION_NAME)
-                        return true;
+                    names.Add(ReadFixedUtf8(p->extensionName, XR_MAX_EXTENSION_NAME_SIZE));
                 }
-                return false;
+                return names;
             }
             finally { Marshal.FreeHGlobal(buffer); }
         }
@@ -369,8 +393,16 @@ namespace PadForge.Engine.Common.OpenXr
                 _eventBuffer = Marshal.AllocHGlobal(sizeof(XrEventDataBuffer));
             IntPtr buffer = _eventBuffer;
             {
-                while (true)
+                // Bounded. A runtime that returns success without writing the
+                // buffer, or a sustained event storm, would otherwise spin
+                // this thread forever with nothing in the log to say so.
+                for (int drained = 0; ; drained++)
                 {
+                    if (drained >= MaxEventsPerPoll)
+                    {
+                        _log($"OpenXR: drained {MaxEventsPerPoll} events in one poll, deferring the rest");
+                        return true;
+                    }
                     var header = (XrEventDataBuffer*)buffer;
                     header->type = XR_TYPE_EVENT_DATA_BUFFER;
                     header->next = IntPtr.Zero;
@@ -413,16 +445,41 @@ namespace PadForge.Engine.Common.OpenXr
                 type = XR_TYPE_SESSION_BEGIN_INFO,
                 primaryViewConfigurationType = XR_VIEW_CONFIGURATION_TYPE_PRIMARY_STEREO,
             };
-            if (_beginSession(_session, ref info) == XR_SUCCESS)
+            int result = _beginSession(_session, ref info);
+            if (result == XR_SUCCESS)
             {
                 _began = true;
                 _log($"OpenXR: session running on {RuntimeName}");
+                return;
             }
+            // The runtime emits READY once. A failure here is permanent for
+            // this session, and every locate afterwards returns nothing, so
+            // the silence would read as a healthy source producing no poses.
+            _log($"OpenXR: {RuntimeName} refused to begin the session (result {result})");
         }
 
+        /// <summary>
+        /// Ends a running session.
+        ///
+        /// <para>Only from STOPPING. The specification, and every runtime
+        /// that checks, rejects xrEndSession from any other state, so calling
+        /// it on the way out of a FOCUSED session failed silently and left
+        /// the runtime believing the session was still running when the
+        /// destroy arrived.</para>
+        /// </summary>
         private void End()
         {
-            if (_began && _endSession != null) _endSession(_session);
+            if (!_began || _endSession == null) return;
+            if (_sessionState != XR_SESSION_STATE_STOPPING)
+            {
+                // Not an error. The dispose path takes this on an ordinary
+                // shutdown, where destroying the session is what ends it.
+                _began = false;
+                return;
+            }
+            int result = _endSession(_session);
+            if (result != XR_SUCCESS)
+                _log($"OpenXR: {RuntimeName} refused to end the session ({result})");
             _began = false;
         }
 
@@ -466,16 +523,41 @@ namespace PadForge.Engine.Common.OpenXr
         /// Rather than take a dependency on that extension for one value, the
         /// counter is converted here with the same arithmetic.</para>
         /// </summary>
-        private static long NowXrTime()
+        private long NowXrTime()
         {
+            long ticks = System.Diagnostics.Stopwatch.GetTimestamp();
+
+            // The runtime owns the mapping. Virtual Desktop's, for one,
+            // calibrates an offset between the performance counter and its
+            // own clock at startup and adds it here, so arithmetic that skips
+            // the offset asks for poses at a time the runtime never meant.
+            // The error is whatever that offset is, which grows with how long
+            // the machine has been up relative to the runtime's service.
+            if (_convertTime != null)
+            {
+                if (_convertTime(_instance, ref ticks, out long converted) == XR_SUCCESS)
+                    return converted;
+                // One failure is enough. A runtime that advertised the
+                // extension and then refuses it is not going to start working.
+                _convertTime = null;
+                _log("OpenXR: the runtime's time conversion failed, falling back to the raw counter");
+            }
+
             long freq = System.Diagnostics.Stopwatch.Frequency;
             if (freq <= 0) return 0;
-            long ticks = System.Diagnostics.Stopwatch.GetTimestamp();
-            // Split to keep the nanosecond scaling inside 64 bits.
+            // Split to keep the nanosecond scaling inside 64 bits. Only
+            // correct for a runtime whose clock IS the performance counter,
+            // which is why the conversion above is preferred.
             long whole = ticks / freq;
             long rest = ticks % freq;
             return whole * 1_000_000_000L + rest * 1_000_000_000L / freq;
         }
+
+        private PFN_xrConvertWin32PerformanceCounterToTimeKHR _convertTime;
+
+        /// <summary>The most events one poll will drain before yielding.
+        /// High enough that an ordinary burst is handled in one pass.</summary>
+        private const int MaxEventsPerPoll = 64;
 
         public void Dispose()
         {

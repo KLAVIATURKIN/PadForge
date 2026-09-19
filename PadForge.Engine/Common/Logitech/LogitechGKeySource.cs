@@ -73,8 +73,12 @@ namespace PadForge.Engine.Common.Logitech
         {
             if (_disposed || _initialized) return _initialized;
 
-            string path = LogitechGKeyCatalog.Find(out var reason);
-            if (path == null)
+            // Every candidate, not just the first that exists. A registry
+            // entry can name the x86 build on an x64 host, which exists and
+            // will not load, and the correct one is further down the list.
+            // Mumble's GKey.cpp walks its candidates the same way.
+            var candidates = LogitechGKeyCatalog.Candidates(out var reason);
+            if (candidates.Count == 0)
             {
                 State = reason == LogitechGKeyCatalog.Reason.RegistryPathMissing
                     ? LogitechGKeyState.SdkPathStale
@@ -82,14 +86,21 @@ namespace PadForge.Engine.Common.Logitech
                 _log("G-Keys: no G-key SDK found (" + reason + ")");
                 return false;
             }
-            LibraryPath = path;
 
-            if (!NativeLibrary.TryLoad(path, out _module))
+            string path = null;
+            foreach (string candidate in candidates)
+            {
+                if (!NativeLibrary.TryLoad(candidate, out _module)) continue;
+                path = candidate;
+                break;
+            }
+            if (path == null)
             {
                 State = LogitechGKeyState.LoadFailed;
-                _log("G-Keys: could not load " + path);
+                _log("G-Keys: " + candidates.Count + " candidate path(s) and none loaded");
                 return false;
             }
+            LibraryPath = path;
 
             // Every export or none. A partial resolve means this is not the
             // library the header describes, and calling into it anyway is how
@@ -103,7 +114,7 @@ namespace PadForge.Engine.Common.Logitech
             {
                 State = LogitechGKeyState.MissingExports;
                 _log("G-Keys: " + path + " is missing an expected export");
-                Unload();
+                Teardown();
                 return false;
             }
 
@@ -124,7 +135,7 @@ namespace PadForge.Engine.Common.Logitech
             {
                 State = LogitechGKeyState.InitRefused;
                 _log("G-Keys: init threw: " + ex.Message);
-                Unload();
+                Teardown();
                 return false;
             }
 
@@ -134,7 +145,7 @@ namespace PadForge.Engine.Common.Logitech
                 // but not running, which is the one the status line names.
                 State = LogitechGKeyState.InitRefused;
                 _log("G-Keys: the SDK refused to start, which usually means the Logitech software is not running");
-                Unload();
+                Teardown();
                 return false;
             }
 
@@ -200,25 +211,28 @@ namespace PadForge.Engine.Common.Logitech
         {
             if (_disposed) return;
             _disposed = true;
-            if (_initialized)
-            {
-                try { _shutdown?.Invoke(); } catch (Exception) { }
-                _initialized = false;
-            }
-            Unload();
+            Teardown();
             State = LogitechGKeyState.Stopped;
         }
 
-        private void Unload()
+        /// <summary>
+        /// Stops the SDK and drops our side of the wiring.
+        ///
+        /// <para>Shutdown runs whenever the export resolved, not only when
+        /// init reported success. Init can register the callback and start
+        /// the SDK's plumbing before returning false, and Mumble's GKey.cpp
+        /// calls shutdown unconditionally for the same reason.</para>
+        ///
+        /// <para>The module is deliberately never freed. A callback can be
+        /// running on the SDK's own thread while this executes, and unmapping
+        /// the code it stands on is not recoverable by any managed handler.
+        /// Mumble does not unload on success either. One mapped library for
+        /// the life of the process costs nothing.</para>
+        /// </summary>
+        private void Teardown()
         {
-            // Order matters. The pin and the delegate are what native code was
-            // told about, so they are released only after shutdown has run and
-            // the library is on its way out.
-            if (_module != IntPtr.Zero)
-            {
-                try { NativeLibrary.Free(_module); } catch (Exception) { }
-                _module = IntPtr.Zero;
-            }
+            try { _shutdown?.Invoke(); } catch (Exception) { }
+            _initialized = false;
             if (_contextPin.IsAllocated) _contextPin.Free();
             _callback = null;
             _init = null;
@@ -227,6 +241,7 @@ namespace PadForge.Engine.Common.Logitech
             _isKeyPressed = null;
             _mouseName = null;
             _keyName = null;
+            _module = IntPtr.Zero;
         }
     }
 }

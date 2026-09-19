@@ -385,6 +385,42 @@ namespace PadForge.ViewModels
                 });
         }
 
+        /// <summary>
+        /// Fills the named-button chips from a device's own object list.
+        ///
+        /// <para>The handheld row builds its chips from a registry. A VR
+        /// controller and a Logitech G-Keys row already publish a name for
+        /// every entry through GetDeviceObjects, and without this they fell
+        /// to the numbered grid, so the G-Keys row showed Button 0 through
+        /// Button 101 while its mapping picker named all 102.</para>
+        /// </summary>
+        public void RebuildNamedButtons(IReadOnlyList<PadForge.Engine.DeviceObjectItem> objects)
+        {
+            HandheldButtons.Clear();
+            if (objects == null) return;
+            foreach (var o in objects)
+            {
+                if (o == null) continue;
+                if (o.ObjectTypeGuid != PadForge.Engine.ObjectGuid.Button) continue;
+                HandheldButtons.Add(new NfcTagDisplayItem
+                {
+                    Name = o.Name,
+                    Uid = string.Empty,
+                    Button = o.InputIndex,
+                });
+            }
+        }
+
+        /// <summary>True while the preview shows named chips instead of the
+        /// numbered grid. Handheld rows, VR controllers and G-Keys rows all
+        /// name every button they publish.</summary>
+        private bool _showNamedButtons;
+        public bool ShowNamedButtons
+        {
+            get => _showNamedButtons;
+            set => SetProperty(ref _showNamedButtons, value);
+        }
+
         /// <summary>Rebuilds the NFC tag preview rows from the registry: "Any NFC
         /// Tag" first, then each registered tag at its stable button index. Called on
         /// device selection and whenever the tag registry changes.</summary>
@@ -577,13 +613,15 @@ namespace PadForge.ViewModels
             };
         }
 
-        internal void RebuildRawStateCollections(IReadOnlyList<int> axisIndices, IReadOnlyList<int> buttonIndices, int povCount, bool isKeyboard = false, bool isMouse = false, bool isTouchpad = false, bool isMidi = false, bool isNfc = false, IReadOnlyList<ConsumerButtonDisplayItem> consumerButtons = null, bool isHeadsetMotion = false, int voiceButtonBase = -1, bool isMicrophone = false, bool isHandheld = false, bool isSystemMotion = false, bool isHeadTracker = false)
+        internal void RebuildRawStateCollections(IReadOnlyList<int> axisIndices, IReadOnlyList<int> buttonIndices, int povCount, bool isKeyboard = false, bool isMouse = false, bool isTouchpad = false, bool isMidi = false, bool isNfc = false, IReadOnlyList<ConsumerButtonDisplayItem> consumerButtons = null, bool isHeadsetMotion = false, int voiceButtonBase = -1, bool isMicrophone = false, bool isHandheld = false, bool isSystemMotion = false, bool isHeadTracker = false, IReadOnlyList<PadForge.Engine.DeviceObjectItem> namedObjects = null)
         {
             IsNfcDevice = isNfc;
             IsHeadsetMotionDevice = isHeadsetMotion;
             if (isNfc) RebuildNfcTags(); else NfcTags.Clear();
             IsHandheldDevice = isHandheld;
             IsSystemMotionDevice = isSystemMotion;
+            if (namedObjects != null) RebuildNamedButtons(namedObjects);
+            ShowNamedButtons = isHandheld || namedObjects != null;
             IsHeadTrackerDevice = isHeadTracker;
             if (!isHeadTracker) { HeadTrackerStatus = string.Empty; HeadTrackerStatusVersion = -1; HeadTrackerStatusDevice = null; }
             if (isHandheld) RebuildHandheldButtons(); else HandheldButtons.Clear();
@@ -647,7 +685,7 @@ namespace PadForge.ViewModels
                 foreach (var key in KeyboardKeyItem.BuildLayout())
                     KeyboardKeys.Add(key);
             }
-            else if (!isConsumer) // consumer devices use the named-chip list
+            else if (!isConsumer && namedObjects == null) // named rows use the chip list
             {
                 // Mouse visual handles button display, but RawButtons still
                 // needs entries so InputService can update IsPressed for the

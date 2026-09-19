@@ -23,7 +23,10 @@ namespace PadForge.Common.Input
             {
                 if (_enabled == value) return;
                 _enabled = value;
-                _version++;
+                // Interlocked, not ++. A volatile read-modify-write is still
+                // two operations, and a lost bump means the poll thread never
+                // reopens the row.
+                System.Threading.Interlocked.Increment(ref _version);
             }
         }
 

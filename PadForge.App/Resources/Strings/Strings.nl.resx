@@ -2417,6 +2417,20 @@
   <data name="HeadTracker_X" xml:space="preserve"><value>Hoofd X</value></data>
   <data name="HeadTracker_Y" xml:space="preserve"><value>Hoofd Y</value></data>
   <data name="HeadTracker_Z" xml:space="preserve"><value>Hoofd Z</value></data>
+  <data name="VrCtl_Yaw" xml:space="preserve"><value>Controller-gieren</value></data>
+  <data name="VrCtl_Pitch" xml:space="preserve"><value>Controller-stampen</value></data>
+  <data name="VrCtl_Roll" xml:space="preserve"><value>Controller-rollen</value></data>
+  <data name="VrCtl_X" xml:space="preserve"><value>Controller-X</value></data>
+  <data name="VrCtl_Y" xml:space="preserve"><value>Controller-Y</value></data>
+  <data name="VrCtl_Z" xml:space="preserve"><value>Controller-Z</value></data>
+  <data name="VrCtl_StickX" xml:space="preserve"><value>Joystick X</value></data>
+  <data name="VrCtl_StickY" xml:space="preserve"><value>Joystick Y</value></data>
+  <data name="VrCtl_Trigger" xml:space="preserve"><value>Trekker</value></data>
+  <data name="VrCtl_Grip" xml:space="preserve"><value>Greep</value></data>
+  <data name="VrCtl_StickClick" xml:space="preserve"><value>Joystickklik</value></data>
+  <data name="VrCtl_Primary" xml:space="preserve"><value>Primaire knop</value></data>
+  <data name="VrCtl_Secondary" xml:space="preserve"><value>Secundaire knop</value></data>
+  <data name="VrCtl_Menu" xml:space="preserve"><value>Menuknop</value></data>
   <data name="Dashboard_HeadTracking" xml:space="preserve"><value>Hoofdtracking</value></data>
   <data name="Dashboard_HeadTrackingDesc" xml:space="preserve"><value>Leest een hoofdpositie van de UDP-uitvoer van OpenTrack of van het gedeelde geheugen van FreeTrack 2.0 en toont die als zes assen op een Hoofdtracker-apparaat: gieren, stampen, rollen en de drie verplaatsingen. Wijs gieren toe aan een stick-as om rond te kijken terwijl beide duimen op de knoppen blijven.</value></data>
   <data name="Dashboard_HeadTrackingEnable" xml:space="preserve"><value>UDP-trackinginvoer inschakelen</value></data>

@@ -2397,6 +2397,20 @@
   <data name="HeadTracker_X" xml:space="preserve"><value>頭 X</value></data>
   <data name="HeadTracker_Y" xml:space="preserve"><value>頭 Y</value></data>
   <data name="HeadTracker_Z" xml:space="preserve"><value>頭 Z</value></data>
+  <data name="VrCtl_Yaw" xml:space="preserve"><value>コントローラー ヨー</value></data>
+  <data name="VrCtl_Pitch" xml:space="preserve"><value>コントローラー ピッチ</value></data>
+  <data name="VrCtl_Roll" xml:space="preserve"><value>コントローラー ロール</value></data>
+  <data name="VrCtl_X" xml:space="preserve"><value>コントローラー X</value></data>
+  <data name="VrCtl_Y" xml:space="preserve"><value>コントローラー Y</value></data>
+  <data name="VrCtl_Z" xml:space="preserve"><value>コントローラー Z</value></data>
+  <data name="VrCtl_StickX" xml:space="preserve"><value>スティック X</value></data>
+  <data name="VrCtl_StickY" xml:space="preserve"><value>スティック Y</value></data>
+  <data name="VrCtl_Trigger" xml:space="preserve"><value>トリガー</value></data>
+  <data name="VrCtl_Grip" xml:space="preserve"><value>グリップ</value></data>
+  <data name="VrCtl_StickClick" xml:space="preserve"><value>スティック押し込み</value></data>
+  <data name="VrCtl_Primary" xml:space="preserve"><value>プライマリボタン</value></data>
+  <data name="VrCtl_Secondary" xml:space="preserve"><value>セカンダリボタン</value></data>
+  <data name="VrCtl_Menu" xml:space="preserve"><value>メニューボタン</value></data>
   <data name="Dashboard_HeadTracking" xml:space="preserve"><value>ヘッド トラッキング</value></data>
   <data name="Dashboard_HeadTrackingDesc" xml:space="preserve"><value>OpenTrack の UDP 出力または FreeTrack 2.0 の共有メモリから頭の姿勢を読み取り、ヘッド トラッカー デバイスの 6 軸（ヨー、ピッチ、ロール、3 方向の移動）として公開します。頭のヨーをスティック軸に割り当てると、両方の親指をボタンに置いたまま周囲を見回せます。</value></data>
   <data name="Dashboard_HeadTrackingEnable" xml:space="preserve"><value>UDPトラッキング入力を有効にする</value></data>

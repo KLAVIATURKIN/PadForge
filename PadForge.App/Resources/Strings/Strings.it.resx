@@ -2419,6 +2419,20 @@
   <data name="HeadTracker_X" xml:space="preserve"><value>Testa X</value></data>
   <data name="HeadTracker_Y" xml:space="preserve"><value>Testa Y</value></data>
   <data name="HeadTracker_Z" xml:space="preserve"><value>Testa Z</value></data>
+  <data name="VrCtl_Yaw" xml:space="preserve"><value>Imbardata del controller</value></data>
+  <data name="VrCtl_Pitch" xml:space="preserve"><value>Beccheggio del controller</value></data>
+  <data name="VrCtl_Roll" xml:space="preserve"><value>Rollio del controller</value></data>
+  <data name="VrCtl_X" xml:space="preserve"><value>X del controller</value></data>
+  <data name="VrCtl_Y" xml:space="preserve"><value>Y del controller</value></data>
+  <data name="VrCtl_Z" xml:space="preserve"><value>Z del controller</value></data>
+  <data name="VrCtl_StickX" xml:space="preserve"><value>Levetta X</value></data>
+  <data name="VrCtl_StickY" xml:space="preserve"><value>Levetta Y</value></data>
+  <data name="VrCtl_Trigger" xml:space="preserve"><value>Grilletto</value></data>
+  <data name="VrCtl_Grip" xml:space="preserve"><value>Impugnatura</value></data>
+  <data name="VrCtl_StickClick" xml:space="preserve"><value>Clic della levetta</value></data>
+  <data name="VrCtl_Primary" xml:space="preserve"><value>Pulsante primario</value></data>
+  <data name="VrCtl_Secondary" xml:space="preserve"><value>Pulsante secondario</value></data>
+  <data name="VrCtl_Menu" xml:space="preserve"><value>Pulsante menu</value></data>
   <data name="Dashboard_HeadTracking" xml:space="preserve"><value>Tracciamento della testa</value></data>
   <data name="Dashboard_HeadTrackingDesc" xml:space="preserve"><value>Legge la posa della testa dall'uscita UDP di OpenTrack o dalla memoria condivisa FreeTrack 2.0 e la espone come sei assi su un dispositivo Tracciamento della testa: imbardata, beccheggio, rollio e le tre traslazioni. Mappa l'imbardata su un asse dello stick per guardarti intorno tenendo entrambi i pollici sui pulsanti.</value></data>
   <data name="Dashboard_HeadTrackingEnable" xml:space="preserve"><value>Abilita l'ingresso di tracciamento UDP</value></data>

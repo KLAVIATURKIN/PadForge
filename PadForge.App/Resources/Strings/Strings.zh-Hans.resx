@@ -2397,6 +2397,20 @@
   <data name="HeadTracker_X" xml:space="preserve"><value>头部 X</value></data>
   <data name="HeadTracker_Y" xml:space="preserve"><value>头部 Y</value></data>
   <data name="HeadTracker_Z" xml:space="preserve"><value>头部 Z</value></data>
+  <data name="VrCtl_Yaw" xml:space="preserve"><value>手柄偏航</value></data>
+  <data name="VrCtl_Pitch" xml:space="preserve"><value>手柄俯仰</value></data>
+  <data name="VrCtl_Roll" xml:space="preserve"><value>手柄翻滚</value></data>
+  <data name="VrCtl_X" xml:space="preserve"><value>手柄 X</value></data>
+  <data name="VrCtl_Y" xml:space="preserve"><value>手柄 Y</value></data>
+  <data name="VrCtl_Z" xml:space="preserve"><value>手柄 Z</value></data>
+  <data name="VrCtl_StickX" xml:space="preserve"><value>摇杆 X</value></data>
+  <data name="VrCtl_StickY" xml:space="preserve"><value>摇杆 Y</value></data>
+  <data name="VrCtl_Trigger" xml:space="preserve"><value>扳机</value></data>
+  <data name="VrCtl_Grip" xml:space="preserve"><value>握柄</value></data>
+  <data name="VrCtl_StickClick" xml:space="preserve"><value>摇杆按下</value></data>
+  <data name="VrCtl_Primary" xml:space="preserve"><value>主按钮</value></data>
+  <data name="VrCtl_Secondary" xml:space="preserve"><value>副按钮</value></data>
+  <data name="VrCtl_Menu" xml:space="preserve"><value>菜单按钮</value></data>
   <data name="Dashboard_HeadTracking" xml:space="preserve"><value>头部追踪</value></data>
   <data name="Dashboard_HeadTrackingDesc" xml:space="preserve"><value>从 OpenTrack 的 UDP 输出或 FreeTrack 2.0 共享内存读取头部姿态，并作为头部追踪器设备的六个轴公开：偏航、俯仰、翻滚和三个平移。将头部偏航映射到摇杆轴，即可在两个拇指都留在按键上时环顾四周。</value></data>
   <data name="Dashboard_HeadTrackingEnable" xml:space="preserve"><value>启用 UDP 跟踪输入</value></data>

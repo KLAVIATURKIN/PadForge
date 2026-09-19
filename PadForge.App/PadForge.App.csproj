@@ -250,12 +250,16 @@
     <ParameterGroup>
       <Assets ParameterType="Microsoft.Build.Framework.ITaskItem[]" Required="true" />
       <OutputDir ParameterType="System.String" Required="true" />
+      <!-- This project file. The packing code lives inside it, so its own
+           timestamp is what says whether a cached output is still current. -->
+      <PackerFile ParameterType="System.String" Required="true" />
       <Packed ParameterType="Microsoft.Build.Framework.ITaskItem[]" Output="true" />
     </ParameterGroup>
     <Task>
       <Using Namespace="System" />
       <Using Namespace="System.Collections.Generic" />
       <Using Namespace="System.IO" />
+      <Using Namespace="System.Diagnostics" />
       <Using Namespace="System.IO.Compression" />
       <Using Namespace="System.Text" />
       <Using Namespace="Microsoft.Build.Framework" />
@@ -279,7 +283,15 @@
         }
         if (streamType == null || levelType == null)
         {
-            Log.LogError("Brotli is not available to the build, so the art cannot be packed.");
+            // Brotli arrived in .NET Core. An inline task runs inside the
+            // MSBuild process, and Visual Studio's MSBuild runs on .NET
+            // Framework, where the type does not exist at any version. The
+            // old message named the symptom and left the reader guessing.
+            Log.LogError(
+                "The art packer needs Brotli, which the .NET Framework build of MSBuild does not have. "
+                + "This project builds with the .NET SDK: run 'dotnet build' or 'dotnet publish' from the "
+                + "repository root, or set Visual Studio to use the dotnet CLI. Host runtime: "
+                + System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription + ".");
             return false;
         }
         object smallest = Enum.Parse(levelType, "SmallestSize");
@@ -402,6 +414,8 @@
         var results = new List<ITaskItem>();
         int written = 0;
         Directory.CreateDirectory(OutputDir);
+        DateTime packerStamp = File.Exists(PackerFile)
+            ? File.GetLastWriteTimeUtc(PackerFile) : DateTime.MinValue;
 
         foreach (var asset in Assets)
         {
@@ -427,19 +441,49 @@
                            + Path.GetFileNameWithoutExtension(source) + packedExtension;
             string target = Path.Combine(OutputDir, logical);
 
+            // The packer itself is an input. Comparing only against the
+            // asset's timestamp meant that editing storePixels, storeMembers
+            // or the compression level left every cached output in place, so
+            // an incremental build embedded art produced by an older
+            // algorithm while reporting success.
             if (!File.Exists(target)
-                || File.GetLastWriteTimeUtc(target) < File.GetLastWriteTimeUtc(source))
+                || File.GetLastWriteTimeUtc(target) < File.GetLastWriteTimeUtc(source)
+                || File.GetLastWriteTimeUtc(target) < packerStamp)
             {
                 byte[] body;
                 if (extension == ".png") body = storePixels(File.ReadAllBytes(source));
                 else if (extension == ".zip") body = storeMembers(source);
                 else body = File.ReadAllBytes(source);
 
-                using (var output = File.Create(target))
+                // Written beside the target and moved into place, so a build
+                // that dies mid-pack cannot leave a truncated file whose
+                // timestamp then reads as up to date forever. The staging
+                // name carries the process id, because two builds sharing one
+                // obj folder would otherwise fight over the same temp file.
+                string staging = target + "." + Process.GetCurrentProcess().Id + ".tmp";
+                using (var output = File.Create(staging))
                 using (var brotli = (Stream)Activator.CreateInstance(
                            streamType, new object[] { output, smallest, false }))
                     brotli.Write(body, 0, body.Length);
-                written++;
+                // Publish the staged file. WPF runs a second MSBuild pass
+                // through a generated _wpftmp project that shares this same
+                // obj folder, so two passes can pack the same asset at once.
+                // Whoever lands first wins and the loser drops its copy,
+                // because both produced identical bytes from identical input.
+                try
+                {
+                    if (File.Exists(target)) File.Delete(target);
+                    File.Move(staging, target);
+                    written++;
+                }
+                catch (IOException)
+                {
+                    try { File.Delete(staging); } catch (IOException) { }
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    try { File.Delete(staging); } catch (IOException) { }
+                }
             }
 
             var item = new TaskItem(target);
@@ -462,7 +506,8 @@
       <ArtSource Include="3DModels\**\*.png" />
       <ArtSource Include="VoiceModels\*.zip" />
     </ItemGroup>
-    <PackAssets Assets="@(ArtSource)" OutputDir="$(IntermediateOutputPath)meshes">
+    <PackAssets Assets="@(ArtSource)" OutputDir="$(IntermediateOutputPath)meshes"
+                PackerFile="$(MSBuildThisFileFullPath)">
       <Output TaskParameter="Packed" ItemName="CompressedMesh" />
     </PackAssets>
     <ItemGroup>

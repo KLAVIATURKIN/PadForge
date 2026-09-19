@@ -177,6 +177,86 @@ namespace PadForge.Tests
 
             device.InjectForTest(Tracked(x: 5));
             Assert.True(device.IsLive);
+        }
+        /// <summary>
+        /// A live thumbstick reaches the row's stick axes.
+        ///
+        /// <para>The action was created and bound on all three interaction
+        /// profiles from the first version and never read, so both axes sat
+        /// at center forever. The old tests asserted the axis NAME and its
+        /// RESTING value, which is exactly what let that ship.</para>
+        /// </summary>
+        [Fact]
+        public void AThumbstickPushReachesTheStickAxes()
+        {
+            using var device = Row(OpenXrHand.Right);
+            device.Publish(new OpenXrHandState
+            {
+                ControlsActive = true,
+                ThumbstickX = 1f,
+                ThumbstickY = 1f,
+            });
+
+            var state = device.GetCurrentState();
+            Assert.True(state.Axis[OpenXrHandDevice.AxisStickX] > HeadPose.AxisCenter,
+                        "stick X never left center");
+            // Y is stick-oriented, so a forward push reads at the low end.
+            Assert.True(state.Axis[OpenXrHandDevice.AxisStickY] < HeadPose.AxisCenter,
+                        "stick Y never left center");
         }
+
+        /// <summary>The two hands are separate products, so the offline-row
+        /// adoption that matches on ProductGuid cannot hand one hand's saved
+        /// mappings to the other.</summary>
+        [Fact]
+        public void EachHandIsItsOwnProduct()
+        {
+            using var left = Row(OpenXrHand.Left);
+            using var right = Row(OpenXrHand.Right);
+            Assert.NotEqual(left.ProductGuid, right.ProductGuid);
+            Assert.NotEqual(left.InstanceGuid, right.InstanceGuid);
+        }
+
+        /// <summary>
+        /// The action layer actually READS the thumbstick.
+        ///
+        /// <para>The device test above proves the mapping from the state
+        /// struct to the axes. It cannot see this defect, because it
+        /// publishes the struct directly: the bug was that nothing ever
+        /// filled the struct. The action was created, bound on all three
+        /// interaction profiles, and never read, and only the layer that
+        /// talks to the runtime can be asked about that.</para>
+        /// </summary>
+        [Fact]
+        public void TheActionLayerReadsTheThumbstick()
+        {
+            string src = RepoSource("PadForge.Engine", "Common", "OpenXr", "OpenXrActions.cs");
+            int at = src.IndexOf("public OpenXrHandState Read(", StringComparison.Ordinal);
+            Assert.True(at > 0, "Read was not found");
+            string body = src.Substring(at);
+            Assert.Contains("state.ThumbstickX", body);
+            Assert.Contains("state.ThumbstickY", body);
+            // Through the runtime, not from a default. A stub assigning zero
+            // would satisfy the two lines above.
+            Assert.Contains("Vector2(_stick", body);
+
+            // And the type it reads through has to exist, or the read above
+            // could only ever be a stub.
+            string interop = RepoSource("PadForge.Engine", "Common", "OpenXr", "OpenXrInterop.cs");
+            Assert.Contains("XrActionStateVector2f", interop);
+            Assert.Contains("XR_TYPE_ACTION_STATE_VECTOR2F = 25", interop);
+        }
+
+        private static string RepoSource(params string[] parts)
+        {
+            var dir = new System.IO.DirectoryInfo(AppContext.BaseDirectory);
+            while (dir != null && !System.IO.File.Exists(System.IO.Path.Combine(dir.FullName, "PadForge.sln")))
+                dir = dir.Parent;
+            Assert.NotNull(dir);
+            var all = new System.Collections.Generic.List<string> { dir.FullName };
+            all.AddRange(parts);
+            return System.IO.File.ReadAllText(System.IO.Path.Combine(all.ToArray()));
+        }
+
     }
 }

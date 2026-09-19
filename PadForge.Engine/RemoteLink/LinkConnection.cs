@@ -361,14 +361,27 @@ namespace PadForge.Engine.RemoteLink
                 }
                 var objs = d.DeviceObjects ?? Array.Empty<DeviceObjectItem>();
                 int objCount = Math.Min(objs.Length, 1024);
-                // Estimate this section before committing to it: per object
-                // 26 fixed bytes + UTF-8 name. Over budget -> empty section.
+                // Per object, 26 fixed bytes plus the UTF-8 name. Two limits
+                // apply. The first is what is left in the payload. The second
+                // is a per-device share, because all-or-nothing let ONE large
+                // row eat the budget and leave every device encoded after it
+                // with no names at all: a Logitech G-Keys row publishes 102
+                // named buttons, which is most of the payload on its own, and
+                // a head tracker sharing the same link came out reading
+                // "Axis 0" through "Axis 5".
                 if (objCount > 0)
                 {
-                    int estimate = 0;
+                    int room = Math.Min(PayloadBudget - buf.Count - 2, PayloadBudget / 2);
+                    int used = 0;
+                    int fits = 0;
                     for (int j = 0; j < objCount; j++)
-                        estimate += 26 + Encoding.UTF8.GetByteCount(objs[j].Name ?? "");
-                    if (buf.Count + 2 + estimate > PayloadBudget) objCount = 0;
+                    {
+                        int cost = 26 + Encoding.UTF8.GetByteCount(objs[j].Name ?? "");
+                        if (used + cost > room) break;
+                        used += cost;
+                        fits++;
+                    }
+                    objCount = fits;
                 }
                 WriteU16(buf, (ushort)objCount);
                 for (int j = 0; j < objCount; j++)

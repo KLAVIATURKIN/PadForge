@@ -2797,6 +2797,20 @@
   <data name="HeadTracker_X" xml:space="preserve"><value>Head X</value></data>
   <data name="HeadTracker_Y" xml:space="preserve"><value>Head Y</value></data>
   <data name="HeadTracker_Z" xml:space="preserve"><value>Head Z</value></data>
+  <data name="VrCtl_Yaw" xml:space="preserve"><value>Controller Yaw</value></data>
+  <data name="VrCtl_Pitch" xml:space="preserve"><value>Controller Pitch</value></data>
+  <data name="VrCtl_Roll" xml:space="preserve"><value>Controller Roll</value></data>
+  <data name="VrCtl_X" xml:space="preserve"><value>Controller X</value></data>
+  <data name="VrCtl_Y" xml:space="preserve"><value>Controller Y</value></data>
+  <data name="VrCtl_Z" xml:space="preserve"><value>Controller Z</value></data>
+  <data name="VrCtl_StickX" xml:space="preserve"><value>Thumbstick X</value></data>
+  <data name="VrCtl_StickY" xml:space="preserve"><value>Thumbstick Y</value></data>
+  <data name="VrCtl_Trigger" xml:space="preserve"><value>Trigger</value></data>
+  <data name="VrCtl_Grip" xml:space="preserve"><value>Grip</value></data>
+  <data name="VrCtl_StickClick" xml:space="preserve"><value>Thumbstick Click</value></data>
+  <data name="VrCtl_Primary" xml:space="preserve"><value>Primary Button</value></data>
+  <data name="VrCtl_Secondary" xml:space="preserve"><value>Secondary Button</value></data>
+  <data name="VrCtl_Menu" xml:space="preserve"><value>Menu Button</value></data>
   <data name="Dashboard_HeadTracking" xml:space="preserve"><value>Head Tracking</value></data>
   <data name="Dashboard_HeadTrackingDesc" xml:space="preserve"><value>Reads a head pose from OpenTrack's UDP output or from the FreeTrack 2.0 shared memory and exposes it as six axes on a Head Tracker device: yaw, pitch, roll, and the three translations. Map head yaw to a stick axis to look around while both thumbs stay on the buttons.</value></data>
   <data name="Dashboard_HeadTrackingEnable" xml:space="preserve"><value>Enable UDP Tracking Input</value></data>

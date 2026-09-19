@@ -47,6 +47,24 @@ namespace PadForge.Engine.Common.Logitech
         /// </summary>
         public static string Find(out Reason reason)
         {
+            var found = Candidates(out reason);
+            return found.Count > 0 ? found[0] : null;
+        }
+
+        /// <summary>
+        /// Every library on this machine that could be the SDK, registered
+        /// ones first, in the order a caller should try to LOAD them.
+        ///
+        /// <para>Existing and loading are different questions. A registry
+        /// entry can name the x86 build, which is present and will not load
+        /// into an x64 process, and the x64 build sits at the default path
+        /// the caller never reached. Mumble's GKey.cpp builds the same list
+        /// and breaks on the first that loads, not the first that exists.</para>
+        /// </summary>
+        public static IReadOnlyList<string> Candidates(out Reason reason)
+        {
+            var list = new List<string>();
+            var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             bool sawRegistry = false;
             bool registryPathMissing = false;
 
@@ -55,23 +73,25 @@ namespace PadForge.Engine.Common.Logitech
                 sawRegistry = true;
                 if (File.Exists(path))
                 {
-                    reason = Reason.Found;
-                    return path;
+                    if (seen.Add(path)) list.Add(path);
                 }
-                registryPathMissing = true;
+                else registryPathMissing = true;
             }
 
             foreach (string path in DefaultCandidates())
             {
                 if (!File.Exists(path)) continue;
-                reason = Reason.Found;
-                return path;
+                if (seen.Add(path)) list.Add(path);
             }
 
-            reason = registryPathMissing ? Reason.RegistryPathMissing
+            // A registration whose file is gone is its own case only when
+            // nothing else turned up, since it tells the user to reinstall
+            // rather than to install.
+            reason = list.Count > 0 ? Reason.Found
+                   : registryPathMissing ? Reason.RegistryPathMissing
                    : sawRegistry ? Reason.NoRegistryEntry
                    : Reason.NotInstalled;
-            return null;
+            return list;
         }
 
         /// <summary>

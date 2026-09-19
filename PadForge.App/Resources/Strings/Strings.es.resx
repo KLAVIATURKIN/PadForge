@@ -2397,6 +2397,20 @@
   <data name="HeadTracker_X" xml:space="preserve"><value>Cabeza X</value></data>
   <data name="HeadTracker_Y" xml:space="preserve"><value>Cabeza Y</value></data>
   <data name="HeadTracker_Z" xml:space="preserve"><value>Cabeza Z</value></data>
+  <data name="VrCtl_Yaw" xml:space="preserve"><value>Guiñada del mando</value></data>
+  <data name="VrCtl_Pitch" xml:space="preserve"><value>Cabeceo del mando</value></data>
+  <data name="VrCtl_Roll" xml:space="preserve"><value>Alabeo del mando</value></data>
+  <data name="VrCtl_X" xml:space="preserve"><value>X del mando</value></data>
+  <data name="VrCtl_Y" xml:space="preserve"><value>Y del mando</value></data>
+  <data name="VrCtl_Z" xml:space="preserve"><value>Z del mando</value></data>
+  <data name="VrCtl_StickX" xml:space="preserve"><value>Joystick X</value></data>
+  <data name="VrCtl_StickY" xml:space="preserve"><value>Joystick Y</value></data>
+  <data name="VrCtl_Trigger" xml:space="preserve"><value>Gatillo</value></data>
+  <data name="VrCtl_Grip" xml:space="preserve"><value>Agarre</value></data>
+  <data name="VrCtl_StickClick" xml:space="preserve"><value>Clic del joystick</value></data>
+  <data name="VrCtl_Primary" xml:space="preserve"><value>Botón primario</value></data>
+  <data name="VrCtl_Secondary" xml:space="preserve"><value>Botón secundario</value></data>
+  <data name="VrCtl_Menu" xml:space="preserve"><value>Botón de menú</value></data>
   <data name="Dashboard_HeadTracking" xml:space="preserve"><value>Seguimiento de cabeza</value></data>
   <data name="Dashboard_HeadTrackingDesc" xml:space="preserve"><value>Lee la pose de la cabeza desde la salida UDP de OpenTrack o desde la memoria compartida de FreeTrack 2.0 y la expone como seis ejes en un dispositivo Rastreador de cabeza: guiñada, cabeceo, alabeo y las tres traslaciones. Asigna la guiñada a un eje del stick para mirar alrededor con ambos pulgares en los botones.</value></data>
   <data name="Dashboard_HeadTrackingEnable" xml:space="preserve"><value>Activar entrada de seguimiento UDP</value></data>

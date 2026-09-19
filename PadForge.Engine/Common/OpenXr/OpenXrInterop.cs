@@ -122,6 +122,12 @@ namespace PadForge.Engine.Common.OpenXr
         /// does SteamVR's.</summary>
         public const string XR_MND_HEADLESS_EXTENSION_NAME = "XR_MND_headless";
 
+        /// <summary>The runtime's own performance-counter conversion. XrTime
+        /// is on a clock the RUNTIME chooses, so this is the only correct way
+        /// to name "now" from a client.</summary>
+        public const string XR_KHR_WIN32_CONVERT_PERFORMANCE_COUNTER_TIME_EXTENSION_NAME =
+            "XR_KHR_win32_convert_performance_counter_time";
+
         // ─── core structs ───
 
         [StructLayout(LayoutKind.Sequential)]
@@ -295,10 +301,15 @@ namespace PadForge.Engine.Common.OpenXr
         [UnmanagedFunctionPointer(CallingConvention.Winapi)]
         public delegate int PFN_xrPollEvent(ulong instance, IntPtr eventData);
 
+        [UnmanagedFunctionPointer(CallingConvention.Winapi)]
+        public delegate int PFN_xrConvertWin32PerformanceCounterToTimeKHR(
+            ulong instance, ref long performanceCounter, out long time);
+
         // ─── actions, for the motion controllers ───
 
         public const int XR_TYPE_ACTION_STATE_BOOLEAN = 23;
         public const int XR_TYPE_ACTION_STATE_FLOAT = 24;
+        public const int XR_TYPE_ACTION_STATE_VECTOR2F = 25;
         public const int XR_TYPE_ACTION_STATE_POSE = 27;
         public const int XR_TYPE_ACTION_SET_CREATE_INFO = 28;
         public const int XR_TYPE_ACTION_CREATE_INFO = 29;
@@ -422,6 +433,18 @@ namespace PadForge.Engine.Common.OpenXr
             public uint isActive;
         }
 
+        /// <summary>A thumbstick's two axes, openxr.h's XrActionStateVector2f.</summary>
+        [StructLayout(LayoutKind.Sequential)]
+        public struct XrActionStateVector2f
+        {
+            public int type;
+            public IntPtr next;
+            public XrVector2f currentState;
+            public uint changedSinceLastSync;
+            public long lastChangeTime;
+            public uint isActive;
+        }
+
         [StructLayout(LayoutKind.Sequential)]
         public struct XrActionStateBoolean
         {
@@ -480,6 +503,10 @@ namespace PadForge.Engine.Common.OpenXr
         [UnmanagedFunctionPointer(CallingConvention.Winapi)]
         public delegate int PFN_xrGetActionStateBoolean(
             ulong session, ref XrActionStateGetInfo getInfo, ref XrActionStateBoolean state);
+
+        [UnmanagedFunctionPointer(CallingConvention.Winapi)]
+        public delegate int PFN_xrGetActionStateVector2f(
+            ulong session, ref XrActionStateGetInfo getInfo, ref XrActionStateVector2f state);
 
         [UnmanagedFunctionPointer(CallingConvention.Winapi)]
         public delegate int PFN_xrCreateActionSpace(

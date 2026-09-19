@@ -2391,6 +2391,20 @@
   <data name="HeadTracker_X" xml:space="preserve"><value>Cabeça X</value></data>
   <data name="HeadTracker_Y" xml:space="preserve"><value>Cabeça Y</value></data>
   <data name="HeadTracker_Z" xml:space="preserve"><value>Cabeça Z</value></data>
+  <data name="VrCtl_Yaw" xml:space="preserve"><value>Guinada do Controle</value></data>
+  <data name="VrCtl_Pitch" xml:space="preserve"><value>Arfagem do Controle</value></data>
+  <data name="VrCtl_Roll" xml:space="preserve"><value>Rolagem do Controle</value></data>
+  <data name="VrCtl_X" xml:space="preserve"><value>X do Controle</value></data>
+  <data name="VrCtl_Y" xml:space="preserve"><value>Y do Controle</value></data>
+  <data name="VrCtl_Z" xml:space="preserve"><value>Z do Controle</value></data>
+  <data name="VrCtl_StickX" xml:space="preserve"><value>Analógico X</value></data>
+  <data name="VrCtl_StickY" xml:space="preserve"><value>Analógico Y</value></data>
+  <data name="VrCtl_Trigger" xml:space="preserve"><value>Gatilho</value></data>
+  <data name="VrCtl_Grip" xml:space="preserve"><value>Empunhadura</value></data>
+  <data name="VrCtl_StickClick" xml:space="preserve"><value>Clique do Analógico</value></data>
+  <data name="VrCtl_Primary" xml:space="preserve"><value>Botão Primário</value></data>
+  <data name="VrCtl_Secondary" xml:space="preserve"><value>Botão Secundário</value></data>
+  <data name="VrCtl_Menu" xml:space="preserve"><value>Botão de Menu</value></data>
   <data name="Dashboard_HeadTracking" xml:space="preserve"><value>Rastreamento de Cabeça</value></data>
   <data name="Dashboard_HeadTrackingDesc" xml:space="preserve"><value>Lê a pose da cabeça pela saída UDP do OpenTrack ou pela memória compartilhada do FreeTrack 2.0 e a expõe como seis eixos em um dispositivo Rastreador de Cabeça: guinada, inclinação, rolagem e as três translações. Mapeie a guinada da cabeça para um eixo do analógico para olhar ao redor com os dois polegares nos botões.</value></data>
   <data name="Dashboard_HeadTrackingEnable" xml:space="preserve"><value>Ativar Entrada de Rastreamento UDP</value></data>

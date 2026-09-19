@@ -56,6 +56,59 @@ namespace PadForge.Tests
             return id;
         }
 
+
+        private static Guid SeedVrController()
+        {
+            var id = Guid.NewGuid();
+            var devices = new DeviceCollection();
+            devices.Items.Add(new UserDevice
+            {
+                InstanceGuid = id,
+                ProductGuid = id,
+                InstanceName = "VR Controller (Right)",
+                ProductName = "VR Controller (Right)",
+                CapType = InputDeviceType.VrController,
+                IsOnline = true,
+                IsEnabled = true,
+            });
+            SettingsManager.UserDevices = devices;
+            return id;
+        }
+
+        /// <summary>
+        /// A VR controller's trigger and grip rest at zero and travel one
+        /// way, so they are unipolar even though they sit at Axis 8 and
+        /// Axis 9 rather than the gamepad's 2 and 5.
+        ///
+        /// <para>Without this they took the bipolar branch, where a resting
+        /// zero reads as full deflection, and an Axis Past Threshold
+        /// activator on the trigger was engaged the moment it was saved.
+        /// That is #443 reproduced on a device type added later.</para>
+        /// </summary>
+        [Theory]
+        [InlineData("Axis 8")]
+        [InlineData("Axis 9")]
+        public void AVrControllerTriggerAndGripAreUnipolar(string descriptor)
+        {
+            var id = SeedVrController();
+            Assert.True(IsUnipolar(descriptor, id.ToString()),
+                        descriptor + " read as bipolar, so it rests engaged");
+        }
+
+        /// <summary>The VR controller's POSE axes are centered, so they stay
+        /// bipolar. Treating the whole device as unipolar would break the
+        /// other eight axes to fix two.</summary>
+        [Theory]
+        [InlineData("Axis 0")]
+        [InlineData("Axis 5")]
+        [InlineData("Axis 6")]
+        [InlineData("Axis 7")]
+        public void AVrControllerPoseAndStickAxesStayBipolar(string descriptor)
+        {
+            var id = SeedVrController();
+            Assert.False(IsUnipolar(descriptor, id.ToString()),
+                         descriptor + " is a centered axis and must stay bipolar");
+        }
         [Theory]
         [InlineData("Axis 2")]
         [InlineData("Axis 5")]

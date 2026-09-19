@@ -186,6 +186,12 @@ Output: `PadForge.App/bin/Release/net10.0-windows10.0.26100.0/win-x64/publish/Pa
 
 > **Note:** Always use `dotnet publish`, not `dotnet build`. The project is configured for single-file publish with self-contained runtime.
 
+> **Build from the .NET SDK, not Visual Studio's MSBuild.** The 3D art is packed at
+> build time by an inline task that needs Brotli, which exists on the .NET SDK's
+> runtime and not on the .NET Framework build of MSBuild that Visual Studio uses.
+> Building from the IDE fails before any compile with a message naming this. Use the
+> `dotnet` CLI, or point Visual Studio at it.
+
 ## Runtime Requirements
 
 1. **SDL3.dll** -- Included in the repo (`Resources/SDL3/x64/`). Custom fork with HIDMaestro

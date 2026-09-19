@@ -2397,6 +2397,20 @@
   <data name="HeadTracker_X" xml:space="preserve"><value>Kopf X</value></data>
   <data name="HeadTracker_Y" xml:space="preserve"><value>Kopf Y</value></data>
   <data name="HeadTracker_Z" xml:space="preserve"><value>Kopf Z</value></data>
+  <data name="VrCtl_Yaw" xml:space="preserve"><value>Controller-Gieren</value></data>
+  <data name="VrCtl_Pitch" xml:space="preserve"><value>Controller-Nicken</value></data>
+  <data name="VrCtl_Roll" xml:space="preserve"><value>Controller-Rollen</value></data>
+  <data name="VrCtl_X" xml:space="preserve"><value>Controller-X</value></data>
+  <data name="VrCtl_Y" xml:space="preserve"><value>Controller-Y</value></data>
+  <data name="VrCtl_Z" xml:space="preserve"><value>Controller-Z</value></data>
+  <data name="VrCtl_StickX" xml:space="preserve"><value>Joystick X</value></data>
+  <data name="VrCtl_StickY" xml:space="preserve"><value>Joystick Y</value></data>
+  <data name="VrCtl_Trigger" xml:space="preserve"><value>Auslöser</value></data>
+  <data name="VrCtl_Grip" xml:space="preserve"><value>Griff</value></data>
+  <data name="VrCtl_StickClick" xml:space="preserve"><value>Joystick-Klick</value></data>
+  <data name="VrCtl_Primary" xml:space="preserve"><value>Primäre Taste</value></data>
+  <data name="VrCtl_Secondary" xml:space="preserve"><value>Sekundäre Taste</value></data>
+  <data name="VrCtl_Menu" xml:space="preserve"><value>Menütaste</value></data>
   <data name="Dashboard_HeadTracking" xml:space="preserve"><value>Head-Tracking</value></data>
   <data name="Dashboard_HeadTrackingDesc" xml:space="preserve"><value>Liest eine Kopfpose aus der UDP-Ausgabe von OpenTrack oder aus dem FreeTrack 2.0 Shared Memory und stellt sie als sechs Achsen eines Head-Tracker-Geräts bereit: Gieren, Nicken, Rollen und die drei Verschiebungen. Weisen Sie das Gieren einer Stick-Achse zu, um sich umzusehen, während beide Daumen auf den Tasten bleiben.</value></data>
   <data name="Dashboard_HeadTrackingEnable" xml:space="preserve"><value>UDP-Tracking-Eingabe aktivieren</value></data>

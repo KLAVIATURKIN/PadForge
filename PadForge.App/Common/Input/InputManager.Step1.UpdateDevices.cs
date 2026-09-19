@@ -1488,6 +1488,10 @@ namespace PadForge.Common.Input
         private readonly object _logitechGKeysLock = new object();
         private volatile bool _logitechGKeysInputsSuppressed;
         private int _logitechGKeysVersion;
+        // A row whose SDK never started is retried on this cadence, so a user
+        // who acts on the status line sees it take effect.
+        private const int _logitechGKeysRetryIntervalMs = 5000;
+        private long _logitechGKeysRetryTicks;
 
         /// <summary>The live G-Keys row, null while the feature is off. Read
         /// by the Dashboard status lane.</summary>
@@ -2578,7 +2582,19 @@ namespace PadForge.Common.Input
                 var dev = _headTrackerDevice;
                 if (dev != null)
                 {
+                    // The hand rows count too. Checking only the headset row
+                    // meant deleting a controller on the Devices page left it
+                    // gone for the session, since the recreate is keyed on the
+                    // row that was still present.
                     bool removedByUser = FindOnlineDeviceByInstanceGuid(dev.InstanceGuid) == null;
+                    if (!removedByUser)
+                        foreach (var hand in new[] { dev.LeftHand, dev.RightHand })
+                        {
+                            if (hand == null) continue;
+                            if (FindOnlineDeviceByInstanceGuid(hand.InstanceGuid) != null) continue;
+                            removedByUser = true;
+                            break;
+                        }
                     bool reconfigured = dev.ConfigVersion != HeadTrackingRuntime.Version;
                     if (!enabled || removedByUser || reconfigured)
                     {
@@ -2671,6 +2687,7 @@ namespace PadForge.Common.Input
             bool enabled = LogitechGKeysRuntime.Enabled;
             if (!enabled && _logitechGKeysDevice == null)
                 return false;
+            long now = Environment.TickCount64;
 
             bool changed = false;
             lock (_logitechGKeysLock)
@@ -2683,10 +2700,21 @@ namespace PadForge.Common.Input
                 {
                     bool removedByUser = FindOnlineDeviceByInstanceGuid(dev.InstanceGuid) == null;
                     bool reconfigured = _logitechGKeysVersion != LogitechGKeysRuntime.Version;
-                    if (!enabled || removedByUser || reconfigured)
+                    // The status line tells a user to start Logitech Gaming
+                    // Software, so starting it has to be enough. Without this
+                    // the row held its failure for the life of the session and
+                    // the only way through was to toggle the setting off and
+                    // on, which the message never mentions.
+                    bool retry = !removedByUser && !reconfigured
+                        && dev.SourceState != PadForge.Engine.Common.Logitech.LogitechGKeyState.Running
+                        && now >= _logitechGKeysRetryTicks;
+                    if (retry) _logitechGKeysRetryTicks = now + _logitechGKeysRetryIntervalMs;
+                    if (!enabled || removedByUser || reconfigured || retry)
                     {
                         RetireLogitechGKeysRow();
-                        MarkChanged(ref changed, "gkeys", !enabled ? "- (feature off)" : removedByUser ? "- (removed by user)" : "- (reconfigured)");
+                        MarkChanged(ref changed, "gkeys", !enabled ? "- (feature off)"
+                            : removedByUser ? "- (removed by user)"
+                            : reconfigured ? "- (reconfigured)" : "- (retrying the SDK)");
                     }
                 }
 

@@ -1181,7 +1181,7 @@
                                         <DataTrigger Binding="{Binding IsHeadsetMotionDevice}" Value="True">
                                             <Setter Property="Visibility" Value="Collapsed"/>
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding IsHandheldDevice}" Value="True">
+                                        <DataTrigger Binding="{Binding ShowNamedButtons}" Value="True">
                                             <Setter Property="Visibility" Value="Collapsed"/>
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding IsSystemMotionDevice}" Value="True">
@@ -1220,7 +1220,7 @@
                                         <DataTrigger Binding="{Binding IsHeadsetMotionDevice}" Value="True">
                                             <Setter Property="Visibility" Value="Collapsed"/>
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding IsHandheldDevice}" Value="True">
+                                        <DataTrigger Binding="{Binding ShowNamedButtons}" Value="True">
                                             <Setter Property="Visibility" Value="Collapsed"/>
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding IsSystemMotionDevice}" Value="True">
@@ -1286,7 +1286,7 @@
                                         <DataTrigger Binding="{Binding IsHeadsetMotionDevice}" Value="True">
                                             <Setter Property="Visibility" Value="Collapsed"/>
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding IsHandheldDevice}" Value="True">
+                                        <DataTrigger Binding="{Binding ShowNamedButtons}" Value="True">
                                             <Setter Property="Visibility" Value="Collapsed"/>
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding IsSystemMotionDevice}" Value="True">
@@ -1324,7 +1324,7 @@
                                         <DataTrigger Binding="{Binding IsHeadsetMotionDevice}" Value="True">
                                             <Setter Property="Visibility" Value="Collapsed"/>
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding IsHandheldDevice}" Value="True">
+                                        <DataTrigger Binding="{Binding ShowNamedButtons}" Value="True">
                                             <Setter Property="Visibility" Value="Collapsed"/>
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding IsSystemMotionDevice}" Value="True">
@@ -1790,7 +1790,7 @@
 
                         <!-- Handheld: learned hidden-button list (issue #343), the NFC
                              tag list's shape. Each row lights while its button is down. -->
-                        <StackPanel Visibility="{Binding IsHandheldDevice, Converter={StaticResource BoolToVisibilityConverter}}"
+                        <StackPanel Visibility="{Binding ShowNamedButtons, Converter={StaticResource BoolToVisibilityConverter}}"
                                     Margin="0,0,0,8">
                             <TextBlock Text="{Binding Handheld_Title, Source={x:Static strings:Strings.Instance}}" FontFamily="{StaticResource TelemetryFontFamily}" FontSize="11" Foreground="{DynamicResource TextFillColorTertiaryBrush}" Margin="0,0,0,3"/>
                             <TextBlock Text="{Binding Handheld_NoneLearned, Source={x:Static strings:Strings.Instance}}" FontSize="11"

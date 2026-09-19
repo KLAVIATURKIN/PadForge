@@ -68,7 +68,11 @@ namespace PadForge.Common.Input
             Name = left ? "VR Controller (Left)" : "VR Controller (Right)";
             DevicePath = left ? "openxr://hand/left" : "openxr://hand/right";
             InstanceGuid = Md5Guid("pfopenxrhand:" + (left ? "left" : "right"));
-            ProductGuid = Md5Guid("pfopenxrhand-product");
+            // Per hand, not shared. The offline-row adoption path matches on
+            // ProductGuid, so one seed for both hands let the left row adopt
+            // the right row's saved mappings. Every other multi-instance
+            // synthetic row discriminates its product seed the same way.
+            ProductGuid = Md5Guid("pfopenxrhand-product:" + (left ? "left" : "right"));
             SdlInstanceId = SyntheticInstanceId.From(DevicePath);
             ProductId = left ? LeftProductId : RightProductId;
             Center();
@@ -122,9 +126,13 @@ namespace PadForge.Common.Input
             }
         }
 
+        // "X" alone said nothing in a picker beside a gamepad's "X Axis",
+        // and none of these were localizable. They now read like the head
+        // tracker's six, which is the row this one sits next to.
         private static readonly string[] s_axisNames =
         {
-            "Yaw", "Pitch", "Roll", "X", "Y", "Z",
+            "Controller Yaw", "Controller Pitch", "Controller Roll",
+            "Controller X", "Controller Y", "Controller Z",
             "Thumbstick X", "Thumbstick Y", "Trigger", "Grip",
         };
 

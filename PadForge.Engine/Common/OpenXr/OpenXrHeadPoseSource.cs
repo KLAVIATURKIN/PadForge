@@ -55,10 +55,14 @@ namespace PadForge.Engine.Common.OpenXr
         /// <summary>True once the runtime has accepted a controller profile.
         /// A headset with no controllers is an ordinary case, so this being
         /// false is not a failure.</summary>
-        public bool HasControllers { get; private set; }
+        public bool HasControllers => _hasControllers;
+        private volatile bool _hasControllers;
 
         private Thread _thread;
         private volatile bool _running;
+        // Set by Stop and never cleared. The create path cannot be
+        // interrupted, so it checks this the moment it returns.
+        private volatile bool _cancelled;
         private volatile OpenXrSourceState _state = OpenXrSourceState.Stopped;
         private volatile string _runtimeName = string.Empty;
         private long _samples;
@@ -103,6 +107,7 @@ namespace PadForge.Engine.Common.OpenXr
         public void Stop()
         {
             _running = false;
+            _cancelled = true;
             var t = _thread;
             _thread = null;
             // Bounded: every native call in the loop is a locate or a poll,
@@ -124,10 +129,20 @@ namespace PadForge.Engine.Common.OpenXr
                     _state = why;
                     return;
                 }
+                // Creating the session can cold-start the runtime's own
+                // processes, which takes far longer than Stop's join. If the
+                // feature was switched off while that ran, tear the session
+                // down here rather than leaving a live one behind on a
+                // machine whose owner just said no.
+                if (_cancelled)
+                {
+                    _log("OpenXR: session created after the feature was turned off, closing it");
+                    return;
+                }
                 _runtimeName = session.RuntimeName;
                 _state = OpenXrSourceState.Running;
 
-                HasControllers = session.HasControllers;
+                _hasControllers = session.HasControllers;
 
                 var baseline = default(OpenXrHeadPose.Baseline);
                 // Each hand keeps its own neutral. A controller put down and
@@ -212,6 +227,10 @@ namespace PadForge.Engine.Common.OpenXr
             {
                 try { session?.Dispose(); } catch (Exception) { }
                 if (_state == OpenXrSourceState.Running) _state = OpenXrSourceState.Stopped;
+                // The thread is done, so the object is startable again. This
+                // used to stay true on every self-exit, and Start's guard then
+                // returned without doing anything for the life of the object.
+                _running = false;
             }
         }
     }

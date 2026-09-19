@@ -2397,6 +2397,20 @@
   <data name="HeadTracker_X" xml:space="preserve"><value>Tête X</value></data>
   <data name="HeadTracker_Y" xml:space="preserve"><value>Tête Y</value></data>
   <data name="HeadTracker_Z" xml:space="preserve"><value>Tête Z</value></data>
+  <data name="VrCtl_Yaw" xml:space="preserve"><value>Lacet de la manette</value></data>
+  <data name="VrCtl_Pitch" xml:space="preserve"><value>Tangage de la manette</value></data>
+  <data name="VrCtl_Roll" xml:space="preserve"><value>Roulis de la manette</value></data>
+  <data name="VrCtl_X" xml:space="preserve"><value>X de la manette</value></data>
+  <data name="VrCtl_Y" xml:space="preserve"><value>Y de la manette</value></data>
+  <data name="VrCtl_Z" xml:space="preserve"><value>Z de la manette</value></data>
+  <data name="VrCtl_StickX" xml:space="preserve"><value>Joystick X</value></data>
+  <data name="VrCtl_StickY" xml:space="preserve"><value>Joystick Y</value></data>
+  <data name="VrCtl_Trigger" xml:space="preserve"><value>Gâchette</value></data>
+  <data name="VrCtl_Grip" xml:space="preserve"><value>Poignée</value></data>
+  <data name="VrCtl_StickClick" xml:space="preserve"><value>Clic du joystick</value></data>
+  <data name="VrCtl_Primary" xml:space="preserve"><value>Bouton principal</value></data>
+  <data name="VrCtl_Secondary" xml:space="preserve"><value>Bouton secondaire</value></data>
+  <data name="VrCtl_Menu" xml:space="preserve"><value>Bouton menu</value></data>
   <data name="Dashboard_HeadTracking" xml:space="preserve"><value>Suivi de tête</value></data>
   <data name="Dashboard_HeadTrackingDesc" xml:space="preserve"><value>Lit la pose de la tête depuis la sortie UDP d'OpenTrack ou la mémoire partagée FreeTrack 2.0 et l'expose en six axes sur un périphérique Suivi de tête : lacet, tangage, roulis et les trois translations. Associez le lacet à un axe de stick pour regarder autour de vous en gardant les deux pouces sur les boutons.</value></data>
   <data name="Dashboard_HeadTrackingEnable" xml:space="preserve"><value>Activer le suivi par UDP</value></data>

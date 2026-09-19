@@ -4315,7 +4315,13 @@ namespace PadForge.Services
                     voiceButtonBase: voiceBase, isMicrophone: isMic,
                     isHandheld: ud.CapType == InputDeviceType.HandheldButtons,
                     isSystemMotion: ud.CapType == InputDeviceType.SystemMotion,
-                    isHeadTracker: ud.CapType == InputDeviceType.HeadTracker);
+                    isHeadTracker: ud.CapType == InputDeviceType.HeadTracker,
+                    // Both of these name every entry they publish, so the
+                    // numbered fallback would show Button 0..101 on a row
+                    // whose mapping picker names all of them.
+                    namedObjects: ud.CapType == InputDeviceType.VrController
+                               || ud.CapType == InputDeviceType.LogitechGKeys
+                                  ? ud.DeviceObjects : null);
                 devVm.HasGyroData = ud.HasGyro;
                 devVm.HasAccelData = ud.HasAccel;
                 devVm.HasAccelAuxData = ud.HasAccelAux;
@@ -5132,7 +5138,10 @@ namespace PadForge.Services
                     voiceButtonBase: voiceBase2, isMicrophone: isMic2,
                     isHandheld: ud.CapType == InputDeviceType.HandheldButtons,
                     isSystemMotion: ud.CapType == InputDeviceType.SystemMotion,
-                    isHeadTracker: ud.CapType == InputDeviceType.HeadTracker);
+                    isHeadTracker: ud.CapType == InputDeviceType.HeadTracker,
+                    namedObjects: ud.CapType == InputDeviceType.VrController
+                               || ud.CapType == InputDeviceType.LogitechGKeys
+                                  ? ud.DeviceObjects : null);
                 devVm.HasGyroData = ud.HasGyro;
                 devVm.HasAccelData = ud.HasAccel;
                 devVm.HasAccelAuxData = ud.HasAccelAux;
@@ -5270,7 +5279,7 @@ namespace PadForge.Services
 
             // Hidden Buttons section (issue #343): the same latch, off the
             // handheld row's 175 ms minimum press.
-            if (devVm.IsHandheldDevice)
+            if (devVm.ShowNamedButtons)
             {
                 long now = Environment.TickCount64;
                 var btns = state.Buttons;

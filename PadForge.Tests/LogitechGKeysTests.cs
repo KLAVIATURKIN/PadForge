@@ -503,6 +503,59 @@ namespace PadForge.Tests
             }
         }
 
+
+        /// <summary>
+        /// A held key whose release never arrives is closed by the resync.
+        ///
+        /// <para>The SDK only feeds an application whose Logitech profile is
+        /// active, so a key held while PadForge loses that profile delivers
+        /// no release at all. Events alone left the button asserted for the
+        /// life of the session, and the two SDK calls that answer "what is
+        /// actually held" were written and never called.</para>
+        /// </summary>
+        [Fact]
+        public void TheResyncClosesAHoldWhoseReleaseNeverCame()
+        {
+            string device = RepoFile("PadForge.App", "Common", "Input", "LogitechGKeysDevice.cs");
+            // The recovery has to run from the state read, which is the only
+            // thing that keeps ticking when the events stop.
+            Assert.Contains("ResyncHeld", device);
+            Assert.Contains("ResyncIntervalMs", device);
+            Assert.Contains("src.IsMouseButtonPressed(keyOrButton)", device);
+            Assert.Contains("src.IsKeyPressed(keyOrButton, mode)", device);
+        }
+
+        /// <summary>The library is never unloaded and shutdown is not
+        /// conditional on init having succeeded, which is what the production
+        /// reference does and why.</summary>
+        [Fact]
+        public void TeardownMatchesTheReferenceImplementation()
+        {
+            string src = RepoFile("PadForge.Engine", "Common", "Logitech", "LogitechGKeySource.cs");
+            Assert.DoesNotContain("NativeLibrary.Free", src);
+            // Shutdown runs from Teardown unconditionally, not behind an
+            // _initialized check.
+            int at = src.IndexOf("private void Teardown()", StringComparison.Ordinal);
+            Assert.True(at > 0);
+            string body = src.Substring(at, Math.Min(600, src.Length - at));
+            Assert.Contains("_shutdown?.Invoke()", body);
+        }
+
+        /// <summary>Discovery offers every candidate, because a path that
+        /// exists is not a path that loads.</summary>
+        [Fact]
+        public void DiscoveryOffersEveryCandidateNotJustTheFirst()
+        {
+            var candidates = LogitechGKeyCatalog.Candidates(out var reason);
+            Assert.NotNull(candidates);
+            if (candidates.Count == 0)
+                Assert.NotEqual(LogitechGKeyCatalog.Reason.Found, reason);
+            else
+                Assert.Equal(LogitechGKeyCatalog.Reason.Found, reason);
+
+            string src = RepoFile("PadForge.Engine", "Common", "Logitech", "LogitechGKeySource.cs");
+            Assert.Contains("foreach (string candidate in candidates)", src);
+        }
         private static string RepoFile(params string[] parts)
         {
             var dir = new DirectoryInfo(AppContext.BaseDirectory);

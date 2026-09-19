@@ -24,6 +24,7 @@ namespace PadForge.Engine.Common.OpenXr
         private readonly Action<string> _log;
         private PFN_xrGetActionStatePose _getPose;
         private PFN_xrGetActionStateFloat _getFloat;
+        private PFN_xrGetActionStateVector2f _getVector2f;
         private PFN_xrGetActionStateBoolean _getBoolean;
         private PFN_xrSyncActions _sync;
         private PFN_xrLocateSpace _locate;
@@ -101,15 +102,21 @@ namespace PadForge.Engine.Common.OpenXr
             var createActionSpace = (PFN_xrCreateActionSpace)resolve("xrCreateActionSpace");
             _getPose = (PFN_xrGetActionStatePose)resolve("xrGetActionStatePose");
             _getFloat = (PFN_xrGetActionStateFloat)resolve("xrGetActionStateFloat");
+            _getVector2f = (PFN_xrGetActionStateVector2f)resolve("xrGetActionStateVector2f");
             _getBoolean = (PFN_xrGetActionStateBoolean)resolve("xrGetActionStateBoolean");
             _sync = (PFN_xrSyncActions)resolve("xrSyncActions");
             _locate = (PFN_xrLocateSpace)resolve("xrLocateSpace");
             _destroyActionSet = (PFN_xrDestroyActionSet)resolve("xrDestroyActionSet");
             _destroySpace = (PFN_xrDestroySpace)resolve("xrDestroySpace");
 
+            // Require exactly the entry points this actually calls. An
+            // earlier version required xrGetActionStatePose, which nothing
+            // here invokes (pose validity comes from xrLocateSpace's flags),
+            // and did not require the two state readers it does invoke.
             if (createActionSet == null || createAction == null || stringToPath == null
                 || suggest == null || attach == null || createActionSpace == null
-                || _getPose == null || _sync == null || _locate == null)
+                || _getFloat == null || _getBoolean == null
+                || _sync == null || _locate == null)
                 return false;
 
             var setInfo = new XrActionSetCreateInfo { type = XR_TYPE_ACTION_SET_CREATE_INFO, priority = 0 };
@@ -302,6 +309,10 @@ namespace PadForge.Engine.Common.OpenXr
             state.ControlsActive = true;
             state.Trigger = Float(_trigger, sub);
             state.Squeeze = Float(_squeeze, sub);
+            // The thumbstick is a Vector2f, not two floats. It was created
+            // and bound from the first version and never read, which left
+            // both stick axes resting at center on every runtime.
+            Vector2(_stick, sub, out state.ThumbstickX, out state.ThumbstickY);
             state.ThumbstickClick = Bool(_stickClick, sub);
             state.PrimaryButton = Bool(_primary, sub);
             state.SecondaryButton = Bool(_secondary, sub);
@@ -321,6 +332,24 @@ namespace PadForge.Engine.Common.OpenXr
             // An inactive action has no value. Its currentState is whatever
             // the struct was left holding.
             return state.isActive != 0 ? state.currentState : 0f;
+        }
+
+        /// <summary>A thumbstick's two axes. Zero for an inactive action,
+        /// the same contract <see cref="Float"/> uses.</summary>
+        private void Vector2(ulong action, ulong sub, out float x, out float y)
+        {
+            x = 0f;
+            y = 0f;
+            if (action == 0 || _getVector2f == null) return;
+            var get = new XrActionStateGetInfo
+            {
+                type = XR_TYPE_ACTION_STATE_GET_INFO, action = action, subactionPath = sub,
+            };
+            var state = new XrActionStateVector2f { type = XR_TYPE_ACTION_STATE_VECTOR2F };
+            if (_getVector2f(_session, ref get, ref state) != XR_SUCCESS) return;
+            if (state.isActive == 0) return;
+            x = state.currentState.x;
+            y = state.currentState.y;
         }
 
         private bool Bool(ulong action, ulong sub)

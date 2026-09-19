@@ -79,6 +79,15 @@ namespace PadForge.Engine.Common.OpenXr
             {
                 return null;
             }
+            catch (InvalidOperationException)
+            {
+                // A manifest that is valid JSON but the wrong SHAPE, a string
+                // where an object belongs or a number where a path belongs.
+                // TryGetProperty and GetString both throw this, and letting it
+                // out of here took every other runtime down with it, including
+                // the working default.
+                return null;
+            }
         }
 
         /// <summary>Every runtime the registry lists, the system default

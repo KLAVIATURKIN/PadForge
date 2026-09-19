@@ -2391,6 +2391,12 @@ namespace PadForge.Services
                         axis, savedRanges != null && axis < savedRanges.Length ? savedRanges[axis] : 0);
                 PadForge.Common.Input.HeadTrackingRuntime.OpenXrRuntimeManifest =
                     appSettings.HeadTrackingOpenXrRuntime;
+                // These two live on statics the bound getters read, so a load
+                // that only writes the static leaves the boxes showing the
+                // outgoing values. A Reload or a Reset to Defaults reverted
+                // the engine and left 45 sitting in a range box that no
+                // longer meant anything.
+                _mainVm.Dashboard.NotifyHeadTrackingRangesChanged();
             }
             finally { _applyingServiceToggles = false; }
             _mainVm.Dashboard.WebControllerPort = appSettings.WebControllerPort > 0
