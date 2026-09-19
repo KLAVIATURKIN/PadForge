@@ -689,7 +689,7 @@
   <data name="Macro_Expression_Tooltip" xml:space="preserve"><value>Référencez les variables par a, b, c, … (ou s[0], s[1], …). Prend en charge + - * / &amp;&amp; || ?: et toutes les fonctions de la rangée de pastilles ci-dessous. La macro se déclenche sur le front montant quand la valeur de la formule franchit 0.5.</value></data>
   <data name="Macro_Expression_Variables" xml:space="preserve"><value>Variables</value></data>
   <data name="Macro_Expression_AddVariable" xml:space="preserve"><value>+ Ajouter une variable</value></data>
-  <data name="Macro_Expression_Hint" xml:space="preserve"><value>Chaque ligne définit une lettre de variable (a, b, c, …). Choisissez Appareil d'entrée pour lier un bouton, un POV ou un axe d'un périphérique physique, ou Contrôleur de sortie pour lire un canal depuis la sortie combinée du contrôleur virtuel du slot.</value></data>
+  <data name="Macro_Expression_Hint" xml:space="preserve"><value>Chaque ligne définit une lettre de variable (a, b, c, …). Choisissez Appareils assignés pour lier un bouton, un POV ou un axe d'un périphérique physique, ou Contrôleur virtuel pour lire un canal depuis la sortie combinée du contrôleur virtuel du slot.</value></data>
   <data name="Macro_Expression_Recipe_Single" xml:space="preserve"><value>a seul</value></data>
   <data name="Macro_Expression_Recipe_Single_Tooltip" xml:space="preserve"><value>Se déclenche quand la variable a passe de 0 à 1.</value></data>
   <data name="Macro_Expression_Recipe_Both" xml:space="preserve"><value>a et b</value></data>

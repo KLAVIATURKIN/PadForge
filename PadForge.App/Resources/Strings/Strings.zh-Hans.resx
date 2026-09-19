@@ -689,7 +689,7 @@
   <data name="Macro_Expression_Tooltip" xml:space="preserve"><value>变量用 a、b、c…（或 s[0]、s[1]…）引用。支持 + - * / &amp;&amp; || ?: 以及下方按钮行中的所有函数。当公式值超过 0.5 时，宏在上升沿触发。</value></data>
   <data name="Macro_Expression_Variables" xml:space="preserve"><value>变量</value></data>
   <data name="Macro_Expression_AddVariable" xml:space="preserve"><value>+ 添加变量</value></data>
-  <data name="Macro_Expression_Hint" xml:space="preserve"><value>每行定义一个变量字母（a, b, c, …）。选择"输入设备"可绑定物理设备的按钮、POV 或轴。选择"输出控制器"可读取该槽位合并的虚拟控制器输出中的通道。</value></data>
+  <data name="Macro_Expression_Hint" xml:space="preserve"><value>每行定义一个变量字母（a, b, c, …）。选择"已分配的设备"可绑定物理设备的按钮、POV 或轴。选择"虚拟控制器"可读取该槽位合并的虚拟控制器输出中的通道。</value></data>
   <data name="Macro_Expression_Recipe_Single" xml:space="preserve"><value>仅 a</value></data>
   <data name="Macro_Expression_Recipe_Single_Tooltip" xml:space="preserve"><value>当变量 a 从 0 变为 1 时触发。</value></data>
   <data name="Macro_Expression_Recipe_Both" xml:space="preserve"><value>a 和 b</value></data>
