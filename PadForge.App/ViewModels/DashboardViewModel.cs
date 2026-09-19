@@ -602,41 +602,6 @@ namespace PadForge.ViewModels
             _resetHeadTrackingRangeZCommand ??= new RelayCommand(
                 () => HeadTrackingRangeZ = 0);
 
-        // ─────────────────────────────────────────────
-        //  Logitech G-Keys (issue #454)
-        // ─────────────────────────────────────────────
-
-        private bool _gKeysEnabled;
-
-        /// <summary>Whether G-keys are read through the Logitech G-key SDK.
-        ///
-        /// <para>Off by default. Turning it on loads a third-party library and
-        /// opens a session with the Logitech software, which nobody who has
-        /// not asked for it should pay for.</para></summary>
-        public bool GKeysEnabled
-        {
-            get => _gKeysEnabled;
-            set
-            {
-                if (SetProperty(ref _gKeysEnabled, value))
-                    PadForge.Common.Input.LogitechGKeysRuntime.Enabled = value;
-            }
-        }
-
-        private RelayCommand _resetGKeysEnabledCommand;
-        public RelayCommand ResetGKeysEnabledCommand =>
-            _resetGKeysEnabledCommand ??= new RelayCommand(() => GKeysEnabled = false);
-
-        private string _gKeysStatus = Strings.Instance.Common_Stopped;
-
-        /// <summary>The G-Keys row's source line, pushed by InputService on
-        /// the dashboard tick.</summary>
-        public string GKeysStatus
-        {
-            get => _gKeysStatus;
-            set => SetProperty(ref _gKeysStatus, value);
-        }
-
         private RelayCommand _headTrackingRecenterCommand;
 
         /// <summary>Makes wherever the user is sitting now the neutral.

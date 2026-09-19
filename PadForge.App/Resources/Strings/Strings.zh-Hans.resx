@@ -252,18 +252,15 @@
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>运动服务器端口</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>为 Cemu、Dolphin、Yuzu 等提供陀螺仪和加速度计数据。</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>适用于 OpenTrack 以及任何发送其 UDP 输出或写入 FreeTrack 2.0 共享内存的追踪器。</value></data>
-  <data name="Dashboard_GKeys" xml:space="preserve"><value>罗技 G 键</value></data>
-  <data name="Dashboard_GKeysDesc" xml:space="preserve"><value>读取罗技游戏设备的 G 键和额外鼠标按键，无需先将它们设为其他按键即可在此映射。</value></data>
-  <data name="Dashboard_GKeysEnable" xml:space="preserve"><value>启用罗技 G 键</value></data>
-  <data name="Dashboard_GKeysEnable_Tooltip" xml:space="preserve"><value>通过罗技 G-key SDK 读取 G 键。需要运行 Logitech Gaming Software 8.55 或更高版本。</value></data>
-  <data name="Dashboard_GKeysFooter" xml:space="preserve"><value>Logitech Gaming Software 必须正在运行，并且其 PadForge 配置文件需设为“常驻”或“默认”，否则这些键仅在 PadForge 为活动窗口时有效。</value></data>
-  <data name="Dashboard_GKeysStatus_NoSdk" xml:space="preserve"><value>此电脑上没有罗技 G-key SDK。它随 Logitech Gaming Software 8.55 或更高版本一起安装。</value></data>
-  <data name="Dashboard_GKeysStatus_PathStale" xml:space="preserve"><value>G-key SDK 已注册但文件已丢失。请重新安装 Logitech Gaming Software。</value></data>
-  <data name="Dashboard_GKeysStatus_LoadFailed" xml:space="preserve"><value>找到了 G-key SDK，但无法加载。</value></data>
-  <data name="Dashboard_GKeysStatus_WrongLibrary" xml:space="preserve"><value>该库不是所需的 G-key SDK。</value></data>
-  <data name="Dashboard_GKeysStatus_InitRefused" xml:space="preserve"><value>G-key SDK 未能启动。通常是 Logitech Gaming Software 未运行。</value></data>
-  <data name="Dashboard_GKeysStatus_NoKeysYet" xml:space="preserve"><value>已连接，尚未检测到按键。请在 Logitech Gaming Software 中将 PadForge 配置文件设为“常驻”。</value></data>
-  <data name="Dashboard_GKeysStatus_Running_Format" xml:space="preserve"><value>运行中，{0} 个按键事件</value></data>
+  <data name="Settings_GKeys" xml:space="preserve"><value>读取罗技 G 键</value></data>
+  <data name="Settings_GKeysTooltip" xml:space="preserve"><value>通过罗技 G-key SDK 读取 G 键。需要运行 Logitech Gaming Software 8.55 或更高版本，并将 PadForge 配置文件设为“常驻”，否则这些键仅在 PadForge 为活动窗口时有效。</value></data>
+  <data name="Settings_GKeysStatus_NoSdk" xml:space="preserve"><value>此电脑上没有罗技 G-key SDK。它随 Logitech Gaming Software 8.55 或更高版本一起安装。</value></data>
+  <data name="Settings_GKeysStatus_PathStale" xml:space="preserve"><value>G-key SDK 已注册但文件已丢失。请重新安装 Logitech Gaming Software。</value></data>
+  <data name="Settings_GKeysStatus_LoadFailed" xml:space="preserve"><value>找到了 G-key SDK，但无法加载。</value></data>
+  <data name="Settings_GKeysStatus_WrongLibrary" xml:space="preserve"><value>该库不是所需的 G-key SDK。</value></data>
+  <data name="Settings_GKeysStatus_InitRefused" xml:space="preserve"><value>G-key SDK 未能启动。通常是 Logitech Gaming Software 未运行。</value></data>
+  <data name="Settings_GKeysStatus_NoKeysYet" xml:space="preserve"><value>已连接，尚未检测到按键。请在 Logitech Gaming Software 中将 PadForge 配置文件设为“常驻”。</value></data>
+  <data name="Settings_GKeysStatus_Running_Format" xml:space="preserve"><value>运行中，{0} 个按键事件</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>网页控制器</value></data>
   <data name="Dashboard_WebDescription" xml:space="preserve"><value>在局域网中为浏览器提供手柄界面。</value></data>
   <data name="Dashboard_EnableWeb" xml:space="preserve"><value>启用网页控制器服务器</value></data>
@@ -297,6 +294,9 @@
   <data name="Settings_MinimizeToTray" xml:space="preserve"><value>最小化到系统托盘</value></data>
   <data name="Settings_CloseToTray" xml:space="preserve"><value>关闭时最小化到系统托盘</value></data>
   <data name="Settings_CloseToTrayTip" xml:space="preserve"><value>点击关闭按钮或按 Alt+F4 后，PadForge 将继续运行。要退出程序，请在系统托盘菜单中选择“退出”。</value></data>
+  <data name="Settings_MinimizeToTrayTip" xml:space="preserve"><value>最小化时将窗口收进通知区域，而不是任务栏。</value></data>
+  <data name="Settings_StartMinimizedTip" xml:space="preserve"><value>以隐藏窗口启动。PadForge 继续运行并进行映射。</value></data>
+  <data name="Settings_StartAtLoginTip" xml:space="preserve"><value>登录 Windows 时启动 PadForge。</value></data>
   <data name="Settings_AlwaysShowTrayIcon" xml:space="preserve"><value>始终显示在系统托盘</value></data>
   <data name="Settings_AlwaysShowTrayIconTip" xml:space="preserve"><value>窗口打开时也保持显示系统托盘图标，随时可以在其菜单中选择“退出”。</value></data>
   <data name="Settings_StartMinimized" xml:space="preserve"><value>启动时最小化</value></data>

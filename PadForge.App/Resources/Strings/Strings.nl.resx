@@ -252,18 +252,15 @@
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Motionserverpoort</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Levert gyroscoop- en versnellingsmetergegevens voor Cemu, Dolphin, Yuzu, enz.</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Werkt met OpenTrack en elke tracker die zijn UDP-uitvoer verzendt of naar het gedeelde geheugen van FreeTrack 2.0 schrijft.</value></data>
-  <data name="Dashboard_GKeys" xml:space="preserve"><value>Logitech G-toetsen</value></data>
-  <data name="Dashboard_GKeysDesc" xml:space="preserve"><value>Leest G-toetsen en extra muisknoppen van Logitech-gameapparaten, zodat je ze hier toewijst zonder ze eerst op een andere toets te programmeren.</value></data>
-  <data name="Dashboard_GKeysEnable" xml:space="preserve"><value>Logitech G-toetsen inschakelen</value></data>
-  <data name="Dashboard_GKeysEnable_Tooltip" xml:space="preserve"><value>Leest G-toetsen via de Logitech G-key SDK. Vereist dat Logitech Gaming Software 8.55 of nieuwer draait.</value></data>
-  <data name="Dashboard_GKeysFooter" xml:space="preserve"><value>Logitech Gaming Software moet draaien en het PadForge-profiel moet op Permanent of Standaard staan, anders werken de toetsen alleen terwijl PadForge het actieve venster is.</value></data>
-  <data name="Dashboard_GKeysStatus_NoSdk" xml:space="preserve"><value>Geen Logitech G-key SDK op deze pc. Die wordt met Logitech Gaming Software 8.55 of nieuwer geïnstalleerd.</value></data>
-  <data name="Dashboard_GKeysStatus_PathStale" xml:space="preserve"><value>De G-key SDK is geregistreerd maar het bestand ontbreekt. Installeer Logitech Gaming Software opnieuw.</value></data>
-  <data name="Dashboard_GKeysStatus_LoadFailed" xml:space="preserve"><value>G-key SDK gevonden, laden mislukt.</value></data>
-  <data name="Dashboard_GKeysStatus_WrongLibrary" xml:space="preserve"><value>Die bibliotheek is niet de verwachte G-key SDK.</value></data>
-  <data name="Dashboard_GKeysStatus_InitRefused" xml:space="preserve"><value>De G-key SDK startte niet. Meestal draait Logitech Gaming Software niet.</value></data>
-  <data name="Dashboard_GKeysStatus_NoKeysYet" xml:space="preserve"><value>Verbonden, nog geen toets gezien. Zet het PadForge-profiel in Logitech Gaming Software op Permanent.</value></data>
-  <data name="Dashboard_GKeysStatus_Running_Format" xml:space="preserve"><value>Actief, {0} toetsgebeurtenissen</value></data>
+  <data name="Settings_GKeys" xml:space="preserve"><value>Logitech G-toetsen lezen</value></data>
+  <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Leest G-toetsen via de Logitech G-key SDK. Vereist dat Logitech Gaming Software 8.55 of nieuwer draait en dat het PadForge-profiel op Permanent staat, anders werken de toetsen alleen terwijl PadForge het actieve venster is.</value></data>
+  <data name="Settings_GKeysStatus_NoSdk" xml:space="preserve"><value>Geen Logitech G-key SDK op deze pc. Die wordt met Logitech Gaming Software 8.55 of nieuwer geïnstalleerd.</value></data>
+  <data name="Settings_GKeysStatus_PathStale" xml:space="preserve"><value>De G-key SDK is geregistreerd maar het bestand ontbreekt. Installeer Logitech Gaming Software opnieuw.</value></data>
+  <data name="Settings_GKeysStatus_LoadFailed" xml:space="preserve"><value>G-key SDK gevonden, laden mislukt.</value></data>
+  <data name="Settings_GKeysStatus_WrongLibrary" xml:space="preserve"><value>Die bibliotheek is niet de verwachte G-key SDK.</value></data>
+  <data name="Settings_GKeysStatus_InitRefused" xml:space="preserve"><value>De G-key SDK startte niet. Meestal draait Logitech Gaming Software niet.</value></data>
+  <data name="Settings_GKeysStatus_NoKeysYet" xml:space="preserve"><value>Verbonden, nog geen toets gezien. Zet het PadForge-profiel in Logitech Gaming Software op Permanent.</value></data>
+  <data name="Settings_GKeysStatus_Running_Format" xml:space="preserve"><value>Actief, {0} toetsgebeurtenissen</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Webcontroller</value></data>
   <data name="Dashboard_WebDescription" xml:space="preserve"><value>Bied een gamepad-interface aan voor browsers op uw lokale netwerk.</value></data>
   <data name="Dashboard_EnableWeb" xml:space="preserve"><value>Webcontroller-server inschakelen</value></data>
@@ -297,6 +294,9 @@
   <data name="Settings_MinimizeToTray" xml:space="preserve"><value>Minimaliseren naar systeemvak</value></data>
   <data name="Settings_CloseToTray" xml:space="preserve"><value>Bij sluiten naar systeemvak</value></data>
   <data name="Settings_CloseToTrayTip" xml:space="preserve"><value>PadForge blijft actief als u op Sluiten klikt of Alt+F4 indrukt. Kies Afsluiten in het systeemvakmenu om het programma af te sluiten.</value></data>
+  <data name="Settings_MinimizeToTrayTip" xml:space="preserve"><value>Minimaliseren verbergt het venster in het systeemvak in plaats van de taakbalk.</value></data>
+  <data name="Settings_StartMinimizedTip" xml:space="preserve"><value>Start met verborgen venster. PadForge blijft draaien en toewijzen.</value></data>
+  <data name="Settings_StartAtLoginTip" xml:space="preserve"><value>Start PadForge wanneer je je aanmeldt bij Windows.</value></data>
   <data name="Settings_AlwaysShowTrayIcon" xml:space="preserve"><value>Altijd in systeemvak tonen</value></data>
   <data name="Settings_AlwaysShowTrayIconTip" xml:space="preserve"><value>Houdt het pictogram in het systeemvak zichtbaar terwijl het venster open is, zodat Afsluiten in het menu altijd één klik verwijderd is.</value></data>
   <data name="Settings_StartMinimized" xml:space="preserve"><value>Geminimaliseerd starten</value></data>

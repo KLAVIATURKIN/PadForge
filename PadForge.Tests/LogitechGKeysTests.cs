@@ -393,12 +393,55 @@ namespace PadForge.Tests
             // The dirty-gate trap: a setting that works all session and
             // reverts on restart because one of the three sides was missing.
             string mainWindow = RepoFile("PadForge.App", "MainWindow.xaml.cs");
-            Assert.Contains("nameof(DashboardViewModel.GKeysEnabled)", mainWindow);
+            Assert.Contains("nameof(SettingsViewModel.GKeysEnabled)", mainWindow);
 
             string settings = RepoFile("PadForge.App", "Services", "SettingsService.cs");
             Assert.Contains("public bool GKeysEnabled", settings);
-            Assert.Contains("appSettings.GKeysEnabled", settings);
-            Assert.Contains("GKeysEnabled = _mainVm.Dashboard.GKeysEnabled", settings);
+            Assert.Contains("vm.GKeysEnabled = appSettings.GKeysEnabled", settings);
+            Assert.Contains("GKeysEnabled = vm.GKeysEnabled", settings);
+        }
+
+        /// <summary>
+        /// The toggle lives in the Settings page's Input Engine card, beside
+        /// the Flydigi protocol switch, not on the Dashboard.
+        ///
+        /// <para>It first shipped as its own Dashboard section, which was
+        /// wrong: this is a vendor input path the engine can read, the exact
+        /// shape of the Flydigi switch that already sits in that card, and
+        /// not a live readout the way head tracking is.</para>
+        /// </summary>
+        [Fact]
+        public void TheToggleSitsInTheInputEngineCard()
+        {
+            string settingsPage = RepoFile("PadForge.App", "Views", "SettingsPage.xaml");
+            int engine = settingsPage.IndexOf("Binding Settings_InputEngine,", StringComparison.Ordinal);
+            int gkeys = settingsPage.IndexOf("Binding Settings_GKeys,", StringComparison.Ordinal);
+            Assert.True(engine > 0 && gkeys > engine, "the G-Keys row is not inside the Input Engine card");
+            Assert.Contains("CommandParameter=\"GKeysEnabled\"", settingsPage);
+
+            string dashboard = RepoFile("PadForge.App", "Views", "DashboardPage.xaml");
+            Assert.DoesNotContain("GKeys", dashboard);
+        }
+
+        /// <summary>
+        /// Every checkbox in the Settings window card explains itself.
+        ///
+        /// <para>Minimize to System Tray shipped with no tooltip while two of
+        /// its neighbors had one, and Start Minimized and Start at Login had
+        /// the same gap. A checkbox whose label is its only explanation is the
+        /// same defect as a reset icon with a generic tooltip.</para>
+        /// </summary>
+        [Fact]
+        public void EveryWindowSettingExplainsItself()
+        {
+            string page = RepoFile("PadForge.App", "Views", "SettingsPage.xaml");
+            foreach (string tip in new[]
+                     {
+                         "Settings_MinimizeToTrayTip", "Settings_CloseToTrayTip",
+                         "Settings_AlwaysShowTrayIconTip", "Settings_StartMinimizedTip",
+                         "Settings_StartAtLoginTip",
+                     })
+                Assert.Contains(tip, page);
         }
 
         [Fact]
@@ -438,12 +481,12 @@ namespace PadForge.Tests
         {
             string[] keys =
             {
-                "Dashboard_GKeys", "Dashboard_GKeysDesc", "Dashboard_GKeysEnable",
-                "Dashboard_GKeysEnable_Tooltip", "Dashboard_GKeysFooter",
-                "Dashboard_GKeysStatus_NoSdk", "Dashboard_GKeysStatus_PathStale",
-                "Dashboard_GKeysStatus_LoadFailed", "Dashboard_GKeysStatus_WrongLibrary",
-                "Dashboard_GKeysStatus_InitRefused", "Dashboard_GKeysStatus_NoKeysYet",
-                "Dashboard_GKeysStatus_Running_Format",
+                "Settings_GKeys", "Settings_GKeysTooltip",
+                "Settings_GKeysStatus_NoSdk", "Settings_GKeysStatus_PathStale",
+                "Settings_GKeysStatus_LoadFailed", "Settings_GKeysStatus_WrongLibrary",
+                "Settings_GKeysStatus_InitRefused", "Settings_GKeysStatus_NoKeysYet",
+                "Settings_GKeysStatus_Running_Format",
+                "Settings_MinimizeToTrayTip", "Settings_StartMinimizedTip", "Settings_StartAtLoginTip",
                 "DeviceType_LogitechGKeys", "DeviceType_VrController",
             };
             foreach (string locale in new[]

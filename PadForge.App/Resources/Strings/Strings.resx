@@ -288,18 +288,15 @@
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Motion Server Port</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Provides gyro and accelerometer data to Cemu, Dolphin, Yuzu, etc.</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Works with OpenTrack and any tracker that sends its UDP output or writes FreeTrack 2.0 shared memory.</value></data>
-  <data name="Dashboard_GKeys" xml:space="preserve"><value>Logitech G-Keys</value></data>
-  <data name="Dashboard_GKeysDesc" xml:space="preserve"><value>Reads G-keys and extra mouse buttons from Logitech gaming devices, so they map here without first being programmed to send another key.</value></data>
-  <data name="Dashboard_GKeysEnable" xml:space="preserve"><value>Enable Logitech G-Keys</value></data>
-  <data name="Dashboard_GKeysEnable_Tooltip" xml:space="preserve"><value>Reads G-keys through the Logitech G-key SDK. Needs Logitech Gaming Software 8.55 or later running.</value></data>
-  <data name="Dashboard_GKeysFooter" xml:space="preserve"><value>Logitech Gaming Software must be running, and its PadForge profile must be set to Persistent or Default, or the keys only work while PadForge is the active window.</value></data>
-  <data name="Dashboard_GKeysStatus_NoSdk" xml:space="preserve"><value>No Logitech G-key SDK on this machine. It installs with Logitech Gaming Software 8.55 or later.</value></data>
-  <data name="Dashboard_GKeysStatus_PathStale" xml:space="preserve"><value>The G-key SDK is registered but its file is gone. Reinstall Logitech Gaming Software.</value></data>
-  <data name="Dashboard_GKeysStatus_LoadFailed" xml:space="preserve"><value>Found the G-key SDK and could not load it.</value></data>
-  <data name="Dashboard_GKeysStatus_WrongLibrary" xml:space="preserve"><value>That library is not the G-key SDK this expects.</value></data>
-  <data name="Dashboard_GKeysStatus_InitRefused" xml:space="preserve"><value>The G-key SDK refused to start. Logitech Gaming Software is usually not running.</value></data>
-  <data name="Dashboard_GKeysStatus_NoKeysYet" xml:space="preserve"><value>Connected, no key seen yet. Set the PadForge profile to Persistent in Logitech Gaming Software.</value></data>
-  <data name="Dashboard_GKeysStatus_Running_Format" xml:space="preserve"><value>Running, {0} key events</value></data>
+  <data name="Settings_GKeys" xml:space="preserve"><value>Read Logitech G-Keys</value></data>
+  <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Reads G-keys through the Logitech G-key SDK. Needs Logitech Gaming Software 8.55 or later running, with the PadForge profile set to Persistent, or the keys only work while PadForge is the active window.</value></data>
+  <data name="Settings_GKeysStatus_NoSdk" xml:space="preserve"><value>No Logitech G-key SDK on this machine. It installs with Logitech Gaming Software 8.55 or later.</value></data>
+  <data name="Settings_GKeysStatus_PathStale" xml:space="preserve"><value>The G-key SDK is registered but its file is gone. Reinstall Logitech Gaming Software.</value></data>
+  <data name="Settings_GKeysStatus_LoadFailed" xml:space="preserve"><value>Found the G-key SDK and could not load it.</value></data>
+  <data name="Settings_GKeysStatus_WrongLibrary" xml:space="preserve"><value>That library is not the G-key SDK this expects.</value></data>
+  <data name="Settings_GKeysStatus_InitRefused" xml:space="preserve"><value>The G-key SDK refused to start. Logitech Gaming Software is usually not running.</value></data>
+  <data name="Settings_GKeysStatus_NoKeysYet" xml:space="preserve"><value>Connected, no key seen yet. Set the PadForge profile to Persistent in Logitech Gaming Software.</value></data>
+  <data name="Settings_GKeysStatus_Running_Format" xml:space="preserve"><value>Running, {0} key events</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Web Controller</value></data>
   <data name="Dashboard_WebDescription" xml:space="preserve"><value>Serve a gamepad UI to browsers on your local network.</value></data>
   <data name="Dashboard_EnableWeb" xml:space="preserve"><value>Enable Web Controller Server</value></data>
@@ -357,6 +354,9 @@
   <data name="Settings_MinimizeToTray" xml:space="preserve"><value>Minimize to System Tray</value></data>
   <data name="Settings_CloseToTray" xml:space="preserve"><value>Close to System Tray</value></data>
   <data name="Settings_CloseToTrayTip" xml:space="preserve"><value>Keep PadForge running when you click Close or press Alt+F4. Use Exit in the system tray menu to quit.</value></data>
+  <data name="Settings_MinimizeToTrayTip" xml:space="preserve"><value>Minimizing the window hides it to the notification area instead of the taskbar.</value></data>
+  <data name="Settings_StartMinimizedTip" xml:space="preserve"><value>Starts with the window hidden. PadForge keeps running and mapping.</value></data>
+  <data name="Settings_StartAtLoginTip" xml:space="preserve"><value>Starts PadForge when you sign in to Windows.</value></data>
   <data name="Settings_AlwaysShowTrayIcon" xml:space="preserve"><value>Always Show in System Tray</value></data>
   <data name="Settings_AlwaysShowTrayIconTip" xml:space="preserve"><value>Keep the tray icon visible while the window is open, so Exit in its menu is always one click away.</value></data>
   <data name="Settings_StartMinimized" xml:space="preserve"><value>Start Minimized</value></data>

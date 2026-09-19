@@ -252,18 +252,15 @@
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Motion-Server-Port</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Stellt Gyroskop- und Beschleunigungsdaten für Cemu, Dolphin, Yuzu usw. bereit.</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Funktioniert mit OpenTrack und jedem Tracker, der dessen UDP-Ausgabe sendet oder in den FreeTrack 2.0 Shared Memory schreibt.</value></data>
-  <data name="Dashboard_GKeys" xml:space="preserve"><value>Logitech G-Tasten</value></data>
-  <data name="Dashboard_GKeysDesc" xml:space="preserve"><value>Liest G-Tasten und zusätzliche Maustasten von Logitech-Gaming-Geräten, sodass sie hier zugewiesen werden können, ohne vorher auf eine andere Taste programmiert zu werden.</value></data>
-  <data name="Dashboard_GKeysEnable" xml:space="preserve"><value>Logitech G-Tasten aktivieren</value></data>
-  <data name="Dashboard_GKeysEnable_Tooltip" xml:space="preserve"><value>Liest G-Tasten über das Logitech G-key SDK. Erfordert eine laufende Logitech Gaming Software 8.55 oder neuer.</value></data>
-  <data name="Dashboard_GKeysFooter" xml:space="preserve"><value>Die Logitech Gaming Software muss laufen und ihr PadForge-Profil auf Dauerhaft oder Standard gesetzt sein, sonst funktionieren die Tasten nur, während PadForge das aktive Fenster ist.</value></data>
-  <data name="Dashboard_GKeysStatus_NoSdk" xml:space="preserve"><value>Kein Logitech G-key SDK auf diesem PC. Es wird mit Logitech Gaming Software 8.55 oder neuer installiert.</value></data>
-  <data name="Dashboard_GKeysStatus_PathStale" xml:space="preserve"><value>Das G-key SDK ist registriert, seine Datei fehlt aber. Installieren Sie Logitech Gaming Software neu.</value></data>
-  <data name="Dashboard_GKeysStatus_LoadFailed" xml:space="preserve"><value>Das G-key SDK wurde gefunden, ließ sich aber nicht laden.</value></data>
-  <data name="Dashboard_GKeysStatus_WrongLibrary" xml:space="preserve"><value>Diese Bibliothek ist nicht das erwartete G-key SDK.</value></data>
-  <data name="Dashboard_GKeysStatus_InitRefused" xml:space="preserve"><value>Das G-key SDK ließ sich nicht starten. Meist läuft Logitech Gaming Software nicht.</value></data>
-  <data name="Dashboard_GKeysStatus_NoKeysYet" xml:space="preserve"><value>Verbunden, noch keine Taste erkannt. Setzen Sie das PadForge-Profil in der Logitech Gaming Software auf Dauerhaft.</value></data>
-  <data name="Dashboard_GKeysStatus_Running_Format" xml:space="preserve"><value>Läuft, {0} Tastenereignisse</value></data>
+  <data name="Settings_GKeys" xml:space="preserve"><value>Logitech G-Tasten lesen</value></data>
+  <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Liest G-Tasten über das Logitech G-key SDK. Erfordert eine laufende Logitech Gaming Software 8.55 oder neuer, mit dem PadForge-Profil auf Dauerhaft, sonst funktionieren die Tasten nur, während PadForge das aktive Fenster ist.</value></data>
+  <data name="Settings_GKeysStatus_NoSdk" xml:space="preserve"><value>Kein Logitech G-key SDK auf diesem PC. Es wird mit Logitech Gaming Software 8.55 oder neuer installiert.</value></data>
+  <data name="Settings_GKeysStatus_PathStale" xml:space="preserve"><value>Das G-key SDK ist registriert, seine Datei fehlt aber. Installieren Sie Logitech Gaming Software neu.</value></data>
+  <data name="Settings_GKeysStatus_LoadFailed" xml:space="preserve"><value>Das G-key SDK wurde gefunden, ließ sich aber nicht laden.</value></data>
+  <data name="Settings_GKeysStatus_WrongLibrary" xml:space="preserve"><value>Diese Bibliothek ist nicht das erwartete G-key SDK.</value></data>
+  <data name="Settings_GKeysStatus_InitRefused" xml:space="preserve"><value>Das G-key SDK ließ sich nicht starten. Meist läuft Logitech Gaming Software nicht.</value></data>
+  <data name="Settings_GKeysStatus_NoKeysYet" xml:space="preserve"><value>Verbunden, noch keine Taste erkannt. Setzen Sie das PadForge-Profil in der Logitech Gaming Software auf Dauerhaft.</value></data>
+  <data name="Settings_GKeysStatus_Running_Format" xml:space="preserve"><value>Läuft, {0} Tastenereignisse</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Web-Controller</value></data>
   <data name="Dashboard_WebDescription" xml:space="preserve"><value>Stellt eine Gamepad-Oberfläche für Browser in Ihrem lokalen Netzwerk bereit.</value></data>
   <data name="Dashboard_EnableWeb" xml:space="preserve"><value>Web-Controller-Server aktivieren</value></data>
@@ -297,6 +294,9 @@
   <data name="Settings_MinimizeToTray" xml:space="preserve"><value>In den Infobereich minimieren</value></data>
   <data name="Settings_CloseToTray" xml:space="preserve"><value>Beim Schließen in den Infobereich minimieren</value></data>
   <data name="Settings_CloseToTrayTip" xml:space="preserve"><value>PadForge läuft weiter, wenn Sie auf Schließen klicken oder Alt+F4 drücken. Wählen Sie Beenden im Infobereich-Menü, um das Programm zu beenden.</value></data>
+  <data name="Settings_MinimizeToTrayTip" xml:space="preserve"><value>Beim Minimieren wird das Fenster im Infobereich statt in der Taskleiste abgelegt.</value></data>
+  <data name="Settings_StartMinimizedTip" xml:space="preserve"><value>Startet mit ausgeblendetem Fenster. PadForge läuft und mappt weiter.</value></data>
+  <data name="Settings_StartAtLoginTip" xml:space="preserve"><value>Startet PadForge bei der Anmeldung bei Windows.</value></data>
   <data name="Settings_AlwaysShowTrayIcon" xml:space="preserve"><value>Immer im Infobereich anzeigen</value></data>
   <data name="Settings_AlwaysShowTrayIconTip" xml:space="preserve"><value>Zeigt das Symbol im Infobereich auch bei geöffnetem Fenster, sodass Beenden in seinem Menü jederzeit erreichbar ist.</value></data>
   <data name="Settings_StartMinimized" xml:space="preserve"><value>Minimiert starten</value></data>

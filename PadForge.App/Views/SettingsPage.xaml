@@ -121,6 +121,7 @@
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                         <CheckBox VerticalAlignment="Center" Content="{Binding Settings_MinimizeToTray, Source={x:Static strings:Strings.Instance}}"
                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                  ToolTip="{Binding Settings_MinimizeToTrayTip, Source={x:Static strings:Strings.Instance}}"
                                   IsChecked="{Binding MinimizeToTray}"/>
                         <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="MinimizeToTray" SettingLabel="{Binding Settings_MinimizeToTray, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_SettingsViewModel_MinimizeToTray_118"/>
                     </StackPanel>
@@ -142,12 +143,14 @@
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                         <CheckBox VerticalAlignment="Center" Content="{Binding Settings_StartMinimized, Source={x:Static strings:Strings.Instance}}"
                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                  ToolTip="{Binding Settings_StartMinimizedTip, Source={x:Static strings:Strings.Instance}}"
                                   IsChecked="{Binding StartMinimized}"/>
                         <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="StartMinimized" SettingLabel="{Binding Settings_StartMinimized, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_SettingsViewModel_StartMinimized_132"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <CheckBox VerticalAlignment="Center" Content="{Binding Settings_StartAtLogin, Source={x:Static strings:Strings.Instance}}"
                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                  ToolTip="{Binding Settings_StartAtLoginTip, Source={x:Static strings:Strings.Instance}}"
                                   IsChecked="{Binding StartAtLogin}"/>
                         <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="StartAtLogin" SettingLabel="{Binding Settings_StartAtLogin, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_SettingsViewModel_StartAtLogin_135"/>
                     </StackPanel>
@@ -183,6 +186,24 @@
                                   IsChecked="{Binding FlydigiEnhancedProtocol}"/>
                         <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="FlydigiEnhancedProtocol" SettingLabel="{Binding Settings_FlydigiEnhanced, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_SettingsViewModel_FlydigiEnhancedProtocol_158"/>
                     </StackPanel>
+                    <!-- Logitech G-keys (#454), the Flydigi row's shape: a
+                         vendor input path this engine can read, off until
+                         asked for. -->
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                        <CheckBox VerticalAlignment="Center" Content="{Binding Settings_GKeys, Source={x:Static strings:Strings.Instance}}"
+                                  x:Name="GKeysEnableCheckBox"
+                                  Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                  ToolTip="{Binding Settings_GKeysTooltip, Source={x:Static strings:Strings.Instance}}"
+                                  IsChecked="{Binding GKeysEnabled}"/>
+                        <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="GKeysEnabled" SettingLabel="{Binding Settings_GKeys, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_SettingsViewModel_GKeysEnabled_186"/>
+                    </StackPanel>
+                    <!-- Which of the six cases the machine is in, so a quiet
+                         G-key is never a mystery. Empty while the feature is
+                         off, the polling-override note's shape. -->
+                    <TextBlock Text="{Binding GKeysStatus}"
+                               Visibility="{Binding GKeysStatus, Converter={StaticResource StringToVisibility}}"
+                               TextWrapping="Wrap" Margin="0,0,0,8"
+                               Foreground="{DynamicResource EmberBrush}"/>
                     <!-- Shared label column (#175 typography): both rows sit
                          in one Grid so the NumberBoxes align to one left
                          edge regardless of label length. -->

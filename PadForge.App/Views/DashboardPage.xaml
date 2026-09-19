@@ -1993,37 +1993,6 @@
                 </StackPanel>
             </Border>
 
-            <!-- ═══ Logitech G-Keys ═══ -->
-            <StackPanel Orientation="Horizontal" Margin="0,20,0,12">
-                <TextBlock Text="&#xE765;" Style="{StaticResource SectionGlyph}"/>
-                <TextBlock Text="{Binding Dashboard_GKeys, Source={x:Static strings:Strings.Instance}, Converter={StaticResource UpperConverter}}" Style="{StaticResource SectionTitle}"/>
-            </StackPanel>
-
-            <Border Style="{StaticResource CardBorder}" Margin="0,0,0,0">
-                <StackPanel>
-                    <TextBlock Text="{Binding Dashboard_GKeysDesc, Source={x:Static strings:Strings.Instance}}"
-                               Style="{StaticResource CardDescription}" Margin="0,0,0,12"/>
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                        <CheckBox Content="{Binding Dashboard_GKeysEnable, Source={x:Static strings:Strings.Instance}}"
-                                  x:Name="GKeysEnableCheckBox"
-                                  ToolTip="{Binding Dashboard_GKeysEnable_Tooltip, Source={x:Static strings:Strings.Instance}}"
-                                  Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                  IsChecked="{Binding GKeysEnabled}" VerticalAlignment="Center"/>
-                        <reset:SettingResetButton x:Name="GKeysEnabledReset" Command="{Binding ResetGKeysEnabledCommand}" SettingLabel="{Binding Dashboard_GKeysEnable, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"/>
-                    </StackPanel>
-                    <!-- Which of the four cases the machine is in, so a quiet
-                         G-key is never a mystery: no SDK, SDK found but the
-                         Logitech software is not running, running and hearing
-                         keys, or running and hearing none. -->
-                    <TextBlock Text="{Binding GKeysStatus}" FontSize="12"
-                               FontFamily="{StaticResource TelemetryFontFamily}"
-                               Foreground="{DynamicResource ColdBrush}" Margin="0,0,0,4"/>
-                    <TextBlock Text="{Binding Dashboard_GKeysFooter, Source={x:Static strings:Strings.Instance}}"
-                               FontSize="12" Foreground="{DynamicResource TextFillColorTertiaryBrush}"
-                               TextWrapping="Wrap" Margin="0,4,0,0"/>
-                </StackPanel>
-            </Border>
-
             <!-- ═══ Motion Server ═══ -->
             <StackPanel Orientation="Horizontal" Margin="0,20,0,12">
                 <TextBlock Text="&#xE7AD;" Style="{StaticResource SectionGlyph}"/>

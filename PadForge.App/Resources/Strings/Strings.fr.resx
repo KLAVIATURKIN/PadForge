@@ -252,18 +252,15 @@
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Port du serveur de mouvement</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Fournit les données du gyroscope et de l'accéléromètre à Cemu, Dolphin, Yuzu, etc.</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Fonctionne avec OpenTrack et tout tracker qui envoie sa sortie UDP ou écrit dans la mémoire partagée FreeTrack 2.0.</value></data>
-  <data name="Dashboard_GKeys" xml:space="preserve"><value>Touches G Logitech</value></data>
-  <data name="Dashboard_GKeysDesc" xml:space="preserve"><value>Lit les touches G et les boutons de souris supplémentaires des appareils Logitech, pour les affecter ici sans les programmer d'abord sur une autre touche.</value></data>
-  <data name="Dashboard_GKeysEnable" xml:space="preserve"><value>Activer les touches G Logitech</value></data>
-  <data name="Dashboard_GKeysEnable_Tooltip" xml:space="preserve"><value>Lit les touches G via le SDK G-key de Logitech. Nécessite Logitech Gaming Software 8.55 ou ultérieur en cours d'exécution.</value></data>
-  <data name="Dashboard_GKeysFooter" xml:space="preserve"><value>Logitech Gaming Software doit être lancé et son profil PadForge défini sur Persistant ou Par défaut, sinon les touches ne fonctionnent que lorsque PadForge est la fenêtre active.</value></data>
-  <data name="Dashboard_GKeysStatus_NoSdk" xml:space="preserve"><value>Aucun SDK G-key Logitech sur ce PC. Il s'installe avec Logitech Gaming Software 8.55 ou ultérieur.</value></data>
-  <data name="Dashboard_GKeysStatus_PathStale" xml:space="preserve"><value>Le SDK G-key est enregistré mais son fichier a disparu. Réinstallez Logitech Gaming Software.</value></data>
-  <data name="Dashboard_GKeysStatus_LoadFailed" xml:space="preserve"><value>SDK G-key trouvé, chargement impossible.</value></data>
-  <data name="Dashboard_GKeysStatus_WrongLibrary" xml:space="preserve"><value>Cette bibliothèque n'est pas le SDK G-key attendu.</value></data>
-  <data name="Dashboard_GKeysStatus_InitRefused" xml:space="preserve"><value>Le SDK G-key n'a pas démarré. En général Logitech Gaming Software n'est pas lancé.</value></data>
-  <data name="Dashboard_GKeysStatus_NoKeysYet" xml:space="preserve"><value>Connecté, aucune touche détectée. Définissez le profil PadForge sur Persistant dans Logitech Gaming Software.</value></data>
-  <data name="Dashboard_GKeysStatus_Running_Format" xml:space="preserve"><value>En cours, {0} événements de touche</value></data>
+  <data name="Settings_GKeys" xml:space="preserve"><value>Lire les touches G Logitech</value></data>
+  <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Lit les touches G via le SDK G-key de Logitech. Nécessite Logitech Gaming Software 8.55 ou ultérieur en cours d’exécution, avec le profil PadForge défini sur Persistant, sinon les touches ne fonctionnent que lorsque PadForge est la fenêtre active.</value></data>
+  <data name="Settings_GKeysStatus_NoSdk" xml:space="preserve"><value>Aucun SDK G-key Logitech sur ce PC. Il s'installe avec Logitech Gaming Software 8.55 ou ultérieur.</value></data>
+  <data name="Settings_GKeysStatus_PathStale" xml:space="preserve"><value>Le SDK G-key est enregistré mais son fichier a disparu. Réinstallez Logitech Gaming Software.</value></data>
+  <data name="Settings_GKeysStatus_LoadFailed" xml:space="preserve"><value>SDK G-key trouvé, chargement impossible.</value></data>
+  <data name="Settings_GKeysStatus_WrongLibrary" xml:space="preserve"><value>Cette bibliothèque n'est pas le SDK G-key attendu.</value></data>
+  <data name="Settings_GKeysStatus_InitRefused" xml:space="preserve"><value>Le SDK G-key n'a pas démarré. En général Logitech Gaming Software n'est pas lancé.</value></data>
+  <data name="Settings_GKeysStatus_NoKeysYet" xml:space="preserve"><value>Connecté, aucune touche détectée. Définissez le profil PadForge sur Persistant dans Logitech Gaming Software.</value></data>
+  <data name="Settings_GKeysStatus_Running_Format" xml:space="preserve"><value>En cours, {0} événements de touche</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Contrôleur Web</value></data>
   <data name="Dashboard_WebDescription" xml:space="preserve"><value>Diffuser une interface manette vers les navigateurs de votre réseau local.</value></data>
   <data name="Dashboard_EnableWeb" xml:space="preserve"><value>Activer le serveur de contrôleur web</value></data>
@@ -297,6 +294,9 @@
   <data name="Settings_MinimizeToTray" xml:space="preserve"><value>Réduire dans la zone de notification</value></data>
   <data name="Settings_CloseToTray" xml:space="preserve"><value>Réduire dans la zone de notification à la fermeture</value></data>
   <data name="Settings_CloseToTrayTip" xml:space="preserve"><value>PadForge continue de fonctionner lorsque vous cliquez sur Fermer ou appuyez sur Alt+F4. Sélectionnez Quitter dans le menu de la zone de notification pour fermer le programme.</value></data>
+  <data name="Settings_MinimizeToTrayTip" xml:space="preserve"><value>La réduction masque la fenêtre dans la zone de notification au lieu de la barre des tâches.</value></data>
+  <data name="Settings_StartMinimizedTip" xml:space="preserve"><value>Démarre avec la fenêtre masquée. PadForge continue de fonctionner et d’affecter.</value></data>
+  <data name="Settings_StartAtLoginTip" xml:space="preserve"><value>Lance PadForge à votre connexion à Windows.</value></data>
   <data name="Settings_AlwaysShowTrayIcon" xml:space="preserve"><value>Toujours afficher dans la zone de notification</value></data>
   <data name="Settings_AlwaysShowTrayIconTip" xml:space="preserve"><value>Garde l'icône de la zone de notification visible pendant que la fenêtre est ouverte, pour que Quitter dans son menu soit toujours à un clic.</value></data>
   <data name="Settings_StartMinimized" xml:space="preserve"><value>Démarrer réduit</value></data>

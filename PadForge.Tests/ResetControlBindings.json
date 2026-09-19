@@ -1057,6 +1057,12 @@
   },
   {
     "File": "PadForge.App/Views/SettingsPage.xaml",
+    "Id": "Reset_SettingsViewModel_GKeysEnabled_186",
+    "Owner": "PadForge.ViewModels.SettingsViewModel",
+    "Property": "GKeysEnabled"
+  },
+  {
+    "File": "PadForge.App/Views/SettingsPage.xaml",
     "Id": "Reset_SettingsViewModel_PollingRateMs_179",
     "Owner": "PadForge.ViewModels.SettingsViewModel",
     "Property": "PollingRateMs"

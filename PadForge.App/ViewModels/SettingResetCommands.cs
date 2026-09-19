@@ -24,6 +24,7 @@ namespace PadForge.ViewModels
             nameof(StartAtLogin) or
             nameof(EnablePollingOnFocusLoss) or
             nameof(FlydigiEnhancedProtocol) or
+            nameof(GKeysEnabled) or
             nameof(PollingRateMs) or
             nameof(HmInactivityDestroyTimeoutSeconds) or
             nameof(AssignOfferNewDevice) or
@@ -89,6 +90,12 @@ namespace PadForge.ViewModels
                 case nameof(FlydigiEnhancedProtocol):
                 {
                     FlydigiEnhancedProtocol = true;
+                    break;
+                }
+                case nameof(GKeysEnabled):
+                {
+                    // Off is the default: it loads a third-party library.
+                    GKeysEnabled = false;
                     break;
                 }
                 case nameof(PollingRateMs):

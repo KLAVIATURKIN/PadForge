@@ -252,18 +252,15 @@
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>モーション サーバー ポート</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Cemu、Dolphin、Yuzu などにジャイロおよび加速度センサーのデータを提供します。</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>OpenTrack、およびその UDP 出力を送信するか FreeTrack 2.0 の共有メモリに書き込むあらゆるトラッカーで動作します。</value></data>
-  <data name="Dashboard_GKeys" xml:space="preserve"><value>Logitech G キー</value></data>
-  <data name="Dashboard_GKeysDesc" xml:space="preserve"><value>Logitech ゲーミングデバイスの G キーと追加のマウスボタンを読み取り、別のキーに割り当て直すことなくここでマッピングできます。</value></data>
-  <data name="Dashboard_GKeysEnable" xml:space="preserve"><value>Logitech G キーを有効にする</value></data>
-  <data name="Dashboard_GKeysEnable_Tooltip" xml:space="preserve"><value>Logitech G-key SDK で G キーを読み取ります。Logitech Gaming Software 8.55 以降の実行が必要です。</value></data>
-  <data name="Dashboard_GKeysFooter" xml:space="preserve"><value>Logitech Gaming Software が実行中で、その PadForge プロファイルが「常設」または「既定」である必要があります。そうでない場合、キーは PadForge がアクティブなウィンドウのときだけ動作します。</value></data>
-  <data name="Dashboard_GKeysStatus_NoSdk" xml:space="preserve"><value>この PC に Logitech G-key SDK がありません。Logitech Gaming Software 8.55 以降と一緒にインストールされます。</value></data>
-  <data name="Dashboard_GKeysStatus_PathStale" xml:space="preserve"><value>G-key SDK は登録されていますがファイルがありません。Logitech Gaming Software を再インストールしてください。</value></data>
-  <data name="Dashboard_GKeysStatus_LoadFailed" xml:space="preserve"><value>G-key SDK は見つかりましたが読み込めませんでした。</value></data>
-  <data name="Dashboard_GKeysStatus_WrongLibrary" xml:space="preserve"><value>そのライブラリは想定している G-key SDK ではありません。</value></data>
-  <data name="Dashboard_GKeysStatus_InitRefused" xml:space="preserve"><value>G-key SDK を開始できませんでした。通常は Logitech Gaming Software が実行されていません。</value></data>
-  <data name="Dashboard_GKeysStatus_NoKeysYet" xml:space="preserve"><value>接続済み、キーはまだ検出されていません。Logitech Gaming Software で PadForge プロファイルを「常設」にしてください。</value></data>
-  <data name="Dashboard_GKeysStatus_Running_Format" xml:space="preserve"><value>実行中、キーイベント {0} 件</value></data>
+  <data name="Settings_GKeys" xml:space="preserve"><value>Logitech G キーを読み取る</value></data>
+  <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Logitech G-key SDK で G キーを読み取ります。Logitech Gaming Software 8.55 以降の実行と、PadForge プロファイルを「常設」にすることが必要です。そうでない場合、キーは PadForge がアクティブなウィンドウのときだけ動作します。</value></data>
+  <data name="Settings_GKeysStatus_NoSdk" xml:space="preserve"><value>この PC に Logitech G-key SDK がありません。Logitech Gaming Software 8.55 以降と一緒にインストールされます。</value></data>
+  <data name="Settings_GKeysStatus_PathStale" xml:space="preserve"><value>G-key SDK は登録されていますがファイルがありません。Logitech Gaming Software を再インストールしてください。</value></data>
+  <data name="Settings_GKeysStatus_LoadFailed" xml:space="preserve"><value>G-key SDK は見つかりましたが読み込めませんでした。</value></data>
+  <data name="Settings_GKeysStatus_WrongLibrary" xml:space="preserve"><value>そのライブラリは想定している G-key SDK ではありません。</value></data>
+  <data name="Settings_GKeysStatus_InitRefused" xml:space="preserve"><value>G-key SDK を開始できませんでした。通常は Logitech Gaming Software が実行されていません。</value></data>
+  <data name="Settings_GKeysStatus_NoKeysYet" xml:space="preserve"><value>接続済み、キーはまだ検出されていません。Logitech Gaming Software で PadForge プロファイルを「常設」にしてください。</value></data>
+  <data name="Settings_GKeysStatus_Running_Format" xml:space="preserve"><value>実行中、キーイベント {0} 件</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Web コントローラー</value></data>
   <data name="Dashboard_WebDescription" xml:space="preserve"><value>ローカルネットワーク上のブラウザにゲームパッド UI を提供します。</value></data>
   <data name="Dashboard_EnableWeb" xml:space="preserve"><value>Web コントローラーサーバーを有効にする</value></data>
@@ -297,6 +294,9 @@
   <data name="Settings_MinimizeToTray" xml:space="preserve"><value>システムトレイに最小化する</value></data>
   <data name="Settings_CloseToTray" xml:space="preserve"><value>閉じるときにシステムトレイへ格納</value></data>
   <data name="Settings_CloseToTrayTip" xml:space="preserve"><value>閉じるボタンをクリックするかAlt+F4を押しても、PadForgeは動作を続けます。終了するには、システムトレイのメニューから「終了」を選択してください。</value></data>
+  <data name="Settings_MinimizeToTrayTip" xml:space="preserve"><value>最小化すると、タスクバーではなく通知領域に格納します。</value></data>
+  <data name="Settings_StartMinimizedTip" xml:space="preserve"><value>ウィンドウを非表示で起動します。PadForge は動作とマッピングを続けます。</value></data>
+  <data name="Settings_StartAtLoginTip" xml:space="preserve"><value>Windows へのサインイン時に PadForge を起動します。</value></data>
   <data name="Settings_AlwaysShowTrayIcon" xml:space="preserve"><value>常にシステムトレイに表示する</value></data>
   <data name="Settings_AlwaysShowTrayIconTip" xml:space="preserve"><value>ウィンドウを開いている間もシステムトレイのアイコンを表示し、いつでもそのメニューから「終了」を選択できるようにします。</value></data>
   <data name="Settings_StartMinimized" xml:space="preserve"><value>最小化状態で起動する</value></data>

@@ -5061,36 +5061,38 @@ namespace PadForge.Services
         /// </summary>
         private void UpdateGKeysStatus()
         {
-            var dash = _mainVm.Dashboard;
+            var settings = _mainVm.Settings;
             var im = _inputManager;
-            var row = im != null && im.IsRunning && dash.GKeysEnabled ? im.LogitechGKeys : null;
+            var row = im != null && im.IsRunning && settings.GKeysEnabled ? im.LogitechGKeys : null;
 
             var s = Strings.Instance;
             string status;
-            if (row == null) status = s.Common_Stopped;
+            // Empty rather than "Stopped": the line lives inside the
+            // Input Engine card and collapses when there is nothing to say.
+            if (row == null) status = string.Empty;
             else
                 status = row.SourceState switch
                 {
-                    PadForge.Engine.Common.Logitech.LogitechGKeyState.NoSdk => s.Dashboard_GKeysStatus_NoSdk,
-                    PadForge.Engine.Common.Logitech.LogitechGKeyState.SdkPathStale => s.Dashboard_GKeysStatus_PathStale,
-                    PadForge.Engine.Common.Logitech.LogitechGKeyState.LoadFailed => s.Dashboard_GKeysStatus_LoadFailed,
-                    PadForge.Engine.Common.Logitech.LogitechGKeyState.MissingExports => s.Dashboard_GKeysStatus_WrongLibrary,
-                    PadForge.Engine.Common.Logitech.LogitechGKeyState.InitRefused => s.Dashboard_GKeysStatus_InitRefused,
+                    PadForge.Engine.Common.Logitech.LogitechGKeyState.NoSdk => s.Settings_GKeysStatus_NoSdk,
+                    PadForge.Engine.Common.Logitech.LogitechGKeyState.SdkPathStale => s.Settings_GKeysStatus_PathStale,
+                    PadForge.Engine.Common.Logitech.LogitechGKeyState.LoadFailed => s.Settings_GKeysStatus_LoadFailed,
+                    PadForge.Engine.Common.Logitech.LogitechGKeyState.MissingExports => s.Settings_GKeysStatus_WrongLibrary,
+                    PadForge.Engine.Common.Logitech.LogitechGKeyState.InitRefused => s.Settings_GKeysStatus_InitRefused,
                     // Connected and silent is the persistent-profile trap, so
                     // it gets its own line instead of a count of zero.
                     PadForge.Engine.Common.Logitech.LogitechGKeyState.Running when row.EventCount == 0 =>
-                        s.Dashboard_GKeysStatus_NoKeysYet,
+                        s.Settings_GKeysStatus_NoKeysYet,
                     PadForge.Engine.Common.Logitech.LogitechGKeyState.Running =>
                         string.Format(System.Globalization.CultureInfo.CurrentCulture,
-                                      s.Dashboard_GKeysStatus_Running_Format, row.EventCount),
-                    _ => s.Common_Stopped,
+                                      s.Settings_GKeysStatus_Running_Format, row.EventCount),
+                    _ => string.Empty,
                 };
 
             // The event count moves on every press, so the line is rebuilt
             // only when the text actually changed.
             if (string.Equals(_gKeysStatusLast, status, StringComparison.Ordinal)) return;
             _gKeysStatusLast = status;
-            dash.GKeysStatus = status;
+            settings.GKeysStatus = status;
         }
 
         private void UpdateDevicesRawState()

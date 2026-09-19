@@ -883,6 +883,34 @@ namespace PadForge.ViewModels
             set => SetProperty(ref _flydigiEnhancedProtocol, value);
         }
 
+        private bool _gKeysEnabled;
+
+        /// <summary>Logitech G-keys through the G-key SDK (issue #454), the
+        /// Flydigi switch's neighbor: a vendor input path this engine can
+        /// read, off until asked for because turning it on loads a
+        /// third-party library and opens a session with the Logitech
+        /// software.</summary>
+        public bool GKeysEnabled
+        {
+            get => _gKeysEnabled;
+            set
+            {
+                if (SetProperty(ref _gKeysEnabled, value))
+                    PadForge.Common.Input.LogitechGKeysRuntime.Enabled = value;
+            }
+        }
+
+        private string _gKeysStatus = string.Empty;
+
+        /// <summary>Which of the six states the machine is in, pushed by
+        /// InputService. Empty while the feature is off, which collapses the
+        /// line.</summary>
+        public string GKeysStatus
+        {
+            get => _gKeysStatus;
+            set => SetProperty(ref _gKeysStatus, value);
+        }
+
         // ─────────────────────────────────────────────
         //  Community Configs (Steam Workshop, issue #9)
         // ─────────────────────────────────────────────

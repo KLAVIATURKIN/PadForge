@@ -2225,6 +2225,7 @@ namespace PadForge.Services
             vm.EnableInputHiding = appSettings.EnableInputHiding;
             vm.KeepHidHideCloaksBetweenLaunches = appSettings.KeepHidHideCloaksBetweenLaunches;
             vm.FlydigiEnhancedProtocol = appSettings.FlydigiEnhancedProtocol;
+            vm.GKeysEnabled = appSettings.GKeysEnabled;
             // The hint must be in place before SDL_Init, and a hint set early
             // persists, so the load applies it (#395).
             PadForge.Common.Input.InputManager.ApplyFlydigiEnhancedProtocol(appSettings.FlydigiEnhancedProtocol);
@@ -2384,7 +2385,6 @@ namespace PadForge.Services
                     ? appSettings.HeadTrackingFreeTrack
                     : appSettings.HeadTrackingEnabled && appSettings.HeadTrackingFreeTrack;
                 _mainVm.Dashboard.HeadTrackingOpenXr = appSettings.HeadTrackingOpenXr;
-                _mainVm.Dashboard.GKeysEnabled = appSettings.GKeysEnabled;
                 var savedRanges = appSettings.HeadTrackingAxisRanges;
                 for (int axis = 0; axis < 6; axis++)
                     PadForge.Common.Input.HeadTrackingRuntime.SetAxisRange(
@@ -4590,7 +4590,6 @@ namespace PadForge.Services
                 HeadTrackingUdpPort = _mainVm.Dashboard.HeadTrackingUdpPort,
                 HeadTrackingFreeTrack = _mainVm.Dashboard.HeadTrackingFreeTrack,
                 HeadTrackingOpenXr = _mainVm.Dashboard.HeadTrackingOpenXr,
-                GKeysEnabled = _mainVm.Dashboard.GKeysEnabled,
                 HeadTrackingAxisRanges = new[]
                 {
                     PadForge.Common.Input.HeadTrackingRuntime.GetAxisRangeOverride(0),
@@ -4630,6 +4629,7 @@ namespace PadForge.Services
                 EnableInputHiding = vm.EnableInputHiding,
                 KeepHidHideCloaksBetweenLaunches = vm.KeepHidHideCloaksBetweenLaunches,
                 FlydigiEnhancedProtocol = vm.FlydigiEnhancedProtocol,
+                GKeysEnabled = vm.GKeysEnabled,
                 // Default profile's custom gestures. When a named profile is
                 // active, defaultSnap.TouchpadGestures carries the gestures
                 // recorded on the default; when default is active, pull
