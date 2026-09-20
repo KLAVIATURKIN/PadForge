@@ -768,13 +768,15 @@ Windows 10 or 11 on x64. The [.NET 10 Desktop Runtime](https://dotnet.microsoft.
 
 4.5.1 adds a build for Windows 11 on ARM64. HIDMaestro 1.9.0 installs its ARM64 driver there, so virtual controllers work as they do on x64, and the DualShock 3 Bluetooth driver installs its ARM64 binary.
 
-An ARM64 program can load ARM64 libraries only, and several libraries PadForge relies on exist for x64 alone. The x64 build also runs on ARM64 Windows, under emulation. Its libraries match its process there, and the one thing emulation cannot run is a kernel driver:
+HidHide works on an ARM64 PC from either build. A kernel driver cannot run emulated, so PadForge installs HidHide's own Microsoft-signed ARM64 driver there, with HidHide's own install tool, in the order HidHide's setup uses. Install and Uninstall sit in Settings as they do on x64, and neither asks for a restart.
+
+Vosk voice recognition works in the ARM64 build. Vosk publishes no Windows ARM64 library, so the ARM64 build carries one built from Vosk's own ARM64 recipe ([tools/build-libvosk-arm64.sh](tools/build-libvosk-arm64.sh)). The same recipe aimed at x64 gave transcripts identical to the official library.
+
+An ARM64 program can load ARM64 libraries only, and the libraries behind the features below exist for x64 alone. The x64 build also runs on ARM64 Windows, under emulation, where its libraries match its process:
 
 | Feature | ARM64 build | x64 build under emulation |
 |---|---|---|
-| HidHide device hiding | Not available. HidHide has no ARM64 release | Not available |
-| Vosk voice recognition | Voice macros use the Windows speech recognizer | Untested |
-| Razer Sensa HD haptics | Not available. The Interhaptics engine has no ARM64 build | Untested |
+| Razer Sensa HD haptics | Not available. Razer ships no ARM64 engine, and lists Synapse for x86-64 Windows only | Untested |
 | Xbox Elite paddles | Not read. The paddle reader in the bundled SDL fork is written for x64 | Untested |
 | Logitech G-keys | Not available. Logitech Gaming Software installs x64 and x86 libraries only | Untested |
 | VR headset and controllers through SteamVR | Not available. PadForge loads SteamVR's win64 library | Untested |
@@ -864,7 +866,8 @@ PadForge stands on these projects. Please consider supporting them directly.
 | [CommunityToolkit.Mvvm](https://github.com/CommunityToolkit/dotnet) | MVVM data binding framework | MIT |
 | [NAudio.Wasapi](https://github.com/naudio/NAudio) | WASAPI loopback capture for audio-bass rumble | MIT |
 | [Vosk](https://alphacephei.com/vosk/) | Offline speech recognition for voice macro phrases, by Alpha Cephei. The model ships inside the executable | Apache-2.0 |
-| [HidHide](https://github.com/nefarius/HidHide) | Per-device hiding driver to prevent double input | MIT |
+| [HidHide](https://github.com/nefarius/HidHide) | Per-device hiding driver to prevent double input. The x64 setup, and upstream's Microsoft-signed ARM64 driver for Windows on ARM | MIT |
+| [nefcon](https://github.com/nefarius/nefcon) | HidHide's own install tool. The ARM64 build installs and removes the HidHide driver on Windows on ARM | MIT |
 | [BthPS3](https://github.com/nefarius/BthPS3) | Bundled Bluetooth profile driver + PSM filter that lets a DualShock 3 connect. PadForge installs it in-app at pairing time and the radio stays shared | BSD 3-Clause |
 | [DsHidMini](https://github.com/nefarius/DsHidMini) | DualShock 3 protocol reference: sixpair feature reports, Bluetooth output-report template, enable ordering, battery map | BSD 3-Clause |
 | [Nefarius.Utilities.DeviceManagement](https://github.com/nefarius/Nefarius.Utilities.DeviceManagement) | Driver-store install, Bluetooth class filter registration, and USB port cycling for the in-app BthPS3 setup | MIT |
@@ -943,7 +946,8 @@ This project is licensed under **CC BY-NC-SA 4.0** (Creative Commons Attribution
 - **CommunityToolkit.Mvvm** is licensed under the MIT License.
 - **Windows MIDI Services** is licensed under the MIT License.
 - **usbip-win2** is licensed under the BSD 2-Clause License. Copyright (c) 2021-2026, Vadym Hrynchyshyn. HIDMaestro carries the unmodified, Microsoft-signed 0.9.7.5 installers and runs one only when a composite USB controller is first created. Full license text in [LICENSE](LICENSE).
-- **HidHide** is licensed under the MIT License.
+- **HidHide** is licensed under the MIT License. PadForge carries the x64 setup and, for Windows on ARM, upstream's Microsoft-signed ARM64 driver package, both unmodified.
+- **nefcon** is licensed under the MIT License. Copyright (c) 2022-2025 Nefarius Software Solutions e.U. The ARM64 console build of nefcon 1.20.0 ships unmodified inside the executable and installs the HidHide driver on Windows on ARM, the way HidHide's own setup does.
 - **BthPS3** is licensed under the BSD 3-Clause License. Copyright (c) 2018-2026, Nefarius Software Solutions e.U. PadForge bundles the Microsoft-attestation-signed BthPS3 and BthPS3PSM driver binaries unmodified and installs them on demand for DualShock 3 Bluetooth support. Full license text in [LICENSE](LICENSE).
 - **DsHidMini** is licensed under the BSD 3-Clause License. Copyright (c) 2020-2025, Benjamin Höglinger-Stelzer. Protocol reference for the DualShock 3 (sixpair feature reports, Bluetooth output-report template, enable ordering, battery status map). PadForge's implementation is original C#.
 - **Nefarius.Utilities.DeviceManagement** is licensed under the MIT License. By nefarius. Driver-store installation, device class filters, and USB hub port cycling for the DualShock 3 driver setup.
@@ -961,7 +965,8 @@ This project is licensed under **CC BY-NC-SA 4.0** (Creative Commons Attribution
 - **DS4AudioStreamer** is licensed under the MIT License. By nefarius. Reference for the DualShock 4 Bluetooth audio report framing. PadForge's SBC encoder is an original C# implementation from the public Bluetooth A2DP specification and contains no libsbc (GPL) code.
 - **ds4mac** documentation is licensed under the MIT License. By khallmark. Protocol reference for DualShock 4 audio.
 - **NAudio** is licensed under the MIT License. By Mark Heath and contributors. WASAPI loopback capture for the controller-audio mirror and the audio-bass trigger rumble.
-- **Vosk** is licensed under the Apache License 2.0. By Alpha Cephei Inc. Offline speech recognition for voice macros, shipped as the native libvosk library. The recognition model (Apache-2.0, Alpha Cephei) ships inside the executable and is unpacked to a cache under the TEMP folder on first use.
+- **Vosk** is licensed under the Apache License 2.0. By Alpha Cephei Inc. Offline speech recognition for voice macros, shipped as the native libvosk library. The recognition model (Apache-2.0, Alpha Cephei) ships inside the executable and is unpacked to a cache under the TEMP folder on first use. The x64 library is the one the Vosk package carries. No ARM64 one is published, so the ARM64 library is built from Vosk 0.3.38 by [tools/build-libvosk-arm64.sh](tools/build-libvosk-arm64.sh), which is Alpha Cephei's own Windows ARM64 recipe with every source pinned.
+- **Kaldi** and **OpenFst** (Apache-2.0), **OpenBLAS** and **CLAPACK** (BSD 3-Clause) are the speech decoder, transducer library and linear algebra libvosk is made of, linked statically into it.
 - **Bouncy Castle** (bc-csharp) provides the Remote Link pairing and transport cryptography (X25519, Ed25519, ChaCha20-Poly1305). Licensed under the Bouncy Castle Licence, an adaptation of the MIT License.
 - **libusb** is licensed under the LGPL-2.1-or-later. PadForge bundles the unmodified `libusb-1.0.dll` inside the single-file executable. The self-extractor unpacks it at runtime, and replacing it means rebuilding from source. Source: [github.com/libusb/libusb](https://github.com/libusb/libusb). Full license text in [LICENSE](LICENSE).
 - **nipplejs** is licensed under the MIT License. Copyright (c) 2014 Yoann Moinet. The Web Controller's touch joystick.

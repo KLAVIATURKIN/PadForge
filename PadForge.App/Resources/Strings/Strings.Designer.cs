@@ -3474,4 +3474,6 @@ public class Strings : INotifyPropertyChanged
     public string Status_InstallerExitCode_Format => Get("Status_InstallerExitCode_Format");
     public string Status_InstallerTimedOut => Get("Status_InstallerTimedOut");
     public string Status_RemovingLegacyDrivers => Get("Status_RemovingLegacyDrivers");
+    public string About_Nefcon => Get("About_Nefcon");
+    public string About_NefconDesc => Get("About_NefconDesc");
 }

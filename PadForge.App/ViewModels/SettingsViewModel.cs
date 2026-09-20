@@ -197,10 +197,10 @@ namespace PadForge.ViewModels
             }
         }
 
-        /// <summary>HidHide status display text. On ARM64 Windows there is no
-        /// HidHide to install, so "Not Installed" beside a dead Install button
-        /// would read as something the user could fix. An install left over
-        /// from before still reads Installed, since it is.</summary>
+        /// <summary>HidHide status display text. HidHide installs on x64 and
+        /// on ARM64 Windows. On any other machine there is nothing to install,
+        /// so "Not Installed" beside a dead Install button would read as
+        /// something the user could fix.</summary>
         public string HidHideStatusText =>
             _isHidHideInstalled ? Strings.Instance.Common_Installed
             : !PadForge.Engine.PlatformSupport.HidHideAvailable ? Strings.Instance.Common_NotAvailableOnArm64

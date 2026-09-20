@@ -3669,4 +3669,6 @@ Puedes volver a intentarlo más tarde desde Configuración.</value></data>
   <data name="Status_InstallerExitCode_Format" xml:space="preserve"><value>El instalador terminó con el código {0}.</value></data>
   <data name="Status_InstallerTimedOut" xml:space="preserve"><value>El instalador seguía en ejecución después de tres minutos.</value></data>
   <data name="Status_RemovingLegacyDrivers" xml:space="preserve"><value>Eliminando controladores antiguos…</value></data>
+  <data name="About_Nefcon" xml:space="preserve"><value>nefcon</value></data>
+  <data name="About_NefconDesc" xml:space="preserve"><value>Herramienta de instalación de HidHide, de Nefarius. Su versión ARM64 instala el controlador HidHide en Windows en ARM. MIT.</value></data>
 </root>

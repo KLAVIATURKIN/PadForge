@@ -104,12 +104,17 @@
     </Content>
     <!-- SDL's C++ runtime dependencies share the native extraction directory.
          Bundle the redistributable files so no separate runtime install is needed.
-         msvcp140.dll is x64 only. The x64 SDL3.dll imports it for the Elite
-         paddle reader, which is C++, and the fork builds that reader for x64
-         alone. The ARM64 SDL3.dll imports vcruntime140.dll and nothing else
-         from the C++ runtime, and no other ARM64 file in the build imports
-         msvcp140.dll either (dumpbin /dependents over the whole output). -->
-    <Content Include="Resources\VisualCpp\x64\msvcp140.dll" Link="msvcp140.dll" Condition="'$(NativeArch)' == 'x64'">
+         msvcp140.dll is bundled for the architectures whose SDL3.dll
+         imports it, which today is x64. The x64 SDL3.dll imports it for the
+         Elite paddle reader, which is C++, and the fork builds that reader
+         for x64 alone so far. The ARM64 SDL3.dll imports vcruntime140.dll
+         and nothing else from the C++ runtime, and no other ARM64 file in
+         the build imports msvcp140.dll either (dumpbin /dependents over the
+         whole output), so Resources\VisualCpp\arm64 does not carry one.
+         An ARM64 SDL3.dll built with the paddle reader WILL import it.
+         BundledSdlRuntimeImportsTests fails until the DLL is put in that
+         folder, and this item then picks it up with no further edit. -->
+    <Content Include="Resources\VisualCpp\$(NativeArch)\msvcp140.dll" Link="msvcp140.dll" Condition="Exists('Resources\VisualCpp\$(NativeArch)\msvcp140.dll')">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\VisualCpp\$(NativeArch)\vcruntime140.dll" Link="vcruntime140.dll">
@@ -155,15 +160,29 @@
     <Content Include="Resources\OpenXInput\$(NativeArch)\xinput1_4.dll" Link="xinput1_4.dll" Condition="Exists('Resources\OpenXInput\$(NativeArch)\xinput1_4.dll')">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <!-- libvosk for the ARM64 build. The x64 build gets its libvosk.dll from
+         the Vosk package's own targets, which carry nothing for ARM64. See
+         DropX64OnlyNativesOnArm64 near the bottom of this file. -->
+    <Content Include="Resources\Vosk\arm64\libvosk.dll" Link="libvosk.dll" Condition="'$(NativeArch)' == 'arm64' And Exists('Resources\Vosk\arm64\libvosk.dll')">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="gamecontrollerdb_padforge.txt" />
     <EmbeddedResource Include="..\LICENSE" LogicalName="PadForge.ThirdPartyNotices.txt" />
-    <!-- x64 only, and not by choice. HidHide is a kernel filter driver, a
-         kernel driver cannot run emulated, and upstream publishes no ARM64
-         package (nefarius/HidHide#57 is still open: the driver builds for
-         ARM64 but its setup does not). Embedding the x64 installer into an
-         ARM64 build would add 7.7 MB that can only ever fail, so it is left
-         out and DriverInstaller reports HidHide as unavailable there. -->
+    <!-- The x64 HidHide setup, for x64 machines. Only the x64 build can run
+         on one, so only the x64 build carries its 7.7 MB. -->
     <EmbeddedResource Include="Resources\HidHide_1.5.230_x64.exe" Condition="'$(NativeArch)' == 'x64'" />
+    <!-- HidHide for ARM64 machines, in BOTH builds, because the x64 build
+         also runs on ARM64 Windows and a kernel driver follows the machine.
+         Upstream's setup is x64 only (nefarius/HidHide#57), and upstream
+         publishes the Microsoft-signed ARM64 driver by itself with a
+         documented manual install. HidHideArm64Installer performs it.
+           HidHide_ARM64.zip  github.com/nefarius/HidHide drivers/ at fb5615c0,
+                              driver 1.6.280.0, byte for byte as published
+           nefconc.exe        nefcon v1.20.0, the ARM64 console build, the
+                              tool upstream's own installer drives
+         Both are pinned by hash in HidHideArm64PackageTests. -->
+    <EmbeddedResource Include="Resources\HidHideArm64\HidHide_ARM64.zip" />
+    <EmbeddedResource Include="Resources\HidHideArm64\nefconc.exe" />
     <!-- 3D controller model assets (adapted from Handheld Companion, CC BY-NC-SA 4.0;
          Switch2Pro set split from the purchased hado CGTrader model) -->
     <!-- Meshes and transparent atlases are packed by the EmbedPackedArt target
@@ -628,10 +647,10 @@
     <ItemGroup>
       <ArtSource Include="3DModels\**\*.obj" />
       <ArtSource Include="3DModels\**\*.png" />
-      <!-- The Vosk model is x64 only, because libvosk is. An ARM64 process
-           has nothing that can read it, VoskModelStore never starts there,
-           and leaving it in would be 35 MB of dead weight in that exe. -->
-      <ArtSource Include="VoiceModels\*.zip" Condition="'$(NativeArch)' == 'x64'" />
+      <!-- The Vosk model rides in both builds. 4.5.1 left it out of the
+           ARM64 one, because that build had no libvosk to read it with. It
+           has one now (Resources\Vosk\arm64). -->
+      <ArtSource Include="VoiceModels\*.zip" />
     </ItemGroup>
     <!-- PackerFile is this project file BY NAME, never $(MSBuildThisFileFullPath).
          WPF compiles XAML through a second pass over a generated copy of this
@@ -663,12 +682,17 @@
 
        Vosk's own targets file adds its win-x64 natives whenever the BUILD
        machine is Windows, with no regard for the target architecture, so an
-       ARM64 publish from this x64 bench would carry libvosk.dll and three
-       MinGW runtime DLLs an ARM64 process cannot load. Upstream publishes no
-       Windows ARM64 libvosk. The items are taken back out here, and
-       VoskModelStore never starts on that build, so voice macros run on the
-       SAPI recognizer instead of meeting BadImageFormatException at the
-       first Vosk call. NativeLibs is the item name Vosk.targets defines. -->
+       ARM64 publish from this x64 bench would carry an x64 libvosk.dll and
+       three MinGW runtime DLLs an ARM64 process cannot load. The items are
+       taken back out here. NativeLibs is the item name Vosk.targets defines.
+
+       The ARM64 build gets its own libvosk.dll from Resources\Vosk\arm64
+       (the Content item near the top of this file). Vosk publishes no
+       Windows ARM64 binary, but its maintainer wrote the recipe for one
+       (vosk-api 1b308a30, travis/Dockerfile.winaarch64) and never shipped
+       the output. tools/build-libvosk-arm64.sh is that recipe with every
+       source pinned, run here. The DLL links its C++ runtime statically, so
+       it needs no companion DLLs, where the x64 one needs three. -->
   <Target Name="DropX64OnlyNativesOnArm64" BeforeTargets="AssignTargetPaths"
           Condition="'$(NativeArch)' == 'arm64'">
     <ItemGroup>
@@ -705,6 +729,8 @@
            Text="Publish refused: Resources\SDL3\$(NativeArch)\libusb-1.0.dll is missing. SDL loads it by name at run time, and without it wired Switch 2 controllers and the GameCube adapter never open." />
     <Error Condition="!Exists('Resources\OpenXInput\$(NativeArch)\xinput1_4.dll')"
            Text="Publish refused: Resources\OpenXInput\$(NativeArch)\xinput1_4.dll is missing. It has to come from a $(NativeArch) build of the OpenXInput fork. Without it SDL loads the system xinput1_4.dll, the HIDMaestro filter is gone, and PadForge reads its own virtual controllers back as input." />
+    <Error Condition="'$(NativeArch)' == 'arm64' And !Exists('Resources\Vosk\arm64\libvosk.dll')"
+           Text="Publish refused: Resources\Vosk\arm64\libvosk.dll is missing. The Vosk package carries no ARM64 library, so the ARM64 build bundles its own, built by tools/build-libvosk-arm64.sh. Without it voice macros lose the Vosk recognizer on ARM64." />
   </Target>
   <Target Name="NoteMissingBundledNatives" BeforeTargets="PrepareForBuild"
           Condition="!Exists('Resources\SDL3\$(NativeArch)\SDL3.dll') Or !Exists('Resources\SDL3\$(NativeArch)\libusb-1.0.dll') Or !Exists('Resources\OpenXInput\$(NativeArch)\xinput1_4.dll')">

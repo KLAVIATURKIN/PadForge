@@ -8,3 +8,7 @@
 # clone with core.autocrlf=false or input would otherwise write LF and the
 # bytes would no longer match the signature.
 PadForge.App/Resources/**/*.inf text eol=crlf
+
+# A shell script checked out with CRLF does not run: bash reads the carriage
+# return as part of each command. Pin LF whatever core.autocrlf says.
+*.sh text eol=lf

@@ -11,7 +11,7 @@ namespace PadForge.Engine
     ///
     /// <para>A KERNEL DRIVER follows the MACHINE. A kernel driver cannot run
     /// emulated, so an x64 PadForge running under emulation on ARM64 Windows
-    /// still cannot install an x64 driver. Those features ask
+    /// has to install the ARM64 driver, never the x64 one. Those features ask
     /// <see cref="RuntimeInformation.OSArchitecture"/>, which reports the
     /// real machine under emulation.</para>
     ///
@@ -20,10 +20,12 @@ namespace PadForge.Engine
     /// into a native ARM64 process at all. Those features ask
     /// <see cref="RuntimeInformation.ProcessArchitecture"/>.</para>
     ///
-    /// <para>So the x64 build on an ARM64 machine loses HidHide and keeps
-    /// voice macros and Sensa, while the ARM64 build loses all three. Every
-    /// rule is a pure function of the architecture it is handed, so each one
-    /// is testable on a bench that has only one architecture to offer.</para>
+    /// <para>So HidHide works on both machines with the package built for
+    /// each, Vosk works in both processes with the library built for each,
+    /// and Sensa is the one the ARM64 build loses, because its vendor ships
+    /// no ARM64 engine. Every rule is a pure function of the architecture it
+    /// is handed, so each one is testable on a bench that has only one
+    /// architecture to offer.</para>
     /// </summary>
     public static class PlatformSupport
     {
@@ -38,32 +40,35 @@ namespace PadForge.Engine
 
         // ── Kernel drivers: the machine decides ──────────────────────────
 
-        /// <summary>HidHide is a kernel filter driver and upstream publishes
-        /// an x64 package only (nefarius/HidHide#57: the driver builds for
-        /// ARM64, its setup does not, and no signed ARM64 release exists).
+        /// <summary>HidHide is a kernel filter driver, and upstream publishes
+        /// a Microsoft-signed package for each of two machines: the x64 MSI,
+        /// and <c>drivers/HidHide_ARM64.zip</c> (driver 1.6.280.0) with a
+        /// documented manual install, which HidHideArm64Installer performs.
+        /// Upstream's SETUP is x64 only (nefarius/HidHide#57 tracks that).
+        /// The driver is not. 4.5.1 read that issue as "no ARM64 HidHide" and
+        /// switched the feature off on ARM64, which was wrong.
         ///
-        /// <para>All three rules name the one architecture that HAS the native
+        /// <para>Every rule here names the architectures that HAVE the native
         /// half, rather than the one known to lack it. "Anything but ARM64"
-        /// answered true for x86, where the x64 installer and the x64
-        /// libraries are just as unusable.</para>
+        /// answered true for x86, where none of it is usable.</para>
         /// </summary>
         public static bool HidHideAvailableOn(Architecture machine)
-            => machine == Architecture.X64;
+            => machine == Architecture.X64 || machine == Architecture.Arm64;
 
         /// <inheritdoc cref="HidHideAvailableOn"/>
         public static bool HidHideAvailable => HidHideAvailableOn(MachineArchitecture);
 
         // ── In-process libraries: the process decides ────────────────────
 
-        /// <summary>The Vosk recognizer rides libvosk.dll, and the Vosk
-        /// package carries a Windows x64 build and nothing else. Voice macros
-        /// do NOT go away without it: VoiceMacroService falls back to SAPI
-        /// whenever the Vosk model store is not ready, and SAPI ships with
-        /// Windows, so an ARM64 build keeps voice macros on the fallback
-        /// recognizer wherever Windows has one installed.
+        /// <summary>The Vosk recognizer rides libvosk.dll. The Vosk package
+        /// carries the x64 one, and the ARM64 build bundles one built from
+        /// upstream's own unshipped Windows ARM64 recipe
+        /// (tools/build-libvosk-arm64.sh). Any other process has none, and
+        /// there VoiceMacroService stays on SAPI, which it falls back to
+        /// whenever the Vosk model store is not ready.
         /// </summary>
         public static bool VoskAvailableOn(Architecture process)
-            => process == Architecture.X64;
+            => process == Architecture.X64 || process == Architecture.Arm64;
 
         /// <inheritdoc cref="VoskAvailableOn"/>
         public static bool VoskAvailable => VoskAvailableOn(ProcessArchitecture);

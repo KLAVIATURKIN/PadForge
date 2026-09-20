@@ -205,15 +205,19 @@ Every bundled native binary sits in a folder named for its architecture: `Resour
 
 A publish for either architecture is refused if `SDL3.dll` or `libusb-1.0.dll` is missing from `Resources/SDL3/<arch>`, or `xinput1_4.dll` from `Resources/OpenXInput/<arch>`. The three `Content` items are conditioned on `Exists`, so without the `RequireBundledNatives` target a missing file would publish anyway, and the auto build runs no tests that would notice. Without `SDL3.dll` the input engine cannot start. Without `libusb-1.0.dll` wired Switch 2 controllers and the GameCube adapter never open. Without the fork's `xinput1_4.dll` SDL loads the system one, and PadForge reads its own virtual controllers back as input. A publish for any runtime other than `win-x64` and `win-arm64` is refused too, since it would be handed the x64 libraries. `SDL3.dll` and `xinput1_4.dll` come from builds of the two forks, the ARM64 pair cross-compiled on an x64 machine with `cmake -A ARM64`. A plain `dotnet build` compiles without any of them.
 
-Three features have no ARM64 native half. `PadForge.Engine/Common/PlatformSupport.cs` decides each one:
+Three features have a native half, and `PadForge.Engine/Common/PlatformSupport.cs` decides each one by the architecture that half follows:
 
-| Feature | Decided by | Why |
+| Feature | Decided by | On ARM64 |
 |---|---|---|
-| HidHide | Machine architecture | A kernel driver cannot run emulated, and upstream publishes an x64 package only |
-| Vosk voice engine | Process architecture | libvosk ships for Windows x64 only. Voice macros fall back to the Windows speech recognizer |
-| Razer Sensa HD haptics | Process architecture | The Interhaptics SDK ships for Win32 and x64 only |
+| HidHide | Machine architecture | A kernel driver cannot run emulated, so either build installs HidHide's Microsoft-signed ARM64 driver (`Resources/HidHideArm64/HidHide_ARM64.zip`, driver 1.6.280.0) with HidHide's own tool (`nefconc.exe`, nefcon 1.20.0, ARM64). `HidHideArm64Installer` follows the order of HidHide's setup. An x64 machine gets the x64 MSI |
+| Vosk voice engine | Process architecture | The ARM64 build bundles `Resources/Vosk/arm64/libvosk.dll`. The Vosk package carries the x64 one |
+| Razer Sensa HD haptics | Process architecture | Not available. The Interhaptics SDK ships for Win32 and x64 only, and Razer lists Synapse for x86-64 Windows only |
 
-The x64 build running emulated on ARM64 Windows loses HidHide alone. The ARM64 build loses all three. Each rule answers true for x64 and false for every other architecture, since x64 is the one the native half was built for.
+Each rule names the architectures that have the native half and answers false for every other.
+
+`libvosk.dll` for ARM64 is not published by anyone. Vosk's maintainer wrote a Windows ARM64 recipe (vosk-api 1b308a30, `travis/Dockerfile.winaarch64`) and never shipped its output. `tools/build-libvosk-arm64.sh` is that recipe with the same flags and every source pinned to a commit, run from Git Bash with a portable llvm-mingw toolchain, and its header lists each difference from upstream with the reason. It links the C++ runtime statically, so the DLL imports `KERNEL32` and the Universal C Runtime alone, where the x64 one needs three MinGW DLLs beside it. The same recipe aimed at x64 produced recognition output identical to the official x64 library, word timings included. The ARM64 DLL has not run, because the bench is x64. `BundledVoskArm64Tests` checks that it exports every function the managed binding calls and needs no companion DLL.
+
+A HidHide class filter entry that names a driver which is not running can stop every keyboard and mouse from starting. HidHide's x64 setup ships a watchdog service for that. An ARM64 install has none, so `HidHideArm64Installer` adds the filters only after the driver's control device opens, removes them before it removes the driver, and at startup on an ARM64 machine takes out any filter entry whose driver is gone. `HidHideArm64InstallerTests` pins that order and the hashes of both bundled files.
 
 Four more features load a library the vendor's own software installs, and PadForge has no gate for them because the load itself answers. `LogitechGkey.dll` comes in x64 and x86 only (`LogitechGKeyCatalog`), and the SteamVR input service loads `bin\win64\openvr_api.dll` (`OpenVrConsumerService`), so an ARM64 process gets neither. The LIGHTSYNC engine and the OpenXR runtime are whatever the registry names, so they work in an ARM64 process only if the vendor registers an ARM64 one. None of these crashes the app. G-keys, LIGHTSYNC and OpenXR each show a status line, and the SteamVR input service logs the failed load and keeps retrying.
 

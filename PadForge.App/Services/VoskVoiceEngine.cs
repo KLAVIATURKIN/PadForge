@@ -64,11 +64,9 @@ namespace PadForge.Services
         /// every reconcile.</summary>
         public static void EnsureStarted()
         {
-            // No libvosk exists for a native ARM64 process (the Vosk package
-            // carries a Windows x64 build only), so on that build the store
-            // never starts, IsReady stays false, and VoiceMacroService keeps
-            // every session on its SAPI fallback. That is a working
-            // recognizer, so voice macros still fire there.
+            // libvosk exists for x64 and ARM64 processes. In any other, the
+            // store never starts, IsReady stays false, and VoiceMacroService
+            // keeps every session on its SAPI fallback.
             //
             // Returning here is not a tidy-up, it closes a loop. Left to run,
             // the cached-model branch below catches the DllNotFoundException

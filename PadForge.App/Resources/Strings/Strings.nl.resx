@@ -3689,4 +3689,6 @@ Je kunt het later opnieuw proberen via Instellingen.</value></data>
   <data name="Status_InstallerExitCode_Format" xml:space="preserve"><value>Het installatieprogramma is gestopt met code {0}.</value></data>
   <data name="Status_InstallerTimedOut" xml:space="preserve"><value>Het installatieprogramma was na drie minuten nog bezig.</value></data>
   <data name="Status_RemovingLegacyDrivers" xml:space="preserve"><value>Oude stuurprogramma's worden verwijderd…</value></data>
+  <data name="About_Nefcon" xml:space="preserve"><value>nefcon</value></data>
+  <data name="About_NefconDesc" xml:space="preserve"><value>Het installatiehulpmiddel van HidHide, door Nefarius. De ARM64-versie installeert het HidHide-stuurprogramma op Windows op ARM. MIT.</value></data>
 </root>

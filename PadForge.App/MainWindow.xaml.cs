@@ -2332,6 +2332,15 @@ namespace PadForge
             // starting minimized to tray (where OnLoaded never fires).
             // RefreshMidiServicesStatus already ran above the rail build, which
             // is where it has to be: the rail reads its cached result.
+            // ARM64 only: upstream's x64 setup ships a watchdog that takes a
+            // HidHide class filter entry back out when the driver behind it is
+            // gone, because such an entry can stop keyboards and mice from
+            // starting. The ARM64 install has no such service, so the same
+            // check runs here. Off the UI thread: it reads four registry
+            // values, and starts a tool only when something is wrong.
+            if (PadForge.Engine.PlatformSupport.IsArm64Machine)
+                _ = Task.Run(HidHideArm64Installer.RemoveDanglingFilters);
+
             RefreshHidHideStatus();
             StartDriverStatusTimer();
 

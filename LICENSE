@@ -107,6 +107,19 @@ CommunityToolkit.Mvvm
 
 HidHide
   https://github.com/nefarius/HidHide
+  The x64 setup (1.5.230) and, for ARM64 Windows, upstream's Microsoft-signed
+  ARM64 driver package (driver 1.6.280.0), both shipped unmodified inside the
+  executable.
+  Licensed under MIT License
+
+nefcon
+  https://github.com/nefarius/nefcon
+  Copyright (c) 2022-2025 Nefarius Software Solutions e.U.
+  The ARM64 console build of nefcon 1.20.0 (nefconc.exe), shipped unmodified
+  inside the executable. It installs and removes the HidHide driver on ARM64
+  Windows, the way HidHide's own setup does. It links the libraries its
+  README credits: Argh!, colorwin, WinReg, easyloggingpp, Microsoft Detours,
+  scope_guard, the Windows Implementation Libraries and neflib.
   Licensed under MIT License
 
 BthPS3 + BthPS3PSM
@@ -237,9 +250,27 @@ Vosk
   https://alphacephei.com/vosk/ (https://github.com/alphacep/vosk-api)
   By Alpha Cephei Inc. Offline speech recognition for voice macros:
   hears the registered phrases and routes everything else to an unknown
-  bucket. Ships as the native libvosk library inside the executable; the
-  recognition model downloads to LocalAppData on first use.
+  bucket. Ships as the native libvosk library inside the executable, with
+  the recognition model, which is unpacked to a cache under the TEMP folder
+  on first use. The x64 libvosk.dll is the one the Vosk package carries.
+  The ARM64 libvosk.dll is built from Vosk 0.3.38 by
+  tools/build-libvosk-arm64.sh, which is Alpha Cephei's own Windows ARM64
+  recipe (vosk-api 1b308a30), because no ARM64 binary is published.
   Licensed under the Apache License 2.0 (full text below)
+
+Kaldi, OpenFst, OpenBLAS and CLAPACK
+  https://github.com/alphacep/kaldi (Kaldi, Copyright the Kaldi authors,
+  listed in its COPYING file)
+  https://github.com/alphacep/openfst (OpenFst, Copyright 2005-2020 Google LLC)
+  https://github.com/OpenMathLib/OpenBLAS (OpenBLAS 0.3.20, Copyright (c)
+  2011-2014, The OpenBLAS Project)
+  https://github.com/alphacep/clapack (CLAPACK 3.2.1, Copyright (c)
+  1992-2008 The University of Tennessee)
+  The speech decoder, the transducer library and the linear algebra that
+  libvosk is made of. All four are linked statically into libvosk.dll, in
+  the x64 one Alpha Cephei builds and in the ARM64 one built here.
+  Kaldi and OpenFst are licensed under the Apache License 2.0. OpenBLAS and
+  CLAPACK are licensed under the BSD 3-Clause License (full texts below)
 
 Bouncy Castle (bc-csharp)
   https://github.com/bcgit/bc-csharp
@@ -406,7 +437,11 @@ MinGW-w64 runtime
   runtime libraries, Copyright (C) Free Software Foundation, Inc.
   libwinpthread-1.dll is the mingw-w64 winpthreads library, Copyright (c)
   the mingw-w64 project. The three arrive with the Vosk package as the
-  native runtime libvosk needs and ship unmodified inside the executable.
+  native runtime the x64 libvosk needs and ship unmodified inside the
+  executable. The ARM64 libvosk.dll is built with llvm-mingw and carries
+  its runtime inside itself: the mingw-w64 runtime and winpthreads under
+  the terms below, and LLVM's libc++, libunwind and compiler-rt, which are
+  licensed under the Apache License 2.0 with LLVM Exceptions.
   libgcc and libstdc++ are licensed under the GNU General Public License
   v3 with the GCC Runtime Library Exception v3.1. libwinpthread is
   licensed under the mingw-w64 winpthreads license (MIT-style terms).
@@ -489,8 +524,8 @@ Special Thanks
 --------------------------------------------------------------------------------
 
 BSD 3-Clause License (BthPS3 and BthPS3PSM, the OpenVR API C# binding, the
-$Q Super-Quick Recognizer re-derivation, and the GestureSign re-derivation,
-all redistributed in binary form)
+$Q Super-Quick Recognizer re-derivation, the GestureSign re-derivation, and
+OpenBLAS and CLAPACK inside libvosk, all redistributed in binary form)
 ==========================================================================
 
 Copyright (c) 2018-2026, Nefarius Software Solutions e.U.
@@ -502,6 +537,10 @@ Radu-Daniel Vatavu, and Lisa Anthony
   ($Q Super-Quick Recognizer)
 Copyright (c) 2016, TransposonY
   (GestureSign)
+Copyright (c) 2011-2014, The OpenBLAS Project
+  (OpenBLAS)
+Copyright (c) 1992-2008 The University of Tennessee
+  (CLAPACK)
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -1072,8 +1111,8 @@ That's all there is to it!
 
 --------------------------------------------------------------------------------
 
-Apache License 2.0 (protobuf-net and Vosk, redistributed in binary form)
-================================================================
+Apache License 2.0 (protobuf-net, Vosk, Kaldi and OpenFst, redistributed in binary form)
+=========================================================================================
 
                                  Apache License
                            Version 2.0, January 2004

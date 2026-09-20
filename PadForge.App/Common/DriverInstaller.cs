@@ -140,15 +140,18 @@ namespace PadForge.Common
         /// </summary>
         public static void InstallHidHide()
         {
-            // HidHide is a kernel filter driver with an x64 package only, and a
-            // kernel driver cannot run emulated, so on ARM64 Windows there is
-            // nothing this could install. The Settings command is already
-            // disabled there. This is the same rule at the layer that would
-            // otherwise run an installer guaranteed to fail, and an ARM64
-            // build does not embed the installer at all.
+            // A kernel driver cannot run emulated, so the MACHINE picks the
+            // package, whichever build this is. ARM64 Windows takes upstream's
+            // ARM64 driver package through HidHideArm64Installer. The MSI
+            // below is x64 only.
+            if (PadForge.Engine.PlatformSupport.IsArm64Machine)
+            {
+                HidHideArm64Installer.Install();
+                return;
+            }
             if (!PadForge.Engine.PlatformSupport.HidHideAvailable)
                 throw new PlatformNotSupportedException(
-                    "HidHide has no ARM64 release, so it cannot be installed on ARM64 Windows.");
+                    "HidHide ships for x64 and ARM64 Windows only.");
             bool installerMayStillRun = false;
             string staging = NewHidHideStagingDir();
             try
@@ -196,6 +199,14 @@ namespace PadForge.Common
             if (TryGetHidHideMsiInfo(out _, out string installedCode) && installedCode != null)
             {
                 RunMsiElevated($"/x {installedCode} /qb /norestart", absentIsSuccess: true);
+                return;
+            }
+
+            // An ARM64 install was never registered with Windows Installer.
+            // It comes out the way it went in.
+            if (PadForge.Engine.PlatformSupport.IsArm64Machine)
+            {
+                HidHideArm64Installer.Uninstall();
                 return;
             }
 
@@ -1161,21 +1172,28 @@ namespace PadForge.Common
         // ─────────────────────────────────────────────
 
         /// <summary>
-        /// Checks whether HidHide is installed by scanning the registry Uninstall keys.
+        /// Checks whether HidHide is installed: a Windows Installer
+        /// registration on any machine, or on ARM64 the service, device node
+        /// and class filter that upstream's manual install leaves, which
+        /// registers nothing with Windows Installer.
         /// </summary>
         public static bool IsHidHideInstalled()
         {
-            return TryGetHidHideMsiInfo(out _, out _);
+            return TryGetHidHideMsiInfo(out _, out _)
+                || (PadForge.Engine.PlatformSupport.IsArm64Machine && HidHideArm64Installer.IsInstalled());
         }
 
         /// <summary>
         /// Returns the installed HidHide version string, or null if not installed.
+        /// The MSI's version where there is one, else the driver file's own.
         /// </summary>
         public static string GetHidHideVersion()
         {
-            if (!TryGetHidHideMsiInfo(out var version, out _))
-                return null;
-            return string.IsNullOrEmpty(version) ? "Installed" : version;
+            if (TryGetHidHideMsiInfo(out var version, out _))
+                return string.IsNullOrEmpty(version) ? "Installed" : version;
+            if (PadForge.Engine.PlatformSupport.IsArm64Machine && HidHideArm64Installer.IsInstalled())
+                return HidHideArm64Installer.InstalledDriverVersion() ?? "Installed";
+            return null;
         }
 
         private static bool TryGetHidHideMsiInfo(out string displayVersion, out string productCode)
@@ -1266,7 +1284,7 @@ namespace PadForge.Common
         /// Extract an embedded resource to a temp directory.
         /// Returns the full path to the extracted file.
         /// </summary>
-        private static string ExtractEmbeddedResource(string resourceFileName, string tempDir)
+        internal static string ExtractEmbeddedResource(string resourceFileName, string tempDir)
         {
             var assembly = Assembly.GetExecutingAssembly();
             var resourceNames = assembly.GetManifestResourceNames();
@@ -1380,7 +1398,7 @@ namespace PadForge.Common
         /// <summary>
         /// Clean up a temp directory, ignoring errors.
         /// </summary>
-        private static void CleanupTempDir(string tempDir)
+        internal static void CleanupTempDir(string tempDir)
         {
             try
             {

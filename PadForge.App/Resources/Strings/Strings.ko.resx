@@ -3669,4 +3669,6 @@
   <data name="Status_InstallerExitCode_Format" xml:space="preserve"><value>설치 프로그램이 코드 {0}(으)로 종료되었습니다.</value></data>
   <data name="Status_InstallerTimedOut" xml:space="preserve"><value>설치 프로그램이 3분이 지나도 계속 실행 중이었습니다.</value></data>
   <data name="Status_RemovingLegacyDrivers" xml:space="preserve"><value>이전 드라이버 제거 중…</value></data>
+  <data name="About_Nefcon" xml:space="preserve"><value>nefcon</value></data>
+  <data name="About_NefconDesc" xml:space="preserve"><value>Nefarius가 만든 HidHide 설치 도구. ARM64 버전이 Windows on ARM에 HidHide 드라이버를 설치합니다. MIT.</value></data>
 </root>
