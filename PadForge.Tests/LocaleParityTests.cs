@@ -125,7 +125,12 @@ namespace PadForge.Tests
                 RegexOptions.Singleline))
             {
                 string v = m.Groups[2].Value;
-                if (v.Contains(@"\n") || v.Contains(@"\r") || v.Contains(@"\t"))
+                // A \uXXXX escape is the same defect in the form a JSON
+                // round trip or a translation tool leaves behind. A \xNN
+                // form is left out on purpose: a value holding a Windows
+                // path such as Resources\x64\SDL3.dll would match it.
+                if (v.Contains(@"\n") || v.Contains(@"\r") || v.Contains(@"\t")
+                    || Regex.IsMatch(v, @"\\u[0-9A-Fa-f]{4}"))
                     offenders.Add(m.Groups[1].Value);
             }
             return offenders;
@@ -143,6 +148,13 @@ namespace PadForge.Tests
             Assert.Empty(LiteralEscapeOffenders(good));
             Assert.Equal(new[] { "Bad" }, LiteralEscapeOffenders(bad));
             Assert.Equal(new[] { "Bad" }, LiteralEscapeOffenders(good + bad));
+
+            // The degree sign spelled as an escape, and the path that only
+            // looks like one.
+            string unicodeEscape = "<data name=" + Q + "Degrees" + Q + " xml:space=" + Q + "preserve" + Q + "><value>90" + backslash + "u00B0</value></data>";
+            string windowsPath   = "<data name=" + Q + "Path" + Q + " xml:space=" + Q + "preserve" + Q + "><value>Resources" + backslash + "x64" + backslash + "SDL3.dll</value></data>";
+            Assert.Equal(new[] { "Degrees" }, LiteralEscapeOffenders(unicodeEscape));
+            Assert.Empty(LiteralEscapeOffenders(windowsPath));
         }
 
         /// <summary>
@@ -212,7 +224,8 @@ namespace PadForge.Tests
 
         private const string Q = "\"";
         private const string nl_literal = "\n";
-        private static readonly string backslash_n = ((char)92).ToString() + "n";
+        private static readonly string backslash = ((char)92).ToString();
+        private static readonly string backslash_n = backslash + "n";
         private const string Amp = "&";
         /// <summary>The base resx and every shipped locale resx, by file name.</summary>
         public static IEnumerable<object[]> AllResxFiles() =>

@@ -288,7 +288,7 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Remote Link Port</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Motion Server Port</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Provides gyro and accelerometer data to Cemu, Dolphin, Yuzu, etc.</value></data>
-  <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Works with OpenTrack and any tracker that sends its UDP output or writes FreeTrack 2.0 shared memory, and with any OpenXR runtime installed on this machine.</value></data>
+  <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Works with OpenTrack and any tracker that sends its UDP output or writes FreeTrack 2.0 shared memory, and with an OpenXR runtime on this machine that can run a session in the background.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Read Logitech G-Keys</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Reads G-keys through the Logitech G-key SDK. Needs Logitech Gaming Software 8.55 or later running. In that software, make PadForge the persistent profile, or the keys only reach PadForge while its window is in front.</value></data>
   <data name="Settings_GKeysStatus_NoSdk" xml:space="preserve"><value>No Logitech G-key SDK on this machine. It installs with Logitech Gaming Software 8.55 or later.</value></data>
@@ -3714,4 +3714,8 @@ You can retry later from Settings.</value></data>
   <data name="ResetLabel_HoldMode" xml:space="preserve"><value>Hold Mode</value></data>
   <data name="ResetLabel_PositionX" xml:space="preserve"><value>Screen Position X</value></data>
   <data name="ResetLabel_PositionY" xml:space="preserve"><value>Screen Position Y</value></data>
+  <data name="Devices_AllConsumerControlsMerged" xml:space="preserve"><value>All Consumer Controls (Merged)</value></data>
+  <data name="Status_InstallerExitCode_Format" xml:space="preserve"><value>The installer exited with code {0}.</value></data>
+  <data name="Status_InstallerTimedOut" xml:space="preserve"><value>The installer was still running after three minutes.</value></data>
+  <data name="Status_RemovingLegacyDrivers" xml:space="preserve"><value>Removing legacy drivers…</value></data>
 </root>

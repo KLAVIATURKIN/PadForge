@@ -50,6 +50,44 @@ namespace PadForge.Tests
             [DllImport(Dll)] public static extern bool ProviderClean();
         }
 
+        /// <summary>HAR.dll and the Razer provider are x64 images, so the six
+        /// tests that load them or need the worker they feed can run in an
+        /// x64 test host and nowhere else. On an ARM64 host the first P/Invoke
+        /// is a BadImageFormatException and the service reports Unsupported
+        /// by design, neither of which is a defect, so those tests step aside
+        /// there. xunit 2 has no run-time skip, which is why this is a return.
+        /// The branch an ARM64 process takes is covered on any bench by
+        /// <see cref="Service_ReportsUnsupportedAndStartsNoWorkerWhereTheEngineCannotLoad"/>.
+        /// </summary>
+        private static bool NativeEngineLoadsHere => PadForge.Engine.PlatformSupport.SensaAvailable;
+
+        /// <summary>What an ARM64 process does, driven through the seam
+        /// because this bench cannot be one. Start has to say Unsupported
+        /// once, on the caller's thread, and leave no worker behind, and
+        /// every call after that has to be safe: the owner stops and
+        /// disposes the service the same way on every platform.</summary>
+        [Fact]
+        public void Service_ReportsUnsupportedAndStartsNoWorkerWhereTheEngineCannotLoad()
+        {
+            var states = new System.Collections.Generic.List<SensaServiceState>();
+            int caller = Environment.CurrentManagedThreadId, raisedOn = -1;
+            var svc = new SensaHapticsService(retryMs: 50, tickMs: 5);
+            svc.PlatformCanLoadEngine = () => false;
+            svc.StateChanged += s => { states.Add(s); raisedOn = Environment.CurrentManagedThreadId; };
+
+            svc.Start();
+
+            Assert.Equal(new[] { SensaServiceState.Unsupported }, states);
+            Assert.Equal(caller, raisedOn);
+            Assert.False(svc.WorkerAlive);
+            Assert.Equal(0, svc.ProviderInitAttempts);
+
+            svc.Stop();
+            svc.Dispose();
+            svc.Dispose();
+            Assert.False(svc.WorkerAlive);
+        }
+
         /// <summary>The real engine, end to end, the Unity reference's exact
         /// sequence: Init, parametric effect from time-value amplitude pairs,
         /// body target, live intensity, PlayEvent with the negative-now
@@ -58,6 +96,7 @@ namespace PadForge.Tests
         [Fact]
         public void RealEngine_FullLifecycle()
         {
+            if (!NativeEngineLoadsHere) return;
             Assert.True(Har.Init());
             try
             {
@@ -97,6 +136,7 @@ namespace PadForge.Tests
         [Fact]
         public void Provider_DegradesCleanlyWithoutSynapse()
         {
+            if (!NativeEngineLoadsHere) return;
             bool up = Provider.ProviderInit();
             if (up)
             {
@@ -124,6 +164,7 @@ namespace PadForge.Tests
         [Fact]
         public void RealEngine_SurvivesReinit()
         {
+            if (!NativeEngineLoadsHere) return;
             Assert.True(Har.Init());
             Har.Quit();
             bool second = Har.Init();
@@ -164,6 +205,7 @@ namespace PadForge.Tests
         [Fact]
         public void Service_ArmsPublisherAndDegradesWithoutRuntime()
         {
+            if (!NativeEngineLoadsHere) return;
             var states = new System.Collections.Concurrent.ConcurrentQueue<SensaServiceState>();
             using var svc = new SensaHapticsService(retryMs: 100, tickMs: 5);
             svc.StateChanged += s => states.Enqueue(s);
@@ -210,6 +252,7 @@ namespace PadForge.Tests
         [Fact]
         public void Service_NextWorkerWaitsForAStragglingPredecessor()
         {
+            if (!NativeEngineLoadsHere) return;
             using var hold = new System.Threading.ManualResetEventSlim(false);
             SensaHapticsService.BeforeProviderInit = () => hold.Wait(10000);
             SensaHapticsService a = null, b = null;
@@ -276,6 +319,7 @@ namespace PadForge.Tests
         [Fact]
         public void Service_GivesUpOnAWedgedPredecessorInsteadOfBlockingForever()
         {
+            if (!NativeEngineLoadsHere) return;
             using var hold = new System.Threading.ManualResetEventSlim(false);
             System.Threading.Thread aThread = null;
             SensaHapticsService.BeforeProviderInit = () =>

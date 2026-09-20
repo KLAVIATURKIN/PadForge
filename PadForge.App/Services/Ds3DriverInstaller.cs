@@ -384,7 +384,10 @@ namespace PadForge.Services
                 // still installs an ARM64 driver. OSArchitecture reports the
                 // real machine under emulation. Same test, same two values as
                 // HIDMaestro.Internal.DriverBuilder, whose toolchain this
-                // borrows and which extracts the matching Inf2Cat for it.
+                // borrows. Inf2Cat itself is one x64 program on either
+                // machine (its PE header says so, whatever the WDK folder it
+                // ships in is called), and ARM64 Windows runs it emulated.
+                // Only the /os value it is handed changes.
                 string catalogOs = RuntimeInformation.OSArchitecture == Architecture.Arm64
                     ? "10_ARM64"
                     : "10_X64";

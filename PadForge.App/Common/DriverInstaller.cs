@@ -11,6 +11,38 @@ using PadForge.Common.Input;
 namespace PadForge.Common
 {
     /// <summary>
+    /// An installer ran to the end and did not succeed, or never came back.
+    /// The facts ride on the properties so the caller can word the failure
+    /// in the user's language. Message is an English fallback for a log.
+    /// </summary>
+    public sealed class InstallerFailedException : Exception
+    {
+        /// <summary>The installer's exit code. Meaningless when
+        /// <see cref="TimedOut"/> is set.</summary>
+        public int ExitCode { get; }
+
+        /// <summary>The installer was still running when the wait ended, so
+        /// nothing is known about how it finished.</summary>
+        public bool TimedOut { get; }
+
+        /// <summary>ERROR_INSTALL_USEREXIT: the user pressed Cancel on the
+        /// installer's own progress window.</summary>
+        public bool UserCanceled => !TimedOut && ExitCode == 1602;
+
+        public InstallerFailedException(int exitCode)
+            : base("The installer exited with code " + exitCode + ".")
+        {
+            ExitCode = exitCode;
+        }
+
+        public InstallerFailedException()
+            : base("The installer did not finish in time.")
+        {
+            TimedOut = true;
+        }
+    }
+
+    /// <summary>
     /// Handles HIDMaestro and HidHide install / uninstall in v3, plus legacy
     /// uninstall paths for v2 ViGEmBus and vJoy residue. Uses embedded
     /// bootstrapper executables that contain MSI packages.
@@ -34,7 +66,7 @@ namespace PadForge.Common
         {
             string productCode = FindUninstallProductCode("ViGEm");
             if (string.IsNullOrEmpty(productCode)) return;
-            RunMsiElevated($"/x {productCode} /qb /norestart");
+            RunMsiElevated($"/x {productCode} /qb /norestart", absentIsSuccess: true);
         }
 
         /// <summary>
@@ -64,10 +96,13 @@ namespace PadForge.Common
                         if (string.IsNullOrEmpty(name)) continue;
                         if (name.IndexOf(displayNameSubstring, StringComparison.OrdinalIgnoreCase) < 0) continue;
 
-                        // Only return MSI-format ProductCode GUIDs; fall through
-                        // for Inno/NSIS-style installers that live elsewhere.
-                        if (subName.StartsWith("{") && subName.EndsWith("}"))
-                            return subName;
+                        // Only a Windows Installer product has a ProductCode
+                        // msiexec can act on. A bootstrapper registers its
+                        // own entry under a brace GUID too, and that GUID
+                        // names a bundle msiexec has never heard of, so the
+                        // shape of the key alone does not decide it.
+                        string code = MsiProductCodeOrNull(subName, sub.GetValue("WindowsInstaller"));
+                        if (code != null) return code;
                     }
                 }
                 catch { }
@@ -81,8 +116,23 @@ namespace PadForge.Common
 
         private const string HidHideResourceName = "HidHide_1.5.230_x64.exe";
 
-        private static string GetHidHideTempDir()
+        private static string HidHideTempRoot
             => Path.Combine(Path.GetTempPath(), "PadForge_HidHide");
+
+        /// <summary>
+        /// A staging folder of this attempt's own.
+        ///
+        /// <para>There was one fixed folder, and every attempt began by
+        /// clearing it. An installer that outlives the three-minute wait
+        /// keeps reading its package from there, so a retry while it ran
+        /// deleted the package from under it. Each attempt now gets its own
+        /// folder and deletes that folder alone when it ends. A folder left
+        /// by an attempt that timed out is never cleared from here, because
+        /// nothing here can know that its installer has finished. It is a
+        /// few megabytes in the temp folder, which Windows clears.</para>
+        /// </summary>
+        private static string NewHidHideStagingDir()
+            => Path.Combine(HidHideTempRoot, Guid.NewGuid().ToString("N"));
 
         /// <summary>
         /// Install HidHide driver. Extracts the embedded bootstrapper,
@@ -99,36 +149,74 @@ namespace PadForge.Common
             if (!PadForge.Engine.PlatformSupport.HidHideAvailable)
                 throw new PlatformNotSupportedException(
                     "HidHide has no ARM64 release, so it cannot be installed on ARM64 Windows.");
+            bool installerMayStillRun = false;
+            string staging = NewHidHideStagingDir();
             try
             {
-                var exePath = ExtractEmbeddedResource(HidHideResourceName, GetHidHideTempDir());
-                var extractDir = ExtractInstallerBundle(exePath, GetHidHideTempDir());
+                var exePath = ExtractEmbeddedResource(HidHideResourceName, staging);
+                var extractDir = ExtractInstallerBundle(exePath, staging);
                 var msiPath = FindMsi(extractDir, "HidHide.msi", "HidHide*.msi");
 
-                RunMsiElevated($"/i \"{msiPath}\" /qb /norestart");
+                RunMsiElevated($"/i \"{msiPath}\" /qb /norestart", absentIsSuccess: false);
+            }
+            catch (InstallerFailedException ex) when (ex.TimedOut)
+            {
+                installerMayStillRun = true;
+                throw;
             }
             finally
             {
-                CleanupTempDir(GetHidHideTempDir());
+                // An installer that outlived the wait is still reading the
+                // package it was handed, so the package stays where it is.
+                if (!installerMayStillRun) CleanupTempDir(staging);
             }
         }
 
         /// <summary>
-        /// Uninstall HidHide driver via msiexec /x with elevation.
+        /// Uninstall the HidHide that is INSTALLED, by its registered
+        /// ProductCode, which is the command Windows itself records for the
+        /// product (<c>MsiExec.exe /X{ProductCode}</c>).
+        ///
+        /// <para>This used to hand msiexec the bundled package instead. A
+        /// package path names the product inside that package, so the
+        /// bundled 1.5.230 package removes an installed HidHide only when the
+        /// two share a ProductCode. Windows Installer requires a new
+        /// ProductCode for every major upgrade, msiexec answers 1605 for a
+        /// product that is not installed, and the exit code was not read, so
+        /// against an install with another ProductCode the button reported
+        /// success and removed nothing.</para>
+        ///
+        /// <para>The bundled package is kept as the fallback for a
+        /// registration that carries no usable ProductCode. There, 1605 stays
+        /// a failure, because it only says the BUNDLED product is absent
+        /// while something named HidHide is still registered.</para>
         /// </summary>
         public static void UninstallHidHide()
         {
+            if (TryGetHidHideMsiInfo(out _, out string installedCode) && installedCode != null)
+            {
+                RunMsiElevated($"/x {installedCode} /qb /norestart", absentIsSuccess: true);
+                return;
+            }
+
+            bool installerMayStillRun = false;
+            string staging = NewHidHideStagingDir();
             try
             {
-                var exePath = ExtractEmbeddedResource(HidHideResourceName, GetHidHideTempDir());
-                var extractDir = ExtractInstallerBundle(exePath, GetHidHideTempDir());
+                var exePath = ExtractEmbeddedResource(HidHideResourceName, staging);
+                var extractDir = ExtractInstallerBundle(exePath, staging);
                 var msiPath = FindMsi(extractDir, "HidHide.msi", "HidHide*.msi");
 
-                RunMsiElevated($"/x \"{msiPath}\" /qb /norestart");
+                RunMsiElevated($"/x \"{msiPath}\" /qb /norestart", absentIsSuccess: false);
+            }
+            catch (InstallerFailedException ex) when (ex.TimedOut)
+            {
+                installerMayStillRun = true;
+                throw;
             }
             finally
             {
-                CleanupTempDir(GetHidHideTempDir());
+                if (!installerMayStillRun) CleanupTempDir(staging);
             }
         }
 
@@ -406,7 +494,10 @@ namespace PadForge.Common
         // ─────────────────────────────────────────────
 
         // Note: /releases/latest returns 404 because microsoft/MIDI only publishes
-        // pre-releases. Use /releases (returns array) and parse the first entry.
+        // pre-releases. Use /releases, which returns the newest releases
+        // first (one page of them), and take the first installer asset
+        // anywhere in it. A release that carries no installer for this
+        // machine is passed over that way.
         private const string MidiServicesGitHubApi =
             "https://api.github.com/repos/microsoft/MIDI/releases";
 
@@ -464,8 +555,9 @@ namespace PadForge.Common
         }
 
         /// <summary>
-        /// Queries the GitHub API for the latest microsoft/MIDI release and returns
-        /// the download URL for the SDK Runtime x64 installer asset.
+        /// Queries the GitHub API for microsoft/MIDI's releases and returns the
+        /// download URL of the newest SDK Runtime installer built for this
+        /// machine, x64 or arm64.
         /// </summary>
         private static async Task<string> FindMidiServicesDownloadUrl(HttpClient http)
         {
@@ -1090,6 +1182,7 @@ namespace PadForge.Common
         {
             displayVersion = null;
             productCode = null;
+            bool found = false;
 
             var views = new[] { RegistryView.Registry64, RegistryView.Registry32 };
 
@@ -1113,12 +1206,22 @@ namespace PadForge.Common
                             name.IndexOf("HID Hide", StringComparison.OrdinalIgnoreCase) < 0)
                             continue;
 
-                        displayVersion = sub.GetValue("DisplayVersion") as string;
-
-                        if (subName.StartsWith("{") && subName.EndsWith("}"))
-                            productCode = subName;
-
-                        return true;
+                        // "Installed" is any registration that names it, as
+                        // it always was. The ProductCode is narrower: only a
+                        // Windows Installer product has one msiexec can act
+                        // on, and a bootstrapper's own entry can sit in front
+                        // of it under a brace GUID that is not a ProductCode.
+                        // So the walk carries on past a match that has no
+                        // code, and stops at the first one that does.
+                        found = true;
+                        string code = MsiProductCodeOrNull(subName, sub.GetValue("WindowsInstaller"));
+                        if (displayVersion == null || code != null)
+                            displayVersion = sub.GetValue("DisplayVersion") as string ?? displayVersion;
+                        if (code != null)
+                        {
+                            productCode = code;
+                            return true;
+                        }
                     }
                 }
                 catch
@@ -1127,8 +1230,33 @@ namespace PadForge.Common
                 }
             }
 
-            return false;
+            return found;
         }
+
+        /// <summary>
+        /// The subkey name as an MSI ProductCode, or null when the entry is
+        /// not a Windows Installer product. Windows Installer marks its own
+        /// entries with a WindowsInstaller DWORD of 1 and names them by
+        /// ProductCode. Anything else under Uninstall is some other
+        /// installer's bookkeeping, whatever its key looks like.
+        /// </summary>
+        internal static string MsiProductCodeOrNull(string subKeyName, object windowsInstallerValue)
+        {
+            if (!(windowsInstallerValue is int flag) || flag != 1) return null;
+            return Guid.TryParseExact(subKeyName, "B", out _) ? subKeyName : null;
+        }
+
+        /// <summary>
+        /// Whether msiexec's exit code means the work is done. 3010 and 1641
+        /// are success with a restart owed or already started. 1605 means the
+        /// product named is not installed, which finishes an uninstall that
+        /// named an INSTALLED product and fails everything else.
+        /// </summary>
+        internal static bool IsMsiSuccess(int exitCode, bool absentIsSuccess)
+            => exitCode == 0
+            || exitCode == 3010
+            || exitCode == 1641
+            || (absentIsSuccess && exitCode == 1605);
 
         // ─────────────────────────────────────────────
         //  Shared helpers
@@ -1210,17 +1338,28 @@ namespace PadForge.Common
         }
 
         /// <summary>
-        /// Run msiexec.exe with elevation (UAC prompt).
+        /// Run msiexec.exe with elevation (UAC prompt) and hold it to its
+        /// exit code. The wait's result and the code were both ignored once,
+        /// so a failed install, a canceled one and one still running after
+        /// three minutes all came back as success.
         /// </summary>
-        private static void RunMsiElevated(string arguments)
+        /// <exception cref="InstallerFailedException">msiexec failed, was
+        /// canceled from its own window, or outlived the wait.</exception>
+        private static void RunMsiElevated(string arguments, bool absentIsSuccess)
         {
-            RunElevated("msiexec.exe", arguments);
+            int? exitCode = RunElevated("msiexec.exe", arguments);
+            if (exitCode == null) throw new InstallerFailedException();
+            if (!IsMsiSuccess(exitCode.Value, absentIsSuccess))
+                throw new InstallerFailedException(exitCode.Value);
         }
 
         /// <summary>
-        /// Run an executable with elevation (UAC prompt).
+        /// Run an executable with elevation (UAC prompt). Returns its exit
+        /// code, or null when it was still running after three minutes.
+        /// What an exit code means belongs to the caller: msiexec's are
+        /// documented, a cleanup script's are not.
         /// </summary>
-        private static void RunElevated(string fileName, string arguments)
+        private static int? RunElevated(string fileName, string arguments)
         {
             var psi = new ProcessStartInfo
             {
@@ -1232,7 +1371,10 @@ namespace PadForge.Common
             };
 
             using var proc = Process.Start(psi);
-            proc?.WaitForExit(180_000);
+            // ShellExecute can start the work without handing a process back.
+            // Nothing can be waited on then, and nothing is known.
+            if (proc == null) return null;
+            return proc.WaitForExit(180_000) ? proc.ExitCode : (int?)null;
         }
 
         /// <summary>

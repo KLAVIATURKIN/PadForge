@@ -252,7 +252,7 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Port Remote Link</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Port du serveur de mouvement</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Fournit les données du gyroscope et de l'accéléromètre à Cemu, Dolphin, Yuzu, etc.</value></data>
-  <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Fonctionne avec OpenTrack et tout tracker qui envoie sa sortie UDP ou écrit dans la mémoire partagée FreeTrack 2.0, ainsi qu’avec tout runtime OpenXR installé sur cette machine.</value></data>
+  <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Fonctionne avec OpenTrack et tout tracker qui envoie sa sortie UDP ou écrit dans la mémoire partagée FreeTrack 2.0, ainsi qu’avec un runtime OpenXR installé sur cette machine capable d’exécuter une session en arrière-plan.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Lire les touches G Logitech</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Lit les touches G via le SDK G-key de Logitech. Nécessite Logitech Gaming Software 8.55 ou ultérieur en cours d’exécution. Dans ce logiciel, faites de PadForge le profil persistant, sinon les touches n’atteignent PadForge que lorsque sa fenêtre est au premier plan.</value></data>
   <data name="Settings_GKeysStatus_NoSdk" xml:space="preserve"><value>Aucun SDK G-key Logitech sur ce PC. Il s'installe avec Logitech Gaming Software 8.55 ou ultérieur.</value></data>
@@ -3665,4 +3665,8 @@ Vous pouvez réessayer plus tard depuis les Paramètres.</value></data>
   <data name="ResetLabel_HoldMode" xml:space="preserve"><value>Mode de maintien</value></data>
   <data name="ResetLabel_PositionX" xml:space="preserve"><value>Position à l’écran X</value></data>
   <data name="ResetLabel_PositionY" xml:space="preserve"><value>Position à l’écran Y</value></data>
+  <data name="Devices_AllConsumerControlsMerged" xml:space="preserve"><value>Tous les contrôles multimédias (fusionnés)</value></data>
+  <data name="Status_InstallerExitCode_Format" xml:space="preserve"><value>Le programme d'installation s'est terminé avec le code {0}.</value></data>
+  <data name="Status_InstallerTimedOut" xml:space="preserve"><value>Le programme d'installation était toujours en cours après trois minutes.</value></data>
+  <data name="Status_RemovingLegacyDrivers" xml:space="preserve"><value>Suppression des anciens pilotes…</value></data>
 </root>

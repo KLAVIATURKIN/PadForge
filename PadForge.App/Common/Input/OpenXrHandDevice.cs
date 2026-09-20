@@ -21,7 +21,9 @@ namespace PadForge.Common.Input
     /// not neutralize the other.</para>
     ///
     /// <para>Silence returns the axes to rest, the failsafe the Head Tracker
-    /// row has. A controller set down mid-game must not leave a stick held.</para>
+    /// row has. A controller that goes to sleep or drops out of tracking
+    /// mid-game must not leave a stick held. One that is set down and still
+    /// tracked keeps reporting, and its axes follow it.</para>
     /// </summary>
     internal sealed class OpenXrHandDevice : ISdlInputDevice
     {

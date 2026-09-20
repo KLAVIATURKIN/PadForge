@@ -252,7 +252,7 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Remote-Link-Port</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Motion-Server-Port</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Stellt Gyroskop- und Beschleunigungsdaten für Cemu, Dolphin, Yuzu usw. bereit.</value></data>
-  <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Funktioniert mit OpenTrack und jedem Tracker, der seine UDP-Ausgabe sendet oder den gemeinsamen FreeTrack-2.0-Speicher beschreibt, sowie mit jeder auf diesem Rechner installierten OpenXR-Laufzeit.</value></data>
+  <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Funktioniert mit OpenTrack und jedem Tracker, der seine UDP-Ausgabe sendet oder den gemeinsamen FreeTrack-2.0-Speicher beschreibt, sowie mit einer auf diesem Rechner installierten OpenXR-Laufzeit, die eine Sitzung im Hintergrund ausführen kann.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Logitech G-Tasten lesen</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Liest G-Tasten über das Logitech G-key SDK. Erfordert eine laufende Logitech Gaming Software 8.55 oder neuer. Machen Sie dort PadForge zum dauerhaften Profil, sonst erreichen die Tasten PadForge nur, während dessen Fenster im Vordergrund ist.</value></data>
   <data name="Settings_GKeysStatus_NoSdk" xml:space="preserve"><value>Kein Logitech G-key SDK auf diesem PC. Es wird mit Logitech Gaming Software 8.55 oder neuer installiert.</value></data>
@@ -3665,4 +3665,8 @@ Du kannst es später in den Einstellungen erneut versuchen.</value></data>
   <data name="ResetLabel_HoldMode" xml:space="preserve"><value>Haltemodus</value></data>
   <data name="ResetLabel_PositionX" xml:space="preserve"><value>Bildschirmposition X</value></data>
   <data name="ResetLabel_PositionY" xml:space="preserve"><value>Bildschirmposition Y</value></data>
+  <data name="Devices_AllConsumerControlsMerged" xml:space="preserve"><value>Alle Multimediasteuerungen (zusammengeführt)</value></data>
+  <data name="Status_InstallerExitCode_Format" xml:space="preserve"><value>Das Installationsprogramm wurde mit Code {0} beendet.</value></data>
+  <data name="Status_InstallerTimedOut" xml:space="preserve"><value>Das Installationsprogramm lief nach drei Minuten noch.</value></data>
+  <data name="Status_RemovingLegacyDrivers" xml:space="preserve"><value>Alte Treiber werden entfernt…</value></data>
 </root>

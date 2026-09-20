@@ -476,8 +476,8 @@ Protocol documentation references (no code from these projects ships)
   Mumble (https://github.com/mumble-voip/mumble, BSD 3-Clause): the
   Logitech G-key SDK library search order and shutdown lifecycle, read
   alongside LogitechGkeyLib.h from the SDK itself, which defines the event
-  word. PadForge loads G HUB's own library at run time and ships no
-  Logitech binary.
+  word. PadForge loads the library Logitech Gaming Software installs at
+  run time and ships no Logitech binary.
   PadForge's implementations are original C# and contain no code from
   these projects.
 

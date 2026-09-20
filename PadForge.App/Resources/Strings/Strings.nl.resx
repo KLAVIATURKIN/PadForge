@@ -252,7 +252,7 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Remote Link-poort</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Motionserverpoort</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Levert gyroscoop- en versnellingsmetergegevens voor Cemu, Dolphin, Yuzu, enz.</value></data>
-  <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Werkt met OpenTrack en met elke tracker die zijn UDP-uitvoer verstuurt of naar het gedeelde geheugen van FreeTrack 2.0 schrijft, en met elke OpenXR-runtime die op deze machine is geïnstalleerd.</value></data>
+  <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Werkt met OpenTrack en met elke tracker die zijn UDP-uitvoer verstuurt of naar het gedeelde geheugen van FreeTrack 2.0 schrijft, en met een OpenXR-runtime op deze machine die een sessie op de achtergrond kan uitvoeren.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Logitech G-toetsen lezen</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Leest G-toetsen via de Logitech G-key SDK. Vereist dat Logitech Gaming Software 8.55 of nieuwer draait. Maak PadForge daarin het permanente profiel, anders bereiken de toetsen PadForge alleen terwijl het venster op de voorgrond is.</value></data>
   <data name="Settings_GKeysStatus_NoSdk" xml:space="preserve"><value>Geen Logitech G-key SDK op deze pc. Die wordt met Logitech Gaming Software 8.55 of nieuwer geïnstalleerd.</value></data>
@@ -3685,4 +3685,8 @@ Je kunt het later opnieuw proberen via Instellingen.</value></data>
   <data name="ResetLabel_HoldMode" xml:space="preserve"><value>Vasthoudmodus</value></data>
   <data name="ResetLabel_PositionX" xml:space="preserve"><value>Schermpositie X</value></data>
   <data name="ResetLabel_PositionY" xml:space="preserve"><value>Schermpositie Y</value></data>
+  <data name="Devices_AllConsumerControlsMerged" xml:space="preserve"><value>Alle multimediabedieningen (samengevoegd)</value></data>
+  <data name="Status_InstallerExitCode_Format" xml:space="preserve"><value>Het installatieprogramma is gestopt met code {0}.</value></data>
+  <data name="Status_InstallerTimedOut" xml:space="preserve"><value>Het installatieprogramma was na drie minuten nog bezig.</value></data>
+  <data name="Status_RemovingLegacyDrivers" xml:space="preserve"><value>Oude stuurprogramma's worden verwijderd…</value></data>
 </root>

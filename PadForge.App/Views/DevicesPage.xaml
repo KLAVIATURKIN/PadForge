@@ -1017,7 +1017,7 @@
                                    Style="{StaticResource SectionEyebrow}" Margin="0,0,0,6"
                                    Visibility="{Binding SelectedDevice.ShowInputHidingSection, Converter={StaticResource BoolToVisibilityConverter}}"/>
 
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,4" Visibility="{Binding SelectedDevice.IsInternalVirtual, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Invert}">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,4" Visibility="{Binding SelectedDevice.ShowHidHideToggle, Converter={StaticResource BoolToVisibilityConverter}}">
                             <CheckBox VerticalAlignment="Center" Content="{Binding Devices_HideFromGames, Source={x:Static strings:Strings.Instance}}"
                                       Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                       IsChecked="{Binding SelectedDevice.HidHideEnabled, Mode=TwoWay}"

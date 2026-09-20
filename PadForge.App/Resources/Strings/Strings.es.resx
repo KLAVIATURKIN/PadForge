@@ -252,7 +252,7 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Puerto de Remote Link</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Puerto del servidor de movimiento</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Proporciona datos de giroscopio y acelerómetro a Cemu, Dolphin, Yuzu, etc.</value></data>
-  <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Funciona con OpenTrack y con cualquier rastreador que envíe su salida UDP o escriba en la memoria compartida de FreeTrack 2.0, y con cualquier tiempo de ejecución OpenXR instalado en este equipo.</value></data>
+  <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Funciona con OpenTrack y con cualquier rastreador que envíe su salida UDP o escriba en la memoria compartida de FreeTrack 2.0, y con un tiempo de ejecución OpenXR instalado en este equipo que pueda ejecutar una sesión en segundo plano.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Leer las teclas G de Logitech</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Lee las teclas G mediante el SDK G-key de Logitech. Requiere Logitech Gaming Software 8.55 o posterior en ejecución. En ese programa, haz de PadForge el perfil persistente; si no, las teclas solo llegan a PadForge mientras su ventana está en primer plano.</value></data>
   <data name="Settings_GKeysStatus_NoSdk" xml:space="preserve"><value>No hay SDK G-key de Logitech en este equipo. Se instala con Logitech Gaming Software 8.55 o posterior.</value></data>
@@ -3665,4 +3665,8 @@ Puedes volver a intentarlo más tarde desde Configuración.</value></data>
   <data name="ResetLabel_HoldMode" xml:space="preserve"><value>Modo de mantenimiento</value></data>
   <data name="ResetLabel_PositionX" xml:space="preserve"><value>Posición en pantalla X</value></data>
   <data name="ResetLabel_PositionY" xml:space="preserve"><value>Posición en pantalla Y</value></data>
+  <data name="Devices_AllConsumerControlsMerged" xml:space="preserve"><value>Todos los controles multimedia (combinados)</value></data>
+  <data name="Status_InstallerExitCode_Format" xml:space="preserve"><value>El instalador terminó con el código {0}.</value></data>
+  <data name="Status_InstallerTimedOut" xml:space="preserve"><value>El instalador seguía en ejecución después de tres minutos.</value></data>
+  <data name="Status_RemovingLegacyDrivers" xml:space="preserve"><value>Eliminando controladores antiguos…</value></data>
 </root>

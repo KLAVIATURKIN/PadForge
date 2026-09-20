@@ -1119,7 +1119,13 @@ function Tab {
                 Start-Sleep -Milliseconds 600
                 $clicked = $sip.Current.IsSelected
             }
-        } catch { }
+        } catch {
+            # An element without SelectionItemPattern cannot be asked whether
+            # it took, so the click's own result stands, as it did before
+            # this check existed. Say so: a shot taken on an unverified tab
+            # is one to look at twice.
+            Write-Host "  .. Tab:$Name selection could not be verified ($($_.Exception.Message))" -ForegroundColor DarkGray
+        }
         return $clicked
     }
     # Name what the strip DOES carry. "Tab X not found" on its own sent two
@@ -3167,8 +3173,6 @@ function Open-MenuEditor {
     # it, which is what the capture harness has always actually been for.
     Write-Host "  clicked Add at its measured spot; capturing unverified" -ForegroundColor Yellow
     return $true
-    Write-Host "  !! no click opened the menu editor; the Menus tab has no menu selected" -ForegroundColor Red
-    return $false
 }
 
 # Defined here rather than beside the Devices block below it, because the
@@ -3716,8 +3720,11 @@ if ($Only.Count -gt 0) {
                     Write-Host "  !! the assignment did not land; SKIPPING $($wiiWanted -join ', ')" -ForegroundColor Red
                 } else {
                     if (Want "pad-gyro-grip") {
-                        # Tab returns true only once the tab reports itself
-                        # SELECTED, so that is the render gate. There used to
+                        # Tab returns true once the tab reports itself SELECTED,
+                        # so that is the render gate. (A tab that exposes no
+                        # SelectionItemPattern cannot be asked, and Tab then
+                        # returns the click's own result and says so in the
+                        # log. The pad page tabs do expose it.) There used to
                         # be a second gate here that looked up a UIA element
                         # named "Grip" and it failed every run from 4.4.0 on.
                         # A screenshot taken at the moment of that failure

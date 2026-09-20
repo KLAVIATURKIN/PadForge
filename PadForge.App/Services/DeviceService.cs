@@ -879,7 +879,9 @@ namespace PadForge.Services
 
         /// <summary>
         /// Sets default input hiding options when a device is newly assigned to a slot.
-        /// Gamepads: HidHide auto-ON (if installed). Keyboards/Mice: ConsumeInput auto-ON.
+        /// Gamepads: HidHide auto-ON (if installed). Keyboards and mice get
+        /// nothing turned on, because consuming someone's only keyboard or
+        /// mouse locks them out of Windows.
         /// </summary>
         private void AutoEnableHidingDefaults(UserDevice ud, DeviceRowViewModel row)
         {

@@ -147,8 +147,11 @@ namespace PadForge.Services
         private volatile bool _stop;
         private int _disposed;
 
-        /// <summary>Raised from the worker thread on state changes. The
-        /// owner marshals to the UI thread.</summary>
+        /// <summary>Raised on state changes. Every state but one comes from
+        /// the worker thread. Unsupported comes from inside Start, on the
+        /// caller's thread, because a process that cannot load the engine
+        /// never gets a worker. The owner marshals to the UI thread either
+        /// way.</summary>
         public event Action<SensaServiceState> StateChanged;
 
         public SensaHapticsService(int retryMs = 30000, int tickMs = 16)
@@ -197,10 +200,16 @@ namespace PadForge.Services
             return max / 65535f;
         }
 
+        /// <summary>Test seam: the platform answer Start acts on. A bench has
+        /// one architecture, so the branch an ARM64 process takes can only be
+        /// reached by handing it that answer. Per instance, so a test that
+        /// sets it cannot reach a service another test is running.</summary>
+        internal Func<bool> PlatformCanLoadEngine = () => PadForge.Engine.PlatformSupport.SensaAvailable;
+
         public void Start()
         {
             if (_thread != null) return; // Already started.
-            if (!PadForge.Engine.PlatformSupport.SensaAvailable)
+            if (!PlatformCanLoadEngine())
             {
                 Report(SensaServiceState.Unsupported);
                 return;

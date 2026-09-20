@@ -321,12 +321,23 @@ namespace PadForge.Tests
                     @"^\[Standard\." + System.Text.RegularExpressions.Regex.Escape(arch) + @"\][ \t]*$(.*?)(?=^\[|\z)",
                     System.Text.RegularExpressions.RegexOptions.Multiline | System.Text.RegularExpressions.RegexOptions.Singleline);
                 Assert.True(sec.Success, "the manufacturer line names " + arch + " and no [Standard." + arch + "] section exists");
+                // The whole model line, with its spacing flattened: the
+                // description token, the install section and the full
+                // hardware id. Matching the VID and PID alone let an id that
+                // differed past them through (an &MI_01 on one architecture
+                // and not the other), and an install section that differed
+                // was never looked at.
                 var ids = new System.Collections.Generic.SortedSet<string>(System.StringComparer.OrdinalIgnoreCase);
-                foreach (System.Text.RegularExpressions.Match m in System.Text.RegularExpressions.Regex.Matches(
-                             sec.Groups[1].Value, @"USB\\VID_[0-9A-F]{4}&PID_[0-9A-F]{4}",
-                             System.Text.RegularExpressions.RegexOptions.IgnoreCase))
-                    ids.Add(m.Value);
+                foreach (string raw in sec.Groups[1].Value.Split('\n'))
+                {
+                    string line = raw;
+                    int comment = line.IndexOf(';');
+                    if (comment >= 0) line = line.Substring(0, comment);
+                    line = System.Text.RegularExpressions.Regex.Replace(line, @"\s+", "");
+                    if (line.Length > 0) ids.Add(line);
+                }
                 Assert.NotEmpty(ids);
+                Assert.All(ids, l => Assert.Contains(@"USB\VID_", l, System.StringComparison.OrdinalIgnoreCase));
                 if (first == null) first = ids;
                 else Assert.Equal(first, ids);
             }

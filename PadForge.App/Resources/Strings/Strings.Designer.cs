@@ -3470,4 +3470,8 @@ public class Strings : INotifyPropertyChanged
     public string ResetLabel_HoldMode => Get("ResetLabel_HoldMode");
     public string ResetLabel_PositionX => Get("ResetLabel_PositionX");
     public string ResetLabel_PositionY => Get("ResetLabel_PositionY");
+    public string Devices_AllConsumerControlsMerged => Get("Devices_AllConsumerControlsMerged");
+    public string Status_InstallerExitCode_Format => Get("Status_InstallerExitCode_Format");
+    public string Status_InstallerTimedOut => Get("Status_InstallerTimedOut");
+    public string Status_RemovingLegacyDrivers => Get("Status_RemovingLegacyDrivers");
 }

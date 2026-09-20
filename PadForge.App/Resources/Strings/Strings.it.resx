@@ -252,7 +252,7 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Porta Remote Link</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Porta del server di movimento</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Fornisce dati di giroscopio e accelerometro a Cemu, Dolphin, Yuzu, ecc.</value></data>
-  <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Funziona con OpenTrack e con qualsiasi tracker che invii la propria uscita UDP o scriva nella memoria condivisa FreeTrack 2.0, e con qualsiasi runtime OpenXR installato su questa macchina.</value></data>
+  <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Funziona con OpenTrack e con qualsiasi tracker che invii la propria uscita UDP o scriva nella memoria condivisa FreeTrack 2.0, e con un runtime OpenXR installato su questa macchina in grado di eseguire una sessione in background.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Leggi i tasti G Logitech</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Legge i tasti G tramite l’SDK G-key di Logitech. Richiede Logitech Gaming Software 8.55 o successivo in esecuzione. In quel programma, rendi PadForge il profilo persistente, altrimenti i tasti raggiungono PadForge solo mentre la sua finestra è in primo piano.</value></data>
   <data name="Settings_GKeysStatus_NoSdk" xml:space="preserve"><value>Nessun SDK G-key Logitech su questo PC. Si installa con Logitech Gaming Software 8.55 o successivo.</value></data>
@@ -3687,4 +3687,8 @@ Puoi riprovare più tardi dalle Impostazioni.</value></data>
   <data name="ResetLabel_HoldMode" xml:space="preserve"><value>Modalità di mantenimento</value></data>
   <data name="ResetLabel_PositionX" xml:space="preserve"><value>Posizione sullo schermo X</value></data>
   <data name="ResetLabel_PositionY" xml:space="preserve"><value>Posizione sullo schermo Y</value></data>
+  <data name="Devices_AllConsumerControlsMerged" xml:space="preserve"><value>Tutti i controlli multimediali (uniti)</value></data>
+  <data name="Status_InstallerExitCode_Format" xml:space="preserve"><value>Il programma di installazione è terminato con il codice {0}.</value></data>
+  <data name="Status_InstallerTimedOut" xml:space="preserve"><value>Il programma di installazione era ancora in esecuzione dopo tre minuti.</value></data>
+  <data name="Status_RemovingLegacyDrivers" xml:space="preserve"><value>Rimozione dei driver legacy in corso…</value></data>
 </root>

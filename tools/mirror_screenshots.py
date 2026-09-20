@@ -83,12 +83,16 @@ def main():
         import re
         with io.open(index_html, encoding="utf-8") as fh:
             wanted = set(re.findall(r'assets/(screenshot-[A-Za-z0-9._-]+)\.jpg', fh.read()))
-    created = []
+    created, wanted_without_source = [], []
     for name in sorted(wanted):
         if os.path.exists(os.path.join(SITE_ASSETS, name + ".jpg")):
             continue
         src = source_for(name[len("screenshot-"):])
         if src is None:
+            # The page asks for it and nothing on disk can make it. That is
+            # a picture the site is missing, so it is said out loud below.
+            if name[len("screenshot-"):] not in NO_SOURCE_OK:
+                wanted_without_source.append(name)
             continue
         Image.open(src).convert("RGB").save(
             os.path.join(SITE_ASSETS, name + ".jpg"), "JPEG", quality=88, optimize=True)
@@ -121,6 +125,15 @@ def main():
         print("Each one is either a capture that never ran, or a name this")
         print("script has no ALIAS for. Both are gaps. Fix the capture or add")
         print("the alias. Do not delete the asset to make this pass.")
+        return 1
+
+    # The same gap from the other side: the page names an asset, nothing on
+    # disk can build it, and no asset exists yet for the loop above to trip on.
+    if wanted_without_source:
+        print()
+        print("FAIL: index.html names assets with no source PNG:", len(wanted_without_source))
+        for w in wanted_without_source:
+            print("   %s.jpg" % w)
         return 1
 
     print("every site asset resolved to a source")

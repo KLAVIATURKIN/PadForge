@@ -252,7 +252,7 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Remote Link ポート</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>モーション サーバー ポート</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Cemu、Dolphin、Yuzu などにジャイロおよび加速度センサーのデータを提供します。</value></data>
-  <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>OpenTrack や、UDP 出力を送信するまたは FreeTrack 2.0 の共有メモリに書き込むあらゆるトラッカー、およびこのマシンにインストールされたあらゆる OpenXR ランタイムで動作します。</value></data>
+  <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>OpenTrack や、UDP 出力を送信するまたは FreeTrack 2.0 の共有メモリに書き込むあらゆるトラッカー、およびこのマシンにインストールされた、バックグラウンドでセッションを実行できる OpenXR ランタイムで動作します。</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Logitech G キーを読み取る</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Logitech G-key SDK で G キーを読み取ります。Logitech Gaming Software 8.55 以降が実行されている必要があります。そのソフトで PadForge を常設プロファイルに設定してください。設定しない場合、キーは PadForge のウィンドウが前面にあるときだけ届きます。</value></data>
   <data name="Settings_GKeysStatus_NoSdk" xml:space="preserve"><value>この PC に Logitech G-key SDK がありません。Logitech Gaming Software 8.55 以降と一緒にインストールされます。</value></data>
@@ -3665,4 +3665,8 @@
   <data name="ResetLabel_HoldMode" xml:space="preserve"><value>保持モード</value></data>
   <data name="ResetLabel_PositionX" xml:space="preserve"><value>画面位置X</value></data>
   <data name="ResetLabel_PositionY" xml:space="preserve"><value>画面位置Y</value></data>
+  <data name="Devices_AllConsumerControlsMerged" xml:space="preserve"><value>すべてのコンシューマーコントロール (統合)</value></data>
+  <data name="Status_InstallerExitCode_Format" xml:space="preserve"><value>インストーラーがコード {0} で終了しました。</value></data>
+  <data name="Status_InstallerTimedOut" xml:space="preserve"><value>インストーラーは 3 分経過しても実行中でした。</value></data>
+  <data name="Status_RemovingLegacyDrivers" xml:space="preserve"><value>以前のドライバーを削除しています…</value></data>
 </root>

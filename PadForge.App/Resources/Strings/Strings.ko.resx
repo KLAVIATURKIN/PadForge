@@ -252,7 +252,7 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Remote Link 포트</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>모션 서버 포트</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Cemu, Dolphin, Yuzu 등에 자이로 및 가속도계 데이터를 제공합니다.</value></data>
-  <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>OpenTrack와 UDP 출력을 보내거나 FreeTrack 2.0 공유 메모리에 쓰는 모든 트래커, 그리고 이 컴퓨터에 설치된 모든 OpenXR 런타임과 함께 작동합니다.</value></data>
+  <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>OpenTrack와 UDP 출력을 보내거나 FreeTrack 2.0 공유 메모리에 쓰는 모든 트래커, 그리고 이 컴퓨터에 설치된, 백그라운드에서 세션을 실행할 수 있는 OpenXR 런타임과 함께 작동합니다.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Logitech G 키 읽기</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Logitech G-key SDK로 G 키를 읽습니다. Logitech Gaming Software 8.55 이상이 실행 중이어야 합니다. 해당 소프트웨어에서 PadForge를 상시 프로필로 지정하세요. 그렇지 않으면 PadForge 창이 앞에 있을 때만 키가 전달됩니다.</value></data>
   <data name="Settings_GKeysStatus_NoSdk" xml:space="preserve"><value>이 PC에 Logitech G-key SDK가 없습니다. Logitech Gaming Software 8.55 이상과 함께 설치됩니다.</value></data>
@@ -3665,4 +3665,8 @@
   <data name="ResetLabel_HoldMode" xml:space="preserve"><value>유지 모드</value></data>
   <data name="ResetLabel_PositionX" xml:space="preserve"><value>화면 위치 X</value></data>
   <data name="ResetLabel_PositionY" xml:space="preserve"><value>화면 위치 Y</value></data>
+  <data name="Devices_AllConsumerControlsMerged" xml:space="preserve"><value>모든 소비자 컨트롤 (병합)</value></data>
+  <data name="Status_InstallerExitCode_Format" xml:space="preserve"><value>설치 프로그램이 코드 {0}(으)로 종료되었습니다.</value></data>
+  <data name="Status_InstallerTimedOut" xml:space="preserve"><value>설치 프로그램이 3분이 지나도 계속 실행 중이었습니다.</value></data>
+  <data name="Status_RemovingLegacyDrivers" xml:space="preserve"><value>이전 드라이버 제거 중…</value></data>
 </root>

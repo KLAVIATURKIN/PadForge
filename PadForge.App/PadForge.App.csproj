@@ -93,8 +93,8 @@
       the fork carries the HIDMaestro filter, the Switch 2 Pro driver and the PS5
       status bytes. $(NativeArch) picks the x64 or arm64 folder for this build.
       Condition checks for existence so the build succeeds before the DLL is placed.
-      For ARM64 that silence is closed off by RequireArm64Natives at the bottom
-      of this file, which refuses a publish that lacks it.
+      That silence is closed off by RequireBundledNatives at the bottom of this
+      file, which refuses a publish that lacks it, for either architecture.
     -->
     <Content Include="Resources\SDL3\$(NativeArch)\SDL3.dll" Link="SDL3.dll" Condition="Exists('Resources\SDL3\$(NativeArch)\SDL3.dll')">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -224,7 +224,14 @@
          unstable in-progress work from the HIDMaestro repo. Update by
          copying the Release build of HIDMaestro.Core.dll from the
          HIDMaestro repo into Resources\HIDMaestro\ after tagging a
-         release there. Current: v1.8.0 (HM#60), which gives every
+         release there. Current: v1.9.0, which builds and embeds an
+         ARM64 driver payload beside the x64 one and pins the USB/IP
+         transport to usbip-win2 0.9.7.5, the last release with an ARM64
+         build.
+         v1.8.1 before it corrected the XUSB battery reply, which packed
+         its fields one byte early, so every virtual Xbox pad read as the
+         lowest battery level (HM#61, PadForge #447).
+         v1.8.0 before that (HM#60) gave every
          virtual controller a durable identity: the device paths, the
          container id and the USB serial of the composite personas derive
          from an identity key PadForge passes per slot, so a pad comes
@@ -457,6 +464,9 @@
         // Indexed rather than appended: the pack runs in parallel below and
         // the embedded resource order has to stay what the item list said.
         var results = new ITaskItem[Assets.Length];
+        // One slot per asset, written only by the iteration that owns it, so
+        // the parallel loop needs no lock to report a failure.
+        var notReplaced = new string[Assets.Length];
         int written = 0;
         Directory.CreateDirectory(OutputDir);
         // A missing packer file used to read as "never changed", which would
@@ -521,28 +531,72 @@
                 // name carries the process id, because two builds sharing one
                 // obj folder would otherwise fight over the same temp file.
                 string staging = target + "." + Process.GetCurrentProcess().Id + "." + Thread.CurrentThread.ManagedThreadId + ".tmp";
-                using (var output = File.Create(staging))
-                using (var brotli = (Stream)Activator.CreateInstance(
-                           streamType, new object[] { output, smallest, false }))
-                    brotli.Write(body, 0, body.Length);
+                try
+                {
+                    using (var output = File.Create(staging))
+                    using (var brotli = (Stream)Activator.CreateInstance(
+                               streamType, new object[] { output, smallest, false }))
+                        brotli.Write(body, 0, body.Length);
+                }
+                catch
+                {
+                    // A full disk fails here, part way through. The build
+                    // still stops on the exception. It just does not leave
+                    // a truncated .tmp behind for every asset it reached.
+                    try { File.Delete(staging); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+                    throw;
+                }
                 // Publish the staged file. WPF runs a second MSBuild pass
                 // through a generated _wpftmp project that shares this same
                 // obj folder, so two passes can pack the same asset at once.
                 // Whoever lands first wins and the loser drops its copy,
                 // because both produced identical bytes from identical input.
+                bool placed = false;
                 try
                 {
-                    if (File.Exists(target)) File.Delete(target);
-                    File.Move(staging, target);
+                    // Replace swaps the file in one step, so no reader ever
+                    // finds the target missing. Delete-then-move left a gap
+                    // in which the other pass could.
+                    if (File.Exists(target)) File.Replace(staging, target, null);
+                    else File.Move(staging, target);
+                    placed = true;
                     Interlocked.Increment(ref written);
                 }
-                catch (IOException)
+                catch (IOException) { }
+                catch (UnauthorizedAccessException) { }
+
+                // A replace that failed used to be assumed harmless: another
+                // pass packed the same asset first, and its file is as good
+                // as this one. That is one way to land here. A target that
+                // is read-only, or held open by another program, is another,
+                // and then the STALE file stayed in place and was embedded
+                // while the build reported success. The two are told apart
+                // by the one thing that defines "as good": the bytes. The
+                // pack is deterministic, so a winner's file equals this one
+                // exactly, and a stale file does not. Timestamps cannot say,
+                // because a winner can land between any two reads of them.
+                if (!placed)
                 {
-                    try { File.Delete(staging); } catch (IOException) { }
-                }
-                catch (UnauthorizedAccessException)
-                {
-                    try { File.Delete(staging); } catch (IOException) { }
+                    bool sameBytes = false;
+                    try
+                    {
+                        if (File.Exists(target))
+                        {
+                            byte[] theirs = File.ReadAllBytes(target);
+                            byte[] ours = File.ReadAllBytes(staging);
+                            sameBytes = theirs.Length == ours.Length;
+                            for (int b = 0; sameBytes && b < ours.Length; b++)
+                                sameBytes = theirs[b] == ours[b];
+                        }
+                    }
+                    catch (IOException) { }
+                    catch (UnauthorizedAccessException) { }
+                    try { File.Delete(staging); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+                    if (!sameBytes)
+                    {
+                        notReplaced[idx] = target;
+                        return;
+                    }
                 }
             }
 
@@ -550,6 +604,16 @@
             item.SetMetadata("LogicalName", logical);
             results[idx] = item;
         });
+
+        bool anyNotReplaced = false;
+        foreach (string stale in notReplaced)
+        {
+            if (stale == null) continue;
+            anyNotReplaced = true;
+            Log.LogError("Packed art could not be replaced, so the stale copy would have been embedded: "
+                         + stale + ". Something holds it open, or it is read-only.");
+        }
+        if (anyNotReplaced) return false;
 
         Packed = results;
         Log.LogMessage(MessageImportance.High,
@@ -612,25 +676,40 @@
     </ItemGroup>
   </Target>
 
-  <!-- SDL3.dll and xinput1_4.dll come from forks that are built in their own
-       workspaces and delivered here as binaries. Their Content items are
+  <!-- SDL3.dll, libusb-1.0.dll and xinput1_4.dll come from outside this
+       repository and are delivered here as binaries. Their Content items are
        conditioned on Exists, which is right for a first build but means a
-       missing DLL is SILENT: the ARM64 publish would succeed and produce an
-       exe whose input engine cannot start. A plain build is let through with
-       a message so the rest of the ARM64 tree can still be compiled and
-       checked. A PUBLISH without them is refused, because that is the step
-       whose output reaches somebody else's machine. -->
-  <Target Name="RequireArm64Natives" BeforeTargets="PrepareForPublish"
-          Condition="'$(NativeArch)' == 'arm64'">
-    <Error Condition="!Exists('Resources\SDL3\arm64\SDL3.dll')"
-           Text="ARM64 publish refused: Resources\SDL3\arm64\SDL3.dll is missing. It has to come from an ARM64 build of the SDL fork. Without it the input engine cannot start." />
-    <Error Condition="!Exists('Resources\OpenXInput\arm64\xinput1_4.dll')"
-           Text="ARM64 publish refused: Resources\OpenXInput\arm64\xinput1_4.dll is missing. It has to come from an ARM64 build of the OpenXInput fork. Without it SDL loads the system xinput1_4.dll, the HIDMaestro filter is gone, and PadForge reads its own virtual controllers back as input." />
+       missing DLL is SILENT: the publish would succeed and produce an exe
+       whose input engine cannot start, or one that reads its own virtual
+       controllers back as input. A plain build is let through with a message
+       so the rest of the tree can still be compiled and checked. A PUBLISH
+       without them is refused, because that is the step whose output
+       reaches somebody else's machine.
+
+       The guard first covered ARM64 alone and named two files, because
+       those were the two that did not exist yet. x64 had the same silence,
+       and libusb had it on both: 4.5.0 shipped with wired Switch 2
+       controllers dead because SDL could not load libusb, which is the
+       state a missing libusb-1.0.dll reproduces exactly. The auto build
+       runs no tests, so this target is the only check it has.
+
+       An architecture with no native folder is refused outright. Any other
+       runtime identifier fell through to the x64 folder, which would put
+       x64 DLLs beside an x86 exe. -->
+  <Target Name="RequireBundledNatives" BeforeTargets="PrepareForPublish">
+    <Error Condition="'$(RuntimeIdentifier)' != 'win-x64' And '$(RuntimeIdentifier)' != 'win-arm64'"
+           Text="Publish refused: PadForge bundles native libraries for win-x64 and win-arm64 only, and '$(RuntimeIdentifier)' would be given the x64 ones." />
+    <Error Condition="!Exists('Resources\SDL3\$(NativeArch)\SDL3.dll')"
+           Text="Publish refused: Resources\SDL3\$(NativeArch)\SDL3.dll is missing. It has to come from a $(NativeArch) build of the SDL fork. Without it the input engine cannot start." />
+    <Error Condition="!Exists('Resources\SDL3\$(NativeArch)\libusb-1.0.dll')"
+           Text="Publish refused: Resources\SDL3\$(NativeArch)\libusb-1.0.dll is missing. SDL loads it by name at run time, and without it wired Switch 2 controllers and the GameCube adapter never open." />
+    <Error Condition="!Exists('Resources\OpenXInput\$(NativeArch)\xinput1_4.dll')"
+           Text="Publish refused: Resources\OpenXInput\$(NativeArch)\xinput1_4.dll is missing. It has to come from a $(NativeArch) build of the OpenXInput fork. Without it SDL loads the system xinput1_4.dll, the HIDMaestro filter is gone, and PadForge reads its own virtual controllers back as input." />
   </Target>
-  <Target Name="NoteMissingArm64Natives" BeforeTargets="PrepareForBuild"
-          Condition="'$(NativeArch)' == 'arm64' And (!Exists('Resources\SDL3\arm64\SDL3.dll') Or !Exists('Resources\OpenXInput\arm64\xinput1_4.dll'))">
+  <Target Name="NoteMissingBundledNatives" BeforeTargets="PrepareForBuild"
+          Condition="!Exists('Resources\SDL3\$(NativeArch)\SDL3.dll') Or !Exists('Resources\SDL3\$(NativeArch)\libusb-1.0.dll') Or !Exists('Resources\OpenXInput\$(NativeArch)\xinput1_4.dll')">
     <Message Importance="high"
-             Text="ARM64: SDL3.dll and/or xinput1_4.dll are not in Resources\...\arm64 yet. This build compiles, and a publish will be refused until both are there." />
+             Text="$(NativeArch): SDL3.dll, libusb-1.0.dll and/or xinput1_4.dll are not in Resources\...\$(NativeArch) yet. This build compiles, and a publish will be refused until all three are there." />
   </Target>
 
 </Project>

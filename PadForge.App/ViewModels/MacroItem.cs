@@ -2356,8 +2356,8 @@ namespace PadForge.ViewModels
         [System.Xml.Serialization.XmlIgnore]
         public int VariableCount => _triggerExpressionVariables?.Count ?? 0;
 
-        /// <summary>Serializable comma-separated list of the variables' Spec
-        /// strings. Empty entries are preserved so a/b/c/... indexing is
+        /// <summary>Serializable list of the variables' Spec strings, joined
+        /// with '|'. Empty entries are preserved so a/b/c/... indexing is
         /// stable across a load even if some variables are still unbound.</summary>
         public string TriggerExpressionVariableSpecs
         {

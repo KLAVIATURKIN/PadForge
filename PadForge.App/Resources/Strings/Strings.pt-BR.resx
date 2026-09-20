@@ -252,7 +252,7 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Porta do Remote Link</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Porta do Servidor de Movimento</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Fornece dados de giroscópio e acelerômetro para Cemu, Dolphin, Yuzu, etc.</value></data>
-  <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Funciona com o OpenTrack e com qualquer rastreador que envie sua saída UDP ou escreva na memória compartilhada do FreeTrack 2.0, e com qualquer tempo de execução OpenXR instalado nesta máquina.</value></data>
+  <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Funciona com o OpenTrack e com qualquer rastreador que envie sua saída UDP ou escreva na memória compartilhada do FreeTrack 2.0, e com um tempo de execução OpenXR instalado nesta máquina que possa executar uma sessão em segundo plano.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Ler as Teclas G da Logitech</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Lê as teclas G pelo SDK G-key da Logitech. Exige o Logitech Gaming Software 8.55 ou posterior em execução. Nesse programa, torne o PadForge o perfil persistente; caso contrário, as teclas só chegam ao PadForge enquanto a janela dele estiver em primeiro plano.</value></data>
   <data name="Settings_GKeysStatus_NoSdk" xml:space="preserve"><value>Nenhum SDK G-key da Logitech neste PC. Ele é instalado com o Logitech Gaming Software 8.55 ou posterior.</value></data>
@@ -3659,4 +3659,8 @@ Você pode tentar novamente mais tarde em Configurações.</value></data>
   <data name="ResetLabel_HoldMode" xml:space="preserve"><value>Modo de sustentação</value></data>
   <data name="ResetLabel_PositionX" xml:space="preserve"><value>Posição na tela X</value></data>
   <data name="ResetLabel_PositionY" xml:space="preserve"><value>Posição na tela Y</value></data>
+  <data name="Devices_AllConsumerControlsMerged" xml:space="preserve"><value>Todos os Controles de Consumidor (Combinados)</value></data>
+  <data name="Status_InstallerExitCode_Format" xml:space="preserve"><value>O instalador terminou com o código {0}.</value></data>
+  <data name="Status_InstallerTimedOut" xml:space="preserve"><value>O instalador ainda estava em execução após três minutos.</value></data>
+  <data name="Status_RemovingLegacyDrivers" xml:space="preserve"><value>Removendo drivers antigos…</value></data>
 </root>

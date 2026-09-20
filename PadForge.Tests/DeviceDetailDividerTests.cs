@@ -129,6 +129,73 @@ namespace PadForge.Tests
         }
 
         /// <summary>
+        /// A merged row stands for every device of its kind and has no HID
+        /// instance of its own, so HidHide has nothing to cloak for it. The
+        /// hiding pass skips such a row on both of its lookups (its path names
+        /// no instance and its vendor and product ids are zero), and the box
+        /// was offered there anyway: it took the tick, saved it and hid
+        /// nothing.
+        ///
+        /// <para>The four merged rows do not end up the same. Consume Input
+        /// is a separate route that does work on a merged keyboard or mouse,
+        /// so those two keep the section with that one box in it. Touchpads
+        /// and consumer controls have neither box, so the heading goes as
+        /// well, or it would sit over an empty body.</para>
+        /// </summary>
+        [Theory]
+        [InlineData("aggregate://keyboards", "Keyboard", true)]
+        [InlineData("aggregate://mice", "Mouse", true)]
+        [InlineData("aggregate://touchpads", "Touchpad", false)]
+        [InlineData("aggregate://consumercontrols", "ConsumerControl", false)]
+        public void AMergedRow_NeverOffersHidHide_AndKeepsConsumeWhereItWorks(
+            string devicePath, string typeKey, bool consumeApplies)
+        {
+            var vm = new DeviceRowViewModel { DeviceTypeKey = typeKey, DevicePath = devicePath };
+
+            Assert.True(vm.IsAggregate);
+            Assert.False(vm.ShowHidHideToggle, devicePath + " has no HID instance for HidHide to cloak");
+            Assert.Equal(consumeApplies, vm.ShowConsumeToggle);
+            Assert.Equal(consumeApplies, vm.ShowInputHidingSection);
+        }
+
+        /// <summary>The physical devices the merged rows stand for keep the
+        /// box. Taking it off a real keyboard to fix the merged row would
+        /// trade one defect for a worse one.</summary>
+        [Theory]
+        [InlineData("Keyboard")]
+        [InlineData("Mouse")]
+        [InlineData("Gamepad")]
+        [InlineData("ConsumerControl")]
+        public void APhysicalRow_StillOffersHidHide(string typeKey)
+        {
+            var vm = new DeviceRowViewModel { DeviceTypeKey = typeKey, DevicePath = @"\?\hid#vid_046d&pid_c33f" };
+
+            Assert.False(vm.IsAggregate);
+            Assert.True(vm.ShowHidHideToggle);
+            Assert.True(vm.ShowInputHidingSection);
+        }
+
+        /// <summary>A row is built before its type and path are known, and
+        /// they arrive in either order. The heading now follows the two
+        /// boxes, and one of those follows the type, so setting the type has
+        /// to raise the heading's change too or a binding made against the
+        /// empty row keeps the stale answer.</summary>
+        [Fact]
+        public void SettingTheTypeAfterThePath_RaisesTheHidingSectionsChange()
+        {
+            var vm = new DeviceRowViewModel { DevicePath = "aggregate://keyboards" };
+            Assert.False(vm.ShowInputHidingSection);
+
+            var raised = new System.Collections.Generic.List<string>();
+            vm.PropertyChanged += (_, e) => raised.Add(e.PropertyName);
+            vm.DeviceTypeKey = "Keyboard";
+
+            Assert.True(vm.ShowInputHidingSection);
+            Assert.Contains(nameof(DeviceRowViewModel.ShowConsumeToggle), raised);
+            Assert.Contains(nameof(DeviceRowViewModel.ShowInputHidingSection), raised);
+        }
+
+        /// <summary>
         /// Submitting a mapping opens a pre-filled GitHub issue about a piece of
         /// hardware, so a row backed by a runtime or an SDK has nothing to
         /// submit. VrController and LogitechGKeys missed this list in 4.5.0.

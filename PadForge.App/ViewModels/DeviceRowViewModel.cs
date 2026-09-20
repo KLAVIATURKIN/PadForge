@@ -243,6 +243,13 @@ namespace PadForge.ViewModels
                     OnPropertyChanged(nameof(DeviceType));
                     OnPropertyChanged(nameof(IsGamepad));
                     OnPropertyChanged(nameof(ShowInputModeSection));
+                    // Consume Input is offered by device type, and the Input
+                    // Hiding heading now follows the two toggles, so both
+                    // answer to the key. ShowConsumeToggle was missing here
+                    // while its only path-side refresh happened to run after
+                    // the key was set.
+                    OnPropertyChanged(nameof(ShowConsumeToggle));
+                    OnPropertyChanged(nameof(ShowInputHidingSection));
                     OnPropertyChanged(nameof(ShowInputModeOrHidingSection));
                     OnPropertyChanged(nameof(ShowRawInputDivider));
                     OnPropertyChanged(nameof(IsMidiDevice));
@@ -724,10 +731,28 @@ namespace PadForge.ViewModels
              || _devicePath.StartsWith("openxr://", StringComparison.Ordinal)
              || _devicePath.StartsWith("logigkeys://", StringComparison.Ordinal));
 
+        /// <summary>True for a merged row (All Keyboards, All Mice, All
+        /// Touchpads, All Consumer Controls). It stands for every device of
+        /// its kind at once and has no HID instance of its own.</summary>
+        public bool IsAggregate =>
+            _devicePath?.StartsWith("aggregate://", StringComparison.Ordinal) == true;
+
+        /// <summary>Whether "Hide from Games" can do anything for this row.
+        /// HidHide cloaks HID instances, and a merged row has none: its path
+        /// resolves to no instance and its vendor and product ids are zero,
+        /// so the hiding pass skips it on both of its lookups. The box was
+        /// offered there anyway, took the tick, saved it, and hid nothing.
+        /// Consume Input is a separate route that does work on a merged
+        /// keyboard or mouse row, so it keeps its own rule.</summary>
+        public bool ShowHidHideToggle => !IsInternalVirtual && !IsAggregate;
+
         /// <summary>True when at least one input-hiding toggle would be shown,
         /// so the "Input Hiding" section can hide its heading along with its
-        /// (now-empty) body when nothing applies.</summary>
-        public bool ShowInputHidingSection => !IsInternalVirtual;
+        /// (now-empty) body when nothing applies. It names the two toggles
+        /// rather than restating their rules, so a row where neither applies
+        /// (a merged touchpad or consumer-control row) loses the heading
+        /// too.</summary>
+        public bool ShowInputHidingSection => ShowHidHideToggle || ShowConsumeToggle;
 
         public bool IsTabletDevice => DeviceTypeKey == "Tablet";
         public bool ShowTabletCaptureStatus => IsTabletDevice && !IsInternalVirtual;
@@ -794,6 +819,8 @@ namespace PadForge.ViewModels
                 if (SetProperty(ref _devicePath, value))
                 {
                     OnPropertyChanged(nameof(IsInternalVirtual));
+                    OnPropertyChanged(nameof(IsAggregate));
+                    OnPropertyChanged(nameof(ShowHidHideToggle));
                     OnPropertyChanged(nameof(ShowTabletCaptureStatus));
                     OnPropertyChanged(nameof(ShowInputHidingSection));
                     OnPropertyChanged(nameof(ShowInputModeSection));
@@ -859,10 +886,12 @@ namespace PadForge.ViewModels
         public bool IsGamepad => DeviceTypeKey == "Gamepad";
 
         /// <summary>True if this device can have community mappings submitted.
-        /// Excluded: anything already mapped by SDL, and every synthetic row.
-        /// A mapping submission opens a pre-filled GitHub issue about a piece
-        /// of hardware, so a row backed by a runtime or an SDK rather than a
-        /// device has nothing to submit.</summary>
+        /// Excluded: anything already mapped by SDL, and every row that a
+        /// runtime, an SDK or PadForge itself feeds. A mapping submission
+        /// opens a pre-filled GitHub issue about a piece of hardware, so such
+        /// a row has nothing to submit. A device on a linked PC is hardware
+        /// and keeps the button: its row carries the remote device's own
+        /// vendor id, product id and SDL GUID.</summary>
         public bool ShowSubmitMapping => DeviceTypeKey != "Gamepad" && DeviceTypeKey != "Mouse" && DeviceTypeKey != "Keyboard" && DeviceTypeKey != "Touchpad" && DeviceTypeKey != "Tablet" && DeviceTypeKey != "Midi" && DeviceTypeKey != "Nfc" && DeviceTypeKey != "HeadsetMotion" && DeviceTypeKey != "Microphone" && DeviceTypeKey != "HandheldButtons" && DeviceTypeKey != "ConsumerControl" && DeviceTypeKey != "SystemMotion" && DeviceTypeKey != "HeadTracker" && DeviceTypeKey != "VrController" && DeviceTypeKey != "LogitechGKeys";
 
         /// <summary>True for an NFC reader (issue #150): shows the "Register/Manage

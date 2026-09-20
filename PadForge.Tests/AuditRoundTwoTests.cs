@@ -142,12 +142,50 @@ namespace PadForge.Tests
                 Assert.NotEqual(ObjectGuid.PovController, o.ObjectTypeGuid);
         }
 
+        /// <summary>The built surface has to reach the capability snapshot,
+        /// which is what the Devices page summarizes and previews from. It
+        /// reached the button list and the object list and stopped there, so
+        /// a pad of one button was listed with six axes and a POV.</summary>
+        [Fact]
+        public void CustomPad_ReportsItsOwnAxesAndPovToTheCapabilitySnapshot()
+        {
+            var buttonsOnly = new WebControllerDevice("audit-custom-buttons", "Button Pad");
+            buttonsOnly.SetCustomSurface(null, new[] { 0 }, hasPov: false);
+            Assert.Empty(buttonsOnly.SupportedAxisIndices);
+            Assert.Equal(0, buttonsOnly.NumHats);
+
+            var snapshot = new PadForge.Engine.Data.UserDevice();
+            snapshot.LoadFromWebDevice(buttonsOnly);
+            Assert.Equal(0, snapshot.CapAxeCount);
+            Assert.Equal(1, snapshot.CapButtonCount);
+            Assert.Equal(0, snapshot.CapPovCount);
+
+            // A right stick and a D-pad. The axes keep their canonical slot
+            // numbers: renumbering them to 0 and 1 would turn a right stick
+            // into a left one in every saved mapping.
+            var rightStick = new WebControllerDevice("audit-custom-stick", "Stick Pad");
+            rightStick.SetCustomSurface(new[] { 4, 3 }, null, hasPov: true);
+            Assert.Equal(new[] { 3, 4 }, rightStick.SupportedAxisIndices);
+            Assert.Equal(1, rightStick.NumHats);
+
+            snapshot = new PadForge.Engine.Data.UserDevice();
+            snapshot.LoadFromWebDevice(rightStick);
+            Assert.Equal(2, snapshot.CapAxeCount);
+            Assert.Equal(new[] { 3, 4 }, snapshot.CapAxisIndices);
+            Assert.Equal(1, snapshot.CapPovCount);
+        }
+
         [Fact]
         public void StockPad_KeepsTheFullGamepadSurface()
         {
             var pad = new WebControllerDevice("audit-stock", "Stock Pad");
             Assert.Equal(11, pad.SupportedButtonIndices.Length);
             Assert.Equal(6 + 11 + 1, pad.GetDeviceObjects().Length);
+            // No built surface, so no opinion on the axes: the count stays
+            // with NumAxes, and the stock D-pad stays.
+            Assert.Null(pad.SupportedAxisIndices);
+            Assert.Equal(6, pad.NumAxes);
+            Assert.Equal(1, pad.NumHats);
         }
 
         // ── Rumble is claimed only when the browser can play it ──

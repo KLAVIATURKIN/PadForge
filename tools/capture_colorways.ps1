@@ -296,7 +296,16 @@ try {
             Start-Sleep 3
             continue
         }
-        [void](Click-Rect $card "dashboard slot card 1")
+        # Click-Rect answers false when the card has no rectangle to click.
+        # The answer was thrown away, so the shot went ahead and saved a
+        # dashboard with nothing selected under this colorway's name.
+        if (-not (Click-Rect $card "dashboard slot card 1")) {
+            Note "  !! SKIPPED $($sc.Shot): the slot card could not be clicked"
+            $script:missed += $sc.Shot
+            Kill-PadForge
+            Start-Sleep 3
+            continue
+        }
         Start-Sleep 2
         Shot $sc.Shot
 

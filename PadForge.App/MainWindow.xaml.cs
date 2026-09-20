@@ -2590,27 +2590,37 @@ namespace PadForge
                     // to keep this flow's modal error. It is a one-time offer
                     // whose failure needs to be seen, not a line of status that
                     // scrolls past.
-                    Exception cleanupError = null;
+                    //
+                    // Each driver gets its own try. They shared one, so a
+                    // ViGEmBus uninstall that failed skipped vJoy entirely,
+                    // and the user was told about one driver while the other
+                    // was never attempted.
+                    var cleanupErrors = new List<string>();
                     await RunDriverOperationAsync(
-                        "Removing legacy drivers...",
+                        Strings.Instance.Status_RemovingLegacyDrivers,
                         () =>
                         {
-                            try
+                            if (hasViGEm)
                             {
-                                if (hasViGEm) DriverInstaller.UninstallViGEmBus();
-                                if (hasExtended) DriverInstaller.UninstallVJoy();
+                                try { DriverInstaller.UninstallViGEmBus(); }
+                                catch (Exception ex) { cleanupErrors.Add(DescribeDriverFailure(ex)); }
                             }
-                            catch (Exception ex) { cleanupError = ex; }
+                            if (hasExtended)
+                            {
+                                try { DriverInstaller.UninstallVJoy(); }
+                                catch (Exception ex) { cleanupErrors.Add(DescribeDriverFailure(ex)); }
+                            }
                         },
                         () => { });
 
-                    if (cleanupError != null)
+                    if (cleanupErrors.Count > 0)
                     {
                         var err = new Wpf.Ui.Controls.MessageBox
                         {
                             Title = Strings.Instance.LegacyCleanup_Title,
                             Content = string.Format(
-                                Strings.Instance.LegacyCleanup_Failed_Format, cleanupError.Message),
+                                Strings.Instance.LegacyCleanup_Failed_Format,
+                                string.Join(Environment.NewLine, cleanupErrors)),
                             CloseButtonText = Strings.Instance.Common_OK,
                         };
                         _ = await err.ShowDialogAsync();
@@ -8539,6 +8549,19 @@ namespace PadForge
         // ─────────────────────────────────────────────
 
         /// <summary>
+        /// What went wrong in a driver operation, worded for the user. An
+        /// installer's failure carries an exit code or a timeout, and its own
+        /// message is an English fallback, so it is worded here in the UI
+        /// language. Anything else keeps the message it came with.
+        /// </summary>
+        private static string DescribeDriverFailure(Exception ex)
+            => ex is InstallerFailedException failed
+                ? (failed.TimedOut
+                    ? Strings.Instance.Status_InstallerTimedOut
+                    : string.Format(Strings.Instance.Status_InstallerExitCode_Format, failed.ExitCode))
+                : ex.Message;
+
+        /// <summary>
         /// Runs a driver install/uninstall operation on a background thread,
         /// then refreshes the driver status on the UI thread.
         /// </summary>
@@ -8552,14 +8575,22 @@ namespace PadForge
                 await Task.Run(operation);
                 _viewModel.StatusText = Strings.Instance.Common_Ready;
             }
-            catch (System.ComponentModel.Win32Exception)
+            catch (System.ComponentModel.Win32Exception ex) when (ex.NativeErrorCode == 1223)
             {
-                // User declined UAC prompt.
+                // ERROR_CANCELLED: the user declined the UAC prompt. Every
+                // other Win32 failure (a policy that blocks msiexec, a
+                // missing file) used to land here too and read as a cancel.
+                // Those now reach the general catch and show their reason.
+                _viewModel.StatusText = Strings.Instance.Status_OperationCanceled;
+            }
+            catch (InstallerFailedException ex) when (ex.UserCanceled)
+            {
+                // Cancel pressed on the installer's own progress window.
                 _viewModel.StatusText = Strings.Instance.Status_OperationCanceled;
             }
             catch (Exception ex)
             {
-                _viewModel.SetStatus(string.Format(Strings.Instance.Status_DriverOperationFailed_Format, ex.Message), persist: true);
+                _viewModel.SetStatus(string.Format(Strings.Instance.Status_DriverOperationFailed_Format, DescribeDriverFailure(ex)), persist: true);
             }
             finally
             {

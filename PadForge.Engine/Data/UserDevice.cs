@@ -125,8 +125,21 @@ namespace PadForge.Engine.Data
         /// PadForge has never seen online. Callers fall back to the dense
         /// range in that case, because a position nobody has observed cannot
         /// be reported.</para>
+        ///
+        /// <para>The setter drops any position the input state has no slot
+        /// for. Every list PadForge builds is in range already. The one that
+        /// is not comes from a settings file edited by hand or damaged on
+        /// disk, and its readers index name tables and state arrays with
+        /// these values, checking the upper bound and not the lower one. A
+        /// -1 reached <c>names[-1]</c> in the mapping picker. Cleaning the
+        /// list where it enters covers every reader at once.</para>
         /// </summary>
-        public int[] CapButtonIndices { get; set; }
+        public int[] CapButtonIndices
+        {
+            get => _capButtonIndices;
+            set => _capButtonIndices = PositionsInRange(value, CustomInputState.MaxButtons);
+        }
+        private int[] _capButtonIndices;
 
         /// <summary>The axis twin of <see cref="CapButtonIndices"/>: the axis
         /// positions the device actually populates, recorded the last time it
@@ -142,8 +155,35 @@ namespace PadForge.Engine.Data
         /// <para>Null or empty on configs predating this field and on devices
         /// PadForge has never seen online. Callers fall back to the dense
         /// range in that case.</para>
+        ///
+        /// <para>Out-of-range positions are dropped on the way in, as for
+        /// <see cref="CapButtonIndices"/>.</para>
         /// </summary>
-        public int[] CapAxisIndices { get; set; }
+        public int[] CapAxisIndices
+        {
+            get => _capAxisIndices;
+            set => _capAxisIndices = PositionsInRange(value, CustomInputState.MaxAxis);
+        }
+        private int[] _capAxisIndices;
+
+        /// <summary>The list with every position outside 0..capacity-1
+        /// removed. The same array comes back when nothing had to go, so the
+        /// ordinary path allocates nothing, and null stays null because null
+        /// means "never observed", which is not the same as "has none".</summary>
+        internal static int[] PositionsInRange(int[] positions, int capacity)
+        {
+            if (positions == null) return null;
+            int keep = 0;
+            foreach (int p in positions)
+                if (p >= 0 && p < capacity) keep++;
+            if (keep == positions.Length) return positions;
+
+            var clean = new int[keep];
+            int n = 0;
+            foreach (int p in positions)
+                if (p >= 0 && p < capacity) clean[n++] = p;
+            return clean;
+        }
 
         /// <summary>
         /// Total number of raw joystick buttons (before gamepad remapping).

@@ -252,7 +252,7 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Remote Link 端口</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>运动服务器端口</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>为 Cemu、Dolphin、Yuzu 等提供陀螺仪和加速度计数据。</value></data>
-  <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>适用于 OpenTrack、任何发送 UDP 输出或写入 FreeTrack 2.0 共享内存的跟踪器，以及本机安装的任何 OpenXR 运行时。</value></data>
+  <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>适用于 OpenTrack、任何发送 UDP 输出或写入 FreeTrack 2.0 共享内存的跟踪器，以及本机安装的、能够在后台运行会话的 OpenXR 运行时。</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>读取罗技 G 键</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>通过罗技 G-key SDK 读取 G 键。需要运行 Logitech Gaming Software 8.55 或更高版本。请在该软件中将 PadForge 设为常驻配置文件，否则这些键仅在 PadForge 窗口位于前台时才会送达。</value></data>
   <data name="Settings_GKeysStatus_NoSdk" xml:space="preserve"><value>此电脑上没有罗技 G-key SDK。它随 Logitech Gaming Software 8.55 或更高版本一起安装。</value></data>
@@ -2417,7 +2417,7 @@
   <data name="VrCtl_Secondary" xml:space="preserve"><value>副按钮</value></data>
   <data name="VrCtl_Menu" xml:space="preserve"><value>菜单按钮</value></data>
   <data name="Dashboard_HeadTracking" xml:space="preserve"><value>头部追踪</value></data>
-  <data name="Dashboard_HeadTrackingDesc" xml:space="preserve"><value>从 OpenTrack 的 UDP 输出、FreeTrack 2.0 共享内存，或通过 OpenXR 运行时从 VR 头昵读取头部姿态，并作为 Head Tracker 设备的六个轴提供：偏航、俯仰、翻滚以及三个平移。将头部偏航映射到摇杆轴，就能在双拇指不离开按钮的情况下环顾四周。</value></data>
+  <data name="Dashboard_HeadTrackingDesc" xml:space="preserve"><value>从 OpenTrack 的 UDP 输出、FreeTrack 2.0 共享内存，或通过 OpenXR 运行时从 VR 头显读取头部姿态，并作为 Head Tracker 设备的六个轴提供：偏航、俯仰、翻滚以及三个平移。将头部偏航映射到摇杆轴，就能在双拇指不离开按钮的情况下环顾四周。</value></data>
   <data name="Dashboard_HeadTrackingEnable" xml:space="preserve"><value>启用 UDP 跟踪输入</value></data>
   <data name="Dashboard_HeadTrackingEnable_Tooltip" xml:space="preserve"><value>通过 UDP 接收头部跟踪数据。FreeTrack 输入可单独启用。</value></data>
   <data name="Dashboard_HeadTrackingFreeTrack" xml:space="preserve"><value>启用 FreeTrack 2.0 共享内存输入</value></data>
@@ -3533,7 +3533,7 @@
     <value>握持设置所对应的 Wii 遥控器握持方向预设。linuxmotehook 采用 Apache-2.0。WiimoteHook 是通过其文档参考的闭源工具。不随附任何代码。</value>
   </data>
   <data name="About_OpenXrRefs" xml:space="preserve"><value>OpenXR 参考来源</value></data>
-  <data name="About_OpenXrRefsDesc" xml:space="preserve"><value>头昵和体感手柄输入背后的运行时接口、结构布局和注册表项，读自 Khronos OpenXR-SDK 头文件（Apache-2.0），并与 VirtualDesktop-OpenXR（MIT）比对。PadForge 与你自己安装的运行时通信，不随附 Khronos 代码。</value></data>
+  <data name="About_OpenXrRefsDesc" xml:space="preserve"><value>头显和体感手柄输入背后的运行时接口、结构布局和注册表项，读自 Khronos OpenXR-SDK 头文件（Apache-2.0），并与 VirtualDesktop-OpenXR（MIT）比对。PadForge 与你自己安装的运行时通信，不随附 Khronos 代码。</value></data>
   <data name="About_LogitechGKeyRefs" xml:space="preserve"><value>Logitech G-key SDK 参考来源</value></data>
   <data name="About_LogitechGKeyRefsDesc" xml:space="preserve"><value>G 键输入背后的事件字布局和库生命周期，读自 SDK 中的 LogitechGkeyLib.h，并与 Mumble 的 GKey.cpp（BSD 3-Clause）比对。PadForge 加载本机上的库，不随附 Logitech 代码。</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
@@ -3665,4 +3665,8 @@
   <data name="ResetLabel_HoldMode" xml:space="preserve"><value>保持模式</value></data>
   <data name="ResetLabel_PositionX" xml:space="preserve"><value>屏幕位置X</value></data>
   <data name="ResetLabel_PositionY" xml:space="preserve"><value>屏幕位置Y</value></data>
+  <data name="Devices_AllConsumerControlsMerged" xml:space="preserve"><value>所有消费者控制（合并）</value></data>
+  <data name="Status_InstallerExitCode_Format" xml:space="preserve"><value>安装程序以代码 {0} 退出。</value></data>
+  <data name="Status_InstallerTimedOut" xml:space="preserve"><value>安装程序在三分钟后仍在运行。</value></data>
+  <data name="Status_RemovingLegacyDrivers" xml:space="preserve"><value>正在移除旧驱动程序…</value></data>
 </root>

@@ -79,7 +79,23 @@ namespace PadForge.Engine
             : HasTouchpad ? 17
             : NumGamepadButtons;
         public int RawButtonCount => NumButtons;
-        public int NumHats => _isTouchpadDevice ? 0 : NumGamepadPovs;
+        // A built pad carries a D-pad only when its author placed one. The
+        // stock count was reported for every gamepad client, so a pad of one
+        // button showed a POV on the Devices page that nothing could move.
+        public int NumHats =>
+            _isTouchpadDevice ? 0
+            : _hasCustomSurface ? (_customHasPov ? 1 : 0)
+            : NumGamepadPovs;
+
+        /// <summary>The axes a built pad actually carries, by their canonical
+        /// slot numbers, so a right stick alone is {3, 4} and stays there.
+        /// Null for every other client, which leaves the count to
+        /// <see cref="NumAxes"/>. An empty set is an answer too: a pad of
+        /// buttons has no axes, and the capability snapshot records zero for
+        /// it instead of the six slots every gamepad client reserves.
+        /// SupportedButtonIndices and GetDeviceObjects already spoke for the
+        /// built surface. This was the member that did not.</summary>
+        public int[] SupportedAxisIndices => _hasCustomSurface ? _customAxes : null;
         public int[] SupportedButtonIndices
         {
             get

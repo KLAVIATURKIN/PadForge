@@ -7044,7 +7044,8 @@ namespace PadForge.Services
         /// strings substituted for aggregate/overlay devices (so the
         /// Mappings tab and recording status text match what the Devices
         /// page shows for "All Keyboards (Merged)" / "All Mice (Merged)" /
-        /// "All Touchpads (Merged)" / the touchpad overlay). Falls back
+        /// "All Touchpads (Merged)" / "All Consumer Controls (Merged)" / the
+        /// touchpad overlay). Falls back
         /// to ResolvedName → ProductName → InstanceName.</summary>
         public static string LocalizedDeviceName(UserDevice ud)
         {
@@ -7054,6 +7055,7 @@ namespace PadForge.Services
                 case "aggregate://keyboards": return Strings.Instance.Devices_AllKeyboardsMerged;
                 case "aggregate://mice":      return Strings.Instance.Devices_AllMiceMerged;
                 case "aggregate://touchpads": return Strings.Instance.Devices_AllTouchpadsMerged;
+                case "aggregate://consumercontrols": return Strings.Instance.Devices_AllConsumerControlsMerged;
                 case "overlay://touchpad":    return Strings.Instance.Dashboard_TouchpadOverlay;
                 default: return ud.ResolvedName ?? ud.ProductName ?? ud.InstanceName;
             }
@@ -13307,6 +13309,7 @@ namespace PadForge.Services
             row.DeviceName = ud.DevicePath == "aggregate://keyboards" ? Strings.Instance.Devices_AllKeyboardsMerged
                            : ud.DevicePath == "aggregate://mice" ? Strings.Instance.Devices_AllMiceMerged
                            : ud.DevicePath == "aggregate://touchpads" ? Strings.Instance.Devices_AllTouchpadsMerged
+                           : ud.DevicePath == "aggregate://consumercontrols" ? Strings.Instance.Devices_AllConsumerControlsMerged
                            : ud.DevicePath == "overlay://touchpad" ? Strings.Instance.Dashboard_TouchpadOverlay
                            : ud.ResolvedName;
             row.ProductName = ud.ProductName;

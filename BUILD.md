@@ -201,9 +201,9 @@ dotnet publish -c Release -r win-arm64 PadForge.App/PadForge.App.csproj
 
 Output: `PadForge.App/bin/Release/net10.0-windows10.0.26100.0/win-arm64/publish/PadForge.exe`. With no `-r` the build is x64, so existing scripts produce what they always have.
 
-Every bundled native binary sits in a folder named for its architecture: `Resources/SDL3/x64` and `Resources/SDL3/arm64`, and the same pair for `OpenXInput`, `VisualCpp` and `Interhaptics`. The `$(NativeArch)` property picks the folder. `NativeBinaryArchitectureTests` reads the PE header of every file in those folders and fails when a file's machine type differs from its folder name.
+Every bundled native binary sits in a folder named for its architecture: `Resources/SDL3/x64` and `Resources/SDL3/arm64`, and the same pair for `OpenXInput` and `VisualCpp`. `Interhaptics` has an `x64` folder only. The `$(NativeArch)` property picks the folder. `NativeBinaryArchitectureTests` reads the PE header of every file in those folders and fails when a file's machine type differs from its folder name.
 
-An ARM64 publish is refused if `Resources/SDL3/arm64/SDL3.dll` or `Resources/OpenXInput/arm64/xinput1_4.dll` is missing. Both come from ARM64 builds of the two forks, cross-compiled on an x64 machine with `cmake -A ARM64`. A plain `dotnet build -r win-arm64` compiles without them.
+A publish for either architecture is refused if `SDL3.dll` or `libusb-1.0.dll` is missing from `Resources/SDL3/<arch>`, or `xinput1_4.dll` from `Resources/OpenXInput/<arch>`. The three `Content` items are conditioned on `Exists`, so without the `RequireBundledNatives` target a missing file would publish anyway, and the auto build runs no tests that would notice. Without `SDL3.dll` the input engine cannot start. Without `libusb-1.0.dll` wired Switch 2 controllers and the GameCube adapter never open. Without the fork's `xinput1_4.dll` SDL loads the system one, and PadForge reads its own virtual controllers back as input. A publish for any runtime other than `win-x64` and `win-arm64` is refused too, since it would be handed the x64 libraries. `SDL3.dll` and `xinput1_4.dll` come from builds of the two forks, the ARM64 pair cross-compiled on an x64 machine with `cmake -A ARM64`. A plain `dotnet build` compiles without any of them.
 
 Three features have no ARM64 native half. `PadForge.Engine/Common/PlatformSupport.cs` decides each one:
 
@@ -213,7 +213,9 @@ Three features have no ARM64 native half. `PadForge.Engine/Common/PlatformSuppor
 | Vosk voice engine | Process architecture | libvosk ships for Windows x64 only. Voice macros fall back to the Windows speech recognizer |
 | Razer Sensa HD haptics | Process architecture | The Interhaptics SDK ships for Win32 and x64 only |
 
-The x64 build running emulated on ARM64 Windows loses HidHide alone. The ARM64 build loses all three.
+The x64 build running emulated on ARM64 Windows loses HidHide alone. The ARM64 build loses all three. Each rule answers true for x64 and false for every other architecture, since x64 is the one the native half was built for.
+
+Four more features load a library the vendor's own software installs, and PadForge has no gate for them because the load itself answers. `LogitechGkey.dll` comes in x64 and x86 only (`LogitechGKeyCatalog`), and the SteamVR input service loads `bin\win64\openvr_api.dll` (`OpenVrConsumerService`), so an ARM64 process gets neither. The LIGHTSYNC engine and the OpenXR runtime are whatever the registry names, so they work in an ARM64 process only if the vendor registers an ARM64 one. None of these crashes the app. G-keys, LIGHTSYNC and OpenXR each show a status line, and the SteamVR input service logs the failed load and keeps retrying.
 
 A fourth gap is decided in the SDL fork, not in PadForge. The fork's Xbox Elite paddle reader (`SDL_XINPUT_PADDLES` in its `CMakeLists.txt`) requires an x64 CPU and turns itself off for any other target, and its sources refuse to compile off x64. An ARM64 `SDL3.dll` therefore reads no Elite paddles. Whether the x64 build reads them under emulation is untested. The reader exchanges fixed-layout messages over an ALPC port with a Windows process, and on an ARM64 machine that process is native ARM64 while the reader is emulated x64.
 

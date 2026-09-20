@@ -82,9 +82,14 @@ namespace PadForge.Services
                 if (SuppressStart) return null;
                 if (!IsAvailable)
                     // No SAPI recognizer (N editions, some locales) is not
-                    // fatal: Vosk needs none of it. Sessions simply wait
-                    // for the model.
-                    Engine.SdlDiagLog.WriteLine("VOICE no installed SAPI recognizer; Vosk carries recognition once its model is ready");
+                    // fatal where Vosk runs: Vosk needs none of it, and
+                    // sessions simply wait for the model. A process that
+                    // cannot load libvosk has no second engine to wait for,
+                    // and the line has to say so, or a trace of a machine
+                    // with no voice macros reads as one that is warming up.
+                    Engine.SdlDiagLog.WriteLine(Engine.PlatformSupport.VoskAvailable
+                        ? "VOICE no installed SAPI recognizer; Vosk carries recognition once its model is ready"
+                        : "VOICE no installed SAPI recognizer, and this build cannot load Vosk. Voice macros stay off until Windows has a speech recognizer installed");
                 try
                 {
                     var svc = new VoiceMacroService();

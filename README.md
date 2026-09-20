@@ -65,7 +65,7 @@ PadForge is for sim racers running wheels in games that only understand Xbox con
 <summary><b>New in 4.5.0:</b> a VR headset and its controllers as input, Logitech G-keys, a phone's controller through the browser, and an install 30% smaller</summary>
 
 - **A VR headset drives a flat game.** Enable OpenXR Headset Input on the Dashboard and the headset's pose arrives on the Head Tracker device as the same six axes OpenTrack uses. PadForge talks to the runtime directly instead of through the Khronos loader, so it can pick a runtime for itself without touching the machine's default and no other program's API layers enter its process. The session draws nothing, so no VR game has to be running.
-- **Your VR controllers become gamepads.** Each hand is its own device row: six pose axes in the same order as the head's, named Controller rather than Head, plus the thumbstick, trigger, grip, and four buttons. Oculus Touch, Valve Index, and the Khronos simple profile are all suggested and the runtime picks the match. Left and right are separate devices, and a controller set down returns its axes to rest after a second.
+- **Your VR controllers become gamepads.** Each hand is its own device row: six pose axes in the same order as the head's, named Controller rather than Head, plus the thumbstick, trigger, grip, and four buttons. Oculus Touch, Valve Index, and the Khronos simple profile are all suggested and the runtime picks the match. Left and right are separate devices, and a controller that goes to sleep returns its axes to rest after a second.
 - **Per-axis head tracking ranges.** Any one of the six axes can pin its own range while the rest follow the shared pair, for when neck rotation and leaning cover very different distances.
 - **Logitech G-keys, without burning a keycode.** Tick Read Logitech G-Keys in Settings and the G-keys arrive through Logitech's own SDK as their own device row: 29 keys in each of M1, M2 and M3, plus a Logitech mouse's buttons 6 through 20. No programming a G-key to type some real key that then fires in every other program.
 - **A controller paired to your phone, through the browser.** The Browser Gamepad page forwards a pad the phone or handheld can see over the Gamepad API, with rumble where the browser offers it. iPhone Safari offers none. Controls past a slot's shape are dropped, and the page says how many.
@@ -768,16 +768,19 @@ Windows 10 or 11 on x64. The [.NET 10 Desktop Runtime](https://dotnet.microsoft.
 
 4.5.1 adds a build for Windows 11 on ARM64. HIDMaestro 1.9.0 installs its ARM64 driver there, so virtual controllers work as they do on x64, and the DualShock 3 Bluetooth driver installs its ARM64 binary.
 
-Four features are missing on ARM64. Three need a library that has no ARM64 release, and the Xbox Elite paddle reader in the bundled SDL fork is written for x64:
+An ARM64 program can load ARM64 libraries only, and several libraries PadForge relies on exist for x64 alone. The x64 build also runs on ARM64 Windows, under emulation. Its libraries match its process there, and the one thing emulation cannot run is a kernel driver:
 
 | Feature | ARM64 build | x64 build under emulation |
 |---|---|---|
-| HidHide device hiding | Not available | Not available |
-| Vosk voice recognition | Voice macros use the Windows speech recognizer | Works |
-| Razer Sensa HD haptics | Not available | Works |
-| Xbox Elite paddles | Not read | Untested |
+| HidHide device hiding | Not available. HidHide has no ARM64 release | Not available |
+| Vosk voice recognition | Voice macros use the Windows speech recognizer | Untested |
+| Razer Sensa HD haptics | Not available. The Interhaptics engine has no ARM64 build | Untested |
+| Xbox Elite paddles | Not read. The paddle reader in the bundled SDL fork is written for x64 | Untested |
+| Logitech G-keys | Not available. Logitech Gaming Software installs x64 and x86 libraries only | Untested |
+| VR headset and controllers through SteamVR | Not available. PadForge loads SteamVR's win64 library | Untested |
+| Logitech LIGHTSYNC, OpenXR headset input | Only if the vendor's software installs an ARM64 engine or runtime | Untested |
 
-None of this has run on ARM64 hardware yet. The bench is x64.
+Neither build has run on ARM64 hardware yet. The bench is x64.
 
 ### Drivers
 
@@ -903,7 +906,7 @@ PadForge stands on these projects. Please consider supporting them directly.
 | [InputPlumber](https://github.com/ShadowBlip/InputPlumber) | Handheld PC identity strings and vendor-report notes cross-checked for the hidden-button learner. Documentation only, no GPL code ships | GPL-3.0 |
 | [linuxmotehook](https://github.com/v1993/linuxmotehook) and [WiimoteHook](https://github.com/epigramx/WiimoteHook) | Wii Remote hold-orientation presets the Grip setting mirrors. No code ships | Apache-2.0, closed source |
 | [OpenXR-SDK](https://github.com/KhronosGroup/OpenXR-SDK) and [VirtualDesktop-OpenXR](https://github.com/mbucchia/VirtualDesktop-OpenXR) | Runtime negotiation interface, structure layout, registry keys and performance-counter time conversion behind headset and motion controller input. PadForge talks to your own installed runtime and ships no Khronos code | Apache-2.0, MIT |
-| [Mumble](https://github.com/mumble-voip/mumble) | Logitech G-key SDK library search order and shutdown lifecycle, read alongside LogitechGkeyLib.h from the SDK itself. PadForge loads G HUB's own library and ships no Logitech code | BSD-3-Clause |
+| [Mumble](https://github.com/mumble-voip/mumble) | Logitech G-key SDK library search order and shutdown lifecycle, read alongside LogitechGkeyLib.h from the SDK itself. PadForge loads the library Logitech Gaming Software installs and ships no Logitech code | BSD-3-Clause |
 | [SteamKit2](https://github.com/SteamRE/SteamKit) | .NET Steam network client the Steam Workshop controller-config import uses. Connects over an anonymous session, no Steam account needed | LGPL-2.1-only |
 | [protobuf-net](https://github.com/protobuf-net/protobuf-net) | Protocol Buffers serializer SteamKit2 uses for the Steam wire protocol, by Marc Gravell | Apache-2.0 |
 | [ZstdSharp](https://github.com/oleg-st/ZstdSharp) | Zstandard decompression SteamKit2 uses for Steam depot chunks. A C# port of the zstd compression library, by Oleg Stepanischev | MIT |
@@ -988,5 +991,5 @@ This project is licensed under **CC BY-NC-SA 4.0** (Creative Commons Attribution
 - **InputPlumber** (GPL-3.0) documented handheld PC identity strings and vendor-report notes cross-checked for the hidden-button learner. Read as documentation only, no GPL code ships.
 - **linuxmotehook** (Apache-2.0) and **WiimoteHook** (closed source, read through its documentation) documented the Wii Remote hold-orientation presets the Grip setting mirrors. No code from them ships.
 - **OpenXR-SDK** (Apache-2.0) and **VirtualDesktop-OpenXR** (MIT) documented the runtime negotiation interface, structure layout, registry keys and performance-counter time conversion behind headset and motion controller input. PadForge talks to the runtime installed on your own machine and ships no Khronos binary and no code from these projects.
-- **Mumble** (BSD-3-Clause) documented the Logitech G-key SDK library search order and shutdown lifecycle, read alongside LogitechGkeyLib.h from the SDK itself, which defines the event word. PadForge loads G HUB's own library at run time and ships no Logitech binary and no code from these projects.
+- **Mumble** (BSD-3-Clause) documented the Logitech G-key SDK library search order and shutdown lifecycle, read alongside LogitechGkeyLib.h from the SDK itself, which defines the event word. PadForge loads the library Logitech Gaming Software installs at run time and ships no Logitech binary and no code from these projects.
 See [LICENSE](LICENSE) for the full license text.

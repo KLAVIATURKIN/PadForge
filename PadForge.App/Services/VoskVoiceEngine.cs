@@ -40,12 +40,13 @@ namespace PadForge.Services
             Path.GetTempPath(), "PadForge", "voice-models");
 
         private static Vosk.Model _model;
-        private static int _state; // 0 absent, 1 downloading, 2 ready, 3 failed
+        private static int _state; // 0 absent, 1 unpacking, 2 ready, 3 failed
         private static readonly object _lock = new();
 
-        // One transient network blip at first launch must not pin the SAPI
-        // fallback for the whole process: a failed download re-arms after
-        // this delay and the next EnsureStarted retries.
+        // One failed unpack at first launch (a full disk, a temp folder the
+        // process cannot write) must not pin the SAPI fallback for the whole
+        // process: a failure re-arms after this delay and the next
+        // EnsureStarted retries.
         private static long _retryAtTicks;
 
         public static bool IsReady => Volatile.Read(ref _state) == 2;
@@ -58,8 +59,9 @@ namespace PadForge.Services
         /// across recognizers; recognizer instances are not.</summary>
         public static Vosk.Model Model => IsReady ? _model : null;
 
-        /// <summary>Loads the cached model if present, else starts the
-        /// one-time background download. Safe to call every reconcile.</summary>
+        /// <summary>Loads the unpacked model if present, else starts the
+        /// one-time background unpack of the embedded one. Safe to call
+        /// every reconcile.</summary>
         public static void EnsureStarted()
         {
             // No libvosk exists for a native ARM64 process (the Vosk package

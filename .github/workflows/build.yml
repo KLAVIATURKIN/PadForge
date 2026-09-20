@@ -49,7 +49,7 @@ jobs:
           dotnet-version: 10.x
 
       # Before Publish on purpose. Both architectures report the same two
-      # values as job outputs, and the release job names the x64 artifact
+      # values as job outputs, and the archive job names the x64 artifact
       # from them. A publish that failed first would leave its copy blank.
       - name: Get build info
         id: info
@@ -71,20 +71,36 @@ jobs:
           name: PadForge_r${{ steps.info.outputs.commit_count }}@${{ steps.info.outputs.commit_short }}${{ matrix.suffix }}
           path: PadForge.App/bin/Release/net10.0-windows10.0.26100.0/${{ matrix.rid }}/publish/
 
-  # The dev feed is written by ONE job. The latest-<branch> step deletes and
-  # recreates a release, and two jobs doing that at once would race.
+  # The dev feed is two jobs, because the two halves need opposite things
+  # when pushes land close together.
   #
-  # !cancelled() lets this run when the ARM64 build failed, and keeps a
+  # The ARCHIVE must never lose a build, so nothing may cancel it, and it
+  # takes no lock. Runs for different commits upload files with different
+  # names, which do not collide. What they do share is the release's cap of
+  # 1000 assets, and that is handled with headroom (see limit below).
+  #
+  # LATEST is one release that every run rewrites, so two runs must never be
+  # inside it at once, and only the newest commit should win. That is what a
+  # concurrency group does: one runs, one waits, and a third arriving replaces
+  # the one that was waiting. Replacing a waiting LATEST is harmless, since a
+  # newer build is about to publish. The same replacement on the archive
+  # would drop that commit's build for good, which is why the group sits on
+  # the latest job alone.
+  #
+  # !cancelled() lets the feed run when the ARM64 build failed, and keeps a
   # canceled run from publishing. It still cannot publish without x64: the
   # x64 download below fails first, before any release is touched.
-  release:
-    name: Release dev build
+  archive:
+    name: Archive dev build
     needs: build
     if: ${{ !cancelled() && github.event_name == 'push' }}
     runs-on: windows-latest
     env:
       COMMIT_SHORT: ${{ needs.build.outputs.commit_short }}
       COMMIT_COUNT: ${{ needs.build.outputs.commit_count }}
+    outputs:
+      archive_tag: ${{ steps.archive.outputs.archive_tag }}
+      has_arm64: ${{ steps.archive.outputs.has_arm64 }}
     steps:
       - name: Download x64 build
         uses: actions/download-artifact@v8
@@ -106,21 +122,18 @@ jobs:
           mkdir -p release
           cd "$GITHUB_WORKSPACE/publish/win-x64"
           rm -f *.pdb
-          7z a -mx=9 "$GITHUB_WORKSPACE/release/PadForge.zip" ./*
-          cp "$GITHUB_WORKSPACE/release/PadForge.zip" \
-             "$GITHUB_WORKSPACE/release/PadForge_r${COMMIT_COUNT}@${COMMIT_SHORT}.zip"
+          7z a -mx=9 "$GITHUB_WORKSPACE/release/PadForge_r${COMMIT_COUNT}@${COMMIT_SHORT}.zip" ./*
 
           if [ -s "$GITHUB_WORKSPACE/publish/win-arm64/PadForge.exe" ]; then
             cd "$GITHUB_WORKSPACE/publish/win-arm64"
             rm -f *.pdb
-            7z a -mx=9 "$GITHUB_WORKSPACE/release/PadForge-arm64.zip" ./*
-            cp "$GITHUB_WORKSPACE/release/PadForge-arm64.zip" \
-               "$GITHUB_WORKSPACE/release/PadForge_r${COMMIT_COUNT}@${COMMIT_SHORT}-arm64.zip"
+            7z a -mx=9 "$GITHUB_WORKSPACE/release/PadForge_r${COMMIT_COUNT}@${COMMIT_SHORT}-arm64.zip" ./*
           else
             echo "No ARM64 build to package. The x64 dev build is released alone."
           fi
 
       - name: Release rolling dev archive
+        id: archive
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -132,10 +145,16 @@ jobs:
           base="archive-${REF}"
           assets=("release/PadForge_r${COMMIT_COUNT}@${COMMIT_SHORT}.zip")
           arm="release/PadForge_r${COMMIT_COUNT}@${COMMIT_SHORT}-arm64.zip"
-          [ -s "$arm" ] && assets+=("$arm")
+          has_arm64=false
+          if [ -s "$arm" ]; then assets+=("$arm"); has_arm64=true; fi
           # GitHub caps a release at 1000 assets and a push adds up to two.
-          # Roll a bit early.
-          limit=998
+          # The count below is read and acted on without a lock, so runs that
+          # overlap all see the same number and each adds its two. 998 left
+          # room for one run and no more, which is how part 1 reached 999.
+          # 990 leaves room for five at once. A sixth inside the same upload
+          # window would fail its upload and turn this job red, and rerunning
+          # the job recovers it, because the rerun counts again and rolls.
+          limit=990
 
           # Highest existing archive part (base = part 1, base-N = part N).
           part=$(gh release list --repo "$REPO" --limit 1000 --json tagName --jq '.[].tagName' \
@@ -168,40 +187,186 @@ jobs:
               || true
 
           gh release upload "$active" --repo "$REPO" --clobber "${assets[@]}"
-          echo "ARCHIVE_TAG=$active" >> "$GITHUB_ENV"
+          echo "archive_tag=$active" >> "$GITHUB_OUTPUT"
+          echo "has_arm64=$has_arm64" >> "$GITHUB_OUTPUT"
 
-      - name: Release latest-${{ github.ref_name }}
-        env:
-          GH_TOKEN: ${{ github.token }}
+  latest:
+    name: Release latest-${{ github.ref_name }}
+    needs: [build, archive]
+    if: ${{ !cancelled() && github.event_name == 'push' && needs.archive.result == 'success' }}
+    runs-on: ubuntu-latest
+    concurrency:
+      group: latest-${{ github.ref }}
+      cancel-in-progress: false
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+      SHA: ${{ github.sha }}
+      REF: ${{ github.ref_name }}
+      COMMIT_SHORT: ${{ needs.build.outputs.commit_short }}
+      COMMIT_COUNT: ${{ needs.build.outputs.commit_count }}
+      ARCHIVE_TAG: ${{ needs.archive.outputs.archive_tag }}
+      HAS_ARM64: ${{ needs.archive.outputs.has_arm64 }}
+      STAGING: latest-${{ github.ref_name }}-staging-${{ github.run_id }}-${{ github.run_attempt }}
+    steps:
+      # Builds do not finish in the order their commits were pushed. Without
+      # this, a slow run for an older commit published over a newer one, and
+      # latest-<branch> went backward until the next push.
+      #
+      # Two questions, both asked of the branch as it is NOW:
+      #   1. Is this commit in the branch's history? A commit left behind by a
+      #      force-push is not, however new it is, and is never published.
+      #   2. Is what is published already newer? Then there is nothing to do.
+      #      A published commit that is itself no longer in the history counts
+      #      for nothing, so the first good build after a force-push replaces
+      #      it.
+      # A head whose own build failed therefore does not leave an older good
+      # build unpublished. An error from the API fails the job with the
+      # published release untouched, since a rerun costs less than a wrong
+      # guess.
+      - name: Decide whether this commit should be published
+        id: decide
         shell: bash
         run: |
-          tag="latest-${{ github.ref_name }}"
+          set -uo pipefail
+          tag="latest-${REF}"
+          publish() { echo "$1"; echo "publish=true"  >> "$GITHUB_OUTPUT"; exit 0; }
+          skip()    { echo "$1"; echo "publish=false" >> "$GITHUB_OUTPUT"; exit 0; }
 
-          # Confirm the artifact exists BEFORE deleting the published release.
-          # The delete removes the release and its tag, and the upload at the
-          # end of this step is the only thing that puts a download back. A
-          # missing or empty zip here left latest-<branch>, which is the link
-          # users actually follow, existing with nothing attached to it.
-          if [ ! -s "release/PadForge.zip" ]; then
-            echo "release/PadForge.zip is missing or empty. Refusing to delete $tag." >&2
-            exit 1
+          head=$(gh api "repos/$REPO/git/ref/heads/$REF" --jq .object.sha) || {
+            echo "Could not read the head of $REF." >&2; exit 1; }
+
+          # "ahead" or "identical" means the second commit contains the first.
+          contains() {
+            local status
+            status=$(gh api "repos/$REPO/compare/$1...$2" --jq .status) || {
+              echo "Could not compare $1 with $2." >&2; exit 1; }
+            [ "$status" = "ahead" ] || [ "$status" = "identical" ]
+          }
+
+          if [ "$head" != "$SHA" ] && ! contains "$SHA" "$head"; then
+            skip "This commit is no longer in the history of $REF. Skipping."
           fi
 
-          assets=("release/PadForge.zip")
-          [ -s "release/PadForge-arm64.zip" ] && assets+=("release/PadForge-arm64.zip")
+          if ! out=$(gh api "repos/$REPO/git/ref/tags/$tag" --jq .object.sha 2>&1); then
+            if echo "$out" | grep -q "HTTP 404"; then
+              publish "No $tag yet, so there is nothing to go backward from."
+            fi
+            echo "Could not read $tag: $out" >&2; exit 1
+          fi
+          published="$out"
 
-          gh release delete "$tag" \
-            --repo "${{ github.repository }}" \
-            --cleanup-tag --yes 2>/dev/null || true
-          gh release create "$tag" \
-            --repo "${{ github.repository }}" \
-            --target "${{ github.sha }}" \
-            --prerelease \
-            --title "PadForge r${COMMIT_COUNT}@${COMMIT_SHORT}" \
-            --notes "PadForge.zip is the x64 build. PadForge-arm64.zip is the preliminary build for Windows on ARM.
-          Build archive: https://github.com/${{ github.repository }}/releases/tag/${ARCHIVE_TAG:-archive-${{ github.ref_name }}}
-          Build log: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          gh release upload "$tag" \
-            --repo "${{ github.repository }}" \
-            --clobber \
-            "${assets[@]}"
+          if [ "$published" != "$head" ] && ! contains "$published" "$head"; then
+            publish "What is published ($published) is no longer in the history of $REF."
+          fi
+          if contains "$published" "$SHA"; then
+            publish "Published $published is contained in this commit."
+          fi
+          skip "Published $published is newer than this commit. Skipping."
+
+      # The zips come from the archive release the job above just wrote, so
+      # latest carries the archived bytes and nothing is compressed twice.
+      - name: Fetch this build from the archive
+        if: steps.decide.outputs.publish == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dl release
+          x64="PadForge_r${COMMIT_COUNT}@${COMMIT_SHORT}.zip"
+          gh release download "$ARCHIVE_TAG" --repo "$REPO" --dir dl --pattern "$x64"
+          [ -s "dl/$x64" ] || { echo "$x64 did not download." >&2; exit 1; }
+          mv "dl/$x64" release/PadForge.zip
+
+          # has_arm64 is what the archive job uploaded, so a missing file here
+          # is a failed download and not a build that never existed.
+          if [ "$HAS_ARM64" = "true" ]; then
+            arm="PadForge_r${COMMIT_COUNT}@${COMMIT_SHORT}-arm64.zip"
+            gh release download "$ARCHIVE_TAG" --repo "$REPO" --dir dl --pattern "$arm"
+            [ -s "dl/$arm" ] || { echo "$arm did not download." >&2; exit 1; }
+            mv "dl/$arm" release/PadForge-arm64.zip
+          fi
+
+      # The old order was delete, create, upload. Every failure after the
+      # delete, and a 540 MB upload is where failures happen, left the link
+      # users follow with no download until the next push.
+      #
+      # Now the new release is built as a DRAFT first, where a failed upload
+      # costs nothing, and the published one is replaced only once the draft
+      # holds every file. The two calls between the delete and the publish
+      # carry no payload. A draft is addressed by its id throughout, because a
+      # draft has no tag to be found by.
+      #
+      # GitHub has no way to swap two releases in one step, so a failure
+      # inside those two calls still leaves the link empty. Rerunning the job
+      # is the way back: it finds the tag and no release, and publishes.
+      - name: Stage, then swap
+        if: steps.decide.outputs.publish == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          tag="latest-${REF}"
+
+          # Drafts left by runs that died. Drafts only, and only this
+          # branch's staging prefix.
+          gh api "repos/$REPO/releases?per_page=100" \
+            --jq ".[] | select(.draft and (.tag_name | startswith(\"${tag}-staging-\"))) | .id" \
+            | while read -r stale; do
+                echo "Removing stale staging draft $stale"
+                gh api -X DELETE "repos/$REPO/releases/$stale"
+              done
+
+          assets=("release/PadForge.zip")
+          notes="PadForge.zip is the x64 build."
+          if [ "$HAS_ARM64" = "true" ]; then
+            assets+=("release/PadForge-arm64.zip")
+            notes="$notes PadForge-arm64.zip is the preliminary build for Windows on ARM."
+          else
+            notes="$notes No ARM64 build is attached for this commit."
+          fi
+          notes="$notes
+          Build archive: https://github.com/${REPO}/releases/tag/${ARCHIVE_TAG}
+          Build log: https://github.com/${REPO}/actions/runs/${{ github.run_id }}"
+
+          gh release create "$STAGING" --repo "$REPO" --draft --prerelease --target "$SHA" \
+            --title "PadForge r${COMMIT_COUNT}@${COMMIT_SHORT}" --notes "$notes" "${assets[@]}"
+
+          id=$(gh api "repos/$REPO/releases?per_page=100" \
+                 --jq ".[] | select(.draft and .tag_name == \"$STAGING\") | .id")
+          [ -n "$id" ] || { echo "The staging draft was not found after it was created." >&2; exit 1; }
+
+          want=$(printf '%s\n' "${assets[@]}" | xargs -n1 basename | LC_ALL=C sort | paste -sd, -)
+          have=$(gh api "repos/$REPO/releases/$id" \
+                   --jq '[.assets[] | select(.state == "uploaded") | .name] | sort | join(",")')
+          [ "$have" = "$want" ] || { echo "Staging holds '$have', expected '$want'." >&2; exit 1; }
+
+          # Both lookups happen BEFORE anything is changed, and each one
+          # tells "is not there" (a 404) from "could not be asked". Treating
+          # a failed lookup as absence would skip the delete, move the tag
+          # anyway, and leave the OLD files published under the NEW commit.
+          lookup() {
+            local out
+            if out=$(gh api "$1" --jq "$2" 2>&1); then echo "$out"; return 0; fi
+            if echo "$out" | grep -q "HTTP 404"; then return 0; fi
+            echo "Lookup failed for $1: $out" >&2; return 1
+          }
+          old=$(lookup "repos/$REPO/releases/tags/$tag" .id)
+          tag_at=$(lookup "repos/$REPO/git/ref/tags/$tag" .object.sha)
+
+          # The swap. The tag is moved, not deleted and remade, so a release
+          # published under it can only land on this commit.
+          if [ -n "$old" ]; then gh api -X DELETE "repos/$REPO/releases/$old"; fi
+          if [ -n "$tag_at" ]; then
+            gh api -X PATCH "repos/$REPO/git/refs/tags/$tag" -f sha="$SHA" -F force=true >/dev/null
+          else
+            gh api -X POST "repos/$REPO/git/refs" -f ref="refs/tags/$tag" -f sha="$SHA" >/dev/null
+          fi
+          gh api -X PATCH "repos/$REPO/releases/$id" \
+            -f tag_name="$tag" -f target_commitish="$SHA" -F draft=false -F prerelease=true >/dev/null
+
+          # Read it back the way a user reaches it.
+          live=$(gh api "repos/$REPO/releases/tags/$tag" \
+                   --jq '[.assets[] | select(.state == "uploaded") | .name] | sort | join(",")')
+          at=$(gh api "repos/$REPO/git/ref/tags/$tag" --jq .object.sha)
+          [ "$live" = "$want" ] || { echo "$tag holds '$live', expected '$want'." >&2; exit 1; }
+          [ "$at" = "$SHA" ] || { echo "$tag points at $at, expected $SHA." >&2; exit 1; }
+          echo "$tag now serves $live at $SHA"
