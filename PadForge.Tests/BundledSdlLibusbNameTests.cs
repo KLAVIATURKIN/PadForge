@@ -19,10 +19,12 @@ namespace PadForge.Tests
     /// a warning, and the fallback was the import library's own file name.
     /// Seven consecutive x64 deliveries, September 10 to 15, 2026, asked
     /// Windows for libusb-1.0.lib. PadForge bundles libusb-1.0.dll, so libusb
-    /// never loaded and every device SDL reaches only through it was dead:
-    /// the wired Switch 2 Pro, Joy-Con 2 and GameCube controller, the
-    /// GameCube adapter and the Xbox 360 Big Button receiver. The DLL loaded,
-    /// exported everything and passed every other check.</para>
+    /// never loaded. The fork's Switch 2 driver starts a wired Switch 2 Pro,
+    /// Joy-Con 2 or Switch 2 GameCube controller with a command sequence sent
+    /// through libusb and returns false without it, so none of them worked,
+    /// and the GameCube adapter, which SDL reaches through libusb alone, was
+    /// never seen. The DLL loaded, exported everything and passed every other
+    /// check.</para>
     ///
     /// <para>The fork now stops its configure on a name that is not a DLL.
     /// This is the same contract checked from PadForge's side, on the
