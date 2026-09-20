@@ -163,6 +163,7 @@ public class Strings : INotifyPropertyChanged
     public string Common_Disabled => Get("Common_Disabled");
     public string Common_Installed => Get("Common_Installed");
     public string Common_NotInstalled => Get("Common_NotInstalled");
+    public string Common_NotAvailableOnArm64 => Get("Common_NotAvailableOnArm64");
     public string Common_Ready => Get("Common_Ready");
     public string Common_Stopped => Get("Common_Stopped");
     public string Common_Running => Get("Common_Running");

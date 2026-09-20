@@ -62,6 +62,19 @@ namespace PadForge.Services
         /// one-time background download. Safe to call every reconcile.</summary>
         public static void EnsureStarted()
         {
+            // No libvosk exists for a native ARM64 process (the Vosk package
+            // carries a Windows x64 build only), so on that build the store
+            // never starts, IsReady stays false, and VoiceMacroService keeps
+            // every session on its SAPI fallback. That is a working
+            // recognizer, so voice macros still fire there.
+            //
+            // Returning here is not a tidy-up, it closes a loop. Left to run,
+            // the cached-model branch below catches the DllNotFoundException
+            // from the first Vosk call, DELETES the cached model as though it
+            // were corrupt, unpacks all 35 MB again, fails the same way, and
+            // repeats on every retry for as long as the app is open.
+            if (!Engine.PlatformSupport.VoskAvailable) return;
+
             int st = Volatile.Read(ref _state);
             if (st == 3 && Environment.TickCount64 >= Interlocked.Read(ref _retryAtTicks))
             {

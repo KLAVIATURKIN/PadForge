@@ -35,9 +35,29 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
-  <!-- Single-file portable publish: dotnet publish -c Release -->
+  <!-- Single-file portable publish: dotnet publish -c Release
+       That builds win-x64, which stays the default so every existing command,
+       script and CI step keeps producing exactly what it always has. ARM64 is
+       the same command with -r win-arm64. -->
   <PropertyGroup>
-    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <RuntimeIdentifiers>win-x64;win-arm64</RuntimeIdentifiers>
+    <RuntimeIdentifier Condition="'$(RuntimeIdentifier)' == ''">win-x64</RuntimeIdentifier>
+    <!-- The folder name the native libraries for this build live under. Every
+         architecture-specific Content item below is keyed on it, so adding an
+         architecture is a matter of dropping its DLL into the matching folder
+         and nothing else in this file. -->
+    <NativeArch Condition="'$(RuntimeIdentifier)' == 'win-arm64'">arm64</NativeArch>
+    <NativeArch Condition="'$(NativeArch)' == ''">x64</NativeArch>
+    <!-- CS8012 on the ARM64 build only, and only because it is a false alarm
+         there. Microsoft.Windows.Devices.Midi2 stamps its COMPILE-TIME
+         reference (ref\net10.0) as x64 where a reference assembly should be
+         neutral, so compiling for ARM64 reports a processor mismatch. What is
+         DEPLOYED is the package's runtimes\win-arm64 copy, which is a real
+         ARM64 image: checked by reading the PE machine field of all three
+         copies and of the DLL in the win-arm64 output. The x64 build never
+         raises it, so it stays visible there if it ever starts meaning
+         something. -->
+    <NoWarn Condition="'$(NativeArch)' == 'arm64'">$(NoWarn);CS8012</NoWarn>
     <PublishSingleFile>true</PublishSingleFile>
     <SelfContained>true</SelfContained>
     <!-- MUST stay true: bundles WPF's native libs (wpfgfx_cor3, PresentationNative_cor3,
@@ -68,25 +88,35 @@
     <Resource Include="Resources\PadForge-icon.png" />
     <!--
       SDL3.dll: Link="SDL3.dll" ensures the file is copied to the OUTPUT ROOT
-      (next to PadForge.exe) rather than preserving the Resources\SDL3\x64\ subdirectory.
-      Download x64 SDL3.dll from https://github.com/libsdl-org/SDL/releases.
+      (next to PadForge.exe) rather than preserving the Resources\SDL3\<arch>\ subdirectory.
+      It is built from the PadForge SDL fork, never the upstream release, because
+      the fork carries the HIDMaestro filter, the Switch 2 Pro driver and the PS5
+      status bytes. $(NativeArch) picks the x64 or arm64 folder for this build.
       Condition checks for existence so the build succeeds before the DLL is placed.
+      For ARM64 that silence is closed off by RequireArm64Natives at the bottom
+      of this file, which refuses a publish that lacks it.
     -->
-    <Content Include="Resources\SDL3\x64\SDL3.dll" Link="SDL3.dll" Condition="Exists('Resources\SDL3\x64\SDL3.dll')">
+    <Content Include="Resources\SDL3\$(NativeArch)\SDL3.dll" Link="SDL3.dll" Condition="Exists('Resources\SDL3\$(NativeArch)\SDL3.dll')">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\SDL3\x64\libusb-1.0.dll" Link="libusb-1.0.dll" Condition="Exists('Resources\SDL3\x64\libusb-1.0.dll')">
+    <Content Include="Resources\SDL3\$(NativeArch)\libusb-1.0.dll" Link="libusb-1.0.dll" Condition="Exists('Resources\SDL3\$(NativeArch)\libusb-1.0.dll')">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <!-- SDL's C++ runtime dependencies share the native extraction directory.
          Bundle the redistributable files so no separate runtime install is needed. -->
-    <Content Include="Resources\VisualCpp\x64\msvcp140.dll" Link="msvcp140.dll">
+    <Content Include="Resources\VisualCpp\$(NativeArch)\msvcp140.dll" Link="msvcp140.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\VisualCpp\x64\vcruntime140.dll" Link="vcruntime140.dll">
+    <Content Include="Resources\VisualCpp\$(NativeArch)\vcruntime140.dll" Link="vcruntime140.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\VisualCpp\x64\vcruntime140_1.dll" Link="vcruntime140_1.dll">
+    <!-- x64 only. vcruntime140_1.dll holds __CxxFrameHandler4, which exists
+         for the x64 ABI alone, and native ARM64 code never imports it: ARM64
+         keeps that handler inside vcruntime140.dll. Microsoft's own ARM64
+         redist folder does carry a file by this name, and it is an x64 image
+         put there for emulated x64 code. Copying it into the ARM64 build
+         would ship an x64 DLL nothing in that process can load. -->
+    <Content Include="Resources\VisualCpp\x64\vcruntime140_1.dll" Link="vcruntime140_1.dll" Condition="'$(NativeArch)' == 'x64'">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <!--
@@ -111,18 +141,24 @@
          redistributes, vendored from WyvrnOfficial/Interhaptics_Unity_CoreSDK
          Runtime/Plugins/x64. P/Invoked lazily by SensaHapticsService, so a
          missing pair degrades to a diag line, never a crash. -->
-    <Content Include="Resources\Interhaptics\x64\HAR.dll" Link="HAR.dll" Condition="Exists('Resources\Interhaptics\x64\HAR.dll')">
+    <Content Include="Resources\Interhaptics\$(NativeArch)\HAR.dll" Link="HAR.dll" Condition="Exists('Resources\Interhaptics\$(NativeArch)\HAR.dll')">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Interhaptics\x64\Interhaptics.RazerProvider.dll" Link="Interhaptics.RazerProvider.dll" Condition="Exists('Resources\Interhaptics\x64\Interhaptics.RazerProvider.dll')">
+    <Content Include="Resources\Interhaptics\$(NativeArch)\Interhaptics.RazerProvider.dll" Link="Interhaptics.RazerProvider.dll" Condition="Exists('Resources\Interhaptics\$(NativeArch)\Interhaptics.RazerProvider.dll')">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\OpenXInput\x64\xinput1_4.dll" Link="xinput1_4.dll" Condition="Exists('Resources\OpenXInput\x64\xinput1_4.dll')">
+    <Content Include="Resources\OpenXInput\$(NativeArch)\xinput1_4.dll" Link="xinput1_4.dll" Condition="Exists('Resources\OpenXInput\$(NativeArch)\xinput1_4.dll')">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="gamecontrollerdb_padforge.txt" />
     <EmbeddedResource Include="..\LICENSE" LogicalName="PadForge.ThirdPartyNotices.txt" />
-    <EmbeddedResource Include="Resources\HidHide_1.5.230_x64.exe" />
+    <!-- x64 only, and not by choice. HidHide is a kernel filter driver, a
+         kernel driver cannot run emulated, and upstream publishes no ARM64
+         package (nefarius/HidHide#57 is still open: the driver builds for
+         ARM64 but its setup does not). Embedding the x64 installer into an
+         ARM64 build would add 7.7 MB that can only ever fail, so it is left
+         out and DriverInstaller reports HidHide as unavailable there. -->
+    <EmbeddedResource Include="Resources\HidHide_1.5.230_x64.exe" Condition="'$(NativeArch)' == 'x64'" />
     <!-- 3D controller model assets (adapted from Handheld Companion, CC BY-NC-SA 4.0;
          Switch2Pro set split from the purchased hado CGTrader model) -->
     <!-- Meshes and transparent atlases are packed by the EmbedPackedArt target
@@ -516,7 +552,10 @@
     <ItemGroup>
       <ArtSource Include="3DModels\**\*.obj" />
       <ArtSource Include="3DModels\**\*.png" />
-      <ArtSource Include="VoiceModels\*.zip" />
+      <!-- The Vosk model is x64 only, because libvosk is. An ARM64 process
+           has nothing that can read it, VoskModelStore never starts there,
+           and leaving it in would be 35 MB of dead weight in that exe. -->
+      <ArtSource Include="VoiceModels\*.zip" Condition="'$(NativeArch)' == 'x64'" />
     </ItemGroup>
     <PackAssets Assets="@(ArtSource)" OutputDir="$(IntermediateOutputPath)meshes"
                 PackerFile="$(MSBuildThisFileFullPath)">
@@ -534,6 +573,44 @@
         <WithCulture>false</WithCulture>
       </EmbeddedResource>
     </ItemGroup>
+  </Target>
+
+  <!-- ARM64 (4.5.1, preliminary).
+
+       Vosk's own targets file adds its win-x64 natives whenever the BUILD
+       machine is Windows, with no regard for the target architecture, so an
+       ARM64 publish from this x64 bench would carry libvosk.dll and three
+       MinGW runtime DLLs an ARM64 process cannot load. Upstream publishes no
+       Windows ARM64 libvosk. The items are taken back out here, and
+       VoiceCommandService reports voice macros as unavailable on that build
+       instead of throwing BadImageFormatException at the first recognizer.
+       NativeLibs is the item name Vosk.targets defines. -->
+  <Target Name="DropX64OnlyNativesOnArm64" BeforeTargets="AssignTargetPaths"
+          Condition="'$(NativeArch)' == 'arm64'">
+    <ItemGroup>
+      <None Remove="@(NativeLibs)" />
+    </ItemGroup>
+  </Target>
+
+  <!-- SDL3.dll and xinput1_4.dll come from forks that are built in their own
+       workspaces, and neither has produced an ARM64 binary yet. Their Content
+       items are conditioned on Exists, which is right for a first build but
+       means a missing DLL is SILENT: the ARM64 publish would succeed and
+       produce an exe whose input engine cannot start. A plain build is let
+       through with a message so the rest of the ARM64 tree can still be
+       compiled and checked. A PUBLISH without them is refused, because that
+       is the step whose output reaches somebody else's machine. -->
+  <Target Name="RequireArm64Natives" BeforeTargets="PrepareForPublish"
+          Condition="'$(NativeArch)' == 'arm64'">
+    <Error Condition="!Exists('Resources\SDL3\arm64\SDL3.dll')"
+           Text="ARM64 publish refused: Resources\SDL3\arm64\SDL3.dll is missing. It has to come from an ARM64 build of the SDL fork. Without it the input engine cannot start." />
+    <Error Condition="!Exists('Resources\OpenXInput\arm64\xinput1_4.dll')"
+           Text="ARM64 publish refused: Resources\OpenXInput\arm64\xinput1_4.dll is missing. It has to come from an ARM64 build of the OpenXInput fork. Without it SDL loads the system xinput1_4.dll, the HIDMaestro filter is gone, and PadForge reads its own virtual controllers back as input." />
+  </Target>
+  <Target Name="NoteMissingArm64Natives" BeforeTargets="PrepareForBuild"
+          Condition="'$(NativeArch)' == 'arm64' And (!Exists('Resources\SDL3\arm64\SDL3.dll') Or !Exists('Resources\OpenXInput\arm64\xinput1_4.dll'))">
+    <Message Importance="high"
+             Text="ARM64: SDL3.dll and/or xinput1_4.dll are not in Resources\...\arm64 yet. This build compiles, and a publish will be refused until both are there." />
   </Target>
 
 </Project>

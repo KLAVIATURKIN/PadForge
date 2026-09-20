@@ -9776,6 +9776,7 @@ namespace PadForge.Services
                     {
                         SensaServiceState.Active => Strings.Instance.Dashboard_SensaActive,
                         SensaServiceState.WaitingForRuntime => Strings.Instance.Dashboard_SensaWaiting,
+                        SensaServiceState.Unsupported => Strings.Instance.Common_NotAvailableOnArm64,
                         _ => Strings.Instance.Common_Stopped,
                     };
                 });

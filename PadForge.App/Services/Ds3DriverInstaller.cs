@@ -127,15 +127,15 @@ namespace PadForge.Services
                 string dir = ExtractDrivers();
 
                 // 1. filter INF (driver store + BthPS3PSM kernel service)
-                InstallInf(Path.Combine(dir, "BthPS3PSM_x64", "BthPS3PSM.inf"), log);
+                InstallInf(Path.Combine(dir, "BthPS3PSM", "BthPS3PSM.inf"), log);
                 // 2. register it as the Bluetooth-class lower filter
                 DeviceClassFilters.AddLower(BluetoothClass, "BthPS3PSM");
                 log("Registered PSM filter.");
                 // 3. reboot-free radio re-enumeration so the filter attaches
                 CycleBluetoothRadio(log);
                 // 4/5. profile driver + raw-PDO placeholder into the store
-                InstallInf(Path.Combine(dir, "BthPS3_x64", "BthPS3.inf"), log);
-                InstallInf(Path.Combine(dir, "BthPS3_x64", "BthPS3_PDO_NULL_Device.inf"), log);
+                InstallInf(Path.Combine(dir, "BthPS3", "BthPS3.inf"), log);
+                InstallInf(Path.Combine(dir, "BthPS3", "BthPS3_PDO_NULL_Device.inf"), log);
                 // 6. consumer registry (raw, shared)
                 EnsureConsumerParams();
                 // 7. advertise the profile service -> spawns the PDO, loads BthPS3.sys
@@ -246,7 +246,7 @@ namespace PadForge.Services
             try
             {
                 string dir = ExtractDrivers();
-                InstallInf(Path.Combine(dir, "BthPS3PSM_x64", "BthPS3PSM.inf"), log);
+                InstallInf(Path.Combine(dir, "BthPS3PSM", "BthPS3PSM.inf"), log);
                 DeviceClassFilters.AddLower(BluetoothClass, "BthPS3PSM");
                 CycleBluetoothRadio(log);
                 log(IsPsmFilterPresent()
@@ -378,7 +378,17 @@ namespace PadForge.Services
                 foreach (string stale in Directory.GetFiles(dir, "*.cat"))
                     try { File.Delete(stale); } catch { }
 
-                var (rc, output) = RunTool(inf2cat, $"/driver:\"{dir}\" /os:10_X64", dir);
+                // The catalog names the OS it is for, and that is the machine
+                // doing the install, not the architecture this process was
+                // built for: an x64 PadForge running emulated on ARM64 Windows
+                // still installs an ARM64 driver. OSArchitecture reports the
+                // real machine under emulation. Same test, same two values as
+                // HIDMaestro.Internal.DriverBuilder, whose toolchain this
+                // borrows and which extracts the matching Inf2Cat for it.
+                string catalogOs = RuntimeInformation.OSArchitecture == Architecture.Arm64
+                    ? "10_ARM64"
+                    : "10_X64";
+                var (rc, output) = RunTool(inf2cat, $"/driver:\"{dir}\" /os:{catalogOs}", dir);
                 if (rc != 0) { log("Catalog generation failed: " + output); return false; }
 
                 string cat = Path.Combine(dir, "ds3_winusb.cat");
@@ -1755,14 +1765,14 @@ namespace PadForge.Services
             try
             {
                 string dir = ExtractDrivers();
-                string inf = Path.Combine(dir, "BthPS3_x64", "BthPS3.inf");
+                string inf = Path.Combine(dir, "BthPS3", "BthPS3.inf");
                 Version bundled = File.Exists(inf) ? ParseInfDriverVersion(File.ReadAllText(inf)) : null;
                 Version installed = InstalledBthPs3Version();
                 if (!ShouldUpgrade(installed, bundled)) return;
                 log($"Updating PlayStation Bluetooth drivers from {installed} to {bundled}...");
-                InstallInf(Path.Combine(dir, "BthPS3PSM_x64", "BthPS3PSM.inf"), log);
+                InstallInf(Path.Combine(dir, "BthPS3PSM", "BthPS3PSM.inf"), log);
                 InstallInf(inf, log);
-                InstallInf(Path.Combine(dir, "BthPS3_x64", "BthPS3_PDO_NULL_Device.inf"), log);
+                InstallInf(Path.Combine(dir, "BthPS3", "BthPS3_PDO_NULL_Device.inf"), log);
                 CycleBluetoothRadio(log);
                 EnsureConsumerParams();
                 Version now = InstalledBthPs3Version();
@@ -2101,7 +2111,10 @@ namespace PadForge.Services
             var asm = Assembly.GetExecutingAssembly();
             foreach (string res in asm.GetManifestResourceNames().Where(n => n.StartsWith("BthPS3.", StringComparison.Ordinal)))
             {
-                // LogicalName "BthPS3.BthPS3PSM_x64/BthPS3PSM.inf" -> path under root
+                // LogicalName "BthPS3.BthPS3PSM/BthPS3PSM.inf" -> path under root.
+                // Both architecture folders (x64, ARM64) are extracted beside each
+                // INF. One INF carries NTamd64 and NTarm64 sections and Windows
+                // installs the one matching the machine, so the choice is never ours.
                 string rel = res.Substring("BthPS3.".Length).Replace('/', Path.DirectorySeparatorChar);
                 string dest = Path.Combine(root, rel);
                 Directory.CreateDirectory(Path.GetDirectoryName(dest));

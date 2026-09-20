@@ -288,5 +288,48 @@ namespace PadForge.Tests
             Assert.Contains(@"USB\VID_054C&PID_0268", inf, System.StringComparison.OrdinalIgnoreCase);
             Assert.Contains(@"USB\VID_054C&PID_042F", inf, System.StringComparison.OrdinalIgnoreCase);
         }
+
+        /// <summary>The INF binds inbox winusb.sys, so nothing in it is
+        /// architecture specific except the models list, which Windows reads
+        /// from the section decorated for the machine. An INF that declares
+        /// only NTamd64 matches NOTHING on ARM64 Windows, the wired pad stays on
+        /// HidUsb, and the pairing reports it blocks never go out. Every
+        /// architecture the manufacturer line names must carry the same
+        /// devices, or a pad added to one is silently absent on the other.
+        /// </summary>
+        [Fact]
+        public void TheWinUsbInf_ListsTheSameDevicesForEveryArchitecture()
+        {
+            string inf = File.ReadAllText(Path.Combine(RepoRoot(),
+                "PadForge.App", "Resources", "BthPS3", "WinUSB", "ds3_winusb.inf"));
+            // Normalized, so nothing below depends on which line ending the
+            // working tree happens to carry.
+            inf = inf.Replace("\r\n", "\n").Replace('\r', '\n');
+
+            var mfg = System.Text.RegularExpressions.Regex.Match(inf,
+                @"^%ProviderName%[ \t]*=[ \t]*Standard[ \t]*,[ \t]*([^\n]+)$", System.Text.RegularExpressions.RegexOptions.Multiline);
+            Assert.True(mfg.Success, "no manufacturer line");
+            var archs = new System.Collections.Generic.List<string>();
+            foreach (string a in mfg.Groups[1].Value.Split(',')) archs.Add(a.Trim());
+            Assert.Contains("NTamd64", archs);
+            Assert.Contains("NTarm64", archs);
+
+            System.Collections.Generic.SortedSet<string> first = null;
+            foreach (string arch in archs)
+            {
+                var sec = System.Text.RegularExpressions.Regex.Match(inf,
+                    @"^\[Standard\." + System.Text.RegularExpressions.Regex.Escape(arch) + @"\][ \t]*$(.*?)(?=^\[|\z)",
+                    System.Text.RegularExpressions.RegexOptions.Multiline | System.Text.RegularExpressions.RegexOptions.Singleline);
+                Assert.True(sec.Success, "the manufacturer line names " + arch + " and no [Standard." + arch + "] section exists");
+                var ids = new System.Collections.Generic.SortedSet<string>(System.StringComparer.OrdinalIgnoreCase);
+                foreach (System.Text.RegularExpressions.Match m in System.Text.RegularExpressions.Regex.Matches(
+                             sec.Groups[1].Value, @"USB\\VID_[0-9A-F]{4}&PID_[0-9A-F]{4}",
+                             System.Text.RegularExpressions.RegexOptions.IgnoreCase))
+                    ids.Add(m.Value);
+                Assert.NotEmpty(ids);
+                if (first == null) first = ids;
+                else Assert.Equal(first, ids);
+            }
+        }
     }
 }

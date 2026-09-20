@@ -74,6 +74,7 @@
   <data name="Common_Disabled" xml:space="preserve"><value>已禁用</value></data>
   <data name="Common_Installed" xml:space="preserve"><value>已安装</value></data>
   <data name="Common_NotInstalled" xml:space="preserve"><value>未安装</value></data>
+  <data name="Common_NotAvailableOnArm64" xml:space="preserve"><value>在 ARM64 上不可用</value></data>
   <data name="Common_Ready" xml:space="preserve"><value>就绪</value></data>
   <data name="Common_Stopped" xml:space="preserve"><value>已停止</value></data>
   <data name="Common_Running" xml:space="preserve"><value>运行中</value></data>

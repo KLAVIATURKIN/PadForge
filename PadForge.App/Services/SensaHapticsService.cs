@@ -12,6 +12,14 @@ namespace PadForge.Services
         Stopped,
         WaitingForRuntime,
         Active,
+        /// <summary>This build cannot load the Interhaptics engine at all,
+        /// because the SDK ships it for Win32 and x64 only and this process
+        /// is ARM64. Reported once by Start, which then spawns no worker.
+        /// Distinct from WaitingForRuntime on purpose: that state means
+        /// "install Razer Synapse and this will connect", which would be
+        /// false advice here, and it retries every 30 seconds forever.
+        /// </summary>
+        Unsupported,
     }
 
     /// <summary>
@@ -192,6 +200,11 @@ namespace PadForge.Services
         public void Start()
         {
             if (_thread != null) return; // Already started.
+            if (!PadForge.Engine.PlatformSupport.SensaAvailable)
+            {
+                Report(SensaServiceState.Unsupported);
+                return;
+            }
             _stop = false;
             _thread = new Thread(Worker) { IsBackground = true, Name = "SensaHaptics" };
             _thread.Start();

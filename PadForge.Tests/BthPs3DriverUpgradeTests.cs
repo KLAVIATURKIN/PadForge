@@ -54,9 +54,9 @@ namespace PadForge.Tests
         public void BundledInfsAgreeOnOneVersionAndPlaceTheBinariesWhereTheyPoint()
         {
             string root = Path.Combine(Root(), "PadForge.App", "Resources", "BthPS3");
-            string profile = File.ReadAllText(Path.Combine(root, "BthPS3_x64", "BthPS3.inf"));
-            string nullPdo = File.ReadAllText(Path.Combine(root, "BthPS3_x64", "BthPS3_PDO_NULL_Device.inf"));
-            string filter = File.ReadAllText(Path.Combine(root, "BthPS3PSM_x64", "BthPS3PSM.inf"));
+            string profile = File.ReadAllText(Path.Combine(root, "BthPS3", "BthPS3.inf"));
+            string nullPdo = File.ReadAllText(Path.Combine(root, "BthPS3", "BthPS3_PDO_NULL_Device.inf"));
+            string filter = File.ReadAllText(Path.Combine(root, "BthPS3PSM", "BthPS3PSM.inf"));
             var v = Ds3DriverInstaller.ParseInfDriverVersion(profile);
             Assert.NotNull(v);
             Assert.True(v >= new Version(3, 0, 0, 2082), v.ToString());
@@ -65,18 +65,26 @@ namespace PadForge.Tests
 
             // [SourceDisksFiles.amd64] BthPS3.sys = 1,x64 means the binary
             // lives in an x64 folder beside the INF, and the catalog beside it.
+            // The same INF carries an arm64 section pointing at an ARM64
+            // folder, and Windows installs whichever matches the machine. A
+            // bundle holding the INF without the binary one of its sections
+            // names fails on exactly the machines that section is for, so both
+            // are pinned, including the one this bench cannot run.
             foreach (var (inf, folder, sys, cat) in new[]
             {
-                (profile, "BthPS3_x64", "BthPS3.sys", "bthps3.cat"),
-                (filter, "BthPS3PSM_x64", "BthPS3PSM.sys", "bthps3psm.cat"),
+                (profile, "BthPS3", "BthPS3.sys", "bthps3.cat"),
+                (filter, "BthPS3PSM", "BthPS3PSM.sys", "bthps3psm.cat"),
             })
             {
-                var m = Regex.Match(inf, @"\[SourceDisksFiles\.amd64\]\s*" + Regex.Escape(sys) + @"\s*=\s*1\s*,\s*(\w+)", RegexOptions.IgnoreCase);
-                Assert.True(m.Success, sys + " has no amd64 source entry");
-                Assert.True(File.Exists(Path.Combine(root, folder, m.Groups[1].Value, sys)), sys + " missing under " + m.Groups[1].Value);
+                foreach (string arch in new[] { "amd64", "arm64" })
+                {
+                    var m = Regex.Match(inf, @"\[SourceDisksFiles\." + arch + @"\]\s*" + Regex.Escape(sys) + @"\s*=\s*1\s*,\s*(\w+)", RegexOptions.IgnoreCase);
+                    Assert.True(m.Success, sys + " has no " + arch + " source entry");
+                    Assert.True(File.Exists(Path.Combine(root, folder, m.Groups[1].Value, sys)), sys + " missing under " + m.Groups[1].Value);
+                }
                 Assert.True(File.Exists(Path.Combine(root, folder, cat)), cat + " missing");
             }
-            Assert.True(File.Exists(Path.Combine(root, "BthPS3_x64", "bthps3_pdo_null_device.cat")));
+            Assert.True(File.Exists(Path.Combine(root, "BthPS3", "bthps3_pdo_null_device.cat")));
         }
 
         [Fact]

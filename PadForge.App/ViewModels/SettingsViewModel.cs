@@ -197,8 +197,14 @@ namespace PadForge.ViewModels
             }
         }
 
-        /// <summary>HidHide status display text.</summary>
-        public string HidHideStatusText => _isHidHideInstalled ? Strings.Instance.Common_Installed : Strings.Instance.Common_NotInstalled;
+        /// <summary>HidHide status display text. On ARM64 Windows there is no
+        /// HidHide to install, so "Not Installed" beside a dead Install button
+        /// would read as something the user could fix. An install left over
+        /// from before still reads Installed, since it is.</summary>
+        public string HidHideStatusText =>
+            _isHidHideInstalled ? Strings.Instance.Common_Installed
+            : !PadForge.Engine.PlatformSupport.HidHideAvailable ? Strings.Instance.Common_NotAvailableOnArm64
+            : Strings.Instance.Common_NotInstalled;
 
         private string _hidHideVersion = string.Empty;
 
@@ -236,7 +242,7 @@ namespace PadForge.ViewModels
         public RelayCommand InstallHidHideCommand =>
             _installHidHideCommand ??= new RelayCommand(
                 () => InstallHidHideRequested?.Invoke(this, EventArgs.Empty),
-                () => !_isHidHideInstalled);
+                () => !_isHidHideInstalled && PadForge.Engine.PlatformSupport.HidHideAvailable);
 
         private RelayCommand _uninstallHidHideCommand;
 

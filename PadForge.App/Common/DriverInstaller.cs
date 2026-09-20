@@ -90,6 +90,15 @@ namespace PadForge.Common
         /// </summary>
         public static void InstallHidHide()
         {
+            // HidHide is a kernel filter driver with an x64 package only, and a
+            // kernel driver cannot run emulated, so on ARM64 Windows there is
+            // nothing this could install. The Settings command is already
+            // disabled there. This is the same rule at the layer that would
+            // otherwise run an installer guaranteed to fail, and an ARM64
+            // build does not embed the installer at all.
+            if (!PadForge.Engine.PlatformSupport.HidHideAvailable)
+                throw new PlatformNotSupportedException(
+                    "HidHide has no ARM64 release, so it cannot be installed on ARM64 Windows.");
             try
             {
                 var exePath = ExtractEmbeddedResource(HidHideResourceName, GetHidHideTempDir());
@@ -462,8 +471,13 @@ namespace PadForge.Common
         {
             var json = await http.GetStringAsync(MidiServicesGitHubApi);
 
-            // Simple JSON parsing — find the browser_download_url for the SDK Runtime x64 exe.
-            // Asset name pattern: "Windows.MIDI.Services.SDK.Runtime.and.Tools.*-x64.exe"
+            // Find the browser_download_url for the SDK Runtime exe by scanning
+            // the release JSON for the key.
+            // Asset name pattern: "Windows.MIDI.Services.SDK.Runtime.and.Tools.*-<arch>.exe"
+            // Microsoft publishes an -arm64.exe beside every -x64.exe. This
+            // installs a Windows service, so the MACHINE picks the asset, not
+            // the architecture this process was built for.
+            string archToken = PadForge.Engine.PlatformSupport.IsArm64Machine ? "arm64" : "x64";
             const string needle = "browser_download_url";
             int pos = 0;
             while ((pos = json.IndexOf(needle, pos, StringComparison.Ordinal)) >= 0)
@@ -477,7 +491,7 @@ namespace PadForge.Common
 
                 string url = json.Substring(urlStart, urlEnd - urlStart);
                 if (url.Contains("SDK.Runtime", StringComparison.OrdinalIgnoreCase) &&
-                    url.Contains("x64", StringComparison.OrdinalIgnoreCase) &&
+                    url.Contains("-" + archToken + ".", StringComparison.OrdinalIgnoreCase) &&
                     url.EndsWith(".exe", StringComparison.OrdinalIgnoreCase))
                 {
                     return url;

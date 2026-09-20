@@ -762,6 +762,20 @@ Language (10 locales, live-switch with no restart). Theme (System Default / Ligh
 
 Windows 10 or 11 on x64. The [.NET 10 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/10.0) is bundled in the single-file release, so there is nothing else to install.
 
+### Windows on ARM (preliminary)
+
+4.5.1 adds a build for Windows 11 on ARM64. HIDMaestro 1.9.0 installs its ARM64 driver there, so virtual controllers work as they do on x64, and the DualShock 3 Bluetooth driver installs its ARM64 binary.
+
+Three features are missing on ARM64 because the library each one needs has no ARM64 release:
+
+| Feature | ARM64 build | x64 build under emulation |
+|---|---|---|
+| HidHide device hiding | Not available | Not available |
+| Vosk voice recognition | Voice macros use the Windows speech recognizer | Works |
+| Razer Sensa HD haptics | Not available | Works |
+
+None of this has run on ARM64 hardware yet. The bench is x64.
+
 ### Drivers
 
 PadForge installs **HIDMaestro** on first run. HIDMaestro is the engine that creates virtual controllers. Add a slot and HIDMaestro spins up a HID device matching the controller "shape" you picked.
@@ -784,6 +798,8 @@ dotnet publish PadForge.App/PadForge.App.csproj -c Release
 ```
 
 Output: `PadForge.App/bin/Release/net10.0-windows10.0.26100.0/win-x64/publish/PadForge.exe`
+
+Add `-r win-arm64` for the ARM64 build. [BUILD.md](BUILD.md#arm64-preliminary-451) lists what that build needs.
 
 See [BUILD.md](BUILD.md) for project structure, architecture notes, and developer reference. See the [Technical Reference](https://padforge.org/docs/reference/) for deeper dives into the input pipeline, virtual controller backends, settings file format, and visualization renderer.
 

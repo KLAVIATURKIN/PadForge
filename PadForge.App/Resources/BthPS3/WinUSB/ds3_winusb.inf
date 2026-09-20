@@ -17,13 +17,21 @@ Class       = USBDevice
 ClassGUID   = {88BAE032-5A81-49F0-BC3D-A4FF138216D6}
 Provider    = %ProviderName%
 CatalogFile = ds3_winusb.cat
-DriverVer   = 07/08/2026,1.0.0.0
+DriverVer   = 09/20/2026,1.1.0.0
 PnpLockdown = 1
 
 [Manufacturer]
-%ProviderName% = Standard,NTamd64
+%ProviderName% = Standard,NTamd64,NTarm64
 
 [Standard.NTamd64]
+%DeviceName%    = USB_Install, USB\VID_054C&PID_0268
+%NavDeviceName% = USB_Install, USB\VID_054C&PID_042F
+
+; The same two devices on ARM64 Windows. winusb.sys is inbox there too, so the
+; install sections are shared and only the models list is repeated. Without this
+; section the INF matches nothing on an ARM64 machine and a wired DualShock 3
+; stays bound to HidUsb, which blocks the pairing reports.
+[Standard.NTarm64]
 %DeviceName%    = USB_Install, USB\VID_054C&PID_0268
 %NavDeviceName% = USB_Install, USB\VID_054C&PID_042F
 

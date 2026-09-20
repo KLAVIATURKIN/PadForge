@@ -134,6 +134,7 @@ PadForge.sln
 │   │   ├── SDL3/x64/SDL3.dll          Custom SDL3 fork (HIDMaestro filter, Switch 2 Pro)
 │   │   ├── SDL3/x64/libusb-1.0.dll    libusb for WinUSB device access
 │   │   ├── OpenXInput/x64/xinput1_4.dll  Custom XInput shim (filters HIDMaestro virtuals from PadForge's own view)
+│   │   ├── */arm64/                   ARM64 copies of the native DLLs, beside each x64 folder
 │   │   ├── HIDMaestro/HIDMaestro.Core.dll  HIDMaestro managed client
 │   │   ├── HidHide_1.5.230_x64.exe    Embedded HidHide installer
 │   │   └── Xbox Series Controller - *.png  Dashboard controller images
@@ -191,6 +192,34 @@ Output: `PadForge.App/bin/Release/net10.0-windows10.0.26100.0/win-x64/publish/Pa
 > runtime and not on the .NET Framework build of MSBuild that Visual Studio uses.
 > Building from the IDE fails before any compile with a message naming this. Use the
 > `dotnet` CLI, or point Visual Studio at it.
+
+### ARM64 (preliminary, 4.5.1)
+
+```bash
+dotnet publish -c Release -r win-arm64 PadForge.App/PadForge.App.csproj
+```
+
+Output: `PadForge.App/bin/Release/net10.0-windows10.0.26100.0/win-arm64/publish/PadForge.exe`. With no `-r` the build is x64, so existing scripts produce what they always have.
+
+Every bundled native binary sits in a folder named for its architecture: `Resources/SDL3/x64` and `Resources/SDL3/arm64`, and the same pair for `OpenXInput`, `VisualCpp` and `Interhaptics`. The `$(NativeArch)` property picks the folder. `NativeBinaryArchitectureTests` reads the PE header of every file in those folders and fails when a file's machine type differs from its folder name.
+
+An ARM64 publish is refused until `Resources/SDL3/arm64/SDL3.dll` and `Resources/OpenXInput/arm64/xinput1_4.dll` exist. Both come from ARM64 builds of the two forks. A plain `dotnet build -r win-arm64` compiles without them.
+
+Three features have no ARM64 native half. `PadForge.Engine/Common/PlatformSupport.cs` decides each one:
+
+| Feature | Decided by | Why |
+|---|---|---|
+| HidHide | Machine architecture | A kernel driver cannot run emulated, and upstream publishes an x64 package only |
+| Vosk voice engine | Process architecture | libvosk ships for Windows x64 only. Voice macros fall back to the Windows speech recognizer |
+| Razer Sensa HD haptics | Process architecture | The Interhaptics SDK ships for Win32 and x64 only |
+
+The x64 build running emulated on ARM64 Windows loses HidHide alone. The ARM64 build loses all three.
+
+Drivers that install into Windows follow the machine. HIDMaestro 1.9.0 and BthPS3 3.0.0 each carry an x64 and an ARM64 payload and install the one that matches, the DualShock 3 WinUSB package is signed with the matching catalog OS, and the Windows MIDI Services download picks the `-arm64` installer on an ARM64 machine.
+
+`vcruntime140_1.dll` is bundled for x64 only. It holds an exception handler that exists for the x64 ABI alone, and the copy in Microsoft's ARM64 redist folder is an x64 image.
+
+None of the ARM64 path has run on ARM64 hardware. The bench is x64.
 
 ## Runtime Requirements
 

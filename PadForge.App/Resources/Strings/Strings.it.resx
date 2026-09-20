@@ -74,6 +74,7 @@
   <data name="Common_Disabled" xml:space="preserve"><value>Disattivato</value></data>
   <data name="Common_Installed" xml:space="preserve"><value>Installato</value></data>
   <data name="Common_NotInstalled" xml:space="preserve"><value>Non installato</value></data>
+  <data name="Common_NotAvailableOnArm64" xml:space="preserve"><value>Non disponibile su ARM64</value></data>
   <data name="Common_Ready" xml:space="preserve"><value>Pronto</value></data>
   <data name="Common_Stopped" xml:space="preserve"><value>Arrestato</value></data>
   <data name="Common_Running" xml:space="preserve"><value>In esecuzione</value></data>

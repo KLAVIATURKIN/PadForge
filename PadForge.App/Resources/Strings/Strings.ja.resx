@@ -74,6 +74,7 @@
   <data name="Common_Disabled" xml:space="preserve"><value>無効</value></data>
   <data name="Common_Installed" xml:space="preserve"><value>インストール済み</value></data>
   <data name="Common_NotInstalled" xml:space="preserve"><value>未インストール</value></data>
+  <data name="Common_NotAvailableOnArm64" xml:space="preserve"><value>ARM64 では利用できません</value></data>
   <data name="Common_Ready" xml:space="preserve"><value>準備完了</value></data>
   <data name="Common_Stopped" xml:space="preserve"><value>停止</value></data>
   <data name="Common_Running" xml:space="preserve"><value>実行中</value></data>
