@@ -203,7 +203,7 @@ Output: `PadForge.App/bin/Release/net10.0-windows10.0.26100.0/win-arm64/publish/
 
 Every bundled native binary sits in a folder named for its architecture: `Resources/SDL3/x64` and `Resources/SDL3/arm64`, and the same pair for `OpenXInput`, `VisualCpp` and `Interhaptics`. The `$(NativeArch)` property picks the folder. `NativeBinaryArchitectureTests` reads the PE header of every file in those folders and fails when a file's machine type differs from its folder name.
 
-An ARM64 publish is refused until `Resources/SDL3/arm64/SDL3.dll` and `Resources/OpenXInput/arm64/xinput1_4.dll` exist. Both come from ARM64 builds of the two forks. A plain `dotnet build -r win-arm64` compiles without them.
+An ARM64 publish is refused if `Resources/SDL3/arm64/SDL3.dll` or `Resources/OpenXInput/arm64/xinput1_4.dll` is missing. Both come from ARM64 builds of the two forks, cross-compiled on an x64 machine with `cmake -A ARM64`. A plain `dotnet build -r win-arm64` compiles without them.
 
 Three features have no ARM64 native half. `PadForge.Engine/Common/PlatformSupport.cs` decides each one:
 
@@ -219,7 +219,7 @@ A fourth gap is decided in the SDL fork, not in PadForge. The fork's Xbox Elite 
 
 Drivers that install into Windows follow the machine. HIDMaestro 1.9.0 and BthPS3 3.0.0 each carry an x64 and an ARM64 payload and install the one that matches, the DualShock 3 WinUSB package is signed with the matching catalog OS, and the Windows MIDI Services download picks the `-arm64` installer on an ARM64 machine.
 
-`vcruntime140_1.dll` is bundled for x64 only. It holds an exception handler that exists for the x64 ABI alone, and the copy in Microsoft's ARM64 redist folder is an x64 image.
+Of the Visual C++ runtime, the ARM64 build bundles `vcruntime140.dll` alone, which is all the ARM64 `SDL3.dll` imports. `msvcp140.dll` is x64 only, because the x64 `SDL3.dll` needs it for the Elite paddle reader and nothing in the ARM64 build imports it. `vcruntime140_1.dll` is x64 only as well. It holds an exception handler that exists for the x64 ABI alone, and the copy in Microsoft's ARM64 redist folder is an x64 image.
 
 None of the ARM64 path has run on ARM64 hardware. The bench is x64.
 

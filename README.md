@@ -53,8 +53,10 @@ PadForge is for sim racers running wheels in games that only understand Xbox con
 </p>
 
 <details>
-<summary><b>New in 4.5.1:</b> DualShock 3 pairing on PCIe and UART Bluetooth adapters</summary>
+<summary><b>New in 4.5.1:</b> wired Switch 2 controllers work again, a first build for Windows on ARM, and DualShock 3 pairing on PCIe and UART Bluetooth adapters</summary>
 
+- **A Switch 2 controller on a USB cable works again.** 4.5.0 shipped an input library that asked Windows for `libusb-1.0.lib` where PadForge bundles `libusb-1.0.dll`, so libusb never loaded. Every device reached only through it was dead: the Switch 2 Pro Controller, Joy-Con 2 and the Switch 2 GameCube controller on a cable, the GameCube adapter, and the Xbox 360 Big Button receiver. Bluetooth was not affected, and neither was 4.4.0. A test now fails unless the name inside the bundled library is a file that ships beside it.
+- **A first build for Windows on ARM.** `PadForge-v4.5.1-win-arm64.zip` is a native build for Windows 11 on ARM64, and HIDMaestro 1.9.0 installs its ARM64 driver there. HidHide, Vosk voice recognition, Razer Sensa haptics and Xbox Elite paddles are missing on it, and none of it has run on ARM64 hardware yet. [Requirements](#windows-on-arm-preliminary) has the table.
 - **A DualShock 3 pairs on a PCIe or UART Bluetooth adapter.** The bundled PlayStation Bluetooth driver moves to BthPS3 3.0.0, whose filter attaches to BTHX radios as well as USB ones. Most recent Intel laptops carry a PCIe adapter, and on those the profile device used to fail with code 31. An existing install is upgraded in place the next time you pair.
 
 </details>
@@ -77,7 +79,7 @@ PadForge is for sim racers running wheels in games that only understand Xbox con
 - **A game's DualSense trigger feedback reaches the pad.** The virtual pad carries the physical DualSense's trigger feedback bytes instead of zeroing them, so a game that reads them back sees the truth.
 - **Rumble on Padix PlayStation converters**, written directly as the 9-byte motor report.
 - **Proportional steering-angle rumble** on wheels.
-- **Signed BthPS3 3.0.0** is bundled, and an older install is upgraded in place.
+- **Signed BthPS3 2.12.0** is bundled, and an older install is upgraded in place.
 - **Elite paddles heal themselves** across every transport and focus change.
 
 </details>
@@ -211,7 +213,7 @@ Full documentation at [padforge.org/docs](https://padforge.org/docs/).
 
 ## Quick start
 
-1. Download `PadForge.exe` from the [latest release](https://github.com/hifihedgehog/PadForge/releases/latest).
+1. Download the `win-x64` zip from the [latest release](https://github.com/hifihedgehog/PadForge/releases/latest) and extract `PadForge.exe`. On Windows on ARM, take the `win-arm64` zip.
 2. Run it. PadForge always runs elevated, so Windows shows the UAC prompt at startup. The first launch installs HIDMaestro inside that same elevated session.
 3. Click **Add Controller** on the Dashboard. Pick Xbox, PlayStation, Nintendo, Extended, Keyboard + Mouse, MIDI, or VR.
 4. On the new slot, drag a physical device onto it from the sidebar.

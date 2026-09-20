@@ -103,8 +103,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <!-- SDL's C++ runtime dependencies share the native extraction directory.
-         Bundle the redistributable files so no separate runtime install is needed. -->
-    <Content Include="Resources\VisualCpp\$(NativeArch)\msvcp140.dll" Link="msvcp140.dll">
+         Bundle the redistributable files so no separate runtime install is needed.
+         msvcp140.dll is x64 only. The x64 SDL3.dll imports it for the Elite
+         paddle reader, which is C++, and the fork builds that reader for x64
+         alone. The ARM64 SDL3.dll imports vcruntime140.dll and nothing else
+         from the C++ runtime, and no other ARM64 file in the build imports
+         msvcp140.dll either (dumpbin /dependents over the whole output). -->
+    <Content Include="Resources\VisualCpp\x64\msvcp140.dll" Link="msvcp140.dll" Condition="'$(NativeArch)' == 'x64'">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\VisualCpp\$(NativeArch)\vcruntime140.dll" Link="vcruntime140.dll">
@@ -582,9 +587,9 @@
        ARM64 publish from this x64 bench would carry libvosk.dll and three
        MinGW runtime DLLs an ARM64 process cannot load. Upstream publishes no
        Windows ARM64 libvosk. The items are taken back out here, and
-       VoiceCommandService reports voice macros as unavailable on that build
-       instead of throwing BadImageFormatException at the first recognizer.
-       NativeLibs is the item name Vosk.targets defines. -->
+       VoskModelStore never starts on that build, so voice macros run on the
+       SAPI recognizer instead of meeting BadImageFormatException at the
+       first Vosk call. NativeLibs is the item name Vosk.targets defines. -->
   <Target Name="DropX64OnlyNativesOnArm64" BeforeTargets="AssignTargetPaths"
           Condition="'$(NativeArch)' == 'arm64'">
     <ItemGroup>
@@ -593,13 +598,13 @@
   </Target>
 
   <!-- SDL3.dll and xinput1_4.dll come from forks that are built in their own
-       workspaces, and neither has produced an ARM64 binary yet. Their Content
-       items are conditioned on Exists, which is right for a first build but
-       means a missing DLL is SILENT: the ARM64 publish would succeed and
-       produce an exe whose input engine cannot start. A plain build is let
-       through with a message so the rest of the ARM64 tree can still be
-       compiled and checked. A PUBLISH without them is refused, because that
-       is the step whose output reaches somebody else's machine. -->
+       workspaces and delivered here as binaries. Their Content items are
+       conditioned on Exists, which is right for a first build but means a
+       missing DLL is SILENT: the ARM64 publish would succeed and produce an
+       exe whose input engine cannot start. A plain build is let through with
+       a message so the rest of the ARM64 tree can still be compiled and
+       checked. A PUBLISH without them is refused, because that is the step
+       whose output reaches somebody else's machine. -->
   <Target Name="RequireArm64Natives" BeforeTargets="PrepareForPublish"
           Condition="'$(NativeArch)' == 'arm64'">
     <Error Condition="!Exists('Resources\SDL3\arm64\SDL3.dll')"
