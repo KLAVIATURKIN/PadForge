@@ -53,6 +53,13 @@ PadForge is for sim racers running wheels in games that only understand Xbox con
 </p>
 
 <details>
+<summary><b>New in 4.5.1:</b> DualShock 3 pairing on PCIe and UART Bluetooth adapters</summary>
+
+- **A DualShock 3 pairs on a PCIe or UART Bluetooth adapter.** The bundled PlayStation Bluetooth driver moves to BthPS3 3.0.0, whose filter attaches to BTHX radios as well as USB ones. Most recent Intel laptops carry a PCIe adapter, and on those the profile device used to fail with code 31. An existing install is upgraded in place the next time you pair.
+
+</details>
+
+<details>
 <summary><b>New in 4.5.0:</b> a VR headset and its controllers as input, Logitech G-keys, a phone's controller through the browser, and an install 30% smaller</summary>
 
 - **A VR headset drives a flat game.** Enable OpenXR Headset Input on the Dashboard and the headset's pose arrives on the Head Tracker device as the same six axes OpenTrack uses. PadForge talks to the runtime directly instead of through the Khronos loader, so it can pick a runtime for itself without touching the machine's default and no other program's API layers enter its process. The session draws nothing, so no VR game has to be running.
@@ -70,7 +77,7 @@ PadForge is for sim racers running wheels in games that only understand Xbox con
 - **A game's DualSense trigger feedback reaches the pad.** The virtual pad carries the physical DualSense's trigger feedback bytes instead of zeroing them, so a game that reads them back sees the truth.
 - **Rumble on Padix PlayStation converters**, written directly as the 9-byte motor report.
 - **Proportional steering-angle rumble** on wheels.
-- **Signed BthPS3 2.12.0** is bundled, and an older install is upgraded in place.
+- **Signed BthPS3 3.0.0** is bundled, and an older install is upgraded in place.
 - **Elite paddles heal themselves** across every transport and focus change.
 
 </details>

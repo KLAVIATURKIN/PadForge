@@ -58,10 +58,17 @@ namespace PadForge.Tests
 
             // Each "write sticks then triggers" run must be preceded by a
             // trigger reset on the same object.
+            //
+            // The newline between the two assignments is left to \s*, not
+            // written into the pattern. It used to be two literal newlines
+            // carried over from this file's own line endings, which matched
+            // while the working tree was LF and matched NOTHING once a branch
+            // switch let core.autocrlf=true rewrite the tree as CRLF: the
+            // pattern then demanded two carriage returns where the source has
+            // one. The test reported "this pin has gone stale" and was itself
+            // the stale thing.
             var m = System.Text.RegularExpressions.Regex.Matches(src,
-                @"(?<obj>[A-Za-z_][A-Za-z0-9_]*)\.ThumbstickCount = [^;]+;\s*
-?
-\s*\k<obj>\.TriggerCount = ");
+                @"(?<obj>[A-Za-z_][A-Za-z0-9_]*)\.ThumbstickCount = [^;]+;\s*\k<obj>\.TriggerCount = ");
             Assert.True(m.Count > 0, "no layout seeding site found, so this pin has gone stale");
 
             foreach (System.Text.RegularExpressions.Match hit in m)

@@ -7,17 +7,18 @@ using Xunit;
 namespace PadForge.Tests
 {
     /// <summary>
-    /// Issue #204: the bundled BthPS3 package moved to the signed 2.12.0
-    /// build that closes the remote-disconnect use-after-free, and a machine
-    /// that installed an earlier bundle is upgraded in place the next time
-    /// the pairing flow runs. The INF is the only version source, and the
-    /// bundle's layout follows what the INFs say about where the binaries
-    /// sit.
+    /// The bundled BthPS3 package is the signed 3.0.0 build, whose filter
+    /// attaches to BTHX radios (PCIe and UART Bluetooth, not only USB) as
+    /// well as USB ones. Issue #204 brought the 2.12.0 build that closed the
+    /// remote-disconnect use-after-free, and a machine carrying either older
+    /// bundle is upgraded in place the next time the pairing flow runs. The
+    /// INF is the only version source, and the bundle's layout follows what
+    /// the INFs say about where the binaries sit.
     /// </summary>
     public class BthPs3DriverUpgradeTests
     {
         [Theory]
-        [InlineData("DriverVer = 09/15/2026,2.12.0.2037", "2.12.0.2037")]
+        [InlineData("DriverVer = 09/18/2026,3.0.0.2082", "3.0.0.2082")]
         [InlineData("DriverVer=02/22/2025,2.10.470.0 ; trailing comment", "2.10.470.0")]
         [InlineData("  driverver = 01/01/2020,1.2.3.4", "1.2.3.4")]
         public void ParsesTheDriverVerLine(string line, string expected)
@@ -38,8 +39,10 @@ namespace PadForge.Tests
         [Fact]
         public void UpgradesOnlyWhenTheBundleIsStrictlyNewer()
         {
-            var installed = new Version(2, 10, 470, 0);
-            var bundled = new Version(2, 12, 0, 2037);
+            // The upgrade this release actually performs: a machine on the
+            // previous bundle moves to 3.0.0.
+            var installed = new Version(2, 12, 0, 2037);
+            var bundled = new Version(3, 0, 0, 2082);
             Assert.True(Ds3DriverInstaller.ShouldUpgrade(installed, bundled));
             Assert.False(Ds3DriverInstaller.ShouldUpgrade(bundled, bundled));
             Assert.False(Ds3DriverInstaller.ShouldUpgrade(bundled, installed));
@@ -56,7 +59,7 @@ namespace PadForge.Tests
             string filter = File.ReadAllText(Path.Combine(root, "BthPS3PSM_x64", "BthPS3PSM.inf"));
             var v = Ds3DriverInstaller.ParseInfDriverVersion(profile);
             Assert.NotNull(v);
-            Assert.True(v >= new Version(2, 12, 0, 2037), v.ToString());
+            Assert.True(v >= new Version(3, 0, 0, 2082), v.ToString());
             Assert.Equal(v, Ds3DriverInstaller.ParseInfDriverVersion(nullPdo));
             Assert.Equal(v, Ds3DriverInstaller.ParseInfDriverVersion(filter));
 

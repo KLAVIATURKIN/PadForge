@@ -94,10 +94,12 @@ namespace PadForge.Services
                     if (!IsPsmFilterPresent())
                         RepairPsmFilter(log);
                     // (#204) A machine that installed an earlier bundle keeps
-                    // that driver forever unless something re-runs the INFs.
-                    // The 2.12.0 package closes the remote-disconnect
-                    // use-after-free behind the July 10 bugcheck, so an
-                    // older installed package is upgraded in place here.
+                    // that driver forever unless something re-runs the INFs,
+                    // so an older installed package is upgraded in place here.
+                    // 2.12.0 closed the remote-disconnect use-after-free
+                    // behind the July 10 bugcheck. 3.0.0 attaches the filter
+                    // to BTHX radios too, so a PCIe or UART Bluetooth adapter
+                    // stops failing the profile PDO with code 31.
                     UpgradeInstalledDriversIfOlder(log);
                     EnsurePsmPatch(log);
                     return true;
