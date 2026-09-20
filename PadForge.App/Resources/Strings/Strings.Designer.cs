@@ -641,6 +641,8 @@ public class Strings : INotifyPropertyChanged
     public string About_OpenXrRefsDesc => Get("About_OpenXrRefsDesc");
     public string About_LogitechGKeyRefs => Get("About_LogitechGKeyRefs");
     public string About_LogitechGKeyRefsDesc => Get("About_LogitechGKeyRefsDesc");
+    public string About_UsbipWin2 => Get("About_UsbipWin2");
+    public string About_UsbipWin2Desc => Get("About_UsbipWin2Desc");
     public string About_Concentus => Get("About_Concentus");
     public string About_ConcentusDesc => Get("About_ConcentusDesc");
     public string About_SAxense => Get("About_SAxense");

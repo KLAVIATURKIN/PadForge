@@ -3558,6 +3558,8 @@ Puoi riprovare più tardi dalle Impostazioni.</value></data>
   <data name="About_OpenXrRefsDesc" xml:space="preserve"><value>L’interfaccia di runtime, la disposizione delle strutture e le chiavi di registro dietro l’input del visore e dei controller di movimento, lette dalle intestazioni dell’SDK OpenXR di Khronos (Apache-2.0) e verificate con VirtualDesktop-OpenXR (MIT). PadForge parla con il runtime installato sul tuo sistema e non distribuisce codice Khronos.</value></data>
   <data name="About_LogitechGKeyRefs" xml:space="preserve"><value>Riferimenti all’SDK G-key di Logitech</value></data>
   <data name="About_LogitechGKeyRefsDesc" xml:space="preserve"><value>La disposizione della parola di evento e il ciclo di vita della libreria dietro l’input dei tasti G, letti da LogitechGkeyLib.h nell’SDK e verificati con GKey.cpp di Mumble (BSD 3-Clause). PadForge carica la libreria presente sulla macchina e non distribuisce codice Logitech.</value></data>
+  <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>Trasporto USB di Vadym Hrynchyshyn per i controller USB compositi di HIDMaestro. Il programma di installazione firmato è incluso in HIDMaestro e viene eseguito la prima volta che si crea un controller composito. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>Scegli quali metà di questo slot sono attive. Disattivando una metà se ne nascondono le righe e si interrompe l'invio, ma le assegnazioni restano e tornano riattivandola.</value>
   </data>

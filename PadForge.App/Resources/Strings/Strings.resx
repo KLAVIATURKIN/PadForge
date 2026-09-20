@@ -3585,6 +3585,8 @@ You can retry later from Settings.</value></data>
   <data name="About_OpenXrRefsDesc" xml:space="preserve"><value>The runtime interface, structure layout and registry keys behind headset and motion controller input, read from the Khronos OpenXR-SDK headers (Apache-2.0) and cross-checked against VirtualDesktop-OpenXR (MIT). PadForge talks to your own installed runtime and ships no Khronos code.</value></data>
   <data name="About_LogitechGKeyRefs" xml:space="preserve"><value>Logitech G-key SDK references</value></data>
   <data name="About_LogitechGKeyRefsDesc" xml:space="preserve"><value>The event word layout and library lifecycle behind G-key input, read from LogitechGkeyLib.h in the SDK and cross-checked against Mumble’s GKey.cpp (BSD 3-Clause). PadForge loads whichever copy of the library is on the machine and ships no Logitech code.</value></data>
+  <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>USB transport by Vadym Hrynchyshyn for HIDMaestro's composite USB controllers. Its signed installer ships inside HIDMaestro and runs the first time a composite controller is created. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>Choose which halves of this slot are live. Turning a half off hides its rows and stops it from sending, and keeps its mappings so turning it back on restores them.</value>
   </data>

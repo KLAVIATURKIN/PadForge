@@ -3536,6 +3536,8 @@
   <data name="About_OpenXrRefsDesc" xml:space="preserve"><value>ヘッドセットとモーションコントローラー入力を支えるランタイムインターフェイス、構造体レイアウト、レジストリキーは、Khronos の OpenXR-SDK ヘッダー (Apache-2.0) から読み取り、VirtualDesktop-OpenXR (MIT) と照合しました。PadForge はお使いの環境に入っているランタイムと通信し、Khronos のコードは同梱しません。</value></data>
   <data name="About_LogitechGKeyRefs" xml:space="preserve"><value>Logitech G-key SDK の参照元</value></data>
   <data name="About_LogitechGKeyRefsDesc" xml:space="preserve"><value>G キー入力を支えるイベントワードのレイアウトとライブラリのライフサイクルは、SDK の LogitechGkeyLib.h から読み取り、Mumble の GKey.cpp (BSD 3-Clause) と照合しました。PadForge はマシン上にあるライブラリを読み込み、Logitech のコードは同梱しません。</value></data>
+  <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>HIDMaestro の複合 USB コントローラー用の USB トランスポート (Vadym Hrynchyshyn 作)。署名済みインストーラーは HIDMaestro に同梱され、複合コントローラーを初めて作成するときに実行されます。BSD 2-Clause。</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>このスロットで有効にする面を選びます。無効にした面は行が非表示になり送信も止まりますが、割り当ては保持されるため再度有効にすると元に戻ります。</value>
   </data>

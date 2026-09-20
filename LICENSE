@@ -69,9 +69,10 @@ SDL3
 Microsoft Visual C++ Runtime
   https://learn.microsoft.com/en-us/visualstudio/releases/2026/redistribution
   Copyright (c) Microsoft Corporation.
-  The x64 msvcp140.dll, vcruntime140.dll, and vcruntime140_1.dll files
-  (version 14.51.36247.0) are redistributed unmodified under the Microsoft
-  Visual Studio license terms. They are bundled inside PadForge.exe.
+  The x64 msvcp140.dll, vcruntime140.dll, and vcruntime140_1.dll files and
+  the ARM64 msvcp140.dll and vcruntime140.dll files (version 14.51.36247.0)
+  are redistributed unmodified under the Microsoft Visual Studio license
+  terms. Each build of PadForge.exe bundles the set for its architecture.
 
 Microsoft GameInput SDK loader
   https://www.nuget.org/packages/Microsoft.GameInput/3.5.270
@@ -81,6 +82,16 @@ Microsoft GameInput SDK loader
 HIDMaestro
   https://github.com/hifihedgehog/HIDMaestro
   Licensed under MIT License
+
+usbip-win2
+  https://github.com/vadimgrn/usbip-win2
+  Copyright (c) 2021-2026, Vadym Hrynchyshyn
+  HIDMaestro.Core.dll carries the upstream 0.9.7.5 release installers for
+  x64 and ARM64, unmodified and Microsoft-signed, and installs the one
+  matching the machine the first time a composite USB controller is
+  created. It is the USB transport for those controllers. Any other
+  controller type installs nothing from it.
+  Licensed under the BSD 2-Clause License (full text at the end of this file)
 
 HelixToolkit
   https://github.com/helix-toolkit/helix-toolkit
@@ -510,6 +521,35 @@ modification, are permitted provided that the following conditions are met:
 For the $Q Super-Quick Recognizer the third condition names the University
 Stefan cel Mare of Suceava, the University of Washington, and the
 University of Florida in place of the copyright holder.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+--------------------------------------------------------------------------------
+
+BSD 2-Clause License (usbip-win2, redistributed in binary form inside
+HIDMaestro.Core.dll)
+======================================================================
+
+Copyright (c) 2021-2026, Vadym Hrynchyshyn <vadimgrn@gmail.com>
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE

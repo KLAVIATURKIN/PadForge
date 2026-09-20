@@ -3556,6 +3556,8 @@ Je kunt het later opnieuw proberen via Instellingen.</value></data>
   <data name="About_OpenXrRefsDesc" xml:space="preserve"><value>De runtime-interface, de structuurindeling en de registersleutels achter invoer van headset en motioncontrollers, gelezen uit de Khronos OpenXR-SDK-headers (Apache-2.0) en getoetst aan VirtualDesktop-OpenXR (MIT). PadForge praat met je eigen geïnstalleerde runtime en levert geen Khronos-code mee.</value></data>
   <data name="About_LogitechGKeyRefs" xml:space="preserve"><value>Referenties voor de Logitech G-key SDK</value></data>
   <data name="About_LogitechGKeyRefsDesc" xml:space="preserve"><value>De indeling van het gebeurteniswoord en de levenscyclus van de bibliotheek achter G-toetsinvoer, gelezen uit LogitechGkeyLib.h in de SDK en getoetst aan GKey.cpp van Mumble (BSD 3-Clause). PadForge laadt de bibliotheek die op de machine staat en levert geen Logitech-code mee.</value></data>
+  <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>USB-transport van Vadym Hrynchyshyn voor de samengestelde USB-controllers van HIDMaestro. Het ondertekende installatieprogramma zit in HIDMaestro en wordt uitgevoerd wanneer voor het eerst een samengestelde controller wordt gemaakt. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>Kies welke helften van deze sleuf actief zijn. Een uitgeschakelde helft verbergt zijn rijen en stopt met verzenden, maar behoudt zijn toewijzingen zodat ze terugkomen als je hem weer inschakelt.</value>
   </data>

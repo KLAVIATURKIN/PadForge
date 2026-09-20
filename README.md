@@ -849,6 +849,7 @@ PadForge stands on these projects. Please consider supporting them directly.
 | [Microsoft GameInput](https://www.nuget.org/packages/Microsoft.GameInput/3.5.270) | Windows controller input, including Xbox Elite paddles. The SDK loader is linked into SDL | MIT (SDK loader) |
 | [OpenVR](https://github.com/ValveSoftware/openvr) | VR headset pose and motion controllers as input sources (C# binding only, the native runtime comes from your SteamVR) | BSD 3-Clause |
 | [HIDMaestro](https://github.com/hifihedgehog/HIDMaestro) | User-mode UMDF2 virtual HID controller engine with 231 device profiles | MIT |
+| [usbip-win2](https://github.com/vadimgrn/usbip-win2) | USB transport for HIDMaestro's composite USB controllers. The signed 0.9.7.5 installers for x64 and ARM64 ship unmodified inside `HIDMaestro.Core.dll`, and one installs the first time a composite controller is created | BSD 2-Clause |
 | [OpenXInput](https://github.com/hifihedgehog/OpenXinput) | Drop-in `xinput1_4.dll` replacement that filters PadForge's own virtual controllers from its own XInput view | upstream trademark disclaimer |
 | [Handheld Companion](https://github.com/Valkirie/HandheldCompanion) | 3D controller OBJ meshes (Xbox 360, Xbox One, DualShock 4, DualSense, Steam Deck) | CC BY-NC-SA 4.0 |
 | [Gamepad-Asset-Pack](https://github.com/AL2009man/Gamepad-Asset-Pack) | 2D controller PNG schematics (Xbox 360, Xbox One S, Xbox Series, DualShock 4, DualSense) | MIT |
@@ -935,6 +936,7 @@ This project is licensed under **CC BY-NC-SA 4.0** (Creative Commons Attribution
 - **HelixToolkit** is licensed under the MIT License.
 - **CommunityToolkit.Mvvm** is licensed under the MIT License.
 - **Windows MIDI Services** is licensed under the MIT License.
+- **usbip-win2** is licensed under the BSD 2-Clause License. Copyright (c) 2021-2026, Vadym Hrynchyshyn. HIDMaestro carries the unmodified, Microsoft-signed 0.9.7.5 installers and runs one only when a composite USB controller is first created. Full license text in [LICENSE](LICENSE).
 - **HidHide** is licensed under the MIT License.
 - **BthPS3** is licensed under the BSD 3-Clause License. Copyright (c) 2018-2026, Nefarius Software Solutions e.U. PadForge bundles the Microsoft-attestation-signed BthPS3 and BthPS3PSM driver binaries unmodified and installs them on demand for DualShock 3 Bluetooth support. Full license text in [LICENSE](LICENSE).
 - **DsHidMini** is licensed under the BSD 3-Clause License. Copyright (c) 2020-2025, Benjamin Höglinger-Stelzer. Protocol reference for the DualShock 3 (sixpair feature reports, Bluetooth output-report template, enable ordering, battery status map). PadForge's implementation is original C#.

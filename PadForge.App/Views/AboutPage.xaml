@@ -142,6 +142,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
                     <TextBlock Text="{Binding About_DotNet10, Source={x:Static strings:Strings.Instance}}" FontWeight="SemiBold"/>
@@ -393,6 +394,10 @@
                     <TextBlock Grid.Row="63" Text="{Binding About_LogitechGKeyRefs, Source={x:Static strings:Strings.Instance}}" FontWeight="SemiBold" Margin="0,6,16,0" TextWrapping="Wrap"/>
                     <TextBlock Grid.Row="63" Grid.Column="1"
                                Text="{Binding About_LogitechGKeyRefsDesc, Source={x:Static strings:Strings.Instance}}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,6,0,0" TextWrapping="Wrap"/>
+
+                    <TextBlock Grid.Row="64" Text="{Binding About_UsbipWin2, Source={x:Static strings:Strings.Instance}}" FontWeight="SemiBold" Margin="0,6,16,0" TextWrapping="Wrap"/>
+                    <TextBlock Grid.Row="64" Grid.Column="1"
+                               Text="{Binding About_UsbipWin2Desc, Source={x:Static strings:Strings.Instance}}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,6,0,0" TextWrapping="Wrap"/>
                 </Grid>
             </Border>
 

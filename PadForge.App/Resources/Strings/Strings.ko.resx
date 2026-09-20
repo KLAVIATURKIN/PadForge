@@ -3536,6 +3536,8 @@
   <data name="About_OpenXrRefsDesc" xml:space="preserve"><value>헤드셋과 모션 컨트롤러 입력을 뒷받침하는 런타임 인터페이스, 구조체 레이아웃, 레지스트리 키는 Khronos OpenXR-SDK 헤더(Apache-2.0)에서 읽었고 VirtualDesktop-OpenXR(MIT)와 대조했습니다. PadForge는 사용자 시스템에 설치된 런타임과 통신하며 Khronos 코드를 포함하지 않습니다.</value></data>
   <data name="About_LogitechGKeyRefs" xml:space="preserve"><value>Logitech G-key SDK 참조</value></data>
   <data name="About_LogitechGKeyRefsDesc" xml:space="preserve"><value>G 키 입력을 뒷받침하는 이벤트 워드 레이아웃과 라이브러리 수명 주기는 SDK의 LogitechGkeyLib.h에서 읽었고 Mumble의 GKey.cpp(BSD 3-Clause)와 대조했습니다. PadForge는 시스템에 있는 라이브러리를 로드하며 Logitech 코드를 포함하지 않습니다.</value></data>
+  <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>HIDMaestro의 복합 USB 컨트롤러를 위한 USB 전송 계층입니다 (Vadym Hrynchyshyn 제작). 서명된 설치 프로그램이 HIDMaestro에 포함되어 있으며 복합 컨트롤러를 처음 만들 때 실행됩니다. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>이 슬롯에서 사용할 면을 선택합니다. 끈 쪽은 행이 숨겨지고 전송도 멈추지만 매핑은 그대로 남아 다시 켜면 복원됩니다.</value>
   </data>
