@@ -215,6 +215,8 @@ Three features have no ARM64 native half. `PadForge.Engine/Common/PlatformSuppor
 
 The x64 build running emulated on ARM64 Windows loses HidHide alone. The ARM64 build loses all three.
 
+A fourth gap is decided in the SDL fork, not in PadForge. The fork's Xbox Elite paddle reader (`SDL_XINPUT_PADDLES` in its `CMakeLists.txt`) requires an x64 CPU and turns itself off for any other target, and its sources refuse to compile off x64. An ARM64 `SDL3.dll` therefore reads no Elite paddles. Whether the x64 build reads them under emulation is untested. The reader exchanges fixed-layout messages over an ALPC port with a Windows process, and on an ARM64 machine that process is native ARM64 while the reader is emulated x64.
+
 Drivers that install into Windows follow the machine. HIDMaestro 1.9.0 and BthPS3 3.0.0 each carry an x64 and an ARM64 payload and install the one that matches, the DualShock 3 WinUSB package is signed with the matching catalog OS, and the Windows MIDI Services download picks the `-arm64` installer on an ARM64 machine.
 
 `vcruntime140_1.dll` is bundled for x64 only. It holds an exception handler that exists for the x64 ABI alone, and the copy in Microsoft's ARM64 redist folder is an x64 image.

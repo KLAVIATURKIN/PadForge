@@ -766,13 +766,14 @@ Windows 10 or 11 on x64. The [.NET 10 Desktop Runtime](https://dotnet.microsoft.
 
 4.5.1 adds a build for Windows 11 on ARM64. HIDMaestro 1.9.0 installs its ARM64 driver there, so virtual controllers work as they do on x64, and the DualShock 3 Bluetooth driver installs its ARM64 binary.
 
-Three features are missing on ARM64 because the library each one needs has no ARM64 release:
+Four features are missing on ARM64. Three need a library that has no ARM64 release, and the Xbox Elite paddle reader in the bundled SDL fork is written for x64:
 
 | Feature | ARM64 build | x64 build under emulation |
 |---|---|---|
 | HidHide device hiding | Not available | Not available |
 | Vosk voice recognition | Voice macros use the Windows speech recognizer | Works |
 | Razer Sensa HD haptics | Not available | Works |
+| Xbox Elite paddles | Not read | Untested |
 
 None of this has run on ARM64 hardware yet. The bench is x64.
 
