@@ -289,13 +289,13 @@
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Provides gyro and accelerometer data to Cemu, Dolphin, Yuzu, etc.</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Works with OpenTrack and any tracker that sends its UDP output or writes FreeTrack 2.0 shared memory, and with any OpenXR runtime installed on this machine.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Read Logitech G-Keys</value></data>
-  <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Reads G-keys through the Logitech G-key SDK. Needs Logitech Gaming Software 8.55 or later running. In that software, mark PadForge's profile Persistent, or the keys only reach PadForge while its window is in front.</value></data>
+  <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Reads G-keys through the Logitech G-key SDK. Needs Logitech Gaming Software 8.55 or later running. In that software, make PadForge the persistent profile, or the keys only reach PadForge while its window is in front.</value></data>
   <data name="Settings_GKeysStatus_NoSdk" xml:space="preserve"><value>No Logitech G-key SDK on this machine. It installs with Logitech Gaming Software 8.55 or later.</value></data>
   <data name="Settings_GKeysStatus_PathStale" xml:space="preserve"><value>The G-key SDK is registered but its file is gone. Reinstall Logitech Gaming Software.</value></data>
   <data name="Settings_GKeysStatus_LoadFailed" xml:space="preserve"><value>Found the G-key SDK and could not load it.</value></data>
   <data name="Settings_GKeysStatus_WrongLibrary" xml:space="preserve"><value>That library is not the G-key SDK this expects.</value></data>
   <data name="Settings_GKeysStatus_InitRefused" xml:space="preserve"><value>The G-key SDK refused to start. Logitech Gaming Software is usually not running.</value></data>
-  <data name="Settings_GKeysStatus_NoKeysYet" xml:space="preserve"><value>Connected, no key seen yet. In Logitech Gaming Software, mark PadForge's profile Persistent.</value></data>
+  <data name="Settings_GKeysStatus_NoKeysYet" xml:space="preserve"><value>Connected, no key seen yet. In Logitech Gaming Software, make PadForge the persistent profile.</value></data>
   <data name="Settings_GKeysStatus_Running_Format" xml:space="preserve"><value>Running, {0} key events</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Web Controller</value></data>
   <data name="Dashboard_WebDescription" xml:space="preserve"><value>Serve a gamepad UI to browsers on your local network.</value></data>

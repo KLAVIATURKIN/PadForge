@@ -253,13 +253,13 @@
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Levert gyroscoop- en versnellingsmetergegevens voor Cemu, Dolphin, Yuzu, enz.</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Werkt met OpenTrack en met elke tracker die zijn UDP-uitvoer verstuurt of naar het gedeelde geheugen van FreeTrack 2.0 schrijft, en met elke OpenXR-runtime die op deze machine is geïnstalleerd.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Logitech G-toetsen lezen</value></data>
-  <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Leest G-toetsen via de Logitech G-key SDK. Vereist dat Logitech Gaming Software 8.55 of nieuwer draait. Markeer daarin het profiel voor PadForge als Permanent, anders bereiken de toetsen PadForge alleen terwijl het venster op de voorgrond is.</value></data>
+  <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Leest G-toetsen via de Logitech G-key SDK. Vereist dat Logitech Gaming Software 8.55 of nieuwer draait. Maak PadForge daarin het permanente profiel, anders bereiken de toetsen PadForge alleen terwijl het venster op de voorgrond is.</value></data>
   <data name="Settings_GKeysStatus_NoSdk" xml:space="preserve"><value>Geen Logitech G-key SDK op deze pc. Die wordt met Logitech Gaming Software 8.55 of nieuwer geïnstalleerd.</value></data>
   <data name="Settings_GKeysStatus_PathStale" xml:space="preserve"><value>De G-key SDK is geregistreerd maar het bestand ontbreekt. Installeer Logitech Gaming Software opnieuw.</value></data>
   <data name="Settings_GKeysStatus_LoadFailed" xml:space="preserve"><value>G-key SDK gevonden, laden mislukt.</value></data>
   <data name="Settings_GKeysStatus_WrongLibrary" xml:space="preserve"><value>Die bibliotheek is niet de verwachte G-key SDK.</value></data>
   <data name="Settings_GKeysStatus_InitRefused" xml:space="preserve"><value>De G-key SDK startte niet. Meestal draait Logitech Gaming Software niet.</value></data>
-  <data name="Settings_GKeysStatus_NoKeysYet" xml:space="preserve"><value>Verbonden, nog geen toets gezien. Markeer in Logitech Gaming Software het profiel voor PadForge als Permanent.</value></data>
+  <data name="Settings_GKeysStatus_NoKeysYet" xml:space="preserve"><value>Verbonden, nog geen toets gezien. Maak PadForge in Logitech Gaming Software het permanente profiel.</value></data>
   <data name="Settings_GKeysStatus_Running_Format" xml:space="preserve"><value>Actief, {0} toetsgebeurtenissen</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Webcontroller</value></data>
   <data name="Dashboard_WebDescription" xml:space="preserve"><value>Bied een gamepad-interface aan voor browsers op uw lokale netwerk.</value></data>

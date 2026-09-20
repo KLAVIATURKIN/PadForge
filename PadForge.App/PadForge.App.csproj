@@ -262,6 +262,8 @@
       <Using Namespace="System.Diagnostics" />
       <Using Namespace="System.IO.Compression" />
       <Using Namespace="System.Text" />
+      <Using Namespace="System.Threading" />
+      <Using Namespace="System.Threading.Tasks" />
       <Using Namespace="Microsoft.Build.Framework" />
       <Using Namespace="Microsoft.Build.Utilities" />
       <Code Type="Fragment" Language="cs"><![CDATA[
@@ -411,14 +413,24 @@
             }
         };
 
-        var results = new List<ITaskItem>();
+        // Indexed rather than appended: the pack runs in parallel below and
+        // the embedded resource order has to stay what the item list said.
+        var results = new ITaskItem[Assets.Length];
         int written = 0;
         Directory.CreateDirectory(OutputDir);
         DateTime packerStamp = File.Exists(PackerFile)
             ? File.GetLastWriteTimeUtc(PackerFile) : DateTime.MinValue;
 
-        foreach (var asset in Assets)
+        // One asset per core rather than one at a time. Every iteration reads
+        // its own source and writes its own target, so the only shared state
+        // is the counter and the result slot, and both are made safe below.
+        // Brotli at SmallestSize is the expensive part and it is pure CPU, so
+        // this is the whole difference between a minute and a quarter of an
+        // hour on a machine with cores to spare. The packed bytes are
+        // identical either way.
+        Parallel.For(0, Assets.Length, idx =>
         {
+            var asset = Assets[idx];
             string source = asset.GetMetadata("FullPath");
             // MSBuild prefixes a path segment that starts with a digit, which
             // is why 3DModels becomes _3DModels. The packed name has to match
@@ -460,7 +472,7 @@
                 // timestamp then reads as up to date forever. The staging
                 // name carries the process id, because two builds sharing one
                 // obj folder would otherwise fight over the same temp file.
-                string staging = target + "." + Process.GetCurrentProcess().Id + ".tmp";
+                string staging = target + "." + Process.GetCurrentProcess().Id + "." + Thread.CurrentThread.ManagedThreadId + ".tmp";
                 using (var output = File.Create(staging))
                 using (var brotli = (Stream)Activator.CreateInstance(
                            streamType, new object[] { output, smallest, false }))
@@ -474,7 +486,7 @@
                 {
                     if (File.Exists(target)) File.Delete(target);
                     File.Move(staging, target);
-                    written++;
+                    Interlocked.Increment(ref written);
                 }
                 catch (IOException)
                 {
@@ -488,10 +500,10 @@
 
             var item = new TaskItem(target);
             item.SetMetadata("LogicalName", logical);
-            results.Add(item);
-        }
+            results[idx] = item;
+        });
 
-        Packed = results.ToArray();
+        Packed = results;
         Log.LogMessage(MessageImportance.High,
             written == 0
                 ? "Art: " + Assets.Length + " already packed"

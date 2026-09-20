@@ -253,13 +253,13 @@
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Fornece dados de giroscópio e acelerômetro para Cemu, Dolphin, Yuzu, etc.</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Funciona com o OpenTrack e com qualquer rastreador que envie sua saída UDP ou escreva na memória compartilhada do FreeTrack 2.0, e com qualquer tempo de execução OpenXR instalado nesta máquina.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Ler as Teclas G da Logitech</value></data>
-  <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Lê as teclas G pelo SDK G-key da Logitech. Exige o Logitech Gaming Software 8.55 ou posterior em execução. Nesse programa, marque como Persistente o perfil do PadForge; caso contrário, as teclas só chegam ao PadForge enquanto a janela dele estiver em primeiro plano.</value></data>
+  <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Lê as teclas G pelo SDK G-key da Logitech. Exige o Logitech Gaming Software 8.55 ou posterior em execução. Nesse programa, torne o PadForge o perfil persistente; caso contrário, as teclas só chegam ao PadForge enquanto a janela dele estiver em primeiro plano.</value></data>
   <data name="Settings_GKeysStatus_NoSdk" xml:space="preserve"><value>Nenhum SDK G-key da Logitech neste PC. Ele é instalado com o Logitech Gaming Software 8.55 ou posterior.</value></data>
   <data name="Settings_GKeysStatus_PathStale" xml:space="preserve"><value>O SDK G-key está registrado, mas o arquivo sumiu. Reinstale o Logitech Gaming Software.</value></data>
   <data name="Settings_GKeysStatus_LoadFailed" xml:space="preserve"><value>SDK G-key encontrado e não foi possível carregá-lo.</value></data>
   <data name="Settings_GKeysStatus_WrongLibrary" xml:space="preserve"><value>Essa biblioteca não é o SDK G-key esperado.</value></data>
   <data name="Settings_GKeysStatus_InitRefused" xml:space="preserve"><value>O SDK G-key não iniciou. Normalmente o Logitech Gaming Software não está em execução.</value></data>
-  <data name="Settings_GKeysStatus_NoKeysYet" xml:space="preserve"><value>Conectado, nenhuma tecla vista ainda. No Logitech Gaming Software, marque como Persistente o perfil do PadForge.</value></data>
+  <data name="Settings_GKeysStatus_NoKeysYet" xml:space="preserve"><value>Conectado, nenhuma tecla vista ainda. No Logitech Gaming Software, torne o PadForge o perfil persistente.</value></data>
   <data name="Settings_GKeysStatus_Running_Format" xml:space="preserve"><value>Em execução, {0} eventos de tecla</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Controle Web</value></data>
   <data name="Dashboard_WebDescription" xml:space="preserve"><value>Sirva uma interface de gamepad para navegadores na sua rede local.</value></data>

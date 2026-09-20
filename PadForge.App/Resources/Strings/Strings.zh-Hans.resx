@@ -253,13 +253,13 @@
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>为 Cemu、Dolphin、Yuzu 等提供陀螺仪和加速度计数据。</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>适用于 OpenTrack、任何发送 UDP 输出或写入 FreeTrack 2.0 共享内存的跟踪器，以及本机安装的任何 OpenXR 运行时。</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>读取罗技 G 键</value></data>
-  <data name="Settings_GKeysTooltip" xml:space="preserve"><value>通过罗技 G-key SDK 读取 G 键。需要运行 Logitech Gaming Software 8.55 或更高版本。请在该软件中将 PadForge 的配置文件设为“常驻”，否则这些键仅在 PadForge 窗口位于前台时才会送达。</value></data>
+  <data name="Settings_GKeysTooltip" xml:space="preserve"><value>通过罗技 G-key SDK 读取 G 键。需要运行 Logitech Gaming Software 8.55 或更高版本。请在该软件中将 PadForge 设为常驻配置文件，否则这些键仅在 PadForge 窗口位于前台时才会送达。</value></data>
   <data name="Settings_GKeysStatus_NoSdk" xml:space="preserve"><value>此电脑上没有罗技 G-key SDK。它随 Logitech Gaming Software 8.55 或更高版本一起安装。</value></data>
   <data name="Settings_GKeysStatus_PathStale" xml:space="preserve"><value>G-key SDK 已注册但文件已丢失。请重新安装 Logitech Gaming Software。</value></data>
   <data name="Settings_GKeysStatus_LoadFailed" xml:space="preserve"><value>找到了 G-key SDK，但无法加载。</value></data>
   <data name="Settings_GKeysStatus_WrongLibrary" xml:space="preserve"><value>该库不是所需的 G-key SDK。</value></data>
   <data name="Settings_GKeysStatus_InitRefused" xml:space="preserve"><value>G-key SDK 未能启动。通常是 Logitech Gaming Software 未运行。</value></data>
-  <data name="Settings_GKeysStatus_NoKeysYet" xml:space="preserve"><value>已连接，尚未检测到按键。请在 Logitech Gaming Software 中将 PadForge 的配置文件设为“常驻”。</value></data>
+  <data name="Settings_GKeysStatus_NoKeysYet" xml:space="preserve"><value>已连接，尚未检测到按键。请在 Logitech Gaming Software 中将 PadForge 设为常驻配置文件。</value></data>
   <data name="Settings_GKeysStatus_Running_Format" xml:space="preserve"><value>运行中，{0} 个按键事件</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>网页控制器</value></data>
   <data name="Dashboard_WebDescription" xml:space="preserve"><value>在局域网中为浏览器提供手柄界面。</value></data>
