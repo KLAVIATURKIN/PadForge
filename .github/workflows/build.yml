@@ -15,8 +15,28 @@ permissions:
   contents: write
 
 jobs:
+  # One job per architecture, run side by side. Nearly all of a build is the
+  # art pack, and each architecture packs its own, so two publishes in one job
+  # would double the wall clock. x64 keeps every name it has always had:
+  # the publish command, the artifact and both zips. ARM64 adds "-arm64".
   build:
+    name: Build (${{ matrix.rid }})
     runs-on: windows-latest
+    strategy:
+      # ARM64 is preliminary. A broken ARM64 build shows red on the run, and
+      # it must not cancel the x64 build that the dev feed depends on.
+      fail-fast: false
+      matrix:
+        include:
+          - rid: win-x64
+            publish_args: ""
+            suffix: ""
+          - rid: win-arm64
+            publish_args: "-r win-arm64"
+            suffix: "-arm64"
+    outputs:
+      commit_short: ${{ steps.info.outputs.commit_short }}
+      commit_count: ${{ steps.info.outputs.commit_count }}
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -28,34 +48,79 @@ jobs:
         with:
           dotnet-version: 10.x
 
-      - name: Publish
-        run: dotnet publish PadForge.App/PadForge.App.csproj -c Release
-
+      # Before Publish on purpose. Both architectures report the same two
+      # values as job outputs, and the release job names the x64 artifact
+      # from them. A publish that failed first would leave its copy blank.
       - name: Get build info
+        id: info
         shell: bash
         run: |
-          echo "COMMIT_SHORT=$(git rev-parse --short=7 HEAD)" >> "$GITHUB_ENV"
-          echo "COMMIT_COUNT=$(git rev-list --count HEAD)" >> "$GITHUB_ENV"
+          short=$(git rev-parse --short=7 HEAD)
+          count=$(git rev-list --count HEAD)
+          echo "COMMIT_SHORT=$short" >> "$GITHUB_ENV"
+          echo "COMMIT_COUNT=$count" >> "$GITHUB_ENV"
+          echo "commit_short=$short" >> "$GITHUB_OUTPUT"
+          echo "commit_count=$count" >> "$GITHUB_OUTPUT"
+
+      - name: Publish
+        run: dotnet publish PadForge.App/PadForge.App.csproj -c Release ${{ matrix.publish_args }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
-          name: PadForge_r${{ env.COMMIT_COUNT }}@${{ env.COMMIT_SHORT }}
-          path: PadForge.App/bin/Release/net10.0-windows10.0.26100.0/win-x64/publish/
+          name: PadForge_r${{ steps.info.outputs.commit_count }}@${{ steps.info.outputs.commit_short }}${{ matrix.suffix }}
+          path: PadForge.App/bin/Release/net10.0-windows10.0.26100.0/${{ matrix.rid }}/publish/
 
-      - name: Package release zip
-        if: github.event_name == 'push'
+  # The dev feed is written by ONE job. The latest-<branch> step deletes and
+  # recreates a release, and two jobs doing that at once would race.
+  #
+  # !cancelled() lets this run when the ARM64 build failed, and keeps a
+  # canceled run from publishing. It still cannot publish without x64: the
+  # x64 download below fails first, before any release is touched.
+  release:
+    name: Release dev build
+    needs: build
+    if: ${{ !cancelled() && github.event_name == 'push' }}
+    runs-on: windows-latest
+    env:
+      COMMIT_SHORT: ${{ needs.build.outputs.commit_short }}
+      COMMIT_COUNT: ${{ needs.build.outputs.commit_count }}
+    steps:
+      - name: Download x64 build
+        uses: actions/download-artifact@v8
+        with:
+          name: PadForge_r${{ env.COMMIT_COUNT }}@${{ env.COMMIT_SHORT }}
+          path: publish/win-x64
+
+      - name: Download ARM64 build
+        id: arm64
+        continue-on-error: true
+        uses: actions/download-artifact@v8
+        with:
+          name: PadForge_r${{ env.COMMIT_COUNT }}@${{ env.COMMIT_SHORT }}-arm64
+          path: publish/win-arm64
+
+      - name: Package release zips
         shell: bash
         run: |
           mkdir -p release
-          cd PadForge.App/bin/Release/net10.0-windows10.0.26100.0/win-x64/publish
+          cd "$GITHUB_WORKSPACE/publish/win-x64"
           rm -f *.pdb
           7z a -mx=9 "$GITHUB_WORKSPACE/release/PadForge.zip" ./*
           cp "$GITHUB_WORKSPACE/release/PadForge.zip" \
              "$GITHUB_WORKSPACE/release/PadForge_r${COMMIT_COUNT}@${COMMIT_SHORT}.zip"
 
+          if [ -s "$GITHUB_WORKSPACE/publish/win-arm64/PadForge.exe" ]; then
+            cd "$GITHUB_WORKSPACE/publish/win-arm64"
+            rm -f *.pdb
+            7z a -mx=9 "$GITHUB_WORKSPACE/release/PadForge-arm64.zip" ./*
+            cp "$GITHUB_WORKSPACE/release/PadForge-arm64.zip" \
+               "$GITHUB_WORKSPACE/release/PadForge_r${COMMIT_COUNT}@${COMMIT_SHORT}-arm64.zip"
+          else
+            echo "No ARM64 build to package. The x64 dev build is released alone."
+          fi
+
       - name: Release rolling dev archive
-        if: github.event_name == 'push'
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -65,8 +130,12 @@ jobs:
         run: |
           set -o pipefail
           base="archive-${REF}"
-          asset="release/PadForge_r${COMMIT_COUNT}@${COMMIT_SHORT}.zip"
-          limit=999   # GitHub caps a release at 1000 assets. Roll a bit early.
+          assets=("release/PadForge_r${COMMIT_COUNT}@${COMMIT_SHORT}.zip")
+          arm="release/PadForge_r${COMMIT_COUNT}@${COMMIT_SHORT}-arm64.zip"
+          [ -s "$arm" ] && assets+=("$arm")
+          # GitHub caps a release at 1000 assets and a push adds up to two.
+          # Roll a bit early.
+          limit=998
 
           # Highest existing archive part (base = part 1, base-N = part N).
           part=$(gh release list --repo "$REPO" --limit 1000 --json tagName --jq '.[].tagName' \
@@ -98,11 +167,10 @@ jobs:
               --notes "Latest build: https://github.com/${REPO}/releases/tag/latest-${REF}" \
               || true
 
-          gh release upload "$active" --repo "$REPO" --clobber "$asset"
+          gh release upload "$active" --repo "$REPO" --clobber "${assets[@]}"
           echo "ARCHIVE_TAG=$active" >> "$GITHUB_ENV"
 
-      - name: Release — latest-${{ github.ref_name }}
-        if: github.event_name == 'push'
+      - name: Release latest-${{ github.ref_name }}
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
@@ -119,6 +187,9 @@ jobs:
             exit 1
           fi
 
+          assets=("release/PadForge.zip")
+          [ -s "release/PadForge-arm64.zip" ] && assets+=("release/PadForge-arm64.zip")
+
           gh release delete "$tag" \
             --repo "${{ github.repository }}" \
             --cleanup-tag --yes 2>/dev/null || true
@@ -127,9 +198,10 @@ jobs:
             --target "${{ github.sha }}" \
             --prerelease \
             --title "PadForge r${COMMIT_COUNT}@${COMMIT_SHORT}" \
-            --notes "Build archive: https://github.com/${{ github.repository }}/releases/tag/${ARCHIVE_TAG:-archive-${{ github.ref_name }}}
+            --notes "PadForge.zip is the x64 build. PadForge-arm64.zip is the preliminary build for Windows on ARM.
+          Build archive: https://github.com/${{ github.repository }}/releases/tag/${ARCHIVE_TAG:-archive-${{ github.ref_name }}}
           Build log: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           gh release upload "$tag" \
             --repo "${{ github.repository }}" \
             --clobber \
-            "release/PadForge.zip"
+            "${assets[@]}"
