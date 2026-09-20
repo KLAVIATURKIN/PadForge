@@ -26,6 +26,23 @@ namespace PadForge.Tests
         private static LinkDeviceInventory SingleInventory(long revision, string id)
             => new(revision, new[] { LinkLifetimeFixtures.Info(id) });
 
+        /// <summary>ConnectAsync answers false for a refused socket, a failed
+        /// handshake and a refused registration alike, and says which only
+        /// through StatusChanged. A test that asserts on it records that
+        /// stream, so a failure states its own cause. One of these failed in
+        /// a full run on 2026-09-20 with nothing but "Expected: True".
+        /// Subscribe before Start, so a bind failure is recorded too.</summary>
+        private static ConcurrentQueue<string> TraceStatus(params (string Name, LinkServer Server)[] servers)
+        {
+            var trace = new ConcurrentQueue<string>();
+            foreach (var (name, server) in servers)
+                server.StatusChanged += status => trace.Enqueue(name + " " + System.Text.Json.JsonSerializer.Serialize(status));
+            return trace;
+        }
+        private static string Why(LinkServer dialer, ConcurrentQueue<string> trace)
+            => "ConnectAsync returned false. DiagLastError=" + (dialer.DiagLastError ?? "(null)")
+               + " | status: " + string.Join(" | ", trace);
+
         [Fact]
         public async Task SparseInventoryKeepsDelayedInputAndEveryReverseChannelOnTheirOriginalSource()
         {
@@ -37,9 +54,10 @@ namespace PadForge.Tests
             owner.FrameReceived += received.Enqueue;
             var current = SingleInventory(1, "a");
             owner.ExposeProvider = () => Volatile.Read(ref current);
+            var status = TraceStatus(("consumer", consumer), ("owner", owner));
             int port = StartOnFreePort(consumer);
             StartOnFreePort(owner, port);
-            Assert.True(await owner.ConnectAsync("127.0.0.1", port, current));
+            Assert.True(await owner.ConnectAsync("127.0.0.1", port, current), Why(owner, status));
             Assert.True(await WaitUntil(() => devices.ContainsKey("a"), 5000));
             var original = devices["a"];
             var ownerSession = DataSession(owner);
@@ -108,9 +126,10 @@ namespace PadForge.Tests
             consumer.DeviceConnected += device => Volatile.Write(ref received, device);
             var current = SingleInventory(1, "id0");
             owner.ExposeProvider = () => Volatile.Read(ref current);
+            var status = TraceStatus(("consumer", consumer), ("owner", owner));
             int port = StartOnFreePort(consumer);
             StartOnFreePort(owner, port);
-            Assert.True(await owner.ConnectAsync("127.0.0.1", port, current));
+            Assert.True(await owner.ConnectAsync("127.0.0.1", port, current), Why(owner, status));
             Assert.True(await WaitUntil(() => received != null, 5000));
             ownerTrust.Find(consumerIdentity.PublicKey).ReconnectEnabled = false;
             consumerTrust.Find(ownerIdentity.PublicKey).ReconnectEnabled = false;
