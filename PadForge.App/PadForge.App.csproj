@@ -459,8 +459,15 @@
         var results = new ITaskItem[Assets.Length];
         int written = 0;
         Directory.CreateDirectory(OutputDir);
-        DateTime packerStamp = File.Exists(PackerFile)
-            ? File.GetLastWriteTimeUtc(PackerFile) : DateTime.MinValue;
+        // A missing packer file used to read as "never changed", which would
+        // quietly switch off the repack-on-packer-edit rule below. It is a
+        // wrong path in the target, so say so.
+        if (!File.Exists(PackerFile))
+        {
+            Log.LogError("The art packer was given a packer file that does not exist: " + PackerFile);
+            return false;
+        }
+        DateTime packerStamp = File.GetLastWriteTimeUtc(PackerFile);
 
         // One asset per core rather than one at a time. Every iteration reads
         // its own source and writes its own target, so the only shared state
@@ -562,8 +569,16 @@
            and leaving it in would be 35 MB of dead weight in that exe. -->
       <ArtSource Include="VoiceModels\*.zip" Condition="'$(NativeArch)' == 'x64'" />
     </ItemGroup>
+    <!-- PackerFile is this project file BY NAME, never $(MSBuildThisFileFullPath).
+         WPF compiles XAML through a second pass over a generated copy of this
+         project (PadForge.App_<random>_wpftmp.csproj), and in that pass
+         MSBuildThisFileFullPath is the copy, written seconds earlier. Its
+         timestamp is newer than every packed asset, so that pass repacked all
+         of them on EVERY build, changed or not: four to five minutes on a
+         32-core bench, and a second full pack in every CI run. The first pass reported
+         "already packed" and the second "packed 721 of 721", in one build. -->
     <PackAssets Assets="@(ArtSource)" OutputDir="$(IntermediateOutputPath)meshes"
-                PackerFile="$(MSBuildThisFileFullPath)">
+                PackerFile="$(MSBuildThisFileDirectory)PadForge.App.csproj">
       <Output TaskParameter="Packed" ItemName="CompressedMesh" />
     </PackAssets>
     <ItemGroup>
