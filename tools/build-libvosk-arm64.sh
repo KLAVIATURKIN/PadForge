@@ -11,6 +11,12 @@
 #
 #   usage: tools/build-libvosk-arm64.sh <build-dir>
 #
+# The build folder has to be new or empty. What comes out is bundled and
+# shipped, and a reused folder would hand the link whatever an earlier run left
+# there: objects compiled with other flags, or a source tree someone edited,
+# which a checkout of the pinned commit leaves in place. About three minutes
+# buys a folder with no history.
+#
 # Needs, and installs nothing:
 #   - Git Bash (sh, perl, sed)
 #   - llvm-mingw 20260908, the UCRT build for an x86_64 Windows host, unpacked.
@@ -25,11 +31,29 @@
 # checked out either way.
 set -e
 
-B=${1:?build dir in POSIX form, for example /c/tmp/libvosk-arm64}
+B=${1:?build dir, new or empty, for example /c/tmp/libvosk-arm64}
 TOOLCHAIN=${TOOLCHAIN:?path to the unpacked llvm-mingw-20260908-ucrt-x86_64 folder}
 VS_CMAKE_DIR=${VS_CMAKE_DIR:-/c/Program Files/Microsoft Visual Studio/18/Community/Common7/IDE/CommonExtensions/Microsoft/CMake}
 SRC=${SRC:-}
 JOBS=${JOBS:-16}
+
+# Every path is made absolute before the first cd. The script changes folder
+# many times, and a relative path would be read again from each one. Each line
+# stands alone on purpose: under set -e a failed cd inside an && list does not
+# stop the script, and the commands after it would run in the wrong folder.
+mkdir -p "$B"
+B=$(cd "$B" && pwd)
+TOOLCHAIN=$(cd "$TOOLCHAIN" && pwd)
+VS_CMAKE_DIR=$(cd "$VS_CMAKE_DIR" && pwd)
+if [ -n "$SRC" ]; then
+  SRC=$(cd "$SRC" && pwd)
+fi
+
+left_over=$(ls -A "$B")
+if [ -n "$left_over" ]; then
+  echo "$B is not empty. Give this script a new or empty build folder." >&2
+  exit 1
+fi
 
 TRIPLE=aarch64-w64-mingw32
 
@@ -50,7 +74,7 @@ TW=$(cygpath -m "$TOOLCHAIN")/bin
 CMAKE="$VS_CMAKE_DIR/CMake/bin/cmake.exe"
 NINJA_EXE="$VS_CMAKE_DIR/Ninja/ninja.exe"
 NINJA=$(cygpath -m "$NINJA_EXE")
-mkdir -p "$B" && cd "$B"
+cd "$B"
 BW=$(cygpath -m "$B")
 mkdir -p local/include local/lib
 
@@ -58,11 +82,9 @@ mkdir -p local/include local/lib
 # and CRLF breaks configure, the makefiles and OpenBLAS's perl scripts.
 echo "$SOURCES" | while read -r name url commit local; do
   [ -z "$name" ] && continue
-  if [ ! -d "$name" ]; then
-    from=$url
-    [ -n "$SRC" ] && [ -d "$SRC/$local" ] && from="$SRC/$local"
-    git -c advice.detachedHead=false clone -q --no-hardlinks -c core.autocrlf=false "$from" "$name"
-  fi
+  from=$url
+  [ -n "$SRC" ] && [ -d "$SRC/$local" ] && from="$SRC/$local"
+  git -c advice.detachedHead=false clone -q --no-hardlinks -c core.autocrlf=false "$from" "$name"
   git -C "$name" -c advice.detachedHead=false checkout -q "$commit"
   echo "$name at $(git -C "$name" rev-parse HEAD)"
 done
@@ -71,10 +93,10 @@ done
 #    Bash has no autotools, so the two static libraries vosk links are compiled
 #    directly, with the flags configure.ac and upstream's CXXFLAGS produce. Same
 #    sources, same flags.
-cd "$B/openfst" && mkdir -p _obj
+cd "$B/openfst"
+mkdir _obj
 FST_FLAGS="-std=c++17 -fno-exceptions -Wno-deprecated-declarations -O3 -ftree-vectorize -DFST_NO_DYNAMIC_LINKING -Isrc/include"
 ls src/lib/*.cc src/extensions/ngram/*.cc | xargs -P "$JOBS" -I{} sh -c "$TRIPLE-clang++ $FST_FLAGS -c {} -o _obj/\$(basename {} .cc).o"
-rm -f "$B/local/lib/libfst.a" "$B/local/lib/libfstngram.a"
 $TRIPLE-ar cr "$B/local/lib/libfst.a" _obj/compat.o _obj/encode.o _obj/flags.o _obj/fst.o _obj/fst-types.o _obj/mapped-file.o _obj/properties.o _obj/symbol-table.o _obj/symbol-table-ops.o _obj/weight.o _obj/util.o
 $TRIPLE-ar cr "$B/local/lib/libfstngram.a" _obj/bitmap-index.o _obj/ngram-fst.o _obj/nthbit.o
 cp -r src/include/fst "$B/local/include/"
@@ -88,7 +110,9 @@ mingw32-make PREFIX="$BW/local" install > "$B/openblas_install.log" 2>&1
 
 # 3. CLAPACK. Upstream's flags. DIFF: the Ninja generator, and CMake 4 needs a
 #    policy floor because the fork still says cmake_minimum_required(VERSION 2.6).
-cd "$B/clapack" && rm -rf BUILD && mkdir BUILD && cd BUILD
+cd "$B/clapack"
+mkdir BUILD
+cd BUILD
 "$CMAKE" -G Ninja -DCMAKE_MAKE_PROGRAM="$NINJA" -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_C_COMPILER_TARGET=$TRIPLE -DCMAKE_C_COMPILER="$TW/$TRIPLE-gcc.exe" \
   -DCMAKE_AR="$TW/$TRIPLE-ar.exe" -DCMAKE_RANLIB="$TW/$TRIPLE-ranlib.exe" \
@@ -112,7 +136,8 @@ mingw32-make LLVM_BUILD=1 -j "$JOBS" online2 rnnlm > "$B/kaldi_build.log" 2>&1
 #      imports libc++.dll and libunwind.dll, would not load on a clean machine.
 #    The .def file limits the exports to the C API in vosk_api.h.
 #    --no-insert-timestamp keeps the link's clock out of the PE header.
-cd "$B/vosk-api/src" && mkdir -p out
+cd "$B/vosk-api/src"
+mkdir out
 { echo "LIBRARY libvosk.dll"; echo "EXPORTS"; sed -n 's/^[A-Za-z].*[ *]\(vosk_[a-z_0-9]*\) *(.*/    \1/p' vosk_api.h | sort -u; } > out/libvosk.def
 OUTDIR=out EXTRA_LDFLAGS="out/libvosk.def -Wl,--out-implib,out/libvosk.lib -Wl,--no-insert-timestamp -static" CXX=$TRIPLE-g++ EXT=dll \
   KALDI_ROOT="$BW/kaldi" OPENFST_ROOT="$BW/local" OPENBLAS_ROOT="$BW/local" mingw32-make -j "$JOBS" > "$B/vosk_build.log" 2>&1

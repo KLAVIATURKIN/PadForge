@@ -24,7 +24,7 @@ namespace PadForge.Services
     /// </summary>
     internal static class VoskModelStore
     {
-        private const string ModelName = "vosk-model-small-en-us-0.15";
+        internal const string ModelName = "vosk-model-small-en-us-0.15";
         private const string ModelResource = "PadForge.VoiceModels.vosk-model-small-en-us-0.15.zipbr";
 
         /// <summary>Where the embedded model is unpacked.
@@ -36,11 +36,14 @@ namespace PadForge.Services
         /// TEMP is the same place the driver installers stage their payloads,
         /// and it is re-creatable: delete it and the next launch unpacks it
         /// again from the copy inside the exe.</para></summary>
-        private static readonly string Root = Path.Combine(
+        private static readonly string DefaultRoot = Path.Combine(
             Path.GetTempPath(), "PadForge", "voice-models");
+        private static string Root = DefaultRoot;
 
         private static Vosk.Model _model;
-        private static int _state; // 0 absent, 1 unpacking, 2 ready, 3 failed
+        // 0 absent, 1 unpacking, 2 ready, 3 failed and retried after a delay,
+        // 4 unusable in this process and never retried
+        private static int _state;
         private static readonly object _lock = new();
 
         // One failed unpack at first launch (a full disk, a temp folder the
@@ -59,6 +62,147 @@ namespace PadForge.Services
         /// across recognizers; recognizer instances are not.</summary>
         public static Vosk.Model Model => IsReady ? _model : null;
 
+        /// <summary>True once a load showed that Vosk cannot be used in this
+        /// process at all: libvosk would not load, or the binding no longer
+        /// has the field the null-model check reads. Nothing retries after
+        /// that, because nothing about it changes while the process lives,
+        /// and the cache stays, because nothing is wrong with the model.</summary>
+        public static bool IsUnusable => Volatile.Read(ref _state) == 4;
+
+        /// <summary>How one attempt to load a model ended.</summary>
+        internal enum ModelLoad
+        {
+            /// <summary>A model libvosk accepted.</summary>
+            Loaded,
+            /// <summary>libvosk ran and refused the model. The cache is the
+            /// suspect, so it is deleted and unpacked again.</summary>
+            BadModel,
+            /// <summary>Vosk cannot be used in this process, whatever the
+            /// model is.</summary>
+            Unusable,
+        }
+
+        // Seams, so every outcome of a load can be reached in a test with no
+        // model on disk and no library to call.
+        internal static Func<string, Vosk.Model> CreateModel = DefaultCreateModel;
+        internal static Func<Vosk.Model, IntPtr?> ReadNativeHandle = NativeHandleOf;
+        internal static Action StartUnpack = DefaultStartUnpack;
+
+        private static Vosk.Model DefaultCreateModel(string dir)
+        {
+            // The first call into libvosk, so it sits inside the load that is
+            // being judged and a library that will not load is caught there.
+            Vosk.Vosk.SetLogLevel(-1);
+            return new Vosk.Model(dir);
+        }
+
+        private static void DefaultStartUnpack()
+            => new Thread(Unpack) { IsBackground = true, Name = "VoskModelUnpack" }.Start();
+
+        /// <summary>
+        /// Loads a model and says how that went.
+        ///
+        /// <para>Two outcomes used to be missed. libvosk reports a model it
+        /// cannot read by returning null (vosk_api.cc: vosk_model_new catches
+        /// everything and returns nullptr), and the managed binding wraps
+        /// that null in a Model without a word. The store marked it ready,
+        /// and the first recognizer built on it dereferenced the null in
+        /// native code, which ends the process. A temp cleaner that removes
+        /// the model's files and leaves its folders produces exactly that
+        /// cache. So the native handle is read, and a null one is a bad
+        /// model.</para>
+        ///
+        /// <para>The other is a library that will not load. That says nothing
+        /// about the model, so deleting the cache and unpacking 35 MB again
+        /// cannot help, and it did that every five minutes. The binding's
+        /// P/Invoke class has an empty static constructor, so these three
+        /// exceptions arrive bare, with nothing wrapped around them.</para>
+        /// </summary>
+        internal static ModelLoad TryLoad(string dir, out Vosk.Model model, out string why)
+        {
+            model = null;
+            why = null;
+            Vosk.Model made;
+            try
+            {
+                made = CreateModel(dir);
+            }
+            catch (Exception ex) when (ex is DllNotFoundException
+                                    || ex is BadImageFormatException
+                                    || ex is EntryPointNotFoundException)
+            {
+                why = ex.GetType().Name + ": " + ex.Message;
+                return ModelLoad.Unusable;
+            }
+            catch (Exception ex)
+            {
+                why = ex.Message;
+                return ModelLoad.BadModel;
+            }
+
+            IntPtr? native = ReadNativeHandle(made);
+            if (native == null)
+            {
+                // The check cannot be made, so the model cannot be trusted,
+                // and a model that might be null is never published.
+                try { made?.Dispose(); } catch { }
+                why = "this Vosk binding has no handle field to check the model by";
+                return ModelLoad.Unusable;
+            }
+            if (native.Value == IntPtr.Zero)
+            {
+                // Safe on a null handle: the binding skips the native free
+                // when the handle is zero.
+                try { made.Dispose(); } catch { }
+                why = "libvosk could not read the model";
+                return ModelLoad.BadModel;
+            }
+            model = made;
+            return ModelLoad.Loaded;
+        }
+
+        /// <summary>The native pointer inside a Vosk.Model, or null when the
+        /// binding no longer keeps it where this looks. The binding has no
+        /// accessor for it, so the private field is read. VoskModelStoreTests
+        /// pins that field's name and type against the referenced package, so
+        /// a package that moves it turns a test red before it ships.</summary>
+        internal static IntPtr? NativeHandleOf(Vosk.Model model)
+        {
+            try
+            {
+                if (model == null) return null;
+                var field = typeof(Vosk.Model).GetField("handle",
+                    System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+                if (field == null || field.FieldType != typeof(System.Runtime.InteropServices.HandleRef))
+                    return null;
+                return ((System.Runtime.InteropServices.HandleRef)field.GetValue(model)).Handle;
+            }
+            catch { return null; }
+        }
+
+        private static void LatchUnusable(string why)
+        {
+            Volatile.Write(ref _state, 4);
+            Engine.SdlDiagLog.WriteLine("VOICE vosk cannot be used in this process: " + why
+                + ". Voice macros stay on SAPI and the model cache is left alone");
+        }
+
+        /// <summary>For tests: a cache root of their own, a clean state, and
+        /// the real seams back. Null restores the real root.</summary>
+        internal static void ResetForTests(string root)
+        {
+            lock (_lock)
+            {
+                Root = root ?? DefaultRoot;
+                _model = null;
+                Volatile.Write(ref _state, 0);
+                Interlocked.Exchange(ref _retryAtTicks, 0);
+                CreateModel = DefaultCreateModel;
+                ReadNativeHandle = NativeHandleOf;
+                StartUnpack = DefaultStartUnpack;
+            }
+        }
+
         /// <summary>Loads the unpacked model if present, else starts the
         /// one-time background unpack of the embedded one. Safe to call
         /// every reconcile.</summary>
@@ -68,11 +212,15 @@ namespace PadForge.Services
             // store never starts, IsReady stays false, and VoiceMacroService
             // keeps every session on its SAPI fallback.
             //
-            // Returning here is not a tidy-up, it closes a loop. Left to run,
-            // the cached-model branch below catches the DllNotFoundException
-            // from the first Vosk call, DELETES the cached model as though it
-            // were corrupt, unpacks all 35 MB again, fails the same way, and
-            // repeats on every retry for as long as the app is open.
+            // This return once did a second job. Left to run in a process
+            // with no libvosk, the cached-model branch below caught the
+            // DllNotFoundException from the first Vosk call, DELETED the
+            // cached model as though it were corrupt, unpacked all 35 MB
+            // again, failed the same way, and repeated on every retry for as
+            // long as the app was open. TryLoad closes that loop itself now,
+            // for every architecture: a library that will not load is told
+            // apart from a model that will not, and it switches the store
+            // off for the process with the cache left alone.
             if (!Engine.PlatformSupport.VoskAvailable) return;
 
             int st = Volatile.Read(ref _state);
@@ -90,31 +238,60 @@ namespace PadForge.Services
                     || File.Exists(Path.Combine(dir, "final.mdl"))
                     || Directory.Exists(Path.Combine(dir, "graph")))
                 {
-                    try
+                    switch (TryLoad(dir, out Vosk.Model cached, out string why))
                     {
-                        Vosk.Vosk.SetLogLevel(-1);
-                        _model = new Vosk.Model(dir);
-                        Volatile.Write(ref _state, 2);
-                        Engine.SdlDiagLog.WriteLine("VOICE vosk model loaded from cache");
-                        return;
-                    }
-                    catch (Exception ex)
-                    {
-                        Engine.SdlDiagLog.WriteLine("VOICE vosk cached model failed to load: " + ex.Message);
-                        try { Directory.Delete(dir, true); } catch { }
+                        case ModelLoad.Loaded:
+                            _model = cached;
+                            Volatile.Write(ref _state, 2);
+                            Engine.SdlDiagLog.WriteLine("VOICE vosk model loaded from cache");
+                            return;
+                        case ModelLoad.Unusable:
+                            LatchUnusable(why);
+                            return;
+                        default:
+                            Engine.SdlDiagLog.WriteLine("VOICE vosk cached model failed to load: " + why);
+                            try { Directory.Delete(dir, true); } catch { }
+                            break;
                     }
                 }
                 _state = 1;
-                new Thread(Unpack) { IsBackground = true, Name = "VoskModelUnpack" }.Start();
+                StartUnpack();
             }
         }
 
+        /// <summary>Loads the model that was just unpacked and publishes the
+        /// outcome. A model that will not load is thrown to Unpack's handler,
+        /// which gives it the five-minute retry a failed unpack already gets.</summary>
+        internal static void CompleteUnpack(string final)
+        {
+            switch (TryLoad(final, out Vosk.Model unpacked, out string why))
+            {
+                case ModelLoad.Loaded:
+                    _model = unpacked;
+                    Volatile.Write(ref _state, 2);
+                    Engine.SdlDiagLog.WriteLine("VOICE vosk model READY, sessions will rebuild onto it");
+                    break;
+                case ModelLoad.Unusable:
+                    LatchUnusable(why);
+                    break;
+                default:
+                    throw new InvalidDataException("the unpacked model did not load: " + why);
+            }
+        }
+
+        /// <summary>For tests: the unpack on the caller's thread, so a test
+        /// that runs the real thing owns its end and no worker outlives it.</summary>
+        internal static void UnpackNow() => Unpack();
+
         private static void Unpack()
         {
+            // Read once. Every path below hangs off this one value, so an
+            // unpack that is under way cannot be pointed at another folder.
+            string root = Root;
             try
             {
-                Engine.SdlDiagLog.WriteLine("VOICE vosk model unpacking (one time) to " + Root);
-                Directory.CreateDirectory(Root);
+                Engine.SdlDiagLog.WriteLine("VOICE vosk model unpacking (one time) to " + root);
+                Directory.CreateDirectory(root);
 
                 var asm = System.Reflection.Assembly.GetExecutingAssembly();
                 using (var src = asm.GetManifestResourceStream(ModelResource))
@@ -122,7 +299,7 @@ namespace PadForge.Services
                     if (src == null)
                         throw new FileNotFoundException("embedded model missing: " + ModelResource);
 
-                    string extractTo = Path.Combine(Root, ModelName + ".extract");
+                    string extractTo = Path.Combine(root, ModelName + ".extract");
                     try { Directory.Delete(extractTo, true); } catch { }
 
                     // The model is packed: an archive whose members are stored
@@ -131,7 +308,7 @@ namespace PadForge.Services
                     // members. Unpacking gives the archive back. It goes to a
                     // file rather than memory because it expands to 68 MB and
                     // ZipArchive has to seek around it.
-                    string staged = Path.Combine(Root, ModelName + ".zip");
+                    string staged = Path.Combine(root, ModelName + ".zip");
                     try
                     {
                         using (var packed = new System.IO.Compression.BrotliStream(
@@ -149,23 +326,21 @@ namespace PadForge.Services
                     // The archive carries a single top-level folder named like
                     // the model, the same shape upstream's download had.
                     string inner = Directory.GetDirectories(extractTo).FirstOrDefault() ?? extractTo;
-                    string final = Path.Combine(Root, ModelName);
+                    string final = Path.Combine(root, ModelName);
                     try { Directory.Delete(final, true); } catch { }
                     Directory.Move(inner, final);
                     try { Directory.Delete(extractTo, true); } catch { }
 
-                    Vosk.Vosk.SetLogLevel(-1);
-                    _model = new Vosk.Model(final);
+                    CompleteUnpack(final);
                 }
-                Volatile.Write(ref _state, 2);
-                Engine.SdlDiagLog.WriteLine("VOICE vosk model READY; sessions will rebuild onto it");
             }
             catch (Exception ex)
             {
                 // A failed unpack is a disk problem (no space, a locked cache
-                // from another instance), not a network one, so the same
-                // re-arm applies: SAPI keeps the feature alive and the next
-                // EnsureStarted past the delay tries again.
+                // from another instance), not a network one, and so is a model
+                // that unpacked and would not load. The same re-arm applies:
+                // SAPI keeps the feature alive and the next EnsureStarted past
+                // the delay tries again.
                 Interlocked.Exchange(ref _retryAtTicks, Environment.TickCount64 + 5 * 60_000);
                 Volatile.Write(ref _state, 3);
                 Engine.SdlDiagLog.WriteLine("VOICE vosk model unpack FAILED: " + ex.Message

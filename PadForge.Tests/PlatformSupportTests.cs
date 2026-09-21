@@ -7,9 +7,8 @@ using Xunit;
 namespace PadForge.Tests
 {
     /// <summary>
-    /// ARM64 (4.5.1, preliminary). Three features have a native half that
-    /// does not exist for ARM64, and which architecture decides each one is
-    /// the part that is easy to get wrong.
+    /// ARM64. Three features have a native half, and which architecture
+    /// decides each one is the part that is easy to get wrong.
     ///
     /// <para>A kernel driver follows the MACHINE, because a kernel driver
     /// cannot run emulated. An in-process library follows the PROCESS,
@@ -23,10 +22,9 @@ namespace PadForge.Tests
     /// </summary>
     public class PlatformSupportTests
     {
-        // x64 is the one architecture every native half was built for, so it
-        // is the one that answers true. The rules first read "anything but
-        // ARM64", which answered true for x86, where the x64 installer and
-        // the x64 libraries are as unusable as they are on ARM64.
+        // Each rule names the architectures that HAVE the native half. The
+        // rules first read "anything but ARM64", which answered true for
+        // x86, where none of it is usable.
         // HidHide ships a Microsoft-signed driver for x64 and for ARM64.
         // 4.5.1 answered false for ARM64 on the strength of an upstream issue
         // about the SETUP, while the driver package sat in the same repository.

@@ -104,16 +104,19 @@
     </Content>
     <!-- SDL's C++ runtime dependencies share the native extraction directory.
          Bundle the redistributable files so no separate runtime install is needed.
-         msvcp140.dll is bundled for every architecture whose SDL3.dll
-         imports it, which is both. SDL3.dll imports it for the Elite paddle
-         reader, which is C++. The ARM64 SDL3.dll delivered for 4.5.1 had
-         that reader switched off and imported vcruntime140.dll alone, so the
-         ARM64 folder went without msvcp140.dll until the fork built the
-         reader for ARM64 (SDL fork a1416320e2). BundledSdlRuntimeImportsTests
-         reads each SDL3.dll for the runtime DLLs it names and fails when one
-         is not in that architecture's folder. It failed on that delivery,
-         and this item picked the DLL up once it was there. -->
-    <Content Include="Resources\VisualCpp\$(NativeArch)\msvcp140.dll" Link="msvcp140.dll" Condition="Exists('Resources\VisualCpp\$(NativeArch)\msvcp140.dll')">
+         msvcp140.dll is bundled for both architectures, because both
+         SDL3.dll files import it for the Elite paddle reader, which is C++.
+         The ARM64 SDL3.dll delivered for 4.5.1 had that reader switched off
+         and imported vcruntime140.dll alone, so the ARM64 folder went
+         without msvcp140.dll until the fork built the reader for ARM64 (SDL
+         fork a1416320e2). BundledSdlRuntimeImportsTests reads each SDL3.dll
+         for the runtime DLLs it names and fails when one is not in that
+         architecture's folder, which is how the ARM64 file came to be added.
+         The item carries no Exists condition, like vcruntime140.dll below
+         it. With one, a missing file was left out in silence and the publish
+         went through with an SDL3.dll that cannot load on a clean machine.
+         Without one, the build stops and names the file. -->
+    <Content Include="Resources\VisualCpp\$(NativeArch)\msvcp140.dll" Link="msvcp140.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\VisualCpp\$(NativeArch)\vcruntime140.dll" Link="vcruntime140.dll">
@@ -179,7 +182,7 @@
                               driver 1.6.280.0, byte for byte as published
            nefconc.exe        nefcon v1.20.0, the ARM64 console build, the
                               tool upstream's own installer drives
-         Both are pinned by hash in HidHideArm64PackageTests. -->
+         Both are pinned by hash in HidHideArm64InstallerTests. -->
     <EmbeddedResource Include="Resources\HidHideArm64\HidHide_ARM64.zip" />
     <EmbeddedResource Include="Resources\HidHideArm64\nefconc.exe" />
     <!-- 3D controller model assets (adapted from Handheld Companion, CC BY-NC-SA 4.0;

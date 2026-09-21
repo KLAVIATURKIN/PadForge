@@ -260,9 +260,17 @@ namespace PadForge.Tests
 
             var newFake = new FakeNative("new", shared);
             var newStates = new List<LightsyncServiceState>();
+            // The new session gets a long stop wait, because the end of this
+            // test is about a NORMAL teardown. Stop returns as soon as the
+            // worker is out, so the length costs nothing, and at the old
+            // instance's 200 ms a busy machine could leave the worker still
+            // on its way out when Stop gave up. The teardown then ran a
+            // moment after the assertion that looks for it, which failed once
+            // in a full-suite run (2026-09-21). A stop wait of zero fails
+            // that assertion every time, which is how the cause was named.
             using var newSvc = new LightsyncLightbarService(newFake,
                 retryMs: 100, pollMs: 10, settleMs: 5, presenceSettleMs: 5, livenessMs: 500,
-                stopWaitMs: 200);
+                stopWaitMs: 30000);
             newSvc.StateChanged += s => { lock (newStates) newStates.Add(s); };
             LightsyncLightbarService.Publish(255, 0, 0);
             newSvc.Start();

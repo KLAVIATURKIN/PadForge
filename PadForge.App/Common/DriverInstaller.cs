@@ -1172,28 +1172,32 @@ namespace PadForge.Common
         // ─────────────────────────────────────────────
 
         /// <summary>
-        /// Checks whether HidHide is installed: a Windows Installer
-        /// registration on any machine, or on ARM64 the service, device node
-        /// and class filter that upstream's manual install leaves, which
-        /// registers nothing with Windows Installer.
+        /// Whether HidHide is installed, and its version, from one look: a
+        /// Windows Installer registration on any machine, or on ARM64 the
+        /// service, class filter and device node that upstream's manual
+        /// install leaves, which registers nothing with Windows Installer.
+        /// The version is the MSI's where there is one, else the driver
+        /// file's own, and "Installed" when neither can be read.
+        ///
+        /// <para>This was two methods, one for each answer, and the status
+        /// timer called both every five seconds on the UI thread. Each made
+        /// the same look, so every tick walked the uninstall registry twice,
+        /// and on ARM64 enumerated the machine's devices twice.</para>
         /// </summary>
-        public static bool IsHidHideInstalled()
+        public static bool TryGetHidHideStatus(out string version)
         {
-            return TryGetHidHideMsiInfo(out _, out _)
-                || (PadForge.Engine.PlatformSupport.IsArm64Machine && HidHideArm64Installer.IsInstalled());
-        }
-
-        /// <summary>
-        /// Returns the installed HidHide version string, or null if not installed.
-        /// The MSI's version where there is one, else the driver file's own.
-        /// </summary>
-        public static string GetHidHideVersion()
-        {
-            if (TryGetHidHideMsiInfo(out var version, out _))
-                return string.IsNullOrEmpty(version) ? "Installed" : version;
+            if (TryGetHidHideMsiInfo(out string msiVersion, out _))
+            {
+                version = string.IsNullOrEmpty(msiVersion) ? "Installed" : msiVersion;
+                return true;
+            }
             if (PadForge.Engine.PlatformSupport.IsArm64Machine && HidHideArm64Installer.IsInstalled())
-                return HidHideArm64Installer.InstalledDriverVersion() ?? "Installed";
-            return null;
+            {
+                version = HidHideArm64Installer.InstalledDriverVersion() ?? "Installed";
+                return true;
+            }
+            version = null;
+            return false;
         }
 
         private static bool TryGetHidHideMsiInfo(out string displayVersion, out string productCode)

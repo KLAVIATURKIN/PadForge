@@ -4,6 +4,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 using PadForge.Common;
 using Xunit;
 
@@ -19,9 +20,10 @@ namespace PadForge.Tests
     /// <para>No bench here can run an ARM64 driver install, so two things are
     /// pinned instead. The bundled files are exactly the ones upstream
     /// published, down to the byte. And the sequence is exactly upstream's,
-    /// plus the one refusal that stands in for the watchdog service an ARM64
-    /// machine does not get: no class filter for a driver that has not been
-    /// seen running.</para>
+    /// plus what stands in for the watchdog service an ARM64 machine does not
+    /// get: no class filter for a driver that has not been seen running, and
+    /// a startup check that takes a filter back out when the driver behind
+    /// it is not there to load.</para>
     /// </summary>
     public class HidHideArm64InstallerTests
     {
@@ -96,8 +98,9 @@ namespace PadForge.Tests
 
         // ── The command lines are upstream's ──
 
-        /// <summary>HidHide Installer/Program.cs, OnAfterInstall and
-        /// OnBeforeUninstall, and the manual's three class GUIDs.</summary>
+        /// <summary>HidHide Installer/Program.cs: OnAfterInstall adds, and
+        /// OnBeforeInstall removes when it is uninstalling. The three class
+        /// GUIDs are the manual's.</summary>
         [Fact]
         public void TheCommandLinesAreTheOnesUpstreamsInstallerRuns()
         {
@@ -121,7 +124,25 @@ namespace PadForge.Tests
         public void NefconsExitCodes(int exitCode, bool installing, bool success)
             => Assert.Equal(success, HidHideArm64Installer.IsSuccess(exitCode, installing));
 
-        // ── The sequence ──
+        /// <summary>The wait nefcon gets is the one the timeout message
+        /// states to the user, which is the x64 installer's too. It was two
+        /// minutes under a message that says three.</summary>
+        [Fact]
+        public void TheWaitIsTheThreeMinutesTheTimeoutMessageStates()
+        {
+            string arm64 = File.ReadAllText(AuditDelta20260823Tests.FindRepoFile(
+                Path.Combine("PadForge.App", "Common", "HidHideArm64Installer.cs")));
+            string x64 = File.ReadAllText(AuditDelta20260823Tests.FindRepoFile(
+                Path.Combine("PadForge.App", "Common", "DriverInstaller.cs")));
+            string strings = File.ReadAllText(AuditDelta20260823Tests.FindRepoFile(
+                Path.Combine("PadForge.App", "Resources", "Strings", "Strings.resx")));
+
+            Assert.Contains("WaitForExit(180_000)", arm64);
+            Assert.Contains("WaitForExit(180_000)", x64);
+            Assert.Matches("name=\"Status_InstallerTimedOut\"[^>]*>\\s*<value>[^<]*three minutes", strings);
+        }
+
+        // ── The install sequence ──
 
         private sealed class Script
         {
@@ -152,8 +173,8 @@ namespace PadForge.Tests
         /// <summary>THE RULE. A HIDClass filter entry naming a driver that is
         /// not running stops every keyboard and mouse from starting, and an
         /// ARM64 machine has no watchdog to take it back out. So a driver
-        /// that does not answer gets its device removed and no filter at
-        /// all.</summary>
+        /// that does not answer gets no filter at all, and the removal of
+        /// its device is the last thing asked for.</summary>
         [Fact]
         public void Install_AddsNoFilter_ForADriverThatDoesNotAnswer()
         {
@@ -164,6 +185,27 @@ namespace PadForge.Tests
             Assert.Equal(HidHideSetupFailure.DriverDidNotStart, ex.Failure);
             Assert.DoesNotContain(s.Ran, a => a.StartsWith("--add-class-filter", StringComparison.Ordinal));
             Assert.Equal(HidHideArm64Installer.RemoveDeviceArgs(), s.Ran.Last());
+        }
+
+        /// <summary>The fault reported is the driver's, even when taking the
+        /// device back out fails too, never comes back, or throws.</summary>
+        [Theory]
+        [InlineData(1, false)]
+        [InlineData(null, false)]
+        [InlineData(0, true)]
+        public void Install_ReportsTheDriver_WhateverBecomesOfTheRollback(int? rollbackAnswer, bool rollbackThrows)
+        {
+            var s = new Script();
+            s.Answers["remove "] = rollbackAnswer;
+            HidHideArm64Installer.NefconRunner run = a =>
+            {
+                if (rollbackThrows && a.StartsWith("remove ", StringComparison.Ordinal))
+                    throw new InvalidOperationException("nefcon could not be started");
+                return s.Run(a);
+            };
+            var ex = Assert.Throws<HidHideSetupException>(() =>
+                HidHideArm64Installer.Install(run, @"C:\x\HidHide.inf", driverAnswers: () => false));
+            Assert.Equal(HidHideSetupFailure.DriverDidNotStart, ex.Failure);
         }
 
         /// <summary>The same silence after Windows answered 3010 is Windows
@@ -212,32 +254,286 @@ namespace PadForge.Tests
                 HidHideArm64Installer.Install(strict.Run, @"C:\x\HidHide.inf", () => true));
         }
 
+        // ── Whether the driver answers ──
+
+        /// <summary>HidHide's control device is exclusive, and a second open
+        /// answers access denied: HidHideCLI FilterDriverProxy.h says
+        /// "Returns ACCESS_DENIED when in use", and a second open measured on
+        /// the x64 bench answered 5. The installer took 32, a sharing
+        /// violation, for that case, which nothing produces. So with
+        /// HidHide's own client open during an install, a driver that was
+        /// running fine read as one that had not started, and its device was
+        /// taken back out.</summary>
+        [Theory]
+        [InlineData(true, 0, true)]      // it opened
+        [InlineData(false, 5, true)]     // another client holds it
+        [InlineData(false, 2, false)]    // no such device
+        [InlineData(false, 32, false)]   // what the installer used to wait for
+        [InlineData(false, -1, false)]   // the probe itself threw
+        public void TheDriverAnswers_WhenItsControlDeviceOpensOrIsHeld(bool opened, int error, bool answers)
+            => Assert.Equal(answers, HidHideArm64Installer.ControlDeviceAnswers(opened, error));
+
+        // ── The removal sequence ──
+
+        /// <summary>The machine as the installer sees it: which classes list
+        /// HidHide, whether the device node is there, whether the driver
+        /// answers, and what nefcon says to each command. A command that
+        /// succeeds changes the machine the way nefcon would.</summary>
+        private sealed class Machine
+        {
+            public readonly HashSet<Guid> Listed = new HashSet<Guid>();
+            public bool? Node = true;
+            public bool DriverAnswers = true;
+            /// <summary>A command that outlived its wait may have done its
+            /// work before it hung.</summary>
+            public bool ACommandThatTimesOutStillDoesItsWork;
+            public Func<string, bool> Throws = _ => false;
+            public readonly List<string> Ran = new List<string>();
+            public readonly List<string> Log = new List<string>();
+            private readonly List<(string Prefix, int? Code)> _answers = new List<(string, int?)>();
+
+            public Machine(params Guid[] listed) { foreach (Guid c in listed) Listed.Add(c); }
+
+            public void Answer(string prefix, int? code) => _answers.Add((prefix, code));
+
+            public int? Run(string arguments)
+            {
+                Ran.Add(arguments);
+                if (Throws(arguments)) throw new InvalidOperationException("nefcon could not be started");
+                int? code = 0;
+                foreach (var a in _answers)
+                    if (arguments.StartsWith(a.Prefix, StringComparison.Ordinal)) { code = a.Code; break; }
+                if (code == 0 || (code == null && ACommandThatTimesOutStillDoesItsWork)) Apply(arguments);
+                return code;
+            }
+
+            private void Apply(string arguments)
+            {
+                foreach (Guid c in HidHideArm64Installer.FilteredClasses)
+                {
+                    if (arguments == HidHideArm64Installer.AddFilterArgs(c)) Listed.Add(c);
+                    if (arguments == HidHideArm64Installer.RemoveFilterArgs(c)) Listed.Remove(c);
+                }
+                if (arguments == HidHideArm64Installer.RemoveDeviceArgs()) Node = false;
+            }
+
+            public void Uninstall()
+                => HidHideArm64Installer.Uninstall(Run, c => Listed.Contains(c), () => Node, () => DriverAnswers, Log.Add);
+
+            public int Adds => Ran.Count(a => a.StartsWith("--add-class-filter", StringComparison.Ordinal));
+        }
+
+        private static Machine FullInstall()
+            => new Machine(HidHideArm64Installer.HidClass, HidHideArm64Installer.XnaCompositeClass,
+                           HidHideArm64Installer.XboxCompositeClass);
+
         /// <summary>Filters off first, read back as gone, and only then the
-        /// device. Removing the driver under a filter entry is the state that
-        /// stops a device class from starting.</summary>
+        /// device node, which is upstream's order.</summary>
         [Fact]
         public void Uninstall_TakesTheFiltersOffFirst_ThenTheDevice()
         {
-            var s = new Script();
-            HidHideArm64Installer.Uninstall(s.Run, filterStillListed: _ => false);
+            var m = FullInstall();
+            m.Uninstall();
 
-            Assert.Equal(4, s.Ran.Count);
-            Assert.All(s.Ran.Take(3), a => Assert.StartsWith("--remove-class-filter", a));
-            Assert.Equal(HidHideArm64Installer.RemoveDeviceArgs(), s.Ran[3]);
+            Assert.Equal(4, m.Ran.Count);
+            Assert.All(m.Ran.Take(3), a => Assert.StartsWith("--remove-class-filter", a));
+            Assert.Equal(HidHideArm64Installer.RemoveFilterArgs(HidHideArm64Installer.XboxCompositeClass), m.Ran[0]);
+            Assert.Equal(HidHideArm64Installer.RemoveDeviceArgs(), m.Ran[3]);
+            Assert.Empty(m.Listed);
+            Assert.False(m.Node);
+            Assert.Empty(m.Log);
         }
 
+        /// <summary>A removal that stops part way used to leave the filters
+        /// off and the device in. That reads as "not installed", so the
+        /// Uninstall button went away from the person who had just pressed
+        /// it, and the way back was to install again first. Now the filters
+        /// that were listed at the start are added again and the failure is
+        /// reported. Here every add succeeds, so the state is a complete
+        /// install that Uninstall can be tried on again.</summary>
         [Fact]
-        public void Uninstall_LeavesTheDriverIn_WhileAnyFilterStillNamesIt()
+        public void Uninstall_PutsTheFiltersBack_WhenTheDeviceWillNotComeOut()
         {
-            var s = new Script();
-            var ex = Assert.Throws<HidHideSetupException>(() =>
-                HidHideArm64Installer.Uninstall(s.Run, c => c == HidHideArm64Installer.HidClass));
+            var m = FullInstall();
+            m.Answer("remove ", 1);
+
+            var ex = Assert.Throws<InstallerFailedException>(() => m.Uninstall());
+
+            Assert.Equal(1, ex.ExitCode);
+            Assert.True(m.Listed.SetEquals(HidHideArm64Installer.FilteredClasses));
+            Assert.True(m.Node);
+            Assert.Empty(m.Log);
+        }
+
+        /// <summary>Install treats two of the three classes as best effort,
+        /// so a complete install need not list all three. Only what was
+        /// listed goes back: a failed removal must not leave a class
+        /// filtered that was not filtered before it.</summary>
+        [Fact]
+        public void Uninstall_PutsBackOnlyTheFiltersThatWereThere()
+        {
+            var m = new Machine(HidHideArm64Installer.HidClass);
+            m.Answer("remove ", 1);
+
+            Assert.Throws<InstallerFailedException>(() => m.Uninstall());
+
+            Assert.True(m.Listed.SetEquals(new[] { HidHideArm64Installer.HidClass }));
+            Assert.Equal(1, m.Adds);
+        }
+
+        /// <summary>nefcon answers 1 for "no device matched" as well as for a
+        /// removal that failed (NefConUtil.cpp, the remove handler). A node
+        /// that went away between the status refresh and the click is a
+        /// finished removal, not a failed one.</summary>
+        [Fact]
+        public void Uninstall_IsDone_WhenTheDeviceNodeIsAlreadyGone()
+        {
+            var m = FullInstall();
+            m.Node = false;
+            m.Answer("remove ", 1);
+
+            m.Uninstall();
+
+            Assert.Empty(m.Listed);
+            Assert.Equal(0, m.Adds);
+        }
+
+        /// <summary>A node that cannot be read back is not a node that is
+        /// gone. The failure is reported, and nothing is written on a
+        /// guess.</summary>
+        [Fact]
+        public void Uninstall_ReportsTheFailure_AndWritesNothing_WhenTheNodeCannotBeReadBack()
+        {
+            var m = FullInstall();
+            m.Answer("remove ", 1);
+            m.Node = null;
+
+            var ex = Assert.Throws<InstallerFailedException>(() => m.Uninstall());
+
+            Assert.Equal(1, ex.ExitCode);
+            Assert.Equal(0, m.Adds);
+        }
+
+        /// <summary>A filter that will not come off stops the removal before
+        /// the device, and with the device node still there, whatever did
+        /// come off goes back.</summary>
+        [Fact]
+        public void Uninstall_LeavesTheDeviceIn_AndRestoresTheRest_WhileAFilterStillNamesIt()
+        {
+            var m = FullInstall();
+            m.Answer(HidHideArm64Installer.RemoveFilterArgs(HidHideArm64Installer.XnaCompositeClass), 5);
+
+            var ex = Assert.Throws<HidHideSetupException>(() => m.Uninstall());
 
             Assert.Equal(HidHideSetupFailure.FilterStillListed, ex.Failure);
-            Assert.DoesNotContain(HidHideArm64Installer.RemoveDeviceArgs(), s.Ran);
+            Assert.DoesNotContain(HidHideArm64Installer.RemoveDeviceArgs(), m.Ran);
+            Assert.True(m.Listed.SetEquals(HidHideArm64Installer.FilteredClasses));
+            Assert.True(m.Node);
         }
 
-        // ── What counts as installed, and the watchdog's check ──
+        /// <summary>A command that outlived its wait may still be running,
+        /// and a filter written now could land on either side of it. So
+        /// nothing is put back, at whichever command it happened. What is
+        /// reported is whatever stopped the removal: the timeout, or the
+        /// outright failure of a later command. A removal that goes on to
+        /// finish is reported as the success it is.</summary>
+        [Theory]
+        [InlineData("--remove-class-filter", true)]    // a filter removal, and that filter is still listed
+        [InlineData("--remove-class-filter", false)]   // a filter removal that did its work before it hung, then the device fails
+        [InlineData("remove ", true)]                  // the device removal
+        public void Uninstall_PutsNothingBack_AfterACommandThatOutlivedItsWait(string command, bool filterStays)
+        {
+            var m = FullInstall();
+            m.Answer(command, null);
+            if (command == "--remove-class-filter" && !filterStays)
+            {
+                m.ACommandThatTimesOutStillDoesItsWork = true;
+                m.Answer("remove ", 1);
+            }
+
+            var ex = Assert.Throws<InstallerFailedException>(() => m.Uninstall());
+
+            Assert.Equal(0, m.Adds);
+            if (command == "--remove-class-filter" && !filterStays) Assert.Equal(1, ex.ExitCode);
+            else Assert.True(ex.TimedOut);
+        }
+
+        /// <summary>Putting filters back completes an install, so there has
+        /// to be one to complete. With the device node gone, or not readable,
+        /// a filter that stayed listed is reported and the ones that came off
+        /// stay off. The first version put them back without looking, which
+        /// left a machine with no HidHide device filtered by HidHide.</summary>
+        [Theory]
+        [InlineData(false)]
+        [InlineData(null)]
+        public void Uninstall_PutsNothingBack_WhenAFilterStays_AndTheDeviceNodeIsNotThere(bool? node)
+        {
+            var m = FullInstall();
+            m.Node = node;
+            m.Answer(HidHideArm64Installer.RemoveFilterArgs(HidHideArm64Installer.XnaCompositeClass), 5);
+
+            var ex = Assert.Throws<HidHideSetupException>(() => m.Uninstall());
+
+            Assert.Equal(HidHideSetupFailure.FilterStillListed, ex.Failure);
+            Assert.Equal(0, m.Adds);
+            Assert.True(m.Listed.SetEquals(new[] { HidHideArm64Installer.XnaCompositeClass }));
+        }
+
+        /// <summary>nefcon can fail to start at all, and then the runner
+        /// throws where it would have returned a code. That stops the removal
+        /// as surely as an exit code does, so it gets the same recovery, and
+        /// the exception that stopped it is the one the caller hears.</summary>
+        [Theory]
+        [InlineData("remove ")]                 // the filters are off, and the device removal throws
+        [InlineData("--remove-class-filter")]   // the very first command throws
+        public void Uninstall_RecoversTheSameWay_WhenACommandThrows(string command)
+        {
+            var m = FullInstall();
+            m.Throws = a => a.StartsWith(command, StringComparison.Ordinal);
+
+            Assert.Throws<InvalidOperationException>(() => m.Uninstall());
+
+            Assert.True(m.Listed.SetEquals(HidHideArm64Installer.FilteredClasses));
+            Assert.True(m.Node);
+        }
+
+        /// <summary>The same gate as Install: no filter for a driver that has
+        /// not been seen running. The original failure is still the one
+        /// reported.</summary>
+        [Fact]
+        public void Uninstall_PutsNothingBack_ForADriverThatDoesNotAnswer()
+        {
+            var m = FullInstall();
+            m.Answer("remove ", 1);
+            m.DriverAnswers = false;
+
+            var ex = Assert.Throws<InstallerFailedException>(() => m.Uninstall());
+
+            Assert.Equal(1, ex.ExitCode);
+            Assert.Equal(0, m.Adds);
+            Assert.Single(m.Log);
+        }
+
+        /// <summary>Putting the filters back can fail too, by exit code or by
+        /// throwing. Either way the removal's own failure is what the caller
+        /// hears, and the second fault goes to the log.</summary>
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public void Uninstall_KeepsItsOwnFailure_WhenPuttingTheFiltersBackFailsToo(bool byThrowing)
+        {
+            var m = FullInstall();
+            m.Answer("remove ", 1);
+            if (byThrowing) m.Throws = a => a.StartsWith("--add-class-filter", StringComparison.Ordinal);
+            else m.Answer("--add-class-filter", 5);
+
+            var ex = Assert.Throws<InstallerFailedException>(() => m.Uninstall());
+
+            Assert.Equal(1, ex.ExitCode);
+            Assert.NotEmpty(m.Log);
+        }
+
+        // ── What counts as installed ──
 
         /// <summary>Nothing registers an ARM64 install with Windows Installer,
         /// so it is read from what it leaves behind. All three, because a
@@ -248,19 +544,194 @@ namespace PadForge.Tests
         [InlineData(true, true, false, false)]
         [InlineData(true, false, true, false)]
         [InlineData(false, true, true, false)]
-        public void Installed_MeansTheServiceTheDeviceAndTheHidClassFilter(
-            bool service, bool device, bool filter, bool installed)
-            => Assert.Equal(installed, HidHideArm64Installer.IsInstalled(service, device, filter));
+        public void Installed_MeansTheServiceTheHidClassFilterAndTheDevice(
+            bool service, bool filter, bool device, bool installed)
+            => Assert.Equal(installed, HidHideArm64Installer.IsInstalled(() => service, () => filter, () => device));
 
+        /// <summary>The status timer asks every five seconds on the UI
+        /// thread. The device enumeration is the costly one of the three, so
+        /// it runs only after both registry reads have said yes, and a
+        /// machine without HidHide enumerates nothing.</summary>
+        [Theory]
+        [InlineData(false, true)]
+        [InlineData(true, false)]
+        public void TheDevicesAreNotEnumerated_WhenTheRegistryAlreadySaysNo(bool service, bool filter)
+        {
+            bool enumerated = false;
+            Assert.False(HidHideArm64Installer.IsInstalled(() => service, () => filter,
+                                                          () => { enumerated = true; return true; }));
+            Assert.False(enumerated);
+        }
+
+        /// <summary>One look per refresh. There were two methods, one for
+        /// "installed" and one for the version, the status timer called both,
+        /// and each made the whole look again.</summary>
         [Fact]
-        public void AFilterIsDangling_OnlyWhenTheServiceBehindItIsGone()
+        public void TheStatusRefreshLooksOnce()
+        {
+            string window = File.ReadAllText(AuditDelta20260823Tests.FindRepoFile(
+                Path.Combine("PadForge.App", "MainWindow.xaml.cs")));
+            string installer = File.ReadAllText(AuditDelta20260823Tests.FindRepoFile(
+                Path.Combine("PadForge.App", "Common", "DriverInstaller.cs")));
+
+            Assert.Single(Regex.Matches(window, @"DriverInstaller\.TryGetHidHideStatus\("));
+            Assert.DoesNotContain("IsHidHideInstalled()", installer);
+            Assert.DoesNotContain("GetHidHideVersion()", installer);
+        }
+
+        // ── The watchdog's check ──
+
+        /// <summary>A filter is taken out when the driver behind it is not
+        /// there to load: the service is gone, or it is registered and
+        /// stopped, which is upstream's watchdog condition and what a driver
+        /// Windows refuses to load looks like. The check asked only whether
+        /// the service key existed, so that second case was missed and the
+        /// keyboards and mice it breaks would have stayed broken.</summary>
+        [Theory]
+        [InlineData("Absent", true)]
+        [InlineData("Stopped", true)]
+        [InlineData("Running", false)]
+        [InlineData("Unknown", false)]
+        public void AFilterIsDangling_WhenItsServiceIsGoneOrStopped(string state, bool dangling)
         {
             Func<Guid, bool> hidOnly = c => c == HidHideArm64Installer.HidClass;
+            var found = HidHideArm64Installer.DanglingFilters(hidOnly, State(state));
+            if (dangling) Assert.Equal(new[] { HidHideArm64Installer.HidClass }, found);
+            else Assert.Empty(found);
+        }
 
-            Assert.Empty(HidHideArm64Installer.DanglingFilters(hidOnly, serviceRegistered: true));
-            Assert.Equal(new[] { HidHideArm64Installer.HidClass },
-                         HidHideArm64Installer.DanglingFilters(hidOnly, serviceRegistered: false));
-            Assert.Empty(HidHideArm64Installer.DanglingFilters(_ => false, serviceRegistered: false));
+        [Fact]
+        public void NothingIsDangling_WhenNoClassListsHidHide()
+            => Assert.Empty(HidHideArm64Installer.DanglingFilters(_ => false, HidHideArm64Installer.ServiceState.Absent));
+
+        /// <summary>A healthy driver, and a question that could not be asked,
+        /// both end the check before the registry is read. An unknown state
+        /// must never cost a working install its filters, which is what
+        /// upstream's watchdog does with a failed query too.</summary>
+        [Theory]
+        [InlineData("Running")]
+        [InlineData("Unknown")]
+        public void TheRegistryIsNotRead_ForADriverThatRunsOrCannotBeAskedAbout(string state)
+        {
+            Func<Guid, bool> mustNotBeAsked = _ => throw new InvalidOperationException("the filter list was read");
+            Assert.Empty(HidHideArm64Installer.DanglingFilters(mustNotBeAsked, State(state)));
+        }
+
+        // The enum is internal and a test method is public, so it travels by name.
+        private static HidHideArm64Installer.ServiceState State(string name)
+            => Enum.Parse<HidHideArm64Installer.ServiceState>(name);
+
+        /// <summary>SERVICE_STOPPED is 1 and SERVICE_RUNNING is 4 (winsvc.h).
+        /// The pending states in between and beyond are a service on its way
+        /// somewhere, and the check runs once and puts nothing back, so it
+        /// leaves them alone.</summary>
+        [Theory]
+        [InlineData(1u, "Stopped")]
+        [InlineData(4u, "Running")]
+        [InlineData(2u, "Unknown")]   // START_PENDING
+        [InlineData(3u, "Unknown")]   // STOP_PENDING
+        [InlineData(7u, "Unknown")]   // PAUSED
+        [InlineData(0u, "Unknown")]
+        public void OnlyStoppedAndRunningAreSettledStates(uint currentState, string expected)
+            => Assert.Equal(State(expected), HidHideArm64Installer.FromCurrentState(currentState));
+
+        /// <summary>The real question, asked of this machine. A name nothing
+        /// registers is the one answer that counts as absent, and the RPC
+        /// service runs on every Windows there is.</summary>
+        [Fact]
+        public void TheServiceControlManagerIsAskedForReal()
+        {
+            Assert.Equal(HidHideArm64Installer.ServiceState.Absent,
+                         HidHideArm64Installer.QueryServiceState("PadForgeNoSuchService" + Guid.NewGuid().ToString("N")));
+            Assert.Equal(HidHideArm64Installer.ServiceState.Running,
+                         HidHideArm64Installer.QueryServiceState("RpcSs"));
+        }
+
+        /// <summary>The check used to discard every result and swallow every
+        /// exception, so a filter it could not take out left no trace. Each
+        /// removal that does not succeed is reported by class. The ones that
+        /// do are covered by the line written before the first command, which
+        /// names the service state and every class about to be acted on.</summary>
+        [Fact]
+        public void ARemovalThatDoesNotSucceedIsReported()
+        {
+            var s = new Script();
+            s.Answers[HidHideArm64Installer.RemoveFilterArgs(HidHideArm64Installer.HidClass)] = 5;
+            s.Answers[HidHideArm64Installer.RemoveFilterArgs(HidHideArm64Installer.XnaCompositeClass)] = null;
+            var log = new List<string>();
+
+            HidHideArm64Installer.RemoveFilters(s.Run, HidHideArm64Installer.FilteredClasses, log.Add);
+
+            Assert.Equal(3, s.Ran.Count);
+            Assert.Equal(2, log.Count);
+            Assert.Contains("exit code 5", log[0]);
+            Assert.Contains("still running", log[1]);
+        }
+
+        /// <summary>The startup check runs on its own thread. Unlocked, a
+        /// check that had already listed what to remove could take a filter
+        /// back out after an install had just put it in. Each of the three
+        /// entry points holds the one lock for its whole body, and the check
+        /// lists what to remove inside it.</summary>
+        [Fact]
+        public void InstallRemovalAndTheStartupCheckTakeTurns()
+        {
+            string source = File.ReadAllText(AuditDelta20260823Tests.FindRepoFile(
+                Path.Combine("PadForge.App", "Common", "HidHideArm64Installer.cs")));
+
+            // An empty lock followed by the work would hold nothing, so the
+            // pin is on what sits INSIDE the lock's braces.
+            AssertInsideTheLock(source, "public static void Install()", "WithStagedTools(");
+            AssertInsideTheLock(source, "public static void Uninstall()", "WithStagedTools(");
+            AssertInsideTheLock(source, "public static void RemoveDanglingFilters()", "QueryServiceState(");
+            AssertInsideTheLock(source, "public static void RemoveDanglingFilters()", "DanglingFilters(FilterListed");
+            AssertInsideTheLock(source, "public static void RemoveDanglingFilters()", "WithStagedTools(");
+        }
+
+        private static void AssertInsideTheLock(string source, string entry, string work)
+        {
+            int at = source.IndexOf(entry, StringComparison.Ordinal);
+            Assert.True(at >= 0, entry + " is gone");
+
+            // Everything is looked for inside THIS method's braces. Unbounded,
+            // an emptied method passed by finding the next method's lock.
+            var method = Braces(source, at);
+            Assert.True(method.Close > method.Open, entry + " has no body");
+
+            int lockAt = source.IndexOf("lock (OperationLock)", method.Open, StringComparison.Ordinal);
+            Assert.True(lockAt >= 0 && lockAt < method.Close, entry + " takes no lock");
+            var held = Braces(source, lockAt);
+            Assert.True(held.Close > held.Open && held.Close < method.Close, "the lock in " + entry + " has no body");
+
+            int workAt = source.IndexOf(work, method.Open, StringComparison.Ordinal);
+            Assert.True(workAt > held.Open && workAt < held.Close, work + " runs outside the lock in " + entry);
+        }
+
+        /// <summary>The first brace at or after a position, and the one that
+        /// closes it.</summary>
+        private static (int Open, int Close) Braces(string source, int from)
+        {
+            int open = source.IndexOf('{', from);
+            if (open < 0) return (-1, -1);
+            int depth = 0;
+            for (int i = open; i < source.Length; i++)
+            {
+                if (source[i] == '{') depth++;
+                else if (source[i] == '}' && --depth == 0) return (open, i);
+            }
+            return (open, -1);
+        }
+
+        /// <summary>The pin above has to be able to tell a lock that covers
+        /// the work from one that covers nothing, and a method that holds the
+        /// lock from one that leaves it to the method after it.</summary>
+        [Theory]
+        [InlineData("public static void Install() { lock (OperationLock) { } { WithStagedTools(x); } }")]
+        [InlineData("public static void Install() { } public static void Uninstall() { lock (OperationLock) { WithStagedTools(x); } }")]
+        public void TheLockPinSeesALockThatCoversNothing(string hollow)
+        {
+            Assert.ThrowsAny<Xunit.Sdk.XunitException>(() =>
+                AssertInsideTheLock(hollow, "public static void Install()", "WithStagedTools("));
         }
 
         [Fact]

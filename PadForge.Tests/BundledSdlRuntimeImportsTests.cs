@@ -60,12 +60,32 @@ namespace PadForge.Tests
 
         /// <summary>The scan has to be able to see a name, or the theory
         /// above passes on anything. The x64 SDL3.dll is known to import all
-        /// three (dumpbin /dependents, recorded in the project file).</summary>
+        /// three (dumpbin /dependents).</summary>
         [Fact]
         public void TheScanSeesTheThreeNamesTheX64SdlImports()
         {
             var named = RuntimeDllsNamedBy(File.ReadAllBytes(Path.Combine(ResourcesRoot(), "SDL3", "x64", "SDL3.dll")));
             Assert.Equal(RuntimeDlls.OrderBy(n => n), named.OrderBy(n => n));
+        }
+
+        /// <summary>The two runtime DLLs both builds need are bundled by
+        /// items with no Exists condition. With one, a file that went missing
+        /// was left out in silence and the publish went through with an
+        /// SDL3.dll that cannot load on a clean machine. Without one, the
+        /// build stops and names the file. The theory above cannot see this
+        /// while the files are there.</summary>
+        [Theory]
+        [InlineData("msvcp140.dll")]
+        [InlineData("vcruntime140.dll")]
+        public void ARuntimeDllBothBuildsNeed_IsBundledUnconditionally(string dll)
+        {
+            string project = File.ReadAllText(AuditDelta20260823Tests.FindRepoFile(
+                Path.Combine("PadForge.App", "PadForge.App.csproj")));
+            string path = @"Resources\VisualCpp\$(NativeArch)\" + dll;
+            var item = System.Text.RegularExpressions.Regex.Match(project,
+                "<Content Include=\"" + System.Text.RegularExpressions.Regex.Escape(path) + "\"[^>]*>");
+            Assert.True(item.Success, "no Content item bundles " + dll + " by $(NativeArch)");
+            Assert.DoesNotContain("Condition=", item.Value);
         }
 
         /// <summary>Import names are plain ASCII in the image, in whatever

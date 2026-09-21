@@ -268,9 +268,13 @@ Kaldi, OpenFst, OpenBLAS and CLAPACK
   1992-2008 The University of Tennessee)
   The speech decoder, the transducer library and the linear algebra that
   libvosk is made of. All four are linked statically into libvosk.dll, in
-  the x64 one Alpha Cephei builds and in the ARM64 one built here.
+  the x64 one Alpha Cephei builds and in the ARM64 one built here. CLAPACK
+  is Fortran translated to C, and it brings the f2c runtime into the link
+  with it (libf2c, Copyright 1990 - 1997 by AT&T, Lucent Technologies and
+  Bellcore).
   Kaldi and OpenFst are licensed under the Apache License 2.0. OpenBLAS and
-  CLAPACK are licensed under the BSD 3-Clause License (full texts below)
+  CLAPACK are licensed under the BSD 3-Clause License. libf2c carries a
+  notice of its own (full texts below)
 
 Bouncy Castle (bc-csharp)
   https://github.com/bcgit/bc-csharp
@@ -600,6 +604,33 @@ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+--------------------------------------------------------------------------------
+
+f2c notice (libf2c, the Fortran-to-C runtime that CLAPACK links, redistributed
+in binary form inside libvosk.dll)
+==============================================================================
+
+Copyright 1990 - 1997 by AT&T, Lucent Technologies and Bellcore.
+
+Permission to use, copy, modify, and distribute this software
+and its documentation for any purpose and without fee is hereby
+granted, provided that the above copyright notice appear in all
+copies and that both that the copyright notice and this
+permission notice and warranty disclaimer appear in supporting
+documentation, and that the names of AT&T, Bell Laboratories,
+Lucent or Bellcore or any of their entities not be used in
+advertising or publicity pertaining to distribution of the
+software without specific, written prior permission.
+
+AT&T, Lucent and Bellcore disclaim all warranties with regard to
+this software, including all implied warranties of
+merchantability and fitness.  In no event shall AT&T, Lucent or
+Bellcore be liable for any special, indirect or consequential
+damages or any damages whatsoever resulting from loss of use,
+data or profits, whether in an action of contract, negligence or
+other tortious action, arising out of or in connection with the
+use or performance of this software.
 
 --------------------------------------------------------------------------------
 
