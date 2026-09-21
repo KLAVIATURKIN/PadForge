@@ -779,7 +779,7 @@ A few features wait on their vendors, because an ARM64 program can load ARM64 li
 | VR headset and controllers through SteamVR | Not available. PadForge loads SteamVR's win64 library |
 | Logitech LIGHTSYNC, OpenXR headset input | Only if the vendor's software installs an ARM64 engine or runtime |
 
-The x64 build also runs on an ARM64 PC, under emulation, where those libraries match its process. That is untested, and so is the ARM64 build: neither has run on ARM64 hardware yet.
+The ARM64 build has not run on ARM64 hardware yet.
 
 ### Drivers
 
