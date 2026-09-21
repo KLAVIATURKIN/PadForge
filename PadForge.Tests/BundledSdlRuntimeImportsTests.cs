@@ -14,13 +14,14 @@ namespace PadForge.Tests
     /// is C++. The ARM64 one delivered for 4.5.1 had that reader switched off
     /// and imported neither, so the ARM64 build stopped carrying them.
     ///
-    /// <para>The reader is being enabled for ARM64 in the fork. The ARM64
-    /// SDL3.dll that comes out of that will import msvcp140.dll again, and
-    /// if PadForge takes it without the DLL beside it, SDL3.dll fails to
-    /// load on a clean ARM64 machine and every controller is dead, with
-    /// nothing at build time to say why. So each SDL3.dll is read for the
-    /// runtime DLLs it names, and each one named has to be in the same
-    /// architecture's VisualCpp folder.</para>
+    /// <para>The fork then built the reader for ARM64 (a1416320e2), and the
+    /// ARM64 SDL3.dll imports msvcp140.dll again. Taken without the DLL
+    /// beside it, SDL3.dll fails to load on a clean ARM64 machine and every
+    /// controller is dead, with nothing at build time to say why. So each
+    /// SDL3.dll is read for the runtime DLLs it names, and each one named
+    /// has to be in the same architecture's VisualCpp folder. This test
+    /// was written ahead of that delivery and failed on it, which is how
+    /// the ARM64 msvcp140.dll came to be bundled in the same commit.</para>
     /// </summary>
     public class BundledSdlRuntimeImportsTests
     {
