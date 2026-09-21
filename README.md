@@ -53,11 +53,14 @@ PadForge is for sim racers running wheels in games that only understand Xbox con
 </p>
 
 <details>
-<summary><b>New in 4.5.1:</b> wired Switch 2 controllers work again, a first build for Windows on ARM, and DualShock 3 pairing on PCIe and UART Bluetooth adapters</summary>
+<summary><b>New in 4.5.2:</b> HidHide, Vosk voice recognition and Bluetooth Xbox Elite paddles on Windows on ARM</summary>
 
-- **A Switch 2 controller on a USB cable works again.** 4.5.0 shipped an input library that asked Windows for `libusb-1.0.lib` where PadForge bundles `libusb-1.0.dll`, so libusb never loaded. PadForge starts a Switch 2 Pro Controller, a Joy-Con 2 or a Switch 2 GameCube controller on a cable with a command sequence sent through libusb, so none of them worked, and a GameCube adapter set up for libusb was not detected. Bluetooth was not affected, and neither was 4.4.0. A test now fails unless the name inside the bundled library is a file that ships beside it.
-- **A first build for Windows on ARM.** `PadForge-v4.5.1-win-arm64.zip` is a native build for Windows 11 on ARM64, and HIDMaestro 1.9.0 installs its ARM64 driver there. HidHide, Vosk voice recognition, Razer Sensa haptics and Xbox Elite paddles are missing on it, and none of it has run on ARM64 hardware yet. [Requirements](#windows-on-arm-preliminary) has the table.
-- **A DualShock 3 pairs on a PCIe or UART Bluetooth adapter.** The bundled PlayStation Bluetooth driver moves to BthPS3 3.0.0, whose filter attaches to BTHX radios as well as USB ones. Most recent Intel laptops carry a PCIe adapter, and on those the profile device used to fail with code 31. An existing install is upgraded in place the next time you pair.
+- **HidHide works on Windows on ARM.** A kernel driver cannot run emulated, so on an ARM64 PC PadForge installs HidHide's own Microsoft-signed ARM64 driver, with HidHide's own install tool, from either build. Install and Uninstall sit in Settings as they do on x64, and neither asks for a restart. 4.5.1 said HidHide had no ARM64 driver. It has one.
+- **Vosk voice recognition works in the ARM64 build.** Vosk publishes no Windows ARM64 library, so the ARM64 build carries one built from Vosk's own ARM64 recipe, with the speech model inside the exe as on x64.
+- **Xbox Elite paddles are read over Bluetooth in the ARM64 build.** Over USB and the Xbox Wireless Adapter they are not read there yet. That route reads an undocumented Windows format that has been checked against x64 Windows alone.
+- **A voice macro no longer crashes PadForge after a temp cleanup**, on either architecture. A cleaner that removed the cached speech model's files and left its folders made the speech engine hand back an empty model, and the first recognizer built on it took the app down. PadForge now checks the model and unpacks it again.
+
+None of the ARM64 work has run on ARM64 hardware yet. [Requirements](#windows-on-arm-preliminary) has the table.
 
 </details>
 
@@ -762,11 +765,11 @@ Language (10 locales, live-switch with no restart). Theme (System Default / Ligh
 
 ## Requirements
 
-Windows 10 or 11 on x64. The [.NET 10 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/10.0) is bundled in the single-file release, so there is nothing else to install.
+Windows 10 or 11 on x64, or Windows 11 on ARM64 ([preliminary](#windows-on-arm-preliminary)). Each has its own download: `win-x64` and `win-arm64`. The [.NET 10 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/10.0) is bundled in the single-file release, so there is nothing else to install.
 
 ### Windows on ARM (preliminary)
 
-4.5.1 adds a build for Windows 11 on ARM64. HIDMaestro 1.9.0 installs its ARM64 driver there, so virtual controllers work as they do on x64, and the DualShock 3 Bluetooth driver installs its ARM64 binary.
+4.5.1 added a build for Windows 11 on ARM64, and 4.5.2 brings HidHide, Vosk and Bluetooth Elite paddles to it. HIDMaestro 1.9.0 installs its ARM64 driver there, so virtual controllers work as they do on x64, and the DualShock 3 Bluetooth driver installs its ARM64 binary.
 
 HidHide works on an ARM64 PC from either build. A kernel driver cannot run emulated, so PadForge installs HidHide's own Microsoft-signed ARM64 driver there, with HidHide's own install tool, in the order HidHide's setup uses. Install and Uninstall sit in Settings as they do on x64, and neither asks for a restart.
 
