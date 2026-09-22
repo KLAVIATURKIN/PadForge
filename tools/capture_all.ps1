@@ -410,8 +410,11 @@ function Ensure-DeviceAssigned {
             $g = $st.SelectSingleNode("InstanceGuid"); $mt = $st.SelectSingleNode("MapTo")
             if ($g -and $mt -and $g.InnerText -eq $guid -and [int]$mt.InnerText -eq $PadIndex) {
                 Write-Host "  '$iname' already mapped to pad $PadIndex"
-                Start-Process $ExePath; Start-Sleep -Seconds 8
-                return $true
+                # The app was killed above, so this is a restart like any
+                # other and the handles must follow it. Returning with the old
+                # hwnd left every later UIA call on a dead window, and the next
+                # FromHandle threw "Unrecognized error" (2026-09-22).
+                return (Reset-PadForgeUia -ExePath $ExePath)
             }
         }
 
@@ -1312,10 +1315,13 @@ function Open-SlotCard {
 # maximized window, measured 2026-09-22 from a capture. The old 0.965 W fell in
 # the gap beside the finish reset button once the 2D view gained its finish
 # selector, and the shot came out as a bare 2D view. A click that changes
-# nothing in the model area saves nothing. OPEN: a focused run on 2026-09-22
-# clicked the measured point and the model area did not change, so
-# 2d-annotation-overlay is still pending. Whether the click missed or the
-# overlay had nothing to draw is not yet known.
+# nothing in the model area saves nothing.
+#
+# On 2026-09-22 the click turned the toggle on and still no chip appeared.
+# That was the app: the 2D view laid its chips out on the view's SizeChanged,
+# which never fires when the overlay canvas is first shown, so chips stayed
+# hidden until the window was resized. A restore and re-maximize made every
+# chip appear. The view now listens to the canvas (Annotation2DLayoutTriggerTests).
 function Capture-2DAnnotationOverlay {
     $annBtn2D = Find-UIA -Aid "AnnotationToggle2D"
     if (-not $annBtn2D) {
@@ -1341,6 +1347,11 @@ function Capture-2DAnnotationOverlay {
         $after = Get-ScreenStripHash $mX $mY 1980 950
         if ($before -eq $after) {
             Write-Host "  !! annotation overlay did not appear -- SKIPPED 2d-annotation-overlay" -ForegroundColor Red
+            # Keep the frame for diagnosis, outside the docs folder.
+            $dbg = New-Object System.Drawing.Bitmap(($wrA2.Right - $wrA2.Left), ($wrA2.Bottom - $wrA2.Top))
+            $dg = [System.Drawing.Graphics]::FromImage($dbg)
+            $dg.CopyFromScreen($wrA2.Left, $wrA2.Top, 0, 0, $dbg.Size); $dg.Dispose()
+            $dbg.Save((Join-Path $logDir "annotation-miss.png"), [System.Drawing.Imaging.ImageFormat]::Png); $dbg.Dispose()
             return
         }
         Cap "2d-annotation-overlay"
@@ -3637,11 +3648,27 @@ if ($Only.Count -gt 0) {
     $twoDWanted = @($script:TwoDShots | Where-Object { Want $_ })
     if ($twoDWanted.Count -gt 0) {
         Write-Host "[focused] 2D controller preview: $($twoDWanted -join ', ')"
-        # The same DualSense on both slots as the rest of the set. Xbox is
-        # pad 0 and PlayStation pad 1 in creation order.
-        Ensure-DeviceAssigned -DeviceNamePart "DualSense" -PadIndex 0 -SlotType 0 `
+        # The full pass's own staging for slots 1 and 2. Assigning through the
+        # Devices page runs auto-map, which gives the Xbox slot the mapped rows
+        # the annotation chips draw from. Writing MapTo alone leaves every row
+        # without a source.
+        Nav "Devices"; Start-Sleep -Milliseconds 1500
+        Assign-DeviceToSlot -DeviceNamePart "DualSense" -SlotNumberLabel "1" | Out-Null
+        Assign-DeviceToSlot -DeviceNamePart "DualSense" -SlotNumberLabel "2" | Out-Null
+        Assign-DeviceToSlot -DeviceNamePart "Xbox Series X GIP" -SlotNumberLabel "1" -Reassert | Out-Null
+        Assign-DeviceToSlot -DeviceNamePart "Logitech G29" -SlotNumberLabel "1" | Out-Null
+        # The app writes its settings 2 s after the last change
+        # (SettingsService.PersistQuietMs), and Ensure-DeviceAssigned kills it
+        # first thing. Without this wait the last assignment never reaches the
+        # file.
+        Start-Sleep -Milliseconds 3000
+        Ensure-DeviceAssigned -DeviceNamePart "Xbox Series X GIP" -PadIndex 0 -SlotType 0 `
             -XmlPath $PadForgeXml -ExePath $PadForgeExe | Out-Null
-        Ensure-DeviceAssigned -DeviceNamePart "DualSense" -PadIndex 1 -SlotType 1 `
+        # Every synthetic device is offline, so nothing above starts the
+        # engine. The full pass forges because the merged mouse, a real device,
+        # sits on the keyboard-and-mouse slot (pad 3 in creation order). Without
+        # it the status bar reads 0 Hz Idle beside a set that reads Forging.
+        Ensure-DeviceAssigned -DeviceNamePart "All Mice (Merged)" -PadIndex 3 -SlotType 4 `
             -XmlPath $PadForgeXml -ExePath $PadForgeExe | Out-Null
         Start-Sleep -Milliseconds 2500
         $script:uiaWin = [System.Windows.Automation.AutomationElement]::FromHandle([IntPtr]$script:hwnd)
@@ -3657,6 +3684,8 @@ if ($Only.Count -gt 0) {
                 [System.Windows.Automation.ControlType]::RadioButton)
             $tabs = $padPage.FindAll($TC, $rbCond)
             if ((Get-Count $tabs) -gt 0) { Click-El $tabs[0] -Label "Preview tab" -Delay 1000 | Out-Null }
+            Dismiss-AssignBanner | Out-Null
+            Wait-EngineForging | Out-Null
             if (Toggle-ViewMode) {
                 Start-Sleep -Milliseconds 600
                 Cap "pad-controller-2d"
@@ -3668,6 +3697,8 @@ if ($Only.Count -gt 0) {
                     $psPage = if ((Get-Count $cards) -ge 2) { Open-SlotCard $cards[1] "PlayStation slot card" } else { $null }
                     if ($psPage) {
                         Start-Sleep -Milliseconds 1500
+                        Dismiss-AssignBanner | Out-Null
+                        Wait-EngineForging | Out-Null
                         Cap "2d-touchpad-finger-dots"
                     } else {
                         Write-Host "  !! PlayStation pad page not open -- SKIPPED 2d-touchpad-finger-dots" -ForegroundColor Red

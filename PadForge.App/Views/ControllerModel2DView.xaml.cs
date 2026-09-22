@@ -96,8 +96,15 @@ namespace PadForge.Views
             Unloaded += (s, e) => CompositionTarget.Rendering -= OnRendering;
             // Annotation overlay (#175): anchors move only when the Viewbox
             // rescales, so a size change is the one geometry trigger the 2D
-            // layer needs (no camera, no timer-driven re-projection).
-            SizeChanged += (s, e) => LayoutAnnotations();
+            // layer needs (no camera, no timer-driven re-projection). It is
+            // the overlay canvas's own size, not the view's. The canvas fills
+            // the same grid cell, so it resizes with the view, and it gets its
+            // first size only after the toggle shows it: WPF never arranges a
+            // collapsed element, so at the toggle it reads 0 wide and
+            // LayoutAnnotations bails. SizeChanged is a direct event, so the
+            // view never heard the canvas grow, and turning the overlay on
+            // drew nothing until the window was resized.
+            AnnotationCanvas.SizeChanged += (s, e) => LayoutAnnotations();
         }
 
         // ─────────────────────────────────────────────
