@@ -963,6 +963,17 @@ namespace PadForge.Services
                     }
                     if (row == null)
                     {
+                        // An empty motion row is how a user switches that
+                        // channel off, and EnsureMotionRows leaves one alone.
+                        // A grid saved before any device reached the slot has
+                        // nothing in either motion row, and writing them out
+                        // anyway switched off the motion auto-map for the next
+                        // assignment while every other row filled in
+                        // (discussion #446). Only a row the user emptied reads
+                        // as off, and that row already exists.
+                        if (MappingSetMigrator.IsMotionTarget(mapping.TargetSettingName)
+                            && !mapping.HasAnySource && !mapping.NoInherit)
+                            continue;
                         row = new MappingRow { Target = mapping.TargetSettingName, LayerMask = activeMask };
                         ms.Rows.Add(row);
                     }
