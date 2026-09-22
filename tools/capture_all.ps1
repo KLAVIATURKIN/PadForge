@@ -915,6 +915,14 @@ function Ensure-MacrosLoaded {
 # dialog under the wrong name (2026-08-19: six shots shipped that way).
 $script:modalLeaks = 0
 
+# The three shots of the 2D controller preview. When -Only names these and
+# nothing else, STEP 0 saves Use2DControllerView=true so every pad page opens
+# in 2D and Toggle-ViewMode leaves the view alone. No click decides which view
+# gets photographed.
+$script:TwoDShots = @('pad-controller-2d', '2d-annotation-overlay', '2d-touchpad-finger-dots')
+$script:Start2D = ($Only.Count -gt 0) -and
+    (@($Only | Where-Object { $script:TwoDShots -notcontains $_ }).Count -eq 0)
+
 # True when this shot was asked for. With no -Only, everything is wanted.
 function Want {
     param([string]$Name)
@@ -1229,22 +1237,127 @@ function Select-MappedDeviceOnce {
 }
 
 # Toggle the PadPage 2D/3D view. The button carries AutomationId
-# "ViewModeToggle" (PadPage.xaml:955) but usually has NO UIA PEER AT ALL:
-# the Helix viewport host strips its whole subtree from the automation
-# tree, so neither the Aid lookup nor an all-Buttons scan of that corner
-# finds anything (probed empirically 2026-07-30). The coordinate is
-# therefore the normal path, not the exception.
+# "ViewModeToggle" (PadPage.xaml, inside ControllerModelHost) but usually has
+# NO UIA PEER AT ALL: the Helix viewport host strips its whole subtree from
+# the automation tree, so neither the Aid lookup nor an all-Buttons scan of
+# that corner finds anything (probed empirically 2026-07-30). The coordinate
+# is therefore the normal path, not the exception.
 #
-# The 4.1.0 prep shipped a WRONG pad-controller-2d because the old blind
-# offset (ppRect+52,+124) missed the button and the "2D" shot showed the
-# 3D model. Measured position on the maximized window (2582x1550):
-# window-relative (431, 249), which is ppRect + (41, 61).
+# A missed click is silent, so the toggle is VERIFIED. Two capture passes
+# shipped the 3D view under all three 2D names: the 4.1.0 prep through a
+# blind offset, and a later one through PadPageView + (41, 61), which stopped
+# hitting the button once the slot header rows moved inside PadPageView.
+# The click now uses the window rect, measured 2026-09-22 from a trimmed
+# capture of the maximized window: the button spans window-relative x 409-454,
+# y 233-280. The Reset View button is right-anchored in the 3D view and absent
+# in 2D, so its strip (window width - 191, y 233, 161 x 47) changes on every
+# toggle in either direction. No change means no toggle, and the caller saves
+# nothing.
 #
-# DETERMINISTIC ALTERNATIVE, preferred when a run can control the xml:
-# the view is a PERSISTED SETTING (AppSettings/Use2DControllerView, flipped
-# by PadPage.xaml.cs:206). Writing it in STEP 0 opens the PadPage in 2D
-# with no click at all. Use that when adding a new 2D capture.
+# DETERMINISTIC ALTERNATIVE: the view is a PERSISTED SETTING
+# (AppSettings/Use2DControllerView, flipped by PadPage.ViewModeToggle_Click).
+# A run whose -Only names nothing but 2D shots writes it in STEP 0, opens
+# every pad page in 2D and never clicks here ($script:Start2D).
+function Get-ScreenStripHash {
+    param([int]$X, [int]$Y, [int]$W, [int]$H)
+    $bmp = New-Object System.Drawing.Bitmap($W, $H)
+    $g = [System.Drawing.Graphics]::FromImage($bmp)
+    $g.CopyFromScreen($X, $Y, 0, 0, [System.Drawing.Size]::new($W, $H))
+    $g.Dispose()
+    $ms = New-Object System.IO.MemoryStream
+    $bmp.Save($ms, [System.Drawing.Imaging.ImageFormat]::Bmp)
+    $bmp.Dispose()
+    $sha = [System.Security.Cryptography.SHA256]::Create()
+    $hash = [BitConverter]::ToString($sha.ComputeHash($ms.ToArray()))
+    $sha.Dispose(); $ms.Dispose()
+    return $hash
+}
+
+# Open a slot's pad page from its Dashboard card. The card's center sits on
+# its controller-type strip, and a click there changes the slot's type: a
+# focused run on 2026-09-22 turned the Xbox slot into an Extended one that
+# way and photographed the Dashboard. On a card with a mapped device the
+# center lands 2 px below the strip (measured 2026-09-22: strip y 473-505,
+# center 507), which is the only reason the full pass never tripped on it.
+# The "Slot" title opens the page and touches nothing else. Returns the
+# PadPageView once it exists.
+function Open-SlotCard {
+    param($Card, [string]$Label)
+    $title = $null
+    try {
+        $tcond = New-Object System.Windows.Automation.PropertyCondition(
+            [System.Windows.Automation.AutomationElement]::ControlTypeProperty,
+            [System.Windows.Automation.ControlType]::Text)
+        # The title renders as two TextBlocks, "Slot" and the number.
+        $title = @($Card.FindAll($TD, $tcond)) |
+            Where-Object { $_.Current.Name -eq 'Slot' } | Select-Object -First 1
+    } catch {}
+    if (-not $title) {
+        Write-Host "  !! no 'Slot' title on $Label; not clicking the card body" -ForegroundColor Red
+        return $null
+    }
+    Click-El $title -Label "$Label title" -Delay 1500 | Out-Null
+    for ($w = 0; $w -lt 10; $w++) {
+        $pp = Find-UIA -Aid "PadPageView"
+        if ($pp) { return $pp }
+        Start-Sleep -Milliseconds 1000
+    }
+    Write-Host "  !! $Label did not open its pad page" -ForegroundColor Red
+    return $null
+}
+
+# The 2D view's annotation toggle: on, photographed, off. Its AutomationId is
+# "AnnotationToggle2D". Where UIA does not reach it, the fallback clicks the
+# tag glyph, which is right-anchored: window-relative (width - 53, 255) on the
+# maximized window, measured 2026-09-22 from a capture. The old 0.965 W fell in
+# the gap beside the finish reset button once the 2D view gained its finish
+# selector, and the shot came out as a bare 2D view. A click that changes
+# nothing in the model area saves nothing. OPEN: a focused run on 2026-09-22
+# clicked the measured point and the model area did not change, so
+# 2d-annotation-overlay is still pending. Whether the click missed or the
+# overlay had nothing to draw is not yet known.
+function Capture-2DAnnotationOverlay {
+    $annBtn2D = Find-UIA -Aid "AnnotationToggle2D"
+    if (-not $annBtn2D) {
+        $script:uiaWin = [System.Windows.Automation.AutomationElement]::FromHandle([IntPtr]$script:hwnd)
+        Start-Sleep -Milliseconds 400
+        $annBtn2D = Find-UIA -Aid "AnnotationToggle2D"
+    }
+    if ($annBtn2D) {
+        Click-El $annBtn2D -Label "Annotation toggle (2D)" -Delay 900 | Out-Null
+        Cap "2d-annotation-overlay"
+        Click-El $annBtn2D -Label "Annotation toggle (2D) off" -Delay 500 | Out-Null
+    } else {
+        Write-Host "  AnnotationToggle2D not in UIA; coordinate fallback" -ForegroundColor DarkGray
+        $wrA2 = New-Object Win32+RECT
+        [Win32]::GetWindowRect($script:hwnd, [ref]$wrA2) | Out-Null
+        $a2X = $wrA2.Right - 53; $a2Y = $wrA2.Top + 255
+        $mX = $wrA2.Left + 420; $mY = $wrA2.Top + 300
+        [Win32]::ForceFG($script:hwnd); Start-Sleep -Milliseconds 100
+        [Win32]::MoveTo(($wrA2.Right - 100), ($wrA2.Bottom - 15)); Start-Sleep -Milliseconds 150
+        $before = Get-ScreenStripHash $mX $mY 1980 950
+        [Win32]::ClickAt($a2X, $a2Y); Start-Sleep -Milliseconds 900
+        [Win32]::MoveTo(($wrA2.Right - 100), ($wrA2.Bottom - 15)); Start-Sleep -Milliseconds 150
+        $after = Get-ScreenStripHash $mX $mY 1980 950
+        if ($before -eq $after) {
+            Write-Host "  !! annotation overlay did not appear -- SKIPPED 2d-annotation-overlay" -ForegroundColor Red
+            return
+        }
+        Cap "2d-annotation-overlay"
+        [Win32]::ClickAt($a2X, $a2Y); Start-Sleep -Milliseconds 500   # toggle off
+    }
+}
+
 function Toggle-ViewMode {
+    # A 2D-only run opened every pad page in 2D from the saved setting, and a
+    # toggle here would flip it back to 3D.
+    if ($script:Start2D) { return $true }
+    $r = New-Object Win32+RECT
+    [Win32]::GetWindowRect($script:hwnd, [ref]$r) | Out-Null
+    $sx = $r.Right - 191; $sy = $r.Top + 233
+    [Win32]::ForceFG($script:hwnd); Start-Sleep -Milliseconds 100
+    [Win32]::MoveTo(($r.Right - 100), ($r.Bottom - 15)); Start-Sleep -Milliseconds 150
+    $before = Get-ScreenStripHash $sx $sy 161 47
     $vmBtn = Find-UIA -Aid "ViewModeToggle"
     if (-not $vmBtn) {
         # Re-attach to the window; a stale cached element tree can hide
@@ -1252,15 +1365,20 @@ function Toggle-ViewMode {
         $script:uiaWin = [System.Windows.Automation.AutomationElement]::FromHandle([IntPtr]$script:hwnd)
         $vmBtn = Find-UIA -Aid "ViewModeToggle"
     }
-    if ($vmBtn) { return (Click-El $vmBtn -Label "ViewModeToggle" -Delay 700) }
-    Write-Host "  ViewModeToggle has no UIA peer (expected); measured coordinate" -ForegroundColor DarkGray
-    $pp = Find-UIA -Aid "PadPageView"
-    if (-not $pp) { Write-Host "  !! Toggle-ViewMode: no PadPageView" -ForegroundColor Red; return $false }
-    $pr = Get-Rect $pp
-    if ($null -eq $pr) { Write-Host "  !! Toggle-ViewMode: PadPageView has no rect" -ForegroundColor Red; return $false }
-    [Win32]::ForceFG($script:hwnd); Start-Sleep -Milliseconds 100
-    [Win32]::ClickAt([int]($pr.X + 41), [int]($pr.Y + 61))
-    Start-Sleep -Milliseconds 900
+    if ($vmBtn) {
+        Click-El $vmBtn -Label "ViewModeToggle" -Delay 700 | Out-Null
+    } else {
+        Write-Host "  ViewModeToggle has no UIA peer (expected); measured coordinate" -ForegroundColor DarkGray
+        [Win32]::ForceFG($script:hwnd); Start-Sleep -Milliseconds 100
+        [Win32]::ClickAt(($r.Left + 431), ($r.Top + 256))
+        Start-Sleep -Milliseconds 900
+    }
+    [Win32]::MoveTo(($r.Right - 100), ($r.Bottom - 15)); Start-Sleep -Milliseconds 150
+    $after = Get-ScreenStripHash $sx $sy 161 47
+    if ($before -eq $after) {
+        Write-Host "  !! Toggle-ViewMode: the view did not change" -ForegroundColor Red
+        return $false
+    }
     return $true
 }
 
@@ -2090,6 +2208,20 @@ if ($appSettings) {
         $appSettings.AppendChild($frNode) | Out-Null
     }
     Write-Host "  Set FirstRunTourCompleted=true for capture"
+
+    # A 2D-only run opens every pad page in 2D from the saved setting instead
+    # of clicking the view button. The owner's value rides the backup and is
+    # restored in STEP 4.
+    if ($script:Start2D) {
+        $v2Node = $appSettings.SelectSingleNode("Use2DControllerView")
+        if ($v2Node) { $v2Node.InnerText = "true" }
+        else {
+            $v2Node = $xml.CreateElement("Use2DControllerView")
+            $v2Node.InnerText = "true"
+            $appSettings.AppendChild($v2Node) | Out-Null
+        }
+        Write-Host "  Set Use2DControllerView=true for a 2D-only run"
+    }
 
     # Enable web controller server for web screenshots
     $wcNode = $appSettings.SelectSingleNode("EnableWebController")
@@ -3497,6 +3629,59 @@ if ($Only.Count -gt 0) {
         }
     }
 
+    # ── The 2D controller preview: Xbox slot, then PlayStation slot ──
+    # A run asking for nothing but these opened every pad page in 2D from the
+    # saved setting (STEP 0), so Toggle-ViewMode returns at once. A mixed run
+    # toggles, verified, and puts the view back at the end. The view is one
+    # global setting, so the PlayStation page opens in the same view.
+    $twoDWanted = @($script:TwoDShots | Where-Object { Want $_ })
+    if ($twoDWanted.Count -gt 0) {
+        Write-Host "[focused] 2D controller preview: $($twoDWanted -join ', ')"
+        # The same DualSense on both slots as the rest of the set. Xbox is
+        # pad 0 and PlayStation pad 1 in creation order.
+        Ensure-DeviceAssigned -DeviceNamePart "DualSense" -PadIndex 0 -SlotType 0 `
+            -XmlPath $PadForgeXml -ExePath $PadForgeExe | Out-Null
+        Ensure-DeviceAssigned -DeviceNamePart "DualSense" -PadIndex 1 -SlotType 1 `
+            -XmlPath $PadForgeXml -ExePath $PadForgeExe | Out-Null
+        Start-Sleep -Milliseconds 2500
+        $script:uiaWin = [System.Windows.Automation.AutomationElement]::FromHandle([IntPtr]$script:hwnd)
+        Nav "Dashboard"; Start-Sleep -Milliseconds 1500
+        $slotsHost = Find-UIA -Aid "SlotsItemsControl"
+        $cards = if ($slotsHost) { @($slotsHost.FindAll($TC, [System.Windows.Automation.Condition]::TrueCondition)) } else { @() }
+        Write-Host "  Found $((Get-Count $cards)) slot card(s)"
+        # Xbox is card 0 and PlayStation card 1 in type-group order.
+        $padPage = if ((Get-Count $cards) -ge 2) { Open-SlotCard $cards[0] "Xbox slot card" } else { $null }
+        if ($padPage) {
+            $rbCond = New-Object System.Windows.Automation.PropertyCondition(
+                [System.Windows.Automation.AutomationElement]::ControlTypeProperty,
+                [System.Windows.Automation.ControlType]::RadioButton)
+            $tabs = $padPage.FindAll($TC, $rbCond)
+            if ((Get-Count $tabs) -gt 0) { Click-El $tabs[0] -Label "Preview tab" -Delay 1000 | Out-Null }
+            if (Toggle-ViewMode) {
+                Start-Sleep -Milliseconds 600
+                Cap "pad-controller-2d"
+                if (Want "2d-annotation-overlay") { Capture-2DAnnotationOverlay }
+                if (Want "2d-touchpad-finger-dots") {
+                    Nav "Dashboard"; Start-Sleep -Milliseconds 1500
+                    $slotsHost = Find-UIA -Aid "SlotsItemsControl"
+                    $cards = if ($slotsHost) { @($slotsHost.FindAll($TC, [System.Windows.Automation.Condition]::TrueCondition)) } else { @() }
+                    $psPage = if ((Get-Count $cards) -ge 2) { Open-SlotCard $cards[1] "PlayStation slot card" } else { $null }
+                    if ($psPage) {
+                        Start-Sleep -Milliseconds 1500
+                        Cap "2d-touchpad-finger-dots"
+                    } else {
+                        Write-Host "  !! PlayStation pad page not open -- SKIPPED 2d-touchpad-finger-dots" -ForegroundColor Red
+                    }
+                }
+                Toggle-ViewMode | Out-Null
+            } else {
+                Write-Host "  !! 2D view did not open -- SKIPPED $($twoDWanted -join ', ')" -ForegroundColor Red
+            }
+        } else {
+            Write-Host "  !! Xbox pad page not open -- SKIPPED $($twoDWanted -join ', ')" -ForegroundColor Red
+        }
+    }
+
     # ── Profiles page, and the modal that hangs off it ──
     if (Want "profiles-external-control") {
         Write-Host "[focused] Profiles: external control checkbox"
@@ -4025,42 +4210,23 @@ if ((Get-Count $slots) -ge 1) {
         [Win32]::ClickAt($anX, $anY); Start-Sleep -Milliseconds 500   # toggle off
     }
 
-    # 5. Controller 2D view (weak-9 recapture: the old blind coordinate left
-    # the 3D view on screen; the ViewModeToggle Aid click is deterministic)
+    # 5. Controller 2D view. Toggle-ViewMode confirms the view changed before
+    # anything is saved under a 2D name: an unverified click shipped the 3D
+    # view as all three 2D shots, twice.
     Write-Host "[$(Next)/$total] Controller - 2D view"
-    Toggle-ViewMode | Out-Null
-    Start-Sleep -Milliseconds 600
-    Cap "pad-controller-2d"
-    # 5a. Annotation overlay on the 2D preview (2D-Overlay-System.md). The 2D
-    # view has its own toggle (AutomationId "AnnotationToggle2D"), same top-right
-    # spot. Toggle on, capture, toggle off before switching back to 3D.
-    $annBtn2D = Find-UIA -Aid "AnnotationToggle2D"
-    if (-not $annBtn2D) {
-        $script:uiaWin = [System.Windows.Automation.AutomationElement]::FromHandle([IntPtr]$script:hwnd)
-        Start-Sleep -Milliseconds 400
-        $annBtn2D = Find-UIA -Aid "AnnotationToggle2D"
+    $in2D = Toggle-ViewMode
+    if (-not $in2D) {
+        Write-Host "  !! 2D view did not open; pad-controller-2d and 2d-annotation-overlay NOT captured" -ForegroundColor Red
     }
-    if ($annBtn2D) {
-        Click-El $annBtn2D -Label "Annotation toggle (2D)" -Delay 900 | Out-Null
-        Cap "2d-annotation-overlay"
-        Click-El $annBtn2D -Label "Annotation toggle (2D) off" -Delay 500 | Out-Null
-    } else {
-        # Coordinate fallback (same reason as the 3D toggle). The 2D view has NO
-        # Reset View sibling, so its tag glyph sits alone at the far right of the
-        # model host, ~0.965 W / 0.161 H.
-        Write-Host "  AnnotationToggle2D not in UIA; coordinate fallback" -ForegroundColor DarkGray
-        $wrA2 = New-Object Win32+RECT
-        [Win32]::GetWindowRect($script:hwnd, [ref]$wrA2) | Out-Null
-        $a2W = $wrA2.Right - $wrA2.Left; $a2H = $wrA2.Bottom - $wrA2.Top
-        $a2X = [int]($wrA2.Left + 0.965 * $a2W); $a2Y = [int]($wrA2.Top + 0.161 * $a2H)
-        [Win32]::ForceFG($script:hwnd); Start-Sleep -Milliseconds 100
-        [Win32]::ClickAt($a2X, $a2Y); Start-Sleep -Milliseconds 900
-        Cap "2d-annotation-overlay"
-        [Win32]::ClickAt($a2X, $a2Y); Start-Sleep -Milliseconds 500   # toggle off
+    if ($in2D) {
+        Start-Sleep -Milliseconds 600
+        Cap "pad-controller-2d"
+        # 5a. Annotation overlay on the 2D preview (2D-Overlay-System.md).
+        Capture-2DAnnotationOverlay
+        # Switch back to 3D
+        Toggle-ViewMode | Out-Null
+        Start-Sleep -Milliseconds 500
     }
-    # Switch back to 3D
-    Toggle-ViewMode | Out-Null
-    Start-Sleep -Milliseconds 500
 
     # 6. Macros (select first macro + first action)
     Write-Host "[$(Next)/$total] Macros"
@@ -4588,11 +4754,14 @@ if ($slotsHost) {
             # (top-left of the model host, same offset the Xbox 2D shot uses),
             # capture, toggle back to 3D so the AT/Lighting shots stay on 3D.
             Write-Host "  PlayStation: 2D touchpad preview"
-            Toggle-ViewMode | Out-Null
-            Start-Sleep -Milliseconds 700
-            Cap "2d-touchpad-finger-dots"
-            Toggle-ViewMode | Out-Null
-            Start-Sleep -Milliseconds 500
+            if (Toggle-ViewMode) {
+                Start-Sleep -Milliseconds 700
+                Cap "2d-touchpad-finger-dots"
+                Toggle-ViewMode | Out-Null
+                Start-Sleep -Milliseconds 500
+            } else {
+                Write-Host "  !! 2D view did not open; 2d-touchpad-finger-dots NOT captured" -ForegroundColor Red
+            }
 
             Write-Host "[$(Next)/$total] Adaptive Triggers"
             $atTab = $tabs | Where-Object { $_.Current.Name -eq "Adaptive Triggers" } | Select-Object -First 1
@@ -4817,14 +4986,13 @@ if ((Get-Count $cards) -gt $extendedIdx) {
     }
     Cap "pad-extended-configbar"
 
-    # 15. Extended schematic view
+    # 15. Extended schematic view. A custom Extended slot shows the schematic
+    # by default and hides the 2D/3D button (PadPage.ApplyViewMode), so there
+    # is nothing to toggle. A click at the button's position lands on this
+    # page's Preset box instead.
     Write-Host "[$(Next)/$total] Extended schematic view"
-    Toggle-ViewMode | Out-Null
     Start-Sleep -Milliseconds 600
     Cap "pad-extended-schematic"
-    # Switch back
-    Toggle-ViewMode | Out-Null
-    Start-Sleep -Milliseconds 500
 
     # 15a. Clone Device 1:1 confirm dialog (Button-and-Axis-Mappings.md). The
     # Extended config bar's "Clone Device 1:1" button opens a modal MessageBox
