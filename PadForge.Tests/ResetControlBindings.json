@@ -1027,6 +1027,24 @@
   },
   {
     "File": "PadForge.App/Views/SettingsPage.xaml",
+    "Id": "Reset_SettingsViewModel_CheckForUpdatesAutomatically_4571",
+    "Owner": "PadForge.ViewModels.SettingsViewModel",
+    "Property": "CheckForUpdatesAutomatically"
+  },
+  {
+    "File": "PadForge.App/Views/SettingsPage.xaml",
+    "Id": "Reset_SettingsViewModel_InstallUpdatesAutomatically_4572",
+    "Owner": "PadForge.ViewModels.SettingsViewModel",
+    "Property": "InstallUpdatesAutomatically"
+  },
+  {
+    "File": "PadForge.App/Views/SettingsPage.xaml",
+    "Id": "Reset_SettingsViewModel_IncludePreReleaseUpdates_4573",
+    "Owner": "PadForge.ViewModels.SettingsViewModel",
+    "Property": "IncludePreReleaseUpdates"
+  },
+  {
+    "File": "PadForge.App/Views/SettingsPage.xaml",
     "Id": "Reset_SettingsViewModel_StartMinimized_132",
     "Owner": "PadForge.ViewModels.SettingsViewModel",
     "Property": "StartMinimized"

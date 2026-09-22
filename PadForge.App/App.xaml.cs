@@ -137,8 +137,28 @@ namespace PadForge
             return null;
         }
 
+        /// <summary>The arguments this copy was started with. An update hands
+        /// them to the installer so PadForge comes back the way it was
+        /// launched, --profile included (#457).</summary>
+        internal static string[] StartupArgs { get; private set; } = Array.Empty<string>();
+
         protected override void OnStartup(StartupEventArgs e)
         {
+            // In-app updates (#457). A copy started from the update folder with
+            // --apply-update is the installer, not PadForge: it replaces the
+            // copy that started it and exits. This runs before everything below,
+            // the single-instance check included, because the old copy still
+            // holds that lock while it closes.
+            if (Services.UpdateService.TryRunApplyMode(e.Args, reason =>
+                    MessageBox.Show(string.Format(Strings.Instance.Update_InstallFailed_Format,
+                            reason == Services.UpdateService.OldCopyStillRunning
+                                ? Strings.Instance.Update_OldCopyStillRunning : reason),
+                        Strings.Instance.Common_PadForge, MessageBoxButton.OK, MessageBoxImage.Warning)))
+            {
+                Shutdown();
+                return;
+            }
+
             _singleInstanceMutex = new Mutex(true, "PadForge_SingleInstance", out bool isNewInstance);
             if (!isNewInstance)
             {
@@ -155,6 +175,16 @@ namespace PadForge
 
                 MessageBox.Show(Strings.Instance.App_AlreadyRunning, Strings.Instance.Common_PadForge,
                     MessageBoxButton.OK, MessageBoxImage.Information);
+                Shutdown();
+                return;
+            }
+
+            StartupArgs = e.Args ?? Array.Empty<string>();
+
+            // An update Install Updates Automatically downloaded last session
+            // installs now, before the engine, the drivers or a window start.
+            if (Services.UpdateService.TryStartPendingInstall(StartupArgs))
+            {
                 Shutdown();
                 return;
             }

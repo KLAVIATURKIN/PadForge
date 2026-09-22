@@ -2217,6 +2217,9 @@ namespace PadForge.Services
             vm.MinimizeToTray = appSettings.MinimizeToTray;
             vm.CloseToTray = appSettings.CloseToTray;
             vm.AlwaysShowTrayIcon = appSettings.AlwaysShowTrayIcon;
+            vm.CheckForUpdatesAutomatically = appSettings.CheckForUpdatesAutomatically;
+            vm.InstallUpdatesAutomatically = appSettings.InstallUpdatesAutomatically;
+            vm.IncludePreReleaseUpdates = appSettings.IncludePreReleaseUpdates;
             vm.BatteryNotifyEnabled = appSettings.BatteryNotifyEnabled;
             vm.BatteryNotifyThreshold = appSettings.BatteryNotifyThreshold;
             vm.BatteryNotifyVibrate = appSettings.BatteryNotifyVibrate;
@@ -4565,6 +4568,9 @@ namespace PadForge.Services
                 MinimizeToTray = vm.MinimizeToTray,
                 CloseToTray = vm.CloseToTray,
                 AlwaysShowTrayIcon = vm.AlwaysShowTrayIcon,
+                CheckForUpdatesAutomatically = vm.CheckForUpdatesAutomatically,
+                InstallUpdatesAutomatically = vm.InstallUpdatesAutomatically,
+                IncludePreReleaseUpdates = vm.IncludePreReleaseUpdates,
                 BatteryNotifyEnabled = vm.BatteryNotifyEnabled,
                 BatteryNotifyThreshold = vm.BatteryNotifyThreshold,
                 BatteryNotifyVibrate = vm.BatteryNotifyVibrate,
@@ -6211,6 +6217,20 @@ namespace PadForge.Services
         /// <summary>Keep the tray icon up while the window is open (#439).</summary>
         [XmlElement]
         public bool AlwaysShowTrayIcon { get; set; }
+
+        /// <summary>In-app updates (#457). On by default: the check reads one
+        /// public GitHub API response and changes nothing on its own.</summary>
+        [XmlElement]
+        public bool CheckForUpdatesAutomatically { get; set; } = true;
+
+        /// <summary>Download a found update in the background and install it
+        /// at the next launch (#457).</summary>
+        [XmlElement]
+        public bool InstallUpdatesAutomatically { get; set; }
+
+        /// <summary>Offer the rolling dev build instead of releases (#457).</summary>
+        [XmlElement]
+        public bool IncludePreReleaseUpdates { get; set; }
 
         /// <summary>Low-battery notification (#293): edge-triggered balloon +
         /// status line, optional identify buzz on the device.</summary>

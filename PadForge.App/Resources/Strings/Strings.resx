@@ -360,6 +360,32 @@
   <data name="Settings_StartAtLoginTip" xml:space="preserve"><value>Start PadForge automatically when you sign in to Windows.</value></data>
   <data name="Settings_AlwaysShowTrayIcon" xml:space="preserve"><value>Always Show in System Tray</value></data>
   <data name="Settings_AlwaysShowTrayIconTip" xml:space="preserve"><value>Keep the tray icon visible while the window is open, so Exit in its menu is always one click away.</value></data>
+  <data name="Settings_Updates" xml:space="preserve"><value>Updates</value></data>
+  <data name="Settings_UpdatesDesc" xml:space="preserve"><value>Check GitHub for new versions of PadForge and install them from here. PadForge contacts only GitHub (api.github.com, github.com and its download servers), and the only data it sends is its own version number.</value></data>
+  <data name="Settings_CheckForUpdates" xml:space="preserve"><value>Check for Updates Automatically</value></data>
+  <data name="Settings_CheckForUpdatesTip" xml:space="preserve"><value>Checks when PadForge starts and every 12 hours after that.</value></data>
+  <data name="Settings_InstallUpdatesAutomatically" xml:space="preserve"><value>Install Updates Automatically</value></data>
+  <data name="Settings_InstallUpdatesAutomaticallyTip" xml:space="preserve"><value>Downloads new versions in the background and installs them the next time PadForge starts.</value></data>
+  <data name="Settings_IncludePreReleases" xml:space="preserve"><value>Include Pre-Releases</value></data>
+  <data name="Settings_IncludePreReleasesTip" xml:space="preserve"><value>Offers the dev build of the latest commit instead of releases. It gets fixes and features first and has had less testing.</value></data>
+  <data name="Settings_CheckNow" xml:space="preserve"><value>Check Now</value></data>
+  <data name="Settings_InstallAndRestart" xml:space="preserve"><value>Install and Restart</value></data>
+  <data name="Settings_ReleaseNotes" xml:space="preserve"><value>Release Notes</value></data>
+  <data name="Update_Checking" xml:space="preserve"><value>Checking for updates…</value></data>
+  <data name="Update_UpToDate_Format" xml:space="preserve"><value>PadForge {0} is up to date.</value></data>
+  <data name="Update_Available_Format" xml:space="preserve"><value>PadForge {0} is available.</value></data>
+  <data name="Update_PreReleaseAvailable_Format" xml:space="preserve"><value>Pre-release {0} is available.</value></data>
+  <data name="Update_AvailableStatusBar_Format" xml:space="preserve"><value>PadForge {0} is available. Install it from Settings.</value></data>
+  <data name="Update_Downloading_Format" xml:space="preserve"><value>Downloading the update: {0}%</value></data>
+  <data name="Update_ReadyNextStart_Format" xml:space="preserve"><value>PadForge {0} is downloaded and installs the next time PadForge starts.</value></data>
+  <data name="Update_CheckFailed_Format" xml:space="preserve"><value>Could not check for updates: {0}</value></data>
+  <data name="Update_RateLimited" xml:space="preserve"><value>GitHub is limiting requests from this network. Try again later.</value></data>
+  <data name="Update_NoBuildForThisPc" xml:space="preserve"><value>The newest version has no build for this PC's processor yet.</value></data>
+  <data name="Update_VerifyFailed" xml:space="preserve"><value>The download did not match the checksum GitHub published for it, so it was deleted.</value></data>
+  <data name="Update_InstallFailed_Format" xml:space="preserve"><value>PadForge could not install the update: {0}</value></data>
+  <data name="Update_PendingFailed_Format" xml:space="preserve"><value>The update to PadForge {0} did not finish installing. Install it from Settings to try again.</value></data>
+  <data name="Update_OldCopyStillRunning" xml:space="preserve"><value>The running copy of PadForge did not close within two minutes.</value></data>
+  <data name="Update_Updated_Format" xml:space="preserve"><value>PadForge was updated to {0}.</value></data>
   <data name="Settings_StartMinimized" xml:space="preserve"><value>Start Minimized</value></data>
   <data name="Settings_StartAtLogin" xml:space="preserve"><value>Start at Login</value></data>
   <data name="Settings_HidHide" xml:space="preserve"><value>HidHide Driver</value></data>

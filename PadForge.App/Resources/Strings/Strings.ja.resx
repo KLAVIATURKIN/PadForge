@@ -300,6 +300,32 @@
   <data name="Settings_StartAtLoginTip" xml:space="preserve"><value>Windows にサインインしたときに PadForge を自動で起動します。</value></data>
   <data name="Settings_AlwaysShowTrayIcon" xml:space="preserve"><value>常にシステムトレイに表示する</value></data>
   <data name="Settings_AlwaysShowTrayIconTip" xml:space="preserve"><value>ウィンドウを開いている間もシステムトレイのアイコンを表示し、いつでもそのメニューから「終了」を選択できるようにします。</value></data>
+  <data name="Settings_Updates" xml:space="preserve"><value>アップデート</value></data>
+  <data name="Settings_UpdatesDesc" xml:space="preserve"><value>GitHub で PadForge の新しいバージョンを確認し、ここからインストールします。PadForge が接続するのは GitHub (api.github.com、github.com とそのダウンロードサーバー) だけで、送信するデータは自身のバージョン番号のみです。</value></data>
+  <data name="Settings_CheckForUpdates" xml:space="preserve"><value>アップデートを自動的に確認する</value></data>
+  <data name="Settings_CheckForUpdatesTip" xml:space="preserve"><value>PadForge の起動時と、その後 12 時間ごとに確認します。</value></data>
+  <data name="Settings_InstallUpdatesAutomatically" xml:space="preserve"><value>アップデートを自動的にインストールする</value></data>
+  <data name="Settings_InstallUpdatesAutomaticallyTip" xml:space="preserve"><value>新しいバージョンをバックグラウンドでダウンロードし、次回 PadForge の起動時にインストールします。</value></data>
+  <data name="Settings_IncludePreReleases" xml:space="preserve"><value>プレリリースを含める</value></data>
+  <data name="Settings_IncludePreReleasesTip" xml:space="preserve"><value>リリースの代わりに、最新コミットの開発ビルドを提供します。修正や機能がいち早く入りますが、テストは少なめです。</value></data>
+  <data name="Settings_CheckNow" xml:space="preserve"><value>今すぐ確認</value></data>
+  <data name="Settings_InstallAndRestart" xml:space="preserve"><value>インストールして再起動</value></data>
+  <data name="Settings_ReleaseNotes" xml:space="preserve"><value>リリースノート</value></data>
+  <data name="Update_Checking" xml:space="preserve"><value>アップデートを確認しています…</value></data>
+  <data name="Update_UpToDate_Format" xml:space="preserve"><value>PadForge {0} は最新です。</value></data>
+  <data name="Update_Available_Format" xml:space="preserve"><value>PadForge {0} を利用できます。</value></data>
+  <data name="Update_PreReleaseAvailable_Format" xml:space="preserve"><value>プレリリース {0} を利用できます。</value></data>
+  <data name="Update_AvailableStatusBar_Format" xml:space="preserve"><value>PadForge {0} を利用できます。設定からインストールしてください。</value></data>
+  <data name="Update_Downloading_Format" xml:space="preserve"><value>アップデートをダウンロードしています: {0}%</value></data>
+  <data name="Update_ReadyNextStart_Format" xml:space="preserve"><value>PadForge {0} はダウンロード済みで、次回 PadForge の起動時にインストールされます。</value></data>
+  <data name="Update_CheckFailed_Format" xml:space="preserve"><value>アップデートを確認できませんでした: {0}</value></data>
+  <data name="Update_RateLimited" xml:space="preserve"><value>GitHub がこのネットワークからのリクエストを制限しています。しばらくしてから再試行してください。</value></data>
+  <data name="Update_NoBuildForThisPc" xml:space="preserve"><value>最新バージョンには、この PC のプロセッサ向けのビルドがまだありません。</value></data>
+  <data name="Update_VerifyFailed" xml:space="preserve"><value>ダウンロードが GitHub の公開したチェックサムと一致しなかったため、削除しました。</value></data>
+  <data name="Update_InstallFailed_Format" xml:space="preserve"><value>PadForge はアップデートをインストールできませんでした: {0}</value></data>
+  <data name="Update_PendingFailed_Format" xml:space="preserve"><value>PadForge {0} へのアップデートのインストールが完了しませんでした。再試行するには設定からインストールしてください。</value></data>
+  <data name="Update_OldCopyStillRunning" xml:space="preserve"><value>実行中の PadForge が 2 分以内に終了しませんでした。</value></data>
+  <data name="Update_Updated_Format" xml:space="preserve"><value>PadForge を {0} にアップデートしました。</value></data>
   <data name="Settings_StartMinimized" xml:space="preserve"><value>最小化状態で起動する</value></data>
   <data name="Settings_StartAtLogin" xml:space="preserve"><value>ログイン時に起動する</value></data>
   <data name="Settings_HidHide" xml:space="preserve"><value>HidHide ドライバー</value></data>

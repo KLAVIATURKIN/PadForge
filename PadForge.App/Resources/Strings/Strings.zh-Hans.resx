@@ -300,6 +300,32 @@
   <data name="Settings_StartAtLoginTip" xml:space="preserve"><value>登录 Windows 时自动启动 PadForge。</value></data>
   <data name="Settings_AlwaysShowTrayIcon" xml:space="preserve"><value>始终显示在系统托盘</value></data>
   <data name="Settings_AlwaysShowTrayIconTip" xml:space="preserve"><value>窗口打开时也保持显示系统托盘图标，随时可以在其菜单中选择“退出”。</value></data>
+  <data name="Settings_Updates" xml:space="preserve"><value>更新</value></data>
+  <data name="Settings_UpdatesDesc" xml:space="preserve"><value>在 GitHub 上检查 PadForge 的新版本，并从这里安装。PadForge 只连接 GitHub（api.github.com、github.com 及其下载服务器），发送的唯一数据是它自己的版本号。</value></data>
+  <data name="Settings_CheckForUpdates" xml:space="preserve"><value>自动检查更新</value></data>
+  <data name="Settings_CheckForUpdatesTip" xml:space="preserve"><value>在 PadForge 启动时检查，之后每 12 小时检查一次。</value></data>
+  <data name="Settings_InstallUpdatesAutomatically" xml:space="preserve"><value>自动安装更新</value></data>
+  <data name="Settings_InstallUpdatesAutomaticallyTip" xml:space="preserve"><value>在后台下载新版本，并在 PadForge 下次启动时安装。</value></data>
+  <data name="Settings_IncludePreReleases" xml:space="preserve"><value>包括预发布版本</value></data>
+  <data name="Settings_IncludePreReleasesTip" xml:space="preserve"><value>提供最新提交的开发版本，而不是正式版本。它最先获得修复和新功能，但测试较少。</value></data>
+  <data name="Settings_CheckNow" xml:space="preserve"><value>立即检查</value></data>
+  <data name="Settings_InstallAndRestart" xml:space="preserve"><value>安装并重启</value></data>
+  <data name="Settings_ReleaseNotes" xml:space="preserve"><value>发行说明</value></data>
+  <data name="Update_Checking" xml:space="preserve"><value>正在检查更新…</value></data>
+  <data name="Update_UpToDate_Format" xml:space="preserve"><value>PadForge {0} 已是最新版本。</value></data>
+  <data name="Update_Available_Format" xml:space="preserve"><value>PadForge {0} 可用。</value></data>
+  <data name="Update_PreReleaseAvailable_Format" xml:space="preserve"><value>预发布版本 {0} 可用。</value></data>
+  <data name="Update_AvailableStatusBar_Format" xml:space="preserve"><value>PadForge {0} 可用。请在设置中安装。</value></data>
+  <data name="Update_Downloading_Format" xml:space="preserve"><value>正在下载更新：{0}%</value></data>
+  <data name="Update_ReadyNextStart_Format" xml:space="preserve"><value>PadForge {0} 已下载，将在 PadForge 下次启动时安装。</value></data>
+  <data name="Update_CheckFailed_Format" xml:space="preserve"><value>无法检查更新：{0}</value></data>
+  <data name="Update_RateLimited" xml:space="preserve"><value>GitHub 正在限制来自此网络的请求。请稍后重试。</value></data>
+  <data name="Update_NoBuildForThisPc" xml:space="preserve"><value>最新版本尚无适用于此电脑处理器的版本。</value></data>
+  <data name="Update_VerifyFailed" xml:space="preserve"><value>下载内容与 GitHub 发布的校验和不匹配，已被删除。</value></data>
+  <data name="Update_InstallFailed_Format" xml:space="preserve"><value>PadForge 无法安装更新：{0}</value></data>
+  <data name="Update_PendingFailed_Format" xml:space="preserve"><value>PadForge {0} 的更新未完成安装。请在设置中安装以重试。</value></data>
+  <data name="Update_OldCopyStillRunning" xml:space="preserve"><value>正在运行的 PadForge 未在两分钟内关闭。</value></data>
+  <data name="Update_Updated_Format" xml:space="preserve"><value>PadForge 已更新到 {0}。</value></data>
   <data name="Settings_StartMinimized" xml:space="preserve"><value>启动时最小化</value></data>
   <data name="Settings_StartAtLogin" xml:space="preserve"><value>登录时自动启动</value></data>
   <data name="Settings_HidHide" xml:space="preserve"><value>HidHide 驱动</value></data>

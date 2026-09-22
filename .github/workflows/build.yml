@@ -327,6 +327,11 @@ jobs:
           Build archive: https://github.com/${REPO}/releases/tag/${ARCHIVE_TAG}
           Build log: https://github.com/${REPO}/actions/runs/${{ github.run_id }}"
 
+          # The in-app updater (#457, UpdateService.cs) reads this release
+          # through the tag latest-v<major>-dev, takes the build number from
+          # this exact title, and picks PadForge.zip or PadForge-arm64.zip by
+          # name. Renaming any of them turns off Include Pre-Releases for
+          # every installed copy.
           gh release create "$STAGING" --repo "$REPO" --draft --prerelease --target "$SHA" \
             --title "PadForge r${COMMIT_COUNT}@${COMMIT_SHORT}" --notes "$notes" "${assets[@]}"
 

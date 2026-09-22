@@ -20,6 +20,9 @@ namespace PadForge.ViewModels
             nameof(AutoStartEngine) or
             nameof(MinimizeToTray) or
             nameof(AlwaysShowTrayIcon) or
+            nameof(CheckForUpdatesAutomatically) or
+            nameof(InstallUpdatesAutomatically) or
+            nameof(IncludePreReleaseUpdates) or
             nameof(StartMinimized) or
             nameof(StartAtLogin) or
             nameof(EnablePollingOnFocusLoss) or
@@ -70,6 +73,21 @@ namespace PadForge.ViewModels
                 case nameof(AlwaysShowTrayIcon):
                 {
                     AlwaysShowTrayIcon = false;
+                    break;
+                }
+                case nameof(CheckForUpdatesAutomatically):
+                {
+                    CheckForUpdatesAutomatically = true;
+                    break;
+                }
+                case nameof(InstallUpdatesAutomatically):
+                {
+                    InstallUpdatesAutomatically = false;
+                    break;
+                }
+                case nameof(IncludePreReleaseUpdates):
+                {
+                    IncludePreReleaseUpdates = false;
                     break;
                 }
                 case nameof(StartMinimized):

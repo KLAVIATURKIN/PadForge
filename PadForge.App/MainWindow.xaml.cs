@@ -606,6 +606,9 @@ namespace PadForge
                      or nameof(SettingsViewModel.MinimizeToTray)
                      or nameof(SettingsViewModel.CloseToTray)
                      or nameof(SettingsViewModel.AlwaysShowTrayIcon)
+                     or nameof(SettingsViewModel.CheckForUpdatesAutomatically)
+                     or nameof(SettingsViewModel.InstallUpdatesAutomatically)
+                     or nameof(SettingsViewModel.IncludePreReleaseUpdates)
                      or nameof(SettingsViewModel.StartMinimized)
                      or nameof(SettingsViewModel.DiagnosticsLoggingEnabled)
                      or nameof(SettingsViewModel.StartAtLogin)
@@ -2411,6 +2414,22 @@ namespace PadForge
                     StartupOverlay.Visibility = System.Windows.Visibility.Collapsed;
                 }, System.Threading.Tasks.TaskScheduler.FromCurrentSynchronizationContext());
             }
+
+            // In-app updates (#457). Started here rather than in OnLoaded,
+            // which never fires for a launch straight to the tray.
+            _updateController = new Services.UpdateController(_viewModel, ExitForUpdate);
+            _updateController.Start();
+        }
+
+        private Services.UpdateController _updateController;
+
+        /// <summary>The installer is running and waits for this process to
+        /// exit, so close for real, past Close to System Tray, through the
+        /// same shutdown the tray's Exit takes.</summary>
+        private void ExitForUpdate()
+        {
+            PrepareForExit();
+            Close();
         }
 
         /// <summary>Whether the app should start minimized (to taskbar).</summary>
@@ -2512,8 +2531,9 @@ namespace PadForge
             // work even when starting minimized to tray (where OnLoaded never fires).
 
             // Populate diagnostic info.
-            _viewModel.Settings.ApplicationVersion =
-                System.Reflection.Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "1.0.0";
+            // With the commit count and hash a dev build is named by, so a
+            // report from one says exactly which build it came from (#457).
+            _viewModel.Settings.ApplicationVersion = Services.BuildIdentity.Display;
             _viewModel.Settings.RuntimeVersion = Environment.Version.ToString();
 
             // Check SDL3.dll availability.
@@ -2715,6 +2735,8 @@ namespace PadForge
 
                 // Cancel any in-flight Workshop update check.
                 _workshopUpdateCts?.Cancel();
+                // And any app update check or download (#457).
+                _updateController?.Dispose();
 
                 // Stop the SDL event pump BEFORE the disposal Task.Run below reaches
                 // SDL_Quit: the 100ms pump fires SDL_PumpEvents/SDL_UpdateJoysticks on

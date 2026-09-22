@@ -688,6 +688,105 @@ namespace PadForge.ViewModels
             set => SetProperty(ref _alwaysShowTrayIcon, value);
         }
 
+        // ── Updates (#457) ──
+
+        private bool _checkForUpdatesAutomatically = true;
+        /// <summary>Check GitHub at launch and every 12 hours.</summary>
+        public bool CheckForUpdatesAutomatically
+        {
+            get => _checkForUpdatesAutomatically;
+            set => SetProperty(ref _checkForUpdatesAutomatically, value);
+        }
+
+        private bool _installUpdatesAutomatically;
+        /// <summary>Download what the automatic check finds and install it
+        /// at the next launch.</summary>
+        public bool InstallUpdatesAutomatically
+        {
+            get => _installUpdatesAutomatically;
+            set => SetProperty(ref _installUpdatesAutomatically, value);
+        }
+
+        private bool _includePreReleaseUpdates;
+        /// <summary>Offer the rolling dev build instead of releases.</summary>
+        public bool IncludePreReleaseUpdates
+        {
+            get => _includePreReleaseUpdates;
+            set => SetProperty(ref _includePreReleaseUpdates, value);
+        }
+
+        private string _updateStatusText = string.Empty;
+        /// <summary>The card's status line. Empty until a check has run.</summary>
+        public string UpdateStatusText
+        {
+            get => _updateStatusText;
+            set => SetProperty(ref _updateStatusText, value ?? string.Empty);
+        }
+
+        private bool _isUpdateAvailable;
+        /// <summary>A newer build was found. Shows Install and Restart and
+        /// Release Notes.</summary>
+        public bool IsUpdateAvailable
+        {
+            get => _isUpdateAvailable;
+            set
+            {
+                if (SetProperty(ref _isUpdateAvailable, value))
+                    _installUpdateCommand?.NotifyCanExecuteChanged();
+            }
+        }
+
+        private bool _isUpdateBusy;
+        /// <summary>A check or a download is running.</summary>
+        public bool IsUpdateBusy
+        {
+            get => _isUpdateBusy;
+            set
+            {
+                if (SetProperty(ref _isUpdateBusy, value))
+                {
+                    _checkForUpdatesNowCommand?.NotifyCanExecuteChanged();
+                    _installUpdateCommand?.NotifyCanExecuteChanged();
+                }
+            }
+        }
+
+        private bool _isUpdateDownloading;
+        public bool IsUpdateDownloading
+        {
+            get => _isUpdateDownloading;
+            set => SetProperty(ref _isUpdateDownloading, value);
+        }
+
+        private int _updateProgress;
+        /// <summary>Download progress, 0 to 100.</summary>
+        public int UpdateProgress
+        {
+            get => _updateProgress;
+            set => SetProperty(ref _updateProgress, value);
+        }
+
+        private RelayCommand _checkForUpdatesNowCommand;
+        public RelayCommand CheckForUpdatesNowCommand =>
+            _checkForUpdatesNowCommand ??= new RelayCommand(
+                () => CheckForUpdatesNowRequested?.Invoke(this, EventArgs.Empty),
+                () => !_isUpdateBusy);
+
+        private RelayCommand _installUpdateCommand;
+        public RelayCommand InstallUpdateCommand =>
+            _installUpdateCommand ??= new RelayCommand(
+                () => InstallUpdateRequested?.Invoke(this, EventArgs.Empty),
+                () => _isUpdateAvailable && !_isUpdateBusy);
+
+        private RelayCommand _openReleaseNotesCommand;
+        public RelayCommand OpenReleaseNotesCommand =>
+            _openReleaseNotesCommand ??= new RelayCommand(
+                () => OpenReleaseNotesRequested?.Invoke(this, EventArgs.Empty));
+
+        public event EventHandler CheckForUpdatesNowRequested;
+        public event EventHandler InstallUpdateRequested;
+        public event EventHandler OpenReleaseNotesRequested;
+
         private bool _batteryNotifyEnabled = true;
 
         /// <summary>Low-battery notification master toggle (#293), default on.</summary>

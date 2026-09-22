@@ -157,6 +157,78 @@
                 </StackPanel>
             </Border>
 
+            <!-- ═══ Updates (#457) ═══
+                 Releases, or with Include Pre-Releases the rolling dev build,
+                 from GitHub. UpdateController drives the status line, the
+                 progress bar and the two action buttons. -->
+            <Border Style="{StaticResource CardBorder}" Margin="0,0,0,20">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                        <TextBlock Text="&#xE896;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                   VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBlock Text="{Binding Settings_Updates, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource CardTitle}"/>
+                    </StackPanel>
+                    <TextBlock Text="{Binding Settings_UpdatesDesc, Source={x:Static strings:Strings.Instance}}"
+                               Style="{StaticResource CardDescription}" Margin="0,0,0,12"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                        <CheckBox VerticalAlignment="Center" Content="{Binding Settings_CheckForUpdates, Source={x:Static strings:Strings.Instance}}"
+                                  ToolTip="{Binding Settings_CheckForUpdatesTip, Source={x:Static strings:Strings.Instance}}"
+                                  Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                  IsChecked="{Binding CheckForUpdatesAutomatically}"/>
+                        <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="CheckForUpdatesAutomatically" SettingLabel="{Binding Settings_CheckForUpdates, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_SettingsViewModel_CheckForUpdatesAutomatically_4571"/>
+                    </StackPanel>
+                    <!-- Installing automatically needs the automatic check, so
+                         it shows only while that is on, the Community Configs
+                         card's gating for a dependent option. -->
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8" Visibility="{Binding CheckForUpdatesAutomatically, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <CheckBox VerticalAlignment="Center" Content="{Binding Settings_InstallUpdatesAutomatically, Source={x:Static strings:Strings.Instance}}"
+                                  ToolTip="{Binding Settings_InstallUpdatesAutomaticallyTip, Source={x:Static strings:Strings.Instance}}"
+                                  Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                  IsChecked="{Binding InstallUpdatesAutomatically}"/>
+                        <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="InstallUpdatesAutomatically" SettingLabel="{Binding Settings_InstallUpdatesAutomatically, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_SettingsViewModel_InstallUpdatesAutomatically_4572"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                        <CheckBox VerticalAlignment="Center" Content="{Binding Settings_IncludePreReleases, Source={x:Static strings:Strings.Instance}}"
+                                  ToolTip="{Binding Settings_IncludePreReleasesTip, Source={x:Static strings:Strings.Instance}}"
+                                  Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                  IsChecked="{Binding IncludePreReleaseUpdates}"/>
+                        <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="IncludePreReleaseUpdates" SettingLabel="{Binding Settings_IncludePreReleases, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_SettingsViewModel_IncludePreReleaseUpdates_4573"/>
+                    </StackPanel>
+                    <!-- Empty until a check has run, the G-key status's shape.
+                         Ember while an update is waiting. -->
+                    <TextBlock Text="{Binding UpdateStatusText}"
+                               Visibility="{Binding UpdateStatusText, Converter={StaticResource StringToVisibility}}"
+                               TextWrapping="Wrap" Margin="0,4,0,8">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsUpdateAvailable}" Value="True">
+                                        <Setter Property="Foreground" Value="{DynamicResource EmberBrush}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    <ProgressBar Value="{Binding UpdateProgress}" Maximum="100" Height="4" Width="320"
+                                 HorizontalAlignment="Left" Margin="0,0,0,10"
+                                 Visibility="{Binding IsUpdateDownloading, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                    <!-- Verb classes (#175 dialog language): Install and
+                         Restart is the accent, the other two are plain. -->
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="{Binding Settings_CheckNow, Source={x:Static strings:Strings.Instance}}"
+                                Command="{Binding CheckForUpdatesNowCommand}" Margin="0,0,8,0"/>
+                        <Button Content="{Binding Settings_InstallAndRestart, Source={x:Static strings:Strings.Instance}}"
+                                Command="{Binding InstallUpdateCommand}"
+                                Style="{StaticResource EmberAccentButton}" Margin="0,0,8,0"
+                                Visibility="{Binding IsUpdateAvailable, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                        <Button Content="{Binding Settings_ReleaseNotes, Source={x:Static strings:Strings.Instance}}"
+                                Command="{Binding OpenReleaseNotesCommand}"
+                                Visibility="{Binding IsUpdateAvailable, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
             <!-- ═══ Engine ═══ -->
             <Border Style="{StaticResource CardBorder}" Margin="0,0,0,20">
                 <StackPanel>

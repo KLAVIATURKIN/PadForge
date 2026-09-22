@@ -300,6 +300,32 @@
   <data name="Settings_StartAtLoginTip" xml:space="preserve"><value>Inicia PadForge automáticamente al iniciar sesión en Windows.</value></data>
   <data name="Settings_AlwaysShowTrayIcon" xml:space="preserve"><value>Mostrar siempre en la bandeja del sistema</value></data>
   <data name="Settings_AlwaysShowTrayIconTip" xml:space="preserve"><value>Mantiene visible el icono de la bandeja del sistema mientras la ventana está abierta, así que Salir en su menú siempre está a un clic.</value></data>
+  <data name="Settings_Updates" xml:space="preserve"><value>Actualizaciones</value></data>
+  <data name="Settings_UpdatesDesc" xml:space="preserve"><value>Busque nuevas versiones de PadForge en GitHub e instálelas desde aquí. PadForge solo se conecta a GitHub (api.github.com, github.com y sus servidores de descarga), y el único dato que envía es su propio número de versión.</value></data>
+  <data name="Settings_CheckForUpdates" xml:space="preserve"><value>Buscar actualizaciones automáticamente</value></data>
+  <data name="Settings_CheckForUpdatesTip" xml:space="preserve"><value>Comprueba al iniciar PadForge y después cada 12 horas.</value></data>
+  <data name="Settings_InstallUpdatesAutomatically" xml:space="preserve"><value>Instalar actualizaciones automáticamente</value></data>
+  <data name="Settings_InstallUpdatesAutomaticallyTip" xml:space="preserve"><value>Descarga las nuevas versiones en segundo plano y las instala la próxima vez que se inicie PadForge.</value></data>
+  <data name="Settings_IncludePreReleases" xml:space="preserve"><value>Incluir versiones preliminares</value></data>
+  <data name="Settings_IncludePreReleasesTip" xml:space="preserve"><value>Ofrece la compilación de desarrollo del último commit en lugar de las versiones publicadas. Recibe antes las correcciones y funciones, y se ha probado menos.</value></data>
+  <data name="Settings_CheckNow" xml:space="preserve"><value>Comprobar ahora</value></data>
+  <data name="Settings_InstallAndRestart" xml:space="preserve"><value>Instalar y reiniciar</value></data>
+  <data name="Settings_ReleaseNotes" xml:space="preserve"><value>Notas de la versión</value></data>
+  <data name="Update_Checking" xml:space="preserve"><value>Buscando actualizaciones…</value></data>
+  <data name="Update_UpToDate_Format" xml:space="preserve"><value>PadForge {0} está actualizado.</value></data>
+  <data name="Update_Available_Format" xml:space="preserve"><value>PadForge {0} está disponible.</value></data>
+  <data name="Update_PreReleaseAvailable_Format" xml:space="preserve"><value>La versión preliminar {0} está disponible.</value></data>
+  <data name="Update_AvailableStatusBar_Format" xml:space="preserve"><value>PadForge {0} está disponible. Instálelo desde Configuración.</value></data>
+  <data name="Update_Downloading_Format" xml:space="preserve"><value>Descargando la actualización: {0}%</value></data>
+  <data name="Update_ReadyNextStart_Format" xml:space="preserve"><value>PadForge {0} se ha descargado y se instalará la próxima vez que se inicie PadForge.</value></data>
+  <data name="Update_CheckFailed_Format" xml:space="preserve"><value>No se pudieron buscar actualizaciones: {0}</value></data>
+  <data name="Update_RateLimited" xml:space="preserve"><value>GitHub está limitando las solicitudes desde esta red. Inténtelo de nuevo más tarde.</value></data>
+  <data name="Update_NoBuildForThisPc" xml:space="preserve"><value>La versión más reciente aún no tiene una compilación para el procesador de este PC.</value></data>
+  <data name="Update_VerifyFailed" xml:space="preserve"><value>La descarga no coincidía con la suma de comprobación que GitHub publicó para ella, así que se eliminó.</value></data>
+  <data name="Update_InstallFailed_Format" xml:space="preserve"><value>PadForge no pudo instalar la actualización: {0}</value></data>
+  <data name="Update_PendingFailed_Format" xml:space="preserve"><value>La actualización a PadForge {0} no terminó de instalarse. Instálela desde Configuración para intentarlo de nuevo.</value></data>
+  <data name="Update_OldCopyStillRunning" xml:space="preserve"><value>La copia de PadForge en ejecución no se cerró en dos minutos.</value></data>
+  <data name="Update_Updated_Format" xml:space="preserve"><value>PadForge se actualizó a {0}.</value></data>
   <data name="Settings_StartMinimized" xml:space="preserve"><value>Iniciar minimizado</value></data>
   <data name="Settings_StartAtLogin" xml:space="preserve"><value>Ejecutar al iniciar sesión</value></data>
   <data name="Settings_HidHide" xml:space="preserve"><value>Controlador HidHide</value></data>
