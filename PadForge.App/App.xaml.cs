@@ -228,6 +228,19 @@ namespace PadForge
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            // Make the process's first known-folder lookup here, on the UI
+            // thread, before any other thread starts or any window renders.
+            // The first lookup resolves windows.storage's delay-loaded
+            // SHCreatePropertyBagOnRegKey while it holds the known-folder
+            // lock, and resolving it waits for the loader. When WPF renders
+            // its first frame on an NVIDIA GPU, the driver loads
+            // NvMemMapStoragex.dll, whose DllMain looks up a known folder
+            // while it holds the loader. If the HIDMaestro sweep below made
+            // the first lookup at that moment, each thread would wait on the
+            // other and the window would never paint. The test suite hung
+            // this way on 2026-09-23 (see FirstKnownFolderLookup in the tests).
+            Environment.GetFolderPath(Environment.SpecialFolder.Windows);
+
             // In-app updates (#457). A copy started from the update folder with
             // --apply-update is the installer, not PadForge: it replaces the
             // copy that started it and exits. This runs before everything below,
