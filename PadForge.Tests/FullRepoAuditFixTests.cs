@@ -70,7 +70,7 @@ namespace PadForge.Tests
             Thread.Sleep(950);                // window expires
             // The deferred fire lands with the button up; the release-stop
             // must not kill the pass in the same frame.
-            Assert.Equal(1000, Tick(im, macros, held: false));
+            Assert.Equal(2001, Tick(im, macros, held: false));
             // One pass only: the UntilRelease repeat does not loop forever.
             Tick(im, macros, held: false);
             Assert.False(m.IsExecuting);
@@ -104,7 +104,7 @@ namespace PadForge.Tests
             now = now.AddMilliseconds(950);
             double elapsedBeforeTick = (now - m.TriggerLastPressUtc).TotalMilliseconds;
             ushort result = Tick(im, macros, held: false);
-            Assert.True(result == 1000, $"Expected 1000, got {result}; elapsed before tick: {elapsedBeforeTick:F2} ms");
+            Assert.True(result == 2001, $"Expected 2001, got {result}; elapsed before tick: {elapsedBeforeTick:F2} ms");
         }
 
         // ─── D2: mode switch voids transients ───

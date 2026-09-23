@@ -9291,9 +9291,9 @@ namespace PadForge.Services
         /// controller's inactivity timeout fired. MainWindow listens and
         /// calls <see cref="OnSlotInactivityTimedOut"/>, which destroys the
         /// VC and runs the bubble-down cascade so any surviving HM VCs at
-        /// higher pad indices in the same group fall to the lowest
-        /// available kernel slot. The slot configuration stays intact —
-        /// only the live VC is torn down. Argument is the pad index that
+        /// higher positions in the group's SlotOrders list fall to the lowest
+        /// available kernel slot. The slot configuration stays intact. Only
+        /// the live VC is torn down. Argument is the pad index that
         /// timed out.
         /// </summary>
         public event EventHandler<int> SlotInactivityTimedOut;
@@ -9308,13 +9308,13 @@ namespace PadForge.Services
         /// is durable and never touched here. PadForge.xml is not
         /// modified.
         ///
-        /// The bubble-down cascade fires for any HM-backed subgroup
-        /// (Xbox / PlayStation / Extended) so surviving HM VCs at
+        /// The bubble-down cascade fires for any HM-backed group
+        /// (Xbox / PlayStation / Nintendo / Extended) so surviving HM VCs at
         /// higher visual positions in the same group drop their kernel
         /// slot, matching the natural disconnect/reconnect shape an
         /// external observer would see (xinputhid for Xbox, DirectInput
-        /// / SDL / raw HID for PlayStation and Extended — all care
-        /// about creation order).
+        /// / SDL / raw HID for the others, all of which care about
+        /// creation order).
         /// </summary>
         public void OnSlotInactivityTimedOut(int padIndex)
         {
@@ -9350,9 +9350,9 @@ namespace PadForge.Services
 
         private void OnHmVcInactivityDestroyed(object sender, int padIndex)
         {
-            // Engine fires on the polling thread.  Marshal to the UI thread
-            // before the listener does the actual delete + compact, since
-            // those touch PadVMs, settings, and the swap pipeline.
+            // Engine fires on the polling thread. Marshal to the UI thread
+            // before raising SlotInactivityTimedOut, whose handler reads the
+            // slot's PadViewModel and refreshes the pad status.
             _dispatcher.BeginInvoke(new Action(() =>
             {
                 // Bind the queued hop to the engine that raised it, the way
@@ -15790,14 +15790,20 @@ namespace PadForge.Services
                         candidate.HoldCounter++;
                         if (candidate.HoldCounter >= MacroAxisHoldCycles)
                         {
-                            // Defaults mirror the merge-mapping recorder: HalfAxis
-                            // off, Invert set when the axis deflected in the
-                            // negative direction during recording, DeadZone = 50.
+                            // An axis that rests at the middle (a stick, or any
+                            // axis of a raw joystick) records the half the user
+                            // pushed, Invert picking the negative one, so the
+                            // entry is off at rest. A full-axis entry's 50%
+                            // threshold sits on the center line and read active
+                            // with the stick untouched. A gamepad trigger rests
+                            // at 0 and stays full-axis (the #443 rule).
+                            bool restsAtZero = InputManager.AxisRestsAtZero(
+                                "Axis " + System.Array.IndexOf(axisMap, bestTarget), ud);
                             _recordedPerDeviceAxisEntries.Add(new MacroItem.TriggerInputEntry
                             {
                                 DeviceGuid = deviceGuid,
                                 AxisTarget = bestTarget,
-                                HalfAxis = false,
+                                HalfAxis = !restsAtZero,
                                 Invert = candidate.RawDelta < 0,
                                 DeadZone = 50
                             });

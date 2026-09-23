@@ -609,6 +609,10 @@ namespace PadForge.ViewModels
                 // per-source DeadZone, so it opts in like the pointer.
                 if (PadForge.Engine.Common.Mapping.SourceCoercion.IsTouchpadPressureDescriptor(desc))
                     return _parentTargetIsDiscrete;
+                // Rings, shake, lean, pitch bend and rumble read the
+                // per-source DeadZone too, the primary row's twin rule.
+                if (PadForge.Engine.Common.Mapping.SourceCoercion.IsThresholdedButtonFamily(desc))
+                    return _parentTargetIsDiscrete;
 
                 int start = 0;
                 if (start < desc.Length && (desc[start] == 'I' || desc[start] == 'i')) start++;

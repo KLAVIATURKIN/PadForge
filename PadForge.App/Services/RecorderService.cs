@@ -993,6 +993,7 @@ namespace PadForge.Services
             // button-like target kept emitting the bare Invert form, which
             // reads pressed at rest.
             bool winningIsMouse = _isMouseByDevice.TryGetValue(winningDevice, out bool winMouse) && winMouse;
+            UserDevice winningUserDevice = FindUserDevice(winningDevice);
 
             _activeDevices.Clear();
             _baselines.Clear();
@@ -1069,13 +1070,9 @@ namespace PadForge.Services
                 if (type == MapType.Axis || type == MapType.Slider)
                 {
                     extraSource.Invert = shouldInvert;
-                    // Same negative-half rule as the primary path (issue
-                    // #200): an inverted mouse relative axis on a button-like
-                    // target selects the negative half instead of the bare
-                    // Invert form that reads pressed at rest.
-                    extraSource.HalfAxis = shouldInvert
-                        && winningIsMouse
-                        && IsButtonLikeRecordingTarget(mapping.TargetSettingName);
+                    // Same half rule as the primary path.
+                    extraSource.HalfAxis = RecordsAHalf(mapping, descriptor, type,
+                        winningUserDevice, winningIsMouse, shouldInvert);
                 }
                 else
                 {
@@ -1106,16 +1103,12 @@ namespace PadForge.Services
                 // device assignment for the row (NOT the dropdown selection).
                 if (type == MapType.Axis || type == MapType.Slider)
                 {
-                    // Mouse relative axes rest at center, and the bare Invert
-                    // grammar reads a centered axis as pressed for sub-50%
-                    // thresholds. A negative-direction mouse recording on a
-                    // button-like target therefore selects the negative HALF
-                    // (IH prefix), which is off at rest and fires on leftward
-                    // or upward motion only (issue #200 companion fix).
-                    bool mouseHalf = shouldInvert
-                        && winningIsMouse
-                        && IsButtonLikeRecordingTarget(mapping.TargetSettingName);
-                    descriptor = (shouldInvert ? (mouseHalf ? "IH" : "I") : "") + descriptor;
+                    // A centered axis on a button-like target records the half
+                    // the user pushed (H prefix, IH for the negative half),
+                    // which is off at rest. See RecordsAHalf.
+                    bool half = RecordsAHalf(mapping, descriptor, type,
+                        winningUserDevice, winningIsMouse, shouldInvert);
+                    descriptor = (shouldInvert ? "I" : "") + (half ? "H" : "") + descriptor;
                 }
                 if (!string.IsNullOrEmpty(winningGuidStr))
                 {
@@ -1139,6 +1132,41 @@ namespace PadForge.Services
                 Descriptor = finalDescriptor,
                 Type = type,
             });
+        }
+
+        /// <summary>Whether an axis recorded onto <paramref name="mapping"/> is
+        /// stored as the half the user pushed. Only a button-like target reads
+        /// an axis as pressed or not, and only an axis that rests at the middle
+        /// needs the half: its full-axis threshold sits on the center line, so a
+        /// stick recorded that way read pressed at rest. A gamepad trigger or a
+        /// slider rests at 0 (InputManager.AxisRestsAtZero) and keeps the full
+        /// axis. A mouse's relative axis rests at the middle too, but its
+        /// positive direction keeps the full axis, which fires on any movement
+        /// and was never pressed at rest. Its negative direction takes the half,
+        /// the #200 fix.</summary>
+        private static bool RecordsAHalf(MappingItem mapping, string descriptor, MapType type,
+            UserDevice device, bool isMouse, bool inverted)
+        {
+            if (type != MapType.Axis) return false;
+            if (!IsButtonLikeRecordingTarget(mapping.TargetSettingName)) return false;
+            if (isMouse) return inverted;
+            return !InputManager.AxisRestsAtZero(descriptor, device);
+        }
+
+        private static UserDevice FindUserDevice(Guid g)
+        {
+            if (g == Guid.Empty) return null;
+            var devs = SettingsManager.UserDevices?.Items;
+            if (devs == null) return null;
+            lock (SettingsManager.UserDevices.SyncRoot)
+            {
+                foreach (var ud in devs)
+                {
+                    if (ud != null && ud.InstanceGuid == g)
+                        return ud;
+                }
+            }
+            return null;
         }
 
         private static string ResolveDeviceLabel(Guid g)

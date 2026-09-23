@@ -54,7 +54,7 @@ namespace PadForge.Tests
             Assert.Equal(0, Tick(im, macros, held: true));   // press: defer
             Assert.Equal(0, Tick(im, macros, held: false));  // release inside window
             Thread.Sleep(950);                                // window expires
-            Assert.Equal(1000, Tick(im, macros, held: false));
+            Assert.Equal(2001, Tick(im, macros, held: false));
             // One-shot: nothing further.
             Assert.Equal(0, Tick(im, macros, held: false));
         }
@@ -67,7 +67,7 @@ namespace PadForge.Tests
 
             Assert.Equal(0, Tick(im, macros, held: true));
             Thread.Sleep(950);
-            Assert.Equal(1000, Tick(im, macros, held: true));
+            Assert.Equal(2001, Tick(im, macros, held: true));
         }
 
         [Fact]
@@ -106,7 +106,7 @@ namespace PadForge.Tests
             now = now.AddMilliseconds(950);
             double elapsedBeforeTick = (now - macros[0].TriggerLastPressUtc).TotalMilliseconds;
             ushort result = Tick(im, macros, held: false);
-            Assert.True(result == 1000, $"Expected 1000, got {result}; elapsed before tick: {elapsedBeforeTick:F2} ms");
+            Assert.True(result == 2001, $"Expected 2001, got {result}; elapsed before tick: {elapsedBeforeTick:F2} ms");
         }
 
         [Fact]
@@ -121,7 +121,7 @@ namespace PadForge.Tests
             Tick(im, macros, held: true);
             Tick(im, macros, held: false);
             ushort onSecondPress = Tick(im, macros, held: true);
-            Assert.Equal(2000, onSecondPress);
+            Assert.Equal(4001, onSecondPress);
             Tick(im, macros, held: false);
             Thread.Sleep(950);
             Assert.Equal(0, Tick(im, macros, held: false));
@@ -130,7 +130,7 @@ namespace PadForge.Tests
             Tick(im, macros, held: true);
             Tick(im, macros, held: false);
             Thread.Sleep(950);
-            Assert.Equal(1000, Tick(im, macros, held: false));
+            Assert.Equal(2001, Tick(im, macros, held: false));
         }
 
         [Theory]

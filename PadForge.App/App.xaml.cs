@@ -530,16 +530,17 @@ namespace PadForge
                 client.Write(outBytes, 0, outBytes.Length);
                 client.Flush();
 
-                var sb = new System.Text.StringBuilder();
+                // The reply is one UTF-8 line, the framing the server writes.
+                using var reply = new System.IO.MemoryStream();
                 var one = new byte[1];
-                while (sb.Length < 1024)
+                while (reply.Length < 1024)
                 {
                     int n = client.Read(one, 0, 1);
                     if (n == 0 || one[0] == (byte)'\n') break;
                     if (one[0] == (byte)'\r') continue;
-                    sb.Append((char)one[0]);
+                    reply.WriteByte(one[0]);
                 }
-                Console.WriteLine(sb.ToString());
+                Console.WriteLine(System.Text.Encoding.UTF8.GetString(reply.GetBuffer(), 0, (int)reply.Length));
             }
             catch
             {

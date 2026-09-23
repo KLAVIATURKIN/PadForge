@@ -19,7 +19,7 @@ namespace SDL3
         //  Init flags
         // ─────────────────────────────────────────────
 
-        public const uint SDL_INIT_VIDEO = 0x00000020;     // Required for keyboard/mouse
+        public const uint SDL_INIT_VIDEO = 0x00000020;
         public const uint SDL_INIT_JOYSTICK = 0x00000200;
         public const uint SDL_INIT_HAPTIC = 0x00001000;
         public const uint SDL_INIT_GAMEPAD = 0x00002000; // was SDL_INIT_GAMECONTROLLER
@@ -45,7 +45,9 @@ namespace SDL3
         public const string SDL_HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS = "SDL_JOYSTICK_ALLOW_BACKGROUND_EVENTS";
         public const string SDL_HINT_JOYSTICK_RAWINPUT = "SDL_JOYSTICK_RAWINPUT";
         public const string SDL_HINT_JOYSTICK_GAMEINPUT = "SDL_JOYSTICK_GAMEINPUT";
-        public const string SDL_HINT_JOYSTICK_XINPUT = "SDL_JOYSTICK_XINPUT"; // was SDL_HINT_XINPUT_ENABLED
+        // SDL 3 kept SDL2's XInput switch name. SDL_JOYSTICK_XINPUT is SDL's
+        // build macro, not a hint, and setting it did nothing.
+        public const string SDL_HINT_XINPUT_ENABLED = "SDL_XINPUT_ENABLED";
         public const string SDL_HINT_HIDAPI_IGNORE_DEVICES = "SDL_HIDAPI_IGNORE_DEVICES";
         public const string SDL_HINT_JOYSTICK_BLACKLIST_DEVICES = "SDL_JOYSTICK_BLACKLIST_DEVICES";
         public const string SDL_HINT_JOYSTICK_HIDAPI_SWITCH2 = "SDL_JOYSTICK_HIDAPI_SWITCH2";

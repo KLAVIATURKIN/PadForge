@@ -53,11 +53,11 @@ namespace PadForge.Tests
             var macros = new[] { Macro(MacroTriggerMode.Toggle, 30000) };
 
             // First press latches on; the action asserts.
-            Assert.Equal(30000, Tick(im, macros, held: true));
+            Assert.Equal(60001, Tick(im, macros, held: true));
             // Physical release: the latch keeps the actions running.
-            Assert.Equal(30000, Tick(im, macros, held: false));
+            Assert.Equal(60001, Tick(im, macros, held: false));
             for (int i = 0; i < 5; i++)
-                Assert.Equal(30000, Tick(im, macros, held: false));
+                Assert.Equal(60001, Tick(im, macros, held: false));
 
             // Second press unlatches; the run stops (same tick or next).
             Tick(im, macros, held: true);
@@ -75,8 +75,8 @@ namespace PadForge.Tests
             // A long first hold is ONE rising edge: latch stays on the
             // whole time (no repeat-fire of the flip).
             for (int i = 0; i < 8; i++)
-                Assert.Equal(30000, Tick(im, macros, held: true));
-            Assert.Equal(30000, Tick(im, macros, held: false));
+                Assert.Equal(60001, Tick(im, macros, held: true));
+            Assert.Equal(60001, Tick(im, macros, held: false));
         }
 
         [Fact]
@@ -85,8 +85,8 @@ namespace PadForge.Tests
             var im = new InputManager();
             var macros = new[] { Macro(MacroTriggerMode.Toggle, 30000) };
 
-            Assert.Equal(30000, Tick(im, macros, held: true));
-            Assert.Equal(30000, Tick(im, macros, held: false));
+            Assert.Equal(60001, Tick(im, macros, held: true));
+            Assert.Equal(60001, Tick(im, macros, held: false));
 
             // Disable while latched: the evaluator's reset lane clears it.
             macros[0].IsEnabled = false;
@@ -96,7 +96,7 @@ namespace PadForge.Tests
             // Re-enabled: unlatched, no output until a fresh press,
             // and that press is a fresh latch-ON (not a surprise off).
             Assert.Equal(0, Tick(im, macros, held: false));
-            Assert.Equal(30000, Tick(im, macros, held: true));
+            Assert.Equal(60001, Tick(im, macros, held: true));
         }
 
         [Fact]
@@ -106,13 +106,13 @@ namespace PadForge.Tests
             var macros = new[] { Macro(MacroTriggerMode.Turbo, 30000, repeatDelayMs: 60) };
 
             // First pass fires on press.
-            Assert.Equal(30000, Tick(im, macros, held: true));
+            Assert.Equal(60001, Tick(im, macros, held: true));
             // Inside the interval: the run idles between passes.
             Assert.Equal(0, Tick(im, macros, held: true));
             // Past the interval: the next pass fires, even though the
             // authored RepeatMode is Once (Turbo forces until-release).
             Thread.Sleep(80);
-            Assert.Equal(30000, Tick(im, macros, held: true));
+            Assert.Equal(60001, Tick(im, macros, held: true));
         }
 
         /// <summary>The Repeat section (Mode / Count / Interval) hides for
@@ -141,13 +141,13 @@ namespace PadForge.Tests
             var im = new InputManager();
             var macros = new[] { Macro(MacroTriggerMode.Turbo, 30000, repeatDelayMs: 40) };
 
-            Assert.Equal(30000, Tick(im, macros, held: true));
+            Assert.Equal(60001, Tick(im, macros, held: true));
             // Release: no further passes, including past the interval.
             Tick(im, macros, held: false);
             Thread.Sleep(60);
             Assert.Equal(0, Tick(im, macros, held: false));
             // Re-press starts a fresh run.
-            Assert.Equal(30000, Tick(im, macros, held: true));
+            Assert.Equal(60001, Tick(im, macros, held: true));
         }
     }
 }

@@ -71,22 +71,25 @@ namespace PadForge.Common.Input
             "0x054c/0x03d5,0x054c/0x0c5e,0x054c/0x042f";
 
         /// <summary>Raised on the polling thread when an HM VC has reached
-        /// its inactivity timeout.  Listener (MainWindow) marshals to the
-        /// UI thread and runs DeviceService.DeleteSlot + InputService.OnSlotDeleted with
-        /// the bubble-up cascade.  Argument is the pad index that timed
-        /// out.</summary>
+        /// its inactivity timeout. InputService marshals to the UI thread
+        /// and raises SlotInactivityTimedOut, and MainWindow's handler calls
+        /// InputService.OnSlotInactivityTimedOut, which runs
+        /// TryInactivityTeardown: the VC is destroyed and the bubble-down
+        /// cascade follows. The slot itself stays created. Argument is the
+        /// pad index that timed out.</summary>
         public event System.EventHandler<int> HmVcInactivityDestroyed;
 
-        /// <summary>Raised on the polling thread whenever an HM-backed
-        /// slot (Xbox / PlayStation / Extended) has its live VC torn down
-        /// for any non-delete reason — sidebar disable, all devices
-        /// explicitly unassigned, or the HM inactivity timeout firing.
-        /// The slot stays in its group's order list at the same position;
-        /// only the live VC is gone.  Listener (InputService) marshals to
-        /// the UI thread and runs the bubble-down cascade for surviving
-        /// HM VCs at higher positions in the same subgroup so external
-        /// observers re-bind kernel slots in compact ascending order.
-        /// Argument is the pad index that went non-active.</summary>
+        /// <summary>Raised on the polling thread when an HM-backed slot
+        /// (Xbox / PlayStation / Nintendo / Extended) has its live VC torn
+        /// down because the slot was disabled, deleted, or had every device
+        /// explicitly unassigned. The inactivity timeout raises
+        /// <see cref="HmVcInactivityDestroyed"/> instead. The slot stays in
+        /// its group's order list at the same position. Only the live VC is
+        /// gone. Listener (InputService) marshals to the UI thread, skips a
+        /// deleted slot, and runs the bubble-down cascade for surviving HM
+        /// VCs at higher positions in the same group so external observers
+        /// re-bind kernel slots in compact ascending order. Argument is the
+        /// pad index that went non-active.</summary>
         public event System.EventHandler<int> HmVcWentNonActive;
 
         /// <summary>Device re-enumeration interval in milliseconds (every 2 seconds).</summary>
@@ -741,9 +744,11 @@ namespace PadForge.Common.Input
                 SDL_SetHint(SDL_HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS, "1");
 
                 // Allow SDL3 to enumerate XInput controllers (Xbox, etc.).
+                // SDL_XINPUT_ENABLED defaults to 1, and setting it keeps that
+                // intent explicit against a changed upstream default.
                 // Do NOT set SDL_HINT_JOYSTICK_RAWINPUT. It conflicts with
                 // XInput enumeration and prevents Xbox controllers from appearing.
-                SDL_SetHint(SDL_HINT_JOYSTICK_XINPUT, "1");
+                SDL_SetHint(SDL_HINT_XINPUT_ENABLED, "1");
 
                 // #395: replay the Flydigi driver switch. The previous SDL_Quit
                 // dropped every hint, and this manager is a new instance.
@@ -838,9 +843,10 @@ namespace PadForge.Common.Input
                 // item 5, same fork commit). Three raw int16 axes after the
                 // mouse counters; availability rides the raw axis count
                 // (9 = magnetometer, 11 = mouse + magnetometer), the mouse
-                // precedent. PadForge does not consume them yet; the
-                // compass-fusion half of #271 item 5 is a follow-up arc,
-                // and enabling here keeps the axes observable on a bench.
+                // precedent. SdlDeviceWrapper.ReadSwitch2Magnetometer reads
+                // them, and the Gyro tab's Compass Yaw option uses them to
+                // correct gyro yaw (InputService's compass estimate feeds
+                // SourceCoercion.CompassYawCorrectionProvider).
                 SDL_SetHint(SDL_HINT_JOYSTICK_BLE_SWITCH2_MAGNETOMETER, "1");
 
                 // Enable SDL's Sony-sixaxis PS3 driver (discussion #194). It
@@ -885,7 +891,7 @@ namespace PadForge.Common.Input
 
                 // SDL3: SDL_Init returns bool (true = success), and
                 // SDL_INIT_GAMECONTROLLER is renamed to SDL_INIT_GAMEPAD.
-                // SDL_INIT_VIDEO is required for keyboard/mouse enumeration.
+                // Keyboards and mice do not need SDL_INIT_VIDEO: RawInputListener enumerates and reads both.
                 if (!SDL_Init(SDL_INIT_JOYSTICK | SDL_INIT_GAMEPAD | SDL_INIT_VIDEO | SDL_INIT_HAPTIC))
                 {
                     string error = SDL_GetError();
@@ -1337,11 +1343,14 @@ namespace PadForge.Common.Input
             if (_personaAudioOwner.Closed)
                 _personaAudioOwner = new AudioPassthroughService.PersonaOwner();
 
-            // Virtual-controller filtering is handled entirely by PadForge's
-            // SDL3 fork: HID enumeration walks each device's PnP ancestor
-            // chain for "HIDMaestro" and skips matches, and XInput enumeration
-            // skips any slot whose VID/PID resolves only to HIDMaestro HIDs.
-            // No per-process slot tracking, no function-pointer hook.
+            // Virtual-controller filtering happens in the two forks PadForge
+            // ships. The SDL3 fork's HIDAPI, DirectInput and RawInput
+            // backends walk each HID's PnP ancestor chain for "HIDMaestro"
+            // and skip matches. XInput slots come from the OpenXInput fork's
+            // xinput1_4.dll, which SDL loads in place of the system one: its
+            // enumeration skips XUSB interfaces backed by a HIDMaestro virtual,
+            // so they never take a user index. No per-process slot tracking,
+            // no function-pointer hook.
 
             RawInputListener.Start();
 
@@ -1587,7 +1596,10 @@ namespace PadForge.Common.Input
                 // feedback is wired without waiting for the 2-second interval.
                 bool firstCycle = true;
 
-                while (_running)
+                // The stamp retires a loop that outlived Stop's join: Stop
+                // bumps _runGeneration, so a stalled thread exits on its next
+                // check instead of running on (MouseInjectorLoop's rule).
+                while (_running && System.Threading.Volatile.Read(ref _runGeneration) == generation)
                 {
                     // ── Idle mode: skip expensive pipeline, sleep at ~20Hz ──
                     if (BeginIdlePoll())

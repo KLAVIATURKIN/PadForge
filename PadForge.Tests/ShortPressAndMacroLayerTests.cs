@@ -23,6 +23,8 @@ namespace PadForge.Tests
     public class ShortPressAndMacroLayerTests
     {
         private const short Fire = 30000;
+        // Set Axis on a trigger writes the pull scale: the stored value doubled, plus one.
+        private const int FirePull = Fire * 2 + 1;
 
         private static MacroItem Macro(MacroTriggerMode mode, int holdMs = 500, string layerMask = "", int pad = 0)
         {
@@ -85,7 +87,7 @@ namespace PadForge.Tests
             // Press: nothing yet, the hold could still become long.
             Assert.Equal((ushort)0, Tick(im, macros, held: true));
             // Release inside the window: fires.
-            Assert.Equal((ushort)Fire, Tick(im, macros, held: false));
+            Assert.Equal((ushort)FirePull, Tick(im, macros, held: false));
         }
 
         /// <summary>Holding past the threshold fires nothing, which is what
@@ -120,7 +122,7 @@ namespace PadForge.Tests
 
             Assert.Equal((ushort)0, Tick(im, macros, held: false)); // observed idle (C14)
             Assert.Equal((ushort)0, Tick(im, macros, held: true));
-            Assert.Equal((ushort)Fire, Tick(im, macros, held: false));
+            Assert.Equal((ushort)FirePull, Tick(im, macros, held: false));
         }
 
         /// <summary>Short and long on the same button each fire only in
@@ -146,7 +148,7 @@ namespace PadForge.Tests
 
             gp = new Gamepad();
             im.EvaluateSlotMacros(ref gp, macros);
-            Assert.Equal((ushort)Fire, gp.LeftTrigger);   // short fired at release
+            Assert.Equal((ushort)FirePull, gp.LeftTrigger);   // short fired at release
             Assert.Equal((ushort)0, gp.RightTrigger);     // long never did
 
             // Hold: long fires, short does not.
@@ -166,7 +168,7 @@ namespace PadForge.Tests
 
             gp = new Gamepad { Buttons = Gamepad.A };
             im2.EvaluateSlotMacros(ref gp, macros2);
-            Assert.Equal((ushort)Fire, gp.RightTrigger);  // long fired at the threshold
+            Assert.Equal((ushort)FirePull, gp.RightTrigger);  // long fired at the threshold
             gp = new Gamepad();
             im2.EvaluateSlotMacros(ref gp, macros2);
             Assert.Equal((ushort)0, gp.LeftTrigger);      // short stayed quiet
@@ -257,7 +259,7 @@ namespace PadForge.Tests
             using var _ = WithSlotSets((0, SetWithLayer("Shift")));
             var im = new InputManager();
             var macros = new[] { Macro(MacroTriggerMode.OnPress, layerMask: "") };
-            Assert.Equal((ushort)Fire, Tick(im, macros, held: true));
+            Assert.Equal((ushort)FirePull, Tick(im, macros, held: true));
         }
 
         /// <summary>A named mask fires only while that layer is engaged on
@@ -309,7 +311,7 @@ namespace PadForge.Tests
 
             var im = new InputManager();
             var macros = new[] { Macro(MacroTriggerMode.OnPress, layerMask: "Layer_7_2", pad: 0) };
-            Assert.Equal((ushort)Fire, Tick(im, macros, held: true));
+            Assert.Equal((ushort)FirePull, Tick(im, macros, held: true));
         }
 
         /// <summary>"Base" means what it means for a mapping ROW: open
@@ -320,7 +322,7 @@ namespace PadForge.Tests
             using var _ = WithSlotSets((0, SetWithLayer("Shift")));
             var im = new InputManager();
             var macros = new[] { Macro(MacroTriggerMode.OnPress, layerMask: "Base") };
-            Assert.Equal((ushort)Fire, Tick(im, macros, held: true));
+            Assert.Equal((ushort)FirePull, Tick(im, macros, held: true));
         }
 
         [Fact]

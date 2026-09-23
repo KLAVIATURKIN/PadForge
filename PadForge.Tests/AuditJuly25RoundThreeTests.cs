@@ -17,6 +17,8 @@ namespace PadForge.Tests
     public class AuditJuly25RoundThreeTests : IDisposable
     {
         private const short Fire = 30000;
+        // Set Axis on a trigger writes the pull scale: the stored value doubled, plus one.
+        private const int FirePull = Fire * 2 + 1;
         private static readonly Guid DevGuid = new("31313131-3131-3131-3131-313131313131");
 
         public void Dispose() => InputManager.ClearAllShiftRuntime();
@@ -86,7 +88,7 @@ namespace PadForge.Tests
 
             // A genuine tap afterwards still works.
             Assert.Equal((ushort)0, Tick(im, macros, held: true));
-            Assert.Equal((ushort)Fire, Tick(im, macros, held: false));
+            Assert.Equal((ushort)FirePull, Tick(im, macros, held: false));
         }
 
         // ── C15: a layer close is not a release ──
@@ -260,7 +262,7 @@ namespace PadForge.Tests
                 // isolation. Pre-fix the fallback closed it.
                 var im = new InputManager();
                 var macros = new[] { Macro(MacroTriggerMode.OnPress, layerMask: "Base", pad: 0) };
-                Assert.Equal((ushort)Fire, Tick(im, macros, held: true));
+                Assert.Equal((ushort)FirePull, Tick(im, macros, held: true));
             }
             finally
             {

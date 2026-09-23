@@ -21,6 +21,8 @@ namespace PadForge.Tests
     public class AuditJuly25RoundFourTests : IDisposable
     {
         private const short Fire = 30000;
+        // Set Axis on a trigger writes the pull scale: the stored value doubled, plus one.
+        private const int FirePull = Fire * 2 + 1;
         private static readonly Guid DevGuid = new("32323232-3232-3232-3232-323232323232");
 
         public void Dispose() => InputManager.ClearAllShiftRuntime();
@@ -232,7 +234,7 @@ namespace PadForge.Tests
             Tick(im, macros, held: false);  // observed idle, recent stamp
             Tick(im, macros, held: true);   // press
             var gp = Tick(im, macros, held: false); // release: fires
-            Assert.Equal((ushort)Fire, gp.LeftTrigger);
+            Assert.Equal((ushort)FirePull, gp.LeftTrigger);
         }
 
         // ── R15: editing the trigger clears armed windows ──

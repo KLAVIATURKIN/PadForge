@@ -19,6 +19,8 @@ namespace PadForge.Tests
     public class AuditJuly25RoundFiveTests : IDisposable
     {
         private const short Fire = 30000;
+        // Set Axis on a trigger writes the pull scale: the stored value doubled, plus one.
+        private const int FirePull = Fire * 2 + 1;
         private static readonly Guid DevGuid = new("33333333-3333-3333-3333-333333333333");
 
         public void Dispose() => InputManager.ClearAllShiftRuntime();
@@ -115,7 +117,7 @@ namespace PadForge.Tests
             using var _ = Sets((0, xbox), (1, kbm));
 
             var im = new InputManager();
-            Assert.Equal((ushort)Fire, Tick(im, new[] { Macro("Base") }, held: true));
+            Assert.Equal((ushort)FirePull, Tick(im, new[] { Macro("Base") }, held: true));
 
             var st = new PadForge.Engine.CustomInputState();
             st.Buttons[9] = true;
@@ -140,7 +142,7 @@ namespace PadForge.Tests
             InputManager.ResolveActiveLayerMask(1, theirs, st, DevGuid.ToString());
 
             var im = new InputManager();
-            Assert.Equal((ushort)Fire, Tick(im, new[] { Macro("Base") }, held: true));
+            Assert.Equal((ushort)FirePull, Tick(im, new[] { Macro("Base") }, held: true));
         }
 
         // ── Layer picker: the selected item must SURVIVE a rebuild ──

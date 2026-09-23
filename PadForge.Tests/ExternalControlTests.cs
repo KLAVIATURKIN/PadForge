@@ -52,6 +52,28 @@ namespace PadForge.Tests
             Assert.Equal("ok TestProfile", response);
         }
 
+        /// <summary>The wire is UTF-8 both ways: a profile named with accents or
+        /// Japanese text arrives and returns intact. The server used to turn each
+        /// request byte into one character, so "Café" arrived as "CafÃ©" and
+        /// never matched a profile.</summary>
+        [Fact]
+        public async Task ANonAsciiProfileNameCrossesThePipeIntact()
+        {
+            string seen = null;
+            string pipe = UniquePipeName("utf8");
+            using var svc = new ExternalControlService(cmd =>
+            {
+                seen = cmd;
+                return "ok " + cmd.Substring("activate ".Length);
+            }, pipe);
+            svc.Start();
+
+            string response = await SendAsync(pipe, "activate Café レース");
+
+            Assert.Equal("activate Café レース", seen);
+            Assert.Equal("ok Café レース", response);
+        }
+
         /// <summary>One bad connection never kills the accept loop: a client
         /// that throws inside the executor still gets an answer, and the NEXT
         /// client is served normally.</summary>
@@ -98,14 +120,14 @@ namespace PadForge.Tests
         public void TheRequestReadIsCapped()
         {
             string src = RepoText("PadForge.App", "Services", "ExternalControlService.cs");
-            Assert.Contains("sb.Length < 1024", src);
+            Assert.Contains("line.Length < 1024", src);
         }
 
         /// <summary>Authenticated Users get read-write on the pipe, which is
         /// what lets an UNELEVATED launcher drive an elevated PadForge
         /// (app.manifest requires administrator). Without this rule the whole
         /// feature is unreachable from Playnite or LaunchBox running normally.
-        /// Mirrors Lenovo Legion Toolkit's IpcServer.</summary>
+        /// Follows the design of Lenovo Legion Toolkit's IpcServer.</summary>
         [Fact]
         public void ThePipeGrantsAuthenticatedUsers()
         {
@@ -308,15 +330,16 @@ namespace PadForge.Tests
             await client.WriteAsync(outBytes);
             await client.FlushAsync();
 
-            var sb = new StringBuilder();
+            // The reply is one UTF-8 line, the same framing the server reads.
+            using var reply = new MemoryStream();
             var one = new byte[1];
-            while (sb.Length < 1024)
+            while (reply.Length < 1024)
             {
                 int n = await client.ReadAsync(one.AsMemory(0, 1));
                 if (n == 0 || one[0] == (byte)'\n') break;
-                sb.Append((char)one[0]);
+                reply.WriteByte(one[0]);
             }
-            return sb.ToString();
+            return Encoding.UTF8.GetString(reply.GetBuffer(), 0, (int)reply.Length);
         }
 
         /// <summary>The pipe starter is engine-gated like its DSU sibling:

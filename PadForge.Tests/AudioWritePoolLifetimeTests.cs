@@ -17,6 +17,15 @@ public sealed class AudioWritePoolLifetimeTests(ITestOutputHelper output)
     [DllImport("kernel32.dll", SetLastError = true)] static extern bool CancelIoEx(IntPtr handle, IntPtr overlap);
     [DllImport("kernel32.dll", SetLastError = true)] static extern bool CloseHandle(IntPtr handle);
 
+    // The pool zeroes a slot's event, overlap and pin as it releases the slot,
+    // so its own arrays say what it still holds. Asking Windows whether a
+    // captured handle VALUE still resolves proves nothing once the handle is
+    // closed: the handle table hands freed values to whatever the process
+    // opens next, and a closed event's number came back as another object.
+    static IntPtr[] LiveEvents(object pool) => (IntPtr[])pool.GetType().GetField("_ev", Private)!.GetValue(pool)!;
+    static IntPtr[] LiveOverlaps(object pool) => (IntPtr[])pool.GetType().GetField("_ol", Private)!.GetValue(pool)!;
+    static GCHandle[] LivePins(object pool) => (GCHandle[])pool.GetType().GetField("_pin", Private)!.GetValue(pool)!;
+
     [Theory]
     [InlineData(false)]
     [InlineData(true)]
@@ -33,8 +42,6 @@ public sealed class AudioWritePoolLifetimeTests(ITestOutputHelper output)
         await connection.WaitAsync(TimeSpan.FromSeconds(5));
         var pool = new AudioPassthroughService.BtWritePool(65536, delayedCompletion ? (_, _) => { } : null);
         var events = ((IntPtr[])pool.GetType().GetField("_ev", Private)!.GetValue(pool)!).ToArray();
-        var overlaps = ((IntPtr[])pool.GetType().GetField("_ol", Private)!.GetValue(pool)!).ToArray();
-        var pins = ((GCHandle[])pool.GetType().GetField("_pin", Private)!.GetValue(pool)!).ToArray();
         using var work = new BlockingCollection<Action>();
         int writerId = 0;
         var writer = new Thread(() =>
@@ -84,14 +91,16 @@ public sealed class AudioWritePoolLifetimeTests(ITestOutputHelper output)
             {
                 pool.Dispose();
                 await pool.Cleanup.WaitAsync(TimeSpan.FromSeconds(2));
-                Assert.All(events, h => Assert.False(GetHandleInformation(h, out _)));
+                Assert.All(LiveEvents(pool), h => Assert.Equal(IntPtr.Zero, h));
                 audio.GetMethod("DisposeTransport", Static)!.Invoke(null, [sink]);
                 handle = IntPtr.Zero;
             }
             await pool.Cleanup.WaitAsync(TimeSpan.FromSeconds(5));
-            int retainedEvents = events.Count(h => GetHandleInformation(h, out _));
+            int retainedEvents = LiveEvents(pool).Count(h => h != IntPtr.Zero);
             output.WriteLine($"delayedCompletion={delayedCompletion} controlBytes={control.Length} pendingBeforeStop=True retainedEvents={retainedEvents}");
             Assert.Equal(0, retainedEvents);
+            Assert.All(LiveOverlaps(pool), o => Assert.Equal(IntPtr.Zero, o));
+            Assert.All(LivePins(pool), p => Assert.False(p.IsAllocated));
             Assert.False(pool.TrySend(IntPtr.Zero, [1], out bool retired));
             Assert.True(retired);
         }
@@ -106,15 +115,19 @@ public sealed class AudioWritePoolLifetimeTests(ITestOutputHelper output)
             }
             pool.Dispose();
             await pool.Cleanup.WaitAsync(TimeSpan.FromSeconds(5));
-            // Baseline disposal lost pending slots. Release only storage whose
-            // event remains owned and whose native completion has arrived.
-            for (int i = 0; i < events.Length; i++)
+            // Release only storage the pool still holds and whose native
+            // completion has arrived. Never touch a captured handle value the
+            // pool already closed: its number may belong to another object now.
+            var liveEvents = LiveEvents(pool);
+            var liveOverlaps = LiveOverlaps(pool);
+            var livePins = LivePins(pool);
+            for (int i = 0; i < liveEvents.Length; i++)
             {
-                if (!GetHandleInformation(events[i], out _)) continue;
-                Assert.Equal(0u, WaitForSingleObject(events[i], 2000));
-                CloseHandle(events[i]);
-                Marshal.FreeHGlobal(overlaps[i]);
-                if (pins[i].IsAllocated) pins[i].Free();
+                if (liveEvents[i] == IntPtr.Zero) continue;
+                Assert.Equal(0u, WaitForSingleObject(liveEvents[i], 2000));
+                CloseHandle(liveEvents[i]);
+                if (liveOverlaps[i] != IntPtr.Zero) Marshal.FreeHGlobal(liveOverlaps[i]);
+                if (livePins[i].IsAllocated) livePins[i].Free();
             }
         }
     }

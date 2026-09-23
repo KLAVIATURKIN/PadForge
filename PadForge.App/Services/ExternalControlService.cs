@@ -20,7 +20,7 @@ namespace PadForge.Services
     /// server grants Authenticated Users read-write on the pipe DACL, and a
     /// Medium-integrity client connects because the pipe carries a Medium
     /// default mandatory label even though an elevated process created it.
-    /// Mirrors Lenovo Legion Toolkit's IpcServer (an elevated WPF app serving
+    /// Follows the design of Lenovo Legion Toolkit's IpcServer (an elevated WPF app serving
     /// NamedPipeServerStreamAcl.Create with an AuthenticatedUserSid rule,
     /// opt-in behind a settings flag, one request-response per connection in
     /// a loop). DS4Windows is the cautionary opposite: its WM_COPYDATA command
@@ -146,19 +146,21 @@ namespace PadForge.Services
 
         private static async Task<string> ReadLineAsync(Stream s, CancellationToken token)
         {
-            // One line, capped so a malformed client cannot grow the buffer
-            // without bound. Commands are short (a verb plus a profile name).
+            // One UTF-8 line, capped at 1024 bytes so a malformed client cannot
+            // grow the buffer without bound. Commands are short (a verb plus a
+            // profile name). Splitting on the '\n' and '\r' bytes is safe: UTF-8
+            // never uses those values inside a multi-byte character.
             var buf = new byte[1];
-            var sb = new StringBuilder();
-            while (sb.Length < 1024)
+            using var line = new MemoryStream();
+            while (line.Length < 1024)
             {
                 int n = await s.ReadAsync(buf.AsMemory(0, 1), token).ConfigureAwait(false);
                 if (n == 0) break;            // client closed its write end
                 if (buf[0] == (byte)'\n') break;
                 if (buf[0] == (byte)'\r') continue;
-                sb.Append((char)buf[0]);
+                line.WriteByte(buf[0]);
             }
-            return sb.ToString().Trim();
+            return Encoding.UTF8.GetString(line.GetBuffer(), 0, (int)line.Length).Trim();
         }
 
         private static async Task WriteLineAsync(Stream s, string line, CancellationToken token)

@@ -620,11 +620,16 @@ namespace PadForge.ViewModels
             if (isNfc) RebuildNfcTags(); else NfcTags.Clear();
             IsHandheldDevice = isHandheld;
             IsSystemMotionDevice = isSystemMotion;
-            if (namedObjects != null) RebuildNamedButtons(namedObjects);
+            // Handheld rows and rows with named objects (VR controllers,
+            // G-Keys) share the chip collection. Building the named chips and
+            // then clearing that collection for every non-handheld row left
+            // those rows with an empty chip panel and no numbered grid.
+            if (isHandheld) RebuildHandheldButtons();
+            else if (namedObjects != null) RebuildNamedButtons(namedObjects);
+            else HandheldButtons.Clear();
             ShowNamedButtons = isHandheld || namedObjects != null;
             IsHeadTrackerDevice = isHeadTracker;
             if (!isHeadTracker) { HeadTrackerStatus = string.Empty; HeadTrackerStatusVersion = -1; HeadTrackerStatusDevice = null; }
-            if (isHandheld) RebuildHandheldButtons(); else HandheldButtons.Clear();
             IsMicrophoneDevice = isMicrophone;
             ShowVoicePhrases = voiceButtonBase >= 0;
             RebuildVoicePhrases(voiceButtonBase);
@@ -726,6 +731,7 @@ namespace PadForge.ViewModels
             IsMicrophoneDevice = false;
             ShowVoicePhrases = false;
             VoicePhrases.Clear();
+            ShowNamedButtons = false;
             IsConsumerDevice = false;
             IsHeadsetMotionDevice = false;
             IsHandheldDevice = false;

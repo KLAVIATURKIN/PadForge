@@ -22,6 +22,8 @@ namespace PadForge.Tests
     public class MacroFixedRepeatPacingTests
     {
         private const int Fire = 30000;
+        // Set Axis on a trigger writes the pull scale: the stored value doubled, plus one.
+        private const int FirePull = Fire * 2 + 1;
         private const int Interval = 40;
 
         private static MacroItem Macro(MacroTriggerMode mode, MacroRepeatMode repeat,
@@ -62,7 +64,7 @@ namespace PadForge.Tests
             int passes = 0;
             for (int i = 0; i < ticks; i++)
             {
-                if (Tick(im, macros, held) == Fire) passes++;
+                if (Tick(im, macros, held) == FirePull) passes++;
                 Thread.Sleep(Interval / 2);
             }
             return passes;
@@ -94,7 +96,7 @@ namespace PadForge.Tests
             // back to back and the run is over well inside the loop.
             int passes = 0;
             for (int i = 0; i < 12; i++)
-                if (Tick(im, macros, held: true) == Fire) passes++;
+                if (Tick(im, macros, held: true) == FirePull) passes++;
 
             Assert.Equal(3, passes);
             Assert.False(macros[0].IsExecuting);
@@ -129,14 +131,14 @@ namespace PadForge.Tests
             var im = new InputManager();
             var macros = new[] { Macro(MacroTriggerMode.OnPress, MacroRepeatMode.FixedCount, 1, 1000) };
 
-            Assert.Equal(Fire, Tick(im, macros, held: true));
+            Assert.Equal(FirePull, Tick(im, macros, held: true));
             Assert.Equal(0, Tick(im, macros, held: false));
             Assert.False(macros[0].IsExecuting, "the run held itself open past its only pass");
 
             // The very next press answers, with no part of the interval waited.
-            Assert.Equal(Fire, Tick(im, macros, held: true));
+            Assert.Equal(FirePull, Tick(im, macros, held: true));
             Assert.Equal(0, Tick(im, macros, held: false));
-            Assert.Equal(Fire, Tick(im, macros, held: true));
+            Assert.Equal(FirePull, Tick(im, macros, held: true));
         }
 
         /// <summary>The interval still paces the passes. Without pacing the
@@ -147,7 +149,7 @@ namespace PadForge.Tests
             var im = new InputManager();
             var macros = new[] { Macro(MacroTriggerMode.OnPress, MacroRepeatMode.FixedCount, 3, 1000) };
 
-            Assert.Equal(Fire, Tick(im, macros, held: true));
+            Assert.Equal(FirePull, Tick(im, macros, held: true));
             // A second pass is due only after a full second, so nothing fires
             // in the ticks right behind the first.
             for (int i = 0; i < 5; i++)

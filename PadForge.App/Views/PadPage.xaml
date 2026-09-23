@@ -599,10 +599,11 @@
 
                 <!-- [Bass Shakers] (#236). Slot tier: the rumble-to-audio
                      config lives on the slot's MappingSet like menus. Tag
-                     16 = the appended TabItem's index. Visible only for
-                     Xbox / PlayStation slot types (the outputs whose game
-                     feedback the engine decodes). A SLOT-TYPE gate, never
-                     a physical-device capability gate. -->
+                     16 = the appended TabItem's index. Visible for Xbox,
+                     PlayStation and Nintendo slots, and for Extended slots
+                     whose virtual controller receives force feedback (see
+                     PadViewModel.RumbleAudioTabVisible). A SLOT-TYPE gate,
+                     never a physical-device capability gate. -->
                 <RadioButton Tag="16" Style="{StaticResource TabStripButton}" Click="TabBtn_Click"
                              AutomationProperties.AutomationId="BassShakersTab"
                              Visibility="{Binding RumbleAudioTabVisible, Converter={StaticResource BoolToVisibilityConverter}}">
@@ -612,7 +613,7 @@
                 <!-- [Output] (#270 follow-up). Slot tier: SOCD + Keep
                      Controller Awake, the slot's output-behavior cards.
                      Tag 17 = the appended TabItem's index. Hidden only on
-                     MIDI slots, which have no output-behavior surface. -->
+                     MIDI and VR slots, which have no output-behavior surface. -->
                 <RadioButton Tag="17" Style="{StaticResource TabStripButton}" Click="TabBtn_Click"
                              AutomationProperties.AutomationId="OutputTab"
                              Visibility="{Binding OutputTabVisible, Converter={StaticResource BoolToVisibilityConverter}}">
@@ -724,18 +725,18 @@
                     <TextBlock Text="{Binding Pad_ImpulseTriggers, Source={x:Static strings:Strings.Instance}}" FontSize="13"/>
                 </RadioButton>
 
-                <!-- Adaptive Triggers tab — DualSense / DualSense Edge only.
-                     Visibility driven from code-behind via SyncTabStripSelection
-                     which reads OutputType + ProfileId.  PadPage's runtime
-                     visibility gate hides this RadioButton on Xbox / Extended
-                     / MIDI / KbM slots and on DS4 PlayStation slots.  -->
+                <!-- Adaptive Triggers tab. Visible when the selected device is
+                     a DualSense or DualSense Edge. Set from code-behind. -->
                 <RadioButton x:Name="TabAdaptiveTriggers" Tag="6" Style="{StaticResource TabStripButtonCold}" Click="TabBtn_Click"
                              Visibility="Collapsed">
                     <TextBlock Text="{Binding Pad_AdaptiveTriggers, Source={x:Static strings:Strings.Instance}}" FontSize="13"/>
                 </RadioButton>
 
-                <!-- Lighting tab — DS4 / DualSense / DualSense Edge.  Hidden
-                     on slots whose profile lacks a lightbar.  -->
+                <!-- Lighting tab. Visible when the selected device has a
+                     lightbar (DS4, DualSense, DualSense Edge, PS Move, or a
+                     web controller that reports one) or a Guide LED (Xbox
+                     pads on the GIP LED path, the 2015 Steam Controller,
+                     Switch home-LED devices). Set from code-behind. -->
                 <RadioButton x:Name="TabLighting" Tag="7" Style="{StaticResource TabStripButtonCold}" Click="TabBtn_Click"
                              Visibility="Collapsed">
                     <TextBlock Text="{Binding Pad_Lighting, Source={x:Static strings:Strings.Instance}}" FontSize="13"/>
@@ -4840,7 +4841,7 @@
                                                         Style="{StaticResource FormulaPresetStyle}"
                                                         Click="FormulaPreset_Click"
                                                         ToolTip="{Binding Macro_Expression_Recipe_AButNotB_Tooltip, Source={x:Static strings:Strings.Instance}}"/>
-                                                <Button Content="{Binding Macro_Expression_Recipe_AxisOverHalf, Source={x:Static strings:Strings.Instance}}" Tag="abs(a - 0.5) &gt; 0.25"
+                                                <Button Content="{Binding Macro_Expression_Recipe_AxisOverHalf, Source={x:Static strings:Strings.Instance}}" Tag="abs(a) &gt; 0.5"
                                                         Style="{StaticResource FormulaPresetStyle}"
                                                         Click="FormulaPreset_Click"
                                                         ToolTip="{Binding Macro_Expression_Recipe_AxisOverHalf_Tooltip, Source={x:Static strings:Strings.Instance}}"/>

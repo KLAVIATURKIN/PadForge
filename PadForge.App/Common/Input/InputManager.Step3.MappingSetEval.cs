@@ -10,7 +10,7 @@ namespace PadForge.Common.Input
         // ─────────────────────────────────────────────
         //  Per-slot runtime state for stateful source kinds
         //  (Incremental accumulator; InvertOnHold is stateless).
-        //  Cleared on profile switch and on engine stop.
+        //  Cleared on profile switch (InputService.ResetRuntimeStateForProfileSwitch).
         // ─────────────────────────────────────────────
         private static readonly SourceKindRuntime[] _slotSourceKindRuntime = InitRuntime();
         private static SourceKindRuntime[] InitRuntime()
@@ -21,16 +21,16 @@ namespace PadForge.Common.Input
         }
 
         /// <summary>Drops Incremental accumulator state on every slot.
-        /// Called by InputService on profile switch and engine stop so
-        /// cruise-control / ramp throttle always starts neutral.</summary>
+        /// Called by InputService on every profile switch so cruise-control
+        /// / ramp throttle always starts neutral.</summary>
         public static void ClearSourceKindRuntime()
         {
             for (int i = 0; i < _slotSourceKindRuntime.Length; i++)
                 _slotSourceKindRuntime[i]?.Clear();
             _stickTrimStates.Clear();
             // The gravity-lean pair's captured resting grip lives beside
-            // the per-slot motion neutrals and follows the same profile
-            // switch / engine-stop hygiene.
+            // the per-slot motion neutrals and follows the same
+            // profile-switch hygiene.
             SourceCoercion.ResetGyroLeanNeutral();
             // The touch-momentum balls had NO reset site anywhere (#291):
             // a coast could survive a profile switch and resume under the
@@ -2124,8 +2124,25 @@ namespace PadForge.Common.Input
             if (string.IsNullOrEmpty(descriptor)) return false;
             string canonical = SourceCoercion.ResolveGamepadAlias(descriptor) ?? descriptor.Trim();
             if (canonical.StartsWith("Slider ", System.StringComparison.Ordinal)) return true;
+            return CanonicalAxisRestsAtZero(canonical, descriptor, LookupUserDevice(deviceGuid));
+        }
 
-            var dev = LookupUserDevice(deviceGuid);
+        /// <summary>True when the axis <paramref name="descriptor"/> names on
+        /// <paramref name="dev"/> rests at 0 and moves one way: a slider, a VR
+        /// controller's trigger or grip, or axis 2 or 5 of an SDL gamepad (its
+        /// triggers) that is not forced into raw joystick mode. Every other axis
+        /// rests at the middle of its range. The #443 rule, shared with the
+        /// recorders, which take the device they already hold.</summary>
+        internal static bool AxisRestsAtZero(string descriptor, UserDevice dev)
+        {
+            if (string.IsNullOrEmpty(descriptor)) return false;
+            string canonical = SourceCoercion.ResolveGamepadAlias(descriptor) ?? descriptor.Trim();
+            if (canonical.StartsWith("Slider ", System.StringComparison.Ordinal)) return true;
+            return CanonicalAxisRestsAtZero(canonical, descriptor, dev);
+        }
+
+        private static bool CanonicalAxisRestsAtZero(string canonical, string descriptor, UserDevice dev)
+        {
             if (dev != null && dev.CapType == InputDeviceType.VrController)
                 return canonical == "Axis " + PadForge.Common.Input.OpenXrHandDevice.AxisTrigger
                     || canonical == "Axis " + PadForge.Common.Input.OpenXrHandDevice.AxisSqueeze;

@@ -535,13 +535,15 @@ namespace PadForge.Views
                 bool p = kbm.GetMouseButton(1);
                 _rmbPath.Fill = p ? AccentBrush : MouseButtonBrush;
             }
-            // The wheel Fill is ALSO the recording flash surface for the
-            // scroll targets (ApplyFlashState), not just KbmMBtn2; a guard
-            // that only knew the button let this repaint stomp the scroll
-            // flash every frame (round 33, C4).
+            // The wheel Fill is ALSO the recording flash surface for all four
+            // scroll targets (ApplyFlashState) as well as KbmMBtn2. A guard
+            // that missed one let this repaint stomp that flash every frame
+            // (round 33, C4, and later the horizontal pair).
             if ((_flashTarget != "KbmMBtn2"
                  && _flashTarget != "KbmScroll"
-                 && _flashTarget != "KbmScrollNeg") || !_flashOn)
+                 && _flashTarget != "KbmScrollNeg"
+                 && _flashTarget != "KbmScrollH"
+                 && _flashTarget != "KbmScrollHNeg") || !_flashOn)
             {
                 bool p = kbm.GetMouseButton(2);
                 _scrollWheelPill.Fill = p ? AccentBrush : ScrollWheelBrush;

@@ -609,21 +609,8 @@ namespace PadForge.Common.Input
                             var dir = macro.GetAxisDirection(ai);
                             float val = ReadAxisAsVolume(in gp, axTarget); // 0→1
 
-                            if (dir == MacroAxisDirection.Positive)
-                            {
-                                if (val < 0.5f + threshold * 0.5f)
-                                { axisOk = false; break; }
-                            }
-                            else if (dir == MacroAxisDirection.Negative)
-                            {
-                                if (val > 0.5f - threshold * 0.5f)
-                                { axisOk = false; break; }
-                            }
-                            else
-                            {
-                                if (val < threshold)
-                                { axisOk = false; break; }
-                            }
+                            if (!AxisTriggerPasses(axTarget, dir, val, threshold))
+                            { axisOk = false; break; }
                         }
                     }
 
@@ -903,7 +890,14 @@ namespace PadForge.Common.Input
                     : macro.TriggerMode == MacroTriggerMode.ShortPress
                         ? (triggerActive || macro.IsExecuting)
                         : (triggerActive && macro.IsExecuting);
-                if (macro.ConsumeTriggerButtons && consumeNow && !macro.UsesRawTrigger)
+                // Modes that never READ the trigger list never consume it,
+                // the rule Step 3's source-read consume already follows (C30).
+                // A macro switched into one of them keeps its old trigger bits,
+                // and with the consume checkbox hidden in both modes it kept
+                // stripping that button from the game for as long as it ran.
+                bool modeReadsTrigger = macro.TriggerMode != MacroTriggerMode.Always
+                    && macro.TriggerMode != MacroTriggerMode.CustomExpression;
+                if (macro.ConsumeTriggerButtons && consumeNow && modeReadsTrigger && !macro.UsesRawTrigger)
                 {
                     // Accumulate; the strip lands once, after the walk (R2).
                     _macroPassConsumedButtons |= macro.TriggerButtons;
@@ -2556,6 +2550,11 @@ namespace PadForge.Common.Input
                 for (int i = 0; i < targets.Length; i++)
                 {
                     if (AxisTargetToDeviceIndex(targets[i]) != action.SourceDeviceAxisIndex) continue;
+                    // A trigger rests at 0 and only pulls, so its pressure is
+                    // the absolute read whatever direction it carries (the
+                    // AxisTriggerPasses rule).
+                    if (targets[i] is MacroAxisTarget.LeftTrigger or MacroAxisTarget.RightTrigger)
+                        return absolute;
                     var dir = macro.GetAxisDirection(i);
                     if (dir == MacroAxisDirection.Positive) return Math.Max(0f, (raw - 32768) / 32767f);
                     if (dir == MacroAxisDirection.Negative) return Math.Max(0f, (32768 - raw) / 32768f);
@@ -3954,7 +3953,10 @@ namespace PadForge.Common.Input
         }
 
         /// <summary>
-        /// Applies an AxisSet action to the gamepad.
+        /// Applies an AxisSet action to the gamepad. Sticks take AxisValue as the
+        /// signed stick value. Triggers read it on the PULL scale (0..32767 =
+        /// 0..100%), the same as every other trigger write here, so the percent
+        /// the editor shows lands the same pull on every slot type.
         /// </summary>
         private static void ApplyAxisAction(ref Gamepad gp, MacroAction action)
         {
@@ -3973,10 +3975,10 @@ namespace PadForge.Common.Input
                     gp.ThumbRY = action.AxisValue;
                     break;
                 case MacroAxisTarget.LeftTrigger:
-                    gp.LeftTrigger = (ushort)Math.Clamp((int)action.AxisValue, 0, 65535);
+                    gp.LeftTrigger = TriggerPullFromAxisValue(action.AxisValue);
                     break;
                 case MacroAxisTarget.RightTrigger:
-                    gp.RightTrigger = (ushort)Math.Clamp((int)action.AxisValue, 0, 65535);
+                    gp.RightTrigger = TriggerPullFromAxisValue(action.AxisValue);
                     break;
             }
         }
@@ -3985,9 +3987,7 @@ namespace PadForge.Common.Input
         /// Applies an AxisHold action to the gamepad (v15). Sticks share
         /// AxisSet's signed-short write. Triggers read AxisValue on the
         /// PULL scale (0..32767 = 0..100%) and double it onto the 0..65535
-        /// output so a full pull is expressible, which the short-typed
-        /// AxisSet write cannot reach; AxisSet keeps its legacy raw write
-        /// untouched.
+        /// output so a full pull is expressible, the same as AxisSet.
         /// </summary>
         private static void ApplyAxisHoldAction(ref Gamepad gp, MacroAction action)
         {
@@ -4475,21 +4475,8 @@ namespace PadForge.Common.Input
                             var dir = macro.GetAxisDirection(ai);
                             float val = ReadAxisAsVolumeRaw(in raw, axTarget);
 
-                            if (dir == MacroAxisDirection.Positive)
-                            {
-                                if (val < 0.5f + threshold * 0.5f)
-                                { axisOk = false; break; }
-                            }
-                            else if (dir == MacroAxisDirection.Negative)
-                            {
-                                if (val > 0.5f - threshold * 0.5f)
-                                { axisOk = false; break; }
-                            }
-                            else
-                            {
-                                if (val < threshold)
-                                { axisOk = false; break; }
-                            }
+                            if (!AxisTriggerPasses(axTarget, dir, val, threshold))
+                            { axisOk = false; break; }
                         }
                     }
 
@@ -4720,8 +4707,12 @@ namespace PadForge.Common.Input
                     : macro.TriggerMode == MacroTriggerMode.ShortPress
                         ? (triggerActive || macro.IsExecuting)
                         : (triggerActive && macro.IsExecuting);
+                // Same rule as the Gamepad loop: Always and CustomExpression
+                // never read their trigger words, so they never consume them.
+                bool modeReadsTriggerExtended = macro.TriggerMode != MacroTriggerMode.Always
+                    && macro.TriggerMode != MacroTriggerMode.CustomExpression;
                 if (macro.ConsumeTriggerButtons && consumeNowExtended
-                    && macro.UsesCustomTrigger)
+                    && modeReadsTriggerExtended && macro.UsesCustomTrigger)
                 {
                     // Accumulate; the strip lands once, after the walk (R2).
                     var tw = macro.TriggerCustomButtonWords;
@@ -5096,10 +5087,10 @@ namespace PadForge.Common.Input
 
                 case MacroActionType.AxisHold:
                     // Extended twin of the Gamepad-path timed assert (v15):
-                    // straight signed write per frame (the Extended axis
-                    // frame is -32768..32767 on every index, so no trigger
-                    // rescale applies here). Same #237 yield gate as the
-                    // Gamepad path, on the raw word frame.
+                    // the ApplyAxisActionRaw write each frame, which puts a
+                    // trigger on the pull scale above its short.MinValue
+                    // rest. Same #237 yield gate as the Gamepad path, on
+                    // the raw word frame.
                     if (raw.Axes != null)
                     {
                         if (!AxisWriteYieldsRawValueAt(
@@ -5841,6 +5832,28 @@ namespace PadForge.Common.Input
                 _audioSessionManager = null;
                 _audioSessionRetryAtMs = Environment.TickCount64 + AudioComRetryCooldownMs;
             }
+        }
+
+        /// <summary>
+        /// Whether a slot-axis macro trigger passes, on the 0..1 read both
+        /// evaluators take. A stick rests at the middle of that read, so its
+        /// direction is measured from there, and Any passes a push past the
+        /// threshold either way. A trigger rests at 0 and moves one way, so a
+        /// direction has no meaning on it and the threshold is the pull: the
+        /// #443 rule for shift activators. A recorded trigger is stamped
+        /// Positive, and measuring it from the middle made a 50% threshold
+        /// engage at 75% pull and a Negative one read true at rest.
+        /// </summary>
+        internal static bool AxisTriggerPasses(MacroAxisTarget target, MacroAxisDirection dir, float val, float threshold)
+        {
+            if (target is MacroAxisTarget.LeftTrigger or MacroAxisTarget.RightTrigger)
+                return val >= threshold;
+            return dir switch
+            {
+                MacroAxisDirection.Positive => val >= 0.5f + threshold * 0.5f,
+                MacroAxisDirection.Negative => val <= 0.5f - threshold * 0.5f,
+                _ => Math.Abs(val - 0.5f) * 2f >= threshold,
+            };
         }
 
         /// <summary>

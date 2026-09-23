@@ -33,7 +33,7 @@ namespace PadForge.Tests
             {
                 Type = MacroActionType.AxisSet,
                 AxisTarget = MacroAxisTarget.LeftTrigger,
-                AxisValue = 1000,
+                AxisValue = 1000,   // reaches the trigger as 2001. Set Axis on a trigger writes the pull scale: the stored value doubled, plus one.
             });
             return m;
         }
@@ -58,7 +58,7 @@ namespace PadForge.Tests
             Press(im, macros, out var gp2);
             Assert.Equal(0, gp2.LeftTrigger);          // second press: chain
             Press(im, macros, out var gp3);
-            Assert.Equal(1000, gp3.LeftTrigger);       // third press: fire
+            Assert.Equal(2001, gp3.LeftTrigger);       // third press: fire
         }
 
         [Fact]
@@ -71,7 +71,7 @@ namespace PadForge.Tests
             Press(im, macros, out _);
             Press(im, macros, out _);
             Press(im, macros, out var fired);
-            Assert.Equal(1000, fired.LeftTrigger);
+            Assert.Equal(2001, fired.LeftTrigger);
 
             // Press 4 must be a fresh chain start, not a second fire.
             Press(im, macros, out var gp4);
@@ -79,7 +79,7 @@ namespace PadForge.Tests
             Press(im, macros, out var gp5);
             Assert.Equal(0, gp5.LeftTrigger);
             Press(im, macros, out var gp6);
-            Assert.Equal(1000, gp6.LeftTrigger);       // presses 4-6 fire again
+            Assert.Equal(2001, gp6.LeftTrigger);       // presses 4-6 fire again
         }
 
         [Fact]
@@ -98,7 +98,7 @@ namespace PadForge.Tests
             // The two presses after it complete the NEW chain.
             Press(im, macros, out _);
             Press(im, macros, out var fired);
-            Assert.Equal(1000, fired.LeftTrigger);
+            Assert.Equal(2001, fired.LeftTrigger);
         }
 
         [Fact]

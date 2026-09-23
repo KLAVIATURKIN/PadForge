@@ -50,7 +50,7 @@ namespace PadForge.Common.Input
     /// / DS4 PIDs so SDL_RumbleJoystick is never called for these
     /// devices. This synthesizer's packet is the ONLY DS4 effect write
     /// from PadForge — rumble + lightbar + flash, all in one.</para>
-    /// <para>Therefore: validFlag0 = 0xF7 unconditionally (bit 0 = rumble
+    /// <para>Therefore: validFlag0 = 0x07 unconditionally (bit 0 = rumble
     /// enable, bits 1-2 = lightbar/flash enable). Rumble bytes are always
     /// carried; the dispatcher produces audio-mixed + gain-scaled values
     /// via <c>InputService.SlotRumbleForDeviceProvider</c>. Do NOT clear
@@ -61,10 +61,12 @@ namespace PadForge.Common.Input
     /// </summary>
     internal static class Ds4EffectSynthesizer
     {
-        // Validity flags. 0xF7 enables rumble (bit 0), lightbar RGB (bit 1),
-        // lightbar flash (bit 2), and a few additional update bits the
-        // firmware checks. OpenRGB uses 0xF7 for both USB and BT.
-        private const byte ValidFlagsAll = 0xF7;
+        // Validity flags: rumble (bit 0), lightbar RGB (bit 1) and lightbar
+        // flash (bit 2). Bits 4 to 7 enable the headphone, mic and speaker
+        // volume bytes, which this packet never supplies, so asserting them
+        // wrote volume 0 over the pad's own levels. SDL, Linux
+        // hid-playstation, DS4Windows, OpenRGB and RPCS3 all send 0x07.
+        private const byte ValidFlagsAll = 0x07;
 
         // BT framing header bytes — placed at byte 1 (btTag) and byte 2
         // (btReserved) of Report 0x11 by the encoder when the BT profile

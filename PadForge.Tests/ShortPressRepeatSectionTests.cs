@@ -24,6 +24,8 @@ namespace PadForge.Tests
     public class ShortPressRepeatSectionTests
     {
         private const int Fire = 30000;
+        // Set Axis on a trigger writes the pull scale: the stored value doubled, plus one.
+        private const int FirePull = Fire * 2 + 1;
 
         private static MacroItem Macro(MacroRepeatMode repeat, int count, int repeatDelayMs)
         {
@@ -73,13 +75,13 @@ namespace PadForge.Tests
             var im = new InputManager();
             var macros = new[] { Macro(MacroRepeatMode.FixedCount, count: 2, repeatDelayMs: 40) };
 
-            Assert.Equal(Fire, Tap(im, macros));
+            Assert.Equal(FirePull, Tap(im, macros));
             // Inside the interval the run idles between passes.
             Assert.Equal(0, Tick(im, macros, held: false));
             // Past the interval the second pass fires, with the trigger
             // already released the whole time.
             Thread.Sleep(70);
-            Assert.Equal(Fire, Tick(im, macros, held: false));
+            Assert.Equal(FirePull, Tick(im, macros, held: false));
             // The count bounds it: no third pass, ever.
             Assert.Equal(0, Tick(im, macros, held: false));
             Thread.Sleep(70);
@@ -95,7 +97,7 @@ namespace PadForge.Tests
             var im = new InputManager();
             var macros = new[] { Macro(MacroRepeatMode.FixedCount, count: 1, repeatDelayMs: 40) };
 
-            Assert.Equal(Fire, Tap(im, macros));
+            Assert.Equal(FirePull, Tap(im, macros));
             Thread.Sleep(70);
             Assert.Equal(0, Tick(im, macros, held: false));
         }
@@ -109,7 +111,7 @@ namespace PadForge.Tests
             var im = new InputManager();
             var macros = new[] { Macro(MacroRepeatMode.UntilRelease, count: 5, repeatDelayMs: 40) };
 
-            Assert.Equal(Fire, Tap(im, macros));
+            Assert.Equal(FirePull, Tap(im, macros));
             Thread.Sleep(70);
             Assert.Equal(0, Tick(im, macros, held: false));
             Thread.Sleep(70);

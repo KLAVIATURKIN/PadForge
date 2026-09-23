@@ -236,7 +236,7 @@ namespace PadForge.Tests
             // break parks on the following frame).
             var gp = new Gamepad { Buttons = Gamepad.A };
             im.EvaluateSlotMacros(ref gp, macros);
-            Assert.Equal(1000, gp.LeftTrigger);
+            Assert.Equal(2001, gp.LeftTrigger);
 
             gp = new Gamepad { Buttons = Gamepad.A };  // still held: break parks
             im.EvaluateSlotMacros(ref gp, macros);
@@ -248,7 +248,7 @@ namespace PadForge.Tests
             im.EvaluateSlotMacros(ref gp, macros);
             gp = new Gamepad { Buttons = Gamepad.A };
             im.EvaluateSlotMacros(ref gp, macros);
-            Assert.Equal(2000, gp.LeftTrigger);
+            Assert.Equal(4001, gp.LeftTrigger);
 
             // Completing the final part re-arms from the top.
             gp = new Gamepad { Buttons = Gamepad.A };
@@ -260,7 +260,7 @@ namespace PadForge.Tests
             im.EvaluateSlotMacros(ref gp, macros);
             gp = new Gamepad { Buttons = Gamepad.A };
             im.EvaluateSlotMacros(ref gp, macros);
-            Assert.Equal(1000, gp.LeftTrigger);
+            Assert.Equal(2001, gp.LeftTrigger);
         }
 
         [Fact]
@@ -295,7 +295,7 @@ namespace PadForge.Tests
             Assert.False(m.AwaitReleaseAfterBreak);
             gp = new Gamepad { Buttons = Gamepad.A };
             im.EvaluateSlotMacros(ref gp, macros);
-            Assert.Equal(2000, gp.LeftTrigger);
+            Assert.Equal(4001, gp.LeftTrigger);
         }
 
         [Fact]
@@ -327,7 +327,7 @@ namespace PadForge.Tests
             im.EvaluateSlotMacros(ref gp, macros);
             gp = new Gamepad { Buttons = Gamepad.A };
             im.EvaluateSlotMacros(ref gp, macros);
-            Assert.Equal(1000, gp.LeftTrigger);
+            Assert.Equal(2001, gp.LeftTrigger);
         }
 
         // ── Extended raw-path siblings ──

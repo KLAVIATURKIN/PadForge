@@ -2279,6 +2279,24 @@ namespace PadForge.Engine.Common.Mapping
         public const string LeftStickRingDescriptor = "Gamepad LeftStickRing";
         public const string RightStickRingDescriptor = "Gamepad RightStickRing";
 
+        /// <summary>Source families whose button read thresholds on the
+        /// per-source DeadZone and that no older family test in the two grid
+        /// view models admits: the stick and touchpad rings (the radius), the
+        /// Motion Shake and Motion Lean pairs, MIDI pitch bend, and inbound
+        /// rumble. MappingItem and MappingSourceItem show the deadzone slider
+        /// for these on a button row, or the threshold the read uses has no
+        /// control.</summary>
+        public static bool IsThresholdedButtonFamily(string descriptor)
+        {
+            if (string.IsNullOrEmpty(descriptor)) return false;
+            return IsStickRingDescriptor(descriptor)
+                || TryParseTouchpadRing(descriptor, out _, out _, out _)
+                || IsMotionShakeDescriptor(descriptor) || IsMotionShakeAuxDescriptor(descriptor)
+                || IsMotionLeanDescriptor(descriptor) || IsMotionLeanAuxDescriptor(descriptor)
+                || string.Equals(descriptor.Trim(), "Midi Pitch Bend", StringComparison.Ordinal)
+                || IsRumbleDescriptor(descriptor);
+        }
+
         /// <summary>True for either stick-ring descriptor.</summary>
         public static bool IsStickRingDescriptor(string descriptor)
         {
@@ -3906,8 +3924,8 @@ namespace PadForge.Engine.Common.Mapping
         /// touch table had no reset site at all: no clear on profile
         /// switch, no per-slot eviction, unlike every comparable runtime
         /// table (gyro aim rings, source-kind runtime). Wired into
-        /// ClearSourceKindRuntime, the same profile-switch / engine-stop
-        /// hygiene the gravity-lean neutrals ride.</summary>
+        /// ClearSourceKindRuntime, the same profile-switch hygiene the
+        /// gravity-lean neutrals ride.</summary>
         public static void ResetTouchMomentum()
         {
             _touchVelocity.Clear();
@@ -3973,8 +3991,8 @@ namespace PadForge.Engine.Common.Mapping
         // lane is a design rather than a port. What it inherits from the
         // proven pieces: the coast physics are the touch ball's exactly
         // (DecayVelocity above), the release velocity comes from recent
-        // HISTORY rather than the final sample (sc-controller's mean-ring
-        // insight, adapted: a stick's return to center passes through small
+        // HISTORY rather than the final sample (the idea behind sc-controller's
+        // mean ring, reworked: a stick's return to center passes through small
         // deflections by construction, so a mean would be diluted by the
         // snap-back; the launch takes the PEAK deflection of the last
         // 100 ms instead), and a minimum-launch gate keeps a slow guided
@@ -4295,9 +4313,11 @@ namespace PadForge.Engine.Common.Mapping
         }
 
         /// <summary><para>One tick of the ball, both axes together.</para>
-        /// <para>Ported from sc-controller's BallModifier, which is the
+        /// <para>Follows the algorithm of sc-controller's BallModifier, the
         /// open implementation of the Steam Controller's own trackball.
-        /// Three things it does that a single-delta model does not.</para>
+        /// sc-controller is GPL-2.0 and was read for the algorithm only, and
+        /// the C# here is original to PadForge. Three things the algorithm
+        /// does that a single-delta model does not.</para>
         /// <para>The release velocity is the MEAN of the last ten samples,
         /// not the last one. A finger never leaves the pad cleanly: the final
         /// report or two are slow and often point somewhere else, so taking
@@ -4619,7 +4639,7 @@ namespace PadForge.Engine.Common.Mapping
         /// the default cadence bit-identical and corrects every other one.</summary>
         private const float GyroNominalPollSeconds = 0.001f;
 
-        /// <summary>Jitter compensation, DS4Windows' curve verbatim
+        /// <summary>Jitter compensation on the curve DS4Windows uses
         /// (MouseCursor.cs, jitterCompensation): below the threshold the
         /// magnitude is bent by pow(x/t, 1.408)*t, which suppresses hand
         /// tremor WITHOUT the discontinuity a deadzone cut leaves. Applied
@@ -4750,6 +4770,16 @@ namespace PadForge.Engine.Common.Mapping
             // Inbound rumble (#236) is an event magnitude with the same
             // shape: 1-v would read "full pull while the game is quiet".
             if (IsRumbleDescriptor(src.Descriptor ?? "")) return raw;
+            // So is the shake envelope: 1-v would hold the trigger down
+            // whenever the pad is still.
+            if (IsMotionShakeDescriptor(src.Descriptor) || IsMotionShakeAuxDescriptor(src.Descriptor)) return raw;
+            // Under HalfAxis the "Motion Lean" pair's read spends Invert on
+            // the tilt direction, as the gravity-lean pair's does. That pair
+            // answers through the predicate below. This one stays out of it
+            // because its axis read (TickMotionLean) keeps Invert as an
+            // output flip, so the predicate's InvertOutput card would do
+            // nothing for it.
+            if (src.HalfAxis && (IsMotionLeanDescriptor(src.Descriptor) || IsMotionLeanAuxDescriptor(src.Descriptor))) return raw;
             // HalfAxis on a centered Axis source likewise internalizes
             // Invert as the half selector (lower half pulls the trigger).
             // 1-raw on top would read full-pressed at rest.
@@ -5575,6 +5605,23 @@ namespace PadForge.Engine.Common.Mapping
                     return Math.Max(0f, src.Invert ? -lv : lv);
                 return Math.Abs(lv);
             }
+
+            // The "Motion Lean" pair as a trigger pull: the gravity-lean
+            // shape above over the steering lean's own math, the button
+            // read's twin. Without this arm the pair fell through the
+            // numeric-descriptor parser below and read 0.
+            if (IsMotionLeanDescriptor(s) || IsMotionLeanAuxDescriptor(s))
+            {
+                float mv = ReadMotionLeanValue(src, deviceGuid, IsMotionLeanAuxDescriptor(s), slotIndex);
+                if (src.HalfAxis && !src.Bidirectional)
+                    return Math.Max(0f, src.Invert ? -mv : mv);
+                return Math.Abs(mv);
+            }
+
+            // Shake as a trigger pull: the envelope itself, 0 while the pad
+            // is still. Same fall-through as the lean pair before this arm.
+            if (IsMotionShakeDescriptor(s) || IsMotionShakeAuxDescriptor(s))
+                return ReadShakeEnvelope(src, deviceGuid, IsMotionShakeAuxDescriptor(s));
 
             if (s.StartsWith("Gyro ", StringComparison.Ordinal))
             {

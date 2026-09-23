@@ -1419,7 +1419,10 @@ namespace PadForge.ViewModels
                     // Pressure (#239): the bool coercion thresholds on the
                     // per-source DeadZone (whole pad or zone-windowed), so
                     // it joins the family ahead of the blanket exclusion.
-                    || PadForge.Engine.Common.Mapping.SourceCoercion.IsTouchpadPressureDescriptor(desc);
+                    || PadForge.Engine.Common.Mapping.SourceCoercion.IsTouchpadPressureDescriptor(desc)
+                    // Rings, shake, lean, pitch bend and rumble read the
+                    // per-source DeadZone too and had no slider anywhere.
+                    || PadForge.Engine.Common.Mapping.SourceCoercion.IsThresholdedButtonFamily(desc);
                 if (!engineFamily)
                 {
                     // Touchpad finger X/Y joined the generic Sensitivity
