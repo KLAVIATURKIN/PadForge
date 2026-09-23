@@ -238,20 +238,9 @@ namespace PadForge.Services
     /// release asset over the same HTTPS API the check reads. The download
     /// is hashed as it streams and refused on a mismatch, and an asset with
     /// no digest, or a URL outside this repository's release downloads, is
-    /// never offered. Only the zip's root PadForge.exe is extracted.</para>
-    ///
-    /// <para><b>What the checks do not cover.</b> The zip, the exe taken
-    /// from it, the pending record that holds the exe's hash and the helper
-    /// all live in the user's temp folder, which any program the user runs
-    /// can write, and nothing carries GitHub's digest through to the
-    /// installed exe. So these checks catch corruption and a file that
-    /// changed after it was written, and they are no barrier against such a
-    /// program. That program can already reach the elevated process another
-    /// way: the .NET host unpacks PadForge's native libraries into the same
-    /// temp folder, PadForge loads them from there at every launch
-    /// (App.OnStartup, SetDllDirectory), and the host reuses that folder
-    /// after checking only that each file exists (dotnet/runtime v10.0.12,
-    /// src/native/corehost/bundle/extractor.cpp).</para>
+    /// never offered. Only the zip's root PadForge.exe is extracted, and it
+    /// is hashed again right before it runs, so a file damaged after it was
+    /// written never starts.</para>
     ///
     /// <para><b>Replacing a running exe.</b> Windows will not overwrite an
     /// exe while it runs. OpenTabletDriver moves the running files aside,
@@ -1173,10 +1162,7 @@ namespace PadForge.Services
         /// <para>Before the helper starts, PadForge hashes the file through a
         /// handle that denies writes and deletion and compares it with the
         /// hash recorded when it was written, and the handle stays open while
-        /// it launches. Pending state and staging are writable by programs
-        /// running as the user, so this is no security boundary against them
-        /// (see the class summary), and it covers nothing opened later by
-        /// path.</para>
+        /// it launches.</para>
         ///
         /// <para>The helper gets <see cref="HelperReadyTimeout"/> to report
         /// ready through a pair of events named for this attempt. If it does
