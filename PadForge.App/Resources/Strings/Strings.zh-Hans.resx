@@ -394,7 +394,7 @@
   <data name="About_MvvmToolkit" xml:space="preserve"><value>MVVM Toolkit</value></data>
   <data name="About_MvvmToolkitDesc" xml:space="preserve"><value>用于数据绑定的 CommunityToolkit.Mvvm。MIT。</value></data>
   <data name="About_License" xml:space="preserve"><value>许可证</value></data>
-  <data name="About_LicenseText" xml:space="preserve"><value>本软件基于 CC BY-NC-SA 4.0（知识共享 署名-非商业性使用-相同方式共享 4.0 国际）许可协议发布。3D 控制器模型改编自 Handheld Companion（CC BY-NC-SA 4.0）。2D 控制器素材来自 AL2009man 的 Gamepad-Asset-Pack（MIT）。原始代码库分叉自 x360ce（MIT）。SDL3 基于 zlib 许可协议。HIDMaestro、Windows MIDI Services、HidHide、HelixToolkit 和 WPF UI 基于 MIT 许可协议。OpenXInput 仅附带上游项目的商标免责声明，按相同条款原样再分发。 Mouse artwork from Zergatul.Obs.InputOverlay by Igor Budzhak (MIT).</value></data>
+  <data name="About_LicenseText" xml:space="preserve"><value>本软件基于 CC BY-NC-SA 4.0（知识共享 署名-非商业性使用-相同方式共享 4.0 国际）许可协议发布。Gamepad-Asset-Pack（AL2009man 制作，MIT）提供 2D 控制器素材。GestureSign（TransposonY 制作，GPL-2.0）仅作为 AngularMarginRecognizer 的参考文档，未包含其任何代码。Handheld Companion（CC BY-NC-SA 4.0）提供 PadForge 改编的 3D 控制器模型。HelixToolkit、HidHide、HIDMaestro、Windows MIDI Services 和 WPF UI 基于 MIT 许可协议。OpenXInput 仅附带上游项目的商标免责声明，按相同条款原样再分发。$Q Recognizer（Magrofuoco、Vatavu、Anthony 和 Wobbrock 制作，BSD 3-Clause）是触摸板 ShapeRecognizer 的参考，以 C# 重新推导实现。SDL3 基于 zlib 许可协议。x360ce（LGPL-3.0）是 PadForge 分叉所基于的原始代码库。Zergatul.Obs.InputOverlay（Igor Budzhak 制作，MIT）提供鼠标插图。</value></data>
 
   <!-- ═══ Device Types ═══ -->
   <data name="DeviceType_Gamepad" xml:space="preserve"><value>游戏手柄</value></data>
@@ -2068,7 +2068,7 @@
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>触摸板形状模板匹配器（圆形 / 方形 / 三角形 / Z / 对勾，以及自定义录制的手势）。基于 Magrofuoco、Vatavu、Anthony 和 Wobbrock 的 JavaScript 参考实现以 C# 重新推导。BSD 3-Clause。</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
-  <data name="About_GestureSignDesc" xml:space="preserve"><value>角度容差评分方式，在单指形状上与点云匹配器并行运行。改编自 GestureSign 的 PointPatternAnalyzer。BSD 3-Clause。</value></data>
+  <data name="About_GestureSignDesc" xml:space="preserve"><value>角度容差评分方式，在单指形状上与点云匹配器并行运行。以原创 C# 实现 GestureSign 的 PointPatternAnalyzer 的评分思路。GPL-2.0，仅文档。</value></data>
   <data name="MacroAction_PlaySoundLoop_Format" xml:space="preserve"><value>循环播放 {0}（{1}%）</value></data>
   <data name="MacroAction_PlaySound_Format" xml:space="preserve"><value>播放 {0}（{1}%）</value></data>
   <data name="MacroAction_PlaySound_Tooltip" xml:space="preserve"><value>在此手柄的输出设备上播放声音文件（.wav、.mp3、.m4a、.aac、.wma、.flac）</value></data>
@@ -2593,7 +2593,7 @@
   <data name="About_NefariusDevMgmt" xml:space="preserve"><value>Nefarius.Utilities.DeviceManagement</value></data>
   <data name="About_NefariusDevMgmtDesc" xml:space="preserve"><value>由 nefarius 提供，用于应用内 BthPS3 设置的驱动库安装、蓝牙类过滤器注册和 USB 端口重连。MIT。</value></data>
   <data name="About_Libusb" xml:space="preserve"><value>libusb</value></data>
-  <data name="About_LibusbDesc" xml:space="preserve"><value>用于 Switch 2 Pro 有线驱动的 USB 访问，以 libusb-1.0.dll 形式随附。LGPL-2.1。</value></data>
+  <data name="About_LibusbDesc" xml:space="preserve"><value>用于 Switch 2 Pro 有线驱动的 USB 访问，以 libusb-1.0.dll 形式随附。LGPL-2.1-or-later。</value></data>
   <data name="About_Nipplejs" xml:space="preserve"><value>nipplejs</value></data>
   <data name="About_NipplejsDesc" xml:space="preserve"><value>手机 Web Controller 中的触摸摇杆，由 Yoann Moinet 提供。MIT。</value></data>
   <data name="About_GameControllerDb" xml:space="preserve"><value>SDL_GameControllerDB</value></data>
@@ -2617,7 +2617,7 @@
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>印证 xbledctl 的 GIP LED 命令文档。GPL，仅文档。</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
-  <data name="About_WiimoteLibDesc" xml:space="preserve"><value>Wii IR 摄像头与平衡板行为文档，由 Brian Peek 提供。Ms-PL。</value></data>
+  <data name="About_WiimoteLibDesc" xml:space="preserve"><value>Wii IR 摄像头与平衡板行为文档，由 Brian Peek 提供。MIT。</value></data>
   <data name="About_JoyconSinger" xml:space="preserve"><value>joycon-singer</value></data>
   <data name="About_JoyconSingerDesc" xml:space="preserve"><value>Joy-Con HD 振动线格式文档，由 Sergey004 提供。仅用于协议事实参考。</value></data>
   <data name="Dashboard_Services" xml:space="preserve"><value>服务</value></data>
@@ -2960,7 +2960,7 @@
   <data name="Workshop_UpdatesBody" xml:space="preserve"><value>这些已导入的配置文件在 Steam 创意工坊上有更新版本。请在“浏览社区配置”中重新导入以获取更改。</value></data>
   <data name="Workshop_UpdateRow_Format" xml:space="preserve"><value>{0} · {1}</value></data>
   <data name="About_SteamKit2" xml:space="preserve"><value>SteamKit2</value></data>
-  <data name="About_SteamKit2Desc" xml:space="preserve"><value>通过匿名会话获取 Steam 创意工坊控制器配置的 Steam 网络客户端，由 Ryan Stecker 和 SteamRE Team 开发。LGPL-2.1。</value></data>
+  <data name="About_SteamKit2Desc" xml:space="preserve"><value>通过匿名会话获取 Steam 创意工坊控制器配置的 Steam 网络客户端，由 Ryan Stecker 和 SteamRE Team 开发。LGPL-2.1-only。</value></data>
   <data name="About_ProtobufNet" xml:space="preserve"><value>protobuf-net</value></data>
   <data name="About_ProtobufNetDesc" xml:space="preserve"><value>SteamKit2 用于 Steam 网络协议的 Protocol Buffers 序列化器，由 Marc Gravell 开发。Apache-2.0。</value></data>
   <data name="About_ZstdSharp" xml:space="preserve"><value>ZstdSharp</value></data>
@@ -3325,7 +3325,7 @@
     <value>2D 手柄示意图（Xbox 360、Xbox One S、Xbox Series、DualShock 4、DualSense），作者 AL2009man。MIT。</value>
   </data>
   <data name="About_Ds4MacDesc" xml:space="preserve">
-    <value>DualShock 4 音频协议文档：SBC 参数与数据包布局，作者 khallmark。MIT。</value>
+    <value>DualShock 4 音频协议文档：SBC 参数与数据包布局，作者 khallmark。GPL-2.0，仅文档。</value>
   </data>
   <data name="Starter_Desktop_Name" xml:space="preserve"><value>桌面</value></data>
   <data name="Starter_Desktop_Description" xml:space="preserve"><value>在沙发上操作 Windows。光标、滚动，扳机键点击。</value></data>
@@ -3524,7 +3524,7 @@
     <value>MinGW-w64 runtime</value>
   </data>
   <data name="About_MingwRuntimeDesc" xml:space="preserve">
-    <value>Vosk 识别器所需的原生运行时 libgcc_s_seh-1.dll、libstdc++-6.dll 和 libwinpthread-1.dll，随 PadForge 一起提供。带 GCC Runtime Library Exception 的 GPL-3.0，以及 mingw-w64 winpthreads 许可证。</value>
+    <value>Vosk 识别器所需的原生运行时 libgcc_s_seh-1.dll、libstdc++-6.dll 和 libwinpthread-1.dll，随 x64 版本一起提供。带 GCC Runtime Library Exception 的 GPL-3.0，以及 mingw-w64 winpthreads 许可证。ARM64 版本的 libvosk.dll 自带运行时：mingw-w64 和 winpthreads，以及采用带 LLVM Exceptions 的 Apache-2.0 许可的 LLVM libc++、libunwind 和 compiler-rt。</value>
   </data>
   <data name="About_TritonLib" xml:space="preserve">
     <value>TritonLib and Steam Controller haptics research</value>
@@ -3707,4 +3707,6 @@
   <data name="Status_RemovingLegacyDrivers" xml:space="preserve"><value>正在移除旧驱动程序…</value></data>
   <data name="About_Nefcon" xml:space="preserve"><value>nefcon</value></data>
   <data name="About_NefconDesc" xml:space="preserve"><value>Nefarius 的 HidHide 安装工具。其 ARM64 版本在 Windows on ARM 上安装 HidHide 驱动。MIT。</value></data>
+  <data name="About_Kaldi" xml:space="preserve"><value>Kaldi, OpenFst, OpenBLAS and CLAPACK</value></data>
+  <data name="About_KaldiDesc" xml:space="preserve"><value>libvosk.dll 内含的语音解码器、转换器库和线性代数库。Kaldi 和 OpenFst 采用 Apache-2.0。OpenBLAS 和 CLAPACK 采用 BSD 3-Clause，f2c 运行时附有其自己的声明。</value></data>
 </root>

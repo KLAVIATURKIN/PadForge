@@ -458,9 +458,9 @@ A copy of the previous version is in this folder: {1}</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Touchpad shape-template matcher (Circle / Square / Triangle / Z / Checkmark and custom recorded gestures). C# re-derivation of the JavaScript reference by Magrofuoco, Vatavu, Anthony, and Wobbrock. BSD 3-Clause.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
-  <data name="About_GestureSignDesc" xml:space="preserve"><value>Angular-margin scoring approach that runs alongside the point-cloud matcher on single-finger shapes. Adapted from GestureSign's PointPatternAnalyzer. BSD 3-Clause.</value></data>
+  <data name="About_GestureSignDesc" xml:space="preserve"><value>Angular-margin scoring approach that runs alongside the point-cloud matcher on single-finger shapes. Implements the scoring idea from GestureSign's PointPatternAnalyzer in original C#. GPL-2.0, documentation only.</value></data>
   <data name="About_License" xml:space="preserve"><value>License</value></data>
-  <data name="About_LicenseText" xml:space="preserve"><value>This software is licensed under CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International). 3D controller models adapted from Handheld Companion (CC BY-NC-SA 4.0). 2D controller assets from Gamepad-Asset-Pack by AL2009man (MIT). Mouse artwork from Zergatul.Obs.InputOverlay by Igor Budzhak (MIT). Original codebase forked from x360ce (MIT). SDL3 is licensed under the zlib License. HIDMaestro, Windows MIDI Services, HidHide, HelixToolkit, and WPF UI are licensed under the MIT License. OpenXInput ships only an upstream trademark disclaimer. Redistributed as-is under the same terms. $Q Recognizer (Magrofuoco / Vatavu / Anthony / Wobbrock) and GestureSign's PointPatternAnalyzer (TransposonY) are both licensed under the BSD 3-Clause License. PadForge's touchpad ShapeRecognizer and AngularMarginRecognizer are C# re-derivations of those references.</value></data>
+  <data name="About_LicenseText" xml:space="preserve"><value>This software is licensed under CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International). Gamepad-Asset-Pack by AL2009man (MIT) supplies the 2D controller assets. GestureSign by TransposonY (GPL-2.0) was read as documentation for the AngularMarginRecognizer, and none of its code ships. Handheld Companion (CC BY-NC-SA 4.0) supplies the 3D controller models PadForge adapts. HelixToolkit, HidHide, HIDMaestro, Windows MIDI Services, and WPF UI are licensed under the MIT License. OpenXInput ships only an upstream trademark disclaimer and is redistributed as-is under the same terms. $Q Recognizer by Magrofuoco, Vatavu, Anthony and Wobbrock (BSD 3-Clause) is the reference for the touchpad ShapeRecognizer, a C# re-derivation. SDL3 is licensed under the zlib License. x360ce (LGPL-3.0) is the original codebase PadForge was forked from. Zergatul.Obs.InputOverlay by Igor Budzhak (MIT) supplies the mouse artwork.</value></data>
   <data name="About_HIDMaestro" xml:space="preserve"><value>HIDMaestro</value></data>
   <data name="About_HIDMaestroDesc" xml:space="preserve"><value>User-mode virtual HID controller engine (replaces ViGEmBus and vJoy). MIT.</value></data>
   <data name="About_OpenXInput" xml:space="preserve"><value>OpenXInput</value></data>
@@ -2749,7 +2749,7 @@ A copy of the previous version is in this folder: {1}</value></data>
   <data name="About_NefariusDevMgmt" xml:space="preserve"><value>Nefarius.Utilities.DeviceManagement</value></data>
   <data name="About_NefariusDevMgmtDesc" xml:space="preserve"><value>Driver-store install, Bluetooth class filter registration, and USB port cycling for the in-app BthPS3 setup, by nefarius. MIT.</value></data>
   <data name="About_Libusb" xml:space="preserve"><value>libusb</value></data>
-  <data name="About_LibusbDesc" xml:space="preserve"><value>USB access for the Switch 2 Pro wired driver, shipped as libusb-1.0.dll. LGPL-2.1.</value></data>
+  <data name="About_LibusbDesc" xml:space="preserve"><value>USB access for the Switch 2 Pro wired driver, shipped as libusb-1.0.dll. LGPL-2.1-or-later.</value></data>
   <data name="About_Nipplejs" xml:space="preserve"><value>nipplejs</value></data>
   <data name="About_NipplejsDesc" xml:space="preserve"><value>Touch joystick in the phone Web Controller, by Yoann Moinet. MIT.</value></data>
   <data name="About_GameControllerDb" xml:space="preserve"><value>SDL_GameControllerDB</value></data>
@@ -2767,7 +2767,7 @@ A copy of the previous version is in this folder: {1}</value></data>
   <data name="About_Hitboxer" xml:space="preserve"><value>hitboxer</value></data>
   <data name="About_HitboxerDesc" xml:space="preserve"><value>SOCD cleaning semantics for the Snap Tap modes, by valignatev. MIT.</value></data>
   <data name="About_SteamKit2" xml:space="preserve"><value>SteamKit2</value></data>
-  <data name="About_SteamKit2Desc" xml:space="preserve"><value>Steam network client that fetches Steam Workshop controller configs over an anonymous session, by Ryan Stecker and the SteamRE Team. LGPL-2.1.</value></data>
+  <data name="About_SteamKit2Desc" xml:space="preserve"><value>Steam network client that fetches Steam Workshop controller configs over an anonymous session, by Ryan Stecker and the SteamRE Team. LGPL-2.1-only.</value></data>
   <data name="About_ProtobufNet" xml:space="preserve"><value>protobuf-net</value></data>
   <data name="About_ProtobufNetDesc" xml:space="preserve"><value>Protocol Buffers serializer SteamKit2 uses for the Steam wire protocol, by Marc Gravell. Apache-2.0.</value></data>
   <data name="About_ZstdSharp" xml:space="preserve"><value>ZstdSharp</value></data>
@@ -2779,7 +2779,7 @@ A copy of the previous version is in this folder: {1}</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>GIP LED command documentation corroborating xbledctl. GPL, documentation only.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
-  <data name="About_WiimoteLibDesc" xml:space="preserve"><value>Wii IR camera and Balance Board behavior documentation, by Brian Peek. Ms-PL.</value></data>
+  <data name="About_WiimoteLibDesc" xml:space="preserve"><value>Wii IR camera and Balance Board behavior documentation, by Brian Peek. MIT.</value></data>
   <data name="About_JoyconSinger" xml:space="preserve"><value>joycon-singer</value></data>
   <data name="About_JoyconSingerDesc" xml:space="preserve"><value>Joy-Con HD rumble wire-format documentation, by Sergey004. Read for protocol facts only.</value></data>
   <data name="Devices_Pair" xml:space="preserve"><value>Pair</value></data>
@@ -3377,7 +3377,7 @@ You can retry later from Settings.</value></data>
     <value>2D controller schematics (Xbox 360, Xbox One S, Xbox Series, DualShock 4, DualSense), by AL2009man. MIT.</value>
   </data>
   <data name="About_Ds4MacDesc" xml:space="preserve">
-    <value>DualShock 4 audio protocol documentation: SBC parameters and packet layouts, by khallmark. MIT.</value>
+    <value>DualShock 4 audio protocol documentation: SBC parameters and packet layouts, by khallmark. GPL-2.0, documentation only.</value>
   </data>
   <data name="Starter_Desktop_Name" xml:space="preserve"><value>Desktop</value></data>
   <data name="Starter_Desktop_Description" xml:space="preserve"><value>Run Windows from the couch. Cursor, scroll, and clicks on the triggers.</value></data>
@@ -3573,7 +3573,7 @@ You can retry later from Settings.</value></data>
     <value>MinGW-w64 runtime</value>
   </data>
   <data name="About_MingwRuntimeDesc" xml:space="preserve">
-    <value>libgcc_s_seh-1.dll, libstdc++-6.dll and libwinpthread-1.dll, the native runtime the Vosk recognizer needs, shipped inside PadForge. GPL-3.0 with the GCC Runtime Library Exception, and the mingw-w64 winpthreads license.</value>
+    <value>libgcc_s_seh-1.dll, libstdc++-6.dll and libwinpthread-1.dll, the native runtime the Vosk recognizer needs, shipped inside the x64 build. GPL-3.0 with the GCC Runtime Library Exception, and the mingw-w64 winpthreads license. The ARM64 build's libvosk.dll carries its own runtime: mingw-w64 and winpthreads, and LLVM's libc++, libunwind and compiler-rt under Apache-2.0 with LLVM Exceptions.</value>
   </data>
   <data name="About_TritonLib" xml:space="preserve">
     <value>TritonLib and Steam Controller haptics research</value>
@@ -3756,4 +3756,6 @@ You can retry later from Settings.</value></data>
   <data name="Status_RemovingLegacyDrivers" xml:space="preserve"><value>Removing legacy drivers…</value></data>
   <data name="About_Nefcon" xml:space="preserve"><value>nefcon</value></data>
   <data name="About_NefconDesc" xml:space="preserve"><value>HidHide's install tool, by Nefarius. Its ARM64 build installs the HidHide driver on Windows on ARM. MIT.</value></data>
+  <data name="About_Kaldi" xml:space="preserve"><value>Kaldi, OpenFst, OpenBLAS and CLAPACK</value></data>
+  <data name="About_KaldiDesc" xml:space="preserve"><value>The speech decoder, transducer library and linear algebra inside libvosk.dll. Kaldi and OpenFst: Apache-2.0. OpenBLAS and CLAPACK: BSD 3-Clause, with the f2c runtime's own notice.</value></data>
 </root>

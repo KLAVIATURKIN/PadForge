@@ -394,7 +394,7 @@ Een kopie van de vorige versie staat in deze map: {1}</value></data>
   <data name="About_MvvmToolkit" xml:space="preserve"><value>MVVM Toolkit</value></data>
   <data name="About_MvvmToolkitDesc" xml:space="preserve"><value>CommunityToolkit.Mvvm voor gegevensbinding. MIT.</value></data>
   <data name="About_License" xml:space="preserve"><value>Licentie</value></data>
-  <data name="About_LicenseText" xml:space="preserve"><value>Deze software is gelicentieerd onder CC BY-NC-SA 4.0 (Creative Commons Naamsvermelding-NietCommercieel-GelijkDelen 4.0 Internationaal). 3D-controllermodellen aangepast van Handheld Companion (CC BY-NC-SA 4.0). 2D-controllerassets van Gamepad-Asset-Pack door AL2009man (MIT). Mouse artwork from Zergatul.Obs.InputOverlay by Igor Budzhak (MIT). Oorspronkelijke codebasis geforkt van x360ce (MIT). SDL3 is gelicentieerd onder de zlib License. HIDMaestro, Windows MIDI Services, HidHide, HelixToolkit en WPF UI zijn gelicentieerd onder de MIT License. OpenXInput bevat alleen een handelsmerkdisclaimer van het upstream project. Wordt onder dezelfde voorwaarden ongewijzigd opnieuw gedistribueerd.</value></data>
+  <data name="About_LicenseText" xml:space="preserve"><value>Deze software is gelicentieerd onder CC BY-NC-SA 4.0 (Creative Commons Naamsvermelding-NietCommercieel-GelijkDelen 4.0 Internationaal). Gamepad-Asset-Pack door AL2009man (MIT) levert de 2D-controllerassets. GestureSign door TransposonY (GPL-2.0) diende alleen als documentatie voor de AngularMarginRecognizer, en er zit geen code van in PadForge. Handheld Companion (CC BY-NC-SA 4.0) levert de 3D-controllermodellen die PadForge aanpast. HelixToolkit, HidHide, HIDMaestro, Windows MIDI Services en WPF UI zijn gelicentieerd onder de MIT License. OpenXInput bevat alleen een handelsmerkdisclaimer van het upstream project en wordt onder dezelfde voorwaarden ongewijzigd opnieuw gedistribueerd. $Q Recognizer door Magrofuoco, Vatavu, Anthony en Wobbrock (BSD 3-Clause) is de referentie voor de ShapeRecognizer van het touchpad, een nieuwe afleiding in C#. SDL3 is gelicentieerd onder de zlib License. x360ce (LGPL-3.0) is de oorspronkelijke codebasis waarvan PadForge een fork is. Zergatul.Obs.InputOverlay door Igor Budzhak (MIT) levert de muisillustratie.</value></data>
 
   <!-- ═══ Device Types ═══ -->
   <data name="DeviceType_Gamepad" xml:space="preserve"><value>Gamepad</value></data>
@@ -2180,7 +2180,7 @@ Een kopie van de vorige versie staat in deze map: {1}</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Vormsjabloon-matcher voor het touchpad (cirkel / vierkant / driehoek / Z / vinkje en zelf opgenomen gebaren). C#-herafleiding van de JavaScript-referentie van Magrofuoco, Vatavu, Anthony en Wobbrock. BSD 3-Clause.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
-  <data name="About_GestureSignDesc" xml:space="preserve"><value>Hoekmarge-score die naast de puntenwolk-matcher draait op vormen met één vinger. Overgenomen uit GestureSigns PointPatternAnalyzer. BSD 3-Clause.</value></data>
+  <data name="About_GestureSignDesc" xml:space="preserve"><value>Hoekmarge-score die naast de puntenwolk-matcher draait op vormen met één vinger. Implementeert het scoringsidee van GestureSigns PointPatternAnalyzer in eigen C#. GPL-2.0, alleen documentatie.</value></data>
   <data name="Pad_Audio_Reset_All" xml:space="preserve"><value>Geluidsuitvoer herstellen</value></data>
   <data name="About_DsTester" xml:space="preserve"><value>dualsense-tester</value></data>
   <data name="About_DsTesterDesc" xml:space="preserve"><value>Browser-testsuite voor de DualSense door Xuezhou Dai (daidr): referentie voor de Sony feature-report-CRC-framing en de firmware-testopdrachten die PadForge van de virtuele naar de fysieke pad doorstuurt. MIT.</value></data>
@@ -2613,7 +2613,7 @@ Een kopie van de vorige versie staat in deze map: {1}</value></data>
   <data name="About_NefariusDevMgmt" xml:space="preserve"><value>Nefarius.Utilities.DeviceManagement</value></data>
   <data name="About_NefariusDevMgmtDesc" xml:space="preserve"><value>Installatie in de driver-store, registratie van het Bluetooth-klassefilter en het in- en uitschakelen van de USB-poort voor de BthPS3-installatie in de app, door nefarius. MIT.</value></data>
   <data name="About_Libusb" xml:space="preserve"><value>libusb</value></data>
-  <data name="About_LibusbDesc" xml:space="preserve"><value>USB-toegang voor het bekabelde Switch 2 Pro-stuurprogramma, geleverd als libusb-1.0.dll. LGPL-2.1.</value></data>
+  <data name="About_LibusbDesc" xml:space="preserve"><value>USB-toegang voor het bekabelde Switch 2 Pro-stuurprogramma, geleverd als libusb-1.0.dll. LGPL-2.1-or-later.</value></data>
   <data name="About_Nipplejs" xml:space="preserve"><value>nipplejs</value></data>
   <data name="About_NipplejsDesc" xml:space="preserve"><value>Touch-joystick in de Web Controller voor de telefoon, door Yoann Moinet. MIT.</value></data>
   <data name="About_GameControllerDb" xml:space="preserve"><value>SDL_GameControllerDB</value></data>
@@ -2637,7 +2637,7 @@ Een kopie van de vorige versie staat in deze map: {1}</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>Documentatie van de GIP-LED-opdrachten die xbledctl bevestigt. GPL, alleen documentatie.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
-  <data name="About_WiimoteLibDesc" xml:space="preserve"><value>Documentatie van het gedrag van de Wii IR-camera en het Balance Board, door Brian Peek. Ms-PL.</value></data>
+  <data name="About_WiimoteLibDesc" xml:space="preserve"><value>Documentatie van het gedrag van de Wii IR-camera en het Balance Board, door Brian Peek. MIT.</value></data>
   <data name="About_JoyconSinger" xml:space="preserve"><value>joycon-singer</value></data>
   <data name="About_JoyconSingerDesc" xml:space="preserve"><value>Documentatie van het wire-formaat van de Joy-Con HD-rumble, door Sergey004. Alleen gelezen voor protocolfeiten.</value></data>
   <data name="Dashboard_Services" xml:space="preserve"><value>Services</value></data>
@@ -2980,7 +2980,7 @@ Een kopie van de vorige versie staat in deze map: {1}</value></data>
   <data name="Workshop_UpdatesBody" xml:space="preserve"><value>Deze geïmporteerde profielen hebben nieuwere versies op de Steam Workshop. Importeer ze opnieuw via Communityconfiguraties verkennen om de wijzigingen over te nemen.</value></data>
   <data name="Workshop_UpdateRow_Format" xml:space="preserve"><value>{0} · {1}</value></data>
   <data name="About_SteamKit2" xml:space="preserve"><value>SteamKit2</value></data>
-  <data name="About_SteamKit2Desc" xml:space="preserve"><value>Steam-netwerkclient die Steam Workshop-controllerconfiguraties ophaalt via een anonieme sessie, door Ryan Stecker en het SteamRE Team. LGPL-2.1.</value></data>
+  <data name="About_SteamKit2Desc" xml:space="preserve"><value>Steam-netwerkclient die Steam Workshop-controllerconfiguraties ophaalt via een anonieme sessie, door Ryan Stecker en het SteamRE Team. LGPL-2.1-only.</value></data>
   <data name="About_ProtobufNet" xml:space="preserve"><value>protobuf-net</value></data>
   <data name="About_ProtobufNetDesc" xml:space="preserve"><value>Protocol Buffers-serializer die SteamKit2 gebruikt voor het netwerkprotocol van Steam, door Marc Gravell. Apache-2.0.</value></data>
   <data name="About_ZstdSharp" xml:space="preserve"><value>ZstdSharp</value></data>
@@ -3345,7 +3345,7 @@ Je kunt het later opnieuw proberen via Instellingen.</value></data>
     <value>2D-controllerschema's (Xbox 360, Xbox One S, Xbox Series, DualShock 4, DualSense), door AL2009man. MIT.</value>
   </data>
   <data name="About_Ds4MacDesc" xml:space="preserve">
-    <value>Documentatie van het DualShock 4-audioprotocol: SBC-parameters en pakketindelingen, door khallmark. MIT.</value>
+    <value>Documentatie van het DualShock 4-audioprotocol: SBC-parameters en pakketindelingen, door khallmark. GPL-2.0, alleen documentatie.</value>
   </data>
   <data name="Starter_Desktop_Name" xml:space="preserve"><value>Bureaublad</value></data>
   <data name="Starter_Desktop_Description" xml:space="preserve"><value>Bedien Windows vanaf de bank. Cursor, scrollen en klikken op de triggers.</value></data>
@@ -3544,7 +3544,7 @@ Je kunt het later opnieuw proberen via Instellingen.</value></data>
     <value>MinGW-w64 runtime</value>
   </data>
   <data name="About_MingwRuntimeDesc" xml:space="preserve">
-    <value>libgcc_s_seh-1.dll, libstdc++-6.dll en libwinpthread-1.dll, de native runtime die de Vosk-herkenner nodig heeft, meegeleverd in PadForge. GPL-3.0 met de GCC Runtime Library Exception, en de mingw-w64 winpthreads-licentie.</value>
+    <value>libgcc_s_seh-1.dll, libstdc++-6.dll en libwinpthread-1.dll, de native runtime die de Vosk-herkenner nodig heeft, meegeleverd in de x64-versie. GPL-3.0 met de GCC Runtime Library Exception, en de mingw-w64 winpthreads-licentie. In de ARM64-versie bevat libvosk.dll zijn eigen runtime: mingw-w64 en winpthreads, en libc++, libunwind en compiler-rt van LLVM onder Apache-2.0 met LLVM Exceptions.</value>
   </data>
   <data name="About_TritonLib" xml:space="preserve">
     <value>TritonLib and Steam Controller haptics research</value>
@@ -3727,4 +3727,6 @@ Je kunt het later opnieuw proberen via Instellingen.</value></data>
   <data name="Status_RemovingLegacyDrivers" xml:space="preserve"><value>Oude stuurprogramma's worden verwijderd…</value></data>
   <data name="About_Nefcon" xml:space="preserve"><value>nefcon</value></data>
   <data name="About_NefconDesc" xml:space="preserve"><value>Het installatiehulpmiddel van HidHide, door Nefarius. De ARM64-versie installeert het HidHide-stuurprogramma op Windows op ARM. MIT.</value></data>
+  <data name="About_Kaldi" xml:space="preserve"><value>Kaldi, OpenFst, OpenBLAS and CLAPACK</value></data>
+  <data name="About_KaldiDesc" xml:space="preserve"><value>De spraakdecoder, de transducerbibliotheek en de lineaire algebra in libvosk.dll. Kaldi en OpenFst: Apache-2.0. OpenBLAS en CLAPACK: BSD 3-Clause, met de eigen kennisgeving van de f2c-runtime.</value></data>
 </root>

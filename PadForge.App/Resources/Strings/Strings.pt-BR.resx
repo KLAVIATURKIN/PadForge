@@ -394,7 +394,7 @@ Há uma cópia da versão anterior nesta pasta: {1}</value></data>
   <data name="About_MvvmToolkit" xml:space="preserve"><value>MVVM Toolkit</value></data>
   <data name="About_MvvmToolkitDesc" xml:space="preserve"><value>CommunityToolkit.Mvvm para data binding. MIT.</value></data>
   <data name="About_License" xml:space="preserve"><value>Licença</value></data>
-  <data name="About_LicenseText" xml:space="preserve"><value>Este software é licenciado sob CC BY-NC-SA 4.0 (Creative Commons Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional). Modelos 3D de controles adaptados do Handheld Companion (CC BY-NC-SA 4.0). Recursos 2D de controles do Gamepad-Asset-Pack por AL2009man (MIT). Mouse artwork from Zergatul.Obs.InputOverlay by Igor Budzhak (MIT). Base de código original bifurcada do x360ce (MIT). SDL3 é licenciado sob a Licença zlib. HIDMaestro, Windows MIDI Services, HidHide, HelixToolkit e WPF UI são licenciados sob a Licença MIT. OpenXInput inclui apenas um aviso de marca registrada do projeto upstream. É redistribuído como está sob os mesmos termos.</value></data>
+  <data name="About_LicenseText" xml:space="preserve"><value>Este software é licenciado sob CC BY-NC-SA 4.0 (Creative Commons Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional). Gamepad-Asset-Pack, de AL2009man (MIT), fornece os recursos 2D de controles. GestureSign, de TransposonY (GPL-2.0), serviu apenas como documentação para o AngularMarginRecognizer, e nenhum código dele está incluído. Handheld Companion (CC BY-NC-SA 4.0) fornece os modelos 3D de controles que o PadForge adapta. HelixToolkit, HidHide, HIDMaestro, Windows MIDI Services e WPF UI são licenciados sob a Licença MIT. OpenXInput inclui apenas um aviso de marca registrada do projeto upstream e é redistribuído como está sob os mesmos termos. $Q Recognizer, de Magrofuoco, Vatavu, Anthony e Wobbrock (BSD 3-Clause), é a referência do ShapeRecognizer do touchpad, uma rederivação em C#. SDL3 é licenciado sob a Licença zlib. x360ce (LGPL-3.0) é a base de código original da qual o PadForge foi bifurcado. Zergatul.Obs.InputOverlay, de Igor Budzhak (MIT), fornece a arte do mouse.</value></data>
 
   <!-- ═══ Device Types ═══ -->
   <data name="DeviceType_Gamepad" xml:space="preserve"><value>Gamepad</value></data>
@@ -2160,7 +2160,7 @@ Há uma cópia da versão anterior nesta pasta: {1}</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Comparador de modelos de formas para o touchpad (círculo / quadrado / triângulo / Z / marca de seleção e gestos gravados personalizados). Rederivação em C# da referência JavaScript de Magrofuoco, Vatavu, Anthony e Wobbrock. BSD 3-Clause.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
-  <data name="About_GestureSignDesc" xml:space="preserve"><value>Pontuação por margem angular que roda ao lado do comparador de nuvem de pontos em formas de um dedo. Adaptado do PointPatternAnalyzer do GestureSign. BSD 3-Clause.</value></data>
+  <data name="About_GestureSignDesc" xml:space="preserve"><value>Pontuação por margem angular que roda ao lado do comparador de nuvem de pontos em formas de um dedo. Implementa em C# original a ideia de pontuação do PointPatternAnalyzer do GestureSign. GPL-2.0, apenas documentação.</value></data>
   <data name="Pad_Audio_Reset_All" xml:space="preserve"><value>Redefinir Saída de Som</value></data>
   <data name="About_DsTester" xml:space="preserve"><value>dualsense-tester</value></data>
   <data name="About_DsTesterDesc" xml:space="preserve"><value>Suíte de testes do DualSense no navegador por Xuezhou Dai (daidr): referência para o framing CRC dos feature reports da Sony e os comandos de teste do firmware que o PadForge encaminha do controle virtual ao físico. MIT.</value></data>
@@ -2587,7 +2587,7 @@ Há uma cópia da versão anterior nesta pasta: {1}</value></data>
   <data name="About_NefariusDevMgmt" xml:space="preserve"><value>Nefarius.Utilities.DeviceManagement</value></data>
   <data name="About_NefariusDevMgmtDesc" xml:space="preserve"><value>Instalação no driver-store, registro de filtro de classe Bluetooth e ciclagem de porta USB para a configuração do BthPS3 no app, por nefarius. MIT.</value></data>
   <data name="About_Libusb" xml:space="preserve"><value>libusb</value></data>
-  <data name="About_LibusbDesc" xml:space="preserve"><value>Acesso USB para o driver com fio do Switch 2 Pro, distribuído como libusb-1.0.dll. LGPL-2.1.</value></data>
+  <data name="About_LibusbDesc" xml:space="preserve"><value>Acesso USB para o driver com fio do Switch 2 Pro, distribuído como libusb-1.0.dll. LGPL-2.1-or-later.</value></data>
   <data name="About_Nipplejs" xml:space="preserve"><value>nipplejs</value></data>
   <data name="About_NipplejsDesc" xml:space="preserve"><value>Joystick de toque no Web Controller do telefone, por Yoann Moinet. MIT.</value></data>
   <data name="About_GameControllerDb" xml:space="preserve"><value>SDL_GameControllerDB</value></data>
@@ -2611,7 +2611,7 @@ Há uma cópia da versão anterior nesta pasta: {1}</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>Documentação dos comandos de LED do GIP que corrobora o xbledctl. GPL, apenas documentação.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
-  <data name="About_WiimoteLibDesc" xml:space="preserve"><value>Documentação do comportamento da câmera IR do Wii e da Balance Board, por Brian Peek. Ms-PL.</value></data>
+  <data name="About_WiimoteLibDesc" xml:space="preserve"><value>Documentação do comportamento da câmera IR do Wii e da Balance Board, por Brian Peek. MIT.</value></data>
   <data name="About_JoyconSinger" xml:space="preserve"><value>joycon-singer</value></data>
   <data name="About_JoyconSingerDesc" xml:space="preserve"><value>Documentação do formato de transmissão da vibração HD do Joy-Con, por Sergey004. Lida apenas para fatos do protocolo.</value></data>
   <data name="Dashboard_Services" xml:space="preserve"><value>Serviços</value></data>
@@ -2954,7 +2954,7 @@ Há uma cópia da versão anterior nesta pasta: {1}</value></data>
   <data name="Workshop_UpdatesBody" xml:space="preserve"><value>Estes perfis importados têm versões mais recentes no Steam Workshop. Reimporte-os em Explorar Configurações da Comunidade para receber as mudanças.</value></data>
   <data name="Workshop_UpdateRow_Format" xml:space="preserve"><value>{0} · {1}</value></data>
   <data name="About_SteamKit2" xml:space="preserve"><value>SteamKit2</value></data>
-  <data name="About_SteamKit2Desc" xml:space="preserve"><value>Cliente de rede Steam que obtém configurações de controle do Steam Workshop por uma sessão anônima, por Ryan Stecker e o SteamRE Team. LGPL-2.1.</value></data>
+  <data name="About_SteamKit2Desc" xml:space="preserve"><value>Cliente de rede Steam que obtém configurações de controle do Steam Workshop por uma sessão anônima, por Ryan Stecker e o SteamRE Team. LGPL-2.1-only.</value></data>
   <data name="About_ProtobufNet" xml:space="preserve"><value>protobuf-net</value></data>
   <data name="About_ProtobufNetDesc" xml:space="preserve"><value>Serializador de Protocol Buffers que o SteamKit2 usa para o protocolo de rede do Steam, por Marc Gravell. Apache-2.0.</value></data>
   <data name="About_ZstdSharp" xml:space="preserve"><value>ZstdSharp</value></data>
@@ -3319,7 +3319,7 @@ Você pode tentar novamente mais tarde em Configurações.</value></data>
     <value>Esquemas 2D de controles (Xbox 360, Xbox One S, Xbox Series, DualShock 4, DualSense), por AL2009man. MIT.</value>
   </data>
   <data name="About_Ds4MacDesc" xml:space="preserve">
-    <value>Documentação do protocolo de áudio do DualShock 4: parâmetros SBC e layouts de pacotes, por khallmark. MIT.</value>
+    <value>Documentação do protocolo de áudio do DualShock 4: parâmetros SBC e layouts de pacotes, por khallmark. GPL-2.0, apenas documentação.</value>
   </data>
   <data name="Starter_Desktop_Name" xml:space="preserve"><value>Área de Trabalho</value></data>
   <data name="Starter_Desktop_Description" xml:space="preserve"><value>Use o Windows do sofá. Cursor, rolagem e cliques nos gatilhos.</value></data>
@@ -3518,7 +3518,7 @@ Você pode tentar novamente mais tarde em Configurações.</value></data>
     <value>MinGW-w64 runtime</value>
   </data>
   <data name="About_MingwRuntimeDesc" xml:space="preserve">
-    <value>libgcc_s_seh-1.dll, libstdc++-6.dll e libwinpthread-1.dll, o runtime nativo de que o reconhecedor Vosk precisa, incluído no PadForge. GPL-3.0 com a GCC Runtime Library Exception e a licença winpthreads do mingw-w64.</value>
+    <value>libgcc_s_seh-1.dll, libstdc++-6.dll e libwinpthread-1.dll, o runtime nativo de que o reconhecedor Vosk precisa, incluído na versão x64. GPL-3.0 com a GCC Runtime Library Exception e a licença winpthreads do mingw-w64. Na versão ARM64, a libvosk.dll traz o próprio runtime: mingw-w64 e winpthreads, e libc++, libunwind e compiler-rt do LLVM sob Apache-2.0 com LLVM Exceptions.</value>
   </data>
   <data name="About_TritonLib" xml:space="preserve">
     <value>TritonLib and Steam Controller haptics research</value>
@@ -3701,4 +3701,6 @@ Você pode tentar novamente mais tarde em Configurações.</value></data>
   <data name="Status_RemovingLegacyDrivers" xml:space="preserve"><value>Removendo drivers antigos…</value></data>
   <data name="About_Nefcon" xml:space="preserve"><value>nefcon</value></data>
   <data name="About_NefconDesc" xml:space="preserve"><value>Ferramenta de instalação do HidHide, por Nefarius. A versão ARM64 instala o driver HidHide no Windows em ARM. MIT.</value></data>
+  <data name="About_Kaldi" xml:space="preserve"><value>Kaldi, OpenFst, OpenBLAS and CLAPACK</value></data>
+  <data name="About_KaldiDesc" xml:space="preserve"><value>O decodificador de voz, a biblioteca de transdutores e a álgebra linear dentro da libvosk.dll. Kaldi e OpenFst: Apache-2.0. OpenBLAS e CLAPACK: BSD 3-Clause, com o aviso próprio do runtime f2c.</value></data>
 </root>

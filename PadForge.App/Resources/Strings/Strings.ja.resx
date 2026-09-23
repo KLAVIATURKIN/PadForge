@@ -394,7 +394,7 @@
   <data name="About_MvvmToolkit" xml:space="preserve"><value>MVVM Toolkit</value></data>
   <data name="About_MvvmToolkitDesc" xml:space="preserve"><value>データバインディング用の CommunityToolkit.Mvvm。MIT。</value></data>
   <data name="About_License" xml:space="preserve"><value>ライセンス</value></data>
-  <data name="About_LicenseText" xml:space="preserve"><value>本ソフトウェアは CC BY-NC-SA 4.0 (Creative Commons 表示-非営利-継承 4.0 国際) の下でライセンスされています。3D コントローラーモデルは Handheld Companion (CC BY-NC-SA 4.0) から派生しています。2D コントローラーアセットは AL2009man による Gamepad-Asset-Pack (MIT) です。元のコードベースは x360ce (MIT) からフォークされました。SDL3 は zlib ライセンスの下でライセンスされています。HIDMaestro、Windows MIDI Services、HidHide、HelixToolkit、および WPF UI は MIT ライセンスの下でライセンスされています。OpenXInput は上流プロジェクトの商標免責事項のみを含み、同条件のもとでそのまま再配布されます。 Mouse artwork from Zergatul.Obs.InputOverlay by Igor Budzhak (MIT).</value></data>
+  <data name="About_LicenseText" xml:space="preserve"><value>本ソフトウェアは CC BY-NC-SA 4.0 (Creative Commons 表示-非営利-継承 4.0 国際) の下でライセンスされています。Gamepad-Asset-Pack (AL2009man 作、MIT) が 2D コントローラーアセットを提供しています。GestureSign (TransposonY 作、GPL-2.0) は AngularMarginRecognizer のためのドキュメントとしてのみ参照し、そのコードは含まれていません。Handheld Companion (CC BY-NC-SA 4.0) が PadForge で調整した 3D コントローラーモデルの元になっています。HelixToolkit、HidHide、HIDMaestro、Windows MIDI Services、および WPF UI は MIT ライセンスの下でライセンスされています。OpenXInput は上流プロジェクトの商標免責事項のみを含み、同条件のもとでそのまま再配布されます。$Q Recognizer (Magrofuoco、Vatavu、Anthony、Wobbrock 作、BSD 3-Clause) はタッチパッドの ShapeRecognizer の参照元で、C# で再導出しています。SDL3 は zlib ライセンスの下でライセンスされています。x360ce (LGPL-3.0) は PadForge のフォーク元となった元のコードベースです。Zergatul.Obs.InputOverlay (Igor Budzhak 作、MIT) がマウスのイラストを提供しています。</value></data>
 
   <!-- ═══ Device Types ═══ -->
   <data name="DeviceType_Gamepad" xml:space="preserve"><value>ゲームパッド</value></data>
@@ -2160,7 +2160,7 @@
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>タッチパッドの形状テンプレートマッチャー（円 / 四角 / 三角 / Z / チェックマーク、およびカスタム記録ジェスチャー）。Magrofuoco、Vatavu、Anthony、WobbrockによるJavaScriptリファレンスのC#再実装。BSD 3-Clause。</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
-  <data name="About_GestureSignDesc" xml:space="preserve"><value>一本指の形状でポイントクラウドマッチャーと並行して動作する角度マージン方式のスコアリング。GestureSignのPointPatternAnalyzerより。BSD 3-Clause。</value></data>
+  <data name="About_GestureSignDesc" xml:space="preserve"><value>一本指の形状でポイントクラウドマッチャーと並行して動作する角度マージン方式のスコアリング。GestureSign の PointPatternAnalyzer のスコアリングの考え方を独自の C# で実装。GPL-2.0、ドキュメントのみ。</value></data>
   <data name="Pad_Audio_Reset_All" xml:space="preserve"><value>サウンド出力をリセット</value></data>
   <data name="About_DsTester" xml:space="preserve"><value>dualsense-tester</value></data>
   <data name="About_DsTesterDesc" xml:space="preserve"><value>Xuezhou Dai（daidr）によるブラウザー版DualSenseテストスイート。SonyフィーチャーレポートのCRCフレーミングと、PadForgeが仮想パッドから物理パッドへ転送するファームウェアテストコマンドのリファレンス。MIT。</value></data>
@@ -2593,7 +2593,7 @@
   <data name="About_NefariusDevMgmt" xml:space="preserve"><value>Nefarius.Utilities.DeviceManagement</value></data>
   <data name="About_NefariusDevMgmtDesc" xml:space="preserve"><value>アプリ内での BthPS3 セットアップに用いる、ドライバーストアへのインストール、Bluetooth クラスフィルターの登録、USB ポートの再接続処理。nefarius 製。MIT。</value></data>
   <data name="About_Libusb" xml:space="preserve"><value>libusb</value></data>
-  <data name="About_LibusbDesc" xml:space="preserve"><value>Switch 2 Pro 有線ドライバー用の USB アクセス。libusb-1.0.dll として同梱。LGPL-2.1。</value></data>
+  <data name="About_LibusbDesc" xml:space="preserve"><value>Switch 2 Pro 有線ドライバー用の USB アクセス。libusb-1.0.dll として同梱。LGPL-2.1-or-later。</value></data>
   <data name="About_Nipplejs" xml:space="preserve"><value>nipplejs</value></data>
   <data name="About_NipplejsDesc" xml:space="preserve"><value>スマートフォンの Web Controller 内のタッチジョイスティック。Yoann Moinet 製。MIT。</value></data>
   <data name="About_GameControllerDb" xml:space="preserve"><value>SDL_GameControllerDB</value></data>
@@ -2617,7 +2617,7 @@
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>xbledctl を裏付ける GIP LED コマンドのドキュメント。GPL、ドキュメントのみ。</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
-  <data name="About_WiimoteLibDesc" xml:space="preserve"><value>Wii IR カメラとバランスボードの動作ドキュメント。Brian Peek 製。Ms-PL。</value></data>
+  <data name="About_WiimoteLibDesc" xml:space="preserve"><value>Wii IR カメラとバランスボードの動作ドキュメント。Brian Peek 製。MIT。</value></data>
   <data name="About_JoyconSinger" xml:space="preserve"><value>joycon-singer</value></data>
   <data name="About_JoyconSingerDesc" xml:space="preserve"><value>Joy-Con HD 振動のワイヤーフォーマットのドキュメント。Sergey004 製。プロトコルの事実確認のためにのみ参照。</value></data>
   <data name="Dashboard_Services" xml:space="preserve"><value>サービス</value></data>
@@ -2960,7 +2960,7 @@
   <data name="Workshop_UpdatesBody" xml:space="preserve"><value>これらのインポート済みプロファイルには Steam ワークショップに新しいバージョンがあります。「コミュニティコンフィグを閲覧」から再インポートすると変更を取り込めます。</value></data>
   <data name="Workshop_UpdateRow_Format" xml:space="preserve"><value>{0} · {1}</value></data>
   <data name="About_SteamKit2" xml:space="preserve"><value>SteamKit2</value></data>
-  <data name="About_SteamKit2Desc" xml:space="preserve"><value>匿名セッションで Steam ワークショップのコントローラーコンフィグを取得する Steam ネットワーククライアント。Ryan Stecker と SteamRE Team による。LGPL-2.1。</value></data>
+  <data name="About_SteamKit2Desc" xml:space="preserve"><value>匿名セッションで Steam ワークショップのコントローラーコンフィグを取得する Steam ネットワーククライアント。Ryan Stecker と SteamRE Team による。LGPL-2.1-only。</value></data>
   <data name="About_ProtobufNet" xml:space="preserve"><value>protobuf-net</value></data>
   <data name="About_ProtobufNetDesc" xml:space="preserve"><value>SteamKit2 が Steam の通信プロトコルに使用する Protocol Buffers シリアライザー。Marc Gravell による。Apache-2.0。</value></data>
   <data name="About_ZstdSharp" xml:space="preserve"><value>ZstdSharp</value></data>
@@ -3325,7 +3325,7 @@
     <value>2D コントローラー図（Xbox 360、Xbox One S、Xbox Series、DualShock 4、DualSense）。作者: AL2009man。MIT。</value>
   </data>
   <data name="About_Ds4MacDesc" xml:space="preserve">
-    <value>DualShock 4 オーディオプロトコルの資料。SBC パラメーターとパケットレイアウト。作者: khallmark。MIT。</value>
+    <value>DualShock 4 オーディオプロトコルの資料。SBC パラメーターとパケットレイアウト。作者: khallmark。GPL-2.0、ドキュメントのみ。</value>
   </data>
   <data name="Starter_Desktop_Name" xml:space="preserve"><value>デスクトップ</value></data>
   <data name="Starter_Desktop_Description" xml:space="preserve"><value>ソファから Windows を操作します。カーソル、スクロール、トリガーでのクリック。</value></data>
@@ -3524,7 +3524,7 @@
     <value>MinGW-w64 runtime</value>
   </data>
   <data name="About_MingwRuntimeDesc" xml:space="preserve">
-    <value>Vosk 認識エンジンが必要とするネイティブランタイム libgcc_s_seh-1.dll、libstdc++-6.dll、libwinpthread-1.dll を PadForge に同梱。GCC Runtime Library Exception 付き GPL-3.0、および mingw-w64 winpthreads ライセンス。</value>
+    <value>Vosk 認識エンジンが必要とするネイティブランタイム libgcc_s_seh-1.dll、libstdc++-6.dll、libwinpthread-1.dll を x64 版に同梱。GCC Runtime Library Exception 付き GPL-3.0、および mingw-w64 winpthreads ライセンス。ARM64 版の libvosk.dll は、mingw-w64、winpthreads、および LLVM の libc++、libunwind、compiler-rt (LLVM Exceptions 付き Apache-2.0) を内蔵しています。</value>
   </data>
   <data name="About_TritonLib" xml:space="preserve">
     <value>TritonLib and Steam Controller haptics research</value>
@@ -3707,4 +3707,6 @@
   <data name="Status_RemovingLegacyDrivers" xml:space="preserve"><value>以前のドライバーを削除しています…</value></data>
   <data name="About_Nefcon" xml:space="preserve"><value>nefcon</value></data>
   <data name="About_NefconDesc" xml:space="preserve"><value>Nefarius による HidHide のインストール ツール。ARM64 版が Windows on ARM に HidHide ドライバーをインストールします。MIT。</value></data>
+  <data name="About_Kaldi" xml:space="preserve"><value>Kaldi, OpenFst, OpenBLAS and CLAPACK</value></data>
+  <data name="About_KaldiDesc" xml:space="preserve"><value>libvosk.dll に含まれる音声デコーダー、トランスデューサー ライブラリ、線形代数ライブラリ。Kaldi と OpenFst は Apache-2.0。OpenBLAS と CLAPACK は BSD 3-Clause で、f2c ランタイムには独自の告知があります。</value></data>
 </root>

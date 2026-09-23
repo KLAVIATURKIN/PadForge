@@ -3510,4 +3510,6 @@ public class Strings : INotifyPropertyChanged
     public string Status_RemovingLegacyDrivers => Get("Status_RemovingLegacyDrivers");
     public string About_Nefcon => Get("About_Nefcon");
     public string About_NefconDesc => Get("About_NefconDesc");
+    public string About_Kaldi => Get("About_Kaldi");
+    public string About_KaldiDesc => Get("About_KaldiDesc");
 }

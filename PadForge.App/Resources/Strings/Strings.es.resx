@@ -394,7 +394,7 @@ Hay una copia de la versión anterior en esta carpeta: {1}</value></data>
   <data name="About_MvvmToolkit" xml:space="preserve"><value>MVVM Toolkit</value></data>
   <data name="About_MvvmToolkitDesc" xml:space="preserve"><value>CommunityToolkit.Mvvm para enlace de datos. MIT.</value></data>
   <data name="About_License" xml:space="preserve"><value>Licencia</value></data>
-  <data name="About_LicenseText" xml:space="preserve"><value>Este software está licenciado bajo CC BY-NC-SA 4.0 (Creative Commons Atribución-NoComercial-CompartirIgual 4.0 Internacional). Modelos 3D de controles adaptados de Handheld Companion (CC BY-NC-SA 4.0). Recursos 2D de controles de Gamepad-Asset-Pack por AL2009man (MIT). Mouse artwork from Zergatul.Obs.InputOverlay by Igor Budzhak (MIT). Base de código original bifurcada de x360ce (MIT). SDL3 está licenciado bajo la Licencia zlib. HIDMaestro, Windows MIDI Services, HidHide, HelixToolkit y WPF UI están licenciados bajo la Licencia MIT. OpenXInput solo incluye un descargo de marca registrada del proyecto original. Se redistribuye tal cual bajo los mismos términos.</value></data>
+  <data name="About_LicenseText" xml:space="preserve"><value>Este software está licenciado bajo CC BY-NC-SA 4.0 (Creative Commons Atribución-NoComercial-CompartirIgual 4.0 Internacional). Gamepad-Asset-Pack de AL2009man (MIT) aporta los recursos 2D de controles. GestureSign de TransposonY (GPL-2.0) se usó solo como documentación para AngularMarginRecognizer y no se incluye nada de su código. Handheld Companion (CC BY-NC-SA 4.0) aporta los modelos 3D de controles que PadForge adapta. HelixToolkit, HidHide, HIDMaestro, Windows MIDI Services y WPF UI están licenciados bajo la Licencia MIT. OpenXInput solo incluye un descargo de marca registrada del proyecto original y se redistribuye tal cual bajo los mismos términos. $Q Recognizer de Magrofuoco, Vatavu, Anthony y Wobbrock (BSD 3-Clause) es la referencia del ShapeRecognizer del panel táctil, una rederivación en C#. SDL3 está licenciado bajo la Licencia zlib. x360ce (LGPL-3.0) es la base de código original de la que se bifurcó PadForge. Zergatul.Obs.InputOverlay de Igor Budzhak (MIT) aporta el dibujo del ratón.</value></data>
 
   <!-- ═══ Device Types ═══ -->
   <data name="DeviceType_Gamepad" xml:space="preserve"><value>Gamepad</value></data>
@@ -2160,7 +2160,7 @@ Hay una copia de la versión anterior en esta carpeta: {1}</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Comparador de plantillas de formas para el touchpad (círculo / cuadrado / triángulo / Z / marca de verificación y gestos grabados personalizados). Rederivación en C# de la referencia JavaScript de Magrofuoco, Vatavu, Anthony y Wobbrock. BSD 3-Clause.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
-  <data name="About_GestureSignDesc" xml:space="preserve"><value>Puntuación por margen angular que funciona junto al comparador de nube de puntos en formas de un dedo. Adaptado del PointPatternAnalyzer de GestureSign. BSD 3-Clause.</value></data>
+  <data name="About_GestureSignDesc" xml:space="preserve"><value>Puntuación por margen angular que funciona junto al comparador de nube de puntos en formas de un dedo. Implementa en C# propio la idea de puntuación del PointPatternAnalyzer de GestureSign. GPL-2.0, solo documentación.</value></data>
   <data name="Pad_Audio_Reset_All" xml:space="preserve"><value>Restablecer Salida de sonido</value></data>
   <data name="About_DsTester" xml:space="preserve"><value>dualsense-tester</value></data>
   <data name="About_DsTesterDesc" xml:space="preserve"><value>Suite de pruebas de DualSense en el navegador por Xuezhou Dai (daidr): referencia para el framing CRC de los informes de característica de Sony y los comandos de prueba del firmware que PadForge reenvía del mando virtual al físico. MIT.</value></data>
@@ -2593,7 +2593,7 @@ Hay una copia de la versión anterior en esta carpeta: {1}</value></data>
   <data name="About_NefariusDevMgmt" xml:space="preserve"><value>Nefarius.Utilities.DeviceManagement</value></data>
   <data name="About_NefariusDevMgmtDesc" xml:space="preserve"><value>Instalación en el almacén de controladores, registro del filtro de clase Bluetooth y ciclado del puerto USB para la configuración de BthPS3 en la app, de nefarius. MIT.</value></data>
   <data name="About_Libusb" xml:space="preserve"><value>libusb</value></data>
-  <data name="About_LibusbDesc" xml:space="preserve"><value>Acceso USB para el controlador con cable del Switch 2 Pro, distribuido como libusb-1.0.dll. LGPL-2.1.</value></data>
+  <data name="About_LibusbDesc" xml:space="preserve"><value>Acceso USB para el controlador con cable del Switch 2 Pro, distribuido como libusb-1.0.dll. LGPL-2.1-or-later.</value></data>
   <data name="About_Nipplejs" xml:space="preserve"><value>nipplejs</value></data>
   <data name="About_NipplejsDesc" xml:space="preserve"><value>Joystick táctil en el Web Controller del teléfono, de Yoann Moinet. MIT.</value></data>
   <data name="About_GameControllerDb" xml:space="preserve"><value>SDL_GameControllerDB</value></data>
@@ -2617,7 +2617,7 @@ Hay una copia de la versión anterior en esta carpeta: {1}</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>Documentación de los comandos LED de GIP que corrobora xbledctl. GPL, solo documentación.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
-  <data name="About_WiimoteLibDesc" xml:space="preserve"><value>Documentación del comportamiento de la cámara IR de Wii y la Balance Board, de Brian Peek. Ms-PL.</value></data>
+  <data name="About_WiimoteLibDesc" xml:space="preserve"><value>Documentación del comportamiento de la cámara IR de Wii y la Balance Board, de Brian Peek. MIT.</value></data>
   <data name="About_JoyconSinger" xml:space="preserve"><value>joycon-singer</value></data>
   <data name="About_JoyconSingerDesc" xml:space="preserve"><value>Documentación del formato de transmisión de la vibración HD de Joy-Con, de Sergey004. Leído solo para datos del protocolo.</value></data>
   <data name="Dashboard_Services" xml:space="preserve"><value>Servicios</value></data>
@@ -2960,7 +2960,7 @@ Hay una copia de la versión anterior en esta carpeta: {1}</value></data>
   <data name="Workshop_UpdatesBody" xml:space="preserve"><value>Estos perfiles importados tienen versiones más recientes en Steam Workshop. Vuelva a importarlos desde Explorar configuraciones de la comunidad para incorporar los cambios.</value></data>
   <data name="Workshop_UpdateRow_Format" xml:space="preserve"><value>{0} · {1}</value></data>
   <data name="About_SteamKit2" xml:space="preserve"><value>SteamKit2</value></data>
-  <data name="About_SteamKit2Desc" xml:space="preserve"><value>Cliente de red de Steam que obtiene configuraciones de mando de Steam Workshop mediante una sesión anónima, por Ryan Stecker y el SteamRE Team. LGPL-2.1.</value></data>
+  <data name="About_SteamKit2Desc" xml:space="preserve"><value>Cliente de red de Steam que obtiene configuraciones de mando de Steam Workshop mediante una sesión anónima, por Ryan Stecker y el SteamRE Team. LGPL-2.1-only.</value></data>
   <data name="About_ProtobufNet" xml:space="preserve"><value>protobuf-net</value></data>
   <data name="About_ProtobufNetDesc" xml:space="preserve"><value>Serializador de Protocol Buffers que SteamKit2 usa para el protocolo de red de Steam, por Marc Gravell. Apache-2.0.</value></data>
   <data name="About_ZstdSharp" xml:space="preserve"><value>ZstdSharp</value></data>
@@ -3325,7 +3325,7 @@ Puedes volver a intentarlo más tarde desde Configuración.</value></data>
     <value>Esquemas 2D de mandos (Xbox 360, Xbox One S, Xbox Series, DualShock 4, DualSense), por AL2009man. MIT.</value>
   </data>
   <data name="About_Ds4MacDesc" xml:space="preserve">
-    <value>Documentación del protocolo de audio del DualShock 4: parámetros SBC y disposición de paquetes, por khallmark. MIT.</value>
+    <value>Documentación del protocolo de audio del DualShock 4: parámetros SBC y disposición de paquetes, por khallmark. GPL-2.0, solo documentación.</value>
   </data>
   <data name="Starter_Desktop_Name" xml:space="preserve"><value>Escritorio</value></data>
   <data name="Starter_Desktop_Description" xml:space="preserve"><value>Maneja Windows desde el sofá. Cursor, desplazamiento y clics en los gatillos.</value></data>
@@ -3524,7 +3524,7 @@ Puedes volver a intentarlo más tarde desde Configuración.</value></data>
     <value>MinGW-w64 runtime</value>
   </data>
   <data name="About_MingwRuntimeDesc" xml:space="preserve">
-    <value>libgcc_s_seh-1.dll, libstdc++-6.dll y libwinpthread-1.dll, el runtime nativo que necesita el reconocedor Vosk, incluido en PadForge. GPL-3.0 con la GCC Runtime Library Exception y la licencia winpthreads de mingw-w64.</value>
+    <value>libgcc_s_seh-1.dll, libstdc++-6.dll y libwinpthread-1.dll, el runtime nativo que necesita el reconocedor Vosk, incluido en la versión x64. GPL-3.0 con la GCC Runtime Library Exception y la licencia winpthreads de mingw-w64. En la versión ARM64, libvosk.dll lleva su propio runtime: mingw-w64 y winpthreads, y libc++, libunwind y compiler-rt de LLVM bajo Apache-2.0 con LLVM Exceptions.</value>
   </data>
   <data name="About_TritonLib" xml:space="preserve">
     <value>TritonLib and Steam Controller haptics research</value>
@@ -3707,4 +3707,6 @@ Puedes volver a intentarlo más tarde desde Configuración.</value></data>
   <data name="Status_RemovingLegacyDrivers" xml:space="preserve"><value>Eliminando controladores antiguos…</value></data>
   <data name="About_Nefcon" xml:space="preserve"><value>nefcon</value></data>
   <data name="About_NefconDesc" xml:space="preserve"><value>Herramienta de instalación de HidHide, de Nefarius. Su versión ARM64 instala el controlador HidHide en Windows en ARM. MIT.</value></data>
+  <data name="About_Kaldi" xml:space="preserve"><value>Kaldi, OpenFst, OpenBLAS and CLAPACK</value></data>
+  <data name="About_KaldiDesc" xml:space="preserve"><value>El decodificador de voz, la biblioteca de transductores y el álgebra lineal dentro de libvosk.dll. Kaldi y OpenFst: Apache-2.0. OpenBLAS y CLAPACK: BSD 3-Clause, con el aviso propio del runtime de f2c.</value></data>
 </root>

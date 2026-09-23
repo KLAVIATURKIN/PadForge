@@ -3,16 +3,16 @@
 ## Overview
 
 PadForge is a controller mapping utility (fork of [x360ce](https://github.com/x360ce/x360ce)) rebuilt with:
-- **[SDL3](https://github.com/libsdl-org/SDL)** (custom fork under `SDL3-build/SDL/` with HIDMaestro filtering) for all device input
-- **[HIDMaestro](https://github.com/hifihedgehog/HIDMaestro)** as the single virtual-controller backend (Xbox / PlayStation / Extended types)
-- **[OpenXInput](https://github.com/hifihedgehog/OpenXinput)** XInput shim, embedded in the single-file build
-- **[HelixToolkit](https://github.com/helix-toolkit/helix-toolkit)** for interactive 3D controller visualization
 - **DSU/Cemuhook** motion server for gyro/accelerometer passthrough
-- **.NET 10 WPF** with [WPF-UI](https://github.com/lepoco/wpfui) Fluent Design
+- **[HelixToolkit](https://github.com/helix-toolkit/helix-toolkit)** for interactive 3D controller visualization
+- **[HIDMaestro](https://github.com/hifihedgehog/HIDMaestro)** as the single virtual-controller backend (Xbox / PlayStation / Extended types)
 - **MVVM** architecture with [CommunityToolkit.Mvvm](https://github.com/CommunityToolkit/dotnet)
+- **.NET 10 WPF** with [WPF-UI](https://github.com/lepoco/wpfui) Fluent Design
+- **[OpenXInput](https://github.com/hifihedgehog/OpenXinput)** XInput shim, embedded in the single-file build
+- **[SDL3](https://github.com/libsdl-org/SDL)** (custom fork under `SDL3-build/SDL/` with HIDMaestro filtering) for all device input
 
-3D controller models adapted from **[Handheld Companion](https://github.com/Valkirie/HandheldCompanion)** (CC BY-NC-SA 4.0).
 2D controller schematics from **[Gamepad-Asset-Pack](https://github.com/AL2009man/Gamepad-Asset-Pack)** by AL2009man (MIT).
+3D controller models adapted from **[Handheld Companion](https://github.com/Valkirie/HandheldCompanion)** (CC BY-NC-SA 4.0).
 Steam Controller and Steam Deck hardware art derives from **Valve's own published CAD** (CC BY-NC-SA 4.0): the 2015 controller from its March 2016 separate-parts STL release, the 2026 controller from the solid model and reference drawing shipped with the hardware. `tools/steam_controller_2015_mesh.py` and `tools/steam_controller_2026_mesh.py` do the conversion, and `tools/overlay_positions.py` builds the 2026 two-dimensional art from the same drawing.
 
 ## Solution Structure
@@ -163,18 +163,29 @@ All native DLLs, driver installers, and model assets are included in the reposit
 
 ## NuGet Dependencies
 
-**PadForge.Engine.csproj:**
-```
-(none -- pure P/Invoke, no third-party packages)
-```
-
 **PadForge.App.csproj:**
 ```
-WPF-UI (>= 4.2.0)                       Fluent Design theme
-HelixToolkit.Core.Wpf (>= 2.27.3)       3D viewport rendering
-CommunityToolkit.Mvvm (>= 8.2.2)        MVVM data binding
-Microsoft.Windows.Devices.Midi2 (>= 1.0.16-rc.3.7)  Virtual MIDI device output
-NAudio.Wasapi (>= 2.2.1)                WASAPI loopback for audio bass rumble
+CommunityToolkit.Mvvm 8.2.2                        MVVM data binding
+Concentus 2.2.2                                    Opus encoder for DualSense Bluetooth speaker audio
+HelixToolkit.Core.Wpf 2.27.3                       3D viewport rendering
+Microsoft.Windows.Devices.Midi2 1.0.16-rc.3.7      Virtual MIDI device output (from nuget-local/)
+NAudio.Wasapi 2.2.1                                WASAPI loopback capture and output
+Nefarius.Utilities.DeviceManagement 5.2.0          Driver-store installs for the DualShock 3 Bluetooth stack
+System.Management 10.0.11                          WMI queries for the handheld hidden-button learner
+System.Speech 10.0.0                               SAPI recognizer for voice macros
+Vosk 0.3.38                                        Offline recognizer for voice macros
+WPF-UI 4.3.0                                       Fluent Design theme
+```
+
+**PadForge.Engine.csproj:**
+```
+BouncyCastle.Cryptography 2.6.2                    Remote Link pairing and transport cryptography
+System.Security.Cryptography.ProtectedData 10.0.9  DPAPI protection for Remote Link identity keys
+```
+
+**PadForge.SteamWorkshop.csproj:**
+```
+SteamKit2 3.4.0                                    Anonymous Steam session for Workshop config import
 ```
 
 ## Build

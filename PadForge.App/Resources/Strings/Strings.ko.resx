@@ -394,7 +394,7 @@
   <data name="About_MvvmToolkit" xml:space="preserve"><value>MVVM Toolkit</value></data>
   <data name="About_MvvmToolkitDesc" xml:space="preserve"><value>데이터 바인딩을 위한 CommunityToolkit.Mvvm. MIT.</value></data>
   <data name="About_License" xml:space="preserve"><value>라이선스</value></data>
-  <data name="About_LicenseText" xml:space="preserve"><value>이 소프트웨어는 CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) 라이선스를 따릅니다. 3D 컨트롤러 모델은 Handheld Companion (CC BY-NC-SA 4.0)에서 가져와 수정한 것입니다. 2D 컨트롤러 에셋은 AL2009man의 Gamepad-Asset-Pack (MIT)에서 가져왔습니다. 원본 코드베이스는 x360ce (MIT)에서 포크되었습니다. SDL3은 zlib 라이선스를 따릅니다. HIDMaestro, Windows MIDI Services, HidHide, HelixToolkit, WPF UI는 MIT 라이선스를 따릅니다. OpenXInput은 상위 프로젝트의 상표 면책 조항만 포함하며, 동일한 조건으로 그대로 재배포됩니다. Mouse artwork from Zergatul.Obs.InputOverlay by Igor Budzhak (MIT).</value></data>
+  <data name="About_LicenseText" xml:space="preserve"><value>이 소프트웨어는 CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) 라이선스를 따릅니다. Gamepad-Asset-Pack (AL2009man 제작, MIT)이 2D 컨트롤러 에셋을 제공합니다. GestureSign (TransposonY 제작, GPL-2.0)은 AngularMarginRecognizer를 위한 문서로만 참고했으며 그 코드는 포함되지 않습니다. Handheld Companion (CC BY-NC-SA 4.0)은 PadForge가 수정해 사용하는 3D 컨트롤러 모델의 출처입니다. HelixToolkit, HidHide, HIDMaestro, Windows MIDI Services, WPF UI는 MIT 라이선스를 따릅니다. OpenXInput은 상위 프로젝트의 상표 면책 조항만 포함하며, 동일한 조건으로 그대로 재배포됩니다. $Q Recognizer (Magrofuoco, Vatavu, Anthony, Wobbrock 제작, BSD 3-Clause)는 터치패드 ShapeRecognizer의 참고 자료이며, C#으로 새로 도출했습니다. SDL3은 zlib 라이선스를 따릅니다. x360ce (LGPL-3.0)는 PadForge가 포크한 원본 코드베이스입니다. Zergatul.Obs.InputOverlay (Igor Budzhak 제작, MIT)가 마우스 그림을 제공합니다.</value></data>
 
   <!-- ═══ Device Types ═══ -->
   <data name="DeviceType_Gamepad" xml:space="preserve"><value>게임패드</value></data>
@@ -2160,7 +2160,7 @@
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>터치패드 도형 템플릿 매처(원 / 사각형 / 삼각형 / Z / 체크 표시 및 직접 기록한 제스처). Magrofuoco, Vatavu, Anthony, Wobbrock의 JavaScript 레퍼런스를 C#으로 재구현. BSD 3-Clause.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
-  <data name="About_GestureSignDesc" xml:space="preserve"><value>한 손가락 도형에서 포인트 클라우드 매처와 함께 동작하는 각도 마진 점수 방식. GestureSign의 PointPatternAnalyzer에서 가져옴. BSD 3-Clause.</value></data>
+  <data name="About_GestureSignDesc" xml:space="preserve"><value>한 손가락 도형에서 포인트 클라우드 매처와 함께 동작하는 각도 마진 점수 방식. GestureSign의 PointPatternAnalyzer의 점수 방식 아이디어를 독자적인 C#으로 구현. GPL-2.0, 문서 전용.</value></data>
   <data name="Pad_Audio_Reset_All" xml:space="preserve"><value>사운드 출력 초기화</value></data>
   <data name="About_DsTester" xml:space="preserve"><value>dualsense-tester</value></data>
   <data name="About_DsTesterDesc" xml:space="preserve"><value>Xuezhou Dai(daidr)의 브라우저 DualSense 테스트 도구. Sony 기능 보고서 CRC 프레이밍과 PadForge가 가상 패드에서 실제 패드로 전달하는 펌웨어 테스트 명령의 참조. MIT.</value></data>
@@ -2593,7 +2593,7 @@
   <data name="About_NefariusDevMgmt" xml:space="preserve"><value>Nefarius.Utilities.DeviceManagement</value></data>
   <data name="About_NefariusDevMgmtDesc" xml:space="preserve"><value>앱 내 BthPS3 설정을 위한 드라이버 저장소 설치, Bluetooth 클래스 필터 등록, USB 포트 순환. nefarius 제작. MIT.</value></data>
   <data name="About_Libusb" xml:space="preserve"><value>libusb</value></data>
-  <data name="About_LibusbDesc" xml:space="preserve"><value>Switch 2 Pro 유선 드라이버를 위한 USB 액세스, libusb-1.0.dll로 제공. LGPL-2.1.</value></data>
+  <data name="About_LibusbDesc" xml:space="preserve"><value>Switch 2 Pro 유선 드라이버를 위한 USB 액세스, libusb-1.0.dll로 제공. LGPL-2.1-or-later.</value></data>
   <data name="About_Nipplejs" xml:space="preserve"><value>nipplejs</value></data>
   <data name="About_NipplejsDesc" xml:space="preserve"><value>휴대폰 Web Controller의 터치 조이스틱, Yoann Moinet 제작. MIT.</value></data>
   <data name="About_GameControllerDb" xml:space="preserve"><value>SDL_GameControllerDB</value></data>
@@ -2617,7 +2617,7 @@
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>xbledctl을 뒷받침하는 GIP LED 명령 문서. GPL, 문서 전용.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
-  <data name="About_WiimoteLibDesc" xml:space="preserve"><value>Wii IR 카메라 및 밸런스 보드 동작 문서, Brian Peek 제작. Ms-PL.</value></data>
+  <data name="About_WiimoteLibDesc" xml:space="preserve"><value>Wii IR 카메라 및 밸런스 보드 동작 문서, Brian Peek 제작. MIT.</value></data>
   <data name="About_JoyconSinger" xml:space="preserve"><value>joycon-singer</value></data>
   <data name="About_JoyconSingerDesc" xml:space="preserve"><value>Joy-Con HD 진동 와이어 포맷 문서, Sergey004 제작. 프로토콜 사실 확인용으로만 참조.</value></data>
   <data name="Dashboard_Services" xml:space="preserve"><value>서비스</value></data>
@@ -2960,7 +2960,7 @@
   <data name="Workshop_UpdatesBody" xml:space="preserve"><value>이 가져온 프로필들에는 Steam 창작마당에 더 새로운 버전이 있습니다. 변경 사항을 반영하려면 커뮤니티 구성 둘러보기에서 다시 가져오십시오.</value></data>
   <data name="Workshop_UpdateRow_Format" xml:space="preserve"><value>{0} · {1}</value></data>
   <data name="About_SteamKit2" xml:space="preserve"><value>SteamKit2</value></data>
-  <data name="About_SteamKit2Desc" xml:space="preserve"><value>익명 세션으로 Steam 창작마당 컨트롤러 구성을 가져오는 Steam 네트워크 클라이언트. Ryan Stecker와 SteamRE Team 제작. LGPL-2.1.</value></data>
+  <data name="About_SteamKit2Desc" xml:space="preserve"><value>익명 세션으로 Steam 창작마당 컨트롤러 구성을 가져오는 Steam 네트워크 클라이언트. Ryan Stecker와 SteamRE Team 제작. LGPL-2.1-only.</value></data>
   <data name="About_ProtobufNet" xml:space="preserve"><value>protobuf-net</value></data>
   <data name="About_ProtobufNetDesc" xml:space="preserve"><value>SteamKit2가 Steam 통신 프로토콜에 사용하는 Protocol Buffers 직렬 변환기. Marc Gravell 제작. Apache-2.0.</value></data>
   <data name="About_ZstdSharp" xml:space="preserve"><value>ZstdSharp</value></data>
@@ -3325,7 +3325,7 @@
     <value>2D 컨트롤러 도식(Xbox 360, Xbox One S, Xbox Series, DualShock 4, DualSense). 제작: AL2009man. MIT.</value>
   </data>
   <data name="About_Ds4MacDesc" xml:space="preserve">
-    <value>DualShock 4 오디오 프로토콜 문서: SBC 매개변수와 패킷 레이아웃. 작성: khallmark. MIT.</value>
+    <value>DualShock 4 오디오 프로토콜 문서: SBC 매개변수와 패킷 레이아웃. 작성: khallmark. GPL-2.0, 문서 전용.</value>
   </data>
   <data name="Starter_Desktop_Name" xml:space="preserve"><value>데스크톱</value></data>
   <data name="Starter_Desktop_Description" xml:space="preserve"><value>소파에서 Windows를 조작합니다. 커서, 스크롤, 트리거 클릭.</value></data>
@@ -3524,7 +3524,7 @@
     <value>MinGW-w64 runtime</value>
   </data>
   <data name="About_MingwRuntimeDesc" xml:space="preserve">
-    <value>Vosk 인식기에 필요한 네이티브 런타임인 libgcc_s_seh-1.dll, libstdc++-6.dll, libwinpthread-1.dll을 PadForge에 포함합니다. GCC Runtime Library Exception이 적용된 GPL-3.0 및 mingw-w64 winpthreads 라이선스.</value>
+    <value>Vosk 인식기에 필요한 네이티브 런타임인 libgcc_s_seh-1.dll, libstdc++-6.dll, libwinpthread-1.dll을 x64 버전에 포함합니다. GCC Runtime Library Exception이 적용된 GPL-3.0 및 mingw-w64 winpthreads 라이선스. ARM64 버전의 libvosk.dll은 mingw-w64, winpthreads, 그리고 LLVM의 libc++, libunwind, compiler-rt(LLVM Exceptions가 적용된 Apache-2.0)를 자체에 포함합니다.</value>
   </data>
   <data name="About_TritonLib" xml:space="preserve">
     <value>TritonLib and Steam Controller haptics research</value>
@@ -3707,4 +3707,6 @@
   <data name="Status_RemovingLegacyDrivers" xml:space="preserve"><value>이전 드라이버 제거 중…</value></data>
   <data name="About_Nefcon" xml:space="preserve"><value>nefcon</value></data>
   <data name="About_NefconDesc" xml:space="preserve"><value>Nefarius가 만든 HidHide 설치 도구. ARM64 버전이 Windows on ARM에 HidHide 드라이버를 설치합니다. MIT.</value></data>
+  <data name="About_Kaldi" xml:space="preserve"><value>Kaldi, OpenFst, OpenBLAS and CLAPACK</value></data>
+  <data name="About_KaldiDesc" xml:space="preserve"><value>libvosk.dll에 포함된 음성 디코더, 트랜스듀서 라이브러리, 선형 대수 라이브러리. Kaldi와 OpenFst는 Apache-2.0. OpenBLAS와 CLAPACK은 BSD 3-Clause이며, f2c 런타임에는 자체 고지가 있습니다.</value></data>
 </root>

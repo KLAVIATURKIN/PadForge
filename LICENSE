@@ -47,80 +47,28 @@ Under the following terms:
 Third-Party Licenses and Attributions
 =====================================
 
+2D Controller Assets
+  From Gamepad-Asset-Pack (https://github.com/AL2009man/Gamepad-Asset-Pack)
+  By AL2009man
+  Licensed under MIT License
+
 3D Controller Models
   Adapted from Handheld Companion (https://github.com/Valkirie/HandheldCompanion)
   The Xbox 360, Xbox One, DualShock 4, DualSense and Steam Deck bodies.
   Copyright (c) CasperH2O, Lesueur Benjamin, trippyone
   Licensed under CC BY-NC-SA 4.0
 
-2D Controller Assets
-  From Gamepad-Asset-Pack (https://github.com/AL2009man/Gamepad-Asset-Pack)
-  By AL2009man
-  Licensed under MIT License
+Bouncy Castle (bc-csharp)
+  https://github.com/bcgit/bc-csharp
+  Cryptography for Remote Link pairing and transport: X25519 key agreement,
+  Ed25519 signatures, and ChaCha20-Poly1305.
+  Licensed under the Bouncy Castle Licence (an adaptation of the MIT License)
 
-Original Codebase
-  Forked from x360ce (https://github.com/x360ce/x360ce)
-  Licensed under MIT License
-
-SDL3
-  https://github.com/libsdl-org/SDL
-  Licensed under the zlib License
-
-Microsoft Visual C++ Runtime
-  https://learn.microsoft.com/en-us/visualstudio/releases/2026/redistribution
-  Copyright (c) Microsoft Corporation.
-  The x64 msvcp140.dll, vcruntime140.dll, and vcruntime140_1.dll files and
-  the ARM64 msvcp140.dll and vcruntime140.dll files (version 14.51.36247.0)
-  are redistributed unmodified under the Microsoft Visual Studio license
-  terms. Each build of PadForge.exe bundles the set for its architecture.
-
-Microsoft GameInput SDK loader
-  https://www.nuget.org/packages/Microsoft.GameInput/3.5.270
-  Copyright (c) Microsoft Corporation.
-  Licensed under MIT. Statically linked into the bundled SDL fork.
-
-HIDMaestro
-  https://github.com/hifihedgehog/HIDMaestro
-  Licensed under MIT License
-
-usbip-win2
-  https://github.com/vadimgrn/usbip-win2
-  Copyright (c) 2021-2026, Vadym Hrynchyshyn
-  HIDMaestro.Core.dll carries the upstream 0.9.7.5 release installers for
-  x64 and ARM64, unmodified and Microsoft-signed, and installs the one
-  matching the machine the first time a composite USB controller is
-  created. It is the USB transport for those controllers. Any other
-  controller type installs nothing from it.
-  Licensed under the BSD 2-Clause License (full text at the end of this file)
-
-HelixToolkit
-  https://github.com/helix-toolkit/helix-toolkit
-  Licensed under MIT License
-
-WPF UI
-  https://github.com/lepoco/wpfui
-  Licensed under MIT License
-
-CommunityToolkit.Mvvm
-  https://github.com/CommunityToolkit/dotnet
-  Licensed under MIT License
-
-HidHide
-  https://github.com/nefarius/HidHide
-  The x64 setup (1.5.230) and, for ARM64 Windows, upstream's Microsoft-signed
-  ARM64 driver package (driver 1.6.280.0), both shipped unmodified inside the
-  executable.
-  Licensed under MIT License
-
-nefcon
-  https://github.com/nefarius/nefcon
-  Copyright (c) 2022-2025 Nefarius Software Solutions e.U.
-  The ARM64 console build of nefcon 1.20.0 (nefconc.exe), shipped unmodified
-  inside the executable. It installs and removes the HidHide driver on ARM64
-  Windows, the way HidHide's own setup does. It links the libraries its
-  README credits: Argh!, colorwin, WinReg, easyloggingpp, Microsoft Detours,
-  scope_guard, the Windows Implementation Libraries and neflib.
-  Licensed under MIT License
+bs2b
+  https://github.com/kcat/openal-soft/blob/master/core/bs2b.cpp
+  Copyright (c) 2005 Boris Mikhaylov. MIT License. Bauer
+  stereophonic-to-binaural crossfeed. PadForge ports the filter to C# for
+  headphone output on the controller audio path.
 
 BthPS3 + BthPS3PSM
   https://github.com/nefarius/BthPS3
@@ -130,50 +78,9 @@ BthPS3 + BthPS3PSM
   demand for DualShock 3 Bluetooth support.
   Licensed under the BSD 3-Clause License (full text at the end of this file)
 
-OpenVR API
-  https://github.com/ValveSoftware/openvr
-  Copyright (c) 2015, Valve Corporation
-  C# client binding (openvr_api.cs) compiled into PadForge for consuming
-  VR headsets and motion controllers as input sources (#287). The native
-  openvr_api.dll is not distributed. It is loaded from the user's own
-  SteamVR installation.
-  Licensed under the BSD 3-Clause License (full text at the end of this file)
-
-DsHidMini
-  https://github.com/nefarius/DsHidMini
-  Copyright (c) 2020-2025, Benjamin Höglinger-Stelzer
-  DualShock 3 protocol reference: sixpair feature reports, Bluetooth
-  output-report template, enable ordering, battery status map.
-  PadForge's implementation is original C#.
-  Licensed under the BSD 3-Clause License
-
-Nefarius.Utilities.DeviceManagement
-  https://github.com/nefarius/Nefarius.Utilities.DeviceManagement
-  Driver-store installation, device class filters, and USB hub port
-  cycling for the in-app DualShock 3 driver setup.
+CommunityToolkit.Mvvm
+  https://github.com/CommunityToolkit/dotnet
   Licensed under MIT License
-
-DualShock 3 Bluetooth research
-  ScpToolkit (https://github.com/nefarius/ScpToolkit), sixad
-  (https://github.com/RetroPie/sixad), and transbt
-  (https://github.com/null-dev/transbt) were read as protocol
-  documentation only. All three are GPL-licensed. PadForge's pairing and
-  reader code is original C# and contains no GPL code.
-
-Windows MIDI Services
-  https://github.com/microsoft/MIDI
-  Licensed under MIT License
-
-OpenXInput
-  https://github.com/hifihedgehog/OpenXinput (forked for HIDMaestro filtering)
-  Upstream ships only a Microsoft trademark disclaimer; no OSS license is
-  granted. Redistributed as-is under the same terms as upstream.
-
-bs2b
-  https://github.com/kcat/openal-soft/blob/master/core/bs2b.cpp
-  Copyright (c) 2005 Boris Mikhaylov. MIT License. Bauer
-  stereophonic-to-binaural crossfeed. PadForge ports the filter to C# for
-  headphone output on the controller audio path.
 
 Concentus
   https://github.com/lostromb/concentus
@@ -181,50 +88,6 @@ Concentus
   Foundation, and other Opus contributors. Encodes the Opus frames for
   DualSense speaker audio over Bluetooth.
   Licensed under the BSD 3-Clause License (the Opus license)
-
-SAxense
-  https://apps.sdore.me/SAxense (https://github.com/egormanga/SAxense)
-  By egormanga. DualSense Bluetooth audio research: the multiplexed
-  packet transport the controller speaker stream rides on. PadForge's
-  implementation is original C#.
-  Licensed under MPL-2.0
-
-dualsense-bt-haptics
-  https://github.com/awalol/dualsense-bt-haptics
-  By awalol. The HeadsetPlayMusic tool documented the Opus framing and
-  packet layout PadForge's Bluetooth speaker stream re-implements.
-  Licensed under MIT License
-
-DualSenseY-v2
-  https://github.com/WujekFoliarz/DualSenseY-v2
-  By WujekFoliarz. Behavioral reference for USB controller audio
-  passthrough and adaptive trigger effects. No license published.
-  PadForge's implementation is original C#.
-
-duaLib
-  https://github.com/WujekFoliarz/duaLib
-  By WujekFoliarz. The DualSense output-report byte map and Sony's
-  scePad semantics (LightFadeAnimation, validFlag bit roles, the
-  volume windows, audio output paths, and the reconnect re-arm
-  discipline) that ground PadForge's DualSense effect and audio
-  writers. PadForge's implementation is original C#.
-  Licensed under MIT License
-
-DS5_Bridge
-  https://github.com/SundayMoments/DS5_Bridge
-  By SundayMoments. Behavioral reference for jack-detect audio
-  routing (the Follow Headphone Jack mode's switch-on-plug pattern)
-  and for one-sink-at-a-time Bluetooth audio routing. Read as
-  documentation only; PadForge's implementation is original C# and
-  contains no AGPL code.
-  Licensed under AGPL-3.0
-
-dualsense-tester
-  https://github.com/daidr/dualsense-tester (https://ds.daidr.me/)
-  Copyright (c) 2023 Xuezhou Dai (daidr)
-  Reference for the Sony Bluetooth feature-report CRC framing and the
-  vendor test commands PadForge forwards from virtual to physical pads.
-  Licensed under MIT License
 
 DS4AudioStreamer
   https://github.com/nefarius/DS4AudioStreamer
@@ -237,26 +100,113 @@ DS4AudioStreamer
 ds4mac
   https://github.com/khallmark/ds4mac
   By khallmark. DualShock 4 audio protocol documentation (SBC
-  parameters, packet layouts, Bluetooth-only audio finding).
+  parameters, packet layouts, Bluetooth-only audio finding). Read as
+  documentation only. PadForge's implementation is original C# and
+  contains no GPL code.
+  Licensed under the GNU General Public License v2.0
+
+DS5_Bridge
+  https://github.com/SundayMoments/DS5_Bridge
+  By SundayMoments. Behavioral reference for jack-detect audio
+  routing (the Follow Headphone Jack mode's switch-on-plug pattern)
+  and for one-sink-at-a-time Bluetooth audio routing. Read as
+  documentation only. PadForge's implementation is original C# and
+  contains no AGPL code.
+  Licensed under AGPL-3.0
+
+DsHidMini
+  https://github.com/nefarius/DsHidMini
+  Copyright (c) 2020-2025, Benjamin Höglinger-Stelzer
+  DualShock 3 protocol reference: sixpair feature reports, Bluetooth
+  output-report template, enable ordering, battery status map.
+  PadForge's implementation is original C#.
+  Licensed under the BSD 3-Clause License
+
+duaLib
+  https://github.com/WujekFoliarz/duaLib
+  By WujekFoliarz. The DualSense output-report byte map and Sony's
+  scePad semantics (LightFadeAnimation, validFlag bit roles, the
+  volume windows, audio output paths, and the reconnect re-arm
+  discipline) that ground PadForge's DualSense effect and audio
+  writers. PadForge's implementation is original C#.
   Licensed under MIT License
 
-NAudio
-  https://github.com/naudio/NAudio
-  By Mark Heath and contributors. WASAPI loopback capture for the
-  controller-audio Windows-output mirror and the audio-bass trigger rumble.
+dualsense-bt-haptics
+  https://github.com/awalol/dualsense-bt-haptics
+  By awalol. The HeadsetPlayMusic tool documented the Opus framing and
+  packet layout PadForge's Bluetooth speaker stream re-implements.
   Licensed under MIT License
 
-Vosk
-  https://alphacephei.com/vosk/ (https://github.com/alphacep/vosk-api)
-  By Alpha Cephei Inc. Offline speech recognition for voice macros:
-  hears the registered phrases and routes everything else to an unknown
-  bucket. Ships as the native libvosk library inside the executable, with
-  the recognition model, which is unpacked to a cache under the TEMP folder
-  on first use. The x64 libvosk.dll is the one the Vosk package carries.
-  The ARM64 libvosk.dll is built from Vosk 0.3.38 by
-  tools/build-libvosk-arm64.sh, which is Alpha Cephei's own Windows ARM64
-  recipe (vosk-api 1b308a30), because no ARM64 binary is published.
-  Licensed under the Apache License 2.0 (full text below)
+dualsense-tester
+  https://github.com/daidr/dualsense-tester (https://ds.daidr.me/)
+  Copyright (c) 2023 Xuezhou Dai (daidr)
+  Reference for the Sony Bluetooth feature-report CRC framing and the
+  vendor test commands PadForge forwards from virtual to physical pads.
+  Licensed under MIT License
+
+DualSenseY-v2
+  https://github.com/WujekFoliarz/DualSenseY-v2
+  By WujekFoliarz. Behavioral reference for USB controller audio
+  passthrough and adaptive trigger effects. No license published.
+  PadForge's implementation is original C#.
+
+DualShock 3 Bluetooth research
+  ScpToolkit (https://github.com/nefarius/ScpToolkit), sixad
+  (https://github.com/RetroPie/sixad), and transbt
+  (https://github.com/null-dev/transbt) were read as protocol
+  documentation only. All three are GPL-licensed. PadForge's pairing and
+  reader code is original C# and contains no GPL code.
+
+GamepadMotionHelpers
+  https://github.com/JibbSmart/GamepadMotionHelpers
+  By JibbSmart. The player-space and world-space gyro conversions and
+  the Gyro Tilt gravity update are adapted for C#.
+  Licensed under the MIT License
+
+GestureSign
+  https://github.com/TransposonY/GestureSign
+  By TransposonY. The touchpad angular-margin scoring follows the algorithm
+  its PointPatternAnalyzer describes. GestureSign was read for the algorithm
+  only, and PadForge's implementation is original C# with no GPL code.
+  Licensed under the GNU General Public License v2.0
+
+HelixToolkit
+  https://github.com/helix-toolkit/helix-toolkit
+  Licensed under MIT License
+
+HidHide
+  https://github.com/nefarius/HidHide
+  The x64 setup (1.5.230) and, for ARM64 Windows, upstream's Microsoft-signed
+  ARM64 driver package (driver 1.6.280.0), both shipped unmodified inside the
+  executable.
+  Licensed under MIT License
+
+HIDMaestro
+  https://github.com/hifihedgehog/HIDMaestro
+  Licensed under MIT License
+
+hitboxer
+  https://github.com/valignatev/hitboxer
+  By valignatev. Semantics reference for the Keyboard & Mouse SOCD
+  cleaning modes. PadForge's state machine is original C#.
+  Licensed under the MIT License
+
+Interhaptics engine and Razer provider
+  https://github.com/WyvrnOfficial/Interhaptics_Unity_CoreSDK
+  Copyright (c) 2025 Wyvrn. All rights reserved.
+  The Interhaptics haptic engine and its Razer provider, which turn
+  controller rumble into Razer Sensa HD effects. Ships unmodified inside
+  the executable as HAR.dll and Interhaptics.RazerProvider.dll, the same
+  pair every application embedding the public Interhaptics Core SDK
+  redistributes.
+  Distributed under the Wyvrn End User License Agreement
+  (https://www.wyvrn.com/eula/)
+
+JoyShockMapper
+  https://github.com/Electronicks/JoyShockMapper
+  By JibbSmart (Julian Smart) and Electronicks. The winding-angle
+  steering and lean math are C# ports.
+  Licensed under the MIT License
 
 Kaldi, OpenFst, OpenBLAS and CLAPACK
   https://github.com/alphacep/kaldi (Kaldi, Copyright the Kaldi authors,
@@ -276,24 +226,16 @@ Kaldi, OpenFst, OpenBLAS and CLAPACK
   CLAPACK are licensed under the BSD 3-Clause License. libf2c carries a
   notice of its own (full texts below)
 
-Bouncy Castle (bc-csharp)
-  https://github.com/bcgit/bc-csharp
-  Cryptography for Remote Link pairing and transport: X25519 key agreement,
-  Ed25519 signatures, and ChaCha20-Poly1305.
-  Licensed under the Bouncy Castle Licence (an adaptation of the MIT License)
-
-$Q Super-Quick Recognizer
-  https://depts.washington.edu/acelab/proj/dollar/qdollar.html
-  Copyright (c) 2018-2019 Nathan Magrofuoco, Jacob O. Wobbrock,
-  Radu-Daniel Vatavu, Lisa Anthony. The touchpad shape-template matcher is
-  a C# re-derivation of the canonical JavaScript reference.
-  Licensed under the BSD 3-Clause License (full text at the end of this file)
-
-GestureSign
-  https://github.com/TransposonY/GestureSign
-  Copyright (c) 2016 TransposonY. The touchpad angular-margin scoring is a
-  C# re-derivation of its PointPatternAnalyzer approach.
-  Licensed under the BSD 3-Clause License (full text at the end of this file)
+libinput
+  https://gitlab.freedesktop.org/libinput/libinput
+  Copyright (c) 2006-2009 Simon Thum, (c) 2008-2012 Kristian Høgsberg,
+  (c) 2010-2012 Intel Corporation, (c) 2010-2011 Benjamin Franzke,
+  (c) 2011-2012 Collabora, Ltd., (c) 2013-2014 Jonas Ådahl,
+  (c) 2013-2015 Red Hat, Inc.
+  The trackpad pointer acceleration curve (touchpad_accel_profile_linear
+  in src/filter-touchpad.c), re-derived in original C# for the
+  touchpad-to-mouse output path. No libinput code ships.
+  Licensed under the MIT License
 
 libusb
   https://github.com/libusb/libusb
@@ -306,134 +248,18 @@ libusb
   Licensed under the GNU Lesser General Public License v2.1 or later
   (full text below)
 
-nipplejs
-  https://github.com/yoannmoinet/nipplejs
-  Copyright (c) 2014 Yoann Moinet. The Web Controller's touch joystick
-  widget, embedded as nipplejs.min.js.
-  Licensed under the MIT License
+Microsoft GameInput SDK loader
+  https://www.nuget.org/packages/Microsoft.GameInput/3.5.270
+  Copyright (c) Microsoft Corporation.
+  Licensed under MIT. Statically linked into the bundled SDL fork.
 
-QR-Code-generator
-  https://github.com/nayuki/QR-Code-generator
-  Copyright (c) Project Nayuki. The byte-mode QR encoder behind the
-  Dashboard's web controller card is a C# port of this reference
-  implementation (PadForge.Services.QrCode).
-  Licensed under the MIT License
-
-Zergatul.Obs.InputOverlay
-  https://github.com/Zergatul/Zergatul.Obs.InputOverlay
-  Copyright (c) 2021 Igor Budzhak. The mouse artwork in the
-  Keyboard + Mouse visualization is rendered from this project's
-  mouse.svg (PadForge.App/Views/MouseArt.g.cs).
-  Licensed under the MIT License
-
-SDL_GameControllerDB
-  https://github.com/mdqinc/SDL_GameControllerDB
-  Community gamepad mapping database. PadForge's bundled
-  gamecontrollerdb_padforge.txt extends it.
-  Licensed under the zlib License
-
-Zacksly Icon Pack
-  https://zacksly.itch.io/
-  By Zacksly. PadForge's stick and trigger tab icon geometry derives from
-  the pack's Xbox Series icons.
-  Licensed under CC BY 3.0
-
-xbledctl
-  https://github.com/Leclowndu93150/xbledctl
-  By Leclowndu93150. The Xbox Guide button LED writer derives its
-  \\.\XboxGIP packet layout, wire constants, and device-discovery
-  sequence from this project.
-  Licensed under the MIT License
-
-JoyShockMapper
-  https://github.com/Electronicks/JoyShockMapper
-  By JibbSmart (Julian Smart) and Electronicks. The winding-angle
-  steering and lean math are C# ports.
-  Licensed under the MIT License
-
-GamepadMotionHelpers
-  https://github.com/JibbSmart/GamepadMotionHelpers
-  By JibbSmart. The player-space and world-space gyro conversions and
-  the Gyro Tilt gravity update are adapted for C#.
-  Licensed under the MIT License
-
-SteamControllerSinger
-  https://github.com/Roboron3042/SteamControllerSinger
-  Copyright (c) 2015 Pila; fork by Roboron3042. The Steam Controller
-  (2015) haptic feature-report layout and note-period math.
-  Licensed under the BSD 3-Clause License (same conditions as reproduced
-  in full below for BthPS3)
-
-SteamHapticsSinger
-  https://github.com/CrazyCritic89/SteamHapticsSinger
-  Copyright (c) 2015-2016 Pila, Copyright (c) 2022-2026 Crazy, AAGaming.
-  The Steam Controller 2026 / Steam Deck LFO-tone haptic report layout,
-  gain and drive-frequency tables.
-  Licensed under the BSD 3-Clause License (same conditions as reproduced
-  in full below for BthPS3)
-
-hitboxer
-  https://github.com/valignatev/hitboxer
-  By valignatev. Semantics reference for the Keyboard & Mouse SOCD
-  cleaning modes. PadForge's state machine is original C#.
-  Licensed under the MIT License
-
-libinput
-  https://gitlab.freedesktop.org/libinput/libinput
-  Copyright (c) 2006-2009 Simon Thum, (c) 2008-2012 Kristian Høgsberg,
-  (c) 2010-2012 Intel Corporation, (c) 2010-2011 Benjamin Franzke,
-  (c) 2011-2012 Collabora, Ltd., (c) 2013-2014 Jonas Ådahl,
-  (c) 2013-2015 Red Hat, Inc.
-  The trackpad pointer acceleration curve (touchpad_accel_profile_linear
-  in src/filter-touchpad.c), re-derived in original C# for the
-  touchpad-to-mouse output path. No libinput code ships.
-  Licensed under the MIT License
-
-SteamKit2
-  https://github.com/SteamRE/SteamKit
-  Copyright (C) 2018 Ryan Stecker & SteamRE Team
-  .NET Steam network client for the Steam Workshop controller-config
-  import. Connects over an anonymous session and ships unmodified
-  inside the executable as SteamKit2.dll. Source code for the shipped
-  assembly is available at the project page above.
-  Licensed under the GNU Lesser General Public License v2.1 only
-  (full text below)
-
-protobuf-net
-  https://github.com/protobuf-net/protobuf-net
-  Copyright 2008 onwards Marc Gravell
-  Protocol Buffers serializer SteamKit2 uses for the Steam wire
-  protocol. Ships unmodified inside the executable as protobuf-net.dll
-  and protobuf-net.Core.dll.
-  Licensed under the Apache License 2.0 (full text below)
-
-ZstdSharp
-  https://github.com/oleg-st/ZstdSharp
-  Copyright (c) 2021 Oleg Stepanischev
-  Zstandard decompression SteamKit2 uses for Steam depot chunks.
-  A C# port of the zstd compression library. Ships unmodified inside
-  the executable as ZstdSharp.dll.
-  Licensed under the MIT License
-
-Interhaptics engine and Razer provider
-  https://github.com/WyvrnOfficial/Interhaptics_Unity_CoreSDK
-  Copyright (c) 2025 Wyvrn. All rights reserved.
-  The Interhaptics haptic engine and its Razer provider, which turn
-  controller rumble into Razer Sensa HD effects. Ships unmodified inside
-  the executable as HAR.dll and Interhaptics.RazerProvider.dll, the same
-  pair every application embedding the public Interhaptics Core SDK
-  redistributes.
-  Distributed under the Wyvrn End User License Agreement
-  (https://www.wyvrn.com/eula/)
-
-Valve Steam Controller CAD
-  https://gitlab.steamos.cloud/SteamHardware/SteamController (2026 pad)
-  Valve's March 2016 Steam Controller CAD release (2015 pad)
-  Copyright 2016 and 2026 Valve Corporation
-  The Steam Controller (2015) and Steam Controller (2026) 3D models are
-  meshed from Valve's published STEP files. PadForge is not associated
-  with or endorsed by Valve.
-  Licensed under CC BY-NC-SA 4.0
+Microsoft Visual C++ Runtime
+  https://learn.microsoft.com/en-us/visualstudio/releases/2026/redistribution
+  Copyright (c) Microsoft Corporation.
+  The x64 msvcp140.dll, vcruntime140.dll, and vcruntime140_1.dll files and
+  the ARM64 msvcp140.dll and vcruntime140.dll files (version 14.51.36247.0)
+  are redistributed unmodified under the Microsoft Visual Studio license
+  terms. Each build of PadForge.exe bundles the set for its architecture.
 
 MinGW-w64 runtime
   https://www.mingw-w64.org/
@@ -450,40 +276,63 @@ MinGW-w64 runtime
   v3 with the GCC Runtime Library Exception v3.1. libwinpthread is
   licensed under the mingw-w64 winpthreads license (MIT-style terms).
 
+NAudio
+  https://github.com/naudio/NAudio
+  By Mark Heath and contributors. WASAPI loopback capture for the
+  controller-audio Windows-output mirror and the audio-bass trigger rumble.
+  Licensed under MIT License
+
+Nefarius.Utilities.DeviceManagement
+  https://github.com/nefarius/Nefarius.Utilities.DeviceManagement
+  Driver-store installation, device class filters, and USB hub port
+  cycling for the in-app DualShock 3 driver setup.
+  Licensed under MIT License
+
+nefcon
+  https://github.com/nefarius/nefcon
+  Copyright (c) 2022-2025 Nefarius Software Solutions e.U.
+  The ARM64 console build of nefcon 1.20.0 (nefconc.exe), shipped unmodified
+  inside the executable. It installs and removes the HidHide driver on ARM64
+  Windows, the way HidHide's own setup does. It links the libraries its
+  README credits: Argh!, colorwin, WinReg, easyloggingpp, Microsoft Detours,
+  scope_guard, the Windows Implementation Libraries and neflib.
+  Licensed under MIT License
+
+nipplejs
+  https://github.com/yoannmoinet/nipplejs
+  Copyright (c) 2014 Yoann Moinet. The Web Controller's touch joystick
+  widget, embedded as nipplejs.min.js.
+  Licensed under the MIT License
+
+OpenVR API
+  https://github.com/ValveSoftware/openvr
+  Copyright (c) 2015, Valve Corporation
+  C# client binding (openvr_api.cs) compiled into PadForge for consuming
+  VR headsets and motion controllers as input sources (#287). The native
+  openvr_api.dll is not distributed. It is loaded from the user's own
+  SteamVR installation.
+  Licensed under the BSD 3-Clause License (full text at the end of this file)
+
+OpenXInput
+  https://github.com/hifihedgehog/OpenXinput (forked for HIDMaestro filtering)
+  Upstream ships only a Microsoft trademark disclaimer and grants no OSS
+  license. Redistributed as-is under the same terms as upstream.
+
+Original Codebase
+  Forked from x360ce (https://github.com/x360ce/x360ce)
+  Copyright (C) 2002-2010 Racer_S, Copyright (C) 2010-2013 Robert Krawczyk,
+  Copyright (c) 2018 TocaEdit, Copyright (c) 2021 Jocys.com
+  Licensed under the GNU Lesser General Public License v3.0 (full text below)
+
+protobuf-net
+  https://github.com/protobuf-net/protobuf-net
+  Copyright 2008 onwards Marc Gravell
+  Protocol Buffers serializer SteamKit2 uses for the Steam wire
+  protocol. Ships unmodified inside the executable as protobuf-net.dll
+  and protobuf-net.Core.dll.
+  Licensed under the Apache License 2.0 (full text below)
+
 Protocol documentation references (no code from these projects ships)
-  Dolphin (https://github.com/dolphin-emu/dolphin, GPL-2.0): the Wii
-  controller Bluetooth pairing ceremony's Win32 API call order and the
-  Wii Remote speaker's Yamaha ADPCM constants, and the emulated Wii Remote's
-  sideways and upright orientation rotation and sideways D-pad table
-  (WiimoteEmu.cpp).
-  DS4Windows (https://github.com/Ryochan7/DS4Windows, GPL-3.0): DualShock
-  idle-disconnect, touchpad boundary, and battery decode behavior.
-  xone and xow (https://github.com/medusalix/xone,
-  https://github.com/medusalix/xow, GPL-2.0): GIP LED command
-  documentation corroborating xbledctl.
-  WiimoteLib (https://github.com/BrianPeek/WiimoteLib, Ms-PL): Wii IR
-  camera and Balance Board behavior.
-  joycon-singer (https://github.com/Sergey004/joycon-singer, no license
-  published): Joy-Con HD-rumble wire format, cross-checked against
-  dekuNukem's research.
-  chiaki-ng (https://github.com/streetpea/chiaki-ng, AGPL-3.0): the
-  PS5 haptic PCM format (signed 16-bit at 3 kHz), settling the
-  signed-8-bit Bluetooth haptics encoding.
-  DS4Windows, hbashton fork (https://github.com/hbashton/DS4Windows,
-  GPL-3.0): DualSense audio volume ranges, signed-8 haptic sample
-  corroboration, and the combined Bluetooth transport layout.
-  OpenRGB (https://gitlab.com/CalcProgrammer1/OpenRGB, GPL-2.0):
-  DualSense lightbar output-report byte usage.
-  TritonLib and SteamHapticsPlayer (https://github.com/Pixel1011/TritonLib,
-  https://github.com/Pixel1011/SteamHapticsPlayer, Apache-2.0),
-  steam-controller-live-haptics
-  (https://github.com/FamBoy32-dev/steam-controller-live-haptics, MIT),
-  steam-controller-stuff (https://github.com/iczero/steam-controller-stuff,
-  MIT) and sc2ds (https://github.com/ga2mer/sc2ds, no license published):
-  the Steam Controller 2026 PCM haptics stream, reports 0x86, 0x88 and
-  0x44.
-  Colore (https://github.com/chroma-sdk/Colore, MIT): corroboration of
-  the Razer Chroma REST API request and effect framing.
   Aurora (https://github.com/Aurora-RGB/Aurora, MIT), Artemis.Plugins
   (https://github.com/Artemis-RGB/Artemis.Plugins, PolyForm Noncommercial
   1.0.0), RGB.NET (https://github.com/DarthAffe/RGB.NET, LGPL-2.1),
@@ -493,32 +342,189 @@ Protocol documentation references (no code from these projects ships)
   MIT): the Logitech LED SDK engine entry points and calling convention
   behind the LIGHTSYNC lightbar mirror. PadForge loads G HUB's own engine
   at run time and ships no Logitech binary.
-  opentrack (https://github.com/opentrack/opentrack, ISC): the UDP tracker
-  datagram and the FreeTrack 2.0 shared-memory layout for head tracking.
+  chiaki-ng (https://github.com/streetpea/chiaki-ng, AGPL-3.0): the
+  PS5 haptic PCM format (signed 16-bit at 3 kHz), settling the
+  signed-8-bit Bluetooth haptics encoding.
+  Colore (https://github.com/chroma-sdk/Colore, MIT): corroboration of
+  the Razer Chroma REST API request and effect framing.
+  Dolphin (https://github.com/dolphin-emu/dolphin, GPL-2.0): the Wii
+  controller Bluetooth pairing ceremony's Win32 API call order and the
+  Wii Remote speaker's Yamaha ADPCM constants, and the emulated Wii Remote's
+  sideways and upright orientation rotation and sideways D-pad table
+  (WiimoteEmu.cpp).
+  DS4Windows by Ryochan7 (GPL-3.0, repository since deleted, archived at
+  https://web.archive.org/web/2023/https://github.com/Ryochan7/DS4Windows):
+  DualShock idle-disconnect, touchpad boundary, and battery decode behavior.
+  DS4Windows, hbashton fork (https://github.com/hbashton/DS4Windows,
+  GPL-3.0): DualSense audio volume ranges, signed-8 haptic sample
+  corroboration, and the combined Bluetooth transport layout.
+  InputPlumber (https://github.com/ShadowBlip/InputPlumber, GPL-3.0):
+  handheld PC identity strings and vendor-report notes cross-checked for
+  the hidden-button learner.
+  joycon-singer (https://github.com/Sergey004/joycon-singer, no license
+  published): Joy-Con HD-rumble wire format, cross-checked against
+  dekuNukem's research.
   Lenovo Legion Toolkit (https://github.com/BartoszCichecki/LenovoLegionToolkit,
   GPL-3.0): the Lenovo WMI utility-event class the handheld hidden-button
   learner subscribes to, and the elevated IPC server pattern behind
   external profile control.
-  InputPlumber (https://github.com/ShadowBlip/InputPlumber, GPL-3.0):
-  handheld PC identity strings and vendor-report notes cross-checked for
-  the hidden-button learner.
   linuxmotehook (https://github.com/v1993/linuxmotehook, Apache-2.0) and
   WiimoteHook (https://github.com/epigramx/WiimoteHook, closed source, read
   through its documentation): the Wii Remote hold-orientation presets the
   Grip setting mirrors.
+  Mumble (https://github.com/mumble-voip/mumble, BSD 3-Clause): the
+  Logitech G-key SDK library search order and shutdown lifecycle, read
+  alongside LogitechGkeyLib.h from the SDK itself, which defines the event
+  word. PadForge loads the library Logitech Gaming Software installs at
+  run time and ships no Logitech binary.
+  OpenRGB (https://gitlab.com/CalcProgrammer1/OpenRGB, GPL-2.0):
+  DualSense lightbar output-report byte usage.
+  opentrack (https://github.com/opentrack/opentrack, ISC): the UDP tracker
+  datagram and the FreeTrack 2.0 shared-memory layout for head tracking.
   OpenXR-SDK (https://github.com/KhronosGroup/OpenXR-SDK, Apache-2.0) and
   VirtualDesktop-OpenXR (https://github.com/mbucchia/VirtualDesktop-OpenXR,
   MIT): the runtime negotiation interface, structure layout, registry keys
   and performance-counter time conversion behind headset and motion
   controller input. PadForge talks to the runtime installed on the user's
   own machine and ships no Khronos binary.
-  Mumble (https://github.com/mumble-voip/mumble, BSD 3-Clause): the
-  Logitech G-key SDK library search order and shutdown lifecycle, read
-  alongside LogitechGkeyLib.h from the SDK itself, which defines the event
-  word. PadForge loads the library Logitech Gaming Software installs at
-  run time and ships no Logitech binary.
+  TritonLib and SteamHapticsPlayer (https://github.com/Pixel1011/TritonLib,
+  https://github.com/Pixel1011/SteamHapticsPlayer, Apache-2.0),
+  steam-controller-live-haptics
+  (https://github.com/FamBoy32-dev/steam-controller-live-haptics, MIT),
+  steam-controller-stuff (https://github.com/iczero/steam-controller-stuff,
+  MIT) and sc2ds (https://github.com/ga2mer/sc2ds, no license published):
+  the Steam Controller 2026 PCM haptics stream, reports 0x86, 0x88 and
+  0x44.
+  WiimoteLib (https://github.com/BrianPeek/WiimoteLib, MIT): Wii IR
+  camera and Balance Board behavior.
+  xone and xow (https://github.com/medusalix/xone,
+  https://github.com/medusalix/xow, GPL-2.0): GIP LED command
+  documentation corroborating xbledctl.
   PadForge's implementations are original C# and contain no code from
   these projects.
+
+$Q Super-Quick Recognizer
+  https://depts.washington.edu/acelab/proj/dollar/qdollar.html
+  Copyright (c) 2018-2019 Nathan Magrofuoco, Jacob O. Wobbrock,
+  Radu-Daniel Vatavu, Lisa Anthony. The touchpad shape-template matcher is
+  a C# re-derivation of the canonical JavaScript reference.
+  Licensed under the BSD 3-Clause License (full text at the end of this file)
+
+QR-Code-generator
+  https://github.com/nayuki/QR-Code-generator
+  Copyright (c) Project Nayuki. The byte-mode QR encoder behind the
+  Dashboard's web controller card is a C# port of this reference
+  implementation (PadForge.Services.QrCode).
+  Licensed under the MIT License
+
+SAxense
+  https://apps.sdore.me/SAxense (https://github.com/egormanga/SAxense)
+  By egormanga. DualSense Bluetooth audio research: the multiplexed
+  packet transport the controller speaker stream rides on. PadForge's
+  implementation is original C#.
+  Licensed under MPL-2.0
+
+SDL3
+  https://github.com/libsdl-org/SDL
+  Licensed under the zlib License
+
+SDL_GameControllerDB
+  https://github.com/mdqinc/SDL_GameControllerDB
+  Community gamepad mapping database. PadForge's bundled
+  gamecontrollerdb_padforge.txt extends it.
+  Licensed under the zlib License
+
+SteamControllerSinger
+  https://github.com/Roboron3042/SteamControllerSinger
+  Copyright (c) 2015 Pila, fork by Roboron3042. The Steam Controller
+  (2015) haptic feature-report layout and note-period math.
+  Licensed under the BSD 3-Clause License (same conditions as reproduced
+  in full below for BthPS3)
+
+SteamHapticsSinger
+  https://github.com/CrazyCritic89/SteamHapticsSinger
+  Copyright (c) 2015-2016 Pila, Copyright (c) 2022-2026 Crazy, AAGaming.
+  The Steam Controller 2026 / Steam Deck LFO-tone haptic report layout,
+  gain and drive-frequency tables.
+  Licensed under the BSD 3-Clause License (same conditions as reproduced
+  in full below for BthPS3)
+
+SteamKit2
+  https://github.com/SteamRE/SteamKit
+  Copyright (C) 2018 Ryan Stecker & SteamRE Team
+  .NET Steam network client for the Steam Workshop controller-config
+  import. Connects over an anonymous session and ships unmodified
+  inside the executable as SteamKit2.dll. Source code for the shipped
+  assembly is available at the project page above.
+  Licensed under the GNU Lesser General Public License v2.1 only
+  (full text below)
+
+usbip-win2
+  https://github.com/vadimgrn/usbip-win2
+  Copyright (c) 2021-2026, Vadym Hrynchyshyn
+  HIDMaestro.Core.dll carries the upstream 0.9.7.5 release installers for
+  x64 and ARM64, unmodified and Microsoft-signed, and installs the one
+  matching the machine the first time a composite USB controller is
+  created. It is the USB transport for those controllers. Any other
+  controller type installs nothing from it.
+  Licensed under the BSD 2-Clause License (full text at the end of this file)
+
+Valve Steam Controller CAD
+  https://gitlab.steamos.cloud/SteamHardware/SteamController (2026 pad)
+  Valve's March 2016 Steam Controller CAD release (2015 pad)
+  Copyright 2016 and 2026 Valve Corporation
+  The Steam Controller (2015) and Steam Controller (2026) 3D models are
+  meshed from Valve's published STEP files. PadForge is not associated
+  with or endorsed by Valve.
+  Licensed under CC BY-NC-SA 4.0
+
+Vosk
+  https://alphacephei.com/vosk/ (https://github.com/alphacep/vosk-api)
+  By Alpha Cephei Inc. Offline speech recognition for voice macros:
+  hears the registered phrases and routes everything else to an unknown
+  bucket. Ships as the native libvosk library inside the executable, with
+  the recognition model, which is unpacked to a cache under the TEMP folder
+  on first use. The x64 libvosk.dll is the one the Vosk package carries.
+  The ARM64 libvosk.dll is built from Vosk 0.3.38 by
+  tools/build-libvosk-arm64.sh, which is Alpha Cephei's own Windows ARM64
+  recipe (vosk-api 1b308a30), because no ARM64 binary is published.
+  Licensed under the Apache License 2.0 (full text below)
+
+Windows MIDI Services
+  https://github.com/microsoft/MIDI
+  Licensed under MIT License
+
+WPF UI
+  https://github.com/lepoco/wpfui
+  Licensed under MIT License
+
+xbledctl
+  https://github.com/Leclowndu93150/xbledctl
+  By Leclowndu93150. The Xbox Guide button LED writer derives its
+  \\.\XboxGIP packet layout, wire constants, and device-discovery
+  sequence from this project.
+  Licensed under the MIT License
+
+Zacksly Icon Pack
+  https://zacksly.itch.io/
+  By Zacksly. PadForge's stick and trigger tab icon geometry derives from
+  the pack's Xbox Series icons.
+  Licensed under CC BY 3.0
+
+Zergatul.Obs.InputOverlay
+  https://github.com/Zergatul/Zergatul.Obs.InputOverlay
+  Copyright (c) 2021 Igor Budzhak. The mouse artwork in the
+  Keyboard + Mouse visualization is rendered from this project's
+  mouse.svg (PadForge.App/Views/MouseArt.g.cs).
+  Licensed under the MIT License
+
+ZstdSharp
+  https://github.com/oleg-st/ZstdSharp
+  Copyright (c) 2021 Oleg Stepanischev
+  Zstandard decompression SteamKit2 uses for Steam depot chunks.
+  A C# port of the zstd compression library. Ships unmodified inside
+  the executable as ZstdSharp.dll.
+  Licensed under the MIT License
 
 Special Thanks
   TechAntohere (https://github.com/TechAntohere, u/Idkiamaguy645)
@@ -527,9 +533,245 @@ Special Thanks
 
 --------------------------------------------------------------------------------
 
+Apache License 2.0 (protobuf-net, Vosk, Kaldi and OpenFst, redistributed in binary form)
+=========================================================================================
+
+                                 Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
+
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+   1. Definitions.
+
+      "License" shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
+
+      "Licensor" shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
+
+      "Legal Entity" shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      "control" means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
+
+      "You" (or "Your") shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
+
+      "Source" form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
+      source, and configuration files.
+
+      "Object" form shall mean any form resulting from mechanical
+      transformation or translation of a Source form, including but
+      not limited to compiled object code, generated documentation,
+      and conversions to other media types.
+
+      "Work" shall mean the work of authorship, whether in Source or
+      Object form, made available under the License, as indicated by a
+      copyright notice that is included in or attached to the work
+      (an example is provided in the Appendix below).
+
+      "Derivative Works" shall mean any work, whether in Source or Object
+      form, that is based on (or derived from) the Work and for which the
+      editorial revisions, annotations, elaborations, or other modifications
+      represent, as a whole, an original work of authorship. For the purposes
+      of this License, Derivative Works shall not include works that remain
+      separable from, or merely link (or bind by name) to the interfaces of,
+      the Work and Derivative Works thereof.
+
+      "Contribution" shall mean any work of authorship, including
+      the original version of the Work and any modifications or additions
+      to that Work or Derivative Works thereof, that is intentionally
+      submitted to Licensor for inclusion in the Work by the copyright owner
+      or by an individual or Legal Entity authorized to submit on behalf of
+      the copyright owner. For the purposes of this definition, "submitted"
+      means any form of electronic, verbal, or written communication sent
+      to the Licensor or its representatives, including but not limited to
+      communication on electronic mailing lists, source code control systems,
+      and issue tracking systems that are managed by, or on behalf of, the
+      Licensor for the purpose of discussing and improving the Work, but
+      excluding communication that is conspicuously marked or otherwise
+      designated in writing by the copyright owner as "Not a Contribution."
+
+      "Contributor" shall mean Licensor and any individual or Legal Entity
+      on behalf of whom a Contribution has been received by Licensor and
+      subsequently incorporated within the Work.
+
+   2. Grant of Copyright License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the
+      Work and such Derivative Works in Source or Object form.
+
+   3. Grant of Patent License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      (except as stated in this section) patent license to make, have made,
+      use, offer to sell, sell, import, and otherwise transfer the Work,
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
+      with the Work to which such Contribution(s) was submitted. If You
+      institute patent litigation against any entity (including a
+      cross-claim or counterclaim in a lawsuit) alleging that the Work
+      or a Contribution incorporated within the Work constitutes direct
+      or contributory patent infringement, then any patent licenses
+      granted to You under this License for that Work shall terminate
+      as of the date such litigation is filed.
+
+   4. Redistribution. You may reproduce and distribute copies of the
+      Work or Derivative Works thereof in any medium, with or without
+      modifications, and in Source or Object form, provided that You
+      meet the following conditions:
+
+      (a) You must give any other recipients of the Work or
+          Derivative Works a copy of this License; and
+
+      (b) You must cause any modified files to carry prominent notices
+          stating that You changed the files; and
+
+      (c) You must retain, in the Source form of any Derivative Works
+          that You distribute, all copyright, patent, trademark, and
+          attribution notices from the Source form of the Work,
+          excluding those notices that do not pertain to any part of
+          the Derivative Works; and
+
+      (d) If the Work includes a "NOTICE" text file as part of its
+          distribution, then any Derivative Works that You distribute must
+          include a readable copy of the attribution notices contained
+          within such NOTICE file, excluding those notices that do not
+          pertain to any part of the Derivative Works, in at least one
+          of the following places: within a NOTICE text file distributed
+          as part of the Derivative Works; within the Source form or
+          documentation, if provided along with the Derivative Works; or,
+          within a display generated by the Derivative Works, if and
+          wherever such third-party notices normally appear. The contents
+          of the NOTICE file are for informational purposes only and
+          do not modify the License. You may add Your own attribution
+          notices within Derivative Works that You distribute, alongside
+          or as an addendum to the NOTICE text from the Work, provided
+          that such additional attribution notices cannot be construed
+          as modifying the License.
+
+      You may add Your own copyright statement to Your modifications and
+      may provide additional or different license terms and conditions
+      for use, reproduction, or distribution of Your modifications, or
+      for any such Derivative Works as a whole, provided Your use,
+      reproduction, and distribution of the Work otherwise complies with
+      the conditions stated in this License.
+
+   5. Submission of Contributions. Unless You explicitly state otherwise,
+      any Contribution intentionally submitted for inclusion in the Work
+      by You to the Licensor shall be under the terms and conditions of
+      this License, without any additional terms or conditions.
+      Notwithstanding the above, nothing herein shall supersede or modify
+      the terms of any separate license agreement you may have executed
+      with Licensor regarding such Contributions.
+
+   6. Trademarks. This License does not grant permission to use the trade
+      names, trademarks, service marks, or product names of the Licensor,
+      except as required for reasonable and customary use in describing the
+      origin of the Work and reproducing the content of the NOTICE file.
+
+   7. Disclaimer of Warranty. Unless required by applicable law or
+      agreed to in writing, Licensor provides the Work (and each
+      Contributor provides its Contributions) on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+      implied, including, without limitation, any warranties or conditions
+      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+      PARTICULAR PURPOSE. You are solely responsible for determining the
+      appropriateness of using or redistributing the Work and assume any
+      risks associated with Your exercise of permissions under this License.
+
+   8. Limitation of Liability. In no event and under no legal theory,
+      whether in tort (including negligence), contract, or otherwise,
+      unless required by applicable law (such as deliberate and grossly
+      negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special,
+      incidental, or consequential damages of any character arising as a
+      result of this License or out of the use or inability to use the
+      Work (including but not limited to damages for loss of goodwill,
+      work stoppage, computer failure or malfunction, or any and all
+      other commercial damages or losses), even if such Contributor
+      has been advised of the possibility of such damages.
+
+   9. Accepting Warranty or Additional Liability. While redistributing
+      the Work or Derivative Works thereof, You may choose to offer,
+      and charge a fee for, acceptance of support, warranty, indemnity,
+      or other liability obligations and/or rights consistent with this
+      License. However, in accepting such obligations, You may act only
+      on Your own behalf and on Your sole responsibility, not on behalf
+      of any other Contributor, and only if You agree to indemnify,
+      defend, and hold each Contributor harmless for any liability
+      incurred by, or claims asserted against, such Contributor by reason
+      of your accepting any such warranty or additional liability.
+
+   END OF TERMS AND CONDITIONS
+
+   APPENDIX: How to apply the Apache License to your work.
+
+      To apply the Apache License to your work, attach the following
+      boilerplate notice, with the fields enclosed by brackets "[]"
+      replaced with your own identifying information. (Don't include
+      the brackets!)  The text should be enclosed in the appropriate
+      comment syntax for the file format. We also recommend that a
+      file or class name and description of purpose be included on the
+      same "printed page" as the copyright notice for easier
+      identification within third-party archives.
+
+   Copyright [yyyy] [name of copyright owner]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+--------------------------------------------------------------------------------
+
+BSD 2-Clause License (usbip-win2, redistributed in binary form inside
+HIDMaestro.Core.dll)
+======================================================================
+
+Copyright (c) 2021-2026, Vadym Hrynchyshyn <vadimgrn@gmail.com>
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+--------------------------------------------------------------------------------
+
 BSD 3-Clause License (BthPS3 and BthPS3PSM, the OpenVR API C# binding, the
-$Q Super-Quick Recognizer re-derivation, the GestureSign re-derivation, and
-OpenBLAS and CLAPACK inside libvosk, all redistributed in binary form)
+$Q Super-Quick Recognizer re-derivation, and OpenBLAS and CLAPACK inside
+libvosk, all redistributed in binary form)
 ==========================================================================
 
 Copyright (c) 2018-2026, Nefarius Software Solutions e.U.
@@ -539,8 +781,6 @@ Copyright (c) 2015, Valve Corporation
 Copyright (c) 2018-2019, Nathan Magrofuoco, Jacob O. Wobbrock,
 Radu-Daniel Vatavu, and Lisa Anthony
   ($Q Super-Quick Recognizer)
-Copyright (c) 2016, TransposonY
-  (GestureSign)
 Copyright (c) 2011-2014, The OpenBLAS Project
   (OpenBLAS)
 Copyright (c) 1992-2008 The University of Tennessee
@@ -564,35 +804,6 @@ modification, are permitted provided that the following conditions are met:
 For the $Q Super-Quick Recognizer the third condition names the University
 Stefan cel Mare of Suceava, the University of Washington, and the
 University of Florida in place of the copyright holder.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
---------------------------------------------------------------------------------
-
-BSD 2-Clause License (usbip-win2, redistributed in binary form inside
-HIDMaestro.Core.dll)
-======================================================================
-
-Copyright (c) 2021-2026, Vadym Hrynchyshyn <vadimgrn@gmail.com>
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer.
-
-2. Redistributions in binary form must reproduce the above copyright notice,
-   this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -631,6 +842,33 @@ damages or any damages whatsoever resulting from loss of use,
 data or profits, whether in an action of contract, negligence or
 other tortious action, arising out of or in connection with the
 use or performance of this software.
+
+--------------------------------------------------------------------------------
+
+GamepadMotionHelpers gravity update notice
+=========================================
+
+MIT License
+
+Copyright (c) 2020-2023 Julian "Jibb" Smart
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
 --------------------------------------------------------------------------------
 
@@ -1142,210 +1380,179 @@ That's all there is to it!
 
 --------------------------------------------------------------------------------
 
-Apache License 2.0 (protobuf-net, Vosk, Kaldi and OpenFst, redistributed in binary form)
-=========================================================================================
+GNU Lesser General Public License v3.0 (x360ce, the codebase PadForge was forked from)
+======================================================================================
 
-                                 Apache License
-                           Version 2.0, January 2004
-                        http://www.apache.org/licenses/
+It adds permissions to the GNU General Public License v3.0, published at
+https://www.gnu.org/licenses/gpl-3.0.txt.
 
-   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+                   GNU LESSER GENERAL PUBLIC LICENSE
+                       Version 3, 29 June 2007
 
-   1. Definitions.
+ Copyright (C) 2007 Free Software Foundation, Inc. <http://fsf.org/>
+ Everyone is permitted to copy and distribute verbatim copies
+ of this license document, but changing it is not allowed.
 
-      "License" shall mean the terms and conditions for use, reproduction,
-      and distribution as defined by Sections 1 through 9 of this document.
 
-      "Licensor" shall mean the copyright owner or entity authorized by
-      the copyright owner that is granting the License.
+  This version of the GNU Lesser General Public License incorporates
+the terms and conditions of version 3 of the GNU General Public
+License, supplemented by the additional permissions listed below.
 
-      "Legal Entity" shall mean the union of the acting entity and all
-      other entities that control, are controlled by, or are under common
-      control with that entity. For the purposes of this definition,
-      "control" means (i) the power, direct or indirect, to cause the
-      direction or management of such entity, whether by contract or
-      otherwise, or (ii) ownership of fifty percent (50%) or more of the
-      outstanding shares, or (iii) beneficial ownership of such entity.
+  0. Additional Definitions.
 
-      "You" (or "Your") shall mean an individual or Legal Entity
-      exercising permissions granted by this License.
+  As used herein, "this License" refers to version 3 of the GNU Lesser
+General Public License, and the "GNU GPL" refers to version 3 of the GNU
+General Public License.
 
-      "Source" form shall mean the preferred form for making modifications,
-      including but not limited to software source code, documentation
-      source, and configuration files.
+  "The Library" refers to a covered work governed by this License,
+other than an Application or a Combined Work as defined below.
 
-      "Object" form shall mean any form resulting from mechanical
-      transformation or translation of a Source form, including but
-      not limited to compiled object code, generated documentation,
-      and conversions to other media types.
+  An "Application" is any work that makes use of an interface provided
+by the Library, but which is not otherwise based on the Library.
+Defining a subclass of a class defined by the Library is deemed a mode
+of using an interface provided by the Library.
 
-      "Work" shall mean the work of authorship, whether in Source or
-      Object form, made available under the License, as indicated by a
-      copyright notice that is included in or attached to the work
-      (an example is provided in the Appendix below).
+  A "Combined Work" is a work produced by combining or linking an
+Application with the Library.  The particular version of the Library
+with which the Combined Work was made is also called the "Linked
+Version".
 
-      "Derivative Works" shall mean any work, whether in Source or Object
-      form, that is based on (or derived from) the Work and for which the
-      editorial revisions, annotations, elaborations, or other modifications
-      represent, as a whole, an original work of authorship. For the purposes
-      of this License, Derivative Works shall not include works that remain
-      separable from, or merely link (or bind by name) to the interfaces of,
-      the Work and Derivative Works thereof.
+  The "Minimal Corresponding Source" for a Combined Work means the
+Corresponding Source for the Combined Work, excluding any source code
+for portions of the Combined Work that, considered in isolation, are
+based on the Application, and not on the Linked Version.
 
-      "Contribution" shall mean any work of authorship, including
-      the original version of the Work and any modifications or additions
-      to that Work or Derivative Works thereof, that is intentionally
-      submitted to Licensor for inclusion in the Work by the copyright owner
-      or by an individual or Legal Entity authorized to submit on behalf of
-      the copyright owner. For the purposes of this definition, "submitted"
-      means any form of electronic, verbal, or written communication sent
-      to the Licensor or its representatives, including but not limited to
-      communication on electronic mailing lists, source code control systems,
-      and issue tracking systems that are managed by, or on behalf of, the
-      Licensor for the purpose of discussing and improving the Work, but
-      excluding communication that is conspicuously marked or otherwise
-      designated in writing by the copyright owner as "Not a Contribution."
+  The "Corresponding Application Code" for a Combined Work means the
+object code and/or source code for the Application, including any data
+and utility programs needed for reproducing the Combined Work from the
+Application, but excluding the System Libraries of the Combined Work.
 
-      "Contributor" shall mean Licensor and any individual or Legal Entity
-      on behalf of whom a Contribution has been received by Licensor and
-      subsequently incorporated within the Work.
+  1. Exception to Section 3 of the GNU GPL.
 
-   2. Grant of Copyright License. Subject to the terms and conditions of
-      this License, each Contributor hereby grants to You a perpetual,
-      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
-      copyright license to reproduce, prepare Derivative Works of,
-      publicly display, publicly perform, sublicense, and distribute the
-      Work and such Derivative Works in Source or Object form.
+  You may convey a covered work under sections 3 and 4 of this License
+without being bound by section 3 of the GNU GPL.
 
-   3. Grant of Patent License. Subject to the terms and conditions of
-      this License, each Contributor hereby grants to You a perpetual,
-      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
-      (except as stated in this section) patent license to make, have made,
-      use, offer to sell, sell, import, and otherwise transfer the Work,
-      where such license applies only to those patent claims licensable
-      by such Contributor that are necessarily infringed by their
-      Contribution(s) alone or by combination of their Contribution(s)
-      with the Work to which such Contribution(s) was submitted. If You
-      institute patent litigation against any entity (including a
-      cross-claim or counterclaim in a lawsuit) alleging that the Work
-      or a Contribution incorporated within the Work constitutes direct
-      or contributory patent infringement, then any patent licenses
-      granted to You under this License for that Work shall terminate
-      as of the date such litigation is filed.
+  2. Conveying Modified Versions.
 
-   4. Redistribution. You may reproduce and distribute copies of the
-      Work or Derivative Works thereof in any medium, with or without
-      modifications, and in Source or Object form, provided that You
-      meet the following conditions:
+  If you modify a copy of the Library, and, in your modifications, a
+facility refers to a function or data to be supplied by an Application
+that uses the facility (other than as an argument passed when the
+facility is invoked), then you may convey a copy of the modified
+version:
 
-      (a) You must give any other recipients of the Work or
-          Derivative Works a copy of this License; and
+   a) under this License, provided that you make a good faith effort to
+   ensure that, in the event an Application does not supply the
+   function or data, the facility still operates, and performs
+   whatever part of its purpose remains meaningful, or
 
-      (b) You must cause any modified files to carry prominent notices
-          stating that You changed the files; and
+   b) under the GNU GPL, with none of the additional permissions of
+   this License applicable to that copy.
 
-      (c) You must retain, in the Source form of any Derivative Works
-          that You distribute, all copyright, patent, trademark, and
-          attribution notices from the Source form of the Work,
-          excluding those notices that do not pertain to any part of
-          the Derivative Works; and
+  3. Object Code Incorporating Material from Library Header Files.
 
-      (d) If the Work includes a "NOTICE" text file as part of its
-          distribution, then any Derivative Works that You distribute must
-          include a readable copy of the attribution notices contained
-          within such NOTICE file, excluding those notices that do not
-          pertain to any part of the Derivative Works, in at least one
-          of the following places: within a NOTICE text file distributed
-          as part of the Derivative Works; within the Source form or
-          documentation, if provided along with the Derivative Works; or,
-          within a display generated by the Derivative Works, if and
-          wherever such third-party notices normally appear. The contents
-          of the NOTICE file are for informational purposes only and
-          do not modify the License. You may add Your own attribution
-          notices within Derivative Works that You distribute, alongside
-          or as an addendum to the NOTICE text from the Work, provided
-          that such additional attribution notices cannot be construed
-          as modifying the License.
+  The object code form of an Application may incorporate material from
+a header file that is part of the Library.  You may convey such object
+code under terms of your choice, provided that, if the incorporated
+material is not limited to numerical parameters, data structure
+layouts and accessors, or small macros, inline functions and templates
+(ten or fewer lines in length), you do both of the following:
 
-      You may add Your own copyright statement to Your modifications and
-      may provide additional or different license terms and conditions
-      for use, reproduction, or distribution of Your modifications, or
-      for any such Derivative Works as a whole, provided Your use,
-      reproduction, and distribution of the Work otherwise complies with
-      the conditions stated in this License.
+   a) Give prominent notice with each copy of the object code that the
+   Library is used in it and that the Library and its use are
+   covered by this License.
 
-   5. Submission of Contributions. Unless You explicitly state otherwise,
-      any Contribution intentionally submitted for inclusion in the Work
-      by You to the Licensor shall be under the terms and conditions of
-      this License, without any additional terms or conditions.
-      Notwithstanding the above, nothing herein shall supersede or modify
-      the terms of any separate license agreement you may have executed
-      with Licensor regarding such Contributions.
+   b) Accompany the object code with a copy of the GNU GPL and this license
+   document.
 
-   6. Trademarks. This License does not grant permission to use the trade
-      names, trademarks, service marks, or product names of the Licensor,
-      except as required for reasonable and customary use in describing the
-      origin of the Work and reproducing the content of the NOTICE file.
+  4. Combined Works.
 
-   7. Disclaimer of Warranty. Unless required by applicable law or
-      agreed to in writing, Licensor provides the Work (and each
-      Contributor provides its Contributions) on an "AS IS" BASIS,
-      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
-      implied, including, without limitation, any warranties or conditions
-      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
-      PARTICULAR PURPOSE. You are solely responsible for determining the
-      appropriateness of using or redistributing the Work and assume any
-      risks associated with Your exercise of permissions under this License.
+  You may convey a Combined Work under terms of your choice that,
+taken together, effectively do not restrict modification of the
+portions of the Library contained in the Combined Work and reverse
+engineering for debugging such modifications, if you also do each of
+the following:
 
-   8. Limitation of Liability. In no event and under no legal theory,
-      whether in tort (including negligence), contract, or otherwise,
-      unless required by applicable law (such as deliberate and grossly
-      negligent acts) or agreed to in writing, shall any Contributor be
-      liable to You for damages, including any direct, indirect, special,
-      incidental, or consequential damages of any character arising as a
-      result of this License or out of the use or inability to use the
-      Work (including but not limited to damages for loss of goodwill,
-      work stoppage, computer failure or malfunction, or any and all
-      other commercial damages or losses), even if such Contributor
-      has been advised of the possibility of such damages.
+   a) Give prominent notice with each copy of the Combined Work that
+   the Library is used in it and that the Library and its use are
+   covered by this License.
 
-   9. Accepting Warranty or Additional Liability. While redistributing
-      the Work or Derivative Works thereof, You may choose to offer,
-      and charge a fee for, acceptance of support, warranty, indemnity,
-      or other liability obligations and/or rights consistent with this
-      License. However, in accepting such obligations, You may act only
-      on Your own behalf and on Your sole responsibility, not on behalf
-      of any other Contributor, and only if You agree to indemnify,
-      defend, and hold each Contributor harmless for any liability
-      incurred by, or claims asserted against, such Contributor by reason
-      of your accepting any such warranty or additional liability.
+   b) Accompany the Combined Work with a copy of the GNU GPL and this license
+   document.
 
-   END OF TERMS AND CONDITIONS
+   c) For a Combined Work that displays copyright notices during
+   execution, include the copyright notice for the Library among
+   these notices, as well as a reference directing the user to the
+   copies of the GNU GPL and this license document.
 
-   APPENDIX: How to apply the Apache License to your work.
+   d) Do one of the following:
 
-      To apply the Apache License to your work, attach the following
-      boilerplate notice, with the fields enclosed by brackets "[]"
-      replaced with your own identifying information. (Don't include
-      the brackets!)  The text should be enclosed in the appropriate
-      comment syntax for the file format. We also recommend that a
-      file or class name and description of purpose be included on the
-      same "printed page" as the copyright notice for easier
-      identification within third-party archives.
+       0) Convey the Minimal Corresponding Source under the terms of this
+       License, and the Corresponding Application Code in a form
+       suitable for, and under terms that permit, the user to
+       recombine or relink the Application with a modified version of
+       the Linked Version to produce a modified Combined Work, in the
+       manner specified by section 6 of the GNU GPL for conveying
+       Corresponding Source.
 
-   Copyright [yyyy] [name of copyright owner]
+       1) Use a suitable shared library mechanism for linking with the
+       Library.  A suitable mechanism is one that (a) uses at run time
+       a copy of the Library already present on the user's computer
+       system, and (b) will operate properly with a modified version
+       of the Library that is interface-compatible with the Linked
+       Version.
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   e) Provide Installation Information, but only if you would otherwise
+   be required to provide such information under section 6 of the
+   GNU GPL, and only to the extent that such information is
+   necessary to install and execute a modified version of the
+   Combined Work produced by recombining or relinking the
+   Application with a modified version of the Linked Version. (If
+   you use option 4d0, the Installation Information must accompany
+   the Minimal Corresponding Source and Corresponding Application
+   Code. If you use option 4d1, you must provide the Installation
+   Information in the manner specified by section 6 of the GNU GPL
+   for conveying Corresponding Source.)
 
-       http://www.apache.org/licenses/LICENSE-2.0
+  5. Combined Libraries.
 
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+  You may place library facilities that are a work based on the
+Library side by side in a single library together with other library
+facilities that are not Applications and are not covered by this
+License, and convey such a combined library under terms of your
+choice, if you do both of the following:
+
+   a) Accompany the combined library with a copy of the same work based
+   on the Library, uncombined with any other library facilities,
+   conveyed under the terms of this License.
+
+   b) Give prominent notice with the combined library that part of it
+   is a work based on the Library, and explaining where to find the
+   accompanying uncombined form of the same work.
+
+  6. Revised Versions of the GNU Lesser General Public License.
+
+  The Free Software Foundation may publish revised and/or new versions
+of the GNU Lesser General Public License from time to time. Such new
+versions will be similar in spirit to the present version, but may
+differ in detail to address new problems or concerns.
+
+  Each version is given a distinguishing version number. If the
+Library as you received it specifies that a certain numbered version
+of the GNU Lesser General Public License "or any later version"
+applies to it, you have the option of following the terms and
+conditions either of that published version or of any later version
+published by the Free Software Foundation. If the Library as you
+received it does not specify a version number of the GNU Lesser
+General Public License, you may choose any version of the GNU Lesser
+General Public License ever published by the Free Software Foundation.
+
+  If the Library as you received it specifies that a proxy can decide
+whether future versions of the GNU Lesser General Public License shall
+apply, that proxy's public statement of acceptance of any version is
+permanent authorization for you to choose that version for the
+Library.
+
+--------------------------------------------------------------------------------
 
 Microsoft GameInput SDK loader notice
 ====================================
@@ -1353,32 +1560,6 @@ Microsoft GameInput SDK loader notice
 Copyright (c) Microsoft Corporation.
 
 This file is licensed under the MIT License.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-
-GamepadMotionHelpers gravity update notice
-=========================================
-
-MIT License
-
-Copyright (c) 2020-2023 Julian "Jibb" Smart
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
