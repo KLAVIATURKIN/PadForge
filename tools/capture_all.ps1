@@ -3268,6 +3268,73 @@ function Scroll-ToAnchors {
     return $false
 }
 
+# The Updates card (#457). Its status line stays empty until a check has run,
+# so the shot clicks Check Now and waits for GitHub's answer first. The frame
+# must hold the whole card, from its title to the Check Now button. A check
+# that never answers skips the shot rather than photographing "Checking".
+$script:UpdateAnswers = @("PadForge * is up to date.", "PadForge * is available.",
+    "Pre-release * is available.", "Could not check for updates: *",
+    "GitHub is limiting requests from this network. Try again later.",
+    "The newest version has no build for this PC's processor yet.")
+function Capture-UpdatesCard {
+    if (-not (Want "settings-updates")) { return }
+    ScrollContent -Clicks 90
+    if (-not (Scroll-ToAnchors -Anchors @("Updates", "Check Now"))) {
+        Write-Host "  !! SKIPPED settings-updates" -ForegroundColor Red
+        return
+    }
+    $btn = Find-UIA -Name "Check Now" -CT ([System.Windows.Automation.ControlType]::Button)
+    if (-not $btn) {
+        Write-Host "  !! no Check Now button -- SKIPPED settings-updates" -ForegroundColor Red
+        return
+    }
+    Click-El $btn -Label "Check Now" -Delay 500 | Out-Null
+    $textCond = New-Object System.Windows.Automation.PropertyCondition(
+        [System.Windows.Automation.AutomationElement]::ControlTypeProperty,
+        [System.Windows.Automation.ControlType]::Text)
+    $answer = $null
+    $sw = [Diagnostics.Stopwatch]::StartNew()
+    while (-not $answer -and $sw.Elapsed.TotalSeconds -lt 30) {
+        foreach ($t in $script:uiaWin.FindAll($TD, $textCond)) {
+            try { $name = $t.Current.Name } catch { continue }
+            if (@($script:UpdateAnswers | Where-Object { $name -like $_ }).Count -gt 0) { $answer = $name; break }
+        }
+        if (-not $answer) { Microsoft.PowerShell.Utility\Start-Sleep -Milliseconds 500 }
+    }
+    if (-not $answer) {
+        Write-Host "  !! the update check never answered in 30 s -- SKIPPED settings-updates" -ForegroundColor Red
+        return
+    }
+    Write-Host "  update check answered: $answer"
+    # The answer adds a line above the button, so frame the card again. Stop
+    # on a card boundary, one wheel notch at a time from the top, with the
+    # Appearance title just under the top edge: Appearance, Window and the
+    # whole Updates card then sit in the frame. ScrollContent moves three
+    # notches per step, and stopping on that grid cut the Language title in
+    # half at the top edge.
+    ScrollContent -Clicks 90
+    $wr = New-Object Win32+RECT
+    [Win32]::GetWindowRect($script:hwnd, [ref]$wr) | Out-Null
+    $cx = [int](($wr.Left + $wr.Right) / 2 + 100)
+    $cy = [int](($wr.Top + $wr.Bottom) / 2)
+    for ($i = 0; $i -lt 60; $i++) {
+        $a = Get-Rect (Find-UIA -Name "Appearance")
+        if ($null -eq $a -or $a.Y -le ($wr.Top + 150)) { break }
+        [Win32]::ScrollAt($cx, $cy, -1)
+        Microsoft.PowerShell.Utility\Start-Sleep -Milliseconds 150
+    }
+    Microsoft.PowerShell.Utility\Start-Sleep -Milliseconds 500
+    $a = Get-Rect (Find-UIA -Name "Appearance")
+    $b = Get-Rect (Find-UIA -Name "Check Now" -CT ([System.Windows.Automation.ControlType]::Button))
+    $title = Get-Rect (Find-UIA -Name "Updates")
+    if ($null -ne $a -and $a.Y -ge ($wr.Top + 90) -and $null -ne $title -and
+        $null -ne $b -and ($b.Y + $b.Height) -le ($wr.Bottom - 80)) {
+        Cap "settings-updates"
+    } else {
+        Write-Host "  !! the Updates card never fit one frame -- SKIPPED settings-updates" -ForegroundColor Red
+    }
+}
+
 # Wheel over a chosen fraction of the window width instead of its center.
 # WPF routes the wheel to whatever the pointer is over, and the Devices page
 # is two independent scroll viewers: the card list on the left, the device
@@ -3809,6 +3876,13 @@ if ($Only.Count -gt 0) {
         } else {
             Write-Host "  !! anchor '$($t.Anchor)' never came into view -- SKIPPED $($t.Shot)" -ForegroundColor Red
         }
+        ScrollContent -Clicks 80
+    }
+
+    if (Want "settings-updates") {
+        Write-Host "[focused] Settings section: settings-updates"
+        Nav "Settings"; Start-Sleep -Milliseconds 900
+        Capture-UpdatesCard
         ScrollContent -Clicks 80
     }
 
@@ -5480,6 +5554,9 @@ Nav "Settings"
 Start-Sleep -Milliseconds 500
 Cap "settings"
 
+# 18a. The Updates card, which needs a finished update check in its frame.
+Capture-UpdatesCard
+
 # 18b-20b. Every scrolled Settings card, by ANCHOR rather than by a click
 # count. A fixed scroll is a guess about page LENGTH, and this page grew two
 # cards this cycle: Assignment Prompts and Handheld PC Buttons landed above
@@ -5487,8 +5564,8 @@ Cap "settings"
 # have shipped four shots framing their neighbors. The focused pass has been
 # anchor-driven since 2026-08; the main pass was still counting clicks.
 #
-# Card order (PageOrderContractTests): Language, Appearance, Window, Input
-# Engine, Assignment Prompts, Handheld PC Buttons, Battery Alerts, HidHide,
+# Card order (PageOrderContractTests): Language, Appearance, Window, Updates,
+# Input Engine, Assignment Prompts, Handheld PC Buttons, Battery Alerts, HidHide,
 # HIDMaestro, MIDI Services, SteamVR, Community Configs, Settings File,
 # Diagnostics. An anchor in view proves the card STARTS on screen, not that
 # it FITS, so each entry carries the extra scroll its card needs below its

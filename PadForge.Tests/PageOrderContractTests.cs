@@ -114,6 +114,7 @@ namespace PadForge.Tests
                     "Settings_Language",
                     "Settings_Appearance",
                     "Settings_Window",
+                    "Settings_Updates",
                     "Settings_InputEngine",
                     "Settings_AssignOffer",
                     "Settings_Handheld",

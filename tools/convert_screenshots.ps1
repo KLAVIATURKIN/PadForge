@@ -136,6 +136,7 @@ $map = @{
     # ALIAS table, which is why nothing caught it here.
     "pad-bass-shakers"              = "bass-shakers"
     "settings-diagnostics"          = "settings-diagnostics"
+    "settings-updates"              = "settings-updates"
 }
 
 $jpgEncoder = [System.Drawing.Imaging.ImageCodecInfo]::GetImageEncoders() | Where-Object { $_.MimeType -eq "image/jpeg" }
