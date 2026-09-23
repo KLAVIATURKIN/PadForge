@@ -746,32 +746,82 @@
        commit count and short hash, "PadForge r3676@b500441"
        (.github/workflows/build.yml, which fetches the full history so the
        count is the real one), and this stamps the same two values into the
-       exe as assembly metadata. A tree built without git stamps nothing, and
-       the updater treats that build as older than any published one.
+       exe as assembly metadata, with the full hash, which is the only value
+       that names one build exactly. A tree built without git stamps nothing,
+       and the updater treats that build as older than any published one.
+
+       Only this tree's own full history is stamped. A source zip unpacked
+       inside another repository would otherwise take that repository's
+       count and hash, and a shallow clone a count that is too low, and the
+       updater orders dev builds by that count. So nothing is stamped unless
+       git's top level is this solution folder, the commit holds this project
+       file, and the clone is not shallow. HEAD is read once, so the count and
+       the hash describe one commit even while HEAD moves.
+
        WriteOnlyWhenDifferent keeps an unchanged commit from recompiling, and
        the target is harmless in WPF's second compile pass over the
        _wpftmp copy of this project: it writes the same file. -->
   <Target Name="StampBuildIdentity" BeforeTargets="CoreCompile">
-    <Exec Command="git rev-list --count HEAD" WorkingDirectory="$(MSBuildProjectDirectory)"
+    <PropertyGroup>
+      <PadForgeBuildNumber></PadForgeBuildNumber>
+      <PadForgeCommit></PadForgeCommit>
+      <PadForgeCommitSha></PadForgeCommitSha>
+      <_PadForgeSolutionDir>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\..'))</_PadForgeSolutionDir>
+    </PropertyGroup>
+    <Exec Command="git rev-parse HEAD" WorkingDirectory="$(MSBuildProjectDirectory)"
           ConsoleToMSBuild="true" IgnoreExitCode="true" EchoOff="true"
           StandardOutputImportance="low" StandardErrorImportance="low">
-      <Output TaskParameter="ConsoleOutput" PropertyName="PadForgeBuildNumber" />
+      <Output TaskParameter="ConsoleOutput" PropertyName="_PadForgeHead" />
+      <Output TaskParameter="ExitCode" PropertyName="_PadForgeHeadExit" />
+    </Exec>
+    <Exec Condition="'$(_PadForgeHeadExit)' == '0'" Command="git rev-parse --show-toplevel"
+          WorkingDirectory="$(MSBuildProjectDirectory)"
+          ConsoleToMSBuild="true" IgnoreExitCode="true" EchoOff="true"
+          StandardOutputImportance="low" StandardErrorImportance="low">
+      <Output TaskParameter="ConsoleOutput" PropertyName="_PadForgeTop" />
+      <Output TaskParameter="ExitCode" PropertyName="_PadForgeTopExit" />
+    </Exec>
+    <Exec Condition="'$(_PadForgeTopExit)' == '0'" Command="git rev-parse --is-shallow-repository"
+          WorkingDirectory="$(MSBuildProjectDirectory)"
+          ConsoleToMSBuild="true" IgnoreExitCode="true" EchoOff="true"
+          StandardOutputImportance="low" StandardErrorImportance="low">
+      <Output TaskParameter="ConsoleOutput" PropertyName="_PadForgeShallow" />
+      <Output TaskParameter="ExitCode" PropertyName="_PadForgeShallowExit" />
+    </Exec>
+    <PropertyGroup Condition="'$(_PadForgeShallowExit)' == '0' and '$(_PadForgeShallow)' == 'false' and '$(_PadForgeTop)' != ''">
+      <_PadForgeTopDir>$([System.IO.Path]::GetFullPath('$(_PadForgeTop)'))</_PadForgeTopDir>
+    </PropertyGroup>
+    <Exec Condition="'$(_PadForgeTopDir)' != '' and '$(_PadForgeTopDir)' == '$(_PadForgeSolutionDir)'"
+          Command="git cat-file -e $(_PadForgeHead):PadForge.App/PadForge.App.csproj"
+          WorkingDirectory="$(MSBuildProjectDirectory)"
+          IgnoreExitCode="true" EchoOff="true"
+          StandardOutputImportance="low" StandardErrorImportance="low">
+      <Output TaskParameter="ExitCode" PropertyName="_PadForgeOwnExit" />
+    </Exec>
+    <Exec Condition="'$(_PadForgeOwnExit)' == '0'" Command="git rev-list --count $(_PadForgeHead)"
+          WorkingDirectory="$(MSBuildProjectDirectory)"
+          ConsoleToMSBuild="true" IgnoreExitCode="true" EchoOff="true"
+          StandardOutputImportance="low" StandardErrorImportance="low">
+      <Output TaskParameter="ConsoleOutput" PropertyName="_PadForgeCount" />
       <Output TaskParameter="ExitCode" PropertyName="_PadForgeCountExit" />
     </Exec>
-    <Exec Command="git rev-parse --short=7 HEAD" WorkingDirectory="$(MSBuildProjectDirectory)"
+    <Exec Condition="'$(_PadForgeCountExit)' == '0'" Command="git rev-parse --short=7 $(_PadForgeHead)"
+          WorkingDirectory="$(MSBuildProjectDirectory)"
           ConsoleToMSBuild="true" IgnoreExitCode="true" EchoOff="true"
           StandardOutputImportance="low" StandardErrorImportance="low">
-      <Output TaskParameter="ConsoleOutput" PropertyName="PadForgeCommit" />
-      <Output TaskParameter="ExitCode" PropertyName="_PadForgeCommitExit" />
+      <Output TaskParameter="ConsoleOutput" PropertyName="_PadForgeShort" />
+      <Output TaskParameter="ExitCode" PropertyName="_PadForgeShortExit" />
     </Exec>
-    <PropertyGroup>
-      <PadForgeBuildNumber Condition="'$(_PadForgeCountExit)' != '0'"></PadForgeBuildNumber>
-      <PadForgeCommit Condition="'$(_PadForgeCommitExit)' != '0'"></PadForgeCommit>
+    <PropertyGroup Condition="'$(_PadForgeShortExit)' == '0'">
+      <PadForgeBuildNumber>$(_PadForgeCount)</PadForgeBuildNumber>
+      <PadForgeCommit>$(_PadForgeShort)</PadForgeCommit>
+      <PadForgeCommitSha>$(_PadForgeHead)</PadForgeCommitSha>
     </PropertyGroup>
     <ItemGroup>
       <_PadForgeIdentityLine Include="// Generated by StampBuildIdentity in PadForge.App.csproj." />
       <_PadForgeIdentityLine Include="[assembly: System.Reflection.AssemblyMetadata(&quot;PadForgeBuildNumber&quot;, &quot;$(PadForgeBuildNumber)&quot;)]" />
       <_PadForgeIdentityLine Include="[assembly: System.Reflection.AssemblyMetadata(&quot;PadForgeCommit&quot;, &quot;$(PadForgeCommit)&quot;)]" />
+      <_PadForgeIdentityLine Include="[assembly: System.Reflection.AssemblyMetadata(&quot;PadForgeCommitSha&quot;, &quot;$(PadForgeCommitSha)&quot;)]" />
     </ItemGroup>
     <WriteLinesToFile File="$(IntermediateOutputPath)PadForgeBuildIdentity.g.cs" Lines="@(_PadForgeIdentityLine)"
                       Overwrite="true" WriteOnlyWhenDifferent="true" />

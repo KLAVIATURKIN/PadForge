@@ -213,7 +213,7 @@ namespace PadForge.Services
         /// Finds the settings file. Checks for the primary file first,
         /// then fallback, then creates the primary file path for new installs.
         /// </summary>
-        private static string FindSettingsFile()
+        internal static string FindSettingsFile()
         {
             string appDir = AppDomain.CurrentDomain.BaseDirectory;
 

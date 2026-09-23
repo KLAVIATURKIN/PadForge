@@ -137,6 +137,90 @@ namespace PadForge
             return null;
         }
 
+        /// <summary>The update helper's two dialogs (#457). It runs before any
+        /// window exists and before settings load, so they follow the Windows
+        /// display language rather than PadForge's own.</summary>
+        private sealed class UpdateHelperUi : Services.UpdateService.IApplyUi
+        {
+            public void Report(string text) =>
+                MessageBox.Show(text, Strings.Instance.Common_PadForge, MessageBoxButton.OK, MessageBoxImage.Warning);
+
+            /// <summary>A window rather than a message box, so the question
+            /// closes itself once the old copy has exited instead of holding
+            /// the update until someone answers it.</summary>
+            public bool KeepWaiting(string text, Func<bool> exited)
+            {
+                // The helper says when it is done. Left at the default, closing
+                // this window, the helper's only one, would shut it down.
+                Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+                return AskToKeepWaiting(text, exited, TimeSpan.FromMilliseconds(250));
+            }
+        }
+
+        /// <summary>The helper's wait question (#457): OK keeps waiting,
+        /// Cancel or closing the window skips the update. It answers itself
+        /// with OK once <paramref name="exited"/> turns true, checked every
+        /// <paramref name="poll"/>. <paramref name="place"/> positions the
+        /// window before it shows, for tests.</summary>
+        internal static bool AskToKeepWaiting(string text, Func<bool> exited, TimeSpan poll, Action<Window> place = null)
+        {
+            var ok = new System.Windows.Controls.Button
+            {
+                Content = Strings.Instance.Common_OK, IsDefault = true, MinWidth = 90, Margin = new Thickness(0, 0, 8, 0),
+            };
+            var cancel = new System.Windows.Controls.Button
+            {
+                Content = Strings.Instance.Common_Cancel, IsCancel = true, MinWidth = 90,
+            };
+            var buttons = new System.Windows.Controls.StackPanel
+            {
+                Orientation = System.Windows.Controls.Orientation.Horizontal,
+                HorizontalAlignment = HorizontalAlignment.Right,
+                Margin = new Thickness(0, 18, 0, 0),
+            };
+            buttons.Children.Add(ok);
+            buttons.Children.Add(cancel);
+            var content = new System.Windows.Controls.StackPanel { Margin = new Thickness(20, 18, 20, 18) };
+            content.Children.Add(new System.Windows.Controls.TextBlock
+            {
+                Text = text, TextWrapping = TextWrapping.Wrap, MaxWidth = 400,
+            });
+            content.Children.Add(buttons);
+            var window = new Window
+            {
+                Title = Strings.Instance.Common_PadForge,
+                Content = content,
+                SizeToContent = SizeToContent.WidthAndHeight,
+                ResizeMode = ResizeMode.NoResize,
+                WindowStartupLocation = WindowStartupLocation.CenterScreen,
+            };
+            // The theme's own ground and text, whatever the helper loaded.
+            window.SetResourceReference(System.Windows.Controls.Control.BackgroundProperty, "ApplicationBackgroundBrush");
+            window.SetResourceReference(System.Windows.Controls.Control.ForegroundProperty, "TextFillColorPrimaryBrush");
+            ok.Click += (s, e) => window.DialogResult = true;
+            var timer = new DispatcherTimer { Interval = poll };
+            timer.Tick += (s, e) =>
+            {
+                bool gone;
+                try { gone = exited(); }
+                catch
+                {
+                    // Whether the old copy exited cannot be seen, so the
+                    // question stays up for someone to answer.
+                    timer.Stop();
+                    return;
+                }
+                if (!gone) return;
+                timer.Stop();
+                window.DialogResult = true;
+            };
+            window.Closed += (s, e) => timer.Stop();
+            place?.Invoke(window);
+            // Its first tick comes after the window shows: ShowDialog runs it.
+            timer.Start();
+            return window.ShowDialog() == true;
+        }
+
         /// <summary>The arguments this copy was started with. An update hands
         /// them to the installer so PadForge comes back the way it was
         /// launched, --profile included (#457).</summary>
@@ -149,11 +233,19 @@ namespace PadForge
             // copy that started it and exits. This runs before everything below,
             // the single-instance check included, because the old copy still
             // holds that lock while it closes.
-            if (Services.UpdateService.TryRunApplyMode(e.Args, reason =>
-                    MessageBox.Show(string.Format(Strings.Instance.Update_InstallFailed_Format,
-                            reason == Services.UpdateService.OldCopyStillRunning
-                                ? Strings.Instance.Update_OldCopyStillRunning : reason),
-                        Strings.Instance.Common_PadForge, MessageBoxButton.OK, MessageBoxImage.Warning)))
+            if (Services.UpdateService.TryRunApplyMode(e.Args, new UpdateHelperUi()))
+            {
+                // The old copy reads the exit code when the helper leaves
+                // before reporting ready (UpdateService.WrongBuildExitCode).
+                Shutdown(Environment.ExitCode);
+                return;
+            }
+
+            // A committed update helper holds a lease on this exe until it
+            // starts PadForge again itself. A launch meanwhile, from the Start
+            // menu or a launcher, leaves quietly: it would hold the very file
+            // being replaced.
+            if (Services.UpdateService.IsUpdateInProgress(Environment.ProcessPath))
             {
                 Shutdown();
                 return;

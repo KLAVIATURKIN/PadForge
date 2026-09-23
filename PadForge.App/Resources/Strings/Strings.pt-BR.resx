@@ -307,7 +307,7 @@
   <data name="Settings_InstallUpdatesAutomatically" xml:space="preserve"><value>Instalar Atualizações Automaticamente</value></data>
   <data name="Settings_InstallUpdatesAutomaticallyTip" xml:space="preserve"><value>Baixa novas versões em segundo plano e as instala na próxima vez que o PadForge iniciar.</value></data>
   <data name="Settings_IncludePreReleases" xml:space="preserve"><value>Incluir Versões de Pré-Lançamento</value></data>
-  <data name="Settings_IncludePreReleasesTip" xml:space="preserve"><value>Oferece a build de desenvolvimento do commit mais recente em vez das versões publicadas. Ela recebe correções e recursos primeiro e foi menos testada.</value></data>
+  <data name="Settings_IncludePreReleasesTip" xml:space="preserve"><value>Oferece a build de desenvolvimento do commit mais recente, ou uma versão publicada mais nova quando houver. A build de desenvolvimento recebe correções e recursos primeiro e foi menos testada.</value></data>
   <data name="Settings_CheckNow" xml:space="preserve"><value>Verificar Agora</value></data>
   <data name="Settings_InstallAndRestart" xml:space="preserve"><value>Instalar e Reiniciar</value></data>
   <data name="Settings_ReleaseNotes" xml:space="preserve"><value>Notas da Versão</value></data>
@@ -321,10 +321,20 @@
   <data name="Update_CheckFailed_Format" xml:space="preserve"><value>Não foi possível verificar atualizações: {0}</value></data>
   <data name="Update_RateLimited" xml:space="preserve"><value>O GitHub está limitando as solicitações desta rede. Tente novamente mais tarde.</value></data>
   <data name="Update_NoBuildForThisPc" xml:space="preserve"><value>A versão mais recente ainda não tem uma build para o processador deste PC.</value></data>
-  <data name="Update_VerifyFailed" xml:space="preserve"><value>O download não correspondeu ao checksum publicado pelo GitHub e foi excluído.</value></data>
+  <data name="Update_VerifyFailed" xml:space="preserve"><value>O download não correspondeu ao checksum publicado pelo GitHub, então o PadForge não o instalou.</value></data>
   <data name="Update_InstallFailed_Format" xml:space="preserve"><value>O PadForge não conseguiu instalar a atualização: {0}</value></data>
+  <data name="Update_RestartFailed_Format" xml:space="preserve"><value>O PadForge não conseguiu reiniciar: {0}</value></data>
+  <data name="Update_RestartFailedBackup_Format" xml:space="preserve"><value>O PadForge foi atualizado, mas a nova versão não conseguiu iniciar: {0}
+
+Há uma cópia da versão anterior nesta pasta: {1}</value></data>
+  <data name="Update_RestoreFailed_Format" xml:space="preserve"><value>A atualização falhou e o PadForge não conseguiu restaurar a versão anterior. Há uma cópia nesta pasta: {0}</value></data>
+  <data name="Update_HelperExited_Format" xml:space="preserve"><value>O instalador fechou ao iniciar (código de saída {0}).</value></data>
+  <data name="Update_HelperNoAnswer" xml:space="preserve"><value>O instalador não informou que foi iniciado.</value></data>
+  <data name="Update_HelperNotStopped" xml:space="preserve"><value>O instalador não parou quando o PadForge tentou encerrá-lo.</value></data>
+  <data name="Update_HelperWrongBuild" xml:space="preserve"><value>O download é uma build diferente da indicada por esta atualização.</value></data>
+  <data name="Update_DownloadStalled" xml:space="preserve"><value>O download parou de responder.</value></data>
+  <data name="Update_WaitingForClose_Format" xml:space="preserve"><value>O PadForge não fechou após dois minutos. A atualização é instalada assim que ele fechar. Selecione {0} para continuar esperando ou {1} para pular esta atualização. Em ambos os casos, o PadForge é iniciado novamente depois de fechar.</value></data>
   <data name="Update_PendingFailed_Format" xml:space="preserve"><value>A atualização para o PadForge {0} não terminou de instalar. Instale-a pelas Configurações para tentar de novo.</value></data>
-  <data name="Update_OldCopyStillRunning" xml:space="preserve"><value>A cópia do PadForge em execução não fechou em dois minutos.</value></data>
   <data name="Update_Updated_Format" xml:space="preserve"><value>O PadForge foi atualizado para {0}.</value></data>
   <data name="Settings_StartMinimized" xml:space="preserve"><value>Iniciar Minimizado</value></data>
   <data name="Settings_StartAtLogin" xml:space="preserve"><value>Iniciar com o Windows</value></data>

@@ -271,6 +271,7 @@ function Reset-PadForgeUia {
     # leak counter read zero. All three restart helpers had it.
     $script:proc = $pr
     $script:hwnd = $pr.MainWindowHandle
+    Reset-KnownState
     $script:uiaWin = [System.Windows.Automation.AutomationElement]::FromHandle($script:hwnd)
     [Win32]::ForceFG($script:hwnd)
     Start-Sleep -Milliseconds 800
@@ -496,6 +497,7 @@ function Ensure-DeviceAssigned {
     # leak counter read zero. All three restart helpers had it.
     $script:proc = $pr
     $script:hwnd = $pr.MainWindowHandle
+    Reset-KnownState
     $script:uiaWin = [System.Windows.Automation.AutomationElement]::FromHandle($script:hwnd)
     [Win32]::ForceFG($script:hwnd)
     Start-Sleep -Milliseconds 800
@@ -601,6 +603,7 @@ function Seed-AudioDsp {
     # does and for the same reason: every modal helper keys on $script:proc.Id.
     $script:proc = $pr
     $script:hwnd = $pr.MainWindowHandle
+    Reset-KnownState
     $script:uiaWin = [System.Windows.Automation.AutomationElement]::FromHandle($script:hwnd)
     [Win32]::ForceFG($script:hwnd)
     Start-Sleep -Milliseconds 800
@@ -785,6 +788,7 @@ function Set-SlotPreset {
     $pr = Get-Process PadForge -EA SilentlyContinue | Select-Object -First 1
     $script:proc = $pr
     $script:hwnd = $pr.MainWindowHandle
+    Reset-KnownState
     $script:uiaWin = [System.Windows.Automation.AutomationElement]::FromHandle($script:hwnd)
     [Win32]::ForceFG($script:hwnd)
     Start-Sleep -Milliseconds 800
@@ -879,6 +883,7 @@ function Ensure-MacrosLoaded {
     # leak counter read zero. All three restart helpers had it.
     $script:proc = $pr
     $script:hwnd = $pr.MainWindowHandle
+    Reset-KnownState
     $script:uiaWin = [System.Windows.Automation.AutomationElement]::FromHandle($script:hwnd)
     [Win32]::ForceFG($script:hwnd)
     Start-Sleep -Milliseconds 800
@@ -920,11 +925,46 @@ $script:modalLeaks = 0
 
 # The three shots of the 2D controller preview. When -Only names these and
 # nothing else, STEP 0 saves Use2DControllerView=true so every pad page opens
-# in 2D and Toggle-ViewMode leaves the view alone. No click decides which view
-# gets photographed.
+# in 2D and Set-ViewMode has nothing to click. No click decides which view
+# gets photographed. $script:Start2D is decided after STEP 0 splits -Only.
 $script:TwoDShots = @('pad-controller-2d', '2d-annotation-overlay', '2d-touchpad-finger-dots')
-$script:Start2D = ($Only.Count -gt 0) -and
-    (@($Only | Where-Object { $script:TwoDShots -notcontains $_ }).Count -eq 0)
+$script:Start2D = $false
+# Set when a view toggle, or an annotation toggle, did not do what was asked.
+# From then on the state is unknown, and Cap saves nothing until a fresh app
+# process makes both known again (Reset-KnownState): a switch left on, or a
+# view left in 2D, would put the wrong picture under any later name.
+$script:ViewUnknown = $false
+$script:AnnotationUnknown = $false
+# Shots not saved because of that, or because a check on the view or the
+# overlay failed, and checks that failed with nothing left to refuse. Any of
+# them makes the run end red with exit code 1.
+$script:RefusedShots = @()
+$script:StateFailures = @()
+
+# A staging step that did not do what it asked leaves every later picture of
+# PadForge suspect: a device left off its slot, or another left on it. The run
+# records it, and Cap saves no more PadForge shots. The two browser shots
+# (Cap-Web) go on: they photograph the local web landing page and the Xbox 360
+# web controller, which carries no slot lighting, so no slot staging shows in
+# them.
+$script:StagingFailed = $false
+
+function Assert-Staged {
+    param($Result, [string]$What)
+    if (@($Result).Count -gt 0 -and @($Result)[-1] -eq $true) { return $true }
+    $script:StagingFailed = $true
+    $script:StateFailures += "$What failed"
+    Write-Host "  !! $What failed. No more PadForge shots are saved." -ForegroundColor Red
+    return $false
+}
+
+function Refuse-Shots {
+    param([string[]]$Names, [string]$Why)
+    $wanted = @($Names | Where-Object { Want $_ })
+    if ($wanted.Count -eq 0) { return }
+    Write-Host "  !! NOT SAVED $($wanted -join ', ') -- $Why" -ForegroundColor Red
+    $script:RefusedShots += $wanted
+}
 
 # True when this shot was asked for. With no -Only, everything is wanted.
 function Want {
@@ -937,6 +977,10 @@ function Cap {
     param([string]$Name, [switch]$AllowModal)
     if (-not (Want $Name)) {
         Write-Host "  .. skipped $Name (not in -Only)" -ForegroundColor DarkGray
+        return
+    }
+    if ($script:ViewUnknown -or $script:AnnotationUnknown -or $script:StagingFailed) {
+        Refuse-Shots @($Name) "the view, the annotation overlay or the staging is in an unknown state"
         return
     }
     # Warn, loudly and by name, when a dialog is up for a shot that is not
@@ -1239,28 +1283,7 @@ function Select-MappedDeviceOnce {
     return $false
 }
 
-# Toggle the PadPage 2D/3D view. The button carries AutomationId
-# "ViewModeToggle" (PadPage.xaml, inside ControllerModelHost) but usually has
-# NO UIA PEER AT ALL: the Helix viewport host strips its whole subtree from
-# the automation tree, so neither the Aid lookup nor an all-Buttons scan of
-# that corner finds anything (probed empirically 2026-07-30). The coordinate
-# is therefore the normal path, not the exception.
-#
-# A missed click is silent, so the toggle is VERIFIED. Two capture passes
-# shipped the 3D view under all three 2D names: the 4.1.0 prep through a
-# blind offset, and a later one through PadPageView + (41, 61), which stopped
-# hitting the button once the slot header rows moved inside PadPageView.
-# The click now uses the window rect, measured 2026-09-22 from a trimmed
-# capture of the maximized window: the button spans window-relative x 409-454,
-# y 233-280. The Reset View button is right-anchored in the 3D view and absent
-# in 2D, so its strip (window width - 191, y 233, 161 x 47) changes on every
-# toggle in either direction. No change means no toggle, and the caller saves
-# nothing.
-#
-# DETERMINISTIC ALTERNATIVE: the view is a PERSISTED SETTING
-# (AppSettings/Use2DControllerView, flipped by PadPage.ViewModeToggle_Click).
-# A run whose -Only names nothing but 2D shots writes it in STEP 0, opens
-# every pad page in 2D and never clicks here ($script:Start2D).
+# A hash of a screen rectangle, for telling whether a click changed a view.
 function Get-ScreenStripHash {
     param([int]$X, [int]$Y, [int]$W, [int]$H)
     $bmp = New-Object System.Drawing.Bitmap($W, $H)
@@ -1309,88 +1332,270 @@ function Open-SlotCard {
     return $null
 }
 
-# The 2D view's annotation toggle: on, photographed, off. Its AutomationId is
-# "AnnotationToggle2D". Where UIA does not reach it, the fallback clicks the
-# tag glyph, which is right-anchored: window-relative (width - 53, 255) on the
-# maximized window, measured 2026-09-22 from a capture. The old 0.965 W fell in
-# the gap beside the finish reset button once the 2D view gained its finish
-# selector, and the shot came out as a bare 2D view. A click that changes
-# nothing in the model area saves nothing.
+# An annotation overlay shot: on, photographed, off, each step checked.
+# The 2D and 3D views share one switch per pad (PadViewModel.
+# AnnotationOverlayEnabled), and a fresh app process starts with it off, so
+# the state is known only while every on-click and every off-click is seen to
+# work. The check is the model area's pixels: the on-click must change them
+# and the off-click must bring back the exact frame from before. A failed step
+# sets $script:AnnotationUnknown, and every later annotation shot is skipped,
+# because a switch left on would put a bare view under an overlay's name.
 #
-# On 2026-09-22 the click turned the toggle on and still no chip appeared.
+# The 2D toggle is AutomationId "AnnotationToggle2D". Where UIA does not reach
+# it, its tag glyph is right-anchored at window-relative (width - 53, 255) on
+# the maximized window, measured 2026-09-22 (the old 0.965 W fell beside the
+# finish reset button once the 2D view gained its finish selector). The 3D
+# toggle is "AnnotationToggle", just left of Reset View at about 0.925 W,
+# 0.161 H (measured off pad-controller-3d at 2582x1550).
+#
+# On 2026-09-22 the 2D click turned the toggle on and still no chip appeared.
 # That was the app: the 2D view laid its chips out on the view's SizeChanged,
-# which never fires when the overlay canvas is first shown, so chips stayed
-# hidden until the window was resized. A restore and re-maximize made every
-# chip appear. The view now listens to the canvas (Annotation2DLayoutTriggerTests).
-function Capture-2DAnnotationOverlay {
-    $annBtn2D = Find-UIA -Aid "AnnotationToggle2D"
-    if (-not $annBtn2D) {
+# which never fires when the overlay canvas is first shown. The view now
+# listens to the canvas (Annotation2DLayoutTriggerTests).
+#
+# The toggles are plain buttons, with no TogglePattern to read. Two checks
+# stand in for one. The pixels say the model changed, and changed back. The
+# toggle's own chrome says which way: its glyph and ring turn ColdBrush
+# (#58B6E4 on the dark theme, #1E6E9F on the light one, EmberTheme.cs) while
+# the overlay is on and carry none of it while it is off
+# (UpdateAnnotationToggleChrome in ControllerModelView.Annotations.cs and
+# ControllerModel2DView.Annotations.cs). A fresh process starts with the
+# overlay off for every pad (session-only, PadPage.xaml.cs), so the chain
+# begins from a known state. Live input or an animation that moves the model
+# fails the back-off check, which skips later shots and saves nothing wrong.
+function Get-ColdPixelCount {
+    param([int]$X, [int]$Y, [int]$W, [int]$H)
+    $bmp = New-Object System.Drawing.Bitmap($W, $H)
+    $g = [System.Drawing.Graphics]::FromImage($bmp)
+    $g.CopyFromScreen($X, $Y, 0, 0, [System.Drawing.Size]::new($W, $H)); $g.Dispose()
+    $n = 0
+    for ($i = 0; $i -lt $W; $i++) {
+        for ($j = 0; $j -lt $H; $j++) {
+            $c = $bmp.GetPixel($i, $j)
+            if (([math]::Abs($c.R - 0x58) -le 24 -and [math]::Abs($c.G - 0xB6) -le 24 -and [math]::Abs($c.B - 0xE4) -le 24) -or
+                ([math]::Abs($c.R - 0x1E) -le 24 -and [math]::Abs($c.G - 0x6E) -le 24 -and [math]::Abs($c.B - 0x9F) -le 24)) { $n++ }
+        }
+    }
+    $bmp.Dispose()
+    return $n
+}
+
+function Capture-AnnotationOverlay {
+    param([string]$Aid, [scriptblock]$FallbackPoint, [string[]]$Shots, [string]$Label)
+    if (@($Shots | Where-Object { Want $_ }).Count -eq 0) { return }
+    if ($script:AnnotationUnknown -or $script:ViewUnknown -or $script:StagingFailed) {
+        Refuse-Shots $Shots "the view, the annotation overlay or the staging is in an unknown state"
+        return
+    }
+    $btn = Find-UIA -Aid $Aid
+    if (-not $btn) {
         $script:uiaWin = [System.Windows.Automation.AutomationElement]::FromHandle([IntPtr]$script:hwnd)
         Start-Sleep -Milliseconds 400
-        $annBtn2D = Find-UIA -Aid "AnnotationToggle2D"
+        $btn = Find-UIA -Aid $Aid
     }
-    if ($annBtn2D) {
-        Click-El $annBtn2D -Label "Annotation toggle (2D)" -Delay 900 | Out-Null
-        Cap "2d-annotation-overlay"
-        Click-El $annBtn2D -Label "Annotation toggle (2D) off" -Delay 500 | Out-Null
-    } else {
-        Write-Host "  AnnotationToggle2D not in UIA; coordinate fallback" -ForegroundColor DarkGray
-        $wrA2 = New-Object Win32+RECT
-        [Win32]::GetWindowRect($script:hwnd, [ref]$wrA2) | Out-Null
-        $a2X = $wrA2.Right - 53; $a2Y = $wrA2.Top + 255
-        $mX = $wrA2.Left + 420; $mY = $wrA2.Top + 300
+    if (-not $btn) { Write-Host "  $Aid not in UIA. Using the coordinate fallback." -ForegroundColor DarkGray }
+    $wr = New-Object Win32+RECT
+    [Win32]::GetWindowRect($script:hwnd, [ref]$wr) | Out-Null
+    $mX = $wr.Left + 420; $mY = $wr.Top + 300
+    $press = {
+        param([string]$Step)
+        if ($btn) { return ((Click-El $btn -Label "$Label $Step" -Delay 900) -eq $true) }
+        $pt = & $FallbackPoint $wr
         [Win32]::ForceFG($script:hwnd); Start-Sleep -Milliseconds 100
-        [Win32]::MoveTo(($wrA2.Right - 100), ($wrA2.Bottom - 15)); Start-Sleep -Milliseconds 150
-        $before = Get-ScreenStripHash $mX $mY 1980 950
-        [Win32]::ClickAt($a2X, $a2Y); Start-Sleep -Milliseconds 900
-        [Win32]::MoveTo(($wrA2.Right - 100), ($wrA2.Bottom - 15)); Start-Sleep -Milliseconds 150
-        $after = Get-ScreenStripHash $mX $mY 1980 950
-        if ($before -eq $after) {
-            Write-Host "  !! annotation overlay did not appear -- SKIPPED 2d-annotation-overlay" -ForegroundColor Red
-            # Keep the frame for diagnosis, outside the docs folder.
-            $dbg = New-Object System.Drawing.Bitmap(($wrA2.Right - $wrA2.Left), ($wrA2.Bottom - $wrA2.Top))
-            $dg = [System.Drawing.Graphics]::FromImage($dbg)
-            $dg.CopyFromScreen($wrA2.Left, $wrA2.Top, 0, 0, $dbg.Size); $dg.Dispose()
-            $dbg.Save((Join-Path $logDir "annotation-miss.png"), [System.Drawing.Imaging.ImageFormat]::Png); $dbg.Dispose()
-            return
-        }
-        Cap "2d-annotation-overlay"
-        [Win32]::ClickAt($a2X, $a2Y); Start-Sleep -Milliseconds 500   # toggle off
+        [Win32]::ClickAt($pt[0], $pt[1]); Start-Sleep -Milliseconds 900
+        return $true
+    }
+    $frame = {
+        [Win32]::MoveTo(($wr.Right - 100), ($wr.Bottom - 15)); Start-Sleep -Milliseconds 150
+        return (Get-ScreenStripHash $mX $mY 1980 950)
+    }
+    # The toggle's box: its UIA rectangle, or 36 px around the fallback point.
+    $box = $null
+    $br = Get-Rect $btn
+    if ($br) { $box = @([int]$br.X, [int]$br.Y, [int]$br.Width, [int]$br.Height) }
+    if (-not $box) {
+        $pt = & $FallbackPoint $wr
+        $box = @(($pt[0] - 18), ($pt[1] - 18), 36, 36)
+    }
+    $cold = { return (Get-ColdPixelCount $box[0] $box[1] $box[2] $box[3]) }
+    [Win32]::ForceFG($script:hwnd); Start-Sleep -Milliseconds 100
+    $before = & $frame
+    $coldBefore = & $cold
+    if ($coldBefore -gt 2) {
+        # A fresh process starts off, so this says an earlier step left it on.
+        $script:AnnotationUnknown = $true
+        Refuse-Shots $Shots "$Label already looks on ($coldBefore ColdBrush pixels)"
+        return
+    }
+    if (-not (& $press "on")) {
+        # The click never reached the button, so the switch did not move.
+        Refuse-Shots $Shots "$Label click failed"
+        return
+    }
+    $afterOn = & $frame
+    $coldOn = & $cold
+    if ($afterOn -eq $before -or $coldOn -lt 12) {
+        # The model did not change, or the toggle does not show on, so which
+        # way the switch moved is unknown.
+        $script:AnnotationUnknown = $true
+        Refuse-Shots $Shots "$Label overlay did not appear (frame changed: $($afterOn -ne $before), ColdBrush pixels: $coldOn)"
+        # Keep the frame for diagnosis, outside the docs folder.
+        $dbg = New-Object System.Drawing.Bitmap(($wr.Right - $wr.Left), ($wr.Bottom - $wr.Top))
+        $dg = [System.Drawing.Graphics]::FromImage($dbg)
+        $dg.CopyFromScreen($wr.Left, $wr.Top, 0, 0, $dbg.Size); $dg.Dispose()
+        $dbg.Save((Join-Path $logDir "annotation-miss.png"), [System.Drawing.Imaging.ImageFormat]::Png); $dbg.Dispose()
+        return
+    }
+    foreach ($shot in $Shots) { Cap $shot }
+    if (-not (& $press "off") -or (& $frame) -ne $before -or (& $cold) -gt 2) {
+        $script:AnnotationUnknown = $true
+        $script:StateFailures += "$Label did not go back off"
+        Write-Host "  !! $Label overlay did not go back off. No more PadForge shots are saved until PadForge restarts." -ForegroundColor Red
     }
 }
 
-function Toggle-ViewMode {
-    # A 2D-only run opened every pad page in 2D from the saved setting, and a
-    # toggle here would flip it back to 3D.
-    if ($script:Start2D) { return $true }
-    $r = New-Object Win32+RECT
-    [Win32]::GetWindowRect($script:hwnd, [ref]$r) | Out-Null
-    $sx = $r.Right - 191; $sy = $r.Top + 233
-    [Win32]::ForceFG($script:hwnd); Start-Sleep -Milliseconds 100
-    [Win32]::MoveTo(($r.Right - 100), ($r.Bottom - 15)); Start-Sleep -Milliseconds 150
-    $before = Get-ScreenStripHash $sx $sy 161 47
+function Capture-2DAnnotationOverlay {
+    Capture-AnnotationOverlay -Aid "AnnotationToggle2D" -Label "Annotation toggle (2D)" `
+        -Shots @("2d-annotation-overlay") -FallbackPoint { param($r) @(($r.Right - 53), ($r.Top + 255)) }
+}
+
+# The pad page's 2D/3D view is a saved setting, AppSettings/Use2DControllerView,
+# which PadPage.ViewModeToggle_Click flips and the app writes 2 s after the last
+# change. STEP 0 sets it for every run (2D for a run of nothing but 2D shots, 3D
+# otherwise), so a fresh app process opens in a known view, and Set-ViewMode
+# reads the file for the view the app is in and waits for the file to show the
+# view it asked for. Two capture passes shipped the 3D view under all three 2D
+# names, and a changed pixel strip only proves that something changed.
+function Get-SavedViewMode {
+    # A read can land mid-write, so try a few times before giving up.
+    for ($i = 0; $i -lt 5; $i++) {
+        try {
+            [xml]$vx = Get-Content $PadForgeXml -ErrorAction Stop
+            $node = $vx.PadForgeSettings.SelectSingleNode("AppSettings/Use2DControllerView")
+            if ($null -ne $node -and "$($node.InnerText)".Trim() -eq 'true') { return '2D' }
+            return '3D'
+        } catch { Start-Sleep -Seconds 1 }
+    }
+    return $null
+}
+
+# A fresh app process knows both states again: the annotation overlay is
+# session-only and starts off for every pad, and the view is the saved
+# Use2DControllerView that Set-ViewMode reads. Called wherever the harness
+# restarts the app.
+function Reset-KnownState {
+    if (-not ($script:ViewUnknown -or $script:AnnotationUnknown)) { return }
+    if ($null -eq (Get-SavedViewMode)) { return }
+    $script:ViewUnknown = $false
+    $script:AnnotationUnknown = $false
+    Write-Host "  fresh PadForge process: the view and the annotation overlay are known again" -ForegroundColor DarkGray
+}
+
+# The toggle carries AutomationId "ViewModeToggle" (PadPage.xaml, inside
+# ControllerModelHost) but usually has NO UIA PEER AT ALL: the Helix viewport
+# host strips its whole subtree from the automation tree (probed 2026-07-30),
+# so the coordinate is the normal path. Measured 2026-09-22 from a trimmed
+# capture of the maximized window: the button spans window-relative x 409-454,
+# y 233-280. PadPageView + (41, 61) stopped hitting it once the slot header
+# rows moved inside PadPageView.
+function Click-ViewModeToggle {
     $vmBtn = Find-UIA -Aid "ViewModeToggle"
     if (-not $vmBtn) {
-        # Re-attach to the window; a stale cached element tree can hide
-        # freshly-realized peers.
+        # Re-attach to the window. A stale cached element tree can hide
+        # freshly realized peers.
         $script:uiaWin = [System.Windows.Automation.AutomationElement]::FromHandle([IntPtr]$script:hwnd)
         $vmBtn = Find-UIA -Aid "ViewModeToggle"
     }
-    if ($vmBtn) {
-        Click-El $vmBtn -Label "ViewModeToggle" -Delay 700 | Out-Null
-    } else {
-        Write-Host "  ViewModeToggle has no UIA peer (expected); measured coordinate" -ForegroundColor DarkGray
-        [Win32]::ForceFG($script:hwnd); Start-Sleep -Milliseconds 100
-        [Win32]::ClickAt(($r.Left + 431), ($r.Top + 256))
-        Start-Sleep -Milliseconds 900
-    }
-    [Win32]::MoveTo(($r.Right - 100), ($r.Bottom - 15)); Start-Sleep -Milliseconds 150
-    $after = Get-ScreenStripHash $sx $sy 161 47
-    if ($before -eq $after) {
-        Write-Host "  !! Toggle-ViewMode: the view did not change" -ForegroundColor Red
+    if ($vmBtn) { return ((Click-El $vmBtn -Label "ViewModeToggle" -Delay 700) -eq $true) }
+    Write-Host "  ViewModeToggle has no UIA peer (expected). Using the measured coordinate." -ForegroundColor DarkGray
+    $r = New-Object Win32+RECT
+    [Win32]::GetWindowRect($script:hwnd, [ref]$r) | Out-Null
+    [Win32]::ForceFG($script:hwnd); Start-Sleep -Milliseconds 100
+    [Win32]::ClickAt(($r.Left + 431), ($r.Top + 256))
+    Start-Sleep -Milliseconds 900
+    [Win32]::MoveTo(($r.Right - 100), ($r.Bottom - 15))
+    return $true
+}
+
+function Set-ViewMode {
+    param([ValidateSet('2D', '3D')][string]$Want)
+    if ($script:ViewUnknown) {
+        Write-Host "  !! the view is unknown since an earlier toggle. Nothing that depends on it is captured." -ForegroundColor Red
         return $false
     }
-    return $true
+    $have = Get-SavedViewMode
+    if ($null -eq $have) {
+        $script:ViewUnknown = $true
+        Write-Host "  !! could not read the saved view from $PadForgeXml" -ForegroundColor Red
+        return $false
+    }
+    if ($have -eq $Want) { return $true }
+    if (Click-ViewModeToggle) {
+        for ($i = 0; $i -lt 12; $i++) {
+            Start-Sleep -Seconds 1
+            if ((Get-SavedViewMode) -eq $Want) { Start-Sleep -Milliseconds 600; return $true }
+        }
+    }
+    $script:ViewUnknown = $true
+    Write-Host "  !! the view did not change to $Want" -ForegroundColor Red
+    return $false
+}
+
+# Waits until the settings file holds every assignment the capture needs, as
+# the app saved it after the last click. The app saves 2 s after its last change
+# (SettingsService.PersistQuietMs, checked every 250 ms), and a kill before that
+# loses the change. An assignment already in a reused file proves nothing about
+# the changes still waiting, so the file must also stay unwritten for 3 s,
+# starting 3 s after the last click: by then any change the clicks made has
+# been written. Each pair is a device name part and a controller type, and
+# names the first slot of that type, the way Ensure-DeviceAssigned resolves it:
+# the Devices page numbers slots in type-group order, and saved pad indexes
+# follow creation order, so the two need not agree. Polls by whole seconds,
+# which the Start-Sleep proxy leaves unscaled.
+function Wait-SavedAssignments {
+    param([object[]]$Pairs, [datetime]$LastClick, [int]$TimeoutSec = 20)
+    $missing = @("nothing read yet")
+    # A monotonic clock, so a wall-clock change cannot stretch the budget.
+    $clock = [System.Diagnostics.Stopwatch]::StartNew()
+    $clickAge = ((Get-Date) - $LastClick).TotalSeconds
+    # A round sleeps 1 s, then waits 3 s for the file to stay unwritten.
+    while ($clock.Elapsed.TotalSeconds + 4 -le $TimeoutSec) {
+        Start-Sleep -Seconds 1
+        if ($clickAge + $clock.Elapsed.TotalSeconds -lt 3) { continue }
+        $missing = @()
+        try {
+            $w1 = (Get-Item $PadForgeXml -ErrorAction Stop).LastWriteTimeUtc
+            [xml]$wx = Get-Content $PadForgeXml -ErrorAction Stop
+            $root = $wx.PadForgeSettings
+            $names = @{}
+            foreach ($d in $root.SelectSingleNode("Devices").ChildNodes) {
+                $n = $d.SelectSingleNode("InstanceName"); $g = $d.SelectSingleNode("InstanceGuid")
+                if ($n -and $g) { $names[$g.InnerText] = $n.InnerText }
+            }
+            $assigned = @()
+            foreach ($st in $root.SelectSingleNode("UserSettings").ChildNodes) {
+                $g = $st.SelectSingleNode("InstanceGuid"); $mt = $st.SelectSingleNode("MapTo")
+                if ($g -and $mt -and $names.ContainsKey($g.InnerText)) {
+                    $assigned += , @($names[$g.InnerText], "$($mt.InnerText)".Trim())
+                }
+            }
+            $types = @($root.SelectSingleNode("SlotControllerTypes").ChildNodes | ForEach-Object { "$($_.InnerText)".Trim() })
+            foreach ($p in $Pairs) {
+                $pad = [array]::IndexOf($types, "$($p[1])")
+                $hit = $pad -ge 0 -and @($assigned | Where-Object { $_[0] -like "*$($p[0])*" -and $_[1] -eq "$pad" }).Count -gt 0
+                if (-not $hit) { $missing += "$($p[0]) on the slot of type $($p[1])" }
+            }
+            if ($missing.Count -gt 0) { continue }
+            # Reading the file took time too: the stability wait has to fit.
+            if ($clock.Elapsed.TotalSeconds + 3 -gt $TimeoutSec) { break }
+            Start-Sleep -Seconds 3
+            $stable = (Get-Item $PadForgeXml -ErrorAction Stop).LastWriteTimeUtc -eq $w1
+            if ($stable -and $clock.Elapsed.TotalSeconds -le $TimeoutSec) { return $true }
+            $missing = @("the file was still being written")
+        } catch { $missing = @("the settings file could not be read") }
+    }
+    Write-Host "  !! the staging was not saved within $TimeoutSec s: $($missing -join '; ')" -ForegroundColor Red
+    return $false
 }
 
 # Capture a mapping row's Source ComboBox dropdown for the currently-mapped
@@ -1675,6 +1880,9 @@ Write-Host "=== STEP 0: Inject test data ===" -ForegroundColor Cyan
 # success. Split here and the operator can write it either way.
 $Only = @($Only | ForEach-Object { $_ -split ',' } |
           ForEach-Object { $_.Trim() } | Where-Object { $_ })
+# Decided here, after the split, so "-Only a,b" counts the way "-Only a, b" does.
+$script:Start2D = ($Only.Count -gt 0) -and
+    (@($Only | Where-Object { $script:TwoDShots -notcontains $_ }).Count -eq 0)
 if ($Only.Count -gt 0) {
     Write-Host ("  -Only parsed to {0} name(s): {1}" -f $Only.Count, ($Only -join " | ")) -ForegroundColor Cyan
 }
@@ -2220,19 +2428,17 @@ if ($appSettings) {
     }
     Write-Host "  Set FirstRunTourCompleted=true for capture"
 
-    # A 2D-only run opens every pad page in 2D from the saved setting instead
-    # of clicking the view button. The owner's value rides the backup and is
-    # restored in STEP 4.
-    if ($script:Start2D) {
-        $v2Node = $appSettings.SelectSingleNode("Use2DControllerView")
-        if ($v2Node) { $v2Node.InnerText = "true" }
-        else {
-            $v2Node = $xml.CreateElement("Use2DControllerView")
-            $v2Node.InnerText = "true"
-            $appSettings.AppendChild($v2Node) | Out-Null
-        }
-        Write-Host "  Set Use2DControllerView=true for a 2D-only run"
+    # Every run starts from a known view, because Set-ViewMode reads it from
+    # this file: 2D for a run of nothing but 2D shots, which then never
+    # toggles, 3D for every other run. The owner's value rides the backup and
+    # is restored in STEP 4.
+    $v2Node = $appSettings.SelectSingleNode("Use2DControllerView")
+    if (-not $v2Node) {
+        $v2Node = $xml.CreateElement("Use2DControllerView")
+        $appSettings.AppendChild($v2Node) | Out-Null
     }
+    $v2Node.InnerText = if ($script:Start2D) { "true" } else { "false" }
+    Write-Host "  Set Use2DControllerView=$($v2Node.InnerText)"
 
     # Enable web controller server for web screenshots
     $wcNode = $appSettings.SelectSingleNode("EnableWebController")
@@ -2289,6 +2495,26 @@ if ($appSettings) {
 
 $xml.Save($PadForgeXml)
 Write-Host "  Saved modified PadForge.xml" -ForegroundColor Green
+}
+
+# Tail mode skipped STEP 0 and reuses the file an earlier run left, so the
+# starting view is written here the same way. The owner's backup is not touched.
+if (-not $script:doSetup) {
+    [xml]$tx = Get-Content $PadForgeXml
+    $tApp = $tx.PadForgeSettings.SelectSingleNode("AppSettings")
+    if ($tApp) {
+        $tNode = $tApp.SelectSingleNode("Use2DControllerView")
+        if (-not $tNode) {
+            $tNode = $tx.CreateElement("Use2DControllerView")
+            $tApp.AppendChild($tNode) | Out-Null
+        }
+        $tNode.InnerText = if ($script:Start2D) { "true" } else { "false" }
+        $tx.Save($PadForgeXml)
+        Write-Host "  Tail mode: set Use2DControllerView=$($tNode.InnerText) in the reused file"
+    } else {
+        Write-Host "  !! tail mode: no AppSettings in $PadForgeXml, so the starting view is unknown" -ForegroundColor Red
+        $script:ViewUnknown = $true
+    }
 }
 
 # ==============================================================================
@@ -2717,7 +2943,10 @@ function Assign-DeviceToSlot {
         return $false
     }
     Write-Host "  Found device card '$DeviceNamePart'"
-    Click-El $target -Label "Device card '$DeviceNamePart'" -Delay 1000 | Out-Null
+    if ((Click-El $target -Label "Device card '$DeviceNamePart'" -Delay 1000) -ne $true) {
+        Write-Host "  !! the device card click did not land for $DeviceNamePart" -ForegroundColor Red
+        return $false
+    }
 
     # Slot-assignment controls live in the device's detail panel (right column):
     # one ToggleButton per active slot (DevicesPage.xaml, ItemsControl bound to
@@ -2761,6 +2990,15 @@ function Assign-DeviceToSlot {
                 if ($cx -gt $midX) { $toggles += $b }   # detail panel only, exclude sidebar
             } catch {}
         }
+    }
+    # The toggles act on whichever device the list has selected, so the card
+    # asked for must be the selected one (DevicesPage.xaml binds the ListBox's
+    # SelectedItem), not merely the one clicked.
+    $isSelected = $false
+    try { $isSelected = $target.GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern).Current.IsSelected } catch {}
+    if (-not $isSelected) {
+        Write-Host "  !! '$DeviceNamePart' is not the selected device, so its slot toggles are not touched" -ForegroundColor Red
+        return $false
     }
     # Key each detail-panel toggle by its child SlotNumber (digits).
     $slotOf = @{}
@@ -2824,9 +3062,15 @@ function Assign-DeviceToSlot {
         try { $btn.GetCurrentPattern([System.Windows.Automation.ScrollItemPattern]::Pattern).ScrollIntoView(); Start-Sleep -Milliseconds 300 } catch {}
         $verb = if ($Unassign) { "Unassigned" } else { "Assigned" }
         if ($reassertOff) {
-            Click-El $btn -Label "Slot $SlotNumberLabel toggle OFF (re-assert $DeviceNamePart)" -Delay 900 | Out-Null
+            if ((Click-El $btn -Label "Slot $SlotNumberLabel toggle OFF (re-assert $DeviceNamePart)" -Delay 900) -ne $true) {
+                Write-Host "  !! the re-assert click did not land for $DeviceNamePart" -ForegroundColor Red
+                return $false
+            }
         }
-        Click-El $btn -Label "Slot $SlotNumberLabel toggle ($DeviceNamePart)" -Delay 900 | Out-Null
+        if ((Click-El $btn -Label "Slot $SlotNumberLabel toggle ($DeviceNamePart)" -Delay 900) -ne $true) {
+            Write-Host "  !! the slot $SlotNumberLabel click did not land for $DeviceNamePart" -ForegroundColor Red
+            return $false
+        }
         Write-Host "  $verb $DeviceNamePart $(if ($Unassign) { 'from' } else { 'to' }) slot $SlotNumberLabel" -ForegroundColor Green
         return $true
     }
@@ -2849,20 +3093,24 @@ function Assign-DeviceToSlot {
 # shot needs. A focused target that DOES need an assignment adds it beside its
 # own recipe in the focused pass.
 if ($script:doSetup -and $Only.Count -eq 0) {
-Assign-DeviceToSlot -DeviceNamePart "DualSense" -SlotNumberLabel "1" | Out-Null
-Assign-DeviceToSlot -DeviceNamePart "DualSense" -SlotNumberLabel "2" | Out-Null
+# The full name: a bare "DualSense" also matches the web-controller lane's
+# "DualSense Web Controller 1" rows, which sort ahead of the pad.
+Assert-Staged (Assign-DeviceToSlot -DeviceNamePart "DualSense Wireless Controller" -SlotNumberLabel "1") "assigning DualSense Wireless Controller to slot 1" | Out-Null
+Assert-Staged (Assign-DeviceToSlot -DeviceNamePart "DualSense Wireless Controller" -SlotNumberLabel "2") "assigning DualSense Wireless Controller to slot 2" | Out-Null
 # Also put the Xbox Series X and the synthetic G29 wheel on the Xbox slot
 # (SlotNumber 1), beside the DualSense. DualSense stays the default selection
 # (alphabetically first), so the main Xbox-slot captures are unchanged; the
 # Impulse-Triggers and Wheel captures at the end of that section switch the
 # mapped-device dropdown to the Xbox pad / the wheel to surface their tabs.
+# Best effort: Ensure-DeviceAssigned below writes this one, and that is checked.
 Assign-DeviceToSlot -DeviceNamePart "Xbox Series X GIP" -SlotNumberLabel "1" -Reassert | Out-Null
-Assign-DeviceToSlot -DeviceNamePart "Logitech G29" -SlotNumberLabel "1" | Out-Null
+Assert-Staged (Assign-DeviceToSlot -DeviceNamePart "Logitech G29" -SlotNumberLabel "1") "assigning Logitech G29 to slot 1" | Out-Null
 # Mouse on the KBM slot (SlotNumber 4) for the #200 Mouse-gestures tab. The Mouse
 # tab gates on the SELECTED device being IsMouse (CapType == Mouse == 18); a KBM
 # slot with no device assigned surfaces no Mouse tab. "All Mice (Merged)" is a
 # first-class UserDevice (CapType 18) in the cache, so assigning + selecting it
 # lights TabMouse, the same shape the Wheel tab uses (assign G29, select it).
+# Best effort: Ensure-DeviceAssigned below writes this one, and that is checked.
 Assign-DeviceToSlot -DeviceNamePart "All Mice (Merged)" -SlotNumberLabel "5" | Out-Null
 # WHEN THIS KEEPS FAILING, STOP DRIVING THE UI. A device assignment is
 # nothing but `UserSetting.MapTo = slotIndex` in PadForge.xml: clone an
@@ -2882,6 +3130,7 @@ Assign-DeviceToSlot -DeviceNamePart "All Mice (Merged)" -SlotNumberLabel "5" | O
 # tabs, which is why assigning the Wii to 4 left the Pointer tab unreachable).
 # The Wii Remote's IR-camera capability is identity-derived (VID 0x057E + name),
 # so the tab is offered whether the placeholder device is online or not.
+# Best effort: Ensure-DeviceAssigned below writes this one, and that is checked.
 Assign-DeviceToSlot -DeviceNamePart "Wii Remote" -SlotNumberLabel "4" | Out-Null
 # The 3 Wii source-picker devices are NOT assigned here. They must NOT ride the
 # Xbox slot during STEP 3, or auto-map would combine every slot device into
@@ -2894,14 +3143,22 @@ Assign-DeviceToSlot -DeviceNamePart "Wii Remote" -SlotNumberLabel "4" | Out-Null
 # gating to flip on for the affected slots.
 Start-Sleep -Milliseconds 2000
 
+# The app saves 2 s after its last change, and Ensure-DeviceAssigned below
+# kills it first thing, which would lose whatever was not saved yet: the
+# assignments above and the mapping rows auto-map made for them. Wait until
+# the clicked assignments are in the file and it has gone quiet.
+Assert-Staged (Wait-SavedAssignments -LastClick (Get-Date) -Pairs @(
+    @("DualSense Wireless Controller", 0), @("DualSense Wireless Controller", 1),
+    @("Logitech G29", 0))) "saving the staged assignments" | Out-Null
+
 # The Xbox GIP dummy is the one assignment the UI chain never lands, and two
 # shots depend on it: the Impulse Triggers tab gates on HasRumbleTriggers and
 # the Guide Button LED card wants an Xbox pad selected. Write the mapping
 # instead of clicking for it. This runs at a clean boundary, before any
 # capture, so the restart costs nothing and the full multi-slot topology the
 # rest of the gallery shows is untouched.
-Ensure-DeviceAssigned -DeviceNamePart "Xbox Series X GIP" -PadIndex 0 -SlotType 0 `
-    -XmlPath $PadForgeXml -ExePath $PadForgeExe | Out-Null
+Assert-Staged (Ensure-DeviceAssigned -DeviceNamePart "Xbox Series X GIP" -PadIndex 0 -SlotType 0 `
+    -XmlPath $PadForgeXml -ExePath $PadForgeExe) "writing the Xbox Series X GIP assignment" | Out-Null
 
 # Same treatment for the mouse. The Mouse tab gates on the SELECTED device
 # being IsMouse, so pad-mouse-gestures needs "All Mice (Merged)" reachable in
@@ -2916,8 +3173,8 @@ Ensure-DeviceAssigned -DeviceNamePart "Xbox Series X GIP" -PadIndex 0 -SlotType 
 # the Extended slot grew a Mouse tab while the KBM slot had no mouse to
 # select. The SlotType argument is meant to catch exactly this, and it did
 # not fire, so do not lean on it. Read the creation list above.
-Ensure-DeviceAssigned -DeviceNamePart "All Mice (Merged)" -PadIndex 3 -SlotType 4 `
-    -XmlPath $PadForgeXml -ExePath $PadForgeExe | Out-Null
+Assert-Staged (Ensure-DeviceAssigned -DeviceNamePart "All Mice (Merged)" -PadIndex 3 -SlotType 4 `
+    -XmlPath $PadForgeXml -ExePath $PadForgeExe) "writing the All Mice (Merged) assignment" | Out-Null
 
 # The Wii Remote, by the same route and for the same reason. Its UI toggle
 # reported "Assigned Wii Remote to slot 4" in the 4.4.0 run and wrote NO
@@ -2926,8 +3183,8 @@ Ensure-DeviceAssigned -DeviceNamePart "All Mice (Merged)" -PadIndex 3 -SlotType 
 # is the fourth device to lose the card-scroll / detail-realize / toggle
 # chain, and the answer has been the same every time: an assignment is one
 # XML field, so write it. Extended is pad index 4 in creation order.
-Ensure-DeviceAssigned -DeviceNamePart "Wii Remote" -PadIndex 4 -SlotType 2 `
-    -XmlPath $PadForgeXml -ExePath $PadForgeExe | Out-Null
+Assert-Staged (Ensure-DeviceAssigned -DeviceNamePart "Wii Remote" -PadIndex 4 -SlotType 2 `
+    -XmlPath $PadForgeXml -ExePath $PadForgeExe) "writing the Wii Remote assignment" | Out-Null
 
 # PlayStation is pad index 1 in creation order (Xbox 0, PlayStation 1).
 Seed-AudioDsp -DeviceGuid "bbbb2222-3333-4444-5555-666677778888" -DeviceNamePart "DualSense Wireless Controller" -PadIndex 1 `
@@ -3586,7 +3843,7 @@ if ($Only.Count -gt 0) {
     if ($psWanted.Count -gt 0) {
         Write-Host "[focused] PlayStation slot: $(($psWanted | ForEach-Object { $_.Shot }) -join ', ')"
         # PlayStation is pad index 1 in creation order (Xbox 0, PlayStation 1).
-        Ensure-DeviceAssigned -DeviceNamePart "DualSense" -PadIndex 1 -SlotType 1 `
+        Ensure-DeviceAssigned -DeviceNamePart "DualSense Wireless Controller" -PadIndex 1 -SlotType 1 `
             -XmlPath $PadForgeXml -ExePath $PadForgeExe | Out-Null
         Seed-AudioDsp -DeviceGuid "bbbb2222-3333-4444-5555-666677778888" -DeviceNamePart "DualSense Wireless Controller" -PadIndex 1 `
             -XmlPath $PadForgeXml -ExePath $PadForgeExe | Out-Null
@@ -3641,35 +3898,57 @@ if ($Only.Count -gt 0) {
     }
 
     # ── The 2D controller preview: Xbox slot, then PlayStation slot ──
-    # A run asking for nothing but these opened every pad page in 2D from the
-    # saved setting (STEP 0), so Toggle-ViewMode returns at once. A mixed run
-    # toggles, verified, and puts the view back at the end. The view is one
-    # global setting, so the PlayStation page opens in the same view.
+    # A run asking for nothing but these opens every pad page in 2D from the
+    # saved setting (STEP 0), so Set-ViewMode has nothing to click. A mixed run
+    # toggles, waits for the app to save the view, and puts 3D back at the end.
+    # The view is one global setting, so the PlayStation page opens in the same
+    # view.
     $twoDWanted = @($script:TwoDShots | Where-Object { Want $_ })
     if ($twoDWanted.Count -gt 0) {
         Write-Host "[focused] 2D controller preview: $($twoDWanted -join ', ')"
         # The full pass's own staging for slots 1 and 2. Assigning through the
         # Devices page runs auto-map, which gives the Xbox slot the mapped rows
         # the annotation chips draw from. Writing MapTo alone leaves every row
-        # without a source.
+        # without a source. A failed assignment skips the shots rather than
+        # photographing a slot that is not staged.
         Nav "Devices"; Start-Sleep -Milliseconds 1500
-        Assign-DeviceToSlot -DeviceNamePart "DualSense" -SlotNumberLabel "1" | Out-Null
-        Assign-DeviceToSlot -DeviceNamePart "DualSense" -SlotNumberLabel "2" | Out-Null
-        Assign-DeviceToSlot -DeviceNamePart "Xbox Series X GIP" -SlotNumberLabel "1" -Reassert | Out-Null
-        Assign-DeviceToSlot -DeviceNamePart "Logitech G29" -SlotNumberLabel "1" | Out-Null
+        $staged = $true
+        foreach ($a in @(@("DualSense Wireless Controller", "1", $false), @("DualSense Wireless Controller", "2", $false),
+                         @("Xbox Series X GIP", "1", $true), @("Logitech G29", "1", $false))) {
+            $ok = if ($a[2]) { Assign-DeviceToSlot -DeviceNamePart $a[0] -SlotNumberLabel $a[1] -Reassert | Select-Object -Last 1 }
+                  else { Assign-DeviceToSlot -DeviceNamePart $a[0] -SlotNumberLabel $a[1] | Select-Object -Last 1 }
+            if ($ok -ne $true) { $staged = $false }
+        }
         # The app writes its settings 2 s after the last change
         # (SettingsService.PersistQuietMs), and Ensure-DeviceAssigned kills it
-        # first thing. Without this wait the last assignment never reaches the
-        # file.
-        Start-Sleep -Milliseconds 3000
-        Ensure-DeviceAssigned -DeviceNamePart "Xbox Series X GIP" -PadIndex 0 -SlotType 0 `
-            -XmlPath $PadForgeXml -ExePath $PadForgeExe | Out-Null
+        # first thing. Wait until every assignment above is in the file, as
+        # saved after the last click.
+        if ($staged) {
+            # Slots 1 and 2 on the Devices page: the Xbox slot (type 0) and
+            # the PlayStation slot (type 1).
+            $staged = Wait-SavedAssignments -LastClick (Get-Date) -Pairs @(
+                @("DualSense Wireless Controller", 0), @("DualSense Wireless Controller", 1),
+                @("Xbox Series X GIP", 0), @("Logitech G29", 0))
+        }
+    }
+    if ($twoDWanted.Count -gt 0 -and -not $staged) {
+        Refuse-Shots $twoDWanted "the slots were not staged"
+    }
+    if ($twoDWanted.Count -gt 0 -and $staged) {
+        $x = Ensure-DeviceAssigned -DeviceNamePart "Xbox Series X GIP" -PadIndex 0 -SlotType 0 `
+            -XmlPath $PadForgeXml -ExePath $PadForgeExe | Select-Object -Last 1
         # Every synthetic device is offline, so nothing above starts the
         # engine. The full pass forges because the merged mouse, a real device,
         # sits on the keyboard-and-mouse slot (pad 3 in creation order). Without
         # it the status bar reads 0 Hz Idle beside a set that reads Forging.
-        Ensure-DeviceAssigned -DeviceNamePart "All Mice (Merged)" -PadIndex 3 -SlotType 4 `
-            -XmlPath $PadForgeXml -ExePath $PadForgeExe | Out-Null
+        $m = Ensure-DeviceAssigned -DeviceNamePart "All Mice (Merged)" -PadIndex 3 -SlotType 4 `
+            -XmlPath $PadForgeXml -ExePath $PadForgeExe | Select-Object -Last 1
+        if ($x -ne $true -or $m -ne $true) {
+            Refuse-Shots $twoDWanted "the Xbox or keyboard-and-mouse slot was not staged"
+            $staged = $false
+        }
+    }
+    if ($twoDWanted.Count -gt 0 -and $staged) {
         Start-Sleep -Milliseconds 2500
         $script:uiaWin = [System.Windows.Automation.AutomationElement]::FromHandle([IntPtr]$script:hwnd)
         Nav "Dashboard"; Start-Sleep -Milliseconds 1500
@@ -3686,10 +3965,10 @@ if ($Only.Count -gt 0) {
             if ((Get-Count $tabs) -gt 0) { Click-El $tabs[0] -Label "Preview tab" -Delay 1000 | Out-Null }
             Dismiss-AssignBanner | Out-Null
             Wait-EngineForging | Out-Null
-            if (Toggle-ViewMode) {
+            if (Set-ViewMode '2D') {
                 Start-Sleep -Milliseconds 600
                 Cap "pad-controller-2d"
-                if (Want "2d-annotation-overlay") { Capture-2DAnnotationOverlay }
+                Capture-2DAnnotationOverlay
                 if (Want "2d-touchpad-finger-dots") {
                     Nav "Dashboard"; Start-Sleep -Milliseconds 1500
                     $slotsHost = Find-UIA -Aid "SlotsItemsControl"
@@ -3701,15 +3980,19 @@ if ($Only.Count -gt 0) {
                         Wait-EngineForging | Out-Null
                         Cap "2d-touchpad-finger-dots"
                     } else {
-                        Write-Host "  !! PlayStation pad page not open -- SKIPPED 2d-touchpad-finger-dots" -ForegroundColor Red
+                        Refuse-Shots @("2d-touchpad-finger-dots") "the PlayStation pad page did not open"
                     }
                 }
-                Toggle-ViewMode | Out-Null
+                # A 2D-only run stays in 2D. A mixed run needs 3D back for what follows.
+                if (-not $script:Start2D -and -not (Set-ViewMode '3D')) {
+                    $script:StateFailures += "the 3D view did not come back after the 2D preview shots"
+                    Write-Host "  !! 3D view did not come back" -ForegroundColor Red
+                }
             } else {
-                Write-Host "  !! 2D view did not open -- SKIPPED $($twoDWanted -join ', ')" -ForegroundColor Red
+                Refuse-Shots $twoDWanted "the 2D view did not open"
             }
         } else {
-            Write-Host "  !! Xbox pad page not open -- SKIPPED $($twoDWanted -join ', ')" -ForegroundColor Red
+            Refuse-Shots $twoDWanted "the Xbox pad page did not open"
         }
     }
 
@@ -4210,53 +4493,30 @@ if ((Get-Count $slots) -ge 1) {
     # model host) flips the chip/leader-line/trigger-bar overlay on. The Xbox
     # slot carries an auto-mapped multi-device grid, so chips have rows to draw.
     # AutomationId "AnnotationToggle" belongs to the 3D view's toggle button.
-    $annBtn = Find-UIA -Aid "AnnotationToggle"
-    if (-not $annBtn) {
-        # Re-attach: a stale cached UIA tree can hide peers realized after the
-        # Helix viewport settles (both toggles carry AutomationIds at HEAD).
-        $script:uiaWin = [System.Windows.Automation.AutomationElement]::FromHandle([IntPtr]$script:hwnd)
-        Start-Sleep -Milliseconds 400
-        $annBtn = Find-UIA -Aid "AnnotationToggle"
-    }
-    if ($annBtn) {
-        Click-El $annBtn -Label "Annotation toggle (3D)" -Delay 900 | Out-Null
-        Cap "pad-mapping-annotations"
-        Cap "3d-model-annotation-overlay"
-        Click-El $annBtn -Label "Annotation toggle (3D) off" -Delay 500 | Out-Null
-    } else {
-        # UIA can't reach the toggle inside the 3D model host (it overlays a Helix
-        # viewport and never surfaced its AutomationId peer here), so use a
-        # window-fraction coordinate. The tag glyph (E8EC) sits top-right of the
-        # model host, just LEFT of "Reset View", ~0.925 W / 0.161 H (measured off
-        # pad-controller-3d at 2582x1550).
-        Write-Host "  AnnotationToggle (3D) not in UIA; coordinate fallback" -ForegroundColor DarkGray
-        $wrAn = New-Object Win32+RECT
-        [Win32]::GetWindowRect($script:hwnd, [ref]$wrAn) | Out-Null
-        $anW = $wrAn.Right - $wrAn.Left; $anH = $wrAn.Bottom - $wrAn.Top
-        $anX = [int]($wrAn.Left + 0.925 * $anW); $anY = [int]($wrAn.Top + 0.161 * $anH)
-        [Win32]::ForceFG($script:hwnd); Start-Sleep -Milliseconds 100
-        [Win32]::ClickAt($anX, $anY); Start-Sleep -Milliseconds 900
-        Cap "pad-mapping-annotations"
-        Cap "3d-model-annotation-overlay"
-        [Win32]::ClickAt($anX, $anY); Start-Sleep -Milliseconds 500   # toggle off
-    }
+    # UIA can't always reach the 3D toggle inside the model host (it overlays a
+    # Helix viewport), so the fallback is a window-fraction coordinate. The
+    # check is Capture-AnnotationOverlay's, and it matters here because the 2D
+    # shots below share this switch.
+    Capture-AnnotationOverlay -Aid "AnnotationToggle" -Label "Annotation toggle (3D)" `
+        -Shots @("pad-mapping-annotations", "3d-model-annotation-overlay") `
+        -FallbackPoint { param($r) @([int]($r.Left + 0.925 * ($r.Right - $r.Left)), [int]($r.Top + 0.161 * ($r.Bottom - $r.Top))) }
 
-    # 5. Controller 2D view. Toggle-ViewMode confirms the view changed before
-    # anything is saved under a 2D name: an unverified click shipped the 3D
-    # view as all three 2D shots, twice.
+    # 5. Controller 2D view. Set-ViewMode waits for the app to save the view
+    # it asked for before anything is saved under a 2D name: an unverified
+    # click shipped the 3D view as all three 2D shots, twice.
     Write-Host "[$(Next)/$total] Controller - 2D view"
-    $in2D = Toggle-ViewMode
-    if (-not $in2D) {
-        Write-Host "  !! 2D view did not open; pad-controller-2d and 2d-annotation-overlay NOT captured" -ForegroundColor Red
-    }
-    if ($in2D) {
+    if (Set-ViewMode '2D') {
         Start-Sleep -Milliseconds 600
         Cap "pad-controller-2d"
         # 5a. Annotation overlay on the 2D preview (2D-Overlay-System.md).
         Capture-2DAnnotationOverlay
-        # Switch back to 3D
-        Toggle-ViewMode | Out-Null
+        if (-not (Set-ViewMode '3D')) {
+            $script:StateFailures += "the 3D view did not come back after pad-controller-2d"
+            Write-Host "  !! 3D view did not come back" -ForegroundColor Red
+        }
         Start-Sleep -Milliseconds 500
+    } else {
+        Refuse-Shots @("pad-controller-2d", "2d-annotation-overlay") "the 2D view did not open"
     }
 
     # 6. Macros (select first macro + first action)
@@ -4785,13 +5045,16 @@ if ($slotsHost) {
             # (top-left of the model host, same offset the Xbox 2D shot uses),
             # capture, toggle back to 3D so the AT/Lighting shots stay on 3D.
             Write-Host "  PlayStation: 2D touchpad preview"
-            if (Toggle-ViewMode) {
+            if (Set-ViewMode '2D') {
                 Start-Sleep -Milliseconds 700
                 Cap "2d-touchpad-finger-dots"
-                Toggle-ViewMode | Out-Null
+                if (-not (Set-ViewMode '3D')) {
+                    $script:StateFailures += "the 3D view did not come back after 2d-touchpad-finger-dots"
+                    Write-Host "  !! 3D view did not come back" -ForegroundColor Red
+                }
                 Start-Sleep -Milliseconds 500
             } else {
-                Write-Host "  !! 2D view did not open; 2d-touchpad-finger-dots NOT captured" -ForegroundColor Red
+                Refuse-Shots @("2d-touchpad-finger-dots") "the 2D view did not open"
             }
 
             Write-Host "[$(Next)/$total] Adaptive Triggers"
@@ -5290,7 +5553,7 @@ if ($SkipToTail) {
     # aborted run. Make it on the fresh UIA tree (idempotent: the toggle
     # short-circuits when already on).
     Nav "Devices"; Start-Sleep -Milliseconds 1200
-    Assign-DeviceToSlot -DeviceNamePart "Wii Remote" -SlotNumberLabel "4" | Out-Null
+    Assert-Staged (Assign-DeviceToSlot -DeviceNamePart "Wii Remote" -SlotNumberLabel "4") "assigning Wii Remote to slot 4" | Out-Null
 }
 
 # --- Pointer tab (Wii Remote on the Extended slot) ---
@@ -5583,8 +5846,8 @@ Nav "Devices"; Start-Sleep -Milliseconds 800
 # picker device contributes exactly one sub-source per row and the expanded-row
 # sub-source combo lands at the fixed 0.385 H Capture-SourcePicker clicks
 # (the geometry of the accepted v4.0.0 wii-balance-sources frame).
-Assign-DeviceToSlot -DeviceNamePart "Xbox Series X GIP" -SlotNumberLabel "1" -Unassign | Out-Null
-Assign-DeviceToSlot -DeviceNamePart "Logitech G29"      -SlotNumberLabel "1" -Unassign | Out-Null
+Assert-Staged (Assign-DeviceToSlot -DeviceNamePart "Xbox Series X GIP" -SlotNumberLabel "1" -Unassign) "unassigning Xbox Series X GIP from slot 1" | Out-Null
+Assert-Staged (Assign-DeviceToSlot -DeviceNamePart "Logitech G29"      -SlotNumberLabel "1" -Unassign) "unassigning Logitech G29 from slot 1" | Out-Null
 $wiiPick = @(
     @{ Dev = "Balance Board";    Type = "Balance";      Shot = "wii-balance-sources" },
     @{ Dev = "Joy-Con (R)";      Type = "IR Bright";    Shot = "joycon-ir-source" },
@@ -5601,10 +5864,7 @@ foreach ($wp in $wiiPick) {
     # (UIA FindAll blocked with no bound), and the rest of the tail
     # (DS3, devices details, workshop, web) never ran.
     $wpOk = Assign-DeviceToSlot -DeviceNamePart $wp.Dev -SlotNumberLabel "1"
-    if (-not $wpOk) {
-        Write-Host "  !! skipping picker for $($wp.Dev): assign failed" -ForegroundColor Yellow
-        continue
-    }
+    if (-not (Assert-Staged $wpOk "assigning $($wp.Dev) to slot 1")) { continue }
     Start-Sleep -Milliseconds 800
     Nav "Dashboard"; Start-Sleep -Milliseconds 900
     $shS = Find-UIA -Aid "SlotsItemsControl"
@@ -5616,7 +5876,7 @@ foreach ($wp in $wiiPick) {
         Write-Host "  !! Xbox slot card not found for $($wp.Dev)" -ForegroundColor Yellow
     }
     Nav "Devices"; Start-Sleep -Milliseconds 600
-    Assign-DeviceToSlot -DeviceNamePart $wp.Dev -SlotNumberLabel "1" -Unassign | Out-Null
+    Assert-Staged (Assign-DeviceToSlot -DeviceNamePart $wp.Dev -SlotNumberLabel "1" -Unassign) "unassigning $($wp.Dev) from slot 1" | Out-Null
 }
 
 # --- DualShock 3 (v4): motion tab + Devices dossier ---
@@ -5625,8 +5885,8 @@ foreach ($wp in $wiiPick) {
 # device either way, but a solo slot makes the selection deterministic).
 Write-Host "[3c] DualShock 3"
 Nav "Devices"; Start-Sleep -Milliseconds 600
-Assign-DeviceToSlot -DeviceNamePart "DualSense" -SlotNumberLabel "1" -Unassign | Out-Null
-Assign-DeviceToSlot -DeviceNamePart "PLAYSTATION(R)3" -SlotNumberLabel "1" | Out-Null
+Assert-Staged (Assign-DeviceToSlot -DeviceNamePart "DualSense Wireless Controller" -SlotNumberLabel "1" -Unassign) "unassigning DualSense Wireless Controller from slot 1" | Out-Null
+Assert-Staged (Assign-DeviceToSlot -DeviceNamePart "PLAYSTATION(R)3" -SlotNumberLabel "1") "assigning PLAYSTATION(R)3 to slot 1" | Out-Null
 Start-Sleep -Milliseconds 800
 Nav "Dashboard"; Start-Sleep -Milliseconds 900
 $shD = Find-UIA -Aid "SlotsItemsControl"
@@ -5645,7 +5905,7 @@ if (Select-DeviceByName36 "PLAYSTATION(R)3") {
     # detail pane, in frame with the selection, so capture it here.
     Cap "devices-dossier"
 }
-Assign-DeviceToSlot -DeviceNamePart "PLAYSTATION(R)3" -SlotNumberLabel "1" -Unassign | Out-Null
+Assert-Staged (Assign-DeviceToSlot -DeviceNamePart "PLAYSTATION(R)3" -SlotNumberLabel "1" -Unassign) "unassigning PLAYSTATION(R)3 from slot 1" | Out-Null
 
 # --- Haptic-tone audio controls (Controller-Audio.md) ---
 # The "Play mirrored audio" + "High tones" groups render on the Audio tab only
@@ -5655,7 +5915,7 @@ Assign-DeviceToSlot -DeviceNamePart "PLAYSTATION(R)3" -SlotNumberLabel "1" -Unas
 # onto slot 1 alone, open its Audio tab, capture, then unassign.
 Write-Host "[3c] Haptic-tone audio controls (Steam Controller)"
 Nav "Devices"; Start-Sleep -Milliseconds 600
-Assign-DeviceToSlot -DeviceNamePart "Steam Controller" -SlotNumberLabel "1" | Out-Null
+Assert-Staged (Assign-DeviceToSlot -DeviceNamePart "Steam Controller" -SlotNumberLabel "1") "assigning Steam Controller to slot 1" | Out-Null
 Start-Sleep -Milliseconds 800
 Nav "Dashboard"; Start-Sleep -Milliseconds 900
 $shH = Find-UIA -Aid "SlotsItemsControl"
@@ -5667,7 +5927,7 @@ if ($cdH.Count -ge 1) {
     else { Write-Host "  !! Audio tab not found for the Steam Controller" -ForegroundColor Yellow }
 } else { Write-Host "  !! slot card not found for the Steam Controller" -ForegroundColor Yellow }
 Nav "Devices"; Start-Sleep -Milliseconds 600
-Assign-DeviceToSlot -DeviceNamePart "Steam Controller" -SlotNumberLabel "1" -Unassign | Out-Null
+Assert-Staged (Assign-DeviceToSlot -DeviceNamePart "Steam Controller" -SlotNumberLabel "1" -Unassign) "unassigning Steam Controller from slot 1" | Out-Null
 
 # --- Devices page: the new 3.6.0 device types ---
 Nav "Devices"; Start-Sleep -Milliseconds 900
@@ -6485,6 +6745,16 @@ if ($orphan.Count -gt 0) {
 if ($script:modalLeaks -gt 0) {
     Write-Host ("  MODAL LEAKS             : {0}  <-- shots after the leak are CORRUPT" -f $script:modalLeaks) -ForegroundColor Red
 } else { Write-Host "  modal leaks             : 0" -ForegroundColor Green }
+# A shot refused for an unknown view or overlay keeps its old file, which the
+# stale count alone would pass off as a quiet miss.
+if ((Get-Count $script:RefusedShots) -gt 0) {
+    Write-Host ("  NOT SAVED (state unknown): {0}  <-- the run is INCOMPLETE" -f (Get-Count $script:RefusedShots)) -ForegroundColor Red
+    foreach ($x in ($script:RefusedShots | Sort-Object -Unique)) { Write-Host "     $x" -ForegroundColor Red }
+} else { Write-Host "  refused for state       : 0" -ForegroundColor Green }
+if ((Get-Count $script:StateFailures) -gt 0) {
+    Write-Host ("  FAILED STATE CHECKS     : {0}  <-- the run is INCOMPLETE" -f (Get-Count $script:StateFailures)) -ForegroundColor Red
+    foreach ($x in $script:StateFailures) { Write-Host "     $x" -ForegroundColor Red }
+} else { Write-Host "  failed state checks     : 0" -ForegroundColor Green }
 Write-Host ""
 
 Write-Host "Screenshots in: $OutputDir"
@@ -6499,3 +6769,4 @@ Get-ChildItem "$OutputDir\*.png" | Sort-Object Name | ForEach-Object {
 # whether the run actually covered everything went to the console and nowhere else.
 Stop-Transcript | Out-Null
 Remove-Item $lockPath -Force -EA SilentlyContinue
+if ((Get-Count $script:RefusedShots) -gt 0 -or (Get-Count $script:StateFailures) -gt 0) { exit 1 }

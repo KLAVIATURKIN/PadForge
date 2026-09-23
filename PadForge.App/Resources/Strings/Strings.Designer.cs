@@ -527,8 +527,16 @@ public class Strings : INotifyPropertyChanged
     public string Update_NoBuildForThisPc => Get("Update_NoBuildForThisPc");
     public string Update_VerifyFailed => Get("Update_VerifyFailed");
     public string Update_InstallFailed_Format => Get("Update_InstallFailed_Format");
+    public string Update_RestartFailed_Format => Get("Update_RestartFailed_Format");
+    public string Update_RestartFailedBackup_Format => Get("Update_RestartFailedBackup_Format");
+    public string Update_RestoreFailed_Format => Get("Update_RestoreFailed_Format");
+    public string Update_HelperExited_Format => Get("Update_HelperExited_Format");
+    public string Update_HelperNoAnswer => Get("Update_HelperNoAnswer");
+    public string Update_HelperNotStopped => Get("Update_HelperNotStopped");
+    public string Update_HelperWrongBuild => Get("Update_HelperWrongBuild");
+    public string Update_DownloadStalled => Get("Update_DownloadStalled");
+    public string Update_WaitingForClose_Format => Get("Update_WaitingForClose_Format");
     public string Update_PendingFailed_Format => Get("Update_PendingFailed_Format");
-    public string Update_OldCopyStillRunning => Get("Update_OldCopyStillRunning");
     public string Update_Updated_Format => Get("Update_Updated_Format");
     public string Settings_StartMinimized => Get("Settings_StartMinimized");
     public string Settings_StartAtLogin => Get("Settings_StartAtLogin");

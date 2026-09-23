@@ -8404,6 +8404,7 @@ namespace PadForge.Services
                 rc.Sources = CopyRowSources(r,
                     s => RetargetDeviceGuidForSlot(s.DeviceGuid, padIndex), out bool suppressPair);
                 rc.SuppressBipolarPair = suppressPair;
+                if (LostEveryMotionInput(r, rc)) continue;
                 copy.Rows.Add(rc);
             }
             SettingsManager.SlotMappingSets[padIndex] = copy;
@@ -8415,6 +8416,22 @@ namespace PadForge.Services
             // at whatever lock the old one had reached.
             Common.Input.InputManager.ResetSourceKindRuntimeForSlot(padIndex);
         }
+
+        /// <summary>
+        /// A motion row that had inputs and lost every one of them to the
+        /// retarget. An empty motion row is how a user switches motion off, so
+        /// copying it would switch motion off on the target slot, and the
+        /// motion auto-map would then leave that slot alone when its device
+        /// arrives. Device cleanup drops a motion row it emptied for the same
+        /// reason (SettingsService.RemoveRowSources). A row that was empty to
+        /// begin with and a NoInherit row are copied as they are. A Custom row
+        /// never comes out empty, since CopyRowSources keeps a placeholder for
+        /// each of its positions.
+        /// </summary>
+        internal static bool LostEveryMotionInput(MappingRow original, MappingRow copy) =>
+            MappingSetMigrator.IsEmptyMotionRow(copy)
+            && !MappingSetMigrator.IsEmptyMotionRow(original)
+            && !copy.NoInherit;
 
         internal static List<MappingSource> CopyRowSources(MappingRow row,
             Func<MappingSource, string> retarget, out bool suppressBipolarPair)
@@ -8658,6 +8675,7 @@ namespace PadForge.Services
                     rc.Sources = CopyRowSources(r,
                         s => RetargetDeviceGuidForSlot(s.DeviceGuid, targetSlot), out bool suppressPair);
                     rc.SuppressBipolarPair = suppressPair;
+                    if (LostEveryMotionInput(r, rc)) continue;
                     copy.Rows.Add(rc);
                 }
             }

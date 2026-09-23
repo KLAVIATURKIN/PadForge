@@ -113,6 +113,8 @@ namespace PadForge.ViewModels
             // kept the previous language until something else re-read them.
             OnPropertyChanged(nameof(IdentityProtectionModes));
             OnPropertyChanged(nameof(IdentityProtectionHint));
+            // Built from Strings.Instance on every read (#457).
+            OnPropertyChanged(nameof(UpdateStatusText));
 
             // Refresh the default profile's display name in the list.
             var defaultItem = ProfileItems.FirstOrDefault(p => p.IsDefault);
@@ -715,12 +717,19 @@ namespace PadForge.ViewModels
             set => SetProperty(ref _includePreReleaseUpdates, value);
         }
 
-        private string _updateStatusText = string.Empty;
-        /// <summary>The card's status line. Empty until a check has run.</summary>
-        public string UpdateStatusText
+        private Func<string> _updateStatus;
+        /// <summary>The card's status line, empty until a check has run. It is
+        /// built each time it is read, from the language in use then, so a
+        /// language change reaches it (OnCultureChanged raises it).</summary>
+        public string UpdateStatusText => _updateStatus?.Invoke() ?? string.Empty;
+
+        /// <summary>Sets what the status line says. The function reads
+        /// Strings.Instance itself and captures only fixed values (a version,
+        /// a percentage, an error message). Null clears the line.</summary>
+        internal void SetUpdateStatus(Func<string> text)
         {
-            get => _updateStatusText;
-            set => SetProperty(ref _updateStatusText, value ?? string.Empty);
+            _updateStatus = text;
+            OnPropertyChanged(nameof(UpdateStatusText));
         }
 
         private bool _isUpdateAvailable;

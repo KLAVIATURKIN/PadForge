@@ -56,7 +56,7 @@ PadForge is for sim racers running wheels in games that only understand Xbox con
 <summary><b>New in 4.5.2:</b> HidHide, Vosk voice recognition and Xbox Elite paddles on Windows on ARM, and USB Elite paddles that stay on across Windows updates</summary>
 
 - **Windows on ARM gains HidHide, Vosk voice recognition and Xbox Elite paddles.** They work there as they do on x64. 4.5.1 said HidHide had no ARM64 driver. It has one.
-- **Elite paddles over USB and the Xbox Wireless Adapter stay on across Windows updates.** That route reads an undocumented Windows format, so the input library checks the Windows files behind it before switching it on. The check was five exact file hashes, which a Windows update broke. It now accepts a family of versions: Windows 11 24H2 or 25H2 at build 26100.8973 or 26200.8973 (July 28, 2026) or later, with any GameInput redistributable or none. On Windows 10 and older Windows 11 that route stays off, and paddles are read over Bluetooth only.
+- **Elite paddles over USB and the Xbox Wireless Adapter stay on across Windows updates.** That route reads an undocumented Windows format, so the input library checks the Windows files behind it before switching it on. The check was five exact file hashes, which a Windows update broke. It now accepts a family of versions: Windows 11 24H2 or 25H2 at build 26100.8973 or 26200.8973 (July 28, 2026) or later, with version 3 of the GameInput redistributable, or with none. On Windows 10 and older Windows 11 that route stays off, and paddles are read over Bluetooth only.
 - **A voice macro no longer crashes PadForge after a temp cleanup.** A cleaner that removed the cached speech model's files and left its folders made the speech engine hand back an empty model, and the first recognizer built on it took the app down. PadForge now checks the model and unpacks it again.
 
 None of the ARM64 work has run on ARM64 hardware yet. [Requirements](#windows-on-arm-preliminary) lists what the ARM64 build still lacks.
@@ -507,7 +507,7 @@ Comparison reflects each tool's shipping release as of July 2026, with the rows 
 | | PadForge | x360ce | XOutput | reWASD | DS4Windows | Steam Input |
 |---|:---:|:---:|:---:|:---:|:---:|:---:|
 | Free | ✅ | ✅ | ✅ | $9.99+ | ✅ | ✅ |
-| Open source | ✅ | ✅ | ✅ archived | ❌ | ✅ | ❌ |
+| Source available | ✅ CC BY-NC-SA | ✅ | ✅ archived | ❌ | ✅ | ❌ |
 | Works outside Steam | ✅ | ✅ | ✅ | ✅ | ✅ | only via Add Non-Steam Game |
 | Actively developed | ✅ 2026 | no release since Nov 2020 | deprecated 2024 | ✅ v9.4 (2026) | ✅ v3.5 (Feb 2026) | ✅ |
 | Xbox 360 virtual output | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
