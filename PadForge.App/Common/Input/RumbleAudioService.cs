@@ -12,16 +12,18 @@ namespace PadForge.Common.Input
     /// the game feedback each slot's VIRTUAL CONTROLLER receives to WASAPI
     /// render endpoints as low-frequency sine tones.
     ///
-    /// <para>Data path: VC output callbacks fill a controller-local pack;
-    /// the poll thread's feedback lane evaluates the slot's four fixed
-    /// voice bindings once per tick and publishes the result here
-    /// (<see cref="PublishIfCurrent"/>); the render thread reads the
-    /// published packs as its ONLY input. This class never references
-    /// VibrationStates, FinalVibrationStates, macro rumble, test rumble,
-    /// or any per-physical-device projection, which is what makes the
-    /// audio-rumble feedback loop (shaker tone → loopback →
-    /// AudioBassDetector → audio rumble → louder tone) impossible by
-    /// construction.</para>
+    /// <para>Data path: VC output callbacks fill a controller-local pack.
+    /// Once per tick the poll thread's feedback lane max-merges that pack
+    /// with the slot's VibrationStates, which is how the preview's Test
+    /// Rumble becomes audible, masks the four fixed voice bindings, and
+    /// publishes the result here (<see cref="PublishIfCurrent"/>). The
+    /// render thread reads the published packs plus this class's own test
+    /// lane (<see cref="ReadTestPack"/>). Neither path carries
+    /// FinalVibrationStates, macro rumble, or any per-physical-device
+    /// projection, and audio rumble is applied per device downstream of
+    /// VibrationStates, so the audio-rumble feedback loop (shaker tone →
+    /// loopback → AudioBassDetector → audio rumble → louder tone) cannot
+    /// close.</para>
     ///
     /// <para>Players are keyed by ENDPOINT, not slot: all slots routed to
     /// one endpoint share a single WasapiOut, one shared sample clock, and
@@ -106,12 +108,11 @@ namespace PadForge.Common.Input
             for (int i = 0; i < MaxSlots; i++) SilenceSlot(i);
         }
 
-        // ── Test tones (UI). Deliberately OUTSIDE the published packs so
-        // the provenance rule stays intact: test audio never touches
-        // VibrationStates (the FFB tab's test rumble does, which is one
-        // of the reasons the audio path must not read that array), and
-        // the packs stay pure game feedback. The provider mixes the test
-        // lane in as extra per-voice target amplitude. ──
+        // ── Test tones (UI). Kept OUTSIDE the published packs: the sweep
+        // and per-voice pulses never touch VibrationStates, and the
+        // provider mixes this lane in as extra per-voice target amplitude.
+        // The packs carry game feedback plus the preview's Test Rumble,
+        // which arrives through the feedback lane's VibrationStates merge. ──
 
         private static readonly long[] _testPacks = new long[MaxSlots];
         private static readonly long[] _testExpiryMs = new long[MaxSlots];

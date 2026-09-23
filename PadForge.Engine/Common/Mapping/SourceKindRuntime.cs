@@ -22,7 +22,7 @@ namespace PadForge.Engine.Common.Mapping
         // reorder the user's Incremental accumulator survives because
         // Target+sourceIndex is what most users edit incrementally; on
         // wholesale row removal the state lingers harmlessly until the
-        // dictionary is cleared (profile switch / engine stop).
+        // dictionary is cleared (profile switch).
         private Dictionary<(int slot, string target, int srcIdx), double> _incrementalAccum
             = new();
 
@@ -97,13 +97,13 @@ namespace PadForge.Engine.Common.Mapping
         // Saturation band for the lock state machine — avoids float-edge thrash at ±1.
         private const double LockEpsilon = 1e-3;
 
-        /// <summary>Drops all state. Called on profile switch and engine
-        /// stop. Cruise control snaps to neutral on next read.</summary>
+        /// <summary>Drops all state. Called on profile switch. Cruise
+        /// control snaps to neutral on next read.</summary>
         public void Clear()
         {
             // SWAP, never Clear-in-place. These dictionaries are mutated by
             // the 1 kHz polling thread while this runs on the UI thread
-            // (profile switch, engine stop), and clearing a plain Dictionary
+            // (profile switch), and clearing a plain Dictionary
             // under a concurrent writer can corrupt its buckets and hang a
             // subsequent lookup in an infinite loop -- the exact failure the
             // XboxImpulseHidWriter fix chased (audit round 24). Publishing a

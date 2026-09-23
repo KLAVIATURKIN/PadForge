@@ -552,12 +552,13 @@ namespace PadForge.Common.Input
             Disconnect();
         }
 
-        /// <summary>Pass-through to <c>HMController.SubmitRawReport</c> for
-        /// Sony USB Report 0x01 packets carrying touchpad / gyro / accel /
-        /// battery data that <c>HMGamepadState</c> doesn't model. Step 5
-        /// calls this AFTER <see cref="SubmitGamepadState"/> so the GIP
-        /// buffer stays consistent and the raw report overrides the HID
-        /// surface with the full Sony layout.</summary>
+        /// <summary>Submits a packer-built native input frame: Sony USB
+        /// Report 0x01 (touchpad, gyro, accel and battery that
+        /// HMGamepadState does not model) or a Valve persona frame. Step 5
+        /// skips SubmitGamepadState on those slots, so this is their only
+        /// submit. A profile whose frames carry their own report id goes
+        /// through SubmitRawExtendedReport, the rest through
+        /// HMController.SubmitRawReport.</summary>
         public void SubmitRawReport(ReadOnlySpan<byte> report)
         {
             if (_controller == null) return;

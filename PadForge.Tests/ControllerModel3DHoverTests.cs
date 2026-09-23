@@ -284,9 +284,7 @@ namespace PadForge.Tests
         ///
         /// <para>This asked for the BUTTON alone until 2026-08-27, which was
         /// wrong for a stick built from three solids. The Steam Deck's stem
-        /// is the shaft between its cap and its base, and it rides without
-        /// lighting: the button lights the base, the same part of the stick
-        /// every other pad here lights.</para></summary>
+        /// registers under the stick button, so it lights with the base.</para></summary>
         [Theory]
         [MemberData(nameof(Families))]
         public void TheStickIsContinuousUpToItsCap(string family, string appearance, bool extra)

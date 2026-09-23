@@ -20,7 +20,8 @@ namespace PadForge.Models3D
     /// <summary>
     /// Nintendo Switch 2 Pro Controller model. Serves every Nintendo slot
     /// (both the switch-pro and switch2-pro profile families, the same
-    /// arrangement as Xbox Series profiles riding the Xbox One mesh).
+    /// arrangement as Xbox One, Elite and Adaptive profiles riding the
+    /// Xbox Series mesh).
     /// B1–B4 mesh files are assigned by NINTENDO LABEL, not position:
     /// the raw→preview bridge maps wire button 1 (physical A, right
     /// position) to "ButtonA", so B1.obj IS the right-position button.

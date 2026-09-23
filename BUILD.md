@@ -1,11 +1,11 @@
-# PadForge -- Build & Project Reference
+# PadForge: Build & Project Reference
 
 ## Overview
 
 PadForge is a controller mapping utility (fork of [x360ce](https://github.com/x360ce/x360ce)) rebuilt with:
 - **DSU/Cemuhook** motion server for gyro/accelerometer passthrough
 - **[HelixToolkit](https://github.com/helix-toolkit/helix-toolkit)** for interactive 3D controller visualization
-- **[HIDMaestro](https://github.com/hifihedgehog/HIDMaestro)** as the single virtual-controller backend (Xbox / PlayStation / Extended types)
+- **[HIDMaestro](https://github.com/hifihedgehog/HIDMaestro)** as the single virtual-controller backend (Xbox / PlayStation / Nintendo / Extended types)
 - **MVVM** architecture with [CommunityToolkit.Mvvm](https://github.com/CommunityToolkit/dotnet)
 - **.NET 10 WPF** with [WPF-UI](https://github.com/lepoco/wpfui) Fluent Design
 - **[OpenXInput](https://github.com/hifihedgehog/OpenXinput)** XInput shim, embedded in the single-file build
@@ -13,7 +13,7 @@ PadForge is a controller mapping utility (fork of [x360ce](https://github.com/x3
 
 2D controller schematics from **[Gamepad-Asset-Pack](https://github.com/AL2009man/Gamepad-Asset-Pack)** by AL2009man (MIT).
 3D controller models adapted from **[Handheld Companion](https://github.com/Valkirie/HandheldCompanion)** (CC BY-NC-SA 4.0).
-Steam Controller and Steam Deck hardware art derives from **Valve's own published CAD** (CC BY-NC-SA 4.0): the 2015 controller from its March 2016 separate-parts STL release, the 2026 controller from the solid model and reference drawing shipped with the hardware. `tools/steam_controller_2015_mesh.py` and `tools/steam_controller_2026_mesh.py` do the conversion, and `tools/overlay_positions.py` builds the 2026 two-dimensional art from the same drawing.
+Steam Controller hardware art derives from **Valve's own published CAD** (CC BY-NC-SA 4.0): the 2015 controller from the STEP file in its March 2016 release, the 2026 controller from the solid model and reference drawing shipped with the hardware. The Steam Deck body is Handheld Companion's own mesh. `tools/steam_controller_2015_mesh.py` and `tools/steam_controller_2026_mesh.py` do the conversion, and `tools/overlay_positions.py` builds the 2026 two-dimensional art from the same drawing.
 
 ## Solution Structure
 
@@ -22,18 +22,15 @@ PadForge.sln
 ├── PadForge.Engine/          (Class library -- net10.0-windows)
 │   ├── Common/
 │   │   ├── SDL3Minimal.cs         SDL3 P/Invoke declarations
-│   │   ├── InputTypes.cs          Enums: MapType, ObjectGuid, InputDeviceType, etc.
+│   │   ├── InputTypes.cs          Enums and constant tables: MapType, ObjectGuid, InputDeviceType, etc.
 │   │   ├── SdlDeviceWrapper.cs    SDL joystick/gamepad wrapper (open, read, rumble, GUID)
 │   │   ├── SdlKeyboardWrapper.cs  SDL keyboard input wrapper
 │   │   ├── SdlMouseWrapper.cs     SDL mouse input wrapper
 │   │   ├── ISdlInputDevice.cs     Interface for SDL input devices
 │   │   ├── CustomInputState.cs    Unified input state (axes, buttons, POVs, sliders)
-│   │   ├── CustomInputHelper.cs   State comparison and update helpers
-│   │   ├── CustomInputUpdate.cs   Buffered input change records
 │   │   ├── DeviceObjectItem.cs    Device axis/button/POV capability metadata
-│   │   ├── DeviceEffectItem.cs    Force feedback effect metadata
 │   │   ├── ForceFeedbackState.cs  Rumble + SDL haptic state management
-│   │   ├── GamepadTypes.cs        Gamepad/OutputState/ExtendedRawState types
+│   │   ├── GamepadTypes.cs        Gamepad, TouchpadState, RawHidState, KbmRawState, MidiRawState
 │   │   ├── VirtualControllerTypes.cs  IVirtualController + VirtualControllerType enum
 │   │   ├── RawInputListener.cs    Windows Raw Input listener
 │   │   └── InputHookManager.cs    WH_KEYBOARD_LL / WH_MOUSE_LL input suppression hooks
@@ -45,15 +42,16 @@ PadForge.sln
 │       └── AssemblyInfo.cs
 │
 ├── PadForge.App/             (WPF Application -- net10.0-windows10.0.26100.0)
-│   ├── App.xaml / .cs             Entry point, ModernWpf resources, converter registration
+│   ├── App.xaml / .cs             Entry point, WPF-UI resources, converter registration
 │   ├── MainWindow.xaml / .cs      Shell: NavigationView + status bar + page switching
 │   │
 │   ├── Common/
 │   │   ├── SettingsManager.cs     Static: device/setting collections, assignment, defaults
 │   │   ├── ControllerIcons.cs     SVG path data for controller type icons
-│   │   ├── DriverInstaller.cs     HIDMaestro, HidHide driver install/uninstall
+│   │   ├── DriverInstaller.cs     HidHide, MIDI Services and SteamVR install/uninstall, legacy
+│   │   │                          ViGEmBus/vJoy removal (HIDMaestro installs its own driver)
 │   │   ├── HidHideController.cs   HidHide IOCTL API (blacklist, whitelist, cloaking)
-│   │   ├── StartupHelper.cs       Windows startup registry management
+│   │   ├── StartupHelper.cs       Launch-at-logon Task Scheduler task
 │   │   ├── VirtualKey.cs          Virtual key code definitions
 │   │   └── Input/
 │   │       ├── InputManager.cs                          Main partial: background thread, pipeline
@@ -64,7 +62,7 @@ PadForge.sln
 │   │       ├── InputManager.Step4b.EvaluateMacros.cs    Macro evaluation (gamepad + extended)
 │   │       ├── InputManager.Step5.VirtualDevices.cs     Virtual controller output (HIDMaestro / KBM / MIDI)
 │   │       ├── InputManager.Step6.RetrieveOutputStates.cs  Copy combined output for UI
-│   │       ├── HMaestroVirtualController.cs   HIDMaestro VC for Xbox / PlayStation / Extended types
+│   │       ├── HMaestroVirtualController.cs   HIDMaestro VC for Xbox / PlayStation / Nintendo / Extended types
 │   │       ├── KeyboardMouseVirtualController.cs  Virtual keyboard + mouse output
 │   │       └── MidiVirtualController.cs       Virtual MIDI device output
 │   │
@@ -83,19 +81,23 @@ PadForge.sln
 │   │
 │   ├── Models3D/
 │   │   ├── ControllerModelBase.cs       Abstract base: OBJ loading, button map, materials
-│   │   ├── ControllerModelXbox360.cs    Xbox 360 mesh loading (25 OBJ files)
-│   │   ├── ControllerModelDS4.cs        DualShock 4 mesh loading (36 OBJ files)
-│   │   └── 3DModels/
-│   │       ├── DS4/                     DualShock 4 OBJ meshes
-│   │       └── XBOX360/                 Xbox 360 OBJ meshes
+│   │   ├── ControllerModelXbox360.cs    Xbox 360 mesh loading (31 OBJ files)
+│   │   ├── ControllerModelDS4.cs        DualShock 4 mesh loading (37 OBJ files)
+│   │   └── (seven more families, from DualSense to Xbox Series)
+│   │
+│   ├── 3DModels/
+│   │   ├── DS4/                         DualShock 4 OBJ meshes, one folder per colorway
+│   │   ├── XBOX360/                     Xbox 360 OBJ meshes
+│   │   └── (seven more families)
 │   │
 │   ├── Models2D/
 │   │   ├── ControllerOverlayLayout.cs   Layout data for 2D overlays
 │   │   └── (generated position data)
 │   │
 │   ├── 2DModels/
-│   │   ├── DS4/                         DualShock 4 PNG overlays (16 images)
-│   │   └── XBOX360/                     Xbox 360 PNG overlays (21 images)
+│   │   ├── DS4/                         DualShock 4 PNG overlays (29 images)
+│   │   ├── XBOX360/                     Xbox 360 PNG overlays (28 images)
+│   │   └── (eleven more families)
 │   │
 │   ├── ViewModels/
 │   │   ├── ViewModelBase.cs            INotifyPropertyChanged base
@@ -118,7 +120,7 @@ PadForge.sln
 │   │   └── WebControllerServer.cs     Embedded HTTP+WebSocket server for browser virtual controllers
 │   │
 │   ├── WebAssets/
-│   │   ├── index.html                Landing page (Xbox 360 / DS4 layout selection)
+│   │   ├── index.html                Landing page (controller layouts, touchpad, custom, browser gamepad)
 │   │   ├── controller.html           Controller UI shell (dynamic PNG overlay layout)
 │   │   ├── css/controller.css        Dark responsive touch-optimized styles
 │   │   ├── js/controller_client.js   WebSocket client + touch input handling
@@ -134,15 +136,20 @@ PadForge.sln
 │   │   ├── SDL3/x64/SDL3.dll          Custom SDL3 fork (HIDMaestro filter, Switch 2 Pro)
 │   │   ├── SDL3/x64/libusb-1.0.dll    libusb for WinUSB device access
 │   │   ├── OpenXInput/x64/xinput1_4.dll  Custom XInput shim (filters HIDMaestro virtuals from PadForge's own view)
-│   │   ├── */arm64/                   ARM64 copies of the native DLLs, beside each x64 folder
+│   │   ├── */arm64/                   ARM64 copies of the native DLLs, beside the x64 folders of
+│   │   │                              SDL3, OpenXInput and VisualCpp, plus Vosk/arm64/libvosk.dll
 │   │   ├── HIDMaestro/HIDMaestro.Core.dll  HIDMaestro managed client
-│   │   ├── HidHide_1.5.230_x64.exe    Embedded HidHide installer
-│   │   └── Xbox Series Controller - *.png  Dashboard controller images
+│   │   └── HidHide_1.5.230_x64.exe    Embedded HidHide installer
 │   │
 │   ├── Themes/
 │   │   └── Generic.xaml               RangeSlider control template
 │   └── Properties/
 │       └── AssemblyInfo.cs
+│
+├── PadForge.SteamWorkshop/        (Class library, net10.0-windows) Steam Workshop config import
+├── PadForge.Tests/                xunit suite for the App and the Engine
+├── PadForge.SteamWorkshop.Tests/  xunit suite for the Workshop client
+├── PadForge.NativeChecks/         Console helper PadForge.Tests runs against the bundled SDL3.dll
 │
 └── tools/
     ├── DsuDiag/                  DSU/Cemuhook diagnostic client
@@ -157,16 +164,16 @@ PadForge.sln
 ## Prerequisites
 
 - .NET 10 SDK
-- Windows 10 (build 26100+) or Windows 11 (x64)
+- Windows 10 or Windows 11. An x64 machine builds both the x64 and the ARM64 exe. The `10.0.26100.0` in the target framework names the Windows SDK the build compiles against, restored from NuGet, not a Windows build the machine needs.
 
-All native DLLs, driver installers, and model assets are included in the repository under `PadForge.App/Resources/`, `PadForge.App/Models3D/`, and `PadForge.App/2DModels/`.
+All native DLLs, driver installers, and model assets are included in the repository under `PadForge.App/Resources/`, `PadForge.App/3DModels/`, and `PadForge.App/2DModels/`.
 
 ## NuGet Dependencies
 
 **PadForge.App.csproj:**
 ```
 CommunityToolkit.Mvvm 8.2.2                        MVVM data binding
-Concentus 2.2.2                                    Opus encoder for DualSense Bluetooth speaker audio
+Concentus 2.2.2                                    Opus codec for DualSense Bluetooth speaker and microphone audio
 HelixToolkit.Core.Wpf 2.27.3                       3D viewport rendering
 Microsoft.Windows.Devices.Midi2 1.0.16-rc.3.7      Virtual MIDI device output (from nuget-local/)
 NAudio.Wasapi 2.2.1                                WASAPI loopback capture and output
@@ -180,7 +187,7 @@ WPF-UI 4.3.0                                       Fluent Design theme
 **PadForge.Engine.csproj:**
 ```
 BouncyCastle.Cryptography 2.6.2                    Remote Link pairing and transport cryptography
-System.Security.Cryptography.ProtectedData 10.0.9  DPAPI protection for Remote Link identity keys
+System.Security.Cryptography.ProtectedData 10.0.9  DPAPI protection for this PC's Remote Link identity key
 ```
 
 **PadForge.SteamWorkshop.csproj:**
@@ -212,7 +219,7 @@ dotnet publish -c Release -r win-arm64 PadForge.App/PadForge.App.csproj
 
 Output: `PadForge.App/bin/Release/net10.0-windows10.0.26100.0/win-arm64/publish/PadForge.exe`. With no `-r` the build is x64, so existing scripts produce what they always have.
 
-Every bundled native binary sits in a folder named for its architecture: `Resources/SDL3/x64` and `Resources/SDL3/arm64`, and the same pair for `OpenXInput` and `VisualCpp`. `Interhaptics` has an `x64` folder only. The `$(NativeArch)` property picks the folder. `NativeBinaryArchitectureTests` reads the PE header of every file in those folders and fails when a file's machine type differs from its folder name.
+Every bundled native binary sits in a folder named for its architecture: `Resources/SDL3/x64` and `Resources/SDL3/arm64`, and the same pair for `OpenXInput` and `VisualCpp`. `Interhaptics` has an `x64` folder only. The `$(NativeArch)` property picks the folder. `NativeBinaryArchitectureTests` reads the PE header of every `.dll` and `.sys` in an `x64` or `arm64` folder under `Resources` and fails when a file's machine type differs from its folder name.
 
 A publish for either architecture is refused if `SDL3.dll` or `libusb-1.0.dll` is missing from `Resources/SDL3/<arch>`, or `xinput1_4.dll` from `Resources/OpenXInput/<arch>`, and an ARM64 publish is refused if `libvosk.dll` is missing from `Resources/Vosk/arm64`. Those `Content` items are conditioned on `Exists`, so without the `RequireBundledNatives` target a missing file would publish anyway, and the auto build runs no tests that would notice. Without `SDL3.dll` the input engine cannot start. Without `libusb-1.0.dll` wired Switch 2 controllers and the GameCube adapter never open. Without the fork's `xinput1_4.dll` SDL loads the system one, and PadForge reads its own virtual controllers back as input. Without the ARM64 `libvosk.dll` voice macros lose the Vosk recognizer on ARM64. A publish for any runtime other than `win-x64` and `win-arm64` is refused too, since it would be handed the x64 libraries. `SDL3.dll` and `xinput1_4.dll` come from builds of the two forks, the ARM64 pair cross-compiled on an x64 machine with `cmake -A ARM64`. A plain `dotnet build` compiles without any of them.
 
@@ -242,20 +249,23 @@ None of the ARM64 path has run on ARM64 hardware. The bench is x64.
 
 ## Runtime Requirements
 
-1. **SDL3.dll** -- Included in the repo (`Resources/SDL3/x64/`). Custom fork with HIDMaestro
+1. **SDL3.dll**: Included in the repo (`Resources/SDL3/<arch>/`). Custom fork with HIDMaestro
    filtering and WinUSB support for Switch 2 Pro Controller. Copied to the output directory
    automatically.
 
-2. **HIDMaestro** -- Required for all gamepad-style virtual controllers (Xbox, PlayStation,
-   Extended). The app embeds the HIDMaestro installer and managed client; no separate install step.
+2. **HIDMaestro**: Required for all gamepad-style virtual controllers (Xbox, PlayStation,
+   Nintendo, Extended) and the VR controller pair. The app embeds `HIDMaestro.Core.dll`, which
+   carries the driver and installs it on first start. No separate install step.
 
-3. **OpenXInput shim** (`xinput1_4.dll`) -- Custom XInput replacement DLL embedded in the
-   single-file build under `Resources/OpenXInput/x64/`. Filters HIDMaestro virtual
-   controllers out of PadForge's own XInput view. Loaded via `SetDllDirectory` preload.
-   Do NOT ship the fork's `devobj.dll`: it is a link-time stub, and bundling it once
-   hijacked the real System32 devobj.dll process-wide and crashed setupapi.
+3. **OpenXInput shim** (`xinput1_4.dll`): Custom XInput replacement DLL embedded in the
+   single-file build from `Resources/OpenXInput/<arch>/`. Filters HIDMaestro virtual
+   controllers out of PadForge's own XInput view. SDL loads it by name, and `App.OnStartup`
+   puts the single-file extraction folder on the DLL search path with `SetDllDirectory`, so
+   this copy wins over System32's. Do NOT ship the fork's `devobj.dll`: it is a link-time
+   stub, and bundling it once hijacked the real System32 devobj.dll process-wide and crashed
+   setupapi.
 
-4. **HidHide** (optional) -- For hiding physical controllers from games. Built-in installer included.
+4. **HidHide** (optional): For hiding physical controllers from games. Built-in installer included.
 
 ## Architecture Notes
 
@@ -263,37 +273,43 @@ None of the ARM64 path has run on ARM64 hardware. The bench is x64.
 - **InputManager** runs a background thread at configurable polling rate (default ~1000Hz).
   Uses hybrid sleep/spin-wait for sub-ms precision.
 - **InputService** runs a DispatcherTimer on the UI thread at ~30Hz.
-- State transfer: InputManager writes to `CombinedOutputStates[]` and `CombinedExtendedRawStates[]`;
-  InputService reads them and pushes to ViewModels.
+- State transfer: InputManager writes to `CombinedOutputStates[]` and the per-type raw arrays
+  (`CombinedRawHidStates[]`, `CombinedKbmRawStates[]`, `CombinedMidiRawStates[]`,
+  `CombinedVrRawStates[]`, `CombinedTouchpadStates[]`). InputService reads them and pushes to ViewModels.
 - All ViewModel property sets happen on the UI thread.
 
 ### 6-Step Pipeline (per cycle)
-1. **UpdateDevices** -- SDL enumeration, open new, detect disconnections, filter HIDMaestro virtuals
-2. **UpdateInputStates** -- Read axes/buttons/POVs/sensors from SDL; apply force feedback + haptic
-3. **UpdateOutputStates** -- Map CustomInputState -> OutputState via PadSetting descriptors
-4. **CombineOutputStates** -- Merge multiple devices per slot (OR/MAX/largest-magnitude)
-   - **4b. EvaluateMacros** -- Process macro triggers and actions (gamepad + extended paths)
-5. **VirtualDevices** -- Submit state to HIDMaestro via `HMContext.SubmitState` / `SubmitRawReport`; KBM and MIDI VCs emit through their respective backends
-6. **RetrieveOutputStates** -- Copy combined output for UI display
+1. **UpdateDevices**: SDL enumeration, open new, detect disconnections, filter HIDMaestro virtuals
+2. **UpdateInputStates**: Read axes/buttons/POVs/sensors from SDL, and apply force feedback + haptic
+3. **UpdateOutputStates**: Map CustomInputState -> OutputState through the slot's `MappingSet` rows, or through the PadSetting descriptors when the set has no rows
+4. **CombineOutputStates**: Merge multiple devices per slot (OR/MAX/largest-magnitude)
+   - **4b. EvaluateMacros**: Process macro triggers and actions (gamepad + extended paths)
+5. **VirtualDevices**: Submit state to HIDMaestro via `HMController.SubmitState` / `SubmitRawReport`. KBM and MIDI VCs emit through their respective backends
+6. **RetrieveOutputStates**: Copy combined output for UI display
 
 ### Virtual Controller Types
 All gamepad-style virtuals run on HIDMaestro via `HMaestroVirtualController.cs`:
-- **Xbox** -- Xbox 360 layout, up to `MaxPads` (16) simultaneous (XInput visibility caps at 4)
-- **PlayStation** -- DualShock 4 layout, up to 16 simultaneous
-- **Extended** -- Fully custom HID descriptors, up to 16 simultaneous
+- **Xbox**: Xbox-family profiles (Xbox 360, Xbox One, Xbox Series, Elite, Adaptive), up to `MaxPads` (16) simultaneous (XInput visibility caps at 4)
+- **PlayStation**: DualShock and DualSense profiles, up to 16 simultaneous
+- **Nintendo**: the Switch Pro Controller and Switch 2 Pro Controller profiles, up to 16 simultaneous
+- **Extended**: every other offered HIDMaestro profile (third-party pads, wheels, flight sticks) plus fully custom HID descriptors, up to 16 simultaneous
+
+HIDMaestro ships 231 profiles. PadForge offers the 133 that carry a captured HID descriptor (`HMProfile.IsDeployable`), split into these four buckets by `HMaestroProfileCatalog`.
 
 Non-gamepad virtuals:
-- **KeyboardMouse** -- `KeyboardMouseVirtualController.cs`, up to 16 simultaneous
-- **MIDI** -- `MidiVirtualController.cs` via Windows MIDI Services 2, up to 16 simultaneous
+- **KeyboardMouse**: `KeyboardMouseVirtualController.cs`, up to 16 simultaneous
+- **MIDI**: `MidiVirtualController.cs` via Windows MIDI Services 2, up to 16 simultaneous
+- **VR**: `HMaestroVRController.cs`, one SteamVR left and right hand pair through HIDMaestro's OpenVR driver, one slot at most
 
 ### Mapping Descriptors
 String format: `"[I][H]{Type} {Index} [{Direction}]"`
 - `Button 0`, `Axis 1`, `IHAxis 2`, `POV 0 Up`, `Slider 0`
 - Prefixes: `I` = inverted, `H` = half-axis, `IH` = inverted half
+- The prefixes are the legacy form. A `MappingSource` stores `Invert` and `HalfAxis` as their own attributes, and `SourceCoercion.StripLegacyPrefix` still reads the prefixed strings older settings carry
 
 ### Controller Visualization
-- **3D View** (`ControllerModelView`): HelixToolkit.WPF viewport with OBJ meshes from Handheld Companion.
-  Xbox 360 (25 parts) and DualShock 4 (36 parts). Mouse/touch rotation, zoom, pan.
+- **3D View** (`ControllerModelView`): HelixToolkit.WPF viewport with per-part OBJ meshes for nine
+  controller families (the `Models3D/` classes). Mouse/touch rotation, zoom, pan.
 - **2D View** (`ControllerModel2DView`): Canvas with PNG overlays from Gamepad-Asset-Pack.
   Button/stick/trigger state shown via opacity toggling on overlay images.
 
@@ -305,16 +321,17 @@ String format: `"[I][H]{Type} {Index} [{Direction}]"`
   <PadSettings><PadSetting>...</PadSetting></PadSettings>
   <AppSettings>...</AppSettings>
   <Macros><Macro>...</Macro></Macros>
-  <Profiles><ProfileData>...</ProfileData></Profiles>
+  <Profiles><Profile>...</Profile></Profiles>
+  <!-- plus SlotMappingSets, DeviceTunings, SoundPackages, NfcTags and other sections -->
 </PadForgeSettings>
 ```
 
 ### DSU Motion Server
-- UDP server on port 26760 (Cemuhook protocol)
-- Broadcasts gyro/accelerometer data from SDL sensor-capable controllers
+- UDP server on port 26760 by default (Cemuhook protocol)
+- Sends gyro/accelerometer data from SDL sensor-capable controllers to subscribed clients
 - Compatible with Cemu, Dolphin, and other DSU clients
 - Diagnostic tool: `tools/DsuDiag/`
 
 ### Diagnostic Tools
-- **DsuDiag** (`tools/DsuDiag/`) -- Real-time DSU protocol client showing per-slot motion data
-- **Ds4InputDump** (`tools/Ds4InputDump/`) -- Raw DualShock 4 input dump for debugging the PlayStation VC path
+- **DsuDiag** (`tools/DsuDiag/`): Real-time DSU protocol client showing per-slot motion data
+- **Ds4InputDump** (`tools/Ds4InputDump/`): Raw DualShock 4 and DualSense input dump for debugging the PlayStation VC path

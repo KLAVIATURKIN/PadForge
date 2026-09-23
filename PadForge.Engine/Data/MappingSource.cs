@@ -115,8 +115,9 @@ namespace PadForge.Engine.Data
         // A keyboard-to-axis time-based ramp. The positive-direction key (ParamUp)
         // and negative-direction key (ParamDown) drive a bipolar accumulator in
         // [-1, +1] that attacks toward the held side over ParamAttackTime and
-        // releases back toward zero over ParamReleaseTime. Math ported from the
-        // KBM2Gamepad / FreePIE throttle logic referenced in the issue.
+        // releases back toward zero over ParamReleaseTime. The ramp behaves
+        // like the KBM2Gamepad and FreePIE throttles the issue referenced. The
+        // math here is PadForge's own.
 
         /// <summary>Ramped attack time in seconds: how long the axis takes to travel
         /// 0 to ±1 while the matching-direction key is held. 0 = instant. Only read

@@ -2631,10 +2631,10 @@ def process_steamcontroller2():
     control out of the labeled regions. That keeps the asset
     reproducible from a cited source instead of hand-painted.
 
-    What a front elevation cannot show, it does not claim: the bumpers,
-    the triggers and the rear grip buttons have no entry here, the same
-    way the 2015 flow had to recover its grips from a separate template.
-    Those controls are mappable on the 3D model, which sees all sides.
+    The bumpers, the triggers and the four rear grip buttons sit on
+    surfaces the drawing does not face, so _sc2_edge_tiles stands them in
+    labeled tiles down each side of the canvas, the way the Steam Deck
+    layout carries its L4/L5/R4/R5 callouts.
     """
     print("Building Steam Controller 2026 art from Valve CAD...")
     gray = _sc2_outline()

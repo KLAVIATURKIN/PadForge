@@ -79,9 +79,9 @@ namespace PadForge.Common.Input
             get { EnsureInitialized(); return _playStationProfiles; }
         }
 
-        /// <summary>Nintendo-family controller profiles. The single
-        /// switch-pro profile for now; see IsNintendoProfile for the
-        /// deliberate scope. Mutually exclusive with the other buckets.</summary>
+        /// <summary>Nintendo-family controller profiles: switch-pro and
+        /// switch2-pro-controller (see IsNintendoProfile). Mutually exclusive
+        /// with the other buckets.</summary>
         public static IReadOnlyList<HMProfile> NintendoProfiles
         {
             get { EnsureInitialized(); return _nintendoProfiles; }
@@ -457,9 +457,10 @@ namespace PadForge.Common.Input
         /// render for that controller. Profile-id prefixes match HM's catalog
         /// slugs (sony/, microsoft/) so adding a new profile in HM
         /// automatically falls through to the right family without code
-        /// changes here. The two folders can differ — Xbox Series uses its
-        /// own 2D layout but borrows Xbox One's 3D mesh because HC has no
-        /// dedicated Series 3D model. Falls back to the existing DS4 /
+        /// changes here. The two folders can differ: Xbox One, Elite and
+        /// Adaptive profiles keep the Xbox One 2D layout but borrow the Xbox
+        /// Series 3D mesh, and an original Switch Pro keeps its own 2D set
+        /// but borrows the Switch 2 Pro mesh. Falls back to the existing DS4 /
         /// XBOX360 assets for unrecognized PlayStation / Xbox profiles so
         /// future HM additions degrade gracefully instead of going blank.
         /// </summary>
@@ -523,12 +524,12 @@ namespace PadForge.Common.Input
 
             // Nintendo Switch Pro family. Both profile generations share
             // the Switch 2 Pro mesh (purchased hado model, split per-part),
-            // the same arrangement as Series profiles riding the Xbox One
+            // the same arrangement as Xbox One profiles riding the Series
             // mesh. On an original Switch Pro the S2-only cosmetic parts
             // (C button, GL/GR, four player LEDs) render anyway; they are
             // inert meshes, so nothing maps or flashes wrong.
             // The 3D mesh is shared (the Switch 2 Pro model serves both, the
-            // same arrangement as Series profiles riding the Xbox One mesh),
+            // same arrangement as Xbox One profiles riding the Series mesh),
             // but the 2D sets are NOT. Switch 2 Pro art carries a C button and
             // the GL / GR grip tiles; drawing those on an original Pro
             // Controller would show three controls it does not have.

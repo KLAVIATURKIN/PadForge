@@ -665,8 +665,9 @@ namespace PadForge.Common.Input
                 return;
 
             // Xbox One+ routing: those devices skip the SDL-rumble path
-            // entirely and write through XboxImpulseHidWriter (raw HID,
-            // 9-byte BT or 13-byte GIP report). SDL's HasRumble flag is
+            // entirely and write through XboxImpulseHidWriter, which sends
+            // one 9-byte report to the pad's XUSB device interface whatever
+            // the transport. SDL's HasRumble flag is
             // ignored — every Microsoft Xbox One+ controller has rumble
             // + impulse-trigger motors as a hardware fact. We still
             // require ud.Device != null so we know the controller is

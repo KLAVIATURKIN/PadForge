@@ -674,15 +674,15 @@ namespace PadForge.Views
             // SelectedConfigTab tag values: 0 Controller, 1 Macros, 2 Mappings,
             // 3 Sticks, 4 Triggers, 5 Force Feedback, 6 Adaptive Triggers,
             // 7 Lighting, 8 Gyro, 9 Impulse Triggers, 10 Touchpad, 11 Wheel,
-            // 12 Audio, 13 Pointer, 14 Mouse, 15 Menus, 16 Bass Shakers.
-            // Macros, Mappings, and
-            // Force Feedback are visible for every VC type. MIDI hides
-            // Sticks and Triggers; K+M hides Triggers only. Adaptive
-            // Triggers, Lighting, Gyro, and Impulse Triggers are gated on
-            // the selected device's capabilities above. Bass Shakers is a
-            // SLOT-TYPE gate (Xbox / PlayStation only, #236). Kick the user
-            // back to the Controller tab if they're sitting on a now-hidden
-            // one.
+            // 12 Audio, 13 Pointer, 14 Mouse, 15 Menus, 16 Bass Shakers,
+            // 17 Output. Macros, Mappings and Menus show on every slot type.
+            // MIDI and VR hide Sticks and Triggers. Keyboard and Mouse hides
+            // Triggers, and so does an Extended or Nintendo slot with no
+            // trigger axes. Force Feedback and tabs 6 through 14 follow the
+            // selected device's capabilities above. Bass Shakers and Output
+            // are slot-type gates (PadViewModel.RumbleAudioTabVisible and
+            // OutputTabVisible). Kick the user back to the Controller tab if
+            // they're sitting on a now-hidden one.
             if (DataContext is PadViewModel vm)
             {
                 // VR hides Sticks and Triggers the same way MIDI does, and was

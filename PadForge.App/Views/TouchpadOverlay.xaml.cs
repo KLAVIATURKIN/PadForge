@@ -62,7 +62,8 @@ namespace PadForge.Views
         // click-and-hold patterns (click-drag, sustained context input)
         // work. _clickPulse is the legacy double-tap-on-surface pulse,
         // single-frame, kept as a quick momentary fallback. Both feed
-        // Buttons[16] via OR in GetTouchpadState.
+        // Buttons[16] through the OR in GetMultiFingerState, which
+        // InputService hands to TouchpadOverlayDevice.UpdateStateMulti.
         private bool _clickBarHeld;
         private int? _clickBarTouchId;
         private bool _clickPulse;

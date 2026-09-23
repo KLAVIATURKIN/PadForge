@@ -346,7 +346,8 @@ namespace PadForge.Services
         }
 
         /// <summary>
-        /// Bonds one discovered controller, porting Dolphin's AuthenticateWiimote
+        /// Bonds one discovered controller, following the sequence of
+        /// Dolphin's AuthenticateWiimote (GPL, read as documentation only)
         /// plus the HID-service enable. Authenticates with the deprecated
         /// BluetoothAuthenticateDevice (PIN passed directly, no callback), then
         /// enumerates installed services so the remote remembers the pairing,

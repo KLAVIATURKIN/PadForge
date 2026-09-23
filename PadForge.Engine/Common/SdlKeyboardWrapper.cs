@@ -9,7 +9,7 @@ namespace PadForge.Engine
     /// <summary>
     /// Wraps a keyboard device for unified input via <see cref="ISdlInputDevice"/>.
     /// State is read from Raw Input (per-device) via <see cref="RawInputListener"/>.
-    /// Enumeration uses either SDL or Raw Input depending on how the device was opened.
+    /// Enumeration comes from Raw Input too: the only Open takes a RawInputListener device.
     /// </summary>
     public class SdlKeyboardWrapper : ISdlInputDevice
     {

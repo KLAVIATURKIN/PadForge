@@ -54,8 +54,8 @@ namespace PadForge.Engine.Haptics
         }
 
         /// <summary>Encodes one (frequency Hz, amplitude 0..1) tone into the
-        /// 4-byte Joy-Con rumble group. Mirrors encode_rumble (rumble.h:87-113)
-        /// byte for byte.</summary>
+        /// 4-byte Joy-Con rumble group. Produces the same bytes as encode_rumble
+        /// (rumble.h:87-113).</summary>
         public static byte[] EncodeJoyConRumble(float freqHz, float amp)
         {
             freqHz = FoldJoyConFrequency(freqHz);
@@ -83,7 +83,7 @@ namespace PadForge.Engine.Haptics
             // Nintendo_Switch_Reverse_Engineering rumble_data_table.md:30 value
             // 0.12f is authoritative for this threshold because it is the one
             // that keeps the formula in its valid domain. The float32 path
-            // itself still mirrors rumble.h:102/104. The Max(0, .) is a
+            // itself still matches rumble.h:102/104. The Max(0, .) is a
             // belt-and-suspenders clamp so a negative round can never wrap.
             byte encAmp = 0;
             if (amp > 0.23f)

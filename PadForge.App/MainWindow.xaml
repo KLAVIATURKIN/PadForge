@@ -329,9 +329,10 @@
 
         <!-- ═══════════════════════════════════════════
              First-run welcome + spotlight tour (#175).
-             Shown when the first-run marker file is absent; re-runnable
-             from Settings. The dim layer swallows clicks; the highlight
-             border and tip card are positioned in code-behind.
+             Shown while the FirstRunTourCompleted setting is false, and
+             re-runnable from Settings. A transparent click shield swallows
+             clicks window-wide. Code-behind positions the highlight border
+             and tip card.
              ═══════════════════════════════════════════ -->
         <Grid x:Name="FirstRunOverlay"
               Grid.RowSpan="3"

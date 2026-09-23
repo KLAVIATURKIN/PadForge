@@ -1785,10 +1785,11 @@ namespace PadForge.ViewModels
 
         /// <summary>DS5_Bridge's pattern (set_headset /
         /// bt_rearm_speaker_output_route): follow the pad's own jack
-        /// detect, headphones while plugged, speaker while not. Jack
-        /// state arrives on the Bluetooth raw lane
-        /// (PluggedHeadphones, input status byte bit 0); with no
-        /// reading (USB, or no persona lane) it resolves to Default.</summary>
+        /// detect, headphones while plugged, speaker while not. Jack state
+        /// is the PluggedHeadphones bit (status byte bit 0), read from USB
+        /// input report 0x01 or Bluetooth report 0x31 by the persona
+        /// readers or by AudioPassthroughService's JackWatch. Until a
+        /// reading arrives it resolves to Default.</summary>
         FollowHeadphoneJack = 5,
     }
 

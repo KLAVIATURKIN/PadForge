@@ -38,10 +38,10 @@ namespace PadForge.Views
 
         private PadViewModel _vm;
         private ControllerModelBase _currentModel;
-        // Tracks whether the current Xbox One mesh has Share wired in.
-        // Profile switches within the same asset folder (Xbox One ↔
-        // Xbox Series) need to force a rebuild when this flag would
-        // change so the Share mesh transitions between inert and live.
+        // Tracks whether the current shared mesh has its extra controls
+        // wired in: Share on the Series mesh, C and GL / GR on the Switch 2
+        // Pro mesh. A profile switch that keeps the mesh but changes this
+        // flag forces a rebuild, so those controls go between inert and live.
         private bool _currentModelExtraControlsEnabled;
         private bool _dirty;
 
@@ -626,8 +626,9 @@ namespace PadForge.Views
         private void HighlightButtons()
         {
             // The hovered TARGET is owned by the hover highlight while the
-            // cursor sits on it (all of its groups, not just the hit one:
-            // the stick ring glows with the hovered click mesh).
+            // cursor sits on it, across every one of its ButtonMap groups.
+            // A stick's ring is never in that list, so hovering the click
+            // leaves the ring dark.
             string hoverTarget = _hoverGroup != null
                 && _currentModel.ClickMap.TryGetValue(_hoverGroup, out var ht) ? ht : null;
 
@@ -726,7 +727,7 @@ namespace PadForge.Views
                 foreach (var g in registered)
                     if (g != null && !parts.Contains(g))
                         parts.Add(g);
-            // Parts that lean without lighting: the Steam Deck's stem.
+            // Parts that lean without lighting. No model registers one today.
             if (_currentModel.StickRiders.TryGetValue(thumbRing, out var riders))
                 foreach (var g in riders)
                     if (g != null && !parts.Contains(g))
@@ -1401,8 +1402,9 @@ namespace PadForge.Views
         }
 
         /// <summary>All groups that light up with the given group's click
-        /// target (multi-mesh buttons, the stick click + its ring). Falls
-        /// back to just the group itself.</summary>
+        /// target: that target's ButtonMap list (a multi-mesh button, or a
+        /// stick's click mesh plus the Steam Deck's stem). A stick's ring is
+        /// never among them. Falls back to just the group itself.</summary>
         private List<Model3DGroup> ResolveTargetGroups(Model3DGroup group)
         {
             if (_currentModel.ClickMap.TryGetValue(group, out var target)

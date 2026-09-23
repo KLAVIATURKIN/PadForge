@@ -34,13 +34,13 @@ namespace PadForge.Engine
         Midi = 3,
         /// <summary>Keyboard + Mouse output (built-in, no driver).</summary>
         KeyboardMouse = 4,
-        /// <summary>Nintendo category. Switch Pro Controller for now.
-        /// Console-family face like Xbox / PlayStation (own bucket, icon,
-        /// fixed catalog profile) riding the Extended raw-HID data path
-        /// (profile-driven layout, raw button indices, Nintendo lettering).
-        /// No Customize surface: the slot always deploys the catalog
-        /// profile as-is. Appended after KeyboardMouse; numeric values are
-        /// persisted, never reorder.</summary>
+        /// <summary>Nintendo category: the Switch Pro Controller and the
+        /// Switch 2 Pro Controller. Console-family face like Xbox /
+        /// PlayStation (own bucket, icon, catalog profiles) riding the
+        /// Extended raw-HID data path (profile-driven layout, raw button
+        /// indices, Nintendo lettering). No Customize surface: the slot
+        /// always deploys the chosen catalog profile as-is. Appended after
+        /// KeyboardMouse. Numeric values are persisted, never reorder.</summary>
         Nintendo = 5,
         /// <summary>Virtual VR controllers (issue #49): a SteamVR left+right
         /// hand pair served by HIDMaestro's native OpenVR driver (HM#32,

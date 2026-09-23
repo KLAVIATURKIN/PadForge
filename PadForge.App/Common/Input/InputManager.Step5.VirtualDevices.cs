@@ -837,8 +837,9 @@ namespace PadForge.Common.Input
         // a meaningful state change — type switch, profile switch, or slot
         // toggle. Hammering creation in a tight retry loop is wrong for
         // HIDMaestro: SetupController already does its own adaptive waits
-        // (WaitForHidChild 10s, WaitForDeviceStarted 5s, WaitForXInputSlotClaim
-        // 15s) and a failure is a real failure, not a timing flake.
+        // (WaitForHidChild 10 s, WaitForDeviceStarted 5 s, and a 500 ms
+        // XInput slot-claim wait) and a failure is a real failure, not a
+        // timing flake.
         private readonly bool[] _createFailed = new bool[MaxPads];
 
         /// <summary>What configuration the createFailed latch was set FOR:
@@ -1356,29 +1357,27 @@ namespace PadForge.Common.Input
                              && HmInactivityTimeoutSeconds > 0
                              && !_hmInactivityFired[padIndex])
                     {
-                        // HM inactivity timeout.  Setting=0 disables (legacy
-                        // never-destroy behavior — slot survives indefinitely).
-                        // Otherwise: convert seconds to polling cycles, fire
-                        // event once when threshold is crossed, latch so we
-                        // don't re-fire each tick.  UI thread handler runs
+                        // HM inactivity timeout. Setting=0 disables (legacy
+                        // never-destroy behavior, slot survives indefinitely).
+                        // Otherwise the grace's wall-clock time (inactiveMs)
+                        // is compared with the threshold, the event fires
+                        // once, and a latch stops it re-firing each tick. The
+                        // UI thread handler runs
                         // InputService.OnSlotInactivityTimedOut(padIndex),
                         // which tears down THIS VC (kernel slot frees) and
                         // runs the bubble-down cascade across the same HM
-                        // subgroup (Xbox / PlayStation / Extended) so
+                        // group (Xbox / PlayStation / Nintendo / Extended) so
                         // survivors at higher visual positions drop their
-                        // kernel slot.  The slot configuration is preserved
-                        // end-to-end — only the live VC is destroyed, so the
-                        // slot transitions to "awaiting devices" and the same
-                        // VC is recreated automatically by Pass 2 once its
-                        // mapped devices come back online.  The latch clears
-                        // whenever the slot returns to active state (counter
-                        // reset above).
+                        // kernel slot. The slot configuration is preserved
+                        // end-to-end. Only the live VC is destroyed, so the
+                        // slot transitions to "awaiting devices" and Pass 2
+                        // recreates the VC once its mapped devices come back
+                        // online. The latch clears whenever the slot returns
+                        // to active state (counter reset above).
                         //
-                        // Both events fire so that listeners that care about
-                        // the inactivity-timeout-specific case (e.g. status
-                        // text "VC torn down due to inactivity") still get
-                        // it, while the unified non-active cascade entry
-                        // point also runs.
+                        // Only HmVcInactivityDestroyed fires here.
+                        // TryInactivityTeardown runs its own cascade, so
+                        // HmVcWentNonActive is not raised.
                         if (inactiveMs >= HmInactivityTimeoutSeconds * 1000L)
                         {
                             System.Threading.Volatile.Write(ref _hmInactivityFired[padIndex], true);
@@ -1551,11 +1550,12 @@ namespace PadForge.Common.Input
 
                         // Skip if a prior attempt failed. HIDMaestro's
                         // CreateController does its own adaptive waits
-                        // internally (WaitForHidChild/WaitForDeviceStarted/
-                        // WaitForXInputSlotClaim — up to 30s combined), so
-                        // fast-looping retries here accomplish nothing except
-                        // hammering the driver. Only a user-driven change
-                        // (profile switch, slot toggle) clears the latch.
+                        // (WaitForHidChild, WaitForDeviceStarted, and a
+                        // 500 ms XInput slot-claim wait), so fast-looping
+                        // retries here accomplish nothing except hammering
+                        // the driver. The latch clears on a configuration
+                        // change (type, profile, or Extended layout), a slot
+                        // toggle, or the slot's devices coming back online.
                         if (_createFailed[padIndex])
                             continue;
 
@@ -1985,10 +1985,9 @@ namespace PadForge.Common.Input
                             // Auto-map populates tp.Click from "Touchpad 0 Click"
                             // input descriptors but never sets the gp bit, so
                             // BT profiles (no raw packer) lose the press without
-                            // this OR. USB profiles still ride SubmitRawReport
-                            // for the full byte-level layout, but consistent
-                            // SubmitGamepadState output keeps the GIP / XInput
-                            // surface in agreement.
+                            // this OR. USB profiles with a packer submit only
+                            // the raw frame, which the packer builds from this
+                            // same gpOut, so it carries the OR too.
                             var gpOut = CombinedOutputStates[padIndex];
                             if (SlotControllerTypes[padIndex] == VirtualControllerType.PlayStation
                                 && CombinedTouchpadStates[padIndex].Click)
@@ -2040,10 +2039,8 @@ namespace PadForge.Common.Input
                             // entirely (no SubmitRawReport packer for BT —
                             // their input report is the vendor-blob 0x31
                             // shape, written by HM's encoder from the state
-                            // fields). USB profiles pick up the same data
-                            // here too, then SubmitRawReport below overrides
-                            // the byte layout with the full Sony USB Report
-                            // 0x01 packing — both paths consistent.
+                            // fields). USB profiles with a packer skip this
+                            // call and submit only the raw frame below.
                             int pctNow = BatteryPercents[padIndex];
                             byte pctByte = pctNow < 0 ? (byte)100 : (byte)Math.Clamp(pctNow, 0, 100);
 
@@ -2364,18 +2361,10 @@ namespace PadForge.Common.Input
         // inheritance default (logitech-f710) would have new users pick
         // up Logitech VID/PID surprise-unexpectedly.
         public const string DefaultRawProfileId = HMaestroProfileCatalog.CustomProfileId;
-        /// <summary>The Nintendo category's only profile for now (owner
-        /// call 2026-07-18). Matches HMaestroProfileCatalog.IsNintendoProfile.</summary>
+        /// <summary>The Nintendo category's default profile (owner call
+        /// 2026-07-18). Matches HMaestroProfileCatalog.IsNintendoProfile.</summary>
         public const string DefaultNintendoProfileId = "switch-pro";
 
-        /// <summary>
-        /// Returns the default HIDMaestro profile slug for a given VC category,
-        /// or null for categories that don't use HIDMaestro (MIDI, KeyboardMouse).
-        /// Used by both CreateVirtualController (engine-side fallback when
-        /// SlotProfileIds is null) and DeviceService.CreateSlot (populates the
-        /// ViewModel's ProfileId so the profile-picker dropdown shows the
-        /// selected default immediately on slot create).
-        /// </summary>
         /// <summary>True when a catalog slug is one the given controller type
         /// can actually be built from. An empty slug belongs to every type,
         /// because the create resolves it to that type's default.</summary>
@@ -2396,6 +2385,14 @@ namespace PadForge.Common.Input
             return false;
         }
 
+        /// <summary>
+        /// Returns the default HIDMaestro profile slug for a given VC category,
+        /// or null for categories that don't use HIDMaestro (MIDI, KeyboardMouse).
+        /// Used by both CreateVirtualController (engine-side fallback when
+        /// SlotProfileIds is null) and DeviceService.CreateSlot (populates the
+        /// ViewModel's ProfileId so the profile-picker dropdown shows the
+        /// selected default immediately on slot create).
+        /// </summary>
         public static string GetDefaultProfileId(VirtualControllerType type) => type switch
         {
             VirtualControllerType.Xbox => DefaultXboxProfileId,
@@ -2858,16 +2855,17 @@ namespace PadForge.Common.Input
         }
 
         /// <summary>
-        /// Returns true if the slot currently holds any HM-backed virtual
-        /// controller (Xbox / PlayStation / Extended). Used by the
-        /// bubble-down cascade in InputService when a slot at a lower
-        /// position transitions to non-active for any reason — delete,
-        /// disable, all-devices-unassigned, HM inactivity timeout —
-        /// so survivors at higher positions in the same subgroup get
-        /// destroyed and recreated, dropping their kernel slot by one.
-        /// External observers (xinputhid for Xbox, DirectInput / SDL /
-        /// raw HID for PlayStation and Extended) all see this as the
-        /// natural disconnect/reconnect shape.
+        /// Returns true if the slot currently holds an
+        /// HMaestroVirtualController (Xbox / PlayStation / Nintendo /
+        /// Extended). A VR slot's HMaestroVRController does not count. Used
+        /// by the bubble-down cascades (TryInactivityTeardown and
+        /// InputService's) when a slot at a lower position transitions to
+        /// non-active for any reason (delete, disable,
+        /// all-devices-unassigned, HM inactivity timeout), so survivors at
+        /// higher positions in the same group get destroyed and recreated,
+        /// dropping their kernel slot by one. External observers (xinputhid
+        /// for Xbox, DirectInput / SDL / raw HID for the others) all see
+        /// this as the natural disconnect/reconnect shape.
         /// </summary>
         public bool IsHmVcAt(int padIndex)
         {

@@ -18,9 +18,10 @@ namespace PadForge.Common.Input
     /// sounds (always) and a WASAPI loopback mirror of the system default
     /// output (per-device toggle, <c>DeviceSlotConfig.AudioPassthroughEnabled</c>).
     ///
-    /// <para><b>Reference implementation:</b> DualSenseY-v2's
-    /// <c>audioPassthrough.cpp</c> (cloned at
-    /// <c>..\DualSenseY-v2</c>), ported to PadForge idioms:</para>
+    /// <para><b>Behavioral reference:</b> DualSenseY-v2's
+    /// <c>audioPassthrough.cpp</c> (cloned at <c>..\DualSenseY-v2</c>).
+    /// It publishes no license, so it was read for behavior only, and the
+    /// C# here is original. The behavior it documents:</para>
     /// <list type="bullet">
     /// <item><b>USB</b> — the pad's USB Audio Class endpoint is found by
     /// Container-ID match (the HID interface and the UAC interface of the
@@ -802,11 +803,11 @@ namespace PadForge.Common.Input
             catch { return Ds5AudioBufferLengthDefault; }
         }
 
-        // Last observed headphone-jack state per pad, written by the BT
-        // raw reader from the input status byte (duaLib /*53.0*/
-        // PluggedHeadphones). Absent = never observed (USB pads, or no
-        // persona lane running). Retained after the reader stops: a
-        // stale reading beats flapping the route to Default mid-song.
+        // Last observed headphone-jack state per pad, from the input status
+        // byte (duaLib /*53.0*/ PluggedHeadphones), written by the persona
+        // readers and by JackWatch over USB or Bluetooth. Absent = never
+        // observed. Retained after the reader stops: a stale reading beats
+        // flapping the route to Default mid-song.
         private static readonly System.Collections.Concurrent.ConcurrentDictionary<Guid, bool> s_padJackState = new();
 
         internal static void NoteHeadphoneJack(Guid pad, bool plugged)
@@ -2574,39 +2575,18 @@ namespace PadForge.Common.Input
             }
         }
 
-        /// <summary>Find the feed whose BT mic source is this pad. Sinks are
-        /// few and this runs once per 10.667 ms tick; a scan is fine.</summary>
-        /// <summary>BT DualSense mic: DISABLED until the SDL fork filters
-        /// non-HID 0x31 reports. Opening the mic makes the pad interleave
-        /// 0x31 reports whose payload is a 71-byte Opus packet in place of
-        /// controller state (header bit0 = HasHID, bit1 = HasMic), and
-        /// SDL's DS5 driver parses those bytes as sticks/buttons: erratic
-        /// input on the physical pad, observed on hardware 2026-07-31. The
-        /// whole decode chain below is hardware-proven (OPEN ack 45 ms,
-        /// 100 frames/s, real audio) and comes back when the fork skips
-        /// HasMic reports. Until then the tick scrubs any latched mic-open
-        /// state instead.
-        ///
-        /// RE-ENABLED 2026-07-31: the SDL fork filters HasMic 0x31 reports
-        /// out of state parsing (hifihedgehog/SDL#20, fork cec3689a12),
-        /// so the mic session no longer corrupts input. The close scrub
-        /// stays as hygiene for pads left open by older builds.
-        ///
-        /// GATED AGAIN 2026-07-31 (same evening): Windows receives
-        /// FULL-SCALE NOISE from the composite's capture endpoint. Proven
-        /// to be below this code with a known-tone bisect: a clean 440 Hz
-        /// half-scale sine submitted to HMMicrophoneInput.Submit arrives
-        /// at WASAPI as peak 0.998 / rms 0.590 / 11.8% near full scale.
-        /// Our decode is not implicated. Located in HM's ISO IN reply
-        /// (UsbipServer.SendRetSubmitIso): the IN payload is packed
-        /// COMPACTED at perPacketActual stride while each returned
-        /// descriptor echoes the host's ORIGINAL offset (i * 196 for this
-        /// endpoint's wMaxPacketSize), so for any URB with more than one
-        /// packet the client reads the tail packets out of buffer regions
-        /// that were never written. Left off until that contract is
-        /// resolved: a dead mic beats one that blasts noise into a call.
-        /// The decode path below is otherwise hardware-proven and flips
-        /// back on with this one const.</summary>
+        /// <summary>BT DualSense mic: ON. Opening the mic makes the pad
+        /// interleave 0x31 reports whose payload is a 71-byte Opus packet
+        /// in place of controller state (header bit0 = HasHID, bit1 =
+        /// HasMic). The SDL fork skips HasMic reports in state parsing
+        /// (hifihedgehog/SDL#20, fork cec3689a12), so the mic session does
+        /// not corrupt input. The full-scale noise seen on 2026-07-31 came
+        /// from decoding the stream as stereo, not from HIDMaestro's ISO IN
+        /// reply: 0f01755f went back to the mono decode (see BtMicChannels)
+        /// and re-enabled the mic. The close scrub stays as hygiene for pads
+        /// left open by older builds. Setting this false turns the mic lane
+        /// off (RefreshPersonaTargetsOnWorker and ManageDs5MicOpen both read
+        /// it).</summary>
         private const bool EnableBtMic = true;
 
         private static int _btMicPeak;
@@ -2663,6 +2643,9 @@ namespace PadForge.Common.Input
         internal static bool MicSubmitFits(int bufferedBytes, int blockBytes)
             => HmMicRingBytes - 1 - bufferedBytes >= blockBytes;
 
+        /// <summary>Finds the feed whose Bluetooth mic source is this pad.
+        /// Sinks are few and this runs once per 10.667 ms tick, so a scan is
+        /// fine.</summary>
         private static PersonaFeed FindFeedForBtMicPad(Guid padGuid)
         {
             foreach (var kv in SnapshotPersonaFeedEntries())
@@ -3764,12 +3747,15 @@ namespace PadForge.Common.Input
                 var hapticReport = new byte[Ds5HapticBtReportSize];
                 const double CadenceMs = 10.0 + 2.0 / 3.0;
                 var clock = AudioPacingClock;
-                // 20 ms cushion: just enough to absorb WASAPI loopback's
-                // ~10 ms bursty delivery, bringing the mirror within ~15 ms
-                // of the macro path (owner request 2026-06-12). The original
-                // 45 ms was chosen mid-dropout-war, before the async write
-                // pool / high-res timer / skip-not-burst fixes removed the
-                // sender-side jitter it was also covering for.
+                // The mirror cushion starts at 20 ms (BtTargetLag), enough to
+                // absorb WASAPI loopback's ~10 ms bursty delivery and keep the
+                // mirror within ~15 ms of the macro path (owner request
+                // 2026-06-12). Since #325 that is the floor: each audible
+                // underrun raises the sink's MirrorLagTarget 10 ms, up to
+                // 100 ms, and silent seconds decay it back. The original
+                // fixed 45 ms was chosen mid-dropout-war, before the async
+                // write pool, high-res timer and skip-not-burst fixes removed
+                // the sender-side jitter it was also covering for.
                 double ticksPerMillisecond = clock.TimestampFrequency / 1000d;
                 long cadTicks = Math.Max(1, (long)(CadenceMs * ticksPerMillisecond));
                 long next = clock.GetTimestamp() + cadTicks;

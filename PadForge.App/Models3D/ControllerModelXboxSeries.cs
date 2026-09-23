@@ -161,8 +161,9 @@ namespace PadForge.Models3D
             DefaultMaterials[DecalOverlay] = MaterialDecal;
             model3DGroup.Children.Add(DecalOverlay);
 
-            // Variant-A colorways (Electric Volt group) author the ABXY
-            // domes into the body shell and ship no Transparent set.
+            // The clear ABXY domes, drawn last. Every colorway resolves a
+            // Transparent mesh: its own, one borrowed through SharedGeometry,
+            // or Carbon's for the custom shells.
             TransparentTrim = TryLoadModel("Transparent.obj");
             if (TransparentTrim != null)
             {

@@ -2298,10 +2298,11 @@ namespace PadForge.Common.Input
             int vgt = TryParseIntStatic(ps.AxisToButtonThreshold, 50);
 
             // ── Axes ── (MappingSet-first; fall back to legacy single-source)
-            // Raw Extended axes use signed short internally. SubmitRawState converts to unsigned
-            // HID range via (signed + 32768) / 2, preserving the natural direction:
-            //   signed negative → HID low (0 = up/left)
-            //   signed positive → HID high (32767 = down/right)
+            // Raw Extended axes use signed short internally. Each submit path
+            // converts them to its own wire range (SubmitRawHidState shifts by
+            // 32768 and divides by 65535 into HIDMaestro's 0..1 range), and
+            // every path keeps the natural direction: signed negative is the
+            // low end (up/left), signed positive the high end (down/right).
             // Stick slots rest at signed 0 (= wire 50%); trigger slots rest at
             // short.MinValue (= wire 0%). Different MappingSet evaluator per slot
             // type so an unmapped trigger doesn't sit at 50% on the wire.

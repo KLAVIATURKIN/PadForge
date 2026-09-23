@@ -433,9 +433,8 @@ namespace PadForge.ViewModels
             target.TriggerCount = profile.TriggerCount;
             target.PovCount = profile.HasHat ? 1 : 0;
             int buttons = profile.ButtonCount;
-            // switch-pro descriptors declare 18 buttons, but 15-18 are
-            // the Joy-Con rail SL/SR bits with no role in the profile
-            // layout, and the SDK packer only emits role-mapped buttons.
+            // The switch-pro descriptor declares 16 buttons (report 0x3F).
+            // Only the role-mapped 14 reach the wire through the SDK packer.
             // Rows past the lettered count would map input onto dead wire,
             // so the whole surface (grid, SOCD, macros, Step 3 bounds)
             // clamps here at the sync seam.
@@ -446,8 +445,8 @@ namespace PadForge.ViewModels
             // be mapped at all.
             // AUTHORITATIVE, not a Min against profile.ButtonCount. The
             // lettered count is what the profile's descriptor actually
-            // role-maps, verified against it: switch-pro declares 18 button
-            // bits of which 4 are dead Joy-Con rail SL/SR, and switch2-pro
+            // role-maps, verified against it: switch-pro declares 16 button
+            // bits of which 14 are role-mapped, and switch2-pro
             // declares USAGE_MIN 1 / USAGE_MAX 21 / REPORT_COUNT 21 with
             // every one role-mapped. Taking a Min let a low SDK-reported
             // count silently truncate the surface, which is how Capture,
@@ -1548,19 +1547,20 @@ namespace PadForge.ViewModels
         public bool ButtonGuide { get => _buttonGuide; set => SetProperty(ref _buttonGuide, value); }
 
         private bool _buttonShare;
-        /// <summary>Xbox Series Share button live state. Mirrored from
-        /// <see cref="Gamepad.Share"/> in <c>UpdateFromGamepad</c>; drives
-        /// 2D overlay + 3D mesh accent on press.</summary>
+        /// <summary>Share button live state. <see cref="UpdateFromEngineState"/>
+        /// mirrors <see cref="Gamepad.Share"/> into it, and on a raw-surface
+        /// slot UpdateNintendoPreviewFromRaw writes it from the wire table.
+        /// Drives the 2D overlay and 3D mesh accent on press.</summary>
         public bool ButtonShare { get => _buttonShare; set => SetProperty(ref _buttonShare, value); }
 
         private bool _buttonMute;
         /// <summary>DualSense mic mute button live state.</summary>
         public bool ButtonMute { get => _buttonMute; set => SetProperty(ref _buttonMute, value); }
 
-        // LeftPaddle / RightPaddle live-state properties already exist
-        // (the Switch 2 Pro raw bridge added them); UpdateFromGamepad now
-        // writes them for PlayStation slots too, so both surfaces share
-        // the pair.
+        // LeftPaddle / RightPaddle are declared below with the Switch 2 Pro
+        // raw-bridge properties. UpdateFromEngineState also writes them from
+        // Gamepad.LeftPaddle / RightPaddle on every slot whose preview does
+        // not ride the raw surface, so both surfaces share the pair.
 
         private bool _leftFunction;
         public bool LeftFunction { get => _leftFunction; set => SetProperty(ref _leftFunction, value); }
@@ -3351,9 +3351,10 @@ namespace PadForge.ViewModels
         // save pipeline stamps these onto every tilt source
         // (ApplyGyroTiltParamsToRow, the Motion Steering push pattern) and
         // persists them in the PadSetting extended-mapping bag
-        // ("GyroTilt*" keys). 25 is the modal Steam-corpus deflection max;
-        // the clamp ceiling 180 admits the corpus outliers (113) while the
-        // slider tops at 90.
+        // ("GyroTilt*" keys). 25 is the modal Steam-corpus deflection max.
+        // The slider and the clamp below both stop at 90, the most an
+        // arc-sine tilt reading can express, so the corpus outliers (113)
+        // hold at 90.
         private double _gyroTiltRangeDeg = 25;
         /// <summary>Full-deflection tilt angle. Capped at 90 because that is
         /// what the reading can express: the angle comes from an arc sine of

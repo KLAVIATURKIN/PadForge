@@ -247,9 +247,9 @@ namespace PadForge.Models3D
             model3DGroup.Children.Add(group);
         }
 
-        /// <summary>The shaft between a stick's cap and its base. Drawn
-        /// and painted, in no click or button map, and handed to
-        /// AddStickRider so it leans with the stick without lighting.</summary>
+        /// <summary>The shaft between a stick's cap and its base, drawn and
+        /// painted. The caller registers it under the stick button, so it
+        /// tilts and lights with the base.</summary>
         private Model3DGroup LoadStem(string filename)
         {
             var stem = TryLoadModel(filename);

@@ -200,10 +200,11 @@ namespace PadForge.Models3D
         /// boss more than 20 mm behind. All three Valve faces come out flat
         /// to half a millimeter, so a plane is the whole story.</para>
         ///
-        /// <para>The axes are built from the normal rather than fitted, so
-        /// they cannot come out arbitrary: U is the normal crossed with the
-        /// model's up, which points to the controller's right, and V is U
-        /// crossed back, which points to its top.</para></summary>
+        /// <para>The in-plane axes are fitted: they are the edges of the
+        /// pad's minimum-area enclosing rectangle, so a pad rotated within
+        /// its own plane keeps its own edges. They are then swapped and
+        /// flipped as needed so U points to the controller's right and V to
+        /// its top.</para></summary>
         protected static TouchSurface MeasureTouchSurface(Model3DGroup[] parts)
         {
             if (parts == null || parts.Length == 0) return default;
@@ -561,12 +562,12 @@ namespace PadForge.Models3D
         // ─────────────────────────────────────────────
 
         /// <summary>Parts that lean with a stick without lighting with it,
-        /// keyed by that stick's ring.
+        /// keyed by that stick's ring. The view tilts them with the stick
+        /// and leaves them out of the glow.
         ///
-        /// <para>Tilting and glowing are different sets. The Steam Deck's
-        /// stem is the shaft between its cap and its base: it has to lean
-        /// with them, and it must NOT light, because the glow belongs on the
-        /// base the way it does on every other pad here.</para></summary>
+        /// <para>No model registers one today. The Steam Deck's stem used
+        /// to, and now registers under the stick button, so it lights with
+        /// the base.</para></summary>
         public readonly Dictionary<Model3DGroup, List<Model3DGroup>> StickRiders = new();
 
         protected void AddStickRider(Model3DGroup ring, Model3DGroup part)

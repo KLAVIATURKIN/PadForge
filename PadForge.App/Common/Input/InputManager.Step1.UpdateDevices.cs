@@ -129,9 +129,11 @@ namespace PadForge.Common.Input
                         continue;
 
                     // Open the device by instance ID. The SDL3 fork already
-                    // dropped HIDMaestro HIDs from hid_enumerate and any HM-
-                    // only XInput slot from SDL_XINPUT_JoystickDetect, so
-                    // every instance ID that reaches here is a real device.
+                    // dropped HIDMaestro HIDs from hid_enumerate, and the
+                    // OpenXInput fork's xinput1_4.dll never gives a HIDMaestro
+                    // XUSB interface an XInput slot, so an instance ID that
+                    // reaches here should be a real device. The self-readback
+                    // guard below catches the ones that slip past both.
                     var wrapper = new SdlDeviceWrapper();
                     if (!wrapper.Open(instanceId))
                     {

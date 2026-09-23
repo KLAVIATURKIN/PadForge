@@ -7293,10 +7293,9 @@ namespace PadForge.ViewModels
             && profileId.StartsWith("switch2-pro", StringComparison.OrdinalIgnoreCase);
 
         /// <summary>Count of role-mapped (lettered) buttons on the ORIGINAL
-        /// switch-pro profile: indices 0-13. The descriptor declares 18 (the
-        /// last four are the Joy-Con rail SL/SR bits), but the SDK packer
-        /// only emits role-mapped buttons, so anything past this count is
-        /// dead wire on the virtual pad.</summary>
+        /// switch-pro profile: indices 0-13. The descriptor declares 16 in
+        /// report 0x3F, but the SDK packer only emits role-mapped buttons, so
+        /// anything past this count is dead wire on the virtual pad.</summary>
         public const int NintendoLetteredButtonCount = 14;
 
         /// <summary>Lettered button count for whichever Nintendo profile is

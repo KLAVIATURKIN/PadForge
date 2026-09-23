@@ -138,7 +138,8 @@ namespace PadForge.Models3D
             }
         }
 
-        /// <summary>Real-world scale mesh (161 mm body width).</summary>
+        /// <summary>Millimeter-scale mesh, 169.75 mm across the body
+        /// (MainBody.obj), drawn at 1.0.</summary>
         public override double ModelScale => 1.0;
     }
 }
