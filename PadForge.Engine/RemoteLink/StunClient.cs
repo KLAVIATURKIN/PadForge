@@ -20,11 +20,36 @@ namespace PadForge.Engine.RemoteLink
     // STUNMessage.cs, STUNXORAddressAttribute.cs.
     //
     // BSD 3-Clause "New" or "Revised" License
-    // Copyright (c) 2010 Aaron Clauson (aaron@sipsorcery.com)
+    //
+    // Copyright (c) 2006–2026 Aaron Clauson
+    // All rights reserved.
     //
     // Redistribution and use in source and binary forms, with or without
-    // modification, are permitted provided that the conditions of the BSD
-    // 3-Clause License are met. See the SIPSorcery LICENSE.md.
+    // modification, are permitted provided that the following conditions are met:
+    //
+    // 1. Redistributions of source code must retain the above copyright
+    //    notice, this list of conditions and the following disclaimer.
+    // 2. Redistributions in binary form must reproduce the above copyright
+    //    notice, this list of conditions and the following disclaimer in the
+    //    documentation and/or other materials provided with the distribution.
+    // 3. Neither the name “SIP Sorcery,” nor “Aaron Clauson,” nor the names of
+    //    any contributors may be used to endorse or promote products derived
+    //    from this software without specific prior written permission.
+    //
+    // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS”
+    // AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+    // IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE,
+    // ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+    // LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+    // CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+    // SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+    // INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+    // CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+    // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+    // POSSIBILITY OF SUCH DAMAGE.
+    //
+    // SIPSorcery's LICENSE.md adds a section 2 use restriction to these terms.
+    // PadForge's LICENSE file reproduces it in full.
     // ---------------------------------------------------------------------------
 
     /// <summary>The public endpoint a STUN server observed for our socket, plus
@@ -32,9 +57,11 @@ namespace PadForge.Engine.RemoteLink
     public sealed class StunResult
     {
         public IPEndPoint PublicEndpoint { get; init; }
-        /// <summary>True when two servers reported DIFFERENT mapped ports for the
-        /// same socket: endpoint-dependent (symmetric) NAT, where plain UDP hole
-        /// punching fails. The UI pre-warns instead of failing after a timeout.</summary>
+        /// <summary>True when two servers reported DIFFERENT mapped endpoints
+        /// (address or port) for the same socket: endpoint-dependent
+        /// (symmetric) NAT or multi-homed egress, where plain UDP hole
+        /// punching fails. The UI pre-warns instead of failing after a
+        /// timeout.</summary>
         public bool IsHardNat { get; init; }
     }
 
@@ -54,8 +81,8 @@ namespace PadForge.Engine.RemoteLink
         private const int HeaderSize = 20;
 
         /// <summary>Free public STUN servers, queried in order with fallback.
-        /// Two distinct operators so the hard-NAT probe compares independent
-        /// observations.</summary>
+        /// Three servers from three operators, so the hard-NAT probe compares
+        /// independent observations.</summary>
         public static readonly (string Host, int Port)[] DefaultServers =
         {
             ("stun.l.google.com", 19302),
@@ -256,10 +283,11 @@ namespace PadForge.Engine.RemoteLink
             return null;
         }
 
-        /// <summary>Probes up to two servers from the same socket and returns the
-        /// public endpoint plus the hard-NAT verdict (different mapped ports =
-        /// symmetric NAT). Uses the first server's endpoint as the reported one.
-        /// Returns null only when NO server answered.</summary>
+        /// <summary>Queries the servers in order from the same socket,
+        /// skipping any that do not answer, and stops at the second answer.
+        /// Returns the first answer's endpoint as the public one, plus the
+        /// hard-NAT verdict (the two mapped endpoints differ). Returns null
+        /// only when NO server answered.</summary>
         public static async Task<StunResult> DiscoverAsync(
             Socket socket, CancellationToken ct = default,
             (string Host, int Port)[] servers = null,

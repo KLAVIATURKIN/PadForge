@@ -50,16 +50,32 @@ Third-Party Licenses and Attributions
 2D Controller Assets
   From Gamepad-Asset-Pack (https://github.com/AL2009man/Gamepad-Asset-Pack)
   By AL2009man
+  Copyright (c) 2024 Al. Lopez
   Licensed under MIT License
 
 3D Controller Models
   Adapted from Handheld Companion (https://github.com/Valkirie/HandheldCompanion)
-  The Xbox 360, Xbox One, DualShock 4, DualSense and Steam Deck bodies.
+  The Xbox 360 and Steam Deck bodies, and the 3D view's model and animation
+  code. Handheld Companion also documented the Steam Deck report and haptic
+  decode, the Steam Controller (2015) power-off report, the handheld daemon
+  watch list and the update check timing.
   Copyright (c) CasperH2O, Lesueur Benjamin, trippyone
   Licensed under CC BY-NC-SA 4.0
+  The DualShock 4, DualSense, DualSense Edge, Xbox Series and Switch 2 Pro
+  Controller models are by hado (https://www.cgtrader.com/designers/hado),
+  bought on CGTrader under its Royalty Free License.
+
+assettocorsasharedmemory
+  https://github.com/mdjarv/assettocorsasharedmemory
+  Copyright (c) 2016 Mathias Djärv
+  The Assetto Corsa and Competizione static-page struct prefix
+  (SPageFileStatic up to MaxRpm) behind the RPM shift LED telemetry.
+  Licensed under the MIT License
 
 Bouncy Castle (bc-csharp)
   https://github.com/bcgit/bc-csharp
+  Copyright (c) 2000-2025 The Legion of the Bouncy Castle Inc.
+  (https://www.bouncycastle.org)
   Cryptography for Remote Link pairing and transport: X25519 key agreement,
   Ed25519 signatures, and ChaCha20-Poly1305.
   Licensed under the Bouncy Castle Licence (an adaptation of the MIT License)
@@ -80,6 +96,7 @@ BthPS3 + BthPS3PSM
 
 CommunityToolkit.Mvvm
   https://github.com/CommunityToolkit/dotnet
+  Copyright (c) .NET Foundation and Contributors
   Licensed under MIT License
 
 Concentus
@@ -157,6 +174,13 @@ DualShock 3 Bluetooth research
   documentation only. All three are GPL-licensed. PadForge's pairing and
   reader code is original C# and contains no GPL code.
 
+Fusion
+  https://github.com/xioTechnologies/Fusion
+  Copyright (c) 2021 x-io Technologies
+  The tilt-compensated compass heading behind compass yaw is a C# port of
+  FusionCompass, and the yaw correction uses Fusion's default AHRS gain.
+  Licensed under the MIT License
+
 GamepadMotionHelpers
   https://github.com/JibbSmart/GamepadMotionHelpers
   By JibbSmart. The player-space and world-space gyro conversions and
@@ -172,10 +196,22 @@ GestureSign
 
 HelixToolkit
   https://github.com/helix-toolkit/helix-toolkit
+  Copyright (c) 2022 Helix Toolkit contributors
   Licensed under MIT License
+
+HIDAPI
+  https://github.com/libusb/hidapi
+  Copyright (c) 2010, Alan Ott, Signal 11 Software
+  Compiled into the bundled SDL3.dll as SDL's HID layer (src/hidapi).
+  PadForge's own raw HID writes follow its Windows backend. HIDAPI offers
+  three licenses, and PadForge uses its BSD-style license (LICENSE-bsd.txt).
+  Licensed under that BSD-style license, the BSD 3-Clause terms reproduced
+  at the end of this file
 
 HidHide
   https://github.com/nefarius/HidHide
+  Copyright (c) 2020 Eric Korff de Gidts
+  Copyright (c) 2021-2024 Benjamin Höglinger-Stelzer
   The x64 setup (1.5.230) and, for ARM64 Windows, upstream's Microsoft-signed
   ARM64 driver package (driver 1.6.280.0), both shipped unmodified inside the
   executable.
@@ -183,6 +219,7 @@ HidHide
 
 HIDMaestro
   https://github.com/hifihedgehog/HIDMaestro
+  Copyright (c) 2026 HIDMaestro Contributors
   Licensed under MIT License
 
 hitboxer
@@ -190,6 +227,19 @@ hitboxer
   By valignatev. Semantics reference for the Keyboard & Mouse SOCD
   cleaning modes. PadForge's state machine is original C#.
   Licensed under the MIT License
+
+Icon sources
+  Material Design Icons (https://github.com/Templarian/MaterialDesign), by
+  Pictogrammers: the flame glyph. Licensed under the Apache License 2.0
+  (full text below).
+  Ionicons (https://github.com/ionic-team/ionicons): the generic gamepad
+  icon. Copyright (c) 2015-present Ionic. Licensed under the MIT License.
+  Jam Icons (https://jam-icons.com/): the Extended controller joystick
+  icon. Copyright (c) 2017-Present Michael Amprimo. Licensed under the MIT
+  License.
+  SVG Repo (https://www.svgrepo.com/): the Xbox and PlayStation icons
+  (svgrepo.com/show/473838 and svgrepo.com/show/473754), under the license
+  on each icon's page.
 
 Interhaptics engine and Razer provider
   https://github.com/WyvrnOfficial/Interhaptics_Unity_CoreSDK
@@ -204,6 +254,8 @@ Interhaptics engine and Razer provider
 
 JoyShockMapper
   https://github.com/Electronicks/JoyShockMapper
+  Copyright 2018-2021 Julian "Jibb" Smart
+  Copyright 2021- Nicolas Lessard
   By JibbSmart (Julian Smart) and Electronicks. The winding-angle
   steering and lean math are C# ports.
   Licensed under the MIT License
@@ -232,9 +284,9 @@ libinput
   (c) 2010-2012 Intel Corporation, (c) 2010-2011 Benjamin Franzke,
   (c) 2011-2012 Collabora, Ltd., (c) 2013-2014 Jonas Ådahl,
   (c) 2013-2015 Red Hat, Inc.
-  The trackpad pointer acceleration curve (touchpad_accel_profile_linear
-  in src/filter-touchpad.c), re-derived in original C# for the
-  touchpad-to-mouse output path. No libinput code ships.
+  The trackpad pointer acceleration curve for the touchpad-to-mouse output
+  path is a C# port of touchpad_accel_profile_linear in
+  src/filter-touchpad.c.
   Licensed under the MIT License
 
 libusb
@@ -298,6 +350,13 @@ nefcon
   scope_guard, the Windows Implementation Libraries and neflib.
   Licensed under MIT License
 
+.NET
+  https://github.com/dotnet/runtime and https://github.com/dotnet/wpf
+  Copyright (c) .NET Foundation and Contributors
+  The .NET runtime, class libraries and WPF, shipped self-contained inside
+  the executable.
+  Licensed under the MIT License
+
 nipplejs
   https://github.com/yoannmoinet/nipplejs
   Copyright (c) 2014 Yoann Moinet. The Web Controller's touch joystick
@@ -324,6 +383,13 @@ Original Codebase
   Copyright (c) 2018 TocaEdit, Copyright (c) 2021 Jocys.com
   Licensed under the GNU Lesser General Public License v3.0 (full text below)
 
+pcsc-sharp
+  https://github.com/danm-de/pcsc-sharp
+  Copyright (c) 2007-2024 Daniel Mueller <daniel@danm.de>
+  The WinSCard P/Invoke signatures and the reader-monitoring call sequence
+  behind NFC tag input are taken from its Windows interop and examples.
+  Licensed under the BSD 2-Clause License (full text at the end of this file)
+
 protobuf-net
   https://github.com/protobuf-net/protobuf-net
   Copyright 2008 onwards Marc Gravell
@@ -333,34 +399,81 @@ protobuf-net
   Licensed under the Apache License 2.0 (full text below)
 
 Protocol documentation references (no code from these projects ships)
-  Aurora (https://github.com/Aurora-RGB/Aurora, MIT), Artemis.Plugins
-  (https://github.com/Artemis-RGB/Artemis.Plugins, PolyForm Noncommercial
-  1.0.0), RGB.NET (https://github.com/DarthAffe/RGB.NET, LGPL-2.1),
+  AntiMicroX (https://github.com/AntiMicroX/antimicrox, GPL-3.0): the
+  strategy and desktop layouts behind the starter profiles, and the turbo
+  behavior the pressure-scaled turbo avoids.
+  Artemis.Plugins (https://github.com/Artemis-RGB/Artemis.Plugins, PolyForm
+  Noncommercial 1.0.0), Aurora (https://github.com/Aurora-RGB/Aurora, MIT),
+  LogiLed2Corsair (https://github.com/VRocker/LogiLed2Corsair, MIT),
   Logitech-LED (https://github.com/sidewinder94/Logitech-LED, GPL-2.0),
-  logitech-led-sdk-rs (https://github.com/nathaniel-daniel/logitech-led-sdk-rs,
-  Apache-2.0) and LogiLed2Corsair (https://github.com/VRocker/LogiLed2Corsair,
-  MIT): the Logitech LED SDK engine entry points and calling convention
-  behind the LIGHTSYNC lightbar mirror. PadForge loads G HUB's own engine
-  at run time and ships no Logitech binary.
+  logitech-led-sdk-rs
+  (https://github.com/nathaniel-daniel/logitech-led-sdk-rs, MIT OR
+  Apache-2.0) and RGB.NET (https://github.com/DarthAffe/RGB.NET, LGPL-2.1):
+  the Logitech LED SDK engine entry points and calling convention behind the
+  LIGHTSYNC lightbar mirror. PadForge loads G HUB's own engine at run time
+  and ships no Logitech binary.
+  AudioEndPointLibrary (https://github.com/Belphemur/AudioEndPointLibrary,
+  MIT): the layout of Windows' undocumented IPolicyConfig interface, which
+  PadForge uses to re-enable a controller's audio endpoint.
+  AutoEq (https://github.com/jaakkopasanen/AutoEq, MIT): the parametric EQ
+  profile format the Audio tab imports.
+  AutoHotkey (https://github.com/AutoHotkey/AutoHotkey, GPL-2.0): Unicode
+  text typing through SendInput and its batch limit, the Win-key mask key,
+  and tagged injected input, behind Text Block macros and the keyboard chord
+  hook.
+  cemuhook-protocol (https://github.com/v1993/cemuhook-protocol, Unlicense):
+  the DSU protocol the motion server speaks.
   chiaki-ng (https://github.com/streetpea/chiaki-ng, AGPL-3.0): the
   PS5 haptic PCM format (signed 16-bit at 3 kHz), settling the
   signed-8-bit Bluetooth haptics encoding.
   Colore (https://github.com/chroma-sdk/Colore, MIT): corroboration of
   the Razer Chroma REST API request and effect framing.
   Dolphin (https://github.com/dolphin-emu/dolphin, GPL-2.0): the Wii
-  controller Bluetooth pairing ceremony's Win32 API call order and the
-  Wii Remote speaker's Yamaha ADPCM constants, and the emulated Wii Remote's
+  controller Bluetooth pairing ceremony's Win32 API call order, the Wii
+  Remote speaker's Yamaha ADPCM constants, the emulated Wii Remote's
   sideways and upright orientation rotation and sideways D-pad table
-  (WiimoteEmu.cpp).
+  (WiimoteEmu.cpp), the stick-gate model and its storage format, and the
+  gyro axis convention.
+  ds4drv (https://github.com/chrippa/ds4drv, MIT): the DualShock 4 Bluetooth
+  output-report framing.
+  DS4MapperTest (https://github.com/Ryochan7/DS4MapperTest, GPL-3.0,
+  archived): DualShock 4 battery ranges, touchpad haptic pulse timing and
+  intensity steps for the DualShock 4 and Steam Controller (2015), and
+  touchpad fling behavior.
   DS4Windows by Ryochan7 (GPL-3.0, repository since deleted, archived at
   https://web.archive.org/web/2023/https://github.com/Ryochan7/DS4Windows):
-  DualShock idle-disconnect, touchpad boundary, and battery decode behavior.
+  DualShock idle-disconnect, touchpad boundary and battery decode behavior,
+  the Bluetooth disconnect IOCTL, the DualSense rumble-mode bits, the gyro
+  jitter curve, the stick-as-mouse scale and the Bluetooth output-report CRC
+  seed.
   DS4Windows, hbashton fork (https://github.com/hbashton/DS4Windows,
   GPL-3.0): DualSense audio volume ranges, signed-8 haptic sample
   corroboration, and the combined Bluetooth transport layout.
+  DS5Dongle (https://github.com/awalol/DS5Dongle, MIT): the default and
+  floor of the DualSense Bluetooth audio buffer length.
+  DualSenseSupport (https://github.com/Mxater/DualSenseSupport, no license
+  published): the GameCube adaptive-trigger preset values.
+  Eden (https://git.eden-emu.dev/eden-emu/eden, GPL-3.0): the DSU motion
+  axis signs, checked against its UDP decoder.
+  EDRefCard2 (https://github.com/brammmers/edrefcard2, MIT): the Elite
+  Dangerous default presets behind the Space Sim starter profile.
+  FFmpeg (https://github.com/FFmpeg/FFmpeg, LGPL-2.1-or-later): the Wii
+  Remote speaker's ADPCM nibble order, and the SBC decoder that checked the
+  DualShock 4 encoder in testing.
+  Gamepad Battery Monitor (https://github.com/fruel/GamepadBatteryMonitor,
+  MIT): the low-battery notification rule and the Identify rumble pattern.
   InputPlumber (https://github.com/ShadowBlip/InputPlumber, GPL-3.0):
   handheld PC identity strings and vendor-report notes cross-checked for
   the hidden-button learner.
+  iroh (https://github.com/n0-computer/iroh, MIT OR Apache-2.0) and
+  FlexInput (https://github.com/x-iso/FlexInput, MIT): the relay protocol
+  behind Remote Link's fallback lane, spoken to n0.computer's free public
+  relays the way FlexInput does.
+  jc2mouse (https://github.com/coffincolors/jc2mouse, MIT), joycon2cpp
+  (https://github.com/TheFrano/joycon2cpp, MIT) and joycon2mouse
+  (https://github.com/moutella/joycon2mouse, MIT): the Joy-Con 2 optical
+  mouse counters, 16-bit wraparound deltas and warm-up guard behind Mouse
+  Motion X and Y.
   joycon-singer (https://github.com/Sergey004/joycon-singer, no license
   published): Joy-Con HD-rumble wire format, cross-checked against
   dekuNukem's research.
@@ -368,6 +481,9 @@ Protocol documentation references (no code from these projects ships)
   GPL-3.0): the Lenovo WMI utility-event class the handheld hidden-button
   learner subscribes to, and the elevated IPC server pattern behind
   external profile control.
+  Linux kernel (https://github.com/torvalds/linux, GPL-2.0): the hid-sony,
+  hid-playstation, hid-steam and hid-pidff report and force-feedback facts,
+  and the ACPI WMI _WDG block layout in drivers/platform/x86/wmi.c.
   linuxmotehook (https://github.com/v1993/linuxmotehook, Apache-2.0) and
   WiimoteHook (https://github.com/epigramx/WiimoteHook, closed source, read
   through its documentation): the Wii Remote hold-orientation presets the
@@ -377,8 +493,17 @@ Protocol documentation references (no code from these projects ships)
   alongside LogitechGkeyLib.h from the SDK itself, which defines the event
   word. PadForge loads the library Logitech Gaming Software installs at
   run time and ships no Logitech binary.
-  OpenRGB (https://gitlab.com/CalcProgrammer1/OpenRGB, GPL-2.0):
-  DualSense lightbar output-report byte usage.
+  Nintendo_Switch_Reverse_Engineering
+  (https://github.com/dekuNukem/Nintendo_Switch_Reverse_Engineering, no
+  license published) and switch2_controller_research
+  (https://github.com/ndeadly/switch2_controller_research, no license
+  published): Joy-Con and Pro Controller HID, HD rumble and home LED notes,
+  and the Switch 2 controller commands and report notes.
+  OpenRGB (https://gitlab.com/CalcProgrammer1/OpenRGB, GPL-2.0): DualSense
+  and DualShock 4 lightbar output-report byte usage.
+  OpenTabletDriver (https://github.com/OpenTabletDriver/OpenTabletDriver,
+  LGPL-3.0): the elevated update-verb pattern behind the in-app updater's
+  helper.
   opentrack (https://github.com/opentrack/opentrack, ISC): the UDP tracker
   datagram and the FreeTrack 2.0 shared-memory layout for head tracking.
   OpenXR-SDK (https://github.com/KhronosGroup/OpenXR-SDK, Apache-2.0) and
@@ -387,6 +512,48 @@ Protocol documentation references (no code from these projects ships)
   and performance-counter time conversion behind headset and motion
   controller input. PadForge talks to the runtime installed on the user's
   own machine and ships no Khronos binary.
+  Racing telemetry references: the shared-memory and UDP layouts behind the
+  wheel RPM shift LEDs, read from forza-data-web
+  (https://github.com/geeooff/forza-data-web, Apache-2.0), forza-telemetry
+  (https://github.com/austinbaccus/forza-telemetry, MIT), InSim.NET
+  (https://github.com/alexmcbride/insimdotnet, LGPL-2.1), irsdkSharp
+  (https://github.com/SlevinthHeaven/irsdkSharp, MIT), IRSDKSharper
+  (https://github.com/mherbold/IRSDKSharper, GPL-3.0), out-gauge-cluster
+  (https://github.com/fuelsoft/out-gauge-cluster, Apache-2.0), pyirsdk
+  (https://github.com/kutu/pyirsdk, MIT), rF2SharedMemoryMapPlugin
+  (https://github.com/TheIronWolfModding/rF2SharedMemoryMapPlugin, GPL-3.0),
+  rFactorSharedMemoryMap
+  (https://github.com/dallongo/rFactorSharedMemoryMap, GPL-2.0),
+  rust_ams2_sharedmem (https://github.com/chris-ldgk/rust_ams2_sharedmem, no
+  license published), scs-sdk-plugin
+  (https://github.com/RenCloud/scs-sdk-plugin, MIT) and simapi
+  (https://github.com/Spacefreak18/simapi, LGPL-3.0). The Assetto Corsa
+  layout comes from assettocorsasharedmemory, credited in its own entry
+  above.
+  SpaceMouse references: the 3Dconnexion report layout, device table and
+  axis scale, read from hid.spacemouse
+  (https://github.com/microdee/hid.spacemouse, MIT), PySpaceMouse
+  (https://github.com/JakubAndrysek/PySpaceMouse, MIT), spacemouse by
+  AndunHH (https://github.com/AndunHH/spacemouse, CC BY-NC-SA 4.0) and
+  spacenavd (https://github.com/FreeSpacenav/spacenavd, GPL-3.0).
+  Special K (https://github.com/SpecialKO/SpecialK, GPL-3.0): the Bluetooth
+  link drop by host IOCTL, the hidden XInput power-off and capabilities
+  ordinals, and DualSense trigger-vibration defaults.
+  Steam Controller protocol references: swipe-haptic ticks, report 0x42
+  button bits, the power-off command and the dongle relay, read from
+  OpenPuck (https://github.com/safijari/OpenPuck, AGPL-3.0), sc2-research
+  (https://github.com/CouchTurtle/sc2-research, MIT), steam_controller_tools
+  (https://github.com/mitchmikusek/steam_controller_tools, GPL-2.0) and
+  SteamlessController (https://github.com/ddeverill/SteamlessController,
+  MIT).
+  Thumbstick Deadzones (https://github.com/Minimuino/thumbstick-deadzones,
+  GPL-3.0): the six deadzone shapes.
+  Touchmote (https://github.com/simphax/Touchmote, GPL-3.0) and its
+  Ryochan7, Suegrini and Trihy forks (https://github.com/Ryochan7/Touchmote,
+  https://github.com/Suegrini/Touchmote and
+  https://github.com/Trihy/Touchmote, all GPL-3.0): the Wii Remote IR
+  pointer's dot-pair midpoint, margins, sensor-bar offset, smoothing and FPS
+  Mouse curve.
   TritonLib and SteamHapticsPlayer (https://github.com/Pixel1011/TritonLib,
   https://github.com/Pixel1011/SteamHapticsPlayer, Apache-2.0),
   steam-controller-live-haptics
@@ -395,13 +562,43 @@ Protocol documentation references (no code from these projects ships)
   MIT) and sc2ds (https://github.com/ga2mer/sc2ds, no license published):
   the Steam Controller 2026 PCM haptics stream, reports 0x86, 0x88 and
   0x44.
+  ViGEmClient (https://github.com/nefarius/ViGEmClient, MIT): the
+  DS4_REPORT_EX layout behind the virtual DualShock 4 input report.
+  VIIPER, hbashton fork (https://github.com/hbashton/VIIPER, GPL-3.0): the
+  virtual DualSense microphone's 48 dB attenuation range.
+  Wheel protocol references: native Fanatec, Thrustmaster and Logitech force
+  feedback and RPM shift LED reports, read from hid-fanatecff
+  (https://github.com/gotzl/hid-fanatecff, GPL-2.0), hid-tmff2
+  (https://github.com/Kimplul/hid-tmff2, GPL-2.0-or-later), new-lg4ff
+  (https://github.com/berarma/new-lg4ff, GPL-2.0), oversteer
+  (https://github.com/berarma/oversteer, GPL-3.0) and thrustmaster-led-linux
+  (https://github.com/wKoja/thrustmaster-led-linux, GPL-3.0), and
+  cross-checked against the SimHub Thrustmaster Wheel LED Controller
+  (https://gitlab.com/prodigal.knight/simhub-thrustmaster-wheel-led-controller,
+  MIT, Copyright (c) 2023 Prodigal.Knight) and tm-bt-led
+  (https://github.com/mplutka/tm-bt-led, MIT, Copyright 2020 Markus Plutka).
+  WiiBrew (https://wiibrew.org/wiki/Wiimote, no license published): the Wii
+  Remote speaker protocol, the 8-bit PCM configuration and the IR
+  calibration block.
   WiimoteLib (https://github.com/BrianPeek/WiimoteLib, MIT): Wii IR
   camera and Balance Board behavior.
+  X1nput (https://github.com/araghon007/X1nput, MIT): the Xbox
+  impulse-trigger 9-byte report and its write path.
   xone and xow (https://github.com/medusalix/xone,
   https://github.com/medusalix/xow, GPL-2.0): GIP LED command
   documentation corroborating xbledctl.
   PadForge's implementations are original C# and contain no code from
   these projects.
+
+psmoveapi
+  https://github.com/thp/psmoveapi
+  Copyright (c) 2011, 2012 Thomas Perl
+  PlayStation Move report layouts, sensor calibration decode, LED pacing
+  and the read-over-USB, cache-for-Bluetooth calibration design,
+  cross-checked against the moveonpc wiki
+  (https://github.com/nitsch/moveonpc/wiki, no license published).
+  PadForge's implementation is original C#.
+  Licensed under the BSD 2-Clause License
 
 $Q Super-Quick Recognizer
   https://depts.washington.edu/acelab/proj/dollar/qdollar.html
@@ -434,6 +631,16 @@ SDL_GameControllerDB
   gamecontrollerdb_padforge.txt extends it.
   Licensed under the zlib License
 
+SIPSorcery
+  https://github.com/sipsorcery-org/sipsorcery
+  Copyright (c) 2006–2026 Aaron Clauson
+  The STUN Binding message layout, the 0x2112A442 magic cookie and the
+  XOR-MAPPED-ADDRESS decode behind Remote Link's NAT traversal, vendored
+  from its STUN sources (STUNHeader.cs, STUNMessage.cs,
+  STUNXORAddressAttribute.cs).
+  Licensed under the BSD 3-Clause License, with the additional use
+  restriction in section 2 of its LICENSE.md (both at the end of this file)
+
 SteamControllerSinger
   https://github.com/Roboron3042/SteamControllerSinger
   Copyright (c) 2015 Pila, fork by Roboron3042. The Steam Controller
@@ -458,6 +665,13 @@ SteamKit2
   assembly is available at the project page above.
   Licensed under the GNU Lesser General Public License v2.1 only
   (full text below)
+
+TriggerEffectGenerator
+  https://gist.github.com/Nielk1/6d54cc2c00d2201ccb8c2720ad7538db
+  Copyright (c) 2021-2022 John "Nielk1" Klein
+  The DualSense adaptive-trigger effect layouts and zone bitmap packing,
+  reproduced in C#.
+  Licensed under the MIT License
 
 usbip-win2
   https://github.com/vadimgrn/usbip-win2
@@ -533,8 +747,9 @@ Special Thanks
 
 --------------------------------------------------------------------------------
 
-Apache License 2.0 (protobuf-net, Vosk, Kaldi and OpenFst, redistributed in binary form)
-=========================================================================================
+Apache License 2.0 (Kaldi, the Material Design Icons flame glyph, OpenFst,
+protobuf-net and Vosk, redistributed in binary form)
+==========================================================================
 
                                  Apache License
                            Version 2.0, January 2004
@@ -740,11 +955,16 @@ Apache License 2.0 (protobuf-net, Vosk, Kaldi and OpenFst, redistributed in bina
 
 --------------------------------------------------------------------------------
 
-BSD 2-Clause License (usbip-win2, redistributed in binary form inside
+BSD 2-Clause License (the pcsc-sharp WinSCard interop compiled into
+PadForge, and usbip-win2, redistributed in binary form inside
 HIDMaestro.Core.dll)
-======================================================================
+===================================================================
 
+Copyright (c) 2007-2024 Daniel Mueller <daniel@danm.de>
+  (pcsc-sharp)
 Copyright (c) 2021-2026, Vadym Hrynchyshyn <vadimgrn@gmail.com>
+  (usbip-win2)
+All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
@@ -755,6 +975,10 @@ modification, are permitted provided that the following conditions are met:
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
    and/or other materials provided with the distribution.
+
+pcsc-sharp's license adds one sentence after the conditions: "Changes to
+this license can be made only by the copyright author with explicit
+written consent."
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -769,22 +993,27 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 --------------------------------------------------------------------------------
 
-BSD 3-Clause License (BthPS3 and BthPS3PSM, the OpenVR API C# binding, the
-$Q Super-Quick Recognizer re-derivation, and OpenBLAS and CLAPACK inside
-libvosk, all redistributed in binary form)
-==========================================================================
+BSD 3-Clause License (BthPS3 and BthPS3PSM, CLAPACK and OpenBLAS inside
+libvosk, HIDAPI inside SDL3.dll, the OpenVR API C# binding, the $Q
+Super-Quick Recognizer re-derivation and the SIPSorcery STUN code, all
+redistributed in binary form)
+=======================================================================
 
 Copyright (c) 2018-2026, Nefarius Software Solutions e.U.
   (BthPS3 and BthPS3PSM)
+Copyright (c) 1992-2008 The University of Tennessee
+  (CLAPACK)
+Copyright (c) 2010, Alan Ott, Signal 11 Software
+  (HIDAPI)
+Copyright (c) 2011-2014, The OpenBLAS Project
+  (OpenBLAS)
 Copyright (c) 2015, Valve Corporation
   (OpenVR API C# binding)
 Copyright (c) 2018-2019, Nathan Magrofuoco, Jacob O. Wobbrock,
 Radu-Daniel Vatavu, and Lisa Anthony
   ($Q Super-Quick Recognizer)
-Copyright (c) 2011-2014, The OpenBLAS Project
-  (OpenBLAS)
-Copyright (c) 1992-2008 The University of Tennessee
-  (CLAPACK)
+Copyright (c) 2006–2026 Aaron Clauson
+  (SIPSorcery)
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -805,6 +1034,11 @@ For the $Q Super-Quick Recognizer the third condition names the University
 Stefan cel Mare of Suceava, the University of Washington, and the
 University of Florida in place of the copyright holder.
 
+For HIDAPI the third condition names Signal 11 Software, and for SIPSorcery
+it names "SIP Sorcery" and "Aaron Clauson", in place of the copyright
+holder. SIPSorcery's LICENSE.md adds a use restriction as its section 2,
+quoted exactly after the disclaimer below.
+
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -815,6 +1049,23 @@ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+SIPSorcery LICENSE.md, section 2
+(https://github.com/sipsorcery-org/sipsorcery/blob/master/LICENSE.md):
+
+## 2. Additional Use Restriction
+
+This software **must not be used** to further the apartheid policies of the state of Israel. Use, modification, or distribution **inside** Israel and the Occupied Territories is not permitted until the demands of the Boycott, Divestment and Sanctions (BDS) movement have been met:
+
+* Israel has ended the occupation and colonization of all Arab lands occupied in 1967 and dismantled the Wall;
+* Arab-Palestinian citizens of Israel have been granted full equality; and
+* Palestinian refugees have obtained the right to return to their homes and properties as stipulated in UN Resolution 194.
+
+For all other geographic regions **outside** of Israel and the Occupied Territories, use, modification, and distribution are permitted under the terms of the **BSD 3-Clause "New" or "Revised" License** above (Section 1), with **no additional restriction on commercial use** and **no requirement to license derivative works under any particular terms**.
+
+This restriction is **not** intended to limit the rights of Israelis or any other people residing outside of Israel and the Occupied Territories.
+
+In any instance where the BSD 3-Clause License conflicts with the above restriction, the above restriction shall be interpreted as superior, and all other non-conflicting provisions of the BSD 3-Clause license shall remain in effect.
 
 --------------------------------------------------------------------------------
 

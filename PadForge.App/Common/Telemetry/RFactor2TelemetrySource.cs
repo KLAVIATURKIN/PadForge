@@ -1,6 +1,5 @@
 using System;
 using System.IO.MemoryMappedFiles;
-using System.Runtime.InteropServices;
 
 namespace PadForge.Common.Telemetry
 {
@@ -16,9 +15,12 @@ namespace PadForge.Common.Telemetry
     /// <para>Telemetry layout verified against the plugin's rF2Data.cs (2026-06-02):
     /// header mVersionUpdateBegin@0 / End@4, mNumVehicles@12, mVehicles[]@16,
     /// stride 1888; within a vehicle mID(i32)@0, mElapsedTime(f64)@12,
-    /// mEngineRPM(f64)@356, mEngineMaxRPM(f64)@532. Scoring layout (the player
-    /// resolution) uses the plugin's own struct definitions marshalled below, so
-    /// the array base and field offsets are computed by the runtime, not by hand.</para>
+    /// mEngineRPM(f64)@356, mEngineMaxRPM(f64)@532. Scoring layout computed by
+    /// hand from the plugin's rF2State.h (#pragma pack(4), 64-bit, 4-byte long):
+    /// every mapped buffer opens with the 8-byte version block, then the 4-byte
+    /// mBytesUpdatedHint, so rF2ScoringInfo starts at 12. It is 548 bytes, which
+    /// puts mVehicles[] at 560 with a 584-byte stride. Within a vehicle,
+    /// mID(i32) is at 0 and mIsPlayer(bool) at 196.</para>
     ///
     /// <para>PREREQUISITE: rF2SharedMemoryMapPlugin64.dll installed + enabled. No
     /// plugin = no map = the source stays idle (open backoff).</para>
@@ -31,112 +33,7 @@ namespace PadForge.Common.Telemetry
         private const string ScoringMap = "$rFactor2SMMP_Scoring$";
         private const int VehBase = 16, VehStride = 1888;
         private const int OffMID = 0, OffRpm = 356, OffMax = 532, OffElapsed = 12;
-        private const int ScoringHeader = 12; // begin + end + bytesHint (3 ints) before mScoringInfo
-
-        // The plugin's Scoring structs, copied verbatim so Marshal computes the
-        // array base + field offsets (no hand arithmetic over the doubles/arrays).
-        [StructLayout(LayoutKind.Sequential)]
-        private struct rF2Vec3 { public double x, y, z; }
-
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 4)]
-        private struct rF2ScoringInfo
-        {
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 64)] public byte[] mTrackName;
-            public int mSession;
-            public double mCurrentET;
-            public double mEndET;
-            public int mMaxLaps;
-            public double mLapDist;
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)] public byte[] pointer1;
-            public int mNumVehicles;
-            public byte mGamePhase;
-            public sbyte mYellowFlagState;
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)] public sbyte[] mSectorFlag;
-            public byte mStartLight;
-            public byte mNumRedLights;
-            public byte mInRealtime;
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)] public byte[] mPlayerName;
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 64)] public byte[] mPlrFileName;
-            public double mDarkCloud;
-            public double mRaining;
-            public double mAmbientTemp;
-            public double mTrackTemp;
-            public rF2Vec3 mWind;
-            public double mMinPathWetness;
-            public double mMaxPathWetness;
-            public byte mGameMode;
-            public byte mIsPasswordProtected;
-            public ushort mServerPort;
-            public uint mServerPublicIP;
-            public int mMaxPlayers;
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)] public byte[] mServerName;
-            public float mStartET;
-            public double mAvgPathWetness;
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 200)] public byte[] mExpansion;
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)] public byte[] pointer2;
-        }
-
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 4)]
-        private struct rF2VehicleScoring
-        {
-            public int mID;
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)] public byte[] mDriverName;
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 64)] public byte[] mVehicleName;
-            public short mTotalLaps;
-            public sbyte mSector;
-            public sbyte mFinishStatus;
-            public double mLapDist;
-            public double mPathLateral;
-            public double mTrackEdge;
-            public double mBestSector1;
-            public double mBestSector2;
-            public double mBestLapTime;
-            public double mLastSector1;
-            public double mLastSector2;
-            public double mLastLapTime;
-            public double mCurSector1;
-            public double mCurSector2;
-            public short mNumPitstops;
-            public short mNumPenalties;
-            public byte mIsPlayer;
-            public sbyte mControl;
-            public byte mInPits;
-            public byte mPlace;
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)] public byte[] mVehicleClass;
-            public double mTimeBehindNext;
-            public int mLapsBehindNext;
-            public double mTimeBehindLeader;
-            public int mLapsBehindLeader;
-            public double mLapStartET;
-            public rF2Vec3 mPos;
-            public rF2Vec3 mLocalVel;
-            public rF2Vec3 mLocalAccel;
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)] public rF2Vec3[] mOri;
-            public rF2Vec3 mLocalRot;
-            public rF2Vec3 mLocalRotAccel;
-            public byte mHeadlights;
-            public byte mPitState;
-            public byte mServerScored;
-            public byte mIndividualPhase;
-            public int mQualification;
-            public double mTimeIntoLap;
-            public double mEstimatedLapTime;
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 24)] public byte[] mPitGroup;
-            public byte mFlag;
-            public byte mUnderYellow;
-            public byte mCountLapFlag;
-            public byte mInGarageStall;
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)] public byte[] mUpgradePack;
-            public float mPitLapDist;
-            public float mBestLapSector1;
-            public float mBestLapSector2;
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 48)] public byte[] mExpansion;
-        }
-
-        private static readonly int ScoringInfoSize = Marshal.SizeOf<rF2ScoringInfo>();
-        private static readonly int ScoringVehStride = Marshal.SizeOf<rF2VehicleScoring>();
-        private static readonly int ScoringVehBase = ScoringHeader + ScoringInfoSize;
-        private static readonly int OffIsPlayer = Marshal.OffsetOf<rF2VehicleScoring>(nameof(rF2VehicleScoring.mIsPlayer)).ToInt32();
+        private const int ScoringVehBase = 560, ScoringVehStride = 584, OffIsPlayer = 196;
 
         private MemoryMappedFile _telMmf, _scMmf;
         private MemoryMappedViewAccessor _telAcc, _scAcc;

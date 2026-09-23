@@ -26,10 +26,11 @@
                       Color="#FF6B2C" ShadowDepth="0" BlurRadius="10" Opacity="0.30"/>
     <!-- ═══════════════════════════════════════════
          Controller Type Icons (DrawingImage)
-         Sources: svgrepo.com (MIT/CC0 licensed)
+         Sources, as served by svgrepo.com:
          Xbox: svgrepo.com/show/473838/xbox.svg (viewBox 0 0 32 32)
          PlayStation: svgrepo.com/show/473754/playstation.svg (viewBox 0 0 32 32)
-         Gamepad: svgrepo.com/show/480458/game-controller.svg (viewBox 0 0 512 512)
+         Gamepad: svgrepo.com/show/480458/game-controller.svg (viewBox 0 0 512 512),
+           the Ionicons game-controller-outline icon (MIT, Copyright (c) 2015-present Ionic)
          ═══════════════════════════════════════════ -->
 
     <!-- Xbox logo icon (32x32 viewBox) -->
@@ -58,7 +59,8 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
-    <!-- Extended joystick icon (svgrepo.com/show/360517, translated from viewBox -4 -2 24 24) -->
+    <!-- Extended joystick icon: Jam Icons joystick-f (MIT, Copyright (c) 2017 Michael Amprimo),
+         via svgrepo.com/show/360517, translated from viewBox -4 -2 24 24 -->
     <DrawingImage x:Key="ExtendedControllerIcon">
         <DrawingImage.Drawing>
             <GeometryDrawing Brush="{DynamicResource TextFillColorPrimaryBrush}"
@@ -66,7 +68,7 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
-    <!-- Generic gamepad icon (512x512 viewBox, scaled to ~32x32) -->
+    <!-- Generic gamepad icon: Ionicons game-controller-outline (512x512 viewBox, scaled to ~32x32) -->
     <DrawingImage x:Key="GenericControllerIcon">
         <DrawingImage.Drawing>
             <DrawingGroup Transform="0.0625,0,0,0.0625,0,0">

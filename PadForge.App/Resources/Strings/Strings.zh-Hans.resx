@@ -394,7 +394,7 @@
   <data name="About_MvvmToolkit" xml:space="preserve"><value>MVVM Toolkit</value></data>
   <data name="About_MvvmToolkitDesc" xml:space="preserve"><value>用于数据绑定的 CommunityToolkit.Mvvm。MIT。</value></data>
   <data name="About_License" xml:space="preserve"><value>许可证</value></data>
-  <data name="About_LicenseText" xml:space="preserve"><value>本软件基于 CC BY-NC-SA 4.0（知识共享 署名-非商业性使用-相同方式共享 4.0 国际）许可协议发布。Gamepad-Asset-Pack（AL2009man 制作，MIT）提供 2D 控制器素材。GestureSign（TransposonY 制作，GPL-2.0）仅作为 AngularMarginRecognizer 的参考文档，未包含其任何代码。Handheld Companion（CC BY-NC-SA 4.0）提供 PadForge 改编的 3D 控制器模型。HelixToolkit、HidHide、HIDMaestro、Windows MIDI Services 和 WPF UI 基于 MIT 许可协议。OpenXInput 仅附带上游项目的商标免责声明，按相同条款原样再分发。$Q Recognizer（Magrofuoco、Vatavu、Anthony 和 Wobbrock 制作，BSD 3-Clause）是触摸板 ShapeRecognizer 的参考，以 C# 重新推导实现。SDL3 基于 zlib 许可协议。x360ce（LGPL-3.0）是 PadForge 分叉所基于的原始代码库。Zergatul.Obs.InputOverlay（Igor Budzhak 制作，MIT）提供鼠标插图。</value></data>
+  <data name="About_LicenseText" xml:space="preserve"><value>本软件基于 CC BY-NC-SA 4.0（知识共享 署名-非商业性使用-相同方式共享 4.0 国际）许可协议发布。Gamepad-Asset-Pack（AL2009man 制作，MIT）提供 2D 控制器素材。GestureSign（TransposonY 制作，GPL-2.0）仅作为 AngularMarginRecognizer 的参考文档，未包含其任何代码。Handheld Companion（CC BY-NC-SA 4.0）提供 PadForge 改编的 Xbox 360 与 Steam Deck 3D 模型。HelixToolkit、HidHide、HIDMaestro、Windows MIDI Services 和 WPF UI 基于 MIT 许可协议。OpenXInput 仅附带上游项目的商标免责声明，按相同条款原样再分发。$Q Recognizer（Magrofuoco、Vatavu、Anthony 和 Wobbrock 制作，BSD 3-Clause）是触摸板 ShapeRecognizer 的参考，以 C# 重新推导实现。SDL3 基于 zlib 许可协议。x360ce（LGPL-3.0）是 PadForge 分叉所基于的原始代码库。Zergatul.Obs.InputOverlay（Igor Budzhak 制作，MIT）提供鼠标插图。</value></data>
 
   <!-- ═══ Device Types ═══ -->
   <data name="DeviceType_Gamepad" xml:space="preserve"><value>游戏手柄</value></data>
@@ -2611,9 +2611,9 @@
   <data name="About_Hitboxer" xml:space="preserve"><value>hitboxer</value></data>
   <data name="About_HitboxerDesc" xml:space="preserve"><value>Snap Tap 模式的 SOCD 清理语义，由 valignatev 提供。MIT。</value></data>
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
-  <data name="About_DolphinDesc" xml:space="preserve"><value>Wii 配对流程、扬声器 ADPCM 以及 Wii 遥控器横握与竖握方向的文档。GPL，仅作文档参考，不随附任何 GPL 代码。</value></data>
+  <data name="About_DolphinDesc" xml:space="preserve"><value>Wii 配对流程、扬声器 ADPCM、Wii 遥控器横握与竖握方向、摇杆限位模型及其存储格式以及陀螺仪轴约定的文档。GPL-2.0，仅作文档参考，不随附任何 GPL 代码。</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock 行为文档：空闲断开、触摸板边界、电池解码。GPL，仅文档。</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock 行为文档：空闲断开、触摸板边界、电池解码、蓝牙断开 IOCTL、DualSense 振动模式位、陀螺仪抖动曲线、摇杆模拟鼠标的缩放以及蓝牙输出报告的 CRC 种子。GPL-3.0，仅作文档参考，不随附任何 GPL 代码。</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>印证 xbledctl 的 GIP LED 命令文档。GPL，仅文档。</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -2855,10 +2855,10 @@
   <data name="Mapping_Sensitivity_Tooltip" xml:space="preserve"><value>针对普通轴、滑块或手柄摇杆/扳机的按源灵敏度。1.0 表示输入保持不变。大于 1.0 时用更小的行程即可达到满偏。小于 1.0 时需要更大的行程。</value></data>
   <data name="Mapping_Gamepad_Format" xml:space="preserve"><value>游戏手柄 {0}</value></data>
   <data name="Settings_CommunityConfigs" xml:space="preserve"><value>社区配置</value></data>
-  <data name="Settings_CommunityConfigsDesc" xml:space="preserve"><value>浏览社区制作的 Steam Input 控制器配置，并将其转换为 PadForge 配置文件。PadForge 仅在您搜索和打开配置时才直接连接 Steam（store.steampowered.com、api.steampowered.com、steamcommunity.com、cdn.steamusercontent.com、cdn.cloudflare.steamstatic.com、avatars.fastly.steamstatic.com）。发送的数据仅有搜索文本和所选配置。无遥测、无第三方服务、无需登录 Steam。</value></data>
+  <data name="Settings_CommunityConfigsDesc" xml:space="preserve"><value>浏览社区制作的 Steam Input 控制器配置，并将其转换为 PadForge 配置文件。PadForge 仅在您搜索、打开配置或检查已导入配置的更新时才直接连接 Steam 服务器。发送的内容包括搜索文本、相关游戏、配置和作者的 ID，以及 PadForge 的版本。匿名 Steam 登录还会发送您的 Windows 版本，以及由 Windows 安装 ID、网络适配器地址和启动磁盘序列号的哈希生成的机器 ID。无遥测、无第三方服务、无需 Steam 账户。</value></data>
   <data name="Settings_EnableCommunityConfigs" xml:space="preserve"><value>启用社区配置</value></data>
   <data name="Settings_ShowLegacyConfigs" xml:space="preserve"><value>显示旧版创意工坊配置</value></data>
-  <data name="Settings_ShowLegacyConfigsTooltip" xml:space="preserve"><value>2017 年之前的配置在 Steam CDN 上没有可下载的文件。PadForge 会以 Legacy 徽章列出它们，并改为在 Steam 创意工坊中打开。</value></data>
+  <data name="Settings_ShowLegacyConfigsTooltip" xml:space="preserve"><value>部分较早的配置在 Steam CDN 上没有可下载的文件。PadForge 会以 Legacy 徽章列出它们，并在您订阅后读取 Steam 保存的副本。在此之前，它会提供在 Steam 创意工坊中打开该配置的选项。</value></data>
   <data name="Settings_ClearWorkshopCache" xml:space="preserve"><value>清除缓存的配置</value></data>
   <data name="Settings_CheckWorkshopUpdates" xml:space="preserve"><value>检查已导入配置文件的更新</value></data>
   <data name="Status_WorkshopCacheCleared" xml:space="preserve"><value>已清除创意工坊缓存</value></data>
@@ -3299,9 +3299,7 @@
   <data name="LegacyCleanup_Prompt_Format" xml:space="preserve"><value>PadForge v3 使用 HIDMaestro，不再需要以下旧驱动程序：{0}。
 
 现在卸载它们吗？此操作需要管理员权限，可能需要一点时间。</value></data>
-  <data name="LegacyCleanup_Failed_Format" xml:space="preserve"><value>清理时发生错误：{0}
-
-你可以稍后在设置中重试。</value></data>
+  <data name="LegacyCleanup_Failed_Format" xml:space="preserve"><value>清理时发生错误：{0}</value></data>
   <data name="Tray_Exit" xml:space="preserve"><value>退出</value></data>
   <data name="About_Libinput" xml:space="preserve">
     <value>libinput</value>
@@ -3316,10 +3314,10 @@
     <value>ds4mac</value>
   </data>
   <data name="About_LibinputDesc" xml:space="preserve">
-    <value>用于触摸板转鼠标输出的指针加速曲线。以 C# 重新推导 libinput 的触摸板加速配置。MIT。</value>
+    <value>用于触摸板转鼠标输出的指针加速曲线。libinput 触摸板加速配置的 C# 移植。MIT。</value>
   </data>
   <data name="About_HandheldCompanionDesc" xml:space="preserve">
-    <value>3D 控制器模型（Xbox 360、Xbox One、DualShock 4、DualSense、Steam Deck），由 CasperH2O、Lesueur Benjamin、trippyone 提供。CC BY-NC-SA 4.0。</value>
+    <value>3D 控制器模型（Xbox 360、Steam Deck）及 3D 视图的模型与动画代码，由 CasperH2O、Lesueur Benjamin、trippyone 提供。也是 Steam Deck 报告与触觉解码、Steam Controller (2015) 关机报告、掌机守护进程监视列表以及更新检查时机的参考来源。CC BY-NC-SA 4.0。</value>
   </data>
   <data name="About_GamepadAssetPackDesc" xml:space="preserve">
     <value>2D 手柄示意图（Xbox 360、Xbox One S、Xbox Series、DualShock 4、DualSense），作者 AL2009man。MIT。</value>
@@ -3542,7 +3540,7 @@
     <value>Logitech LED SDK references</value>
   </data>
   <data name="About_LogitechLedRefsDesc" xml:space="preserve">
-    <value>LIGHTSYNC 灯条镜像背后的引擎入口点与调用约定，取自 Aurora (MIT)、Artemis.Plugins (PolyForm Noncommercial)、RGB.NET (LGPL-2.1)、Logitech-LED (GPL-2.0)、logitech-led-sdk-rs (Apache-2.0) 和 LogiLed2Corsair (MIT)。PadForge 加载 G HUB 自身的引擎，不随附任何 Logitech 代码。</value>
+    <value>LIGHTSYNC 灯条镜像背后的引擎入口点与调用约定，取自 Artemis.Plugins (PolyForm Noncommercial)、Aurora (MIT)、LogiLed2Corsair (MIT)、Logitech-LED (GPL-2.0)、logitech-led-sdk-rs (MIT OR Apache-2.0) 和 RGB.NET (LGPL-2.1)。PadForge 加载 G HUB 自身的引擎，不随附任何 Logitech 代码。</value>
   </data>
   <data name="About_Opentrack" xml:space="preserve">
     <value>opentrack</value>
@@ -3571,7 +3569,7 @@
   <data name="About_OpenXrRefs" xml:space="preserve"><value>OpenXR 参考来源</value></data>
   <data name="About_OpenXrRefsDesc" xml:space="preserve"><value>头显和体感手柄输入背后的运行时接口、结构布局和注册表项，读自 Khronos OpenXR-SDK 头文件（Apache-2.0），并与 VirtualDesktop-OpenXR（MIT）比对。PadForge 与你自己安装的运行时通信，不随附 Khronos 代码。</value></data>
   <data name="About_LogitechGKeyRefs" xml:space="preserve"><value>Logitech G-key SDK 参考来源</value></data>
-  <data name="About_LogitechGKeyRefsDesc" xml:space="preserve"><value>G 键输入背后的事件字布局和库生命周期，读自 SDK 中的 LogitechGkeyLib.h，并与 Mumble 的 GKey.cpp（BSD 3-Clause）比对。PadForge 加载本机上的库，不随附 Logitech 代码。</value></data>
+  <data name="About_LogitechGKeyRefsDesc" xml:space="preserve"><value>G 键输入背后的事件字布局来自 SDK 中的 LogitechGkeyLib.h。库的搜索顺序和关闭流程遵循 Mumble 的 GKey.cpp（BSD 3-Clause）。PadForge 加载本机上的库，不随附 Logitech 代码。</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
   <data name="About_UsbipWin2Desc" xml:space="preserve"><value>Vadym Hrynchyshyn 开发的 USB 传输层，用于 HIDMaestro 的复合 USB 控制器。其已签名的安装程序随 HIDMaestro 提供，并在首次创建复合控制器时运行。BSD 2-Clause。</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
@@ -3709,4 +3707,88 @@
   <data name="About_NefconDesc" xml:space="preserve"><value>Nefarius 的 HidHide 安装工具。其 ARM64 版本在 Windows on ARM 上安装 HidHide 驱动。MIT。</value></data>
   <data name="About_Kaldi" xml:space="preserve"><value>Kaldi, OpenFst, OpenBLAS and CLAPACK</value></data>
   <data name="About_KaldiDesc" xml:space="preserve"><value>libvosk.dll 内含的语音解码器、转换器库和线性代数库。Kaldi 和 OpenFst 采用 Apache-2.0。OpenBLAS 和 CLAPACK 采用 BSD 3-Clause，f2c 运行时附有其自己的声明。</value></data>
+  <data name="About_AntiMicroX" xml:space="preserve"><value>AntiMicroX</value></data>
+  <data name="About_AntiMicroXDesc" xml:space="preserve"><value>策略和桌面入门配置的布局，以及压感连发所避免的连发行为。GPL-3.0，仅作文档参考，不随附任何 GPL 代码。</value></data>
+  <data name="About_AudioEndPointLibrary" xml:space="preserve"><value>AudioEndPointLibrary</value></data>
+  <data name="About_AudioEndPointLibraryDesc" xml:space="preserve"><value>Antoine Aflalo 关于 Windows 未公开的 IPolicyConfig 接口布局的参考资料，PadForge 用它重新启用手柄的音频端点。MIT。仅作文档参考，不随附任何代码。</value></data>
+  <data name="About_AutoEq" xml:space="preserve"><value>AutoEq</value></data>
+  <data name="About_AutoEqDesc" xml:space="preserve"><value>音频选项卡导入的参数均衡器配置格式，由 Jaakko Pasanen 提供。MIT。仅作文档参考，不随附任何代码。</value></data>
+  <data name="About_AutoHotkey" xml:space="preserve"><value>AutoHotkey</value></data>
+  <data name="About_AutoHotkeyDesc" xml:space="preserve"><value>文本块宏和键盘和弦钩子背后的 SendInput 技术：Unicode 输入、批量上限、Win 键屏蔽键以及带标记的注入输入。GPL-2.0，仅作文档参考，不随附任何 GPL 代码。</value></data>
+  <data name="About_CemuhookProtocol" xml:space="preserve"><value>cemuhook-protocol</value></data>
+  <data name="About_CemuhookProtocolDesc" xml:space="preserve"><value>体感服务器背后的 DSU 协议参考，由 v1993 提供。Unlicense。</value></data>
+  <data name="About_Ds4Drv" xml:space="preserve"><value>ds4drv</value></data>
+  <data name="About_Ds4DrvDesc" xml:space="preserve"><value>DualShock 4 蓝牙输出报告帧格式，由 Christopher Rosell 提供。MIT。</value></data>
+  <data name="About_Ds4MapperTest" xml:space="preserve"><value>DS4MapperTest</value></data>
+  <data name="About_Ds4MapperTestDesc" xml:space="preserve"><value>DualShock 4 电量范围、触摸板触觉脉冲的时序与强度档位，以及触摸板甩动行为。GPL-3.0，仅作文档参考，不随附任何 GPL 代码。</value></data>
+  <data name="About_Ds4WindowsHbashton" xml:space="preserve"><value>DS4Windows（hbashton 分支）</value></data>
+  <data name="About_Ds4WindowsHbashtonDesc" xml:space="preserve"><value>DualSense 音频音量范围、有符号 8 位触觉采样以及组合式蓝牙传输布局。GPL-3.0，仅作文档参考，不随附任何 GPL 代码。</value></data>
+  <data name="About_Ds5Dongle" xml:space="preserve"><value>DS5Dongle</value></data>
+  <data name="About_Ds5DongleDesc" xml:space="preserve"><value>DualSense 蓝牙音频缓冲区长度的默认值与下限，由 awalol 提供。MIT。</value></data>
+  <data name="About_DualSenseSupport" xml:space="preserve"><value>DualSenseSupport</value></data>
+  <data name="About_DualSenseSupportDesc" xml:space="preserve"><value>自适应扳机 GameCube 预设的数值，由 Mxater 提供。仅用于事实参考。</value></data>
+  <data name="About_Eden" xml:space="preserve"><value>Eden</value></data>
+  <data name="About_EdenDesc" xml:space="preserve"><value>DSU 体感轴的正负号，已与其 UDP 解码器核对。GPL-3.0，仅作文档参考，不随附任何 GPL 代码。</value></data>
+  <data name="About_EdRefCard2" xml:space="preserve"><value>EDRefCard2</value></data>
+  <data name="About_EdRefCard2Desc" xml:space="preserve"><value>太空模拟入门配置所依据的 Elite Dangerous 默认预设，由 Richard Buckle 提供。MIT。</value></data>
+  <data name="About_FFmpeg" xml:space="preserve"><value>FFmpeg</value></data>
+  <data name="About_FFmpegDesc" xml:space="preserve"><value>Wii 遥控器扬声器的 ADPCM 半字节顺序，以及用于校验 DualShock 4 编码器的 SBC 解码器。LGPL-2.1-or-later，仅作文档参考，不随附任何 LGPL 代码。</value></data>
+  <data name="About_Fusion" xml:space="preserve"><value>Fusion</value></data>
+  <data name="About_FusionDesc" xml:space="preserve"><value>用于指南针偏航的倾斜补偿指南针航向，已移植为 C#，由 x-io Technologies 提供。MIT。</value></data>
+  <data name="About_GamepadBatteryMonitor" xml:space="preserve"><value>Gamepad Battery Monitor</value></data>
+  <data name="About_GamepadBatteryMonitorDesc" xml:space="preserve"><value>低电量通知规则和识别振动模式，由 Lukas Frühstück 提供。MIT。</value></data>
+  <data name="About_Hado" xml:space="preserve"><value>hado</value></data>
+  <data name="About_HadoDesc" xml:space="preserve"><value>DualShock 4、DualSense、DualSense Edge、Xbox Series 和 Switch 2 Pro 手柄的 3D 模型，购自 CGTrader。CGTrader Royalty Free License。</value></data>
+  <data name="About_Hidapi" xml:space="preserve"><value>HIDAPI</value></data>
+  <data name="About_HidapiDesc" xml:space="preserve"><value>编译进随附 SDL3.dll 的 HID 层，由 Alan Ott（Signal 11 Software）提供。BSD 类许可证。</value></data>
+  <data name="About_IconSources" xml:space="preserve"><value>图标来源</value></data>
+  <data name="About_IconSourcesDesc" xml:space="preserve"><value>火焰图标来自 Material Design Icons（Pictogrammers，Apache-2.0），通用手柄图标来自 Ionicons（Ionic，MIT），扩展类型的摇杆图标来自 Jam Icons（Michael Amprimo，MIT），Xbox 和 PlayStation 图标来自 SVG Repo，按各图标页面标注的许可证使用。</value></data>
+  <data name="About_IrohFlexInput" xml:space="preserve"><value>iroh / FlexInput</value></data>
+  <data name="About_IrohFlexInputDesc" xml:space="preserve"><value>Remote Link 备用通道背后的中继协议，与 FlexInput 一样连接 n0.computer 的免费公共中继。iroh：MIT OR Apache-2.0。FlexInput：MIT。仅作文档参考，不随附任何代码。</value></data>
+  <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
+  <data name="About_Jc2MouseDesc" xml:space="preserve"><value>鼠标移动 X 和 Y 背后的 Joy-Con 2 光学鼠标计数器与回绕增量，由 coffincolors、Frano 和 moutella 提供。MIT。仅作文档参考，不随附任何代码。</value></data>
+  <data name="About_LinuxKernel" xml:space="preserve"><value>Linux 内核驱动</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3、Move、DualSense、Steam Deck 与 PID 力反馈的协议细节，以及 ACPI WMI 块布局。GPL-2.0，仅作文档参考，不随附任何 GPL 代码。</value></data>
+  <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
+  <data name="About_GameInputDesc" xml:space="preserve"><value>Windows 手柄输入，包括 Xbox Elite 拨片。SDK 加载器链接进 SDL。MIT（SDK 加载器）。</value></data>
+  <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>
+  <data name="About_VcRuntimeDesc" xml:space="preserve"><value>SDL3.dll 所需的 C++ 运行时（msvcp140.dll、vcruntime140.dll，x64 版本另有 vcruntime140_1.dll），未经修改地随 PadForge 提供。Microsoft Visual Studio 许可条款。</value></data>
+  <data name="About_SwitchResearch" xml:space="preserve"><value>Nintendo_Switch_Reverse_Engineering</value></data>
+  <data name="About_SwitchResearchDesc" xml:space="preserve"><value>Joy-Con 和 Pro 手柄的 HID、HD 振动与 HOME 键 LED 笔记，由 dekuNukem 整理。Switch 2 部分参考 ndeadly 的 switch2_controller_research。仅用于协议事实参考。</value></data>
+  <data name="About_OpenRgb" xml:space="preserve"><value>OpenRGB</value></data>
+  <data name="About_OpenRgbDesc" xml:space="preserve"><value>DualSense 与 DualShock 4 灯条输出报告的字节用法。GPL-2.0，仅作文档参考，不随附任何 GPL 代码。</value></data>
+  <data name="About_OpenTabletDriver" xml:space="preserve"><value>OpenTabletDriver</value></data>
+  <data name="About_OpenTabletDriverDesc" xml:space="preserve"><value>应用内更新程序辅助进程背后的提权更新动词模式。LGPL-3.0，仅作文档参考，不随附任何 LGPL 代码。</value></data>
+  <data name="About_PcscSharp" xml:space="preserve"><value>pcsc-sharp</value></data>
+  <data name="About_PcscSharpDesc" xml:space="preserve"><value>NFC 标签输入背后的 WinSCard 函数签名与读卡器监视调用顺序，由 Daniel Mueller 提供。BSD 2-Clause。</value></data>
+  <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
+  <data name="About_PsmoveapiDesc" xml:space="preserve"><value>PlayStation Move 报告布局与传感器校准，由 Thomas Perl 提供，并与 moveonpc wiki 交叉核对。PadForge 的实现为原创 C# 代码。BSD 2-Clause。</value></data>
+  <data name="About_TelemetryRefs" xml:space="preserve"><value>赛车遥测参考来源</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>方向盘转速换挡灯背后的共享内存与 UDP 布局，取自 assettocorsasharedmemory (MIT)、forza-data-web (Apache-2.0)、forza-telemetry (MIT)、InSim.NET (LGPL-2.1)、irsdkSharp (MIT)、IRSDKSharper (GPL-3.0)、out-gauge-cluster (Apache-2.0)、pyirsdk (MIT)、rF2SharedMemoryMapPlugin (GPL-3.0)、rFactorSharedMemoryMap (GPL-2.0)、rust_ams2_sharedmem、scs-sdk-plugin (MIT) 和 simapi (LGPL-3.0)。不随附任何 GPL 或 LGPL 代码。</value></data>
+  <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
+  <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>DualShock 3 蓝牙配对与报告文档。GPL-2.0 和 GPL-3.0，仅作文档参考，不随附任何 GPL 代码。</value></data>
+  <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
+  <data name="About_SipSorceryDesc" xml:space="preserve"><value>Remote Link NAT 穿透背后的 STUN 消息布局与 XOR-MAPPED-ADDRESS 解码，取自其 C# 源代码，由 Aaron Clauson 提供。BSD 3-Clause，附带其许可证第 2 节的使用限制。</value></data>
+  <data name="About_SpaceMouseRefs" xml:space="preserve"><value>SpaceMouse 参考来源</value></data>
+  <data name="About_SpaceMouseRefsDesc" xml:space="preserve"><value>3Dconnexion 的报告布局、设备表与轴缩放，取自 hid.spacemouse (MIT)、PySpaceMouse (MIT)、AndunHH 的 spacemouse (CC BY-NC-SA 4.0) 和 spacenavd (GPL-3.0)。仅作文档参考，不随附任何代码。</value></data>
+  <data name="About_SpecialK" xml:space="preserve"><value>Special K</value></data>
+  <data name="About_SpecialKDesc" xml:space="preserve"><value>通过主机 IOCTL 断开蓝牙连接、XInput 隐藏的关机与功能查询序号，以及 DualSense 扳机振动默认值。GPL-3.0，仅作文档参考，不随附任何 GPL 代码。</value></data>
+  <data name="About_SteamControllerRefs" xml:space="preserve"><value>Steam Controller 协议参考来源</value></data>
+  <data name="About_SteamControllerRefsDesc" xml:space="preserve"><value>滑动触觉反馈节拍、报告 0x42 的按键位、关机命令以及接收器中继，取自 OpenPuck (AGPL-3.0)、sc2-research (MIT)、steam_controller_tools (GPL-2.0) 和 SteamlessController (MIT)。仅作文档参考，不随附任何 GPL 或 AGPL 代码。</value></data>
+  <data name="About_ThumbstickDeadzones" xml:space="preserve"><value>Thumbstick Deadzones</value></data>
+  <data name="About_ThumbstickDeadzonesDesc" xml:space="preserve"><value>六种死区形状，由 Minimuino 提供。GPL-3.0，仅作文档参考，不随附任何 GPL 代码。</value></data>
+  <data name="About_Touchmote" xml:space="preserve"><value>Touchmote</value></data>
+  <data name="About_TouchmoteDesc" xml:space="preserve"><value>Wii 遥控器 IR 指针行为：光点对中点、边距、感应条偏移、平滑以及 FPS鼠标曲线，并参考 Ryochan7、Suegrini 和 Trihy 的分支。GPL-3.0，仅作文档参考，不随附任何 GPL 代码。</value></data>
+  <data name="About_TriggerEffectGenerator" xml:space="preserve"><value>TriggerEffectGenerator</value></data>
+  <data name="About_TriggerEffectGeneratorDesc" xml:space="preserve"><value>DualSense 自适应扳机效果布局与区域打包，以 C# 重现，由 John "Nielk1" Klein 提供。MIT。</value></data>
+  <data name="About_ViGEmClient" xml:space="preserve"><value>ViGEmClient</value></data>
+  <data name="About_ViGEmClientDesc" xml:space="preserve"><value>虚拟 DualShock 4 输入报告背后的 DS4_REPORT_EX 布局，由 Benjamin Höglinger-Stelzer 提供。MIT。</value></data>
+  <data name="About_ViiperHbashton" xml:space="preserve"><value>VIIPER（hbashton 分支）</value></data>
+  <data name="About_ViiperHbashtonDesc" xml:space="preserve"><value>虚拟 DualSense 麦克风 48 dB 的衰减范围。GPL-3.0，仅作文档参考，不随附任何 GPL 代码。</value></data>
+  <data name="About_WheelRefs" xml:space="preserve"><value>方向盘协议参考来源</value></data>
+  <data name="About_WheelRefsDesc" xml:space="preserve"><value>Fanatec、Thrustmaster 与 Logitech 方向盘的原生力反馈和转速换挡灯报告，取自 hid-fanatecff (GPL-2.0)、hid-tmff2 (GPL-2.0-or-later)、new-lg4ff (GPL-2.0)、oversteer (GPL-3.0) 和 thrustmaster-led-linux (GPL-3.0)，并与 prodigal.knight 的 SimHub LED 插件 (MIT) 和 tm-bt-led (MIT) 交叉核对。仅作文档参考，不随附任何 GPL 代码。</value></data>
+  <data name="About_WiiBrew" xml:space="preserve"><value>WiiBrew</value></data>
+  <data name="About_WiiBrewDesc" xml:space="preserve"><value>Wii 遥控器扬声器协议与 IR 校准文档。仅用于协议事实参考。</value></data>
+  <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
+  <data name="About_X1nputDesc" xml:space="preserve"><value>Xbox 冲击扳机的 9 字节报告及其写入路径，由 araghon007 提供。MIT。</value></data>
 </root>

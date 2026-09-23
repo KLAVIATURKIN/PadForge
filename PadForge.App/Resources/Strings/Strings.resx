@@ -460,7 +460,7 @@ A copy of the previous version is in this folder: {1}</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>Angular-margin scoring approach that runs alongside the point-cloud matcher on single-finger shapes. Implements the scoring idea from GestureSign's PointPatternAnalyzer in original C#. GPL-2.0, documentation only.</value></data>
   <data name="About_License" xml:space="preserve"><value>License</value></data>
-  <data name="About_LicenseText" xml:space="preserve"><value>This software is licensed under CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International). Gamepad-Asset-Pack by AL2009man (MIT) supplies the 2D controller assets. GestureSign by TransposonY (GPL-2.0) was read as documentation for the AngularMarginRecognizer, and none of its code ships. Handheld Companion (CC BY-NC-SA 4.0) supplies the 3D controller models PadForge adapts. HelixToolkit, HidHide, HIDMaestro, Windows MIDI Services, and WPF UI are licensed under the MIT License. OpenXInput ships only an upstream trademark disclaimer and is redistributed as-is under the same terms. $Q Recognizer by Magrofuoco, Vatavu, Anthony and Wobbrock (BSD 3-Clause) is the reference for the touchpad ShapeRecognizer, a C# re-derivation. SDL3 is licensed under the zlib License. x360ce (LGPL-3.0) is the original codebase PadForge was forked from. Zergatul.Obs.InputOverlay by Igor Budzhak (MIT) supplies the mouse artwork.</value></data>
+  <data name="About_LicenseText" xml:space="preserve"><value>This software is licensed under CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International). Gamepad-Asset-Pack by AL2009man (MIT) supplies the 2D controller assets. GestureSign by TransposonY (GPL-2.0) was read as documentation for the AngularMarginRecognizer, and none of its code ships. Handheld Companion (CC BY-NC-SA 4.0) supplies the Xbox 360 and Steam Deck 3D models PadForge adapts. HelixToolkit, HidHide, HIDMaestro, Windows MIDI Services, and WPF UI are licensed under the MIT License. OpenXInput ships only an upstream trademark disclaimer and is redistributed as-is under the same terms. $Q Recognizer by Magrofuoco, Vatavu, Anthony and Wobbrock (BSD 3-Clause) is the reference for the touchpad ShapeRecognizer, a C# re-derivation. SDL3 is licensed under the zlib License. x360ce (LGPL-3.0) is the original codebase PadForge was forked from. Zergatul.Obs.InputOverlay by Igor Budzhak (MIT) supplies the mouse artwork.</value></data>
   <data name="About_HIDMaestro" xml:space="preserve"><value>HIDMaestro</value></data>
   <data name="About_HIDMaestroDesc" xml:space="preserve"><value>User-mode virtual HID controller engine (replaces ViGEmBus and vJoy). MIT.</value></data>
   <data name="About_OpenXInput" xml:space="preserve"><value>OpenXInput</value></data>
@@ -2773,9 +2773,9 @@ A copy of the previous version is in this folder: {1}</value></data>
   <data name="About_ZstdSharp" xml:space="preserve"><value>ZstdSharp</value></data>
   <data name="About_ZstdSharpDesc" xml:space="preserve"><value>Zstandard decompression SteamKit2 uses for Steam depot chunks, a C# port of the zstd library by Oleg Stepanischev. MIT.</value></data>
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
-  <data name="About_DolphinDesc" xml:space="preserve"><value>Wii pairing ceremony, speaker ADPCM, and the sideways and upright Wii Remote orientation documentation. GPL, read as documentation only, no GPL code ships.</value></data>
+  <data name="About_DolphinDesc" xml:space="preserve"><value>Documentation for the Wii pairing ceremony, the speaker ADPCM, the sideways and upright Wii Remote orientation, the stick-gate model and its storage format, and the gyro axis convention. GPL-2.0, read as documentation only, no GPL code ships.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock behavior documentation: idle disconnect, touchpad boundaries, battery decode. GPL, documentation only.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock behavior documentation: idle disconnect, touchpad boundaries, battery decode, the Bluetooth disconnect IOCTL, DualSense rumble-mode bits, the gyro jitter curve, the stick-as-mouse scale and the Bluetooth output-report CRC seed. GPL-3.0, read as documentation only, no GPL code ships.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>GIP LED command documentation corroborating xbledctl. GPL, documentation only.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3026,10 +3026,10 @@ A copy of the previous version is in this folder: {1}</value></data>
     <value>Reset the delay to 0 (the layer reacts instantly).</value>
   </data>
   <data name="Settings_CommunityConfigs" xml:space="preserve"><value>Community Configs</value></data>
-  <data name="Settings_CommunityConfigsDesc" xml:space="preserve"><value>Browse community-made Steam Input controller configurations and translate them into PadForge profiles. PadForge connects directly to Steam (store.steampowered.com, api.steampowered.com, steamcommunity.com, cdn.steamusercontent.com, cdn.cloudflare.steamstatic.com, avatars.fastly.steamstatic.com) only when you search and when you open a config. Your search text and the chosen config are the only data sent. No telemetry, no third-party service, no Steam sign-in.</value></data>
+  <data name="Settings_CommunityConfigsDesc" xml:space="preserve"><value>Browse community-made Steam Input controller configurations and translate them into PadForge profiles. PadForge connects directly to Steam's servers only when you search, open a config, or check your imported configs for updates. It sends your search text, the ids of the games, configs and creators involved, and PadForge's version. The anonymous Steam logon also sends your Windows version and a machine id made from hashes of your Windows installation ID, network adapter addresses and boot disk serial. No telemetry, no third-party service, no Steam account.</value></data>
   <data name="Settings_EnableCommunityConfigs" xml:space="preserve"><value>Enable Community Configs</value></data>
   <data name="Settings_ShowLegacyConfigs" xml:space="preserve"><value>Show Legacy Workshop Configs</value></data>
-  <data name="Settings_ShowLegacyConfigsTooltip" xml:space="preserve"><value>Configs from before 2017 have no downloadable file on Steam's CDN. PadForge lists them with a Legacy badge and opens them on Steam Workshop instead.</value></data>
+  <data name="Settings_ShowLegacyConfigsTooltip" xml:space="preserve"><value>Some older configs have no downloadable file on Steam's CDN. PadForge lists them with a Legacy badge and reads the copy Steam keeps once you subscribe. Until then, it offers to open the config on Steam Workshop.</value></data>
   <data name="Settings_ClearWorkshopCache" xml:space="preserve"><value>Clear Cached Configs</value></data>
   <data name="Settings_CheckWorkshopUpdates" xml:space="preserve"><value>Check Imported Profiles for Updates</value></data>
   <data name="Status_WorkshopCacheCleared" xml:space="preserve"><value>Workshop cache cleared</value></data>
@@ -3351,9 +3351,7 @@ A copy of the previous version is in this folder: {1}</value></data>
   <data name="LegacyCleanup_Prompt_Format" xml:space="preserve"><value>PadForge v3 uses HIDMaestro and no longer needs the legacy driver(s): {0}.
 
 Would you like PadForge to uninstall them now? This requires elevation and may take a moment.</value></data>
-  <data name="LegacyCleanup_Failed_Format" xml:space="preserve"><value>Cleanup encountered an error: {0}
-
-You can retry later from Settings.</value></data>
+  <data name="LegacyCleanup_Failed_Format" xml:space="preserve"><value>Cleanup encountered an error: {0}</value></data>
   <data name="Tray_Exit" xml:space="preserve"><value>Exit</value></data>
   <data name="About_Libinput" xml:space="preserve">
     <value>libinput</value>
@@ -3368,10 +3366,10 @@ You can retry later from Settings.</value></data>
     <value>ds4mac</value>
   </data>
   <data name="About_LibinputDesc" xml:space="preserve">
-    <value>Trackpad pointer acceleration curve for touchpad-to-mouse output. C# re-derivation of libinput's touchpad accel profile. MIT.</value>
+    <value>Trackpad pointer acceleration curve for touchpad-to-mouse output. C# port of libinput's touchpad accel profile. MIT.</value>
   </data>
   <data name="About_HandheldCompanionDesc" xml:space="preserve">
-    <value>3D controller models (Xbox 360, Xbox One, DualShock 4, DualSense, Steam Deck), by CasperH2O, Lesueur Benjamin, trippyone. CC BY-NC-SA 4.0.</value>
+    <value>3D controller models (Xbox 360, Steam Deck) and the 3D view's model and animation code, by CasperH2O, Lesueur Benjamin, trippyone. Also the reference for the Steam Deck report and haptic decode, the Steam Controller (2015) power-off report, the handheld daemon watch list and the update check timing. CC BY-NC-SA 4.0.</value>
   </data>
   <data name="About_GamepadAssetPackDesc" xml:space="preserve">
     <value>2D controller schematics (Xbox 360, Xbox One S, Xbox Series, DualShock 4, DualSense), by AL2009man. MIT.</value>
@@ -3591,7 +3589,7 @@ You can retry later from Settings.</value></data>
     <value>Logitech LED SDK references</value>
   </data>
   <data name="About_LogitechLedRefsDesc" xml:space="preserve">
-    <value>Engine entry points and calling convention behind the LIGHTSYNC lightbar mirror, read from Aurora (MIT), Artemis.Plugins (PolyForm Noncommercial), RGB.NET (LGPL-2.1), Logitech-LED (GPL-2.0), logitech-led-sdk-rs (Apache-2.0) and LogiLed2Corsair (MIT). PadForge loads G HUB's own engine and ships no Logitech code.</value>
+    <value>Engine entry points and calling convention behind the LIGHTSYNC lightbar mirror, read from Artemis.Plugins (PolyForm Noncommercial), Aurora (MIT), LogiLed2Corsair (MIT), Logitech-LED (GPL-2.0), logitech-led-sdk-rs (MIT OR Apache-2.0) and RGB.NET (LGPL-2.1). PadForge loads G HUB's own engine and ships no Logitech code.</value>
   </data>
   <data name="About_Opentrack" xml:space="preserve">
     <value>opentrack</value>
@@ -3620,7 +3618,7 @@ You can retry later from Settings.</value></data>
   <data name="About_OpenXrRefs" xml:space="preserve"><value>OpenXR references</value></data>
   <data name="About_OpenXrRefsDesc" xml:space="preserve"><value>The runtime interface, structure layout and registry keys behind headset and motion controller input, read from the Khronos OpenXR-SDK headers (Apache-2.0) and cross-checked against VirtualDesktop-OpenXR (MIT). PadForge talks to your own installed runtime and ships no Khronos code.</value></data>
   <data name="About_LogitechGKeyRefs" xml:space="preserve"><value>Logitech G-key SDK references</value></data>
-  <data name="About_LogitechGKeyRefsDesc" xml:space="preserve"><value>The event word layout and library lifecycle behind G-key input, read from LogitechGkeyLib.h in the SDK and cross-checked against Mumble’s GKey.cpp (BSD 3-Clause). PadForge loads whichever copy of the library is on the machine and ships no Logitech code.</value></data>
+  <data name="About_LogitechGKeyRefsDesc" xml:space="preserve"><value>The event word layout behind G-key input comes from LogitechGkeyLib.h in the SDK. The library search order and shutdown follow Mumble’s GKey.cpp (BSD 3-Clause). PadForge loads whichever copy of the library is on the machine and ships no Logitech code.</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
   <data name="About_UsbipWin2Desc" xml:space="preserve"><value>USB transport by Vadym Hrynchyshyn for HIDMaestro's composite USB controllers. Its signed installer ships inside HIDMaestro and runs the first time a composite controller is created. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
@@ -3758,4 +3756,88 @@ You can retry later from Settings.</value></data>
   <data name="About_NefconDesc" xml:space="preserve"><value>HidHide's install tool, by Nefarius. Its ARM64 build installs the HidHide driver on Windows on ARM. MIT.</value></data>
   <data name="About_Kaldi" xml:space="preserve"><value>Kaldi, OpenFst, OpenBLAS and CLAPACK</value></data>
   <data name="About_KaldiDesc" xml:space="preserve"><value>The speech decoder, transducer library and linear algebra inside libvosk.dll. Kaldi and OpenFst: Apache-2.0. OpenBLAS and CLAPACK: BSD 3-Clause, with the f2c runtime's own notice.</value></data>
+  <data name="About_AntiMicroX" xml:space="preserve"><value>AntiMicroX</value></data>
+  <data name="About_AntiMicroXDesc" xml:space="preserve"><value>Strategy and desktop starter-profile layouts, and the turbo behavior the pressure-scaled turbo avoids. GPL-3.0, read as documentation only, no GPL code ships.</value></data>
+  <data name="About_AudioEndPointLibrary" xml:space="preserve"><value>AudioEndPointLibrary</value></data>
+  <data name="About_AudioEndPointLibraryDesc" xml:space="preserve"><value>Reference by Antoine Aflalo for the layout of Windows' undocumented IPolicyConfig interface, which PadForge uses to re-enable a controller's audio endpoint. MIT. Documentation only, no code ships.</value></data>
+  <data name="About_AutoEq" xml:space="preserve"><value>AutoEq</value></data>
+  <data name="About_AutoEqDesc" xml:space="preserve"><value>The parametric EQ profile format the Audio tab imports, by Jaakko Pasanen. MIT. Documentation only, no code ships.</value></data>
+  <data name="About_AutoHotkey" xml:space="preserve"><value>AutoHotkey</value></data>
+  <data name="About_AutoHotkeyDesc" xml:space="preserve"><value>SendInput techniques behind Text Block macros and the keyboard chord hook: Unicode typing, batch limits, the Win-key mask key and tagged injected input. GPL-2.0, read as documentation only, no GPL code ships.</value></data>
+  <data name="About_CemuhookProtocol" xml:space="preserve"><value>cemuhook-protocol</value></data>
+  <data name="About_CemuhookProtocolDesc" xml:space="preserve"><value>DSU protocol reference behind the motion server, by v1993. Unlicense.</value></data>
+  <data name="About_Ds4Drv" xml:space="preserve"><value>ds4drv</value></data>
+  <data name="About_Ds4DrvDesc" xml:space="preserve"><value>DualShock 4 Bluetooth output-report framing, by Christopher Rosell. MIT.</value></data>
+  <data name="About_Ds4MapperTest" xml:space="preserve"><value>DS4MapperTest</value></data>
+  <data name="About_Ds4MapperTestDesc" xml:space="preserve"><value>DualShock 4 battery ranges, touchpad haptic pulse timing and intensity steps, and touchpad fling behavior. GPL-3.0, read as documentation only, no GPL code ships.</value></data>
+  <data name="About_Ds4WindowsHbashton" xml:space="preserve"><value>DS4Windows (hbashton fork)</value></data>
+  <data name="About_Ds4WindowsHbashtonDesc" xml:space="preserve"><value>DualSense audio volume ranges, signed 8-bit haptic samples and the combined Bluetooth transport layout. GPL-3.0, read as documentation only, no GPL code ships.</value></data>
+  <data name="About_Ds5Dongle" xml:space="preserve"><value>DS5Dongle</value></data>
+  <data name="About_Ds5DongleDesc" xml:space="preserve"><value>Default and floor of the DualSense Bluetooth audio buffer length, by awalol. MIT.</value></data>
+  <data name="About_DualSenseSupport" xml:space="preserve"><value>DualSenseSupport</value></data>
+  <data name="About_DualSenseSupportDesc" xml:space="preserve"><value>GameCube adaptive-trigger preset values, by Mxater. Read for facts only.</value></data>
+  <data name="About_Eden" xml:space="preserve"><value>Eden</value></data>
+  <data name="About_EdenDesc" xml:space="preserve"><value>DSU motion axis signs, checked against its UDP decoder. GPL-3.0, read as documentation only, no GPL code ships.</value></data>
+  <data name="About_EdRefCard2" xml:space="preserve"><value>EDRefCard2</value></data>
+  <data name="About_EdRefCard2Desc" xml:space="preserve"><value>Elite Dangerous default presets behind the Space Sim starter profile, by Richard Buckle. MIT.</value></data>
+  <data name="About_FFmpeg" xml:space="preserve"><value>FFmpeg</value></data>
+  <data name="About_FFmpegDesc" xml:space="preserve"><value>The Wii Remote speaker's ADPCM nibble order, and the SBC decoder that checked the DualShock 4 encoder. LGPL-2.1-or-later, read as documentation only, no LGPL code ships.</value></data>
+  <data name="About_Fusion" xml:space="preserve"><value>Fusion</value></data>
+  <data name="About_FusionDesc" xml:space="preserve"><value>Tilt-compensated compass heading for compass yaw, ported to C#, by x-io Technologies. MIT.</value></data>
+  <data name="About_GamepadBatteryMonitor" xml:space="preserve"><value>Gamepad Battery Monitor</value></data>
+  <data name="About_GamepadBatteryMonitorDesc" xml:space="preserve"><value>Low-battery notification rule and the Identify rumble pattern, by Lukas Frühstück. MIT.</value></data>
+  <data name="About_Hado" xml:space="preserve"><value>hado</value></data>
+  <data name="About_HadoDesc" xml:space="preserve"><value>3D models of the DualShock 4, DualSense, DualSense Edge, Xbox Series and Switch 2 Pro Controller, bought on CGTrader. CGTrader Royalty Free License.</value></data>
+  <data name="About_Hidapi" xml:space="preserve"><value>HIDAPI</value></data>
+  <data name="About_HidapiDesc" xml:space="preserve"><value>The HID layer compiled into the bundled SDL3.dll, by Alan Ott, Signal 11 Software. BSD-style license.</value></data>
+  <data name="About_IconSources" xml:space="preserve"><value>Icon sources</value></data>
+  <data name="About_IconSourcesDesc" xml:space="preserve"><value>The flame glyph from Material Design Icons (Pictogrammers, Apache-2.0), the generic gamepad icon from Ionicons (Ionic, MIT), the Extended joystick from Jam Icons (Michael Amprimo, MIT), and the Xbox and PlayStation icons from SVG Repo, under the license on each icon's page.</value></data>
+  <data name="About_IrohFlexInput" xml:space="preserve"><value>iroh / FlexInput</value></data>
+  <data name="About_IrohFlexInputDesc" xml:space="preserve"><value>The relay protocol behind Remote Link's fallback lane, spoken to n0.computer's free public relays the way FlexInput does. iroh: MIT OR Apache-2.0. FlexInput: MIT. Documentation only, no code ships.</value></data>
+  <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
+  <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Joy-Con 2 optical mouse counters and wraparound deltas behind Mouse Motion X and Y, by coffincolors, Frano and moutella. MIT. Documentation only, no code ships.</value></data>
+  <data name="About_LinuxKernel" xml:space="preserve"><value>Linux kernel drivers</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3, Move, DualSense, Steam Deck and PID force-feedback protocol facts, and the ACPI WMI block layout. GPL-2.0, read as documentation only, no GPL code ships.</value></data>
+  <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
+  <data name="About_GameInputDesc" xml:space="preserve"><value>Windows controller input, including Xbox Elite paddles. The SDK loader is linked into SDL. MIT (SDK loader).</value></data>
+  <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>
+  <data name="About_VcRuntimeDesc" xml:space="preserve"><value>The C++ runtime SDL3.dll needs (msvcp140.dll, vcruntime140.dll and, in the x64 build, vcruntime140_1.dll), shipped unmodified inside PadForge. Microsoft Visual Studio license terms.</value></data>
+  <data name="About_SwitchResearch" xml:space="preserve"><value>Nintendo_Switch_Reverse_Engineering</value></data>
+  <data name="About_SwitchResearchDesc" xml:space="preserve"><value>Joy-Con and Pro Controller HID, HD rumble and home LED notes, by dekuNukem, with ndeadly's switch2_controller_research for the Switch 2. Read for protocol facts only.</value></data>
+  <data name="About_OpenRgb" xml:space="preserve"><value>OpenRGB</value></data>
+  <data name="About_OpenRgbDesc" xml:space="preserve"><value>DualSense and DualShock 4 lightbar output-report byte usage. GPL-2.0, read as documentation only, no GPL code ships.</value></data>
+  <data name="About_OpenTabletDriver" xml:space="preserve"><value>OpenTabletDriver</value></data>
+  <data name="About_OpenTabletDriverDesc" xml:space="preserve"><value>The elevated update-verb pattern behind the in-app updater's helper. LGPL-3.0, read as documentation only, no LGPL code ships.</value></data>
+  <data name="About_PcscSharp" xml:space="preserve"><value>pcsc-sharp</value></data>
+  <data name="About_PcscSharpDesc" xml:space="preserve"><value>WinSCard signatures and the reader-monitoring call sequence behind NFC tag input, by Daniel Mueller. BSD 2-Clause.</value></data>
+  <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
+  <data name="About_PsmoveapiDesc" xml:space="preserve"><value>PlayStation Move report layouts and sensor calibration, by Thomas Perl, cross-checked against the moveonpc wiki. PadForge's implementation is original C#. BSD 2-Clause.</value></data>
+  <data name="About_TelemetryRefs" xml:space="preserve"><value>Racing telemetry references</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Shared-memory and UDP layouts behind the wheel RPM shift LEDs, read from assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT) and simapi (LGPL-3.0). No GPL or LGPL code ships.</value></data>
+  <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
+  <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>DualShock 3 Bluetooth pairing and report documentation. GPL-2.0 and GPL-3.0, read as documentation only, no GPL code ships.</value></data>
+  <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
+  <data name="About_SipSorceryDesc" xml:space="preserve"><value>The STUN message layout and XOR-MAPPED-ADDRESS decode behind Remote Link's NAT traversal, vendored from its C# source, by Aaron Clauson. BSD 3-Clause, with the use restriction in section 2 of its license.</value></data>
+  <data name="About_SpaceMouseRefs" xml:space="preserve"><value>SpaceMouse references</value></data>
+  <data name="About_SpaceMouseRefsDesc" xml:space="preserve"><value>3Dconnexion report layout, device table and axis scale, read from hid.spacemouse (MIT), PySpaceMouse (MIT), spacemouse by AndunHH (CC BY-NC-SA 4.0) and spacenavd (GPL-3.0). Documentation only, no code ships.</value></data>
+  <data name="About_SpecialK" xml:space="preserve"><value>Special K</value></data>
+  <data name="About_SpecialKDesc" xml:space="preserve"><value>The Bluetooth link drop by host IOCTL, the hidden XInput power-off and capabilities ordinals, and DualSense trigger-vibration defaults. GPL-3.0, read as documentation only, no GPL code ships.</value></data>
+  <data name="About_SteamControllerRefs" xml:space="preserve"><value>Steam Controller protocol references</value></data>
+  <data name="About_SteamControllerRefsDesc" xml:space="preserve"><value>Swipe-haptic ticks, report 0x42 button bits, the power-off command and the dongle relay, read from OpenPuck (AGPL-3.0), sc2-research (MIT), steam_controller_tools (GPL-2.0) and SteamlessController (MIT). Documentation only, no GPL or AGPL code ships.</value></data>
+  <data name="About_ThumbstickDeadzones" xml:space="preserve"><value>Thumbstick Deadzones</value></data>
+  <data name="About_ThumbstickDeadzonesDesc" xml:space="preserve"><value>The six deadzone shapes, by Minimuino. GPL-3.0, read as documentation only, no GPL code ships.</value></data>
+  <data name="About_Touchmote" xml:space="preserve"><value>Touchmote</value></data>
+  <data name="About_TouchmoteDesc" xml:space="preserve"><value>Wii Remote IR pointer behavior: dot-pair midpoint, margins, sensor-bar offset, smoothing and the FPS Mouse curve, with the Ryochan7, Suegrini and Trihy forks. GPL-3.0, read as documentation only, no GPL code ships.</value></data>
+  <data name="About_TriggerEffectGenerator" xml:space="preserve"><value>TriggerEffectGenerator</value></data>
+  <data name="About_TriggerEffectGeneratorDesc" xml:space="preserve"><value>DualSense adaptive-trigger effect layouts and zone packing, reproduced in C#, by John "Nielk1" Klein. MIT.</value></data>
+  <data name="About_ViGEmClient" xml:space="preserve"><value>ViGEmClient</value></data>
+  <data name="About_ViGEmClientDesc" xml:space="preserve"><value>The DS4_REPORT_EX layout behind the virtual DualShock 4 input report, by Benjamin Höglinger-Stelzer. MIT.</value></data>
+  <data name="About_ViiperHbashton" xml:space="preserve"><value>VIIPER (hbashton fork)</value></data>
+  <data name="About_ViiperHbashtonDesc" xml:space="preserve"><value>The virtual DualSense microphone's 48 dB attenuation range. GPL-3.0, read as documentation only, no GPL code ships.</value></data>
+  <data name="About_WheelRefs" xml:space="preserve"><value>Wheel protocol references</value></data>
+  <data name="About_WheelRefsDesc" xml:space="preserve"><value>Native force feedback and RPM shift LED reports for Fanatec, Thrustmaster and Logitech wheels, read from hid-fanatecff (GPL-2.0), hid-tmff2 (GPL-2.0-or-later), new-lg4ff (GPL-2.0), oversteer (GPL-3.0) and thrustmaster-led-linux (GPL-3.0), and cross-checked against the SimHub LED plugin by prodigal.knight (MIT) and tm-bt-led (MIT). Documentation only, no GPL code ships.</value></data>
+  <data name="About_WiiBrew" xml:space="preserve"><value>WiiBrew</value></data>
+  <data name="About_WiiBrewDesc" xml:space="preserve"><value>Wii Remote speaker protocol and IR calibration documentation. Read for protocol facts only.</value></data>
+  <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
+  <data name="About_X1nputDesc" xml:space="preserve"><value>The Xbox impulse-trigger 9-byte report and its write path, by araghon007. MIT.</value></data>
 </root>

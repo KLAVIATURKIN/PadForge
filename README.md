@@ -24,7 +24,7 @@
 
 **PadForge makes any input look like any controller.** Plug in a steering wheel. The game sees a PlayStation pad. Use a DualSense. The game sees an Xbox 360. Map your keyboard. The game sees a flight stick. Open a tab on your phone. That tab becomes a gamepad your PC games can use.
 
-Free Windows app. No subscription. No paywall. No nag screens. Built on .NET 10, HelixToolkit, HidHide, [HIDMaestro](https://github.com/hifihedgehog/HIDMaestro), [OpenXInput](https://github.com/hifihedgehog/OpenXinput), SDL3, Windows MIDI Services, and WPF UI.
+Free Windows app. No subscription. No paywall. No nag screens. Built on HelixToolkit, HidHide, [HIDMaestro](https://github.com/hifihedgehog/HIDMaestro), .NET 10, [OpenXInput](https://github.com/hifihedgehog/OpenXinput), SDL3, Windows MIDI Services, and WPF UI.
 
 PadForge is for sim racers running wheels in games that only understand Xbox controllers. For DualSense owners who want adaptive triggers and lightbar effects in Steam games that ignore them. For accessibility users mapping whatever hardware they can use. For anyone whose controller doesn't match what their game expects.
 
@@ -51,6 +51,15 @@ PadForge is for sim racers running wheels in games that only understand Xbox con
   <br>
   <em>Powered by HIDMaestro. One driver, 231 device profiles.</em>
 </p>
+
+<details>
+<summary><b>New in 4.5.3:</b> updates from inside PadForge, motion that survives an early save or a copy, and 2D labels on the first click</summary>
+
+- **PadForge updates itself.** Settings has a new Updates card. It checks GitHub 20 seconds after launch and every 12 hours, downloads the build for your processor, checks it against the SHA-256 checksum GitHub publishes, and installs it when you click Install and Restart, or at the next launch with Install Updates Automatically on. Include Pre-Releases adds the latest dev build. Diagnostics now shows the build beside the version. 4.5.2 and older have no updater, so reaching 4.5.3 takes this one manual download.
+- **Motion stays on after an early save or a copy.** A PlayStation slot saved before its DualSense arrived, or a slot filled by Copy and Paste or Copy From from a slot whose pad it lacks, came up with Motion Gyro and Motion Accelerometer empty. An empty motion row switches motion off, so the virtual DS4 had no gyro. Both paths now leave those rows for the auto-map to fill. A slot made before this fix keeps its empty rows: map them by hand, or delete the slot and add it again.
+- **The 2D annotation labels draw when you turn them on.** They used to appear only after the window was resized.
+
+</details>
 
 <details>
 <summary><b>New in 4.5.2:</b> HidHide, Vosk voice recognition and Xbox Elite paddles on Windows on ARM, and USB Elite paddles that stay on across Windows updates</summary>
@@ -216,13 +225,15 @@ Full documentation at [padforge.org/docs](https://padforge.org/docs/).
 ## Quick start
 
 1. Download the `win-x64` zip from the [latest release](https://github.com/hifihedgehog/PadForge/releases/latest) and extract `PadForge.exe`. On Windows on ARM, take the `win-arm64` zip.
-2. Run it. PadForge always runs elevated, so Windows shows the UAC prompt at startup. The first launch installs HIDMaestro inside that same elevated session.
+2. Run it. PadForge always runs elevated, so Windows shows the UAC prompt at startup. The first Xbox, PlayStation, Nintendo, or Extended virtual controller it starts installs HIDMaestro inside that same elevated session.
 3. Click **Add Controller** on the Dashboard. Pick Xbox, PlayStation, Nintendo, Extended, Keyboard + Mouse, MIDI, or VR.
-4. On the new slot, drag a physical device onto it from the sidebar.
+4. Open the Devices page and drag a physical device's card onto the new slot's card in the sidebar.
 5. Most controllers auto-map on assign. For the rest, click **Map All** to walk every button in one pass, or use the **Mappings** tab to bind one at a time.
 6. Launch your game. The game sees the virtual controller as real hardware.
 
 Most games "just work" after step 5. If a game sees both your physical and virtual controller at once, install HidHide from **Settings → HidHide Driver** to hide the physical one.
+
+From 4.5.3 on, **Settings → Updates** keeps PadForge current. It checks GitHub on its own and installs a new version in place, settings untouched.
 
 ---
 
@@ -234,11 +245,11 @@ PadForge translates a PS5 DualSense into the Xbox pad a Steam game expects. A Lo
 
 ### Pedals, wheel, and HOTAS throttle. One virtual stick.
 
-One mapping row can read from any number of physical inputs across any number of physical devices. Six combine modes (Strongest, Combined, Average, Either, Both, Only one) plus a drag-and-drop custom formula editor. Cross-device chords so a button on the wheel and a button on the shifter trigger one virtual press. A Primary Mode dropdown sets how the main source reads: Direct, Incremental, Invert On Hold, or Ramp. Ramp builds a stick axis from two keyboard keys. The Up key drives toward +1 and the Down key toward -1, each over an Attack time. Release ramps back to center over a Release time when Autocenter is on, or holds where you left it when off. A Reverse multiplier sets how fast it returns when you press the opposite key.
+One mapping row can read from any number of physical inputs across any number of physical devices. Six combine modes (Strongest, Combined, Average, Either, Both, Only One) plus a drag-and-drop custom formula editor. Cross-device chords so a button on the wheel and a button on the shifter trigger one virtual press. A Primary Mode dropdown sets how the main source reads: Direct, Incremental, Invert On Hold, or Ramp. Ramp builds a stick axis from two keyboard keys. The Up key drives toward +1 and the Down key toward -1, each over an Attack time. Release ramps back to center over a Release time when Autocenter is on, or holds where you left it when off. A Reverse multiplier sets how fast it returns when you press the opposite key.
 
 ### Squeeze a digital trigger like it's analog.
 
-Stick Trim is a combine mode on the mapping row. Hold a digital trigger to arm it, then a stick sets how hard it presses, from a feather to full. Each row gets its own deadzone and ramp rate, and you choose whether it snaps back to zero the moment you let go. A keyboard bumper becomes a trigger you can modulate.
+Stick Trim is a combine mode on the mapping row. Hold a digital trigger to arm it, then a stick sets how hard it presses, from a feather to full. Each row gets its own deadzone and ramp rate, and you choose whether that level snaps back to full the moment you let go. A keyboard bumper becomes a trigger you can modulate.
 
 ### Copy a controller onto a slot, one to one.
 
@@ -340,7 +351,7 @@ PadForge passes Xbox impulse trigger data straight to the assigned physical Xbox
 
 ### Rumble you can sit on.
 
-The Bass Shakers tab routes the game rumble and force feedback a virtual controller receives to any audio output as low-frequency tones, for bass shakers and subwoofers. Four voices (low motor, high motor, left and right trigger) each carry their own frequency from 20 to 120 Hz and gain, with a mono or controller-stereo channel split and a frequency sweep to find where your shaker responds strongest. Game feedback plays through the shaker. Macro and test rumble stay on the controller.
+The Bass Shakers tab routes the game rumble and force feedback a virtual controller receives to any audio output as low-frequency tones, for bass shakers and subwoofers. Four voices (low motor, high motor, left and right trigger) each carry their own frequency from 20 to 120 Hz and gain, with a mono or controller-stereo channel split and a frequency sweep to find where your shaker responds strongest. Game feedback and test rumble play through the shaker. Macro rumble stays on the controller.
 
 ### Adaptive triggers and lightbar that don't need the game's blessing.
 
@@ -383,7 +394,7 @@ Reference frames (Local, Player, World). Dual-threshold smoothing. Real-world ca
 
 ### Flick Stick, for aiming with a twist.
 
-Flick the right stick to its edge and the camera snaps to that direction, then rotates as you sweep the stick around the rim, while the gyro handles fine aim. PadForge reads flick sources from the right stick, the left stick, or a touchpad, and a rotation offset card corrects games whose camera turns more or less than the flick angle.
+Flick the right stick to its edge and the camera snaps to that direction, then rotates as you sweep the stick around the rim, while the gyro handles fine aim. PadForge reads flick sources from the right stick, the left stick, or a touchpad, and a Dots per 360° setting corrects games whose camera turns more or less than the flick angle.
 
 ### Point at the screen like a Wii menu.
 
@@ -411,13 +422,13 @@ The built-in DSU / Cemuhook server broadcasts gyroscope and accelerometer on UDP
 
 DSU serves slots 1 through 4 independently of their virtual output type. A sensor-equipped controller assigned to an Xbox slot can provide Xbox buttons and sticks alongside DSU motion, with no motion mapping required.
 
-All sources on a motion row participate in its combine mode, using the same axis combiner as other mappings: MaxAbs by default, or Sum, Average, or Custom. Gyroscope and accelerometer channels are reconciled independently after each source's calibration, grip, and optional tuning. Native motion output and DSU receive the same reconciled result.
+All sources on a motion row participate in its combine mode, using the same axis combiner as other mappings: Strongest by default, or Combined, Average, or Custom. Gyroscope and accelerometer channels are reconciled independently after each source's calibration, grip, and optional tuning. Native motion output and DSU receive the same reconciled result.
 
-When neither motion row exists, DSU applies the default MaxAbs combine to every enabled, assigned device with the relevant sensor. For example, a Steam Controller and DualSense assigned to the same virtual Xbox controller can both contribute motion. Each virtual controller still has one DSU stream. An explicit Gyro or Accelerometer motion row remains authoritative, including empty or offline sources. Virtual HID motion continues to follow its mappings.
+When neither motion row exists, DSU applies the default Strongest combine to every enabled, assigned device with the relevant sensor. For example, a Steam Controller and DualSense assigned to the same virtual Xbox controller can both contribute motion. Each virtual controller still has one DSU stream. An explicit Gyro or Accelerometer motion row remains authoritative, including empty or offline sources. Virtual HID motion continues to follow its mappings.
 
 ### The Joy-Con 2 is a mouse. So use it like one.
 
-A Nintendo Switch 2 Joy-Con has an optical sensor on its face. Set it on a desk and slide it. Two new sources, Mouse Motion X and Mouse Motion Y, drive a stick for mouse-look, a button, or the scroll wheel, each with its own Sensitivity from 0.1 to 5.0. The right Joy-Con's IR camera also reports a brightness value you can map, so covering the sensor works like a button.
+A Nintendo Switch 2 Joy-Con has an optical sensor on its face. Set it on a desk and slide it. Two new sources, Mouse Motion X and Mouse Motion Y, drive a stick for mouse-look, a button, or the scroll wheel, each with its own Sensitivity from 0.1 to 5.0. The first-generation right Joy-Con's IR camera reports a brightness value you can map, so covering the sensor works like a button.
 
 ---
 
@@ -471,7 +482,7 @@ Two sim racers on two wheels at once. A flight stick plus throttle plus rudder p
 
 ### The PlayStation 3 pad, wired or wireless.
 
-Plug a DualShock 3 in over USB and PadForge binds it with WinUSB on the spot, no manual driver dance. To go wireless, open the Devices page and pair it over Bluetooth. PadForge installs a signed BthPS3 driver on demand, and the radio keeps working for everything else. Sixaxis motion runs through the gyro pipeline, and the ten pressure axes, rumble, the player LED, and battery all report. Unplug the pad and PadForge tears the pairing down behind it.
+Plug a DualShock 3 in over USB and PadForge binds it with WinUSB on the spot, no manual driver dance. To go wireless, open the Devices page and pair it over Bluetooth. PadForge installs a signed BthPS3 driver on demand, and the radio keeps working for everything else. Sixaxis motion runs through the gyro pipeline, and the ten pressure axes, rumble, the player LED, and battery all report. Remove the pad from the Devices page and PadForge tears the pairing down behind it.
 
 ![Pair a DualShock 3](screenshots/ds3-pair.jpg)
 
@@ -499,7 +510,7 @@ Turn on Disconnect Bluetooth When Plugged In over USB and a controller that repo
 
 ## PadForge vs other controller mappers
 
-Comparison reflects each tool's shipping release as of July 2026, with the rows added for 4.4.0 re-checked in September 2026. Verified against each project's own docs and source: x360ce v4.17.15.0 (last release Nov 2020), XOutput v3.32 (archived and deprecated Dec 2024), reWASD v9.4.0 (May 2026), ds4windowsapp/DS4Windows v3.5 (Feb 2026), and Steamworks Documentation (Action Set Layers / Activators / Mode Shifting / Input Source Modes). ⚠️ means the feature exists but is limited or unverified at the level of detail PadForge implements it.
+Comparison reflects each tool's shipping release as of July 2026, with the rows added for 4.4.0 re-checked in September 2026. Verified against each project's own docs and source: x360ce v4.17.15.0 (last release Nov 2020), XOutput v3.32 (archived and deprecated Dec 2024), reWASD v9.4.0 (May 2026), ds4windowsapp/DS4Windows v3.5 (Feb 2026), and Steamworks Documentation (Action Set Layers / Activators / Mode Shifting / Input Source Modes). ⚠ means the feature exists but is limited or unverified at the level of detail PadForge implements it.
 
 <details>
 <summary><b>Feature by feature</b></summary>
@@ -516,12 +527,12 @@ Comparison reflects each tool's shipping release as of July 2026, with the rows 
 | DualSense virtual output | ✅ | ❌ | ❌ | ❌ input only | ❌ | ❌ |
 | Switch Pro virtual output | ✅ via HIDMaestro | ❌ | ❌ | ✅ | ❌ | ❌ |
 | Steam Deck / Steam Controller virtual output | ✅ via HIDMaestro, Valve VID/PID, both trackpads | ❌ | ❌ | ❌ Xbox 360 / Xbox One / DS4 / Switch Pro / DS3 only | ❌ xbox360 / dualshock4 only | ❌ |
-| Flight stick / wheel / HOTAS virtual output (DirectInput) | ✅ 231 HM profiles | ❌ | ❌ | ❌ | ❌ | ❌ |
+| Flight stick / wheel / HOTAS virtual output (DirectInput) | ✅ 133 of HIDMaestro's 231 profiles + Custom | ❌ | ❌ | ❌ | ❌ | ❌ |
 | MIDI virtual output | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | MIDI input as a mapping source | ✅ notes / CC / pitch bend / encoders | ❌ | ❌ | ❌ | ❌ | ❌ |
 | Keyboard + Mouse virtual output | ✅ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| Multi-source per row (one output, many inputs) | ✅ 6 combine modes + formula | ⚠️ "Combine Into" merges pads | ⚠️ MapperDataCollection (basic) | ❌ uses per-input Activators | ❌ | ⚠️ per-input Activators |
-| Custom formula editor (arithmetic, logic, if-then-else) | ✅ drag-and-drop operators + 10 starter recipes | ❌ | ❌ | ❌ | ❌ | ❌ |
+| Multi-source per row (one output, many inputs) | ✅ 6 combine modes + formula | ⚠ "Combine Into" merges pads | ⚠ MapperDataCollection (basic) | ❌ uses per-input Activators | ❌ | ⚠ per-input Activators |
+| Custom formula editor (arithmetic, logic, if-then-else) | ✅ drag-and-drop operators + 15 starter recipes | ❌ | ❌ | ❌ | ❌ | ❌ |
 | Shift layers / modifier overlays | ✅ Hold / Toggle / Latch / Cycle / Sticky / No Button | ❌ | ❌ | ✅ up to 10 (Hold / Toggle / Custom) | ✅ Mode Shifts | ✅ Action Set Layers (stackable) |
 | Cross-device chords (input on pad A + input on pad B) | ✅ | ❌ | ❌ | ✅ via Group of devices | ❌ | ❌ same controller only |
 | SOCD cleaning (opposite-key resolution) | ✅ last-wins Snap Tap / first-wins / neutral, keys and controller buttons | ❌ | ❌ | ❌ open feature request | ❌ | ❌ |
@@ -529,27 +540,27 @@ Comparison reflects each tool's shipping release as of July 2026, with the rows 
 | Gyro mapping | ✅ Local / Player / World, RWC, Aim Engage, Flick Stick | ❌ | ❌ | ✅ since v5.3 (curves, Flick Stick) | ✅ gyro-to-mouse, gyro-to-RS | ✅ |
 | Xbox Impulse Trigger passthrough | ✅ + DualSense AT Vibration auto-route | ❌ | ❌ | ✅ Xbox One output only | ❌ | ❌ |
 | Constant trigger force | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| Stick-assisted analog triggers (a stick ramps a held digital trigger) | ✅ Stick Trim, per-mapping deadzone / rate / reset | ❌ | ❌ | ⚠️ trigger output + 3-zone actuation, not graded-from-digital | ❌ | ❌ |
+| Stick-assisted analog triggers (a stick ramps a held digital trigger) | ✅ Stick Trim, per-mapping deadzone / rate / reset | ❌ | ❌ | ⚠ trigger output + 3-zone actuation, not graded-from-digital | ❌ | ❌ |
 | Audio-bass trigger rumble | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | Audio-bass body rumble | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| DualSense Adaptive Triggers | ✅ 7 modes + GameCube preset | ❌ | ❌ | ✅ 11 presets | ⚠️ limited | ❌ |
-| DualSense lightbar | ✅ 14 modes inc. Strobe + Battery | ❌ | ❌ | ✅ 6 modes + Player LED + Mic LED | ⚠️ basic, no audio | ⚠️ unverified |
+| DualSense Adaptive Triggers | ✅ 7 modes + GameCube preset | ❌ | ❌ | ✅ 11 presets | ⚠ limited | ❌ |
+| DualSense lightbar | ✅ 14 modes inc. Strobe + Battery | ❌ | ❌ | ✅ 6 modes + Player LED + Mic LED | ⚠ basic, no audio | ⚠ unverified |
 | Xbox Guide button LED brightness | ✅ Xbox One / Elite / Series + Steam Controller, fixed or battery-following | ❌ | ❌ | ❌ | ❌ | ❌ |
 | Controller speaker audio (DualSense / DualShock 4) | ✅ mirror Windows audio + macro sounds, USB / BT | ❌ | ❌ | ❌ | ❌ | ❌ |
-| Touchpad: joystick / D-pad / mouse + gesture engine | ✅ joystick (anchor-relative), wedge D-pad, per-axis mouse (sensitivity + invert), in-box gestures (4-way / 8-way swipes, taps, longpress, pinch, rotate, two- to five-finger), shape templates (Circle in either direction, Square, Triangle, Z, Checkmark), custom recorded shapes | ❌ | ❌ | ⚠️ touchpad-as-mouse / -as-stick + click, no gesture engine | ⚠️ touchpad-as-mouse + four-direction Touchpad Swipe bindings | ⚠️ joystick / D-pad / mouse / touch menu, no multi-finger or shape recognition |
-| HID PID 1.0 force feedback (wheels) | ✅ | ✅ constant + periodic (DirectInput) | ⚠️ basic passthrough only | ❌ | ❌ | ❌ |
+| Touchpad: joystick / D-pad / mouse + gesture engine | ✅ joystick (anchor-relative), wedge D-pad, per-axis mouse (sensitivity + invert), in-box gestures (4-way / 8-way swipes, taps, longpress, pinch, rotate, two- to five-finger), shape templates (Circle in either direction, Square, Triangle, Z, Checkmark), custom recorded shapes | ❌ | ❌ | ⚠ touchpad-as-mouse / -as-stick + click, no gesture engine | ⚠ touchpad-as-mouse + four-direction Touchpad Swipe bindings | ⚠ joystick / D-pad / mouse / touch menu, no multi-finger or shape recognition |
+| HID PID 1.0 force feedback (wheels) | ✅ | ✅ constant + periodic (DirectInput) | ⚠ basic passthrough only | ❌ | ❌ | ❌ |
 | Native wheel FFB protocol (Logitech / Fanatec / Thrustmaster) | ✅ + rotation range, auto-center, RPM LEDs | ❌ | ❌ | ❌ | ❌ | ❌ |
 | DSU / Cemuhook motion server (Cemu, Dolphin, Yuzu, Ryujinx) | ✅ | ❌ | ❌ | ✅ port 26760 | ✅ | ❌ |
-| Phone as controller | ✅ in-browser, no app install, up to 16 phones at once, touchpad layout included | ❌ | ❌ | ⚠️ reWASD Mobile app (one phone, no touchpad layout) | ❌ | ❌ |
+| Phone as controller | ✅ in-browser, no app install, up to 16 phones at once, touchpad layout included | ❌ | ❌ | ⚠ reWASD Mobile app (one phone, no touchpad layout) | ❌ | ❌ |
 | Share a controller with another PC's games over a network | ✅ Remote Link, LAN or internet by code, both directions, feedback returns | ❌ | ❌ | ❌ | ❌ | ❌ |
 | Per-app profile switching | ✅ | ✅ since v4.17.12 (Nov 2020) | ❌ | ✅ Autodetect | ✅ | ✅ per-game by design |
-| Profile switching driven by a launcher or script | ✅ local named pipe, profile held until released | ⚠️ unverified | ⚠️ unverified | ✅ reWASDCommandLine `apply` | ✅ `-command LoadProfile` / `LoadTempProfile` | ⚠️ unverified |
+| Profile switching driven by a launcher or script | ✅ local named pipe, profile held until released | ⚠ unverified | ⚠ unverified | ✅ reWASDCommandLine `apply` | ✅ `-command LoadProfile` / `LoadTempProfile` | ⚠ unverified |
 | Max simultaneous virtual controllers | 16 | 4 (hard-coded PAD1-4 in UI) | 4 (UI matches XInput slot indices) | 4 (Slot UI cap) | 4 (Output Slots UI cap) | 1 per physical pad |
-| 1000 Hz polling | ✅ | ⚠️ unverified | ⚠️ unverified | ✅ user-selectable 500 / 1000 Hz | ✅ on USB DS4 | ⚠️ unverified |
-| 3D + 2D controller visualization | ✅ | ⚠️ 2D Xbox 360 only | ❌ | ⚠️ 2D only | ⚠️ basic | ⚠️ configurator preview |
-| Multi-point sensitivity curve editor | ✅ unlimited points | ⚠️ single slider | ⚠️ deadzone only | ✅ custom 4-point | ⚠️ preset curves | ✅ response curves |
-| 2026 Steam Controller support | ✅ via SDL3 fork | ❌ | ❌ | ⚠️ unverified | ❌ | ✅ |
-| Handheld PC hidden buttons (rear paddles, vendor hotkeys) as mappable inputs | ✅ learned per device, no per-model table | ⚠️ unverified | ⚠️ unverified | ❌ documented unsupported on ROG Ally and Ayaneo | ⚠️ unverified | ⚠️ unverified |
+| 1000 Hz polling | ✅ | ⚠ unverified | ⚠ unverified | ✅ user-selectable 500 / 1000 Hz | ✅ on USB DS4 | ⚠ unverified |
+| 3D + 2D controller visualization | ✅ | ⚠ 2D Xbox 360 only | ❌ | ⚠ 2D only | ⚠ basic | ⚠ configurator preview |
+| Multi-point sensitivity curve editor | ✅ unlimited points | ⚠ single slider | ⚠ deadzone only | ✅ custom 4-point | ⚠ preset curves | ✅ response curves |
+| 2026 Steam Controller support | ✅ via SDL3 fork | ❌ | ❌ | ⚠ unverified | ❌ | ✅ |
+| Handheld PC hidden buttons (rear paddles, vendor hotkeys) as mappable inputs | ✅ learned per device, no per-model table | ⚠ unverified | ⚠ unverified | ❌ documented unsupported on ROG Ally and Ayaneo | ⚠ unverified | ⚠ unverified |
 | DualShock 3 support | ✅ USB + in-app Bluetooth pairing, sixaxis, pressure, rumble | ❌ | ❌ | ✅ input + gyro | ✅ input, accel pitch/roll | ✅ native, no gyro |
 | Wii Remote / Nunchuk / Classic / Wii U Pro as a source | ✅ all four forms, in-app pairing, IR pointer | ❌ | ❌ | ✅ pairing, no IR pointer (v9.4+) | ❌ | ❌ |
 
@@ -618,7 +629,7 @@ Controller speaker output for the DualSense and DualShock 4. Pick a Windows audi
 
 ### Touchpad
 ![Touchpad](screenshots/touchpad.jpg)
-Per-slot touchpad tuning on any source with a touchpad surface (DualSense, DualSense Edge, DS4, Steam Controller, Steam Deck, Steam Controller 2026, Web Controller, on-screen Touchpad Overlay, Windows Precision Touchpad). Six cards: Stick / D-Pad Output (anchor-relative virtual stick + wedge D-pad), Mouse Output (per-axis sensitivity, invert, and a Simple or Trackpad pointer response with acceleration), Gesture Detection (master enable + cooldown), In-Box Gestures (swipes, taps, longpress, pinch, rotate, two- to five-finger, shape templates), Custom Gestures (recorded shape templates per profile), and Swipe Haptics (travel ticks with intensity).
+Per-slot touchpad tuning on any source with a touchpad surface (DualSense, DualSense Edge, DS4, Steam Controller, Steam Deck, Steam Controller 2026, Web Controller, on-screen Touchpad Overlay, Windows Precision Touchpad). Eight cards: Stick / D-Pad Output (anchor-relative virtual stick + wedge D-pad), Mouse Output (per-axis sensitivity, invert, and a Simple or Trackpad pointer response with acceleration), Absolute Pointer (the screen region the pointer sources map onto), Synthetic Pressure (a set pressure for pads that report every touch at full pressure), Gesture Detection (master enable + cooldown), In-Box Gestures (swipes, taps, longpress, pinch, rotate, two- to five-finger, shape templates), Custom Gestures (recorded shape templates per profile), and Swipe Haptics (travel ticks with intensity).
 
 ### Wii pointer modes
 ![Wii pointer modes](screenshots/pointer.jpg)
@@ -670,7 +681,7 @@ Hold a mouse button and flick up, down, left, or right. Each direction, plus a c
 
 ### Extended virtual controller
 ![Extended](screenshots/extended.jpg)
-Flight sticks, racing wheels, HOTAS, third-party gamepads. 231 HIDMaestro profiles plus a Custom mode that builds a HID descriptor from scratch. Up to 8 axes, 128 buttons, 4 POV hats. Configurable VID, PID, and product string.
+Flight sticks, racing wheels, HOTAS, third-party gamepads. HIDMaestro ships 231 profiles, and PadForge offers the 133 that carry a captured HID descriptor, across the Xbox, PlayStation, Nintendo and Extended types, plus a Custom mode that builds a HID descriptor from scratch. Up to 8 axes, 128 buttons, 4 POV hats. Configurable VID, PID, and product string.
 
 ### Steam Deck virtual controller
 <!-- pending capture: ![An Extended slot presenting a Steam Deck](screenshots/pad-extended-steam-deck.jpg) -->
@@ -748,7 +759,11 @@ Learn a handheld's rear paddles, menu keys, and vendor hotkeys by pressing each 
 
 ### Settings
 ![Settings](screenshots/settings.jpg)
-Language (10 locales, live-switch with no restart). Theme (System Default / Light / Dark). Polling interval (1-16 ms). Auto-start at login, minimize to tray, master input-hiding toggle. Driver status for HidHide, HIDMaestro, Windows MIDI Services, and SteamVR.
+Language (10 locales, live-switch with no restart). Theme (System Default / Light / Dark). Updates. Polling interval (1-16 ms). Auto-start at login, minimize to tray, master input-hiding toggle. Driver status for HidHide, HIDMaestro, Windows MIDI Services, and SteamVR.
+
+### Updates
+![Updates](screenshots/settings-updates.jpg)
+Checks GitHub 20 seconds after launch and every 12 hours. Install and Restart replaces PadForge.exe in place, or Install Updates Automatically installs at the next launch. Include Pre-Releases adds the latest dev build.
 
 </details>
 
@@ -757,8 +772,8 @@ Language (10 locales, live-switch with no restart). Theme (System Default / Ligh
 ## Known limits
 
 - PadForge runs elevated so it can install and manage the HIDMaestro driver. Non-elevated games still read the virtual controllers normally.
-- HidHide's device hiding is global per user account, not per-game.
-- MIDI input and the MIDI virtual controller both need Windows MIDI Services (Windows 11 24H2 / build 26100 or later). On older systems neither appears.
+- HidHide's device hiding is machine-wide, not per-game.
+- MIDI input and the MIDI virtual controller both need Windows MIDI Services (Windows 11 24H2 / build 26100 or later). On older systems neither is available.
 
 ---
 
@@ -783,12 +798,13 @@ The ARM64 build has not run on ARM64 hardware yet.
 
 ### Drivers
 
-PadForge installs **HIDMaestro** on first run. HIDMaestro is the engine that creates virtual controllers. Add a slot and HIDMaestro spins up a HID device matching the controller "shape" you picked.
+PadForge installs **HIDMaestro** the first time it starts an Xbox, PlayStation, Nintendo, or Extended virtual controller. HIDMaestro is the engine that creates virtual controllers. Assign a device to a slot and HIDMaestro spins up a HID device matching the controller "shape" you picked. The first composite USB controller it creates also installs usbip-win2, which HIDMaestro carries inside itself.
 
-Two more drivers are optional. PadForge offers to install each one only when you need its feature:
+Three more drivers are optional. PadForge offers to install each one only when you need its feature:
 
 | Driver | Install when |
 |---|---|
+| [BthPS3](https://github.com/nefarius/BthPS3) | You pair a DualShock 3, PlayStation Move, or Navigation controller over Bluetooth |
 | [HidHide](https://github.com/nefarius/HidHide) | A game sees both your physical and virtual controller at once |
 | [Windows MIDI Services](https://github.com/microsoft/MIDI) | You want MIDI input or the MIDI virtual controller |
 
@@ -812,7 +828,7 @@ See [BUILD.md](BUILD.md) for project structure, architecture notes, and develope
 
 ## Don't see your controller in the picker?
 
-PadForge's controller picker is the set of HIDMaestro profiles that ship with a captured HID descriptor. A few controllers are missing their captures, so they don't appear yet. If you own one of those controllers, you can capture it yourself from inside PadForge. No extra tools, no admin.
+PadForge's controller picker is the set of HIDMaestro profiles that ship with a captured HID descriptor. Of HIDMaestro's 231 profiles, 98 are missing their captures, so they don't appear yet. If you own one of those controllers, you can capture it yourself from inside PadForge. No extra tools, no admin.
 
 To capture and use a profile locally:
 
@@ -849,67 +865,109 @@ PadForge stands on these projects. Please consider supporting them directly.
 
 | Project | Role | License |
 |---|---|---|
-| [Aurora](https://github.com/Aurora-RGB/Aurora) and friends | Logitech LED SDK engine entry points and calling convention behind the LIGHTSYNC lightbar mirror, with [Artemis.Plugins](https://github.com/Artemis-RGB/Artemis.Plugins), [RGB.NET](https://github.com/DarthAffe/RGB.NET), [Logitech-LED](https://github.com/sidewinder94/Logitech-LED), [logitech-led-sdk-rs](https://github.com/nathaniel-daniel/logitech-led-sdk-rs) and [LogiLed2Corsair](https://github.com/VRocker/LogiLed2Corsair). PadForge loads G HUB's own engine and ships no Logitech code | MIT, PolyForm Noncommercial, LGPL-2.1, GPL-2.0, Apache-2.0 |
+| [AntiMicroX](https://github.com/AntiMicroX/antimicrox) | Strategy and desktop layouts behind the starter profiles, and the turbo behavior the pressure-scaled turbo avoids. Documentation only, no GPL code ships | GPL-3.0 |
+| [AudioEndPointLibrary](https://github.com/Belphemur/AudioEndPointLibrary) | Layout of Windows' undocumented IPolicyConfig interface, which PadForge uses to re-enable a controller's audio endpoint, by Antoine Aflalo. Documentation only, no code ships | MIT |
+| [Aurora](https://github.com/Aurora-RGB/Aurora) and friends | Logitech LED SDK engine entry points and calling convention behind the LIGHTSYNC lightbar mirror, with [Artemis.Plugins](https://github.com/Artemis-RGB/Artemis.Plugins), [LogiLed2Corsair](https://github.com/VRocker/LogiLed2Corsair), [Logitech-LED](https://github.com/sidewinder94/Logitech-LED), [logitech-led-sdk-rs](https://github.com/nathaniel-daniel/logitech-led-sdk-rs) and [RGB.NET](https://github.com/DarthAffe/RGB.NET). PadForge loads G HUB's own engine and ships no Logitech code | MIT, PolyForm Noncommercial, GPL-2.0, MIT OR Apache-2.0, LGPL-2.1 |
+| [AutoEq](https://github.com/jaakkopasanen/AutoEq) | The parametric EQ profile format the Audio tab imports, by Jaakko Pasanen. Format reference only, no code ships | MIT |
+| [AutoHotkey](https://github.com/AutoHotkey/AutoHotkey) | SendInput techniques behind Text Block macros and the keyboard chord hook: Unicode typing, batch limits, the Win-key mask key and tagged injected input. Documentation only, no GPL code ships | GPL-2.0 |
 | [Bouncy Castle](https://github.com/bcgit/bc-csharp) | Remote Link pairing and transport cryptography: X25519, Ed25519, ChaCha20-Poly1305 | MIT |
 | [bs2b](https://github.com/kcat/openal-soft/blob/master/core/bs2b.cpp) | Bauer stereophonic-to-binaural crossfeed for the controller headphone output, by Boris Mikhaylov | MIT |
 | [BthPS3](https://github.com/nefarius/BthPS3) | Bundled Bluetooth profile driver + PSM filter that lets a DualShock 3 connect. PadForge installs it in-app at pairing time and the radio stays shared | BSD 3-Clause |
+| [cemuhook-protocol](https://github.com/v1993/cemuhook-protocol) | DSU protocol reference behind the motion server, by v1993 | Unlicense |
 | [Colore](https://github.com/chroma-sdk/Colore) | Razer Chroma REST API framing corroboration for the lightbar mirror, by Adam Hellberg and Brandon Scott. Documentation only, no code ships | MIT |
 | [CommunityToolkit.Mvvm](https://github.com/CommunityToolkit/dotnet) | MVVM data binding framework | MIT |
 | [Concentus](https://github.com/lostromb/concentus) | Pure C# Opus encoder for DualSense speaker audio over Bluetooth, by Logan Stromberg | BSD 3-Clause |
-| [Dolphin](https://github.com/dolphin-emu/dolphin) | Wii controller documentation: the Bluetooth pairing ceremony's Win32 call order and the Wii Remote speaker's Yamaha ADPCM constants. Documentation only, no GPL code ships | GPL-2.0 |
+| [Dolphin](https://github.com/dolphin-emu/dolphin) | Wii controller documentation (the Bluetooth pairing ceremony's Win32 call order and the Wii Remote speaker's Yamaha ADPCM constants), the stick-gate model and its storage format, and the gyro axis convention. Documentation only, no GPL code ships | GPL-2.0 |
 | [DS4AudioStreamer](https://github.com/nefarius/DS4AudioStreamer) | DualShock 4 Bluetooth audio reference by nefarius: report 0x14/0x17 framing, frame counter, and volume-enable layout for PadForge's DS4 speaker stream. PadForge's SBC encoder is an original C# implementation from the Bluetooth A2DP specification (no libsbc code) | MIT |
+| [ds4drv](https://github.com/chrippa/ds4drv) | DualShock 4 Bluetooth output-report framing, by Christopher Rosell | MIT |
 | [ds4mac](https://github.com/khallmark/ds4mac) | DualShock 4 audio protocol documentation: SBC parameters, packet layouts, and the finding that DS4 audio is Bluetooth-only. Documentation only, no GPL code ships | GPL-2.0 |
-| [DS4Windows](https://web.archive.org/web/2023/https://github.com/Ryochan7/DS4Windows) | DualShock behavior documentation: idle-disconnect slop, touchpad boundaries, battery decode, by Ryochan7. Documentation only, no GPL code ships. The link is an archived copy, since the repository was deleted | GPL-3.0 |
+| [DS4MapperTest](https://github.com/Ryochan7/DS4MapperTest) | DualShock 4 battery ranges, touchpad haptic pulse timing and intensity steps for the DualShock 4 and Steam Controller (2015), and touchpad fling behavior. Documentation only, no GPL code ships | GPL-3.0 |
+| [DS4Windows](https://web.archive.org/web/2023/https://github.com/Ryochan7/DS4Windows) | DualShock behavior documentation by Ryochan7: idle-disconnect slop, touchpad boundaries, battery decode, the Bluetooth disconnect IOCTL, the DualSense rumble-mode bits, the gyro jitter curve, the stick-as-mouse scale and the Bluetooth output-report CRC seed. Documentation only, no GPL code ships. The link is an archived copy, since the repository was deleted | GPL-3.0 |
+| [DS4Windows (hbashton fork)](https://github.com/hbashton/DS4Windows) | DualSense audio volume ranges, signed 8-bit haptic samples and the combined Bluetooth transport layout. Documentation only, no GPL code ships | GPL-3.0 |
 | [DS5_Bridge](https://github.com/SundayMoments/DS5_Bridge) | Jack-detect audio routing pattern behind Follow Headphone Jack, by SundayMoments. Documentation only, no AGPL code ships | AGPL-3.0 |
+| [DS5Dongle](https://github.com/awalol/DS5Dongle) | Default and floor of the DualSense Bluetooth audio buffer length, by awalol | MIT |
 | [DsHidMini](https://github.com/nefarius/DsHidMini) | DualShock 3 protocol reference: sixpair feature reports, Bluetooth output-report template, enable ordering, battery map | BSD 3-Clause |
 | [duaLib](https://github.com/WujekFoliarz/duaLib) | DualSense output-report byte map and Sony scePad semantics, by WujekFoliarz | MIT |
 | [dualsense-bt-haptics](https://github.com/awalol/dualsense-bt-haptics) | Bluetooth speaker recipe by awalol: Opus framing and packet layout (HeadsetPlayMusic) | MIT |
 | [dualsense-tester](https://github.com/daidr/dualsense-tester) | Browser DualSense test suite by Xuezhou Dai ([ds.daidr.me](https://ds.daidr.me/)): reference for the Sony feature-report CRC framing and firmware test commands PadForge forwards from virtual to physical pads | MIT |
+| [DualSenseSupport](https://github.com/Mxater/DualSenseSupport) | GameCube adaptive-trigger preset values, by Mxater. Facts only, no code copied | none published |
 | [DualSenseY-v2](https://github.com/WujekFoliarz/DualSenseY-v2) | Reference implementation for USB controller audio passthrough and adaptive trigger effects, by WujekFoliarz | none published |
+| [Eden](https://git.eden-emu.dev/eden-emu/eden) | DSU motion axis signs, checked against its UDP decoder. Documentation only, no GPL code ships | GPL-3.0 |
+| [EDRefCard2](https://github.com/brammmers/edrefcard2) | Elite Dangerous default presets behind the Space Sim starter profile, by Richard Buckle | MIT |
+| [FFmpeg](https://github.com/FFmpeg/FFmpeg) | The Wii Remote speaker's ADPCM nibble order, and the SBC decoder that checked the DualShock 4 encoder. Documentation only, no LGPL code ships | LGPL-2.1-or-later |
+| [Fusion](https://github.com/xioTechnologies/Fusion) | Tilt-compensated compass heading behind compass yaw, ported to C#, and its default AHRS correction gain, by x-io Technologies | MIT |
+| [Gamepad Battery Monitor](https://github.com/fruel/GamepadBatteryMonitor) | Low-battery notification rule and the Identify rumble pattern, by Lukas Frühstück | MIT |
 | [Gamepad-Asset-Pack](https://github.com/AL2009man/Gamepad-Asset-Pack) | 2D controller PNG schematics (Xbox 360, Xbox One S, Xbox Series, DualShock 4, DualSense) | MIT |
 | [GamepadMotionHelpers](https://github.com/JibbSmart/GamepadMotionHelpers) | Player/world-space gyro conversion and the Gyro Tilt gravity estimate, by JibbSmart | MIT |
 | [GestureSign](https://github.com/TransposonY/GestureSign) | Touchpad angular-margin matcher: follows the scoring algorithm of GestureSign's PointPatternAnalyzer. Documentation only, no GPL code ships | GPL-2.0 |
-| [Handheld Companion](https://github.com/Valkirie/HandheldCompanion) | 3D controller OBJ meshes (Xbox 360, Xbox One, DualShock 4, DualSense, Steam Deck) | CC BY-NC-SA 4.0 |
+| [hado](https://www.cgtrader.com/designers/hado) | 3D models of the DualShock 4, DualSense, DualSense Edge, Xbox Series and Switch 2 Pro Controller, bought on CGTrader and split into per-part meshes | CGTrader Royalty Free License |
+| [Handheld Companion](https://github.com/Valkirie/HandheldCompanion) | 3D controller OBJ meshes (Xbox 360, Steam Deck) and the 3D view's model and animation code. Also the reference for the Steam Deck report and haptic decode, the Steam Controller (2015) power-off report, the handheld daemon watch list and the update check timing | CC BY-NC-SA 4.0 |
 | [HelixToolkit](https://github.com/helix-toolkit/helix-toolkit) | 3D viewport rendering for WPF | MIT |
+| [HIDAPI](https://github.com/libusb/hidapi) | The HID layer compiled into the bundled SDL3.dll, by Alan Ott, Signal 11 Software. PadForge's own raw HID writes follow its Windows backend | BSD-style (LICENSE-bsd.txt) |
 | [HidHide](https://github.com/nefarius/HidHide) | Per-device hiding driver to prevent double input. The x64 setup, and upstream's Microsoft-signed ARM64 driver for Windows on ARM | MIT |
 | [HIDMaestro](https://github.com/hifihedgehog/HIDMaestro) | User-mode UMDF2 virtual HID controller engine with 231 device profiles | MIT |
 | [hitboxer](https://github.com/valignatev/hitboxer) | SOCD-cleaning semantics reference for the Keyboard & Mouse Snap Tap modes, by valignatev | MIT |
+| Icon sources | The flame glyph from [Material Design Icons](https://github.com/Templarian/MaterialDesign) (Pictogrammers), the generic gamepad icon from [Ionicons](https://github.com/ionic-team/ionicons) (Ionic), the Extended joystick from [Jam Icons](https://jam-icons.com/) (Michael Amprimo), and the Xbox and PlayStation icons from [SVG Repo](https://www.svgrepo.com/) | Apache-2.0 (Material Design Icons), MIT (Ionicons, Jam Icons), license per icon page (SVG Repo) |
 | [InputPlumber](https://github.com/ShadowBlip/InputPlumber) | Handheld PC identity strings and vendor-report notes cross-checked for the hidden-button learner. Documentation only, no GPL code ships | GPL-3.0 |
 | [Interhaptics](https://github.com/WyvrnOfficial/Interhaptics_Unity_CoreSDK) | Haptic engine and Razer provider behind the Razer Sensa HD haptics mirror, by Wyvrn. Ships unmodified inside the executable as `HAR.dll` and `Interhaptics.RazerProvider.dll` | Wyvrn EULA |
+| [iroh](https://github.com/n0-computer/iroh) and [FlexInput](https://github.com/x-iso/FlexInput) | Remote Link's relay fallback: the iroh relay protocol, spoken to n0.computer's free public relays, as FlexInput does. Documentation only, no code ships | MIT OR Apache-2.0, MIT |
+| [jc2mouse](https://github.com/coffincolors/jc2mouse), [joycon2cpp](https://github.com/TheFrano/joycon2cpp) and [joycon2mouse](https://github.com/moutella/joycon2mouse) | Joy-Con 2 optical mouse counters: report bytes, 16-bit wraparound deltas and the warm-up guard behind Mouse Motion X and Y. Documentation only, no code ships | MIT |
 | [joycon-singer](https://github.com/Sergey004/joycon-singer) | Joy-Con HD-rumble wire-format documentation, cross-checked against dekuNukem's research. Facts only | none published |
 | [JoyShockMapper](https://github.com/Electronicks/JoyShockMapper) | Winding-angle steering and lean math, ported to C# for the 2D-steering sources, by JibbSmart and Electronicks | MIT |
 | [Kaldi](https://github.com/alphacep/kaldi), [OpenFst](https://github.com/alphacep/openfst), [OpenBLAS](https://github.com/OpenMathLib/OpenBLAS) and [CLAPACK](https://github.com/alphacep/clapack) | The speech decoder, transducer library and linear algebra libvosk is made of, linked statically into it. CLAPACK brings the f2c runtime, which carries its own notice | Apache-2.0 (Kaldi, OpenFst), BSD 3-Clause (OpenBLAS, CLAPACK) |
 | [Lenovo Legion Toolkit](https://github.com/BartoszCichecki/LenovoLegionToolkit) | The Lenovo WMI utility-event class the handheld hidden-button learner subscribes to, and the elevated IPC server pattern behind external profile control. Documentation only, no GPL code ships | GPL-3.0 |
-| [libinput](https://gitlab.freedesktop.org/libinput/libinput) | Trackpad pointer acceleration curve: the touchpad accel profile from `src/filter-touchpad.c`, re-derived in C# for touchpad-to-mouse output | MIT |
+| [libinput](https://gitlab.freedesktop.org/libinput/libinput) | Trackpad pointer acceleration curve for touchpad-to-mouse output: a C# port of the touchpad accel profile in `src/filter-touchpad.c` | MIT |
 | [libusb](https://github.com/libusb/libusb) | USB access library the bundled SDL3 fork uses for the Switch 2 Pro wired driver. Bundled unmodified as `libusb-1.0.dll` inside the single-file exe | LGPL-2.1-or-later |
+| [Linux kernel](https://github.com/torvalds/linux) drivers | Protocol facts for the DualShock 3, Navigation and Move controllers (hid-sony), DualSense player LEDs and output flags (hid-playstation), Steam Deck rumble (hid-steam), PID force feedback (hid-pidff) and the ACPI WMI block layout (wmi.c). Documentation only, no GPL code ships | GPL-2.0 |
 | [linuxmotehook](https://github.com/v1993/linuxmotehook) and [WiimoteHook](https://github.com/epigramx/WiimoteHook) | Wii Remote hold-orientation presets the Grip setting mirrors. No code ships | Apache-2.0, closed source |
 | [Microsoft GameInput](https://www.nuget.org/packages/Microsoft.GameInput/3.5.270) | Windows controller input, including Xbox Elite paddles. The SDK loader is linked into SDL | MIT (SDK loader) |
+| [Microsoft Visual C++ Runtime](https://learn.microsoft.com/en-us/visualstudio/releases/2026/redistribution) | The C++ runtime SDL3.dll needs: msvcp140.dll and vcruntime140.dll, plus vcruntime140_1.dll in the x64 build (14.51.36247.0), shipped unmodified inside the executable | Microsoft Visual Studio license terms |
 | [MinGW-w64 runtime](https://www.mingw-w64.org/) | `libgcc_s_seh-1.dll`, `libstdc++-6.dll` and `libwinpthread-1.dll`, the native runtime the Vosk recognizer needs, shipped inside the x64 executable. The ARM64 `libvosk.dll` is built with [llvm-mingw](https://github.com/mstorsjo/llvm-mingw) and carries its runtime inside itself: mingw-w64, winpthreads, and LLVM's libc++, libunwind and compiler-rt | GPL-3.0 with the GCC Runtime Library Exception, mingw-w64 winpthreads, Apache-2.0 with LLVM Exceptions |
 | [Mumble](https://github.com/mumble-voip/mumble) | Logitech G-key SDK library search order and shutdown lifecycle, read alongside LogitechGkeyLib.h from the SDK itself. PadForge loads the library Logitech Gaming Software installs and ships no Logitech code | BSD-3-Clause |
 | [NAudio.Wasapi](https://github.com/naudio/NAudio) | WASAPI loopback capture for audio-bass rumble | MIT |
 | [Nefarius.Utilities.DeviceManagement](https://github.com/nefarius/Nefarius.Utilities.DeviceManagement) | Driver-store install, Bluetooth class filter registration, and USB port cycling for the in-app BthPS3 setup | MIT |
 | [nefcon](https://github.com/nefarius/nefcon) | HidHide's install tool. Its ARM64 build installs and removes the HidHide driver on Windows on ARM | MIT |
+| [.NET](https://github.com/dotnet/runtime) | Runtime, class libraries and [WPF](https://github.com/dotnet/wpf), shipped self-contained inside the executable | MIT |
+| [Nintendo_Switch_Reverse_Engineering](https://github.com/dekuNukem/Nintendo_Switch_Reverse_Engineering) and [switch2_controller_research](https://github.com/ndeadly/switch2_controller_research) | Joy-Con and Pro Controller HID, HD rumble and home LED notes, by dekuNukem, and the Switch 2 controller commands and report notes, by ndeadly. Facts only, no code copied | none published |
 | [nipplejs](https://github.com/yoannmoinet/nipplejs) | Touch joystick widget in the phone Web Controller, by Yoann Moinet | MIT |
+| [OpenRGB](https://gitlab.com/CalcProgrammer1/OpenRGB) | DualSense and DualShock 4 lightbar output-report byte usage. Documentation only, no GPL code ships | GPL-2.0 |
+| [OpenTabletDriver](https://github.com/OpenTabletDriver/OpenTabletDriver) | The elevated update-verb pattern behind the in-app updater's helper. Documentation only, no LGPL code ships | LGPL-3.0 |
 | [opentrack](https://github.com/opentrack/opentrack) | UDP tracker datagram and FreeTrack 2.0 shared-memory layout for head tracking. Documentation only, no code ships | ISC |
 | [OpenVR](https://github.com/ValveSoftware/openvr) | VR headset pose and motion controllers as input sources (C# binding only, the native runtime comes from your SteamVR) | BSD 3-Clause |
 | [OpenXInput](https://github.com/hifihedgehog/OpenXinput) | Drop-in `xinput1_4.dll` replacement that filters PadForge's own virtual controllers from its own XInput view | upstream trademark disclaimer |
 | [OpenXR-SDK](https://github.com/KhronosGroup/OpenXR-SDK) and [VirtualDesktop-OpenXR](https://github.com/mbucchia/VirtualDesktop-OpenXR) | Runtime negotiation interface, structure layout, registry keys and performance-counter time conversion behind headset and motion controller input. PadForge talks to your own installed runtime and ships no Khronos code | Apache-2.0, MIT |
+| [pcsc-sharp](https://github.com/danm-de/pcsc-sharp) | WinSCard signatures and the reader-monitoring call sequence behind NFC tag input, taken from its Windows interop and examples, by Daniel Mueller | BSD 2-Clause |
 | [protobuf-net](https://github.com/protobuf-net/protobuf-net) | Protocol Buffers serializer SteamKit2 uses for the Steam wire protocol, by Marc Gravell | Apache-2.0 |
+| [psmoveapi](https://github.com/thp/psmoveapi) | PlayStation Move report layouts, sensor calibration decode, LED pacing and the read-over-USB, cache-for-Bluetooth calibration design, by Thomas Perl, cross-checked against the [moveonpc](https://github.com/nitsch/moveonpc/wiki) wiki. PadForge's implementation is original C# | BSD 2-Clause, none published (moveonpc) |
 | [$Q Recognizer](https://depts.washington.edu/acelab/proj/dollar/qdollar.html) | Touchpad shape-template matcher: re-derived C# port of the canonical JS reference by Magrofuoco / Vatavu / Anthony / Wobbrock | BSD 3-Clause |
 | [QR-Code-generator](https://github.com/nayuki/QR-Code-generator) | Byte-mode QR encoder for the Dashboard's web controller card, ported from Nayuki's reference implementation | MIT |
+| Racing telemetry references | Shared-memory and UDP layouts behind the wheel RPM shift LEDs, read from [assettocorsasharedmemory](https://github.com/mdjarv/assettocorsasharedmemory), [forza-data-web](https://github.com/geeooff/forza-data-web), [forza-telemetry](https://github.com/austinbaccus/forza-telemetry), [InSim.NET](https://github.com/alexmcbride/insimdotnet), [irsdkSharp](https://github.com/SlevinthHeaven/irsdkSharp), [IRSDKSharper](https://github.com/mherbold/IRSDKSharper), [out-gauge-cluster](https://github.com/fuelsoft/out-gauge-cluster), [pyirsdk](https://github.com/kutu/pyirsdk), [rF2SharedMemoryMapPlugin](https://github.com/TheIronWolfModding/rF2SharedMemoryMapPlugin), [rFactorSharedMemoryMap](https://github.com/dallongo/rFactorSharedMemoryMap), [rust_ams2_sharedmem](https://github.com/chris-ldgk/rust_ams2_sharedmem), [scs-sdk-plugin](https://github.com/RenCloud/scs-sdk-plugin) and [simapi](https://github.com/Spacefreak18/simapi). The Assetto Corsa reader reproduces assettocorsasharedmemory's static-page struct prefix. No GPL or LGPL code ships | Apache-2.0, GPL-2.0, GPL-3.0, LGPL-2.1, LGPL-3.0, MIT, none published (rust_ams2_sharedmem) |
 | [SAxense](https://apps.sdore.me/SAxense) | DualSense Bluetooth audio research by [egormanga](https://github.com/egormanga/SAxense): the packet transport the controller speaker stream rides on | MPL-2.0 |
+| [ScpToolkit](https://github.com/nefarius/ScpToolkit), [sixad](https://github.com/RetroPie/sixad) and [transbt](https://github.com/null-dev/transbt) | DualShock 3 Bluetooth pairing and report documentation. Documentation only, no GPL code ships | GPL-2.0 (sixad), GPL-3.0 (ScpToolkit, transbt) |
 | [SDL3](https://github.com/libsdl-org/SDL) | Controller input: joystick, gamepad, and sensor enumeration | zlib |
 | [SDL_GameControllerDB](https://github.com/mdqinc/SDL_GameControllerDB) | Community gamepad mapping database that PadForge's bundled mapping file extends | zlib |
+| [SIPSorcery](https://github.com/sipsorcery-org/sipsorcery) | The STUN Binding message layout, magic cookie and XOR-MAPPED-ADDRESS decode behind Remote Link's NAT traversal, vendored from its C# source, by Aaron Clauson | BSD 3-Clause, plus the use restriction in section 2 of its license |
+| SpaceMouse references | 3Dconnexion SpaceMouse report layout, device table and axis scale, read from [hid.spacemouse](https://github.com/microdee/hid.spacemouse), [PySpaceMouse](https://github.com/JakubAndrysek/PySpaceMouse), [spacemouse](https://github.com/AndunHH/spacemouse) by AndunHH and [spacenavd](https://github.com/FreeSpacenav/spacenavd). Documentation only, no code ships | CC BY-NC-SA 4.0, GPL-3.0, MIT |
+| [Special K](https://github.com/SpecialKO/SpecialK) | The Bluetooth link drop by host IOCTL, the hidden XInput power-off and capabilities ordinals, and DualSense trigger-vibration defaults. Documentation only, no GPL code ships | GPL-3.0 |
+| Steam Controller protocol references | Swipe-haptic ticks, report 0x42 button bits, the power-off command and the dongle relay, read from [OpenPuck](https://github.com/safijari/OpenPuck), [sc2-research](https://github.com/CouchTurtle/sc2-research), [steam_controller_tools](https://github.com/mitchmikusek/steam_controller_tools) and [SteamlessController](https://github.com/ddeverill/SteamlessController). Documentation only, no GPL or AGPL code ships | AGPL-3.0, GPL-2.0, MIT |
 | [SteamControllerSinger](https://github.com/Roboron3042/SteamControllerSinger) | Steam Controller (2015) haptic feature-report layout and note-period math, by Pila and Roboron3042 | BSD 3-Clause |
 | [SteamHapticsSinger](https://github.com/CrazyCritic89/SteamHapticsSinger) | Steam Controller 2026 and Steam Deck LFO-tone haptic report layout and gain tables | BSD 3-Clause |
 | [SteamKit2](https://github.com/SteamRE/SteamKit) | .NET Steam network client the Steam Workshop controller-config import uses. Connects over an anonymous session, no Steam account needed | LGPL-2.1-only |
-| [TritonLib](https://github.com/Pixel1011/TritonLib) | Steam Controller 2026 PCM haptics stream (reports 0x86, 0x88, 0x44), with [SteamHapticsPlayer](https://github.com/Pixel1011/SteamHapticsPlayer), [steam-controller-live-haptics](https://github.com/FamBoy32-dev/steam-controller-live-haptics) and [steam-controller-stuff](https://github.com/iczero/steam-controller-stuff). Documentation only, no code ships | Apache-2.0, MIT |
+| [Thumbstick Deadzones](https://github.com/Minimuino/thumbstick-deadzones) | The six deadzone shapes, by Minimuino. Documentation only, no GPL code ships | GPL-3.0 |
+| [Touchmote](https://github.com/simphax/Touchmote) | Wii Remote IR pointer behavior: dot-pair midpoint, margins, sensor-bar offset, smoothing and the FPS Mouse curve, with the [Ryochan7](https://github.com/Ryochan7/Touchmote), [Suegrini](https://github.com/Suegrini/Touchmote) and [Trihy](https://github.com/Trihy/Touchmote) forks. Documentation only, no GPL code ships | GPL-3.0 |
+| [TriggerEffectGenerator](https://gist.github.com/Nielk1/6d54cc2c00d2201ccb8c2720ad7538db) | DualSense adaptive-trigger effect layouts and the zone bitmap packing, reproduced in C#, by John "Nielk1" Klein | MIT |
+| [TritonLib](https://github.com/Pixel1011/TritonLib) | Steam Controller 2026 PCM haptics stream (reports 0x86, 0x88, 0x44), with [sc2ds](https://github.com/ga2mer/sc2ds), [steam-controller-live-haptics](https://github.com/FamBoy32-dev/steam-controller-live-haptics), [steam-controller-stuff](https://github.com/iczero/steam-controller-stuff) and [SteamHapticsPlayer](https://github.com/Pixel1011/SteamHapticsPlayer). Documentation only, no code ships | Apache-2.0, MIT, none published (sc2ds) |
 | [usbip-win2](https://github.com/vadimgrn/usbip-win2) | USB transport for HIDMaestro's composite USB controllers. The signed 0.9.7.5 installers for x64 and ARM64 ship unmodified inside `HIDMaestro.Core.dll`, and one installs the first time a composite controller is created | BSD 2-Clause |
 | [Valve Steam Controller CAD](https://gitlab.steamos.cloud/SteamHardware/SteamController) | Steam Controller (2015) and Steam Controller (2026) 3D models, meshed from Valve's published STEP files. Not associated with or endorsed by Valve | CC BY-NC-SA 4.0 |
+| [ViGEmClient](https://github.com/nefarius/ViGEmClient) | The DS4_REPORT_EX layout behind the virtual DualShock 4 input report, by Benjamin Höglinger-Stelzer | MIT |
+| [VIIPER (hbashton fork)](https://github.com/hbashton/VIIPER) | The virtual DualSense microphone's 48 dB attenuation range. Documentation only, no GPL code ships | GPL-3.0 |
 | [Vosk](https://alphacephei.com/vosk/) | Offline speech recognition for voice macro phrases, by Alpha Cephei. The model ships inside the executable | Apache-2.0 |
+| Wheel protocol references | Native Fanatec, Thrustmaster and Logitech force feedback and RPM shift LED reports, read from [hid-fanatecff](https://github.com/gotzl/hid-fanatecff), [hid-tmff2](https://github.com/Kimplul/hid-tmff2), [new-lg4ff](https://github.com/berarma/new-lg4ff), [oversteer](https://github.com/berarma/oversteer) and [thrustmaster-led-linux](https://github.com/wKoja/thrustmaster-led-linux), and cross-checked against the [SimHub Thrustmaster Wheel LED Controller](https://gitlab.com/prodigal.knight/simhub-thrustmaster-wheel-led-controller) by prodigal.knight and [tm-bt-led](https://github.com/mplutka/tm-bt-led). Documentation only, no GPL code ships | GPL-2.0, GPL-2.0-or-later, GPL-3.0, MIT |
+| [WiiBrew](https://wiibrew.org/wiki/Wiimote) | Wii Remote speaker protocol, 8-bit PCM configuration and IR calibration block. Facts only, no code copied | none published |
 | [WiimoteLib](https://github.com/BrianPeek/WiimoteLib) | Wii IR camera and Balance Board behavior documentation | MIT |
 | [Windows MIDI Services](https://github.com/microsoft/MIDI) | Virtual MIDI device SDK | MIT |
 | [WPF UI](https://github.com/lepoco/wpfui) | Fluent 2 design system for WPF | MIT |
+| [X1nput](https://github.com/araghon007/X1nput) | The Xbox impulse-trigger 9-byte report and its write path, by araghon007 | MIT |
 | [x360ce](https://github.com/x360ce/x360ce) | Original codebase this fork started from | LGPL-3.0 |
 | [xbledctl](https://github.com/Leclowndu93150/xbledctl) | Xbox Guide button LED brightness: the `\\.\XboxGIP` interface research and LED packet layout PadForge's writer derives from | MIT |
 | [xone](https://github.com/medusalix/xone) / [xow](https://github.com/medusalix/xow) | GIP LED command documentation corroborating xbledctl. Documentation only, no GPL code ships | GPL-2.0 |
@@ -934,64 +992,103 @@ Knowing PadForge is useful is reward enough. If you truly insist on donating, pl
 This project is licensed under **CC BY-NC-SA 4.0** (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International).
 
 - **2D controller assets** from [Gamepad-Asset-Pack](https://github.com/AL2009man/Gamepad-Asset-Pack) (MIT), by AL2009man.
-- **3D controller models** adapted from [Handheld Companion](https://github.com/Valkirie/HandheldCompanion) (CC BY-NC-SA 4.0). Copyright (c) CasperH2O, Lesueur Benjamin, trippyone. The Xbox 360, Xbox One, DualShock 4, DualSense and Steam Deck bodies.
+- **3D controller models**: the Xbox 360 and Steam Deck bodies and the 3D view's model and animation code are adapted from [Handheld Companion](https://github.com/Valkirie/HandheldCompanion) (CC BY-NC-SA 4.0). Copyright (c) CasperH2O, Lesueur Benjamin, trippyone. The DualShock 4, DualSense, DualSense Edge, Xbox Series and Switch 2 Pro Controller models are by [hado](https://www.cgtrader.com/designers/hado), bought on CGTrader under its Royalty Free License. Handheld Companion also documented the Steam Deck report and haptic decode, the Steam Controller (2015) power-off report, the handheld daemon watch list and the update check timing.
+- **AntiMicroX** (GPL-3.0) documented the strategy and desktop layouts behind the starter profiles and the turbo behavior the pressure-scaled turbo avoids. Read as documentation only, no GPL code ships.
+- **AudioEndPointLibrary** (MIT, by Antoine Aflalo) documented the layout of Windows' undocumented IPolicyConfig interface, which PadForge uses to re-enable a controller's audio endpoint. No code from it ships.
+- **AutoEq** (MIT, by Jaakko Pasanen) defines the parametric EQ profile format the Audio tab imports. No code from it ships.
+- **AutoHotkey** (GPL-2.0) documented the SendInput techniques behind Text Block macros and the keyboard chord hook: Unicode typing, batch limits, the Win-key mask key and tagged injected input. Read as documentation only, no GPL code ships.
 - **Bouncy Castle** (bc-csharp) provides the Remote Link pairing and transport cryptography (X25519, Ed25519, ChaCha20-Poly1305). Licensed under the Bouncy Castle Licence, an adaptation of the MIT License.
 - **bs2b** is licensed under the MIT License. By Boris Mikhaylov. PadForge ports its crossfeed filter to C# for headphone output on the controller audio path.
 - **BthPS3** is licensed under the BSD 3-Clause License. Copyright (c) 2018-2026, Nefarius Software Solutions e.U. PadForge bundles the Microsoft-attestation-signed BthPS3 and BthPS3PSM driver binaries unmodified and installs them on demand for DualShock 3 Bluetooth support. Full license text in [LICENSE](LICENSE).
+- **cemuhook-protocol** by v1993 is released under the Unlicense. It documents the DSU protocol the motion server speaks.
 - **CommunityToolkit.Mvvm** is licensed under the MIT License.
 - **Concentus** is licensed under the BSD 3-Clause License (the Opus license). By Logan Stromberg, with copyrights held by Skype Limited, Xiph.Org Foundation, and other Opus contributors.
 - **DS4AudioStreamer** is licensed under the MIT License. By nefarius. Reference for the DualShock 4 Bluetooth audio report framing. PadForge's SBC encoder is an original C# implementation from the public Bluetooth A2DP specification and contains no libsbc (GPL) code.
+- **ds4drv** (MIT, by Christopher Rosell) documented the DualShock 4 Bluetooth output-report framing. No code from it ships.
 - **ds4mac** is licensed under the GPL-2.0. By khallmark. Read as the protocol reference for DualShock 4 audio. No GPL code ships.
+- **DS4MapperTest** (GPL-3.0) documented DualShock 4 battery ranges, touchpad haptic pulse timing and intensity steps for the DualShock 4 and Steam Controller (2015), and touchpad fling behavior. Read as documentation only, no GPL code ships.
+- **DS4Windows (hbashton fork)** is licensed under the GPL-3.0. It documented DualSense audio volume ranges, signed 8-bit haptic samples and the combined Bluetooth transport layout. Read as documentation only, no GPL code ships.
 - **DS5_Bridge** is licensed under the GNU Affero General Public License v3.0. Copyright (c) SundayMoments. Its jack-detect routing pattern informed Follow Headphone Jack. PadForge ships no code from it.
 - **DsHidMini** is licensed under the BSD 3-Clause License. Copyright (c) 2020-2025, Benjamin Höglinger-Stelzer. Protocol reference for the DualShock 3 (sixpair feature reports, Bluetooth output-report template, enable ordering, battery status map). PadForge's implementation is original C#.
 - **duaLib** is licensed under the MIT License. By WujekFoliarz. DualSense output-report byte map and Sony scePad semantics reference. PadForge's implementation is original C#.
-- **DualSense Bluetooth speaker audio** builds on research by egormanga ([SAxense](https://apps.sdore.me/SAxense), MPL-2.0), awalol ([dualsense-bt-haptics](https://github.com/awalol/dualsense-bt-haptics), MIT), and [TechAntohere](https://github.com/TechAntohere). PadForge's implementation is original C#.
+- **DualSense Bluetooth speaker audio** builds on research by awalol ([dualsense-bt-haptics](https://github.com/awalol/dualsense-bt-haptics) and [DS5Dongle](https://github.com/awalol/DS5Dongle), both MIT), egormanga ([SAxense](https://apps.sdore.me/SAxense), MPL-2.0), and [TechAntohere](https://github.com/TechAntohere). DS5Dongle set the default and floor of the Bluetooth audio buffer length. PadForge's implementation is original C#.
 - **dualsense-tester** is licensed under the MIT License. Copyright (c) 2023 Xuezhou Dai (daidr). Reference for the Sony Bluetooth feature-report CRC framing and vendor test commands. PadForge's implementation is original C#.
+- **DualSenseSupport** by Mxater publishes no license. Its GameCube adaptive-trigger preset values were read as facts only, no code copied.
 - **DualSenseY-v2** by WujekFoliarz served as the behavioral reference for USB controller audio passthrough. It publishes no license. PadForge's implementation is original C#.
 - **DualShock 3 Bluetooth research** also drew on [ScpToolkit](https://github.com/nefarius/ScpToolkit), [sixad](https://github.com/RetroPie/sixad), and [transbt](https://github.com/null-dev/transbt) (all GPL) as protocol documentation only. PadForge's pairing and reader code is original C# and contains no GPL code.
+- **Eden** (GPL-3.0): PadForge's DSU motion axis signs were checked against its UDP decoder. Read as documentation only, no GPL code ships.
+- **EDRefCard2** (MIT, by Richard Buckle) carries the Elite Dangerous default presets behind the Space Sim starter profile. No code from it ships.
+- **FFmpeg** (LGPL-2.1-or-later) documented the Wii Remote speaker's ADPCM nibble order, and its SBC decoder checked the DualShock 4 encoder in testing. Read as documentation only, no LGPL code ships.
+- **Fusion** is licensed under the MIT License. Copyright (c) 2021 x-io Technologies. PadForge's tilt-compensated compass heading is a C# port of FusionCompass, and the compass yaw correction uses Fusion's default AHRS gain.
+- **Gamepad Battery Monitor** (MIT, by Lukas Frühstück) is the reference for the low-battery notification rule and the Identify rumble pattern. No code from it ships.
 - **GestureSign's PointPatternAnalyzer** is licensed under the GPL-2.0. By TransposonY. The angular-margin scoring in PadForge.Engine.Touchpad.AngularMarginRecognizer follows the algorithm it describes, in original C# with no GPL code.
 - **HelixToolkit** is licensed under the MIT License.
+- **HIDAPI** is compiled into the bundled SDL3.dll as SDL's HID layer and used under its BSD-style license. Copyright (c) 2010, Alan Ott, Signal 11 Software. Full license text in [LICENSE](LICENSE).
 - **HidHide** is licensed under the MIT License. PadForge carries the x64 setup and, for Windows on ARM, upstream's Microsoft-signed ARM64 driver package, both unmodified.
 - **HIDMaestro** is licensed under the MIT License.
 - **hitboxer** is licensed under the MIT License. By valignatev. The SOCD-cleaning mode semantics reference. PadForge's state machine is original C#.
+- **Icon sources**: the flame glyph is from [Material Design Icons](https://github.com/Templarian/MaterialDesign) (Apache-2.0, by Pictogrammers), the generic gamepad icon from [Ionicons](https://github.com/ionic-team/ionicons) (MIT, Copyright (c) 2015-present Ionic), the Extended joystick from [Jam Icons](https://jam-icons.com/) (MIT, Copyright (c) 2017-Present Michael Amprimo), and the Xbox and PlayStation icons from [SVG Repo](https://www.svgrepo.com/) (license per icon page).
 - **InputPlumber** (GPL-3.0) documented handheld PC identity strings and vendor-report notes cross-checked for the hidden-button learner. Read as documentation only, no GPL code ships.
 - **Interhaptics** is distributed under the Wyvrn End User License Agreement (https://www.wyvrn.com/eula/). Copyright (c) 2025 Wyvrn. All rights reserved. The Interhaptics haptic engine and its Razer provider turn controller rumble into Razer Sensa HD effects and ship unmodified inside the executable as `HAR.dll` and `Interhaptics.RazerProvider.dll`, the same pair every application embedding the public Core SDK redistributes.
+- **iroh** (MIT OR Apache-2.0, Copyright 2025 N0, INC.) documented the relay protocol behind Remote Link's fallback lane, and **FlexInput** (MIT, Copyright (c) 2025 kvkuls) the design of reaching n0.computer's free public relays with it. No code from them ships.
+- **jc2mouse** (MIT, by coffincolors), **joycon2cpp** (MIT, by Frano) and **joycon2mouse** (MIT, by moutella) documented the Joy-Con 2 optical mouse counters behind Mouse Motion X and Y. No code from them ships.
 - **JoyShockMapper** and **GamepadMotionHelpers** are licensed under the MIT License. By JibbSmart (Julian Smart) and Electronicks. PadForge's winding-angle steering and player/world-space gyro conversions are C# ports. The Gyro Tilt gravity update is adapted from GamepadMotionHelpers.
 - **Kaldi** and **OpenFst** (Apache-2.0), **OpenBLAS** and **CLAPACK** (BSD 3-Clause) are the speech decoder, transducer library and linear algebra libvosk is made of, linked statically into it. CLAPACK is Fortran translated to C and links the f2c runtime (libf2c, Copyright 1990 - 1997 by AT&T, Lucent Technologies and Bellcore), which carries a notice of its own. Full texts in [LICENSE](LICENSE).
 - **Lenovo Legion Toolkit** (GPL-3.0) documented the Lenovo WMI utility-event class the handheld hidden-button learner subscribes to and the elevated IPC server pattern behind external profile control. Read as documentation only, no GPL code ships.
-- **libinput** is licensed under the MIT License. Copyright (c) Simon Thum, Kristian Høgsberg, Intel Corporation, Benjamin Franzke, Collabora, Ltd., Jonas Ådahl, Red Hat, Inc. PadForge's trackpad pointer acceleration curve is an original C# re-derivation of `touchpad_accel_profile_linear` from `src/filter-touchpad.c`. No libinput code ships.
+- **libinput** is licensed under the MIT License. Copyright (c) Simon Thum, Kristian Høgsberg, Intel Corporation, Benjamin Franzke, Collabora, Ltd., Jonas Ådahl, Red Hat, Inc. PadForge's trackpad pointer acceleration curve is a C# port of `touchpad_accel_profile_linear` from `src/filter-touchpad.c`.
 - **libusb** is licensed under the LGPL-2.1-or-later. PadForge bundles the unmodified `libusb-1.0.dll` inside the single-file executable. The self-extractor unpacks it at runtime, and replacing it means rebuilding from source. Source: [github.com/libusb/libusb](https://github.com/libusb/libusb). Full license text in [LICENSE](LICENSE).
+- **Linux kernel** drivers (GPL-2.0) documented the DualShock 3, Navigation, Move, DualSense and Steam Deck report details, the PID force-feedback conventions and the ACPI WMI block layout PadForge reads. Read as documentation only, no GPL code ships.
 - **linuxmotehook** (Apache-2.0) and **WiimoteHook** (closed source, read through its documentation) documented the Wii Remote hold-orientation presets the Grip setting mirrors. No code from them ships.
-- **Logitech LIGHTSYNC** engine entry points and calling convention were read from [Aurora](https://github.com/Aurora-RGB/Aurora) (MIT), [Artemis.Plugins](https://github.com/Artemis-RGB/Artemis.Plugins) (PolyForm Noncommercial 1.0.0), [RGB.NET](https://github.com/DarthAffe/RGB.NET) (LGPL-2.1), [Logitech-LED](https://github.com/sidewinder94/Logitech-LED) (GPL-2.0), [logitech-led-sdk-rs](https://github.com/nathaniel-daniel/logitech-led-sdk-rs) (Apache-2.0) and [LogiLed2Corsair](https://github.com/VRocker/LogiLed2Corsair) (MIT) as documentation. PadForge loads G HUB's own engine at run time and ships no Logitech binary and no code from these projects.
+- **Logitech LIGHTSYNC** engine entry points and calling convention were read from [Artemis.Plugins](https://github.com/Artemis-RGB/Artemis.Plugins) (PolyForm Noncommercial 1.0.0), [Aurora](https://github.com/Aurora-RGB/Aurora) (MIT), [LogiLed2Corsair](https://github.com/VRocker/LogiLed2Corsair) (MIT), [Logitech-LED](https://github.com/sidewinder94/Logitech-LED) (GPL-2.0), [logitech-led-sdk-rs](https://github.com/nathaniel-daniel/logitech-led-sdk-rs) (MIT OR Apache-2.0) and [RGB.NET](https://github.com/DarthAffe/RGB.NET) (LGPL-2.1) as documentation. PadForge loads G HUB's own engine at run time and ships no Logitech binary and no code from these projects.
 - **Microsoft GameInput's SDK loader** is licensed under MIT. Copyright (c) Microsoft Corporation. The SDL fork links the loader from Microsoft.GameInput 3.5.270. The Microsoft runtime is installed separately. Its binaries are not bundled with PadForge. Full loader notice in [LICENSE](LICENSE).
+- **Microsoft Visual C++ Runtime**: SDL3.dll needs the C++ runtime, so the x64 build carries msvcp140.dll, vcruntime140.dll and vcruntime140_1.dll and the ARM64 build msvcp140.dll and vcruntime140.dll, version 14.51.36247.0, redistributed unmodified under the Microsoft Visual Studio license terms.
 - **MinGW-w64 runtime**: `libgcc_s_seh-1.dll` and `libstdc++-6.dll` are the GNU Compiler Collection runtime libraries (GPL-3.0 with the GCC Runtime Library Exception v3.1), and `libwinpthread-1.dll` is the mingw-w64 winpthreads library (MIT-style terms). They arrive with the Vosk package as the native runtime libvosk needs and ship unmodified inside the x64 executable. The ARM64 `libvosk.dll` is built with llvm-mingw and carries its runtime inside itself: the mingw-w64 runtime and winpthreads, and LLVM's libc++, libunwind and compiler-rt (Apache-2.0 with LLVM Exceptions).
 - **Mouse artwork** in the Keyboard + Mouse visualization is from Zergatul.Obs.InputOverlay, licensed under the MIT License. Copyright (c) 2021 Igor Budzhak.
 - **Mumble** (BSD-3-Clause) documented the Logitech G-key SDK library search order and shutdown lifecycle, read alongside LogitechGkeyLib.h from the SDK itself, which defines the event word. PadForge loads the library Logitech Gaming Software installs at run time and ships no Logitech binary and no code from these projects.
 - **NAudio** is licensed under the MIT License. By Mark Heath and contributors. WASAPI loopback capture for the controller-audio mirror and the audio-bass trigger rumble.
 - **Nefarius.Utilities.DeviceManagement** is licensed under the MIT License. By nefarius. Driver-store installation, device class filters, and USB hub port cycling for the DualShock 3 driver setup.
 - **nefcon** is licensed under the MIT License. Copyright (c) 2022-2025 Nefarius Software Solutions e.U. The ARM64 console build of nefcon 1.20.0 ships unmodified inside the executable and installs the HidHide driver on Windows on ARM, the way HidHide's own setup does.
+- **.NET** is licensed under the MIT License. Copyright (c) .NET Foundation and Contributors. The runtime, class libraries and WPF ship self-contained inside the executable.
+- **Nintendo_Switch_Reverse_Engineering** by dekuNukem and **switch2_controller_research** by ndeadly publish no license. Their Joy-Con, Pro Controller and Switch 2 controller notes were read as facts only, no code copied.
 - **nipplejs** is licensed under the MIT License. Copyright (c) 2014 Yoann Moinet. The Web Controller's touch joystick.
+- **OpenRGB** (GPL-2.0) documented the DualSense and DualShock 4 lightbar output-report byte usage. Read as documentation only, no GPL code ships.
+- **OpenTabletDriver** (LGPL-3.0) documented the elevated update-verb pattern behind the in-app updater's helper. Read as documentation only, no LGPL code ships.
 - **opentrack** (ISC) documented the UDP tracker datagram and the FreeTrack 2.0 shared-memory layout behind head tracking. No code from it ships.
 - **OpenVR** is licensed under the BSD 3-Clause License. Copyright (c) 2015, Valve Corporation. PadForge compiles the C# client binding (openvr_api.cs) for reading VR headsets and motion controllers as input sources. The native openvr_api.dll is not distributed and loads from your own SteamVR install. Full license text in [LICENSE](LICENSE).
 - **OpenXInput** ships only an upstream Microsoft-trademark disclaimer (no OSS license grant). Redistributed as-is under the same terms.
 - **OpenXR-SDK** (Apache-2.0) and **VirtualDesktop-OpenXR** (MIT) documented the runtime negotiation interface, structure layout, registry keys and performance-counter time conversion behind headset and motion controller input. PadForge talks to the runtime installed on your own machine and ships no Khronos binary and no code from these projects.
 - **Original codebase** forked from [x360ce](https://github.com/x360ce/x360ce) (LGPL-3.0). Copyright (C) 2002-2010 Racer_S, Copyright (C) 2010-2013 Robert Krawczyk, Copyright (c) 2018 TocaEdit, Copyright (c) 2021 Jocys.com. Full license text in [LICENSE](LICENSE).
+- **pcsc-sharp** is licensed under the BSD 2-Clause License. Copyright (c) 2007-2024 Daniel Mueller. PadForge's WinSCard signatures and the reader-monitoring call sequence behind NFC tag input are taken from it. Full license text in [LICENSE](LICENSE).
 - **protobuf-net** is licensed under the Apache License 2.0. Copyright 2008 onwards Marc Gravell. Protocol Buffers serializer SteamKit2 uses for the Steam wire protocol. Full license text in [LICENSE](LICENSE).
+- **psmoveapi** is licensed under the BSD 2-Clause License. Copyright (c) 2011, 2012 Thomas Perl. Reference for the PlayStation Move report layouts, sensor calibration decode, LED pacing and calibration caching, cross-checked against the [moveonpc](https://github.com/nitsch/moveonpc/wiki) wiki, which publishes no license. PadForge's implementation is original C#.
 - **$Q Recognizer** is licensed under the BSD 3-Clause License. Copyright (c) 2018-2019, Nathan Magrofuoco, Jacob O. Wobbrock, Radu-Daniel Vatavu, and Lisa Anthony. The touchpad shape-matcher in PadForge.Engine.Touchpad.ShapeRecognizer is a C# re-derivation of the canonical JavaScript reference at depts.washington.edu/acelab/proj/dollar/qdollar.js.
 - **QR-Code-generator** is licensed under the MIT License. Copyright (c) Project Nayuki. The Dashboard web controller card's QR encoder is a C# port of its reference implementation.
+- **Racing telemetry references**: the shared-memory and UDP layouts behind the wheel RPM shift LEDs were read from assettocorsasharedmemory (MIT, Copyright (c) 2016 Mathias Djärv, whose static-page struct prefix PadForge's Assetto Corsa reader reproduces), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem (no license published), scs-sdk-plugin (MIT) and simapi (LGPL-3.0). Apart from that struct prefix, the readers are original C#, and no GPL or LGPL code ships.
 - **Razer Chroma** framing was corroborated against [Colore](https://github.com/chroma-sdk/Colore) (MIT, by Adam Hellberg and Brandon Scott) as documentation. No code from it ships.
 - **SDL3** is licensed under the [zlib License](https://github.com/libsdl-org/SDL/blob/main/LICENSE.txt).
 - **SDL_GameControllerDB** is licensed under the zlib License. PadForge's bundled `gamecontrollerdb_padforge.txt` extends it and keeps the source citation in its header.
-- **Steam Controller 2026 PCM haptics** drew on [TritonLib](https://github.com/Pixel1011/TritonLib) and [SteamHapticsPlayer](https://github.com/Pixel1011/SteamHapticsPlayer) (Apache-2.0, by Pixel1011), [steam-controller-live-haptics](https://github.com/FamBoy32-dev/steam-controller-live-haptics) (MIT), [steam-controller-stuff](https://github.com/iczero/steam-controller-stuff) (MIT) and [sc2ds](https://github.com/ga2mer/sc2ds) (no license published) as documentation. No code from them ships.
+- **SIPSorcery** is licensed under the BSD 3-Clause License with the additional use restriction in section 2 of its license. Copyright (c) 2006–2026 Aaron Clauson. PadForge's STUN client vendors its message layout, magic cookie and XOR-MAPPED-ADDRESS decode (STUNHeader.cs, STUNMessage.cs, STUNXORAddressAttribute.cs). Full license text, with section 2, in [LICENSE](LICENSE).
+- **SpaceMouse references**: the 3Dconnexion report layout, device table and axis scale were read from [hid.spacemouse](https://github.com/microdee/hid.spacemouse) (MIT, by David Mórász), [PySpaceMouse](https://github.com/JakubAndrysek/PySpaceMouse) (MIT, by johnhw and Kuba Andrýsek), [spacemouse](https://github.com/AndunHH/spacemouse) by AndunHH (CC BY-NC-SA 4.0) and [spacenavd](https://github.com/FreeSpacenav/spacenavd) (GPL-3.0) as documentation. No code from them ships.
+- **Special K** (GPL-3.0) documented the Bluetooth link drop by host IOCTL, the hidden XInput power-off and capabilities ordinals, and DualSense trigger-vibration defaults. Read as documentation only, no GPL code ships.
+- **Steam Controller 2026 PCM haptics** drew on [sc2ds](https://github.com/ga2mer/sc2ds) (no license published), [steam-controller-live-haptics](https://github.com/FamBoy32-dev/steam-controller-live-haptics) (MIT), [steam-controller-stuff](https://github.com/iczero/steam-controller-stuff) (MIT), [SteamHapticsPlayer](https://github.com/Pixel1011/SteamHapticsPlayer) and [TritonLib](https://github.com/Pixel1011/TritonLib) (both Apache-2.0, by Pixel1011) as documentation. No code from them ships.
+- **Steam Controller protocol references**: swipe-haptic ticks, report 0x42 button bits, the power-off command and the dongle relay were read from [OpenPuck](https://github.com/safijari/OpenPuck) (AGPL-3.0), [sc2-research](https://github.com/CouchTurtle/sc2-research) (MIT), [steam_controller_tools](https://github.com/mitchmikusek/steam_controller_tools) (GPL-2.0) and [SteamlessController](https://github.com/ddeverill/SteamlessController) (MIT, by Dylan Deverill) as documentation. No code from them ships.
 - **SteamControllerSinger** (by Pila, Roboron3042) and **SteamHapticsSinger** (by Pila, Crazy, AAGaming) are licensed under the BSD 3-Clause License. PadForge's Steam Controller haptic tone encoder reproduces their report layouts and timing math in original C#.
 - **SteamKit2** is licensed under the LGPL-2.1-only. Copyright (C) 2018 Ryan Stecker & SteamRE Team. .NET Steam network client for the Steam Workshop controller-config import, shipped unmodified inside the executable. Source: [github.com/SteamRE/SteamKit](https://github.com/SteamRE/SteamKit). Full license text in [LICENSE](LICENSE).
+- **Thumbstick Deadzones** (GPL-3.0, by Minimuino) documented the six deadzone shapes. Read as documentation only, no GPL code ships.
+- **Touchmote** (GPL-3.0) and its [Ryochan7](https://github.com/Ryochan7/Touchmote), [Suegrini](https://github.com/Suegrini/Touchmote) and [Trihy](https://github.com/Trihy/Touchmote) forks documented the Wii Remote IR pointer behavior: dot-pair midpoint, margins, sensor-bar offset, smoothing and the FPS Mouse curve. Read as documentation only, no GPL code ships.
+- **TriggerEffectGenerator** is licensed under the MIT License. Copyright (c) 2021-2022 John "Nielk1" Klein. PadForge's DualSense adaptive-trigger effect layouts and zone bitmap packing reproduce it in C#.
 - **usbip-win2** is licensed under the BSD 2-Clause License. Copyright (c) 2021-2026, Vadym Hrynchyshyn. HIDMaestro carries the unmodified, Microsoft-signed 0.9.7.5 installers and runs one only when a composite USB controller is first created. Full license text in [LICENSE](LICENSE).
 - **Valve Steam Controller CAD** is licensed under CC BY-NC-SA 4.0. Copyright 2016 and 2026 Valve Corporation. The Steam Controller (2015) and Steam Controller (2026) 3D models are meshed from Valve's published STEP files. PadForge is not associated with or endorsed by Valve.
+- **ViGEmClient** (MIT, by Benjamin Höglinger-Stelzer) documented the DS4_REPORT_EX layout behind the virtual DualShock 4 input report. No code from it ships.
+- **VIIPER (hbashton fork)** is licensed under the GPL-3.0. It documented the virtual DualSense microphone's 48 dB attenuation range. Read as documentation only, no GPL code ships.
 - **Vosk** is licensed under the Apache License 2.0. By Alpha Cephei Inc. Offline speech recognition for voice macros, shipped as the native libvosk library. The recognition model (Apache-2.0, Alpha Cephei) ships inside the executable and is unpacked to a cache under the TEMP folder on first use. The x64 library is the one the Vosk package carries. No ARM64 one is published, so the ARM64 library is built from Vosk 0.3.38 by [tools/build-libvosk-arm64.sh](tools/build-libvosk-arm64.sh), which is Alpha Cephei's own Windows ARM64 recipe with every source pinned.
+- **Wheel protocol references**: native force feedback and RPM shift LED reports were read from hid-fanatecff (GPL-2.0), hid-tmff2 (GPL-2.0-or-later), new-lg4ff (GPL-2.0), oversteer (GPL-3.0) and thrustmaster-led-linux (GPL-3.0), and cross-checked against the SimHub Thrustmaster Wheel LED Controller (MIT, Copyright (c) 2023 Prodigal.Knight) and tm-bt-led (MIT, Copyright 2020 Markus Plutka). PadForge's writers are original C# and contain no GPL code.
 - **Wii and Xbox protocol documentation** also drew on [Dolphin](https://github.com/dolphin-emu/dolphin) (GPL-2.0), [DS4Windows](https://web.archive.org/web/2023/https://github.com/Ryochan7/DS4Windows) (GPL-3.0, an archived copy, since the repository was deleted), [xone](https://github.com/medusalix/xone) and [xow](https://github.com/medusalix/xow) (GPL-2.0) as documentation only. PadForge's implementations are original C# and contain no GPL code.
+- **WiiBrew** publishes no license. Its Wii Remote speaker protocol, 8-bit PCM configuration and IR calibration pages were read as facts only, no code copied.
 - **WiimoteLib** (MIT, by Brian Peek) and **joycon-singer** (no license published, by Sergey004) served as behavior documentation for the Wii IR camera, Balance Board, and Joy-Con HD rumble. Facts only, no code copied.
 - **Windows MIDI Services** is licensed under the MIT License.
 - **WPF UI** is licensed under the MIT License.
+- **X1nput** (MIT, by araghon007) documented the Xbox impulse-trigger 9-byte report and its write path. No code from it ships.
 - **xbledctl** is licensed under the MIT License. By Leclowndu93150. PadForge's Xbox Guide LED writer derives its `\\.\XboxGIP` packet layout and device-discovery sequence from it.
 - **Zacksly Icon Pack** is licensed under CC BY 3.0. By Zacksly ([zacksly.itch.io](https://zacksly.itch.io/)). PadForge's stick and trigger tab icon geometry derives from it.
 - **ZstdSharp** is licensed under the MIT License. Copyright (c) 2021 Oleg Stepanischev. Zstandard decompression SteamKit2 uses for Steam depot chunks, a C# port of the zstd compression library.

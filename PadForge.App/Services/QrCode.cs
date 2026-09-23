@@ -5,8 +5,9 @@ namespace PadForge.Services
 {
     /// <summary>
     /// Minimal byte-mode QR Code generator, ported from the Nayuki reference
-    /// implementation (github.com/nayuki/QR-Code-generator, MIT / public
-    /// domain), which is written to be ported and is the canonical reference.
+    /// implementation (github.com/nayuki/QR-Code-generator, MIT License,
+    /// Copyright (c) Project Nayuki), which is written to be ported and is the
+    /// canonical reference.
     /// Scope is exactly what the web-controller card needs: encode a short URL
     /// as a QR matrix, auto-selecting the smallest version at ECC level M.
     ///
