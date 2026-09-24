@@ -28,7 +28,7 @@ Free Windows app. No subscription. No paywall. No nag screens. Built on HelixToo
 
 PadForge is for sim racers running wheels in games that only understand Xbox controllers. For DualSense owners who want adaptive triggers and lightbar effects in Steam games that ignore them. For accessibility users mapping whatever hardware they can use. For anyone whose controller doesn't match what their game expects.
 
-<p align="center"><b>16</b> virtual controllers at once · <b>231</b> device profiles · <b>1000 Hz</b> polling · <b>$0</b> forever</p>
+<p align="center"><b>16</b> virtual controllers at once · <b>758</b> devices known by USB identity · <b>231</b> device profiles · <b>1000 Hz</b> polling · <b>$0</b> forever</p>
 
 ![Dashboard](screenshots/dashboard.jpg)
 
@@ -216,7 +216,7 @@ None of the ARM64 work has run on ARM64 hardware yet. [Requirements](#windows-on
 - **Clear All clears everything.** The Mappings tab's Clear All resets sources, options, and tuning in one confirmed step.
 - Carrying forward from 3.5 and 3.6: Wii Bluetooth pairing, Remote Link across PCs, native wheel force feedback, MIDI in and out, and controller-speaker audio.
 
-Full documentation at [padforge.org/docs](https://padforge.org/docs/).
+Full documentation at [padforge.org/docs](https://padforge.org/docs/). Every device PadForge recognizes by USB identity is on the [supported devices list](https://padforge.org/docs/devices/supported/).
 
 </details>
 
