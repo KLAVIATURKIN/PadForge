@@ -84,6 +84,10 @@
   <data name="Server_PortInUse_Format" xml:space="preserve"><value>Puerto {0} en uso</value></data>
   <data name="Server_AccessDenied_Format" xml:space="preserve"><value>Acceso denegado para puerto {0} (ejecutar como admin)</value></data>
   <data name="Server_FailedToStart" xml:space="preserve"><value>Error al iniciar</value></data>
+  <data name="Server_HttpsPortTaken_Format" xml:space="preserve"><value>Otro programa tiene un certificado HTTPS en el puerto {0}. El movimiento del teléfono seguirá desactivado hasta que elijas otro puerto.</value></data>
+  <data name="Server_HttpsBindFailed" xml:space="preserve"><value>Windows no vinculó el certificado HTTPS de PadForge, así que el movimiento del teléfono está desactivado.</value></data>
+  <data name="Server_HttpsListenerRejected_Format" xml:space="preserve"><value>Windows rechazó HTTPS en el puerto {0}, así que el movimiento del teléfono está desactivado.</value></data>
+  <data name="Server_PlainSamePort" xml:space="preserve"><value>Mismo puerto que la dirección principal</value></data>
   <data name="Common_Idle" xml:space="preserve"><value>Inactivo</value></data>
   <data name="Common_Online" xml:space="preserve"><value>En línea</value></data>
   <data name="Common_Offline" xml:space="preserve"><value>Fuera de línea</value></data>
@@ -3465,6 +3469,16 @@ Hay una copia de la versión anterior en esta carpeta: {1}</value></data>
   <data name="RemoteLink_NatSymmetric" xml:space="preserve"><value>Esta red no permite conexiones directas (parece un punto de acceso móvil o NAT de operador). Usa una VPN como Tailscale, o conéctate desde banda ancha doméstica.</value></data>
   <data name="RemoteLink_NatNoPublic" xml:space="preserve"><value>No se encontró la dirección pública de este PC (la red puede bloquear el tráfico necesario). Aquí no funcionan las conexiones directas. Usa una VPN, o Conectar por dirección en la misma red.</value></data>
   <data name="Dashboard_WebScanToOpen" xml:space="preserve"><value>Escanea con la cámara del teléfono o abre esta dirección en su navegador:</value></data>
+  <data name="Dashboard_WebPlainTitle" xml:space="preserve"><value>Dirección HTTP sin cifrar</value></data>
+  <data name="Dashboard_WebPlainDescription" xml:space="preserve"><value>Una segunda dirección sin HTTPS, para navegadores que rechazan el certificado de PadForge y para un túnel o proxy inverso con su propio certificado. El movimiento del teléfono necesita HTTPS, así que aquí solo funciona a través de un túnel o proxy que sirva HTTPS.</value></data>
+  <data name="Dashboard_WebPlainEnable" xml:space="preserve"><value>Servir también HTTP sin cifrar</value></data>
+  <data name="Dashboard_WebPlainPort" xml:space="preserve"><value>Puerto HTTP sin cifrar</value></data>
+  <data name="Dashboard_WebPlainLocalOnly" xml:space="preserve"><value>Solo este PC</value></data>
+  <data name="Dashboard_WebPlainLocalOnlyHint" xml:space="preserve"><value>Para un túnel o proxy inverso en este PC. Otros dispositivos no pueden abrir la dirección sin cifrar.</value></data>
+  <data name="Dashboard_WebAccessCode" xml:space="preserve"><value>Código de acceso</value></data>
+  <data name="Dashboard_WebAccessCodeHint" xml:space="preserve"><value>La dirección sin cifrar solo se abre con este código, y el enlace de abajo lo incluye. Un código nuevo desconecta a todos los que usan la dirección sin cifrar.</value></data>
+  <data name="Dashboard_WebNewAccessCode" xml:space="preserve"><value>Código nuevo</value></data>
+  <data name="Dashboard_WebPlainLocalAddress" xml:space="preserve"><value>Dirección en este PC:</value></data>
   <data name="Devices_IdentifyTooltip" xml:space="preserve"><value>Vibración (haz clic para identificar este dispositivo)</value></data>
   <data name="Battery_LowTitle" xml:space="preserve"><value>Batería del mando baja</value></data>
   <data name="Battery_LowText_Format" xml:space="preserve"><value>{0}: queda {1}% de batería</value></data>

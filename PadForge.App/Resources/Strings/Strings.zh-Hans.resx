@@ -84,6 +84,10 @@
   <data name="Server_PortInUse_Format" xml:space="preserve"><value>端口 {0} 已被占用</value></data>
   <data name="Server_AccessDenied_Format" xml:space="preserve"><value>端口 {0} 访问被拒绝（以管理员身份运行）</value></data>
   <data name="Server_FailedToStart" xml:space="preserve"><value>启动失败</value></data>
+  <data name="Server_HttpsPortTaken_Format" xml:space="preserve"><value>另一个程序已在端口 {0} 上绑定 HTTPS 证书。在选择其他端口之前，手机体感保持关闭。</value></data>
+  <data name="Server_HttpsBindFailed" xml:space="preserve"><value>Windows 未绑定 PadForge 的 HTTPS 证书，因此手机体感已关闭。</value></data>
+  <data name="Server_HttpsListenerRejected_Format" xml:space="preserve"><value>Windows 拒绝了端口 {0} 上的 HTTPS，因此手机体感已关闭。</value></data>
+  <data name="Server_PlainSamePort" xml:space="preserve"><value>与主地址端口相同</value></data>
   <data name="Common_Idle" xml:space="preserve"><value>空闲</value></data>
   <data name="Common_Online" xml:space="preserve"><value>在线</value></data>
   <data name="Common_Offline" xml:space="preserve"><value>离线</value></data>
@@ -3465,6 +3469,16 @@
   <data name="RemoteLink_NatSymmetric" xml:space="preserve"><value>此网络无法建立直接连接（看起来是移动热点或运营商级 NAT）。请使用 Tailscale 等 VPN，或改用家庭宽带连接。</value></data>
   <data name="RemoteLink_NatNoPublic" xml:space="preserve"><value>找不到此电脑的公网地址（网络可能屏蔽了所需流量）。此处无法直接连接。请使用 VPN，或在同一网络内按地址连接。</value></data>
   <data name="Dashboard_WebScanToOpen" xml:space="preserve"><value>用手机相机扫描，或在浏览器中打开此地址：</value></data>
+  <data name="Dashboard_WebPlainTitle" xml:space="preserve"><value>未加密的 HTTP 地址</value></data>
+  <data name="Dashboard_WebPlainDescription" xml:space="preserve"><value>不使用 HTTPS 的第二个地址，供拒绝 PadForge 证书的浏览器使用，也供自带证书的隧道或反向代理使用。手机体感需要 HTTPS，因此在此地址上只能通过提供 HTTPS 的隧道或代理使用。</value></data>
+  <data name="Dashboard_WebPlainEnable" xml:space="preserve"><value>同时提供未加密的 HTTP</value></data>
+  <data name="Dashboard_WebPlainPort" xml:space="preserve"><value>未加密的 HTTP 端口</value></data>
+  <data name="Dashboard_WebPlainLocalOnly" xml:space="preserve"><value>仅限此电脑</value></data>
+  <data name="Dashboard_WebPlainLocalOnlyHint" xml:space="preserve"><value>用于此电脑上的隧道或反向代理。其他设备无法打开未加密的地址。</value></data>
+  <data name="Dashboard_WebAccessCode" xml:space="preserve"><value>访问码</value></data>
+  <data name="Dashboard_WebAccessCodeHint" xml:space="preserve"><value>未加密的地址只能凭此访问码打开，下方链接已包含该码。生成新访问码会断开所有通过未加密地址连接的设备。</value></data>
+  <data name="Dashboard_WebNewAccessCode" xml:space="preserve"><value>新访问码</value></data>
+  <data name="Dashboard_WebPlainLocalAddress" xml:space="preserve"><value>此电脑上的地址：</value></data>
   <data name="Devices_IdentifyTooltip" xml:space="preserve"><value>振动（点击以识别此设备）</value></data>
   <data name="Battery_LowTitle" xml:space="preserve"><value>手柄电量不足</value></data>
   <data name="Battery_LowText_Format" xml:space="preserve"><value>{0}：剩余电量 {1}%</value></data>

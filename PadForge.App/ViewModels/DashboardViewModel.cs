@@ -811,6 +811,137 @@ namespace PadForge.ViewModels
                 }
             });
 
+        private string _webControllerHttpsWarning;
+
+        /// <summary>Why the main address fell back to plain HTTP and phone
+        /// motion is off, or null while it serves HTTPS.</summary>
+        public string WebControllerHttpsWarning
+        {
+            get => _webControllerHttpsWarning;
+            set => SetProperty(ref _webControllerHttpsWarning, value);
+        }
+
+        // The plain HTTP address. These are machine settings like Remote
+        // Link's, kept out of profiles: a foreground profile switch should
+        // never open or close a network port, and a plain bool in a profile
+        // reads as false in every profile saved before it existed.
+
+        private bool _enableWebControllerPlainHttp;
+
+        /// <summary>Also serve the web controller over plain HTTP on its own
+        /// port, behind the access code.</summary>
+        public bool EnableWebControllerPlainHttp
+        {
+            get => _enableWebControllerPlainHttp;
+            set => SetProperty(ref _enableWebControllerPlainHttp, value);
+        }
+
+        private int _webControllerPlainHttpPort = Services.WebControllerServer.DefaultPlainPort;
+
+        /// <summary>The plain HTTP address's port.</summary>
+        public int WebControllerPlainHttpPort
+        {
+            get => _webControllerPlainHttpPort;
+            set => SetProperty(ref _webControllerPlainHttpPort, Math.Clamp(value, 1024, 65535));
+        }
+
+        private RelayCommand _resetWebPlainPortCommand;
+        public RelayCommand ResetWebPlainPortCommand =>
+            _resetWebPlainPortCommand ??= new RelayCommand(
+                () => WebControllerPlainHttpPort = Services.WebControllerServer.DefaultPlainPort);
+
+        private bool _webControllerPlainHttpLocalOnly;
+
+        /// <summary>Admit only this PC on the plain address, for a tunnel or
+        /// reverse proxy running here. Also removes its firewall opening.</summary>
+        public bool WebControllerPlainHttpLocalOnly
+        {
+            get => _webControllerPlainHttpLocalOnly;
+            set => SetProperty(ref _webControllerPlainHttpLocalOnly, value);
+        }
+
+        private string _webControllerAccessCode = Services.WebControllerAccess.Generate();
+
+        /// <summary>The code the plain address requires. Always valid: it
+        /// starts as a fresh code, and a stored value that is not one of
+        /// PadForge's codes is ignored, so the fresh one stays.</summary>
+        public string WebControllerAccessCode
+        {
+            get => _webControllerAccessCode;
+            set
+            {
+                if (!Services.WebControllerAccess.IsValid(value)) return;
+                SetProperty(ref _webControllerAccessCode, Services.WebControllerAccess.Normalize(value));
+            }
+        }
+
+        private RelayCommand _newWebAccessCodeCommand;
+        /// <summary>Replaces the access code. The server drops every session
+        /// that joined through the plain address with the old one.</summary>
+        public RelayCommand NewWebAccessCodeCommand =>
+            _newWebAccessCodeCommand ??= new RelayCommand(
+                () => WebControllerAccessCode = Services.WebControllerAccess.Generate());
+
+        private bool _isWebControllerPlainRunning;
+
+        /// <summary>Serving truth for the plain address's flame.</summary>
+        public bool IsWebControllerPlainRunning
+        {
+            get => _isWebControllerPlainRunning;
+            set => SetProperty(ref _isWebControllerPlainRunning, value);
+        }
+
+        private string _webControllerPlainStatus;
+
+        /// <summary>Where the plain address runs, or why it does not. Null
+        /// while the server is stopped or the address is off.</summary>
+        public string WebControllerPlainStatus
+        {
+            get => _webControllerPlainStatus;
+            set => SetProperty(ref _webControllerPlainStatus, value);
+        }
+
+        private string _webControllerPlainUrl;
+
+        /// <summary>The plain address with its code, or null when it is not
+        /// served.</summary>
+        public string WebControllerPlainUrl
+        {
+            get => _webControllerPlainUrl;
+            set => SetProperty(ref _webControllerPlainUrl, value);
+        }
+
+        private System.Windows.Media.ImageSource _webControllerPlainQr;
+
+        /// <summary>A QR of <see cref="WebControllerPlainUrl"/>. Null in This
+        /// PC Only mode, where the address names localhost and a phone could
+        /// not open it.</summary>
+        public System.Windows.Media.ImageSource WebControllerPlainQr
+        {
+            get => _webControllerPlainQr;
+            set => SetProperty(ref _webControllerPlainQr, value);
+        }
+
+        private bool _hasWebControllerPlainQr;
+
+        /// <summary>True when a plain-address QR is available.</summary>
+        public bool HasWebControllerPlainQr
+        {
+            get => _hasWebControllerPlainQr;
+            set => SetProperty(ref _hasWebControllerPlainQr, value);
+        }
+
+        private RelayCommand _copyWebControllerPlainUrlCommand;
+        /// <summary>Copies the plain address, code included.</summary>
+        public RelayCommand CopyWebControllerPlainUrlCommand =>
+            _copyWebControllerPlainUrlCommand ??= new RelayCommand(() =>
+            {
+                if (!string.IsNullOrEmpty(_webControllerPlainUrl))
+                {
+                    try { System.Windows.Clipboard.SetText(_webControllerPlainUrl); } catch { }
+                }
+            });
+
         // ─────────────────────────────────────────────
         //  Remote Link (issue #138)
         // ─────────────────────────────────────────────

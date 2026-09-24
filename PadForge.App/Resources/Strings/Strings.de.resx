@@ -84,6 +84,10 @@
   <data name="Server_PortInUse_Format" xml:space="preserve"><value>Port {0} belegt</value></data>
   <data name="Server_AccessDenied_Format" xml:space="preserve"><value>Zugriff verweigert für Port {0} (als Admin ausführen)</value></data>
   <data name="Server_FailedToStart" xml:space="preserve"><value>Start fehlgeschlagen</value></data>
+  <data name="Server_HttpsPortTaken_Format" xml:space="preserve"><value>Ein anderes Programm hat ein HTTPS-Zertifikat an Port {0} gebunden. Die Bewegungssensoren des Smartphones bleiben aus, bis Sie einen anderen Port wählen.</value></data>
+  <data name="Server_HttpsBindFailed" xml:space="preserve"><value>Windows hat das HTTPS-Zertifikat von PadForge nicht gebunden, daher sind die Bewegungssensoren des Smartphones aus.</value></data>
+  <data name="Server_HttpsListenerRejected_Format" xml:space="preserve"><value>Windows hat HTTPS an Port {0} abgelehnt, daher sind die Bewegungssensoren des Smartphones aus.</value></data>
+  <data name="Server_PlainSamePort" xml:space="preserve"><value>Gleicher Port wie die Hauptadresse</value></data>
   <data name="Common_Idle" xml:space="preserve"><value>Leerlauf</value></data>
   <data name="Common_Online" xml:space="preserve"><value>Online</value></data>
   <data name="Common_Offline" xml:space="preserve"><value>Offline</value></data>
@@ -3465,6 +3469,16 @@ Sollen sie jetzt deinstalliert werden? Dies erfordert erhöhte Rechte und kann e
   <data name="RemoteLink_NatSymmetric" xml:space="preserve"><value>Dieses Netzwerk erlaubt keine Direktverbindungen (vermutlich ein Mobil-Hotspot oder Carrier-Grade-NAT). Nutzen Sie ein VPN wie Tailscale oder verbinden Sie über einen Heim-Breitbandanschluss.</value></data>
   <data name="RemoteLink_NatNoPublic" xml:space="preserve"><value>Die öffentliche Adresse dieses PCs wurde nicht gefunden (das Netzwerk blockiert möglicherweise den nötigen Datenverkehr). Direktverbindungen funktionieren hier nicht. Nutzen Sie ein VPN oder Verbindung per Adresse im selben Netzwerk.</value></data>
   <data name="Dashboard_WebScanToOpen" xml:space="preserve"><value>Mit der Handykamera scannen oder diese Adresse im Browser öffnen:</value></data>
+  <data name="Dashboard_WebPlainTitle" xml:space="preserve"><value>Unverschlüsselte HTTP-Adresse</value></data>
+  <data name="Dashboard_WebPlainDescription" xml:space="preserve"><value>Eine zweite Adresse ohne HTTPS, für Browser, die das Zertifikat von PadForge ablehnen, und für einen Tunnel oder Reverse-Proxy mit eigenem Zertifikat. Die Bewegungssensoren des Smartphones brauchen HTTPS und funktionieren hier nur über einen Tunnel oder Proxy, der HTTPS bereitstellt.</value></data>
+  <data name="Dashboard_WebPlainEnable" xml:space="preserve"><value>Zusätzlich unverschlüsseltes HTTP bereitstellen</value></data>
+  <data name="Dashboard_WebPlainPort" xml:space="preserve"><value>Unverschlüsselter HTTP-Port</value></data>
+  <data name="Dashboard_WebPlainLocalOnly" xml:space="preserve"><value>Nur dieser PC</value></data>
+  <data name="Dashboard_WebPlainLocalOnlyHint" xml:space="preserve"><value>Für einen Tunnel oder Reverse-Proxy auf diesem PC. Andere Geräte können die unverschlüsselte Adresse nicht öffnen.</value></data>
+  <data name="Dashboard_WebAccessCode" xml:space="preserve"><value>Zugangscode</value></data>
+  <data name="Dashboard_WebAccessCodeHint" xml:space="preserve"><value>Die unverschlüsselte Adresse öffnet sich nur mit diesem Code, und der Link unten enthält ihn. Ein neuer Code trennt alle, die über die unverschlüsselte Adresse verbunden sind.</value></data>
+  <data name="Dashboard_WebNewAccessCode" xml:space="preserve"><value>Neuer Code</value></data>
+  <data name="Dashboard_WebPlainLocalAddress" xml:space="preserve"><value>Adresse auf diesem PC:</value></data>
   <data name="Devices_IdentifyTooltip" xml:space="preserve"><value>Vibration (klicken, um dieses Gerät zu identifizieren)</value></data>
   <data name="Battery_LowTitle" xml:space="preserve"><value>Controller-Akku schwach</value></data>
   <data name="Battery_LowText_Format" xml:space="preserve"><value>{0}: {1}% Akku verbleibend</value></data>

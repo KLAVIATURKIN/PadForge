@@ -84,6 +84,10 @@
   <data name="Server_PortInUse_Format" xml:space="preserve"><value>Poort {0} in gebruik</value></data>
   <data name="Server_AccessDenied_Format" xml:space="preserve"><value>Toegang geweigerd voor poort {0} (als admin uitvoeren)</value></data>
   <data name="Server_FailedToStart" xml:space="preserve"><value>Starten mislukt</value></data>
+  <data name="Server_HttpsPortTaken_Format" xml:space="preserve"><value>Een ander programma heeft een HTTPS-certificaat op poort {0}. Beweging van de telefoon blijft uit tot je een andere poort kiest.</value></data>
+  <data name="Server_HttpsBindFailed" xml:space="preserve"><value>Windows heeft het HTTPS-certificaat van PadForge niet gekoppeld, dus beweging van de telefoon staat uit.</value></data>
+  <data name="Server_HttpsListenerRejected_Format" xml:space="preserve"><value>Windows heeft HTTPS op poort {0} geweigerd, dus beweging van de telefoon staat uit.</value></data>
+  <data name="Server_PlainSamePort" xml:space="preserve"><value>Zelfde poort als het hoofdadres</value></data>
   <data name="Common_Idle" xml:space="preserve"><value>Inactief</value></data>
   <data name="Common_Online" xml:space="preserve"><value>Online</value></data>
   <data name="Common_Offline" xml:space="preserve"><value>Offline</value></data>
@@ -3485,6 +3489,16 @@ Wil je dat PadForge ze nu verwijdert? Hiervoor zijn verhoogde rechten nodig en h
   <data name="RemoteLink_NatSymmetric" xml:space="preserve"><value>Dit netwerk kan geen directe verbindingen maken (het lijkt op een mobiele hotspot of carrier-grade NAT). Gebruik een VPN zoals Tailscale, of verbind vanaf thuisbreedband.</value></data>
   <data name="RemoteLink_NatNoPublic" xml:space="preserve"><value>Kon het openbare adres van deze pc niet vinden (het netwerk blokkeert mogelijk het benodigde verkeer). Directe verbindingen werken hier niet. Gebruik een VPN, of Verbinden via adres op hetzelfde netwerk.</value></data>
   <data name="Dashboard_WebScanToOpen" xml:space="preserve"><value>Scan met de camera van je telefoon of open dit adres in de browser:</value></data>
+  <data name="Dashboard_WebPlainTitle" xml:space="preserve"><value>Onversleuteld HTTP-adres</value></data>
+  <data name="Dashboard_WebPlainDescription" xml:space="preserve"><value>Een tweede adres zonder HTTPS, voor browsers die het certificaat van PadForge weigeren en voor een tunnel of reverse proxy met een eigen certificaat. Beweging van de telefoon vereist HTTPS en werkt hier dus alleen via een tunnel of proxy die HTTPS aanbiedt.</value></data>
+  <data name="Dashboard_WebPlainEnable" xml:space="preserve"><value>Ook onversleuteld HTTP aanbieden</value></data>
+  <data name="Dashboard_WebPlainPort" xml:space="preserve"><value>Onversleutelde HTTP-poort</value></data>
+  <data name="Dashboard_WebPlainLocalOnly" xml:space="preserve"><value>Alleen deze pc</value></data>
+  <data name="Dashboard_WebPlainLocalOnlyHint" xml:space="preserve"><value>Voor een tunnel of reverse proxy op deze pc. Andere apparaten kunnen het onversleutelde adres niet openen.</value></data>
+  <data name="Dashboard_WebAccessCode" xml:space="preserve"><value>Toegangscode</value></data>
+  <data name="Dashboard_WebAccessCodeHint" xml:space="preserve"><value>Het onversleutelde adres opent alleen met deze code, en de link hieronder bevat hem. Een nieuwe code verbreekt de verbinding van iedereen op het onversleutelde adres.</value></data>
+  <data name="Dashboard_WebNewAccessCode" xml:space="preserve"><value>Nieuwe code</value></data>
+  <data name="Dashboard_WebPlainLocalAddress" xml:space="preserve"><value>Adres op deze pc:</value></data>
   <data name="Devices_IdentifyTooltip" xml:space="preserve"><value>Trillen (klik om dit apparaat te identificeren)</value></data>
   <data name="Battery_LowTitle" xml:space="preserve"><value>Controllerbatterij bijna leeg</value></data>
   <data name="Battery_LowText_Format" xml:space="preserve"><value>{0}: {1}% batterij over</value></data>

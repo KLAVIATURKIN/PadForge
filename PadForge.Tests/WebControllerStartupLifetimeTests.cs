@@ -300,6 +300,7 @@ namespace PadForge.Tests
             public int Closes;
             public int Reads;
             public void Start(string prefix) { _start?.Invoke(); IsListening = true; }
+            public void AddPrefix(string prefix) { }
             public HttpListenerContext GetContext()
             {
                 Interlocked.Increment(ref Reads);

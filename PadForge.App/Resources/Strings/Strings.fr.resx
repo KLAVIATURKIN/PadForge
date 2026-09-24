@@ -84,6 +84,10 @@
   <data name="Server_PortInUse_Format" xml:space="preserve"><value>Port {0} utilisé</value></data>
   <data name="Server_AccessDenied_Format" xml:space="preserve"><value>Accès refusé pour le port {0} (exécuter en admin)</value></data>
   <data name="Server_FailedToStart" xml:space="preserve"><value>Échec du démarrage</value></data>
+  <data name="Server_HttpsPortTaken_Format" xml:space="preserve"><value>Un autre programme a un certificat HTTPS sur le port {0}. Le mouvement du téléphone reste désactivé tant que vous ne choisissez pas un autre port.</value></data>
+  <data name="Server_HttpsBindFailed" xml:space="preserve"><value>Windows n'a pas lié le certificat HTTPS de PadForge, donc le mouvement du téléphone est désactivé.</value></data>
+  <data name="Server_HttpsListenerRejected_Format" xml:space="preserve"><value>Windows a refusé HTTPS sur le port {0}, donc le mouvement du téléphone est désactivé.</value></data>
+  <data name="Server_PlainSamePort" xml:space="preserve"><value>Même port que l'adresse principale</value></data>
   <data name="Common_Idle" xml:space="preserve"><value>Inactif</value></data>
   <data name="Common_Online" xml:space="preserve"><value>En ligne</value></data>
   <data name="Common_Offline" xml:space="preserve"><value>Hors ligne</value></data>
@@ -3465,6 +3469,16 @@ Voulez-vous que PadForge les désinstalle maintenant ? Cette opération nécessi
   <data name="RemoteLink_NatSymmetric" xml:space="preserve"><value>Ce réseau ne permet pas les connexions directes (cela ressemble à un point d'accès mobile ou à un NAT opérateur). Utilisez un VPN comme Tailscale, ou connectez-vous depuis une box internet.</value></data>
   <data name="RemoteLink_NatNoPublic" xml:space="preserve"><value>Impossible de trouver l'adresse publique de ce PC (le réseau bloque peut-être le trafic nécessaire). Les connexions directes ne fonctionnent pas ici. Utilisez un VPN, ou Connexion par adresse sur le même réseau.</value></data>
   <data name="Dashboard_WebScanToOpen" xml:space="preserve"><value>Scannez avec l'appareil photo du téléphone ou ouvrez cette adresse dans son navigateur :</value></data>
+  <data name="Dashboard_WebPlainTitle" xml:space="preserve"><value>Adresse HTTP non chiffrée</value></data>
+  <data name="Dashboard_WebPlainDescription" xml:space="preserve"><value>Une seconde adresse sans HTTPS, pour les navigateurs qui refusent le certificat de PadForge et pour un tunnel ou un proxy inverse qui fournit le sien. Le mouvement du téléphone exige HTTPS, donc ici il ne fonctionne qu'à travers un tunnel ou un proxy qui sert HTTPS.</value></data>
+  <data name="Dashboard_WebPlainEnable" xml:space="preserve"><value>Servir aussi en HTTP non chiffré</value></data>
+  <data name="Dashboard_WebPlainPort" xml:space="preserve"><value>Port HTTP non chiffré</value></data>
+  <data name="Dashboard_WebPlainLocalOnly" xml:space="preserve"><value>Ce PC uniquement</value></data>
+  <data name="Dashboard_WebPlainLocalOnlyHint" xml:space="preserve"><value>Pour un tunnel ou un proxy inverse sur ce PC. Les autres appareils ne peuvent pas ouvrir l'adresse non chiffrée.</value></data>
+  <data name="Dashboard_WebAccessCode" xml:space="preserve"><value>Code d'accès</value></data>
+  <data name="Dashboard_WebAccessCodeHint" xml:space="preserve"><value>L'adresse non chiffrée ne s'ouvre qu'avec ce code, que le lien ci-dessous inclut. Un nouveau code déconnecte tous ceux qui utilisent l'adresse non chiffrée.</value></data>
+  <data name="Dashboard_WebNewAccessCode" xml:space="preserve"><value>Nouveau code</value></data>
+  <data name="Dashboard_WebPlainLocalAddress" xml:space="preserve"><value>Adresse sur ce PC :</value></data>
   <data name="Devices_IdentifyTooltip" xml:space="preserve"><value>Vibration (cliquez pour identifier cet appareil)</value></data>
   <data name="Battery_LowTitle" xml:space="preserve"><value>Batterie de la manette faible</value></data>
   <data name="Battery_LowText_Format" xml:space="preserve"><value>{0} : {1}% de batterie restante</value></data>

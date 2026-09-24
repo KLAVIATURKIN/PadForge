@@ -35,12 +35,39 @@ namespace PadForge.Services
 
         internal static IDisposable AcquireBinding(int port) => BindingPool.Acquire(port);
 
+        /// <summary>Why HTTPS could not be prepared on a port, so the Dashboard
+        /// can say why phone motion is off instead of quietly serving HTTP.</summary>
+        internal enum Failure
+        {
+            None,
+            /// <summary>Another program's certificate is bound to the port,
+            /// and PadForge never removes somebody else's binding.</summary>
+            PortTakenByOtherApp,
+            /// <summary>The certificate or its port binding could not be made.</summary>
+            BindFailed,
+        }
+
+        private static readonly System.Collections.Concurrent.ConcurrentDictionary<int, Failure> LastFailures = new();
+
+        /// <summary>The outcome of the latest attempt to prepare HTTPS on the
+        /// port, <see cref="Failure.None"/> after a success or before any.</summary>
+        internal static Failure LastFailure(int port)
+            => LastFailures.TryGetValue(port, out var f) ? f : Failure.None;
+
         /// <summary>Ensures a certificate exists and is bound to the port.
         /// Returns the cert thumbprint on success, or null if any step failed
         /// (the caller then falls back to plain HTTP). Best-effort and
         /// self-contained: every failure is swallowed and reported as null.</summary>
         public static string EnsureHttpsBinding(int port)
         {
+            string thumbprint = EnsureHttpsBindingCore(port, out var failure);
+            LastFailures[port] = thumbprint != null ? Failure.None : failure;
+            return thumbprint;
+        }
+
+        private static string EnsureHttpsBindingCore(int port, out Failure failure)
+        {
+            failure = Failure.BindFailed;
             try
             {
                 var thumbprint = FindOrCreateCertThumbprint();
@@ -60,6 +87,7 @@ namespace PadForge.Services
                 {
                     PadForge.Engine.SdlDiagLog.WriteLine(
                         $"WEBTLS port {port} already has an sslcert binding owned by another application; serving http");
+                    failure = Failure.PortTakenByOtherApp;
                     return null;
                 }
 

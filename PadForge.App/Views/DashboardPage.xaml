@@ -1547,6 +1547,21 @@
                                    Foreground="{DynamicResource ColdBrush}"/>
                     </StackPanel>
 
+                    <!-- The main address fell back to plain HTTP. The address
+                         alone shows only the http://, so say why phone motion
+                         is off. Same caution treatment as Remote Link's
+                         network verdict. -->
+                    <Border Visibility="{Binding WebControllerHttpsWarning, Converter={StaticResource StringToVisibility}}"
+                            Background="{DynamicResource SystemFillColorCautionBackgroundBrush}"
+                            CornerRadius="6" Padding="10,8" Margin="0,8,0,0" HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE7BA;" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Top"
+                                       Foreground="{DynamicResource SystemFillColorCautionBrush}" Margin="0,1,8,0"/>
+                            <TextBlock Text="{Binding WebControllerHttpsWarning}" TextWrapping="Wrap"
+                                       Foreground="{DynamicResource TextFillColorSecondaryBrush}" MaxWidth="360"/>
+                        </StackPanel>
+                    </Border>
+
                     <!-- URL + QR (#296): scan or type to open the controller.
                          Only shown while the server is running. -->
                     <StackPanel Orientation="Horizontal" Margin="0,10,0,0"
@@ -1575,6 +1590,125 @@
 
                     <TextBlock Text="{Binding Dashboard_WebFooter, Source={x:Static strings:Strings.Instance}}"
                                FontSize="12" Foreground="{DynamicResource TextFillColorTertiaryBrush}" Margin="0,4,0,0"/>
+
+                    <Border Height="1" Background="{DynamicResource DividerStrokeColorDefaultBrush}" Margin="0,14,0,14"/>
+
+                    <!-- Plain HTTP address: a second port on the same listener,
+                         behind the access code. Divider-separated section title
+                         in the card, the Remote Link card's pattern. -->
+                    <TextBlock Text="{Binding Dashboard_WebPlainTitle, Source={x:Static strings:Strings.Instance}}"
+                               Style="{StaticResource CardSectionTitle}" FontSize="14" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,0,6"/>
+                    <TextBlock Text="{Binding Dashboard_WebPlainDescription, Source={x:Static strings:Strings.Instance}}"
+                               Style="{StaticResource CardDescription}" Margin="0,0,0,12"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                        <CheckBox VerticalAlignment="Center" AutomationProperties.AutomationId="EnableWebControllerPlainHttpCheckBox"
+                                  Content="{Binding Dashboard_WebPlainEnable, Source={x:Static strings:Strings.Instance}}"
+                                  Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                  IsChecked="{Binding EnableWebControllerPlainHttp}"/>
+                        <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="EnableWebControllerPlainHttp" SettingLabel="{Binding Dashboard_WebPlainEnable, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_DashboardViewModel_EnableWebControllerPlainHttp_1608"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,2">
+                        <CheckBox VerticalAlignment="Center" AutomationProperties.AutomationId="WebControllerPlainHttpLocalOnlyCheckBox"
+                                  Content="{Binding Dashboard_WebPlainLocalOnly, Source={x:Static strings:Strings.Instance}}"
+                                  Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                  IsChecked="{Binding WebControllerPlainHttpLocalOnly}"/>
+                        <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="WebControllerPlainHttpLocalOnly" SettingLabel="{Binding Dashboard_WebPlainLocalOnly, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_DashboardViewModel_WebControllerPlainHttpLocalOnly_1615"/>
+                    </StackPanel>
+                    <TextBlock Text="{Binding Dashboard_WebPlainLocalOnlyHint, Source={x:Static strings:Strings.Instance}}" TextWrapping="Wrap"
+                               FontSize="12" Foreground="{DynamicResource TextFillColorTertiaryBrush}" Margin="0,0,0,10"/>
+
+                    <!-- Port and access code share one label column, so the two
+                         boxes line up under labels of different widths. -->
+                    <Grid HorizontalAlignment="Left">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Dashboard_Port, Source={x:Static strings:Strings.Instance}}"
+                                   VerticalAlignment="Center" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,8,8"/>
+                        <ui:NumberBox Grid.Row="0" Grid.Column="1" Value="{Binding WebControllerPlainHttpPort, Mode=TwoWay}"
+                                      Minimum="1024" Maximum="65535"
+                                      SpinButtonPlacementMode="Inline" Width="200" Margin="0,0,0,8"/>
+                        <reset:SettingResetButton Grid.Row="0" Grid.Column="2" Command="{Binding ResetWebPlainPortCommand}" SettingLabel="{Binding Dashboard_WebPlainPort, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center" Margin="0,0,0,8"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Dashboard_WebAccessCode, Source={x:Static strings:Strings.Instance}}"
+                                   VerticalAlignment="Center" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,8,0"/>
+                        <ui:TextBox Grid.Row="1" Grid.Column="1" Text="{Binding WebControllerAccessCode, Mode=OneWay}" IsReadOnly="True"
+                                    AutomationProperties.AutomationId="WebControllerAccessCodeBox"
+                                    FontFamily="{StaticResource TelemetryFontFamily}" Width="200" VerticalAlignment="Center"/>
+                        <!-- The code has no default to reset to. New Code is its
+                             one way back, and its face says what it does. -->
+                        <ui:Button Grid.Row="1" Grid.Column="2" AutomationProperties.AutomationId="NewWebAccessCodeButton"
+                                   Content="{Binding Dashboard_WebNewAccessCode, Source={x:Static strings:Strings.Instance}}"
+                                   Command="{Binding NewWebAccessCodeCommand}" Margin="8,0,0,0" VerticalAlignment="Center"/>
+                    </Grid>
+                    <TextBlock Text="{Binding Dashboard_WebAccessCodeHint, Source={x:Static strings:Strings.Instance}}" TextWrapping="Wrap"
+                               FontSize="12" Foreground="{DynamicResource TextFillColorTertiaryBrush}" Margin="0,6,0,8"/>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,4"
+                                Visibility="{Binding WebControllerPlainStatus, Converter={StaticResource StringToVisibility}}">
+                        <Path Data="{StaticResource FlameOuterGeometry}"
+                              Width="11" Height="11" Stretch="Uniform"
+                              VerticalAlignment="Center" Margin="0,0,6,0">
+                            <Path.Style>
+                                <Style TargetType="Path">
+                                    <Setter Property="Fill" Value="Transparent"/>
+                                    <Setter Property="Stroke" Value="{DynamicResource TextFillColorTertiaryBrush}"/>
+                                    <Setter Property="StrokeThickness" Value="1.1"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsWebControllerPlainRunning}" Value="True">
+                                            <Setter Property="Fill" Value="{DynamicResource EmberBrush}"/>
+                                            <Setter Property="Stroke" Value="{x:Null}"/>
+                                            <Setter Property="Effect">
+                                                <Setter.Value>
+                                                    <DropShadowEffect Color="#FF6B2C" BlurRadius="8" ShadowDepth="0" Opacity="0.5"/>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Path.Style>
+                        </Path>
+                        <TextBlock Text="{Binding WebControllerPlainStatus}" FontSize="12"
+                                   FontFamily="{StaticResource TelemetryFontFamily}"
+                                   Foreground="{DynamicResource ColdBrush}"/>
+                    </StackPanel>
+
+                    <!-- The plain address with its code. On the LAN a QR opens
+                         it. This PC Only names localhost, which a phone cannot
+                         open, so that mode shows the address alone. -->
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0"
+                                Visibility="{Binding WebControllerPlainUrl, Converter={StaticResource StringToVisibility}}">
+                        <Border Background="White" CornerRadius="6" Padding="6" VerticalAlignment="Top" Margin="0,0,12,0"
+                                Visibility="{Binding HasWebControllerPlainQr, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <Image Source="{Binding WebControllerPlainQr}" Width="132" Height="132"
+                                   RenderOptions.BitmapScalingMode="NearestNeighbor"
+                                   RenderOptions.EdgeMode="Aliased"/>
+                        </Border>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="{Binding Dashboard_WebScanToOpen, Source={x:Static strings:Strings.Instance}}"
+                                       Visibility="{Binding HasWebControllerPlainQr, Converter={StaticResource BoolToVisibilityConverter}}"
+                                       FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,0,4"/>
+                            <TextBlock Text="{Binding Dashboard_WebPlainLocalAddress, Source={x:Static strings:Strings.Instance}}"
+                                       Visibility="{Binding HasWebControllerPlainQr, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Invert}"
+                                       FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,0,4"/>
+                            <StackPanel Orientation="Horizontal">
+                                <ui:TextBox Text="{Binding WebControllerPlainUrl, Mode=OneWay}" IsReadOnly="True"
+                                            FontFamily="{StaticResource TelemetryFontFamily}" FontSize="12" Width="320"/>
+                                <ui:Button Style="{StaticResource EmberIconButton}"
+                                           Command="{Binding CopyWebControllerPlainUrlCommand}" Margin="6,0,0,0"
+                                           VerticalAlignment="Center"
+                                           ToolTip="{Binding Common_Copy, Source={x:Static strings:Strings.Instance}}">
+                                    <TextBlock Text="&#xE8C8;" FontFamily="Segoe MDL2 Assets" FontSize="13"
+                                               Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                                </ui:Button>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
                 </StackPanel>
             </Border>
 

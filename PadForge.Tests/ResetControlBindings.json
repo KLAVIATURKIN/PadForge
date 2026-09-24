@@ -7,6 +7,18 @@
   },
   {
     "File": "PadForge.App/Views/DashboardPage.xaml",
+    "Id": "Reset_DashboardViewModel_EnableWebControllerPlainHttp_1608",
+    "Owner": "PadForge.ViewModels.DashboardViewModel",
+    "Property": "EnableWebControllerPlainHttp"
+  },
+  {
+    "File": "PadForge.App/Views/DashboardPage.xaml",
+    "Id": "Reset_DashboardViewModel_WebControllerPlainHttpLocalOnly_1615",
+    "Owner": "PadForge.ViewModels.DashboardViewModel",
+    "Property": "WebControllerPlainHttpLocalOnly"
+  },
+  {
+    "File": "PadForge.App/Views/DashboardPage.xaml",
     "Id": "Reset_DashboardViewModel_EnableRemoteLink_1578",
     "Owner": "PadForge.ViewModels.DashboardViewModel",
     "Property": "EnableRemoteLink"

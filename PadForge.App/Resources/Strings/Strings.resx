@@ -87,6 +87,10 @@
   <data name="Server_PortInUse_Format" xml:space="preserve"><value>Port {0} in use</value></data>
   <data name="Server_AccessDenied_Format" xml:space="preserve"><value>Access denied for port {0} (run as admin)</value></data>
   <data name="Server_FailedToStart" xml:space="preserve"><value>Failed to start</value></data>
+  <data name="Server_HttpsPortTaken_Format" xml:space="preserve"><value>Another program has an HTTPS certificate on port {0}. Phone motion is off until you choose another port.</value></data>
+  <data name="Server_HttpsBindFailed" xml:space="preserve"><value>Windows did not bind PadForge's HTTPS certificate, so phone motion is off.</value></data>
+  <data name="Server_HttpsListenerRejected_Format" xml:space="preserve"><value>Windows refused HTTPS on port {0}, so phone motion is off.</value></data>
+  <data name="Server_PlainSamePort" xml:space="preserve"><value>Same port as the main address</value></data>
   <data name="Common_Idle" xml:space="preserve"><value>Idle</value></data>
   <data name="Common_Online" xml:space="preserve"><value>Online</value></data>
   <data name="Common_Offline" xml:space="preserve"><value>Offline</value></data>
@@ -303,6 +307,16 @@
   <data name="Dashboard_EnableWeb" xml:space="preserve"><value>Enable Web Controller Server</value></data>
   <data name="Dashboard_WebFooter" xml:space="preserve"><value>Connect from a phone or tablet browser to use as a gamepad.</value></data>
   <data name="Dashboard_WebScanToOpen" xml:space="preserve"><value>Scan with a phone camera, or open this address in its browser:</value></data>
+  <data name="Dashboard_WebPlainTitle" xml:space="preserve"><value>Plain HTTP Address</value></data>
+  <data name="Dashboard_WebPlainDescription" xml:space="preserve"><value>A second address without HTTPS, for browsers that refuse PadForge's certificate and for a tunnel or reverse proxy that brings its own. Phone motion needs HTTPS, so here it works only through a tunnel or proxy that serves HTTPS.</value></data>
+  <data name="Dashboard_WebPlainEnable" xml:space="preserve"><value>Also Serve Plain HTTP</value></data>
+  <data name="Dashboard_WebPlainPort" xml:space="preserve"><value>Plain HTTP Port</value></data>
+  <data name="Dashboard_WebPlainLocalOnly" xml:space="preserve"><value>This PC Only</value></data>
+  <data name="Dashboard_WebPlainLocalOnlyHint" xml:space="preserve"><value>For a tunnel or reverse proxy on this PC. Other devices cannot open the plain address.</value></data>
+  <data name="Dashboard_WebAccessCode" xml:space="preserve"><value>Access Code</value></data>
+  <data name="Dashboard_WebAccessCodeHint" xml:space="preserve"><value>The plain address opens only with this code, and the link below includes it. A new code disconnects everyone on the plain address.</value></data>
+  <data name="Dashboard_WebNewAccessCode" xml:space="preserve"><value>New Code</value></data>
+  <data name="Dashboard_WebPlainLocalAddress" xml:space="preserve"><value>Address on this PC:</value></data>
   <data name="Devices_IdentifyTooltip" xml:space="preserve"><value>Rumble (click to identify this device)</value></data>
   <data name="Dashboard_RemoteLink" xml:space="preserve"><value>Remote Link</value></data>
   <data name="Dashboard_RemoteLinkDescription" xml:space="preserve"><value>Share controllers with a paired PadForge on another PC, on your network or across the internet.</value></data>

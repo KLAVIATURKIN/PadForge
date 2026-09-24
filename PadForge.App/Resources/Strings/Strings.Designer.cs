@@ -173,6 +173,10 @@ public class Strings : INotifyPropertyChanged
     public string Server_PortInUse_Format => Get("Server_PortInUse_Format");
     public string Server_AccessDenied_Format => Get("Server_AccessDenied_Format");
     public string Server_FailedToStart => Get("Server_FailedToStart");
+    public string Server_HttpsPortTaken_Format => Get("Server_HttpsPortTaken_Format");
+    public string Server_HttpsBindFailed => Get("Server_HttpsBindFailed");
+    public string Server_HttpsListenerRejected_Format => Get("Server_HttpsListenerRejected_Format");
+    public string Server_PlainSamePort => Get("Server_PlainSamePort");
     public string Common_Idle => Get("Common_Idle");
     public string Common_Online => Get("Common_Online");
     public string Common_Offline => Get("Common_Offline");
@@ -386,6 +390,16 @@ public class Strings : INotifyPropertyChanged
     public string Dashboard_EnableWeb => Get("Dashboard_EnableWeb");
     public string Dashboard_WebFooter => Get("Dashboard_WebFooter");
     public string Dashboard_WebScanToOpen => Get("Dashboard_WebScanToOpen");
+    public string Dashboard_WebPlainTitle => Get("Dashboard_WebPlainTitle");
+    public string Dashboard_WebPlainDescription => Get("Dashboard_WebPlainDescription");
+    public string Dashboard_WebPlainEnable => Get("Dashboard_WebPlainEnable");
+    public string Dashboard_WebPlainPort => Get("Dashboard_WebPlainPort");
+    public string Dashboard_WebPlainLocalOnly => Get("Dashboard_WebPlainLocalOnly");
+    public string Dashboard_WebPlainLocalOnlyHint => Get("Dashboard_WebPlainLocalOnlyHint");
+    public string Dashboard_WebAccessCode => Get("Dashboard_WebAccessCode");
+    public string Dashboard_WebAccessCodeHint => Get("Dashboard_WebAccessCodeHint");
+    public string Dashboard_WebNewAccessCode => Get("Dashboard_WebNewAccessCode");
+    public string Dashboard_WebPlainLocalAddress => Get("Dashboard_WebPlainLocalAddress");
     public string Devices_IdentifyTooltip => Get("Devices_IdentifyTooltip");
     public string Battery_LowTitle => Get("Battery_LowTitle");
     public string Battery_LowText_Format => Get("Battery_LowText_Format");

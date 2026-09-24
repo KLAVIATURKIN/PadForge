@@ -197,7 +197,11 @@
     function setupMotionButton() {
         var isTouchpadPage = !!document.getElementById("touchpad-zone-page");
         if (isTouchpadPage) return;
-        if (!window.isSecureContext || typeof DeviceMotionEvent === "undefined") return;
+        if (!window.isSecureContext) {
+            showMotionNeedsHttps();
+            return;
+        }
+        if (typeof DeviceMotionEvent === "undefined") return;
         motionBtn = document.createElement("button");
         motionBtn.textContent = "⟳ Motion";
         motionBtn.style.cssText = "position:fixed;bottom:10px;right:10px;z-index:45;" +
@@ -205,6 +209,31 @@
             "padding:6px 12px;font:600 12px 'Segoe UI',sans-serif;opacity:0.85";
         motionBtn.addEventListener("click", toggleMotion);
         document.body.appendChild(motionBtn);
+    }
+
+    // A page over plain HTTP is not a secure context, so the browser hides
+    // the motion sensors and no Motion button can work. Say so where the
+    // button would sit, on touch devices, which are the ones with sensors.
+    // When the PC also serves HTTPS, the note links the same page there.
+    function showMotionNeedsHttps() {
+        if (!(navigator.maxTouchPoints > 0)) return;
+        var note = document.createElement("a");
+        note.textContent = "Motion needs HTTPS";
+        note.style.cssText = "position:fixed;bottom:10px;right:10px;z-index:45;" +
+            "background:#16213e;color:#9aa;border:1px solid #0f3460;border-radius:8px;" +
+            "padding:6px 12px;font:600 12px 'Segoe UI',sans-serif;opacity:0.85;text-decoration:none";
+        document.body.appendChild(note);
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "/api/info", true);
+        xhr.onload = function () {
+            if (xhr.status !== 200) return;
+            var info;
+            try { info = JSON.parse(xhr.responseText); } catch (e) { return; }
+            if (!info || typeof info.secureUrl !== "string") return;
+            note.href = info.secureUrl.replace(/\/$/, "") + location.pathname + location.search;
+            note.textContent = "Motion: open over HTTPS";
+        };
+        xhr.send();
     }
 
     function toggleMotion() {

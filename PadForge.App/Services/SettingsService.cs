@@ -203,6 +203,7 @@ namespace PadForge.Services
             // Re-arm AFTER the clear so a load-time profile compaction
             // actually reaches disk (round 34).
             if (_profilesCompactedOnLoad) { _profilesCompactedOnLoad = false; MarkDirty(); }
+            if (_accessCodeUnsavedOnLoad) { _accessCodeUnsavedOnLoad = false; MarkDirty(); }
         }
 
         // ─────────────────────────────────────────────
@@ -2415,6 +2416,18 @@ namespace PadForge.Services
             finally { _applyingServiceToggles = false; }
             _mainVm.Dashboard.WebControllerPort = appSettings.WebControllerPort > 0
                 ? appSettings.WebControllerPort : 8080;
+            _mainVm.Dashboard.EnableWebControllerPlainHttp = appSettings.EnableWebControllerPlainHttp;
+            _mainVm.Dashboard.WebControllerPlainHttpPort =
+                appSettings.WebControllerPlainHttpPort >= 1024 && appSettings.WebControllerPlainHttpPort <= 65535
+                    ? appSettings.WebControllerPlainHttpPort : WebControllerServer.DefaultPlainPort;
+            _mainVm.Dashboard.WebControllerPlainHttpLocalOnly = appSettings.WebControllerPlainHttpLocalOnly;
+            // A missing, damaged or foreign code reads as null, which the view
+            // model ignores, so the fresh code it started with stays.
+            string storedAccessCode = WebControllerAccess.UnprotectFromStorage(appSettings.WebControllerAccessCodeProtected);
+            _mainVm.Dashboard.WebControllerAccessCode = storedAccessCode;
+            _accessCodeUnsavedOnLoad = storedAccessCode == null;
+            if (storedAccessCode != null)
+                _protectedAccessCode = (storedAccessCode, appSettings.WebControllerAccessCodeProtected);
             _mainVm.Dashboard.EnableRemoteLink = appSettings.EnableRemoteLink;
             _mainVm.Dashboard.AutoReconnect = appSettings.RemoteLinkAutoReconnect;
             _mainVm.Dashboard.RemoteLinkPort = appSettings.RemoteLinkPort >= 1024 && appSettings.RemoteLinkPort <= 65535
@@ -4293,6 +4306,12 @@ namespace PadForge.Services
         /// intent to write the repaired data back.</summary>
         private bool _profilesCompactedOnLoad;
 
+        /// <summary>Set when the loaded file had no usable web access code,
+        /// so the one in use is not on disk. Re-armed after the same post-load
+        /// clear, or a fresh code would be minted, and every link to it broken,
+        /// on each launch.</summary>
+        private bool _accessCodeUnsavedOnLoad;
+
         // ─────────────────────────────────────────────
         //  Save
         // ─────────────────────────────────────────────
@@ -4428,6 +4447,20 @@ namespace PadForge.Services
             {
                 _mainVm.SetStatus(string.Format(Strings.Instance.Status_ErrorSavingSettings_Format, ex.Message), persist: true);
             }
+        }
+
+        /// <summary>The access code last read or written with its encrypted
+        /// form. DPAPI output differs on every call, so reusing it keeps an
+        /// unchanged code from rewriting its element on every save.</summary>
+        private (string Code, string Protected) _protectedAccessCode;
+
+        private string ProtectAccessCode(string code)
+        {
+            var cached = _protectedAccessCode;
+            if (cached.Code != null && cached.Code == code) return cached.Protected;
+            string protectedCode = WebControllerAccess.ProtectForStorage(code);
+            if (protectedCode != null) _protectedAccessCode = (code, protectedCode);
+            return protectedCode;
         }
 
         /// <summary>
@@ -4626,6 +4659,10 @@ namespace PadForge.Services
                 HeadTrackingRotationRange = _mainVm.Dashboard.HeadTrackingRotationRange,
                 HeadTrackingTranslationRange = _mainVm.Dashboard.HeadTrackingTranslationRange,
                 WebControllerPort = _mainVm.Dashboard.WebControllerPort,
+                EnableWebControllerPlainHttp = _mainVm.Dashboard.EnableWebControllerPlainHttp,
+                WebControllerPlainHttpPort = _mainVm.Dashboard.WebControllerPlainHttpPort,
+                WebControllerPlainHttpLocalOnly = _mainVm.Dashboard.WebControllerPlainHttpLocalOnly,
+                WebControllerAccessCodeProtected = ProtectAccessCode(_mainVm.Dashboard.WebControllerAccessCode),
                 WebCustomLayoutsJson = PadForge.Services.WebCustomLayoutStore.Json,
                 EnableRemoteLink = _mainVm.Dashboard.EnableRemoteLink,
                 RemoteLinkAutoReconnect = _mainVm.Dashboard.AutoReconnect,
@@ -5543,6 +5580,7 @@ namespace PadForge.Services
             IsDirty = false;
             _mainVm.Settings.HasUnsavedChanges = false;
             if (_profilesCompactedOnLoad) { _profilesCompactedOnLoad = false; MarkDirty(); }
+            if (_accessCodeUnsavedOnLoad) { _accessCodeUnsavedOnLoad = false; MarkDirty(); }
         }
 
         /// <summary>
@@ -6426,6 +6464,27 @@ namespace PadForge.Services
 
         [XmlElement]
         public int WebControllerPort { get; set; } = 8080;
+
+        /// <summary>Also serve the web controller over plain HTTP on its own
+        /// port, behind the access code. The plain address settings are
+        /// machine-scoped like Remote Link's and never ride profiles: a
+        /// foreground profile switch should not open or close a port.</summary>
+        [XmlElement]
+        public bool EnableWebControllerPlainHttp { get; set; }
+
+        [XmlElement]
+        public int WebControllerPlainHttpPort { get; set; } = WebControllerServer.DefaultPlainPort;
+
+        /// <summary>Admit only this PC on the plain address, for a tunnel or
+        /// reverse proxy running here.</summary>
+        [XmlElement]
+        public bool WebControllerPlainHttpLocalOnly { get; set; }
+
+        /// <summary>The plain address's access code, encrypted for this
+        /// machine by <see cref="WebControllerAccess.ProtectForStorage"/>.
+        /// Missing, damaged or foreign, it is replaced by a fresh code.</summary>
+        [XmlElement]
+        public string WebControllerAccessCodeProtected { get; set; }
 
         /// <summary>Custom web-controller layouts built in the browser (#296
         /// phase 4), as a JSON array. Machine-scoped by design (a custom pad

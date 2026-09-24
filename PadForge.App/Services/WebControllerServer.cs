@@ -36,6 +36,8 @@ namespace PadForge.Services
         private readonly Func<IWebControllerListener> _createListener;
         private readonly Action<Thread> _startThread;
         private readonly Action<Thread> _joinThread;
+        private readonly Func<int, WebControllerTls.Failure> _httpsFailure;
+        private readonly Action<PlainHttpOptions> _plainFirewall;
         private CancellationTokenSource _acceptLifetime;
         private IDisposable _binding;
         private long _startGeneration;
@@ -46,9 +48,15 @@ namespace PadForge.Services
 
         internal WebControllerServer(Func<int, IDisposable> prepareEndpoint,
             Func<IWebControllerListener> createListener, Action<Thread> startThread = null,
-            Action<Thread> joinThread = null)
+            Action<Thread> joinThread = null, Func<int, WebControllerTls.Failure> httpsFailure = null,
+            Action<PlainHttpOptions> plainFirewall = null)
         {
             _prepareEndpoint = prepareEndpoint ?? PrepareEndpoint;
+            _httpsFailure = httpsFailure ?? WebControllerTls.LastFailure;
+            // The plain port's firewall rule is the same kind of machine change
+            // as the main port's, which the real endpoint preparation makes.
+            // An injected preparation leaves both alone unless asked.
+            _plainFirewall = plainFirewall ?? (prepareEndpoint == null ? ApplyPlainFirewallRule : _ => { });
             _createListener = createListener ?? (() => new HttpWebControllerListener());
             _startThread = startThread ?? (thread => thread.Start());
             _joinThread = joinThread ?? (thread =>
@@ -98,6 +106,21 @@ namespace PadForge.Services
         private int _port;
         private string _localIp;
         private bool _https;
+        /// <summary>Why the main address serves HTTP. Kept as a kind, not
+        /// text, so the Dashboard line follows a language change.</summary>
+        private HttpsFallback _httpsFallback;
+        /// <summary>The plain address being served, or null.</summary>
+        private volatile PlainHttpOptions _plain;
+        /// <summary>Why a requested plain address is not served.</summary>
+        private PlainFailure _plainFailure;
+        private int _plainFailurePort;
+        /// <summary>The plain address's access code, normalized. Only
+        /// <see cref="SetPlainAccessCode"/> writes it, so a new code set while
+        /// the server starts cannot be overwritten by the one it started with.</summary>
+        private volatile string _accessCode;
+
+        private enum HttpsFallback { None, PortTaken, BindFailed, ListenerRejected }
+        private enum PlainFailure { None, SamePort, NoCode, AccessDenied, PortInUse, Failed }
         private readonly ConcurrentDictionary<string, int> _typePadCounters = new();
         private readonly ConcurrentDictionary<string, int> _clientPadIds = new();
         private bool _disposed;
@@ -128,6 +151,121 @@ namespace PadForge.Services
         /// phone motion sensors, #296 phase 0).</summary>
         public bool IsHttps => _https;
 
+        /// <summary>The optional second address, served over plain HTTP on its
+        /// own port beside the main one. It is for browsers that refuse
+        /// PadForge's self-signed certificate and for a tunnel or reverse proxy
+        /// that supplies its own. <paramref name="LocalOnly"/> admits only
+        /// this PC, for a tunnel running here. Every request on it must carry
+        /// the access code set through <see cref="SetPlainAccessCode"/>.</summary>
+        public sealed record PlainHttpOptions(int Port, bool LocalOnly);
+
+        /// <summary>The plain address's default port, one above the main
+        /// address's.</summary>
+        internal const int DefaultPlainPort = 8081;
+
+        /// <summary>The plain address without its code, or null when it is
+        /// not served. In This PC Only mode it names localhost, the address
+        /// a local tunnel points at.</summary>
+        private string PlainBaseUrl
+        {
+            get
+            {
+                var plain = _plain;
+                string host = plain != null && plain.LocalOnly ? "localhost" : _localIp;
+                return _running && plain != null && host != null ? $"http://{host}:{plain.Port}" : null;
+            }
+        }
+
+        /// <summary>The plain address with its access code, ready to open or
+        /// share, or null when the plain address is not served.</summary>
+        public string PlainUrl
+        {
+            get
+            {
+                string baseUrl = PlainBaseUrl;
+                string code = _accessCode;
+                return baseUrl != null && code != null
+                    ? $"{baseUrl}/?{WebControllerAccess.QueryName}={code}" : null;
+            }
+        }
+
+        /// <summary>True while the plain address is served.</summary>
+        public bool IsPlainServing => _running && _plain != null;
+
+        /// <summary>True while the plain address is served to this PC only,
+        /// so its URL names localhost and a QR code would be no use.</summary>
+        public bool IsPlainLocalOnly => _running && _plain?.LocalOnly == true;
+
+        /// <summary>One line about the plain address: where it runs while
+        /// served, why it does not while one was requested, null otherwise.</summary>
+        public string PlainStatus
+        {
+            get
+            {
+                if (!_running) return null;
+                string baseUrl = PlainBaseUrl;
+                if (baseUrl != null) return string.Format(Strings.Instance.Server_RunningOn_Format, baseUrl);
+                int port = _plainFailurePort;
+                return _plainFailure switch
+                {
+                    PlainFailure.SamePort => Strings.Instance.Server_PlainSamePort,
+                    PlainFailure.AccessDenied => string.Format(Strings.Instance.Server_AccessDenied_Format, port),
+                    PlainFailure.PortInUse => string.Format(Strings.Instance.Server_PortInUse_Format, port),
+                    PlainFailure.NoCode or PlainFailure.Failed => Strings.Instance.Server_FailedToStart,
+                    _ => null,
+                };
+            }
+        }
+
+        /// <summary>Why the main address is plain HTTP and phone motion is
+        /// off, or null while it serves HTTPS. The status line alone would
+        /// show only the http:// in the address.</summary>
+        public string HttpsUnavailable
+        {
+            get
+            {
+                if (!_running) return null;
+                return _httpsFallback switch
+                {
+                    HttpsFallback.PortTaken => string.Format(Strings.Instance.Server_HttpsPortTaken_Format, _port),
+                    HttpsFallback.BindFailed => Strings.Instance.Server_HttpsBindFailed,
+                    HttpsFallback.ListenerRejected => string.Format(Strings.Instance.Server_HttpsListenerRejected_Format, _port),
+                    _ => null,
+                };
+            }
+        }
+
+        /// <summary>Sets the plain address's access code, before or while
+        /// serving. A change drops every session that joined through the plain
+        /// address, because a new code is how the user shuts out whoever had
+        /// the old one. Their browsers hold the old code in a cookie and are
+        /// refused until they open the address with the new code. An invalid
+        /// code is ignored.</summary>
+        public void SetPlainAccessCode(string code)
+        {
+            string normalized = WebControllerAccess.Normalize(code);
+            if (!WebControllerAccess.IsValid(normalized)) return;
+            // The code changes and the sweep reads the sessions under the
+            // registration lock, the same lock a new session registers under.
+            // A plain session admitted with the old code either registered
+            // first, and is in this sweep, or registers after, and meets the
+            // new code there and is refused.
+            List<ClientSession> revoked;
+            lock (_registrationLock)
+            {
+                if (normalized == _accessCode) return;
+                _accessCode = normalized;
+                revoked = _clients.Values.Where(s => s.ViaPlain).ToList();
+            }
+            // Cancelled outside the lock: each receive loop then runs its
+            // normal teardown, which takes the lock itself.
+            foreach (var session in revoked)
+            {
+                try { session.CancellationSource.Cancel(); }
+                catch (ObjectDisposedException) { /* already torn down */ }
+            }
+        }
+
         // ─────────────────────────────────────────────
         //  Lifecycle
         // ─────────────────────────────────────────────
@@ -145,7 +283,7 @@ namespace PadForge.Services
             return WebControllerTls.AcquireBinding(port);
         }
 
-        public bool Start(int port = DefaultPort)
+        public bool Start(int port = DefaultPort, PlainHttpOptions plain = null)
         {
             long generation;
             lock (_lifecycleLock)
@@ -165,6 +303,14 @@ namespace PadForge.Services
                 // Preparation can wait on the UI dispatcher. It holds no lifecycle lock.
                 pendingBinding = _prepareEndpoint(port);
                 bool https = pendingBinding != null;
+                // A failed binding records its reason. None here means nothing
+                // was attempted (an injected endpoint), so there is no reason.
+                var httpsFallback = https ? HttpsFallback.None : _httpsFailure(port) switch
+                {
+                    WebControllerTls.Failure.PortTakenByOtherApp => HttpsFallback.PortTaken,
+                    WebControllerTls.Failure.BindFailed => HttpsFallback.BindFailed,
+                    _ => HttpsFallback.None,
+                };
                 string localIp = GetLocalIpAddress();
                 lock (_lifecycleLock)
                     if (_disposed || generation != _startGeneration) return false;
@@ -177,14 +323,45 @@ namespace PadForge.Services
                     pendingBinding.Dispose();
                     pendingBinding = null;
                     https = false;
+                    httpsFallback = HttpsFallback.ListenerRejected;
                     pending = _createListener();
                     pending.Start($"http://+:{port}/");
+                }
+
+                // The plain address is a second prefix on the same listener, so
+                // one accept loop serves both. http.sys refuses it without
+                // touching the main prefix, and the main address keeps serving.
+                PlainHttpOptions plainServed = null;
+                var plainFailure = PlainFailure.None;
+                if (plain != null)
+                {
+                    if (plain.Port == port)
+                        plainFailure = PlainFailure.SamePort;
+                    else if (!WebControllerAccess.IsValid(_accessCode))
+                        plainFailure = PlainFailure.NoCode;
+                    else
+                    {
+                        try
+                        {
+                            pending.AddPrefix($"http://+:{plain.Port}/");
+                            plainServed = plain;
+                        }
+                        catch (HttpListenerException ex)
+                        {
+                            plainFailure = ex.ErrorCode == 5 ? PlainFailure.AccessDenied : PlainFailure.PortInUse;
+                        }
+                        catch (Exception)
+                        {
+                            plainFailure = PlainFailure.Failed;
+                        }
+                    }
                 }
 
                 pendingLifetime = new CancellationTokenSource();
                 var ownedListener = pending;
                 var token = pendingLifetime.Token;
-                var acceptThread = new Thread(() => AcceptLoop(ownedListener, token, generation))
+                var servedPlain = plainServed;
+                var acceptThread = new Thread(() => AcceptLoop(ownedListener, token, generation, servedPlain))
                 {
                     Name = "PadForge.WebServer",
                     IsBackground = true
@@ -197,6 +374,13 @@ namespace PadForge.Services
                     _port = port;
                     _localIp = localIp;
                     _https = https;
+                    _httpsFallback = httpsFallback;
+                    _plain = plainServed;
+                    _plainFailure = plainFailure;
+                    _plainFailurePort = plain?.Port ?? 0;
+                    // Under the lifecycle lock, so a later Stop's removal is
+                    // queued after this and wins. Best effort, like the rule.
+                    try { _plainFirewall(plainServed); } catch { }
                     _listener = pending;
                     _acceptThread = acceptThread;
                     _acceptLifetime = pendingLifetime;
@@ -258,6 +442,13 @@ namespace PadForge.Services
                 binding = _binding;
                 _binding = null;
                 _https = false;
+                _httpsFallback = HttpsFallback.None;
+                _plain = null;
+                _plainFailure = PlainFailure.None;
+                // Close the plain port's opening with the server. Queued under
+                // the lock, and this server cannot start again until Stop
+                // returns, so a later start's opening is queued after this.
+                try { _plainFirewall(null); } catch { }
             }
 
             try
@@ -330,7 +521,8 @@ namespace PadForge.Services
         //  Accept loop
         // ─────────────────────────────────────────────
 
-        private void AcceptLoop(IWebControllerListener listener, CancellationToken lifetime, long generation)
+        private void AcceptLoop(IWebControllerListener listener, CancellationToken lifetime, long generation,
+            PlainHttpOptions plain)
         {
             while (!lifetime.IsCancellationRequested && IsServing(generation))
             {
@@ -355,9 +547,35 @@ namespace PadForge.Services
                     try { ctx?.Response.Close(); } catch { }
                     break;
                 }
+                // Admission reads only the request line and headers, so it runs
+                // here. A refusal is written on the pool like any other page.
+                bool viaPlain;
+                string code;
+                try
+                {
+                    var admission = Admit(ctx, plain, out viaPlain, out code);
+                    if (admission is WebControllerAccess.Decision.DenyMissingCode
+                        or WebControllerAccess.Decision.DenyNotLocal)
+                    {
+                        var refused = ctx;
+                        _ = Task.Run(() => RefusePlain(refused, admission));
+                        continue;
+                    }
+                    // The page's later requests, its socket included, carry
+                    // the code in this cookie. A socket that named the code in
+                    // its own address needs none.
+                    if (admission == WebControllerAccess.Decision.AllowAndSetCookie
+                        && !ctx.Request.IsWebSocketRequest)
+                        ctx.Response.AppendHeader("Set-Cookie", WebControllerAccess.SetCookieValue(code));
+                }
+                catch
+                {
+                    try { ctx.Response.Abort(); } catch { }
+                    continue;
+                }
                 if (ctx.Request.IsWebSocketRequest)
                 {
-                    _ = Task.Run(() => HandleWebSocketAsync(ctx, lifetime, generation));
+                    _ = Task.Run(() => HandleWebSocketAsync(ctx, lifetime, generation, viaPlain, code));
                 }
                 else
                 {
@@ -367,6 +585,63 @@ namespace PadForge.Services
                     var captured = ctx;
                     _ = Task.Run(() => ServeStaticFile(captured));
                 }
+            }
+        }
+
+        /// <summary>Rules on one request. A request on the main address is
+        /// always allowed. One on the plain address is judged against the
+        /// code read here, which <paramref name="code"/> returns so the cookie
+        /// and the session registration use the same one.
+        /// <paramref name="plain"/> is what this listener was started with,
+        /// never the live field, which Stop clears while a dequeued request
+        /// can still be on its way here.</summary>
+        private WebControllerAccess.Decision Admit(HttpListenerContext ctx, PlainHttpOptions plain,
+            out bool viaPlain, out string code)
+        {
+            viaPlain = false;
+            code = null;
+            if (plain == null || ctx.Request.LocalEndPoint?.Port != plain.Port)
+                return WebControllerAccess.Decision.Allow;
+            viaPlain = true;
+            code = _accessCode;
+            return WebControllerAccess.Evaluate(code, plain.LocalOnly,
+                ctx.Request.RemoteEndPoint?.Address,
+                ctx.Request.QueryString[WebControllerAccess.QueryName],
+                ctx.Request.Headers["Cookie"]);
+        }
+
+        /// <summary>Answers a refused plain request with 403 and, for a page
+        /// load, a line that says what to do. Plain pages are English like the
+        /// rest of the web controller.</summary>
+        private static void RefusePlain(HttpListenerContext ctx, WebControllerAccess.Decision decision)
+        {
+            try
+            {
+                ctx.Response.StatusCode = 403;
+                ctx.Response.Headers["Cache-Control"] = "no-store";
+                // No body on a HEAD: http.sys allows none, and the write would
+                // throw and reset the connection instead of answering 403.
+                if (!ctx.Request.IsWebSocketRequest
+                    && !string.Equals(ctx.Request.HttpMethod, "HEAD", StringComparison.OrdinalIgnoreCase))
+                {
+                    string line = decision == WebControllerAccess.Decision.DenyNotLocal
+                        ? "This address works only on the PC that runs PadForge."
+                        : "This PadForge controller opens only with its access code. Use the full address from the PC that runs PadForge, code included.";
+                    var body = Encoding.UTF8.GetBytes(
+                        "<!DOCTYPE html><html><head><meta charset=\"utf-8\">" +
+                        "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">" +
+                        "<title>PadForge</title></head>" +
+                        "<body style=\"font-family:system-ui,sans-serif;background:#10131a;color:#dfe3ea;padding:24px;line-height:1.5\">" +
+                        "<p>" + WebUtility.HtmlEncode(line) + "</p></body></html>");
+                    ctx.Response.ContentType = "text/html; charset=utf-8";
+                    ctx.Response.ContentLength64 = body.Length;
+                    ctx.Response.OutputStream.Write(body, 0, body.Length);
+                }
+                ctx.Response.Close();
+            }
+            catch
+            {
+                try { ctx.Response.Abort(); } catch { }
             }
         }
 
@@ -392,6 +667,12 @@ namespace PadForge.Services
                 if (path == "/api/layout")
                 {
                     ServeLayoutApi(ctx);
+                    return;
+                }
+
+                if (path == "/api/info")
+                {
+                    ServeInfoApi(ctx);
                     return;
                 }
 
@@ -506,6 +787,31 @@ namespace PadForge.Services
             }
         }
 
+        /// <summary>What a page needs to know about the server: the secure
+        /// address, so a page opened over plain HTTP can point the user at the
+        /// one where phone motion works. Null while the main address is HTTP,
+        /// and null for a peer on this PC, which is a local browser that is
+        /// already a secure context or a tunnel whose far end cannot reach a
+        /// LAN address anyway.</summary>
+        private void ServeInfoApi(HttpListenerContext ctx)
+        {
+            try
+            {
+                bool local = WebControllerAccess.IsLoopback(ctx.Request.RemoteEndPoint?.Address);
+                string secureUrl = _https && _localIp != null && !local ? $"https://{_localIp}:{_port}/" : null;
+                var bytes = JsonSerializer.SerializeToUtf8Bytes(new { secureUrl });
+                ctx.Response.ContentType = "application/json; charset=utf-8";
+                ctx.Response.Headers["Cache-Control"] = "no-store";
+                ctx.Response.ContentLength64 = bytes.Length;
+                ctx.Response.OutputStream.Write(bytes, 0, bytes.Length);
+                ctx.Response.Close();
+            }
+            catch
+            {
+                try { ctx.Response.Close(); } catch { }
+            }
+        }
+
         /// <summary>Renders a URL to a QR image for the Dashboard card (#296),
         /// so the phone scans instead of typing. Returns a frozen ImageSource,
         /// or null if the URL will not encode.</summary>
@@ -556,7 +862,8 @@ namespace PadForge.Services
         //  WebSocket handling
         // ─────────────────────────────────────────────
 
-        private async Task HandleWebSocketAsync(HttpListenerContext ctx, CancellationToken lifetime, long generation)
+        private async Task HandleWebSocketAsync(HttpListenerContext ctx, CancellationToken lifetime, long generation,
+            bool viaPlain = false, string admittedCode = null)
         {
             WebSocket ws = null;
             try
@@ -711,7 +1018,7 @@ namespace PadForge.Services
                 device.SetConnected(true);
 
                 var cts = CancellationTokenSource.CreateLinkedTokenSource(lifetime);
-                var session = new ClientSession(ws, device, cts);
+                var session = new ClientSession(ws, device, cts) { ViaPlain = viaPlain };
 
                 // Handle rumble feedback → send to browser.
                 device.RumbleRequested += (low, high) =>
@@ -752,6 +1059,16 @@ namespace PadForge.Services
                     if (!IsServing(generation) || lifetime.IsCancellationRequested)
                     {
                         ws.Dispose();
+                        cts.Dispose();
+                        return;
+                    }
+                    // Admitted through the plain address under a code that
+                    // New Code has since replaced: the revocation sweep ran
+                    // before this session existed, so it is refused here.
+                    if (viaPlain && admittedCode != _accessCode)
+                    {
+                        try { ws.Abort(); } catch { }
+                        try { ws.Dispose(); } catch { }
                         cts.Dispose();
                         return;
                     }
@@ -1721,6 +2038,43 @@ namespace PadForge.Services
 
         private static void EnsureFirewallRule(int port) => EnsureInboundFirewallRule(FirewallRuleName, "TCP", port);
 
+        private const string PlainFirewallRuleName = "PadForge Web Controller (HTTP)";
+
+        private static readonly object PlainFirewallGate = new();
+        private static long _plainFirewallTicket;
+        /// <summary>The plain port this process last opened, 0 once it closed
+        /// the opening, -1 before its first request. A stale rule from a
+        /// process that ended while serving is removed by that first request.</summary>
+        private static int _plainFirewallPort = -1;
+
+        /// <summary>Opens the served plain port to the LAN, or, for This PC
+        /// Only and when <paramref name="served"/> is null, removes the
+        /// opening. The rule has to name the port rather than PadForge.exe:
+        /// http.sys receives the traffic in the kernel, so a program rule
+        /// would never match. Runs off the caller's thread, since netsh
+        /// blocks. Requests run one at a time, and a request superseded
+        /// before its turn is skipped, so the newest one always lands last.</summary>
+        internal static void ApplyPlainFirewallRule(PlainHttpOptions served)
+        {
+            int wanted = served != null && !served.LocalOnly ? served.Port : 0;
+            long ticket = Interlocked.Increment(ref _plainFirewallTicket);
+            Task.Run(() =>
+            {
+                lock (PlainFirewallGate)
+                {
+                    if (ticket != Interlocked.Read(ref _plainFirewallTicket)) return;
+                    if (wanted != 0)
+                        EnsureInboundFirewallRule(PlainFirewallRuleName, "TCP", wanted);
+                    else if (_plainFirewallPort != 0)
+                    {
+                        try { RunNetsh($"advfirewall firewall delete rule name=\"{PlainFirewallRuleName}\""); }
+                        catch { /* best effort, like the rule itself */ }
+                    }
+                    _plainFirewallPort = wanted;
+                }
+            });
+        }
+
         /// <summary>Adds an inbound allow rule for one port unless a rule of
         /// that name already names the port. Best effort, blocking (netsh
         /// spawns): callers hop to the thread pool. Shared with the head
@@ -1792,6 +2146,10 @@ namespace PadForge.Services
             /// second outstanding send, so rapid rumble (SetRumble + StopRumble)
             /// must not overlap.</summary>
             public SemaphoreSlim SendGate { get; } = new SemaphoreSlim(1, 1);
+
+            /// <summary>True when the session arrived through the plain
+            /// address, so a new access code can drop it.</summary>
+            public bool ViaPlain { get; init; }
 
             /// <summary>A forwarded pad's acknowledged freshness (#402). Null on
             /// every other session.</summary>

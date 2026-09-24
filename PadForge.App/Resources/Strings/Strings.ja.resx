@@ -84,6 +84,10 @@
   <data name="Server_PortInUse_Format" xml:space="preserve"><value>ポート {0} は使用中</value></data>
   <data name="Server_AccessDenied_Format" xml:space="preserve"><value>ポート {0} のアクセスが拒否されました (管理者として実行)</value></data>
   <data name="Server_FailedToStart" xml:space="preserve"><value>起動に失敗しました</value></data>
+  <data name="Server_HttpsPortTaken_Format" xml:space="preserve"><value>別のプログラムがポート {0} に HTTPS 証明書を設定しています。別のポートを選ぶまで、スマートフォンのモーションはオフです。</value></data>
+  <data name="Server_HttpsBindFailed" xml:space="preserve"><value>Windows が PadForge の HTTPS 証明書をバインドしなかったため、スマートフォンのモーションはオフです。</value></data>
+  <data name="Server_HttpsListenerRejected_Format" xml:space="preserve"><value>Windows がポート {0} での HTTPS を拒否したため、スマートフォンのモーションはオフです。</value></data>
+  <data name="Server_PlainSamePort" xml:space="preserve"><value>メイン アドレスと同じポートです</value></data>
   <data name="Common_Idle" xml:space="preserve"><value>待機中</value></data>
   <data name="Common_Online" xml:space="preserve"><value>オンライン</value></data>
   <data name="Common_Offline" xml:space="preserve"><value>オフライン</value></data>
@@ -3465,6 +3469,16 @@
   <data name="RemoteLink_NatSymmetric" xml:space="preserve"><value>このネットワークは直接接続に対応していません（モバイルホットスポットまたはキャリアグレードNATのようです）。Tailscaleなどの VPN を使うか、自宅の固定回線から接続してください。</value></data>
   <data name="RemoteLink_NatNoPublic" xml:space="preserve"><value>このPCの公開アドレスが見つかりませんでした（必要な通信がブロックされている可能性があります）。ここでは直接接続はできません。VPN を使うか、同じネットワーク内でアドレス接続を使ってください。</value></data>
   <data name="Dashboard_WebScanToOpen" xml:space="preserve"><value>スマートフォンのカメラで読み取るか、ブラウザーでこのアドレスを開きます:</value></data>
+  <data name="Dashboard_WebPlainTitle" xml:space="preserve"><value>暗号化なしの HTTP アドレス</value></data>
+  <data name="Dashboard_WebPlainDescription" xml:space="preserve"><value>HTTPS を使わない 2 つ目のアドレスです。PadForge の証明書を受け付けないブラウザーや、独自の証明書を持つトンネルやリバース プロキシ向けです。スマートフォンのモーションには HTTPS が必要なため、このアドレスでは HTTPS を提供するトンネルやプロキシ経由でのみ機能します。</value></data>
+  <data name="Dashboard_WebPlainEnable" xml:space="preserve"><value>暗号化なしの HTTP も提供する</value></data>
+  <data name="Dashboard_WebPlainPort" xml:space="preserve"><value>暗号化なしの HTTP ポート</value></data>
+  <data name="Dashboard_WebPlainLocalOnly" xml:space="preserve"><value>この PC のみ</value></data>
+  <data name="Dashboard_WebPlainLocalOnlyHint" xml:space="preserve"><value>この PC 上のトンネルやリバース プロキシ用です。ほかのデバイスからは暗号化なしのアドレスを開けません。</value></data>
+  <data name="Dashboard_WebAccessCode" xml:space="preserve"><value>アクセス コード</value></data>
+  <data name="Dashboard_WebAccessCodeHint" xml:space="preserve"><value>暗号化なしのアドレスは、このコードがあるときだけ開きます。下のリンクにはコードが含まれています。新しいコードにすると、暗号化なしのアドレスで接続中の全員が切断されます。</value></data>
+  <data name="Dashboard_WebNewAccessCode" xml:space="preserve"><value>新しいコード</value></data>
+  <data name="Dashboard_WebPlainLocalAddress" xml:space="preserve"><value>この PC 上のアドレス:</value></data>
   <data name="Devices_IdentifyTooltip" xml:space="preserve"><value>振動（クリックしてこのデバイスを識別）</value></data>
   <data name="Battery_LowTitle" xml:space="preserve"><value>コントローラーのバッテリー残量低下</value></data>
   <data name="Battery_LowText_Format" xml:space="preserve"><value>{0}: バッテリー残量 {1}%</value></data>
