@@ -1634,7 +1634,9 @@
                         <ui:NumberBox Grid.Row="0" Grid.Column="1" Value="{Binding WebControllerPlainHttpPort, Mode=TwoWay}"
                                       Minimum="1024" Maximum="65535"
                                       SpinButtonPlacementMode="Inline" Width="200" Margin="0,0,0,8"/>
-                        <reset:SettingResetButton Grid.Row="0" Grid.Column="2" Command="{Binding ResetWebPlainPortCommand}" SettingLabel="{Binding Dashboard_WebPlainPort, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center" Margin="0,0,0,8"/>
+                        <!-- Left, or it centers in a column the wider New Code
+                             button sizes and floats away from its box. -->
+                        <reset:SettingResetButton Grid.Row="0" Grid.Column="2" Command="{Binding ResetWebPlainPortCommand}" SettingLabel="{Binding Dashboard_WebPlainPort, Source={x:Static strings:Strings.Instance}}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,8"/>
                         <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Dashboard_WebAccessCode, Source={x:Static strings:Strings.Instance}}"
                                    VerticalAlignment="Center" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,8,0"/>
                         <ui:TextBox Grid.Row="1" Grid.Column="1" Text="{Binding WebControllerAccessCode, Mode=OneWay}" IsReadOnly="True"
