@@ -171,9 +171,10 @@ namespace PadForge.Tests
             using var owner = new LinkServer(PeerIdentity.Generate(), trust, _ => true);
             var current = SingleInventory(1, "id0");
             owner.ExposeProvider = () => current;
+            var status = TraceStatus(("consumer", consumer), ("owner", owner));
             int port = StartOnFreePort(consumer);
             StartOnFreePort(owner, port);
-            Assert.True(await owner.ConnectAsync("127.0.0.1", port, current));
+            Assert.True(await owner.ConnectAsync("127.0.0.1", port, current), Why(owner, status));
             trust.Find(identity.PublicKey).RendezvousCapabilityBase64 = "";
             consumer.Stop();
             for (int i = 1; i <= 256; i++)

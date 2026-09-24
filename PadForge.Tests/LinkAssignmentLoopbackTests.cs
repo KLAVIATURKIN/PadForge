@@ -21,9 +21,10 @@ namespace PadForge.Tests
                 return new LinkAssignmentReply(context.Request.RequestId, context.Request.DeviceId,
                     LinkAssignmentStatus.Ok, 1, "Game", new[] { new LinkAssignmentSlot(0, "Xbox 1", applications > 0, true) });
             }));
+            var status = TraceStatus(("target", target), ("source", source));
             int port = StartOnFreePort(target);
             StartOnFreePort(source, port);
-            Assert.True(await source.ConnectAsync("127.0.0.1", port, new[] { PadInfo() }));
+            Assert.True(await source.ConnectAsync("127.0.0.1", port, new[] { PadInfo() }), Why(source, status));
             Assert.True(await WaitUntil(() => received != null, 5000));
             var channel = source.GetAssignmentChannel(source.ConnectedFingerprints()[0]);
             Assert.NotNull(channel);

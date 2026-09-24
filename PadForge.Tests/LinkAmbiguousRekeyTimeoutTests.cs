@@ -61,7 +61,7 @@ namespace PadForge.Tests
             int aPort = StartOnFreePort(a, bPort);
             await using var proxy = new RekeyGateProxy(new IPEndPoint(IPAddress.Loopback, bPort));
             var empty = Array.Empty<RemotePeerDeviceInfo>();
-            Assert.True(await a.ConnectAsync("127.0.0.1", proxy.Port, empty));
+            Assert.True(await a.ConnectAsync("127.0.0.1", proxy.Port, empty), Why(a, connectionTrace));
             Assert.True(await WaitUntil(() => RekeyKeysMatch(a, b), 5000));
             trustA.Find(identityB.PublicKey).ReconnectEnabled = false;
             trustB.Find(identityA.PublicKey).ReconnectEnabled = false;
@@ -76,7 +76,7 @@ namespace PadForge.Tests
                 // X is the required worker's second TCP connection. Hold its reveal
                 // before either endpoint can bind X's admission.
                 await proxy.XBeforeBind.Task.WaitAsync(TimeSpan.FromSeconds(5));
-                Assert.True(await b.ConnectAsync("127.0.0.1", aPort, empty));
+                Assert.True(await b.ConnectAsync("127.0.0.1", aPort, empty), Why(b, connectionTrace));
                 Assert.True(await WaitUntil(() => RekeyKeysMatch(a, b), 5000));
                 var yKey = RekeyKey(a);
                 b.PushDeviceList(empty);
