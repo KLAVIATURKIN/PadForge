@@ -12284,6 +12284,14 @@ namespace PadForge.Services
 
         private int _streamTickGuard;
 
+        /// <summary>Whether a shared device publishes a mouse's per-poll
+        /// counts, which the delta bridge sums between two frames: a Raw
+        /// Input mouse, or a TouchSense mouse bound to WinUSB (#494), whose
+        /// row builds its state the same way.</summary>
+        internal static bool ReadsAsMouse(ISdlInputDevice source)
+            => source is PadForge.Engine.SdlMouseWrapper
+               || source is PadForge.Common.Input.Peripherals.TouchSenseMouseDevice;
+
         /// <summary>Poll-thread half of the Remote Link delta bridge, invoked
         /// once per polling tick via <see cref="InputManager.RemoteLinkPollTick"/>
         /// right after Step 2 publishes fresh snapshots. Folds each exposed
@@ -12298,7 +12306,7 @@ namespace PadForge.Services
                 var e = exposed[i];
                 var s = e.ud?.InputState;
                 if (s == null) continue;
-                try { e.acc.Accumulate(s, e.ud.InputStateSeq, e.source is PadForge.Engine.SdlMouseWrapper); }
+                try { e.acc.Accumulate(s, e.ud.InputStateSeq, ReadsAsMouse(e.source)); }
                 catch { /* teardown race: never disturb the poll loop */ }
             }
         }
@@ -12339,7 +12347,7 @@ namespace PadForge.Services
                     var snap = e.ud?.InputState;
                     if (snap == null || !e.ud.IsOnline) continue;
                     var s = snap.Clone();
-                    e.acc.DrainInto(s, e.source is PadForge.Engine.SdlMouseWrapper);
+                    e.acc.DrainInto(s, ReadsAsMouse(e.source));
                     var caps = new CustomInputStateCodec.Caps(e.source.HasGyro, e.source.HasAccel, e.source.HasAccelAux, e.source.HasGyroAux);
                     server.PushLocalFrame(recipients, e.info.PeerLocalDeviceId, s, caps, ts);
                 }

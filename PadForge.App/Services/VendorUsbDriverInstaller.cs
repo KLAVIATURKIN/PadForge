@@ -47,6 +47,17 @@ namespace PadForge.Services
         internal const string InfName = "padforge_vendorusb.inf";
         internal const string CatalogName = "padforge_vendorusb.cat";
 
+        /// <summary>Test seam: set by the test assembly for the life of its
+        /// process. <see cref="Bind"/> and <see cref="Restore"/> then
+        /// change nothing on the PC: no package is written, signed, stocked
+        /// or removed and no node's driver is forced, whatever the code
+        /// that called them decided. A test works out what would be bound
+        /// from scripted nodes, and that keeps it off the drivers while the
+        /// code is right. This is for the build in which the code is wrong:
+        /// a driver bound from a test stays bound on the PC that ran it,
+        /// and a mouse on WinUSB is no pointer. False in production.</summary>
+        internal static bool NoDriverChangesForTest;
+
         internal const string XusbInfName = "padforge_xusb22.inf";
         internal const string XusbCatalogName = "padforge_xusb22.cat";
 
@@ -248,9 +259,9 @@ namespace PadForge.Services
         /// (DevicesViewModel.DriverBindText) and in the cost the confirm
         /// dialog states (MainWindow.DriverCost). TouchSenseMouse is a
         /// mouse with a TouchSense buzz motor (#494): bound to WinUSB it
-        /// can be rumbled, and Windows stops using it as a pointer. No row
-        /// of <see cref="OptIns"/> lists it until the backend that drives
-        /// such a mouse is there, so nothing offers it yet.</summary>
+        /// can be rumbled, and Windows stops using it as a pointer. It is
+        /// the one kind whose node is also asked for a descriptor shape
+        /// before it is offered (<see cref="QueryOptIn"/>).</summary>
         internal enum OptInKind { Xbox360Pad, Xbox360Receiver, IntelBaseStation, Prodikeys, TouchSenseMouse }
 
         /// <summary>One opt-in device. Revision names the bcdDevice a whole
@@ -272,6 +283,20 @@ namespace PadForge.Services
             new(0x8086, 0xC013, Match.Device, -1, null, OptInKind.IntelBaseStation, new[] { "", "HidUsb" }),
             // The Prodikeys' interface 1 carries its media and sleep keys (#33 Part 7).
             new(0x041E, 0x2801, Match.Interface, 1, null, OptInKind.Prodikeys, new[] { "", "HidUsb" }),
+            // TouchSense mice (#494), the three IDs of TouchSenseProtocol.Mice.
+            // Each is one interface, so the node to bind is the device's
+            // own (the iFeel Mouse's configuration descriptor, tactile-cvs
+            // tactile/support/logs/ifeel.log,v:85-89), and Windows' own INF
+            // names each ID (C:/Windows/INF/input.inf:301-303), so the
+            // restore puts its HID driver back. From HidUsb alone: the
+            // shape a node must show is read from its mouse collection,
+            // which a node with no driver does not have. The iFeel Mouse
+            // and the iFeel MouseMan first, which the vendor's driver
+            // serves with one device class, then the second iFeel Mouse
+            // ID, which gets the same frame on channel 0 from another.
+            new(0x046D, 0xC030, Match.Device, -1, null, OptInKind.TouchSenseMouse, new[] { "HidUsb" }),
+            new(0x046D, 0xC032, Match.Device, -1, null, OptInKind.TouchSenseMouse, new[] { "HidUsb" }),
+            new(0x046D, 0xC031, Match.Device, -1, null, OptInKind.TouchSenseMouse, new[] { "HidUsb" }),
         };
 
         /// <summary>What the Devices page offers for a device: to bind it,
@@ -302,11 +327,18 @@ namespace PadForge.Services
         /// present USB nodes: a bind when a node sits on a driver the target
         /// is bound from, a restore when a node is on WinUSB with PadForge's
         /// interface active. A node on anything else is not PadForge's to
-        /// touch.</summary>
+        /// touch. A TouchSense mouse is offered the bind only when its own
+        /// mouse collection declares the buzz report
+        /// (<paramref name="declaresBuzz"/>, by default
+        /// <see cref="TouchSenseBinding.NodeDeclaresBuzz"/>): only the iFeel
+        /// Mouse's descriptor is on record, so its siblings' IDs alone do
+        /// not say that they take the frames. No other kind is asked
+        /// anything beyond its IDs, its interface and its revision.</summary>
         internal static OptInOffer QueryOptIn(ushort vid, ushort pid, IReadOnlyList<UsbNode> nodes,
-            Func<string, bool> ours = null)
+            Func<string, bool> ours = null, Func<UsbNode, bool> declaresBuzz = null)
         {
             ours ??= HasActiveInterface;
+            declaresBuzz ??= TouchSenseBinding.NodeDeclaresBuzz;
             foreach (var t in OptIns)
             {
                 if (!RowIsTarget(t, vid, pid)) continue;
@@ -318,7 +350,13 @@ namespace PadForge.Services
 
                     string service = n.Service ?? string.Empty;
                     if (t.From.Any(f => f.Equals(service, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        // A mouse that does not declare the report is
+                        // offered nothing, and another node of the same
+                        // model may still declare it.
+                        if (t.Kind == OptInKind.TouchSenseMouse && !declaresBuzz(n)) continue;
                         return new OptInOffer(t.Kind, new BindPlan(revisionId ?? BindId(n), NameOf(t.Kind)), t.From, n.InstanceId, false);
+                    }
                     if (service.Equals("WINUSB", StringComparison.OrdinalIgnoreCase) && ours(n.InstanceId))
                         return new OptInOffer(t.Kind, null, t.From, n.InstanceId, true);
                 }
@@ -367,6 +405,8 @@ namespace PadForge.Services
         /// package PadForge wrote is removed.</summary>
         internal static bool Restore(string instanceId, Action<string> log, CancellationToken ct)
         {
+            // The test host changes no driver (NoDriverChangesForTest).
+            if (NoDriverChangesForTest) return false;
             try
             {
                 var dev = PnPDevice.GetDeviceByInstanceId(instanceId, DeviceLocationFlags.Normal);
@@ -378,7 +418,10 @@ namespace PadForge.Services
                     return false;
                 }
                 string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "INF", inf);
-                Devcon.DeleteDriver(inf, path, forceDelete: true);
+                // Removing the package has Windows restart the node on its
+                // own driver, so PadForge lets go of the node first.
+                LetGoOf(instanceId);
+                RemovePackage(inf, path);
 
                 for (int i = 0; i < 20 && !ct.IsCancellationRequested; i++)
                 {
@@ -574,6 +617,8 @@ namespace PadForge.Services
         internal static bool Bind(BindPlan plan, string instanceId, IReadOnlyList<UsbNode> nodes,
             Action<string> log, CancellationToken ct, string[] from = null)
         {
+            // The test host changes no driver (NoDriverChangesForTest).
+            if (NoDriverChangesForTest) return false;
             bool xusb = plan.Driver == BindDriver.Xusb22;
             string service = xusb ? "xusb22" : "WINUSB";
             string driverName = xusb ? "xusb22" : "WinUSB";
@@ -607,7 +652,7 @@ namespace PadForge.Services
 
                 // Signed fresh on every bind, as the DS3 package is, so a
                 // catalog left from an earlier INF never covers this one.
-                if (!Ds3DriverInstaller.SignDriverPackage(dir, catalog, log))
+                if (!SignPackage(dir, catalog, log))
                     return false;
                 if (!Ds3DriverInstaller.IsCatalogTrusted(Path.Combine(dir, catalog), out string signer))
                 {
@@ -621,12 +666,16 @@ namespace PadForge.Services
                 // update binds the node now: ranking prefers an inbox driver,
                 // HidUsb here, over a package signed on this PC, which is why
                 // the DS3 bind forces it too.
-                if (!Devcon.Install(inf, out bool reboot))
+                if (!StockPackage(inf, out bool reboot))
                     log($"{plan.Name}: DiInstallDriver declined {plan.BindId}.");
                 else if (reboot)
                     log($"{plan.Name}: Windows asked for a restart after the install.");
-                if (!UpdateDriverForPlugAndPlayDevices(IntPtr.Zero, plan.BindId, inf,
-                        INSTALLFLAG_FORCE | INSTALLFLAG_NONINTERACTIVE, out _))
+                // The forced update restarts every node the ID names, one
+                // that is on the package already included, so PadForge
+                // lets go of each of them first.
+                foreach (var n in nodes)
+                    if (Names(n, plan.BindId)) LetGoOf(n.InstanceId);
+                if (!ForceDriver(plan.BindId, inf))
                     log($"{plan.Name}: forced {driverName} bind for {plan.BindId} returned err={Marshal.GetLastWin32Error()}.");
 
                 // Done means the node itself is on the driver and the
@@ -654,6 +703,44 @@ namespace PadForge.Services
             }
         }
 
+        // ── The calls that change the PC ──────────────────────────────────
+        //
+        // Signing a package, stocking it, forcing it onto a node and
+        // removing it. Each asks NoDriverChangesForTest itself, as Bind and
+        // Restore do at their start, so in the test host no path through
+        // this class reaches one of them.
+
+        private static bool SignPackage(string directory, string catalog, Action<string> log)
+            => !NoDriverChangesForTest && Ds3DriverInstaller.SignDriverPackage(directory, catalog, log);
+
+        private static bool StockPackage(string inf, out bool reboot)
+        {
+            reboot = false;
+            return !NoDriverChangesForTest && Devcon.Install(inf, out reboot);
+        }
+
+        private static bool ForceDriver(string bindId, string inf)
+            => !NoDriverChangesForTest
+               && UpdateDriverForPlugAndPlayDevices(IntPtr.Zero, bindId, inf,
+                   INSTALLFLAG_FORCE | INSTALLFLAG_NONINTERACTIVE, out _);
+
+        private static void RemovePackage(string inf, string path)
+        {
+            if (NoDriverChangesForTest) return;
+            Devcon.DeleteDriver(inf, path, forceDelete: true);
+        }
+
+        /// <summary>Closes the one handle PadForge itself can hold on a
+        /// node, before Windows is asked to change that node's driver: the
+        /// WinUSB handle of a TouchSense mouse it reads (#494). Windows
+        /// restarts a node to give it another driver, and a handle held
+        /// open to the node keeps it from restarting. The mouse's row
+        /// retires with the handle and comes back a few seconds later if
+        /// the mouse is still bound. This rests on how Windows treats any
+        /// device in use: no run on a bound mouse stands behind it.</summary>
+        private static void LetGoOf(string instanceId)
+            => PadForge.Common.Input.Peripherals.TouchSenseChannels.Shared.CloseAt(instanceId);
+
         /// <summary>True when an interface with PadForge's GUID is active on
         /// the node, so winusb.sys serves it now. A service name alone also
         /// names a device that failed to start. This is the DS3 bind's proof
@@ -663,11 +750,34 @@ namespace PadForge.Services
         internal static bool HasActiveInterface(string instanceId) => HasActiveInterface(instanceId, InterfaceGuid);
 
         internal static bool HasActiveInterface(string instanceId, Guid interfaceGuid)
+            => NamesNode(ActiveInterfacePaths(interfaceGuid), instanceId);
+
+        /// <summary>Whether one of the interface paths is the node's. A
+        /// path carries its node's instance ID with # for each backslash,
+        /// and a # after it, so the node on port 2 of a hub is never taken
+        /// for the one on port 21.</summary>
+        internal static bool NamesNode(IEnumerable<string> interfacePaths, string instanceId)
         {
-            string token = instanceId.Replace('\\', '#');
+            if (interfacePaths == null || string.IsNullOrEmpty(instanceId)) return false;
+            string token = instanceId.Replace('\\', '#') + "#";
+            foreach (string path in interfacePaths)
+                if (path != null && path.IndexOf(token, StringComparison.OrdinalIgnoreCase) >= 0) return true;
+            return false;
+        }
+
+        /// <summary>The path of every present interface with this GUID that
+        /// is active now, or null when the device information set could not
+        /// be built, kept apart from "none present" so one failed SetupAPI
+        /// call never reads as every device unplugged. Active only: a
+        /// registration outlives the driver that made it, so a node Windows
+        /// took back still lists its interface (the stale path the
+        /// DualShock 3 finder skips, Ds3DirectService.cs:1648-1653).</summary>
+        internal static List<string> ActiveInterfacePaths(Guid interfaceGuid)
+        {
             var guid = interfaceGuid;
             IntPtr set = SetupDiGetClassDevsGuid(ref guid, IntPtr.Zero, IntPtr.Zero, DIGCF_PRESENT | DIGCF_DEVICEINTERFACE);
-            if (set == IntPtr.Zero || set == new IntPtr(-1)) return false;
+            if (set == IntPtr.Zero || set == new IntPtr(-1)) return null;
+            var paths = new List<string>();
             try
             {
                 var iface = new SP_DEVICE_INTERFACE_DATA { cbSize = Marshal.SizeOf<SP_DEVICE_INTERFACE_DATA>() };
@@ -684,8 +794,7 @@ namespace PadForge.Services
                         if (SetupDiGetDeviceInterfaceDetailW(set, ref iface, detail, required, ref required, IntPtr.Zero))
                         {
                             string path = Marshal.PtrToStringUni(detail + 4);
-                            if (path != null && path.IndexOf(token, StringComparison.OrdinalIgnoreCase) >= 0)
-                                return true;
+                            if (!string.IsNullOrEmpty(path)) paths.Add(path);
                         }
                     }
                     finally
@@ -693,7 +802,7 @@ namespace PadForge.Services
                         Marshal.FreeHGlobal(detail);
                     }
                 }
-                return false;
+                return paths;
             }
             finally
             {

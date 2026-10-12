@@ -33,6 +33,7 @@ namespace PadForge.Common.Input.Peripherals
 
             // TouchSense. Rumble only, so the crash path's lighting pass
             // asks nothing of it.
+            Add(backends, OutputFamily.TouchSenseUnit, () => new TouchSenseBackend());
 
             return backends;
         }

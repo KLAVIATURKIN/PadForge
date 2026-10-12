@@ -2130,11 +2130,11 @@ namespace PadForge.Tests
 
         /// <summary>The binding that hands a TouchSense mouse to WinUSB has
         /// its kind, its name, its two Devices page texts and an arm of its
-        /// own in every switch over the kind. No device lists the kind yet,
-        /// so nothing offers the switch until the lane that drives the
-        /// mouse names its devices.</summary>
+        /// own in every switch over the kind. The mice that offer it are
+        /// the ones the backend that drives them lists
+        /// (TouchSenseBindingTests).</summary>
         [Fact]
-        public void TheTouchSenseBinding_HasItsKindItsNameAndItsTexts_AndNoDeviceOffersItYet()
+        public void TheTouchSenseBinding_HasItsKindItsNameAndItsTexts()
         {
             var kinds = Enum.GetValues(typeof(VendorUsbDriverInstaller.OptInKind))
                 .Cast<VendorUsbDriverInstaller.OptInKind>().ToArray();
@@ -2144,10 +2144,11 @@ namespace PadForge.Tests
             var touchSense = VendorUsbDriverInstaller.OptInKind.TouchSenseMouse;
             Assert.Equal(4, (int)touchSense);
 
-            // No device lists it, so no row is offered the switch.
-            Assert.DoesNotContain(VendorUsbDriverInstaller.OptIns, target => target.Kind == touchSense);
-            Assert.False(VendorUsbDriverInstaller.IsOptInRow(0x046D, 0xC030));
-            Assert.Null(VendorUsbDriverInstaller.KindOfId(@"USB\VID_046D&PID_C030"));
+            // Its devices are the TouchSense mice and nothing else.
+            Assert.All(VendorUsbDriverInstaller.OptIns.Where(target => target.Kind == touchSense),
+                target => Assert.True(TouchSenseProtocol.IsMouse(target.Vid, target.Pid)));
+            Assert.True(VendorUsbDriverInstaller.IsOptInRow(0x046D, 0xC030));
+            Assert.Equal(touchSense, VendorUsbDriverInstaller.KindOfId(@"USB\VID_046D&PID_C030"));
 
             var s = Strings.Instance;
             var vm = new DevicesViewModel();
