@@ -2823,7 +2823,14 @@ namespace PadForge.Services
         /// device setting: lighting, adaptive triggers, Mic LED, Player LED, OR audio
         /// (passthrough / audio-lightbar / mirror source). The audio arm matters because
         /// the old "is this configured" checks ignored it, so an audio-only setup was
-        /// treated as empty when Copy / Paste / Copy From picked a representative.</summary>
+        /// treated as empty when Copy / Paste / Copy From picked a representative.
+        /// <para>The Control This Device's Lighting switch and the Lighting
+        /// Hold (#494) do not count. Every caller asks in order to choose
+        /// the config that stands in for a device the source lacked, and a
+        /// stand-in never carries either
+        /// (<see cref="ApplyStandInDeviceSlotConfigData"/>), so a config that
+        /// sets nothing else has nothing to give and is not chosen ahead of
+        /// one that has.</para></summary>
         public static bool IsDeviceSlotConfigDataConfigured(ViewModels.DeviceSlotConfigData c)
             => c != null
             // Rev-aware default checks: a rev-0 DTO (old save / old
@@ -2870,13 +2877,7 @@ namespace PadForge.Services
                 // An input-reactive overlay is a deliberate configuration on
                 // its own: it rides OVER the base mode, so a slot carrying
                 // only an overlay above a default base is configured.
-                || c.InputReactiveMode != ViewModels.InputReactiveMode.Off
-                // #494: a controller taking a mouse's or keyboard's lighting
-                // is a deliberate choice, even with every mode at default.
-                || c.PeripheralLightingEnabled
-                // And so is a lighting hold raised above colors alone, with
-                // the switch on or off.
-                || c.PeripheralClaimLevel != ViewModels.PeripheralClaimLevel.Colors);
+                || c.InputReactiveMode != ViewModels.InputReactiveMode.Off);
 
         /// <summary>VM-shape twin of <see cref="IsDeviceSlotConfigDataConfigured"/>,
         /// for the in-process Copy From path.</summary>
@@ -2906,10 +2907,9 @@ namespace PadForge.Services
                 || c.AudioTritonLowPassHz != 250
                 || c.TouchpadSyntheticPressure
                 || c.TouchpadSyntheticTouchPercent != 50
-                // Same overlay rule as the DTO twin above.
-                || c.InputReactiveMode != ViewModels.InputReactiveMode.Off
-                || c.PeripheralLightingEnabled
-                || c.PeripheralClaimLevel != ViewModels.PeripheralClaimLevel.Colors);
+                // Same overlay rule as the DTO twin above, and the same two
+                // settings left out.
+                || c.InputReactiveMode != ViewModels.InputReactiveMode.Off);
 
         /// <summary>Paste companion. Applies a clipboard's device-config
         /// snapshot to the destination slot. Every per-device entry the
@@ -3214,10 +3214,12 @@ namespace PadForge.Services
             // even though Lighting is per-device. Only fan out when
             // there are NO per-device entries (genuine pre-v3.1 save).
             var slotsWithPerDeviceEntries = new System.Collections.Generic.HashSet<int>();
+            var ownEntries = new System.Collections.Generic.HashSet<(int Slot, Guid Device)>();
             foreach (var cfgData in configs)
             {
-                if (cfgData.DeviceGuid != Guid.Empty)
-                    slotsWithPerDeviceEntries.Add(cfgData.SlotIndex);
+                if (cfgData.DeviceGuid == Guid.Empty) continue;
+                slotsWithPerDeviceEntries.Add(cfgData.SlotIndex);
+                ownEntries.Add((cfgData.SlotIndex, cfgData.DeviceGuid));
             }
 
             foreach (var cfgData in configs)
@@ -3246,23 +3248,46 @@ namespace PadForge.Services
                     continue;
                 }
 
-                // Slot-level entry — always apply to the anchor so the
-                // Lighting tab shows something reasonable before any
-                // device is selected. Fan out to per-device configs
-                // ONLY when this slot has zero per-device entries (a
-                // pre-v3.1 save where lighting was slot-wide); v3.1+
-                // saves are authoritative per-device.
-                if (padVm.DeviceConfig != null)
-                    ApplyDeviceSlotConfigData(padVm.DeviceConfig, cfgData);
+                // Slot-level entry. It mirrors whichever device was
+                // selected when the set was saved, so it is no device's
+                // own entry. The config bound while no device is selected
+                // is nobody's and takes it whole, so the Lighting tab shows
+                // something reasonable. A device's config takes it only
+                // as a stand-in, with its own lighting switch and hold
+                // kept (#494), and not at all when the set holds that
+                // device's own entry: the entry is the authority, and the
+                // slot-level one in front of it would put another device's
+                // settings on this one for the passes in between. Fan out
+                // to per-device configs ONLY when this slot has zero
+                // per-device entries (a pre-v3.1 save where lighting was
+                // slot-wide). A v3.1+ save is authoritative per device.
+                var bound = padVm.DeviceConfig;
+                if (bound != null)
+                {
+                    Guid boundDevice = DeviceOfConfig(padVm, bound);
+                    if (boundDevice == Guid.Empty)
+                        ApplyDeviceSlotConfigData(bound, cfgData);
+                    else if (!ownEntries.Contains((idx, boundDevice)))
+                        ApplyStandInDeviceSlotConfigData(bound, cfgData);
+                }
                 if (!slotsWithPerDeviceEntries.Contains(idx))
                 {
                     foreach (var devCfg in padVm.PerDeviceSlotConfigs.Values)
                     {
-                        if (devCfg != null && !ReferenceEquals(devCfg, padVm.DeviceConfig))
-                            ApplyDeviceSlotConfigData(devCfg, cfgData);
+                        if (devCfg != null && !ReferenceEquals(devCfg, bound))
+                            ApplyStandInDeviceSlotConfigData(devCfg, cfgData);
                     }
                 }
             }
+        }
+
+        /// <summary>The device a slot's config belongs to, or the empty
+        /// GUID for the config bound while no device is selected.</summary>
+        private static Guid DeviceOfConfig(ViewModels.PadViewModel padVm, ViewModels.DeviceSlotConfig cfg)
+        {
+            foreach (var kvp in padVm.PerDeviceSlotConfigs)
+                if (ReferenceEquals(kvp.Value, cfg)) return kvp.Key;
+            return Guid.Empty;
         }
 
         /// <summary>Writes the saved DTO fields into a single

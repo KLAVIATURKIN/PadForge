@@ -1804,7 +1804,13 @@ namespace PadForge.Common.Input
             if (perDeviceCfgs != null && perDeviceCfgs.TryGetValue(guid, out var resolved))
                 devCfg = resolved;
             bool outputOnly = ud.Device is Common.Input.Peripherals.IOutputOnlyRow;
-            if (devCfg == null || (!outputOnly && !devCfg.PeripheralLightingEnabled))
+            // The switch and the hold in one read. A load writes them one
+            // after the other on the UI thread and this pass can run on the
+            // timer's: read apart, the switch of the outgoing settings could
+            // meet the hold of the incoming ones.
+            var hold = PeripheralClaimLevel.Colors;
+            bool lit = devCfg != null && devCfg.PeripheralLightingClaim(out hold);
+            if (devCfg == null || (!outputOnly && !lit))
             {
                 Common.Input.Peripherals.PeripheralOutputs.ReleaseLighting(guid, _padIndex);
                 return false;
@@ -1825,7 +1831,7 @@ namespace PadForge.Common.Input
             // slot may hold it while it lights it. A vendor row or a unit
             // row has no such choice on its tab, so it asks for colors
             // alone whatever its config holds.
-            int level = outputOnly ? 0 : (int)devCfg.PeripheralClaimLevel;
+            int level = outputOnly ? 0 : (int)hold;
             Common.Input.Peripherals.PeripheralOutputs.SetLighting(guid, _padIndex, slotNumber, r, g, b, level);
             return true;
         }

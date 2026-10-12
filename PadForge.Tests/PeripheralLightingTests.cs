@@ -1256,6 +1256,86 @@ namespace PadForge.Tests
             finally { PeripheralOutputs.LightingChanged -= OnLighting; }
         }
 
+        /// <summary>The switch and the hold are read as one pair. Each
+        /// setter publishes the pair before its change notice, since the
+        /// notice runs a dispatcher pass that reads it, and a value the
+        /// enum does not name changes neither.</summary>
+        [Fact]
+        public void TheSwitchAndTheHold_AreReadAsOnePair_CurrentAtEveryChangeNotice()
+        {
+            var cfg = new DeviceSlotConfig();
+            Assert.False(cfg.PeripheralLightingClaim(out var level));
+            Assert.Equal(PeripheralClaimLevel.Colors, level);
+            var seen = new List<(bool Lit, PeripheralClaimLevel Hold, bool AsTheProperties)>();
+            cfg.PropertyChanged += (_, e) =>
+            {
+                if (e.PropertyName is not (nameof(DeviceSlotConfig.PeripheralLightingEnabled)
+                    or nameof(DeviceSlotConfig.PeripheralClaimLevel)))
+                    return;
+                bool lit = cfg.PeripheralLightingClaim(out var hold);
+                seen.Add((lit, hold, lit == cfg.PeripheralLightingEnabled && hold == cfg.PeripheralClaimLevel));
+            };
+            cfg.PeripheralClaimLevel = PeripheralClaimLevel.HostMode;
+            cfg.PeripheralLightingEnabled = true;
+            cfg.PeripheralClaimLevel = PeripheralClaimLevel.Power;
+            cfg.PeripheralLightingEnabled = false;
+            Assert.Equal(new[]
+            {
+                (false, PeripheralClaimLevel.HostMode, true), (true, PeripheralClaimLevel.HostMode, true),
+                (true, PeripheralClaimLevel.Power, true), (false, PeripheralClaimLevel.Power, true),
+            }, seen);
+
+            // A number with no name, and a value written again, change nothing.
+            cfg.PeripheralClaimLevel = (PeripheralClaimLevel)7;
+            cfg.PeripheralClaimLevel = PeripheralClaimLevel.Power;
+            cfg.PeripheralLightingEnabled = false;
+            Assert.False(cfg.PeripheralLightingClaim(out level));
+            Assert.Equal(PeripheralClaimLevel.Power, level);
+            Assert.Equal(4, seen.Count);
+        }
+
+        /// <summary>A pass on another thread never reads the switch of one
+        /// load with the hold of the next. One thread loads {on, colors
+        /// alone} and {off, the highest hold} over and over, in the order a
+        /// load writes them, while another reads the pair as the dispatcher
+        /// does: it never finds the switch on at the highest hold, which
+        /// neither load asked for.</summary>
+        [Fact]
+        public void APassOnAnotherThread_NeverPairsTheSwitchOfOneLoadWithTheHoldOfTheNext()
+        {
+            var cfg = new DeviceSlotConfig { PeripheralLightingEnabled = true };
+            int wrong = 0, reads = 0, stop = 0;
+            var reader = new Thread(() =>
+            {
+                while (Volatile.Read(ref stop) == 0)
+                {
+                    if (cfg.PeripheralLightingClaim(out var level) && level == PeripheralClaimLevel.HostMode)
+                        Interlocked.Increment(ref wrong);
+                    Interlocked.Increment(ref reads);
+                }
+            }) { IsBackground = true };
+            reader.Start();
+            try
+            {
+                Assert.True(SpinWait.SpinUntil(() => Volatile.Read(ref reads) > 0, 30000), "the reader runs");
+                for (int i = 0; i < 200_000; i++)
+                {
+                    // Let go, then the hold: a load that turns the switch off.
+                    cfg.PeripheralLightingEnabled = false;
+                    cfg.PeripheralClaimLevel = PeripheralClaimLevel.HostMode;
+                    // The hold, then taken: a load that turns it on.
+                    cfg.PeripheralClaimLevel = PeripheralClaimLevel.Colors;
+                    cfg.PeripheralLightingEnabled = true;
+                }
+            }
+            finally
+            {
+                Volatile.Write(ref stop, 1);
+                Assert.True(reader.Join(30000), "the reader ended");
+            }
+            Assert.Equal(0, Volatile.Read(ref wrong));
+        }
+
         /// <summary>While the engine is stopped nothing reaches any device,
         /// so every route line says nothing, the waiting and asleep lines
         /// included.</summary>
@@ -2121,10 +2201,12 @@ namespace PadForge.Tests
         //  Persistence and migration
         // ─────────────────────────────────────────────
 
-        /// <summary>The switch is saved per (slot, device), reads off from a
-        /// file written before it, and makes a config count as configured.</summary>
+        /// <summary>The switch is saved per (slot, device) and reads off
+        /// from a file written before it. It does not make a config count
+        /// as configured: that check chooses a stand-in for another device,
+        /// which never takes the switch.</summary>
         [Fact]
-        public void TheControlSwitchRoundTrips_AndCountsAsConfiguration()
+        public void TheControlSwitchRoundTrips_AndMakesNoConfigAStandIn()
         {
             var build = typeof(SettingsService).GetMethod("BuildDeviceSlotConfigData",
                 BindingFlags.NonPublic | BindingFlags.Static);
@@ -2141,7 +2223,7 @@ namespace PadForge.Tests
             Assert.False(back.PeripheralLightingEnabled);
 
             Assert.False(new DeviceSlotConfigData().PeripheralLightingEnabled);
-            Assert.True(SettingsService.IsDeviceConfigConfigured(new DeviceSlotConfig { PeripheralLightingEnabled = true }));
+            Assert.False(SettingsService.IsDeviceConfigConfigured(new DeviceSlotConfig { PeripheralLightingEnabled = true }));
             Assert.False(SettingsService.IsDeviceConfigConfigured(new DeviceSlotConfig()));
             var rev1 = new DeviceSlotConfigData
             {
@@ -2149,7 +2231,7 @@ namespace PadForge.Tests
             };
             Assert.False(SettingsService.IsDeviceSlotConfigDataConfigured(rev1));
             rev1.PeripheralLightingEnabled = true;
-            Assert.True(SettingsService.IsDeviceSlotConfigDataConfigured(rev1));
+            Assert.False(SettingsService.IsDeviceSlotConfigDataConfigured(rev1));
 
             var reset = new DeviceSlotConfig { PeripheralLightingEnabled = true };
             reset.ResetPeripheralLightingEnabledCommand.Execute(null);

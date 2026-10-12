@@ -1003,7 +1003,14 @@ namespace PadForge.ViewModels
         public bool PeripheralLightingEnabled
         {
             get => _peripheralLightingEnabled;
-            set => SetProperty(ref _peripheralLightingEnabled, value);
+            set
+            {
+                if (_peripheralLightingEnabled == value) return;
+                // The pair first: the change notice runs a dispatcher pass,
+                // which reads it.
+                PublishPeripheralClaim(value, _peripheralClaimLevel);
+                SetProperty(ref _peripheralLightingEnabled, value);
+            }
         }
 
         private PeripheralClaimLevel _peripheralClaimLevel = PeripheralClaimLevel.Colors;
@@ -1024,9 +1031,31 @@ namespace PadForge.ViewModels
             get => _peripheralClaimLevel;
             set
             {
-                if (!Enum.IsDefined(value)) return;
+                if (!Enum.IsDefined(value) || _peripheralClaimLevel == value) return;
+                PublishPeripheralClaim(_peripheralLightingEnabled, value);
                 SetProperty(ref _peripheralClaimLevel, value);
             }
+        }
+
+        // Bit 8 the switch, the low byte the hold. One field, so a reader
+        // on another thread never pairs the switch of one moment with the
+        // hold of the next.
+        private int _peripheralClaim = (int)PeripheralClaimLevel.Colors;
+
+        private void PublishPeripheralClaim(bool enabled, PeripheralClaimLevel level)
+            => System.Threading.Volatile.Write(ref _peripheralClaim, (enabled ? 0x100 : 0) | ((int)level & 0xFF));
+
+        /// <summary>The Control This Device's Lighting switch and the
+        /// Lighting Hold as they stood together, in one read. The
+        /// dispatcher's pass can run on its timer's thread while a load
+        /// writes the two one after the other on the UI thread, in the
+        /// order that keeps every pair in between a safe one. True when the
+        /// switch is on.</summary>
+        internal bool PeripheralLightingClaim(out PeripheralClaimLevel level)
+        {
+            int pair = System.Threading.Volatile.Read(ref _peripheralClaim);
+            level = (PeripheralClaimLevel)(pair & 0xFF);
+            return (pair & 0x100) != 0;
         }
 
         private int _lightbarRainbowBrightness = 100;

@@ -468,6 +468,25 @@ namespace PadForge.Tests
             PadPage.ShowLightingHold(row.Row, row.Picker, row.HostModeItem, 1);
             Settle();
             Assert.Equal(s.Pad_Lighting_ClaimLevel_TooltipNoHostMode, peer.GetHelpText());
+            // A screen reader is told how many options the list holds. An
+            // option that gives no number is counted among all the items,
+            // the collapsed one included (dotnet/wpf, PresentationFramework,
+            // ItemAutomationPeer.cs:297-351), so with the last option out
+            // of the list each of the two left says two.
+            int SetSize(ComboBoxItem option) => UIElementAutomationPeer.CreatePeerForElement(option).GetSizeOfSet();
+            int unset = AutomationProperties.GetSizeOfSet(new ComboBoxItem());
+            var listed = row.Picker.Items.Cast<ComboBoxItem>().Where(option => !ReferenceEquals(option, row.HostModeItem)).ToList();
+            Assert.Equal(2, listed.Count);
+            Assert.All(listed, option => Assert.Equal(2, SetSize(option)));
+            // With it back none gives a number, and WPF counts the three.
+            PadPage.ShowLightingHold(row.Row, row.Picker, row.HostModeItem, 2);
+            Settle();
+            Assert.All(listed, option => Assert.Equal(unset, SetSize(option)));
+            Assert.Equal(unset, SetSize(row.HostModeItem));
+            Assert.Equal(3, row.Picker.Items.Count);
+            PadPage.ShowLightingHold(row.Row, row.Picker, row.HostModeItem, 1);
+            Settle();
+            Assert.All(listed, option => Assert.Equal(2, SetSize(option)));
             // Each option is named by its own text and has an ID of its own.
             Assert.Equal(new[] { s.Pad_Lighting_ClaimLevel_Colors, s.Pad_Lighting_ClaimLevel_Power, s.Pad_Lighting_ClaimLevel_HostMode },
                 row.Picker.Items.Cast<ComboBoxItem>().Select(item => (string)item.Content));
@@ -583,6 +602,23 @@ namespace PadForge.Tests
                 @"case nameof\(ViewModels\.DeviceSlotConfig\.PeripheralLightingEnabled\):\s*"
                 + @"case nameof\(ViewModels\.DeviceSlotConfig\.PeripheralClaimLevel\):\s*"
                 + @"SyncTabVisibility\(\);"), page);
+        }
+
+        /// <summary>The dispatcher takes the switch and the hold of a
+        /// device from one read of the pair, and reads neither on its own
+        /// while it lights the device.</summary>
+        [Fact]
+        public void TheDispatcherReadsTheSwitchAndTheHold_InOneRead()
+        {
+            string source = RepoText("PadForge.App", "Common", "Input", "UserEffectsDispatcher.cs");
+            int from = source.IndexOf("private bool LightPeripheral(", StringComparison.Ordinal);
+            int to = source.IndexOf("private void DispatchSnapshot(", StringComparison.Ordinal);
+            Assert.True(from >= 0 && to > from, "the method that lights one device");
+            string body = source.Substring(from, to - from);
+            Assert.Contains("devCfg.PeripheralLightingClaim(out hold)", body);
+            Assert.Contains("int level = outputOnly ? 0 : (int)hold;", body);
+            Assert.DoesNotContain("devCfg.PeripheralLightingEnabled", body);
+            Assert.DoesNotContain("devCfg.PeripheralClaimLevel", body);
         }
 
         // ─────────────────────────────────────────────

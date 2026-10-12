@@ -174,7 +174,12 @@ namespace PadForge.Views
         /// The picker's tooltip follows the list. Its last sentences say
         /// when to choose the last option and what that switches off, so a
         /// picker without the option takes the text that stops before
-        /// them, where "the last option" would name the wrong one.</summary>
+        /// them, where "the last option" would name the wrong one. The
+        /// options still listed say how many there are: an option's set
+        /// size is the item count unless the option gives one, whatever is
+        /// collapsed (dotnet/wpf, PresentationFramework,
+        /// ItemAutomationPeer.cs:297-351), and a screen reader would read
+        /// "2 of 3" on a list of two.</summary>
         internal static void ShowLightingHold(FrameworkElement row, ComboBox picker, ComboBoxItem hostModeItem, int offered)
         {
             if (row != null)
@@ -186,6 +191,15 @@ namespace PadForge.Views
             }
             if (picker != null)
             {
+                foreach (var item in picker.Items)
+                {
+                    if (item is not ComboBoxItem option || ReferenceEquals(option, hostModeItem)) continue;
+                    if (offered >= 2 || hostModeItem == null)
+                        option.ClearValue(System.Windows.Automation.AutomationProperties.SizeOfSetProperty);
+                    else
+                        System.Windows.Automation.AutomationProperties.SetSizeOfSet(option, picker.Items.Count - 1);
+                }
+
                 string tooltip = offered >= 2
                     ? nameof(Strings.Pad_Lighting_ClaimLevel_Tooltip)
                     : nameof(Strings.Pad_Lighting_ClaimLevel_TooltipNoHostMode);

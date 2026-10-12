@@ -8235,8 +8235,8 @@ namespace PadForge
                 // as the in-process Copy From: device features copy whatever
                 // the slot types (physical-device passthrough), a device the
                 // source slot lacked keeps its own Control This Device's
-                // Lighting switch, and Extended / MIDI are gated on matching
-                // slot type by their Apply methods.
+                // Lighting switch and Lighting Hold, and Extended / MIDI are
+                // gated on matching slot type by their Apply methods.
                 if (!string.IsNullOrEmpty(ps.SlotDeviceConfigsJson))
                 {
                     try
