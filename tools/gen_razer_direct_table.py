@@ -9,8 +9,14 @@ repository. Pass its path.
 
 WHAT IT WRITES. PadForge.App/Common/Input/Peripherals/RazerDirectTable.cs, one
 row per product ID: the family that paints it, its transaction ID and the
-other IDs to try, its LEDs or its frame size, the read that opens a claim, the
-wait before a reply, and the collection to open on Windows.
+other IDs to try, its LEDs or its frame size, the read that opens a claim and
+the ID that read goes out under first where openrazer sends it under one that
+is none of the product's own, the wait before a reply, and the collection to
+open on Windows.
+
+A ROW'S NAME is the openrazer daemon's text for the product. Where that text
+does not start with "Razer ", as with a class's docstring, OpenRGB's name for
+the product is written.
 
 WHY THE TABLE HOLDS NO REPORT. A row says what a product is. The reports are
 built from it by RazerDirectProtocol, so one builder serves every product of a
@@ -246,7 +252,7 @@ def listing(row):
     """Every report of one row, one to a line, in the order the digest reads them."""
     tx = row["tx"]
     lines = ["%s tx %s%s" % (row["pid"], hx(tx), "".join(" " + hx(alt) for alt in row["alternates"]))]
-    lines.append("  probe " + canonical(tx, build_probe(row)))
+    lines.append("  probe " + canonical(row["probe_tx"] or tx, build_probe(row)))
     lines += ["  read " + canonical(tx, frame) for frame in build_reads(row)]
     lines += ["  claim " + canonical(tx, frame) for frame in build_claim(row)]
     lines += ["  paint " + canonical(frame_tx, frame) for frame_tx, frame in build_paint(row)]
@@ -271,6 +277,8 @@ def to_row(pid, device):
     method = plan["method"]
     need(method in FAMILY, pid, "unknown method %r" % method)
     name = device["name"]
+    if not name.startswith("Razer ") and device.get("name_openrgb"):
+        name = device["name_openrgb"]
     need(all(32 <= ord(c) < 127 for c in name) and '"' not in name and "\\" not in name, pid, "name is not plain ASCII")
     candidates = tuple((c["interface"], c["usage_page"], c["usage"]) for c in device["windows_collection"]["candidates"])
     need(candidates in COLLECTIONS, pid, "no name for the collection rule %r" % (candidates,))
@@ -289,6 +297,7 @@ def to_row(pid, device):
         "show_tx": 0,
         "probe": "None",
         "probe_led": 0,
+        "probe_tx": 0,
         "flags": [],
         "wait_us": device["reply_wait_us"],
         "collections": COLLECTIONS[candidates],
@@ -318,6 +327,11 @@ def to_row(pid, device):
         need(match, pid, "unexpected claim read %r" % probe)
         row["probe"] = {"0F/84": "ExtendedBrightness", "03/83": "StandardBrightness", "03/80": "ClassicState"}[match.group(1)]
         row["probe_led"] = int(match.group(2), 16)
+    # The ID openrazer sends that read under, where it is none of the IDs the
+    # product is painted under. The read then goes out under it first.
+    own = plan["probe"].get("openrazer_tx")
+    if own and own != row["tx"] and own not in row["alternates"]:
+        row["probe_tx"] = own
 
     # The fallback at hand-back.
     back = plan["handback_fallback"]
@@ -449,6 +463,8 @@ def emit_row(row):
         parts.append("Probe = RazerProbe.%s" % row["probe"])
     if row["probe_led"]:
         parts.append("ProbeLed = 0x%02X" % row["probe_led"])
+    if row["probe_tx"]:
+        parts.append("ProbeTransactionId = 0x%02X" % row["probe_tx"])
     if row["flags"]:
         parts.append("Flags = %s" % " | ".join("RazerRowFlags." + flag for flag in FLAGS if flag in row["flags"]))
     if row["fallbacks"]:

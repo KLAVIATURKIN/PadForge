@@ -104,7 +104,8 @@ namespace PadForge.Common.Input.Peripherals
         /// <summary>The transaction ID openrazer puts on this product's
         /// static color report, tried first, and the other IDs one of the
         /// two projects sends to the same product, tried after it. No
-        /// other ID is ever sent.</summary>
+        /// other ID is ever sent, but for the one a product's claim read
+        /// has of its own (<see cref="ProbeTransactionId"/>).</summary>
         public byte TransactionId { get; init; }
         public byte[] OtherTransactionIds { get; init; } = Array.Empty<byte>();
 
@@ -132,6 +133,14 @@ namespace PadForge.Common.Input.Peripherals
 
         public RazerProbe Probe { get; init; }
         public byte ProbeLed { get; init; }
+
+        /// <summary>The transaction ID openrazer sends <see cref="Probe"/>
+        /// under, where it is none of the IDs the product is painted under:
+        /// nine mice and one keyboard are read under FF and painted under
+        /// 3F. The read goes out under it first, as the one project that
+        /// sends the read sends it. 0 for a product whose read goes out
+        /// under its own IDs.</summary>
+        public byte ProbeTransactionId { get; init; }
         public RazerRowFlags Flags { get; init; }
         public RazerFallback[] Fallbacks { get; init; } = Array.Empty<RazerFallback>();
 
@@ -608,21 +617,33 @@ namespace PadForge.Common.Input.Peripherals
         /// value the writes do not take: a state above 1 or an effect
         /// above 5, the ranges openrazer clamps to
         /// (razerchromacommon.c:88 and 153).
+        ///
+        /// <para><paramref name="withState"/> is false for a row whose
+        /// claim sets no state (<see cref="RazerRowFlags.NoState"/>, the
+        /// Tartarus Chroma). No reference sends that product a state report
+        /// for its backlight: OpenRGB sends it the color and the effect
+        /// alone (RazerController.cpp:2042-2046), and openrazer sends 03/00
+        /// to its three profile LEDs only (razerkbd_driver.c:2103-2105). So
+        /// its hand-back is the color and the effect, and its state reply
+        /// is not read.</para>
         /// </summary>
         internal static bool TryClassicStored(byte transactionId, byte led, ReadOnlySpan<byte> state,
-            ReadOnlySpan<byte> color, ReadOnlySpan<byte> effect, out byte[][] handBack)
+            ReadOnlySpan<byte> color, ReadOnlySpan<byte> effect, bool withState, out byte[][] handBack)
         {
             handBack = null;
-            if (!IsClassicReply(state, led) || !IsClassicReply(color, led) || !IsClassicReply(effect, led)) return false;
-            byte on = state[ArgumentsAt + 2], mode = effect[ArgumentsAt + 2];
+            if ((withState && !IsClassicReply(state, led)) || !IsClassicReply(color, led) || !IsClassicReply(effect, led))
+                return false;
+            byte on = withState ? state[ArgumentsAt + 2] : (byte)0, mode = effect[ArgumentsAt + 2];
             if (on > 0x01 || mode > 0x05) return false;
             int rgb = (color[ArgumentsAt + 2] << 16) | (color[ArgumentsAt + 3] << 8) | color[ArgumentsAt + 4];
-            handBack = new[]
-            {
-                ClassicColor(transactionId, led, rgb),
-                ClassicEffect(transactionId, led, mode),
-                ClassicState(transactionId, led, on == 0x01),
-            };
+            handBack = withState
+                ? new[]
+                {
+                    ClassicColor(transactionId, led, rgb),
+                    ClassicEffect(transactionId, led, mode),
+                    ClassicState(transactionId, led, on == 0x01),
+                }
+                : new[] { ClassicColor(transactionId, led, rgb), ClassicEffect(transactionId, led, mode) };
             return true;
         }
 
@@ -640,6 +661,20 @@ namespace PadForge.Common.Input.Peripherals
             ids[0] = row.TransactionId;
             row.OtherTransactionIds.CopyTo(ids, 1);
             return ids;
+        }
+
+        /// <summary>The transaction IDs the claim read is asked under, in
+        /// order: the one openrazer reads it under where that is none of the
+        /// product's own (<see cref="RazerDirectRow.ProbeTransactionId"/>),
+        /// then the product's own.</summary>
+        internal static byte[] ProbeIds(RazerDirectRow row)
+        {
+            byte[] ids = TransactionIds(row);
+            if (row.ProbeTransactionId == 0 || Array.IndexOf(ids, row.ProbeTransactionId) >= 0) return ids;
+            var asked = new byte[ids.Length + 1];
+            asked[0] = row.ProbeTransactionId;
+            ids.CopyTo(asked, 1);
+            return asked;
         }
 
         /// <summary>The read that opens a claim.</summary>

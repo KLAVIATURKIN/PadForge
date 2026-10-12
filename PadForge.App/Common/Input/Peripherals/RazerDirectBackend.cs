@@ -30,7 +30,9 @@ namespace PadForge.Common.Input.Peripherals
     /// table was read from disagree on it for 64 of the products, a device
     /// answers some IDs and stays silent on others, and the IDs the table
     /// lists are tried one claim attempt at a time, so a mouse asleep
-    /// behind its receiver never gets a burst of them. Then the device's
+    /// behind its receiver never gets a burst of them. A receiver's 04
+    /// settles none: it says so for a mouse that is asleep and for an ID
+    /// nothing behind it reads alike. Then the device's
     /// own regions are read where the family has the list, and what the
     /// device shows on its own is read where the family can say, which is
     /// the hand-back. Only then, with the hand-back on the crash path's
@@ -57,12 +59,15 @@ namespace PadForge.Common.Input.Peripherals
     /// crates/uncoil-hid/src/transport.rs:116-117). A laptop keyboard goes
     /// back to its own lighting when the host goes quiet, so its claim read
     /// is sent whenever <see cref="KeepAliveMs"/> pass with nothing else
-    /// (OpenRGB Controllers/RazerController/RazerController.cpp:250-265,
+    /// (OpenRGB
+    /// Controllers/RazerController/RazerController/RazerController.cpp:250-265,
     /// OpenSynapse src/OpenSynapse.Windows/Lighting/BladeLightingController.cs:73-74).
     /// A product painted by the standard matrix effect report, which has no
     /// storage byte, takes a color only once it has held for
-    /// <see cref="RazerDirectProtocol.EffectHoldMs"/>, and is not painted
-    /// again on the clock.</para>
+    /// <see cref="RazerDirectProtocol.EffectHoldMs"/>, the first color of a
+    /// claim included, so a claim that comes and goes inside the hold
+    /// opens nothing and writes nothing. It is not painted again on the
+    /// clock.</para>
     ///
     /// <para>Set Chroma Color (#468) paints the Razer devices on its
     /// virtual controller whether or not their Lighting tabs take control.
@@ -91,8 +96,9 @@ namespace PadForge.Common.Input.Peripherals
     /// link pass publishes the presence first: a table that shows a path
     /// withdrawn is never read beside a presence older than it.</para>
     ///
-    /// <para>A unit that stops answering, or whose write fails, is not
-    /// taken off the list. Its handle is closed, it is listed asleep, a
+    /// <para>A unit that stops answering, or whose write fails, a
+    /// hand-back's included, is not taken off the list. Its handle is
+    /// closed, it is listed asleep, a
     /// walk is asked for where a write failed, and it is asked again every
     /// <see cref="RetryMs"/> while a row that held it is still lit, and
     /// once after each walk the host hands over, so a device whose row was
@@ -216,6 +222,11 @@ namespace PadForge.Common.Input.Peripherals
 
             // What a claim settled, kept until the device leaves.
             public byte TransactionId;
+
+            /// <summary>The ID the unit's reads go out under where that is
+            /// another than <see cref="TransactionId"/>, which its writes
+            /// carry. Else 0 (<see cref="ReadId"/>).</summary>
+            public byte ProbeId;
             public string Collection;
             public int NextId;
 
@@ -830,6 +841,8 @@ namespace PadForge.Common.Input.Peripherals
 
             if (!unit.Wants)
             {
+                // A color that comes back starts its hold anew.
+                unit.Held = NoColor;
                 if (unit.Io == null) return false;
                 // A path that is gone or unclaimed with no Razer program
                 // running: a switch turned off, a device unassigned, a
@@ -849,6 +862,25 @@ namespace PadForge.Common.Input.Peripherals
                 }
                 // A stopping worker claims nothing more.
                 if (work.Run.Stop) return false;
+                if (Held(unit))
+                {
+                    // The report that may be stored carries the first color
+                    // of a claim as it carries any other: once the color
+                    // has held. A claim that comes and goes inside the
+                    // hold, a short Set Chroma Color, opens nothing and
+                    // writes nothing.
+                    if (unit.Wanted != unit.Held)
+                    {
+                        unit.Held = unit.Wanted;
+                        unit.HeldSince = _ticks();
+                    }
+                    long holdEnds = unit.HeldSince + RazerDirectProtocol.EffectHoldMs;
+                    if (now < holdEnds)
+                    {
+                        Due(work, holdEnds);
+                        return false;
+                    }
+                }
                 return Start(unit, Claim(work, unit));
             }
 
@@ -915,21 +947,39 @@ namespace PadForge.Common.Input.Peripherals
         /// on a collection that answered, or closed: it does not answer and
         /// was put to sleep, or another program kept the lock.
         ///
-        /// <para>A reply that echoes the request settles the ID whatever
-        /// its status. 02 and 01 are the answer, 03 and 05 mean the
+        /// <para>A reply of 02, 01, 03 or 05 that echoes the request
+        /// settles the ID. 02 and 01 are the answer, and 03 and 05 mean the
         /// firmware read the request and has no such value, which ten
-        /// products may say since no project reads a brightness from them,
-        /// and 04 is a receiver answering for a mouse that is asleep. A
-        /// wrong ID gets no reply at all, so silence moves on: to the
+        /// products may say since no project reads a brightness from them.
+        /// 04 settles the collection alone. It is a receiver answering, for
+        /// a mouse that is asleep or for an ID nothing behind it reads: of
+        /// four IDs sent to a Mouse Dock Pro three answered and one timed
+        /// out (sanshoku razer/driver.go:73-74), and that tool goes on to
+        /// its next ID on 04 (razer/decode.go:78, razer/driver.go:81). A
+        /// wrong ID gets no reply at all, so silence moves on too: to the
         /// device's next collection now, and to the row's next ID at the
         /// next attempt, <see cref="RetryMs"/> later. A settled ID and
         /// collection are kept until the device leaves.</para>
+        ///
+        /// <para>Nine mice and one keyboard are read under an ID that is
+        /// none of the ones they are painted under
+        /// (<see cref="RazerDirectRow.ProbeTransactionId"/>). Their read
+        /// goes out under that ID first, as the one project that sends it
+        /// sends it, and an answer to it settles the row's first ID for
+        /// every write, the pair that project drives them with. Every read
+        /// of such a unit keeps the ID that answered
+        /// (<see cref="ReadId"/>).</para>
         /// </summary>
         private IEnumerable<Ask> Settle(Work work, Unit unit)
         {
             var row = unit.Row;
             byte[] ids = RazerDirectProtocol.TransactionIds(row);
-            byte id = unit.TransactionId != 0 ? unit.TransactionId : ids[unit.NextId % ids.Length];
+            byte[] asked = RazerDirectProtocol.ProbeIds(row);
+            // The ID the read goes out under, and the ID an answer to it
+            // settles for every other report.
+            byte probe = unit.TransactionId == 0 ? asked[unit.NextId % asked.Length] : ReadId(unit);
+            byte id = unit.TransactionId != 0 ? unit.TransactionId
+                : Array.IndexOf(ids, probe) >= 0 ? probe : ids[0];
             string[] collections = unit.Collection != null ? new[] { unit.Collection } : unit.Collections;
             bool handle = false;
             foreach (string path in collections)
@@ -943,7 +993,7 @@ namespace PadForge.Common.Input.Peripherals
                 }
                 unit.Io = io;
                 unit.IoPath = path;
-                var ask = Read(RazerDirectProtocol.ProbeRead(row, id));
+                var ask = Read(RazerDirectProtocol.ProbeRead(row, probe));
                 yield return ask;
                 switch (ask.Outcome)
                 {
@@ -951,12 +1001,16 @@ namespace PadForge.Common.Input.Peripherals
                     case Outcome.NotSupported:
                     case Outcome.Refused:
                         unit.TransactionId = id;
+                        unit.ProbeId = probe == id ? (byte)0 : probe;
                         unit.Collection = path;
                         if (ask.Outcome == Outcome.Accepted) NoteBrightness(unit, ask.Reply);
                         yield break;
                     case Outcome.Timeout:
-                        unit.TransactionId = id;
+                        // The receiver answered, so the collection is its
+                        // own. The ID stays open, and the next attempt
+                        // asks under the row's next one.
                         unit.Collection = path;
+                        if (unit.TransactionId == 0) unit.NextId = (unit.NextId + 1) % asked.Length;
                         Sleep(work, unit, walk: false);
                         yield break;
                     case Outcome.Busy:
@@ -969,8 +1023,34 @@ namespace PadForge.Common.Input.Peripherals
                 }
                 Shut(unit);
             }
-            if (unit.TransactionId == 0) unit.NextId = (unit.NextId + 1) % ids.Length;
+            if (unit.TransactionId == 0) unit.NextId = (unit.NextId + 1) % asked.Length;
             Sleep(work, unit, walk: handle);
+        }
+
+        /// <summary>The ID a unit's reads go out under: the one its claim
+        /// read was answered under. Its writes carry
+        /// <see cref="Unit.TransactionId"/>, which is the same ID unless the
+        /// read has one of its own or the writes were moved on
+        /// (<see cref="TryNextWriteId"/>).</summary>
+        private static byte ReadId(Unit unit) => unit.ProbeId != 0 ? unit.ProbeId : unit.TransactionId;
+
+        /// <summary>Moves a unit's writes to the row's next transaction ID
+        /// and keeps its reads under the ID that answered. For a device
+        /// that answered the claim read and then took no report of the
+        /// claim: a firmware may read each kind under an ID of its own,
+        /// the way openrazer reads thirteen of these products under one ID
+        /// and paints them under another. A row with one ID has none to
+        /// move to.</summary>
+        private static void TryNextWriteId(Unit unit)
+        {
+            byte[] ids = RazerDirectProtocol.TransactionIds(unit.Row);
+            if (ids.Length < 2) return;
+            byte read = ReadId(unit);
+            byte next = ids[(Array.IndexOf(ids, unit.TransactionId) + 1) % ids.Length];
+            unit.TransactionId = next;
+            unit.ProbeId = read == next ? (byte)0 : read;
+            PadForge.Engine.SdlDiagLog.WriteLine(
+                $"PERIPHERAL Razer '{unit.Row.Name}' answers reads under {read:X2} and took no report of its claim, writing under {next:X2} next");
         }
 
         /// <summary>A device whose own brightness is 0 shows no color,
@@ -1027,14 +1107,13 @@ namespace PadForge.Common.Input.Peripherals
             foreach (var ask in Settle(work, unit)) yield return ask;
             if (unit.Io == null) yield break;
             var row = unit.Row;
-            byte id = unit.TransactionId;
 
             // The lit regions the device names, where its family has the
             // list (OpenRGB RazerController.cpp:1284-1325).
             unit.Leds = row.Leds;
             if (row.Family == RazerFamily.Extended)
             {
-                var ask = Read(RazerDirectProtocol.RegionListRead(id));
+                var ask = Read(RazerDirectProtocol.RegionListRead(ReadId(unit)));
                 yield return ask;
                 if (Lost(work, unit, ask)) yield break;
                 if (ask.Outcome == Outcome.Accepted)
@@ -1092,7 +1171,7 @@ namespace PadForge.Common.Input.Peripherals
                 var restored = new List<byte>();
                 foreach (byte led in unit.Leds)
                 {
-                    var ask = Read(RazerDirectProtocol.StoredEffectRead(id, led));
+                    var ask = Read(RazerDirectProtocol.StoredEffectRead(ReadId(unit), led));
                     yield return ask;
                     if (Lost(work, unit, ask)) yield break;
                     if (ask.Outcome == Outcome.Accepted
@@ -1116,18 +1195,21 @@ namespace PadForge.Common.Input.Peripherals
             {
                 foreach (byte led in unit.Leds)
                 {
-                    var state = Read(RazerDirectProtocol.ClassicStateRead(id, led));
+                    var state = Read(RazerDirectProtocol.ClassicStateRead(ReadId(unit), led));
                     yield return state;
                     if (Lost(work, unit, state)) yield break;
-                    var color = Read(RazerDirectProtocol.ClassicColorRead(id, led));
+                    var color = Read(RazerDirectProtocol.ClassicColorRead(ReadId(unit), led));
                     yield return color;
                     if (Lost(work, unit, color)) yield break;
-                    var effect = Read(RazerDirectProtocol.ClassicEffectRead(id, led));
+                    var effect = Read(RazerDirectProtocol.ClassicEffectRead(ReadId(unit), led));
                     yield return effect;
                     if (Lost(work, unit, effect)) yield break;
-                    if (state.Outcome == Outcome.Accepted && color.Outcome == Outcome.Accepted
+                    // A row whose claim sets no state gets none written
+                    // back, and its state read decides nothing.
+                    bool withState = !row.Has(RazerRowFlags.NoState);
+                    if ((!withState || state.Outcome == Outcome.Accepted) && color.Outcome == Outcome.Accepted
                         && effect.Outcome == Outcome.Accepted
-                        && RazerDirectProtocol.TryClassicStored(id, led, state.Reply, color.Reply, effect.Reply, out var stored))
+                        && RazerDirectProtocol.TryClassicStored(id, led, state.Reply, color.Reply, effect.Reply, withState, out var stored))
                         back.AddRange(stored);
                     else if (Array.IndexOf(row.SpectrumLeds, led) >= 0)
                         back.Add(RazerDirectProtocol.Spectrum(row, id, led));
@@ -1144,12 +1226,17 @@ namespace PadForge.Common.Input.Peripherals
         /// reports at a claim and at a re-assert.
         ///
         /// <para>The first paint of a claim decides whether the product
-        /// takes its family at all. 05, or 03 on all five attempts, moves
-        /// on to the next fallback the table gives the product, and with
-        /// none left the unit is released and leaves the list until its
-        /// collection has left the walk and come back: it is a product
-        /// this table cannot paint. After a first paint that worked, one
-        /// report refused is one report lost.</para>
+        /// takes its family at all, on its first color report and on any
+        /// claim report in front of it. 05 there, or 03 on all five
+        /// attempts, moves on to the next fallback the table gives the
+        /// product, and with none left the unit is released and leaves the
+        /// list until its collection has left the walk and come back: it is
+        /// a product this table cannot paint. Once a color report was
+        /// taken, in this paint or one before it, a report refused is one
+        /// report lost, and a region the device named itself is not asked
+        /// again (<see cref="Forgo"/>). A fallback that is the effect
+        /// report waits for a color that has held, so the claim ends here
+        /// and is made again under it.</para>
         ///
         /// <para>A lock that stays busy skips the paint. Nothing is
         /// recorded as sent, so the next pass paints the color that
@@ -1168,20 +1255,27 @@ namespace PadForge.Common.Input.Peripherals
                 byte id = unit.TransactionId;
                 var reports = new List<byte[]>();
                 if (claim && unit.Plan == 0) reports.AddRange(RazerDirectProtocol.Claim(row, id));
+                int claimReports = reports.Count;
                 reports.AddRange(unit.Plan == 0
                     ? RazerDirectProtocol.Paint(row, id, unit.Leds, rgb)
                     : RazerDirectProtocol.Paint(row.Fallbacks[unit.Plan - 1], id, rgb));
 
                 bool refused = false;
-                foreach (var report in reports)
+                int painted = 0;
+                for (int at = 0; at < reports.Count; at++)
                 {
+                    byte[] report = reports[at];
                     // Not wanted any more, or stopping: the hand-back takes
                     // it from here.
                     if (work.Run.Stop || !unit.Wants) yield break;
                     var ask = new Ask(report, unit.Claimed ? RazerGuard.PaintWaitMs : RazerGuard.CommandWaitMs);
                     yield return ask;
                     // Pump has recorded the write (Unit.Written).
-                    if (ask.Outcome == Outcome.Accepted) continue;
+                    if (ask.Outcome == Outcome.Accepted)
+                    {
+                        if (at >= claimReports) painted++;
+                        continue;
+                    }
                     if (ask.Outcome == Outcome.Busy)
                     {
                         unit.SentAt = _ticks();
@@ -1204,10 +1298,21 @@ namespace PadForge.Common.Input.Peripherals
                     }
                     if (ask.Outcome is Outcome.NotSupported or Outcome.Refused)
                     {
-                        if (unit.Claimed) continue;
-                        refused = true;
-                        break;
+                        // Nothing of the product's color was ever taken:
+                        // it does not take this family.
+                        if (!unit.Claimed && painted == 0)
+                        {
+                            refused = true;
+                            break;
+                        }
+                        Forgo(unit, report);
+                        continue;
                     }
+                    // The device answered its claim read a moment ago and
+                    // has taken no report under this ID, so the next
+                    // attempt writes under the row's next one. A unit
+                    // that took one keeps the ID that worked.
+                    if (ask.Outcome == Outcome.Silent && !unit.Written) TryNextWriteId(unit);
                     Sleep(work, unit, walk: ask.Outcome == Outcome.Dead);
                     yield break;
                 }
@@ -1244,17 +1349,48 @@ namespace PadForge.Common.Input.Peripherals
                 // read for its hand-back does not apply either.
                 unit.Plan++;
                 unit.HandBack = Array.Empty<byte[]>();
+                if (Held(unit))
+                {
+                    // This fallback is the report that may be stored, so
+                    // it waits for a color that has held like every paint
+                    // of its kind. The claim is made again under it.
+                    PadForge.Engine.SdlDiagLog.WriteLine(
+                        $"PERIPHERAL Razer '{row.Name}' refused its paint, trying fallback {unit.Plan} once the color has held");
+                    Release(unit, handedBack: false);
+                    yield break;
+                }
                 NoteClaimed(unit);
                 PadForge.Engine.SdlDiagLog.WriteLine(
                     $"PERIPHERAL Razer '{row.Name}' refused its paint, trying fallback {unit.Plan}");
             }
         }
 
+        /// <summary>A region the device named itself and then refused a
+        /// color for is left to the device from here on: out of the paint
+        /// and out of the hand-back, on the crash path's record too. An LED
+        /// of the table's own row stays, and is asked with every paint.</summary>
+        private void Forgo(Unit unit, byte[] report)
+        {
+            var row = unit.Row;
+            if (unit.Plan != 0 || row.Family != RazerFamily.Extended
+                || report[RazerDirectProtocol.ClassAt] != 0x0F || report[RazerDirectProtocol.CommandAt] != 0x02)
+                return;
+            byte led = report[RazerDirectProtocol.ArgumentsAt + 1];
+            if (Array.IndexOf(row.Leds, led) >= 0 || Array.IndexOf(unit.Leds, led) < 0) return;
+            unit.Leds = Array.FindAll(unit.Leds, other => other != led);
+            unit.HandBack = Array.FindAll(unit.HandBack, back =>
+                back[RazerDirectProtocol.ClassAt] != 0x0F || back[RazerDirectProtocol.CommandAt] != 0x02
+                || back[RazerDirectProtocol.ArgumentsAt + 1] != led);
+            if (unit.IoPath != null) NoteClaimed(unit);
+            PadForge.Engine.SdlDiagLog.WriteLine(
+                $"PERIPHERAL Razer '{row.Name}' takes no color on its region {led:X2}, leaving that region to the device");
+        }
+
         /// <summary>A laptop's claim read, sent for nothing but to be
         /// sent.</summary>
         private IEnumerable<Ask> KeepAlive(Work work, Unit unit)
         {
-            var ask = new Ask(RazerDirectProtocol.ProbeRead(unit.Row, unit.TransactionId), RazerGuard.PaintWaitMs);
+            var ask = new Ask(RazerDirectProtocol.ProbeRead(unit.Row, ReadId(unit)), RazerGuard.PaintWaitMs);
             yield return ask;
             if (ask.Outcome is Outcome.Dead or Outcome.Silent or Outcome.Timeout)
                 Sleep(work, unit, walk: ask.Outcome == Outcome.Dead);
@@ -1266,10 +1402,14 @@ namespace PadForge.Common.Input.Peripherals
 
         /// <summary>The hand-back, then the handle is closed. The lock is
         /// waited for once: a hand-back that finds it busy goes out anyway,
-        /// and does not wait again for the reports after it.</summary>
+        /// and waits again neither for its own later attempts nor for the
+        /// reports after it. A hand-back the device did not take is a
+        /// failed call like any other: the unit is listed asleep, and a
+        /// walk is asked for where the handle failed.</summary>
         private IEnumerable<Ask> HandBack(Work work, Unit unit)
         {
             bool wait = true;
+            var lost = Outcome.Accepted;
             foreach (var report in unit.HandBack)
             {
                 var ask = new Ask(report, wait ? RazerGuard.CommandWaitMs : 0, evenUnlocked: true);
@@ -1277,9 +1417,16 @@ namespace PadForge.Common.Input.Peripherals
                 if (ask.WentUnlocked) wait = false;
                 // The device is gone or asleep: the rest would fare no
                 // better.
-                if (ask.Outcome is Outcome.Dead or Outcome.Silent or Outcome.Timeout) break;
+                if (ask.Outcome is Outcome.Dead or Outcome.Silent or Outcome.Timeout)
+                {
+                    lost = ask.Outcome;
+                    break;
+                }
             }
-            Release(unit, handedBack: true);
+            if (lost == Outcome.Accepted) Release(unit, handedBack: true);
+            // The worker's last act has no later pass to ask again in.
+            else if (work.Blocking) Release(unit, handedBack: false, lost: true);
+            else Sleep(work, unit, walk: lost == Outcome.Dead);
         }
 
         // ─────────────────────────────────────────────
@@ -1370,7 +1517,9 @@ namespace PadForge.Common.Input.Peripherals
                     if (defer && now < ask.DueAt) return false;
                     if (!ask.Locked)
                     {
-                        if (_guard.Take(ask.LockWaitMs)) ask.Locked = true;
+                        // A request that already went out without the lock
+                        // does not wait for it again on a later attempt.
+                        if (_guard.Take(ask.WentUnlocked ? 0 : ask.LockWaitMs)) ask.Locked = true;
                         else if (ask.EvenUnlocked) ask.WentUnlocked = true;
                         else
                         {
@@ -1512,13 +1661,14 @@ namespace PadForge.Common.Input.Peripherals
             unit.Held = NoColor;
         }
 
-        private void Release(Unit unit, bool handedBack)
+        private void Release(Unit unit, bool handedBack, bool lost = false)
         {
             bool lit = unit.Claimed;
             Shut(unit);
             if (!lit) return;
-            PadForge.Engine.SdlDiagLog.WriteLine(handedBack
-                ? $"PERIPHERAL Razer '{unit.Row.Name}' lighting handed back"
+            PadForge.Engine.SdlDiagLog.WriteLine(
+                lost ? $"PERIPHERAL Razer '{unit.Row.Name}' did not take its hand-back"
+                : handedBack ? $"PERIPHERAL Razer '{unit.Row.Name}' lighting handed back"
                 : $"PERIPHERAL Razer '{unit.Row.Name}' lighting let go, with nothing to hand back");
         }
 

@@ -347,7 +347,7 @@ namespace PadForge.Tests
             var color = Reply(RazerDirectProtocol.ClassicColorRead(0x3F, led), 0x02, 0x01, led, 0xAA, 0xBB, 0xCC);
             var effect = Reply(RazerDirectProtocol.ClassicEffectRead(0x3F, led), 0x02, 0x01, led, 0x02);
 
-            Assert.True(RazerDirectProtocol.TryClassicStored(0x3F, led, state, color, effect, out var back));
+            Assert.True(RazerDirectProtocol.TryClassicStored(0x3F, led, state, color, effect, true, out var back));
             Assert.Equal(new[]
             {
                 "3F 03/01 size 05 [00 04 AA BB CC]",
@@ -357,20 +357,72 @@ namespace PadForge.Tests
 
             // An LED that was off goes back off.
             var off = Reply(RazerDirectProtocol.ClassicStateRead(0x3F, led), 0x02, 0x01, led, 0x00);
-            Assert.True(RazerDirectProtocol.TryClassicStored(0x3F, led, off, color, effect, out back));
+            Assert.True(RazerDirectProtocol.TryClassicStored(0x3F, led, off, color, effect, true, out back));
             Assert.Equal("3F 03/00 size 03 [00 04 00]", Line(back[2]));
 
             // A read that failed, a reply for another LED, and a value the
             // writes do not take each leave the fallback.
             var refused = Reply(RazerDirectProtocol.ClassicColorRead(0x3F, led), 0x03, 0x01, led, 0xAA, 0xBB, 0xCC);
-            Assert.False(RazerDirectProtocol.TryClassicStored(0x3F, led, state, refused, effect, out back));
+            Assert.False(RazerDirectProtocol.TryClassicStored(0x3F, led, state, refused, effect, true, out back));
             Assert.Null(back);
             var otherLed = Reply(RazerDirectProtocol.ClassicEffectRead(0x3F, led), 0x02, 0x01, 0x01, 0x02);
-            Assert.False(RazerDirectProtocol.TryClassicStored(0x3F, led, state, color, otherLed, out _));
+            Assert.False(RazerDirectProtocol.TryClassicStored(0x3F, led, state, color, otherLed, true, out _));
             var wild = Reply(RazerDirectProtocol.ClassicEffectRead(0x3F, led), 0x02, 0x01, led, 0x06);
-            Assert.False(RazerDirectProtocol.TryClassicStored(0x3F, led, state, color, wild, out _));
+            Assert.False(RazerDirectProtocol.TryClassicStored(0x3F, led, state, color, wild, true, out _));
             var halfOn = Reply(RazerDirectProtocol.ClassicStateRead(0x3F, led), 0x02, 0x01, led, 0x02);
-            Assert.False(RazerDirectProtocol.TryClassicStored(0x3F, led, halfOn, color, effect, out _));
+            Assert.False(RazerDirectProtocol.TryClassicStored(0x3F, led, halfOn, color, effect, true, out _));
+
+            // A row whose claim sets no state gets none written back, and
+            // its state reply decides nothing: with none at all, with one
+            // that says off, and with one the writes would not take, the
+            // color and the effect go back alone.
+            Assert.True(RazerDirectProtocol.TryClassicStored(0x3F, led, default, color, effect, false, out back));
+            Assert.Equal(new[] { "3F 03/01 size 05 [00 04 AA BB CC]", "3F 03/02 size 03 [00 04 02]" }, Lines(back));
+            Assert.True(RazerDirectProtocol.TryClassicStored(0x3F, led, off, color, effect, false, out back));
+            Assert.Equal(2, back.Length);
+            Assert.True(RazerDirectProtocol.TryClassicStored(0x3F, led, halfOn, color, effect, false, out back));
+            Assert.Equal(2, back.Length);
+            // Its color and its effect are held to the same checks.
+            Assert.False(RazerDirectProtocol.TryClassicStored(0x3F, led, state, refused, effect, false, out _));
+            Assert.False(RazerDirectProtocol.TryClassicStored(0x3F, led, state, color, wild, false, out _));
+        }
+
+        /// <summary>Nine mice and one keyboard are read under FF, the ID
+        /// openrazer sends their brightness read under, and painted under
+        /// 3F, the ID it paints them under. Their claim read is asked under
+        /// FF first and under their own IDs after it. Every other row is
+        /// asked under the IDs it is painted under and no other.</summary>
+        [Fact]
+        public void TenProducts_AreReadUnderOpenrazersOwnIdForTheRead_First()
+        {
+            var own = RazerDirectTable.Rows.Where(r => r.ProbeTransactionId != 0).ToArray();
+            Assert.Equal(new ushort[] { 0x001F, 0x0024, 0x0025, 0x003E, 0x003F, 0x0043, 0x0053, 0x0054, 0x005B, 0x0221 },
+                own.Select(r => r.ProductId));
+            Assert.All(own, row =>
+            {
+                Assert.Equal((0xFF, 0x3F), (row.ProbeTransactionId, row.TransactionId));
+                Assert.DoesNotContain(row.ProbeTransactionId, RazerDirectProtocol.TransactionIds(row));
+                Assert.Equal(new byte[] { 0xFF }.Concat(RazerDirectProtocol.TransactionIds(row)), RazerDirectProtocol.ProbeIds(row));
+                Assert.Equal(RazerProbe.StandardBrightness, row.Probe);
+            });
+            Assert.Equal(new byte[] { 0xFF, 0x3F, 0x1F }, RazerDirectProtocol.ProbeIds(Row(0x0043)));
+            Assert.All(RazerDirectTable.Rows.Where(r => r.HasColorPath && r.ProbeTransactionId == 0),
+                row => Assert.Equal(RazerDirectProtocol.TransactionIds(row), RazerDirectProtocol.ProbeIds(row)));
+            // An ID a row lists for its paint is never asked twice.
+            var listed = new RazerDirectRow { TransactionId = 0x3F, OtherTransactionIds = new byte[] { 0xFF }, ProbeTransactionId = 0xFF };
+            Assert.Equal(new byte[] { 0x3F, 0xFF }, RazerDirectProtocol.ProbeIds(listed));
+        }
+
+        /// <summary>A row is named for its product. Where the daemon's text
+        /// for a product is a class's docstring or lacks the maker, the
+        /// name is OpenRGB's.</summary>
+        [Fact]
+        public void EveryRowIsNamedForItsProduct()
+        {
+            Assert.Equal("Razer BlackWidow Chroma V2", Row(0x0221).Name);
+            Assert.Equal("Razer Tartarus V2", Row(0x022B).Name);
+            Assert.Equal("Razer Tartarus Pro", Row(0x0244).Name);
+            Assert.All(RazerDirectTable.Rows, row => Assert.DoesNotContain("Class for", row.Name));
         }
 
         // ─────────────────────────────────────────────
@@ -642,7 +694,7 @@ namespace PadForge.Tests
             {
                 foreach (var report in reports) text.Append("  ").Append(what).Append(' ').Append(Line(report)).Append('\n');
             }
-            Add("probe", new[] { RazerDirectProtocol.ProbeRead(row, id) });
+            Add("probe", new[] { RazerDirectProtocol.ProbeRead(row, RazerDirectProtocol.ProbeIds(row)[0]) });
             Add("read", RazerDirectProtocol.StoredReads(row, id, row.Leds));
             Add("claim", RazerDirectProtocol.Claim(row, id));
             Add("paint", RazerDirectProtocol.Paint(row, id, row.Leds, Color));
@@ -662,11 +714,11 @@ namespace PadForge.Tests
         /// Run the tool with --frames to list the reports it hashed.
         /// </summary>
         [Theory]
-        [InlineData("Classic", 11, "380673893de912a72dbeb31629d5e430565fae78eb974b7d591941ee87f82b72")]
+        [InlineData("Classic", 11, "7fdb3060a5f4bebf958bce1e2ff2140093abccf33c988da1965fc404c073bffb")]
         [InlineData("Extended", 98, "2e452f456ec4883dbf7f25f610a52dea67a397fea4ef657ac0596f7bec98ccb6")]
         [InlineData("ExtendedFrame", 7, "c92b94a865eadbef1b9b0cb3e138470b25ce3f1beb8e7cf23e28ba79f036250d")]
-        [InlineData("Standard", 62, "80917420dc9a226b32e2104a10b830a5ac9d255f9b48340e24643b5601043560")]
-        [InlineData("MouseExtended", 2, "34f13c0e945132f777bbfd5d46b8691584330c0e12591d343dd83ebbf67ee02d")]
+        [InlineData("Standard", 62, "2b972311fce70f196e723221bca36f31012233cdb90b82646779c045a86477fd")]
+        [InlineData("MouseExtended", 2, "486f3bb0a135a3b124e890b7a9ad1220a21117632d6ea44410e8b451226fa231")]
         public void EveryRowOfAFamily_BuildsTheReportsTheResearchTableSpells(string name, int count, string digest)
         {
             var family = Enum.Parse<RazerFamily>(name);
@@ -697,6 +749,7 @@ namespace PadForge.Tests
                     reports.AddRange(RazerDirectProtocol.SpectrumBack(row, id));
                     foreach (var fallback in row.Fallbacks) reports.AddRange(RazerDirectProtocol.Paint(fallback, id, Color));
                 }
+                if (row.ProbeTransactionId != 0) reports.Add(RazerDirectProtocol.ProbeRead(row, row.ProbeTransactionId));
                 foreach (var report in reports)
                 {
                     string line = row.ProductId.ToString("X4") + " " + Line(report);

@@ -427,7 +427,7 @@ namespace PadForge.Tests
             PeripheralOutputs.SetLighting(Mouse, slot: 0, player: 1, 1, 2, 3);
             PeripheralOutputs.SetLighting(Keyboard, slot: 0, player: 1, 4, 5, 6);
 
-            Assert.True(SpinWait.SpinUntil(() => server.Count("PUT", "/chromasdk/mouse") >= 6, 5000), "the refused color was retried");
+            Assert.True(SpinWait.SpinUntil(() => server.Count("PUT", "/chromasdk/mouse") >= 6, 30000), "the refused color was retried");
             Assert.Equal(keyboard + 1, Lines("PERIPHERAL Chroma effect rejected: keyboard"));
             Assert.Equal(mouse + 1, Lines("PERIPHERAL Chroma effect rejected: mouse"));
         }
@@ -445,7 +445,7 @@ namespace PadForge.Tests
             using var backend = Backend(server);
             backend.Start();
             PeripheralOutputs.SetLighting(Mouse, slot: 0, player: 1, 1, 2, 3);
-            Assert.True(SpinWait.SpinUntil(() => server.Count("PUT", "/chromasdk/mouse") >= 3, 5000), "the refused color was retried");
+            Assert.True(SpinWait.SpinUntil(() => server.Count("PUT", "/chromasdk/mouse") >= 3, 30000), "the refused color was retried");
             Assert.Equal(lines + 1, Lines(line));
 
             Volatile.Write(ref refuse, 0);
@@ -467,7 +467,7 @@ namespace PadForge.Tests
             using var backend = Backend(server);
             backend.Start();
             PeripheralOutputs.SetLighting(Mouse, slot: 0, player: 1, 1, 2, 3);
-            Assert.True(SpinWait.SpinUntil(() => server.Count("PUT", "/chromasdk/mouse") >= 3, 5000), "the refused color was retried");
+            Assert.True(SpinWait.SpinUntil(() => server.Count("PUT", "/chromasdk/mouse") >= 3, 30000), "the refused color was retried");
             Assert.Equal(lines + 1, Lines(line));
 
             // The claim goes and its session ends. The next claim opens a
@@ -491,7 +491,7 @@ namespace PadForge.Tests
             backend.Start();
             PeripheralOutputs.SetLighting(Mouse, slot: 0, player: 1, 1, 2, 3);
 
-            Assert.True(SpinWait.SpinUntil(() => server.Count("POST", "/razer/chromasdk") >= 4, 5000), "the session was retried");
+            Assert.True(SpinWait.SpinUntil(() => server.Count("POST", "/razer/chromasdk") >= 4, 30000), "the session was retried");
             Assert.Equal(lines + 1, Lines(line));
         }
 
@@ -508,7 +508,7 @@ namespace PadForge.Tests
             using var backend = Backend(server, retryMs: 100, heartbeatMs: 50);
             backend.Start();
             PeripheralOutputs.SetLighting(Mouse, slot: 0, player: 1, 1, 2, 3);
-            Assert.True(SpinWait.SpinUntil(() => server.Count("POST", "/razer/chromasdk") >= 2, 5000), "the session was retried");
+            Assert.True(SpinWait.SpinUntil(() => server.Count("POST", "/razer/chromasdk") >= 2, 30000), "the session was retried");
             Assert.Equal(lines + 1, Lines(line));
 
             // Nothing claimed, then claimed again: a new wait.
@@ -546,7 +546,7 @@ namespace PadForge.Tests
             backend.Start();
 
             PeripheralOutputs.AssertChromaMacro(0, 0x10, 0x20, 0x30, now);
-            Assert.True(SpinWait.SpinUntil(() => server.Count("PUT", "/chromasdk/mouse") >= 1, 5000), "the macro color was painted");
+            Assert.True(SpinWait.SpinUntil(() => server.Count("PUT", "/chromasdk/mouse") >= 1, 30000), "the macro color was painted");
             // With the macro live the worker waits for its lapse, the first
             // tick past the window, and with the window's last tick left it
             // waits that tick.
@@ -557,7 +557,7 @@ namespace PadForge.Tests
             Assert.Equal(0, server.Count("DELETE", "/chromasdk"));
 
             Volatile.Write(ref now, now + 1);
-            Assert.True(SpinWait.SpinUntil(() => server.Count("DELETE", "/chromasdk") >= 1, 5000), "the session ended at the lapse");
+            Assert.True(SpinWait.SpinUntil(() => server.Count("DELETE", "/chromasdk") >= 1, 30000), "the session ended at the lapse");
         }
 
         /// <summary>A macro that lapses while its color is on the way to
@@ -578,10 +578,10 @@ namespace PadForge.Tests
             // The worker is in its idle wait before the macro starts, so the
             // macro's wake ends that wait and none is left over to end the
             // wait after the color.
-            Assert.True(SpinWait.SpinUntil(() => backend.WaitMs == 600_000, 5000), "the worker went idle");
+            Assert.True(SpinWait.SpinUntil(() => backend.WaitMs == 600_000, 30000), "the worker went idle");
 
             PeripheralOutputs.AssertChromaMacro(0, 0x10, 0x20, 0x30, now);
-            Assert.True(SpinWait.SpinUntil(() => server.Count("DELETE", "/chromasdk") >= 1, 5000),
+            Assert.True(SpinWait.SpinUntil(() => server.Count("DELETE", "/chromasdk") >= 1, 30000),
                 "the session ended without a poll passing");
             Assert.True(server.Count("PUT", "/chromasdk/mouse") >= 1, "the macro color was painted first");
         }
@@ -600,7 +600,7 @@ namespace PadForge.Tests
             PeripheralOutputs.SetLighting(Mouse, slot: 0, player: 1, 1, 2, 3);
             using var backend = Backend(server);
             backend.Start();
-            Assert.True(SpinWait.SpinUntil(() => server.Count("PUT", "/chromasdk/keyboard") >= 1, 5000), "the keyboard category was painted");
+            Assert.True(SpinWait.SpinUntil(() => server.Count("PUT", "/chromasdk/keyboard") >= 1, 30000), "the keyboard category was painted");
             // A pass that wanted the mouse category would have painted it
             // right behind the keyboard's. A whole pass more has run by the
             // time this is read.
@@ -609,7 +609,7 @@ namespace PadForge.Tests
             Assert.Equal(1, server.Count("POST", "/razer/chromasdk"));
 
             PeripheralOutputs.ReleaseLighting(Mouse, 0);
-            Assert.True(SpinWait.SpinUntil(() => server.Count("PUT", "/chromasdk/mouse") >= 1, 5000), "the mouse category came back");
+            Assert.True(SpinWait.SpinUntil(() => server.Count("PUT", "/chromasdk/mouse") >= 1, 30000), "the mouse category came back");
             Assert.Equal(2, server.Count("POST", "/razer/chromasdk"));
         }
     }

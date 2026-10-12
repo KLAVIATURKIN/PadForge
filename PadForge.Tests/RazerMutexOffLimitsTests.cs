@@ -14,6 +14,7 @@ namespace PadForge.Tests
     /// this file makes, opens or takes the shared mutex itself. Its name is
     /// pinned by reading the source.
     /// </summary>
+    [Collection("RazerGuardLog")]
     public class RazerMutexOffLimitsTests
     {
         private static string Root()

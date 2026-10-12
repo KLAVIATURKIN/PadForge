@@ -96,6 +96,11 @@ namespace PadForge.Tests
             /// <summary>The reply to a request, or null for a read that
             /// fails at the handle.</summary>
             public volatile Func<byte[], byte[]> Answer = Answers;
+
+            /// <summary>The reply by the collection the request came in
+            /// on, where a test gives a device's collections answers of
+            /// their own. It goes before <see cref="Answer"/>.</summary>
+            public volatile Func<string, byte[], byte[]> AnswerAt;
             public volatile bool Present = true;
             public volatile bool ContainerKnown = true;
             public volatile bool OpenFails;
@@ -150,7 +155,8 @@ namespace PadForge.Tests
                     Feature = _ =>
                     {
                         var last = channel.Calls.LastOrDefault(c => c.Kind == "set").Bytes;
-                        return last == null ? new byte[P.BufferLength] : Answer(last);
+                        var at = AnswerAt;
+                        return last == null ? new byte[P.BufferLength] : at != null ? at(path, last) : Answer(last);
                     },
                 };
                 // Listed first, so a handle opened while the flag is being
@@ -861,9 +867,9 @@ namespace PadForge.Tests
         }
 
         /// <summary>A receiver that answers 04 has a mouse that is asleep or
-        /// on its cable. The ID it echoed is the right one, the unit is
-        /// listed asleep with nothing on the crash path's record, and it is
-        /// asked again every five seconds until the mouse answers.</summary>
+        /// on its cable. The unit is listed asleep with nothing on the crash
+        /// path's record, and it is asked again every five seconds until
+        /// the mouse answers.</summary>
         [Fact]
         public void AReceiverThatAnswers04_HasAMouseThatIsAsleep_AndIsAskedAgain()
         {
@@ -906,6 +912,251 @@ namespace PadForge.Tests
             Assert.False(bench.Unit(mouse).Asleep);
             Assert.Empty(bench.Waits);
             bench.Verify();
+        }
+
+        /// <summary>A receiver's 04 settles no ID: it says so for a mouse
+        /// that is asleep and for an ID nothing behind it reads alike. A
+        /// Naga Pro whose receiver answers 04 under the row's first ID, and
+        /// whose mouse reads the second, is asked under the second at the
+        /// next attempt and painted under it.</summary>
+        [Fact]
+        public void AReceivers04_SettlesNoId_AndTheNextAttemptAsksUnderTheRowsNextOne()
+        {
+            using var bench = new Bench(reassertMs: int.MaxValue);
+            var mouse = bench.Add(0x0090);
+            Assert.Equal(new byte[] { 0x1F, 0xFF }, P.TransactionIds(mouse.Table));
+            mouse.Answer = request => request[P.TransactionAt] == 0xFF ? Answers(request) : Reply(request, P.StatusTimeout);
+            bench.StartAndWalk();
+            bench.Link(mouse);
+            bench.Light(mouse, Red);
+            bench.Passes();
+            bench.Advance(31);
+            bench.Passes();
+            Assert.Equal(Lines(P.ExtendedBrightnessRead(0x1F, 0x00)), mouse.Sent());
+            Assert.True(bench.Unit(mouse).Asleep);
+            Assert.Equal(0, Volatile.Read(ref bench.Walks));
+
+            PeripheralOutputs.PublishLinks(LinkTable.Empty);
+            long mark = bench.Mark;
+            bench.Advance(RazerDirectBackend.RetryMs);
+            bench.Passes();
+            bench.Advance(31);
+            bench.Passes();
+            Assert.Equal(Lines(P.ExtendedBrightnessRead(0xFF, 0x00)), mouse.Sent(mark));
+            Assert.False(bench.Unit(mouse).Asleep);
+
+            // Listed awake and linked again, it is claimed and painted
+            // under the ID that answered.
+            mark = bench.Mark;
+            bench.Link(mouse);
+            for (int step = 0; step < 30 && mouse.Sent(mark, r => Is(r, 0x0F, 0x03)).Length == 0; step++)
+            {
+                bench.Passes();
+                bench.Advance(31);
+            }
+            bench.Passes();
+            bench.Advance(31);
+            bench.Passes();
+            Assert.Contains(RazerDirectProtocolTests.Line(P.ExtendedFrameRow(0xFF, 3, Red)), mouse.Sent(mark));
+            Assert.All(mouse.Calls.Where(c => c.Kind == "set" && c.Tick > mark), c => Assert.Equal(0xFF, c.Bytes[P.TransactionAt]));
+            Assert.Single(bench.Backend.Claimed);
+            bench.Verify();
+        }
+
+        /// <summary>A DeathAdder Chroma is read under FF, the ID openrazer
+        /// reads it under, and painted under 3F, the ID openrazer paints it
+        /// under. A firmware that answers each kind only under its own ID
+        /// is claimed at the first attempt: the read's answer settles the
+        /// row's first ID for every write, and every read keeps the ID
+        /// that answered.</summary>
+        [Fact]
+        public void AProductReadUnderAnIdOfItsOwn_IsAskedUnderItFirst_AndPaintedUnderItsFirstId()
+        {
+            using var bench = new Bench(reassertMs: int.MaxValue);
+            var mouse = bench.Add(0x0043);
+            mouse.Answer = request => request[P.TransactionAt] == (IsRead(request) ? 0xFF : 0x3F)
+                ? Answers(request) : Silence(request);
+            bench.StartAndWalk();
+            bench.Link(mouse);
+            bench.Light(mouse, Red);
+            bench.Passes();
+            Assert.Equal(RazerDirectProtocolTests.Line(P.StandardBrightnessRead(0xFF, 0x01)), mouse.Sent()[0]);
+            Assert.All(mouse.Calls.Where(c => c.Kind == "set"),
+                c => Assert.Equal(IsRead(c.Bytes) ? 0xFF : 0x3F, c.Bytes[P.TransactionAt]));
+            // Every request was answered at its first attempt.
+            Assert.Equal(mouse.Calls.Count(c => c.Kind == "set"), mouse.Sent().Distinct().Count());
+            Assert.False(bench.Unit(mouse).Asleep);
+            Assert.Single(bench.Backend.Claimed);
+            Assert.Equal(Lines(P.ClassicColor(0x3F, 0x01, Red), P.ClassicColor(0x3F, 0x04, Red)), mouse.Sent(0, r => Is(r, 0x03, 0x01)));
+
+            // Let go and claimed again: the read under FF, once.
+            PeripheralOutputs.ReleaseLighting(mouse.Row, 0);
+            bench.Passes();
+            long mark = bench.Mark;
+            bench.Light(mouse, Green);
+            bench.Passes();
+            Assert.Equal(Lines(P.StandardBrightnessRead(0xFF, 0x01)), mouse.Sent(mark, r => Is(r, 0x03, 0x83)));
+            Assert.Equal(Lines(P.ClassicColor(0x3F, 0x01, Green), P.ClassicColor(0x3F, 0x04, Green)), mouse.Sent(mark, r => Is(r, 0x03, 0x01)));
+            bench.Verify();
+        }
+
+        /// <summary>The same product on a firmware that reads 3F alone. The
+        /// read under FF goes unanswered and the unit is listed asleep. The
+        /// next attempt asks under 3F, which answers and then carries every
+        /// report, the read included.</summary>
+        [Fact]
+        public void AProductThatDoesNotAnswerTheReadsOwnId_IsAskedUnderItsPaintIdNext()
+        {
+            using var bench = new Bench(reassertMs: int.MaxValue);
+            var mouse = bench.Add(0x0043);
+            mouse.Answer = request => request[P.TransactionAt] == 0x3F ? Answers(request) : Silence(request);
+            bench.StartAndWalk();
+            bench.Link(mouse);
+            bench.Light(mouse, Red);
+            bench.Passes();
+            Assert.Equal(Enumerable.Repeat(RazerDirectProtocolTests.Line(P.StandardBrightnessRead(0xFF, 0x01)), 5), mouse.Sent());
+            Assert.True(bench.Unit(mouse).Asleep);
+
+            PeripheralOutputs.PublishLinks(LinkTable.Empty);
+            long mark = bench.Mark;
+            bench.Advance(RazerDirectBackend.RetryMs);
+            bench.Passes();
+            Assert.Equal(Lines(P.StandardBrightnessRead(0x3F, 0x01)), mouse.Sent(mark));
+            Assert.False(bench.Unit(mouse).Asleep);
+
+            mark = bench.Mark;
+            bench.Link(mouse);
+            bench.Passes();
+            Assert.NotEmpty(mouse.Sent(mark, r => Is(r, 0x03, 0x01)));
+            Assert.All(mouse.Calls.Where(c => c.Kind == "set" && c.Tick > mark), c => Assert.Equal(0x3F, c.Bytes[P.TransactionAt]));
+            Assert.Single(bench.Backend.Claimed);
+            bench.Verify();
+        }
+
+        /// <summary>A device that answers the claim read and then takes no
+        /// report of the claim is written to under the row's next ID at
+        /// the next attempt, and read under the ID that answered. A
+        /// BlackWidow V4 X whose firmware reads under 1F and takes its
+        /// color under 3F, the two IDs openrazer sends it, is claimed at
+        /// the third attempt.</summary>
+        [Fact]
+        public void ADeviceThatAnswersTheReadAndTakesNoWrite_IsWrittenUnderTheRowsNextId()
+        {
+            using var bench = new Bench(reassertMs: int.MaxValue);
+            var keyboard = bench.Add(0x0293);
+            Assert.Equal(new byte[] { 0x3F, 0x1F }, P.TransactionIds(keyboard.Table));
+            keyboard.Answer = request => request[P.TransactionAt] == (IsRead(request) ? 0x1F : 0x3F)
+                ? Answers(request) : Silence(request);
+            string diag = DiagMark.Write();
+            bench.StartAndWalk();
+            bench.Link(keyboard);
+            bench.Light(keyboard, Red);
+            bench.Passes();
+            // The first attempt: the read under 3F, which gets no answer.
+            Assert.Equal(Enumerable.Repeat(RazerDirectProtocolTests.Line(P.ExtendedBrightnessRead(0x3F, 0x05)), 5), keyboard.Sent());
+            Assert.True(bench.Unit(keyboard).Asleep);
+
+            // The second: the read under 1F answers, and the color under
+            // 1F gets none.
+            long mark = bench.Mark;
+            bench.Advance(RazerDirectBackend.RetryMs);
+            bench.Passes(4);
+            var second = keyboard.Calls.Where(c => c.Kind == "set" && c.Tick > mark).ToList();
+            Assert.All(second, c => Assert.Equal(0x1F, c.Bytes[P.TransactionAt]));
+            Assert.Equal(5, second.Count(c => Is(c.Bytes, 0x0F, 0x02)));
+            Assert.True(bench.Unit(keyboard).Asleep);
+            Assert.Empty(bench.Backend.Claimed);
+            Assert.Equal(1, DiagMark.LinesSince(diag, "answers reads under 1F and took no report of its claim, writing under 3F next"));
+
+            // The third: reads under 1F, the color under 3F.
+            mark = bench.Mark;
+            bench.Advance(RazerDirectBackend.RetryMs);
+            bench.Passes(4);
+            var third = keyboard.Calls.Where(c => c.Kind == "set" && c.Tick > mark).ToList();
+            Assert.All(third, c => Assert.Equal(IsRead(c.Bytes) ? 0x1F : 0x3F, c.Bytes[P.TransactionAt]));
+            Assert.Equal(Lines(P.ExtendedStatic(0x3F, 0x05, Red)),
+                third.Where(c => !IsRead(c.Bytes)).Select(c => RazerDirectProtocolTests.Line(c.Bytes)));
+            Assert.False(bench.Unit(keyboard).Asleep);
+            Assert.Single(bench.Backend.Claimed);
+
+            // The pair holds from then on: let go, claimed again, one attempt.
+            mark = bench.Mark;
+            PeripheralOutputs.ReleaseLighting(keyboard.Row, 0);
+            bench.Passes();
+            bench.Light(keyboard, Green);
+            bench.Passes();
+            Assert.All(keyboard.Calls.Where(c => c.Kind == "set" && c.Tick > mark),
+                c => Assert.Equal(IsRead(c.Bytes) ? 0x1F : 0x3F, c.Bytes[P.TransactionAt]));
+            Assert.Contains(RazerDirectProtocolTests.Line(P.ExtendedStatic(0x3F, 0x05, Green)), keyboard.Sent(mark));
+            Assert.Equal(1, DiagMark.LinesSince(diag, "took no report of its claim"));
+            bench.Verify();
+        }
+
+        /// <summary>Only a claim that never got a report through moves its
+        /// writes to another ID. A lit device that stops answering, and one
+        /// that took the first report of its first paint and no more, are
+        /// asked again five seconds later under the IDs that worked.</summary>
+        [Fact]
+        public void ADeviceThatTookAReport_KeepsTheIdsThatWorked_WhenItStopsAnswering()
+        {
+            using var bench = new Bench(reassertMs: int.MaxValue);
+            var mouse = bench.Add(DeathAdderV2);
+            bench.StartAndWalk();
+            bench.Link(mouse);
+            bench.Light(mouse, Red);
+            bench.Passes();
+            Assert.Single(bench.Backend.Claimed);
+
+            // Lit, and then silent to its next color.
+            string diag = DiagMark.Write();
+            mouse.Answer = Silence;
+            bench.Advance(RazerDirectBackend.PaintMs);
+            bench.Light(mouse, Green);
+            bench.Passes();
+            Assert.True(bench.Unit(mouse).Asleep);
+
+            // It answers again, all but its scroll wheel's color: the first
+            // paint of the new claim gets one report through and no more.
+            mouse.Answer = request => Is(request, 0x0F, 0x02) && request[P.ArgumentsAt + 1] == 0x01 ? Silence(request) : Answers(request);
+            long mark = bench.Mark;
+            bench.Advance(RazerDirectBackend.RetryMs);
+            bench.Passes(4);
+            Assert.Contains(RazerDirectProtocolTests.Line(P.ExtendedStatic(0x3F, 0x04, Green)), mouse.Sent(mark));
+            Assert.True(bench.Unit(mouse).Asleep);
+
+            mouse.Answer = Answers;
+            bench.Advance(RazerDirectBackend.RetryMs);
+            bench.Passes(4);
+            Assert.False(bench.Unit(mouse).Asleep);
+            Assert.Single(bench.Backend.Claimed);
+            Assert.All(mouse.Calls.Where(c => c.Kind == "set" && c.Tick > mark), c => Assert.Equal(0x3F, c.Bytes[P.TransactionAt]));
+            Assert.Equal(0, DiagMark.LinesSince(diag, "took no report of its claim"));
+            bench.Verify();
+        }
+
+        /// <summary>A row with one ID has no other to write under. A Naga
+        /// Epic that answers its reads and takes no report is asked again
+        /// under the same pair: reads under FF, writes under 3F.</summary>
+        [Fact]
+        public void AOneIdRow_ThatTakesNoWrite_IsAskedAgainUnderTheSameIds()
+        {
+            using var bench = new Bench(reassertMs: int.MaxValue);
+            var mouse = bench.Add(0x001F);
+            Assert.Equal(new byte[] { 0x3F }, P.TransactionIds(mouse.Table));
+            mouse.Answer = request => IsRead(request) ? Answers(request) : Silence(request);
+            string diag = DiagMark.Write();
+            bench.StartAndWalk();
+            bench.Link(mouse);
+            bench.Light(mouse, Red);
+            bench.Passes();
+            Assert.True(bench.Unit(mouse).Asleep);
+            long mark = bench.Mark;
+            bench.Advance(RazerDirectBackend.RetryMs);
+            bench.Passes(4);
+            var again = mouse.Calls.Where(c => c.Kind == "set" && c.Tick > mark).Select(c => c.Bytes).ToList();
+            Assert.Contains(again, r => !IsRead(r));
+            Assert.All(again, r => Assert.Equal(IsRead(r) ? 0xFF : 0x3F, r[P.TransactionAt]));
+            Assert.Equal(0, DiagMark.LinesSince(diag, "took no report of its claim"));
         }
 
         /// <summary>The asleep rule. A write that fails closes the unit's
@@ -1329,6 +1580,64 @@ namespace PadForge.Tests
             bench.Verify();
         }
 
+        /// <summary>A hand-back waits for the lock once. A device that does
+        /// not answer is sent its report five times, and only the first
+        /// attempt waits: the four after it ask for the lock with no wait.</summary>
+        [Fact]
+        public void AHandBackToASilentDevice_WaitsForABusyLockOnce()
+        {
+            using var bench = new Bench(reassertMs: int.MaxValue);
+            var mouse = bench.Add(DeathAdderV2);
+            bench.StartAndWalk();
+            bench.Link(mouse);
+            bench.Light(mouse, Red);
+            bench.Passes();
+
+            long mark = bench.Mark;
+            bench.Guard.Busy = true;
+            mouse.Answer = Silence;
+            PeripheralOutputs.ReleaseLighting(mouse.Row, 0);
+            bench.Passes();
+            Assert.Equal(Enumerable.Repeat(RazerDirectProtocolTests.Line(P.ExtendedSpectrum(0x3F, 0x04)), 5), mouse.Sent(mark));
+            Assert.Equal(new[] { ("busy", RazerGuard.CommandWaitMs), ("busy", 0), ("busy", 0), ("busy", 0), ("busy", 0) },
+                bench.Guard.Journal.Where(e => e.Tick > mark).Select(e => (e.What, e.WaitMs)));
+            Assert.True(bench.Unit(mouse).Asleep);
+            Assert.False(mouse.Open);
+        }
+
+        /// <summary>A hand-back the device does not take is a failed call
+        /// like any other. A handle that fails lists the unit asleep and
+        /// asks for one walk, a 04 lists it asleep with no walk, and
+        /// neither is logged as a hand-back.</summary>
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void AHandBackTheDeviceDoesNotTake_ListsTheUnitAsleep(bool handleFails)
+        {
+            using var bench = new Bench(reassertMs: int.MaxValue);
+            var mouse = bench.Add(DeathAdderV2);
+            bench.StartAndWalk();
+            bench.Link(mouse);
+            bench.Light(mouse, Red);
+            bench.Passes();
+            Assert.Single(bench.Backend.Claimed);
+            int changes = Volatile.Read(ref bench.Changes);
+
+            string diag = DiagMark.Write();
+            if (handleFails) mouse.FailWrites = true;
+            else mouse.Answer = request => Reply(request, P.StatusTimeout);
+            PeripheralOutputs.ReleaseLighting(mouse.Row, 0);
+            bench.Passes();
+            Assert.True(bench.Unit(mouse).Asleep);
+            Assert.False(mouse.Open);
+            Assert.Empty(bench.Backend.Claimed);
+            Assert.Equal(handleFails ? 1 : 0, Volatile.Read(ref bench.Walks));
+            Assert.Equal(changes + 1, Volatile.Read(ref bench.Changes));
+            Assert.Equal(0, DiagMark.LinesSince(diag, "lighting handed back"));
+            Assert.Equal(1, DiagMark.LinesSince(diag, handleFails ? "handle failed, closing it" : "does not answer, asking again later"));
+            bench.Verify();
+        }
+
         /// <summary>A claim that cannot get the lock sends nothing and is
         /// made again five seconds later. The unit is no less awake for it,
         /// and no walk is asked for.</summary>
@@ -1436,13 +1745,31 @@ namespace PadForge.Tests
             bench.Verify();
         }
 
-        /// <summary>A worker left on the opener and the one-shot writer the
-        /// app gives it reaches no device from the test host: the shared
-        /// HID helpers refuse here, so the open fails as it does for a
-        /// collection that left, and the unit is listed asleep. The path
-        /// names no device on any PC.</summary>
+        /// <summary>The worker's only two ways to a device are the shared
+        /// HID helpers, which refuse in the test host: the opener and the
+        /// crash path's one-shot writer default to them and to nothing
+        /// else, and the file holds no other call that opens a handle.
+        /// Read from the source, so a default that went around the helpers
+        /// fails here whatever a path with no device behind it would do.</summary>
         [Fact]
-        public void WithTheAppsOwnOpener_TheWorkerOpensNoDeviceInTheTestHost()
+        public void TheWorkersTwoWaysToADevice_AreTheSharedHelpersTheTestHostRefuses()
+        {
+            Assert.True(RealHidAccess.Refused);
+            string source = AuditDelta20261002Tests.RepoText("PadForge.App", "Common", "Input", "Peripherals", "RazerDirectBackend.cs");
+            Assert.Contains("_open = open ?? (path => HidReportChannel.Open(path));", source);
+            Assert.Contains("_setFeatureOnce = setFeatureOnce ?? HidReportChannel.SetFeatureOnce;", source);
+            Assert.Equal(2, source.Split("HidReportChannel.").Length - 1);
+            foreach (string call in new[] { "CreateFile", "DllImport", "SafeFileHandle", "FileStream" })
+                Assert.DoesNotContain(call, source);
+        }
+
+        /// <summary>On the opener and the one-shot writer the app gives it,
+        /// a unit whose collection does not open is listed asleep, a walk
+        /// is asked for, and nothing is sent or recorded. The path names no
+        /// device on any PC, so it would not open with the fence down
+        /// either.</summary>
+        [Fact]
+        public void OnTheAppsOwnOpener_AUnitThatDoesNotOpen_IsListedAsleep_AndNothingIsWritten()
         {
             Assert.True(RealHidAccess.Refused);
             var container = Guid.NewGuid();
@@ -1637,7 +1964,8 @@ namespace PadForge.Tests
         /// effect are read before the claim and written back at release as
         /// read. An LED whose read fails gets the spectrum effect. The
         /// claim turns each LED on, and an update is a color and an effect
-        /// per LED.</summary>
+        /// per LED. The reads go out under FF, the ID openrazer reads this
+        /// mouse under, and the writes under 3F, the ID it paints it under.</summary>
         [Fact]
         public void AClassicLed_IsReadClaimedPainted_AndGivenBackAsItWas()
         {
@@ -1658,9 +1986,9 @@ namespace PadForge.Tests
             bench.Light(mouse, Red);
             bench.Passes();
             Assert.Equal(Lines(
-                P.StandardBrightnessRead(0x3F, 0x01),
-                P.ClassicStateRead(0x3F, 0x01), P.ClassicColorRead(0x3F, 0x01), P.ClassicEffectRead(0x3F, 0x01),
-                P.ClassicStateRead(0x3F, 0x04), P.ClassicColorRead(0x3F, 0x04), P.ClassicEffectRead(0x3F, 0x04),
+                P.StandardBrightnessRead(0xFF, 0x01),
+                P.ClassicStateRead(0xFF, 0x01), P.ClassicColorRead(0xFF, 0x01), P.ClassicEffectRead(0xFF, 0x01),
+                P.ClassicStateRead(0xFF, 0x04), P.ClassicColorRead(0xFF, 0x04), P.ClassicEffectRead(0xFF, 0x04),
                 P.ClassicState(0x3F, 0x01, true), P.ClassicState(0x3F, 0x04, true),
                 P.ClassicColor(0x3F, 0x01, Red), P.ClassicEffect(0x3F, 0x01, 0x00),
                 P.ClassicColor(0x3F, 0x04, Red), P.ClassicEffect(0x3F, 0x04, 0x00)), mouse.Sent());
@@ -1788,10 +2116,11 @@ namespace PadForge.Tests
         }
 
         /// <summary>A product with only the effect report, which may be
-        /// stored: the claim paints it once, a color that keeps moving
-        /// writes nothing, a color that then holds for a second writes
-        /// once, the five-second clock writes nothing, and a resume writes
-        /// once. Its hand-back is the spectrum effect.</summary>
+        /// stored: nothing is opened until its first color has held for a
+        /// second, a color that keeps moving writes nothing, a color that
+        /// then holds for a second writes once, the five-second clock
+        /// writes nothing, and a resume writes once. Its hand-back is the
+        /// spectrum effect.</summary>
         [Fact]
         public void AProductPaintedByTheEffectReport_TakesAColorOnlyOnceItHasHeld()
         {
@@ -1801,6 +2130,12 @@ namespace PadForge.Tests
             bench.StartAndWalk();
             bench.Link(mouse);
             bench.Light(mouse, Red);
+            bench.Passes();
+            Assert.Equal(0, mouse.Opens);
+            bench.Advance(P.EffectHoldMs - 1);
+            bench.Passes();
+            Assert.Equal(0, mouse.Opens);
+            bench.Advance(1);
             bench.Passes();
             Assert.Equal(Lines(P.StandardBrightnessRead(0xFF, 0x05), P.StandardStatic(0xFF, Red)), mouse.Sent());
 
@@ -1850,6 +2185,51 @@ namespace PadForge.Tests
             bench.Verify();
         }
 
+        /// <summary>A claim that comes and goes inside the hold opens
+        /// nothing and writes nothing to a product painted by the effect
+        /// report: ten presses of a Set Chroma Color, 200 ms each, send an
+        /// Orochi nothing else lights no report at all. The hold of a color
+        /// that comes back starts when it comes back.</summary>
+        [Fact]
+        public void AClaimThatComesAndGoesInsideTheHold_OpensNothing_OnAProductPaintedByTheEffectReport()
+        {
+            using var bench = new Bench();
+            var mouse = bench.Add(0x0048);
+            bench.StartAndWalk();
+            bench.Link(mouse);
+            for (int press = 0; press < 10; press++)
+            {
+                bench.Light(mouse, Red);
+                bench.Passes();
+                bench.Advance(200);
+                bench.Passes();
+                PeripheralOutputs.ReleaseLighting(mouse.Row, 0);
+                bench.Passes();
+                bench.Advance(200);
+                bench.Passes();
+            }
+            Assert.Equal(0, mouse.Opens);
+            Assert.Empty(bench.Backend.Claimed);
+
+            // The same color once more, and held: out a second after it
+            // came back, though it was first seen four seconds ago.
+            bench.Light(mouse, Red);
+            bench.Passes();
+            bench.Advance(P.EffectHoldMs - 1);
+            bench.Passes();
+            Assert.Equal(0, mouse.Opens);
+            bench.Advance(1);
+            bench.Passes();
+            Assert.Equal(Lines(P.StandardBrightnessRead(0xFF, 0x05), P.StandardStatic(0xFF, Red)), mouse.Sent());
+
+            // Let go after a color went out: the spectrum effect, once.
+            long mark = bench.Mark;
+            PeripheralOutputs.ReleaseLighting(mouse.Row, 0);
+            bench.Passes();
+            Assert.Equal(Lines(P.StandardSpectrum(0xFF)), mouse.Sent(mark));
+            bench.Verify();
+        }
+
         /// <summary>The second a color has to hold runs from when the
         /// worker saw the color. A pass reads its clock once, at its start,
         /// and can see a color that changed well after that, behind another
@@ -1866,6 +2246,9 @@ namespace PadForge.Tests
             bench.Light(keyboard, Red);
             bench.Light(mouse, Red);
             bench.Link(keyboard, mouse);
+            bench.Passes();
+            // The mouse's first color goes out once it has held.
+            bench.Advance(P.EffectHoldMs);
             bench.Passes();
             Assert.Equal(2, bench.Backend.Claimed.Count);
 
@@ -1905,7 +2288,9 @@ namespace PadForge.Tests
 
         /// <summary>A laptop that answers 05 to the first row of its frame
         /// is painted by its fallback, the effect report, which is held
-        /// like any effect paint. Nothing is handed back for a fallback.</summary>
+        /// like any effect paint: the claim ends at the refusal and is made
+        /// again under the fallback once the color has held for a second.
+        /// Nothing is handed back for a fallback.</summary>
         [Fact]
         public void ARefusedFirstPaint_MovesOnToTheFallback_WhichIsHeld()
         {
@@ -1917,7 +2302,17 @@ namespace PadForge.Tests
             bench.Link(laptop);
             bench.Light(laptop, Red);
             bench.Passes();
-            Assert.Equal(Lines(P.LaptopBrightnessRead(0xFF), P.StandardRow(0xFF, 0, 16, Red), P.StandardStatic(0xFF, Red)), laptop.Sent());
+            Assert.Equal(Lines(P.LaptopBrightnessRead(0xFF), P.StandardRow(0xFF, 0, 16, Red)), laptop.Sent());
+            Assert.Empty(bench.Backend.Claimed);
+            Assert.False(laptop.Open);
+            Assert.False(bench.Unit(laptop).Asleep);
+            long refused = bench.Mark;
+            bench.Advance(P.EffectHoldMs - 1);
+            bench.Passes();
+            Assert.Empty(laptop.Sent(refused));
+            bench.Advance(1);
+            bench.Passes();
+            Assert.Equal(Lines(P.LaptopBrightnessRead(0xFF), P.StandardStatic(0xFF, Red)), laptop.Sent(refused));
             Assert.Empty(bench.Backend.Claimed.Single().HandBack);
             Assert.False(bench.Unit(laptop).Asleep);
 
@@ -1940,8 +2335,12 @@ namespace PadForge.Tests
             Assert.Empty(laptop.Sent(mark));
             Assert.False(laptop.Open);
 
-            // The fallback that worked is where the next claim starts.
+            // The fallback that worked is where the next claim starts,
+            // once its color has held.
             bench.Light(laptop, Red);
+            bench.Passes();
+            Assert.Empty(laptop.Sent(mark));
+            bench.Advance(P.EffectHoldMs);
             bench.Passes();
             Assert.Equal(Lines(P.LaptopBrightnessRead(0xFF), P.StandardStatic(0xFF, Red)), laptop.Sent(mark));
             bench.Verify();
@@ -1949,7 +2348,10 @@ namespace PadForge.Tests
 
         /// <summary>A Naga Chroma that refuses its own family is tried with
         /// OpenRGB's frame, and with the effect report if it refuses that
-        /// too: the fallbacks in the order the table gives them.</summary>
+        /// too: the fallbacks in the order the table gives them. The effect
+        /// report waits for a color that has held, so the claim is made
+        /// again under it a second later. The claim read goes out under FF,
+        /// openrazer's ID for it on this mouse.</summary>
         [Fact]
         public void TheFallbacksAreTriedInTheTablesOrder()
         {
@@ -1962,10 +2364,18 @@ namespace PadForge.Tests
             bench.Light(mouse, Red);
             bench.Passes();
             Assert.Equal(Lines(
-                P.StandardBrightnessRead(0x3F, 0x05),
+                P.StandardBrightnessRead(0xFF, 0x05),
                 P.MouseExtendedStatic(0x3F, 0x05, Red),
-                P.StandardLine(0x3F, 3, Red),
-                P.StandardStatic(0x3F, Red)), mouse.Sent());
+                P.StandardLine(0x3F, 3, Red)), mouse.Sent());
+            Assert.Empty(bench.Backend.Claimed);
+            Assert.False(mouse.Open);
+            long mark = bench.Mark;
+            bench.Advance(P.EffectHoldMs - 1);
+            bench.Passes();
+            Assert.Empty(mouse.Sent(mark));
+            bench.Advance(1);
+            bench.Passes();
+            Assert.Equal(Lines(P.StandardBrightnessRead(0xFF, 0x05), P.StandardStatic(0x3F, Red)), mouse.Sent(mark));
             Assert.Single(bench.Backend.Claimed);
             bench.Verify();
         }
@@ -2015,6 +2425,159 @@ namespace PadForge.Tests
             bench.Verify();
         }
 
+        /// <summary>A region the device named itself and then refuses a
+        /// color for is left to the device: the product keeps its paint,
+        /// the region is asked no more, and nothing is handed back to it.
+        /// The product is refused as a whole only where its first color
+        /// report is.</summary>
+        [Fact]
+        public void ARegionTheDeviceNamed_ThatTakesNoColor_IsLeftAlone_AndTheProductStaysPainted()
+        {
+            using var bench = new Bench(reassertMs: int.MaxValue);
+            var mouse = bench.Add(DeathAdderV2);
+            mouse.Answer = request =>
+            {
+                // Scroll wheel, logo and an underglow strip, which has no
+                // static effect.
+                if (Is(request, 0x0F, 0x80))
+                    return Reply(request, P.StatusSuccess, 0x01, 0x19, 0x03, 0x01, 0x01, 0x04, 0x19, 0x03, 0x01, 0x01, 0x0A, 0x19, 0x03, 0x01, 0x0B);
+                if (Is(request, 0x0F, 0x02) && request[P.ArgumentsAt + 1] == 0x0A && request[P.ArgumentsAt + 2] == 0x01)
+                    return Reply(request, P.StatusNotSupported);
+                return Answers(request);
+            };
+            string diag = DiagMark.Write();
+            bench.StartAndWalk();
+            bench.Link(mouse);
+            bench.Light(mouse, Red);
+            bench.Passes();
+            Assert.Equal(Lines(P.ExtendedStatic(0x3F, 0x04, Red), P.ExtendedStatic(0x3F, 0x01, Red), P.ExtendedStatic(0x3F, 0x0A, Red)),
+                mouse.Sent(0, r => Is(r, 0x0F, 0x02)));
+            Assert.False(bench.Unit(mouse).Asleep);
+            Assert.True(mouse.Open);
+            // The record hands back the two regions that took the color.
+            Assert.Equal(Lines(P.ExtendedSpectrum(0x3F, 0x04), P.ExtendedSpectrum(0x3F, 0x01)),
+                Lines(bench.Backend.Claimed.Single().HandBack));
+            Assert.Equal(1, DiagMark.LinesSince(diag, "PERIPHERAL Razer 'Razer DeathAdder V2' takes no color on its region 0A"));
+            Assert.Equal(0, DiagMark.LinesSince(diag, "refuses every paint"));
+
+            // The next color goes to the two alone.
+            long mark = bench.Mark;
+            bench.Advance(RazerDirectBackend.PaintMs);
+            bench.Light(mouse, Green);
+            bench.Passes();
+            Assert.Equal(Lines(P.ExtendedStatic(0x3F, 0x04, Green), P.ExtendedStatic(0x3F, 0x01, Green)), mouse.Sent(mark));
+
+            mark = bench.Mark;
+            PeripheralOutputs.ReleaseLighting(mouse.Row, 0);
+            bench.Passes();
+            Assert.Equal(Lines(P.ExtendedSpectrum(0x3F, 0x04), P.ExtendedSpectrum(0x3F, 0x01)), mouse.Sent(mark));
+            bench.Verify();
+        }
+
+        /// <summary>A product whose first color report was taken has taken
+        /// its family. An LED of its row that then refuses is one report
+        /// lost, in the first paint as in any later one: the unit stays
+        /// listed and painted, and the LED is asked again with every paint.</summary>
+        [Fact]
+        public void AnLedThatRefusesBehindOneThatTookItsColor_IsOneReportLost_InTheFirstPaintToo()
+        {
+            using var bench = new Bench(reassertMs: int.MaxValue);
+            var mouse = bench.Add(DeathAdderV2);
+            // The scroll wheel answers 05 to the static effect.
+            mouse.Answer = request => Is(request, 0x0F, 0x02) && request[P.ArgumentsAt + 1] == 0x01 && request[P.ArgumentsAt + 2] == 0x01
+                ? Reply(request, P.StatusNotSupported) : Answers(request);
+            string diag = DiagMark.Write();
+            bench.StartAndWalk();
+            bench.Link(mouse);
+            bench.Light(mouse, Red);
+            bench.Passes();
+            Assert.Equal(Lines(P.ExtendedStatic(0x3F, 0x04, Red), P.ExtendedStatic(0x3F, 0x01, Red)), mouse.Sent(0, r => Is(r, 0x0F, 0x02)));
+            Assert.False(bench.Unit(mouse).Asleep);
+            Assert.Single(bench.Backend.Claimed);
+            Assert.True(mouse.Open);
+            Assert.Equal(0, DiagMark.LinesSince(diag, "refuses every paint"));
+
+            long mark = bench.Mark;
+            bench.Advance(RazerDirectBackend.PaintMs);
+            bench.Light(mouse, Green);
+            bench.Passes();
+            Assert.Equal(Lines(P.ExtendedStatic(0x3F, 0x04, Green), P.ExtendedStatic(0x3F, 0x01, Green)), mouse.Sent(mark));
+            bench.Verify();
+        }
+
+        /// <summary>A claim report the device takes is no color taken. A
+        /// DeathAdder Chroma that turns its LEDs on and then answers 05 to
+        /// its first color does not take its family. It has no fallback,
+        /// so it is handed back what it showed and leaves the list.</summary>
+        [Fact]
+        public void AClaimReportTheDeviceTakes_IsNoColorTaken_SoARefusedFirstColorRefusesTheFamily()
+        {
+            using var bench = new Bench(reassertMs: int.MaxValue);
+            var mouse = bench.Add(0x0043);
+            mouse.Answer = request => Is(request, 0x03, 0x01) ? Reply(request, P.StatusNotSupported) : Answers(request);
+            string diag = DiagMark.Write();
+            bench.StartAndWalk();
+            bench.Link(mouse);
+            bench.Light(mouse, Red);
+            bench.Passes();
+            // Both LEDs were turned on, one color was tried, and the paint
+            // went no further.
+            Assert.Equal(Lines(P.ClassicState(0x3F, 0x01, true), P.ClassicState(0x3F, 0x04, true)),
+                mouse.Sent(0, r => Is(r, 0x03, 0x00) && r[P.ArgumentsAt + 2] == 0x01));
+            Assert.Equal(Lines(P.ClassicColor(0x3F, 0x01, Red)), mouse.Sent(0, r => Is(r, 0x03, 0x01) && r[P.ArgumentsAt + 2] == 0xFF));
+            Assert.Empty(bench.Backend.Snapshot.Units);
+            Assert.False(mouse.Open);
+            Assert.Empty(bench.Backend.Claimed);
+            Assert.Equal(1, DiagMark.LinesSince(diag, "refuses every paint"));
+            // What it showed is written back: both LEDs off again.
+            Assert.Equal(Lines(P.ClassicState(0x3F, 0x01, false), P.ClassicState(0x3F, 0x04, false)),
+                mouse.Sent(0, r => Is(r, 0x03, 0x00) && r[P.ArgumentsAt + 2] == 0x00));
+            bench.Verify();
+        }
+
+        /// <summary>A Tartarus Chroma is sent no state report, at the claim
+        /// or at the hand-back: no reference sends its backlight one. What
+        /// it showed is given back as its color and its effect, whatever
+        /// its state read says.</summary>
+        [Fact]
+        public void ATartarusChroma_IsHandedBackItsColorAndItsEffect_AndNoState()
+        {
+            using var bench = new Bench(reassertMs: int.MaxValue);
+            var keypad = bench.Add(0x0208);
+            byte stateStatus = P.StatusSuccess;
+            keypad.Answer = request =>
+            {
+                // The state read says off while the backlight is lit.
+                if (Is(request, 0x03, 0x80)) return Reply(request, Volatile.Read(ref stateStatus), 0x01, 0x05, 0x00);
+                if (Is(request, 0x03, 0x81)) return Reply(request, P.StatusSuccess, 0x01, 0x05, 0x00, 0xFF, 0x00);
+                if (Is(request, 0x03, 0x82)) return Reply(request, P.StatusSuccess, 0x01, 0x05, 0x00);
+                return Answers(request);
+            };
+            string[] ownLighting = { "FF 03/01 size 05 [00 05 00 FF 00]", "FF 03/02 size 03 [00 05 00]" };
+            bench.StartAndWalk();
+            bench.Link(keypad);
+            bench.Light(keypad, Red);
+            bench.Passes();
+            Assert.Equal(Lines(P.ClassicColor(0xFF, 0x05, Red), P.ClassicEffect(0xFF, 0x05, 0x00)), keypad.Sent(0, r => !IsRead(r)));
+            Assert.Equal(ownLighting, Lines(bench.Backend.Claimed.Single().HandBack));
+
+            long mark = bench.Mark;
+            PeripheralOutputs.ReleaseLighting(keypad.Row, 0);
+            bench.Passes();
+            Assert.Equal(ownLighting, keypad.Sent(mark));
+
+            // A state read the firmware refuses changes nothing of it.
+            Volatile.Write(ref stateStatus, P.StatusNotSupported);
+            bench.Light(keypad, Red);
+            bench.Passes();
+            mark = bench.Mark;
+            PeripheralOutputs.ReleaseLighting(keypad.Row, 0);
+            bench.Passes();
+            Assert.Equal(ownLighting, keypad.Sent(mark));
+            Assert.DoesNotContain(keypad.Calls, c => c.Kind == "set" && Is(c.Bytes, 0x03, 0x00));
+            bench.Verify();
+        }
+
         /// <summary>Status 03 on all five attempts of a first paint counts
         /// as 05 does. After a first paint that worked, a report the device
         /// refuses is one report lost and the family stays.</summary>
@@ -2031,6 +2594,10 @@ namespace PadForge.Tests
             bench.Light(laptop, Red);
             bench.Passes();
             Assert.Equal(5, laptop.Sent(0, r => Is(r, 0x03, 0x0B)).Length);
+            // Its fallback is the effect report, sent once the color has held.
+            Assert.Empty(laptop.Sent(0, r => Is(r, 0x03, 0x0A)));
+            bench.Advance(P.EffectHoldMs);
+            bench.Passes();
             Assert.Equal(Lines(P.StandardStatic(0xFF, Red)), laptop.Sent(0, r => Is(r, 0x03, 0x0A)));
 
             // Another laptop takes its frame, then refuses one row of a
@@ -2123,6 +2690,95 @@ namespace PadForge.Tests
                 else Assert.True(depth > 0, "a call on the mouse was made without the lock");
             }
             Assert.Equal(0, depth);
+            bench.Verify();
+        }
+
+        /// <summary>A lit unit whose collection leaves the walk is done
+        /// with at once: its handle is closed, it is off the crash path's
+        /// record, nothing more is sent to it, and a slow device's request
+        /// in flight gives the lock back with its reply unread.</summary>
+        [Fact]
+        public void ALitUnitWhoseCollectionLeavesTheWalk_IsClosedAndOffTheRecord_AndGivesTheLockBack()
+        {
+            using var bench = new Bench(reassertMs: int.MaxValue);
+            var mouse = bench.Add(DeathAdderV2);
+            // A Viper Ultimate, whose reply takes 59.9 ms: its request
+            // stays in flight across passes, with the lock held for it.
+            var slow = bench.Add(0x007A);
+            bench.StartAndWalk();
+            bench.Link(mouse, slow);
+            bench.Light(mouse, Red);
+            bench.Light(slow, Red);
+            bench.Passes();
+            Assert.Single(bench.Backend.Claimed, c => c.Path == mouse.Key);
+            Assert.True(mouse.Open);
+            Assert.Equal(new[] { "set" }, slow.Calls.Select(c => c.Kind));
+            Assert.True(slow.Open);
+            int Held() => bench.Guard.Journal.Count(e => e.What == "take") - bench.Guard.Journal.Count(e => e.What == "release");
+            Assert.Equal(1, Held());
+
+            // Both are unplugged.
+            long mark = bench.Mark;
+            mouse.Present = false;
+            slow.Present = false;
+            bench.Walk();
+            bench.Passes();
+            Assert.Empty(bench.Backend.Snapshot.Units);
+            Assert.False(mouse.Open);
+            Assert.False(slow.Open);
+            Assert.Empty(bench.Backend.Claimed);
+            Assert.Equal(0, Held());
+            // Nothing was sent to either, and the reply owed was not read.
+            Assert.DoesNotContain(mouse.Calls, c => c.Tick > mark);
+            Assert.DoesNotContain(slow.Calls, c => c.Tick > mark);
+            bench.Advance(120);
+            bench.Passes();
+            Assert.DoesNotContain(slow.Calls, c => c.Tick > mark);
+            bench.Verify();
+        }
+
+        /// <summary>A device with two 91-byte collections is written
+        /// through the first that answers the claim read. One that stays
+        /// silent is closed and the next is opened. What answered is the
+        /// collection on the crash path's record, and the one every later
+        /// claim opens.</summary>
+        [Fact]
+        public void AClaimGoesThroughTheDevicesNextCollection_WhenTheFirstStaysSilent()
+        {
+            using var bench = new Bench(reassertMs: int.MaxValue);
+            var keyboard = bench.Add(BlackWidowChroma, (2, 1, 0x01, 0x02), (3, 0, 0x0C, 0x01));
+            string first = keyboard.Collections[0].Path, second = keyboard.Collections[1].Path;
+            keyboard.AnswerAt = (path, request) => path == first ? Silence(request) : Answers(request);
+            bench.StartAndWalk();
+            Assert.Equal(first, bench.Unit(keyboard).Key);
+            bench.Link(keyboard);
+            bench.Light(keyboard, Red);
+            bench.Passes();
+
+            // Five attempts of the claim read on the first, then the whole
+            // claim on the second.
+            var onFirst = keyboard.Calls.Where(c => c.Kind == "set" && c.Path == first).ToList();
+            Assert.Equal(5, onFirst.Count);
+            Assert.All(onFirst, c => Assert.True(Is(c.Bytes, 0x03, 0x83)));
+            var frame = Enumerable.Range(0, 6).Select(r => P.StandardRow(0xFF, r, 22, Red)).Append(P.StandardShow(0xFF));
+            Assert.Equal(Lines(new[] { P.StandardBrightnessRead(0xFF, 0x05) }.Concat(frame).ToArray()),
+                keyboard.Calls.Where(c => c.Kind == "set" && c.Path == second).Select(c => RazerDirectProtocolTests.Line(c.Bytes)));
+            Assert.Equal(second, bench.Backend.Claimed.Single().Path);
+            Assert.Equal(second, Assert.Single(keyboard.Channels, c => !c.Disposed).Path);
+            Assert.False(bench.Unit(keyboard).Asleep);
+            Assert.Equal(first, bench.Unit(keyboard).Key);
+
+            // Let go and claimed again: the collection that answered, alone.
+            PeripheralOutputs.ReleaseLighting(keyboard.Row, 0);
+            bench.Passes();
+            Assert.False(keyboard.Open);
+            int opens = keyboard.Opens;
+            long mark = bench.Mark;
+            bench.Light(keyboard, Green);
+            bench.Passes();
+            Assert.Equal(opens + 1, keyboard.Opens);
+            Assert.Contains(keyboard.Calls, c => c.Tick > mark);
+            Assert.All(keyboard.Calls.Where(c => c.Tick > mark), c => Assert.Equal(second, c.Path));
             bench.Verify();
         }
 
@@ -2241,6 +2897,30 @@ namespace PadForge.Tests
             Assert.Equal(2, bench.Backend.Snapshot.Units.Count);
             Assert.Equal(6, mouse.Sent(mark).Length);
             bench.Verify();
+        }
+
+        /// <summary>The worker's last act has no later pass to ask again
+        /// in. A hand-back the device does not take there is said so in
+        /// the log, once, the unit is not called asleep, and no walk is
+        /// asked for.</summary>
+        [Fact]
+        public void AHandBackTheDeviceDoesNotTake_AtAStop_IsSaidSo_AndNothingIsAskedFor()
+        {
+            using var bench = new Bench(reassertMs: int.MaxValue);
+            var mouse = bench.Add(DeathAdderV2);
+            bench.StartAndWalk();
+            bench.Link(mouse);
+            bench.Light(mouse, Red);
+            bench.Passes();
+            string diag = DiagMark.Write();
+            mouse.FailWrites = true;
+            bench.Backend.Stop();
+            Assert.False(bench.Backend.WorkerAlive);
+            Assert.False(mouse.Open);
+            Assert.Empty(bench.Backend.Claimed);
+            Assert.Equal(0, Volatile.Read(ref bench.Walks));
+            Assert.Equal(1, DiagMark.LinesSince(diag, "PERIPHERAL Razer 'Razer DeathAdder V2' did not take its hand-back"));
+            Assert.Equal(0, DiagMark.LinesSince(diag, "asking again later"));
         }
 
         /// <summary>A backend takes calls after its stop and after its
@@ -2933,7 +3613,10 @@ namespace PadForge.Tests
     /// under a name nothing else knows, where the test is about a name or
     /// looks at the mutex from outside. No test here makes, opens or takes
     /// the mutex the tools share, which the test host refuses besides
-    /// (<see cref="RazerMutexOffLimitsTests"/>).</summary>
+    /// (<see cref="RazerMutexOffLimitsTests"/>). The two classes share a
+    /// collection, so neither runs beside the other: both count lines of
+    /// the one diagnostics log that start alike.</summary>
+    [Collection("RazerGuardLog")]
     public class RazerGuardTests
     {
         private static string TestName(string tag) => $@"Local\PadForge-test-razer-guard-{tag}-{Environment.ProcessId}-{Guid.NewGuid():N}";
