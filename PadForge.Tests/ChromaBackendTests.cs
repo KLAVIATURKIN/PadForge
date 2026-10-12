@@ -180,6 +180,144 @@ namespace PadForge.Tests
         }
 
         // ─────────────────────────────────────────────
+        //  A device lit on its own (#494)
+        // ─────────────────────────────────────────────
+
+        private static readonly OutputPath MouseUnit = new(OutputFamily.RazerUnit, @"\\?\hid#vid_1532&pid_0084&mi_00#mouse");
+        private static readonly OutputPath KeyboardUnit = new(OutputFamily.RazerUnit, @"\\?\hid#vid_1532&pid_0203&mi_02#keyboard");
+
+        /// <summary>The Razer Chroma row with every category, as the linker
+        /// gives it.</summary>
+        private static DeviceLinks ChromaRowLinks() => new()
+        {
+            Device = ChromaRow,
+            CatchAll = true,
+            Lighting = PeripheralLinker.ChromaCategories.Select(Category).ToArray(),
+        };
+
+        /// <summary>A Razer mouse lit on its own, through the direct worker,
+        /// stands in for the mouse category. While its row holds a claim
+        /// the Chroma row's session leaves that category out, so the mouse
+        /// is never painted from two sides. Every other category is wanted
+        /// as before, and the mouse category comes back when the mouse's
+        /// own claim ends.</summary>
+        [Fact]
+        public void ACategoryADeviceLitOnItsOwnStandsInFor_IsLeftOut_AndEveryOtherIsWantedAsBefore()
+        {
+            Link(ChromaRowLinks(),
+                 new DeviceLinks { Device = Mouse, Lighting = new[] { MouseUnit }, Shadows = new[] { Category("mouse") } });
+
+            // The Chroma row is lit and the mouse is not: every category,
+            // the mouse's too.
+            PeripheralOutputs.SetLighting(ChromaRow, slot: 0, player: 1, 0xFF, 0x00, 0x00);
+            Assert.Equal(PeripheralLinker.ChromaCategories, Wanted().Select(p => p.Key));
+
+            // The mouse is lit on its own: its category is left out, and
+            // the others keep the row's color.
+            PeripheralOutputs.SetLighting(Mouse, slot: 3, player: 4, 0x00, 0xFF, 0x00);
+            var wanted = Wanted();
+            Assert.Equal(PeripheralLinker.ChromaCategories.Where(c => c != "mouse"), wanted.Select(p => p.Key));
+            Assert.All(wanted, p => Assert.Equal(0xFF0000, p.Value));
+
+            // Its claim ends: the row's session takes the category again.
+            PeripheralOutputs.ReleaseLighting(Mouse, 3);
+            Assert.Equal(PeripheralLinker.ChromaCategories, Wanted().Select(p => p.Key));
+
+            // With the Chroma row dark too, nothing is wanted and no
+            // session is held.
+            PeripheralOutputs.ReleaseLighting(ChromaRow, 0);
+            Assert.Empty(Wanted());
+        }
+
+        /// <summary>A shadow counts only while its row is painted through a
+        /// path of its own: a device that is linked and dark shadows
+        /// nothing, a row lit through the category itself rules it as
+        /// before, and another family's shadow is no Chroma category.</summary>
+        [Fact]
+        public void AShadowCountsOnlyWhileItsRowIsPaintedThroughAPathOfItsOwn()
+        {
+            PeripheralOutputs.SetLighting(ChromaRow, slot: 0, player: 1, 0xFF, 0x00, 0x00);
+
+            // Two Razer devices with units of their own, and only the
+            // keyboard is lit: the mouse category stays the Chroma row's.
+            Link(ChromaRowLinks(),
+                 new DeviceLinks { Device = Mouse, Lighting = new[] { MouseUnit }, Shadows = new[] { Category("mouse") } },
+                 new DeviceLinks { Device = Keyboard, Lighting = new[] { KeyboardUnit }, Shadows = new[] { Category("keyboard") } });
+            PeripheralOutputs.SetLighting(Keyboard, slot: 1, player: 2, 0x00, 0x00, 0xFF);
+            Assert.Equal(PeripheralLinker.ChromaCategories.Where(c => c != "keyboard"), Wanted().Select(p => p.Key));
+
+            // Both lit: both categories are left out.
+            PeripheralOutputs.SetLighting(Mouse, slot: 3, player: 4, 0x00, 0xFF, 0x00);
+            Assert.Equal(PeripheralLinker.ChromaCategories.Where(c => c != "keyboard" && c != "mouse"), Wanted().Select(p => p.Key));
+
+            // Synapse runs: the mouse row is lit through its category, the
+            // shared path, and stands in for nothing. Its claim rules the
+            // category as before.
+            Link(ChromaRowLinks(),
+                 new DeviceLinks { Device = Mouse, Lighting = new[] { Category("mouse") }, DirectWhenClosed = true });
+            var wanted = Wanted().ToDictionary(p => p.Key, p => p.Value);
+            Assert.Equal(PeripheralLinker.ChromaCategories.Length, wanted.Count);
+            Assert.Equal(0x00FF00, wanted["mouse"]);
+            Assert.Equal(0xFF0000, wanted["keyboard"]);
+
+            // A row that named the shared path it is lit through would not
+            // hide it either: only a path that reaches one device counts.
+            Link(ChromaRowLinks(),
+                 new DeviceLinks { Device = Mouse, Lighting = new[] { Category("mouse") }, Shadows = new[] { Category("mouse") } });
+            Assert.Equal(0x00FF00, Wanted().Single(p => p.Key == "mouse").Value);
+
+            // A Logitech mouse lit on its own shadows its LED SDK type,
+            // which is no Chroma category.
+            Link(ChromaRowLinks(), new DeviceLinks
+            {
+                Device = Mouse,
+                Lighting = new[] { new OutputPath(OutputFamily.HidppUnit, "unit") },
+                Shadows = new[] { new OutputPath(OutputFamily.LedSdkType, "mouse") },
+            });
+            Assert.Equal(PeripheralLinker.ChromaCategories, Wanted().Select(p => p.Key));
+        }
+
+        /// <summary>Set Chroma Color paints a Razer device on its virtual
+        /// controller with the Lighting switch off. Where that device is
+        /// linked to a unit of its own the direct worker paints it for the
+        /// macro's window, so the session leaves its category out for that
+        /// window and paints the others in the macro's color. A macro on a
+        /// controller that does not hold the device shadows nothing.</summary>
+        [Fact]
+        public void SetChromaColor_OnTheControllerOfADeviceLitOnItsOwn_LeavesItsCategoryToTheDirectWorker()
+        {
+            Link(ChromaRowLinks(),
+                 new DeviceLinks { Device = Mouse, Lighting = new[] { MouseUnit }, Shadows = new[] { Category("mouse") } });
+            // Controller 2 holds the mouse and the Chroma row, and
+            // controller 4 the Chroma row alone.
+            ISet<Guid> DevicesOn(int slot) => slot switch
+            {
+                2 => new HashSet<Guid> { Mouse, ChromaRow },
+                4 => new HashSet<Guid> { ChromaRow },
+                _ => new HashSet<Guid>(),
+            };
+            long now = 1_000_000;
+            Assert.Empty(Wanted(DevicesOn, now));
+
+            PeripheralOutputs.AssertChromaMacro(2, 0x0A, 0x0B, 0x0C, now);
+            var wanted = Wanted(DevicesOn, now);
+            Assert.Equal(PeripheralLinker.ChromaCategories.Where(c => c != "mouse"), wanted.Select(p => p.Key));
+            Assert.All(wanted, p => Assert.Equal(0x0A0B0C, p.Value));
+
+            // Through the window's last tick, and not past it.
+            long last = now + PeripheralOutputs.MacroAssertWindowMs;
+            Assert.DoesNotContain(Wanted(DevicesOn, last), p => p.Key == "mouse");
+            Assert.Empty(Wanted(DevicesOn, last + 1));
+
+            // The macro of a controller without the mouse: the direct
+            // worker does not paint the mouse for it, so the session does.
+            PeripheralOutputs.AssertChromaMacro(4, 0x01, 0x02, 0x03, last + 1);
+            wanted = Wanted(DevicesOn, last + 1);
+            Assert.Equal(PeripheralLinker.ChromaCategories, wanted.Select(p => p.Key));
+            Assert.All(wanted, p => Assert.Equal(0x010203, p.Value));
+        }
+
+        // ─────────────────────────────────────────────
         //  The worker against a local Chroma REST server
         // ─────────────────────────────────────────────
 
@@ -446,6 +584,33 @@ namespace PadForge.Tests
             Assert.True(SpinWait.SpinUntil(() => server.Count("DELETE", "/chromasdk") >= 1, 5000),
                 "the session ended without a poll passing");
             Assert.True(server.Count("PUT", "/chromasdk/mouse") >= 1, "the macro color was painted first");
+        }
+
+        /// <summary>The worker beside a mouse lit on its own (#494): its
+        /// session paints the keyboard category for the Razer Chroma row
+        /// and never the mouse's. When the mouse's own claim ends, the
+        /// session is opened again with the mouse category and paints it.</summary>
+        [Fact]
+        public void TheSession_NeverPaintsTheCategoryOfADeviceLitOnItsOwn()
+        {
+            using var server = new FakeChromaServer();
+            Link(new DeviceLinks { Device = ChromaRow, CatchAll = true, Lighting = new[] { Category("keyboard"), Category("mouse") } },
+                 new DeviceLinks { Device = Mouse, Lighting = new[] { MouseUnit }, Shadows = new[] { Category("mouse") } });
+            PeripheralOutputs.SetLighting(ChromaRow, slot: 0, player: 1, 4, 5, 6);
+            PeripheralOutputs.SetLighting(Mouse, slot: 0, player: 1, 1, 2, 3);
+            using var backend = Backend(server);
+            backend.Start();
+            Assert.True(SpinWait.SpinUntil(() => server.Count("PUT", "/chromasdk/keyboard") >= 1, 5000), "the keyboard category was painted");
+            // A pass that wanted the mouse category would have painted it
+            // right behind the keyboard's. A whole pass more has run by the
+            // time this is read.
+            WorkerCadence.WaitAfterAFullPass(() => backend.PassCount, () => backend.WaitMs);
+            Assert.Equal(0, server.Count("PUT", "/chromasdk/mouse"));
+            Assert.Equal(1, server.Count("POST", "/razer/chromasdk"));
+
+            PeripheralOutputs.ReleaseLighting(Mouse, 0);
+            Assert.True(SpinWait.SpinUntil(() => server.Count("PUT", "/chromasdk/mouse") >= 1, 5000), "the mouse category came back");
+            Assert.Equal(2, server.Count("POST", "/razer/chromasdk"));
         }
     }
 }

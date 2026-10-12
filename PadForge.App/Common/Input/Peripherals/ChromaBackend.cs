@@ -40,7 +40,10 @@ namespace PadForge.Common.Input.Peripherals
     /// <para>The session lists only the categories something claims, and it
     /// is opened again when that set changes, so a category nothing claims
     /// stays Synapse's: the docs do not say whether Synapse leaves alone a
-    /// category a session lists and never paints.</para>
+    /// category a session lists and never paints. A category whose device
+    /// is lit on its own through the Razer direct worker is left out the
+    /// same way (<see cref="Shadowed"/>), so one device is never painted
+    /// from two sides.</para>
     ///
     /// <para>URIs are joined by string concatenation, never Uri(base,
     /// relative): the session URI has no trailing slash, and relative Uri
@@ -165,13 +168,55 @@ namespace PadForge.Common.Input.Peripherals
             return sb.ToString();
         }
 
+        /// <summary>
+        /// The categories a Razer device lit on its own stands in for right
+        /// now, or null for none (#494). With Synapse closed the direct
+        /// worker paints such a device through its own reports, and the
+        /// Chroma SDK's services can still be answering here: a session
+        /// that listed the device's category would paint the same device
+        /// through the SDK, from another ruling. The linker names the
+        /// category on the device's row (<see cref="DeviceLinks.Shadows"/>),
+        /// and it counts while the direct worker paints the device: a
+        /// claim resolves on the row's own path, or a Set Chroma Color is
+        /// live on a virtual controller that holds a row of it, which
+        /// paints it with the switch off
+        /// (<see cref="RazerDirectBackend.MacroOn"/>).
+        /// </summary>
+        internal static HashSet<string> Shadowed(LinkTable links, long now,
+            Func<int, ISet<Guid>> devicesOnSlot, Func<int, int> slotNumber)
+        {
+            HashSet<string> shadowed = null;
+            foreach (var row in links.ByDevice.Values)
+            {
+                if (row.Shadows.Length == 0) continue;
+                bool painted = false;
+                foreach (var path in row.Lighting)
+                {
+                    if (path.Shared) continue;
+                    painted = PeripheralOutputs.TryResolveColor(path, out _)
+                        || (links.ByPath.TryGetValue(path, out var rows)
+                            && RazerDirectBackend.MacroOn(RazerDirectBackend.LitThrough(links, path, rows), now,
+                                devicesOnSlot, slotNumber, out _));
+                    if (painted) break;
+                }
+                if (!painted) continue;
+                foreach (var shadow in row.Shadows)
+                    if (shadow.Family == OutputFamily.ChromaCategory) (shadowed ??= new HashSet<string>()).Add(shadow.Key);
+            }
+            return shadowed;
+        }
+
         /// <summary>Each category's color right now, in the canonical
         /// category order: a live Set Chroma Color on a slot that has a Razer
         /// device of the category, the smaller displayed number first, else
-        /// the category's ruling claim.</summary>
+        /// the category's ruling claim. A category a directly lit device
+        /// stands in for is left out (<see cref="Shadowed"/>), so the
+        /// session never lists it, and every other category is wanted as
+        /// before.</summary>
         internal static List<KeyValuePair<string, int>> Wanted(LinkTable links, long now,
             Func<int, ISet<Guid>> devicesOnSlot, Func<int, int> slotNumber)
         {
+            var shadowed = Shadowed(links, now, devicesOnSlot, slotNumber);
             var macros = new Dictionary<string, (int Number, int Rgb)>();
             if (PeripheralOutputs.AnyChromaMacro(now))
             {
@@ -198,6 +243,7 @@ namespace PadForge.Common.Input.Peripherals
             var wanted = new List<KeyValuePair<string, int>>();
             foreach (var category in PeripheralLinker.ChromaCategories)
             {
+                if (shadowed != null && shadowed.Contains(category)) continue;
                 if (macros.TryGetValue(category, out var macro))
                     wanted.Add(new KeyValuePair<string, int>(category, macro.Rgb));
                 else if (PeripheralOutputs.TryResolveColor(new OutputPath(OutputFamily.ChromaCategory, category), out int rgb))

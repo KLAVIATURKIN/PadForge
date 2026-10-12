@@ -31,6 +31,7 @@ namespace PadForge.Common.Input.Peripherals
 
             // Razer. Last of the lighting families: its hand-back can wait
             // on a lock other tools share.
+            Add(backends, OutputFamily.RazerUnit, () => new RazerDirectBackend());
 
             // TouchSense. Rumble only, so the crash path's lighting pass
             // asks nothing of it.

@@ -237,11 +237,13 @@ namespace PadForge.Tests
             Assert.False(PeripheralOutputs.TryGetChromaMacro(99, now, out _));
         }
 
-        /// <summary>A macro color wakes the Chroma worker alone, on its start
-        /// and on a new color, never on every assertion of a held one, and
-        /// never the workers that do not paint it.</summary>
+        /// <summary>A macro color wakes the two workers that paint it, the
+        /// Chroma worker and the Razer direct worker, through an event of
+        /// its own: on its start and on a new color, never on every
+        /// assertion of a held one, and never the workers that do not
+        /// paint it.</summary>
         [Fact]
-        public void AChromaMacro_WakesOnlyTheChromaWorker_OnStartsAndChanges()
+        public void AChromaMacro_WakesOnlyTheWorkersThatPaintIt_OnStartsAndChanges()
         {
             int chroma = 0, lighting = 0;
             void OnChroma() => chroma++;

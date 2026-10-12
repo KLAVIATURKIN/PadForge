@@ -905,7 +905,9 @@ namespace PadForge.Common.Input.Peripherals
             long previous = Interlocked.Exchange(ref s_chromaMacro[slot], next);
             bool fresh = previous == 0 || (int)(previous & 0xFFFFFF) != rgb
                 || now - (previous >> 24) > MacroAssertWindowMs;
-            // Only the Chroma worker paints a macro color, so only it wakes.
+            // Only the two Razer workers paint a macro color, the Chroma
+            // worker by category and the direct worker one device at a
+            // time, so only they wake, and LightingChanged stays quiet.
             if (fresh)
             {
                 try { ChromaMacroChanged?.Invoke(); } catch { }
