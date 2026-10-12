@@ -375,6 +375,9 @@ namespace PadForge.Tests
             public byte Type = 3;
             public readonly Dictionary<ushort, byte> Features = new() { [0x0005] = 0x03 };
             public ushort[][] Zones = Array.Empty<ushort[]>();
+
+            /// <summary>Its 0x8071 clusters, as lists of effect IDs.</summary>
+            public ushort[][] Clusters = Array.Empty<ushort[]>();
             public byte BatteryPercent, BatteryLevel;
             public Func<byte, byte, byte[], bool> Silent = (f, fn, p) => false;
 
@@ -413,6 +416,17 @@ namespace PadForge.Tests
                             ushort effect = Zones[p[0]][p[1]];
                             return HidppHapticsTests.Ans(d, f, 2, p[0], p[1], (byte)(effect >> 8), (byte)effect);
                     }
+                }
+                if (Features.TryGetValue(0x8071, out byte clustersAt) && f == clustersAt && fn == 0)
+                {
+                    // getInfo: [FF FF] the device with its cluster count in
+                    // 2, [c FF] a cluster with its location in 2-3 and its
+                    // effect count in 4, [c e] an effect with its ID in 2-3
+                    // (Logitech's x8071 document, p.4-7).
+                    if (p[0] == 0xFF) return HidppHapticsTests.Ans(d, f, 0, 0xFF, 0xFF, (byte)Clusters.Length);
+                    if (p[1] == 0xFF) return HidppHapticsTests.Ans(d, f, 0, p[0], 0xFF, 0x00, 0x01, (byte)Clusters[p[0]].Length);
+                    ushort fixedOrNot = Clusters[p[0]][p[1]];
+                    return HidppHapticsTests.Ans(d, f, 0, p[0], p[1], (byte)(fixedOrNot >> 8), (byte)fixedOrNot);
                 }
                 if (Features.TryGetValue(0x1004, out byte unifiedAt) && f == unifiedAt && fn == 1)
                     return HidppHapticsTests.Ans(d, f, 1, BatteryPercent, BatteryLevel);
@@ -453,23 +467,35 @@ namespace PadForge.Tests
             Assert.True(unit.IsMouseKind);
         }
 
+        /// <summary>A device with 0x8071 is painted through it, whatever
+        /// else it lists: the first pass stops there, its 0x8070 is never
+        /// looked up, and the walk after the batteries lists its clusters,
+        /// each with the Fixed effect found by its ID. It is not the
+        /// zone-only class, and with no mode feature it offers its lighting
+        /// power and nothing above it.</summary>
         [Fact]
-        public void A0x8071DevicePrefersIt_AndListsNoZones()
+        public void A0x8071DevicePrefersIt_AndListsItsClusters()
         {
             var device = new Scripted { Name = "G915", Type = 0 };
             device.Features[0x8071] = 0x0C;
             device.Features[0x8070] = 0x0E;
             device.Zones = new[] { new ushort[] { 0x0001 } };
+            device.Clusters = new[] { new ushort[] { 0x0000, 0x0001 }, new ushort[] { 0x0001 } };
+            var channel = device.Channel();
 
-            var unit = Describe(device, out bool incomplete);
+            var unit = HidppUnitProbe.Describe(channel, device.Index, device.Features[0x0005], Guid.Empty, 300, out bool incomplete);
 
             Assert.False(incomplete);
             Assert.Equal(HidppUnitProtocol.RgbEffects, unit.RgbFeatureId);
             Assert.Equal(0x0C, unit.RgbIndex);
-            Assert.Empty(unit.Zones);
+            Assert.Equal((HidppUnitProtocol.RgbEffects, (byte)0x0C), (unit.EffectFeatureId, unit.EffectIndex));
+            Assert.Equal(new[] { new HidppZone(0, 1), new HidppZone(1, 0) }, unit.Zones);
             Assert.False(unit.DirectRgb);
             Assert.True(unit.HasRgb);
+            Assert.True(unit.HasLightPlan);
             Assert.True(unit.IsKeyboardKind);
+            Assert.Equal(1, unit.MaxClaimLevel);
+            Assert.Equal(new ushort[] { 0x19B0, 0x8071, 0x1004, 0x1000, 0x8081, 0x8101, 0x8100 }, channel.RootLookups);
         }
 
         [Fact]
@@ -1049,6 +1075,85 @@ namespace PadForge.Tests
             Assert.Equal(new ushort[] { 0x19B0, 0x8071, 0x8081, 0x8080, 0x8070 }, channel.RootLookups);
         }
 
+        /// <summary>A Bolt receiver with a haptic mouse in slot 1, a zone-only
+        /// 0x8070 mouse with a battery in slot 2, a paired device asleep in
+        /// slot 3 and nothing in slots 4 to 6.</summary>
+        internal static HidppHapticsTests.FakeChannel QuietReceiver(string path = null)
+        {
+            var haptic = HidppHapticsTests.Mouse(1);
+            var lit = new Scripted { Index = 2, BatteryPercent = 55 };
+            lit.Features[0x8070] = 0x0E;
+            lit.Features[0x1004] = 0x08;
+            lit.Zones = new[] { new ushort[] { 0x0000, 0x0001 }, new ushort[] { 0x0001 } };
+            var channel = new HidppHapticsTests.FakeChannel
+            {
+                Answer = (d, f, fn, p) => d == 1 ? haptic(d, f, fn, p) : d == 2 ? lit.Answer(d, f, fn, p) : HidppHapticsTests.NoAnswer(),
+                // Bolt keeps slot n's pairing record at 0x50 + n.
+                Register = (r, s) => r == 0xB5 && s <= 0x53
+                    ? new HidppReply(HidppReplyKind.Answer)
+                    : new HidppReply(HidppReplyKind.Error, 0x03),
+            };
+            return path == null ? channel : new HidppHapticsTests.FakeChannel
+            {
+                Path = path, Answer = channel.Answer, Register = channel.Register,
+            };
+        }
+
+        /// <summary>What a probe of <see cref="QuietReceiver"/> asks, frame
+        /// for frame and in order, with no rumble arriving: the pairing
+        /// table first, an error read twice before it counts, then each
+        /// paired slot. The bytes are the ones the probe sent before a pulse
+        /// could go out beside it.</summary>
+        internal static readonly string[] QuietProbe =
+        {
+            // The pairing records of slots 1 to 6.
+            "reg 10 FF 83 B5 51", "reg 10 FF 83 B5 52", "reg 10 FF 83 B5 53",
+            "reg 10 FF 83 B5 54", "reg 10 FF 83 B5 54",
+            "reg 10 FF 83 B5 55", "reg 10 FF 83 B5 55",
+            "reg 10 FF 83 B5 56", "reg 10 FF 83 B5 56",
+            // Slot 1: 0x0005, its type, its name, 0x19B0 with its mask and
+            // its configuration, the four RGB features, the two batteries.
+            "ask 11 01 00 0C 00 05",
+            "ask 11 01 03 2C", "ask 11 01 03 0C", "ask 11 01 03 1C",
+            "ask 11 01 00 0C 19 B0", "ask 11 01 0B 0C", "ask 11 01 0B 1C",
+            "ask 11 01 00 0C 80 71", "ask 11 01 00 0C 80 81", "ask 11 01 00 0C 80 80", "ask 11 01 00 0C 80 70",
+            "ask 11 01 00 0C 10 04", "ask 11 01 00 0C 10",
+            // Slot 2: no haptics, 0x8070 found last of the four, its two
+            // zones walked for the static effect, the first battery found.
+            "ask 11 02 00 0C 00 05",
+            "ask 11 02 03 2C", "ask 11 02 03 0C", "ask 11 02 03 1C",
+            "ask 11 02 00 0C 19 B0",
+            "ask 11 02 00 0C 80 71", "ask 11 02 00 0C 80 81", "ask 11 02 00 0C 80 80", "ask 11 02 00 0C 80 70",
+            "ask 11 02 0E 0C",
+            "ask 11 02 0E 1C 00 FF", "ask 11 02 0E 2C", "ask 11 02 0E 2C 00 01",
+            "ask 11 02 0E 1C 01 FF", "ask 11 02 0E 2C 01",
+            "ask 11 02 00 0C 10 04",
+            // Slot 3 does not answer. Slots 4 to 6 are never asked.
+            "ask 11 03 00 0C 00 05",
+        };
+
+        [Fact]
+        public void AQuietProbe_AsksWhatItHasAlwaysAsked_FrameForFrame()
+        {
+            var channel = QuietReceiver();
+            var state = new HidppPathState { ReceiverKind = HidppReceiverKind.Bolt };
+
+            var found = HidppUnitProbe.Probe(channel, state, Guid.Empty, 0);
+
+            Assert.Equal(QuietProbe, HidppHapticsTests.Lines(channel.Traffic));
+            Assert.Equal(new byte[] { 1, 2 }, found.Select(u => u.DeviceIndex).ToArray());
+            // What the probe concluded, which a pulse beside it must not move.
+            Assert.True(found[0].HasHaptics && !found[0].HasRgb);
+            Assert.Equal(0x7FFFu, found[0].WaveformMask);
+            Assert.True(found[1].DirectRgb && !found[1].HasHaptics);
+            Assert.Equal(new[] { new HidppZone(0, 1), new HidppZone(1, 0) }, found[1].Zones);
+            Assert.Equal((HidppUnitProtocol.UnifiedBattery, (byte)0x08), (found[1].BatteryFeatureId, found[1].BatteryIndex));
+            Assert.Equal(new[] { true, true, false, false, false, false }, state.Settled.Skip(1).ToArray());
+            Assert.Equal(new[] { false, false, false, true, true, true }, state.Unpaired.Skip(1).ToArray());
+            Assert.Equal(HidppHapticProbe.FirstRetryMs, state.RetryAt[3]);
+            Assert.Equal(1, state.Misses[3]);
+        }
+
         [Fact]
         public void TheWorkerOpensMiceReceiversAndKeyboardsOnTheirLongCollections()
         {
@@ -1615,6 +1720,32 @@ namespace PadForge.Tests
             Assert.DoesNotContain(container, backend.Snapshot.PendingContainers);
             // Neither 0xFF nor an empty slot was ever asked.
             Assert.All(channel.Asked, a => Assert.Equal(1, a.Device));
+        }
+
+        /// <summary>The worker's first scan of a quiet receiver sends what
+        /// the probe sends (<see cref="HidppUnitProbeTests.QuietProbe"/>),
+        /// then reads the one battery it found, and nothing else: no frame
+        /// is written, and nothing is asked twice. The traffic is read once
+        /// the scan has published its units, which is after its last
+        /// request and five seconds before its next one.</summary>
+        [Fact]
+        public void AQuietScan_SendsTheProbesRequestsAndOneBatteryRead_AndWritesNothing()
+        {
+            var shortCollection = new VendorHidCollection
+            {
+                Path = @"\\?\hid#vid_046d&pid_c548&mi_02&col01#bench",
+                VendorId = 0x046D, ProductId = 0xC548, UsagePage = 0xFF00, Usage = 0x0001, InputReportLength = 7,
+            };
+            var channel = HidppUnitProbeTests.QuietReceiver(Receiver.Path);
+            using var backend = new HidppBackend(() => new[] { Receiver, shortCollection }, (c, s) => channel,
+                _ => Guid.NewGuid(), 1, 5);
+            backend.Start();
+
+            Assert.True(SpinWait.SpinUntil(() => backend.Snapshot.Units.Count == 2, 30000), "the scan found both mice");
+            var traffic = HidppHapticsTests.Lines(channel.Traffic);
+            Assert.Equal(HidppUnitProbeTests.QuietProbe.Append("ask 11 02 08 1C").ToArray(), traffic);
+            Assert.Empty(channel.Writes);
+            Assert.Equal(55, backend.Snapshot.Units.Single(u => u.DeviceIndex == 2).BatteryPercent);
         }
 
         /// <summary>A receiver with a haptic mouse in slot 1 and no pairing
@@ -2912,7 +3043,7 @@ namespace PadForge.Tests
         {
             string backend = Text("PadForge.App", "Common", "Input", "Peripherals", "HidppBackend.cs");
             Assert.Contains("if (Check(run, channels, states))", backend);
-            Assert.Contains("nextScan = Math.Min(nextScan, Environment.TickCount64 + FirstScanMs);", backend);
+            Assert.Contains("nextScan = Math.Min(nextScan, _ticks() + FirstScanMs);", backend);
 
             string host = Text("PadForge.App", "Common", "Input", "Peripherals", "PeripheralOutputHost.cs");
             Assert.Contains("try { _wake.WaitOne(_linkMs); }", host);

@@ -334,10 +334,12 @@ namespace PadForge.Tests
         private static PeripheralPresence Presence(bool ledSdk = false, bool gHub = false, bool synapse = false,
             bool gg = false, bool sensa = false) => new(ledSdk, gHub, synapse, gg, sensa);
 
-        /// <summary>A Logitech device lit through feature 0x8070 takes its own
-        /// unit while G HUB is not running, and its LED SDK type while it
-        /// runs. The 0x8071 and per-key families have no direct path in this
-        /// pass, so without G HUB nothing lights them.</summary>
+        /// <summary>A Logitech device with a light plan takes its own unit
+        /// while G HUB is not running, and its LED SDK type while it runs:
+        /// the zone-only 0x8070 mouse and the 0x8071 keyboard alike, each
+        /// with the claim level its unit offers. A 0x8071 device with no
+        /// cluster to paint has no plan, so without G HUB nothing lights
+        /// it.</summary>
         [Fact]
         public void ALogitechDevice_TakesItsUnitWithoutGHub_AndItsLedSdkTypeWithIt()
         {
@@ -351,7 +353,12 @@ namespace PadForge.Tests
             {
                 ChannelPath = "rx", ContainerId = container, DeviceIndex = 2, DeviceType = 0,
                 RgbFeatureId = HidppUnitProtocol.RgbEffects, RgbIndex = 0x0F,
+                EffectFeatureId = HidppUnitProtocol.RgbEffects, EffectIndex = 0x0F,
+                Zones = new[] { new HidppZone(0, 1), new HidppZone(1, 1) }, MaxClaimLevel = 2,
             };
+            Assert.True(mouseUnit.HasLightPlan);
+            Assert.True(keyboardUnit.HasLightPlan);
+            Assert.False(keyboardUnit.DirectRgb);
             var hidpp = new HidppSnapshot(new[] { mouseUnit, keyboardUnit }, Array.Empty<Guid>());
             var rows = new[]
             {
@@ -361,7 +368,16 @@ namespace PadForge.Tests
 
             var direct = PeripheralLinker.Build(rows, hidpp, Presence(ledSdk: true));
             Assert.Equal(new[] { new OutputPath(OutputFamily.HidppUnit, mouseUnit.Key) }, direct.For(A).Lighting);
-            Assert.Null(direct.For(B));
+            Assert.Equal(new[] { new OutputPath(OutputFamily.HidppUnit, keyboardUnit.Key) }, direct.For(B).Lighting);
+            Assert.Equal(0, direct.For(A).MaxClaimLevel);
+            Assert.Equal(2, direct.For(B).MaxClaimLevel);
+
+            // No cluster listed the Fixed effect: no plan, and no direct path.
+            var bare = keyboardUnit with { Zones = Array.Empty<HidppZone>() };
+            Assert.False(bare.HasLightPlan);
+            Assert.Null(HidppLightPlan.For(bare));
+            Assert.Null(PeripheralLinker.Build(rows, new HidppSnapshot(new[] { mouseUnit, bare }, Array.Empty<Guid>()),
+                Presence(ledSdk: true)).For(B));
 
             var throughGHub = PeripheralLinker.Build(rows, hidpp, Presence(ledSdk: true, gHub: true));
             Assert.Equal(new[] { new OutputPath(OutputFamily.LedSdkType, "mouse") }, throughGHub.For(A).Lighting);
@@ -1736,6 +1752,110 @@ namespace PadForge.Tests
             backend.Start();
             Assert.True(SpinWait.SpinUntil(() => backend.Snapshot.Units.Count == 1, 5000), "the scan found the mouse");
             return (backend, channel, receiver, new OutputPath(OutputFamily.HidppUnit, backend.Snapshot.Units[0].Key));
+        }
+
+        /// <summary>The whole frame sequence of a zone-only 0x8070 unit,
+        /// byte for byte what the worker sent before it learned any other
+        /// feature: the claim and the zone's color at the first color, the
+        /// zone alone at a new color, 0x00 where the fixed-color marker goes
+        /// for black, and [00 00] at the release. The bytes are written out
+        /// here and built through no code under test, so a change to a
+        /// builder or to the worker cannot move both sides at once. Nothing
+        /// is timed: each step waits for its frame and then for two more
+        /// passes, which would have carried any frame that had no business
+        /// there.</summary>
+        [Fact]
+        public void AZoneOnlyUnit_SendsTheFramesItHasAlwaysSent_FromTheClaimToTheHandBack()
+        {
+            byte[] claim = HidppHapticsTests.Hex("11 01 0E 8C 01 01");
+            byte[] red = HidppHapticsTests.Hex("11 01 0E 3C 00 01 FF 00 00 02");
+            byte[] blue = HidppHapticsTests.Hex("11 01 0E 3C 00 01 00 00 FF 02");
+            byte[] black = HidppHapticsTests.Hex("11 01 0E 3C 00 01 00 00 00 00");
+            byte[] handBack = HidppHapticsTests.Hex("11 01 0E 8C 00 00");
+            static string[] Sent(HidppHapticsTests.FakeChannel channel)
+                => channel.Writes.Select(w => HidppHapticsTests.Text(w.Frame)).ToArray();
+            static string[] Frames(params byte[][] frames) => frames.Select(HidppHapticsTests.Text).ToArray();
+            static void Passes(HidppBackend backend)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    int before = backend.PassCount;
+                    Assert.True(SpinWait.SpinUntil(() => backend.PassCount > before, 30000), "the worker made a pass");
+                }
+            }
+            static void Wait(HidppBackend backend, HidppHapticsTests.FakeChannel channel, int frames)
+            {
+                Assert.True(SpinWait.SpinUntil(() => channel.Writes.Count >= frames, 30000),
+                    $"{channel.Writes.Count} of {frames} frames went out");
+                Passes(backend);
+            }
+
+            // Every step of a claim's life, with no re-assert in between.
+            var (backend, channel, _, path) = LitBench(reassertMs: int.MaxValue);
+            using (backend)
+            {
+                var device = Guid.NewGuid();
+                PeripheralOutputs.PublishLinks(new LinkTable(new[] { new DeviceLinks { Device = device, Lighting = new[] { path } } }));
+                Passes(backend);
+                Assert.Empty(channel.Writes);
+
+                PeripheralOutputs.SetLighting(device, slot: 0, player: 1, 0xFF, 0x00, 0x00);
+                Wait(backend, channel, 2);
+                PeripheralOutputs.SetLighting(device, slot: 0, player: 1, 0x00, 0x00, 0xFF);
+                Wait(backend, channel, 3);
+                PeripheralOutputs.SetLighting(device, slot: 0, player: 1, 0x00, 0x00, 0x00);
+                Wait(backend, channel, 4);
+                PeripheralOutputs.ReleaseLighting(device, 0);
+                Wait(backend, channel, 5);
+                Assert.Equal(Frames(claim, red, blue, black, handBack), Sent(channel));
+                // Nothing of it was a request: the worker waits on no answer.
+                Assert.DoesNotContain(channel.Traffic, t => t.Kind == "ask" && t.Frame[2] == 0x0E && (t.Frame[3] >> 4) is 3 or 8);
+            }
+
+            // The re-assert: the claim and the color again, each interval.
+            (backend, channel, _, path) = LitBench(reassertMs: 50);
+            using (backend)
+            {
+                var device = Guid.NewGuid();
+                PeripheralOutputs.PublishLinks(new LinkTable(new[] { new DeviceLinks { Device = device, Lighting = new[] { path } } }));
+                PeripheralOutputs.SetLighting(device, slot: 0, player: 1, 0xFF, 0x00, 0x00);
+                Assert.True(SpinWait.SpinUntil(() => channel.Writes.Count >= 6, 30000), "the claim went out again");
+                Assert.Equal(Frames(claim, red, claim, red, claim, red), Sent(channel).Take(6).ToArray());
+            }
+
+            // The engine stops while the unit is lit: the worker hands it
+            // back on its own channel before the channel closes.
+            (backend, channel, _, path) = LitBench(reassertMs: int.MaxValue);
+            using (backend)
+            {
+                var device = Guid.NewGuid();
+                PeripheralOutputs.PublishLinks(new LinkTable(new[] { new DeviceLinks { Device = device, Lighting = new[] { path } } }));
+                PeripheralOutputs.SetLighting(device, slot: 0, player: 1, 0xFF, 0x00, 0x00);
+                Wait(backend, channel, 2);
+                backend.Stop();
+                Assert.Equal(Frames(claim, red, handBack), Sent(channel));
+                Assert.True(channel.Disposed);
+            }
+
+            // The crash path: the same frame, on the worker's channel or
+            // through the one-shot writer, and to the unit's own collection.
+            var written = new System.Collections.Concurrent.ConcurrentQueue<(string Path, byte[] Frame)>();
+            VendorHidCollection receiver;
+            (backend, channel, receiver, path) = LitBench(reassertMs: int.MaxValue,
+                writeOnce: (p, f, t) => { written.Enqueue((p, f)); return true; });
+            using (backend)
+            {
+                var device = Guid.NewGuid();
+                PeripheralOutputs.PublishLinks(new LinkTable(new[] { new DeviceLinks { Device = device, Lighting = new[] { path } } }));
+                PeripheralOutputs.SetLighting(device, slot: 0, player: 1, 0xFF, 0x00, 0x00);
+                Wait(backend, channel, 2);
+                backend.ReleaseClaimedNow();
+                Assert.True(SpinWait.SpinUntil(() => !backend.WorkerAlive, 30000), "the worker stopped");
+                var after = Sent(channel).Skip(2).Concat(written.Select(w => HidppHapticsTests.Text(w.Frame))).ToArray();
+                Assert.NotEmpty(after);
+                Assert.All(after, frame => Assert.Equal(HidppHapticsTests.Text(handBack), frame));
+                Assert.All(written, w => Assert.Equal(receiver.Path, w.Path));
+            }
         }
 
         /// <summary>The claim goes out again on its own interval while the

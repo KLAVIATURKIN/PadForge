@@ -203,6 +203,71 @@ namespace PadForge.Common.Input
                && _report[0] == Peripherals.HidppReceiverProtocol.ShortReportId;
     }
 
+    /// <summary>
+    /// How a request waits for its answer (#494). The worker that owns the
+    /// HID++ channels also plays rumble on them, and a request to a device
+    /// that is asleep waits out its whole timeout, 300 ms for a slot and
+    /// 1800 ms for a receiver's pairing record. So the wait is cut into
+    /// slices, and after each slice that brought no answer the worker gets a
+    /// turn to send the pulses that came due.
+    ///
+    /// <para>A pulse may go out while a request is unanswered, to another
+    /// device index or to the same one. An answer repeats its request's
+    /// device index, feature index, function and software ID unchanged
+    /// (Logitech's "HID++ 2.0 Draft Specification", p.3), which is all a
+    /// request is matched by, here (<see cref="HidppHapticProtocol.Match"/>)
+    /// as in Solaar (base.py:729-781). A pulse is function 4 of the haptic
+    /// feature, which no request ever is, so its answer can end no wait.
+    /// Logitech's own example in that document sends nine requests to nine
+    /// device indexes of one receiver within 50 ms and reads the answers
+    /// afterward (p.15). OpenRGB fires the frames of a claim at one device
+    /// back to back and matches each answer afterward by feature, function
+    /// and software ID (LogitechHIDPP20Controller.cpp:4103-4104 and
+    /// 4169-4172). A device that is still working on one request when
+    /// another comes answers the newcomer busy, "already processing a
+    /// request from the same or another SW" (p.3). So the most a pulse
+    /// beside a request can cost is that pulse, and the next one follows
+    /// on its interval.</para>
+    ///
+    /// <para>The timeout is counted on the worker's clock, so a test moves
+    /// it, and the slices are real waits on the answer itself, so an answer
+    /// ends the wait at once.</para>
+    /// </summary>
+    internal sealed class HidppWaiter
+    {
+        private static readonly ManualResetEventSlim s_never = new(false);
+
+        private readonly Func<long> _ticks;
+        private readonly int _sliceMs;
+        private readonly Action _betweenSlices;
+
+        public HidppWaiter(Func<long> ticks, int sliceMs, Action betweenSlices)
+        {
+            _ticks = ticks ?? (() => Environment.TickCount64);
+            _sliceMs = Math.Max(1, sliceMs);
+            _betweenSlices = betweenSlices;
+        }
+
+        /// <summary>Waits until <paramref name="answered"/> is set or
+        /// <paramref name="timeoutMs"/> have passed on the clock. True when
+        /// it was set.</summary>
+        public bool Wait(ManualResetEventSlim answered, int timeoutMs)
+        {
+            long start = _ticks();
+            while (true)
+            {
+                long left = timeoutMs - (_ticks() - start);
+                if (left <= 0) return answered.IsSet;
+                if (answered.Wait((int)Math.Min(left, _sliceMs))) return true;
+                try { _betweenSlices?.Invoke(); } catch { }
+            }
+        }
+
+        /// <summary>Lets <paramref name="ms"/> pass on the clock, in the
+        /// same slices: the pause before a busy request is sent again.</summary>
+        public void Pause(int ms) => Wait(s_never, ms);
+    }
+
     /// <summary>A HID++ long collection that can be asked questions. The
     /// production channel reads with <see cref="VendorHidReader"/> and writes
     /// with <see cref="RawHidOutput"/>. Tests answer from a script.</summary>
@@ -210,6 +275,11 @@ namespace PadForge.Common.Input
     {
         string Path { get; }
         bool Bluetooth { get; }
+
+        /// <summary>How a request and a register read on this channel wait
+        /// for their answer. Null waits the whole timeout in one piece. The
+        /// worker sets its own, which lets its pulses out meanwhile.</summary>
+        HidppWaiter Waiter { get; set; }
 
         /// <summary>Writes one frame and returns false when the write failed.</summary>
         bool Write(byte[] frame);
@@ -232,10 +302,16 @@ namespace PadForge.Common.Input
     /// <see cref="VendorHidReader"/> thread, so Logi Options+ and other HID++
     /// clients holding the same collection keep their own reports, and
     /// writes go through <see cref="RawHidOutput.Write"/>. One request is in
-    /// flight at a time, the worker's.
+    /// flight at a time, the worker's. A frame the worker writes without
+    /// waiting, a pulse above all, may go out while that request is still
+    /// unanswered (<see cref="HidppWaiter"/>).
     /// </summary>
     internal sealed class HidppChannel : IHidppChannel
     {
+        /// <summary>How long a request waits before it is sent again to a
+        /// device that answered busy.</summary>
+        internal const int BusyRetryMs = 50;
+
         private sealed class Pending
         {
             public readonly byte DeviceIndex;
@@ -277,13 +353,19 @@ namespace PadForge.Common.Input
         private RegisterPending _registerPending;
         private int _disposed;
 
+        /// <summary>Where a frame goes: <see cref="RawHidOutput.Write"/>,
+        /// or a test's own writer.</summary>
+        private readonly Func<string, byte[], bool> _write;
+
         public string Path { get; }
         public bool Bluetooth { get; }
+        public HidppWaiter Waiter { get; set; }
 
         private HidppChannel(VendorHidCollection collection, VendorHidCollection shortCollection)
         {
             Path = collection.Path;
             Bluetooth = HidppHapticProtocol.IsBluetoothPath(collection.Path);
+            _write = RawHidOutput.Write;
             _reader = new VendorHidReader(collection);
             _reader.ReportReceived += OnReport;
             if (shortCollection != null)
@@ -293,6 +375,22 @@ namespace PadForge.Common.Input
                 _shortReader.ReportReceived += OnReport;
             }
         }
+
+        /// <summary>Test seam: a channel with no reader and no device. Its
+        /// frames go to <paramref name="write"/> with the path they were
+        /// meant for, and the test hands it the reports a device would send
+        /// through <see cref="Feed"/>, so the matching and the waiting that
+        /// run are the shipping ones.</summary>
+        internal HidppChannel(string path, string shortPath, Func<string, byte[], bool> write)
+        {
+            Path = path;
+            Bluetooth = HidppHapticProtocol.IsBluetoothPath(path);
+            _shortPath = shortPath;
+            _write = write;
+        }
+
+        /// <summary>Test seam: one report, as a reader thread delivers it.</summary>
+        internal void Feed(byte[] report) => OnReport(null, report, report.Length);
 
         /// <summary>Opens the collection's reader, or returns null when it
         /// cannot be opened. A receiver's short collection, when given, is
@@ -346,7 +444,16 @@ namespace PadForge.Common.Input
             pending.Done.Set();
         }
 
-        public bool Write(byte[] frame) => Volatile.Read(ref _disposed) == 0 && RawHidOutput.Write(Path, frame);
+        public bool Write(byte[] frame) => Volatile.Read(ref _disposed) == 0 && _write(Path, frame);
+
+        /// <summary>Waits for an answer through the worker's waiter when it
+        /// set one, so its pulses go out meanwhile, and in one piece
+        /// otherwise.</summary>
+        private bool Await(ManualResetEventSlim done, int timeoutMs)
+        {
+            var waiter = Waiter;
+            return waiter != null ? waiter.Wait(done, timeoutMs) : done.Wait(timeoutMs);
+        }
 
         public HidppReply Request(byte deviceIndex, byte featureIndex, byte function, byte[] parameters, int timeoutMs)
         {
@@ -358,7 +465,7 @@ namespace PadForge.Common.Input
                 {
                     if (!Write(HidppHapticProtocol.Frame(deviceIndex, featureIndex, function, parameters)))
                         return new HidppReply(HidppReplyKind.WriteFailed);
-                    if (!pending.Done.Wait(timeoutMs))
+                    if (!Await(pending.Done, timeoutMs))
                         return new HidppReply(HidppReplyKind.Timeout);
                     var reply = pending.Reply;
                     // OpenRGB retries a busy answer after a backoff
@@ -367,7 +474,9 @@ namespace PadForge.Common.Input
                     if (reply.Kind == HidppReplyKind.Error && !reply.Hidpp10
                         && reply.ErrorCode == HidppHapticProtocol.ErrorBusy && attempt == 0)
                     {
-                        Thread.Sleep(50);
+                        var waiter = Waiter;
+                        if (waiter != null) waiter.Pause(BusyRetryMs);
+                        else Thread.Sleep(BusyRetryMs);
                         continue;
                     }
                     return reply;
@@ -394,9 +503,9 @@ namespace PadForge.Common.Input
             Volatile.Write(ref _registerPending, pending);
             try
             {
-                if (!RawHidOutput.Write(shortPath, Peripherals.HidppReceiverProtocol.ReadRegister(register, sub)))
+                if (!_write(shortPath, Peripherals.HidppReceiverProtocol.ReadRegister(register, sub)))
                     return new HidppReply(HidppReplyKind.WriteFailed);
-                return pending.Done.Wait(timeoutMs) ? pending.Reply : new HidppReply(HidppReplyKind.Timeout);
+                return Await(pending.Done, timeoutMs) ? pending.Reply : new HidppReply(HidppReplyKind.Timeout);
             }
             finally
             {
@@ -407,6 +516,8 @@ namespace PadForge.Common.Input
         public void Dispose()
         {
             if (Interlocked.Exchange(ref _disposed, 1) != 0) return;
+            // A channel a test built has no reader and no handle to drop.
+            if (_reader == null) return;
             _reader.ReportReceived -= OnReport;
             _reader.Dispose();
             RawHidOutput.ResetDevice(Path);

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 
 namespace PadForge.Common.Input.Peripherals
 {
-    /// <summary>One zone of a feature 0x8070 device and the index of its
-    /// static effect, the effect whose ID is 0x0001.</summary>
+    /// <summary>One zone of a feature 0x8070 device, or one cluster of a
+    /// feature 0x8071 device, and the index of its static effect, the effect
+    /// whose ID is 0x0001. The index is the effect's place in that zone's or
+    /// cluster's own list, which differs between zones of one device.</summary>
     internal readonly record struct HidppZone(byte Zone, byte StaticEffectIndex);
 
     /// <summary>
@@ -35,17 +37,18 @@ namespace PadForge.Common.Input.Peripherals
         public ushort RgbFeatureId { get; init; }
         public byte RgbIndex { get; init; }
 
-        /// <summary>The zones a 0x8070 device can be lit through directly,
-        /// each with its static effect. Empty for every other RGB feature.</summary>
+        /// <summary>What the device is painted through: the zones of a 0x8070
+        /// device or the clusters of a 0x8071 one, each with its static
+        /// effect. Empty for a device with no effect feature.</summary>
         public HidppZone[] Zones { get; init; } = Array.Empty<HidppZone>();
 
         /// <summary>The effect feature the unit is painted through, 0x8070
         /// or 0x8071, or 0 for none. Kept apart from
         /// <see cref="RgbFeatureId"/>, which is the first RGB feature the
         /// device lists: a board with both an effect feature and a per-key
-        /// one needs each by its own index. Zero until the probe that
-        /// separates the two fills it, so a unit found by the probe as it
-        /// stands is lit by <see cref="DirectRgb"/> alone.</summary>
+        /// one needs each by its own index. The probe fills it for every
+        /// unit it finds. A unit built with only <see cref="RgbFeatureId"/>
+        /// is lit by <see cref="DirectRgb"/> alone.</summary>
         public ushort EffectFeatureId { get; init; }
         public byte EffectIndex { get; init; }
 
@@ -53,10 +56,19 @@ namespace PadForge.Common.Input.Peripherals
         public ushort PerKeyFeatureId { get; init; }
         public byte PerKeyIndex { get; init; }
 
-        /// <summary>The first and last zone a 0x8081 range frame may
-        /// address. Zero for every other per-key feature.</summary>
+        /// <summary>The lowest and the highest zone a 0x8081 device reports,
+        /// the two ends of the one range frame that paints them all. Zero
+        /// for every other per-key feature, and for a 0x8081 device with no
+        /// 0x8071 claim to paint under.</summary>
         public byte PerKeyMin { get; init; }
         public byte PerKeyMax { get; init; }
+
+        /// <summary>The place of the Host streaming effect (ID 0x0013) in a
+        /// 0x8071 device's list of multi-cluster effects, or -1 for a
+        /// device that lists none. Logitech's own program chooses that
+        /// effect on cluster 0xFF before its first per-key frame
+        /// (<see cref="HidppUnitProtocol.RgbHostStreaming"/>).</summary>
+        public int HostStreamingIndex { get; init; } = -1;
 
         /// <summary>The feature that switches the device between its
         /// on-board memory mode and host mode, 0x8100 or 0x8101, or 0 for
@@ -125,23 +137,90 @@ namespace PadForge.Common.Input.Peripherals
     /// function 1 gives the percent in payload 0 and, when that is 0, a level
     /// in payload 1. 0x1000 function 0 gives the percent in payload 0,
     /// 0 meaning unknown.</para>
+    ///
+    /// <para>0x8071 RGB_EFFECTS (Logitech's "x8071 - RGB Effects", version
+    /// 4, the function list on p.1-2, with the same numbers in OpenRGB
+    /// LogitechHIDPP20Controller.h:77-85): function 0 getInfo, 1
+    /// setRgbClusterEffect, 5 manageSwControl, 8 manageRgbPowerMode. The
+    /// numbers are not 0x8070's. There function 8 is SetSWControl, and here
+    /// it sets the power mode, so a 0x8070 claim sent to a 0x8071 index
+    /// claims nothing and its release releases nothing. Never sent:
+    /// function 3, which writes the device's saved configuration, function
+    /// 7 as a write, which changes its power timers, function 9, which puts
+    /// it into deep sleep (p.33), and any persistence value with bit 1 set,
+    /// which writes its memory (p.11).</para>
+    ///
+    /// <para>0x8080 PER_KEY_LIGHTING (keyleds feature_leds.c:28-35, OpenRGB
+    /// LogitechHIDPP20Controller.h:106-111, with no document from Logitech):
+    /// function 4 fills one key type with a color and function 5 shows what
+    /// was filled. 0x8081 PER_KEY_LIGHTING_V2 (Logitech's "x8081 - Per-Key
+    /// Lighting", version 0, p.4): function 0 getInfo, 5 setRangeRgbZones,
+    /// 7 frameEnd.</para>
+    ///
+    /// <para>The on-board memory mode (libratbag hidpp20.c:1782-1800, OpenRGB
+    /// LogitechHIDPP20Controller.cpp:3978-3998): feature 0x8100 reads it
+    /// with function 2 and sets it with function 1, 1 on-board and 2 host.
+    /// Feature 0x8101 does both with function 6, 3 on-board and 5 host.</para>
     /// </summary>
     internal static class HidppUnitProtocol
     {
+        public const ushort DeviceInformation = 0x0003;
         public const ushort DeviceTypeAndName = 0x0005;
         public const ushort ColorLedEffects = 0x8070;
         public const ushort RgbEffects = 0x8071;
         public const ushort PerKeyLighting = 0x8080;
         public const ushort PerKeyLightingV2 = 0x8081;
+        public const ushort OnboardProfiles = 0x8100;
+        public const ushort ProfileManagement = 0x8101;
         public const ushort UnifiedBattery = 0x1004;
         public const ushort BatteryStatus = 0x1000;
 
         public const ushort StaticEffectId = 0x0001;
 
+        /// <summary>Effect 19 of the 0x8071 list, "Host streaming", the
+        /// effect that shows the per-key buffer (Logitech's x8071 document,
+        /// p.16).</summary>
+        public const ushort HostStreamingEffectId = 0x0013;
+
         public const byte FunctionGetZoneInfo = 1;
         public const byte FunctionGetZoneEffectInfo = 2;
         public const byte FunctionSetZoneEffect = 3;
         public const byte FunctionSetSwControl = 8;
+
+        public const byte FunctionRgbGetInfo = 0;
+        public const byte FunctionRgbSetClusterEffect = 1;
+        public const byte FunctionRgbSwControl = 5;
+        public const byte FunctionRgbPowerMode = 8;
+
+        public const byte FunctionPerKeyFill = 4;
+        public const byte FunctionPerKeyCommit = 5;
+
+        public const byte FunctionPerKeyV2GetInfo = 0;
+        public const byte FunctionPerKeyV2SetRange = 5;
+        public const byte FunctionPerKeyV2FrameEnd = 7;
+
+        public const byte FunctionOnboardSetMode = 1;
+        public const byte FunctionOnboardGetMode = 2;
+        public const byte FunctionProfileMode = 6;
+
+        /// <summary>0x8071 getInfo's "all clusters" and "all effects", and
+        /// the cluster a multi-cluster effect is set on.</summary>
+        public const byte AllClusters = 0xFF;
+
+        /// <summary>0x8071 manageSwControl's flags (Logitech's x8071
+        /// document, p.26-27): the software controls every cluster, and the
+        /// software controls the power modes, which stops the device from
+        /// dimming and switching its lights off by itself.</summary>
+        public const byte SwControlClusters = 0x01;
+        public const byte SwControlPower = 0x02;
+
+        /// <summary>The 0x8080 key types, single bits (keyleds.h:153-157,
+        /// OpenRGB LogitechHIDPP20Controller.h:174-181).</summary>
+        public const ushort KeyTypeKeys = 0x0001;
+        public const ushort KeyTypeMedia = 0x0002;
+        public const ushort KeyTypeGKeys = 0x0004;
+        public const ushort KeyTypeLogo = 0x0010;
+        public const ushort KeyTypeIndicators = 0x0040;
 
         /// <summary>0x8070 SetZoneEffect with the static effect: the zone, the
         /// static effect's index, the color, then 0x02, OpenRGB's "fixed color
@@ -162,6 +241,205 @@ namespace PadForge.Common.Input.Peripherals
         public static byte[] SetSwControl(byte deviceIndex, byte featureIndex, bool claim)
             => HidppHapticProtocol.Frame(deviceIndex, featureIndex, FunctionSetSwControl,
                 claim ? new byte[] { 0x01, 0x01 } : new byte[] { 0x00, 0x00 });
+
+        /// <summary>0x8071 getInfo. One function answers three questions,
+        /// told apart by its first two bytes (Logitech's x8071 document,
+        /// p.2-3): [FF FF] the device, [cluster FF] one cluster, [cluster
+        /// effect] one effect of a cluster, with cluster FF for the list of
+        /// multi-cluster effects. The third byte, typeOfInfo, is 0. Logitech's
+        /// own program asks all three this way (g810-led-resources
+        /// dumps/g815/G815-Hotplug-to-start.pcapng: 11 FF 0F 0C FF FF 00,
+        /// then 00 FF 00, then 00 00 00).</summary>
+        public static byte[] RgbGetInfo(byte deviceIndex, byte featureIndex, byte cluster, byte effect)
+            => HidppHapticProtocol.Frame(deviceIndex, featureIndex, FunctionRgbGetInfo, new byte[] { cluster, effect, 0x00 });
+
+        /// <summary>0x8071 manageSwControl as a write: [01, flags, events]
+        /// (Logitech's x8071 document, p.26-28). [01 01 00] takes the
+        /// clusters alone, [01 00 00] hands everything back, and Logitech's
+        /// own program claims with [01 03 07] and settles on [01 03 05]
+        /// (G815-Hotplug-to-start.pcapng: 11 FF 0F 5C 01 03 07, then
+        /// 11 FF 0F 5C 01 03 05).</summary>
+        public static byte[] RgbSwControl(byte deviceIndex, byte featureIndex, byte flags, byte events)
+            => HidppHapticProtocol.Frame(deviceIndex, featureIndex, FunctionRgbSwControl, new byte[] { 0x01, flags, events });
+
+        /// <summary>0x8071 manageSwControl as a read: [00]. The answer
+        /// carries [00, flags, events] as they stand (Logitech's x8071
+        /// document, p.26-28). Logitech's own program reads it before it
+        /// claims (G815-Hotplug-to-start.pcapng: 11 FF 0F 5C 00).</summary>
+        public static byte[] RgbSwControlRead(byte deviceIndex, byte featureIndex)
+            => HidppHapticProtocol.Frame(deviceIndex, featureIndex, FunctionRgbSwControl, new byte[] { 0x00 });
+
+        /// <summary>0x8071 setRgbClusterEffect with the Fixed effect
+        /// (Logitech's x8071 document, p.11-12): the cluster, the effect's
+        /// index in that cluster, the color, then 0x02, "no effect", which
+        /// shows the color with no ramp. Byte 12 is 0x01: full power mode,
+        /// and volatile memory alone. With 0x00 there a device acknowledges
+        /// the frame and shows nothing ("verified on a G502 X PLUS and a
+        /// G915", OpenGHub features.rs:1037-1039), and bit 1 would write the
+        /// device's memory, which this never sets. The bytes are the ones
+        /// Logitech's own program sends
+        /// (dumps/g815/G815-FX-color-8D40FF.pcapng:
+        /// 11 FF 0F 1C 01 01 8D 40 FF 02 00 00 00 00 00 00 01).
+        ///
+        /// <para>Black keeps the 0x02. OpenRGB sends 0x00 for black, as a
+        /// pass-through to the per-key buffer
+        /// (LogitechHIDPP20Controller.cpp:5647-5663), and Logitech's own
+        /// program sends black to a G915 X as Fixed with 0x02 (OpenRGB issue
+        /// 4461, all_off.pcapng: 11 FF 08 1D 00 01 00 00 00 02 ... 01). The
+        /// capture is the vendor's own frame, taken with the keyboard's
+        /// answers, so it is the one followed.</para></summary>
+        public static byte[] RgbFixedColor(byte deviceIndex, byte featureIndex, HidppZone cluster, byte r, byte g, byte b)
+            => HidppHapticProtocol.Frame(deviceIndex, featureIndex, FunctionRgbSetClusterEffect, new byte[]
+            {
+                cluster.Zone, cluster.StaticEffectIndex, r, g, b, 0x02, 0, 0, 0, 0, 0, 0, 0x01,
+            });
+
+        /// <summary>0x8071 setRgbClusterEffect choosing Host streaming on
+        /// every cluster: cluster FF, the effect's place in the multi-cluster
+        /// list, no parameters, and byte 12 at 0x01 as for the Fixed effect.
+        /// Logitech's own program sends it to a G915 X 30 ms before its
+        /// first per-key frame (OpenRGB issue 4461, unplug_and_replug.pcapng:
+        /// 11 FF 08 1D FF 01 00 00 00 00 00 00 00 00 00 00 01), and to a
+        /// PRO X TKL RAPID, where rigdeck replays it on the keyboard
+        /// (rigdeck lighting.py:27-31).</summary>
+        public static byte[] RgbHostStreaming(byte deviceIndex, byte featureIndex, byte entry)
+            => HidppHapticProtocol.Frame(deviceIndex, featureIndex, FunctionRgbSetClusterEffect, new byte[]
+            {
+                AllClusters, entry, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x01,
+            });
+
+        /// <summary>0x8071 manageRgbPowerMode as a write of Full RGB, [01 01]
+        /// (Logitech's x8071 document, p.31-32), the one power mode this
+        /// ever sets. The device refuses it unless the power flag of
+        /// <see cref="RgbSwControl"/> is set (p.33). Logitech's own program
+        /// sends it between its two claim frames
+        /// (G815-Hotplug-to-start.pcapng: 11 FF 0F 8C 01 01).</summary>
+        public static byte[] RgbPowerFull(byte deviceIndex, byte featureIndex)
+            => HidppHapticProtocol.Frame(deviceIndex, featureIndex, FunctionRgbPowerMode, new byte[] { 0x01, 0x01 });
+
+        /// <summary>0x8080 fill: one key type, big-endian, and a color. The
+        /// board keeps it in a buffer until <see cref="PerKeyCommit"/>
+        /// (keyleds feature_leds.c:218-227). Logitech Gaming Software sends
+        /// it for its fixed color (g810-led-resources
+        /// dumps/g810-spectrum/set_fx_color_00ff00.pcapng:
+        /// 11 FF 0C 4C 00 40 00 FF 00).</summary>
+        public static byte[] PerKeyFill(byte deviceIndex, byte featureIndex, ushort keyType, byte r, byte g, byte b)
+            => HidppHapticProtocol.Frame(deviceIndex, featureIndex, FunctionPerKeyFill, new byte[]
+            {
+                (byte)(keyType >> 8), (byte)keyType, r, g, b,
+            });
+
+        /// <summary>0x8080 commit: shows what the fills staged (keyleds
+        /// feature_leds.c:239-244, set_fx_color_00ff00.pcapng:
+        /// 11 FF 0C 5C). A board answers busy to one sent within about 5 ms
+        /// of the commit before, and Logitech Gaming Software sends it again
+        /// (dumps/g810-spectrum/set_fx_color_cycle_fast_00ff00.pcapng:
+        /// 11 FF FF 0C 5C 08, then the commit once more).</summary>
+        public static byte[] PerKeyCommit(byte deviceIndex, byte featureIndex)
+            => HidppHapticProtocol.Frame(deviceIndex, featureIndex, FunctionPerKeyCommit, Array.Empty<byte>());
+
+        /// <summary>The red a 0x8080 media fill carries. Logitech Gaming
+        /// Software never sends red 0 there with a color: it sends
+        /// [01 FF 00] for 00 FF 00 (set_fx_color_00ff00.pcapng:
+        /// 11 FF 0C 4C 00 02 01 FF 00). A G910's media lights have red as
+        /// their one channel, with a top value of 1
+        /// (dumps/g910-spark/G910_gkey_mapping_and_mkeys.pcapng, the key
+        /// type's answer 00 05 01 00 00), so a color with no red would
+        /// switch them off. Black stays black here, so that black is dark.</summary>
+        public static byte MediaRed(byte r, byte g, byte b) => r == 0 && (g | b) != 0 ? (byte)0x01 : r;
+
+        /// <summary>0x8081 getInfo for one page of zone presence: [00, page,
+        /// 00]. The answer repeats the two bytes and then holds 14 bytes of
+        /// bits, bit i for zone page * 112 + i (Logitech's x8081 document,
+        /// p.4-6). A G915 X answers page 1 with
+        /// 00 01 00 00 00 00 00 7A 00 00 F0 1F 00 00 04 00
+        /// (unplug_and_replug.pcapng).</summary>
+        public static byte[] PerKeyZonePage(byte deviceIndex, byte featureIndex, byte page)
+            => HidppHapticProtocol.Frame(deviceIndex, featureIndex, FunctionPerKeyV2GetInfo, new byte[] { 0x00, page, 0x00 });
+
+        /// <summary>0x8081 setRangeRgbZones with one range: the first zone,
+        /// the last, and the color for every zone between (Logitech's x8081
+        /// document, p.12-14). The zero after it ends the list. One range
+        /// from the lowest zone the device has to the highest paints the
+        /// whole device, since the firmware passes over the IDs it lacks:
+        /// OpenRGB sends exactly that ("Gaps in zone IDs are silently
+        /// ignored by firmware", LogitechHIDPP20Controller.cpp:4646-4680),
+        /// and Solaar sends the first and last key of its map
+        /// (settings_templates.py:4024-4030). Logitech's own program sends
+        /// one range per run of zones, which costs a frame or two more
+        /// (unplug_and_replug.pcapng: 11 FF 09 5D 01 6F 00 00 00 B4 BC ...).</summary>
+        public static byte[] PerKeyRange(byte deviceIndex, byte featureIndex, byte first, byte last, byte r, byte g, byte b)
+            => HidppHapticProtocol.Frame(deviceIndex, featureIndex, FunctionPerKeyV2SetRange, new byte[] { first, last, r, g, b });
+
+        /// <summary>0x8081 frameEnd: shows what the range staged. Every
+        /// byte is zero: persistence 0, volatile memory, and the frame
+        /// counts a live stream carries (Logitech's x8081 document,
+        /// p.16-17, unplug_and_replug.pcapng: 11 FF 09 7D 00 ...).</summary>
+        public static byte[] PerKeyFrameEnd(byte deviceIndex, byte featureIndex)
+            => HidppHapticProtocol.Frame(deviceIndex, featureIndex, FunctionPerKeyV2FrameEnd, Array.Empty<byte>());
+
+        /// <summary>The value a mode read gives while the device runs its
+        /// on-board memory mode, and the value that switches it to host
+        /// mode: 1 and 2 on feature 0x8100 (libratbag hidpp20.c:1798-1800),
+        /// 3 and 5 on feature 0x8101 (OpenRGB
+        /// LogitechHIDPP20Controller.cpp:3864-3869 and 3980-3985).</summary>
+        public static byte OnBoardMode(ushort modeFeatureId) => modeFeatureId == ProfileManagement ? (byte)0x03 : (byte)0x01;
+        public static byte HostMode(ushort modeFeatureId) => modeFeatureId == ProfileManagement ? (byte)0x05 : (byte)0x02;
+
+        /// <summary>Reads the mode. Feature 0x8100: function 2, and the
+        /// answer's first byte is the mode (libratbag hidpp20.c:2046-2069,
+        /// G815-Hotplug-to-start.pcapng: 11 FF 11 2C). Feature 0x8101:
+        /// function 6 with [00]. A G915 X answers it 03 00 01 in its
+        /// on-board memory mode and 00 00 01 once Logitech's own program
+        /// has switched it to host mode, and the read changes neither
+        /// (unplug_and_replug.pcapng: 10 FF 0E 6D 00 before and after
+        /// 10 FF 0E 6D 05). The same capture and rigdeck read it with [0F]
+        /// as well, whose answer in host mode no source shows, so [00] is
+        /// the read used.</summary>
+        public static byte[] ModeRead(ushort modeFeatureId, byte deviceIndex, byte featureIndex)
+            => modeFeatureId == ProfileManagement
+                ? HidppHapticProtocol.Frame(deviceIndex, featureIndex, FunctionProfileMode, new byte[] { 0x00 })
+                : HidppHapticProtocol.Frame(deviceIndex, featureIndex, FunctionOnboardGetMode, Array.Empty<byte>());
+
+        /// <summary>Writes a mode: function 1 on feature 0x8100, function 6
+        /// on feature 0x8101, with the mode as the one byte
+        /// (G815-Hotplug-to-start.pcapng: 11 FF 11 1C 02,
+        /// unplug_and_replug.pcapng: 10 FF 0E 6D 05).</summary>
+        public static byte[] ModeWrite(ushort modeFeatureId, byte deviceIndex, byte featureIndex, byte mode)
+            => HidppHapticProtocol.Frame(deviceIndex, featureIndex,
+                modeFeatureId == ProfileManagement ? FunctionProfileMode : FunctionOnboardSetMode, new[] { mode });
+
+        /// <summary>The G915 TKL's IDs on its receiver and on its cable. Its
+        /// top row is G-keys that the on-board profile makes report F1 to
+        /// F12, and in host mode the row is dead, so this keyboard is never
+        /// switched to host mode (OpenRGB LogitechHIDPP20Controller.h:199
+        /// and 221, its KEEP_ONBOARD_MODE entry).</summary>
+        public const ushort G915TklWirelessId = 0x408E;
+        public const ushort G915TklUsbId = 0xC343;
+
+        /// <summary>Whether a 0x0003 getDeviceInfo answer names a device
+        /// that must stay in its on-board memory mode
+        /// (<see cref="G915TklWirelessId"/>). The answer is the same on
+        /// every transport, which is what makes it the way to know a device
+        /// on a cable, behind a receiver and over Bluetooth alike: byte 6
+        /// holds one bit per transport, Bluetooth, Bluetooth LE, the
+        /// receiver's link and USB from bit 0, and bytes 7 to 12 hold one
+        /// product ID for each bit set, in that order (Logitech's "x0003 -
+        /// device information", version 4, p.1-3, Solaar
+        /// hidpp20.py:1821-1834).</summary>
+        public static bool KeepsOnBoardMode(HidppReply deviceInfo)
+        {
+            int transports = deviceInfo.Param(6);
+            int at = 7;
+            for (int bit = 0; bit < 4 && at + 1 <= 12; bit++)
+            {
+                if ((transports & (1 << bit)) == 0) continue;
+                ushort id = (ushort)((deviceInfo.Param(at) << 8) | deviceInfo.Param(at + 1));
+                at += 2;
+                if ((bit == 2 && id == G915TklWirelessId) || (bit == 3 && id == G915TklUsbId)) return true;
+            }
+            return false;
+        }
 
         /// <summary>The percent a battery answer gives, or -1 when it gives
         /// none, by Solaar's decoders (hidpp20.py:2191-2265): 0x1000 reads a
@@ -606,7 +884,12 @@ namespace PadForge.Common.Input.Peripherals
                 var zones = StaticZones(channel, deviceIndex, unit.RgbIndex, timeout, out bool zonesMissed);
                 if (zones == null) return null;
                 if (zonesMissed) { incomplete = true; return unit; }
-                unit = unit with { Zones = zones };
+                // A zone-only device is painted through the feature just
+                // found, so it is asked nothing more than it ever was.
+                unit = unit with
+                {
+                    Zones = zones, EffectFeatureId = HidppUnitProtocol.ColorLedEffects, EffectIndex = unit.RgbIndex,
+                };
             }
 
             foreach (ushort id in new[] { HidppUnitProtocol.UnifiedBattery, HidppUnitProtocol.BatteryStatus })
@@ -618,7 +901,286 @@ namespace PadForge.Common.Input.Peripherals
                 unit = unit with { BatteryFeatureId = id, BatteryIndex = index };
                 break;
             }
+
+            // The first pass stops at the first RGB feature it finds, which
+            // for every device but a zone-only one is not the whole story:
+            // a 0x8071 device may have 0x8081 beside it, and a board whose
+            // first is a per-key feature is painted through its 0x8070.
+            if (unit.RgbFeatureId != 0 && unit.RgbFeatureId != HidppUnitProtocol.ColorLedEffects)
+            {
+                var lit = DescribeLighting(channel, unit, timeout, out bool lightingMissed);
+                if (lit == null) return null;
+                if (lightingMissed) { incomplete = true; return unit; }
+                unit = lit;
+            }
             return unit;
+        }
+
+        /// <summary>
+        /// The lighting of a unit whose first RGB feature is not 0x8070,
+        /// asked after everything the first pass asks, so that pass and its
+        /// order stay what they were. The unit ends with its effect feature
+        /// and its per-key feature as separate pairs. Null when a write
+        /// failed. <paramref name="missed"/> is set at the first request
+        /// that went unanswered (<see cref="Missed"/>), and the caller then
+        /// asks the unit again in full.
+        ///
+        /// <para>A 0x8071 device: 0x8081 is looked up, the clusters are
+        /// walked for the Fixed effect, the zones of a 0x8081 found are
+        /// read, and a keyboard with both has its multi-cluster effects
+        /// walked for Host streaming. Then the feature that switches the
+        /// on-board memory mode is looked up, 0x8101 before 0x8100, the
+        /// order OpenRGB and Solaar test them in
+        /// (LogitechHIDPP20Controller.cpp:3978-3998,
+        /// settings_templates.py:3334-3337), and the claim levels the unit
+        /// offers follow from it (<see cref="HidppUnit.MaxClaimLevel"/>):
+        /// its lighting power always, and its on-board memory mode off
+        /// where it has that feature and is not a keyboard that must stay
+        /// in it (<see cref="HidppUnitProtocol.KeepsOnBoardMode"/>).</para>
+        ///
+        /// <para>A device whose first RGB feature is a per-key one, 0x8080
+        /// or 0x8081 with no 0x8071: 0x8070 is looked up and its zones
+        /// walked. Every known board with 0x8080 lists 0x8070 too (g810-led
+        /// Keyboard.cpp:911-937 sends 0x8070 function 3 to each), and that
+        /// is the feature such a board is claimed and painted through. With
+        /// no effect feature there is no claim to take, and the unit has no
+        /// plan.</para>
+        /// </summary>
+        internal static HidppUnit DescribeLighting(IHidppChannel channel, HidppUnit unit, int timeout, out bool missed)
+        {
+            missed = false;
+            byte device = unit.DeviceIndex;
+            HidppReply reply;
+            if (unit.RgbFeatureId != HidppUnitProtocol.RgbEffects)
+            {
+                unit = unit with { PerKeyFeatureId = unit.RgbFeatureId, PerKeyIndex = unit.RgbIndex };
+                byte zonesAt = Feature(channel, device, HidppUnitProtocol.ColorLedEffects, timeout, out reply);
+                if (reply.Kind == HidppReplyKind.WriteFailed) return null;
+                if (Missed(reply)) { missed = true; return unit; }
+                if (zonesAt == 0) return unit;
+                var zones = StaticZones(channel, device, zonesAt, timeout, out missed);
+                if (zones == null) return null;
+                if (missed) return unit;
+                return unit with { EffectFeatureId = HidppUnitProtocol.ColorLedEffects, EffectIndex = zonesAt, Zones = zones };
+            }
+
+            unit = unit with { EffectFeatureId = HidppUnitProtocol.RgbEffects, EffectIndex = unit.RgbIndex };
+            byte perKey = Feature(channel, device, HidppUnitProtocol.PerKeyLightingV2, timeout, out reply);
+            if (reply.Kind == HidppReplyKind.WriteFailed) return null;
+            if (Missed(reply)) { missed = true; return unit; }
+
+            var clusters = FixedClusters(channel, device, unit.RgbIndex, timeout, out missed, out int multiCluster);
+            if (clusters == null) return null;
+            if (missed) return unit;
+            unit = unit with { Zones = clusters };
+
+            if (perKey != 0)
+            {
+                unit = unit with { PerKeyFeatureId = HidppUnitProtocol.PerKeyLightingV2, PerKeyIndex = perKey };
+                if (!ZoneBounds(channel, device, perKey, timeout, out byte lowest, out byte highest, out missed)) return null;
+                if (missed) return unit;
+                unit = unit with { PerKeyMin = lowest, PerKeyMax = highest };
+                if (clusters.Length > 0 && ClusterStreamPlan.Fits(unit))
+                {
+                    int streaming = HostStreaming(channel, device, unit.RgbIndex, multiCluster, timeout, out missed, out bool failed);
+                    if (failed) return null;
+                    if (missed) return unit;
+                    unit = unit with { HostStreamingIndex = streaming };
+                }
+            }
+            // With no cluster to paint there is no claim, so no level to
+            // offer and no mode to look for.
+            if (clusters.Length == 0) return unit;
+
+            ushort modeFeature = HidppUnitProtocol.ProfileManagement;
+            byte mode = Feature(channel, device, modeFeature, timeout, out reply);
+            if (reply.Kind == HidppReplyKind.WriteFailed) return null;
+            if (Missed(reply)) { missed = true; return unit; }
+            if (mode == 0)
+            {
+                modeFeature = HidppUnitProtocol.OnboardProfiles;
+                mode = Feature(channel, device, modeFeature, timeout, out reply);
+                if (reply.Kind == HidppReplyKind.WriteFailed) return null;
+                if (Missed(reply)) { missed = true; return unit; }
+            }
+            if (mode == 0) return unit with { MaxClaimLevel = 1 };
+
+            // The one way to know the device on any transport: its model ID.
+            // A device that lists the feature and refuses the read is not
+            // switched, since it cannot be told from the keyboard that must
+            // not be. One that lacks the feature is not that keyboard, which
+            // lists it (Solaar docs/devices, the G915 TKL's dump for 408E).
+            byte infoAt = Feature(channel, device, HidppUnitProtocol.DeviceInformation, timeout, out reply);
+            if (reply.Kind == HidppReplyKind.WriteFailed) return null;
+            if (Missed(reply)) { missed = true; return unit; }
+            bool staysOnBoard = false;
+            if (infoAt != 0)
+            {
+                var info = channel.Request(device, infoAt, 0, Array.Empty<byte>(), timeout);
+                if (info.Kind == HidppReplyKind.WriteFailed) return null;
+                if (Missed(info)) { missed = true; return unit; }
+                staysOnBoard = info.Kind != HidppReplyKind.Answer || HidppUnitProtocol.KeepsOnBoardMode(info);
+            }
+            return unit with { ModeFeatureId = modeFeature, ModeIndex = mode, MaxClaimLevel = staysOnBoard ? 1 : 2 };
+        }
+
+        /// <summary>
+        /// The clusters of a 0x8071 device that list the Fixed effect, each
+        /// with that effect's index, found by its ID: the index differs
+        /// between the clusters of one device (on a G815 Logitech's own
+        /// program sets breathing as index 2 on one cluster and 3 on the
+        /// other, g810-led-resources
+        /// dumps/g815/G815-FX-breathing-FD7600-5000ms.pcapng). The device
+        /// answer gives the cluster count in payload 2 and the number of
+        /// multi-cluster effects in payload 7, a cluster answer its location
+        /// in payloads 2 and 3 and its effect count in payload 4, and an
+        /// effect answer the effect's ID in payloads 2 and 3 (Logitech's
+        /// x8071 document, p.4-7). Null when a write failed.
+        /// <paramref name="missed"/> is set at the first request that went
+        /// unanswered, where the walk stops.
+        ///
+        /// <para>A cluster whose location is 0x0081 to 0x0084 is left out:
+        /// those are the states one shared light of a microphone shows,
+        /// not places to paint (the same document, p.5-6).</para>
+        /// </summary>
+        internal static HidppZone[] FixedClusters(IHidppChannel channel, byte deviceIndex, byte featureIndex, int timeout,
+            out bool missed, out int multiCluster)
+        {
+            missed = false;
+            multiCluster = 0;
+            const byte all = HidppUnitProtocol.AllClusters;
+            var info = AskInfo(channel, deviceIndex, featureIndex, all, all, wholeEcho: false, timeout);
+            if (info.Kind == HidppReplyKind.WriteFailed) return null;
+            missed = Missed(info);
+            if (info.Kind != HidppReplyKind.Answer) return Array.Empty<HidppZone>();
+            int clusterCount = Math.Min((int)info.Param(2), 16);
+            multiCluster = Math.Min((int)info.Param(7), 16);
+            var clusters = new List<HidppZone>(clusterCount);
+            for (int c = 0; c < clusterCount; c++)
+            {
+                var cluster = AskInfo(channel, deviceIndex, featureIndex, (byte)c, all, wholeEcho: false, timeout);
+                if (cluster.Kind == HidppReplyKind.WriteFailed) return null;
+                if (Missed(cluster)) { missed = true; break; }
+                if (cluster.Kind != HidppReplyKind.Answer) continue;
+                int location = (cluster.Param(2) << 8) | cluster.Param(3);
+                if (location >= 0x0081 && location <= 0x0084) continue;
+                int effectCount = Math.Min((int)cluster.Param(4), 32);
+                for (int e = 0; e < effectCount && !missed; e++)
+                {
+                    var effect = AskInfo(channel, deviceIndex, featureIndex, (byte)c, (byte)e, wholeEcho: true, timeout);
+                    if (effect.Kind == HidppReplyKind.WriteFailed) return null;
+                    if (Missed(effect)) { missed = true; break; }
+                    if (effect.Kind != HidppReplyKind.Answer) continue;
+                    ushort id = (ushort)((effect.Param(2) << 8) | effect.Param(3));
+                    if (id != HidppUnitProtocol.StaticEffectId) continue;
+                    clusters.Add(new HidppZone((byte)c, (byte)e));
+                    break;
+                }
+                if (missed) break;
+            }
+            return clusters.ToArray();
+        }
+
+        /// <summary>
+        /// The place of the Host streaming effect among a 0x8071 device's
+        /// multi-cluster effects, or -1 when it lists none. The list is the
+        /// one cluster 0xFF takes its effects from, read entry by entry as
+        /// Logitech's own program reads it (OpenRGB issue 4461,
+        /// unplug_and_replug.pcapng: 11 FF 08 0D FF 01 00, answered
+        /// FF 01 00 13). The walk ends at the effect, or at the first entry
+        /// the device refuses. <paramref name="failed"/> is set when a write
+        /// failed, <paramref name="missed"/> when a request went unanswered.
+        /// </summary>
+        internal static int HostStreaming(IHidppChannel channel, byte deviceIndex, byte featureIndex, int count, int timeout,
+            out bool missed, out bool failed)
+        {
+            missed = false;
+            failed = false;
+            for (int e = 0; e < count; e++)
+            {
+                var effect = AskInfo(channel, deviceIndex, featureIndex, HidppUnitProtocol.AllClusters, (byte)e,
+                    wholeEcho: true, timeout);
+                if (effect.Kind == HidppReplyKind.WriteFailed) { failed = true; return -1; }
+                if (Missed(effect)) { missed = true; return -1; }
+                if (effect.Kind != HidppReplyKind.Answer) return -1;
+                if (((effect.Param(2) << 8) | effect.Param(3)) == HidppUnitProtocol.HostStreamingEffectId) return e;
+            }
+            return -1;
+        }
+
+        /// <summary>
+        /// The lowest and the highest zone a 0x8081 device has, from its
+        /// three pages of presence bits, bit i of a page for zone
+        /// page * 112 + i with the first bit the low one of the first byte
+        /// (Logitech's x8081 document, p.4-6, read the same way by OpenRGB
+        /// LogitechHIDPP20Controller.cpp:3026-3082 and Solaar
+        /// settings_templates.py:4165-4169). Zones 0 and 255 are not zones
+        /// and are passed over, though a device may set their bits (the
+        /// same document, p.1 and p.5). A page the device refuses holds
+        /// none. Both are 0 for a device with no zone. False when a write
+        /// failed. <paramref name="missed"/> is set when a request went
+        /// unanswered.
+        /// </summary>
+        internal static bool ZoneBounds(IHidppChannel channel, byte deviceIndex, byte featureIndex, int timeout,
+            out byte lowest, out byte highest, out bool missed)
+        {
+            lowest = 0;
+            highest = 0;
+            missed = false;
+            for (byte page = 0; page <= 2; page++)
+            {
+                byte asked = page;
+                var reply = AskEchoed(channel, deviceIndex, featureIndex, HidppUnitProtocol.FunctionPerKeyV2GetInfo,
+                    new byte[] { 0x00, page, 0x00 }, timeout, r => r.Param(0) == 0x00 && r.Param(1) == asked);
+                if (reply.Kind == HidppReplyKind.WriteFailed) return false;
+                if (Missed(reply)) { missed = true; return true; }
+                if (reply.Kind != HidppReplyKind.Answer) continue;
+                for (int bit = 0; bit < 112; bit++)
+                {
+                    if ((reply.Param(2 + bit / 8) & (1 << (bit % 8))) == 0) continue;
+                    int zone = page * 112 + bit;
+                    if (zone < 1 || zone > 254) continue;
+                    if (lowest == 0) lowest = (byte)zone;
+                    highest = (byte)zone;
+                }
+            }
+            return true;
+        }
+
+        /// <summary>One 0x8071 getInfo question. All three kinds of question
+        /// share one function, so the answer is checked against the
+        /// question: its first byte against the cluster asked about, and
+        /// for an effect its second byte against the effect. A device or a
+        /// cluster answer is not held to its second byte, which a G915 X
+        /// answers as 00 where the question carried FF (OpenRGB issue 4461,
+        /// unplug_and_replug.pcapng: 10 FF 08 0D FF FF 00, answered
+        /// FF 00 02 00 63 00 04 08).</summary>
+        private static HidppReply AskInfo(IHidppChannel channel, byte deviceIndex, byte featureIndex, byte cluster,
+            byte effect, bool wholeEcho, int timeout)
+            => AskEchoed(channel, deviceIndex, featureIndex, HidppUnitProtocol.FunctionRgbGetInfo,
+                new byte[] { cluster, effect, 0x00 }, timeout,
+                r => r.Param(0) == cluster && (!wholeEcho || r.Param(1) == effect));
+
+        /// <summary>A request whose answer names the question it answers.
+        /// An answer to another question is not this one's: the same
+        /// function byte under the same software ID can carry another
+        /// program's answer, and Logitech's own program has used this ID
+        /// (g810-led-resources dumps/g815/G815-Hotplug-to-start.pcapng,
+        /// every frame). Such an answer is asked for once more. The second
+        /// one is taken when it names the question, or when it is the first
+        /// one byte for byte, which is a device that names no question at
+        /// all. Anything else reads as unanswered, so the unit is asked
+        /// again in full.</summary>
+        private static HidppReply AskEchoed(IHidppChannel channel, byte deviceIndex, byte featureIndex, byte function,
+            byte[] parameters, int timeout, Func<HidppReply, bool> names)
+        {
+            var reply = channel.Request(deviceIndex, featureIndex, function, parameters, timeout);
+            if (reply.Kind != HidppReplyKind.Answer || names(reply)) return reply;
+            var again = channel.Request(deviceIndex, featureIndex, function, parameters, timeout);
+            if (again.Kind != HidppReplyKind.Answer || names(again)) return again;
+            for (int i = 0; i < HidppHapticProtocol.LongReportLength - 4; i++)
+                if (reply.Param(i) != again.Param(i)) return new HidppReply(HidppReplyKind.Timeout);
+            return again;
         }
 
         /// <summary>The zones of a 0x8070 device that list the static effect,
