@@ -121,6 +121,8 @@ namespace PadForge.Common.Input
         private static HidReportChannel Open(string path, bool featureOnly)
         {
             if (string.IsNullOrEmpty(path)) return null;
+            // The test host opens no device (RealHidAccess).
+            if (RealHidAccess.Refused) return null;
             SafeFileHandle handle;
             if (featureOnly) handle = OpenHandle(path, 0).Handle;
             else handle = OpenLadder(access => OpenHandle(path, access), out featureOnly);

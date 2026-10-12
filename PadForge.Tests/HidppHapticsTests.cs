@@ -648,6 +648,7 @@ namespace PadForge.Tests
         public void Live_ProbesTheRealHidppCollections()
         {
             if (Environment.GetEnvironmentVariable("PADFORGE_LIVE_HIDPP") != "1") return;
+            using var real = RealHidAccess.AllowForTest();
             var all = VendorHidRuntime.Enumerate() ?? new List<VendorHidCollection>();
             // The collections the HID++ worker itself opens.
             var collections = all.Where(HidppBackend.IsHidppLong).ToList();

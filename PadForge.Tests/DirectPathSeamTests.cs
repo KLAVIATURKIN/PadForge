@@ -1862,6 +1862,9 @@ namespace PadForge.Tests
         public void ACollectionThatIsNotThere_OpensNothing()
         {
             const string nowhere = @"\\?\hid#vid_0000&pid_0000&mi_7f#padforge-test-no-such-collection#{4d1e55b2-f16f-11cf-88cb-001111000030}";
+            // The open itself is under test here, so the test host's
+            // refusal is lifted for it. The path names no device.
+            using var real = RealHidAccess.AllowForTest();
             Assert.Null(HidReportChannel.Open(nowhere));
             Assert.Null(HidReportChannel.OpenFeatureOnly(nowhere));
             Assert.Null(HidReportChannel.Open(null));

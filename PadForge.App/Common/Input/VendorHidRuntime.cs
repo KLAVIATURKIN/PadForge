@@ -237,6 +237,8 @@ namespace PadForge.Common.Input
         public bool Open()
         {
             if (_disposed) return false;
+            // The test host opens no device (RealHidAccess).
+            if (RealHidAccess.Refused) return false;
             var handle = SonyHeadsetHid.CreateFile(Collection.Path, SonyHeadsetHid.GENERIC_READ,
                 SonyHeadsetHid.FILE_SHARE_READ | SonyHeadsetHid.FILE_SHARE_WRITE,
                 IntPtr.Zero, SonyHeadsetHid.OPEN_EXISTING,
