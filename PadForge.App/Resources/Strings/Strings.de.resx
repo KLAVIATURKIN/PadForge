@@ -452,6 +452,7 @@ Eine Kopie der vorherigen Version liegt in diesem Ordner: {1}</value></data>
   <data name="Status_DriverSwitching_Format" xml:space="preserve"><value>Treiber für {0} wird gewechselt…</value></data>
   <data name="Status_DriverBound_Format" xml:space="preserve"><value>{0} nutzt jetzt den PadForge-Treiber.</value></data>
   <data name="Status_DriverBindFailed_Format" xml:space="preserve"><value>{0} konnte nicht auf den PadForge-Treiber wechseln.</value></data>
+  <data name="Status_DriverBindOthersPluggedIn" xml:space="preserve"><value>Ziehen Sie zuerst die anderen Mäuse dieses Modells ab. Windows stellt alle angeschlossenen zugleich auf den PadForge-Treiber um und verwendet danach keine davon mehr als Zeigegerät.</value></data>
   <data name="Status_DriverRestored_Format" xml:space="preserve"><value>{0} nutzt wieder den Windows-Treiber.</value></data>
   <data name="Status_DriverRestoreFailed_Format" xml:space="preserve"><value>Der Windows-Treiber für {0} konnte nicht wiederhergestellt werden.</value></data>
   <data name="Status_DriverMovedBack_Format" xml:space="preserve"><value>Windows hat {0} wieder auf den eigenen Treiber gesetzt. Wählen Sie es auf der Seite Geräte aus, um erneut zu wechseln.</value></data>

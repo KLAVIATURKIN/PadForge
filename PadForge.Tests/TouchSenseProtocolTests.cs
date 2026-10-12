@@ -104,19 +104,85 @@ namespace PadForge.Tests
 
         // ── From a level to a frame ──
 
+        /// <summary>The same level is another strength byte on each
+        /// model: the vendor's driver scales the lifted strength by its
+        /// model's factor at the frame's delay (LMouFrc.dll 0x10008307 to
+        /// 0x1000831C), which at this build's 10 ms is 240 in 255 on the
+        /// iFeel Mouse and 227 on the iFeel MouseMan.</summary>
         [Theory]
-        [InlineData(1.00, "11 0A FF 0A 00 1E 00")]
-        [InlineData(0.50, "11 0A A8 0A 00 1E 00")]
-        [InlineData(0.25, "11 0A 7C 0A 00 1E 00")]
-        [InlineData(0.05, "11 0A 59 0A 00 1E 00")]
-        [InlineData(0.02, "11 0A 54 0A 00 1E 00")]
-        [InlineData(0.00, "13 00 00 00 00 00 00")]
+        [InlineData(1.00, 0xC030, "11 0A F0 0A 00 1E 00")]
+        [InlineData(0.50, 0xC030, "11 0A 9E 0A 00 1E 00")]
+        [InlineData(0.25, 0xC030, "11 0A 75 0A 00 1E 00")]
+        [InlineData(0.05, 0xC030, "11 0A 54 0A 00 1E 00")]
+        [InlineData(0.02, 0xC030, "11 0A 4F 0A 00 1E 00")]
+        // The iFeel Mouse's second product ID has the numbers of its first.
+        [InlineData(1.00, 0xC031, "11 0A F0 0A 00 1E 00")]
+        [InlineData(0.50, 0xC031, "11 0A 9E 0A 00 1E 00")]
+        [InlineData(0.02, 0xC031, "11 0A 4F 0A 00 1E 00")]
+        [InlineData(1.00, 0xC032, "11 0A E3 0A 00 1E 00")]
+        [InlineData(0.50, 0xC032, "11 0A 96 0A 00 1E 00")]
+        [InlineData(0.25, 0xC032, "11 0A 6E 0A 00 1E 00")]
+        [InlineData(0.05, 0xC032, "11 0A 4F 0A 00 1E 00")]
+        [InlineData(0.02, 0xC032, "11 0A 4B 0A 00 1E 00")]
+        [InlineData(0.00, 0xC030, "13 00 00 00 00 00 00")]
         // Under the vendor's cut, which lifts no magnitude of 5 in 255 or less.
-        [InlineData(0.019, "13 00 00 00 00 00 00")]
+        [InlineData(0.019, 0xC030, "13 00 00 00 00 00 00")]
+        [InlineData(0.019, 0xC032, "13 00 00 00 00 00 00")]
         // A level above 1 counts as 1.
-        [InlineData(1.50, "11 0A FF 0A 00 1E 00")]
-        public void ALevel_BecomesItsFrame(double level, string bytes)
-            => Assert.Equal(bytes, Text(TouchSenseProtocol.FrameFor(level)));
+        [InlineData(1.50, 0xC030, "11 0A F0 0A 00 1E 00")]
+        [InlineData(1.50, 0xC032, "11 0A E3 0A 00 1E 00")]
+        // A product the vendor's driver has no numbers for keeps the lift alone.
+        [InlineData(1.00, 0xC0FF, "11 0A FF 0A 00 1E 00")]
+        [InlineData(0.50, 0xC0FF, "11 0A A8 0A 00 1E 00")]
+        [InlineData(0.02, 0xC0FF, "11 0A 54 0A 00 1E 00")]
+        public void ALevel_BecomesItsFrame_OnEachModel(double level, int productId, string bytes)
+            => Assert.Equal(bytes, Text(TouchSenseProtocol.FrameFor(level, (ushort)productId)));
+
+        /// <summary>The factor the vendor's driver reads for a delay, the
+        /// whole notch of each model as that driver fills its table: FF
+        /// under P1, down to the model's attenuation at P2, flat to P3, up
+        /// to FF at P4, each ramp with a division that drops the remainder
+        /// (LMouFrc.dll 0x100098AE to 0x10009964). The numbers are 9, 16,
+        /// 20, 24 and 0x91 for the iFeel Mouse, and 9, 13, 24, 35 and 0x8C
+        /// for the iFeel MouseMan (0x10009B73 to 0x10009BE3 and 0x1000A6B9
+        /// to 0x1000A730). The values below are worked out by hand from
+        /// those, a delay of 8 ms first.</summary>
+        [Fact]
+        public void TheDelayFactor_IsTheVendorsNotchOverTheDelay_ForEachModel()
+        {
+            int[] mouse = { 255, 255, 240, 224, 208, 193, 177, 161, 145, 145, 145, 145, 145, 172, 200, 227, 255, 255 };
+            int[] mouseMan =
+            {
+                255, 255, 227, 198, 169, 140, 140, 140, 140, 140, 140, 140, 140, 140, 140, 140, 140,
+                150, 160, 171, 181, 192, 202, 213, 223, 234, 244, 255, 255,
+            };
+            for (int i = 0; i < mouse.Length; i++)
+            {
+                Assert.Equal(mouse[i], TouchSenseProtocol.DelayFactor(0xC030, 8 + i));
+                Assert.Equal(mouse[i], TouchSenseProtocol.DelayFactor(0xC031, 8 + i));
+            }
+            for (int i = 0; i < mouseMan.Length; i++)
+                Assert.Equal(mouseMan[i], TouchSenseProtocol.DelayFactor(0xC032, 8 + i));
+
+            // FF at every delay outside a model's notch, and at every delay
+            // for a product the driver has no numbers for.
+            for (int delay = -1; delay <= 256; delay++)
+            {
+                if (delay < 9 || delay >= 24)
+                {
+                    Assert.Equal(0xFF, TouchSenseProtocol.DelayFactor(0xC030, delay));
+                    Assert.Equal(0xFF, TouchSenseProtocol.DelayFactor(0xC031, delay));
+                }
+                if (delay < 9 || delay >= 35) Assert.Equal(0xFF, TouchSenseProtocol.DelayFactor(0xC032, delay));
+                Assert.Equal(0xFF, TouchSenseProtocol.DelayFactor(0xC0FF, delay));
+                Assert.Equal(0xFF, TouchSenseProtocol.DelayFactor(0, delay));
+            }
+
+            // Every mouse this build binds is one the driver has numbers
+            // for, and this build's delay sits inside each one's notch.
+            Assert.All(TouchSenseProtocol.Mice,
+                m => Assert.NotEqual(0xFF, TouchSenseProtocol.DelayFactor(m.ProductId, TouchSenseProtocol.DelayMs)));
+        }
 
         [Fact]
         public void TheShapersNumbers_AreTheOnesTheDesignGives()
@@ -136,39 +202,52 @@ namespace PadForge.Tests
             Assert.True(TouchSenseProtocol.ResendMs * 2 < TouchSenseProtocol.HoldMs);
         }
 
-        /// <summary>The vendor's driver sends a magnitude above 5 in 255 as
-        /// 0x50 + magnitude x 0xAF / 0xFF, rounded as MulDiv rounds, so no
-        /// strength from 0x06 to 0x53 ever reaches the motor (LMouFrc.dll
-        /// 0x1000829A to 0x100082B5). Every level the engine can hand over,
-        /// one for each 16-bit motor value, gives the same answer.</summary>
-        [Fact]
-        public void TheStrength_FollowsTheVendorsLift_AndNeverFallsInTheGapBelowIt()
+        /// <summary>The vendor's driver makes a strength byte in two
+        /// steps. A magnitude above 5 in 255 is lifted to 0x50 + magnitude
+        /// x 0xAF / 0xFF, rounded as MulDiv rounds (LMouFrc.dll 0x1000829A
+        /// to 0x100082B5). For a frame of more than one pulse, the lifted
+        /// value is then scaled by the model's factor at the frame's delay
+        /// with a second MulDiv (0x10008307 to 0x1000831C and 0x1000A290 to
+        /// 0x1000A2C1). Every level the engine can hand over, one for each
+        /// 16-bit motor value, gives the vendor's answer on each model.</summary>
+        [Theory]
+        [InlineData(0xC030, 240, 0x4F, 0xF0)]
+        [InlineData(0xC031, 240, 0x4F, 0xF0)]
+        [InlineData(0xC032, 227, 0x4B, 0xE3)]
+        [InlineData(0xC0FF, 255, 0x54, 0xFF)]
+        public void TheStrength_IsTheVendorsLiftTimesItsModelsFactor(int productId, int factor, int weakest, int strongest)
         {
+            ushort pid = (ushort)productId;
+            Assert.Equal(factor, TouchSenseProtocol.DelayFactor(pid, TouchSenseProtocol.DelayMs));
+            // A frame of this build has more than one pulse, so the second step applies to it.
+            Assert.True(TouchSenseProtocol.Count > 1);
+
             var seen = new HashSet<byte>();
             for (int motor = 0; motor <= 65535; motor++)
             {
                 float level = motor / 65535f;
-                byte strength = TouchSenseProtocol.StrengthFor(level);
+                byte strength = TouchSenseProtocol.StrengthFor(level, pid);
                 seen.Add(strength);
                 if (level < TouchSenseProtocol.OffBelow) Assert.Equal(0, strength);
-                else Assert.InRange(strength, 0x54, 0xFF);
+                else Assert.InRange(strength, weakest, strongest);
             }
             Assert.Equal(0, seen.Min());
-            Assert.Equal(0xFF, seen.Max());
-            Assert.DoesNotContain(seen, s => s >= 0x01 && s <= 0x53);
+            Assert.Equal(strongest, seen.Max());
+            Assert.Equal(weakest, seen.Where(s => s != 0).Min());
 
-            // The vendor's own rounding for each magnitude it lifts.
+            // The vendor's own two MulDivs for each magnitude it lifts.
             for (int magnitude = 6; magnitude <= 255; magnitude++)
             {
-                int vendor = Math.Min(0xFF, 0x50 + (magnitude * 0xAF + 0xFF / 2) / 0xFF);
-                Assert.Equal(vendor, TouchSenseProtocol.StrengthFor(magnitude / 255.0));
+                int lifted = Math.Min(0xFF, 0x50 + (magnitude * 0xAF + 0xFF / 2) / 0xFF);
+                int vendor = (lifted * factor + 0xFF / 2) / 0xFF;
+                Assert.Equal(vendor, TouchSenseProtocol.StrengthFor(magnitude / 255.0, pid));
             }
-            Assert.Equal(0, TouchSenseProtocol.StrengthFor(5 / 255.0));
+            Assert.Equal(0, TouchSenseProtocol.StrengthFor(5 / 255.0, pid));
 
             // A level that is no number, or below zero, plays nothing.
-            Assert.Equal(0, TouchSenseProtocol.StrengthFor(double.NaN));
-            Assert.Equal(0, TouchSenseProtocol.StrengthFor(-1));
-            Assert.Equal(0xFF, TouchSenseProtocol.StrengthFor(double.PositiveInfinity));
+            Assert.Equal(0, TouchSenseProtocol.StrengthFor(double.NaN, pid));
+            Assert.Equal(0, TouchSenseProtocol.StrengthFor(-1, pid));
+            Assert.Equal(strongest, TouchSenseProtocol.StrengthFor(double.PositiveInfinity, pid));
         }
 
         // ── The input report ──

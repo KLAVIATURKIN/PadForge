@@ -452,6 +452,7 @@ Há uma cópia da versão anterior nesta pasta: {1}</value></data>
   <data name="Status_DriverSwitching_Format" xml:space="preserve"><value>Mudando o driver de {0}…</value></data>
   <data name="Status_DriverBound_Format" xml:space="preserve"><value>{0} agora usa o driver do PadForge.</value></data>
   <data name="Status_DriverBindFailed_Format" xml:space="preserve"><value>{0} não pôde mudar para o driver do PadForge.</value></data>
+  <data name="Status_DriverBindOthersPluggedIn" xml:space="preserve"><value>Desconecte primeiro os outros mouses deste modelo. O Windows move de uma vez todos os que estiverem conectados para o driver do PadForge e deixa de usar cada um como ponteiro.</value></data>
   <data name="Status_DriverRestored_Format" xml:space="preserve"><value>{0} voltou ao driver do Windows.</value></data>
   <data name="Status_DriverRestoreFailed_Format" xml:space="preserve"><value>Não foi possível restaurar o driver do Windows de {0}.</value></data>
   <data name="Status_DriverMovedBack_Format" xml:space="preserve"><value>O Windows voltou {0} para o próprio driver. Selecione-o na página Dispositivos para mudar de novo.</value></data>

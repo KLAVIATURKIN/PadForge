@@ -19,8 +19,10 @@ namespace PadForge.Tests
     /// names, and that nothing binds such a mouse without the confirm
     /// that states the cost. No driver is installed, bound or removed
     /// here: the offers are computed from scripted nodes, and the tests
-    /// that look at this PC only read it.
+    /// that look at this PC only read it, past a scope that lifts the test
+    /// host's refusal, so the class runs with no other beside it.
     /// </summary>
+    [Collection("PeripheralOutputStatics")]
     public class TouchSenseBindingTests
     {
         private readonly ITestOutputHelper _output;
@@ -309,9 +311,15 @@ namespace PadForge.Tests
         {
             string window = AuditDelta20261002Tests.RepoText("PadForge.App", "MainWindow.xaml.cs");
             string body = Body(window, "private async System.Threading.Tasks.Task SwitchDriverAsync(bool bind)");
-            int confirm = body.IndexOf("if (bind && !Views.ConfirmDialog.Show(this, Strings.Instance.Devices_DriverConfirmTitle,", StringComparison.Ordinal);
-            Assert.True(confirm >= 0, "the confirm");
-            int cost = body.IndexOf("DriverCost(offer.Kind), Strings.Instance.Devices_DriverSwitch))", confirm, StringComparison.Ordinal);
+            // One condition of the bind holds the refusal for other mice
+            // of the model and, right after it, the confirm.
+            const string condition = "if (bind && (TakesOthersAlong(offer, nodes, log)";
+            int asked = body.IndexOf(condition, StringComparison.Ordinal);
+            Assert.True(asked >= 0, "the condition every bind passes");
+            int confirm = body.IndexOf("|| !Views.ConfirmDialog.Show(this, Strings.Instance.Devices_DriverConfirmTitle,", asked, StringComparison.Ordinal);
+            Assert.True(confirm > asked, "the confirm");
+            Assert.True(string.IsNullOrWhiteSpace(body.Substring(asked + condition.Length, confirm - asked - condition.Length)), "nothing between them");
+            int cost = body.IndexOf("DriverCost(offer.Kind), Strings.Instance.Devices_DriverSwitch)))", confirm, StringComparison.Ordinal);
             Assert.True(cost > confirm, "the confirm shows the cost of the offer's kind");
             int leave = body.IndexOf("return;", cost, StringComparison.Ordinal);
             int bind = body.IndexOf("Services.VendorUsbDriverInstaller.Bind(offer.Bind.Value, offer.NodeId, nodes, log, default, offer.From)", StringComparison.Ordinal);
@@ -339,25 +347,193 @@ namespace PadForge.Tests
         }
 
         /// <summary>The driver switch lets go of a node before it asks
-        /// Windows to change the node's driver: the restore closes the
-        /// mouse's channel before the package is removed, and the bind
-        /// closes the channel of every node its ID names before the
-        /// forced update, which restarts them all.</summary>
+        /// Windows to change the node's driver, and keeps it let go until
+        /// its wait for the new driver is over. The restore holds the
+        /// mouse's node from before the package is removed to its return.
+        /// The bind holds every node its ID names from before the forced
+        /// update, which restarts them all, to the end of its wait, by
+        /// whichever way it leaves. The device pass looks for bound mice
+        /// every second, so a node let go for a moment would be open again
+        /// in the middle of the switch.</summary>
         [Fact]
-        public void TheDriverSwitch_LetsGoOfTheNodeBeforeItAsksWindows()
+        public void TheDriverSwitch_LetsGoOfTheNodeBeforeItAsksWindows_AndUntilItsWaitIsOver()
         {
             string installer = AuditDelta20261002Tests.RepoText("PadForge.App", "Services", "VendorUsbDriverInstaller.cs");
             string restore = Body(installer, "internal static bool Restore(string instanceId, Action<string> log, CancellationToken ct)");
-            int letGo = restore.IndexOf("LetGoOf(instanceId);", StringComparison.Ordinal);
+            // A using declaration: the hold ends where the method does.
+            int letGo = restore.IndexOf("using var letGo = LetGoOf(instanceId);", StringComparison.Ordinal);
             int remove = restore.IndexOf("RemovePackage(inf, path);", StringComparison.Ordinal);
-            Assert.True(letGo > 0 && remove > letGo, $"{letGo} {remove}");
+            int waits = restore.IndexOf("Thread.Sleep(250);", StringComparison.Ordinal);
+            Assert.True(letGo > 0 && remove > letGo && waits > remove, $"{letGo} {remove} {waits}");
+            Assert.DoesNotContain("letGo.Dispose()", restore);
+            Assert.Equal(1, restore.Split("LetGoOf(").Length - 1);
 
             string bind = Body(installer, "internal static bool Bind(BindPlan plan, string instanceId, IReadOnlyList<UsbNode> nodes,");
-            int each = bind.IndexOf("if (Names(n, plan.BindId)) LetGoOf(n.InstanceId);", StringComparison.Ordinal);
+            int list = bind.IndexOf("var letGo = new List<IDisposable>();", StringComparison.Ordinal);
+            int guarded = bind.IndexOf("try", list, StringComparison.Ordinal);
+            int each = bind.IndexOf("if (Names(n, plan.BindId)) letGo.Add(LetGoOf(n.InstanceId));", StringComparison.Ordinal);
             int force = bind.IndexOf("ForceDriver(plan.BindId, inf)", StringComparison.Ordinal);
-            Assert.True(each > 0 && force > each, $"{each} {force}");
+            int wait = bind.IndexOf("Thread.Sleep(250);", force, StringComparison.Ordinal);
+            int release = bind.IndexOf("foreach (var hold in letGo) hold.Dispose();", StringComparison.Ordinal);
+            Assert.True(list > 0 && guarded > list && each > guarded && force > each && wait > force && release > wait,
+                $"{list} {guarded} {each} {force} {wait} {release}");
+            // Let go in the finally of that try, so a return from inside
+            // the wait and a throw both end the holds, and nothing ends
+            // them sooner.
+            int last = bind.LastIndexOf("finally", release, StringComparison.Ordinal);
+            Assert.True(last > wait, $"{last} {wait}");
+            Assert.Equal("finally{", string.Concat(bind.Substring(last, release - last).Where(c => !char.IsWhiteSpace(c))));
+            Assert.Equal(1, bind.Split("hold.Dispose()").Length - 1);
+            Assert.Equal(1, bind.Split("LetGoOf(").Length - 1);
 
-            Assert.Contains("=> PadForge.Common.Input.Peripherals.TouchSenseChannels.Shared.CloseAt(instanceId);", installer);
+            Assert.Contains("=> PadForge.Common.Input.Peripherals.TouchSenseChannels.Shared.Hold(instanceId);", installer);
+            Assert.DoesNotContain("CloseAt", installer);
+
+            // The device pass asks the table before it opens a mouse, and
+            // says so when the open is over, on every way out of it.
+            string pass = AuditDelta20261002Tests.RepoText("PadForge.App", "Common", "Input", "InputManager.TouchSenseMice.cs");
+            string sweep = Body(pass, "private void SweepTouchSenseMice()");
+            int begin = sweep.IndexOf("if (!TouchSenseTable.TryBeginOpen(mouse.Path)) continue;", StringComparison.Ordinal);
+            int open = sweep.IndexOf("TouchSenseOpen(mouse)", StringComparison.Ordinal);
+            int end = sweep.IndexOf("TouchSenseTable.EndOpen(mouse.Path);", StringComparison.Ordinal);
+            Assert.True(begin > 0 && open > begin && end > open, $"{begin} {open} {end}");
+            int ends = sweep.LastIndexOf("finally", end, StringComparison.Ordinal);
+            Assert.True(ends > open, $"{ends} {open}");
+            Assert.Equal("finally{", string.Concat(sweep.Substring(ends, end - ends).Where(c => !char.IsWhiteSpace(c))));
+        }
+
+        /// <summary>A bind that would take another mouse of the model with
+        /// the chosen one is refused before the confirm is shown, and once
+        /// more after it against a fresh list of what is plugged in, since
+        /// the confirm can stay open while a second mouse is plugged in.
+        /// The status bar then says what to do, and stays. Each way out of
+        /// the switch takes the busy mark off the page.</summary>
+        [Fact]
+        public void ABindThatWouldTakeAnotherMouseAlong_IsRefusedBeforeTheConfirm_AndAgainAfterIt()
+        {
+            string window = AuditDelta20261002Tests.RepoText("PadForge.App", "MainWindow.xaml.cs");
+            string body = Body(window, "private async System.Threading.Tasks.Task SwitchDriverAsync(bool bind)");
+            const string asks = "TakesOthersAlong(offer, nodes, log)";
+            const string lists = "await System.Threading.Tasks.Task.Run(Services.VendorUsbDriverInstaller.ListPresentUsbNodes);";
+            int confirm = body.IndexOf("Views.ConfirmDialog.Show(", StringComparison.Ordinal);
+            int before = body.IndexOf(asks, StringComparison.Ordinal);
+            int listed = body.IndexOf("var nodes = " + lists, StringComparison.Ordinal);
+            int again = body.IndexOf("nodes = " + lists, confirm, StringComparison.Ordinal);
+            int after = body.IndexOf(asks, confirm, StringComparison.Ordinal);
+            int bind = body.IndexOf("Services.VendorUsbDriverInstaller.Bind(", StringComparison.Ordinal);
+            Assert.True(listed > 0 && before > listed && confirm > before && again > confirm && after > again && bind > after,
+                $"{listed} {before} {confirm} {again} {after} {bind}");
+            Assert.Equal(2, body.Split(asks).Length - 1);
+            Assert.Equal(1, body.Split("devices.DriverBusy = true;").Length - 1);
+            Assert.Equal(3, body.Split("devices.DriverBusy = false;").Length - 1);
+            Assert.True(body.IndexOf("devices.DriverBusy = true;", StringComparison.Ordinal) < listed);
+
+            string helper = Body(window, "private bool TakesOthersAlong(Services.VendorUsbDriverInstaller.OptInOffer offer,");
+            Assert.Contains("Services.VendorUsbDriverInstaller.WhyNotBind(offer.Bind.Value, offer.NodeId, nodes, offer.From, out string why)", helper);
+            Assert.Contains("!= Services.VendorUsbDriverInstaller.BindRefusal.OthersPluggedIn)", helper);
+            Assert.Contains("_viewModel.SetStatus(Strings.Instance.Status_DriverBindOthersPluggedIn, persist: true);", helper);
+
+            // The bind itself asks the same question before it stages anything.
+            string installer = AuditDelta20261002Tests.RepoText("PadForge.App", "Services", "VendorUsbDriverInstaller.cs");
+            string made = Body(installer, "internal static bool Bind(BindPlan plan, string instanceId, IReadOnlyList<UsbNode> nodes,");
+            int refused = made.IndexOf("if (WhyNotBind(plan, instanceId, nodes, from, out string why) != BindRefusal.None)", StringComparison.Ordinal);
+            int staged = made.IndexOf("Directory.CreateDirectory(dir);", StringComparison.Ordinal);
+            Assert.True(refused > 0 && staged > refused, $"{refused} {staged}");
+        }
+
+        private static Installer.BindPlan PlanOf(ushort pid)
+            => Installer.QueryOptIn(0x046D, pid, new[] { Mouse(pid, "HidUsb") }, _ => false, _ => true).Bind.Value;
+
+        /// <summary>The forced update moves every plugged-in node its ID
+        /// names, since UpdateDriverForPlugAndPlayDevices takes a hardware
+        /// ID and no node, and a bound mouse is no longer Windows'
+        /// pointer. The confirm speaks of the one mouse the user chose, so
+        /// the bind is refused while another mouse of the model would go
+        /// with it.</summary>
+        [Theory]
+        [MemberData(nameof(Mice))]
+        public void ABindOfAMouse_IsRefused_WhileAnotherMouseOfItsModelIsOnWindowsDriver(int pid)
+        {
+            ushort id = (ushort)pid;
+            var chosen = Mouse(id, "HidUsb");
+            var plan = PlanOf(id);
+            string[] from = Installer.OptIns.Single(t => t.Kind == Kind.TouchSenseMouse && t.Pid == id).From;
+            Assert.Equal(new[] { "HidUsb" }, from);
+
+            // The one mouse of its model.
+            Assert.Equal(Installer.BindRefusal.None, Installer.WhyNotBind(plan, chosen.InstanceId, new[] { chosen }, from, out string why));
+            Assert.Null(why);
+
+            // A second one on Windows' HID driver would be moved too,
+            // wherever it stands in the list.
+            var second = Mouse(id, "HidUsb", "5&2E1A4C7B&0&3");
+            foreach (var nodes in new[] { new[] { chosen, second }, new[] { second, chosen } })
+            {
+                Assert.Equal(Installer.BindRefusal.OthersPluggedIn, Installer.WhyNotBind(plan, chosen.InstanceId, nodes, from, out why));
+                Assert.Contains(second.InstanceId, why);
+                Assert.Contains(chosen.InstanceId, why);
+            }
+            // The letter case of a service and of the chosen node's ID decides nothing.
+            Assert.Equal(Installer.BindRefusal.OthersPluggedIn, Installer.WhyNotBind(plan, chosen.InstanceId.ToLowerInvariant(),
+                new[] { chosen, Mouse(id, "hidusb", "5&2E1A4C7B&0&3") }, from, out _));
+            Assert.Equal(Installer.BindRefusal.None, Installer.WhyNotBind(plan, chosen.InstanceId.ToLowerInvariant(), new[] { chosen }, from, out _));
+
+            // One that is bound already is restarted on the driver it has, and loses nothing.
+            Assert.Equal(Installer.BindRefusal.None, Installer.WhyNotBind(plan, chosen.InstanceId,
+                new[] { chosen, Mouse(id, "WINUSB", "5&2E1A4C7B&0&3") }, from, out why));
+            Assert.Null(why);
+
+            // A mouse of another model is not named by the ID.
+            ushort other = TouchSenseProtocol.Mice.First(m => m.ProductId != id).ProductId;
+            Assert.Equal(Installer.BindRefusal.None, Installer.WhyNotBind(plan, chosen.InstanceId,
+                new[] { chosen, Mouse(other, "HidUsb", "5&2E1A4C7B&0&3") }, from, out _));
+
+            // A node on a driver the bind takes nothing from refuses the
+            // ID, before the other refusal and whatever the order.
+            var vendors = Mouse(id, "LHidUsb", "5&2E1A4C7B&0&4");
+            foreach (var nodes in new[] { new[] { chosen, second, vendors }, new[] { vendors, second, chosen }, new[] { second, vendors, chosen } })
+            {
+                Assert.Equal(Installer.BindRefusal.AnotherDriver, Installer.WhyNotBind(plan, chosen.InstanceId, nodes, from, out why));
+                Assert.Contains(vendors.InstanceId, why);
+            }
+
+            // A list that could not be read refuses nothing by itself.
+            Assert.Equal(Installer.BindRefusal.None, Installer.WhyNotBind(plan, chosen.InstanceId, null, from, out why));
+            Assert.Null(why);
+        }
+
+        /// <summary>The other kinds are read by PadForge on either driver
+        /// and lose nothing the user was not told, so two of one model are
+        /// bound together as before.</summary>
+        [Fact]
+        public void EveryOtherKind_IsBoundWithItsSiblingsAsBefore()
+        {
+            Assert.True(Installer.BindsOneDeviceAtATime(Kind.TouchSenseMouse));
+            foreach (Kind kind in Enum.GetValues<Kind>())
+                if (kind != Kind.TouchSenseMouse) Assert.False(Installer.BindsOneDeviceAtATime(kind), kind.ToString());
+
+            foreach (var row in Installer.OptIns.Where(t => t.Kind != Kind.TouchSenseMouse))
+            {
+                string revision = row.Revision ?? "0100";
+                string id = row.Interface < 0
+                    ? $@"USB\VID_{row.Vid:X4}&PID_{row.Pid:X4}"
+                    : $@"USB\VID_{row.Vid:X4}&PID_{row.Pid:X4}&MI_{row.Interface:X2}";
+                Node On(string service, string port) => new(id + @"\" + port, row.Vid, row.Pid, row.Interface, service,
+                    row.Interface < 0
+                        ? new[] { $@"USB\VID_{row.Vid:X4}&PID_{row.Pid:X4}&REV_{revision}", id }
+                        : new[] { $@"USB\VID_{row.Vid:X4}&PID_{row.Pid:X4}&REV_{revision}&MI_{row.Interface:X2}", id },
+                    Array.Empty<string>());
+
+                foreach (string service in row.From)
+                {
+                    var first = On(service, "6&1A2B3C4D&0&1");
+                    var second = On(service, "6&1A2B3C4D&0&2");
+                    var plan = Installer.QueryOptIn(row.Vid, row.Pid, new[] { first }, _ => false, Never).Bind.Value;
+                    Assert.Equal(Installer.BindRefusal.None,
+                        Installer.WhyNotBind(plan, first.InstanceId, new[] { first, second }, row.From, out string why));
+                    Assert.Null(why);
+                }
+            }
         }
 
         /// <summary>The restore is offered for a node whose own interface

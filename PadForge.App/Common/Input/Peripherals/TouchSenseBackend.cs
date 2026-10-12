@@ -463,7 +463,7 @@ namespace PadForge.Common.Input.Peripherals
                 }
                 if (amplitude > 0f) active = true;
 
-                byte strength = TouchSenseProtocol.StrengthFor(amplitude);
+                byte strength = TouchSenseProtocol.StrengthFor(amplitude, mouse.ProductId);
                 byte[] frame = null;
                 bool buzz = false;
                 if (strength == 0)

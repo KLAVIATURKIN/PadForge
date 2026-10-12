@@ -452,6 +452,7 @@ Hay una copia de la versión anterior en esta carpeta: {1}</value></data>
   <data name="Status_DriverSwitching_Format" xml:space="preserve"><value>Cambiando el controlador de {0}…</value></data>
   <data name="Status_DriverBound_Format" xml:space="preserve"><value>{0} usa ahora el controlador de PadForge.</value></data>
   <data name="Status_DriverBindFailed_Format" xml:space="preserve"><value>{0} no pudo pasar al controlador de PadForge.</value></data>
+  <data name="Status_DriverBindOthersPluggedIn" xml:space="preserve"><value>Desconecta primero los demás ratones de este modelo. Windows pasa a la vez todos los que estén conectados al controlador de PadForge y deja de usar cada uno como puntero.</value></data>
   <data name="Status_DriverRestored_Format" xml:space="preserve"><value>{0} vuelve a usar el controlador de Windows.</value></data>
   <data name="Status_DriverRestoreFailed_Format" xml:space="preserve"><value>No se pudo restaurar el controlador de Windows de {0}.</value></data>
   <data name="Status_DriverMovedBack_Format" xml:space="preserve"><value>Windows devolvió {0} a su propio controlador. Selecciónalo en la página Dispositivos para volver a cambiarlo.</value></data>

@@ -452,6 +452,7 @@ Une copie de la version précédente se trouve dans ce dossier : {1}</value></da
   <data name="Status_DriverSwitching_Format" xml:space="preserve"><value>Changement du pilote de {0}…</value></data>
   <data name="Status_DriverBound_Format" xml:space="preserve"><value>{0} utilise maintenant le pilote de PadForge.</value></data>
   <data name="Status_DriverBindFailed_Format" xml:space="preserve"><value>{0} n'a pas pu passer au pilote de PadForge.</value></data>
+  <data name="Status_DriverBindOthersPluggedIn" xml:space="preserve"><value>Débranchez d’abord les autres souris de ce modèle. Windows passe en même temps toutes celles qui sont branchées sur le pilote de PadForge et cesse d’utiliser chacune d’elles comme pointeur.</value></data>
   <data name="Status_DriverRestored_Format" xml:space="preserve"><value>{0} utilise de nouveau le pilote Windows.</value></data>
   <data name="Status_DriverRestoreFailed_Format" xml:space="preserve"><value>Le pilote Windows de {0} n'a pas pu être restauré.</value></data>
   <data name="Status_DriverMovedBack_Format" xml:space="preserve"><value>Windows a remis {0} sur son propre pilote. Sélectionnez-le sur la page Appareils pour le changer à nouveau.</value></data>

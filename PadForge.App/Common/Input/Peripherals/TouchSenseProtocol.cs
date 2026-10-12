@@ -191,11 +191,10 @@ namespace PadForge.Common.Input.Peripherals
         //  From a rumble level to a frame
         // ─────────────────────────────────────────────
 
-        /// <summary>The weakest and the widest the strength byte goes. The
-        /// vendor's driver sends 0x50 + magnitude x 0xAF / 0xFF for any
-        /// magnitude above 5 in 255, so no strength from 0x06 to 0x53 ever
-        /// reaches the motor from it (LMouFrc.dll 0x1000829A to
-        /// 0x100082B5).</summary>
+        /// <summary>The vendor driver's lift, the first of its two steps
+        /// from a magnitude to a strength byte: 0x50 + magnitude x 0xAF /
+        /// 0xFF for any magnitude above 5 in 255 (LMouFrc.dll 0x1000829A to
+        /// 0x100082B5). The second step is <see cref="DelayFactor"/>.</summary>
         public const byte MinStrength = 0x50;
         public const byte StrengthSpan = 0xAF;
 
@@ -227,24 +226,64 @@ namespace PadForge.Common.Input.Peripherals
         /// <summary>The vendor's keep-alive interval.</summary>
         public const int KeepAliveMs = 1000;
 
-        /// <summary>The strength byte for a level of 0 to 1: 0 under
-        /// <see cref="OffBelow"/>, else 0x50 + level x 0xAF with halves
-        /// rounded up, as the vendor's MulDiv rounds. A level above 1 counts
-        /// as 1. Never a value from 0x01 to 0x53.</summary>
-        public static byte StrengthFor(double level)
+        /// <summary>
+        /// The vendor driver's second step, for a frame of more than one
+        /// pulse: the lifted strength times a factor for the delay between
+        /// pulses, out of 0xFF (LMouFrc.dll 0x10008307 to 0x1000831C and
+        /// 0x1000A290 to 0x1000A2C1). The factor is read from a table the
+        /// driver builds for each model, a notch over the delay: FF under
+        /// P1, a ramp down to the attenuation from P1 to P2, the
+        /// attenuation to P3, a ramp back up to P4, and FF from there on
+        /// (0x100098AE to 0x10009964). The iFeel Mouse has 9, 16, 20, 24
+        /// and an attenuation of 0x91 under either of its product IDs, and
+        /// the iFeel MouseMan 9, 13, 24, 35 and 0x8C (0x10009B73 to
+        /// 0x10009BE3 and 0x1000A6B9 to 0x1000A730). Any other product
+        /// gets FF at every delay, as it does there. A registry value can
+        /// replace the table in the vendor's driver, and the INF of its
+        /// package sets none.
+        /// </summary>
+        public static byte DelayFactor(ushort productId, int delayMs)
+        {
+            int p1, p2, p3, p4, attenuation;
+            switch (productId)
+            {
+                case IFeelMousePid:
+                case IFeelMouse2Pid:
+                    (p1, p2, p3, p4, attenuation) = (9, 16, 20, 24, 0x91);
+                    break;
+                case IFeelMouseManPid:
+                    (p1, p2, p3, p4, attenuation) = (9, 13, 24, 35, 0x8C);
+                    break;
+                default:
+                    return 0xFF;
+            }
+            if (delayMs < p1 || delayMs >= p4) return 0xFF;
+            if (delayMs < p2) return (byte)(0xFF - (delayMs - p1) * (0xFF - attenuation) / (p2 - p1));
+            if (delayMs < p3) return (byte)attenuation;
+            return (byte)(attenuation + (delayMs - p3) * (0xFF - attenuation) / (p4 - p3));
+        }
+
+        /// <summary>The strength byte for a level of 0 to 1 on one model: 0
+        /// under <see cref="OffBelow"/>, else the vendor's two steps. The
+        /// lift, 0x50 + level x 0xAF with halves rounded up as the vendor's
+        /// MulDiv rounds, then that times the model's factor at this
+        /// build's delay, out of 0xFF and rounded the same way. A level
+        /// above 1 counts as 1.</summary>
+        public static byte StrengthFor(double level, ushort productId)
         {
             // Written so that a level that is no number plays nothing.
             if (!(level >= OffBelow)) return 0;
             if (level > 1) level = 1;
-            return (byte)(MinStrength + (int)Math.Round(level * StrengthSpan, MidpointRounding.AwayFromZero));
+            int lifted = MinStrength + (int)Math.Round(level * StrengthSpan, MidpointRounding.AwayFromZero);
+            return (byte)((lifted * DelayFactor(productId, DelayMs) + 0xFF / 2) / 0xFF);
         }
 
-        /// <summary>The frame that plays a level: the buzz at its strength
-        /// with this build's delay and count, or the stop frame for a level
-        /// that plays nothing.</summary>
-        public static byte[] FrameFor(double level)
+        /// <summary>The frame that plays a level on one model: the buzz at
+        /// its strength with this build's delay and count, or the stop
+        /// frame for a level that plays nothing.</summary>
+        public static byte[] FrameFor(double level, ushort productId)
         {
-            byte strength = StrengthFor(level);
+            byte strength = StrengthFor(level, productId);
             return strength == 0 ? Stop() : Buzz(strength, DelayMs, Count);
         }
 

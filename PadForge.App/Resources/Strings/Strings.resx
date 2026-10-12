@@ -709,6 +709,7 @@ A copy of the previous version is in this folder: {1}</value></data>
   <data name="Status_DriverSwitching_Format" xml:space="preserve"><value>Changing the driver for {0}…</value></data>
   <data name="Status_DriverBound_Format" xml:space="preserve"><value>{0} is on PadForge's driver.</value></data>
   <data name="Status_DriverBindFailed_Format" xml:space="preserve"><value>{0} could not move to PadForge's driver.</value></data>
+  <data name="Status_DriverBindOthersPluggedIn" xml:space="preserve"><value>Unplug the other mice of this model first. Windows moves every plugged-in one to PadForge's driver at once, and stops using each as a pointer.</value></data>
   <data name="Status_DriverRestored_Format" xml:space="preserve"><value>{0} is back on its Windows driver.</value></data>
   <data name="Status_DriverRestoreFailed_Format" xml:space="preserve"><value>The Windows driver for {0} could not be restored.</value></data>
   <data name="Status_DriverMovedBack_Format" xml:space="preserve"><value>Windows put {0} back on its own driver. Select it on the Devices page to switch it again.</value></data>

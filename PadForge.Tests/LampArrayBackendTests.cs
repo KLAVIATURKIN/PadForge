@@ -3137,7 +3137,9 @@ namespace PadForge.Tests
     /// when asked for (#494). Read-only: the descriptor through Windows'
     /// parser, one read of each attributes report, the container and the
     /// lighting switches. No report is written to any device, and the
-    /// worker is not started.</summary>
+    /// worker is not started. The scope that lifts the test host's refusal
+    /// lifts it for every class, so this one runs with no other beside it.</summary>
+    [Collection("PeripheralOutputStatics")]
     public class LampArrayLiveTests
     {
         private readonly ITestOutputHelper _output;

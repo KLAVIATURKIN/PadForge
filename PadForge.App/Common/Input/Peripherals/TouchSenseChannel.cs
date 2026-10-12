@@ -255,6 +255,11 @@ namespace PadForge.Common.Input.Peripherals
                 {
                     if (_useInterruptOut) return _usb.WritePipe(_outPipe, frame);
                     if (_usb.ControlOut(_setReport, frame)) return true;
+                    // A close calls off the transfer a thread waits in. That
+                    // failure is not the mouse refusing the control
+                    // transfer, so nothing follows it onto a channel that
+                    // is closing, and the choice of transfer stays.
+                    if (!IsOpen) return false;
                     if (_outPipe == 0 || !_usb.WritePipe(_outPipe, frame)) return false;
                     _useInterruptOut = true;
                     return true;
@@ -336,17 +341,94 @@ namespace PadForge.Common.Input.Peripherals
         private readonly object _gate = new();
         private readonly Dictionary<string, ITouchSenseChannel> _open = new(StringComparer.OrdinalIgnoreCase);
 
+        /// <summary>The device nodes a driver switch holds, each as the
+        /// token it has in an interface path, once for every hold on it.
+        /// Guarded by <see cref="_gate"/>.</summary>
+        private readonly List<string> _held = new();
+
+        /// <summary>The paths an open is under way at, from
+        /// <see cref="TryBeginOpen"/> to <see cref="EndOpen"/>. Guarded by
+        /// <see cref="_gate"/>.</summary>
+        private readonly List<string> _opening = new();
+
+        /// <summary>How long a hold waits for an open that began before
+        /// it. An open is over within its own timeouts: the close of the
+        /// channel the mouse had, and three control transfers of a second
+        /// each at most (TouchSenseChannel.Open).</summary>
+        internal const int DefaultHoldWaitMs = 10000;
+
+        /// <summary>Test seam: the wait of <see cref="Hold"/>, so the test
+        /// of a wait that runs out does not sit through it.</summary>
+        internal int HoldWaitMs = DefaultHoldWaitMs;
+
         /// <summary>Raised after a channel was listed, so a backend that
         /// waits for a mouse looks again at once. Any thread. Subscribers
         /// must not block.</summary>
         public event Action Opened;
 
-        /// <summary>Lists a channel that was just opened.</summary>
+        /// <summary>Lists a channel that was just opened. One whose node a
+        /// driver switch holds by now is closed here and not listed: its
+        /// open began before the hold did, and the switch waits on a node
+        /// no handle may keep open (<see cref="Hold"/>).</summary>
         public void Publish(ITouchSenseChannel channel)
         {
             if (channel == null || string.IsNullOrEmpty(channel.Path)) return;
-            lock (_gate) _open[channel.Path] = channel;
+            bool held;
+            lock (_gate)
+            {
+                held = HeldLocked(channel.Path);
+                if (!held) _open[channel.Path] = channel;
+            }
+            if (held)
+            {
+                // Outside the gate: a close waits for the transfer in flight.
+                try { channel.Dispose(); } catch { }
+                return;
+            }
             try { Opened?.Invoke(); } catch { }
+        }
+
+        /// <summary>Says an open of the mouse at an interface path begins.
+        /// False when a driver switch holds the mouse's node: nothing may
+        /// open that mouse now. An open that does begin is ended with
+        /// <see cref="EndOpen"/> on every way out of it, since a switch
+        /// that starts meanwhile waits for it (<see cref="Hold"/>).</summary>
+        public bool TryBeginOpen(string path)
+        {
+            if (string.IsNullOrEmpty(path)) return false;
+            lock (_gate)
+            {
+                if (HeldLocked(path)) return false;
+                _opening.Add(path);
+                return true;
+            }
+        }
+
+        /// <summary>Says the open <see cref="TryBeginOpen"/> began is over:
+        /// its channel is listed or closed, or it brought none.</summary>
+        public void EndOpen(string path)
+        {
+            if (string.IsNullOrEmpty(path)) return;
+            lock (_gate)
+            {
+                int at = _opening.FindIndex(p => string.Equals(p, path, StringComparison.OrdinalIgnoreCase));
+                if (at >= 0) _opening.RemoveAt(at);
+                Monitor.PulseAll(_gate);
+            }
+        }
+
+        private bool HeldLocked(string path)
+        {
+            foreach (string token in _held)
+                if (path.IndexOf(token, StringComparison.OrdinalIgnoreCase) >= 0) return true;
+            return false;
+        }
+
+        private bool OpeningLocked(string token)
+        {
+            foreach (string path in _opening)
+                if (path.IndexOf(token, StringComparison.OrdinalIgnoreCase) >= 0) return true;
+            return false;
         }
 
         /// <summary>The open channel of the mouse at a path, or null. A
@@ -376,32 +458,78 @@ namespace PadForge.Common.Input.Peripherals
         }
 
         /// <summary>Closes the open channel of the mouse at a device node,
-        /// and returns once its handle is gone. For the driver switch
-        /// (VendorUsbDriverInstaller.Bind and Restore), which lets go of a
-        /// node before it asks Windows to change that node's driver: the
-        /// change restarts the node, and this handle is the one thing of
-        /// PadForge's that holds it open. The mouse's row retires with its
-        /// channel, and comes back if the mouse is still bound afterward.</summary>
-        public void CloseAt(string instanceId)
+        /// returns once no handle of PadForge's is open on the node, and
+        /// keeps the node closed until the hold it returns is let go. For
+        /// the driver switch (VendorUsbDriverInstaller.Bind and Restore),
+        /// which lets go of a node before it asks Windows to change that
+        /// node's driver: the change restarts the node, and a handle of
+        /// PadForge's is the one thing of its own that holds the node open.
+        /// The switch takes seconds, and the device pass looks for bound
+        /// mice every second, so the letting go lasts as long as the switch
+        /// does: while the node is held no open of its mouse begins
+        /// (<see cref="TryBeginOpen"/>). An open that began before the
+        /// hold is waited for, up to <see cref="HoldWaitMs"/>, and the
+        /// channel it brings is closed as it arrives
+        /// (<see cref="Publish"/>). The mouse's row retires with its
+        /// channel, and comes back if the mouse is still bound
+        /// afterward.</summary>
+        public IDisposable Hold(string instanceId)
         {
-            if (string.IsNullOrEmpty(instanceId)) return;
+            if (string.IsNullOrEmpty(instanceId)) return new NodeHold(null, null);
             // An interface path carries its node's instance ID with # for
             // each backslash, and a # after it.
             string token = instanceId.Replace('\\', '#') + "#";
             List<ITouchSenseChannel> closing = null;
             lock (_gate)
             {
+                _held.Add(token);
                 foreach (var pair in _open)
                     if (pair.Key.IndexOf(token, StringComparison.OrdinalIgnoreCase) >= 0)
                         (closing ??= new List<ITouchSenseChannel>()).Add(pair.Value);
                 if (closing != null)
                     foreach (var channel in closing) _open.Remove(channel.Path);
             }
-            if (closing == null) return;
-            // Outside the gate: a close waits for the transfer in flight.
-            foreach (var channel in closing)
+            if (closing != null)
             {
-                try { channel.Dispose(); } catch { }
+                // Outside the gate: a close waits for the transfer in flight.
+                foreach (var channel in closing)
+                {
+                    try { channel.Dispose(); } catch { }
+                }
+            }
+            // An open that began before the hold has a handle on the node,
+            // or is about to. Its channel is closed as it is listed, and
+            // the open says when it is over.
+            lock (_gate)
+            {
+                long until = Environment.TickCount64 + HoldWaitMs;
+                while (OpeningLocked(token))
+                {
+                    long left = until - Environment.TickCount64;
+                    if (left <= 0 || !Monitor.Wait(_gate, (int)left)) break;
+                }
+            }
+            return new NodeHold(this, token);
+        }
+
+        /// <summary>One hold on a node. Letting it go a second time does
+        /// nothing, so a node held twice stays held until both are gone.</summary>
+        private sealed class NodeHold : IDisposable
+        {
+            private TouchSenseChannels _table;
+            private readonly string _token;
+
+            public NodeHold(TouchSenseChannels table, string token)
+            {
+                _table = table;
+                _token = token;
+            }
+
+            public void Dispose()
+            {
+                var table = Interlocked.Exchange(ref _table, null);
+                if (table == null) return;
+                lock (table._gate) table._held.Remove(_token);
             }
         }
 

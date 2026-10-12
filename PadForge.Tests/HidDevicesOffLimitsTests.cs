@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using PadForge.Common.Input;
 using Xunit;
 
@@ -8,8 +10,11 @@ namespace PadForge.Tests
 {
     /// <summary>
     /// The test host refuses the shared HID helpers, each helper asks before
-    /// it opens anything, and nothing in the app turns the refusal on.
+    /// it opens anything, and nothing in the app turns the refusal on. One
+    /// test lifts the refusal to see it come back, so the class runs with
+    /// no other beside it.
     /// </summary>
+    [Collection("PeripheralOutputStatics")]
     public class HidDevicesOffLimitsTests
     {
         private static string Root()
@@ -51,6 +56,48 @@ namespace PadForge.Tests
                 Assert.False(RealHidAccess.Refused);
             }
             Assert.True(RealHidAccess.Refused);
+        }
+
+        /// <summary>A scope that lifts a refusal lifts it for the whole
+        /// test host. A class running beside the one that asked would
+        /// reach real devices too, and a class that checks the refusal
+        /// would find it gone. So each class that lifts one, for the HID
+        /// helpers or for the TouchSense mice, is in the collection that
+        /// runs with no other class beside it.</summary>
+        [Fact]
+        public void EveryClassThatLiftsARefusal_RunsWithNoOtherClassBesideIt()
+        {
+            string root = Root();
+            char slash = Path.DirectorySeparatorChar;
+            // Put together here, so this test is not one of the places it looks for.
+            string lift = "." + "AllowForTest()";
+            const string alone = "[Collection(\"PeripheralOutputStatics\")]";
+            var declaration = new Regex(@"^    (?:public|internal)(?: (?:sealed|static|abstract|partial))* class \w+");
+            var loose = new List<string>();
+            int lifts = 0;
+            foreach (string file in Directory.EnumerateFiles(Path.Combine(root, "PadForge.Tests"), "*.cs", SearchOption.AllDirectories))
+            {
+                if (file.Contains(slash + "obj" + slash) || file.Contains(slash + "bin" + slash)) continue;
+                string[] lines = File.ReadAllLines(file);
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    if (!lines[i].Contains(lift, StringComparison.Ordinal)) continue;
+                    lifts++;
+                    // The class the line is in: the nearest one declared
+                    // above it at the namespace's own indent.
+                    int at = i;
+                    while (at >= 0 && !declaration.IsMatch(lines[at])) at--;
+                    bool runsAlone = false;
+                    for (int j = at - 1; j >= 0 && lines[j].TrimStart().StartsWith("[", StringComparison.Ordinal); j--)
+                        runsAlone |= lines[j].Trim() == alone;
+                    if (!runsAlone) loose.Add($"{Path.GetFileName(file)}:{i + 1}");
+                }
+            }
+            Assert.Empty(loose);
+            // The scan found the scopes it is about, this class's own two among them.
+            Assert.True(lifts >= 2, lifts.ToString());
+            Assert.Contains("[CollectionDefinition(\"PeripheralOutputStatics\", DisableParallelization = true)]",
+                File.ReadAllText(Path.Combine(root, "PadForge.Tests", "PeripheralOutputsTests.cs")));
         }
 
         /// <summary>Each helper asks before its first CreateFile and before

@@ -28,6 +28,11 @@ namespace PadForge.Tests
         public int DescriptorShortBy;
         public volatile bool FailControlOut, FailWritePipe;
 
+        /// <summary>When set, answers a control OUT transfer in place of
+        /// <see cref="FailControlOut"/>, from inside the transfer, so a
+        /// test holds a sender there.</summary>
+        public Func<bool> ControlOutAnswer;
+
         /// <summary>The next read's answer: the bytes read, or the error
         /// with -1, as <see cref="ITouchSenseUsb.ReadPipe"/> gives them.</summary>
         public Func<(int Got, int Error, byte[] Report)> Read = () => (0, 0, null);
@@ -81,7 +86,7 @@ namespace PadForge.Tests
             try
             {
                 Journal.Enqueue("out " + Text(setup) + " | " + Text(data));
-                return !FailControlOut;
+                return ControlOutAnswer?.Invoke() ?? !FailControlOut;
             }
             finally { Interlocked.Decrement(ref _inFlight); }
         }
@@ -208,6 +213,19 @@ namespace PadForge.Tests
         }
     }
 
+    /// <summary>What a test asks the table of open channels.</summary>
+    internal static class TouchSenseTableProbe
+    {
+        /// <summary>Whether an open of the mouse at a path may begin now.
+        /// One that may is begun and ended at once.</summary>
+        public static bool MayOpen(this TouchSenseChannels table, string path)
+        {
+            if (!table.TryBeginOpen(path)) return false;
+            table.EndOpen(path);
+            return true;
+        }
+    }
+
     // ─────────────────────────────────────────────
     //  The channel over a scripted WinUSB interface
     // ─────────────────────────────────────────────
@@ -216,10 +234,17 @@ namespace PadForge.Tests
     /// how it opens, which transfer carries a frame, what a read means and
     /// how it closes, against a scripted interface that answers as the
     /// iFeel Mouse of the 2001 capture does (tactile-cvs
-    /// tactile/support/logs/ifeel.log,v). No device is opened here.</summary>
+    /// tactile/support/logs/ifeel.log,v). No device is opened here. One
+    /// test lifts the test host's refusal to ask the real open about a
+    /// path no device is at, so the class runs with no other beside it.</summary>
+    [Collection("PeripheralOutputStatics")]
     public class TouchSenseChannelTests
     {
         private const string Path = @"\\?\usb#vid_046d&pid_c030#6&1c2d3e4f&0&2#{fd826c66-3556-4845-9436-0fe7580ded02}";
+
+        /// <summary>The device node of the mouse at <see cref="Path"/>, as
+        /// the driver switch names it.</summary>
+        private const string Node = @"USB\VID_046D&PID_C030\6&1C2D3E4F&0&2";
 
         private static string Text(byte[] bytes) => BitConverter.ToString(bytes).Replace('-', ' ');
 
@@ -357,7 +382,7 @@ namespace PadForge.Tests
         public void AFrame_GoesOutAsTheControlTransferTheVendorUsed()
         {
             var (channel, usb) = Open();
-            Assert.True(channel.Send(TouchSenseProtocol.FrameFor(0.5)));
+            Assert.True(channel.Send(TouchSenseProtocol.Buzz(0xA8, TouchSenseProtocol.DelayMs, TouchSenseProtocol.Count)));
             Assert.True(channel.Send(TouchSenseProtocol.Stop()));
             Assert.Equal(new[]
             {
@@ -386,7 +411,7 @@ namespace PadForge.Tests
         {
             var (channel, usb) = Open();
             usb.FailControlOut = true;
-            Assert.True(channel.Send(TouchSenseProtocol.FrameFor(1)));
+            Assert.True(channel.Send(TouchSenseProtocol.Buzz(0xFF, TouchSenseProtocol.DelayMs, TouchSenseProtocol.Count)));
             Assert.True(channel.UsesInterruptOut);
             // The control transfer works again, and is not asked.
             usb.FailControlOut = false;
@@ -425,6 +450,37 @@ namespace PadForge.Tests
             Assert.True(channel.Send(TouchSenseProtocol.Stop()));
             Assert.Single(usb.Calls("pipe"));
             channel.Dispose();
+        }
+
+        /// <summary>A close calls off the control transfer a sender waits
+        /// in, and the transfer fails. That failure is not the mouse
+        /// refusing the control transfer: nothing goes out on the pipe of
+        /// a channel that is closing, the frame fails, and the channel
+        /// never takes the pipe for its own.</summary>
+        [Fact]
+        public void AControlTransferCalledOffByAClose_IsNotFollowedOntoThePipe()
+        {
+            using var entered = new ManualResetEventSlim();
+            using var canceled = new ManualResetEventSlim();
+            var (channel, usb) = Open();
+            usb.Canceled = canceled.Set;
+            usb.ControlOutAnswer = () =>
+            {
+                entered.Set();
+                // Fails once the close has called it off, as a transfer does.
+                canceled.Wait(30000);
+                return false;
+            };
+            bool sent = true;
+            var sender = new Thread(() => sent = channel.Send(TouchSenseProtocol.Stop())) { IsBackground = true };
+            sender.Start();
+            Assert.True(entered.Wait(30000), "the send is inside the control transfer");
+            channel.Dispose();
+            Assert.True(sender.Join(30000), "the send came back");
+            Assert.False(sent);
+            Assert.Empty(usb.Calls("pipe"));
+            Assert.False(channel.UsesInterruptOut);
+            Assert.False(usb.FreedUnderATransfer);
         }
 
         // ── Read ──
@@ -668,9 +724,11 @@ namespace PadForge.Tests
         /// <summary>The driver switch lets go of a node before it asks
         /// Windows to change that node's driver: the channel of the mouse
         /// at the node is closed when the call returns, and no other
-        /// mouse's, a port whose ID begins the same among them.</summary>
+        /// mouse's, a port whose ID begins the same among them. For as
+        /// long as the hold lasts no open of that mouse may begin, and
+        /// any other mouse's may.</summary>
         [Fact]
-        public void ClosingTheChannelAtANode_ClosesThatMouseAlone_BeforeItReturns()
+        public void HoldingANode_ClosesThatMouseAlone_AndKeepsItClosedUntilTheHoldIsLetGo()
         {
             var table = new TouchSenseChannels();
             var here = new FakeTouchSenseChannel(Path);
@@ -680,23 +738,160 @@ namespace PadForge.Tests
             table.Publish(neighbor);
             table.Publish(sibling);
 
-            table.CloseAt(@"USB\VID_046D&PID_C030\6&1C2D3E4F&0&2");
-            Assert.False(here.IsOpen);
-            Assert.Equal(1, here.Disposals);
-            Assert.True(neighbor.IsOpen);
-            Assert.True(sibling.IsOpen);
-            Assert.Null(table.Find(Path));
-            Assert.Equal(2, table.Count);
+            using (table.Hold(Node))
+            {
+                Assert.False(here.IsOpen);
+                Assert.Equal(1, here.Disposals);
+                Assert.True(neighbor.IsOpen);
+                Assert.True(sibling.IsOpen);
+                Assert.Null(table.Find(Path));
+                Assert.Equal(2, table.Count);
 
-            // A node with no mouse open, and no node at all.
-            table.CloseAt(@"USB\VID_046D&PID_C030\6&1C2D3E4F&0&2");
-            table.CloseAt(@"USB\VID_046D&PID_C030\6&1C2D3E4F&0&9");
-            table.CloseAt(null);
-            table.CloseAt("");
-            Assert.Equal(2, table.Count);
-            Assert.True(neighbor.IsOpen);
-            Assert.True(sibling.IsOpen);
+                Assert.False(table.MayOpen(Path));
+                // Windows compares interface paths without regard to case.
+                Assert.False(table.MayOpen(Path.ToUpperInvariant()));
+                Assert.True(table.MayOpen(neighbor.Path));
+                Assert.True(table.MayOpen(sibling.Path));
+            }
+            Assert.True(table.MayOpen(Path));
+
+            // A node with no mouse open, and no node at all, which holds nothing.
+            using (table.Hold(Node))
+            using (table.Hold(@"USB\VID_046D&PID_C030\6&1C2D3E4F&0&9"))
+            using (table.Hold(null))
+            using (table.Hold(""))
+            {
+                Assert.Equal(2, table.Count);
+                Assert.True(neighbor.IsOpen);
+                Assert.True(sibling.IsOpen);
+                Assert.True(table.MayOpen(neighbor.Path));
+                Assert.False(table.MayOpen(Path));
+            }
+            Assert.True(table.MayOpen(Path));
             Assert.Equal(1, here.Disposals);
+
+            // No path is no mouse, held or not.
+            Assert.False(table.MayOpen(null));
+            Assert.False(table.MayOpen(""));
+            table.EndOpen(null);
+            table.EndOpen("");
+        }
+
+        /// <summary>A channel that arrives for a node a driver switch
+        /// holds is closed and never listed, and nobody is told a mouse
+        /// was opened. Any other mouse's channel is listed as ever, and so
+        /// is this mouse's once the hold is let go.</summary>
+        [Fact]
+        public void AChannelThatArrivesForAHeldNode_IsClosedAndNotListed()
+        {
+            var table = new TouchSenseChannels();
+            int opened = 0;
+            table.Opened += () => opened++;
+            var hold = table.Hold(Node);
+
+            var crossed = new FakeTouchSenseChannel(Path);
+            table.Publish(crossed);
+            Assert.False(crossed.IsOpen);
+            Assert.Equal(1, crossed.Disposals);
+            Assert.Null(table.Find(Path));
+            Assert.Equal(0, table.Count);
+            Assert.Equal(0, opened);
+
+            var neighbor = new FakeTouchSenseChannel(Path.Replace("&0&2#", "&0&21#"));
+            table.Publish(neighbor);
+            Assert.Same(neighbor, table.Find(neighbor.Path));
+            Assert.Equal(1, opened);
+
+            hold.Dispose();
+            var after = new FakeTouchSenseChannel(Path);
+            table.Publish(after);
+            Assert.Same(after, table.Find(Path));
+            Assert.True(after.IsOpen);
+            Assert.Equal(2, opened);
+        }
+
+        /// <summary>A node held twice, as two switches would hold it,
+        /// stays held until both holds are let go. Letting one go a second
+        /// time takes nothing from the other.</summary>
+        [Fact]
+        public void ANodeHeldTwice_StaysHeldUntilBothHoldsAreLetGo()
+        {
+            var table = new TouchSenseChannels();
+            var first = table.Hold(Node);
+            var second = table.Hold(Node);
+            first.Dispose();
+            first.Dispose();
+            Assert.False(table.MayOpen(Path));
+            second.Dispose();
+            Assert.True(table.MayOpen(Path));
+            second.Dispose();
+            Assert.True(table.MayOpen(Path));
+        }
+
+        /// <summary>An open that began before the hold has a handle on the
+        /// node, or is about to. The hold comes back only once that open
+        /// is over, with the channel it brought closed and unlisted, so
+        /// the switch never asks Windows about a node PadForge has open.
+        /// An open of another mouse is nothing it waits for.</summary>
+        [Fact]
+        public void AHold_WaitsForTheOpenThatBeganBeforeIt_AndForNoOtherMouses()
+        {
+            var table = new TouchSenseChannels();
+            int opened = 0;
+            table.Opened += () => opened++;
+            string neighbor = Path.Replace("&0&2#", "&0&21#");
+            Assert.True(table.TryBeginOpen(neighbor));
+
+            // The other mouse's open is still under way, and this hold is back.
+            var unrelated = new Thread(() => table.Hold(Node).Dispose()) { IsBackground = true };
+            unrelated.Start();
+            Assert.True(unrelated.Join(TouchSenseChannels.DefaultHoldWaitMs / 2), "a hold waits for no other mouse's open");
+
+            Assert.True(table.TryBeginOpen(Path));
+            IDisposable hold = null;
+            var switching = new Thread(() => hold = table.Hold(Node)) { IsBackground = true };
+            switching.Start();
+            // In force at once, for any other open of the mouse.
+            Assert.True(SpinWait.SpinUntil(() => !table.MayOpen(Path), 30000), "the hold is in force");
+            Assert.False(switching.Join(100), "the hold waits for the open");
+
+            // The open brings its channel, which is closed as it arrives.
+            var crossed = new FakeTouchSenseChannel(Path);
+            table.Publish(crossed);
+            Assert.False(crossed.IsOpen);
+            Assert.Equal(1, crossed.Disposals);
+            Assert.Null(table.Find(Path));
+            Assert.Equal(0, opened);
+            Assert.False(switching.Join(100), "the hold waits until the open says it is over");
+
+            // Back as soon as the open is over, well inside its own wait.
+            table.EndOpen(Path);
+            Assert.True(switching.Join(TouchSenseChannels.DefaultHoldWaitMs / 2), "the hold came back as soon as the open was over");
+            Assert.False(table.MayOpen(Path));
+            hold.Dispose();
+            Assert.True(table.MayOpen(Path));
+            table.EndOpen(neighbor);
+        }
+
+        /// <summary>An open that never says it is over does not keep the
+        /// switch forever: the hold comes back when its wait runs out, and
+        /// is in force all the same.</summary>
+        [Fact]
+        public void AHold_ComesBackWhenItsWaitRunsOut_AndIsInForce()
+        {
+            var table = new TouchSenseChannels { HoldWaitMs = 50 };
+            Assert.True(table.TryBeginOpen(Path));
+            long began = Environment.TickCount64;
+            using (table.Hold(Node))
+            {
+                Assert.InRange(Environment.TickCount64 - began, 30, 20000);
+                Assert.False(table.MayOpen(Path));
+            }
+            // Longer than an open can take: the close of the channel the
+            // mouse had, then three control transfers of a second each.
+            Assert.Equal(10000, TouchSenseChannels.DefaultHoldWaitMs);
+            Assert.True(TouchSenseChannels.DefaultHoldWaitMs > 3 * TouchSenseChannel.ControlTimeoutMs + 2 * TouchSenseChannel.WriteTimeoutMs);
+            Assert.Equal(TouchSenseChannels.DefaultHoldWaitMs, new TouchSenseChannels().HoldWaitMs);
         }
 
         /// <summary>A subscriber that throws costs nobody the listing.</summary>

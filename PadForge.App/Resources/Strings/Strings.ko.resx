@@ -452,6 +452,7 @@
   <data name="Status_DriverSwitching_Format" xml:space="preserve"><value>{0}의 드라이버를 변경하는 중…</value></data>
   <data name="Status_DriverBound_Format" xml:space="preserve"><value>{0}이(가) PadForge 드라이버를 사용합니다.</value></data>
   <data name="Status_DriverBindFailed_Format" xml:space="preserve"><value>{0}을(를) PadForge 드라이버로 옮기지 못했습니다.</value></data>
+  <data name="Status_DriverBindOthersPluggedIn" xml:space="preserve"><value>먼저 이 모델의 다른 마우스를 분리하세요. Windows는 연결된 이 모델의 마우스를 모두 한꺼번에 PadForge 드라이버로 옮기고, 그 마우스들을 포인터로 사용하지 않게 됩니다.</value></data>
   <data name="Status_DriverRestored_Format" xml:space="preserve"><value>{0}이(가) Windows 드라이버로 돌아왔습니다.</value></data>
   <data name="Status_DriverRestoreFailed_Format" xml:space="preserve"><value>{0}의 Windows 드라이버를 복원하지 못했습니다.</value></data>
   <data name="Status_DriverMovedBack_Format" xml:space="preserve"><value>Windows가 {0}을(를) 원래 드라이버로 되돌렸습니다. 다시 전환하려면 장치 페이지에서 선택하세요.</value></data>

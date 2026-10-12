@@ -23,8 +23,10 @@ namespace PadForge.Tests
     /// Solaar, OpenLogi and LiveHaptics agree on, and against a local
     /// GameSense server built from the gamesense-sdk docs. The live test at
     /// the end talks to a real Logitech receiver when PADFORGE_LIVE_HIDPP is
-    /// set.
+    /// set, past a scope that lifts the test host's refusal, so the class
+    /// runs with no other beside it.
     /// </summary>
+    [Collection("PeripheralOutputStatics")]
     public class HidppHapticsTests
     {
         private readonly ITestOutputHelper _output;

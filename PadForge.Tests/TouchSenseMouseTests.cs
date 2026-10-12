@@ -606,6 +606,107 @@ namespace PadForge.Tests
             }
         }
 
+        /// <summary>The device node of the mouse at <see cref="Key"/>, as
+        /// the driver switch names it.</summary>
+        private const string Node = @"USB\VID_046D&PID_C030\5&2E1A4C7B&0&2";
+
+        /// <summary>A driver switch holds the mouse's node for as long as
+        /// it takes (VendorUsbDriverInstaller.Bind and Restore). The
+        /// sweeps that run meanwhile, one a second, open nothing on that
+        /// node and open any other mouse as ever. The first sweep after
+        /// the hold is let go opens the mouse.</summary>
+        [Fact]
+        public void WhileADriverSwitchHoldsAMousesNode_TheSweepOpensNothingOnIt_AndOpensItOnceTheHoldIsLetGo()
+        {
+            using var lane = new Lane();
+            lane.Bound = new[] { IFeel, MouseMan };
+            var hold = lane.Table.Hold(Node);
+            Assert.True(lane.Cycle());
+            Assert.Equal(OtherKey, Assert.Single(lane.Opened).Path);
+            Assert.Null(lane.Table.Find(Key));
+
+            // Every later sweep of the switch finds the mouse and leaves it.
+            for (int sweep = 0; sweep < 6; sweep++)
+            {
+                lane.Advance(InputManager.TouchSenseSweepMs);
+                Assert.False(lane.Cycle());
+            }
+            Assert.Equal(1, lane.Opens);
+            Assert.Null(lane.Record(RowId));
+
+            hold.Dispose();
+            lane.Advance(InputManager.TouchSenseSweepMs);
+            Assert.True(lane.Cycle());
+            Assert.Equal(2, lane.Opens);
+            Assert.Same(lane.Opened[1], lane.Table.Find(Key));
+            Assert.True(lane.Record(RowId).IsOnline);
+            Assert.False(lane.OpenedBesideAnOpenChannel);
+        }
+
+        /// <summary>A driver switch that begins while the sweep is inside
+        /// an open of that mouse waits for the open to be over, and the
+        /// channel the open brings is closed and never listed, so no
+        /// handle of PadForge's is on the node when the switch goes on to
+        /// ask Windows. The row made for the channel retires on the next
+        /// pass, as any row whose channel closed does, and the mouse is
+        /// opened again once the hold is let go.</summary>
+        [Fact]
+        public void ADriverSwitchThatBeginsInsideAnOpen_WaitsForIt_AndItsChannelIsClosedUnlisted()
+        {
+            using var lane = new Lane();
+            lane.Bound = new[] { IFeel };
+            IDisposable hold = null;
+            Thread switching = null;
+            bool inForce = false, waited = false;
+            lane.Opener = mouse =>
+            {
+                switching = new Thread(() => hold = lane.Table.Hold(Node)) { IsBackground = true };
+                switching.Start();
+                // In force once no other open of the mouse may begin, and
+                // not back yet: the open it waits for is this one.
+                inForce = SpinWait.SpinUntil(() => !lane.Table.MayOpen(mouse.Path), 30000);
+                waited = !switching.Join(100);
+                return new FakeTouchSenseChannel(mouse.Path);
+            };
+            Assert.False(lane.Pass());
+            Assert.True(lane.RunSweep());
+            Assert.True(inForce, "the hold was in force inside the open");
+            Assert.True(waited, "the hold waited for the open");
+            // Back as soon as the sweep says the open is over, well inside its own wait.
+            Assert.True(switching.Join(TouchSenseChannels.DefaultHoldWaitMs / 2), "the hold came back as soon as the open was over");
+            Assert.NotNull(hold);
+            // Closed by the table. The row's reader closes it once more as
+            // it leaves, in its own time, so the closes are not counted.
+            var crossed = Assert.Single(lane.Opened);
+            Assert.False(crossed.IsOpen);
+            Assert.Null(lane.Table.Find(Key));
+            Assert.Equal(0, lane.Table.Count);
+
+            // The row made for that channel is registered and retired by
+            // the one pass.
+            Assert.True(lane.Pass());
+            var record = lane.Record(RowId);
+            Assert.False(record.IsOnline);
+            Assert.Null(record.Device);
+            Assert.Empty(lane.Manager.TouchSenseMice);
+
+            // The wait after a closed channel is over, and the node is
+            // still held.
+            lane.Opener = mouse => new FakeTouchSenseChannel(mouse.Path);
+            lane.Advance(InputManager.TouchSenseReopenMs);
+            Assert.False(lane.Cycle());
+            Assert.Equal(1, lane.Opens);
+
+            hold.Dispose();
+            lane.Advance(InputManager.TouchSenseSweepMs);
+            Assert.True(lane.Cycle());
+            Assert.Equal(2, lane.Opens);
+            Assert.False(lane.OpenedBesideAnOpenChannel);
+            Assert.Same(record, lane.Record(RowId));
+            Assert.True(record.IsOnline);
+            Assert.Same(lane.Opened[1], lane.Table.Find(Key));
+        }
+
         /// <summary>The same row retired a moment before the shutdown: the
         /// shutdown closes the channel its reader has not got to yet, so
         /// that handle too is gone when it returns.</summary>
@@ -904,7 +1005,7 @@ namespace PadForge.Tests
         [Fact]
         public void FromTheBoundMouseToTheBuzz_ThroughTheRowTheHostTheLinkerAndTheBackend()
         {
-            const string half = "11 0A A8 0A 00 1E 00", stop = "13 00 00 00 00 00 00", stopAll = "F3 00 00 00 00 00 00";
+            const string half = "11 0A 9E 0A 00 1E 00", stop = "13 00 00 00 00 00 00", stopAll = "F3 00 00 00 00 00 00";
             long tick = 1_000_000;
             using var lane = new Lane();
             lane.Opener = mouse => new FakeTouchSenseChannel(mouse.Path, () => Interlocked.Read(ref tick));

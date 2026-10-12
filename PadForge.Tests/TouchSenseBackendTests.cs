@@ -33,18 +33,22 @@ namespace PadForge.Tests
         private static readonly TouchSenseMouse IFeel = new(Key, 0x046D, 0xC030);
         private static readonly TouchSenseMouse MouseMan = new(OtherKey, 0x046D, 0xC032);
 
-        // The motor values the tests set and the frames they become (the
-        // table TouchSenseProtocolTests checks level by level).
+        // The motor values the tests set and the frames they become on the
+        // iFeel Mouse, and half on the iFeel MouseMan, whose model has a
+        // factor of its own (the table TouchSenseProtocolTests checks level
+        // by level).
         private const ushort HalfMotor = 32768, FullMotor = 65535, QuarterMotor = 16384;
-        private const string Half = "11 0A A8 0A 00 1E 00";
-        private const string Full = "11 0A FF 0A 00 1E 00";
-        private const string Quarter = "11 0A 7C 0A 00 1E 00";
+        private const string Half = "11 0A 9E 0A 00 1E 00";
+        private const string Full = "11 0A F0 0A 00 1E 00";
+        private const string Quarter = "11 0A 75 0A 00 1E 00";
+        private const string HalfOnTheMouseMan = "11 0A 96 0A 00 1E 00";
         private const string Stop = "13 00 00 00 00 00 00";
         private const string StopAll = "F3 00 00 00 00 00 00";
         private const string KeepAlive = "14 00 00 00 00 00 00";
 
+        /// <summary>The frame a motor value becomes on the iFeel Mouse.</summary>
         private static string Frame(ushort motor)
-            => BitConverter.ToString(TouchSenseProtocol.FrameFor(motor / 65535f)).Replace('-', ' ');
+            => BitConverter.ToString(TouchSenseProtocol.FrameFor(motor / 65535f, IFeel.ProductId)).Replace('-', ' ');
 
         /// <summary>One backend on scripted parts: the look, the container
         /// lookup, the channels and the clock are all the test's.</summary>
@@ -273,10 +277,12 @@ namespace PadForge.Tests
             Assert.Equal(new[] { Full }, first.Frames);
             Assert.Equal(0, second.Attempts);
 
-            // The stronger of the two motors is the level: the mouse has one.
+            // The stronger of the two motors is the level: the mouse has
+            // one. Its strength byte is its own model's, not the byte the
+            // same level is on the other mouse.
             PeripheralOutputs.SetMotors(rowOfSecond, QuarterMotor, HalfMotor);
             bench.Pass();
-            Assert.Equal(new[] { Half }, second.Frames);
+            Assert.Equal(new[] { HalfOnTheMouseMan }, second.Frames);
             Assert.Equal(new[] { Full }, first.Frames);
         }
 
@@ -458,7 +464,7 @@ namespace PadForge.Tests
             bench.Advance(22);
             Assert.Single(channel.Frames);
             bench.Advance(1);
-            Assert.Equal(new[] { Half, "11 0A B9 0A 00 1E 00" }, channel.Frames);
+            Assert.Equal(new[] { Half, "11 0A AE 0A 00 1E 00" }, channel.Frames);
             Assert.Equal(new[] { t0, t0 + TouchSenseProtocol.MinGapMs }, channel.SentAt);
 
             bench.Advance(10);
@@ -530,11 +536,11 @@ namespace PadForge.Tests
             PeripheralOutputs.SetMotors(row, 1311, 0);
             bench.Pass();
             // 0.02 of full is the first level that plays.
-            Assert.Equal(new[] { "11 0A 54 0A 00 1E 00" }, channel.Frames);
+            Assert.Equal(new[] { "11 0A 4F 0A 00 1E 00" }, channel.Frames);
             bench.Advance(TouchSenseProtocol.MinGapMs);
             PeripheralOutputs.SetMotors(row, 655, 0);
             bench.Pass();
-            Assert.Equal(new[] { "11 0A 54 0A 00 1E 00", Stop }, channel.Frames);
+            Assert.Equal(new[] { "11 0A 4F 0A 00 1E 00", Stop }, channel.Frames);
         }
 
         [Fact]

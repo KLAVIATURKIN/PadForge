@@ -452,6 +452,7 @@ Una copia della versione precedente si trova in questa cartella: {1}</value></da
   <data name="Status_DriverSwitching_Format" xml:space="preserve"><value>Cambio del driver di {0} in corso…</value></data>
   <data name="Status_DriverBound_Format" xml:space="preserve"><value>{0} ora usa il driver di PadForge.</value></data>
   <data name="Status_DriverBindFailed_Format" xml:space="preserve"><value>{0} non è riuscito a passare al driver di PadForge.</value></data>
+  <data name="Status_DriverBindOthersPluggedIn" xml:space="preserve"><value>Scollega prima gli altri mouse di questo modello. Windows sposta insieme sul driver di PadForge tutti quelli collegati e smette di usare ciascuno come puntatore.</value></data>
   <data name="Status_DriverRestored_Format" xml:space="preserve"><value>{0} usa di nuovo il driver di Windows.</value></data>
   <data name="Status_DriverRestoreFailed_Format" xml:space="preserve"><value>Impossibile ripristinare il driver di Windows per {0}.</value></data>
   <data name="Status_DriverMovedBack_Format" xml:space="preserve"><value>Windows ha riportato {0} sul proprio driver. Selezionalo nella pagina Dispositivi per cambiarlo di nuovo.</value></data>

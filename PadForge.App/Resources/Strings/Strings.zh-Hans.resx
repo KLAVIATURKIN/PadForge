@@ -452,6 +452,7 @@
   <data name="Status_DriverSwitching_Format" xml:space="preserve"><value>正在更改 {0} 的驱动程序…</value></data>
   <data name="Status_DriverBound_Format" xml:space="preserve"><value>{0} 已在使用 PadForge 驱动程序。</value></data>
   <data name="Status_DriverBindFailed_Format" xml:space="preserve"><value>{0} 无法切换到 PadForge 驱动程序。</value></data>
+  <data name="Status_DriverBindOthersPluggedIn" xml:space="preserve"><value>请先拔下此型号的其他鼠标。Windows 会将所有已连接的此型号鼠标一并切换到 PadForge 驱动程序，并不再将它们用作指针设备。</value></data>
   <data name="Status_DriverRestored_Format" xml:space="preserve"><value>{0} 已恢复为 Windows 驱动程序。</value></data>
   <data name="Status_DriverRestoreFailed_Format" xml:space="preserve"><value>无法恢复 {0} 的 Windows 驱动程序。</value></data>
   <data name="Status_DriverMovedBack_Format" xml:space="preserve"><value>Windows 已将 {0} 恢复为其自带驱动程序。请在设备页面中选择它以再次切换。</value></data>

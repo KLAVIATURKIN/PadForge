@@ -1013,6 +1013,7 @@ public class Strings : INotifyPropertyChanged
     public string Status_DriverSwitching_Format => Get("Status_DriverSwitching_Format");
     public string Status_DriverBound_Format => Get("Status_DriverBound_Format");
     public string Status_DriverBindFailed_Format => Get("Status_DriverBindFailed_Format");
+    public string Status_DriverBindOthersPluggedIn => Get("Status_DriverBindOthersPluggedIn");
     public string Status_DriverRestored_Format => Get("Status_DriverRestored_Format");
     public string Status_DriverRestoreFailed_Format => Get("Status_DriverRestoreFailed_Format");
     public string Status_DriverMovedBack_Format => Get("Status_DriverMovedBack_Format");

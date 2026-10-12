@@ -2512,14 +2512,32 @@ namespace PadForge
             var offer = devices.DriverOffer;
             if (offer == null || devices.DriverBusy || (bind ? offer.Bind == null : !offer.Restore)) return;
             string name = Services.VendorUsbDriverInstaller.NameOf(offer.Kind);
-            if (bind && !Views.ConfirmDialog.Show(this, Strings.Instance.Devices_DriverConfirmTitle,
-                    DriverCost(offer.Kind), Strings.Instance.Devices_DriverSwitch))
-                return;
-
-            devices.DriverBusy = true;
-            _viewModel.SetStatus(string.Format(Strings.Instance.Status_DriverSwitching_Format, name));
             Action<string> log = m => PadForge.Engine.SdlDiagLog.WriteLine("VendorUSB: " + m);
+
+            // Said before the confirm, which speaks of the one device that
+            // was chosen: Windows would move another of its model with it.
+            devices.DriverBusy = true;
             var nodes = await System.Threading.Tasks.Task.Run(Services.VendorUsbDriverInstaller.ListPresentUsbNodes);
+            if (bind && (TakesOthersAlong(offer, nodes, log)
+                    || !Views.ConfirmDialog.Show(this, Strings.Instance.Devices_DriverConfirmTitle,
+                        DriverCost(offer.Kind), Strings.Instance.Devices_DriverSwitch)))
+            {
+                devices.DriverBusy = false;
+                return;
+            }
+
+            _viewModel.SetStatus(string.Format(Strings.Instance.Status_DriverSwitching_Format, name));
+            if (bind)
+            {
+                // Listed again: the confirm can stay open for any length
+                // of time, and the bind acts on what is plugged in now.
+                nodes = await System.Threading.Tasks.Task.Run(Services.VendorUsbDriverInstaller.ListPresentUsbNodes);
+                if (TakesOthersAlong(offer, nodes, log))
+                {
+                    devices.DriverBusy = false;
+                    return;
+                }
+            }
             bool ok = await System.Threading.Tasks.Task.Run(() => bind
                 ? Services.VendorUsbDriverInstaller.Bind(offer.Bind.Value, offer.NodeId, nodes, log, default, offer.From)
                 : Services.VendorUsbDriverInstaller.Restore(offer.NodeId, log, default));
@@ -2599,6 +2617,21 @@ namespace PadForge
         /// device, stated before the user agrees to it. A kind with no arm
         /// here is refused, so one appended later is never confirmed under
         /// another kind's cost.</summary>
+        /// <summary>Whether the bind on offer would move another device of
+        /// the model with the chosen one, which it is then not made for
+        /// (VendorUsbDriverInstaller.WhyNotBind). Says so in the status bar
+        /// when it would, with what to do about it.</summary>
+        private bool TakesOthersAlong(Services.VendorUsbDriverInstaller.OptInOffer offer,
+            System.Collections.Generic.IReadOnlyList<Services.VendorUsbDriverInstaller.UsbNode> nodes, Action<string> log)
+        {
+            if (Services.VendorUsbDriverInstaller.WhyNotBind(offer.Bind.Value, offer.NodeId, nodes, offer.From, out string why)
+                != Services.VendorUsbDriverInstaller.BindRefusal.OthersPluggedIn)
+                return false;
+            log(why);
+            _viewModel.SetStatus(Strings.Instance.Status_DriverBindOthersPluggedIn, persist: true);
+            return true;
+        }
+
         private static string DriverCost(Services.VendorUsbDriverInstaller.OptInKind kind) => kind switch
         {
             Services.VendorUsbDriverInstaller.OptInKind.Xbox360Pad => Strings.Instance.Devices_DriverConfirm_Xbox360Pad,

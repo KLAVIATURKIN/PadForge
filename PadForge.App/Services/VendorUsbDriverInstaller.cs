@@ -419,8 +419,9 @@ namespace PadForge.Services
                 }
                 string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "INF", inf);
                 // Removing the package has Windows restart the node on its
-                // own driver, so PadForge lets go of the node first.
-                LetGoOf(instanceId);
+                // own driver, so PadForge lets go of the node first, and
+                // opens nothing on it until the wait below is over.
+                using var letGo = LetGoOf(instanceId);
                 RemovePackage(inf, path);
 
                 for (int i = 0; i < 20 && !ct.IsCancellationRequested; i++)
@@ -625,20 +626,11 @@ namespace PadForge.Services
             from ??= xusb ? new[] { "" } : new[] { "", "HidUsb" };
             try
             {
-                // The forced update below takes EVERY present node the ID
-                // names, so a second unit of the same model on another
-                // vendor's driver would go with it. Refuse the ID instead, as
-                // the DS3 bind refuses a pad a third-party driver owns.
-                foreach (var n in nodes)
+                // Nothing is staged for a bind that is not made.
+                if (WhyNotBind(plan, instanceId, nodes, from, out string why) != BindRefusal.None)
                 {
-                    if (!Names(n, plan.BindId)) continue;
-                    string s = n.Service ?? string.Empty;
-                    if (!from.Any(f => f.Equals(s, StringComparison.OrdinalIgnoreCase))
-                        && !s.Equals(service, StringComparison.OrdinalIgnoreCase))
-                    {
-                        log($"{plan.Name}: {n.InstanceId} is on {s}, so {plan.BindId} stays as it is.");
-                        return false;
-                    }
+                    log(why);
+                    return false;
                 }
 
                 // Each driver's package in its own folder, since Inf2Cat
@@ -672,35 +664,115 @@ namespace PadForge.Services
                     log($"{plan.Name}: Windows asked for a restart after the install.");
                 // The forced update restarts every node the ID names, one
                 // that is on the package already included, so PadForge
-                // lets go of each of them first.
-                foreach (var n in nodes)
-                    if (Names(n, plan.BindId)) LetGoOf(n.InstanceId);
-                if (!ForceDriver(plan.BindId, inf))
-                    log($"{plan.Name}: forced {driverName} bind for {plan.BindId} returned err={Marshal.GetLastWin32Error()}.");
-
-                // Done means the node itself is on the driver and the
-                // driver's interface on it is active, not that a call returned
-                // true: PadForge's for WinUSB, the XUSB one XInput walks for
-                // xusb22.
-                var active = xusb ? XusbInterfaceGuid : InterfaceGuid;
-                for (int i = 0; i < 20 && !ct.IsCancellationRequested; i++)
+                // lets go of each of them first, and opens nothing on any
+                // of them until the wait below is over.
+                var letGo = new List<IDisposable>();
+                try
                 {
-                    if (string.Equals(ServiceOf(instanceId), service, StringComparison.OrdinalIgnoreCase)
-                        && HasActiveInterface(instanceId, active))
+                    foreach (var n in nodes)
+                        if (Names(n, plan.BindId)) letGo.Add(LetGoOf(n.InstanceId));
+                    if (!ForceDriver(plan.BindId, inf))
+                        log($"{plan.Name}: forced {driverName} bind for {plan.BindId} returned err={Marshal.GetLastWin32Error()}.");
+
+                    // Done means the node itself is on the driver and the
+                    // driver's interface on it is active, not that a call
+                    // returned true: PadForge's for WinUSB, the XUSB one
+                    // XInput walks for xusb22.
+                    var active = xusb ? XusbInterfaceGuid : InterfaceGuid;
+                    for (int i = 0; i < 20 && !ct.IsCancellationRequested; i++)
                     {
-                        log($"{plan.Name} ({instanceId}) is on {driverName}.");
-                        return true;
+                        if (string.Equals(ServiceOf(instanceId), service, StringComparison.OrdinalIgnoreCase)
+                            && HasActiveInterface(instanceId, active))
+                        {
+                            log($"{plan.Name} ({instanceId}) is on {driverName}.");
+                            return true;
+                        }
+                        Thread.Sleep(250);
                     }
-                    Thread.Sleep(250);
+                    log($"{plan.Name}: {instanceId} is still on {ServiceOf(instanceId) ?? "(unknown)"} after the bind.");
+                    return false;
                 }
-                log($"{plan.Name}: {instanceId} is still on {ServiceOf(instanceId) ?? "(unknown)"} after the bind.");
-                return false;
+                finally
+                {
+                    foreach (var hold in letGo) hold.Dispose();
+                }
             }
             catch (Exception ex)
             {
                 log($"{plan.Name}: {driverName} bind failed: {ex.Message}");
                 return false;
             }
+        }
+
+        /// <summary>Why a bind is not made.</summary>
+        internal enum BindRefusal
+        {
+            None,
+            /// <summary>A node the ID names is on a driver the bind takes
+            /// no node from.</summary>
+            AnotherDriver,
+            /// <summary>Another device of the model is plugged in and would
+            /// be moved with the chosen one.</summary>
+            OthersPluggedIn,
+        }
+
+        /// <summary>Whether a kind is bound one device at a time. A
+        /// TouchSense mouse stops being Windows' pointer once it is bound,
+        /// which its confirm says of the one mouse the user chose, so the
+        /// bind is not made while it would take another mouse along. The
+        /// other kinds are read by PadForge either way and lose nothing
+        /// the user was not told.</summary>
+        internal static bool BindsOneDeviceAtATime(OptInKind kind) => kind == OptInKind.TouchSenseMouse;
+
+        /// <summary>
+        /// Whether a bind of this plan may be made, read from the present
+        /// nodes alone, before anything is staged. The forced update takes
+        /// EVERY present node the plan's ID names, whichever one was
+        /// chosen, so:
+        ///
+        /// <para>A node of the ID on a driver the bind takes no node from
+        /// would go with it. The ID is refused instead, as the DS3 bind
+        /// refuses a pad a third-party driver owns.</para>
+        ///
+        /// <para>For a kind bound one device at a time
+        /// (<see cref="BindsOneDeviceAtATime"/>), another node of the ID
+        /// that sits on a driver the bind takes nodes from would be moved
+        /// too, though nobody chose it and nothing read what it declares.
+        /// A node already on the bind's own driver changes nothing: it is
+        /// restarted on the driver it has.</para>
+        /// </summary>
+        internal static BindRefusal WhyNotBind(BindPlan plan, string instanceId, IReadOnlyList<UsbNode> nodes,
+            string[] from, out string why)
+        {
+            why = null;
+            bool xusb = plan.Driver == BindDriver.Xusb22;
+            string service = xusb ? "xusb22" : "WINUSB";
+            from ??= xusb ? new[] { "" } : new[] { "", "HidUsb" };
+            bool oneAtATime = KindOfId(plan.BindId) is OptInKind kind && BindsOneDeviceAtATime(kind);
+            if (nodes == null) return BindRefusal.None;
+            // The other driver first, whatever the order of the nodes: it
+            // is the refusal that unplugging nothing of the user's cures.
+            foreach (var n in nodes)
+            {
+                if (!Names(n, plan.BindId)) continue;
+                string s = n.Service ?? string.Empty;
+                if (!from.Any(f => f.Equals(s, StringComparison.OrdinalIgnoreCase))
+                    && !s.Equals(service, StringComparison.OrdinalIgnoreCase))
+                {
+                    why = $"{plan.Name}: {n.InstanceId} is on {s}, so {plan.BindId} stays as it is.";
+                    return BindRefusal.AnotherDriver;
+                }
+            }
+            if (!oneAtATime) return BindRefusal.None;
+            foreach (var n in nodes)
+            {
+                if (!Names(n, plan.BindId) || string.Equals(n.InstanceId, instanceId, StringComparison.OrdinalIgnoreCase)) continue;
+                string s = n.Service ?? string.Empty;
+                if (!from.Any(f => f.Equals(s, StringComparison.OrdinalIgnoreCase))) continue;
+                why = $"{plan.Name}: {n.InstanceId} is plugged in too and would move with {instanceId}, so {plan.BindId} stays as it is.";
+                return BindRefusal.OthersPluggedIn;
+            }
+            return BindRefusal.None;
         }
 
         // ── The calls that change the PC ──────────────────────────────────
@@ -734,12 +806,15 @@ namespace PadForge.Services
         /// node, before Windows is asked to change that node's driver: the
         /// WinUSB handle of a TouchSense mouse it reads (#494). Windows
         /// restarts a node to give it another driver, and a handle held
-        /// open to the node keeps it from restarting. The mouse's row
+        /// open to the node keeps it from restarting. The hold this returns
+        /// lasts until the caller's wait for the new driver is over: the
+        /// device pass looks for bound mice every second and would open
+        /// the mouse again in the middle of the switch. The mouse's row
         /// retires with the handle and comes back a few seconds later if
         /// the mouse is still bound. This rests on how Windows treats any
         /// device in use: no run on a bound mouse stands behind it.</summary>
-        private static void LetGoOf(string instanceId)
-            => PadForge.Common.Input.Peripherals.TouchSenseChannels.Shared.CloseAt(instanceId);
+        private static IDisposable LetGoOf(string instanceId)
+            => PadForge.Common.Input.Peripherals.TouchSenseChannels.Shared.Hold(instanceId);
 
         /// <summary>True when an interface with PadForge's GUID is active on
         /// the node, so winusb.sys serves it now. A service name alone also

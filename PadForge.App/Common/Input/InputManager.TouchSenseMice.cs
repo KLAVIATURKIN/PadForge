@@ -202,42 +202,59 @@ namespace PadForge.Common.Input
                     }
                 }
 
-                // The channel the mouse had before is closed by now, by
-                // its reader or by whoever saw its write fail. This waits
-                // for a close still under way, so the mouse never has two
-                // handles asked of it.
-                try { before?.Dispose(); } catch { }
-                ITouchSenseChannel channel = null;
-                try { channel = TouchSenseOpen(mouse); }
-                catch { }
-                // A mouse that cannot be opened is tried again every few
-                // seconds for as long as it is there, and said once.
-                if (channel != null)
-                    PadForge.Engine.SdlDiagLog.WriteLine(
-                        $"TouchSense: opened {mouse.VendorId:X4}:{mouse.ProductId:X4} at {mouse.Path} (pointer={channel.ReadsPointer})");
-                else if (!failedBefore)
-                    PadForge.Engine.SdlDiagLog.WriteLine(
-                        $"TouchSense: open failed for {mouse.VendorId:X4}:{mouse.ProductId:X4} at {mouse.Path}, trying again every {TouchSenseReopenMs / 1000} s");
-
-                lock (_touchSenseLock)
+                // A driver switch has this mouse's node
+                // (VendorUsbDriverInstaller.Bind and Restore). An open now
+                // would hold the node the switch waits on Windows to
+                // restart, so the mouse is left for a later sweep. An open
+                // that does begin is one a switch that starts meanwhile
+                // waits for, so its end is said on every way out.
+                if (!TouchSenseTable.TryBeginOpen(mouse.Path)) continue;
+                try
                 {
-                    if (_touchSenseSuppressed)
+                    // The channel the mouse had before is closed by now,
+                    // by its reader or by whoever saw its write fail. This
+                    // waits for a close still under way, so the mouse
+                    // never has two handles asked of it.
+                    try { before?.Dispose(); } catch { }
+                    ITouchSenseChannel channel = null;
+                    try { channel = TouchSenseOpen(mouse); }
+                    catch { }
+                    // A mouse that cannot be opened is tried again every
+                    // few seconds for as long as it is there, and said once.
+                    if (channel != null)
+                        PadForge.Engine.SdlDiagLog.WriteLine(
+                            $"TouchSense: opened {mouse.VendorId:X4}:{mouse.ProductId:X4} at {mouse.Path} (pointer={channel.ReadsPointer})");
+                    else if (!failedBefore)
+                        PadForge.Engine.SdlDiagLog.WriteLine(
+                            $"TouchSense: open failed for {mouse.VendorId:X4}:{mouse.ProductId:X4} at {mouse.Path}, trying again every {TouchSenseReopenMs / 1000} s");
+
+                    lock (_touchSenseLock)
                     {
-                        try { channel?.Dispose(); } catch { }
-                        return;
+                        if (_touchSenseSuppressed)
+                        {
+                            try { channel?.Dispose(); } catch { }
+                            return;
+                        }
+                        if (channel == null)
+                        {
+                            _touchSenseRetry[mouse.Path] = (TouchSenseTicks() + TouchSenseReopenMs, null, true);
+                            continue;
+                        }
+                        _touchSenseRetry.Remove(mouse.Path);
+                        _touchSensePending.Add(new TouchSenseMouseDevice(mouse, channel));
+                        _touchSenseAnyRows = true;
                     }
-                    if (channel == null)
-                    {
-                        _touchSenseRetry[mouse.Path] = (TouchSenseTicks() + TouchSenseReopenMs, null, true);
-                        continue;
-                    }
-                    _touchSenseRetry.Remove(mouse.Path);
-                    _touchSensePending.Add(new TouchSenseMouseDevice(mouse, channel));
-                    _touchSenseAnyRows = true;
+                    // Listed once its row exists, which wakes a backend
+                    // that waits for this mouse. A channel whose node a
+                    // driver switch took meanwhile is closed there, and
+                    // its row retires on the next pass like any row whose
+                    // channel closed.
+                    TouchSenseTable.Publish(channel);
                 }
-                // Listed once its row exists, which wakes a backend that
-                // waits for this mouse.
-                TouchSenseTable.Publish(channel);
+                finally
+                {
+                    TouchSenseTable.EndOpen(mouse.Path);
+                }
             }
 
             // A mouse that left has nothing to wait for: when it comes

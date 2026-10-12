@@ -452,6 +452,7 @@ Een kopie van de vorige versie staat in deze map: {1}</value></data>
   <data name="Status_DriverSwitching_Format" xml:space="preserve"><value>Stuurprogramma voor {0} wordt gewijzigd…</value></data>
   <data name="Status_DriverBound_Format" xml:space="preserve"><value>{0} gebruikt nu het PadForge-stuurprogramma.</value></data>
   <data name="Status_DriverBindFailed_Format" xml:space="preserve"><value>{0} kon niet overschakelen naar het PadForge-stuurprogramma.</value></data>
+  <data name="Status_DriverBindOthersPluggedIn" xml:space="preserve"><value>Koppel eerst de andere muizen van dit model los. Windows zet alle aangesloten muizen van dit model tegelijk over op het PadForge-stuurprogramma en gebruikt daarna geen ervan meer als aanwijzer.</value></data>
   <data name="Status_DriverRestored_Format" xml:space="preserve"><value>{0} gebruikt weer het Windows-stuurprogramma.</value></data>
   <data name="Status_DriverRestoreFailed_Format" xml:space="preserve"><value>Het Windows-stuurprogramma voor {0} kon niet worden hersteld.</value></data>
   <data name="Status_DriverMovedBack_Format" xml:space="preserve"><value>Windows heeft {0} teruggezet op het eigen stuurprogramma. Selecteer het op de pagina Apparaten om opnieuw over te schakelen.</value></data>

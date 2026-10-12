@@ -1396,7 +1396,10 @@ namespace PadForge.Tests
 
     /// <summary>The parts under the direct backends (#494): who runs, which
     /// HID collections are present, how one is opened and written, and the
-    /// row a lone lit unit gets.</summary>
+    /// row a lone lit unit gets. One test lifts the test host's refusal to
+    /// ask the real open about a path no collection is at, so the class
+    /// runs with no other beside it.</summary>
+    [Collection("PeripheralOutputStatics")]
     public class DirectPathPlumbingTests
     {
         private static readonly PeripheralPresence Installed = new(true, false, true, true, true);
