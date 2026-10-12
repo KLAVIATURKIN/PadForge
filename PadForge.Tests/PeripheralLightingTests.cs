@@ -1077,6 +1077,167 @@ namespace PadForge.Tests
             Assert.True(PeripheralOutputs.IsLit(B), "its own config, switched on, lights it");
         }
 
+        /// <summary>The claim a slot makes for a lit mouse carries the
+        /// mouse's Lighting Hold as its level, and a change of the hold alone
+        /// reaches the claim through the config's own change event, with no
+        /// color change behind it. The tab's line names the same hold, from
+        /// the number the claim carries.</summary>
+        [Fact]
+        public void TheClaimCarriesTheDevicesLightingHold_AndTheTabsLineNamesIt()
+        {
+            var s = PadForge.Resources.Strings.Strings.Instance;
+            using var slot = new LitSlot();
+            slot.Config.PeripheralLightingEnabled = true;
+            // A device that offers both holds, so the line can name each.
+            Link(new DeviceLinks { Device = A, Lighting = new[] { slot.Path }, MaxClaimLevel = 2 });
+            slot.Dispatcher = new UserEffectsDispatcher(15, slot.Config, startTimer: false);
+            slot.Dispatcher.ApplyOnce();
+            UserDevice mouse;
+            lock (SettingsManager.UserDevices.SyncRoot)
+                mouse = SettingsManager.UserDevices.Items.Single(d => d.InstanceGuid == A);
+
+            var holds = new[]
+            {
+                (Hold: PeripheralClaimLevel.Colors, Level: 0, Line: s.Pad_Lighting_RouteDirect),
+                (Hold: PeripheralClaimLevel.Power, Level: 1, Line: s.Pad_Lighting_RouteDirectPower),
+                (Hold: PeripheralClaimLevel.HostMode, Level: 2, Line: s.Pad_Lighting_RouteDirectHostMode),
+            };
+            Assert.Equal(Enum.GetValues<PeripheralClaimLevel>(), holds.Select(h => h.Hold));
+            foreach (var (hold, level, line) in holds)
+            {
+                // No pass is asked for: the config's change runs one.
+                slot.Config.PeripheralClaimLevel = hold;
+                Assert.True(PeripheralOutputs.TryResolveColor(slot.Path, out int rgb, out var ruler));
+                Assert.Equal(level, ruler.Level);
+                Assert.Equal(0x101418, rgb);
+                Assert.Equal(string.Format(line, mouse.ResolvedName),
+                    PeripheralRouteText.Lighting(mouse, 15, lightsHere: true, claimLevel: (int)hold));
+            }
+
+            // The reset beside the picker lowers the claim with it.
+            slot.Config.ResetPeripheralClaimLevelCommand.Execute(null);
+            Assert.True(PeripheralOutputs.TryResolveColor(slot.Path, out _, out var afterReset));
+            Assert.Equal(0, afterReset.Level);
+
+            // A hold on record with the switch off holds nothing: there is no
+            // claim to carry it.
+            slot.Config.PeripheralClaimLevel = PeripheralClaimLevel.HostMode;
+            slot.Config.PeripheralLightingEnabled = false;
+            Assert.False(PeripheralOutputs.IsLit(A));
+        }
+
+        /// <summary>A vendor row and a unit row have no Lighting Hold on
+        /// their tabs, so their claims ask for colors alone whatever their
+        /// configs hold, a hold that came in a pasted or hand-edited entry
+        /// included. The mouse beside them keeps its own.</summary>
+        [Fact]
+        public void AVendorRowAndAUnitRow_AskForColorsAlone_WhateverTheirConfigsHold()
+        {
+            using var slot = new LitSlot();
+            var vendorRow = new PeripheralOutputRow(PeripheralRowKind.RazerChroma);
+            var headset = new DirectUnit(OutputFamily.LampArrayUnit, "headset", Guid.NewGuid(), 0x1234, 1) { Name = "Headset" };
+            var unitRow = new PeripheralUnitRow(headset);
+            try
+            {
+                foreach (var row in new ISdlInputDevice[] { vendorRow, unitRow })
+                {
+                    var ud = new UserDevice();
+                    ud.LoadFromExternalDevice(row);
+                    ud.IsOnline = true;
+                    ud.PeripheralOutputs = (int)PeripheralOutputKinds.Lighting;
+                    lock (SettingsManager.UserDevices.SyncRoot) SettingsManager.UserDevices.Items.Add(ud);
+                    lock (SettingsManager.UserSettings.SyncRoot)
+                        SettingsManager.UserSettings.Items.Add(new UserSetting { InstanceGuid = row.InstanceGuid, MapTo = 15 });
+                    slot.Configs[row.InstanceGuid] = new DeviceSlotConfig { PeripheralClaimLevel = PeripheralClaimLevel.HostMode };
+                }
+                var category = new OutputPath(OutputFamily.ChromaCategory, "headset");
+                // Every row's links say both holds are on offer, so only the
+                // dispatcher's own rule keeps the two rows at colors alone.
+                Link(new DeviceLinks { Device = A, Lighting = new[] { slot.Path }, MaxClaimLevel = 2 },
+                     new DeviceLinks { Device = vendorRow.InstanceGuid, CatchAll = true, Lighting = new[] { category }, MaxClaimLevel = 2 },
+                     new DeviceLinks { Device = unitRow.InstanceGuid, UnitRow = true, Lighting = new[] { headset.Path }, MaxClaimLevel = 2 });
+                slot.Config.PeripheralLightingEnabled = true;
+                slot.Config.PeripheralClaimLevel = PeripheralClaimLevel.HostMode;
+                slot.Dispatcher = new UserEffectsDispatcher(15, slot.Config, startTimer: false);
+                slot.Dispatcher.ApplyOnce();
+
+                Assert.True(PeripheralOutputs.TryResolveColor(slot.Path, out _, out var mouse));
+                Assert.Equal((A, 2), (mouse.Device, mouse.Level));
+                Assert.True(PeripheralOutputs.TryResolveColor(category, out _, out var vendor));
+                Assert.Equal((vendorRow.InstanceGuid, 0), (vendor.Device, vendor.Level));
+                Assert.True(PeripheralOutputs.TryResolveColor(headset.Path, out _, out var unit));
+                Assert.Equal((unitRow.InstanceGuid, 0), (unit.Device, unit.Level));
+            }
+            finally
+            {
+                vendorRow.Dispose();
+                unitRow.Dispose();
+            }
+        }
+
+        /// <summary>A load, a paste or a profile apply writes the switch and
+        /// the hold one after the other, and each write runs a pass of its
+        /// own that a lighting worker can wake behind. No claim is made in
+        /// between at a hold neither the outgoing nor the incoming settings
+        /// asked for: a device being taken has its hold in place before it
+        /// is taken, and a device being let go is let go before the hold on
+        /// its record changes.</summary>
+        [Fact]
+        public void ApplyingSettings_NeverClaimsADeviceAtAHoldNeitherSideAskedFor()
+        {
+            var build = typeof(SettingsService).GetMethod("BuildDeviceSlotConfigData",
+                BindingFlags.NonPublic | BindingFlags.Static);
+            Assert.NotNull(build);
+            DeviceSlotConfigData Saved(bool lit, PeripheralClaimLevel hold) => (DeviceSlotConfigData)build.Invoke(null, new object[]
+            {
+                new DeviceSlotConfig
+                {
+                    LightbarMode = LightbarMode.Static, LightbarRed = 16, LightbarGreen = 20, LightbarBlue = 24,
+                    PeripheralLightingEnabled = lit, PeripheralClaimLevel = hold,
+                },
+                15, A,
+            });
+
+            using var slot = new LitSlot();
+            Link(new DeviceLinks { Device = A, Lighting = new[] { slot.Path }, MaxClaimLevel = 2 });
+            slot.Dispatcher = new UserEffectsDispatcher(15, slot.Config, startTimer: false);
+            // The level of the device's claim at every moment a worker is
+            // woken, which is every moment it could read one.
+            var levels = new List<int>();
+            void OnLighting()
+            {
+                if (PeripheralOutputs.TryResolveColor(slot.Path, out _, out var ruler)) levels.Add(ruler.Level);
+            }
+            PeripheralOutputs.LightingChanged += OnLighting;
+            try
+            {
+                // Left alone with the highest hold on record, then taken at
+                // colors alone.
+                SettingsService.ApplyDeviceSlotConfigData(slot.Config, Saved(lit: false, PeripheralClaimLevel.HostMode));
+                Assert.Equal(PeripheralClaimLevel.HostMode, slot.Config.PeripheralClaimLevel);
+                Assert.Empty(levels);
+                SettingsService.ApplyDeviceSlotConfigData(slot.Config, Saved(lit: true, PeripheralClaimLevel.Colors));
+                Assert.Equal(new[] { 0 }, levels.Distinct());
+
+                // Lit at colors alone, then let go with the highest hold on
+                // record.
+                levels.Clear();
+                SettingsService.ApplyDeviceSlotConfigData(slot.Config, Saved(lit: false, PeripheralClaimLevel.HostMode));
+                Assert.Empty(levels);
+                Assert.False(PeripheralOutputs.IsLit(A));
+                Assert.Equal(PeripheralClaimLevel.HostMode, slot.Config.PeripheralClaimLevel);
+
+                // Taken at the hold on its record, and then a change of the
+                // hold alone while it is lit: straight to the new one.
+                SettingsService.ApplyDeviceSlotConfigData(slot.Config, Saved(lit: true, PeripheralClaimLevel.HostMode));
+                Assert.Equal(new[] { 2 }, levels.Distinct());
+                levels.Clear();
+                SettingsService.ApplyDeviceSlotConfigData(slot.Config, Saved(lit: true, PeripheralClaimLevel.Power));
+                Assert.Equal(new[] { 1 }, levels.Distinct());
+            }
+            finally { PeripheralOutputs.LightingChanged -= OnLighting; }
+        }
+
         /// <summary>While the engine is stopped nothing reaches any device,
         /// so every route line says nothing, the waiting and asleep lines
         /// included.</summary>
@@ -1871,6 +2032,133 @@ namespace PadForge.Tests
             var reset = new DeviceSlotConfig { PeripheralLightingEnabled = true };
             reset.ResetPeripheralLightingEnabledCommand.Execute(null);
             Assert.False(reset.PeripheralLightingEnabled);
+        }
+
+        /// <summary>The Lighting Hold is saved per (slot, device) by its
+        /// name, comes back through the load that a paste and a profile
+        /// apply share, and reads as colors alone from a file written
+        /// before it, so an older file asks no device for more. A new
+        /// config, and so a reset slot, starts at colors alone.</summary>
+        [Fact]
+        public void TheLightingHoldRoundTrips_AndAFileWithoutItReadsAsColorsAlone()
+        {
+            var build = typeof(SettingsService).GetMethod("BuildDeviceSlotConfigData",
+                BindingFlags.NonPublic | BindingFlags.Static);
+            Assert.NotNull(build);
+            var serializer = new System.Xml.Serialization.XmlSerializer(typeof(DeviceSlotConfigData));
+            Assert.Equal(PeripheralClaimLevel.Colors, new DeviceSlotConfig().PeripheralClaimLevel);
+            Assert.Equal(PeripheralClaimLevel.Colors, new DeviceSlotConfigData().PeripheralClaimLevel);
+
+            foreach (var hold in Enum.GetValues<PeripheralClaimLevel>())
+            {
+                var cfg = new DeviceSlotConfig { PeripheralClaimLevel = hold };
+                var data = (DeviceSlotConfigData)build.Invoke(null, new object[] { cfg, 3, A });
+                Assert.Equal(hold, data.PeripheralClaimLevel);
+
+                // The file's own form, and back through the load.
+                using var writer = new StringWriter();
+                serializer.Serialize(writer, data);
+                Assert.Contains($" PeripheralClaimLevel=\"{hold}\"", writer.ToString());
+                var read = (DeviceSlotConfigData)serializer.Deserialize(new StringReader(writer.ToString()));
+                foreach (var before in Enum.GetValues<PeripheralClaimLevel>())
+                {
+                    var back = new DeviceSlotConfig { PeripheralClaimLevel = before };
+                    SettingsService.ApplyDeviceSlotConfigData(back, read);
+                    Assert.Equal(hold, back.PeripheralClaimLevel);
+                }
+            }
+
+            // An entry saved before the hold existed, the switch on.
+            var older = (DeviceSlotConfigData)serializer.Deserialize(new StringReader(
+                "<DeviceSlotConfigData SlotIndex=\"3\" LightingRev=\"1\" LightbarMode=\"Static\" PeripheralLightingEnabled=\"true\" />"));
+            Assert.True(older.PeripheralLightingEnabled);
+            Assert.Equal(PeripheralClaimLevel.Colors, older.PeripheralClaimLevel);
+            // Applied over a device held more firmly, as a profile from
+            // before the hold is, it returns the device to colors alone.
+            var held = new DeviceSlotConfig { PeripheralClaimLevel = PeripheralClaimLevel.HostMode };
+            SettingsService.ApplyDeviceSlotConfigData(held, older);
+            Assert.True(held.PeripheralLightingEnabled);
+            Assert.Equal(PeripheralClaimLevel.Colors, held.PeripheralClaimLevel);
+        }
+
+        /// <summary>The hold's number is the level its claim carries and the
+        /// place of its option in the picker, and the clipboard carries it,
+        /// so the three keep their numbers. A number the enum does not name
+        /// leaves the hold as it was: the file writes the name and has none
+        /// for it, so storing it would fail the next save, and a claim would
+        /// carry it to a backend as a level nobody chose.</summary>
+        [Fact]
+        public void AHoldTheEnumDoesNotName_LeavesTheHoldAsItWas()
+        {
+            Assert.Equal(new[] { 0, 1, 2 }, Enum.GetValues<PeripheralClaimLevel>().Select(hold => (int)hold));
+            Assert.Equal((0, 1, 2),
+                ((int)PeripheralClaimLevel.Colors, (int)PeripheralClaimLevel.Power, (int)PeripheralClaimLevel.HostMode));
+
+            var cfg = new DeviceSlotConfig { PeripheralClaimLevel = PeripheralClaimLevel.Power };
+            var raised = new List<string>();
+            cfg.PropertyChanged += (_, e) => raised.Add(e.PropertyName);
+            foreach (int unnamed in new[] { 3, 7, -1, int.MaxValue })
+            {
+                cfg.PeripheralClaimLevel = (PeripheralClaimLevel)unnamed;
+                Assert.Equal(PeripheralClaimLevel.Power, cfg.PeripheralClaimLevel);
+            }
+            Assert.Empty(raised);
+
+            // The clipboard's form is the number, so a pasted entry can
+            // hold one with no name. The load refuses it.
+            string json = System.Text.Json.JsonSerializer.Serialize(
+                new DeviceSlotConfigData { LightingRev = 1, PeripheralClaimLevel = PeripheralClaimLevel.HostMode });
+            Assert.Contains("\"PeripheralClaimLevel\":2", json);
+            var pasted = System.Text.Json.JsonSerializer.Deserialize<DeviceSlotConfigData>(
+                json.Replace("\"PeripheralClaimLevel\":2", "\"PeripheralClaimLevel\":7"));
+            Assert.Equal(7, (int)pasted.PeripheralClaimLevel);
+            SettingsService.ApplyDeviceSlotConfigData(cfg, pasted);
+            Assert.Equal(PeripheralClaimLevel.Power, cfg.PeripheralClaimLevel);
+            Assert.DoesNotContain(nameof(DeviceSlotConfig.PeripheralClaimLevel), raised);
+
+            // What the file does with such a number, and with what the
+            // config kept in its place.
+            var serializer = new System.Xml.Serialization.XmlSerializer(typeof(DeviceSlotConfigData));
+            Assert.Throws<InvalidOperationException>(() => serializer.Serialize(new StringWriter(), pasted));
+            var build = typeof(SettingsService).GetMethod("BuildDeviceSlotConfigData",
+                BindingFlags.NonPublic | BindingFlags.Static);
+            using var writer = new StringWriter();
+            serializer.Serialize(writer, build.Invoke(null, new object[] { cfg, 0, A }));
+            Assert.Contains(" PeripheralClaimLevel=\"Power\"", writer.ToString());
+
+            // A named hold still changes it, and says so once.
+            raised.Clear();
+            cfg.PeripheralClaimLevel = PeripheralClaimLevel.HostMode;
+            Assert.Equal(PeripheralClaimLevel.HostMode, cfg.PeripheralClaimLevel);
+            Assert.Equal(new[] { nameof(DeviceSlotConfig.PeripheralClaimLevel) }, raised);
+        }
+
+        /// <summary>The hold has a reset of its own beside its picker, which
+        /// touches nothing else, and Reset All on the Lighting tab leaves
+        /// it alone, as it leaves the switch.</summary>
+        [Fact]
+        public void TheLightingHoldHasAResetOfItsOwn_AndResetAllLeavesItAlone()
+        {
+            var cfg = new DeviceSlotConfig
+            {
+                PeripheralLightingEnabled = true, PeripheralClaimLevel = PeripheralClaimLevel.HostMode,
+                LightbarMode = LightbarMode.Static,
+            };
+            cfg.ResetPeripheralClaimLevelCommand.Execute(null);
+            Assert.Equal(PeripheralClaimLevel.Colors, cfg.PeripheralClaimLevel);
+            Assert.True(cfg.PeripheralLightingEnabled);
+            Assert.Equal(LightbarMode.Static, cfg.LightbarMode);
+            // The switch's own reset leaves the hold as it is.
+            cfg.PeripheralClaimLevel = PeripheralClaimLevel.Power;
+            cfg.ResetPeripheralLightingEnabledCommand.Execute(null);
+            Assert.False(cfg.PeripheralLightingEnabled);
+            Assert.Equal(PeripheralClaimLevel.Power, cfg.PeripheralClaimLevel);
+
+            cfg.PeripheralLightingEnabled = true;
+            cfg.ResetLightbarAllCommand.Execute(null);
+            Assert.Equal(LightbarMode.PlayerNumber, cfg.LightbarMode);
+            Assert.True(cfg.PeripheralLightingEnabled);
+            Assert.Equal(PeripheralClaimLevel.Power, cfg.PeripheralClaimLevel);
         }
 
         /// <summary>The shipped Chroma and LIGHTSYNC mirror switches migrate

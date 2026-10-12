@@ -36,6 +36,34 @@ namespace PadForge.Tests
                 new DeviceSlotConfigData { LeftTriggerMode = AdaptiveTriggerMode.Weapon }));
         }
 
+        /// <summary>#494: a Lighting Hold raised above colors alone is a
+        /// deliberate choice in both checks, with the Control This Device's
+        /// Lighting switch on or off, so a Copy, a Paste or a Copy From never
+        /// reads such a config as empty. Colors alone is the default and
+        /// configures nothing.</summary>
+        [Theory]
+        [InlineData(PeripheralClaimLevel.Power)]
+        [InlineData(PeripheralClaimLevel.HostMode)]
+        public void Configured_TrueForARaisedLightingHold(PeripheralClaimLevel hold)
+        {
+            Assert.True(SettingsService.IsDeviceSlotConfigDataConfigured(
+                new DeviceSlotConfigData { PeripheralClaimLevel = hold }));
+            // A current save spells its untouched modes as Player Number.
+            var current = new DeviceSlotConfigData
+            {
+                LightingRev = 1, LightbarMode = LightbarMode.PlayerNumber, PlayerLedMode = PlayerLedMode.PlayerNumber,
+            };
+            Assert.False(SettingsService.IsDeviceSlotConfigDataConfigured(current));
+            current.PeripheralClaimLevel = hold;
+            Assert.True(SettingsService.IsDeviceSlotConfigDataConfigured(current));
+            current.PeripheralClaimLevel = PeripheralClaimLevel.Colors;
+            Assert.False(SettingsService.IsDeviceSlotConfigDataConfigured(current));
+
+            Assert.True(SettingsService.IsDeviceConfigConfigured(new DeviceSlotConfig { PeripheralClaimLevel = hold }));
+            Assert.False(SettingsService.IsDeviceConfigConfigured(
+                new DeviceSlotConfig { PeripheralClaimLevel = PeripheralClaimLevel.Colors }));
+        }
+
         /// <summary>#347: a tuned custom crossfeed is deliberate configuration.
         /// The two knobs only do anything at the custom level, but the keep-alive
         /// rule is what lets a user park the level back at Off without losing the
@@ -91,7 +119,10 @@ namespace PadForge.Tests
     /// switch would make the destination controller take over a keyboard
     /// assigned only for its keys, and a DualSense's would let go of a
     /// keyboard the user had lit. The same device on both slots carries its
-    /// switch.
+    /// switch. The Lighting Hold under the switch follows the same rule: a
+    /// hold chosen for one device never reaches another, which it would
+    /// keep from dimming its lights or take out of its on-board memory
+    /// mode, and the same device on both slots carries its own.
     /// </summary>
     [Collection("SettingsManagerStatics")]
     public class DeviceSlotConfigStandInTests : IDisposable
@@ -198,6 +229,111 @@ namespace PadForge.Tests
             standIn.PeripheralLightingEnabled = false;
             settings.ApplyDeviceSlotConfigsToSlot(1, new[] { standIn });
             Assert.True(keyboard.PeripheralLightingEnabled);
+        }
+
+        [Fact]
+        public void CopyFrom_KeepsAnUnmatchedDevicesOwnHold()
+        {
+            var (vm, settings) = Arrange();
+            var mouse = vm.Pads[0].GetOrCreateDeviceConfig(Mouse);
+            mouse.PeripheralClaimLevel = PeripheralClaimLevel.HostMode;
+            mouse.LightbarMode = LightbarMode.Static;
+            var keyboard = vm.Pads[1].GetOrCreateDeviceConfig(Keyboard);
+
+            settings.CopySlotConfigsAcrossSlots(0, 1);
+
+            // The mouse's settings stood in for the keyboard's, all but its hold.
+            Assert.Equal(LightbarMode.Static, keyboard.LightbarMode);
+            Assert.Equal(PeripheralClaimLevel.Colors, keyboard.PeripheralClaimLevel);
+            Assert.Equal(PeripheralClaimLevel.HostMode, mouse.PeripheralClaimLevel);
+        }
+
+        [Fact]
+        public void CopyFrom_NeverLowersAnUnmatchedDevicesHold()
+        {
+            var (vm, settings) = Arrange();
+            var pad = vm.Pads[0].GetOrCreateDeviceConfig(DualSense);
+            pad.LightbarMode = LightbarMode.Static;
+            var keyboard = vm.Pads[1].GetOrCreateDeviceConfig(Keyboard);
+            keyboard.PeripheralClaimLevel = PeripheralClaimLevel.Power;
+
+            settings.CopySlotConfigsAcrossSlots(0, 1);
+
+            Assert.Equal(LightbarMode.Static, keyboard.LightbarMode);
+            Assert.Equal(PeripheralClaimLevel.Power, keyboard.PeripheralClaimLevel);
+        }
+
+        [Fact]
+        public void CopyFrom_CarriesTheHoldForTheSameDevice()
+        {
+            var (vm, settings) = Arrange();
+            vm.Pads[0].GetOrCreateDeviceConfig(Mouse).PeripheralClaimLevel = PeripheralClaimLevel.Power;
+            var mouse = vm.Pads[1].GetOrCreateDeviceConfig(Mouse);
+            mouse.PeripheralClaimLevel = PeripheralClaimLevel.HostMode;
+
+            settings.CopySlotConfigsAcrossSlots(0, 1);
+
+            Assert.Equal(PeripheralClaimLevel.Power, mouse.PeripheralClaimLevel);
+        }
+
+        [Fact]
+        public void Paste_KeepsAnUnmatchedDevicesOwnHold_AndCarriesTheSameDevicesOwn()
+        {
+            var (vm, settings) = Arrange();
+            var keyboard = vm.Pads[1].GetOrCreateDeviceConfig(Keyboard);
+            var mouse = vm.Pads[1].GetOrCreateDeviceConfig(Mouse);
+            var standIn = new DeviceSlotConfigData
+            {
+                DeviceGuid = DualSense, LightingRev = 1, LightbarMode = LightbarMode.Static,
+                PeripheralClaimLevel = PeripheralClaimLevel.HostMode,
+            };
+            var own = new DeviceSlotConfigData
+            {
+                DeviceGuid = Mouse, LightingRev = 1, LightbarMode = LightbarMode.Static,
+                PeripheralClaimLevel = PeripheralClaimLevel.Power,
+            };
+
+            settings.ApplyDeviceSlotConfigsToSlot(1, new[] { standIn, own });
+
+            Assert.Equal(LightbarMode.Static, keyboard.LightbarMode);
+            Assert.Equal(PeripheralClaimLevel.Colors, keyboard.PeripheralClaimLevel);
+            Assert.Equal(PeripheralClaimLevel.Power, mouse.PeripheralClaimLevel);
+            // The clipboard's own entry is left as it came.
+            Assert.Equal(PeripheralClaimLevel.HostMode, standIn.PeripheralClaimLevel);
+
+            keyboard.PeripheralClaimLevel = PeripheralClaimLevel.Power;
+            standIn.PeripheralClaimLevel = PeripheralClaimLevel.Colors;
+            settings.ApplyDeviceSlotConfigsToSlot(1, new[] { standIn });
+            Assert.Equal(PeripheralClaimLevel.Power, keyboard.PeripheralClaimLevel);
+            Assert.Equal(PeripheralClaimLevel.Colors, standIn.PeripheralClaimLevel);
+        }
+
+        /// <summary>The switch and the hold are kept together: a stand-in
+        /// that would turn a keyboard's lighting on and raise its hold
+        /// changes neither, and the keyboard's own pair survives a stand-in
+        /// that holds neither.</summary>
+        [Fact]
+        public void AStandIn_LeavesTheSwitchAndTheHoldOfADeviceTogether()
+        {
+            var (vm, settings) = Arrange();
+            var mouse = vm.Pads[0].GetOrCreateDeviceConfig(Mouse);
+            mouse.PeripheralLightingEnabled = true;
+            mouse.PeripheralClaimLevel = PeripheralClaimLevel.HostMode;
+            var keyboard = vm.Pads[1].GetOrCreateDeviceConfig(Keyboard);
+
+            settings.CopySlotConfigsAcrossSlots(0, 1);
+            Assert.False(keyboard.PeripheralLightingEnabled);
+            Assert.Equal(PeripheralClaimLevel.Colors, keyboard.PeripheralClaimLevel);
+
+            keyboard.PeripheralLightingEnabled = true;
+            keyboard.PeripheralClaimLevel = PeripheralClaimLevel.Power;
+            mouse.PeripheralLightingEnabled = false;
+            mouse.PeripheralClaimLevel = PeripheralClaimLevel.Colors;
+            mouse.LightbarMode = LightbarMode.Static;
+            settings.CopySlotConfigsAcrossSlots(0, 1);
+            Assert.Equal(LightbarMode.Static, keyboard.LightbarMode);
+            Assert.True(keyboard.PeripheralLightingEnabled);
+            Assert.Equal(PeripheralClaimLevel.Power, keyboard.PeripheralClaimLevel);
         }
     }
 }

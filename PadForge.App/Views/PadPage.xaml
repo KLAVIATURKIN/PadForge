@@ -8755,6 +8755,44 @@
                                           ToolTip="{Binding Pad_Lighting_ControlDevice_Tooltip, Source={x:Static strings:Strings.Instance}}"/>
                                 <reset:SettingResetButton Command="{Binding DeviceConfig.ResetPeripheralLightingEnabledCommand}" SettingLabel="{Binding Pad_Lighting_ControlDevice, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_DeviceSlotConfig_PeripheralLightingEnabled"/>
                             </StackPanel>
+                            <!-- Lighting Hold (#494): how firmly this slot may
+                                 hold the device while it lights it, for a
+                                 Logitech device whose own power saving or saved
+                                 profile takes the color away. Per (slot, device)
+                                 like the switch above, and at its first option
+                                 until this tab says more. Shown for a device
+                                 that offers a hold, with the last option only
+                                 where the device offers that one, and with the
+                                 tooltip that stops before that option where it
+                                 does not (SyncTabVisibility). A vendor row or a
+                                 unit row never shows it.
+                                 Widths, measured (tools/combomeasure): the
+                                 widest option is the Spanish last one at
+                                 525.33px, so 534 leaves about 9px of slack, as
+                                 the Base Color card's pickers have. The label
+                                 column is 210 where a row's is 270, wide enough
+                                 for the widest label, the Spanish one at 158px.
+                                 That keeps the row at 776, inside the 780 that
+                                 card's picker rows take. Re-measure if these
+                                 strings change.
+                                 Typing a letter selects nothing here: it would
+                                 select the last option where that one is out
+                                 of the list. -->
+                            <StackPanel x:Name="PeripheralClaimLevelRow" Orientation="Horizontal" Margin="0,0,0,8" Visibility="Collapsed">
+                                <TextBlock Text="{Binding Pad_Lighting_ClaimLevel, Source={x:Static strings:Strings.Instance}}"
+                                           Style="{StaticResource DzLabel}" Width="210"/>
+                                <ComboBox x:Name="PeripheralClaimLevelPicker"
+                                          SelectedIndex="{Binding DeviceConfig.PeripheralClaimLevel, Mode=TwoWay, Converter={StaticResource EnumIndexConverter}}"
+                                          Width="534" VerticalAlignment="Center" IsTextSearchEnabled="False"
+                                          ToolTip="{Binding Pad_Lighting_ClaimLevel_Tooltip, Source={x:Static strings:Strings.Instance}}"
+                                          AutomationProperties.AutomationId="PeripheralClaimLevelCombo"
+                                          AutomationProperties.Name="{Binding Pad_Lighting_ClaimLevel, Source={x:Static strings:Strings.Instance}}">
+                                    <ComboBoxItem AutomationProperties.AutomationId="PeripheralClaimLevelColorsItem" Content="{Binding Pad_Lighting_ClaimLevel_Colors, Source={x:Static strings:Strings.Instance}}"/>
+                                    <ComboBoxItem AutomationProperties.AutomationId="PeripheralClaimLevelPowerItem" Content="{Binding Pad_Lighting_ClaimLevel_Power, Source={x:Static strings:Strings.Instance}}"/>
+                                    <ComboBoxItem x:Name="PeripheralClaimLevelHostModeItem" AutomationProperties.AutomationId="PeripheralClaimLevelHostModeItem" Content="{Binding Pad_Lighting_ClaimLevel_HostMode, Source={x:Static strings:Strings.Instance}}"/>
+                                </ComboBox>
+                                <reset:SettingResetButton Command="{Binding DeviceConfig.ResetPeripheralClaimLevelCommand}" SettingLabel="{Binding Pad_Lighting_ClaimLevel, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_DeviceSlotConfig_PeripheralClaimLevel"/>
+                            </StackPanel>
                             <TextBlock x:Name="PeripheralLightingRoute" Visibility="Collapsed"
                                        Foreground="{DynamicResource EmberBrush}" TextWrapping="Wrap"/>
                         </StackPanel>

@@ -1821,7 +1821,12 @@ namespace PadForge.Common.Input
             byte battery = (byte)Math.Clamp(charge < 0 ? 100 : charge, 0, 100);
             Common.Input.Peripherals.PeripheralLightingColor.Resolve(devCfg, fresh, last, peak, nowMs,
                 _randomColor, pulse, pulseIntensity, battery, slotNumber, out byte r, out byte g, out byte b);
-            Common.Input.Peripherals.PeripheralOutputs.SetLighting(guid, _padIndex, slotNumber, r, g, b);
+            // The claim carries the device's Lighting Hold, how firmly this
+            // slot may hold it while it lights it. A vendor row or a unit
+            // row has no such choice on its tab, so it asks for colors
+            // alone whatever its config holds.
+            int level = outputOnly ? 0 : (int)devCfg.PeripheralClaimLevel;
+            Common.Input.Peripherals.PeripheralOutputs.SetLighting(guid, _padIndex, slotNumber, r, g, b, level);
             return true;
         }
 

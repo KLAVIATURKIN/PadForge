@@ -2646,11 +2646,12 @@ namespace PadForge.Services
         /// DualSense mapped to an Xbox slot still has its lightbar driven by
         /// DeviceConfig. A destination device the source slot does not have
         /// takes a stand-in source device's settings and keeps its own
-        /// Control This Device's Lighting switch (#494), so a copy never
-        /// starts or stops a controller lighting a mouse or keyboard the
-        /// source never had. Extended custom layouts and MIDI CC/note ranges
-        /// are slot-shape data, so they only copy when both source and
-        /// destination share that output type. Mappings and per-device
+        /// Control This Device's Lighting switch and Lighting Hold (#494),
+        /// so a copy never starts or stops a controller lighting a mouse or
+        /// keyboard the source never had, and never holds one more firmly
+        /// than its own tab says. Extended custom layouts and MIDI CC/note
+        /// ranges are slot-shape data, so they only copy when both source
+        /// and destination share that output type. Mappings and per-device
         /// tuning live on PadSetting and are handled separately by the
         /// InputService copy path. This method fills the gap for tabs that
         /// live on PadViewModel.</summary>
@@ -2672,7 +2673,7 @@ namespace PadForge.Services
             // than flattening to one. A destination device the source slot did not
             // have falls back to a representative source config (a configured anchor,
             // else the first configured per-device entry), which is another device's,
-            // so it keeps its own lighting switch (ApplyStandInDeviceSlotConfigData).
+            // so it keeps its own lighting switch and hold (ApplyStandInDeviceSlotConfigData).
             dst.EnsureDeviceSlotConfigsForMappedDevices();
             var srcByGuid = src.PerDeviceSlotConfigs;
             var srcAnchor = src.DeviceConfig;
@@ -2872,7 +2873,10 @@ namespace PadForge.Services
                 || c.InputReactiveMode != ViewModels.InputReactiveMode.Off
                 // #494: a controller taking a mouse's or keyboard's lighting
                 // is a deliberate choice, even with every mode at default.
-                || c.PeripheralLightingEnabled);
+                || c.PeripheralLightingEnabled
+                // And so is a lighting hold raised above colors alone, with
+                // the switch on or off.
+                || c.PeripheralClaimLevel != ViewModels.PeripheralClaimLevel.Colors);
 
         /// <summary>VM-shape twin of <see cref="IsDeviceSlotConfigDataConfigured"/>,
         /// for the in-process Copy From path.</summary>
@@ -2904,7 +2908,8 @@ namespace PadForge.Services
                 || c.TouchpadSyntheticTouchPercent != 50
                 // Same overlay rule as the DTO twin above.
                 || c.InputReactiveMode != ViewModels.InputReactiveMode.Off
-                || c.PeripheralLightingEnabled);
+                || c.PeripheralLightingEnabled
+                || c.PeripheralClaimLevel != ViewModels.PeripheralClaimLevel.Colors);
 
         /// <summary>Paste companion. Applies a clipboard's device-config
         /// snapshot to the destination slot. Every per-device entry the
@@ -2915,8 +2920,8 @@ namespace PadForge.Services
         /// (DeviceGuid = Empty). Like the in-process Copy From, this runs
         /// whatever the slots' output types, since device features are
         /// physical-device passthrough, and a device that takes a stand-in
-        /// entry keeps its own Control This Device's Lighting switch
-        /// (#494).</summary>
+        /// entry keeps its own Control This Device's Lighting switch and
+        /// Lighting Hold (#494).</summary>
         public void ApplyDeviceSlotConfigsToSlot(int slotIndex,
             ViewModels.DeviceSlotConfigData[] configs)
         {
@@ -2974,22 +2979,32 @@ namespace PadForge.Services
 
         /// <summary>Applies another device's settings to a device, for a Copy
         /// From or a Paste whose source slot did not have it: every setting
-        /// but the Control This Device's Lighting switch (#494), which stays
-        /// the device's own. The switch is off by default so assigning a
-        /// keyboard for its keys never repaints it. A copy that carried a
-        /// mouse's switch onto that keyboard would start the controller
-        /// lighting it, and one that carried a DualSense's would stop the
-        /// controller lighting a mouse the user had set. The DTO's own value
-        /// is restored after, since a paste applies one stand-in to several
+        /// but the Control This Device's Lighting switch and the Lighting
+        /// Hold under it (#494), which stay the device's own. The switch is
+        /// off by default so assigning a keyboard for its keys never repaints
+        /// it. A copy that carried a mouse's switch onto that keyboard would
+        /// start the controller lighting it, and one that carried a
+        /// DualSense's would stop the controller lighting a mouse the user
+        /// had set. A hold is chosen for one device, for what that device
+        /// does while it is lit. Carried to another, it would keep that
+        /// device's lights from dimming, or switch its on-board memory mode
+        /// off, on a choice nobody made for it. The DTO's own values are
+        /// restored after, since a paste applies one stand-in to several
         /// devices.</summary>
         private static void ApplyStandInDeviceSlotConfigData(ViewModels.DeviceSlotConfig cfg,
             ViewModels.DeviceSlotConfigData standIn)
         {
             if (cfg == null || standIn == null) return;
             bool sourceSwitch = standIn.PeripheralLightingEnabled;
+            var sourceHold = standIn.PeripheralClaimLevel;
             standIn.PeripheralLightingEnabled = cfg.PeripheralLightingEnabled;
+            standIn.PeripheralClaimLevel = cfg.PeripheralClaimLevel;
             try { ApplyDeviceSlotConfigData(cfg, standIn); }
-            finally { standIn.PeripheralLightingEnabled = sourceSwitch; }
+            finally
+            {
+                standIn.PeripheralLightingEnabled = sourceSwitch;
+                standIn.PeripheralClaimLevel = sourceHold;
+            }
         }
 
         /// <summary>Snapshots the Extended custom layout on a single
@@ -3348,7 +3363,24 @@ namespace PadForge.Services
                                 : ViewModels.LightbarMode.Off;
                     cfg.LightbarPeriodMs = cfgData.LightbarPeriodMs;
                     cfg.LightbarColorCycleSmooth = cfgData.LightbarColorCycleSmooth;
-                    cfg.PeripheralLightingEnabled = cfgData.PeripheralLightingEnabled;
+                    // #494: the lighting switch and the Lighting Hold, in the
+                    // order that never claims a device at a hold neither the
+                    // outgoing nor the incoming settings asked for. Each
+                    // write runs a dispatcher pass of its own, and a lighting
+                    // worker can wake between the two. A device being taken
+                    // has its hold in place before it is taken, and one
+                    // being let go is let go before the hold on its record
+                    // changes.
+                    if (cfgData.PeripheralLightingEnabled)
+                    {
+                        cfg.PeripheralClaimLevel = cfgData.PeripheralClaimLevel;
+                        cfg.PeripheralLightingEnabled = true;
+                    }
+                    else
+                    {
+                        cfg.PeripheralLightingEnabled = false;
+                        cfg.PeripheralClaimLevel = cfgData.PeripheralClaimLevel;
+                    }
                     cfg.LightbarRainbowBrightness = cfgData.LightbarRainbowBrightness;
                     cfg.LightbarBatteryLowR  = cfgData.LightbarBatteryLowR;
                     cfg.LightbarBatteryLowG  = cfgData.LightbarBatteryLowG;
@@ -5123,6 +5155,7 @@ namespace PadForge.Services
                 LightbarPeriodMs = cfg.LightbarPeriodMs,
                 LightbarColorCycleSmooth = cfg.LightbarColorCycleSmooth,
                 PeripheralLightingEnabled = cfg.PeripheralLightingEnabled,
+                PeripheralClaimLevel = cfg.PeripheralClaimLevel,
                 LightbarRainbowBrightness = cfg.LightbarRainbowBrightness,
                 LightbarBatteryLowR  = cfg.LightbarBatteryLowR,
                 LightbarBatteryLowG  = cfg.LightbarBatteryLowG,

@@ -1703,6 +1703,7 @@
   <data name="Pad_Lighting_ClaimLevel_Power" xml:space="preserve"><value>色とライティングの電源</value></data>
   <data name="Pad_Lighting_ClaimLevel_HostMode" xml:space="preserve"><value>色、ライティングの電源、オンボードモードオフ</value></data>
   <data name="Pad_Lighting_ClaimLevel_Tooltip" xml:space="preserve"><value>「色のみ」では、デバイスの省電力と保存済みプロファイルはそのままです。デバイス自身のアイドル効果で色が消えてしまう場合は、「色とライティングの電源」を選択してください。デバイスは自分でライトを暗くしなくなります。デバイスが自身のプロファイルのライティングを色の上に表示する場合は、最後のオプションを選択してください。点灯している間はオンボードモードがオフになり、点灯をやめるとオンに戻ります。オフの間、デバイスに保存されたプロファイル (ボタン、DPI、ポーリングレート) は適用されません。</value></data>
+  <data name="Pad_Lighting_ClaimLevel_TooltipNoHostMode" xml:space="preserve"><value>「色のみ」では、デバイスの省電力と保存済みプロファイルはそのままです。デバイス自身のアイドル効果で色が消えてしまう場合は、「色とライティングの電源」を選択してください。デバイスは自分でライトを暗くしなくなります。</value></data>
   <data name="Pad_Lighting_RouteDirect" xml:space="preserve"><value>色は {0} に直接送られます。</value></data>
   <data name="Pad_Lighting_RouteDirectPower" xml:space="preserve"><value>色は {0} に直接送られます。点灯している間、デバイスは自分でライトを暗くしません。</value></data>
   <data name="Pad_Lighting_RouteDirectHostMode" xml:space="preserve"><value>色は {0} に直接送られます。点灯している間、デバイスのオンボードモードはオフになります。</value></data>

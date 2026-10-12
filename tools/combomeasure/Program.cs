@@ -96,8 +96,20 @@ internal static class Program
         "Pad_Lighting_InputReactive_Off", "Pad_Lighting_InputReactive_Random",
         "Pad_Lighting_InputReactive_Cycle", "Pad_Lighting_InputReactive_Fixed",
     };
+    // Peripheral lighting panel: the Lighting Hold picker (#494), a combo
+    // of its own above the Base Color card.
+    static readonly string[] LightingHoldKeys =
+    {
+        "Pad_Lighting_ClaimLevel_Colors", "Pad_Lighting_ClaimLevel_Power",
+        "Pad_Lighting_ClaimLevel_HostMode",
+    };
+    // The Lighting Hold row's label. Its column is narrower than a row's
+    // 270 so the row stays inside the width the Base Color card's rows
+    // take, and the widest label has to fit it.
+    const string LightingHoldLabelKey = "Pad_Lighting_ClaimLevel";
 
     static Dictionary<string, Dictionary<string, string>> _strings; // key -> (localeTag -> text)
+    static readonly List<(string Locale, TextBlock Label)> _labels = new();
 
     // The player-pattern combo's ContentTemplate, byte-identical in
     // layout to PadPage.xaml: an inner StackPanel of five 6px ellipses
@@ -166,6 +178,11 @@ internal static class Program
             foreach (var k in MicKeys)           AddCombo("Mic",           tag, _strings[k][tag], false);
             foreach (var k in LightbarKeys)      AddCombo("Lightbar",      tag, _strings[k][tag], false);
             foreach (var k in InputReactiveKeys) AddCombo("InputReactive", tag, _strings[k][tag], false);
+            foreach (var k in LightingHoldKeys)  AddCombo("LightingHold",  tag, _strings[k][tag], false);
+
+            var label = new TextBlock { Text = _strings[LightingHoldLabelKey][tag], HorizontalAlignment = HorizontalAlignment.Left };
+            panel.Children.Add(label);
+            _labels.Add((tag, label));
         }
 
         var win = new Window
@@ -197,7 +214,7 @@ internal static class Program
     static void Report(List<Rec> records)
     {
         var sb = new StringBuilder();
-        foreach (var combo in new[] { "Brightness", "Pattern", "Mic", "Lightbar", "InputReactive" })
+        foreach (var combo in new[] { "Brightness", "Pattern", "Mic", "Lightbar", "InputReactive", "LightingHold" })
         {
             var group = records.Where(r => r.Combo == combo).ToList();
             double max = group.Max(r => r.Cb.ActualWidth);
@@ -222,6 +239,15 @@ internal static class Program
         SharedMax("INDICATOR-LEDS SHARED MAX", "Brightness", "Pattern", "Mic");
         // Base Color (lightbar) card: mode combo + input-reactive overlay.
         SharedMax("LIGHTBAR SECTION SHARED MAX", "Lightbar", "InputReactive");
+        // Peripheral lighting panel: the Lighting Hold picker alone.
+        SharedMax("LIGHTING HOLD MAX", "LightingHold");
+
+        // And its label, plain text with no chrome around it.
+        double labelMax = _labels.Max(l => l.Label.ActualWidth);
+        var widest = _labels.First(l => Math.Abs(l.Label.ActualWidth - labelMax) < 0.01);
+        sb.AppendLine($"LIGHTING HOLD LABEL MAX = {labelMax:F2}");
+        sb.AppendLine($"   driven by {widest.Locale}: \"{Trunc(widest.Label.Text)}\"");
+        sb.AppendLine();
 
         var outPath = IOPath.Combine(AppContext.BaseDirectory, "..", "..", "..", "measure_out.txt");
         outPath = IOPath.GetFullPath(outPath);
@@ -235,7 +261,8 @@ internal static class Program
     static void LoadStrings()
     {
         var needed = BrightnessKeys.Concat(PatternKeys).Concat(MicKeys)
-            .Concat(LightbarKeys).Concat(InputReactiveKeys).ToHashSet();
+            .Concat(LightbarKeys).Concat(InputReactiveKeys).Concat(LightingHoldKeys)
+            .Append(LightingHoldLabelKey).ToHashSet();
         _strings = needed.ToDictionary(k => k, _ => new Dictionary<string, string>());
         // "en" MUST be processed first: the per-key fallback below reads the
         // already-loaded English value, so a reordered Locales array would make

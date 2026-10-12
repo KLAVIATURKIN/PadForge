@@ -1227,6 +1227,7 @@ public class Strings : INotifyPropertyChanged
     public string Pad_Lighting_ClaimLevel_Power => Get("Pad_Lighting_ClaimLevel_Power");
     public string Pad_Lighting_ClaimLevel_HostMode => Get("Pad_Lighting_ClaimLevel_HostMode");
     public string Pad_Lighting_ClaimLevel_Tooltip => Get("Pad_Lighting_ClaimLevel_Tooltip");
+    public string Pad_Lighting_ClaimLevel_TooltipNoHostMode => Get("Pad_Lighting_ClaimLevel_TooltipNoHostMode");
     public string Pad_Lighting_RouteDirect => Get("Pad_Lighting_RouteDirect");
     public string Pad_Lighting_RouteDirectPower => Get("Pad_Lighting_RouteDirectPower");
     public string Pad_Lighting_RouteDirectHostMode => Get("Pad_Lighting_RouteDirectHostMode");

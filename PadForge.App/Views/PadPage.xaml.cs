@@ -145,6 +145,56 @@ namespace PadForge.Views
             }));
         }
 
+        /// <summary>The lighting holds a mouse or keyboard offers above
+        /// colors alone (#494): 0 for none, 1 for its lighting power, 2 for
+        /// its on-board memory mode as well. Its links say so while a path
+        /// of its own lights it
+        /// (<see cref="PadForge.Common.Input.Peripherals.DeviceLinks.MaxClaimLevel"/>),
+        /// and its record keeps the answer while it sleeps or is unplugged
+        /// (<see cref="PadForge.Engine.Data.UserDevice.HasPeripheralLightingLevel1"/>
+        /// and <see cref="PadForge.Engine.Data.UserDevice.HasPeripheralLightingLevel2"/>),
+        /// so the Lighting Hold row and its options stay on the tab then.
+        /// The second hold is offered only on top of the first.</summary>
+        internal static int OfferedLightingHold(PadForge.Engine.Data.UserDevice ud)
+        {
+            if (ud == null) return 0;
+            int linked = PadForge.Common.Input.Peripherals.PeripheralOutputs.Links.For(ud.InstanceGuid)?.MaxClaimLevel ?? 0;
+            if (!ud.HasPeripheralLightingLevel1 && linked < 1) return 0;
+            return ud.HasPeripheralLightingLevel2 || linked >= 2 ? 2 : 1;
+        }
+
+        /// <summary>Shows the Lighting Hold row for a device that offers a
+        /// hold, and takes the last option out of its list for a device
+        /// that does not offer that one. The option stays in the list,
+        /// collapsed and disabled, so a choice of it saved earlier still
+        /// shows as the selection. Collapsed alone would leave it one arrow
+        /// key away: a closed ComboBox steps to the next item that is
+        /// enabled, whatever its visibility (dotnet/wpf, PresentationFramework,
+        /// ComboBox.cs:1549-1579, SelectItemHelper and IsSelectableHelper).
+        /// The picker's tooltip follows the list. Its last sentences say
+        /// when to choose the last option and what that switches off, so a
+        /// picker without the option takes the text that stops before
+        /// them, where "the last option" would name the wrong one.</summary>
+        internal static void ShowLightingHold(FrameworkElement row, ComboBox picker, ComboBoxItem hostModeItem, int offered)
+        {
+            if (row != null)
+                row.Visibility = offered >= 1 ? Visibility.Visible : Visibility.Collapsed;
+            if (hostModeItem != null)
+            {
+                hostModeItem.Visibility = offered >= 2 ? Visibility.Visible : Visibility.Collapsed;
+                hostModeItem.IsEnabled = offered >= 2;
+            }
+            if (picker != null)
+            {
+                string tooltip = offered >= 2
+                    ? nameof(Strings.Pad_Lighting_ClaimLevel_Tooltip)
+                    : nameof(Strings.Pad_Lighting_ClaimLevel_TooltipNoHostMode);
+                // Bound, never set, so the text follows a change of language.
+                if (BindingOperations.GetBinding(picker, ToolTipProperty)?.Path?.Path != tooltip)
+                    picker.SetBinding(ToolTipProperty, new Binding(tooltip) { Source = Strings.Instance });
+            }
+        }
+
         private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (_currentPadVm != null)
@@ -647,11 +697,23 @@ namespace PadForge.Views
             if (PeripheralLightingControlRow != null)
                 PeripheralLightingControlRow.Visibility = hasPeripheralLighting && !vendorLightingRow
                     ? Visibility.Visible : Visibility.Collapsed;
+            // The Lighting Hold row sits under the switch for a mouse or
+            // keyboard whose device offers a hold above colors alone. A
+            // vendor row or a unit row has no such choice, and its claim
+            // asks for colors alone.
+            int offeredHold = hasPeripheralLighting && !vendorLightingRow ? OfferedLightingHold(lightingRow) : 0;
+            ShowLightingHold(PeripheralClaimLevelRow, PeripheralClaimLevelPicker, PeripheralClaimLevelHostModeItem, offeredHold);
             if (PeripheralLightingRoute != null)
             {
+                // The hold this controller's claim carries, as the
+                // dispatcher hands it over. The line names what is held at
+                // no more than the device offers.
+                int claimLevel = vendorLightingRow ? 0
+                    : (int)(routeVm?.DeviceConfig?.PeripheralClaimLevel ?? ViewModels.PeripheralClaimLevel.Colors);
                 string route = hasPeripheralLighting
                     ? PadForge.Common.Input.Peripherals.PeripheralRouteText.Lighting(lightingRow, routeSlot,
-                        slotLive && (vendorLightingRow || routeVm?.DeviceConfig?.PeripheralLightingEnabled == true))
+                        slotLive && (vendorLightingRow || routeVm?.DeviceConfig?.PeripheralLightingEnabled == true),
+                        claimLevel)
                     : null;
                 PeripheralLightingRoute.Text = route ?? string.Empty;
                 PeripheralLightingRoute.Visibility = string.IsNullOrEmpty(route) ? Visibility.Collapsed : Visibility.Visible;
@@ -3133,8 +3195,10 @@ namespace PadForge.Views
                         SyncOneAudioHex(AudioHighHexBox, "High");
                     break;
                 // The route line follows the switch even where no claim
-                // changes, a device offline or asleep.
+                // changes, a device offline or asleep, and names the hold
+                // this controller asks for.
                 case nameof(ViewModels.DeviceSlotConfig.PeripheralLightingEnabled):
+                case nameof(ViewModels.DeviceSlotConfig.PeripheralClaimLevel):
                     SyncTabVisibility();
                     break;
                 // Palette items (LightbarPaletteEntry) carry their own

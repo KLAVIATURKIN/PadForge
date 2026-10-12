@@ -1702,6 +1702,7 @@
   <data name="Pad_Lighting_ClaimLevel_Power" xml:space="preserve"><value>颜色和灯光电源</value></data>
   <data name="Pad_Lighting_ClaimLevel_HostMode" xml:space="preserve"><value>颜色、灯光电源并关闭板载模式</value></data>
   <data name="Pad_Lighting_ClaimLevel_Tooltip" xml:space="preserve"><value>“仅颜色”不改动设备的节能功能和已保存的配置文件。如果设备自身的空闲效果会盖掉颜色，请选择“颜色和灯光电源”。之后设备不再自行调暗灯光。如果设备把自身配置文件的灯光显示在颜色之上，请选择最后一项。此时设备在点亮期间会关闭板载模式，停止点亮后恢复开启。模式关闭期间，保存在设备上的配置文件（按键、DPI 和轮询率）不生效。</value></data>
+  <data name="Pad_Lighting_ClaimLevel_TooltipNoHostMode" xml:space="preserve"><value>“仅颜色”不改动设备的节能功能和已保存的配置文件。如果设备自身的空闲效果会盖掉颜色，请选择“颜色和灯光电源”。之后设备不再自行调暗灯光。</value></data>
   <data name="Pad_Lighting_RouteDirect" xml:space="preserve"><value>颜色直接发送到 {0}。</value></data>
   <data name="Pad_Lighting_RouteDirectPower" xml:space="preserve"><value>颜色直接发送到 {0}。点亮期间，设备不会自行调暗灯光。</value></data>
   <data name="Pad_Lighting_RouteDirectHostMode" xml:space="preserve"><value>颜色直接发送到 {0}。点亮期间，设备的板载模式处于关闭状态。</value></data>
