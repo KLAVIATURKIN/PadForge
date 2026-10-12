@@ -27,6 +27,7 @@ namespace PadForge.Common.Input.Peripherals
             // that returns a device to its own effect.
 
             // SteelSeries.
+            Add(backends, OutputFamily.SteelSeriesUnit, () => new SteelSeriesDirectBackend());
 
             // Razer. Last of the lighting families: its hand-back can wait
             // on a lock other tools share.
