@@ -650,13 +650,17 @@
                              Legacy API mode. Uninstall (#175 destructive verb)
                              removes whichever runtime is installed, Microsoft's
                              or PadForge's, and asks first when it is Microsoft's
-                             bundle, whose tools Microsoft no longer offers. -->
+                             bundle, whose tools Microsoft no longer offers.
+                             While an uninstaller PadForge started still runs,
+                             both wait for it, and Install's tooltip, shown
+                             though the button is off, says so. -->
                         <StackPanel Grid.Column="1" Orientation="Horizontal"
                                     VerticalAlignment="Center">
                             <Button Content="{Binding Common_Install, Source={x:Static strings:Strings.Instance}}"
                                     Command="{Binding InstallMidiRuntimeCommand}"
                                     Style="{StaticResource EmberAccentButton}"
-                                    ToolTip="{Binding Settings_MidiInstallTooltip, Source={x:Static strings:Strings.Instance}}"
+                                    ToolTip="{Binding MidiInstallTooltip}"
+                                    ToolTipService.ShowOnDisabled="True"
                                     AutomationProperties.AutomationId="MidiRuntimeInstallButton"
                                     Visibility="{Binding CanInstallMidiRuntime, Converter={StaticResource BoolToVisibilityConverter}}"/>
                             <Button Content="{Binding Common_Uninstall, Source={x:Static strings:Strings.Instance}}"

@@ -199,6 +199,12 @@ namespace PadForge.Common.Input
         public int UdpPort => _port;
         public bool UdpEnabled => _udpEnabled;
         internal int BoundUdpPort => (_socket?.LocalEndPoint as IPEndPoint)?.Port ?? 0;
+        internal IPAddress BoundUdpAddress => (_socket?.LocalEndPoint as IPEndPoint)?.Address;
+
+        /// <summary>The local address the UDP socket binds. Every address in
+        /// the app, which takes a tracker on another PC. The tests pass
+        /// loopback, so the test host opens nothing the network can reach.</summary>
+        internal IPAddress UdpBindAddress { get; init; } = IPAddress.Any;
         public bool UdpBindFailed => _udpBindFailed;
         public bool FreeTrackEnabled => _freeTrackEnabled;
 
@@ -244,7 +250,7 @@ namespace PadForge.Common.Input
                     // on the same port) must surface as a conflict, not steal
                     // half the datagrams.
                     s.ExclusiveAddressUse = true;
-                    s.Bind(new IPEndPoint(IPAddress.Any, _port));
+                    s.Bind(new IPEndPoint(UdpBindAddress, _port));
                     _running = true;
                     _thread = new Thread(ReceiveLoop)
                     {
@@ -486,9 +492,10 @@ namespace PadForge.Common.Input
             try { _freeTrack?.Dispose(); } catch { }
             _freeTrack = null;
             // The OpenXR source owns native handles, so its stop is a real
-            // wait rather than a courtesy. It is bounded: every native call
-            // in its loop is a locate or an event poll, and neither blocks on
-            // a compositor.
+            // wait rather than a courtesy. It is bounded at two seconds
+            // (OpenXrHeadPoseSource.Stop): the loop's locates and event polls
+            // do not block on a compositor, and its waits for a headset or a
+            // returning runtime sleep in short slices.
             try { _openXr?.Dispose(); } catch { }
             _openXr = null;
             try { LeftHand?.Dispose(); } catch { }

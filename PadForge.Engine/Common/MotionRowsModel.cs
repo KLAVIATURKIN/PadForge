@@ -9,6 +9,12 @@ namespace PadForge.Engine.Common
     {
         public float Pitch, Yaw, Roll;
 
+        /// <summary>Beside each value, the row whose settings shape it when
+        /// that is not the row the engaged layer reads: a departed layer's
+        /// row that a menu commit made by leaving the layer reached (DC20).
+        /// Null for the engaged layer's row.</summary>
+        public PadForge.Engine.Data.MappingRow PitchRow, YawRow, RollRow;
+
         /// <summary>The Step 3 pass that computed the values. Zero means
         /// never.</summary>
         public long Frame;

@@ -82,4 +82,122 @@ namespace PadForge.Tests
             Assert.Equal(9, cfg.AudioCrossfeedLevel);
         }
     }
+
+    /// <summary>
+    /// Copy From and Paste land each source device's settings on the same
+    /// device, and a destination device the source slot did not have on a
+    /// stand-in source device's (#494). The stand-in is another device, so
+    /// its Control This Device's Lighting switch never travels: a mouse's
+    /// switch would make the destination controller take over a keyboard
+    /// assigned only for its keys, and a DualSense's would let go of a
+    /// keyboard the user had lit. The same device on both slots carries its
+    /// switch.
+    /// </summary>
+    [Collection("SettingsManagerStatics")]
+    public class DeviceSlotConfigStandInTests : IDisposable
+    {
+        private static readonly System.Guid Mouse = new("00000000-0000-0000-0000-00000000c0a1");
+        private static readonly System.Guid Keyboard = new("00000000-0000-0000-0000-00000000c0b2");
+        private static readonly System.Guid DualSense = new("00000000-0000-0000-0000-00000000c0c3");
+        private readonly PadForge.Common.Input.SettingsCollection _settings = PadForge.Common.Input.SettingsManager.UserSettings;
+        private readonly PadForge.Common.Input.DeviceCollection _devices = PadForge.Common.Input.SettingsManager.UserDevices;
+        private readonly bool[] _created = PadForge.Common.Input.SettingsManager.SlotCreated;
+        private readonly bool[] _enabled = PadForge.Common.Input.SettingsManager.SlotEnabled;
+        private readonly System.Action _afterRefresh = SettingsService.AfterMappingSetsRefreshed;
+
+        public DeviceSlotConfigStandInTests()
+        {
+            PadForge.Common.Input.SettingsManager.UserSettings = new PadForge.Common.Input.SettingsCollection();
+            PadForge.Common.Input.SettingsManager.UserDevices = new PadForge.Common.Input.DeviceCollection();
+            PadForge.Common.Input.SettingsManager.SlotCreated = new bool[PadForge.Common.Input.InputManager.MaxPads];
+            PadForge.Common.Input.SettingsManager.SlotEnabled = new bool[PadForge.Common.Input.InputManager.MaxPads];
+        }
+
+        public void Dispose()
+        {
+            PadForge.Common.Input.SettingsManager.UserSettings = _settings;
+            PadForge.Common.Input.SettingsManager.UserDevices = _devices;
+            PadForge.Common.Input.SettingsManager.SlotCreated = _created;
+            PadForge.Common.Input.SettingsManager.SlotEnabled = _enabled;
+            SettingsService.AfterMappingSetsRefreshed = _afterRefresh;
+        }
+
+        private static (MainViewModel Vm, SettingsService Settings) Arrange()
+        {
+            var vm = new MainViewModel();
+            return (vm, new SettingsService(vm));
+        }
+
+        [Fact]
+        public void CopyFrom_KeepsAnUnmatchedDevicesOwnSwitch()
+        {
+            var (vm, settings) = Arrange();
+            var mouse = vm.Pads[0].GetOrCreateDeviceConfig(Mouse);
+            mouse.PeripheralLightingEnabled = true;
+            mouse.LightbarMode = LightbarMode.Static;
+            var keyboard = vm.Pads[1].GetOrCreateDeviceConfig(Keyboard);
+
+            settings.CopySlotConfigsAcrossSlots(0, 1);
+
+            Assert.Equal(LightbarMode.Static, keyboard.LightbarMode);
+            Assert.False(keyboard.PeripheralLightingEnabled);
+            Assert.True(mouse.PeripheralLightingEnabled);
+        }
+
+        [Fact]
+        public void CopyFrom_NeverTurnsOffAnUnmatchedDevicesSwitch()
+        {
+            var (vm, settings) = Arrange();
+            var pad = vm.Pads[0].GetOrCreateDeviceConfig(DualSense);
+            pad.LightbarMode = LightbarMode.Static;
+            var keyboard = vm.Pads[1].GetOrCreateDeviceConfig(Keyboard);
+            keyboard.PeripheralLightingEnabled = true;
+
+            settings.CopySlotConfigsAcrossSlots(0, 1);
+
+            Assert.Equal(LightbarMode.Static, keyboard.LightbarMode);
+            Assert.True(keyboard.PeripheralLightingEnabled);
+        }
+
+        [Fact]
+        public void CopyFrom_CarriesTheSwitchForTheSameDevice()
+        {
+            var (vm, settings) = Arrange();
+            vm.Pads[0].GetOrCreateDeviceConfig(Mouse).PeripheralLightingEnabled = true;
+            var mouse = vm.Pads[1].GetOrCreateDeviceConfig(Mouse);
+
+            settings.CopySlotConfigsAcrossSlots(0, 1);
+
+            Assert.True(mouse.PeripheralLightingEnabled);
+        }
+
+        [Fact]
+        public void Paste_KeepsAnUnmatchedDevicesOwnSwitch_AndCarriesTheSameDevicesOwn()
+        {
+            var (vm, settings) = Arrange();
+            var keyboard = vm.Pads[1].GetOrCreateDeviceConfig(Keyboard);
+            var mouse = vm.Pads[1].GetOrCreateDeviceConfig(Mouse);
+            var standIn = new DeviceSlotConfigData
+            {
+                DeviceGuid = DualSense, LightingRev = 1, LightbarMode = LightbarMode.Static, PeripheralLightingEnabled = true,
+            };
+            var own = new DeviceSlotConfigData
+            {
+                DeviceGuid = Mouse, LightingRev = 1, LightbarMode = LightbarMode.Static, PeripheralLightingEnabled = true,
+            };
+
+            settings.ApplyDeviceSlotConfigsToSlot(1, new[] { standIn, own });
+
+            Assert.Equal(LightbarMode.Static, keyboard.LightbarMode);
+            Assert.False(keyboard.PeripheralLightingEnabled);
+            Assert.True(mouse.PeripheralLightingEnabled);
+            // The clipboard's own entry is left as it came.
+            Assert.True(standIn.PeripheralLightingEnabled);
+
+            keyboard.PeripheralLightingEnabled = true;
+            standIn.PeripheralLightingEnabled = false;
+            settings.ApplyDeviceSlotConfigsToSlot(1, new[] { standIn });
+            Assert.True(keyboard.PeripheralLightingEnabled);
+        }
+    }
 }

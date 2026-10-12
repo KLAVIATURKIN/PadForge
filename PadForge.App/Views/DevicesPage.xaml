@@ -1112,7 +1112,9 @@
                         <Separator Margin="0,2,0,8"
                                    Visibility="{Binding SelectedDevice.ShowInputModeOrHidingSection, Converter={StaticResource BoolToVisibilityConverter}}"/>
 
-                        <!-- ─── Input Mode (real gamepads only — virtual web/overlay sources skip) ─── -->
+                        <!-- ─── Input Mode: a gamepad row that is no source of PadForge's own (a web pad, a
+                             Remote Link copy), and any row whose Force Raw Joystick Mode is on, so the
+                             checkbox can turn it off (ShowInputModeSection) ─── -->
                         <StackPanel Visibility="{Binding SelectedDevice.ShowInputModeSection, Converter={StaticResource BoolToVisibilityConverter}}">
                             <TextBlock Text="{Binding Devices_InputMode, Source={x:Static strings:Strings.Instance}, Converter={StaticResource UpperConverter}}"
                                        Style="{StaticResource SectionEyebrow}" Margin="0,0,0,6"/>

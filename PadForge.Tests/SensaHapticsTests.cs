@@ -50,7 +50,7 @@ namespace PadForge.Tests
             [DllImport(Dll)] public static extern bool ProviderClean();
         }
 
-        /// <summary>HAR.dll and the Razer provider are x64 images, so the six
+        /// <summary>HAR.dll and the Razer provider are x64 images, so the
         /// tests that load them or need the worker they feed can run in an
         /// x64 test host and nowhere else. On an ARM64 host the first P/Invoke
         /// is a BadImageFormatException and the service reports Unsupported
@@ -218,6 +218,128 @@ namespace PadForge.Tests
             Assert.True(states.Count >= 2);
         }
 
+        /// <summary>The crash path's wait (#494): after the engine's quiesce
+        /// zeroes the level, the wait returns once the worker has rendered
+        /// the zero, which a slow tick renders a while after the quiesce.
+        /// What it answers for a service with no worker is held by
+        /// <see cref="WaitForSilence_AnswersAtOnceAfterAStopWhoseJoinGaveUp"/>.</summary>
+        [Fact]
+        public void WaitForSilence_ReturnsOnceTheZeroIsRendered()
+        {
+            if (!NativeEngineLoadsHere) return;
+            float level = 0.8f;
+            using var svc = new SensaHapticsService(30000, 200, SensaHapticsService.DefaultPredecessorJoinMs,
+                () => System.Threading.Volatile.Read(ref level));
+            svc.Start();
+            Assert.True(System.Threading.SpinWait.SpinUntil(() => svc.RenderedLevel > 0.5f, 5000), "the level was rendered");
+            Assert.False(svc.WaitForSilence(0), "the wait passed a level still rendering");
+
+            System.Threading.Volatile.Write(ref level, 0f);
+            Assert.True(svc.WaitForSilence(5000), "the worker never rendered the zero");
+            Assert.Equal(0f, svc.RenderedLevel);
+        }
+
+        /// <summary>The crash wait never passes a render in flight (#494). A
+        /// tick that read its level before the engine's quiesce zeroed it
+        /// still renders that level, so the wait holds until that tick has
+        /// ended and a later one has rendered the zero. The tick here is
+        /// held with the level in hand, read and not yet rendered, which is
+        /// where a wait that looked only at the last rendered level took
+        /// the zero before it for silence.</summary>
+        [Fact]
+        public void WaitForSilence_HoldsForATickThatReadItsLevelBeforeTheQuiesce()
+        {
+            if (!NativeEngineLoadsHere) return;
+            int levelBits = 0, reads = 0, held = 0;
+            using var read = new System.Threading.ManualResetEventSlim(false);
+            using var release = new System.Threading.ManualResetEventSlim(false);
+            using var svc = new SensaHapticsService(30000, 5, SensaHapticsService.DefaultPredecessorJoinMs, () =>
+            {
+                float level = BitConverter.Int32BitsToSingle(System.Threading.Volatile.Read(ref levelBits));
+                System.Threading.Interlocked.Increment(ref reads);
+                if (level != 0f && System.Threading.Interlocked.Exchange(ref held, 1) == 0)
+                {
+                    read.Set();
+                    release.Wait(10000);
+                }
+                return level;
+            });
+            try
+            {
+                svc.Start();
+                // A second read means a whole tick has rendered the zero.
+                Assert.True(System.Threading.SpinWait.SpinUntil(
+                    () => System.Threading.Volatile.Read(ref reads) >= 2, 5000), "the worker ticked");
+                Assert.Equal(0f, svc.RenderedLevel);
+
+                // The level rises, a tick reads it, and the quiesce zeroes it,
+                // interlocked as PeripheralOutputs.SilenceHaptics writes it.
+                System.Threading.Interlocked.Exchange(ref levelBits, BitConverter.SingleToInt32Bits(0.8f));
+                Assert.True(read.Wait(5000), "a tick read the raised level");
+                System.Threading.Interlocked.Exchange(ref levelBits, 0);
+                Assert.False(svc.WaitForSilence(200), "the wait passed a render in flight");
+
+                int before = System.Threading.Volatile.Read(ref reads);
+                release.Set();
+                Assert.True(svc.WaitForSilence(5000), "the worker never rendered the zero");
+                Assert.Equal(0f, svc.RenderedLevel);
+                Assert.True(System.Threading.Volatile.Read(ref reads) > before, "the zero came from no later tick");
+            }
+            finally { release.Set(); }
+        }
+
+        /// <summary>The crash wait answers at once for a service whose Stop
+        /// gave up on its join (#494). The worker is then no longer the
+        /// service's, and it can still hold a tick with a level in hand.
+        /// That is the one state the clause for a service with no worker
+        /// decides: the mark stays set until that worker comes back, so a
+        /// wait that looked at the mark and the rendered level alone spent
+        /// its whole budget on a service already stopped. The tick here is
+        /// held inside its level read, and Stop's join gives up after
+        /// 50 ms.</summary>
+        [Fact]
+        public void WaitForSilence_AnswersAtOnceAfterAStopWhoseJoinGaveUp()
+        {
+            if (!NativeEngineLoadsHere) return;
+            int held = 0;
+            System.Threading.Thread worker = null;
+            using var read = new System.Threading.ManualResetEventSlim(false);
+            using var release = new System.Threading.ManualResetEventSlim(false);
+            var svc = new SensaHapticsService(retryMs: 30000, tickMs: 5,
+                predecessorJoinMs: SensaHapticsService.DefaultPredecessorJoinMs, amplitude: () =>
+                {
+                    if (System.Threading.Interlocked.Exchange(ref held, 1) == 0)
+                    {
+                        System.Threading.Volatile.Write(ref worker, System.Threading.Thread.CurrentThread);
+                        read.Set();
+                        release.Wait(30000);
+                    }
+                    return 0.8f;
+                }, stopJoinMs: 50);
+            try
+            {
+                svc.Start();
+                Assert.True(read.Wait(10000), "the worker never read its level");
+                // Positive control: while the worker is still the service's,
+                // the tick in flight holds the wait.
+                Assert.False(svc.WaitForSilence(0), "the wait passed a tick in flight");
+
+                // Stop's join gives up with the tick still held in its read.
+                svc.Stop();
+                Assert.True(System.Threading.Volatile.Read(ref worker).IsAlive, "Stop must return with the tick still held");
+                Assert.False(svc.WorkerAlive);
+                Assert.True(svc.WaitForSilence(0), "a stopped service made the crash path wait");
+            }
+            finally
+            {
+                release.Set();
+                svc.Dispose();
+                // Stop joined 50 ms here, so let the worker finish its engine
+                // teardown before the next test touches the engine.
+                System.Threading.Volatile.Read(ref worker)?.Join(15000);
+            }
+        }
+
         /// <summary>F10: a worker still inside ProviderInit outlives its
         /// service's Stop (3 s join, then _thread nulled regardless). Its
         /// finally used to Har.Quit under the NEXT instance's engine. The
@@ -232,10 +354,12 @@ namespace PadForge.Tests
         {
             if (!NativeEngineLoadsHere) return;
             using var hold = new System.Threading.ManualResetEventSlim(false);
+            using var parked = new System.Threading.ManualResetEventSlim(false);
             System.Threading.Thread aThread = null;
             SensaHapticsService.BeforeProviderInit = () =>
             {
                 aThread ??= System.Threading.Thread.CurrentThread;
+                parked.Set();
                 hold.Wait(10000);
             };
             SensaHapticsService a = null, b = null;
@@ -248,6 +372,9 @@ namespace PadForge.Tests
                     System.Threading.Thread.Sleep(5);
                 Assert.True(a.EngineStarted);
                 Assert.True(a.ProviderInitAttempts >= 1, "worker A never reached the bring-up window");
+                // The worker counts the attempt before it runs the hook, so
+                // the count alone can be read before the hook has named A.
+                Assert.True(parked.Wait(5000), "worker A never entered the hook");
                 Assert.NotNull(aThread);
 
                 // Stop joins 3 s while A sits in the hook, then gives up
@@ -345,6 +472,68 @@ namespace PadForge.Tests
                 aThread?.Join(10000);
                 b?.Dispose();
                 a?.Dispose();
+            }
+        }
+
+        /// <summary>A Start on the same service after a Stop whose join gave
+        /// up leaves the old worker stopped. Start and Stop shared one flag,
+        /// so the Start cleared the stop under a worker still inside the
+        /// bring-up: it went on ticking, and its successor waited out the
+        /// predecessor join behind it and quit. Each Start now has its own
+        /// stop, so the old worker ends once it leaves the bring-up and the
+        /// successor brings the engine up after it. The hook holds the first
+        /// worker, and only it, inside the bring-up window.</summary>
+        [Fact]
+        public void Service_AStartAfterATimedOutStop_LeavesTheOldWorkerStopped()
+        {
+            if (!NativeEngineLoadsHere) return;
+            using var hold = new System.Threading.ManualResetEventSlim(false);
+            using var parked = new System.Threading.ManualResetEventSlim(false);
+            using var successor = new System.Threading.ManualResetEventSlim(false);
+            System.Threading.Thread first = null;
+            SensaHapticsService.BeforeProviderInit = () =>
+            {
+                var me = System.Threading.Thread.CurrentThread;
+                var holder = System.Threading.Interlocked.CompareExchange(ref first, me, null);
+                if (holder == null)
+                {
+                    parked.Set();
+                    hold.Wait(30000);
+                }
+                else if (holder != me) successor.Set();
+            };
+            var svc = new SensaHapticsService(retryMs: 50, tickMs: 5,
+                predecessorJoinMs: SensaHapticsService.DefaultPredecessorJoinMs, amplitude: () => 0f, stopJoinMs: 50);
+            try
+            {
+                svc.Start();
+                Assert.True(parked.Wait(5000), "the worker never reached the bring-up window");
+
+                // Stop's join gives up with the worker still parked in the hook.
+                svc.Stop();
+                Assert.True(first.IsAlive, "Stop must return with the worker parked in the hook");
+                Assert.False(svc.WorkerAlive);
+
+                svc.Start();
+                Assert.True(svc.WorkerAlive);
+
+                hold.Set();
+                Assert.True(first.Join(10000), "the old worker kept running after a later Start");
+                // The successor was waiting on it, and now runs its own bring-up.
+                Assert.True(successor.Wait(10000), "the successor never reached its own bring-up");
+                Assert.True(svc.WorkerAlive, "the successor quit");
+            }
+            finally
+            {
+                hold.Set();
+                SensaHapticsService.BeforeProviderInit = null;
+                svc.Dispose();
+                // Dispose joined 50 ms here, so let both workers finish their
+                // engine teardown before the next test touches the engine.
+                first?.Join(10000);
+                (typeof(SensaHapticsService)
+                    .GetField("s_lastWorker", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)
+                    ?.GetValue(null) as System.Threading.Thread)?.Join(15000);
             }
         }
 

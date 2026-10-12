@@ -5,29 +5,127 @@ using static PadForge.Engine.Common.OpenXr.OpenXrInterop;
 
 namespace PadForge.Engine.Common.OpenXr
 {
+    /// <summary>Why the session, or the instance under it, went away, as the
+    /// event pump reads it.</summary>
+    internal enum OpenXrSessionEnd
+    {
+        /// <summary>Nothing ended.</summary>
+        None,
+        /// <summary>XR_SESSION_STATE_EXITING: the runtime wants the XR
+        /// experience over and not restarted.</summary>
+        Exiting,
+        /// <summary>XR_SESSION_STATE_LOSS_PENDING: the session is lost and
+        /// the instance stays.</summary>
+        SessionLost,
+        /// <summary>XrEventDataInstanceLossPending: the runtime retires the
+        /// instance at a set time, as for an update. SteamVR also sends it
+        /// to an instance that has no session when SteamVR quits.</summary>
+        InstanceLossPending,
+        /// <summary>xrPollEvent answered XR_ERROR_INSTANCE_LOST.</summary>
+        InstanceLost,
+        /// <summary>xrPollEvent failed another way.</summary>
+        PollFailed,
+        /// <summary>The runtime refused xrBeginSession, so the session it
+        /// created never runs and has no pose to give.</summary>
+        BeginRefused,
+    }
+
+    /// <summary>What an attempt to create a session came to.</summary>
+    internal enum OpenXrSessionCreate
+    {
+        Created,
+        /// <summary>xrGetSystem answered XR_ERROR_FORM_FACTOR_UNAVAILABLE: the
+        /// headset is not there now and can be later.</summary>
+        HeadsetUnavailable,
+        /// <summary>No session, for a reason the failure state names.</summary>
+        Failed,
+        /// <summary>xrCreateReferenceSpace answered XR_ERROR_SESSION_LOST:
+        /// the runtime lost the session as it was created and gave no grace
+        /// period. What was built of it is destroyed and the instance
+        /// stays, so the source asks again as after any lost session.</summary>
+        SessionLost,
+    }
+
+    /// <summary>The runtime as <see cref="OpenXrHeadPoseSource"/> uses it: one
+    /// instance, and the session on it when there is one.
+    /// <see cref="OpenXrSession"/> is the real one, and the tests stand a
+    /// scripted one in its place.</summary>
+    internal interface IOpenXrLink : IDisposable
+    {
+        string RuntimeName { get; }
+
+        /// <summary>The manifest this runtime was negotiated from. A new
+        /// instance after a retired one is asked of this manifest and of no
+        /// other.</summary>
+        string ManifestPath { get; }
+
+        bool HasSession { get; }
+        bool HasControllers { get; }
+
+        /// <summary>True when the runtime's library is an OpenVR client
+        /// library, as SteamVR's is. The source then keeps no instance
+        /// without a session and creates none on its own
+        /// (<see cref="OpenXrSession.IsOpenVrClientLibrary"/>).</summary>
+        bool SharesOpenVrClient { get; }
+
+        /// <summary>Milliseconds to wait before asking for a new instance,
+        /// read off the last instance-loss event.</summary>
+        long InstanceLossWaitMs { get; }
+
+        /// <summary>Asks the runtime for its headset and creates a session on
+        /// it. With <see cref="OpenXrSessionCreate.Failed"/> the state says
+        /// why. <paramref name="read"/> is what the runtime answered when
+        /// no session came of the ask, the call and its result, for the one
+        /// line the source writes about it. The link writes none itself.</summary>
+        OpenXrSessionCreate TryCreateSession(out OpenXrSourceState failure, out string read);
+
+        /// <summary>Drains the event queue, and says what ended, if
+        /// anything. <paramref name="read"/> is what was read when
+        /// something ended, the event or the failed call with its result,
+        /// and null otherwise.</summary>
+        OpenXrSessionEnd PumpEvents(out bool referenceSpaceChanged, out string read);
+
+        /// <summary>Destroys the session, its spaces and its actions, and
+        /// keeps the instance.</summary>
+        void DestroySession();
+
+        void ReadHands(ref OpenXrHeadPose.Baseline left, ref OpenXrHeadPose.Baseline right,
+                       out OpenXrHandState leftState, out OpenXrHandState rightState);
+
+        bool TryLocateHead(out XrVector3f position, out XrQuaternionf orientation);
+    }
+
     /// <summary>
     /// One negotiated runtime, instance, headless session and reference
     /// space, owned together because they are destroyed in that order
-    /// (issue #403).
+    /// (issue #403). The session can go and come back on the same instance
+    /// (<see cref="DestroySession"/>, <see cref="TryCreateSession"/>).
     ///
     /// <para>Everything here runs on the sampling thread. Nothing is
     /// thread-safe and nothing needs to be.</para>
     /// </summary>
-    internal sealed unsafe class OpenXrSession : IDisposable
+    internal sealed unsafe class OpenXrSession : IOpenXrLink
     {
-        private IntPtr _module;
         private ulong _instance;
         private ulong _session;
         private ulong _baseSpace;
         private ulong _viewSpace;
         private int _sessionState = XR_SESSION_STATE_IDLE;
         private bool _began;
+        // Polls in a row that stopped at the bound on events per poll, and
+        // whether the log already holds the line about a state event naming
+        // another session, and the one about a reference space event that
+        // does.
+        private int _fullPolls;
+        private bool _strangerStateSaid;
+        private bool _strangerSpaceSaid;
         private IntPtr _eventBuffer;
         private OpenXrActions _actions;
         private readonly Action<string> _log;
 
         private PFN_xrGetInstanceProcAddr _getProc;
         private PFN_xrDestroyInstance _destroyInstance;
+        private PFN_xrGetSystem _getSystem;
         private PFN_xrCreateSession _createSession;
         private PFN_xrDestroySession _destroySession;
         private PFN_xrBeginSession _beginSession;
@@ -39,68 +137,234 @@ namespace PadForge.Engine.Common.OpenXr
 
         public string RuntimeName { get; private set; } = string.Empty;
 
-        private OpenXrSession(Action<string> log) => _log = log ?? (_ => { });
+        public string ManifestPath { get; private set; } = string.Empty;
+
+        public bool HasSession => _session != 0;
+
+        public bool SharesOpenVrClient { get; private set; }
 
         /// <summary>
-        /// Negotiates with a runtime and brings up a headless session, or
-        /// returns null with the reason. The reason is a state rather than an
-        /// exception because every one of them is an ordinary machine
-        /// configuration, not a fault.
+        /// Whether a runtime library is an OpenVR client library: SteamVR's
+        /// OpenXR runtime is vrclient_x64.dll (its steamxr_win64.json names
+        /// bin\vrclient_x64.dll), the library openvr_api.dll loads for an
+        /// OpenVR application too.
+        ///
+        /// <para>That library keeps one client per process, whoever asks. A
+        /// second VR_Init or xrCreateInstance rides on the first, and the
+        /// first VR_Shutdown or xrDestroyInstance takes the client down for
+        /// both. It logs both as "Behavior is undefined" (read from the
+        /// vrclient_x64.dll of SteamVR 2.17.10). PadForge's OpenVR input
+        /// (OpenVrConsumerService) uses that client in this process, coming
+        /// and going with SteamVR, so an OpenXR instance kept with no session,
+        /// or created again by a retry, would share its client for as long as
+        /// it stood.</para>
+        ///
+        /// <para>Two more facts from the same library weigh the same way. It
+        /// tells an instance that has no session that SteamVR is quitting
+        /// through XrEventDataInstanceLossPending, where a new instance would
+        /// start SteamVR again. And it never moves a session to
+        /// XR_SESSION_STATE_LOSS_PENDING, so there is no lost session to bring
+        /// back.</para>
         /// </summary>
-        public static OpenXrSession TryCreate(string manifestPath, Action<string> log,
-                                              out OpenXrSourceState failure)
+        internal static bool IsOpenVrClientLibrary(string libraryPath)
+        {
+            if (string.IsNullOrWhiteSpace(libraryPath)) return false;
+            string name;
+            try { name = System.IO.Path.GetFileNameWithoutExtension(libraryPath); }
+            catch (ArgumentException) { return false; }
+            return name != null && name.StartsWith("vrclient", StringComparison.OrdinalIgnoreCase);
+        }
+
+        /// <summary>Milliseconds from the last instance-loss event to a little
+        /// past its loss time, on the runtime's clock.</summary>
+        public long InstanceLossWaitMs { get; private set; }
+
+        /// <summary>The longest wait an instance-loss event can ask for. A loss
+        /// time further out than this is not believed, and the creation retry
+        /// after it covers a runtime that is still away.</summary>
+        private const long MaxInstanceLossWaitMs = 300_000;
+
+        private OpenXrSession(Action<string> log) => _log = log ?? (_ => { });
+
+        /// <summary>Loads a runtime's library and negotiates with it: the
+        /// runtime's xrGetInstanceProcAddr, or null with what was read.
+        /// Production goes through <see cref="LoadRuntime"/>, and the tests
+        /// hand in a managed runtime here, so they load nothing.</summary>
+        internal delegate PFN_xrGetInstanceProcAddr RuntimeLoader(OpenXrRuntimeEntry entry, out string read);
+
+        /// <summary>
+        /// Negotiates with a runtime and creates an instance, or returns null
+        /// with the reason. The session comes from
+        /// <see cref="TryCreateSession"/>. The reason is a state rather than
+        /// an exception because every one of them is an ordinary machine
+        /// configuration, not a fault.
+        ///
+        /// <para><paramref name="read"/> is what was read when no instance
+        /// came of it: the file that was missing, or the call and its
+        /// result. The caller writes the one line about it, since it knows
+        /// what the answer means for it, and nothing is written here.</para>
+        ///
+        /// <para><paramref name="runtimeUnavailable"/> says the runtime is
+        /// away. It answered XR_ERROR_RUNTIME_UNAVAILABLE while the instance
+        /// was set up, which it answers during maintenance (instance.adoc,
+        /// XrEventDataInstanceLossPending), or it could not be found, loaded
+        /// or negotiated with. The Khronos loader reports those states under
+        /// the same code (OpenXR-SDK src/loader/runtime_interface.cpp,
+        /// RuntimeInterface::LoadRuntime), and a runtime being updated is in
+        /// one of them for as long as its files are off disk.</para>
+        ///
+        /// <para><paramref name="again"/> is set when the source asks on its
+        /// own for a new instance after a retired one. The manifest then
+        /// names the runtime by itself. The registered runtimes are not read,
+        /// so the ask cannot pass to another runtime, and no instance is
+        /// created on an OpenVR client library
+        /// (<see cref="IsOpenVrClientLibrary"/>): asking SteamVR for an
+        /// instance starts SteamVR.</para>
+        /// </summary>
+        public static OpenXrSession TryCreate(string manifestPath, bool again, Action<string> log,
+                                              out OpenXrSourceState failure, out bool runtimeUnavailable,
+                                              out string read)
+        {
+            // Open in the app. Closed to a test, which gets an exception
+            // here in place of whichever runtime the PC has registered.
+            VrRuntimeGate.Enter("OpenXrSession.TryCreate, the opener the app uses");
+            return TryCreate(manifestPath, again, log, LoadRuntime, OpenXrRuntimeCatalog.Discover,
+                             out failure, out runtimeUnavailable, out read);
+        }
+
+        /// <summary>The same, with the two things that reach outside the
+        /// process handed in: the loader of the runtime's library and the
+        /// list of registered runtimes. Every test opens through this one
+        /// with its own two. The opener above loads whichever runtime the
+        /// PC has registered, and asking SteamVR for an instance starts
+        /// SteamVR, so it and <see cref="LoadRuntime"/> refuse a test
+        /// (<see cref="VrRuntimeGate"/>).</summary>
+        internal static OpenXrSession TryCreate(string manifestPath, bool again, Action<string> log,
+                                                RuntimeLoader load,
+                                                Func<IReadOnlyList<OpenXrRuntimeEntry>> discover,
+                                                out OpenXrSourceState failure, out bool runtimeUnavailable,
+                                                out string read)
         {
             failure = OpenXrSourceState.Failed;
+            runtimeUnavailable = false;
+            read = null;
             var session = new OpenXrSession(log);
             try
             {
-                var entry = Choose(manifestPath);
-                if (entry == null || !entry.LibraryExists)
+                if (again && string.IsNullOrWhiteSpace(manifestPath))
                 {
-                    failure = OpenXrSourceState.NoRuntime;
+                    // Nothing names the runtime that was in use, and the
+                    // choice is not read in its place.
+                    read = "no manifest names the runtime that was in use";
+                    failure = OpenXrSourceState.Ended;
                     session.Dispose();
                     return null;
                 }
 
-                if (!session.Negotiate(entry, out failure)) { session.Dispose(); return null; }
-                if (!session.CreateInstance(out failure)) { session.Dispose(); return null; }
-                if (!session.CreateSession(out failure)) { session.Dispose(); return null; }
-                failure = OpenXrSourceState.Running;
+                var entry = Choose(manifestPath, discover, out read);
+                if (entry != null && again && IsOpenVrClientLibrary(entry.LibraryPath))
+                {
+                    read = $"{entry.ManifestPath} names an OpenVR client library, {entry.LibraryPath}, " +
+                           "where a request for an instance starts SteamVR";
+                    failure = OpenXrSourceState.Ended;
+                    session.Dispose();
+                    return null;
+                }
+                if (entry != null && !entry.LibraryExists)
+                {
+                    read = $"the library of {entry.Name}, {entry.LibraryPath}, is not on disk";
+                    entry = null;
+                }
+
+                if (entry != null) session._getProc = load(entry, out read);
+                if (session._getProc == null)
+                {
+                    read ??= $"the library of {entry?.Name} gave no xrGetInstanceProcAddr";
+                    failure = OpenXrSourceState.NoRuntime;
+                    runtimeUnavailable = true;
+                    session.Dispose();
+                    return null;
+                }
+                session.RuntimeName = entry.Name;
+                session.ManifestPath = entry.ManifestPath;
+                session.SharesOpenVrClient = IsOpenVrClientLibrary(entry.LibraryPath);
+
+                if (!session.CreateInstance(out failure, out runtimeUnavailable, out read))
+                {
+                    session.Dispose();
+                    return null;
+                }
+                failure = OpenXrSourceState.Connecting;
+                read = null;
                 return session;
             }
             catch (Exception ex)
             {
-                log?.Invoke("OpenXR: session setup failed: " + ex.Message);
+                read = "the setup threw: " + ex.Message;
                 session.Dispose();
                 failure = OpenXrSourceState.Failed;
+                runtimeUnavailable = false;
                 return null;
             }
         }
 
-        private static OpenXrRuntimeEntry Choose(string manifestPath)
+        /// <summary>The runtime to open: the one a manifest names when a
+        /// manifest is given, and otherwise the first registered runtime
+        /// whose library is on disk, the active one first. Null when there is
+        /// none, with what was read.</summary>
+        private static OpenXrRuntimeEntry Choose(string manifestPath,
+                                                 Func<IReadOnlyList<OpenXrRuntimeEntry>> discover,
+                                                 out string read)
         {
+            read = null;
             if (!string.IsNullOrWhiteSpace(manifestPath))
             {
+                OpenXrRuntimeEntry named = null;
+                bool onDisk = false;
                 try
                 {
-                    if (System.IO.File.Exists(manifestPath))
-                        return OpenXrRuntimeCatalog.TryParseManifest(
+                    onDisk = System.IO.File.Exists(manifestPath);
+                    if (onDisk)
+                        named = OpenXrRuntimeCatalog.TryParseManifest(
                             manifestPath, System.IO.File.ReadAllText(manifestPath));
                 }
                 catch (Exception) { }
-                return null;
+                if (named == null)
+                    read = onDisk
+                        ? $"{manifestPath} does not read as a runtime manifest"
+                        : $"the runtime manifest {manifestPath} is not on disk";
+                return named;
             }
-            foreach (var entry in OpenXrRuntimeCatalog.Discover())
+            foreach (var entry in discover())
                 if (entry.LibraryExists) return entry;
+            read = "no registered runtime has its library on disk";
             return null;
         }
 
-        private bool Negotiate(OpenXrRuntimeEntry entry, out OpenXrSourceState failure)
+        /// <summary>
+        /// Loads the manifest's library and negotiates with it: the runtime's
+        /// xrGetInstanceProcAddr, or null with what was read.
+        ///
+        /// <para>The library is deliberately left loaded. A runtime that has
+        /// had an instance created and destroyed does not always survive
+        /// being unloaded and reloaded in the same process, and the handle
+        /// costs nothing.</para>
+        /// </summary>
+        private static PFN_xrGetInstanceProcAddr LoadRuntime(OpenXrRuntimeEntry entry, out string read)
         {
-            failure = OpenXrSourceState.NoRuntime;
-            if (!NativeLibrary.TryLoad(entry.LibraryPath, out _module)) return false;
-            if (!NativeLibrary.TryGetExport(_module, "xrNegotiateLoaderRuntimeInterface", out var negotiatePtr))
-                return false;
+            read = null;
+            // The last step before a runtime's library is in the process.
+            VrRuntimeGate.Enter($"the library of {entry.Name}, {entry.LibraryPath}");
+            if (!NativeLibrary.TryLoad(entry.LibraryPath, out IntPtr module))
+            {
+                read = $"the library of {entry.Name}, {entry.LibraryPath}, did not load";
+                return null;
+            }
+            if (!NativeLibrary.TryGetExport(module, "xrNegotiateLoaderRuntimeInterface", out var negotiatePtr))
+            {
+                read = $"the library of {entry.Name} exports no xrNegotiateLoaderRuntimeInterface";
+                return null;
+            }
 
             var negotiate = Marshal.GetDelegateForFunctionPointer<PFN_xrNegotiateLoaderRuntimeInterface>(
                 negotiatePtr);
@@ -125,15 +389,21 @@ namespace PadForge.Engine.Common.OpenXr
             int result = negotiate(ref info, ref request);
             if (result != XR_SUCCESS || request.getInstanceProcAddr == IntPtr.Zero)
             {
-                _log($"OpenXR: {entry.Name} declined negotiation ({result})");
-                return false;
+                read = NegotiationRead(entry.Name, result);
+                return null;
             }
 
-            _getProc = Marshal.GetDelegateForFunctionPointer<PFN_xrGetInstanceProcAddr>(
+            return Marshal.GetDelegateForFunctionPointer<PFN_xrGetInstanceProcAddr>(
                 request.getInstanceProcAddr);
-            RuntimeName = entry.Name;
-            return true;
         }
+
+        /// <summary>What a negotiation that gave no xrGetInstanceProcAddr
+        /// answered, as it is handed back. It stands apart from the call so
+        /// the tests reach its text, which they cannot reach through a
+        /// runtime's library.</summary>
+        internal static string NegotiationRead(string runtime, int result)
+            => $"{runtime} answered xrNegotiateLoaderRuntimeInterface with {Number(result)}" +
+               (result == XR_SUCCESS ? " and no xrGetInstanceProcAddr" : string.Empty);
 
         private T Resolve<T>(string name) where T : Delegate
         {
@@ -142,20 +412,42 @@ namespace PadForge.Engine.Common.OpenXr
             return Marshal.GetDelegateForFunctionPointer<T>(fn);
         }
 
-        private bool CreateInstance(out OpenXrSourceState failure)
+        /// <summary>Lists the runtime's extensions and creates the instance.
+        /// <paramref name="runtimeUnavailable"/> is set when either call
+        /// answers XR_ERROR_RUNTIME_UNAVAILABLE, the code for a runtime that
+        /// is away (xr.xml lists it for both). <paramref name="read"/> is
+        /// what the runtime answered when no instance came of it.</summary>
+        private bool CreateInstance(out OpenXrSourceState failure, out bool runtimeUnavailable, out string read)
         {
             failure = OpenXrSourceState.NotSupported;
+            runtimeUnavailable = false;
+            read = null;
 
             var enumerate = Resolve<PFN_xrEnumerateInstanceExtensionProperties>(
                 "xrEnumerateInstanceExtensionProperties");
             var create = Resolve<PFN_xrCreateInstance>("xrCreateInstance");
-            if (enumerate == null || create == null) return false;
+            if (enumerate == null || create == null)
+            {
+                read = $"{RuntimeName} hands out no " +
+                       (enumerate == null ? "xrEnumerateInstanceExtensionProperties" : "xrCreateInstance");
+                return false;
+            }
 
-            var extensions = ReadExtensions(enumerate);
+            var extensions = ReadExtensions(enumerate, out int listed);
+            if (listed != XR_SUCCESS)
+            {
+                // A listing that failed says nothing about what the runtime
+                // offers, so it is not read as a runtime without
+                // XR_MND_headless. It used to be, about a runtime a session
+                // had just run on.
+                read = $"{RuntimeName} answered xrEnumerateInstanceExtensionProperties with {Number(listed)}";
+                runtimeUnavailable = listed == XR_ERROR_RUNTIME_UNAVAILABLE;
+                return false;
+            }
             if (!extensions.Contains(XR_MND_HEADLESS_EXTENSION_NAME))
             {
-                _log($"OpenXR: {RuntimeName} does not offer {XR_MND_HEADLESS_EXTENSION_NAME}, " +
-                     "so a background session would need to own the display");
+                read = $"{RuntimeName} lists no {XR_MND_HEADLESS_EXTENSION_NAME}, " +
+                       "so a background session would need to own the display";
                 return false;
             }
 
@@ -189,7 +481,8 @@ namespace PadForge.Engine.Common.OpenXr
                 int result = create(ref info, out _instance);
                 if (result != XR_SUCCESS)
                 {
-                    _log($"OpenXR: {RuntimeName} refused an instance ({result})");
+                    read = $"{RuntimeName} answered xrCreateInstance with {Number(result)}";
+                    runtimeUnavailable = result == XR_ERROR_RUNTIME_UNAVAILABLE;
                     return false;
                 }
             }
@@ -201,6 +494,7 @@ namespace PadForge.Engine.Common.OpenXr
             }
 
             _destroyInstance = Resolve<PFN_xrDestroyInstance>("xrDestroyInstance");
+            _getSystem = Resolve<PFN_xrGetSystem>("xrGetSystem");
             _createSession = Resolve<PFN_xrCreateSession>("xrCreateSession");
             _destroySession = Resolve<PFN_xrDestroySession>("xrDestroySession");
             _beginSession = Resolve<PFN_xrBeginSession>("xrBeginSession");
@@ -218,19 +512,37 @@ namespace PadForge.Engine.Common.OpenXr
             }
 
             ReadRuntimeName();
-            // Only claim Running once the entry points this needs are all
-            // there. Setting it before the check reported a healthy source
-            // for a runtime that never started.
-            bool complete = _createSession != null && _createSpace != null
-                && _locateSpace != null && _pollEvent != null;
-            failure = complete ? OpenXrSourceState.Running : OpenXrSourceState.NotSupported;
-            return complete;
+            // Only claim success once the entry points this needs are all
+            // there. Claiming it before the check reported a healthy source
+            // for a runtime that never started. xrGetSystem is one of them:
+            // without it the ask for the headset failed with nothing in the
+            // log, and read as a runtime that reports no headset.
+            // xrBeginSession is another: a session that cannot begin has no
+            // pose to give, and the row waited on it for one.
+            var lacking = new List<string>();
+            if (_getSystem == null) lacking.Add("xrGetSystem");
+            if (_createSession == null) lacking.Add("xrCreateSession");
+            if (_beginSession == null) lacking.Add("xrBeginSession");
+            if (_createSpace == null) lacking.Add("xrCreateReferenceSpace");
+            if (_locateSpace == null) lacking.Add("xrLocateSpace");
+            if (_pollEvent == null) lacking.Add("xrPollEvent");
+            if (lacking.Count != 0)
+            {
+                read = $"{RuntimeName} hands out no {string.Join(", ", lacking)}";
+                return false;
+            }
+            failure = OpenXrSourceState.Connecting;
+            return true;
         }
 
-        private HashSet<string> ReadExtensions(PFN_xrEnumerateInstanceExtensionProperties enumerate)
+        /// <summary>The names of the extensions the runtime lists.
+        /// <paramref name="listed"/> is what the listing answered, from the
+        /// call that asks for the count or the one that fills the list.</summary>
+        private HashSet<string> ReadExtensions(PFN_xrEnumerateInstanceExtensionProperties enumerate, out int listed)
         {
             var names = new HashSet<string>(StringComparer.Ordinal);
-            if (enumerate(null, 0, out uint count, IntPtr.Zero) != XR_SUCCESS || count == 0)
+            listed = enumerate(null, 0, out uint count, IntPtr.Zero);
+            if (listed != XR_SUCCESS || count == 0)
                 return names;
             int stride = sizeof(XrExtensionProperties);
             IntPtr buffer = Marshal.AllocHGlobal(stride * (int)count);
@@ -242,7 +554,8 @@ namespace PadForge.Engine.Common.OpenXr
                     p->type = XR_TYPE_EXTENSION_PROPERTIES;
                     p->next = IntPtr.Zero;
                 }
-                if (enumerate(null, count, out uint written, buffer) != XR_SUCCESS) return names;
+                listed = enumerate(null, count, out uint written, buffer);
+                if (listed != XR_SUCCESS) return names;
                 for (uint i = 0; i < written; i++)
                 {
                     var p = (XrExtensionProperties*)((byte*)buffer + i * stride);
@@ -270,21 +583,58 @@ namespace PadForge.Engine.Common.OpenXr
             finally { Marshal.FreeHGlobal(buffer); }
         }
 
-        private bool CreateSession(out OpenXrSourceState failure)
+        /// <summary>
+        /// Asks the runtime for its headset (xrGetSystem) and creates a
+        /// headless session on it, with its reference spaces and actions.
+        ///
+        /// <para>XR_ERROR_FORM_FACTOR_UNAVAILABLE means the headset is not
+        /// there now, and the runtime may answer the same call with success
+        /// later (system.adoc, xrGetSystem), so it is
+        /// <see cref="OpenXrSessionCreate.HeadsetUnavailable"/> and the
+        /// instance stays for the next ask.</para>
+        ///
+        /// <para>XR_ERROR_SESSION_LOST from xrCreateReferenceSpace is a
+        /// session the runtime lost as it was created: a runtime that
+        /// cannot give a lost session a grace period may answer it
+        /// (session.adoc, XR_SESSION_STATE_LOSS_PENDING). It is
+        /// <see cref="OpenXrSessionCreate.SessionLost"/>, with what was
+        /// built destroyed again, and the instance stays for the next ask
+        /// here too.</para>
+        ///
+        /// <para>Anything else that is not a session is
+        /// <see cref="OpenXrSessionCreate.Failed"/>: final, with the call
+        /// and its result in <paramref name="read"/> and a session half
+        /// built destroyed again. The state says why. A lost instance is
+        /// <see cref="OpenXrSourceState.Ended"/>, whichever call reports it.
+        /// Any other error from xrGetSystem is
+        /// <see cref="OpenXrSourceState.Failed"/>, a call that failed. A
+        /// session or a reference space the runtime refuses is
+        /// <see cref="OpenXrSourceState.NotSupported"/>. None of them is
+        /// <see cref="OpenXrSourceState.NoHeadset"/>: this runs at the start
+        /// and again at every ask while a headset is away or a session is
+        /// lost, and that state is the line of a source still asking.</para>
+        /// </summary>
+        public OpenXrSessionCreate TryCreateSession(out OpenXrSourceState failure, out string read)
         {
-            failure = OpenXrSourceState.NoHeadset;
-            var getSystem = Resolve<PFN_xrGetSystem>("xrGetSystem");
-            if (getSystem == null) return false;
-
             var systemInfo = new XrSystemGetInfo
             {
                 type = XR_TYPE_SYSTEM_GET_INFO,
                 formFactor = XR_FORM_FACTOR_HEAD_MOUNTED_DISPLAY,
             };
-            if (getSystem(_instance, ref systemInfo, out ulong systemId) != XR_SUCCESS)
-                return false;
+            int got = _getSystem(_instance, ref systemInfo, out ulong systemId);
+            if (got == XR_ERROR_FORM_FACTOR_UNAVAILABLE)
+            {
+                failure = OpenXrSourceState.NoHeadset;
+                read = $"xrGetSystem answered {Number(got)}";
+                return OpenXrSessionCreate.HeadsetUnavailable;
+            }
+            if (got != XR_SUCCESS)
+            {
+                failure = FailureOf(got, OpenXrSourceState.Failed);
+                read = $"xrGetSystem answered {Number(got)}";
+                return OpenXrSessionCreate.Failed;
+            }
 
-            failure = OpenXrSourceState.NotSupported;
             // No graphics binding in next, which is what makes this headless.
             var sessionInfo = new XrSessionCreateInfo
             {
@@ -294,17 +644,37 @@ namespace PadForge.Engine.Common.OpenXr
             int result = _createSession(_instance, ref sessionInfo, out _session);
             if (result != XR_SUCCESS)
             {
-                _log($"OpenXR: {RuntimeName} refused a headless session ({result})");
-                return false;
+                _session = 0;
+                failure = FailureOf(result, OpenXrSourceState.NotSupported);
+                read = $"xrCreateSession answered {Number(result)} to a session with no graphics binding";
+                return OpenXrSessionCreate.Failed;
             }
 
-            _baseSpace = CreateReferenceSpace(XR_REFERENCE_SPACE_TYPE_STAGE);
-            if (_baseSpace == 0) _baseSpace = CreateReferenceSpace(XR_REFERENCE_SPACE_TYPE_LOCAL);
-            _viewSpace = CreateReferenceSpace(XR_REFERENCE_SPACE_TYPE_VIEW);
+            _baseSpace = CreateReferenceSpace(XR_REFERENCE_SPACE_TYPE_STAGE, out int based);
+            if (_baseSpace == 0) _baseSpace = CreateReferenceSpace(XR_REFERENCE_SPACE_TYPE_LOCAL, out based);
+            _viewSpace = CreateReferenceSpace(XR_REFERENCE_SPACE_TYPE_VIEW, out int viewed);
             if (_baseSpace == 0 || _viewSpace == 0)
             {
-                _log("OpenXR: no usable reference space");
-                return false;
+                // The answer that left a space missing: the local space's
+                // when there is no base space, since it is asked for last.
+                int answered = _baseSpace == 0 ? based : viewed;
+                read = $"xrCreateReferenceSpace answered {Number(answered)} for the " +
+                       (_baseSpace == 0 ? "local space, after the stage space" : "view space");
+                DestroySession();
+                if (answered == XR_ERROR_SESSION_LOST)
+                {
+                    // Lost between its creation and this call, with no
+                    // grace period. With one the same call answers
+                    // XR_SESSION_LOSS_PENDING and the pump reads the loss,
+                    // and one call later xrBeginSession answers this code
+                    // (EndOfBegin). All three are a lost session, which
+                    // the source replaces. Read as a runtime that cannot
+                    // supply a session, this one stopped the source.
+                    failure = OpenXrSourceState.Connecting;
+                    return OpenXrSessionCreate.SessionLost;
+                }
+                failure = FailureOf(answered, OpenXrSourceState.NotSupported);
+                return OpenXrSessionCreate.Failed;
             }
 
             // Controllers are optional. A headset with none still works, and
@@ -318,7 +688,27 @@ namespace PadForge.Engine.Common.OpenXr
             }
 
             failure = OpenXrSourceState.Running;
-            return true;
+            read = null;
+            return OpenXrSessionCreate.Created;
+        }
+
+        /// <summary>
+        /// Destroys the session, its actions and its reference spaces, and
+        /// keeps the instance. A lost session is destroyed this way, and the
+        /// instance asks for the headset again (session.adoc,
+        /// XR_SESSION_STATE_LOSS_PENDING).
+        /// </summary>
+        public void DestroySession()
+        {
+            try { _actions?.Dispose(); } catch (Exception) { }
+            _actions = null;
+            try { End(); } catch (Exception) { }
+            try { if (_viewSpace != 0) _destroySpace?.Invoke(_viewSpace); } catch (Exception) { }
+            try { if (_baseSpace != 0) _destroySpace?.Invoke(_baseSpace); } catch (Exception) { }
+            try { if (_session != 0) _destroySession?.Invoke(_session); } catch (Exception) { }
+            _viewSpace = _baseSpace = _session = 0;
+            _sessionState = XR_SESSION_STATE_IDLE;
+            _began = false;
         }
 
         /// <summary>Resolves a function by name, typed by the caller. Used by
@@ -369,7 +759,7 @@ namespace PadForge.Engine.Common.OpenXr
             rightState = _actions.Read(OpenXrHand.Right, _baseSpace, time, live, ref right);
         }
 
-        private ulong CreateReferenceSpace(int type)
+        private ulong CreateReferenceSpace(int type, out int result)
         {
             var info = new XrReferenceSpaceCreateInfo
             {
@@ -377,15 +767,32 @@ namespace PadForge.Engine.Common.OpenXr
                 referenceSpaceType = type,
             };
             info.poseInReferenceSpace.orientation.w = 1f;   // identity
-            return _createSpace(_session, ref info, out ulong space) == XR_SUCCESS ? space : 0;
+            result = _createSpace(_session, ref info, out ulong space);
+            // The call has two success codes (xr.xml), and
+            // XR_SESSION_LOSS_PENDING is the second: a session that is being
+            // lost simulates success, and its loss arrives as an event
+            // (session.adoc, XR_SESSION_STATE_LOSS_PENDING). Read as a
+            // failure, it ended the source over a session the pump was about
+            // to report lost, which the next ask recovers.
+            return result == XR_SUCCESS || result == XR_SESSION_LOSS_PENDING ? space : 0;
         }
 
-        /// <summary>Drains the event queue. Returns false when the session is
-        /// gone for good.</summary>
-        public bool PumpEvents(out bool lost, out bool referenceSpaceChanged)
+        /// <summary>The state a failed call of session creation settles on. A
+        /// lost instance is <see cref="OpenXrSourceState.Ended"/> whichever
+        /// call reports it (instance.adoc, The Instance Lost Error), and any
+        /// other error is the state its call gives.</summary>
+        internal static OpenXrSourceState FailureOf(int result, OpenXrSourceState otherwise)
+            => result == XR_ERROR_INSTANCE_LOST ? OpenXrSourceState.Ended : otherwise;
+
+        /// <summary>Drains the event queue. Returns what ended, or
+        /// <see cref="OpenXrSessionEnd.None"/> while the session and the
+        /// instance stand, with what was read in <paramref name="read"/>.
+        /// Runs with no session too, since an instance hears its own loss
+        /// without one.</summary>
+        public OpenXrSessionEnd PumpEvents(out bool referenceSpaceChanged, out string read)
         {
-            lost = false;
             referenceSpaceChanged = false;
+            read = null;
             // Allocated once and reused. This runs about 125 times a second
             // for as long as the feature is on, and the event union is 4 KB,
             // so allocating it per poll was half a megabyte a second of
@@ -396,67 +803,184 @@ namespace PadForge.Engine.Common.OpenXr
             {
                 // Bounded. A runtime that returns success without writing the
                 // buffer, or a sustained event storm, would otherwise spin
-                // this thread forever with nothing in the log to say so.
+                // this thread forever with nothing in the log to say so. The
+                // log says so once when a poll first stops at the bound and
+                // once when the queue is empty again. A line per poll was
+                // 125 a second for as long as the storm lasted.
                 for (int drained = 0; ; drained++)
                 {
                     if (drained >= MaxEventsPerPoll)
                     {
-                        _log($"OpenXR: drained {MaxEventsPerPoll} events in one poll, deferring the rest");
-                        return true;
+                        if (_fullPolls++ == 0)
+                            _log($"OpenXR: {RuntimeName} gave {Number(MaxEventsPerPoll)} events in one poll, so its queue is read on over the next polls");
+                        return OpenXrSessionEnd.None;
                     }
                     var header = (XrEventDataBuffer*)buffer;
                     header->type = XR_TYPE_EVENT_DATA_BUFFER;
                     header->next = IntPtr.Zero;
                     int result = _pollEvent(_instance, buffer);
-                    if (result == XR_EVENT_UNAVAILABLE) return true;
-                    if (result != XR_SUCCESS) { lost = true; return false; }
+                    if (result == XR_EVENT_UNAVAILABLE)
+                    {
+                        if (_fullPolls != 0)
+                        {
+                            _log($"OpenXR: {RuntimeName} has its event queue empty again, after {Number(_fullPolls)} polls that stopped at {Number(MaxEventsPerPoll)} events");
+                            _fullPolls = 0;
+                        }
+                        return OpenXrSessionEnd.None;
+                    }
+                    if (result != XR_SUCCESS)
+                    {
+                        read = $"xrPollEvent answered {Number(result)}";
+                        return EndOf(result, 0, 0);
+                    }
 
                     switch (header->type)
                     {
                         case XR_TYPE_EVENT_DATA_SESSION_STATE_CHANGED:
                             var changed = (XrEventDataSessionStateChanged*)buffer;
+                            if (!IsAboutThisSession(changed->session, ref _strangerStateSaid, "a state")) break;
                             _sessionState = changed->state;
-                            if (_sessionState == XR_SESSION_STATE_READY && !_began) Begin();
-                            else if (_sessionState == XR_SESSION_STATE_STOPPING) End();
-                            else if (_sessionState == XR_SESSION_STATE_EXITING
-                                     || _sessionState == XR_SESSION_STATE_LOSS_PENDING)
+                            if (_sessionState == XR_SESSION_STATE_READY && !_began)
                             {
-                                lost = true;
-                                return false;
+                                int begun = Begin();
+                                var refused = EndOfBegin(begun);
+                                if (refused != OpenXrSessionEnd.None)
+                                {
+                                    read = $"xrBeginSession answered {Number(begun)}";
+                                    return refused;
+                                }
+                            }
+                            else if (_sessionState == XR_SESSION_STATE_STOPPING) End();
+                            var ended = EndOf(XR_SUCCESS, header->type, _sessionState);
+                            if (ended != OpenXrSessionEnd.None)
+                            {
+                                read = ended == OpenXrSessionEnd.Exiting
+                                    ? "XR_SESSION_STATE_EXITING"
+                                    : "XR_SESSION_STATE_LOSS_PENDING";
+                                return ended;
                             }
                             break;
 
                         case XR_TYPE_EVENT_DATA_INSTANCE_LOSS_PENDING:
-                            lost = true;
-                            return false;
+                            // The wait is read while the instance can still
+                            // convert the clock, since lossTime is an XrTime.
+                            var loss = (XrEventDataInstanceLossPending*)buffer;
+                            long nowNs = NowXrTime();
+                            long waitMs = nowNs == 0 ? 0 : (loss->lossTime - nowNs) / 1_000_000;
+                            InstanceLossWaitMs = Math.Clamp(waitMs, 0, MaxInstanceLossWaitMs) + 500;
+                            read = $"XrEventDataInstanceLossPending, its loss time {Number(waitMs)} ms out";
+                            return EndOf(XR_SUCCESS, header->type, 0);
 
                         case XR_TYPE_EVENT_DATA_REFERENCE_SPACE_CHANGE_PENDING:
-                            referenceSpaceChanged = true;
+                            // The event names the session whose space is
+                            // changing (spaces.adoc), and it is held to the
+                            // rule of the state event. Applied unread, a
+                            // stale one from an earlier session recaptured
+                            // the neutral of the session that stood.
+                            var moved = (XrEventDataReferenceSpaceChangePending*)buffer;
+                            if (IsAboutThisSession(moved->session, ref _strangerSpaceSaid, "a reference space change"))
+                                referenceSpaceChanged = true;
                             break;
                     }
                 }
             }
         }
 
-        private void Begin()
+        /// <summary>
+        /// Whether an event that names a session is about the one that
+        /// stands.
+        ///
+        /// <para>With no session there is none for the event to be about.
+        /// The runtime discards queued events naming a destroyed handle
+        /// (fundamentals.adoc, xrPollEvent), so one arriving then would be
+        /// its fault, and it is dropped. That covers a runtime whose one
+        /// session handle has the same value every time, as Virtual
+        /// Desktop's has: what a destroyed session left in the queue is
+        /// read with no session standing, before the next one is asked
+        /// for.</para>
+        ///
+        /// <para>An event that names another session is not about this
+        /// one. The Khronos sample drops a state event that way and lets a
+        /// null handle pass (HandleSessionStateChangedEvent, as ALVR's
+        /// engine carries it in openxr_program.cpp), and the log says so
+        /// once for each kind of event. Virtual Desktop, Monado and
+        /// SteamVR 2.17.10 all write the session's own handle into both
+        /// kinds (instance.cpp xrPollEvent, oxr_event.c,
+        /// vrclient_x64.dll).</para>
+        /// </summary>
+        private bool IsAboutThisSession(ulong named, ref bool said, string what)
         {
-            if (_beginSession == null) return;
+            if (_session == 0) return false;
+            if (named == 0 || named == _session) return true;
+            if (!said)
+            {
+                said = true;
+                _log($"OpenXR: {RuntimeName} sent {what} for a session that is not this one, and it is dropped");
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// What one poll ends: its result, and when it read an event, the
+        /// event's type and the session state it carries.
+        /// XR_SESSION_STATE_EXITING ends the XR experience,
+        /// XR_SESSION_STATE_LOSS_PENDING the session alone (session.adoc),
+        /// the instance-loss event the instance (instance.adoc), and a poll
+        /// that failed ends everything, XR_ERROR_INSTANCE_LOST named apart.
+        /// </summary>
+        internal static OpenXrSessionEnd EndOf(int pollResult, int eventType, int sessionState)
+        {
+            if (pollResult == XR_EVENT_UNAVAILABLE) return OpenXrSessionEnd.None;
+            if (pollResult == XR_ERROR_INSTANCE_LOST) return OpenXrSessionEnd.InstanceLost;
+            if (pollResult != XR_SUCCESS) return OpenXrSessionEnd.PollFailed;
+            if (eventType == XR_TYPE_EVENT_DATA_INSTANCE_LOSS_PENDING) return OpenXrSessionEnd.InstanceLossPending;
+            if (eventType != XR_TYPE_EVENT_DATA_SESSION_STATE_CHANGED) return OpenXrSessionEnd.None;
+            return sessionState switch
+            {
+                XR_SESSION_STATE_EXITING => OpenXrSessionEnd.Exiting,
+                XR_SESSION_STATE_LOSS_PENDING => OpenXrSessionEnd.SessionLost,
+                _ => OpenXrSessionEnd.None,
+            };
+        }
+
+        /// <summary>
+        /// What xrBeginSession's answer ends. Its two success codes end
+        /// nothing: XR_SESSION_LOSS_PENDING is a session being lost that
+        /// simulates success, and its loss arrives as an event
+        /// (session.adoc). A lost instance and a lost session end what they
+        /// end from any call. Any other answer leaves a session that never
+        /// runs: the runtime sends XR_SESSION_STATE_READY once, the ask is
+        /// the same every time, and a session that has not begun locates
+        /// nothing, so it is <see cref="OpenXrSessionEnd.BeginRefused"/> and
+        /// the source lets the session go. It used to be kept, with the row
+        /// waiting for a pose that could not come. On SteamVR such a
+        /// session also hears nothing when SteamVR quits, and the client
+        /// library logs "Aborting due to ignoring Quit event" for a caller
+        /// that still polls it five seconds later (vrclient_x64.dll, SteamVR
+        /// 2.17.10).
+        /// </summary>
+        internal static OpenXrSessionEnd EndOfBegin(int result) => result switch
+        {
+            XR_SUCCESS or XR_SESSION_LOSS_PENDING => OpenXrSessionEnd.None,
+            XR_ERROR_INSTANCE_LOST => OpenXrSessionEnd.InstanceLost,
+            XR_ERROR_SESSION_LOST => OpenXrSessionEnd.SessionLost,
+            _ => OpenXrSessionEnd.BeginRefused,
+        };
+
+        /// <summary>Begins the session, on XR_SESSION_STATE_READY, and
+        /// returns what xrBeginSession answered
+        /// (<see cref="EndOfBegin"/>).</summary>
+        private int Begin()
+        {
             var info = new XrSessionBeginInfo
             {
                 type = XR_TYPE_SESSION_BEGIN_INFO,
                 primaryViewConfigurationType = XR_VIEW_CONFIGURATION_TYPE_PRIMARY_STEREO,
             };
             int result = _beginSession(_session, ref info);
-            if (result == XR_SUCCESS)
-            {
-                _began = true;
-                _log($"OpenXR: session running on {RuntimeName}");
-                return;
-            }
-            // The runtime emits READY once. A failure here is permanent for
-            // this session, and every locate afterwards returns nothing, so
-            // the silence would read as a healthy source producing no poses.
-            _log($"OpenXR: {RuntimeName} refused to begin the session (result {result})");
+            if (result == XR_SUCCESS || result == XR_SESSION_LOSS_PENDING) _began = true;
+            if (result == XR_SUCCESS) _log($"OpenXR: session running on {RuntimeName}");
+            return result;
         }
 
         /// <summary>
@@ -479,8 +1003,10 @@ namespace PadForge.Engine.Common.OpenXr
                 return;
             }
             int result = _endSession(_session);
-            if (result != XR_SUCCESS)
-                _log($"OpenXR: {RuntimeName} refused to end the session ({result})");
+            // XR_SESSION_LOSS_PENDING is a success code of this call too
+            // (xr.xml), and it was written as a refusal.
+            if (result != XR_SUCCESS && result != XR_SESSION_LOSS_PENDING)
+                _log($"OpenXR: {RuntimeName} refused to end the session ({Number(result)})");
             _began = false;
         }
 
@@ -562,24 +1088,15 @@ namespace PadForge.Engine.Common.OpenXr
 
         public void Dispose()
         {
-            try { _actions?.Dispose(); } catch (Exception) { }
-            _actions = null;
-            try { End(); } catch (Exception) { }
-            try { if (_viewSpace != 0) _destroySpace?.Invoke(_viewSpace); } catch (Exception) { }
-            try { if (_baseSpace != 0) _destroySpace?.Invoke(_baseSpace); } catch (Exception) { }
-            try { if (_session != 0) _destroySession?.Invoke(_session); } catch (Exception) { }
+            DestroySession();
             try { if (_instance != 0) _destroyInstance?.Invoke(_instance); } catch (Exception) { }
-            _viewSpace = _baseSpace = _session = _instance = 0;
+            _instance = 0;
             if (_eventBuffer != IntPtr.Zero)
             {
                 Marshal.FreeHGlobal(_eventBuffer);
                 _eventBuffer = IntPtr.Zero;
             }
-            // The module is deliberately left loaded. A runtime that has had
-            // an instance created and destroyed does not always survive being
-            // unloaded and reloaded in the same process, and the handle costs
-            // nothing.
-            _module = IntPtr.Zero;
+            // The runtime's library stays loaded (LoadRuntime).
         }
     }
 }

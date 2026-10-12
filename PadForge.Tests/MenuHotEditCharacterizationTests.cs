@@ -214,10 +214,19 @@ namespace PadForge.Tests
             public int Frames { get; private set; }
             public long FrameElapsedMs { get; private set; }
 
+            /// <summary>The menu runtime's clock (MenuClock), held while the
+            /// rig lives. A release commits a 100 ms pulse, and the rig's frame
+            /// collects the pulse's key in later reads of the clock. On the
+            /// system clock a stall between those reads lapsed the pulse and
+            /// the key went missing with nothing wrong in the product.
+            /// Held, a pulse lives as long as the rig does.</summary>
+            private readonly long _now = 10_000;
+
             public Rig(MenuFireType fire)
             {
                 try
                 {
+                    MenuClock.Source = () => _now;
                     SettingsManager.UserSettings = new SettingsCollection();
                     SettingsManager.UserDevices = new DeviceCollection();
                     SettingsManager.SlotMappingSets = new MappingSet[InputManager.MaxPads];
@@ -323,8 +332,10 @@ namespace PadForge.Tests
 
             public void Dispose()
             {
+                MenuClock.Source = null;
                 // The application keeps pad view models for its lifetime.
-                // This fixture removes only its own two strong subscriptions.
+                // This fixture removes its own two static subscriptions now
+                // rather than leaving them for the collector.
                 if (_pad != null)
                 {
                     const BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;

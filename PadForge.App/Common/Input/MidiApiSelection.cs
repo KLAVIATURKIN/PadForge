@@ -30,6 +30,23 @@ namespace PadForge.Common.Input
         Legacy = 3,
     }
 
+    /// <summary>Why the Settings card reads Not Running.</summary>
+    internal enum MidiNotRunningReason
+    {
+        /// <summary>The probe found no API it could start, or hung on the
+        /// MIDI service, which PadForge restarts.</summary>
+        ServiceDidNotRespond = 0,
+
+        /// <summary>The probe hangs in a classic MIDI driver (Windows before
+        /// 24H2, Legacy API mode, or the legacy API in Hybrid mode), which no
+        /// service restart reaches.</summary>
+        DriverDidNotRespond = 1,
+
+        /// <summary>The older runtime's uninstaller is running, and MIDI
+        /// stays released until it exits.</summary>
+        Uninstalling = 2,
+    }
+
     /// <summary>
     /// Picks the Windows MIDI Services API. The in-box API is tried first.
     /// When its classes are not registered (REGDB_E_CLASSNOTREG) and the
@@ -53,6 +70,16 @@ namespace PadForge.Common.Input
         internal const string ApiModeKey = @"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Drivers32";
         internal const string ApiModeValue = "UseLegacyMidi";
 
+        /// <summary>The API mode values (MIDI_USE_MIDISRV, MIDI_USE_LEGACY
+        /// and MIDI_USE_HYBRID_LEGACY in Microsoft's MidiDefs.h).</summary>
+        internal const int ApiModeFull = 0;
+        internal const int ApiModeLegacy = 1;
+        internal const int ApiModeHybrid = 2;
+
+        /// <summary>Test seam: stands in for the API mode read. Null in
+        /// production.</summary>
+        internal static Func<int> ApiModeSeam;
+
         /// <summary>The class the in-box probe activates. Its activation
         /// factory exists exactly when Windows registers the API.</summary>
         internal const string InBoxProbeClass = "Windows.Devices.Midi2.MidiApi";
@@ -65,12 +92,29 @@ namespace PadForge.Common.Input
         /// the in-box API is present but broken, and swapping in the older
         /// runtime would hide that.</summary>
         internal static MidiApiKind Choose(int osBuild, Func<int> inBoxActivationHr, Func<bool> appSdkRuntimeInstalled)
+            => Choose(osBuild, inBoxActivationHr, appSdkRuntimeInstalled, out _);
+
+        /// <summary>The rule, with the HRESULT it stopped on. When the in-box
+        /// API fails to activate for a reason other than an unregistered
+        /// class, <paramref name="inBoxFailure"/> carries that HRESULT and the
+        /// rule returns None. The engine then takes the legacy API, as
+        /// Microsoft's detect-midi-services sample does, logs the HRESULT,
+        /// and the Settings card names the failure rather than reading as a
+        /// plain legacy PC. Otherwise <paramref name="inBoxFailure"/> is
+        /// 0.</summary>
+        internal static MidiApiKind Choose(int osBuild, Func<int> inBoxActivationHr, Func<bool> appSdkRuntimeInstalled,
+            out int inBoxFailure)
         {
+            inBoxFailure = 0;
             if (osBuild >= InBoxMinBuild)
             {
                 int hr = inBoxActivationHr();
                 if (hr >= 0) return MidiApiKind.InBox;
-                if (hr != REGDB_E_CLASSNOTREG) return MidiApiKind.None;
+                if (hr != REGDB_E_CLASSNOTREG)
+                {
+                    inBoxFailure = hr;
+                    return MidiApiKind.None;
+                }
             }
             if (osBuild >= AppSdkMinBuild && appSdkRuntimeInstalled())
                 return MidiApiKind.AppSdk;
@@ -102,16 +146,63 @@ namespace PadForge.Common.Input
         /// <paramref name="predicted"/> answer stands until the engine's
         /// probe has run, then the probe's answer does. A probe that found
         /// no API it could start, the legacy one included, or that timed out
-        /// on a stuck service, reads as not started.</summary>
+        /// on a stuck service, reads as not started, and so does MIDI held
+        /// released for an uninstall of the older runtime
+        /// (<paramref name="suppressedForUninstall"/>), since nothing runs
+        /// then, whatever the registry predicts.</summary>
         internal static (MidiApiKind Api, bool NotStarted) ForCard(
-            MidiApiKind predicted, MidiApiKind engineActive, bool engineProbeFailed)
+            MidiApiKind predicted, MidiApiKind engineActive, bool engineProbeFailed, bool suppressedForUninstall = false)
         {
             if (engineActive != MidiApiKind.None) return (engineActive, false);
-            if (engineProbeFailed && predicted != MidiApiKind.None) return (MidiApiKind.None, true);
+            if (engineProbeFailed || suppressedForUninstall) return (MidiApiKind.None, true);
             return (predicted, false);
         }
 
-        internal static int OsBuild => Environment.OSVersion.Version.Build;
+        /// <summary>Whether an install whose outcome PadForge could not
+        /// follow (it outlived its wait, or Windows handed back no process to
+        /// follow) has since put the runtime in place under an engine still
+        /// on the legacy API or on none. The engine then switches to it, as
+        /// after an install that finished in time. Never while an uninstall
+        /// holds anything (<paramref name="heldForUninstall"/>): the registry
+        /// still lists the runtime while its uninstaller runs, and the engine
+        /// reads none, or the legacy API, only because the runtime is
+        /// held.</summary>
+        internal static bool SwitchAfterPendingInstall(bool pending, bool runtimeInstalled, MidiApiKind engineActive,
+            bool heldForUninstall = false)
+            => pending && runtimeInstalled && !heldForUninstall
+               && (engineActive == MidiApiKind.Legacy || engineActive == MidiApiKind.None);
+
+        /// <summary>Whether a legacy (WinMM) call runs through the MIDI
+        /// service. It does on the new MIDI stack in full Windows MIDI
+        /// Services mode: Windows 11 24H2 and later, where wdmaud2 hands every
+        /// port to midisrv (Microsoft's MidiSrvPorts.cpp). Windows before
+        /// 24H2 has no MIDI service, and there, as in Legacy API mode and in
+        /// Hybrid mode, WinMM talks to classic drivers. A missing mode value
+        /// reads as full mode on every Windows, so the build is asked
+        /// too.</summary>
+        internal static bool WinMmUsesService(int osBuild, int apiMode)
+            => osBuild >= AppSdkMinBuild && apiMode == ApiModeFull;
+
+        /// <summary>Whether restarting midisrv can free a MIDI call that
+        /// hangs or a session it refuses. Windows before 24H2 has no MIDI
+        /// service to restart. In Legacy API mode the service does not run
+        /// (Microsoft's MidiService.cpp stops it as it starts) and the legacy
+        /// API talks to classic drivers, which "can still hang" (Microsoft's
+        /// "How to change the API mode" article). In Hybrid mode WinMM sees
+        /// only classic-driver ports, so a legacy call that hangs there is a
+        /// driver's too. Everywhere else the call runs through the service,
+        /// and a restart reaches it.</summary>
+        internal static bool ServiceRestartCanHelp(int osBuild, int apiMode, bool legacyCall)
+        {
+            if (osBuild < AppSdkMinBuild || apiMode == ApiModeLegacy) return false;
+            return !(legacyCall && apiMode == ApiModeHybrid);
+        }
+
+        /// <summary>Test seam: stands in for this Windows' build. Null in
+        /// production.</summary>
+        internal static Func<int> OsBuildSeam;
+
+        internal static int OsBuild => OsBuildSeam?.Invoke() ?? Environment.OSVersion.Version.Build;
 
         /// <summary>Whether an App SDK runtime install is present, Microsoft's
         /// or PadForge's build (<see cref="DriverInstaller.IsMidiRuntimeInstalled"/>).
@@ -119,16 +210,23 @@ namespace PadForge.Common.Input
         internal static bool IsAppSdkRuntimeInstalled() => DriverInstaller.IsMidiRuntimeInstalled();
 
         /// <summary>Whether Windows is set to Legacy API mode.</summary>
-        internal static bool IsLegacyApiMode()
+        internal static bool IsLegacyApiMode() => ApiMode() == ApiModeLegacy;
+
+        /// <summary>The API mode Windows is set to, or <see cref="ApiModeFull"/>
+        /// when the value is missing or unreadable, which is how Microsoft's
+        /// service and MidiApi.GetCurrentlySelectedApiMode read it.</summary>
+        internal static int ApiMode()
         {
+            var seam = ApiModeSeam;
+            if (seam != null) return seam();
             try
             {
                 using var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(ApiModeKey);
-                return key?.GetValue(ApiModeValue) is int mode && mode == 1;
+                return key?.GetValue(ApiModeValue) is int mode ? mode : ApiModeFull;
             }
             catch
             {
-                return false;
+                return ApiModeFull;
             }
         }
 

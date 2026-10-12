@@ -8,32 +8,41 @@ namespace PadForge.Engine
     /// <summary>
     /// Looks up a stable physical-device PnP instance ID for an XInput-backed
     /// Xbox controller given its VID/PID. Used by <see cref="SdlDeviceWrapper.BuildInstanceGuid"/>
-    /// when SDL reports a synthetic "XInput#N" path — the slot number in
+    /// when SDL reports a synthetic "XInput#N" path. The slot number in
     /// those paths is not stable (xinputhid can reshuffle slots when a
     /// second Xbox-VID device appears), so mapping persistent device
     /// identity to SDL's slot number breaks on reshuffle.
     ///
     /// A real Xbox controller's underlying HID instance ID is stable per
     /// physical device (it contains the BT MAC for Bluetooth devices and a
-    /// USB hub/port address for wired devices). HIDMaestro virtual devices
-    /// are filtered by checking for the "HIDMAESTRO" / "HMCOMPANION" /
-    /// "HMXINPUT" substring in any ancestor's instance ID, or for the
-    /// ROOT\VID_*&amp;IG_* root-enumerator pattern that HIDMaestro's xinputhid
-    /// profiles use.
+    /// USB hub/port address for wired devices). HIDMaestro's devices are
+    /// left out by the rule Step 1 and the hiding side read
+    /// (<see cref="HidMaestroAncestry.IsHidMaestroWalk"/>), and so is a node
+    /// OpenXInput gives no slot (<see cref="HidMaestroAncestry.ReadersDrop"/>),
+    /// since no XInput#N path can name it.
     /// </summary>
     public static class StableXInputInstance
     {
+        /// <summary>Whether a composite persona of this vendor and product
+        /// id can be PadForge's own (InputManager.ChecksUsbipAncestry, the
+        /// scope Step 1 and the hiding side ask for a device under the
+        /// usbip-win2 host controller). The app sets it as the engine
+        /// starts. Null answers no.</summary>
+        public static Func<ushort, ushort, bool> PersonaInScope;
+
         /// <summary>
-        /// Returns every non-HIDMaestro HID-class device instance ID whose
-        /// PnP tree contains the given VID/PID, sorted lexicographically so
-        /// the order is deterministic across SetupDi enumeration variations
-        /// (e.g. between reboots or after a USB hub re-plug).
+        /// Returns every HID-class device instance ID whose PnP tree
+        /// contains the given VID/PID and that an XInput#N path can name:
+        /// not one of HIDMaestro's devices, and given a slot by OpenXInput.
+        /// Sorted lexicographically so the order is deterministic across
+        /// SetupDi enumeration variations (e.g. between reboots or after a
+        /// USB hub re-plug).
         ///
         /// <para>Lets <see cref="SdlDeviceWrapper.BuildInstanceGuid"/>
         /// disambiguate two same-model controllers that would otherwise
-        /// collapse to the same identity (e.g. two Xbox Series Bluetooth
-        /// pads paired at the same time — both report the same VID/PID and
-        /// SDL gives them synthetic XInput#N paths with no serial).</para>
+        /// collapse to the same identity, such as two Xbox Series Bluetooth
+        /// pads paired at the same time. Both report the same VID/PID, and
+        /// SDL gives them synthetic XInput#N paths with no serial.</para>
         /// </summary>
         public static IReadOnlyList<string> FindAll(ushort vid, ushort pid)
         {
@@ -65,13 +74,19 @@ namespace PadForge.Engine
                     int nullIdx = Array.IndexOf(buffer, '\0');
                     string instanceId = nullIdx >= 0 ? new string(buffer, 0, nullIdx) : new string(buffer);
 
-                    bool match = instanceId.Contains(vidPidUsb, StringComparison.OrdinalIgnoreCase)
+                    bool usbIds = instanceId.Contains(vidPidUsb, StringComparison.OrdinalIgnoreCase);
+                    bool match = usbIds
                         || (instanceId.Contains(pidBle, StringComparison.OrdinalIgnoreCase)
                             && (instanceId.Contains(vidBle02, StringComparison.OrdinalIgnoreCase)
                                 || instanceId.Contains(vidBle01, StringComparison.OrdinalIgnoreCase)));
 
                     if (!match) continue;
-                    if (IsHidMaestroInstance(instanceId)) continue;
+                    // A persona is a USB device, so a node without the
+                    // VID_xxxx&PID_yyyy pair is none whatever is in scope,
+                    // as the hiding side reads it.
+                    if (IsLeftOut(instanceId, () => usbIds && PersonaInScope?.Invoke(vid, pid) == true,
+                            LiveWalk, HidMaestroAncestry.CarriesXusbInterface))
+                        continue;
 
                     matches.Add(instanceId);
                 }
@@ -85,87 +100,111 @@ namespace PadForge.Engine
             return matches;
         }
 
-        private static bool IsHidMaestroInstance(string instanceId)
+        /// <summary>Whether <see cref="FindAll"/> leaves a node out: one of
+        /// HIDMaestro's devices (<see cref="IsHidMaestroInstance"/>), or a
+        /// node OpenXInput gives no slot
+        /// (<see cref="HidMaestroAncestry.ReadersDrop"/>). A real pad
+        /// attached over usbip-win2 under a host controller HIDMaestro has
+        /// stamped is the second kind when xusb22 serves it, since its XUSB
+        /// interface sits within OpenXInput's walk of the stamp, and is no
+        /// kind when xboxgip serves it: OpenXInput gives that pad a slot,
+        /// and its row needs its own node for an identity.
+        /// <paramref name="walk"/> gives the hops up from a node, or null
+        /// for a node that is not present, and
+        /// <paramref name="carriesXusb"/> says whether a node carries an
+        /// XUSB interface: the device tree's answers in
+        /// <see cref="FindAll"/>.</summary>
+        internal static bool IsLeftOut(string instanceId, Func<bool> personaInScope,
+            Func<string, IReadOnlyList<AncestryHop>> walk, Func<string, bool> carriesXusb)
         {
-            if (MatchesHmPattern(instanceId)) return true;
+            if (HidMaestroAncestry.NamesHidMaestro(instanceId)) return true;
+            var hops = walk(instanceId);
+            return hops != null
+                && (HidMaestroAncestry.IsHidMaestroWalk(hops, personaInScope)
+                    || HidMaestroAncestry.ReadersDrop(hops, carriesXusb));
+        }
 
-            if (CM_Locate_DevNodeW(out uint devInst, instanceId, 0) != 0)
-                return false;
+        /// <summary>Whether a node is one of HIDMaestro's devices, by the
+        /// rule Step 1 and the hiding side read
+        /// (<see cref="HidMaestroAncestry.IsHidMaestroWalk"/>): its instance
+        /// id names HIDMaestro, or the walk up from its node meets a node of
+        /// HIDMaestro's own driver, a persona, or, while
+        /// <paramref name="personaInScope"/> holds, the usbip-win2 host
+        /// controller. That host controller marks nothing by itself. A node
+        /// that is not present is judged by its own id alone.</summary>
+        internal static bool IsHidMaestroInstance(string instanceId, Func<bool> personaInScope,
+            Func<string, IReadOnlyList<AncestryHop>> walk)
+        {
+            if (HidMaestroAncestry.NamesHidMaestro(instanceId)) return true;
+            var hops = walk(instanceId);
+            return hops != null && HidMaestroAncestry.IsHidMaestroWalk(hops, personaInScope);
+        }
 
-            // Depth-0 hardware-ID check. Every HIDMaestro HID child has
-            // "HID\HIDMaestro" in its Hardware IDs (CM_DRP_HARDWAREID,
-            // REG_MULTI_SZ). This is the authoritative marker — unlike the
-            // instance-ID walk below which can miss xinputhid-upper-filter
-            // profiles (xbox-series-xs-bt and similar) whose HID child
-            // lives under a parent chain that doesn't contain "HIDMAESTRO"
-            // in any instance ID string. Matches the same signal Step 1's
-            // IsHidMaestroAncestor uses.
-            if (HasHidMaestroHardwareId(devInst))
-                return true;
+        /// <summary>The walk from a node up through its parents, the node
+        /// itself first, or null for a node that is not present.</summary>
+        private static IReadOnlyList<AncestryHop> LiveWalk(string instanceId)
+            => CM_Locate_DevNodeW(out uint devInst, instanceId, 0) != 0 ? null : ReadWalk(devInst);
 
+        /// <summary>The live walk: the node and up to fifteen of its
+        /// parents, each with its instance id, hardware ids and
+        /// service.</summary>
+        private static List<AncestryHop> ReadWalk(uint devInst)
+        {
+            var walk = new List<AncestryHop>();
             var idBuf = new StringBuilder(512);
             for (int depth = 0; depth < 16; depth++)
             {
                 idBuf.Clear();
                 idBuf.EnsureCapacity(512);
-                if (CM_Get_Device_IDW(devInst, idBuf, idBuf.Capacity, 0) == 0)
-                {
-                    if (MatchesHmPattern(idBuf.ToString())) return true;
-                }
-
-                // Also check hardware IDs at this level.
-                if (HasHidMaestroHardwareId(devInst))
-                    return true;
+                string id = CM_Get_Device_IDW(devInst, idBuf, idBuf.Capacity, 0) == 0 ? idBuf.ToString() : null;
+                walk.Add(new AncestryHop(id, ReadHardwareIds(devInst), ReadService(devInst)));
 
                 if (CM_Get_Parent(out uint parent, devInst, 0) != 0) break;
                 if (parent == 0 || parent == devInst) break;
                 devInst = parent;
             }
-            return false;
+            return walk;
         }
 
-        /// <summary>CM_DRP_HARDWAREID = 0x02. Returns REG_MULTI_SZ list of
-        /// hardware IDs. True if any ID contains "HIDMaestro".</summary>
-        private static bool HasHidMaestroHardwareId(uint devInst)
+        private const uint CM_DRP_HARDWAREID = 0x02;
+        private const uint CM_DRP_SERVICE = 0x05;
+
+        /// <summary>A devnode's hardware ids (CM_DRP_HARDWAREID,
+        /// REG_MULTI_SZ), each whole, none when they do not read. The
+        /// host controller's stamp is told from the other HIDMaestro ids by
+        /// the full string.</summary>
+        private static IReadOnlyList<string> ReadHardwareIds(uint devInst)
         {
-            const uint CM_DRP_HARDWAREID = 0x02;
             var buf = new char[1024];
             int lenBytes = buf.Length * 2;
             if (CM_Get_DevNode_Registry_PropertyW(devInst, CM_DRP_HARDWAREID, out _, buf, ref lenBytes, 0) != 0)
-                return false;
+                return Array.Empty<string>();
 
-            int charCount = lenBytes / 2;
+            var ids = new List<string>();
+            int charCount = Math.Min(lenBytes / 2, buf.Length);
             int start = 0;
             for (int i = 0; i < charCount; i++)
             {
-                if (buf[i] == '\0')
-                {
-                    if (i > start)
-                    {
-                        string id = new string(buf, start, i - start);
-                        if (id.IndexOf("HIDMaestro", StringComparison.OrdinalIgnoreCase) >= 0)
-                            return true;
-                    }
-                    start = i + 1;
-                    // Double-null terminates the REG_MULTI_SZ.
-                    if (i + 1 < charCount && buf[i + 1] == '\0') break;
-                }
+                if (buf[i] != '\0') continue;
+                if (i > start) ids.Add(new string(buf, start, i - start));
+                start = i + 1;
+                // Double-null terminates the REG_MULTI_SZ.
+                if (i + 1 < charCount && buf[i + 1] == '\0') break;
             }
-            return false;
+            return ids;
         }
 
-        private static bool MatchesHmPattern(string id)
+        /// <summary>A devnode's driver service (CM_DRP_SERVICE), or null.
+        /// The usbip-win2 host controller's is usbip2_ude.</summary>
+        private static string ReadService(uint devInst)
         {
-            if (id == null) return false;
-            if (id.IndexOf("HIDMAESTRO", StringComparison.OrdinalIgnoreCase) >= 0
-                || id.IndexOf("HMCOMPANION", StringComparison.OrdinalIgnoreCase) >= 0
-                || id.IndexOf("HMXINPUT", StringComparison.OrdinalIgnoreCase) >= 0)
-                return true;
-            if (id.StartsWith(@"ROOT\VID_", StringComparison.OrdinalIgnoreCase)
-                && (id.IndexOf("&IG_", StringComparison.OrdinalIgnoreCase) >= 0
-                    || id.IndexOf("&XI_", StringComparison.OrdinalIgnoreCase) >= 0))
-                return true;
-            return false;
+            var buf = new char[256];
+            int lenBytes = buf.Length * 2;
+            if (CM_Get_DevNode_Registry_PropertyW(devInst, CM_DRP_SERVICE, out _, buf, ref lenBytes, 0) != 0)
+                return null;
+            int nul = Array.IndexOf(buf, '\0');
+            string service = nul >= 0 ? new string(buf, 0, nul) : new string(buf);
+            return service.Length == 0 ? null : service;
         }
 
         [StructLayout(LayoutKind.Sequential)]

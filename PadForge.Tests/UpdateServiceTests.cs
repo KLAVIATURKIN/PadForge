@@ -56,6 +56,18 @@ public class UpdateServiceTests
 
     private static GitHubRelease Parse(string json) => JsonSerializer.Deserialize<GitHubRelease>(json);
 
+    /// <summary>A folder of this test's own in the test host's scratch
+    /// folder, the only place the update service writes while the tests run
+    /// (UpdateServiceOffLimits). It does not exist until the test makes
+    /// it.</summary>
+    private static string OwnFolder(string name) =>
+        Path.Combine(UpdateService.TestScratchRoot, "UpdateService", name + "_" + Guid.NewGuid().ToString("N"));
+
+    /// <summary>A copy of PadForge no PC has, for the functions that read
+    /// only a path's text: the drive and the folders name nothing
+    /// real.</summary>
+    private const string NoSuchInstall = @"Q:\NoSuchPadForge\PadForge.exe";
+
     // ── Releases ──
 
     [Theory]
@@ -229,7 +241,7 @@ public class UpdateServiceTests
     [Fact]
     public void OnlyTheZipsRootExeIsExtracted()
     {
-        string dir = Path.Combine(Path.GetTempPath(), "PadForgeUpdateTest_" + Guid.NewGuid().ToString("N"));
+        string dir = OwnFolder("Extract");
         Directory.CreateDirectory(dir);
         try
         {
@@ -272,7 +284,9 @@ public class UpdateServiceTests
     [Fact]
     public void AStagedExeThatChangedAfterItWasWrittenIsRefused()
     {
-        string path = Path.Combine(Path.GetTempPath(), "PadForgeUpdateTest_" + Guid.NewGuid().ToString("N") + ".exe");
+        string dir = OwnFolder("Staged");
+        Directory.CreateDirectory(dir);
+        string path = Path.Combine(dir, "PadForge.exe");
         File.WriteAllText(path, "not the file that was verified");
         try
         {
@@ -281,7 +295,7 @@ public class UpdateServiceTests
         }
         finally
         {
-            File.Delete(path);
+            Directory.Delete(dir, recursive: true);
         }
     }
 
@@ -289,14 +303,14 @@ public class UpdateServiceTests
     public void TheInstallerGetsTheTargetThePidTheAttemptTheHashAndTheLaunchArguments()
     {
         string sha = new('a', 64);
-        var args = UpdateService.BuildInstallerArgs(@"C:\PadForge\PadForge.exe", 4242, "0123456789abcdef0123456789abcdef", sha,
+        var args = UpdateService.BuildInstallerArgs(NoSuchInstall, 4242, "0123456789abcdef0123456789abcdef", sha,
             "b500441", new[] { "--updated", "--profile", "Rocket League" });
-        Assert.Equal(new[] { "--apply-update", @"C:\PadForge\PadForge.exe", "4242",
+        Assert.Equal(new[] { "--apply-update", NoSuchInstall, "4242",
             "--handshake", "0123456789abcdef0123456789abcdef", sha, "b500441", "--profile", "Rocket League" }, args);
         // An offer that named no commit, a newer release, says so with a dash.
-        Assert.Equal("-", UpdateService.BuildInstallerArgs(@"C:\PadForge\PadForge.exe", 4242,
+        Assert.Equal("-", UpdateService.BuildInstallerArgs(NoSuchInstall, 4242,
             "0123456789abcdef0123456789abcdef", sha, null, Array.Empty<string>())[6]);
-        Assert.Equal("-", UpdateService.BuildInstallerArgs(@"C:\PadForge\PadForge.exe", 4242,
+        Assert.Equal("-", UpdateService.BuildInstallerArgs(NoSuchInstall, 4242,
             "0123456789abcdef0123456789abcdef", sha, "not a commit", Array.Empty<string>())[6]);
     }
 
@@ -319,16 +333,20 @@ public class UpdateServiceTests
         Assert.Equal(ok, UpdateService.IsExpectedBuild(expected, commitSha, commit));
     }
 
+    /// <summary>The helper leaves before it looks at its target, so the
+    /// target here is a file no test made, in a folder of this test's
+    /// own.</summary>
     [Fact]
     public void AHelperThatIsNotTheBuildTheOfferNamedLeavesWithItsOwnExitCode()
     {
         string sha = new('a', 64);
+        string target = Path.Combine(OwnFolder("WrongBuild"), "PadForge.exe");
         int before = Environment.ExitCode;
         try
         {
             var ui = new RecordingUi();
             // No build stamps this commit, so the running test host is not it.
-            Assert.True(UpdateService.TryRunApplyMode(new[] { "--apply-update", @"C:\PadForge\PadForge.exe", "4242",
+            Assert.True(UpdateService.TryRunApplyMode(new[] { "--apply-update", target, "4242",
                 "--handshake", "0123456789abcdef0123456789abcdef", sha, "0000000000000000000000000000000000000000" }, ui));
             Assert.Equal(UpdateService.WrongBuildExitCode, Environment.ExitCode);
             Assert.Empty(ui.Reports);
@@ -356,27 +374,32 @@ public class UpdateServiceTests
 
     /// <summary>Once the first argument is the update switch the process is
     /// the helper, and arguments it cannot use end it there. It never goes on
-    /// to start PadForge from the staging folder.</summary>
+    /// to start PadForge from the staging folder. Every target here is in a
+    /// folder of this test's own, or names no file at all: a relative path
+    /// that resolves to nothing, the test's folder itself, and a file nobody
+    /// made in it.</summary>
     [Fact]
     public void AnUpdateSwitchWithArgumentsItCannotUseEndsTheProcess()
     {
         string sha = new('a', 64);
+        string own = OwnFolder("BadArguments");
+        string target = Path.Combine(own, "PadForge.exe");
         // Too short to name a target: nobody waits for this helper, so it says so.
         var ui = new RecordingUi();
-        Assert.True(UpdateService.TryRunApplyMode(new[] { "--apply-update", @"C:\PadForge\PadForge.exe" }, ui));
+        Assert.True(UpdateService.TryRunApplyMode(new[] { "--apply-update", target }, ui));
         Assert.Single(ui.Reports);
         // A handshake it cannot read: the copy that started it waits for it,
         // sees it exit, and reports that itself.
         foreach (var args in new[]
                  {
-                     new[] { "--apply-update", @"C:\PadForge\PadForge.exe", "4242", "--handshake" },
-                     new[] { "--apply-update", @"C:\PadForge\PadForge.exe", "4242", "--handshake", "not-a-guid", sha, "-" },
-                     new[] { "--apply-update", @"C:\PadForge\PadForge.exe", "4242", "--handshake",
+                     new[] { "--apply-update", target, "4242", "--handshake" },
+                     new[] { "--apply-update", target, "4242", "--handshake", "not-a-guid", sha, "-" },
+                     new[] { "--apply-update", target, "4242", "--handshake",
                          "0123456789abcdef0123456789abcdef", "not-a-hash", "-" },
                      // The expected commit is missing, or is not one.
-                     new[] { "--apply-update", @"C:\PadForge\PadForge.exe", "4242", "--handshake",
+                     new[] { "--apply-update", target, "4242", "--handshake",
                          "0123456789abcdef0123456789abcdef", sha },
-                     new[] { "--apply-update", @"C:\PadForge\PadForge.exe", "4242", "--handshake",
+                     new[] { "--apply-update", target, "4242", "--handshake",
                          "0123456789abcdef0123456789abcdef", sha, "--profile" },
                  })
         {
@@ -386,12 +409,19 @@ public class UpdateServiceTests
         }
         // A copy from before the handshake with a target that is not a full
         // path, or not a file: reported, and nothing is started.
-        foreach (string target in new[] { "PadForge.exe", Path.GetTempPath(),
-                     Path.Combine(Path.GetTempPath(), "PadForgeNoSuchExe_" + Guid.NewGuid().ToString("N") + ".exe") })
+        Directory.CreateDirectory(own);
+        try
         {
-            ui = new RecordingUi();
-            Assert.True(UpdateService.TryRunApplyMode(new[] { "--apply-update", target, "0" }, ui));
-            Assert.Single(ui.Reports);
+            foreach (string notAFile in new[] { Path.Combine("NoSuchPadForge", "PadForge.exe"), own, target })
+            {
+                ui = new RecordingUi();
+                Assert.True(UpdateService.TryRunApplyMode(new[] { "--apply-update", notAFile, "0" }, ui));
+                Assert.Single(ui.Reports);
+            }
+        }
+        finally
+        {
+            Directory.Delete(own, recursive: true);
         }
     }
 
@@ -479,9 +509,9 @@ public class UpdateServiceTests
         public void DeleteDirectory(string dir) { Deleted = true; }
     }
 
-    private const string Source = @"C:\temp\new\PadForge.exe";
-    private const string Target = @"C:\PadForge\PadForge.exe";
-    private const string Recovery = @"C:\temp\recovery-1";
+    private const string Source = @"Q:\NoSuchUpdate\new\PadForge.exe";
+    private const string Target = NoSuchInstall;
+    private const string Recovery = @"Q:\NoSuchUpdate\recovery-1";
     private static readonly string Backup = Path.Combine(Recovery, "PadForge.exe");
 
     private static FakeFiles Disk() => new() { Files = { [Source] = "new", [Target] = "old" } };
@@ -636,12 +666,12 @@ public class UpdateServiceTests
     [Fact]
     public void TheLaunchInstallsOnlyThisCopysNewerUpdateWithBothSwitchesOn()
     {
-        const string self = @"C:\PadForge\PadForge.exe";
+        const string self = NoSuchInstall;
         var v = new Version(4, 5, 2);
         PendingUpdate Ready() => new()
         {
-            IsPreRelease = true, BuildNumber = 3700, Commit = "abc1234", TargetPath = @"c:\padforge\PADFORGE.EXE",
-            ExePath = @"C:\temp\PadForge.exe", DisplayVersion = "r3700 (abc1234)",
+            IsPreRelease = true, BuildNumber = 3700, Commit = "abc1234", TargetPath = @"q:\nosuchpadforge\PADFORGE.EXE",
+            ExePath = @"Q:\NoSuchUpdate\PadForge.exe", DisplayVersion = "r3700 (abc1234)",
         };
         UpdateService.UpdatePreferences? on = new(true, true, false);
         UpdateService.PendingAction Decide(PendingUpdate p, UpdateService.UpdatePreferences? prefs, int build = 3676) =>
@@ -668,7 +698,7 @@ public class UpdateServiceTests
         Assert.Equal(UpdateService.PendingAction.Discard,
             UpdateService.DecidePending(attempted, () => on, self, v, 3700, "abc1234", FullA, _ => true));
         var other = Ready();
-        other.TargetPath = @"D:\Games\PadForge\PadForge.exe";
+        other.TargetPath = @"R:\NoSuchGames\PadForge\PadForge.exe";
         Assert.Equal(UpdateService.PendingAction.Discard, Decide(other, on));
         // This build is ahead of the staged one now, installed by hand.
         Assert.Equal(UpdateService.PendingAction.Discard, Decide(Ready(), on, build: 3800));
@@ -687,7 +717,9 @@ public class UpdateServiceTests
     [InlineData("<AppSettings><IncludePreReleaseUpdates> 1 </IncludePreReleaseUpdates></AppSettings>", true, false, true)]
     public void TheLaunchReadsTheSavedPreferences(string appSettings, bool check, bool install, bool preReleases)
     {
-        string path = Path.Combine(Path.GetTempPath(), "PadForgeUpdatePrefs_" + Guid.NewGuid().ToString("N") + ".xml");
+        string dir = OwnFolder("Prefs");
+        Directory.CreateDirectory(dir);
+        string path = Path.Combine(dir, "prefs.xml");
         File.WriteAllText(path, "<?xml version=\"1.0\"?><PadForgeSettings>" + appSettings + "</PadForgeSettings>");
         try
         {
@@ -696,7 +728,7 @@ public class UpdateServiceTests
         }
         finally
         {
-            File.Delete(path);
+            Directory.Delete(dir, recursive: true);
         }
         Assert.Equal(new UpdateService.UpdatePreferences(true, false, false), UpdateService.ReadUpdatePreferences(path));
     }
@@ -704,7 +736,9 @@ public class UpdateServiceTests
     [Fact]
     public void AnUnreadableSettingsFileInstallsNothing()
     {
-        string path = Path.Combine(Path.GetTempPath(), "PadForgeUpdatePrefs_" + Guid.NewGuid().ToString("N") + ".xml");
+        string dir = OwnFolder("Prefs");
+        Directory.CreateDirectory(dir);
+        string path = Path.Combine(dir, "prefs.xml");
         File.WriteAllText(path, "<PadForgeSettings><AppSettings><InstallUpdatesAutomatically>maybe");
         try
         {
@@ -715,7 +749,7 @@ public class UpdateServiceTests
         }
         finally
         {
-            File.Delete(path);
+            Directory.Delete(dir, recursive: true);
         }
     }
 
@@ -724,17 +758,17 @@ public class UpdateServiceTests
     [Fact]
     public void EachCopyHasItsOwnFolderWhateverTheCase()
     {
-        Assert.Equal(UpdateService.PendingPathFor(@"C:\PadForge\PadForge.exe"),
-            UpdateService.PendingPathFor(@"c:\padforge\PADFORGE.EXE"));
-        Assert.NotEqual(UpdateService.PendingPathFor(@"C:\PadForge\PadForge.exe"),
-            UpdateService.PendingPathFor(@"D:\Games\PadForge\PadForge.exe"));
-        Assert.Matches("^[0-9a-f]{16}$", UpdateService.InstallKey(@"C:\PadForge\PadForge.exe"));
+        Assert.Equal(UpdateService.PendingPathFor(NoSuchInstall),
+            UpdateService.PendingPathFor(@"q:\nosuchpadforge\PADFORGE.EXE"));
+        Assert.NotEqual(UpdateService.PendingPathFor(NoSuchInstall),
+            UpdateService.PendingPathFor(@"R:\NoSuchGames\PadForge\PadForge.exe"));
+        Assert.Matches("^[0-9a-f]{16}$", UpdateService.InstallKey(NoSuchInstall));
     }
 
     [Fact]
     public void TheCleanupTouchesOnlyWhatItCanAccountFor()
     {
-        string root = Path.Combine(Path.GetTempPath(), "PadForgeUpdateClean_" + Guid.NewGuid().ToString("N"));
+        string root = OwnFolder("Clean");
         string self = Path.Combine(root, "install", "PadForge.exe");
         string mine = Path.Combine(root, UpdateService.InstallKey(self));
         string otherGone = Path.Combine(root, UpdateService.InstallKey(Path.Combine(root, "gone", "PadForge.exe")));
@@ -779,7 +813,7 @@ public class UpdateServiceTests
     [Fact]
     public void ARecordThatCannotBeReadNowKeepsItsDownload()
     {
-        string root = Path.Combine(Path.GetTempPath(), "PadForgeUpdateLocked_" + Guid.NewGuid().ToString("N"));
+        string root = OwnFolder("Locked");
         string self = Path.Combine(root, "install", "PadForge.exe");
         string mine = Path.Combine(root, UpdateService.InstallKey(self));
         string record = Path.Combine(mine, "pending.json");
@@ -924,7 +958,7 @@ public class UpdateServiceTests
     [Fact]
     public void OneHelperAtATimeHoldsAnInstalledExesLease()
     {
-        string exe = Path.Combine(Path.GetTempPath(), "PadForgeLease_" + Guid.NewGuid().ToString("N"), "PadForge.exe");
+        string exe = Path.Combine(OwnFolder("Lease"), "PadForge.exe");
         Assert.True(UpdateService.TryAcquireUpdateLease(exe, out var first));
         try
         {
@@ -979,7 +1013,7 @@ public class UpdateServiceTests
     [Fact]
     public void ALeaseOnTheInstalledExeKeepsItsLaunchesAway()
     {
-        string exe = Path.Combine(Path.GetTempPath(), "PadForgeLease_" + Guid.NewGuid().ToString("N"), "PadForge.exe");
+        string exe = Path.Combine(OwnFolder("Lease"), "PadForge.exe");
         Assert.False(UpdateService.IsUpdateInProgress(exe));
         using (new Mutex(false, UpdateService.LeaseName(exe)))
         {

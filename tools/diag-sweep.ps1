@@ -8,10 +8,24 @@
 # off. Acceptance bar: the harvest at
 # C:\tmp\pfdiag-verify.log contains no error-class lines (BINDERR,
 # FAILED, exception). Progress notes: C:\tmp\pf-sweep-out.txt
+param(
+    # The owner's answer to a run that stopped over a settings backup an
+    # earlier run left (settings_guard.ps1). Ask, the default, is that
+    # stop. File keeps the settings file and sets the backup aside. Backup puts
+    # the backup back over the settings file. A run with nothing to ask
+    # refuses File and Backup.
+    [ValidateSet('Ask', 'File', 'Backup')]
+    [string]$KeepSettingsFrom = 'Ask'
+)
 $ErrorActionPreference = 'Continue'
 $out = 'C:\tmp\pf-sweep-out.txt'
 Set-Content $out "sweep start $(Get-Date -Format o)" -Encoding utf8
 function Note($m) { Add-Content $out $m -Encoding utf8 }
+
+# --- The owner's settings file ------------------------------------------------
+# The marker, the copies, and the loader and saver that every script under
+# tools shares. settings_guard.ps1 says what each one does.
+. (Join-Path $PSScriptRoot 'settings_guard.ps1')
 
 $src = 'C:\Users\sonic\OneDrive\Documents\GitHub\PadForge\PadForge.App\bin\Release\net10.0-windows10.0.26100.0\win-x64\publish\PadForge.exe'
 $dst = 'C:\PadForge\PadForge.exe'
@@ -25,15 +39,60 @@ Remove-Item $diag -Force -ErrorAction SilentlyContinue
 # PadForge.xml. The harness had no backup and no restore, so the damage was
 # caught only by diffing against an external snapshot afterwards. Back the
 # file up before touching anything, and put it back on every exit path.
+#
+# A backup already there is settled before the app is stopped or a file is
+# touched, so a run that stops has changed nothing. A backup a killed run left
+# holds the owner's real settings, and the file beside it is the sweep's.
+# One left behind after the settings were put back by hand sits beside the
+# owner's current file. The marker tells the two apart (Get-BackupDoubt), and
+# without its word the run stops and the owner decides. The sweep runs with
+# ErrorActionPreference Continue, and this part does not: a backup that could
+# not be taken ends the run before the sweep writes anything.
 $pfXml = 'C:\PadForge\PadForge.xml'
 $pfBak = Join-Path $env:TEMP 'PadForge.xml.diagsweep.bak'
-if (Test-Path $pfBak) {
-    # A leftover backup means an earlier run died before restoring, so that
-    # copy is the owner's real state. Put it back rather than overwrite it.
-    Copy-Item $pfBak $pfXml -Force
-    Note "restored a leftover settings backup from an aborted run"
+$ErrorActionPreference = 'Stop'
+$doubt = Get-BackupDoubt $pfXml $pfBak 'Ask'
+$stop = @()
+if ($KeepSettingsFrom -eq 'Ask' -and $doubt) {
+    $stop = @(Get-BackupStopLines $pfXml $pfBak $doubt)
+} elseif ($KeepSettingsFrom -ne 'Ask' -and -not $doubt) {
+    $stop = @("!! -KeepSettingsFrom $KeepSettingsFrom answers a run that stopped over a settings backup, and this run has nothing to ask. Leave it out.")
 }
-if (Test-Path $pfXml) { Copy-Item $pfXml $pfBak -Force }
+if ($stop.Count -gt 0) {
+    foreach ($line in $stop) { Note $line; Write-Host $line -ForegroundColor Red }
+    exit 1
+}
+# STOP THE APP FIRST. A leftover backup put back under a live PadForge would
+# be saved over by the app's own state.
+Get-Process PadForge -EA SilentlyContinue | Stop-Process -Force
+Start-Sleep -Seconds 3
+# Asked again now that the app is down. A save it made after the question
+# above can make two files that were the same differ. The run stops with
+# neither file touched and starts PadForge again.
+$doubt = Get-BackupDoubt $pfXml $pfBak $KeepSettingsFrom
+if ($doubt) {
+    foreach ($line in (Get-BackupStopLines $pfXml $pfBak $doubt)) { Note $line; Write-Host $line -ForegroundColor Red }
+    Start-Process -FilePath $dst
+    exit 1
+}
+if (Test-Path $pfBak) {
+    if ($KeepSettingsFrom -eq 'File') {
+        $kept = Save-SettingsCopy $pfBak
+        Remove-Item $pfBak -Force
+        Remove-BackupMarker $pfBak
+        Note "-KeepSettingsFrom File: the settings file stays as it is, and the backup is set aside as $kept"
+    } else {
+        $kept = Save-SettingsCopy $pfXml
+        Note "restoring the backup an earlier run left (the file it replaces is kept as $kept)"
+        Copy-Item $pfBak $pfXml -Force
+    }
+}
+# A backup is written only where none is, so a copy cut short can never leave
+# half a file over a good backup. With no settings file there is nothing to
+# back up, and no marker either.
+if (-not (Test-Path $pfBak) -and (Test-Path $pfXml)) { Copy-Item $pfXml $pfBak -Force }
+Set-BackupMarker $pfBak
+$ErrorActionPreference = 'Continue'
 
 try {
 
@@ -56,11 +115,12 @@ Note "copied=$copied hash=$((Get-FileHash $dst -Algorithm SHA256).Hash.Substring
 # force the two flags off in the working copy before launching. An
 # assignment is data: write it, do not try to click the window back.
 if (Test-Path $pfXml) {
-    $xml = Get-Content $pfXml -Raw
-    $xml = $xml -replace '<StartMinimized>true</StartMinimized>', '<StartMinimized>false</StartMinimized>'
-    $xml = $xml -replace '<MinimizeToTray>true</MinimizeToTray>', '<MinimizeToTray>false</MinimizeToTray>'
-    Set-Content -Path $pfXml -Value $xml -Encoding UTF8
-    Note 'forced StartMinimized=false and MinimizeToTray=false for this run'
+    $x = Read-SettingsXml $pfXml
+    foreach ($tag in @('StartMinimized', 'MinimizeToTray')) {
+        foreach ($n in @($x.SelectNodes("//$tag"))) { if ($n.InnerText -eq 'true') { $n.InnerText = 'false' } }
+    }
+    $kept = Save-SettingsXml $x $pfXml
+    Note "forced StartMinimized=false and MinimizeToTray=false for this run (the file before it is kept as $kept)"
 }
 
 # Launch with the mirror armed
@@ -319,12 +379,27 @@ Note "sweep done $(Get-Date -Format o)"
 }
 finally {
     # Always put the owner's settings back, including after a mid-sweep error.
+    # With ErrorActionPreference Stop, as at the start: a restore that fails
+    # ends here, and the backup and its marker stay for the next run.
     if (Test-Path $pfBak) {
+        $ErrorActionPreference = 'Stop'
         Get-Process PadForge -EA SilentlyContinue | Stop-Process -Force
         Start-Sleep -Seconds 3
+        # The file about to be replaced holds nothing but what the backup holds
+        # and what this run wrote, so its copy is a courtesy and a failed one
+        # does not hold the restore up. The marker goes as soon as the settings
+        # are back, before the backup does.
+        $kept = $null
+        $keptBak = $null
+        try { $kept = Save-SettingsCopy $pfXml }
+        catch { Note "could not copy the sweep's settings file aside before the restore: $($_.Exception.Message)" }
         Copy-Item $pfBak $pfXml -Force
-        Remove-Item $pfBak -Force
-        Note "owner settings restored"
+        Remove-BackupMarker $pfBak
+        try {
+            $keptBak = Save-SettingsCopy $pfBak
+            Remove-Item $pfBak -Force
+        } catch { Note "the backup could not be cleared and stays beside the restored file: $($_.Exception.Message)" }
+        Note "owner settings restored (the file the restore replaced is kept as $kept, the backup as $keptBak)"
         Start-Process $dst
     }
 }

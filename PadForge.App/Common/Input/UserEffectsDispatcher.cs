@@ -1775,6 +1775,14 @@ namespace PadForge.Common.Input
         /// when this slot lights it. Called under devices.SyncRoot: every
         /// call below is a leaf, and the backends do the I/O.
         ///
+        /// <para>Only the device's own config on this slot lights it. A
+        /// device with none yet, assigned a moment before its default entry
+        /// is made, is released rather than lit with the anchor, the selected
+        /// device's config, whose Control This Device's Lighting switch and
+        /// mode are another device's. Its own entry comes on a later pass: a
+        /// vendor row lights from it, and a mouse or keyboard waits for its
+        /// switch.</para>
+        ///
         /// <para>The color is the Lighting tab's mode through the core every
         /// lit device shares, under the game's lightbar the way a DualSense
         /// takes it (<see cref="Common.Input.Peripherals.PeripheralLightingColor"/>).
@@ -1784,13 +1792,12 @@ namespace PadForge.Common.Input
         /// The Sony lane's lowest-raw-index owner rule is deliberately not
         /// used: it can disagree with the displayed numbers.</para></summary>
         private bool LightPeripheral(UserDevice ud, IReadOnlyDictionary<Guid, DeviceSlotConfig> perDeviceCfgs,
-            DeviceSlotConfig anchor, float rawAudioPeak, long nowMs, int slotNumber)
+            float rawAudioPeak, long nowMs, int slotNumber)
         {
             Guid guid = ud.InstanceGuid;
             DeviceSlotConfig devCfg = null;
             if (perDeviceCfgs != null && perDeviceCfgs.TryGetValue(guid, out var resolved))
                 devCfg = resolved;
-            devCfg ??= anchor;
             bool vendorRow = ud.Device is Common.Input.Peripherals.PeripheralOutputRow;
             if (devCfg == null || (!vendorRow && !devCfg.PeripheralLightingEnabled))
             {
@@ -1972,7 +1979,7 @@ namespace PadForge.Common.Input
                             ud.IsOnline && ud.Device is not Common.Input.Peripherals.PeripheralOutputRow;
                         if (!ud.IsOnline)
                             Common.Input.Peripherals.PeripheralOutputs.ReleaseLighting(ud.InstanceGuid, _padIndex);
-                        else if (LightPeripheral(ud, perDeviceCfgs, cfg, rawAudioPeak, nowMs, playerNumber))
+                        else if (LightPeripheral(ud, perDeviceCfgs, rawAudioPeak, nowMs, playerNumber))
                             litPeripherals++;
                         continue;
                     }
@@ -2166,7 +2173,7 @@ namespace PadForge.Common.Input
                     {
                         (peripheralKinds ??= new Dictionary<Guid, bool>())[ud.InstanceGuid] =
                             ud.Device is not Common.Input.Peripherals.PeripheralOutputRow;
-                        if (LightPeripheral(ud, perDeviceCfgs, cfg, rawAudioPeak, nowMs, playerNumber))
+                        if (LightPeripheral(ud, perDeviceCfgs, rawAudioPeak, nowMs, playerNumber))
                             litPeripherals++;
                         continue;
                     }

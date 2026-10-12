@@ -28,7 +28,11 @@ namespace PadForge.Tests
             Assert.True(await WaitUntil(() => received != null, 5000));
             var channel = source.GetAssignmentChannel(source.ConnectedFingerprints()[0]);
             Assert.NotNull(channel);
-            Assert.Equal(LinkAssignmentStatus.Denied, (await channel.QueryAsync("pad0")).Status);
+            // The first exchange over UDP. One that goes unanswered names the
+            // direction that carried nothing.
+            var first = await channel.QueryAsync("pad0");
+            Assert.True(first.Status == LinkAssignmentStatus.Denied,
+                $"Expected Denied, got {first.Status}. " + Traffic(("target", target), ("source", source)));
             targetTrust.SetRemoteAssignmentsAllowed(sourceIdentity.FingerprintHex, true);
             var snapshot = await channel.QueryAsync("pad0");
             Assert.Equal(LinkAssignmentStatus.Ok, snapshot.Status);

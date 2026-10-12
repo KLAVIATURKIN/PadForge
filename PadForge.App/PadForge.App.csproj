@@ -244,6 +244,24 @@
     <CsWinRTInputs Include="Resources\WinMD\Windows.Devices.Midi2.winmd" />
   </ItemGroup>
 
+  <!-- cswinrt.exe 2.2.0 is not long-path aware (its manifest declares only
+       its execution level), so a generated file whose full path passes
+       Windows' 259-character limit is dropped without a word, and further
+       out the tool dies with 0xC0000409 (MSB3073, exit code -1073740791)
+       and no hint about the path. The longest file it generates from this
+       WinMD is Windows.Devices.Midi2.Transports.BasicLoopback.cs, 49
+       characters, so the generated folder, trailing backslash included, may
+       be at most 210 characters. The folder sits about 85 characters below
+       the clone's root, so this refuses a clone in a folder longer than about
+       125 characters, with the remedy, instead of the crash. A WinMD with a
+       longer namespace needs the 210 revisited. Design-time builds skip it,
+       so Visual Studio does not flag a deep clone in the editor. -->
+  <Target Name="RefuseCsWinRTPathPastLimit" AfterTargets="CsWinRTPrepareProjection" BeforeTargets="CsWinRTGenerateProjection"
+          Condition="'$(DesignTimeBuild)' != 'true'">
+    <Error Condition="$(CsWinRTGeneratedFilesDir.Length) &gt; 210"
+           Text="Build refused: cswinrt.exe cannot write past Windows' 259-character path limit, and its output folder '$(CsWinRTGeneratedFilesDir)' is $(CsWinRTGeneratedFilesDir.Length) characters, past the 210 its longest generated file allows. Clone PadForge into a shorter folder, such as C:\src\PadForge." />
+  </Target>
+
   <!-- Microsoft-signed BthPS3 + BthPS3PSM drivers (nefarius release) and the DS3
        WinUSB INF, embedded so the single-file app can drop them to a temp dir and
        install them at pairing time. No MSI, no external installer. -->
@@ -269,7 +287,27 @@
          unstable in-progress work from the HIDMaestro repo. Update by
          copying the Release build of HIDMaestro.Core.dll from the
          HIDMaestro repo into Resources\HIDMaestro\ after tagging a
-         release there. Current: v1.9.2, which moves the USB/IP
+         release there. Current: v1.11.0, which adds the Nintendo Switch
+         2 Pro Controller: Full persona (HM#66): the pad as it appears
+         over USB, with HID on interface 0 and a vendor bulk pair on
+         interface 1, where SDL's Switch 2 driver and Steam start the
+         pad and read its motion. The USB/IP backend serves bulk
+         transfers for it and answers Microsoft OS 1.0 descriptor
+         requests, so Windows binds WinUSB to interface 1 with no driver
+         install. The same release reads a profile's trigger axes from
+         its axisMap alone, which stops a Switch 2 Pro's right stick
+         from pulling ZR.
+         v1.10.1 before it decodes the native DualShock 3 preset's
+         rumble and LED report (HM#65), so a game's rumble on that
+         preset reaches OutputDecoded, which PadForge's motor handler
+         reads.
+         v1.10.0 before that added DualShock 3 (SIXAXIS): Full, the form
+         PCSX2 and RPCS3 read button pressure from, gave the DualSense
+         and DualShock 4 profiles an identity motion calibration in the
+         pads' own units, made a Valve persona fed raw frames repeat its
+         consumer's last frame when it goes quiet, and kept SDL reading
+         the Bluetooth DualShock 4 preset after a host arms it (HM#64).
+         v1.9.2 before it moved the USB/IP
          transport to usbip-win2 0.9.8.1, the first release with the fix
          for the attach work item that blocked driver unload. The x64
          installer is the release asset, and the ARM64 one is the same

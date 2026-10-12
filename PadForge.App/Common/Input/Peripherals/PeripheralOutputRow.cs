@@ -52,16 +52,34 @@ namespace PadForge.Common.Input.Peripherals
 
         public PeripheralRowKind Kind { get; }
 
+        // Each row's identity tag, hashed once. The ids persist through
+        // every assignment and profile that names a row, and the Razer Sensa
+        // worker reads its row's level by id on every tick.
+        private const string ChromaTag = "pfrazerchroma";
+        private const string LightsyncTag = "pflogilightsync";
+        private const string SensaTag = "pfrazersensa";
+        private const string SteelSeriesTag = "pfsteelseriesgg";
+        private static readonly Guid ChromaId = Md5Guid(ChromaTag);
+        private static readonly Guid LightsyncId = Md5Guid(LightsyncTag);
+        private static readonly Guid SensaId = Md5Guid(SensaTag);
+        private static readonly Guid SteelSeriesId = Md5Guid(SteelSeriesTag);
+
+        /// <summary>A row for one kind. Every kind has its own arm here and
+        /// in <see cref="NameFor"/>, <see cref="IdentityFor"/> and
+        /// <see cref="IsLightingRow"/>, and a kind none of them lists is
+        /// refused, so a kind appended later can never take another row's
+        /// path, name or id.</summary>
         public PeripheralOutputRow(PeripheralRowKind kind)
         {
             Kind = kind;
             Name = NameFor(kind);
             (DevicePath, ProductId, string identity) = kind switch
             {
-                PeripheralRowKind.RazerChroma => ("razerchroma://local", (ushort)0x4348, "pfrazerchroma"),
-                PeripheralRowKind.LogitechLightsync => ("logilightsync://local", (ushort)0x4C53, "pflogilightsync"),
-                PeripheralRowKind.SteelSeriesGG => ("steelseriesgg://local", (ushort)0x5347, "pfsteelseriesgg"),
-                _ => ("razersensa://local", (ushort)0x5345, "pfrazersensa"),
+                PeripheralRowKind.RazerChroma => ("razerchroma://local", (ushort)0x4348, ChromaTag),
+                PeripheralRowKind.LogitechLightsync => ("logilightsync://local", (ushort)0x4C53, LightsyncTag),
+                PeripheralRowKind.RazerSensa => ("razersensa://local", (ushort)0x5345, SensaTag),
+                PeripheralRowKind.SteelSeriesGG => ("steelseriesgg://local", (ushort)0x5347, SteelSeriesTag),
+                _ => throw new ArgumentOutOfRangeException(nameof(kind)),
             };
             InstanceGuid = IdentityFor(kind);
             ProductGuid = Md5Guid(identity + "-product");
@@ -73,8 +91,9 @@ namespace PadForge.Common.Input.Peripherals
         {
             PeripheralRowKind.RazerChroma => "Razer Chroma",
             PeripheralRowKind.LogitechLightsync => "Logitech LIGHTSYNC",
+            PeripheralRowKind.RazerSensa => "Razer Sensa",
             PeripheralRowKind.SteelSeriesGG => "SteelSeries GG",
-            _ => "Razer Sensa",
+            _ => throw new ArgumentOutOfRangeException(nameof(kind)),
         };
 
         /// <summary>The kind of the row with this id, or null for any other
@@ -88,15 +107,21 @@ namespace PadForge.Common.Input.Peripherals
 
         /// <summary>The row's id, stable across sessions: the migration of
         /// the old global switches assigns it before the row first opens.</summary>
-        public static Guid IdentityFor(PeripheralRowKind kind) => Md5Guid(kind switch
+        public static Guid IdentityFor(PeripheralRowKind kind) => kind switch
         {
-            PeripheralRowKind.RazerChroma => "pfrazerchroma",
-            PeripheralRowKind.LogitechLightsync => "pflogilightsync",
-            PeripheralRowKind.SteelSeriesGG => "pfsteelseriesgg",
-            _ => "pfrazersensa",
-        });
+            PeripheralRowKind.RazerChroma => ChromaId,
+            PeripheralRowKind.LogitechLightsync => LightsyncId,
+            PeripheralRowKind.RazerSensa => SensaId,
+            PeripheralRowKind.SteelSeriesGG => SteelSeriesId,
+            _ => throw new ArgumentOutOfRangeException(nameof(kind)),
+        };
 
-        public static bool IsLightingRow(PeripheralRowKind kind) => kind != PeripheralRowKind.RazerSensa;
+        public static bool IsLightingRow(PeripheralRowKind kind) => kind switch
+        {
+            PeripheralRowKind.RazerChroma or PeripheralRowKind.LogitechLightsync or PeripheralRowKind.SteelSeriesGG => true,
+            PeripheralRowKind.RazerSensa => false,
+            _ => throw new ArgumentOutOfRangeException(nameof(kind)),
+        };
 
         // ─── ISdlInputDevice identity / capabilities ───
         public uint SdlInstanceId { get; }

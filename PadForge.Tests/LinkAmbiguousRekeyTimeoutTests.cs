@@ -44,6 +44,43 @@ namespace PadForge.Tests
         public Task ATimedOutAttemptBeforeInventoryKeepsTheConcurrentConfirmedSession()
             => RequiredAttemptTimeout(sendInventory: false);
 
+        /// <summary>The proxy stands in for the network between two servers,
+        /// and a datagram it forwards to a port that has closed does not end
+        /// its loop. Windows answers such a datagram with a reset that the
+        /// socket's next receive throws, unless the socket is set as
+        /// LinkServer sets its own. Eight runs in 300 of the first test above
+        /// failed on that reset under a hammer on 2026-10-11, at the proxy's
+        /// disposal.</summary>
+        [Fact]
+        public async Task TheRekeyProxyKeepsForwardingAfterADatagramToAClosedPort()
+        {
+            using var destination = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            destination.Bind(new IPEndPoint(IPAddress.Loopback, 0));
+            destination.ReceiveTimeout = 5000;
+            await using var proxy = new RekeyGateProxy((IPEndPoint)destination.LocalEndPoint);
+            var toProxy = new IPEndPoint(IPAddress.Loopback, proxy.Port);
+            var datagram = new byte[16];
+
+            // The first sender becomes the proxy's return address, then closes.
+            using (var gone = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp))
+            {
+                gone.Bind(new IPEndPoint(IPAddress.Loopback, 0));
+                gone.SendTo(new byte[] { 1 }, toProxy);
+                Assert.Equal(1, destination.Receive(datagram));
+            }
+            // The answer goes to its closed port, and the proxy still carries
+            // what follows.
+            destination.SendTo(new byte[] { 2 }, toProxy);
+            using var sender = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            sender.Bind(new IPEndPoint(IPAddress.Loopback, 0));
+            foreach (byte value in new byte[] { 3, 4 })
+            {
+                sender.SendTo(new[] { value }, toProxy);
+                Assert.Equal(1, destination.Receive(datagram));
+                Assert.Equal(value, datagram[0]);
+            }
+        }
+
         private async Task RequiredAttemptTimeout(bool sendInventory)
         {
             var first = PeerIdentity.Generate();
@@ -163,6 +200,10 @@ namespace PadForge.Tests
                 _listener = new TcpListener(IPAddress.Loopback, Port);
                 _listener.Start();
                 _udp = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+                // SIO_UDP_CONNRESET off, as LinkServer.Start sets its own
+                // socket: a forward to a port that has closed is not thrown
+                // by the next receive, which ended the loop below.
+                _udp.IOControl(unchecked((int)0x9800000C), new byte[4], null);
                 _udp.Bind(new IPEndPoint(IPAddress.Loopback, Port));
                 _accept = Accept();
                 _datagrams = Datagrams();

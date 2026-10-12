@@ -9,6 +9,22 @@ namespace PadForge.Common.Input
 {
     internal sealed class RemoteToneRequest
     {
+        /// <summary>How long one frame keeps its tone playing, in ms. A
+        /// consumer ships a frame on every tick of its stream while the tone
+        /// plays, 10 ms apart (HapticToneService.DispatchToneFrame), so a tone
+        /// that goes this long without a newer frame has lost its link.</summary>
+        internal const int DefaultLifetimeMs = 250;
+
+        /// <summary>Test seam (InternalsVisibleTo PadForge.Tests): the life of
+        /// each request made from here on, the default unless a test holds it.
+        /// A test sends one frame where a link sends a stream of them, and the
+        /// sink's stream thread weighs that frame only when the scheduler runs
+        /// it. On a busy PC that came more than 250 ms after the frame was
+        /// made, so the tone never played and the test waited for it in vain.
+        /// A test holds the life past its own end and puts the default back
+        /// when it ends.</summary>
+        internal static int LifetimeMs = DefaultLifetimeMs;
+
         internal readonly UserDevice Device;
         internal readonly ISdlInputDevice Source;
         internal readonly float Hz;
@@ -21,7 +37,7 @@ namespace PadForge.Common.Input
             Source = device.Device;
             Hz = hz;
             Amplitude = Math.Clamp(amplitude, 0f, 1f);
-            UntilMs = Environment.TickCount64 + 250;
+            UntilMs = Environment.TickCount64 + LifetimeMs;
             Ticket = ticket;
         }
         internal bool IsCurrent => Device.IsOnline && ReferenceEquals(Device.Device, Source)

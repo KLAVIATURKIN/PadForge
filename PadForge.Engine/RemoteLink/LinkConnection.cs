@@ -548,6 +548,14 @@ namespace PadForge.Engine.RemoteLink
                 if (devices[i].TouchpadPressureSupported == true) caps2 |= 16;
                 if (devices[i].TouchpadClickSupported.HasValue) caps2 |= 32;
                 if (devices[i].TouchpadClickSupported == true) caps2 |= 64;
+                // Bit 7: the owner reads the device in SDL's gamepad layout
+                // and its type is not a gamepad's, or the reverse. Clear, the
+                // type says it, so a build from before the bit, which never
+                // reads it, answers as it always has. It exhausts this byte
+                // too: the next capability needs a tail of its own.
+                if (devices[i].GamepadLayout is bool layout
+                    && layout != (devices[i].InputDeviceType == InputDeviceType.Gamepad))
+                    caps2 |= 128;
                 tail.Add(caps2);
             }
 
@@ -846,6 +854,9 @@ namespace PadForge.Engine.RemoteLink
                             list[i].HasExtraGenericAxes = (caps2 & 4) != 0;
                             list[i].TouchpadPressureSupported = (caps2 & 8) != 0 ? (caps2 & 16) != 0 : null;
                             list[i].TouchpadClickSupported = (caps2 & 32) != 0 ? (caps2 & 64) != 0 : null;
+                            list[i].GamepadLayout = (caps2 & 128) != 0
+                                ? list[i].InputDeviceType != InputDeviceType.Gamepad
+                                : null;
                         }
                     }
                 }
@@ -858,6 +869,7 @@ namespace PadForge.Engine.RemoteLink
                         info.HasExtraGenericAxes = false;
                         info.TouchpadPressureSupported = null;
                         info.TouchpadClickSupported = null;
+                        info.GamepadLayout = null;
                     }
                     // Cursor unreliable: do not read v4. The v2 catch has
                     // always done this; v3's did not need to until a tail was

@@ -10,12 +10,13 @@ namespace PadForge.Common.Input
     /// discussion #488). Logitech has not published the feature, and three
     /// implementations cloned beside the other references agree on it:
     /// Solaar (hidpp20_constants.py HapticWaveForms, settings_templates.py
-    /// HapticLevel and PlayHapticWaveForm), OpenLogi's x19b0 reference, and
-    /// LiveHaptics (HidppDevice.cpp). Function 0 returns the supported-waveform
-    /// mask big-endian in payload bytes 4 to 7, function 1 the enable flag in
-    /// bit 0 of byte 0 and the 0 to 100 intensity in byte 1, and function 4
-    /// plays one waveform. LiveHaptics sends 100 after the waveform byte, and
-    /// Solaar and OpenLogi send zero, which this follows.
+    /// HapticLevel and PlayHapticWaveForm), OpenLogi (haptic_feedback.rs
+    /// HapticFeedbackFeature) and LiveHaptics (HidppDevice.cpp). Function 0
+    /// returns the supported-waveform mask big-endian in payload bytes 4 to
+    /// 7, function 1 the enable flag in bit 0 of byte 0 and the 0 to 100
+    /// intensity in byte 1, and function 4 plays one waveform. LiveHaptics
+    /// sends 100 after the waveform byte, and Solaar and OpenLogi send zero,
+    /// which this follows.
     ///
     /// <para>Every frame is a 20-byte long report. Windows splits the HID++
     /// short and long reports into two collections, and OpenRGB
@@ -23,7 +24,9 @@ namespace PadForge.Common.Input
     /// and forces long frames on Windows, because that collection rejects
     /// 7-byte writes. Its detector table puts the HID++ collection of a
     /// receiver and of a Bluetooth mouse on usage page 0xFF00 usage 2
-    /// ("mice, the collection Solaar drives them on").</para>
+    /// ("mice, the collection Solaar drives them on"), and reaches the
+    /// Bluetooth devices on page 0xFF43 as well, where the HID++ worker reads
+    /// usage 0x0202 (HidppBackend.IsHidppLong).</para>
     /// </summary>
     internal static class HidppHapticProtocol
     {
@@ -163,7 +166,8 @@ namespace PadForge.Common.Input
 
     internal enum HidppReplyKind
     {
-        /// <summary>Not an answer to the pending request.</summary>
+        /// <summary>Not an answer to the pending request, or, from a register
+        /// read, no request at all.</summary>
         None,
         Answer,
         Error,
@@ -216,8 +220,10 @@ namespace PadForge.Common.Input
 
         /// <summary>Reads one record of a receiver's long register
         /// (<see cref="Peripherals.HidppReceiverProtocol"/>): the record, a
-        /// HID++ 1.0 error, or a timeout, which is also the answer of a
-        /// channel opened without the receiver's short collection.</summary>
+        /// HID++ 1.0 error, or a timeout. A channel opened without the
+        /// receiver's short collection, or one already closed, asks nothing
+        /// and answers None, and a short write that fails answers
+        /// WriteFailed.</summary>
         HidppReply ReadReceiverRegister(byte register, byte sub, int timeoutMs);
     }
 
@@ -380,8 +386,10 @@ namespace PadForge.Common.Input
         public HidppReply ReadReceiverRegister(byte register, byte sub, int timeoutMs)
         {
             string shortPath = _shortPath;
+            // Nothing to ask through: the read never goes out, which is not
+            // a receiver that left it unanswered.
             if (shortPath == null || Volatile.Read(ref _disposed) != 0)
-                return new HidppReply(HidppReplyKind.Timeout);
+                return new HidppReply(HidppReplyKind.None);
             var pending = new RegisterPending(register, sub);
             Volatile.Write(ref _registerPending, pending);
             try
@@ -451,7 +459,8 @@ namespace PadForge.Common.Input
         /// <summary>Pairing reads that went unanswered in a row. A receiver
         /// that never answers the register stops being asked after
         /// <see cref="Peripherals.HidppUnitProbe.PairingGiveUp"/>, and its
-        /// slots go back to the walk.</summary>
+        /// slots go back to the walk. A read that never went out counts
+        /// toward nothing.</summary>
         internal int PairingMisses;
 
         /// <summary>Misses after which a slot that never answered stops

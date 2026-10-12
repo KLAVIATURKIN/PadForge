@@ -740,6 +740,42 @@ namespace PadForge.Common.Input
         public bool IsRunning => _running;
 
         /// <summary>
+        /// Whether this run's poll thread has finished a device enumeration,
+        /// so a row's IsOnline says what is connected. Step 1 notes the run
+        /// at the end of each enumeration, before <see cref="DevicesUpdated"/>
+        /// is raised (<see cref="NoteDevicesEnumerated"/>). Until then, and
+        /// while the manager is stopped, every row reads offline. Start moves
+        /// the run stamp, so a new run reads false with nothing to reset.
+        /// </summary>
+        public bool DevicesEnumerated
+        {
+            get
+            {
+                int run = System.Threading.Volatile.Read(ref _enumeratedRun);
+                return _running && run != 0 && run == System.Threading.Volatile.Read(ref _runGeneration);
+            }
+        }
+
+        // The stamp of the last run whose poll thread finished an
+        // enumeration, 0 for none.
+        private int _enumeratedRun;
+
+        // The stamp of the run this thread polls for, 0 on every other
+        // thread. Step 1 runs inside the poll loop without the stamp in hand.
+        [ThreadStatic] private static int t_runStamp;
+
+        /// <summary>Step 1's note that the poll loop of the run stamped
+        /// <paramref name="run"/> has finished an enumeration. Only the
+        /// current run's loop counts. A loop that outlived Stop's join can
+        /// still finish a pass, and its note would mark the next run's rows
+        /// as listed before that run had listed them.</summary>
+        internal void NoteDevicesEnumerated(int run)
+        {
+            if (run != 0 && run == System.Threading.Volatile.Read(ref _runGeneration))
+                System.Threading.Volatile.Write(ref _enumeratedRun, run);
+        }
+
+        /// <summary>
         /// When true, the polling loop skips the expensive pipeline steps and sleeps
         /// at a low rate (~20Hz) to minimize CPU usage. Device enumeration continues
         /// at a reduced rate so new controllers still appear on the Devices page.
@@ -1968,6 +2004,9 @@ namespace PadForge.Common.Input
 
             try
             {
+                // Step 1 notes this run's enumerations by its stamp
+                // (NoteDevicesEnumerated).
+                t_runStamp = generation;
                 ReleaseInheritedLatches(generation);
                 long usioOwner = NewUsioOwner();
 
@@ -2325,7 +2364,9 @@ namespace PadForge.Common.Input
         private void StopAllForceFeedback()
         {
             // Peripheral haptics (#494) stop with every level at zero: their
-            // workers play nothing from the next tick on.
+            // workers play nothing from the next tick on, and the crash path
+            // waits for the GameSense and Razer Sensa workers' next tick
+            // (PeripheralOutputHost.WaitForSilence).
             PadForge.Common.Input.Peripherals.PeripheralOutputs.SilenceHaptics();
             var devices = SettingsManager.UserDevices?.Items;
             if (devices == null) return;
@@ -4067,19 +4108,30 @@ namespace PadForge.Common.Input
         //  Error helper
         // ─────────────────────────────────────────────
 
-        private void RaiseError(string message, Exception ex)
+        private void RaiseError(string message, Exception ex) => RaiseError(message, message, ex);
+
+        /// <summary>Raises a failure with a diagnostics log line of its own:
+        /// <paramref name="message"/> is the status text, in the UI language,
+        /// and <paramref name="logLine"/> is the log's, in English, since the
+        /// people who read the log need not share the user's
+        /// language.</summary>
+        private void RaiseError(string message, string logLine, Exception ex)
         {
             // The status bar shows only the headline; without this line the
             // exception's mechanism is invisible everywhere (the VR-create
             // failure of 2026-08-08 surfaced as a bare "Failed to create Vr
             // virtual controller" with the sharing-violation detail dropped).
-            PadForge.Engine.SdlDiagLog.WriteLine($"ERROR {message}: {ex}");
+            PadForge.Engine.SdlDiagLog.WriteLine($"ERROR {logLine}: {ex}");
             ErrorOccurred?.Invoke(this, new InputExceptionEventArgs(message, ex));
         }
 
-        private void RaiseErrorResolved(string message)
+        private void RaiseErrorResolved(string message) => RaiseErrorResolved(message, message);
+
+        /// <summary>Clears a failure raised with a log line of its own, with
+        /// the same two texts.</summary>
+        private void RaiseErrorResolved(string message, string logLine)
         {
-            PadForge.Engine.SdlDiagLog.WriteLine($"RECOVERED {message}");
+            PadForge.Engine.SdlDiagLog.WriteLine($"RECOVERED {logLine}");
             ErrorResolved?.Invoke(this, message);
         }
 
@@ -4167,10 +4219,13 @@ namespace PadForge.Common.Input
             GC.SuppressFinalize(this);
         }
 
-        ~InputManager()
-        {
-            Dispose();
-        }
+        // No finalizer. Dispose joins threads and shuts down services every
+        // manager shares (voice macros, the NFC reader, the handheld chord
+        // runtime), so it must never run on the finalizer thread at whatever
+        // moment a dropped manager is collected. An earlier finalizer called
+        // Dispose. In the tests, a manager that was never constructed threw
+        // there and ended the test host, and one left reading as running
+        // closed the Bliss-Box runtime under another test.
     }
 
     /// <summary>

@@ -211,6 +211,33 @@ namespace PadForge.Tests
             Assert.False(ours.Overrun);
         }
 
+        /// <summary>The rule NativeReports' comment states for BBAPI.cs's
+        /// count, over every size a native message can have: a chunk too many
+        /// for 3 to 7 bytes and the sizes one or two past a multiple of five
+        /// from 11 on, except 26, 27 and every 25 after, and a chunk too few
+        /// for 28 to 30 and every 25 after. A GPA overruns on the extra chunk
+        /// for 3 to 6 bytes and the sizes one past, and takes the sizes two
+        /// past whole, the extra chunk copying nothing.</summary>
+        [Fact]
+        public void BbapisChunkCountMissesByTheRuleTheCommentStates()
+        {
+            for (int n = 3; n <= BlissBoxProtocol.MaxNativeMessage; n++)
+            {
+                var message = Enumerable.Range(1, n).Select(i => (byte)i).ToArray();
+                int sent = BbapiSendData(message).Count - 1;
+                int exact = (n - 2 + 4) / 5;
+                bool tooMany = n <= 7 || (n >= 11 && n % 5 is 1 or 2 && n % 25 is not (1 or 2));
+                bool tooFew = n >= 28 && n % 25 is 3 or 4 or 5;
+                Assert.True(sent == (tooMany ? exact + 1 : tooFew ? exact - 1 : exact), $"length {n}: {sent} chunks");
+
+                bool negative = n <= 6 || (n >= 11 && n % 5 == 1 && n % 25 != 1);
+                var gpa = new GpaModel();
+                var got = gpa.Feed(BbapiSendData(message));
+                Assert.True(negative == gpa.Overrun, $"length {n}");
+                if (tooMany && !negative) Assert.Equal(message, got);
+            }
+        }
+
         private static List<byte[]> BbapiSendData(byte[] message)
         {
             var reports = new List<byte[]>();

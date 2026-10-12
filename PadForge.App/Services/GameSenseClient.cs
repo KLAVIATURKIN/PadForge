@@ -46,6 +46,9 @@ namespace PadForge.Services
     /// </summary>
     internal sealed class GameSenseClient : IDisposable
     {
+        /// <summary>The game and its rumble event, named here once for every
+        /// body below, so the game GG registers and the game every later
+        /// call names cannot drift apart.</summary>
         internal const string Game = "PADFORGE";
         internal const string Event = "RUMBLE";
 
@@ -60,14 +63,14 @@ namespace PadForge.Services
 
         /// <summary>The name GG shows for the game.</summary>
         internal const string MetadataBody =
-            "{\"game\":\"PADFORGE\",\"game_display_name\":\"PadForge\"}";
+            "{\"game\":\"" + Game + "\",\"game_display_name\":\"PadForge\"}";
 
         /// <summary>The RUMBLE event and its tactile handler. Value 0 plays
         /// nothing and repeats nothing. Each level's pulse ends before the
         /// next repeat: 30 ms of every 200 ms, 55 of every 143 and 80 of
         /// every 100.</summary>
         internal const string BindBody =
-            "{\"game\":\"PADFORGE\",\"event\":\"RUMBLE\",\"min_value\":0,\"max_value\":100,"
+            "{\"game\":\"" + Game + "\",\"event\":\"" + Event + "\",\"min_value\":0,\"max_value\":100,"
             + "\"handlers\":[{\"device-type\":\"tactile\",\"zone\":\"one\",\"mode\":\"vibrate\","
             + "\"pattern\":["
             + "{\"low\":0,\"high\":0,\"pattern\":[]},"
@@ -81,7 +84,7 @@ namespace PadForge.Services
             + "{\"low\":67,\"high\":100,\"frequency\":10}"
             + "]}}]}";
 
-        internal const string GameBody = "{\"game\":\"PADFORGE\"}";
+        internal const string GameBody = "{\"game\":\"" + Game + "\"}";
 
         /// <summary>The frame key every color handler reads.</summary>
         internal const string ColorKey = "color";
@@ -110,7 +113,7 @@ namespace PadForge.Services
         internal static string ColorBindBody(string type)
         {
             var sb = new StringBuilder();
-            sb.Append("{\"game\":\"PADFORGE\",\"event\":\"").Append(ColorEvent(type))
+            sb.Append("{\"game\":\"").Append(Game).Append("\",\"event\":\"").Append(ColorEvent(type))
               .Append("\",\"min_value\":0,\"max_value\":100,\"value_optional\":true,\"handlers\":[");
             var zones = ColorZones(type);
             for (int i = 0; i < zones.Length; i++)
@@ -125,16 +128,16 @@ namespace PadForge.Services
         }
 
         internal static string ColorEventBody(string type, int rgb)
-            => "{\"game\":\"PADFORGE\",\"event\":\"" + ColorEvent(type) + "\",\"data\":{\"value\":100,\"frame\":{\""
+            => "{\"game\":\"" + Game + "\",\"event\":\"" + ColorEvent(type) + "\",\"data\":{\"value\":100,\"frame\":{\""
                + ColorKey + "\":{\"red\":" + ((rgb >> 16) & 0xFF).ToString(System.Globalization.CultureInfo.InvariantCulture)
                + ",\"green\":" + ((rgb >> 8) & 0xFF).ToString(System.Globalization.CultureInfo.InvariantCulture)
                + ",\"blue\":" + (rgb & 0xFF).ToString(System.Globalization.CultureInfo.InvariantCulture) + "}}}}";
 
         internal static string RemoveEventBody(string type)
-            => "{\"game\":\"PADFORGE\",\"event\":\"" + ColorEvent(type) + "\"}";
+            => "{\"game\":\"" + Game + "\",\"event\":\"" + ColorEvent(type) + "\"}";
 
         internal static string EventBody(int value)
-            => "{\"game\":\"PADFORGE\",\"event\":\"RUMBLE\",\"data\":{\"value\":"
+            => "{\"game\":\"" + Game + "\",\"event\":\"" + Event + "\",\"data\":{\"value\":"
                + value.ToString(System.Globalization.CultureInfo.InvariantCulture) + "}}";
 
         /// <summary>The value posted for each rumble level, one inside each

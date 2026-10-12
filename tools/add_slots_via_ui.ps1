@@ -1,27 +1,86 @@
 ﻿# Restore PadForge.xml backup, then add 4 more slot types via UI automation.
+# The backup is the one prep_xml_for_capture.ps1 took, and it goes back under
+# the rules of settings_guard.ps1: only on its marker's word, with the file it
+# replaces copied to %TEMP%\PadForge_Capture first. Once it is back, the
+# backup and its marker go, as a capture run's do.
+param(
+    # The owner's answer to a run that stopped over a settings backup lying
+    # beside the settings file (settings_guard.ps1). Ask, the default, is that
+    # stop. File keeps the settings file and sets the backup aside. Backup puts
+    # the backup back over the settings file. A run with nothing to ask
+    # refuses File and Backup.
+    [ValidateSet('Ask', 'File', 'Backup')]
+    [string]$KeepSettingsFrom = 'Ask'
+)
 # Logs never go beside the exe. Only PadForge.xml and crash.log may live
 # in the deploy directory, and these transcripts were breaking that bar.
 $pfLogDir = Join-Path $env:TEMP "PadForge_Capture"
 if (-not (Test-Path $pfLogDir)) { New-Item -ItemType Directory -Path $pfLogDir | Out-Null }
 $logFile = Join-Path $pfLogDir "add_slots_log.txt"
 "START $(Get-Date -Format HH:mm:ss)" | Out-File $logFile -Encoding ascii
+
+$XmlPath = "C:\PadForge\PadForge.xml"
+$BakPath = "$XmlPath.bak-capture"
+$ExePath = "C:\PadForge\PadForge.exe"
+
+# --- The owner's settings file ------------------------------------------------
+# The marker, the copies, and the loader and saver that every script under
+# tools shares. settings_guard.ps1 says what each one does.
+. (Join-Path $PSScriptRoot 'settings_guard.ps1')
+
+# A backup already there is settled before the app is stopped or a file is
+# touched, so a run that stops has changed nothing. Until the backup is back,
+# any failure ends the run.
+$prevPreference = $ErrorActionPreference
+$ErrorActionPreference = 'Stop'
+$doubt = Get-BackupDoubt $XmlPath $BakPath 'Ask'
+$stop = @()
+if ($KeepSettingsFrom -eq 'Ask' -and $doubt) {
+    $stop = @(Get-BackupStopLines $XmlPath $BakPath $doubt)
+} elseif ($KeepSettingsFrom -ne 'Ask' -and -not $doubt) {
+    $stop = @("!! -KeepSettingsFrom $KeepSettingsFrom answers a run that stopped over a settings backup, and this run has nothing to ask. Leave it out.")
+}
+if ($stop.Count -gt 0) {
+    foreach ($line in $stop) { $line | Out-File $logFile -Encoding ascii -Append; Write-Host $line -ForegroundColor Red }
+    exit 1
+}
+"Stopping PadForge..." | Out-File $logFile -Encoding ascii -Append
+Get-Process PadForge -EA SilentlyContinue | Stop-Process -Force
+Start-Sleep -Seconds 3
+# Asked again now that the app is down. A save it made after the question
+# above can make two files that were the same differ. The run stops with
+# neither file touched and starts PadForge again.
+$doubt = Get-BackupDoubt $XmlPath $BakPath $KeepSettingsFrom
+if ($doubt) {
+    foreach ($line in (Get-BackupStopLines $XmlPath $BakPath $doubt)) { $line | Out-File $logFile -Encoding ascii -Append; Write-Host $line -ForegroundColor Red }
+    Start-Process $ExePath
+    exit 1
+}
+if (Test-Path $BakPath) {
+    if ($KeepSettingsFrom -eq 'File') {
+        $kept = Save-SettingsCopy $BakPath
+        Remove-Item $BakPath -Force
+        Remove-BackupMarker $BakPath
+        "-KeepSettingsFrom File: the settings file stays as it is, and the backup is set aside as $kept" | Out-File $logFile -Encoding ascii -Append
+    } else {
+        # The marker goes as soon as the settings are back, before the backup
+        # does, as in a capture run's finally.
+        $kept = Save-SettingsCopy $XmlPath
+        Copy-Item $BakPath $XmlPath -Force
+        Remove-BackupMarker $BakPath
+        $keptBak = Save-SettingsCopy $BakPath
+        Remove-Item $BakPath -Force
+        "Restored backup (the file it replaced is kept as $kept, the backup as $keptBak)" | Out-File $logFile -Encoding ascii -Append
+    }
+}
+$ErrorActionPreference = $prevPreference
+
+# Set by the catch below, for the exit code.
+$script:failed = $false
 try {
     Add-Type -AssemblyName UIAutomationClient
     Add-Type -AssemblyName UIAutomationTypes
     Add-Type -AssemblyName System.Windows.Forms
-
-    $XmlPath = "C:\PadForge\PadForge.xml"
-    $BakPath = "$XmlPath.bak-capture"
-    $ExePath = "C:\PadForge\PadForge.exe"
-
-    "Stopping PadForge..." | Out-File $logFile -Encoding ascii -Append
-    Get-Process PadForge -EA SilentlyContinue | Stop-Process -Force
-    Start-Sleep -Seconds 3
-
-    if (Test-Path $BakPath) {
-        Copy-Item $BakPath $XmlPath -Force
-        "Restored backup" | Out-File $logFile -Encoding ascii -Append
-    }
 
     Start-Process $ExePath
     Start-Sleep -Seconds 12
@@ -42,7 +101,7 @@ try {
             [System.Windows.Automation.AutomationElement]::NameProperty, "Add Controller")
         $addBtn = $win.FindFirst($TD, $addCond)
         if (-not $addBtn) { "  !! Add Controller not found" | Out-File $logFile -Encoding ascii -Append; return }
-        # Always go through SelectionItem.Select for the sidebar nav — the
+        # Always go through SelectionItem.Select for the sidebar nav. The
         # Invoke pattern doesn't fire the click handler that opens the popup.
         try {
             $addBtn.GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern).Select()
@@ -86,6 +145,12 @@ try {
     Start-Sleep -Seconds 10
     "Ready." | Out-File $logFile -Encoding ascii -Append
 } catch {
+    $script:failed = $true
     "FATAL: $_" | Out-File $logFile -Encoding ascii -Append
 }
 "END $(Get-Date -Format HH:mm:ss)" | Out-File $logFile -Encoding ascii -Append
+# A failed run ends with exit code 1, as the catch above kept the error from
+# ending the script. The exit code is always written out: a script that simply
+# ends hands its caller the exit code of its last native command.
+if ($script:failed) { exit 1 }
+exit 0

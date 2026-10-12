@@ -1022,13 +1022,16 @@ namespace PadForge.Services
                 }
 
                 // Param recording (Incremental Up/Down, InvertOnHold Modifier)
-                // captures what ReadButtonLikeBool can actually read: every
-                // on/off input, and nothing analog. An axis capture would land
-                // in ParamUp / ParamDown / ParamModifier as "Axis N" and
-                // silently do nothing, which is the "I have to record 3-4
-                // times before it works" symptom (early tries get captured by
-                // stick drift on whichever axis crosses the detection threshold
-                // first, and later tries hit the real button).
+                // captures what ReadButtonLikeBool can actually read: the
+                // on/off inputs above, and nothing analog. An axis capture
+                // would land in ParamUp / ParamDown / ParamModifier as
+                // "Axis N" and silently do nothing, which is the "I have to
+                // record 3-4 times before it works" symptom (early tries get
+                // captured by stick drift on whichever axis crosses the
+                // detection threshold first, and later tries hit the real
+                // button). A stick or touchpad ring is a key too, and it is
+                // picked from the list on every row: a recording sees a push
+                // to the rim as its axis.
                 if (_paramTarget != ParamTarget.None) continue;
 
                 // ── Check axes (requires hold confirmation) ──
@@ -1208,8 +1211,10 @@ namespace PadForge.Services
                 // stay as they are. Stamping the winning device on the
                 // source itself moved its other keys to that device, so a
                 // Down key recorded on a second controller made the Up key
-                // read there too. An Incremental or Ramp source follows its
-                // keys (MappingSourceItem.FollowKeysDevice).
+                // read there too. The source follows the keys its kind
+                // reads, an Incremental or Ramp source its Up and Down keys
+                // and an Invert on Hold source its modifier
+                // (MappingSourceItem.FollowKeysDevice).
                 extraSource.SetParamKey(ToRecordTarget(paramTarget), descriptor, winningGuidStr);
                 finalDescriptor = descriptor;
                 _mainVm.StatusText = string.Format(

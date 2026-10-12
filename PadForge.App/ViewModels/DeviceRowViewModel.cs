@@ -468,7 +468,19 @@ namespace PadForge.ViewModels
         public bool ForceRawJoystickMode
         {
             get => _forceRawJoystickMode;
-            set => SetProperty(ref _forceRawJoystickMode, value);
+            set
+            {
+                if (SetProperty(ref _forceRawJoystickMode, value))
+                {
+                    // A row read raw shows the checkbox whatever its type
+                    // (ShowInputModeSection), and the dividers follow the
+                    // section.
+                    OnPropertyChanged(nameof(ShowInputModeSection));
+                    OnPropertyChanged(nameof(ShowInputModeOrHidingSection));
+                    OnPropertyChanged(nameof(ShowRawInputDivider));
+                    OnPropertyChanged(nameof(ShowGunCalibrationDivider));
+                }
+            }
         }
 
         private int _idleDisconnectMinutes;
@@ -744,7 +756,14 @@ namespace PadForge.ViewModels
              // collection. Cloaking it would hide the keyboard's analog
              // interface from its own vendor software, which Razer's needs
              // to make the keyboard report at all.
-             || _devicePath.StartsWith("analogkb://", StringComparison.Ordinal));
+             || _devicePath.StartsWith("analogkb://", StringComparison.Ordinal)
+             // The Razer Chroma, Logitech LIGHTSYNC, SteelSeries GG and
+             // Razer Sensa rows (#494) stand for a vendor's software, not
+             // a HID device, so HidHide has no instance to cloak for them.
+             || _devicePath.StartsWith("razerchroma://", StringComparison.Ordinal)
+             || _devicePath.StartsWith("logilightsync://", StringComparison.Ordinal)
+             || _devicePath.StartsWith("steelseriesgg://", StringComparison.Ordinal)
+             || _devicePath.StartsWith("razersensa://", StringComparison.Ordinal));
 
         /// <summary>True for a merged row (All Keyboards, All Mice, All
         /// Touchpads, All Consumer Controls). It stands for every device of
@@ -788,9 +807,13 @@ namespace PadForge.ViewModels
         };
 
         /// <summary>True when the "Input Mode" section (Force raw joystick mode)
-        /// should be shown. Only real gamepads — virtual web/overlay sources are
-        /// WYSIWYG and have no SDL gamepad-mapping layer to bypass.</summary>
-        public bool ShowInputModeSection => IsGamepad && !IsInternalVirtual;
+        /// should be shown. Only real gamepads. Virtual web/overlay sources are
+        /// WYSIWYG and have no SDL gamepad-mapping layer to bypass. A row whose
+        /// flag is on shows it whatever its type or path: the flag is read all
+        /// the same (a hand-edited file, a record whose type changed after it
+        /// was set), and this checkbox is the page's one control that turns it
+        /// off.</summary>
+        public bool ShowInputModeSection => _forceRawJoystickMode || (IsGamepad && !IsInternalVirtual);
 
         /// <summary>True when either the Input Mode or Input Hiding section will
         /// render. Gates the Separator that sits between Slot Assignment and those

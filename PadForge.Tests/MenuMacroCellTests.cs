@@ -246,8 +246,8 @@ namespace PadForge.Tests
         public void RenameHook_RetagsMenuCells()
         {
             string mi = RepoText("PadForge.App", "ViewModels", "MacroItem.cs");
-            Assert.Contains("public static event Action<MacroItem, string, string> Renamed;", mi);
-            Assert.Contains("Renamed?.Invoke(this, old, value);", mi);
+            Assert.Contains("public static event Action<MacroItem, string, string> Renamed", mi);
+            Assert.Contains("foreach (var renamed in s_renamed.Live()) renamed(this, old, value);", mi);
 
             string pv = RepoText("PadForge.App", "ViewModels", "PadViewModel.cs");
             Assert.Contains("MacroItem.Renamed += OnMacroRenamed;", pv);

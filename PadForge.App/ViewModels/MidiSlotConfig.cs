@@ -60,23 +60,56 @@ namespace PadForge.ViewModels
         }
 
         private byte _velocity = 127;
-        /// <summary>Note velocity for button presses (0-127).</summary>
+        /// <summary>Note velocity for button presses (1-127). A MIDI 1.0
+        /// Note On with velocity 0 is a Note Off (Microsoft's in-box synth
+        /// documentation, NAudio's MidiEvent.IsNoteOff), so 0 would turn
+        /// every press into a release. A 0 from the bar or from an older
+        /// file reads as 1, the quietest Note On.</summary>
         public byte Velocity
         {
             get => _velocity;
-            set => SetProperty(ref _velocity, Math.Clamp(value, (byte)0, (byte)127));
+            set => SetProperty(ref _velocity, Math.Clamp(value, (byte)1, (byte)127));
         }
 
         private string _outputPort = string.Empty;
         /// <summary>The port this slot sends to under the legacy MIDI API, by
-        /// the name the slot's port picker shows. Empty until the user picks
-        /// one. The Windows MIDI Services APIs create the slot's own port and
-        /// ignore it.</summary>
+        /// the name the slot's port picker shows. Empty for None, and until
+        /// the user picks one. The Windows MIDI Services APIs create the
+        /// slot's own port and ignore it.</summary>
         public string OutputPort
         {
             get => _outputPort;
             set => SetProperty(ref _outputPort, value ?? string.Empty);
         }
+
+        private bool _outputPortChosen;
+        /// <summary>Whether <see cref="OutputPort"/>, None included, is a
+        /// choice for the profile in use: picked or reset in the slot's port
+        /// picker, or applied from a snapshot that carries one. A profile saved
+        /// while it is not set records no choice
+        /// (<see cref="OutputPortSnapshot"/>), so a profile that never had a
+        /// port picked does not take the port the slot kept from the profile
+        /// before it. It raises PropertyChanged like the fields beside it,
+        /// since the file records it: choosing None on a slot that has no
+        /// port changes this and not the port, and the settings would
+        /// otherwise never hear of the choice.</summary>
+        public bool OutputPortChosen
+        {
+            get => _outputPortChosen;
+            set => SetProperty(ref _outputPortChosen, value);
+        }
+
+        /// <summary>Makes <paramref name="port"/> the slot's port, as the
+        /// user's choice. Empty is None.</summary>
+        public void ChooseOutputPort(string port)
+        {
+            OutputPort = port;
+            OutputPortChosen = true;
+        }
+
+        /// <summary>The port as a snapshot records it: its name, empty for
+        /// None, or null when the slot holds no choice of its own.</summary>
+        public string OutputPortSnapshot => OutputPortChosen ? OutputPort : null;
 
         /// <summary>Resets every field to its fresh-install default IN
         /// PLACE, preserving the instance (external PropertyChanged
@@ -92,6 +125,7 @@ namespace PadForge.ViewModels
             NoteCount = 11;
             Velocity = 127;
             OutputPort = string.Empty;
+            OutputPortChosen = false;
         }
 
         /// <summary>Returns CC numbers array: sequential from StartCc for CcCount entries.</summary>
@@ -123,20 +157,29 @@ namespace PadForge.ViewModels
         [XmlAttribute] public int NoteCount { get; set; } = 11;
         [XmlAttribute] public int StartNote { get; set; } = 60;
         [XmlAttribute] public byte Velocity { get; set; } = 127;
-        /// <summary>The legacy API's output port. Left out of the file while
-        /// empty. Applying a snapshot that has none keeps the slot's current
-        /// port (<see cref="ApplyOutputPortTo"/>), so a profile saved before
-        /// a port was picked does not clear it.</summary>
+        /// <summary>The legacy API's output port: a port's name, empty for
+        /// None, or null when the snapshot records no choice, which is left
+        /// out of the file. None is written as an empty attribute, since
+        /// "A slot set to None does not start". Applying a snapshot with no
+        /// choice keeps the slot's current port (<see cref="ApplyOutputPortTo"/>),
+        /// so a profile saved before a port was picked does not clear
+        /// it.</summary>
         [XmlAttribute] public string OutputPort { get; set; }
 
-        public bool ShouldSerializeOutputPort() => !string.IsNullOrEmpty(OutputPort);
+        public bool ShouldSerializeOutputPort() => OutputPort != null;
 
-        /// <summary>Applies <see cref="OutputPort"/> when this snapshot has
-        /// one.</summary>
+        /// <summary>Applies <see cref="OutputPort"/> when this snapshot has a
+        /// choice, None included, and marks it the slot's choice. A snapshot
+        /// with none keeps the slot's port and clears the mark, so the next
+        /// save of this profile records no choice again instead of the port
+        /// the slot kept from the profile before it.</summary>
         public void ApplyOutputPortTo(MidiSlotConfig config)
         {
-            if (config != null && !string.IsNullOrEmpty(OutputPort))
-                config.OutputPort = OutputPort;
+            if (config == null) return;
+            if (OutputPort != null)
+                config.ChooseOutputPort(OutputPort);
+            else
+                config.OutputPortChosen = false;
         }
     }
 }

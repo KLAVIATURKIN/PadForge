@@ -45,6 +45,15 @@ namespace PadForge.Common.Input.Peripherals
         Waiting,
     }
 
+    /// <summary>One Start of a peripheral worker thread: its stop flag. Each
+    /// Start makes its own, the way each ChromaBackend.Start makes its own
+    /// token, so a worker that outlived a timed-out Stop reads its own flag
+    /// set and ends, whatever a later Start of the same object does.</summary>
+    internal sealed class WorkerRun
+    {
+        public volatile bool Stop;
+    }
+
     /// <summary>One output path: a family and the key inside it (a HID++
     /// collection and device index, a Chroma category, an LED SDK type).</summary>
     internal readonly record struct OutputPath(OutputFamily Family, string Key)
@@ -151,7 +160,9 @@ namespace PadForge.Common.Input.Peripherals
     /// the device on the controller with the smallest displayed player
     /// number, the precedence <c>InputService.ApplyGuideLeds</c> gives the
     /// Steam Controller's process-wide home LED. A vendor row yields a
-    /// path to any device that claims it on its own.</para>
+    /// path to any device that claims it on its own. Identify takes a
+    /// shared haptic path for the length of its train
+    /// (<see cref="BeginIdentify(Guid, int)"/>).</para>
     ///
     /// <para>Every setter is lock-free or takes only this class's leaf
     /// state, so the poll thread and the dispatcher never wait on a
@@ -270,6 +281,48 @@ namespace PadForge.Common.Input.Peripherals
         }
 
         // ─────────────────────────────────────────────
+        //  The engine and its slots
+        // ─────────────────────────────────────────────
+
+        private static int s_running;
+        private static Func<int, bool> s_slotHasController;
+
+        /// <summary>True while the peripheral host runs, which is while the
+        /// engine runs. A stopped engine sends nothing to any device, and
+        /// every device goes back to its own software, so the tabs' route
+        /// lines say nothing then, the rule the other status lines follow on
+        /// an engine stop (#469).</summary>
+        public static bool Running => Volatile.Read(ref s_running) != 0;
+
+        /// <summary>The host's start and stop. A change raises
+        /// <see cref="StatusChanged"/>, so a tab drops or restores its line.</summary>
+        internal static void SetRunning(bool running)
+        {
+            int next = running ? 1 : 0;
+            if (Interlocked.Exchange(ref s_running, next) != next) RaiseStatusChanged();
+        }
+
+        /// <summary>Whether a slot still holds a virtual controller, which
+        /// the host publishes from its owner while it runs. Null treats every
+        /// slot as without one.</summary>
+        internal static Func<int, bool> SlotHasController
+        {
+            get => Volatile.Read(ref s_slotHasController);
+            set => Volatile.Write(ref s_slotHasController, value);
+        }
+
+        /// <summary>Whether a slot lights and rumbles anything: a live effects
+        /// dispatcher lights it, or a virtual controller still sits there. A
+        /// reorder moves the controllers first and rebuilds the slots'
+        /// dispatchers after, one slot at a time, so a slot can be without a
+        /// dispatcher for a second or two while its controller is in place,
+        /// and this stays true through it. The link pass prunes the claims of
+        /// a slot this answers false for, and the tabs read the same answer,
+        /// so a tab never names a route the pass has let go.</summary>
+        public static bool SlotLive(int slot)
+            => UserEffectsDispatcher.HasLiveDispatcher(slot) || SlotHasController?.Invoke(slot) == true;
+
+        // ─────────────────────────────────────────────
         //  Haptics
         // ─────────────────────────────────────────────
 
@@ -373,6 +426,53 @@ namespace PadForge.Common.Input.Peripherals
             try { HapticsChanged?.Invoke(); } catch { }
         }
 
+        /// <summary>The rows Identify buzzes, each with the tick its claim
+        /// lapses at. GameSense drives every tactile Rival at once and the
+        /// Razer Sensa row runs its engine only while it is assigned, so a
+        /// level Identify writes for an unassigned row, or for a Rival another
+        /// controller's Rival rules, would play nowhere. A row Identify buzzes
+        /// rules its shared haptic path for the train instead
+        /// (<see cref="TryResolveHapticRuler"/>), and the host runs the Sensa
+        /// worker for it. The train ends its claim, and the lapse bounds a
+        /// claim that is never ended, since for that long it takes an assigned
+        /// Rival's rumble from its controller.</summary>
+        private static readonly ConcurrentDictionary<Guid, long> s_identify = new();
+
+        /// <summary>Raised when Identify starts or ends on a row. Any thread.
+        /// Subscribers must not block.</summary>
+        public static event Action IdentifyChanged;
+
+        /// <summary>Identify starts buzzing a row, for at most
+        /// <paramref name="durationMs"/>.</summary>
+        public static void BeginIdentify(Guid device, int durationMs)
+            => BeginIdentify(device, durationMs, Environment.TickCount64);
+
+        /// <summary><see cref="BeginIdentify(Guid, int)"/> at a given tick, so
+        /// a test hands the claim and the read one clock.</summary>
+        internal static void BeginIdentify(Guid device, int durationMs, long now)
+        {
+            if (device == Guid.Empty) return;
+            s_identify[device] = now + Math.Max(0, durationMs);
+            RaiseIdentifyChanged();
+        }
+
+        /// <summary>Identify's train on a row ended.</summary>
+        public static void EndIdentify(Guid device)
+        {
+            if (s_identify.TryRemove(device, out _)) RaiseIdentifyChanged();
+        }
+
+        /// <summary>Whether Identify buzzes a row now.</summary>
+        public static bool IsIdentifying(Guid device) => IsIdentifying(device, Environment.TickCount64);
+
+        internal static bool IsIdentifying(Guid device, long now)
+            => s_identify.TryGetValue(device, out long until) && now < until;
+
+        private static void RaiseIdentifyChanged()
+        {
+            try { IdentifyChanged?.Invoke(); } catch { }
+        }
+
         // ─────────────────────────────────────────────
         //  Lighting
         // ─────────────────────────────────────────────
@@ -390,8 +490,7 @@ namespace PadForge.Common.Input.Peripherals
         private static readonly ConcurrentDictionary<(Guid Device, int Slot), LightClaim> s_claims = new();
         private static int s_lightingVersion;
 
-        /// <summary>Bumped on every claim, release and color change, so a
-        /// backend re-resolves only when something moved.</summary>
+        /// <summary>Bumped on every claim, release and color change.</summary>
         public static int LightingVersion => Volatile.Read(ref s_lightingVersion);
 
         /// <summary>Wakes the lighting backends on a change.</summary>
@@ -447,18 +546,6 @@ namespace PadForge.Common.Input.Peripherals
             RaiseClaimsChanged();
         }
 
-        /// <summary>Every claim a slot holds, for a slot whose effects
-        /// dispatcher went away with its virtual controller.</summary>
-        public static void ReleaseSlot(int slot)
-        {
-            bool any = false;
-            foreach (var key in s_claims.Keys)
-                if (key.Slot == slot && s_claims.TryRemove(key, out _)) any = true;
-            if (!any) return;
-            BumpLighting();
-            RaiseClaimsChanged();
-        }
-
         /// <summary>Every claim on a row, for a row that retired or was
         /// removed from the Devices page.</summary>
         public static void ReleaseDevice(Guid device)
@@ -472,11 +559,12 @@ namespace PadForge.Common.Input.Peripherals
         }
 
         /// <summary>Drops every claim whose device is no longer assigned to
-        /// its slot, or whose slot has no live effects dispatcher any more.
-        /// Unassigning a device runs no pass on its old slot's dispatcher,
-        /// and a slot whose virtual controller went away has none, so without
-        /// this a claim would hold its device on a color nobody sets. The link
-        /// pass calls it with the current assignments.</summary>
+        /// its slot, or whose slot <paramref name="slotLive"/> answers false
+        /// for. Unassigning a device runs no pass on its old slot's
+        /// dispatcher, and a slot whose virtual controller went away has none,
+        /// so without this a claim would hold its device on a color nobody
+        /// sets. The link pass calls it with the current assignments and
+        /// <see cref="SlotLive"/>.</summary>
         public static void PruneClaims(ISet<(Guid Device, int Slot)> assigned, Func<int, bool> slotLive = null)
         {
             if (assigned == null) return;
@@ -626,6 +714,25 @@ namespace PadForge.Common.Input.Peripherals
             return true;
         }
 
+        /// <summary>The first tick after <paramref name="now"/> at which a
+        /// live Set Chroma Color lapses, or long.MaxValue while none is live.
+        /// The Chroma worker ends its wait there, so the pass that lets go of
+        /// the macro runs at the lapse instead of at its next poll.</summary>
+        internal static long NextChromaMacroLapse(long now)
+        {
+            long next = long.MaxValue;
+            for (int slot = 0; slot < s_chromaMacro.Length; slot++)
+            {
+                long packed = Volatile.Read(ref s_chromaMacro[slot]);
+                if (packed == 0) continue;
+                // TryGetChromaMacro holds the color through the stamp plus
+                // the window, so the first tick past that is the lapse.
+                long lapse = (packed >> 24) + MacroAssertWindowMs + 1;
+                if (lapse > now && lapse < next) next = lapse;
+            }
+            return next;
+        }
+
         /// <summary>The devices assigned to a slot, for a Set Chroma Color,
         /// which paints the Razer devices among them.</summary>
         public static ISet<Guid> DevicesOnSlot(int slot)
@@ -687,7 +794,7 @@ namespace PadForge.Common.Input.Peripherals
         /// <summary>A row's rank on a shared haptic path: its smallest
         /// displayed player number on this PC, else <see cref="PeerDrivenPlayer"/>
         /// for a device a linked PC drives (#494), whose relayed level a
-        /// forwarded Rival plays here, else 0, which never rules.</summary>
+        /// forwarded Rival plays here, else 0, which never rules by rank.</summary>
         public static int HapticRulingPlayer(Guid device)
         {
             int player = SettingsManager.SlotOrders.GetIdentityPlayerNumber(device);
@@ -698,14 +805,28 @@ namespace PadForge.Common.Input.Peripherals
 
         /// <summary>The device that rules a shared path among the given
         /// assigned rows, for the haptic backends, which have no claim to read
-        /// the player number from. <paramref name="playerOf"/> answers a row's
-        /// rank (<see cref="HapticRulingPlayer"/>), 0 for an unassigned row,
-        /// which never rules.</summary>
+        /// the player number from. A row Identify buzzes rules the path for
+        /// its train, ahead of every rank, the one whose claim lapses last
+        /// when two do (<see cref="BeginIdentify(Guid, int)"/>). Otherwise
+        /// <paramref name="playerOf"/> answers a row's rank
+        /// (<see cref="HapticRulingPlayer"/>), 0 for an unassigned row, which
+        /// never rules by rank.</summary>
         public static bool TryResolveHapticRuler(OutputPath path, Func<Guid, int> playerOf, out Guid ruler)
         {
             ruler = Guid.Empty;
             var links = Links;
             if (!links.ByPath.TryGetValue(path, out var devices)) return false;
+            long now = Environment.TickCount64;
+            long lapse = long.MinValue;
+            foreach (var device in devices)
+            {
+                var row = links.For(device);
+                if (row == null || Array.IndexOf(row.Haptics, path) < 0) continue;
+                if (!s_identify.TryGetValue(device, out long until) || now >= until || until <= lapse) continue;
+                lapse = until;
+                ruler = device;
+            }
+            if (ruler != Guid.Empty) return true;
             Claimant best = default;
             bool found = false;
             foreach (var device in devices)
@@ -732,6 +853,9 @@ namespace PadForge.Common.Input.Peripherals
             PublishLinks(LinkTable.Empty);
             s_levels.Clear();
             s_claims.Clear();
+            s_identify.Clear();
+            Volatile.Write(ref s_running, 0);
+            Volatile.Write(ref s_slotHasController, null);
             Array.Clear(s_chromaMacro);
             Interlocked.Increment(ref s_lightingVersion);
             Volatile.Write(ref s_presence, PeripheralPresence.None);

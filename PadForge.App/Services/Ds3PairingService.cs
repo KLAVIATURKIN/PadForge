@@ -1036,7 +1036,7 @@ namespace PadForge.Services
                         Nefarius.Utilities.DeviceManagement.PnP.DeviceLocationFlags.Normal);
                 // {2BD67D8B-8BEB-48D5-87E0-6CDA3428040A},1 is
                 // DEVPKEY_Bluetooth_DeviceAddress, twelve hex digits with no
-                // separators ("00265C507543"), which is the exact shape
+                // separators ("00005E005343"), which is the exact shape
                 // TryDisconnect parses.
                 var key = Nefarius.Utilities.DeviceManagement.PnP.CustomDeviceProperty
                     .CreateCustomDeviceProperty(

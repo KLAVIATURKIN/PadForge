@@ -161,7 +161,7 @@ namespace PadForge.Services
             AfterMappingSetsRefreshed = EnsureMotionRowsForAllSlots;
 
             // The service toggles author themselves into the active
-            // profile on a user change: the three mirrors plus head tracking.
+            // profile on a user change: the head tracking inputs.
             // See OnDashboardServiceToggleChanged.
             _mainVm.Dashboard.PropertyChanged += OnDashboardServiceToggleChanged;
         }
@@ -782,7 +782,7 @@ namespace PadForge.Services
                 // Custom source positions are significant, including duplicates.
                 if (row?.Sources == null || row.CombineMode == "Custom") continue;
                 var seen = new HashSet<(string, string, bool, bool, bool, string, string, string, string, string, string,
-                    string, string, string)>();
+                    string, string, string, string)>();
                 int writeIdx = 0;
                 for (int i = 0; i < row.Sources.Count; i++)
                 {
@@ -799,13 +799,16 @@ namespace PadForge.Services
                     // identically, and the second was deleted on every load.
                     // Each key's controller joins it for the same reason: two
                     // sources stepping on the same keys of two controllers
-                    // are two reads.
+                    // are two reads. So does the controller a kept input goes
+                    // back to: two sources that part ways on the return to
+                    // Direct are two sources.
                     var key = ((s.DeviceGuid ?? "").ToLowerInvariant(), s.Descriptor ?? "",
                         s.Invert, s.HalfAxis, s.InvertOutput, s.Kind ?? "", s.GateDescriptor ?? "",
                         s.Gate2Descriptor ?? "", s.ParamUp ?? "", s.ParamDown ?? "",
                         s.ParamModifier ?? "", s.ParamUpDeviceGuid?.ToLowerInvariant(),
                         s.ParamDownDeviceGuid?.ToLowerInvariant(),
-                        s.ParamModifierDeviceGuid?.ToLowerInvariant());
+                        s.ParamModifierDeviceGuid?.ToLowerInvariant(),
+                        s.DescriptorDeviceGuid?.ToLowerInvariant());
                     if (!seen.Add(key)) continue;
                     row.Sources[writeIdx++] = s;
                 }
@@ -1934,15 +1937,20 @@ namespace PadForge.Services
                     // A key that reads the device goes too, and a key source
                     // left with no key goes the way of the device's sources.
                     var keyless = DropKeysOn(ms.Rows, g => !string.Equals(g, guidStr, StringComparison.OrdinalIgnoreCase));
-                    ms.Rows.RemoveAll(row => RemoveRowSources(row, s =>
+                    // RemoveRowSources drops ordinary rows emptied by device
+                    // cleanup. Rows that were already empty stay when they are
+                    // explicit NoInherit rows or motion rows. The kept rows go
+                    // into a new list assigned by reference, as the sources
+                    // do: the poll thread reads ms.Rows unlocked, and an
+                    // in-place remove shrank the list under its reads.
+                    var keptRows = ms.Rows.FindAll(row => !RemoveRowSources(row, s =>
                             (!string.IsNullOrEmpty(s?.DeviceGuid)
                              && string.Equals(s.DeviceGuid.ToLowerInvariant(), guidStr, StringComparison.Ordinal))
                             || (keyless != null && keyless.Contains(s))));
-                    // Keep rows that were already empty and explicit NoInherit rows.
-                    // RemoveRowSources dropped ordinary rows emptied by device cleanup.
-                    ms.Rows.RemoveAll(r => r == null
+                    keptRows.RemoveAll(r => r == null
                         || ((r.Sources == null || r.Sources.Count == 0) && !r.NoInherit
                             && !MappingSetMigrator.IsMotionTarget(r.Target)));
+                    if (keptRows.Count != ms.Rows.Count) ms.Rows = keptRows;
                 }
             }
         }
@@ -1964,6 +1972,13 @@ namespace PadForge.Services
             return keyless;
         }
 
+        /// <summary>Drops the sources <paramref name="remove"/> names from a
+        /// row the poll thread may be reading. The kept sources go into a new
+        /// list that replaces the old one by reference, never an in-place
+        /// remove: a reader holding the old list keeps a complete one, where a
+        /// shrink between its Count and its indexer threw on the poll thread
+        /// (the swap rule LiveListSwapTests pins). True when the row ends up
+        /// empty and should go.</summary>
         private static bool RemoveRowSources(MappingRow row, Predicate<MappingSource> remove)
         {
             if (row?.Sources == null) return false;
@@ -1975,8 +1990,13 @@ namespace PadForge.Services
             // expression reading the wrong input.
             if (row.CombineMode != "Custom")
             {
-                int removed = row.Sources.RemoveAll(remove);
-                return removed > 0 && row.Sources.Count == 0
+                var sources = row.Sources;
+                var keptSources = new List<MappingSource>(sources.Count);
+                foreach (var source in sources)
+                    if (!remove(source)) keptSources.Add(source);
+                int removed = sources.Count - keptSources.Count;
+                if (removed > 0) row.Sources = keptSources;
+                return removed > 0 && keptSources.Count == 0
                     && row.CombineMode != "Custom" && !row.NoInherit && !wasAuthoredEmpty;
             }
 
@@ -2191,13 +2211,18 @@ namespace PadForge.Services
                         }
                         if (rrow.Sources != null)
                         {
+                            // Added to a copy assigned once by reference: er is
+                            // the live set's row until the merged set replaces
+                            // it, and the poll thread reads its sources unlocked.
+                            List<MappingSource> grown = null;
                             foreach (var s in rrow.Sources)
                             {
                                 if (s == null) continue;
                                 if (devicesPresent.Contains((s.DeviceGuid ?? "").ToLowerInvariant()))
                                     continue;
-                                er.Sources.Add(s);
+                                (grown ??= new List<MappingSource>(er.Sources)).Add(s);
                             }
+                            if (grown != null) er.Sources = grown;
                         }
                         // Only mark the rebuilt row consumed when the
                         // existing row actually has surviving sources.
@@ -2617,14 +2642,18 @@ namespace PadForge.Services
         /// <paramref name="srcSlot"/> to <paramref name="dstSlot"/>.
         /// Device features (lightbar / adaptive triggers / mic LED /
         /// player LED / audio-reactive / tone filter) are physical-device
-        /// passthrough and copy unconditionally — a DualSense mapped to
-        /// an Xbox slot still has its lightbar driven by DeviceConfig.
-        /// Extended custom layouts and MIDI CC/note ranges are slot-shape
-        /// data, so they only copy when both source and destination share
-        /// that output type. Mappings and per-device tuning live on
-        /// PadSetting and are handled separately by the InputService copy
-        /// path; this method fills the gap for tabs that live on
-        /// PadViewModel.</summary>
+        /// passthrough and copy whatever the two slots' output types. A
+        /// DualSense mapped to an Xbox slot still has its lightbar driven by
+        /// DeviceConfig. A destination device the source slot does not have
+        /// takes a stand-in source device's settings and keeps its own
+        /// Control This Device's Lighting switch (#494), so a copy never
+        /// starts or stops a controller lighting a mouse or keyboard the
+        /// source never had. Extended custom layouts and MIDI CC/note ranges
+        /// are slot-shape data, so they only copy when both source and
+        /// destination share that output type. Mappings and per-device
+        /// tuning live on PadSetting and are handled separately by the
+        /// InputService copy path. This method fills the gap for tabs that
+        /// live on PadViewModel.</summary>
         public void CopySlotConfigsAcrossSlots(int srcSlot, int dstSlot)
         {
             if (srcSlot < 0 || dstSlot < 0) return;
@@ -2642,7 +2671,8 @@ namespace PadForge.Services
             // so a slot with two differently-configured controllers keeps both rather
             // than flattening to one. A destination device the source slot did not
             // have falls back to a representative source config (a configured anchor,
-            // else the first configured per-device entry).
+            // else the first configured per-device entry), which is another device's,
+            // so it keeps its own lighting switch (ApplyStandInDeviceSlotConfigData).
             dst.EnsureDeviceSlotConfigsForMappedDevices();
             var srcByGuid = src.PerDeviceSlotConfigs;
             var srcAnchor = src.DeviceConfig;
@@ -2663,10 +2693,10 @@ namespace PadForge.Services
                     {
                         var dstCfg = kvp.Value;
                         if (dstCfg == null) continue;
-                        var srcCfg = (srcByGuid != null && srcByGuid.TryGetValue(kvp.Key, out var m) && m != null)
-                            ? m : fallbackCfg;
-                        if (srcCfg != null)
-                            ApplyDeviceSlotConfigData(dstCfg, BuildDeviceSlotConfigData(srcCfg, dstSlot, Guid.Empty));
+                        if (srcByGuid != null && srcByGuid.TryGetValue(kvp.Key, out var m) && m != null)
+                            ApplyDeviceSlotConfigData(dstCfg, BuildDeviceSlotConfigData(m, dstSlot, Guid.Empty));
+                        else if (fallbackCfg != null)
+                            ApplyStandInDeviceSlotConfigData(dstCfg, BuildDeviceSlotConfigData(fallbackCfg, dstSlot, Guid.Empty));
                     }
                 }
                 // Anchor write only when a real device is selected on the
@@ -2676,10 +2706,11 @@ namespace PadForge.Services
                     && dst.SelectedMappedDevice.InstanceGuid != Guid.Empty)
                 {
                     var selGuid = dst.SelectedMappedDevice.InstanceGuid;
-                    var srcCfg = (srcByGuid != null && srcByGuid.TryGetValue(selGuid, out var m2) && m2 != null)
-                        ? m2 : (srcAnchor ?? fallbackCfg);
-                    if (srcCfg != null)
-                        ApplyDeviceSlotConfigData(dst.DeviceConfig, BuildDeviceSlotConfigData(srcCfg, dstSlot, Guid.Empty));
+                    var standIn = srcAnchor ?? fallbackCfg;
+                    if (srcByGuid != null && srcByGuid.TryGetValue(selGuid, out var m2) && m2 != null)
+                        ApplyDeviceSlotConfigData(dst.DeviceConfig, BuildDeviceSlotConfigData(m2, dstSlot, Guid.Empty));
+                    else if (standIn != null)
+                        ApplyStandInDeviceSlotConfigData(dst.DeviceConfig, BuildDeviceSlotConfigData(standIn, dstSlot, Guid.Empty));
                 }
             }
 
@@ -2787,15 +2818,6 @@ namespace PadForge.Services
             return list.ToArray();
         }
 
-        /// <summary>Paste companion. Applies a clipboard's device-config
-        /// snapshot to the destination slot: the anchor entry
-        /// (DeviceGuid = Empty) writes to <c>padVm.DeviceConfig</c>;
-        /// per-device entries fan out across every entry already in the
-        /// destination's <c>PerDeviceSlotConfigs</c> dict so
-        /// device-switching on the destination doesn't bring back the
-        /// old lightbar. Like the in-process Copy From, this runs
-        /// unconditionally regardless of slot output type. Device
-        /// features are physical-device passthrough.</summary>
         /// <summary>True when a device-config DTO carries any non-default
         /// device setting: lighting, adaptive triggers, Mic LED, Player LED, OR audio
         /// (passthrough / audio-lightbar / mirror source). The audio arm matters because
@@ -2884,6 +2906,17 @@ namespace PadForge.Services
                 || c.InputReactiveMode != ViewModels.InputReactiveMode.Off
                 || c.PeripheralLightingEnabled);
 
+        /// <summary>Paste companion. Applies a clipboard's device-config
+        /// snapshot to the destination slot. Every per-device entry the
+        /// destination holds takes the snapshot's entry for the same device,
+        /// else a stand-in entry, so switching devices on the destination
+        /// doesn't bring back the old lightbar, and the selected device's
+        /// config takes its own entry, else the anchor entry
+        /// (DeviceGuid = Empty). Like the in-process Copy From, this runs
+        /// whatever the slots' output types, since device features are
+        /// physical-device passthrough, and a device that takes a stand-in
+        /// entry keeps its own Control This Device's Lighting switch
+        /// (#494).</summary>
         public void ApplyDeviceSlotConfigsToSlot(int slotIndex,
             ViewModels.DeviceSlotConfigData[] configs)
         {
@@ -2923,17 +2956,40 @@ namespace PadForge.Services
                 foreach (var kvp in padVm.PerDeviceSlotConfigs)
                 {
                     if (kvp.Value == null) continue;
-                    var srcData = byGuid.TryGetValue(kvp.Key, out var m) ? m : fallback;
-                    ApplyDeviceSlotConfigData(kvp.Value, srcData);
+                    if (byGuid.TryGetValue(kvp.Key, out var m))
+                        ApplyDeviceSlotConfigData(kvp.Value, m);
+                    else
+                        ApplyStandInDeviceSlotConfigData(kvp.Value, fallback);
                 }
             }
             if (padVm.SelectedMappedDevice != null
                 && padVm.SelectedMappedDevice.InstanceGuid != Guid.Empty)
             {
-                var srcData = byGuid.TryGetValue(padVm.SelectedMappedDevice.InstanceGuid, out var m2)
-                    ? m2 : (anchor ?? fallback);
-                ApplyDeviceSlotConfigData(padVm.DeviceConfig, srcData);
+                if (byGuid.TryGetValue(padVm.SelectedMappedDevice.InstanceGuid, out var m2))
+                    ApplyDeviceSlotConfigData(padVm.DeviceConfig, m2);
+                else
+                    ApplyStandInDeviceSlotConfigData(padVm.DeviceConfig, anchor ?? fallback);
             }
+        }
+
+        /// <summary>Applies another device's settings to a device, for a Copy
+        /// From or a Paste whose source slot did not have it: every setting
+        /// but the Control This Device's Lighting switch (#494), which stays
+        /// the device's own. The switch is off by default so assigning a
+        /// keyboard for its keys never repaints it. A copy that carried a
+        /// mouse's switch onto that keyboard would start the controller
+        /// lighting it, and one that carried a DualSense's would stop the
+        /// controller lighting a mouse the user had set. The DTO's own value
+        /// is restored after, since a paste applies one stand-in to several
+        /// devices.</summary>
+        private static void ApplyStandInDeviceSlotConfigData(ViewModels.DeviceSlotConfig cfg,
+            ViewModels.DeviceSlotConfigData standIn)
+        {
+            if (cfg == null || standIn == null) return;
+            bool sourceSwitch = standIn.PeripheralLightingEnabled;
+            standIn.PeripheralLightingEnabled = cfg.PeripheralLightingEnabled;
+            try { ApplyDeviceSlotConfigData(cfg, standIn); }
+            finally { standIn.PeripheralLightingEnabled = sourceSwitch; }
         }
 
         /// <summary>Snapshots the Extended custom layout on a single
@@ -4225,13 +4281,15 @@ namespace PadForge.Services
         /// toggle where it is: the global AppSettings value, or whatever the
         /// last opinionated profile set. The nullable contract mirrors
         /// <see cref="ProfileData.PollingRateOverrideMs"/> (0 there, null
-        /// here) and is why a plain bool was the wrong shape: it read as
-        /// false in every pre-existing profile and the first profile switch
-        /// turned the mirror off. Runs on the cold path beside the six
-        /// plain-bool legs and belongs at the same spot on the runtime
-        /// switch lane (InputService.ApplyProfile). The default snapshot
-        /// never carries an opinion (no snapshot builder sets these), so a
-        /// switch back to Default leaves the toggles alone.</summary>
+        /// here) and is why a plain bool would be the wrong shape: it would
+        /// read as false in every pre-existing profile, so the first profile
+        /// switch would turn head tracking off, the way it turned the Razer
+        /// Chroma mirror off before 6fd683ee made that toggle global. Runs on
+        /// the cold path beside the six plain-bool legs and belongs at the
+        /// same spot on the runtime switch lane (InputService.ApplyProfile).
+        /// The default snapshot never carries an opinion (no snapshot builder
+        /// sets these), so a switch back to Default leaves the toggles
+        /// alone.</summary>
         internal void ApplyProfileServiceToggles(ProfileData profile)
         {
             if (profile == null) return;
@@ -5108,7 +5166,7 @@ namespace PadForge.Services
                     StartCc = cfg.StartCc,
                     NoteCount = cfg.NoteCount,
                     StartNote = cfg.StartNote,
-                    OutputPort = cfg.OutputPort
+                    OutputPort = cfg.OutputPortSnapshot
                 });
             }
             return list.Count > 0 ? list.ToArray() : null;
@@ -5129,7 +5187,7 @@ namespace PadForge.Services
                     StartCc = cfg.StartCc,
                     NoteCount = cfg.NoteCount,
                     StartNote = cfg.StartNote,
-                    OutputPort = cfg.OutputPort
+                    OutputPort = cfg.OutputPortSnapshot
                 });
             }
             return list.ToArray();

@@ -544,18 +544,23 @@ namespace PadForge.Tests
 
         /// <summary>The hiding path logs: the unavailable case with its
         /// error, the per-device resolution and expansion, the sync diff
-        /// with activation, and the read-back with any missing ids. Both
-        /// branches sit behind the sole-record gate and say which way it
-        /// went, and the block prints when the desired set moved, when
-        /// HidHide refused PadForge, or once a minute while the sync or the
-        /// whitelist misbehaves, with a heartbeat otherwise.</summary>
+        /// with activation, the ids held back, and the read-back with any
+        /// missing ids. Both branches sit behind the sole-record gate and say
+        /// which way it went, and the block prints when the desired set
+        /// moved, when HidHide refused PadForge, when the inverse flag
+        /// changed, when a one-time line came, or once a minute while the
+        /// sync or the whitelist misbehaves or the inverse flag does not
+        /// read, with a heartbeat otherwise.</summary>
         [Fact]
         public void ApplyDeviceHiding_IsObservable()
         {
             string svc = RepoText("PadForge.App", "Services", "InputService.cs");
             int at = svc.IndexOf("public void ApplyDeviceHiding()", StringComparison.Ordinal);
             Assert.True(at > 0);
-            string body = svc.Substring(at, 32000);
+            // The method's own text, up to the one that follows it.
+            int end = svc.IndexOf("private void ApplyInputHooks(", at, StringComparison.Ordinal);
+            Assert.True(end > at);
+            string body = svc.Substring(at, end - at);
             Assert.Contains("HidHideController.TryProbe(out int hidHideErr)", body);
             Assert.Contains("HIDHIDE UNAVAILABLE: hiding requested for", body);
             Assert.Contains("HIDHIDE apply devices=", body);
@@ -579,14 +584,23 @@ namespace PadForge.Tests
             Assert.Contains("synthetic twin present: not hidden (same={syntheticSame}) {decision}", body);
             Assert.Contains("HIDHIDE dev {ud.VendorId:X4}:{ud.ProdId:X4} synthetic path=", body);
             Assert.Contains("cached={ud.HidHideInstanceIds.Count} {decision}", body);
-            Assert.Contains("bool synced = HidHideController.SyncManagedDevices(desiredIds, out var added, out var removed, allowAdditions: !whitelistTrouble);", body);
-            Assert.Contains("MissingFromBlacklist(desiredIds)", body);
+            Assert.Contains("bool synced = HidHideController.SyncManagedDevices(desiredIds, out var added, out var removed, out var heldBack, allowAdditions: !whitelistTrouble);", body);
+            // A held-back id was never written, so it is named as held and
+            // left out of the read-back.
+            Assert.Contains("MissingFromBlacklist(desiredIds.Where(id => !held.Contains(id)))", body);
+            Assert.Contains("held={heldBack.Count}", body);
             Assert.Contains("readback=MISSING", body);
             Assert.Contains("write=REFUSED", body);
-            // Print on movement or trouble, else the heartbeat.
+            // Print on movement, a refusal, a change of the inverse flag, a
+            // one-time line or trouble, else the heartbeat.
             Assert.Contains("bool desiredMoved = _lastHidHideDesired == null || !_lastHidHideDesired.SetEquals(desiredIds);", body);
-            Assert.Contains("bool trouble = whitelistTrouble || !synced || missing == null || missing.Count > 0;", body);
-            Assert.Contains("if (desiredMoved || refusedNow || (trouble && tick - _lastHidHideTroubleLogTick >= 60_000))", body);
+            Assert.Contains("bool inverseMoved = _lastHidHideInversePrinted != inverse;", body);
+            // An inverse flag that does not read keeps the last answer and
+            // counts as trouble while that answer is on.
+            Assert.Contains("bool inverse = inverseRead ? inverted : _hidHideInverseOn;", body);
+            Assert.Contains("bool trouble = whitelistTrouble || inverseUnread || !synced || missing == null || missing.Count > 0;", body);
+            Assert.Contains("if (desiredMoved || refusedNow || inverseMoved || oneTimeLine", body);
+            Assert.Contains("|| (trouble && tick - _lastHidHideTroubleLogTick >= 60_000))", body);
             Assert.Contains("HIDHIDE apply unchanged (n={desiredIds.Count})", body);
             Assert.Contains(">= 60_000", body);
             // The unavailable branch fires only when hiding was wanted.

@@ -107,6 +107,7 @@ namespace PadForge.ViewModels
             OnPropertyChanged(nameof(HidHideStatusText));
             OnPropertyChanged(nameof(MidiServicesStatusText));
             OnPropertyChanged(nameof(MidiServicesDetailText));
+            OnPropertyChanged(nameof(MidiInstallTooltip));
             OnPropertyChanged(nameof(SteamVrStatusText));
             // Both build their text from Strings.Instance, so they are exactly
             // as culture-dependent as the two above and were the pair this
@@ -521,11 +522,25 @@ namespace PadForge.ViewModels
 
         private RelayCommand _installMidiRuntimeCommand;
 
-        /// <summary>Installs PadForge's build of the App SDK runtime.</summary>
+        /// <summary>Installs PadForge's build of the App SDK runtime.
+        /// Unavailable while a runtime uninstaller PadForge started still
+        /// runs, as Uninstall is: Windows Installer runs one installation at
+        /// a time and refuses a second with 1618, and the card offers
+        /// Install as soon as the registry stops listing the runtime, which
+        /// can be before its uninstaller exits.</summary>
         public RelayCommand InstallMidiRuntimeCommand =>
             _installMidiRuntimeCommand ??= new RelayCommand(
                 () => InstallMidiRuntimeRequested?.Invoke(this, EventArgs.Empty),
-                () => _canInstallMidiRuntime);
+                () => _canInstallMidiRuntime && !_midiUninstallerRunning);
+
+        /// <summary>The Install button's tooltip: what it installs, or while
+        /// an uninstaller still runs, that Install waits for it. Under the
+        /// legacy API MIDI keeps running through the uninstall, so the card's
+        /// own line for a running uninstaller, which says MIDI starts again,
+        /// does not fit here.</summary>
+        public string MidiInstallTooltip => _midiUninstallerRunning
+            ? Strings.Instance.Settings_MidiInstallAfterUninstaller
+            : Strings.Instance.Settings_MidiInstallTooltip;
 
         /// <summary>Raised when the user requests installing the runtime.</summary>
         public event EventHandler InstallMidiRuntimeRequested;
@@ -573,6 +588,40 @@ namespace PadForge.ViewModels
             }
         }
 
+        private Common.Input.MidiNotRunningReason _midiNotRunningReason;
+
+        /// <summary>Why MIDI is not running, for the detail line while
+        /// <see cref="MidiApiNotStarted"/> holds: a service that did not
+        /// respond, which PadForge restarts, a classic MIDI driver that did
+        /// not respond, which no service restart reaches, or the runtime's
+        /// uninstaller still running.</summary>
+        internal Common.Input.MidiNotRunningReason MidiNotRunningReason
+        {
+            get => _midiNotRunningReason;
+            set
+            {
+                if (_midiNotRunningReason == value) return;
+                _midiNotRunningReason = value;
+                OnMidiCardChanged();
+            }
+        }
+
+        private int _midiInBoxFailure;
+
+        /// <summary>The HRESULT of an in-box API that Windows registers but
+        /// that failed to activate, or 0. The legacy API runs in its place,
+        /// and the detail line names the failure.</summary>
+        internal int MidiInBoxFailure
+        {
+            get => _midiInBoxFailure;
+            set
+            {
+                if (_midiInBoxFailure == value) return;
+                _midiInBoxFailure = value;
+                OnMidiCardChanged();
+            }
+        }
+
         /// <summary>Whether any MIDI API can run MIDI slots and MIDI input.</summary>
         public bool IsMidiAvailable => _activeMidiApi != Common.Input.MidiApiKind.None;
 
@@ -591,17 +640,24 @@ namespace PadForge.ViewModels
         /// <summary>The line under the status: the runtime's version while
         /// PadForge uses it, a note that a leftover runtime is no longer
         /// needed once Windows has the API, how the legacy API sends and
-        /// listens, or that the service did not respond.</summary>
+        /// listens (naming the in-box API's failure when that is why the
+        /// legacy API runs), or why nothing runs.</summary>
         public string MidiServicesDetailText => _activeMidiApi switch
         {
             Common.Input.MidiApiKind.InBox => _isMidiRuntimeInstalled
                 ? string.Format(Strings.Instance.Settings_MidiOlderRuntime_Format, _midiRuntimeVersion)
                 : string.Empty,
             Common.Input.MidiApiKind.AppSdk => _midiRuntimeVersion,
-            Common.Input.MidiApiKind.Legacy => Strings.Instance.Settings_MidiLegacy,
-            _ => _midiApiNotStarted
-                ? Strings.Instance.Settings_MidiNotRunning
-                : string.Empty,
+            Common.Input.MidiApiKind.Legacy => _midiInBoxFailure != 0
+                ? string.Format(Strings.Instance.Settings_MidiInBoxFailed_Format, _midiInBoxFailure.ToString("X8"))
+                : Strings.Instance.Settings_MidiLegacy,
+            _ => !_midiApiNotStarted ? string.Empty
+                : _midiNotRunningReason switch
+                {
+                    Common.Input.MidiNotRunningReason.Uninstalling => Strings.Instance.Settings_MidiUninstallRunning,
+                    Common.Input.MidiNotRunningReason.DriverDidNotRespond => Strings.Instance.Settings_MidiNotRunningDriver,
+                    _ => Strings.Instance.Settings_MidiNotRunning,
+                },
         };
 
         /// <summary>True when the detail line is the older runtime's
@@ -616,15 +672,38 @@ namespace PadForge.ViewModels
             _uninstallMidiServicesCommand?.NotifyCanExecuteChanged();
         }
 
+        private bool _midiUninstallerRunning;
+
+        /// <summary>True while a runtime uninstaller PadForge started has not
+        /// exited (<see cref="Common.Input.MidiRuntimeSwitch.UninstallerRunning"/>).
+        /// One that outlives its five-minute wait leaves the card usable
+        /// again, and Uninstall and Install stay unavailable until it exits:
+        /// Windows Installer runs one installation at a time, so a second
+        /// one only fails.</summary>
+        internal bool MidiUninstallerRunning
+        {
+            get => _midiUninstallerRunning;
+            set
+            {
+                if (_midiUninstallerRunning == value) return;
+                _midiUninstallerRunning = value;
+                _uninstallMidiServicesCommand?.NotifyCanExecuteChanged();
+                _installMidiRuntimeCommand?.NotifyCanExecuteChanged();
+                OnPropertyChanged(nameof(MidiInstallTooltip));
+            }
+        }
+
         private RelayCommand _uninstallMidiServicesCommand;
 
         /// <summary>Uninstalls the runtime. A MIDI slot running on it keeps
         /// it installed. When Windows has the API, or the legacy API runs
-        /// the slots, the runtime can go while they run.</summary>
+        /// the slots, the runtime can go while they run. Unavailable while
+        /// an uninstaller already runs.</summary>
         public RelayCommand UninstallMidiServicesCommand =>
             _uninstallMidiServicesCommand ??= new RelayCommand(
                 () => UninstallMidiServicesRequested?.Invoke(this, EventArgs.Empty),
                 () => _isMidiRuntimeInstalled
+                      && !_midiUninstallerRunning
                       && !(_activeMidiApi == Common.Input.MidiApiKind.AppSdk && HasAnyMidiSlots()));
 
         /// <summary>Raised when the user requests uninstalling the runtime.</summary>

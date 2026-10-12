@@ -48,6 +48,7 @@ namespace PadForge.ViewModels
             get => _kind;
             set
             {
+                bool fromKeyKind = UsesUpDownKeys;
                 if (SetProperty(ref _kind, value ?? "Direct"))
                 {
                     OnPropertyChanged(nameof(IsIncrementalKind));
@@ -59,11 +60,132 @@ namespace PadForge.ViewModels
                     OnPropertyChanged(nameof(IsDeadZoneApplicable));
                     OnPropertyChanged(nameof(UsesUpDownKeys));
                     OnPropertyChanged(nameof(IsKindDescriptorless));
+                    OnPropertyChanged(nameof(IsKeyInvertShown));
                     OnPropertyChanged(nameof(ParamUpInputChoice));
                     OnPropertyChanged(nameof(ParamDownInputChoice));
                     OnPropertyChanged(nameof(ParamModifierInputChoice));
+                    // A kind that reads the Up and Down keys puts the source
+                    // on the controller they share. The keys outlast a trip
+                    // to another kind, so the source follows them on the way
+                    // back. A kind that reads the Descriptor puts it back on
+                    // the Descriptor's. A load moves nothing: it sets the
+                    // kind before the keys (FromDomain) or under LoadingKeys,
+                    // and the saved device stands.
+                    if (UsesUpDownKeys)
+                    {
+                        if (!LoadingKeys)
+                        {
+                            // A key kind offers no Invert, so a source that
+                            // comes to one from a kind that is none leaves
+                            // its Invert behind. Carried in, it turned the
+                            // keys' output around with nothing on the row to
+                            // show why (SourceEvaluator applies it). A load
+                            // keeps a saved one, which lands after the kind
+                            // (FromDomain) or under LoadingKeys: that row has
+                            // run turned around all along, and shows a
+                            // checkbox for it (IsKeyInvertShown). So does a
+                            // switch between the two key kinds: the flag
+                            // there is that saved one, with its checkbox
+                            // showing and checked, and dropping it turned
+                            // an axis row around on a change of kind.
+                            if (!fromKeyKind) Invert = false;
+                            FollowKeysDevice();
+                        }
+                    }
+                    else if (!IsKindDescriptorless) RestoreDescriptorController();
+                    else if (IsInvertOnHoldKind && !LoadingKeys)
+                    {
+                        // Invert on Hold reads its modifier alone, so the
+                        // source goes to the controller that key names, as
+                        // a kind with Up and Down keys goes to theirs. Left
+                        // where its kept input or its old keys had put it,
+                        // it was deleted with that controller while its
+                        // modifier was still on the slot. A load moves
+                        // nothing here either.
+                        FollowKeysDevice();
+                    }
                 }
             }
+        }
+
+        // The controller the kept Descriptor was picked on and the name
+        // shown under it, remembered when the source follows its keys away
+        // from it (FollowKeysDevice), and the Descriptor then. Null when
+        // nothing is remembered. The controller is saved with the source
+        // while the source sits on another one
+        // (MappingSource.DescriptorDeviceGuid), so a key kind saved and loaded
+        // again still goes back to it. The name is not: the loader resolves
+        // it again (NameDescriptorController).
+        private string _descriptorController;
+        private string _descriptorControllerLabel;
+        private string _descriptorFollowedAway;
+
+        /// <summary>What <see cref="ToDomain"/> saves as the controller of
+        /// the kept Descriptor: the remembered one while the source's kind
+        /// leaves the Descriptor unread and the source sits on another
+        /// device, null otherwise. A source still on the controller its
+        /// input was picked on saves as it did before the field existed. It
+        /// changes only where the device or the Descriptor does (a kind
+        /// change moves it by moving the device), and both setters raise
+        /// it, so the hook that marks the settings file dirty hears it like
+        /// any saved field.</summary>
+        public string DescriptorDeviceGuid =>
+            _descriptorController != null
+            && IsKindDescriptorless
+            && !string.IsNullOrEmpty(_descriptor)
+            && string.Equals(_descriptor, _descriptorFollowedAway, StringComparison.Ordinal)
+            && !string.Equals(_descriptorController, _deviceGuid ?? "", StringComparison.OrdinalIgnoreCase)
+                ? _descriptorController
+                : null;
+
+        /// <summary>Takes the saved controller of the kept Descriptor on a
+        /// load (<see cref="FromDomain"/>), where the kind leaves the
+        /// Descriptor unread. In a kind that reads it, the Descriptor reads
+        /// the source's own device and a saved value is no memory.</summary>
+        private void RememberSavedDescriptorController(string controller)
+        {
+            if (controller == null || !IsKindDescriptorless || string.IsNullOrEmpty(_descriptor)) return;
+            _descriptorController = controller;
+            _descriptorControllerLabel = null;
+            _descriptorFollowedAway = _descriptor;
+        }
+
+        /// <summary>Names the remembered controller where a load left it
+        /// unnamed. The loader passes the resolver it names the source's own
+        /// device with, so a controller the row's list does not carry comes
+        /// back under its device's name all the same
+        /// (<see cref="RestoreDescriptorController"/>).</summary>
+        internal void NameDescriptorController(Func<string, string> nameOf)
+        {
+            if (_descriptorController != null && _descriptorControllerLabel == null && nameOf != null)
+                _descriptorControllerLabel = nameOf(_descriptorController);
+        }
+
+        /// <summary>Puts the source back on the controller its Descriptor
+        /// was picked on, when it left that controller to follow its keys
+        /// and the Descriptor is the one it kept. A kind change keeps the
+        /// Descriptor, and without this a Direct source switched to
+        /// Incremental with keys on two controllers and back read its input
+        /// on every controller on the slot. The controller's name comes back
+        /// with it. It lands first, so the row, which resolves the name from
+        /// its list when the controller changes, has the last word, and a
+        /// controller the list does not carry keeps the name it had.</summary>
+        private void RestoreDescriptorController()
+        {
+            string controller = _descriptorController;
+            string label = _descriptorControllerLabel;
+            bool sameInput = string.Equals(_descriptor, _descriptorFollowedAway, StringComparison.Ordinal);
+            ForgetDescriptorController();
+            if (controller == null || !sameInput) return;
+            DeviceLabel = label;
+            DeviceGuid = controller;
+        }
+
+        private void ForgetDescriptorController()
+        {
+            _descriptorController = null;
+            _descriptorControllerLabel = null;
+            _descriptorFollowedAway = null;
         }
 
         public bool IsIncrementalKind => string.Equals(_kind, "Incremental", StringComparison.Ordinal);
@@ -83,13 +205,26 @@ namespace PadForge.ViewModels
         /// pickers' visibility in the primary cell and the secondary rows.</summary>
         public bool UsesUpDownKeys => IsIncrementalKind || IsRampedKind;
 
-        /// <summary>True for kinds where the source's main Descriptor +
-        /// Invert / HalfAxis / DeadZone fields are unused (Incremental
-        /// authors via Up/Down + Param*; InvertOnHold acts as a row-level
-        /// modifier that only uses ParamModifier). Used by the XAML to
-        /// collapse the redundant primary controls so the user only sees
-        /// the kind-specific row below.</summary>
+        /// <summary>True for kinds that leave the source's main Descriptor,
+        /// HalfAxis and DeadZone fields unread (Incremental and Ramp author
+        /// via Up/Down + Param*, and InvertOnHold acts as a row-level modifier
+        /// that only uses ParamModifier). Used by the XAML to collapse the
+        /// redundant primary controls so the user only sees the
+        /// kind-specific row below. Invert is collapsed with them and is
+        /// not unread: the engine applies it to an Incremental source and
+        /// to a Ramp source on an axis (SourceEvaluator), so a source that
+        /// comes to one of those two kinds from any other drops it in the
+        /// editor (<see cref="Kind"/>), and one saved with it shows it
+        /// (<see cref="IsKeyInvertShown"/>).</summary>
         public bool IsKindDescriptorless => IsIncrementalKind || IsInvertOnHoldKind || IsRampedKind;
+
+        /// <summary>True for an Incremental or Ramp source whose Invert is
+        /// on, which shows a checkbox for it. Only a source saved that way
+        /// has it, from before the editor dropped Invert on the way into
+        /// the kind. The engine has turned that row's output around all
+        /// along, so the flag stays, and the checkbox is the control that
+        /// turns it off. Unchecked, the checkbox goes with it.</summary>
+        public bool IsKeyInvertShown => UsesUpDownKeys && _invert;
 
         /// <summary>Whether any input actually feeds this source, per kind.
         /// Mirrors the engine's dispatch (the collect-descriptors switch in
@@ -230,11 +365,18 @@ namespace PadForge.ViewModels
         /// <summary>The entry a key saved before keys carried a controller
         /// shows: the one on this source's device, that device's own entry
         /// for an abstract "Gamepad ..." name, else the first entry with the
-        /// descriptor. <see cref="AdoptLegacyKeyDevices"/> gives the key that
-        /// entry's controller, so it reads the device shown under it.</summary>
+        /// descriptor, and none while the list does not carry this source's
+        /// own controller (<see cref="ListCarriesOwnController"/>).
+        /// <see cref="AdoptLegacyKeyDevices"/> gives the key that entry's
+        /// controller, so it reads the device shown under it.</summary>
         private InputChoice ResolveLegacyParamChoice(string descriptor)
         {
             if (ParentMappingItem == null || string.IsNullOrEmpty(descriptor)) return null;
+            // A list that does not carry this source's own controller is no
+            // list to judge the key by: its device is gone or not listed yet,
+            // so the key reads where it did, and the picker shows no
+            // controller it does not read.
+            if (!ListCarriesOwnController()) return null;
             string wantGuid = (_deviceGuid ?? "").ToLowerInvariant();
             string pinnedCanonical = PadForge.Common.MappingDisplayResolver.PinnedAliasCanonical(descriptor, wantGuid);
             InputChoice canonicalMatch = null;
@@ -254,11 +396,24 @@ namespace PadForge.ViewModels
             return canonicalMatch ?? descriptorOnlyMatch;
         }
 
+        /// <summary>True when the row's list carries an entry of the
+        /// controller this source names, or the source names none. A
+        /// controller whose record has no inputs yet, or a list still built
+        /// for the slot's previous controllers, does not carry it.</summary>
+        private bool ListCarriesOwnController()
+        {
+            if (string.IsNullOrEmpty(_deviceGuid)) return true;
+            foreach (var c in ParentMappingItem.ParamInputs)
+                if (c != null && string.Equals(c.DeviceGuid ?? "", _deviceGuid, StringComparison.OrdinalIgnoreCase))
+                    return true;
+            return false;
+        }
+
         /// <summary>Sets a key and the controller it reads, the pair a pick or
         /// a recording lands. A cleared key keeps no controller. Both fields
         /// land before anything is raised, so no listener reads the new input
-        /// on the old controller. An Incremental or Ramp source then follows
-        /// its keys (<see cref="FollowKeysDevice"/>).</summary>
+        /// on the old controller. A source whose kind reads the key then
+        /// follows it (<see cref="FollowKeysDevice"/>).</summary>
         internal void SetParamKey(ParamRecordTarget which, string descriptor, string deviceGuid)
         {
             descriptor ??= "";
@@ -299,41 +454,82 @@ namespace PadForge.ViewModels
             foreach (string name in names) OnPropertyChanged(name);
         }
 
-        /// <summary>An Incremental or Ramp source belongs to the controller
-        /// its keys share, and to none (empty) when they read different
-        /// controllers or any controller. Step 3 reads a source on its own
-        /// device's pass, or on the slot's passes when it names none, and each
-        /// key reads its own controller wherever the source is read
-        /// (SourceKindRuntime.ReadKey), so one key still works while the other
-        /// key's controller is off. A key saved before keys carried a
-        /// controller is first given the source's, so it keeps reading
-        /// there.</summary>
+        /// <summary>A source whose kind reads keys belongs to the controller
+        /// those keys name. An Incremental or Ramp source belongs to the one
+        /// its Up and Down keys share, and to none (empty) when they read
+        /// different controllers or any controller. An Invert on Hold source
+        /// reads its modifier alone and belongs to the one that key names.
+        /// It is put there when a key lands, when a key saved before keys
+        /// carried a controller takes one, and when its kind becomes one of
+        /// the three with its keys already in, as on the way back from
+        /// Direct. With no key of its kind it stays where it is. Step 3
+        /// reads an Incremental or Ramp source on its own device's pass, or
+        /// on the slot's passes when it names none, and each key reads its
+        /// own controller wherever the source is read
+        /// (SourceKindRuntime.ReadKey, and InputManager.IsInvertOnHoldActive
+        /// for the modifier), so one key still works while the other key's
+        /// controller is off. The device cleanup judges a source by its own
+        /// controller (SettingsService.StripDeviceFromSlot, and
+        /// MergeMappingSetsFromLegacy for one that has left the slot), so an
+        /// Invert on Hold source that stayed on another controller was
+        /// deleted with it while its modifier was still on the slot. A key
+        /// saved before keys carried a controller reads the source's, so
+        /// each one, the keys this kind leaves unread too, is first given
+        /// it and keeps reading there. The controller the kept Descriptor
+        /// was picked on is remembered when the source first follows its
+        /// keys away from it, and a switch back to a kind that reads the
+        /// Descriptor restores it
+        /// (<see cref="RestoreDescriptorController"/>).</summary>
         private void FollowKeysDevice()
         {
-            if (!UsesUpDownKeys) return;
             bool up = !string.IsNullOrEmpty(_paramUp);
             bool down = !string.IsNullOrEmpty(_paramDown);
-            if (!up && !down) return;
-            string upDevice = up ? _paramUpDeviceGuid ?? _deviceGuid ?? "" : null;
-            string downDevice = down ? _paramDownDeviceGuid ?? _deviceGuid ?? "" : null;
-            string shared = upDevice == null ? downDevice
-                : downDevice == null || string.Equals(upDevice, downDevice, StringComparison.OrdinalIgnoreCase) ? upDevice
-                : "";
+            bool modifier = !string.IsNullOrEmpty(_paramModifier);
+            string shared, sharedKey;
+            if (UsesUpDownKeys)
+            {
+                if (!up && !down) return;
+                string upDevice = up ? _paramUpDeviceGuid ?? _deviceGuid ?? "" : null;
+                string downDevice = down ? _paramDownDeviceGuid ?? _deviceGuid ?? "" : null;
+                shared = upDevice == null ? downDevice
+                    : downDevice == null || string.Equals(upDevice, downDevice, StringComparison.OrdinalIgnoreCase) ? upDevice
+                    : "";
+                sharedKey = up ? _paramUp : _paramDown;
+            }
+            else if (IsInvertOnHoldKind)
+            {
+                if (!modifier) return;
+                shared = _paramModifierDeviceGuid ?? _deviceGuid ?? "";
+                sharedKey = _paramModifier;
+            }
+            else return;
             if (string.Equals(shared, _deviceGuid ?? "", StringComparison.OrdinalIgnoreCase)) return;
             if (up && _paramUpDeviceGuid == null) ParamUpDeviceGuid = _deviceGuid ?? "";
             if (down && _paramDownDeviceGuid == null) ParamDownDeviceGuid = _deviceGuid ?? "";
+            if (modifier && _paramModifierDeviceGuid == null) ParamModifierDeviceGuid = _deviceGuid ?? "";
+            if (_descriptorController == null && !string.IsNullOrEmpty(_descriptor))
+            {
+                _descriptorController = _deviceGuid ?? "";
+                _descriptorControllerLabel = _deviceLabel;
+                _descriptorFollowedAway = _descriptor;
+            }
             DeviceGuid = shared;
             DeviceLabel = shared.Length == 0
                 ? Strings.Instance.Mapping_AnyDevice
-                : ResolveParamChoice(up ? _paramUp : _paramDown, shared)?.DeviceLabel ?? DeviceLabel;
+                : ResolveParamChoice(sharedKey, shared)?.DeviceLabel ?? DeviceLabel;
         }
 
         /// <summary>Gives each key saved before keys carried a controller the
         /// controller of the entry its picker shows
         /// (<see cref="ResolveLegacyParamChoice"/>), so the key reads the
         /// device named under it. The row calls this once its input list is
-        /// in (MappingItem.RefreshExtraSourceInputs). A key no listed
-        /// controller offers keeps reading on the source's controller.</summary>
+        /// in (MappingItem.RefreshExtraSourceInputs), and not while a load
+        /// fills the row, when the list can still be the one built for the
+        /// slot's previous controllers. A key no listed controller offers,
+        /// or a source whose own controller the list does not carry (the
+        /// picker then shows nothing), keeps reading on the source's
+        /// controller: the choice is stored, so it is made only from a list
+        /// the source's controller is on.</summary>
         internal void AdoptLegacyKeyDevices()
         {
             if (ParentMappingItem == null || LoadingKeys) return;
@@ -359,7 +555,11 @@ namespace PadForge.ViewModels
         /// <summary>True while a load fills this source one field at a time
         /// (MappingItem.LoadPrimaryKind). Its device lands before its keys, and
         /// a key adopted then took a controller from the keys of the row
-        /// loaded before. The load adopts once, at the end.</summary>
+        /// loaded before. The load adopts once, at the end, or leaves it to
+        /// the list built after the rows when it runs inside a row's load
+        /// bracket (MappingItem.BeginLoadRow). Its kind lands last, with the
+        /// keys in, and leaves the source on the device it was saved
+        /// on.</summary>
         internal bool LoadingKeys { get; set; }
 
         /// <summary>True when <paramref name="choice"/> is the key already
@@ -441,7 +641,10 @@ namespace PadForge.ViewModels
             set
             {
                 if (SetProperty(ref _deviceGuid, value ?? ""))
+                {
                     OnPropertyChanged(nameof(DeviceLabel));
+                    OnPropertyChanged(nameof(DescriptorDeviceGuid));
+                }
             }
         }
 
@@ -499,6 +702,7 @@ namespace PadForge.ViewModels
                     OnPropertyChanged(nameof(IsGenericSensitivitySource));
                     OnPropertyChanged(nameof(IsRapidTriggerOffered));
                     OnPropertyChanged(nameof(KindChoices));
+                    OnPropertyChanged(nameof(DescriptorDeviceGuid));
                     // A picked input with no press depth cannot carry Rapid
                     // Trigger (#482). An empty descriptor keeps it, so the
                     // mode can be chosen before the input is recorded.
@@ -571,7 +775,10 @@ namespace PadForge.ViewModels
             set
             {
                 if (SetProperty(ref _invert, value))
+                {
                     OnPropertyChanged(nameof(DirectionBadge));
+                    OnPropertyChanged(nameof(IsKeyInvertShown));
+                }
             }
         }
 
@@ -1092,6 +1299,8 @@ namespace PadForge.ViewModels
                 if (_suppressSelectionSync) return;
                 if (SetProperty(ref _selectedInput, value) && value != null)
                 {
+                    // A pick names the input and its controller afresh.
+                    ForgetDescriptorController();
                     DeviceGuid = value.DeviceGuid ?? "";
                     DeviceLabel = value.DeviceLabel ?? "";
                     Descriptor = value.Descriptor ?? "";
@@ -1341,6 +1550,7 @@ namespace PadForge.ViewModels
             Kind = _kind ?? "Direct",
             DeviceGuid = _deviceGuid ?? "",
             Descriptor = _descriptor ?? "",
+            DescriptorDeviceGuid = DescriptorDeviceGuid,
             Invert = _invert,
             HalfAxis = _halfAxis,
             Bidirectional = _bidirectional,
@@ -1373,8 +1583,10 @@ namespace PadForge.ViewModels
         public static MappingSourceItem FromDomain(Engine.Data.MappingSource src)
         {
             if (src == null) return new MappingSourceItem();
-            return new MappingSourceItem
+            var item = new MappingSourceItem
             {
+                // First, before any key: a kind set with keys in follows
+                // them, and a load keeps the saved device.
                 Kind = src.Kind ?? "Direct",
                 DeviceGuid = src.DeviceGuid ?? "",
                 Descriptor = src.Descriptor ?? "",
@@ -1410,6 +1622,9 @@ namespace PadForge.ViewModels
                 ParamReverseMultiplier = src.ParamReverseMultiplier >= 1 ? src.ParamReverseMultiplier : 4.0,
                 ParamRapidTriggerDistance = Engine.Data.MappingSource.EffectiveRapidTriggerDistance(src.ParamRapidTriggerDistance),
             };
+            // Last, with the kind and the Descriptor in.
+            item.RememberSavedDescriptorController(src.DescriptorDeviceGuid);
+            return item;
         }
     }
 }

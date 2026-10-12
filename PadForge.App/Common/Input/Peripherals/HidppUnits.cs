@@ -213,7 +213,15 @@ namespace PadForge.Common.Input.Peripherals
 
         /// <summary>The short request for one long register record.</summary>
         public static byte[] ReadRegister(byte register, byte sub)
-            => new byte[] { ShortReportId, HidppHapticProtocol.DirectDeviceIndex, GetLongRegister, register, sub, 0x00, 0x00 };
+        {
+            var frame = new byte[ShortReportLength];
+            frame[0] = ShortReportId;
+            frame[1] = HidppHapticProtocol.DirectDeviceIndex;
+            frame[2] = GetLongRegister;
+            frame[3] = register;
+            frame[4] = sub;
+            return frame;
+        }
 
         /// <summary>Whether a report answers that request: the long record,
         /// or a HID++ 1.0 error for it.</summary>
@@ -359,7 +367,10 @@ namespace PadForge.Common.Input.Peripherals
         /// error. A read that goes unanswered leaves the table unknown and
         /// stops the pass, since the rest would wait out the same timeout.
         /// After <see cref="PairingGiveUp"/> such passes the table is not read
-        /// again, and every slot goes back to the walk.</summary>
+        /// again, and every slot goes back to the walk. A read that never went
+        /// out, on a channel without the receiver's short collection or one
+        /// whose short write failed, stops the pass and counts toward
+        /// nothing, since the receiver was never asked.</summary>
         internal static void ReadPairing(IHidppChannel channel, HidppPathState state,
             int timeout = HidppReceiverProtocol.RegisterTimeoutMs)
         {
@@ -382,8 +393,10 @@ namespace PadForge.Common.Input.Peripherals
                         state.Unpaired[slot] = true;
                         state.Held[slot] = false;
                         break;
-                    default:
+                    case HidppReplyKind.Timeout:
                         if (++state.PairingMisses >= PairingGiveUp) Array.Clear(state.Unpaired);
+                        return;
+                    default:
                         return;
                 }
             }

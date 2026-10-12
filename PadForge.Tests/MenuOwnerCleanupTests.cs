@@ -36,8 +36,9 @@ namespace PadForge.Tests
             Assert.Equal(second.InstanceGuid, f.Manager.ActiveMenuOverlay.Device);
 
             // A definition replacement can retire owners without the editor callback.
+            // The last sweep is set six seconds back on the fixture's held clock.
             f.Set.Menus.RemoveAll(m => m.MenuId != 1);
-            PurgeStamp.SetValue(f.Manager, Environment.TickCount64 - 6000);
+            PurgeStamp.SetValue(f.Manager, f.Now - 6000);
             f.Frame();
 
             Assert.Single(f.Manager.MenuContexts.Keys, k => k.MenuId == 1 && k.Device == second.InstanceGuid);

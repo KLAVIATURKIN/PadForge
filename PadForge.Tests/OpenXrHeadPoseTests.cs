@@ -280,14 +280,15 @@ namespace PadForge.Tests
                 HeadPose.FillAxes(pose, 90, 30, axes);
             }
 
-            long before = GC.GetAllocatedBytesForCurrentThread();
-            for (int i = 0; i < 2000; i++)
+            // Counted over windows the runtime left alone: the thread's
+            // count moves by itself in a full run (AllocationWindow).
+            foreach (long bytes in AllocationWindow.Clean(() =>
             {
                 OpenXrHeadPose.TryFillPose(0.1, 1.6, 0.2, 0, 0.2, 0, 0.98,
                                            ref baseline, pose);
                 HeadPose.FillAxes(pose, 90, 30, axes);
-            }
-            Assert.Equal(0, GC.GetAllocatedBytesForCurrentThread() - before);
+            }, 2000))
+                Assert.Equal(0, bytes);
         }
 
         [Theory]

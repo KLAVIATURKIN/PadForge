@@ -92,17 +92,25 @@ namespace PadForge.ViewModels
                 if (SetProperty(ref _name, value) && armed && !string.IsNullOrEmpty(old)
                     && !string.Equals(old, value, StringComparison.Ordinal))
                 {
-                    try { Renamed?.Invoke(this, old, value); } catch { }
+                    try { foreach (var renamed in s_renamed.Live()) renamed(this, old, value); } catch { }
                 }
             }
         }
+
+        private static readonly WeakHandlers<Action<MacroItem, string, string>> s_renamed = new();
 
         /// <summary>Raised after a macro's name changes, with the old and
         /// new names. Static because the subscriber (the menu-cell retag
         /// in the view layer) outlives any one macro and needs no
         /// per-instance wiring. The macro's <see cref="PadIndex"/> scopes
-        /// the sweep.</summary>
-        public static event Action<MacroItem, string, string> Renamed;
+        /// the sweep. A subscriber is held weakly (WeakHandlers): every pad
+        /// view model subscribes, and a strong hook kept each one alive for
+        /// the rest of the process.</summary>
+        public static event Action<MacroItem, string, string> Renamed
+        {
+            add => s_renamed.Add(value);
+            remove => s_renamed.Remove(value);
+        }
 
         /// <summary>Pad index (0-based) of the slot that owns this macro.
         /// Set when the macro is added to a slot's collection or loaded

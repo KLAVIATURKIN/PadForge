@@ -17,6 +17,17 @@ public sealed class HapticConnectionLifetimeTests : IDisposable
 {
     const BindingFlags Static = BindingFlags.Static | BindingFlags.NonPublic;
     static readonly Type Tone = typeof(HapticToneService);
+
+    /// <summary>A tone this class sends lives longer than any of its tests
+    /// runs. Each test sends one frame, or starts one test tone, and waits
+    /// for the sink's stream thread to play it. That thread idles below
+    /// normal priority and a new frame can make the sink rebuild first, so
+    /// on a busy PC the thread first weighed a frame more than 250 ms after
+    /// it was made, past the frame's life. The tone never played and the
+    /// wait ran out with nothing wrong in the product. Held, a tone plays
+    /// whenever the thread gets to it.</summary>
+    const int HeldMs = 600_000;
+
     readonly Action restore;
     readonly object gate;
     readonly IList sinks;
@@ -67,6 +78,7 @@ public sealed class HapticConnectionLifetimeTests : IDisposable
         var oldOpening = HapticToneService.RawTransportOpening;
         var oldReady = HapticToneService.RemoteToneDispatchReady;
         var oldFeature = HapticToneService.FeatureReportWriter;
+        int oldLifetime = RemoteToneRequest.LifetimeMs;
         bool oldSuppressed = (bool)Tone.GetField("_suppressed", Static)!.GetValue(null)!;
         restore = () =>
         {
@@ -78,6 +90,7 @@ public sealed class HapticConnectionLifetimeTests : IDisposable
             HapticToneService.RawTransportOpening = oldOpening;
             HapticToneService.RemoteToneDispatchReady = oldReady;
             HapticToneService.FeatureReportWriter = oldFeature;
+            RemoteToneRequest.LifetimeMs = oldLifetime;
             Tone.GetField("_suppressed", Static)!.SetValue(null, oldSuppressed);
         };
         directory = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "PadForge-haptic-lifetime-" + Guid.NewGuid().ToString("N"));
@@ -101,6 +114,7 @@ public sealed class HapticConnectionLifetimeTests : IDisposable
         HapticToneService.PersonaHapticsProvider = (_, _) => (false, 100);
         HapticToneService.ToneFilterProvider = (_, _) => (0, 800);
         HapticToneService.RawTransportOpening = _ => Interlocked.Increment(ref opens);
+        RemoteToneRequest.LifetimeMs = HeldMs;
         Tone.GetField("_suppressed", Static)!.SetValue(null, false);
     }
 
@@ -462,7 +476,7 @@ public sealed class HapticConnectionLifetimeTests : IDisposable
         };
         static bool Positive(byte[] bytes) => bytes.Length > 9 && bytes[1] == 0x8f && (bytes[8] != 0 || bytes[9] != 0);
         HapticToneService.Reconcile();
-        Assert.True(HapticToneService.TriggerTestTone(device.InstanceGuid, 400, 1000));
+        Assert.True(HapticToneService.TriggerTestTone(device.InstanceGuid, 400, HeldMs));
         Assert.True(SpinWait.SpinUntil(() => reports.Count(Positive) >= 2, 2000));
         var lifetime = LinkLifetimeFixtures.Lifetime(new[] { LinkLifetimeFixtures.Info(device.InstanceGuid.ToString("N")) });
         var stop = new LinkIncomingFrame(lifetime, LinkMessageType.Output, 0, 0, OutputEffectCodec.EncodeHapticTone(0, 0));
@@ -471,7 +485,7 @@ public sealed class HapticConnectionLifetimeTests : IDisposable
         int cut = reports.Count;
         await Task.Delay(100);
         Assert.DoesNotContain(reports.Skip(cut), bytes => !Positive(bytes));
-        Assert.True(HapticToneService.TriggerTestTone(device.InstanceGuid, 450, 1000));
+        Assert.True(HapticToneService.TriggerTestTone(device.InstanceGuid, 450, HeldMs));
         Assert.True(SpinWait.SpinUntil(() => reports.Skip(cut).Any(Positive), 2000));
         output.WriteLine("localPositiveBeforeStop=True localPositiveAfterStop=True remoteZeroDidNotCancelTest=True");
     }

@@ -2494,6 +2494,15 @@ namespace PadForge.Engine.Data
         [System.Text.Json.Serialization.JsonIgnore]
         public string SlotPerDeviceSettingsJson { get; set; }
 
+        /// <summary>The HIDMaestro profile of the slot the payload was copied
+        /// from. A lettered slot's raw rows are read by its wire: a Switch Pro
+        /// and a Switch 2 Pro put one control at different raw indices, and a
+        /// Valve pad's wire is not a custom Extended layout. A payload
+        /// without it is read as the type's default wire.</summary>
+        [System.Xml.Serialization.XmlIgnore]
+        [System.Text.Json.Serialization.JsonIgnore]
+        public string SlotProfileId { get; set; }
+
         /// <summary>
         /// Serializes all copyable mapping/deadzone/FF properties to a JSON string.
         /// Used for clipboard copy/paste of controller settings.
@@ -2609,8 +2618,10 @@ namespace PadForge.Engine.Data
                 dict["__SlotMacros"] = SlotMacrosJson;
             if (!string.IsNullOrEmpty(SlotPerDeviceSettingsJson))
                 dict["__SlotPerDeviceSettings"] = SlotPerDeviceSettingsJson;
+            if (!string.IsNullOrEmpty(SlotProfileId))
+                dict["__SlotProfile"] = SlotProfileId;
 
-            // Issue #61 — round-trip the slot's multi-source row data
+            // Issue #61. Round-trip the slot's multi-source row data
             // for this device. Each row snapshot carries Target,
             // LayerMask, CombineMode, CombineExpression, and only
             // the Sources owned by this device. On paste, the apply
@@ -2754,6 +2765,8 @@ namespace PadForge.Engine.Data
                             ps.SlotMacrosJson = kvp.Value;
                         else if (kvp.Key == "__SlotPerDeviceSettings")
                             ps.SlotPerDeviceSettingsJson = kvp.Value;
+                        else if (kvp.Key == "__SlotProfile")
+                            ps.SlotProfileId = kvp.Value;
                         else
                             continue;
                         recognizedContent = true;

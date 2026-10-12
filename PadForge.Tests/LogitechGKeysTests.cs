@@ -534,6 +534,46 @@ namespace PadForge.Tests
             }
         }
 
+        /// <summary>
+        /// The setup text names the third condition: a G600 or G300 mouse
+        /// out of on-board mode.
+        ///
+        /// <para>Logitech's G-key SDK manual (LogitechGamingGkeySDK.pdf,
+        /// page 4, "User experience"): "For mice with on-board modes (G600
+        /// and G300), the SDK only works if the mouse is not in on-board
+        /// mode." A G600 owner who followed every step the hint and the
+        /// tooltip gave still saw "Connected, no key seen yet", with nothing
+        /// naming the mode. The model numbers are not translated, so they
+        /// anchor the check in every locale.</para>
+        /// </summary>
+        [Fact]
+        public void TheSetupTextNamesTheOnBoardModeRuleInEveryLocale()
+        {
+            foreach (string locale in new[]
+                     {
+                         "Strings.resx", "Strings.de.resx", "Strings.es.resx", "Strings.fr.resx",
+                         "Strings.it.resx", "Strings.ja.resx", "Strings.ko.resx", "Strings.nl.resx",
+                         "Strings.pt-BR.resx", "Strings.zh-Hans.resx",
+                     })
+            {
+                string text = RepoFile("PadForge.App", "Resources", "Strings", locale);
+                foreach (string key in new[] { "Settings_GKeysStatus_NoKeysYet", "Settings_GKeysTooltip" })
+                {
+                    string value = ResxValue(text, key);
+                    Assert.True(value.Contains("G600", StringComparison.Ordinal) && value.Contains("G300", StringComparison.Ordinal),
+                                $"{locale}: {key} does not name the G600 and G300 on-board mode rule");
+                }
+            }
+
+            string readme = RepoFile("README.md");
+            int section = readme.IndexOf("### Logitech G-keys", StringComparison.Ordinal);
+            Assert.True(section >= 0, "README has no Logitech G-keys section");
+            int end = readme.IndexOf("\n###", section + 1, StringComparison.Ordinal);
+            string body = end > section ? readme.Substring(section, end - section) : readme.Substring(section);
+            Assert.True(body.Contains("on-board mode", StringComparison.Ordinal),
+                        "README's Logitech G-keys section does not name on-board mode");
+        }
+
 
         /// <summary>
         /// A held key whose release never arrives is closed by the resync.

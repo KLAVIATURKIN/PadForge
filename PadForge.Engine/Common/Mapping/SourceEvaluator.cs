@@ -13,9 +13,6 @@ namespace PadForge.Engine.Common.Mapping
     /// Direct: delegates to <see cref="SourceCoercion"/>.
     /// Incremental: ticks <see cref="SourceKindRuntime"/> and clamps
     /// the accumulator into the target's natural range.
-    /// InvertOnHold: reads the inner descriptor via SourceCoercion with
-    /// <see cref="MappingSource.Invert"/> XOR'd with the modifier
-    /// button's current state.
     /// Toggle: latches the Direct read of the same input through
     /// <see cref="SourceKindRuntime.TickToggle"/>. Each press flips it.
     /// RapidTrigger: the Direct read of the same input, released and
@@ -195,14 +192,6 @@ namespace PadForge.Engine.Common.Mapping
                     // button target gets nothing (issue #111). Picking a threshold
                     // here would surprise anyone who set up the row.
                     return false;
-                case "InvertOnHold":
-                {
-                    bool modifier = SourceKindRuntime.ReadKey(state, src.ParamModifier,
-                        src.ParamModifierDeviceGuid, src, evaluatedDeviceGuid, slotIndex,
-                        anyDeviceSpansSlot: false);
-                    var inner = CloneAsDirect(src, invertOverride: src.Invert ^ modifier);
-                    return SourceCoercion.EvaluateForButtonTarget(state, inner, globalThresholdPercent, slotIndex, evaluatedDeviceGuid);
-                }
                 default: // Direct
                     return SourceCoercion.EvaluateForButtonTarget(state, src, globalThresholdPercent, slotIndex, evaluatedDeviceGuid);
             }
@@ -301,14 +290,6 @@ namespace PadForge.Engine.Common.Mapping
                     if (v < -1) v = -1;
                     if (v > 1) v = 1;
                     return src.Invert ? -(float)v : (float)v;
-                }
-                case "InvertOnHold":
-                {
-                    bool modifier = SourceKindRuntime.ReadKey(state, src.ParamModifier,
-                        src.ParamModifierDeviceGuid, src, evaluatedDeviceGuid, slotIndex,
-                        anyDeviceSpansSlot: false);
-                    var inner = CloneAsDirect(src, invertOverride: src.Invert ^ modifier);
-                    return SourceCoercion.EvaluateForBipolarAxisTarget(state, inner, slotIndex, relativeTouchpad, evaluatedDeviceGuid);
                 }
                 // Steering kinds (v3.4 #94): read a whole 2D stick (X = Descriptor,
                 // Y = ParamYDescriptor) or gravity, and project to one virtual-stick
@@ -509,32 +490,9 @@ namespace PadForge.Engine.Common.Mapping
                     if (v > 1) v = 1;
                     return (float)v;
                 }
-                case "InvertOnHold":
-                {
-                    bool modifier = SourceKindRuntime.ReadKey(state, src.ParamModifier,
-                        src.ParamModifierDeviceGuid, src, evaluatedDeviceGuid, slotIndex,
-                        anyDeviceSpansSlot: false);
-                    var inner = CloneAsDirect(src, invertOverride: src.Invert ^ modifier);
-                    return SourceCoercion.EvaluateForTriggerTarget(state, inner, slotIndex, evaluatedDeviceGuid);
-                }
                 default:
                     return SourceCoercion.EvaluateForTriggerTarget(state, src, slotIndex, evaluatedDeviceGuid);
             }
-        }
-
-        // Builds a copy of <paramref name="src"/> with Kind forced to Direct and
-        // the specified Invert. Lets InvertOnHold reuse SourceCoercion's coercion
-        // table without mutating the original. Uses the full memberwise
-        // MappingSource.Clone so no per-source field (the DeadZone, the gyro /
-        // mouse / IR sensitivities, and the #9 generic Sensitivity) silently drops
-        // for an axis inner source. Kind = Direct means the copied Param* fields
-        // are never read.
-        private static MappingSource CloneAsDirect(MappingSource src, bool invertOverride)
-        {
-            var clone = src.Clone();
-            clone.Kind = "Direct";
-            clone.Invert = invertOverride;
-            return clone;
         }
     }
 }

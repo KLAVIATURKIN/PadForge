@@ -25,6 +25,7 @@ namespace PadForge.Common.Input
             internal long NfcDemandMs;
             internal long RingConDemandMs;
             internal long IrDemandMs;
+            internal long MidiInputDemandMs;
             internal Target(string fingerprint, byte slot, LinkConnectionLifetime connection, RemotePeerDevice owner)
             {
                 Fingerprint = fingerprint;
@@ -51,6 +52,11 @@ namespace PadForge.Common.Input
         /// Joy-Con camera's demand. An owner that predates it ignores the
         /// kind.</summary>
         public const byte DemandKindIr = 3;
+        /// <summary>A created slot on the consumer has this MIDI input
+        /// assigned. Under the legacy MIDI API the owner opens a port only
+        /// while something uses it, and a peer's slot is such a use. An owner
+        /// that predates it ignores the kind.</summary>
+        public const byte DemandKindMidiInput = 4;
         public static int DeviceCount => _byPath.Count;
         public static bool IsPeerPath(string path) => !string.IsNullOrEmpty(path) && path.StartsWith("peer://", StringComparison.Ordinal);
 
@@ -73,6 +79,17 @@ namespace PadForge.Common.Input
                 long now = Environment.TickCount64;
                 if (now - target.IrDemandMs < 1000) return;
                 if (Dispatch(target, LinkMessageType.SourceDemand, new[] { DemandKindIr })) target.IrDemandMs = now;
+            }
+        }
+
+        public static void ShipMidiInputDemand(string path)
+        {
+            if (!_byPath.TryGetValue(path, out var target)) return;
+            lock (target.Gate)
+            {
+                long now = Environment.TickCount64;
+                if (now - target.MidiInputDemandMs < 1000) return;
+                if (Dispatch(target, LinkMessageType.SourceDemand, new[] { DemandKindMidiInput })) target.MidiInputDemandMs = now;
             }
         }
 

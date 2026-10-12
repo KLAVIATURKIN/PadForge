@@ -16,7 +16,14 @@
 param(
     [string]$OutputDir   = "C:\Users\sonic\OneDrive\Documents\GitHub\padforge.org\wiki\images",
     [string]$PadForgeExe = "C:\PadForge\PadForge.exe",
-    [string]$PadForgeXml = "C:\PadForge\PadForge.xml"
+    [string]$PadForgeXml = "C:\PadForge\PadForge.xml",
+    # The owner's answer to a run that stopped over a settings backup lying
+    # beside the settings file (see "The owner's settings file" below). Ask,
+    # the default, is that stop. File keeps the settings file and sets the
+    # backup aside. Backup puts the backup back over the settings file. A run
+    # with nothing to ask refuses File and Backup.
+    [ValidateSet('Ask', 'File', 'Backup')]
+    [string]$KeepSettingsFrom = 'Ask'
 )
 
 Set-StrictMode -Version Latest
@@ -33,6 +40,11 @@ function Note($m) {
 }
 Set-Content $log "colorway capture start" -Encoding utf8
 
+# --- The owner's settings file ------------------------------------------------
+# The marker, the copies, and the loader and saver that every script under
+# tools shares. settings_guard.ps1 says what each one does.
+. (Join-Path $PSScriptRoot 'settings_guard.ps1')
+
 # ---- Win32 interop: capture + real clicks (UIA cannot drive some of this) ----
 Add-Type -Namespace Win32 -Name U -MemberDefinition @'
 [DllImport("user32.dll")] public static extern bool SetForegroundWindow(IntPtr h);
@@ -47,7 +59,7 @@ function Shot($name) {
     $r = New-Object Win32.U+RECT
     [void][Win32.U]::GetWindowRect($script:hwnd, [ref]$r)
     $w = $r.Right - $r.Left; $h = $r.Bottom - $r.Top
-    if ($w -le 0 -or $h -le 0) { Note "  !! bad rect for $name"; return }
+    if ($w -le 0 -or $h -le 0) { Note "  !! bad rect for $name"; $script:missed += $name; return }
     $bmp = New-Object System.Drawing.Bitmap($w, $h)
     $g = [System.Drawing.Graphics]::FromImage($bmp)
     $g.CopyFromScreen($r.Left, $r.Top, 0, 0, (New-Object System.Drawing.Size($w, $h)))
@@ -118,26 +130,68 @@ $scenes = @(
     # SteamVR is installed, which is why the runtime was restored first.
     @{ Shot = "pad-vr-preview"; Type = 6; Profile = ""; Fam = "DualSense"; App = "White" }
 )
+# The shots this run skipped or could not save, for the exit code.
+$script:missed = @()
 
 # ---- Backup with the clobber guard (never overwrite an existing backup) ----
 $bak = "$PadForgeXml.bak"
+# A backup already there is settled before the app is stopped or a file is
+# touched, so a run that stops has changed nothing. A backup a killed run left
+# holds the owner's real settings, and the file beside it is capture residue.
+# One left behind after the settings were put back by hand sits beside the
+# owner's current file, and restoring it would take every setting changed
+# since. The marker tells the two apart (Get-BackupDoubt). Without its word
+# the run stops and the owner decides. -KeepSettingsFrom answers that stop and
+# nothing else, so a run with nothing to ask refuses it.
+$doubt = Get-BackupDoubt $PadForgeXml $bak 'Ask'
+$stop = @()
+if ($KeepSettingsFrom -eq 'Ask' -and $doubt) {
+    $stop = @(Get-BackupStopLines $PadForgeXml $bak $doubt)
+} elseif ($KeepSettingsFrom -ne 'Ask' -and -not $doubt) {
+    $stop = @("!! -KeepSettingsFrom $KeepSettingsFrom answers a run that stopped over a settings backup, and this run has nothing to ask. Leave it out.")
+}
+if ($stop.Count -gt 0) {
+    foreach ($line in $stop) { Add-Content $log $line -Encoding utf8; Write-Host $line -ForegroundColor Red }
+    exit 1
+}
 # STOP THE APP FIRST. The restore used to run ahead of the kill and then delete
 # the backup, so a live PadForge could save its own state over the owner's
-# settings with no copy left to recover from. The backup is the owner's real
-# settings and the current file is capture residue.
+# settings with no copy left to recover from.
 Kill-PadForge
-if (Test-Path $bak) {
-    Note "leftover backup found: restoring it BEFORE taking a new one"
-    Copy-Item $bak $PadForgeXml -Force
-    Remove-Item $bak -Force
+# Asked again now that the app is down. A save it made after the question
+# above can make two files that were the same differ, and the backup is then
+# no longer known to hold the settings. The run stops with neither file
+# touched and starts PadForge again.
+$doubt = Get-BackupDoubt $PadForgeXml $bak $KeepSettingsFrom
+if ($doubt) {
+    foreach ($line in (Get-BackupStopLines $PadForgeXml $bak $doubt)) { Add-Content $log $line -Encoding utf8; Write-Host $line -ForegroundColor Red }
+    Start-Process $PadForgeExe
+    exit 1
 }
-Copy-Item $PadForgeXml $bak -Force
+if (Test-Path $bak) {
+    if ($KeepSettingsFrom -eq 'File') {
+        $kept = Save-SettingsCopy $bak
+        Remove-Item $bak -Force
+        Remove-BackupMarker $bak
+        Note "-KeepSettingsFrom File: the settings file stays as it is, and the backup is set aside as $kept"
+    } else {
+        $kept = Save-SettingsCopy $PadForgeXml
+        Note "leftover backup found: restoring it BEFORE the capture"
+        if ($kept) { Note "the file it replaces is kept as $kept" }
+        Copy-Item $bak $PadForgeXml -Force
+    }
+}
+# A backup is written only where none is, so a copy cut short can never leave
+# half a file over a good backup. One just put back already holds what the
+# settings file holds.
+if (-not (Test-Path $bak)) { Copy-Item $PadForgeXml $bak -Force }
+Set-BackupMarker $bak
 Note "backed up owner settings ($((Get-Item $bak).Length) bytes)"
 
 try {
     foreach ($sc in $scenes) {
         # --- write the scene into a fresh copy of the owner's settings ---
-        [xml]$xml = Get-Content $bak -Raw
+        $xml = Read-SettingsXml $bak
         $ns = $xml.DocumentElement
         # THE TRAP that cost three runs of wrong images: the slot arrays and
         # the app flags do NOT live at the document root. The real path is
@@ -210,14 +264,14 @@ try {
             [void]$appearanceArr.AppendChild($e)
         }
 
-        $xml.Save($PadForgeXml)
-        Note "scene $($sc.Shot): type=$($sc.Type) $($sc.Fam)=$($sc.App)"
+        $kept = Save-SettingsXml $xml $PadForgeXml
+        Note "scene $($sc.Shot): type=$($sc.Type) $($sc.Fam)=$($sc.App) (the file before it is kept as $kept)"
 
         # --- launch, navigate, capture ---
         Start-Process $PadForgeExe
         Start-Sleep 14
         $proc = Get-Process PadForge -EA SilentlyContinue | Select-Object -First 1
-        if (-not $proc) { Note "  !! PadForge did not start"; continue }
+        if (-not $proc) { Note "  !! PadForge did not start"; $script:missed += $sc.Shot; continue }
         $script:hwnd = $proc.MainWindowHandle
         [void][Win32.U]::ShowWindow($script:hwnd, 3)   # SW_MAXIMIZE
         [void][Win32.U]::SetForegroundWindow($script:hwnd)
@@ -232,18 +286,38 @@ try {
         # Switch Pro because the click had CHANGED the slot's type before
         # the shot. capture_all.ps1 carries the same rule for the same
         # reason ("Dashboard SlotsItemsControl cards, NOT the sidebar").
-        $slotsHost = $null
+        # RETRY the lookup, and never shoot a scene that failed to stage, as
+        # capture_colorways.ps1 learned: a frame taken when the card was never
+        # found or clicked shows the dashboard under the preview's name. A miss
+        # is a skipped shot, which keeps the previous file and ends the run
+        # with exit code 1.
         $aidCond = New-Object System.Windows.Automation.PropertyCondition(
             [System.Windows.Automation.AutomationElement]::AutomationIdProperty, "SlotsItemsControl")
-        $slotsHost = $script:uiaWin.FindFirst($TD, $aidCond)
         $card = $null
-        if ($slotsHost) {
-            $kids = $slotsHost.FindAll([System.Windows.Automation.TreeScope]::Children,
-                        [System.Windows.Automation.Condition]::TrueCondition)
-            if ($kids.Count -gt 0) { $card = $kids[0] }
+        for ($t = 1; $t -le 4; $t++) {
+            $slotsHost = $script:uiaWin.FindFirst($TD, $aidCond)
+            if ($slotsHost) {
+                $kids = $slotsHost.FindAll([System.Windows.Automation.TreeScope]::Children,
+                            [System.Windows.Automation.Condition]::TrueCondition)
+                if ($kids.Count -gt 0) { $card = $kids[0]; break }
+            }
+            Note "  dashboard slot card not up yet (try $t)"
+            Start-Sleep 4
         }
-        if ($card) { [void](Click-Rect $card "dashboard slot card 1") }
-        else { Note "  !! dashboard slot card not found" }
+        if (-not $card) {
+            Note "  !! SKIPPED $($sc.Shot): dashboard never realized the slot card"
+            $script:missed += $sc.Shot
+            Kill-PadForge
+            Start-Sleep 3
+            continue
+        }
+        if (-not (Click-Rect $card "dashboard slot card 1")) {
+            Note "  !! SKIPPED $($sc.Shot): the slot card could not be clicked"
+            $script:missed += $sc.Shot
+            Kill-PadForge
+            Start-Sleep 3
+            continue
+        }
         Start-Sleep 2
         Shot $sc.Shot
 
@@ -254,10 +328,36 @@ try {
 finally {
     Kill-PadForge
     Start-Sleep 2
+    # The file about to be replaced holds nothing but what the backup holds
+    # and what this run wrote, so its copy is a courtesy and a failed one does
+    # not hold the restore up. The marker goes as soon as the settings are
+    # back, before the backup does: a run that dies between the two leaves a
+    # backup with no marker beside a file with the same bytes, which the next
+    # run takes for what it is. The other order would leave a marker vouching
+    # for a backup the owner has since moved on from.
+    $kept = $null
+    $keptBak = $null
+    try { $kept = Save-SettingsCopy $PadForgeXml }
+    catch { Note "  !! could not copy the capture file aside before the restore: $($_.Exception.Message)" }
     Copy-Item $bak $PadForgeXml -Force
-    Remove-Item $bak -Force
+    Remove-BackupMarker $bak
+    try {
+        $keptBak = Save-SettingsCopy $bak
+        Remove-Item $bak -Force
+    } catch { Note "  !! the backup could not be cleared and stays beside the restored file: $($_.Exception.Message)" }
     Note "RESTORED owner settings"
+    if ($kept) { Note "the file the restore replaced is kept as $kept" }
+    if ($keptBak) { Note "the backup is kept as $keptBak" }
     Start-Process $PadForgeExe
     Note "relaunched PadForge"
 }
+# A scene skipped, or a shot not saved, keeps the old file under its name, so
+# the run ends with exit code 1 and names them. The exit code is always
+# written out: a script that simply ends hands its caller the exit code of
+# its last native command.
+if ($script:missed.Count -gt 0) {
+    Note "=== DONE with $($script:missed.Count) SKIPPED: $($script:missed -join ', ') ==="
+    exit 1
+}
 Note "=== DONE ==="
+exit 0

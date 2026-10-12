@@ -206,11 +206,6 @@ namespace PadForge.Tests
             // state, so an uninitialized instance is enough to exercise it.
             var mgr = (InputManager)System.Runtime.CompilerServices
                 .RuntimeHelpers.GetUninitializedObject(typeof(InputManager));
-            // It never ran its constructor, so it owns nothing to finalize and
-            // its finalizer would run Dispose against null fields. Left to the
-            // collector that killed the whole test host partway through a run,
-            // which reads as an unrelated intermittent somewhere else entirely.
-            GC.SuppressFinalize(mgr);
             var m = typeof(InputManager).GetMethod("ReadExpressionVariableRaw",
                 BindingFlags.NonPublic | BindingFlags.Instance);
             Assert.NotNull(m);

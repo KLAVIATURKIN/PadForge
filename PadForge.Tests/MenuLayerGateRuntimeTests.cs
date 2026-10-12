@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Reflection;
 using PadForge.Common.Input;
 using PadForge.Engine.Common;
@@ -32,6 +33,19 @@ namespace PadForge.Tests
         private readonly SettingsCollection _savedSettings;
         private readonly MappingSet[] _savedSets;
         private readonly Func<int, string, int, int, bool> _savedMenuProvider;
+        private readonly Func<string, string, int, bool> _savedKeyProvider;
+
+        /// <summary>The menu runtime's clock (MenuClock), held for every
+        /// test here. A commit lives 100 ms on it
+        /// (MenuEvaluator.CommitPulseMs) and a menu context is believed for
+        /// 250 ms, and the tests read both over several statements and
+        /// frames. On the system clock a stall between two of them failed a
+        /// test with nothing wrong in the product. Held, a commit is live
+        /// until the test moves the clock past its pulse. It starts ten
+        /// seconds after boot, long before any real tick count, so a read
+        /// left on the system clock would see every held stamp as lapsed and
+        /// a stamp left on it would never lapse here.</summary>
+        private long _now = 10_000;
 
         public MenuLayerGateRuntimeTests()
         {
@@ -39,16 +53,24 @@ namespace PadForge.Tests
             _savedSettings = SettingsManager.UserSettings;
             _savedSets = (MappingSet[])SettingsManager.SlotMappingSets.Clone();
             _savedMenuProvider = PadForge.Engine.Common.Mapping.SourceCoercion.MenuItemFiredProvider;
+            _savedKeyProvider = PadForge.Engine.Common.Mapping.SourceCoercion.KeyHeldProvider;
+            MenuClock.Source = () => _now;
         }
 
         public void Dispose()
         {
+            // The system clock back first. ClearAllShiftRuntime below drops
+            // the layer-exit commits made on the held one, which would read
+            // as lapsed long ago to the next class anyway.
+            MenuClock.Source = null;
             SettingsManager.UserDevices = _savedDevices;
             SettingsManager.UserSettings = _savedSettings;
             for (int i = 0; i < _savedSets.Length; i++)
                 SettingsManager.SlotMappingSets[i] = _savedSets[i];
             PadForge.Engine.Common.Mapping.SourceCoercion.MenuItemFiredProvider = _savedMenuProvider;
+            PadForge.Engine.Common.Mapping.SourceCoercion.KeyHeldProvider = _savedKeyProvider;
             InputManager.ClearAllShiftRuntime();
+            InputManager.ClearSourceKindRuntime();
         }
 
         /// <summary>The production wiring InputService installs: rows,
@@ -661,6 +683,675 @@ namespace PadForge.Tests
             Assert.True((onA & Gamepad.B) == 0, "the pad's own pass pressed B");
             Assert.True((GamepadPass(set, stB, DevB).Buttons & Gamepad.B) == 0,
                 "the other pad's pass read the pinned cell at rest and pressed B");
+        }
+
+        // ── DC20 beyond the rows' own inputs ──
+
+        /// <summary>An activator hosted on the departed layer (Only While in
+        /// Layer) whose input is the committed cell engages its layer. Its
+        /// host gate read the layer engaged when the press rose, the new one,
+        /// and stayed closed for the whole commit.</summary>
+        [Fact]
+        public void LayerExitCommit_EngagesAnActivatorHostedOnTheDepartedLayer()
+        {
+            var set = ArrangeModeShiftMenu();
+            set.ShiftActivators.Add(new ShiftActivator
+            {
+                LayerMask = "L2", LayerName = "Next", Descriptor = "Menu 1 Item 2", Mode = "Toggle", HostLayerMask = "L1",
+            });
+            set.Rows.Add(CellRow("ButtonX", "Base", "Button 9"));   // a set with rows ticks its activators
+            var im = WiredManager();
+            var (ud, st) = AddPad(DevA);
+
+            CommitByLeavingTheLayer(im, ud, st);
+            GamepadPass(set, st, DevA);                    // ticks the activators
+
+            Assert.Equal("L2", InputManager.GetEngagedLayerMask(0, set));
+        }
+
+        /// <summary>The same for a Cycle's Previous button, which carries a
+        /// host gate of its own.</summary>
+        [Fact]
+        public void LayerExitCommit_StepsACyclesPreviousHostedOnTheDepartedLayer()
+        {
+            var set = ArrangeModeShiftMenu();
+            set.ShiftActivators.Add(new ShiftActivator
+            {
+                LayerMask = "C1", LayerName = "Cycle", Mode = "Cycle", Descriptor = "Button 6",
+                CyclePrevDescriptor = "Menu 1 Item 2", CycleLayers = "L2", CycleIncludeBase = false, CycleWrap = true,
+                HostLayerMask = "L1",
+            });
+            set.ShiftActivators.Add(new ShiftActivator { LayerMask = "L2", LayerName = "Two", Mode = "Passive" });
+            set.Rows.Add(CellRow("ButtonX", "Base", "Button 9"));
+            var im = WiredManager();
+            var (ud, st) = AddPad(DevA);
+
+            CommitByLeavingTheLayer(im, ud, st);
+            GamepadPass(set, st, DevA);
+
+            Assert.Equal("L2", InputManager.GetEngagedLayerMask(0, set));
+        }
+
+        /// <summary>Negative controls: an activator hosted on the departed
+        /// layer stays off for a press of its own input after the layer ended,
+        /// and one hosted on another layer stays off for the commit.</summary>
+        [Fact]
+        public void LayerExitCommit_LeavesOtherHostGatedActivatorsClosed()
+        {
+            var set = ArrangeModeShiftMenu();
+            set.ShiftActivators.Add(new ShiftActivator
+            {
+                LayerMask = "L2", LayerName = "Own", Descriptor = "Button 5", Mode = "Toggle", HostLayerMask = "L1",
+            });
+            set.ShiftActivators.Add(new ShiftActivator
+            {
+                LayerMask = "L3", LayerName = "Elsewhere", Descriptor = "Menu 1 Item 2", Mode = "Toggle", HostLayerMask = "L4",
+            });
+            set.ShiftActivators.Add(new ShiftActivator { LayerMask = "L4", LayerName = "Four", Mode = "Passive" });
+            set.ShiftActivators.Add(new ShiftActivator
+            {
+                LayerMask = "L5", LayerName = "Unhosted", Descriptor = "Button 6", Mode = "Toggle",
+            });
+            set.Rows.Add(CellRow("ButtonX", "Base", "Button 9"));
+            var im = WiredManager();
+            var (ud, st) = AddPad(DevA);
+
+            CommitByLeavingTheLayer(im, ud, st);
+            st.Buttons[5] = true;
+            GamepadPass(set, st, DevA);
+            Assert.Equal("Base", InputManager.GetEngagedLayerMask(0, set));
+
+            // Positive control: the pass ticks the activators.
+            st.Buttons[6] = true;
+            GamepadPass(set, st, DevA);
+            Assert.Equal("L5", InputManager.GetEngagedLayerMask(0, set));
+        }
+
+        // ── DC20 on the menu clock ──
+
+        /// <summary>A commit made by leaving a layer lives for its pulse on
+        /// the menu runtime's clock and no longer. Its row reads it on every
+        /// frame until the clock passes the pulse, however long the frames
+        /// took, and on none after.</summary>
+        [Fact]
+        public void LayerExitCommit_LivesForItsPulseOnTheMenuClock()
+        {
+            var set = ArrangeModeShiftMenu();
+            set.Rows.Add(CellRow("ButtonB", "L1", "Menu 1 Item 2"));
+            var im = WiredManager();
+            var (ud, st) = AddPad(DevA);
+
+            CommitByLeavingTheLayer(im, ud, st);
+
+            for (int frame = 0; frame < 5; frame++)
+                Assert.True((RowPass(set, st) & Gamepad.B) != 0, $"frame {frame} of the held pulse");
+
+            _now += MenuEvaluator.CommitPulseMs - 1;       // the pulse's last millisecond
+            Assert.True(Fired(im, 2));
+            Assert.Equal("L1", InputManager.LayerExitCommitLayer(0, 1, 2, _now));
+            Assert.True((RowPass(set, st) & Gamepad.B) != 0, "the commit lapsed inside its pulse");
+
+            _now += 1;                                      // the pulse is over
+            Assert.False(Fired(im, 2));
+            Assert.Null(InputManager.LayerExitCommitLayer(0, 1, 2, _now));
+            Assert.True((RowPass(set, st) & Gamepad.B) == 0, "the commit outlived its pulse");
+        }
+
+        private static readonly MethodInfo CollectDirectOutputs = typeof(InputManager).GetMethod(
+            "CollectMenuDirectOutputs", BindingFlags.Instance | BindingFlags.NonPublic);
+
+        /// <summary>The direct-output walk reads a committed cell's key on
+        /// the same clock, through the check the key lane uses: the key is
+        /// wanted for the pulse and dropped after it. The walk fills the
+        /// wanted set and sends nothing.</summary>
+        [Fact]
+        public void LayerExitCommit_TheDirectOutputWalkReadsItOnTheMenuClock()
+        {
+            var set = ArrangeModeShiftMenu();
+            set.Menus[0].Items[1].VirtualKey = 0x42;       // cell 2
+            var im = WiredManager();
+            var (ud, st) = AddPad(DevA);
+
+            CommitByLeavingTheLayer(im, ud, st);
+
+            CollectDirectOutputs.Invoke(im, null);
+            Assert.Contains((ushort)0x42, im._desiredLatchedKeys);
+
+            _now += MenuEvaluator.CommitPulseMs;
+            im._desiredLatchedKeys.Clear();                // the per-frame rebuild
+            CollectDirectOutputs.Invoke(im, null);
+            Assert.Empty(im._desiredLatchedKeys);
+        }
+
+        /// <summary>Every time the menu runtime stamps or weighs comes from
+        /// MenuClock. The runtime's own file reads no other clock, and the
+        /// overlay's stale gate on the UI timer weighs the snapshot's stamp
+        /// on the clock that wrote it.</summary>
+        [Fact]
+        public void TheMenuRuntimeReadsNoClockButItsOwn()
+        {
+            string runtime = File.ReadAllText(AuditDelta20260823Tests.FindRepoFile(
+                Path.Combine("PadForge.App", "Common", "Input", "InputManager.MenuRuntime.cs")));
+            Assert.DoesNotContain("TickCount64", runtime);
+            Assert.Contains("long nowMs = MenuClock.NowMs;", runtime);
+
+            string service = File.ReadAllText(AuditDelta20260823Tests.FindRepoFile(
+                Path.Combine("PadForge.App", "Services", "InputService.cs")));
+            int overlay = service.IndexOf("private void UpdateMenuOverlayWindow()", StringComparison.Ordinal);
+            Assert.True(overlay > 0, "UpdateMenuOverlayWindow not found");
+            string body = service[overlay..service.IndexOf("_menuOverlay.UpdateFromSnapshot(snap);", overlay, StringComparison.Ordinal)];
+            Assert.Contains("MenuClock.NowMs - snap.StampMs > 250", body);
+            Assert.DoesNotContain("TickCount64", body);
+        }
+
+        private static readonly FieldInfo FrameDelta = typeof(InputManager)
+            .GetField("_currentFrameDelta", BindingFlags.NonPublic | BindingFlags.Static);
+
+        /// <summary>A Ramp source on the departed layer whose Up key is the
+        /// committed cell steps its row. The source's input is its keys, so
+        /// the row looked unread and was never evaluated for the commit. Its
+        /// Down key is another input of the departed layer and stays at rest,
+        /// so holding it changes nothing.</summary>
+        [Fact]
+        public void LayerExitCommit_StepsARampKeyOnTheDepartedLayer()
+        {
+            var set = ArrangeModeShiftMenu();
+            set.Rows.Add(new MappingRow
+            {
+                Target = "LeftThumbAxisX", LayerMask = "L1",
+                Sources =
+                {
+                    new MappingSource
+                    {
+                        Kind = "Ramped", ParamUp = "Menu 1 Item 2", ParamDown = "Button 5",
+                        ParamAttackTime = 0, ParamReleaseTime = 0, ParamAutocenter = true,
+                    },
+                },
+            });
+            PadForge.Engine.Common.Mapping.SourceCoercion.KeyHeldProvider = InputManager.KeyHeld;
+            InputManager.ClearSourceKindRuntime();
+            var im = WiredManager();
+            var (ud, st) = AddPad(DevA);
+
+            CommitByLeavingTheLayer(im, ud, st);
+            st.Buttons[5] = true;
+
+            Assert.Equal(short.MaxValue, GamepadPass(set, st, DevA).ThumbLX);
+        }
+
+        /// <summary>Positive control: the same key steps the row when the
+        /// commit is made inside the layer.</summary>
+        [Fact]
+        public void InLayerCommit_StepsTheSameRampKey_PositiveControl()
+        {
+            var set = ArrangeModeShiftMenu();
+            set.Rows.Add(new MappingRow
+            {
+                Target = "LeftThumbAxisX", LayerMask = "L1",
+                Sources =
+                {
+                    new MappingSource
+                    {
+                        Kind = "Ramped", ParamUp = "Menu 1 Item 2", ParamDown = "Button 5",
+                        ParamAttackTime = 0, ParamReleaseTime = 0, ParamAutocenter = true,
+                    },
+                },
+            });
+            PadForge.Engine.Common.Mapping.SourceCoercion.KeyHeldProvider = InputManager.KeyHeld;
+            InputManager.ClearSourceKindRuntime();
+            var im = WiredManager();
+            var (ud, st) = AddPad(DevA);
+
+            CommitInsideTheLayer(im, ud, st);
+
+            Assert.Equal(short.MaxValue, GamepadPass(set, st, DevA).ThumbLX);
+        }
+
+        /// <summary>The Incremental twin on a trigger: each frame of the
+        /// commit steps the departed row's value up.</summary>
+        [Fact]
+        public void LayerExitCommit_StepsAnIncrementalKeyOnTheDepartedLayer()
+        {
+            var set = ArrangeModeShiftMenu();
+            set.Rows.Add(new MappingRow
+            {
+                Target = "RightTrigger", LayerMask = "L1",
+                Sources =
+                {
+                    new MappingSource
+                    {
+                        Kind = "Incremental", ParamUp = "Menu 1 Item 2", ParamDown = "Button 5",
+                        ParamRate = 1, ParamMin = 0, ParamMax = 1, ParamSticky = true,
+                    },
+                },
+            });
+            PadForge.Engine.Common.Mapping.SourceCoercion.KeyHeldProvider = InputManager.KeyHeld;
+            InputManager.ClearSourceKindRuntime();
+            var im = WiredManager();
+            var (ud, st) = AddPad(DevA);
+
+            CommitByLeavingTheLayer(im, ud, st);
+            st.Buttons[5] = true;
+            var delta = (double[])FrameDelta.GetValue(null);
+            double savedDelta = delta[0];
+            try
+            {
+                delta[0] = 0.25;
+                GamepadPass(set, st, DevA);
+                Assert.True(GamepadPass(set, st, DevA).RightTrigger > 30000,
+                    "two quarter steps of the departed row's value");
+            }
+            finally { delta[0] = savedDelta; }
+        }
+
+        private static MappingSource KeySource(string kind, string up, string down) => new()
+        {
+            Kind = kind, ParamUp = up, ParamDown = down,
+            ParamRate = 1, ParamMin = 0, ParamMax = 1, ParamSticky = true,
+            ParamAttackTime = 0, ParamReleaseTime = 0, ParamAutocenter = true,
+        };
+
+        /// <summary>Two frames of the gamepad row loop, a quarter second
+        /// each.</summary>
+        private static Gamepad TwoQuarterSecondPasses(MappingSet set, CustomInputState st)
+        {
+            var delta = (double[])FrameDelta.GetValue(null);
+            double savedDelta = delta[0];
+            try
+            {
+                delta[0] = 0.25;
+                GamepadPass(set, st, DevA);
+                return GamepadPass(set, st, DevA);
+            }
+            finally { delta[0] = savedDelta; }
+        }
+
+        /// <summary>A key source on a target the engaged layer reads too.
+        /// The two rows share one value, kept by the target and the source's
+        /// place, and the engaged row ticks first in the frame. The commit's
+        /// tick replayed that row's value for the frame, so the committed
+        /// key never stepped the value while the Base row's own keys rested.
+        /// The commit steps it: a trigger by a quarter each frame, a stick
+        /// with no attack time to its end.</summary>
+        [Theory]
+        [InlineData("Incremental")]
+        [InlineData("Ramped")]
+        public void LayerExitCommit_StepsAKeyOnATargetTheEngagedLayerReadsToo(string kind)
+        {
+            bool ramp = kind == "Ramped";
+            string target = ramp ? "LeftThumbAxisX" : "RightTrigger";
+            var set = ArrangeModeShiftMenu();
+            set.Rows.Add(new MappingRow { Target = target, LayerMask = "Base", Sources = { KeySource(kind, "Button 6", "Button 7") } });
+            set.Rows.Add(new MappingRow { Target = target, LayerMask = "L1", Sources = { KeySource(kind, "Menu 1 Item 2", "Button 5") } });
+            PadForge.Engine.Common.Mapping.SourceCoercion.KeyHeldProvider = InputManager.KeyHeld;
+            InputManager.ClearSourceKindRuntime();
+            var im = WiredManager();
+            var (ud, st) = AddPad(DevA);
+
+            CommitByLeavingTheLayer(im, ud, st);
+
+            var gp = TwoQuarterSecondPasses(set, st);
+            if (ramp) Assert.Equal(short.MaxValue, gp.ThumbLX);
+            else Assert.True(gp.RightTrigger > 30000, "two quarter steps of the value the rows share");
+        }
+
+        /// <summary>The per-target evaluators (Extended, MIDI, keyboard and
+        /// mouse, VR, the touchpad) read the engaged layer's row first and
+        /// the commit after it, so each takes the same rule: three quarter
+        /// steps press a button and pull a trigger past its middle, and a
+        /// Ramp with no attack time puts an axis at its end.</summary>
+        [Theory]
+        [InlineData("button")]
+        [InlineData("axis")]
+        [InlineData("trigger")]
+        [InlineData("touchpad")]
+        public void LayerExitCommit_APerTargetRow_StepsAKeyOnATargetTheEngagedLayerReadsToo(string evaluator)
+        {
+            string kind = evaluator is "axis" or "touchpad" ? "Ramped" : "Incremental";
+            string target = evaluator switch
+            {
+                "button" => "KbmKey41", "axis" => "LeftThumbAxisX", "trigger" => "RightTrigger", _ => "TouchpadX1",
+            };
+            var set = ArrangeModeShiftMenu();
+            set.Rows.Add(new MappingRow { Target = target, LayerMask = "Base", Sources = { KeySource(kind, "Button 6", "Button 7") } });
+            set.Rows.Add(new MappingRow { Target = target, LayerMask = "L1", Sources = { KeySource(kind, "Menu 1 Item 2", "Button 5") } });
+            PadForge.Engine.Common.Mapping.SourceCoercion.KeyHeldProvider = InputManager.KeyHeld;
+            InputManager.ClearSourceKindRuntime();
+            var im = WiredManager();
+            var (ud, st) = AddPad(DevA);
+
+            CommitByLeavingTheLayer(im, ud, st);
+
+            string dev = DevA.ToString();
+            bool pressed = false;
+            short value = 0;
+            var delta = (double[])FrameDelta.GetValue(null);
+            double savedDelta = delta[0];
+            try
+            {
+                delta[0] = 0.25;
+                for (int frame = 0; frame < 3; frame++)
+                {
+                    InputManager.GetSlotSourceKindRuntime(0).FrameSeq++;
+                    bool owned = evaluator switch
+                    {
+                        "button" => InputManager.TryEvaluateMappingSetButton(st, set, dev, 0, target, 50, out pressed),
+                        "axis" => InputManager.TryEvaluateMappingSetBipolarAxis(st, set, dev, 0, target, out value),
+                        "trigger" => InputManager.TryEvaluateMappingSetRawTrigger(st, set, dev, 0, target, out value),
+                        _ => InputManager.TryEvaluateMappingSetTouchpadAxis(st, set, dev, 0, target, 0, out value),
+                    };
+                    Assert.True(owned);
+                }
+            }
+            finally { delta[0] = savedDelta; }
+
+            if (evaluator == "button") Assert.True(pressed, "three quarter steps never pressed the key");
+            else if (evaluator == "trigger") Assert.True(value > 10000, "three quarter steps of the pull");
+            else Assert.Equal(short.MaxValue, value);
+        }
+
+        /// <summary>One frame of the gamepad row loop at the frame time
+        /// given.</summary>
+        private static Gamepad PassAt(MappingSet set, CustomInputState st, double frameSeconds)
+        {
+            var delta = (double[])FrameDelta.GetValue(null);
+            double savedDelta = delta[0];
+            try
+            {
+                delta[0] = frameSeconds;
+                return GamepadPass(set, st, DevA);
+            }
+            finally { delta[0] = savedDelta; }
+        }
+
+        /// <summary>The value's way to the pad and back through the row
+        /// evaluators' short costs a count or two.</summary>
+        private static void AssertNear(double expected, int actual)
+            => Assert.InRange(actual, expected - 3, expected + 3);
+
+        /// <summary>The Ramp pair at a new source's times, 0.30 s to attack
+        /// and to release with autocenter on: the Base row on its own keys,
+        /// at rest, and the departed layer's row on the committed cell. The
+        /// two share one value and the Base row ticks first in the frame.
+        /// Its rest tick took one release step off every frame and the
+        /// commit put one attack step on, so the stick never got past one
+        /// step for the whole commit. The value is stepped once a frame
+        /// with the keys of both reads, so it climbs a step a frame while
+        /// the commit lives, and the Base row releases it from there once
+        /// the commit has lapsed.</summary>
+        [Fact]
+        public void LayerExitCommit_StepsARampKeyAtItsDefaultTimes_BesideAnEngagedRowAtRest()
+        {
+            var set = ArrangeModeShiftMenu();
+            set.Rows.Add(new MappingRow
+            {
+                Target = "LeftThumbAxisX", LayerMask = "Base",
+                Sources = { new MappingSource { Kind = "Ramped", ParamUp = "Button 6", ParamDown = "Button 7" } },
+            });
+            set.Rows.Add(new MappingRow
+            {
+                Target = "LeftThumbAxisX", LayerMask = "L1",
+                Sources = { new MappingSource { Kind = "Ramped", ParamUp = "Menu 1 Item 2", ParamDown = "Button 5" } },
+            });
+            PadForge.Engine.Common.Mapping.SourceCoercion.KeyHeldProvider = InputManager.KeyHeld;
+            InputManager.ClearSourceKindRuntime();
+            var im = WiredManager();
+            var (ud, st) = AddPad(DevA);
+
+            CommitByLeavingTheLayer(im, ud, st);
+
+            // 30 ms frames: a tenth of the travel a frame.
+            for (int frame = 1; frame <= 3; frame++)
+                AssertNear(frame * 0.1 * 32767, PassAt(set, st, 0.03).ThumbLX);
+
+            _now += MenuEvaluator.CommitPulseMs;           // the commit has lapsed
+            AssertNear(0.2 * 32767, PassAt(set, st, 0.03).ThumbLX);
+        }
+
+        /// <summary>An Incremental commit beside an engaged row that is not
+        /// sticky. That row's rest tick put the shared value back on its
+        /// floor every frame before the commit stepped it, so the trigger
+        /// never got past one step. It climbs a step a frame while the
+        /// commit lives, and the engaged row, not sticky, drops it once it
+        /// reads alone.</summary>
+        [Fact]
+        public void LayerExitCommit_StepsAnIncrementalKey_BesideAnEngagedRowThatIsNotSticky()
+        {
+            var set = ArrangeModeShiftMenu();
+            set.Rows.Add(new MappingRow
+            {
+                Target = "RightTrigger", LayerMask = "Base",
+                Sources =
+                {
+                    new MappingSource
+                    {
+                        Kind = "Incremental", ParamUp = "Button 6", ParamDown = "Button 7",
+                        ParamRate = 1, ParamSticky = false,
+                    },
+                },
+            });
+            set.Rows.Add(new MappingRow
+            {
+                Target = "RightTrigger", LayerMask = "L1",
+                Sources =
+                {
+                    new MappingSource { Kind = "Incremental", ParamUp = "Menu 1 Item 2", ParamDown = "Button 5", ParamRate = 1 },
+                },
+            });
+            PadForge.Engine.Common.Mapping.SourceCoercion.KeyHeldProvider = InputManager.KeyHeld;
+            InputManager.ClearSourceKindRuntime();
+            var im = WiredManager();
+            var (ud, st) = AddPad(DevA);
+
+            CommitByLeavingTheLayer(im, ud, st);
+
+            // 100 ms frames at the full range a second: a tenth a frame.
+            for (int frame = 1; frame <= 3; frame++)
+                AssertNear(frame * 0.1 * 65535, PassAt(set, st, 0.1).RightTrigger);
+
+            _now += MenuEvaluator.CommitPulseMs;           // the commit has lapsed
+            Assert.Equal(0, PassAt(set, st, 0.1).RightTrigger);
+        }
+
+        /// <summary>A cell that the Base row and the departed layer's row
+        /// both name as a key, a layer copied from Base. With Base engaged
+        /// again its row reads the cell fired in the ordinary pass, and the
+        /// commit reads the layer's row beside it. The two stepped the
+        /// shared value twice a frame, so one commit raised it twice as far
+        /// made by leaving the layer as made inside it. It is one step a
+        /// frame either way.</summary>
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void LayerExitCommit_ACellBothRowsNameAsAKey_StepsTheValueOnce(bool leaveTheLayer)
+        {
+            var set = ArrangeModeShiftMenu();
+            foreach (string layer in new[] { "Base", "L1" })
+            {
+                set.Rows.Add(new MappingRow
+                {
+                    Target = "RightTrigger", LayerMask = layer,
+                    Sources = { new MappingSource { Kind = "Incremental", ParamUp = "Menu 1 Item 2", ParamRate = 1 } },
+                });
+            }
+            PadForge.Engine.Common.Mapping.SourceCoercion.KeyHeldProvider = InputManager.KeyHeld;
+            InputManager.ClearSourceKindRuntime();
+            var im = WiredManager();
+            var (ud, st) = AddPad(DevA);
+
+            if (leaveTheLayer) CommitByLeavingTheLayer(im, ud, st);
+            else CommitInsideTheLayer(im, ud, st);
+
+            for (int frame = 1; frame <= 3; frame++)
+                AssertNear(frame * 0.1 * 65535, PassAt(set, st, 0.1).RightTrigger);
+        }
+
+        /// <summary>Two layers that both let a Base row through end inside
+        /// one commit pulse, and the row's Incremental source has a cell of
+        /// each menu as a key: Down from the layer left first, Up from the
+        /// second. Each commit reads the row with its own key alone, and
+        /// the value is stepped once a frame with the keys of every read.
+        /// So while both commits live the row reads both keys held, as it
+        /// would read the two cells itself, and holds. Once the first has
+        /// lapsed the second's key steps the value, and once both have,
+        /// nothing reads the row.</summary>
+        [Fact]
+        public void LayerExitCommit_TwoDepartedLayers_TheirKeysOfOneRowReadTogether()
+        {
+            var set = ArrangeModeShiftMenu();
+            set.ShiftActivators[0].InheritUnmapped = true;
+            set.ShiftActivators.Add(new ShiftActivator
+            {
+                LayerMask = "L2", LayerName = "Two", Descriptor = "Button 9", Mode = "Hold", InheritUnmapped = true,
+            });
+            set.ShiftActivators.Add(new ShiftActivator
+            {
+                LayerMask = "L3", LayerName = "Three", Descriptor = "Button 10", Mode = "Hold",
+            });
+            var second = new MenuDefinitionEntry
+            {
+                MenuId = 2, Kind = MenuKind.Radial, CellCount = 4, HasCenter = false,
+                HostDescriptor = "Gamepad RightStick",
+                LayerMask = "L2", LayerHoldsOpen = false,
+                FireType = MenuFireType.TouchRelease, EngageDeadzonePercent = 25,
+            };
+            for (int i = 1; i <= 4; i++)
+                second.Items.Add(new MenuItemDefinition { Index = i });
+            set.Menus.Add(second);
+            set.Rows.Add(new MappingRow
+            {
+                Target = "RightTrigger", LayerMask = "Base",
+                Sources = { KeySource("Incremental", "Menu 2 Item 2", "Menu 1 Item 2") },
+            });
+            PadForge.Engine.Common.Mapping.SourceCoercion.KeyHeldProvider = InputManager.KeyHeld;
+            InputManager.ClearSourceKindRuntime();
+            var im = WiredManager();
+            var (ud, st) = AddPad(DevA);
+
+            Deflect(st);
+            InputManager.ApplyMacroLayerSwitch(0, "L1");
+            im.UpdateMenuContexts(ud, st);                 // menu 1 hovers cell 2
+            InputManager.ApplyMacroLayerSwitch(0, "L2");
+            im.UpdateMenuContexts(ud, st);                 // L1's menu commits, menu 2 hovers cell 2
+            _now += 40;
+            InputManager.ApplyMacroLayerSwitch(0, "L3");
+            im.UpdateMenuContexts(ud, st);                 // L2's menu commits, 40 ms after L1's
+            Assert.True(Fired(im, 2), "leaving L1 did not commit menu 1's cell");
+            Assert.True(im.IsMenuItemFired(0, null, 2, 2), "leaving L2 did not commit menu 2's cell");
+
+            // Both commits live: Down and Up together hold the value where
+            // it is, on its floor. 100 ms frames at the full range a second.
+            for (int frame = 0; frame < 2; frame++)
+                Assert.Equal(0, PassAt(set, st, 0.1).RightTrigger);
+
+            _now += 60;                                    // L1's commit has lapsed, L2's has 40 ms left
+            Assert.Null(InputManager.LayerExitCommitLayer(0, 1, 2, _now));
+            Assert.Equal("L2", InputManager.LayerExitCommitLayer(0, 2, 2, _now));
+            AssertNear(0.1 * 65535, PassAt(set, st, 0.1).RightTrigger);
+            AssertNear(0.2 * 65535, PassAt(set, st, 0.1).RightTrigger);
+
+            _now += 40;                                    // both have lapsed, and L3 replaces Base
+            Assert.Equal(0, PassAt(set, st, 0.1).RightTrigger);
+        }
+
+        /// <summary>Two layers that both let a Base row through end inside one
+        /// commit pulse, each with a commit the row reads. The per-target pass
+        /// evaluated the row once per departed layer, and the gamepad pass
+        /// stopped at the first, so the second layer's cell never pressed the
+        /// row there.</summary>
+        [Fact]
+        public void LayerExitCommit_TwoDepartedLayers_TheGamepadPassMatchesThePerTargetPass()
+        {
+            var set = ArrangeModeShiftMenu();
+            set.ShiftActivators[0].InheritUnmapped = true;
+            set.ShiftActivators.Add(new ShiftActivator
+            {
+                LayerMask = "L2", LayerName = "Two", Descriptor = "Button 9", Mode = "Hold", InheritUnmapped = true,
+            });
+            set.ShiftActivators.Add(new ShiftActivator
+            {
+                LayerMask = "L3", LayerName = "Three", Descriptor = "Button 10", Mode = "Hold",
+            });
+            var second = new MenuDefinitionEntry
+            {
+                MenuId = 2, Kind = MenuKind.Radial, CellCount = 4, HasCenter = false,
+                HostDescriptor = "Gamepad RightStick",
+                LayerMask = "L2", LayerHoldsOpen = false,
+                FireType = MenuFireType.TouchRelease, EngageDeadzonePercent = 25,
+            };
+            for (int i = 1; i <= 4; i++)
+                second.Items.Add(new MenuItemDefinition { Index = i });
+            set.Menus.Add(second);
+            var row = new MappingRow
+            {
+                Target = "ButtonA", LayerMask = "Base", CombineMode = "Custom", CombineExpression = "b",
+            };
+            row.Sources.Add(new MappingSource { Kind = "Direct", Descriptor = "Menu 1 Item 2" });
+            row.Sources.Add(new MappingSource { Kind = "Direct", Descriptor = "Menu 2 Item 2" });
+            set.Rows.Add(row);
+            var im = WiredManager();
+            var (ud, st) = AddPad(DevA);
+
+            Deflect(st);
+            InputManager.ApplyMacroLayerSwitch(0, "L1");
+            im.UpdateMenuContexts(ud, st);                 // menu 1 hovers cell 2
+            InputManager.ApplyMacroLayerSwitch(0, "L2");
+            im.UpdateMenuContexts(ud, st);                 // L1's menu commits, menu 2 hovers cell 2
+            InputManager.ApplyMacroLayerSwitch(0, "L3");
+            im.UpdateMenuContexts(ud, st);                 // L2's menu commits
+            Assert.True(Fired(im, 2), "leaving L1 did not commit menu 1's cell");
+            Assert.True(im.IsMenuItemFired(0, null, 2, 2), "leaving L2 did not commit menu 2's cell");
+
+            Assert.True(InputManager.TryEvaluateMappingSetButton(st, set, DevA.ToString(), 0, "ButtonA", 50,
+                out bool perTarget));
+            Assert.True(perTarget, "positive control: the per-target pass read L2's commit");
+            Assert.True((RowPass(set, st) & Gamepad.A) != 0, "the gamepad pass read L1's commit alone");
+        }
+
+        /// <summary>A departed layer's touchpad passthrough row reading the
+        /// committed cell takes the commit, as its sibling evaluators do. The
+        /// finger on the left edge is another input of that row and stays at
+        /// rest: read, it would tie the cell and win the combine.</summary>
+        [Fact]
+        public void LayerExitCommit_ReachesATouchpadPassthroughRow()
+        {
+            var set = ArrangeModeShiftMenu();
+            var row = new MappingRow { Target = "TouchpadX1", LayerMask = "L1" };
+            row.Sources.Add(new MappingSource { Kind = "Direct", Descriptor = "Touchpad 0 Finger 0 X" });
+            row.Sources.Add(new MappingSource { Kind = "Direct", Descriptor = "Menu 1 Item 2" });
+            set.Rows.Add(row);
+            var im = WiredManager();
+            var (ud, st) = AddPad(DevA);
+            st.Touchpads = new[] { new TouchpadInputState(2) };
+            st.Touchpads[0].FingerDown[0] = true;
+            st.Touchpads[0].FingerX[0] = 0f;
+
+            CommitByLeavingTheLayer(im, ud, st);
+
+            Assert.True(InputManager.TryEvaluateMappingSetTouchpadAxis(st, set, DevA.ToString(), 0, "TouchpadX1", 0,
+                out short x), "the departed layer's touchpad row never saw its commit");
+            Assert.Equal(short.MaxValue, x);
+        }
+
+        /// <summary>Positive control: inside the layer the row reads the
+        /// committed cell through the ordinary lookup.</summary>
+        [Fact]
+        public void InLayerCommit_ReachesTheSameTouchpadRow_PositiveControl()
+        {
+            var set = ArrangeModeShiftMenu();
+            var row = new MappingRow { Target = "TouchpadX1", LayerMask = "L1" };
+            row.Sources.Add(new MappingSource { Kind = "Direct", Descriptor = "Touchpad 0 Finger 0 X" });
+            row.Sources.Add(new MappingSource { Kind = "Direct", Descriptor = "Menu 1 Item 2" });
+            set.Rows.Add(row);
+            var im = WiredManager();
+            var (ud, st) = AddPad(DevA);
+            st.Touchpads = new[] { new TouchpadInputState(2) };
+
+            CommitInsideTheLayer(im, ud, st);
+
+            Assert.True(InputManager.TryEvaluateMappingSetTouchpadAxis(st, set, DevA.ToString(), 0, "TouchpadX1", 0,
+                out short x));
+            Assert.Equal(short.MaxValue, x);
         }
 
         /// <summary>A Steam config: button A holds a mode shift that turns

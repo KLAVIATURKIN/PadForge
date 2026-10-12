@@ -196,7 +196,13 @@ namespace PadForge.Engine.Common.OpenXr
                     countActionSets = 1,
                     actionSets = sets,
                 };
-                if (attach(session, ref attachInfo) != XR_SUCCESS)
+                // XR_SESSION_LOSS_PENDING is the call's second success code
+                // (xr.xml): a session being lost simulates success, and its
+                // loss arrives as an event. Read as a refusal, it took the
+                // controllers off the session and said the runtime refused
+                // them.
+                int attached = attach(session, ref attachInfo);
+                if (attached != XR_SUCCESS && attached != XR_SESSION_LOSS_PENDING)
                 {
                     _log("OpenXR: the runtime refused the controller action set");
                     return false;
@@ -213,12 +219,14 @@ namespace PadForge.Engine.Common.OpenXr
                     subactionPath = _handPath[hand],
                 };
                 spaceInfo.poseInActionSpace.orientation.w = 1f;
-                if (createActionSpace(session, ref spaceInfo, out _gripSpace[hand]) != XR_SUCCESS)
+                // The same two success codes (xr.xml).
+                int made = createActionSpace(session, ref spaceInfo, out _gripSpace[hand]);
+                if (made != XR_SUCCESS && made != XR_SESSION_LOSS_PENDING)
                     _gripSpace[hand] = 0;
             }
 
             Ready = true;
-            _log($"OpenXR: controllers ready, {suggested} interaction profile(s) accepted");
+            _log($"OpenXR: controllers ready, {Number(suggested)} interaction profile(s) accepted");
             return true;
 
             bool Make(PFN_xrCreateAction create, string name, string localized, int type, out ulong action)

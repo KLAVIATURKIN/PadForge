@@ -33,6 +33,8 @@ namespace PadForge.Tests
         {
             PeripheralOutputs.ResetForTest();
             GameLightbarCapture.ResetForTest();
+            // The route lines say nothing while the engine is stopped.
+            PeripheralOutputs.SetRunning(true);
         }
 
         public void Dispose()
@@ -121,7 +123,9 @@ namespace PadForge.Tests
             PeripheralOutputs.SetLighting(A, 1, 2, 2, 2, 2);
             PeripheralOutputs.SetLighting(B, 1, 2, 3, 3, 3);
 
-            PeripheralOutputs.ReleaseSlot(1);
+            // A slot that lights nothing any more goes at the link pass's
+            // prune, which is the release a dead slot gets.
+            PeripheralOutputs.PruneClaims(new HashSet<(Guid, int)> { (A, 0), (A, 1), (B, 1) }, slot => slot != 1);
             Assert.True(PeripheralOutputs.IsLit(A));
             Assert.False(PeripheralOutputs.IsLit(B));
 
@@ -162,7 +166,9 @@ namespace PadForge.Tests
             finally { PeripheralOutputs.ClaimsChanged -= OnClaims; }
 
             string host = RepoText("PadForge.App", "Common", "Input", "Peripherals", "PeripheralOutputHost.cs");
-            Assert.Contains("PeripheralOutputs.PruneClaims(assigned, slot => UserEffectsDispatcher.HasLiveDispatcher(slot)", host);
+            Assert.Contains("PeripheralOutputs.PruneClaims(assigned, PeripheralOutputs.SlotLive);", host);
+            string facade = RepoText("PadForge.App", "Common", "Input", "Peripherals", "PeripheralOutputs.cs");
+            Assert.Contains("=> UserEffectsDispatcher.HasLiveDispatcher(slot) || SlotHasController?.Invoke(slot) == true;", facade);
         }
 
         /// <summary>A slot whose virtual controller went away has no
@@ -310,9 +316,12 @@ namespace PadForge.Tests
 
             // A slot keeps its claims while it holds a controller, which a
             // reorder moves before it rebuilds the slot's dispatcher.
-            Assert.Contains("|| (hasController != null && hasController(slot))", host);
+            Assert.Contains("PeripheralOutputs.SlotHasController = SlotHasController;", host);
             string service = RepoText("PadForge.App", "Services", "InputService.cs");
             Assert.Contains("host.SlotHasController = pad => inputManager.HasVirtualControllerAt(pad);", service);
+            PeripheralOutputs.SlotHasController = slot => slot == 6;
+            Assert.True(PeripheralOutputs.SlotLive(6));
+            Assert.False(PeripheralOutputs.SlotLive(7));
         }
 
         // ─────────────────────────────────────────────
@@ -1044,6 +1053,214 @@ namespace PadForge.Tests
             slot.Config.PeripheralLightingEnabled = false;
         }
 
+        /// <summary>A device assigned a moment before its own config exists
+        /// on the slot is not lit with the selected device's config, whose
+        /// Control This Device's Lighting switch and mode are another
+        /// device's. Its own entry decides once it is made.</summary>
+        [Fact]
+        public void ADeviceWithNoConfigOfItsOwn_BorrowsNoOtherDevicesSwitch()
+        {
+            using var slot = new LitSlot();
+            slot.Config.PeripheralLightingEnabled = true;
+            slot.Add(B);
+            var pathB = new OutputPath(OutputFamily.HidppUnit, "rx|02");
+            Link(new DeviceLinks { Device = A, Lighting = new[] { slot.Path } },
+                 new DeviceLinks { Device = B, Lighting = new[] { pathB } });
+            slot.Dispatcher = new UserEffectsDispatcher(15, slot.Config, startTimer: false);
+
+            slot.Dispatcher.ApplyOnce();
+            Assert.True(PeripheralOutputs.IsLit(A), "the selected mouse lights from its own config");
+            Assert.False(PeripheralOutputs.IsLit(B), "a mouse with no config of its own took the selected mouse's");
+
+            slot.Configs[B] = new DeviceSlotConfig { PeripheralLightingEnabled = true };
+            slot.Dispatcher.ApplyOnce();
+            Assert.True(PeripheralOutputs.IsLit(B), "its own config, switched on, lights it");
+        }
+
+        /// <summary>While the engine is stopped nothing reaches any device,
+        /// so every route line says nothing, the waiting and asleep lines
+        /// included.</summary>
+        [Fact]
+        public void TheRouteLinesSayNothing_WhileTheEngineIsStopped()
+        {
+            var logi = new UserDevice
+            {
+                InstanceGuid = A, IsOnline = true, CapType = InputDeviceType.Mouse, VendorId = PeripheralLinker.LogitechVid,
+                PeripheralOutputs = (int)(PeripheralOutputKinds.Lighting | PeripheralOutputKinds.Haptics),
+            };
+            var sensa = new UserDevice
+            {
+                InstanceGuid = PeripheralOutputRow.IdentityFor(PeripheralRowKind.RazerSensa),
+                PeripheralOutputs = (int)PeripheralOutputKinds.Haptics,
+            };
+            // Running: the asleep and waiting lines.
+            Assert.NotNull(PeripheralRouteText.Lighting(logi, 0));
+            Assert.NotNull(PeripheralRouteText.Haptics(logi));
+            Assert.NotNull(PeripheralRouteText.Haptics(sensa));
+
+            PeripheralOutputs.SetRunning(false);
+            Assert.Null(PeripheralRouteText.Lighting(logi, 0));
+            Assert.Null(PeripheralRouteText.Haptics(logi));
+            // The Sensa row's waiting line, where the engine loads. A build
+            // that cannot load it reads its own line, which is no route.
+            Assert.Null(PeripheralRouteText.Haptics(sensa, slotLive: true, sensaAvailable: true));
+        }
+
+        /// <summary>A Razer Sensa row in a build that cannot load the engine
+        /// reads that platform's limit whatever the engine or the controller
+        /// does: a stopped engine or a controller that is gone hides a
+        /// route, and this line is no route. Where the engine loads, both
+        /// still hide the row's waiting line.</summary>
+        [Fact]
+        public void ASensaRowWhereTheEngineCannotLoad_SaysSo_WhateverTheEngineOrTheControllerDoes()
+        {
+            var s = PadForge.Resources.Strings.Strings.Instance;
+            var sensa = new UserDevice
+            {
+                InstanceGuid = PeripheralOutputRow.IdentityFor(PeripheralRowKind.RazerSensa),
+                PeripheralOutputs = (int)PeripheralOutputKinds.Haptics,
+            };
+            string Line(bool slotLive, bool sensaAvailable) => PeripheralRouteText.Haptics(sensa, slotLive, sensaAvailable);
+
+            // The engine running, on a live controller.
+            Assert.Equal(s.Common_NotAvailableOnArm64, Line(slotLive: true, sensaAvailable: false));
+            Assert.Equal(s.Pad_ForceFeedback_RouteSensaWaiting, Line(slotLive: true, sensaAvailable: true));
+            // The controller gone.
+            Assert.Equal(s.Common_NotAvailableOnArm64, Line(slotLive: false, sensaAvailable: false));
+            Assert.Null(Line(slotLive: false, sensaAvailable: true));
+            // The engine stopped.
+            PeripheralOutputs.SetRunning(false);
+            Assert.Equal(s.Common_NotAvailableOnArm64, Line(slotLive: true, sensaAvailable: false));
+            Assert.Null(Line(slotLive: true, sensaAvailable: true));
+
+            // The limit is the Sensa row's alone, and only on its record.
+            var logi = new UserDevice
+            {
+                InstanceGuid = A, VendorId = PeripheralLinker.LogitechVid, PeripheralOutputs = (int)PeripheralOutputKinds.Haptics,
+            };
+            Assert.Null(PeripheralRouteText.Haptics(logi, slotLive: true, sensaAvailable: false));
+            sensa.PeripheralOutputs = 0;
+            Assert.Null(Line(slotLive: true, sensaAvailable: false));
+
+            // The Pad page's form asks this build's own platform.
+            sensa.PeripheralOutputs = (int)PeripheralOutputKinds.Haptics;
+            Assert.Equal(Line(slotLive: true, sensaAvailable: PlatformSupport.SensaAvailable),
+                PeripheralRouteText.Haptics(sensa));
+        }
+
+        /// <summary>An engine that cannot be loaded lights nothing from any
+        /// controller, so the LIGHTSYNC row reads that on a controller that
+        /// lights nothing as well, and never names another controller as
+        /// the one lighting it.</summary>
+        [Fact]
+        public void AnEngineThatWillNotLoad_ReadsSoOnAControllerThatLightsNothing()
+        {
+            var s = PadForge.Resources.Strings.Strings.Instance;
+            var lightsync = PeripheralOutputRow.IdentityFor(PeripheralRowKind.LogitechLightsync);
+            var row = Device(lightsync, PeripheralLinker.LogitechVid);
+            Link(new DeviceLinks
+            {
+                Device = lightsync, CatchAll = true,
+                Lighting = PeripheralLinker.LedSdkTypes.Select(t => new OutputPath(OutputFamily.LedSdkType, t)).ToArray(),
+            });
+            PeripheralOutputs.Presence = Presence(ledSdk: true, gHub: true);
+            // The same row on another controller holds every path.
+            PeripheralOutputs.SetLighting(lightsync, slot: 0, player: 1, 4, 4, 4);
+            Assert.Equal(string.Format(s.Pad_Lighting_RouteOtherControllerOnly, 1),
+                PeripheralRouteText.Lighting(row, 5, lightsHere: false));
+
+            string cannot = System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture
+                == System.Runtime.InteropServices.Architecture.Arm64
+                ? s.Common_NotAvailableOnArm64 : s.Pad_Lighting_RouteCannotLight;
+            PeripheralOutputs.LedSdkPaintable = Array.Empty<string>();
+            Assert.Equal(cannot, PeripheralRouteText.Lighting(row, 0));
+            Assert.Equal(cannot, PeripheralRouteText.Lighting(row, 5, lightsHere: false));
+        }
+
+        /// <summary>A controller that lights or rumbles nothing, its own
+        /// controller gone, names no route: a vendor row there names only the
+        /// controller that lights it elsewhere, and a haptic row's line is
+        /// empty. The Pad page asks the link pass's own rule.</summary>
+        [Fact]
+        public void AControllerThatLightsNothing_NamesNoRouteOfItsOwn()
+        {
+            var s = PadForge.Resources.Strings.Strings.Instance;
+            var chroma = PeripheralOutputRow.IdentityFor(PeripheralRowKind.RazerChroma);
+            Link(new DeviceLinks
+            {
+                Device = chroma, CatchAll = true,
+                Lighting = PeripheralLinker.ChromaCategories.Select(c => new OutputPath(OutputFamily.ChromaCategory, c)).ToArray(),
+            });
+            PeripheralOutputs.SetBackendState(OutputFamily.ChromaCategory, BackendState.Connected);
+            Assert.Equal(string.Format(s.Pad_Lighting_RouteVendorRow, "Razer Synapse", s.Pad_Lighting_VendorRowExamples_Chroma),
+                PeripheralRouteText.Lighting(Device(chroma), 3));
+            Assert.Null(PeripheralRouteText.Lighting(Device(chroma), 3, lightsHere: false));
+
+            // The same row on another controller lights it.
+            PeripheralOutputs.SetLighting(chroma, slot: 6, player: 2, 1, 2, 3);
+            Assert.Equal(string.Format(s.Pad_Lighting_RouteOtherControllerOnly, 2),
+                PeripheralRouteText.Lighting(Device(chroma), 3, lightsHere: false));
+
+            var rival = new UserDevice
+            {
+                InstanceGuid = B, VendorId = PeripheralLinker.SteelSeriesVid, PeripheralOutputs = (int)PeripheralOutputKinds.Haptics,
+            };
+            Link(new DeviceLinks { Device = B, Haptics = new[] { PeripheralLinker.GameSenseTactilePath } });
+            Assert.NotNull(PeripheralRouteText.Haptics(rival));
+            Assert.Null(PeripheralRouteText.Haptics(rival, slotLive: false));
+
+            string page = RepoText("PadForge.App", "Views", "PadPage.xaml.cs");
+            Assert.Contains("bool slotLive = routeSlot >= 0 && PadForge.Common.Input.Peripherals.PeripheralOutputs.SlotLive(routeSlot);", page);
+            Assert.Contains("PeripheralRouteText.Haptics(peripheralRow, slotLive)", page);
+            Assert.Contains("slotLive && (vendorLightingRow || routeVm?.DeviceConfig?.PeripheralLightingEnabled == true)", page);
+        }
+
+        /// <summary>While a vendor's software is down nothing is lit from any
+        /// controller, so on a controller that lights nothing the vendor row
+        /// names no controller as the one lighting it, as a device's own row
+        /// names none there. It read "Virtual Controller 2 lights this
+        /// device." with nothing lit. With the software up it names that
+        /// controller, and the controller that lights the row keeps its
+        /// waiting line.</summary>
+        [Theory]
+        [InlineData("chroma")]
+        [InlineData("gg")]
+        [InlineData("lightsync")]
+        public void AVendorRowWhoseSoftwareIsDown_NamesNoControllerOnOneThatLightsNothing(string vendor)
+        {
+            var s = PadForge.Resources.Strings.Strings.Instance;
+            var (kind, family, keys, vid) = vendor switch
+            {
+                "chroma" => (PeripheralRowKind.RazerChroma, OutputFamily.ChromaCategory,
+                    PeripheralLinker.ChromaCategories, PeripheralLinker.RazerVid),
+                "gg" => (PeripheralRowKind.SteelSeriesGG, OutputFamily.GameSenseColor,
+                    PeripheralLinker.GameSenseColorTypes, PeripheralLinker.SteelSeriesVid),
+                _ => (PeripheralRowKind.LogitechLightsync, OutputFamily.LedSdkType,
+                    PeripheralLinker.LedSdkTypes, PeripheralLinker.LogitechVid),
+            };
+            var id = PeripheralOutputRow.IdentityFor(kind);
+            var row = Device(id, vid);
+            Link(new DeviceLinks
+            {
+                Device = id, CatchAll = true,
+                Lighting = keys.Select(k => new OutputPath(family, k)).ToArray(),
+            });
+            PeripheralOutputs.Presence = Presence(ledSdk: true, gHub: true);
+            // The same row on another controller holds every path.
+            PeripheralOutputs.SetLighting(id, slot: 6, player: 2, 1, 2, 3);
+
+            PeripheralOutputs.SetBackendState(family, BackendState.Connected);
+            Assert.Equal(string.Format(s.Pad_Lighting_RouteOtherControllerOnly, 2),
+                PeripheralRouteText.Lighting(row, 3, lightsHere: false));
+
+            PeripheralOutputs.SetBackendState(family, BackendState.Waiting);
+            Assert.Null(PeripheralRouteText.Lighting(row, 3, lightsHere: false));
+            // The controller that lights the row still says what it waits for.
+            Assert.Equal(string.Format(s.Pad_Lighting_RouteVendorRowWaiting,
+                    PeripheralRouteText.LightingApp(family), PeripheralRouteText.VendorRowExamples(family)),
+                PeripheralRouteText.Lighting(row, 6));
+        }
+
         /// <summary>A wired or Bluetooth Logitech device is the only unit in
         /// its container, so every row of it, its keyboard collection
         /// included, takes it, and under G HUB lights the unit's own kind.
@@ -1362,7 +1579,10 @@ namespace PadForge.Tests
 
         /// <summary>The claim goes out again on its own interval while the
         /// color keeps changing, so an animated mode never holds back the
-        /// re-claim a device that comes back from sleep needs.</summary>
+        /// re-claim a device that comes back from sleep needs. The color
+        /// changes for as long as the third claim takes: a claim that waited
+        /// on the colors would never follow the first, and a count over a
+        /// fixed time would come up short on a busy bench.</summary>
         [Fact]
         public void TheClaimIsSentAgainOnItsInterval_WhileTheColorKeepsChanging()
         {
@@ -1374,13 +1594,13 @@ namespace PadForge.Tests
                 byte[] claim = HidppUnitProtocol.SetSwControl(1, 0x0E, claim: true);
                 int Claims() => channel.Writes.Count(w => w.Frame.SequenceEqual(claim));
 
-                long until = Environment.TickCount64 + 900;
-                for (byte i = 1; Environment.TickCount64 < until; i++)
+                long until = Environment.TickCount64 + 10000;
+                for (byte i = 1; Claims() < 3 && Environment.TickCount64 < until; i++)
                 {
                     PeripheralOutputs.SetLighting(device, slot: 0, player: 1, i, 0x00, 0x00);
                     Thread.Sleep(20);
                 }
-                Assert.True(Claims() >= 3, $"the claim went out {Claims()} times in 900 ms at a 200 ms interval");
+                Assert.True(Claims() >= 3, $"the claim went out {Claims()} times while the color kept changing");
             }
         }
 
@@ -1465,18 +1685,23 @@ namespace PadForge.Tests
 
         /// <summary>A claimed mouse type binds its color event and posts its
         /// color, a change posts again, and a release removes the event at
-        /// once and hands the devices back to GG after the release delay.</summary>
+        /// once and hands the devices back to GG after the release delay.
+        /// The worker reads this test's clock, so the color throttle and the
+        /// release delay run out when the test says so and nothing here is
+        /// timed.</summary>
         [Fact]
         public void AClaimedGameSenseType_IsBoundPaintedAndRemoved()
         {
             using var server = new HidppHapticsTests.FakeGameSense();
             string coreProps = server.WriteCoreProps();
             var device = Guid.NewGuid();
+            long now = 1_000_000;
             PeripheralOutputs.PublishLinks(new LinkTable(new[]
             {
                 new DeviceLinks { Device = device, Lighting = new[] { new OutputPath(OutputFamily.GameSenseColor, "mouse") } },
             }));
-            using var backend = new GameSenseBackend(() => new GameSenseClient(coreProps, 1000), _ => 0, 2);
+            using var backend = new GameSenseBackend(() => new GameSenseClient(coreProps, 10000), _ => 0, 2,
+                clock: () => Volatile.Read(ref now));
             backend.Start();
 
             PeripheralOutputs.SetLighting(device, slot: 0, player: 1, 0x11, 0x22, 0x33);
@@ -1493,22 +1718,31 @@ namespace PadForge.Tests
                 Assert.True(removed >= 0 && removed < bindMouse, $"{evt} was removed before the first color bind");
             }
             Assert.True(SpinWait.SpinUntil(
-                () => PeripheralOutputs.StateOf(OutputFamily.GameSenseColor) == BackendState.Connected, 1000));
+                () => PeripheralOutputs.StateOf(OutputFamily.GameSenseColor) == BackendState.Connected, 5000));
             Assert.Equal(BackendState.Idle, PeripheralOutputs.StateOf(OutputFamily.GameSenseTactile));
 
+            // A held color is posted again no sooner than ColorMs after the
+            // last: a whole look passes with the change unsent, and it goes
+            // out once the clock reaches the throttle.
             PeripheralOutputs.SetLighting(device, slot: 0, player: 1, 0x44, 0x55, 0x66);
-            Assert.True(SpinWait.SpinUntil(() => server.ColorValues("COLOR_MOUSE").Contains(0x445566), 3000));
+            WorkerCadence.WaitAfterAFullPass(() => backend.PassCount, () => backend.WaitMs);
+            Assert.DoesNotContain(0x445566, server.ColorValues("COLOR_MOUSE"));
+            Volatile.Write(ref now, now + GameSenseBackend.ColorMs);
+            Assert.True(SpinWait.SpinUntil(() => server.ColorValues("COLOR_MOUSE").Contains(0x445566), 5000));
 
+            // The release removes the event with none of the release delay
+            // gone, and the game ends on the delay's last tick, not one tick
+            // short of it.
             int removesBefore = server.EventsAt("/remove_game_event").Count(e => e == "COLOR_MOUSE");
-            long released = Environment.TickCount64;
             PeripheralOutputs.ReleaseLighting(device, 0);
             Assert.True(SpinWait.SpinUntil(
-                () => server.EventsAt("/remove_game_event").Count(e => e == "COLOR_MOUSE") > removesBefore, 1000),
+                () => server.EventsAt("/remove_game_event").Count(e => e == "COLOR_MOUSE") > removesBefore, 5000),
                 "the type went back to GG at once");
-            Assert.True(SpinWait.SpinUntil(() => server.Paths().Contains("/stop_game"),
-                GameSenseBackend.ReleaseMs + 3000), "the game ended");
-            long elapsed = Environment.TickCount64 - released;
-            Assert.True(elapsed >= GameSenseBackend.ReleaseMs - 50, $"the game ended after {elapsed} ms, before the release delay");
+            Volatile.Write(ref now, now + GameSenseBackend.ReleaseMs - 1);
+            WorkerCadence.WaitAfterAFullPass(() => backend.PassCount, () => backend.WaitMs);
+            Assert.DoesNotContain("/stop_game", server.Paths());
+            Volatile.Write(ref now, now + 1);
+            Assert.True(SpinWait.SpinUntil(() => server.Paths().Contains("/stop_game"), 5000), "the game ended");
         }
 
         // ─────────────────────────────────────────────

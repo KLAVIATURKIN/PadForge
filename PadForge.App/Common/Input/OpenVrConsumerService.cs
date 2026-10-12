@@ -216,24 +216,38 @@ namespace PadForge.Common.Input
             if (Interlocked.CompareExchange(ref _resolverRegistered, 1, 0) != 0) return;
             System.Runtime.InteropServices.NativeLibrary.SetDllImportResolver(
                 typeof(OpenVrConsumerService).Assembly,
-                (name, assembly, searchPath) =>
-                {
-                    if (!string.Equals(name, "openvr_api", StringComparison.OrdinalIgnoreCase))
-                        return IntPtr.Zero;
-                    if (_openvrModule != IntPtr.Zero) return _openvrModule;
-                    string dll = DiscoverRuntimeDll();
-                    if (dll == null) return IntPtr.Zero;
-                    // At the moment of load, never merely at registration:
-                    // the client reads VR_LOG_PATH/VR_CONFIG_PATH as it
-                    // initializes. Registration happens at engine start, and
-                    // a SteamVR installed later in the session (the normal
-                    // Settings-card flow) would otherwise load with neither
-                    // set, putting C:\SteamVR-logs back at the drive root.
-                    ContainVrClientLog();
-                    if (System.Runtime.InteropServices.NativeLibrary.TryLoad(dll, out IntPtr h))
-                        _openvrModule = h;
-                    return _openvrModule;
-                });
+                (name, assembly, searchPath) => ResolveOpenVrApi(name, DiscoverRuntimeDll));
+        }
+
+        /// <summary>
+        /// What the resolver answers for a native module name: SteamVR's
+        /// openvr_api.dll for "openvr_api", loaded on first use, and nothing
+        /// for any other name. <paramref name="discover"/> finds the dll.
+        ///
+        /// <para>The gate stands in front of the discovery, so a test host
+        /// loads no client library whatever this PC has installed
+        /// (<see cref="PadForge.Engine.Common.VrRuntimeGate"/>). In the app
+        /// it passes. The tests hand in a discovery of their own, which
+        /// names no real dll.</para>
+        /// </summary>
+        internal static IntPtr ResolveOpenVrApi(string name, Func<string> discover)
+        {
+            if (!string.Equals(name, "openvr_api", StringComparison.OrdinalIgnoreCase))
+                return IntPtr.Zero;
+            if (_openvrModule != IntPtr.Zero) return _openvrModule;
+            PadForge.Engine.Common.VrRuntimeGate.Enter("openvr_api.dll, SteamVR's OpenVR client library");
+            string dll = discover();
+            if (dll == null) return IntPtr.Zero;
+            // At the moment of load, never merely at registration:
+            // the client reads VR_LOG_PATH/VR_CONFIG_PATH as it
+            // initializes. Registration happens at engine start, and
+            // a SteamVR installed later in the session (the normal
+            // Settings-card flow) would otherwise load with neither
+            // set, putting C:\SteamVR-logs back at the drive root.
+            ContainVrClientLog();
+            if (System.Runtime.InteropServices.NativeLibrary.TryLoad(dll, out IntPtr h))
+                _openvrModule = h;
+            return _openvrModule;
         }
 
         // ─── pose math (pure, test-locked) ──────────────────────────────────────

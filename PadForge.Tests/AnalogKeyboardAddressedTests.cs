@@ -19,12 +19,45 @@ namespace PadForge.Tests
     /// research documents. Paths without a directory are in
     /// src/HallJoyProject/HallJoy.
     /// </summary>
-    public class AnalogKeyboardAddressedTests
+    public class AnalogKeyboardAddressedTests : IDisposable
     {
         private const ulong Qbz65 = 0x110000000023;
         private const ulong Qbz75 = 0x11000000002C;
         private const ulong Hero84 = 0x110000000005;
         private const ulong Hero68 = 0x110000000003;
+
+        /// <summary>The sessions' read windows (AddressedClock.Milliseconds)
+        /// run on a clock held for every test here. A setup read waits 40 ms
+        /// and a probe 120 ms, and a scripted keyboard answers at once, so a
+        /// window should end only when the script has no answer left. On the
+        /// system clock a test thread held past 40 ms between two answers
+        /// timed the read out, and the session sent a second request with
+        /// nothing wrong in it. No other test class drives these sessions, so
+        /// no class running beside this one sees the held clock.</summary>
+        public AnalogKeyboardAddressedTests() => AddressedClock.MillisecondsSource = () => 10_000;
+
+        public void Dispose() => AddressedClock.MillisecondsSource = null;
+
+        /// <summary>The seam's default is the system tick count, read at the
+        /// moment of the call, and null puts it back after a test held it. The
+        /// reads are bracketed, so a stall only widens the bracket.</summary>
+        [Fact]
+        public void TheReadWindowsRunOnTheSystemTickCountUnlessATestHoldsIt()
+        {
+            AddressedClock.MillisecondsSource = null;
+            long before = Environment.TickCount64;
+            long now = AddressedClock.Milliseconds();
+            long after = Environment.TickCount64;
+            Assert.InRange(now, before, after);
+
+            AddressedClock.MillisecondsSource = () => 42;
+            Assert.Equal(42, AddressedClock.Milliseconds());
+            AddressedClock.MillisecondsSource = null;
+            before = Environment.TickCount64;
+            now = AddressedClock.Milliseconds();
+            after = Environment.TickCount64;
+            Assert.InRange(now, before, after);
+        }
 
         // ── Fixtures ──
 

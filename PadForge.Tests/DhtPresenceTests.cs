@@ -183,7 +183,7 @@ namespace PadForge.Tests
             var callerFp = new byte[32]; for (int i = 0; i < 32; i++) callerFp[i] = (byte)(i + 5);
             var eps = new[]
             {
-                new IPEndPoint(IPAddress.Parse("174.235.248.62"), 63332), // CGNAT public
+                new IPEndPoint(IPAddress.Parse("198.51.100.62"), 63332),  // CGNAT public
                 new IPEndPoint(IPAddress.Parse("10.19.90.40"), 27500),    // LAN
             };
             var now = DateTimeOffset.FromUnixTimeSeconds(1_800_000_000);

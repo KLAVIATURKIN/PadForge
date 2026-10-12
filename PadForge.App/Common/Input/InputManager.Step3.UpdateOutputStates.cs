@@ -914,15 +914,18 @@ namespace PadForge.Common.Input
                 {
                     var src = sources[i];
                     // A row modifier (Invert on Hold) is no source, whatever
-                    // its descriptor names, the row evaluators' rule.
-                    if (src == null || IsRowModifierSource(src)) continue;
+                    // its descriptor names, the row evaluators' rule. Nor is
+                    // a source whose kind reads no Descriptor on a stick:
+                    // the one an Incremental or Ramp source kept is no
+                    // input, and a motion kind reads gravity.
+                    if (src == null || IsRowModifierSource(src) || !KindReadsDescriptor(src.Kind, stickRead: true)) continue;
                     var d = src.Descriptor;
                     if (string.IsNullOrEmpty(d) || !d.StartsWith("Gyro ", StringComparison.Ordinal))
                         continue;
                     // Consume/postpone parity with the row evaluators: a
                     // suppressed source must not keep driving the cursor
                     // while its press is being eaten.
-                    if (IsSourceSuppressedPostpone(slotIndex, src.DeviceGuid, src.Descriptor))
+                    if (IsSourceSuppressedPostpone(slotIndex, src, stickRead: true))
                         continue;
 
                     var devState = LaneDeviceState(src, state, thisDeviceGuid);
@@ -966,11 +969,13 @@ namespace PadForge.Common.Input
                 for (int i = 0; i < sources.Count; i++)
                 {
                     var src = sources[i];
-                    if (src == null || IsRowModifierSource(src)) continue;
+                    // No modifier, and no Descriptor its kind does not read
+                    // (KindReadsDescriptor), as on the gyro lane.
+                    if (src == null || IsRowModifierSource(src) || !KindReadsDescriptor(src.Kind, stickRead: true)) continue;
                     if (!PadForge.Engine.Common.Mapping.SourceCoercion
                             .IsTouchpadFingerAxisDescriptor(src.Descriptor))
                         continue;
-                    if (IsSourceSuppressedPostpone(slotIndex, src.DeviceGuid, src.Descriptor))
+                    if (IsSourceSuppressedPostpone(slotIndex, src, stickRead: true))
                         continue;
 
                     var devState = LaneDeviceState(src, state, thisDeviceGuid);
@@ -1040,13 +1045,15 @@ namespace PadForge.Common.Input
             for (int i = 0; i < sources.Count; i++)
             {
                 var src = sources[i];
-                if (src == null || IsRowModifierSource(src)
+                // No modifier, and no Descriptor its kind does not read
+                // (KindReadsDescriptor), as on the mouse rate lanes.
+                if (src == null || IsRowModifierSource(src) || !KindReadsDescriptor(src.Kind, stickRead: true)
                     || !PadForge.Engine.Common.Mapping.SourceCoercion.IsFlickStickDescriptor(src.Descriptor))
                     continue;
                 // Consume/postpone parity with the row evaluators
                 // (2026-07-25 audit): a suppressed flick source must not
                 // keep ticking flick state while its press is being eaten.
-                if (IsSourceSuppressedPostpone(slotIndex, src.DeviceGuid, src.Descriptor))
+                if (IsSourceSuppressedPostpone(slotIndex, src, stickRead: true))
                     continue;
                 // Same cross-device resolution the per-target evaluators use:
                 // the source's own DeviceGuid wins. An empty one is this
@@ -1106,8 +1113,9 @@ namespace PadForge.Common.Input
                 {
                     if (src?.Descriptor == null) continue;
                     // A row modifier (Invert on Hold) is no source, whatever
-                    // its descriptor names, the row evaluators' rule.
-                    if (IsRowModifierSource(src)) continue;
+                    // its descriptor names, the row evaluators' rule, and
+                    // neither is a Descriptor its kind does not read.
+                    if (IsRowModifierSource(src) || !KindReadsDescriptor(src.Kind, stickRead: true)) continue;
                     if (!src.Descriptor.StartsWith("IR Pointer ", StringComparison.Ordinal)) continue;
                     if (!string.IsNullOrEmpty(src.DeviceGuid)
                         && !string.Equals(src.DeviceGuid, thisDeviceGuid, StringComparison.OrdinalIgnoreCase))
@@ -1119,7 +1127,7 @@ namespace PadForge.Common.Input
                     // Consume/postpone parity with the row evaluators
                     // (2026-07-25 audit): a suppressed pointer source must
                     // not keep steering the absolute cursor lane.
-                    if (IsSourceSuppressedPostpone(slotIndex, src.DeviceGuid, src.Descriptor))
+                    if (IsSourceSuppressedPostpone(slotIndex, src, stickRead: true))
                         continue;
                     // An aiming pointer is its layer's output (#206), as an
                     // engaged touchpad pointer is.
@@ -1186,7 +1194,8 @@ namespace PadForge.Common.Input
             if (row?.Sources == null) return null;
             foreach (var src in row.Sources)
             {
-                if (src?.Descriptor == null || IsRowModifierSource(src)) continue;
+                if (src?.Descriptor == null || IsRowModifierSource(src)
+                    || !KindReadsDescriptor(src.Kind, stickRead: true)) continue;
                 if (!PadForge.Engine.Common.Mapping.SourceCoercion
                         .IsTouchpadPointerDescriptor(src.Descriptor)) continue;
                 if (!string.IsNullOrEmpty(src.DeviceGuid)
@@ -1201,7 +1210,7 @@ namespace PadForge.Common.Input
                 // (2026-07-25 audit): a suppressed pointer source reads
                 // disengaged, so the caller falls through to the delta
                 // lane exactly as it does with no finger in the window.
-                if (IsSourceSuppressedPostpone(slotIndex, src.DeviceGuid, src.Descriptor))
+                if (IsSourceSuppressedPostpone(slotIndex, src, stickRead: true))
                     continue;
                 if (!PadForge.Engine.Common.Mapping.SourceCoercion
                         .IsTouchpadPointerEngaged(state, src.Descriptor)) continue;

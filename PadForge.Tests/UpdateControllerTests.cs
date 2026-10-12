@@ -62,7 +62,12 @@ public class UpdateControllerTests
         public readonly MainViewModel Vm = new();
         public readonly UpdateController Controller;
         public readonly List<string> Calls = new();
-        public readonly string StagedExe = Path.Combine(Path.GetTempPath(), "PadForgeUpdateCtl_" + Guid.NewGuid().ToString("N") + ".exe");
+        /// <summary>The staged exe's folder: one of this harness's own in the
+        /// test host's scratch folder, so a staged file the controller drops
+        /// takes nothing with it but this folder (UpdateServiceOffLimits).</summary>
+        public readonly string StagedFolder = Path.Combine(UpdateService.TestScratchRoot, "UpdateController",
+            "Staged_" + Guid.NewGuid().ToString("N"));
+        public readonly string StagedExe;
         public readonly FakeHelper Helper = new();
         public int Exits, Cleanups;
         public Exception ExitFails;
@@ -73,6 +78,8 @@ public class UpdateControllerTests
 
         public Harness()
         {
+            Directory.CreateDirectory(StagedFolder);
+            StagedExe = Path.Combine(StagedFolder, "PadForge.exe");
             File.WriteAllText(StagedExe, "exe");
             Controller = new UpdateController(Vm, () =>
             {
@@ -122,7 +129,7 @@ public class UpdateControllerTests
         public void Dispose()
         {
             Controller.Dispose();
-            try { File.Delete(StagedExe); } catch { }
+            try { Directory.Delete(StagedFolder, recursive: true); } catch { }
         }
     }
 

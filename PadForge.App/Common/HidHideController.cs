@@ -195,6 +195,18 @@ namespace PadForge.Common
         private static readonly HashSet<string> _managedDeviceIds = new(StringComparer.OrdinalIgnoreCase);
         private static readonly object _lock = new();
 
+        /// <summary>One thread of this process talks to the control device at
+        /// a time. Every open here asks for no sharing, so two threads opening
+        /// it together refuse each other, and each refusal reads as a driver
+        /// that did not answer. The apply runs on the UI thread, a driver
+        /// install probes from a worker, and the release reads the blacklist
+        /// from the thread pool each time a batch runs, often while the
+        /// apply that queued it is still reading the list back
+        /// (HiddenControllerRelease.ReadBlacklist). Taken inside
+        /// <see cref="_lock"/> where both are held, never the other way
+        /// round.</summary>
+        private static readonly object _deviceGate = new();
+
         /// <summary>Test seam (InternalsVisibleTo PadForge.Tests): the
         /// control-device IOCTL, as (ioctl, inBuffer, outBuffer) to (ok,
         /// bytesReturned). Null in production, where <see cref="TryIo"/>
@@ -221,6 +233,81 @@ namespace PadForge.Common
         /// cfgmgr32 answers.</summary>
         internal static Func<string, string> InterfaceSeam;
 
+        /// <summary>Test seam for <see cref="ChainInstanceIds"/>: a row's HID
+        /// instance id to the chain from that node up through the parents of
+        /// the same device. Null in production, where cfgmgr32 walks the
+        /// device tree.</summary>
+        internal static Func<string, List<string>> ChainSeam;
+
+        /// <summary>Test seam for the open of the control device behind
+        /// <see cref="IsAvailable"/> and <see cref="TryProbe"/>: the Win32
+        /// error the open returns, 0 when it opens. Null in production, where
+        /// CreateFileW answers. It runs inside <see cref="_deviceGate"/>, as
+        /// the open does.</summary>
+        internal static Func<int> ControlOpenSeam;
+
+        /// <summary>Test seam for <see cref="IsInstancePresent"/>: an instance
+        /// id to whether its devnode is present. Null in production, where
+        /// cfgmgr32 answers.</summary>
+        internal static Func<string, bool> PresenceSeam;
+
+        /// <summary>Test seam for the device tree
+        /// <see cref="ExpandToBaseContainerAndChildren(string, Func{string, bool}, ICollection{string})"/>
+        /// walks: a HID instance id to its chain, base container and the
+        /// base's children, as <see cref="ComposeBlacklist"/> takes them, or
+        /// null for a node with no tree. Null in production, where cfgmgr32
+        /// walks the device tree.</summary>
+        internal static Func<string, (IReadOnlyList<PnpNode> chain, PnpNode baseContainer, IReadOnlyList<PnpNode> children)?> TreeSeam;
+
+        /// <summary>Test seam for <see cref="FindInstanceIdsByVidPid"/>: the
+        /// instance ids of the present HID-class devices. Null in production,
+        /// where setupapi lists them.</summary>
+        internal static Func<IEnumerable<string>> PresentHidNodesSeam;
+
+        /// <summary>Test seam for <see cref="CarriesXusbInterface"/>: an
+        /// instance id to whether its devnode carries the XUSB device
+        /// interface. Null in production, where cfgmgr32 answers.</summary>
+        internal static Func<string, bool> XusbInterfaceSeam;
+
+        /// <summary>Set by the test assembly for the life of its process
+        /// (PadForge.Tests HidHideOffLimits), never by the app. A test host
+        /// runs on a PC whose HidHide is installed and whose controllers are
+        /// in use. A call that lost its seam there, in a test or in a mutant
+        /// of this code, opened that PC's control device, where a write to
+        /// the blacklist hides its devices and a write to the whitelist or
+        /// the active flag changes which programs see them, and a release
+        /// with no seam for its cycle disconnected a controller
+        /// (HiddenControllerRelease.CyclePort). While this is set, a call
+        /// no seam stands in for does nothing and answers as a failed call
+        /// would: the control device does not open, as on a PC with no
+        /// HidHide, no IOCTL is sent, and no port is cycled. False in
+        /// production, where every path is as it was.</summary>
+        internal static bool SeamsOnlyForTest;
+
+        /// <summary>Test seam: told of each call that flag kept from this PC,
+        /// by a short name ("open", "ioctl 0x8001600C", "cycle" and the USB
+        /// device). The test assembly writes them to a file when asked
+        /// (HidHideOffLimits), so a test run or a mutation run can show
+        /// which calls it would have sent to the PC it ran on. Null in
+        /// production, where nothing is refused.</summary>
+        internal static Action<string> OffLimitsRefused;
+
+        /// <summary>The last line before a call that changes this PC. It
+        /// throws while <see cref="SeamsOnlyForTest"/> is set. Every path
+        /// that would take the real device over a seam refuses before it
+        /// gets here, so this is reached only when such a refusal has been
+        /// lost, and then it stops the call where a test sees it.</summary>
+        internal static void ThrowIfOffLimits(string call)
+        {
+            if (SeamsOnlyForTest)
+            {
+                OffLimitsRefused?.Invoke("past its refusal: " + call);
+                throw new InvalidOperationException(call + " is off limits in a test host, and no seam stands in for it");
+            }
+        }
+
+        private const int ERROR_FILE_NOT_FOUND = 2;
+
         /// <summary>Drops the in-process managed set, for tests that
         /// drive the sync through <see cref="IoSeam"/> from a clean
         /// slate. Production never calls it: the managed set is what
@@ -229,6 +316,16 @@ namespace PadForge.Common
         internal static void ResetManagedForTests()
         {
             lock (_lock) _managedDeviceIds.Clear();
+        }
+
+        /// <summary>Whether the id is in the managed set, the blacklist
+        /// entries PadForge counts as its own: the ones its last sync asked
+        /// for and the driver carries, or the ones it adopted from the
+        /// session before.</summary>
+        internal static bool IsManagedDevice(string instanceId)
+        {
+            if (string.IsNullOrEmpty(instanceId)) return false;
+            lock (_lock) return _managedDeviceIds.Contains(instanceId);
         }
 
         // ─────────────────────────────────────────────
@@ -242,8 +339,10 @@ namespace PadForge.Common
         {
             try
             {
-                using var handle = OpenDevice();
-                return handle != null && !handle.IsInvalid;
+                lock (_deviceGate)
+                {
+                    return OpenControlDevice(out _);
+                }
             }
             catch
             {
@@ -261,27 +360,56 @@ namespace PadForge.Common
         public static bool TryProbe(out int win32Error)
         {
             win32Error = 0;
-            // A fake driver installed through IoSeam stands in for the
-            // control device, so a test can run the apply without the real one.
-            if (IoSeam != null) return true;
             try
             {
-                var handle = CreateFileW(DevicePath, GENERIC_READ | GENERIC_WRITE, 0,
-                    IntPtr.Zero, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, IntPtr.Zero);
-                if (handle == null || handle.IsInvalid)
+                lock (_deviceGate)
                 {
-                    win32Error = Marshal.GetLastWin32Error();
-                    handle?.Dispose();
-                    return false;
+                    return OpenControlDevice(out win32Error);
                 }
-                handle.Dispose();
-                return true;
             }
             catch
             {
                 win32Error = -1;
                 return false;
             }
+        }
+
+        /// <summary>Opens the control device and closes it again, the open
+        /// behind <see cref="IsAvailable"/> and <see cref="TryProbe"/>. True
+        /// when it opened, else false with the Win32 error. The caller holds
+        /// <see cref="_deviceGate"/>. A test's <see cref="ControlOpenSeam"/>
+        /// answers in the device's place.</summary>
+        private static bool OpenControlDevice(out int win32Error)
+        {
+            win32Error = 0;
+            var open = ControlOpenSeam;
+            if (open != null)
+            {
+                win32Error = open();
+                return win32Error == 0;
+            }
+            // A fake driver installed through IoSeam stands in for the
+            // control device, so a test can run the apply without the real one.
+            if (IoSeam != null) return true;
+            if (SeamsOnlyForTest)
+            {
+                // No seam, in a test host: the answer of a PC with no
+                // HidHide, whose control device is not there.
+                OffLimitsRefused?.Invoke("open");
+                win32Error = ERROR_FILE_NOT_FOUND;
+                return false;
+            }
+            ThrowIfOffLimits("Opening HidHide's control device");
+            var handle = CreateFileW(DevicePath, GENERIC_READ | GENERIC_WRITE, 0,
+                IntPtr.Zero, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, IntPtr.Zero);
+            if (handle == null || handle.IsInvalid)
+            {
+                win32Error = Marshal.GetLastWin32Error();
+                handle?.Dispose();
+                return false;
+            }
+            handle.Dispose();
+            return true;
         }
 
         /// <summary>Read-back verification (#391): the desired instance
@@ -546,9 +674,18 @@ namespace PadForge.Common
         /// then keeps only the desired ids the driver already carries, so a
         /// held-back id is added by the next sync that allows it.</para></summary>
         public static bool SyncManagedDevices(HashSet<string> desiredIds, out List<string> added, out List<string> removed, bool allowAdditions = true)
+            => SyncManagedDevices(desiredIds, out added, out removed, out _, allowAdditions);
+
+        /// <summary>The sync above, also naming the desired ids it held back
+        /// because <paramref name="allowAdditions"/> was false. The driver
+        /// never received those, so a read-back that misses them is not a
+        /// dropped write.</summary>
+        public static bool SyncManagedDevices(HashSet<string> desiredIds, out List<string> added, out List<string> removed,
+            out List<string> heldBack, bool allowAdditions)
         {
             added = new List<string>();
             removed = new List<string>();
+            heldBack = new List<string>();
             lock (_lock)
             {
                 var list = GetBlacklist();
@@ -560,8 +697,9 @@ namespace PadForge.Common
 
                 foreach (var id in desiredIds)
                 {
-                    if (allowAdditions && !string.IsNullOrEmpty(id) && !present.Contains(id))
-                        added.Add(id);
+                    if (string.IsNullOrEmpty(id) || present.Contains(id)) continue;
+                    if (allowAdditions) added.Add(id);
+                    else heldBack.Add(id);
                 }
                 foreach (var id in _managedDeviceIds)
                 {
@@ -667,7 +805,9 @@ namespace PadForge.Common
         /// <summary>
         /// Finds all present HID device instance IDs matching the given VID/PID.
         /// Used as a fallback when a device has a synthetic path (e.g., XInput#0)
-        /// that can't be converted to a valid instance ID.
+        /// that can't be converted to a valid instance ID. HIDMaestro's nodes
+        /// and nodes PadForge reads nothing from are left out
+        /// (<see cref="IsOutsideVidPidLookup"/>).
         /// </summary>
         public static List<string> FindInstanceIdsByVidPid(ushort vendorId, ushort productId)
         {
@@ -687,6 +827,32 @@ namespace PadForge.Common
             string vidBrEdr02 = $"VID&0002{vendorId:X4}";
             string vidBrEdr01 = $"VID&0001{vendorId:X4}";
 
+            // Takes a node of this vendor and product id unless the lookup
+            // leaves it out: HIDMaestro's own, or one PadForge reads nothing
+            // from (IsOutsideVidPidLookup).
+            void Offer(string instanceId)
+            {
+                // Match standard USB format, BLE GATT format, or BT Classic BR/EDR format.
+                bool match = instanceId.Contains(vidPidUsb, StringComparison.OrdinalIgnoreCase)
+                    || (instanceId.Contains(pidBle, StringComparison.OrdinalIgnoreCase)
+                        && (instanceId.Contains(vidBle02, StringComparison.OrdinalIgnoreCase)
+                            || instanceId.Contains(vidBle01, StringComparison.OrdinalIgnoreCase)
+                            || instanceId.Contains(vidBrEdr02, StringComparison.OrdinalIgnoreCase)
+                            || instanceId.Contains(vidBrEdr01, StringComparison.OrdinalIgnoreCase)));
+
+                if (match && !IsOutsideVidPidLookup(instanceId))
+                    result.Add(instanceId);
+            }
+
+            var presentSeam = PresentHidNodesSeam;
+            if (presentSeam != null)
+            {
+                foreach (string instanceId in presentSeam())
+                    if (!string.IsNullOrEmpty(instanceId)) Offer(instanceId);
+                result.Sort(StringComparer.OrdinalIgnoreCase);
+                return result;
+            }
+
             var guid = GUID_DEVCLASS_HIDCLASS;
             IntPtr devInfoSet = SetupDiGetClassDevsW(ref guid, IntPtr.Zero, IntPtr.Zero, DIGCF_PRESENT);
             if (devInfoSet == (IntPtr)(-1)) return result;
@@ -702,18 +868,7 @@ namespace PadForge.Common
                     if (SetupDiGetDeviceInstanceIdW(devInfoSet, ref devInfoData, buffer, (uint)buffer.Length, out _))
                     {
                         int nullIdx = Array.IndexOf(buffer, '\0');
-                        string instanceId = nullIdx >= 0 ? new string(buffer, 0, nullIdx) : new string(buffer);
-
-                        // Match standard USB format, BLE GATT format, or BT Classic BR/EDR format.
-                        bool match = instanceId.Contains(vidPidUsb, StringComparison.OrdinalIgnoreCase)
-                            || (instanceId.Contains(pidBle, StringComparison.OrdinalIgnoreCase)
-                                && (instanceId.Contains(vidBle02, StringComparison.OrdinalIgnoreCase)
-                                    || instanceId.Contains(vidBle01, StringComparison.OrdinalIgnoreCase)
-                                    || instanceId.Contains(vidBrEdr02, StringComparison.OrdinalIgnoreCase)
-                                    || instanceId.Contains(vidBrEdr01, StringComparison.OrdinalIgnoreCase)));
-
-                        if (match && !IsHidMaestroDevice(instanceId))
-                            result.Add(instanceId);
+                        Offer(nullIdx >= 0 ? new string(buffer, 0, nullIdx) : new string(buffer));
                     }
                 }
             }
@@ -748,9 +903,30 @@ namespace PadForge.Common
         /// Uses the canonical DEVPKEY_Device_Manufacturer = "HIDMaestro"
         /// property written by every HIDMaestro INF. Nothing else on a
         /// Windows system reports that manufacturer string.
+        ///
+        /// A composite persona has no such marker. It is told by where it
+        /// sits, under the usbip-win2 host controller, together with one of
+        /// two things: HIDMaestro's own serial on its USB device, or a vendor
+        /// and product id of a persona PadForge can own
+        /// (<see cref="IsHidMaestroChain"/>). That host controller also
+        /// carries real pads attached from another machine, and such a pad
+        /// is not HIDMaestro's. Whether PadForge reads it, and so whether
+        /// the lookup offers it, is a second question
+        /// (<see cref="IsOutsideVidPidLookup"/>).
         /// </summary>
         /// <summary>Public alias so callers scrubbing stale cached entries can filter.</summary>
         public static bool IsHidMaestroDeviceInstance(string instanceId) => IsHidMaestroDevice(instanceId);
+
+        /// <summary>One devnode on the walk from a node up through its
+        /// parents, as the HIDMaestro test reads it.</summary>
+        internal readonly record struct OwnerHop(string InstanceId, IReadOnlyList<string> HardwareIds, string Service, string Manufacturer);
+
+        /// <summary>Test seam for the walk behind
+        /// <see cref="IsHidMaestroDeviceInstance"/>: an instance id to its
+        /// hops, the node itself first, or null for a node that is not
+        /// present. Null in production, where cfgmgr32 walks the device
+        /// tree.</summary>
+        internal static Func<string, IEnumerable<OwnerHop>> OwnerChainSeam;
 
         private static bool IsHidMaestroDevice(string instanceId)
         {
@@ -761,91 +937,212 @@ namespace PadForge.Common
 
             // If the device isn't present in PnP right now, the fast-path
             // check above is all we can do.
-            if (CM_Locate_DevNodeW(out uint devInst, instanceId, 0) != 0)
-                return false;
+            var hops = OwnerChainOf(instanceId);
+            if (hops == null) return false;
 
-            // Depth-0 hardware ID check: every HIDMaestro HID child has
-            // "HID\HIDMaestro" in its Hardware IDs. Most reliable single
-            // call — catches all profiles immediately.
-            if (HasHidMaestroHardwareId(devInst))
-                return true;
+            return IsHidMaestroChain(hops, () => PersonaInScope(instanceId));
+        }
 
-            // Walk the parent chain. At each level test the INSTANCE ID
-            // string, the manufacturer registry value, the HARDWARE IDS,
-            // and the driver service. Catching any one lets us filter
-            // HIDMaestro-parented HID children correctly regardless of
-            // whether the MFG property read succeeds (char[] marshalling of
-            // CM_Get_DevNode_Registry_Property can silently return empty for
-            // some devices; the string check is the reliable backstop).
-            //
-            // The hardware-id and service legs are the composite USB persona
-            // (#391 follow-up). A persona enumerates through the REAL USB
-            // stack (vhci, UDE, usbccgp, hidusb) and every identifier on it
-            // is genuine Sony by design, so neither the instance ids nor the
-            // manufacturer name anywhere on its path say HIDMaestro. The ONE
-            // marker is an additive hardware id on the emulated host
-            // controller, ROOT\HIDMAESTRO_UDE (HM#42, v1.4.3), four hops up
-            // from the persona's HID interface, with the usbip2_ude service
-            // as the fallback for a pre-1.4.3 driver. This mirrors
-            // InputManager.IsOnUsbipVhci, the guard that keeps PadForge from
-            // ingesting its own persona. Without these legs the VID/PID sweep
-            // that hides a physical DualSense also hid the virtual one the
-            // slot had just created (the reporter's r3503 trace: a second
-            // 054C:0CE6 tree at depth 3 and 4 swept two seconds after the
-            // PlayStation slot's persona attached).
+        /// <summary>The walk from a node up through its parents, the node
+        /// itself first, or null for a node that is not present.</summary>
+        private static IEnumerable<OwnerHop> OwnerChainOf(string instanceId)
+        {
+            var seam = OwnerChainSeam;
+            if (seam != null) return seam(instanceId);
+            return CM_Locate_DevNodeW(out uint devInst, instanceId, 0) != 0 ? null : WalkOwnerChain(devInst);
+        }
+
+        /// <summary>Whether the lookup by vendor and product id leaves a
+        /// node out. It offers the nodes of real devices PadForge reads, so
+        /// it leaves out a node that is HIDMaestro's
+        /// (<see cref="IsHidMaestroChain"/>) and a node PadForge reads
+        /// nothing from (<see cref="ReadersDrop"/>).
+        ///
+        /// <para>The second matters under a usbip-win2 host controller
+        /// HIDMaestro has stamped. A pad attached there from another machine
+        /// is a real device, but the readers drop it with the personas, so
+        /// PadForge shows no row for it. Offered by the lookup, it counted
+        /// as a second device of its model and a local pad lost its hide
+        /// (InputService.HidHideSiblingSweepAllowed), or a local pad's row
+        /// hid it and kept its node. A node of the model that is not present
+        /// is judged by its own id alone, as before.</para></summary>
+        internal static bool IsOutsideVidPidLookup(string instanceId)
+        {
+            if (string.IsNullOrEmpty(instanceId)) return false;
+            if (MatchesHidMaestroPattern(instanceId)) return true;
+
+            var walk = OwnerChainOf(instanceId);
+            if (walk == null) return false;
+            // Both tests read the walk, so it is made once.
+            var hops = walk as IReadOnlyList<OwnerHop> ?? new List<OwnerHop>(walk);
+
+            return IsHidMaestroChain(hops, () => PersonaInScope(instanceId))
+                || ReadersDrop(hops, CarriesXusbInterface);
+        }
+
+        /// <summary>Whether PadForge's readers drop the node a walk starts
+        /// at, so that PadForge reads nothing from it: the walks of the SDL
+        /// fork and the OpenXInput fork, read where the identity of an
+        /// XInput pad reads them too
+        /// (<see cref="PadForge.Engine.HidMaestroAncestry.ReadersDrop"/>).
+        ///
+        /// <para>SDL's GameInput backend makes no such test
+        /// (SDL_gameinputjoystick.cpp:177-307), so PadForge reads what it
+        /// lists wherever it sits. With the hints PadForge sets it lists
+        /// only the instruments of its raw report table (lines 238-242 and
+        /// 389-424, SDL_gameinput_rawtype.h:43-99). Those are Xbox One
+        /// instruments, which Windows puts under xboxgip like an Xbox One
+        /// pad, where neither walk reaches the stamp.</para></summary>
+        internal static bool ReadersDrop(IReadOnlyList<OwnerHop> hops, Func<string, bool> carriesXusb)
+            => hops != null && PadForge.Engine.HidMaestroAncestry.ReadersDrop(
+                new List<PadForge.Engine.AncestryHop>(AncestryHops(hops)), carriesXusb);
+
+        /// <summary>Whether a devnode carries a present device interface of
+        /// the XUSB class, the one OpenXInput lists
+        /// (<see cref="PadForge.Engine.HidMaestroAncestry.CarriesXusbInterface"/>).
+        /// A test's <see cref="XusbInterfaceSeam"/> answers in its
+        /// place.</summary>
+        private static bool CarriesXusbInterface(string instanceId)
+        {
+            var seam = XusbInterfaceSeam;
+            return seam != null ? seam(instanceId) : PadForge.Engine.HidMaestroAncestry.CarriesXusbInterface(instanceId);
+        }
+
+        /// <summary>The HIDMaestro test on a walk from a node up through its
+        /// parents, the node itself first.
+        ///
+        /// <para>Three markers name a HIDMaestro device wherever it sits,
+        /// and any one settles it: HIDMaestro in an instance id (or one of
+        /// its ROOT\VID_ enumerators), HIDMaestro in a hardware id, or
+        /// HIDMaestro as the manufacturer. Every HIDMaestro HID child
+        /// carries HID\HIDMaestro in its hardware ids and the node above it
+        /// carries root\HIDMaestro, so the test holds whether or not the
+        /// manufacturer read succeeds (char[] marshalling of
+        /// CM_Get_DevNode_Registry_Property can silently return empty for
+        /// some devices).</para>
+        ///
+        /// <para>A composite USB persona carries none of them (#391
+        /// follow-up). It enumerates through the REAL USB stack (vhci, UDE,
+        /// usbccgp, hidusb) under its model's own vendor and product ids, so
+        /// no instance id, hardware id or manufacturer name on its path says
+        /// HIDMaestro. Two things set it apart. It sits under the usbip-win2
+        /// emulated host controller, which HIDMaestro stamps with the
+        /// hardware id ROOT\HIDMAESTRO_UDE (HM#42, v1.4.3), four hops up
+        /// from the persona's HID interface, and whose service is
+        /// usbip2_ude where the stamp is missing. And it serves a USB serial
+        /// (HM#60): HIDMaestro's own, HM and twelve hex digits, unless its
+        /// profile carries a captured one, so Windows names its USB device
+        /// USB\VID_054C&amp;PID_0CE6\HM0123456789AB
+        /// (HidMaestroAncestry.IsPersonaUsbInstanceId). Without this leg the
+        /// VID/PID sweep that hides a physical DualSense also hid the
+        /// virtual one the slot had just created (the reporter's r3503
+        /// trace: a second 054C:0CE6 tree at depth 3 and 4 swept two seconds
+        /// after the PlayStation slot's persona attached).</para>
+        ///
+        /// <para>That host controller carries every device attached through
+        /// usbip-win2, a real pad forwarded from another machine included,
+        /// so its stamp and its service name the transport and not the
+        /// owner. Under it, a node at or below a USB device named by
+        /// HIDMaestro's serial is a persona, whichever session made it and
+        /// for as long as Windows lists it. The id scope ends
+        /// InputManager.PersonaRetireGraceMs after a persona is disposed,
+        /// Windows can list the device longer, and such a persona once read
+        /// as a real pad of its model here. Any other node under the host
+        /// controller is a persona only while
+        /// <paramref name="personaInScope"/> says one of its vendor and
+        /// product id can be PadForge's own. That covers the Steam Deck's
+        /// persona, whose serial is a captured one, and it takes a real pad
+        /// of the model of a live persona with it, since nothing tells the
+        /// two apart.</para>
+        ///
+        /// <para>The instance ids, the hardware ids and the host controller
+        /// are read by the rule Step 1's walk and the identity of an XInput
+        /// pad read on the same hops
+        /// (<see cref="PadForge.Engine.HidMaestroAncestry.IsHidMaestroWalk"/>,
+        /// whose classification is <see cref="PadForge.Engine.HidMaestroAncestry.Classify"/>):
+        /// the host controller's stamp against every other HIDMaestro id, the
+        /// persona serial below it, the device's own node first and nine
+        /// nodes at most. The hiding side has no copy of that rule, so it
+        /// cannot judge a node one way while Step 1 judges the device it
+        /// opens the other (InputManager.SelfVirtualSuppressions.PassOver).
+        /// The manufacturer is the marker the hiding side reads alone, where
+        /// Step 1 reads the device's path and serial.</para></summary>
+        internal static bool IsHidMaestroChain(IEnumerable<OwnerHop> hops, Func<bool> personaInScope)
+        {
+            if (hops == null) return false;
+            // Both readings take the walk, so it is made once.
+            var walk = hops as IReadOnlyList<OwnerHop> ?? new List<OwnerHop>(hops);
+            foreach (var hop in walk)
+            {
+                if (string.Equals(hop.Manufacturer, "HIDMaestro", StringComparison.OrdinalIgnoreCase))
+                    return true;
+            }
+            // The serial does not settle a node under the host controller
+            // alone, so the rule asks the scope.
+            return PadForge.Engine.HidMaestroAncestry.IsHidMaestroWalk(
+                new List<PadForge.Engine.AncestryHop>(AncestryHops(walk)), personaInScope);
+        }
+
+        /// <summary>The hops of a walk as the shared rule reads
+        /// them.</summary>
+        private static IEnumerable<PadForge.Engine.AncestryHop> AncestryHops(IEnumerable<OwnerHop> walk)
+        {
+            foreach (var hop in walk)
+                yield return new PadForge.Engine.AncestryHop(hop.InstanceId, hop.HardwareIds, hop.Service);
+        }
+
+        /// <summary>Test seam for <see cref="PersonaInScope"/>: a vendor and
+        /// product id to whether a composite persona of that model can be
+        /// PadForge's own. Null in production, where
+        /// InputManager.ChecksUsbipAncestry answers.</summary>
+        internal static Func<ushort, ushort, bool> PersonaScopeSeam;
+
+        /// <summary>Whether a node under the usbip-win2 host controller, with
+        /// no USB device named by HIDMaestro's serial on the way up, can be
+        /// one of PadForge's own composite personas: a persona of its vendor
+        /// and product id is live, being created, was disposed within the
+        /// grace, or could be left from the last session while the launch
+        /// sweep runs (InputManager.ChecksUsbipAncestry). Step 1 asks the
+        /// same of a device it finds there with no such serial
+        /// (InputManager.SelfVirtualSuppressions.PassOver). A persona is a
+        /// USB device, so each of its nodes carries the
+        /// VID_xxxx&amp;PID_yyyy pair, and a node without one is no
+        /// persona.</summary>
+        private static bool PersonaInScope(string instanceId)
+        {
+            string token = VidPidToken(instanceId);
+            if (token == null) return false;
+            // "VID_xxxx&PID_yyyy", the form VidPidToken writes.
+            ushort vendorId = Convert.ToUInt16(token.Substring(4, 4), 16);
+            ushort productId = Convert.ToUInt16(token.Substring(13, 4), 16);
+            var seam = PersonaScopeSeam;
+            return seam != null
+                ? seam(vendorId, productId)
+                : PadForge.Common.Input.InputManager.ChecksUsbipAncestry(vendorId, productId);
+        }
+
+        /// <summary>The live walk: the node and up to fifteen of its
+        /// parents.</summary>
+        private static IEnumerable<OwnerHop> WalkOwnerChain(uint devInst)
+        {
             var idBuf = new System.Text.StringBuilder(512);
             for (int depth = 0; depth < 16; depth++)
             {
-                // --- parent instance ID string check ---
                 idBuf.Clear();
                 idBuf.EnsureCapacity(512);
-                if (CM_Get_Device_IDW(devInst, idBuf, idBuf.Capacity, 0) == 0)
-                {
-                    string curId = idBuf.ToString();
-                    if (MatchesHidMaestroPattern(curId))
-                        return true;
-                }
-
-                // --- hardware ids + service (the persona's host controller) ---
-                if (depth > 0 && HasHidMaestroHardwareId(devInst))
-                    return true;
-                if (string.Equals(GetDevNodeService(devInst), "usbip2_ude", StringComparison.OrdinalIgnoreCase))
-                    return true;
-
-                // --- manufacturer property check ---
-                var mfg = new char[128];
-                int mfgLen = mfg.Length * 2;
-                if (CM_Get_DevNode_Registry_PropertyW(devInst, CM_DRP_MFG, out _, mfg, ref mfgLen, 0) == 0)
-                {
-                    int strLen = 0;
-                    while (strLen < mfg.Length && mfg[strLen] != '\0') strLen++;
-                    if (string.Equals(new string(mfg, 0, strLen),
-                                      "HIDMaestro", StringComparison.OrdinalIgnoreCase))
-                        return true;
-                }
+                string id = CM_Get_Device_IDW(devInst, idBuf, idBuf.Capacity, 0) == 0 ? idBuf.ToString() : null;
+                yield return new OwnerHop(id, ReadHardwareIds(devInst), GetDevNodeService(devInst), ReadManufacturer(devInst));
 
                 if (CM_Get_Parent(out uint parent, devInst, 0) != 0) break;
                 if (parent == 0 || parent == devInst) break;
                 devInst = parent;
             }
-            return false;
         }
 
+        /// <summary>An instance id that names HIDMaestro, by the shared rule
+        /// (<see cref="PadForge.Engine.HidMaestroAncestry.NamesHidMaestro"/>).</summary>
         private static bool MatchesHidMaestroPattern(string id)
-        {
-            if (id == null) return false;
-            if (id.IndexOf("HIDMAESTRO", StringComparison.OrdinalIgnoreCase) >= 0
-                || id.IndexOf("HMCOMPANION", StringComparison.OrdinalIgnoreCase) >= 0
-                || id.IndexOf("HMXINPUT", StringComparison.OrdinalIgnoreCase) >= 0)
-                return true;
-            // ROOT\VID_*&IG_* / ROOT\VID_*&XI_* are HIDMaestro's xinputhid
-            // and XUSB root enumerators. Real devices never root at ROOT\VID_.
-            if (id.StartsWith(@"ROOT\VID_", StringComparison.OrdinalIgnoreCase)
-                && (id.IndexOf("&IG_", StringComparison.OrdinalIgnoreCase) >= 0
-                    || id.IndexOf("&XI_", StringComparison.OrdinalIgnoreCase) >= 0))
-                return true;
-            return false;
-        }
+            => PadForge.Engine.HidMaestroAncestry.NamesHidMaestro(id);
 
         [DllImport("cfgmgr32.dll", CharSet = CharSet.Unicode)]
         private static extern int CM_Get_Device_IDW(uint devInst, System.Text.StringBuilder buffer, int len, uint flags);
@@ -858,13 +1155,16 @@ namespace PadForge.Common
         private const uint CM_DRP_HARDWAREID = 0x02;
         private const uint CM_DRP_MFG = 0x0D;
 
-        private static bool HasHidMaestroHardwareId(uint devInst)
+        /// <summary>The devnode's hardware ids, empty when they do not
+        /// read.</summary>
+        private static List<string> ReadHardwareIds(uint devInst)
         {
+            var ids = new List<string>();
             var buffer = new char[1024];
             int length = buffer.Length * 2;
             if (CM_Get_DevNode_Registry_PropertyW(devInst, CM_DRP_HARDWAREID,
                     out _, buffer, ref length, 0) != 0)
-                return false;
+                return ids;
 
             int charCount = length / 2;
             int start = 0;
@@ -873,13 +1173,24 @@ namespace PadForge.Common
                 if (buffer[i] == '\0')
                 {
                     if (i == start) break;
-                    var id = new string(buffer, start, i - start);
-                    if (id.IndexOf("HIDMaestro", StringComparison.OrdinalIgnoreCase) >= 0)
-                        return true;
+                    ids.Add(new string(buffer, start, i - start));
                     start = i + 1;
                 }
             }
-            return false;
+            return ids;
+        }
+
+        /// <summary>The devnode's manufacturer string, or null when it does
+        /// not read.</summary>
+        private static string ReadManufacturer(uint devInst)
+        {
+            var mfg = new char[128];
+            int mfgLen = mfg.Length * 2;
+            if (CM_Get_DevNode_Registry_PropertyW(devInst, CM_DRP_MFG, out _, mfg, ref mfgLen, 0) != 0)
+                return null;
+            int strLen = 0;
+            while (strLen < mfg.Length && mfg[strLen] != '\0') strLen++;
+            return new string(mfg, 0, strLen);
         }
 
         /// <summary>
@@ -1093,6 +1404,14 @@ namespace PadForge.Common
             // got blacklisted anyway and never reached the kept list.
             List<string> PrimaryOnly() =>
                 ComposeBlacklist(hidInstanceId, null, default, null, keepOut, keptOut);
+
+            var seam = TreeSeam;
+            if (seam != null)
+            {
+                return seam(hidInstanceId) is { } tree
+                    ? ComposeBlacklist(hidInstanceId, tree.chain, tree.baseContainer, tree.children, keepOut, keptOut)
+                    : PrimaryOnly();
+            }
 
             if (CM_Locate_DevNodeW(out uint hidDevInst, hidInstanceId, CM_LOCATE_DEVNODE_PHANTOM) != CR_SUCCESS)
                 return PrimaryOnly();
@@ -1324,6 +1643,8 @@ namespace PadForge.Common
         {
             var result = new List<string>();
             if (string.IsNullOrEmpty(hidInstanceId)) return result;
+            var seam = ChainSeam;
+            if (seam != null) return seam(hidInstanceId) ?? new List<string> { hidInstanceId };
             result.Add(hidInstanceId);
             try
             {
@@ -1423,9 +1744,27 @@ namespace PadForge.Common
         /// VID and PID, as <see cref="SameDeviceScope"/> judges it), must
         /// carry no second controller (a receiver would drop every pad on
         /// it), and must have been connected longer than
-        /// <see cref="ReleaseArrivalGrace"/>.</para></summary>
+        /// <see cref="ReleaseArrivalGrace"/> when its ids were handed to the
+        /// release (<paramref name="sinceArrival"/>).</para>
+        ///
+        /// <para>The controllers a USB device carries are the larger of two
+        /// counts: its XUSB and XboxComposite nodes
+        /// (<paramref name="controllerFunctions"/>), and the controller rows
+        /// PadForge shows on it (<paramref name="controllerRowsOn"/>, given
+        /// the USB device's instance id). The second count is what finds a
+        /// receiver with no Xbox node, such as a Steam Controller dongle,
+        /// whose pads are HID interfaces of the one USB device
+        /// (SDL_hidapi_steam.c). On a node the engine has no row online for,
+        /// it takes the rows that remember the node while Windows lists it
+        /// as present (InputService.CountControllerRowsPerUsbDevice).</para></summary>
         internal static string PickUsbDeviceToCycle(IReadOnlyList<ReleaseHop> chain, int controllerFunctions,
             TimeSpan? sinceArrival, out string reason)
+            => PickUsbDeviceToCycle(chain, controllerFunctions, null, sinceArrival, out reason);
+
+        /// <summary>The decision above, with PadForge's controller rows per
+        /// USB device counted as well. Null counts no rows.</summary>
+        internal static string PickUsbDeviceToCycle(IReadOnlyList<ReleaseHop> chain, int controllerFunctions,
+            Func<string, int> controllerRowsOn, TimeSpan? sinceArrival, out string reason)
         {
             reason = null;
             if (chain == null || chain.Count == 0) { reason = "not present"; return null; }
@@ -1462,38 +1801,38 @@ namespace PadForge.Common
                     && string.Equals(token, VidPidToken(top.InstanceId), StringComparison.OrdinalIgnoreCase)
                 : top.ContainerId == target.ContainerId;
             if (!sameDevice) { reason = "the USB device is not the controller"; return null; }
-            if (controllerFunctions > 1) { reason = "the USB device carries more than one controller"; return null; }
+            int controllers = Math.Max(controllerFunctions, controllerRowsOn?.Invoke(top.InstanceId) ?? 0);
+            if (controllers > 1) { reason = "the USB device carries more than one controller"; return null; }
             if (sinceArrival is TimeSpan age && age < ReleaseArrivalGrace) { reason = "connected moments ago"; return null; }
             return top.InstanceId;
         }
 
+        /// <summary>Test seam for the walk behind
+        /// <see cref="FindUsbDeviceToCycle"/>: a hidden instance id to its
+        /// chain up to the hub, the count of XUSB and XboxComposite nodes on
+        /// the USB device, and when that device last arrived, or null for a
+        /// node that is not present. Null in production, where cfgmgr32
+        /// walks the device tree.</summary>
+        internal static Func<string, (IReadOnlyList<ReleaseHop> chain, int controllerFunctions, DateTime? arrivedUtc)?> ReleaseWalkSeam;
+
         /// <summary>The live walk behind <see cref="PickUsbDeviceToCycle"/>
-        /// for one hidden instance id.</summary>
-        internal static string FindUsbDeviceToCycle(string hiddenInstanceId, out string reason)
+        /// for one hidden instance id. <paramref name="controllerRowsOn"/>
+        /// counts PadForge's controller rows on a USB device, or is null.
+        /// <paramref name="handedOverUtc"/> is when the id was handed to the
+        /// release, which is what the arrival grace is measured against
+        /// (<see cref="ArrivalAge"/>).</summary>
+        internal static string FindUsbDeviceToCycle(string hiddenInstanceId, Func<string, int> controllerRowsOn,
+            DateTime handedOverUtc, out string reason)
         {
             reason = "not present";
             if (string.IsNullOrEmpty(hiddenInstanceId)) return null;
             try
             {
-                if (CM_Locate_DevNodeW(out uint node, hiddenInstanceId, 0) != CR_SUCCESS) return null;
-                var chain = new List<ReleaseHop>();
-                var nodes = new List<uint>();
-                uint cur = node;
-                for (int depth = 0; depth < MaxDevnodeDepth; depth++)
-                {
-                    var hop = new ReleaseHop(GetInstanceId(cur), GetClassGuid(cur), GetContainerId(cur), GetDevNodeService(cur));
-                    chain.Add(hop);
-                    nodes.Add(cur);
-                    if (depth > 0 && hop.Service != null
-                        && hop.Service.StartsWith("USBHUB", StringComparison.OrdinalIgnoreCase)) break;
-                    if (!TryParent(cur, out uint parent)) break;
-                    cur = parent;
-                }
-                int top = chain.FindIndex(1, h => h.Service != null
-                    && h.Service.StartsWith("USBHUB", StringComparison.OrdinalIgnoreCase)) - 1;
-                int functions = top >= 0 ? CountControllerFunctions(nodes[top]) : 0;
-                TimeSpan? age = top >= 0 ? SinceLastArrival(nodes[top]) : null;
-                return PickUsbDeviceToCycle(chain, functions, age, out reason);
+                var seam = ReleaseWalkSeam;
+                var walk = seam != null ? seam(hiddenInstanceId) : WalkToUsbHub(hiddenInstanceId);
+                if (walk is not { } found) return null;
+                return PickUsbDeviceToCycle(found.chain, found.controllerFunctions, controllerRowsOn,
+                    ArrivalAge(found.arrivedUtc, handedOverUtc), out reason);
             }
             catch (Exception ex)
             {
@@ -1502,9 +1841,42 @@ namespace PadForge.Common
             }
         }
 
+        private static (IReadOnlyList<ReleaseHop> chain, int controllerFunctions, DateTime? arrivedUtc)? WalkToUsbHub(string hiddenInstanceId)
+        {
+            if (CM_Locate_DevNodeW(out uint node, hiddenInstanceId, 0) != CR_SUCCESS) return null;
+            var chain = new List<ReleaseHop>();
+            var nodes = new List<uint>();
+            uint cur = node;
+            for (int depth = 0; depth < MaxDevnodeDepth; depth++)
+            {
+                var hop = new ReleaseHop(GetInstanceId(cur), GetClassGuid(cur), GetContainerId(cur), GetDevNodeService(cur));
+                chain.Add(hop);
+                nodes.Add(cur);
+                if (depth > 0 && hop.Service != null
+                    && hop.Service.StartsWith("USBHUB", StringComparison.OrdinalIgnoreCase)) break;
+                if (!TryParent(cur, out uint parent)) break;
+                cur = parent;
+            }
+            int top = chain.FindIndex(1, h => h.Service != null
+                && h.Service.StartsWith("USBHUB", StringComparison.OrdinalIgnoreCase)) - 1;
+            int functions = top >= 0 ? CountControllerFunctions(nodes[top]) : 0;
+            DateTime? arrived = top >= 0 ? LastArrival(nodes[top]) : null;
+            return (chain, functions, arrived);
+        }
+
+        /// <summary>How long a device had been connected at a given moment,
+        /// or null when its arrival date does not read. Negative for a
+        /// device that arrived after that moment, which the grace leaves
+        /// alone like one that arrived just before it: it came back under
+        /// its hide.</summary>
+        internal static TimeSpan? ArrivalAge(DateTime? arrivedUtc, DateTime asOfUtc)
+            => arrivedUtc is DateTime arrived ? asOfUtc - arrived : null;
+
         /// <summary>The XUSB and XboxComposite nodes in a USB device's subtree,
         /// itself included. Each is one game controller, so more than one means
-        /// a receiver.</summary>
+        /// a receiver. A receiver whose pads are HID interfaces has no such
+        /// node, and PadForge's own controller rows count those
+        /// (<see cref="PickUsbDeviceToCycle(IReadOnlyList{ReleaseHop}, int, Func{string, int}, TimeSpan?, out string)"/>).</summary>
         private static int CountControllerFunctions(uint usbDevice)
         {
             int count = 0;
@@ -1527,7 +1899,10 @@ namespace PadForge.Common
             return count;
         }
 
-        private static TimeSpan? SinceLastArrival(uint devInst)
+        /// <summary>When the node last arrived, UTC
+        /// (DEVPKEY_Device_LastArrivalDate), or null when the date does not
+        /// read.</summary>
+        private static DateTime? LastArrival(uint devInst)
         {
             byte[] buf = new byte[8];
             uint size = (uint)buf.Length;
@@ -1536,8 +1911,33 @@ namespace PadForge.Common
             if (rc != CR_SUCCESS || type != DEVPROP_TYPE_FILETIME || size != 8) return null;
             long fileTime = BitConverter.ToInt64(buf, 0);
             if (fileTime <= 0) return null;
-            var age = DateTime.UtcNow - DateTime.FromFileTimeUtc(fileTime);
-            return age < TimeSpan.Zero ? TimeSpan.Zero : age;
+            return DateTime.FromFileTimeUtc(fileTime);
+        }
+
+        /// <summary>Test seam for <see cref="LastArrivalUtc"/>. Null in
+        /// production, where cfgmgr32 answers.</summary>
+        internal static Func<string, DateTime?> ArrivalSeam;
+
+        /// <summary>When the device with this instance id last arrived, UTC,
+        /// or null when it is not present or the date does not read. Every
+        /// node carries its own date, and a HID collection's moves with its
+        /// USB device's return. The self-check uses it to tell a controller
+        /// that is back on a new device stack from one still on the stack it
+        /// had before its port was cycled.</summary>
+        internal static DateTime? LastArrivalUtc(string instanceId)
+        {
+            var seam = ArrivalSeam;
+            if (seam != null) return seam(instanceId);
+            if (string.IsNullOrEmpty(instanceId)) return null;
+            try
+            {
+                if (CM_Locate_DevNodeW(out uint node, instanceId, 0) != CR_SUCCESS) return null;
+                return LastArrival(node);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         private static Guid GetClassGuid(uint devInst)
@@ -1581,6 +1981,8 @@ namespace PadForge.Common
         internal static bool IsInstancePresent(string instanceId)
         {
             if (string.IsNullOrEmpty(instanceId)) return false;
+            var seam = PresenceSeam;
+            if (seam != null) return seam(instanceId);
             try
             {
                 return CM_Locate_DevNodeW(out _, instanceId, 0) == CR_SUCCESS;
@@ -1777,6 +2179,7 @@ namespace PadForge.Common
 
         private static SafeFileHandle OpenDevice()
         {
+            ThrowIfOffLimits("Opening HidHide's control device");
             var handle = CreateFileW(
                 DevicePath,
                 GENERIC_READ | GENERIC_WRITE,
@@ -1798,22 +2201,38 @@ namespace PadForge.Common
         /// <summary>One control-device IOCTL: through <see cref="IoSeam"/>
         /// when a test installed one, else open the driver and call
         /// DeviceIoControl. Null buffers marshal as NULL pointers with a
-        /// zero length, which is how the size probe is expressed.</summary>
+        /// zero length, which is how the size probe is expressed. Every
+        /// read and every write of HidHide's lists and flags goes through
+        /// here, so in a test host with no seam none of them reaches the
+        /// driver (<see cref="SeamsOnlyForTest"/>).</summary>
         private static bool TryIo(uint ioctl, byte[] inBuffer, byte[] outBuffer, out int bytesReturned)
         {
-            var seam = IoSeam;
-            if (seam != null)
+            // One call at a time, the seam included, so a test sees the same
+            // order the driver would (_deviceGate).
+            lock (_deviceGate)
             {
-                var r = seam(ioctl, inBuffer, outBuffer);
-                bytesReturned = r.bytes;
-                return r.ok;
-            }
+                var seam = IoSeam;
+                if (seam != null)
+                {
+                    var r = seam(ioctl, inBuffer, outBuffer);
+                    bytesReturned = r.bytes;
+                    return r.ok;
+                }
 
-            bytesReturned = 0;
-            using var handle = OpenDevice();
-            if (handle == null || handle.IsInvalid) return false;
-            return DeviceIoControl(handle, ioctl, inBuffer, inBuffer?.Length ?? 0,
-                outBuffer, outBuffer?.Length ?? 0, out bytesReturned, IntPtr.Zero);
+                bytesReturned = 0;
+                // No seam, in a test host: the call fails as it does when
+                // the control device does not open, and nothing is sent.
+                if (SeamsOnlyForTest)
+                {
+                    OffLimitsRefused?.Invoke($"ioctl 0x{ioctl:X8}");
+                    return false;
+                }
+                using var handle = OpenDevice();
+                if (handle == null || handle.IsInvalid) return false;
+                ThrowIfOffLimits("An IOCTL to HidHide's control device");
+                return DeviceIoControl(handle, ioctl, inBuffer, inBuffer?.Length ?? 0,
+                    outBuffer, outBuffer?.Length ?? 0, out bytesReturned, IntPtr.Zero);
+            }
         }
 
         /// <summary>

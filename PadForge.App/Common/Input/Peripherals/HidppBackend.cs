@@ -54,12 +54,18 @@ namespace PadForge.Common.Input.Peripherals
     /// while G HUB is not running, which drives the same devices through the
     /// LED SDK.</para>
     ///
-    /// <para>Discovery waits for a quiet second whenever something plays, so
-    /// a probe never delays a pulse. It finds any device that answers, with
-    /// no device list, and asks a silent slot again after 5, 10, then 15
-    /// seconds. On a Bolt, Unifying or LIGHTSPEED receiver it first reads
-    /// the receiver's pairing table, so a slot with no device is never asked
-    /// and never holds its rows' outputs (<see cref="HidppReceiverProtocol"/>).
+    /// <para>While a unit is linked for rumble, discovery waits for a second
+    /// with nothing playing, so a probe does not hold up rumble that comes in
+    /// bursts. Rumble that starts during a probe still waits for it: for a
+    /// receiver's pairing read that goes unanswered
+    /// (<see cref="HidppReceiverProtocol.RegisterTimeoutMs"/>), then for one
+    /// request timeout at each slot that stays silent, or up to two where a
+    /// device stops answering partway. Discovery finds any device that
+    /// answers, with no device list, and asks a silent slot again after 5,
+    /// 10, then 15 seconds. On a Bolt, Unifying or LIGHTSPEED receiver it
+    /// first reads the receiver's pairing table, so a slot with no device is
+    /// never asked and never holds its rows' outputs
+    /// (<see cref="HidppReceiverProtocol"/>).
     /// A found device is asked for its configuration every 30 seconds while
     /// quiet: one that does not answer went to sleep, and its slot reopens so
     /// the next scan finds it when it wakes.</para>
@@ -71,10 +77,16 @@ namespace PadForge.Common.Input.Peripherals
         internal const int CheckMs = 30000;
         internal const int QuietMs = 1000;
 
-        /// <summary>The worker's cadence while a unit is linked for rumble,
-        /// and while nothing is.</summary>
+        /// <summary>The worker's cadence while a row linked to a unit for
+        /// rumble holds a level above zero, and otherwise. A silent linked
+        /// unit waits the idle tick: <see cref="PeripheralOutputs.HapticsChanged"/>
+        /// wakes the worker when its rumble starts.</summary>
         internal const int ActiveTickMs = 10;
         internal const int IdleTickMs = 100;
+
+        /// <summary>How long a new worker waits for the one a timed-out Stop
+        /// left inside a probe, before it opens the collections anyway.</summary>
+        internal const int PredecessorJoinMs = 5000;
 
         /// <summary>How often a lit unit's claim and color are sent again.</summary>
         internal const int ReassertMs = 5000;
@@ -116,16 +128,25 @@ namespace PadForge.Common.Input.Peripherals
         private readonly int _idleTickMs;
         private readonly int _reassertMs;
         private readonly Func<string, byte[], int, bool> _writeOnce;
+        private readonly int _predecessorJoinMs;
         private readonly AutoResetEvent _wake = new(false);
 
         /// <summary>Each present path's container ID, looked up once per
-        /// appearance. Worker thread only.</summary>
+        /// appearance that answers it. Worker thread only.</summary>
         private readonly Dictionary<string, Guid> _containers = new(StringComparer.OrdinalIgnoreCase);
         private HidppSnapshot _snapshot = HidppSnapshot.Empty;
         private Thread _thread;
-        private volatile bool _stop;
+        private volatile WorkerRun _run;
         private int _disposed;
         private int _scans;
+        private int _passes;
+        private int _waitMs;
+        private long _scanQuietMs;
+
+        /// <summary>The newest worker thread of any instance, which the next
+        /// one waits for. Static because the collections it holds are the
+        /// machine's.</summary>
+        private static Thread s_lastWorker;
 
         public HidppBackend()
             : this(null, null, null, ActiveTickMs, IdleTickMs) { }
@@ -133,13 +154,13 @@ namespace PadForge.Common.Input.Peripherals
         /// <summary>Test seam: the enumeration (every vendor collection, the
         /// long ones and their short siblings), the channel opener (a long
         /// collection and its receiver's short one, or null), the container
-        /// lookup, the lighting re-assert interval and the one-shot writer
-        /// the crash path uses, so a bench drives the worker against scripted
-        /// channels.</summary>
+        /// lookup, the lighting re-assert interval, the one-shot writer the
+        /// crash path uses and the wait for a predecessor worker, so a bench
+        /// drives the worker against scripted channels.</summary>
         internal HidppBackend(Func<IReadOnlyList<VendorHidCollection>> enumerate,
             Func<VendorHidCollection, VendorHidCollection, IHidppChannel> open, Func<string, Guid> containerOf,
             int activeTickMs, int idleTickMs, int reassertMs = ReassertMs,
-            Func<string, byte[], int, bool> writeOnce = null)
+            Func<string, byte[], int, bool> writeOnce = null, int predecessorJoinMs = PredecessorJoinMs)
         {
             _enumerate = enumerate ?? VendorHidRuntime.Enumerate;
             _open = open ?? ((c, s) => HidppChannel.Open(c, s));
@@ -148,6 +169,7 @@ namespace PadForge.Common.Input.Peripherals
             _idleTickMs = idleTickMs;
             _reassertMs = reassertMs;
             _writeOnce = writeOnce ?? RawHidOutput.WriteOnce;
+            _predecessorJoinMs = predecessorJoinMs;
         }
 
         public HidppSnapshot Snapshot => Volatile.Read(ref _snapshot);
@@ -160,23 +182,44 @@ namespace PadForge.Common.Input.Peripherals
         /// <summary>Scans this worker ran.</summary>
         internal int ScanCount => Volatile.Read(ref _scans);
 
+        /// <summary>How long nothing had played when the last scan started,
+        /// so the test of the quiet second reads what the worker measured
+        /// and times nothing.</summary>
+        internal long ScanQuietMs => Volatile.Read(ref _scanQuietMs);
+
+        /// <summary>Passes the worker made, for the test of its cadence.</summary>
+        internal int PassCount => Volatile.Read(ref _passes);
+
+        /// <summary>The wait the worker asked for at the end of its last
+        /// pass, so the test of its cadence reads the tick it chose and
+        /// times nothing.</summary>
+        internal int WaitMs => Volatile.Read(ref _waitMs);
+
         internal bool WorkerAlive => _thread?.IsAlive == true;
 
-        /// <summary>A HID++ long collection. Mice and receivers on usage page
-        /// 0xFF00 usage 2, keyboards on 0xFF43 usage 0x0602, both with the
-        /// 20-byte report (OpenRGB LogitechControllerDetect.cpp:162-166 and
-        /// 574-587).</summary>
+        /// <summary>A HID++ long collection with the 20-byte report every
+        /// frame here is, on a usage OpenRGB's detector drives. Mice and
+        /// receivers sit on usage page 0xFF00 usage 2, keyboards on 0xFF43
+        /// usage 0x0602 (LogitechControllerDetect.cpp:162-166 and 1530), and
+        /// on 0xFF43 usage 0x0202 are the headsets OpenRGB registers over USB
+        /// (1553 and 1763-1768) and the devices paired over Bluetooth LE
+        /// (OpenLogi openlogi-hid transport.rs:181-183 and 198-202,
+        /// HIDPP_LONG_COLLECTIONS), a page OpenRGB's HID++ 2.0 detector takes
+        /// over Bluetooth with any usage (1783-1784 and 1795). The 64-byte
+        /// usage 0x0604 and the Centurion page 0xFFA0, whose frames this
+        /// channel does not speak, stay out.</summary>
         internal static bool IsHidppLong(VendorHidCollection c)
             => c.VendorId == HidppHapticProtocol.VendorId
                && c.InputReportLength == HidppHapticProtocol.LongReportLength
                && ((c.UsagePage == HidppHapticProtocol.UsagePage && c.Usage == HidppHapticProtocol.LongUsage)
-                   || (c.UsagePage == 0xFF43 && c.Usage == 0x0602));
+                   || (c.UsagePage == 0xFF43 && (c.Usage == 0x0602 || c.Usage == 0x0202)));
 
         public void Start()
         {
             if (_thread != null) return;
-            _stop = false;
-            _thread = new Thread(Worker) { IsBackground = true, Name = "PeripheralHidpp" };
+            var run = new WorkerRun();
+            _run = run;
+            _thread = new Thread(() => Worker(run)) { IsBackground = true, Name = "PeripheralHidpp" };
             _thread.Start();
             PeripheralOutputs.HapticsChanged += Wake;
             PeripheralOutputs.LightingChanged += Wake;
@@ -187,10 +230,11 @@ namespace PadForge.Common.Input.Peripherals
             PeripheralOutputs.HapticsChanged -= Wake;
             PeripheralOutputs.LightingChanged -= Wake;
             if (_thread == null) return;
-            _stop = true;
-            _wake.Set();
+            _run.Stop = true;
+            Wake();
             try { _thread.Join(3000); } catch { }
             _thread = null;
+            _run = null;
         }
 
         private void Wake()
@@ -198,26 +242,42 @@ namespace PadForge.Common.Input.Peripherals
             try { _wake.Set(); } catch (ObjectDisposedException) { }
         }
 
-        private void Worker()
+        private void Worker(WorkerRun run)
         {
+            // A worker a timed-out Stop left inside a probe still holds the
+            // collections, and its finally hands its units back, so a new
+            // worker waits for it before it opens anything: the bounded join
+            // SensaHapticsService makes for its predecessor and the orphan
+            // wait LedSdkBackend makes. A predecessor that never comes back
+            // holds the new worker only for that bound.
+            var previous = Interlocked.Exchange(ref s_lastWorker, Thread.CurrentThread);
+            if (previous != null && previous != Thread.CurrentThread && previous.IsAlive
+                && !previous.Join(_predecessorJoinMs))
+                PadForge.Engine.SdlDiagLog.WriteLine(
+                    $"PERIPHERAL HID++ previous worker still running after {_predecessorJoinMs} ms, starting anyway");
             var channels = new Dictionary<string, Channel>(StringComparer.OrdinalIgnoreCase);
             var states = new Dictionary<string, HidppPathState>(StringComparer.OrdinalIgnoreCase);
             try
             {
                 long start = Environment.TickCount64;
                 long nextScan = start, nextCheck = start + CheckMs, quietSince = start;
-                while (!_stop)
+                while (!run.Stop)
                 {
+                    Interlocked.Increment(ref _passes);
                     long now = Environment.TickCount64;
                     var links = PeripheralOutputs.Links;
-                    bool anyLinked = PlayHaptics(channels, states, links, now, out bool playing, ref nextScan);
+                    bool active = PlayHaptics(channels, states, links, now, out bool playing, out bool linked, ref nextScan);
                     if (playing) quietSince = now;
-                    PaintLighting(channels, states, links, now, ref nextScan);
+                    PaintLighting(run, channels, states, links, now, ref nextScan);
                     bool quiet = now - quietSince >= QuietMs;
 
-                    if (now >= nextScan && (!playing || quiet))
+                    // While a unit is linked for rumble, a scan waits for a
+                    // second with nothing playing, so a probe does not hold
+                    // up rumble that comes in bursts.
+                    if (now >= nextScan && (!linked || quiet))
                     {
-                        Scan(channels, states, now);
+                        Volatile.Write(ref _scanQuietMs, now - quietSince);
+                        Scan(run, channels, states, now);
                         // A slot still waiting for its device, one asleep at
                         // launch or one that went to sleep, is asked again on
                         // its own backoff, so the scan comes as often as that
@@ -229,12 +289,17 @@ namespace PadForge.Common.Input.Peripherals
                     {
                         // A device that went to sleep is asked for again on
                         // the fast cadence, so it is found soon after it wakes.
-                        if (Check(channels, states))
+                        if (Check(run, channels, states))
                             nextScan = Math.Min(nextScan, Environment.TickCount64 + FirstScanMs);
                         nextCheck = Environment.TickCount64 + CheckMs;
                     }
 
-                    _wake.WaitOne(anyLinked ? _activeTickMs : _idleTickMs);
+                    int wait = active ? _activeTickMs : _idleTickMs;
+                    Volatile.Write(ref _waitMs, wait);
+                    // A Dispose whose Stop gave up its join releases the wake
+                    // under a worker still finishing a probe, which ends here.
+                    try { _wake.WaitOne(wait); }
+                    catch (ObjectDisposedException) when (run.Stop) { break; }
                 }
             }
             catch (Exception ex)
@@ -257,7 +322,7 @@ namespace PadForge.Common.Input.Peripherals
         }
 
         /// <summary>One pass of colors over every unit lit directly.</summary>
-        private void PaintLighting(Dictionary<string, Channel> channels, Dictionary<string, HidppPathState> states,
+        private void PaintLighting(WorkerRun run, Dictionary<string, Channel> channels, Dictionary<string, HidppPathState> states,
             LinkTable links, long now, ref long nextScan)
         {
             List<string> dead = null;
@@ -291,7 +356,7 @@ namespace PadForge.Common.Input.Peripherals
                         // is claimed and the hand-back does not know it. A
                         // claim that then fails is handed back for nothing.
                         // A stopping worker claims nothing more.
-                        if (_stop) return;
+                        if (run.Stop) return;
                         if (!light.Claimed) NoteClaimed(channel.Io.Path, unit.DeviceIndex, unit.RgbIndex);
                         if (!light.Claimed || reassert)
                         {
@@ -385,7 +450,8 @@ namespace PadForge.Common.Input.Peripherals
         /// RawHidOutput.Write.</summary>
         public void ReleaseClaimedNow()
         {
-            _stop = true;
+            var run = _run;
+            if (run != null) run.Stop = true;
             Wake();
             try { _thread?.Join(PanicJoinMs); } catch { }
             foreach (var (path, deviceIndex, rgbIndex) in Interlocked.Exchange(ref _claimed, Array.Empty<(string, byte, byte)>()))
@@ -411,13 +477,20 @@ namespace PadForge.Common.Input.Peripherals
             channel.Light.Clear();
         }
 
-        /// <summary>One pass of pulses. True when any unit is linked for
-        /// rumble, which keeps the worker on its fast tick.</summary>
+        /// <summary>One pass of pulses. <paramref name="linked"/> is set when
+        /// any unit is linked for rumble, which makes a scan wait for a quiet
+        /// second, and <paramref name="playing"/> when any unit plays a
+        /// pulse. True when a row linked to a unit holds a level above zero,
+        /// which keeps the worker on its fast tick: a level below the shaper's
+        /// first step plays nothing yet, and when it climbs into a pulse it
+        /// raises no <see cref="PeripheralOutputs.HapticsChanged"/>, so the
+        /// tick has to be fast there too.</summary>
         private bool PlayHaptics(Dictionary<string, Channel> channels, Dictionary<string, HidppPathState> states,
-            LinkTable links, long now, out bool playing, ref long nextScan)
+            LinkTable links, long now, out bool playing, out bool linked, ref long nextScan)
         {
             playing = false;
-            bool anyLinked = false;
+            linked = false;
+            bool active = false;
             List<string> dead = null;
             foreach (var pair in channels)
             {
@@ -427,7 +500,7 @@ namespace PadForge.Common.Input.Peripherals
                     if (!unit.HasHaptics) continue;
                     var path = new OutputPath(OutputFamily.HidppUnit, unit.Key);
                     if (!links.ByPath.TryGetValue(path, out var devices)) continue;
-                    anyLinked = true;
+                    linked = true;
                     float amplitude = 0f;
                     foreach (var device in devices)
                     {
@@ -436,6 +509,7 @@ namespace PadForge.Common.Input.Peripherals
                         float a = PeripheralOutputs.AmplitudeOf(device);
                         if (a > amplitude) amplitude = a;
                     }
+                    if (amplitude > 0f) active = true;
                     channel.Play.TryGetValue(unit.DeviceIndex, out var play);
                     int level = HapticRumbleShaper.Level(amplitude, play.Level);
                     if (level == 0)
@@ -469,10 +543,10 @@ namespace PadForge.Common.Input.Peripherals
                 nextScan = now;
                 Publish(channels, states);
             }
-            return anyLinked;
+            return active;
         }
 
-        private void Scan(Dictionary<string, Channel> channels, Dictionary<string, HidppPathState> states, long now)
+        private void Scan(WorkerRun run, Dictionary<string, Channel> channels, Dictionary<string, HidppPathState> states, long now)
         {
             Interlocked.Increment(ref _scans);
             var all = _enumerate();
@@ -488,7 +562,7 @@ namespace PadForge.Common.Input.Peripherals
 
             foreach (var collection in collections)
             {
-                if (_stop) return;
+                if (run.Stop) return;
                 if (!states.TryGetValue(collection.Path, out var state))
                 {
                     states[collection.Path] = state = new HidppPathState
@@ -502,7 +576,20 @@ namespace PadForge.Common.Input.Peripherals
                 {
                     try { container = _containerOf(collection.Path); }
                     catch { container = Guid.Empty; }
-                    _containers[collection.Path] = container;
+                    // A failed lookup is not kept: the next scan asks again,
+                    // and the units already found on the path take the
+                    // container once it answers. Kept, it would leave every
+                    // unit there unmatched for as long as the path stays.
+                    if (container != Guid.Empty)
+                    {
+                        _containers[collection.Path] = container;
+                        if (channels.TryGetValue(collection.Path, out var known) && known.Container == Guid.Empty)
+                        {
+                            known.Container = container;
+                            for (int i = 0; i < known.Units.Count; i++)
+                                known.Units[i] = known.Units[i] with { ContainerId = container };
+                        }
+                    }
                 }
                 // A known receiver's pairing table is read at every scan, so a
                 // device paired since the last one is found.
@@ -582,13 +669,13 @@ namespace PadForge.Common.Input.Peripherals
         /// reopens, so the next scan finds it again once it answers. A unit
         /// that answers and reports a charge has it read again. True when a
         /// slot reopened.</summary>
-        private bool Check(Dictionary<string, Channel> channels, Dictionary<string, HidppPathState> states)
+        private bool Check(WorkerRun run, Dictionary<string, Channel> channels, Dictionary<string, HidppPathState> states)
         {
             bool changed = false;
             bool reopened = false;
             foreach (var path in channels.Keys.ToList())
             {
-                if (_stop) return reopened;
+                if (run.Stop) return reopened;
                 var channel = channels[path];
                 for (int i = channel.Units.Count - 1; i >= 0; i--)
                 {

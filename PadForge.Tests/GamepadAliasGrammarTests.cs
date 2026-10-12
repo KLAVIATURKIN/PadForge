@@ -126,29 +126,25 @@ namespace PadForge.Tests
             Assert.Equal(raw.AxisTarget, alias.AxisTarget);
         }
 
-        // ── InvertOnHold modifier read (SourceEvaluator's button-like reader) ──
+        // ── InvertOnHold modifier read (the row's modifier, in Step 3) ──
 
+        /// <summary>A "Gamepad ..." name as an Invert on Hold modifier flips
+        /// its stick row while the button it resolves to is held.</summary>
         [Fact]
-        public void InvertOnHold_AliasModifier_FlipsTheInnerRead()
+        public void InvertOnHold_AliasModifier_FlipsItsRow()
         {
-            var src = new MappingSource
-            {
-                Kind = "InvertOnHold",
-                Descriptor = "Axis 0",
-                ParamModifier = "Gamepad ButtonA",
-            };
+            string pass = Guid.NewGuid().ToString();
+            var set = RowModifierHarness.Row("LeftThumbAxisX", "Axis 0", "Gamepad ButtonA");
             var state = CenteredState();
             state.Axis[0] = 65535; // full right
 
             state.Buttons[0] = false;
-            float unheld = SourceEvaluator.EvaluateForBipolarAxisTarget(
-                state, src, 0, "LeftThumbAxisX", 0, null, 0);
+            short unheld = RowModifierHarness.StickX(set, state, pass, 0);
             state.Buttons[0] = true;
-            float held = SourceEvaluator.EvaluateForBipolarAxisTarget(
-                state, src, 0, "LeftThumbAxisX", 0, null, 0);
+            short held = RowModifierHarness.StickX(set, state, pass, 0);
 
-            Assert.Equal(1f, unheld, 3);
-            Assert.Equal(-1f, held, 3);
+            Assert.True(unheld > 32000, "unheld " + unheld);
+            Assert.True(held < -32000, "held " + held);
         }
 
         // ── Balance providers receive the caller-resolved device guid ──

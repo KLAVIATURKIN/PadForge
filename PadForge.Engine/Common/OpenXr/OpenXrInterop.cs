@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Runtime.InteropServices;
 
 namespace PadForge.Engine.Common.OpenXr
@@ -76,6 +77,10 @@ namespace PadForge.Engine.Common.OpenXr
         public const int XR_SUCCESS = 0;
         public const int XR_SESSION_LOSS_PENDING = 3;
         public const int XR_EVENT_UNAVAILABLE = 4;
+        public const int XR_ERROR_INSTANCE_LOST = -13;
+        public const int XR_ERROR_SESSION_LOST = -17;
+        public const int XR_ERROR_FORM_FACTOR_UNAVAILABLE = -35;
+        public const int XR_ERROR_RUNTIME_UNAVAILABLE = -51;
 
         public const int XR_TYPE_EXTENSION_PROPERTIES = 2;
         public const int XR_TYPE_INSTANCE_CREATE_INFO = 3;
@@ -251,6 +256,32 @@ namespace PadForge.Engine.Common.OpenXr
             public ulong session;
             public int state;
             public long time;
+        }
+
+        /// <summary>The runtime will lose the instance at <c>lossTime</c>, an
+        /// XrTime (openxr.h XrEventDataInstanceLossPending).</summary>
+        [StructLayout(LayoutKind.Sequential)]
+        public struct XrEventDataInstanceLossPending
+        {
+            public int type;
+            public IntPtr next;
+            public long lossTime;
+        }
+
+        /// <summary>The origin of a reference space is about to change, as
+        /// when the user recenters (openxr.h
+        /// XrEventDataReferenceSpaceChangePending). <c>session</c> is the
+        /// session whose space changes.</summary>
+        [StructLayout(LayoutKind.Sequential)]
+        public struct XrEventDataReferenceSpaceChangePending
+        {
+            public int type;
+            public IntPtr next;
+            public ulong session;
+            public int referenceSpaceType;
+            public long changeTime;
+            public uint poseValid;
+            public XrPosef poseInPreviousSpace;
         }
 
         // ─── function pointers ───
@@ -511,6 +542,22 @@ namespace PadForge.Engine.Common.OpenXr
         [UnmanagedFunctionPointer(CallingConvention.Winapi)]
         public delegate int PFN_xrCreateActionSpace(
             ulong session, ref XrActionSpaceCreateInfo createInfo, out ulong space);
+
+        /// <summary>
+        /// A number as a log line or a handed-back answer carries it: in the
+        /// invariant culture, whatever the PC's regional format is. A result
+        /// code is negative, and the minus sign of the current culture is
+        /// U+2212 under a Swedish, Norwegian or Finnish format and stands
+        /// behind a direction mark under a Hebrew or an Arabic one, so a
+        /// search of such a PC's log for "-35" found nothing. Every number
+        /// in an OpenXR line goes through here.
+        /// </summary>
+        public static string Number(long value) => value.ToString(CultureInfo.InvariantCulture);
+
+        /// <summary>The same for a value with decimals, as a pose has
+        /// them: a dot for the decimal under every format.</summary>
+        public static string Number(double value, string format)
+            => value.ToString(format, CultureInfo.InvariantCulture);
 
         /// <summary>A fixed-size UTF-8 name field as a string.</summary>
         public static string ReadFixedUtf8(byte* start, int capacity)

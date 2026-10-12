@@ -168,10 +168,13 @@ namespace PadForge.Engine.Common.BlissBox
         /// 0xFF chunk after the positioned ones, which both generations read
         /// alike. BBAPI.cs's count sends a chunk too few for messages of 28 to
         /// 30 bytes and every 25 bytes after. It sends a chunk too many for
-        /// messages of 3 to 7 bytes and some longer ones, such as 11, 12, 16
-        /// and 17 bytes, which a GPA reads as a negative count for 3 to 6, 11,
-        /// 16, 21 and 31 bytes and copies nothing for 7, 12, 17 and 22.
-        /// The count here is exact.</para>
+        /// messages of 3 to 7 bytes and for the sizes one or two past a
+        /// multiple of five from 11 on (11, 12, 16, 17, 21, 22, 31, 32 and so
+        /// on), except 26, 27 and every 25 after. A GPA reads that extra 0xFF
+        /// chunk as a negative count for 3 to 6 bytes and for the sizes one
+        /// past a multiple of five (11, 16, 21, 31 and so on), and copies
+        /// nothing from it for 7 bytes and the sizes two past (12, 17, 22, 32
+        /// and so on). The count here is exact.</para>
         ///
         /// <para>Both firmwares keep only the size's low byte (GPA 0x2D20,
         /// 3.0 0x0954). The 3.0 firmware copies five bytes for every chunk,

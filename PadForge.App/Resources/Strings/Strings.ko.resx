@@ -136,7 +136,7 @@
   <data name="Main_Nintendo_Max_Format" xml:space="preserve"><value>Nintendo (최대 {0}개)</value></data>
   <data name="Main_Extended_Max_Format" xml:space="preserve"><value>Extended (최대 {0}개)</value></data>
   <data name="Main_KBM_Max_Format" xml:space="preserve"><value>키보드 + 마우스 (최대 {0}개)</value></data>
-  <data name="Main_MIDI_RequiresMidiServices" xml:space="preserve"><value>MIDI (Windows MIDI Services 필요)</value></data>
+  <data name="Main_MIDI_NotRunning" xml:space="preserve"><value>MIDI (실행되지 않음. 설정의 Windows MIDI Services 카드를 확인하세요)</value></data>
   <data name="Main_MIDI_Max_Format" xml:space="preserve"><value>MIDI (최대 {0}개)</value></data>
   <data name="Main_VR_RequiresSteamVR" xml:space="preserve"><value>VR (SteamVR 필요)</value></data>
   <data name="Main_VR_Max_Format" xml:space="preserve"><value>VR (최대 {0}개)</value></data>
@@ -147,7 +147,16 @@
   <data name="Status_HidHideRefusedPadForge" xml:space="preserve"><value>PadForge가 숨긴 장치에 대한 접근을 HidHide가 차단했으므로 PadForge는 장치 숨기기를 중단했습니다.</value></data>
   <data name="Status_HidHideInverse" xml:space="preserve"><value>HidHide의 ‘Inverse application cloak’이 켜져 있어 PadForge는 장치를 숨기지 않습니다.</value></data>
   <data name="Status_UninstallingMidi" xml:space="preserve"><value>Windows MIDI Services 런타임 제거 중…</value></data>
-  <data name="Status_DownloadingInstallingMidi" xml:space="preserve"><value>Windows MIDI Services 런타임을 다운로드하여 설치하는 중…</value></data>
+  <data name="Status_MidiNotRunning_Format" xml:space="preserve"><value>MIDI가 실행되지 않아 {0}을(를) 시작하지 못했습니다. 이유는 설정의 Windows MIDI Services 카드에서 확인할 수 있습니다.</value></data>
+  <data name="Status_MidiCreateFailed_Format" xml:space="preserve"><value>Windows MIDI Services가 포트를 만들지 않아 {0}을(를) 시작하지 못했습니다.</value></data>
+  <data name="Status_MidiPortNotPicked_Format" xml:space="preserve"><value>{0}에 출력 포트가 없습니다. 해당 페이지에서 출력 포트를 고르세요.</value></data>
+  <data name="Status_MidiPortNotConnected_Format" xml:space="preserve"><value>{0}의 출력 포트 “{1}”이(가) 연결되어 있지 않습니다. 포트가 돌아오면 슬롯이 시작됩니다.</value></data>
+  <data name="Status_MidiPortInUse_Format" xml:space="preserve"><value>{0}의 출력 포트 “{1}”은(는) 이미 사용 중입니다.</value></data>
+  <data name="Status_MidiPortShared_Format" xml:space="preserve"><value>{0}와(과) {2}이(가) 같은 출력 포트 “{1}”(으)로 설정되어 있습니다. 둘 중 하나에 다른 포트를 고르세요.</value></data>
+  <data name="Status_MidiPortDidNotOpen_Format" xml:space="preserve"><value>{0}의 출력 포트 “{1}”을(를) 열지 못했습니다.</value></data>
+  <data name="Status_MidiReleaseTimedOut" xml:space="preserve"><value>Windows MIDI 서비스가 응답하지 않아 런타임을 제거하지 않았습니다. 잠시 후 “제거”를 다시 선택하세요.</value></data>
+  <data name="Status_MidiReleaseTimedOutDriver" xml:space="preserve"><value>MIDI 드라이버가 응답하지 않아 런타임을 제거하지 않았습니다. MIDI가 실행되면 “제거”를 다시 선택하세요.</value></data>
+  <data name="Status_DownloadingInstallingMidi" xml:space="preserve"><value>필요하면 Microsoft Visual C++ 재배포 가능 패키지를 먼저 설치하고 Windows MIDI Services 런타임을 다운로드하여 설치하는 중…</value></data>
   <data name="Status_OperationCanceled" xml:space="preserve"><value>사용자가 작업을 취소했습니다.</value></data>
   <data name="Status_DownloadingSteamVR" xml:space="preserve"><value>SteamVR 다운로드 중…</value></data>
   <data name="Status_DownloadingInstallingSteamVR" xml:space="preserve"><value>Valve 서버에서 SteamVR을 다운로드하여 설치하는 중… 수 GB라 시간이 걸릴 수 있습니다.</value></data>
@@ -197,6 +206,7 @@
   <data name="Status_EngineStopped" xml:space="preserve"><value>엔진이 중지되었습니다.</value></data>
   <data name="Status_NoMapping" xml:space="preserve"><value>매핑 없음</value></data>
   <data name="Status_Error_Format" xml:space="preserve"><value>오류: {0}</value></data>
+  <data name="Status_SlotCreateFailed_Format" xml:space="preserve"><value>{0}을(를) 만들지 못했습니다.</value></data>
   <data name="Status_ProfileSwitched_Format" xml:space="preserve"><value>프로필 전환: {0}</value></data>
   <data name="Status_ProfileSwitchedDefault" xml:space="preserve"><value>프로필 전환: 기본값</value></data>
   <data name="Profile_Default" xml:space="preserve"><value>기본값</value></data>
@@ -241,13 +251,13 @@
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Cemu, Dolphin, Yuzu 등에 자이로 및 가속도계 데이터를 제공합니다.</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>OpenTrack와 UDP 출력을 보내거나 FreeTrack 2.0 공유 메모리에 쓰는 모든 트래커, 그리고 이 컴퓨터에 설치된, 백그라운드에서 세션을 실행할 수 있는 OpenXR 런타임과 함께 작동합니다.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Logitech G 키 읽기</value></data>
-  <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Logitech G-key SDK로 G 키를 읽습니다. Logitech Gaming Software 8.55 이상이 실행 중이어야 합니다. 해당 소프트웨어에서 PadForge 프로필의 각 키에 G-key 명령을 끌어다 놓으세요. 그 프로필을 상시 프로필로 지정하지 않으면 PadForge 창이 앞에 있을 때만 키가 전달됩니다.</value></data>
+  <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Logitech G-key SDK로 G 키를 읽습니다. Logitech Gaming Software 8.55 이상이 실행 중이어야 합니다. 해당 소프트웨어에서 PadForge 프로필의 각 키에 G-key 명령을 끌어다 놓으세요. 그 프로필을 상시 프로필로 지정하지 않으면 PadForge 창이 앞에 있을 때만 키가 전달됩니다. 또한 G600 또는 G300 마우스는 온보드 모드가 아니어야 합니다.</value></data>
   <data name="Settings_GKeysStatus_NoSdk" xml:space="preserve"><value>이 PC에 Logitech G-key SDK가 없습니다. Logitech Gaming Software 8.55 이상과 함께 설치됩니다.</value></data>
   <data name="Settings_GKeysStatus_PathStale" xml:space="preserve"><value>G-key SDK가 등록되어 있지만 파일이 없습니다. Logitech Gaming Software를 다시 설치하세요.</value></data>
   <data name="Settings_GKeysStatus_LoadFailed" xml:space="preserve"><value>G-key SDK를 찾았지만 불러오지 못했습니다.</value></data>
   <data name="Settings_GKeysStatus_WrongLibrary" xml:space="preserve"><value>그 라이브러리는 예상한 G-key SDK가 아닙니다.</value></data>
   <data name="Settings_GKeysStatus_InitRefused" xml:space="preserve"><value>G-key SDK가 시작되지 않았습니다. 보통 Logitech Gaming Software가 실행 중이 아닙니다.</value></data>
-  <data name="Settings_GKeysStatus_NoKeysYet" xml:space="preserve"><value>연결됨, 아직 감지된 키가 없습니다. Logitech Gaming Software에서 PadForge 프로필의 각 키에 G-key 명령을 끌어다 놓고, 그 프로필을 상시 프로필로 지정하세요.</value></data>
+  <data name="Settings_GKeysStatus_NoKeysYet" xml:space="preserve"><value>연결됨, 아직 감지된 키가 없습니다. Logitech Gaming Software에서 PadForge 프로필의 각 키에 G-key 명령을 끌어다 놓고, 그 프로필을 상시 프로필로 지정하세요. 또한 G600 또는 G300 마우스는 온보드 모드가 아니어야 합니다.</value></data>
   <data name="Settings_GKeysStatus_Running_Format" xml:space="preserve"><value>실행 중, 키 이벤트 {0}건</value></data>
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>아날로그 키보드 읽기</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA 등 여러 제조사의 아날로그 키보드에서 각 키가 눌린 깊이를 읽어 각각 별도의 장치 행으로 표시합니다. 지원되는 모든 모델은 설명서에 나와 있습니다. Razer 키보드는 Razer Synapse가 실행 중이어야 합니다. 그 밖의 대부분은 자체 설정 소프트웨어가 쓰는 채널로 요청해 읽으므로, 이 옵션이 켜져 있는 동안에는 설정 소프트웨어를 닫으세요.</value></data>
@@ -353,9 +363,13 @@
   <data name="Settings_MidiOlderRuntime_Format" xml:space="preserve"><value>이전 런타임 {0}도 설치되어 있지만 더 이상 필요하지 않습니다</value></data>
   <data name="Settings_MidiStatusNotRunning" xml:space="preserve"><value>실행되지 않음</value></data>
   <data name="Settings_MidiNotRunning" xml:space="preserve"><value>Windows MIDI 서비스가 응답하지 않았습니다. PadForge가 서비스를 다시 시작하고 다시 확인합니다.</value></data>
+  <data name="Settings_MidiNotRunningDriver" xml:space="preserve"><value>MIDI 드라이버가 응답하지 않았습니다. 드라이버가 응답하면 PadForge가 다시 확인합니다.</value></data>
+  <data name="Settings_MidiUninstallRunning" xml:space="preserve"><value>런타임 제거 프로그램이 아직 실행 중입니다. 끝나면 MIDI가 다시 시작됩니다.</value></data>
+  <data name="Settings_MidiInstallAfterUninstaller" xml:space="preserve"><value>런타임 제거 프로그램이 아직 실행 중입니다. 끝나면 설치할 수 있습니다.</value></data>
+  <data name="Settings_MidiInBoxFailed_Format" xml:space="preserve"><value>Windows에 기본 제공되는 MIDI API가 시작되지 않아(오류 0x{0}) PadForge가 레거시 MIDI API를 사용합니다. 각 MIDI 슬롯은 슬롯 페이지에서 고른 포트로 보냅니다. MIDI 입력은 슬롯에 할당된 장치만 엽니다.</value></data>
   <data name="Settings_MidiStatusLegacy" xml:space="preserve"><value>레거시 MIDI API</value></data>
   <data name="Settings_MidiLegacy" xml:space="preserve"><value>각 MIDI 슬롯은 슬롯 페이지에서 고른 포트로 보냅니다. MIDI 입력은 슬롯에 할당된 장치만 엽니다.</value></data>
-  <data name="Settings_MidiInstallTooltip" xml:space="preserve"><value>Windows MIDI Services 런타임을 다운로드하여 설치합니다. 각 MIDI 슬롯에 전용 포트가 생깁니다.</value></data>
+  <data name="Settings_MidiInstallTooltip" xml:space="preserve"><value>Windows MIDI Services 런타임을 다운로드하여 설치합니다. 각 MIDI 슬롯에 전용 포트가 생깁니다. 이 PC의 Visual C++ 런타임이 14.51보다 오래되었으면 Microsoft Visual C++ 재배포 가능 패키지를 먼저 설치합니다.</value></data>
   <data name="Settings_MidiUninstallBundle_Title" xml:space="preserve"><value>Windows MIDI Services Runtime and Tools 제거</value></data>
   <data name="Settings_MidiUninstallBundleConfirm_Message" xml:space="preserve"><value>Microsoft의 Windows MIDI Services Runtime and Tools를 MIDI Settings 앱, MIDI 콘솔, PowerShell 모듈과 함께 제거합니다. Microsoft가 더 이상 다운로드를 제공하지 않으므로 다시 설치할 수 없습니다.</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
@@ -400,11 +414,11 @@
   <data name="About_HelixToolkit" xml:space="preserve"><value>HelixToolkit</value></data>
   <data name="About_HelixToolkitDesc" xml:space="preserve"><value>3D 컨트롤러 시각화. MIT.</value></data>
   <data name="About_ModernWpf" xml:space="preserve"><value>WPF UI</value></data>
-  <data name="About_ModernWpfDesc" xml:space="preserve"><value>WPF용 Fluent 2 디자인 시스템. MIT.</value></data>
+  <data name="About_ModernWpfDesc" xml:space="preserve"><value>WPF용 Fluent 2 디자인 시스템. Wpf.Ui.dll에는 VirtualizingWrapPanel, fluentui-system-icons 글꼴, WPF와 microsoft-ui-xaml의 코드가 포함됩니다. MIT.</value></data>
   <data name="About_MvvmToolkit" xml:space="preserve"><value>MVVM Toolkit</value></data>
   <data name="About_MvvmToolkitDesc" xml:space="preserve"><value>데이터 바인딩을 위한 CommunityToolkit.Mvvm. MIT.</value></data>
   <data name="About_License" xml:space="preserve"><value>라이선스</value></data>
-  <data name="About_LicenseText" xml:space="preserve"><value>이 소프트웨어는 CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) 라이선스를 따릅니다. Gamepad-Asset-Pack (AL2009man 제작, MIT)이 2D 컨트롤러 에셋을 제공합니다. GestureSign (TransposonY 제작, GPL-2.0)은 AngularMarginRecognizer를 위한 문서로만 참고했으며 그 코드는 포함되지 않습니다. Handheld Companion (CC BY-NC-SA 4.0)은 PadForge가 수정해 사용하는 Xbox 360 및 Steam Deck 3D 모델의 출처입니다. HelixToolkit, HidHide, HIDMaestro, Windows MIDI Services, WPF UI는 MIT 라이선스를 따릅니다. OpenXInput은 상위 프로젝트의 상표 면책 조항만 포함하며, 동일한 조건으로 그대로 재배포됩니다. $Q Recognizer (Magrofuoco, Vatavu, Anthony, Wobbrock 제작, BSD 3-Clause)는 터치패드 ShapeRecognizer의 참고 자료이며, C#으로 새로 도출했습니다. SDL3은 zlib 라이선스를 따릅니다. x360ce (LGPL-3.0)는 PadForge가 포크한 원본 코드베이스입니다. Zergatul.Obs.InputOverlay (Igor Budzhak 제작, MIT)가 마우스 그림을 제공합니다.</value></data>
+  <data name="About_LicenseText" xml:space="preserve"><value>이 소프트웨어는 CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) 라이선스를 따릅니다. Gamepad-Asset-Pack (AL2009man 제작, MIT)이 2D 컨트롤러 에셋을 제공합니다. GestureSign (TransposonY 제작, GPL-2.0)은 AngularMarginRecognizer를 위한 문서로만 참고했으며 그 코드는 포함되지 않습니다. Handheld Companion (CC BY-NC-SA 4.0)은 PadForge가 수정해 사용하는 Xbox 360 및 Steam Deck 3D 모델의 출처입니다. HelixToolkit, HidHide, HIDMaestro, Windows MIDI Services, WPF UI는 MIT 라이선스를 따릅니다. OpenXInput은 상위 프로젝트의 상표 면책 조항만 포함하며, 동일한 조건으로 그대로 재배포됩니다. $Q Recognizer (Magrofuoco, Vatavu, Anthony, Wobbrock 제작, BSD 3-Clause)는 터치패드 ShapeRecognizer의 참고 자료이며, C#으로 새로 도출했습니다. SDL3은 zlib 라이선스를 따릅니다. x360ce (LGPL-3.0-or-later)는 PadForge가 포크한 원본 코드베이스입니다. Zergatul.Obs.InputOverlay (Igor Budzhak 제작, MIT)가 마우스 그림을 제공합니다.</value></data>
 
   <!-- ═══ Device Types ═══ -->
   <data name="DeviceType_Gamepad" xml:space="preserve"><value>게임패드</value></data>
@@ -455,7 +469,7 @@
   <data name="Devices_ForceRawTooltip" xml:space="preserve"><value>SDL의 게임패드 매핑 대신 원시 HID 인덱스를 읽습니다. SDL이 버튼/축 레이아웃을 잘못 인식할 때 사용하십시오</value></data>
   <data name="Devices_InputHiding" xml:space="preserve"><value>입력 숨기기</value></data>
   <data name="Devices_HideFromGames" xml:space="preserve"><value>게임에서 숨기기 (HidHide)</value></data>
-  <data name="Devices_HideTooltip" xml:space="preserve"><value>HidHide 드라이버를 통해 이 장치를 다른 애플리케이션에서 완전히 숨깁니다. 이미 연결되어 있던 USB 컨트롤러를 숨기면 PadForge가 Windows에서 다시 연결하므로 열어 둔 것은 컨트롤러를 잃습니다. 숨기기 전에 Bluetooth 컨트롤러를 열어 둔 것은 컨트롤러가 다음에 연결될 때까지 계속 붙잡고 있습니다.</value></data>
+  <data name="Devices_HideTooltip" xml:space="preserve"><value>HidHide 드라이버를 통해 이 장치를 다른 애플리케이션에서 완전히 숨깁니다. 이미 연결되어 있던 USB 컨트롤러를 숨기면 PadForge가 Windows에서 다시 연결하므로 열어 둔 것은 컨트롤러를 잃습니다. Bluetooth 컨트롤러나 다른 컨트롤러와 수신기를 함께 쓰는 컨트롤러는 숨기기 전에 열어 둔 것이 컨트롤러가 다음에 연결될 때까지 계속 붙잡고 있습니다.</value></data>
   <data name="Devices_HideTooltipInstall" xml:space="preserve"><value>이 옵션을 활성화하려면 HidHide 드라이버를 설치하십시오</value></data>
   <data name="Devices_ConsumeMapped" xml:space="preserve"><value>매핑된 입력 소비 (후킹)</value></data>
   <data name="Devices_ConsumeTooltip" xml:space="preserve"><value>매핑된 특정 키/버튼만 차단하고 매핑되지 않은 입력은 통과시킵니다</value></data>
@@ -551,7 +565,7 @@
   <data name="Pad_MidiStartNote" xml:space="preserve"><value>시작 노트</value></data>
   <data name="Pad_MidiStartNoteTooltip" xml:space="preserve"><value>첫 번째 MIDI 노트 번호 (0-127, 60 = 가온다). 값이 높을수록 최대 노트 개수가 줄어듭니다.</value></data>
   <data name="Pad_MidiVelocity" xml:space="preserve"><value>벨로시티</value></data>
-  <data name="Pad_MidiVelocityTooltip" xml:space="preserve"><value>노트 온 벨로시티 (0-127). 가상 건반을 누르는 강도입니다.</value></data>
+  <data name="Pad_MidiVelocityTooltip" xml:space="preserve"><value>노트 온 벨로시티 (1-127). 가상 건반을 누르는 강도입니다.</value></data>
   <data name="Pad_MidiOutputPort" xml:space="preserve"><value>출력 포트</value></data>
   <data name="Pad_MidiOutputPortTooltip" xml:space="preserve"><value>이 슬롯이 보내는 MIDI 포트입니다. 레거시 MIDI API는 슬롯용 포트를 만들 수 없습니다.</value></data>
   <data name="Pad_MidiOutputPortNone" xml:space="preserve"><value>없음</value></data>
@@ -2507,7 +2521,7 @@
   </data>
   <data name="PickSound_Title" xml:space="preserve"><value>사운드 선택</value></data>
   <data name="About_NAudio" xml:space="preserve"><value>NAudio</value></data>
-  <data name="About_NAudioDesc" xml:space="preserve"><value>컨트롤러 오디오 미러링과 저음 트리거 진동을 위한 WASAPI 루프백 캡처. Mark Heath 제작. MIT.</value></data>
+  <data name="About_NAudioDesc" xml:space="preserve"><value>컨트롤러 오디오 미러링과 저음 트리거 진동을 위한 WASAPI 루프백 캡처. PadForge에 포함되지 않는 NAudio.Midi는 레거시 MIDI API의 WinMM 선언과 포트 호출 순서, 벨로시티 0인 노트 온을 노트 오프로 보는 규칙, 서스테인 같은 온/오프 컨트롤러의 참조 자료이기도 합니다. Mark Heath 제작. MIT.</value></data>
   <data name="About_Vosk" xml:space="preserve"><value>Vosk</value></data>
   <data name="About_VoskDesc" xml:space="preserve"><value>음성 매크로 문구를 인식하는 오프라인 음성 인식기. Alpha Cephei 제작. 모델은 PadForge에 포함되어 있습니다. Apache-2.0.</value></data>
   <data name="About_BouncyCastle" xml:space="preserve"><value>Bouncy Castle</value></data>
@@ -2832,11 +2846,11 @@
   <data name="About_Hitboxer" xml:space="preserve"><value>hitboxer</value></data>
   <data name="About_HitboxerDesc" xml:space="preserve"><value>Snap Tap 모드를 위한 SOCD 클리닝 시맨틱, valignatev 제작. MIT.</value></data>
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
-  <data name="About_DolphinDesc" xml:space="preserve"><value>Wii 페어링 절차, 스피커 ADPCM, Wii 리모컨의 옆으로 잡기와 세워 잡기 방향, 스틱 게이트 모델과 그 저장 형식, 자이로 축 규약에 대한 문서. GPL-2.0, 문서로만 참고했으며 GPL 코드는 포함하지 않습니다.</value></data>
+  <data name="About_DolphinDesc" xml:space="preserve"><value>Wii 페어링 절차, 스피커 ADPCM, Wii 리모컨의 옆으로 잡기와 세워 잡기 방향, 스틱 게이트 모델과 그 저장 형식, 자이로 축 규약에 대한 문서. GPL-2.0-or-later, 문서로만 참고했으며 GPL 코드는 포함하지 않습니다.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock 동작 문서: 유휴 연결 해제, 터치패드 경계, 배터리 디코딩, Bluetooth 연결 해제 IOCTL, DualSense 진동 모드 비트, 자이로 지터 곡선, 스틱 마우스 배율, Bluetooth 출력 리포트 CRC 시드. GPL-3.0, 문서로만 참고했으며 GPL 코드는 포함하지 않습니다.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock 동작 문서: 유휴 연결 해제, 터치패드 경계, 배터리 디코딩, Bluetooth 연결 해제 IOCTL, DualSense 진동 모드 비트, 자이로 지터 곡선, 스틱 마우스 배율, Bluetooth 출력 리포트 CRC 시드. GPL-3.0-or-later, 문서로만 참고했으며 GPL 코드는 포함하지 않습니다.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
-  <data name="About_XoneXowDesc" xml:space="preserve"><value>xbledctl을 뒷받침하는 GIP LED 명령 문서. GPL, 문서 전용.</value></data>
+  <data name="About_XoneXowDesc" xml:space="preserve"><value>xbledctl을 뒷받침하는 GIP LED 명령 문서. GPL-2.0-or-later, 문서 전용.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
   <data name="About_WiimoteLibDesc" xml:space="preserve"><value>Wii IR 카메라 및 밸런스 보드 동작 문서, Brian Peek 제작. MIT.</value></data>
   <data name="About_JoyconSinger" xml:space="preserve"><value>joycon-singer</value></data>
@@ -3227,7 +3241,7 @@
   <data name="Workshop_UpdatesBody" xml:space="preserve"><value>이 가져온 프로필들에는 Steam 창작마당에 더 새로운 버전이 있습니다. 변경 사항을 반영하려면 커뮤니티 구성 둘러보기에서 다시 가져오십시오.</value></data>
   <data name="Workshop_UpdateRow_Format" xml:space="preserve"><value>{0} · {1}</value></data>
   <data name="About_SteamKit2" xml:space="preserve"><value>SteamKit2</value></data>
-  <data name="About_SteamKit2Desc" xml:space="preserve"><value>익명 세션으로 Steam 창작마당 컨트롤러 구성을 가져오는 Steam 네트워크 클라이언트. Ryan Stecker와 SteamRE Team 제작. LGPL-2.1-only.</value></data>
+  <data name="About_SteamKit2Desc" xml:space="preserve"><value>익명 세션으로 Steam 창작마당 컨트롤러 구성을 가져오는 Steam 네트워크 클라이언트. Ryan Stecker와 SteamRE Team 제작. LGPL-2.1-or-later(license.txt), LGPL-2.1-only(NuGet).</value></data>
   <data name="About_ProtobufNet" xml:space="preserve"><value>protobuf-net</value></data>
   <data name="About_ProtobufNetDesc" xml:space="preserve"><value>SteamKit2가 Steam 통신 프로토콜에 사용하는 Protocol Buffers 직렬 변환기. Marc Gravell 제작. Apache-2.0.</value></data>
   <data name="About_ZstdSharp" xml:space="preserve"><value>ZstdSharp</value></data>
@@ -3586,7 +3600,7 @@
     <value>터치패드-마우스 출력을 위한 포인터 가속 곡선. libinput의 터치패드 가속 프로파일을 C#으로 이식. MIT.</value>
   </data>
   <data name="About_HandheldCompanionDesc" xml:space="preserve">
-    <value>3D 컨트롤러 모델(Xbox 360, Steam Deck)과 3D 보기의 모델 및 애니메이션 코드. CasperH2O, Lesueur Benjamin, trippyone 제작. Steam Deck 리포트와 햅틱 디코딩, Steam Controller (2015) 전원 끄기 리포트, 감시하는 휴대용 PC 데몬 목록, 업데이트 확인 주기의 참조 자료이기도 합니다. CC BY-NC-SA 4.0.</value>
+    <value>3D 컨트롤러 모델(Xbox 360, Steam Deck)과 3D 보기의 모델 및 애니메이션 코드. CasperH2O, Lesueur Benjamin, trippyone 제작. Steam Deck 리포트와 햅틱 디코딩, Steam Controller (2015) 전원 끄기 리포트, 감시하는 휴대용 PC 데몬 목록, 업데이트 확인 주기, 그리고 숨긴 USB 컨트롤러를 다시 연결해 먼저 열어 둔 프로그램에서 떼어 내는 허브 포트 재시작(500 ms 간격)의 참조 자료이기도 합니다. CC BY-NC-SA 4.0.</value>
   </data>
   <data name="About_GamepadAssetPackDesc" xml:space="preserve">
     <value>2D 컨트롤러 도식(Xbox 360, Xbox One S, Xbox Series, DualShock 4, DualSense). 제작: AL2009man. MIT.</value>
@@ -3799,7 +3813,7 @@
     <value>MinGW-w64 runtime</value>
   </data>
   <data name="About_MingwRuntimeDesc" xml:space="preserve">
-    <value>Vosk 인식기에 필요한 네이티브 런타임인 libgcc_s_seh-1.dll, libstdc++-6.dll, libwinpthread-1.dll을 x64 버전에 포함합니다. GCC Runtime Library Exception이 적용된 GPL-3.0 및 mingw-w64 winpthreads 라이선스. ARM64 버전의 libvosk.dll은 mingw-w64, winpthreads, 그리고 LLVM의 libc++, libunwind, compiler-rt(LLVM Exceptions가 적용된 Apache-2.0)를 자체에 포함합니다.</value>
+    <value>Vosk 인식기에 필요한 네이티브 런타임인 libgcc_s_seh-1.dll, libstdc++-6.dll, libwinpthread-1.dll을 x64 버전에 포함합니다. GCC Runtime Library Exception이 적용된 GPL-3.0-or-later, winpthreads는 MIT이며 Lockless Inc.의 Posix Threads 라이브러리에서 파생된 부분은 BSD 3-Clause. ARM64 버전의 libvosk.dll은 mingw-w64, winpthreads, 그리고 LLVM의 libc++, libunwind, compiler-rt(LLVM Exceptions가 적용된 Apache-2.0)를 자체에 포함합니다.</value>
   </data>
   <data name="About_TritonLib" xml:space="preserve">
     <value>TritonLib and Steam Controller haptics research</value>
@@ -3831,7 +3845,7 @@
     <value>InputPlumber</value>
   </data>
   <data name="About_InputPlumberDesc" xml:space="preserve">
-    <value>숨겨진 버튼 학습을 위해 교차 확인한 휴대용 PC 식별 문자열과 제조사 리포트 메모. GPL-3.0, 문서로만 참고했으며 GPL 코드는 포함하지 않습니다.</value>
+    <value>숨겨진 버튼 학습을 위해 교차 확인한 휴대용 PC 식별 문자열과 제조사 리포트 메모. GPL-3.0-or-later, 문서로만 참고했으며 GPL 코드는 포함하지 않습니다.</value>
   </data>
   <data name="About_Linuxmotehook" xml:space="preserve">
     <value>linuxmotehook and WiimoteHook</value>
@@ -3842,11 +3856,13 @@
   <data name="About_OpenXrRefs" xml:space="preserve"><value>OpenXR 참조</value></data>
   <data name="About_OpenXrRefsDesc" xml:space="preserve"><value>헤드셋과 모션 컨트롤러 입력을 뒷받침하는 런타임 인터페이스, 구조체 레이아웃, 레지스트리 키는 Khronos OpenXR-SDK 헤더(Apache-2.0)에서 읽었고 VirtualDesktop-OpenXR(MIT)와 대조했습니다. PadForge는 사용자 시스템에 설치된 런타임과 통신하며 Khronos 코드를 포함하지 않습니다.</value></data>
   <data name="About_PeripheralOutputRefs" xml:space="preserve"><value>주변기기 출력 참조</value></data>
-  <data name="About_PeripheralOutputRefsDesc" xml:space="preserve"><value>HID++ 햅틱, 조명, 페어링, 배터리 프레임은 Solaar(GPL-2.0), libratbag(MIT), LiveHaptics, OpenLogi 문서에서, Razer 제품 ID는 OpenRazer(GPL-2.0)에서, SteelSeries 제품 ID는 OpenRGB(GPL-2.0)와 rivalcfg(WTFPL)에서, 촉각 및 색상 핸들러는 GameSense SDK에서 읽었습니다. 문서로만 참고했으며 코드는 포함하지 않습니다.</value></data>
+  <data name="About_PeripheralOutputRefsDesc" xml:space="preserve"><value>HID++ 햅틱, 조명, 페어링, 배터리 프레임은 Solaar(GPL-2.0-or-later), libratbag(MIT), LiveHaptics, OpenLogi(0BSD 및 MIT OR Apache-2.0), OpenLogi 문서에서, Razer 제품 ID는 OpenRazer(GPL-2.0-or-later)에서, SteelSeries 제품 ID는 OpenRGB(GPL-2.0-or-later)와 rivalcfg(WTFPL)에서, 촉각 및 색상 핸들러는 GameSense SDK에서 읽었습니다. 문서로만 참고했으며 코드는 포함하지 않습니다.</value></data>
+  <data name="About_PortMidiRtMidi" xml:space="preserve"><value>PortMidi / RtMidi</value></data>
+  <data name="About_PortMidiRtMidiDesc" xml:space="preserve"><value>레거시 MIDI API를 뒷받침하는 WinMM 호출 순서(포트 열기, 포트로 보내기, 포트 닫기). PortMidi(MIT, Ross Bencina, Phil Burk, Roger B. Dannenberg 제작)와 RtMidi(MIT 계열의 RtMidi 라이선스, Gary P. Scavone 제작)에서 읽었습니다. 문서로만 참고했으며 코드는 포함하지 않습니다.</value></data>
   <data name="About_LogitechGKeyRefs" xml:space="preserve"><value>Logitech G-key SDK 참조</value></data>
   <data name="About_LogitechGKeyRefsDesc" xml:space="preserve"><value>G 키 입력을 뒷받침하는 이벤트 워드 레이아웃은 SDK의 LogitechGkeyLib.h를 따릅니다. 라이브러리 검색 순서와 종료 처리는 Mumble의 GKey.cpp(BSD 3-Clause)를 따릅니다. PadForge는 시스템에 있는 라이브러리를 로드하며 Logitech 코드를 포함하지 않습니다.</value></data>
   <data name="About_AnalogKeyboardRefs" xml:space="preserve"><value>HallJoy, Soup 및 AnalogSense</value></data>
-  <data name="About_AnalogKeyboardRefsDesc" xml:space="preserve"><value>아날로그 키보드 입력은 HallJoy의 키보드 경로, 키 표, 모델 카탈로그를 C#으로 이식했으며(AGPL-3.0, PashOK7), Soup과 AnalogSense JavaScript SDK(MIT, Calamity, Inc.)를 따르고 Wooting Analog SDK(MPL-2.0)와 대조했습니다. 그 밖의 키보드는 AnalogKeys(MIT, Nisayera), KeyAxis(MIT, RigZeeel), HallEffectAnalogMapper(MIT, Ricards Mironovs), libhmk와 hmkconf(GPL-3.0, peppapighs), DenkiSuki, LeiterConsulting, paysdelest의 Soup 포크(MIT)를 따릅니다. 보고서 형식과 키 표는 Razer의 Synapse Web과 NuPhy의 NuPhyIO 설정 도구, OpenRazer(GPL-2.0), Abbytech의 razer-analog-keyboard, TinyUSB(MIT), Sainan의 캡처 메모에서도 가져왔습니다.</value></data>
+  <data name="About_AnalogKeyboardRefsDesc" xml:space="preserve"><value>아날로그 키보드 입력은 HallJoy의 키보드 경로, 키 표, 모델 카탈로그를 C#으로 이식했으며(AGPL-3.0, PashOK7), Soup과 AnalogSense JavaScript SDK(MIT, Calamity, Inc.)를 따르고 Wooting Analog SDK(MPL-2.0)와 대조했습니다. 그 밖의 키보드는 AnalogKeys(MIT, Nisayera), KeyAxis(MIT, RigZeeel), HallEffectAnalogMapper(MIT, Ricards Mironovs), libhmk와 hmkconf(GPL-3.0-or-later, peppapighs), DenkiSuki, LeiterConsulting, paysdelest의 Soup 포크(MIT)를 따릅니다. 보고서 형식과 키 표는 Razer의 Synapse Web과 NuPhy의 NuPhyIO 설정 도구, OpenRazer(GPL-2.0-or-later), Abbytech의 razer-analog-keyboard, TinyUSB(MIT), Sainan의 캡처 메모에서도 가져왔습니다.</value></data>
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>Bliss-Box 참조</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>‘Bliss-Box 어댑터 읽기’의 Bliss-Box API는 Bliss-Box LLC의 API Tool(BSD 계열, 무상 재배포)과 DeviceBuddy(소스 공개, Bliss-Box LLC)에서 읽었으며, 버튼 이름은 SteveFox1620의 retroarch-joypad-autoconfig 포크에 있는 Bliss-Box 파일에서, 컨트롤러 팩 체크섬은 libdragon(Unlicense)과 대조했고, PlayStation 컨트롤러 응답은 psx-spx와 Linux psxpad-spi 드라이버(GPL-2.0-or-later)에서 가져왔습니다. 컨트롤러 이름 일부와 지원 관련 참고 사항은 Bliss-Box LLC의 호환성 목록에서 가져왔으며, 어댑터 동작은 해당 펌웨어로 확인했습니다. 문서만 참고했으며 코드는 포함하지 않습니다.</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
@@ -3982,19 +3998,34 @@
   <data name="Status_InstallerExitCode_Format" xml:space="preserve"><value>설치 프로그램이 코드 {0}(으)로 종료되었습니다.</value></data>
   <data name="Status_InstallerTimedOut" xml:space="preserve"><value>설치 프로그램이 3분이 지나도 계속 실행 중이었습니다.</value></data>
   <data name="Status_InstallerNotTracked" xml:space="preserve"><value>Windows가 설치 프로그램을 시작했지만 PadForge가 진행 상황을 추적할 수 없습니다. 설치가 끝나면 카드에 결과가 표시됩니다.</value></data>
+  <data name="Status_VcRedistUnsigned" xml:space="preserve"><value>다운로드한 Visual C++ 재배포 가능 패키지에 Microsoft 서명이 없습니다.</value></data>
+  <data name="Status_MidiRuntimeHashMismatch" xml:space="preserve"><value>다운로드한 MIDI 런타임이 게시된 SHA-256과 일치하지 않습니다.</value></data>
+  <data name="Status_NoMidiRuntimeToRemove" xml:space="preserve"><value>Windows MIDI Services 런타임이 설치되어 있지 않습니다.</value></data>
+  <data name="Status_VcRuntimeHeld" xml:space="preserve"><value>프로그램이 이전 Visual C++ 런타임을 열어 두고 있어 Windows가 교체하지 못했습니다. 다른 프로그램을 닫고 설치를 다시 선택하세요.</value></data>
+  <data name="Status_VcRuntimeStillOld_Format" xml:space="preserve"><value>설치 프로그램을 실행한 뒤에도 Visual C++ 런타임이 여전히 {0}보다 오래된 버전입니다.</value></data>
+  <data name="Status_VcRedistStillRunning" xml:space="preserve"><value>Visual C++ 재배포 가능 패키지 설치 프로그램이 아직 실행 중입니다. 완료되면 설치를 다시 선택하세요.</value></data>
+  <data name="Status_NoOwnedSteamVRToRemove" xml:space="preserve"><value>PadForge가 직접 설치한 SteamVR이 없어 제거할 것이 없습니다.</value></data>
+  <data name="Status_SteamVRFolderIsDriveRoot_Format" xml:space="preserve"><value>기록된 SteamVR 폴더 {0}은(는) 드라이브의 루트이므로 PadForge가 삭제하지 않습니다.</value></data>
+  <data name="Status_SteamVRNotRemoved_Format" xml:space="preserve"><value>SteamVR이 완전히 제거되지 않았습니다. {0}이(가) 아직 있습니다. SteamVR을 사용하는 프로그램을 모두 닫고 다시 시도하세요.</value></data>
+  <data name="Status_SteamVRLocationNotFull" xml:space="preserve"><value>SteamVR 설치 위치는 C:\SteamVR처럼 전체 경로여야 합니다.</value></data>
+  <data name="Status_SteamVRLocationIsDriveRoot" xml:space="preserve"><value>SteamVR 설치 위치는 드라이브의 루트일 수 없습니다. C:\SteamVR 같은 폴더를 선택하세요.</value></data>
+  <data name="Status_SteamCmdTimedOut" xml:space="preserve"><value>steamcmd가 60분 안에 끝나지 않았습니다.</value></data>
+  <data name="Status_SteamVRDidNotLand_Format" xml:space="preserve"><value>steamcmd가 실행되었지만 SteamVR이 {0}에 설치되지 않았습니다. steamcmd 출력: ...{1}</value></data>
+  <data name="Status_HidHideDriverDidNotStart" xml:space="preserve"><value>HidHide가 설치되었지만 제어 장치가 열리지 않아 클래스 필터를 추가하지 않았습니다.</value></data>
+  <data name="Status_HidHideFilterStillListed" xml:space="preserve"><value>HidHide가 아직 클래스 필터로 등록되어 있어 드라이버를 그대로 두었습니다.</value></data>
   <data name="Status_RemovingLegacyDrivers" xml:space="preserve"><value>이전 드라이버 제거 중…</value></data>
   <data name="About_Nefcon" xml:space="preserve"><value>nefcon</value></data>
-  <data name="About_NefconDesc" xml:space="preserve"><value>Nefarius가 만든 HidHide 설치 도구. ARM64 버전이 Windows on ARM에 HidHide 드라이버를 설치합니다. MIT.</value></data>
+  <data name="About_NefconDesc" xml:space="preserve"><value>Nefarius가 만든 HidHide 설치 도구. ARM64 버전이 Windows on ARM에 HidHide 드라이버를 설치합니다. Argh!, colorwin, easyloggingpp, Microsoft Detours, scope_guard, Windows Implementation Libraries, neflib를 링크합니다. MIT.</value></data>
   <data name="About_Kaldi" xml:space="preserve"><value>Kaldi, OpenFst, OpenBLAS and CLAPACK</value></data>
-  <data name="About_KaldiDesc" xml:space="preserve"><value>libvosk.dll에 포함된 음성 디코더, 트랜스듀서 라이브러리, 선형 대수 라이브러리. Kaldi와 OpenFst는 Apache-2.0. OpenBLAS와 CLAPACK은 BSD 3-Clause이며, f2c 런타임에는 자체 고지가 있습니다.</value></data>
+  <data name="About_KaldiDesc" xml:space="preserve"><value>libvosk.dll에 포함된 음성 디코더, 트랜스듀서 라이브러리, 선형 대수 라이브러리. Kaldi와 OpenFst는 Apache-2.0. OpenBLAS와 CLAPACK은 BSD 3-Clause이며, OpenBLAS에 포함된 GotoBLAS2와 f2c 런타임에는 각각 자체 고지가 있습니다.</value></data>
   <data name="About_AntiMicroX" xml:space="preserve"><value>AntiMicroX</value></data>
-  <data name="About_AntiMicroXDesc" xml:space="preserve"><value>전략 및 데스크톱 시작 프로필 배치와 압력 비례 터보가 피하는 터보 동작. GPL-3.0, 문서로만 참고했으며 GPL 코드는 포함하지 않습니다.</value></data>
+  <data name="About_AntiMicroXDesc" xml:space="preserve"><value>전략 및 데스크톱 시작 프로필 배치와 압력 비례 터보가 피하는 터보 동작. GPL-3.0-or-later, 문서로만 참고했으며 GPL 코드는 포함하지 않습니다.</value></data>
   <data name="About_AudioEndPointLibrary" xml:space="preserve"><value>AudioEndPointLibrary</value></data>
   <data name="About_AudioEndPointLibraryDesc" xml:space="preserve"><value>Windows의 문서화되지 않은 IPolicyConfig 인터페이스 레이아웃에 대한 Antoine Aflalo의 참조 자료. PadForge는 이를 이용해 컨트롤러의 오디오 엔드포인트를 다시 활성화합니다. MIT. 문서로만 참고했으며 코드는 포함하지 않습니다.</value></data>
   <data name="About_AutoEq" xml:space="preserve"><value>AutoEq</value></data>
   <data name="About_AutoEqDesc" xml:space="preserve"><value>오디오 탭이 가져오는 파라메트릭 EQ 프로필 형식. Jaakko Pasanen 제작. MIT. 문서로만 참고했으며 코드는 포함하지 않습니다.</value></data>
   <data name="About_AutoHotkey" xml:space="preserve"><value>AutoHotkey</value></data>
-  <data name="About_AutoHotkeyDesc" xml:space="preserve"><value>텍스트 블록 매크로와 키보드 코드 후크를 뒷받침하는 SendInput 기법: 유니코드 입력, 일괄 처리 한도, Win 키 마스크 키, 태그가 붙은 주입 입력. GPL-2.0, 문서로만 참고했으며 GPL 코드는 포함하지 않습니다.</value></data>
+  <data name="About_AutoHotkeyDesc" xml:space="preserve"><value>텍스트 블록 매크로와 키보드 코드 후크를 뒷받침하는 SendInput 기법: 유니코드 입력, 일괄 처리 한도, Win 키 마스크 키, 태그가 붙은 주입 입력. GPL-2.0-or-later, 문서로만 참고했으며 GPL 코드는 포함하지 않습니다.</value></data>
   <data name="About_CemuhookProtocol" xml:space="preserve"><value>cemuhook-protocol</value></data>
   <data name="About_CemuhookProtocolDesc" xml:space="preserve"><value>모션 서버를 뒷받침하는 DSU 프로토콜 참조 자료. v1993 제작. Unlicense.</value></data>
   <data name="About_Ds4Drv" xml:space="preserve"><value>ds4drv</value></data>
@@ -4008,7 +4039,7 @@
   <data name="About_DualSenseSupport" xml:space="preserve"><value>DualSenseSupport</value></data>
   <data name="About_DualSenseSupportDesc" xml:space="preserve"><value>어댑티브 트리거용 GameCube 프리셋 값. Mxater 제작. 사실 확인용으로만 참조.</value></data>
   <data name="About_Eden" xml:space="preserve"><value>Eden</value></data>
-  <data name="About_EdenDesc" xml:space="preserve"><value>DSU 모션 축의 부호. 해당 프로젝트의 UDP 디코더로 확인. GPL-3.0, 문서로만 참고했으며 GPL 코드는 포함하지 않습니다.</value></data>
+  <data name="About_EdenDesc" xml:space="preserve"><value>DSU 모션 축의 부호. 해당 프로젝트의 UDP 디코더로 확인. GPL-3.0-or-later, 문서로만 참고했으며 GPL 코드는 포함하지 않습니다.</value></data>
   <data name="About_EdRefCard2" xml:space="preserve"><value>EDRefCard2</value></data>
   <data name="About_EdRefCard2Desc" xml:space="preserve"><value>우주 시뮬레이션 시작 프로필의 바탕이 된 Elite Dangerous 기본 프리셋. Richard Buckle 제작. MIT.</value></data>
   <data name="About_FFmpeg" xml:space="preserve"><value>FFmpeg</value></data>
@@ -4030,7 +4061,7 @@
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>마우스 이동 X와 Y를 뒷받침하는 Joy-Con 2 광학 마우스 카운터와 순환 델타. coffincolors, Frano, moutella 제작. MIT. 문서로만 참고했으며 코드는 포함하지 않습니다.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Linux 커널 드라이버</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3, Move, DualSense, Steam Deck, PID 포스 피드백의 프로토콜 사실과 ACPI WMI 블록 레이아웃. GPL-2.0, 문서로만 참고했으며 GPL 코드는 포함하지 않습니다.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3, Move, DualSense, Steam Deck, PID 포스 피드백의 프로토콜 사실과 ACPI WMI 블록 레이아웃. GPL-2.0-or-later, 문서로만 참고했으며 GPL 코드는 포함하지 않습니다.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Xbox Elite 패들을 포함한 Windows 컨트롤러 입력. SDK 로더는 SDL에 링크되어 있습니다. MIT (SDK 로더).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>
@@ -4038,7 +4069,7 @@
   <data name="About_SwitchResearch" xml:space="preserve"><value>Nintendo_Switch_Reverse_Engineering</value></data>
   <data name="About_SwitchResearchDesc" xml:space="preserve"><value>Joy-Con과 Pro 컨트롤러의 HID, HD 진동, 홈 LED 노트. dekuNukem 제작. Switch 2는 ndeadly의 switch2_controller_research. 프로토콜 사실 확인용으로만 참조.</value></data>
   <data name="About_OpenRgb" xml:space="preserve"><value>OpenRGB</value></data>
-  <data name="About_OpenRgbDesc" xml:space="preserve"><value>DualSense 및 DualShock 4 라이트바 출력 리포트의 바이트 용도와 Logitech HID++ 0x8070 조명 프레임 및 컬렉션 구성. GPL-2.0, 문서로만 참고했으며 GPL 코드는 포함하지 않습니다.</value></data>
+  <data name="About_OpenRgbDesc" xml:space="preserve"><value>DualSense 및 DualShock 4 라이트바 출력 리포트의 바이트 용도와 Logitech HID++ 0x8070 조명 프레임 및 컬렉션 구성. GPL-2.0-or-later, 문서로만 참고했으며 GPL 코드는 포함하지 않습니다.</value></data>
   <data name="About_OpenTabletDriver" xml:space="preserve"><value>OpenTabletDriver</value></data>
   <data name="About_OpenTabletDriverDesc" xml:space="preserve"><value>앱 내 업데이터 도우미를 뒷받침하는 상승된 업데이트 동사 패턴. LGPL-3.0, 문서로만 참고했으며 LGPL 코드는 포함하지 않습니다.</value></data>
   <data name="About_PcscSharp" xml:space="preserve"><value>pcsc-sharp</value></data>
@@ -4052,13 +4083,13 @@
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
   <data name="About_SipSorceryDesc" xml:space="preserve"><value>Remote Link NAT 통과를 뒷받침하는 STUN 메시지 레이아웃과 XOR-MAPPED-ADDRESS 디코딩. C# 소스에서 가져옴. Aaron Clauson 제작. BSD 3-Clause, 라이선스 2절의 사용 제한 포함.</value></data>
   <data name="About_SpaceMouseRefs" xml:space="preserve"><value>SpaceMouse 참조</value></data>
-  <data name="About_SpaceMouseRefsDesc" xml:space="preserve"><value>3Dconnexion 리포트 레이아웃, 장치 표, 축 배율로, hid.spacemouse(MIT), PySpaceMouse(MIT), AndunHH의 spacemouse(CC BY-NC-SA 4.0), spacenavd(GPL-3.0)에서 읽었습니다. 문서로만 참고했으며 코드는 포함하지 않습니다.</value></data>
+  <data name="About_SpaceMouseRefsDesc" xml:space="preserve"><value>3Dconnexion 리포트 레이아웃, 장치 표, 축 배율로, hid.spacemouse(MIT), PySpaceMouse(MIT), AndunHH의 spacemouse(CC BY-NC-SA 4.0), spacenavd(GPL-3.0-or-later)에서 읽었습니다. 문서로만 참고했으며 코드는 포함하지 않습니다.</value></data>
   <data name="About_SpecialK" xml:space="preserve"><value>Special K</value></data>
-  <data name="About_SpecialKDesc" xml:space="preserve"><value>호스트 IOCTL을 통한 Bluetooth 연결 해제, XInput의 숨겨진 전원 끄기 및 기능 서수, DualSense 트리거 진동 기본값. GPL-3.0, 문서로만 참고했으며 GPL 코드는 포함하지 않습니다.</value></data>
+  <data name="About_SpecialKDesc" xml:space="preserve"><value>호스트 IOCTL을 통한 Bluetooth 연결 해제, XInput의 숨겨진 전원 끄기 및 기능 서수, DualSense 트리거 진동 기본값. GPL-3.0-or-later, 문서로만 참고했으며 GPL 코드는 포함하지 않습니다.</value></data>
   <data name="About_SteamControllerRefs" xml:space="preserve"><value>Steam Controller 프로토콜 참조</value></data>
   <data name="About_SteamControllerRefsDesc" xml:space="preserve"><value>스와이프 햅틱 틱, 리포트 0x42 버튼 비트, 전원 끄기 명령, 동글 릴레이로, OpenPuck(AGPL-3.0), sc2-research(MIT), steam_controller_tools(GPL-2.0), SteamlessController(MIT)에서 읽었습니다. 문서로만 참고했으며 GPL 및 AGPL 코드는 포함하지 않습니다.</value></data>
   <data name="About_ThumbstickDeadzones" xml:space="preserve"><value>Thumbstick Deadzones</value></data>
-  <data name="About_ThumbstickDeadzonesDesc" xml:space="preserve"><value>여섯 가지 데드존 형태. Minimuino 제작. GPL-3.0, 문서로만 참고했으며 GPL 코드는 포함하지 않습니다.</value></data>
+  <data name="About_ThumbstickDeadzonesDesc" xml:space="preserve"><value>여섯 가지 데드존 형태. Minimuino 제작. GFDL-1.3-or-later 및 GPL-3.0-or-later, 문서로만 참고했으며 GPL 코드는 포함하지 않습니다.</value></data>
   <data name="About_Touchmote" xml:space="preserve"><value>Touchmote</value></data>
   <data name="About_TouchmoteDesc" xml:space="preserve"><value>Wii 리모컨 IR 포인터 동작: 점 쌍 중점, 여백, 센서 바 오프셋, 스무딩, FPS 마우스 곡선. Ryochan7, Suegrini, Trihy 포크 포함. GPL-3.0, 문서로만 참고했으며 GPL 코드는 포함하지 않습니다.</value></data>
   <data name="About_TriggerEffectGenerator" xml:space="preserve"><value>TriggerEffectGenerator</value></data>
@@ -4066,17 +4097,17 @@
   <data name="About_ViGEmClient" xml:space="preserve"><value>ViGEmClient</value></data>
   <data name="About_ViGEmClientDesc" xml:space="preserve"><value>가상 DualShock 4 입력 리포트를 뒷받침하는 DS4_REPORT_EX 레이아웃. Benjamin Höglinger-Stelzer 제작. MIT.</value></data>
   <data name="About_ViiperHbashton" xml:space="preserve"><value>VIIPER (hbashton 포크)</value></data>
-  <data name="About_ViiperHbashtonDesc" xml:space="preserve"><value>가상 DualSense 마이크의 48 dB 감쇠 범위. GPL-3.0, 문서로만 참고했으며 GPL 코드는 포함하지 않습니다.</value></data>
+  <data name="About_ViiperHbashtonDesc" xml:space="preserve"><value>가상 DualSense 마이크의 48 dB 감쇠 범위. GPL-3.0-or-later, 문서로만 참고했으며 GPL 코드는 포함하지 않습니다.</value></data>
   <data name="About_WheelRefs" xml:space="preserve"><value>휠 프로토콜 참조</value></data>
-  <data name="About_WheelRefsDesc" xml:space="preserve"><value>Fanatec, Thrustmaster, Logitech 휠용 네이티브 포스 피드백 및 RPM 시프트 LED 리포트로, hid-fanatecff(GPL-2.0), hid-tmff2(GPL-2.0-or-later), new-lg4ff(GPL-2.0), oversteer(GPL-3.0), thrustmaster-led-linux(GPL-3.0)에서 읽고 prodigal.knight의 SimHub LED 플러그인(MIT)과 tm-bt-led(MIT)로 교차 확인했습니다. 문서로만 참고했으며 GPL 코드는 포함하지 않습니다.</value></data>
+  <data name="About_WheelRefsDesc" xml:space="preserve"><value>Fanatec, Thrustmaster, Logitech 휠용 네이티브 포스 피드백 및 RPM 시프트 LED 리포트로, hid-fanatecff(GPL-2.0), hid-tmff2(GPL-2.0-or-later), new-lg4ff(GPL-2.0-or-later), oversteer(GPL-3.0), thrustmaster-led-linux(GPL-3.0)에서 읽고 prodigal.knight의 SimHub LED 플러그인(MIT)과 tm-bt-led(MIT)로 교차 확인했습니다. 문서로만 참고했으며 GPL 코드는 포함하지 않습니다.</value></data>
   <data name="About_ArcadeIoRefs" xml:space="preserve"><value>아케이드 I/O 참조</value></data>
   <data name="About_ArcadeIoRefsDesc" xml:space="preserve"><value>Namco·Konami 아케이드 I/O 보드와 JVS 보드용 SDL 포크 드라이버의 프로토콜로, arcade-docs(WTFPL), bemanitools(Unlicense), Dolphin(GPL-2.0-or-later), ITAIKO-firmware(MIT), JoypadOS(Apache-2.0), jvsio(BSD-3-Clause), MAME(BSD-3-Clause), OpenITG(StepMania license), p4io-mdxfdrv(GPL-3.0), RPCS3(GPL-2.0), TaikoZucchini(MIT)에서 읽었습니다. 문서로만 참고했으며 코드는 포함하지 않습니다.</value></data>
   <data name="About_BleControllerRefs" xml:space="preserve"><value>Bluetooth LE 컨트롤러 참조</value></data>
   <data name="About_BleControllerRefsDesc" xml:space="preserve"><value>Poke Ball Plus, Daydream, Gear VR, Oculus Go, Guitar Hero Live iOS, Zwift, Myo 컨트롤러용 SDL 포크 Bluetooth LE 드라이버의 프로토콜로, Access-GearVR-Controller-from-PC(Apache-2.0), daydream-catcher, daydream-controller.js(MIT), daydream2hid(Apache-2.0), dl-myo(GPL-3.0), find-a-cig(MIT), gear_vr_controller(MIT), gearVRC(MIT), gearvr-controller(MIT), gearvr-controller-webbluetooth(GPL-3.0), GHLtarUtility(GPL-3.0), ghlioscon(MIT), hardfault.life, jsyang.ca, makinolo.com, myo-bluetooth(Apache-2.0), myo-raw(MIT), OculusGo-Air-Mouse-4-macOS(MIT), PlasticBand(CC BY-SA 4.0), pokeball-plus-4-windows, pokeball-plus-mouse(Apache-2.0), PokeBall-Plus-Controller-Driver-App-Mac, PokeballPlus-4-PC(MIT), pyomyo(MIT), qdomyos-zwift(GPL-3.0), Santroller(GPL-3.0), SwiftControl(noncommercial), Zephyr(Apache-2.0), zwiftplay에서 읽었습니다. 문서로만 참고했으며 코드는 포함하지 않습니다.</value></data>
   <data name="About_RfcommIcadeRefs" xml:space="preserve"><value>Bluetooth RFCOMM 및 iCade 참조</value></data>
-  <data name="About_RfcommIcadeRefsDesc" xml:space="preserve"><value>MOGA, Zeemote, BGP100, Phonejoy 패드와 ION iCade용 SDL 포크 드라이버의 프로토콜로, android-bluez-ime(LGPL-2.1), flatlib.jp, iCade-iOS(MIT), Linux(GPL-2.0), MogaSerial(MIT), moga-uinput(MIT), ZeeClient(MIT), zeemoted(GPL-3.0), zeemouse에서 읽었습니다. 문서로만 참고했으며 코드는 포함하지 않습니다.</value></data>
+  <data name="About_RfcommIcadeRefsDesc" xml:space="preserve"><value>MOGA, Zeemote, BGP100, Phonejoy 패드와 ION iCade용 SDL 포크 드라이버의 프로토콜로, android-bluez-ime(LGPL-2.1-or-later), flatlib.jp, iCade-iOS(MIT), Linux(GPL-2.0-or-later), MogaSerial(MIT), moga-uinput(MIT), ZeeClient(MIT), zeemoted(GPL-3.0-or-later), zeemouse에서 읽었습니다. 문서로만 참고했으며 코드는 포함하지 않습니다.</value></data>
   <data name="About_DjiRemoteRefs" xml:space="preserve"><value>DJI 조종기 참조</value></data>
-  <data name="About_DjiRemoteRefsDesc" xml:space="preserve"><value>DJI 드론 조종기용 SDL 포크 드라이버의 DUML 메시지로, dji-firmware-tools(GPL-3.0), gregszero의 dji-rc-joystick(GPL-3.0), voluminor의 dji-rc-joystick(LGPL-2.1), dji-rc-linux(MIT), dji-rc-windows, DJI_RC-N1_SIMULATOR_FLY_DCL(Apache-2.0), DJI_RC_Motion_Bridge(MIT), DJI_RCN1_for_drone_simulators, DJI_RCNx_for_drone_simulators, DJI-RC-Emulator(MIT), DjiMini2RCasJoystick(Apache-2.0), Matsemann의 mDjiController(Apache-2.0), mishavoloshchuk의 mDjiController(Apache-2.0), slaterbbx의 mDjiController(Apache-2.0), miniDjiController(Apache-2.0)에서 읽었습니다. 문서로만 참고했으며 코드는 포함하지 않습니다.</value></data>
+  <data name="About_DjiRemoteRefsDesc" xml:space="preserve"><value>DJI 드론 조종기용 SDL 포크 드라이버의 DUML 메시지로, dji-firmware-tools(GPL-3.0-or-later), gregszero의 dji-rc-joystick(GPL-3.0), voluminor의 dji-rc-joystick(LGPL-2.1), dji-rc-linux(MIT), dji-rc-windows, DJI_RC-N1_SIMULATOR_FLY_DCL(Apache-2.0), DJI_RC_Motion_Bridge(MIT), DJI_RCN1_for_drone_simulators, DJI_RCNx_for_drone_simulators, DJI-RC-Emulator(MIT), DjiMini2RCasJoystick(Apache-2.0), Matsemann의 mDjiController(Apache-2.0), mishavoloshchuk의 mDjiController(Apache-2.0), slaterbbx의 mDjiController(Apache-2.0), miniDjiController(Apache-2.0)에서 읽었습니다. 문서로만 참고했으며 코드는 포함하지 않습니다.</value></data>
   <data name="About_GunConRefs" xml:space="preserve"><value>GunCon 참조</value></data>
   <data name="About_GunConRefsDesc" xml:space="preserve"><value>SDL 포크 드라이버와 PadForge 화면 배율의 바탕이 된 GunCon 2 리포트로, beardypig의 guncon2(GPL-2.0), psakhis의 guncon2, GunconUSB(GPL-2.0), IR-Light-Gun(LGPL-2.1-or-later), PCSX2(GPL-3.0-or-later), topgun-linux-driver(GPL-3.0-or-later)에서 읽었습니다. 문서로만 참고했으며 코드는 포함하지 않습니다.</value></data>
   <data name="About_HidDeviceRefs" xml:space="preserve"><value>HID 장치 참조</value></data>
@@ -4084,17 +4115,17 @@
   <data name="About_IForceRefs" xml:space="preserve"><value>I-Force 참조</value></data>
   <data name="About_IForceRefsDesc" xml:space="preserve"><value>USB 및 시리얼 I-Force 휠과 조이스틱용 SDL 포크 드라이버의 I-Force 명령과 리포트로, forcers, iforce-binary-driver, iforce-feedback-wheel-driver-port(MIT/GPL-2.0-or-later), JUa9Win11Driver, linuxconsole(GPL-2.0-or-later), Linux(GPL-2.0-or-later)에서 읽었습니다. 문서로만 참고했으며 코드는 포함하지 않습니다.</value></data>
   <data name="About_InstrumentRefs" xml:space="preserve"><value>악기 및 Wii 확장 참조</value></data>
-  <data name="About_InstrumentRefsDesc" xml:space="preserve"><value>Wii 리모컨 악기·태블릿 확장, Guitar Hero Live 동글, Rock Band 3 Pro 악기, PS3 주변기기용 SDL 포크 드라이버의 프로토콜로, AutoCalibrationRB, brandonw.net, Dolphin(GPL-2.0-or-later), GHLtarUtility(GPL-3.0), Sera486의 GHLtarUtility(GPL-3.0), hid-ghlive-dkms(GPL-3.0), JoypadOS(Apache-2.0), Linux(GPL-2.0), NintendoExtensionCtrl(LGPL-3.0), PlasticBand(CC BY-SA 4.0), raphnet.net, rb3_keytar(MIT), RB4InstrumentMapper(MIT), RPCS3(GPL-2.0), Santroller(GPL-3.0), uDrawTablet, WiiBrew, WiitarThing(MIT), paroj의 xpad(GPL-2.0-or-later)에서 읽었습니다. 문서로만 참고했으며 코드는 포함하지 않습니다.</value></data>
+  <data name="About_InstrumentRefsDesc" xml:space="preserve"><value>Wii 리모컨 악기·태블릿 확장, Guitar Hero Live 동글, Rock Band 3 Pro 악기, PS3 주변기기용 SDL 포크 드라이버의 프로토콜로, AutoCalibrationRB, brandonw.net, Dolphin(GPL-2.0-or-later), GHLtarUtility(GPL-3.0), Sera486의 GHLtarUtility(GPL-3.0), hid-ghlive-dkms(GPL-3.0), JoypadOS(Apache-2.0), Linux(GPL-2.0), NintendoExtensionCtrl(LGPL-3.0-or-later), PlasticBand(CC BY-SA 4.0), raphnet.net, rb3_keytar(MIT), RB4InstrumentMapper(MIT), RPCS3(GPL-2.0), Santroller(GPL-3.0), uDrawTablet, WiiBrew, WiitarThing(MIT), paroj의 xpad(GPL-2.0-or-later)에서 읽었습니다. 문서로만 참고했으며 코드는 포함하지 않습니다.</value></data>
   <data name="About_RingConRefs" xml:space="preserve"><value>링콘 참조</value></data>
   <data name="About_RingConRefsDesc" xml:space="preserve"><value>SDL 포크 Switch 드라이버의 링콘 시작·정지 시퀀스와 PadForge가 읽는 변형 배율로, demo-of-ring-con-with-web-hid, Eden(GPL-3.0-or-later), Yamakaky의 joy(MIT), joy-con-webhid(Apache-2.0), Nintendo_Switch_Reverse_Engineering, osc-ringcon(MIT), Ringcon-Driver(MIT), RingconProtocolDebug(Apache-2.0)에서 읽었습니다. 문서로만 참고했으며 코드는 포함하지 않습니다.</value></data>
   <data name="About_SerialControllerRefs" xml:space="preserve"><value>시리얼 컨트롤러 참조</value></data>
   <data name="About_SerialControllerRefsDesc" xml:space="preserve"><value>6축 컨트롤러, 게임패드, 비행 스틱, RC 송신기, 비행 패널, 에르고미터용 SDL 포크 시리얼 드라이버의 프로토콜로, Async.fi, hidsporb, JoypadOS(Apache-2.0), KettlerBLE(MIT), kettlerUSB2BLE(MIT), John E. Stone의 libsball(BSD-style), linuxconsole(GPL-2.0-or-later), Linux(GPL-2.0), spacenavd(GPL-3.0-or-later), vJoySerialFeeder(GPL-3.0), VRInsight-Xplane-Interface(MIT), vrinsight-cdu-ii-msfs-driver(MIT), VRPN(BSL-1.0), xf86-input-magellan(MIT/X11), xf86-input-spaceorb(MIT/X11), XPComboTest(MIT)에서 읽었습니다. 문서로만 참고했으며 코드는 포함하지 않습니다.</value></data>
   <data name="About_SpecialtyUsbRefs" xml:space="preserve"><value>특수 USB 장치 참조</value></data>
-  <data name="About_SpecialtyUsbRefsDesc" xml:space="preserve"><value>Intel Wireless Series 베이스 스테이션, Xbox 360 빅 버튼 수신기, CH Products Multi-Function Panel, Ergodex DX1, TrackIR 2·3, Tacx 트레이너 헤드 유닛용 SDL 포크 드라이버의 프로토콜로, antifier(MIT), chmfp(GPL-3.0), dx1-studio(GPL-3.0), ergodex-dx1-linux(GPL-3.0), FortiusANT(GPL-3.0), intel-wings(GPL-2.0), JoypadOS(Apache-2.0), Linux(GPL-2.0), linuxtrack(MIT), t19xx_usb(GPL-3.0), xbox360bb(GPL-2.0-or-later)에서 읽었습니다. 문서로만 참고했으며 코드는 포함하지 않습니다.</value></data>
+  <data name="About_SpecialtyUsbRefsDesc" xml:space="preserve"><value>Intel Wireless Series 베이스 스테이션, Xbox 360 빅 버튼 수신기, CH Products Multi-Function Panel, Ergodex DX1, TrackIR 2·3, Tacx 트레이너 헤드 유닛용 SDL 포크 드라이버의 프로토콜로, antifier(MIT), chmfp(GPL-3.0-or-later), dx1-studio(GPL-3.0), ergodex-dx1-linux(GPL-3.0), fortius_1942(GPL-2.0-or-later), FortiusANT(GPL-3.0), intel-wings(GPL-2.0), JoypadOS(Apache-2.0), linuxtrack(MIT), t19xx_usb(GPL-3.0), ttyT1941(GPL-3.0), xbox360bb(GPL-2.0-or-later)에서 읽었습니다. 문서로만 참고했으며 코드는 포함하지 않습니다.</value></data>
   <data name="About_TrainControllerRefs" xml:space="preserve"><value>열차 컨트롤러 참조</value></data>
   <data name="About_TrainControllerRefsDesc" xml:space="preserve"><value>Densha de GO!, Multi Train, Train Mascon, Master Controller 열차 컨트롤러용 SDL 포크 드라이버의 프로토콜로, Takatani의 amy.hi-ho.ne.jp, Mackoy의 bvets.net, ConToJREts, ddgo-pnp-controller(GPL-3.0), OpenBVE(BSD-2-Clause), PCSX2(GPL-3.0-or-later), kazuhidet의 Qiita, RPCS3(GPL-2.0), p4ken의 Scrapbox, Train Controller Database에서 읽었습니다. 문서로만 참고했으며 코드는 포함하지 않습니다.</value></data>
   <data name="About_XboxControllerRefs" xml:space="preserve"><value>Xbox 컨트롤러 참조</value></data>
-  <data name="About_XboxControllerRefsDesc" xml:space="preserve"><value>초대 Xbox, Steel Battalion, Xbox 360 챗패드, Xbox 360 uDraw용 SDL 포크 드라이버와 PadForge가 Windows 기본 드라이버에 연결하는 Xbox 360 수신기의 프로토콜로, brandonw.net, Chatpad Super Driver(MIT), Cxbx-Reloaded(GPL-2.0-or-later), ITO Takayuki의 euc.jp, JoypadOS(Apache-2.0), libSteelBattalion, libsteelbat, Linux(GPL-2.0), ogx360(GPL-3.0-or-later), s-config.com, SBC(MIT), Spivey's Corner, steel-battalion-net(LGPL-3.0), SteelBattalionController(Apache-2.0), SteelBattalionDriver(GPL-3.0), SteelBattalionMapper(GPL-3.0-or-later), tusb_xinput(MIT), uDrawTablet, Xb2XInput(GPL-3.0), xb360ChatpadToKM(GPL-3.0), xbox360wirelesschatpad, xboxdevwiki, xboxdrv(GPL-3.0-or-later), xemu(LGPL-2.0-or-later)에서 읽었습니다. 문서로만 참고했으며 코드는 포함하지 않습니다.</value></data>
+  <data name="About_XboxControllerRefsDesc" xml:space="preserve"><value>초대 Xbox, Steel Battalion, Xbox 360 챗패드, Xbox 360 uDraw용 SDL 포크 드라이버와 PadForge가 Windows 기본 드라이버에 연결하는 Xbox 360 수신기의 프로토콜로, brandonw.net, Chatpad Super Driver(MIT), Cxbx-Reloaded(GPL-2.0-or-later), ITO Takayuki의 euc.jp, JoypadOS(Apache-2.0), libSteelBattalion, libsteelbat, Linux(GPL-2.0-or-later), ogx360(GPL-3.0-or-later), s-config.com, SBC(MIT), Spivey's Corner, steel-battalion-net(LGPL-3.0), SteelBattalionController(Apache-2.0), SteelBattalionDriver(GPL-3.0), SteelBattalionMapper(GPL-3.0-or-later), tusb_xinput(MIT), uDrawTablet, Xb2XInput(GPL-3.0), xb360ChatpadToKM(GPL-3.0), xbox360wirelesschatpad, xboxdevwiki, xboxdrv(GPL-3.0-or-later), xemu(LGPL-2.0-or-later)에서 읽었습니다. 문서로만 참고했으며 코드는 포함하지 않습니다.</value></data>
   <data name="About_Libwdi" xml:space="preserve"><value>libwdi</value></data>
   <data name="About_LibwdiDesc" xml:space="preserve"><value>자동 WinUSB 연결의 바탕이 된 장치별 INF 패키징과 장치 열거. Pete Batard 제작. 문서로만 참고했으며 코드는 포함하지 않습니다. LGPL-3.0-or-later.</value></data>
   <data name="About_Bluepad32" xml:space="preserve"><value>Bluepad32</value></data>
@@ -4107,4 +4138,6 @@
   <data name="About_WiiBrewDesc" xml:space="preserve"><value>Wii 리모컨 스피커 프로토콜 및 IR 보정 문서. 프로토콜 사실 확인용으로만 참조.</value></data>
   <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
   <data name="About_X1nputDesc" xml:space="preserve"><value>Xbox 임펄스 트리거의 9바이트 리포트와 그 쓰기 경로. araghon007 제작. MIT.</value></data>
+  <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
+  <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PS5 햅틱 PCM 형식(부호 있는 16비트, 3 kHz)으로, Bluetooth 햅틱의 부호 있는 8비트 인코딩을 확정했습니다. AGPL-3.0, 문서로만 참고했으며 AGPL 코드는 포함하지 않습니다.</value></data>
 </root>

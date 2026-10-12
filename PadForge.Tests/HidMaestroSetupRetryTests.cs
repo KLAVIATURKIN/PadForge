@@ -91,19 +91,79 @@ namespace PadForge.Tests
             try
             {
                 const string failure = "Failed to initialize HIDMaestro.";
-                vm.SetStatus(string.Format(Strings.Instance.Status_Error_Format, failure), persist: true);
+                svc.ShowError(failure);
+                Assert.Equal(string.Format(Strings.Instance.Status_Error_Format, failure), vm.StatusText);
                 svc.ClearResolvedError(failure);
                 Assert.Equal(string.Empty, vm.StatusText);
 
+                svc.ShowError(failure);
                 vm.SetStatus("Settings saved.", persist: true);
                 svc.ClearResolvedError(failure);
                 Assert.Equal("Settings saved.", vm.StatusText);
+
+                // Another error's recovery leaves this one's line up.
+                svc.ShowError(failure);
+                svc.ClearResolvedError("Failed to create the virtual controller.");
+                Assert.Equal(string.Format(Strings.Instance.Status_Error_Format, failure), vm.StatusText);
             }
             finally
             {
                 svc.Dispose();
                 SettingsManager.UserDevices = saved;
             }
+        }
+
+        /// <summary>The recovery takes back the line as it was written. After
+        /// a language change the current format reads differently, and a
+        /// compare with it left the error up.</summary>
+        [Fact]
+        public void ARecoveryAfterALanguageChangeStillClearsItsError()
+        {
+            var saved = SettingsManager.UserDevices;
+            SettingsManager.UserDevices = new DeviceCollection();
+            var vm = new MainViewModel();
+            var svc = new InputService(vm);
+            var before = System.Threading.Thread.CurrentThread.CurrentUICulture;
+            try
+            {
+                const string failure = "Failed to initialize HIDMaestro.";
+                System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("en");
+                svc.ShowError(failure);
+                string written = vm.StatusText;
+
+                System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("de");
+                Assert.NotEqual(written, string.Format(Strings.Instance.Status_Error_Format, failure));
+                svc.ClearResolvedError(failure);
+
+                Assert.Equal(string.Empty, vm.StatusText);
+            }
+            finally
+            {
+                System.Threading.Thread.CurrentThread.CurrentUICulture = before;
+                svc.Dispose();
+                SettingsManager.UserDevices = saved;
+            }
+        }
+
+        /// <summary>The context is published only once nothing after it in
+        /// the setup can throw. The catch disposes the context, so one
+        /// published before a throw stayed in the field disposed, and every
+        /// later setup returned early on it.</summary>
+        [Fact]
+        public void TheContextIsPublishedLast()
+        {
+            string step5 = RepoFile("PadForge.App", "Common", "Input", "InputManager.Step5.VirtualDevices.cs");
+            string ensure = Body(step5, "private void EnsureHMaestroContext()", 7000);
+            int end = ensure.IndexOf("catch (Exception ex)", StringComparison.Ordinal);
+            Assert.True(end > 0);
+            string attempt = ensure.Substring(0, end);
+
+            int publish = attempt.IndexOf("_hmaestroContext = ctx;", StringComparison.Ordinal);
+            Assert.True(publish > 0, "the context is never published");
+            Assert.Equal(publish, attempt.LastIndexOf("_hmaestroContext = ctx;", StringComparison.Ordinal));
+            Assert.True(publish > attempt.IndexOf("ctx.InstallDriver();", StringComparison.Ordinal));
+            Assert.True(publish > attempt.IndexOf("if (recovered) RaiseErrorResolved(HmSetupFailedMessage);", StringComparison.Ordinal));
+            Assert.True(publish > attempt.IndexOf("AppDomain.CurrentDomain.ProcessExit +=", StringComparison.Ordinal));
         }
     }
 }

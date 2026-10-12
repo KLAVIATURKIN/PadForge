@@ -209,8 +209,11 @@ namespace PadForge.ViewModels
             // picker getters re-fire whenever the input list is rebuilt.
             msi.RefreshParamPickerChoices();
             // With the list in, a key saved before keys carried a controller
-            // takes the one its picker shows.
-            msi.AdoptLegacyKeyDevices();
+            // takes the one its picker shows. Not while a load fills the row
+            // (BeginLoadRow): the slot's list is rebuilt after the rows load,
+            // and the one in hand can still be the previous controllers'.
+            // The rebuild's RefreshAllExtraSourceInputs decides then.
+            if (!_suppressPrimaryKindGate) msi.AdoptLegacyKeyDevices();
         }
 
         /// <summary>True when the row's target is a discrete
@@ -373,7 +376,9 @@ namespace PadForge.ViewModels
         /// before refilling it, so every firing point saw "no contributing
         /// secondary" mid-load and reverted a perfectly valid stored
         /// InvertOnHold primary to Direct. The loader brackets the row and
-        /// runs the gate once at the end, against the finished state.</summary>
+        /// runs the gate once at the end, against the finished state. A key
+        /// saved before keys carried a controller takes none inside the
+        /// bracket either (<see cref="RefreshExtraSourceInputs"/>).</summary>
         private bool _suppressPrimaryKindGate;
 
         internal void BeginLoadRow() => _suppressPrimaryKindGate = true;
@@ -471,6 +476,13 @@ namespace PadForge.ViewModels
                 p.ParamDownDeviceGuid = null;
                 p.ParamModifierDeviceGuid = null;
                 p.Kind = src?.Kind is "Toggle" or "RapidTrigger" ? src.Kind : "Direct";
+                // The holder names no controller either. The one a key
+                // source loaded before had left here was saved as the
+                // primary's own once its kind read keys again, and a source
+                // on a controller the slot does not have is dropped by the
+                // next device merge.
+                p.DeviceGuid = "";
+                p.DeviceLabel = "";
                 return;
             }
             // The device lands before the keys, so no key takes a controller
@@ -1811,6 +1823,10 @@ namespace PadForge.ViewModels
                     p.ParamModifierDeviceGuid = null;
                     p.ParamRapidTriggerDistance = Engine.Data.MappingSource.DefaultRapidTriggerDistance;
                     p.Kind = "Direct";
+                    // And the controller its keys had put it on
+                    // (LoadPrimaryKind does the same for a load).
+                    p.DeviceGuid = "";
+                    p.DeviceLabel = "";
                 }
                 SyncSelectedInputFromDescriptor();
                 Cleared?.Invoke(this, EventArgs.Empty);

@@ -288,8 +288,9 @@ namespace PadForge.Tests
         public void Nat_SequentialSymmetric_MatchesRealVerizonTrace()
         {
             // The exact ports measured from the reporter's Verizon hotspot:
-            // same IP, +2 per destination. Must classify as predictable.
-            var p = NatProfile.Classify(IPAddress.Parse("174.235.248.62"), new[] { 63280, 63282, 63284 });
+            // same IP, +2 per destination. Must classify as predictable. The
+            // address is a documentation one (RFC 5737), not the hotspot's.
+            var p = NatProfile.Classify(IPAddress.Parse("198.51.100.62"), new[] { 63280, 63282, 63284 });
             Assert.Equal(NatKind.SymmetricSequential, p.Kind);
             Assert.True(p.IsPunchable);       // the whole point: this IS punchable
             Assert.Equal(2, p.Delta);
@@ -310,7 +311,7 @@ namespace PadForge.Tests
             var peer = new NatProfile
             {
                 Kind = NatKind.SymmetricSequential,
-                PublicAddress = IPAddress.Parse("174.235.248.62"),
+                PublicAddress = IPAddress.Parse("198.51.100.62"),
                 LastPort = 63284,
                 Delta = 2,
             };
@@ -338,7 +339,7 @@ namespace PadForge.Tests
         [Fact]
         public void Code_CarriesNatProfile_RoundTrip()
         {
-            var pub = new IPEndPoint(IPAddress.Parse("174.235.248.62"), 63284);
+            var pub = new IPEndPoint(IPAddress.Parse("198.51.100.62"), 63284);
             var nat = new NatProfile { Kind = NatKind.SymmetricSequential, PublicAddress = pub.Address, LastPort = 63284, Delta = 2 };
             var code = LinkCode.EncodeSelfContained(pub, null, new byte[32], DateTimeOffset.FromUnixTimeSeconds(1_800_000_000), nat);
             Assert.True(LinkCode.TryParseSelfContained(code, out var parsed));
@@ -402,8 +403,8 @@ namespace PadForge.Tests
             // the Verizon-CGNAT-to-cone case.
             var nat = new SimNat();
             var epA = new IPEndPoint(IPAddress.Parse("203.0.113.1"), 1111);      // cone A
-            var epB_actual = new IPEndPoint(IPAddress.Parse("174.235.248.62"), 40006); // B's real allocated port
-            var epB_stun = new IPEndPoint(IPAddress.Parse("174.235.248.62"), 40000);   // B's advertised (stale) port
+            var epB_actual = new IPEndPoint(IPAddress.Parse("198.51.100.62"), 40006); // B's real allocated port
+            var epB_stun = new IPEndPoint(IPAddress.Parse("198.51.100.62"), 40000);   // B's advertised (stale) port
 
             var ta = nat.Endpoint(epA);
             var tb = nat.Endpoint(epB_actual); // B actually listens on its allocated port
@@ -435,7 +436,7 @@ namespace PadForge.Tests
             // without the self guard the punch settles on ourselves and the
             // handshake dies. The guard must make that impossible.
             var nat = new SimNat();
-            var mine = new IPEndPoint(IPAddress.Parse("68.34.77.35"), 27500);
+            var mine = new IPEndPoint(IPAddress.Parse("203.0.113.35"), 27500);
             var a = nat.Endpoint(mine);   // hairpin: our own public endpoint IS us
             var nonce = RandomBytes(16, 71);
             var puncher = new HolePuncher(a, nonce, TimeSpan.FromMilliseconds(10),
@@ -453,7 +454,7 @@ namespace PadForge.Tests
             // Same-LAN peers must connect over the private address, which needs
             // no NAT and no hairpin. The LAN candidate is sprayed first.
             var nat = new SimNat();
-            var myPublic = new IPEndPoint(IPAddress.Parse("68.34.77.35"), 27500);
+            var myPublic = new IPEndPoint(IPAddress.Parse("203.0.113.35"), 27500);
             var myLan = new IPEndPoint(IPAddress.Parse("10.19.90.40"), 27500);
             var peerLan = new IPEndPoint(IPAddress.Parse("10.19.90.55"), 27500);
 
@@ -525,8 +526,8 @@ namespace PadForge.Tests
             Assert.True(HolePuncher.IsPrivateAddress(IPAddress.Parse("192.168.1.5")));
             Assert.True(HolePuncher.IsPrivateAddress(IPAddress.Parse("172.31.176.1")));
             Assert.True(HolePuncher.IsPrivateAddress(IPAddress.Parse("169.254.1.1")));
-            Assert.False(HolePuncher.IsPrivateAddress(IPAddress.Parse("68.34.77.35")));
-            Assert.False(HolePuncher.IsPrivateAddress(IPAddress.Parse("174.235.248.62")));
+            Assert.False(HolePuncher.IsPrivateAddress(IPAddress.Parse("203.0.113.35")));
+            Assert.False(HolePuncher.IsPrivateAddress(IPAddress.Parse("198.51.100.62")));
         }
 
         [Fact]

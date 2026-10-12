@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -31,17 +32,30 @@ namespace PadForge.Tests
         /// through StatusChanged. A test that asserts on it records that
         /// stream, so a failure states its own cause. One of these failed in
         /// a full run on 2026-09-20 with nothing but "Expected: True".
-        /// Subscribe before Start, so a bind failure is recorded too.</summary>
+        /// Subscribe before Start, so a bind failure is recorded too. Each
+        /// entry carries its time, so a wait that ran out shows where the
+        /// time went.</summary>
         private static ConcurrentQueue<string> TraceStatus(params (string Name, LinkServer Server)[] servers)
         {
             var trace = new ConcurrentQueue<string>();
+            var clock = Stopwatch.StartNew();
             foreach (var (name, server) in servers)
-                server.StatusChanged += status => trace.Enqueue(name + " " + System.Text.Json.JsonSerializer.Serialize(status));
+                server.StatusChanged += status => trace.Enqueue(
+                    $"{clock.ElapsedMilliseconds} ms {name} {System.Text.Json.JsonSerializer.Serialize(status)}");
             return trace;
         }
         private static string Why(LinkServer dialer, ConcurrentQueue<string> trace)
             => "ConnectAsync returned false. DiagLastError=" + (dialer.DiagLastError ?? "(null)")
                + " | status: " + string.Join(" | ", trace);
+
+        /// <summary>What each side sent, received and opened over UDP, for an
+        /// exchange that went unanswered, so the failure says which direction
+        /// carried nothing. An assignment query timed out once with nothing
+        /// but "Expected: Denied, Actual: TimedOut".</summary>
+        private static string Traffic(params (string Name, LinkServer Server)[] servers)
+            => string.Join(" | ", servers.Select(s => $"{s.Name} port={s.Server.Port} sent={s.Server.DiagDatagramsSent}"
+                + $" received={s.Server.DiagDatagramsReceived} opened={s.Server.DiagDatagramsOpened}"
+                + $" error={s.Server.DiagLastError ?? "(null)"}"));
 
         [Fact]
         public async Task SparseInventoryKeepsDelayedInputAndEveryReverseChannelOnTheirOriginalSource()
@@ -233,8 +247,13 @@ namespace PadForge.Tests
         [Fact]
         public async Task ExhaustionRekeysAndReplaysCurrentInventoryWithAutoReconnectDisabled()
         {
-            var ownerIdentity = PeerIdentity.Generate();
-            var consumerIdentity = PeerIdentity.Generate();
+            // The consumer holds the lower fingerprint. That is the order in
+            // which it refuses a second session the owner opens while the
+            // first is under ten seconds old (LinkServer.Register).
+            var first = PeerIdentity.Generate();
+            var second = PeerIdentity.Generate();
+            var consumerIdentity = first.Fingerprint.AsSpan().SequenceCompareTo(second.Fingerprint) < 0 ? first : second;
+            var ownerIdentity = ReferenceEquals(consumerIdentity, first) ? second : first;
             var ownerTrust = new PeerTrustStore();
             var consumerTrust = new PeerTrustStore();
             int approvals = 0;
@@ -251,6 +270,20 @@ namespace PadForge.Tests
             Assert.True(await WaitUntil(() => received != null, 5000));
             ownerTrust.Find(consumerIdentity.PublicKey).ReconnectEnabled = false;
             consumerTrust.Find(ownerIdentity.PublicKey).ReconnectEnabled = false;
+            // This socket fixture covers loopback TCP/UDP, not the public relay.
+            ownerTrust.Find(consumerIdentity.PublicKey).RendezvousCapabilityBase64 = "";
+            consumerTrust.Find(ownerIdentity.PublicKey).RendezvousCapabilityBase64 = "";
+            // The connection is established, not a fresh collision: a list
+            // runs out long after its session began. While the first session
+            // was under ten seconds old the consumer refused the owner's new
+            // one, three times at 4.5 seconds apart, so every run with this
+            // order spent fifteen of the wait's forty-five seconds there.
+            // The wait ran out once in 292 runs under a hammer on
+            // 2026-10-11, and that run kept no record of where its time
+            // went.
+            long established = Stopwatch.GetTimestamp() - Stopwatch.Frequency * 20;
+            foreach (var server in new[] { owner, consumer })
+                RekeyConnection(server).GetType().GetField("EstablishedTicks").SetValue(RekeyConnection(server), established);
             var oldRoute = received.Connection;
             var oldTargets = owner.CaptureInputTargets();
             var oldSession = DataSession(owner);
@@ -263,7 +296,11 @@ namespace PadForge.Tests
             }
             Assert.True(await WaitUntil(() => received?.Info.PeerLocalDeviceId == "id256"
                 && received.Connection.IsCurrent && owner.HasConnections
-                && !owner.IsPeerConnecting(consumerIdentity.FingerprintHex), 45000), owner.DiagLastError);
+                && !owner.IsPeerConnecting(consumerIdentity.FingerprintHex), 45000),
+                $"Rekey incomplete. device={received?.Info.PeerLocalDeviceId} current={received?.Connection.IsCurrent}"
+                + $" ownerConnected={owner.HasConnections} rekeying={owner.IsPeerConnecting(consumerIdentity.FingerprintHex)}"
+                + $" approvals={approvals} ownerError={owner.DiagLastError ?? "(null)"}"
+                + $" consumerError={consumer.DiagLastError ?? "(null)"} | status: " + string.Join(" | ", status));
             Assert.False(oldRoute.IsCurrent);
             Assert.NotSame(oldSession, DataSession(owner));
             Assert.Equal(2, approvals);

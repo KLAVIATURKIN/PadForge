@@ -35,6 +35,15 @@ namespace PadForge.Tests
         private readonly Func<int, string, int, int, bool> _menuProvider = SourceCoercion.MenuItemFiredProvider;
         private readonly MappingSet _set = new();
 
+        /// <summary>The menu runtime's clock (MenuClock), held for every test
+        /// here. A phone's press is stamped on it and believed for 250 ms, a
+        /// released tap fires for 100 ms, and the tests read both across
+        /// several statements and passes. On the system clock a stall between
+        /// two of them failed a test with nothing wrong in the product. Held,
+        /// nothing lapses until a test moves it, and every stamp and every
+        /// read here is on this one clock.</summary>
+        private long _now = 10_000;
+
         public WebMenusTests()
         {
             SettingsManager.UserSettings = new SettingsCollection();
@@ -44,10 +53,12 @@ namespace PadForge.Tests
             SettingsManager.ActiveProfileId = null;
             InputManager.EndDeviceStateMemo();
             InputManager.ClearAllShiftRuntime();
+            MenuClock.Source = () => _now;
         }
 
         public void Dispose()
         {
+            MenuClock.Source = null;
             InputManager.EndDeviceStateMemo();
             InputManager.ClearAllShiftRuntime();
             SourceCoercion.MenuItemFiredProvider = _menuProvider;
@@ -199,19 +210,26 @@ namespace PadForge.Tests
             var (web, ud) = Phone();
             var im = new InputManager();
 
+            // The pulse runs on the class's held clock: the tap is inside its
+            // pulse however long the test takes, and past it when the test
+            // moves the clock. The press is stamped and weighed on that one
+            // clock, by the phone and by the tick.
             web.SetMenuCell(Slot, MenuId, 2, true);
             web.SetMenuCell(Slot, MenuId, 2, false);
             // Released within the pulse: the tap still fires once.
             im.UpdateMenuDirectPresses(ud, web);
             Assert.True(Fired(im, 2));
+            _now += MenuEvaluator.CommitPulseMs - 1;
+            im.UpdateMenuDirectPresses(ud, web);
+            Assert.True(Fired(im, 2));
 
-            // Past the pulse the device forgets it, and the next tick clears it.
-            var list = new List<(int Slot, int MenuId, int Cell, long Seq)>();
-            web.ReadMenuPresses(Environment.TickCount64 + MenuEvaluator.CommitPulseMs + 1000,
-                MenuEvaluator.CommitPulseMs, list);
-            Assert.Empty(list);
+            // Past the pulse the device forgets it, and the tick clears it.
+            _now += 1;
             im.UpdateMenuDirectPresses(ud, web);
             Assert.False(Fired(im, 2));
+            var list = new List<(int Slot, int MenuId, int Cell, long Seq)>();
+            web.ReadMenuPresses(_now, MenuEvaluator.CommitPulseMs, list);
+            Assert.Empty(list);
         }
 
         [Fact]
@@ -221,7 +239,7 @@ namespace PadForge.Tests
             web.SetMenuCell(Slot, MenuId, 1, true);
             web.SetMenuCell(Slot, MenuId, 1, false);
             var list = new List<(int Slot, int MenuId, int Cell, long Seq)>();
-            web.ReadMenuPresses(Environment.TickCount64, MenuEvaluator.CommitPulseMs, list);
+            web.ReadMenuPresses(_now, MenuEvaluator.CommitPulseMs, list);
             Assert.Equal(new[] { (Slot, MenuId, 1) }, Cells(list));
         }
 
@@ -614,7 +632,7 @@ namespace PadForge.Tests
             Assert.False(pad.IsMenuSurface);
             pad.SetMenuCell(Slot, MenuId, 1, true);
             var list = new List<(int Slot, int MenuId, int Cell, long Seq)>();
-            pad.ReadMenuPresses(Environment.TickCount64, MenuEvaluator.CommitPulseMs, list);
+            pad.ReadMenuPresses(_now, MenuEvaluator.CommitPulseMs, list);
             Assert.Empty(list);
         }
 
@@ -628,12 +646,12 @@ namespace PadForge.Tests
             for (int i = 0; i < WebControllerDevice.MaxHeldMenuCells + 5; i++)
                 web.SetMenuCell(Slot, 100 + i, 0, true);
             var list = new List<(int Slot, int MenuId, int Cell, long Seq)>();
-            web.ReadMenuPresses(Environment.TickCount64, MenuEvaluator.CommitPulseMs, list);
+            web.ReadMenuPresses(_now, MenuEvaluator.CommitPulseMs, list);
             Assert.Equal(WebControllerDevice.MaxHeldMenuCells, list.Count);
 
             web.SetConnected(false);
             list.Clear();
-            web.ReadMenuPresses(Environment.TickCount64, MenuEvaluator.CommitPulseMs, list);
+            web.ReadMenuPresses(_now, MenuEvaluator.CommitPulseMs, list);
             Assert.Empty(list);
         }
 
@@ -650,7 +668,7 @@ namespace PadForge.Tests
             web.SetMenuCell(Slot, MenuId, 2, true);
             web.NeutralizeAll();
             var list = new List<(int Slot, int MenuId, int Cell, long Seq)>();
-            web.ReadMenuPresses(Environment.TickCount64, MenuEvaluator.CommitPulseMs, list);
+            web.ReadMenuPresses(_now, MenuEvaluator.CommitPulseMs, list);
             Assert.Empty(list);
         }
 
@@ -683,7 +701,7 @@ namespace PadForge.Tests
             byte[] cell = Encoding.UTF8.GetBytes("{\"type\":\"cell\",\"slot\":3,\"menu\":7,\"cell\":2,\"down\":true}");
             WebControllerServer.ProcessMessage(web, cell, cell.Length);
             var list = new List<(int Slot, int MenuId, int Cell, long Seq)>();
-            web.ReadMenuPresses(Environment.TickCount64, MenuEvaluator.CommitPulseMs, list);
+            web.ReadMenuPresses(_now, MenuEvaluator.CommitPulseMs, list);
             Assert.Equal(new[] { (3, 7, 2) }, Cells(list));
 
             byte[] profile = Encoding.UTF8.GetBytes("{\"type\":\"profile\",\"id\":\"racing\"}");
@@ -705,7 +723,7 @@ namespace PadForge.Tests
             web.ReleaseAllMenuCells();
             WebControllerServer.ProcessMessage(web, cell, cell.Length, acceptInput: false);
             list.Clear();
-            web.ReadMenuPresses(Environment.TickCount64, MenuEvaluator.CommitPulseMs, list);
+            web.ReadMenuPresses(_now, MenuEvaluator.CommitPulseMs, list);
             Assert.Empty(list);
         }
 
@@ -1104,6 +1122,22 @@ namespace PadForge.Tests
             var phone = new WebControllerDevice("share", "Web Menus 1", false, WebControllerDevice.MenusLayoutKey);
             var pad = new WebControllerDevice("share2", "Xbox 360 Web Controller 1", false, "xbox360");
             Assert.False((bool)shareable.Invoke(null, new object[] { phone }));
+            Assert.True((bool)shareable.Invoke(null, new object[] { pad }));
+        }
+
+        /// <summary>A vendor row (#494) stands for this PC's vendor software
+        /// and has no input, so another PC is never offered one. The web pad
+        /// beside it shows the check is answering.</summary>
+        [Fact]
+        public void AVendorRowIsNotSharedOverRemoteLink()
+        {
+            var shareable = typeof(InputService).GetMethod("IsShareableDevice", BindingFlags.Static | BindingFlags.NonPublic);
+            foreach (var kind in Enum.GetValues<PadForge.Common.Input.Peripherals.PeripheralRowKind>())
+            {
+                var row = new PadForge.Common.Input.Peripherals.PeripheralOutputRow(kind);
+                Assert.False((bool)shareable.Invoke(null, new object[] { row }), kind.ToString());
+            }
+            var pad = new WebControllerDevice("share3", "Xbox 360 Web Controller 1", false, "xbox360");
             Assert.True((bool)shareable.Invoke(null, new object[] { pad }));
         }
     }

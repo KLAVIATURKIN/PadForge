@@ -1026,7 +1026,7 @@ namespace PadForge.Common.Input
                 || macro.UsesPovTrigger || macro.UsesGestureTrigger || macro.UsesAxisTrigger)
                 return false;
             var entries = macro.GetTriggerInputEntries();
-            long nowMs = Environment.TickCount64;
+            long nowMs = PadForge.Engine.Menus.MenuClock.NowMs;
             bool any = false;
             for (int i = 0; i < entries.Count; i++)
             {

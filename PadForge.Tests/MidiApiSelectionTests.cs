@@ -123,6 +123,41 @@ namespace PadForge.Tests
                 MidiApiSelection.CanOfferRuntimeInstall(build, inBoxRegistered, legacyApiMode, runtimeInstalled));
         }
 
+        /// <summary>Restarting the MIDI service frees a call only where the
+        /// call runs through it. Windows before 24H2 has no MIDI service and
+        /// no API mode value, and a missing value reads as full mode, so the
+        /// build is asked first: a legacy call there is a classic driver's.
+        /// In Legacy API mode nothing runs through the service, and in Hybrid
+        /// mode only the Windows MIDI Services calls do.</summary>
+        [Theory]
+        [InlineData(19045, MidiApiSelection.ApiModeFull, true, false)]
+        [InlineData(Build23H2, MidiApiSelection.ApiModeFull, true, false)]
+        [InlineData(Build23H2, MidiApiSelection.ApiModeFull, false, false)]
+        [InlineData(Build24H2, MidiApiSelection.ApiModeFull, true, true)]
+        [InlineData(Build24H2, MidiApiSelection.ApiModeFull, false, true)]
+        [InlineData(Build25H2, MidiApiSelection.ApiModeLegacy, true, false)]
+        [InlineData(Build25H2, MidiApiSelection.ApiModeLegacy, false, false)]
+        [InlineData(Build25H2, MidiApiSelection.ApiModeHybrid, true, false)]
+        [InlineData(Build25H2, MidiApiSelection.ApiModeHybrid, false, true)]
+        public void AServiceRestart_CanHelp_OnlyWhereTheCallRunsThroughTheService(int build, int mode, bool legacyCall,
+            bool expected)
+        {
+            Assert.Equal(expected, MidiApiSelection.ServiceRestartCanHelp(build, mode, legacyCall));
+        }
+
+        /// <summary>WinMM runs through the MIDI service only on the new MIDI
+        /// stack in full Windows MIDI Services mode.</summary>
+        [Theory]
+        [InlineData(Build23H2, MidiApiSelection.ApiModeFull, false)]
+        [InlineData(Build24H2, MidiApiSelection.ApiModeFull, true)]
+        [InlineData(Build25H2, MidiApiSelection.ApiModeFull, true)]
+        [InlineData(Build25H2, MidiApiSelection.ApiModeLegacy, false)]
+        [InlineData(Build25H2, MidiApiSelection.ApiModeHybrid, false)]
+        public void WinMm_RunsThroughTheService_OnlyOnTheNewStackInFullMode(int build, int mode, bool expected)
+        {
+            Assert.Equal(expected, MidiApiSelection.WinMmUsesService(build, mode));
+        }
+
         /// <summary>The real probe, through combase: a class every Windows
         /// registers activates (the positive control), and a class no
         /// Windows registers reads as REGDB_E_CLASSNOTREG, the one result
@@ -242,8 +277,7 @@ namespace PadForge.Tests
 
         /// <summary>The card shows the registry's prediction until the
         /// engine's probe has run, then the probe's answer, the legacy
-        /// fallback included. A failed probe for an API the registry says
-        /// is present reads as not started.</summary>
+        /// fallback included. A failed probe reads as not started.</summary>
         [Theory]
         [InlineData((int)MidiApiKind.InBox, (int)MidiApiKind.None, false, (int)MidiApiKind.InBox, false)]
         [InlineData((int)MidiApiKind.AppSdk, (int)MidiApiKind.None, false, (int)MidiApiKind.AppSdk, false)]
@@ -254,7 +288,7 @@ namespace PadForge.Tests
         [InlineData((int)MidiApiKind.AppSdk, (int)MidiApiKind.Legacy, false, (int)MidiApiKind.Legacy, false)]
         [InlineData((int)MidiApiKind.InBox, (int)MidiApiKind.None, true, (int)MidiApiKind.None, true)]
         [InlineData((int)MidiApiKind.Legacy, (int)MidiApiKind.None, true, (int)MidiApiKind.None, true)]
-        [InlineData((int)MidiApiKind.None, (int)MidiApiKind.None, true, (int)MidiApiKind.None, false)]
+        [InlineData((int)MidiApiKind.None, (int)MidiApiKind.None, true, (int)MidiApiKind.None, true)]
         public void TheCard_TakesTheEnginesAnswer_OnceItHasProbed(int predicted, int engineActive, bool probeFailed,
             int expectedApi, bool expectedNotStarted)
         {

@@ -1,4 +1,5 @@
 using PadForge.Common.Input;
+using PadForge.Engine;
 using PadForge.Engine.Data;
 using PadForge.Engine.Menus;
 using PadForge.Services;
@@ -29,6 +30,13 @@ public sealed class EmptySlotClipboardTests : IDisposable
         KeepAwakeEnabled = true, KeepAwakeAxis = "LeftThumbX", KeepAwakeDeflection = 42, KeepAwakeMotion = true
     };
 
+    /// <summary>The Paste row step onto slot 1, an Xbox slot, from a payload
+    /// copied on an Xbox slot or, across layouts, on a MIDI slot.</summary>
+    static void ApplyRows(PadSetting source, bool sameLayout)
+        => InputService.ApplySlotRowsFromClipboard(1, source,
+            sameLayout ? VirtualControllerType.Xbox : VirtualControllerType.Midi, false,
+            new InputService.SlotLayout(VirtualControllerType.Xbox, false));
+
     [Theory]
     [InlineData(false)]
     [InlineData(true)]
@@ -38,10 +46,9 @@ public sealed class EmptySlotClipboardTests : IDisposable
         if (throughJson) source = PadSetting.FromJson(source.ToJson());
         SettingsManager.SlotMappingSets[1] = Busy();
         Assert.Single(SettingsManager.SlotMappingSets[1].Rows);
-        InputService.ApplySlotRowsFromClipboard(1,
-            new PadSetting { SlotMultiSourceRows = [new MappingRow { Target = "ButtonB" }] }, sameLayout: true);
+        ApplyRows(new PadSetting { SlotMultiSourceRows = [new MappingRow { Target = "ButtonB" }] }, sameLayout: true);
         Assert.Equal("ButtonB", Assert.Single(SettingsManager.SlotMappingSets[1].Rows).Target);
-        InputService.ApplySlotRowsFromClipboard(1, source, sameLayout: true);
+        ApplyRows(source, sameLayout: true);
         output.WriteLine($"throughJson={throughJson} rows={SettingsManager.SlotMappingSets[1].Rows.Count}");
         Assert.Empty(SettingsManager.SlotMappingSets[1].Rows);
         Assert.Null(source.DeviceScopedMultiSourceRows);
@@ -114,7 +121,7 @@ public sealed class EmptySlotClipboardTests : IDisposable
     {
         SettingsManager.SlotMappingSets[1] = Busy();
         var legacy = PadSetting.FromJson(new PadSetting { ButtonA = "Button 7" }.ToJson());
-        InputService.ApplySlotRowsFromClipboard(1, legacy, sameLayout: true);
+        ApplyRows(legacy, sameLayout: true);
         Apply("shift", legacy, true);
         Apply("menus", legacy, true);
         Apply("extras", legacy, true);
@@ -124,17 +131,28 @@ public sealed class EmptySlotClipboardTests : IDisposable
         AssertAuthored("extras");
     }
 
+    /// <summary>A clean slot pasted onto a slot of another layout. The paste
+    /// replaces the Base rows, so the target's are gone, as on a shared
+    /// layout. Its shift layers, their rows, its menus and its SOCD pairs name
+    /// its own layout's targets and stay.</summary>
     [Fact]
-    public void CrossLayoutKeepsRowsAndSocdWhileReplacingOtherExtras()
+    public void CrossLayoutReplacesBaseRowsAndOtherExtrasAndKeepsLayersMenusAndSocd()
     {
         SettingsManager.SlotMappingSets[0] = new MappingSet();
-        SettingsManager.SlotMappingSets[1] = Busy();
+        var busy = Busy();
+        busy.Rows.Add(new MappingRow { Target = "ButtonB", LayerMask = "Shift1", Sources = [new MappingSource { Descriptor = "Button 2" }] });
+        SettingsManager.SlotMappingSets[1] = busy;
+        Assert.Equal(2, busy.Rows.Count);
         var source = Capture("extras");
         source.SlotMultiSourceRows = [];
-        InputService.ApplySlotRowsFromClipboard(1, source, sameLayout: false);
+        ApplyRows(source, sameLayout: false);
         Apply("extras", source, sameLayout: false);
         var got = SettingsManager.SlotMappingSets[1];
-        Assert.Single(got.Rows);
+        var kept = Assert.Single(got.Rows);
+        Assert.Equal("Shift1", kept.LayerMask);
+        Assert.Equal("ButtonB", kept.Target);
+        Assert.Single(got.ShiftActivators);
+        Assert.Single(got.Menus);
         Assert.Equal("Neutral", got.SocdMode);
         Assert.Equal("DPadLeft|DPadRight", got.SocdPairs);
         Assert.False(got.KeepAwakeEnabled);

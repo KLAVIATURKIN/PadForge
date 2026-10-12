@@ -76,7 +76,14 @@ namespace PadForge.Tests
             {
                 receiver.Start();
                 Assert.True(entered.Wait(TimeSpan.FromSeconds(5)));
-                Assert.False(received.Wait(100));
+                // OutputSync, held here, is the only lock the receive can find
+                // taken, so a receiver seen waiting stays parked on it until
+                // the finally below. A receive that took no lock would finish
+                // instead. A timed wait proved neither: it passed whenever the
+                // receiver ran late.
+                Assert.True(SpinWait.SpinUntil(() => received.IsSet
+                    || (receiver.ThreadState & ThreadState.WaitSleepJoin) != 0, TimeSpan.FromSeconds(5)));
+                Assert.False(received.IsSet);
                 retirement.Start();
                 Assert.True(retired.Wait(TimeSpan.FromSeconds(5)), "Retirement waited for a receive blocked on OutputSync.");
                 Assert.Single(writes);
@@ -122,7 +129,11 @@ namespace PadForge.Tests
             {
                 receiver.Start();
                 Assert.True(entered.Wait(TimeSpan.FromSeconds(5)));
-                Assert.False(completed.Wait(100));
+                // The stop is parked on OutputSync before the other device
+                // appears, as in the test above.
+                Assert.True(SpinWait.SpinUntil(() => completed.IsSet
+                    || (receiver.ThreadState & ThreadState.WaitSleepJoin) != 0, TimeSpan.FromSeconds(5)));
+                Assert.False(completed.IsSet);
                 Device();
                 Assert.Equal(LinkConnectionLifetime.InventoryResult.Sent, lifetime.PublishLocalInventory(Rebuild()));
             }

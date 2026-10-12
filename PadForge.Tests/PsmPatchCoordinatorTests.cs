@@ -445,13 +445,19 @@ namespace PadForge.Tests
             {
                 try
                 {
+                    // The retry wait is ten minutes here, so only the cancel
+                    // ends it. At the scan's own 100 ms the wait ran out
+                    // whenever this test's thread was held off that long
+                    // between seeing the worker parked and canceling, and the
+                    // second pass ran first. It failed that way once under
+                    // load, with two passes counted.
                     WiiPairingService.RunPairingScan(rig.Coordinator.Suspend, scope =>
                     {
                         Assert.True(scope.VerifyDisabled(out _));
                         if (Interlocked.Increment(ref passes) == 2) cancellation.Cancel();
                         firstPass.Set();
                         return new WiiPairingService.PairPassResult();
-                    }, cancellation.Token, null);
+                    }, cancellation.Token, null, retryPaceMs: 600_000);
                     finished.SetResult();
                 }
                 catch (Exception error) { finished.SetException(error); }
@@ -459,14 +465,14 @@ namespace PadForge.Tests
             worker.Start();
             try
             {
-                Assert.True(firstPass.Wait(TimeSpan.FromSeconds(2)));
+                Assert.True(firstPass.Wait(TimeSpan.FromSeconds(5)));
                 Assert.True(SpinWait.SpinUntil(() => finished.Task.IsCompleted
-                    || (worker.ThreadState & ThreadState.WaitSleepJoin) != 0, TimeSpan.FromSeconds(2)));
+                    || (worker.ThreadState & ThreadState.WaitSleepJoin) != 0, TimeSpan.FromSeconds(5)));
                 Assert.False(finished.Task.IsCompleted);
                 Assert.Equal(1, Volatile.Read(ref passes));
                 Assert.True(rig.Coordinator.IsSuspended);
                 cancellation.Cancel();
-                await finished.Task.WaitAsync(TimeSpan.FromSeconds(2));
+                await finished.Task.WaitAsync(TimeSpan.FromSeconds(5));
                 Assert.Equal(1, passes);
                 Assert.Equal(1, rig.RestoreCalls);
                 Assert.False(rig.Coordinator.IsSuspended);

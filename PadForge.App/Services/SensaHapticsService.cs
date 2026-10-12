@@ -25,8 +25,9 @@ namespace PadForge.Services
     /// <summary>
     /// Razer Sensa HD haptics translation (#374, asked in discussion #369):
     /// streams the rumble of the virtual controllers the Razer Sensa row is
-    /// assigned to (#494) into the Interhaptics engine, whose Razer provider
-    /// renders on Sensa HD devices (Wolverine V3 Pro, Kraken V4 Pro, Freyja).
+    /// assigned to, and Identify's pulses on the row (#494), into the
+    /// Interhaptics engine, whose Razer provider renders on Sensa HD devices
+    /// (Wolverine V3 Pro, Kraken V4 Pro, Freyja).
     /// The engine targets body parts, never one device, so the row stands
     /// for every Sensa device at once. The WYVRN app API plays only
     /// pre-authored named clips and carries no amplitude channel, so this
@@ -125,6 +126,9 @@ namespace PadForge.Services
         /// every later worker and leaked one thread per enable.</summary>
         internal const int DefaultPredecessorJoinMs = 10000;
 
+        /// <summary>How long Stop waits for its worker to end.</summary>
+        internal const int StopJoinMs = 3000;
+
         /// <summary>Test seam (InternalsVisibleTo PadForge.Tests): runs on
         /// the worker right before Provider.ProviderInit, so a test can
         /// hold a worker inside the bring-up window.</summary>
@@ -133,9 +137,17 @@ namespace PadForge.Services
         private readonly int _retryMs;
         private readonly int _tickMs;
         private readonly int _predecessorJoinMs;
+        private readonly int _stopJoinMs;
         private readonly Func<float> _amplitude;
         private Thread _thread;
-        private volatile bool _stop;
+
+        /// <summary>The running worker's stop flag, its own for each Start
+        /// (<see cref="PadForge.Common.Input.Peripherals.WorkerRun"/>). One
+        /// flag shared by every Start was cleared by a Start that followed a
+        /// Stop whose join gave up, under a worker still inside the provider's
+        /// bring-up: it went on ticking, and its successor waited out the
+        /// predecessor join behind it and quit.</summary>
+        private PadForge.Common.Input.Peripherals.WorkerRun _run;
         private int _disposed;
 
         /// <summary>Raised on state changes. Every state but one comes from
@@ -146,7 +158,8 @@ namespace PadForge.Services
         public event Action<SensaServiceState> StateChanged;
 
         /// <summary>The Razer Sensa row's level, which Step 2 sets from the
-        /// controllers it is assigned to and their Force Feedback settings.</summary>
+        /// controllers it is assigned to and their Force Feedback settings,
+        /// and Identify sets while it buzzes the row.</summary>
         internal static float RowAmplitude()
             => PadForge.Common.Input.Peripherals.PeripheralOutputs.AmplitudeOf(
                 PadForge.Common.Input.Peripherals.PeripheralOutputRow.IdentityFor(
@@ -155,15 +168,18 @@ namespace PadForge.Services
         public SensaHapticsService(int retryMs = 30000, int tickMs = 16)
             : this(retryMs, tickMs, DefaultPredecessorJoinMs, RowAmplitude) { }
 
-        /// <summary>Test seam for the predecessor-join deadline and the level
-        /// source: the bench provokes the give-up path in a fraction of a
-        /// second instead of the ten seconds production allows a straggler,
-        /// and streams its own level.</summary>
-        internal SensaHapticsService(int retryMs, int tickMs, int predecessorJoinMs, Func<float> amplitude = null)
+        /// <summary>Test seam for the predecessor-join deadline, the level
+        /// source and Stop's join: the bench provokes the give-up path in a
+        /// fraction of a second instead of the ten seconds production allows
+        /// a straggler, streams its own level, and leaves a held worker
+        /// behind without waiting out <see cref="StopJoinMs"/>.</summary>
+        internal SensaHapticsService(int retryMs, int tickMs, int predecessorJoinMs, Func<float> amplitude = null,
+            int stopJoinMs = StopJoinMs)
         {
             _retryMs = retryMs;
             _tickMs = tickMs;
             _predecessorJoinMs = predecessorJoinMs;
+            _stopJoinMs = stopJoinMs;
             _amplitude = amplitude ?? RowAmplitude;
         }
 
@@ -183,6 +199,23 @@ namespace PadForge.Services
         internal bool EngineStarted => Volatile.Read(ref _engineStarted) != 0;
         private int _engineStarted;
 
+        /// <summary>The level the worker's last tick rendered, as float
+        /// bits: set after that tick's intensity, ComputeAllEvents and
+        /// render, and zero once the worker's teardown stopped every
+        /// event.</summary>
+        private int _renderedBits;
+
+        /// <summary>1 from before a tick reads its level until that level is
+        /// rendered and recorded, so the crash wait can tell a tick is in
+        /// flight. Set before the read, the rule a Bliss-Box motor pass
+        /// keeps (BlissBoxSession.WriteMotors): set after it, a tick that
+        /// read a level before the engine's quiesce could render it after
+        /// the wait had read a rendered zero.</summary>
+        private int _rendering;
+
+        /// <summary>The level the worker's last tick rendered, 0..1.</summary>
+        internal float RenderedLevel => BitConverter.Int32BitsToSingle(Volatile.Read(ref _renderedBits));
+
         /// <summary>Test seam: the platform answer Start acts on. A bench has
         /// one architecture, so the branch an ARM64 process takes can only be
         /// reached by handing it that answer. Per instance, so a test that
@@ -197,25 +230,43 @@ namespace PadForge.Services
                 Report(SensaServiceState.Unsupported);
                 return;
             }
-            _stop = false;
-            _thread = new Thread(Worker) { IsBackground = true, Name = "SensaHaptics" };
+            var run = new PadForge.Common.Input.Peripherals.WorkerRun();
+            _run = run;
+            _thread = new Thread(() => Worker(run)) { IsBackground = true, Name = "SensaHaptics" };
             _thread.Start();
         }
 
         public void Stop()
         {
             if (_thread == null) return;
-            _stop = true;
-            try { _thread.Join(3000); } catch { }
+            _run.Stop = true;
+            try { _thread.Join(_stopJoinMs); } catch { }
             _thread = null;
+            _run = null;
         }
+
+        /// <summary>Waits up to <paramref name="waitMs"/> for the worker to
+        /// render a zero, for an abnormal exit after the engine's quiesce
+        /// zeroed every level. The worker applies the zero on its next tick,
+        /// and its StopAllEvents runs only at teardown, which the crash path
+        /// does not reach, so a process that ended first could leave the last
+        /// intensity with Razer's runtime. A tick that read its level before
+        /// the quiesce still renders it, so the wait holds while a tick is in
+        /// flight, and only a rendered zero with no tick in flight ends it:
+        /// every tick after that reads the level the quiesce left. True when
+        /// the worker went quiet inside the wait, and at once when no worker
+        /// runs. GameSenseBackend.WaitForSilence waits for GG the same
+        /// way.</summary>
+        public bool WaitForSilence(int waitMs)
+            => SpinWait.SpinUntil(() => !WorkerAlive
+                || (Volatile.Read(ref _rendering) == 0 && Volatile.Read(ref _renderedBits) == 0), waitMs);
 
         private void Report(SensaServiceState state)
         {
             try { StateChanged?.Invoke(state); } catch { }
         }
 
-        private void Worker()
+        private void Worker(PadForge.Common.Input.Peripherals.WorkerRun run)
         {
             bool harUp = false;
             bool providerUp = false;
@@ -286,7 +337,7 @@ namespace PadForge.Services
                 float lastIntensity = -1f;
                 Report(SensaServiceState.WaitingForRuntime);
 
-                while (!_stop)
+                while (!run.Stop)
                 {
                     long nowTick = Environment.TickCount64;
 
@@ -304,7 +355,12 @@ namespace PadForge.Services
                         if (providerUp) Report(SensaServiceState.Active);
                     }
 
-                    // 4. Stream the rumble.
+                    // 4. Stream the rumble. The tick is in flight before it
+                    //    reads its level, and both this exchange and the
+                    //    engine's zeroing of a level are interlocked, so a
+                    //    crash wait that began after the zeroing either sees
+                    //    this tick or this tick reads the zero.
+                    Interlocked.Exchange(ref _rendering, 1);
                     float amp = Math.Clamp(_amplitude(), 0f, 1f);
                     if (amp != lastIntensity)
                     {
@@ -316,6 +372,9 @@ namespace PadForge.Services
                     Har.ComputeAllEvents(clock.Elapsed.TotalSeconds);
                     if (providerUp && Provider.ProviderIsPresent())
                         Provider.ProviderRenderHaptics();
+                    // What this tick rendered, for the crash wait.
+                    Volatile.Write(ref _renderedBits, BitConverter.SingleToInt32Bits(amp));
+                    Volatile.Write(ref _rendering, 0);
 
                     Thread.Sleep(_tickMs);
                 }
@@ -335,6 +394,8 @@ namespace PadForge.Services
                     }
                     try { Har.Quit(); } catch { }
                 }
+                Volatile.Write(ref _renderedBits, 0);
+                Volatile.Write(ref _rendering, 0);
                 Report(SensaServiceState.Stopped);
             }
         }

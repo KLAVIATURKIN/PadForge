@@ -932,50 +932,48 @@ namespace PadForge.Common.Input
                     return ps;
                 }
 
+                // A lettered wire takes a pad by role, south button to south
+                // button, from one table (NintendoPreviewMap.GamepadPositions),
+                // the table Paste and Copy From read to carry a slot onto the
+                // same wire. Each position is read where SDL's order puts it:
+                // the eleven standard buttons and the six axes through the
+                // gates above, the extras past button 10 only where the pad
+                // lists them, and the D-pad from the hat. A role the wire lacks
+                // binds nothing, and the wire decides whether its D-pad is a
+                // hat or four buttons.
+                void MapGamepadPositions(bool valve)
+                {
+                    foreach (var position in Models2D.NintendoPreviewMap.GamepadPositions)
+                    {
+                        string source = position.Input switch
+                        {
+                            Models2D.NintendoPreviewMap.GamepadInput.Axis => Ax(position.Index),
+                            Models2D.NintendoPreviewMap.GamepadInput.Hat =>
+                                DPad() ? "POV 0 " + position.Target.Substring(4) : null,
+                            _ => position.Index <= 10 ? Btn(position.Index) : Extra(position.Index),
+                        };
+                        if (source == null) continue;
+                        foreach (string role in position.Roles(valve))
+                            if (Models2D.NintendoPreviewMap.ToRaw(role, profileId) is { } raw)
+                                ps.SetRawMapping(raw, source);
+                    }
+                }
+
                 if (outputType == Engine.VirtualControllerType.Extended
                     && Models2D.NintendoPreviewMap.IsValve(profileId))
                 {
-                    // Valve automap. Same posture as the Nintendo block
-                    // below: every binding names a ROLE and the canonical
-                    // wire table resolves the raw index, so the three Valve
-                    // wires (Deck, 2015, 2026) share this one block. Source
-                    // indices are the SDL3 XInput-backend order the generic
-                    // gamepad automap below uses; the D-pad rides the hat on
-                    // the Deck and the 2015 pad and four buttons on the
-                    // 2026 pad, and the table decides which.
+                    // Valve automap. The three Valve wires (Deck, 2015, 2026)
+                    // share the table's Valve roles: Quick Access at misc 1,
+                    // the rear buttons in SDL's RP1 LP1 RP2 LP2 order at 12 to
+                    // 15 (R4 L4 R5 L5 on the Deck and 2026 wires, the two grips
+                    // on the 2015 wire: SDL_gamepad.c 1263 / 1266 / 1269).
                     void MapValve(string role, string source)
                     {
                         if (source == null) return;
                         int i = Models2D.NintendoPreviewMap.IndexOf(profileId, role);
                         if (i >= 0) ps.SetRawMapping($"RawBtn{i}", source);
                     }
-                    for (int a = 0; a < 6; a++)
-                        if (Ax(a) is { } axis) ps.SetRawMapping($"RawAxis{a}", axis);
-                    MapValve("ButtonA", Btn(0));
-                    MapValve("ButtonB", Btn(1));
-                    MapValve("ButtonX", Btn(2));
-                    MapValve("ButtonY", Btn(3));
-                    MapValve("LeftShoulder", Btn(4));
-                    MapValve("RightShoulder", Btn(5));
-                    MapValve("ButtonBack", Btn(6));
-                    MapValve("ButtonStart", Btn(7));
-                    MapValve("LeftThumbButton", Btn(8));
-                    MapValve("RightThumbButton", Btn(9));
-                    MapValve("ButtonGuide", Btn(10));
-
-                    // Every source-side extra a Valve pad reports through
-                    // SDL, each gated on the pad exposing it: Quick Access
-                    // at misc1 (11), the rear buttons in SDL's RP1 LP1 RP2
-                    // LP2 order at 12-15 (R4 L4 R5 L5 on the Deck and 2026
-                    // wires, the two grips on the 2015 wire: SDL_gamepad.c
-                    // 1263 / 1266 / 1269). MapValve drops a role the target
-                    // wire has no slot for, so both spellings of 12 and 13
-                    // are offered and the table keeps the one that fits.
-                    MapValve("ButtonQuickAccess", Extra(11));
-                    if (Extra(12) is { } paddle1) { MapValve("Paddle1", paddle1); MapValve("RightGrip", paddle1); }
-                    if (Extra(13) is { } paddle2) { MapValve("Paddle2", paddle2); MapValve("LeftGrip", paddle2); }
-                    MapValve("Paddle3", Extra(14));
-                    MapValve("Paddle4", Extra(15));
+                    MapGamepadPositions(valve: true);
 
                     // Trackpads. All three Valve drivers register the left
                     // pad as touchpad 0 and the right as touchpad 1, one
@@ -1014,91 +1012,20 @@ namespace PadForge.Common.Input
                     // the packer fills from the slot's motion channel.
                     if (ud.HasGyro)  ps.MotionGyro  = "Motion Gyro";
                     if (ud.HasAccel) ps.MotionAccel = "Motion Accel";
-
-                    if (DPad())
-                    {
-                        foreach (var role in new[] { "DPadUp", "DPadDown", "DPadLeft", "DPadRight" })
-                        {
-                            string source = "POV 0 " + role.Substring(4);
-                            int i = Models2D.NintendoPreviewMap.IndexOf(profileId, role);
-                            if (i >= 0) ps.SetRawMapping($"RawBtn{i}", source);
-                            else ps.SetRawMapping("RawPov0" + role.Substring(4), source);
-                        }
-                    }
                     ps.FlushRawMappings();
                 }
                 else if (outputType == Engine.VirtualControllerType.Nintendo)
                 {
-                    // Nintendo (switch-pro) positional automap: the physical
-                    // PLACEMENT of the source pad's controls lands on the
-                    // same placement on the virtual Switch Pro (owner
-                    // direction 2026-07-19), matching SDL's own positional
-                    // gamepad semantics. SDL button indices are positional
-                    // (0=south 1=east 2=west 3=north), and switch-pro raw
-                    // indices letter B0 A1 Y2 X3 (see NintendoExtendedLabel),
-                    // so index N maps straight to RawBtnN and the
-                    // letters land Xbox A on Switch B, Xbox X on Switch Y.
-                    // Sticks: the profile has no analog triggers, so
-                    // ComputeAxisLayout packs LX LY RX RY at 0-3. Physical
-                    // trigger PULLS press the digital ZL/ZR buttons through
-                    // the standard axis-as-button coercion.
-                    if (Ax(0) is { } lx) ps.SetRawMapping("RawAxis0", lx);
-                    if (Ax(1) is { } ly) ps.SetRawMapping("RawAxis1", ly);
-                    if (Ax(3) is { } rx) ps.SetRawMapping("RawAxis2", rx);
-                    if (Ax(4) is { } ry) ps.SetRawMapping("RawAxis3", ry);
-
-                    // Every binding names a ROLE and lets the canonical wire
-                    // table resolve the index. The hardcoded index list this
-                    // replaced was the original Pro Controller's, so on a
-                    // Switch 2 Pro it sent Back to the D-pad's Down button,
-                    // Start to Right, the stick clicks to Left and Up, Guide
-                    // to L, Capture to ZL, and the hat to a POV that pad does
-                    // not declare, leaving its D-pad unmapped entirely.
-                    void MapRole(string role, string source)
-                    {
-                        if (source == null) return;
-                        int i = Models2D.NintendoPreviewMap.IndexOf(profileId, role);
-                        if (i >= 0) ps.SetRawMapping($"RawBtn{i}", source);
-                    }
-
-                    MapRole("ButtonB", Btn(0));   // south
-                    MapRole("ButtonA", Btn(1));   // east
-                    MapRole("ButtonY", Btn(2));   // west
-                    MapRole("ButtonX", Btn(3));   // north
-                    MapRole("LeftShoulder", Btn(4));
-                    MapRole("RightShoulder", Btn(5));
-                    MapRole("LeftTrigger", Ax(2));   // LT pull → ZL
-                    MapRole("RightTrigger", Ax(5));  // RT pull → ZR
-                    MapRole("ButtonBack", Btn(6));    // → Minus
-                    MapRole("ButtonStart", Btn(7));   // → Plus
-                    MapRole("LeftThumbButton", Btn(8));
-                    MapRole("RightThumbButton", Btn(9));
-                    MapRole("ButtonGuide", Btn(10)); // → Home
-
-                    // Source-side extras, each gated on the pad actually
-                    // exposing that button so a plain gamepad carries no dead
-                    // bindings: Misc1 (Xbox Share / DualSense Mic / Switch
-                    // Capture) at 11, the first paddle pair at 12/13, Misc2
-                    // at 17. The last three land on roles only the Switch 2
-                    // Pro has, so MapRole drops them on the original.
-                    MapRole("ButtonShare", Extra(11));
-                    MapRole("RightPaddle", Extra(12));
-                    MapRole("LeftPaddle", Extra(13));
-                    MapRole("ButtonC", Extra(17));
-
-                    // D-pad: bind whichever encoding the TARGET declares. A
-                    // hat source still has to reach a pad that spends four
-                    // discrete buttons on its D-pad.
-                    if (DPad())
-                    {
-                        foreach (var role in new[] { "DPadUp", "DPadDown", "DPadLeft", "DPadRight" })
-                        {
-                            string source = "POV 0 " + role.Substring(4);
-                            int i = Models2D.NintendoPreviewMap.IndexOf(profileId, role);
-                            if (i >= 0) ps.SetRawMapping($"RawBtn{i}", source);
-                            else ps.SetRawMapping("RawPov0" + role.Substring(4), source);
-                        }
-                    }
+                    // Nintendo automap: the PLACEMENT of the source pad's
+                    // controls lands on the same placement on the virtual
+                    // Switch pad (owner direction 2026-07-19), SDL's own
+                    // positional semantics, so Xbox A lands on Switch B and
+                    // Xbox X on Switch Y. The sticks take raw axes 0 to 3,
+                    // and the trigger pulls press the digital ZL and ZR
+                    // through the axis-as-button read. The table's roles are
+                    // the Switch 2 Pro's too: a hardcoded Pro Controller
+                    // index list once sent Back to that pad's D-pad Down.
+                    MapGamepadPositions(valve: false);
                     ps.FlushRawMappings();
                 }
                 else

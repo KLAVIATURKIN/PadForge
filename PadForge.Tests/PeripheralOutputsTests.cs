@@ -245,12 +245,16 @@ namespace PadForge.Tests
             using var md5 = MD5.Create();
             Guid Hash(string s) => new(md5.ComputeHash(Encoding.UTF8.GetBytes(s)));
 
-            foreach (var (kind, tag, type) in new[]
+            foreach (var (kind, tag, type, name, path, product) in new[]
             {
-                (PeripheralRowKind.RazerChroma, "pfrazerchroma", InputDeviceType.PeripheralLighting),
-                (PeripheralRowKind.LogitechLightsync, "pflogilightsync", InputDeviceType.PeripheralLighting),
-                (PeripheralRowKind.RazerSensa, "pfrazersensa", InputDeviceType.PeripheralHaptics),
-                (PeripheralRowKind.SteelSeriesGG, "pfsteelseriesgg", InputDeviceType.PeripheralLighting),
+                (PeripheralRowKind.RazerChroma, "pfrazerchroma", InputDeviceType.PeripheralLighting,
+                    "Razer Chroma", "razerchroma://local", (ushort)0x4348),
+                (PeripheralRowKind.LogitechLightsync, "pflogilightsync", InputDeviceType.PeripheralLighting,
+                    "Logitech LIGHTSYNC", "logilightsync://local", (ushort)0x4C53),
+                (PeripheralRowKind.RazerSensa, "pfrazersensa", InputDeviceType.PeripheralHaptics,
+                    "Razer Sensa", "razersensa://local", (ushort)0x5345),
+                (PeripheralRowKind.SteelSeriesGG, "pfsteelseriesgg", InputDeviceType.PeripheralLighting,
+                    "SteelSeries GG", "steelseriesgg://local", (ushort)0x5347),
             })
             {
                 var row = new PeripheralOutputRow(kind);
@@ -258,6 +262,12 @@ namespace PadForge.Tests
                 Assert.Equal(Hash(tag), row.InstanceGuid);
                 Assert.Equal(Hash(tag + "-product"), row.ProductGuid);
                 Assert.Equal(type, row.GetInputDeviceType());
+                Assert.Equal(type == InputDeviceType.PeripheralLighting, PeripheralOutputRow.IsLightingRow(kind));
+                Assert.Equal(name, PeripheralOutputRow.NameFor(kind));
+                Assert.Equal(name, row.Name);
+                Assert.Equal(path, row.DevicePath);
+                Assert.Equal(product, row.ProductId);
+                Assert.Equal(kind, PeripheralOutputRow.KindOf(row.InstanceGuid));
                 Assert.Equal(0x5046, row.VendorId);
                 Assert.Equal(0, row.NumAxes + row.NumButtons + row.NumHats);
                 Assert.False(row.HasRumble || row.HasHaptic);
@@ -266,6 +276,21 @@ namespace PadForge.Tests
                 Assert.False(row.IsAttached);
                 Assert.Null(row.GetCurrentState());
             }
+        }
+
+        /// <summary>A kind appended to the enum without its own arms is
+        /// refused everywhere a row is described, rather than answered with
+        /// the Razer Sensa row's path, name and id, which a new row would then
+        /// overwrite in the device list and in every saved assignment.</summary>
+        [Fact]
+        public void AnUnlistedRowKindIsRefused()
+        {
+            var unlisted = (PeripheralRowKind)Enum.GetValues(typeof(PeripheralRowKind)).Length;
+            Assert.Throws<ArgumentOutOfRangeException>(() => PeripheralOutputRow.IdentityFor(unlisted));
+            Assert.Throws<ArgumentOutOfRangeException>(() => PeripheralOutputRow.NameFor(unlisted));
+            Assert.Throws<ArgumentOutOfRangeException>(() => PeripheralOutputRow.IsLightingRow(unlisted));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new PeripheralOutputRow(unlisted));
+            Assert.Null(PeripheralOutputRow.KindOf(Guid.NewGuid()));
         }
 
         [Fact]
@@ -672,6 +697,37 @@ namespace PadForge.Tests
             Assert.All(Enumerable.Range(1, 6), slot => Assert.False(state.Unpaired[slot]));
         }
 
+        /// <summary>A pairing read that never went out, on a channel without
+        /// the receiver's short collection or one whose short write failed,
+        /// counts toward nothing: the receiver was never asked, so the table
+        /// is still read once it can be.</summary>
+        [Fact]
+        public void AReadThatNeverWentOutNeverGivesUpTheTable()
+        {
+            foreach (var never in new[] { HidppReplyKind.None, HidppReplyKind.WriteFailed })
+            {
+                bool reachable = false;
+                var channel = BoltReceiver(slot => !reachable ? new HidppReply(never)
+                    : slot == 1 ? new HidppReply(HidppReplyKind.Answer) : new HidppReply(HidppReplyKind.Error, 0x03));
+                var state = new HidppPathState { ReceiverKind = HidppReceiverKind.Bolt };
+                for (int i = 0; i <= HidppUnitProbe.PairingGiveUp; i++)
+                    HidppUnitProbe.ReadPairing(channel, state, 300);
+                Assert.Equal(0, state.PairingMisses);
+
+                reachable = true;
+                HidppUnitProbe.ReadPairing(channel, state, 300);
+                Assert.False(state.Unpaired[1]);
+                Assert.All(new[] { 2, 3, 4, 5, 6 }, slot => Assert.True(state.Unpaired[slot], $"{never}: slot {slot}"));
+            }
+
+            // The channel answers None when it has no short collection to ask
+            // through.
+            string haptics = AuditDelta20261002Tests.RepoText("PadForge.App", "Common", "Input", "HidppHaptics.cs");
+            int read = haptics.IndexOf("public HidppReply ReadReceiverRegister(", StringComparison.Ordinal);
+            Assert.True(read >= 0, "ReadReceiverRegister moved");
+            Assert.Contains("return new HidppReply(HidppReplyKind.None);", haptics.Substring(read, 600));
+        }
+
         [Fact]
         public void TheNameIsReadThroughTheIndexAlreadyFound()
         {
@@ -977,6 +1033,12 @@ namespace PadForge.Tests
             Assert.False(HidppBackend.IsHidppLong(Collection(0xFF00, 0x0001, 7)));
             Assert.False(HidppBackend.IsHidppLong(Collection(0xFF43, 0x0604, 64)));
             Assert.False(HidppBackend.IsHidppLong(Collection(0xFF00, 0x0002, vid: 0x1532)));
+            // The Bluetooth LE devices OpenLogi lists and the headsets OpenRGB
+            // drives on 0xFF43 usage 0x0202, with the 20-byte report only.
+            Assert.True(HidppBackend.IsHidppLong(Collection(0xFF43, 0x0202)));
+            Assert.False(HidppBackend.IsHidppLong(Collection(0xFF43, 0x0202, 64)));
+            // The Centurion page carries frames the channel does not speak.
+            Assert.False(HidppBackend.IsHidppLong(Collection(0xFFA0, 0x0001)));
         }
     }
 
@@ -993,7 +1055,13 @@ namespace PadForge.Tests
         private static readonly Guid B = new("00000000-0000-0000-0000-0000000000b2");
         private static readonly Guid Vendor = new("00000000-0000-0000-0000-0000000000c3");
 
-        public PeripheralOutputsFacadeTests() => PeripheralOutputs.ResetForTest();
+        public PeripheralOutputsFacadeTests()
+        {
+            PeripheralOutputs.ResetForTest();
+            // The route lines say nothing while the engine is stopped.
+            PeripheralOutputs.SetRunning(true);
+        }
+
         public void Dispose() => PeripheralOutputs.ResetForTest();
 
         private static void Link(params DeviceLinks[] rows) => PeripheralOutputs.PublishLinks(new LinkTable(rows));
@@ -1193,8 +1261,100 @@ namespace PadForge.Tests
             Assert.Equal(A, ruler.Device);
             Assert.Equal(0x112233, rgb);
 
-            PeripheralOutputs.ReleaseSlot(2);
+            // A slot that lights nothing any more, its controller gone, loses
+            // its claims at the link pass's prune, its device still assigned.
+            PeripheralOutputs.PruneClaims(new HashSet<(Guid, int)> { (A, 2) }, slot => slot != 2);
             Assert.False(PeripheralOutputs.TryResolveColor(path, out _, out _));
+        }
+
+        /// <summary>Identify on a row takes its shared haptic path for the
+        /// train, ahead of every rank, so an unassigned Rival plays its pulses
+        /// and a Rival another controller's Rival rules does too. The path
+        /// goes back to the ranking when the train ends, and a claim never
+        /// ended lapses on its own (#494).</summary>
+        [Fact]
+        public void AnIdentifiedRowRulesASharedHapticPath_ForItsTrainOnly()
+        {
+            var path = PeripheralLinker.GameSenseTactilePath;
+            Link(new DeviceLinks { Device = A, Haptics = new[] { path } },
+                 new DeviceLinks { Device = B, Haptics = new[] { path } });
+            var players = new Dictionary<Guid, int> { [A] = 0, [B] = 1 };
+            int PlayerOf(Guid g) => players.TryGetValue(g, out int p) ? p : 0;
+            int changes = 0;
+            void OnChange() => changes++;
+            PeripheralOutputs.IdentifyChanged += OnChange;
+            try
+            {
+                // Unassigned, A ranks nowhere, and B on controller 1 rules.
+                Assert.True(PeripheralOutputs.TryResolveHapticRuler(path, PlayerOf, out var ruler));
+                Assert.Equal(B, ruler);
+
+                PeripheralOutputs.BeginIdentify(A, 60000);
+                Assert.Equal(1, changes);
+                Assert.True(PeripheralOutputs.IsIdentifying(A));
+                Assert.True(PeripheralOutputs.TryResolveHapticRuler(path, PlayerOf, out ruler));
+                Assert.Equal(A, ruler);
+
+                PeripheralOutputs.EndIdentify(A);
+                Assert.Equal(2, changes);
+                Assert.False(PeripheralOutputs.IsIdentifying(A));
+                Assert.True(PeripheralOutputs.TryResolveHapticRuler(path, PlayerOf, out ruler));
+                Assert.Equal(B, ruler);
+
+                // Nothing assigned: only Identify rules.
+                players[B] = 0;
+                Assert.False(PeripheralOutputs.TryResolveHapticRuler(path, PlayerOf, out _));
+                PeripheralOutputs.BeginIdentify(A, 60000);
+                Assert.True(PeripheralOutputs.TryResolveHapticRuler(path, PlayerOf, out ruler));
+                Assert.Equal(A, ruler);
+                PeripheralOutputs.EndIdentify(A);
+
+                // A claim no train ended lapses at its bound.
+                PeripheralOutputs.BeginIdentify(A, 1000, Environment.TickCount64 - 5000);
+                Assert.False(PeripheralOutputs.IsIdentifying(A));
+                Assert.False(PeripheralOutputs.TryResolveHapticRuler(path, PlayerOf, out _));
+
+                // Two rows identified at once: the claim that lapses last
+                // rules, whichever row the table lists first.
+                long now = Environment.TickCount64;
+                PeripheralOutputs.BeginIdentify(A, 60000, now);
+                PeripheralOutputs.BeginIdentify(B, 30000, now);
+                Assert.True(PeripheralOutputs.TryResolveHapticRuler(path, PlayerOf, out ruler));
+                Assert.Equal(A, ruler);
+                PeripheralOutputs.BeginIdentify(B, 90000, now);
+                Assert.True(PeripheralOutputs.TryResolveHapticRuler(path, PlayerOf, out ruler));
+                Assert.Equal(B, ruler);
+                PeripheralOutputs.EndIdentify(A);
+                PeripheralOutputs.EndIdentify(B);
+            }
+            finally { PeripheralOutputs.IdentifyChanged -= OnChange; }
+        }
+
+        /// <summary>The Razer Sensa worker reads its row's level on every
+        /// tick, so the read allocates nothing: the row's id is hashed
+        /// once.</summary>
+        [Fact]
+        public void TheSensaRowsLevelIsReadWithoutAllocating()
+        {
+            var sensa = PeripheralOutputRow.IdentityFor(PeripheralRowKind.RazerSensa);
+            PeripheralOutputs.SetMotors(sensa, 0, 32768);
+            Assert.Equal(32768 / 65535f, SensaHapticsService.RowAmplitude(), 5);
+            // Counted over windows the runtime left alone: the thread's
+            // count moves by itself in a full run (AllocationWindow).
+            foreach (long bytes in AllocationWindow.Clean(() => SensaHapticsService.RowAmplitude(), 1000))
+                Assert.Equal(0, bytes);
+        }
+
+        /// <summary>The HID++ worker asks every unit whether it plays a
+        /// waveform on every pass, so the answer allocates nothing.</summary>
+        [Fact]
+        public void TheWaveformChoiceAllocatesNothing()
+        {
+            const uint all = (1u << 2) | (1u << 3) | (1u << 4);
+            Assert.Equal((byte)0x04, HapticRumbleShaper.Waveform(1, all));
+            int n = 0;
+            foreach (long bytes in AllocationWindow.Clean(() => HapticRumbleShaper.Waveform(1 + n++ % 3, all), 1000))
+                Assert.Equal(0, bytes);
         }
 
         [Fact]
@@ -1284,6 +1444,25 @@ namespace PadForge.Tests
             Assert.Equal(0f, SensaHapticsService.RowAmplitude());
             PeripheralOutputs.SetMotors(sensa, 0, 32768);
             Assert.Equal(32768 / 65535f, SensaHapticsService.RowAmplitude(), 5);
+        }
+    }
+
+    /// <summary>Reads a worker's cadence without timing it: the wait the
+    /// worker asked for, where a count of passes in a second would fall
+    /// short on a busy bench with nothing wrong in the worker.</summary>
+    internal static class WorkerCadence
+    {
+        /// <summary>The wait a worker asked for once a whole pass has run
+        /// after this call. A worker counts a pass as it starts and records
+        /// its wait as the pass ends, so once two more passes have started,
+        /// one of them began after the call and has ended, and the wait read
+        /// then was chosen from what the worker could see after the call.
+        /// The limit only catches a worker that makes no pass at all.</summary>
+        internal static int WaitAfterAFullPass(Func<int> passes, Func<int> waitMs)
+        {
+            int seen = passes();
+            Assert.True(SpinWait.SpinUntil(() => passes() >= seen + 2, 10000), "the worker made no pass");
+            return waitMs();
         }
     }
 
@@ -1410,6 +1589,256 @@ namespace PadForge.Tests
             // Neither 0xFF nor an empty slot was ever asked.
             Assert.All(channel.Asked, a => Assert.Equal(1, a.Device));
         }
+
+        /// <summary>A receiver with a haptic mouse in slot 1 and no pairing
+        /// table, so slots 2 to 6 keep a scan due every five seconds.</summary>
+        private static (HidppBackend Backend, HidppHapticsTests.FakeChannel Channel) MouseBench(
+            int activeTickMs = 1, int idleTickMs = 5, Func<string, Guid> containerOf = null,
+            Func<IReadOnlyList<VendorHidCollection>> enumerate = null,
+            Func<byte, byte, byte, byte[], HidppReply> answer = null,
+            int predecessorJoinMs = HidppBackend.PredecessorJoinMs)
+        {
+            var mouse = HidppHapticsTests.Mouse(1);
+            var channel = new HidppHapticsTests.FakeChannel
+            {
+                Path = Receiver.Path,
+                Answer = answer ?? ((d, f, fn, p) => d == 1 ? mouse(d, f, fn, p) : HidppHapticsTests.NoAnswer()),
+            };
+            var container = Guid.NewGuid();
+            var backend = new HidppBackend(enumerate ?? (() => new[] { Receiver }), (c, s) => channel,
+                containerOf ?? (_ => container), activeTickMs, idleTickMs, predecessorJoinMs: predecessorJoinMs);
+            return (backend, channel);
+        }
+
+        /// <summary>While a unit is linked for rumble, a scan that comes due
+        /// during play waits for a second with nothing playing, so a probe
+        /// does not hold up rumble that comes in bursts. The first build's
+        /// gate, which a scan on the first silent tick had replaced. The
+        /// test reads how long the worker had seen nothing play when the
+        /// scan started, where a window timed from here would close early
+        /// on a busy bench.</summary>
+        [Fact]
+        public void AScanWaitsForAQuietSecond_WhileAUnitIsLinked()
+        {
+            var (backend, _) = MouseBench();
+            using (backend)
+            {
+                backend.Start();
+                Assert.True(SpinWait.SpinUntil(() => backend.Snapshot.Units.Count == 1, 5000), "the scan found the mouse");
+                var unit = backend.Snapshot.Units[0];
+                var device = Guid.NewGuid();
+                PeripheralOutputs.PublishLinks(new LinkTable(new[]
+                {
+                    new DeviceLinks { Device = device, Haptics = new[] { new OutputPath(OutputFamily.HidppUnit, unit.Key) } },
+                }));
+
+                // Rumble holds past the next scan's due time, five seconds
+                // after the first scan, and no scan runs while it plays.
+                int scans = backend.ScanCount;
+                PeripheralOutputs.SetMotors(device, 65535, 0);
+                Thread.Sleep(HidppBackend.FirstScanMs + 500);
+                Assert.Equal(scans, backend.ScanCount);
+
+                // The due scan runs once the rumble stops, and only with a
+                // quiet second behind it.
+                PeripheralOutputs.SetMotors(device, 0, 0);
+                Assert.True(SpinWait.SpinUntil(() => backend.ScanCount > scans, 10000),
+                    "the due scan never ran after the rumble stopped");
+                Assert.True(backend.ScanQuietMs >= HidppBackend.QuietMs,
+                    $"the due scan ran {backend.ScanQuietMs} ms after the last pass that played");
+            }
+        }
+
+        /// <summary>A unit linked for rumble with no level waits the idle
+        /// tick, since a level that starts wakes the worker, and the fast
+        /// tick comes back with the rumble. The test reads the wait the
+        /// worker asks for and times nothing, so a busy bench cannot fail
+        /// it.</summary>
+        [Fact]
+        public void ASilentLinkedUnitWaitsTheIdleTick_AndRumbleBringsTheFastTickBack()
+        {
+            const int activeTickMs = 10, idleTickMs = 200;
+            var (backend, channel) = MouseBench(activeTickMs, idleTickMs);
+            using (backend)
+            {
+                backend.Start();
+                Assert.True(SpinWait.SpinUntil(() => backend.Snapshot.Units.Count == 1, 5000), "the scan found the mouse");
+                var unit = backend.Snapshot.Units[0];
+                var device = Guid.NewGuid();
+                PeripheralOutputs.PublishLinks(new LinkTable(new[]
+                {
+                    new DeviceLinks { Device = device, Haptics = new[] { new OutputPath(OutputFamily.HidppUnit, unit.Key) } },
+                }));
+                Assert.Equal(idleTickMs, WorkerCadence.WaitAfterAFullPass(() => backend.PassCount, () => backend.WaitMs));
+
+                while (channel.Writes.TryDequeue(out _)) { }
+                PeripheralOutputs.SetMotors(device, 65535, 0);
+                Assert.Equal(activeTickMs, WorkerCadence.WaitAfterAFullPass(() => backend.PassCount, () => backend.WaitMs));
+                // The pulse shows the row is linked to the unit, so the idle
+                // wait above was a linked unit's and not an unlinked one's.
+                Assert.False(channel.Writes.IsEmpty, "a full pass with the level up played no pulse");
+
+                PeripheralOutputs.SetMotors(device, 0, 0);
+                Assert.Equal(idleTickMs, WorkerCadence.WaitAfterAFullPass(() => backend.PassCount, () => backend.WaitMs));
+            }
+        }
+
+        /// <summary>A Stop whose join times out leaves the worker inside a
+        /// probe. A Start after it runs one worker: the old one reads its own
+        /// stop when it comes back and ends, and the new one waits for it
+        /// before it opens the collections.</summary>
+        [Fact]
+        public void ARestartAfterATimedOutStop_RunsOneWorker()
+        {
+            using var gate = new ManualResetEventSlim(false);
+            Thread first = null;
+            int requests = 0, overlapped = 0;
+            var mouse = HidppHapticsTests.Mouse(1);
+            var (backend, _) = MouseBench(
+                enumerate: () =>
+                {
+                    // The first scan names its worker. A scan another thread
+                    // makes while that worker lives shares its collections.
+                    var me = Thread.CurrentThread;
+                    var one = Interlocked.CompareExchange(ref first, me, null) ?? me;
+                    if (one != me && one.IsAlive) Volatile.Write(ref overlapped, 1);
+                    return new[] { Receiver };
+                },
+                answer: (d, f, fn, p) =>
+                {
+                    if (Interlocked.Increment(ref requests) == 1) gate.Wait(10000);
+                    return d == 1 ? mouse(d, f, fn, p) : HidppHapticsTests.NoAnswer();
+                });
+            try
+            {
+                backend.Start();
+                Assert.True(SpinWait.SpinUntil(() => Volatile.Read(ref requests) >= 1, 3000), "the first request is held");
+                Assert.NotNull(first);
+                backend.Stop();
+                Assert.True(first.IsAlive, "the Stop's join gave up with the worker inside its probe");
+                backend.Start();
+                // The new worker scans nothing while the old one is held.
+                Thread.Sleep(300);
+                Assert.Equal(0, Volatile.Read(ref overlapped));
+                gate.Set();
+
+                Assert.True(first.Join(3000), "the first worker came back to life after the restart");
+                Assert.True(SpinWait.SpinUntil(() => backend.Snapshot.Units.Count == 1, 5000), "the new worker found the mouse");
+                Assert.Equal(0, Volatile.Read(ref overlapped));
+            }
+            finally
+            {
+                gate.Set();
+                backend.Dispose();
+            }
+        }
+
+        /// <summary>A predecessor wedged inside a probe holds the next worker
+        /// only for its bounded wait: the new worker then says so and goes
+        /// on, instead of waiting for a thread that may never come back.</summary>
+        [Fact]
+        public void AWedgedPredecessor_HoldsTheNextWorkerOnlyForItsBoundedWait()
+        {
+            using var gate = new ManualResetEventSlim(false);
+            int requests = 0;
+            var (wedged, _) = MouseBench(answer: (d, f, fn, p) =>
+            {
+                if (Interlocked.Increment(ref requests) == 1) gate.Wait(10000);
+                return HidppHapticsTests.NoAnswer();
+            });
+            var (next, _) = MouseBench(predecessorJoinMs: 200);
+            static int GaveUp() => SdlDiagLog.Snapshot().Split('\n')
+                .Count(l => l.Contains("PERIPHERAL HID++ previous worker still running after 200 ms"));
+            try
+            {
+                wedged.Start();
+                Assert.True(SpinWait.SpinUntil(() => Volatile.Read(ref requests) >= 1, 3000), "the first worker is held in its probe");
+                int before = GaveUp();
+                next.Start();
+                Assert.True(SpinWait.SpinUntil(() => next.Snapshot.Units.Count == 1, 5000), "the new worker went on and found the mouse");
+                Assert.True(wedged.WorkerAlive, "the predecessor was still inside its probe");
+                Assert.Equal(before + 1, GaveUp());
+            }
+            finally
+            {
+                gate.Set();
+                next.Dispose();
+                wedged.Dispose();
+            }
+        }
+
+        /// <summary>A Dispose whose Stop gave up its join releases the wake
+        /// under a worker still inside a probe. The worker ends quietly when
+        /// it comes back, without logging the fault a real one would.</summary>
+        [Fact]
+        public void ADisposeThatOutlastsTheJoin_LogsNoFault()
+        {
+            using var gate = new ManualResetEventSlim(false);
+            int requests = 0;
+            var (backend, channel) = MouseBench(answer: (d, f, fn, p) =>
+            {
+                if (Interlocked.Increment(ref requests) == 1) gate.Wait(10000);
+                return HidppHapticsTests.NoAnswer();
+            });
+            static int Faults() => SdlDiagLog.Snapshot().Split('\n').Count(l => l.Contains("PERIPHERAL HID++ worker fault"));
+            try
+            {
+                backend.Start();
+                Assert.True(SpinWait.SpinUntil(() => Volatile.Read(ref requests) >= 1, 3000), "the first request is held");
+                int faults = Faults();
+                backend.Dispose();
+                gate.Set();
+                Assert.True(SpinWait.SpinUntil(() => channel.Disposed, 5000), "the worker ended and closed its channel");
+                Assert.Equal(faults, Faults());
+            }
+            finally
+            {
+                gate.Set();
+                backend.Dispose();
+            }
+        }
+
+        /// <summary>A container lookup that fails for a present collection is
+        /// asked again at the next scan, and the units already found there
+        /// take the container, rather than standing unmatched for as long as
+        /// the collection stays.</summary>
+        [Fact]
+        public void AFailedContainerLookup_IsAskedAgainAtTheNextScan()
+        {
+            var container = Guid.NewGuid();
+            int lookups = 0;
+            var (backend, _) = MouseBench(containerOf: _ => Interlocked.Increment(ref lookups) == 1 ? Guid.Empty : container);
+            using (backend)
+            {
+                backend.Start();
+                Assert.True(SpinWait.SpinUntil(() => backend.Snapshot.Units.Count == 1, 5000), "the scan found the mouse");
+                Assert.Equal(Guid.Empty, backend.Snapshot.Units[0].ContainerId);
+                Assert.True(SpinWait.SpinUntil(() => backend.Snapshot.Units.Count == 1
+                    && backend.Snapshot.Units[0].ContainerId == container, HidppBackend.FirstScanMs + 3000),
+                    "the next scan asked again and the unit took its container");
+                Assert.Contains(container, backend.Snapshot.PendingContainers);
+            }
+        }
+
+        /// <summary>A Bluetooth LE Logitech device has no receiver, and its
+        /// HID++ collection sits on usage page 0xFF43 usage 0x0202. The scan
+        /// finds it there, as the device itself.</summary>
+        [Fact]
+        public void ABluetoothLeDeviceOnPage0xFF43_IsFoundAsTheDeviceItself()
+        {
+            var ble = new VendorHidCollection
+            {
+                Path = @"\\?\hid#{00001812-0000-1000-8000-00805f9b34fb}_dev_vid&02046d_pid&b042&col03#9&1&0002#{4d1e55b2-f16f-11cf-88cb-001111000030}",
+                VendorId = 0x046D, ProductId = 0xB042, UsagePage = 0xFF43, Usage = 0x0202, InputReportLength = 20,
+            };
+            var channel = new HidppHapticsTests.FakeChannel { Path = ble.Path, Bluetooth = true, Answer = HidppHapticsTests.Mouse(0xFF) };
+            using var backend = new HidppBackend(() => new[] { ble }, (c, s) => channel, _ => Guid.NewGuid(), 1, 5);
+            backend.Start();
+
+            Assert.True(SpinWait.SpinUntil(() => backend.Snapshot.Units.Count == 1, 5000), "the scan found the mouse");
+            Assert.Equal(HidppHapticProtocol.DirectDeviceIndex, backend.Snapshot.Units[0].DeviceIndex);
+            Assert.All(channel.Asked, a => Assert.Equal(HidppHapticProtocol.DirectDeviceIndex, a.Device));
+        }
     }
 
     /// <summary>The GameSense worker binds while a tactile Rival is
@@ -1420,6 +1849,11 @@ namespace PadForge.Tests
         public GameSenseBackendTests() => PeripheralOutputs.ResetForTest();
         public void Dispose() => PeripheralOutputs.ResetForTest();
 
+        /// <summary>The worker reads this test's clock and works the ruling
+        /// Rival out at every look, so the release delay runs out when the
+        /// test says so and nothing here is timed. "At once" was a second by
+        /// the wall clock, and the check that GG still held the mice passed
+        /// only while this thread reached it inside the release delay.</summary>
         [Fact]
         public void TheRulingRivalsLevelPlays_AndTheMiceGoBackToGGWhenNoneIsAssigned()
         {
@@ -1427,12 +1861,13 @@ namespace PadForge.Tests
             string coreProps = server.WriteCoreProps();
             var rival = Guid.NewGuid();
             int player = 1;
+            long now = 1_000_000;
             PeripheralOutputs.PublishLinks(new LinkTable(new[]
             {
                 new DeviceLinks { Device = rival, Haptics = new[] { PeripheralLinker.GameSenseTactilePath } },
             }));
-            using var backend = new GameSenseBackend(() => new GameSenseClient(coreProps, 1000),
-                _ => Volatile.Read(ref player), 2);
+            using var backend = new GameSenseBackend(() => new GameSenseClient(coreProps, 10000),
+                _ => Volatile.Read(ref player), 2, rulerMs: 0, clock: () => Volatile.Read(ref now));
             backend.Start();
 
             PeripheralOutputs.SetMotors(rival, 65535, 65535);
@@ -1441,17 +1876,21 @@ namespace PadForge.Tests
             // The worker reports the state once the level's post returns, and
             // the server records the post before it answers.
             Assert.True(SpinWait.SpinUntil(
-                () => PeripheralOutputs.StateOf(OutputFamily.GameSenseTactile) == BackendState.Connected, 1000));
+                () => PeripheralOutputs.StateOf(OutputFamily.GameSenseTactile) == BackendState.Connected, 5000));
 
-            // The Rival leaves its controller: the motor stops at once, and
-            // GG takes the mice back only after the release delay.
+            // The Rival leaves its controller: the motor stops at once, with
+            // none of the release delay gone.
             Volatile.Write(ref player, 0);
-            Assert.True(SpinWait.SpinUntil(() => server.EventValues().Last() == 0, 1000), "the motor stopped at once");
+            Assert.True(SpinWait.SpinUntil(() => server.EventValues().Last() == 0, 5000), "the motor stopped at once");
+            // GG takes the mice back only after the release delay: one tick
+            // short of it a whole look has passed and GG still holds them.
+            Volatile.Write(ref now, now + GameSenseBackend.ReleaseMs - 1);
+            WorkerCadence.WaitAfterAFullPass(() => backend.PassCount, () => backend.WaitMs);
             Assert.DoesNotContain("/stop_game", server.Paths());
-            Assert.True(SpinWait.SpinUntil(() => server.Paths().Contains("/stop_game"),
-                GameSenseBackend.ReleaseMs + 3000), "the mice went back to GG");
+            Volatile.Write(ref now, now + 1);
+            Assert.True(SpinWait.SpinUntil(() => server.Paths().Contains("/stop_game"), 5000), "the mice went back to GG");
             Assert.True(SpinWait.SpinUntil(
-                () => PeripheralOutputs.StateOf(OutputFamily.GameSenseTactile) == BackendState.Idle, 1000));
+                () => PeripheralOutputs.StateOf(OutputFamily.GameSenseTactile) == BackendState.Idle, 5000));
         }
 
         [Fact]
@@ -1464,15 +1903,573 @@ namespace PadForge.Tests
             {
                 new DeviceLinks { Device = rival, Haptics = new[] { PeripheralLinker.GameSenseTactilePath } },
             }));
-            using var backend = new GameSenseBackend(() => new GameSenseClient(coreProps, 1000), _ => 1, 2);
+            using var backend = new GameSenseBackend(() => new GameSenseClient(coreProps, 10000), _ => 1, 2);
             backend.Start();
             PeripheralOutputs.SetMotors(rival, 65535, 0);
             Assert.True(SpinWait.SpinUntil(() => server.EventValues().LastOrDefault() > 0, 5000), "the level was posted");
 
             // The engine's quiesce zeroes the level, then the panic path waits.
             PeripheralOutputs.SilenceHaptics();
-            backend.WaitForSilence(1000);
+            Assert.True(backend.WaitForSilence(5000), "GG never heard the zero");
             Assert.Equal(0, server.EventValues().Last());
+        }
+
+        /// <summary>The crash wait never passes a level on its way to GG. A
+        /// look that read its level before the engine's quiesce zeroed it
+        /// still posts that level, so the wait holds until that look has
+        /// ended and a later one has posted the zero. The look here is held
+        /// with the level in hand, read and not yet posted, which is where a
+        /// wait that looked only at the last posted level took the silence
+        /// before it for GG's.</summary>
+        [Fact]
+        public void AnAbnormalExitHoldsForALookThatReadItsLevelBeforeTheQuiesce()
+        {
+            using var server = new HidppHapticsTests.FakeGameSense();
+            string coreProps = server.WriteCoreProps();
+            var rival = Guid.NewGuid();
+            PeripheralOutputs.PublishLinks(new LinkTable(new[]
+            {
+                new DeviceLinks { Device = rival, Haptics = new[] { PeripheralLinker.GameSenseTactilePath } },
+            }));
+            using var read = new ManualResetEventSlim(false);
+            using var release = new ManualResetEventSlim(false);
+            int held = 0;
+            using var backend = new GameSenseBackend(() => new GameSenseClient(coreProps, 10000), _ => 1, 2,
+                levelOf: device =>
+                {
+                    float level = PeripheralOutputs.AmplitudeOf(device);
+                    if (level != 0f && Interlocked.Exchange(ref held, 1) == 0)
+                    {
+                        read.Set();
+                        release.Wait(10000);
+                    }
+                    return level;
+                });
+            try
+            {
+                backend.Start();
+                // GG is bound and has been told no level.
+                Assert.True(SpinWait.SpinUntil(
+                    () => PeripheralOutputs.StateOf(OutputFamily.GameSenseTactile) == BackendState.Connected, 5000),
+                    "GG was bound");
+                Assert.Empty(server.EventValues());
+
+                PeripheralOutputs.SetMotors(rival, 65535, 0);
+                Assert.True(read.Wait(5000), "a look read the level");
+                PeripheralOutputs.SilenceHaptics();
+                Assert.False(backend.WaitForSilence(200), "the wait passed a level on its way to GG");
+
+                release.Set();
+                Assert.True(backend.WaitForSilence(5000), "GG never heard the zero");
+                // The held look posted its level, and a later one the zero.
+                Assert.Equal(new[] { GameSenseClient.LevelValue(3), 0 }, server.EventValues());
+            }
+            finally { release.Set(); }
+        }
+
+        /// <summary>A look that reads no level holds no crash wait. With only
+        /// a color claimed, the wait is over at once while the look sits
+        /// inside a call to GG, since nothing it posts can start a motor, so
+        /// a GG slow to answer a color costs the crash path nothing.</summary>
+        [Fact]
+        public void AnAbnormalExitDoesNotWaitOnALookThatReadsNoLevel()
+        {
+            using var server = new HidppHapticsTests.FakeGameSense();
+            using var held = new ManualResetEventSlim(false);
+            using var release = new ManualResetEventSlim(false);
+            int posts = 0;
+            server.BeforeAnswer = _ =>
+            {
+                if (Interlocked.Increment(ref posts) != 1) return;
+                held.Set();
+                release.Wait(10000);
+            };
+            string coreProps = server.WriteCoreProps();
+            var device = Guid.NewGuid();
+            PeripheralOutputs.PublishLinks(new LinkTable(new[]
+            {
+                new DeviceLinks { Device = device, Lighting = new[] { new OutputPath(OutputFamily.GameSenseColor, "mouse") } },
+            }));
+            PeripheralOutputs.SetLighting(device, slot: 0, player: 1, 1, 2, 3);
+            using var backend = new GameSenseBackend(() => new GameSenseClient(coreProps, 15000), _ => 0, 2);
+            try
+            {
+                backend.Start();
+                Assert.True(held.Wait(5000), "the look is held inside its first call to GG");
+                Assert.True(backend.WaitForSilence(0), "the wait sat on a look that holds no level");
+            }
+            finally { release.Set(); }
+        }
+
+        /// <summary>Identify on a Rival no controller holds plays its pulses
+        /// through GG, and GG gets the mice back after the train. The ruler
+        /// is worked out again the moment Identify starts: with the cadence
+        /// pushed out to a minute here, only that look can find it.</summary>
+        [Fact]
+        public void AnUnassignedRivalBuzzesForIdentify_AndGoesBackToGGAfter()
+        {
+            using var server = new HidppHapticsTests.FakeGameSense();
+            string coreProps = server.WriteCoreProps();
+            var rival = Guid.NewGuid();
+            PeripheralOutputs.PublishLinks(new LinkTable(new[]
+            {
+                new DeviceLinks { Device = rival, Haptics = new[] { PeripheralLinker.GameSenseTactilePath } },
+            }));
+            // Every row ranks 0, the rank of a Rival on no controller.
+            using var backend = new GameSenseBackend(() => new GameSenseClient(coreProps, 10000), _ => 0, 2, rulerMs: 60000);
+            backend.Start();
+            Assert.True(SpinWait.SpinUntil(() => backend.PassCount > 2, 2000), "the worker made its first looks");
+
+            PeripheralOutputs.SetMotors(rival, 65535, 65535);
+            PeripheralOutputs.BeginIdentify(rival, 60000);
+            Assert.True(SpinWait.SpinUntil(() => server.EventValues().LastOrDefault() > 0, 5000), "Identify's level was posted");
+
+            PeripheralOutputs.SetMotors(rival, 0, 0);
+            PeripheralOutputs.EndIdentify(rival);
+            Assert.True(SpinWait.SpinUntil(() => server.EventValues().Last() == 0, 2000), "the motor stopped");
+            Assert.True(SpinWait.SpinUntil(() => server.Paths().Contains("/stop_game"),
+                GameSenseBackend.ReleaseMs + 3000), "the mice went back to GG");
+        }
+
+        /// <summary>With nothing claimed and GG let go the worker waits the
+        /// idle tick, and a claimed color brings its fast tick back. The
+        /// test reads the wait the worker asks for and times nothing, so a
+        /// busy bench cannot fail it.</summary>
+        [Fact]
+        public void WithNothingClaimed_TheWorkerWaitsTheIdleTick()
+        {
+            const int tickMs = 20;
+            using var backend = new GameSenseBackend(() => new GameSenseClient(HidppHapticsTests.MissingCoreProps(), 100), _ => 0, tickMs);
+            backend.Start();
+            Assert.Equal(GameSenseBackend.IdleTickMs,
+                WorkerCadence.WaitAfterAFullPass(() => backend.PassCount, () => backend.WaitMs));
+
+            // A claimed color with GG absent keeps the fast tick while the
+            // worker waits to connect.
+            var device = Guid.NewGuid();
+            PeripheralOutputs.PublishLinks(new LinkTable(new[]
+            {
+                new DeviceLinks { Device = device, Lighting = new[] { new OutputPath(OutputFamily.GameSenseColor, "mouse") } },
+            }));
+            PeripheralOutputs.SetLighting(device, slot: 0, player: 1, 1, 2, 3);
+            Assert.Equal(tickMs, WorkerCadence.WaitAfterAFullPass(() => backend.PassCount, () => backend.WaitMs));
+
+            PeripheralOutputs.ReleaseLighting(device, 0);
+            Assert.Equal(GameSenseBackend.IdleTickMs,
+                WorkerCadence.WaitAfterAFullPass(() => backend.PassCount, () => backend.WaitMs));
+        }
+
+        /// <summary>A Stop whose join times out leaves the worker inside its
+        /// client factory. A Start after it runs one worker: the old one reads
+        /// its own stop when it comes back and never connects.</summary>
+        [Fact]
+        public void ARestartAfterATimedOutStop_ConnectsOnce()
+        {
+            using var server = new HidppHapticsTests.FakeGameSense();
+            string coreProps = server.WriteCoreProps();
+            using var gate = new ManualResetEventSlim(false);
+            int clients = 0;
+            var rival = Guid.NewGuid();
+            PeripheralOutputs.PublishLinks(new LinkTable(new[]
+            {
+                new DeviceLinks { Device = rival, Haptics = new[] { PeripheralLinker.GameSenseTactilePath } },
+            }));
+            PeripheralOutputs.SetMotors(rival, 65535, 0);
+            var backend = new GameSenseBackend(() =>
+            {
+                if (Interlocked.Increment(ref clients) == 1) gate.Wait(10000);
+                return new GameSenseClient(coreProps, 10000);
+            }, _ => 1, 2);
+            try
+            {
+                backend.Start();
+                Assert.True(SpinWait.SpinUntil(() => Volatile.Read(ref clients) >= 1, 3000), "the first worker is held");
+                backend.Stop();
+                backend.Start();
+                Assert.True(SpinWait.SpinUntil(() => server.Paths().Count(p => p == "/game_metadata") >= 1, 5000),
+                    "the new worker connected");
+                gate.Set();
+                Thread.Sleep(1000);
+                Assert.Equal(1, server.Paths().Count(p => p == "/game_metadata"));
+            }
+            finally
+            {
+                gate.Set();
+                backend.Dispose();
+                PeripheralOutputs.SetMotors(rival, 0, 0);
+            }
+        }
+
+        /// <summary>A Dispose whose Stop gave up its join releases the wake
+        /// under a worker still inside a look. The worker ends quietly when
+        /// it comes back, without logging the fault a real one would.</summary>
+        [Fact]
+        public void ADisposeThatOutlastsTheJoin_LogsNoFault()
+        {
+            using var gate = new ManualResetEventSlim(false);
+            using var held = new ManualResetEventSlim(false);
+            var rival = Guid.NewGuid();
+            PeripheralOutputs.PublishLinks(new LinkTable(new[]
+            {
+                new DeviceLinks { Device = rival, Haptics = new[] { PeripheralLinker.GameSenseTactilePath } },
+            }));
+            Thread worker = null;
+            int asked = 0;
+            var backend = new GameSenseBackend(() => new GameSenseClient(HidppHapticsTests.MissingCoreProps(), 100),
+                _ =>
+                {
+                    // The worker's first look at the ranks is held.
+                    if (Interlocked.Increment(ref asked) == 1)
+                    {
+                        worker = Thread.CurrentThread;
+                        held.Set();
+                        gate.Wait(10000);
+                    }
+                    return 0;
+                }, 2);
+            static int Faults() => SdlDiagLog.Snapshot().Split('\n').Count(l => l.Contains("PERIPHERAL GameSense worker fault"));
+            try
+            {
+                backend.Start();
+                Assert.True(held.Wait(3000), "the worker is held inside its look");
+                int faults = Faults();
+                backend.Dispose();
+                gate.Set();
+                Assert.True(worker.Join(3000), "the worker ended");
+                Assert.Equal(faults, Faults());
+            }
+            finally
+            {
+                gate.Set();
+                backend.Dispose();
+            }
+        }
+    }
+
+    /// <summary>The host's link pass and its Razer Sensa worker against
+    /// scripted backends and a scripted device list (#494).</summary>
+    [Collection("PeripheralOutputStatics")]
+    public class PeripheralOutputHostTests : IDisposable
+    {
+        private static readonly Guid Sensa = PeripheralOutputRow.IdentityFor(PeripheralRowKind.RazerSensa);
+        private readonly DeviceCollection _devices = SettingsManager.UserDevices;
+        private readonly SettingsCollection _settings = SettingsManager.UserSettings;
+        private readonly List<PeripheralOutputRow> _rows = new();
+
+        public PeripheralOutputHostTests()
+        {
+            PeripheralOutputs.ResetForTest();
+            SettingsManager.UserDevices = new DeviceCollection();
+            SettingsManager.UserSettings = new SettingsCollection();
+        }
+
+        public void Dispose()
+        {
+            PeripheralOutputHost.BeforeGate = null;
+            foreach (var row in _rows) row.Dispose();
+            SettingsManager.UserDevices = _devices;
+            SettingsManager.UserSettings = _settings;
+            PeripheralOutputs.ResetForTest();
+        }
+
+        /// <summary>The Razer Sensa row online, on no controller.</summary>
+        private void AddSensaRow()
+        {
+            var row = new PeripheralOutputRow(PeripheralRowKind.RazerSensa);
+            _rows.Add(row);
+            var ud = new UserDevice();
+            ud.LoadFromExternalDevice(row);
+            ud.IsOnline = true;
+            lock (SettingsManager.UserDevices.SyncRoot)
+                SettingsManager.UserDevices.Items.Add(ud);
+        }
+
+        /// <summary>A host on backends that find nothing and reach no vendor,
+        /// with the Sensa engine's platform present and a factory that counts
+        /// the workers it makes, none of which loads the engine.</summary>
+        private static PeripheralOutputHost Host(Func<SensaHapticsService> sensa, int stopJoinMs = PeripheralOutputHost.StopJoinMs,
+            Func<string, Guid> containerOf = null, HidppBackend hidpp = null, int linkMs = PeripheralOutputHost.LinkMs)
+            => new(hidpp ?? new HidppBackend(() => Array.Empty<VendorHidCollection>(), (c, s) => null, _ => Guid.Empty, 1, 5),
+                new GameSenseBackend(() => new GameSenseClient(HidppHapticsTests.MissingCoreProps(), 100), _ => 0, 20),
+                sensa, containerOf: containerOf ?? (_ => Guid.Empty),
+                readPresence: () => PeripheralPresence.None with { SensaPlatform = true },
+                stopJoinMs: stopJoinMs, linkMs: linkMs);
+
+        private static Func<SensaHapticsService> CountingSensa(Action made)
+            => () =>
+            {
+                made();
+                return new SensaHapticsService(30000, 16, 1000, () => 0f) { PlatformCanLoadEngine = () => false };
+            };
+
+        /// <summary>An HID++ worker handed no enumeration, which never
+        /// publishes. It neither nudges the host nor changes what the tabs
+        /// read, so a pass or a refresh in a test that uses it has the
+        /// test's own step for its only cause.</summary>
+        private static HidppBackend SilentHidpp()
+            => new(() => null, (c, s) => null, _ => Guid.Empty, 1, 5);
+
+        /// <summary>Waits until a whole link pass has run after this call.
+        /// The host counts a pass as it ends, so the second count from here
+        /// belongs to a pass that also began after the call. The limit only
+        /// catches a loop that makes no pass at all.</summary>
+        private static void AWholePass(PeripheralOutputHost host)
+        {
+            int seen = host.PassCount;
+            Assert.True(SpinWait.SpinUntil(() => host.PassCount >= seen + 2, 10000), "the link loop made no pass");
+        }
+
+        /// <summary>Identify on the Razer Sensa row, assigned to no
+        /// controller, starts its worker for the train, and the row with no
+        /// Identify starts none.</summary>
+        [Fact]
+        public void IdentifyRunsTheSensaWorker_ForARowNoControllerHolds()
+        {
+            AddSensaRow();
+            int made = 0;
+            using var host = Host(CountingSensa(() => Interlocked.Increment(ref made)));
+            host.Start();
+            Assert.True(SpinWait.SpinUntil(() => PeripheralOutputs.HasHaptics(Sensa), 3000), "the Sensa row linked");
+            // A whole pass with the row linked and no Identify.
+            AWholePass(host);
+            Assert.Equal(0, Volatile.Read(ref made));
+
+            PeripheralOutputs.BeginIdentify(Sensa, 60000);
+            Assert.True(SpinWait.SpinUntil(() => Volatile.Read(ref made) >= 1, 10000), "Identify started the Sensa worker");
+            PeripheralOutputs.EndIdentify(Sensa);
+        }
+
+        /// <summary>Identify starts the Sensa worker at once: it nudges the
+        /// link pass instead of leaving the worker to the next timed pass,
+        /// which would spend the opening pulses of a train 1.3 seconds long.
+        /// Here the loop is at rest after its first pass with the next timed
+        /// one ten minutes away, and the HID++ worker, given no enumeration,
+        /// never publishes, so only Identify's nudge can bring the pass that
+        /// starts the worker. Nothing is timed against the half second
+        /// between passes.</summary>
+        [Fact]
+        public void IdentifyStartsTheSensaWorkerAtOnce_NotAtTheNextTimedPass()
+        {
+            AddSensaRow();
+            int made = 0;
+            using var host = Host(CountingSensa(() => Interlocked.Increment(ref made)), hidpp: SilentHidpp(), linkMs: 600000);
+            host.Start();
+            Assert.True(SpinWait.SpinUntil(() => host.PassCount >= 1, 5000), "the first pass ended");
+            Assert.True(PeripheralOutputs.HasHaptics(Sensa), "the Sensa row linked");
+            Assert.Equal(0, Volatile.Read(ref made));
+
+            PeripheralOutputs.BeginIdentify(Sensa, 60000);
+            Assert.True(SpinWait.SpinUntil(() => Volatile.Read(ref made) >= 1, 10000),
+                "Identify waited for the next timed pass");
+            PeripheralOutputs.EndIdentify(Sensa);
+        }
+
+        /// <summary>A link pass Stop's join gave up on publishes nothing and
+        /// starts no Sensa worker when it comes back, whether it was held
+        /// before its publish or before the worker's start, so Stop's own
+        /// teardown, an empty table and no worker, has the last word.</summary>
+        [Theory]
+        [InlineData("publish")]
+        [InlineData("sensa")]
+        public void AStopThatOutlivesALinkPass_PublishesNothingAndStartsNoWorker(string holdAt)
+        {
+            AddSensaRow();
+            PeripheralOutputs.BeginIdentify(Sensa, 60000);
+            using var held = new ManualResetEventSlim(false);
+            using var release = new ManualResetEventSlim(false);
+            int holds = 0;
+            PeripheralOutputHost.BeforeGate = point =>
+            {
+                if (point != holdAt || Interlocked.Increment(ref holds) != 1) return;
+                held.Set();
+                release.Wait(10000);
+            };
+            int made = 0;
+            using var host = Host(CountingSensa(() => Interlocked.Increment(ref made)), stopJoinMs: 200);
+            try
+            {
+                host.Start();
+                Assert.True(held.Wait(3000), "the first pass reached " + holdAt);
+                host.Stop();
+                int ended = host.PassCount;
+                release.Set();
+                // What the held pass left is read only once it has come back
+                // and ended. Read sooner, a pass still on its way would show
+                // nothing whatever it was about to do.
+                Assert.True(SpinWait.SpinUntil(() => host.PassCount > ended, 10000), "the held pass never came back");
+
+                Assert.Empty(PeripheralOutputs.Links.ByDevice);
+                Assert.Equal(0, Volatile.Read(ref made));
+            }
+            finally
+            {
+                release.Set();
+                PeripheralOutputs.EndIdentify(Sensa);
+            }
+        }
+
+        /// <summary>A row's container lookup that fails is asked again on the
+        /// next pass, so the row links to its HID++ unit once the lookup
+        /// answers, instead of standing unmatched for the rest of the engine
+        /// run.</summary>
+        [Fact]
+        public void AFailedContainerLookup_IsAskedAgain_AndTheRowLinks()
+        {
+            var container = Guid.NewGuid();
+            var receiver = new VendorHidCollection
+            {
+                Path = @"\\?\hid#vid_046d&pid_c548&mi_02&col02#bench",
+                VendorId = 0x046D, ProductId = 0xC548, UsagePage = 0xFF00, Usage = 0x0002, InputReportLength = 20,
+            };
+            var channel = new HidppHapticsTests.FakeChannel { Path = receiver.Path, Answer = HidppHapticsTests.Mouse(1) };
+            var hidpp = new HidppBackend(() => new[] { receiver }, (c, s) => channel, _ => container, 1, 5);
+            var mouse = new UserDevice
+            {
+                InstanceGuid = Guid.NewGuid(), IsOnline = true, CapType = InputDeviceType.Mouse,
+                VendorId = PeripheralLinker.LogitechVid, ProdId = 0xC548, DevicePath = @"\\?\hid#vid_046d&pid_c548&mi_01#row",
+            };
+            lock (SettingsManager.UserDevices.SyncRoot)
+                SettingsManager.UserDevices.Items.Add(mouse);
+            int lookups = 0;
+            using var host = Host(CountingSensa(() => { }), hidpp: hidpp,
+                containerOf: _ => Interlocked.Increment(ref lookups) <= 2 ? Guid.Empty : container);
+            host.Start();
+
+            Assert.True(SpinWait.SpinUntil(() => PeripheralOutputs.HasHaptics(mouse.InstanceGuid), 5000),
+                $"the row linked to its unit after {Volatile.Read(ref lookups)} lookups");
+            Assert.True(Volatile.Read(ref lookups) >= 3);
+        }
+
+        /// <summary>A row that goes offline leaves the cache, so when it comes
+        /// back its container is looked up again, the way the HID++ worker
+        /// forgets a collection that leaves its enumeration.</summary>
+        [Fact]
+        public void ARowThatLeavesAndComesBack_IsLookedUpAgain()
+        {
+            var mouse = new UserDevice
+            {
+                InstanceGuid = Guid.NewGuid(), IsOnline = true, CapType = InputDeviceType.Mouse,
+                VendorId = PeripheralLinker.LogitechVid, ProdId = 0xC548, DevicePath = @"\\?\hid#vid_046d&pid_c548&mi_01#row",
+            };
+            lock (SettingsManager.UserDevices.SyncRoot)
+                SettingsManager.UserDevices.Items.Add(mouse);
+            int lookups = 0;
+            var container = Guid.NewGuid();
+            using var host = Host(CountingSensa(() => { }), containerOf: _ => { Interlocked.Increment(ref lookups); return container; });
+            host.Start();
+            Assert.True(SpinWait.SpinUntil(() => Volatile.Read(ref lookups) == 1, 3000), "the row was looked up");
+            // A whole pass with the row still there asks nothing more.
+            AWholePass(host);
+            Assert.Equal(1, Volatile.Read(ref lookups));
+
+            // A whole pass with the row away forgets its path.
+            mouse.IsOnline = false;
+            AWholePass(host);
+            mouse.IsOnline = true;
+            host.Nudge();
+            Assert.True(SpinWait.SpinUntil(() => Volatile.Read(ref lookups) == 2, 10000), "the returning row was looked up again");
+        }
+
+        /// <summary>A Stop whose join gives up on a held pass, then a Start,
+        /// runs one link loop: the old one reads its own stop when it comes
+        /// back and makes no pass after it.</summary>
+        [Fact]
+        public void ARestartAfterATimedOutStop_RunsOneLinkLoop()
+        {
+            using var held = new ManualResetEventSlim(false);
+            using var release = new ManualResetEventSlim(false);
+            var passes = new System.Collections.Concurrent.ConcurrentQueue<int>();
+            int holds = 0;
+            int first = -1;
+            Thread firstLoop = null;
+            PeripheralOutputHost.BeforeGate = point =>
+            {
+                if (point != "publish") return;
+                passes.Enqueue(Environment.CurrentManagedThreadId);
+                if (Interlocked.Increment(ref holds) != 1) return;
+                first = Environment.CurrentManagedThreadId;
+                firstLoop = Thread.CurrentThread;
+                held.Set();
+                release.Wait(10000);
+            };
+            using var host = Host(CountingSensa(() => { }), stopJoinMs: 200);
+            try
+            {
+                host.Start();
+                Assert.True(held.Wait(3000), "the first pass reached its publish");
+                host.Stop();
+                host.Start();
+                release.Set();
+                // The old loop is gone before its passes are counted, so
+                // none can still be on its way, and the new one has passed.
+                Assert.True(firstLoop.Join(10000), "the old loop never ended");
+                Assert.True(SpinWait.SpinUntil(() => passes.Any(id => id != first), 10000), "the new loop made no pass");
+                Assert.Equal(1, passes.Count(id => id == first));
+            }
+            finally { release.Set(); }
+        }
+
+        /// <summary>The cache keeps a container once found, keeps no failed
+        /// lookup, and forgets a path no row used.</summary>
+        [Fact]
+        public void TheContainerCache_KeepsWhatAnswered_AndForgetsWhatLeft()
+        {
+            var cache = new Dictionary<string, Guid>(StringComparer.OrdinalIgnoreCase);
+            var found = Guid.NewGuid();
+            Guid answer = Guid.Empty;
+            int asked = 0;
+            Guid Lookup(string p) { asked++; return answer; }
+
+            Assert.Equal(Guid.Empty, PeripheralOutputHost.ResolveContainer(cache, "row", Lookup));
+            answer = found;
+            Assert.Equal(found, PeripheralOutputHost.ResolveContainer(cache, "row", Lookup));
+            Assert.Equal(found, PeripheralOutputHost.ResolveContainer(cache, "ROW", Lookup));
+            Assert.Equal(2, asked);
+            Assert.Equal(Guid.Empty, PeripheralOutputHost.ResolveContainer(cache, "other", _ => throw new InvalidOperationException()));
+            Assert.False(cache.ContainsKey("other"));
+
+            PeripheralOutputHost.ForgetContainers(cache, new HashSet<string>(StringComparer.OrdinalIgnoreCase) { "row" });
+            Assert.True(cache.ContainsKey("row"));
+            PeripheralOutputHost.ForgetContainers(cache, new HashSet<string>(StringComparer.OrdinalIgnoreCase));
+            Assert.Empty(cache);
+        }
+
+        /// <summary>A slot whose controller comes or goes changes what the
+        /// tabs say even where no claim was pruned, so the pass refreshes them
+        /// when a slot's liveness flips, and the tabs read the same rule the
+        /// prune does.</summary>
+        [Fact]
+        public void ASlotThatComesOrGoes_RefreshesTheTabs()
+        {
+            var live = new bool[InputManager.MaxPads];
+            using var host = Host(CountingSensa(() => { }), hidpp: SilentHidpp());
+            host.SlotHasController = slot => Volatile.Read(ref live[slot]);
+            Assert.False(PeripheralOutputs.Running);
+            host.Start();
+            Assert.True(PeripheralOutputs.Running, "a started host says the engine runs, so the route lines show");
+            Assert.False(PeripheralOutputs.SlotLive(3));
+            // A whole pass has recorded which slots are live.
+            AWholePass(host);
+
+            int raised = 0;
+            void OnStatus() => Interlocked.Increment(ref raised);
+            PeripheralOutputs.StatusChanged += OnStatus;
+            try
+            {
+                // A whole pass with nothing changed refreshes nothing.
+                AWholePass(host);
+                Assert.Equal(0, Volatile.Read(ref raised));
+
+                Volatile.Write(ref live[3], true);
+                Assert.True(PeripheralOutputs.SlotLive(3));
+                Assert.True(SpinWait.SpinUntil(() => Volatile.Read(ref raised) >= 1, 10000),
+                    "a slot that came refreshed the tabs");
+            }
+            finally { PeripheralOutputs.StatusChanged -= OnStatus; }
+
+            host.Stop();
+            Assert.False(PeripheralOutputs.Running);
+            Assert.False(PeripheralOutputs.SlotLive(3));
         }
     }
 
@@ -1871,7 +2868,7 @@ namespace PadForge.Tests
             Assert.Contains("if (RemoteLinkOutputRouter.IsPeerPath(ud.DevicePath)) continue;", host);
 
             // The records land before the table that goes with them.
-            string link = MethodBody(host, "private void Link()");
+            string link = MethodBody(host, "private void Link(WorkerRun run)");
             int records = link.IndexOf("ud.PeripheralOutputs = next;", StringComparison.Ordinal);
             int publish = link.IndexOf("PeripheralOutputs.PublishLinks(table);", StringComparison.Ordinal);
             Assert.True(records >= 0 && records < publish, $"{records} {publish}");
@@ -1886,11 +2883,11 @@ namespace PadForge.Tests
         public void AReopenedSlotBringsTheScanForward_AndTheHostWaitSurvivesDispose()
         {
             string backend = Text("PadForge.App", "Common", "Input", "Peripherals", "HidppBackend.cs");
-            Assert.Contains("if (Check(channels, states))", backend);
+            Assert.Contains("if (Check(run, channels, states))", backend);
             Assert.Contains("nextScan = Math.Min(nextScan, Environment.TickCount64 + FirstScanMs);", backend);
 
             string host = Text("PadForge.App", "Common", "Input", "Peripherals", "PeripheralOutputHost.cs");
-            Assert.Contains("try { _wake.WaitOne(LinkMs); }", host);
+            Assert.Contains("try { _wake.WaitOne(_linkMs); }", host);
             Assert.Contains("catch (ObjectDisposedException) { return; }", host);
 
             string service = Text("PadForge.App", "Services", "InputService.cs");
@@ -1942,7 +2939,7 @@ namespace PadForge.Tests
         {
             string page = Text("PadForge.App", "Views", "PadPage.xaml.cs");
             Assert.Contains("hasPeripheralHaptics = PadForge.Common.Input.Peripherals.PeripheralOutputs.IsHapticPeripheral(ud);", page);
-            Assert.Contains("PadForge.Common.Input.Peripherals.PeripheralRouteText.Haptics(peripheralRow)", page);
+            Assert.Contains("PadForge.Common.Input.Peripherals.PeripheralRouteText.Haptics(peripheralRow, slotLive)", page);
             Assert.Contains("x:Name=\"PeripheralHapticsRoute\"", Text("PadForge.App", "Views", "PadPage.xaml"));
         }
 
@@ -1954,6 +2951,122 @@ namespace PadForge.Tests
             int quiesce = panic.IndexOf("_inputManager?.QuiesceOutputs();", StringComparison.Ordinal);
             int wait = panic.IndexOf("_peripheralHost?.WaitForSilence(250);", StringComparison.Ordinal);
             Assert.True(quiesce >= 0 && wait > quiesce, "the wait follows the quiesce that zeroes the levels");
+        }
+
+        /// <summary>The crash wait reaches the Razer Sensa worker too, inside
+        /// the one budget, after GameSense's.</summary>
+        [Fact]
+        public void ThePanicPathWaitsForTheSensaZero()
+        {
+            string wait = MethodBody(Text("PadForge.App", "Common", "Input", "Peripherals", "PeripheralOutputHost.cs"),
+                "public void WaitForSilence(int waitMs)");
+            int gameSense = wait.IndexOf("_gameSense.WaitForSilence(waitMs);", StringComparison.Ordinal);
+            int sensa = wait.IndexOf("Volatile.Read(ref _sensa)?.WaitForSilence(", StringComparison.Ordinal);
+            Assert.True(gameSense >= 0 && sensa > gameSense, $"{gameSense} {sensa}");
+        }
+
+        /// <summary>A haptic mouse, keyboard or the Razer Sensa row plays the
+        /// stronger motor whichever side it is on, so swapping the two changes
+        /// nothing, and the Force Feedback tab leaves the swap row out for
+        /// those rows and keeps it for every other device.</summary>
+        [Fact]
+        public void TheSwapRowHidesForAHapticRow_WhosePlayIsTheStrongerMotor()
+        {
+            var device = Guid.NewGuid();
+            try
+            {
+                PeripheralOutputs.SetMotors(device, 0x1000, 0x8000);
+                float one = PeripheralOutputs.AmplitudeOf(device);
+                PeripheralOutputs.SetMotors(device, 0x8000, 0x1000);
+                Assert.Equal(one, PeripheralOutputs.AmplitudeOf(device));
+            }
+            finally { PeripheralOutputs.StopHaptics(device); }
+
+            string xaml = Text("PadForge.App", "Views", "PadPage.xaml");
+            int row = xaml.IndexOf("x:Name=\"FfbSwapMotorsRow\"", StringComparison.Ordinal);
+            int swap = xaml.IndexOf("CommandParameter=\"SwapMotors\"", StringComparison.Ordinal);
+            Assert.True(row >= 0 && swap > row && swap - row < 800, "the swap row is named");
+            Assert.Contains("FfbSwapMotorsRow.Visibility = hasPeripheralHaptics ? Visibility.Collapsed : Visibility.Visible;",
+                Text("PadForge.App", "Views", "PadPage.xaml.cs"));
+        }
+
+        /// <summary>The link pass prunes under the settings lock its snapshot
+        /// was read under, so an assignment made between the two can never
+        /// lose the claim its first pass made.</summary>
+        [Fact]
+        public void TheLinkPassPrunesUnderTheLockItsSnapshotWasReadUnder()
+        {
+            string link = MethodBody(Text("PadForge.App", "Common", "Input", "Peripherals", "PeripheralOutputHost.cs"),
+                "private void Link(WorkerRun run)");
+            int locked = link.IndexOf("lock (settings.SyncRoot)", StringComparison.Ordinal);
+            Assert.True(locked >= 0, "the snapshot's lock moved");
+            int open = link.IndexOf('{', locked), depth = 0, close = -1;
+            for (int i = open; i < link.Length; i++)
+            {
+                if (link[i] == '{') depth++;
+                else if (link[i] == '}' && --depth == 0) { close = i; break; }
+            }
+            int prune = link.IndexOf("PeripheralOutputs.PruneClaims(assigned, PeripheralOutputs.SlotLive);", StringComparison.Ordinal);
+            Assert.True(prune > open && prune < close, $"{open} {prune} {close}");
+
+            // The pass keeps no failed container lookup, and forgets the
+            // paths no row used.
+            Assert.Contains("rows[i] = rows[i] with { Container = ResolveContainer(_containers, path, _containerOf) };", link);
+            Assert.Contains("ForgetContainers(_containers, used);", link);
+        }
+
+        /// <summary>The facade keeps no release no production code makes, and
+        /// no summary that describes a consumer that does not exist.</summary>
+        [Fact]
+        public void TheFacadeDescribesOnlyItsRealConsumers()
+        {
+            string facade = Text("PadForge.App", "Common", "Input", "Peripherals", "PeripheralOutputs.cs");
+            Assert.DoesNotContain("public static void ReleaseSlot(", facade);
+            // A summary wraps, so its prose is read with each line break and
+            // comment marker folded into one space.
+            string prose = Regex.Replace(facade, @"\s*\r?\n\s*///\s*", " ");
+            Assert.Contains("<summary>Bumped on every claim, release and color change.</summary>", prose);
+            Assert.DoesNotContain("so a backend re-resolves only when something moved", prose);
+        }
+
+        /// <summary>Every GameSense body names the game and the rumble event
+        /// through one constant each, and the receiver's register read is
+        /// sized by the short report's own length.</summary>
+        [Fact]
+        public void TheGameSenseNamesAndTheShortFrame_AreNamedOnce()
+        {
+            string Code(string text) => string.Join("\n", text.Replace("\r\n", "\n").Split('\n')
+                .Where(l => !l.TrimStart().StartsWith("//", StringComparison.Ordinal)));
+            string client = Code(Text("PadForge.App", "Services", "GameSenseClient.cs"));
+            // The bare words: a body spelled out by hand holds each name
+            // between escaped quotes, which a quoted pattern never matches.
+            Assert.Single(Regex.Matches(client, @"\bPADFORGE\b"));
+            Assert.Single(Regex.Matches(client, @"\bRUMBLE\b"));
+            Assert.Contains("internal const string Game = \"PADFORGE\";", client);
+            Assert.Contains("internal const string Event = \"RUMBLE\";", client);
+
+            string units = Code(Text("PadForge.App", "Common", "Input", "Peripherals", "HidppUnits.cs"));
+            Assert.True(Regex.Matches(units, @"\bShortReportLength\b").Count >= 2, "ShortReportLength is used");
+            Assert.Equal(new byte[] { 0x10, 0xFF, 0x83, 0xB5, 0x52, 0x00, 0x00 }, HidppReceiverProtocol.ReadRegister(0xB5, 0x52));
+        }
+
+        /// <summary>Identify takes a haptic row's shared path for its train in
+        /// both lanes, and ends the claim however the train ends.</summary>
+        [Fact]
+        public void IdentifyClaimsTheHapticPathForBothTrains()
+        {
+            string body = MethodBody(Text("PadForge.App", "Services", "InputService.cs"),
+                "public void IdentifyDevice(Guid instanceGuid)");
+            Assert.Equal(2, Regex.Matches(body, @"PeripheralOutputs\.BeginIdentify\(instanceGuid,").Count);
+            int sole = body.IndexOf("if (pad >= 0)", StringComparison.Ordinal);
+            int direct = body.IndexOf("bool peripheral = ", StringComparison.Ordinal);
+            int first = body.IndexOf("PeripheralOutputs.BeginIdentify(instanceGuid,", StringComparison.Ordinal);
+            int second = body.IndexOf("PeripheralOutputs.BeginIdentify(instanceGuid,", first + 1, StringComparison.Ordinal);
+            Assert.True(sole < first && first < direct && direct < second, $"{sole} {first} {direct} {second}");
+            int end = body.IndexOf("if (identifying) PadForge.Common.Input.Peripherals.PeripheralOutputs.EndIdentify(instanceGuid);",
+                StringComparison.Ordinal);
+            int final = body.LastIndexOf("finally", StringComparison.Ordinal);
+            Assert.True(final >= 0 && end > final, "the claim ends in the train's finally");
         }
 
         [Fact]

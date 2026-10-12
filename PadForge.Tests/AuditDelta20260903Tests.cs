@@ -361,8 +361,8 @@ namespace PadForge.Tests
             Assert.NotNull(key);
 
             string guid = Guid.NewGuid().ToString("d");
-            string slot0 = (string)key.Invoke(null, new object[] { guid, 0 });
-            string slot3 = (string)key.Invoke(null, new object[] { guid, 3 });
+            string slot0 = (string)key.Invoke(null, new object[] { guid, 0, false });
+            string slot3 = (string)key.Invoke(null, new object[] { guid, 3, false });
 
             // The whole point: one device on two slots gets two latches,
             // because the grip each is tagged with is per-(device, slot).
@@ -370,11 +370,23 @@ namespace PadForge.Tests
 
             // Same-window positive control: the same slot is the same key, so
             // the difference above is the slot and not a fresh value each call.
-            Assert.Equal(slot0, (string)key.Invoke(null, new object[] { guid, 0 }));
+            Assert.Equal(slot0, (string)key.Invoke(null, new object[] { guid, 0, false }));
+            // The key is composed once and handed back, so a read builds no
+            // string: the same object, not an equal one.
+            Assert.Same(slot0, key.Invoke(null, new object[] { guid, 0, false }));
 
             // And two devices on one slot stay separate.
             string other = Guid.NewGuid().ToString("d");
-            Assert.NotEqual(slot0, (string)key.Invoke(null, new object[] { other, 0 }));
+            Assert.NotEqual(slot0, (string)key.Invoke(null, new object[] { other, 0, false }));
+
+            // The second sensor of the same device and slot has its own
+            // latch, under the same device prefix.
+            string aux0 = (string)key.Invoke(null, new object[] { guid, 0, true });
+            Assert.Equal(slot0 + "|L", aux0);
+            Assert.Same(aux0, key.Invoke(null, new object[] { guid, 0, true }));
+
+            // A device text in another case is the same device.
+            Assert.Equal(slot0, (string)key.Invoke(null, new object[] { guid.ToUpperInvariant(), 0, false }));
 
             // The device half is still a prefix the per-device reset can match.
             var prefix = typeof(SourceCoercion).GetMethod(
@@ -395,7 +407,11 @@ namespace PadForge.Tests
         {
             string src = Src(Path.Combine(
                 "PadForge.Engine", "Common", "Mapping", "SourceCoercion.cs"));
-            Assert.Equal(3, CountOf(src, "LeanNeutralKey(deviceGuid, slotIndex)"));
+            // The static lean read, which names its sensor, and the Gyro
+            // Lean read, the body's alone. No other call composes a key.
+            Assert.Equal(1, CountOf(src, "LeanNeutralKey(deviceGuid, slotIndex, aux)"));
+            Assert.Equal(1, CountOf(src, "LeanNeutralKey(deviceGuid, slotIndex)"));
+            Assert.Equal(3, CountOf(src, "LeanNeutralKey("));
         }
 
         // -- Round two: the surface mode has to survive being written -----

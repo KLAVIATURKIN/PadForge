@@ -756,7 +756,8 @@ namespace PadForge
                 }
                 catch (Exception ex)
                 {
-                    _viewModel.SetStatus(string.Format(Strings.Instance.Status_SteamVRInstallFailed_Format, ex.Message), persist: true);
+                    LogDriverFailure(ex);
+                    _viewModel.SetStatus(string.Format(Strings.Instance.Status_SteamVRInstallFailed_Format, DescribeDriverFailure(ex)), persist: true);
                 }
                 finally
                 {
@@ -791,24 +792,21 @@ namespace PadForge
                     RefreshMidiServicesStatus);
             };
 
+            // The install, then the switch that moves MIDI onto the runtime:
+            // the next probe picks it, MIDI input reopens through it, and
+            // Step 5 rebuilds the MIDI slots on ports of their own. Both run
+            // on the operation's worker, not the UI thread, since the reset
+            // waits behind a probe that hangs on a dead service. An
+            // installer PadForge could not follow is marked there for the
+            // card's refresh (MidiRuntimeSwitch.RunInstall).
             _viewModel.Settings.InstallMidiRuntimeRequested += async (s, e) =>
             {
-                bool installed = false;
                 await RunDriverOperationAsync(
                     Strings.Instance.Status_DownloadingInstallingMidi,
-                    () =>
-                    {
-                        DriverInstaller.InstallMidiRuntime();
-                        installed = true;
-                    },
-                    () =>
-                    {
-                        // The runtime takes over from the legacy API: the next
-                        // probe picks it, MIDI input reopens through it, and
-                        // Step 5 rebuilds the MIDI slots on ports of their own.
-                        if (installed) _inputService?.SwitchMidiApi();
-                        RefreshMidiServicesStatus();
-                    });
+                    () => Common.Input.MidiRuntimeSwitch.RunInstall(
+                        DriverInstaller.InstallMidiRuntime,
+                        () => _inputService?.SwitchMidiApi()),
+                    RefreshMidiServicesStatus);
             };
 
             _viewModel.Settings.UninstallMidiServicesRequested += async (s, e) =>
@@ -824,47 +822,31 @@ namespace PadForge
                         Strings.Instance.Common_Uninstall))
                     return;
 
-                // This removes the App SDK runtime only. When Windows runs
-                // PadForge's MIDI through the in-box API or the legacy API,
-                // nothing in this process touches the runtime's files, so
-                // MIDI keeps running through the uninstall. Otherwise the
-                // runtime may be loaded. The uninstall guard prevents this
-                // when MIDI slots are active, but MIDI *input* enumeration
-                // (issue #128) loads the runtime whenever it is the API in
-                // use, so tear those connections down first, then release the
-                // runtime and keep it released, so the uninstaller never has
-                // to close PadForge to reach its files.
-                bool release = Common.Input.MidiVirtualController.ActiveApi
-                    is not (Common.Input.MidiApiKind.InBox or Common.Input.MidiApiKind.Legacy);
-                if (release)
-                {
-                    _inputService?.ShutdownMidiInputs();
-                    Common.Input.MidiVirtualController.SuppressForUninstall();
-                }
+                // This removes the App SDK runtime only, and what it holds
+                // meanwhile follows the API in use
+                // (MidiRuntimeSwitch.RunUninstall). Under the in-box API
+                // nothing in this process reaches the runtime, so nothing is
+                // held. Under the legacy API MIDI keeps running on its WinMM
+                // ports, and only a fresh start of Windows MIDI Services is
+                // held off: the check that follows a refused start, and any
+                // probe after a reset, would load the runtime again.
+                // Otherwise the runtime may be loaded. The uninstall guard
+                // prevents this when MIDI slots are active, but MIDI *input*
+                // enumeration (issue #128) loads the runtime whenever it is
+                // the API in use, so those connections are torn down first,
+                // then the runtime is released and kept released, so nothing
+                // opens new sessions on it while its uninstaller removes it.
+                // All of it runs on the operation's worker, since a release
+                // waits behind a probe that hangs on a dead service. One that
+                // does not finish in time keeps the uninstaller from starting
+                // and undoes itself.
                 await RunDriverOperationAsync(
                     Strings.Instance.Status_UninstallingMidi,
-                    () =>
-                    {
-                        bool stillRunning = false;
-                        try { stillRunning = !DriverInstaller.UninstallMidiRuntime(); }
-                        finally
-                        {
-                            // Once the uninstaller has exited (done, failed or
-                            // canceled) or never started, the latch lifts here,
-                            // off the UI thread: the next probe takes the
-                            // in-box API where Windows has it, the runtime
-                            // again if it is still installed, else the legacy
-                            // API. An
-                            // uninstaller still running after its wait keeps
-                            // the latch down until restart, as before, since a
-                            // probe now could load the files it is deleting.
-                            if (release && !stillRunning)
-                            {
-                                Common.Input.MidiVirtualController.ResetAvailability();
-                                _inputService?.ResumeMidiInputs();
-                            }
-                        }
-                    },
+                    () => Common.Input.MidiRuntimeSwitch.RunUninstall(
+                        () => (DriverInstaller.UninstallMidiRuntime(out var exited), exited),
+                        () => _inputService?.ShutdownMidiInputs(),
+                        () => _inputService?.ResumeMidiInputs(),
+                        () => Dispatcher.BeginInvoke(new Action(RefreshMidiServicesStatus))),
                     RefreshMidiServicesStatus);
             };
 
@@ -2974,12 +2956,14 @@ namespace PadForge
                 _deviceService?.UnwireEvents();
 
                 // Run the slow shutdown work (controller disposal, Extended node removal) off the UI thread.
+                // The MIDI teardown is bounded: a dead MIDI service can hold
+                // it, and a teardown that misses its bound is left to the
+                // process's exit so PadForge still closes.
                 await System.Threading.Tasks.Task.Run(() =>
                 {
                     _recorderService?.Dispose();
                     _inputService?.Dispose();
-                    Common.Input.MidiInputRuntime.Shutdown();
-                    Common.Input.MidiVirtualController.Shutdown();
+                    Common.Input.MidiVirtualController.ShutdownForExit();
                 });
 
                 // All done — close for real.
@@ -3634,7 +3618,7 @@ namespace PadForge
             segRow.Children.Add(MakeTypeButton(TypeLogo(SwitchSvgPath, isNintendo), isNintendo, OnSidebarTypeNintendo, Strings.Instance.ControllerType_Nintendo, true));
             segRow.Children.Add(MakeTypeButton(TypeLogo(ExtendedSvgPath, isExtended), isExtended, OnSidebarTypeExtended, Strings.Instance.ControllerType_Extended, true));
             segRow.Children.Add(MakeTypeButton(TypeGlyph("\uE961", isKbm), isKbm, OnSidebarTypeKeyboardMouse, Strings.Instance.ControllerType_KeyboardMouse, true));
-            segRow.Children.Add(MakeTypeButton(TypeGlyph("\uE8D6", isMidi), isMidi, OnSidebarTypeMidi, hasMidi ? Strings.Instance.ControllerType_MIDI : Strings.Instance.Main_MIDI_RequiresMidiServices, hasMidi || isMidi));
+            segRow.Children.Add(MakeTypeButton(TypeGlyph("\uE8D6", isMidi), isMidi, OnSidebarTypeMidi, hasMidi ? Strings.Instance.ControllerType_MIDI : Strings.Instance.Main_MIDI_NotRunning, hasMidi || isMidi));
             bool hasSteamVr = PadForge.Common.Input.HMaestroVRController.IsAvailable();
             segRow.Children.Add(MakeTypeButton(TypeGlyph("\uF119", isVr), isVr, OnSidebarTypeVr, hasSteamVr ? Strings.Instance.ControllerType_VR : Strings.Instance.Main_VR_RequiresSteamVR, hasSteamVr || isVr));
             var instanceLabel = new System.Windows.Controls.TextBlock
@@ -5768,7 +5752,7 @@ namespace PadForge
             bool midiAtCapacity = midiCount >= SettingsManager.MaxMidiSlots;
             bool midiDisabled = !midiAvailable || globalAtCapacity || midiAtCapacity;
             if (midiDisabled) midiPopupIcon.Opacity = 0.35;
-            string midiTooltip = !midiAvailable ? Strings.Instance.Main_MIDI_RequiresMidiServices
+            string midiTooltip = !midiAvailable ? Strings.Instance.Main_MIDI_NotRunning
                                : midiAtCapacity ? string.Format(Strings.Instance.Main_MIDI_Max_Format, SettingsManager.MaxMidiSlots)
                                : Strings.Instance.ControllerType_MIDI;
             var midiBtn = new System.Windows.Controls.Button
@@ -7459,6 +7443,7 @@ namespace PadForge
                         DeviceService.KeepAuthoredRow(capturedPad.PadIndex, capturedPad.ActiveLayerMask, mapping.TargetSettingName, mapping.NegSettingName);
                     if (e.PropertyName is nameof(MappingSourceItem.DeviceGuid)
                         or nameof(MappingSourceItem.Descriptor)
+                        or nameof(MappingSourceItem.DescriptorDeviceGuid)
                         or nameof(MappingSourceItem.Invert)
                         or nameof(MappingSourceItem.HalfAxis)
                         or nameof(MappingSourceItem.Bidirectional)
@@ -8043,6 +8028,9 @@ namespace PadForge
                 bool copyIsExtended = copyOutputType is VirtualControllerType.Extended
                     or VirtualControllerType.Nintendo
                     /* raw-surface types always use the dynamic layout */;
+                // The profile names a lettered slot's wire, which a Paste onto
+                // another layout reads its raw rows by.
+                ps.SlotProfileId = padVm.ProfileId;
 
                 // Snapshot the slot's full MappingSet so Copy → Paste carries
                 // every device's contribution — not just the slot's currently-
@@ -8161,8 +8149,11 @@ namespace PadForge
                 // otherwise route only the device-scoped slice through
                 // ApplyMultiSourceRowsToCurrentDevice, retargeting all
                 // sources onto the currently-selected device.
+                // From a slot of another layout the Base rows land by
+                // position and the target keeps its shift layers
+                // (InputService.ReplaceBaseRowsTranslated).
                 InputService.ApplySlotRowsFromClipboard(padVm.PadIndex, ps,
-                    MappingTranslation.IsSameLayout(srcType, srcIsExtended, targetType, targetIsExtended));
+                    srcType, srcIsExtended, InputService.SlotLayoutOf(padVm));
 
                 // Apply the slot's shift authoring (activators + Base appearance)
                 // on a same-layout paste, after the row replace above rebuilt the
@@ -8224,9 +8215,11 @@ namespace PadForge
 
                 // Unpack the per-slot config tabs that traveled through the
                 // clipboard JSON as opaque strings on PadSetting. Same semantics
-                // as the in-process Copy From: device features copy
-                // unconditionally (physical-device passthrough), Extended /
-                // MIDI gated on matching slot type by their Apply methods.
+                // as the in-process Copy From: device features copy whatever
+                // the slot types (physical-device passthrough), a device the
+                // source slot lacked keeps its own Control This Device's
+                // Lighting switch, and Extended / MIDI are gated on matching
+                // slot type by their Apply methods.
                 if (!string.IsNullOrEmpty(ps.SlotDeviceConfigsJson))
                 {
                     try
@@ -8727,18 +8720,32 @@ namespace PadForge
                 // Same layout boundary the clipboard paste applies before it
                 // replaces rows wholesale. Without it, copying a MIDI or a
                 // keyboard and mouse slot onto a gamepad slot installed the
-                // source layout's target names verbatim AND cleared the
-                // device-scoped rows below, which switched off the one path that
-                // knows how to translate them. The other branch covers it.
+                // source layout's target names verbatim. The next branch
+                // translates them.
                 if (srcEntry.SourceSlot >= 0 && srcEntry.SourceSlot != padVm.PadIndex
                     && MappingTranslation.IsSameLayout(srcEntry.OutputType, srcEntry.IsExtended,
                         targetOutputType, targetIsExtended))
                 {
                     InputService.ReplaceSlotMappingSet(padVm.PadIndex, srcEntry.SourceSlot);
-                    // Don't also run the per-device multi-source merge below —
+                    // Don't also run the per-device multi-source merge below.
                     // ReplaceSlotMappingSet already set the whole table, and
                     // merging the picked device's slice on top would just
                     // reorder its sources.
+                    srcEntry.PadSetting.DeviceScopedMultiSourceRows = null;
+                }
+                else if (srcEntry.SourceSlot >= 0 && srcEntry.SourceSlot != padVm.PadIndex
+                    && srcEntry.SourceSlot < _viewModel.Pads.Count)
+                {
+                    // Another layout. The source slot's Base rows land by
+                    // position, its rumble audio and Keep Awake cross, and
+                    // this slot keeps its shift layers, menus and SOCD pairs,
+                    // as a Paste from that slot leaves them
+                    // (InputService.ReplaceBaseRowsTranslated). The rows
+                    // carry every device's sources, so no device slice
+                    // follows.
+                    InputService.TranslateSlotMappingSet(padVm.PadIndex, srcEntry.SourceSlot,
+                        InputService.SlotLayoutOf(_viewModel.Pads[srcEntry.SourceSlot]),
+                        InputService.SlotLayoutOf(padVm));
                     srcEntry.PadSetting.DeviceScopedMultiSourceRows = null;
                 }
                 else if (srcEntry.SourceSlot >= 0)
@@ -8853,18 +8860,53 @@ namespace PadForge
 
         /// <summary>
         /// What went wrong in a driver operation, worded for the user. An
-        /// installer's failure carries an exit code or a timeout, and its own
-        /// message is an English fallback, so it is worded here in the UI
-        /// language. Anything else keeps the message it came with.
+        /// installer's failure carries an exit code or a timeout, and a stop
+        /// on one of PadForge's own checks carries its reason. Their own
+        /// messages are English fallbacks for the log, so both are worded
+        /// here in the UI language. Anything else keeps the message it came
+        /// with.
         /// </summary>
-        private static string DescribeDriverFailure(Exception ex)
+        internal static string DescribeDriverFailure(Exception ex)
             => ex is InstallerFailedException failed
                 ? (failed.NotTracked
                     ? Strings.Instance.Status_InstallerNotTracked
                     : failed.TimedOut
                         ? Strings.Instance.Status_InstallerTimedOut
                         : string.Format(Strings.Instance.Status_InstallerExitCode_Format, failed.ExitCode))
+                : ex is DriverCheckException check ? DescribeDriverCheck(check)
+                : ex is HidHideSetupException setup
+                    ? (setup.Failure == HidHideSetupFailure.DriverDidNotStart
+                        ? Strings.Instance.Status_HidHideDriverDidNotStart
+                        : Strings.Instance.Status_HidHideFilterStillListed)
                 : ex.Message;
+
+        /// <summary>A stop on one of PadForge's own checks, in the UI
+        /// language. steamcmd's own words stay in steamcmd's
+        /// language.</summary>
+        internal static string DescribeDriverCheck(DriverCheckException check)
+        {
+            var s = Strings.Instance;
+            return check.Failure switch
+            {
+                DriverCheckFailure.VcRedistUnsigned => s.Status_VcRedistUnsigned,
+                DriverCheckFailure.MidiRuntimeHashMismatch => s.Status_MidiRuntimeHashMismatch,
+                DriverCheckFailure.NoMidiRuntime => s.Status_NoMidiRuntimeToRemove,
+                DriverCheckFailure.VcRuntimeHeld => s.Status_VcRuntimeHeld,
+                DriverCheckFailure.VcRuntimeStillOld => string.Format(s.Status_VcRuntimeStillOld_Format, check.Detail),
+                DriverCheckFailure.VcRedistStillRunning => s.Status_VcRedistStillRunning,
+                DriverCheckFailure.MidiReleaseTimedOut => s.Status_MidiReleaseTimedOut,
+                DriverCheckFailure.MidiReleaseTimedOutOnDriver => s.Status_MidiReleaseTimedOutDriver,
+                DriverCheckFailure.NoOwnedSteamVr => s.Status_NoOwnedSteamVRToRemove,
+                DriverCheckFailure.SteamVrRunning => s.Status_SteamVRRunningCloseFirst,
+                DriverCheckFailure.SteamVrFolderIsDriveRoot => string.Format(s.Status_SteamVRFolderIsDriveRoot_Format, check.Detail),
+                DriverCheckFailure.SteamVrNotRemoved => string.Format(s.Status_SteamVRNotRemoved_Format, check.Detail),
+                DriverCheckFailure.SteamVrLocationNotFull => s.Status_SteamVRLocationNotFull,
+                DriverCheckFailure.SteamVrLocationIsDriveRoot => s.Status_SteamVRLocationIsDriveRoot,
+                DriverCheckFailure.SteamCmdTimedOut => s.Status_SteamCmdTimedOut,
+                DriverCheckFailure.SteamVrDidNotLand => string.Format(s.Status_SteamVRDidNotLand_Format, check.Detail, check.Output),
+                _ => check.Message,
+            };
+        }
 
         /// <summary>
         /// Runs a driver install/uninstall operation on a background thread,
@@ -8895,6 +8937,7 @@ namespace PadForge
             }
             catch (Exception ex)
             {
+                LogDriverFailure(ex);
                 _viewModel.SetStatus(string.Format(Strings.Instance.Status_DriverOperationFailed_Format, DescribeDriverFailure(ex)), persist: true);
             }
             finally
@@ -8903,6 +8946,13 @@ namespace PadForge
             }
             refreshStatus();
         }
+
+        /// <summary>Writes a failed driver operation to the diagnostics log in
+        /// English, with the exception's type. The status line words the
+        /// failure in the UI language, so the log is where its English
+        /// sentence is read.</summary>
+        internal static void LogDriverFailure(Exception ex)
+            => Engine.SdlDiagLog.WriteLine($"DRIVER operation failed: {ex.GetType().Name}: {ex.Message}");
 
         /// <summary>
         /// Rebuilds the dashboard SlotSummaries from SettingsManager state.
@@ -8978,15 +9028,32 @@ namespace PadForge
                 // runtime is installed feeds the API prediction, the card's
                 // version line and its Uninstall button.
                 bool runtimeInstalled = DriverInstaller.IsMidiRuntimeInstalled();
+                // An install PadForge stopped following moves MIDI onto the
+                // runtime once it is in place, as an install that finished
+                // in time does. Off the UI thread, since the reset waits
+                // behind a probe that hangs on a dead service. Not while an
+                // uninstall holds anything: this refresh keeps running
+                // through it, the registry still lists the runtime, and the
+                // engine reads no API, or the legacy one, only because the
+                // runtime is held.
+                if (Common.Input.MidiRuntimeSwitch.TakePendingSwitch(runtimeInstalled,
+                        Common.Input.MidiVirtualController.ActiveApi,
+                        Common.Input.MidiVirtualController.IsHeldForUninstall))
+                    System.Threading.Tasks.Task.Run(() => _inputService?.SwitchMidiApi());
                 // The registry's answer until the engine's probe has run,
                 // then the probe's. Where neither Windows MIDI Services API
                 // starts, the engine takes the legacy API. A probe that found
-                // nothing it could start reads as not running. Reading the
+                // nothing it could start reads as not running, and so does
+                // MIDI held released for the runtime's uninstall. Reading the
                 // probe's cached answer never blocks.
                 var (api, notStarted) = Common.Input.MidiApiSelection.ForCard(
                     Common.Input.MidiApiSelection.PredictForUi(runtimeInstalled),
                     Common.Input.MidiVirtualController.ActiveApi,
-                    Common.Input.MidiVirtualController.ProbeFailed);
+                    Common.Input.MidiVirtualController.ProbeFailed,
+                    Common.Input.MidiVirtualController.IsSuppressedForUninstall);
+                _viewModel.Settings.MidiNotRunningReason = Common.Input.MidiVirtualController.NotRunningReason;
+                _viewModel.Settings.MidiInBoxFailure = Common.Input.MidiVirtualController.InBoxActivationFailure;
+                _viewModel.Settings.MidiUninstallerRunning = Common.Input.MidiRuntimeSwitch.UninstallerRunning;
                 _viewModel.Settings.IsMidiRuntimeInstalled = runtimeInstalled;
                 _viewModel.Settings.MidiRuntimeVersion =
                     runtimeInstalled ? (DriverInstaller.GetMidiRuntimeVersion() ?? string.Empty) : string.Empty;

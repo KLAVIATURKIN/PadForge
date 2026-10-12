@@ -11,27 +11,49 @@ namespace PadForge.Common.Input.Peripherals
     /// The line a peripheral row's tab shows (#494): where its output goes
     /// and whether that path answers, in place of the Dashboard status lines
     /// the global switches carried. Built on the UI thread from the link
-    /// table, the backend states and the found HID++ units.
+    /// table, the backend states and the found HID++ units. While the engine
+    /// is stopped every line is empty, since nothing reaches any device then
+    /// (<see cref="PeripheralOutputs.Running"/>), but for the Razer Sensa
+    /// row's platform limit, which no start lifts
+    /// (<see cref="Haptics(UserDevice, bool)"/>).
     /// </summary>
     internal static class PeripheralRouteText
     {
         /// <summary>The Force Feedback tab's line for a haptic row, or null
-        /// for any other row.</summary>
-        internal static string Haptics(UserDevice ud)
+        /// for any other row. <paramref name="slotLive"/> says whether the
+        /// tab's controller rumbles anything
+        /// (<see cref="PeripheralOutputs.SlotLive"/>): one whose controller is
+        /// gone sends the row no rumble, so it names no route. A Razer Sensa
+        /// row in a build that cannot load its engine reads that platform's
+        /// limit whatever the engine or the controller does: the line is no
+        /// route, and neither lifts the limit.</summary>
+        internal static string Haptics(UserDevice ud, bool slotLive = true)
+            => Haptics(ud, slotLive, PlatformSupport.SensaAvailable);
+
+        /// <summary><see cref="Haptics(UserDevice, bool)"/> with the
+        /// platform's answer handed in, so a bench with one architecture
+        /// reaches the line an ARM64 process shows.</summary>
+        internal static string Haptics(UserDevice ud, bool slotLive, bool sensaAvailable)
         {
             if (ud == null) return null;
             var s = Strings.Instance;
             var links = PeripheralOutputs.Links.For(ud.InstanceGuid);
-            if (links == null || links.Haptics.Length == 0)
+            bool linked = links != null && links.Haptics.Length > 0;
+            bool sensa = ud.InstanceGuid == PeripheralOutputRow.IdentityFor(PeripheralRowKind.RazerSensa);
+            // The Sensa row links only where the engine loads and Synapse is
+            // installed. Where the engine cannot load, its record reads the
+            // platform's limit ahead of the two checks below: they hide a
+            // route, and the limit holds with the engine stopped or the
+            // controller gone.
+            if (!linked && sensa && !sensaAvailable && ud.HasPeripheralHaptics)
+                return s.Common_NotAvailableOnArm64;
+            if (!slotLive || !PeripheralOutputs.Running) return null;
+            if (!linked)
             {
                 // The record says it has haptics, and no path answers now.
                 if (!ud.HasPeripheralHaptics) return null;
-                // The Sensa row links only where the engine loads and Synapse
-                // is installed.
-                if (ud.InstanceGuid == PeripheralOutputRow.IdentityFor(PeripheralRowKind.RazerSensa))
-                    return PlatformSupport.SensaAvailable
-                        ? s.Pad_ForceFeedback_RouteSensaWaiting
-                        : s.Common_NotAvailableOnArm64;
+                // The engine loads here, so the row waits for Synapse.
+                if (sensa) return s.Pad_ForceFeedback_RouteSensaWaiting;
                 // A Logitech device asleep, or not plugged in.
                 return ud.VendorId == PeripheralLinker.LogitechVid ? s.Pad_ForceFeedback_RouteHidppAsleep : null;
             }
@@ -101,13 +123,17 @@ namespace PadForge.Common.Input.Peripherals
         /// where its colors go, whether that path answers, and whose color
         /// shows when another claim rules the path.
         /// <paramref name="lightsHere"/> says whether this controller lights
-        /// the device at all: always for a vendor row, else its Control This
-        /// Device's Lighting switch. A device this controller leaves alone
-        /// shows only who else lights it, never a route its colors would
-        /// take.</summary>
+        /// the device at all: a vendor row, or a device whose Control This
+        /// Device's Lighting switch is on, on a controller that lights
+        /// anything (<see cref="PeripheralOutputs.SlotLive"/>). A device this
+        /// controller leaves alone shows only who else lights it, never a
+        /// route its colors would take, and nothing while the vendor's
+        /// software is down, when no controller lights it. A vendor row
+        /// follows the same rule there. One whose engine cannot be loaded
+        /// says so on every controller, since none lights it then.</summary>
         internal static string Lighting(UserDevice ud, int slot, bool lightsHere = true)
         {
-            if (ud == null) return null;
+            if (ud == null || !PeripheralOutputs.Running) return null;
             var s = Strings.Instance;
             var links = PeripheralOutputs.Links.For(ud.InstanceGuid);
             if (links == null || links.Lighting.Length == 0)
@@ -126,9 +152,18 @@ namespace PadForge.Common.Input.Peripherals
                 string examples = VendorRowExamples(path.Family);
                 if (app == null || examples == null) return null;
                 // An engine that cannot be loaded here lights nothing from any
-                // controller.
+                // controller, so this comes ahead of the line below, which
+                // would name another controller as lighting the row.
                 if (path.Family == OutputFamily.LedSdkType && PeripheralOutputs.LedSdkPaintable is { Length: 0 } none)
                     return CannotLight(none);
+                // A controller that lights nothing, its own controller gone,
+                // names only the controller that lights the row elsewhere,
+                // and names none while the vendor's software is down: nothing
+                // is lit then, the state a device's own row says nothing in.
+                if (!lightsHere)
+                    return !waiting && OtherSlotRules(ud.InstanceGuid, slot, links, out int lighting)
+                        ? string.Format(s.Pad_Lighting_RouteOtherControllerOnly, lighting)
+                        : null;
                 // While the vendor's software is down, nothing shows from any
                 // controller.
                 if (waiting) return string.Format(s.Pad_Lighting_RouteVendorRowWaiting, app, examples);

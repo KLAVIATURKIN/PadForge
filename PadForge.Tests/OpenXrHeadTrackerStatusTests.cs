@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Threading;
 using PadForge.Common.Input;
 using PadForge.Engine.Common;
 using PadForge.Engine.Common.OpenXr;
@@ -118,23 +117,50 @@ namespace PadForge.Tests
 
         /// <summary>A manifest that names nothing ends as "no runtime".
         ///
-        /// <para>This drives the real source rather than a field, so it
-        /// covers the path a user hits after uninstalling the runtime they
-        /// picked, and it proves the state is reached promptly rather than
-        /// leaving the row stuck on Connecting.</para></summary>
+        /// <para>This drives the real source and the real session opener
+        /// rather than a field, so it covers the path a user hits after
+        /// uninstalling the runtime they picked, and it proves the loop
+        /// ends by itself on that state rather than leaving the row stuck
+        /// on Connecting. The loop runs on the test's own thread, so there
+        /// is no thread to wait for.</para>
+        ///
+        /// <para>The opener is handed a library loader and a list of
+        /// registered runtimes that throw. A missing manifest reaches
+        /// neither. A defect that let it through would otherwise load
+        /// whichever runtime the PC has registered and ask it for an
+        /// instance, and asking SteamVR for one starts SteamVR. That
+        /// happened under a mutation of the manifest check while this test
+        /// still ran the opener production uses. No test of a normal run
+        /// may hold a path to a runtime's library, so that opener is looked
+        /// at here and never called, and since then it refuses a test in
+        /// any case (<see cref="VrRuntimeOffLimits"/>).</para></summary>
         [Fact]
         public void AMissingRuntimeSettlesAsNoRuntime()
         {
             string missing = System.IO.Path.Combine(
                 System.IO.Path.GetTempPath(), "padforge-no-such-runtime.json");
-            var source = new OpenXrHeadPoseSource(() => missing, _ => { });
+            var log = new List<string>();
+            var source = new OpenXrHeadPoseSource(() => missing, _ => { }, log.Add);
+
+            // What production opens with: the session's public opener,
+            // which loads a library and reads the registry.
+            Assert.Equal(typeof(OpenXrSession), source.OpenLink.Method.DeclaringType);
+            Assert.Equal(nameof(OpenXrSession.TryCreate), source.OpenLink.Method.Name);
+            Assert.Equal(6, source.OpenLink.Method.GetParameters().Length);
+
+            source.OpenLink = (string manifest, bool again, Action<string> write,
+                               out OpenXrSourceState failure, out bool runtimeUnavailable, out string read) =>
+                OpenXrSession.TryCreate(manifest, again, write,
+                    (OpenXrRuntimeEntry entry, out string loaded) =>
+                        throw new InvalidOperationException("a missing manifest reached a runtime's library"),
+                    () => throw new InvalidOperationException("a missing manifest reached the registered runtimes"),
+                    out failure, out runtimeUnavailable, out read);
             try
             {
-                source.Start();
-                var deadline = DateTime.UtcNow.AddSeconds(5);
-                while (source.State == OpenXrSourceState.Connecting && DateTime.UtcNow < deadline)
-                    Thread.Sleep(25);
+                source.RunOnThisThread();
                 Assert.Equal(OpenXrSourceState.NoRuntime, source.State);
+                Assert.Equal($"OpenXR: no instance was created (the runtime manifest {missing} is not on disk), so the source stops (NoRuntime)",
+                             Assert.Single(log));
             }
             finally { source.Dispose(); }
 

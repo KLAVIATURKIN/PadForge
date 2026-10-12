@@ -84,6 +84,26 @@ namespace PadForge.Engine.RemoteLink
         /// <summary>The peer device's input-device-type constant (see InputDeviceType).</summary>
         public int InputDeviceType { get; set; } = PadForge.Engine.InputDeviceType.Gamepad;
 
+        /// <summary>Whether the owner reads the device in SDL's gamepad
+        /// layout, the layout the "(Any Device)" Gamepad names read
+        /// (InputManager.InSdlGamepadLayout on the owner's PC). The type does
+        /// not say: SDL opens some wheels, flight sticks, arcade sticks and
+        /// instrument pads through its gamepad API and types each for what it
+        /// is, and a device typed a gamepad can be read outside the layout.
+        /// Null leaves the answer to the type, a gamepad's or not, as every
+        /// copy answered before this was carried: the wire holds one bit, set
+        /// where the layout is not what the type says (caps2 bit 7 in the v3
+        /// tail), so an owner from before the bit sends none and a peer from
+        /// before it reads none. Kept in one field a thread reads whole: the
+        /// link's receive thread refreshes it and the poll thread reads
+        /// it.</summary>
+        public bool? GamepadLayout
+        {
+            get => _gamepadLayout switch { 1 => true, 2 => false, _ => null };
+            set => _gamepadLayout = value == null ? 0 : value.Value ? 1 : 2;
+        }
+        private volatile int _gamepadLayout;
+
         /// <summary>Whether the device is currently active on the owner (#138 live device
         /// sync). Carried in the DeviceList message so the consumer shows active/inactive.</summary>
         public bool Online { get; set; } = true;

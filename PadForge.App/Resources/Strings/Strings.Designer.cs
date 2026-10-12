@@ -221,7 +221,7 @@ public class Strings : INotifyPropertyChanged
     public string Main_Nintendo_Max_Format => Get("Main_Nintendo_Max_Format");
     public string Main_Extended_Max_Format => Get("Main_Extended_Max_Format");
     public string Main_KBM_Max_Format => Get("Main_KBM_Max_Format");
-    public string Main_MIDI_RequiresMidiServices => Get("Main_MIDI_RequiresMidiServices");
+    public string Main_MIDI_NotRunning => Get("Main_MIDI_NotRunning");
     public string Main_MIDI_Max_Format => Get("Main_MIDI_Max_Format");
     public string Main_VR_RequiresSteamVR => Get("Main_VR_RequiresSteamVR");
     public string Main_VR_Max_Format => Get("Main_VR_Max_Format");
@@ -240,6 +240,15 @@ public class Strings : INotifyPropertyChanged
     public string Status_HidHideRefusedPadForge => Get("Status_HidHideRefusedPadForge");
     public string Status_HidHideInverse => Get("Status_HidHideInverse");
     public string Status_UninstallingMidi => Get("Status_UninstallingMidi");
+    public string Status_MidiNotRunning_Format => Get("Status_MidiNotRunning_Format");
+    public string Status_MidiCreateFailed_Format => Get("Status_MidiCreateFailed_Format");
+    public string Status_MidiPortNotPicked_Format => Get("Status_MidiPortNotPicked_Format");
+    public string Status_MidiPortNotConnected_Format => Get("Status_MidiPortNotConnected_Format");
+    public string Status_MidiPortInUse_Format => Get("Status_MidiPortInUse_Format");
+    public string Status_MidiPortShared_Format => Get("Status_MidiPortShared_Format");
+    public string Status_MidiPortDidNotOpen_Format => Get("Status_MidiPortDidNotOpen_Format");
+    public string Status_MidiReleaseTimedOut => Get("Status_MidiReleaseTimedOut");
+    public string Status_MidiReleaseTimedOutDriver => Get("Status_MidiReleaseTimedOutDriver");
     public string Status_DownloadingInstallingMidi => Get("Status_DownloadingInstallingMidi");
     public string Status_OperationCanceled => Get("Status_OperationCanceled");
     public string Status_DeviceListRefreshed => Get("Status_DeviceListRefreshed");
@@ -292,6 +301,7 @@ public class Strings : INotifyPropertyChanged
     public string Status_EngineStopped => Get("Status_EngineStopped");
     public string Status_NoMapping => Get("Status_NoMapping");
     public string Status_Error_Format => Get("Status_Error_Format");
+    public string Status_SlotCreateFailed_Format => Get("Status_SlotCreateFailed_Format");
     public string Status_ProfileSwitched_Format => Get("Status_ProfileSwitched_Format");
     public string Status_ProfileSwitchedDefault => Get("Status_ProfileSwitchedDefault");
     public string Profile_Default => Get("Profile_Default");
@@ -565,6 +575,10 @@ public class Strings : INotifyPropertyChanged
     public string Settings_MidiOlderRuntime_Format => Get("Settings_MidiOlderRuntime_Format");
     public string Settings_MidiStatusNotRunning => Get("Settings_MidiStatusNotRunning");
     public string Settings_MidiNotRunning => Get("Settings_MidiNotRunning");
+    public string Settings_MidiNotRunningDriver => Get("Settings_MidiNotRunningDriver");
+    public string Settings_MidiUninstallRunning => Get("Settings_MidiUninstallRunning");
+    public string Settings_MidiInstallAfterUninstaller => Get("Settings_MidiInstallAfterUninstaller");
+    public string Settings_MidiInBoxFailed_Format => Get("Settings_MidiInBoxFailed_Format");
     public string Settings_MidiStatusLegacy => Get("Settings_MidiStatusLegacy");
     public string Settings_MidiLegacy => Get("Settings_MidiLegacy");
     public string Settings_MidiInstallTooltip => Get("Settings_MidiInstallTooltip");
@@ -695,6 +709,8 @@ public class Strings : INotifyPropertyChanged
     public string About_OpenXrRefsDesc => Get("About_OpenXrRefsDesc");
     public string About_PeripheralOutputRefs => Get("About_PeripheralOutputRefs");
     public string About_PeripheralOutputRefsDesc => Get("About_PeripheralOutputRefsDesc");
+    public string About_PortMidiRtMidi => Get("About_PortMidiRtMidi");
+    public string About_PortMidiRtMidiDesc => Get("About_PortMidiRtMidiDesc");
     public string About_LogitechGKeyRefs => Get("About_LogitechGKeyRefs");
     public string About_LogitechGKeyRefsDesc => Get("About_LogitechGKeyRefsDesc");
     public string About_AnalogKeyboardRefs => Get("About_AnalogKeyboardRefs");
@@ -3793,6 +3809,21 @@ public class Strings : INotifyPropertyChanged
     public string Status_InstallerExitCode_Format => Get("Status_InstallerExitCode_Format");
     public string Status_InstallerTimedOut => Get("Status_InstallerTimedOut");
     public string Status_InstallerNotTracked => Get("Status_InstallerNotTracked");
+    public string Status_VcRedistUnsigned => Get("Status_VcRedistUnsigned");
+    public string Status_MidiRuntimeHashMismatch => Get("Status_MidiRuntimeHashMismatch");
+    public string Status_NoMidiRuntimeToRemove => Get("Status_NoMidiRuntimeToRemove");
+    public string Status_VcRuntimeHeld => Get("Status_VcRuntimeHeld");
+    public string Status_VcRuntimeStillOld_Format => Get("Status_VcRuntimeStillOld_Format");
+    public string Status_VcRedistStillRunning => Get("Status_VcRedistStillRunning");
+    public string Status_NoOwnedSteamVRToRemove => Get("Status_NoOwnedSteamVRToRemove");
+    public string Status_SteamVRFolderIsDriveRoot_Format => Get("Status_SteamVRFolderIsDriveRoot_Format");
+    public string Status_SteamVRNotRemoved_Format => Get("Status_SteamVRNotRemoved_Format");
+    public string Status_SteamVRLocationNotFull => Get("Status_SteamVRLocationNotFull");
+    public string Status_SteamVRLocationIsDriveRoot => Get("Status_SteamVRLocationIsDriveRoot");
+    public string Status_SteamCmdTimedOut => Get("Status_SteamCmdTimedOut");
+    public string Status_SteamVRDidNotLand_Format => Get("Status_SteamVRDidNotLand_Format");
+    public string Status_HidHideDriverDidNotStart => Get("Status_HidHideDriverDidNotStart");
+    public string Status_HidHideFilterStillListed => Get("Status_HidHideFilterStillListed");
     public string Status_RemovingLegacyDrivers => Get("Status_RemovingLegacyDrivers");
     public string About_Nefcon => Get("About_Nefcon");
     public string About_NefconDesc => Get("About_NefconDesc");
@@ -3918,4 +3949,6 @@ public class Strings : INotifyPropertyChanged
     public string About_WiiBrewDesc => Get("About_WiiBrewDesc");
     public string About_X1nput => Get("About_X1nput");
     public string About_X1nputDesc => Get("About_X1nputDesc");
+    public string About_ChiakiNg => Get("About_ChiakiNg");
+    public string About_ChiakiNgDesc => Get("About_ChiakiNgDesc");
 }

@@ -92,6 +92,58 @@ namespace PadForge.Tests
             // No divider at all before the header is the defect it replaced.
             Assert.True(upper || lower);
         }
+        /// <summary>Force Raw Joystick Mode is offered on rows typed Gamepad.
+        /// A row of another type whose saved flag is on is read raw all the
+        /// same (a hand-edited file, or a record whose type changed after
+        /// the flag was set), so it shows the checkbox, the one control on
+        /// the page that turns the flag off. With the flag off such a row
+        /// offers none, and the divider under the sections follows.</summary>
+        [Theory]
+        [InlineData("Wheel")]
+        [InlineData("Joystick")]
+        [InlineData("FlightStick")]
+        [InlineData("Supplemental")]
+        public void ARowReadRawShowsTheCheckboxThatTurnsItOff_WhateverItsType(string typeKey)
+        {
+            var vm = new DeviceRowViewModel { DeviceTypeKey = typeKey, DevicePath = @"\?\hid#vid_046d&pid_c262" };
+            Assert.False(vm.ShowInputModeSection, "control: a " + typeKey + " row with the flag off offers no checkbox");
+
+            var raised = new System.Collections.Generic.List<string>();
+            vm.PropertyChanged += (_, e) => raised.Add(e.PropertyName);
+            vm.ForceRawJoystickMode = true;
+            Assert.True(vm.ShowInputModeSection, "a " + typeKey + " row read raw had no checkbox to turn it off");
+            Assert.True(vm.ShowInputModeOrHidingSection);
+            Assert.Contains(nameof(DeviceRowViewModel.ShowInputModeSection), raised);
+            Assert.Contains(nameof(DeviceRowViewModel.ShowInputModeOrHidingSection), raised);
+            Assert.Contains(nameof(DeviceRowViewModel.ShowRawInputDivider), raised);
+            Assert.Contains(nameof(DeviceRowViewModel.ShowGunCalibrationDivider), raised);
+
+            raised.Clear();
+            vm.ForceRawJoystickMode = false;
+            Assert.False(vm.ShowInputModeSection);
+            Assert.Contains(nameof(DeviceRowViewModel.ShowInputModeSection), raised);
+        }
+
+        /// <summary>The flag acts on a row HidHide cannot cloak as well: a web
+        /// pad or a Remote Link copy read raw answers no Gamepad name
+        /// (InputManager.SpeaksGamepadLayout). Such a row shows the checkbox
+        /// while its flag is on, the only section above the lower divider,
+        /// which then gives way to the upper one.</summary>
+        [Theory]
+        [InlineData("web://controller/1")]
+        [InlineData("peer://pc/1")]
+        public void ASyntheticRowReadRawShowsTheCheckboxToo(string devicePath)
+        {
+            var vm = new DeviceRowViewModel { DeviceTypeKey = "Gamepad", DevicePath = devicePath };
+            Assert.False(vm.ShowInputModeSection);
+            Assert.True(vm.ShowRawInputDivider);
+
+            vm.ForceRawJoystickMode = true;
+            Assert.True(vm.ShowInputModeSection);
+            Assert.False(vm.ShowInputHidingSection);
+            Assert.False(vm.ShowRawInputDivider);
+        }
+
         /// <summary>
         /// Every synthetic row must answer IsInternalVirtual, because HidHide
         /// has no HID instance to cloak for any of them and the Input Hiding
@@ -113,10 +165,36 @@ namespace PadForge.Tests
         [InlineData("openxr://hand/left")]
         [InlineData("openxr://hand/right")]
         [InlineData("logigkeys://local")]
+        [InlineData("analogkb://x")]
+        [InlineData("razerchroma://local")]
+        [InlineData("logilightsync://local")]
+        [InlineData("steelseriesgg://local")]
+        [InlineData("razersensa://local")]
         public void EverySyntheticPath_IsInternalVirtual(string devicePath)
         {
             var vm = new DeviceRowViewModel { DevicePath = devicePath };
             Assert.True(vm.IsInternalVirtual, devicePath + " must not offer HidHide toggles");
+        }
+
+        /// <summary>The vendor rows (#494) stand for a vendor's software, not
+        /// a HID device, so none offers Input Hiding, whatever kind is added
+        /// later: each kind's own row is built and asked.</summary>
+        [Fact]
+        public void EveryVendorRow_OffersNoInputHiding()
+        {
+            foreach (PadForge.Common.Input.Peripherals.PeripheralRowKind kind
+                in Enum.GetValues(typeof(PadForge.Common.Input.Peripherals.PeripheralRowKind)))
+            {
+                using var row = new PadForge.Common.Input.Peripherals.PeripheralOutputRow(kind);
+                var vm = new DeviceRowViewModel
+                {
+                    DeviceTypeKey = PadForge.Common.Input.Peripherals.PeripheralOutputRow.IsLightingRow(kind)
+                        ? "PeripheralLighting" : "PeripheralHaptics",
+                    DevicePath = row.DevicePath,
+                };
+                Assert.False(vm.ShowHidHideToggle, kind + " offers HidHide");
+                Assert.False(vm.ShowInputHidingSection, kind + " shows the Input Hiding section");
+            }
         }
 
         /// <summary>A real HID path is not synthetic. Without this the theory

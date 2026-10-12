@@ -981,7 +981,11 @@ namespace PadForge.Common.Input
                     {
                         byte parent = collectionStack.Count > 0 ? collectionStack.Peek() : (byte)0;
                         bool sawMagUsage = pendingUsages.Contains(0x70) || pendingUsages.Contains(0x75);
-                        int absMax = Math.Max(Math.Abs(logMin), Math.Abs(logMax));
+                        // As a long: a 32-bit field's Logical Minimum,
+                        // -2147483648, has no positive int, and Math.Abs
+                        // throws on it. This walk runs in Connect once the
+                        // controller exists, where a throw fails the slot.
+                        long absMax = Math.Max(Math.Abs((long)logMin), Math.Abs((long)logMax));
 
                         if (parent == 0x73 && sawMagUsage && absMax > 0)
                         {

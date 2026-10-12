@@ -394,6 +394,50 @@ namespace PadForge.Tests
             Assert.Equal(Set(new[] { touchpadId }), throwing);
         }
 
+        /// <summary>Before the engine has listed its devices no row is online,
+        /// so a row left visible holds new hides off its nodes whether or not
+        /// it is online, a node a row set to hide names as well. It takes no
+        /// hide away: a node already hidden is left to the online rule. An
+        /// online row keeps all its nodes out, as ever, and once the rows are
+        /// current an offline row is a memory again.</summary>
+        [Fact]
+        public void KeepOut_BeforeRowsAreCurrent_OfflineVisibleRowsHoldNewHidesBack()
+        {
+            static PadForge.Engine.Data.UserDevice Row(string node, bool hide, bool online) => new()
+            {
+                VendorId = 0x17EF, ProdId = 0x6182, HidHideEnabled = hide, IsOnline = online,
+                DevicePath = @"\\?\" + node.Replace('\\', '#') + "#{4d1e55b2-f16f-11cf-88cb-001111000030}",
+            };
+            const string touchpad = @"HID\VID_17EF&PID_6182&MI_01&COL02\8&2A3B4C5&0&0001";
+            const string keyboard = @"HID\VID_17EF&PID_6182&MI_02\8&2A3B4C5&0&0002";
+            const string pad = @"HID\VID_17EF&PID_6182&MI_00\8&2A3B4C5&0&0000";
+            const string composite = @"USB\VID_17EF&PID_6182\5&2E4D6F8&0&3";
+            var rows = new[]
+            {
+                Row(pad, hide: true, online: false),
+                Row(touchpad, hide: false, online: false),
+                Row(keyboard, hide: false, online: true),
+                // A second record that remembers the pad's own path.
+                Row(pad, hide: false, online: false),
+            };
+            Func<string, IReadOnlyList<string>> chainOf = id => new[] { id, id + @"\PARENT", composite };
+            Func<string, bool> alreadyHidden = node =>
+                string.Equals(node, touchpad + @"\PARENT", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(node, keyboard, StringComparison.OrdinalIgnoreCase);
+
+            var before = PadForge.Services.InputService.BuildHidHideKeepOut(rows, chainOf, rowsCurrent: false, alreadyHidden);
+            Assert.Equal(Set(new[] { touchpad, composite, keyboard, keyboard + @"\PARENT", pad, pad + @"\PARENT" }), before);
+
+            var current = PadForge.Services.InputService.BuildHidHideKeepOut(rows, chainOf, rowsCurrent: true, alreadyHidden);
+            Assert.Equal(Set(new[] { keyboard, keyboard + @"\PARENT", composite }), current);
+            Assert.Equal(current, PadForge.Services.InputService.BuildHidHideKeepOut(rows, chainOf));
+
+            // With nothing hidden yet, the whole chain of each offline row is kept out.
+            var fresh = PadForge.Services.InputService.BuildHidHideKeepOut(rows, chainOf, rowsCurrent: false, null);
+            Assert.Contains(touchpad + @"\PARENT", fresh);
+            Assert.Contains(pad, fresh);
+        }
+
         /// <summary>The apply loop threads the keep-out set through every
         /// expansion it performs: the resolved-path branch, the sibling
         /// sweep, and both cached-id loops of the synthetic branch, and the
@@ -405,9 +449,12 @@ namespace PadForge.Tests
             string svc = RepoText("PadForge.App", "Services", "InputService.cs");
             int at = svc.IndexOf("public void ApplyDeviceHiding()", StringComparison.Ordinal);
             Assert.True(at > 0);
-            string body = svc.Substring(at, 34000);
+            // The method's own text, up to the one that follows it.
+            int end = svc.IndexOf("private void ApplyInputHooks(", at, StringComparison.Ordinal);
+            Assert.True(end > at);
+            string body = svc.Substring(at, end - at);
 
-            Assert.Contains("var keepOutSet = BuildHidHideKeepOut(snapshot, null);", body);
+            Assert.Contains("var keepOutSet = BuildHidHideKeepOut(snapshot, null, rowsCurrent, HidHideController.IsManagedDevice);", body);
             Assert.Contains("HIDHIDE keepout n={keepOutSet.Count}", body);
             Assert.Contains("ExpandToBaseContainerAndChildren(instanceId, keepOut, kept)", body);
             Assert.Contains("if (keepOut(realId)) { kept.Add(realId); continue; }", body);

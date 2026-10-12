@@ -265,6 +265,23 @@ namespace PadForge.Tests
             AssertCarried(row, PadForge.Views.PadPage.CloneLayerRow(row, "Shift"), "the layer copy");
         }
 
+        /// <summary>The row a menu commit made by leaving a layer reads
+        /// (DC20) is a stand-in for the departed layer's row, and it carries
+        /// that row's settings, its target, its layer and its pair flag. It
+        /// copied seven settings by hand and left the rest at their
+        /// defaults.</summary>
+        [Fact]
+        public void ALayerExitCommitsStandInCarriesTheSettings()
+        {
+            var row = Authored("Shift");
+            row.SuppressBipolarPair = true;
+            var standIn = (MappingRow)typeof(InputManager)
+                .GetMethod("LayerExitCommitStandIn", BindingFlags.NonPublic | BindingFlags.Static)
+                .Invoke(null, new object[] { row, "Shift", SourceSlot, Environment.TickCount64 });
+            AssertCarried(row, standIn, "the layer-exit commit's stand-in");
+            Assert.True(standIn.SuppressBipolarPair);
+        }
+
         [Fact]
         public void TheSettingsFileCarriesTheSettings()
         {

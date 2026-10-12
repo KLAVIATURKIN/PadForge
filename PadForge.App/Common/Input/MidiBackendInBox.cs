@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Midi2 = global::Windows.Devices.Midi2;
 using Midi2Enum = global::Windows.Devices.Midi2.Enumeration;
-using Midi2Messages = global::Windows.Devices.Midi2.Utilities.Messages;
 using Midi2Virtual = global::Windows.Devices.Midi2.Transports.Virtual;
 
 namespace PadForge.Common.Input
@@ -26,7 +25,15 @@ namespace PadForge.Common.Input
     {
         public MidiApiKind Kind => MidiApiKind.InBox;
 
-        public bool Start() => Midi2.MidiApi.EnsureServiceAvailable();
+        /// <summary>Test seam: set by the test assembly for the life of its
+        /// process. Every call that reaches the MIDI service then answers as
+        /// a service that refuses: no start, no virtual device, no session,
+        /// no endpoints. A session or a virtual device made from the test
+        /// host is one every other program on this PC sees. False in
+        /// production, where nothing sets it.</summary>
+        internal static bool OffLimitsForTest;
+
+        public bool Start() => !OffLimitsForTest && Midi2.MidiApi.EnsureServiceAvailable();
 
         public void Stop(bool skipDispose)
         {
@@ -35,6 +42,7 @@ namespace PadForge.Common.Input
 
         public IMidiVirtualEndpoint CreateVirtualEndpoint(string deviceName, string uniqueId, int padIndex)
         {
+            if (OffLimitsForTest) throw new InvalidOperationException("The test host creates no virtual MIDI device.");
             var declaredEndpointInfo = new Midi2Enum.MidiDeclaredEndpointInfo
             {
                 Name = deviceName,
@@ -50,10 +58,13 @@ namespace PadForge.Common.Input
 
             var declaredDeviceIdentity = new Midi2Enum.MidiDeclaredDeviceIdentity();
 
+            // A fixed text. It ended in the pad index plus one, which is not
+            // the number the UI shows for the slot and does not follow the
+            // slot when the order changes.
             var userSuppliedInfo = new Midi2Enum.MidiEndpointUserSuppliedInfo
             {
                 Name = deviceName,
-                Description = $"PadForge virtual MIDI controller (slot {padIndex + 1})",
+                Description = "PadForge virtual MIDI controller",
             };
 
             var config = new Midi2Virtual.MidiVirtualDeviceCreationConfig(
@@ -143,17 +154,20 @@ namespace PadForge.Common.Input
                 _connection = connection;
             }
 
-            public void Send(Midi1Status status, int channel, int data1, int data2)
+            /// <summary>Sends the word the message builder would pack
+            /// (<see cref="MidiUmp.Midi1Word"/>) with no WinRT object per
+            /// message: a MidiGroup, a MidiChannel and a MidiMessage32 are
+            /// runtime classes, each activated and wrapped on every send. The
+            /// API took it unless the result carries Failed, the test
+            /// Microsoft's MidiEndpointConnection.SendMessageFailed
+            /// makes.</summary>
+            public bool Send(Midi1Status status, int channel, int data1, int data2)
             {
-                var msg = Midi2Messages.MidiMessageBuilder.BuildMidi1ChannelVoiceMessage(
-                    0,
-                    new Midi2.MidiGroup(0),
-                    (Midi2Messages.Midi1ChannelVoiceMessageStatus)(byte)status,
-                    new Midi2.MidiChannel((byte)channel),
-                    (byte)data1,
-                    (byte)data2);
-                _connection.SendSingleMessagePacket(msg);
+                var result = _connection.SendSingleMessageWords(0, MidiUmp.Midi1Word(status, channel, data1, data2));
+                return (result & Midi2.MidiSendMessageResults.Failed) != Midi2.MidiSendMessageResults.Failed;
             }
+
+            public bool Lost => false;
 
             public void DisconnectConnection() => _session.DisconnectEndpointConnection(_connection.ConnectionId);
 
@@ -166,6 +180,7 @@ namespace PadForge.Common.Input
 
         public IMidiInputSession CreateInputSession(string name)
         {
+            if (OffLimitsForTest) return null;
             var session = Midi2.MidiSession.Create(name);
             return session == null ? null : new InputSession(session);
         }
@@ -232,6 +247,7 @@ namespace PadForge.Common.Input
         public List<(string Id, string Name)> EnumerateNormalEndpoints()
         {
             var result = new List<(string Id, string Name)>();
+            if (OffLimitsForTest) return result;
             // A throw partway keeps what was read before it, as the
             // enumeration in MidiInputRuntime always has.
             try

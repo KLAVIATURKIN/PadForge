@@ -474,6 +474,7 @@ namespace PadForge.Services
 
         private static async Task<ApiAnswer> GetApiAsync(string url, CancellationToken ct)
         {
+            ThrowIfRequestOffLimits(url);
             using var request = new HttpRequestMessage(HttpMethod.Get, url);
             request.Headers.Accept.ParseAdd("application/vnd.github+json");
             request.Headers.Add("X-GitHub-Api-Version", "2022-11-28");
@@ -741,19 +742,19 @@ namespace PadForge.Services
             // and a download started while it still runs would be one of them.
             try { await _cleanup.ConfigureAwait(false); } catch { }
             string dir = Path.Combine(EnsureInstallDir(ThisExe), offer.StageKey);
-            if (Directory.Exists(dir)) Directory.Delete(dir, recursive: true);
-            Directory.CreateDirectory(dir);
+            if (Directory.Exists(dir)) DeleteFolder(dir);
+            CreateFolder(dir);
             string zip = Path.Combine(dir, "download.zip");
             try
             {
+                ThrowIfRequestOffLimits(offer.DownloadUrl);
                 using (var response = await LazyDownload.Value.GetAsync(offer.DownloadUrl,
                            HttpCompletionOption.ResponseHeadersRead, ct).ConfigureAwait(false))
                 {
                     response.EnsureSuccessStatusCode();
                     long total = response.Content.Headers.ContentLength ?? offer.Size;
                     await using var source = await response.Content.ReadAsStreamAsync(ct).ConfigureAwait(false);
-                    await using var target = new FileStream(zip, FileMode.Create, FileAccess.Write,
-                        FileShare.None, 81920, useAsync: true);
+                    await using var target = CreateFile(zip, 81920, useAsync: true);
                     string got = await CopyAndHashAsync(source, target, total, progress, DownloadStallTimeout, ct)
                         .ConfigureAwait(false);
                     if (got != offer.Sha256)
@@ -762,7 +763,7 @@ namespace PadForge.Services
 
                 string exe = Path.Combine(dir, ExeName);
                 string exeSha = ExtractExe(zip, exe);
-                File.Delete(zip);
+                DeleteFile(zip);
                 return new StagedUpdate(exe, exeSha);
             }
             catch (OperationCanceledException) when (!ct.IsCancellationRequested)
@@ -834,7 +835,7 @@ namespace PadForge.Services
             if (entry == null)
                 throw new InvalidDataException("The download has no " + ExeName + ".");
             using var source = entry.Open();
-            using var target = new FileStream(exePath, FileMode.Create, FileAccess.Write, FileShare.None);
+            using var target = CreateFile(exePath);
             using var hash = IncrementalHash.CreateHash(HashAlgorithmName.SHA256);
             var buffer = new byte[81920];
             int read;
@@ -876,8 +877,8 @@ namespace PadForge.Services
         private static void WritePendingFile(string path, PendingUpdate pending)
         {
             string temp = path + ".tmp";
-            File.WriteAllText(temp, JsonSerializer.Serialize(pending));
-            File.Move(temp, path, overwrite: true);
+            WriteFile(temp, JsonSerializer.Serialize(pending));
+            MoveFile(temp, path);
         }
 
         /// <summary>This copy's pending update, or null.</summary>
@@ -926,7 +927,7 @@ namespace PadForge.Services
         internal static void DeletePending()
         {
             string path = PendingPathFor(ThisExe);
-            if (File.Exists(path)) File.Delete(path);
+            if (File.Exists(path)) DeleteFile(path);
         }
 
         /// <summary>
@@ -1206,7 +1207,7 @@ namespace PadForge.Services
                     foreach (string a in BuildInstallerArgs(target, Environment.ProcessId, attempt, sha, expectedCommit,
                                  relaunchArgs))
                         psi.ArgumentList.Add(a);
-                    helper = Process.Start(psi) ?? throw new UpdateHelperException(HelperFailure.NoAnswer);
+                    helper = StartProcess(psi) ?? throw new UpdateHelperException(HelperFailure.NoAnswer);
                 }
                 var result = WaitForHelper(ms => ready.WaitOne(ms), () => helper.HasExited, HelperReadyTimeout, ct);
                 if (result == HelperStart.Ready)
@@ -1386,6 +1387,10 @@ namespace PadForge.Services
         internal static bool TryAcquireUpdateLease(string targetExe, out Mutex lease)
         {
             lease = null;
+            // Every PadForge launched from that exe sees the lease and leaves
+            // at once. The test host takes one only for an exe in its scratch
+            // folder, and is answered as when another helper holds it.
+            if (OffLimitsForTest && !IsInTestScratch(targetExe)) return false;
             Mutex mutex;
             bool createdNew;
             try
@@ -1719,6 +1724,10 @@ namespace PadForge.Services
         /// commit means install nothing.</summary>
         private static bool AwaitCommit(string attempt, Process oldCopy)
         {
+            // The events belong to the copy that started this helper. The test
+            // host signals no other program's events, and is answered as when
+            // they are not there.
+            if (OffLimitsForTest) return false;
             if (!EventWaitHandle.TryOpenExisting(ReadyEventName(attempt), out var ready)) return false;
             using (ready)
             {
@@ -1758,7 +1767,7 @@ namespace PadForge.Services
                     WorkingDirectory = Path.GetDirectoryName(exe),
                 };
                 foreach (string a in args) psi.ArgumentList.Add(a);
-                using var process = Process.Start(psi);
+                using var process = StartProcess(psi);
                 return process == null ? "Windows did not start a process." : null;
             }
             catch (Exception ex)
@@ -1784,9 +1793,9 @@ namespace PadForge.Services
         private sealed class DiskFiles : IFileOps
         {
             public static readonly DiskFiles Instance = new();
-            public void Copy(string from, string to) => File.Copy(from, to, overwrite: true);
+            public void Copy(string from, string to) => CopyFile(from, to);
             public string Hash(string path) => HashFile(path);
-            public void CreateDirectory(string dir) => Directory.CreateDirectory(dir);
+            public void CreateDirectory(string dir) => CreateFolder(dir);
             public void DeleteDirectory(string dir) => TryDeleteDirectory(dir);
         }
 
@@ -1971,9 +1980,9 @@ namespace PadForge.Services
         private static string EnsureInstallDir(string targetExe)
         {
             string dir = InstallDir(targetExe);
-            Directory.CreateDirectory(dir);
+            CreateFolder(dir);
             string owner = Path.Combine(dir, "target.txt");
-            if (!File.Exists(owner)) File.WriteAllText(owner, Path.GetFullPath(targetExe));
+            if (!File.Exists(owner)) WriteFile(owner, Path.GetFullPath(targetExe));
             return dir;
         }
 
@@ -1995,7 +2004,7 @@ namespace PadForge.Services
         {
             try
             {
-                if (Directory.Exists(dir)) Directory.Delete(dir, recursive: true);
+                if (Directory.Exists(dir)) DeleteFolder(dir);
                 return true;
             }
             catch
@@ -2008,13 +2017,134 @@ namespace PadForge.Services
         {
             try
             {
-                if (File.Exists(path)) File.Delete(path);
+                if (File.Exists(path)) DeleteFile(path);
                 return true;
             }
             catch
             {
                 return false;
             }
+        }
+
+        // ─────────────────────────────────────────────
+        //  What the test host never does
+        // ─────────────────────────────────────────────
+
+        /// <summary>Test seam: set by the test assembly for the life of its
+        /// process. Nothing here, and nothing in <see cref="UpdateController"/>,
+        /// then starts a process, sends GitHub a request, takes the update
+        /// lease for an installed exe, signals a helper's events, or writes,
+        /// moves or deletes a file or folder outside
+        /// <see cref="TestScratchRoot"/>: each refuses as a call that failed
+        /// would, and changes nothing. Every such call goes through one of the
+        /// members below, or checks the flag where it is made (the lease, the
+        /// helper's handshake). A test that reaches one with no stand-in in
+        /// place (arguments the helper can use after all, a check a change
+        /// removed) would otherwise copy the test host over an installed
+        /// PadForge.exe, delete a pending record PadForge wrote, keep PadForge
+        /// from launching, or start it. False in production, where nothing
+        /// sets it.</summary>
+        internal static bool OffLimitsForTest;
+
+        private const int ERROR_ACCESS_DENIED = 5;
+
+        /// <summary>Starts a process: the helper, PadForge again once the swap
+        /// is over, the browser on the release notes. In the test host it
+        /// starts none and fails as a start Windows denied.</summary>
+        internal static Process StartProcess(ProcessStartInfo psi)
+        {
+            if (OffLimitsForTest)
+                throw new System.ComponentModel.Win32Exception(ERROR_ACCESS_DENIED,
+                    "The test host starts no process: " + psi.FileName);
+            return Process.Start(psi);
+        }
+
+        /// <summary>Fails a request to GitHub, a check's question or the
+        /// download, before it is sent in the test host.</summary>
+        private static void ThrowIfRequestOffLimits(string url)
+        {
+            if (OffLimitsForTest)
+                throw new HttpRequestException("The test host sends no request: " + url);
+        }
+
+        /// <summary>The one folder the members below write in while the test
+        /// host runs: its scratch folder in the temp folder, where each test
+        /// keeps a folder of its own. The staging folder is in the temp folder
+        /// too, and holds an installed PadForge's records, so the temp folder
+        /// as a whole is not it.</summary>
+        internal static string TestScratchRoot => Path.Combine(Path.GetTempPath(), "PadForge.Tests");
+
+        /// <summary>Whether <paramref name="path"/> is inside
+        /// <see cref="TestScratchRoot"/>. The scratch folder itself is not
+        /// inside it.</summary>
+        internal static bool IsInTestScratch(string path)
+        {
+            if (string.IsNullOrWhiteSpace(path)) return false;
+            string scratch = Path.GetFullPath(TestScratchRoot).TrimEnd('\\', '/') + Path.DirectorySeparatorChar;
+            return Path.GetFullPath(path).TrimEnd('\\', '/').StartsWith(scratch, StringComparison.OrdinalIgnoreCase);
+        }
+
+        /// <summary>Fails a write, a move or a delete outside the scratch
+        /// folder in the test host, as one Windows denied.</summary>
+        private static void ThrowIfWriteOffLimits(string path)
+        {
+            if (OffLimitsForTest && !IsInTestScratch(path))
+                throw new UnauthorizedAccessException("The test host writes nothing outside its scratch folder: " + path);
+        }
+
+        /// <summary>Creates a folder: an installed copy's staging folder, a
+        /// download's, a recovery copy's.</summary>
+        internal static void CreateFolder(string path)
+        {
+            ThrowIfWriteOffLimits(path);
+            Directory.CreateDirectory(path);
+        }
+
+        /// <summary>Deletes a folder with everything in it.</summary>
+        internal static void DeleteFolder(string path)
+        {
+            ThrowIfWriteOffLimits(path);
+            Directory.Delete(path, recursive: true);
+        }
+
+        /// <summary>Writes a whole file: a pending record, the note that names
+        /// a staging folder's owner.</summary>
+        internal static void WriteFile(string path, string text)
+        {
+            ThrowIfWriteOffLimits(path);
+            File.WriteAllText(path, text);
+        }
+
+        /// <summary>Moves a file over another. A move deletes its source, so
+        /// both ends are checked.</summary>
+        internal static void MoveFile(string from, string to)
+        {
+            ThrowIfWriteOffLimits(from);
+            ThrowIfWriteOffLimits(to);
+            File.Move(from, to, overwrite: true);
+        }
+
+        /// <summary>Copies a file over another: the swap's three copies, the
+        /// installed exe among them.</summary>
+        internal static void CopyFile(string from, string to)
+        {
+            ThrowIfWriteOffLimits(to);
+            File.Copy(from, to, overwrite: true);
+        }
+
+        /// <summary>Deletes a file: a pending record, a download's zip.</summary>
+        internal static void DeleteFile(string path)
+        {
+            ThrowIfWriteOffLimits(path);
+            File.Delete(path);
+        }
+
+        /// <summary>A new file, or one emptied, open for writing alone: the
+        /// download's zip and the exe taken out of it.</summary>
+        internal static FileStream CreateFile(string path, int bufferSize = 4096, bool useAsync = false)
+        {
+            ThrowIfWriteOffLimits(path);
+            return new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None, bufferSize, useAsync);
         }
     }
 }

@@ -22,14 +22,16 @@ public class HeadTrackingInputTests
     [InlineData(true, true)]
     public async Task UdpAndFreeTrackOpenOnlyTheirOwnResources(bool udp, bool freeTrack)
     {
+        // Every socket here is on 127.0.0.1, the device's own included: the
+        // test host opens nothing the network can reach.
         using var occupied = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
         occupied.ExclusiveAddressUse = true;
-        occupied.Bind(new IPEndPoint(IPAddress.Any, 0));
+        occupied.Bind(new IPEndPoint(IPAddress.Loopback, 0));
         int occupiedPort = ((IPEndPoint)occupied.LocalEndPoint).Port;
         using var producer = new FreeTrackProducer();
         int readers = 0, firewallCalls = 0;
         using var device = new HeadTrackerDevice(udp, udp ? 0 : occupiedPort, freeTrack, 0, () => 10000,
-            () => { readers++; return producer.Reader(); }, _ => firewallCalls++);
+            () => { readers++; return producer.Reader(); }, _ => firewallCalls++) { UdpBindAddress = IPAddress.Loopback };
         Assert.True(device.Open());
         Assert.Equal(udp, device.UdpEnabled);
         Assert.Equal(freeTrack, device.FreeTrackEnabled);
@@ -37,6 +39,7 @@ public class HeadTrackingInputTests
         Assert.Equal(freeTrack ? 1 : 0, readers);
         Assert.False(device.UdpBindFailed);
         Assert.Equal(udp, device.BoundUdpPort > 0);
+        Assert.Equal(udp ? IPAddress.Loopback : null, device.BoundUdpAddress);
 
         producer.Write(1, 10);
         device.GetCurrentState();
@@ -50,10 +53,12 @@ public class HeadTrackingInputTests
         int bound = device.BoundUdpPort;
         if (udp)
         {
-            using var sender = new UdpClient();
+            using var sender = new UdpClient(new IPEndPoint(IPAddress.Loopback, 0));
             byte[] packet = HeadPoseDecodeTests.Udp(0, 0, 0, -45, 0, 0);
             await sender.SendAsync(packet, new IPEndPoint(IPAddress.Loopback, bound));
-            var until = DateTime.UtcNow.AddSeconds(2);
+            // Thirty seconds, far past any load on the test host: the
+            // datagram crosses a real socket and the device's receive thread.
+            var until = DateTime.UtcNow.AddSeconds(30);
             while (device.Source != HeadTrackerSource.Udp && DateTime.UtcNow < until) await Task.Delay(5);
             Assert.Equal(HeadTrackerSource.Udp, device.Source);
             Assert.Equal(HeadPose.ToAxis(-45, HeadTrackingRuntime.RotationRangeDeg),
@@ -65,7 +70,7 @@ public class HeadTrackingInputTests
         {
             using var released = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             released.ExclusiveAddressUse = true;
-            released.Bind(new IPEndPoint(IPAddress.Any, bound));
+            released.Bind(new IPEndPoint(IPAddress.Loopback, bound));
         }
     }
 
@@ -74,10 +79,11 @@ public class HeadTrackingInputTests
     {
         using var occupied = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
         occupied.ExclusiveAddressUse = true;
-        occupied.Bind(new IPEndPoint(IPAddress.Any, 0));
+        occupied.Bind(new IPEndPoint(IPAddress.Loopback, 0));
         int port = ((IPEndPoint)occupied.LocalEndPoint).Port;
         using var producer = new FreeTrackProducer();
-        using var device = new HeadTrackerDevice(true, port, true, 0, () => 10000, producer.Reader, _ => { });
+        using var device = new HeadTrackerDevice(true, port, true, 0, () => 10000, producer.Reader, _ => { })
+            { UdpBindAddress = IPAddress.Loopback };
         Assert.True(device.Open());
         Assert.True(device.UdpBindFailed);
         producer.Write(1, 0);
@@ -126,6 +132,8 @@ public class HeadTrackingInputTests
             using var onlyUdp = HeadTrackerDevice.FromCurrentSettings();
             Assert.True(onlyUdp.UdpEnabled);
             Assert.False(onlyUdp.FreeTrackEnabled);
+            // The app's row takes a tracker on another PC. Only a test narrows it.
+            Assert.Equal(IPAddress.Any, onlyUdp.UdpBindAddress);
         }
         finally
         {
@@ -142,13 +150,14 @@ public class HeadTrackingInputTests
     public async Task FreeTrackFailureLeavesUdpUsableAndVisibleInStatus()
     {
         using var device = new HeadTrackerDevice(true, 0, true, 0, () => 10000,
-            () => new FreeTrackReader("", ""), _ => { });
+            () => new FreeTrackReader("", ""), _ => { }) { UdpBindAddress = IPAddress.Loopback };
         Assert.True(device.Open());
         Assert.True(device.FreeTrackFailed);
-        using var sender = new UdpClient();
+        Assert.Equal(IPAddress.Loopback, device.BoundUdpAddress);
+        using var sender = new UdpClient(new IPEndPoint(IPAddress.Loopback, 0));
         await sender.SendAsync(HeadPoseDecodeTests.Udp(0, 0, 0, 25, 0, 0),
             new IPEndPoint(IPAddress.Loopback, device.BoundUdpPort));
-        var until = DateTime.UtcNow.AddSeconds(2);
+        var until = DateTime.UtcNow.AddSeconds(30);
         while (device.Source != HeadTrackerSource.Udp && DateTime.UtcNow < until) await Task.Delay(5);
         Assert.Equal(HeadTrackerSource.Udp, device.Source);
         Assert.Contains(Strings.Instance.HeadTracker_StatusFreeTrackUnavailable, Status(device));
@@ -170,8 +179,8 @@ public class HeadTrackingInputTests
             Assert.Equal(version, HeadTrackingRuntime.Version);
             HeadTrackingRuntime.Enabled = true;
             Assert.NotEqual(version, HeadTrackingRuntime.Version);
-            using var device = HeadTrackerDevice.FromCurrentSettings();
-            Assert.Equal(changedPort, device.UdpPort);
+            using var row = HeadTrackerDevice.FromCurrentSettings();
+            Assert.Equal(changedPort, row.UdpPort);
         }
         finally
         {

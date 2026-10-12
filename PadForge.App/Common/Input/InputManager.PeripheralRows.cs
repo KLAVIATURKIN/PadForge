@@ -29,8 +29,8 @@ namespace PadForge.Common.Input
         /// <summary>Phase 1m (#494). A row opens while its vendor's software
         /// is installed and retires when it goes, and one the user removed
         /// from the Devices page comes back on the next pass, the G-keys
-        /// row's recreate pattern. Nothing wanted and nothing open: one
-        /// dictionary count and out.</summary>
+        /// row's recreate pattern. Every pass takes the lock and checks each
+        /// kind.</summary>
         private bool UpdatePeripheralRows()
         {
             if (_peripheralRowsSuppressed) return false;

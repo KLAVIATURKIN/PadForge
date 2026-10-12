@@ -426,7 +426,7 @@ namespace PadForge.Common.Input
             int[] assignedSlots = GetAssignedSlotsSnapshot(ud.InstanceGuid);
             if (assignedSlots.Length == 0) return;
 
-            long nowMs = Environment.TickCount64;
+            long nowMs = MenuClock.NowMs;
 
             // The slow sweep also handles definition changes outside the editor.
             // Live stay-open drivers renew their timestamps on every tick.
@@ -878,7 +878,7 @@ namespace PadForge.Common.Input
         /// can never wedge a row on.</summary>
         internal bool IsMenuItemFired(int slotIndex, string deviceGuid, int menuId, int itemIndex)
         {
-            long nowMs = Environment.TickCount64;
+            long nowMs = MenuClock.NowMs;
             if (!string.IsNullOrEmpty(deviceGuid) && Guid.TryParse(deviceGuid, out var g))
             {
                 if (MenuContexts.TryGetValue((slotIndex, g, menuId), out var ctx)
@@ -936,7 +936,7 @@ namespace PadForge.Common.Input
         private bool IsMenuItemFiredByUnrestricted(
             int slotIndex, int menuId, int itemIndex, Guid[] restrictedDevices)
         {
-            long nowMs = Environment.TickCount64;
+            long nowMs = MenuClock.NowMs;
             if (IsMenuItemPressedOnPhone(slotIndex, menuId, itemIndex, nowMs, restrictedDevices)) return true;
             var snap = MenuContextsSnapshot();
             if (snap.Length == 0) return false;
@@ -1107,7 +1107,7 @@ namespace PadForge.Common.Input
         internal void UpdateMenuDirectPresses(Engine.Data.UserDevice ud, WebControllerDevice web)
         {
             if (ud == null || web == null) return;
-            long nowMs = Environment.TickCount64;
+            long nowMs = MenuClock.NowMs;
             var held = _directPressScratch;
             held.Clear();
             web.ReadMenuPresses(nowMs, MenuEvaluator.CommitPulseMs, held);
@@ -1208,7 +1208,7 @@ namespace PadForge.Common.Input
             // cells merely because a restricted peer shared the slot,
             // breaking many-device independence (audit 2026-07-16).
             Guid[] restrictedDevices = RestrictedSnapshot();
-            long nowMs = Environment.TickCount64;
+            long nowMs = MenuClock.NowMs;
 
             for (int slot = 0; slot < MaxPads && slot < sets.Length; slot++)
             {

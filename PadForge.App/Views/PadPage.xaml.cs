@@ -613,10 +613,16 @@ namespace PadForge.Views
                 }
             }
             TabForceFeedback.Visibility = hasForceFeedback ? Visibility.Visible : Visibility.Collapsed;
+            // A slot whose controller is gone rumbles and lights nothing,
+            // by the link pass's own rule, which holds through a reorder's
+            // dispatcher rebuild, so neither route line blinks then.
+            var routeVm = DataContext as PadViewModel;
+            int routeSlot = routeVm?.PadIndex ?? -1;
+            bool slotLive = routeSlot >= 0 && PadForge.Common.Input.Peripherals.PeripheralOutputs.SlotLive(routeSlot);
             if (PeripheralHapticsRoute != null)
             {
                 string route = hasPeripheralHaptics
-                    ? PadForge.Common.Input.Peripherals.PeripheralRouteText.Haptics(peripheralRow)
+                    ? PadForge.Common.Input.Peripherals.PeripheralRouteText.Haptics(peripheralRow, slotLive)
                     : null;
                 PeripheralHapticsRoute.Text = route ?? string.Empty;
                 PeripheralHapticsRoute.Visibility = string.IsNullOrEmpty(route) ? Visibility.Collapsed : Visibility.Visible;
@@ -643,11 +649,9 @@ namespace PadForge.Views
                     ? Visibility.Visible : Visibility.Collapsed;
             if (PeripheralLightingRoute != null)
             {
-                var routeVm = DataContext as PadViewModel;
                 string route = hasPeripheralLighting
-                    ? PadForge.Common.Input.Peripherals.PeripheralRouteText.Lighting(lightingRow,
-                        routeVm?.PadIndex ?? -1,
-                        vendorLightingRow || routeVm?.DeviceConfig?.PeripheralLightingEnabled == true)
+                    ? PadForge.Common.Input.Peripherals.PeripheralRouteText.Lighting(lightingRow, routeSlot,
+                        slotLive && (vendorLightingRow || routeVm?.DeviceConfig?.PeripheralLightingEnabled == true))
                     : null;
                 PeripheralLightingRoute.Text = route ?? string.Empty;
                 PeripheralLightingRoute.Visibility = string.IsNullOrEmpty(route) ? Visibility.Collapsed : Visibility.Visible;
@@ -711,6 +715,13 @@ namespace PadForge.Views
             if (FfbTriggerFoldChk != null)
                 FfbTriggerFoldChk.Visibility = (hasRumble && !hasImpulseTriggers)
                     ? Visibility.Visible : Visibility.Collapsed;
+            // Swap Left and Right Motors (#494): a haptic mouse, keyboard or
+            // the Razer Sensa row plays one level, the stronger motor
+            // (PeripheralOutputs.SetMotors), so swapping changes nothing
+            // there and the row hides. Left Motor and Right Motor stay, since
+            // each scales its motor before the stronger one is taken.
+            if (FfbSwapMotorsRow != null)
+                FfbSwapMotorsRow.Visibility = hasPeripheralHaptics ? Visibility.Collapsed : Visibility.Visible;
             // Compass-anchored yaw (#271 item 5): the magnetometer ships on
             // the Switch 2 Joy-Cons, the same identity set as the optical
             // mouse, so the mouse capability doubles as the gate.
@@ -4273,7 +4284,7 @@ namespace PadForge.Views
             if (_syncingMidiPort || DataContext is not PadViewModel vm) return;
             int index = MidiOutputPortBox.SelectedIndex;
             if (index < 0) return;
-            vm.MidiConfig.OutputPort = index == 0 ? string.Empty : MidiOutputPortBox.SelectedItem as string ?? string.Empty;
+            vm.MidiConfig.ChooseOutputPort(index == 0 ? string.Empty : MidiOutputPortBox.SelectedItem as string ?? string.Empty);
         }
 
         private void MidiConfig_Changed(object sender, RoutedEventArgs e) => ApplyMidiConfigValues();

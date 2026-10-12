@@ -130,31 +130,37 @@ namespace PadForge.Common.Input
         internal static bool SourceRestsAtZero(string descriptor, string deviceGuid)
             => IsUnipolarActivatorSource(descriptor, deviceGuid);
 
-        /// <summary>Step 3: one device's values for the three rows.</summary>
+        /// <summary>Step 3: one device's values for the three rows, each
+        /// with the row a layer-exit commit gave it, if one did.</summary>
         private static MotionRowValues EvaluateMotionRows(CustomInputState state,
             MappingSet ms, string deviceGuid, int slot)
         {
-            return new MotionRowValues
-            {
-                Pitch = ReadMotionRow(state, ms, deviceGuid, slot, MappingSetMigrator.MotionPitchTarget),
-                Yaw = ReadMotionRow(state, ms, deviceGuid, slot, MappingSetMigrator.MotionYawTarget),
-                Roll = ReadMotionRow(state, ms, deviceGuid, slot, MappingSetMigrator.MotionRollTarget),
-                Frame = _stickTrimFrameSeq,
-            };
+            var values = new MotionRowValues { Frame = _stickTrimFrameSeq };
+            values.Pitch = ReadMotionRow(state, ms, deviceGuid, slot, MappingSetMigrator.MotionPitchTarget,
+                out values.PitchRow);
+            values.Yaw = ReadMotionRow(state, ms, deviceGuid, slot, MappingSetMigrator.MotionYawTarget,
+                out values.YawRow);
+            values.Roll = ReadMotionRow(state, ms, deviceGuid, slot, MappingSetMigrator.MotionRollTarget,
+                out values.RollRow);
+            return values;
         }
 
+        /// <summary>One row's value. <paramref name="commitRow"/> is the
+        /// departed layer's row when a menu commit made by leaving that layer
+        /// gives the value (DC20), else null.</summary>
         private static float ReadMotionRow(CustomInputState state, MappingSet ms,
-            string deviceGuid, int slot, string target)
+            string deviceGuid, int slot, string target, out MappingRow commitRow)
         {
-            if (!TryEvaluateMappingSetBipolarAxis(state, ms, deviceGuid, slot, target, out short v))
+            if (!TryEvaluateMappingSetBipolarAxis(state, ms, deviceGuid, slot, target, out short v, out commitRow))
                 return 0f;
             return Math.Clamp(v / 32767f, -1f, 1f);
         }
 
         /// <summary>Step 4: the current pass's values across the slot's
         /// devices, the largest magnitude per axis, the rule stick axes
-        /// combine by. A device that did not run Step 3 this pass (offline,
-        /// removed, or no longer evaluated) contributes nothing.</summary>
+        /// combine by. The row a layer-exit commit gave a value stays beside
+        /// it. A device that did not run Step 3 this pass (offline, removed,
+        /// or no longer evaluated) contributes nothing.</summary>
         private void CombineMotionRows(int padIndex, int slotCount)
         {
             var combined = default(MotionRowValues);
@@ -165,9 +171,9 @@ namespace PadForge.Common.Input
                 if (us == null) continue;
                 var v = us.MotionRowsOutputState;
                 if (v.Frame != frame) continue;
-                if (MathF.Abs(v.Pitch) > MathF.Abs(combined.Pitch)) combined.Pitch = v.Pitch;
-                if (MathF.Abs(v.Yaw) > MathF.Abs(combined.Yaw)) combined.Yaw = v.Yaw;
-                if (MathF.Abs(v.Roll) > MathF.Abs(combined.Roll)) combined.Roll = v.Roll;
+                if (MathF.Abs(v.Pitch) > MathF.Abs(combined.Pitch)) { combined.Pitch = v.Pitch; combined.PitchRow = v.PitchRow; }
+                if (MathF.Abs(v.Yaw) > MathF.Abs(combined.Yaw)) { combined.Yaw = v.Yaw; combined.YawRow = v.YawRow; }
+                if (MathF.Abs(v.Roll) > MathF.Abs(combined.Roll)) { combined.Roll = v.Roll; combined.RollRow = v.RollRow; }
                 combined.Frame = frame;
             }
             CombinedMotionRows[padIndex] = combined;
@@ -212,9 +218,9 @@ namespace PadForge.Common.Input
                 // not this poll's.
                 var values = CombinedMotionRows[pad];
                 if (values.Frame != _stickTrimFrameSeq) values = default;
-                var pitch = MotionAxis(ms, pad, MappingSetMigrator.MotionPitchTarget, values.Pitch);
-                var yaw = MotionAxis(ms, pad, MappingSetMigrator.MotionYawTarget, values.Yaw);
-                var roll = MotionAxis(ms, pad, MappingSetMigrator.MotionRollTarget, values.Roll);
+                var pitch = MotionAxis(ms, pad, MappingSetMigrator.MotionPitchTarget, values.Pitch, values.PitchRow);
+                var yaw = MotionAxis(ms, pad, MappingSetMigrator.MotionYawTarget, values.Yaw, values.YawRow);
+                var roll = MotionAxis(ms, pad, MappingSetMigrator.MotionRollTarget, values.Roll, values.RollRow);
                 model.Step(pitch, yaw, roll, baseSnapshot.TimestampUs);
                 s_motionRowsEngaged[pad] = true;
 
@@ -229,11 +235,14 @@ namespace PadForge.Common.Input
                 DsuMotionSnapshots[pad] = snapshot;
         }
 
-        /// <summary>The active row's settings for one target, with its
-        /// combined value.</summary>
-        private static MotionRowsModel.Axis MotionAxis(MappingSet ms, int pad, string target, float value)
+        /// <summary>One target's combined value with the settings of the row
+        /// that gave it: <paramref name="commitRow"/>, the departed layer's
+        /// row, when a menu commit made by leaving that layer gave the value
+        /// (DC20), else the row the engaged layer reads.</summary>
+        private static MotionRowsModel.Axis MotionAxis(MappingSet ms, int pad, string target, float value,
+            MappingRow commitRow)
         {
-            var row = FindActiveRowForTarget(ms, target, pad, out _);
+            var row = commitRow ?? FindActiveRowForTarget(ms, target, pad, out _);
             if (row == null)
                 return new MotionRowsModel.Axis
                 {

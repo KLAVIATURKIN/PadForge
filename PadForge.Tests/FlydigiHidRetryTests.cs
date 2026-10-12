@@ -218,10 +218,10 @@ namespace PadForge.Tests
             rig.TickAt(1000);
             for (int i = 0; i < 64; i++) rig.TickAt(1001);
             int count = rig.CounterCalls, paths = rig.PathCalls;
-            long before = GC.GetAllocatedBytesForCurrentThread();
-            for (int i = 0; i < 10000; i++) rig.TickAt(1001);
-            long allocated = GC.GetAllocatedBytesForCurrentThread() - before;
-            Assert.Equal(0, allocated);
+            // Counted over windows the runtime left alone: the thread's
+            // count moves by itself in a full run (AllocationWindow).
+            foreach (long allocated in AllocationWindow.Clean(() => rig.TickAt(1001), 10000))
+                Assert.Equal(0, allocated);
             Assert.Equal(count, rig.CounterCalls);
             Assert.Equal(paths, rig.PathCalls);
             Assert.Equal(0, rig.NudgeCalls);
@@ -235,11 +235,12 @@ namespace PadForge.Tests
             rig.TickAt(1000 + D);
             for (int i = 0; i < 64; i++) rig.TickAt(1000 + D + 1);
             int count = rig.CounterCalls, paths = rig.PathCalls;
-            long before = GC.GetAllocatedBytesForCurrentThread();
-            for (int i = 0; i < 10000; i++) rig.TickAt(1000 + D + 1);
-            long allocated = GC.GetAllocatedBytesForCurrentThread() - before;
-            Assert.Equal(0, allocated);
-            Assert.Equal(count + 10000, rig.CounterCalls);
+            // The windows run the tick as many times as it takes to find
+            // three the runtime left alone, so the ticks are counted.
+            int ticks = 0;
+            foreach (long allocated in AllocationWindow.Clean(() => { rig.TickAt(1000 + D + 1); ticks++; }, 10000))
+                Assert.Equal(0, allocated);
+            Assert.Equal(count + ticks, rig.CounterCalls);
             Assert.Equal(paths, rig.PathCalls);
         }
 

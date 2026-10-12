@@ -444,7 +444,12 @@ namespace PadForge.Engine.RemoteLink
             return true;
         }
 
-        public bool Start(int port)
+        public bool Start(int port) => Start(port, IPAddress.Any);
+
+        /// <summary>Starts on one local address. The app listens on every
+        /// address, through the overload above. The tests pass loopback, so
+        /// the test host opens nothing the network can reach.</summary>
+        internal bool Start(int port, IPAddress bindAddress)
         {
             if (IsRunning) return true;
             Interlocked.Increment(ref _lifecycleVersion);
@@ -453,12 +458,12 @@ namespace PadForge.Engine.RemoteLink
 
             try
             {
-                _tcp = new TcpListener(IPAddress.Any, port);
+                _tcp = new TcpListener(bindAddress, port);
                 _tcp.Start();
 
                 _udp = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
                 try { _udp.IOControl(SIO_UDP_CONNRESET, new byte[4], null); } catch { /* non-Windows */ }
-                _udp.Bind(new IPEndPoint(IPAddress.Any, port));
+                _udp.Bind(new IPEndPoint(bindAddress, port));
                 // Report the port actually bound. With port 0 (ephemeral) the
                 // requested value is meaningless, and every candidate we
                 // advertise is built from Port, so a peer would be told to
@@ -2257,6 +2262,10 @@ namespace PadForge.Engine.RemoteLink
                     existing.Info.SupportedAxisIndices = info.SupportedAxisIndices;
                     existing.RefreshSupportedSets();
                     existing.Info.InputDeviceType = info.InputDeviceType;
+                    // Read live by the "(Any Device)" Gamepad names, so a
+                    // layout the owner changes (Force Raw Joystick Mode set on
+                    // a wheel SDL opened as its gamepad) needs no registration.
+                    existing.Info.GamepadLayout = info.GamepadLayout;
                     // Read live by the picker and the rest rule: an analog
                     // keyboard's list grows as it reports new keys, and a port's
                     // mask moves with the controller in it.

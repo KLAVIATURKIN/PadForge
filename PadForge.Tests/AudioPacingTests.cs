@@ -19,6 +19,14 @@ public sealed class AudioPacingTests(ITestOutputHelper output)
         public override long TimestampFrequency => Stopwatch.Frequency / divisor;
     }
 
+    /// <summary>Runs the real pacer, BtThreadMain, on a thread of its own
+    /// at the priority the service gives it (AudioPassthroughService starts
+    /// it at Highest). These tests are about real pacing on purpose: the
+    /// pacer waits on a real high-resolution timer, and only its schedule
+    /// reads the injected clock. At normal priority, with every processor
+    /// busy, the pacer lost ticks to other programs' threads (16 of the 20
+    /// a window needs) with nothing wrong in it. The service runs it above
+    /// them for that reason.</summary>
     sealed class Run : IDisposable
     {
         readonly TimeProvider oldClock;
@@ -41,7 +49,7 @@ public sealed class AudioPacingTests(ITestOutputHelper output)
             {
                 try { type.GetMethod("BtThreadMain", Static)!.Invoke(null, null); }
                 catch (Exception ex) { error = ex; }
-            }) { IsBackground = true };
+            }) { IsBackground = true, Priority = ThreadPriority.Highest };
             lock (type.GetField("_lock", Static)!.GetValue(null)!)
             {
                 type.GetField("_btThread", Static)!.SetValue(null, thread);
@@ -69,11 +77,18 @@ public sealed class AudioPacingTests(ITestOutputHelper output)
         int ticks = 0;
         using var run = new Run(clock, before => { if (!before) Interlocked.Increment(ref ticks); });
         Assert.True(SpinWait.SpinUntil(() => Volatile.Read(ref ticks) >= 3, 5000));
+        // Ticks per 400 ms of the window's measured length. The delay that
+        // ends a window runs late on a busy PC, and a raw count then grew
+        // with the window, so windows at one cadence counted differently.
+        // A window that ends early keeps its raw count.
         async Task<int> Window()
         {
             int before = Volatile.Read(ref ticks);
+            long start = Stopwatch.GetTimestamp();
             await Task.Delay(400);
-            return Volatile.Read(ref ticks) - before;
+            int counted = Volatile.Read(ref ticks) - before;
+            double ms = Stopwatch.GetElapsedTime(start).TotalMilliseconds;
+            return (int)(counted * 400.0 / Math.Max(400.0, ms));
         }
         int control = await Window();
         Interlocked.Exchange(ref clock.WallOffset, -TimeSpan.TicksPerHour);

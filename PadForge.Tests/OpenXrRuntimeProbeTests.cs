@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using PadForge.Engine.Common;
@@ -75,9 +76,10 @@ namespace PadForge.Tests
         ///
         /// <para>What it asserts is narrow on purpose. Without a headset the
         /// runtime will refuse a session, and that refusal is a correct
-        /// answer, not a failure. What must not happen is a crash, a hang, or
-        /// a negotiation the runtime rejects, since those are the signs of a
-        /// struct laid out wrong.</para>
+        /// answer, not a failure. What must not happen is a crash, a hang, a
+        /// negotiation the runtime rejects or a call that fails, since those
+        /// are the signs of a struct laid out wrong
+        /// (<see cref="AssertTheSourceCameBack"/>).</para>
         /// </summary>
         [Fact]
         public void TheNativePathReachesARuntimeAndComesBack()
@@ -86,30 +88,76 @@ namespace PadForge.Tests
             if (entry == null) { _out.WriteLine("skipped: set PADFORGE_OPENXR_PROBE=1 to run this, which starts the runtime"); return; }
 
             var poses = 0;
+            var lines = new List<string>();
             var source = new OpenXrHeadPoseSource(
                 () => entry.ManifestPath,
                 _ => Interlocked.Increment(ref poses),
-                line => _out.WriteLine(line));
+                line =>
+                {
+                    lock (lines) lines.Add(line);
+                    _out.WriteLine(line);
+                });
 
-            source.Start();
-            var deadline = DateTime.UtcNow.AddSeconds(8);
-            while (DateTime.UtcNow < deadline
-                   && (source.State == OpenXrSourceState.Connecting))
-                Thread.Sleep(50);
-            var state = source.State;
-            long samples = source.SampleCount;
-            string runtimeName = source.RuntimeName;
-            source.Stop();
+            OpenXrSourceState state;
+            long samples;
+            string runtimeName;
+            // The one place a test reaches a real runtime, and only because
+            // a person asked for it. Every other test is refused at the
+            // opener (VrRuntimeOffLimits).
+            using (VrRuntimeOffLimits.AllowFor(
+                       nameof(OpenXrRuntimeProbeTests) + "." + nameof(TheNativePathReachesARuntimeAndComesBack)))
+            {
+                source.Start();
+                var deadline = DateTime.UtcNow.AddSeconds(8);
+                while (DateTime.UtcNow < deadline
+                       && (source.State == OpenXrSourceState.Connecting))
+                    Thread.Sleep(50);
+                state = source.State;
+                samples = source.SampleCount;
+                runtimeName = source.RuntimeName;
+                source.Stop();
+            }
+            string[] written;
+            lock (lines) written = lines.ToArray();
 
             _out.WriteLine($"state={state} runtime='{runtimeName}' samples={samples}");
 
-            Assert.True(state != OpenXrSourceState.Connecting,
-                "the source never left Connecting, which means a native call did not return");
-            Assert.True(state != OpenXrSourceState.Failed,
-                "the source threw, which on this path means a struct or a signature is wrong");
+            AssertTheSourceCameBack(state, written);
 
             // Stopping must be prompt and must not leave the thread behind.
             Assert.Equal(OpenXrSourceState.Stopped, source.State);
+        }
+
+        /// <summary>
+        /// What the probe asks of the state a source reached. It must have
+        /// left Connecting, and it must be neither Failed nor NoRuntime.
+        ///
+        /// <para>Failed is a setup or a loop that threw, an xrGetSystem
+        /// that answered an error other than a headset that is away, or a
+        /// session the runtime refused to begin. The source's last line
+        /// says which, with the call and its answer, so the probe fails
+        /// with that line. It used to say the source threw and point at a
+        /// struct or a signature, about a runtime that had answered.</para>
+        ///
+        /// <para>NoRuntime, for a runtime whose library the probe has just
+        /// found on disk, is a library that did not load or a negotiation
+        /// it refused. That is the handshake this probe exists to prove,
+        /// and it used to pass.</para>
+        ///
+        /// <para>It stands apart from the probe so a normal run reaches
+        /// it, with a scripted runtime in the place of a real one
+        /// (OpenXrSessionScriptedRuntimeTests).</para>
+        /// </summary>
+        internal static void AssertTheSourceCameBack(OpenXrSourceState state, IReadOnlyList<string> lines)
+        {
+            string last = lines.Count > 0 ? lines[^1] : "(it wrote no line)";
+            Assert.True(state != OpenXrSourceState.Connecting,
+                "the source never left Connecting, which means a native call did not return");
+            Assert.True(state != OpenXrSourceState.NoRuntime,
+                "the runtime's library is on disk and the source found no runtime in it, "
+                + "and its last line says why: " + last);
+            Assert.True(state != OpenXrSourceState.Failed,
+                "the source settled as Failed, and its last line says why: " + last);
         }
     }
 }

@@ -73,8 +73,10 @@ namespace PadForge.ViewModels
             // ItemsSource binding picks up the new entries.
             HMaestroProfileCatalog.CatalogReloaded += OnCatalogReloaded;
             // #390 macro cells: a macro rename retags this slot's menu
-            // cells. Static hook, filtered by PadIndex inside; pad VMs
-            // live for the app's lifetime, so no unsubscribe leg exists.
+            // cells. Static hook, filtered by PadIndex inside. Both hooks
+            // hold this VM weakly, so no unsubscribe leg exists: the app's
+            // sixteen live as long as the main view model holds them, and a
+            // VM nothing holds is collected and stops being rebuilt.
             MacroItem.Renamed += OnMacroRenamed;
             // #175 telemetry board: keep the "{n} DIRECT" readout in sync
             // with row edits and rebuilds. Hooked before the first
@@ -6671,8 +6673,8 @@ namespace PadForge.ViewModels
         /// cell on this slot that referenced the old name, the
         /// RetagMacrosEverywhere discipline applied to this reference.
         /// Subscribed once per pad VM to the static
-        /// <see cref="MacroItem.Renamed"/> hook (pad VMs live for the
-        /// app's lifetime). Runs on the UI thread like every other
+        /// <see cref="MacroItem.Renamed"/> hook, which holds it weakly.
+        /// Runs on the UI thread like every other
         /// editor mutation. The match is case-insensitive, the menu
         /// runtime's own comparer: a cell the runtime resolved to this
         /// macro under the old name must follow it to the new one.</summary>

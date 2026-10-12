@@ -4545,6 +4545,17 @@
                                                           ToolTip="{Binding Pad_Mapping_Kind_Tooltip, Source={x:Static strings:Strings.Instance}}"
                                                           PreviewKeyDown="MappingComboBox_PreviewKeyDown"/>
                                                 <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="Kind" SettingLabel="{Binding ResetLabel_SourceType, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_MappingSourceItem_Kind_4282"/>
+                                                <!-- A primary Incremental or Ramp source saved with Invert on: the
+                                                     checkbox an extra source shows for one (IsKeyInvertShown), and
+                                                     the control that turns the flag off. It is the kind holder's
+                                                     own Invert, which the engine applies and the save writes back.
+                                                     The Invert in the row's Options column is the row's flag, which
+                                                     the save leaves out of a key-kind primary. -->
+                                                <CheckBox Content="{Binding Pad_Invert, Source={x:Static strings:Strings.Instance}}"
+                                                          IsChecked="{Binding Invert, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                          Visibility="{Binding IsKeyInvertShown, Converter={StaticResource BoolToVisibilityConverter}}"
+                                                          Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                          Margin="12,0,0,0" VerticalAlignment="Center"/>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center"
                                                         Visibility="{Binding IsRampedKind, Converter={StaticResource BoolToVisibilityConverter}}">
@@ -5260,11 +5271,16 @@
                                                                 </ui:Button.ToolTip>
                                                             </ui:Button>
                                                         </StackPanel>
-                                                        <!-- Record / Clear / Options / DeadZone — for Direct sources only.
-                                                             Incremental sources author their inputs through the dedicated
-                                                             Up / Down pickers + Record buttons on the row below; the main
-                                                             Descriptor / Invert / HalfAxis / DeadZone fields are unused for
-                                                             that kind, so these controls would just be misleading noise. -->
+                                                        <!-- Record / Clear / Options / DeadZone, for the kinds that read
+                                                             the Descriptor. An Incremental or Ramp source takes its inputs
+                                                             from the Up / Down pickers and Record buttons on the row below,
+                                                             and an Invert on Hold from its modifier picker. None of them
+                                                             reads the Descriptor, HalfAxis or DeadZone, so those controls
+                                                             would be noise there. Invert is hidden with them, and the
+                                                             engine does apply it to a key source (SourceEvaluator), so a
+                                                             source that takes Incremental or Ramp drops it
+                                                             (MappingSourceItem.Kind). One saved with it keeps it and shows
+                                                             the checkbox after this group. -->
                                                         <ui:Button Command="{Binding ToggleRecordCommand}"
                                                                    Style="{StaticResource EmberIconButtonHot}"
                                                                    VerticalAlignment="Center"
@@ -5315,6 +5331,16 @@
                                                             <!-- Gated with the control it resets: an ungated reset left a lone button behind a hidden setting. -->
                                                             <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="InvertOutput" SettingLabel="{Binding Pad_InvertOutput, Source={x:Static strings:Strings.Instance}}" Visibility="{Binding IsInvertOutputApplicable, Converter={StaticResource BoolToVisibilityConverter}}" AutomationProperties.AutomationId="Reset_MappingSourceItem_InvertOutput_4943"/>
                                                         </StackPanel>
+                                                        <!-- An Incremental or Ramp source saved with Invert on. The
+                                                             engine has turned its output around all along, so the flag
+                                                             stays, and this is the control that turns it off. Unchecked,
+                                                             it goes: the kind offers no Invert. Always enabled, since
+                                                             Half and Either mean nothing to a key source. -->
+                                                        <CheckBox Content="{Binding Pad_Invert, Source={x:Static strings:Strings.Instance}}"
+                                                                  IsChecked="{Binding Invert, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                  Visibility="{Binding IsKeyInvertShown, Converter={StaticResource BoolToVisibilityConverter}}"
+                                                                  Foreground="{DynamicResource TextFillColorTertiaryBrush}" FontSize="11.5"
+                                                                  Margin="0,0,6,0" VerticalAlignment="Center"/>
                                                         <!-- Per-source gyro sensitivity. Only renders for
                                                              gyro descriptors so non-gyro sources don't see a
                                                              knob that does nothing. Sits before the deadzone
@@ -7696,7 +7722,7 @@
                             <ui:Button Command="{Binding ResetRightMotorCommand}" Style="{StaticResource ResetButton}" ToolTip="{Binding Pad_ResetRightMotor, Source={x:Static strings:Strings.Instance}}"/>
                         </StackPanel>
 
-                        <!-- Swap motors -->
+                        <!-- Trigger rumble fold -->
                         <StackPanel Orientation="Horizontal" Visibility="{Binding Visibility, ElementName=FfbTriggerFoldChk}">
                             <CheckBox VerticalAlignment="Center" x:Name="FfbTriggerFoldChk" Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                       Content="{Binding Pad_TriggerRumbleFold, Source={x:Static strings:Strings.Instance}}"
@@ -7704,17 +7730,21 @@
                                       IsChecked="{Binding TriggerRumbleFold, Mode=TwoWay}"/>
                             <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="TriggerRumbleFold" Visibility="{Binding Visibility, ElementName=FfbTriggerFoldChk}" SettingLabel="{Binding Pad_TriggerRumbleFold, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_PadViewModel_TriggerRumbleFold_7249"/>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                        <!-- Swap motors. Hidden for a haptic mouse, keyboard or
+                             the Razer Sensa row (#494), which plays the stronger
+                             motor whichever side it is on. -->
+                        <StackPanel x:Name="FfbSwapMotorsRow" Orientation="Horizontal">
                             <CheckBox VerticalAlignment="Center" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Content="{Binding Pad_SwapMotors, Source={x:Static strings:Strings.Instance}}"
                                       IsChecked="{Binding SwapMotors, Mode=TwoWay}"/>
                             <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="SwapMotors" SettingLabel="{Binding Pad_SwapMotors, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_PadViewModel_SwapMotors_7252"/>
                         </StackPanel>
 
-                        <!-- Test rumble -->
+                        <!-- Test rumble. Its top margin keeps the gap below
+                             the rows above when the swap row is hidden. -->
                         <Button Content="{Binding Pad_TestRumble, Source={x:Static strings:Strings.Instance}}"
                                 Command="{Binding TestRumbleCommand}"
                                 Padding="12,6" HorizontalAlignment="Left"
-                                Margin="0,0,0,12"/>
+                                Margin="0,12,0,12"/>
 
                         <!-- Live motor display: inset instrument panel (#175
                              iteration 27, matching the trigger instrument).

@@ -343,12 +343,95 @@ namespace PadForge.Common.Input
             }
         }
 
+        /// <summary>Test seam for the HIDMaestro call that makes the
+        /// controller, null in production. The real call creates a device,
+        /// and for a composite persona deploys the USB/IP transport and
+        /// attaches through it, so a test replaces it to run
+        /// <see cref="Connect"/> and <see cref="Disconnect"/> and see what
+        /// they record around it.</summary>
+        internal Func<HMProfile, string, HMController> CreateControllerSeam;
+
+        /// <summary>Test seam run once HIDMaestro has made the controller and
+        /// before the rest of <see cref="Connect"/>, null in production. A
+        /// test throws from it to fail Connect at the point where the device
+        /// already exists.</summary>
+        internal Action ControllerMadeSeam;
+
+        /// <summary>Test seam for the dispose a failed <see cref="Connect"/>
+        /// makes of the controller HIDMaestro handed it, null in production.
+        /// A test has no SDK controller to watch
+        /// (<see cref="CreateControllerSeam"/> hands back none), so it counts
+        /// the disposes here.</summary>
+        internal Action<HMController> DisposeControllerSeam;
+
         public void Connect()
         {
             if (IsConnected) return;
+            // A composite persona rides the real USB stack under its model's
+            // own ids. Step 1 knows one by HIDMaestro's serial on its USB
+            // device, and one with a captured serial from its ids alone,
+            // only while this process makes one
+            // (InputManager.ChecksUsbipAncestry). Recorded before the device
+            // exists, and retired if it never does.
+            bool persona = _profile.RequiresUsbipBackend;
+            if (persona) InputManager.NotePersonaLive(this, _profile.VendorId, _profile.ProductId);
             // The key makes the pad's paths durable across lives (HM#60);
             // a null key falls back to HIDMaestro's controller index.
-            _controller = _ctx.CreateController(_profile, _identityKey);
+            try
+            {
+                var seam = CreateControllerSeam;
+                _controller = seam != null
+                    ? seam(_profile, _identityKey)
+                    : _ctx.CreateController(_profile, _identityKey);
+            }
+            catch
+            {
+                if (persona) InputManager.NotePersonaRetired(this);
+                throw;
+            }
+
+            // HIDMaestro has made the controller, and its device with it. A
+            // throw from here on takes both down again on the way out. The
+            // caller's Dispose cannot: it calls Disconnect, which returns at
+            // once for a controller that never connected, so the SDK
+            // controller was never disposed and its device stayed.
+            try { FinishConnect(); }
+            catch
+            {
+                ReleaseFailedConnect(persona);
+                throw;
+            }
+
+            IsConnected = true;
+        }
+
+        /// <summary>Takes down what a <see cref="Connect"/> that threw after
+        /// HIDMaestro made the controller left behind: the SDK controller,
+        /// whose device stays for as long as it lives, the decoder built on
+        /// it, and the persona's place in Step 1's scope, retired after the
+        /// dispose as <see cref="Disconnect"/> retires it. A failure of the
+        /// dispose itself is dropped, so the caller sees the throw that
+        /// failed the Connect.</summary>
+        private void ReleaseFailedConnect(bool persona)
+        {
+            var controller = _controller;
+            _controller = null;
+            _ffbDecoder = null;
+            try
+            {
+                var seam = DisposeControllerSeam;
+                if (seam != null) seam(controller);
+                else controller?.Dispose();
+            }
+            catch { /* the Connect's own failure is the one to report */ }
+            if (persona) InputManager.NotePersonaRetired(this);
+        }
+
+        /// <summary>The rest of <see cref="Connect"/>, once HIDMaestro has
+        /// made the controller.</summary>
+        private void FinishConnect()
+        {
+            ControllerMadeSeam?.Invoke();
 
             // Fresh HMController = fresh shared section. Reset the idle-dedup
             // memory so the first frame always submits instead of waiting out
@@ -360,14 +443,14 @@ namespace PadForge.Common.Input
             // GetFeature(PidPool) up-front to discover capabilities, so the
             // shared section must be populated by the time the device shows
             // up to host enumeration. Lazy init on first OutputReceived was
-            // too late — the first GetFeature can land before the first
+            // too late. The first GetFeature can land before the first
             // SetFeature/Output packet ever does.
             //
             // Gate on the descriptor carrying the PID FFB block, not on VID.
             // The synthetic Custom profile (0xBEEF) ships with FFB built in,
             // but Extended slots that customize a non-Custom catalog profile
             // also rebuild the descriptor with AddPidFfbBlock when the user
-            // ticks the FFB checkbox — those keep the catalog VID/PID (so
+            // ticks the FFB checkbox. Those keep the catalog VID/PID (so
             // games still recognize the original device's signature) but
             // need the same decoder + PID-state publish path. Inspecting
             // the descriptor catches both cases without coupling to VID.
@@ -377,8 +460,6 @@ namespace PadForge.Common.Input
                 _ffbDecoder = new HMaestroFfbDecoder(_controller, descriptorHex);
                 _ffbDecoder.PublishInitialState();
             }
-
-            IsConnected = true;
         }
 
         /// <summary>Set under <c>_dispatcherLock</c> the moment teardown
@@ -450,6 +531,8 @@ namespace PadForge.Common.Input
             _controller?.Dispose();
             _controller = null;
             IsConnected = false;
+            // The persona's device leaves the tree from here on.
+            if (_profile.RequiresUsbipBackend) InputManager.NotePersonaRetired(this);
         }
 
         /// <summary>Registers a new controller's effects without starting output.</summary>

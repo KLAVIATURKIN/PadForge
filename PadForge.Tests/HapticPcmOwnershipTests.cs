@@ -122,6 +122,21 @@ public sealed class HapticPcmOwnershipTests(ITestOutputHelper output)
         }
     }
 
+    /// <summary>A remote tone frame lives the default 250 ms unless a test
+    /// holds it, counted on the system tick count from the moment the frame
+    /// is made. The reads are bracketed, so a stall only widens the bracket.</summary>
+    [Fact]
+    public void ARemoteToneFrameLivesTheDefaultLifetimeUnlessATestHoldsIt()
+    {
+        Assert.Equal(250, RemoteToneRequest.DefaultLifetimeMs);
+        Assert.Equal(RemoteToneRequest.DefaultLifetimeMs, RemoteToneRequest.LifetimeMs);
+        var owner = new UserDevice { InstanceGuid = Guid.NewGuid(), IsOnline = true };
+        long before = Environment.TickCount64;
+        var request = new RemoteToneRequest(owner, 200, .5f, null);
+        long after = Environment.TickCount64;
+        Assert.InRange(request.UntilMs, before + 250, after + 250);
+    }
+
     [Fact]
     public void ARejectedIdleDrainDoesNotAdvanceItsDiagnosticCount()
     {

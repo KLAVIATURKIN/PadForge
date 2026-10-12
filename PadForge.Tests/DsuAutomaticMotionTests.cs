@@ -929,10 +929,10 @@ namespace PadForge.Tests
             var device = rig.AddDevice(0, 0.1f, 0.2f, 0.3f);
             rig.ConfigureSlot(0, VirtualControllerType.Xbox, device);
             for (int i = 0; i < 256; i++) rig.Update();
-            long before = GC.GetAllocatedBytesForCurrentThread();
-            for (int i = 0; i < 1000; i++) rig.Update();
-            long allocated = GC.GetAllocatedBytesForCurrentThread() - before;
-            Assert.Equal(0, allocated);
+            // Counted over windows the runtime left alone: the thread's
+            // count moves by itself in a full run (AllocationWindow).
+            foreach (long allocated in AllocationWindow.Clean(() => rig.Update(), 1000))
+                Assert.Equal(0, allocated);
         }
 
         [Fact]

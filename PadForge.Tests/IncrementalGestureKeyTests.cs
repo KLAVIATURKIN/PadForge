@@ -9,8 +9,8 @@ namespace PadForge.Tests
     /// <summary>The Up and Down keys of an Incremental or Ramp source read a
     /// touchpad gesture, a mouse gesture or a menu cell as a Button row reads
     /// it, for the source's slot and device. Their reader took the descriptor
-    /// alone, so a gesture picked as a key never moved the value. The Invert
-    /// on Hold modifier's mirror reads the same families.</summary>
+    /// alone, so a gesture picked as a key never moved the value. An Invert
+    /// on Hold modifier reads the same families on the row it inverts.</summary>
     [Collection("SettingsManagerStatics")]
     public sealed class IncrementalGestureKeyTests : IDisposable
     {
@@ -151,24 +151,21 @@ namespace PadForge.Tests
             Assert.Equal(0.05, rt.TickIncremental(Slot, "LeftTrigger", 0, src, held, 0.05), 6);
         }
 
-        /// <summary>The Invert on Hold modifier's reader in SourceEvaluator
-        /// mirrors the key reader and reads a gesture modifier.</summary>
+        /// <summary>A gesture as an Invert on Hold modifier inverts its row
+        /// while the gesture is fired, read where Step 3 reads a modifier, for
+        /// the slot and the device of the pass.</summary>
         [Fact]
-        public void AGestureModifier_InvertsTheButton()
+        public void AGestureModifier_InvertsItsRow()
         {
             StubGestures();
-            var src = new MappingSource
-            {
-                Kind = "InvertOnHold", Descriptor = "Button 0", DeviceGuid = Pad,
-                ParamModifier = "Touchpad 0 TwoFingerTap",
-            };
+            var set = RowModifierHarness.Row("LeftTrigger", "Button 0", "Touchpad 0 TwoFingerTap");
             var state = new CustomInputState();
             state.Buttons[0] = true;
 
             _fired = null;
-            Assert.True(SourceEvaluator.EvaluateForButtonTarget(state, src, 50, Slot, "ButtonA", 0, null, 0));
+            Assert.Equal(short.MaxValue, RowModifierHarness.TriggerPull(set, state, Pad, Slot));
             _fired = "TwoFingerTap";
-            Assert.False(SourceEvaluator.EvaluateForButtonTarget(state, src, 50, Slot, "ButtonA", 0, null, 0));
+            Assert.Equal(short.MinValue, RowModifierHarness.TriggerPull(set, state, Pad, Slot));
         }
     }
 }

@@ -39,6 +39,15 @@ namespace PadForge.Common.Input
             return (int)MathF.Round(SlowestMs - t * (SlowestMs - FastestMs));
         }
 
+        // Each level's waveforms in the order it falls back through, built
+        // once: the HID++ worker asks on every pass whether a unit plays any.
+        private static readonly byte[] LightOrder =
+            { HidppHapticProtocol.SubtleCollision, HidppHapticProtocol.DampCollision, HidppHapticProtocol.SharpCollision };
+        private static readonly byte[] MediumOrder =
+            { HidppHapticProtocol.DampCollision, HidppHapticProtocol.SubtleCollision, HidppHapticProtocol.SharpCollision };
+        private static readonly byte[] StrongOrder =
+            { HidppHapticProtocol.SharpCollision, HidppHapticProtocol.DampCollision, HidppHapticProtocol.SubtleCollision };
+
         /// <summary>The collision waveform for a level, falling back to the
         /// nearest one the device lists. Null when it lists none of the
         /// three.</summary>
@@ -47,9 +56,9 @@ namespace PadForge.Common.Input
             if (level <= 0) return null;
             byte[] order = level switch
             {
-                1 => new[] { HidppHapticProtocol.SubtleCollision, HidppHapticProtocol.DampCollision, HidppHapticProtocol.SharpCollision },
-                2 => new[] { HidppHapticProtocol.DampCollision, HidppHapticProtocol.SubtleCollision, HidppHapticProtocol.SharpCollision },
-                _ => new[] { HidppHapticProtocol.SharpCollision, HidppHapticProtocol.DampCollision, HidppHapticProtocol.SubtleCollision },
+                1 => LightOrder,
+                2 => MediumOrder,
+                _ => StrongOrder,
             };
             foreach (byte waveform in order)
                 if ((mask & (1u << waveform)) != 0) return waveform;

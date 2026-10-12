@@ -1069,7 +1069,7 @@
                                                         </MultiDataTrigger>
                                                         <DataTrigger Binding="{Binding DataContext.IsMidiAvailable, RelativeSource={RelativeSource AncestorType=ItemsControl}}" Value="False">
                                                             <Setter Property="Cursor" Value="No"/>
-                                                            <Setter Property="ToolTip" Value="{Binding Main_MIDI_RequiresMidiServices, Source={x:Static strings:Strings.Instance}}"/>
+                                                            <Setter Property="ToolTip" Value="{Binding Main_MIDI_NotRunning, Source={x:Static strings:Strings.Instance}}"/>
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>

@@ -14,10 +14,15 @@ namespace PadForge.Engine.Data
     /// </para>
     ///
     /// <para>
-    /// v1 ships <c>Direct</c> only. <c>Incremental</c> (B2) and
-    /// <c>InvertOnHold</c> (B3) follow in Commit 4 of the multi-source
-    /// recipe. The schema reserves the <c>Param*</c> bag now so adding
-    /// kinds later is XML-additive.
+    /// <c>Direct</c> (the default), <c>Toggle</c> and <c>RapidTrigger</c>
+    /// read <see cref="Descriptor"/>. <c>Incremental</c> and <c>Ramped</c>
+    /// read their Up and Down keys (<see cref="ParamUp"/>,
+    /// <see cref="ParamDown"/>). On a two-way axis row the steering kinds
+    /// read a stick and the motion kinds read gravity or the shake
+    /// envelope. <c>InvertOnHold</c> is a row modifier: Step 3 reads its
+    /// <see cref="ParamModifier"/> key and never reads it as a source. Each
+    /// kind reads only its own subset of the <c>Param*</c> fields, so adding
+    /// a kind is XML-additive.
     /// </para>
     /// </summary>
     public class MappingSource
@@ -37,9 +42,40 @@ namespace PadForge.Engine.Data
         /// <summary>Input descriptor in the existing format used by the Step 3
         /// mapping engine: <c>"Button N"</c>, <c>"Axis N"</c>, <c>"IHAxis N"</c>,
         /// <c>"POV N Dir"</c>, <c>"Slider N"</c>, or <c>""</c> (unmapped).
-        /// For <c>InvertOnHold</c> kind, this is the inner source's input.
-        /// Ignored for <c>Incremental</c>.</summary>
+        /// <c>Direct</c> reads it, and so do <c>Toggle</c> and
+        /// <c>RapidTrigger</c>, which act on that same read, and a kind this
+        /// build does not know, which is read as Direct. On a two-way axis
+        /// row <c>WindingStick</c>, <c>AngleToAxisX</c> and
+        /// <c>AngleToAxisY</c> read it as their stick's X axis, with
+        /// <see cref="ParamYDescriptor"/> for Y, and the motion kinds
+        /// (<c>MotionLeanX</c>, <c>MotionLeanAuxX</c>, <c>MotionShake</c>,
+        /// <c>MotionShakeAux</c>) read gravity or the shake envelope and
+        /// leave it unread. On a button or trigger row all seven fall to the
+        /// Direct read. Three kinds take no input from it on any row and keep
+        /// whatever an earlier kind left in it: <c>Incremental</c> and
+        /// <c>Ramped</c> read their Up and Down keys, and
+        /// <c>InvertOnHold</c> is a row modifier, which Step 3 skips as a
+        /// source and reads by its <see cref="ParamModifier"/> key alone. A
+        /// change back to a kind that reads the Descriptor finds it
+        /// there.</summary>
         [XmlAttribute] public string Descriptor { get; set; } = "";
+
+        /// <summary>The controller the kept <see cref="Descriptor"/> was
+        /// picked on, for a source whose kind leaves the Descriptor unread
+        /// and which sits on another device: an Incremental or Ramp source
+        /// goes to the controller its keys share, and an Invert on Hold
+        /// source to the one its modifier names
+        /// (MappingSourceItem.FollowKeysDevice), and each keeps the
+        /// Descriptor of the kind it had before. Back in a kind that reads
+        /// the Descriptor, the source returns here, where the input was
+        /// picked, and not to the keys' controller, where nobody picked it.
+        /// Empty for an input picked under any controller. Null, the usual
+        /// case, when the Descriptor reads <see cref="DeviceGuid"/>: no
+        /// initializer, so the serializer leaves a null out, a file saved
+        /// before this field loads as null, and a build without it skips
+        /// the attribute. It moves with the keys wherever a copy moves them
+        /// (<see cref="RetargetKeyDevices"/>).</summary>
+        [XmlAttribute] public string DescriptorDeviceGuid { get; set; }
 
         /// <summary>When <c>true</c>, flip the per-source value sign before
         /// combine. For button-class sources mapped to bipolar axis targets
@@ -551,7 +587,9 @@ namespace PadForge.Engine.Data
         /// to null where there is none, and drops a key that has none. A key
         /// that reads any controller, or carries none of its own, stays as it
         /// is. True when every key the kind reads was dropped, so the source
-        /// reads nothing any more.</summary>
+        /// reads nothing any more. The controller of a kept input
+        /// (<see cref="DescriptorDeviceGuid"/>) moves the same way, and has
+        /// no part in that answer.</summary>
         public bool RetargetKeyDevices(System.Func<string, string> retarget)
         {
             bool upDown = Kind is "Incremental" or "Ramped";
@@ -565,7 +603,24 @@ namespace PadForge.Engine.Data
                 RetargetKey(ParamModifier, ParamModifierDeviceGuid, retarget);
             int dropped = (upDown && upGone ? 1 : 0) + (upDown && downGone ? 1 : 0)
                 + (modifier && modifierGone ? 1 : 0);
+            RetargetDescriptorDevice(retarget, keptOnly: upDown || modifier);
             return read > 0 && dropped == read;
+        }
+
+        /// <summary>Moves <see cref="DescriptorDeviceGuid"/> through
+        /// <paramref name="retarget"/>. Where its controller has no
+        /// counterpart the kept input goes with it, as a key does: left
+        /// behind, a later return to a kind that reads the Descriptor read
+        /// it on the keys' controller, where nobody picked it. A kind that
+        /// reads its Descriptor (<paramref name="keptOnly"/> false) reads it
+        /// on the source's own device, so a value there is no memory, and
+        /// it is dropped alone.</summary>
+        private void RetargetDescriptorDevice(System.Func<string, string> retarget, bool keptOnly)
+        {
+            if (string.IsNullOrEmpty(DescriptorDeviceGuid)) return;
+            string to = keptOnly ? retarget(DescriptorDeviceGuid) : null;
+            DescriptorDeviceGuid = to;
+            if (to == null && keptOnly) Descriptor = "";
         }
 
         private static (string key, string device, bool dropped) RetargetKey(

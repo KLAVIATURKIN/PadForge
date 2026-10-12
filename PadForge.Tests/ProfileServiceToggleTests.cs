@@ -20,7 +20,7 @@ namespace PadForge.Tests
     /// Null is "no opinion": the toggle keeps its current value, which is
     /// the global AppSettings leg or whatever the last opinionated profile
     /// set. A plain bool read as false in every pre-existing profile and the
-    /// first switch turned the mirror off, which commit 087568bd answered by
+    /// first switch turned the mirror off, which commit 6fd683ee answered by
     /// going global-only. The right shape is the #365 polling override's: a
     /// sentinel every old profile deserializes to, authored only by the user.
     ///

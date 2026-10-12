@@ -202,13 +202,19 @@ namespace PadForge.Tests
         [InlineData("Midi Note 128", false)]
         [InlineData("Midi CC 128", false)]
         [InlineData("Midi Clock", false)]
+        // The stick and touchpad rings, read held at the Button row's
+        // default radius as IR Brightness and the Ring-Con read at half.
+        [InlineData("Gamepad LeftStickRing", true)]
+        [InlineData("Gamepad RightStickRing", true)]
+        [InlineData("Touchpad 0 Finger 0 Ring", true)]
+        [InlineData("Touchpad 1 Finger 1 Ring Left", true)]
+        [InlineData("Touchpad 0 Finger 0 Ring Sideways", false)]
         // What a key never reads: the analog inputs.
         [InlineData("Axis 0", false)]
         [InlineData("Axis 5", false)]
         [InlineData("Slider 0", false)]
         [InlineData("Gamepad LeftTrigger", false)]
         [InlineData("Gamepad RightStickX", false)]
-        [InlineData("Gamepad LeftStickRing", false)]
         [InlineData("Gyro Pitch", false)]
         [InlineData("Motion Lean", false)]
         [InlineData("Motion Shake", false)]
@@ -218,7 +224,6 @@ namespace PadForge.Tests
         [InlineData("Balance Lean X", false)]
         [InlineData("Touchpad 0 Finger 0 X", false)]
         [InlineData("Touchpad 0 Finger 0 Pressure", false)]
-        [InlineData("Touchpad 0 Finger 0 Ring", false)]
         [InlineData("Touchpad 0 Pointer X", false)]
         [InlineData("Flick Stick Touchpad 0", false)]
         [InlineData("Midi Pitch Bend", false)]
@@ -372,7 +377,9 @@ namespace PadForge.Tests
             Assert.True(offered > 500, $"Only {offered} keys were offered across the devices.");
         });
 
-        /// <summary>What the report named: sticks, triggers and other axes.</summary>
+        /// <summary>What the report named: sticks, triggers and other axes.
+        /// A stick ring is no axis: it is on while the stick is pushed to its
+        /// rim, and the pickers offer it (EveryOnOffInputIsAKeyAndAMacroTrigger).</summary>
         [Fact]
         public void TheUpAndDownPickersLeaveOutSticksTriggersAndAxes() => WithCleanSettings(() =>
         {
@@ -383,7 +390,6 @@ namespace PadForge.Tests
                 Assert.DoesNotContain(keys, c => c.Descriptor.StartsWith("Slider ", StringComparison.Ordinal));
                 Assert.DoesNotContain(keys, c => c.Descriptor.StartsWith("Gyro ", StringComparison.Ordinal));
                 Assert.DoesNotContain(keys, c => SourceCoercion.IsGamepadAxisAlias(c.Descriptor));
-                Assert.DoesNotContain(keys, c => c.Descriptor.EndsWith("StickRing", StringComparison.Ordinal));
                 Assert.DoesNotContain(keys, c => c.Descriptor.StartsWith("Mouse Motion", StringComparison.Ordinal));
                 Assert.DoesNotContain(keys, c => c.Descriptor.StartsWith("Mouse Position", StringComparison.Ordinal));
             }
@@ -429,7 +435,47 @@ namespace PadForge.Tests
                 Assert.Contains(p.Pad.SlotMacroTriggerChoices, c => c.Descriptor == "IR Offscreen" && c.DeviceGuid == Key(p));
                 Assert.DoesNotContain(p.Pad.SlotKeyInputs, c => c.Descriptor == "IR Pointer X");
             }
+
+            // The stick rings and a touchpad finger's ring: on while the
+            // stick or the finger is out past the radius, as a macro trigger
+            // takes them. The stick rings are listed on the controller and
+            // under "(Any Device)", the finger ring under "(Any Device)".
+            var pad = Of("Two Touchpad Pad");
+            foreach (string d in new[] { "Gamepad LeftStickRing", "Gamepad RightStickRing" })
+            {
+                Assert.Contains(pad.Pad.SlotKeyInputs, c => c.Descriptor == d && c.DeviceGuid == Key(pad));
+                Assert.Contains(pad.Pad.SlotKeyInputs, c => c.Descriptor == d && c.DeviceGuid == "");
+                Assert.Contains(pad.Pad.SlotMacroTriggerChoices, c => c.Descriptor == d && c.DeviceGuid == Key(pad));
+            }
+            Assert.Contains(pad.Pad.SlotKeyInputs, c => c.Descriptor == "Touchpad 0 Finger 0 Ring" && c.DeviceGuid == "");
         });
+
+        /// <summary>A stick ring picked as the Up key raises the value while
+        /// the stick is out past half its travel, and holds it once the stick
+        /// is back at rest. It read released forever.</summary>
+        [Fact]
+        public void AStickRingKeyStepsTheValueWhileTheStickIsAtItsRim()
+        {
+            var src = new MappingSource
+            {
+                Kind = "Incremental", DeviceGuid = AnyPad, ParamUp = "Gamepad LeftStickRing", ParamDown = "",
+                ParamRate = 1.0, ParamMin = 0, ParamMax = 1, ParamSticky = true,
+            };
+            var rt = new SourceKindRuntime();
+            var state = new CustomInputState();
+            Array.Fill(state.Axis, 32768);
+            double Tick() { rt.FrameSeq++; return rt.TickIncremental(Slot, "LeftTrigger", 0, src, state, 0.25, AnyPad); }
+
+            state.Axis[0] = 32768 + 8192;                  // a quarter out: inside the radius
+            Assert.Equal(0, Tick(), 6);
+            state.Axis[0] = 65535;                         // at the rim
+            Assert.Equal(0.25, Tick(), 6);
+            Assert.Equal(0.5, Tick(), 6);
+            state.Axis[0] = 32768;                         // back at rest: the value holds
+            Assert.Equal(0.5, Tick(), 6);
+            state.Axis[4] = 0;                             // the other stick does not move it
+            Assert.Equal(0.5, Tick(), 6);
+        }
 
         /// <summary>The key list holds the full list's own entries, in its
         /// order, so the item a row resolves from the full list is the item

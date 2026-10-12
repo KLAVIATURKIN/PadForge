@@ -160,40 +160,39 @@ namespace PadForge.Tests
             Assert.Equal(0.0, rt.TickRamped(Slot, "LeftThumbAxisX", 0, src, state, 0.05), 6);
         }
 
-        // ── The Invert on Hold modifier's mirror ──
+        // ── The Invert on Hold modifier, on the row it inverts ──
 
+        /// <summary>A MIDI note as a modifier inverts its row while the note
+        /// is on, read where Step 3 reads a modifier: a held button pulls the
+        /// trigger row, and with the note on the row reads released.</summary>
         [Fact]
-        public void AMidiModifierInvertsTheButton()
+        public void AMidiModifierInvertsItsRow()
         {
-            var src = new MappingSource
-            {
-                Kind = "InvertOnHold", Descriptor = "Button 0", DeviceGuid = Guid.NewGuid().ToString(),
-                ParamModifier = "Midi Note 60",
-            };
+            string pass = Guid.NewGuid().ToString();
+            var set = RowModifierHarness.Row("LeftTrigger", "Button 0", "Midi Note 60");
             var state = MidiState();
             state.Buttons[0] = true;
 
-            Assert.True(SourceEvaluator.EvaluateForButtonTarget(state, src, 50, Slot, "ButtonA", 0, null, 0));
+            Assert.Equal(short.MaxValue, RowModifierHarness.TriggerPull(set, state, pass, Slot));
             state.Midi.Notes[60] = true;
-            Assert.False(SourceEvaluator.EvaluateForButtonTarget(state, src, 50, Slot, "ButtonA", 0, null, 0));
+            Assert.Equal(short.MinValue, RowModifierHarness.TriggerPull(set, state, pass, Slot));
         }
 
+        /// <summary>IR Offscreen as a modifier inverts its row while the
+        /// remote points off the screen.</summary>
         [Fact]
-        public void AnIrOffscreenModifierInvertsTheButton()
+        public void AnIrOffscreenModifierInvertsItsRow()
         {
-            var src = new MappingSource
-            {
-                Kind = "InvertOnHold", Descriptor = "Button 0", DeviceGuid = Guid.NewGuid().ToString(),
-                ParamModifier = "IR Offscreen",
-            };
+            string pass = Guid.NewGuid().ToString();
+            var set = RowModifierHarness.Row("LeftTrigger", "Button 0", "IR Offscreen");
             var state = new CustomInputState { Ir = new WiiIrState { Detected = false } };
             state.Buttons[0] = true;
 
-            // Never on the screen: offscreen, so the held button reads
+            // Never on the screen: offscreen, so the held button's row reads
             // inverted.
-            Assert.False(SourceEvaluator.EvaluateForButtonTarget(state, src, 50, Slot, "ButtonA", 0, null, 0));
+            Assert.Equal(short.MinValue, RowModifierHarness.TriggerPull(set, state, pass, Slot));
             state.Ir = new WiiIrState { Detected = true };
-            Assert.True(SourceEvaluator.EvaluateForButtonTarget(state, src, 50, Slot, "ButtonA", 0, null, 0));
+            Assert.Equal(short.MaxValue, RowModifierHarness.TriggerPull(set, state, pass, Slot));
         }
 
         // ── Macro triggers ──

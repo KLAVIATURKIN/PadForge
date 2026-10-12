@@ -351,6 +351,66 @@ namespace PadForge.Tests
             Assert.DoesNotContain(native.Calls, c => c.StartsWith("zone:3:"));
         }
 
+        /// <summary>An engine that cannot paint the claimed types is loaded
+        /// again after the retry interval, with no claim changing, so an
+        /// update or reinstall of Logitech's software that brings the zone
+        /// call is found. The line that says the engine cannot paint is
+        /// written once, not at every retry.</summary>
+        [Fact]
+        public void AnEngineThatGainsItsZoneCall_PaintsWithoutAClaimChange()
+        {
+            var native = new FakeNative { ZoneOk = false };
+            Link(new DeviceLinks { Device = Mouse, Lighting = new[] { Type("mouse") } });
+            using var backend = Backend(native);
+            static int Lines() => PadForge.Engine.SdlDiagLog.Snapshot().Split('\n')
+                .Count(l => l.Contains("PERIPHERAL LED SDK engine cannot paint any claimed type"));
+            int lines = Lines();
+            backend.Start();
+            PeripheralOutputs.SetLighting(Mouse, slot: 0, player: 1, 0xFF, 0x00, 0x00);
+
+            Assert.True(WaitFor(() => native.Count("unload") >= 1), "the engine went back unopened");
+            Assert.True(WaitFor(() => native.Count("load") >= 3), "the engine was loaded again with no claim changing");
+            Assert.Equal(lines + 1, Lines());
+
+            native.ZoneOk = true;
+            Assert.True(WaitFor(() => native.Count("zone:3:0:100,0,0") >= 1), "the mouse was painted once the zone call came");
+            Assert.Contains("mouse", PeripheralOutputs.LedSdkPaintable);
+        }
+
+        /// <summary>An engine that keeps failing to load writes its line once,
+        /// not at every retry, and again after the software leaves and comes
+        /// back.</summary>
+        [Fact]
+        public void ALoadThatKeepsFailing_LogsOnce()
+        {
+            var native = new FakeNative { LoadOk = false };
+            Link(new DeviceLinks { Device = Mouse, Lighting = new[] { Type("mouse") } });
+            using var backend = Backend(native);
+            static int Lines() => PadForge.Engine.SdlDiagLog.Snapshot().Split('\n')
+                .Count(l => l.Contains("PERIPHERAL LED SDK load failed"));
+            int lines = Lines();
+            backend.Start();
+            PeripheralOutputs.SetLighting(Mouse, slot: 0, player: 1, 1, 2, 3);
+
+            Assert.True(WaitFor(() => native.Count("load") >= 4), "the load was retried");
+            Assert.Equal(lines + 1, Lines());
+
+            native.Present = false;
+            Assert.True(WaitFor(() => PeripheralOutputs.LedSdkPaintable == null), "the software left");
+            int loads = native.Count("load");
+            native.Present = true;
+            Assert.True(WaitFor(() => native.Count("load") > loads), "the software came back");
+            Assert.True(WaitFor(() => Lines() == lines + 2), "the failure after the return was logged");
+
+            // Nothing claimed, then claimed again: the failure is logged anew.
+            PeripheralOutputs.ReleaseLighting(Mouse, 0);
+            Assert.True(WaitFor(() => PeripheralOutputs.StateOf(OutputFamily.LedSdkType) == BackendState.Idle), "the worker went idle");
+            loads = native.Count("load");
+            PeripheralOutputs.SetLighting(Mouse, slot: 0, player: 1, 1, 2, 3);
+            Assert.True(WaitFor(() => native.Count("load") > loads), "the load was tried again");
+            Assert.True(WaitFor(() => Lines() == lines + 3), "the failure after the idle spell was logged");
+        }
+
         /// <summary>An engine that will not load while Logitech's software
         /// runs, an x64 engine in the ARM64 build among the causes, can paint
         /// nothing, and the Lighting tab learns that instead of a wait for

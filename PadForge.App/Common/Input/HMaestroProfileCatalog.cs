@@ -49,9 +49,18 @@ namespace PadForge.Common.Input
         /// </summary>
         public static System.Func<System.Collections.Generic.IReadOnlyList<string>> UserProfilesProvider { get; set; }
 
+        private static readonly WeakHandlers<System.EventHandler> s_catalogReloaded = new();
+
         /// <summary>Raised after the catalog is (re)built so UI bindings
-        /// that depend on Extended/All profile lists can refresh.</summary>
-        public static event System.EventHandler CatalogReloaded;
+        /// that depend on Extended/All profile lists can refresh. A
+        /// subscriber is held weakly (WeakHandlers): every pad view model
+        /// subscribes, and a strong hook kept each one alive for the rest of
+        /// the process.</summary>
+        public static event System.EventHandler CatalogReloaded
+        {
+            add => s_catalogReloaded.Add(value);
+            remove => s_catalogReloaded.Remove(value);
+        }
 
         /// <summary>All loaded profiles, ordered by ID slug.</summary>
         public static IReadOnlyList<HMProfile> AllProfiles
@@ -124,7 +133,7 @@ namespace PadForge.Common.Input
                 _extendedProfiles = new();
             }
             EnsureInitialized();
-            CatalogReloaded?.Invoke(null, System.EventArgs.Empty);
+            foreach (var reloaded in s_catalogReloaded.Live()) reloaded(null, System.EventArgs.Empty);
         }
 
         private static void EnsureInitialized()

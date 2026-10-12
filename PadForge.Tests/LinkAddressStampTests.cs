@@ -38,7 +38,7 @@ namespace PadForge.Tests
             => PadForge.Common.Input.SettingsManager.UserDevices = _saved;
 
         private const ushort Vid = 0x054C, Pid = 0x0268;
-        private const string MacA = "00265c507543";
+        private const string MacA = "00005e005343";
         private const string MacB = "0007040a1b7a";
 
         private static UserDevice Row(string serial, ushort pid = Pid)

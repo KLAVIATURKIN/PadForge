@@ -37,10 +37,13 @@ namespace PadForge.Common.Input
 
         // SDL instance IDs identified as OUR OWN HM virtuals and rejected
         // by the self-readback guard. Kept so each enumeration pass skips
-        // them instead of re-opening and re-probing every 2 s. Cleared
-        // implicitly on process restart. SDL instance IDs are unique per
-        // connection so a REAL device never inherits a suppressed id.
-        private readonly HashSet<uint> _suppressedSelfVirtualIds = new();
+        // them instead of re-opening and re-probing every 2 s. SDL instance
+        // IDs are unique per connection so a REAL device never inherits a
+        // suppressed id. An id rejected on its place under the emulated host
+        // controller alone is opened again once no persona of its ids is in
+        // scope, while its device is still in the device tree
+        // (SelfVirtualSuppressions.ReleaseLapsed).
+        private readonly SelfVirtualSuppressions _suppressedSelfVirtualIds = new();
 
         /// <summary>
         /// First-observed tick (UTC) per SDL instance ID for which the
@@ -112,6 +115,22 @@ namespace PadForge.Common.Input
             // Build a set of instance IDs currently visible to SDL.
             var currentInstanceIds = new HashSet<uint>(joystickIds);
 
+            // A device passed over on its USB/IP ancestry alone is opened
+            // again below once no persona of its ids is in scope and it is
+            // still in the device tree: a real pad attached that way while
+            // one was live is read from then on. Only a device SDL reads
+            // under a HID interface path is passed over that way, and under
+            // the emulated host controller the SDL fork lists a pad's HID
+            // interface only where HIDMaestro has not stamped it. The
+            // guard's header in InputManager.Step1.UsbipVhciGuard.cs says
+            // what SDL lists under a stamped one, and by which backends.
+            var probeAgain = _suppressedSelfVirtualIds.ReleaseLapsed(currentInstanceIds, Environment.TickCount64);
+            if (probeAgain != null)
+            {
+                foreach (uint released in probeAgain)
+                    Engine.SdlDiagLog.WriteLine($"DEV self-virtual released SDL#{released}: no persona of its ids in scope");
+            }
+
             // --- Phase 1: Open newly connected devices ---
             foreach (uint instanceId in joystickIds)
             {
@@ -148,32 +167,27 @@ namespace PadForge.Common.Input
                     // paths and can slip past both (observed live: the SDL
                     // switch driver then FIGHTS the virtual Switch Pro's
                     // protocol responder, cyclically resetting its inputs
-                    // and interleaving rumble). Coverage is narrower than
-                    // it looks: SDL's HIDAPI drivers overwrite the hid-level
-                    // "HM-CTL-<n>" serial with the fabricated MAC during
-                    // their identity handshake, and non-Xbox virtuals'
-                    // interface paths carry no HIDMAESTRO marker (the fork
-                    // filter reads DEVPKEY hardware IDs for that reason).
-                    // So this guard catches failed-handshake and
-                    // serial-preserving cases only. The fork enumeration
-                    // filter remains the primary defense, and the XInput
-                    // backend leak (no serial, no path marker) is out of
-                    // scope here entirely.
-                    bool selfVirtual =
-                        (wrapper.SerialNumber != null
-                         && wrapper.SerialNumber.StartsWith("HM-CTL-", StringComparison.Ordinal))
-                        || (wrapper.DevicePath != null
-                            && wrapper.DevicePath.IndexOf("HIDMAESTRO", StringComparison.OrdinalIgnoreCase) >= 0)
-                        // Composite personas (HM v1.4.0) ride the real USB
-                        // stack and carry neither marker. Their one
-                        // discriminator is usbip2_ude ancestry, checked
-                        // for the vendors ChecksUsbipAncestry names.
-                        || (ChecksUsbipAncestry(wrapper.VendorId) && IsOnUsbipVhci(wrapper.DevicePath));
-                    if (selfVirtual)
+                    // and interleaving rumble). The serial and the path
+                    // miss most of them: SDL's HIDAPI drivers overwrite the
+                    // hid-level "HM-CTL-<n>" serial with the fabricated MAC
+                    // during their identity handshake, and non-Xbox
+                    // virtuals' interface paths carry no HIDMAESTRO marker
+                    // (the fork filter reads DEVPKEY hardware IDs for that
+                    // reason). So the guard reads those too: a HIDMaestro
+                    // hardware id on the device's own node or on one above
+                    // it, other than the usbip host controller's stamp,
+                    // marks a controller on HIDMaestro's own driver
+                    // whatever its serial and its path. The fork
+                    // enumeration filter remains the primary defense, and
+                    // the XInput backend leak (no serial, and a path that
+                    // names no device node) is out of scope here entirely.
+                    // PassOver makes the test, those three markers and the
+                    // composite personas' ancestry walk, which also reads a
+                    // persona's own USB serial, and records the id it
+                    // rejects.
+                    if (_suppressedSelfVirtualIds.PassOver(instanceId, wrapper.SerialNumber,
+                            wrapper.DevicePath, wrapper.VendorId, wrapper.ProductId))
                     {
-                        Engine.SdlDiagLog.WriteLine(
-                            $"DEV self-virtual suppressed SDL#{instanceId} {wrapper.VendorId:X4}:{wrapper.ProductId:X4} serial={wrapper.SerialNumber}");
-                        _suppressedSelfVirtualIds.Add(instanceId);
                         wrapper.Dispose();
                         continue;
                     }
@@ -578,6 +592,10 @@ namespace PadForge.Common.Input
                     MarkChanged(ref changed, "flydigi", $"service running=[{FlydigiServiceWatch.Running}]");
             }
 
+
+            // The rows now say what is connected (DevicesEnumerated). Noted
+            // before the event, so the apply it queues reads it.
+            NoteDevicesEnumerated(t_runStamp);
 
             // --- Notify if anything changed ---
             if (changed)
@@ -1548,16 +1566,27 @@ namespace PadForge.Common.Input
             return changed;
         }
 
-        // MIDI input endpoints (Phase 1e, issue #128). The WinRT device
-        // query runs on a background task. The polling thread consumes the
-        // latest cached snapshot, mirroring the Raw Input keyboard/mouse
+        // MIDI input endpoints (Phase 1e, issue #128). The endpoint query
+        // (WinRT under Windows MIDI Services, WinMM under the legacy API)
+        // runs on a background task. The polling thread consumes the latest
+        // cached snapshot, mirroring the Raw Input keyboard/mouse
         // enumeration above.
         private readonly Dictionary<string, MidiInputDevice> _openedMidiInputs =
             new Dictionary<string, MidiInputDevice>(StringComparer.OrdinalIgnoreCase);
         private readonly object _midiInputsLock = new object();
         private volatile List<(string Id, string Name)> _cachedMidiEndpoints;
         private volatile bool _midiEnumRunning;
+        // When the worker's endpoint query began, or 0 while it has not yet:
+        // the worker first waits for the availability probe. Written by the
+        // worker, read by the polling thread.
+        private long _midiEnumQueryStartedMs;
+        private long _midiEnumRescueMs;
         private volatile bool _midiInputsSuppressed;
+
+        /// <summary>How long an endpoint query may stay in flight before the
+        /// watchdog acts: as long as the availability probe's bound. Tests
+        /// shorten it.</summary>
+        internal int MidiEnumHungMs = 10_000;
 
         // NFC PC/SC readers (Phase 1f, issue #150). The monitor service owns
         // the PC/SC context + its own event thread. This sweep just mirrors
@@ -1754,14 +1783,31 @@ namespace PadForge.Common.Input
 
         /// <summary>
         /// Tears down every open MIDI input connection and the shared input
-        /// session, and suppresses Phase 1e until <see cref="ResumeMidiInputs"/>
-        /// or app restart. Called before uninstalling the older Windows MIDI
-        /// Services runtime so no in-process runtime objects are alive during
-        /// the uninstall.
+        /// session, and suppresses Phase 1e until <see cref="ResumeMidiInputs"/>.
+        /// Called by the release before an uninstall of the older Windows
+        /// MIDI Services runtime
+        /// (<see cref="MidiRuntimeSwitch.ReleaseForUninstall"/>), on its
+        /// worker, so no in-process runtime objects are alive while the
+        /// uninstaller runs. A teardown whose release was given up on by
+        /// then (<see cref="MidiRuntimeSwitch.CallerGaveUp"/>) closes nothing
+        /// and leaves Phase 1e running.
         /// </summary>
         public void ShutdownMidiInputs()
         {
             _midiInputsSuppressed = true;
+            // The release this teardown belongs to may have been given up
+            // on in the instant before, by a call that then resumed MIDI
+            // input. That resume came before the line above and is lost
+            // behind it, and the session's teardown below can hang on a
+            // wedged service with nothing left to resume input. So a
+            // teardown whose release was given up on closes nothing. A call
+            // that gives up after this look resumes after the suppression,
+            // and its resume stands.
+            if (MidiRuntimeSwitch.CallerGaveUp)
+            {
+                _midiInputsSuppressed = false;
+                return;
+            }
             _cachedMidiEndpoints = null;
             lock (_midiInputsLock)
             {
@@ -1788,11 +1834,17 @@ namespace PadForge.Common.Input
         }
 
         /// <summary>
-        /// Lifts <see cref="ShutdownMidiInputs"/> once the older runtime's
-        /// uninstall has ended. The next Phase 1e sweep enumerates through
+        /// Lifts <see cref="ShutdownMidiInputs"/>. The last release that
+        /// holds MIDI released calls it as it ends
+        /// (<see cref="MidiRuntimeSwitch.EndUninstall"/>): once the older
+        /// runtime's uninstaller has exited, whatever its outcome, or never
+        /// started. A release that missed its bound calls it too, with no
+        /// uninstaller run: at once as the call that waited on it gives up,
+        /// when its worker had begun closing MIDI input, and again when that
+        /// worker undoes itself. The next Phase 1e sweep enumerates through
         /// whichever API the next availability probe picks: the in-box API
-        /// where Windows has it, the older runtime if its uninstall failed or
-        /// was canceled, else the legacy API.
+        /// where Windows has it, the older runtime if it is still installed,
+        /// else the legacy API.
         /// </summary>
         public void ResumeMidiInputs()
         {
@@ -1879,12 +1931,22 @@ namespace PadForge.Common.Input
 
         private readonly UserSetting[] _midiAssignedProbe = new UserSetting[1];
 
-        /// <summary>Whether any slot has the MIDI input device assigned.
-        /// Polling thread only (the probe buffer is shared).</summary>
+        /// <summary>Whether a Remote Link peer's slot has this MIDI input
+        /// assigned right now, set by the owner of the link. Remote Link
+        /// shares every online MIDI input, and under the legacy API an
+        /// unassigned one was listed but never opened, so a peer that
+        /// assigned it read rest forever.</summary>
+        internal Func<Guid, bool> RemoteMidiInputDemand;
+
+        /// <summary>Whether any slot has the MIDI input device assigned: a
+        /// slot on this PC, or a Remote Link peer's slot
+        /// (<see cref="RemoteMidiInputDemand"/>). Polling thread only (the
+        /// probe buffer is shared).</summary>
         private bool IsMidiInputAssigned(Guid instanceGuid)
         {
             var settings = SettingsManager.UserSettings;
-            return settings != null && settings.FindByInstanceGuid(instanceGuid, _midiAssignedProbe) > 0;
+            if (settings != null && settings.FindByInstanceGuid(instanceGuid, _midiAssignedProbe) > 0) return true;
+            return RemoteMidiInputDemand?.Invoke(instanceGuid) == true;
         }
 
         /// <summary>The legacy API's open rule for a port already listed:
@@ -1910,9 +1972,10 @@ namespace PadForge.Common.Input
                 return false;
 
             // A backend torn down since these inputs opened (a runtime
-            // install, or a service restart PadForge performed) left their
-            // connections and the shared session talking to nothing, and an
-            // endpoint that comes back under the same id was never reopened.
+            // install, or a service restart, PadForge's own or one made under
+            // it) left their connections and the shared session talking to
+            // nothing, and an endpoint that comes back under the same id was
+            // never reopened.
             // Close them all without waiting, forget the open failures, and
             // let this sweep open everything again on the current backend.
             int generation = MidiVirtualController.Generation;
@@ -1922,15 +1985,69 @@ namespace PadForge.Common.Input
                 DropMidiInputsForNewBackend();
             }
 
+            // The query runs on a worker, one at a time. A result from an
+            // older generation is dropped: its backend is gone, and it must
+            // not refill the snapshot the drop above cleared. A query that
+            // stays in flight past MidiEnumHungMs is stuck behind the MIDI
+            // service (a WinMM count waits on the lock a hung port open or
+            // close holds in wdmaud2, Microsoft's MidiSrvPorts.cpp), and its
+            // gate never cleared, so input discovery stopped for the session
+            // with nothing in the log. The watchdog writes a diagnostics line
+            // that says what follows, and asks for a service restart, as the
+            // probe's recovery does, which frees the query. It asks only
+            // where a restart can follow. A classic driver's hang (Windows
+            // before 24H2, Legacy API mode, the legacy API in Hybrid mode)
+            // gets none, and the query's gate stays set until the driver
+            // answers. Inside another restart's cooldown none is asked for
+            // either, and the watchdog looks again when it next fires.
+            //
+            // The watchdog times the query alone. The worker first waits for
+            // the availability probe, up to the same 10 s, and that wait is
+            // not the query's: a probe that hangs has a recovery of its own,
+            // which also knows whether the hang is one a restart can reach.
+            long midiEnumNow = Environment.TickCount64;
             if (!_midiEnumRunning)
             {
                 _midiEnumRunning = true;
+                Volatile.Write(ref _midiEnumQueryStartedMs, 0);
+                int enumGeneration = generation;
                 Task.Run(() =>
                 {
-                    try { _cachedMidiEndpoints = MidiInputRuntime.EnumerateEndpoints(); }
-                    catch { }
+                    try
+                    {
+                        // A MIDI service restarted under PadForge leaves every
+                        // slot and input on a dead instance. A new generation
+                        // rebuilds them.
+                        MidiVirtualController.CheckServiceInstance();
+                        var found = MidiInputRuntime.EnumerateEndpoints(
+                            () => Volatile.Write(ref _midiEnumQueryStartedMs, Math.Max(1, Environment.TickCount64)));
+                        if (MidiVirtualController.Generation == enumGeneration)
+                            _cachedMidiEndpoints = found;
+                    }
+                    catch (Exception ex)
+                    {
+                        PadForge.Engine.SdlDiagLog.WriteLine(
+                            $"MIDIINPUT endpoint query failed: {ex.GetType().Name} 0x{ex.HResult:X8}");
+                    }
                     finally { _midiEnumRunning = false; }
                 });
+            }
+            else
+            {
+                long queryStartedMs = Volatile.Read(ref _midiEnumQueryStartedMs);
+                if (queryStartedMs != 0
+                    && midiEnumNow - queryStartedMs >= MidiEnumHungMs
+                    && midiEnumNow - _midiEnumRescueMs >= MidiEnumHungMs)
+                {
+                    bool legacyCall = MidiVirtualController.Backend is MidiBackendLegacy;
+                    string follows = MidiVirtualController.DescribeRestartRequest(legacyCall, out bool restarts);
+                    if (_midiEnumRescueMs < queryStartedMs)
+                        PadForge.Engine.SdlDiagLog.WriteLine(
+                            $"MIDIINPUT endpoint query in flight {midiEnumNow - queryStartedMs} ms: {follows}");
+                    _midiEnumRescueMs = midiEnumNow;
+                    if (restarts)
+                        Task.Run(() => MidiVirtualController.RestartService("a MIDI endpoint query hung", legacyCall));
+                }
             }
 
             var endpoints = _cachedMidiEndpoints;
@@ -1948,8 +2065,9 @@ namespace PadForge.Common.Input
             // number of clients and all open.
             bool assignedOnly = MidiVirtualController.ActiveApi == MidiApiKind.Legacy;
 
-            // The lock guards against ShutdownMidiInputs (UI thread, MIDI
-            // services uninstall) racing this polling-thread sweep.
+            // The lock guards against ShutdownMidiInputs (the worker of the
+            // MIDI runtime uninstall's release) racing this polling-thread
+            // sweep.
             lock (_midiInputsLock)
             {
                 // Re-check under the lock: ShutdownMidiInputs may have set

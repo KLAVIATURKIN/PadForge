@@ -117,9 +117,12 @@ namespace PadForge.Common.Input.Peripherals
     /// path and per-key keyboards, and one without the target call paints
     /// zones only. A session for types the engine cannot paint would paint
     /// nothing and fail every liveness round, so the engine goes back
-    /// unopened until the claimed types change, and the types it can paint
-    /// are published for the Lighting tab
-    /// (<see cref="PeripheralOutputs.LedSdkPaintable"/>).</para>
+    /// unopened until the claimed types change or the retry interval
+    /// passes, when it is loaded again in case the software was updated or
+    /// replaced, and the types it can paint are published for the Lighting
+    /// tab (<see cref="PeripheralOutputs.LedSdkPaintable"/>). An engine that
+    /// cannot be loaded or cannot paint is logged once, not on every
+    /// retry.</para>
     /// </summary>
     internal sealed class LedSdkBackend : IDisposable
     {
@@ -311,13 +314,15 @@ namespace PadForge.Common.Input.Peripherals
         }
 
         /// <summary>Waits until the claimed types differ from
-        /// <paramref name="types"/>.</summary>
-        private async Task WaitForTypesChangeAsync(string types, CancellationToken ct)
+        /// <paramref name="types"/> or <paramref name="ms"/> passes, polled at
+        /// the poll interval.</summary>
+        private async Task WaitForTypesChangeAsync(string types, int ms, CancellationToken ct)
         {
-            while (TypesOf(Wanted()) == types)
+            long until = Environment.TickCount64 + ms;
+            while (TypesOf(Wanted()) == types && Environment.TickCount64 < until)
             {
                 ct.ThrowIfCancellationRequested();
-                await WaitAsync(_pollMs, ct).ConfigureAwait(false);
+                await WaitAsync(Math.Min(_pollMs, (int)Math.Max(1, until - Environment.TickCount64)), ct).ConfigureAwait(false);
             }
         }
 
@@ -405,6 +410,12 @@ namespace PadForge.Common.Input.Peripherals
         {
             bool loaded = false;
             bool wasAbsent = true;
+            // What the retries below last logged, so an engine that keeps
+            // failing the same way writes one line, not one per retry. Each
+            // clears when the worker moves on: nothing claimed, the software
+            // gone, a load that works or a session that opens.
+            string loadFailureLogged = null;
+            string unpaintableLogged = null;
             try
             {
                 Task orphan = Volatile.Read(ref s_orphan);
@@ -423,6 +434,7 @@ namespace PadForge.Common.Input.Peripherals
                 {
                     if (Wanted().Count == 0)
                     {
+                        loadFailureLogged = unpaintableLogged = null;
                         ForgetPaintable(generation);
                         Report(BackendState.Idle, generation);
                         await WaitAsync(_pollMs, ct).ConfigureAwait(false);
@@ -435,6 +447,7 @@ namespace PadForge.Common.Input.Peripherals
                     if (!present)
                     {
                         wasAbsent = true;
+                        loadFailureLogged = unpaintableLogged = null;
                         ForgetPaintable(generation);
                         Report(BackendState.Waiting, generation);
                         await WaitWhileWantedAsync(_retryMs, ct).ConfigureAwait(false);
@@ -453,7 +466,11 @@ namespace PadForge.Common.Input.Peripherals
                     MarkLoader(generation);
                     if (!_native.TryLoad(out string detail))
                     {
-                        PadForge.Engine.SdlDiagLog.WriteLine($"PERIPHERAL LED SDK load failed: {detail}");
+                        if (detail != loadFailureLogged)
+                        {
+                            loadFailureLogged = detail;
+                            PadForge.Engine.SdlDiagLog.WriteLine($"PERIPHERAL LED SDK load failed: {detail}");
+                        }
                         // The software runs and its engine cannot be loaded
                         // here, an x64 engine in the ARM64 build among the
                         // causes, so no type can be painted until a load
@@ -463,16 +480,26 @@ namespace PadForge.Common.Input.Peripherals
                         await WaitWhileWantedAsync(_retryMs, ct).ConfigureAwait(false);
                         continue;
                     }
+                    loadFailureLogged = null;
                     loaded = true;
                     PublishPaintable(generation);
                     if (!AnyPaintable(Wanted()))
                     {
-                        PadForge.Engine.SdlDiagLog.WriteLine(
-                            "PERIPHERAL LED SDK engine cannot paint any claimed type");
+                        string types = TypesOf(Wanted());
+                        if (types != unpaintableLogged)
+                        {
+                            unpaintableLogged = types;
+                            PadForge.Engine.SdlDiagLog.WriteLine(
+                                "PERIPHERAL LED SDK engine cannot paint any claimed type");
+                        }
                         _native.Unload();
                         loaded = false;
                         Report(BackendState.Waiting, generation);
-                        await WaitForTypesChangeAsync(TypesOf(Wanted()), ct).ConfigureAwait(false);
+                        // The engine is loaded again when the claimed types
+                        // change or the retry interval passes: an update or a
+                        // reinstall of Logitech's software can replace it
+                        // with one that paints them, and nothing else says so.
+                        await WaitForTypesChangeAsync(types, _retryMs, ct).ConfigureAwait(false);
                         continue;
                     }
                     if (!_native.Init())
@@ -488,6 +515,7 @@ namespace PadForge.Common.Input.Peripherals
                     _native.SetTarget(LogiDeviceTypeAll);
                     _native.SaveCurrent();
                     Report(BackendState.Connected, generation);
+                    unpaintableLogged = null;
                     PadForge.Engine.SdlDiagLog.WriteLine("PERIPHERAL LED SDK session open");
 
                     var sent = new Dictionary<string, int>();

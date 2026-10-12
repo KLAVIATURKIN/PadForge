@@ -391,6 +391,11 @@ namespace PadForge.Tests
             public string Address { get; }
             public volatile int Status = 200;
 
+            /// <summary>Runs on the server's thread with a post's path, after
+            /// the post is recorded and before it is answered, so a test can
+            /// hold the caller inside its call.</summary>
+            public Action<string> BeforeAnswer;
+
             public FakeGameSense()
             {
                 var rng = new Random();
@@ -417,9 +422,17 @@ namespace PadForge.Tests
                     try { ctx = _listener.GetContext(); }
                     catch { break; }
                     string body;
-                    using (var reader = new StreamReader(ctx.Request.InputStream, Encoding.UTF8))
+                    // A stop, or a caller that left, can end this read too.
+                    // An exception here is on the server's own thread, where
+                    // nothing but the test host would catch it.
+                    try
+                    {
+                        using var reader = new StreamReader(ctx.Request.InputStream, Encoding.UTF8);
                         body = reader.ReadToEnd();
+                    }
+                    catch { continue; }
                     Posts.Enqueue((ctx.Request.Url.AbsolutePath, body));
+                    try { BeforeAnswer?.Invoke(ctx.Request.Url.AbsolutePath); } catch { }
                     try
                     {
                         ctx.Response.StatusCode = Status;
@@ -476,6 +489,9 @@ namespace PadForge.Tests
                 try { _listener.Stop(); } catch { }
                 try { _listener.Close(); } catch { }
             }
+
+            /// <summary>True once the server's thread has ended.</summary>
+            public bool Ended(int withinMs) => _thread.Join(withinMs);
         }
 
         [Fact]
@@ -532,7 +548,7 @@ namespace PadForge.Tests
         public void GameSense_BindsOnce_PostsOnlyChanges_BeatsWhileRumbleHolds_AndStops()
         {
             using var server = new FakeGameSense();
-            using var client = new GameSenseClient(server.WriteCoreProps(), 1000);
+            using var client = new GameSenseClient(server.WriteCoreProps(), 10000);
             Assert.True(client.TryConnect(now: 0));
             // The connect also removes every color event a dropped session
             // left bound (#494).
@@ -574,11 +590,45 @@ namespace PadForge.Tests
         public void GameSense_AnEngineThatStopsAnsweringDisconnects()
         {
             var server = new FakeGameSense();
-            using var client = new GameSenseClient(server.WriteCoreProps(), 500);
+            // Ten seconds for an answer. Half a second ran out under a full
+            // run's load on 2026-10-11, and the connect below read as a
+            // refusal. The system refuses a post to an engine that has
+            // stopped well inside the ten seconds, so the longer wait
+            // changes nothing after the stop.
+            using var client = new GameSenseClient(server.WriteCoreProps(), 10000);
             Assert.True(client.TryConnect(0));
             server.Dispose();
             Assert.False(client.Render(1, 10));
             Assert.False(client.Connected);
+        }
+
+        /// <summary>The fake engine's thread outlives a stop that lands while
+        /// it reads a request. That read was the one step of its loop with
+        /// nothing around it, and an exception there has nothing above it but
+        /// the test host: a full run on 2026-10-11 ended after 1,999 tests on
+        /// an ObjectDisposedException from that line.</summary>
+        [Fact]
+        public void GameSense_TheFakeEngineOutlivesAStopInsideARequest()
+        {
+            var server = new FakeGameSense();
+            using var caller = new System.Net.Sockets.TcpClient();
+            caller.Connect(IPAddress.Loopback, int.Parse(server.Address.Split(':')[1]));
+            var stream = caller.GetStream();
+            stream.ReadTimeout = 10000;
+            // Headers and no body. http.sys hands the request to the server's
+            // thread, and answers 100 Continue once that thread asks for the
+            // body, which is where the stop finds it.
+            byte[] head = Encoding.ASCII.GetBytes("POST /game_event HTTP/1.1\r\nHost: " + server.Address
+                + "\r\nContent-Type: application/json\r\nContent-Length: 8\r\nExpect: 100-continue\r\n\r\n");
+            stream.Write(head, 0, head.Length);
+            var answer = new byte[64];
+            int read = stream.Read(answer, 0, answer.Length);
+            Assert.StartsWith("HTTP/1.1 100", Encoding.ASCII.GetString(answer, 0, read));
+
+            server.Dispose();
+            caller.Close();
+            Assert.True(server.Ended(10000), "the fake engine's thread did not end");
+            Assert.Empty(server.Posts);
         }
 
         // ── Live hardware, opt-in ──
@@ -599,9 +649,8 @@ namespace PadForge.Tests
         {
             if (Environment.GetEnvironmentVariable("PADFORGE_LIVE_HIDPP") != "1") return;
             var all = VendorHidRuntime.Enumerate() ?? new List<VendorHidCollection>();
-            var collections = all
-                .Where(c => c.VendorId == 0x046D && c.UsagePage == 0xFF00 && c.Usage == 0x0002 && c.InputReportLength == 20)
-                .ToList();
+            // The collections the HID++ worker itself opens.
+            var collections = all.Where(HidppBackend.IsHidppLong).ToList();
             _output.WriteLine($"{collections.Count} HID++ long collection(s)");
             foreach (var collection in collections)
             {

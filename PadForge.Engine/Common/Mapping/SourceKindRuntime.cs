@@ -24,14 +24,30 @@ namespace PadForge.Engine.Common.Mapping
         // Target+sourceIndex is what most users edit incrementally; on
         // wholesale row removal the state lingers harmlessly until the
         // dictionary is cleared (profile switch).
-        private Dictionary<(int slot, string target, int srcIdx), double> _incrementalAccum
+        private Dictionary<(int slot, string target, int srcIdx), KeyAccumulator> _incrementalAccum
             = new();
 
         // Ramped axis envelope accumulator (v3.5 #111), bipolar [-1, +1], same
         // (slot, target, srcIdx) key as Incremental so two ramped sources on one
         // row keep independent state.
-        private Dictionary<(int slot, string target, int srcIdx), double> _rampedAccum
+        private Dictionary<(int slot, string target, int srcIdx), KeyAccumulator> _rampedAccum
             = new();
+
+        /// <summary>One Incremental or Ramp value with the frame it is being
+        /// stepped in. Every row that has a key source at the same place of
+        /// the same target reads the one value, so more than one reader can
+        /// tick it in a frame (<see cref="UseCommitLayer"/>). The value is
+        /// stepped once a frame all the same: each reader's first tick adds
+        /// the keys it reads to the frame's and steps from where the frame
+        /// started with all of them. Made once, when the value is first
+        /// read, so no tick after that allocates.</summary>
+        private sealed class KeyAccumulator
+        {
+            public double Value;        // where the last tick left it
+            public long Seq = -1;       // the frame the fields below belong to
+            public double Start;        // the value when that frame began
+            public bool Up, Down;       // the keys read so far in that frame, by any reader
+        }
 
         // Toggle latch (#461), keyed by (slot, target, layer, srcIdx): two
         // toggles on one row keep their own state, and so do a Base row and a
@@ -97,6 +113,10 @@ namespace PadForge.Engine.Common.Mapping
         // hold change drops the stale-frame latch on the next read.
         private Dictionary<string, (double x, double y, double z, string grip)> _motionNeutral = new();
 
+        // The second sensor's latch key for each device. Joined on every
+        // tick, it was a new string a poll for as long as the row was read.
+        private static readonly System.Collections.Concurrent.ConcurrentDictionary<string, string> s_auxLeanKeys = new();
+
         // ── Flick stick (#225) ──
         // Per-row flick stick state, JSM's Stick flick fields (Stick.h:75-90)
         // plus the frame-sequence guards the StickTrim state uses (the KBM
@@ -136,9 +156,58 @@ namespace PadForge.Engine.Common.Mapping
         /// in 1 s on two devices, 0.66 s on three).</summary>
         public long FrameSeq;
 
+        // The frame stamps are keyed by the accumulator's key and by who
+        // reads: "" for the row the engaged layer reads, and the departed
+        // layer for a menu commit made by leaving it (UseCommitLayer). Such
+        // a commit is read on the departed layer's row in the same frame as
+        // the engaged layer's row for the target, and the two share the
+        // accumulator. Under one stamp the engaged row ticked first and the
+        // commit's tick replayed its value, so a key the commit held never
+        // stepped it, and a Base row two departed layers' commits both reach
+        // took the first one's key alone. So each reader ticks once a frame,
+        // and a second pass of the same reader, another device's, replays
+        // its first.
+        //
+        // The value is still stepped once a frame, whoever reads it
+        // (KeyAccumulator). With a full tick of its own, the engaged row's
+        // rest tick undid the commit's step every frame (a Ramp gave back
+        // one release step, and a row that is not sticky went back to its
+        // floor), and a key both rows held stepped the value twice. A
+        // reader's first tick steps from where the frame started with the
+        // keys of every reader so far: a key any of them holds counts once,
+        // and opposite keys on two of them read as both held, as they do on
+        // one row. What a reader's own tick returns is that step with the
+        // keys read up to it, so the reader that ticks last returns the
+        // value the frame ends on.
         private sealed class TickReplay { public long Seq = -1; public double Output; }
-        private Dictionary<(int slot, string target, int srcIdx), TickReplay> _incrementalReplay = new();
-        private Dictionary<(int slot, string target, int srcIdx), TickReplay> _rampedReplay = new();
+        private Dictionary<(int slot, string target, string layer, int srcIdx), TickReplay> _incrementalReplay = new();
+        private Dictionary<(int slot, string target, string layer, int srcIdx), TickReplay> _rampedReplay = new();
+
+        [ThreadStatic] private static string t_commitLayer;
+
+        /// <summary>Until the scope is disposed, an Incremental or Ramp tick
+        /// on this thread is a read of the menu commit made by leaving
+        /// <paramref name="layer"/>: a reader of its own in the frame, apart
+        /// from the engaged layer's row and from another layer's commit, so
+        /// the keys it reads are read though one of those ticked first. The
+        /// value is stepped once a frame for all of them
+        /// (<see cref="KeyAccumulator"/>). Disposing restores the scope
+        /// before it.</summary>
+        public static CommitScope UseCommitLayer(string layer)
+        {
+            var previous = t_commitLayer;
+            t_commitLayer = layer;
+            return new CommitScope(previous);
+        }
+
+        /// <summary>Restores the commit layer that was in force when the
+        /// scope began.</summary>
+        public readonly struct CommitScope : IDisposable
+        {
+            private readonly string _previous;
+            internal CommitScope(string previous) => _previous = previous;
+            public void Dispose() => t_commitLayer = _previous;
+        }
 
         // Saturation band for the lock state machine — avoids float-edge thrash at ±1.
         private const double LockEpsilon = 1e-3;
@@ -177,11 +246,12 @@ namespace PadForge.Engine.Common.Mapping
             _windingState = Without(_windingState, slot, null);
             _lockState = Without(_lockState, slot, null);
             _flickState = Without(_flickState, slot, null);
-            // The accumulators, not only their frame-replay stamps. All five
-            // dictionaries key on (slot, target, srcIdx), so a wholesale row
-            // replacement invalidates every one of them: dropping the stamp
-            // while leaving the value just meant the re-authored row resumed
-            // the previous occupant's cruise position on the next tick.
+            // The accumulators, not only their frame-replay stamps. Every
+            // dictionary here keys on the slot and the row's target, so a
+            // wholesale row replacement invalidates every one of them:
+            // dropping the stamp while leaving the value just meant the
+            // re-authored row resumed the previous occupant's cruise
+            // position on the next tick.
             _incrementalAccum = Without(_incrementalAccum, slot, null);
             _rampedAccum = Without(_rampedAccum, slot, null);
             _incrementalReplay = Without(_incrementalReplay, slot, null);
@@ -279,23 +349,58 @@ namespace PadForge.Engine.Common.Mapping
         {
             if (src == null || state == null) return 0;
             var key = (slotIndex, target ?? "", sourceIndex);
-            if (!_incrementalReplay.TryGetValue(key, out var replay))
-                _incrementalReplay[key] = replay = new TickReplay();
-            // Second per-device pass in the same frame: replay this frame's
-            // value instead of advancing the accumulator again.
+            var stamp = (slotIndex, target ?? "", t_commitLayer ?? "", sourceIndex);
+            var replays = _incrementalReplay;
+            if (!replays.TryGetValue(stamp, out var replay))
+                replays[stamp] = replay = new TickReplay();
+            // A second pass of this reader in the same frame, another
+            // device's: replay its first instead of ticking again.
             if (replay.Seq == FrameSeq) return replay.Output;
             replay.Seq = FrameSeq;
-            _incrementalAccum.TryGetValue(key, out double current);
 
+            // The reader's keys join the frame's, and the value steps once
+            // from where the frame started with all of them.
+            var acc = FrameAccumulator(_incrementalAccum, key);
+            acc.Up |= ReadKey(state, src.ParamUp, src.ParamUpDeviceGuid,
+                src, evaluatedDeviceGuid, slotIndex);
+            acc.Down |= ReadKey(state, src.ParamDown, src.ParamDownDeviceGuid,
+                src, evaluatedDeviceGuid, slotIndex);
+
+            double current = StepIncremental(acc.Start, src, acc.Up, acc.Down, frameDeltaSeconds);
+            acc.Value = current;
+            replay.Output = current;
+            return current;
+        }
+
+        /// <summary>The accumulator for <paramref name="key"/> with its frame
+        /// begun: on its first read in a frame it notes the value the frame
+        /// starts from and forgets the last frame's keys. It is made on its
+        /// first read ever, the one allocation it costs.</summary>
+        private KeyAccumulator FrameAccumulator(
+            Dictionary<(int slot, string target, int srcIdx), KeyAccumulator> store,
+            (int slot, string target, int srcIdx) key)
+        {
+            if (!store.TryGetValue(key, out var acc))
+                store[key] = acc = new KeyAccumulator();
+            if (acc.Seq != FrameSeq)
+            {
+                acc.Seq = FrameSeq;
+                acc.Start = acc.Value;
+                acc.Up = false;
+                acc.Down = false;
+            }
+            return acc;
+        }
+
+        /// <summary>One Incremental step of <paramref name="current"/> with
+        /// the keys given.</summary>
+        private static double StepIncremental(double current, MappingSource src, bool up, bool down,
+            double frameDeltaSeconds)
+        {
             // Clamp to declared range (handles user re-narrowing the range
             // mid-session).
             if (current < src.ParamMin) current = src.ParamMin;
             if (current > src.ParamMax) current = src.ParamMax;
-
-            bool up = ReadKey(state, src.ParamUp, src.ParamUpDeviceGuid,
-                src, evaluatedDeviceGuid, slotIndex, anyDeviceSpansSlot: true);
-            bool down = ReadKey(state, src.ParamDown, src.ParamDownDeviceGuid,
-                src, evaluatedDeviceGuid, slotIndex, anyDeviceSpansSlot: true);
 
             double rate = src.ParamRate;
             if (rate < 0) rate = 0;
@@ -325,8 +430,6 @@ namespace PadForge.Engine.Common.Mapping
             // else: held opposite or both held / both released sticky →
             // hold last value.
 
-            _incrementalAccum[key] = current;
-            replay.Output = current;
             return current;
         }
 
@@ -357,18 +460,34 @@ namespace PadForge.Engine.Common.Mapping
         {
             if (src == null || state == null) return 0;
             var key = (slotIndex, target ?? "", sourceIndex);
-            if (!_rampedReplay.TryGetValue(key, out var replay))
-                _rampedReplay[key] = replay = new TickReplay();
-            // Second per-device pass in the same frame: replay, don't re-ramp.
+            var stamp = (slotIndex, target ?? "", t_commitLayer ?? "", sourceIndex);
+            var replays = _rampedReplay;
+            if (!replays.TryGetValue(stamp, out var replay))
+                replays[stamp] = replay = new TickReplay();
+            // A second pass of this reader in the same frame, another
+            // device's: replay, don't re-ramp.
             if (replay.Seq == FrameSeq) return replay.Output;
             replay.Seq = FrameSeq;
-            _rampedAccum.TryGetValue(key, out double v);
 
-            bool up = ReadKey(state, src.ParamUp, src.ParamUpDeviceGuid,
-                src, evaluatedDeviceGuid, slotIndex, anyDeviceSpansSlot: true);     // positive direction
-            bool down = ReadKey(state, src.ParamDown, src.ParamDownDeviceGuid,
-                src, evaluatedDeviceGuid, slotIndex, anyDeviceSpansSlot: true);     // negative direction
+            // The reader's keys join the frame's, and the value steps once
+            // from where the frame started with all of them.
+            var acc = FrameAccumulator(_rampedAccum, key);
+            acc.Up |= ReadKey(state, src.ParamUp, src.ParamUpDeviceGuid,
+                src, evaluatedDeviceGuid, slotIndex);     // positive direction
+            acc.Down |= ReadKey(state, src.ParamDown, src.ParamDownDeviceGuid,
+                src, evaluatedDeviceGuid, slotIndex);     // negative direction
 
+            double v = StepRamped(acc.Start, src, acc.Up, acc.Down, frameDeltaSeconds);
+            acc.Value = v;
+            replay.Output = v;
+            return v;
+        }
+
+        /// <summary>One Ramp step of <paramref name="v"/> with the keys
+        /// given.</summary>
+        private static double StepRamped(double v, MappingSource src, bool up, bool down,
+            double frameDeltaSeconds)
+        {
             double attack = src.ParamAttackTime;   if (attack < 0) attack = 0;
             double release = src.ParamReleaseTime; if (release < 0) release = 0;
             double rev = src.ParamReverseMultiplier; if (rev < 1) rev = 1;
@@ -415,8 +534,6 @@ namespace PadForge.Engine.Common.Mapping
             // else: autocenter off and not driving → cruise, hold last value.
 
             if (v < -1) v = -1; else if (v > 1) v = 1;
-            _rampedAccum[key] = v;
-            replay.Output = v;
             return v;
         }
 
@@ -694,7 +811,7 @@ namespace PadForge.Engine.Common.Mapping
             // body gravity above is grip-rotated, so a neutral from the old
             // hold is a vector in the old frame. A grip change drops it and
             // the next real sample re-latches.
-            string gid = aux ? (deviceGuid ?? "") + "|L" : (deviceGuid ?? "");
+            string gid = aux ? s_auxLeanKeys.GetOrAdd(deviceGuid ?? "", static device => device + "|L") : (deviceGuid ?? "");
             string grip = SourceCoercion.LatchGrip(deviceGuid, slotIndex, aux);
             if (_motionNeutral.TryGetValue(gid, out var had)
                 && !string.Equals(had.grip, grip, StringComparison.Ordinal))
@@ -1158,32 +1275,84 @@ namespace PadForge.Engine.Common.Mapping
         /// <paramref name="descriptor"/> as held: a button, a hat direction,
         /// a slot event (a touchpad gesture, a mouse gesture or a menu cell),
         /// IR Offscreen, or a plain hardware-bool family, MIDI notes, CCs and
-        /// encoder detents among them. Every on/off input is one of these, and
-        /// no analog input is. The branches are the reader's own, in its
-        /// order. The Up and Down pickers of an Incremental or Ramped source
-        /// list only these, so a stick, a trigger or another axis is never
-        /// offered as a key that reads released forever.</summary>
+        /// encoder detents and the stick and touchpad rings among them. Every
+        /// on/off input is one of these, and no analog input is. The branches
+        /// are the reader's own, in its order. The Up and Down pickers of an
+        /// Incremental or Ramped source list only these, so a stick, a trigger
+        /// or another axis is never offered as a key that reads released
+        /// forever.</summary>
         public static bool ReadsAsKey(string descriptor)
         {
             if (string.IsNullOrWhiteSpace(descriptor)) return false;
             string s = SourceCoercion.CanonicalDescriptor(descriptor);
 
             if (s.StartsWith("Button ", StringComparison.Ordinal))
-                return int.TryParse(s.Substring(7), out int idx)
+                return int.TryParse(s.AsSpan(7), out int idx)
                     && idx >= 0 && idx < CustomInputState.MaxButtons;
 
             if (s.StartsWith("POV ", StringComparison.Ordinal))
-            {
-                var parts = s.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                if (parts.Length < 3 || !int.TryParse(parts[1], out int povIdx)
-                    || povIdx < 0 || povIdx >= CustomInputState.MaxPovs)
-                    return false;
-                return parts[2].ToLowerInvariant() is "up" or "right" or "down" or "left";
-            }
+                return TryParseHatKey(s, out int povIdx, out int direction)
+                    && povIdx >= 0 && povIdx < CustomInputState.MaxPovs
+                    && direction >= 0;
 
             return SourceCoercion.IsSlotEventDescriptor(s)
                 || SourceCoercion.IsIrOffscreenDescriptor(s)
                 || SourceCoercion.IsHardwareBoolDescriptor(s);
+        }
+
+        // The directions of a hat key (TryParseHatKey).
+        private const int HatUp = 0, HatRight = 1, HatDown = 2, HatLeft = 3;
+
+        /// <summary>The index and direction of a "POV N Dir" key, parsed as
+        /// the key reader has always parsed it: <paramref name="s"/> split on
+        /// spaces with the empty pieces dropped, at least three pieces, N read
+        /// by int.TryParse in the current culture and Dir lowercased by the
+        /// invariant culture. The pieces are spans of the descriptor, so the
+        /// parse allocates nothing: a key is read on every frame, and the
+        /// split cost two arrays and three strings a read, and a fourth
+        /// string to lowercase a capitalized direction.
+        /// <paramref name="direction"/> is -1 for a word no hat direction
+        /// is.</summary>
+        private static bool TryParseHatKey(string s, out int index, out int direction)
+        {
+            index = 0;
+            direction = -1;
+            ReadOnlySpan<char> rest = s;
+            NextPiece(ref rest);                            // "POV"
+            ReadOnlySpan<char> number = NextPiece(ref rest);
+            ReadOnlySpan<char> word = NextPiece(ref rest);
+            if (word.IsEmpty || !int.TryParse(number, out index)) return false;
+            direction = HatDirection(word);
+            return true;
+        }
+
+        /// <summary>The next piece of <paramref name="rest"/> between
+        /// spaces, empty when none is left, with <paramref name="rest"/>
+        /// moved past it.</summary>
+        private static ReadOnlySpan<char> NextPiece(ref ReadOnlySpan<char> rest)
+        {
+            int start = 0;
+            while (start < rest.Length && rest[start] == ' ') start++;
+            int end = start;
+            while (end < rest.Length && rest[end] != ' ') end++;
+            var piece = rest.Slice(start, end - start);
+            rest = rest.Slice(end);
+            return piece;
+        }
+
+        /// <summary>The hat direction <paramref name="word"/> names once
+        /// lowercased by the invariant culture, or -1. Lowercasing keeps a
+        /// word's length, so only two to five letters can name one.</summary>
+        private static int HatDirection(ReadOnlySpan<char> word)
+        {
+            if (word.Length < 2 || word.Length > 5) return -1;
+            Span<char> buffer = stackalloc char[5];
+            ReadOnlySpan<char> lower = buffer.Slice(0, word.ToLowerInvariant(buffer));
+            if (lower.SequenceEqual("up".AsSpan())) return HatUp;
+            if (lower.SequenceEqual("right".AsSpan())) return HatRight;
+            if (lower.SequenceEqual("down".AsSpan())) return HatDown;
+            if (lower.SequenceEqual("left".AsSpan())) return HatLeft;
+            return -1;
         }
 
         /// <summary>The controller a key of <paramref name="src"/> reads: the
@@ -1195,42 +1364,46 @@ namespace PadForge.Engine.Common.Mapping
         public static string KeyDevice(string keyDeviceGuid, MappingSource src)
             => keyDeviceGuid ?? src?.DeviceGuid ?? "";
 
-        /// <summary>Reads a key of <paramref name="src"/> on the controller it
-        /// names (<see cref="KeyDevice"/>). <paramref name="state"/> belongs to
-        /// the device the evaluator reads the source on, the one
+        /// <summary>Reads an Up or Down key of <paramref name="src"/> on the
+        /// controller it names (<see cref="KeyDevice"/>). <paramref name="state"/>
+        /// belongs to the device the evaluator reads the source on, the one
         /// SourceCoercion.EffectiveDeviceGuid names, so a key on that device
         /// reads it straight. A key on another controller reads through
-        /// SourceCoercion.KeyHeldProvider. So does an "(Any Device)" key when
-        /// <paramref name="anyDeviceSpansSlot"/>: an Incremental or Ramp key is
-        /// read once a frame (the replay guard), so it has to see every
-        /// controller on the slot, not the one whose pass came first. The
-        /// Invert on Hold mirror passes false and reads such a key on the pass
-        /// device, as Step 3 reads the modifier of a row each pass reads apart
-        /// (InputManager.IsInvertOnHoldActive). Without the provider, an
-        /// engine-only caller, every key reads the state in hand.</summary>
+        /// SourceCoercion.KeyHeldProvider, and so does an "(Any Device)" key:
+        /// a key is read once a frame (the replay guard), so it has to see
+        /// every controller on the slot, not the one whose pass came first.
+        /// Without the provider, an engine-only caller, every key reads the
+        /// state in hand.</summary>
         internal static bool ReadKey(CustomInputState state, string descriptor, string keyDeviceGuid,
-            MappingSource src, string evaluatedDeviceGuid, int slotIndex, bool anyDeviceSpansSlot)
+            MappingSource src, string evaluatedDeviceGuid, int slotIndex)
         {
             if (string.IsNullOrWhiteSpace(descriptor)) return false;
             string hand = SourceCoercion.EffectiveDeviceGuid(src, evaluatedDeviceGuid);
             string key = KeyDevice(keyDeviceGuid, src);
-            bool inHand = key.Length == 0
-                ? !anyDeviceSpansSlot
-                : string.Equals(key, hand, StringComparison.OrdinalIgnoreCase);
+            bool inHand = key.Length != 0
+                && string.Equals(key, hand, StringComparison.OrdinalIgnoreCase);
             var provider = SourceCoercion.KeyHeldProvider;
             // A caller with no slot (slotIndex below zero) has no controllers
             // to span, so an "(Any Device)" key reads the state in hand there.
             return inHand || provider == null || (key.Length == 0 && slotIndex < 0)
-                ? ReadButtonLikeBool(state, descriptor, hand, slotIndex)
+                ? ReadKeyOn(state, descriptor, hand, slotIndex)
                 : provider(key, descriptor, slotIndex);
         }
 
-        /// <summary>A key read on one device's own state, the read behind the
-        /// app's SourceCoercion.KeyHeldProvider. <paramref name="deviceGuid"/>
-        /// owns <paramref name="state"/> and keys the grip of a hat and the
-        /// per-device families.</summary>
+        /// <summary>A key read on one device's own state: every key read in
+        /// hand, and the read behind the app's SourceCoercion.KeyHeldProvider.
+        /// <paramref name="deviceGuid"/> owns <paramref name="state"/> and keys
+        /// the grip of a hat and the per-device families. A key on an input
+        /// the rows hold back on that device reads released
+        /// (SourceCoercion.KeyHeldBackProvider): an input an activator reads
+        /// while "Also Fire Activator's Own Mapping" is off, or a trigger a
+        /// consuming macro eats, as a Direct source and an Invert on Hold
+        /// modifier on that input read. The input is read first, so a family
+        /// that keeps state as it reads, IR Offscreen's debounce, keeps it
+        /// whether or not the key is held back.</summary>
         public static bool ReadKeyOn(CustomInputState state, string descriptor, string deviceGuid, int slotIndex)
-            => ReadButtonLikeBool(state, descriptor, deviceGuid, slotIndex);
+            => ReadButtonLikeBool(state, descriptor, deviceGuid, slotIndex)
+               && !(SourceCoercion.KeyHeldBackProvider?.Invoke(slotIndex, deviceGuid ?? "", descriptor) ?? false);
 
         // Reads a button-like descriptor (Button N or POV N Dir) from a
         // CustomInputState. No deadzone handling here. Incremental's up
@@ -1249,9 +1422,11 @@ namespace PadForge.Engine.Common.Mapping
             // their canonical "Button N" / "POV 0 Dir" form.
             string s = SourceCoercion.CanonicalDescriptor(descriptor);
 
+            // The index parses where it stands: a Substring cost a string
+            // on every read.
             if (s.StartsWith("Button ", StringComparison.Ordinal))
             {
-                if (int.TryParse(s.Substring(7), out int idx) &&
+                if (int.TryParse(s.AsSpan(7), out int idx) &&
                     idx >= 0 && idx < state.Buttons.Length)
                     return state.Buttons[idx];
                 return false;
@@ -1259,20 +1434,19 @@ namespace PadForge.Engine.Common.Mapping
 
             if (s.StartsWith("POV ", StringComparison.Ordinal))
             {
-                var parts = s.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                if (parts.Length >= 3 && int.TryParse(parts[1], out int povIdx) &&
+                if (TryParseHatKey(s, out int povIdx, out int direction) &&
                     povIdx >= 0 && povIdx < state.Povs.Length)
                 {
                     int v = SourceCoercion.GripPov(deviceGuid, slotIndex, state.Povs[povIdx]);
                     if (v < 0) return false;
                     int n = ((v % 36000) + 36000) % 36000;
-                    return parts[2].ToLowerInvariant() switch
+                    return direction switch
                     {
-                        "up"    => n >= 31500 || n <= 4500,
-                        "right" => n >= 4500 && n <= 13500,
-                        "down"  => n >= 13500 && n <= 22500,
-                        "left"  => n >= 22500 && n <= 31500,
-                        _       => false,
+                        HatUp    => n >= 31500 || n <= 4500,
+                        HatRight => n >= 4500 && n <= 13500,
+                        HatDown  => n >= 13500 && n <= 22500,
+                        HatLeft  => n >= 22500 && n <= 31500,
+                        _        => false,
                     };
                 }
                 return false;
@@ -1288,10 +1462,11 @@ namespace PadForge.Engine.Common.Mapping
 
             // Not Button/POV: a gate or an Incremental/Ramped param can
             // name a hardware-bool family (capsense, NFC tag, MIDI, touchpad
-            // contact), and the Up and Down pickers list them (ReadsAsKey).
-            // Route those through the shared descriptor read. Path A NFC
-            // tags never hit this (the PC/SC reader exposes them as raw
-            // buttons), which is how the gap shipped unnoticed (#248 audit).
+            // contact, a stick or touchpad ring), and the Up and Down pickers
+            // list them (ReadsAsKey). Route those through the shared
+            // descriptor read. Path A NFC tags never hit this (the PC/SC
+            // reader exposes them as raw buttons), which is how the gap
+            // shipped unnoticed (#248 audit).
             return SourceCoercion.ReadHardwareBoolDescriptor(state, s);
         }
     }

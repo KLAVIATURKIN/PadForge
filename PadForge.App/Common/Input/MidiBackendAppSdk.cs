@@ -2,21 +2,22 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Windows.Devices.Midi2;
 using Microsoft.Windows.Devices.Midi2.Endpoints.Virtual;
-using Microsoft.Windows.Devices.Midi2.Messages;
 
 namespace PadForge.Common.Input
 {
     /// <summary>
-    /// The older Windows MIDI Services App SDK runtime
-    /// (Microsoft.Windows.Devices.Midi2 1.0.16-rc.3.7), for PCs that still
-    /// have Microsoft's "Windows MIDI Services Runtime and Tools" install.
-    /// It is the only path on Windows 11 24H2, which the in-box API does not
-    /// cover. Microsoft deleted its installers on 2026-10-01, so it serves
-    /// existing installs only. Remove it once the owner ends 24H2 MIDI
-    /// support.
+    /// The Windows MIDI Services App SDK runtime, through the projection
+    /// compiled against Microsoft.Windows.Devices.Midi2 1.0.16-rc.3.7. The
+    /// runtime is Microsoft's own install where a PC still has one, or
+    /// PadForge's build of 1.0.17-rc.4.25 from
+    /// hifihedgehog/PadForge-MIDI-Runtime, which the Settings card installs.
+    /// It is the Windows MIDI Services path on Windows 11 24H2, which the
+    /// in-box API does not cover, and on 25H2 until Windows registers the
+    /// in-box API, with the legacy WinMM API as the fallback where no
+    /// runtime is installed.
     ///
-    /// <para>This is the code MidiVirtualController and MidiInputDevice ran
-    /// before the in-box port, moved here unchanged.</para>
+    /// <para>The calls mirror <see cref="MidiBackendInBox"/> one for
+    /// one.</para>
     /// </summary>
     internal sealed class MidiBackendAppSdk : IMidiBackend
     {
@@ -24,8 +25,17 @@ namespace PadForge.Common.Input
 
         public MidiApiKind Kind => MidiApiKind.AppSdk;
 
+        /// <summary>Test seam: set by the test assembly for the life of its
+        /// process. Every call that loads the runtime or reaches the MIDI
+        /// service then answers as a service that refuses: no start, no
+        /// virtual device, no session, no endpoints. A session or a virtual
+        /// device made from the test host is one every other program on this
+        /// PC sees. False in production, where nothing sets it.</summary>
+        internal static bool OffLimitsForTest;
+
         public bool Start()
         {
+            if (OffLimitsForTest) return false;
             _initializer = Microsoft.Windows.Devices.Midi2.Initialization.MidiDesktopAppSdkInitializer.Create();
             if (!_initializer.InitializeSdkRuntime())
             {
@@ -43,12 +53,13 @@ namespace PadForge.Common.Input
         }
 
         /// <summary>
-        /// Dispose is what calls ShutdownSdkRuntime and lets go of the SDK's
-        /// native dlls. <paramref name="skipDispose"/> abandons the
-        /// initializer instead, for teardown while the service may ALREADY be
-        /// mid-removal (app exit racing an external uninstall): Dispose()
-        /// calls into the runtime and crashes if the service is going away
-        /// under it.
+        /// Drops the initializer. Its Dispose calls ShutdownSdkRuntime, which
+        /// in Microsoft's projection only drops the native initializer's
+        /// reference: the native Shutdown call is commented out there (rc-3
+        /// and rc-4 MidiDesktopAppSdkInitializer.cs), so the runtime's DLLs
+        /// stay mapped for the life of the process.
+        /// <paramref name="skipDispose"/> drops the initializer without
+        /// calling Dispose. No production caller passes it.
         /// </summary>
         public void Stop(bool skipDispose)
         {
@@ -62,6 +73,7 @@ namespace PadForge.Common.Input
 
         public IMidiVirtualEndpoint CreateVirtualEndpoint(string deviceName, string uniqueId, int padIndex)
         {
+            if (OffLimitsForTest) throw new InvalidOperationException("The test host creates no virtual MIDI device.");
             // Define the virtual device.
             var declaredEndpointInfo = new MidiDeclaredEndpointInfo();
             declaredEndpointInfo.Name = deviceName;
@@ -76,9 +88,11 @@ namespace PadForge.Common.Input
 
             var declaredDeviceIdentity = new MidiDeclaredDeviceIdentity();
 
+            // A fixed text, as in the in-box backend: no slot number, which
+            // was the pad index plus one and not the number the UI shows.
             var userSuppliedInfo = new MidiEndpointUserSuppliedInfo();
             userSuppliedInfo.Name = deviceName;
-            userSuppliedInfo.Description = $"PadForge virtual MIDI controller (slot {padIndex + 1})";
+            userSuppliedInfo.Description = "PadForge virtual MIDI controller";
 
             var config = new MidiVirtualDeviceCreationConfig(
                 deviceName,
@@ -159,17 +173,17 @@ namespace PadForge.Common.Input
                 _connection = connection;
             }
 
-            public void Send(Midi1Status status, int channel, int data1, int data2)
+            /// <summary>Sends the word the message builder would pack
+            /// (<see cref="MidiUmp.Midi1Word"/>) with no WinRT object per
+            /// message, as the in-box backend does. The API took it unless the
+            /// result carries Failed.</summary>
+            public bool Send(Midi1Status status, int channel, int data1, int data2)
             {
-                var msg = MidiMessageBuilder.BuildMidi1ChannelVoiceMessage(
-                    0,
-                    new MidiGroup(0),
-                    (Midi1ChannelVoiceMessageStatus)(byte)status,
-                    new MidiChannel((byte)channel),
-                    (byte)data1,
-                    (byte)data2);
-                _connection.SendSingleMessagePacket(msg);
+                var result = _connection.SendSingleMessageWords(0, MidiUmp.Midi1Word(status, channel, data1, data2));
+                return (result & MidiSendMessageResults.Failed) != MidiSendMessageResults.Failed;
             }
+
+            public bool Lost => false;
 
             public void DisconnectConnection() => _session.DisconnectEndpointConnection(_connection.ConnectionId);
 
@@ -182,6 +196,7 @@ namespace PadForge.Common.Input
 
         public IMidiInputSession CreateInputSession(string name)
         {
+            if (OffLimitsForTest) return null;
             var session = MidiSession.Create(name);
             return session == null ? null : new InputSession(session);
         }
@@ -247,6 +262,7 @@ namespace PadForge.Common.Input
         public List<(string Id, string Name)> EnumerateNormalEndpoints()
         {
             var result = new List<(string Id, string Name)>();
+            if (OffLimitsForTest) return result;
             // A throw partway keeps what was read before it, as the
             // enumeration in MidiInputRuntime always has.
             try

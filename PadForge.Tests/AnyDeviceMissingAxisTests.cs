@@ -1436,9 +1436,10 @@ namespace PadForge.Tests
             foreach (string d in new[] { SourceCoercion.LeftStickRingDescriptor, "Gamepad LeftStickX", "Axis 3" })
             {
                 SourceCoercion.NumberedAxesRead(d, out _, out _);
-                long before = GC.GetAllocatedBytesForCurrentThread();
-                for (int i = 0; i < 1000; i++) SourceCoercion.NumberedAxesRead(d, out _, out _);
-                Assert.Equal(0, GC.GetAllocatedBytesForCurrentThread() - before);
+                // Counted over windows the runtime left alone: the thread's
+                // count moves by itself in a full run (AllocationWindow).
+                foreach (long bytes in AllocationWindow.Clean(() => SourceCoercion.NumberedAxesRead(d, out _, out _), 1000))
+                    Assert.Equal(0, bytes);
             }
         }
 
@@ -1942,9 +1943,8 @@ namespace PadForge.Tests
         public void AGamepadNameResolvesWithoutAllocating()
         {
             SourceCoercion.ResolveGamepadAlias("Gamepad ButtonA");
-            long before = GC.GetAllocatedBytesForCurrentThread();
-            for (int i = 0; i < 100; i++) SourceCoercion.ResolveGamepadAlias("Gamepad ButtonA");
-            Assert.Equal(before, GC.GetAllocatedBytesForCurrentThread());
+            foreach (long bytes in AllocationWindow.Clean(() => SourceCoercion.ResolveGamepadAlias("Gamepad ButtonA"), 100))
+                Assert.Equal(0, bytes);
         }
 
         /// <summary>An "(Any Device)" ring modifier checks the port's own stick,

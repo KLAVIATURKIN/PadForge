@@ -1,3 +1,4 @@
+using System.Linq;
 using PadForge.Common;
 using Xunit;
 
@@ -105,9 +106,13 @@ namespace PadForge.Tests
             string di = System.IO.File.ReadAllText(System.IO.Path.Combine(dir.FullName, "PadForge.App", "Common", "DriverInstaller.cs"));
             Assert.Contains("if (proc == null)\n            {\n                notTracked = true;", di.Replace("\r\n", "\n"));
             Assert.DoesNotContain("when (ex.TimedOut)", di);
-            // HidHide's install and uninstall, the Visual C++ redistributable's
-            // runs, and the MIDI runtime's install.
-            Assert.Equal(4, System.Text.RegularExpressions.Regex.Matches(di, @"when \(ex\.OutcomeUnknown\)").Count);
+            // HidHide's install and uninstall, and the MIDI runtime's install.
+            // The Visual C++ redistributable's runs carry theirs inside the
+            // check failure that names that step, and the MIDI install keeps
+            // its staging folder for it too.
+            Assert.Equal(3, System.Text.RegularExpressions.Regex.Matches(di, @"when \(ex\.OutcomeUnknown\)").Count);
+            Assert.Contains("inner: InstallerFailedException.NoExitCode(untracked));", di);
+            Assert.Contains("catch (DriverCheckException ex) when (ex.Failure == DriverCheckFailure.VcRedistStillRunning)", di);
             Assert.DoesNotContain("throw new InstallerFailedException();", di);
 
             string window = System.IO.File.ReadAllText(System.IO.Path.Combine(dir.FullName, "PadForge.App", "MainWindow.xaml.cs"));
@@ -115,6 +120,196 @@ namespace PadForge.Tests
 
             string resx = System.IO.File.ReadAllText(System.IO.Path.Combine(dir.FullName, "PadForge.App", "Resources", "Strings", "Strings.resx"));
             Assert.Matches("name=\"Status_InstallerNotTracked\"[^>]*><value>Windows started the installer", resx);
+        }
+
+        // ── Words for PadForge's own checks ──
+
+        private static string Described(System.Exception ex, string culture)
+        {
+            var thread = System.Threading.Thread.CurrentThread;
+            var before = thread.CurrentUICulture;
+            try
+            {
+                thread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(culture);
+                return PadForge.MainWindow.DescribeDriverFailure(ex);
+            }
+            finally { thread.CurrentUICulture = before; }
+        }
+
+        /// <summary>The value the resx file of <paramref name="culture"/>
+        /// holds for <paramref name="key"/>.</summary>
+        private static string LocaleValue(string culture, string key)
+        {
+            var dir = new System.IO.DirectoryInfo(System.AppContext.BaseDirectory);
+            while (dir != null && !System.IO.File.Exists(System.IO.Path.Combine(dir.FullName, "PadForge.sln")))
+                dir = dir.Parent;
+            Assert.NotNull(dir);
+            string file = culture == "en" ? "Strings.resx" : $"Strings.{culture}.resx";
+            var data = System.Xml.Linq.XDocument.Load(System.IO.Path.Combine(dir.FullName, "PadForge.App", "Resources", "Strings", file))
+                .Root.Elements("data").Single(d => (string)d.Attribute("name") == key);
+            return data.Element("value").Value;
+        }
+
+        /// <summary>Restart and reboot, as each language says them. No line
+        /// here tells anyone to restart anything.</summary>
+        private static readonly (string culture, string[] words)[] RestartWords =
+        {
+            ("en", new[] { "restart", "reboot" }),
+            ("de", new[] { "neu starten", "neustart" }),
+            ("es", new[] { "reinicia" }),
+            ("fr", new[] { "redémarr" }),
+            ("it", new[] { "riavvia" }),
+            ("ja", new[] { "再起動" }),
+            ("ko", new[] { "다시 시작", "재시작", "재부팅" }),
+            ("nl", new[] { "opnieuw opstarten", "herstart" }),
+            ("pt-BR", new[] { "reinicia" }),
+            ("zh-Hans", new[] { "重启", "重新启动" }),
+        };
+
+        /// <summary>A stop on one of PadForge's own checks, and an ARM64
+        /// HidHide setup that stopped short, carry their reason, and the
+        /// status line words it in the UI language. The English sentence on
+        /// the exception is the log's, and the line used to show it in every
+        /// language. Each value the wording names reaches it, and no
+        /// language's line says to restart.</summary>
+        [Fact]
+        public void EveryCheckFailureIsWordedInTheUiLanguage()
+        {
+            const string fallback = "The English sentence for the log.";
+            var failures = new System.Collections.Generic.List<System.Exception>();
+            foreach (var failure in System.Enum.GetValues<DriverCheckFailure>())
+                failures.Add(new DriverCheckException(failure, fallback, @"C:\Games\SteamVR", "Update state (0x61) downloading"));
+            foreach (var failure in System.Enum.GetValues<HidHideSetupFailure>())
+                failures.Add(new HidHideSetupException(failure));
+            // A Visual C++ Redistributable still running showed its English
+            // message in every language, as a kind of its own that the
+            // wording did not know. The release that timed out before a MIDI
+            // runtime uninstall went the other way: its UI-language sentence
+            // was the exception's message, so that is what the log got.
+            var stillRunning = new DriverCheckException(DriverCheckFailure.VcRedistStillRunning,
+                "The Visual C++ Redistributable installer is still running. Select Install again once it finishes.",
+                inner: InstallerFailedException.Untracked());
+            var releaseTimedOut = new DriverCheckException(DriverCheckFailure.MidiReleaseTimedOut, fallback);
+            var releaseOnDriver = new DriverCheckException(DriverCheckFailure.MidiReleaseTimedOutOnDriver, fallback);
+
+            foreach (var (culture, words) in RestartWords)
+            {
+                foreach (var ex in failures)
+                {
+                    string text = Described(ex, culture);
+                    Assert.False(string.IsNullOrWhiteSpace(text), culture + " " + ex.GetType().Name);
+                    Assert.NotEqual(fallback, text);
+                    foreach (var word in words)
+                        Assert.DoesNotContain(word, text, System.StringComparison.OrdinalIgnoreCase);
+                }
+                // German reads German, not the English fallback.
+                if (culture == "de")
+                    foreach (var ex in failures)
+                        Assert.NotEqual(Described(ex, "en"), Described(ex, "de"));
+                // The still-running line names the Visual C++ step in every
+                // language, and only English reads the exception's own words.
+                Assert.Contains("Visual C++", Described(stillRunning, culture));
+                if (culture != "en")
+                    Assert.NotEqual(stillRunning.Message, Described(stillRunning, culture));
+                Assert.Equal(LocaleValue(culture, "Status_VcRedistStillRunning"), Described(stillRunning, culture));
+                Assert.Equal(LocaleValue(culture, "Status_MidiReleaseTimedOut"), Described(releaseTimedOut, culture));
+                // A release that waited behind a classic driver names the
+                // driver, not the MIDI service.
+                Assert.Equal(LocaleValue(culture, "Status_MidiReleaseTimedOutDriver"), Described(releaseOnDriver, culture));
+            }
+
+            var old = new DriverCheckException(DriverCheckFailure.VcRuntimeStillOld, fallback, "14.51");
+            var notRemoved = new DriverCheckException(DriverCheckFailure.SteamVrNotRemoved, fallback, @"C:\Games\SteamVR");
+            var didNotLand = new DriverCheckException(DriverCheckFailure.SteamVrDidNotLand, fallback, @"C:\Games\SteamVR", "Update state (0x61)");
+            foreach (var (culture, _) in RestartWords)
+            {
+                Assert.Contains("14.51", Described(old, culture));
+                Assert.Contains(@"C:\Games\SteamVR", Described(notRemoved, culture));
+                Assert.Contains(@"C:\Games\SteamVR", Described(didNotLand, culture));
+                Assert.Contains("Update state (0x61)", Described(didNotLand, culture));
+            }
+
+            // An exception of no known kind keeps its own message.
+            Assert.Equal("disk full", Described(new System.IO.IOException("disk full"), "de"));
+        }
+
+        /// <summary>The status line is in the UI language, so the English
+        /// sentence on the exception goes to the diagnostics log, from both
+        /// places a driver operation's failure is caught.</summary>
+        [Fact]
+        public void AFailedOperationReachesTheLogInEnglish()
+        {
+            string fallback = "The English sentence for the log " + System.Guid.NewGuid().ToString("N") + ".";
+            PadForge.MainWindow.LogDriverFailure(new DriverCheckException(DriverCheckFailure.VcRuntimeHeld, fallback));
+            Assert.Contains("DRIVER operation failed: DriverCheckException: " + fallback, PadForge.Engine.SdlDiagLog.Snapshot());
+
+            var dir = new System.IO.DirectoryInfo(System.AppContext.BaseDirectory);
+            while (dir != null && !System.IO.File.Exists(System.IO.Path.Combine(dir.FullName, "PadForge.sln")))
+                dir = dir.Parent;
+            Assert.NotNull(dir);
+            string window = System.IO.File.ReadAllText(System.IO.Path.Combine(dir.FullName, "PadForge.App", "MainWindow.xaml.cs"));
+            Assert.Equal(2, System.Text.RegularExpressions.Regex.Matches(window, @"LogDriverFailure\(ex\);").Count);
+            Assert.Equal(2, System.Text.RegularExpressions.Regex.Matches(window, @"_Format, DescribeDriverFailure\(ex\)\), persist: true\);").Count);
+        }
+
+        // ── The SteamVR folder that will not delete ──
+
+        /// <summary>A SteamVR folder Windows still holds after every try
+        /// fails as the typed check the status line words in the UI
+        /// language. The last try's own exception left the uninstall
+        /// instead, in Windows' words, the one failure of that method that
+        /// was not typed.</summary>
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void ASteamVrFolderThatWillNotDelete_FailsAsTheTypedCheck(bool accessDenied)
+        {
+            const string folder = @"C:\Games\SteamVR";
+            int tries = 0, pauses = 0;
+            var ex = Assert.Throws<DriverCheckException>(() => DriverInstaller.DeleteSteamVrFolder(folder,
+                _ =>
+                {
+                    tries++;
+                    throw accessDenied
+                        ? new System.UnauthorizedAccessException("Access to the path is denied.")
+                        : new System.IO.IOException("The process cannot access the file because it is being used by another process.");
+                },
+                _ => true,
+                () => pauses++));
+            Assert.Equal(DriverCheckFailure.SteamVrNotRemoved, ex.Failure);
+            Assert.Equal(folder, ex.Detail);
+            Assert.Equal(DriverInstaller.SteamVrDeleteTries, tries);
+            Assert.Equal(DriverInstaller.SteamVrDeleteTries - 1, pauses);
+            Assert.Contains(folder, Described(ex, "de"));
+            Assert.NotEqual(ex.Message, Described(ex, "de"));
+        }
+
+        /// <summary>A delete that gets through on a later try removes the
+        /// folder, and one that throws as the folder goes is done as
+        /// well.</summary>
+        [Fact]
+        public void ASteamVrFolderThatDeletesOnALaterTry_IsRemoved()
+        {
+            int tries = 0, pauses = 0;
+            bool there = true;
+            DriverInstaller.DeleteSteamVrFolder(@"C:\Games\SteamVR",
+                _ =>
+                {
+                    if (++tries < 3) throw new System.IO.IOException("in use");
+                    there = false;
+                },
+                _ => there,
+                () => pauses++);
+            Assert.Equal(3, tries);
+            Assert.Equal(2, pauses);
+
+            // Every try throws, and the folder is gone all the same.
+            tries = 0;
+            DriverInstaller.DeleteSteamVrFolder(@"C:\Games\SteamVR",
+                _ => { tries++; throw new System.IO.DirectoryNotFoundException("gone"); },
+                _ => false,
+                () => { });
+            Assert.Equal(DriverInstaller.SteamVrDeleteTries, tries);
         }
 
         // ── Which registry entry names a product msiexec can act on ──

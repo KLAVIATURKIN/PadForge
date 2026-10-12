@@ -379,6 +379,16 @@ namespace PadForge.Tests
         public IDictionary Drivers => (IDictionary)DriverField.GetValue(Manager);
         public InputManager.MenuTickContext Context => Manager.MenuContexts[(0, Device.InstanceGuid, 1)];
 
+        /// <summary>The menu runtime's clock (MenuClock), held while the
+        /// fixture lives. A commit lives 100 ms on it and a driver or context
+        /// stamp 250 ms, and the tests read both across several statements
+        /// and frames. On the system clock a stall between two of them failed
+        /// a test with nothing wrong in the product. Held, nothing lapses
+        /// until a test moves it. It starts ten seconds after boot, long
+        /// before any real tick count, so a read left on the system clock
+        /// would see every held stamp as lapsed.</summary>
+        public long Now = 10_000;
+
         public MenuAuditFixture(MenuFireType fire = MenuFireType.TouchRelease)
         {
             SettingsManager.UserSettings = new SettingsCollection();
@@ -401,6 +411,8 @@ namespace PadForge.Tests
             SettingsManager.SlotMappingSets[0] = Set;
             Device = AddDevice();
             Activator.DeviceGuid = Device.InstanceGuidString;
+            // Last, so a constructor that throws never leaves it held.
+            MenuClock.Source = () => Now;
         }
 
         public UserDevice AddDevice()
@@ -445,6 +457,7 @@ namespace PadForge.Tests
 
         public void Dispose()
         {
+            MenuClock.Source = null;
             EngineField.SetValue(null, _engine);
             InputManager.ClearAllShiftRuntime();
             SettingsManager.UserSettings = _settings;

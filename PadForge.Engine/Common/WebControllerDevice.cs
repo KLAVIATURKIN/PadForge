@@ -581,7 +581,9 @@ namespace PadForge.Engine
         public void SetMenuCell(int slot, int menuId, int cell, bool down)
         {
             if (!_isMenuSurface || slot < 0 || slot >= 64 || cell < 0 || cell >= 64) return;
-            long now = Environment.TickCount64;
+            // The menu runtime's clock: ReadMenuPresses weighs this stamp
+            // against the time the menu tick hands it.
+            long now = Menus.MenuClock.NowMs;
             lock (_menuPressLock)
             {
                 var key = (slot, menuId, cell);

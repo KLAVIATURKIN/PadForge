@@ -25,11 +25,23 @@
 
 param(
     [string]$OutputDir = "C:\Users\sonic\OneDrive\Documents\GitHub\padforge.org\wiki\images",
-    [int]$Port = 8080
+    [int]$Port = 8080,
+    # The owner's answer to a run that stopped over a settings backup an
+    # earlier run left (settings_guard.ps1). Ask, the default, is that
+    # stop. File keeps the settings file and sets the backup aside. Backup puts
+    # the backup back over the settings file. A run with nothing to ask
+    # refuses File and Backup.
+    [ValidateSet('Ask', 'File', 'Backup')]
+    [string]$KeepSettingsFrom = 'Ask'
 )
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
+
+# --- The owner's settings file ------------------------------------------------
+# The marker, the copies, and the loader and saver that every script under
+# tools shares. settings_guard.ps1 says what each one does.
+. (Join-Path $PSScriptRoot 'settings_guard.ps1')
 
 Add-Type -AssemblyName System.Drawing
 
@@ -173,26 +185,19 @@ $exe   = 'C:\PadForge\PadForge.exe'
 $pfXml = 'C:\PadForge\PadForge.xml'
 $pfBak = Join-Path $env:TEMP 'PadForge.xml.webcapture.bak'
 
-# A leftover backup means an earlier run died before restoring, so that copy
-# is the owner's real state. Put it back rather than overwrite it.
-if (Test-Path $pfBak) {
-    Copy-Item $pfBak $pfXml -Force
-    Write-Host "  restored a leftover settings backup from an aborted run" -ForegroundColor Yellow
-}
-if (Test-Path $pfXml) { Copy-Item $pfXml $pfBak -Force }
-
-$results = @{}
-try {
-    # Turn the server on in the file, not through the UI.
-    #
-    # VERIFY the kill before writing. A surviving instance re-saves
-    # PadForge.xml from its own in-memory state on exit and silently puts
-    # EnableWebController back to false, so the write lands, the app
-    # starts, and the server never binds. That is exactly how this ran
-    # three times reporting "server down" while the setting on disk read
-    # true. taskkill also returns success having killed nothing when the
-    # caller is not elevated and PadForge is, so count the processes
-    # rather than trusting the exit code.
+# VERIFY the kill before writing. A surviving instance re-saves PadForge.xml
+# from its own in-memory state on exit and silently puts EnableWebController
+# back to false, so the write lands, the app starts, and the server never
+# binds. That is exactly how this ran three times reporting "server down"
+# while the setting on disk read true. taskkill also returns success having
+# killed nothing when the caller is not elevated and PadForge is, so count the
+# processes rather than trusting the exit code. taskkill writes to stderr when
+# no PadForge runs, and under ErrorActionPreference Stop Windows PowerShell 5.1
+# turns that into a terminating error even through 2>$null, so it runs with
+# Continue here. A PadForge that survives stops the run: no settings file is
+# written or put back under it.
+function Kill-PadForge {
+    $ErrorActionPreference = 'Continue'
     for ($k = 1; $k -le 6; $k++) {
         taskkill /F /IM PadForge.exe 2>$null | Out-Null
         Start-Sleep 3
@@ -203,11 +208,63 @@ try {
     if (@(Get-Process PadForge -ErrorAction SilentlyContinue).Count -ne 0) {
         throw 'PadForge instances survived the kill; refusing to write settings that would be clobbered.'
     }
+}
 
-    $xml = Get-Content $pfXml -Raw
-    $xml = $xml -replace '<EnableWebController>false</EnableWebController>', '<EnableWebController>true</EnableWebController>'
-    Set-Content -Path $pfXml -Value $xml -Encoding UTF8
-    Write-Host "  EnableWebController=true written; restarting PadForge" -ForegroundColor Cyan
+# A backup already there is settled before the app is stopped or a file is
+# touched, so a run that stops has changed nothing. A backup a killed run left
+# holds the owner's real settings, and the file beside it is capture residue.
+# One left behind after the settings were put back by hand sits beside the
+# owner's current file. The marker tells the two apart (Get-BackupDoubt), and
+# without its word the run stops and the owner decides.
+$doubt = Get-BackupDoubt $pfXml $pfBak 'Ask'
+$stop = @()
+if ($KeepSettingsFrom -eq 'Ask' -and $doubt) {
+    $stop = @(Get-BackupStopLines $pfXml $pfBak $doubt)
+} elseif ($KeepSettingsFrom -ne 'Ask' -and -not $doubt) {
+    $stop = @("!! -KeepSettingsFrom $KeepSettingsFrom answers a run that stopped over a settings backup, and this run has nothing to ask. Leave it out.")
+}
+if ($stop.Count -gt 0) {
+    foreach ($line in $stop) { Write-Host $line -ForegroundColor Red }
+    exit 1
+}
+# STOP THE APP FIRST. A leftover backup put back under a live PadForge would
+# be saved over by the app's own state.
+Kill-PadForge
+# Asked again now that the app is down. A save it made after the question
+# above can make two files that were the same differ. The run stops with
+# neither file touched and starts PadForge again.
+$doubt = Get-BackupDoubt $pfXml $pfBak $KeepSettingsFrom
+if ($doubt) {
+    foreach ($line in (Get-BackupStopLines $pfXml $pfBak $doubt)) { Write-Host $line -ForegroundColor Red }
+    Start-Process -FilePath $exe
+    exit 1
+}
+if (Test-Path $pfBak) {
+    if ($KeepSettingsFrom -eq 'File') {
+        $kept = Save-SettingsCopy $pfBak
+        Remove-Item $pfBak -Force
+        Remove-BackupMarker $pfBak
+        Write-Host "  -KeepSettingsFrom File: the settings file stays as it is, and the backup is set aside as $kept" -ForegroundColor Yellow
+    } else {
+        $kept = Save-SettingsCopy $pfXml
+        Write-Host "  restoring the backup an earlier run left" -ForegroundColor Yellow
+        if ($kept) { Write-Host "  the file it replaces is kept as $kept" -ForegroundColor Yellow }
+        Copy-Item $pfBak $pfXml -Force
+    }
+}
+# A backup is written only where none is, so a copy cut short can never leave
+# half a file over a good backup. With no settings file there is nothing to
+# back up, and no marker either.
+if (-not (Test-Path $pfBak) -and (Test-Path $pfXml)) { Copy-Item $pfXml $pfBak -Force }
+Set-BackupMarker $pfBak
+
+$results = @{}
+try {
+    # Turn the server on in the file, not through the UI.
+    $x = Read-SettingsXml $pfXml
+    foreach ($n in @($x.SelectNodes("//EnableWebController"))) { if ($n.InnerText -eq 'false') { $n.InnerText = 'true' } }
+    $kept = Save-SettingsXml $x $pfXml
+    Write-Host "  EnableWebController=true written; restarting PadForge. The file before it is kept as $kept" -ForegroundColor Cyan
     Start-Process -FilePath $exe
     Start-Sleep 18
 
@@ -250,13 +307,28 @@ try {
 }
 finally {
     # Always put the owner's settings back, including after a mid-run error.
+    # A PadForge that survives the kill stops the restore here: the backup and
+    # its marker stay, and the next run puts the backup back.
     Kill-CaptureEdge
     if (Test-Path $pfBak) {
-        taskkill /F /IM PadForge.exe 2>$null | Out-Null
-        Start-Sleep 3
+        Kill-PadForge
+        # The file about to be replaced holds nothing but what the backup holds
+        # and what this run wrote, so its copy is a courtesy and a failed one
+        # does not hold the restore up. The marker goes as soon as the settings
+        # are back, before the backup does.
+        $kept = $null
+        $keptBak = $null
+        try { $kept = Save-SettingsCopy $pfXml }
+        catch { Write-Host "  !! could not copy the capture file aside before the restore: $($_.Exception.Message)" -ForegroundColor Red }
         Copy-Item $pfBak $pfXml -Force
-        Remove-Item $pfBak -Force
+        Remove-BackupMarker $pfBak
+        try {
+            $keptBak = Save-SettingsCopy $pfBak
+            Remove-Item $pfBak -Force
+        } catch { Write-Host "  !! the backup could not be cleared and stays beside the restored file: $($_.Exception.Message)" -ForegroundColor Red }
         Write-Host "  owner settings restored" -ForegroundColor Cyan
+        if ($kept) { Write-Host "  the file the restore replaced is kept as $kept" }
+        if ($keptBak) { Write-Host "  the backup is kept as $keptBak" }
         Start-Process -FilePath $exe
     }
 }

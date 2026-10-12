@@ -14,7 +14,8 @@ namespace PadForge.Tests
     /// it these tests execute the real installer when a guard is removed,
     /// which round 43's mutation run demonstrated by launching a live
     /// steamcmd toward C:\. With the seam a regression still reddens the
-    /// test via the wrong exception type.</summary>
+    /// test via the wrong exception type. Each refusal names its reason,
+    /// which the status line words in the UI language.</summary>
     public class SteamVrInstallGuardTests : IDisposable
     {
         public SteamVrInstallGuardTests()
@@ -29,14 +30,20 @@ namespace PadForge.Tests
         [InlineData(@"D:\")]
         [InlineData(@"c:/")]
         public async Task Install_RefusesDriveRoot(string root)
-            => await Assert.ThrowsAsync<ArgumentException>(
+        {
+            var ex = await Assert.ThrowsAsync<DriverCheckException>(
                 () => DriverInstaller.InstallSteamVRAsync(root));
+            Assert.Equal(DriverCheckFailure.SteamVrLocationIsDriveRoot, ex.Failure);
+        }
 
         [Theory]
         [InlineData("SteamVR")]
         [InlineData(@"relative\path")]
         public async Task Install_RefusesRelativePath(string relative)
-            => await Assert.ThrowsAsync<ArgumentException>(
+        {
+            var ex = await Assert.ThrowsAsync<DriverCheckException>(
                 () => DriverInstaller.InstallSteamVRAsync(relative));
+            Assert.Equal(DriverCheckFailure.SteamVrLocationNotFull, ex.Failure);
+        }
     }
 }

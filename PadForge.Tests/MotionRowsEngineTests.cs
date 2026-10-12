@@ -150,6 +150,59 @@ public class MotionRowsEngineTests
         Assert.Equal(-60f, rig.Manager.MotionSnapshots[0].GyroYaw, 1f);
     }
 
+    /// <summary>A menu commit made by leaving a layer (DC20) turns the slot
+    /// through the departed layer's Motion Yaw row, and at that row's speed.
+    /// The stage read the settings of the row the engaged layer reads, so
+    /// the commit turned at Base's default 360°/s.</summary>
+    [Fact]
+    public void ALayerExitCommitTurnsWithTheDepartedRowsSettings()
+    {
+        using var rig = new Rig();
+        var pad = rig.AddDevice(0, gyro: false, accel: false);
+        var layerYaw = new MappingRow
+        {
+            Target = MappingSetMigrator.MotionYawTarget, LayerMask = "L1", MotionDeadzone = 0, MotionSpeed = 720,
+            Sources = new List<MappingSource> { new() { Kind = "Direct", Descriptor = "Menu 1 Item 2" } },
+        };
+        var set = rig.Slot(0, VirtualControllerType.Nintendo, Row(MappingSetMigrator.MotionYawTarget), layerYaw);
+        set.ShiftActivators.Add(new ShiftActivator { LayerMask = "L1", LayerName = "Shift", Descriptor = "Button 9", Mode = "Hold" });
+        var menu = new PadForge.Engine.Menus.MenuDefinitionEntry
+        {
+            MenuId = 1, Kind = PadForge.Engine.Menus.MenuKind.Radial, CellCount = 4, HasCenter = false,
+            HostDescriptor = "Gamepad RightStick", LayerMask = "L1", LayerHoldsOpen = false,
+            FireType = PadForge.Engine.Menus.MenuFireType.TouchRelease, EngageDeadzonePercent = 25,
+        };
+        for (int i = 1; i <= 4; i++)
+            menu.Items.Add(new PadForge.Engine.Menus.MenuItemDefinition { Index = i });
+        set.Menus.Add(menu);
+        var savedMenus = SourceCoercion.MenuItemFiredProvider;
+        try
+        {
+            // The menu runtime's clock (MenuClock), held: the commit lives
+            // 100 ms on it, and the two polls below read it after the tick
+            // that made it. On the system clock a stall in between lapsed it
+            // with nothing wrong in the product.
+            PadForge.Engine.Menus.MenuClock.Source = () => 10_000;
+            SourceCoercion.MenuItemFiredProvider = (slot, guid, m, item) => rig.Manager.IsMenuItemFired(slot, guid, m, item);
+            InputManager.ApplyMacroLayerSwitch(0, "L1");
+            pad.InputState.Axis[3] = 65535;                // the menu's stick hovers cell 2
+            rig.Manager.UpdateMenuContexts(pad, pad.InputState);
+            InputManager.ApplyMacroLayerSwitch(0, "");      // leaving the layer commits it
+            rig.Manager.UpdateMenuContexts(pad, pad.InputState);
+            Assert.True(rig.Manager.IsMenuItemFired(0, null, 1, 2), "leaving the layer did not commit the cell");
+
+            rig.Poll();
+            rig.Poll();
+            Assert.Equal(-720f, rig.Manager.MotionSnapshots[0].GyroYaw, 1f);
+        }
+        finally
+        {
+            PadForge.Engine.Menus.MenuClock.Source = null;
+            SourceCoercion.MenuItemFiredProvider = savedMenus;
+            InputManager.ClearAllShiftRuntime();
+        }
+    }
+
     // ── False positives ──
 
     [Theory]

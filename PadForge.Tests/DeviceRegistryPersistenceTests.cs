@@ -91,7 +91,7 @@ namespace PadForge.Tests
         public void AnAddressArriving_CountsAsAChange()
         {
             string before = Sig(Dev(serial: ""));
-            Assert.NotEqual(before, Sig(Dev(serial: "00265c507543")));
+            Assert.NotEqual(before, Sig(Dev(serial: "00005e005343")));
         }
 
         /// <summary>Button positions, which the offline listing renders.</summary>

@@ -5,13 +5,47 @@ using System.Threading;
 
 namespace PadForge.Common.Input
 {
+    /// <summary>Why a legacy MIDI slot could not open its output
+    /// port.</summary>
+    internal enum MidiPortProblem
+    {
+        /// <summary>The slot has no port picked.</summary>
+        NotPicked,
+
+        /// <summary>The port is not among WinMM's ports.</summary>
+        NotConnected,
+
+        /// <summary>The port is already open elsewhere: in another program,
+        /// or in another of PadForge's own MIDI slots.</summary>
+        InUse,
+
+        /// <summary>The open failed, or did not answer within its
+        /// bound.</summary>
+        DidNotOpen,
+    }
+
+    /// <summary>A legacy MIDI slot could not open its output port, with the
+    /// reason, so Step 5 can tell the user what to do about it.</summary>
+    internal class MidiPortException : InvalidOperationException
+    {
+        internal MidiPortException(MidiPortProblem problem, string portKey, string message)
+            : base(message)
+        {
+            Problem = problem;
+            PortKey = portKey ?? string.Empty;
+        }
+
+        internal MidiPortProblem Problem { get; }
+        internal string PortKey { get; }
+    }
+
     /// <summary>The legacy API's output port is not among WinMM's ports:
     /// its device is unplugged or switched off. Step 5 retries the slot
     /// once a port listing shows the port again.</summary>
-    internal sealed class MidiPortNotConnectedException : InvalidOperationException
+    internal sealed class MidiPortNotConnectedException : MidiPortException
     {
         internal MidiPortNotConnectedException(string portKey)
-            : base($"MIDI output port '{portKey}' is not connected.") { }
+            : base(MidiPortProblem.NotConnected, portKey, $"MIDI output port '{portKey}' is not connected.") { }
     }
 
     /// <summary>The WinMM calls <see cref="MidiBackendLegacy"/> makes. A seam,
@@ -45,6 +79,9 @@ namespace PadForge.Common.Input
 
         internal const int MMSYSERR_NOERROR = 0;
         internal const int MMSYSERR_ALLOCATED = 4;
+        internal const int MMSYSERR_INVALHANDLE = 5;
+        internal const int MMSYSERR_NODRIVER = 6;
+        internal const int MIDIERR_NODEVICE = 68;
         internal const uint MIM_DATA = 0x3C3;
         private const uint CALLBACK_NULL = 0;
         private const uint CALLBACK_FUNCTION = 0x00030000;
@@ -76,27 +113,48 @@ namespace PadForge.Common.Input
             public uint dwSupport;
         }
 
-        public int InputCount() => (int)midiInGetNumDevs();
-        public int OutputCount() => (int)midiOutGetNumDevs();
+        /// <summary>Test seam: set by the test assembly for the life of its
+        /// process. Every call into winmm.dll then answers as a PC with no
+        /// MIDI driver does: no ports, no names, and MMSYSERR_NODRIVER for an
+        /// open, a send or a close. A WinMM call from the test host opens or
+        /// writes a port other programs use, and on the new MIDI stack even a
+        /// port count starts the MIDI service. The tests' stand-in for the
+        /// driver is another <see cref="IWinMmMidi"/> and is not touched.
+        /// False in production, where nothing sets it.</summary>
+        internal static bool OffLimitsForTest;
+
+        public int InputCount() => OffLimitsForTest ? 0 : (int)midiInGetNumDevs();
+        public int OutputCount() => OffLimitsForTest ? 0 : (int)midiOutGetNumDevs();
 
         public string InputName(int id)
-            => midiInGetDevCapsW((UIntPtr)(uint)id, out var caps, (uint)Marshal.SizeOf<MIDIINCAPSW>()) == MMSYSERR_NOERROR
+            => !OffLimitsForTest
+               && midiInGetDevCapsW((UIntPtr)(uint)id, out var caps, (uint)Marshal.SizeOf<MIDIINCAPSW>()) == MMSYSERR_NOERROR
                 ? caps.szPname : null;
 
         public string OutputName(int id)
-            => midiOutGetDevCapsW((UIntPtr)(uint)id, out var caps, (uint)Marshal.SizeOf<MIDIOUTCAPSW>()) == MMSYSERR_NOERROR
+            => !OffLimitsForTest
+               && midiOutGetDevCapsW((UIntPtr)(uint)id, out var caps, (uint)Marshal.SizeOf<MIDIOUTCAPSW>()) == MMSYSERR_NOERROR
                 ? caps.szPname : null;
 
-        public int OpenOutput(int id, out IntPtr handle) => midiOutOpen(out handle, (uint)id, IntPtr.Zero, IntPtr.Zero, CALLBACK_NULL);
-        public int SendShort(IntPtr handle, uint message) => midiOutShortMsg(handle, message);
-        public int CloseOutput(IntPtr handle) => midiOutClose(handle);
+        public int OpenOutput(int id, out IntPtr handle)
+        {
+            handle = IntPtr.Zero;
+            return OffLimitsForTest ? MMSYSERR_NODRIVER : midiOutOpen(out handle, (uint)id, IntPtr.Zero, IntPtr.Zero, CALLBACK_NULL);
+        }
+
+        public int SendShort(IntPtr handle, uint message) => OffLimitsForTest ? MMSYSERR_NODRIVER : midiOutShortMsg(handle, message);
+        public int CloseOutput(IntPtr handle) => OffLimitsForTest ? MMSYSERR_NODRIVER : midiOutClose(handle);
 
         public int OpenInput(int id, MidiInProc callback, out IntPtr handle)
-            => midiInOpen(out handle, (uint)id, callback, IntPtr.Zero, CALLBACK_FUNCTION);
-        public int StartInput(IntPtr handle) => midiInStart(handle);
-        public int StopInput(IntPtr handle) => midiInStop(handle);
-        public int ResetInput(IntPtr handle) => midiInReset(handle);
-        public int CloseInput(IntPtr handle) => midiInClose(handle);
+        {
+            handle = IntPtr.Zero;
+            return OffLimitsForTest ? MMSYSERR_NODRIVER : midiInOpen(out handle, (uint)id, callback, IntPtr.Zero, CALLBACK_FUNCTION);
+        }
+
+        public int StartInput(IntPtr handle) => OffLimitsForTest ? MMSYSERR_NODRIVER : midiInStart(handle);
+        public int StopInput(IntPtr handle) => OffLimitsForTest ? MMSYSERR_NODRIVER : midiInStop(handle);
+        public int ResetInput(IntPtr handle) => OffLimitsForTest ? MMSYSERR_NODRIVER : midiInReset(handle);
+        public int CloseInput(IntPtr handle) => OffLimitsForTest ? MMSYSERR_NODRIVER : midiInClose(handle);
 
         [DllImport("winmm.dll")] private static extern uint midiInGetNumDevs();
         [DllImport("winmm.dll")] private static extern uint midiOutGetNumDevs();
@@ -177,42 +235,73 @@ namespace PadForge.Common.Input
             return list;
         }
 
+        private sealed class PickerListing
+        {
+            public PickerListing(IWinMmMidi api) => Api = api;
+            public readonly IWinMmMidi Api;
+            public readonly ManualResetEventSlim Done = new(false);
+            public volatile List<string> Ports;
+        }
+
+        private static volatile PickerListing s_pickerListing;
+
         /// <summary>The output ports for the picker, read on a worker within
         /// <paramref name="timeoutMs"/>. On the new MIDI stack WinMM asks the
         /// MIDI service, which can hang, and the picker runs on the UI
         /// thread. A list that does not arrive in time comes back
         /// empty.</summary>
         internal static List<string> ListOutputPortsBounded(int timeoutMs = 2_000)
+            => ListOutputPortsBounded(WinMmMidi.Instance, timeoutMs);
+
+        /// <summary>The bounded listing over <paramref name="api"/>. One
+        /// listing is in flight at a time, as Step 5's port listing keeps
+        /// (KickLegacyPortListing): while one runs, the next dropdown open
+        /// waits on it for the bound rather than starting another, so a WinMM
+        /// that hangs parks one worker, not one per open. Once it has
+        /// finished, the next call lists again, so a healthy PC shows the
+        /// current ports on every open. The wait is an event wait, never
+        /// Task.Wait, which can run the WinMM body on the UI thread with no
+        /// bound (MidiVirtualController.Connect). The UI thread is the only
+        /// caller.</summary>
+        internal static List<string> ListOutputPortsBounded(IWinMmMidi api, int timeoutMs)
         {
-            List<string> ports = null;
-            var done = new ManualResetEventSlim(false);
-            System.Threading.Tasks.Task.Run(() =>
+            var listing = s_pickerListing;
+            if (listing == null || listing.Done.IsSet || !ReferenceEquals(listing.Api, api))
             {
-                try { ports = new MidiBackendLegacy().EnumerateOutputPorts(); }
-                catch { }
-                finally { done.Set(); }
-            });
-            return done.Wait(timeoutMs) && ports != null ? ports : new List<string>();
+                listing = new PickerListing(api);
+                s_pickerListing = listing;
+                var mine = listing;
+                System.Threading.Tasks.Task.Run(() =>
+                {
+                    try { mine.Ports = new MidiBackendLegacy(mine.Api).EnumerateOutputPorts(); }
+                    catch { }
+                    finally { mine.Done.Set(); }
+                });
+            }
+            var ports = listing.Done.Wait(timeoutMs) ? listing.Ports : null;
+            return ports != null ? new List<string>(ports) : new List<string>();
         }
 
         /// <summary>Opens the output port saved as <paramref name="portKey"/>
         /// with no callback (RtMidi MidiOutWinMM::openPort). Throws
-        /// <see cref="InvalidOperationException"/> saying why the slot cannot
-        /// send: no port picked, the port is gone, or another program holds
-        /// it.</summary>
+        /// <see cref="MidiPortException"/> saying why the slot cannot send:
+        /// no port picked, the port is gone, it is already in use, or it did
+        /// not open.</summary>
         internal IMidiVirtualEndpoint OpenOutputPort(string portKey)
         {
             if (string.IsNullOrEmpty(portKey))
-                throw new InvalidOperationException(
+                throw new MidiPortException(MidiPortProblem.NotPicked, portKey,
                     "Pick an output port on this MIDI slot. The legacy MIDI API cannot create a port.");
             int id = Resolve(portKey, _api.OutputCount(), _api.OutputName);
             if (id < 0)
                 throw new MidiPortNotConnectedException(portKey);
             int r = _api.OpenOutput(id, out IntPtr handle);
             if (r == WinMmMidi.MMSYSERR_ALLOCATED)
-                throw new InvalidOperationException($"MIDI output port '{portKey}' is in use by another program.");
+                throw new MidiPortException(MidiPortProblem.InUse, portKey,
+                    $"MIDI output port '{portKey}' is already in use.");
             if (r != WinMmMidi.MMSYSERR_NOERROR || handle == IntPtr.Zero)
-                throw new InvalidOperationException($"MIDI output port '{portKey}' did not open (MMRESULT {r}).");
+                throw new MidiPortException(MidiPortProblem.DidNotOpen, portKey,
+                    $"MIDI output port '{portKey}' did not open (MMRESULT {r}).");
             return new OutputEndpoint(_api, handle);
         }
 
@@ -302,14 +391,30 @@ namespace PadForge.Common.Input
                 _handle = handle;
             }
 
-            public void Send(Midi1Status status, int channel, int data1, int data2)
+            private volatile bool _lost;
+
+            /// <summary>midiOutShortMsg, and whether it took the message.
+            /// A port whose device left answers every later message with
+            /// an error for good: wdmaud2 invalidates an open port when its
+            /// interface goes and fails it with E_HANDLE, which it hands back
+            /// as MMSYSERR_NODRIVER (Microsoft's MidiSrvPorts.cpp and
+            /// winmmdrv.cpp), and an invalid handle or a missing device reads
+            /// the same. Those mark the port lost, so Step 5 opens it again,
+            /// as when it misses a replug faster than its port listing. Any
+            /// other error, such as a busy driver (MIDIERR_NOTREADY), refuses
+            /// this message only.</summary>
+            public bool Send(Midi1Status status, int channel, int data1, int data2)
             {
                 IntPtr handle = _handle;
-                if (handle == IntPtr.Zero) return;
+                if (handle == IntPtr.Zero) return false;
                 int r = _api.SendShort(handle, PackShortMessage(status, channel, data1, data2));
-                if (r != WinMmMidi.MMSYSERR_NOERROR)
-                    throw new InvalidOperationException($"midiOutShortMsg failed (MMRESULT {r}).");
+                if (r == WinMmMidi.MMSYSERR_NOERROR) return true;
+                if (r is WinMmMidi.MMSYSERR_NODRIVER or WinMmMidi.MMSYSERR_INVALHANDLE or WinMmMidi.MIDIERR_NODEVICE)
+                    _lost = true;
+                return false;
             }
+
+            public bool Lost => _lost;
 
             /// <summary>WinMM has no connection apart from the handle.</summary>
             public void DisconnectConnection() { }

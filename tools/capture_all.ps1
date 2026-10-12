@@ -2,12 +2,31 @@
 .SYNOPSIS
     Captures ALL PadForge screenshots for wiki and README.
 .DESCRIPTION
-    1. Backs up PadForge.xml
+    1. Backs up PadForge.xml and records the backup in a marker file under
+       %TEMP%\PadForge_Capture
     2. Injects test data (4 slot types, macros with mouse/AppVolume, sensitivity curves, profiles)
     3. Kills and restarts PadForge
     4. Runs full UIA-based capture (~30 screenshots)
-    5. Restores PadForge.xml backup
+    5. Restores PadForge.xml backup and removes the marker
     Must run elevated (PadForge runs elevated for HIDMaestro and HidHide).
+
+    Before the run overwrites or deletes a settings file it copies the file to
+    %TEMP%\PadForge_Capture under a name that carries the UTC time. Twenty copies
+    are kept at most: the newest fourteen of files a run found and the newest
+    six of files a run wrote itself.
+
+    A backup found beside the settings file goes back by itself when a marker
+    no older than twelve hours names it, because a killed run left it. So does
+    one with the same bytes as the settings file. Any other backup stops the
+    run before it changes anything: it prints both files with their last
+    write times and sizes and ends with exit code 1, and the owner runs again
+    with -KeepSettingsFrom File or -KeepSettingsFrom Backup to say which of
+    the two holds the settings to keep.
+
+    Exit code 1 when a shot was refused, a state check failed, or the run
+    stopped on an error or over a settings backup, and 0 otherwise. An -Only
+    run ends the same way. A run stopped with CTRL+C still puts the settings
+    back, and Windows PowerShell 5.1 then ends it with exit code 0.
 #>
 
 param(
@@ -19,20 +38,38 @@ param(
     [string]$OutputDir = "C:\Users\sonic\OneDrive\Documents\GitHub\padforge.org\wiki\images",
     [string]$PadForgeExe = "C:\PadForge\PadForge.exe",
     [string]$PadForgeXml = "C:\PadForge\PadForge.xml",
+    # The owner's answer to a run that stopped over a settings backup lying
+    # beside the settings file (see "The owner's settings file" below). Ask,
+    # the default, is that stop: the run changes nothing and prints both
+    # files. File says the settings file holds the settings to keep, so the
+    # backup is set aside. Backup says the backup holds them, so it goes back
+    # over the settings file. The file that gives way is copied to
+    # %TEMP%\PadForge_Capture first, whichever is chosen. A run with nothing
+    # to ask refuses File and Backup, so neither can be left on a command
+    # line to wave the next stop through.
+    [ValidateSet('Ask', 'File', 'Backup')]
+    [string]$KeepSettingsFrom = 'Ask',
     # Tail mode: reuse the capture-configured PadForge.xml an aborted full
     # run left behind (slots + dummies + assignments intact, owner backup
     # still in .bak) and jump straight to the STEP 3b tail on a FRESH app
     # process. Exists because the WPF UIA tree degrades over a marathon
-    # run and late-run device FindAlls hang (2026-07-30, twice).
+    # run and late-run device FindAlls hang (2026-07-30, twice). The file
+    # counts as staged only while that run's marker names the backup beside
+    # it. When no such file is left, STEP 0 runs first and the per-page
+    # passes are still skipped.
     [switch]$SkipToTail,
     # Capture ONLY these shots (by Cap name), e.g.
-    #   -SkipToTail -Only midi-input,devices-nfc
-    # Every other Cap becomes a no-op, so a handful of stale images can be
-    # refreshed without re-photographing 116 of them. Combine with
-    # -SkipToTail to skip the per-pad-page passes as well; tail mode now
-    # PREPARES the environment itself when no capture-configured settings
-    # file is lying around, so a targeted refresh is a single command from
-    # a clean machine.
+    #   -Only midi-input,devices-nfc
+    # An -Only run ends at the focused pass, which holds a recipe for each
+    # shot it can take alone, so a handful of stale images can be refreshed
+    # without re-photographing the rest. The per-page passes and the tail do
+    # not run after it, and a name it has no recipe for is reported and not
+    # taken. nfc-register is such a name: the tail takes it, and the shortest
+    # run that reaches the tail is a -SkipToTail run with no -Only.
+    # -SkipToTail adds no shot to an -Only run. There it only keeps the run
+    # off the staging snapshot, on the file an interrupted run left or on a
+    # fresh STEP 0. An -Only run ends with exit code 1 when a shot was refused
+    # or a state check failed, as every run does.
     [string[]]$Only = @(),
     # With -Only, run the full run's device staging before the focused pass.
     # A focused pass skips it to save minutes, so its frames show idle slots
@@ -100,11 +137,17 @@ $script:CaptureRunStart = Get-Date
 # still going when the next was launched, so the "fixed" run was actually the
 # old script and its log looked like the fix had failed. Refuse to start.
 $lockPath = Join-Path $logDir "capture.lock"
+# A lock that names this very process is no second run. A run in this console
+# stopped on an exit inside its try, on an error or on CTRL+C, where the lines
+# that free the lock and stop the transcript do not run. Such a run prints
+# what to run next, so the next run may not be refused for it.
+$endedHere = $false
 if (Test-Path $lockPath) {
     $otherPid = (Get-Content $lockPath -EA SilentlyContinue | Select-Object -First 1)
     $alive = $false
     if ($otherPid) { $alive = [bool](Get-Process -Id ([int]$otherPid) -EA SilentlyContinue) }
-    if ($alive) {
+    $endedHere = $alive -and ([int]$otherPid -eq $PID)
+    if ($alive -and -not $endedHere) {
         Write-Host "!! A capture is ALREADY RUNNING (pid $otherPid). Refusing to start a second." -ForegroundColor Red
         Write-Host "!! Wait for it, or stop it, then run again." -ForegroundColor Red
         exit 1
@@ -112,7 +155,15 @@ if (Test-Path $lockPath) {
     Remove-Item $lockPath -Force -EA SilentlyContinue
 }
 Set-Content -Path $lockPath -Value $PID -Encoding ascii
+# That run's transcript is still running, and Windows PowerShell 5.1 starts no
+# second one on the same file while it is.
+if ($endedHere) { try { Stop-Transcript | Out-Null } catch { } }
 Start-Transcript -Path $logPath -Force | Out-Null
+
+# --- The owner's settings file ------------------------------------------------
+# The marker, the copies, and the loader and saver that every script under
+# tools shares. settings_guard.ps1 says what each one does.
+. (Join-Path $PSScriptRoot 'settings_guard.ps1')
 
 # --- Assemblies ---------------------------------------------------------------
 Add-Type -AssemblyName UIAutomationClient
@@ -395,7 +446,7 @@ function Ensure-DeviceAssigned {
     Start-Sleep -Seconds 3
 
     try {
-        [xml]$ax = Get-Content $XmlPath
+        $ax = Read-SettingsXml $XmlPath
         $root = $ax.PadForgeSettings
 
         if ($SlotType -ge 0) {
@@ -465,7 +516,7 @@ function Ensure-DeviceAssigned {
             try {
                 $bakPath = "$XmlPath.bak"
                 if (Test-Path $bakPath) {
-                    [xml]$bx = Get-Content $bakPath
+                    $bx = Read-SettingsXml $bakPath
                     $bTpl = $bx.PadForgeSettings.SelectSingleNode("UserSettings/Setting")
                     if ($bTpl) {
                         $template = $ax.ImportNode($bTpl, $true)
@@ -501,8 +552,8 @@ function Ensure-DeviceAssigned {
             Write-Host "  (no existing <Setting> to clone; built one in declared order)" -ForegroundColor DarkGray
         }
         $usNode.AppendChild($row) | Out-Null
-        $ax.Save($XmlPath)
-        Write-Host "  mapped '$iname' to pad $PadIndex by XML" -ForegroundColor Green
+        $kept = Save-SettingsXml $ax $XmlPath
+        Write-Host "  mapped '$iname' to pad $PadIndex by XML (the file before that write: $kept)" -ForegroundColor Green
     } catch {
         Write-Host "  !! assignment write failed: $($_.Exception.Message)" -ForegroundColor Red
         Start-Process $ExePath
@@ -551,7 +602,7 @@ function Seed-AudioDsp {
     Get-Process PadForge -EA SilentlyContinue | Stop-Process -Force
     Start-Sleep -Seconds 3
     try {
-        [xml]$ax = Get-Content $XmlPath
+        $ax = Read-SettingsXml $XmlPath
         $root = $ax.PadForgeSettings
         # Resolve the guid from the device list by NAME when asked. The
         # synthetic DualSense carries a fixed guid, but on a machine where the
@@ -615,8 +666,8 @@ function Seed-AudioDsp {
         $row.SetAttribute("AudioEqPreampDb", "-4.5")
         $row.SetAttribute("AudioEqBands", "LSC:105:5.5:0.7:1|PK:1050:-3.5:1.2:1|PK:3200:2.5:2:1|HSC:8000:-2:0.7:1")
         $row.SetAttribute("AudioLimiterEnabled", "true")
-        $ax.Save($XmlPath)
-        Write-Host "  seeded audio DSP (crossfeed + 4-band EQ) on pad $PadIndex / $($DeviceGuid.Substring(0,8))" -ForegroundColor Green
+        $kept = Save-SettingsXml $ax $XmlPath
+        Write-Host "  seeded audio DSP (crossfeed + 4-band EQ) on pad $PadIndex / $($DeviceGuid.Substring(0,8)) (the file before that write: $kept)" -ForegroundColor Green
     } catch {
         Write-Host "  !! audio DSP seed failed: $($_.Exception.Message)" -ForegroundColor Red
         Start-Process $ExePath; Start-Sleep 8
@@ -896,7 +947,7 @@ function Set-SlotPreset {
     Get-Process PadForge -EA SilentlyContinue | Stop-Process -Force
     Start-Sleep -Seconds 3
     try {
-        [xml]$px = Get-Content $XmlPath
+        $px = Read-SettingsXml $XmlPath
         $appNode = $px.PadForgeSettings.SelectSingleNode("AppSettings")
         if (-not $appNode) { Write-Host "  !! no <AppSettings> node" -ForegroundColor Red; Start-Process $ExePath; Start-Sleep 8; return $false }
         $idsNode = $appNode.SelectSingleNode("SlotProfileIds")
@@ -919,8 +970,8 @@ function Set-SlotPreset {
                 Write-Host "  slot $PadIndex Customize turned off" -ForegroundColor Green
             }
         }
-        $px.Save($XmlPath)
-        Write-Host "  set slot $PadIndex preset to '$ProfileId' by XML" -ForegroundColor Green
+        $kept = Save-SettingsXml $px $XmlPath
+        Write-Host "  set slot $PadIndex preset to '$ProfileId' by XML (the file before that write: $kept)" -ForegroundColor Green
     } catch {
         Write-Host "  !! preset write failed: $($_.Exception.Message)" -ForegroundColor Red
         Start-Process $ExePath; Start-Sleep 8
@@ -948,7 +999,7 @@ function Set-SlotPreset {
     # apply and the slot keeps its old preset, which would ship the wrong
     # controller body under the right file name.
     try {
-        [xml]$vx = Get-Content $XmlPath
+        $vx = Read-SettingsXml $XmlPath
         $back = @($vx.PadForgeSettings.SelectNodes("AppSettings/SlotProfileIds/Id"))
         $now = if ((Get-Count $back) -gt $PadIndex) { "$($back[$PadIndex].InnerText)".Trim() } else { "" }
         if ($now -ne $ProfileId) {
@@ -993,7 +1044,7 @@ function Ensure-MacrosLoaded {
     Start-Sleep -Seconds 3
 
     try {
-        [xml]$mx = Get-Content $XmlPath
+        $mx = Read-SettingsXml $XmlPath
         $mroot = $mx.PadForgeSettings.SelectSingleNode("Macros")
         if (-not $mroot) {
             $mroot = $mx.CreateElement("Macros")
@@ -1011,8 +1062,8 @@ function Ensure-MacrosLoaded {
         # running, read on the next launch), and folding them in here spends
         # one restart instead of two.
         Write-SlotStructures -Doc $mx | Out-Null
-        $mx.Save($XmlPath)
-        Write-Host "  wrote $(@($frags).Count) macros into the closed settings file"
+        $kept = Save-SettingsXml $mx $XmlPath
+        Write-Host "  wrote $(@($frags).Count) macros into the closed settings file (the file before that write: $kept)"
     } catch {
         Write-Host "  !! could not write macros: $($_.Exception.Message)" -ForegroundColor Red
         Start-Process $ExePath
@@ -1054,7 +1105,7 @@ function Ensure-MacrosLoaded {
     # Read the file BACK after the restart: the app has re-serialized its own
     # state by now, so what survives here is what the UI holds.
     try {
-        [xml]$vx = Get-Content $XmlPath
+        $vx = Read-SettingsXml $XmlPath
         $vRoot = $vx.PadForgeSettings
         $vMacros = @($vRoot.SelectNodes("Macros/Macro")).Count
         $vLayers = @($vRoot.SelectNodes("SlotMappingSets/MappingSet/ShiftActivator")).Count
@@ -1095,7 +1146,9 @@ $script:ViewUnknown = $false
 $script:AnnotationUnknown = $false
 # Shots not saved because of that, or because a check on the view or the
 # overlay failed, and checks that failed with nothing left to refuse. Any of
-# them makes the run end red with exit code 1.
+# them makes the run end red with exit code 1, an -Only run included: the
+# focused pass ends by a flag and not by a return, so the lines below the
+# finally that set the exit code run after it too.
 $script:RefusedShots = @()
 $script:StateFailures = @()
 
@@ -1114,6 +1167,69 @@ function Assert-Staged {
     $script:StateFailures += "$What failed"
     Write-Host "  !! $What failed. No more PadForge shots are saved." -ForegroundColor Red
     return $false
+}
+
+# The InstanceGuid of every device row STEP 0 injects, which is how the check
+# below knows a synthetic row from a real one. A run that reuses a staged file
+# has no injection to ask, so the GUIDs are written out here. Add-DeviceOnce
+# adds any GUID it is handed that the list lacks, and CaptureHarnessSetupTests
+# fails when the list and the injection differ.
+$script:SyntheticGuids = @(
+    "aaaa1111-2222-3333-4444-555566667777",  # Logitech G29
+    "bbbb1111-2222-3333-4444-555566667777",  # MIDI Keyboard
+    "cccc1111-2222-3333-4444-555566667777",  # Wii Balance Board
+    "dddd1111-2222-3333-4444-555566667777",  # Joy-Con (R)
+    "eeee1111-2222-3333-4444-555566667777",  # Switch 2 Joy-Con (L)
+    "ffff1111-2222-3333-4444-555566667777",  # DualShock 3
+    "abab1111-2222-3333-4444-555566667777",  # Steam Controller
+    "acac1111-2222-3333-4444-555566667777",  # Xbox Series X GIP
+    "11110000-2222-3333-4444-555566667777",  # Wii Remote
+    "22220000-2222-3333-4444-555566667777",  # NFC Reader
+    "bbbb2222-3333-4444-5555-666677778888",  # DualSense
+    "bbbb3333-3333-4444-5555-666677778888",  # PlayStation Move
+    "bbbb4444-3333-4444-5555-666677778888",  # Microphone
+    "cdcd1111-2222-3333-4444-555566667777"   # Razer Huntsman V3 Pro
+)
+
+# A synthetic device row stands in for hardware nobody plugged in, so it may
+# not carry a real device's serial or SDL GUID. On 2026-10-08 the published
+# analog keyboard, NFC reader and MIDI keyboard shots showed the owner's Steam
+# Controller address, which each row had kept from the row it was cloned from.
+# STEP 0 runs this over the device list it saved, and a run that reuses a
+# staged file runs it over that file. A synthetic row that holds a value a
+# real row also holds fails the run by name, and Cap saves no more PadForge
+# shots, since any Devices page shot could show it.
+function Assert-SyntheticRowsClean {
+    param($DevicesNode, $SyntheticGuids)
+    if ($null -eq $DevicesNode) { return $true }
+    $field = {
+        param($row, $tag)
+        $n = $row.SelectSingleNode($tag)
+        if ($null -ne $n) { $n.InnerText.Trim() } else { "" }
+    }
+    $synthetic = New-Object System.Collections.Generic.List[object]
+    $real = New-Object System.Collections.Generic.List[object]
+    foreach ($row in $DevicesNode.SelectNodes("Device")) {
+        if ($SyntheticGuids -contains (& $field $row "InstanceGuid")) { $synthetic.Add($row) } else { $real.Add($row) }
+    }
+    $clean = $true
+    foreach ($s in $synthetic) {
+        foreach ($tag in @("SerialNumber", "SdlGuid")) {
+            $value = & $field $s $tag
+            if (-not $value) { continue }
+            foreach ($r in $real) {
+                if ((& $field $r $tag) -ne $value) { continue }
+                $label = if ($tag -eq "SdlGuid") { "SDL GUID" } else { "serial" }
+                $what = "the synthetic '{0}' row carries the {1} of '{2}'" -f (& $field $s "ProductName"), $label, (& $field $r "ProductName")
+                $clean = $false
+                $script:StagingFailed = $true
+                $script:StateFailures += $what
+                Write-Host "  !! $what. No more PadForge shots are saved." -ForegroundColor Red
+                break
+            }
+        }
+    }
+    return $clean
 }
 
 function Refuse-Shots {
@@ -1741,7 +1857,7 @@ function Get-SavedViewMode {
     # A read can land mid-write, so try a few times before giving up.
     for ($i = 0; $i -lt 5; $i++) {
         try {
-            [xml]$vx = Get-Content $PadForgeXml -ErrorAction Stop
+            $vx = Read-SettingsXml $PadForgeXml
             $node = $vx.PadForgeSettings.SelectSingleNode("AppSettings/Use2DControllerView")
             if ($null -ne $node -and "$($node.InnerText)".Trim() -eq 'true') { return '2D' }
             return '3D'
@@ -1836,7 +1952,7 @@ function Wait-SavedAssignments {
         $missing = @()
         try {
             $w1 = (Get-Item $PadForgeXml -ErrorAction Stop).LastWriteTimeUtc
-            [xml]$wx = Get-Content $PadForgeXml -ErrorAction Stop
+            $wx = Read-SettingsXml $PadForgeXml
             $root = $wx.PadForgeSettings
             $names = @{}
             foreach ($d in $root.SelectSingleNode("Devices").ChildNodes) {
@@ -2145,6 +2261,40 @@ function Find-DialogHwndByEnum {
 }
 
 # ==============================================================================
+# PRE-FLIGHT: a backup left beside the settings file
+# ==============================================================================
+# Settled before the toast values, PadForge or any file is touched, so a run
+# that stops here has changed nothing. The run asks only when it has to: a
+# backup is there, it differs from the settings file, and no marker young
+# enough names it. -KeepSettingsFrom is the answer to that stop and
+# to nothing else, so it is refused when the run has nothing to ask. A run
+# whose settings file is missing does not know yet which file it will use
+# (STEP 0 may fall back to Settings.xml), so that answer is left for STEP 0.
+# The transcript and the lock are closed by hand here, because the lines that
+# close them sit below the try.
+$xmlBak = "$PadForgeXml.bak"
+$preflightDoubt = Get-BackupDoubt $PadForgeXml $xmlBak 'Ask'
+$preflightStop = @()
+if ($KeepSettingsFrom -eq 'Ask' -and $preflightDoubt) {
+    $preflightStop = @(Get-BackupStopLines $PadForgeXml $xmlBak $preflightDoubt)
+} elseif ($KeepSettingsFrom -ne 'Ask' -and -not $preflightDoubt -and (Test-Path -LiteralPath $PadForgeXml)) {
+    $preflightStop = @("!! -KeepSettingsFrom $KeepSettingsFrom answers a run that stopped over a settings backup, and this run has nothing to ask. Leave it out.")
+}
+if ($preflightStop.Count -gt 0) {
+    foreach ($line in $preflightStop) { Write-Host $line -ForegroundColor Red }
+    Stop-Transcript | Out-Null
+    Remove-Item $lockPath -Force -EA SilentlyContinue
+    exit 1
+}
+# True while $xmlBak holds the settings STEP 4 has to put back: from here when
+# a backup was found and goes back, and from the moment the run takes its own.
+# A backup the owner ruled out (-KeepSettingsFrom File) is never put back.
+$script:BackupHoldsSettings = (Test-Path -LiteralPath $xmlBak) -and ($KeepSettingsFrom -ne 'File')
+# True once this run has taken the backup itself. From then on the settings
+# file holds nothing but what the backup holds and what the run wrote.
+$script:BackupTaken = $false
+
+# ==============================================================================
 # STEP -1: Suppress Windows toast notifications for the run (a toast once
 # landed on top of mid-run shots and the whole set had to be redone). Values
 # restored in STEP 4. Same user hive as this elevated session.
@@ -2197,6 +2347,27 @@ try { $toastPrior | ConvertTo-Json | Set-Content -Path $toastPriorPath -Encoding
 catch { Write-Host "  !! could not write $toastPriorPath : $_" -ForegroundColor Yellow }
 Write-Host "  Toast notifications suppressed for the run"
 
+# Everything from here to STEP 4 runs inside a try/finally: the Direct
+# path's settings swap, STEP 0's backup, delete and rewrite, the starting-view
+# edit of a reused file and the whole capture. Twice on 2026-08-09 a
+# StrictMode property read threw mid-run, STEP 4 never executed, and the
+# owner's real PadForge.xml was left replaced by the capture file complete
+# with injected dummy devices. A capture run may fail. It may not walk away
+# holding someone's settings hostage, so the restore is in a finally, which
+# runs after an error, an exit or CTRL+C. The guard opens only after the
+# toast values above are recorded, because the finally puts back exactly
+# what was recorded. The backup's path and the two flags the finally reads
+# are set in the pre-flight, before this opens, so the finally can test them
+# under StrictMode whenever the run stops.
+#
+# Nothing at the top level of the try returns. A return there ends the script
+# with the finally run and the three lines below it skipped, which is how an
+# -Only run came to end with exit code 0 whatever it had refused. The focused
+# pass sets this flag instead, and the passes behind it run only while it is
+# clear.
+$script:FocusedPassRan = $false
+try {
+
 # ==============================================================================
 # STEP 0: Inject test data into PadForge.xml
 # ==============================================================================
@@ -2223,7 +2394,14 @@ if ($Only.Count -gt 0) {
 # STEP 0's job and STEP 0 is cheap, so run it and then jump to the tail.
 $script:doSetup = $true
 if ($SkipToTail) {
-    if (Test-Path "$PadForgeXml.bak") {
+    # A file is taken for staged only on a marker's word. The marker says a
+    # killed run left the backup, so the settings file beside it is that
+    # run's capture file. With no marker the file may be the owner's own, and
+    # with the two files alike it is the owner's. Neither is staged, and STEP
+    # 0 deals with the backup.
+    if ($KeepSettingsFrom -eq 'Ask' -and (Test-Path $xmlBak) -and
+        -not (Test-SameSettings $PadForgeXml $xmlBak) -and
+        -not (Get-BackupDoubt $PadForgeXml $xmlBak 'Ask')) {
         Write-Host "  Tail mode: reusing the staged xml from an earlier run; killing for a fresh process"
         $script:doSetup = $false
         Get-Process PadForge -EA SilentlyContinue | Stop-Process -Force; Start-Sleep -Seconds 3
@@ -2242,22 +2420,47 @@ if ($SkipToTail) {
 # and so does a run with no snapshot yet.
 $script:SnapshotXml = Join-Path $logDir "capture-configured.xml"
 $script:Direct = $false
-$xmlBak = "$PadForgeXml.bak"
 if ($Only.Count -gt 0 -and -not $StageAll -and -not $SkipToTail -and (Test-Path $script:SnapshotXml)) {
     Get-Process PadForge -EA SilentlyContinue | Stop-Process -Force; Start-Sleep -Seconds 3
     Get-Process PadForge -EA SilentlyContinue | Stop-Process -Force; Start-Sleep -Seconds 1
     if (Test-Path $xmlBak) {
-        # The same guard STEP 0 keeps: a leftover backup holds the owner's
-        # real settings, so it goes back first and is never overwritten.
-        Write-Host "  !! Leftover backup from an interrupted run; restoring it before re-backup" -ForegroundColor Yellow
-        Copy-Item $xmlBak $PadForgeXml -Force
+        # The same guard STEP 0 keeps, for the reasons its comment gives.
+        $doubt = Get-BackupDoubt $PadForgeXml $xmlBak $KeepSettingsFrom
+        if ($doubt) {
+            $script:BackupHoldsSettings = $false
+            foreach ($line in (Get-BackupStopLines $PadForgeXml $xmlBak $doubt)) { Write-Host $line -ForegroundColor Red }
+            exit 1
+        }
+        if ($KeepSettingsFrom -eq 'File') {
+            $script:BackupHoldsSettings = $false
+            $kept = Save-SettingsCopy $xmlBak
+            Remove-Item $xmlBak -Force
+            Remove-BackupMarker $xmlBak
+            Write-Host "  -KeepSettingsFrom File: the settings file stays as it is, and the backup is set aside as $kept" -ForegroundColor Yellow
+        } else {
+            $script:BackupHoldsSettings = $true
+            $kept = Save-SettingsCopy $PadForgeXml
+            Write-Host "  !! Restoring the backup an interrupted run left, before the capture file goes in" -ForegroundColor Yellow
+            if ($kept) { Write-Host "  !! The file it replaces is kept as $kept" -ForegroundColor Yellow }
+            Copy-Item $xmlBak $PadForgeXml -Force
+        }
     }
-    Copy-Item $PadForgeXml $xmlBak -Force
+    # A backup is written only where none is, so a copy cut short can never
+    # leave half a file over a good backup. One just put back already holds
+    # what the settings file holds.
+    if (-not (Test-Path $xmlBak)) {
+        $script:BackupHoldsSettings = $false
+        Copy-Item $PadForgeXml $xmlBak -Force
+    }
+    Set-BackupMarker $xmlBak
+    $script:BackupTaken = $true
+    $script:BackupHoldsSettings = $true
+    $kept = Save-SettingsCopy $PadForgeXml
     Copy-Item $script:SnapshotXml $PadForgeXml -Force
     $script:doSetup = $false
     $script:Direct = $true
     $snapAge = [math]::Round(((Get-Date) - (Get-Item $script:SnapshotXml).LastWriteTime).TotalHours, 1)
-    Write-Host "  Direct: loaded the staged settings snapshot ($snapAge h old), no slot or device setup" -ForegroundColor Cyan
+    Write-Host "  Direct: loaded the staged settings snapshot ($snapAge h old), no slot or device setup. The settings file it replaced is kept as $kept" -ForegroundColor Cyan
 }
 # The recipes skip their own staging when the full run's is in place.
 $script:Staged = $StageAll -or $script:Direct
@@ -2303,17 +2506,51 @@ if (-not (Test-Path $PadForgeXml)) {
 # Backup and delete XML for a clean start (no leftover slots from previous runs)
 $xmlBak = "$PadForgeXml.bak"
 if (Test-Path $xmlBak) {
-    # A leftover backup means a previous run was interrupted before its
-    # restore. That backup holds the USER'S REAL SETTINGS and the current
-    # xml is capture residue. Overwriting it here is how an original
-    # settings file got destroyed on 2026-07-12 (recovered from a volume
-    # shadow copy). Restore the leftover backup first, then re-back it up.
-    Write-Host "  !! Leftover backup from an interrupted run; restoring it before re-backup" -ForegroundColor Yellow
-    Copy-Item $xmlBak $PadForgeXml -Force
+    # A backup left by a run that was interrupted before its restore holds
+    # the USER'S REAL SETTINGS, and the xml beside it is capture residue.
+    # Backing up over it here is how an original settings file got destroyed
+    # on 2026-07-12 (recovered from a volume shadow copy), so it goes back
+    # first. That holds only for a backup a killed run left. One left behind
+    # after the settings were put back by hand sits beside the owner's
+    # current file, and restoring it would take every setting changed since.
+    # The marker tells the two apart (Get-BackupDoubt). Without its word the
+    # run stops here, having written nothing, and the owner decides. The
+    # pre-flight asks the same thing before anything is touched, so this
+    # stop is reached only when STEP 0 fell back to Settings.xml or the
+    # backup appeared after the pre-flight.
+    $doubt = Get-BackupDoubt $PadForgeXml $xmlBak $KeepSettingsFrom
+    if ($doubt) {
+        $script:BackupHoldsSettings = $false
+        foreach ($line in (Get-BackupStopLines $PadForgeXml $xmlBak $doubt)) { Write-Host $line -ForegroundColor Red }
+        exit 1
+    }
+    if ($KeepSettingsFrom -eq 'File') {
+        $script:BackupHoldsSettings = $false
+        $kept = Save-SettingsCopy $xmlBak
+        Remove-Item $xmlBak -Force
+        Remove-BackupMarker $xmlBak
+        Write-Host "  -KeepSettingsFrom File: the settings file stays as it is, and the backup is set aside as $kept" -ForegroundColor Yellow
+    } else {
+        $script:BackupHoldsSettings = $true
+        $kept = Save-SettingsCopy $PadForgeXml
+        Write-Host "  !! Restoring the backup an interrupted run left, before the clean start" -ForegroundColor Yellow
+        if ($kept) { Write-Host "  !! The file it replaces is kept as $kept" -ForegroundColor Yellow }
+        Copy-Item $xmlBak $PadForgeXml -Force
+    }
 }
-Copy-Item $PadForgeXml $xmlBak -Force
+# A backup is written only where none is, so a copy cut short can never leave
+# half a file over a good backup. One just put back already holds what the
+# settings file holds.
+if (-not (Test-Path $xmlBak)) {
+    $script:BackupHoldsSettings = $false
+    Copy-Item $PadForgeXml $xmlBak -Force
+}
+Set-BackupMarker $xmlBak
+$script:BackupTaken = $true
+$script:BackupHoldsSettings = $true
+$kept = Save-SettingsCopy $PadForgeXml
 Remove-Item $PadForgeXml -Force
-Write-Host "  Backed up and deleted PadForge.xml for clean start"
+Write-Host "  Backed up and deleted PadForge.xml for clean start. A copy of it is kept as $kept"
 
 # Launch PadForge briefly to regenerate default XML, then kill it.
 # Poll for the file rather than wait a fixed interval — first-time launch
@@ -2337,12 +2574,14 @@ Get-Process PadForge -EA SilentlyContinue | Stop-Process -Force
 Start-Sleep -Seconds 2
 if (-not (Test-Path $PadForgeXml)) {
     Write-Host "  !! PadForge.xml not regenerated after clean launch" -ForegroundColor Red
+    # Nothing is there to copy aside unless the file appeared since the test.
+    $kept = Save-SettingsCopy $PadForgeXml
     Copy-Item $xmlBak $PadForgeXml -Force
     Write-Host "  Restored backup"
 }
 
 # Load and modify XML
-[xml]$xml = Get-Content $PadForgeXml
+$xml = Read-SettingsXml $PadForgeXml
 $ns = $xml.PadForgeSettings
 
 # --- Preserve cached device list (incl. offline placeholder devices) from backup ---
@@ -2356,7 +2595,7 @@ $ns = $xml.PadForgeSettings
 # Import the backup's <Devices> node wholesale (it holds both online and offline
 # entries; runtime recomputes online state from what's actually plugged in).
 try {
-    [xml]$xmlBakDoc = Get-Content $xmlBak
+    $xmlBakDoc = Read-SettingsXml $xmlBak
     $bakDevices = $xmlBakDoc.PadForgeSettings.SelectSingleNode("Devices")
     if ($bakDevices) {
         $imported = $xml.ImportNode($bakDevices, $true)
@@ -2379,19 +2618,13 @@ try {
 # (G29 = 0x046D / 0xC24F, CapType Driving=22 also lights Force Feedback), and
 # the MIDI note/CC preview is CapType == Midi(27). Clone an existing <Device>
 # so the XmlSerializer field order matches exactly, then override the identity
-# fields and empty the DeviceObjects (the captures need the tab/preview, not
-# the mapping picker).
+# fields, clear what the cloned row records about its own hardware and settings
+# (Clear-SyntheticDeviceRecord), and empty the DeviceObjects (the captures need
+# the tab/preview, not the mapping picker).
 try {
     $devicesNode = $ns.SelectSingleNode("Devices")
     $tmplDev = $devicesNode.SelectSingleNode("Device")
     if ($tmplDev) {
-        # Idempotence: a device with this GUID may already exist when the
-        # imported Devices node came from an interrupted capture run's xml.
-        # Duplicate InstanceGuids degrade the Devices list at runtime
-        # (2026-07-12: every post-import lookup failed on such a run).
-        function Test-DeviceExists($guid) {
-            return ($null -ne $devicesNode.SelectSingleNode("Device[InstanceGuid='$guid']"))
-        }
         # A synthetic row stands in for hardware that is NOT already known. The
         # owner's cached <Devices> list grows as they acquire real pads, and a
         # GUID-only check cannot see that: a real PlayStation Move and a real
@@ -2405,12 +2638,20 @@ try {
         # because the picker's gates compute from VendorId + ProductName. The
         # first version of this check dropped whichever of the pair came second
         # and silently removed both Wii rows from the Devices list.
-        $preExistingIds = New-Object System.Collections.Generic.HashSet[string]
+        # Each identity keeps the GUIDs of its rows. The list can already hold
+        # a synthetic row, because an interrupted capture run's xml carries the
+        # rows that run injected, and such a row is not the real device.
+        $preExistingIds = New-Object 'System.Collections.Generic.Dictionary[string,System.Collections.Generic.List[string]]'
         foreach ($d in $devicesNode.SelectNodes("Device")) {
             $v = $d.SelectSingleNode("VendorId"); $p = $d.SelectSingleNode("ProdId")
-            $nm = $d.SelectSingleNode("ProductName")
+            $nm = $d.SelectSingleNode("ProductName"); $ig = $d.SelectSingleNode("InstanceGuid")
             if ($null -ne $v -and $null -ne $p -and $null -ne $nm) {
-                [void]$preExistingIds.Add("$($v.InnerText):$($p.InnerText):$($nm.InnerText)")
+                $idKey = "$($v.InnerText):$($p.InnerText):$($nm.InnerText)"
+                if (-not $preExistingIds.ContainsKey($idKey)) {
+                    $preExistingIds[$idKey] = New-Object System.Collections.Generic.List[string]
+                }
+                $rowGuid = if ($null -ne $ig) { $ig.InnerText } else { "" }
+                $preExistingIds[$idKey].Add($rowGuid)
             }
         }
         # NAME is part of the key, not decoration. VID:PID alone is too blunt in
@@ -2428,20 +2669,79 @@ try {
         # "Cannot overwrite variable pid because it is read-only or constant"
         # INSIDE the injection try-block, which swallowed the whole synthetic
         # device set and took eighteen shots stale with it in one run.
-        function Test-DeviceIdentityExists($vid, $prodId, $name) {
-            return $preExistingIds.Contains("${vid}:${prodId}:${name}")
+        # A row under the synthetic's own GUID is the stand-in an earlier run
+        # left, so it does not count as the real device.
+        function Test-DeviceIdentityExists($vid, $prodId, $name, $ownGuid) {
+            $idKey = "${vid}:${prodId}:${name}"
+            if (-not $preExistingIds.ContainsKey($idKey)) { return $false }
+            foreach ($rowGuid in $preExistingIds[$idKey]) {
+                if ($rowGuid -ne $ownGuid) { return $true }
+            }
+            return $false
         }
+        # One row per synthetic GUID, and that row is the one this run built.
+        # The list already holds a row with the GUID when the imported Devices
+        # node came from an interrupted capture run's xml, the state of
+        # 2026-07-12. Skipping the fresh row then left the older run's row as
+        # it was, with the serial and SDL GUID that run had cloned into it, so
+        # the fresh row takes its place. A second row with the same GUID goes
+        # too: duplicate InstanceGuids made every post-import lookup fail on
+        # that run. Where the real device has joined the list since, the
+        # older run's stand-in is removed and the real row stands alone.
         function Add-DeviceOnce($node) {
             $g = $node.SelectSingleNode("InstanceGuid").InnerText
-            if (Test-DeviceExists $g) { Write-Host "  (dummy $g already present, skipped)"; return }
+            # The check that follows the save reads this list
+            # (Assert-SyntheticRowsClean).
+            if ($script:SyntheticGuids -notcontains $g) { $script:SyntheticGuids += $g }
+            $left = @($devicesNode.SelectNodes("Device[InstanceGuid='$g']"))
             $vn = $node.SelectSingleNode("VendorId"); $pn = $node.SelectSingleNode("ProdId")
             $nn = $node.SelectSingleNode("ProductName")
             if ($null -ne $vn -and $null -ne $pn -and $null -ne $nn -and
-                (Test-DeviceIdentityExists $vn.InnerText $pn.InnerText $nn.InnerText)) {
-                Write-Host ("  (real '{0}' already enumerated, synthetic skipped)" -f $nn.InnerText)
+                (Test-DeviceIdentityExists $vn.InnerText $pn.InnerText $nn.InnerText $g)) {
+                foreach ($old in $left) { [void]$devicesNode.RemoveChild($old) }
+                if ($left.Count -gt 0) {
+                    Write-Host ("  (real '{0}' already enumerated, the synthetic row an earlier run left is removed)" -f $nn.InnerText)
+                } else {
+                    Write-Host ("  (real '{0}' already enumerated, synthetic skipped)" -f $nn.InnerText)
+                }
+                return
+            }
+            if ($left.Count -gt 0) {
+                [void]$devicesNode.ReplaceChild($node, $left[0])
+                for ($i = 1; $i -lt $left.Count; $i++) { [void]$devicesNode.RemoveChild($left[$i]) }
+                Write-Host "  (dummy $g rebuilt in place of the row an earlier run left)"
                 return
             }
             $devicesNode.AppendChild($node) | Out-Null
+        }
+        # A clone keeps every element of the row it came from, and the
+        # template is the first row of the owner's own list. On 2026-10-08
+        # that row was a Bluetooth Steam Controller, so the published analog
+        # keyboard, NFC reader and MIDI keyboard shots showed its address as
+        # SERIAL and its SDL GUID and drew a Power section, and the NFC reader
+        # and MIDI keyboard had Hide from Games ticked. A synthetic row
+        # therefore gets what PadForge writes for a device it has just met:
+        # no serial, SDL GUID, display name or gun calibration, every
+        # per-device switch off, no HidHide instance ids and no peripheral
+        # outputs. The aux sensors and the touchpad shape go with the HasGyro,
+        # HasAccel and HasTouchpad flags the callers clear and then turn back
+        # on for the hardware each row stands in for. Emits nothing, so a
+        # caller's return value stays the row alone.
+        function Clear-SyntheticDeviceRecord($d) {
+            $set = { param($tag, $val) $n = $d.SelectSingleNode($tag); if ($n) { $n.InnerText = "$val" } }
+            foreach ($tag in @("SerialNumber", "SdlGuid", "DisplayName", "GunCalibration")) { & $set $tag "" }
+            foreach ($tag in @("HidHideEnabled", "ConsumeInputEnabled", "ForceRawJoystickMode",
+                               "QuickChargeEnabled", "HasAccelAux", "HasGyroAux")) { & $set $tag "false" }
+            foreach ($tag in @("IdleDisconnectSeconds", "PeripheralOutputs", "CapTouchpadCount")) { & $set $tag 0 }
+            foreach ($tag in @("HidHideInstanceIds", "CapTouchpadFingerCounts")) {
+                $n = $d.SelectSingleNode($tag); if ($n) { $n.RemoveAll() }
+            }
+            # Written only when the source device reported them
+            # (UserDevice.ShouldSerializeCapTouchpadPressure and its twin), so
+            # a new record has neither.
+            foreach ($tag in @("CapTouchpadPressure", "CapTouchpadClick")) {
+                $n = $d.SelectSingleNode($tag); if ($n) { [void]$d.RemoveChild($n) }
+            }
         }
         function New-SyntheticDevice($guid, $name, $vid, $prodId, $path, $capType, $axes, $buttons, $povs) {
             $d = $tmplDev.CloneNode($true)
@@ -2452,10 +2752,20 @@ try {
             & $set "DevicePath" $path
             & $set "CapAxeCount" $axes;  & $set "CapButtonCount" $buttons
             & $set "RawButtonCount" $buttons; & $set "CapPovCount" $povs
+            & $set "RawAxisCount" $axes; & $set "HasExtraGenericAxes" "false"
             & $set "CapType" $capType
             & $set "HasGyro" "false"; & $set "HasAccel" "false"; & $set "HasTouchpad" "false"
             & $set "HasRumbleTriggers" "false"; & $set "IsEnabled" "true"; & $set "IsHidden" "false"
-            $doNode = $d.SelectSingleNode("DeviceObjects"); if ($doNode) { $doNode.RemoveAll() }
+            Clear-SyntheticDeviceRecord $d
+            # The template's button and axis positions and its object list
+            # describe its own hardware. Emptied, the Devices preview and the
+            # mapping picker fall back to the dense range from the counts set
+            # above (InputService.ResolveButtonIndices and ResolveAxisIndices,
+            # MappingDisplayResolver.BuildInputChoices). UserDevice.HasAxis
+            # does not: for a row never seen online it reports every axis.
+            foreach ($tag in @("CapButtonIndices", "CapAxisIndices", "DeviceObjects")) {
+                $n = $d.SelectSingleNode($tag); if ($n) { $n.RemoveAll() }
+            }
             return $d
         }
         Add-DeviceOnce (New-SyntheticDevice "aaaa1111-2222-3333-4444-555566667777" "Logitech G29 Driving Force Racing Wheel" 1133 49743 "HID\VID_046D&PID_C24F\dummy" 22 4 24 1)
@@ -2467,7 +2777,10 @@ try {
         # from VendorId (0x057E = 1406) + ProductName (UserDevice.cs); the exact names below
         # trip them offline. These KEEP their DeviceObjects (cloned from a gamepad template):
         # auto-map builds the mapping-grid rows from a device's DeviceObjects, so an
-        # emptied-objects device gives an EMPTY grid with no Source combo to open.
+        # emptied-objects device gives an EMPTY grid with no Source combo to open. The
+        # counts and the button and axis positions that go with those objects stay too.
+        # The rest of what the template records about its own hardware and settings
+        # is cleared (Clear-SyntheticDeviceRecord).
         $gpTemplate = $null
         foreach ($d in $devicesNode.SelectNodes("Device")) {
             $pn = $d.SelectSingleNode("ProductName"); $ct = $d.SelectSingleNode("CapType")
@@ -2484,6 +2797,7 @@ try {
             & $set "DevicePath" $path;   & $set "CapType" 21
             & $set "HasGyro" "false"; & $set "HasAccel" "false"; & $set "HasTouchpad" "false"
             & $set "HasRumbleTriggers" "false"; & $set "IsEnabled" "true"; & $set "IsHidden" "false"
+            Clear-SyntheticDeviceRecord $d
             return $d
         }
         Add-DeviceOnce (New-WiiDevice "cccc1111-2222-3333-4444-555566667777" "Nintendo Wii Balance Board" 1406 774 "HID\VID_057E&PID_0306\dummy")
@@ -2504,6 +2818,11 @@ try {
         $ds3 = New-WiiDevice "ffff1111-2222-3333-4444-555566667777" "DualShock 3" 1356 616 "\\?\bthps3bus#{53f88889-1aaf-4353-a047-556b69ec6da6}&dev&vid_054c&pid_0268#a&dummy&1&bt"
         $n = $ds3.SelectSingleNode("HasGyro"); if ($n) { $n.InnerText = "true" }
         $n = $ds3.SelectSingleNode("HasAccel"); if ($n) { $n.InnerText = "true" }
+        # The dossier's SERIAL row needs a serial. RFC 7042 sets
+        # 00-00-5E-00-53-00 through -FF aside for documentation, so this
+        # address belongs to no real pad. Bare hex, the form PadForge records
+        # for a DualShock 3 paired through BthPS3.
+        $n = $ds3.SelectSingleNode("SerialNumber"); if ($n) { $n.InnerText = "00005e005302" }
         Add-DeviceOnce $ds3
         # Steam Controller 2015 (#202 haptic high-tone + #209 home-LED steam
         # lane): VID 0x28DE PID 0x1102 trips IsSteamController2015 and the
@@ -2562,6 +2881,12 @@ try {
         foreach ($f in @("HasGyro", "HasAccel", "HasTouchpad")) {
             $n = $ds5.SelectSingleNode($f); if ($n) { $n.InnerText = "true" }
         }
+        # devices-quick-charge needs the Quick Charge row, which draws only
+        # for a Bluetooth path or a serial that parses as a Bluetooth address
+        # (DeviceRowViewModel.ComputeShowQuickCharge). An RFC 7042
+        # documentation address belongs to no real pad. Dashed, the form SDL
+        # gives a DualSense's serial (SDL_hidapi_ps5.c).
+        $n = $ds5.SelectSingleNode("SerialNumber"); if ($n) { $n.InnerText = "00-00-5e-00-53-01" }
         Add-DeviceOnce $ds5
         # PlayStation Move (#277): VID 0x054C PID 0x03D5, motion-only wand.
         $move = New-WiiDevice "bbbb3333-3333-4444-5555-666677778888" "PlayStation Move Motion Controller" 1356 981 "HID\VID_054C&PID_03D5\dummy"
@@ -2922,14 +3247,24 @@ if ($appSettings) {
     Write-Host "  Set Language=en for English screenshots"
 }
 
-$xml.Save($PadForgeXml)
-Write-Host "  Saved modified PadForge.xml" -ForegroundColor Green
+$kept = Save-SettingsXml $xml $PadForgeXml
+Write-Host "  Saved modified PadForge.xml. The file it replaced is kept as $kept" -ForegroundColor Green
+Assert-SyntheticRowsClean ($ns.SelectSingleNode("Devices")) $script:SyntheticGuids | Out-Null
 }
 
-# Tail mode skipped STEP 0 and reuses the file an earlier run left, so the
-# starting view is written here the same way. The owner's backup is not touched.
+# Tail mode and the Direct path both skip STEP 0 and reuse a staged settings
+# file, tail mode the one an earlier run left and the Direct path the staging
+# run's snapshot, so the starting view is written here the same way. The log
+# names the mode that ran. The owner's backup is not touched.
 if (-not $script:doSetup) {
-    [xml]$tx = Get-Content $PadForgeXml
+    $modeLabel = if ($script:Direct) { "Direct" } else { "Tail mode" }
+    $tx = Read-SettingsXml $PadForgeXml
+    # No STEP 0 built this file, so the check STEP 0 makes of its own save is
+    # made of the reused file here, before PadForge starts on it.
+    if (-not (Assert-SyntheticRowsClean ($tx.PadForgeSettings.SelectSingleNode("Devices")) $script:SyntheticGuids)) {
+        $rebuild = if ($script:Direct) { "A run with -StageAll rebuilds the snapshot." } else { "The next run rebuilds the file." }
+        Write-Host "  !! ${modeLabel}: the reused file failed that check. $rebuild" -ForegroundColor Red
+    }
     $tApp = $tx.PadForgeSettings.SelectSingleNode("AppSettings")
     if ($tApp) {
         $tNode = $tApp.SelectSingleNode("Use2DControllerView")
@@ -2938,10 +3273,10 @@ if (-not $script:doSetup) {
             $tApp.AppendChild($tNode) | Out-Null
         }
         $tNode.InnerText = if ($script:Start2D) { "true" } else { "false" }
-        $tx.Save($PadForgeXml)
-        Write-Host "  Tail mode: set Use2DControllerView=$($tNode.InnerText) in the reused file"
+        $kept = Save-SettingsXml $tx $PadForgeXml
+        Write-Host "  ${modeLabel}: set Use2DControllerView=$($tNode.InnerText) in the reused file. The file as it was is kept as $kept"
     } else {
-        Write-Host "  !! tail mode: no AppSettings in $PadForgeXml, so the starting view is unknown" -ForegroundColor Red
+        Write-Host "  !! ${modeLabel}: no AppSettings in $PadForgeXml, so the starting view is unknown" -ForegroundColor Red
         $script:ViewUnknown = $true
     }
 }
@@ -2949,13 +3284,6 @@ if (-not $script:doSetup) {
 # ==============================================================================
 # STEP 1: Start PadForge
 # ==============================================================================
-# Everything from here to STEP 4 runs inside a try/finally. Twice on 2026-08-09
-# a StrictMode property read threw mid-run, STEP 4 never executed, and the
-# owner's real PadForge.xml was left replaced by the capture file complete with
-# injected dummy devices. A capture run may fail. It may not walk away holding
-# someone's settings hostage, so the restore is now in a finally and runs on
-# every exit path.
-try {
 Write-Host ""
 Write-Host "=== STEP 1: Start PadForge ===" -ForegroundColor Cyan
 Start-Process $PadForgeExe
@@ -2971,7 +3299,8 @@ for ($i = 0; $i -lt $timeout; $i++) {
     }
 }
 if (-not $started) {
-    Write-Host "  !! PadForge failed to start in ${timeout}s" -ForegroundColor Red
+    $kept = Save-SettingsCopy $PadForgeXml
+    Write-Host "  !! PadForge failed to start in ${timeout}s. The capture file is kept as $kept" -ForegroundColor Red
     Copy-Item $xmlBak $PadForgeXml -Force
     exit 1
 }
@@ -3019,7 +3348,8 @@ $pidCond = New-Object System.Windows.Automation.PropertyCondition(
     [System.Windows.Automation.AutomationElement]::ProcessIdProperty, $proc.Id)
 $uiaWin = $uiaRoot.FindFirst($TC, $pidCond)
 if (-not $uiaWin) {
-    Write-Host "  !! UIA fail" -ForegroundColor Red
+    $kept = Save-SettingsCopy $PadForgeXml
+    Write-Host "  !! UIA fail. The capture file is kept as $kept" -ForegroundColor Red
     Copy-Item $xmlBak $PadForgeXml -Force
     exit 1
 }
@@ -3719,9 +4049,19 @@ Ensure-MacrosLoaded -XmlPath $PadForgeXml -ExePath $PadForgeExe | Out-Null
 
 # Keep what this staging built, so a later -Only run loads it directly. The
 # app saves 2 s after its last change, so let it go quiet first.
+#
+# Only a staging that did all it asked is kept. A later -Only run loads the
+# snapshot as staged and skips its own staging, so one saved after a failed
+# step would put a slot short of a device, or a synthetic row with a real
+# row's serial, under every targeted shot taken from it.
 Start-Sleep -Seconds 3
-Copy-Item $PadForgeXml $script:SnapshotXml -Force
-Write-Host "  Saved the staged settings for later targeted runs: $script:SnapshotXml"
+if ($script:StagingFailed) {
+    $earlier = if (Test-Path $script:SnapshotXml) { "The snapshot of an earlier staging stays as it was." } else { "There is none yet, so a targeted run builds its own." }
+    Write-Host "  !! A staging step failed, so this staging is not saved as the snapshot for targeted runs. $earlier" -ForegroundColor Red
+} else {
+    Copy-Item $PadForgeXml $script:SnapshotXml -Force
+    Write-Host "  Saved the staged settings for later targeted runs: $script:SnapshotXml"
+}
 
 # Web controller server is enabled via XML injection in Step 0. No UI click needed.
 }
@@ -5440,9 +5780,16 @@ if ($Only.Count -gt 0) {
     }
     Write-Host ""
     Write-Host "Focused pass done." -ForegroundColor Green
-    return
+    # Not a return. A return here left the script from inside the try, so the
+    # lines below the finally never ran: the transcript stayed open,
+    # capture.lock kept this PID, and the run ended with exit code 0 whatever
+    # it had refused. The flag skips the passes behind this one instead.
+    $script:FocusedPassRan = $true
 }
 
+# An -Only run ends at the focused pass. From here to STEP 4 are the per-page
+# passes and the tail, which run only when the focused pass did not.
+if (-not $script:FocusedPassRan) {
 # ==============================================================================
 # STEP 3: Capture all pages
 # ==============================================================================
@@ -5856,7 +6203,7 @@ if ((Get-Count $slots) -ge 1) {
     $macroNames = @("Quick Combo", "Volume Control", "Sleep Controller", "Center Cursor", "Rapid Fire", "Aim Layer", "Key Glow")
     $macroSeen = 0
     try {
-        [xml]$mkChk = Get-Content $PadForgeXml
+        $mkChk = Read-SettingsXml $PadForgeXml
         $mkRoot = $mkChk.PadForgeSettings.SelectSingleNode("Macros")
         if ($mkRoot) { $macroSeen = @($mkRoot.SelectNodes("Macro")).Count }
     } catch { $macroSeen = 0 }
@@ -5879,7 +6226,7 @@ if ((Get-Count $slots) -ge 1) {
             if ($mkTab) { Click-El $mkTab -Label "Tab:Macros (after repair)" -Delay 1200 | Out-Null }
             $macroSeen = 0
             try {
-                [xml]$mkChk2 = Get-Content $PadForgeXml
+                $mkChk2 = Read-SettingsXml $PadForgeXml
                 $mkRoot2 = $mkChk2.PadForgeSettings.SelectSingleNode("Macros")
                 if ($mkRoot2) { $macroSeen = @($mkRoot2.SelectNodes("Macro")).Count }
             } catch { $macroSeen = 0 }
@@ -6881,7 +7228,7 @@ $menuShots = @("pad-menus", "menu-macro-cell", "menu-icon-packs")
 Write-Host "[3b] Menus: $($menuShots -join ', ') (#390)"
 $menuSeen = 0
 try {
-    [xml]$mnChk = Get-Content $PadForgeXml
+    $mnChk = Read-SettingsXml $PadForgeXml
     $menuSeen = @($mnChk.PadForgeSettings.SelectNodes("SlotMappingSets/MappingSet/Menu")).Count
 } catch { $menuSeen = 0 }
 Write-Host "  menus in settings: $menuSeen"
@@ -7638,6 +7985,8 @@ try {
     $n++
 }
 
+# The end of the passes behind the focused pass.
+}
 
 }
 finally {
@@ -7647,13 +7996,48 @@ finally {
 Write-Host ""
 Write-Host "=== STEP 4: Cleanup ===" -ForegroundColor Cyan
 
-# Stop PadForge, restore XML
+# Stop PadForge, restore XML. A run that stopped before taking its backup
+# never replaced the settings file, so there is nothing to put back. A
+# backup an earlier interrupted run left goes back here when the pre-flight
+# had a marker's word for it, as the guards above would put it back. A
+# backup the run has no such word for stays where it is, beside a settings
+# file the run never wrote.
+#
+# The order is the point. PadForge is stopped first, because a live app saves
+# its own state over a restored file. The marker goes as soon as the settings
+# are back, before the backup does: a run that dies between the two leaves a
+# backup with no marker beside a file with the same bytes, which the next run
+# takes for what it is. The other order would leave a marker vouching for a
+# backup the owner has since moved on from.
 Write-Host "  Stopping PadForge..."
 Get-Process PadForge -EA SilentlyContinue | Stop-Process -Force
 Start-Sleep -Seconds 2
-Copy-Item $xmlBak $PadForgeXml -Force
-Remove-Item $xmlBak -Force
-Write-Host "  Restored PadForge.xml from backup" -ForegroundColor Green
+if ((Test-Path $xmlBak) -and $script:BackupHoldsSettings) {
+    # Once the run has taken its backup, the file about to be replaced is
+    # the run's own capture file and its copy is a courtesy. Before that the
+    # file may be anyone's, and it is not replaced unless the copy was made.
+    $kept = $null
+    $keptBak = $null
+    try { $kept = Save-SettingsCopy $PadForgeXml }
+    catch { Write-Host "  !! could not copy $PadForgeXml aside before the restore: $($_.Exception.Message)" -ForegroundColor Red }
+    if ($kept -or $script:BackupTaken -or -not (Test-Path $PadForgeXml)) {
+        Copy-Item $xmlBak $PadForgeXml -Force
+        Remove-BackupMarker $xmlBak
+        try {
+            $keptBak = Save-SettingsCopy $xmlBak
+            Remove-Item $xmlBak -Force
+        } catch { Write-Host "  !! the backup could not be cleared and stays beside the restored file: $($_.Exception.Message)" -ForegroundColor Red }
+        Write-Host "  Restored PadForge.xml from backup" -ForegroundColor Green
+        if ($kept) { Write-Host "  The file it replaced is kept as $kept" -ForegroundColor DarkGray }
+        if ($keptBak) { Write-Host "  The backup is kept as $keptBak" -ForegroundColor DarkGray }
+    } else {
+        Write-Host "  !! NOT restored: $PadForgeXml could not be copied aside first, and this run took no backup of its own. $xmlBak stays beside it for the next run to settle" -ForegroundColor Red
+    }
+} elseif (Test-Path $xmlBak) {
+    Write-Host "  !! $xmlBak stays where it is. Nothing told this run that it holds the settings to put back, and the run never wrote the settings file" -ForegroundColor Red
+} else {
+    Write-Host "  No backup taken, so PadForge.xml was never replaced" -ForegroundColor DarkGray
+}
 
 # Clean up temporary Edge profile used for web screenshots.
 $edgeTempProfile = Join-Path $env:TEMP "PadForge_EdgeCapture"
@@ -7775,6 +8159,14 @@ Get-ChildItem "$OutputDir\*.png" | Sort-Object Name | ForEach-Object {
 # Transcript closes LAST so the coverage audit above is recorded in the log.
 # It used to stop before the audit ran, which meant the one report that says
 # whether the run actually covered everything went to the console and nowhere else.
+#
+# Every run that reaches the end of the try comes through here, a focused run
+# included. A run that stops on an exit inside the try, on an error or on
+# CTRL+C runs the finally and not these lines.
 Stop-Transcript | Out-Null
 Remove-Item $lockPath -Force -EA SilentlyContinue
+# The exit code is always written out. A script that simply ends leaves
+# $LASTEXITCODE as the last native command set it, and
+# capture_all_wrapper.ps1 passes that variable on.
 if ((Get-Count $script:RefusedShots) -gt 0 -or (Get-Count $script:StateFailures) -gt 0) { exit 1 }
+exit 0

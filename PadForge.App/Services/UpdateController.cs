@@ -662,7 +662,9 @@ namespace PadForge.Services
             string url = _offer?.ReleasePageUrl;
             if (string.IsNullOrEmpty(url) || !url.StartsWith("https://github.com/" + UpdateService.Repo + "/", StringComparison.OrdinalIgnoreCase))
                 return;
-            try { Process.Start(new ProcessStartInfo(url) { UseShellExecute = true }); }
+            // Through the update code's one process start, which the test host
+            // refuses.
+            try { UpdateService.StartProcess(new ProcessStartInfo(url) { UseShellExecute = true }); }
             catch { /* no browser registered */ }
         }
 

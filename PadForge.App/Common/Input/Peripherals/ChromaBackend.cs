@@ -21,8 +21,10 @@ namespace PadForge.Common.Input.Peripherals
     /// devices assigned to the controller its macro runs on, whether or not
     /// their Lighting tabs take control, and lets go within
     /// <see cref="PeripheralOutputs.MacroAssertWindowMs"/> of the action
-    /// ending. Two controllers' macros on one category: the smaller displayed
-    /// player number rules.</para>
+    /// ending: while one is live the worker's wait ends at its lapse
+    /// (<see cref="PeripheralOutputs.NextChromaMacroLapse"/>). Two
+    /// controllers' macros on one category: the smaller displayed player
+    /// number rules.</para>
     ///
     /// <para>Protocol, triangulated from the official Chroma REST docs and
     /// chroma-sdk/Colore (RestApi.cs), which agree on every field. Init is
@@ -69,20 +71,24 @@ namespace PadForge.Common.Input.Peripherals
         private readonly int _pollMs;
         private readonly Func<int, ISet<Guid>> _devicesOnSlot;
         private readonly Func<int, int> _slotNumber;
+        private readonly Func<long> _clock;
         private readonly HttpClient _http;
         private readonly SemaphoreSlim _wake = new(0, 1);
         private CancellationTokenSource _cts;
         private Task _loop;
-        private string _lastRejectLogged;
         private int _disposed;
+        private int _passes;
+        private int _waitMs;
 
         public ChromaBackend()
             : this(null, 1000, 30000, 100, DefaultHttpTimeoutMs, null, null) { }
 
         /// <summary>Test seam: the endpoint, the cadences, the HTTP timeout,
-        /// and the assignment lookups a Set Chroma Color reads.</summary>
+        /// the assignment lookups a Set Chroma Color reads, and the clock the
+        /// worker reads, which a test moves itself so a macro's window is
+        /// its own to open and close.</summary>
         internal ChromaBackend(string endpoint, int heartbeatMs, int retryMs, int pollMs, int httpTimeoutMs,
-            Func<int, ISet<Guid>> devicesOnSlot, Func<int, int> slotNumber)
+            Func<int, ISet<Guid>> devicesOnSlot, Func<int, int> slotNumber, Func<long> clock = null)
         {
             _endpoint = string.IsNullOrEmpty(endpoint) ? DefaultEndpoint : endpoint.TrimEnd('/');
             _heartbeatMs = heartbeatMs;
@@ -90,10 +96,19 @@ namespace PadForge.Common.Input.Peripherals
             _pollMs = pollMs;
             _devicesOnSlot = devicesOnSlot ?? PeripheralOutputs.DevicesOnSlot;
             _slotNumber = slotNumber ?? PeripheralOutputs.DisplayedSlotNumber;
+            _clock = clock ?? (() => Environment.TickCount64);
             _http = new HttpClient { Timeout = TimeSpan.FromMilliseconds(httpTimeoutMs) };
         }
 
         internal bool WorkerAlive => _loop != null && !_loop.IsCompleted;
+
+        /// <summary>Passes the worker has started, for the test of its
+        /// wait.</summary>
+        internal int PassCount => Volatile.Read(ref _passes);
+
+        /// <summary>The wait the worker last asked for, so the test of a
+        /// macro's lapse reads the wait it chose and times nothing.</summary>
+        internal int WaitMs => Volatile.Read(ref _waitMs);
 
         public void Start()
         {
@@ -204,13 +219,23 @@ namespace PadForge.Common.Input.Peripherals
             string session = null;
             List<string> sessionCategories = null;
             var lastSent = new Dictionary<string, int>();
+            // The rejection last logged per category, so a category refused
+            // on every poll logs once. Cleared for a category when a color is
+            // accepted there and for all when a session opens, so a refusal
+            // that comes back logs again (SendStaticAsync).
+            var rejectLogged = new Dictionary<string, string>();
+            // Set once "waiting for Synapse" is written, so a Synapse that
+            // keeps refusing logs it once rather than at every retry. Cleared
+            // when a session opens or nothing is claimed.
+            bool waitingLogged = false;
             long lastHeartbeat = 0;
             long retryAt = 0;
             try
             {
                 while (!ct.IsCancellationRequested)
                 {
-                    long now = Environment.TickCount64;
+                    Interlocked.Increment(ref _passes);
+                    long now = _clock();
                     var wanted = Wanted(PeripheralOutputs.Links, now, _devicesOnSlot, _slotNumber);
 
                     if (wanted.Count == 0)
@@ -225,6 +250,7 @@ namespace PadForge.Common.Input.Peripherals
                             PadForge.Engine.SdlDiagLog.WriteLine("PERIPHERAL Chroma handed back");
                         }
                         retryAt = 0;
+                        waitingLogged = false;
                         PeripheralOutputs.SetBackendState(OutputFamily.ChromaCategory, BackendState.Idle);
                         await WaitAsync(_pollMs, ct).ConfigureAwait(false);
                         continue;
@@ -250,14 +276,20 @@ namespace PadForge.Common.Input.Peripherals
                         if (session == null)
                         {
                             sessionCategories = null;
-                            retryAt = Environment.TickCount64 + _retryMs;
+                            retryAt = _clock() + _retryMs;
                             PeripheralOutputs.SetBackendState(OutputFamily.ChromaCategory, BackendState.Waiting);
-                            PadForge.Engine.SdlDiagLog.WriteLine("PERIPHERAL Chroma waiting for Synapse");
+                            if (!waitingLogged)
+                            {
+                                waitingLogged = true;
+                                PadForge.Engine.SdlDiagLog.WriteLine("PERIPHERAL Chroma waiting for Synapse");
+                            }
                             continue;
                         }
                         sessionCategories = categories;
                         lastSent.Clear();
-                        lastHeartbeat = Environment.TickCount64;
+                        rejectLogged.Clear();
+                        waitingLogged = false;
+                        lastHeartbeat = _clock();
                         PeripheralOutputs.SetBackendState(OutputFamily.ChromaCategory, BackendState.Connected);
                         PadForge.Engine.SdlDiagLog.WriteLine("PERIPHERAL Chroma session for " + string.Join(",", categories));
                     }
@@ -265,10 +297,10 @@ namespace PadForge.Common.Input.Peripherals
                     bool broken = false;
                     try
                     {
-                        now = Environment.TickCount64;
-                        if (now - lastHeartbeat >= _heartbeatMs)
+                        long beat = _clock();
+                        if (beat - lastHeartbeat >= _heartbeatMs)
                         {
-                            lastHeartbeat = now;
+                            lastHeartbeat = beat;
                             // No body, Colore's no-data PUT overload
                             // (RestClient.cs:107).
                             using var hb = await _http.PutAsync(session + "/heartbeat", null, ct).ConfigureAwait(false);
@@ -281,7 +313,7 @@ namespace PadForge.Common.Input.Peripherals
                                 if (lastSent.TryGetValue(pair.Key, out int sent) && sent == pair.Value) continue;
                                 // A rejected PUT leaves the last color in place
                                 // so the next poll retries it.
-                                if (await SendStaticAsync(session, pair.Key, ToBgr(pair.Value), ct).ConfigureAwait(false))
+                                if (await SendStaticAsync(session, pair.Key, ToBgr(pair.Value), rejectLogged, ct).ConfigureAwait(false))
                                     lastSent[pair.Key] = pair.Value;
                             }
                         }
@@ -296,12 +328,12 @@ namespace PadForge.Common.Input.Peripherals
                         await EndSessionAsync(session).ConfigureAwait(false);
                         session = null;
                         sessionCategories = null;
-                        retryAt = Environment.TickCount64 + _retryMs;
+                        retryAt = _clock() + _retryMs;
                         PeripheralOutputs.SetBackendState(OutputFamily.ChromaCategory, BackendState.Waiting);
                         PadForge.Engine.SdlDiagLog.WriteLine("PERIPHERAL Chroma session lost");
                         continue;
                     }
-                    await WaitAsync(_pollMs, ct).ConfigureAwait(false);
+                    await WaitAsync(PollWaitMs(now), ct).ConfigureAwait(false);
                 }
             }
             catch (OperationCanceledException) { }
@@ -319,8 +351,24 @@ namespace PadForge.Common.Input.Peripherals
         /// <summary>Waits a poll interval, or less when a claim changes.</summary>
         private async Task WaitAsync(int ms, CancellationToken ct)
         {
+            Volatile.Write(ref _waitMs, ms);
             try { await _wake.WaitAsync(ms, ct).ConfigureAwait(false); }
             catch (ObjectDisposedException) { }
+        }
+
+        /// <summary>The poll interval, or less while a Set Chroma Color is
+        /// live, so the pass that lets the macro go runs at its lapse: nothing
+        /// wakes the worker when an action stops being asserted. The lapse is
+        /// that of a macro live at <paramref name="evaluated"/>, the tick the
+        /// pass read its colors at, and the wait is what is left of it now.
+        /// Taken from the tick the pass ended at, the lapse of a macro that
+        /// ran out while its color was sent was already behind, and the
+        /// worker held that color for a whole poll. The shape of
+        /// LedSdkBackend.WaitWhileWantedAsync's deadline wait.</summary>
+        private int PollWaitMs(long evaluated)
+        {
+            long lapse = PeripheralOutputs.NextChromaMacroLapse(evaluated);
+            return lapse == long.MaxValue ? _pollMs : (int)Math.Min(_pollMs, Math.Max(1, lapse - _clock()));
         }
 
         /// <summary>Ends a session, bounded at a second. Synapse reaps an
@@ -351,9 +399,11 @@ namespace PadForge.Common.Input.Peripherals
         /// was accepted. The REST server answers HTTP 200 with a nonzero
         /// "result" on a rejected effect, and Colore checks that field after
         /// every effect call (Rest/RestApi.cs SetEffectAsync), so acceptance
-        /// is read from the body. A rejection is logged once per distinct
-        /// category and code.</summary>
-        private async Task<bool> SendStaticAsync(string session, string category, int bgr, CancellationToken ct)
+        /// is read from the body. A rejection is logged once per category and
+        /// code until that category is accepted or a new session opens, which
+        /// <paramref name="rejectLogged"/>, the worker's own map, keeps.</summary>
+        private async Task<bool> SendStaticAsync(string session, string category, int bgr,
+            Dictionary<string, string> rejectLogged, CancellationToken ct)
         {
             string body = "{\"effect\":\"CHROMA_STATIC\",\"param\":{\"color\":"
                 + bgr.ToString(System.Globalization.CultureInfo.InvariantCulture) + "}}";
@@ -371,10 +421,14 @@ namespace PadForge.Common.Input.Peripherals
                 else if (result != 0 && result != ResultDeviceNotConnected)
                     reject = category + " result=" + result.ToString(System.Globalization.CultureInfo.InvariantCulture);
             }
-            if (reject == null) return true;
-            if (reject != _lastRejectLogged)
+            if (reject == null)
             {
-                _lastRejectLogged = reject;
+                rejectLogged.Remove(category);
+                return true;
+            }
+            if (!rejectLogged.TryGetValue(category, out string logged) || logged != reject)
+            {
+                rejectLogged[category] = reject;
                 PadForge.Engine.SdlDiagLog.WriteLine($"PERIPHERAL Chroma effect rejected: {reject}, retrying on the next poll");
             }
             return false;

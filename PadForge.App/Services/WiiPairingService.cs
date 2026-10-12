@@ -97,10 +97,16 @@ namespace PadForge.Services
             => RunPairingScan(Ds3DriverInstaller.SuspendPsmEnablingForWii,
                 suspension => RunPairingPass(temporary, ct, suspension), ct, progress);
 
-        /// <summary>The background scan owns restoration independently of UI progress delivery.</summary>
+        /// <summary>How far apart two passes start when an inquiry returns at
+        /// once.</summary>
+        internal const int RetryPaceMs = 100;
+
+        /// <summary>The background scan owns restoration independently of UI progress delivery.
+        /// <paramref name="retryPaceMs"/> is a test seam: a test of the wait
+        /// between two passes makes it long enough that only a cancel ends it.</summary>
         internal static PairPassResult RunPairingScan(Func<PsmPatchCoordinator.Suspension> suspend,
             Func<PsmPatchCoordinator.Suspension, PairPassResult> runPass,
-            CancellationToken ct, IProgress<PairPassResult> progress)
+            CancellationToken ct, IProgress<PairPassResult> progress, int retryPaceMs = RetryPaceMs)
         {
             if (ct.IsCancellationRequested) return new PairPassResult();
             using var suspension = suspend();
@@ -113,7 +119,7 @@ namespace PadForge.Services
 
                 // An inquiry can fail immediately. Pace retries without adding
                 // delay to a normal inquiry or releasing PSM suppression.
-                TimeSpan remaining = TimeSpan.FromMilliseconds(100) - Stopwatch.GetElapsedTime(started);
+                TimeSpan remaining = TimeSpan.FromMilliseconds(retryPaceMs) - Stopwatch.GetElapsedTime(started);
                 if (remaining <= TimeSpan.Zero) continue;
                 try { Task.Delay(remaining, ct).GetAwaiter().GetResult(); }
                 catch (OperationCanceledException) when (ct.IsCancellationRequested) { break; }

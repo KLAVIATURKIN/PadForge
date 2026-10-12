@@ -893,7 +893,16 @@ namespace PadForge.Engine.Data
             }
             else
             {
-                row.Sources.AddRange(additions);
+                // The set is the slot's live one when this runs after a
+                // device change, and the poll thread reads a row's sources
+                // unlocked. The grown list replaces the old one by reference,
+                // never an in-place append, the rule every writer of a live
+                // row's sources keeps (LiveListSwapTests).
+                var grown = row.Sources != null
+                    ? new List<MappingSource>(row.Sources)
+                    : new List<MappingSource>();
+                grown.AddRange(additions);
+                row.Sources = grown;
             }
         }
     }

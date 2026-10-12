@@ -70,6 +70,107 @@ namespace PadForge.Common
             => notTracked ? Untracked() : new InstallerFailedException();
     }
 
+    /// <summary>Why a MIDI runtime or SteamVR operation stopped on one of
+    /// PadForge's own checks.</summary>
+    public enum DriverCheckFailure
+    {
+        /// <summary>The Visual C++ Redistributable download does not carry
+        /// Microsoft's signature.</summary>
+        VcRedistUnsigned,
+
+        /// <summary>The MIDI runtime download does not match its published
+        /// SHA-256.</summary>
+        MidiRuntimeHashMismatch,
+
+        /// <summary>No Windows MIDI Services runtime is installed to
+        /// remove.</summary>
+        NoMidiRuntime,
+
+        /// <summary>A program held the old Visual C++ runtime open through
+        /// every repair run, so Windows queued the new copy.</summary>
+        VcRuntimeHeld,
+
+        /// <summary>The Visual C++ runtime is still older than the minimum
+        /// after its installer ran. The detail is that minimum.</summary>
+        VcRuntimeStillOld,
+
+        /// <summary>The Visual C++ Redistributable's run outlived its wait,
+        /// or Windows started it without a process to follow, so the MIDI
+        /// runtime's own installer never ran and the Settings card has no
+        /// result to show for it. The user installs again once the
+        /// redistributable is done. The inner exception is the
+        /// <see cref="InstallerFailedException"/> behind it.</summary>
+        VcRedistStillRunning,
+
+        /// <summary>MIDI was not released within its bound before the MIDI
+        /// runtime's uninstall, so the uninstaller was not started.</summary>
+        MidiReleaseTimedOut,
+
+        /// <summary>The same, where what the release waited behind is a
+        /// probe hung in a classic MIDI driver, which the status line names
+        /// in place of the MIDI service.</summary>
+        MidiReleaseTimedOutOnDriver,
+
+        /// <summary>PadForge has no SteamVR install of its own to
+        /// remove.</summary>
+        NoOwnedSteamVr,
+
+        /// <summary>SteamVR's server is running.</summary>
+        SteamVrRunning,
+
+        /// <summary>The recorded SteamVR folder is a drive root, which the
+        /// uninstall will not delete. The detail is the folder.</summary>
+        SteamVrFolderIsDriveRoot,
+
+        /// <summary>The SteamVR folder is still there after the delete. The
+        /// detail is the folder.</summary>
+        SteamVrNotRemoved,
+
+        /// <summary>The SteamVR install location is not a full path.</summary>
+        SteamVrLocationNotFull,
+
+        /// <summary>The SteamVR install location is a drive root.</summary>
+        SteamVrLocationIsDriveRoot,
+
+        /// <summary>steamcmd ran for 60 minutes without finishing.</summary>
+        SteamCmdTimedOut,
+
+        /// <summary>steamcmd finished and SteamVR is not in the install
+        /// location. The detail is the folder, and the output is the end of
+        /// what steamcmd printed.</summary>
+        SteamVrDidNotLand,
+    }
+
+    /// <summary>
+    /// A MIDI runtime or SteamVR operation stopped on one of PadForge's own
+    /// checks, before or after an installer ran. As with
+    /// <see cref="InstallerFailedException"/> and
+    /// <see cref="HidHideSetupException"/>, the facts ride on the properties
+    /// so the caller can word the failure in the user's language, and
+    /// Message is an English fallback for a log.
+    /// </summary>
+    public sealed class DriverCheckException : Exception
+    {
+        public DriverCheckFailure Failure { get; }
+
+        /// <summary>The value the wording names: a version or a folder.
+        /// Empty when the failure names none.</summary>
+        public string Detail { get; }
+
+        /// <summary>The end of a tool's own output, in the tool's language.
+        /// Empty when the failure carries none.</summary>
+        public string Output { get; }
+
+        public DriverCheckException(DriverCheckFailure failure, string message, string detail = null, string output = null,
+            Exception inner = null)
+            : base(message, inner)
+        {
+            Failure = failure;
+            Detail = detail ?? string.Empty;
+            Output = output ?? string.Empty;
+        }
+    }
+
     /// <summary>
     /// Handles HIDMaestro and HidHide install / uninstall in v3, plus legacy
     /// uninstall paths for v2 ViGEmBus and vJoy residue. Uses embedded
@@ -345,7 +446,7 @@ namespace PadForge.Common
 
                 foreach (var path in registryPaths)
                 {
-                    try { Registry.LocalMachine.DeleteSubKeyTree(path, throwOnMissingSubKey: false); }
+                    try { DeleteRegistryTree(Registry.LocalMachine, path); }
                     catch { }
                 }
 
@@ -353,9 +454,8 @@ namespace PadForge.Common
 
                 try
                 {
-                    Registry.CurrentUser.DeleteSubKeyTree(
-                        @"System\CurrentControlSet\Control\MediaProperties\PrivateProperties\Joystick\OEM\VID_1234&PID_BEAD",
-                        throwOnMissingSubKey: false);
+                    DeleteRegistryTree(Registry.CurrentUser,
+                        @"System\CurrentControlSet\Control\MediaProperties\PrivateProperties\Joystick\OEM\VID_1234&PID_BEAD");
                 }
                 catch { }
             }
@@ -383,8 +483,7 @@ namespace PadForge.Common
                         var classValue = sub?.GetValue("Class") as string;
                         if (string.Equals(classValue, "vjoy", StringComparison.OrdinalIgnoreCase))
                         {
-                            Registry.LocalMachine.DeleteSubKeyTree(
-                                classPath + @"\" + subName, throwOnMissingSubKey: false);
+                            DeleteRegistryTree(Registry.LocalMachine, classPath + @"\" + subName);
                         }
                     }
                     catch { /* best effort */ }
@@ -410,7 +509,7 @@ namespace PadForge.Common
                     CreateNoWindow = true
                 };
 
-                using var proc = Process.Start(psi);
+                using var proc = StartProcess(psi);
                 if (proc == null) return Array.Empty<string>();
 
                 string output = proc.StandardOutput.ReadToEnd();
@@ -657,7 +756,8 @@ namespace PadForge.Common
                     string redist = Path.Combine(staging, "vc_redist.x64.exe");
                     Download(http, VcRedistUrl, redist);
                     if (!IsSignedByMicrosoft(redist))
-                        throw new InvalidOperationException("The Visual C++ Redistributable download is not signed by Microsoft.");
+                        throw new DriverCheckException(DriverCheckFailure.VcRedistUnsigned,
+                            "The Visual C++ Redistributable download is not signed by Microsoft.");
                     try
                     {
                         InstallVcRuntime(
@@ -670,8 +770,10 @@ namespace PadForge.Common
                             () => System.Threading.Thread.Sleep(VcRepairPauseMs),
                             VcRuntimeReplacementQueued);
                     }
-                    catch (InstallerFailedException ex) when (ex.OutcomeUnknown)
+                    catch (DriverCheckException ex) when (ex.Failure == DriverCheckFailure.VcRedistStillRunning)
                     {
+                        // The redistributable may still be reading what it
+                        // was handed.
                         installerMayStillRun = true;
                         throw;
                     }
@@ -683,7 +785,8 @@ namespace PadForge.Common
                 Download(http, MidiRuntimeReleaseUrl + name, msi);
                 if (!string.Equals(Sha256Hex(msi), arm64 ? MidiRuntimeSha256Arm64 : MidiRuntimeSha256X64,
                         StringComparison.OrdinalIgnoreCase))
-                    throw new InvalidOperationException("The downloaded MIDI runtime does not match its published SHA-256.");
+                    throw new DriverCheckException(DriverCheckFailure.MidiRuntimeHashMismatch,
+                        "The downloaded MIDI runtime does not match its published SHA-256.");
                 try
                 {
                     RunMsiElevated($"/i \"{msi}\" /qn /norestart MSIRESTARTMANAGERCONTROL=Disable", absentIsSuccess: false);
@@ -706,29 +809,65 @@ namespace PadForge.Common
         /// Uninstalls the App SDK runtime through whichever install provides
         /// it (<see cref="FindMidiRuntime"/>): Microsoft's bundle through its
         /// cached bootstrapper, a package through msiexec. The in-box API is
-        /// part of Windows and is never touched. The caller releases the
-        /// runtime first (MidiVirtualController.SuppressForUninstall). Waits
-        /// up to five minutes and returns false when the uninstaller is still
-        /// running then.
+        /// part of Windows and is never touched. The caller
+        /// (MidiRuntimeSwitch.RunUninstall) first takes what the API in use
+        /// calls for: nothing under the in-box API, a hold on Windows MIDI
+        /// Services starting under the legacy API, which keeps running, and
+        /// otherwise MIDI released and latched released. Waits up to five
+        /// minutes and returns false when the uninstaller is still running
+        /// then, and <paramref name="exited"/> completes when it exits, so
+        /// the caller ends the hold it took then.
         /// </summary>
-        public static bool UninstallMidiRuntime()
+        public static bool UninstallMidiRuntime(out Task exited)
         {
             var (owner, target) = FindMidiRuntime();
             switch (owner)
             {
                 case MidiRuntimeOwner.MicrosoftBundle:
-                    return UninstallMidiBundle(target);
+                    return UninstallMidiBundle(target, out exited);
                 case MidiRuntimeOwner.PadForgePackage:
                 case MidiRuntimeOwner.MicrosoftPackage:
-                    return UninstallMidiPackage(target);
+                    return UninstallMidiPackage(target, out exited);
                 default:
-                    throw new InvalidOperationException("No Windows MIDI Services runtime is installed.");
+                    throw new DriverCheckException(DriverCheckFailure.NoMidiRuntime,
+                        "No Windows MIDI Services runtime is installed.");
             }
+        }
+
+        /// <summary>How long a runtime uninstaller is waited on before the
+        /// card lets go of it. Tests shorten it.</summary>
+        internal static int MidiUninstallWaitMs = 300_000;
+
+        /// <summary>Waits <see cref="MidiUninstallWaitMs"/> for an
+        /// uninstaller. True when it exited in time, and the caller still
+        /// owns <paramref name="proc"/>. Otherwise <paramref name="exited"/>
+        /// completes when it exits, reported through
+        /// <paramref name="onExit"/>, and that task owns the Process from
+        /// then on: disposing it here would drop the handle the exit is
+        /// watched through.</summary>
+        internal static bool WaitForUninstaller(Process proc, Action<int> onExit, out Task exited)
+        {
+            if (proc.WaitForExit(MidiUninstallWaitMs))
+            {
+                exited = Task.CompletedTask;
+                return true;
+            }
+            exited = Task.Run(async () =>
+            {
+                try
+                {
+                    await proc.WaitForExitAsync().ConfigureAwait(false);
+                    onExit?.Invoke(proc.ExitCode);
+                }
+                catch { /* the exit still ends the uninstall's hold */ }
+                finally { proc.Dispose(); }
+            });
+            return false;
         }
 
         /// <summary>Runs the bundle's cached WiX Burn bootstrapper from its
         /// UninstallString with /quiet added.</summary>
-        private static bool UninstallMidiBundle(string uninstallCmd)
+        private static bool UninstallMidiBundle(string uninstallCmd, out Task exited)
         {
             // UninstallString is e.g.: "C:\...\Setup.exe"  /uninstall
             // Parse the quoted exe path and any existing arguments, then append /quiet.
@@ -761,14 +900,28 @@ namespace PadForge.Common
                 UseShellExecute = false,
                 CreateNoWindow = true
             };
-            using var proc = Process.Start(psi);
-            return proc == null || proc.WaitForExit(300_000);
+            var proc = StartProcess(psi);
+            if (proc == null)
+            {
+                exited = Task.CompletedTask;
+                return true;
+            }
+            if (WaitForUninstaller(proc,
+                    code => PadForge.Engine.SdlDiagLog.WriteLine($"MIDI runtime bundle uninstaller exited late with {code}"),
+                    out exited))
+            {
+                proc.Dispose();
+                return true;
+            }
+            return false;
         }
 
         /// <summary>Removes a runtime package by ProductCode, with the same
         /// Restart Manager and reboot suppression as the bundle. A package
-        /// that is already gone (1605) counts as removed.</summary>
-        private static bool UninstallMidiPackage(string productCode)
+        /// that is already gone (1605) counts as removed. An msiexec that
+        /// exits after the wait has its outcome logged when it
+        /// exits.</summary>
+        private static bool UninstallMidiPackage(string productCode, out Task exited)
         {
             var psi = new ProcessStartInfo
             {
@@ -777,11 +930,23 @@ namespace PadForge.Common
                 UseShellExecute = false,
                 CreateNoWindow = true
             };
-            using var proc = Process.Start(psi);
-            if (proc == null) return true;
-            if (!proc.WaitForExit(300_000)) return false;
-            if (!IsMsiSuccess(proc.ExitCode, absentIsSuccess: true))
-                throw new InstallerFailedException(proc.ExitCode);
+            var proc = StartProcess(psi);
+            if (proc == null)
+            {
+                exited = Task.CompletedTask;
+                return true;
+            }
+            if (!WaitForUninstaller(proc,
+                    code => PadForge.Engine.SdlDiagLog.WriteLine(IsMsiSuccess(code, absentIsSuccess: true)
+                        ? $"MIDI runtime package removed late ({code})"
+                        : $"MIDI runtime package uninstaller failed late with {code}"),
+                    out exited))
+                return false;
+            using (proc)
+            {
+                if (!IsMsiSuccess(proc.ExitCode, absentIsSuccess: true))
+                    throw new InstallerFailedException(proc.ExitCode);
+            }
             return true;
         }
 
@@ -911,6 +1076,13 @@ namespace PadForge.Common
         /// <param name="pause">Waits before a repair run.</param>
         /// <param name="replacementQueued">Whether Windows queued a runtime
         /// DLL for the next startup.</param>
+        /// <exception cref="DriverCheckException">A run outlived its wait, or
+        /// Windows handed back no process to follow
+        /// (<see cref="DriverCheckFailure.VcRedistStillRunning"/>): the MIDI
+        /// runtime's own installer never ran then. Or the Visual C++ runtime
+        /// is still too old after every run
+        /// (<see cref="DriverCheckFailure.VcRuntimeHeld"/>,
+        /// <see cref="DriverCheckFailure.VcRuntimeStillOld"/>).</exception>
         internal static void InstallVcRuntime(Func<string, (int? Exit, bool Untracked)> run,
             Func<bool> runtimeCurrent, Action pause, Func<bool> replacementQueued)
         {
@@ -918,13 +1090,19 @@ namespace PadForge.Common
             {
                 if (i > 0) pause();
                 var (exit, untracked) = run(VcRedistRuns[i]);
-                if (exit == null) throw InstallerFailedException.NoExitCode(untracked);
+                if (exit == null)
+                    throw new DriverCheckException(DriverCheckFailure.VcRedistStillRunning,
+                        "The Visual C++ Redistributable installer is still running. Select Install again once it finishes.",
+                        inner: InstallerFailedException.NoExitCode(untracked));
                 if (!IsVcRedistSuccess(exit.Value)) throw new InstallerFailedException(exit.Value);
                 if (runtimeCurrent()) return;
             }
-            throw new InvalidOperationException(replacementQueued()
-                ? "A program holds the old Visual C++ runtime open, so Windows could not replace it. Close other programs and select Install again."
-                : $"The Visual C++ runtime is still older than {MidiRuntimeVcMinimum} after its installer ran.");
+            throw replacementQueued()
+                ? new DriverCheckException(DriverCheckFailure.VcRuntimeHeld,
+                    "A program holds the old Visual C++ runtime open, so Windows could not replace it. Close other programs and select Install again.")
+                : new DriverCheckException(DriverCheckFailure.VcRuntimeStillOld,
+                    $"The Visual C++ runtime is still older than {MidiRuntimeVcMinimum} after its installer ran.",
+                    MidiRuntimeVcMinimum.ToString());
         }
 
         private const string SessionManagerKey = @"SYSTEM\CurrentControlSet\Control\Session Manager";
@@ -970,8 +1148,9 @@ namespace PadForge.Common
 
         /// <summary>Streams <paramref name="url"/> to <paramref name="path"/>.
         /// HttpClient follows the GitHub and aka.ms redirects.</summary>
-        private static void Download(HttpClient http, string url, string path)
+        internal static void Download(HttpClient http, string url, string path)
         {
+            ThrowIfDownloadOffLimits(url);
             using var response = http.Send(new HttpRequestMessage(HttpMethod.Get, url), HttpCompletionOption.ResponseHeadersRead);
             response.EnsureSuccessStatusCode();
             using var stream = response.Content.ReadAsStream();
@@ -1265,6 +1444,9 @@ namespace PadForge.Common
                 bool rewrite = ShouldContainDataPaths(dir, First(root, "runtime"),
                     First(root, "config"), First(root, "log"),
                     out string wantConfig, out string wantLog);
+                // Reads end here. The test host makes no folder in a SteamVR
+                // install and rewrites no path registry.
+                if (OffLimitsForTest) return false;
                 // Nothing to point at is a real state, not a theoretical one.
                 // steamcmd finishes with "validate", which deletes anything in
                 // the install that is not in Valve's manifest, so the two
@@ -1320,16 +1502,16 @@ namespace PadForge.Common
         public static void UninstallSteamVR()
         {
             string dir = GetOwnedSteamVrDir()
-                ?? throw new InvalidOperationException(
-                    "No PadForge-owned SteamVR install to remove.");
+                ?? throw new DriverCheckException(DriverCheckFailure.NoOwnedSteamVr,
+                    "PadForge has no SteamVR install of its own to remove.");
             if (Process.GetProcessesByName("vrserver").Length > 0)
-                throw new InvalidOperationException("SteamVR is running.");
+                throw new DriverCheckException(DriverCheckFailure.SteamVrRunning, "SteamVR is running.");
             // Independent of the install-side refusal: the hint is a plain
             // registry value anyone can edit, and this is the line that
             // recursively deletes whatever it names.
             if (IsDriveRoot(dir))
-                throw new InvalidOperationException(
-                    "The recorded SteamVR path is a drive root; refusing to delete it.");
+                throw new DriverCheckException(DriverCheckFailure.SteamVrFolderIsDriveRoot,
+                    "The recorded SteamVR folder " + dir + " is a drive root, so PadForge will not delete it.", dir);
 
             // PadForge is holding one of the files it is about to delete.
             // The consumer loads SteamVR's own openvr_api.dll into this
@@ -1339,33 +1521,54 @@ namespace PadForge.Common
             // user believed was gone. Unload first, then delete.
             Input.OpenVrConsumerService.ReleaseRuntime();
 
-            // Windows drops a freed module's file lock asynchronously, so the
-            // first delete after an unload can still lose the race. Retry
-            // briefly rather than leaving a half-removed install behind.
-            for (int attempt = 1; ; attempt++)
+            DeleteSteamVrFolder(dir,
+                DeleteFolder,
+                Directory.Exists,
+                () => System.Threading.Thread.Sleep(300));
+
+            ClearSteamVrPathHint();
+
+            HMaestroVRController.ResetAvailability();
+        }
+
+        /// <summary>How many times the SteamVR folder's delete is
+        /// tried.</summary>
+        internal const int SteamVrDeleteTries = 10;
+
+        /// <summary>
+        /// Deletes the SteamVR folder and confirms it is gone. Windows drops
+        /// a freed module's file lock asynchronously, so the first delete
+        /// after an unload can still lose the race, and the delete is tried
+        /// up to <see cref="SteamVrDeleteTries"/> times with a pause between
+        /// rather than leaving a half-removed install behind. A folder still
+        /// there after the last try is
+        /// <see cref="DriverCheckFailure.SteamVrNotRemoved"/>, whether that
+        /// try threw or left part of it. The last try's own exception used
+        /// to leave the uninstall in Windows' words, where every other
+        /// failure of it is a typed check the status line words in the UI
+        /// language.
+        /// </summary>
+        internal static void DeleteSteamVrFolder(string dir, Action<string> delete, Func<string, bool> exists, Action pause)
+        {
+            for (int attempt = 1; attempt <= SteamVrDeleteTries; attempt++)
             {
                 try
                 {
-                    Directory.Delete(dir, recursive: true);
+                    delete(dir);
                     break;
                 }
-                catch (IOException) when (attempt < 10) { }
-                catch (UnauthorizedAccessException) when (attempt < 10) { }
-                System.Threading.Thread.Sleep(300);
+                catch (IOException) { }
+                catch (UnauthorizedAccessException) { }
+                if (attempt < SteamVrDeleteTries) pause();
             }
 
             // "Uninstalled" has to mean the directory is gone. Reporting
             // success over a partial delete is what let a locked
             // openvr_api.dll survive unnoticed in the first place.
-            if (Directory.Exists(dir))
-                throw new IOException(
+            if (exists(dir))
+                throw new DriverCheckException(DriverCheckFailure.SteamVrNotRemoved,
                     "SteamVR was not fully removed: " + dir + " still exists. "
-                    + "Close anything using SteamVR and try again.");
-
-            using (var k = Registry.LocalMachine.OpenSubKey(HmRegKeyPath, writable: true))
-                k?.DeleteValue(SteamVrPathRegValue, throwOnMissingValue: false);
-
-            HMaestroVRController.ResetAvailability();
+                    + "Close anything using SteamVR and try again.", dir);
         }
 
         /// <summary>
@@ -1385,14 +1588,14 @@ namespace PadForge.Common
             // own working directory (the temp staging dir), then fail the
             // vrpathreg verdict with a confusing message. Refuse up front.
             if (!Path.IsPathRooted(targetDir))
-                throw new ArgumentException(
-                    "The SteamVR install location must be a full path, e.g. C:\\SteamVR.");
+                throw new DriverCheckException(DriverCheckFailure.SteamVrLocationNotFull,
+                    "The SteamVR install location must be a full path, such as C:\\SteamVR.");
             // A drive root is never a legitimate target, and allowing one
             // would arm the uninstall side with Directory.Delete on the
             // whole drive. Refuse it here too, symmetrically.
             if (IsDriveRoot(targetDir))
-                throw new ArgumentException(
-                    "The SteamVR install location cannot be a drive root; pick a folder, e.g. C:\\SteamVR.");
+                throw new DriverCheckException(DriverCheckFailure.SteamVrLocationIsDriveRoot,
+                    "The SteamVR install location cannot be a drive root. Pick a folder, such as C:\\SteamVR.");
             // Test seam. Without it, the guard tests EXECUTE the real
             // installer whenever a guard regresses: audit round 43's
             // mutation run launched a live steamcmd toward C:\ while
@@ -1410,6 +1613,7 @@ namespace PadForge.Common
                 {
                     http.DefaultRequestHeaders.UserAgent.ParseAdd("PadForge");
                     http.Timeout = TimeSpan.FromMinutes(10);
+                    ThrowIfDownloadOffLimits(SteamCmdZipUrl);
                     using var response = await http.GetAsync(SteamCmdZipUrl,
                         HttpCompletionOption.ResponseHeadersRead);
                     response.EnsureSuccessStatusCode();
@@ -1442,7 +1646,7 @@ namespace PadForge.Common
                         RedirectStandardOutput = true,
                         WorkingDirectory = tempDir
                     };
-                    using var proc = Process.Start(psi);
+                    using var proc = StartProcess(psi);
                     if (proc == null) continue;
                     var stdoutTask = proc.StandardOutput.ReadToEndAsync();
                     using var cts = new System.Threading.CancellationTokenSource(TimeSpan.FromMinutes(60));
@@ -1453,21 +1657,22 @@ namespace PadForge.Common
                     catch (OperationCanceledException)
                     {
                         try { proc.Kill(entireProcessTree: true); } catch { }
-                        throw new TimeoutException("steamcmd did not finish within 60 minutes.");
+                        throw new DriverCheckException(DriverCheckFailure.SteamCmdTimedOut,
+                            "steamcmd did not finish within 60 minutes.");
                     }
                     string outText = await stdoutTask;
                     lastTail = outText.Length > 400 ? outText[^400..] : outText;
                 }
 
                 if (!File.Exists(vrpathreg))
-                    throw new InvalidOperationException(
+                    throw new DriverCheckException(DriverCheckFailure.SteamVrDidNotLand,
                         "steamcmd ran but SteamVR did not land in " + targetDir
-                        + ". steamcmd said: ..." + lastTail);
+                        + ". steamcmd said: ..." + lastTail, targetDir, lastTail);
 
                 // Steam-free installs write no registry keys of their own;
                 // the hint makes discovery unconditional. Requires admin,
                 // which PadForge always has.
-                HIDMaestro.HMVR.SetSteamVRPathHint(targetDir);
+                SetSteamVrPathHint(targetDir);
                 // Valve's tooling has just written the registry with the
                 // root-level "-config"/"-logs" siblings. Move them inside.
                 ContainOwnedSteamVrDataPaths();
@@ -1673,7 +1878,7 @@ namespace PadForge.Common
             var extractDir = Path.Combine(tempDir, "Extracted");
 
             if (Directory.Exists(extractDir))
-                Directory.Delete(extractDir, true);
+                DeleteFolder(extractDir);
 
             Directory.CreateDirectory(extractDir);
 
@@ -1685,7 +1890,7 @@ namespace PadForge.Common
                 CreateNoWindow = true
             };
 
-            using (var proc = Process.Start(psi))
+            using (var proc = StartProcess(psi))
             {
                 proc?.WaitForExit(60_000);
             }
@@ -1746,7 +1951,7 @@ namespace PadForge.Common
                 WindowStyle = ProcessWindowStyle.Hidden
             };
 
-            using var proc = Process.Start(psi);
+            using var proc = StartProcess(psi);
             // ShellExecute can start the work without handing a process back.
             // Nothing can be waited on then, and nothing is known.
             if (proc == null)
@@ -1765,9 +1970,96 @@ namespace PadForge.Common
             try
             {
                 if (Directory.Exists(tempDir))
-                    Directory.Delete(tempDir, true);
+                    DeleteFolder(tempDir);
             }
             catch { }
+        }
+
+        // ─────────────────────────────────────────────
+        //  What the test host never does
+        // ─────────────────────────────────────────────
+
+        /// <summary>Test seam: set by the test assembly for the life of its
+        /// process. Nothing here then starts a process, downloads a file,
+        /// writes to the registry, or deletes or writes a folder outside the
+        /// temp folder: each refuses as a call that failed would, and changes
+        /// nothing. Every such call in this class goes through one of the
+        /// members below. A test that reaches one with no stand-in in place
+        /// (a seam put away too early, a check a change removed) would
+        /// otherwise run an installer, an uninstaller or steamcmd on the PC
+        /// the tests run on, or delete its SteamVR folder. False in
+        /// production, where nothing sets it.</summary>
+        internal static bool OffLimitsForTest;
+
+        private const int ERROR_ACCESS_DENIED = 5;
+
+        /// <summary>Starts a process: an installer, an uninstaller, a
+        /// bundle's own extractor, pnputil, steamcmd, a cleanup script. In
+        /// the test host it starts none and fails as a start Windows
+        /// denied.</summary>
+        internal static Process StartProcess(ProcessStartInfo psi)
+        {
+            if (OffLimitsForTest)
+                throw new System.ComponentModel.Win32Exception(ERROR_ACCESS_DENIED,
+                    "The test host starts no process: " + psi.FileName);
+            return Process.Start(psi);
+        }
+
+        /// <summary>Fails a download before it begins in the test
+        /// host.</summary>
+        private static void ThrowIfDownloadOffLimits(string url)
+        {
+            if (OffLimitsForTest)
+                throw new HttpRequestException("The test host downloads nothing: " + url);
+        }
+
+        /// <summary>Whether <paramref name="path"/> is inside the temp
+        /// folder, where the staging folders of the installs live. The temp
+        /// folder itself is not inside it.</summary>
+        internal static bool IsInTempFolder(string path)
+        {
+            if (string.IsNullOrWhiteSpace(path)) return false;
+            string temp = Path.GetFullPath(Path.GetTempPath()).TrimEnd('\\', '/') + Path.DirectorySeparatorChar;
+            return Path.GetFullPath(path).TrimEnd('\\', '/').StartsWith(temp, StringComparison.OrdinalIgnoreCase);
+        }
+
+        /// <summary>Deletes a folder with everything in it. In the test host
+        /// only a folder inside the temp folder goes, and any other fails as
+        /// a delete Windows denied.</summary>
+        internal static void DeleteFolder(string path)
+        {
+            if (OffLimitsForTest && !IsInTempFolder(path))
+                throw new UnauthorizedAccessException("The test host deletes no folder outside the temp folder: " + path);
+            Directory.Delete(path, recursive: true);
+        }
+
+        /// <summary>Deletes a registry key with everything under it, where
+        /// it exists. In the test host it deletes none and fails as a write
+        /// Windows denied.</summary>
+        internal static void DeleteRegistryTree(RegistryKey root, string path)
+        {
+            if (OffLimitsForTest)
+                throw new UnauthorizedAccessException("The test host writes nothing to the registry: " + path);
+            root.DeleteSubKeyTree(path, throwOnMissingSubKey: false);
+        }
+
+        /// <summary>Records where the Steam-free SteamVR sits, for
+        /// HIDMaestro's discovery. Never from the test host.</summary>
+        private static void SetSteamVrPathHint(string dir)
+        {
+            if (OffLimitsForTest)
+                throw new UnauthorizedAccessException("The test host writes nothing to the registry: " + HmRegKeyPath);
+            HIDMaestro.HMVR.SetSteamVRPathHint(dir);
+        }
+
+        /// <summary>Clears that record once the install is gone. Never from
+        /// the test host.</summary>
+        private static void ClearSteamVrPathHint()
+        {
+            if (OffLimitsForTest)
+                throw new UnauthorizedAccessException("The test host writes nothing to the registry: " + HmRegKeyPath);
+            using var k = Registry.LocalMachine.OpenSubKey(HmRegKeyPath, writable: true);
+            k?.DeleteValue(SteamVrPathRegValue, throwOnMissingValue: false);
         }
     }
 }

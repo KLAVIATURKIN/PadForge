@@ -16,6 +16,26 @@ namespace PadForge.Engine.Common.AnalogKeyboard.Routes
             long frequency = Stopwatch.Frequency;
             return ticks / frequency * 1_000_000 + ticks % frequency * 1_000_000 / frequency;
         }
+
+        private static readonly Func<long> s_systemMs = () => Environment.TickCount64;
+        private static volatile Func<long> s_milliseconds = s_systemMs;
+
+        /// <summary>The clock of the sessions' read windows, in ms: each setup
+        /// read, the probe and a poll's wait for its answer. It is the system
+        /// tick count unless a test holds it.</summary>
+        public static long Milliseconds() => s_milliseconds();
+
+        /// <summary>Test seam (InternalsVisibleTo PadForge.Tests): the source
+        /// of <see cref="Milliseconds"/>. A test that scripts the keyboard
+        /// holds it, so a window ends when the script has no more answers and
+        /// never because the test thread was held off between two reads. Null
+        /// puts the system tick count back, which a test that set a source
+        /// does when it ends.</summary>
+        internal static Func<long> MillisecondsSource
+        {
+            get => s_milliseconds;
+            set => s_milliseconds = value ?? s_systemMs;
+        }
     }
 
     /// <summary>
@@ -336,12 +356,12 @@ namespace PadForge.Engine.Common.AnalogKeyboard.Routes
         }
 
         /// <summary>One read before <paramref name="deadlineMs"/>
-        /// (Environment.TickCount64): the frame's offset in the buffer, or
+        /// (AddressedClock.Milliseconds): the frame's offset in the buffer, or
         /// NoFrame, TimedOut or Gone (ReadNextPayload,
         /// addressed_analog_backend.cpp:453-477).</summary>
         protected int ReadFrame(IAnalogKeyboardTransport io, long deadlineMs)
         {
-            long remaining = deadlineMs - Environment.TickCount64;
+            long remaining = deadlineMs - AddressedClock.Milliseconds();
             if (remaining <= 0) return TimedOut;
             int n = io.Receive(Buffer, (int)Math.Min(remaining, int.MaxValue));
             if (n < 0) return Gone;
@@ -358,7 +378,7 @@ namespace PadForge.Engine.Common.AnalogKeyboard.Routes
         protected bool Probe(IAnalogKeyboardTransport io, ReadOnlySpan<byte> ids)
         {
             if (!SendFrame(io, AddressedFrame.SampleRequest(ids))) return false;
-            long deadline = Environment.TickCount64 + ProbeWindowMs;
+            long deadline = AddressedClock.Milliseconds() + ProbeWindowMs;
             while (true)
             {
                 int at = ReadFrame(io, deadline);
@@ -416,7 +436,7 @@ namespace PadForge.Engine.Common.AnalogKeyboard.Routes
             // A failed send ends HallJoy's session (addressed_analog_backend.cpp:1376-1384).
             if (!SendFrame(io, AddressedFrame.SampleRequest(_plan.Ids))) return AnalogPollResult.Failed;
 
-            long deadline = Environment.TickCount64 + ResponseTimeoutMs + LateResponseWindowMs;
+            long deadline = AddressedClock.Milliseconds() + ResponseTimeoutMs + LateResponseWindowMs;
             while (true)
             {
                 int at = ReadFrame(io, deadline);
@@ -509,7 +529,7 @@ namespace PadForge.Engine.Common.AnalogKeyboard.Routes
             for (int attempt = 0; attempt < AddressedIpiProtocol.SetupAttempts; attempt++)
             {
                 if (!SendFrame(io, AddressedFrame.IdentityRequest())) return 0;
-                long deadline = Environment.TickCount64 + AddressedIpiProtocol.SetupWindowMs;
+                long deadline = AddressedClock.Milliseconds() + AddressedIpiProtocol.SetupWindowMs;
                 while (true)
                 {
                     int at = ReadFrame(io, deadline);
@@ -590,7 +610,7 @@ namespace PadForge.Engine.Common.AnalogKeyboard.Routes
             for (int attempt = 0; attempt < AddressedIpiProtocol.SetupAttempts; attempt++)
             {
                 if (!SendFrame(io, request)) return false;
-                long deadline = Environment.TickCount64 + AddressedIpiProtocol.SetupWindowMs;
+                long deadline = AddressedClock.Milliseconds() + AddressedIpiProtocol.SetupWindowMs;
                 while (true)
                 {
                     int at = ReadFrame(io, deadline);
@@ -663,7 +683,7 @@ namespace PadForge.Engine.Common.AnalogKeyboard.Routes
             for (int attempt = 0; attempt < AddressedGenericProtocol.MapAttempts; attempt++)
             {
                 if (!SendFrame(io, AddressedFrame.EmptyMapRequest())) break;
-                long deadline = Environment.TickCount64 + AddressedGenericProtocol.MapWindowMs;
+                long deadline = AddressedClock.Milliseconds() + AddressedGenericProtocol.MapWindowMs;
                 int before = entries;
                 while (true)
                 {
