@@ -25,6 +25,7 @@ namespace PadForge.Common.Input.Peripherals
 
             // HID LampArray. First, since its hand-back is one short report
             // that returns a device to its own effect.
+            Add(backends, OutputFamily.LampArrayUnit, () => new LampArrayBackend());
 
             // SteelSeries.
             Add(backends, OutputFamily.SteelSeriesUnit, () => new SteelSeriesDirectBackend());

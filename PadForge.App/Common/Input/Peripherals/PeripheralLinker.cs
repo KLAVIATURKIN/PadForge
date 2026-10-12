@@ -1006,16 +1006,35 @@ namespace PadForge.Common.Input.Peripherals
         /// not one: its row may be a lookup away. Neither is a unit that
         /// ignores a raw host. A unit that is asleep
         /// (<see cref="DirectUnit.Asleep"/>) is listed like any other, so a
-        /// row it already has stays open while it sleeps.</summary>
+        /// row it already has stays open while it sleeps.
+        ///
+        /// <para>A Logitech, Razer or SteelSeries unit is not one while
+        /// that vendor's program runs. The program drives every device of
+        /// its vendor then, a headset or a mousepad included, and the
+        /// vendor's own row is how such a device is lit through it, so a
+        /// row of the unit's own would have PadForge write beside the
+        /// program, the fight a device row is kept out of by the same
+        /// running flag (<see cref="ChooseLighting"/>). A row the unit
+        /// already has retires when the program starts, and the unit waits
+        /// out <see cref="UnitRowHoldMs"/> again once it has stopped.</para></summary>
         internal static List<DirectUnit> Orphans(IReadOnlyList<LinkRow> rows, LinkInputs inputs)
         {
             var orphans = new List<DirectUnit>();
             var direct = inputs.Units ?? Array.Empty<DirectUnit>();
+            var presence = inputs.Presence ?? PeripheralPresence.None;
             var lampArrays = LampArraysPerContainer(direct);
             foreach (var unit in direct)
             {
                 if (unit.Family != OutputFamily.LampArrayUnit || unit.ContainerId == Guid.Empty || IgnoresRawHost(unit))
                     continue;
+                bool programRuns = unit.VendorId switch
+                {
+                    LogitechVid => presence.LogitechGHubRunning,
+                    RazerVid => presence.RazerSoftwareRunning,
+                    SteelSeriesVid => presence.SteelSeriesGGRunning,
+                    _ => false,
+                };
+                if (programRuns) continue;
                 bool reached = false;
                 foreach (var row in rows)
                 {
