@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
+using Microsoft.Win32;
 using PadForge.Common.Input;
 using PadForge.Common.Input.Peripherals;
 using PadForge.Engine;
@@ -534,12 +535,13 @@ namespace PadForge.Tests
             Assert.Equal(8, Writes(Channel()).Count);
         }
 
-        /// <summary>A wired family that keeps a color until it loses power
-        /// is painted once per change and never again: a Sensei 310 with one
-        /// color for a minute gets its two feature reports, 24 ms apart, and
-        /// nothing more.</summary>
+        /// <summary>A wired family gets its color again on its interval
+        /// too: a Sensei 310 that lost power while its collection stayed
+        /// listed, over a PC's sleep or a fast replug, shows its stored
+        /// lighting again and says nothing. Its two feature reports go 24 ms
+        /// apart, and again 5000 ms after the first.</summary>
         [Fact]
-        public void AWiredLegacyFamily_IsNotReasserted()
+        public void AWiredLegacyFamily_IsReassertedOnItsInterval()
         {
             var mouse = Control(0x1722, 0, feature: 263);
             using var backend = Started(mouse);
@@ -558,20 +560,22 @@ namespace PadForge.Tests
             Assert.StartsWith("00 5B 00 00 10 27", Writes(Channel())[0].Bytes);
             Assert.StartsWith("00 5B 00 01 10 27", Writes(Channel())[1].Bytes);
 
-            foreach (int step in new[] { 5000, 25000, 30000 })
-            {
-                Advance(step);
-                Passes(backend);
-            }
+            Advance(SteelSeriesDirectProtocol.ReassertMs - 25);
+            Passes(backend);
             Assert.Equal(2, Writes(Channel()).Count);
-            // With nothing owed the worker waits its idle tick.
-            Assert.Equal(5, backend.WaitMs);
+            Advance(1);
+            Passes(backend);
+            Assert.Equal(3, Writes(Channel()).Count);
+            Advance(24);
+            Passes(backend);
+            Assert.Equal(new[] { t0, t0 + 24, t0 + 5000, t0 + 5024 }, Writes(Channel()).Select(w => w.At));
+            Assert.Equal(Frames(expected) + " | " + Frames(expected), Sent(Channel()));
             // No frame returns this family to its stored lighting: the
             // handle closes with no write, and the crash path never knew it.
             Assert.Empty(backend.Recorded);
             Unlight();
             Passes(backend);
-            Assert.Equal(2, Writes(Channel()).Count);
+            Assert.Equal(4, Writes(Channel()).Count);
             Assert.True(Channel().Disposed);
         }
 
@@ -594,11 +598,12 @@ namespace PadForge.Tests
             Assert.All(Writes(Channel()), w => Assert.Equal("out", w.Kind));
         }
 
-        /// <summary>A Rival 100 is set steady once per open, in front of its
-        /// first color and 10 ms from it, and keeps what it shows: no
-        /// re-assert, and no frame when the claim ends.</summary>
+        /// <summary>A Rival 100 is set steady in front of its first color
+        /// and 50 ms from it, rivalcfg's wait. A second color needs no
+        /// second claim. On the interval the claim and the color go out
+        /// again, and no frame goes when the claim ends.</summary>
         [Fact]
-        public void ARival100_IsSetSteadyOncePerOpen_ThenOnlyGivenColors()
+        public void ARival100_IsSetSteady_ThenGivenColors_AndClaimedAgainOnItsInterval()
         {
             var mouse = Control(0x1702, 0, output: 33, feature: 515, input: 33);
             using var backend = Started(mouse);
@@ -607,12 +612,12 @@ namespace PadForge.Tests
             Light(0x123456);
             Passes(backend);
             Assert.Equal(new[] { ("out", "00 07 00 01", t0) }, Writes(Channel()));
-            Advance(9);
+            Advance(49);
             Passes(backend);
             Assert.Single(Writes(Channel()));
             Advance(1);
             Passes(backend);
-            Assert.Equal(("out", "00 05 00 12 34 56", t0 + 10), Writes(Channel())[1]);
+            Assert.Equal(("out", "00 05 00 12 34 56", t0 + 50), Writes(Channel())[1]);
 
             // A second color: 50 ms after the first, with no second claim.
             Light(0xABCDEF);
@@ -622,27 +627,39 @@ namespace PadForge.Tests
             Assert.Equal(2, Writes(Channel()).Count);
             Advance(1);
             Passes(backend);
-            Assert.Equal(("out", "00 05 00 AB CD EF", t0 + 60), Writes(Channel())[2]);
+            Assert.Equal(("out", "00 05 00 AB CD EF", t0 + 100), Writes(Channel())[2]);
 
-            Advance(60000);
+            // On the interval the claim goes out again, in front of the
+            // color.
+            Advance(SteelSeriesDirectProtocol.ReassertMs);
             Passes(backend);
+            Assert.Equal(("out", "00 07 00 01", t0 + 5100), Writes(Channel())[3]);
+            Advance(50);
+            Passes(backend);
+            Assert.Equal(("out", "00 05 00 AB CD EF", t0 + 5150), Writes(Channel())[4]);
+
             Unlight();
             Passes(backend);
-            Assert.Equal(3, Writes(Channel()).Count);
+            Assert.Equal(5, Writes(Channel()).Count);
             Assert.True(Channel().Disposed);
             Assert.Empty(backend.Recorded);
 
-            // A new claim is a new open, and a new open claims again.
+            // A new claim is a new open, and a new open claims again, once
+            // the gap from the last report is over: the gap holds across
+            // the close.
             Light(0x010203);
             Passes(backend);
             Assert.Equal(2, Opens);
+            Assert.Empty(Writes(Channel()));
+            Advance(50);
+            Passes(backend);
             Assert.Equal("out 00 07 00 01", Sent(Channel()));
         }
 
         /// <summary>A Rival 300 gets both steady claims, then both colors,
-        /// each report 10 ms after the one before.</summary>
+        /// each report 50 ms after the one before, rivalcfg's wait.</summary>
         [Fact]
-        public void ARival300_GetsBothSteadyClaims_ThenBothColors_TenMillisecondsApart()
+        public void ARival300_GetsBothSteadyClaims_ThenBothColors_FiftyMillisecondsApart()
         {
             var mouse = Control(0x1710, 0, output: 33, feature: 515, input: 33);
             using var backend = Started(mouse);
@@ -652,7 +669,7 @@ namespace PadForge.Tests
             Passes(backend);
             for (int i = 0; i < 3; i++)
             {
-                Advance(9);
+                Advance(49);
                 Passes(backend);
                 Assert.Equal(i + 1, Writes(Channel()).Count);
                 Advance(1);
@@ -660,10 +677,164 @@ namespace PadForge.Tests
             }
             Assert.Equal(new[]
                 {
-                    ("out", "00 07 01 01", t0), ("out", "00 07 02 01", t0 + 10),
-                    ("out", "00 08 01 12 34 56", t0 + 20), ("out", "00 08 02 12 34 56", t0 + 30),
+                    ("out", "00 07 01 01", t0), ("out", "00 07 02 01", t0 + 50),
+                    ("out", "00 08 01 12 34 56", t0 + 100), ("out", "00 08 02 12 34 56", t0 + 150),
                 },
                 Writes(Channel()));
+        }
+
+        /// <summary>The claim goes out again on its interval while the color
+        /// keeps changing: a Rival 100 whose color changes every 50 ms for
+        /// six seconds is set steady twice, at the open and once the
+        /// interval is over, in front of the color due then.</summary>
+        [Fact]
+        public void TheClaimGoesOutAgainOnItsInterval_WhileTheColorKeepsChanging()
+        {
+            var mouse = Control(0x1702, 0, output: 33, feature: 515, input: 33);
+            using var backend = Started(mouse);
+            long t0 = Tick();
+            Link(PathOf(mouse));
+            for (int i = 0; i < 120; i++)
+            {
+                Light(0x100000 + i);
+                Passes(backend);
+                Advance(50);
+                Passes(backend);
+            }
+            var claims = Writes(Channel()).Where(w => w.Bytes == "00 07 00 01").ToList();
+            Assert.Equal(2, claims.Count);
+            Assert.Equal(t0, claims[0].At);
+            Assert.InRange(claims[1].At, t0 + 5000, t0 + 5100);
+            // Every other report is a color.
+            Assert.All(Writes(Channel()).Where(w => w.Bytes != "00 07 00 01"), w => Assert.StartsWith("00 05 00", w.Bytes));
+        }
+
+        /// <summary>Windows resuming from sleep sends the claim and the
+        /// color once more at once, whatever the interval: the mouse may
+        /// have lost power while its collection stayed listed.</summary>
+        [Fact]
+        public void AResume_SendsTheClaimAndTheColorAgain()
+        {
+            var mouse = Control(0x1702, 0, output: 33, feature: 515, input: 33);
+            using var backend = Started(mouse);
+            long t0 = Tick();
+            Link(PathOf(mouse));
+            Light(0x123456);
+            Passes(backend);
+            Advance(50);
+            Passes(backend);
+            Assert.Equal(2, Writes(Channel()).Count);
+
+            Advance(1000);
+            Passes(backend);
+            Assert.Equal(2, Writes(Channel()).Count);
+            backend.NoteResume();
+            Passes(backend);
+            Assert.Equal(("out", "00 07 00 01", t0 + 1050), Writes(Channel())[2]);
+            Advance(50);
+            Passes(backend);
+            Assert.Equal(("out", "00 05 00 12 34 56", t0 + 1100), Writes(Channel())[3]);
+            // Once: the next pass owes nothing.
+            Advance(1000);
+            Passes(backend);
+            Assert.Equal(4, Writes(Channel()).Count);
+        }
+
+        /// <summary>Of the power events only a resume is noted: Windows
+        /// going to sleep, or a change of the power source, sends nothing.
+        /// The worker the app makes listens for them, and a bench's does
+        /// not.</summary>
+        [Fact]
+        public void OfThePowerEvents_OnlyAResumeSendsTheClaimAndTheColorAgain()
+        {
+            var mouse = Control(0x1702, 0, output: 33, feature: 515, input: 33);
+            using var backend = Started(mouse);
+            Link(PathOf(mouse));
+            Light(0x123456);
+            Passes(backend);
+            Advance(50);
+            Passes(backend);
+            Assert.Equal(2, Writes(Channel()).Count);
+            var onPowerMode = typeof(SteelSeriesDirectBackend).GetMethod("OnPowerMode",
+                BindingFlags.NonPublic | BindingFlags.Instance);
+            void Raise(PowerModes mode)
+                => onPowerMode.Invoke(backend, new object[] { null, new PowerModeChangedEventArgs(mode) });
+
+            Advance(1000);
+            Raise(PowerModes.Suspend);
+            Raise(PowerModes.StatusChange);
+            Passes(backend);
+            Assert.Equal(2, Writes(Channel()).Count);
+            Raise(PowerModes.Resume);
+            Passes(backend);
+            Assert.Equal("00 07 00 01", Writes(Channel())[2].Bytes);
+
+            var listens = typeof(SteelSeriesDirectBackend).GetField("_powerEvents",
+                BindingFlags.NonPublic | BindingFlags.Instance);
+            using var appsOwn = new SteelSeriesDirectBackend();
+            Assert.True((bool)listens.GetValue(appsOwn));
+            Assert.False((bool)listens.GetValue(backend));
+        }
+
+        /// <summary>A family's gap holds across a close and the next open:
+        /// a claim let go and set again between two passes sends nothing
+        /// sooner than the gap after the last report.</summary>
+        [Fact]
+        public void TheGapHoldsAcrossACloseAndTheNextOpen()
+        {
+            var mouse = Control(0x1702, 0, output: 33, feature: 515, input: 33);
+            using var backend = Started(mouse);
+            long t0 = Tick();
+            Link(PathOf(mouse));
+            Light(0x123456);
+            Passes(backend);
+            Assert.Single(Writes(Channel()));
+            Unlight();
+            Passes(backend);
+            Assert.True(Channel().Disposed);
+            Light(0x654321);
+            Passes(backend);
+            Assert.Equal(2, Opens);
+            Assert.Empty(Writes(Channel()));
+            Advance(49);
+            Passes(backend);
+            Assert.Empty(Writes(Channel()));
+            Advance(1);
+            Passes(backend);
+            Assert.Equal(("out", "00 07 00 01", t0 + 50), Assert.Single(Writes(Channel())));
+        }
+
+        /// <summary>The gap holds after a hand-back too: an Apex Pro Gen 3
+        /// handed back and claimed again gets its claim no sooner than 66 ms
+        /// after the hand-back.</summary>
+        [Fact]
+        public void TheGapHoldsAfterAHandBack()
+        {
+            var keyboard = Control(0x1640, 1);
+            using var backend = Started(keyboard);
+            long t0 = Tick();
+            Link(PathOf(keyboard));
+            Light(0x123456);
+            Passes(backend);
+            Advance(66);
+            Passes(backend);
+            Unlight();
+            Passes(backend);
+            Advance(66);
+            Passes(backend);
+            Assert.Equal(("out", "00 41 00", t0 + 132), Writes(Channel())[2]);
+            Assert.True(Channel().Disposed);
+
+            Light(0x654321);
+            Passes(backend);
+            Assert.Equal(2, Opens);
+            Assert.Empty(Writes(Channel()));
+            Advance(65);
+            Passes(backend);
+            Assert.Empty(Writes(Channel()));
+            Advance(1);
+            Passes(backend);
+            Assert.Equal(("out", "00 41 01", t0 + 198), Assert.Single(Writes(Channel())));
         }
 
         /// <summary>A Rival 600 takes its eight feature reports 22 ms apart.
@@ -959,6 +1130,45 @@ namespace PadForge.Tests
                 Assert.All(_channels, channel => Assert.Empty(channel.Calls));
                 Assert.All(_channels, channel => Assert.True(channel.Disposed));
             }
+            Assert.Equal(1, Volatile.Read(ref asks));
+        }
+
+        /// <summary>A hand-back that does not go out is a failed write like
+        /// any other: the channel closes, the unit is listed asleep, and the
+        /// host is asked for one walk. The unit is then tried by opening it,
+        /// which sends nothing.</summary>
+        [Fact]
+        public void AHandBackThatFails_ListsTheUnitAsleep_AndAsksForOneWalk()
+        {
+            var mouse = Control(0x1870, 3);
+            int asks = 0;
+            using var backend = Make();
+            backend.RescanRequested += () => Interlocked.Increment(ref asks);
+            backend.Start();
+            backend.Rescan(new[] { mouse });
+            Passes(backend);
+            Link(PathOf(mouse));
+            Light(0x123456);
+            Passes(backend);
+            Assert.Single(Writes(Channel()));
+
+            Channel().FailWrites = true;
+            Unlight();
+            Passes(backend);
+            Assert.True(Channel().Disposed);
+            Assert.Single(Writes(Channel()));
+            Assert.True(Assert.Single(backend.Snapshot.Units).Asleep);
+            Assert.Equal(1, Volatile.Read(ref asks));
+            Assert.Empty(backend.Recorded);
+
+            // Nobody lights it: it is opened again after the interval, with
+            // nothing written, and listed awake.
+            Advance(SteelSeriesDirectBackend.RetryMs);
+            Passes(backend);
+            Assert.Equal(2, Opens);
+            Assert.False(Assert.Single(backend.Snapshot.Units).Asleep);
+            Assert.Empty(Channel().Calls);
+            Assert.True(Channel().Disposed);
             Assert.Equal(1, Volatile.Read(ref asks));
         }
 
@@ -1326,6 +1536,143 @@ namespace PadForge.Tests
             Assert.Empty(backend.Recorded);
         }
 
+        /// <summary>A dongle whose owed answer cannot be read as its claim
+        /// ends is not written to, and is listed asleep like any unit that
+        /// failed.</summary>
+        [Fact]
+        public void ADongleThatCannotBeRead_AsItsClaimEnds_IsListedAsleep_AndAsksForOneWalk()
+        {
+            var dongle = Control(0x1852, 3, feature: 513);
+            var failing = new ConcurrentDictionary<string, bool>();
+            int asks = 0;
+            _opener = path => new ReadFailingChannel(NewChannel(path), () => failing.ContainsKey(path));
+            using var backend = Make();
+            backend.RescanRequested += () => Interlocked.Increment(ref asks);
+            backend.Start();
+            backend.Rescan(new[] { dongle });
+            Passes(backend);
+            Link(PathOf(dongle));
+            Light(0x123456);
+            Passes(backend);
+            Assert.Single(Writes(Channel()));
+
+            // The claim ends while the answer to zone 0 is owed.
+            Unlight();
+            Passes(backend);
+            Assert.False(Channel().Disposed);
+            failing[dongle.Path] = true;
+            Passes(backend);
+            Assert.Single(Writes(Channel()));
+            Assert.True(Channel().Disposed);
+            Assert.True(Assert.Single(backend.Snapshot.Units).Asleep);
+            Assert.Equal(1, Volatile.Read(ref asks));
+            Assert.Empty(backend.Recorded);
+        }
+
+        /// <summary>The mouse-off answer is 40 FF. A report that starts 40
+        /// and continues otherwise is in no source and is not taken for it,
+        /// and neither is one too short to carry the second byte, whatever
+        /// the report before left in the buffer: the worker reads on, the
+        /// unit keeps its place on the crash record, and the answer that
+        /// follows sends the next zone.</summary>
+        [Fact]
+        public void AReportThatStarts40AndDoesNotContinueFF_IsNotTheMouseOffAnswer()
+        {
+            var dongle = Control(0x1852, 3, feature: 513);
+            var inbox = DongleWithInbox();
+            using var backend = Started(dongle);
+            long t0 = Tick();
+            Link(PathOf(dongle));
+            Light(0x123456);
+            Passes(backend);
+            Assert.Single(Writes(Channel()));
+
+            inbox.Add(0x00, 0x40, 0x00);
+            // A battery report that ends FF, then two bytes alone.
+            inbox.Add(0x00, 0xD2, 0xFF);
+            inbox.Add(0x00, 0x40);
+            Passes(backend);
+            Assert.True(inbox.IsEmpty);
+            Assert.Equal(dongle.Path + " = 00 62 FF", Recorded(backend));
+
+            inbox.Add(0x00, 0x61, 0x00);
+            Passes(backend);
+            Advance(6);
+            Passes(backend);
+            Assert.Equal(("out", "00 61 01 01 12 34 56", t0 + 6), Writes(Channel())[1]);
+        }
+
+        /// <summary>A close drops the answer a dongle still owes. The next
+        /// open sends nothing before that answer's limit, so the report
+        /// that follows is never taken for answered by the one before.</summary>
+        [Fact]
+        public void ADongleClosedBeforeItAnswered_IsSentNothingBeforeTheAnswersLimit()
+        {
+            var dongle = Control(0x1840, 3, feature: 513);
+            DongleWithInbox();
+            using var backend = Started(dongle);
+            long t0 = Tick();
+            Link(PathOf(dongle));
+            Light(0x123456);
+            Passes(backend);
+            Assert.Equal(new[] { ("out", "00 61 01 00 12 34 56", t0) }, Writes(Channel()));
+
+            // No frame hands this family back, so the claim's end closes it.
+            Unlight();
+            Passes(backend);
+            Assert.True(Channel().Disposed);
+            Advance(10);
+            Light(0x654321);
+            Passes(backend);
+            Assert.Equal(2, Opens);
+            Assert.Empty(Writes(Channel()));
+            Advance(SteelSeriesDirectBackend.EchoTimeoutMs - 11);
+            Passes(backend);
+            Assert.Empty(Writes(Channel()));
+            Advance(1);
+            Passes(backend);
+            Assert.Equal(("out", "00 61 01 00 65 43 21", t0 + SteelSeriesDirectBackend.EchoTimeoutMs),
+                Assert.Single(Writes(Channel())));
+        }
+
+        /// <summary>A dongle answers its hand-back like any report. A unit
+        /// handed back and claimed again is sent nothing before that
+        /// answer's limit.</summary>
+        [Fact]
+        public void ADongleHandedBack_IsSentNothingBeforeTheAnswersLimit()
+        {
+            var dongle = Control(0x1852, 3, feature: 513);
+            _script = AnswersEveryReport;
+            using var backend = Started(dongle);
+            long t0 = Tick();
+            Link(PathOf(dongle));
+            Light(0x123456);
+            Passes(backend);
+            foreach (int _ in Enumerable.Range(0, 2))
+            {
+                Advance(6);
+                Passes(backend);
+            }
+            Assert.Equal(3, Writes(Channel()).Count);
+            Advance(6);
+            Unlight();
+            Passes(backend);
+            Assert.Equal(("out", "00 62 FF", t0 + 18), Writes(Channel())[3]);
+            Assert.True(Channel().Disposed);
+
+            Light(0x654321);
+            Passes(backend);
+            Assert.Equal(2, Opens);
+            Assert.Empty(Writes(Channel()));
+            Advance(SteelSeriesDirectBackend.EchoTimeoutMs - 1);
+            Passes(backend);
+            Assert.Empty(Writes(Channel()));
+            Advance(1);
+            Passes(backend);
+            Assert.Equal(("out", "00 61 01 00 65 43 21", t0 + 18 + SteelSeriesDirectBackend.EchoTimeoutMs),
+                Writes(Channel())[0]);
+        }
+
         /// <summary>A channel whose input reads fail on demand, the way a
         /// real one fails once its device has left.</summary>
         private sealed class ReadFailingChannel : IHidReportChannel
@@ -1557,10 +1904,11 @@ namespace PadForge.Tests
 
         /// <summary>An Apex Pro Gen 3 is claimed with the output report
         /// 41 01, GG's own, in front of its first 3A frame, and handed back
-        /// with 41 00. The claim goes out once per open: two re-asserts on,
-        /// there is one claim and three colors.</summary>
+        /// with 41 00. On the interval the claim goes out again in front of
+        /// the color: a board that lost power while its collection stayed
+        /// listed is in its own lighting mode until it is claimed.</summary>
         [Fact]
-        public void AnApexProGen3_ClaimsWith4101Once_AndHandsBackWith4100()
+        public void AnApexProGen3_ClaimsWith4101_AgainOnItsInterval_AndHandsBackWith4100()
         {
             var keyboard = Control(0x1640, 1);
             using var backend = Started(keyboard);
@@ -1574,16 +1922,16 @@ namespace PadForge.Tests
             Passes(backend);
             Advance(SteelSeriesDirectProtocol.ReassertMs);
             Passes(backend);
-            Advance(SteelSeriesDirectProtocol.ReassertMs);
+            Advance(66);
             Passes(backend);
-            Assert.Equal("out 00 41 01 | " + PerKey(0x3A) + " | " + PerKey(0x3A) + " | " + PerKey(0x3A), Sent(Channel()));
-            Assert.Equal(new[] { t0, t0 + 66, t0 + 5066, t0 + 10066 }, Writes(Channel()).Select(w => w.At));
+            Assert.Equal("out 00 41 01 | " + PerKey(0x3A) + " | out 00 41 01 | " + PerKey(0x3A), Sent(Channel()));
+            Assert.Equal(new[] { t0, t0 + 66, t0 + 5066, t0 + 5132 }, Writes(Channel()).Select(w => w.At));
 
             Unlight();
             Passes(backend);
             Advance(66);
             Passes(backend);
-            Assert.Equal(("out", "00 41 00", t0 + 10132), Writes(Channel())[4]);
+            Assert.Equal(("out", "00 41 00", t0 + 5198), Writes(Channel())[4]);
             Assert.True(Channel().Disposed);
             // Nothing was read from a board that is not asked anything.
             Assert.DoesNotContain(Channel().Calls, c => c.Kind == "in");
@@ -1635,15 +1983,22 @@ namespace PadForge.Tests
             Assert.Equal(new[] { t0, t0 + 10, t0 + 20, t0 + 30 }, writes.Select(w => w.At));
             Assert.Empty(backend.Recorded);
 
-            // The re-assert sends the grid alone.
+            // The re-assert sends the three claims again, then the grid: a
+            // keyboard that lost power while its collection stayed listed
+            // is in its own lighting mode until it is claimed.
             Advance(SteelSeriesDirectProtocol.ReassertMs);
             Passes(backend);
-            Assert.Equal(5, Writes(Channel()).Count);
-            Assert.Equal(writes[3].Bytes, Writes(Channel())[4].Bytes);
+            foreach (int _ in Enumerable.Range(0, 3))
+            {
+                Advance(10);
+                Passes(backend);
+            }
+            Assert.Equal(8, Writes(Channel()).Count);
+            Assert.Equal(writes.Select(w => w.Bytes), Writes(Channel()).Skip(4).Select(w => w.Bytes));
 
             Unlight();
             Passes(backend);
-            Assert.Equal(5, Writes(Channel()).Count);
+            Assert.Equal(8, Writes(Channel()).Count);
             Assert.True(Channel().Disposed);
         }
 
@@ -1930,6 +2285,36 @@ namespace PadForge.Tests
             Assert.True(SpinWait.SpinUntil(() => !backend.WorkerAlive, 30000), "the worker stopped");
         }
 
+        /// <summary>The crash path tells the worker to stop and then takes
+        /// the record. A worker told to stop after it put a unit on record
+        /// sends that unit nothing: an entry the crash path no longer reads
+        /// would leave a lit device with no hand-back.</summary>
+        [Fact]
+        public void AWorkerToldToStop_AfterItPutAUnitOnRecord_SendsThatUnitNothing()
+        {
+            var dongle = Control(0x1852, 3, feature: 513);
+            SteelSeriesDirectBackend worker = null;
+            // A dongle is read in front of its first report, with the unit
+            // already on record. The stop arrives in that read.
+            _script = channel => channel.Input = () =>
+            {
+                worker?.SignalStop();
+                return null;
+            };
+            using var backend = Make();
+            worker = backend;
+            backend.Start();
+            backend.Rescan(new[] { dongle });
+            Passes(backend);
+            Link(PathOf(dongle));
+            Light(0x123456);
+            Assert.True(SpinWait.SpinUntil(() => !backend.WorkerAlive, 30000), "the worker stopped");
+            Assert.Equal(1, Opens);
+            Assert.Empty(Writes(Channel()));
+            Assert.True(Channel().Disposed);
+            Assert.Empty(backend.Recorded);
+        }
+
         /// <summary>A stopped or disposed backend takes every call and does
         /// nothing: it keeps or drops what it is handed, opens nothing,
         /// starts no thread and throws nothing.</summary>
@@ -2121,8 +2506,9 @@ namespace PadForge.Tests
             Assert.Equal(typeof(HidReportChannel).GetMethod(nameof(HidReportChannel.Open), new[] { typeof(string) }), open.Method);
             Assert.Equal(typeof(HidReportChannel).GetMethod(nameof(HidReportChannel.WriteOutputOnce)), writeOnce.Method);
 
-            // Asked for a collection, here one that names no device, both
-            // refuse.
+            // Asked for a collection that names no device, both answer no.
+            // The refusal itself is held in HidDevicesOffLimitsTests: this
+            // path would not open with the refusal gone either.
             const string nowhere = @"\\?\hid#vid_1038&pid_1870&mi_03#padforge-test-no-such-collection#{4d1e55b2-f16f-11cf-88cb-001111000030}";
             Assert.Null(open(nowhere));
             Assert.False(writeOnce(nowhere, new byte[] { 0x00, 0x22, 0x07 }, 200));
@@ -2161,11 +2547,14 @@ namespace PadForge.Tests
             Assert.Contains("enumerate: () => new[] { control },", own.Substring(at, own.IndexOf(';', at) - at));
         }
 
-        /// <summary>In the test host a worker left on its own opener and its
-        /// own one-shot writer opens nothing and writes nothing: its unit is
-        /// listed asleep, as one another program holds would be.</summary>
+        /// <summary>A worker left on its own opener and its own one-shot
+        /// writer, handed a collection that does not open, lists the unit
+        /// asleep and writes nothing. The path names no device, so this
+        /// passes with or without the test host's refusal: that the two
+        /// shared helpers refuse there is held in the base
+        /// (HidDevicesOffLimitsTests).</summary>
         [Fact]
-        public void InTheTestHost_AWorkerOnItsOwnOpener_OpensNothingAndWritesNothing()
+        public void AWorkerOnItsOwnOpener_ListsAUnitThatDoesNotOpenAsleep_AndWritesNothing()
         {
             Assert.True(RealHidAccess.Refused);
             var mouse = Control(0x1870, 3, tag: "padforge-test-no-such-collection");

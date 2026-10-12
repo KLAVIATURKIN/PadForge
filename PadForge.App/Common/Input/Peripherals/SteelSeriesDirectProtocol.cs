@@ -102,8 +102,8 @@ namespace PadForge.Common.Input.Peripherals
         /// colors.</summary>
         public int RepaintMs { get; init; }
 
-        /// <summary>How long an unchanged color stands before it is sent
-        /// again, or 0 for a family that is painted once per change.</summary>
+        /// <summary>How long the claim and an unchanged color stand before
+        /// they are sent again. Every family has one.</summary>
         public int ReassertMs { get; init; }
 
         /// <summary>A 2.4 GHz dongle: each report is answered by an input
@@ -117,7 +117,8 @@ namespace PadForge.Common.Input.Peripherals
 
         /// <summary>The frames that take the lighting before the first
         /// color, by whether the firmware is of the third generation. Sent
-        /// once per open.</summary>
+        /// in front of the first color of an open, again on the re-assert
+        /// interval, and once when Windows resumes from sleep.</summary>
         public Func<bool, SteelSeriesFrame[]> Claim { get; init; } = _ => SteelSeriesDirectProtocol.NoFrames;
 
         /// <summary>The frames of one color on every LED or zone: the
@@ -178,16 +179,18 @@ namespace PadForge.Common.Input.Peripherals
     /// carries the dim timer in the same frame
     /// (devices/aerox3_wireless_wired.py:101-112).</para>
     ///
-    /// <para>Pacing. A family's gap, its fastest repaint and its re-assert
-    /// interval come from what the vendor's own program does where a USB
-    /// capture of it exists, and from the reference tools' waits where none
-    /// does. rivalcfg waits 50 ms after every command and warns that a
-    /// shorter wait "can hang the device" (mouse.py:85, 96-100 and 312-314),
-    /// libratbag 10 ms in front of every report
-    /// (driver-steelseries.c:712-713 and 741-742). A family the vendor
-    /// streams to, or one that can fall back to its own lighting with no
-    /// USB event, gets its color again every 5000 ms. A wired family that
-    /// keeps a color until it loses power is painted once per change.</para>
+    /// <para>Pacing. A family's gap and its fastest repaint come from what
+    /// the vendor's own program does where a USB capture of it exists, then
+    /// from a program that streams to that product on Windows, and from the
+    /// reference tools' waits where neither exists. rivalcfg waits 50 ms
+    /// after every command and warns that a shorter wait "can hang the
+    /// device" (mouse.py:85, 96-100 and 312-314), libratbag 10 ms in front
+    /// of every report (driver-steelseries.c:712-713 and 741-742), and where
+    /// those two differ the longer wait is kept. Every family gets its claim
+    /// and its color again on its re-assert interval, 5000 ms for most: a
+    /// device that lost power while its collection stayed listed, as over a
+    /// PC's sleep or a fast replug, shows its stored lighting again and says
+    /// nothing.</para>
     /// </summary>
     internal static class SteelSeriesDirectProtocol
     {
@@ -208,9 +211,9 @@ namespace PadForge.Common.Input.Peripherals
         /// (SteelSeriesApexController.cpp:219-253).</summary>
         internal const int Gen3Major = 1, Gen3Minor = 19, Gen3Patch = 7;
 
-        /// <summary>How long the 5000 ms families wait before an unchanged
-        /// color goes out again, the interval the HID++ worker re-asserts
-        /// on.</summary>
+        /// <summary>How long the 5000 ms families wait before the claim and
+        /// an unchanged color go out again, the interval the HID++ worker
+        /// re-asserts on.</summary>
         internal const int ReassertMs = 5000;
 
         /// <summary>The re-assert of the two mice whose color is an LED
@@ -243,16 +246,17 @@ namespace PadForge.Common.Input.Peripherals
             // devices/rival100.py:91-116, devices/rival110.py:66-93,
             // libratbag driver-steelseries.c:685-744 with the Rival 100
             // quirk, OpenRGB SteelSeriesRivalController.cpp:105-134 and
-            // 279-323, Aurora RivalMouses.cs:28-38). The effect goes out
-            // once, in front of the first color, because a mouse whose
-            // stored effect is breathing would breathe in the new color.
-            // libratbag sends it before every color, 10 ms before the next
-            // report. No reference has a frame that returns the stored
-            // lighting.
+            // 279-323, Aurora RivalMouses.cs:28-38). The effect goes out in
+            // front of the first color and again on the re-assert interval,
+            // because a mouse whose stored effect is breathing would
+            // breathe in the new color. libratbag sends it before every
+            // color and waits 10 ms in front of each report, rivalcfg 50 ms
+            // after each, and the longer wait is the gap. No reference has
+            // a frame that returns the stored lighting.
             new()
             {
                 Family = SteelSeriesFamily.Rival100, Interface = 0, Report = SteelSeriesReport.Output,
-                GapMs = 10, RepaintMs = 50,
+                GapMs = 50, RepaintMs = 50, ReassertMs = ReassertMs,
                 Claim = _ => new[] { Out(0x07, 0x00, 0x01) },
                 Color = (_, _, r, g, b) => new[] { Out(0x05, 0x00, r, g, b) },
             },
@@ -261,11 +265,13 @@ namespace PadForge.Common.Input.Peripherals
             // 07 LL 01 the steady effect, 08 LL RR GG BB the color
             // (rivalcfg devices/rival300.py:105-156, libratbag
             // driver-steelseries.c:685-744, Aurora RivalMouses.cs:103-125).
-            // 0x08 is this family's alone.
+            // 0x08 is this family's alone. The gap is the Rival 100's, and
+            // a color is two reports, so the next one starts no sooner than
+            // 100 ms after it.
             new()
             {
                 Family = SteelSeriesFamily.Rival300, Interface = 0, Report = SteelSeriesReport.Output,
-                GapMs = 10, RepaintMs = 50,
+                GapMs = 50, RepaintMs = 100, ReassertMs = ReassertMs,
                 Claim = _ => new[] { Out(0x07, 0x01, 0x01), Out(0x07, 0x02, 0x01) },
                 Color = (_, _, r, g, b) => new[] { Out(0x08, 0x01, r, g, b), Out(0x08, 0x02, r, g, b) },
             },
@@ -304,7 +310,7 @@ namespace PadForge.Common.Input.Peripherals
             new()
             {
                 Family = SteelSeriesFamily.Rival310, Interface = 0, Report = SteelSeriesReport.Feature,
-                AltReport = SteelSeriesReport.Output, GapMs = 24, RepaintMs = 66,
+                AltReport = SteelSeriesReport.Output, GapMs = 24, RepaintMs = 66, ReassertMs = ReassertMs,
                 Color = (report, _, r, g, b) => new[]
                 {
                     Make(report, Cycle310(0x00, r, g, b)), Make(report, Cycle310(0x01, r, g, b)),
@@ -317,7 +323,7 @@ namespace PadForge.Common.Input.Peripherals
             new()
             {
                 Family = SteelSeriesFamily.Rival600, Interface = 0, Report = SteelSeriesReport.Feature,
-                GapMs = 22, RepaintMs = 200,
+                GapMs = 22, RepaintMs = 200, ReassertMs = ReassertMs,
                 Color = (_, _, r, g, b) =>
                 {
                     var frames = new SteelSeriesFrame[Rival600Leds.Length];
@@ -347,7 +353,7 @@ namespace PadForge.Common.Input.Peripherals
             new()
             {
                 Family = SteelSeriesFamily.Rival700, Interface = 0, Report = SteelSeriesReport.Feature,
-                GapMs = 50, RepaintMs = 100,
+                GapMs = 50, RepaintMs = 100, ReassertMs = ReassertMs,
                 Color = (_, _, r, g, b) => new[]
                 {
                     Feat(0x05, 0x00, 0x00, r, g, b, 0xFF, 0x32, 0xC8, 0xC8, 0x00, 0x00, 0x01),
@@ -472,7 +478,7 @@ namespace PadForge.Common.Input.Peripherals
             new()
             {
                 Family = SteelSeriesFamily.PrimeMini, Interface = 3, Report = SteelSeriesReport.Output,
-                RepaintMs = 33, ReassertMs = ReassertMs,
+                RepaintMs = 50, ReassertMs = ReassertMs,
                 Color = (_, _, r, g, b) => new[] { Out(0x21, 0x00, r, g, b) },
             },
 
@@ -517,7 +523,7 @@ namespace PadForge.Common.Input.Peripherals
             new()
             {
                 Family = SteelSeriesFamily.PrimeWireless, Interface = 3, Report = SteelSeriesReport.Output,
-                RepaintMs = 33, ReassertMs = ReassertMs,
+                RepaintMs = 50, ReassertMs = ReassertMs,
                 Color = (_, _, r, g, b) => Zones(0x21, 1, r, g, b),
             },
 
@@ -543,7 +549,7 @@ namespace PadForge.Common.Input.Peripherals
             new()
             {
                 Family = SteelSeriesFamily.PrimePlus, Interface = 0, Report = SteelSeriesReport.Feature,
-                AltReport = SteelSeriesReport.Output, RepaintMs = 33,
+                AltReport = SteelSeriesReport.Output, RepaintMs = 50, ReassertMs = ReassertMs,
                 Color = (report, _, r, g, b) => new[] { Make(report, PrimeColor(r, g, b)) },
             },
 
@@ -554,7 +560,7 @@ namespace PadForge.Common.Input.Peripherals
             new()
             {
                 Family = SteelSeriesFamily.Prime, Interface = 0, Report = SteelSeriesReport.Output,
-                AltReport = SteelSeriesReport.Feature, RepaintMs = 33,
+                AltReport = SteelSeriesReport.Feature, RepaintMs = 33, ReassertMs = ReassertMs,
                 Color = (report, _, r, g, b) => new[] { Make(report, PrimeColor(r, g, b)) },
             },
 
@@ -678,7 +684,7 @@ namespace PadForge.Common.Input.Peripherals
             new()
             {
                 Family = SteelSeriesFamily.Apex2013, Interface = 0, Report = SteelSeriesReport.Output,
-                RepaintMs = 50,
+                RepaintMs = 50, ReassertMs = ReassertMs,
                 Color = (_, _, r, g, b) =>
                 {
                     var data = new byte[2 + 5 * 4];
@@ -846,11 +852,11 @@ namespace PadForge.Common.Input.Peripherals
         /// own capture (OpenRGB issue 833, the static frames for green, red
         /// and blue), and SignalRGB, which streams it on Windows on every
         /// render (signal-plugins Steelseries_Rival_600_Mouse.js:82-125).
-        /// So the vendor's frame is the one built, byte for byte but for
-        /// the duration, which the Engine left at BE 14 on seven LEDs and
-        /// at 10 27 on the eighth in that capture. The three template
-        /// points are never shown: the cycle does not repeat and no button
-        /// starts it, so the LED stays on the start color.</para>
+        /// So the vendor's frame is the one built, byte for byte, the
+        /// duration included: BE 14 on seven LEDs and 10 27 on the eighth
+        /// in that capture. SignalRGB sends 10 27 on every LED. The three
+        /// template points are never shown: the cycle does not repeat and
+        /// no button starts it, so the LED stays on the start color.</para>
         /// </summary>
         private static byte[] Cycle600(byte led, byte r, byte g, byte b)
         {
@@ -863,8 +869,10 @@ namespace PadForge.Common.Input.Peripherals
             data[5] = (byte)y;
             data[6] = (byte)(y >> 8);
             data[7] = led;
-            data[8] = 0xBE;
-            data[9] = 0x14;
+            // The duration as the Engine sends it: BE 14 on seven LEDs and
+            // 10 27 on the eighth.
+            data[8] = led == 7 ? (byte)0x10 : (byte)0xBE;
+            data[9] = led == 7 ? (byte)0x27 : (byte)0x14;
             data[24] = 0x01;
             data[29] = 0x04;
             data[30] = r;
@@ -1024,9 +1032,10 @@ namespace PadForge.Common.Input.Peripherals
         /// version as text, 90 00 31 2E 31 39 2E 37 for 1.19.7 (OpenRGB
         /// SteelSeriesApexBaseController.cpp:93-128, apex-web
         /// PROTOCOL.md:182-190). It is asked once, after the open and
-        /// before the claim, and never while the board is lit: on a 2023
-        /// board it also puts the stored configuration back over anything
-        /// sent and not stored (apex-web PROTOCOL.md:83-85).</summary>
+        /// before the claim, and never between a claim and its hand-back in
+        /// one open: on a 2023 board it also puts the stored configuration
+        /// back over anything sent and not stored (apex-web
+        /// PROTOCOL.md:83-85).</summary>
         internal static SteelSeriesFrame VersionQuery() => Out(0x90);
 
         internal const byte VersionCommand = 0x90;

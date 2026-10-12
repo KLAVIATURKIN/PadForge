@@ -154,7 +154,7 @@ namespace PadForge.Tests
         /// x and y, the LED again, the duration, 01 at d[24], four points
         /// at d[29], the color, then red, green and blue at 00, 54 and 54,
         /// and the color at 56. LED 7 carried 10 27 for its duration in
-        /// that capture, and gets BE 14 like the others.</summary>
+        /// that capture, and gets it here too.</summary>
         [Fact]
         public void ARival600_GetsTheVendorsStaticFramePerLed_WithEachLedsPosition()
         {
@@ -176,7 +176,8 @@ namespace PadForge.Tests
             for (int led = 0; led < 8; led++)
             {
                 Assert.Equal(SteelSeriesReport.Feature, green[led].Report);
-                SameAsCaptured(heads[led] + " " + tail, green[led]);
+                // LED 7's duration is 10 27 in the capture, the others' BE 14.
+                SameAsCaptured(heads[led] + " " + (led == 7 ? "10 27" + tail.Substring(5) : tail), green[led]);
                 Assert.Equal(50, green[led].Buffer.Length);
             }
 
@@ -787,26 +788,29 @@ namespace PadForge.Tests
         /// two reports of one paint, the fastest repaint, the re-assert
         /// interval, and whether each report is answered. A figure is the
         /// vendor's own where a capture of it exists and a reference
-        /// tool's wait where none does.</summary>
+        /// tool's wait where none does, the longer one where two tools
+        /// differ (rivalcfg's 50 ms over libratbag's 10 on the Rival 100
+        /// and 300, and on the Prime mice no capture gives a rate for).
+        /// Every family has a re-assert interval.</summary>
         [Theory]
-        [InlineData(SteelSeriesFamily.Rival100, 0, 1, 10, 50, 0, false)]
-        [InlineData(SteelSeriesFamily.Rival300, 0, 2, 10, 50, 0, false)]
+        [InlineData(SteelSeriesFamily.Rival100, 0, 1, 50, 50, 5000, false)]
+        [InlineData(SteelSeriesFamily.Rival300, 0, 2, 50, 100, 5000, false)]
         [InlineData(SteelSeriesFamily.Rival3, 3, 1, 0, 33, 5000, false)]
-        [InlineData(SteelSeriesFamily.Rival310, 0, 2, 24, 66, 0, false)]
-        [InlineData(SteelSeriesFamily.Rival600, 0, 8, 22, 200, 0, false)]
-        [InlineData(SteelSeriesFamily.Rival700, 0, 2, 50, 100, 0, false)]
+        [InlineData(SteelSeriesFamily.Rival310, 0, 2, 24, 66, 5000, false)]
+        [InlineData(SteelSeriesFamily.Rival600, 0, 8, 22, 200, 5000, false)]
+        [InlineData(SteelSeriesFamily.Rival700, 0, 2, 50, 100, 5000, false)]
         [InlineData(SteelSeriesFamily.Rival3Wireless, 3, 4, 60, 250, 30000, false)]
         [InlineData(SteelSeriesFamily.Rival650, 0, 16, 60, 1000, 30000, false)]
         [InlineData(SteelSeriesFamily.Rival3Gen2, 3, 1, 0, 33, 5000, false)]
         [InlineData(SteelSeriesFamily.Aerox3, 3, 3, 16, 50, 5000, false)]
         [InlineData(SteelSeriesFamily.Rival5, 0, 1, 0, 33, 5000, false)]
-        [InlineData(SteelSeriesFamily.PrimeMini, 3, 1, 0, 33, 5000, false)]
+        [InlineData(SteelSeriesFamily.PrimeMini, 3, 1, 0, 50, 5000, false)]
         [InlineData(SteelSeriesFamily.AeroxWireless, 3, 3, 16, 50, 5000, false)]
         [InlineData(SteelSeriesFamily.AeroxWirelessDongle, 3, 3, 6, 50, 5000, true)]
-        [InlineData(SteelSeriesFamily.PrimeWireless, 3, 1, 0, 33, 5000, false)]
+        [InlineData(SteelSeriesFamily.PrimeWireless, 3, 1, 0, 50, 5000, false)]
         [InlineData(SteelSeriesFamily.PrimeWirelessDongle, 3, 1, 0, 50, 5000, true)]
-        [InlineData(SteelSeriesFamily.PrimePlus, 0, 1, 0, 33, 0, false)]
-        [InlineData(SteelSeriesFamily.Prime, 0, 1, 0, 33, 0, false)]
+        [InlineData(SteelSeriesFamily.PrimePlus, 0, 1, 0, 50, 5000, false)]
+        [InlineData(SteelSeriesFamily.Prime, 0, 1, 0, 33, 5000, false)]
         [InlineData(SteelSeriesFamily.ApexPro, 1, 1, 66, 66, 5000, false)]
         [InlineData(SteelSeriesFamily.ApexProTkl, 1, 1, 66, 66, 5000, false)]
         [InlineData(SteelSeriesFamily.Apex9, 1, 1, 66, 66, 5000, false)]
@@ -817,7 +821,7 @@ namespace PadForge.Tests
         [InlineData(SteelSeriesFamily.Apex3, 3, 1, 0, 50, 5000, false)]
         [InlineData(SteelSeriesFamily.Apex3Tkl, 1, 1, 0, 33, 5000, false)]
         [InlineData(SteelSeriesFamily.ApexM750, 2, 1, 10, 55, 5000, false)]
-        [InlineData(SteelSeriesFamily.Apex2013, 0, 1, 0, 50, 0, false)]
+        [InlineData(SteelSeriesFamily.Apex2013, 0, 1, 0, 50, 5000, false)]
         public void EachFamily_SitsOnItsInterface_AndIsPacedAsItsReferencesPaceIt(object familyValue, int iface,
             int reports, int gapMs, int repaintMs, int reassertMs, bool echoes)
         {

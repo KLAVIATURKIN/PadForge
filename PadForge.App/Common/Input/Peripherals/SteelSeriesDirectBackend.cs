@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using Microsoft.Win32;
 
 namespace PadForge.Common.Input.Peripherals
 {
@@ -19,11 +20,10 @@ namespace PadForge.Common.Input.Peripherals
     /// in the last list.</para>
     ///
     /// <para>Open. Only a unit a row links and a claim resolves on, for
-    /// read and write. A collection that opens with no access right only is
-    /// held by another program, and a Windows tool for one of these
-    /// keyboards tells its user as much at this point: "Unable to open
-    /// MI_01. Close GG/OpenRGB and try again." (Apex3TklColorControl
-    /// MainWindow.xaml.cs:251). Such a unit is not written to.</para>
+    /// read and write. A collection that opens with no access right only, where
+    /// Windows refused read and write (the two errors
+    /// <see cref="HidReportChannel"/> names), is one Windows keeps for
+    /// itself or another program holds. Such a unit is not written to.</para>
     ///
     /// <para>Paint. No color is queued. Each pass reads the color that
     /// rules the unit now and sends it when the family's next allowed time
@@ -32,8 +32,12 @@ namespace PadForge.Common.Input.Peripherals
     /// before the next one starts, and no report goes out sooner than the
     /// family's gap after the one before. Every paint sets every LED, so a
     /// paint is its own re-assert: an unchanged color goes out again once
-    /// the family's interval has passed since the last paint, and the
-    /// claim frames go out once per open, as no reference repeats them.</para>
+    /// the family's interval has passed since the last paint. The claim
+    /// frames go out in front of the first color of an open, again in front
+    /// of the first color that starts once the interval has passed since
+    /// they last went, and once more when Windows resumes from sleep: a
+    /// device that lost power while its collection stayed listed shows its
+    /// stored lighting again and says nothing.</para>
     ///
     /// <para>A 2.4 GHz dongle answers each report on its input report, and
     /// the worker reads that answer before the next report goes (OpenRGB
@@ -44,7 +48,7 @@ namespace PadForge.Common.Input.Peripherals
     /// issue 187, comment 1546731122, of a Prime Wireless, and
     /// Aerox_5-LennardKittner src/lib.rs:14 and 105-107 for the Aerox 5
     /// Wireless). So the write succeeds whatever the mouse does, and only
-    /// the answer tells. On 40, or with no answer in
+    /// the answer tells. On 40 FF, or with no answer in
     /// <see cref="EchoTimeoutMs"/>, the color in flight is dropped and the
     /// unit is left alone for <see cref="QuietMs"/>, then the whole color
     /// is sent again from its first report. The handle stays open and the
@@ -63,11 +67,11 @@ namespace PadForge.Common.Input.Peripherals
     /// (<see cref="LeftToVendorProgram"/>), and nothing to a dongle whose
     /// mouse is off, which wakes into its own lighting.</para>
     ///
-    /// <para>Fail. A write that fails closes the unit's channel and lists
-    /// the unit asleep, asks the host for a walk, and tries the unit again
-    /// every <see cref="RetryMs"/> by opening it, which sends nothing. A
-    /// unit that opens is listed awake, and the claim that still stands
-    /// paints it as it would a new unit.</para>
+    /// <para>Fail. A write that fails, a hand-back included, closes the
+    /// unit's channel and lists the unit asleep, asks the host for a walk,
+    /// and tries the unit again every <see cref="RetryMs"/> by opening it,
+    /// which sends nothing. A unit that opens is listed awake, and a claim
+    /// that still stands paints it as it would a new unit.</para>
     /// </summary>
     internal sealed class SteelSeriesDirectBackend : IDirectUnitBackend
     {
@@ -131,9 +135,19 @@ namespace PadForge.Common.Input.Peripherals
         /// the worker.</summary>
         internal const int ReadLimit = 32;
 
-        /// <summary>The first byte of a dongle's answer while its mouse is
-        /// off or asleep.</summary>
+        /// <summary>The two bytes a dongle's answer starts with while its
+        /// mouse is off or asleep. The battery tool for the Aerox 5 Wireless
+        /// tests both (Aerox_5-LennardKittner src/lib.rs:14 and 105-107), an
+        /// owner of a Prime Wireless names FF as the byte that tells
+        /// (rivalcfg issue 187, comment 1546731122), and the 2031 input
+        /// reports that start 40 in a capture of the vendor's traffic all
+        /// continue FF (Cricetus-Imperator docs/packets/full.pcap). SignalRGB
+        /// tests 40 alone (signal-plugins
+        /// Steelseries_Aerox_Wireless_Mouse.js:208). A report that starts 40
+        /// and continues otherwise is in no source, and is read as somebody
+        /// else's: the unit then keeps its hand-back.</summary>
         internal const byte MouseOffReply = 0x40;
+        internal const byte MouseOffFlag = 0xFF;
 
         private const int NoColor = -1;
 
@@ -172,6 +186,13 @@ namespace PadForge.Common.Input.Peripherals
             /// may show a color of ours.</summary>
             public bool Lit;
             public bool ClaimSent;
+
+            /// <summary>When the claim last went out, for its re-assert.</summary>
+            public long ClaimAt;
+
+            /// <summary>Windows resumed from sleep: the claim and the color
+            /// go out once more, whatever was sent before.</summary>
+            public bool Reassert;
             public bool Announced;
 
             /// <summary>The reports of the paint in flight, the claim
@@ -232,10 +253,17 @@ namespace PadForge.Common.Input.Peripherals
         private DirectBackendSnapshot _snapshot = DirectBackendSnapshot.NotScanned;
         private IReadOnlyList<HidCollectionInfo> _present;
         private Thread _thread;
+        // The newest worker's thread, which Stop does not forget.
+        private Thread _worker;
         private volatile WorkerRun _run;
         private int _disposed;
         private int _passes;
         private int _waitMs;
+
+        // Only the worker the app makes listens for Windows resuming. A test
+        // says so through NoteResume.
+        private readonly bool _powerEvents;
+        private int _resumed;
 
         /// <summary>The newest worker thread of any instance, which the
         /// next one waits for. Static because the collections it holds are
@@ -243,7 +271,7 @@ namespace PadForge.Common.Input.Peripherals
         private static Thread s_lastWorker;
 
         public SteelSeriesDirectBackend()
-            : this(null, null, null, null, ActiveTickMs, IdleTickMs) { }
+            : this(null, null, null, null, ActiveTickMs, IdleTickMs, powerEvents: true) { }
 
         /// <summary>Test seam: the channel opener, the container lookup,
         /// the clock, the one-shot writer the crash path uses, the two
@@ -258,8 +286,9 @@ namespace PadForge.Common.Input.Peripherals
         /// property Windows already holds and asks the device nothing.</para></summary>
         internal SteelSeriesDirectBackend(Func<string, IHidReportChannel> open, Func<string, Guid> containerOf,
             Func<long> ticks, Func<string, byte[], int, bool> writeOnce, int activeTickMs, int idleTickMs,
-            int predecessorJoinMs = PredecessorJoinMs, int stopJoinMs = StopJoinMs)
+            int predecessorJoinMs = PredecessorJoinMs, int stopJoinMs = StopJoinMs, bool powerEvents = false)
         {
+            _powerEvents = powerEvents;
             _open = open ?? HidReportChannel.Open;
             _containerOf = containerOf ?? AudioPassthroughService.DevicePathContainerId;
             _ticks = ticks ?? (() => Environment.TickCount64);
@@ -285,7 +314,10 @@ namespace PadForge.Common.Input.Peripherals
         /// pass, so a test reads the tick it chose.</summary>
         internal int WaitMs => Volatile.Read(ref _waitMs);
 
-        internal bool WorkerAlive => _thread?.IsAlive == true;
+        /// <summary>Whether the newest worker this instance started still
+        /// runs. Stop forgets its thread whether or not its wait ended, so
+        /// this reads the thread itself.</summary>
+        internal bool WorkerAlive => Volatile.Read(ref _worker)?.IsAlive == true;
 
         /// <summary>The crash path's record, for a test.</summary>
         internal (string Path, byte[][] Frames)[] Recorded => Volatile.Read(ref _recorded);
@@ -299,15 +331,18 @@ namespace PadForge.Common.Input.Peripherals
             // host walks on its first pass and hands a new one over.
             Volatile.Write(ref _present, null);
             _thread = new Thread(() => Worker(run)) { IsBackground = true, Name = "PeripheralSteelSeries" };
+            Volatile.Write(ref _worker, _thread);
             _thread.Start();
             PeripheralOutputs.LightingChanged += Wake;
             PeripheralOutputs.LinksChanged += Wake;
+            if (_powerEvents) SystemEvents.PowerModeChanged += OnPowerMode;
         }
 
         public void Stop()
         {
             PeripheralOutputs.LightingChanged -= Wake;
             PeripheralOutputs.LinksChanged -= Wake;
+            if (_powerEvents) SystemEvents.PowerModeChanged -= OnPowerMode;
             if (_thread == null) return;
             _run.Stop = true;
             Wake();
@@ -358,6 +393,21 @@ namespace PadForge.Common.Input.Peripherals
             }
         }
 
+        private void OnPowerMode(object sender, PowerModeChangedEventArgs e)
+        {
+            if (e.Mode == PowerModes.Resume) NoteResume();
+        }
+
+        /// <summary>Windows resumed from sleep: every open unit gets its
+        /// claim and its color once more, since a device that lost power in
+        /// between shows its stored lighting again while its collection
+        /// never left the list.</summary>
+        internal void NoteResume()
+        {
+            Interlocked.Exchange(ref _resumed, 1);
+            Wake();
+        }
+
         /// <summary>Brings the worker's next pass forward. Any thread.</summary>
         internal void Wake()
         {
@@ -396,9 +446,11 @@ namespace PadForge.Common.Input.Peripherals
                     }
 
                     var links = PeripheralOutputs.Links;
+                    bool resumed = Interlocked.Exchange(ref _resumed, 0) != 0;
                     foreach (var unit in units)
                     {
                         if (run.Stop) break;
+                        if (resumed && unit.Io != null) unit.Reassert = true;
                         // Each unit is served on a clock reading of its
                         // own. A per-key frame takes a keyboard up to 26 ms,
                         // and a reading from before it would let the next
@@ -437,7 +489,7 @@ namespace PadForge.Common.Input.Peripherals
                 {
                     if (unit.Io == null) continue;
                     long due = long.MaxValue;
-                    try { Release(unit, new OutputPath(OutputFamily.SteelSeriesUnit, unit.Path), _ticks(), blocking: true, ref due); }
+                    try { Release(unit, new OutputPath(OutputFamily.SteelSeriesUnit, unit.Path), _ticks(), blocking: true, ref due, out _); }
                     catch { }
                     Close(unit);
                 }
@@ -576,7 +628,14 @@ namespace PadForge.Common.Input.Peripherals
             bool wanted = links.ByPath.ContainsKey(path) && PeripheralOutputs.TryResolveColor(path, out rgb);
             if (!wanted)
             {
-                if (unit.Io != null && Release(unit, path, now, blocking: false, ref due)) Close(unit);
+                if (unit.Io != null && Release(unit, path, now, blocking: false, ref due, out bool lost))
+                {
+                    // A hand-back that did not go out is a failed write like
+                    // any other: the device may have left with no row to
+                    // say so.
+                    if (lost) Fail(unit, now, "hand-back failed", ref changed, ref failed, ref due);
+                    else Close(unit);
+                }
                 return;
             }
 
@@ -629,9 +688,13 @@ namespace PadForge.Common.Input.Peripherals
             unit.Recorded = false;
             unit.Lit = false;
             unit.ClaimSent = false;
+            unit.Reassert = false;
             unit.Announced = false;
             unit.Queue = null;
-            unit.NextAt = now;
+            // The family's gap holds across a close: no report goes out
+            // sooner than the gap after the one before, a hand-back
+            // included.
+            unit.NextAt = Math.Max(unit.NextAt, now);
             unit.SentRgb = NoColor;
             unit.Awaiting = false;
             unit.MouseOff = false;
@@ -640,7 +703,8 @@ namespace PadForge.Common.Input.Peripherals
         }
 
         /// <summary>Asks a gated keyboard for its firmware version: once
-        /// per open, in front of the claim and never while the board is lit
+        /// per open, in front of the claim and never between a claim and its
+        /// hand-back in one open
         /// (<see cref="SteelSeriesDirectProtocol.VersionQuery"/>). A
         /// collection with no input report could not answer, and is not
         /// asked. False when the query did not go out.</summary>
@@ -712,6 +776,13 @@ namespace PadForge.Common.Input.Peripherals
                     Soonest(ref due, startAt);
                     return true;
                 }
+                // The claim goes out again on the family's interval, on a
+                // clock of its own, and once after Windows resumes: a
+                // device that lost power while its collection stayed listed
+                // shows its stored lighting again and says nothing.
+                if (unit.Reassert || (unit.ClaimSent && info.ReassertMs > 0 && now - unit.ClaimAt >= info.ReassertMs))
+                    unit.ClaimSent = false;
+                unit.Reassert = false;
                 var claim = unit.ClaimSent ? SteelSeriesDirectProtocol.NoFrames : info.Claim(unit.Gen3);
                 var color = info.Color(unit.Plan.ColorReport, unit.Gen3, (byte)(rgb >> 16), (byte)(rgb >> 8), (byte)rgb);
                 var queue = new SteelSeriesFrame[claim.Length + color.Length];
@@ -734,16 +805,28 @@ namespace PadForge.Common.Input.Peripherals
                 if (!unit.Recorded) Record(unit);
                 // What a dongle has queued is not the answer to this report.
                 if (info.Echoes && !Drain(unit)) return false;
+                // The crash path takes the record once it has told the
+                // worker to stop. An entry made after that is read by
+                // nobody, so a worker told to stop sends nothing more.
+                if (run.Stop) return true;
                 if (!Send(unit, frame)) return false;
                 unit.Lit = true;
                 if (unit.Next == unit.ClaimFrames) unit.PaintAt = now;
                 unit.Next++;
-                if (unit.Next == unit.ClaimFrames) unit.ClaimSent = true;
+                if (unit.Next == unit.ClaimFrames)
+                {
+                    unit.ClaimSent = true;
+                    unit.ClaimAt = now;
+                }
                 if (info.Echoes)
                 {
                     unit.Awaiting = true;
                     unit.AwaitCommand = frame.Command;
                     unit.AwaitUntil = now + EchoTimeoutMs;
+                    // A close drops the answer still owed, so the next open
+                    // sends nothing before this answer's limit. Whatever
+                    // ends the wait sets the time anew.
+                    unit.NextAt = unit.AwaitUntil;
                     // An answer that is already there is taken in this pass.
                     switch (ReadEcho(unit, now))
                     {
@@ -782,7 +865,7 @@ namespace PadForge.Common.Input.Peripherals
         /// starts inside the gap after the report before.</summary>
         private static long StartAt(Unit unit, SteelSeriesFamilyInfo info, int rgb, long now)
         {
-            long at = unit.SentRgb == NoColor ? now
+            long at = unit.SentRgb == NoColor || unit.Reassert ? now
                 : rgb != unit.SentRgb ? unit.PaintAt + info.RepaintMs
                 : info.ReassertMs > 0 ? unit.PaintAt + info.ReassertMs
                 : long.MaxValue;
@@ -843,8 +926,8 @@ namespace PadForge.Common.Input.Peripherals
         /// without waiting. Byte 0 of what Windows delivers is the report
         /// ID position, so the answer starts at byte 1. A report that
         /// starts with the command just sent is the answer, and no
-        /// reference reads the byte behind it. One that starts with 40
-        /// says the mouse is off. Any other is somebody else's, the
+        /// reference reads the byte behind it. One that starts 40 FF says
+        /// the mouse is off. Any other is somebody else's, the
         /// vendor program's own queries and the mouse's status reports
         /// share the endpoint, and is skipped, as the battery tool for the
         /// Aerox 5 Wireless skips them (Aerox_5-LennardKittner
@@ -858,10 +941,14 @@ namespace PadForge.Common.Input.Peripherals
                 if (read == 0) break;
                 if (read < 2) continue;
                 if (unit.Input[1] == unit.AwaitCommand) return Echo.Answered;
-                if (unit.Input[1] == MouseOffReply) return Echo.MouseOff;
+                if (SaysMouseOff(unit, read)) return Echo.MouseOff;
             }
             return now >= unit.AwaitUntil ? Echo.TimedOut : Echo.Waiting;
         }
+
+        /// <summary>Whether the input report just read is a dongle's 40 FF.</summary>
+        private static bool SaysMouseOff(Unit unit, int read)
+            => read >= 3 && unit.Input[1] == MouseOffReply && unit.Input[2] == MouseOffFlag;
 
         /// <summary>Discards the input reports a collection has queued, as
         /// two references do in front of a question (Aerox_5-LennardKittner
@@ -897,10 +984,14 @@ namespace PadForge.Common.Input.Peripherals
         /// family's order: the answer to a dongle's report before it, then
         /// the gap. <paramref name="blocking"/> is the worker's finally,
         /// which has no later pass and waits here instead, never longer
-        /// than twice one answer's limit and one gap.</para>
+        /// than twice one answer's limit and one gap.
+        /// <paramref name="lost"/> says a hand-back was owed and did not go
+        /// out: its write failed, or the answer in front of it could not be
+        /// read.</para>
         /// </summary>
-        private bool Release(Unit unit, OutputPath path, long now, bool blocking, ref long due)
+        private bool Release(Unit unit, OutputPath path, long now, bool blocking, ref long due, out bool lost)
         {
+            lost = false;
             var info = unit.Plan.Info;
             // Whatever comes next starts over: a color in flight is not
             // finished, and a claim that comes back paints from the top.
@@ -936,7 +1027,11 @@ namespace PadForge.Common.Input.Peripherals
                 }
                 unit.Awaiting = false;
                 // A collection that cannot be read is not written to.
-                if (echo == Echo.Failed) return true;
+                if (echo == Echo.Failed)
+                {
+                    lost = true;
+                    return true;
+                }
                 if (echo == Echo.MouseOff) unit.MouseOff = true;
                 else if (echo == Echo.Answered) unit.MouseOff = false;
                 unit.NextAt = echo == Echo.Answered ? now + info.GapMs : now;
@@ -962,6 +1057,10 @@ namespace PadForge.Common.Input.Peripherals
                     break;
                 }
             }
+            // The next open keeps the gap from this report, and gives a
+            // dongle the time to answer it.
+            unit.NextAt = _ticks() + (info.Echoes ? Math.Max(info.GapMs, EchoTimeoutMs) : info.GapMs);
+            lost = !sent;
             if (sent) PadForge.Engine.SdlDiagLog.WriteLine($"PERIPHERAL SteelSeries {unit.ProductId:X4} lighting handed back");
             return true;
         }
@@ -979,7 +1078,7 @@ namespace PadForge.Common.Input.Peripherals
                 if (read < 0) return Echo.Failed;
                 if (read == 0) break;
                 if (read >= 2 && unit.Input[1] == unit.AwaitCommand) return Echo.Answered;
-                if (read >= 2 && unit.Input[1] == MouseOffReply) return Echo.MouseOff;
+                if (SaysMouseOff(unit, read)) return Echo.MouseOff;
                 budget /= 2;
             }
             return Echo.TimedOut;
