@@ -536,7 +536,7 @@ namespace PadForge.Tests
 
         /// <summary>
         /// The setup text names the third condition: a G600 or G300 mouse
-        /// out of on-board mode.
+        /// out of on-board memory mode.
         ///
         /// <para>Logitech's G-key SDK manual (LogitechGamingGkeySDK.pdf,
         /// page 4, "User experience"): "For mice with on-board modes (G600
@@ -544,7 +544,10 @@ namespace PadForge.Tests
         /// mode." A G600 owner who followed every step the hint and the
         /// tooltip gave still saw "Connected, no key seen yet", with nothing
         /// naming the mode. The model numbers are not translated, so they
-        /// anchor the check in every locale.</para>
+        /// anchor the check in every locale. The English text and the
+        /// README name the mode as Logitech Gaming Software's own toggle
+        /// does, On-Board Memory mode (Logitech support article
+        /// 360023411353), the name the Lighting tab uses for it too.</para>
         /// </summary>
         [Fact]
         public void TheSetupTextNamesTheOnBoardModeRuleInEveryLocale()
@@ -561,7 +564,7 @@ namespace PadForge.Tests
                 {
                     string value = ResxValue(text, key);
                     Assert.True(value.Contains("G600", StringComparison.Ordinal) && value.Contains("G300", StringComparison.Ordinal),
-                                $"{locale}: {key} does not name the G600 and G300 on-board mode rule");
+                                $"{locale}: {key} does not name the G600 and G300 on-board memory mode rule");
                 }
             }
 
@@ -570,8 +573,10 @@ namespace PadForge.Tests
             Assert.True(section >= 0, "README has no Logitech G-keys section");
             int end = readme.IndexOf("\n###", section + 1, StringComparison.Ordinal);
             string body = end > section ? readme.Substring(section, end - section) : readme.Substring(section);
-            Assert.True(body.Contains("on-board mode", StringComparison.Ordinal),
-                        "README's Logitech G-keys section does not name on-board mode");
+            Assert.True(body.Contains("on-board memory mode", StringComparison.Ordinal),
+                        "README's Logitech G-keys section does not name on-board memory mode");
+            Assert.False(body.Contains("on-board mode", StringComparison.Ordinal),
+                         "README's Logitech G-keys section still names the mode a second way");
         }
 
 

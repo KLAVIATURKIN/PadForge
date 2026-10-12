@@ -440,12 +440,14 @@
   <data name="Devices_DriverBind_Xbox360Receiver" xml:space="preserve"><value>チャットパッドと uDraw タブレットを読み取る</value></data>
   <data name="Devices_DriverBind_IntelBaseStation" xml:space="preserve"><value>ゲームパッドを読み取る</value></data>
   <data name="Devices_DriverBind_Prodikeys" xml:space="preserve"><value>音楽キーを読み取る</value></data>
+  <data name="Devices_DriverBind_TouchSenseMouse" xml:space="preserve"><value>このマウスで振動を再生する</value></data>
   <data name="Devices_DriverRestore" xml:space="preserve"><value>Windows のドライバーに戻す</value></data>
   <data name="Devices_DriverConfirmTitle" xml:space="preserve"><value>PadForge のドライバーに切り替える</value></data>
   <data name="Devices_DriverConfirm_Xbox360Pad" xml:space="preserve"><value>PadForge はチャットパッドを読み取るため、このコントローラーを Windows の WinUSB ドライバーに切り替えます。その後、コントローラーは PadForge の実行中だけ動作し、ゲームには PadForge の仮想コントローラーを通して見えます。接続中の同じモデルのコントローラーもすべて切り替わり、それぞれスロットへの割り当てをやり直す必要があります。Windows のドライバーには、このページからいつでも戻せます。</value></data>
   <data name="Devices_DriverConfirm_Xbox360Receiver" xml:space="preserve"><value>PadForge はチャットパッドと uDraw タブレットを読み取るため、このレシーバーを Windows の WinUSB ドライバーに切り替えます。レシーバー上のコントローラーとヘッドセットはすべて一緒に切り替わり、PadForge の実行中だけ動作し、スロットへの割り当てをやり直す必要があります。Windows のドライバーには、このページからいつでも戻せます。</value></data>
   <data name="Devices_DriverConfirm_IntelBaseStation" xml:space="preserve"><value>PadForge はゲームパッドを読み取るため、ベースステーションを Windows の WinUSB ドライバーに切り替えます。その後、接続している Intel ワイヤレスキーボードは Windows で入力できなくなります。Windows のドライバーには、このページからいつでも戻せます。</value></data>
   <data name="Devices_DriverConfirm_Prodikeys" xml:space="preserve"><value>PadForge は音楽キーを読み取るため、Windows の WinUSB ドライバーに切り替えます。その後、キーボードのメディアキーとスリープキーは Windows で使えなくなり、文字入力キーは引き続き使えます。Windows のドライバーには、このページからいつでも戻せます。</value></data>
+  <data name="Devices_DriverConfirm_TouchSenseMouse" xml:space="preserve"><value>PadForge はこのマウスで振動を再生するため、このマウスを Windows の WinUSB ドライバーに切り替えます。その後、ドライバーを元に戻すまで、Windows はこのマウスをポインターとして使用しなくなります。PadForge がこのマウスでポインターを動かすのは、PadForge の実行中で、マウスが「キーボード + マウス」仮想コントローラーに割り当てられている間だけです。Windows のドライバーには、このページからいつでも戻せます。</value></data>
   <data name="Devices_DriverSwitch" xml:space="preserve"><value>ドライバーを切り替える</value></data>
   <data name="Status_DriverSwitching_Format" xml:space="preserve"><value>{0} のドライバーを切り替えています…</value></data>
   <data name="Status_DriverBound_Format" xml:space="preserve"><value>{0} は PadForge のドライバーを使用しています。</value></data>
@@ -1663,6 +1665,7 @@
   <data name="Pad_ForceFeedback_RouteHidpp" xml:space="preserve"><value>振動は {0} にハプティックパルスとして直接送られます。振動が強いほど強いパルスを選び、より速く繰り返します。</value></data>
   <data name="Pad_ForceFeedback_RouteHidppFeedbackOff" xml:space="preserve"><value>Logi Options+ で {0} のハプティックフィードバックがオフになっています。そこでオンに戻すまで何も再生されません。</value></data>
   <data name="Pad_ForceFeedback_RouteHidppAsleep" xml:space="preserve"><value>このデバイスはまだ応答していません。スリープから復帰すると振動が再生されます。</value></data>
+  <data name="Pad_ForceFeedback_RouteTouchSense" xml:space="preserve"><value>振動は、ブザーのような連続振動として {0} に直接送られます。</value></data>
   <data name="Pad_ForceFeedback_RouteGameSense" xml:space="preserve"><value>振動は SteelSeries GG のタクタイルハンドラーを通じて再生されます。</value></data>
   <data name="Pad_ForceFeedback_RouteGameSenseShared" xml:space="preserve"><value>SteelSeries GG はすべての触覚 Rival を同時に駆動するため、仮想コントローラー {0} の Rival が振動を決めます。</value></data>
   <data name="Pad_ForceFeedback_RouteGameSenseWaiting" xml:space="preserve"><value>SteelSeries GG を待っています。GG が起動すると振動が再生されます。</value></data>
@@ -1695,9 +1698,17 @@
   <data name="Pad_Lighting_PeripheralSubtitle" xml:space="preserve"><value>この仮想コントローラーは、DualSense のライトバーと同じモードでデバイスを点灯させます。ここでの設定はこのコントローラー専用です。PlayStation の仮想コントローラーでは、ゲームがライトバーを書き込むと DualSense と同じようにゲームが優先されます。</value></data>
   <data name="Pad_Lighting_ControlDevice" xml:space="preserve"><value>このデバイスのライティングを制御</value></data>
   <data name="Pad_Lighting_ControlDevice_Tooltip" xml:space="preserve"><value>オフにすると、この仮想コントローラーはデバイスを点灯させなくなります。メーカーの行や、同じソフトウェアで点灯する同じ種類の別のデバイスは、引き続きその色を決められます。この仮想コントローラーの「Chroma の色を設定」マクロは、Razer デバイスを引き続き点灯させます。</value></data>
+  <data name="Pad_Lighting_ClaimLevel" xml:space="preserve"><value>ライティングの保持</value></data>
+  <data name="Pad_Lighting_ClaimLevel_Colors" xml:space="preserve"><value>色のみ</value></data>
+  <data name="Pad_Lighting_ClaimLevel_Power" xml:space="preserve"><value>色とライティングの電源</value></data>
+  <data name="Pad_Lighting_ClaimLevel_HostMode" xml:space="preserve"><value>色、ライティングの電源、オンボードモードオフ</value></data>
+  <data name="Pad_Lighting_ClaimLevel_Tooltip" xml:space="preserve"><value>「色のみ」では、デバイスの省電力と保存済みプロファイルはそのままです。デバイス自身のアイドル効果で色が消えてしまう場合は、「色とライティングの電源」を選択してください。デバイスは自分でライトを暗くしなくなります。デバイスが自身のプロファイルのライティングを色の上に表示する場合は、最後のオプションを選択してください。点灯している間はオンボードモードがオフになり、点灯をやめるとオンに戻ります。オフの間、デバイスに保存されたプロファイル (ボタン、DPI、ポーリングレート) は適用されません。</value></data>
   <data name="Pad_Lighting_RouteDirect" xml:space="preserve"><value>色は {0} に直接送られます。</value></data>
+  <data name="Pad_Lighting_RouteDirectPower" xml:space="preserve"><value>色は {0} に直接送られます。点灯している間、デバイスは自分でライトを暗くしません。</value></data>
+  <data name="Pad_Lighting_RouteDirectHostMode" xml:space="preserve"><value>色は {0} に直接送られます。点灯している間、デバイスのオンボードモードはオフになります。</value></data>
   <data name="Pad_Lighting_RouteAsleep" xml:space="preserve"><value>このデバイスはまだ応答していません。スリープから復帰すると色が表示されます。</value></data>
   <data name="Pad_Lighting_RouteThrough" xml:space="preserve"><value>色は {0} を通して送られます。</value></data>
+  <data name="Pad_Lighting_RouteThroughOrDirect" xml:space="preserve"><value>色は {0} を通して送られます。{0} はこの種類のデバイスをすべて同時に点灯させます。{0} が起動していない間は、PadForge がこのデバイスを単独で点灯させます。</value></data>
   <data name="Pad_Lighting_RouteShared" xml:space="preserve"><value>{0} はこの種類のデバイスをすべて同時に点灯させるため、仮想コントローラー {1} のデバイスが色を決めます。</value></data>
   <data name="Pad_Lighting_RouteSharedVendorRow" xml:space="preserve"><value>{0} はこの種類のデバイスをすべて同時に点灯させるため、仮想コントローラー {2} の {1} の行が色を決めます。</value></data>
   <data name="Pad_Lighting_RouteOtherController" xml:space="preserve"><value>仮想コントローラー {0} もこのデバイスを点灯させており、その色が表示されます。</value></data>
@@ -1705,6 +1716,8 @@
   <data name="Pad_Lighting_RouteOtherRow" xml:space="preserve"><value>この仮想コントローラーにある同じデバイスの別の行が色を決めます。</value></data>
   <data name="Pad_Lighting_RouteOtherRowOnly" xml:space="preserve"><value>この仮想コントローラーにある同じデバイスの別の行が、このデバイスを点灯させています。</value></data>
   <data name="Pad_Lighting_RouteWaiting" xml:space="preserve"><value>{0} を待っています。起動すると色が表示されます。</value></data>
+  <data name="Pad_Lighting_RouteWindowsLighting" xml:space="preserve"><value>Windows の動的ライティングがこのデバイスを点灯させています。Windows の設定でこのデバイスの動的ライティングをオフにすると、PadForge が点灯させます。</value></data>
+  <data name="Pad_Lighting_RouteWindowsLightingBuiltIn" xml:space="preserve"><value>Windows の動的ライティングがこのキーボードを点灯させています。Windows の設定でこのキーボードの動的ライティングをオフにすると、PadForge が点灯させます。一部のノート PC では、PadForge が点灯させていない間、キーボードは消灯したままになります。</value></data>
   <data name="Pad_Lighting_RouteCannotLight" xml:space="preserve"><value>この PC の Logitech LED エンジンは、この種類のデバイスを点灯できません。</value></data>
   <data name="Pad_Lighting_RouteVendorRow" xml:space="preserve"><value>{0} が届くデバイスのうち、割り当てられたデバイスが自分で点灯させていないもの ({1}など) を点灯させます。</value></data>
   <data name="Pad_Lighting_RouteVendorRowWaiting" xml:space="preserve"><value>{0} を待っています。起動すると、この行は {0} が届くデバイスのうち、割り当てられたデバイスが自分で点灯させていないもの ({1}など) を点灯させます。</value></data>

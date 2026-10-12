@@ -14,11 +14,20 @@ namespace PadForge.Common.Input.Peripherals
         None = 0,
         Haptics = 1,
         Lighting = 2,
+        /// <summary>The device offers the first lighting hold above colors
+        /// alone (<see cref="DeviceLinks.MaxClaimLevel"/> 1 or more), kept
+        /// on record so the Lighting tab keeps the choice while the device
+        /// sleeps.</summary>
+        LightingLevel1 = 4,
+        /// <summary>The device offers the second lighting hold too.</summary>
+        LightingLevel2 = 8,
     }
 
-    /// <summary>The protocol a peripheral output travels on. One unit is a
-    /// single physical device. Every other family addresses a device class
-    /// the vendor's software resolves, so several devices share it.</summary>
+    /// <summary>The protocol a peripheral output travels on. A unit family
+    /// reaches a single physical device. Every other family addresses a
+    /// device class the vendor's software resolves, so several devices share
+    /// it (<see cref="OutputPath.Shared"/>). APPEND-ONLY: the backend states
+    /// are an array indexed by the value.</summary>
     internal enum OutputFamily
     {
         /// <summary>One Logitech device on its HID++ collection.</summary>
@@ -33,6 +42,14 @@ namespace PadForge.Common.Input.Peripherals
         GameSenseTactile,
         /// <summary>Razer Sensa HD devices through the Interhaptics engine.</summary>
         Interhaptics,
+        /// <summary>One Razer device on its control collection, through 90-byte feature reports.</summary>
+        RazerUnit,
+        /// <summary>One SteelSeries device on its vendor collection.</summary>
+        SteelSeriesUnit,
+        /// <summary>One HID LampArray device (usage page 0x59).</summary>
+        LampArrayUnit,
+        /// <summary>One TouchSense mouse bound to WinUSB. Rumble only.</summary>
+        TouchSenseUnit,
     }
 
     /// <summary>Where a backend stands, for the device tabs.</summary>
@@ -55,12 +72,24 @@ namespace PadForge.Common.Input.Peripherals
     }
 
     /// <summary>One output path: a family and the key inside it (a HID++
-    /// collection and device index, a Chroma category, an LED SDK type).</summary>
+    /// collection and device index, a Chroma category, an LED SDK type, the
+    /// interface path of a direct unit's collection). Each key has one
+    /// producer and the linker copies it, so two paths to one unit are equal
+    /// without any case folding.</summary>
     internal readonly record struct OutputPath(OutputFamily Family, string Key)
     {
         /// <summary>True when the path reaches more than one device, so the
-        /// assignment with the smallest displayed player number rules it.</summary>
-        public bool Shared => Family != OutputFamily.HidppUnit;
+        /// assignment with the smallest displayed player number rules it.
+        /// Every family is named, so one appended later is refused here
+        /// until it is sorted.</summary>
+        public bool Shared => Family switch
+        {
+            OutputFamily.HidppUnit or OutputFamily.RazerUnit or OutputFamily.SteelSeriesUnit
+                or OutputFamily.LampArrayUnit or OutputFamily.TouchSenseUnit => false,
+            OutputFamily.ChromaCategory or OutputFamily.LedSdkType or OutputFamily.GameSenseColor
+                or OutputFamily.GameSenseTactile or OutputFamily.Interhaptics => true,
+            _ => throw new ArgumentOutOfRangeException(nameof(Family)),
+        };
     }
 
     /// <summary>A row's output paths.</summary>
@@ -81,9 +110,44 @@ namespace PadForge.Common.Input.Peripherals
         /// keeps that color.</summary>
         public bool CatchAll { get; init; }
 
+        /// <summary>A unit row (<see cref="PeripheralUnitRow"/>): the row of
+        /// one direct unit that no mouse or keyboard row reaches. It holds
+        /// that unit's path alone and ranks as a device, never as a vendor
+        /// row.</summary>
+        public bool UnitRow { get; init; }
+
+        /// <summary>A row with no input of its own, a vendor row or a unit
+        /// row (<see cref="IOutputOnlyRow"/>). It is assigned for its output
+        /// alone, so it lights with no Control This Device's Lighting
+        /// switch.</summary>
+        public bool OutputOnly => CatchAll || UnitRow;
+
+        /// <summary>The highest claim level any of the row's lighting units offers: 0, 1 or 2.</summary>
+        public int MaxClaimLevel { get; init; }
+
+        /// <summary>Lit through a shared path now, with a direct path waiting for the vendor program to stop.</summary>
+        public bool DirectWhenClosed { get; init; }
+
+        /// <summary>The shared paths this row's direct path stands in for. A
+        /// shared backend does not paint one of them while this row holds a
+        /// claim, so a directly lit Razer mouse is never painted by the
+        /// Chroma session too.</summary>
+        public OutputPath[] Shadows { get; init; } = Array.Empty<OutputPath>();
+
+        /// <summary>The row's device is of a vendor whose program drives
+        /// every device of that vendor while it runs: a Logitech, Razer or
+        /// SteelSeries device (<see cref="PeripheralLinker.HasVendorProgram"/>).
+        /// A path that lights such a row on its own is withdrawn when the
+        /// program starts, so the link pass watches for the program while
+        /// one is claimed
+        /// (<see cref="PeripheralOutputs.AnyClaimAVendorProgramTakes"/>).</summary>
+        public bool HasVendorProgram { get; init; }
+
         public PeripheralOutputKinds Kinds
             => (Lighting.Length > 0 ? PeripheralOutputKinds.Lighting : PeripheralOutputKinds.None)
-             | (Haptics.Length > 0 ? PeripheralOutputKinds.Haptics : PeripheralOutputKinds.None);
+             | (Haptics.Length > 0 ? PeripheralOutputKinds.Haptics : PeripheralOutputKinds.None)
+             | (MaxClaimLevel >= 1 ? PeripheralOutputKinds.LightingLevel1 : PeripheralOutputKinds.None)
+             | (MaxClaimLevel >= 2 ? PeripheralOutputKinds.LightingLevel2 : PeripheralOutputKinds.None);
     }
 
     /// <summary>An immutable snapshot of every row's paths, swapped whole by
@@ -121,7 +185,10 @@ namespace PadForge.Common.Input.Peripherals
         public DeviceLinks For(Guid device) => ByDevice.TryGetValue(device, out var links) ? links : null;
 
         /// <summary>True when both tables link the same rows to the same
-        /// paths, so the linker publishes only a change.</summary>
+        /// paths, so the linker publishes only a change. The claim levels a
+        /// row offers, its waiting direct path and the paths it shadows
+        /// count too: a control that should appear, a hint that should
+        /// change or a shadow that should lift republishes the table.</summary>
         public bool SameAs(LinkTable other)
         {
             if (other == null || other.ByDevice.Count != ByDevice.Count) return false;
@@ -129,8 +196,13 @@ namespace PadForge.Common.Input.Peripherals
             {
                 var theirs = other.For(pair.Key);
                 if (theirs == null || theirs.CatchAll != pair.Value.CatchAll
+                    || theirs.UnitRow != pair.Value.UnitRow
+                    || theirs.MaxClaimLevel != pair.Value.MaxClaimLevel
+                    || theirs.DirectWhenClosed != pair.Value.DirectWhenClosed
+                    || theirs.HasVendorProgram != pair.Value.HasVendorProgram
                     || !SamePaths(theirs.Lighting, pair.Value.Lighting)
                     || !SamePaths(theirs.Haptics, pair.Value.Haptics)
+                    || !SamePaths(theirs.Shadows, pair.Value.Shadows)
                     || !theirs.HidppUnits.AsSpan().SequenceEqual(pair.Value.HidppUnits))
                     return false;
             }
@@ -213,12 +285,14 @@ namespace PadForge.Common.Input.Peripherals
 
         private static PeripheralPresence s_presence = PeripheralPresence.None;
         private static HidppSnapshot s_hidpp = HidppSnapshot.Empty;
+        private static DirectSnapshot s_direct = DirectSnapshot.Empty;
+        private static IReadOnlyList<DirectUnit> s_unitRows = Array.Empty<DirectUnit>();
         private static string[] s_ledSdkPaintable;
         private static readonly int[] s_states = new int[Enum.GetValues(typeof(OutputFamily)).Length];
 
         /// <summary>Raised when a backend's state, the presence of vendor
-        /// software, the found HID++ units or a row's recorded outputs
-        /// change. Any thread. The owner marshals.</summary>
+        /// software, the found HID++ or direct units or a row's recorded
+        /// outputs change. Any thread. The owner marshals.</summary>
         public static event Action StatusChanged;
 
         public static PeripheralPresence Presence
@@ -241,6 +315,39 @@ namespace PadForge.Common.Input.Peripherals
             {
                 var next = value ?? HidppSnapshot.Empty;
                 if (!ReferenceEquals(Interlocked.Exchange(ref s_hidpp, next), next)) RaiseStatusChanged();
+            }
+        }
+
+        /// <summary>The direct backends' latest units, for a tab naming the
+        /// device its row reaches and whether Windows Dynamic Lighting
+        /// lights it. The link pass builds a new snapshot on every pass, so
+        /// only one that differs raises <see cref="StatusChanged"/>.</summary>
+        public static DirectSnapshot Direct
+        {
+            get => Volatile.Read(ref s_direct);
+            set
+            {
+                var next = value ?? DirectSnapshot.Empty;
+                var previous = Interlocked.Exchange(ref s_direct, next);
+                if (!next.SameAs(previous)) RaiseStatusChanged();
+            }
+        }
+
+        /// <summary>The direct units that get a row of their own
+        /// (<see cref="PeripheralUnitRow"/>): the ones no mouse or keyboard
+        /// row reached for long enough, as the link pass found them. The
+        /// poll thread opens and retires the rows from it. Immutable and
+        /// swapped whole, and a list that holds the same units leaves the
+        /// one in place, so the poll thread sees a new reference only when
+        /// the rows change. The link pass is the only writer while the
+        /// engine runs.</summary>
+        public static IReadOnlyList<DirectUnit> UnitRows
+        {
+            get => Volatile.Read(ref s_unitRows);
+            set
+            {
+                var next = value ?? Array.Empty<DirectUnit>();
+                if (!DirectSnapshot.SameUnits(Volatile.Read(ref s_unitRows), next)) Volatile.Write(ref s_unitRows, next);
             }
         }
 
@@ -481,6 +588,7 @@ namespace PadForge.Common.Input.Peripherals
         {
             public int Player;
             public int Rgb;
+            public int Level;
         }
 
         /// <summary>One claim per (device, slot): a mouse on two virtual
@@ -496,18 +604,25 @@ namespace PadForge.Common.Input.Peripherals
         /// <summary>Wakes the lighting backends on a change.</summary>
         public static event Action LightingChanged;
 
-        /// <summary>Raised when a claim starts, ends or changes rank, never
-        /// for a color alone, so a tab naming the controller that rules a
-        /// shared path can follow it without redrawing at animation speed.
-        /// Any thread. The owner marshals.</summary>
+        /// <summary>Raised when a claim starts, ends or changes rank or
+        /// level, never for a color alone, so a tab naming the controller
+        /// that rules a shared path can follow it without redrawing at
+        /// animation speed. Any thread. The owner marshals.</summary>
         public static event Action ClaimsChanged;
 
         /// <summary>The color a lit row shows for one slot, from that slot's
         /// effects dispatcher. <paramref name="player"/> is the slot's
         /// displayed player number, which ranks this claim against the
         /// device's claims from other slots and against other devices on a
-        /// shared path.</summary>
-        public static void SetLighting(Guid device, int slot, int player, byte r, byte g, byte b)
+        /// shared path. <paramref name="level"/> is how firmly the slot may
+        /// hold the device (0 colors alone, 1 its lighting power too, 2 its
+        /// on-board memory mode off as well). It travels with the claim,
+        /// because a claim outlives a change of path and a backend reads the
+        /// link table on its own tick: looked up anywhere else, an old claim
+        /// could meet a new path at a level its slot never chose. A backend
+        /// holds a unit at the smaller of the ruling claim's level and what
+        /// the unit offers.</summary>
+        public static void SetLighting(Guid device, int slot, int player, byte r, byte g, byte b, int level = 0)
         {
             int rgb = (r << 16) | (g << 8) | b;
             bool changed = false, ranked = false;
@@ -516,17 +631,20 @@ namespace PadForge.Common.Input.Peripherals
                 {
                     changed = true;
                     ranked = true;
-                    return new LightClaim { Player = player, Rgb = rgb };
+                    return new LightClaim { Player = player, Rgb = rgb, Level = level };
                 },
                 (_, claim) =>
                 {
                     lock (claim)
                     {
-                        if (claim.Player != player || claim.Rgb != rgb)
+                        if (claim.Player != player || claim.Rgb != rgb || claim.Level != level)
                         {
-                            ranked = claim.Player != player;
+                            // A level that moves redraws the tab, as a rank
+                            // does: its route line names what is held.
+                            ranked = claim.Player != player || claim.Level != level;
                             claim.Player = player;
                             claim.Rgb = rgb;
+                            claim.Level = level;
                             changed = true;
                         }
                     }
@@ -609,7 +727,13 @@ namespace PadForge.Common.Input.Peripherals
         }
 
         /// <summary>One claimant of a path, as the ruling sees it.</summary>
-        internal readonly record struct Claimant(Guid Device, bool CatchAll, int Player, int Slot, int Rgb);
+        internal readonly record struct Claimant(Guid Device, bool CatchAll, int Player, int Slot, int Rgb)
+        {
+            /// <summary>The claim's level (<see cref="SetLighting"/>). It
+            /// never ranks a claim: the ruling claim's level is the one the
+            /// device is held at.</summary>
+            public int Level { get; init; }
+        }
 
         /// <summary>The ruling between the claimants of one path, pure so the
         /// rule is testable: a device that claims the path on its own beats a
@@ -629,7 +753,8 @@ namespace PadForge.Common.Input.Peripherals
         /// <summary>The color a lighting path shows, or false when nothing
         /// assigned claims it, which is the backend's cue to hand the device
         /// back to its own software. <paramref name="ruler"/> is the winning
-        /// claim, for a tab naming the controller that rules a shared path.</summary>
+        /// claim, for a tab naming the controller that rules a shared path
+        /// and for a backend reading the level to hold the device at.</summary>
         public static bool TryResolveColor(OutputPath path, out int rgb, out Claimant ruler)
         {
             rgb = 0;
@@ -643,7 +768,10 @@ namespace PadForge.Common.Input.Peripherals
                 if (row == null || Array.IndexOf(row.Lighting, path) < 0) continue;
                 Claimant c;
                 lock (pair.Value)
-                    c = new Claimant(pair.Key.Device, row.CatchAll, pair.Value.Player, pair.Key.Slot, pair.Value.Rgb);
+                    c = new Claimant(pair.Key.Device, row.CatchAll, pair.Value.Player, pair.Key.Slot, pair.Value.Rgb)
+                    {
+                        Level = pair.Value.Level,
+                    };
                 if (!found || Rules(c, ruler))
                 {
                     ruler = c;
@@ -657,6 +785,88 @@ namespace PadForge.Common.Input.Peripherals
 
         public static bool TryResolveColor(OutputPath path, out int rgb)
             => TryResolveColor(path, out rgb, out _);
+
+        /// <summary>Whether a direct worker is writing to a device that its
+        /// vendor's program would take over on starting, at
+        /// <paramref name="now"/> on the link pass's clock. While this
+        /// holds, the pass reads the running vendor programs on every pass:
+        /// one that starts is then seen within a pass instead of within the
+        /// presence interval, during which the worker would have kept
+        /// writing, a re-asserted claim included, on top of the claim the
+        /// program just made. Otherwise the read keeps its slow cadence,
+        /// so a device no program can take costs nothing more.</summary>
+        public static bool WatchesVendorPrograms(long now)
+            => AnyClaimAVendorProgramTakes() || AnyChromaMacroOnARazerUnit(now);
+
+        /// <summary>Whether a claim resolves on a lighting path that a
+        /// vendor's program would take away: a HID++, Razer or SteelSeries
+        /// unit, or a LampArray unit held by a row of one of those three
+        /// vendors (<see cref="DeviceLinks.HasVendorProgram"/>). Not a
+        /// LampArray unit Windows Dynamic Lighting lights, which its
+        /// backend leaves unpainted, and not a LampArray unit of any other
+        /// vendor's device or of a unit row, whose path no running flag can
+        /// move. The table and the units come from one pass's publish.</summary>
+        internal static bool AnyClaimAVendorProgramTakes()
+        {
+            var links = Links;
+            DirectSnapshot direct = null;
+            foreach (var pair in links.ByPath)
+            {
+                var path = pair.Key;
+                switch (path.Family)
+                {
+                    case OutputFamily.HidppUnit:
+                    case OutputFamily.RazerUnit:
+                    case OutputFamily.SteelSeriesUnit:
+                        break;
+                    case OutputFamily.LampArrayUnit:
+                        if (!LitByARowWithAVendorProgram(links, pair.Value, path)) continue;
+                        if ((direct ??= Direct).Find(path)?.WindowsLit == true) continue;
+                        break;
+                    default:
+                        continue;
+                }
+                if (TryResolveColor(path, out _)) return true;
+            }
+            return false;
+        }
+
+        /// <summary>Whether one of the rows that hold a path holds it for
+        /// lighting and is of a vendor whose program drives its devices.</summary>
+        private static bool LitByARowWithAVendorProgram(LinkTable links, Guid[] devices, OutputPath path)
+        {
+            foreach (var device in devices)
+            {
+                var row = links.For(device);
+                if (row != null && row.HasVendorProgram && Array.IndexOf(row.Lighting, path) >= 0) return true;
+            }
+            return false;
+        }
+
+        /// <summary>Whether a Set Chroma Color is live on a slot that holds
+        /// a row lit through a Razer unit of its own. The macro paints the
+        /// Razer devices on its slot whether or not their Lighting tabs
+        /// take control (<see cref="AssertChromaMacro(int, byte, byte, byte)"/>),
+        /// so the unit is written to for the macro's window with no claim
+        /// behind it, and Synapse starting under it has to be seen as soon
+        /// as under a claim.</summary>
+        internal static bool AnyChromaMacroOnARazerUnit(long now)
+        {
+            LinkTable links = null;
+            for (int slot = 0; slot < s_chromaMacro.Length; slot++)
+            {
+                if (!TryGetChromaMacro(slot, now, out _)) continue;
+                links ??= Links;
+                foreach (var device in DevicesOnSlot(slot))
+                {
+                    var row = links.For(device);
+                    if (row == null) continue;
+                    foreach (var path in row.Lighting)
+                        if (path.Family == OutputFamily.RazerUnit) return true;
+                }
+            }
+            return false;
+        }
 
         // ─────────────────────────────────────────────
         //  Set Chroma Color (#468), per slot
@@ -860,6 +1070,8 @@ namespace PadForge.Common.Input.Peripherals
             Interlocked.Increment(ref s_lightingVersion);
             Volatile.Write(ref s_presence, PeripheralPresence.None);
             Volatile.Write(ref s_hidpp, HidppSnapshot.Empty);
+            Volatile.Write(ref s_direct, DirectSnapshot.Empty);
+            Volatile.Write(ref s_unitRows, Array.Empty<DirectUnit>());
             Volatile.Write(ref s_ledSdkPaintable, null);
             for (int i = 0; i < s_states.Length; i++) Volatile.Write(ref s_states[i], 0);
         }

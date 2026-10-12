@@ -457,8 +457,11 @@ namespace PadForge.Common.Input
             changed |= UpdateHeadTrackerDevice();
             changed |= UpdateLogitechGKeysDevice();
 
-            // --- Phase 1m: vendor rows for peripheral outputs (issue #494) ---
+            // --- Phase 1m: vendor rows and unit rows for peripheral outputs (issue #494) ---
             changed |= UpdatePeripheralRows();
+
+            // --- Phase 1n: TouchSense mice bound to WinUSB (issue #494) ---
+            UpdateTouchSenseMice(ref changed);
 
             // --- Phase 1k: analog keyboards (issue #468) ---
             changed |= UpdateAnalogKeyboardDevices();

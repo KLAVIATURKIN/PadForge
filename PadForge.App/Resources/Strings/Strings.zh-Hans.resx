@@ -440,12 +440,14 @@
   <data name="Devices_DriverBind_Xbox360Receiver" xml:space="preserve"><value>读取聊天键盘和 uDraw 绘图板</value></data>
   <data name="Devices_DriverBind_IntelBaseStation" xml:space="preserve"><value>读取手柄</value></data>
   <data name="Devices_DriverBind_Prodikeys" xml:space="preserve"><value>读取音乐键</value></data>
+  <data name="Devices_DriverBind_TouchSenseMouse" xml:space="preserve"><value>在此鼠标上播放震动</value></data>
   <data name="Devices_DriverRestore" xml:space="preserve"><value>恢复 Windows 驱动程序</value></data>
   <data name="Devices_DriverConfirmTitle" xml:space="preserve"><value>切换到 PadForge 驱动程序</value></data>
   <data name="Devices_DriverConfirm_Xbox360Pad" xml:space="preserve"><value>PadForge 会将此控制器切换到 Windows 的 WinUSB 驱动程序，以便读取聊天键盘。之后该控制器仅在 PadForge 运行时工作，游戏通过 PadForge 的虚拟控制器看到它。已连接的同型号控制器都会一起切换，并且每个都需要重新分配到其插槽。您可以随时在此页面恢复 Windows 驱动程序。</value></data>
   <data name="Devices_DriverConfirm_Xbox360Receiver" xml:space="preserve"><value>PadForge 会将此接收器切换到 Windows 的 WinUSB 驱动程序，以便读取聊天键盘和 uDraw 绘图板。接收器上的所有控制器和耳机都会一起切换，仅在 PadForge 运行时工作，并需要重新分配到其插槽。您可以随时在此页面恢复 Windows 驱动程序。</value></data>
   <data name="Devices_DriverConfirm_IntelBaseStation" xml:space="preserve"><value>PadForge 会将基座切换到 Windows 的 WinUSB 驱动程序，以便读取手柄。之后基座上的 Intel 无线键盘将无法在 Windows 中输入。您可以随时在此页面恢复 Windows 驱动程序。</value></data>
   <data name="Devices_DriverConfirm_Prodikeys" xml:space="preserve"><value>PadForge 会将音乐键切换到 Windows 的 WinUSB 驱动程序，以便读取它们。之后键盘的媒体键和睡眠键在 Windows 中将无法使用，打字键仍可使用。您可以随时在此页面恢复 Windows 驱动程序。</value></data>
+  <data name="Devices_DriverConfirm_TouchSenseMouse" xml:space="preserve"><value>PadForge 会将此鼠标切换到 Windows 的 WinUSB 驱动程序，以便在其上播放震动。之后在恢复其驱动程序之前，Windows 不再将此鼠标用作指针设备。只有在 PadForge 运行且此鼠标已分配给“键盘 + 鼠标”虚拟控制器时，PadForge 才会用它移动指针。您可以随时在此页面恢复 Windows 驱动程序。</value></data>
   <data name="Devices_DriverSwitch" xml:space="preserve"><value>切换驱动程序</value></data>
   <data name="Status_DriverSwitching_Format" xml:space="preserve"><value>正在更改 {0} 的驱动程序…</value></data>
   <data name="Status_DriverBound_Format" xml:space="preserve"><value>{0} 已在使用 PadForge 驱动程序。</value></data>
@@ -1662,6 +1664,7 @@
   <data name="Pad_ForceFeedback_RouteHidpp" xml:space="preserve"><value>震动以触感脉冲直接发送到 {0}。震动越强，选用的脉冲越强，重复也越快。</value></data>
   <data name="Pad_ForceFeedback_RouteHidppFeedbackOff" xml:space="preserve"><value>{0} 的触感反馈已在 Logi Options+ 中关闭，在那里重新打开之前不会播放任何内容。</value></data>
   <data name="Pad_ForceFeedback_RouteHidppAsleep" xml:space="preserve"><value>此设备尚未响应。设备唤醒后即播放震动。</value></data>
+  <data name="Pad_ForceFeedback_RouteTouchSense" xml:space="preserve"><value>震动以嗡鸣的形式直接发送到 {0}。</value></data>
   <data name="Pad_ForceFeedback_RouteGameSense" xml:space="preserve"><value>震动通过 SteelSeries GG 的触觉处理程序播放。</value></data>
   <data name="Pad_ForceFeedback_RouteGameSenseShared" xml:space="preserve"><value>SteelSeries GG 会同时驱动所有触觉 Rival，因此由虚拟控制器 {0} 上的那只决定它们的震动。</value></data>
   <data name="Pad_ForceFeedback_RouteGameSenseWaiting" xml:space="preserve"><value>正在等待 SteelSeries GG。GG 运行后即播放震动。</value></data>
@@ -1694,9 +1697,17 @@
   <data name="Pad_Lighting_PeripheralSubtitle" xml:space="preserve"><value>此虚拟控制器以与 DualSense 灯条相同的模式点亮该设备，此处的设置仅作用于这个控制器。在 PlayStation 虚拟控制器上，游戏写入灯条时会像在 DualSense 上一样接管灯光。</value></data>
   <data name="Pad_Lighting_ControlDevice" xml:space="preserve"><value>控制此设备的灯光</value></data>
   <data name="Pad_Lighting_ControlDevice_Tooltip" xml:space="preserve"><value>关闭后，此虚拟控制器不再点亮该设备。厂商行，或通过同一软件点亮的同类其他设备，仍可设置它的颜色。此虚拟控制器上的“设置 Chroma 颜色”宏仍会为 Razer 设备着色。</value></data>
+  <data name="Pad_Lighting_ClaimLevel" xml:space="preserve"><value>灯光接管</value></data>
+  <data name="Pad_Lighting_ClaimLevel_Colors" xml:space="preserve"><value>仅颜色</value></data>
+  <data name="Pad_Lighting_ClaimLevel_Power" xml:space="preserve"><value>颜色和灯光电源</value></data>
+  <data name="Pad_Lighting_ClaimLevel_HostMode" xml:space="preserve"><value>颜色、灯光电源并关闭板载模式</value></data>
+  <data name="Pad_Lighting_ClaimLevel_Tooltip" xml:space="preserve"><value>“仅颜色”不改动设备的节能功能和已保存的配置文件。如果设备自身的空闲效果会盖掉颜色，请选择“颜色和灯光电源”。之后设备不再自行调暗灯光。如果设备把自身配置文件的灯光显示在颜色之上，请选择最后一项。此时设备在点亮期间会关闭板载模式，停止点亮后恢复开启。模式关闭期间，保存在设备上的配置文件（按键、DPI 和轮询率）不生效。</value></data>
   <data name="Pad_Lighting_RouteDirect" xml:space="preserve"><value>颜色直接发送到 {0}。</value></data>
+  <data name="Pad_Lighting_RouteDirectPower" xml:space="preserve"><value>颜色直接发送到 {0}。点亮期间，设备不会自行调暗灯光。</value></data>
+  <data name="Pad_Lighting_RouteDirectHostMode" xml:space="preserve"><value>颜色直接发送到 {0}。点亮期间，设备的板载模式处于关闭状态。</value></data>
   <data name="Pad_Lighting_RouteAsleep" xml:space="preserve"><value>此设备尚未响应。设备唤醒后即显示颜色。</value></data>
   <data name="Pad_Lighting_RouteThrough" xml:space="preserve"><value>颜色通过 {0} 发送。</value></data>
+  <data name="Pad_Lighting_RouteThroughOrDirect" xml:space="preserve"><value>颜色通过 {0} 发送，它会同时点亮所有此类设备。{0} 未运行时，PadForge 会单独点亮此设备。</value></data>
   <data name="Pad_Lighting_RouteShared" xml:space="preserve"><value>{0} 会同时点亮所有此类设备，因此由虚拟控制器 {1} 上的那一台决定它们的颜色。</value></data>
   <data name="Pad_Lighting_RouteSharedVendorRow" xml:space="preserve"><value>{0} 会同时点亮所有此类设备，因此由虚拟控制器 {2} 上的 {1} 行决定它们的颜色。</value></data>
   <data name="Pad_Lighting_RouteOtherController" xml:space="preserve"><value>虚拟控制器 {0} 也在点亮此设备，显示的是它的颜色。</value></data>
@@ -1704,6 +1715,8 @@
   <data name="Pad_Lighting_RouteOtherRow" xml:space="preserve"><value>此虚拟控制器上此设备的另一行决定它的颜色。</value></data>
   <data name="Pad_Lighting_RouteOtherRowOnly" xml:space="preserve"><value>此虚拟控制器上此设备的另一行正在点亮它。</value></data>
   <data name="Pad_Lighting_RouteWaiting" xml:space="preserve"><value>正在等待 {0}。它运行后即显示颜色。</value></data>
+  <data name="Pad_Lighting_RouteWindowsLighting" xml:space="preserve"><value>Windows 动态照明正在点亮此设备。在 Windows 设置中为它关闭动态照明后，PadForge 即可点亮它。</value></data>
+  <data name="Pad_Lighting_RouteWindowsLightingBuiltIn" xml:space="preserve"><value>Windows 动态照明正在点亮此键盘。在 Windows 设置中为它关闭动态照明后，PadForge 即可点亮它。在部分笔记本电脑上，PadForge 未点亮键盘时，键盘会保持熄灭。</value></data>
   <data name="Pad_Lighting_RouteCannotLight" xml:space="preserve"><value>此电脑上的 Logitech LED 引擎无法点亮此类设备。</value></data>
   <data name="Pad_Lighting_RouteVendorRow" xml:space="preserve"><value>点亮 {0} 能控制、但没有已分配设备自行点亮的设备，例如{1}。</value></data>
   <data name="Pad_Lighting_RouteVendorRowWaiting" xml:space="preserve"><value>正在等待 {0}。它运行后，此行会点亮 {0} 能控制、但没有已分配设备自行点亮的设备，例如{1}。</value></data>

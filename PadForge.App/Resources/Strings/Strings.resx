@@ -287,13 +287,13 @@
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Provides gyro and accelerometer data to Cemu, Dolphin, Yuzu, etc.</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Works with OpenTrack and any tracker that sends its UDP output or writes FreeTrack 2.0 shared memory, and with an OpenXR runtime on this machine that can run a session in the background.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Read Logitech G-Keys</value></data>
-  <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Reads G-keys through the Logitech G-key SDK. Needs Logitech Gaming Software 8.55 or later running. In that software, drag the G-key command onto each key in the PadForge profile. Make that profile persistent, or the keys only reach PadForge while its window is in front. A G600 or G300 mouse also has to be out of on-board mode.</value></data>
+  <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Reads G-keys through the Logitech G-key SDK. Needs Logitech Gaming Software 8.55 or later running. In that software, drag the G-key command onto each key in the PadForge profile. Make that profile persistent, or the keys only reach PadForge while its window is in front. A G600 or G300 mouse also has to be out of on-board memory mode.</value></data>
   <data name="Settings_GKeysStatus_NoSdk" xml:space="preserve"><value>No Logitech G-key SDK on this machine. It installs with Logitech Gaming Software 8.55 or later.</value></data>
   <data name="Settings_GKeysStatus_PathStale" xml:space="preserve"><value>The G-key SDK is registered but its file is gone. Reinstall Logitech Gaming Software.</value></data>
   <data name="Settings_GKeysStatus_LoadFailed" xml:space="preserve"><value>Found the G-key SDK and could not load it.</value></data>
   <data name="Settings_GKeysStatus_WrongLibrary" xml:space="preserve"><value>That library is not the G-key SDK this expects.</value></data>
   <data name="Settings_GKeysStatus_InitRefused" xml:space="preserve"><value>The G-key SDK refused to start. Logitech Gaming Software is usually not running.</value></data>
-  <data name="Settings_GKeysStatus_NoKeysYet" xml:space="preserve"><value>Connected, no key seen yet. In Logitech Gaming Software, drag the G-key command onto each key in the PadForge profile, and make that profile persistent. A G600 or G300 mouse also has to be out of on-board mode.</value></data>
+  <data name="Settings_GKeysStatus_NoKeysYet" xml:space="preserve"><value>Connected, no key seen yet. In Logitech Gaming Software, drag the G-key command onto each key in the PadForge profile, and make that profile persistent. A G600 or G300 mouse also has to be out of on-board memory mode.</value></data>
   <data name="Settings_GKeysStatus_Running_Format" xml:space="preserve"><value>Running, {0} key events</value></data>
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>Read Analog Keyboards</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Reads how far every key is pressed on analog keyboards from Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA and other makers, each as its own device row. The documentation lists every supported model. Razer keyboards need Razer Synapse running. Most of the others are read over the channel their own configurator uses, so close the configurator while this is on.</value></data>
@@ -697,12 +697,14 @@ A copy of the previous version is in this folder: {1}</value></data>
   <data name="Devices_DriverBind_Xbox360Receiver" xml:space="preserve"><value>Read Chatpads and uDraw Tablets</value></data>
   <data name="Devices_DriverBind_IntelBaseStation" xml:space="preserve"><value>Read the Gamepads</value></data>
   <data name="Devices_DriverBind_Prodikeys" xml:space="preserve"><value>Read the Music Keys</value></data>
+  <data name="Devices_DriverBind_TouchSenseMouse" xml:space="preserve"><value>Play Rumble on This Mouse</value></data>
   <data name="Devices_DriverRestore" xml:space="preserve"><value>Restore the Windows Driver</value></data>
   <data name="Devices_DriverConfirmTitle" xml:space="preserve"><value>Switch to PadForge's Driver</value></data>
   <data name="Devices_DriverConfirm_Xbox360Pad" xml:space="preserve"><value>PadForge moves this controller to Windows' WinUSB driver so it can read the chatpad. The controller then works only while PadForge runs, and games see it through PadForge's virtual controller. Every plugged-in controller of this model moves with it, and each needs assigning to its slot again. Restore the Windows driver from this page at any time.</value></data>
   <data name="Devices_DriverConfirm_Xbox360Receiver" xml:space="preserve"><value>PadForge moves this receiver to Windows' WinUSB driver so it can read chatpads and uDraw tablets. Every controller and headset on the receiver moves with it, works only while PadForge runs, and needs assigning to its slot again. Restore the Windows driver from this page at any time.</value></data>
   <data name="Devices_DriverConfirm_IntelBaseStation" xml:space="preserve"><value>PadForge moves the base station to Windows' WinUSB driver so it can read the gamepads. The Intel wireless keyboard on it then stops typing in Windows. Restore the Windows driver from this page at any time.</value></data>
   <data name="Devices_DriverConfirm_Prodikeys" xml:space="preserve"><value>PadForge moves the music keys to Windows' WinUSB driver so it can read them. The keyboard's media and sleep keys then stop working in Windows, and its typing keys keep working. Restore the Windows driver from this page at any time.</value></data>
+  <data name="Devices_DriverConfirm_TouchSenseMouse" xml:space="preserve"><value>PadForge moves this mouse to Windows' WinUSB driver so it can play rumble on it. Windows then stops using this mouse as a pointer until its driver is restored. PadForge moves the pointer from it only while PadForge runs and the mouse is assigned to a Keyboard + Mouse virtual controller. Restore the Windows driver from this page at any time.</value></data>
   <data name="Devices_DriverSwitch" xml:space="preserve"><value>Switch Driver</value></data>
   <data name="Status_DriverSwitching_Format" xml:space="preserve"><value>Changing the driver for {0}…</value></data>
   <data name="Status_DriverBound_Format" xml:space="preserve"><value>{0} is on PadForge's driver.</value></data>
@@ -842,6 +844,7 @@ A copy of the previous version is in this folder: {1}</value></data>
   <data name="Pad_ForceFeedback_RouteHidpp" xml:space="preserve"><value>Rumble plays on {0} as haptic pulses, sent straight to the device. Stronger rumble picks a stronger pulse and repeats it faster.</value></data>
   <data name="Pad_ForceFeedback_RouteHidppFeedbackOff" xml:space="preserve"><value>Haptic feedback is turned off for {0} in Logi Options+, so it plays nothing until you turn it back on there.</value></data>
   <data name="Pad_ForceFeedback_RouteHidppAsleep" xml:space="preserve"><value>This device has not answered yet. Its rumble plays once it wakes up.</value></data>
+  <data name="Pad_ForceFeedback_RouteTouchSense" xml:space="preserve"><value>Rumble plays on {0} as a buzz, sent straight to the device.</value></data>
   <data name="Pad_ForceFeedback_RouteGameSense" xml:space="preserve"><value>Rumble plays through the tactile handler in SteelSeries GG.</value></data>
   <data name="Pad_ForceFeedback_RouteGameSenseShared" xml:space="preserve"><value>SteelSeries GG drives every tactile Rival at once, so the one on Virtual Controller {0} sets their rumble.</value></data>
   <data name="Pad_ForceFeedback_RouteGameSenseWaiting" xml:space="preserve"><value>Waiting for SteelSeries GG. Rumble plays once GG runs.</value></data>
@@ -876,9 +879,17 @@ A copy of the previous version is in this folder: {1}</value></data>
   <data name="Pad_Lighting_PeripheralSubtitle" xml:space="preserve"><value>This virtual controller lights the device with the same modes a DualSense lightbar has, set here for this controller alone. On a PlayStation virtual controller, a game that writes the lightbar takes over the way it does on a DualSense.</value></data>
   <data name="Pad_Lighting_ControlDevice" xml:space="preserve"><value>Control This Device’s Lighting</value></data>
   <data name="Pad_Lighting_ControlDevice_Tooltip" xml:space="preserve"><value>Off stops this virtual controller from lighting the device. A vendor row, or another device of its kind lit through the same software, can still set its color. A Set Chroma Color macro on this virtual controller still paints a Razer device.</value></data>
+  <data name="Pad_Lighting_ClaimLevel" xml:space="preserve"><value>Lighting Hold</value></data>
+  <data name="Pad_Lighting_ClaimLevel_Colors" xml:space="preserve"><value>Colors Only</value></data>
+  <data name="Pad_Lighting_ClaimLevel_Power" xml:space="preserve"><value>Colors and Lighting Power</value></data>
+  <data name="Pad_Lighting_ClaimLevel_HostMode" xml:space="preserve"><value>Colors, Lighting Power and On-Board Memory Mode Off</value></data>
+  <data name="Pad_Lighting_ClaimLevel_Tooltip" xml:space="preserve"><value>Colors Only leaves the device’s power saving and its saved profile alone. Choose Colors and Lighting Power when the device’s own idle effect takes the color away. The device then stops dimming its lights by itself. Choose the last option when the device shows its own profile’s lighting over the color. Its on-board memory mode then goes off while it is lit and back on when it stops, and while it is off the profile saved on the device (its buttons, DPI and report rate) does not apply.</value></data>
   <data name="Pad_Lighting_RouteDirect" xml:space="preserve"><value>Colors go straight to {0}.</value></data>
+  <data name="Pad_Lighting_RouteDirectPower" xml:space="preserve"><value>Colors go straight to {0}. It does not dim its lights by itself while it is lit.</value></data>
+  <data name="Pad_Lighting_RouteDirectHostMode" xml:space="preserve"><value>Colors go straight to {0}. Its on-board memory mode is off while it is lit.</value></data>
   <data name="Pad_Lighting_RouteAsleep" xml:space="preserve"><value>This device has not answered yet. Its colors show once it wakes up.</value></data>
   <data name="Pad_Lighting_RouteThrough" xml:space="preserve"><value>Colors go through {0}.</value></data>
+  <data name="Pad_Lighting_RouteThroughOrDirect" xml:space="preserve"><value>Colors go through {0}, which lights every device of this kind at once. While {0} is not running, PadForge lights this device on its own.</value></data>
   <data name="Pad_Lighting_RouteShared" xml:space="preserve"><value>{0} lights every device of this kind at once, so the one on Virtual Controller {1} sets their color.</value></data>
   <data name="Pad_Lighting_RouteSharedVendorRow" xml:space="preserve"><value>{0} lights every device of this kind at once, so the {1} row on Virtual Controller {2} sets their color.</value></data>
   <data name="Pad_Lighting_RouteOtherController" xml:space="preserve"><value>Virtual Controller {0} also lights this device, and its color shows.</value></data>
@@ -886,6 +897,8 @@ A copy of the previous version is in this folder: {1}</value></data>
   <data name="Pad_Lighting_RouteOtherRow" xml:space="preserve"><value>Another row of this device on this virtual controller sets its color.</value></data>
   <data name="Pad_Lighting_RouteOtherRowOnly" xml:space="preserve"><value>Another row of this device on this virtual controller lights it.</value></data>
   <data name="Pad_Lighting_RouteWaiting" xml:space="preserve"><value>Waiting for {0}. Colors show once it runs.</value></data>
+  <data name="Pad_Lighting_RouteWindowsLighting" xml:space="preserve"><value>Windows Dynamic Lighting lights this device. Turn Dynamic Lighting off for it in Windows Settings and PadForge lights it.</value></data>
+  <data name="Pad_Lighting_RouteWindowsLightingBuiltIn" xml:space="preserve"><value>Windows Dynamic Lighting lights this keyboard. Turn Dynamic Lighting off for it in Windows Settings and PadForge lights it. On some laptops the keyboard then stays dark while PadForge is not lighting it.</value></data>
   <data name="Pad_Lighting_RouteCannotLight" xml:space="preserve"><value>The Logitech LED engine on this PC cannot light this kind of device.</value></data>
   <data name="Pad_Lighting_RouteVendorRow" xml:space="preserve"><value>Lights the devices {0} reaches that no assigned device lights on its own, such as {1}.</value></data>
   <data name="Pad_Lighting_RouteVendorRowWaiting" xml:space="preserve"><value>Waiting for {0}. Once it runs, this row lights the devices it reaches that no assigned device lights on its own, such as {1}.</value></data>

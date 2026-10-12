@@ -481,10 +481,12 @@ namespace PadForge.Engine.Data
         public bool HasRumbleTriggers { get; set; }
 
         /// <summary>The haptic (bit 0) and lighting (bit 1) outputs found for
-        /// a mouse, keyboard or vendor row through its vendor's channel
-        /// (#494). Persisted so the row's Force Feedback and Lighting tabs
-        /// stay up while the device sleeps or is unplugged, as a gamepad's
-        /// tabs do. Zero on configs predating it and on every other row.</summary>
+        /// a mouse, keyboard, vendor row or unit row through its own channel
+        /// (#494), and the lighting holds its device offers above colors
+        /// alone (bits 2 and 3). Persisted so the row's Force Feedback and
+        /// Lighting tabs, and the choices on them, stay up while the device
+        /// sleeps or is unplugged, as a gamepad's tabs do. Zero on configs
+        /// predating it and on every other row.</summary>
         [XmlElement]
         public int PeripheralOutputs { get; set; }
 
@@ -495,6 +497,16 @@ namespace PadForge.Engine.Data
         /// <summary>The row has a lighting output (#494).</summary>
         [XmlIgnore]
         public bool HasPeripheralLighting => (PeripheralOutputs & 2) != 0;
+
+        /// <summary>The row's device offers the first lighting hold above
+        /// colors alone, its lighting power (#494).</summary>
+        [XmlIgnore]
+        public bool HasPeripheralLightingLevel1 => (PeripheralOutputs & 4) != 0;
+
+        /// <summary>The row's device offers the second lighting hold too,
+        /// its on-board memory mode switched off (#494).</summary>
+        [XmlIgnore]
+        public bool HasPeripheralLightingLevel2 => (PeripheralOutputs & 8) != 0;
 
         // Gyro bias, calibration timestamp, and tuning (H/V sensitivity,
         // deadzone, smoothing, acceleration, output curve, units) all

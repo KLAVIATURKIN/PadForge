@@ -243,7 +243,15 @@ namespace PadForge.Services
         // interface GUID, checked at every start, and reversed through
         // DiUninstallDriver.
 
-        internal enum OptInKind { Xbox360Pad, Xbox360Receiver, IntelBaseStation, Prodikeys }
+        /// <summary>The opt-in bindings. Every kind has an arm of its own in
+        /// <see cref="NameOf"/>, in the Devices page's button text
+        /// (DevicesViewModel.DriverBindText) and in the cost the confirm
+        /// dialog states (MainWindow.DriverCost). TouchSenseMouse is a
+        /// mouse with a TouchSense buzz motor (#494): bound to WinUSB it
+        /// can be rumbled, and Windows stops using it as a pointer. No row
+        /// of <see cref="OptIns"/> lists it until the backend that drives
+        /// such a mouse is there, so nothing offers it yet.</summary>
+        internal enum OptInKind { Xbox360Pad, Xbox360Receiver, IntelBaseStation, Prodikeys, TouchSenseMouse }
 
         /// <summary>One opt-in device. Revision names the bcdDevice a whole
         /// device must carry, and From the drivers it is bound from.</summary>
@@ -270,13 +278,17 @@ namespace PadForge.Services
         /// to restore Windows' driver, or nothing (null).</summary>
         internal sealed record OptInOffer(OptInKind Kind, BindPlan? Bind, string[] From, string NodeId, bool Restore);
 
-        /// <summary>The device name an opt-in package gives Device Manager.</summary>
+        /// <summary>The device name an opt-in package gives Device Manager.
+        /// A kind with no arm here is refused, so one appended later never
+        /// takes another kind's name.</summary>
         internal static string NameOf(OptInKind kind) => kind switch
         {
             OptInKind.Xbox360Pad => "Xbox 360 Controller",
             OptInKind.Xbox360Receiver => "Xbox 360 Wireless Receiver",
             OptInKind.IntelBaseStation => "Intel Wireless Series base station",
-            _ => "Creative Prodikeys PC-MIDI",
+            OptInKind.Prodikeys => "Creative Prodikeys PC-MIDI",
+            OptInKind.TouchSenseMouse => "TouchSense mouse",
+            _ => throw new ArgumentOutOfRangeException(nameof(kind)),
         };
 
         /// <summary>Whether a Devices-page row with these IDs is the target's

@@ -52,7 +52,9 @@ namespace PadForge.Common.Input.Peripherals
     /// (OpenRGB LogitechHIDPP20Controller.cpp:3935-3946 and 4058-4078, Solaar
     /// settings_templates.py:3204-3293). The linker gives these paths only
     /// while G HUB is not running, which drives the same devices through the
-    /// LED SDK.</para>
+    /// LED SDK. When G HUB starts while a unit is lit, its path is withdrawn
+    /// and the worker forgets the claim without a frame, the one case with
+    /// no hand-back (<see cref="LeftToLogitechProgram"/>).</para>
     ///
     /// <para>While a unit is linked for rumble, discovery waits for a second
     /// with nothing playing, so a probe does not hold up rumble that comes in
@@ -382,6 +384,18 @@ namespace PadForge.Common.Input.Peripherals
                             };
                         }
                     }
+                    else if (light.Claimed && LeftToLogitechProgram(path))
+                    {
+                        // G HUB or Logitech Gaming Software started and the
+                        // linker took the unit's path away. The program
+                        // lights the device from here on, and a hand-back
+                        // that landed after its own claim would clear that
+                        // claim, so the worker lets go without a frame.
+                        channel.Light.Remove(unit.DeviceIndex);
+                        claims = true;
+                        PadForge.Engine.SdlDiagLog.WriteLine(
+                            $"PERIPHERAL HID++ '{unit.Name}' lighting left to the Logitech program that started");
+                    }
                     else if (light.Claimed)
                     {
                         ok = channel.Io.Write(HidppUnitProtocol.SetSwControl(unit.DeviceIndex, unit.RgbIndex, claim: false));
@@ -408,6 +422,28 @@ namespace PadForge.Common.Input.Peripherals
                 claims = true;
             }
             if (claims) PublishClaimed(channels);
+        }
+
+        /// <summary>Whether a claimed unit's lighting path is gone because a
+        /// Logitech program started: no row is linked to the path for
+        /// lighting any more, and G HUB or Logitech Gaming Software runs. A
+        /// path that is still linked and merely unclaimed, a switch turned
+        /// off or a device unassigned, is handed back as ever. The table is
+        /// read before the presence: the link pass publishes the presence
+        /// first, so a table that shows the path withdrawn is never paired
+        /// with a presence older than it.</summary>
+        private static bool LeftToLogitechProgram(OutputPath path)
+        {
+            var links = PeripheralOutputs.Links;
+            if (links.ByPath.TryGetValue(path, out var devices))
+            {
+                foreach (var device in devices)
+                {
+                    var row = links.For(device);
+                    if (row != null && Array.IndexOf(row.Lighting, path) >= 0) return false;
+                }
+            }
+            return PeripheralOutputs.Presence.LogitechGHubRunning;
         }
 
         /// <summary>Adds one unit to the crash path's record ahead of its

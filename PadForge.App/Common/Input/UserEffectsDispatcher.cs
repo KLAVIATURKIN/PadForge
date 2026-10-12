@@ -1296,18 +1296,21 @@ namespace PadForge.Common.Input
         /// <summary>Whether a device's config drives what this slot shows. A
         /// mouse or keyboard whose Lighting tab leaves its lighting to its own
         /// software shows nothing from here (#494), so its mode keeps no timer
-        /// running. A peripheral with no path now, asleep or offline or its
-        /// vendor's software closed, is decided by what this slot's last pass
-        /// saw (<paramref name="peripherals"/>, true for an online mouse or
-        /// keyboard): such a mouse follows its switch, and a vendor row or an
-        /// offline device drives nothing. Every other device keeps the old
-        /// rule.</summary>
+        /// running. A vendor row or a unit row has no such switch and is
+        /// driven whenever a path lights it
+        /// (<see cref="Common.Input.Peripherals.DeviceLinks.OutputOnly"/>). A
+        /// peripheral with no path now, asleep or offline or its vendor's
+        /// software closed, is decided by what this slot's last pass saw
+        /// (<paramref name="peripherals"/>, true for an online mouse or
+        /// keyboard): such a mouse follows its switch, and a vendor row, a
+        /// unit row or an offline device drives nothing. Every other device
+        /// keeps the old rule.</summary>
         internal static bool LightingDriven(Guid device, DeviceSlotConfig cfg,
             IReadOnlyDictionary<Guid, bool> peripherals = null)
         {
             var links = Common.Input.Peripherals.PeripheralOutputs.Links.For(device);
             if (links != null && links.Lighting.Length > 0)
-                return links.CatchAll || cfg?.PeripheralLightingEnabled == true;
+                return links.OutputOnly || cfg?.PeripheralLightingEnabled == true;
             if (peripherals != null && peripherals.TryGetValue(device, out bool canDrive))
                 return canDrive && cfg?.PeripheralLightingEnabled == true;
             return true;
@@ -1319,8 +1322,9 @@ namespace PadForge.Common.Input
         internal int FullLaneVisits => System.Threading.Volatile.Read(ref _fullLaneVisits);
 
         /// <summary>The lit peripherals this slot's last pass saw, each true
-        /// when it is an online mouse or keyboard, false for a vendor row or
-        /// an offline device. Swapped whole, never changed after.</summary>
+        /// when it is an online mouse or keyboard, false for a vendor row, a
+        /// unit row or an offline device. Swapped whole, never changed
+        /// after.</summary>
         private volatile IReadOnlyDictionary<Guid, bool> _peripheralKinds = EmptyPeripheralKinds;
         private static readonly IReadOnlyDictionary<Guid, bool> EmptyPeripheralKinds = new Dictionary<Guid, bool>();
 
@@ -1764,9 +1768,9 @@ namespace PadForge.Common.Input
         private int _lastMoveSphereSig = -1;
         private long _lastMoveSphereLogMs;
 
-        /// <summary>A mouse, keyboard or vendor row with lighting: one its
-        /// record says has it, so a device asleep keeps its claim, or one a
-        /// lighting path links now.</summary>
+        /// <summary>A mouse, keyboard, vendor row or unit row with lighting:
+        /// one its record says has it, so a device asleep keeps its claim, or
+        /// one a lighting path links now.</summary>
         private static bool IsLitPeripheral(UserDevice ud)
             => ud.HasPeripheralLighting || Common.Input.Peripherals.PeripheralOutputs.HasLighting(ud.InstanceGuid);
 
@@ -1780,8 +1784,9 @@ namespace PadForge.Common.Input
         /// is made, is released rather than lit with the anchor, the selected
         /// device's config, whose Control This Device's Lighting switch and
         /// mode are another device's. Its own entry comes on a later pass: a
-        /// vendor row lights from it, and a mouse or keyboard waits for its
-        /// switch.</para>
+        /// vendor row or a unit row lights from it, having no switch
+        /// (<see cref="Common.Input.Peripherals.IOutputOnlyRow"/>), and a
+        /// mouse or keyboard waits for its own.</para>
         ///
         /// <para>The color is the Lighting tab's mode through the core every
         /// lit device shares, under the game's lightbar the way a DualSense
@@ -1798,8 +1803,8 @@ namespace PadForge.Common.Input
             DeviceSlotConfig devCfg = null;
             if (perDeviceCfgs != null && perDeviceCfgs.TryGetValue(guid, out var resolved))
                 devCfg = resolved;
-            bool vendorRow = ud.Device is Common.Input.Peripherals.PeripheralOutputRow;
-            if (devCfg == null || (!vendorRow && !devCfg.PeripheralLightingEnabled))
+            bool outputOnly = ud.Device is Common.Input.Peripherals.IOutputOnlyRow;
+            if (devCfg == null || (!outputOnly && !devCfg.PeripheralLightingEnabled))
             {
                 Common.Input.Peripherals.PeripheralOutputs.ReleaseLighting(guid, _padIndex);
                 return false;
@@ -1976,7 +1981,7 @@ namespace PadForge.Common.Input
                     {
                         if (isPs || !IsLitPeripheral(ud)) continue;
                         (peripheralKinds ??= new Dictionary<Guid, bool>())[ud.InstanceGuid] =
-                            ud.IsOnline && ud.Device is not Common.Input.Peripherals.PeripheralOutputRow;
+                            ud.IsOnline && ud.Device is not Common.Input.Peripherals.IOutputOnlyRow;
                         if (!ud.IsOnline)
                             Common.Input.Peripherals.PeripheralOutputs.ReleaseLighting(ud.InstanceGuid, _padIndex);
                         else if (LightPeripheral(ud, perDeviceCfgs, rawAudioPeak, nowMs, playerNumber))
@@ -2164,15 +2169,15 @@ namespace PadForge.Common.Input
                         continue;
                     }
 
-                    // Mice, keyboards and the vendor lighting rows (#494): the
-                    // web pad's shape, one color per device through the same
-                    // core, handed to the peripheral backends instead of
-                    // written here, since a backend's I/O must never hold
-                    // this lock the poll thread needs.
+                    // Mice, keyboards, the vendor lighting rows and the unit
+                    // rows (#494): the web pad's shape, one color per device
+                    // through the same core, handed to the peripheral backends
+                    // instead of written here, since a backend's I/O must
+                    // never hold this lock the poll thread needs.
                     if (!isPs && IsLitPeripheral(ud))
                     {
                         (peripheralKinds ??= new Dictionary<Guid, bool>())[ud.InstanceGuid] =
-                            ud.Device is not Common.Input.Peripherals.PeripheralOutputRow;
+                            ud.Device is not Common.Input.Peripherals.IOutputOnlyRow;
                         if (LightPeripheral(ud, perDeviceCfgs, rawAudioPeak, nowMs, playerNumber))
                             litPeripherals++;
                         continue;

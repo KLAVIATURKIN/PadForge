@@ -27,6 +27,20 @@ namespace PadForge.Common.Input.Peripherals
         SteelSeriesGG,
     }
 
+    /// <summary>A row with no input of its own (#494): a vendor row
+    /// (<see cref="PeripheralOutputRow"/>), which stands for a vendor's
+    /// software, or a unit row (<see cref="PeripheralUnitRow"/>), which
+    /// stands for one lit device no mouse or keyboard row reaches. Such a
+    /// row is assigned for its output alone, so it lights with no Control
+    /// This Device's Lighting switch, and it is never shared with a linked
+    /// PC, which would get a device that does nothing. Every place that
+    /// asks whether a row is one asks this, and the link table carries the
+    /// answer for a caller that holds only the row's id
+    /// (<see cref="DeviceLinks.OutputOnly"/>).</summary>
+    internal interface IOutputOnlyRow
+    {
+    }
+
     /// <summary>
     /// A device row for output a vendor's software delivers to devices
     /// PadForge does not read: a Razer headset or mousepad, a Logitech
@@ -41,7 +55,7 @@ namespace PadForge.Common.Input.Peripherals
     /// software is installed, so it can be assigned before that software
     /// runs. Whether it answers shows on the row's tab.</para>
     /// </summary>
-    internal sealed class PeripheralOutputRow : ISdlInputDevice
+    internal sealed class PeripheralOutputRow : ISdlInputDevice, IOutputOnlyRow
     {
         // "PF" plus a two-letter tag, the synthetic identity convention the
         // handheld and G-key rows set.

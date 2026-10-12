@@ -440,12 +440,14 @@
   <data name="Devices_DriverBind_Xbox360Receiver" xml:space="preserve"><value>채팅패드와 uDraw 태블릿 읽기</value></data>
   <data name="Devices_DriverBind_IntelBaseStation" xml:space="preserve"><value>게임패드 읽기</value></data>
   <data name="Devices_DriverBind_Prodikeys" xml:space="preserve"><value>음악 건반 읽기</value></data>
+  <data name="Devices_DriverBind_TouchSenseMouse" xml:space="preserve"><value>이 마우스에서 진동 재생</value></data>
   <data name="Devices_DriverRestore" xml:space="preserve"><value>Windows 드라이버 복원</value></data>
   <data name="Devices_DriverConfirmTitle" xml:space="preserve"><value>PadForge 드라이버로 전환</value></data>
   <data name="Devices_DriverConfirm_Xbox360Pad" xml:space="preserve"><value>PadForge는 채팅패드를 읽기 위해 이 컨트롤러를 Windows의 WinUSB 드라이버로 옮깁니다. 이후 컨트롤러는 PadForge가 실행 중일 때만 작동하며, 게임에서는 PadForge의 가상 컨트롤러를 통해 인식됩니다. 연결된 같은 모델의 컨트롤러도 모두 함께 옮겨지며, 각각 슬롯에 다시 할당해야 합니다. Windows 드라이버는 이 페이지에서 언제든지 복원할 수 있습니다.</value></data>
   <data name="Devices_DriverConfirm_Xbox360Receiver" xml:space="preserve"><value>PadForge는 채팅패드와 uDraw 태블릿을 읽기 위해 이 수신기를 Windows의 WinUSB 드라이버로 옮깁니다. 수신기의 모든 컨트롤러와 헤드셋이 함께 옮겨지며, PadForge가 실행 중일 때만 작동하고, 슬롯에 다시 할당해야 합니다. Windows 드라이버는 이 페이지에서 언제든지 복원할 수 있습니다.</value></data>
   <data name="Devices_DriverConfirm_IntelBaseStation" xml:space="preserve"><value>PadForge는 게임패드를 읽기 위해 베이스 스테이션을 Windows의 WinUSB 드라이버로 옮깁니다. 이후 여기에 연결된 Intel 무선 키보드는 Windows에서 입력되지 않습니다. Windows 드라이버는 이 페이지에서 언제든지 복원할 수 있습니다.</value></data>
   <data name="Devices_DriverConfirm_Prodikeys" xml:space="preserve"><value>PadForge는 음악 건반을 읽기 위해 Windows의 WinUSB 드라이버로 옮깁니다. 이후 키보드의 미디어 키와 절전 키는 Windows에서 작동하지 않으며, 타이핑 키는 계속 작동합니다. Windows 드라이버는 이 페이지에서 언제든지 복원할 수 있습니다.</value></data>
+  <data name="Devices_DriverConfirm_TouchSenseMouse" xml:space="preserve"><value>PadForge는 이 마우스에서 진동을 재생하기 위해 이 마우스를 Windows의 WinUSB 드라이버로 옮깁니다. 이후 드라이버를 복원할 때까지 Windows는 이 마우스를 포인터로 사용하지 않습니다. PadForge는 PadForge가 실행 중이고 마우스가 키보드 + 마우스 가상 컨트롤러에 할당되어 있는 동안에만 이 마우스로 포인터를 움직입니다. Windows 드라이버는 이 페이지에서 언제든지 복원할 수 있습니다.</value></data>
   <data name="Devices_DriverSwitch" xml:space="preserve"><value>드라이버 전환</value></data>
   <data name="Status_DriverSwitching_Format" xml:space="preserve"><value>{0}의 드라이버를 변경하는 중…</value></data>
   <data name="Status_DriverBound_Format" xml:space="preserve"><value>{0}이(가) PadForge 드라이버를 사용합니다.</value></data>
@@ -1663,6 +1665,7 @@
   <data name="Pad_ForceFeedback_RouteHidpp" xml:space="preserve"><value>진동은 {0}에 햅틱 펄스로 직접 전송됩니다. 진동이 강할수록 더 강한 펄스를 골라 더 빠르게 반복합니다.</value></data>
   <data name="Pad_ForceFeedback_RouteHidppFeedbackOff" xml:space="preserve"><value>Logi Options+에서 {0}의 햅틱 피드백이 꺼져 있어, 그곳에서 다시 켤 때까지 아무것도 재생되지 않습니다.</value></data>
   <data name="Pad_ForceFeedback_RouteHidppAsleep" xml:space="preserve"><value>이 장치가 아직 응답하지 않았습니다. 깨어나면 진동이 재생됩니다.</value></data>
+  <data name="Pad_ForceFeedback_RouteTouchSense" xml:space="preserve"><value>진동은 {0}에 윙윙거리는 떨림으로 직접 전송됩니다.</value></data>
   <data name="Pad_ForceFeedback_RouteGameSense" xml:space="preserve"><value>진동은 SteelSeries GG의 촉각 핸들러를 통해 재생됩니다.</value></data>
   <data name="Pad_ForceFeedback_RouteGameSenseShared" xml:space="preserve"><value>SteelSeries GG는 모든 촉각 Rival을 한꺼번에 구동하므로, 가상 컨트롤러 {0}의 Rival이 진동을 정합니다.</value></data>
   <data name="Pad_ForceFeedback_RouteGameSenseWaiting" xml:space="preserve"><value>SteelSeries GG를 기다리는 중입니다. GG가 실행되면 진동이 재생됩니다.</value></data>
@@ -1695,9 +1698,17 @@
   <data name="Pad_Lighting_PeripheralSubtitle" xml:space="preserve"><value>이 가상 컨트롤러는 DualSense 라이트바와 같은 모드로 장치를 켜며, 여기서 정한 설정은 이 컨트롤러에만 적용됩니다. PlayStation 가상 컨트롤러에서는 게임이 라이트바를 쓰면 DualSense에서처럼 게임이 우선합니다.</value></data>
   <data name="Pad_Lighting_ControlDevice" xml:space="preserve"><value>이 장치의 조명 제어</value></data>
   <data name="Pad_Lighting_ControlDevice_Tooltip" xml:space="preserve"><value>끄면 이 가상 컨트롤러가 장치를 켜지 않습니다. 제조사 행이나 같은 소프트웨어로 켜지는 같은 종류의 다른 장치는 여전히 색상을 정할 수 있습니다. 이 가상 컨트롤러의 ‘Chroma 색상 설정’ 매크로는 Razer 장치를 계속 칠합니다.</value></data>
+  <data name="Pad_Lighting_ClaimLevel" xml:space="preserve"><value>조명 점유</value></data>
+  <data name="Pad_Lighting_ClaimLevel_Colors" xml:space="preserve"><value>색상만</value></data>
+  <data name="Pad_Lighting_ClaimLevel_Power" xml:space="preserve"><value>색상 및 조명 전원</value></data>
+  <data name="Pad_Lighting_ClaimLevel_HostMode" xml:space="preserve"><value>색상, 조명 전원, 온보드 모드 끔</value></data>
+  <data name="Pad_Lighting_ClaimLevel_Tooltip" xml:space="preserve"><value>‘색상만’은 장치의 절전 기능과 저장된 프로필을 그대로 둡니다. 장치 자체의 유휴 효과가 색상을 지우면 ‘색상 및 조명 전원’을 선택하세요. 그러면 장치가 스스로 조명을 어둡게 하지 않습니다. 장치가 자체 프로필의 조명을 색상 위에 표시하면 마지막 옵션을 선택하세요. 그러면 켜져 있는 동안 온보드 모드가 꺼지고 조명이 멈추면 다시 켜지며, 꺼져 있는 동안에는 장치에 저장된 프로필(버튼, DPI, 폴링 속도)이 적용되지 않습니다.</value></data>
   <data name="Pad_Lighting_RouteDirect" xml:space="preserve"><value>색상이 {0}에 직접 전달됩니다.</value></data>
+  <data name="Pad_Lighting_RouteDirectPower" xml:space="preserve"><value>색상이 {0}에 직접 전달됩니다. 켜져 있는 동안에는 장치가 스스로 조명을 어둡게 하지 않습니다.</value></data>
+  <data name="Pad_Lighting_RouteDirectHostMode" xml:space="preserve"><value>색상이 {0}에 직접 전달됩니다. 켜져 있는 동안에는 장치의 온보드 모드가 꺼집니다.</value></data>
   <data name="Pad_Lighting_RouteAsleep" xml:space="preserve"><value>이 장치가 아직 응답하지 않았습니다. 깨어나면 색상이 표시됩니다.</value></data>
   <data name="Pad_Lighting_RouteThrough" xml:space="preserve"><value>색상이 {0}을(를) 거쳐 전달됩니다.</value></data>
+  <data name="Pad_Lighting_RouteThroughOrDirect" xml:space="preserve"><value>색상이 {0}을(를) 거쳐 전달되며, {0}은(는) 이 종류의 장치를 모두 한꺼번에 켭니다. {0}이(가) 실행되지 않는 동안에는 PadForge가 이 장치를 직접 켭니다.</value></data>
   <data name="Pad_Lighting_RouteShared" xml:space="preserve"><value>{0}은(는) 이 종류의 장치를 모두 한꺼번에 켜므로, 가상 컨트롤러 {1}의 장치가 색상을 정합니다.</value></data>
   <data name="Pad_Lighting_RouteSharedVendorRow" xml:space="preserve"><value>{0}은(는) 이 종류의 장치를 모두 한꺼번에 켜므로, 가상 컨트롤러 {2}의 {1} 행이 색상을 정합니다.</value></data>
   <data name="Pad_Lighting_RouteOtherController" xml:space="preserve"><value>가상 컨트롤러 {0}도 이 장치를 켜고 있으며 그 색상이 표시됩니다.</value></data>
@@ -1705,6 +1716,8 @@
   <data name="Pad_Lighting_RouteOtherRow" xml:space="preserve"><value>이 가상 컨트롤러에 있는 이 장치의 다른 행이 색상을 정합니다.</value></data>
   <data name="Pad_Lighting_RouteOtherRowOnly" xml:space="preserve"><value>이 가상 컨트롤러에 있는 이 장치의 다른 행이 이 장치를 켜고 있습니다.</value></data>
   <data name="Pad_Lighting_RouteWaiting" xml:space="preserve"><value>{0}을(를) 기다리는 중입니다. 실행되면 색상이 표시됩니다.</value></data>
+  <data name="Pad_Lighting_RouteWindowsLighting" xml:space="preserve"><value>Windows 동적 조명이 이 장치를 켜고 있습니다. Windows 설정에서 이 장치의 동적 조명을 끄면 PadForge가 켭니다.</value></data>
+  <data name="Pad_Lighting_RouteWindowsLightingBuiltIn" xml:space="preserve"><value>Windows 동적 조명이 이 키보드를 켜고 있습니다. Windows 설정에서 이 키보드의 동적 조명을 끄면 PadForge가 켭니다. 일부 노트북에서는 PadForge가 켜지 않는 동안 키보드가 꺼진 채로 있습니다.</value></data>
   <data name="Pad_Lighting_RouteCannotLight" xml:space="preserve"><value>이 PC의 Logitech LED 엔진은 이 종류의 장치를 켤 수 없습니다.</value></data>
   <data name="Pad_Lighting_RouteVendorRow" xml:space="preserve"><value>{0}이(가) 닿는 장치 중 할당된 장치가 직접 켜지 않는 장치({1} 등)를 켭니다.</value></data>
   <data name="Pad_Lighting_RouteVendorRowWaiting" xml:space="preserve"><value>{0}을(를) 기다리는 중입니다. 실행되면 이 행이 {0}이(가) 닿는 장치 중 할당된 장치가 직접 켜지 않는 장치({1} 등)를 켭니다.</value></data>

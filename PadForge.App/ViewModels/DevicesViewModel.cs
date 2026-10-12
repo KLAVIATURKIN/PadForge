@@ -93,6 +93,7 @@ namespace PadForge.ViewModels
             Services.VendorUsbDriverInstaller.OptInKind.Xbox360Receiver => Strings.Instance.Devices_DriverBind_Xbox360Receiver,
             Services.VendorUsbDriverInstaller.OptInKind.IntelBaseStation => Strings.Instance.Devices_DriverBind_IntelBaseStation,
             Services.VendorUsbDriverInstaller.OptInKind.Prodikeys => Strings.Instance.Devices_DriverBind_Prodikeys,
+            Services.VendorUsbDriverInstaller.OptInKind.TouchSenseMouse => Strings.Instance.Devices_DriverBind_TouchSenseMouse,
             _ => null,
         };
 

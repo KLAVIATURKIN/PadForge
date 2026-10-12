@@ -170,6 +170,7 @@ namespace PadForge.Tests
         [InlineData("logilightsync://local")]
         [InlineData("steelseriesgg://local")]
         [InlineData("razersensa://local")]
+        [InlineData("lightunit://0123456789abcdef0123456789abcdef")]
         public void EverySyntheticPath_IsInternalVirtual(string devicePath)
         {
             var vm = new DeviceRowViewModel { DevicePath = devicePath };

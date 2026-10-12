@@ -11,10 +11,10 @@ namespace PadForge.Common.Input.Peripherals
     /// The line a peripheral row's tab shows (#494): where its output goes
     /// and whether that path answers, in place of the Dashboard status lines
     /// the global switches carried. Built on the UI thread from the link
-    /// table, the backend states and the found HID++ units. While the engine
-    /// is stopped every line is empty, since nothing reaches any device then
-    /// (<see cref="PeripheralOutputs.Running"/>), but for the Razer Sensa
-    /// row's platform limit, which no start lifts
+    /// table, the backend states and the found HID++ and direct units. While
+    /// the engine is stopped every line is empty, since nothing reaches any
+    /// device then (<see cref="PeripheralOutputs.Running"/>), but for the
+    /// Razer Sensa row's platform limit, which no start lifts
     /// (<see cref="Haptics(UserDevice, bool)"/>).
     /// </summary>
     internal static class PeripheralRouteText
@@ -54,8 +54,15 @@ namespace PadForge.Common.Input.Peripherals
                 if (!ud.HasPeripheralHaptics) return null;
                 // The engine loads here, so the row waits for Synapse.
                 if (sensa) return s.Pad_ForceFeedback_RouteSensaWaiting;
-                // A Logitech device asleep, or not plugged in.
-                return ud.VendorId == PeripheralLinker.LogitechVid ? s.Pad_ForceFeedback_RouteHidppAsleep : null;
+                // A Logitech device asleep, or not plugged in. Any other
+                // device that rumbles on its own is found by a direct
+                // backend or by none, so its row waits for a device only
+                // while a backend that rumbles one runs: before its first
+                // scan, or while the row's unit is listed asleep.
+                return ud.VendorId == PeripheralLinker.LogitechVid
+                       || PeripheralOutputs.Direct.Families.Contains(OutputFamily.TouchSenseUnit)
+                    ? s.Pad_ForceFeedback_RouteHidppAsleep
+                    : null;
             }
 
             var path = links.Haptics[0];
@@ -86,9 +93,19 @@ namespace PadForge.Common.Input.Peripherals
                     return PeripheralOutputs.StateOf(OutputFamily.Interhaptics) == BackendState.Waiting
                         ? s.Pad_ForceFeedback_RouteSensaWaiting
                         : s.Pad_ForceFeedback_RouteSensa;
+                case OutputFamily.TouchSenseUnit:
+                    return string.Format(s.Pad_ForceFeedback_RouteTouchSense, DirectName(path, ud));
                 default:
                     return null;
             }
+        }
+
+        /// <summary>The name a line gives a direct unit: the unit's own
+        /// where its backend read one, else the row's.</summary>
+        private static string DirectName(OutputPath path, UserDevice ud)
+        {
+            string name = PeripheralOutputs.Direct.Find(path)?.Name;
+            return string.IsNullOrWhiteSpace(name) ? ud.ResolvedName : name;
         }
 
         /// <summary>The vendor software a shared lighting path runs through,
@@ -130,8 +147,12 @@ namespace PadForge.Common.Input.Peripherals
         /// route its colors would take, and nothing while the vendor's
         /// software is down, when no controller lights it. A vendor row
         /// follows the same rule there. One whose engine cannot be loaded
-        /// says so on every controller, since none lights it then.</summary>
-        internal static string Lighting(UserDevice ud, int slot, bool lightsHere = true)
+        /// says so on every controller, since none lights it then.
+        /// <paramref name="claimLevel"/> is the lighting hold this
+        /// controller asks for (<see cref="PeripheralOutputs.SetLighting"/>).
+        /// The line names what is held at the smaller of it and what the
+        /// device offers.</summary>
+        internal static string Lighting(UserDevice ud, int slot, bool lightsHere = true, int claimLevel = 0)
         {
             if (ud == null || !PeripheralOutputs.Running) return null;
             var s = Strings.Instance;
@@ -139,9 +160,17 @@ namespace PadForge.Common.Input.Peripherals
             if (links == null || links.Lighting.Length == 0)
             {
                 // The record says it has lighting, and no path reaches it
-                // now: a Logitech device asleep or not plugged in.
+                // now: a device asleep or not plugged in, or one its backend
+                // has not scanned for yet.
                 if (!ud.HasPeripheralLighting || !lightsHere) return null;
-                return ud.VendorId == PeripheralLinker.LogitechVid ? s.Pad_Lighting_RouteAsleep : null;
+                if (ud.VendorId == PeripheralLinker.LogitechVid) return s.Pad_Lighting_RouteAsleep;
+                // Any other device is found by a direct backend or by none,
+                // so without one running no device is being waited for. A
+                // vendor row stands for software, which is waited for in a
+                // line of its own, never for a device to wake.
+                return PeripheralOutputs.Direct.Families.Count > 0 && PeripheralOutputRow.KindOf(ud.InstanceGuid) == null
+                    ? s.Pad_Lighting_RouteAsleep
+                    : null;
             }
 
             var path = links.Lighting[0];
@@ -177,6 +206,17 @@ namespace PadForge.Common.Input.Peripherals
             if (path.Family == OutputFamily.LedSdkType && PeripheralOutputs.LedSdkPaintable is string[] paintable
                 && Array.IndexOf(paintable, path.Key) < 0)
                 return lightsHere ? CannotLight(paintable) : null;
+            // Windows Dynamic Lighting lights the device, so its backend
+            // stands down and nothing shows from any controller: the line
+            // names Windows and the switch that hands the device over. A
+            // laptop's own keyboard gets a word on what that switch costs.
+            if (WindowsLights(links, out bool builtIn))
+            {
+                if (!lightsHere) return null;
+                return builtIn && PeripheralLinker.IsKeyboard(ud.CapType)
+                    ? s.Pad_Lighting_RouteWindowsLightingBuiltIn
+                    : s.Pad_Lighting_RouteWindowsLighting;
+            }
             if (waiting) return lightsHere ? string.Format(s.Pad_Lighting_RouteWaiting, app) : null;
 
             // Another claim rules the path: name the controller whose color
@@ -205,13 +245,49 @@ namespace PadForge.Common.Input.Peripherals
             }
 
             if (!lightsHere) return null;
-            if (path.Family == OutputFamily.HidppUnit)
+            if (!path.Shared)
             {
-                var unit = PeripheralOutputs.Hidpp.Units.FirstOrDefault(u => u.Key == path.Key);
-                string name = string.IsNullOrWhiteSpace(unit?.Name) ? ud.ResolvedName : unit.Name;
-                return string.Format(s.Pad_Lighting_RouteDirect, name);
+                // A unit this controller lights on its own, named as its
+                // backend read it, with what else is held where the device
+                // offers the hold this controller asks for.
+                string name;
+                if (path.Family == OutputFamily.HidppUnit)
+                {
+                    var unit = PeripheralOutputs.Hidpp.Units.FirstOrDefault(u => u.Key == path.Key);
+                    name = string.IsNullOrWhiteSpace(unit?.Name) ? ud.ResolvedName : unit.Name;
+                }
+                else
+                {
+                    name = DirectName(path, ud);
+                }
+                int level = Math.Min(claimLevel, links.MaxClaimLevel);
+                string line = level >= 2 ? s.Pad_Lighting_RouteDirectHostMode
+                    : level == 1 ? s.Pad_Lighting_RouteDirectPower
+                    : s.Pad_Lighting_RouteDirect;
+                return string.Format(line, name);
             }
-            return app == null ? null : string.Format(s.Pad_Lighting_RouteThrough, app);
+            if (app == null) return null;
+            // The vendor's program lights it now, and it has a path of its
+            // own for when the program is not running.
+            return string.Format(links.DirectWhenClosed ? s.Pad_Lighting_RouteThroughOrDirect : s.Pad_Lighting_RouteThrough, app);
+        }
+
+        /// <summary>Whether Windows Dynamic Lighting lights a LampArray unit
+        /// the row is linked to, and whether that unit is built into the PC
+        /// (<see cref="PeripheralLinker.LocalMachineContainer"/>).</summary>
+        private static bool WindowsLights(DeviceLinks links, out bool builtIn)
+        {
+            builtIn = false;
+            var direct = PeripheralOutputs.Direct;
+            foreach (var path in links.Lighting)
+            {
+                if (path.Family != OutputFamily.LampArrayUnit) continue;
+                var unit = direct.Find(path);
+                if (unit == null || !unit.WindowsLit) continue;
+                builtIn = unit.ContainerId == PeripheralLinker.LocalMachineContainer;
+                return true;
+            }
+            return false;
         }
 
         /// <summary>The line for an LED SDK path the Logitech engine on this

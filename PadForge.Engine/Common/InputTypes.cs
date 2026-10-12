@@ -135,7 +135,9 @@ namespace PadForge.Engine
         // read (issue #494): the Razer Chroma and Logitech LIGHTSYNC rows
         // light whatever their software lights, and the Razer Sensa row
         // plays rumble on Sensa HD devices. No inputs: the row is assigned
-        // for its Lighting or Force Feedback tab.
+        // for its Lighting or Force Feedback tab. The row of one lit device
+        // that no mouse or keyboard row reaches, a headset or a light strip
+        // Windows lists as a HID LampArray, is a lighting row too.
         public const int PeripheralLighting = 40;
         public const int PeripheralHaptics = 41;
 

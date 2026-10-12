@@ -5251,10 +5251,10 @@ namespace PadForge.Services
         /// whose file is gone, a load failure, a library that is not this SDK,
         /// and an init the SDK refused). The sixth is running but hearing
         /// nothing, which a key without the G-key command, a profile that is
-        /// not persistent and a G600 or G300 mouse in on-board mode all
-        /// produce (LogitechGamingGkeySDK.pdf, "User experience"), and is why
-        /// the event count is in the line at all. The seventh is running with
-        /// keys arriving.</para>
+        /// not persistent and a G600 or G300 mouse in on-board memory mode
+        /// all produce (LogitechGamingGkeySDK.pdf, "User experience"), and is
+        /// why the event count is in the line at all. The seventh is running
+        /// with keys arriving.</para>
         /// </summary>
         private void UpdateGKeysStatus()
         {
@@ -5277,7 +5277,7 @@ namespace PadForge.Services
                     PadForge.Engine.Common.Logitech.LogitechGKeyState.InitRefused => s.Settings_GKeysStatus_InitRefused,
                     // Connected and silent: no G-key command on the key, a
                     // profile that is not persistent, or a G600 or G300 in
-                    // on-board mode. It gets its own line, not a zero.
+                    // on-board memory mode. It gets its own line, not a zero.
                     PadForge.Engine.Common.Logitech.LogitechGKeyState.Running when row.EventCount == 0 =>
                         s.Settings_GKeysStatus_NoKeysYet,
                     PadForge.Engine.Common.Logitech.LogitechGKeyState.Running =>
@@ -10115,8 +10115,10 @@ namespace PadForge.Services
             _dispatcher.BeginInvoke(new Action(() =>
             {
                 if (!ReferenceEquals(sender, _inputManager)) return;
-                // A device that came or went may carry outputs (#494).
-                _peripheralHost?.Nudge();
+                // A device that came or went may carry outputs (#494), and
+                // may be one a direct backend finds by its own collection,
+                // so the host walks the present collections again as well.
+                _peripheralHost?.DevicesChanged();
                 SyncDevicesList();
                 RefreshVoiceObjects();
                 UpdatePadDeviceInfo();
@@ -10752,6 +10754,14 @@ namespace PadForge.Services
             host.CapabilitiesChanged -= OnPeripheralCapabilitiesChanged;
             host.Dispose();
         }
+
+        /// <summary>Windows reported a HID interface arriving (#494). A
+        /// direct backend finds a device by its own collection, and a lit
+        /// device with no row of its own, a light strip or a headset,
+        /// changes no device list when it is plugged in, so the peripheral
+        /// host is asked to walk the present collections again. Nothing to
+        /// ask while the engine is stopped.</summary>
+        public void RequestPeripheralRescan() => _peripheralHost?.RequestRescan();
 
         /// <summary>A row found or lost an output. The record is persisted
         /// so the row's tabs stay up while it sleeps, and the device list
@@ -12257,17 +12267,17 @@ namespace PadForge.Services
         /// <summary>Whether Remote Link shares a device: gamepads, joysticks,
         /// wheels, keyboards, mice, MIDI, web and overlay devices are shared.
         /// Three kinds are not. A Web Menus phone fires only this PC's menus.
-        /// A vendor row stands for this PC's vendor software and has no
-        /// input. A remote peer's own device (peer://) would loop back to the
-        /// peer if it were shared again.</summary>
+        /// A vendor row or a unit row stands for lighting or rumble this PC
+        /// delivers and has no input. A remote peer's own device (peer://)
+        /// would loop back to the peer if it were shared again.</summary>
         private static bool IsShareableDevice(ISdlInputDevice dev)
         {
             // A Web Menus phone (#471) fires only this PC's menus, so another
             // PC would get a device that does nothing.
             if (dev is WebControllerDevice web && web.IsMenuSurface) return false;
-            // A vendor row (#494) stands for this PC's vendor software and
-            // has no input, the same case.
-            if (dev is PadForge.Common.Input.Peripherals.PeripheralOutputRow) return false;
+            // A vendor row or a unit row (#494) stands for output this PC
+            // delivers and has no input, the same case.
+            if (dev is PadForge.Common.Input.Peripherals.IOutputOnlyRow) return false;
             string path = dev.DevicePath ?? "";
             return !path.StartsWith("peer://", StringComparison.Ordinal);
         }

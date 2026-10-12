@@ -80,11 +80,28 @@ namespace PadForge.Tests
             Assert.False(PeripheralOutputs.Rules(C(A, -1), C(B, 7)));
         }
 
+        /// <summary>The five unit families reach one device each, the five
+        /// others a device class their vendor's software resolves, and
+        /// every member is sorted: one appended later is refused until it
+        /// is.</summary>
         [Fact]
-        public void OnlyAHidppUnitPathReachesASingleDevice()
+        public void AUnitPathReachesASingleDevice_AndEveryOtherFamilyIsShared()
         {
-            foreach (OutputFamily family in Enum.GetValues(typeof(OutputFamily)))
-                Assert.Equal(family != OutputFamily.HidppUnit, new OutputPath(family, "k").Shared);
+            var direct = new[]
+            {
+                OutputFamily.HidppUnit, OutputFamily.RazerUnit, OutputFamily.SteelSeriesUnit,
+                OutputFamily.LampArrayUnit, OutputFamily.TouchSenseUnit,
+            };
+            var shared = new[]
+            {
+                OutputFamily.ChromaCategory, OutputFamily.LedSdkType, OutputFamily.GameSenseColor,
+                OutputFamily.GameSenseTactile, OutputFamily.Interhaptics,
+            };
+            Assert.All(direct, family => Assert.False(new OutputPath(family, "k").Shared));
+            Assert.All(shared, family => Assert.True(new OutputPath(family, "k").Shared));
+            Assert.Equal(Enum.GetValues(typeof(OutputFamily)).Cast<OutputFamily>().OrderBy(f => f),
+                direct.Concat(shared).OrderBy(f => f));
+            Assert.Throws<ArgumentOutOfRangeException>(() => { _ = new OutputPath((OutputFamily)10, "k").Shared; });
         }
 
         [Fact]
@@ -311,21 +328,31 @@ namespace PadForge.Tests
             Assert.False(InputDeviceType.AnswersAnyDeviceSources(InputDeviceType.PeripheralHaptics));
         }
 
+        /// <summary>Haptics, lighting and the two lighting holds a device
+        /// offers above colors alone, each its own bit, and all four come
+        /// back from the file.</summary>
         [Fact]
-        public void TheRecordedOutputsSurviveTheFile_AsTwoBits()
+        public void TheRecordedOutputsSurviveTheFile_AsFourBits()
         {
-            var ud = new UserDevice { PeripheralOutputs = 3 };
+            var ud = new UserDevice { PeripheralOutputs = 15 };
             Assert.True(ud.HasPeripheralHaptics);
             Assert.True(ud.HasPeripheralLighting);
+            Assert.True(ud.HasPeripheralLightingLevel1);
+            Assert.True(ud.HasPeripheralLightingLevel2);
             Assert.False(new UserDevice { PeripheralOutputs = 2 }.HasPeripheralHaptics);
             Assert.False(new UserDevice { PeripheralOutputs = 1 }.HasPeripheralLighting);
+            Assert.False(new UserDevice { PeripheralOutputs = 3 }.HasPeripheralLightingLevel1);
+            Assert.False(new UserDevice { PeripheralOutputs = 7 }.HasPeripheralLightingLevel2);
+            Assert.Equal(15, (int)(PeripheralOutputKinds.Haptics | PeripheralOutputKinds.Lighting
+                                   | PeripheralOutputKinds.LightingLevel1 | PeripheralOutputKinds.LightingLevel2));
 
             var serializer = new XmlSerializer(typeof(UserDevice));
             using var writer = new StringWriter();
             serializer.Serialize(writer, ud);
-            Assert.Contains("<PeripheralOutputs>3</PeripheralOutputs>", writer.ToString());
+            Assert.Contains("<PeripheralOutputs>15</PeripheralOutputs>", writer.ToString());
             var back = (UserDevice)serializer.Deserialize(new StringReader(writer.ToString()));
-            Assert.Equal(3, back.PeripheralOutputs);
+            Assert.Equal(15, back.PeripheralOutputs);
+            Assert.True(back.HasPeripheralLightingLevel1 && back.HasPeripheralLightingLevel2);
         }
     }
 
@@ -2839,10 +2866,11 @@ namespace PadForge.Tests
             int write = lane.IndexOf("PeripheralOutputs.SetMotors(ud.InstanceGuid, left, right,", StringComparison.Ordinal);
             Assert.True(locked >= 0 && locked < recheck && recheck < write, $"{locked} {recheck} {write}");
             // Remote Link: the owner advertises the rumble and applies it,
-            // and keeps vendor rows to itself.
+            // and keeps the rows with no input of their own to itself, a
+            // vendor row and a unit row alike.
             Assert.Contains("HasRumble = dev.HasRumble || ud.HasPeripheralHaptics,", service);
             Assert.Contains("&& PadForge.Common.Input.Peripherals.PeripheralOutputs.TakesHaptics(ud))", service);
-            Assert.Contains("if (dev is PadForge.Common.Input.Peripherals.PeripheralOutputRow) return false;", service);
+            Assert.Contains("if (dev is PadForge.Common.Input.Peripherals.IOutputOnlyRow) return false;", service);
             // The Devices page's rumble chip, which is Identify's button.
             Assert.Contains("|| PadForge.Common.Input.Peripherals.PeripheralOutputs.IsHapticPeripheral(ud);", service);
             Assert.DoesNotContain("StartSensaIfEnabled", service);

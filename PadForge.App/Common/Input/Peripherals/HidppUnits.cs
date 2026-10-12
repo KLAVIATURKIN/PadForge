@@ -39,6 +39,36 @@ namespace PadForge.Common.Input.Peripherals
         /// each with its static effect. Empty for every other RGB feature.</summary>
         public HidppZone[] Zones { get; init; } = Array.Empty<HidppZone>();
 
+        /// <summary>The effect feature the unit is painted through, 0x8070
+        /// or 0x8071, or 0 for none. Kept apart from
+        /// <see cref="RgbFeatureId"/>, which is the first RGB feature the
+        /// device lists: a board with both an effect feature and a per-key
+        /// one needs each by its own index. Zero until the probe that
+        /// separates the two fills it, so a unit found by the probe as it
+        /// stands is lit by <see cref="DirectRgb"/> alone.</summary>
+        public ushort EffectFeatureId { get; init; }
+        public byte EffectIndex { get; init; }
+
+        /// <summary>The per-key feature, 0x8080 or 0x8081, or 0 for none.</summary>
+        public ushort PerKeyFeatureId { get; init; }
+        public byte PerKeyIndex { get; init; }
+
+        /// <summary>The first and last zone a 0x8081 range frame may
+        /// address. Zero for every other per-key feature.</summary>
+        public byte PerKeyMin { get; init; }
+        public byte PerKeyMax { get; init; }
+
+        /// <summary>The feature that switches the device between its
+        /// on-board memory mode and host mode, 0x8100 or 0x8101, or 0 for
+        /// none.</summary>
+        public ushort ModeFeatureId { get; init; }
+        public byte ModeIndex { get; init; }
+
+        /// <summary>How firmly this unit can be held, the top of what its
+        /// rows' Lighting tabs offer: 0 colors alone, 1 its lighting power
+        /// too, 2 its on-board memory mode off as well.</summary>
+        public int MaxClaimLevel { get; init; }
+
         /// <summary>0x1004 (unified battery) or 0x1000 (battery status), or
         /// 0 for a device that reports neither.</summary>
         public ushort BatteryFeatureId { get; init; }
@@ -60,6 +90,12 @@ namespace PadForge.Common.Input.Peripherals
         /// single SetSWControl (OpenRGB LogitechHIDPP20Controller.cpp:4038-4065,
         /// "the official app and Solaar both do exactly this").</summary>
         public bool DirectRgb => RgbFeatureId == HidppUnitProtocol.ColorLedEffects && Zones.Length > 0;
+
+        /// <summary>The unit can be painted on its own: the zone-only 0x8070
+        /// class above, or an effect feature with at least one zone or
+        /// cluster to paint. The linker gives a HID++ lighting path to the
+        /// units this is true for.</summary>
+        public bool HasLightPlan => DirectRgb || (EffectFeatureId != 0 && Zones.Length > 0);
 
         /// <summary>A keyboard or a numpad.</summary>
         public bool IsKeyboardKind => DeviceType is 0 or 2;

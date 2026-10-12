@@ -1644,6 +1644,95 @@ namespace PadForge.Tests
             Assert.True(silence > 0 && release > silence, "the crash path hands the lighting back");
         }
 
+        /// <summary>G HUB starts while a unit is lit: the linker takes the
+        /// unit's lighting path away, and the worker lets go of the unit
+        /// without a frame, because a hand-back that landed after G HUB's
+        /// own claim would clear that claim. A path that goes for any other
+        /// reason, and a claim that ends while its path is still linked, are
+        /// handed back with [00 00] as before. The worker's passes are
+        /// counted, never timed.</summary>
+        [Fact]
+        public void WhenALogitechProgramStarts_ALitUnitIsLetGoWithNoFrame_AndEveryOtherReleaseHandsBack()
+        {
+            // No re-assert inside the test, so every frame below answers a
+            // change the test made.
+            var (backend, channel, _, path) = LitBench(reassertMs: int.MaxValue);
+            using (backend)
+            {
+                var device = Guid.NewGuid();
+                var lit = new LinkTable(new[] { new DeviceLinks { Device = device, Lighting = new[] { path } } });
+                // What the linker gives the row while G HUB runs: its LED SDK
+                // type, and the unit's path for rumble alone.
+                var throughGHub = new LinkTable(new[]
+                {
+                    new DeviceLinks
+                    {
+                        Device = device, DirectWhenClosed = true, Haptics = new[] { path },
+                        Lighting = new[] { new OutputPath(OutputFamily.LedSdkType, "mouse") },
+                    },
+                });
+                var gHubRuns = new PeripheralPresence(true, true, false, false, false);
+                byte[] claim = HidppUnitProtocol.SetSwControl(1, 0x0E, claim: true);
+                byte[] red = HidppUnitProtocol.SetStaticColor(1, 0x0E, new HidppZone(0, 1), 0xFF, 0x00, 0x00);
+                byte[] handBack = HidppUnitProtocol.SetSwControl(1, 0x0E, claim: false);
+                int Count(byte[] frame) => channel.Writes.Count(w => w.Frame.SequenceEqual(frame));
+                // The first pass to end may have begun before the change it
+                // follows. The second began after the first ended.
+                void Passes()
+                {
+                    for (int i = 0; i < 2; i++)
+                    {
+                        int before = backend.PassCount;
+                        Assert.True(SpinWait.SpinUntil(() => backend.PassCount > before, 30000), "the worker made a pass");
+                    }
+                }
+
+                PeripheralOutputs.PublishLinks(lit);
+                while (channel.Writes.TryDequeue(out _)) { }
+                PeripheralOutputs.SetLighting(device, slot: 0, player: 1, 0xFF, 0x00, 0x00);
+                Passes();
+                Assert.Equal((1, 1, 0), (Count(claim), Count(red), Count(handBack)));
+
+                // G HUB starts. The link pass publishes the presence, then
+                // the table without the unit's lighting path.
+                PeripheralOutputs.Presence = gHubRuns;
+                PeripheralOutputs.PublishLinks(throughGHub);
+                Passes();
+                Assert.Equal(2, channel.Writes.Count);
+                Assert.Equal(0, Count(handBack));
+
+                // The crash path has nothing of it on record either.
+                var record = typeof(HidppBackend).GetField("_claimed",
+                    System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                Assert.NotNull(record);
+                Assert.Empty((Array)record.GetValue(backend));
+
+                // G HUB stops and the path comes back: the standing claim is
+                // claimed and painted again.
+                PeripheralOutputs.Presence = PeripheralPresence.None;
+                PeripheralOutputs.PublishLinks(lit);
+                Passes();
+                Assert.Equal((2, 2, 0), (Count(claim), Count(red), Count(handBack)));
+                Assert.Single((Array)record.GetValue(backend));
+
+                // The path goes with no Logitech program running, a row that
+                // went offline: handed back, as before.
+                PeripheralOutputs.PublishLinks(LinkTable.Empty);
+                Passes();
+                Assert.Equal((2, 2, 1), (Count(claim), Count(red), Count(handBack)));
+
+                // The claim ends while its path is still linked, a switch
+                // turned off: handed back, whatever runs.
+                PeripheralOutputs.PublishLinks(lit);
+                Passes();
+                Assert.Equal((3, 3, 1), (Count(claim), Count(red), Count(handBack)));
+                PeripheralOutputs.Presence = gHubRuns;
+                PeripheralOutputs.ReleaseLighting(device, 0);
+                Passes();
+                Assert.Equal((3, 3, 2), (Count(claim), Count(red), Count(handBack)));
+            }
+        }
+
         // ─────────────────────────────────────────────
         //  The SteelSeries worker's colors
         // ─────────────────────────────────────────────

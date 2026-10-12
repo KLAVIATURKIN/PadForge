@@ -2595,12 +2595,18 @@ namespace PadForge
                 : Strings.Instance.Status_UsioTaiko);
         }
 
+        /// <summary>What the switch to PadForge's driver takes from a
+        /// device, stated before the user agrees to it. A kind with no arm
+        /// here is refused, so one appended later is never confirmed under
+        /// another kind's cost.</summary>
         private static string DriverCost(Services.VendorUsbDriverInstaller.OptInKind kind) => kind switch
         {
             Services.VendorUsbDriverInstaller.OptInKind.Xbox360Pad => Strings.Instance.Devices_DriverConfirm_Xbox360Pad,
             Services.VendorUsbDriverInstaller.OptInKind.Xbox360Receiver => Strings.Instance.Devices_DriverConfirm_Xbox360Receiver,
             Services.VendorUsbDriverInstaller.OptInKind.IntelBaseStation => Strings.Instance.Devices_DriverConfirm_IntelBaseStation,
-            _ => Strings.Instance.Devices_DriverConfirm_Prodikeys,
+            Services.VendorUsbDriverInstaller.OptInKind.Prodikeys => Strings.Instance.Devices_DriverConfirm_Prodikeys,
+            Services.VendorUsbDriverInstaller.OptInKind.TouchSenseMouse => Strings.Instance.Devices_DriverConfirm_TouchSenseMouse,
+            _ => throw new ArgumentOutOfRangeException(nameof(kind)),
         };
 
         /// <summary>Part 15's rule 4: Windows can hand an opted-in device its
@@ -6457,6 +6463,17 @@ namespace PadForge
             {
                 try { _inputService?.ApplyAutomaticDeviceHiding(); }
                 catch { /* a notification must never take the window down */ }
+                // The same arrival is how a device lit on its own is found
+                // when it has no row to announce it, a light strip or a
+                // headset (#494): the peripheral host walks the present HID
+                // collections again. The ask does no more there than set a
+                // flag and wake the host's link thread. A removal asks for
+                // nothing here: the row of an unplugged device goes offline
+                // at the input manager's next device scan, which brings a
+                // walk by itself, and a device with no row is asked about
+                // by its backend once a write to it fails.
+                try { _inputService?.RequestPeripheralRescan(); }
+                catch { }
             }
             return IntPtr.Zero;
         }

@@ -763,7 +763,11 @@ namespace PadForge.ViewModels
              || _devicePath.StartsWith("razerchroma://", StringComparison.Ordinal)
              || _devicePath.StartsWith("logilightsync://", StringComparison.Ordinal)
              || _devicePath.StartsWith("steelseriesgg://", StringComparison.Ordinal)
-             || _devicePath.StartsWith("razersensa://", StringComparison.Ordinal));
+             || _devicePath.StartsWith("razersensa://", StringComparison.Ordinal)
+             // A unit row (#494) stands for one lit device no mouse or
+             // keyboard row reaches, under a path of PadForge's own that
+             // names no HID instance, and it has no input to hide.
+             || _devicePath.StartsWith("lightunit://", StringComparison.Ordinal));
 
         /// <summary>True for a merged row (All Keyboards, All Mice, All
         /// Touchpads, All Consumer Controls). It stands for every device of
