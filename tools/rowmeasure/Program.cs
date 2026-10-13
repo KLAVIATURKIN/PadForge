@@ -38,13 +38,23 @@ internal static class Program
         throw new DirectoryNotFoundException("Run from inside the repo tree.");
     }
 
-    static readonly (string tag, string file)[] Locales =
+    static readonly (string tag, string file)[] Locales = LoadLocales();
+
+    // Every language in Languages.tsv, the table the app reads (#505), with
+    // American English first as "en": the fallback for a string a partial
+    // translation leaves out reads the English value, as the app shows it.
+    static (string tag, string file)[] LoadLocales()
     {
-        ("en", "Strings.resx"), ("de", "Strings.de.resx"), ("es", "Strings.es.resx"),
-        ("fr", "Strings.fr.resx"), ("it", "Strings.it.resx"), ("ja", "Strings.ja.resx"),
-        ("ko", "Strings.ko.resx"), ("nl", "Strings.nl.resx"),
-        ("pt-BR", "Strings.pt-BR.resx"), ("zh-Hans", "Strings.zh-Hans.resx"),
-    };
+        var tags = File.ReadAllLines(IOPath.Combine(ResxDir, "Languages.tsv"))
+            .Where(l => l.Length > 0 && l[0] != '#')
+            .Select(l => l.Split('\t')[0])
+            .ToList();
+        if (!tags.Remove("en-US"))
+            throw new InvalidOperationException("Languages.tsv has no en-US row.");
+        return new[] { ("en", "Strings.resx") }
+            .Concat(tags.Select(t => (t, "Strings." + t + ".resx")))
+            .ToArray();
+    }
 
     static Dictionary<string, Dictionary<string, string>> _strings;
     static FontFamily _bodyFont;
@@ -81,8 +91,9 @@ internal static class Program
         }
     }
 
+    // A string a partial translation leaves out shows in English.
     static string S(string key, string tag)
-        => _strings.TryGetValue(key, out var m) && m.TryGetValue(tag, out var v) ? v : null;
+        => _strings.TryGetValue(key, out var m) && (m.TryGetValue(tag, out var v) || m.TryGetValue("en", out v)) ? v : null;
 
     static ComboBox Combo(IEnumerable<string> items)
     {

@@ -44,20 +44,24 @@ internal static class Program
             "Run from inside the repo tree.");
     }
 
-    // locale suffix -> resx file (empty suffix = invariant English).
-    static readonly (string tag, string file)[] Locales =
+    // locale tag -> resx file, read from the language table.
+    static readonly (string tag, string file)[] Locales = LoadLocales();
+
+    // Every language in Languages.tsv, the table the app reads (#505), with
+    // American English first as "en": the fallback for a string a partial
+    // translation leaves out reads the English value, as the app shows it.
+    static (string tag, string file)[] LoadLocales()
     {
-        ("en",      "Strings.resx"),
-        ("de",      "Strings.de.resx"),
-        ("es",      "Strings.es.resx"),
-        ("fr",      "Strings.fr.resx"),
-        ("it",      "Strings.it.resx"),
-        ("ja",      "Strings.ja.resx"),
-        ("ko",      "Strings.ko.resx"),
-        ("nl",      "Strings.nl.resx"),
-        ("pt-BR",   "Strings.pt-BR.resx"),
-        ("zh-Hans", "Strings.zh-Hans.resx"),
-    };
+        var tags = File.ReadAllLines(IOPath.Combine(ResxDir, "Languages.tsv"))
+            .Where(l => l.Length > 0 && l[0] != '#')
+            .Select(l => l.Split('\t')[0])
+            .ToList();
+        if (!tags.Remove("en-US"))
+            throw new InvalidOperationException("Languages.tsv has no en-US row.");
+        return new[] { ("en", "Strings.resx") }
+            .Concat(tags.Select(t => (t, "Strings." + t + ".resx")))
+            .ToArray();
+    }
 
     // Per-combo option key lists. Pattern combo alone carries the pip prefix.
     static readonly string[] BrightnessKeys =
@@ -152,8 +156,9 @@ internal static class Program
         var records = new List<Rec>();
         var panel = new StackPanel { Orientation = Orientation.Vertical };
 
-        void AddCombo(string combo, string localeTag, string text, bool pips)
+        void AddCombo(string combo, string localeTag, string key, bool pips)
         {
+            string text = _strings[key][localeTag];
             var cb = new ComboBox { HorizontalAlignment = HorizontalAlignment.Left };
             var item = new ComboBoxItem { Content = text };
             if (pips)
@@ -168,17 +173,17 @@ internal static class Program
             cb.Items.Add(item);
             cb.SelectedIndex = 0;
             panel.Children.Add(cb);
-            records.Add(new Rec { Combo = combo, Locale = localeTag, Text = text, Cb = cb });
+            records.Add(new Rec { Combo = combo, Locale = localeTag, Key = key, Text = text, Cb = cb });
         }
 
         foreach (var (tag, _) in Locales)
         {
-            foreach (var k in BrightnessKeys)    AddCombo("Brightness",    tag, _strings[k][tag], false);
-            foreach (var k in PatternKeys)       AddCombo("Pattern",       tag, _strings[k][tag], true);
-            foreach (var k in MicKeys)           AddCombo("Mic",           tag, _strings[k][tag], false);
-            foreach (var k in LightbarKeys)      AddCombo("Lightbar",      tag, _strings[k][tag], false);
-            foreach (var k in InputReactiveKeys) AddCombo("InputReactive", tag, _strings[k][tag], false);
-            foreach (var k in LightingHoldKeys)  AddCombo("LightingHold",  tag, _strings[k][tag], false);
+            foreach (var k in BrightnessKeys)    AddCombo("Brightness",    tag, k, false);
+            foreach (var k in PatternKeys)       AddCombo("Pattern",       tag, k, true);
+            foreach (var k in MicKeys)           AddCombo("Mic",           tag, k, false);
+            foreach (var k in LightbarKeys)      AddCombo("Lightbar",      tag, k, false);
+            foreach (var k in InputReactiveKeys) AddCombo("InputReactive", tag, k, false);
+            foreach (var k in LightingHoldKeys)  AddCombo("LightingHold",  tag, k, false);
 
             var label = new TextBlock { Text = _strings[LightingHoldLabelKey][tag], HorizontalAlignment = HorizontalAlignment.Left };
             panel.Children.Add(label);
@@ -249,6 +254,19 @@ internal static class Program
         sb.AppendLine($"   driven by {widest.Locale}: \"{Trunc(widest.Label.Text)}\"");
         sb.AppendLine();
 
+        // Every option wider than the picker PadPage.xaml gives it, and every
+        // Lighting Hold label wider than its column: the strings to shorten.
+        var over = records.Where(r => r.Cb.ActualWidth > DeclaredWidth[r.Combo])
+            .OrderBy(r => r.Locale, StringComparer.Ordinal).ThenBy(r => r.Key, StringComparer.Ordinal).ToList();
+        sb.AppendLine($"OPTIONS WIDER THAN THEIR PICKER: {over.Count}");
+        foreach (var r in over)
+            sb.AppendLine($"   [{r.Locale,-7}] {r.Key}  {r.Cb.ActualWidth:F2} > {DeclaredWidth[r.Combo]}  \"{Trunc(r.Text)}\"");
+        var wideLabels = _labels.Where(l => l.Label.ActualWidth > LightingHoldLabelColumn).ToList();
+        sb.AppendLine($"LIGHTING HOLD LABELS WIDER THAN THEIR COLUMN: {wideLabels.Count}");
+        foreach (var (locale, label) in wideLabels)
+            sb.AppendLine($"   [{locale,-7}] {LightingHoldLabelKey}  {label.ActualWidth:F2} > {LightingHoldLabelColumn}");
+        sb.AppendLine();
+
         var outPath = IOPath.Combine(AppContext.BaseDirectory, "..", "..", "..", "measure_out.txt");
         outPath = IOPath.GetFullPath(outPath);
         File.WriteAllText(outPath, sb.ToString(), new UTF8Encoding(false));
@@ -290,9 +308,17 @@ internal static class Program
         }
     }
 
+    // The width PadPage.xaml gives each picker, and the Lighting Hold label column.
+    static readonly Dictionary<string, double> DeclaredWidth = new()
+    {
+        ["Brightness"] = 340, ["Pattern"] = 340, ["Mic"] = 340,
+        ["Lightbar"] = 444, ["InputReactive"] = 444, ["LightingHold"] = 534,
+    };
+    const double LightingHoldLabelColumn = 210;
+
     class Rec
     {
-        public string Combo, Locale, Text;
+        public string Combo, Locale, Key, Text;
         public ComboBox Cb;
     }
 }
