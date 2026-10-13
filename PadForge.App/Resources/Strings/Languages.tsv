@@ -1,28 +1,49 @@
 # tag	English name	own name	direction	script	coverage
 # One row for American English, the text of Strings.resx, and one for each Strings.<tag>.resx beside it.
 # LanguageCatalog reads it.
+ar	Arabic	العربية	rtl	Arab	partial
+be	Belarusian	Беларуская	ltr	Cyrl	full
+bg	Bulgarian	Български	ltr	Cyrl	full
 bn	Bengali	বাংলা	ltr	Beng	full
+ca	Catalan	Català	ltr	Latn	partial
 chk	Chuukese	Fosun Chuuk	ltr	Latn	partial
 cs	Czech	Čeština	ltr	Latn	full
+da	Danish	Dansk	ltr	Latn	full
 de	German	Deutsch	ltr	Latn	full
 el	Greek	Ελληνικά	ltr	Grek	full
 en-GB	English (United Kingdom)	English (United Kingdom)	ltr	Latn	full
 en-US	English (United States)	English (United States)	ltr	Latn	full
 es	Spanish	Español	ltr	Latn	full
+et	Estonian	Eesti	ltr	Latn	full
+eu	Basque	Euskara	ltr	Latn	partial
 fa	Persian	فارسی	rtl	Arab	full
+fi	Finnish	Suomi	ltr	Latn	full
 fr	French	Français	ltr	Latn	full
 hi	Hindi	हिन्दी	ltr	Deva	full
+hr	Croatian	Hrvatski	ltr	Latn	partial
 hu	Hungarian	Magyar	ltr	Latn	full
 id	Indonesian	Bahasa Indonesia	ltr	Latn	full
+is	Icelandic	Íslenska	ltr	Latn	full
 it	Italian	Italiano	ltr	Latn	full
 ja	Japanese	日本語	ltr	Jpan	full
+kk	Kazakh	Қазақша	ltr	Cyrl	full
 ko	Korean	한국어	ltr	Kore	full
+lt	Lithuanian	Lietuvių	ltr	Latn	partial
+lv	Latvian	Latviešu	ltr	Latn	full
+mk	Macedonian	Македонски	ltr	Cyrl	full
+mn	Mongolian	Монгол	ltr	Cyrl	partial
 nl	Dutch	Nederlands	ltr	Latn	full
+no	Norwegian	Norsk	ltr	Latn	full
 pl	Polish	Polski	ltr	Latn	full
 pt-BR	Portuguese (Brazil)	Português (Brasil)	ltr	Latn	full
 pt-PT	Portuguese (Portugal)	Português (Portugal)	ltr	Latn	full
+ro	Romanian	Română	ltr	Latn	full
 ru	Russian	Русский	ltr	Cyrl	full
+sk	Slovak	Slovenčina	ltr	Latn	full
+sl	Slovenian	Slovenščina	ltr	Latn	full
+sr	Serbian	Српски	ltr	Cyrl	full
 sv	Swedish	Svenska	ltr	Latn	full
+ta	Tamil	தமிழ்	ltr	Taml	full
 th	Thai	ไทย	ltr	Thai	full
 tr	Turkish	Türkçe	ltr	Latn	full
 uk	Ukrainian	Українська	ltr	Cyrl	full
