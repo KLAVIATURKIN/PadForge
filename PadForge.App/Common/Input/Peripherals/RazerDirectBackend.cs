@@ -104,6 +104,16 @@ namespace PadForge.Common.Input.Peripherals
     /// once after each walk the host hands over, so a device whose row was
     /// replaced while it slept is found awake again. It leaves the list
     /// when its collection leaves the walk.</para>
+    ///
+    /// <para>A unit that falls asleep painted is owed its hand-back
+    /// (<see cref="Unit.Owed"/>): a device that missed one report and
+    /// stayed still shows the color it was sent. The hand-back keeps its
+    /// place on the crash path's record, the unit is asked again every
+    /// <see cref="RetryMs"/> whether or not anybody lights it, and once
+    /// it answers the hand-back is the first thing it is sent, before it
+    /// is listed awake. A stop sends it through a handle opened for each
+    /// report. It ends with no report when a Razer program runs and when
+    /// the device leaves.</para>
     /// </summary>
     internal sealed class RazerDirectBackend : IDirectUnitBackend
     {
@@ -243,6 +253,16 @@ namespace PadForge.Common.Input.Peripherals
             public bool DimNoted;
             public byte[] Leds;
             public byte[][] HandBack = Array.Empty<byte[]>();
+
+            /// <summary>The hand-back the unit is owed, and the collection
+            /// it stays on the crash path's record under. Set when a
+            /// painted unit falls asleep (<see cref="Sleep"/>), which is
+            /// the only way a unit comes to owe one, so a unit that owes
+            /// is asleep and holds no claim. Paid by the conversation that
+            /// finds the unit answering again (<see cref="Probe"/>) and by
+            /// the worker's last act (<see cref="LetGo"/>).</summary>
+            public byte[][] Owed = Array.Empty<byte[]>();
+            public string OwedPath;
             public long ClaimedAt, SentAt, LastSentAt, HeldSince;
             public int Rgb = NoColor, Held = NoColor;
 
@@ -304,7 +324,8 @@ namespace PadForge.Common.Input.Peripherals
         /// takes it.</summary>
         private IReadOnlyList<HidCollectionInfo> _handed;
 
-        /// <summary>The units a claim is under way on or held for, each
+        /// <summary>The units a claim is under way on or held for, and the
+        /// ones owed a hand-back from a claim that ended asleep, each
         /// with its hand-back and the run that made the entry, for the
         /// crash path, which cannot wait on this worker. Swapped whole,
         /// under <see cref="_claimedGate"/>, which is never held across a
@@ -530,7 +551,8 @@ namespace PadForge.Common.Input.Peripherals
             {
                 if (resumed && unit.Claimed) unit.Reassert = true;
                 Serve(work, unit, links, programRuns);
-                if (unit.Gone && unit.Script == null) (gone ??= new List<Unit>()).Add(unit);
+                // A unit that is owed its hand-back stays until it has it.
+                if (unit.Gone && unit.Script == null && unit.Owed.Length == 0) (gone ??= new List<Unit>()).Add(unit);
             }
             if (gone != null)
                 foreach (var unit in gone) work.Units.Remove(unit.Listed.Key);
@@ -648,16 +670,20 @@ namespace PadForge.Common.Input.Peripherals
             }
 
             // A unit that refused every paint is on its way out already,
-            // and leaves once its hand-back is through.
+            // and leaves once its hand-back is through. One that is owed
+            // that hand-back leaves with its collection, as any unit does.
             List<Unit> left = null;
             foreach (var unit in work.Units.Values)
-                if (!unit.Gone && !kept.Contains(unit.Listed.Key)) (left ??= new List<Unit>()).Add(unit);
+                if (unit.Gone ? unit.Owed.Length > 0 && !seen.Contains(unit.Listed.Key) : !kept.Contains(unit.Listed.Key))
+                    (left ??= new List<Unit>()).Add(unit);
             if (left != null)
             {
                 foreach (var unit in left)
                 {
                     // Its collection left the walk: the device is gone, and
-                    // with it anything a hand-back could reach.
+                    // with it anything a hand-back could reach, an owed one
+                    // too.
+                    ClearOwed(unit);
                     Abandon(unit);
                     Shut(unit);
                     work.Units.Remove(unit.Listed.Key);
@@ -719,6 +745,9 @@ namespace PadForge.Common.Input.Peripherals
                         PadForge.Engine.SdlDiagLog.WriteLine(
                             $"PERIPHERAL Razer '{unit.Row.Name}' lighting left to the Razer program that started");
                 }
+                // What a unit was owed ends the same way, asleep as it is:
+                // the program has the device.
+                ClearOwed(unit);
                 unit.Wants = false;
                 return;
             }
@@ -808,7 +837,8 @@ namespace PadForge.Common.Input.Peripherals
         /// virtual controller that holds one. No path is linked to an
         /// asleep unit, so no claim resolves on it meanwhile, and a unit
         /// nobody lights any more is left alone until somebody does or a
-        /// walk comes in (<see cref="Unit.AskOnce"/>).</summary>
+        /// walk comes in (<see cref="Unit.AskOnce"/>), unless it is owed
+        /// its hand-back (<see cref="Unit.Owed"/>).</summary>
         private bool StillWanted(Work work, Unit unit)
         {
             foreach (var device in unit.Rows)
@@ -826,10 +856,12 @@ namespace PadForge.Common.Input.Peripherals
         private bool Begin(Work work, Unit unit)
         {
             long now = work.Now;
-            if (unit.Gone) return false;
+            // A unit that is owed its hand-back is asked for as long as
+            // the debt stands, lit or not, on its way out or not.
+            if (unit.Gone && unit.Owed.Length == 0) return false;
             if (unit.Asleep)
             {
-                if (!unit.AskOnce && !StillWanted(work, unit)) return false;
+                if (!unit.AskOnce && unit.Owed.Length == 0 && !StillWanted(work, unit)) return false;
                 if (now < unit.RetryAt)
                 {
                     Due(work, unit.RetryAt);
@@ -1067,11 +1099,41 @@ namespace PadForge.Common.Input.Peripherals
         }
 
         /// <summary>An asleep unit is asked again. One that answers is
-        /// listed awake, and the claim follows once a row links it again.</summary>
+        /// listed awake, and the claim follows once a row links it again.
+        ///
+        /// <para>A unit that is owed its hand-back gets it here, on the
+        /// handle the question went out on, before it is listed awake. So
+        /// the claim that may follow reads what the device shows on its
+        /// own (<see cref="OwnLighting"/>) only after the color PadForge
+        /// left on it is gone. No reference says whether a classic LED
+        /// keeps a color sent unstored apart from its stored one, and
+        /// this order asks nothing of that. The lock is waited for once
+        /// and the reports go out without it, as a hand-back's do
+        /// (<see cref="HandBack"/>). A report the device does not take
+        /// puts the unit back to sleep with the whole hand-back still
+        /// owed.</para></summary>
         private IEnumerable<Ask> Probe(Work work, Unit unit)
         {
             foreach (var ask in Settle(work, unit)) yield return ask;
             if (unit.Io == null) yield break;
+            if (unit.Owed.Length > 0)
+            {
+                bool wait = true;
+                foreach (var report in unit.Owed)
+                {
+                    var ask = new Ask(report, wait ? RazerGuard.CommandWaitMs : 0, evenUnlocked: true);
+                    yield return ask;
+                    if (ask.WentUnlocked) wait = false;
+                    if (ask.Outcome is Outcome.Dead or Outcome.Silent or Outcome.Timeout)
+                    {
+                        Sleep(work, unit, walk: ask.Outcome == Outcome.Dead);
+                        yield break;
+                    }
+                }
+                ClearOwed(unit);
+                PadForge.Engine.SdlDiagLog.WriteLine(
+                    $"PERIPHERAL Razer '{unit.Row.Name}' lighting handed back, owed since it stopped answering");
+            }
             Shut(unit);
             unit.Asleep = false;
             work.Dirty = true;
@@ -1404,8 +1466,8 @@ namespace PadForge.Common.Input.Peripherals
         /// waited for once: a hand-back that finds it busy goes out anyway,
         /// and waits again neither for its own later attempts nor for the
         /// reports after it. A hand-back the device did not take is a
-        /// failed call like any other: the unit is listed asleep, and a
-        /// walk is asked for where the handle failed.</summary>
+        /// failed call like any other: the unit is listed asleep, still
+        /// owed it, and a walk is asked for where the handle failed.</summary>
         private IEnumerable<Ask> HandBack(Work work, Unit unit)
         {
             bool wait = true;
@@ -1643,7 +1705,9 @@ namespace PadForge.Common.Input.Peripherals
 
         /// <summary>Closes a unit's handle and forgets its claim, on the
         /// crash path's record too. What a claim settled about the device
-        /// stays.</summary>
+        /// stays, and so does a hand-back the unit is owed, which the
+        /// record keeps. A unit that owes holds no claim, so what the
+        /// record has for it then is that hand-back.</summary>
         private void Shut(Unit unit)
         {
             if (unit.Io != null)
@@ -1651,7 +1715,7 @@ namespace PadForge.Common.Input.Peripherals
                 try { unit.Io.Dispose(); } catch { }
                 unit.Io = null;
             }
-            if (unit.IoPath != null) RemoveClaimed(unit);
+            if (unit.IoPath != null && unit.Owed.Length == 0) RemoveClaimed(unit);
             unit.IoPath = null;
             unit.Claimed = false;
             unit.Written = false;
@@ -1674,11 +1738,22 @@ namespace PadForge.Common.Input.Peripherals
 
         /// <summary>The unit does not answer, or a call on its handle
         /// failed. It stays listed, asleep, with its handle closed and its
-        /// claim forgotten: there is no channel to hand anything back
-        /// through. A failed call asks for a walk, once, since the device
-        /// may have left with no row to say so.</summary>
+        /// claim ended: there is no channel to hand anything back through.
+        /// A unit that took a write of its claim and has a hand-back on
+        /// its books is owed that hand-back from here on
+        /// (<see cref="Unit.Owed"/>). The record already holds it under
+        /// the claim's collection, and keeps it. A unit that already owes
+        /// has no hand-back on its books, so a report of its debt that
+        /// went out before the device fell silent again changes nothing
+        /// of what it is owed. A failed call asks for a walk, once, since
+        /// the device may have left with no row to say so.</summary>
         private void Sleep(Work work, Unit unit, bool walk)
         {
+            if (unit.Written && unit.HandBack.Length > 0)
+            {
+                unit.Owed = unit.HandBack;
+                unit.OwedPath = unit.IoPath;
+            }
             Shut(unit);
             unit.RetryAt = _ticks() + RetryMs;
             if (unit.Asleep) return;
@@ -1709,12 +1784,17 @@ namespace PadForge.Common.Input.Peripherals
         /// entry is its own run's. A worker that outlived its run closes
         /// its handles when it comes back, and the collection may be on
         /// the record for its successor by then, which holds it now.</summary>
-        private void RemoveClaimed(Unit unit)
+        private void RemoveClaimed(Unit unit) => Unrecord(unit.IoPath, unit.Run);
+
+        /// <summary>Takes a run's entry for a collection off the crash
+        /// path's record, whether a claim made it or it is a hand-back
+        /// that was owed.</summary>
+        private void Unrecord(string path, WorkerRun run)
         {
             lock (_claimedGate)
             {
-                int at = Array.FindIndex(_claimed, e => ReferenceEquals(e.Run, unit.Run)
-                    && string.Equals(e.Path, unit.IoPath, StringComparison.OrdinalIgnoreCase));
+                int at = Array.FindIndex(_claimed, e => ReferenceEquals(e.Run, run)
+                    && string.Equals(e.Path, path, StringComparison.OrdinalIgnoreCase));
                 if (at < 0) return;
                 var next = new List<(string, byte[][], WorkerRun)>(_claimed);
                 next.RemoveAt(at);
@@ -1722,17 +1802,50 @@ namespace PadForge.Common.Input.Peripherals
             }
         }
 
-        /// <summary>Whether the crash path's record holds a unit's
-        /// collection for another run, which is the run of a worker that
-        /// started after this one's Stop gave up waiting for it.</summary>
-        private bool HeldByAnotherRun(Unit unit)
+        /// <summary>Ends what a unit is owed, with no report, and takes it
+        /// off the crash path's record.</summary>
+        private void ClearOwed(Unit unit)
         {
-            if (unit.IoPath == null) return false;
+            if (unit.Owed.Length == 0) return;
+            Unrecord(unit.OwedPath, unit.Run);
+            unit.Owed = Array.Empty<byte[]>();
+            unit.OwedPath = null;
+        }
+
+        /// <summary>Whether the crash path's record holds a collection for
+        /// another run, which is the run of a worker that started after
+        /// this one's Stop gave up waiting for it.</summary>
+        private bool HeldByAnotherRun(string path, WorkerRun run)
+        {
+            if (path == null) return false;
             foreach (var entry in Volatile.Read(ref _claimed))
-                if (!ReferenceEquals(entry.Run, unit.Run)
-                    && string.Equals(entry.Path, unit.IoPath, StringComparison.OrdinalIgnoreCase))
+                if (!ReferenceEquals(entry.Run, run)
+                    && string.Equals(entry.Path, path, StringComparison.OrdinalIgnoreCase))
                     return true;
             return false;
+        }
+
+        /// <summary>Sends what a unit is owed with no handle of the
+        /// worker's: each report through a handle opened for it, as on the
+        /// crash path, behind the lock where it is free within a paint's
+        /// wait. No reply is read, so each report gets the product's reply
+        /// time before the next goes out. A report that does not go out
+        /// ends it: the rest would fare no better.</summary>
+        private void PayOnce(Unit unit)
+        {
+            for (int at = 0; at < unit.Owed.Length; at++)
+            {
+                if (at > 0) _wait(unit.Row.ReplyWaitUs);
+                bool locked = _guard.Take(RazerGuard.PaintWaitMs);
+                bool sent;
+                try { sent = _setFeatureOnce(unit.OwedPath, unit.Owed[at], OneShotMs); }
+                catch { sent = false; }
+                finally
+                {
+                    if (locked) _guard.Release();
+                }
+                if (!sent) return;
+            }
         }
 
         /// <summary>The worker's last act: every unit it painted gets its
@@ -1742,10 +1855,12 @@ namespace PadForge.Common.Input.Peripherals
         /// waited for in place, a slow device's too, and a request still
         /// in flight gets its reply time and its read before the hand-back
         /// goes out behind it: every request is followed by its read
-        /// (openrazer driver/razermouse_driver.c:127-157). Nothing is sent
-        /// while a Razer program runs. The snapshot goes back to "not
-        /// scanned" unless a successor's run has begun, whose snapshot it
-        /// is by then.</summary>
+        /// (openrazer driver/razermouse_driver.c:127-157). A unit that is
+        /// owed its hand-back has no handle of the worker's, and gets it
+        /// last, through a handle opened for each report
+        /// (<see cref="PayOnce"/>). Nothing is sent while a Razer program
+        /// runs. The snapshot goes back to "not scanned" unless a
+        /// successor's run has begun, whose snapshot it is by then.</summary>
         private void LetGo(Work work)
         {
             bool programRuns = PeripheralOutputs.Presence.RazerSoftwareRunning;
@@ -1757,7 +1872,7 @@ namespace PadForge.Common.Input.Peripherals
                     // A worker that outlived its run sends nothing to a
                     // collection its successor has claimed since: what
                     // that device shows is the successor's to say.
-                    bool reach = unit.Io != null && !programRuns && !HeldByAnotherRun(unit);
+                    bool reach = unit.Io != null && !programRuns && !HeldByAnotherRun(unit.IoPath, unit.Run);
                     if (reach && unit.Flight != null && unit.Flight.Sent)
                     {
                         // A write this reply accepts went out, and is handed
@@ -1777,6 +1892,17 @@ namespace PadForge.Common.Input.Peripherals
                 finally
                 {
                     Shut(unit);
+                }
+            }
+            // Every handle is closed. What is owed goes out now, except to
+            // a collection a successor has on record, which is the
+            // successor's to speak to.
+            if (!programRuns)
+            {
+                foreach (var unit in work.Units.Values)
+                {
+                    if (unit.Owed.Length == 0 || HeldByAnotherRun(unit.OwedPath, unit.Run)) continue;
+                    try { PayOnce(unit); } catch { }
                 }
             }
             lock (_claimedGate)

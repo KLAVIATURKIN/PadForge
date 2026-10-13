@@ -217,6 +217,10 @@ namespace PadForge.Tests
             /// on a handle and each take of the lock, by stamp.</summary>
             public readonly ConcurrentDictionary<long, IReadOnlyList<(string Path, byte[][] HandBack)>> Records = new();
             public Action<string, byte[], int> OnOneShot;
+
+            /// <summary>The one-shot writer reports a write that did not
+            /// go out.</summary>
+            public volatile bool OneShotFails;
             public RazerDirectBackend Backend;
             public int Walks;
             public int Changes;
@@ -263,7 +267,7 @@ namespace PadForge.Tests
                     {
                         OneShots.Enqueue((path, (byte[])report.Clone(), timeoutMs));
                         OnOneShot?.Invoke(path, report, timeoutMs);
-                        return true;
+                        return !OneShotFails;
                     },
                     devicesOnSlot: slot => OnSlot.TryGetValue(slot, out var devices) ? devices : new HashSet<Guid>(),
                     slotNumber: slot => Shown.TryGetValue(slot, out int number) ? number : slot + 1,
@@ -1117,7 +1121,10 @@ namespace PadForge.Tests
 
             // It answers again, all but its scroll wheel's color: the first
             // paint of the new claim gets one report through and no more.
-            mouse.Answer = request => Is(request, 0x0F, 0x02) && request[P.ArgumentsAt + 1] == 0x01 ? Silence(request) : Answers(request);
+            // The hand-back it is owed from the claim before goes out
+            // first, and it takes both reports of that.
+            mouse.Answer = request => Is(request, 0x0F, 0x02) && request[P.ArgumentsAt + 1] == 0x01 && request[P.ArgumentsAt + 2] == 0x01
+                ? Silence(request) : Answers(request);
             long mark = bench.Mark;
             bench.Advance(RazerDirectBackend.RetryMs);
             bench.Passes(4);
@@ -1161,9 +1168,11 @@ namespace PadForge.Tests
 
         /// <summary>The asleep rule. A write that fails closes the unit's
         /// channel and lists the unit asleep, never takes it off the list,
-        /// and asks for a walk once. Nothing is handed back, since there is
-        /// no channel to hand anything back through. The unit is tried
-        /// again on the worker's own interval, and when it answers it is
+        /// and asks for a walk once. Nothing can be handed back then, with
+        /// no channel left to hand it back through, so the hand-back is
+        /// owed and keeps its place on the crash path's record. The unit
+        /// is tried again on the worker's own interval. When it answers,
+        /// the hand-back is the first thing it is sent, and then it is
         /// listed awake and the standing claim paints again.</summary>
         [Fact]
         public void AFailedWrite_ClosesTheChannel_ListsTheUnitAsleep_AndTheClaimPaintsAgainOnceItAnswers()
@@ -1189,7 +1198,9 @@ namespace PadForge.Tests
             Assert.NotNull(unit);
             Assert.True(unit.Asleep);
             Assert.Equal(mouse.Container, unit.ContainerId);
-            Assert.Empty(bench.Backend.Claimed);
+            var owed = Assert.Single(bench.Backend.Claimed);
+            Assert.Equal(mouse.Key, owed.Path);
+            Assert.Equal(MouseHandBack, Lines(owed.HandBack));
             Assert.Equal(1, Volatile.Read(ref bench.Walks));
             Assert.Equal(changes + 1, Volatile.Read(ref bench.Changes));
 
@@ -1213,14 +1224,16 @@ namespace PadForge.Tests
             Assert.True(bench.Unit(mouse).Asleep);
             Assert.Equal(1, Volatile.Read(ref bench.Walks));
 
-            // It answers again: listed awake, linked, claimed and painted
-            // in the color that stands now.
+            // It answers again: handed back what it was owed and listed
+            // awake, then linked, claimed and painted in the color that
+            // stands now.
             mouse.FailWrites = false;
             mark = bench.Mark;
             bench.Advance(RazerDirectBackend.RetryMs);
             bench.Passes();
             Assert.False(bench.Unit(mouse).Asleep);
-            Assert.Equal(Lines(P.ExtendedBrightnessRead(0x3F, 0x04)), mouse.Sent(mark));
+            Assert.Equal(Lines(P.ExtendedBrightnessRead(0x3F, 0x04)).Concat(MouseHandBack), mouse.Sent(mark));
+            Assert.Empty(bench.Backend.Claimed);
             mark = bench.Mark;
             bench.Link(mouse);
             bench.Passes();
@@ -1356,6 +1369,548 @@ namespace PadForge.Tests
             bench.Passes();
             Assert.Equal(mark, bench.Mark);
             bench.Verify();
+        }
+
+        // ─────────────────────────────────────────────
+        //  A hand-back that is owed
+        // ─────────────────────────────────────────────
+
+        /// <summary>The two reports a DeathAdder V2 is handed back with:
+        /// the spectrum effect on its logo and on its scroll wheel, since
+        /// the bench's device says nothing of a stored effect.</summary>
+        private static string[] MouseHandBack => Lines(P.ExtendedSpectrum(0x3F, 0x04), P.ExtendedSpectrum(0x3F, 0x01));
+
+        /// <summary>A DeathAdder V2 painted red that goes silent to its
+        /// next color, and whose switch then goes off: listed asleep, lit
+        /// and linked by nobody, and owed its hand-back.</summary>
+        private static FakeRazer AsleepAndOwed(Bench bench)
+        {
+            var mouse = bench.Add(DeathAdderV2);
+            bench.StartAndWalk();
+            bench.Link(mouse);
+            bench.Light(mouse, Red);
+            bench.Passes();
+            mouse.Answer = Silence;
+            bench.Advance(RazerDirectBackend.PaintMs);
+            bench.Light(mouse, Green);
+            bench.Passes();
+            Assert.True(bench.Unit(mouse).Asleep);
+            Assert.False(mouse.Open);
+            var owed = Assert.Single(bench.Backend.Claimed);
+            Assert.Equal(mouse.Key, owed.Path);
+            Assert.Equal(MouseHandBack, Lines(owed.HandBack));
+            PeripheralOutputs.ReleaseLighting(mouse.Row, 0);
+            PeripheralOutputs.PublishLinks(LinkTable.Empty);
+            return mouse;
+        }
+
+        /// <summary>A unit that falls asleep painted is owed its hand-back,
+        /// whether or not anybody still lights it. The hand-back keeps its
+        /// place on the crash path's record, the unit is asked again on
+        /// the worker's interval with nobody lighting it, and once it
+        /// answers the hand-back goes out behind the question, before the
+        /// unit is listed awake. Nothing follows it, since no row wants
+        /// the unit.</summary>
+        [Fact]
+        public void AUnitThatFallsAsleepPainted_IsOwedItsHandBack_AndGetsItWhenItAnswers_LitOrNot()
+        {
+            using var bench = new Bench(reassertMs: int.MaxValue);
+            var mouse = AsleepAndOwed(bench);
+
+            // Nobody lights it, and it is asked all the same, once an
+            // interval.
+            int opens = mouse.Opens;
+            bench.Advance(RazerDirectBackend.RetryMs - 1);
+            bench.Passes();
+            Assert.Equal(opens, mouse.Opens);
+            bench.Advance(1);
+            bench.Passes();
+            Assert.Equal(opens + 1, mouse.Opens);
+            Assert.True(bench.Unit(mouse).Asleep);
+            Assert.Single(bench.Backend.Claimed);
+            int changes = Volatile.Read(ref bench.Changes);
+
+            // It answers: the question, the hand-back, and then awake.
+            string diag = DiagMark.Write();
+            mouse.Answer = Answers;
+            long mark = bench.Mark;
+            bench.Advance(RazerDirectBackend.RetryMs);
+            bench.Passes();
+            Assert.Equal(Lines(P.ExtendedBrightnessRead(0x3F, 0x04)).Concat(MouseHandBack), mouse.Sent(mark));
+            Assert.False(bench.Unit(mouse).Asleep);
+            Assert.False(mouse.Open);
+            Assert.Empty(bench.Backend.Claimed);
+            Assert.Equal(changes + 1, Volatile.Read(ref bench.Changes));
+            Assert.Equal(1, DiagMark.LinesSince(diag, "lighting handed back, owed since it stopped answering"));
+            // The record held the hand-back until the last report of it
+            // was answered.
+            Assert.All(mouse.Calls.Where(c => c.Tick > mark), c => Assert.Single(bench.Records[c.Tick]));
+
+            // Nothing more is asked of it.
+            mark = bench.Mark;
+            bench.Advance(3 * RazerDirectBackend.RetryMs);
+            bench.Passes();
+            Assert.Equal(mark, bench.Mark);
+            bench.Verify();
+        }
+
+        /// <summary>An owed hand-back the device takes part of is still
+        /// owed whole. The unit goes back to sleep without having been
+        /// listed awake, the record keeps the hand-back, and the next
+        /// attempt sends every report of it again.</summary>
+        [Fact]
+        public void AnOwedHandBackTheDeviceDoesNotTake_StaysOwedWhole_AndIsSentAgain()
+        {
+            using var bench = new Bench(reassertMs: int.MaxValue);
+            var mouse = AsleepAndOwed(bench);
+            int changes = Volatile.Read(ref bench.Changes);
+            int walks = Volatile.Read(ref bench.Walks);
+
+            // It answers its question and its logo's report, and falls
+            // silent on the scroll wheel's.
+            mouse.Answer = request => Is(request, 0x0F, 0x02) && request[P.ArgumentsAt + 1] == 0x01 ? Silence(request) : Answers(request);
+            long mark = bench.Mark;
+            bench.Advance(RazerDirectBackend.RetryMs);
+            bench.Passes();
+            Assert.Equal(Lines(P.ExtendedBrightnessRead(0x3F, 0x04), P.ExtendedSpectrum(0x3F, 0x04))
+                .Concat(Enumerable.Repeat(MouseHandBack[1], RazerDirectBackend.Attempts)), mouse.Sent(mark));
+            Assert.True(bench.Unit(mouse).Asleep);
+            Assert.False(mouse.Open);
+            Assert.Equal(MouseHandBack, Lines(Assert.Single(bench.Backend.Claimed).HandBack));
+            Assert.Equal(changes, Volatile.Read(ref bench.Changes));
+            Assert.Equal(walks, Volatile.Read(ref bench.Walks));
+
+            // Whole again at the next attempt, and then it is awake.
+            mouse.Answer = Answers;
+            mark = bench.Mark;
+            bench.Advance(RazerDirectBackend.RetryMs);
+            bench.Passes();
+            Assert.Equal(Lines(P.ExtendedBrightnessRead(0x3F, 0x04)).Concat(MouseHandBack), mouse.Sent(mark));
+            Assert.False(bench.Unit(mouse).Asleep);
+            Assert.Empty(bench.Backend.Claimed);
+            bench.Verify();
+        }
+
+        /// <summary>An owed hand-back is never skipped for the lock, as no
+        /// hand-back is. Its question needs the lock like any read. Behind
+        /// it, with another program at the lock, the first report waits
+        /// for it once and goes out without it, and the second asks with
+        /// no wait.</summary>
+        [Fact]
+        public void AnOwedHandBack_WaitsForABusyLockOnce_AndGoesOutWithoutIt()
+        {
+            using var bench = new Bench(reassertMs: int.MaxValue);
+            var mouse = AsleepAndOwed(bench);
+            // Another program takes the lock as the mouse answers its
+            // question.
+            long asked = long.MaxValue;
+            mouse.Answer = request =>
+            {
+                if (Is(request, 0x0F, 0x84) && !bench.Guard.Busy)
+                {
+                    bench.Guard.Busy = true;
+                    Volatile.Write(ref asked, bench.Mark);
+                }
+                return Answers(request);
+            };
+            long mark = bench.Mark;
+            bench.Advance(RazerDirectBackend.RetryMs);
+            bench.Passes();
+            Assert.Equal(Lines(P.ExtendedBrightnessRead(0x3F, 0x04)).Concat(MouseHandBack), mouse.Sent(mark));
+            Assert.Equal(new[] { ("busy", RazerGuard.CommandWaitMs), ("busy", 0) },
+                bench.Guard.Journal.Where(e => e.Tick > Volatile.Read(ref asked) && e.What != "release").Select(e => (e.What, e.WaitMs)));
+            Assert.False(bench.Unit(mouse).Asleep);
+            Assert.Empty(bench.Backend.Claimed);
+        }
+
+        /// <summary>The owed hand-back goes out before a claim reads the
+        /// device again. This DeathAdder Chroma answers a color read with
+        /// the color it was last sent, stored or not, which no reference
+        /// rules out for a classic LED. It falls silent in the middle of a
+        /// session and answers again with its row still lit. It is handed
+        /// back first, so the claim that follows reads the mouse's own
+        /// colors and not the one it was painted, and the release at the
+        /// end gives those back.</summary>
+        [Fact]
+        public void AnOwedHandBack_GoesOutBeforeTheNextClaimReadsTheDevice()
+        {
+            using var bench = new Bench(reassertMs: int.MaxValue);
+            var mouse = bench.Add(0x0043);
+            var shown = new ConcurrentDictionary<byte, int>();
+            shown[0x01] = 0xAABBCC;
+            shown[0x04] = 0x112233;
+            int silent = 0;
+            mouse.Answer = request =>
+            {
+                if (Volatile.Read(ref silent) == 1) return Silence(request);
+                byte led = request[P.ArgumentsAt + 1];
+                if (Is(request, 0x03, 0x01))
+                    shown[led] = (request[P.ArgumentsAt + 2] << 16) | (request[P.ArgumentsAt + 3] << 8) | request[P.ArgumentsAt + 4];
+                if (!Is(request, 0x03, 0x81)) return Answers(request);
+                int rgb = shown[led];
+                return Reply(request, P.StatusSuccess, 0x01, led, (byte)(rgb >> 16), (byte)(rgb >> 8), (byte)rgb);
+            };
+            bench.StartAndWalk();
+            bench.Link(mouse);
+            bench.Light(mouse, Red);
+            bench.Passes();
+            string[] own =
+            {
+                "3F 03/01 size 05 [00 01 AA BB CC]", "3F 03/02 size 03 [00 01 00]", "3F 03/00 size 03 [00 01 00]",
+                "3F 03/01 size 05 [00 04 11 22 33]", "3F 03/02 size 03 [00 04 00]", "3F 03/00 size 03 [00 04 00]",
+            };
+            Assert.Equal(own, Lines(bench.Backend.Claimed.Single().HandBack));
+            Assert.Equal(Red, shown[0x01]);
+
+            // Silent to its next color, and asleep.
+            Volatile.Write(ref silent, 1);
+            bench.Advance(RazerDirectBackend.PaintMs);
+            bench.Light(mouse, Green);
+            bench.Passes();
+            Assert.True(bench.Unit(mouse).Asleep);
+            Assert.Equal(Red, shown[0x01]);
+
+            // It answers again, lit as it is: the hand-back first, then
+            // the claim, which reads the mouse's own colors.
+            Volatile.Write(ref silent, 0);
+            long mark = bench.Mark;
+            bench.Advance(RazerDirectBackend.RetryMs);
+            bench.Passes(4);
+            var sent = mouse.Sent(mark);
+            Assert.Equal(Lines(P.StandardBrightnessRead(0xFF, 0x01)).Concat(own), sent.Take(7));
+            Assert.Contains(RazerDirectProtocolTests.Line(P.ClassicColorRead(0xFF, 0x01)), sent.Skip(7));
+            Assert.Equal(Green, shown[0x01]);
+            Assert.Equal(own, Lines(bench.Backend.Claimed.Single().HandBack));
+
+            mark = bench.Mark;
+            PeripheralOutputs.ReleaseLighting(mouse.Row, 0);
+            bench.Passes();
+            Assert.Equal(own, mouse.Sent(mark));
+            Assert.Equal(0xAABBCC, shown[0x01]);
+            Assert.Equal(0x112233, shown[0x04]);
+            bench.Verify();
+        }
+
+        /// <summary>A unit that took no write of its claim is owed nothing
+        /// when it falls asleep: nothing of PadForge's is on it.</summary>
+        [Fact]
+        public void AUnitThatTookNoWriteOfItsClaim_IsOwedNothing()
+        {
+            using var bench = new Bench(reassertMs: int.MaxValue);
+            var mouse = bench.Add(DeathAdderV2);
+            mouse.Answer = request => IsRead(request) ? Answers(request) : Silence(request);
+            bench.StartAndWalk();
+            bench.Link(mouse);
+            bench.Light(mouse, Red);
+            bench.Passes();
+            Assert.True(bench.Unit(mouse).Asleep);
+            Assert.Empty(bench.Backend.Claimed);
+            bench.Backend.Stop();
+            Assert.Empty(bench.OneShots);
+        }
+
+        /// <summary>A stop that finds a unit asleep and owed has no handle
+        /// on it. The hand-back goes out as on the crash path: each report
+        /// through a handle opened for it, bounded, behind the lock for no
+        /// longer than a paint waits, with the product's reply time
+        /// between two reports since no reply is read. The record is empty
+        /// after it.</summary>
+        [Fact]
+        public void AtAStop_WhatIsOwedGoesOutThroughAHandleOpenedForEachReport()
+        {
+            using var bench = new Bench(reassertMs: int.MaxValue);
+            var mouse = AsleepAndOwed(bench);
+            int opens = mouse.Opens;
+            int waits = bench.Waits.Count;
+            long mark = bench.Mark;
+
+            bench.Backend.Stop();
+            Assert.False(bench.Backend.WorkerAlive);
+            Assert.Equal(new[]
+            {
+                (mouse.Key, MouseHandBack[0], RazerDirectBackend.OneShotMs),
+                (mouse.Key, MouseHandBack[1], RazerDirectBackend.OneShotMs),
+            }, bench.OneShots.Select(s => (s.Path, RazerDirectProtocolTests.Line(s.Report), s.TimeoutMs)));
+            Assert.Equal(new[] { ("take", RazerGuard.PaintWaitMs), ("release", 0), ("take", RazerGuard.PaintWaitMs), ("release", 0) },
+                bench.Guard.Journal.Where(e => e.Tick > mark).Select(e => (e.What, e.WaitMs)));
+            Assert.Equal(new[] { mouse.Table.ReplyWaitUs }, bench.Waits.Skip(waits));
+            Assert.Equal(opens, mouse.Opens);
+            Assert.Empty(bench.Backend.Claimed);
+        }
+
+        /// <summary>A report of an owed hand-back that does not go out at
+        /// a stop ends it: the rest would fare no better.</summary>
+        [Fact]
+        public void AtAStop_AnOwedReportThatDoesNotGoOut_EndsTheHandBack()
+        {
+            using var bench = new Bench(reassertMs: int.MaxValue);
+            AsleepAndOwed(bench);
+            bench.OneShotFails = true;
+            bench.Backend.Stop();
+            Assert.Equal(new[] { MouseHandBack[0] }, bench.OneShots.Select(s => RazerDirectProtocolTests.Line(s.Report)));
+            Assert.Equal(bench.Guard.Journal.Count(e => e.What == "take"), bench.Guard.Journal.Count(e => e.What == "release"));
+            Assert.Empty(bench.Backend.Claimed);
+        }
+
+        /// <summary>A Razer program that starts in the moment before the
+        /// worker stops gets an owed unit as it gets a lit one: the
+        /// worker's last act sends it nothing. The program and the stop
+        /// both come from the worker's own thread here, as a pass ends, so
+        /// no pass falls between them and the last act.</summary>
+        [Fact]
+        public void TheWorkersLastAct_SendsNothingOwed_WhileARazerProgramRuns()
+        {
+            using var bench = new Bench(reassertMs: int.MaxValue);
+            AsleepAndOwed(bench);
+            var worker = Assert.Single(bench.Workers);
+            int armed = 1;
+            bench.Backend.SnapshotChanged += () =>
+            {
+                if (Interlocked.Exchange(ref armed, 0) != 1) return;
+                PeripheralOutputs.Presence = new PeripheralPresence(false, false, true, false, false) { RazerSoftwareRunning = true };
+                bench.Backend.SignalStop();
+            };
+            long mark = bench.Mark;
+            bench.Add(BlackWidowChroma);
+            bench.Walk();
+            Assert.True(worker.Join(30000));
+            Assert.Empty(bench.OneShots);
+            Assert.Equal(mark, bench.Mark);
+            Assert.Empty(bench.Backend.Claimed);
+        }
+
+        /// <summary>The crash path hands back what is owed with the rest
+        /// of its record. A worker held inside a call on another device
+        /// cannot, so the reports go out through handles of the crash
+        /// path's own.</summary>
+        [Fact]
+        public void TheCrashPath_HandsBackWhatIsOwed_WhenTheWorkerIsHeld()
+        {
+            using var bench = new Bench(reassertMs: int.MaxValue);
+            var mouse = bench.Add(DeathAdderV2);
+            // A keyboard painted by frame, which has no hand-back.
+            var keyboard = bench.Add(BlackWidowChroma);
+            using var gate = new ManualResetEventSlim(false);
+            bench.StartAndWalk();
+            bench.Light(mouse, Red);
+            bench.Light(keyboard, Red);
+            bench.Link(mouse, keyboard);
+            bench.Passes();
+            mouse.Answer = Silence;
+            bench.Advance(RazerDirectBackend.PaintMs);
+            bench.Light(mouse, Green);
+            bench.Passes();
+            Assert.True(bench.Unit(mouse).Asleep);
+            try
+            {
+                HoldTheWorkerInARead(bench, keyboard, gate);
+                bench.Backend.ReleaseClaimedNow(bench.Now + 250);
+                Assert.True(bench.Backend.WorkerAlive);
+                Assert.Equal(MouseHandBack.Select(line => (mouse.Key, line)),
+                    bench.OneShots.Select(s => (s.Path, RazerDirectProtocolTests.Line(s.Report))));
+                Assert.Empty(bench.Backend.Claimed);
+            }
+            finally
+            {
+                gate.Set();
+            }
+            Assert.True(SpinWait.SpinUntil(() => !bench.Backend.WorkerAlive, 30000), "the worker ended once it came back");
+        }
+
+        /// <summary>A Razer program that starts has every Razer device, an
+        /// asleep one too. What a unit was owed ends there with no report:
+        /// off the record at once, and not sent when the program has quit
+        /// and the unit answers again, nor at a stop.</summary>
+        [Fact]
+        public void WhenARazerProgramStarts_WhatAUnitIsOwedEndsWithNoReport()
+        {
+            using var bench = new Bench(reassertMs: int.MaxValue);
+            var mouse = AsleepAndOwed(bench);
+            long mark = bench.Mark;
+            PeripheralOutputs.Presence = new PeripheralPresence(false, false, true, false, false) { RazerSoftwareRunning = true };
+            bench.Passes();
+            Assert.Empty(bench.Backend.Claimed);
+            Assert.Equal(mark, bench.Mark);
+
+            // The program quits and a walk asks the unit once more: its
+            // question, and nothing behind it.
+            PeripheralOutputs.Presence = PeripheralPresence.None;
+            mouse.Answer = Answers;
+            bench.Walk();
+            bench.Advance(RazerDirectBackend.RetryMs);
+            bench.Passes();
+            Assert.Equal(Lines(P.ExtendedBrightnessRead(0x3F, 0x04)), mouse.Sent(mark));
+            Assert.False(bench.Unit(mouse).Asleep);
+            bench.Backend.Stop();
+            Assert.Empty(bench.OneShots);
+        }
+
+        /// <summary>What a unit is owed ends when its collection leaves
+        /// the walk: the device is gone, and with it anything a hand-back
+        /// could reach.</summary>
+        [Fact]
+        public void WhatAUnitIsOwed_EndsWhenItsCollectionLeavesTheWalk()
+        {
+            using var bench = new Bench(reassertMs: int.MaxValue);
+            var mouse = AsleepAndOwed(bench);
+            long mark = bench.Mark;
+            mouse.Present = false;
+            bench.Walk();
+            bench.Passes();
+            Assert.Empty(bench.Backend.Snapshot.Units);
+            Assert.Empty(bench.Backend.Claimed);
+            bench.Backend.Stop();
+            Assert.Empty(bench.OneShots);
+            Assert.Equal(mark, bench.Mark);
+        }
+
+        /// <summary>A DeathAdder Chroma that turns its LEDs on, answers 05
+        /// to its first color and falls silent from there: off the list as
+        /// a product the table cannot paint, lit and linked by nobody, and
+        /// owed the hand-back of the two reports it took.</summary>
+        private static FakeRazer RefusedAndOwed(Bench bench, out string[] handBack)
+        {
+            var mouse = bench.Add(0x0043);
+            int refused = 0;
+            mouse.Answer = request =>
+            {
+                if (Volatile.Read(ref refused) == 1) return Silence(request);
+                if (!Is(request, 0x03, 0x01)) return Answers(request);
+                Volatile.Write(ref refused, 1);
+                return Reply(request, P.StatusNotSupported);
+            };
+            bench.StartAndWalk();
+            bench.Link(mouse);
+            bench.Light(mouse, Red);
+            bench.Passes();
+            Assert.Empty(bench.Backend.Snapshot.Units);
+            Assert.False(mouse.Open);
+            handBack = Lines(Assert.Single(bench.Backend.Claimed).HandBack);
+            Assert.Equal(6, handBack.Length);
+            PeripheralOutputs.ReleaseLighting(mouse.Row, 0);
+            PeripheralOutputs.PublishLinks(LinkTable.Empty);
+            return mouse;
+        }
+
+        /// <summary>A product that refuses every paint leaves the list
+        /// once its hand-back is through. One that misses that hand-back
+        /// is still owed it. It stays out of the list and on the record,
+        /// is asked again on the interval with nobody lighting it, and
+        /// leaves for good once the hand-back went out.</summary>
+        [Fact]
+        public void AProductThatRefusesEveryPaint_AndMissesItsHandBack_GetsItWhenItAnswers_ThenLeaves()
+        {
+            using var bench = new Bench(reassertMs: int.MaxValue);
+            var mouse = RefusedAndOwed(bench, out string[] handBack);
+            int opens = mouse.Opens;
+            bench.Advance(RazerDirectBackend.RetryMs);
+            bench.Passes();
+            Assert.Equal(opens + 1, mouse.Opens);
+            Assert.Single(bench.Backend.Claimed);
+
+            mouse.Answer = Answers;
+            long mark = bench.Mark;
+            bench.Advance(RazerDirectBackend.RetryMs);
+            bench.Passes();
+            Assert.Equal(Lines(P.StandardBrightnessRead(0xFF, 0x01)).Concat(handBack), mouse.Sent(mark));
+            Assert.Empty(bench.Backend.Claimed);
+            Assert.Empty(bench.Backend.Snapshot.Units);
+            Assert.False(mouse.Open);
+
+            // Gone for good, as a product the table cannot paint: no walk
+            // and no length of time brings another question.
+            mark = bench.Mark;
+            bench.Walk();
+            bench.Advance(3 * RazerDirectBackend.RetryMs);
+            bench.Passes();
+            Assert.Equal(mark, bench.Mark);
+            bench.Verify();
+        }
+
+        /// <summary>Such a product that is unplugged while it is owed
+        /// takes the debt with it, like any unit: nothing more is asked of
+        /// its collection, and a stop sends it nothing.</summary>
+        [Fact]
+        public void AProductThatRefusesEveryPaint_AndLeavesWhileItIsOwed_TakesTheDebtWithIt()
+        {
+            using var bench = new Bench(reassertMs: int.MaxValue);
+            var mouse = RefusedAndOwed(bench, out _);
+            mouse.Answer = Answers;
+            long mark = bench.Mark;
+            mouse.Present = false;
+            bench.Walk();
+            bench.Passes();
+            Assert.Empty(bench.Backend.Claimed);
+            bench.Advance(3 * RazerDirectBackend.RetryMs);
+            bench.Passes();
+            Assert.Equal(mark, bench.Mark);
+            bench.Backend.Stop();
+            Assert.Empty(bench.OneShots);
+        }
+
+        /// <summary>A worker that outlived its run pays nothing it is owed
+        /// on a collection its successor has claimed since. The successor
+        /// read that device and holds it, so what it shows is the
+        /// successor's to say, and the record keeps the successor's claim.</summary>
+        [Fact]
+        public void AWorkerThatOutlivedItsRun_PaysNothingOwed_OnACollectionItsSuccessorClaimed()
+        {
+            using var bench = new Bench(reassertMs: int.MaxValue, predecessorJoinMs: 100, stopJoinMs: 50);
+            var mouse = bench.Add(DeathAdderV2);
+            var keyboard = bench.Add(BlackWidowChroma);
+            using var gate = new ManualResetEventSlim(false);
+            try
+            {
+                bench.StartAndWalk();
+                bench.Light(mouse, Red);
+                bench.Light(keyboard, Red);
+                bench.Link(mouse, keyboard);
+                bench.Passes();
+                mouse.Answer = Silence;
+                bench.Advance(RazerDirectBackend.PaintMs);
+                bench.Light(mouse, Green);
+                bench.Passes();
+                Assert.True(bench.Unit(mouse).Asleep);
+                Assert.Equal(2, bench.Backend.Claimed.Count);
+                var first = Assert.Single(bench.Workers);
+
+                // The first worker is held in a read of the keyboard, the
+                // one time, and its Stop gives up on it.
+                int held = 0;
+                keyboard.Answer = request =>
+                {
+                    if (Interlocked.Exchange(ref held, 1) == 0) gate.Wait(30000);
+                    return Answers(request);
+                };
+                bench.Advance(RazerDirectBackend.PaintMs);
+                bench.Light(keyboard, Blue);
+                Assert.True(SpinWait.SpinUntil(() => Volatile.Read(ref held) == 1, 30000), "the first worker is held in a read");
+                bench.Backend.Stop();
+
+                // The mouse answers again, and the next run claims it and
+                // paints it.
+                mouse.Answer = Answers;
+                long mark = bench.Mark;
+                bench.Backend.Start();
+                bench.Walk();
+                Assert.True(SpinWait.SpinUntil(
+                    () => mouse.Sent(mark, r => Is(r, 0x0F, 0x02) && r[P.ArgumentsAt + 2] == 0x01).Length == 2, 30000),
+                    "the second worker painted the mouse");
+                bench.Passes();
+                Assert.True(first.IsAlive);
+                Assert.Contains(bench.Backend.Claimed, entry => entry.Path == mouse.Key);
+
+                // The first worker comes back and ends.
+                gate.Set();
+                Assert.True(first.Join(30000));
+                Assert.Empty(bench.OneShots);
+                Assert.Contains(bench.Backend.Claimed, entry => entry.Path == mouse.Key);
+                Assert.True(mouse.Open);
+            }
+            finally
+            {
+                gate.Set();
+            }
         }
 
         // ─────────────────────────────────────────────
@@ -1608,7 +2163,8 @@ namespace PadForge.Tests
         /// <summary>A hand-back the device does not take is a failed call
         /// like any other. A handle that fails lists the unit asleep and
         /// asks for one walk, a 04 lists it asleep with no walk, and
-        /// neither is logged as a hand-back.</summary>
+        /// neither is logged as a hand-back. The hand-back stays owed, on
+        /// the crash path's record.</summary>
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
@@ -1630,7 +2186,7 @@ namespace PadForge.Tests
             bench.Passes();
             Assert.True(bench.Unit(mouse).Asleep);
             Assert.False(mouse.Open);
-            Assert.Empty(bench.Backend.Claimed);
+            Assert.Equal(MouseHandBack, Lines(Assert.Single(bench.Backend.Claimed).HandBack));
             Assert.Equal(handleFails ? 1 : 0, Volatile.Read(ref bench.Walks));
             Assert.Equal(changes + 1, Volatile.Read(ref bench.Changes));
             Assert.Equal(0, DiagMark.LinesSince(diag, "lighting handed back"));
