@@ -72,10 +72,22 @@ namespace PadForge.Common.Input.Peripherals
     /// device that was unplugged is offline by then, and an offline row
     /// keeps its record.</para>
     ///
+    /// <para>Owe. A lit unit the worker lets go of while its device may
+    /// still show the claim, after a failed write, a missed answer or a
+    /// hand-back that did not go out, is owed its hand-back. The
+    /// hand-back keeps its place on the crash record until it is
+    /// settled. It is sent once the unit answers again, whether or not
+    /// anything lights it by then, ahead of whatever else the unit is
+    /// sent, or a new claim on the unit takes it over where that claim's
+    /// own hand-back is the same one. A unit that does not take it stays
+    /// owed. It ends with nothing sent where a hand-back sends nothing,
+    /// as above, and when the unit leaves the list.</para>
+    ///
     /// <para>Stop. The worker's finally hands back every unit it holds
-    /// before it closes its handles. A backend takes calls after its stop
-    /// and does nothing: the host's link pass can outlive the wait Stop
-    /// makes for it, so a <see cref="Rescan"/> or a read of
+    /// before it closes its handles, and sends what it still owes through
+    /// a bounded write on a handle of its own. A backend takes calls
+    /// after its stop and does nothing: the host's link pass can outlive
+    /// the wait Stop makes for it, so a <see cref="Rescan"/> or a read of
     /// <see cref="Snapshot"/> that was already on its way can arrive
     /// beside <see cref="Stop"/> or after it, and after Dispose too. The
     /// host reads its own stop before each such call and makes none once
