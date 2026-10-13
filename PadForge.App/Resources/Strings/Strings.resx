@@ -3770,7 +3770,7 @@ Would you like PadForge to uninstall them now? This requires elevation and may t
   <data name="Pad_Audio_EqRemove" xml:space="preserve"><value>Remove Band</value></data>
   <data name="Pad_Audio_EqClear" xml:space="preserve"><value>Clear</value></data>
   <data name="Pad_Audio_EqImport" xml:space="preserve"><value>Import from Clipboard</value></data>
-  <data name="Pad_Audio_EqImport_Tooltip" xml:space="preserve"><value>Paste an AutoEq profile for your headphones, then click. Replaces the bands and sets the preamp. Nothing readable in the clipboard leaves the current EQ alone.</value></data>
+  <data name="Pad_Audio_EqImport_Tooltip" xml:space="preserve"><value>Copy an AutoEq profile for your headphones, then click. Replaces the bands and sets the preamp. Nothing readable in the clipboard leaves the current EQ alone.</value></data>
   <data name="Pad_Audio_EqImportFile" xml:space="preserve"><value>Import from File</value></data>
   <data name="Pad_Audio_EqImportFile_Tooltip" xml:space="preserve"><value>Pick the .txt AutoEq downloaded. This is the one to use: autoeq.app hands you a file rather than text you can copy.</value></data>
   <data name="Pad_Audio_EqHowTo" xml:space="preserve"><value>For a correction matched to your headphones: open autoeq.app, choose your model, pick Custom Parametric Eq and download it, then Import from File. The Graphic Eq download has no filter lines and will not import.</value></data>
