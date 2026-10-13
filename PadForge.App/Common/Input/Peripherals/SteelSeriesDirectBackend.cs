@@ -72,6 +72,13 @@ namespace PadForge.Common.Input.Peripherals
     /// and tries the unit again every <see cref="RetryMs"/> by opening it,
     /// which sends nothing. A unit that opens is listed awake, and a claim
     /// that still stands paints it as it would a new unit.</para>
+    ///
+    /// <para>A unit that fails while it may show a color of ours is owed
+    /// its hand-back (<see cref="Unit.Owed"/>). The frames keep their
+    /// place on the crash path's record, and the try that finds the unit
+    /// open again sends them before the unit is listed awake. A stop sends
+    /// them through a one-shot write. They are dropped unsent when
+    /// SteelSeries GG runs and when the collection leaves the walk.</para>
     /// </summary>
     internal sealed class SteelSeriesDirectBackend : IDirectUnitBackend
     {
@@ -167,6 +174,13 @@ namespace PadForge.Common.Input.Peripherals
             public bool Asleep;
             public long RetryAt;
 
+            /// <summary>The hand-back the unit is owed, or null. Set when
+            /// a unit fails while it may show a color of ours
+            /// (<see cref="Fail"/>), which is the only way a unit comes to
+            /// owe one, so a unit that owes is asleep and holds no handle.
+            /// Its entry stays on the crash path's record meanwhile.</summary>
+            public SteelSeriesFrame[] Owed;
+
             /// <summary>The open channel, or null. Everything below is of
             /// one open and is reset by the next.</summary>
             public IHidReportChannel Io;
@@ -182,8 +196,8 @@ namespace PadForge.Common.Input.Peripherals
             public bool Recorded;
             public byte[][] RecordedFrames;
 
-            /// <summary>A claim or color report has gone out, so the device
-            /// may show a color of ours.</summary>
+            /// <summary>A claim or color report has gone out, or was tried
+            /// and failed, so the device may show a color of ours.</summary>
             public bool Lit;
             public bool ClaimSent;
 
@@ -493,6 +507,25 @@ namespace PadForge.Common.Input.Peripherals
                     catch { }
                     Close(unit);
                 }
+                // A unit that is owed its hand-back has no handle of the
+                // worker's, and gets it now through a one-shot write, as on
+                // the crash path. Not where SteelSeries GG has the device,
+                // and not from a worker that outlived its Stop into the
+                // next run, whose worker has the collections by then.
+                var successor = _run;
+                bool ownRun = successor == null || ReferenceEquals(successor, run);
+                foreach (var unit in units)
+                {
+                    if (unit.Owed == null) continue;
+                    if (ownRun && !LeftToVendorProgram(new OutputPath(OutputFamily.SteelSeriesUnit, unit.Path)))
+                    {
+                        foreach (var frame in unit.Owed)
+                        {
+                            try { _writeOnce(unit.Path, frame.Buffer, OneShotMs); } catch { }
+                        }
+                    }
+                    ClearOwed(unit);
+                }
                 // A worker that outlived a timed-out Stop can end after the
                 // next Start's worker has scanned and painted. The record
                 // and the list are that worker's by then, and stay.
@@ -550,7 +583,9 @@ namespace PadForge.Common.Input.Peripherals
                     unit.Seen = false;
                     continue;
                 }
-                // The device is gone, so there is nothing to hand back to.
+                // The device is gone, so there is nothing to hand back to,
+                // and nothing owed to it either.
+                ClearOwed(unit);
                 Close(unit);
                 units.RemoveAt(i);
                 changed = true;
@@ -601,11 +636,16 @@ namespace PadForge.Common.Input.Peripherals
                 if (unit.Container == Guid.Empty) Soonest(ref due, unit.ContainerRetryAt);
             }
 
+            var path = new OutputPath(OutputFamily.SteelSeriesUnit, unit.Path);
             if (unit.Asleep)
             {
+                // SteelSeries GG has every device of the family once it
+                // runs, an asleep one too, so what the unit is owed is
+                // dropped unsent.
+                if (unit.Owed != null && LeftToVendorProgram(path)) ClearOwed(unit);
                 if (now >= unit.RetryAt)
                 {
-                    if (Answers(unit))
+                    if (unit.Owed != null ? PayBack(unit) : Answers(unit))
                     {
                         unit.Asleep = false;
                         changed = true;
@@ -623,7 +663,6 @@ namespace PadForge.Common.Input.Peripherals
                 }
             }
 
-            var path = new OutputPath(OutputFamily.SteelSeriesUnit, unit.Path);
             int rgb = 0;
             bool wanted = links.ByPath.ContainsKey(path) && PeripheralOutputs.TryResolveColor(path, out rgb);
             if (!wanted)
@@ -669,6 +708,34 @@ namespace PadForge.Common.Input.Peripherals
             bool answers = io != null && !io.FeatureOnly;
             try { io?.Dispose(); } catch { }
             return answers;
+        }
+
+        /// <summary>The try of an asleep unit that is owed its hand-back:
+        /// the collection is opened for read and write, as a claim opens
+        /// it, and sent the frames. True when all of them went out, which
+        /// settles the debt and says the unit answers again. No gap is
+        /// waited for in front of them: a try comes
+        /// <see cref="RetryMs"/> after the unit's last report at the
+        /// soonest. The gap counts from these frames for whatever follows,
+        /// as after any hand-back (<see cref="Release"/>).</summary>
+        private bool PayBack(Unit unit)
+        {
+            IHidReportChannel io = null;
+            try { io = _open(unit.Path); } catch { }
+            bool sent = io != null && !io.FeatureOnly;
+            if (sent)
+            {
+                // No frame goes out behind one that failed.
+                foreach (var frame in unit.Owed) sent = sent && Send(io, frame);
+                var info = unit.Plan.Info;
+                unit.NextAt = _ticks() + (info.Echoes ? Math.Max(info.GapMs, EchoTimeoutMs) : info.GapMs);
+            }
+            try { io?.Dispose(); } catch { }
+            if (!sent) return false;
+            ClearOwed(unit);
+            PadForge.Engine.SdlDiagLog.WriteLine(
+                $"PERIPHERAL SteelSeries {unit.ProductId:X4} lighting handed back, owed since it failed");
+            return true;
         }
 
         /// <summary>Opens the unit's collection for read and write. False
@@ -809,8 +876,11 @@ namespace PadForge.Common.Input.Peripherals
                 // worker to stop. An entry made after that is read by
                 // nobody, so a worker told to stop sends nothing more.
                 if (run.Stop) return true;
-                if (!Send(unit, frame)) return false;
+                // Said ahead of the write: one that fails may still have
+                // reached the device, and the unit is then owed its
+                // hand-back (Fail).
                 unit.Lit = true;
+                if (!Send(unit, frame)) return false;
                 if (unit.Next == unit.ClaimFrames) unit.PaintAt = now;
                 unit.Next++;
                 if (unit.Next == unit.ClaimFrames)
@@ -966,10 +1036,12 @@ namespace PadForge.Common.Input.Peripherals
             return true;
         }
 
-        private static bool Send(Unit unit, SteelSeriesFrame frame)
+        private static bool Send(Unit unit, SteelSeriesFrame frame) => Send(unit.Io, frame);
+
+        private static bool Send(IHidReportChannel io, SteelSeriesFrame frame)
             => frame.Report == SteelSeriesReport.Output
-                ? unit.Io.WriteOutput(frame.Buffer, WriteTimeoutMs)
-                : unit.Io.SetFeature(frame.Buffer);
+                ? io.WriteOutput(frame.Buffer, WriteTimeoutMs)
+                : io.SetFeature(frame.Buffer);
 
         // ─────────────────────────────────────────────
         //  Hand back, fail, close
@@ -1091,7 +1163,9 @@ namespace PadForge.Common.Input.Peripherals
         /// table is read before the presence: the link pass publishes the
         /// presence first, so a table that shows the path withdrawn is
         /// never paired with a presence older than it
-        /// (HidppBackend.LeftToLogitechProgram).</summary>
+        /// (HidppBackend.LeftToLogitechProgram). No row holds the path of
+        /// a unit listed asleep, so for a unit that is owed its hand-back
+        /// GG alone decides.</summary>
         private static bool LeftToVendorProgram(OutputPath path)
         {
             var links = PeripheralOutputs.Links;
@@ -1110,9 +1184,19 @@ namespace PadForge.Common.Input.Peripherals
         /// and the unit is listed asleep, never taken off the list: it
         /// leaves when its collection leaves the walk. The failed report is
         /// not sent again. The claim stays where the dispatcher put it and
-        /// paints once the unit opens again.</summary>
+        /// paints once the unit opens again.
+        ///
+        /// <para>A unit that a frame went to, or was tried on, may still
+        /// show a color of ours with no channel left to undo it through.
+        /// Where a hand-back would have gone to it had its claim ended
+        /// instead (<see cref="Release"/>: its family has one, and its
+        /// dongle did not last say the mouse is off), it is owed that
+        /// hand-back from here on (<see cref="Unit.Owed"/>), and its
+        /// entry stays on the record.</para></summary>
         private void Fail(Unit unit, long now, string why, ref bool changed, ref bool failed, ref long due)
         {
+            var handBack = unit.Lit && !unit.MouseOff ? unit.Plan.Info.HandBack(unit.Gen3) : SteelSeriesDirectProtocol.NoFrames;
+            if (handBack.Length > 0) unit.Owed = handBack;
             Close(unit);
             unit.Asleep = true;
             unit.RetryAt = now + RetryMs;
@@ -1122,9 +1206,20 @@ namespace PadForge.Common.Input.Peripherals
             PadForge.Engine.SdlDiagLog.WriteLine($"PERIPHERAL SteelSeries {unit.ProductId:X4} {why}, listed asleep");
         }
 
+        /// <summary>Ends what a unit is owed, with no frame, and takes its
+        /// entry off the crash path's record.</summary>
+        private void ClearOwed(Unit unit)
+        {
+            if (unit.Owed == null) return;
+            unit.Owed = null;
+            Unrecord(unit);
+        }
+
         private void Close(Unit unit)
         {
-            Unrecord(unit);
+            // The record keeps the entry of a unit that is owed its
+            // hand-back.
+            if (unit.Owed == null) Unrecord(unit);
             var io = unit.Io;
             unit.Io = null;
             unit.Queue = null;

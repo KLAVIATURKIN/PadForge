@@ -1000,9 +1000,12 @@ namespace PadForge.Tests
         /// <summary>A write that fails closes the unit's channel and lists
         /// the unit asleep. It stays on the list, the host is asked for one
         /// walk, the failed report is not sent again, and the unit is tried
-        /// every five seconds by opening it, which sends nothing. Once it
-        /// opens it is listed awake and the claim that still stands paints
-        /// it. It leaves the list when its collection leaves the walk.</summary>
+        /// every five seconds by opening it. It took a color before it
+        /// failed, so it is owed its hand-back: the frame keeps its place
+        /// on the crash path's record and goes out through the try that
+        /// opens the unit again. Then the unit is listed awake and the
+        /// claim that still stands paints it. It leaves the list when its
+        /// collection leaves the walk.</summary>
         [Fact]
         public void AFailedWrite_ListsTheUnitAsleep_AsksForOneWalk_AndTheStandingClaimPaintsAgain()
         {
@@ -1041,7 +1044,7 @@ namespace PadForge.Tests
             var asleep = Assert.Single(backend.Snapshot.Units);
             Assert.True(asleep.Asleep);
             Assert.Equal(mouse.Path, asleep.Key);
-            Assert.Empty(backend.Recorded);
+            Assert.Equal(mouse.Path + " = 00 22 07", Recorded(backend));
             Assert.Equal((2, 1), (Volatile.Read(ref changes), Volatile.Read(ref asks)));
             // The unit was listed asleep before the walk was asked for.
             Assert.Equal(new[] { "awake", "asleep", "ask" }, order);
@@ -1060,19 +1063,21 @@ namespace PadForge.Tests
             Passes(backend);
             Assert.Equal(2, Opens);
             Assert.True(Assert.Single(backend.Snapshot.Units).Asleep);
+            Assert.Equal(mouse.Path + " = 00 22 07", Recorded(backend));
             Advance(SteelSeriesDirectBackend.RetryMs - 1);
             Passes(backend);
             Assert.Equal(2, Opens);
             Assert.Equal((2, 1), (Volatile.Read(ref changes), Volatile.Read(ref asks)));
 
-            // It opens: listed awake, and painted with the color that rules
-            // now through a new handle. The try itself wrote nothing.
+            // It opens: the try sends the hand-back the unit is owed, and
+            // the unit is listed awake and painted with the color that
+            // rules now through a new handle.
             _opener = null;
             Advance(1);
             Passes(backend);
             Assert.Equal(4, Opens);
             Assert.False(Assert.Single(backend.Snapshot.Units).Asleep);
-            Assert.Empty(Channel(1).Calls);
+            Assert.Equal(new[] { ("out", "00 22 07", t0 + 40 + 2 * SteelSeriesDirectBackend.RetryMs) }, Writes(Channel(1)));
             Assert.True(Channel(1).Disposed);
             Assert.Equal(new[] { ("out", "00 21 07 FF 00 00 FF 00 00 FF 00 00", t0 + 40 + 2 * SteelSeriesDirectBackend.RetryMs) },
                 Writes(Channel(2)));
@@ -1135,10 +1140,12 @@ namespace PadForge.Tests
 
         /// <summary>A hand-back that does not go out is a failed write like
         /// any other: the channel closes, the unit is listed asleep, and the
-        /// host is asked for one walk. The unit is then tried by opening it,
-        /// which sends nothing.</summary>
+        /// host is asked for one walk. The hand-back is still owed. It
+        /// keeps its place on the crash path's record, and the try that
+        /// opens the unit again sends it before the unit is listed awake,
+        /// though nobody lights the unit any more. Nothing follows it.</summary>
         [Fact]
-        public void AHandBackThatFails_ListsTheUnitAsleep_AndAsksForOneWalk()
+        public void AHandBackThatFails_ListsTheUnitAsleep_AndGoesOutWhenTheUnitOpensAgain()
         {
             var mouse = Control(0x1870, 3);
             int asks = 0;
@@ -1159,17 +1166,485 @@ namespace PadForge.Tests
             Assert.Single(Writes(Channel()));
             Assert.True(Assert.Single(backend.Snapshot.Units).Asleep);
             Assert.Equal(1, Volatile.Read(ref asks));
-            Assert.Empty(backend.Recorded);
+            Assert.Equal(mouse.Path + " = 00 22 07", Recorded(backend));
 
-            // Nobody lights it: it is opened again after the interval, with
-            // nothing written, and listed awake.
+            // Nobody lights it. It is opened again after the interval and
+            // sent the hand-back, and only then listed awake.
+            string diag = DiagMark.Write();
+            Advance(SteelSeriesDirectBackend.RetryMs - 1);
+            Passes(backend);
+            Assert.Equal(1, Opens);
+            Advance(1);
+            long at = Tick();
+            Passes(backend);
+            Assert.Equal(2, Opens);
+            Assert.Equal(new[] { ("out", "00 22 07", at) }, Writes(Channel()));
+            Assert.True(Channel().Disposed);
+            Assert.False(Assert.Single(backend.Snapshot.Units).Asleep);
+            Assert.Empty(backend.Recorded);
+            Assert.Equal(1, Volatile.Read(ref asks));
+            Assert.Equal(1, DiagMark.LinesSince(diag, "lighting handed back, owed since it failed"));
+
+            // Awake and owed nothing, it is left alone.
+            Advance(3 * SteelSeriesDirectBackend.RetryMs);
+            Passes(backend);
+            Assert.Equal(2, Opens);
+            backend.Stop();
+            Assert.Empty(_oneShots);
+        }
+
+        // ── A hand-back that is owed ──
+
+        /// <summary>A Rival 3 Gen 2 that took a color and then failed its
+        /// hand-back: listed asleep, lit by nobody, and owed the frame that
+        /// returns it to its own lighting.</summary>
+        private SteelSeriesDirectBackend AsleepAndOwed(HidCollectionInfo mouse)
+        {
+            var backend = Started(mouse);
+            Link(PathOf(mouse));
+            Light(0x123456);
+            Passes(backend);
+            Channel().FailWrites = true;
+            Unlight();
+            Passes(backend);
+            Assert.True(Assert.Single(backend.Snapshot.Units).Asleep);
+            Assert.Equal(mouse.Path + " = 00 22 07", Recorded(backend));
+            Assert.Equal(1, Opens);
+            // The host links no path to a unit listed asleep.
+            PeripheralOutputs.PublishLinks(LinkTable.Empty);
+            return backend;
+        }
+
+        /// <summary>A handle that came with no access right, over a channel
+        /// that would take a write all the same, so a test sees whether
+        /// one was tried.</summary>
+        private sealed class NoAccessChannel : IHidReportChannel
+        {
+            private readonly FakeReportChannel _inner;
+            public NoAccessChannel(FakeReportChannel inner) => _inner = inner;
+            public string Path => _inner.Path;
+            public bool FeatureOnly => true;
+            public int InputReportLength => _inner.InputReportLength;
+            public int OutputReportLength => _inner.OutputReportLength;
+            public int FeatureReportLength => _inner.FeatureReportLength;
+            public bool SetFeature(byte[] report) => _inner.SetFeature(report);
+            public bool GetFeature(byte reportId, byte[] buffer) => _inner.GetFeature(reportId, buffer);
+            public bool WriteOutput(byte[] report, int timeoutMs = HidReportChannel.WriteTimeoutMs) => _inner.WriteOutput(report, timeoutMs);
+            public int ReadInput(byte[] buffer, int timeoutMs) => _inner.ReadInput(buffer, timeoutMs);
+            public void Dispose() => _inner.Dispose();
+        }
+
+        /// <summary>An owed hand-back that does not go out leaves the unit
+        /// asleep and owed: a collection that does not open, one that opens
+        /// with no access right only, which is not written to, and one
+        /// whose write fails. No walk is asked for again. The try an
+        /// interval later sends the frame.</summary>
+        [Theory]
+        [InlineData("closed")]
+        [InlineData("held")]
+        [InlineData("write")]
+        public void AnOwedHandBackThatDoesNotGoOut_StaysOwed(string why)
+        {
+            var mouse = Control(0x1870, 3);
+            int asks = 0;
+            using var backend = AsleepAndOwed(mouse);
+            backend.RescanRequested += () => Interlocked.Increment(ref asks);
+            _opener = why switch
+            {
+                "closed" => _ => null,
+                "held" => path => new NoAccessChannel(NewChannel(path)),
+                _ => path =>
+                {
+                    var channel = NewChannel(path);
+                    channel.FailWrites = true;
+                    return channel;
+                },
+            };
             Advance(SteelSeriesDirectBackend.RetryMs);
             Passes(backend);
             Assert.Equal(2, Opens);
-            Assert.False(Assert.Single(backend.Snapshot.Units).Asleep);
-            Assert.Empty(Channel().Calls);
+            Assert.True(Assert.Single(backend.Snapshot.Units).Asleep);
+            Assert.Equal(mouse.Path + " = 00 22 07", Recorded(backend));
+            Assert.Equal(0, Volatile.Read(ref asks));
+            if (why != "closed")
+            {
+                Assert.Empty(Writes(Channel()));
+                Assert.True(Channel().Disposed);
+            }
+
+            // Not before a whole interval has passed, and then it goes out.
+            _opener = null;
+            Advance(SteelSeriesDirectBackend.RetryMs - 1);
+            Passes(backend);
+            Assert.Equal(2, Opens);
+            Advance(1);
+            Passes(backend);
+            Assert.Equal(3, Opens);
+            Assert.Equal("out 00 22 07", Sent(Channel()));
             Assert.True(Channel().Disposed);
-            Assert.Equal(1, Volatile.Read(ref asks));
+            Assert.False(Assert.Single(backend.Snapshot.Units).Asleep);
+            Assert.Empty(backend.Recorded);
+        }
+
+        /// <summary>A unit whose very first frame fails is owed its
+        /// hand-back all the same: a write that fails may still have
+        /// reached the device. The try that opens it again sends the frame,
+        /// and the claim that still stands paints it after.</summary>
+        [Fact]
+        public void AFirstFrameThatFails_IsOwedItsHandBack()
+        {
+            var mouse = Control(0x1870, 3);
+            _script = channel => channel.FailWrites = true;
+            using var backend = Started(mouse);
+            Link(PathOf(mouse));
+            Light(0x123456);
+            Passes(backend);
+            Assert.True(Assert.Single(backend.Snapshot.Units).Asleep);
+            Assert.Empty(Writes(Channel()));
+            Assert.Equal(mouse.Path + " = 00 22 07", Recorded(backend));
+
+            _script = _ => { };
+            Advance(SteelSeriesDirectBackend.RetryMs);
+            Passes(backend);
+            Assert.Equal(3, Opens);
+            Assert.Equal("out 00 22 07", Sent(Channel(1)));
+            Assert.Equal("out 00 21 07 12 34 56 12 34 56 12 34 56", Sent(Channel(2)));
+        }
+
+        /// <summary>A unit that failed before any frame went to it is owed
+        /// nothing. A dongle whose input report cannot be read is not
+        /// written to, so nothing of ours is on its mouse.</summary>
+        [Fact]
+        public void AUnitThatFailedBeforeItsFirstFrame_IsOwedNothing()
+        {
+            var dongle = Control(0x1852, 3, feature: 513);
+            _opener = path => new ReadFailingChannel(NewChannel(path), () => true);
+            using var backend = Started(dongle);
+            Link(PathOf(dongle));
+            Light(0x123456);
+            Passes(backend);
+            Assert.True(Assert.Single(backend.Snapshot.Units).Asleep);
+            Assert.Empty(Writes(Channel()));
+            Assert.Empty(backend.Recorded);
+            backend.Stop();
+            Assert.Empty(_oneShots);
+        }
+
+        /// <summary>A dongle that fails after it last said its mouse is off
+        /// is owed nothing, as it would have been handed nothing had its
+        /// claim ended instead: the mouse wakes into its own lighting.</summary>
+        [Fact]
+        public void ADongleThatFailsAfterItSaidItsMouseIsOff_IsOwedNothing()
+        {
+            var dongle = Control(0x1852, 3, feature: 513);
+            var inbox = DongleWithInbox();
+            int failing = 0;
+            _opener = path => new ReadFailingChannel(NewChannel(path), () => Volatile.Read(ref failing) == 1);
+            using var backend = Started(dongle);
+            Link(PathOf(dongle));
+            Light(0x123456);
+            Passes(backend);
+            Assert.Single(Writes(Channel()));
+            inbox.Add(0x00, 0x40, 0xFF);
+            Passes(backend);
+            Assert.Empty(backend.Recorded);
+
+            // Its input report cannot be read by the time the color is due
+            // again.
+            Volatile.Write(ref failing, 1);
+            Advance(SteelSeriesDirectBackend.QuietMs);
+            Passes(backend);
+            Assert.True(Assert.Single(backend.Snapshot.Units).Asleep);
+            Assert.Single(Writes(Channel()));
+            Assert.Empty(backend.Recorded);
+            backend.Stop();
+            Assert.Empty(_oneShots);
+        }
+
+        /// <summary>The family's gap holds after an owed hand-back as after
+        /// any other: the color that follows it waits the gap out.</summary>
+        [Fact]
+        public void TheGapHoldsAfterAnOwedHandBack()
+        {
+            var aerox = Control(0x1836, 3, feature: 515);
+            _script = channel => channel.FailWrites = true;
+            using var backend = Started(aerox);
+            Link(PathOf(aerox));
+            Light(0x123456);
+            Passes(backend);
+            Assert.Equal(aerox.Path + " = 00 22 07", Recorded(backend));
+
+            _script = _ => { };
+            Advance(SteelSeriesDirectBackend.RetryMs);
+            long at = Tick();
+            Passes(backend);
+            Assert.Equal(new[] { ("out", "00 22 07", at) }, Writes(Channel(1)));
+            Assert.Equal(3, Opens);
+            Advance(15);
+            Passes(backend);
+            Assert.Empty(Writes(Channel(2)));
+            Advance(1);
+            Passes(backend);
+            Assert.Equal(new[] { ("out", "00 21 01 12 34 56", at + 16) }, Writes(Channel(2)));
+        }
+
+        /// <summary>A dongle handed back what it is owed is sent nothing
+        /// before the limit of the answer to that frame, as after any
+        /// hand-back of its family.</summary>
+        [Fact]
+        public void ADongleHandedBackWhatItIsOwed_IsSentNothingBeforeTheAnswersLimit()
+        {
+            var dongle = Control(0x1852, 3, feature: 513);
+            int failing = 0;
+            _opener = path => new ReadFailingChannel(NewChannel(path), () => Volatile.Read(ref failing) == 1);
+            using var backend = Started(dongle);
+            Link(PathOf(dongle));
+            Light(0x123456);
+            Passes(backend);
+            Volatile.Write(ref failing, 1);
+            Passes(backend);
+            Assert.True(Assert.Single(backend.Snapshot.Units).Asleep);
+            Assert.Equal(dongle.Path + " = 00 62 FF", Recorded(backend));
+
+            Volatile.Write(ref failing, 0);
+            Advance(SteelSeriesDirectBackend.RetryMs);
+            long at = Tick();
+            Passes(backend);
+            Assert.Equal(new[] { ("out", "00 62 FF", at) }, Writes(Channel(1)));
+            Advance(SteelSeriesDirectBackend.EchoTimeoutMs - 1);
+            Passes(backend);
+            Assert.Empty(Writes(Channel(2)));
+            Advance(1);
+            Passes(backend);
+            Assert.Equal(("out", "00 61 01 00 12 34 56", at + SteelSeriesDirectBackend.EchoTimeoutMs), Writes(Channel(2))[0]);
+        }
+
+        /// <summary>SteelSeries GG has every device of the family once it
+        /// runs, an asleep one too. What a unit is owed is dropped unsent:
+        /// off the record in the pass that sees GG, and the try after GG
+        /// has quit opens the unit and writes nothing.</summary>
+        [Fact]
+        public void WhenSteelSeriesGGStarts_WhatAUnitIsOwedIsDroppedUnsent()
+        {
+            var mouse = Control(0x1870, 3);
+            using var backend = AsleepAndOwed(mouse);
+            PeripheralOutputs.Presence = GGRuns;
+            Passes(backend);
+            Assert.Empty(backend.Recorded);
+            Assert.Equal(1, Opens);
+
+            PeripheralOutputs.Presence = PeripheralPresence.None;
+            Advance(SteelSeriesDirectBackend.RetryMs);
+            Passes(backend);
+            Assert.Equal(2, Opens);
+            Assert.Empty(Channel().Calls);
+            Assert.False(Assert.Single(backend.Snapshot.Units).Asleep);
+            backend.Stop();
+            Assert.Empty(_oneShots);
+        }
+
+        /// <summary>What a unit is owed ends when its collection leaves the
+        /// walk: the device is gone, and nothing is written to it, by a
+        /// stop either.</summary>
+        [Fact]
+        public void WhatAUnitIsOwed_EndsWhenItsCollectionLeavesTheWalk()
+        {
+            var mouse = Control(0x1870, 3);
+            using var backend = AsleepAndOwed(mouse);
+            backend.Rescan(Array.Empty<HidCollectionInfo>());
+            Passes(backend);
+            Assert.Empty(backend.Snapshot.Units);
+            Assert.Empty(backend.Recorded);
+            backend.Stop();
+            Assert.Empty(_oneShots);
+            Assert.Equal(1, Opens);
+        }
+
+        /// <summary>A stop that finds a unit asleep and owed has no handle
+        /// on it, and sends the frame through a one-shot write, as the
+        /// crash path would. The record is empty after it.</summary>
+        [Fact]
+        public void Stop_SendsWhatIsOwedThroughAOneShotWrite()
+        {
+            var mouse = Control(0x1870, 3);
+            using var backend = AsleepAndOwed(mouse);
+            backend.Stop();
+            Assert.False(backend.WorkerAlive);
+            Assert.Equal(new[] { (mouse.Path, "00 22 07", SteelSeriesDirectBackend.OneShotMs) }, _oneShots);
+            Assert.Empty(backend.Recorded);
+            Assert.Equal(1, Opens);
+        }
+
+        /// <summary>Two Rival 3 Gen 2 mice under one worker, the first
+        /// asleep and owed since its second color failed, the second lit.
+        /// The worker is held inside its next write to the second.</summary>
+        private SteelSeriesDirectBackend OneOwedAndTheWorkerHeld(HidCollectionInfo owed, HidCollectionInfo lit, HeldWorker held)
+        {
+            _script = channel =>
+            {
+                if (channel.Path == lit.Path) channel.Ticks = () => held.Stamp(Tick);
+            };
+            var backend = Started(owed, lit);
+            Light(0x123456);
+            Link(PathOf(owed), PathOf(lit));
+            Passes(backend);
+            lock (_channels) _channels.Single(c => c.Path == owed.Path).FailWrites = true;
+            Advance(33);
+            Light(0xFF0000);
+            Passes(backend);
+            Assert.True(backend.Snapshot.Units.Single(u => u.Key == owed.Path).Asleep);
+            Assert.Equal(owed.Path + " = 00 22 07 | " + lit.Path + " = 00 22 07", Recorded(backend));
+            Advance(33);
+            Passes(backend);
+
+            held.HoldTheNextCall();
+            Light(0x00FF00);
+            Assert.True(held.Entered.Wait(30000), "the worker is inside a write");
+            return backend;
+        }
+
+        /// <summary>The stopping worker sends nothing owed while SteelSeries
+        /// GG runs. GG starts and the engine stops while the worker is held
+        /// inside a write to another mouse, so no pass of its own drops the
+        /// debt first.</summary>
+        [Fact]
+        public void TheStoppingWorker_SendsNothingOwed_WhileSteelSeriesGGRuns()
+        {
+            var owed = Control(0x1870, 3);
+            var lit = Control(0x1870, 3, tag: "b");
+            using var held = new HeldWorker();
+            using var backend = OneOwedAndTheWorkerHeld(owed, lit, held);
+
+            PeripheralOutputs.Presence = GGRuns;
+            PeripheralOutputs.PublishLinks(LinkTable.Empty);
+            backend.SignalStop();
+            held.LetGo();
+            Assert.True(SpinWait.SpinUntil(() => !backend.WorkerAlive, 30000), "the worker stopped");
+            Assert.Empty(_oneShots);
+            Assert.Empty(backend.Recorded);
+        }
+
+        /// <summary>The crash path hands back what is owed with the rest of
+        /// its record: a worker held inside a write cannot, so each frame
+        /// goes out through a one-shot write of the crash path's own.</summary>
+        [Fact]
+        public void TheCrashPath_HandsBackWhatIsOwed_WhenTheWorkerIsHeld()
+        {
+            var owed = Control(0x1870, 3);
+            var lit = Control(0x1870, 3, tag: "b");
+            using var held = new HeldWorker();
+            using var backend = OneOwedAndTheWorkerHeld(owed, lit, held);
+
+            backend.ReleaseClaimedNow(Tick() + 20);
+            Assert.Equal(new[] { (owed.Path, "00 22 07", 20), (lit.Path, "00 22 07", 20) }, _oneShots);
+            Assert.Empty(backend.Recorded);
+
+            held.LetGo();
+            Assert.True(SpinWait.SpinUntil(() => !backend.WorkerAlive, 30000), "the worker stopped");
+        }
+
+        /// <summary>A worker that outlives a Stop that gave up on it still
+        /// pays what it is owed when it ends, for as long as no run
+        /// follows: nobody else has the collections.</summary>
+        [Fact]
+        public void AWorkerThatOutlivesItsStop_PaysWhatItIsOwed_WhileNoRunFollows()
+        {
+            var owed = Control(0x1870, 3);
+            var lit = Control(0x1870, 3, tag: "b");
+            using var held = new HeldWorker();
+            _script = channel =>
+            {
+                if (channel.Path == lit.Path) channel.Ticks = () => held.Stamp(Tick);
+            };
+            var shots = new ConcurrentQueue<string>();
+            using var backend = new SteelSeriesDirectBackend(Open, path => _containerOf(path), Tick,
+                (path, _, _) =>
+                {
+                    shots.Enqueue(path);
+                    return true;
+                },
+                1, 5, predecessorJoinMs: 1, stopJoinMs: 1);
+            backend.Start();
+            backend.Rescan(new[] { owed, lit });
+            Passes(backend);
+            Light(0x123456);
+            Link(PathOf(owed), PathOf(lit));
+            Passes(backend);
+            lock (_channels) _channels.Single(c => c.Path == owed.Path).FailWrites = true;
+            Advance(33);
+            Light(0xFF0000);
+            Passes(backend);
+            Assert.True(backend.Snapshot.Units.Single(u => u.Key == owed.Path).Asleep);
+            var worker = WorkerThread(backend);
+
+            held.HoldTheNextCall();
+            backend.Stop();
+            Assert.True(held.Entered.Wait(30000), "the stopping worker is inside its hand-back");
+            Assert.Empty(shots);
+            held.LetGo();
+            Assert.True(worker.Join(30000), "the worker ended");
+            Assert.Equal(new[] { owed.Path }, shots);
+            Assert.Empty(backend.Recorded);
+        }
+
+        /// <summary>A worker that outlives a Stop that gave up on it pays
+        /// nothing it is owed once the next run has begun. That run's
+        /// worker has the collections by then, has painted the mouse, and
+        /// keeps its own entry on the record.</summary>
+        [Fact]
+        public void AWorkerThatOutlivesItsStop_PaysNothingOwed_OnceTheNextRunHasBegun()
+        {
+            var owed = Control(0x1870, 3);
+            var lit = Control(0x1870, 3, tag: "b");
+            using var held = new HeldWorker();
+            int litOpens = 0;
+            // The first handle on the second mouse alone holds the worker
+            // that writes to it.
+            _script = channel =>
+            {
+                if (channel.Path == lit.Path && Interlocked.Increment(ref litOpens) == 1) channel.Ticks = () => held.Stamp(Tick);
+            };
+            var shots = new ConcurrentQueue<string>();
+            using var backend = new SteelSeriesDirectBackend(Open, path => _containerOf(path), Tick,
+                (path, _, _) =>
+                {
+                    shots.Enqueue(path);
+                    return true;
+                },
+                1, 5, predecessorJoinMs: 1, stopJoinMs: 1);
+            backend.Start();
+            backend.Rescan(new[] { owed, lit });
+            Passes(backend);
+            Light(0x123456);
+            Link(PathOf(owed), PathOf(lit));
+            Passes(backend);
+            lock (_channels) _channels.Single(c => c.Path == owed.Path).FailWrites = true;
+            Advance(33);
+            Light(0xFF0000);
+            Passes(backend);
+            Assert.True(backend.Snapshot.Units.Single(u => u.Key == owed.Path).Asleep);
+            var first = WorkerThread(backend);
+
+            // Stop gives up on the worker, held inside its hand-back to the
+            // second mouse.
+            held.HoldTheNextCall();
+            backend.Stop();
+            Assert.True(held.Entered.Wait(30000), "the stopping worker is inside its hand-back");
+
+            // The next run begins, and paints both mice.
+            backend.Start();
+            backend.Rescan(new[] { owed, lit });
+            Passes(backend);
+            var second = WorkerThread(backend);
+            Assert.Contains(backend.Recorded, entry => entry.Path == owed.Path);
+
+            held.LetGo();
+            Assert.True(first.Join(30000), "the first worker ended");
+            Assert.Empty(shots);
+            Assert.Equal(owed.Path + " = 00 22 07 | " + lit.Path + " = 00 22 07", Recorded(backend));
+
+            backend.Dispose();
+            Assert.True(second.Join(30000), "the second worker ended");
         }
 
         // ── Dongles ──
@@ -1514,7 +1989,8 @@ namespace PadForge.Tests
 
         /// <summary>A dongle whose input report cannot be read is a unit
         /// that does not answer: its channel closes and it is listed
-        /// asleep.</summary>
+        /// asleep. It took a color before that, and never said its mouse is
+        /// off, so it is owed its hand-back.</summary>
         [Fact]
         public void ADongleThatCannotBeRead_IsListedAsleep()
         {
@@ -1533,12 +2009,12 @@ namespace PadForge.Tests
             Passes(backend);
             Assert.True(Assert.Single(backend.Snapshot.Units).Asleep);
             Assert.True(Channel().Disposed);
-            Assert.Empty(backend.Recorded);
+            Assert.Equal(dongle.Path + " = 00 62 FF", Recorded(backend));
         }
 
         /// <summary>A dongle whose owed answer cannot be read as its claim
         /// ends is not written to, and is listed asleep like any unit that
-        /// failed.</summary>
+        /// failed. The hand-back it did not get is still owed.</summary>
         [Fact]
         public void ADongleThatCannotBeRead_AsItsClaimEnds_IsListedAsleep_AndAsksForOneWalk()
         {
@@ -1566,7 +2042,7 @@ namespace PadForge.Tests
             Assert.True(Channel().Disposed);
             Assert.True(Assert.Single(backend.Snapshot.Units).Asleep);
             Assert.Equal(1, Volatile.Read(ref asks));
-            Assert.Empty(backend.Recorded);
+            Assert.Equal(dongle.Path + " = 00 62 FF", Recorded(backend));
         }
 
         /// <summary>The mouse-off answer is 40 FF. A report that starts 40
