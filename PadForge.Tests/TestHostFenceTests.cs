@@ -124,7 +124,7 @@ namespace PadForge.Tests
     /// The test process leaves the PC it runs on as it found it: its desktop,
     /// its clipboard, its devices, its radio, its drivers, its certificate
     /// stores, its logon task, its sound, the programs other vendors run on
-    /// it, and the network beyond it. Sixteen fences hold that
+    /// it, and the network beyond it. Eighteen fences hold that
     /// (TestHostFences.cs), beside the ones MachineOffLimitsTests,
     /// HidHideOffLimitsTests and their neighbors pin. The listener gate's
     /// tests are in TestHostListenerTests.cs, and the workshop library's own
@@ -182,6 +182,8 @@ namespace PadForge.Tests
         private const string SteamHttpFile = "PadForge.SteamWorkshop/Api/SteamHttp.cs";
         private const string SteamClientFile = "PadForge.SteamWorkshop/Api/SteamWorkshopClient.cs";
         private const string WorkshopDialog = "PadForge.App/Views/WorkshopBrowseDialog.xaml.cs";
+        private const string ControlPipe = Services + "ExternalControlService.cs";
+        private const string Dsu = Services + "DsuMotionServer.cs";
 
         private const string RefusesHost = "if (PadForge.Engine.Common.OutboundNetworkGate.RefusesHost(host))";
         private const string VendorRefuses = "if (PadForge.Engine.Common.VendorProgramGate.Refuses";
@@ -206,6 +208,8 @@ namespace PadForge.Tests
             (VendorGate, "VendorProgramGate"),
             (Outbound, "OutboundNetworkGate"),
             (SteamHttpFile, "SteamHttp"),
+            (ControlPipe, "ExternalControlService"),
+            (Dsu, "DsuMotionServer"),
         };
 
         private const string Flag = "OffLimitsForTest";
@@ -238,6 +242,8 @@ namespace PadForge.Tests
             Assert.True(VendorProgramGate.Refuses);
             Assert.True(OutboundNetworkGate.OffLimitsForTest);
             Assert.True(SteamHttp.OffLimitsForTest);
+            Assert.True(ExternalControlService.OffLimitsForTest);
+            Assert.True(DsuMotionServer.OffLimitsForTest);
         }
 
         /// <summary>Each flag is a plain field that starts false, and no
@@ -398,6 +404,9 @@ namespace PadForge.Tests
             new object[] { Outbound, "public static bool RefusesHost(string host)", "OffLimitsForTest && !IsLoopbackHost(host);" },
             new object[] { Outbound, "public static HttpClient NewHttpClient()", "OffLimitsForTest ? new HttpClient(new LoopbackOnly()) : new HttpClient();" },
 
+            // The pipe a running PadForge serves.
+            new object[] { ControlPipe, "public void Start()", "if (OffLimitsForTest && ServesTheAppsOwnPipe) return;" },
+
             // Steam.
             new object[] { SteamHttpFile, "private static HttpClient CreateClient()", "var http = OffLimitsForTest ? new HttpClient(new SendsNothing()) : new HttpClient();" },
             new object[] { SteamClientFile, "public async Task EnsureLoggedOnAsync(CancellationToken ct = default)", "if (SteamHttp.OffLimitsForTest)" },
@@ -438,6 +447,9 @@ namespace PadForge.Tests
             new object[] { LinkServerFile, "public async Task SendAsync(byte[] dg, CancellationToken ct)", "if (PadForge.Engine.Common.OutboundNetworkGate.Refuses(ep.Address)) return;", "_sock.SendToAsync(" },
             new object[] { LinkServerFile, "private bool SendSealed(LinkPeerConnection c, byte[] dg)", "if (ep != null && PadForge.Engine.Common.OutboundNetworkGate.Refuses(ep.Address)) return false;", "sock.SendTo(dg, ep)" },
             new object[] { SteamClientFile, "public async Task EnsureLoggedOnAsync(CancellationToken ct = default)", "if (SteamHttp.OffLimitsForTest)", "_client.Connect()" },
+
+            // The port every DSU client polls.
+            new object[] { Dsu, "public bool Start(int port = DefaultPort)", "if (OffLimitsForTest && port == DefaultPort) return false;", "new Socket(" },
         };
 
         /// <summary>Where a member does other work first, its fence is
@@ -478,6 +490,8 @@ namespace PadForge.Tests
                 (Services + "UpdateService.cs", 1),
                 (Services + "WebControllerServer.cs", 1),
                 (WebTls, 1)), FenceSource.Census(@"\bProcess\.Start\("));
+            // And none is made to be started by its own Start().
+            Assert.Empty(FenceSource.Census(Creates("Process")));
 
             // The four that start a tool do it inside the member that asks.
             Assert.Contains("Process.Start(psi)", FenceSource.Body(OffLimitsSource.Read(Startup), "private static int RunSchtasks(string arguments)"), StringComparison.Ordinal);
@@ -503,6 +517,27 @@ namespace PadForge.Tests
             // An import and its one call: two mentions a file for each.
             Assert.Equal(imports.ToDictionary(p => p.Key, p => p.Value * 2),
                 FenceSource.Census(@"\b(SendInputNative|SetCursorPosNative|SetWindowsHookExNative)\("));
+        }
+
+        /// <summary>A pipe is served in one place and connected to in two.
+        /// The app's own startup forwards a command to the instance that
+        /// already runs, which no test runs. The control service asks its
+        /// fence as it starts, and both its server and the nudge its Stop
+        /// sends exist only once it has started.</summary>
+        [Fact]
+        public void EveryPipe_IsOnTheList()
+        {
+            Assert.Equal(Map((ControlPipe, 1)), FenceSource.Census(@"NamedPipeServerStreamAcl\.Create\(|" + Creates("NamedPipeServerStream")));
+            Assert.Equal(Map(("PadForge.App/App.xaml.cs", 1), (ControlPipe, 1)), FenceSource.Census(Creates("NamedPipeClientStream")));
+
+            string service = OffLimitsSource.Read(ControlPipe);
+            Assert.StartsWith("if (_cts == null) return;", FenceSource.FirstStatement(service, "public void Stop()"), StringComparison.Ordinal);
+            Assert.Single(Regex.Matches(service, @"\b_cts = new CancellationTokenSource\(\);"));
+            Assert.Contains("_cts = new CancellationTokenSource();", FenceSource.Body(service, "public void Start()"), StringComparison.Ordinal);
+            Assert.Single(OffLimitsSource.Calls(service, "CreateServer(_pipeName)"));
+            Assert.Contains("CreateServer(_pipeName)", FenceSource.Body(service, "private async Task AcceptLoop(CancellationToken token)"), StringComparison.Ordinal);
+            Assert.Single(OffLimitsSource.Calls(service, "AcceptLoop(token)"));
+            Assert.Contains("AcceptLoop(token)", FenceSource.Body(service, "public void Start()"), StringComparison.Ordinal);
         }
 
         /// <summary>The files that import CreateFile. A new one opens
@@ -770,6 +805,55 @@ namespace PadForge.Tests
             Assert.Contains(il[7], new byte[] { 0x2C, 0x2D });
             int ret = il[7] == 0x2C ? 9 : 9 + il[8];
             Assert.Equal(0x2A, il[ret]);
+        }
+
+        /// <summary>A control service left on the app's own pipe name starts
+        /// nothing, so the test host neither answers a command meant for a
+        /// running PadForge nor writes to its pipe. One on a name of a
+        /// test's own still runs.</summary>
+        [Fact]
+        public void TheAppsOwnControlPipe_IsNeitherServedNorWrittenTo()
+        {
+            FenceSource.AsksFirst(ControlPipe, "public void Start()", "if (OffLimitsForTest && ServesTheAppsOwnPipe) return;");
+            Assert.Contains("private bool ServesTheAppsOwnPipe => string.Equals(_pipeName, PipeName, StringComparison.OrdinalIgnoreCase);",
+                OffLimitsSource.Read(ControlPipe), StringComparison.Ordinal);
+            Assert.Equal("PadForge.Control", ExternalControlService.PipeName);
+            EveryFence_IsSetInTheTestHost();
+
+            foreach (string name in new[] { null, "", ExternalControlService.PipeName, "padforge.control" })
+            {
+                using var theApps = new ExternalControlService(_ => "ok", name);
+                theApps.Start();
+                Assert.False(theApps.IsRunning);
+                theApps.Stop();
+            }
+
+            using var aTests = new ExternalControlService(_ => "ok", "PadForge.Tests.Fence." + Guid.NewGuid().ToString("N"));
+            aTests.Start();
+            Assert.True(aTests.IsRunning);
+            aTests.Stop();
+            Assert.False(aTests.IsRunning);
+        }
+
+        /// <summary>A DSU server left on the default port binds nothing, so
+        /// no emulator on the PC finds the test host where it looks for a
+        /// running PadForge. One on a port of a test's own still starts, on
+        /// loopback as in the app.</summary>
+        [Fact]
+        public void TheDsuPort_IsNotBound()
+        {
+            FenceSource.AsksBefore(Dsu, "public bool Start(int port = DefaultPort)", "if (OffLimitsForTest && port == DefaultPort) return false;", "new Socket(");
+            Assert.Equal(26760, DsuMotionServer.DefaultPort);
+            Assert.Contains("_socket.Bind(new IPEndPoint(IPAddress.Loopback, port));", OffLimitsSource.Read(Dsu), StringComparison.Ordinal);
+            EveryFence_IsSetInTheTestHost();
+
+            using var theDefault = new DsuMotionServer();
+            Assert.False(theDefault.Start());
+            Assert.False(theDefault.Start(DsuMotionServer.DefaultPort));
+
+            using var aTests = new DsuMotionServer();
+            Assert.True(aTests.Start(0));
+            aTests.Stop();
         }
 
         // ── The programs other vendors run on the PC ──

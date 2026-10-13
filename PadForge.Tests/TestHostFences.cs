@@ -152,6 +152,22 @@ namespace PadForge.Tests
         internal static void Set() => SteamHttp.OffLimitsForTest = true;
     }
 
+    /// <summary>No pipe is served or written to under the name a running
+    /// PadForge serves.</summary>
+    internal static class ControlPipeOffLimits
+    {
+        [ModuleInitializer]
+        internal static void Set() => ExternalControlService.OffLimitsForTest = true;
+    }
+
+    /// <summary>No DSU server is started on the port every DSU client on
+    /// the PC polls.</summary>
+    internal static class DsuPortOffLimits
+    {
+        [ModuleInitializer]
+        internal static void Set() => DsuMotionServer.OffLimitsForTest = true;
+    }
+
     /// <summary>The GameInput service is left as it is. HIDMaestro's context
     /// asks sc.exe about the service as it is built, and where the service
     /// is stopped it sets it to start with Windows and starts it. The

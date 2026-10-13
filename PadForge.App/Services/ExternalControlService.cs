@@ -37,6 +37,19 @@ namespace PadForge.Services
         /// <summary>Pipe name a client connects to. Local machine only.</summary>
         public const string PipeName = "PadForge.Control";
 
+        /// <summary>Set by the test assembly for the life of its process
+        /// (PadForge.Tests ControlPipeOffLimits), never by the app. The name
+        /// above is the one a running PadForge on the same PC serves and its
+        /// launchers write to. While this is set, a service on that name
+        /// starts no server and connects to none, as a service that was
+        /// never started. A service on a name of a test's own runs as
+        /// before. False in production, where every path is as it was.</summary>
+        internal static bool OffLimitsForTest;
+
+        /// <summary>Whether this service is on the app's own pipe. Windows
+        /// compares pipe names without regard to case.</summary>
+        private bool ServesTheAppsOwnPipe => string.Equals(_pipeName, PipeName, StringComparison.OrdinalIgnoreCase);
+
         private readonly Func<string, string> _executor;
         private readonly string _pipeName;
         private CancellationTokenSource _cts;
@@ -51,7 +64,8 @@ namespace PadForge.Services
         /// served the production name would be answered by (or would collide
         /// with) a running PadForge on the same machine: observed live, where
         /// a test client reached the real app's server and got the real app's
-        /// reply. Tests pass a unique name.</param>
+        /// reply. Tests pass a unique name, and the test host starts no
+        /// service on the production one (OffLimitsForTest).</param>
         public ExternalControlService(Func<string, string> executor, string pipeName = null)
         {
             _executor = executor ?? throw new ArgumentNullException(nameof(executor));
@@ -64,6 +78,9 @@ namespace PadForge.Services
 
         public void Start()
         {
+            // The test host serves no pipe under the app's own name. The loop
+            // never starts there, so Stop finds nothing to nudge.
+            if (OffLimitsForTest && ServesTheAppsOwnPipe) return;
             if (_cts != null) return; // Already started.
             _cts = new CancellationTokenSource();
             var token = _cts.Token;

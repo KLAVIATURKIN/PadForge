@@ -98,13 +98,27 @@ namespace PadForge.Services
         //  Lifecycle
         // ─────────────────────────────────────────────
 
+        /// <summary>The port every DSU client polls unless it is told
+        /// another, and the default here.</summary>
+        internal const int DefaultPort = 26760;
+
+        /// <summary>Set by the test assembly for the life of its process
+        /// (PadForge.Tests DsuPortOffLimits), never by the app. An emulator
+        /// on the same PC polls the default port, and a running PadForge
+        /// serves it. While this is set, a start on that port binds nothing
+        /// and answers false, as when the port is taken. A test starts its
+        /// server on a port of its own. False in production, where every
+        /// path is as it was.</summary>
+        internal static bool OffLimitsForTest;
+
         /// <summary>
         /// Starts the DSU server on the specified port.
         /// </summary>
-        public bool Start(int port = 26760)
+        public bool Start(int port = DefaultPort)
         {
             if (_running)
                 return true;
+            if (OffLimitsForTest && port == DefaultPort) return false;
 
             _port = port;
             _serverId = (uint)Environment.TickCount;
