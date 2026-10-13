@@ -311,6 +311,11 @@ namespace PadForge.Views
                     Content = root,
                     Cursor = Cursors.None,
                 };
+                // The targets are drawn at the screen positions the
+                // calibration reads them at. Mirrored for a right-to-left
+                // language, the top-left target would sit at the top right
+                // and be read as the left (#505).
+                PadForge.Common.UiLanguage.KeepLeftToRight(Window);
                 if (owner != null && owner.IsLoaded)
                     Window.Owner = owner;
                 Window.SourceInitialized += (_, _) => MoveToMonitor();

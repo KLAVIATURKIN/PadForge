@@ -21,6 +21,6 @@
         appearance changes rebuild the visuals. Other ticks update hover.
     -->
     <Grid>
-        <Canvas x:Name="MenuCanvas"/>
+        <Canvas FlowDirection="LeftToRight" x:Name="MenuCanvas"/>
     </Grid>
 </Window>

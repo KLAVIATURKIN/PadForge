@@ -164,7 +164,7 @@
                                                             Padding="3"
                                                             Margin="1"
                                                             Click="Image_Click">
-                                                        <Image Source="{Binding Image}" Stretch="Uniform"
+                                                        <Image FlowDirection="LeftToRight" Source="{Binding Image}" Stretch="Uniform"
                                                                RenderOptions.BitmapScalingMode="HighQuality"/>
                                                     </Button>
                                                 </DataTemplate>

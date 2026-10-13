@@ -492,7 +492,7 @@
 
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <Path Margin="0,0,8,0">
+                                <Path FlowDirection="LeftToRight" Margin="0,0,8,0">
                                     <Path.Style>
                                         <Style TargetType="Path" BasedOn="{StaticResource LivenessFlameBase}">
                                             <Style.Triggers>
@@ -596,7 +596,7 @@
                                TextWrapping="Wrap"/>
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <Path Style="{StaticResource LivenessFlameBase}" Margin="0,0,8,0"
+                            <Path FlowDirection="LeftToRight" Style="{StaticResource LivenessFlameBase}" Margin="0,0,8,0"
                                   Fill="{DynamicResource EmberBrush}" Stroke="{x:Null}">
                                 <!-- Always lit, so the glow is static (#175 glow sweep). -->
                                 <Path.Effect>
@@ -629,7 +629,7 @@
 
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <Path Margin="0,0,8,0">
+                                <Path FlowDirection="LeftToRight" Margin="0,0,8,0">
                                     <Path.Style>
                                         <Style TargetType="Path" BasedOn="{StaticResource LivenessFlameBase}">
                                             <Style.Triggers>
@@ -714,7 +714,7 @@
 
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <Path Margin="0,0,8,0">
+                                <Path FlowDirection="LeftToRight" Margin="0,0,8,0">
                                     <Path.Style>
                                         <Style TargetType="Path" BasedOn="{StaticResource LivenessFlameBase}">
                                             <Style.Triggers>

@@ -136,8 +136,19 @@ namespace PadForge.Common
         internal static void Declare(Window window, XmlLanguage language, FlowDirection direction)
         {
             if (window == null) return;
+            if ((bool)window.GetValue(KeepsLeftToRightProperty)) direction = FlowDirection.LeftToRight;
             if (!Equals(window.Language, language)) window.Language = language;
             if (window.FlowDirection != direction) window.FlowDirection = direction;
         }
+
+        /// <summary>Set on a window that is itself a picture of a physical
+        /// thing: the touchpad overlay, the on-screen menus, the light gun's
+        /// calibration targets. Such a window stays left to right in every
+        /// language. Mirrored, a target drawn at the top left would sit at
+        /// the top right while the calibration still read it as the left.</summary>
+        internal static readonly DependencyProperty KeepsLeftToRightProperty = DependencyProperty.RegisterAttached(
+            "KeepsLeftToRight", typeof(bool), typeof(UiLanguage), new PropertyMetadata(false));
+
+        internal static void KeepLeftToRight(Window window) => window?.SetValue(KeepsLeftToRightProperty, true);
     }
 }

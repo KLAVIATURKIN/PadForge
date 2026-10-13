@@ -402,7 +402,7 @@
                         <!-- Gamepad glyph + slot number removed (#175
                              iteration 3): the tier's Slot N scope label
                              already says it. The badge keeps type + instance. -->
-                        <Image Width="14" Height="14" Margin="0,0,4,0" VerticalAlignment="Center">
+                        <Image FlowDirection="LeftToRight" Width="14" Height="14" Margin="0,0,4,0" VerticalAlignment="Center">
                             <Image.Style>
                                 <Style TargetType="Image">
                                     <Setter Property="Source" Value="{StaticResource GenericControllerIcon}"/>
@@ -659,7 +659,7 @@
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Path Margin="0,0,6,0">
+                                <Path FlowDirection="LeftToRight" Margin="0,0,6,0">
                                     <Path.Style>
                                         <Style TargetType="Path" BasedOn="{StaticResource LivenessFlameBase}">
                                             <Style.Triggers>
@@ -1111,7 +1111,11 @@
                          hairline. The mono caption sits INSIDE the capsule
                          and the ember fill slides underneath it, so at rest
                          the pair reads as two steel pills over a third. -->
-                    <Grid x:Name="MotorBarsGrid" Grid.Row="1" Width="400" Margin="0,6,0,4" HorizontalAlignment="Center">
+                    <!-- Pinned left to right (#505): the left motor's capsule stays
+                         under the controller's left grip when the interface
+                         reads right to left. -->
+                    <Grid x:Name="MotorBarsGrid" Grid.Row="1" Width="400" Margin="0,6,0,4" HorizontalAlignment="Center"
+                          FlowDirection="LeftToRight">
                         <Grid.Resources>
                             <!-- Capsule instrument: standard PART_Indicator
                                  template so ProgressBar owns the fill math.
@@ -1292,7 +1296,7 @@
                             </Style>
                         </Grid.Style>
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Path Data="{StaticResource FlameOuterGeometry}" Width="34" Height="34" Stretch="Uniform"
+                            <Path FlowDirection="LeftToRight" Data="{StaticResource FlameOuterGeometry}" Width="34" Height="34" Stretch="Uniform"
                                   Fill="Transparent" StrokeThickness="1.2"
                                   Stroke="{DynamicResource TextFillColorTertiaryBrush}" HorizontalAlignment="Center"/>
                             <TextBlock Text="{Binding Macro_EmptyHint, Source={x:Static strings:Strings.Instance}}"
@@ -2632,7 +2636,7 @@
                                                     <DataTemplate>
                                                         <Button Margin="0,0,6,6" Padding="2" Click="RemoveDreamcastFrame_Click"
                                                                 ToolTip="{Binding Macro_Dreamcast_RemoveTooltip, Source={x:Static strings:Strings.Instance}}">
-                                                            <Image Source="{Binding}" Width="96" Height="64"
+                                                            <Image FlowDirection="LeftToRight" Source="{Binding}" Width="96" Height="64"
                                                                    RenderOptions.BitmapScalingMode="NearestNeighbor"/>
                                                         </Button>
                                                     </DataTemplate>
@@ -3922,7 +3926,7 @@
                             <Border.ToolTip>
                                 <StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0,0,0,3">
-                                        <Path Style="{StaticResource LivenessFlameBase}" Margin="0,0,5,0"/>
+                                        <Path FlowDirection="LeftToRight" Style="{StaticResource LivenessFlameBase}" Margin="0,0,5,0"/>
                                         <TextBlock Text="CURVE" Style="{StaticResource PipelineChipToken}"/>
                                     </StackPanel>
                                     <ItemsControl ItemsSource="{Binding PipelineCurveTipRows}"
@@ -3931,7 +3935,7 @@
                                 </StackPanel>
                             </Border.ToolTip>
                             <StackPanel Orientation="Horizontal">
-                                <Path Margin="0,0,5,0">
+                                <Path FlowDirection="LeftToRight" Margin="0,0,5,0">
                                     <Path.Style>
                                         <Style TargetType="Path" BasedOn="{StaticResource LivenessFlameBase}">
                                             <Style.Triggers>
@@ -3959,7 +3963,7 @@
                             <Border.ToolTip>
                                 <StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0,0,0,3">
-                                        <Path Style="{StaticResource LivenessFlameBase}" Margin="0,0,5,0"/>
+                                        <Path FlowDirection="LeftToRight" Style="{StaticResource LivenessFlameBase}" Margin="0,0,5,0"/>
                                         <TextBlock Text="GYRO" Style="{StaticResource PipelineChipToken}"/>
                                     </StackPanel>
                                     <ItemsControl ItemsSource="{Binding PipelineGyroTipRows}"
@@ -3968,7 +3972,7 @@
                                 </StackPanel>
                             </Border.ToolTip>
                             <StackPanel Orientation="Horizontal">
-                                <Path Margin="0,0,5,0">
+                                <Path FlowDirection="LeftToRight" Margin="0,0,5,0">
                                     <Path.Style>
                                         <Style TargetType="Path" BasedOn="{StaticResource LivenessFlameBase}">
                                             <Style.Triggers>
@@ -3999,7 +4003,7 @@
                                            FontFamily="{StaticResource TelemetryFontFamily}" FontSize="11"/>
                             </Border.ToolTip>
                             <StackPanel Orientation="Horizontal">
-                                <Path Margin="0,0,5,0">
+                                <Path FlowDirection="LeftToRight" Margin="0,0,5,0">
                                     <Path.Style>
                                         <Style TargetType="Path" BasedOn="{StaticResource LivenessFlameBase}">
                                             <Style.Triggers>
@@ -4027,7 +4031,7 @@
                             <Border.ToolTip>
                                 <StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0,0,0,3">
-                                        <Path Style="{StaticResource LivenessFlameBase}" Margin="0,0,5,0"/>
+                                        <Path FlowDirection="LeftToRight" Style="{StaticResource LivenessFlameBase}" Margin="0,0,5,0"/>
                                         <TextBlock Text="INV" Style="{StaticResource PipelineChipToken}"/>
                                     </StackPanel>
                                     <ItemsControl ItemsSource="{Binding PipelineInvertTipRows}"
@@ -4036,7 +4040,7 @@
                                 </StackPanel>
                             </Border.ToolTip>
                             <StackPanel Orientation="Horizontal">
-                                <Path Margin="0,0,5,0">
+                                <Path FlowDirection="LeftToRight" Margin="0,0,5,0">
                                     <Path.Style>
                                         <Style TargetType="Path" BasedOn="{StaticResource LivenessFlameBase}">
                                             <Style.Triggers>
@@ -4065,7 +4069,7 @@
                             <Border.ToolTip>
                                 <StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0,0,0,3">
-                                        <Path Style="{StaticResource LivenessFlameBase}" Margin="0,0,5,0"/>
+                                        <Path FlowDirection="LeftToRight" Style="{StaticResource LivenessFlameBase}" Margin="0,0,5,0"/>
                                         <TextBlock Text="DZ" Style="{StaticResource PipelineChipToken}"/>
                                     </StackPanel>
                                     <ItemsControl ItemsSource="{Binding PipelineDeadZoneTipRows}"
@@ -4074,7 +4078,7 @@
                                 </StackPanel>
                             </Border.ToolTip>
                             <StackPanel Orientation="Horizontal">
-                                <Path Margin="0,0,5,0">
+                                <Path FlowDirection="LeftToRight" Margin="0,0,5,0">
                                     <Path.Style>
                                         <Style TargetType="Path" BasedOn="{StaticResource LivenessFlameBase}">
                                             <Style.Triggers>
@@ -4239,7 +4243,7 @@
                                                                  dots): ashen outline at rest, ember fill +
                                                                  static glow while input flows through the
                                                                  row. Static setters, reduced-motion safe. -->
-                                                            <Path Margin="0,0,8,0">
+                                                            <Path FlowDirection="LeftToRight" Margin="0,0,8,0">
                                                                 <Path.Style>
                                                                     <Style TargetType="Path" BasedOn="{StaticResource LivenessFlameBase}">
                                                                         <Style.Triggers>
@@ -6762,9 +6766,9 @@
                                                              HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                                     <Ellipse Width="132" Height="132" Stroke="#FF1E2739" StrokeThickness="1" Fill="Transparent"
                                                              HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                    <Line X1="100" Y1="6" X2="100" Y2="194" Stroke="#FF1E2739" StrokeThickness="1"/>
-                                                    <Line X1="6" Y1="100" X2="194" Y2="100" Stroke="#FF1E2739" StrokeThickness="1"/>
-                                                    <Canvas>
+                                                    <Line FlowDirection="LeftToRight" X1="100" Y1="6" X2="100" Y2="194" Stroke="#FF1E2739" StrokeThickness="1"/>
+                                                    <Line FlowDirection="LeftToRight" X1="6" Y1="100" X2="194" Y2="100" Stroke="#FF1E2739" StrokeThickness="1"/>
+                                                    <Canvas FlowDirection="LeftToRight">
                                                         <!-- Measured boundary (#174): the reachable rim from the
                                                              last (or in-progress) sweep, in the ember grammar,
                                                              plotted in the same 200x200 space as the dots. The
@@ -7135,7 +7139,7 @@
                                 <!-- Steering wheel flanked by vibration waves: the wheel hits its
                                      lock and you feel the cue. -->
                                 <Viewbox Width="18" Height="18" VerticalAlignment="Center" Margin="0,0,8,0">
-                                    <Canvas Width="24" Height="24">
+                                    <Canvas FlowDirection="LeftToRight" Width="24" Height="24">
                                         <Path Stroke="{DynamicResource EmberBrush}" StrokeThickness="1.7"
                                               StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round"
                                               Data="M5,12 A7,7 0 1 1 19,12 A7,7 0 1 1 5,12 Z M10.1,12 A1.9,1.9 0 1 1 13.9,12 A1.9,1.9 0 1 1 10.1,12 Z M10.1,12 L5,12 M13.9,12 L19,12 M12,13.9 L12,19 M3.7,9.8 A2.9,2.9 0 0 0 3.7,14.2 M2,8.5 A4.6,4.6 0 0 0 2,15.5 M20.3,9.8 A2.9,2.9 0 0 1 20.3,14.2 M22,8.5 A4.6,4.6 0 0 1 22,15.5"/>
@@ -7845,7 +7849,7 @@
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                                     <Viewbox Width="18" Height="18" VerticalAlignment="Center" Margin="0,0,8,0">
-                                        <Canvas Width="24" Height="24">
+                                        <Canvas FlowDirection="LeftToRight" Width="24" Height="24">
                                             <Path Stroke="{DynamicResource EmberBrush}" StrokeThickness="1.7"
                                                   StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round"
                                                   Data="M5,12 A7,7 0 1 1 19,12 A7,7 0 1 1 5,12 Z M10.1,12 A1.9,1.9 0 1 1 13.9,12 A1.9,1.9 0 1 1 10.1,12 Z M10.1,12 L5,12 M13.9,12 L19,12 M12,13.9 L12,19 M3.7,9.8 A2.9,2.9 0 0 0 3.7,14.2 M2,8.5 A4.6,4.6 0 0 0 2,15.5 M20.3,9.8 A2.9,2.9 0 0 1 20.3,14.2 M22,8.5 A4.6,4.6 0 0 1 22,15.5"/>
@@ -7939,13 +7943,13 @@
                                         <Grid Width="200" Height="200">
                                             <Ellipse Width="200" Height="200"
                                                      Fill="{DynamicResource ControlFillColorDefaultBrush}"/>
-                                            <Line X1="50" Y1="0" X2="50" Y2="200" Stroke="{DynamicResource ControlStrokeColorDefaultBrush}" StrokeDashArray="2 4" StrokeThickness="0.5"/>
-                                            <Line X1="150" Y1="0" X2="150" Y2="200" Stroke="{DynamicResource ControlStrokeColorDefaultBrush}" StrokeDashArray="2 4" StrokeThickness="0.5"/>
-                                            <Line X1="0" Y1="50" X2="200" Y2="50" Stroke="{DynamicResource ControlStrokeColorDefaultBrush}" StrokeDashArray="2 4" StrokeThickness="0.5"/>
-                                            <Line X1="0" Y1="150" X2="200" Y2="150" Stroke="{DynamicResource ControlStrokeColorDefaultBrush}" StrokeDashArray="2 4" StrokeThickness="0.5"/>
-                                            <Line X1="100" Y1="0" X2="100" Y2="200" Stroke="{DynamicResource TextFillColorTertiaryBrush}" StrokeThickness="0.75"/>
-                                            <Line X1="0" Y1="100" X2="200" Y2="100" Stroke="{DynamicResource TextFillColorTertiaryBrush}" StrokeThickness="0.75"/>
-                                            <Canvas>
+                                            <Line FlowDirection="LeftToRight" X1="50" Y1="0" X2="50" Y2="200" Stroke="{DynamicResource ControlStrokeColorDefaultBrush}" StrokeDashArray="2 4" StrokeThickness="0.5"/>
+                                            <Line FlowDirection="LeftToRight" X1="150" Y1="0" X2="150" Y2="200" Stroke="{DynamicResource ControlStrokeColorDefaultBrush}" StrokeDashArray="2 4" StrokeThickness="0.5"/>
+                                            <Line FlowDirection="LeftToRight" X1="0" Y1="50" X2="200" Y2="50" Stroke="{DynamicResource ControlStrokeColorDefaultBrush}" StrokeDashArray="2 4" StrokeThickness="0.5"/>
+                                            <Line FlowDirection="LeftToRight" X1="0" Y1="150" X2="200" Y2="150" Stroke="{DynamicResource ControlStrokeColorDefaultBrush}" StrokeDashArray="2 4" StrokeThickness="0.5"/>
+                                            <Line FlowDirection="LeftToRight" X1="100" Y1="0" X2="100" Y2="200" Stroke="{DynamicResource TextFillColorTertiaryBrush}" StrokeThickness="0.75"/>
+                                            <Line FlowDirection="LeftToRight" X1="0" Y1="100" X2="200" Y2="100" Stroke="{DynamicResource TextFillColorTertiaryBrush}" StrokeThickness="0.75"/>
+                                            <Canvas FlowDirection="LeftToRight">
                                                 <Ellipse Width="196" Height="196" Canvas.Left="2" Canvas.Top="2"
                                                          Stroke="{DynamicResource ControlStrokeColorDefaultBrush}"
                                                          StrokeThickness="1.5" Fill="Transparent"/>
@@ -8282,9 +8286,9 @@
                             <Viewbox Width="24" Height="24" Stretch="Uniform"
                                      VerticalAlignment="Center" Margin="0,0,10,0">
                                 <Grid Width="512" Height="512">
-                                    <Path Fill="{DynamicResource EmberBrush}"
+                                    <Path FlowDirection="LeftToRight" Fill="{DynamicResource EmberBrush}"
                                           Data="{StaticResource ZackslyTriggerOuterBodyGeometry}"/>
-                                    <Path Fill="{DynamicResource EmberBrush}"
+                                    <Path FlowDirection="LeftToRight" Fill="{DynamicResource EmberBrush}"
                                           Data="M445,180 L475,200 L445,220 L455,220 L485,200 L455,180 Z M445,280 L475,300 L445,320 L455,320 L485,300 L455,280 Z"/>
                                 </Grid>
                             </Viewbox>
@@ -8863,7 +8867,9 @@
                                      (#494): the art is a DualShock 4 or a DualSense. -->
                                 <StackPanel x:Name="LightbarPreviewPanel" Margin="0,0,0,12" HorizontalAlignment="Left">
                                     <Viewbox Width="260" HorizontalAlignment="Left">
-                                        <Grid x:Name="LightbarPreviewHost"/>
+                                        <!-- The lightbar picture is built in code. Pinned here
+                                             so the controller it shows does not mirror (#505). -->
+                                        <Grid x:Name="LightbarPreviewHost" FlowDirection="LeftToRight"/>
                                     </Viewbox>
                                     <TextBlock Text="GAME WRITES WIN" HorizontalAlignment="Center" Margin="0,4,0,0"
                                                FontFamily="{StaticResource TelemetryFontFamily}" FontSize="10"
@@ -10252,7 +10258,7 @@
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                                     <Viewbox Width="18" Height="18" VerticalAlignment="Center" Margin="0,0,8,0">
-                                        <Canvas Width="24" Height="24">
+                                        <Canvas FlowDirection="LeftToRight" Width="24" Height="24">
                                             <Path Stroke="{DynamicResource EmberBrush}" StrokeThickness="1.7"
                                                   StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round"
                                                   Data="M5,12 A7,7 0 1 1 19,12 A7,7 0 1 1 5,12 Z M10.1,12 A1.9,1.9 0 1 1 13.9,12 A1.9,1.9 0 1 1 10.1,12 Z M10.1,12 L5,12 M13.9,12 L19,12 M12,13.9 L12,19"/>
@@ -10858,9 +10864,9 @@
                             <Viewbox Width="24" Height="24" Stretch="Uniform"
                                      VerticalAlignment="Center" Margin="0,0,10,0">
                                 <Grid Width="512" Height="512">
-                                    <Path Fill="{DynamicResource TextFillColorPrimaryBrush}"
+                                    <Path FlowDirection="LeftToRight" Fill="{DynamicResource TextFillColorPrimaryBrush}"
                                           Data="{StaticResource ZackslyTriggerOuterBodyGeometry}"/>
-                                    <Path Fill="{DynamicResource TextFillColorPrimaryBrush}"
+                                    <Path FlowDirection="LeftToRight" Fill="{DynamicResource TextFillColorPrimaryBrush}"
                                           Data="M445,180 L475,200 L445,220 L455,220 L485,200 L455,180 Z M445,280 L475,300 L445,320 L455,320 L485,300 L455,280 Z"/>
                                 </Grid>
                             </Viewbox>
@@ -10877,9 +10883,9 @@
                                     <Viewbox Width="18" Height="18" Stretch="Uniform"
                                              VerticalAlignment="Center" Margin="0,0,8,0">
                                         <Grid Width="512" Height="512">
-                                            <Path Fill="{DynamicResource TextFillColorPrimaryBrush}"
+                                            <Path FlowDirection="LeftToRight" Fill="{DynamicResource TextFillColorPrimaryBrush}"
                                                   Data="{StaticResource ZackslyTriggerOuterBodyGeometry}"/>
-                                            <Path Fill="{DynamicResource TextFillColorPrimaryBrush}"
+                                            <Path FlowDirection="LeftToRight" Fill="{DynamicResource TextFillColorPrimaryBrush}"
                                                   Data="M445,180 L475,200 L445,220 L455,220 L485,200 L455,180 Z M445,280 L475,300 L445,320 L455,320 L485,300 L455,280 Z"/>
                                         </Grid>
                                     </Viewbox>
@@ -11182,7 +11188,7 @@
                                          pattern used elsewhere on the page. -->
                                     <Viewbox Width="16" Height="16" Stretch="Uniform" VerticalAlignment="Center" Margin="0,0,8,0">
                                         <Grid Width="512" Height="512">
-                                            <Path Fill="{DynamicResource EmberBrush}"
+                                            <Path FlowDirection="LeftToRight" Fill="{DynamicResource EmberBrush}"
                                                   Data="{StaticResource TouchpadStickIconGeometry}"/>
                                         </Grid>
                                     </Viewbox>
@@ -11973,7 +11979,7 @@
                     <StackPanel Margin="0,16,0,16">
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                             <Viewbox Width="22" Height="22" VerticalAlignment="Center" Margin="0,0,10,0">
-                                <Canvas Width="24" Height="24">
+                                <Canvas FlowDirection="LeftToRight" Width="24" Height="24">
                                     <Path Stroke="{DynamicResource EmberBrush}" StrokeThickness="1.7"
                                           StrokeStartLineCap="Round" StrokeEndLineCap="Round"
                                           Data="M2,12 A10,10 0 1 1 22,12 A10,10 0 1 1 2,12 Z M9.4,12 A2.6,2.6 0 1 1 14.6,12 A2.6,2.6 0 1 1 9.4,12 Z M9.4,12 L2.2,12 M14.6,12 L21.8,12 M12,14.6 L12,21.8"/>
@@ -11990,7 +11996,7 @@
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                                     <Viewbox Width="18" Height="18" VerticalAlignment="Center" Margin="0,0,8,0">
-                                        <Canvas Width="24" Height="24">
+                                        <Canvas FlowDirection="LeftToRight" Width="24" Height="24">
                                             <Path Stroke="{DynamicResource EmberBrush}" StrokeThickness="1.8"
                                                   StrokeStartLineCap="Round" StrokeEndLineCap="Round"
                                                   Data="M2,12 A10,10 0 1 1 22,12 A10,10 0 1 1 2,12 Z M9.4,12 A2.6,2.6 0 1 1 14.6,12 A2.6,2.6 0 1 1 9.4,12 Z M9.4,12 L2.2,12 M14.6,12 L21.8,12 M12,14.6 L12,21.8"/>
@@ -13097,7 +13103,7 @@
                             </Style>
                         </Grid.Style>
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Path Data="{StaticResource FlameOuterGeometry}" Width="34" Height="34" Stretch="Uniform"
+                            <Path FlowDirection="LeftToRight" Data="{StaticResource FlameOuterGeometry}" Width="34" Height="34" Stretch="Uniform"
                                   Fill="Transparent" StrokeThickness="1.2"
                                   Stroke="{DynamicResource TextFillColorTertiaryBrush}" HorizontalAlignment="Center"/>
                             <TextBlock Text="{Binding Menu_EmptyHint, Source={x:Static strings:Strings.Instance}}"
@@ -13689,7 +13695,7 @@
                                                  the icon so no size sits on a cell that renders none. -->
                                             <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="0,0,8,0"
                                                         Visibility="{Binding HasIcon, Converter={StaticResource BoolToVisibilityConverter}}">
-                                                <Image Width="16" Height="16" Margin="0,0,6,0"
+                                                <Image FlowDirection="LeftToRight" Width="16" Height="16" Margin="0,0,6,0"
                                                        VerticalAlignment="Center"
                                                        Source="{Binding IconImage}"
                                                        ToolTip="{Binding IconName}"

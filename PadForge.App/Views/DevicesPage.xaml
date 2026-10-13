@@ -368,7 +368,7 @@
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <Path Margin="0,0,8,0" VerticalAlignment="Center">
+                                    <Path FlowDirection="LeftToRight" Margin="0,0,8,0" VerticalAlignment="Center">
                                         <Path.Style>
                                             <Style TargetType="Path" BasedOn="{StaticResource LivenessFlameBase}">
                                                 <Style.Triggers>
@@ -439,7 +439,7 @@
                                                              app and keep their MDL2 glyphs, mirroring
                                                              the nav rail's type pill. -->
                                                         <Grid VerticalAlignment="Center">
-                                                            <Path Data="{Binding TypeGeometry, Mode=OneWay}" Width="10" Height="10"
+                                                            <Path FlowDirection="LeftToRight" Data="{Binding TypeGeometry, Mode=OneWay}" Width="10" Height="10"
                                                                   Stretch="Uniform" Fill="#FFFFF3E8"/>
                                                             <TextBlock Text="{Binding TypeGlyph, Mode=OneWay}" FontFamily="Segoe MDL2 Assets"
                                                                        FontSize="10" Foreground="#FFFFF3E8"
@@ -1072,7 +1072,7 @@
                                                      the checked ember swap recolors it with the
                                                      glyph and number. -->
                                                 <Grid VerticalAlignment="Center">
-                                                    <Path Data="{Binding TypeGeometry, Mode=OneWay}" Width="10" Height="10"
+                                                    <Path FlowDirection="LeftToRight" Data="{Binding TypeGeometry, Mode=OneWay}" Width="10" Height="10"
                                                           Stretch="Uniform"
                                                           Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType=ToggleButton}}"/>
                                                     <TextBlock Text="{Binding TypeGlyph, Mode=OneWay}" FontFamily="Segoe MDL2 Assets"
@@ -1710,7 +1710,7 @@
                             <ItemsControl ItemsSource="{Binding KeyboardKeys}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <Canvas Width="556" Height="136"/>
+                                        <Canvas FlowDirection="LeftToRight" Width="556" Height="136"/>
                                     </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemContainerStyle>
@@ -1813,7 +1813,7 @@
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal" Margin="0,0,12,0">
-                                        <Canvas Width="36" Height="36">
+                                        <Canvas FlowDirection="LeftToRight" Width="36" Height="36">
                                             <!-- Background circle -->
                                             <Ellipse Width="36" Height="36"
                                                      Fill="{DynamicResource SteelGroundBrush}" Stroke="{DynamicResource SteelLineBrush}"
@@ -1984,7 +1984,7 @@
                                 BorderThickness="1"
                                 CornerRadius="6" Margin="0,0,0,8"
                                 Height="100" ClipToBounds="True">
-                            <Canvas>
+                            <Canvas FlowDirection="LeftToRight">
                                 <!-- Up to 5 simultaneous touchpad contacts.
                                      SDL gamepad pads typically expose 1-2;
                                      Windows PTP can deliver up to 5. Each
@@ -2021,7 +2021,7 @@
                                 BorderThickness="1"
                                 CornerRadius="6" Margin="0,0,0,8"
                                 Height="100" ClipToBounds="True">
-                            <Canvas>
+                            <Canvas FlowDirection="LeftToRight">
                                 <Ellipse x:Name="Pad2Dot0" Width="14" Height="14" Fill="#CCFF6600"
                                          Effect="{StaticResource ColdDotGlow}"
                                          Visibility="{Binding Pad2Down0, Converter={StaticResource BoolToVisibilityConverter}}"/>

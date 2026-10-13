@@ -3341,6 +3341,7 @@ namespace PadForge
             var grid = new System.Windows.Controls.Grid { Width = size, Height = size };
             var flame = new System.Windows.Shapes.Path
             {
+                FlowDirection = FlowDirection.LeftToRight,
                 Data = (System.Windows.Media.Geometry)Application.Current.Resources["FlameOuterGeometry"],
                 Stretch = System.Windows.Media.Stretch.Uniform
             };
@@ -3625,6 +3626,7 @@ namespace PadForge
             {
                 var path = new System.Windows.Shapes.Path
                 {
+                    FlowDirection = FlowDirection.LeftToRight,
                     Data = System.Windows.Media.Geometry.Parse(data),
                     Width = 11,
                     Height = 11,
@@ -4526,6 +4528,7 @@ namespace PadForge
                     : iconKey == "NintendoControllerIcon" ? SwitchSvgPath : ExtendedSvgPath;
                 var path = new System.Windows.Shapes.Path
                 {
+                    FlowDirection = FlowDirection.LeftToRight,
                     Data = System.Windows.Media.Geometry.Parse(svgPath),
                     Width = 10, Height = 10,
                     Stretch = System.Windows.Media.Stretch.Uniform,
@@ -5583,6 +5586,7 @@ namespace PadForge
             // asset to represent the Xbox family in the UI.
             var xboxPopupPath = new System.Windows.Shapes.Path
             {
+                FlowDirection = FlowDirection.LeftToRight,
                 Data = System.Windows.Media.Geometry.Parse(XboxSvgPath),
                 Width = 28,
                 Height = 28,
@@ -5622,6 +5626,7 @@ namespace PadForge
             // asset to represent the PlayStation family in the UI.
             var playstationPopupPath = new System.Windows.Shapes.Path
             {
+                FlowDirection = FlowDirection.LeftToRight,
                 Data = System.Windows.Media.Geometry.Parse(DS4SvgPath),
                 Width = 28,
                 Height = 28,
@@ -5662,6 +5667,7 @@ namespace PadForge
             // to represent the Nintendo family in the UI.
             var nintendoPopupPath = new System.Windows.Shapes.Path
             {
+                FlowDirection = FlowDirection.LeftToRight,
                 Data = System.Windows.Media.Geometry.Parse(SwitchSvgPath),
                 Width = 28,
                 Height = 28,
@@ -5700,6 +5706,7 @@ namespace PadForge
             // Extended button — theme-aware icon fill.
             var extendedPopupPath = new System.Windows.Shapes.Path
             {
+                FlowDirection = FlowDirection.LeftToRight,
                 Data = System.Windows.Media.Geometry.Parse(ExtendedSvgPath),
                 Width = 28,
                 Height = 28,
@@ -5976,6 +5983,7 @@ namespace PadForge
             {
                 var flame = new System.Windows.Shapes.Path
                 {
+                    FlowDirection = FlowDirection.LeftToRight,
                     Data = TryFindResource("FlameOuterGeometry") as System.Windows.Media.Geometry,
                     Width = 11,
                     Height = 13,

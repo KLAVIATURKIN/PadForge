@@ -14,7 +14,7 @@
                  X axis. The white→hue and hue→black gradient stack is
                  the canonical Photoshop-style picker. -->
             <Border Grid.Column="0" BorderBrush="{DynamicResource TextFillColorDisabledBrush}" BorderThickness="1">
-                <Canvas x:Name="SvCanvas" Width="200" Height="200" Background="Transparent"
+                <Canvas FlowDirection="LeftToRight" x:Name="SvCanvas" Width="200" Height="200" Background="Transparent"
                         MouseLeftButtonDown="SvCanvas_MouseDown"
                         MouseMove="SvCanvas_MouseMove"
                         MouseLeftButtonUp="SvCanvas_MouseUp">
@@ -48,7 +48,7 @@
             </Border>
             <!-- Hue selector — vertical strip cycling 0..360°. -->
             <Border Grid.Column="2" BorderBrush="{DynamicResource TextFillColorDisabledBrush}" BorderThickness="1">
-                <Canvas x:Name="HueCanvas" Width="24" Height="200" Background="Transparent"
+                <Canvas FlowDirection="LeftToRight" x:Name="HueCanvas" Width="24" Height="200" Background="Transparent"
                         MouseLeftButtonDown="HueCanvas_MouseDown"
                         MouseMove="HueCanvas_MouseMove"
                         MouseLeftButtonUp="HueCanvas_MouseUp">

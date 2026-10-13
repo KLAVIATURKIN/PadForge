@@ -79,6 +79,10 @@ namespace PadForge.Controls
             Focusable = true;
             MinHeight = 190;
             ClipToBounds = true;
+            // Low frequencies stay on the left when the interface reads right
+            // to left (#505). Without the pin WPF would mirror the whole
+            // drawing, and the axis labels with it, into backward text.
+            FlowDirection = FlowDirection.LeftToRight;
         }
 
         private static void OnBandsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

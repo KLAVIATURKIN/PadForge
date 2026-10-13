@@ -52,7 +52,7 @@
         <!-- The VMU's 48 by 32 pixels, four screen pixels each. -->
         <Border Grid.Row="3" HorizontalAlignment="Left" Padding="6" CornerRadius="4" Margin="0,0,0,10"
                 Background="#FFBFD0B4" BorderBrush="{DynamicResource ControlStrokeColorDefaultBrush}" BorderThickness="1">
-            <Image x:Name="PreviewImage" Width="192" Height="128"
+            <Image FlowDirection="LeftToRight" x:Name="PreviewImage" Width="192" Height="128"
                    RenderOptions.BitmapScalingMode="NearestNeighbor"/>
         </Border>
 

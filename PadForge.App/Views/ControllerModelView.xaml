@@ -11,7 +11,7 @@
              xmlns:reset="clr-namespace:PadForge.Controls">
 
     <Grid>
-        <helix:HelixViewport3D x:Name="ModelViewPort"
+        <helix:HelixViewport3D FlowDirection="LeftToRight" x:Name="ModelViewPort"
                                IsRotationEnabled="False"
                                IsPanEnabled="False"
                                IsMoveEnabled="False"
@@ -46,7 +46,7 @@
         <!-- Annotation overlay (#175 roadmap 1): chips + leader lines + trigger
              level bars, projected from the 3D model. No Background so empty
              space stays click-through to the viewport. -->
-        <Canvas x:Name="AnnotationCanvas" Visibility="Collapsed" ClipToBounds="True"/>
+        <Canvas FlowDirection="LeftToRight" x:Name="AnnotationCanvas" Visibility="Collapsed" ClipToBounds="True"/>
 
         <!-- Annotation toggle + Reset View. Tag glyph (E8EC), not the
              info glyph: info is the About/help vocabulary, this button

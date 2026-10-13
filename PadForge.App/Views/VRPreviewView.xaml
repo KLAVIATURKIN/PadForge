@@ -8,7 +8,7 @@
              Background="Transparent">
 
     <Viewbox Stretch="Uniform">
-        <Canvas x:Name="VrCanvas" ClipToBounds="True" />
+        <Canvas FlowDirection="LeftToRight" x:Name="VrCanvas" ClipToBounds="True" />
     </Viewbox>
 
 </UserControl>

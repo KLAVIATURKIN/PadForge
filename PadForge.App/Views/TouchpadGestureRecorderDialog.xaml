@@ -98,7 +98,7 @@
                     BorderThickness="1"
                     CornerRadius="4"
                     Background="{DynamicResource SolidBackgroundFillColorBaseBrush}">
-                <Canvas x:Name="DrawingCanvas"
+                <Canvas FlowDirection="LeftToRight" x:Name="DrawingCanvas"
                         Background="Transparent"
                         IsManipulationEnabled="True"
                         ClipToBounds="True"

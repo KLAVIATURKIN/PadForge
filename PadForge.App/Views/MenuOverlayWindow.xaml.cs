@@ -64,6 +64,9 @@ namespace PadForge.Views
         public MenuOverlayWindow()
         {
             InitializeComponent();
+            // A menu is drawn where its designer placed each cell and wedge,
+            // so it does not mirror in a right-to-left language (#505).
+            PadForge.Common.UiLanguage.KeepLeftToRight(this);
             Loaded += OnLoaded;
         }
 

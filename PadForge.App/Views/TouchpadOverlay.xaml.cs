@@ -81,6 +81,9 @@ namespace PadForge.Views
         public TouchpadOverlay()
         {
             InitializeComponent();
+            // The overlay is the touchpad's own surface: its left edge is the
+            // pad's left edge in every language (#505).
+            PadForge.Common.UiLanguage.KeepLeftToRight(this);
             for (int i = 0; i < OverlaySlotCount; i++) _slotContactIds[i] = -1;
             Loaded += OnLoaded;
             SizeChanged += OnSizeChanged;

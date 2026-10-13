@@ -8,7 +8,7 @@
              Background="Transparent">
 
     <Viewbox Stretch="Uniform">
-        <Canvas x:Name="MidiCanvas" ClipToBounds="True" />
+        <Canvas FlowDirection="LeftToRight" x:Name="MidiCanvas" ClipToBounds="True" />
     </Viewbox>
 
 </UserControl>

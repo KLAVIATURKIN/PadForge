@@ -9,7 +9,7 @@
             BorderBrush="{DynamicResource SteelLineSoftBrush}" BorderThickness="1" CornerRadius="2"
             Width="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=TotalSize}"
             Height="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=TotalSize}">
-        <Canvas x:Name="ChartCanvas" Margin="3" ClipToBounds="True"
+        <Canvas FlowDirection="LeftToRight" x:Name="ChartCanvas" Margin="3" ClipToBounds="True"
                 MouseLeftButtonDown="Canvas_MouseLeftButtonDown"
                 MouseLeftButtonUp="Canvas_MouseLeftButtonUp"
                 MouseMove="Canvas_MouseMove"

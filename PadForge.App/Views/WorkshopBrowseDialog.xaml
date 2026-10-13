@@ -37,7 +37,7 @@
             <ControlTemplate x:Key="ForgeBarTemplate" TargetType="ContentControl">
                 <Border Width="170" Height="5" CornerRadius="3"
                         Background="{DynamicResource SteelRaisedBrush}" ClipToBounds="True">
-                    <Canvas>
+                    <Canvas FlowDirection="LeftToRight">
                         <Rectangle Canvas.Left="0" Width="68" Height="5" RadiusX="3" RadiusY="3">
                             <Rectangle.Fill>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
@@ -297,7 +297,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Path x:Name="TitleFlame" Data="{StaticResource FlameOuterGeometry}"
+                <Path FlowDirection="LeftToRight" x:Name="TitleFlame" Data="{StaticResource FlameOuterGeometry}"
                       Width="11" Height="13" Stretch="Uniform"
                       Fill="Transparent" Stroke="{DynamicResource TextFillColorTertiaryBrush}"
                       StrokeThickness="1.1" VerticalAlignment="Center" Margin="0,0,8,0"/>
@@ -331,7 +331,7 @@
                  scrim rectangles get their gradients built in code from the
                  live theme ground color. -->
             <Grid x:Name="ArtLayer" Height="340" VerticalAlignment="Top" ClipToBounds="True" Visibility="Collapsed">
-                <Image x:Name="HeroImage" Stretch="UniformToFill" VerticalAlignment="Top" Margin="0,-18,0,0">
+                <Image FlowDirection="LeftToRight" x:Name="HeroImage" Stretch="UniformToFill" VerticalAlignment="Top" Margin="0,-18,0,0">
                     <Image.OpacityMask>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                             <GradientStop Color="#EB000000" Offset="0"/>
@@ -355,7 +355,7 @@
                         </RadialGradientBrush>
                     </Border.Background>
                     <!-- The unlit flame: LivenessFlameBase idiom at cold-state size. -->
-                    <Path Data="{StaticResource FlameOuterGeometry}" Width="18" Height="21" Stretch="Uniform"
+                    <Path FlowDirection="LeftToRight" Data="{StaticResource FlameOuterGeometry}" Width="18" Height="21" Stretch="Uniform"
                           Fill="Transparent" Stroke="{DynamicResource TextFillColorTertiaryBrush}"
                           StrokeThickness="1.1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Border>
@@ -454,7 +454,7 @@
                                              letterboxed Uniform when header art stands in. -->
                                         <Border CornerRadius="8" ClipToBounds="True"
                                                 Visibility="{Binding Portrait, Converter={StaticResource NullToCollapsedConverter}}">
-                                            <Image Source="{Binding Portrait}">
+                                            <Image FlowDirection="LeftToRight" Source="{Binding Portrait}">
                                                 <Image.Style>
                                                     <Style TargetType="Image">
                                                         <Setter Property="Stretch" Value="UniformToFill"/>
@@ -566,7 +566,7 @@
                                            Foreground="{DynamicResource TextFillColorTertiaryBrush}"
                                            HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Border>
-                            <Image x:Name="CapsuleImage" Stretch="UniformToFill"/>
+                            <Image FlowDirection="LeftToRight" x:Name="CapsuleImage" Stretch="UniformToFill"/>
                         </Grid>
                     </Border>
                     <StackPanel Grid.Column="1" Margin="18,0,0,0" VerticalAlignment="Bottom">
@@ -732,7 +732,7 @@
                                                                        Foreground="{DynamicResource ColdBrush}"
                                                                        HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                                         </Border>
-                                                        <Image Source="{Binding Avatar}" Stretch="UniformToFill"/>
+                                                        <Image FlowDirection="LeftToRight" Source="{Binding Avatar}" Stretch="UniformToFill"/>
                                                     </Grid>
                                                 </Border>
                                                 <StackPanel Grid.Column="1" VerticalAlignment="Center">

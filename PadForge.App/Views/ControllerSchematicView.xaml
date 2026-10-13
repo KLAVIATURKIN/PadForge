@@ -8,7 +8,7 @@
              Background="Transparent">
 
     <Viewbox Stretch="Uniform">
-        <Canvas x:Name="SchematicCanvas" ClipToBounds="True" />
+        <Canvas FlowDirection="LeftToRight" x:Name="SchematicCanvas" ClipToBounds="True" />
     </Viewbox>
 
 </UserControl>

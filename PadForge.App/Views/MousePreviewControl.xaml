@@ -8,7 +8,7 @@
              Background="Transparent">
 
     <Viewbox Stretch="Uniform" HorizontalAlignment="Center">
-        <Canvas x:Name="MouseCanvas" Width="160" Height="195" ClipToBounds="True"/>
+        <Canvas FlowDirection="LeftToRight" x:Name="MouseCanvas" Width="160" Height="195" ClipToBounds="True"/>
     </Viewbox>
 
 </UserControl>

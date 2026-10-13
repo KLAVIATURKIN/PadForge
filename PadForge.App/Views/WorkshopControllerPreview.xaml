@@ -5,6 +5,6 @@
          while the layout keeps working in the art's own pixel space, which
          is what ControllerOverlayLayout's coordinates are expressed in. -->
     <Viewbox Stretch="Uniform" StretchDirection="DownOnly" Margin="0,4,0,8">
-        <Canvas x:Name="ModelCanvas" Background="Transparent"/>
+        <Canvas FlowDirection="LeftToRight" x:Name="ModelCanvas" Background="Transparent"/>
     </Viewbox>
 </UserControl>

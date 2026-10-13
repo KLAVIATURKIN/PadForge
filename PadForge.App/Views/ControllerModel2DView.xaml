@@ -12,14 +12,14 @@
 
     <Grid>
         <Viewbox Stretch="Uniform">
-            <Canvas x:Name="ModelCanvas" ClipToBounds="True" />
+            <Canvas FlowDirection="LeftToRight" x:Name="ModelCanvas" ClipToBounds="True" />
         </Viewbox>
 
         <!-- Annotation overlay (#175): chips + leader lines anchored to the
              layout table's control rectangles. Sits OUTSIDE the Viewbox so
              chip text stays mono 10 DIPs and leaders stay 1px at any size.
              No Background so empty space stays click-through to the model. -->
-        <Canvas x:Name="AnnotationCanvas" Visibility="Collapsed" ClipToBounds="True"/>
+        <Canvas FlowDirection="LeftToRight" x:Name="AnnotationCanvas" Visibility="Collapsed" ClipToBounds="True"/>
 
         <!-- Annotation toggle: per-view chrome, same top-right position as
              the 3D host's toggle (PadPage's 2D/3D switch owns top-left).

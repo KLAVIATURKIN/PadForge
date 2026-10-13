@@ -16,7 +16,7 @@
             <!-- App identity -->
             <Border Style="{StaticResource CardBorder}" Padding="24" Margin="0,0,0,20">
                 <StackPanel HorizontalAlignment="Center">
-                    <Image Source="/Resources/PadForge-icon.png" Width="120" Margin="0,12,0,20"
+                    <Image FlowDirection="LeftToRight" Source="/Resources/PadForge-icon.png" Width="120" Margin="0,12,0,20"
                            HorizontalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality"/>
                     <TextBlock Text="{Binding Common_PadForge, Source={x:Static strings:Strings.Instance}}" FontFamily="{StaticResource DisplayFontFamily}" FontSize="28" FontWeight="Bold"
                                HorizontalAlignment="Center"/>

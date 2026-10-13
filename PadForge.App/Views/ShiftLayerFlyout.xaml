@@ -49,7 +49,7 @@
                                    Foreground="White"/>
 
                         <!-- A picture icon (#471), in the glyph's spot and box. -->
-                        <Image x:Name="StatusImage"
+                        <Image FlowDirection="LeftToRight" x:Name="StatusImage"
                                Width="20" Height="20"
                                Stretch="Uniform"
                                RenderOptions.BitmapScalingMode="HighQuality"

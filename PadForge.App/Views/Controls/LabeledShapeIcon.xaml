@@ -13,22 +13,22 @@
     <Grid>
         <Viewbox Stretch="Uniform">
             <Grid Width="512" Height="512">
-                <Path x:Name="StickOuterPath" Visibility="Collapsed"
+                <Path FlowDirection="LeftToRight" x:Name="StickOuterPath" Visibility="Collapsed"
                       Fill="{DynamicResource EmberBrush}"
                       Data="{StaticResource ZackslyStickOuterRingGeometry}"/>
-                <Path x:Name="StickInnerPath" Visibility="Collapsed"
+                <Path FlowDirection="LeftToRight" x:Name="StickInnerPath" Visibility="Collapsed"
                       Fill="{DynamicResource EmberBrush}"
                       Data="{StaticResource ZackslyStickInnerDiscGeometry}"/>
-                <Path x:Name="TriggerLeftPath" Visibility="Collapsed"
+                <Path FlowDirection="LeftToRight" x:Name="TriggerLeftPath" Visibility="Collapsed"
                       Fill="{DynamicResource EmberBrush}"
                       Data="{StaticResource ZackslyTriggerOuterBodyGeometry}"/>
-                <Path x:Name="TriggerRightPath" Visibility="Collapsed"
+                <Path FlowDirection="LeftToRight" x:Name="TriggerRightPath" Visibility="Collapsed"
                       Fill="{DynamicResource EmberBrush}"
                       Data="{StaticResource ZackslyTriggerOuterBodyRightGeometry}"/>
             </Grid>
         </Viewbox>
         <Viewbox x:Name="LabelHost" Stretch="Uniform">
-            <Canvas Width="512" Height="512" Background="Transparent" IsHitTestVisible="False">
+            <Canvas FlowDirection="LeftToRight" Width="512" Height="512" Background="Transparent" IsHitTestVisible="False">
                 <!-- Label fill is the inverse of the shape's primary text
                      color, so the glyph reads as a knockout in both
                      themes. -->

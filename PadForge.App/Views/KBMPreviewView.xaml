@@ -20,13 +20,13 @@
 
         <!-- QWERTY keyboard — full width -->
         <Viewbox x:Name="KeyboardHost" Grid.Row="0" Stretch="Uniform" Margin="8,8,8,4">
-            <Canvas x:Name="KeyboardCanvas" Width="556" Height="136" ClipToBounds="True"/>
+            <Canvas FlowDirection="LeftToRight" x:Name="KeyboardCanvas" Width="556" Height="136" ClipToBounds="True"/>
         </Viewbox>
 
         <!-- Mouse — centered below keyboard -->
         <Viewbox x:Name="MouseHost" Grid.Row="1" Stretch="Uniform" HorizontalAlignment="Center"
                  Margin="8,4,8,8">
-            <Canvas x:Name="MouseCanvas" Width="160" Height="195" ClipToBounds="True"/>
+            <Canvas FlowDirection="LeftToRight" x:Name="MouseCanvas" Width="160" Height="195" ClipToBounds="True"/>
         </Viewbox>
     </Grid>
 

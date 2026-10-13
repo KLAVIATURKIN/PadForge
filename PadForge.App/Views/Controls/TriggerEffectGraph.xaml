@@ -13,7 +13,7 @@
         <Grid>
             <!-- Background track + zone tick marks. Lines drawn in
                  code-behind so they re-tint on theme switch. -->
-            <Canvas x:Name="GraphCanvas" ClipToBounds="True"/>
+            <Canvas FlowDirection="LeftToRight" x:Name="GraphCanvas" ClipToBounds="True"/>
             <!-- Mode label sits in the bottom-left corner so the user
                  can confirm which preset the graph represents. -->
             <TextBlock x:Name="ModeLabel"

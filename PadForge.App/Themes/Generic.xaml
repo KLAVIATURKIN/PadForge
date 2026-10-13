@@ -61,7 +61,7 @@
                                 BorderThickness="0"
                                 CornerRadius="2"/>
 
-                        <Canvas ClipToBounds="False">
+                        <Canvas FlowDirection="LeftToRight" ClipToBounds="False">
                             <!-- Active fill between the two thumbs -->
                             <Border x:Name="PART_RangeHighlight"
                                     Height="4"
