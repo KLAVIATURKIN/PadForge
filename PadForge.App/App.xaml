@@ -1073,6 +1073,7 @@
             <conv:IndexLessThanVisibilityConverter x:Key="IndexLessThanVisibilityConverter" />
             <conv:OneBasedIndexConverter x:Key="OneBasedIndexConverter" />
             <conv:ExeIconConverter x:Key="ExeIconConverter" />
+            <conv:CultureLanguageConverter x:Key="CultureLanguageConverter" />
 
         </ResourceDictionary>
     </Application.Resources>

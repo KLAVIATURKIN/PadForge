@@ -241,6 +241,12 @@ namespace PadForge
             // this way on 2026-09-23 (see FirstKnownFolderLookup in the tests).
             Environment.GetFolderPath(Environment.SpecialFolder.Windows);
 
+            // Every window declares the interface language as it loads, so
+            // Chinese, Japanese and Korean text takes its own font (#504).
+            // Started before the update helper below, whose windows open
+            // ahead of everything else here.
+            PadForge.Common.UiLanguage.Start();
+
             // In-app updates (#457). A copy started from the update folder with
             // --apply-update is the installer, not PadForge: it replaces the
             // copy that started it and exits. This runs before everything below,

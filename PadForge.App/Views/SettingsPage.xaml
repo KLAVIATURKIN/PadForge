@@ -79,7 +79,18 @@
                         <reset:SettingResetButton DockPanel.Dock="Right" Command="{Binding ResetSettingCommand}" CommandParameter="SelectedLanguage" SettingLabel="{Binding Settings_Language, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_SettingsViewModel_SelectedLanguage_80"/>
                         <ComboBox ItemsSource="{Binding AvailableLanguages}"
                                   SelectedItem="{Binding SelectedLanguage}"
-                                  DisplayMemberPath="NativeName" Width="250"/>
+                                  DisplayMemberPath="NativeName" Width="250">
+                            <!-- Each language is listed by its own name, so each row declares
+                                 its own language: 中文 takes the Chinese font and 日本語 the
+                                 Japanese one whatever the interface is in (#504). WPF refuses
+                                 a binding on Language that names no ConverterCulture, since
+                                 the culture would come from the property being set. -->
+                            <ComboBox.ItemContainerStyle>
+                                <Style TargetType="ComboBoxItem" BasedOn="{StaticResource {x:Type ComboBoxItem}}">
+                                    <Setter Property="Language" Value="{Binding Converter={StaticResource CultureLanguageConverter}, ConverterCulture=en-US}"/>
+                                </Style>
+                            </ComboBox.ItemContainerStyle>
+                        </ComboBox>
                     </DockPanel>
                 </StackPanel>
             </Border>
