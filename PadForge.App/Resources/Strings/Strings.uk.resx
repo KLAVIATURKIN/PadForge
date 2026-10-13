@@ -883,7 +883,7 @@
   <data name="Pad_Lighting_ClaimLevel" xml:space="preserve"><value>Обсяг керування підсвічуванням</value></data>
   <data name="Pad_Lighting_ClaimLevel_Colors" xml:space="preserve"><value>Лише кольори</value></data>
   <data name="Pad_Lighting_ClaimLevel_Power" xml:space="preserve"><value>Кольори й живлення підсвічування</value></data>
-  <data name="Pad_Lighting_ClaimLevel_HostMode" xml:space="preserve"><value>Кольори, живлення підсвічування й вимкнення режиму вбудованої пам'яті</value></data>
+  <data name="Pad_Lighting_ClaimLevel_HostMode" xml:space="preserve"><value>Кольори, живлення підсвічування, без режиму вбудованої пам'яті</value></data>
   <data name="Pad_Lighting_ClaimLevel_Tooltip" xml:space="preserve"><value>«Лише кольори» не чіпає енергозбереження пристрою та його збережений профіль. Виберіть «Кольори й живлення підсвічування», якщо власний ефект простою пристрою перебиває колір. Тоді пристрій перестане сам приглушувати підсвічування. Виберіть останній варіант, якщо пристрій показує підсвічування власного профілю поверх кольору. Тоді його режим вбудованої пам'яті вимикається, поки пристрій підсвічено, і вмикається знову, коли підсвічування припиняється, а поки цей режим вимкнено, збережений на пристрої профіль (його кнопки, DPI та частота звітів) не діє.</value></data>
   <data name="Pad_Lighting_ClaimLevel_TooltipNoHostMode" xml:space="preserve"><value>«Лише кольори» не чіпає енергозбереження пристрою та його збережений профіль. Виберіть «Кольори й живлення підсвічування», якщо власний ефект простою пристрою перебиває колір. Тоді пристрій перестане сам приглушувати підсвічування.</value></data>
   <data name="Pad_Lighting_RouteDirect" xml:space="preserve"><value>Кольори надсилаються просто на {0}.</value></data>

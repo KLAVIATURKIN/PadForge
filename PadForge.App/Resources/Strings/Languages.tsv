@@ -1,23 +1,32 @@
 # tag	English name	own name	direction	script	coverage
 # One row for American English, the text of Strings.resx, and one for each Strings.<tag>.resx beside it.
 # LanguageCatalog reads it.
+bn	Bengali	বাংলা	ltr	Beng	partial
 chk	Chuukese	Fosun Chuuk	ltr	Latn	partial
+cs	Czech	Čeština	ltr	Latn	full
 de	German	Deutsch	ltr	Latn	full
 el	Greek	Ελληνικά	ltr	Grek	full
 en-GB	English (United Kingdom)	English (United Kingdom)	ltr	Latn	full
 en-US	English (United States)	English (United States)	ltr	Latn	full
 es	Spanish	Español	ltr	Latn	full
+fa	Persian	فارسی	rtl	Arab	full
 fr	French	Français	ltr	Latn	full
 hi	Hindi	हिन्दी	ltr	Deva	full
+hu	Hungarian	Magyar	ltr	Latn	full
 id	Indonesian	Bahasa Indonesia	ltr	Latn	full
 it	Italian	Italiano	ltr	Latn	full
 ja	Japanese	日本語	ltr	Jpan	full
 ko	Korean	한국어	ltr	Kore	full
 nl	Dutch	Nederlands	ltr	Latn	full
+pl	Polish	Polski	ltr	Latn	full
 pt-BR	Portuguese (Brazil)	Português (Brasil)	ltr	Latn	full
 pt-PT	Portuguese (Portugal)	Português (Portugal)	ltr	Latn	full
+ru	Russian	Русский	ltr	Cyrl	full
+sv	Swedish	Svenska	ltr	Latn	full
+th	Thai	ไทย	ltr	Thai	full
 tr	Turkish	Türkçe	ltr	Latn	full
 uk	Ukrainian	Українська	ltr	Cyrl	full
+ur	Urdu	اردو	rtl	Arab	full
 vi	Vietnamese	Tiếng Việt	ltr	Latn	full
 zh-Hans	Chinese (Simplified)	中文（简体）	ltr	Hans	full
 zh-Hant	Chinese (Traditional)	中文（繁體）	ltr	Hant	full
