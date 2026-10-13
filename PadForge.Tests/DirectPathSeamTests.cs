@@ -2338,7 +2338,7 @@ namespace PadForge.Tests
             const string rule = "A G600 or G300 mouse also has to be out of on-board memory mode.";
             Assert.EndsWith(rule, En("Settings_GKeysTooltip"), StringComparison.Ordinal);
             Assert.EndsWith(rule, En("Settings_GKeysStatus_NoKeysYet"), StringComparison.Ordinal);
-            Assert.Equal("Colors, Lighting Power and On-Board Memory Mode Off", En("Pad_Lighting_ClaimLevel_HostMode"));
+            Assert.Equal("Colors, Lighting Power, and On-Board Memory Mode Off", En("Pad_Lighting_ClaimLevel_HostMode"));
             Assert.Contains("Its on-board memory mode is off while it is lit.", En("Pad_Lighting_RouteDirectHostMode"), StringComparison.Ordinal);
             Assert.Contains("Its on-board memory mode then goes off", En("Pad_Lighting_ClaimLevel_Tooltip"), StringComparison.Ordinal);
         }

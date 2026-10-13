@@ -543,8 +543,8 @@ namespace PadForge.Tests
             Assert.Equal("Lighting Hold", En("Pad_Lighting_ClaimLevel"));
             Assert.Equal("Colors Only", En("Pad_Lighting_ClaimLevel_Colors"));
             Assert.Equal("Colors and Lighting Power", En("Pad_Lighting_ClaimLevel_Power"));
-            Assert.Equal("Colors, Lighting Power and On-Board Memory Mode Off", En("Pad_Lighting_ClaimLevel_HostMode"));
-            Assert.Equal("Colors Only leaves the device\u2019s power saving and its saved profile alone. Choose Colors and Lighting Power when the device\u2019s own idle effect takes the color away. The device then stops dimming its lights by itself. Choose the last option when the device shows its own profile\u2019s lighting over the color. Its on-board memory mode then goes off while it is lit and back on when it stops, and while it is off the profile saved on the device (its buttons, DPI and report rate) does not apply.",
+            Assert.Equal("Colors, Lighting Power, and On-Board Memory Mode Off", En("Pad_Lighting_ClaimLevel_HostMode"));
+            Assert.Equal("Colors Only leaves the device\u2019s power saving and its saved profile alone. Choose Colors and Lighting Power when the device\u2019s own idle effect takes the color away. The device then stops dimming its lights by itself. Choose the last option when the device shows its own profile\u2019s lighting over the color. Its on-board memory mode then goes off while it is lit and back on when it stops, and while it is off the profile saved on the device (its buttons, DPI, and report rate) does not apply.",
                 En("Pad_Lighting_ClaimLevel_Tooltip"));
             Assert.Equal("Rumble plays on {0} as a buzz, sent straight to the device.", En("Pad_ForceFeedback_RouteTouchSense"));
 
