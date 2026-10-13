@@ -314,6 +314,15 @@ namespace PadForge.Tests
         /// settings_templates.py headers, OpenRazer's 76 SPDX tags and its
         /// LICENSES/GPL-2.0-or-later.txt, and the SPDX tags in OpenRGB's
         /// SteelSeries, Logitech and Sony gamepad controller folders.
+        ///
+        /// <para>Since the direct paths of #494 the peripheral output
+        /// credit names eight sources under that tag: these three, and
+        /// OpenRGB-Fixed (its SPDX tags), openrazer-win and razer-life
+        /// (each README's license section), the Linux iFeel driver (the
+        /// header of ifeel.c) and the Linux kernel's hid-core.c (its SPDX
+        /// tag). It names one as GPL-2.0-only, acer-predator-helios-rgb,
+        /// which is what that project's SPDX tags say. That tag is no bare
+        /// GPL-2.0.</para>
         /// </summary>
         [Fact]
         public void SolaarOpenRazerAndOpenRgbAreCreditedGplTwoOrLater()
@@ -338,13 +347,13 @@ namespace PadForge.Tests
                 string text = Text("PadForge.App", "Resources", "Strings", locale);
                 foreach (var (key, count) in new[]
                          {
-                             ("About_PeripheralOutputRefsDesc", 3),
+                             ("About_PeripheralOutputRefsDesc", 8),
                              ("About_AnalogKeyboardRefsDesc", 1),
                              ("About_OpenRgbDesc", 1),
                          })
                 {
                     string value = ResxValue(text, key);
-                    Assert.True(Regex.Matches(value, @"GPL-2\.0(?!-or-later)").Count == 0,
+                    Assert.True(Regex.Matches(value, @"GPL-2\.0(?!-or-later|-only)").Count == 0,
                                 $"{locale} {key} keeps a bare GPL-2.0: {value}");
                     Assert.True(Regex.Matches(value, @"GPL-2\.0-or-later").Count == count,
                                 $"{locale} {key} should name GPL-2.0-or-later {count} times: {value}");
@@ -439,6 +448,77 @@ namespace PadForge.Tests
             int end = license.IndexOf("Licensed under CC BY-NC-SA 4.0", block, StringComparison.Ordinal);
             Assert.True(end > block, "the Handheld Companion block has no license line");
             Assert.Contains("hub port cycle, 500 ms apart", license.Substring(block, end - block));
+        }
+
+        /// <summary>
+        /// The direct paths of #494 follow what other projects worked out
+        /// about each device's reports, and say so beside the code. The
+        /// project credits every source it follows on README, LICENSE and
+        /// the About page, so each project those source files cite is on
+        /// all three: in the README's table row and its license list, in
+        /// the LICENSE entry, and in the About text of every locale.
+        /// </summary>
+        [Fact]
+        public void TheDirectPathReferencesAreCredited()
+        {
+            // What the source cites a project as, and a name its credit
+            // carries in every locale.
+            var cited = new (string InSource, string Credit)[]
+            {
+                ("keyleds", "keyleds"), ("g810-led", "g810-led"), ("g810-led-resources", "g810-led-resources"),
+                ("rigdeck", "rigdeck"), ("OpenGHub", "OpenGHub"), ("g915x-heatmap", "g915x-heatmap"),
+                ("OpenRGB-Fixed", "OpenRGB-Fixed"), ("HaloDaemon-plugins", "HaloDaemon-plugins"),
+                ("uncoil", "uncoil"), ("OpenSynapse", "OpenSynapse"), ("openrazer-win", "openrazer-win"),
+                ("sanshoku", "sanshoku"), ("razer_test", "razer_test"), ("razer-life", "razer-life"),
+                ("LibreHardwareMonitor", "LibreHardwareMonitor"), ("Aurora", "Aurora"),
+                ("signal-plugins", "SignalRGB"), ("Aerox_5-LennardKittner", "Aerox_5"), ("apex-3-tkl", "apex-3-tkl"),
+                ("ApexCtl", "ApexCtl"), ("SteelSeriesControl", "SteelSeriesControl"), ("rival310-re", "rival310-re"),
+                ("Cricetus-Imperator", "Cricetus-Imperator"), ("wine", "Wine"),
+                ("ArduinoHidForWindows", "ArduinoHidForWindows"), ("RP2040MacropadHidSample", "RP2040MacropadHidSample"),
+                ("lampctl", "lampctl"), ("hid-rgb-ctl", "hid-rgb-ctl"), ("keybackcon", "keybackcon"),
+                ("mistel-lights", "mistel-lights"), ("acer-predator-helios-rgb", "acer-predator-helios-rgb"),
+                ("CaYaLight", "CaYaLight"), ("crosrgbkblight", "crosrgbkblight"), ("hp-omen-35l-rgb", "hp-omen-35l-rgb"),
+                ("mac-dynamic-lighting", "mac-dynamic-lighting"), ("aura-loq", "aura-loq"),
+                ("Apex3TklDynamicLighting", "Apex3TklDynamicLighting"),
+                ("tactile-ifeel", "iFeel"), ("Logitech-iFeel-Vibration-POC", "Logitech-iFeel-Vibration-POC"),
+                ("linux-input", "Linux"), ("LMouFrc", "MouseWare"),
+            };
+
+            // The claim the credits answer for is still in the source.
+            string source = string.Concat(new[]
+            {
+                "HidppLightPlan.cs", "HidppUnits.cs", "RazerDirectProtocol.cs", "RazerDirectBackend.cs", "RazerGuard.cs",
+                "SteelSeriesDirectProtocol.cs", "SteelSeriesDirectBackend.cs", "LampArrayProtocol.cs", "LampArrayBackend.cs",
+                "TouchSenseProtocol.cs", "TouchSenseBackend.cs", "PeripheralLinker.cs", "PeripheralProductIds.cs",
+            }.Select(file => Text("PadForge.App", "Common", "Input", "Peripherals", file)));
+            foreach (var (inSource, _) in cited)
+                Assert.True(source.Contains(inSource, StringComparison.Ordinal),
+                    $"no direct-path source file cites {inSource} any more");
+
+            var readme = Text("README.md").Split('\n').Select(l => l.TrimEnd('\r')).ToList();
+            string row = readme.Single(l => l.StartsWith("| Peripheral output references |", StringComparison.Ordinal));
+            string bullet = readme.Single(l => l.StartsWith("- **Peripheral output references**:", StringComparison.Ordinal));
+            Assert.Contains("Documentation only, no code ships |", row);
+            Assert.EndsWith("No code from them ships.", bullet);
+
+            string license = Regex.Replace(Text("LICENSE"), @"\s+", " ");
+            int start = license.IndexOf("Peripheral output references:", StringComparison.Ordinal);
+            Assert.True(start >= 0, "LICENSE has no peripheral output references entry");
+            int end = license.IndexOf("PortMidi (https://github.com/PortMidi/portmidi", start, StringComparison.Ordinal);
+            Assert.True(end > start, "the peripheral output references entry is no longer followed by PortMidi's");
+            string entry = license.Substring(start, end - start);
+
+            var about = Locales.ToDictionary(locale => locale,
+                locale => ResxValue(Text("PadForge.App", "Resources", "Strings", locale), "About_PeripheralOutputRefsDesc"));
+            foreach (var (_, credit) in cited)
+            {
+                Assert.True(row.Contains(credit, StringComparison.Ordinal), $"README's table row does not credit {credit}");
+                Assert.True(bullet.Contains(credit, StringComparison.Ordinal), $"README's license list does not credit {credit}");
+                Assert.True(entry.Contains(credit, StringComparison.Ordinal), $"LICENSE does not credit {credit}");
+                foreach (string locale in Locales)
+                    Assert.True(about[locale].Contains(credit, StringComparison.Ordinal),
+                        $"{locale}: the About text does not credit {credit}");
+            }
         }
 
         /// <summary>
@@ -618,7 +698,8 @@ namespace PadForge.Tests
         /// <para>The Linux kernel is tagged by the files each credit read.
         /// hid-sony.c, hid-playstation.c, hid-steam.c, hid-pidff.c and wmi.c
         /// behind its own entry, hid-icade.c and hid-ids.h behind the iCade
-        /// driver and xpad.c behind the Xbox drivers are GPL-2.0-or-later,
+        /// driver, xpad.c behind the Xbox drivers and hid-core.c behind the
+        /// peripheral output references are GPL-2.0-or-later,
         /// as the I-Force and psxpad-spi files already credited are. Three
         /// credits keep GPL-2.0, each for one file that grants no later
         /// version: pxrc.c among the HID devices, hid-udraw-ps3.c among the
@@ -650,7 +731,7 @@ namespace PadForge.Tests
                          ("FreeSpacenav/spacenavd", "GPL-3.0", 2), ("SpecialKO/SpecialK", "GPL-3.0", 1),
                          ("sourceforge.net/projects/chmfp/", "GPL-3.0", 1), ("hbashton/VIIPER", "GPL-3.0", 1),
                          ("medusalix/xow", "GPL-2.0", 1), ("linux-usb/msg15908.html", "GPL-2.0", 1),
-                         ("torvalds/linux", "GPL-2.0", 5),
+                         ("torvalds/linux", "GPL-2.0", 6),
                      })
             {
                 string tagged = Regex.Escape(url) + @",\s*" + Regex.Escape(bare);
@@ -677,7 +758,7 @@ namespace PadForge.Tests
                          ("eden-emu/eden", "GPL-3.0", 1, 0), ("dmadison/NintendoExtensionCtrl", "LGPL-3.0", 1, 0),
                          ("FreeSpacenav/spacenavd", "GPL-3.0", 2, 0), ("sourceforge.net/projects/chmfp/", "GPL-3.0", 1, 0),
                          ("medusalix/xow", "GPL-2.0", 1, 0), ("Ryochan7/DS4Windows", "GPL-3.0", 1, 0),
-                         ("torvalds/linux", "GPL-2.0", 3, 3),
+                         ("torvalds/linux", "GPL-2.0", 4, 3),
                      })
             {
                 string tagged = Regex.Escape(url) + @"\) \(" + Regex.Escape(bare);

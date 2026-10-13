@@ -801,20 +801,77 @@ Protocol documentation references (no code from these projects ships)
   and performance-counter time conversion behind headset and motion
   controller input. PadForge talks to the runtime installed on the user's
   own machine and ships no Khronos binary.
-  Peripheral output references: the HID++ haptic, lighting, pairing and
-  battery frames, read from Solaar (https://github.com/pwr-Solaar/Solaar,
-  GPL-2.0-or-later), libratbag (https://github.com/libratbag/libratbag,
-  MIT, Red Hat, Inc. and David Herrmann), LiveHaptics
+  Peripheral output references: the Logitech HID++ haptic, lighting, pairing
+  and battery frames, read from Solaar (https://github.com/pwr-Solaar/Solaar,
+  GPL-2.0-or-later), libratbag (https://github.com/libratbag/libratbag, MIT,
+  Red Hat, Inc. and David Herrmann), LiveHaptics
   (https://github.com/Paul00O/LiveHaptics, no license published), OpenLogi
   (https://github.com/AprilNEA/OpenLogi, 0BSD for its openlogi-hidpp crate,
-  Lukas Schulte Pelkum, and MIT OR Apache-2.0 for the rest, AprilNEA) and
-  the OpenLogi docs
-  (https://openlogi.org/hidpp/features/x19b0-haptic-feedback, no license
-  published), the Razer product IDs from OpenRazer
-  (https://github.com/openrazer/openrazer, GPL-2.0-or-later), the
-  SteelSeries product IDs from OpenRGB
-  (https://gitlab.com/CalcProgrammer1/OpenRGB, GPL-2.0-or-later) and
-  rivalcfg (https://github.com/flozz/rivalcfg, WTFPL), and the tactile and
+  Lukas Schulte Pelkum, and MIT OR Apache-2.0 for the rest, AprilNEA), the
+  OpenLogi docs (https://openlogi.org/hidpp/features/x19b0-haptic-feedback,
+  no license published), keyleds (https://github.com/keyleds/keyleds,
+  GPL-3.0-or-later), g810-led (https://github.com/MatMoul/g810-led, GPL-3.0,
+  MatMoul) and its captures in g810-led-resources
+  (https://github.com/MatMoul/g810-led-resources, GPL-3.0), rigdeck
+  (https://github.com/gabriellaines/rigdeck, GPL-3.0-or-later), OpenGHub
+  (https://github.com/Slyvan25/OpenGHub, MIT, Silvan Paul) and g915x-heatmap
+  (https://github.com/TheMorpheus407/g915x-heatmap, MIT, The Morpheus), with
+  notes from OpenRGB-Fixed (https://github.com/kylejduan/OpenRGB-Fixed,
+  GPL-2.0-or-later) and HaloDaemon-plugins
+  (https://github.com/TimP4w/HaloDaemon-plugins, several licenses, one for
+  each plugin). The Razer product IDs and lighting reports, read from
+  OpenRazer (https://github.com/openrazer/openrazer, GPL-2.0-or-later) and
+  OpenRGB (https://gitlab.com/CalcProgrammer1/OpenRGB, GPL-2.0-or-later) and
+  checked against uncoil (https://github.com/justinthevoid/uncoil,
+  GPL-3.0-or-later), OpenSynapse (https://github.com/A1mAssist/OpenSynapse,
+  MIT), openrazer-win (https://github.com/Ar4ikov/openrazer-win,
+  GPL-2.0-or-later), sanshoku (https://github.com/ushineko/sanshoku, MIT,
+  ushineko), razer_test (https://github.com/z3ntu/razer_test,
+  GPL-3.0-or-later, Luca Weiss) and razer-life
+  (https://github.com/thesmilingsloth/razer-life, GPL-2.0-or-later), with the
+  lock those tools share from OpenRGB, uncoil, Aurora
+  (https://github.com/Aurora-RGB/Aurora, MIT) and LibreHardwareMonitor
+  (https://github.com/LibreHardwareMonitor/LibreHardwareMonitor, MPL-2.0).
+  The SteelSeries product IDs and lighting reports, read from OpenRGB and
+  rivalcfg (https://github.com/flozz/rivalcfg, WTFPL) and checked against
+  SignalRGB's plugins (https://gitlab.com/signalrgb/signal-plugins, no
+  license published), Aerox_5 (https://github.com/LennardKittner/Aerox_5,
+  MIT, Lennard Kittner), apex-3-tkl (https://github.com/gorkemgun/apex-3-tkl,
+  MIT, gorkemgun), ApexCtl (https://github.com/tuxmark5/ApexCtl, LGPL-3.0),
+  SteelSeriesControl (https://github.com/Kira-PH/SteelSeriesControl,
+  GPL-3.0), rival310-re (https://github.com/FFY00/rival310-re, LGPL-3.0) and
+  a capture in Cricetus-Imperator
+  (https://github.com/DerMaista/Cricetus-Imperator, MIT, Der Maista), with
+  the size of Windows' input report queue from Wine
+  (https://gitlab.winehq.org/wine/wine, LGPL-2.1-or-later). The HID LampArray
+  reports, read from the USB-IF HID Usage Tables, Microsoft's Dynamic
+  Lighting documentation and its samples ArduinoHidForWindows
+  (https://github.com/microsoft/ArduinoHidForWindows, MIT, Microsoft
+  Corporation) and RP2040MacropadHidSample
+  (https://github.com/microsoft/RP2040MacropadHidSample, MIT, Microsoft
+  Corporation), and checked against lampctl
+  (https://github.com/mrp2003/lampctl, MIT OR Apache-2.0, mrp2003),
+  hid-rgb-ctl (https://github.com/xz-dev/hid-rgb-ctl, MIT, Xiangzhe),
+  keybackcon (https://github.com/Soluciones-Alexendros/keybackcon, MIT,
+  Alexendros), mistel-lights (https://github.com/h3ct0rjs/mistel-lights, MIT,
+  Hector Fabio Jimenez S), acer-predator-helios-rgb
+  (https://github.com/TensorRaya/acer-predator-helios-rgb, GPL-2.0-only),
+  CaYaLight (https://github.com/CaYatur/CaYaLight, MIT, Çağan Turgut),
+  crosrgbkblight (https://github.com/coolstar/crosrgbkblight, no license
+  published), hp-omen-35l-rgb (https://github.com/daives01/hp-omen-35l-rgb,
+  MIT, Daniel Ives), mac-dynamic-lighting
+  (https://github.com/ondrejbohac/mac-dynamic-lighting, MIT, Ondřej Boháč),
+  aura-loq (https://github.com/lacina-dev/aura-loq, MIT, Robert Lacina) and
+  Apex3TklDynamicLighting
+  (https://github.com/BlastCode78/Apex3TklDynamicLighting, MIT, Francesco).
+  The iFeel buzz report, read from iFeel (https://github.com/mgrdcm/iFeel, no
+  license published, Dan Moore), the Linux iFeel driver
+  (http://tactile.sourceforge.net/, GPL-2.0-or-later, Josh Bobruk) and
+  Logitech-iFeel-Vibration-POC
+  (https://github.com/Krutonium/Logitech-iFeel-Vibration-POC, no license
+  published), with a descriptor rule from the Linux kernel
+  (https://github.com/torvalds/linux, GPL-2.0-or-later for hid-core.c) and
+  the strength scale from Logitech's MouseWare 9.80 driver. The tactile and
   color handlers from the GameSense SDK
   (https://github.com/SteelSeries/gamesense-sdk, no license published).
   PortMidi (https://github.com/PortMidi/portmidi, MIT, Ross Bencina, Phil
