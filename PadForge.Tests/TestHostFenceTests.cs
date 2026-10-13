@@ -128,7 +128,9 @@ namespace PadForge.Tests
     /// (TestHostFences.cs), beside the ones MachineOffLimitsTests,
     /// HidHideOffLimitsTests and their neighbors pin. The listener gate's
     /// tests are in TestHostListenerTests.cs, and the workshop library's own
-    /// test project sets and tests the Steam flag for its process.
+    /// test project sets and tests the Steam flag for its process. One more
+    /// flag is HIDMaestro's own, set so its context leaves the GameInput
+    /// service alone.
     ///
     /// <para>Three things are pinned for each fence. The flag is set here
     /// and nothing in the app sets it, so production runs as before. Each
@@ -738,6 +740,33 @@ namespace PadForge.Tests
         {
             FenceSource.AsksFirst(Macros, "internal static bool TrySetSessionVolume(IntPtr pSession, float volume)", "if (AudioEndpointAccess.Refuses) return false;");
             Assert.False(AudioSessionHelper.TrySetSessionVolume(IntPtr.Zero, 0.5f));
+        }
+
+        /// <summary>HIDMaestro's context neither asks about the GameInput
+        /// service nor starts it. The SDK's step opens by reading its own
+        /// flag and returns when the flag is set, which the test host has
+        /// done before any context is built. Read from the SDK's compiled
+        /// step, since its source is not PadForge's: a volatile read of the
+        /// flag, a branch on it, and a return.</summary>
+        [Fact]
+        public void TheGameInputService_IsNeitherAskedAboutNorStarted()
+        {
+            FieldInfo flag = GameInputServiceOffLimits.Flag();
+            Assert.True(flag != null, "this HIDMaestro has no " + GameInputServiceOffLimits.Owner + "." + GameInputServiceOffLimits.Name);
+            Assert.Equal(typeof(bool), flag.FieldType);
+            Assert.True((bool)flag.GetValue(null));
+
+            MethodInfo step = flag.DeclaringType.GetMethod(GameInputServiceOffLimits.Step, BindingFlags.Static | BindingFlags.NonPublic);
+            Assert.True(step != null, "this HIDMaestro has no " + GameInputServiceOffLimits.Step);
+            byte[] il = step.GetMethodBody().GetILAsByteArray();
+            // volatile. (FE 13), ldsfld (7E) and the flag's token, then a
+            // short branch (2C brfalse.s or 2D brtrue.s) past a ret (2A).
+            Assert.True(il.Length > 10);
+            Assert.Equal(new byte[] { 0xFE, 0x13, 0x7E }, il[..3]);
+            Assert.Equal(flag, step.Module.ResolveField(BitConverter.ToInt32(il, 3)));
+            Assert.Contains(il[7], new byte[] { 0x2C, 0x2D });
+            int ret = il[7] == 0x2C ? 9 : 9 + il[8];
+            Assert.Equal(0x2A, il[ret]);
         }
 
         // ── The programs other vendors run on the PC ──

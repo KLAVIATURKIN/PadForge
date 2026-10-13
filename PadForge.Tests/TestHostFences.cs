@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using PadForge.Common;
 using PadForge.Common.Input;
@@ -14,7 +15,8 @@ using PadForge.SteamWorkshop.Api;
 // set the real calls refuse, so such a build fails its test and leaves the
 // desktop, the devices, the radio, the drivers, the sound, the other vendors'
 // programs and the network of the bench as they were. Nothing in the app sets
-// any of them (TestHostFenceTests).
+// any of them (TestHostFenceTests). The last class sets a flag of the
+// HIDMaestro SDK's and not one of PadForge's.
 namespace PadForge.Tests
 {
 #pragma warning disable CA2255 // Only the test host loads this assembly.
@@ -148,6 +150,28 @@ namespace PadForge.Tests
     {
         [ModuleInitializer]
         internal static void Set() => SteamHttp.OffLimitsForTest = true;
+    }
+
+    /// <summary>The GameInput service is left as it is. HIDMaestro's context
+    /// asks sc.exe about the service as it is built, and where the service
+    /// is stopped it sets it to start with Windows and starts it. The
+    /// profile catalog builds a context in nearly every test run. The SDK
+    /// keeps one private flag that says the service is known to run, and
+    /// with the flag set it asks nothing and starts nothing. The flag is
+    /// the SDK's and has no name PadForge can reach, so it is set here
+    /// through reflection, and TestHostFenceTests fails when an SDK no
+    /// longer has it or no longer reads it first.</summary>
+    internal static class GameInputServiceOffLimits
+    {
+        internal const string Owner = "HIDMaestro.Internal.DeviceOrchestrator";
+        internal const string Name = "s_gameInputSvcRunning";
+        internal const string Step = "EnsureGameInputService";
+
+        internal static FieldInfo Flag()
+            => typeof(HIDMaestro.HMContext).Assembly.GetType(Owner)?.GetField(Name, BindingFlags.Static | BindingFlags.NonPublic);
+
+        [ModuleInitializer]
+        internal static void Set() => Flag()?.SetValue(null, true);
     }
 
 #pragma warning restore CA2255
