@@ -84,7 +84,7 @@ namespace PadForge.Tests
             string designer = RepoText("PadForge.App", "Resources", "Strings", "Strings.Designer.cs");
             Assert.DoesNotContain("Dashboard_Drivers", designer);
             var resx = Directory.GetFiles(Path.Combine(RepoRoot(), "PadForge.App", "Resources", "Strings"), "Strings*.resx");
-            Assert.Equal(10, resx.Length);
+            Assert.Equal(PadForge.Common.LanguageCatalog.All.Count, resx.Length);
             foreach (var f in resx)
                 Assert.DoesNotContain("name=\"Dashboard_Drivers\"", File.ReadAllText(f));
 

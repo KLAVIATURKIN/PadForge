@@ -884,7 +884,7 @@ namespace PadForge.Tests
             foreach (string locale in Locales)
             {
                 string value = ResxValue(Text("PadForge.App", "Resources", "Strings", locale), "About_SpecialtyUsbRefsDesc");
-                Assert.True(Regex.Matches(value, @"t19xx_usb\s?\(GPL-3\.0\)(, |、)ttyT1941\s?\(GPL-3\.0\)").Count == 1,
+                Assert.True(Regex.Matches(value, @"t19xx_usb\s?\(GPL-3\.0\)(, |、|، )ttyT1941\s?\(GPL-3\.0\)").Count == 1,
                             $"{locale}: the About credit does not name ttyT1941 after t19xx_usb: {value}");
             }
         }

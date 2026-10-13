@@ -2213,6 +2213,60 @@ namespace PadForge.Tests
             return body.Substring(Math.Max(latin >= 0 ? latin + 2 : 0, cjk >= 0 ? cjk + 1 : 0));
         }
 
+        /// <summary>Marks that end a sentence: the full stop and its
+        /// counterparts in Devanagari and Bengali, Urdu, Armenian, Burmese,
+        /// Ethiopic and Khmer, the CJK full stop, and the question and
+        /// exclamation marks.</summary>
+        private static readonly char[] SentenceEnds = { '.', '!', '?', '。', '।', '॥', '۔', '։', '။', '።', '។', '؟' };
+
+        /// <summary>The closing sentence two texts share, in any script: the
+        /// longest ending they have in common, from the first point inside it
+        /// where a sentence starts in both. A sentence starts after a
+        /// sentence end and a space, or right after a CJK full stop. Thai
+        /// marks no sentence end, so in a text with no such mark a space
+        /// starts one. Empty when the two share no whole sentence.</summary>
+        internal static string SharedClosingSentence(string a, string b)
+        {
+            a = a.TrimEnd();
+            b = b.TrimEnd();
+            int n = 0;
+            while (n < a.Length && n < b.Length && a[a.Length - 1 - n] == b[b.Length - 1 - n])
+                n++;
+            bool marked = a.Length > 1 && a.Substring(0, a.Length - 1).IndexOfAny(SentenceEnds) >= 0;
+            int p = 0;
+            while (p < n)
+            {
+                if (!char.IsWhiteSpace(a[a.Length - n + p])
+                    && StartsSentence(a, a.Length - n + p, marked) && StartsSentence(b, b.Length - n + p, marked))
+                    return a.Substring(a.Length - n + p);
+                p++;
+            }
+            return "";
+        }
+
+        private static bool StartsSentence(string text, int at, bool marked)
+        {
+            if (at == 0) return true;
+            char before = text[at - 1];
+            if (before == '。') return true;
+            if (!char.IsWhiteSpace(before)) return false;
+            return !marked || (at >= 2 && Array.IndexOf(SentenceEnds, text[at - 2]) >= 0);
+        }
+
+        /// <summary>The shared closing sentence is found in each script the
+        /// translations use, and a shared tail that is only part of a
+        /// sentence is not one.</summary>
+        [Fact]
+        public void TheSharedClosingSentenceIsFoundInEveryScript()
+        {
+            Assert.Equal("Restore it here.", SharedClosingSentence("The keys move. Restore it here.", "The mouse moves. Restore it here."));
+            Assert.Equal("इसे यहाँ से पुनर्स्थापित करें।", SharedClosingSentence("कुंजियाँ चलती हैं। इसे यहाँ से पुनर्स्थापित करें।", "माउस चलता है। इसे यहाँ से पुनर्स्थापित करें।"));
+            Assert.Equal("随时在此还原。", SharedClosingSentence("按键会移动。随时在此还原。", "鼠标会移动。随时在此还原。"));
+            Assert.Equal("กู้คืนได้จากหน้านี้ทุกเมื่อ", SharedClosingSentence("คีย์จะย้าย กู้คืนได้จากหน้านี้ทุกเมื่อ", "เมาส์จะย้าย กู้คืนได้จากหน้านี้ทุกเมื่อ"));
+            // The same last words in two different sentences.
+            Assert.Equal("", SharedClosingSentence("The keys move. Restore the driver here at any time.", "The mouse moves. Bring the driver back here at any time."));
+        }
+
         /// <summary>The binding's two texts read as written, in every
         /// locale. The cost text says, before the user agrees, what the
         /// switch takes: Windows stops using the mouse as a pointer until
@@ -2250,9 +2304,11 @@ namespace PadForge.Tests
                 // bindings' cost texts name them.
                 Assert.Contains(set.GetString("ControllerType_KeyboardMouse"), confirm);
                 Assert.Contains("WinUSB", confirm);
-                string wayBack = LastSentence(set.GetString("Devices_DriverConfirm_Prodikeys"));
-                Assert.True(wayBack.Length > 10 && wayBack.Length < confirm.Length, locale);
-                Assert.EndsWith(wayBack, confirm);
+                // The way back is the closing sentence both cost texts share,
+                // found in any script.
+                string wayBack = SharedClosingSentence(set.GetString("Devices_DriverConfirm_Prodikeys"), confirm);
+                Assert.True(wayBack.Length > 10 && wayBack.Length < confirm.Length,
+                    locale + ": the cost text does not end on the way back the other bindings' texts end on");
             }
         }
 

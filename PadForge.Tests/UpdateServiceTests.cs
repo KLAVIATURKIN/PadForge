@@ -1241,8 +1241,9 @@ public class UpdateServiceTests
     [Fact]
     public void EveryUpdateStringExistsInEveryLocale()
     {
-        var files = Directory.GetFiles(Path.Combine(Root(), "PadForge.App/Resources/Strings"), "Strings*.resx");
-        Assert.Equal(10, files.Length);
+        // The files that hold every string. A partial translation and British
+        // English take what they leave out from Strings.resx.
+        var files = LocaleFiles.Complete.Select(f => Path.Combine(Root(), "PadForge.App/Resources/Strings", f)).ToArray();
         string designer = Read("PadForge.App/Resources/Strings/Strings.Designer.cs");
         var keys = XDocument.Load(files.Single(f => Path.GetFileName(f) == "Strings.resx")).Root.Elements("data")
             .Select(d => (string)d.Attribute("name"))

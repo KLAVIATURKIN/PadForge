@@ -47,12 +47,14 @@ namespace PadForge.Tests
         {
             var dir = Path.Combine(RepoRoot(), "PadForge.App", "Resources", "Strings");
             var values = new Dictionary<string, string>();
-            foreach (var file in Directory.GetFiles(dir, "Strings*.resx"))
+            // The files that hold every string. A partial translation and
+            // British English take what they leave out from Strings.resx.
+            foreach (var file in LocaleFiles.Complete.Select(f => Path.Combine(dir, f)))
             {
                 var data = XDocument.Load(file).Root.Elements("data").FirstOrDefault(d => (string)d.Attribute("name") == key);
                 values[Path.GetFileName(file)] = data?.Element("value")?.Value;
             }
-            Assert.Equal(10, values.Count);
+            Assert.Equal(LocaleFiles.Complete.Length, values.Count);
             return values;
         }
 

@@ -110,8 +110,9 @@ public class WindowSettingsTests
     [Fact]
     public void BothWindowStringsExistInEveryLocale()
     {
-        var files = Directory.GetFiles(Path.Combine(Root(), "PadForge.App/Resources/Strings"), "Strings*.resx");
-        Assert.Equal(10, files.Length);
+        // The files that hold every string. A partial translation and British
+        // English take what they leave out from Strings.resx.
+        var files = LocaleFiles.Complete.Select(f => Path.Combine(Root(), "PadForge.App/Resources/Strings", f)).ToArray();
         foreach (var path in files)
         {
             var resources = XDocument.Load(path).Root.Elements("data");

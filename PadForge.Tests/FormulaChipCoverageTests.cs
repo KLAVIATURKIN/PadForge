@@ -118,7 +118,9 @@ namespace PadForge.Tests
 
             var dir = Path.Combine(RepoRoot(), "PadForge.App", "Resources", "Strings");
             var gaps = new List<string>();
-            foreach (var f in Directory.GetFiles(dir, "Strings*.resx"))
+            // The files that hold every string. A partial translation and
+            // British English take what they leave out from Strings.resx.
+            foreach (var f in LocaleFiles.Complete.Select(name => Path.Combine(dir, name)))
             {
                 var text = File.ReadAllText(f);
                 var missing = keys.Where(k => !text.Contains($"name=\"{k}\"")).OrderBy(k => k).ToList();

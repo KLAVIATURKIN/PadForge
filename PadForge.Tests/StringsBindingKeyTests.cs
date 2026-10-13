@@ -119,7 +119,10 @@ namespace PadForge.Tests
             var english = EnglishKeys(root);
 
             var gaps = new List<string>();
-            foreach (var f in Directory.GetFiles(dir, "Strings.*.resx"))
+            // Every complete translation. A partial one shows English for what
+            // it leaves out, and British English holds only what it writes
+            // differently, both by design (LanguageCatalogTests).
+            foreach (var f in LocaleFiles.CompleteTranslations.Select(tag => Path.Combine(dir, "Strings." + tag + ".resx")))
             {
                 var theirs = XDocument.Load(f).Root.Elements("data")
                     .Select(e => (string)e.Attribute("name"))

@@ -471,12 +471,16 @@ namespace PadForge.Tests
         {
             string dir = Path.Combine(RepoRoot(), "PadForge.App", "Resources", "Strings");
             var files = Directory.GetFiles(dir, "Strings*.resx");
-            Assert.Equal(10, files.Length);
+            Assert.Equal(PadForge.Common.LanguageCatalog.All.Count, files.Length);
+            string english = File.ReadAllText(Path.Combine(dir, "Strings.resx"));
+            // A file shows the English for a string it leaves out, so the
+            // two are compared as the window shows them.
+            string Shown(string x, string key) => x.Contains("<data name=\"" + key + "\"") ? ResxValue(x, key) : ResxValue(english, key);
             foreach (var f in files)
             {
                 string x = File.ReadAllText(f);
-                string slot = ResxValue(x, "ControllerType_KeyboardMouse");
-                string both = ResxValue(x, "Pad_Kbm_Surfaces_Both_Name");
+                string slot = Shown(x, "ControllerType_KeyboardMouse");
+                string both = Shown(x, "Pad_Kbm_Surfaces_Both_Name");
                 Assert.False(string.IsNullOrEmpty(slot), Path.GetFileName(f));
                 Assert.Equal(slot, both);
             }
