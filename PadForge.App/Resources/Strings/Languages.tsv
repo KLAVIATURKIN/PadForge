@@ -1,7 +1,8 @@
 # tag	English name	own name	direction	script	coverage
-# One row for English and one for each Strings.<tag>.resx beside this file. LanguageCatalog reads it.
+# One row for American English, the text of Strings.resx, and one for each Strings.<tag>.resx beside it.
+# LanguageCatalog reads it.
 de	German	Deutsch	ltr	Latn	full
-en	English	English	ltr	Latn	full
+en-US	English (United States)	English (United States)	ltr	Latn	full
 es	Spanish	Español	ltr	Latn	full
 fr	French	Français	ltr	Latn	full
 it	Italian	Italiano	ltr	Latn	full

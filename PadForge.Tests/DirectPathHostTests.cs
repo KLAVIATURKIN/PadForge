@@ -562,7 +562,7 @@ namespace PadForge.Tests
             })
             {
                 Assert.False(string.IsNullOrEmpty(En(key)), key);
-                foreach (string locale in LocaleParityTests.Locales)
+                foreach (string locale in LocaleFiles.CompleteTranslations)
                 {
                     var culture = new CultureInfo(locale);
                     string value = Strings.ResourceManager.GetResourceSet(culture, true, false)?.GetString(key);
@@ -574,7 +574,7 @@ namespace PadForge.Tests
                 }
             }
 
-            foreach (string locale in LocaleParityTests.Locales)
+            foreach (string locale in LocaleFiles.CompleteTranslations)
             {
                 var set = Strings.ResourceManager.GetResourceSet(new CultureInfo(locale), true, false);
                 string tooltip = set.GetString("Pad_Lighting_ClaimLevel_Tooltip");

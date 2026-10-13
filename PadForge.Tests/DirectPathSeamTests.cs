@@ -2233,7 +2233,7 @@ namespace PadForge.Tests
             Assert.DoesNotContain("restart", En("Devices_DriverConfirm_TouchSenseMouse"), StringComparison.OrdinalIgnoreCase);
             Assert.Equal("Restore the Windows driver from this page at any time.", LastSentence(En("Devices_DriverConfirm_Prodikeys")));
 
-            foreach (string locale in LocaleParityTests.Locales)
+            foreach (string locale in LocaleFiles.CompleteTranslations)
             {
                 var set = Strings.ResourceManager.GetResourceSet(new CultureInfo(locale), true, false);
                 string bind = set.GetString("Devices_DriverBind_TouchSenseMouse");

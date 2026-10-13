@@ -378,7 +378,7 @@ namespace PadForge.Tests
             while (dir != null && !File.Exists(Path.Combine(dir.FullName, "PadForge.sln")))
                 dir = dir.Parent;
             Assert.NotNull(dir);
-            string file = locale == "en" ? "Strings.resx" : $"Strings.{locale}.resx";
+            string file = PadForge.Tests.LocaleFiles.FileOfTag(locale);
             var doc = XDocument.Load(Path.Combine(dir.FullName, "PadForge.App", "Resources", "Strings", file));
             var node = doc.Root.Elements("data").FirstOrDefault(e => (string)e.Attribute("name") == key);
             Assert.NotNull(node);

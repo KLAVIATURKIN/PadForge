@@ -63,7 +63,7 @@ namespace PadForge.ViewModels
         private CultureInfo _selectedLanguage;
 
         /// <summary>
-        /// Currently selected UI language. Persisted as the culture name (e.g. "en", "ja").
+        /// Currently selected UI language. Persisted as the culture name (e.g. "en-US", "ja").
         /// Changing this applies the new language immediately (live switching).
         /// </summary>
         public CultureInfo SelectedLanguage

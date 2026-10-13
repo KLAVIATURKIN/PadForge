@@ -21,8 +21,8 @@ namespace PadForge.Common
         }
 
         /// <summary>The culture name, and the tag in the file name
-        /// Strings.&lt;tag&gt;.resx. English is "en" and has no tag in its
-        /// file name.</summary>
+        /// Strings.&lt;tag&gt;.resx. American English is "en-US", and its
+        /// text is Strings.resx itself.</summary>
         public string Tag { get; }
 
         public string EnglishName { get; }
@@ -68,9 +68,19 @@ namespace PadForge.Common
         /// own name, Latin first and then script by script.</summary>
         internal static IReadOnlyList<LanguageInfo> All => _all.Value;
 
-        internal static LanguageInfo English => Find("en");
+        /// <summary>The tag of the interface's own language: American
+        /// English, the text of Strings.resx.</summary>
+        internal const string EnglishTag = "en-US";
 
+        internal static LanguageInfo English => Find(EnglishTag);
+
+        /// <summary>The row for a tag, else the row its speakers read. A
+        /// language saved as "en", before American and British English had
+        /// rows of their own, reads American English.</summary>
         internal static LanguageInfo Find(string tag)
+            => Exact(tag) ?? Exact(Alias(tag));
+
+        private static LanguageInfo Exact(string tag)
         {
             if (string.IsNullOrEmpty(tag)) return null;
             foreach (LanguageInfo language in All)
@@ -80,26 +90,72 @@ namespace PadForge.Common
 
         /// <summary>The language a culture is shown in: its own row, else
         /// the nearest parent that has one (de-AT reads de, zh-TW reads
-        /// zh-Hant). Null when no row answers, which is English.</summary>
+        /// zh-Hant, en-AU reads en-GB). Null when no row answers, which is
+        /// English.</summary>
         internal static LanguageInfo Resolve(CultureInfo culture)
         {
             // The walk ends at the invariant culture, whose name is empty.
             CultureInfo c = culture;
             while (c != null && c.Name.Length > 0)
             {
-                LanguageInfo hit = Find(c.Name) ?? Find(Alias(c.Name));
+                LanguageInfo hit = Find(c.Name);
                 if (hit != null) return hit;
                 c = c.Parent;
             }
             return null;
         }
 
+        /// <summary>The regions whose English follows British conventions:
+        /// those CLDR gives the parent en-001, directly or through en-150,
+        /// read from the CLDR data in Windows' own ICU. .NET's
+        /// CultureInfo.Parent skips that step and hands every English region
+        /// straight to en, so the list is kept here, and LanguageCatalogTests
+        /// holds it to Windows' copy of CLDR.</summary>
+        private static readonly HashSet<string> BritishEnglishRegions = new(StringComparer.OrdinalIgnoreCase)
+        {
+            "001", "150", "AG", "AI", "AT", "AU", "BB", "BE", "BM", "BS", "BW", "BZ", "CC", "CH", "CK", "CM", "CX",
+            "CY", "DE", "DK", "DM", "ER", "FI", "FJ", "FK", "FM", "GB", "GD", "GG", "GH", "GI", "GM", "GY", "HK",
+            "IE", "IL", "IM", "IN", "IO", "JE", "JM", "KE", "KI", "KN", "KY", "LC", "LR", "LS", "MG", "MO", "MS",
+            "MT", "MU", "MV", "MW", "MY", "NA", "NF", "NG", "NL", "NR", "NU", "NZ", "PG", "PK", "PN", "PW", "RW",
+            "SB", "SC", "SD", "SE", "SG", "SH", "SI", "SL", "SS", "SX", "SZ", "TC", "TK", "TO", "TT", "TV", "TZ",
+            "UG", "VC", "VG", "VU", "WS", "ZA", "ZM", "ZW",
+        };
+
+        /// <summary>True for English of a region that writes British English.
+        /// English of the United States and its territories, and of a region
+        /// CLDR leaves under en itself (Canada, the Philippines), writes
+        /// American English.</summary>
+        internal static bool ReadsBritishEnglish(CultureInfo culture)
+            => culture != null && EnglishRegion(culture.Name, out string region) && region != null
+               && BritishEnglishRegions.Contains(region);
+
+        /// <summary>True when the name is English, with its region subtag
+        /// (two letters or three digits) if it has one.</summary>
+        private static bool EnglishRegion(string name, out string region)
+        {
+            region = null;
+            if (string.IsNullOrEmpty(name)) return false;
+            string[] parts = name.Split('-');
+            if (!string.Equals(parts[0], "en", StringComparison.OrdinalIgnoreCase)) return false;
+            foreach (string part in parts.Skip(1))
+            {
+                if (part.Length == 4) continue; // a script subtag such as Latn
+                if ((part.Length == 2 && part.All(char.IsLetter)) || (part.Length == 3 && part.All(char.IsDigit)))
+                    region = part;
+                break;
+            }
+            return true;
+        }
+
         /// <summary>Where a culture's own parents never reach the row its
-        /// speakers read. Portuguese outside Brazil reads Portugal's, bare
-        /// Chinese reads Simplified, Windows calls Tagalog fil and Central
-        /// Kurdish ku-Arab.</summary>
+        /// speakers read. English reads American or British English by its
+        /// region, Portuguese outside Brazil reads Portugal's, bare Chinese
+        /// reads Simplified, Windows calls Tagalog fil and Central Kurdish
+        /// ku-Arab.</summary>
         private static string Alias(string name)
         {
+            if (EnglishRegion(name, out string region))
+                return region != null && BritishEnglishRegions.Contains(region) ? "en-GB" : EnglishTag;
             switch (name)
             {
                 case "pt": return "pt-PT";
