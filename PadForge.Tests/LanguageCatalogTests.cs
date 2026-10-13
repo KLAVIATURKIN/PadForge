@@ -30,7 +30,7 @@ namespace PadForge.Tests
         /// Hard-coded on purpose: a language dropped from the table and from
         /// the tree together would shrink every other test's coverage in
         /// silence, and this number would not move with it.</summary>
-        internal const int LanguageCount = 10;
+        internal const int LanguageCount = 20;
 
         private static string StringsDirectory()
         {
