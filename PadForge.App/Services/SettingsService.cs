@@ -674,14 +674,6 @@ namespace PadForge.Services
             }
         }
 
-        /// <summary>
-        /// Phase 2A: load <see cref="MappingSet"/>s persisted in the XML
-        /// when present; one-time-migrate from legacy <see cref="PadSetting"/>
-        /// fields for slots whose XML had no MappingSet (or an empty one).
-        /// Once a slot's MappingSet has been authored / loaded, it's the
-        /// authoritative source for descriptors and the legacy fields stop
-        /// being consulted on subsequent loads.
-        /// </summary>
         /// <summary>Test seam for the startup load path.</summary>
         internal static void LoadOrMigrateSlotMappingSetsForTest(MappingSet[] persisted)
             => LoadOrMigrateSlotMappingSets(persisted);
@@ -708,6 +700,14 @@ namespace PadForge.Services
             }
         }
 
+        /// <summary>
+        /// Phase 2A: load <see cref="MappingSet"/>s persisted in the XML
+        /// when present; one-time-migrate from legacy <see cref="PadSetting"/>
+        /// fields for slots whose XML had no MappingSet (or an empty one).
+        /// Once a slot's MappingSet has been authored / loaded, it's the
+        /// authoritative source for descriptors and the legacy fields stop
+        /// being consulted on subsequent loads.
+        /// </summary>
         private static void LoadOrMigrateSlotMappingSets(MappingSet[] persisted)
         {
             var sets = SettingsManager.SlotMappingSets;
@@ -1831,29 +1831,6 @@ namespace PadForge.Services
             return d;
         }
 
-        /// <summary>
-        /// Phase 2A merge: additively reconcile each slot's MappingSet
-        /// with the per-device PadSetting fields. Adding a new device
-        /// to a slot that already has authored mappings (e.g. keyboard
-        /// custom mappings, then the user assigns a DualSense whose
-        /// auto-mapper populates ButtonA="Button 0" / etc) used to
-        /// CLOBBER the existing rows — the rebuilt rows came from
-        /// PadSetting and the existing rows' primary sources got
-        /// dropped because the gamepad-only migrator filter skipped
-        /// non-gamepad devices.
-        ///
-        /// New behavior: existing rows are preserved as the source of
-        /// truth (they already include the user's primary + extras
-        /// after <see cref="PushUiExtraSourcesIntoSlotMappingSets"/>);
-        /// rebuilt rows only contribute auto-mapped sources for
-        /// newly-added devices that aren't already represented by a
-        /// matching (DeviceGuid, Descriptor) entry. Sources whose
-        /// owning device left the slot get dropped.
-        /// </summary>
-        /// <summary>Public hook so callers outside the save pipeline
-        /// (e.g. device-assignment changes) can trigger the merge so
-        /// newly-assigned devices' auto-mapped sources appear in the
-        /// per-VC view without waiting for the next save / reload.</summary>
         /// <summary>Post-refresh hook wired by the SettingsService instance
         /// constructor so static callers of <see cref="RefreshMappingSetsFromLegacy"/>
         /// trigger the per-instance motion-rows backfill without taking an
@@ -1904,6 +1881,10 @@ namespace PadForge.Services
             return result;
         }
 
+        /// <summary>Public hook so callers outside the save pipeline
+        /// (e.g. device-assignment changes) can trigger the merge so
+        /// newly-assigned devices' auto-mapped sources appear in the
+        /// per-VC view without waiting for the next save / reload.</summary>
         public static void RefreshMappingSetsFromLegacy()
         {
             MergeMappingSetsFromLegacy();
@@ -2032,6 +2013,25 @@ namespace PadForge.Services
             return false;
         }
 
+        /// <summary>
+        /// Phase 2A merge: additively reconcile each slot's MappingSet
+        /// with the per-device PadSetting fields. Adding a new device
+        /// to a slot that already has authored mappings (e.g. keyboard
+        /// custom mappings, then the user assigns a DualSense whose
+        /// auto-mapper populates ButtonA="Button 0" / etc) used to
+        /// CLOBBER the existing rows — the rebuilt rows came from
+        /// PadSetting and the existing rows' primary sources got
+        /// dropped because the gamepad-only migrator filter skipped
+        /// non-gamepad devices.
+        ///
+        /// New behavior: existing rows are preserved as the source of
+        /// truth (they already include the user's primary + extras
+        /// after <see cref="PushUiExtraSourcesIntoSlotMappingSets"/>);
+        /// rebuilt rows only contribute auto-mapped sources for
+        /// newly-added devices that aren't already represented by a
+        /// matching (DeviceGuid, Descriptor) entry. Sources whose
+        /// owning device left the slot get dropped.
+        /// </summary>
         private static void MergeMappingSetsFromLegacy()
         {
             var sets = SettingsManager.SlotMappingSets;

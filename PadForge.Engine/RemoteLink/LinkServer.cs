@@ -220,15 +220,6 @@ namespace PadForge.Engine.RemoteLink
         /// where plain UDP hole punching won't work. The UI pre-warns.</summary>
         public bool IsHardNat { get; private set; }
 
-        /// <summary>
-        /// Learns this socket's public endpoint via STUN (#294 step 1), reusing
-        /// the bound UDP socket so the mapping matches the one a punch would use.
-        /// Probes two independent servers to classify hard NAT. Sends are done
-        /// through the socket directly; responses come back through the shared
-        /// receive loop (<see cref="RouteStunResponse"/>). Safe to call while the
-        /// server is running and connections are live: STUN datagrams demux from
-        /// sealed session datagrams by the magic cookie.
-        /// </summary>
         /// <summary>This socket's classified NAT behavior from the last probe
         /// (#294), used to decide punch strategy. Null until probed.</summary>
         public NatProfile Nat { get; private set; }
@@ -331,6 +322,15 @@ namespace PadForge.Engine.RemoteLink
             catch { /* keepalive must never take the link down */ }
         }
 
+        /// <summary>
+        /// Learns this socket's public endpoint via STUN (#294 step 1), reusing
+        /// the bound UDP socket so the mapping matches the one a punch would use.
+        /// Probes two independent servers to classify hard NAT. Sends are done
+        /// through the socket directly; responses come back through the shared
+        /// receive loop (<see cref="RouteStunResponse"/>). Safe to call while the
+        /// server is running and connections are live: STUN datagrams demux from
+        /// sealed session datagrams by the magic cookie.
+        /// </summary>
         public async Task<StunResult> ProbePublicEndpointAsync(CancellationToken ct = default)
         {
             var sock = _udp;

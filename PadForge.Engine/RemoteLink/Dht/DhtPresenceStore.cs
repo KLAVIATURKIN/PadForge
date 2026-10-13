@@ -146,9 +146,6 @@ namespace PadForge.Engine.RemoteLink.Dht
             public bool IsSeed;
         }
 
-        /// <summary>Iterative Kademlia lookup toward <paramref name="target"/>
-        /// using <c>get</c> (so we collect tokens and any stored value along the
-        /// way). Returns the K closest responders.</summary>
         /// <summary>Iterative lookup with retry. The FIRST lookup after start-up
         /// routinely converges on nothing (empty routing table, dead bootstrap
         /// routers) and the retry gets through once the frontier warms.
@@ -168,6 +165,9 @@ namespace PadForge.Engine.RemoteLink.Dht
             return best;
         }
 
+        /// <summary>Iterative Kademlia lookup toward <paramref name="target"/>
+        /// using <c>get</c> (so we collect tokens and any stored value along the
+        /// way). Returns the K closest responders.</summary>
         private async Task<List<Contact>> LookupOnceAsync(byte[] target, CancellationToken ct)
         {
             var shortlist = new List<Contact>();

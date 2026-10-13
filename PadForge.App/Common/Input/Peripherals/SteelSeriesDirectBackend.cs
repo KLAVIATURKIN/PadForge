@@ -341,9 +341,12 @@ namespace PadForge.Common.Input.Peripherals
             if (Volatile.Read(ref _disposed) != 0 || _thread != null) return;
             var run = new WorkerRun();
             _run = run;
-            // A list from before this start is not this run's scan: the
-            // host walks on its first pass and hands a new one over.
+            // A list from before this start is not this run's scan, and
+            // neither is what an earlier run found: the host walks on its
+            // first pass and hands a new one over, and this run has scanned
+            // nothing until then.
             Volatile.Write(ref _present, null);
+            Volatile.Write(ref _snapshot, DirectBackendSnapshot.NotScanned);
             _thread = new Thread(() => Worker(run)) { IsBackground = true, Name = "PeripheralSteelSeries" };
             Volatile.Write(ref _worker, _thread);
             _thread.Start();

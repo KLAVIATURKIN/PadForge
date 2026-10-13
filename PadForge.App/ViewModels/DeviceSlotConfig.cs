@@ -1833,13 +1833,6 @@ namespace PadForge.ViewModels
         MultiplePositionVibration = 6,
     }
 
-    /// <summary>Mic mute LED mode. Values 0-2 map directly to byte 8
-    /// (muteLedControl) per dualsense-tester's MuteButtonLedControl
-    /// (0=Off, 1=Solid, 2=Pulse). FollowDeviceMute is resolved by the
-    /// synthesizer via <c>AudioMuteService.GetMuteState</c> against
-    /// <c>MicLedFollowDeviceId</c> — muted endpoint -> Solid (1),
-    /// unmuted -> Off (0). Unknown / disconnected device falls back to
-    /// Off so a stale config doesn't strand the LED in a wrong state.</summary>
     /// <summary>Where the DualSense plays its audio (output report
     /// byte 7 bits 4-5, OutputPathSelect). Values 1-4 map to firmware
     /// paths 0-3, the four Sony names in duaLib's scePad surface
@@ -1865,6 +1858,13 @@ namespace PadForge.ViewModels
         FollowHeadphoneJack = 5,
     }
 
+    /// <summary>Mic mute LED mode. Values 0-2 map directly to byte 8
+    /// (muteLedControl) per dualsense-tester's MuteButtonLedControl
+    /// (0=Off, 1=Solid, 2=Pulse). FollowDeviceMute is resolved by the
+    /// synthesizer via <c>AudioMuteService.GetMuteState</c> against
+    /// <c>MicLedFollowDeviceId</c> — muted endpoint -> Solid (1),
+    /// unmuted -> Off (0). Unknown / disconnected device falls back to
+    /// Off so a stale config doesn't strand the LED in a wrong state.</summary>
     public enum MicLedMode
     {
         Off = 0,

@@ -431,13 +431,15 @@ namespace PadForge.Common.Input.Peripherals
                     if (!queued && now >= nextScan && (!linked || quiet))
                     {
                         Volatile.Write(ref _scanQuietMs, now - quietSince);
-                        Scan(run, channels, states, now, waiter);
+                        bool dropped = Scan(run, channels, states, now, waiter);
                         // A slot still waiting for its device, one asleep at
                         // launch or one that went to sleep, is asked again on
                         // its own backoff, so the scan comes as often as that
-                        // can matter. With nothing waiting, a slow rescan finds
-                        // what gets plugged in or paired.
-                        nextScan = _ticks() + (AnyWaiting(states) ? FirstScanMs : RescanMs);
+                        // can matter. A lit unit this scan dropped is owed its
+                        // hand-back, so its path is asked again as soon. With
+                        // neither, a slow rescan finds what gets plugged in or
+                        // paired.
+                        nextScan = _ticks() + (dropped || AnyWaiting(states) ? FirstScanMs : RescanMs);
                     }
                     if (!queued && now >= nextCheck && quiet)
                     {
@@ -920,13 +922,15 @@ namespace PadForge.Common.Input.Peripherals
         /// when the worker lets go of the unit with no frame: it stopped
         /// answering, or a write to its path failed. The claim is kept as
         /// it stood, so what is paid later is the hand-back of that claim,
-        /// with the mode it read.</summary>
-        private void Owe(string path, byte deviceIndex, Light light)
+        /// with the mode it read. True when the unit held a claim to owe
+        /// for.</summary>
+        private bool Owe(string path, byte deviceIndex, Light light)
         {
-            if (!light.Claimed || light.HandBack == null) return;
+            if (!light.Claimed || light.HandBack == null) return false;
             light.Queue = null;
             if (!_owed.TryGetValue(path, out var units)) _owed[path] = units = new Dictionary<byte, Light>();
             units[deviceIndex] = light;
+            return true;
         }
 
         /// <summary>Drops the paths a write failed on, a color's or a
@@ -937,17 +941,29 @@ namespace PadForge.Common.Input.Peripherals
         private void DropDead(Dictionary<string, Channel> channels, Dictionary<string, HidppPathState> states,
             List<string> dead, long now, ref long nextScan)
         {
-            foreach (var path in dead)
-            {
-                PadForge.Engine.SdlDiagLog.WriteLine("PERIPHERAL HID++ write failed, dropping " + path);
-                if (channels.TryGetValue(path, out var channel))
-                    foreach (var unit in channel.Units)
-                        if (channel.Lights.TryGetValue(unit.DeviceIndex, out var light)) Owe(path, unit.DeviceIndex, light);
-                Close(channels, states, path, forget: true);
-            }
+            foreach (var path in dead) Drop(channels, states, path);
             nextScan = now;
             Publish(channels, states);
             PublishClaimed(channels);
+        }
+
+        /// <summary>Lets go of one path a write failed on, a color's, a
+        /// pulse's or a scan's question alike: each claimed unit there is
+        /// owed its hand-back, the channel closes and what the path
+        /// answered is forgotten. True when a unit was owed, a lit device
+        /// to find again soon. The crash path's record needs no rewrite
+        /// for it: it holds that unit's frames already, as its claim's.</summary>
+        private bool Drop(Dictionary<string, Channel> channels, Dictionary<string, HidppPathState> states, string path)
+        {
+            bool owed = false;
+            if (channels.TryGetValue(path, out var channel))
+            {
+                PadForge.Engine.SdlDiagLog.WriteLine("PERIPHERAL HID++ write failed, dropping " + path);
+                foreach (var unit in channel.Units)
+                    if (channel.Lights.TryGetValue(unit.DeviceIndex, out var light)) owed |= Owe(path, unit.DeviceIndex, light);
+            }
+            Close(channels, states, path, forget: true);
+            return owed;
         }
 
         /// <summary>Whether the unit found at a slot is the device a
@@ -1208,12 +1224,16 @@ namespace PadForge.Common.Input.Peripherals
             return active;
         }
 
-        private void Scan(WorkerRun run, Dictionary<string, Channel> channels, Dictionary<string, HidppPathState> states, long now,
+        /// <summary>One walk of the present HID++ collections: a path that
+        /// left takes its claims along, and each path with a question to
+        /// ask is asked it. True when the walk dropped a path with a lit
+        /// unit on it, which is then asked again on the fast interval.</summary>
+        private bool Scan(WorkerRun run, Dictionary<string, Channel> channels, Dictionary<string, HidppPathState> states, long now,
             HidppWaiter waiter)
         {
             Interlocked.Increment(ref _scans);
             var all = _enumerate();
-            if (all == null) return;
+            if (all == null) return false;
             var collections = all.Where(IsHidppLong).ToList();
 
             var present = new HashSet<string>(collections.Select(c => c.Path), StringComparer.OrdinalIgnoreCase);
@@ -1234,9 +1254,10 @@ namespace PadForge.Common.Input.Peripherals
             }
             if (left) PublishClaimed(channels);
 
+            bool dropped = false;
             foreach (var collection in collections)
             {
-                if (run.Stop) return;
+                if (run.Stop) return dropped;
                 if (!states.TryGetValue(collection.Path, out var state))
                 {
                     states[collection.Path] = state = new HidppPathState
@@ -1315,11 +1336,15 @@ namespace PadForge.Common.Input.Peripherals
                     io.Dispose();
                 }
 
-                if (state.Dead) Close(channels, states, collection.Path, forget: true);
+                // A write failed while the path was asked. It is dropped as
+                // after a color's or a pulse's failed write, with each lit
+                // unit on it owed its hand-back (DropDead).
+                if (state.Dead) dropped |= Drop(channels, states, collection.Path);
             }
             // A slot that settled changes what the linker may conclude even
             // with nothing found, so every scan publishes.
             Publish(channels, states);
+            return dropped;
         }
 
         /// <summary>Whether a scan has anything to ask this path: a slot not

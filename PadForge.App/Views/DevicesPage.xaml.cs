@@ -148,14 +148,14 @@ namespace PadForge.Views
             if (Pad2Dot4 != null) { Canvas.SetLeft(Pad2Dot4, vm.Pad2X4 * w - 7); Canvas.SetTop(Pad2Dot4, vm.Pad2Y4 * h - 7); }
         }
 
-        /// <summary>Identify buzz (#293): route through InputService, which
-        /// picks the sole-writer lane for mapped devices and the direct train
-        /// for unmapped ones.</summary>
         /// <summary>The rumble capability chip's click (a Border, so a mouse
         /// handler rather than a Button Click).</summary>
         private void IdentifyChip_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
             => IdentifyDevice_Click(sender, e);
 
+        /// <summary>Identify buzz (#293): route through InputService, which
+        /// picks the sole-writer lane for mapped devices and the direct train
+        /// for unmapped ones.</summary>
         private void IdentifyDevice_Click(object sender, RoutedEventArgs e)
         {
             // The button lives in the details pane, so the target is the
@@ -311,15 +311,6 @@ namespace PadForge.Views
             vm.NotifyDeviceHidingChanged(dev.InstanceGuid);
         }
 
-        /// <summary>
-        /// Persists the idle-disconnect minutes (#162) when the box loses focus,
-        /// through the same DevicesViewModel → DeviceService channel as the
-        /// hiding toggles. The binding is force-committed first: WPF does not
-        /// guarantee the LostFocus-triggered source update runs before this
-        /// instance handler, and when the handler won the race it persisted the
-        /// STALE value, which the next device-list sync then wrote back over
-        /// the user's edit (observed: 1 → 0 reverted to 1).
-        /// </summary>
         /// <summary>Quick Charge checkbox (#372): the TwoWay binding has
         /// already written the row when Click fires, so this only flushes
         /// the row into the persisted UserDevice, the same lane as the
@@ -356,6 +347,15 @@ namespace PadForge.Views
             vm.NotifyDeviceHidingChanged(dev.InstanceGuid);
         }
 
+        /// <summary>
+        /// Persists the idle-disconnect minutes (#162) when the box loses focus,
+        /// through the same DevicesViewModel → DeviceService channel as the
+        /// hiding toggles. The binding is force-committed first: WPF does not
+        /// guarantee the LostFocus-triggered source update runs before this
+        /// instance handler, and when the handler won the race it persisted the
+        /// STALE value, which the next device-list sync then wrote back over
+        /// the user's edit (observed: 1 → 0 reverted to 1).
+        /// </summary>
         private void IdleDisconnect_LostFocus(object sender, RoutedEventArgs e)
         {
             var vm = DataContext as ViewModels.DevicesViewModel;

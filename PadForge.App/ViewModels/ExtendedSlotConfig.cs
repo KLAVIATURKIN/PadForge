@@ -147,7 +147,6 @@ namespace PadForge.ViewModels
             set => SetProperty(ref _productId, value);
         }
 
-        /// <summary>Total Extended axes = ThumbstickCount * 2 + TriggerCount (max 8).</summary>
         /// <summary>Resets every field to its fresh-install default IN
         /// PLACE. The instance must never be replaced: MainWindow wires
         /// its MarkDirty autosave hook to this object's PropertyChanged
@@ -172,6 +171,7 @@ namespace PadForge.ViewModels
             ProductId = 0;
         }
 
+        /// <summary>Total Extended axes = ThumbstickCount * 2 + TriggerCount (max 8).</summary>
         public int TotalAxes => Math.Min(ThumbstickCount * 2 + TriggerCount, MaxAxes);
 
         /// <summary>Maximum thumbstick count given current TriggerCount.</summary>

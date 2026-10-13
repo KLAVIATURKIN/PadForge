@@ -661,14 +661,6 @@ namespace PadForge.Engine.Data
             });
         }
 
-        /// <summary>
-        /// Parses a legacy descriptor string ("Button 0", "IHAxis 1",
-        /// "POV 0 Up", "Slider 0") into a <see cref="MappingSource"/>.
-        /// The "I" / "H" / "IH" prefixes encode invert / half-axis flags;
-        /// the new schema splits those into per-source bool flags so the
-        /// stored Descriptor is the unprefixed form. Bidirectional is an
-        /// independent per-target companion, not part of the prefix grammar.
-        /// </summary>
         /// <summary>True when a legacy descriptor reads an analog axis, after
         /// the same prefix strip <see cref="BuildSource"/> performs. This is the
         /// only descriptor class that rests at full negative deflection on a
@@ -685,6 +677,14 @@ namespace PadForge.Engine.Data
                 || s.StartsWith("Slider", StringComparison.OrdinalIgnoreCase);
         }
 
+        /// <summary>
+        /// Parses a legacy descriptor string ("Button 0", "IHAxis 1",
+        /// "POV 0 Up", "Slider 0") into a <see cref="MappingSource"/>.
+        /// The "I" / "H" / "IH" prefixes encode invert / half-axis flags;
+        /// the new schema splits those into per-source bool flags so the
+        /// stored Descriptor is the unprefixed form. Bidirectional is an
+        /// independent per-target companion, not part of the prefix grammar.
+        /// </summary>
         private static MappingSource BuildSource(string deviceGuid, string rawDescriptor, string deadZoneStr, string bidirectionalStr)
         {
             if (string.IsNullOrWhiteSpace(rawDescriptor) || rawDescriptor == "0") return null;

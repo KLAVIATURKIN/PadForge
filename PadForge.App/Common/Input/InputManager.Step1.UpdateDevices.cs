@@ -736,10 +736,6 @@ namespace PadForge.Common.Input
         //  UserDevice lookup helpers
         // ─────────────────────────────────────────────
 
-        /// <summary>
-        /// Finds a UserDevice by its instance GUID.
-        /// Uses a manual loop to avoid LINQ closure allocations in the hot path.
-        /// </summary>
         /// <summary>Capped memo for config Guid strings parsed on the
         /// 1 kHz path (motion-source resolution). Same policy as the
         /// tuning parse memos.</summary>
@@ -756,6 +752,10 @@ namespace PadForge.Common.Input
             return ok;
         }
 
+        /// <summary>
+        /// Finds a UserDevice by its instance GUID.
+        /// Uses a manual loop to avoid LINQ closure allocations in the hot path.
+        /// </summary>
         private UserDevice FindOnlineDeviceByInstanceGuid(Guid instanceGuid)
         {
             var devices = SettingsManager.UserDevices?.Items;
@@ -2742,10 +2742,6 @@ namespace PadForge.Common.Input
         }
 
         /// <summary>
-        /// Tears down every open headset tracker and suppresses Phase 1g.
-        /// Called on app shutdown alongside ShutdownNfcReaders.
-        /// </summary>
-        /// <summary>
         /// Phase 1h: the handheld hidden-buttons row and the system motion
         /// row (issue #343). Both exist only while the Settings toggle is
         /// on. The button row registers at once (no I/O in Open). The
@@ -2974,9 +2970,6 @@ namespace PadForge.Common.Input
             return changed;
         }
 
-        /// <summary>Called on app shutdown in the same window as the NFC,
-        /// microphone and headset teardowns: after Stop(), before
-        /// ShutdownSdl().</summary>
         /// <summary>Phase 1i (issue #355). One row while either input is on,
         /// recreated when the user removes it (the NFC recreate
         /// pattern) and reopened when the port or the FreeTrack toggle
@@ -3679,6 +3672,9 @@ namespace PadForge.Common.Input
             }
         }
 
+        /// <summary>Called on app shutdown in the same window as the NFC,
+        /// microphone and headset teardowns: after Stop(), before
+        /// ShutdownSdl().</summary>
         public void ShutdownHandheldInputs()
         {
             _handheldInputsSuppressed = true;
@@ -3689,6 +3685,10 @@ namespace PadForge.Common.Input
             try { HandheldChordRuntime.Stop(); } catch { }
         }
 
+        /// <summary>
+        /// Tears down every open headset tracker and suppresses Phase 1g.
+        /// Called on app shutdown alongside ShutdownNfcReaders.
+        /// </summary>
         public void ShutdownHeadsetMotionInputs()
         {
             _headsetInputsSuppressed = true;

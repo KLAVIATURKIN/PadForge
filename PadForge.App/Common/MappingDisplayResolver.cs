@@ -1041,16 +1041,6 @@ namespace PadForge.Common
             return list.ToArray();
         }
 
-        /// <summary>Reverse-resolves a <c>"Gamepad ..."</c> descriptor to its
-        /// localized display (<c>"Gamepad Left Stick X"</c>). Returns null when
-        /// the descriptor is not a recognized gamepad-family member. Shared by
-        /// the row resolver, the neg/extra resolver, and the picker builder so
-        /// all three stay in lockstep with SourceCoercion.GamepadAliasTable.
-        /// <paramref name="anyDevice"/> false is a concrete controller's
-        /// context, where a stick ring is that controller's own input and is
-        /// named like its sticks, without the Gamepad prefix ("Left Stick
-        /// Ring"). The prefix marks the device-agnostic family of the
-        /// "(Any device)" group.</summary>
         /// <summary>Takes the legacy Invert/Half prefix ("IH", "I" or "H")
         /// off a row descriptor and returns it, empty when there is none. The
         /// same three-way split the family blocks inline, the IR exemption
@@ -1087,6 +1077,16 @@ namespace PadForge.Common
             return null;
         }
 
+        /// <summary>Reverse-resolves a <c>"Gamepad ..."</c> descriptor to its
+        /// localized display (<c>"Gamepad Left Stick X"</c>). Returns null when
+        /// the descriptor is not a recognized gamepad-family member. Shared by
+        /// the row resolver, the neg/extra resolver, and the picker builder so
+        /// all three stay in lockstep with SourceCoercion.GamepadAliasTable.
+        /// <paramref name="anyDevice"/> false is a concrete controller's
+        /// context, where a stick ring is that controller's own input and is
+        /// named like its sticks, without the Gamepad prefix ("Left Stick
+        /// Ring"). The prefix marks the device-agnostic family of the
+        /// "(Any device)" group.</summary>
         internal static string ResolveGamepadText(string descriptor, bool anyDevice = true)
         {
             if (string.IsNullOrEmpty(descriptor)

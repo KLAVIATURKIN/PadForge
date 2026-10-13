@@ -642,8 +642,6 @@ namespace PadForge.Engine.RemoteLink
             return tail;
         }
 
-        /// <summary>The v11 tail, the owner's DualShock 3 identities, or
-        /// nothing when no row carries one.</summary>
         /// <summary>Which of the v10, v11 and v9 tails fit in
         /// <paramref name="budget"/> after <paramref name="required"/> bytes,
         /// taken in that order, and the bytes they add.</summary>
@@ -658,6 +656,8 @@ namespace PadForge.Engine.RemoteLink
             return (m, id, k, (m ? masks : 0) + (id ? identities : 0) + (k ? keyOrders : 0));
         }
 
+        /// <summary>The v11 tail, the owner's DualShock 3 identities, or
+        /// nothing when no row carries one.</summary>
         private static List<byte> EncodeDs3IdentityTail(IReadOnlyList<RemotePeerDeviceInfo> devices, int count)
         {
             var tail = new List<byte>();

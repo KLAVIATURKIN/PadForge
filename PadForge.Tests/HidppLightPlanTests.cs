@@ -2258,6 +2258,56 @@ namespace PadForge.Tests
             Assert.Empty(bench.Record());
         }
 
+        /// <summary>A write that fails while a scan asks the path drops the
+        /// path as one that fails under a color does. Each claimed unit on it
+        /// is owed its hand-back and stays on the crash path's record, the
+        /// path is asked again on the fast interval, and a mouse held at
+        /// level 2 is handed back with the mode its claim read before it is
+        /// claimed afresh.</summary>
+        [Fact]
+        public void AUnitDroppedByAWriteThatFailsInAScan_IsOwedItsHandBack_AndIsFoundAgainOnTheFastInterval()
+        {
+            var device = HidppLightDevice.G903();
+            using var bench = new Bench(device);
+            bench.FollowTheMode();
+            bench.Link();
+            bench.Light(0xFF0000, level: 2);
+            bench.After(7);
+            string[] owed = { "11 01 07 5C 01", "11 01 08 1C 01" };
+            Assert.Equal(owed, bench.Record());
+
+            // The color stands, so nothing is written until the scan asks a
+            // slot whose backoff is over, and that write fails.
+            bench.Clear();
+            int scans = bench.Backend.ScanCount;
+            bench.Channel.FailWrites = true;
+            bench.Advance(HidppBackend.FirstScanMs);
+            bench.Away();
+            Assert.True(bench.Backend.ScanCount > scans, "the scan dropped the path");
+            Assert.Equal(owed, bench.Record());
+            Assert.Equal(0x02, device.Mode);
+
+            // One fast interval later the path is asked again and the unit
+            // is found: handed back first, with the mode put back, and then
+            // claimed as a unit just found, its own mode read.
+            bench.Channel.FailWrites = false;
+            bench.Advance(HidppBackend.FirstScanMs);
+            bench.Passes();
+            bench.Passes();
+            Assert.Single(bench.Backend.Snapshot.Units);
+            Assert.Equal(Join("ask 11 01 08 2C", MouseRelease, MouseRestore,
+                "ask 11 01 08 2C", "write 11 01 08 1C 02", MouseVendorClaim, Clusters(Mouse, 0xFF0000)), bench.AfterFound(10));
+            Assert.Equal(owed, bench.Record());
+
+            // The end of this claim puts the on-board mode back.
+            bench.Clear();
+            bench.Release();
+            bench.Passes();
+            Assert.Equal(new[] { MouseRelease, MouseRestore }, bench.Lit());
+            Assert.Equal(0x01, device.Mode);
+            Assert.Empty(bench.Record());
+        }
+
         /// <summary>A hand-back whose write fails is still owed. The path
         /// is dropped with the claim on its books, and the hand-back is
         /// paid when the path answers again.</summary>

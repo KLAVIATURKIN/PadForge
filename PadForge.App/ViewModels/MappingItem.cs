@@ -367,10 +367,6 @@ namespace PadForge.ViewModels
             }
         }
 
-        /// <summary>Keeps the primary off an option the gate no longer offers. When
-        /// the last contributing secondary goes away while the primary is InvertOnHold,
-        /// the primary would be inert, so revert it to Direct. Re-fires the options so
-        /// the dropdown updates.</summary>
         /// <summary>Set while a reload is repopulating this row. The gate
         /// below reads ExtraSources, and a reload empties that collection
         /// before refilling it, so every firing point saw "no contributing
@@ -393,6 +389,10 @@ namespace PadForge.ViewModels
             if (IsMultiSource) EnsureCombineModeDefault();
         }
 
+        /// <summary>Keeps the primary off an option the gate no longer offers. When
+        /// the last contributing secondary goes away while the primary is InvertOnHold,
+        /// the primary would be inert, so revert it to Direct. Re-fires the options so
+        /// the dropdown updates.</summary>
         private void EnforcePrimaryKindGate()
         {
             if (_suppressPrimaryKindGate) return;
@@ -980,13 +980,6 @@ namespace PadForge.ViewModels
             }
         }
 
-        /// <summary>
-        /// Synchronizes SelectedInput to match the current SourceDescriptor
-        /// + <see cref="PrimarySourceDeviceGuid"/> without triggering a
-        /// descriptor update. Match is on (DeviceGuid, Descriptor) so a
-        /// "Button 0" on the DualSense and a "Button 0" on a keyboard
-        /// (which auto-mapping might have stamped) don't get confused.
-        /// </summary>
         /// <summary>Replaces the picker's item list and re-resolves the
         /// selection, with the SelectedInput setter suppressed across BOTH
         /// steps.
@@ -1003,10 +996,11 @@ namespace PadForge.ViewModels
         /// shape suppressed only SyncSelectedInputFromDescriptor, so the two
         /// list mutations ran wide open. No test caught it because the
         /// provocation needs a real ComboBox: with no visual tree nothing
-        /// ever writes back.</para></summary>
-        /// <summary>Test seam: runs <paramref name="duringRebuild"/> at the
+        /// ever writes back.</para>
+        ///
+        /// <para>Test seam: runs <paramref name="duringRebuild"/> at the
         /// exact point a live ComboBox would write its SelectedItem back,
-        /// so the suppression can be asserted without a visual tree.</summary>
+        /// so the suppression can be asserted without a visual tree.</para></summary>
         internal void ReplaceAvailableInputsForTest(
             System.Collections.Generic.IEnumerable<InputChoice> choices,
             System.Action duringRebuild)
@@ -1023,6 +1017,13 @@ namespace PadForge.ViewModels
             SyncSelectedInputFromDescriptor();
         }
 
+        /// <summary>
+        /// Synchronizes SelectedInput to match the current SourceDescriptor
+        /// + <see cref="PrimarySourceDeviceGuid"/> without triggering a
+        /// descriptor update. Match is on (DeviceGuid, Descriptor) so a
+        /// "Button 0" on the DualSense and a "Button 0" on a keyboard
+        /// (which auto-mapping might have stamped) don't get confused.
+        /// </summary>
         public void SyncSelectedInputFromDescriptor()
         {
             _suppressSelectionSync = true;

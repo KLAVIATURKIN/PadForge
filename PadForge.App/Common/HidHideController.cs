@@ -892,6 +892,20 @@ namespace PadForge.Common
             return result;
         }
 
+        /// <summary>Public alias so callers scrubbing stale cached entries can filter.</summary>
+        public static bool IsHidMaestroDeviceInstance(string instanceId) => IsHidMaestroDevice(instanceId);
+
+        /// <summary>One devnode on the walk from a node up through its
+        /// parents, as the HIDMaestro test reads it.</summary>
+        internal readonly record struct OwnerHop(string InstanceId, IReadOnlyList<string> HardwareIds, string Service, string Manufacturer);
+
+        /// <summary>Test seam for the walk behind
+        /// <see cref="IsHidMaestroDeviceInstance"/>: an instance id to its
+        /// hops, the node itself first, or null for a node that is not
+        /// present. Null in production, where cfgmgr32 walks the device
+        /// tree.</summary>
+        internal static Func<string, IEnumerable<OwnerHop>> OwnerChainSeam;
+
         /// <summary>
         /// Returns true if the specified PnP device instance (or any of its
         /// ancestors) belongs to HIDMaestro. HIDMaestro virtual devices share
@@ -914,20 +928,6 @@ namespace PadForge.Common
         /// the lookup offers it, is a second question
         /// (<see cref="IsOutsideVidPidLookup"/>).
         /// </summary>
-        /// <summary>Public alias so callers scrubbing stale cached entries can filter.</summary>
-        public static bool IsHidMaestroDeviceInstance(string instanceId) => IsHidMaestroDevice(instanceId);
-
-        /// <summary>One devnode on the walk from a node up through its
-        /// parents, as the HIDMaestro test reads it.</summary>
-        internal readonly record struct OwnerHop(string InstanceId, IReadOnlyList<string> HardwareIds, string Service, string Manufacturer);
-
-        /// <summary>Test seam for the walk behind
-        /// <see cref="IsHidMaestroDeviceInstance"/>: an instance id to its
-        /// hops, the node itself first, or null for a node that is not
-        /// present. Null in production, where cfgmgr32 walks the device
-        /// tree.</summary>
-        internal static Func<string, IEnumerable<OwnerHop>> OwnerChainSeam;
-
         private static bool IsHidMaestroDevice(string instanceId)
         {
             if (string.IsNullOrEmpty(instanceId)) return false;
@@ -1237,48 +1237,6 @@ namespace PadForge.Common
             || classGuid == GUID_DEVCLASS_XUSBCLASS
             || classGuid == GUID_DEVCLASS_XBOXCOMPOSITE;
 
-        /// <summary>
-        /// Expand a HID instance ID into the full set of instance paths to
-        /// blacklist for the device it belongs to. The shape follows
-        /// HidHide Configuration Client
-        /// (<c>HidHide/HidHideClient/src/BlacklistDlg.cpp:294-345</c>), and
-        /// adds the one thing the client cannot express (#400):
-        ///
-        /// <list type="number">
-        /// <item>Walk parents via Container ID until the parent has a
-        /// different Container ID; the last device with the same ID is the
-        /// base container (typically the USB or XUSB device).</item>
-        /// <item>Every node between the HID node and the base container
-        /// whose class HidHide filters is blacklisted too. On a pad whose
-        /// XUSB node is an INTERFACE of a USB composite parent (the Legion
-        /// Go's built-in controller, a pad on the Xbox 360 wireless
-        /// receiver) that node is neither the base nor an immediate HID
-        /// child, and without this step XInput opened it freely while
-        /// every HID interface beside it was hidden. The client's tree
-        /// lists HID devices only, so it has no way to name that node.
-        /// The driver honors it: HidHide is an upper filter on
-        /// XnaComposite and matches the device's own path on create.</item>
-        /// <item>If the base container is HID, XUSB, or XboxComposite class
-        /// AND every child is a HID, add the base container instance path
-        /// too (lets HidHide hide the device at the parent boundary so
-        /// XInput / WGI can't see it through any of the other child
-        /// paths).</item>
-        /// <item>Always add every HID-child instance path.</item>
-        /// </list>
-        ///
-        /// <para><paramref name="keepOut"/> names nodes that belong to a
-        /// device PadForge lists as its own row with hiding off. Those are
-        /// never added, and a base container is never blocked while one of
-        /// its HID children is kept out, since blocking the parent would
-        /// hide that row too. HidHide's own client offers the same
-        /// per-child selection under one device entry. Every id the
-        /// predicate removed is reported through <paramref name="keptOut"/>
-        /// for the diag line.</para>
-        ///
-        /// Returns the list with the input <paramref name="hidInstanceId"/>
-        /// preserved (so a single-blacklist call still works) plus any
-        /// additional paths discovered.
-        /// </summary>
         /// <summary>The "VID_xxxx&PID_yyyy" token of an instance id, or null
         /// when it carries none. Every interface and HID collection of one USB
         /// composite device repeats it, and the composite parent above them (a
@@ -1389,6 +1347,48 @@ namespace PadForge.Common
         /// walk cfgmgr32 gives no natural end to.</summary>
         private const int MaxDevnodeSiblings = 256;
 
+        /// <summary>
+        /// Expand a HID instance ID into the full set of instance paths to
+        /// blacklist for the device it belongs to. The shape follows
+        /// HidHide Configuration Client
+        /// (<c>HidHide/HidHideClient/src/BlacklistDlg.cpp:294-345</c>), and
+        /// adds the one thing the client cannot express (#400):
+        ///
+        /// <list type="number">
+        /// <item>Walk parents via Container ID until the parent has a
+        /// different Container ID; the last device with the same ID is the
+        /// base container (typically the USB or XUSB device).</item>
+        /// <item>Every node between the HID node and the base container
+        /// whose class HidHide filters is blacklisted too. On a pad whose
+        /// XUSB node is an INTERFACE of a USB composite parent (the Legion
+        /// Go's built-in controller, a pad on the Xbox 360 wireless
+        /// receiver) that node is neither the base nor an immediate HID
+        /// child, and without this step XInput opened it freely while
+        /// every HID interface beside it was hidden. The client's tree
+        /// lists HID devices only, so it has no way to name that node.
+        /// The driver honors it: HidHide is an upper filter on
+        /// XnaComposite and matches the device's own path on create.</item>
+        /// <item>If the base container is HID, XUSB, or XboxComposite class
+        /// AND every child is a HID, add the base container instance path
+        /// too (lets HidHide hide the device at the parent boundary so
+        /// XInput / WGI can't see it through any of the other child
+        /// paths).</item>
+        /// <item>Always add every HID-child instance path.</item>
+        /// </list>
+        ///
+        /// <para><paramref name="keepOut"/> names nodes that belong to a
+        /// device PadForge lists as its own row with hiding off. Those are
+        /// never added, and a base container is never blocked while one of
+        /// its HID children is kept out, since blocking the parent would
+        /// hide that row too. HidHide's own client offers the same
+        /// per-child selection under one device entry. Every id the
+        /// predicate removed is reported through <paramref name="keptOut"/>
+        /// for the diag line.</para>
+        ///
+        /// Returns the list with the input <paramref name="hidInstanceId"/>
+        /// preserved (so a single-blacklist call still works) plus any
+        /// additional paths discovered.
+        /// </summary>
         public static List<string> ExpandToBaseContainerAndChildren(string hidInstanceId)
             => ExpandToBaseContainerAndChildren(hidInstanceId, null, null);
 
@@ -1579,10 +1579,6 @@ namespace PadForge.Common
             return result;
         }
 
-        /// <summary>A node and its same-container ancestors, the HID node
-        /// first and the base container last: what a device row with
-        /// hiding OFF contributes to the keep-out set (#400). Phantom
-        /// nodes resolve too, matching the expansion's own locate.</summary>
         /// <summary>A key identifying the PHYSICAL device a devnode belongs
         /// to, or null when the node is unknown or nothing can identify it.
         ///
@@ -1639,6 +1635,10 @@ namespace PadForge.Common
             }
         }
 
+        /// <summary>A node and its same-container ancestors, the HID node
+        /// first and the base container last: what a device row with
+        /// hiding OFF contributes to the keep-out set (#400). Phantom
+        /// nodes resolve too, matching the expansion's own locate.</summary>
         internal static List<string> ChainInstanceIds(string hidInstanceId)
         {
             var result = new List<string>();

@@ -2831,27 +2831,6 @@ namespace PadForge.Engine
         private static string GetGamepadButtonName(int buttonIndex)
             => GamepadObjectNames.Button(buttonIndex);
 
-        /// <summary>
-        /// Maps a PadForge button position (0-21) to the SDL gamepad button
-        /// enum it reads from. Used by <see cref="GetDeviceObjects"/> to skip
-        /// positions whose backing button isn't physically present on the
-        /// device (so an Xbox 360 doesn't show "Misc 1" / "Right Paddle 1"
-        /// in the dropdown). Positions 11-21 follow SDL's
-        /// <c>SDL_GamepadButton</c> enum order (Misc1, paddles R1/L1/R2/L2,
-        /// Touchpad, Misc2-Misc6), skipping the four DPad slots that
-        /// PadForge synthesizes into POV[0].
-        /// </summary>
-        /// <summary>
-        /// Builds the sparse list of button positions this device exposes,
-        /// used to populate <see cref="SupportedButtonIndices"/>. For SDL3
-        /// gamepads, positions 11-21 are gated on <c>SDL_GamepadHasButton</c>
-        /// so an Xbox 360 (no paddles, no Misc, no touchpad) reports just
-        /// 0-10, while a DualSense Edge reports 0-10 plus its actual
-        /// paddle / Mute / touchpad slots. Raw passthrough indices ≥22 are
-        /// included only when not already consumed by the gamepad mapping
-        /// (matches <see cref="GetGamepadState"/>'s passthrough loop).
-        /// Non-gamepad devices get a dense 0..NumButtons-1 list.
-        /// </summary>
         /// <summary>Open-time presence of extended positions 11-21 (from
         /// the SDL_GamepadHasButton probe); null before the probe runs.</summary>
         private bool[] _extButtonPresent;
@@ -2972,6 +2951,17 @@ namespace PadForge.Engine
             return true;
         }
 
+        /// <summary>
+        /// Builds the sparse list of button positions this device exposes,
+        /// used to populate <see cref="SupportedButtonIndices"/>. For SDL3
+        /// gamepads, positions 11-21 are gated on <c>SDL_GamepadHasButton</c>
+        /// so an Xbox 360 (no paddles, no Misc, no touchpad) reports just
+        /// 0-10, while a DualSense Edge reports 0-10 plus its actual
+        /// paddle / Mute / touchpad slots. Raw passthrough indices ≥22 are
+        /// included only when not already consumed by the gamepad mapping
+        /// (matches <see cref="GetGamepadState"/>'s passthrough loop).
+        /// Non-gamepad devices get a dense 0..NumButtons-1 list.
+        /// </summary>
         private int[] ComputeSupportedButtonIndices()
         {
             int max = Math.Min(NumButtons, CustomInputState.MaxButtons);
@@ -3043,6 +3033,16 @@ namespace PadForge.Engine
             };
         }
 
+        /// <summary>
+        /// Maps a PadForge button position (0-21) to the SDL gamepad button
+        /// enum it reads from. Used by <see cref="GetDeviceObjects"/> to skip
+        /// positions whose backing button isn't physically present on the
+        /// device (so an Xbox 360 doesn't show "Misc 1" / "Right Paddle 1"
+        /// in the dropdown). Positions 11-21 follow SDL's
+        /// <c>SDL_GamepadButton</c> enum order (Misc1, paddles R1/L1/R2/L2,
+        /// Touchpad, Misc2-Misc6), skipping the four DPad slots that
+        /// PadForge synthesizes into POV[0].
+        /// </summary>
         private static int GamepadButtonForPosition(int position)
         {
             return position switch

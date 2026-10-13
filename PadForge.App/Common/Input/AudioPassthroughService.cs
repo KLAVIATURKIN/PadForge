@@ -736,14 +736,6 @@ namespace PadForge.Common.Input
             }
         }
 
-        /// <summary>USB frame shaper per the DSY-v2 playback callbacks:
-        /// channel 0 = 0, channel 1 = mono program mix (the firmware's
-        /// speaker tap), channels 2+ (DualSense haptic actuators) = 0.
-        /// IWaveProvider carrying the endpoint's own mix format: shared-mode
-        /// WASAPI rejects a non-extensible format beyond stereo
-        /// (E_INVALIDARG — the DS5 endpoint is extensible float 48k 4ch),
-        /// and NAudio's ISampleProvider Init path refuses extensible-float,
-        /// so the float→byte hop happens here.</summary>
         /// <summary>Owning slot and device's configured AudioOutputPath as an int
         /// (DeviceSlotConfig enum: 0 Automatic .. 4 SpeakerOnly).
         /// Wired by InputService; null / throw resolves 0.</summary>
@@ -818,17 +810,6 @@ namespace PadForge.Common.Input
         internal static bool? TryGetHeadphoneJack(Guid pad)
             => s_padJackState.TryGetValue(pad, out var v) ? v : (bool?)null;
 
-        /// <summary>Resolves a configured AudioOutputPath to the
-        /// EFFECTIVE path this frame. FollowHeadphoneJack (5) becomes
-        /// StereoHeadset while the jack reads plugged, SpeakerOnly while
-        /// it reads unplugged, and Default when no reading exists, so an
-        /// unobservable jack degrades to stock behavior instead of
-        /// guessing. Every consumer of the path (the dispatcher's
-        /// register write, the BT lane pid, the USB channel shaper) MUST
-        /// route through this so a plug/unplug switches all three
-        /// coherently; the dispatcher's change gating then turns the
-        /// transition into the one-shot route re-arm, exactly
-        /// DS5_Bridge's bt_rearm_speaker_output_route.</summary>
         /// <summary>True while a RESOLVED output path carries genuine stereo
         /// to the cups, which is the only route crossfeed belongs on (#347).
         ///
@@ -856,6 +837,17 @@ namespace PadForge.Common.Input
         internal static bool IsStereoHeadphoneRoute(int resolvedPath)
             => resolvedPath == 0 || resolvedPath == 1;
 
+        /// <summary>Resolves a configured AudioOutputPath to the
+        /// EFFECTIVE path this frame. FollowHeadphoneJack (5) becomes
+        /// StereoHeadset while the jack reads plugged, SpeakerOnly while
+        /// it reads unplugged, and Default when no reading exists, so an
+        /// unobservable jack degrades to stock behavior instead of
+        /// guessing. Every consumer of the path (the dispatcher's
+        /// register write, the BT lane pid, the USB channel shaper) MUST
+        /// route through this so a plug/unplug switches all three
+        /// coherently; the dispatcher's change gating then turns the
+        /// transition into the one-shot route re-arm, exactly
+        /// DS5_Bridge's bt_rearm_speaker_output_route.</summary>
         internal static int ResolveOutputPath(int configured, Guid device)
         {
             if (configured != 5) return configured;
@@ -1100,6 +1092,14 @@ namespace PadForge.Common.Input
             }
         }
 
+        /// <summary>USB frame shaper per the DSY-v2 playback callbacks:
+        /// channel 0 = 0, channel 1 = mono program mix (the firmware's
+        /// speaker tap), channels 2+ (DualSense haptic actuators) = 0.
+        /// IWaveProvider carrying the endpoint's own mix format: shared-mode
+        /// WASAPI rejects a non-extensible format beyond stereo
+        /// (E_INVALIDARG — the DS5 endpoint is extensible float 48k 4ch),
+        /// and NAudio's ISampleProvider Init path refuses extensible-float,
+        /// so the float→byte hop happens here.</summary>
         private sealed class UsbFrameProvider : IWaveProvider
         {
             private readonly ISampleProvider _src;

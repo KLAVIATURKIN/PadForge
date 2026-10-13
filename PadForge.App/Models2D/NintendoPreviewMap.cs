@@ -196,6 +196,16 @@ public static class NintendoPreviewMap
     public static bool SameWireFamily(string profileIdA, string profileIdB) =>
         FamilyOf(profileIdA) == FamilyOf(profileIdB);
 
+    /// <summary>True when two slots whose raw positions carry roles are
+    /// read through the same tables, so a raw index names the same control
+    /// on both. An id that names no wire is read through the original Pro
+    /// Controller's tables (<see cref="ButtonTable"/>), so it shares them
+    /// with "switch-pro" and with any other such id, where
+    /// <see cref="SameWireFamily"/> sets the two apart.</summary>
+    public static bool SameWireTables(string profileIdA, string profileIdB) =>
+        ReferenceEquals(ButtonTable(profileIdA), ButtonTable(profileIdB))
+        && ReferenceEquals(AxisTable(profileIdA), AxisTable(profileIdB));
+
     /// <summary>The wire table for a profile. Each family gets its own;
     /// an unlettered or unrecognized id falls back to the original Pro
     /// Controller's, which is the safe answer for a null.</summary>

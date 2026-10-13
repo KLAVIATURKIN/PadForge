@@ -767,10 +767,6 @@ namespace PadForge.Views
             }
         }
 
-        /// <summary>Refetches the game room under the current query. A
-        /// refetch rather than a local filter: the point is to reach the
-        /// configs that were never paged in, which is the whole problem on a
-        /// game carrying thousands of them.</summary>
         /// <summary>Clears the query and the box without triggering a
         /// refetch: the caller is already about to fetch.</summary>
         private void ResetConfigQuery()
@@ -781,6 +777,10 @@ namespace PadForge.Views
                 ConfigSearchBox.Clear();
         }
 
+        /// <summary>Refetches the game room under the current query. A
+        /// refetch rather than a local filter: the point is to reach the
+        /// configs that were never paged in, which is the whole problem on a
+        /// game carrying thousands of them.</summary>
         private void ApplyConfigQuery()
         {
             string next = ConfigSearchBox.Text?.Trim();
@@ -1668,11 +1668,6 @@ namespace PadForge.Views
             return rows;
         }
 
-        /// <summary>Group header from the entry path
-        /// (<c>Preset/slot_token/group N (mode)/input/Activator</c>): the
-        /// physical cluster, preset-prefixed when several presets are in
-        /// play. Aggregate entries (preset-only paths) group under the
-        /// preset name, or the neutral fallback.</summary>
         /// <summary>The action layer a row belongs to: the leading segment of
         /// the entry path, which the translator fills with the preset's
         /// DISPLAY name (its action-set title, resolved through the config's
@@ -1686,6 +1681,11 @@ namespace PadForge.Views
             return head.Length == 0 ? Strings.Instance.Workshop_GroupOther : head;
         }
 
+        /// <summary>Group header from the entry path
+        /// (<c>Preset/slot_token/group N (mode)/input/Activator</c>): the
+        /// physical cluster, preset-prefixed when several presets are in
+        /// play. Aggregate entries (preset-only paths) group under the
+        /// preset name, or the neutral fallback.</summary>
         private static string GroupLabel(string sourcePath, bool multiPreset)
         {
             var segments = (sourcePath ?? string.Empty).Split('/');
@@ -2280,16 +2280,6 @@ namespace PadForge.Views
             return sb.ToString();
         }
 
-        /// <summary>Folds a translator SOURCE onto the art element that
-        /// draws it.
-        ///
-        /// <para>The preview renders the controller the config was authored
-        /// on (the body is picked from the config's own controller tag), so
-        /// a binding belongs on the control the author physically pressed,
-        /// labeled with what it produces. Anchoring on the target instead
-        /// drew the virtual pad's geometry on the source device's body: a
-        /// Steam Deck touchpad bound to the d-pad lit the DECK'S d-pad and
-        /// called it "Touchpad 0", which is backwards on every layout.</para></summary>
         /// <summary>Splits a manifest source into the bare engine identifier
         /// and its human decoration.
         ///
@@ -2323,6 +2313,16 @@ namespace PadForge.Views
             return (bare.TrimEnd(), decoration);
         }
 
+        /// <summary>Folds a translator SOURCE onto the art element that
+        /// draws it.
+        ///
+        /// <para>The preview renders the controller the config was authored
+        /// on (the body is picked from the config's own controller tag), so
+        /// a binding belongs on the control the author physically pressed,
+        /// labeled with what it produces. Anchoring on the target instead
+        /// drew the virtual pad's geometry on the source device's body: a
+        /// Steam Deck touchpad bound to the d-pad lit the DECK'S d-pad and
+        /// called it "Touchpad 0", which is backwards on every layout.</para></summary>
         internal static string ArtAnchorFor(string source)
         {
             if (string.IsNullOrWhiteSpace(source)) return null;
@@ -2535,10 +2535,6 @@ namespace PadForge.Views
         public string Source { get; init; }
         public string Target { get; init; }
 
-        /// <summary>The RAW target, kept for the controller preview's art
-        /// join. Target itself is humanized for display, and the 2DModels
-        /// layout keys on the engine identifier, so the two must not be the
-        /// same string.</summary>
         /// <summary>The art element this row is DRAWN ON: the physical
         /// control the config binds, not the virtual output it produces.
         /// The preview shows the pad the config was authored for, so the

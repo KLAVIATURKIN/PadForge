@@ -1360,10 +1360,8 @@ namespace PadForge.Common.Input
         //  Start / Stop
         // ─────────────────────────────────────────────
 
-        /// <summary>
-        /// Starts the background polling thread. Safe to call multiple times;
-        /// subsequent calls are ignored if already running.
-        /// </summary>
+        private long _lastUiJoystickUpdateTicks;
+
         /// <summary>
         /// Pumps SDL's event queue. MUST be called on the thread that ran
         /// SDL_Init (the UI thread here), because SDL's hidapi creates its
@@ -1374,8 +1372,6 @@ namespace PadForge.Common.Input
         /// that drops on a read hiccup never comes back and a freshly-plugged one
         /// never appears until an app restart re-enumerates from scratch.
         /// </summary>
-        private long _lastUiJoystickUpdateTicks;
-
         public void PumpSdlEvents()
         {
             if (!_sdlInitialized)
@@ -1741,6 +1737,10 @@ namespace PadForge.Common.Input
         /// <summary>The switch's recorded state, replayed by InitializeSdl.</summary>
         public static bool FlydigiEnhancedProtocolDesired => _flydigiEnhancedDesired;
 
+        /// <summary>
+        /// Starts the background polling thread. Safe to call multiple times;
+        /// subsequent calls are ignored if already running.
+        /// </summary>
         public void Start()
         {
             if (_running || _disposed)
@@ -2337,12 +2337,6 @@ namespace PadForge.Common.Input
         //  Device cleanup helpers
         // ─────────────────────────────────────────────
 
-        /// <summary>Last-chance hardware quiet for abnormal exits
-        /// (crash handler, ProcessExit). The Steam Deck's 0xEB rumble
-        /// command has no duration field and no firmware timeout in any
-        /// reference, so a nonzero rumble left behind by a dying process
-        /// buzzes the trackpad LRAs until something zeroes it
-        /// (discussion #179). Best-effort by design.</summary>
         /// <summary>True once an abnormal-exit quiesce ran. Sticky:
         /// the polling thread keeps ticking through a crash dialog and
         /// during ProcessExit (verified empirically on .NET 10), and one
@@ -2352,6 +2346,12 @@ namespace PadForge.Common.Input
         /// the Sony effects provider gate on this flag.</summary>
         public volatile bool OutputsQuiesced;
 
+        /// <summary>Last-chance hardware quiet for abnormal exits
+        /// (crash handler, ProcessExit). The Steam Deck's 0xEB rumble
+        /// command has no duration field and no firmware timeout in any
+        /// reference, so a nonzero rumble left behind by a dying process
+        /// buzzes the trackpad LRAs until something zeroes it
+        /// (discussion #179). Best-effort by design.</summary>
         public void QuiesceOutputs()
         {
             OutputsQuiesced = true;
@@ -2469,25 +2469,6 @@ namespace PadForge.Common.Input
         //  Gyro engage state (per-slot, per-tick)
         // ─────────────────────────────────────────────
 
-        /// <summary>Settles each slot's <see cref="GyroEngagedFromButton"/>
-        /// bit once per tick from the slot's configured
-        /// <c>GyroAimEngageButton</c> + <c>GyroAimEngageMode</c>. Hold mode
-        /// tracks the button state directly (empty descriptor = always-on);
-        /// Toggle mode flips the sticky bit on each rising edge (empty
-        /// descriptor = no-op, the bit stays whatever the macro last set).
-        /// Runs between Step 2 (UpdateInputStates) and Step 3
-        /// (UpdateOutputStates) so both gyro evaluators — mapping-row reads
-        /// and motion passthrough — see a single, consistent engaged
-        /// decision for the tick.
-        ///
-        /// <para>Picks the first device on the slot that has a non-empty
-        /// engage button configured. Multi-device slots with multiple
-        /// engage buttons configured pick the first per UserSettings
-        /// storage order; this is intentional — the engage button is a
-        /// per-slot ergonomic, not a per-device setting at the runtime
-        /// level. Configuring engage on two devices simultaneously is
-        /// supported by editing the second device's PadSetting but only
-        /// the first-listed wins at runtime.</para></summary>
         /// <summary>Per-slot gyro-engage config snapshot, refreshed at 250 ms
         /// like its two engage-family siblings (_triggerRouteCfg,
         /// _mirrorEngageCfg): the SyncRoot lock + Items scan + GetPadSetting
@@ -2555,6 +2536,25 @@ namespace PadForge.Common.Input
             }
         }
 
+        /// <summary>Settles each slot's <see cref="GyroEngagedFromButton"/>
+        /// bit once per tick from the slot's configured
+        /// <c>GyroAimEngageButton</c> + <c>GyroAimEngageMode</c>. Hold mode
+        /// tracks the button state directly (empty descriptor = always-on);
+        /// Toggle mode flips the sticky bit on each rising edge (empty
+        /// descriptor = no-op, the bit stays whatever the macro last set).
+        /// Runs between Step 2 (UpdateInputStates) and Step 3
+        /// (UpdateOutputStates) so both gyro evaluators — mapping-row reads
+        /// and motion passthrough — see a single, consistent engaged
+        /// decision for the tick.
+        ///
+        /// <para>Picks the first device on the slot that has a non-empty
+        /// engage button configured. Multi-device slots with multiple
+        /// engage buttons configured pick the first per UserSettings
+        /// storage order; this is intentional — the engage button is a
+        /// per-slot ergonomic, not a per-device setting at the runtime
+        /// level. Configuring engage on two devices simultaneously is
+        /// supported by editing the second device's PadSetting but only
+        /// the first-listed wins at runtime.</para></summary>
         private void UpdateGyroEngageStates()
         {
             var settings = SettingsManager.UserSettings;
@@ -3812,13 +3812,13 @@ namespace PadForge.Common.Input
             return found;
         }
 
-        /// <summary>Checks the idle gate and publishes neutral DSU data before
-        /// idle maintenance. No input evaluation or native submission runs here.</summary>
         /// <summary>True once the idle entry edge has neutralized the outputs.
         /// Cleared when the engine leaves idle so the next entry neutralizes
         /// again.</summary>
         private bool _idleNeutralized;
 
+        /// <summary>Checks the idle gate and publishes neutral DSU data before
+        /// idle maintenance. No input evaluation or native submission runs here.</summary>
         internal bool BeginIdlePoll()
         {
             if (!_idle) { _idleNeutralized = false; return false; }

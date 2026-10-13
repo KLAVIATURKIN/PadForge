@@ -12,10 +12,6 @@ namespace PadForge.Views
     /// preview (#175).</summary>
     internal static class EmbeddedBitmaps
     {
-        /// <summary>Returns a frozen BitmapImage for a Resource path like
-        /// "2DModels/DS4/DS4_V2_base.png", or null when the resource does
-        /// not exist (callers degrade to an empty placeholder rather than
-        /// crash).</summary>
         /// <summary>Decoded bitmaps, keyed by resource path. Every result is
         /// frozen and therefore safe to share, and the set is bounded by the
         /// art the app ships. Without this the mouse preview re-decoded ~10 MB
@@ -24,6 +20,10 @@ namespace PadForge.Views
         private static readonly System.Collections.Concurrent.ConcurrentDictionary<string, BitmapImage> s_cache
             = new(System.StringComparer.OrdinalIgnoreCase);
 
+        /// <summary>Returns a frozen BitmapImage for a Resource path like
+        /// "2DModels/DS4/DS4_V2_base.png", or null when the resource does
+        /// not exist (callers degrade to an empty placeholder rather than
+        /// crash).</summary>
         internal static BitmapImage Load(string resourcePath)
         {
             if (resourcePath == null) return null;

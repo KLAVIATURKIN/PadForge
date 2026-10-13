@@ -4607,23 +4607,6 @@ namespace PadForge.Views
             cb.ItemsSource = axes;
         }
 
-        /// <summary>
-        /// Keeps a device/axis source picker's ItemsSource live outside the
-        /// dropdown-open path (owner bug 2026-08-10: the saved axis showed
-        /// blank at load and inconsistently after recording). DropDownOpened
-        /// and Loaded were the only population triggers, so three real flows
-        /// left the combo with a null or stale list that SelectedValue could
-        /// not display against: selecting a different action in the editor
-        /// (DataContext changes, items stay from the old action's device),
-        /// picking a different device (the axis list kept the old device's
-        /// axes until reopened), and the axis recorder writing
-        /// SourceDeviceGuid + SourceDeviceAxisIndex programmatically (no
-        /// dropdown ever opens). One hook per ComboBox instance, installed
-        /// on first Loaded/DropDownOpened, repopulates on DataContextChanged
-        /// and on the bound action's source-pair PropertyChanged, detaching
-        /// its action subscription on Unloaded so recycled template
-        /// instances never pile up handlers.
-        /// </summary>
         /// <summary>Holds a macro action's device and axis pair across a
         /// picker repopulation.
         ///
@@ -4655,6 +4638,23 @@ namespace PadForge.Views
             }
         }
 
+        /// <summary>
+        /// Keeps a device/axis source picker's ItemsSource live outside the
+        /// dropdown-open path (owner bug 2026-08-10: the saved axis showed
+        /// blank at load and inconsistently after recording). DropDownOpened
+        /// and Loaded were the only population triggers, so three real flows
+        /// left the combo with a null or stale list that SelectedValue could
+        /// not display against: selecting a different action in the editor
+        /// (DataContext changes, items stay from the old action's device),
+        /// picking a different device (the axis list kept the old device's
+        /// axes until reopened), and the axis recorder writing
+        /// SourceDeviceGuid + SourceDeviceAxisIndex programmatically (no
+        /// dropdown ever opens). One hook per ComboBox instance, installed
+        /// on first Loaded/DropDownOpened, repopulates on DataContextChanged
+        /// and on the bound action's source-pair PropertyChanged, detaching
+        /// its action subscription on Unloaded so recycled template
+        /// instances never pile up handlers.
+        /// </summary>
         private void HookDeviceAxisPickerRefresh(ComboBox cb, bool axisPicker)
         {
             if (cb.Tag is DeviceAxisPickerHook) return;

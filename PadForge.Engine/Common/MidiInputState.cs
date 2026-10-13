@@ -64,9 +64,6 @@ namespace PadForge.Engine
             return clone;
         }
 
-        /// <summary>Deep-copies into <paramref name="dst"/> (fixed-shape
-        /// arrays, no allocation). Clone delegates here so the field list
-        /// exists once.</summary>
         /// <summary>Fresh-constructed state without dropping arrays.</summary>
         public void ResetForReuse()
         {
@@ -77,6 +74,9 @@ namespace PadForge.Engine
             PitchBend = PitchBendCenter;
         }
 
+        /// <summary>Deep-copies into <paramref name="dst"/> (fixed-shape
+        /// arrays, no allocation). Clone delegates here so the field list
+        /// exists once.</summary>
         public void CopyInto(MidiInputState dst)
         {
             Array.Copy(Notes, dst.Notes, NoteCount);

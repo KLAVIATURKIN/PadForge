@@ -656,11 +656,6 @@ namespace PadForge.ViewModels
         /// the source is hydrated / synced; setting directly via the
         /// SelectedInput picker also updates it via the InputChoice's
         /// DeviceLabel field.</summary>
-        /// <summary>DERIVED from <see cref="DeviceGuid"/> when a resolver is
-        /// wired, for the reason the primary's twin documents: a separately
-        /// assigned label can outlive the GUID it described and render the
-        /// previous profile's controller under an empty-GUID source. The
-        /// stored value remains the fallback for early startup and tests.</summary>
         public string DeviceLabel
         {
             get => _deviceLabel;

@@ -641,24 +641,6 @@ namespace PadForge.SteamWorkshop.Translation
             "gyro_to_joystick", "gyro_to_joystick_deflection",
         };
 
-        /// <summary>Response-shaping group settings. Key list grounded on
-        /// the corpus (deadzone_outer_radius 28640..31999, curve_exponent
-        /// 1/4) plus the sibling keys of the same UI cluster. Since v11
-        /// stick-hosted joystick groups CONSUME most of this cluster into
-        /// the per-source curve/range channel (<see cref="CurveChannelConsumedKeys"/>,
-        /// skipCurveChannel), so only genuinely dropped keys reach the note
-        /// there. The mouse_region per-axis sensitivity scales (corpus
-        /// 2795727040: 110/70; shipped configurator ids
-        /// Horizontal/VerticalSensitivityMouseRegion) scale the region per
-        /// axis. Since v6 (#9 B-15) trackpad-hosted regions consume them as
-        /// the pointer rows' extent, so the drop note skips them there
-        /// (skipRegionScales); stick/gyro hosts keep the wave-2A clamp
-        /// approximation and still drop them named. output_curve has
-        /// NEGATIVE grounding as a real Steam key (absent from the corpus,
-        /// Valve's shipped controller_base templates, Valve's CSGO
-        /// controller configs, and OpenSteamworks' EControllerSetting enum);
-        /// it stays listed defensively so an unknown config carrying it
-        /// still gets a named drop instead of silence.</summary>
         /// <summary>The still-dropped response-cluster keys (v18). The
         /// exponent / range / sensitivity / anti-deadzone keys are consumed
         /// on EVERY analog host now (per-source shaping runs on the stick,
@@ -1377,6 +1359,18 @@ namespace PadForge.SteamWorkshop.Translation
             PartialReasonKey = s.PartialReasonKey,
         };
 
+        /// <summary>True when the chord activator carries a usable
+        /// chord_button (v26): the absent key and the 0 value are both the
+        /// unset picker (the shared value space's own 0 is the gyro_button
+        /// none/default sentinel, v18/v23, and Steam's serializer omits
+        /// defaults), the precise config-error arm. Anything else proceeds
+        /// to the enum grounding and keeps the generic net on failure.</summary>
+        private static bool HasChordPartner(SteamInputActivator activator)
+            => activator.Settings.TryGetValue("chord_button", out var raw)
+                && int.TryParse((raw ?? "").Trim(), NumberStyles.Integer,
+                    CultureInfo.InvariantCulture, out int idx)
+                && idx > 0;
+
         /// <summary>The gated host source for a chord activator (v24), or
         /// null when the chord cannot ground (caller keeps the named
         /// skip). chord_button INDEXES k_eGamepadButtonBitMask, the same
@@ -1402,18 +1396,6 @@ namespace PadForge.SteamWorkshop.Translation
         /// click ("Touchpad 0 Click Left", the v18 family), freeing the
         /// gate slot for the partner. Anything else with a busy gate slot
         /// (wedge click gates) stays ungroundable.</para></summary>
-        /// <summary>True when the chord activator carries a usable
-        /// chord_button (v26): the absent key and the 0 value are both the
-        /// unset picker (the shared value space's own 0 is the gyro_button
-        /// none/default sentinel, v18/v23, and Steam's serializer omits
-        /// defaults), the precise config-error arm. Anything else proceeds
-        /// to the enum grounding and keeps the generic net on failure.</summary>
-        private static bool HasChordPartner(SteamInputActivator activator)
-            => activator.Settings.TryGetValue("chord_button", out var raw)
-                && int.TryParse((raw ?? "").Trim(), NumberStyles.Integer,
-                    CultureInfo.InvariantCulture, out int idx)
-                && idx > 0;
-
         private static ResolvedSource ChordHost(Run run, SteamInputActivator activator,
             ResolvedSource source)
         {
@@ -6141,13 +6123,6 @@ namespace PadForge.SteamWorkshop.Translation
             return preset != null ? PresetDisplayName(run, preset) : $"Preset {presetId}";
         }
 
-        /// <summary>The author-facing set name (v13 section census). A
-        /// preset's <c>name</c> is a set token (<c>Preset_1000001</c>,
-        /// <c>MenuControls</c>). The actions / action_layers block carries
-        /// the display title behind it, often a <c>#token</c> into the
-        /// config's localization (Valve's TF2 config titles its sets
-        /// <c>#MenuControls</c>-style, community layers carry plain titles
-        /// such as "Secondary"). Falls back to the raw token.</summary>
         /// <summary>The menu's name in the Menus list: the author's group
         /// name qualified by the preset that hosts it ("Menu (Menu save)"),
         /// or the generated fallback when the group is unnamed.
@@ -6179,6 +6154,13 @@ namespace PadForge.SteamWorkshop.Translation
             return $"{bare} ({set})";
         }
 
+        /// <summary>The author-facing set name (v13 section census). A
+        /// preset's <c>name</c> is a set token (<c>Preset_1000001</c>,
+        /// <c>MenuControls</c>). The actions / action_layers block carries
+        /// the display title behind it, often a <c>#token</c> into the
+        /// config's localization (Valve's TF2 config titles its sets
+        /// <c>#MenuControls</c>-style, community layers carry plain titles
+        /// such as "Secondary"). Falls back to the raw token.</summary>
         private static string PresetDisplayName(Run run, SteamInputPreset preset)
         {
             string raw = string.IsNullOrWhiteSpace(preset.Name)
@@ -6285,6 +6267,17 @@ namespace PadForge.SteamWorkshop.Translation
             return true;
         }
 
+        /// <summary>Pulse-shaped gesture hosts (v26): one-shot fires
+        /// (taps, swipes) with no held state, so they carry an activator
+        /// only through the latching arms (the flick-host rule: callers
+        /// pass oneShotHost and the mode becomes Toggle / the press-edge
+        /// jump). The held-state features (touch spots, the anchor D-pad
+        /// wedges) are NOT pulses and host every mode.</summary>
+        private static bool IsGesturePulseHost(ResolvedSource source)
+            => source != null
+            && (source.TrackpadFeature == PhysicalSlotResolver.FeatureSwipes
+                || source.TrackpadFeature == PhysicalSlotResolver.FeatureTaps);
+
         /// <summary>Shift activators read button-like inputs (or an axis
         /// with a threshold). Gesture-FIRED trackpad reads (taps, swipes,
         /// the anchor D-pad wedges) can't drive one. The touch-spot
@@ -6307,17 +6300,6 @@ namespace PadForge.SteamWorkshop.Translation
         /// (Toggle / Latch / Cycle), so the rate's instant return to zero
         /// never flickers a held layer. Hold-natured gyro activators stay
         /// out.</summary>
-        /// <summary>Pulse-shaped gesture hosts (v26): one-shot fires
-        /// (taps, swipes) with no held state, so they carry an activator
-        /// only through the latching arms (the flick-host rule: callers
-        /// pass oneShotHost and the mode becomes Toggle / the press-edge
-        /// jump). The held-state features (touch spots, the anchor D-pad
-        /// wedges) are NOT pulses and host every mode.</summary>
-        private static bool IsGesturePulseHost(ResolvedSource source)
-            => source != null
-            && (source.TrackpadFeature == PhysicalSlotResolver.FeatureSwipes
-                || source.TrackpadFeature == PhysicalSlotResolver.FeatureTaps);
-
         private static bool IsActivatorCapable(ResolvedSource source, bool allowGyroHalf = false)
             => source != null
             // Held-state gesture reads (touch spots since v25, the anchor
@@ -6928,6 +6910,25 @@ namespace PadForge.SteamWorkshop.Translation
                 && m.CycleSteps.Any(s => s.Kind == TranslatedCycleStepKind.VcButtonTap
                     || s.Kind == TranslatedCycleStepKind.VcAxisTap));
 
+        /// <summary>What makes one activator's input a different INPUT from
+        /// another's on the same layer: the descriptor plus the legs that
+        /// select which part of it fires. The merge path names these three
+        /// and the reasons are the same here. A single-pad left-half click
+        /// and a right-half click share the pad-click descriptor and differ
+        /// only in gate. Opposite flick directions share an axis descriptor
+        /// and differ only in half.
+        ///
+        /// <para>Timing and edge are deliberately NOT here. They separate two
+        /// TRIGGERS on one input, which is what the emit dedup and the jump
+        /// merge care about, but an engage and its return are routinely
+        /// authored with different timing on the same button, and the corpus
+        /// witnesses this pass was written for (a shoulder on 3456927474, the
+        /// rear paddles on 3725174032) are exactly that shape. Including them
+        /// stopped the drop firing on the cases it exists for.</para></summary>
+        private static string ActivatorInputKey(ActivatorRequest a) =>
+            $"{a.LayerMask}|{a.Descriptor}|{a.GateDescriptor}|{a.Gate2Descriptor}"
+            + $"|{(a.AxisHalf ? 1 : 0)}{(a.AxisInvert ? 1 : 0)}";
+
         /// <summary><para>Drops a hosted <c>remove_layer</c> Cycle when the
         /// SAME input already engages the SAME layer.</para>
         /// <para>Steam spells a layer's on and off as two halves on one
@@ -6952,25 +6953,6 @@ namespace PadForge.SteamWorkshop.Translation
         /// does not itself engage the layer, which is the case where the
         /// Cycle is the only way back and the original note still holds.
         /// </para></summary>
-        /// <summary>What makes one activator's input a different INPUT from
-        /// another's on the same layer: the descriptor plus the legs that
-        /// select which part of it fires. The merge path names these three
-        /// and the reasons are the same here. A single-pad left-half click
-        /// and a right-half click share the pad-click descriptor and differ
-        /// only in gate. Opposite flick directions share an axis descriptor
-        /// and differ only in half.
-        ///
-        /// <para>Timing and edge are deliberately NOT here. They separate two
-        /// TRIGGERS on one input, which is what the emit dedup and the jump
-        /// merge care about, but an engage and its return are routinely
-        /// authored with different timing on the same button, and the corpus
-        /// witnesses this pass was written for (a shoulder on 3456927474, the
-        /// rear paddles on 3725174032) are exactly that shape. Including them
-        /// stopped the drop firing on the cases it exists for.</para></summary>
-        private static string ActivatorInputKey(ActivatorRequest a) =>
-            $"{a.LayerMask}|{a.Descriptor}|{a.GateDescriptor}|{a.Gate2Descriptor}"
-            + $"|{(a.AxisHalf ? 1 : 0)}{(a.AxisInvert ? 1 : 0)}";
-
         private static void DropRemovesCoveredByTheirOwnToggle(Run run)
         {
             // Toggle and Hold are the two ENGAGE modes. A Cycle is not one:

@@ -1228,9 +1228,6 @@ namespace PadForge.Common.Input
             ClearLayerExitCommits();
         }
 
-        /// <summary>Clears one slot's shift runtime state. Use when a single
-        /// slot changes shift-activator topology (e.g. activator added/
-        /// removed/edited) and we want the new shape to start clean.</summary>
         /// <summary>Macro-driven layer switch (#377): engages
         /// <paramref name="mask"/> on the slot with the Latch ("Custom")
         /// activator's own discipline, writing the shift runtime's
@@ -1312,6 +1309,9 @@ namespace PadForge.Common.Input
             }
         }
 
+        /// <summary>Clears one slot's shift runtime state. Use when a single
+        /// slot changes shift-activator topology (e.g. activator added/
+        /// removed/edited) and we want the new shape to start clean.</summary>
         public static void ClearShiftRuntime(int slotIndex)
         {
             if (slotIndex < 0 || slotIndex >= _shiftRuntime.Length) return;
@@ -1323,12 +1323,6 @@ namespace PadForge.Common.Input
             _suppressedScratchBySlot[slotIndex]?.Clear();
         }
 
-        /// <summary>Inspect-only snapshot of the active engaged layer for a
-        /// slot. Returns <c>"Base"</c> when nothing is engaged; otherwise
-        /// the LayerMask of the activator at the top of the engagement
-        /// stack (or the Custom-mode layer override when set). Used by
-        /// the v3 visual overlay to display the live layer state without
-        /// having to thread state across the polling-thread boundary.</summary>
         /// <summary>Immutable memo of one resolved mask. The KBM/Extended
         /// path resolves the mask once per TARGET (~110 lock round-trips
         /// per device pass at 1 kHz); the engaged state changes at human
@@ -1348,6 +1342,12 @@ namespace PadForge.Common.Input
         }
         private static readonly EngagedMaskMemo[] _engagedMaskMemos = new EngagedMaskMemo[MaxPads];
 
+        /// <summary>Inspect-only snapshot of the active engaged layer for a
+        /// slot. Returns <c>"Base"</c> when nothing is engaged; otherwise
+        /// the LayerMask of the activator at the top of the engagement
+        /// stack (or the Custom-mode layer override when set). Used by
+        /// the v3 visual overlay to display the live layer state without
+        /// having to thread state across the polling-thread boundary.</summary>
         public static string GetEngagedLayerMask(int slotIndex, MappingSet mappingSet)
         {
             if (slotIndex < 0 || slotIndex >= _shiftRuntime.Length) return "Base";
@@ -2248,12 +2248,6 @@ namespace PadForge.Common.Input
             }
         }
 
-        /// <summary>#206 edge-mode fire decision, one place for Toggle /
-        /// Latch / Sticky. DelayMs 0 keeps the classic rising edge.
-        /// DelayMs &gt; 0 is a long press: fires exactly once when the hold
-        /// crosses the threshold; <paramref name="longPressFired"/> is
-        /// the once-per-hold latch, cleared on release. Pure so the
-        /// state machine is testable frame by frame.</summary>
         /// <summary>One Cycle step edge: the press edge normally, the release
         /// edge under Fire on Release. Cycle keeps its no-DelayMs contract in
         /// both modes (a hold-to-engage debounce makes no sense on a
@@ -2262,6 +2256,12 @@ namespace PadForge.Common.Input
         internal static bool CycleStepEdge(bool down, bool wasDown, bool fireOnRelease)
             => fireOnRelease ? (!down && wasDown) : (down && !wasDown);
 
+        /// <summary>#206 edge-mode fire decision, one place for Toggle /
+        /// Latch / Sticky. DelayMs 0 keeps the classic rising edge.
+        /// DelayMs &gt; 0 is a long press: fires exactly once when the hold
+        /// crosses the threshold; <paramref name="longPressFired"/> is
+        /// the once-per-hold latch, cleared on release. Pure so the
+        /// state machine is testable frame by frame.</summary>
         internal static bool ComputeActivatorFire(
             bool inputDown, bool wasDown, long heldMs, int delayMs,
             ref bool longPressFired, bool fireOnRelease = false)

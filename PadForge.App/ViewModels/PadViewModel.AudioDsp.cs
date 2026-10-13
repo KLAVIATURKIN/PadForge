@@ -47,13 +47,13 @@ namespace PadForge.ViewModels
             finally { _suppressEqPush = false; }
         }
 
-        /// <summary>Re-encodes the rows into the config. Every row edit and
-        /// every add, remove, import or clear goes through here.</summary>
         /// <summary>True while this view model is the one writing the bands, so
         /// the config's own change notification can tell our echo apart from an
         /// outside write and rebuild only for the latter.</summary>
         private bool _pushingEqBands;
 
+        /// <summary>Re-encodes the rows into the config. Every row edit and
+        /// every add, remove, import or clear goes through here.</summary>
         internal void PushEqBands()
         {
             if (_suppressEqPush) return;

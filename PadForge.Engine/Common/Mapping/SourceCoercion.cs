@@ -1215,13 +1215,14 @@ namespace PadForge.Engine.Common.Mapping
         /// Touchpad tab's Momentum card, which the mouse lane reads
         /// (ReadTouchpadMouseCounts); the decay here was a second
         /// implementation of the same idea, on a different physical model,
-        /// reachable only when a pad drove a non-mouse target.</para></summary>
-        /// <summary>Per-pad cursor feel. <paramref name="settingsAccel"/> is
+        /// reachable only when a pad drove a non-mouse target.</para>
+        ///
+        /// <para>Per-pad cursor feel. <paramref name="settingsAccel"/> is
         /// the pad's own MouseAcceleration card; the per-source ParamAccel is
         /// the pre-handover driver for an import whose value has not yet been
         /// folded into that card, exactly as the pointer region resolves.
         /// Applied through the SAME curve either way, so which one supplies
-        /// the number cannot change the feel.
+        /// the number cannot change the feel.</para>
         ///
         /// <para>fingerDown and deviceGuid used to be parameters here and went
         /// unused when the EMA smoothing and trackball integrators were
@@ -1255,6 +1256,27 @@ namespace PadForge.Engine.Common.Mapping
         /// move is to reuse the reference's own stated assumption and expose
         /// the threshold for calibration.</para></summary>
         internal const float TrackpadAssumedPadWidthMm = 69f;
+
+        /// <summary><para>Smallest non-zero finger speed a pad of the given
+        /// physical width can report, in mm/s, at one coordinate unit per
+        /// report. Below this the pad reads as stationary, so any part of the
+        /// gain curve under it is unreachable.</para>
+        ///
+        /// <para>Exists because that is not hypothetical. At libinput's assumed
+        /// 69 mm a DS4 pad (1920 units, ~250 Hz) has a quantum of 8.98 mm/s,
+        /// which is ABOVE the 7 mm/s deceleration knee: the entire precision
+        /// half of the curve would be dead, and the profile would only ever
+        /// accelerate, which is the exact failure it was added to fix. The knee
+        /// comes into range below about 54 mm. So the width is a real setting,
+        /// not a constant, and this helper is what the test asserts
+        /// against.</para></summary>
+        internal static float TrackpadSpeedQuantumMmPerSec(
+            float padWidthMm, int unitsAcrossPad, float reportIntervalSec)
+        {
+            if (unitsAcrossPad <= 0 || reportIntervalSec <= 0f) return 0f;
+            float padWidthsPerSec = 1f / unitsAcrossPad / reportIntervalSec;
+            return padWidthsPerSec * padWidthMm;
+        }
 
         /// <summary><para>Cursor gain for a finger speed, ported from
         /// libinput's <c>touchpad_accel_profile_linear</c>
@@ -1291,27 +1313,6 @@ namespace PadForge.Engine.Common.Mapping
         /// out at exactly 1.0 and unchanged, while the shape either side of it
         /// (0.333x at rest, up to 5.333x at the cap) is libinput's
         /// exactly.</para></summary>
-        /// <summary><para>Smallest non-zero finger speed a pad of the given
-        /// physical width can report, in mm/s, at one coordinate unit per
-        /// report. Below this the pad reads as stationary, so any part of the
-        /// gain curve under it is unreachable.</para>
-        ///
-        /// <para>Exists because that is not hypothetical. At libinput's assumed
-        /// 69 mm a DS4 pad (1920 units, ~250 Hz) has a quantum of 8.98 mm/s,
-        /// which is ABOVE the 7 mm/s deceleration knee: the entire precision
-        /// half of the curve would be dead, and the profile would only ever
-        /// accelerate, which is the exact failure it was added to fix. The knee
-        /// comes into range below about 54 mm. So the width is a real setting,
-        /// not a constant, and this helper is what the test asserts
-        /// against.</para></summary>
-        internal static float TrackpadSpeedQuantumMmPerSec(
-            float padWidthMm, int unitsAcrossPad, float reportIntervalSec)
-        {
-            if (unitsAcrossPad <= 0 || reportIntervalSec <= 0f) return 0f;
-            float padWidthsPerSec = 1f / unitsAcrossPad / reportIntervalSec;
-            return padWidthsPerSec * padWidthMm;
-        }
-
         internal static float TrackpadPointerGain(
             float padWidthsPerSec, float thresholdMmPerSec, float padWidthMm)
         {
@@ -1742,9 +1743,6 @@ namespace PadForge.Engine.Common.Mapping
         private static float PerSourceSensitivity(MappingSource src)
             => (float)(src.Sensitivity > 0 ? src.Sensitivity : 1.0);
 
-        /// <summary>True for any MIDI-input descriptor
-        /// (<c>"Midi Note N"</c> / <c>"Midi CC N"</c> /
-        /// <c>"Midi Pitch Bend"</c>).</summary>
         /// <summary>True when the descriptor belongs to an engine-evaluated
         /// family whose name legitimately begins with 'I' ("IR Pointer X/Y",
         /// "IR Brightness"), so the legacy I/H invert/half prefix grammar must
@@ -1785,6 +1783,9 @@ namespace PadForge.Engine.Common.Mapping
             return clean;
         }
 
+        /// <summary>True for any MIDI-input descriptor
+        /// (<c>"Midi Note N"</c> / <c>"Midi CC N"</c> /
+        /// <c>"Midi Pitch Bend"</c>).</summary>
         public static bool IsMidiDescriptor(string descriptor)
             => !string.IsNullOrEmpty(descriptor)
             && descriptor.StartsWith("Midi ", StringComparison.Ordinal);
@@ -2718,6 +2719,16 @@ namespace PadForge.Engine.Common.Mapping
             return xAxis != null && yAxis != null;
         }
 
+        /// <summary>Constant-true source (translator v25): Steam's
+        /// always_on_action switch member, "Always On Command"
+        /// (ControllerBinding_SwitchesActionSetAlwaysOn in the shipped
+        /// strings; Valve's own controller_neptune_webbrowser template
+        /// authors one). The read is unconditionally on; scoping to the
+        /// hosting action set rides the row's LayerMask (or the macro
+        /// layer gate), so an always-on binding asserts exactly while its
+        /// set is active.</summary>
+        public const string AlwaysOnDescriptor = "Always On";
+
         /// <summary>Stick deflection-ring descriptors (translator v17,
         /// Steam's joystick Outer Ring Binding). The value is the stick
         /// pair's deflection magnitude, sqrt(x*x + y*y) clamped to [0..1],
@@ -2729,16 +2740,6 @@ namespace PadForge.Engine.Common.Mapping
         /// Invert selects the INNER ring ("the command will be sent when
         /// inside the radius instead of outside", Steam's shipped
         /// EdgeBindingInvert string) instead of the default outer ring.</summary>
-        /// <summary>Constant-true source (translator v25): Steam's
-        /// always_on_action switch member, "Always On Command"
-        /// (ControllerBinding_SwitchesActionSetAlwaysOn in the shipped
-        /// strings; Valve's own controller_neptune_webbrowser template
-        /// authors one). The read is unconditionally on; scoping to the
-        /// hosting action set rides the row's LayerMask (or the macro
-        /// layer gate), so an always-on binding asserts exactly while its
-        /// set is active.</summary>
-        public const string AlwaysOnDescriptor = "Always On";
-
         public const string LeftStickRingDescriptor = "Gamepad LeftStickRing";
         public const string RightStickRingDescriptor = "Gamepad RightStickRing";
 
@@ -3341,10 +3342,6 @@ namespace PadForge.Engine.Common.Mapping
             return (float)(sign * remapped);
         }
 
-        /// <summary>Canonical dictionary key for a device guid string:
-        /// parseable guids collapse to lowercase "d" format, anything else
-        /// passes through. The latch, the lookup, and the per-device reset
-        /// all agree through this.</summary>
         /// <summary>The latch key. It carries the SLOT as well as the device
         /// because the grip it is tagged with is per-(device, slot): a device
         /// on two slots can be held two ways. Keyed by device alone, the two
@@ -3352,7 +3349,12 @@ namespace PadForge.Engine.Common.Mapping
         /// dropped the latch and re-latched from the current sample, and
         /// RealignToDown then mapped that sample exactly onto down. Gyro Lean,
         /// Gyro Tilt and the static Motion Lean read a constant zero on both
-        /// slots for as long as the assignment stood.</summary>
+        /// slots for as long as the assignment stood.
+        ///
+        /// <para>The device half is the canonical key for a device guid
+        /// string: parseable guids collapse to lowercase "d" format, anything
+        /// else passes through. The latch, the lookup, and the per-device
+        /// reset all agree through this.</para></summary>
         private static string LeanNeutralKey(string deviceGuid, int slotIndex, bool aux = false)
         {
             // One composed key per device text, slot and sensor. Composed on
@@ -4334,19 +4336,6 @@ namespace PadForge.Engine.Common.Mapping
             return 0f;
         }
 
-        /// <summary>Reads <c>state.Gyro[gyroAxis]</c> minus the
-        /// (device, slot) at-rest bias (looked up via
-        /// <see cref="GyroBiasProvider"/>). Returns 0 when the
-        /// (device, slot) has no calibration entry — caller gets the
-        /// raw reading minus zero, which is the right default for
-        /// "uncalibrated yet, just connected." Defensive against null
-        /// state.Gyro[].</summary>
-        /// <summary>Bool-aux compatibility entry (the passthrough and
-        /// pre-#271 callers): aux picks the left sensor, otherwise the
-        /// primary RAW. Deliberately never Fused: the motion passthrough
-        /// must stay a real single-sensor stream (native-frame contract),
-        /// so fusion is selected only by the mapping path's descriptor
-        /// classification.</summary>
         // ─── Grip: the hold's body-to-game rotation (#392) ──────────────
 
         public const string GripPointing = "Pointing";
@@ -4460,9 +4449,22 @@ namespace PadForge.Engine.Common.Mapping
             return RotateForGrip(GetGrip(deviceGuid, slotIndex), grav.gx, grav.gy, grav.gz);
         }
 
+        /// <summary>Bool-aux compatibility entry (the passthrough and
+        /// pre-#271 callers): aux picks the left sensor, otherwise the
+        /// primary RAW. Deliberately never Fused: the motion passthrough
+        /// must stay a real single-sensor stream (native-frame contract),
+        /// so fusion is selected only by the mapping path's descriptor
+        /// classification.</summary>
         private static float ReadCalibratedGyroRate(CustomInputState state, int gyroAxis, string deviceGuid, int slotIndex, bool aux = false)
             => ReadCalibratedGyroRate(state, gyroAxis, deviceGuid, slotIndex, aux ? GyroSide.Left : GyroSide.Right);
 
+        /// <summary>Reads <c>state.Gyro[gyroAxis]</c> minus the
+        /// (device, slot) at-rest bias (looked up via
+        /// <see cref="GyroBiasProvider"/>). Returns 0 when the
+        /// (device, slot) has no calibration entry — caller gets the
+        /// raw reading minus zero, which is the right default for
+        /// "uncalibrated yet, just connected." Defensive against null
+        /// state.Gyro[].</summary>
         private static float ReadCalibratedGyroRate(CustomInputState state, int gyroAxis, string deviceGuid, int slotIndex, GyroSide side,
             bool gripAux = false)
         {
@@ -4536,10 +4538,6 @@ namespace PadForge.Engine.Common.Mapping
 
         // ─── Per-target-type evaluators ────────────────────────────────
 
-        /// <summary>Evaluates a source for a button-class target. Returns
-        /// the post-Invert pressed state. Axis and slider sources cross a
-        /// threshold (per-source DeadZone overrides the global threshold
-        /// when set).</summary>
         /// <summary>Effective per-source threshold percent: an authored
         /// row DeadZone wins, but 0 (unset) AND 50 (the MappingSource
         /// model's untouched default, the same sentinel the mapping
@@ -4551,6 +4549,10 @@ namespace PadForge.Engine.Common.Mapping
         internal static int EffectiveThresholdPercent(MappingSource src, int globalThresholdPercent)
             => (src.DeadZone > 0 && src.DeadZone != 50) ? src.DeadZone : globalThresholdPercent;
 
+        /// <summary>Evaluates a source for a button-class target. Returns
+        /// the post-Invert pressed state. Axis and slider sources cross a
+        /// threshold (per-source DeadZone overrides the global threshold
+        /// when set).</summary>
         public static bool EvaluateForButtonTarget(
             CustomInputState state, MappingSource src, int globalThresholdPercent, int slotIndex = -1,
             string evaluatedDeviceGuid = null)

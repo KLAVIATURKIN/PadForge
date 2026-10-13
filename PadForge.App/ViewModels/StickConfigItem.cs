@@ -115,12 +115,6 @@ namespace PadForge.ViewModels
         }
 
         private double _sensitivity = 1.0;
-        /// <summary>Output sensitivity multiplier for this stick. Applied
-        /// after the deadzone / range / curve stage, so it scales what the
-        /// mapping table already produced. Lives here rather than in the
-        /// mapping grid: per-row it made the grid's raw and out readouts
-        /// agree (the scale was folded in before the readout) and its slider
-        /// sat in a column too narrow to show it.</summary>
         /// <summary>Speed multiplier for the KEYBOARD AND MOUSE lane's two
         /// pointer sticks (mouse movement, scroll wheel), where the output is
         /// a rate and a multiplier is the natural control. Surfaced only when
@@ -134,7 +128,13 @@ namespace PadForge.ViewModels
         /// the same tab do that job properly. See the 2026-07-27 ruling.</para>
         ///
         /// <para>Per-source Sensitivity on the mapping rows is a different
-        /// field, live for mouse, gyro, IR pointer, and touchpad.</para></summary>
+        /// field, live for mouse, gyro, IR pointer, and touchpad.</para>
+        ///
+        /// <para>Applied after the deadzone / range / curve stage, so it
+        /// scales what the mapping table already produced. Lives here rather
+        /// than in the mapping grid: per-row it made the grid's raw and out
+        /// readouts agree (the scale was folded in before the readout) and
+        /// its slider sat in a column too narrow to show it.</para></summary>
         public double Sensitivity
         {
             get => _sensitivity;

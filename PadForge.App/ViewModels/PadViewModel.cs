@@ -5932,10 +5932,6 @@ namespace PadForge.ViewModels
         //  Audio tab (issue #83) — per-slot sound output for macro sounds
         // ═══════════════════════════════════════════════
 
-        /// <summary>True when the SELECTED assigned device has a built-in
-        /// speaker (DualSense / Edge / DualShock 4). The Audio tab is per
-        /// assigned device by convention — this gates the mirror toggle and
-        /// the routing notes.</summary>
         /// <summary>True when the SELECTED assigned device has a 3.5 mm
         /// headset jack PadForge can drive the hardware volume of:
         /// DualSense (0x0CE6) and DualSense Edge (0x0DF2). DS4 declares
@@ -5973,6 +5969,10 @@ namespace PadForge.ViewModels
             }
         }
 
+        /// <summary>True when the SELECTED assigned device has a built-in
+        /// speaker (DualSense / Edge / DualShock 4). The Audio tab is per
+        /// assigned device by convention — this gates the mirror toggle and
+        /// the routing notes.</summary>
         public bool SelectedDeviceHasSpeaker
         {
             get
@@ -6363,12 +6363,13 @@ namespace PadForge.ViewModels
             });
 
         /// <summary>A render endpoint the mirror can capture; Id "" = the
-        /// system default device.</summary>
-        /// <summary>One entry in an audio endpoint picker. Observable because
+        /// system default device.
+        ///
+        /// <para>One entry in an audio endpoint picker. Observable because
         /// the refresh below RETAINS the instance on purpose (rebuilding the
         /// list drops the ComboBox's selected item and WPF clears the
         /// selection), so a caption change has to reach the binding through
-        /// the object rather than through the collection.</summary>
+        /// the object rather than through the collection.</para></summary>
         public sealed class MirrorSourceOption : ObservableObject
         {
             public string Id { get; set; }
@@ -8700,7 +8701,6 @@ namespace PadForge.ViewModels
             return output;
         }
 
-        /// <summary>
         /// <summary>
         /// Updates the CurveEditor live input values for a stick config item.
         /// normX/normY are 0-1 normalized where 0.5 = center.

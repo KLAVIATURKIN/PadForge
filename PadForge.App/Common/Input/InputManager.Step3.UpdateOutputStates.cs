@@ -463,6 +463,15 @@ namespace PadForge.Common.Input
                 ResolveThumbDeadZoneShape(slotIndex, left: false, ps));
         }
 
+        /// <summary>Test seam for <see cref="ApplyKbmStickSpeed"/>.</summary>
+        internal static void ApplyKbmStickSpeedForTest(ref short x, ref short y, double sens)
+            => ApplyKbmStickSpeed(ref x, ref y, sens);
+
+        /// <summary>Test seam for <see cref="EnsureRawShape"/>, so a guard
+        /// test can size a RawHidState the way Step 3 does.</summary>
+        internal static void EnsureRawShapeForTest(ref RawHidState raw, CustomControllerLayout cfg)
+            => EnsureRawShape(ref raw, cfg);
+
         /// <summary>Per-stick speed multiplier for the KEYBOARD AND MOUSE
         /// lane only, called from <see cref="MapInputToKbmRaw"/>: stick 0 is
         /// mouse movement (MouseDeltaX/Y) and stick 1 is the scroll wheel
@@ -477,15 +486,6 @@ namespace PadForge.Common.Input
         /// put the call there by mistake, which scaled exactly the sticks the
         /// owner had ruled out while still leaving the KBM rate outputs
         /// untouched.</para></summary>
-        /// <summary>Test seam for <see cref="ApplyKbmStickSpeed"/>.</summary>
-        internal static void ApplyKbmStickSpeedForTest(ref short x, ref short y, double sens)
-            => ApplyKbmStickSpeed(ref x, ref y, sens);
-
-        /// <summary>Test seam for <see cref="EnsureRawShape"/>, so a guard
-        /// test can size a RawHidState the way Step 3 does.</summary>
-        internal static void EnsureRawShapeForTest(ref RawHidState raw, CustomControllerLayout cfg)
-            => EnsureRawShape(ref raw, cfg);
-
         private static void ApplyKbmStickSpeed(ref short x, ref short y, double sens)
         {
             if (sens <= 0 || Math.Abs(sens - 1.0) < 1e-6) return;
@@ -1849,10 +1849,6 @@ namespace PadForge.Common.Input
         //  Dead zone processing
         // ─────────────────────────────────────────────
 
-        /// <summary>
-        /// Applies deadzone, anti-deadzone, and linear scaling to a pair
-        /// of thumbstick axes (X and Y) using the specified deadzone shape algorithm.
-        /// </summary>
         /// <summary>Test seam for <see cref="ApplyDeadZone"/>. Same
         /// arguments, no behavior of its own.</summary>
         internal static void ApplyDeadZoneForTest(ref short axisX, ref short axisY,
@@ -1866,6 +1862,10 @@ namespace PadForge.Common.Input
                 antiDeadZoneX, antiDeadZoneY, linear, maxRangeX, maxRangeY,
                 maxRangeXNeg, maxRangeYNeg, lutX, lutY, shape);
 
+        /// <summary>
+        /// Applies deadzone, anti-deadzone, and linear scaling to a pair
+        /// of thumbstick axes (X and Y) using the specified deadzone shape algorithm.
+        /// </summary>
         private static void ApplyDeadZone(ref short axisX, ref short axisY,
             double deadZoneX, double deadZoneY,
             double antiDeadZoneX, double antiDeadZoneY, double linear,
@@ -2322,11 +2322,6 @@ namespace PadForge.Common.Input
         //  Extended Custom mapping engine
         // ─────────────────────────────────────────────
 
-        /// <summary>
-        /// Maps a CustomInputState to a RawHidState using the PadSetting's Extended
-        /// dictionary-based mappings. Used for custom Extended configurations with
-        /// arbitrary numbers of axes, buttons, and POVs.
-        /// </summary>
         /// <summary>Ensures the scratch state's arrays match the layout
         /// shape (reallocates only on a layout edit).</summary>
         private static void EnsureRawShape(ref RawHidState raw, CustomControllerLayout cfg)
@@ -2380,6 +2375,11 @@ namespace PadForge.Common.Input
         /// floors treat a zero effective threshold as value &gt; 0.</summary>
         private const int TriggerClickActivationPercent = 0;
 
+        /// <summary>
+        /// Maps a CustomInputState to a RawHidState using the PadSetting's Extended
+        /// dictionary-based mappings. Used for custom Extended configurations with
+        /// arbitrary numbers of axes, buttons, and POVs.
+        /// </summary>
         internal static void MapInputToExtendedRaw(ref RawHidState raw,
             CustomInputState state, PadSetting ps,
             CustomControllerLayout cfg,

@@ -524,7 +524,6 @@ namespace PadForge.Common.Input
         }
 
         /// <summary>Forwards one packet and records the write cost.</summary>
-        /// <summary>Forwards one packet and records the write cost.</summary>
         private void WriteOne(in Ds5Effect effect)
         {
             // Record what the pad now holds, so the producer can recognize a

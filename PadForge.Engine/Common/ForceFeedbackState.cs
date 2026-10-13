@@ -804,15 +804,6 @@ namespace PadForge.Engine
             return ApplyHapticEffect(device, ref effect);
         }
 
-        /// <summary>
-        /// Holds a software centering spring on a generic FFB wheel routed through
-        /// SDL, driven by the Wheel-tab Auto Centering Strength slider. Mirrors what
-        /// Logitech / Fanatec / Thrustmaster get from their native writers, for wheels
-        /// that aren't one of those vendors. Single-axis haptic gates this to wheels —
-        /// gamepads report two or more haptic axes (or no spring support), so it never
-        /// fires for them. Returns false (leaving the rumble path to run) when the
-        /// device isn't a spring-capable single-axis wheel or the slider is at 0.
-        /// </summary>
         /// <summary>The one predicate for "this device may hold the software
         /// auto-center spring", shared verbatim by the Wheel tab's
         /// hasGenericWheel gate (PadPage.SyncTabVisibility) so the tab and the
@@ -840,6 +831,15 @@ namespace PadForge.Engine
                 && IsGenericWheelSpringCapable(device.HasHaptic, device.HapticFeatures, device.GetInputDeviceType());
         }
 
+        /// <summary>
+        /// Holds a software centering spring on a generic FFB wheel routed through
+        /// SDL, driven by the Wheel-tab Auto Centering Strength slider. Mirrors what
+        /// Logitech / Fanatec / Thrustmaster get from their native writers, for wheels
+        /// that aren't one of those vendors. Single-axis haptic gates this to wheels —
+        /// gamepads report two or more haptic axes (or no spring support), so it never
+        /// fires for them. Returns false (leaving the rumble path to run) when the
+        /// device isn't a spring-capable single-axis wheel or the slider is at 0.
+        /// </summary>
         private bool TryApplyAutoCenterSpring(ISdlInputDevice device, PadSetting ps)
         {
             if (!IsGenericWheelSpringCapable(device))

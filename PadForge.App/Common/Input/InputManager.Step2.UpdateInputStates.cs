@@ -1866,17 +1866,6 @@ namespace PadForge.Common.Input
         }
 
         /// <summary>
-        /// Mixes audio bass rumble into the raw motor values (when the
-        /// device's PadSetting has it enabled) and applies ForceOverall ×
-        /// LeftMotorStrength / RightMotorStrength × ForceSwapMotor. The
-        /// audio detector is shared across slots (one peak source) but
-        /// the per-device sensitivity / cutoff / left-right scaling
-        /// applied here are per-PadSetting. With <paramref name="ps"/>
-        /// null all scaling falls back to identity (raw passthrough at
-        /// 100 % gain) so transient pre-init frames still produce sane
-        /// rumble.
-        /// </summary>
-        /// <summary>
         /// Applies per-device impulse-trigger scaling: per-trigger
         /// strength (<c>ImpulseLeftStrength</c> / <c>ImpulseRightStrength</c>)
         /// × impulse-tab overall gain (<c>ImpulseOverallGain</c>) +
@@ -1933,6 +1922,17 @@ namespace PadForge.Common.Input
             scaledRight = finalR;
         }
 
+        /// <summary>
+        /// Mixes audio bass rumble into the raw motor values (when the
+        /// device's PadSetting has it enabled) and applies ForceOverall ×
+        /// LeftMotorStrength / RightMotorStrength × ForceSwapMotor. The
+        /// audio detector is shared across slots (one peak source) but
+        /// the per-device sensitivity / cutoff / left-right scaling
+        /// applied here are per-PadSetting. With <paramref name="ps"/>
+        /// null all scaling falls back to identity (raw passthrough at
+        /// 100 % gain) so transient pre-init frames still produce sane
+        /// rumble.
+        /// </summary>
         public void ScaleRumbleForDevice(
             ushort rawLeft, ushort rawRight, PadSetting ps,
             out ushort scaledLeft, out ushort scaledRight)

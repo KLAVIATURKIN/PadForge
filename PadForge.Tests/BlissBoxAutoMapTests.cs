@@ -1023,7 +1023,7 @@ namespace PadForge.Tests
                 < hiding.IndexOf("ud.ForceRawJoystickMode = row.ForceRawJoystickMode;", StringComparison.Ordinal));
 
             string input = System.IO.File.ReadAllText(RepoPath("PadForge.App", "Services", "InputService.cs"));
-            Assert.Contains("DeviceService.CancelOwedMapping(us);", Body(input, "public void ApplyPadSettingToCurrentDeviceTranslated("));
+            Assert.Contains("DeviceService.CancelOwedMapping(us);", Body(input, "internal void ApplyPadSettingToCurrentDeviceTranslated("));
             Assert.Contains("DeviceService.CancelOwedMapping(us);", Body(input, "public void ApplyPadSettingToCurrentDevice("));
         }
 

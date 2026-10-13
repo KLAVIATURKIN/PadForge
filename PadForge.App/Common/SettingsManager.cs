@@ -1212,10 +1212,6 @@ namespace PadForge.Common.Input
         }
 
         /// <summary>
-        /// Re-automaps all devices assigned to a slot for the given output type.
-        /// Called when switching virtual controller type so mappings match the new type.
-        /// </summary>
-        /// <summary>
         /// Move a Nintendo slot's raw mappings from one profile's wire to
         /// another's, preserving the ROLE each binding names.
         ///
@@ -1238,6 +1234,13 @@ namespace PadForge.Common.Input
         /// incoming wire BEFORE the VM assignment, so the setter's call
         /// finds from == to and no-ops; only a live user change leaves the
         /// stamp behind the new value, which is exactly the translate case.
+        ///
+        /// Everything the slot names by a raw position moves: each device's
+        /// own entries (<see cref="MoveRawEntries"/>), the rows of every
+        /// layer (<see cref="MoveRawRows"/>) and the buttons its SOCD pairs
+        /// name (<see cref="MoveSocdPairs"/>). A copy of another slot's
+        /// table onto this wire owes the same move
+        /// (InputService.RawLanding.ByRole).
         /// </summary>
         public static void TranslateNintendoRawMappings(int padIndex, string toProfileId)
         {
@@ -1262,6 +1265,9 @@ namespace PadForge.Common.Input
             if (Models2D.NintendoPreviewMap.SameWireFamily(fromProfileId, toProfileId))
                 return;
 
+            Func<string, string> move = name =>
+                Models2D.NintendoPreviewMap.TranslateRawTarget(name, fromProfileId, toProfileId);
+
             foreach (var us in GetSettingsForSlot(padIndex))
             {
                 // The rows a Bliss-Box port's owed default leaves alone are
@@ -1269,40 +1275,13 @@ namespace PadForge.Common.Input
                 // pad lacks is gone.
                 if (us?.BlissBoxKeptTargets is { } keptTargets)
                     us.BlissBoxKeptTargets = keptTargets
-                        .Select(k => Models2D.NintendoPreviewMap.TranslateRawTarget(k, fromProfileId, toProfileId))
+                        .Select(move)
                         .Where(k => k != null)
                         .Distinct(StringComparer.Ordinal)
                         .ToArray();
 
                 var ps = us?.GetPadSetting();
-                var entries = ps?.RawMappingEntries;
-                if (entries == null || entries.Length == 0) continue;
-
-                // Build the whole new set before writing any of it: two old
-                // targets can translate onto one new one only if the tables
-                // disagree, and a half-applied rewrite would be worse than
-                // either outcome.
-                var moved = new List<(string Key, string Value)>();
-                bool changed = false;
-                foreach (var e in entries)
-                {
-                    if (e == null || string.IsNullOrEmpty(e.Key)) continue;
-                    string dst = Models2D.NintendoPreviewMap.TranslateRawTarget(
-                        e.Key, fromProfileId, toProfileId);
-                    if (dst == null) { changed = true; continue; }   // role absent on the target
-                    if (!string.Equals(dst, e.Key, StringComparison.Ordinal)) changed = true;
-                    moved.Add((dst, e.Value));
-                }
-                if (!changed) continue;
-
-                foreach (var e in entries)
-                    if (e != null && !string.IsNullOrEmpty(e.Key))
-                        ps.SetRawMapping(e.Key, null);
-                foreach (var (k, v) in moved)
-                    ps.SetRawMapping(k, v);
-                ps.FlushRawMappings();
-                ps.UpdateChecksum();
-                us.PadSettingChecksum = ps.PadSettingChecksum;
+                if (MoveRawEntries(ps, move)) us.PadSettingChecksum = ps.PadSettingChecksum;
             }
 
             // The grid does NOT read PadSetting raw entries. It reads the
@@ -1314,27 +1293,177 @@ namespace PadForge.Common.Input
             // kept their sources while now naming different buttons.
             var set = SlotMappingSets != null && padIndex < SlotMappingSets.Length
                 ? SlotMappingSets[padIndex] : null;
-            if (set?.Rows != null)
-            {
-                // Build the new list and assign the REFERENCE. The poll
-                // thread enumerates set.Rows concurrently, and an in-place
-                // Clear + AddRange tears that enumeration; a reference swap
-                // costs one stale tick, the same trade every other set
-                // replacement in this codebase makes.
-                var rows = set.Rows;
-                var kept = new List<Engine.Data.MappingRow>(rows.Count);
-                foreach (var row in rows)
-                {
-                    if (row == null || string.IsNullOrEmpty(row.Target)) continue;
-                    string dst = Models2D.NintendoPreviewMap.TranslateRawTarget(
-                        row.Target, fromProfileId, toProfileId);
-                    if (dst == null) continue;   // role absent on the target pad, or an orphan
-                    row.Target = dst;
-                    kept.Add(row);
-                }
-                set.Rows = kept;
-            }
+            // The new list is built and its REFERENCE assigned. The poll
+            // thread enumerates set.Rows concurrently, and an in-place
+            // Clear + AddRange tears that enumeration. A reference swap
+            // costs one stale tick, the same trade every other set
+            // replacement in this codebase makes.
+            if (set?.Rows != null) set.Rows = MoveRawRows(set.Rows, move);
+            if (!string.IsNullOrEmpty(set?.SocdPairs)) set.SocdPairs = MoveSocdPairs(set.SocdPairs, move);
         }
+
+        /// <summary>True for the name of a raw position: a raw button, a
+        /// hat direction or a raw axis. A device's raw entries also hold
+        /// tuning under names of their own ("GyroTiltRange"), which are no
+        /// place on any wire.</summary>
+        private static bool IsRawPosition(string name)
+            => name.StartsWith("RawBtn", StringComparison.Ordinal)
+               || name.StartsWith("RawPov", StringComparison.Ordinal)
+               || name.StartsWith("RawAxis", StringComparison.Ordinal);
+
+        /// <summary>
+        /// Moves a device's own entries on one slot onto another wire: its
+        /// raw mappings, and the deadzone and the Bidirectional flag an
+        /// older save keeps under a mapping's raw target
+        /// (PadSetting.GetMappingDeadZone). Each key that names a raw
+        /// position goes through <paramref name="move"/>, which answers its
+        /// name on the new wire, or null where that wire has no such
+        /// control, and the entry goes. Where two keys land on one, the
+        /// first keeps it, as with the rows (<see cref="MoveRawRows"/>).
+        ///
+        /// <para>Each family is built whole before any of it is written:
+        /// a half-applied rewrite would be worse than either outcome. True
+        /// when anything changed, with the arrays flushed and the checksum
+        /// current.</para>
+        /// </summary>
+        internal static bool MoveRawEntries(PadSetting ps, Func<string, string> move)
+        {
+            if (ps == null || move == null) return false;
+            // The arrays are what is read below, so they are brought up to
+            // date with any entry set since they were last written.
+            ps.FlushRawMappings();
+            ps.FlushMappingDeadZones();
+            ps.FlushMappingBidirectional();
+            bool changed = MoveEntryFamily(ps.RawMappingEntries, move, ps.SetRawMapping);
+            changed |= MoveEntryFamily(ps.MappingDeadZoneEntries, move, ps.SetMappingDeadZone);
+            changed |= MoveEntryFamily(ps.MappingBidirectionalEntries, move, ps.SetMappingBidirectional);
+            if (!changed) return false;
+            ps.FlushRawMappings();
+            ps.FlushMappingDeadZones();
+            ps.FlushMappingBidirectional();
+            ps.UpdateChecksum();
+            return true;
+        }
+
+        private static bool MoveEntryFamily(RawMappingEntry[] entries, Func<string, string> move,
+            Action<string, string> set)
+        {
+            if (entries == null || entries.Length == 0) return false;
+            var moved = new List<(string Key, string Value)>();
+            var taken = new HashSet<string>(StringComparer.Ordinal);
+            bool changed = false;
+            foreach (var e in entries)
+            {
+                if (e == null || string.IsNullOrEmpty(e.Key)) continue;
+                string dst = IsRawPosition(e.Key) ? move(e.Key) : e.Key;
+                // The role is absent on the new wire, or an earlier entry
+                // holds the control already.
+                if (dst == null || !taken.Add(dst)) { changed = true; continue; }
+                if (!string.Equals(dst, e.Key, StringComparison.Ordinal)) changed = true;
+                moved.Add((dst, e.Value));
+            }
+            if (!changed) return false;
+
+            foreach (var e in entries)
+                if (e != null && !string.IsNullOrEmpty(e.Key))
+                    set(e.Key, null);
+            foreach (var (k, v) in moved)
+                set(k, v);
+            return true;
+        }
+
+        /// <summary>
+        /// The rows of a table moved onto another wire: each row's target
+        /// through <paramref name="move"/>, and a row the new wire has no
+        /// control for left out, an orphan included. The rows are named
+        /// anew in place and answered as a new list, for the caller to
+        /// assign by reference.
+        ///
+        /// <para>Two controls of one wire can be one control of another: a
+        /// Steam Deck's R3 and its right pad's click are the 2015 Steam
+        /// Controller's one right click. Where the move lands the rows of
+        /// two targets on one, in one layer, the first that has a source
+        /// keeps it, the rule a copy between two layouts keeps
+        /// (InputService.ReplaceBaseRowsTranslated). Left as two, the grid
+        /// would show one and the engine read both. Two rows the table
+        /// already held on one target are no doing of the move and stay
+        /// two, on the index that target moves to.</para>
+        /// </summary>
+        internal static List<Engine.Data.MappingRow> MoveRawRows(IList<Engine.Data.MappingRow> rows,
+            Func<string, string> move)
+        {
+            var kept = new List<Engine.Data.MappingRow>(rows?.Count ?? 0);
+            if (rows == null) return kept;
+            // The row that holds each target of a layer, with the target it
+            // came from: rows that came from one target were two before the
+            // move, and rows from two targets are the move's doing.
+            var landed = new Dictionary<(string Layer, string Target), (int At, string From)>();
+            foreach (var row in rows)
+            {
+                if (row == null || string.IsNullOrEmpty(row.Target)) continue;
+                string from = row.Target;
+                string dst = move(from);
+                if (dst == null) continue;   // role absent on the target pad, or an orphan
+                var key = (string.IsNullOrEmpty(row.LayerMask) ? "Base" : row.LayerMask, dst);
+                if (landed.TryGetValue(key, out var there)
+                    && !string.Equals(there.From, from, StringComparison.Ordinal))
+                {
+                    if (HasSource(kept[there.At]) || !HasSource(row)) continue;
+                    row.Target = dst;
+                    kept[there.At] = row;
+                    landed[key] = (there.At, from);
+                    continue;
+                }
+                row.Target = dst;
+                landed.TryAdd(key, (kept.Count, from));
+                kept.Add(row);
+            }
+            return kept;
+        }
+
+        /// <summary>True when a row has a source that reads an input, a
+        /// formula's blank placeholders aside (InputService.HasSource).</summary>
+        private static bool HasSource(Engine.Data.MappingRow row)
+            => row.Sources != null && row.Sources.Exists(s => s != null
+                && !PadForge.Engine.Common.Mapping.SourceEvaluator.IsUnmappedDirect(s));
+
+        /// <summary>
+        /// A raw slot's SOCD pairs moved onto another wire. The pairs name
+        /// their buttons by wire index ("14:15|8:9", SlotButtonSocd), so
+        /// each index goes through <paramref name="move"/> as the raw
+        /// button it is. A pair with a button the new wire lacks, or has as
+        /// a hat direction or an axis, is dropped: left in place it would
+        /// clean two controls nobody paired. A token that is no pair of
+        /// indices names nothing on either wire and stays as it is.
+        /// </summary>
+        internal static string MoveSocdPairs(string pairs, Func<string, string> move)
+        {
+            if (string.IsNullOrEmpty(pairs) || move == null) return pairs;
+            var invariant = System.Globalization.CultureInfo.InvariantCulture;
+            var kept = new List<string>();
+            foreach (string token in pairs.Split('|', StringSplitOptions.RemoveEmptyEntries))
+            {
+                int colon = token.IndexOf(':');
+                if (colon <= 0 || colon >= token.Length - 1
+                    || !int.TryParse(token.Substring(0, colon).Trim(), out int a)
+                    || !int.TryParse(token.Substring(colon + 1).Trim(), out int b))
+                {
+                    kept.Add(token);
+                    continue;
+                }
+                int movedA = RawButtonIndex(move("RawBtn" + a.ToString(invariant)));
+                int movedB = RawButtonIndex(move("RawBtn" + b.ToString(invariant)));
+                if (movedA < 0 || movedB < 0 || movedA == movedB) continue;
+                kept.Add(movedA.ToString(invariant) + ":" + movedB.ToString(invariant));
+            }
+            return string.Join("|", kept);
+        }
+
+        private static int RawButtonIndex(string rawName)
+            => rawName != null && rawName.StartsWith("RawBtn", StringComparison.Ordinal)
+               && int.TryParse(rawName.AsSpan(6), System.Globalization.NumberStyles.None,
+                   System.Globalization.CultureInfo.InvariantCulture, out int index)
+                ? index : -1;
 
         /// <summary>Which wire each Nintendo slot's raw mapping data is
         /// currently authored under, by profile id. See
@@ -1369,6 +1498,10 @@ namespace PadForge.Common.Input
             => padIndex >= 0 && padIndex < _nintendoWireStamp.Length
                 ? _nintendoWireStamp[padIndex] : null;
 
+        /// <summary>
+        /// Re-automaps all devices assigned to a slot for the given output type.
+        /// Called when switching virtual controller type so mappings match the new type.
+        /// </summary>
         /// <param name="extended">The slot's Extended layout, threaded through
         /// so an unlettered Extended slot gets a raw automap rather than the
         /// standard gamepad fields its surface never reads.</param>

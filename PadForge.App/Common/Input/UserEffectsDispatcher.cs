@@ -492,6 +492,21 @@ namespace PadForge.Common.Input
         // otherwise latched for the life of the process.
         private readonly HashSet<Guid> _lastAssignedGuids = new();
 
+        /// <summary>True when this slot's assigned-device set differs from
+        /// the previous dispatch. Order does not matter and duplicates cannot
+        /// occur, so a count comparison plus a membership sweep is exact.</summary>
+        internal static bool AssignmentSetChanged(
+            System.Collections.Generic.IReadOnlyList<Guid> current,
+            System.Collections.Generic.HashSet<Guid> previous)
+        {
+            if (current == null || previous == null) return false;
+            if (current.Count != previous.Count) return true;
+            for (int i = 0; i < current.Count; i++)
+            {
+                if (!previous.Contains(current[i])) return true;
+            }
+            return false;
+        }
         /// <summary>Reacts to this slot's assigned-device set changing.
         ///
         /// <para>Two latches survive an unassign and would otherwise make
@@ -512,21 +527,6 @@ namespace PadForge.Common.Input
         /// device is skipped by the guid filter rather than removed, so its
         /// entry lingers and the re-add returns false, silently skipping the
         /// seed block that emits the mandatory stop/disengage frame.</para></summary>
-        /// <summary>True when this slot's assigned-device set differs from
-        /// the previous dispatch. Order does not matter and duplicates cannot
-        /// occur, so a count comparison plus a membership sweep is exact.</summary>
-        internal static bool AssignmentSetChanged(
-            System.Collections.Generic.IReadOnlyList<Guid> current,
-            System.Collections.Generic.HashSet<Guid> previous)
-        {
-            if (current == null || previous == null) return false;
-            if (current.Count != previous.Count) return true;
-            for (int i = 0; i < current.Count; i++)
-            {
-                if (!previous.Contains(current[i])) return true;
-            }
-            return false;
-        }
         private void OnAssignmentSetObserved(System.Collections.Generic.List<Guid> guids, DeviceCollection devices)
         {
             // Devices that left keep no ownership seed, so a later
@@ -1616,9 +1616,6 @@ namespace PadForge.Common.Input
             DispatchSnapshot();
         }
 
-        /// <summary>True when any device's config on the slot is in the
-        /// given <see cref="LightbarMode"/>. Used by tick-suppression
-        /// special-cases (e.g. AudioPulseRainbow's per-tick rotation).</summary>
         /// <summary>True when any per-device config on the slot is in
         /// <paramref name="mode"/>. With no per-device configs the caller
         /// must fall back to the anchor _config, exactly as the other

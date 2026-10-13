@@ -1038,32 +1038,6 @@ namespace PadForge.Common.Input
             return (r, g, b);
         }
 
-        /// <summary>Encodes one trigger's 11-byte effect block (mode +
-        /// 10 parameter bytes). The simple modes (Feedback / Weapon /
-        /// Vibration) use scalar opcodes 0x01/0x02/0x06 with the
-        /// dualsense-tester layout; the multi-position modes
-        /// (MultiplePositionFeedback / SlopeFeedback /
-        /// MultiplePositionVibration) use the official 0x21/0x26 zone-
-        /// bitmap encoding from Nielk1's TriggerEffectGenerator.
-        ///
-        /// <list type="bullet">
-        /// <item>Off → 0x00 (no params)</item>
-        /// <item>Feedback → 0x01: <c>[start_pos, force]</c></item>
-        /// <item>Weapon → 0x02: <c>[start_pos, end_pos, force]</c></item>
-        /// <item>Vibration → 0x06: <c>[frequency, force, start_pos]</c></item>
-        /// <item>MultiplePositionFeedback → 0x21 with active-zone bitmap +
-        /// per-zone 3-bit strengths covering [start_pos, end_pos]</item>
-        /// <item>SlopeFeedback → 0x21 with strengths interpolated linearly
-        /// from 1 at start_pos to <c>strength</c> at end_pos</item>
-        /// <item>MultiplePositionVibration → 0x26 with active-zone bitmap +
-        /// per-zone amplitudes covering [start_pos, end_pos] and
-        /// frequency in byte 9</item>
-        /// </list>
-        ///
-        /// <para>UI parameter values are 0-255 (full byte range). The 10
-        /// multi-position zones are at trigger positions 0..9 mapped
-        /// linearly across the byte range.</para>
-        /// </summary>
         /// <summary>Builds an 11-byte trigger effect block in AdaptiveTrigger
         /// Vibration mode (HidModeAutoTrigger, 0x06) for the impulse-trigger
         /// auto-route. When the virtual controller is XInput-class and the
@@ -1102,6 +1076,32 @@ namespace PadForge.Common.Input
             return block;
         }
 
+        /// <summary>Encodes one trigger's 11-byte effect block (mode +
+        /// 10 parameter bytes). The simple modes (Feedback / Weapon /
+        /// Vibration) use scalar opcodes 0x01/0x02/0x06 with the
+        /// dualsense-tester layout; the multi-position modes
+        /// (MultiplePositionFeedback / SlopeFeedback /
+        /// MultiplePositionVibration) use the official 0x21/0x26 zone-
+        /// bitmap encoding from Nielk1's TriggerEffectGenerator.
+        ///
+        /// <list type="bullet">
+        /// <item>Off → 0x00 (no params)</item>
+        /// <item>Feedback → 0x01: <c>[start_pos, force]</c></item>
+        /// <item>Weapon → 0x02: <c>[start_pos, end_pos, force]</c></item>
+        /// <item>Vibration → 0x06: <c>[frequency, force, start_pos]</c></item>
+        /// <item>MultiplePositionFeedback → 0x21 with active-zone bitmap +
+        /// per-zone 3-bit strengths covering [start_pos, end_pos]</item>
+        /// <item>SlopeFeedback → 0x21 with strengths interpolated linearly
+        /// from 1 at start_pos to <c>strength</c> at end_pos</item>
+        /// <item>MultiplePositionVibration → 0x26 with active-zone bitmap +
+        /// per-zone amplitudes covering [start_pos, end_pos] and
+        /// frequency in byte 9</item>
+        /// </list>
+        ///
+        /// <para>UI parameter values are 0-255 (full byte range). The 10
+        /// multi-position zones are at trigger positions 0..9 mapped
+        /// linearly across the byte range.</para>
+        /// </summary>
         private static void EncodeTrigger(
             AdaptiveTriggerMode mode,
             byte startPosition,

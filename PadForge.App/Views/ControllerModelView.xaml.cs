@@ -1506,11 +1506,6 @@ namespace PadForge.Views
             ModelViewPort.Cursor = Cursors.Arrow;
         }
 
-        /// <summary>
-        /// Checks if the hit geometry belongs to a stick ring, and determines
-        /// X or Y axis based on the click quadrant relative to the joystick center.
-        /// Left/right quadrants → X axis, top/bottom quadrants → Y axis.
-        /// </summary>
         /// <summary>Resolves a hit on a quadrant surface to the direction
         /// target under the cursor. Anchored on the visible mesh's centroid,
         /// never on JoystickRotationPointCenter*: the rotation pivot is where

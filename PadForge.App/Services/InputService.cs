@@ -4576,11 +4576,6 @@ namespace PadForge.Services
         private long _lastGatedDashboardTick;
         private long _lastForegroundUiRefreshTick;
 
-        /// <summary>Pushes the latest per-device battery readings into the
-        /// Devices-page rows and every pad's device-roster items (#167).
-        /// Runs on the UI timer at a 5 s cadence, matching the SDL wrapper's
-        /// own battery cache interval. Offline devices read as no-battery so
-        /// the indicator disappears instead of freezing.</summary>
         /// <summary>The one battery answer for a device (#187): SDL's value
         /// when the backend reports one (HIDAPI pads), else the device's own
         /// Bluetooth devnode battery property (Xbox pads, whose XInput lane is
@@ -4788,6 +4783,11 @@ namespace PadForge.Services
             catch { /* LED writes are cosmetic, never block a tick */ }
         }
 
+        /// <summary>Pushes the latest per-device battery readings into the
+        /// Devices-page rows and every pad's device-roster items (#167).
+        /// Runs on the UI timer at a 5 s cadence, matching the SDL wrapper's
+        /// own battery cache interval. Offline devices read as no-battery so
+        /// the indicator disappears instead of freezing.</summary>
         private void UpdateBatteryIndicators()
         {
             // Memoized per device per tick so both loops below agree; the
@@ -5131,10 +5131,6 @@ namespace PadForge.Services
             catch { }
         }
 
-        /// <summary>
-        /// Updates the raw input state display for the selected device
-        /// on the Devices page using structured observable collections.
-        /// </summary>
         /// <summary>The Head Tracker row's source line (issue #355).</summary>
         private static string BuildHeadTrackerStatus(PadForge.Common.Input.HeadTrackerDevice ht)
         {
@@ -5346,6 +5342,10 @@ namespace PadForge.Services
         /// from, beside the row it belongs to (LastRawStateDeviceGuid).</summary>
         private PadForge.Engine.ISdlInputDevice _lastRawStateDevice;
 
+        /// <summary>
+        /// Updates the raw input state display for the selected device
+        /// on the Devices page using structured observable collections.
+        /// </summary>
         private void UpdateDevicesRawState()
         {
             var devVm = _mainVm.Devices;
@@ -6185,11 +6185,6 @@ namespace PadForge.Services
         //  Runtime sync: ViewModel → PadSetting
         // ─────────────────────────────────────────────
 
-        /// <summary>
-        /// Pushes ViewModel slider values (deadzones, force feedback, linear)
-        /// directly to PadSetting objects so the engine picks them up immediately.
-        /// Called at 30Hz on the UI thread. String reference writes are atomic in .NET.
-        /// </summary>
         /// <summary>Cached strings for the mapping grid's live-value
         /// column. The 30 Hz refresh called int.ToString per row per tick
         /// even when the value repeats; MappingItem's setter already stops
@@ -6235,6 +6230,11 @@ namespace PadForge.Services
         private readonly Guid[] _lastSyncedSettingsGuid = new Guid[InputManager.MaxPads];
         private readonly PadSetting[] _lastSyncedPadSetting = new PadSetting[InputManager.MaxPads];
 
+        /// <summary>
+        /// Pushes ViewModel slider values (deadzones, force feedback, linear)
+        /// directly to PadSetting objects so the engine picks them up immediately.
+        /// Called at 30Hz on the UI thread. String reference writes are atomic in .NET.
+        /// </summary>
         private void SyncViewModelToPadSettings()
         {
             bool anyAudioRumble = false;
@@ -7092,16 +7092,6 @@ namespace PadForge.Services
             // device added/removed) call RefreshMappingsCore directly.
         }
 
-        /// <summary>Per-VC mapping refresh. Reads the slot's MappingSet
-        /// — the SOLE source of truth — and populates every MappingItem
-        /// in <paramref name="padVm"/>. The Mappings tab is intentionally
-        /// device-agnostic: changing the assigned-device dropdown does
-        /// NOT affect what's shown here. Legacy per-device descriptors
-        /// are converted into the MappingSet at settings load time
-        /// (<see cref="SettingsService.LoadFromFile"/> →
-        /// <c>BuildOneSlotFromLegacy</c>) and on device assignment
-        /// (<see cref="SettingsService.RefreshMappingSetsFromLegacy"/>);
-        /// from that point on the MappingSet is authoritative.</summary>
         /// <summary>#155 re-entrancy guard. RefreshMappingsCore mutates the
         /// live MappingItem instances (Clear then repopulate), and every
         /// watched setter raises PropertyChanged synchronously. The
@@ -7113,6 +7103,16 @@ namespace PadForge.Services
         /// time, so suppressing the push during a reload loses nothing.</summary>
         internal static bool SuppressMappingEditPush;
 
+        /// <summary>Per-VC mapping refresh. Reads the slot's MappingSet
+        /// — the SOLE source of truth — and populates every MappingItem
+        /// in <paramref name="padVm"/>. The Mappings tab is intentionally
+        /// device-agnostic: changing the assigned-device dropdown does
+        /// NOT affect what's shown here. Legacy per-device descriptors
+        /// are converted into the MappingSet at settings load time
+        /// (<see cref="SettingsService.LoadFromFile"/> →
+        /// <c>BuildOneSlotFromLegacy</c>) and on device assignment
+        /// (<see cref="SettingsService.RefreshMappingSetsFromLegacy"/>);
+        /// from that point on the MappingSet is authoritative.</summary>
         private static void RefreshMappingsCore(PadViewModel padVm)
         {
             if (padVm == null) return;
@@ -7503,12 +7503,6 @@ namespace PadForge.Services
             return (p, y, r);
         }
 
-        /// <summary>
-        /// Populates the AvailableInputs dropdown for all mappings in a pad's mapping list.
-        /// Builds the list from the device's DeviceObjects (friendly names for gamepads,
-        /// numbered names for raw/non-gamepad devices). Also wires the dropdown selection
-        /// event for display text resolution.
-        /// </summary>
         /// <summary>One 250 ms config-snapshot mechanism for the per-(device,
         /// slot) setting providers (IR tuning / pointer mode, gyro bias /
         /// tuning, touchpad + mouse gesture settings). Each resolver still
@@ -7639,6 +7633,12 @@ namespace PadForge.Services
             PopulateAvailableInputs(padVm, ud);
         }
 
+        /// <summary>
+        /// Populates the AvailableInputs dropdown for all mappings in a pad's mapping list.
+        /// Builds the list from the device's DeviceObjects (friendly names for gamepads,
+        /// numbered names for raw/non-gamepad devices). Also wires the dropdown selection
+        /// event for display text resolution.
+        /// </summary>
         private void PopulateAvailableInputs(PadViewModel padVm, UserDevice ud)
         {
             if (padVm == null) return;
@@ -8048,11 +8048,19 @@ namespace PadForge.Services
         /// report). The descriptors a recording produces are device-specific;
         /// re-tagging them onto a different KIND of device yields garbage, so
         /// we prefer the same-device target whenever one exists.</para>
+        ///
+        /// <para><paramref name="copiedFrom"/> is the layout of the slot the
+        /// settings were copied from, where that is another slot. The copy
+        /// brings the donor's own raw entries along, named on that slot's
+        /// wire, and on another wire they move with the rows
+        /// (<see cref="EntryMoveOf"/>), so a later merge of a device's own
+        /// entries into the table (SettingsService.MergeMappingSetsFromLegacy)
+        /// finds none on a control nobody bound.</para>
         /// </summary>
-        public void ApplyPadSettingToCurrentDeviceTranslated(int padIndex, PadSetting source,
+        internal void ApplyPadSettingToCurrentDeviceTranslated(int padIndex, PadSetting source,
             VirtualControllerType sourceType, bool sourceIsExtended,
             VirtualControllerType targetType, bool targetIsExtended,
-            Guid? targetDeviceGuidOverride = null)
+            Guid? targetDeviceGuidOverride = null, SlotLayout? copiedFrom = null)
         {
             if (source == null || padIndex < 0 || padIndex >= _mainVm.Pads.Count)
                 return;
@@ -8096,9 +8104,18 @@ namespace PadForge.Services
             // runtime resolvers miss them and serve defaults.
             RetargetPerDeviceSettingsAfterCopy(ps, targetGuid);
 
+            // On another wire the raw entries the copy brought move with
+            // the rows.
+            var landing = copiedFrom is { } copied ? LandingOf(copied, SlotLayoutOf(padVm)) : RawLanding.AsTheyStand;
+            if (landing != RawLanding.AsTheyStand
+                && SettingsManager.MoveRawEntries(ps, EntryMoveOf(copiedFrom.Value, SlotLayoutOf(padVm))))
+                us.PadSettingChecksum = ps.PadSettingChecksum;
+
             // Multi-source rows only round-trip when source and target
-            // share a layout — cross-layout target names don't line up.
-            if (MappingTranslation.IsSameLayout(sourceType, sourceIsExtended, targetType, targetIsExtended))
+            // share a layout. Cross-layout target names don't line up,
+            // and neither do the indices of two wires.
+            if (landing == RawLanding.AsTheyStand
+                && MappingTranslation.IsSameLayout(sourceType, sourceIsExtended, targetType, targetIsExtended))
             {
                 ApplyMultiSourceRowsToCurrentDevice(padIndex, targetGuid,
                     source.DeviceScopedMultiSourceRows);
@@ -8187,10 +8204,11 @@ namespace PadForge.Services
         /// already ran by the time this helper is called; this method
         /// only carries per-device tuning (deadzones, sensitivity, FFB,
         /// Gyro, TouchpadSettings).</remarks>
-        public void ApplyPerDeviceSettingsToSlot(int targetPadIndex,
+        internal void ApplyPerDeviceSettingsToSlot(int targetPadIndex,
             PadForge.Engine.Data.PerDeviceSettingsEntry[] entries,
             VirtualControllerType sourceLayoutType, bool sourceLayoutIsExtended,
-            VirtualControllerType targetLayoutType, bool targetLayoutIsExtended)
+            VirtualControllerType targetLayoutType, bool targetLayoutIsExtended,
+            SlotLayout? copiedFrom = null)
         {
             if (entries == null || entries.Length == 0) return;
             if (targetPadIndex < 0 || targetPadIndex >= _mainVm.Pads.Count) return;
@@ -8287,7 +8305,7 @@ namespace PadForge.Services
                     targetPadIndex, devicePs,
                     srcType, srcExt,
                     targetLayoutType, targetLayoutIsExtended,
-                    matchTarget);
+                    matchTarget, copiedFrom);
             }
         }
 
@@ -8656,7 +8674,12 @@ namespace PadForge.Services
         /// already fails closed with the selection preserved, so carrying it
         /// is both safe and the only option that keeps the user's choice when
         /// the config comes home.</para></summary>
-        public static void ApplySlotSetExtrasJson(int padIndex, string json, bool sameLayout)
+        /// <param name="wire">The move the copied pairs owe where the copy
+        /// came whole from another wire of the same pads
+        /// (<see cref="WireMoveOf"/>): a raw slot's pairs name their buttons
+        /// by wire index.</param>
+        public static void ApplySlotSetExtrasJson(int padIndex, string json, bool sameLayout,
+            Func<string, string> wire = null)
         {
             if (string.IsNullOrEmpty(json)) return;
             var sets = SettingsManager.SlotMappingSets;
@@ -8673,7 +8696,7 @@ namespace PadForge.Services
             if (sameLayout)
             {
                 ms.SocdMode = snap.SocdMode ?? "";
-                ms.SocdPairs = snap.SocdPairs ?? "";
+                ms.SocdPairs = (wire != null ? SettingsManager.MoveSocdPairs(snap.SocdPairs, wire) : snap.SocdPairs) ?? "";
             }
             ms.KeepAwakeEnabled = snap.KeepAwakeEnabled;
             ms.KeepAwakeAxis = snap.KeepAwakeAxis ?? "";
@@ -8834,13 +8857,80 @@ namespace PadForge.Services
                 : default, grid, pad.ProfileId);
         }
 
+        /// <summary>How the raw rows of one slot land on another raw slot in
+        /// a Paste or a Copy From.</summary>
+        internal enum RawLanding
+        {
+            /// <summary>Index for index. The two slots are read through the
+            /// same tables, or the raw positions of one of them carry no
+            /// roles: a custom Extended slot's rows are numbered, and have
+            /// nothing to land by.</summary>
+            AsTheyStand,
+            /// <summary>By role, onto another wire of the same pads: a
+            /// Switch Pro and a Switch 2 Pro, or two Valve pads. The two
+            /// share a layout, so the table is copied whole, and a raw index
+            /// names another control on the other wire: raw button 8 is
+            /// Minus on a Switch Pro and D-pad Down on a Switch 2 Pro. So
+            /// everything copied that names a raw position moves to the
+            /// control of its role, as a change of the slot's profile moves
+            /// it (SettingsManager.TranslateNintendoRawMappings).</summary>
+            ByRole,
+            /// <summary>By placement, between a Nintendo wire and a Valve
+            /// one. Their roles are named apart, the south button is B on
+            /// one and A on the other, so the copy goes the way of any two
+            /// layouts (<see cref="ReplaceBaseRowsTranslated"/>).</summary>
+            ByPlacement,
+        }
+
+        internal static RawLanding LandingOf(SlotLayout from, SlotLayout to)
+        {
+            if (!from.HasRoles || !to.HasRoles) return RawLanding.AsTheyStand;
+            if (from.Valve != to.Valve) return RawLanding.ByPlacement;
+            return Models2D.NintendoPreviewMap.SameWireTables(from.ProfileId, to.ProfileId)
+                ? RawLanding.AsTheyStand
+                : RawLanding.ByRole;
+        }
+
+        /// <summary>True when one slot's table replaces another's whole: the
+        /// two share a layout (<see cref="MappingTranslation.IsSameLayout"/>)
+        /// and their raw rows do not have to land by placement. Every place
+        /// a Paste or a Copy From chooses between the whole table and the
+        /// Base rows alone asks this.</summary>
+        internal static bool CopiesWhole(SlotLayout from, SlotLayout to)
+            => MappingTranslation.IsSameLayout(from.Type, from.IsExtended, to.Type, to.IsExtended)
+               && LandingOf(from, to) != RawLanding.ByPlacement;
+
+        /// <summary>The move a table copied whole owes its raw names
+        /// (<see cref="RawLanding.ByRole"/>): a raw target's name on the
+        /// target slot's wire, null where that wire has no such control.
+        /// Null when the copy owes none.</summary>
+        internal static Func<string, string> WireMoveOf(SlotLayout from, SlotLayout to)
+        {
+            if (LandingOf(from, to) != RawLanding.ByRole) return null;
+            string fromWire = from.ProfileId, toWire = to.ProfileId;
+            return name => Models2D.NintendoPreviewMap.TranslateRawTarget(name, fromWire, toWire);
+        }
+
+        /// <summary>The move a copied device's own raw entries owe: by role
+        /// with a table copied whole (<see cref="WireMoveOf"/>), by
+        /// placement with one whose Base rows land that way
+        /// (<see cref="TranslateTarget"/>). Null when they stand as they
+        /// are.</summary>
+        private static Func<string, string> EntryMoveOf(SlotLayout from, SlotLayout to)
+            => LandingOf(from, to) switch
+            {
+                RawLanding.ByRole => WireMoveOf(from, to),
+                RawLanding.ByPlacement => name => TranslateTarget(name, from, to),
+                _ => null,
+            };
+
         /// <summary>The layout of the slot a clipboard payload was copied
         /// from. An Extended slot's copy carries its stick and trigger counts
         /// (SlotExtendedConfigJson). A Nintendo slot has no analog trigger,
         /// and a payload without the counts reads the same way. The profile
         /// rides in the payload too (PadSetting.SlotProfileId). A payload
         /// from before it did reads a Nintendo slot as the Switch Pro.</summary>
-        private static SlotLayout ClipboardSlotLayout(PadSetting source,
+        internal static SlotLayout ClipboardSlotLayout(PadSetting source,
             VirtualControllerType sourceType, bool sourceIsExtended)
         {
             var raw = default(CustomControllerLayout);
@@ -8859,24 +8949,30 @@ namespace PadForge.Services
         }
 
         /// <summary>The row step of a Paste. On the layout the payload was
-        /// copied from, its table replaces the target's whole. On another
-        /// layout its Base rows land by position, or by role on a Nintendo or
-        /// a Valve slot (<see cref="ReplaceBaseRowsTranslated"/>).</summary>
+        /// copied from, its table replaces the target's whole
+        /// (<see cref="CopiesWhole"/>), its rows moved by role first where
+        /// the payload came from another wire of the same pads
+        /// (<see cref="RawLanding.ByRole"/>), so the engine never reads one
+        /// on the control that shares its index. On another layout, and
+        /// between a Nintendo slot and a Valve one, its Base rows land by
+        /// position or by placement (<see cref="ReplaceBaseRowsTranslated"/>).</summary>
         internal static void ApplySlotRowsFromClipboard(int padIndex, PadSetting source,
             VirtualControllerType sourceType, bool sourceIsExtended, SlotLayout target)
         {
             // Empty whole-slot rows clear the target. Missing rows keep the
             // legacy device-scoped path available to the later tuning copy.
             if (source?.SlotMultiSourceRows == null) return;
-            if (MappingTranslation.IsSameLayout(sourceType, sourceIsExtended, target.Type, target.IsExtended))
+            var from = ClipboardSlotLayout(source, sourceType, sourceIsExtended);
+            if (CopiesWhole(from, target))
             {
-                ApplySlotMappingSetFromRows(padIndex, source.SlotMultiSourceRows);
+                ApplySlotMappingSetFromRows(padIndex, WireMoveOf(from, target) is { } wire
+                    ? SettingsManager.MoveRawRows(source.SlotMultiSourceRows, wire)
+                    : source.SlotMultiSourceRows);
                 source.DeviceScopedMultiSourceRows = null;
             }
             else
             {
-                ReplaceBaseRowsTranslated(padIndex, source.SlotMultiSourceRows,
-                    ClipboardSlotLayout(source, sourceType, sourceIsExtended), target);
+                ReplaceBaseRowsTranslated(padIndex, source.SlotMultiSourceRows, from, target);
             }
         }
 
@@ -9460,8 +9556,13 @@ namespace PadForge.Services
         /// "variation") device — see <see cref="RetargetDeviceGuidForSlot"/>
         /// for the exact rule. Carries every device's contribution, every
         /// extra source, combine modes, and Custom formulas. Unmatched sources
-        /// become neutral positions in Custom rows and are dropped from other rows.</summary>
-        public static void ReplaceSlotMappingSet(int targetSlot, int sourceSlot)
+        /// become neutral positions in Custom rows and are dropped from other rows.
+        /// <paramref name="wire"/> is the move the copy owes where the two
+        /// slots are on different wires of the same pads
+        /// (<see cref="WireMoveOf"/>): its rows, on every layer, and the
+        /// buttons its SOCD pairs name move by role before the table is
+        /// installed.</summary>
+        public static void ReplaceSlotMappingSet(int targetSlot, int sourceSlot, Func<string, string> wire = null)
         {
             var sets = SettingsManager.SlotMappingSets;
             if (sets == null) return;
@@ -9540,6 +9641,11 @@ namespace PadForge.Services
                     if (LostEveryMotionInput(r, rc)) continue;
                     copy.Rows.Add(rc);
                 }
+            }
+            if (wire != null)
+            {
+                copy.Rows = SettingsManager.MoveRawRows(copy.Rows, wire);
+                copy.SocdPairs = SettingsManager.MoveSocdPairs(copy.SocdPairs, wire) ?? "";
             }
             sets[targetSlot] = copy;
 
@@ -11475,17 +11581,6 @@ namespace PadForge.Services
             catch { }
         }
 
-        /// <summary>This PC's real LAN address for the same-network punch
-        /// candidate. Only interfaces with a DEFAULT GATEWAY qualify: Hyper-V
-        /// and WSL virtual switches have none, and picking one advertised an
-        /// unreachable private address (observed in the field: 172.25.80.1).</summary>
-        /// <summary>This PC's real LAN address for the same-network punch
-        /// candidate. Asks the OS which interface it would actually use to
-        /// reach the internet (a connected UDP socket picks the routed source
-        /// address without sending anything). Enumerating adapters by hand got
-        /// this wrong twice in the field: it chose a Hyper-V/WSL switch, then a
-        /// Hamachi VPN adapter, because the REAL Wi-Fi had only an IPv6
-        /// link-local gateway and an IPv4-gateway test rejected it.</summary>
         /// <summary>Caller half of the code rendezvous (#294): announce our own
         /// endpoints at the DHT slot the HOST'S code addresses, so the host
         /// learns where to punch back. Best-effort: a DHT failure just leaves
@@ -11522,11 +11617,6 @@ namespace PadForge.Services
             catch (Exception ex) { PadForge.Engine.SdlDiagLog.WriteLine("RDV publish failed: " + ex.Message); }
         }
 
-        /// <summary>Arms the code-derived relay listener (#294). The host
-        /// connects to the relay AS the identity its connection code addresses
-        /// and waits there. A caller derives the same key from the code it
-        /// dialed, so no lookup, no DHT convergence, and no NAT traversal is
-        /// involved on this lane. Restarted whenever the code changes.</summary>
         /// <summary>Arms the STABLE identity relay listener: the address a
         /// paired peer reconnects to after a restart. Derived from our own
         /// long-term identity key, so unlike the code listener it survives
@@ -11555,6 +11645,11 @@ namespace PadForge.Services
             catch (Exception ex) { PadForge.Engine.SdlDiagLog.WriteLine("RELAY identity listen arm failed: " + ex.Message); }
         }
 
+        /// <summary>Arms the code-derived relay listener (#294). The host
+        /// connects to the relay AS the identity its connection code addresses
+        /// and waits there. A caller derives the same key from the code it
+        /// dialed, so no lookup, no DHT convergence, and no NAT traversal is
+        /// involved on this lane. Restarted whenever the code changes.</summary>
         private void StartCodeRelayListener(string code, LinkServer server)
         {
             try
@@ -11636,6 +11731,13 @@ namespace PadForge.Services
             finally { System.Threading.Interlocked.Exchange(ref _rdvPolling, 0); }
         }
 
+        /// <summary>This PC's real LAN address for the same-network punch
+        /// candidate. Asks the OS which interface it would actually use to
+        /// reach the internet (a connected UDP socket picks the routed source
+        /// address without sending anything). Enumerating adapters by hand got
+        /// this wrong twice in the field: it chose a Hyper-V/WSL switch, then a
+        /// Hamachi VPN adapter, because the REAL Wi-Fi had only an IPv6
+        /// link-local gateway and an IPv4-gateway test rejected it.</summary>
         private static System.Net.IPEndPoint LocalLanEndpoint(int port)
         {
             try
@@ -13196,16 +13298,6 @@ namespace PadForge.Services
         //  Device hiding (HidHide + input hooks)
         // ─────────────────────────────────────────────
 
-        /// <summary>Resolves a device's live PnP instance IDs by VID/PID for the
-        /// synthetic-path fallbacks (blacklist sync and the details pane). The
-        /// combined Joy-Con pair (issue #184 sibling) is an SDL-manufactured
-        /// virtual device whose PID exists on no PnP node, so it searches the
-        /// physical children's PIDs instead; the halves are what games see.
-        /// Per SDL usb_ids.h: gen-1 pair 0x2008 has children 0x2006 (Left) and
-        /// 0x2007 (Right); pair PID 0x2068 covers a real Switch 2 pair (children
-        /// 0x2067 Left / 0x2066 Right) AND a gen-1 pair docked in the charging
-        /// grip, whose only PnP node is the grip itself (0x200E), so all three
-        /// are searched.</summary>
         /// <summary>Whether the present-node sweep may widen a record's
         /// hide list to every present node of its VID/PID (#391). True when
         /// the record is the only one of its VID/PID that is HERE, so
@@ -13596,6 +13688,16 @@ namespace PadForge.Services
         private static string HidHideKeptNote(List<string> kept)
             => kept == null || kept.Count == 0 ? "" : $" kept={kept.Count} [{string.Join(" | ", kept)}]";
 
+        /// <summary>Resolves a device's live PnP instance IDs by VID/PID for the
+        /// synthetic-path fallbacks (blacklist sync and the details pane). The
+        /// combined Joy-Con pair (issue #184 sibling) is an SDL-manufactured
+        /// virtual device whose PID exists on no PnP node, so it searches the
+        /// physical children's PIDs instead; the halves are what games see.
+        /// Per SDL usb_ids.h: gen-1 pair 0x2008 has children 0x2006 (Left) and
+        /// 0x2007 (Right); pair PID 0x2068 covers a real Switch 2 pair (children
+        /// 0x2067 Left / 0x2066 Right) AND a gen-1 pair docked in the charging
+        /// grip, whose only PnP node is the grip itself (0x200E), so all three
+        /// are searched.</summary>
         private static List<string> FindInstanceIdsForDevice(UserDevice ud)
         {
             var pidLookups = (ud.VendorId, ud.ProdId) switch
@@ -13611,12 +13713,6 @@ namespace PadForge.Services
             return realIds;
         }
 
-        /// <summary>
-        /// Applies device hiding based on per-device toggle settings.
-        /// HidHide: Adds devices with HidHideEnabled to the blacklist, whitelists PadForge, activates cloaking.
-        /// Hooks: Starts input hook manager for devices with ConsumeInputEnabled.
-        /// Only acts if the master switch (EnableInputHiding) is on.
-        /// </summary>
         /// <summary>Player-identity idle floor (#191): re-seeds every
         /// assigned device's player number. Nintendo-family pads get the
         /// SDL player index (wrapper-allowlisted to VID 0x057E; the SDL
@@ -13984,6 +14080,12 @@ namespace PadForge.Services
         private bool _deviceHidingApplying;
         private bool _deviceHidingApplyOwed;
 
+        /// <summary>
+        /// Applies device hiding based on per-device toggle settings.
+        /// HidHide: Adds devices with HidHideEnabled to the blacklist, whitelists PadForge, activates cloaking.
+        /// Hooks: Starts input hook manager for devices with ConsumeInputEnabled.
+        /// Only acts if the master switch (EnableInputHiding) is on.
+        /// </summary>
         public void ApplyDeviceHiding() => ApplyDeviceHiding(clearFirst: false);
 
         /// <summary>The apply an engine start makes: the clear of the
@@ -15055,16 +15157,6 @@ namespace PadForge.Services
         //  Device list sync
         // ─────────────────────────────────────────────
 
-        /// <summary>
-        /// Synchronizes the DevicesViewModel.Devices collection with
-        /// SettingsManager.UserDevices. Called on the UI thread.
-        /// 
-        /// Filtering strategy:
-        ///   Virtual controllers (HIDMaestro today, or v2 ViGEm residue on
-        ///   upgraders' machines) are already filtered out by Step 1
-        ///   (IsHidMaestroVirtualDevice) via device path inspection. This
-        ///   is a defense-in-depth layer that catches any that leak through.
-        /// </summary>
         /// <summary>Last-seen shape of the persisted device registry. Null
         /// until the first refresh, so the first one always persists.</summary>
         private string _deviceRegistrySignature;
@@ -15138,6 +15230,16 @@ namespace PadForge.Services
                 return BuildDeviceRegistrySignature(devices.Items);
         }
 
+        /// <summary>
+        /// Synchronizes the DevicesViewModel.Devices collection with
+        /// SettingsManager.UserDevices. Called on the UI thread.
+        /// 
+        /// Filtering strategy:
+        ///   Virtual controllers (HIDMaestro today, or v2 ViGEm residue on
+        ///   upgraders' machines) are already filtered out by Step 1
+        ///   (IsHidMaestroVirtualDevice) via device path inspection. This
+        ///   is a defense-in-depth layer that catches any that leak through.
+        /// </summary>
         private void SyncDevicesList()
         {
             var devVm = _mainVm.Devices;
@@ -18835,11 +18937,6 @@ namespace PadForge.Services
                     arr[i] = ni;
         }
 
-        /// <summary>
-        /// Loads a profile's PadSettings and slot assignments into the runtime state.
-        /// For each ProfileEntry, finds the matching UserSetting and swaps its
-        /// PadSetting and MapTo slot.
-        /// </summary>
         /// <summary>Merges the profile's custom touchpad gestures with
         /// the in-box shape catalog and hands the combined list to the
         /// InputManager. Called from ApplyProfile and on initial
@@ -19073,6 +19170,11 @@ namespace PadForge.Services
             }
         }
 
+        /// <summary>
+        /// Loads a profile's PadSettings and slot assignments into the runtime state.
+        /// For each ProfileEntry, finds the matching UserSetting and swaps its
+        /// PadSetting and MapTo slot.
+        /// </summary>
         public void ApplyProfile(ProfileData profile)
         {
             if (profile == null)
@@ -19746,18 +19848,6 @@ namespace PadForge.Services
             }
         }
 
-        /// <summary>Drops every stateful accumulator a profile switch must not
-        /// carry across: source-kind runtime (Incremental cruise / ramp
-        /// throttle), shift-toggle latches, gyro engage stickies, trigger-route
-        /// engage, and gesture contexts.
-        ///
-        /// <para>This exists as ONE method because the reset set had drifted
-        /// three ways (round 34): the named-profile auto lane ran all five, the
-        /// default auto lane omitted ResetGestureContexts, and the MANUAL lanes
-        /// (LoadProfile, RevertToDefaultProfile, DeleteProfile's fallback) ran
-        /// none of them, so switching profiles from the UI carried a latched
-        /// shift layer or an engaged gyro into the new profile while the
-        /// foreground-monitor lane doing the same switch did not.</para></summary>
         /// <summary>The ONE owner of the live polling interval (#365). The
         /// active profile's override wins when it has one (nonzero), the
         /// global Settings value applies otherwise, and both clamp to the
@@ -19805,6 +19895,18 @@ namespace PadForge.Services
         internal static int ResolvePollingMs(int overrideMs, int globalMs)
             => Math.Clamp(overrideMs > 0 ? overrideMs : globalMs, 1, 16);
 
+        /// <summary>Drops every stateful accumulator a profile switch must not
+        /// carry across: source-kind runtime (Incremental cruise / ramp
+        /// throttle), shift-toggle latches, gyro engage stickies, trigger-route
+        /// engage, and gesture contexts.
+        ///
+        /// <para>This exists as ONE method because the reset set had drifted
+        /// three ways (round 34): the named-profile auto lane ran all five, the
+        /// default auto lane omitted ResetGestureContexts, and the MANUAL lanes
+        /// (LoadProfile, RevertToDefaultProfile, DeleteProfile's fallback) ran
+        /// none of them, so switching profiles from the UI carried a latched
+        /// shift layer or an engaged gyro into the new profile while the
+        /// foreground-monitor lane doing the same switch did not.</para></summary>
         private void ResetRuntimeStateForProfileSwitch()
         {
             // Polling rate follows the profile (#365): resolved here because
@@ -19821,16 +19923,16 @@ namespace PadForge.Services
             _inputManager?.ResetGyroSimulation();
         }
 
-        /// <summary>
-        /// Saves the current runtime state into the active profile (or the
-        /// default snapshot if no named profile is active).  Call before
-        /// switching away from any profile so changes are preserved.
-        /// </summary>
         /// <summary>Test seam: the grid-to-set push the debounced save runs
         /// immediately before SaveActiveProfileState.</summary>
         internal void PushUiIntoSlotMappingSetsForTest()
             => _settingsService?.PushUiExtraSourcesIntoSlotMappingSets();
 
+        /// <summary>
+        /// Saves the current runtime state into the active profile (or the
+        /// default snapshot if no named profile is active).  Call before
+        /// switching away from any profile so changes are preserved.
+        /// </summary>
         public void SaveActiveProfileState()
         {
             var snapshot = SnapshotCurrentProfile();
@@ -19906,10 +20008,6 @@ namespace PadForge.Services
             SettingsManager.PendingDefaultSnapshot = _defaultProfileSnapshot;
         }
 
-        /// <summary>
-        /// Applies the default profile snapshot, reverting to the state before
-        /// any named profile was loaded.
-        /// </summary>
         /// <summary>Test seam: reproduces the post-restart state where no
         /// default snapshot was ever persisted.</summary>
         internal void ClearDefaultProfileSnapshotForTest()
@@ -19958,6 +20056,10 @@ namespace PadForge.Services
             catch { /* diagnostics must never break a transition */ }
         }
 
+        /// <summary>
+        /// Applies the default profile snapshot, reverting to the state before
+        /// any named profile was loaded.
+        /// </summary>
         public void ApplyDefaultProfile()
         {
             _settingsService?.InvalidateAssignmentSnapshot();
@@ -20024,10 +20126,6 @@ namespace PadForge.Services
             SettingsManager.PendingDefaultSnapshot = _defaultProfileSnapshot;
         }
 
-        /// <summary>
-        /// Updates the TopologyLabel on the active profile's list item so the
-        /// Profiles page reflects slot create/delete/type changes immediately.
-        /// </summary>
         /// <summary>
         /// Public wrapper so callers (e.g. MainWindow) can refresh the profile
         /// topology label after controller type changes.
@@ -20397,6 +20495,10 @@ namespace PadForge.Services
             _mainVm.Settings.RefreshDriverGuards();
         }
 
+        /// <summary>
+        /// Updates the TopologyLabel on the active profile's list item so the
+        /// Profiles page reflects slot create/delete/type changes immediately.
+        /// </summary>
         private void RefreshActiveProfileTopologyLabel()
         {
             string activeId = SettingsManager.ActiveProfileId;

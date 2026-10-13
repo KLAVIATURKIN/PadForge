@@ -595,15 +595,6 @@ namespace PadForge.Services
             Tap("Previous Hotspot", PadRB, VkShift, VkTab),
         };
 
-        /// <summary>Strategy: RTS, 4X, grand strategy, city builders.
-        ///
-        /// <para>The camera goes on the LEFT stick and the cursor on the
-        /// right, which is what both verified references do (the AntiMicroX
-        /// Civilization V profile and a fully specified Command and Conquer
-        /// layout), and what Valve's own strategy guidance implies by putting
-        /// the camera on a directional surface. Clicks stay on the triggers so
-        /// the pointing device and the click button are physically
-        /// independent, which is the only way box-select works.</para></summary>
         /// <summary>Strategy's macros. Pause/Break is the pause key several
         /// strategy games bind, and it is outside the KbM row engine's closed
         /// VK set, so it rides the macro lane like the Windows key does.
@@ -613,6 +604,15 @@ namespace PadForge.Services
             Tap("Pause", PadBack, VkPause),
         };
 
+        /// <summary>Strategy: RTS, 4X, grand strategy, city builders.
+        ///
+        /// <para>The camera goes on the LEFT stick and the cursor on the
+        /// right, which is what both verified references do (the AntiMicroX
+        /// Civilization V profile and a fully specified Command and Conquer
+        /// layout), and what Valve's own strategy guidance implies by putting
+        /// the camera on a directional surface. Clicks stay on the triggers so
+        /// the pointing device and the click button are physically
+        /// independent, which is the only way box-select works.</para></summary>
         private static MappingSet BuildStrategy()
         {
             var set = NewKbmSet();
@@ -989,6 +989,12 @@ namespace PadForge.Services
             return set;
         }
 
+        /// <summary>Gyro Aim's macros: the calibrate button.</summary>
+        private static IEnumerable<MacroData> GyroAimMacros() => new[]
+        {
+            RecenterMacro("Recenter Gyro", PadBack, 800),
+        };
+
         /// <summary>Gyro Aim: motion for fine aim in games that only ever
         /// expected a stick. The gyro drives the right stick alongside the
         /// stick itself rather than replacing it, so motion adds precision
@@ -998,12 +1004,6 @@ namespace PadForge.Services
         /// configs ship gyro OFF and switch it on deliberately, because
         /// always-on motion reads as drift during normal play, and aiming is
         /// exactly when you want it.</para></summary>
-        /// <summary>Gyro Aim's macros: the calibrate button.</summary>
-        private static IEnumerable<MacroData> GyroAimMacros() => new[]
-        {
-            RecenterMacro("Recenter Gyro", PadBack, 800),
-        };
-
         private static MappingSet BuildGyroAim()
         {
             var set = NewPadSet();
@@ -1415,8 +1415,8 @@ namespace PadForge.Services
             });
         }
 
-        /// <summary>Every starter carries a silent layer on a long-press of
-        /// Start, so the pad can be muted without unassigning it.
+        /// <summary>Every starter carries a silent layer on a held chord of
+        /// Guide and Start, so the pad can be muted without unassigning it.
         ///
         /// <para><b>THE LAYER IS EMPTY ON PURPOSE. The emptiness IS the
         /// mechanism.</b> With <see cref="ShiftActivator.InheritUnmapped"/>
@@ -1429,8 +1429,9 @@ namespace PadForge.Services
         /// for the same reason, and AntiMicroX's Desktop and Civilization
         /// profiles both reserve a deliberately blank set. The layer NAME
         /// says so out loud, because an empty layer is otherwise
-        /// indistinguishable from an unfinished one.</para></summary>
-        /// <summary><para>THE GESTURE IS A CHORD, and that is not a stylistic
+        /// indistinguishable from an unfinished one.</para>
+        ///
+        /// <para>THE GESTURE IS A CHORD, and that is not a stylistic
         /// choice. An activator with PostponeMapping false (the default)
         /// CONSUMES its own input: the suppression set is built from the raw
         /// pre-delay read, and every row evaluator skips a source that is in

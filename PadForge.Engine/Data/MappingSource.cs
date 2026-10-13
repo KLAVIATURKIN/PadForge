@@ -563,17 +563,6 @@ namespace PadForge.Engine.Data
         // Clone() drops the map so a cloned row starts cold. ───
         internal System.Collections.Generic.Dictionary<string, MouseFeelState> MouseFeelByDevice;
 
-        /// <summary>Full-field copy. Every serialized field is a string / value type
-        /// (strings are immutable), so a memberwise clone is a complete deep copy.
-        /// Use this at clone sites instead of hand-listing fields, so a new Param*
-        /// can't silently drop on profile switch / slot reassign (the bug that
-        /// dropped the steering params and, before that, GyroSensitivity /
-        /// NoInherit). Runtime caches do NOT travel: the gate-source cache holds
-        /// a synthetic source built with the ORIGINAL's device guid, so a clone
-        /// that is retargeted to another device would keep evaluating its gate
-        /// against the stale device, and the mouse-feel map is per-evaluated-
-        /// device filter state the clone must rebuild cold. The menu parse cache
-        /// stays: it is keyed by Descriptor reference, which the clone shares.</summary>
         /// <summary>Every double here keeps its value when handed NaN or
         /// infinity, from the settings file, a view model or a copy alike, so
         /// a hand-edited "NaN" never reaches the engine. Every lane assigns
@@ -631,6 +620,17 @@ namespace PadForge.Engine.Data
             return to == null ? ("", null, true) : (key, to, false);
         }
 
+        /// <summary>Full-field copy. Every serialized field is a string / value type
+        /// (strings are immutable), so a memberwise clone is a complete deep copy.
+        /// Use this at clone sites instead of hand-listing fields, so a new Param*
+        /// can't silently drop on profile switch / slot reassign (the bug that
+        /// dropped the steering params and, before that, GyroSensitivity /
+        /// NoInherit). Runtime caches do NOT travel: the gate-source cache holds
+        /// a synthetic source built with the ORIGINAL's device guid, so a clone
+        /// that is retargeted to another device would keep evaluating its gate
+        /// against the stale device, and the mouse-feel map is per-evaluated-
+        /// device filter state the clone must rebuild cold. The menu parse cache
+        /// stays: it is keyed by Descriptor reference, which the clone shares.</summary>
         public MappingSource Clone()
         {
             var copy = (MappingSource)MemberwiseClone();

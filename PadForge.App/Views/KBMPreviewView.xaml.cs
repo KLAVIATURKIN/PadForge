@@ -385,14 +385,15 @@ namespace PadForge.Views
         }
 
         /// <summary>Only the fields this preview actually draws. Comparing
-        /// the whole struct would repaint on values nothing here shows.</summary>
-        /// <summary>Change gate for the preview repaint. It has to name EVERY
+        /// the whole struct would repaint on values nothing here shows.
+        ///
+        /// <para>Change gate for the preview repaint. It has to name EVERY
         /// lane that can move the cursor, or motion arriving only on an
         /// unlisted lane repaints nothing and the preview reports a still
         /// cursor while the real one moves. Gyro and touchpad stopped writing
         /// MouseDeltaX/Y when they moved to their own exact-counts lanes, so
         /// listing only that pair left the preview blind to both; flick stick
-        /// had been invisible here since it got its lane.</summary>
+        /// had been invisible here since it got its lane.</para></summary>
         internal static bool SamePreviewState(in KbmRawState a, in KbmRawState b)
             => a.Keys0 == b.Keys0 && a.Keys1 == b.Keys1
             && a.Keys2 == b.Keys2 && a.Keys3 == b.Keys3

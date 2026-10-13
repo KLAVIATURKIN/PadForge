@@ -273,19 +273,22 @@ namespace PadForge.Tests
 
             var targetType = pad.OutputType;
             bool targetRaw = IsRaw(targetType);
-            bool sameLayout = MappingTranslation.IsSameLayout(sourceType, sourceRaw, targetType, targetRaw);
+            var targetLayout = InputService.SlotLayoutOf(pad);
+            var copiedFrom = InputService.ClipboardSlotLayout(ps, sourceType, sourceRaw);
+            bool copiesWhole = InputService.CopiesWhole(copiedFrom, targetLayout);
+            var wire = InputService.WireMoveOf(copiedFrom, targetLayout);
 
             InputService.ApplySlotRowsFromClipboard(slot, ps, sourceType, sourceRaw, InputService.SlotLayoutOf(pad));
-            if (!string.IsNullOrEmpty(ps.SlotShiftActivatorsJson) && sameLayout)
+            if (!string.IsNullOrEmpty(ps.SlotShiftActivatorsJson) && copiesWhole)
                 InputService.ApplyShiftLayerSnapshotJson(slot, ps.SlotShiftActivatorsJson);
-            if (!string.IsNullOrEmpty(ps.SlotMenusJson) && sameLayout)
+            if (!string.IsNullOrEmpty(ps.SlotMenusJson) && copiesWhole)
                 InputService.ApplyMenusSnapshotJson(slot, ps.SlotMenusJson);
             if (!string.IsNullOrEmpty(ps.SlotSetExtrasJson))
-                InputService.ApplySlotSetExtrasJson(slot, ps.SlotSetExtrasJson, sameLayout);
+                InputService.ApplySlotSetExtrasJson(slot, ps.SlotSetExtrasJson, copiesWhole, wire);
             MainWindow.ApplySlotMacrosFromClipboard(pad, ps.SlotMacrosJson);
 
             _input.ApplyPadSettingToCurrentDeviceTranslated(slot, ps,
-                sourceType, sourceRaw, targetType, targetRaw);
+                sourceType, sourceRaw, targetType, targetRaw, copiedFrom: copiedFrom);
 
             if (!string.IsNullOrEmpty(ps.SlotDeviceConfigsJson))
                 _settings.ApplyDeviceSlotConfigsToSlot(slot, SlotAppearancePersistence.FilterClipboardDeviceConfigs(ps,
@@ -303,7 +306,7 @@ namespace PadForge.Tests
             if (!string.IsNullOrEmpty(ps.SlotPerDeviceSettingsJson))
                 _input.ApplyPerDeviceSettingsToSlot(slot,
                     System.Text.Json.JsonSerializer.Deserialize<PerDeviceSettingsEntry[]>(ps.SlotPerDeviceSettingsJson),
-                    sourceType, sourceRaw, targetType, targetRaw);
+                    sourceType, sourceRaw, targetType, targetRaw, copiedFrom);
 
             ReloadCards(pad);
             _settings.MarkDirty();
@@ -332,17 +335,21 @@ namespace PadForge.Tests
             var targetType = pad.OutputType;
             bool targetRaw = IsRaw(targetType);
 
-            if (entry.SourceSlot >= 0 && entry.SourceSlot != pad.PadIndex
-                && MappingTranslation.IsSameLayout(entry.OutputType, entry.IsExtended, targetType, targetRaw))
+            bool otherSlot = entry.SourceSlot >= 0 && entry.SourceSlot != pad.PadIndex;
+            var targetLayout = InputService.SlotLayoutOf(pad);
+            var sourceLayout = otherSlot && entry.SourceSlot < _vm.Pads.Count
+                ? InputService.SlotLayoutOf(_vm.Pads[entry.SourceSlot])
+                : new InputService.SlotLayout(entry.OutputType, entry.IsExtended);
+            if (otherSlot && InputService.CopiesWhole(sourceLayout, targetLayout))
             {
-                InputService.ReplaceSlotMappingSet(pad.PadIndex, entry.SourceSlot);
+                InputService.ReplaceSlotMappingSet(pad.PadIndex, entry.SourceSlot,
+                    InputService.WireMoveOf(sourceLayout, targetLayout));
                 entry.PadSetting.DeviceScopedMultiSourceRows = null;
             }
-            else if (entry.SourceSlot >= 0 && entry.SourceSlot != pad.PadIndex
-                && entry.SourceSlot < _vm.Pads.Count)
+            else if (otherSlot && entry.SourceSlot < _vm.Pads.Count)
             {
                 InputService.TranslateSlotMappingSet(pad.PadIndex, entry.SourceSlot,
-                    InputService.SlotLayoutOf(_vm.Pads[entry.SourceSlot]), InputService.SlotLayoutOf(pad));
+                    sourceLayout, targetLayout);
                 entry.PadSetting.DeviceScopedMultiSourceRows = null;
             }
             else if (entry.SourceSlot >= 0)
@@ -359,7 +366,8 @@ namespace PadForge.Tests
                     { targetDeviceOverride = entry.InstanceGuid; break; }
             }
 
-            MainWindow.ApplyCopyFromSettings(_input, _settings, pad, entry, targetType, targetRaw, targetDeviceOverride);
+            MainWindow.ApplyCopyFromSettings(_input, _settings, pad, entry, targetType, targetRaw, targetDeviceOverride,
+                otherSlot ? sourceLayout : null);
 
             ReloadCards(pad);
             _settings.MarkDirty();
@@ -983,6 +991,318 @@ namespace PadForge.Tests
                 Assert.Equal($"Button {i}", source.Descriptor);
                 Assert.Equal(TargetPad.ToString(), source.DeviceGuid, ignoreCase: true);
             }
+        }
+
+        // Two slots whose raw rows carry roles, on different wires.
+
+        /// <summary>The rule that sorts two slots, pair by pair. Two slots
+        /// read through the same tables copy index for index, a profile
+        /// with no wire of its own being read as the Switch Pro. So does a
+        /// lettered slot against a custom Extended one, whose rows carry no
+        /// roles. Two wires of the same pads copy whole and move by role,
+        /// and a Nintendo slot against a Valve one lands by placement, like
+        /// two layouts.</summary>
+        [Theory]
+        [InlineData(Nintendo, null, Nintendo, "switch-pro", InputService.RawLanding.AsTheyStand, true)]
+        [InlineData(Nintendo, "switch-pro", Nintendo, "switch2-pro-controller", InputService.RawLanding.ByRole, true)]
+        [InlineData(Nintendo, "switch2-pro-controller", Nintendo, null, InputService.RawLanding.ByRole, true)]
+        [InlineData(Extended, "steam-deck", Extended, "steam-deck-composite", InputService.RawLanding.AsTheyStand, true)]
+        [InlineData(Extended, "steam-deck", Extended, "steam-controller", InputService.RawLanding.ByRole, true)]
+        [InlineData(Extended, "steam-controller", Extended, "steam-controller-2", InputService.RawLanding.ByRole, true)]
+        [InlineData(Nintendo, "switch-pro", Extended, "steam-deck", InputService.RawLanding.ByPlacement, false)]
+        [InlineData(Extended, "steam-controller-2", Nintendo, "switch2-pro-controller", InputService.RawLanding.ByPlacement, false)]
+        [InlineData(Nintendo, "switch-pro", Extended, null, InputService.RawLanding.AsTheyStand, true)]
+        [InlineData(Extended, "steam-deck", Extended, "a-custom-pad", InputService.RawLanding.AsTheyStand, true)]
+        [InlineData(Extended, null, Nintendo, "switch2-pro-controller", InputService.RawLanding.AsTheyStand, true)]
+        [InlineData(Xbox, null, PlayStation, null, InputService.RawLanding.AsTheyStand, true)]
+        [InlineData(Xbox, null, Nintendo, "switch-pro", InputService.RawLanding.AsTheyStand, false)]
+        public void TwoSlotsAreSortedByTheirWires(VirtualControllerType fromType, string from,
+            VirtualControllerType toType, string to, object landing, bool whole)
+        {
+            var source = new InputService.SlotLayout(fromType, IsRaw(fromType), ProfileId: from);
+            var target = new InputService.SlotLayout(toType, IsRaw(toType), ProfileId: to);
+
+            Assert.Equal((InputService.RawLanding)landing, InputService.LandingOf(source, target));
+            Assert.Equal(whole, InputService.CopiesWhole(source, target));
+            var wire = InputService.WireMoveOf(source, target);
+            Assert.Equal((InputService.RawLanding)landing == InputService.RawLanding.ByRole, wire != null);
+            if (wire != null)
+            {
+                // The move is the one a change of the slot's profile makes.
+                foreach (string raw in new[] { "RawBtn0", "RawBtn6", "RawBtn8", "RawBtn14", "RawAxis2", "RawPov0Up", "GyroTiltRange" })
+                    Assert.Equal(NintendoPreviewMap.TranslateRawTarget(raw, from, to), wire(raw));
+            }
+        }
+
+        /// <summary>Checks that each copied binding sits on the target the
+        /// oracle names for its row, alone, and on no row where the oracle
+        /// names none or an earlier binding holds that target already (two
+        /// controls of the copied wire that are one control here).</summary>
+        private void CheckLanded(List<string> raws, Func<string, string> expectedOf, int atLeast, int movedAtLeast)
+        {
+            var taken = new HashSet<string>();
+            int landed = 0, moved = 0;
+            for (int i = 0; i < raws.Count; i++)
+            {
+                string descriptor = $"Button {i}";
+                string expected = expectedOf(raws[i]);
+                if (expected == null || !taken.Add(expected))
+                {
+                    Assert.DoesNotContain(BaseRows(TargetSlot), r => r.Sources.Any(s => s.Descriptor == descriptor));
+                    continue;
+                }
+                var row = BaseRow(TargetSlot, expected);
+                Assert.True(row != null, $"{raws[i]} <- {descriptor} did not reach {expected}");
+                Assert.Equal(descriptor, Assert.Single(row.Sources).Descriptor);
+                landed++;
+                if (expected != raws[i]) moved++;
+            }
+            Assert.True(landed >= atLeast, landed + " of " + raws.Count + " bindings landed");
+            Assert.True(moved >= movedAtLeast, "only " + moved + " bindings changed their index");
+        }
+
+        private List<string> BindEveryRawRow(int slot, Guid device)
+        {
+            var raws = _vm.Pads[slot].Mappings.Select(m => m.TargetSettingName)
+                .Where(t => t.StartsWith("Raw", StringComparison.Ordinal)).ToList();
+            SetRows(slot, raws.Select((t, i) => Row(t, Source(device, $"Button {i}"))).ToArray());
+            return raws;
+        }
+
+        /// <summary>Two slots on different wires of the same pads share a
+        /// layout, so the table is copied whole, and a raw index names
+        /// another control on the other wire: Minus is raw button 14 on a
+        /// Switch 2 Pro and raw button 8 on a Switch Pro, and the 2015 Steam
+        /// Controller has no place for a Steam Deck's Quick Access. Every
+        /// copied row lands on the control of its role, as a change of the
+        /// slot's profile lands it, or nowhere where the target's wire has
+        /// none, never on the control that happens to share its index.</summary>
+        [Theory]
+        [InlineData(Nintendo, "switch2-pro-controller", "switch-pro", false)]
+        [InlineData(Nintendo, "switch2-pro-controller", "switch-pro", true)]
+        [InlineData(Nintendo, "switch-pro", "switch2-pro-controller", false)]
+        [InlineData(Nintendo, "switch-pro", "switch2-pro-controller", true)]
+        [InlineData(Extended, "steam-deck", "steam-controller", false)]
+        [InlineData(Extended, "steam-deck", "steam-controller", true)]
+        [InlineData(Extended, "steam-controller-2", "steam-deck", false)]
+        [InlineData(Extended, "steam-controller-2", "steam-deck", true)]
+        public void TwoWiresOfTheSamePadsCopyByRole(VirtualControllerType type, string from, string to, bool copyFrom)
+        {
+            Arrange(type, type);
+            Profile(SourceSlot, from);
+            Profile(TargetSlot, to);
+            var raws = BindEveryRawRow(SourceSlot, SourcePad);
+
+            Transfer(copyFrom);
+            AutosavePush();
+
+            CheckLanded(raws, raw => NintendoPreviewMap.TranslateRawTarget(raw, from, to), atLeast: 12, movedAtLeast: 2);
+        }
+
+        /// <summary>A Nintendo slot and a Valve slot name their roles apart:
+        /// the south button is B on one and A on the other. So a copy between
+        /// them goes the way of any two layouts, by placement through the
+        /// gamepad's positions, where a copy by role name would cross the
+        /// face buttons and one by index would put Minus on a stick click.</summary>
+        [Theory]
+        [InlineData(Nintendo, "switch-pro", Extended, "steam-deck", false)]
+        [InlineData(Nintendo, "switch-pro", Extended, "steam-deck", true)]
+        [InlineData(Extended, "steam-deck", Nintendo, "switch-pro", false)]
+        [InlineData(Extended, "steam-deck", Nintendo, "switch-pro", true)]
+        public void ANintendoSlotAndAValveSlotCopyByPlacement(VirtualControllerType fromType, string from,
+            VirtualControllerType toType, string to, bool copyFrom)
+        {
+            Arrange(fromType, toType);
+            Profile(SourceSlot, from);
+            Profile(TargetSlot, to);
+            bool fromValve = NintendoPreviewMap.IsValve(from), toValve = NintendoPreviewMap.IsValve(to);
+            var raws = BindEveryRawRow(SourceSlot, SourcePad);
+            var shown = _vm.Pads[TargetSlot].Mappings.Select(m => m.TargetSettingName).ToHashSet();
+            string Placed(string raw)
+            {
+                var landings = NintendoPreviewMap.GamepadTargetsForRaw(raw, from, fromValve)
+                    .Select(gamepad => NintendoPreviewMap.RawForGamepadTarget(gamepad, to, toValve))
+                    .Where(landing => landing != null).ToList();
+                return landings.FirstOrDefault(shown.Contains) ?? landings.FirstOrDefault();
+            }
+            // South stays south, whatever the two wires call it, and Minus
+            // and View are one position at two indices.
+            Assert.Equal("RawBtn0", Placed("RawBtn0"));
+            Assert.NotEqual(NintendoPreviewMap.ToPreview("RawBtn0", from), NintendoPreviewMap.ToPreview("RawBtn0", to));
+            Assert.Equal(ByTable("ButtonBack", to), Placed(ByTable("ButtonBack", from)));
+            Assert.NotEqual(ByTable("ButtonBack", to), ByTable("ButtonBack", from));
+
+            Transfer(copyFrom);
+            AutosavePush();
+
+            CheckLanded(raws, Placed, atLeast: 12, movedAtLeast: 2);
+        }
+
+        /// <summary>Between a Nintendo slot and a Valve slot the target keeps
+        /// its own shift layers, activators and SOCD pairs and takes none, as
+        /// between any two layouts: a layer's rows and a pair's buttons are
+        /// named on the copied slot's wire.</summary>
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public void BetweenANintendoSlotAndAValveSlotTheTargetKeepsItsLayersAndItsSocdPairs(bool copyFrom)
+        {
+            Arrange(Nintendo, Extended);
+            Profile(TargetSlot, "steam-deck");
+            var source = SettingsManager.SlotMappingSets[SourceSlot];
+            source.Rows = new List<MappingRow>
+            {
+                Row(ByTable("ButtonBack", "switch-pro"), Source(SourcePad, "Button 6")),
+                OnLayer("Shift2", Row(ByTable("ButtonStart", "switch-pro"), Source(SourcePad, "Button 7"))),
+            };
+            source.ShiftActivators.Add(new ShiftActivator
+            {
+                DeviceGuid = SourcePad.ToString(), Descriptor = "Button 4", LayerMask = "Shift2", LayerName = "Copied layer",
+            });
+            source.SocdMode = "Neutral";
+            source.SocdPairs = "8:9";
+            Reload(SourceSlot);
+
+            var target = SettingsManager.SlotMappingSets[TargetSlot];
+            var layerRow = OnLayer("Shift1", Row("RawBtn3", Source(TargetPad, "Button 12")));
+            target.Rows = new List<MappingRow> { Row("RawBtn5", Source(TargetPad, "Button 9")), layerRow };
+            target.ShiftActivators.Add(new ShiftActivator
+            {
+                DeviceGuid = TargetPad.ToString(), Descriptor = "Button 5", LayerMask = "Shift1", LayerName = "Own layer",
+            });
+            target.SocdMode = "LastWins";
+            target.SocdPairs = "12:13";
+            Reload(TargetSlot);
+
+            Transfer(copyFrom);
+
+            target = SettingsManager.SlotMappingSets[TargetSlot];
+            Assert.Same(layerRow, Assert.Single(target.Rows, r => r.LayerMask != "Base"));
+            Assert.Equal("Own layer", Assert.Single(target.ShiftActivators).LayerName);
+            Assert.Equal("LastWins", target.SocdMode);
+            Assert.Equal("12:13", target.SocdPairs);
+            AutosavePush();
+            Assert.Equal("Button 6", Assert.Single(BaseRow(TargetSlot, ByTable("ButtonBack", "steam-deck")).Sources).Descriptor);
+        }
+
+        /// <summary>Between two wires of the same pads the table is copied
+        /// whole, so the rows on its shift layers and its SOCD pairs come
+        /// along, and they move by role with the Base rows. A pair with a
+        /// button the target's wire has as a hat direction goes: the Switch
+        /// 2 Pro's D-pad is four buttons and the Switch Pro's is a hat.</summary>
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public void AWholeCopyOntoAnotherWireMovesItsLayerRowsAndItsSocdPairs(bool copyFrom)
+        {
+            const string s2 = "switch2-pro-controller", sp = "switch-pro";
+            static int At(string wire, string role) => NintendoPreviewMap.IndexOf(wire, role);
+            static string On(string wire, string role) => "RawBtn" + At(wire, role);
+            Arrange(Nintendo, Nintendo);
+            Profile(SourceSlot, s2);
+            var source = SettingsManager.SlotMappingSets[SourceSlot];
+            source.Rows = new List<MappingRow>
+            {
+                Row(On(s2, "ButtonBack"), Source(SourcePad, "Button 6")),
+                OnLayer("Shift2", Row(On(s2, "ButtonStart"), Source(SourcePad, "Button 7"))),
+            };
+            source.ShiftActivators.Add(new ShiftActivator
+            {
+                DeviceGuid = SourcePad.ToString(), Descriptor = "Button 4", LayerMask = "Shift2", LayerName = "Pit",
+            });
+            source.SocdMode = "LastWins";
+            source.SocdPairs = $"{At(s2, "ButtonBack")}:{At(s2, "ButtonStart")}|{At(s2, "DPadLeft")}:{At(s2, "DPadRight")}";
+            Reload(SourceSlot);
+            Assert.NotEqual(On(s2, "ButtonStart"), On(sp, "ButtonStart"));
+
+            Transfer(copyFrom);
+
+            var target = SettingsManager.SlotMappingSets[TargetSlot];
+            var layer = Assert.Single(target.Rows, r => r.LayerMask == "Shift2");
+            Assert.Equal(On(sp, "ButtonStart"), layer.Target);
+            Assert.Equal("Button 7", Assert.Single(layer.Sources).Descriptor);
+            Assert.Equal("Pit", Assert.Single(target.ShiftActivators).LayerName);
+            Assert.Equal("LastWins", target.SocdMode);
+            Assert.Equal($"{At(sp, "ButtonBack")}:{At(sp, "ButtonStart")}", target.SocdPairs);
+            AutosavePush();
+            Assert.Equal("Button 6", Assert.Single(BaseRow(TargetSlot, On(sp, "ButtonBack")).Sources).Descriptor);
+        }
+
+        /// <summary>A copy brings each device's own entries along, named on
+        /// the copied slot's wire: its raw mappings, and the deadzone kept
+        /// under each. They move with the rows, by role between two wires of
+        /// the same pads and by placement between a Nintendo slot and a
+        /// Valve one, so the device's settings hold no binding on a control
+        /// nobody bound. A key that names no raw position stays as it is.</summary>
+        [Theory]
+        [InlineData(Nintendo, "switch2-pro-controller", Nintendo, "switch-pro", false)]
+        [InlineData(Nintendo, "switch2-pro-controller", Nintendo, "switch-pro", true)]
+        [InlineData(Nintendo, "switch-pro", Extended, "steam-deck", false)]
+        [InlineData(Nintendo, "switch-pro", Extended, "steam-deck", true)]
+        public void ACopyOntoAnotherWireMovesTheDevicesOwnEntries(VirtualControllerType fromType, string from,
+            VirtualControllerType toType, string to, bool copyFrom)
+        {
+            Arrange(fromType, toType);
+            Profile(SourceSlot, from);
+            Profile(TargetSlot, to);
+            string copied = ByTable("ButtonBack", from), landed = ByTable("ButtonBack", to);
+            Assert.NotEqual(copied, landed);
+            SetRows(SourceSlot, Row(copied, Source(SourcePad, "Button 6")));
+            // The grid writes the device's own entries, the deadzone under
+            // the same raw target as the mapping.
+            _vm.Pads[SourceSlot].Mappings.Single(m => m.TargetSettingName == copied).MappingDeadZone = 35;
+            AutosavePush();
+            var donor = SettingsManager.FindSettingByInstanceGuidAndSlot(SourcePad, SourceSlot).GetPadSetting();
+            Assert.Equal("Button 6", donor.GetRawMapping(copied));
+            Assert.Equal("35", donor.GetMappingDeadZone(copied));
+            donor.FlushRawMappings();
+            var tuning = (donor.RawMappingEntries ?? Array.Empty<RawMappingEntry>())
+                .Where(e => !e.Key.StartsWith("RawBtn", StringComparison.Ordinal)
+                    && !e.Key.StartsWith("RawPov", StringComparison.Ordinal)
+                    && !e.Key.StartsWith("RawAxis", StringComparison.Ordinal))
+                .ToList();
+            Assert.NotEmpty(tuning);
+
+            Transfer(copyFrom);
+
+            var record = SettingsManager.FindSettingByInstanceGuidAndSlot(TargetPad, TargetSlot);
+            var own = record.GetPadSetting();
+            Assert.Equal("Button 6", own.GetRawMapping(landed));
+            Assert.Equal("", own.GetRawMapping(copied));
+            Assert.Equal("35", own.GetMappingDeadZone(landed));
+            Assert.Equal("", own.GetMappingDeadZone(copied));
+            foreach (var entry in tuning) Assert.Equal(entry.Value, own.GetRawMapping(entry.Key));
+            // The device's record names its settings by their checksum, and
+            // follows it once the entries have moved.
+            Assert.Equal(own.PadSettingChecksum, record.PadSettingChecksum);
+        }
+
+        /// <summary>A device's own slice of rows is named on the wire of the
+        /// slot it was taken from. Both handlers clear it beside a table
+        /// copied from another slot, so none reaches the tuning copy from
+        /// another wire. Handed one all the same, the copy leaves it out:
+        /// applied as it stands, its row would sit on the control that
+        /// shares its index, and raw button 8 is D-pad Down on a Switch 2
+        /// Pro and Minus on a Switch Pro. From a slot on this wire it is
+        /// applied.</summary>
+        [Theory]
+        [InlineData("switch2-pro-controller", false)]
+        [InlineData("switch-pro", true)]
+        public void ADevicesRowsFromAnotherWireAreNotAppliedAsTheyStand(string from, bool applied)
+        {
+            Arrange(Nintendo, Nintendo);
+            Profile(TargetSlot, "switch-pro");
+            const string copied = "RawBtn8";
+            var payload = new PadSetting
+            {
+                DeviceScopedMultiSourceRows = new List<MappingRow> { Row(copied, Source(SourcePad, "Button 6")) },
+            };
+
+            _input.ApplyPadSettingToCurrentDeviceTranslated(TargetSlot, payload, Nintendo, true, Nintendo, true,
+                copiedFrom: new InputService.SlotLayout(Nintendo, true, ProfileId: from));
+
+            Assert.Equal(applied, SettingsManager.SlotMappingSets[TargetSlot].Rows.Any(r => r.Target == copied
+                && r.Sources != null && r.Sources.Any(s => s.Descriptor == "Button 6")));
         }
 
         // MappingTranslation's VR table: A and B on the right hand, X and Y
@@ -2059,19 +2379,40 @@ namespace PadForge.Tests
             Assert.True(profile < At(copy, "Clipboard.SetText(ps.ToJson(copyOutputType, copyIsExtended));"));
 
             string paste = Between(window, "private void OnPasteSettings(", "private void OnCopyMacro(");
+            int pasteFrom = At(paste, "var copiedFrom = InputService.ClipboardSlotLayout(ps, srcType, srcIsExtended);");
+            int pasteWhole = At(paste, "bool copiesWhole = InputService.CopiesWhole(copiedFrom, targetLayout);");
+            int pasteWire = At(paste, "var wire = InputService.WireMoveOf(copiedFrom, targetLayout);");
             int rows = At(paste, "InputService.ApplySlotRowsFromClipboard(padVm.PadIndex, ps,");
             int layouts = At(paste, "srcType, srcIsExtended, InputService.SlotLayoutOf(padVm));");
+            int shift = At(paste, "if (!string.IsNullOrEmpty(ps.SlotShiftActivatorsJson) && copiesWhole)");
+            int menus = At(paste, "if (!string.IsNullOrEmpty(ps.SlotMenusJson) && copiesWhole)");
             int extras = At(paste, "InputService.ApplySlotSetExtrasJson(padVm.PadIndex, ps.SlotSetExtrasJson,");
+            int extrasMove = At(paste, "copiesWhole, wire);");
             int tuning = At(paste, "_inputService.ApplyPadSettingToCurrentDeviceTranslated(");
-            Assert.True(rows < layouts && layouts < extras && extras < tuning);
+            int tuningFrom = At(paste, "targetType, targetIsExtended, copiedFrom: copiedFrom);");
+            int perDevice = At(paste, "srcType, srcIsExtended, targetType, targetIsExtended, copiedFrom);");
+            Assert.True(pasteFrom < pasteWhole && pasteWhole < pasteWire && pasteWire < rows && rows < layouts
+                && layouts < shift && shift < menus && menus < extras && extras < extrasMove && extrasMove < tuning
+                && tuning < tuningFrom && tuningFrom < perDevice);
 
             string copyFrom = Between(window, "private void OnCopyFrom(", "internal static void ApplyCopyFromSettings(");
-            int whole = At(copyFrom, "InputService.ReplaceSlotMappingSet(padVm.PadIndex, srcEntry.SourceSlot);");
+            int other = At(copyFrom, "bool otherSlot = srcEntry.SourceSlot >= 0 && srcEntry.SourceSlot != padVm.PadIndex;");
+            int targetLayout = At(copyFrom, "var targetLayout = InputService.SlotLayoutOf(padVm);");
+            int sourceLayout = At(copyFrom, "? InputService.SlotLayoutOf(_viewModel.Pads[srcEntry.SourceSlot])");
+            int choice = At(copyFrom, "if (otherSlot && InputService.CopiesWhole(sourceLayout, targetLayout))");
+            int whole = At(copyFrom, "InputService.ReplaceSlotMappingSet(padVm.PadIndex, srcEntry.SourceSlot,");
+            int wholeMove = At(copyFrom, "InputService.WireMoveOf(sourceLayout, targetLayout));");
             int translated = At(copyFrom, "InputService.TranslateSlotMappingSet(padVm.PadIndex, srcEntry.SourceSlot,");
-            int sourceLayout = At(copyFrom, "InputService.SlotLayoutOf(_viewModel.Pads[srcEntry.SourceSlot]),");
-            int targetLayout = At(copyFrom, "InputService.SlotLayoutOf(padVm));");
+            int translatedLayouts = At(copyFrom, "sourceLayout, targetLayout);");
             int apply = At(copyFrom, "ApplyCopyFromSettings(_inputService, _settingsService, padVm, srcEntry,");
-            Assert.True(whole < translated && translated < sourceLayout && sourceLayout < targetLayout && targetLayout < apply);
+            int applyFrom = At(copyFrom, "targetOutputType, targetIsExtended, targetDeviceOverride, otherSlot ? sourceLayout : null);");
+            Assert.True(other < targetLayout && targetLayout < sourceLayout && sourceLayout < choice && choice < whole
+                && whole < wholeMove && wholeMove < translated && translated < translatedLayouts
+                && translatedLayouts < apply && apply < applyFrom);
+
+            string settings = Between(window, "internal static void ApplyCopyFromSettings(", "internal static string DescribeDriverFailure(");
+            At(settings, "targetDeviceOverride, copiedFrom);");
+            At(settings, "targetOutputType, targetIsExtended, copiedFrom);");
 
             string input = System.IO.File.ReadAllText(AuditDelta20260823Tests.FindRepoFile(
                 System.IO.Path.Combine("PadForge.App", "Services", "InputService.cs")));

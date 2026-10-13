@@ -224,6 +224,144 @@ namespace PadForge.Tests
             Assert.Equal("Button 6", RawOf(ps)["RawBtn14"]);  // stamp was S1, so 8 -> 14
         }
 
+        /// <summary>A raw slot's SOCD pairs name their buttons by wire index
+        /// (SlotButtonSocd), so they move with the rows. Minus and Plus are
+        /// buttons on both Switch wires, at other indices, and their pair
+        /// lands on them. The Switch 2 Pro's D-pad is four buttons and the
+        /// Switch Pro's is a hat, which no pair can name, so a pair goes
+        /// whether both its buttons are lost or one of them.</summary>
+        [Fact]
+        public void ALiveRetarget_MovesTheSocdPairsByRole()
+        {
+            var (_, ms) = Arrange(S2, ("RawBtn14", "Button 6"));
+            static int At(string wire, string role) => NintendoPreviewMap.IndexOf(wire, role);
+            Assert.Equal(14, At(S2, "ButtonBack"));
+            Assert.Equal(8, At(S1, "ButtonBack"));
+            Assert.True(At(S2, "DPadLeft") >= 0 && At(S1, "DPadLeft") < 0);
+            Assert.True(At(S2, "ButtonA") >= 0 && At(S1, "ButtonA") >= 0);
+            ms.SocdMode = "LastWins";
+            ms.SocdPairs = $"{At(S2, "ButtonBack")}:{At(S2, "ButtonStart")}|{At(S2, "DPadLeft")}:{At(S2, "DPadRight")}"
+                + $"|{At(S2, "ButtonA")}:{At(S2, "DPadUp")}|{At(S2, "DPadDown")}:{At(S2, "ButtonB")}";
+
+            SettingsManager.TranslateNintendoRawMappings(Pad, S1);
+
+            Assert.Equal($"{At(S1, "ButtonBack")}:{At(S1, "ButtonStart")}", ms.SocdPairs);
+            Assert.Equal("LastWins", ms.SocdMode);
+        }
+
+        /// <summary>A device's deadzone and Bidirectional flag for a raw
+        /// mapping are kept under the mapping's raw target
+        /// (PadSetting.GetMappingDeadZone), so they move with it: ZL is raw
+        /// button 6 on a Switch Pro and 13 on a Switch 2 Pro.</summary>
+        [Fact]
+        public void ALiveRetarget_MovesTheDevicesDeadZonesAndBidirectionalFlags()
+        {
+            var (ps, _) = Arrange(S1, ("RawBtn6", "Axis 4"));
+            Assert.Equal(13, NintendoPreviewMap.IndexOf(S2, "LeftTrigger"));
+            ps.SetMappingDeadZone("RawBtn6", "35");
+            ps.SetMappingBidirectional("RawBtn6", "1");
+            ps.FlushMappingDeadZones();
+            ps.FlushMappingBidirectional();
+            ps.UpdateChecksum();
+            var record = SettingsManager.FindSettingByInstanceGuidAndSlot(DevGuid, Pad);
+            record.PadSettingChecksum = ps.PadSettingChecksum;
+            string before = ps.PadSettingChecksum;
+
+            SettingsManager.TranslateNintendoRawMappings(Pad, S2);
+
+            // The device's record names its settings by their checksum, and
+            // follows it as after any other write to them.
+            Assert.NotEqual(before, ps.PadSettingChecksum);
+            Assert.Equal(ps.PadSettingChecksum, record.PadSettingChecksum);
+            Assert.Equal("Axis 4", ps.GetRawMapping("RawBtn13"));
+            Assert.Equal("35", ps.GetMappingDeadZone("RawBtn13"));
+            Assert.Equal("1", ps.GetMappingBidirectional("RawBtn13"));
+            Assert.Equal("", ps.GetMappingDeadZone("RawBtn6"));
+            Assert.Equal("", ps.GetMappingBidirectional("RawBtn6"));
+            Assert.Contains(ps.MappingDeadZoneEntries, e => e.Key == "RawBtn13" && e.Value == "35");
+            Assert.Contains(ps.MappingBidirectionalEntries, e => e.Key == "RawBtn13" && e.Value == "1");
+        }
+
+        /// <summary>Two controls of one wire can be one control of another:
+        /// a Steam Deck's R3 and its right pad's click are the 2015 Steam
+        /// Controller's one right click. Their two rows land on one target,
+        /// and the first that has a source keeps it, in the table and in
+        /// the device's own entries alike, so no row is left that the grid
+        /// cannot show.</summary>
+        [Fact]
+        public void ALiveRetarget_KeepsOneRowWhereTwoControlsBecomeOne()
+        {
+            const string Deck = "steam-deck", Pad2015 = "steam-controller";
+            string r3 = NintendoPreviewMap.ToRaw("RightThumbButton", Deck);
+            string click = NintendoPreviewMap.ToRaw("RightTouchpadClick", Deck);
+            string one = NintendoPreviewMap.ToRaw("RightTouchpadClick", Pad2015);
+            Assert.NotEqual(r3, click);
+            Assert.Equal(one, NintendoPreviewMap.TranslateRawTarget(r3, Deck, Pad2015));
+            Assert.Equal(one, NintendoPreviewMap.TranslateRawTarget(click, Deck, Pad2015));
+            var (ps, ms) = Arrange(Deck, (r3, "Button 9"), (click, "Button 17"));
+
+            SettingsManager.TranslateNintendoRawMappings(Pad, Pad2015);
+
+            var row = Assert.Single(ms.Rows, r => r.Target == one);
+            Assert.Equal("Button 9", Assert.Single(row.Sources).Descriptor);
+            Assert.Equal("Button 9", ps.GetRawMapping(one));
+        }
+
+        /// <summary>The control goes to the first of the two rows that has a
+        /// source, so a row nothing is bound on does not keep it from the
+        /// one that is.</summary>
+        [Fact]
+        public void ALiveRetarget_ARowWithNoSourceDoesNotKeepTheControl()
+        {
+            const string Deck = "steam-deck", Pad2015 = "steam-controller";
+            string r3 = NintendoPreviewMap.ToRaw("RightThumbButton", Deck);
+            string click = NintendoPreviewMap.ToRaw("RightTouchpadClick", Deck);
+            string one = NintendoPreviewMap.ToRaw("RightTouchpadClick", Pad2015);
+            var (_, ms) = Arrange(Deck, (r3, "Button 9"), (click, "Button 17"));
+            ms.Rows.Single(r => r.Target == r3).Sources.Clear();
+
+            SettingsManager.TranslateNintendoRawMappings(Pad, Pad2015);
+
+            var row = Assert.Single(ms.Rows, r => r.Target == one);
+            Assert.Equal("Button 17", Assert.Single(row.Sources).Descriptor);
+        }
+
+        /// <summary>Two rows the table already held on one target are no
+        /// doing of the move. They are still two after it, on the control's
+        /// new index, in their order.</summary>
+        [Fact]
+        public void ALiveRetarget_LeavesTwoRowsOfOneTargetAsTwo()
+        {
+            var (_, ms) = Arrange(S1, ("RawBtn8", "Button 6"), ("RawBtn8", "Button 7"));
+
+            SettingsManager.TranslateNintendoRawMappings(Pad, S2);
+
+            Assert.Equal(new[] { "Button 6", "Button 7" },
+                ms.Rows.Where(r => r.Target == "RawBtn14").Select(r => Assert.Single(r.Sources).Descriptor));
+            Assert.DoesNotContain(ms.Rows, r => r.Target == "RawBtn8");
+        }
+
+        /// <summary>A pair cleans two buttons against each other. Where the
+        /// new wire has the two as one control, a Steam Deck's R3 and its
+        /// right pad's click on the 2015 Steam Controller, nothing is left
+        /// to clean and the pair goes. A pair of two buttons the new wire
+        /// keeps apart stays, under their indices there.</summary>
+        [Fact]
+        public void ALiveRetarget_DropsAPairWhoseButtonsBecomeOne()
+        {
+            const string Deck = "steam-deck", Pad2015 = "steam-controller";
+            static int At(string wire, string role) => NintendoPreviewMap.IndexOf(wire, role);
+            var (_, ms) = Arrange(Deck, ("RawBtn0", "Button 0"));
+            Assert.NotEqual(At(Deck, "LeftTouchpadClick"), At(Pad2015, "LeftTouchpadClick"));
+            ms.SocdMode = "LastWins";
+            ms.SocdPairs = $"{At(Deck, "RightThumbButton")}:{At(Deck, "RightTouchpadClick")}"
+                + $"|{At(Deck, "LeftTouchpadClick")}:{At(Deck, "ButtonGuide")}";
+
+            SettingsManager.TranslateNintendoRawMappings(Pad, Pad2015);
+
+            Assert.Equal($"{At(Pad2015, "LeftTouchpadClick")}:{At(Pad2015, "ButtonGuide")}", ms.SocdPairs);
+        }
+
         /// <summary>The poll thread enumerates set.Rows concurrently, so a
         /// translating call must REPLACE the list reference rather than
         /// mutate it in place.</summary>

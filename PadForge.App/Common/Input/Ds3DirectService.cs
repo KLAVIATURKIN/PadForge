@@ -1532,9 +1532,6 @@ namespace PadForge.Common.Input
         private static short AxisFromByte(byte v) =>
             v >= 128 ? (short)((v - 128) * 32767 / 127) : (short)((v - 128) * 32768 / 128);
 
-        /// <summary>0..255 pressure to the full SDL axis range, exactly as SDL's PS3
-        /// driver scales it (v*257 - 32768; released = -32768). The virtual backend
-        /// rests trigger axes at SDL_JOYSTICK_AXIS_MIN, confirming the convention.</summary>
         /// <summary>The virtual-joystick axis index SDL binds a gamepad axis
         /// to, for a descriptor carrying <paramref name="axisMask"/>.
         ///
@@ -1554,6 +1551,9 @@ namespace PadForge.Common.Input
         internal static int SeqAxis(uint axisMask, int sdlAxisBit) =>
             System.Numerics.BitOperations.PopCount(axisMask & ((1u << sdlAxisBit) - 1));
 
+        /// <summary>0..255 pressure to the full SDL axis range, exactly as SDL's PS3
+        /// driver scales it (v*257 - 32768; released = -32768). The virtual backend
+        /// rests trigger axes at SDL_JOYSTICK_AXIS_MIN, confirming the convention.</summary>
         private static short PressureAxis(byte v) => (short)(v * 257 - 32768);
 
         // ─── SDL callbacks: store + signal ONLY (they run under SDL's joystick lock

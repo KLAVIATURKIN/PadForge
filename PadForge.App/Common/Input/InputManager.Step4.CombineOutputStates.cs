@@ -334,7 +334,6 @@ namespace PadForge.Common.Input
         }
 
         /// <summary>
-        /// <summary>
         /// Merges a source RawHidState into a destination, layout-aware
         /// so stick axes and trigger axes use different comparison rules.
         /// Buttons: OR. POVs: first non-centered.

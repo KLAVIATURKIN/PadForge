@@ -578,10 +578,6 @@ namespace PadForge.Services
         //  Poll tick (30Hz, UI thread)
         // ─────────────────────────────────────────────
 
-        /// <summary>
-        /// Called ~30 times per second while recording. Compares current state
-        /// against the baseline to detect which input changed.
-        /// </summary>
         /// <summary>Snapshots every active device's currently-fired
         /// gestures across all slots into <see cref="_gestureBaseline"/>.
         /// Called when a recording session (re)establishes its baselines.
@@ -689,6 +685,10 @@ namespace PadForge.Services
             return winner;
         }
 
+        /// <summary>
+        /// Called ~30 times per second while recording. Compares current state
+        /// against the baseline to detect which input changed.
+        /// </summary>
         private void PollTick(object sender, EventArgs e)
         {
             // Allow either a MappingItem-bound session or a freeform one.
@@ -1520,12 +1520,6 @@ namespace PadForge.Services
                    && !descriptor.EndsWith(" Up", StringComparison.Ordinal)
                    && !descriptor.EndsWith(" Down", StringComparison.Ordinal));
 
-        /// <summary>
-        /// Determines whether an axis recording should auto-apply the Invert prefix
-        /// based on the target mapping and the direction of initial movement.
-        /// </summary>
-        /// <param name="mapping">The target mapping item being recorded.</param>
-        /// <param name="axisPositive">True if the raw axis value increased (positive delta).</param>
         /// <summary>True when the recording target coerces the source as a
         /// button-style threshold (the fall-through set of
         /// <see cref="ShouldAutoInvert"/>): everything that is not a stick
@@ -1550,6 +1544,12 @@ namespace PadForge.Services
             return true;
         }
 
+        /// <summary>
+        /// Determines whether an axis recording should auto-apply the Invert prefix
+        /// based on the target mapping and the direction of initial movement.
+        /// </summary>
+        /// <param name="mapping">The target mapping item being recorded.</param>
+        /// <param name="axisPositive">True if the raw axis value increased (positive delta).</param>
         private static bool ShouldAutoInvert(MappingItem mapping, bool axisPositive, bool negRecording)
         {
             string target = mapping.TargetSettingName;

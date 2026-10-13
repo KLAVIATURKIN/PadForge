@@ -2613,10 +2613,6 @@ namespace PadForge
                 : Strings.Instance.Status_UsioTaiko);
         }
 
-        /// <summary>What the switch to PadForge's driver takes from a
-        /// device, stated before the user agrees to it. A kind with no arm
-        /// here is refused, so one appended later is never confirmed under
-        /// another kind's cost.</summary>
         /// <summary>Whether the bind on offer would move another device of
         /// the model with the chosen one, which it is then not made for
         /// (VendorUsbDriverInstaller.WhyNotBind). Says so in the status bar
@@ -2632,6 +2628,10 @@ namespace PadForge
             return true;
         }
 
+        /// <summary>What the switch to PadForge's driver takes from a
+        /// device, stated before the user agrees to it. A kind with no arm
+        /// here is refused, so one appended later is never confirmed under
+        /// another kind's cost.</summary>
         private static string DriverCost(Services.VendorUsbDriverInstaller.OptInKind kind) => kind switch
         {
             Services.VendorUsbDriverInstaller.OptInKind.Xbox360Pad => Strings.Instance.Devices_DriverConfirm_Xbox360Pad,
@@ -5424,9 +5424,6 @@ namespace PadForge
         }
 
         /// <summary>
-        /// Programmatically navigates to the Devices page.
-        /// </summary>
-        /// <summary>
         /// Returns true if at least one virtual controller type has remaining capacity.
         /// </summary>
         private bool HasAnyControllerTypeCapacity()
@@ -8202,14 +8199,25 @@ namespace PadForge
                 // From a slot of another layout the Base rows land by
                 // position and the target keeps its shift layers
                 // (InputService.ReplaceBaseRowsTranslated).
+                //
+                // The table replaces this slot's whole on a shared layout,
+                // but for a Nintendo slot against a Valve one, whose rows
+                // land by placement like any two layouts' (copiesWhole).
+                // Copied whole from another wire of the same pads, a Switch
+                // 2 Pro's onto a Switch Pro's, everything in it that names
+                // a raw position moves by role (wire), where an index names
+                // another control.
+                var targetLayout = InputService.SlotLayoutOf(padVm);
+                var copiedFrom = InputService.ClipboardSlotLayout(ps, srcType, srcIsExtended);
+                bool copiesWhole = InputService.CopiesWhole(copiedFrom, targetLayout);
+                var wire = InputService.WireMoveOf(copiedFrom, targetLayout);
                 InputService.ApplySlotRowsFromClipboard(padVm.PadIndex, ps,
                     srcType, srcIsExtended, InputService.SlotLayoutOf(padVm));
 
                 // Apply the slot's shift authoring (activators + Base appearance)
                 // on a same-layout paste, after the row replace above rebuilt the
                 // MappingSet. Matches Copy From so shift layers round-trip (#119).
-                if (!string.IsNullOrEmpty(ps.SlotShiftActivatorsJson)
-                    && MappingTranslation.IsSameLayout(srcType, srcIsExtended, targetType, targetIsExtended))
+                if (!string.IsNullOrEmpty(ps.SlotShiftActivatorsJson) && copiesWhole)
                 {
                     InputService.ApplyShiftLayerSnapshotJson(padVm.PadIndex, ps.SlotShiftActivatorsJson);
                 }
@@ -8218,8 +8226,7 @@ namespace PadForge
                 // ordering as the shift authoring above. Wiped otherwise: the
                 // fresh rows-only MappingSet from ApplySlotMappingSetFromRows
                 // carries no menus (#9 B-17 clipboard round-trip).
-                if (!string.IsNullOrEmpty(ps.SlotMenusJson)
-                    && MappingTranslation.IsSameLayout(srcType, srcIsExtended, targetType, targetIsExtended))
+                if (!string.IsNullOrEmpty(ps.SlotMenusJson) && copiesWhole)
                 {
                     InputService.ApplyMenusSnapshotJson(padVm.PadIndex, ps.SlotMenusJson);
                 }
@@ -8234,7 +8241,7 @@ namespace PadForge
                 if (!string.IsNullOrEmpty(ps.SlotSetExtrasJson))
                 {
                     InputService.ApplySlotSetExtrasJson(padVm.PadIndex, ps.SlotSetExtrasJson,
-                        MappingTranslation.IsSameLayout(srcType, srcIsExtended, targetType, targetIsExtended));
+                        copiesWhole, wire);
                 }
 
                 // Macros. REPLACE, not append: every other surface this paste
@@ -8261,7 +8268,7 @@ namespace PadForge
                 _inputService.ApplyPadSettingToCurrentDeviceTranslated(
                     padVm.PadIndex, ps,
                     srcType, srcIsExtended,
-                    targetType, targetIsExtended);
+                    targetType, targetIsExtended, copiedFrom: copiedFrom);
 
                 // Unpack the per-slot config tabs that traveled through the
                 // clipboard JSON as opaque strings on PadSetting. Same semantics
@@ -8319,7 +8326,7 @@ namespace PadForge
                         var perDevice = System.Text.Json.JsonSerializer.Deserialize<
                             PadForge.Engine.Data.PerDeviceSettingsEntry[]>(ps.SlotPerDeviceSettingsJson);
                         _inputService.ApplyPerDeviceSettingsToSlot(padVm.PadIndex, perDevice,
-                            srcType, srcIsExtended, targetType, targetIsExtended);
+                            srcType, srcIsExtended, targetType, targetIsExtended, copiedFrom);
                     }
                     catch { /* malformed payload, per-device paste skipped */ }
                 }
@@ -8463,10 +8470,6 @@ namespace PadForge
             }
         }
 
-        /// <summary>VC-level macro Copy From (#112): pick another virtual controller
-        /// and append its macros to this one. Mirrors the Mappings-tab Copy From, which
-        /// is VC-to-VC. A copied macro whose trigger is bound to a device not present on
-        /// this VC pastes with that trigger unresolved (re-record it), same as Paste.</summary>
         /// <summary>Formats a slot as the Copy From dialog's VC label, e.g.
         /// "Virtual Controller 3 — Xbox 2". Shared by the mapping and macro Copy From
         /// pickers (#112) so they read identically.</summary>
@@ -8532,6 +8535,10 @@ namespace PadForge
             padVm.SelectedMacro = padVm.Macros.Count > 0 ? padVm.Macros[padVm.Macros.Count - 1] : null;
         }
 
+        /// <summary>VC-level macro Copy From (#112): pick another virtual controller
+        /// and append its macros to this one. Mirrors the Mappings-tab Copy From, which
+        /// is VC-to-VC. A copied macro whose trigger is bound to a device not present on
+        /// this VC pastes with that trigger unresolved (re-record it), same as Paste.</summary>
         private void OnCopyMacroFrom(PadViewModel padVm)
         {
             // Same dialog, naming, and GUID display as the Mappings-tab Copy From, but
@@ -8772,19 +8779,30 @@ namespace PadForge
                 // keyboard and mouse slot onto a gamepad slot installed the
                 // source layout's target names verbatim. The next branch
                 // translates them.
-                if (srcEntry.SourceSlot >= 0 && srcEntry.SourceSlot != padVm.PadIndex
-                    && MappingTranslation.IsSameLayout(srcEntry.OutputType, srcEntry.IsExtended,
-                        targetOutputType, targetIsExtended))
+                //
+                // The boundary is the one a Paste draws (InputService.CopiesWhole):
+                // a Nintendo slot against a Valve one goes the translated
+                // way too, and a table copied whole from another wire of the
+                // same pads moves by role (InputService.WireMoveOf). The
+                // source slot's layout carries its profile, which names its
+                // wire. An entry whose slot has no view model is read by its
+                // type alone.
+                bool otherSlot = srcEntry.SourceSlot >= 0 && srcEntry.SourceSlot != padVm.PadIndex;
+                var targetLayout = InputService.SlotLayoutOf(padVm);
+                var sourceLayout = otherSlot && srcEntry.SourceSlot < _viewModel.Pads.Count
+                    ? InputService.SlotLayoutOf(_viewModel.Pads[srcEntry.SourceSlot])
+                    : new InputService.SlotLayout(srcEntry.OutputType, srcEntry.IsExtended);
+                if (otherSlot && InputService.CopiesWhole(sourceLayout, targetLayout))
                 {
-                    InputService.ReplaceSlotMappingSet(padVm.PadIndex, srcEntry.SourceSlot);
+                    InputService.ReplaceSlotMappingSet(padVm.PadIndex, srcEntry.SourceSlot,
+                        InputService.WireMoveOf(sourceLayout, targetLayout));
                     // Don't also run the per-device multi-source merge below.
                     // ReplaceSlotMappingSet already set the whole table, and
                     // merging the picked device's slice on top would just
                     // reorder its sources.
                     srcEntry.PadSetting.DeviceScopedMultiSourceRows = null;
                 }
-                else if (srcEntry.SourceSlot >= 0 && srcEntry.SourceSlot != padVm.PadIndex
-                    && srcEntry.SourceSlot < _viewModel.Pads.Count)
+                else if (otherSlot && srcEntry.SourceSlot < _viewModel.Pads.Count)
                 {
                     // Another layout. The source slot's Base rows land by
                     // position, its rumble audio and Keep Awake cross, and
@@ -8794,8 +8812,7 @@ namespace PadForge
                     // carry every device's sources, so no device slice
                     // follows.
                     InputService.TranslateSlotMappingSet(padVm.PadIndex, srcEntry.SourceSlot,
-                        InputService.SlotLayoutOf(_viewModel.Pads[srcEntry.SourceSlot]),
-                        InputService.SlotLayoutOf(padVm));
+                        sourceLayout, targetLayout);
                     srcEntry.PadSetting.DeviceScopedMultiSourceRows = null;
                 }
                 else if (srcEntry.SourceSlot >= 0)
@@ -8837,7 +8854,7 @@ namespace PadForge
                     targetDeviceOverride = srcEntry.InstanceGuid;
 
                 ApplyCopyFromSettings(_inputService, _settingsService, padVm, srcEntry,
-                    targetOutputType, targetIsExtended, targetDeviceOverride);
+                    targetOutputType, targetIsExtended, targetDeviceOverride, otherSlot ? sourceLayout : null);
 
                 // Rebuild the target slot's shift-layer tab strip from the
                 // freshly-copied activators so layers authored on the source
@@ -8868,13 +8885,17 @@ namespace PadForge
 
         internal static void ApplyCopyFromSettings(InputService input, SettingsService settings,
             PadViewModel padVm, CopyFromDialog.DeviceEntry srcEntry,
-            VirtualControllerType targetOutputType, bool targetIsExtended, Guid? targetDeviceOverride = null)
+            VirtualControllerType targetOutputType, bool targetIsExtended, Guid? targetDeviceOverride = null,
+            InputService.SlotLayout? copiedFrom = null)
         {
+            // copiedFrom is the layout of the slot the entry sits on, where
+            // that is another slot: each device's own raw entries then move
+            // with the rows onto this slot's wire.
             input.ApplyPadSettingToCurrentDeviceTranslated(
                 padVm.PadIndex, srcEntry.PadSetting,
                 srcEntry.OutputType, srcEntry.IsExtended,
                 targetOutputType, targetIsExtended,
-                targetDeviceOverride);
+                targetDeviceOverride, copiedFrom);
 
             // Apply EVERY source-slot device's per-device tuning, not
             // just the one the dialog highlighted. Match by InstanceGuid
@@ -8890,7 +8911,7 @@ namespace PadForge
                 if (perDevice != null && perDevice.Length > 0)
                     input.ApplyPerDeviceSettingsToSlot(padVm.PadIndex, perDevice,
                         srcEntry.OutputType, srcEntry.IsExtended,
-                        targetOutputType, targetIsExtended);
+                        targetOutputType, targetIsExtended, copiedFrom);
             }
 
             // PadSetting carries deadzones, sensitivity, FFB, mapping

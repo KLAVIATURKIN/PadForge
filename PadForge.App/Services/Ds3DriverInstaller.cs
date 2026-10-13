@@ -705,25 +705,6 @@ namespace PadForge.Services
             finally { SetupDiDestroyDeviceInfoList(set); }
         }
 
-        /// <summary>Reports what BthPS3 did with the pad's inbound
-        /// connection, for the one failure this arc cannot currently tell
-        /// apart from the log: the ceremony reports full success, the pad
-        /// then flashes forever, and nothing downstream says why.
-        ///
-        /// <para>Three states, three different causes, and they are
-        /// distinguishable only here. NO CHILD at all means the L2CAP
-        /// connection never reached BthPS3, so the PSM patch or the radio
-        /// is the suspect. A child with a PROBLEM CODE means BthPS3 built
-        /// it and PnP could not start it: problem 28 (FAILED_INSTALL) is
-        /// the RawPDO=0 case this file's step-7 comment describes, where
-        /// the child wants a function driver no INF matches, which is
-        /// exactly the "pad flashes forever" signature. A child with NO
-        /// raw interface means it started but published nothing the reader
-        /// can open.</para>
-        ///
-        /// <para>Read-only and best-effort: it never changes state and any
-        /// failure degrades to a log line, because its whole job is to
-        /// make a silent state speak.</para></summary>
         /// <summary>Silent form of <see cref="LogBthPs3ChildState"/> for the
         /// post-ceremony watcher: same read-only enumeration, no logging, so a
         /// poll loop can call it every few seconds without flooding the DIAG
@@ -990,6 +971,25 @@ namespace PadForge.Services
             return removed;
         }
 
+        /// <summary>Reports what BthPS3 did with the pad's inbound
+        /// connection, for the one failure this arc cannot currently tell
+        /// apart from the log: the ceremony reports full success, the pad
+        /// then flashes forever, and nothing downstream says why.
+        ///
+        /// <para>Three states, three different causes, and they are
+        /// distinguishable only here. NO CHILD at all means the L2CAP
+        /// connection never reached BthPS3, so the PSM patch or the radio
+        /// is the suspect. A child with a PROBLEM CODE means BthPS3 built
+        /// it and PnP could not start it: problem 28 (FAILED_INSTALL) is
+        /// the RawPDO=0 case this file's step-7 comment describes, where
+        /// the child wants a function driver no INF matches, which is
+        /// exactly the "pad flashes forever" signature. A child with NO
+        /// raw interface means it started but published nothing the reader
+        /// can open.</para>
+        ///
+        /// <para>Read-only and best-effort: it never changes state and any
+        /// failure degrades to a log line, because its whole job is to
+        /// make a silent state speak.</para></summary>
         internal static void LogBthPs3ChildState(Action<string> log)
         {
             try
@@ -1137,6 +1137,11 @@ namespace PadForge.Services
         // callback lifetimes.
         private static readonly object _cycleLock = new object();
 
+        /// <summary>The two pads the WinUSB package binds, as the PID token
+        /// the node search matches on.</summary>
+        internal const string Ds3PidToken = "PID_0268";
+        internal const string NavPidToken = "PID_042F";
+
         /// <summary><para>Every setup class a docked DS3 can occupy. A device node's
         /// class comes from the INF that OWNS it, not from the bus it hangs off, so
         /// the pad moves between these as its driver changes. Searching one class
@@ -1154,11 +1159,6 @@ namespace PadForge.Services
         /// SERVICE allowlist below is the gate, and it is unchanged: only an empty
         /// service or HidUsb is ever bound. Widening the search only lets the
         /// allowlist see a device it was always meant to judge.</para></summary>
-        /// <summary>The two pads the WinUSB package binds, as the PID token
-        /// the node search matches on.</summary>
-        internal const string Ds3PidToken = "PID_0268";
-        internal const string NavPidToken = "PID_042F";
-
         internal static readonly Guid[] Ds3HostClasses =
         {
             new Guid("745A17A0-74D3-11D0-B6FE-00A0C90F57DA"), // HIDCLASS: on inbox HidUsb
@@ -1567,9 +1567,6 @@ namespace PadForge.Services
             finally { LocalFree(pSid); }
         }
 
-        /// <summary>Deletes the DS3's remembered-device record + link key for a clean
-        /// unpair. The Devices subkey is SYSTEM-owned, so ownership is taken back to
-        /// Administrators first (SeTakeOwnership/SeRestore) before the delete.</summary>
         /// <summary>Grants BUILTIN\Administrators full control of an HKLM key
         /// whose ownership we have just taken. Ownership alone confers only
         /// WRITE_DAC, so without this step every subsequent operation on a
@@ -1595,6 +1592,9 @@ namespace PadForge.Services
             catch (Exception ex) { log?.Invoke("Granting access to the record failed: " + ex.Message); }
         }
 
+        /// <summary>Deletes the DS3's remembered-device record + link key for a clean
+        /// unpair. The Devices subkey is SYSTEM-owned, so ownership is taken back to
+        /// Administrators first (SeTakeOwnership/SeRestore) before the delete.</summary>
         public static void DeleteRememberedDeviceRecord(byte[] radioMacBigEndian, string deviceMacHex, Action<string> log)
         {
             try
@@ -1887,13 +1887,14 @@ namespace PadForge.Services
         /// writes Parameters itself (RawPDO 0 / ExclusivePDO 1, the defaults
         /// these lines override), so on a healthy install the subkey is
         /// already there, and creating it under a REAL service is safe
-        /// either way. What must never happen is creating the parent.</para></summary>
-        /// <summary>Writes the consumer overrides, returning true when it
+        /// either way. What must never happen is creating the parent.</para>
+        ///
+        /// <para>Writes the consumer overrides, returning true when it
         /// actually CHANGED something. The caller needs that answer: BthPS3
         /// reads RawPDO when it builds the child PDO, so a fresh write has to
         /// be followed by a re-enumeration or the running driver keeps serving
         /// the INF's defaults (RawPDO=0), and a non-raw child is a child that
-        /// needs a function driver no INF here can supply.</summary>
+        /// needs a function driver no INF here can supply.</para></summary>
         private static bool EnsureConsumerParams()
         {
             if (!IsServiceInstalled("BthPS3")) return false;
@@ -2206,10 +2207,6 @@ namespace PadForge.Services
 
         // ── service helpers ───────────────────────────────────────────────────────
 
-        /// <summary>True once the driver's service key exists (i.e. the INF installed).
-        /// A registry probe avoids a dependency on System.ServiceProcess and is the
-        /// right "is it installed" question - running state is handled by the profile
-        /// service advertisement + AutoEnableFilter.</summary>
         /// <summary><para>True when a kernel service is REALLY installed, which
         /// means its key carries an ImagePath. The key's mere existence is not
         /// the same question: any write under

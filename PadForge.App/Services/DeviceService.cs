@@ -646,29 +646,6 @@ namespace PadForge.Services
             return global > 0 ? global : slotIndex + 1;
         }
 
-        /// <summary>Defensive auto-map for an existing PadSetting on assign.
-        /// Generates a fresh auto-map from <see cref="SettingsManager.CreateDefaultPadSetting"/>
-        /// and copies any populated field over to <paramref name="existingPs"/>
-        /// only when the corresponding field on <paramref name="existingPs"/>
-        /// is empty. Preserves every user-authored value while guaranteeing
-        /// that a Gamepad-CapType device gets its standard auto-map (ButtonA
-        /// → Button 0, LeftThumbAxisX → Axis 0, etc.) AND its touchpad mapping
-        /// when the slot is PlayStation, and a Touchpad-CapType device gets
-        /// the touchpad mapping on PlayStation.
-        ///
-        /// <para>Why this exists as a separate "fill empties" path rather
-        /// than relying on "if (existingPs == null) create defaults" alone:
-        /// the engine writes per-VC <see cref="MappingSet"/> rows on save
-        /// from each ViewModel's current state, then on next load each
-        /// device's PadSetting is hydrated from a Sources slice the
-        /// MappingSet drives. A device that landed on a slot whose
-        /// MappingSet only had OTHER devices' rows (e.g. a touchpad
-        /// previously assigned that left only touchpad rows in the per-VC
-        /// MappingSet for slot 2) loads with an existing-but-empty
-        /// PadSetting — the if/else would then SKIP the auto-map for the
-        /// new device. The XML bug "DualSense assigned after Web Touchpad
-        /// inherited the touchpad-only PadSetting" came from exactly this
-        /// path.</para></summary>
         /// <summary>Runs the automap for <paramref name="profileId"/> over
         /// every device on a slot, filling targets that are EMPTY and
         /// leaving everything the user bound alone.
@@ -988,6 +965,29 @@ namespace PadForge.Services
             return changed;
         }
 
+        /// <summary>Defensive auto-map for an existing PadSetting on assign.
+        /// Generates a fresh auto-map from <see cref="SettingsManager.CreateDefaultPadSetting"/>
+        /// and copies any populated field over to <paramref name="existingPs"/>
+        /// only when the corresponding field on <paramref name="existingPs"/>
+        /// is empty. Preserves every user-authored value while guaranteeing
+        /// that a Gamepad-CapType device gets its standard auto-map (ButtonA
+        /// → Button 0, LeftThumbAxisX → Axis 0, etc.) AND its touchpad mapping
+        /// when the slot is PlayStation, and a Touchpad-CapType device gets
+        /// the touchpad mapping on PlayStation.
+        ///
+        /// <para>Why this exists as a separate "fill empties" path rather
+        /// than relying on "if (existingPs == null) create defaults" alone:
+        /// the engine writes per-VC <see cref="MappingSet"/> rows on save
+        /// from each ViewModel's current state, then on next load each
+        /// device's PadSetting is hydrated from a Sources slice the
+        /// MappingSet drives. A device that landed on a slot whose
+        /// MappingSet only had OTHER devices' rows (e.g. a touchpad
+        /// previously assigned that left only touchpad rows in the per-VC
+        /// MappingSet for slot 2) loads with an existing-but-empty
+        /// PadSetting — the if/else would then SKIP the auto-map for the
+        /// new device. The XML bug "DualSense assigned after Web Touchpad
+        /// inherited the touchpad-only PadSetting" came from exactly this
+        /// path.</para></summary>
         private static void FillEmptyAutoMappingsIfApplicable(PadSetting existingPs,
             UserDevice ud, Engine.VirtualControllerType outputType, string profileId = null)
         {

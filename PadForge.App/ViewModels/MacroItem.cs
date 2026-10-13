@@ -7731,10 +7731,6 @@ namespace PadForge.ViewModels
         public override string ToString() => DisplayName;
     }
 
-    /// <summary>Checkbox-bindable option representing one
-    /// <see cref="LightbarMode"/> value in the LightbarModeCycle editor's
-    /// grid. Reads / writes the parent action's
-    /// <c>LightbarCycleModesCsv</c>.</summary>
     /// <summary>One checkbox in the PointerModeCycle editor (issue #203),
     /// mirroring <see cref="LightbarModeCycleOption"/>: IsChecked reads and
     /// rewrites the parent action's CSV, and Label resolves live so a
@@ -7775,6 +7771,10 @@ namespace PadForge.ViewModels
         }
     }
 
+    /// <summary>Checkbox-bindable option representing one
+    /// <see cref="LightbarMode"/> value in the LightbarModeCycle editor's
+    /// grid. Reads / writes the parent action's
+    /// <c>LightbarCycleModesCsv</c>.</summary>
     public class LightbarModeCycleOption : ObservableObject
     {
         internal void RefreshCheckedState() => OnPropertyChanged(nameof(IsChecked));

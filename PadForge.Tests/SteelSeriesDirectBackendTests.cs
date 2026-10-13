@@ -2636,6 +2636,58 @@ namespace PadForge.Tests
             Assert.True(second.Join(30000), "the second worker ended");
         }
 
+        /// <summary>A run that begins while the worker before it is still
+        /// held past its Stop has scanned nothing yet. What that worker
+        /// listed is not this run's, so the backend reads as not scanned
+        /// from the start until this run takes a walk, as the Razer and
+        /// LampArray backends read (RazerDirectBackend.Start).</summary>
+        [Fact]
+        public void ARunThatBeginsUnderAWorkerStillStopping_ReadsAsNotScanned_UntilItTakesAWalk()
+        {
+            var mouse = Control(0x1870, 3);
+            using var held = new HeldWorker();
+            int opened = 0;
+            // The first handle alone holds the worker that writes to it.
+            _script = channel =>
+            {
+                if (Interlocked.Increment(ref opened) == 1) channel.Ticks = () => held.Stamp(Tick);
+            };
+            using var backend = new SteelSeriesDirectBackend(Open, path => _containerOf(path), Tick, (_, _, _) => true,
+                1, 5, predecessorJoinMs: 1, stopJoinMs: 1);
+            backend.Start();
+            backend.Rescan(new[] { mouse });
+            Passes(backend);
+            Light(0x123456);
+            Link(PathOf(mouse));
+            Passes(backend);
+            Assert.True(backend.Snapshot.Scanned);
+            var first = WorkerThread(backend);
+
+            // Stop gives up on the worker, held inside its hand-back.
+            held.HoldTheNextCall();
+            backend.Stop();
+            Assert.True(held.Entered.Wait(30000), "the stopping worker is inside its hand-back");
+
+            // The next run begins, with no walk handed to it yet.
+            backend.Start();
+            Assert.Same(DirectBackendSnapshot.NotScanned, backend.Snapshot);
+            Passes(backend);
+            Assert.Same(DirectBackendSnapshot.NotScanned, backend.Snapshot);
+            var second = WorkerThread(backend);
+
+            // The first worker's end leaves that standing.
+            held.LetGo();
+            Assert.True(first.Join(30000), "the first worker ended");
+            Assert.Same(DirectBackendSnapshot.NotScanned, backend.Snapshot);
+
+            backend.Rescan(new[] { mouse });
+            Passes(backend);
+            Assert.Equal(mouse.Path, Assert.Single(backend.Snapshot.Units).Key);
+
+            backend.Dispose();
+            Assert.True(second.Join(30000), "the second worker ended");
+        }
+
         /// <summary>The crash path stops the worker, so a worker a crash
         /// dialog keeps alive never paints again, and the worker's own last
         /// act hands its units back on its own channel. With the deadline

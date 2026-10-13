@@ -1076,8 +1076,6 @@ namespace PadForge.Common.Input
             return false;
         }
 
-        /// <summary>True when the set carries a shift activator for the
-        /// mask, i.e. the slot OWNS that layer (#254 A-4).</summary>
         /// <summary>Length of a mask's "Layer_{fileId}_" import-domain
         /// prefix, or -1 when the mask is not import-grammar (round five).
         /// The translator mints set masks as "Layer_{fileId}_{presetId}",
@@ -1136,8 +1134,6 @@ namespace PadForge.Common.Input
             return string.CompareOrdinal(mask, start, foreignMask, 0, flen) == 0;
         }
 
-        /// <summary>Ends a run and re-arms it, the shape every completion
-        /// path uses (round five, X14).</summary>
         /// <summary>True while a macro still owns output or a pending edge,
         /// so retiring it from evaluation would strand that state.
         ///
@@ -1179,6 +1175,8 @@ namespace PadForge.Common.Input
                     || macro.TriggerHoldStartUtc != DateTime.MinValue);
         }
 
+        /// <summary>Ends a run and re-arms it, the shape every completion
+        /// path uses (round five, X14).</summary>
         private void EndMacroRun(MacroItem macro)
         {
             // Any press leg this run left between its down and its duration
@@ -1212,6 +1210,8 @@ namespace PadForge.Common.Input
             return false;
         }
 
+        /// <summary>True when the set carries a shift activator for the
+        /// mask, i.e. the slot OWNS that layer (#254 A-4).</summary>
         private static bool SlotDeclaresMask(MappingSet set, string mask)
         {
             var acts = set?.ShiftActivators;
@@ -1287,13 +1287,6 @@ namespace PadForge.Common.Input
             return false;
         }
 
-        /// <summary>Shared SinglePress trigger evaluation (#238): the
-        /// DEFERRED single. Chains rising edges through the shared press
-        /// window exactly like TriplePress; a chain of exactly ONE press
-        /// fires once when its window expires with no follow-up (held or
-        /// released), and a chain of two or more fires nothing here and
-        /// resets once quiet. Lets one button carry Single + Double +
-        /// Triple macros without the single firing on the chains.</summary>
         /// <summary>How far past the press window a deferred single may
         /// still fire. Live polling detects expiry within milliseconds
         /// (idle mode within ~50 ms); beyond this the arm predates an
@@ -1303,6 +1296,13 @@ namespace PadForge.Common.Input
         /// <summary>Overrides only the SinglePress clock for deterministic tests.</summary>
         internal Func<DateTime> SinglePressUtcNow { get; set; }
 
+        /// <summary>Shared SinglePress trigger evaluation (#238): the
+        /// DEFERRED single. Chains rising edges through the shared press
+        /// window exactly like TriplePress; a chain of exactly ONE press
+        /// fires once when its window expires with no follow-up (held or
+        /// released), and a chain of two or more fires nothing here and
+        /// resets once quiet. Lets one button carry Single + Double +
+        /// Triple macros without the single firing on the chains.</summary>
         private bool EvaluateSinglePressTrigger(MacroItem macro, bool triggerActive, bool wasTriggerActive)
         {
             var now = SinglePressUtcNow?.Invoke() ?? DateTime.UtcNow;
@@ -4233,12 +4233,10 @@ namespace PadForge.Common.Input
             return moved;
         }
 
-        /// <summary>Extended twin of <see cref="AxisWriteYields"/>: the
-        /// word-array frame is signed short on every index, so one stick
-        /// threshold applies to all six canonical axes.</summary>
-        /// <summary>Raw yield check against the per-tick entry snapshot
-        /// (see _preMacroRawAxes): earlier macros' writes this frame are
-        /// never mistaken for physical input.</summary>
+        /// <summary>Extended twin of <see cref="AxisWriteYields"/>. Raw
+        /// yield check against the per-tick entry snapshot (see
+        /// _preMacroRawAxes): earlier macros' writes this frame are never
+        /// mistaken for physical input.</summary>
         private bool AxisWriteYieldsRawValueAt(int axisIndex, MacroAction action)
         {
             if (axisIndex < 0 || axisIndex >= _preMacroRawAxes.Length) return false;

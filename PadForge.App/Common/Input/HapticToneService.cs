@@ -198,13 +198,6 @@ namespace PadForge.Common.Input
             return (leftHot, rightHot);
         }
 
-        /// <summary>Picks the combined pair's primary child (left 0x2006
-        /// preferred, matching the #184 resolver order) and the second child
-        /// to fan writes to. Null paths mean "not present": with neither
-        /// child found the caller keeps the synthetic path, CreateFileW fails
-        /// as before, and the 3 s Reconcile retry stands. With one child the
-        /// sink degrades to the #184 single-coil behavior and Reconcile
-        /// retries the missing child every 3 s.</summary>
         /// <summary>First path in <paramref name="candidates"/> that no OTHER
         /// live pair sink has already claimed. Pure so the tests can drive it:
         /// <paramref name="claimed"/> is the snapshot of every other sink's
@@ -221,19 +214,6 @@ namespace PadForge.Common.Input
             return null;
         }
 
-        /// <summary>Child paths this pair sink may open: the first left and the
-        /// first right no other live pair sink holds. With one combined pair
-        /// this is identical to the old first-match resolve. With two, the
-        /// second sink gets the second pair's coils instead of stacking a
-        /// second writer onto the first pair's.
-        ///
-        /// <para>Residual, stated plainly: nothing here proves the left it
-        /// picks is the physical partner of the right it picks. SDL owns that
-        /// pairing (HIDAPI_COMBINE_JOY_CONS) and exposes only the combined
-        /// device, whose serial is empty, so no fact available to this layer
-        /// joins a specific left to a specific right. What this does
-        /// guarantee is one writer per physical Joy-Con and coils for every
-        /// assigned pair.</para></summary>
         /// <summary>Child paths every OTHER live pair sink currently holds.</summary>
         private static HashSet<string> ClaimedPairPaths(Sink self)
         {
@@ -250,6 +230,19 @@ namespace PadForge.Common.Input
             return claimed;
         }
 
+        /// <summary>Child paths this pair sink may open: the first left and the
+        /// first right no other live pair sink holds. With one combined pair
+        /// this is identical to the old first-match resolve. With two, the
+        /// second sink gets the second pair's coils instead of stacking a
+        /// second writer onto the first pair's.
+        ///
+        /// <para>Residual, stated plainly: nothing here proves the left it
+        /// picks is the physical partner of the right it picks. SDL owns that
+        /// pairing (HIDAPI_COMBINE_JOY_CONS) and exposes only the combined
+        /// device, whose serial is empty, so no fact available to this layer
+        /// joins a specific left to a specific right. What this does
+        /// guarantee is one writer per physical Joy-Con and coils for every
+        /// assigned pair.</para></summary>
         private static (string Left, string Right) ResolveUnclaimedPairChildren(Sink self)
         {
             var claimed = ClaimedPairPaths(self);
@@ -257,6 +250,13 @@ namespace PadForge.Common.Input
                     FirstUnclaimed(FindHidPaths(NintendoVid, 0x2007), claimed));
         }
 
+        /// <summary>Picks the combined pair's primary child (left 0x2006
+        /// preferred, matching the #184 resolver order) and the second child
+        /// to fan writes to. Null paths mean "not present": with neither
+        /// child found the caller keeps the synthetic path, CreateFileW fails
+        /// as before, and the 3 s Reconcile retry stands. With one child the
+        /// sink degrades to the #184 single-coil behavior and Reconcile
+        /// retries the missing child every 3 s.</summary>
         internal static (string PrimaryPath, string SecondPath, bool PrimaryIsRight)
             SelectPairChildPaths(string leftPath, string rightPath)
         {
