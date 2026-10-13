@@ -502,8 +502,8 @@ Kopia poprzedniej wersji znajduje się w tym folderze: {1}</value></data>
   <data name="About_HidHide" xml:space="preserve"><value>HidHide</value></data>
   <data name="About_HidHideDesc" xml:space="preserve"><value>Sterownik jądra do ukrywania fizycznych urządzeń przed grami. MIT.</value></data>
   <data name="About_Testimony" xml:space="preserve"><value>Zaproszenie</value></data>
-  <data name="About_TestimonyScripture" xml:space="preserve"><value>„I mówimy o Chrystusie, radujemy się w Chrystusie, nauczamy o Chrystusie, prorokujemy o Chrystusie i piszemy zgodnie z naszymi proroctwami, aby nasze dzieci wiedziały, w jakim źródle mogą szukać odpuszczenia swoich grzechów”.</value></data>
-  <data name="About_TestimonyRef" xml:space="preserve"><value>2 Nefi 25:26</value></data>
+  <data name="About_TestimonyScripture" xml:space="preserve"><value>„I mówimy o Chrystusie, radujemy się w Chrystusie, głosimy o Chrystusie, prorokujemy o Chrystusie, i zapisujemy zgodnie z naszymi proroctwami, aby nasze dzieci wiedziały, z jakiego źródła mogą oczekiwać odpuszczenia grzechów”.</value></data>
+  <data name="About_TestimonyRef" xml:space="preserve"><value>Ⅱ Ks. Nefiego 25:26</value></data>
   <data name="About_TestimonyDoxology" xml:space="preserve"><value>Chwała, cześć i uwielbienie Panu Jezusowi Chrystusowi, źródłu wszelkiej prawdy i zbawienia, na wieki wieków.</value></data>
   <data name="About_TestimonyInvite" xml:space="preserve"><value>Serdecznie zapraszamy do odwiedzenia strony ComeUntoChrist.org i dowiedzenia się więcej o Nim oraz o Kościele Jezusa Chrystusa Świętych w Dniach Ostatnich.</value></data>
   <data name="About_Bs2b" xml:space="preserve"><value>bs2b</value></data>

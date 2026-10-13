@@ -1,7 +1,7 @@
 # tag	English name	own name	direction	script	coverage
 # One row for American English, the text of Strings.resx, and one for each Strings.<tag>.resx beside it.
 # LanguageCatalog reads it.
-bn	Bengali	বাংলা	ltr	Beng	partial
+bn	Bengali	বাংলা	ltr	Beng	full
 chk	Chuukese	Fosun Chuuk	ltr	Latn	partial
 cs	Czech	Čeština	ltr	Latn	full
 de	German	Deutsch	ltr	Latn	full

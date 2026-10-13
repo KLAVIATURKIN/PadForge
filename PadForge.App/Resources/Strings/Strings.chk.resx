@@ -127,6 +127,8 @@
   <data name="About_HIDMaestro" xml:space="preserve"><value>HIDMaestro</value></data>
   <data name="About_OpenXInput" xml:space="preserve"><value>OpenXInput</value></data>
   <data name="About_HidHide" xml:space="preserve"><value>HidHide</value></data>
+  <data name="About_TestimonyScripture" xml:space="preserve"><value>“Iwe am aua kapas usun Kraist, aua pwapwa non Kraist, aua afanafan usun Kraist, aua osini usun Kraist, me aua mak anongonong won am kewe osini, pwe nöum kewe repwe sinei ngeni ian repwe apinukunuk won ren omusomusen ar kewe tipis.”</value></data>
+  <data name="About_TestimonyRef" xml:space="preserve"><value>2 Nifai 25:26</value></data>
   <data name="About_Bs2b" xml:space="preserve"><value>bs2b</value></data>
   <data name="About_Concentus" xml:space="preserve"><value>Concentus</value></data>
   <data name="About_SAxense" xml:space="preserve"><value>SAxense</value></data>

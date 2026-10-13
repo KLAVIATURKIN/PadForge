@@ -502,7 +502,8 @@
   <data name="About_HidHide" xml:space="preserve"><value>HidHide</value></data>
   <data name="About_HidHideDesc" xml:space="preserve"><value>গেম থেকে ফিজিক্যাল ডিভাইস লুকানোর কার্নেল ড্রাইভার। MIT।</value></data>
   <data name="About_Testimony" xml:space="preserve"><value>একটি আমন্ত্রণ</value></data>
-  <data name="About_TestimonyScripture" xml:space="preserve"><value>"আর আমরা খ্রীষ্টের কথা বলি, আমরা খ্রীষ্টে আনন্দ করি, আমরা খ্রীষ্টের বিষয়ে প্রচার করি, আমরা খ্রীষ্টের বিষয়ে ভবিষ্যদ্বাণী করি, এবং আমাদের ভবিষ্যদ্বাণী অনুসারে লিখি, যেন আমাদের সন্তানেরা জানতে পারে তাদের পাপের ক্ষমার জন্য তারা কোন উৎসের দিকে তাকাবে।"</value></data>
+  <data name="About_TestimonyScripture" xml:space="preserve"><value>"এবং আমরা খ্রীষ্টের কথা বলি, আমরা খ্রীষ্টে আনন্দ করি, আমরা খ্রীষ্টের প্রচার করি, আমরা খ্রীষ্টের ভবিষ্যদ্বাণী বলি, এবং আমরা আমাদের ভবিষ্যদ্বাণী অনুসারে লিখি, যাতে আমাদের সন্তানেরা জানতে পারে যে কোন উৎস থেকে তারা তাদের পাপের ক্ষমা পাবে।"</value></data>
+  <data name="About_TestimonyRef" xml:space="preserve"><value>2 নেফী 25:26</value></data>
   <data name="About_TestimonyDoxology" xml:space="preserve"><value>সমস্ত সত্য ও পরিত্রাণের উৎস প্রভু যীশু খ্রীষ্টের গৌরব, সম্মান ও প্রশংসা হোক, যুগে যুগে চিরকাল।</value></data>
   <data name="About_TestimonyInvite" xml:space="preserve"><value>ComeUntoChrist.org ঘুরে দেখার এবং তাঁর সম্পর্কে ও The Church of Jesus Christ of Latter-day Saints সম্পর্কে আরও জানার জন্য আপনাকে আন্তরিক আমন্ত্রণ জানাই।</value></data>
   <data name="About_Bs2b" xml:space="preserve"><value>bs2b</value></data>

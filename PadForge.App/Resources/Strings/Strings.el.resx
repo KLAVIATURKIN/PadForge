@@ -502,8 +502,8 @@
   <data name="About_HidHide" xml:space="preserve"><value>HidHide</value></data>
   <data name="About_HidHideDesc" xml:space="preserve"><value>Πρόγραμμα οδήγησης πυρήνα για την απόκρυψη φυσικών συσκευών από τα παιχνίδια. MIT.</value></data>
   <data name="About_Testimony" xml:space="preserve"><value>Μια πρόσκληση</value></data>
-  <data name="About_TestimonyScripture" xml:space="preserve"><value>«Και μιλάμε για τον Χριστό, χαιρόμαστε εν Χριστώ, κηρύσσουμε για τον Χριστό, προφητεύουμε για τον Χριστό και γράφουμε σύμφωνα με τις προφητείες μας, ώστε τα παιδιά μας να γνωρίζουν σε ποια πηγή να αποβλέπουν για την άφεση των αμαρτιών τους.»</value></data>
-  <data name="About_TestimonyRef" xml:space="preserve"><value>2 Νεφί 25:26</value></data>
+  <data name="About_TestimonyScripture" xml:space="preserve"><value>«Και μιλούμε για τον Χριστό, χαιρόμαστε με τον Χριστό, κηρύττουμε για τον Χριστό, προφητεύουμε για τον Χριστό, και γράφουμε σύμφωνα με τις προφητείες μας, ώστε τα παιδιά μας να ξέρουν σε ποια πηγή να στραφούν για άφεση των αμαρτιών τους.»</value></data>
+  <data name="About_TestimonyRef" xml:space="preserve"><value>Νεφί Β΄ 25:26</value></data>
   <data name="About_TestimonyDoxology" xml:space="preserve"><value>Δόξα, τιμή και αίνος στον Κύριο Ιησού Χριστό, την πηγή κάθε αλήθειας και σωτηρίας, στους αιώνες των αιώνων.</value></data>
   <data name="About_TestimonyInvite" xml:space="preserve"><value>Σας προσκαλούμε θερμά να επισκεφθείτε το ComeUntoChrist.org και να μάθετε περισσότερα για Εκείνον και για την Εκκλησία του Ιησού Χριστού των Αγίων των Τελευταίων Ημερών.</value></data>
   <data name="About_Bs2b" xml:space="preserve"><value>bs2b</value></data>
