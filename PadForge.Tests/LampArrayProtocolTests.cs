@@ -580,11 +580,45 @@ namespace PadForge.Tests
             Assert.NotNull(LampArrayProtocol.CheckShape(foreign, 51, out _));
 
             // A descriptor that declares the four channels as one usage
-            // range lists them as one field that covers all four.
-            var ranged = Without(BenchCaps(), cap => cap.LinkUsage == 0x60 && cap.UsageMin is >= 0x51 and <= 0x54);
-            ranged.Add(Cap(5, 5, 0x60, 0x51, 8, usageMax: 0x54));
-            Assert.NotNull(LampArrayProtocol.CheckShape(ranged, 51, out _));
+            // range lists them as one field that covers all four. Its
+            // report count is taken both ways, as the four values the
+            // field describes and as 1.
+            foreach (ushort count in new ushort[] { 1, 4 })
+            {
+                var ranged = Without(BenchCaps(), cap => cap.LinkUsage == 0x60 && cap.UsageMin is >= 0x51 and <= 0x54);
+                ranged.Add(Cap(5, 5, 0x60, 0x51, 8, count: count, usageMax: 0x54));
+                Assert.NotNull(LampArrayProtocol.CheckShape(ranged, 51, out rejection));
+                Assert.Null(rejection);
+            }
+
+            // More values than the range has usages go to its last usage,
+            // which is then an array and no single channel.
+            var overlong = Without(BenchCaps(), cap => cap.LinkUsage == 0x60 && cap.UsageMin is >= 0x51 and <= 0x54);
+            overlong.Add(Cap(5, 5, 0x60, 0x51, 8, count: 6, usageMax: 0x54));
+            Assert.Null(LampArrayProtocol.CheckShape(overlong, 51, out rejection));
+            Assert.Equal("usage 0x54 of its range update report is an array of 3", rejection);
         }
+
+        /// <summary>How many values a usage has in a field as Windows'
+        /// parser lists it: the report count for a field of one usage, one
+        /// for each usage of a range, and the surplus for the range's last
+        /// usage where the count is above the range's length (Microsoft's
+        /// value-capability-arrays.md, and Device Class Definition for HID
+        /// 1.11, 6.2.2.8).</summary>
+        [Theory]
+        [InlineData(0x21, 0x21, 1, 0x21, 1)]
+        [InlineData(0x21, 0x21, 8, 0x21, 8)]
+        [InlineData(0x21, 0x21, 0, 0x21, 1)]
+        [InlineData(0x51, 0x54, 4, 0x51, 1)]
+        [InlineData(0x51, 0x54, 4, 0x54, 1)]
+        [InlineData(0x51, 0x54, 1, 0x52, 1)]
+        [InlineData(0x51, 0x54, 6, 0x51, 1)]
+        [InlineData(0x51, 0x54, 6, 0x53, 1)]
+        [InlineData(0x51, 0x54, 6, 0x54, 3)]
+        [InlineData(0x51, 0x54, 5, 0x54, 2)]
+        public void TheValuesOfAUsage_AreCountedByItsFieldsRangeAndReportCount(int usageMin, int usageMax, int count, int usage, int expected)
+            => Assert.Equal(expected, LampArrayProtocol.ValuesOf(
+                Cap(5, 5, 0x60, (ushort)usageMin, 8, count: (ushort)count, usageMax: (ushort)usageMax), (ushort)usage));
 
         /// <summary>Only Feature reports are driven. A device that types
         /// its range update, or its control report, as Output gets no path,

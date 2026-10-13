@@ -592,6 +592,8 @@ namespace PadForge.Common.Input.Peripherals
                 var shadows = Array.Empty<OutputPath>();
                 int maxLevel = 0;
                 bool directWhenClosed = false;
+                // For a unit row, the vendor of the unit it stands for.
+                ushort unitVendor = 0;
                 if (row.VendorRow is PeripheralRowKind kind)
                 {
                     switch (kind)
@@ -616,8 +618,16 @@ namespace PadForge.Common.Input.Peripherals
                 else if (row.Unit is OutputPath unit)
                 {
                     // A unit row holds its own unit and nothing else, for as
-                    // long as the unit is there and answers.
-                    if (LightsUnitRow(unit, direct)) lighting.Add(unit);
+                    // long as the unit is there and answers, and its
+                    // vendor's program does not run. The program drives the
+                    // device from the pass that sees it, where the row
+                    // itself retires only at the input manager's next
+                    // device scan (Orphans).
+                    if (FindUnit(unit, direct) is DirectUnit own)
+                    {
+                        unitVendor = own.VendorId;
+                        if (LightsUnitRow(own) && !VendorProgramRuns(own.VendorId, presence)) lighting.Add(unit);
+                    }
                 }
                 else if (IsLinkable(row.CapType))
                 {
@@ -724,7 +734,7 @@ namespace PadForge.Common.Input.Peripherals
                     MaxClaimLevel = maxLevel,
                     DirectWhenClosed = directWhenClosed,
                     Shadows = shadows,
-                    HasVendorProgram = row.VendorRow == null && row.Unit == null && HasVendorProgram(row.VendorId),
+                    HasVendorProgram = row.VendorRow == null && HasVendorProgram(row.Unit == null ? row.VendorId : unitVendor),
                 });
             }
             return new LinkTable(result);
@@ -738,6 +748,19 @@ namespace PadForge.Common.Input.Peripherals
         /// devices on its own is withdrawn when that program starts.</summary>
         internal static bool HasVendorProgram(ushort vendorId)
             => vendorId == LogitechVid || vendorId == RazerVid || vendorId == SteelSeriesVid;
+
+        /// <summary>Whether the program of a unit's vendor runs now, for
+        /// the three vendors that have one (<see cref="HasVendorProgram"/>).
+        /// The one read behind a unit's row and its path
+        /// (<see cref="Orphans"/> and
+        /// <see cref="Build(IEnumerable{LinkRow}, LinkInputs)"/>).</summary>
+        internal static bool VendorProgramRuns(ushort vendorId, PeripheralPresence presence) => vendorId switch
+        {
+            LogitechVid => presence.LogitechGHubRunning,
+            RazerVid => presence.RazerSoftwareRunning,
+            SteelSeriesVid => presence.SteelSeriesGGRunning,
+            _ => false,
+        };
 
         /// <summary>One path a row could be lit through on its own, with the
         /// claim level its unit offers and whether Windows lights it.</summary>
@@ -890,17 +913,19 @@ namespace PadForge.Common.Input.Peripherals
             return false;
         }
 
-        /// <summary>Whether a unit row's unit is there to light: found by
-        /// its backend, awake, of a family that lights, and not one that
-        /// ignores a raw host.</summary>
-        private static bool LightsUnitRow(OutputPath unit, IReadOnlyList<DirectUnit> direct)
+        /// <summary>The unit a unit row stands for, as its backend lists
+        /// it, or null.</summary>
+        private static DirectUnit FindUnit(OutputPath unit, IReadOnlyList<DirectUnit> direct)
         {
-            if (unit.Family == OutputFamily.TouchSenseUnit) return false;
             foreach (var candidate in direct)
-                if (candidate.Family == unit.Family && candidate.Key == unit.Key)
-                    return !candidate.Asleep && !IgnoresRawHost(candidate);
-            return false;
+                if (candidate.Family == unit.Family && candidate.Key == unit.Key) return candidate;
+            return null;
         }
+
+        /// <summary>Whether a unit row's unit is there to light: awake, of
+        /// a family that lights, and not one that ignores a raw host.</summary>
+        private static bool LightsUnitRow(DirectUnit unit)
+            => unit.Family != OutputFamily.TouchSenseUnit && !unit.Asleep && !IgnoresRawHost(unit);
 
         /// <summary>Whether a unit that is listed and does not answer now
         /// (<see cref="DirectUnit.Asleep"/>) is one of this row's: the unit
@@ -1015,8 +1040,11 @@ namespace PadForge.Common.Input.Peripherals
         /// row of the unit's own would have PadForge write beside the
         /// program, the fight a device row is kept out of by the same
         /// running flag (<see cref="ChooseLighting"/>). A row the unit
-        /// already has retires when the program starts, and the unit waits
-        /// out <see cref="UnitRowHoldMs"/> again once it has stopped.</para></summary>
+        /// already has holds no path from the pass that sees the program
+        /// (<see cref="Build(IEnumerable{LinkRow}, LinkInputs)"/>) and
+        /// retires at the input manager's next device scan, and the unit
+        /// waits out <see cref="UnitRowHoldMs"/> again once the program
+        /// has stopped.</para></summary>
         internal static List<DirectUnit> Orphans(IReadOnlyList<LinkRow> rows, LinkInputs inputs)
         {
             var orphans = new List<DirectUnit>();
@@ -1027,14 +1055,7 @@ namespace PadForge.Common.Input.Peripherals
             {
                 if (unit.Family != OutputFamily.LampArrayUnit || unit.ContainerId == Guid.Empty || IgnoresRawHost(unit))
                     continue;
-                bool programRuns = unit.VendorId switch
-                {
-                    LogitechVid => presence.LogitechGHubRunning,
-                    RazerVid => presence.RazerSoftwareRunning,
-                    SteelSeriesVid => presence.SteelSeriesGGRunning,
-                    _ => false,
-                };
-                if (programRuns) continue;
+                if (VendorProgramRuns(unit.VendorId, presence)) continue;
                 bool reached = false;
                 foreach (var row in rows)
                 {

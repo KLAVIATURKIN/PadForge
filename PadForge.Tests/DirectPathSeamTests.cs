@@ -409,8 +409,9 @@ namespace PadForge.Tests
         /// that drives every device of theirs while it runs. A row of one
         /// of them says so, whichever path lights it, so the link pass
         /// knows whose paths a starting program would take. A vendor row
-        /// stands for the program itself, and a unit row for a device of no
-        /// vendor's row.</summary>
+        /// stands for the program itself. A unit row says so when its unit
+        /// is a device of one of the three, whatever its own record
+        /// carries.</summary>
         [Fact]
         public void ARowOfAVendorWhoseProgramDrivesItsDevices_SaysSo()
         {
@@ -440,6 +441,13 @@ namespace PadForge.Tests
                 Unit = lamp.Path,
             };
             Assert.False(PeripheralLinker.Build(new[] { unitRow }, Inputs(Presence(), null, lamp)).For(C).HasVendorProgram);
+            foreach (ushort vendor in new[] { Logitech, Razer, SteelSeries })
+            {
+                var theirs = Lamp("theirs", OtherBox, vid: vendor);
+                var theirRow = unitRow with { Unit = theirs.Path };
+                Assert.True(PeripheralLinker.Build(new[] { theirRow }, Inputs(Presence(), null, theirs)).For(C).HasVendorProgram,
+                    vendor.ToString("X4"));
+            }
         }
 
         // ── Logitech ──

@@ -634,6 +634,66 @@ namespace PadForge.Tests
             Assert.Empty(Held(stopped, 60001 + PeripheralLinker.UnitRowHoldMs - 1));
             Assert.Equal(new[] { headset }, Held(stopped, 60001 + PeripheralLinker.UnitRowHoldMs));
         }
+
+        private static LinkRow UnitRow(DirectUnit unit)
+            => new(Guid.NewGuid(), InputDeviceType.PeripheralLighting, 0x5046, PeripheralUnitRow.UnitProductId, Guid.Empty, null)
+            {
+                Unit = unit.Path,
+            };
+
+        /// <summary>A unit row holds no path while its unit's vendor's
+        /// program runs, from the pass that sees the program. The row
+        /// itself retires only at the input manager's next device scan,
+        /// and its worker would paint the device until then. Such a row is
+        /// one a program takes, so a claim on it is watched for like a
+        /// claim on that vendor's mouse. The vendor is the unit's: the
+        /// row's own record carries PadForge's.</summary>
+        [Fact]
+        public void AUnitRow_HoldsNoPath_WhileItsUnitsVendorsProgramRuns()
+        {
+            var stopped = new PeripheralPresence(true, false, true, true, true);
+            var cases = new[]
+            {
+                (Vid: PeripheralLinker.LogitechVid, Running: stopped with { LogitechGHubRunning = true }),
+                (Vid: PeripheralLinker.RazerVid, Running: stopped with { RazerSoftwareRunning = true }),
+                (Vid: PeripheralLinker.SteelSeriesVid, Running: stopped with { SteelSeriesGGRunning = true }),
+            };
+            foreach (var (vid, running) in cases)
+            {
+                var unit = Lamp("unit", Hub, vid);
+                var row = UnitRow(unit);
+                var links = PeripheralLinker.Build(new[] { row }, Inputs(stopped, unit)).For(row.Device);
+                Assert.Equal(new[] { unit.Path }, links.Lighting);
+                Assert.True(links.UnitRow);
+                Assert.True(links.HasVendorProgram, vid.ToString("X4"));
+                Assert.True(PeripheralLinker.VendorProgramRuns(vid, running));
+                Assert.Null(PeripheralLinker.Build(new[] { row }, Inputs(running, unit)).For(row.Device));
+
+                // Another vendor's program takes nothing from it.
+                foreach (var other in cases.Where(c => c.Vid != vid))
+                {
+                    Assert.False(PeripheralLinker.VendorProgramRuns(vid, other.Running));
+                    Assert.Equal(new[] { unit.Path }, PeripheralLinker.Build(new[] { row }, Inputs(other.Running, unit)).For(row.Device).Lighting);
+                }
+                // Installed is not running.
+                Assert.False(PeripheralLinker.VendorProgramRuns(vid, stopped));
+            }
+
+            // A unit of a vendor with no such program is lit whatever runs,
+            // and no claim on its row is watched for.
+            var asus = Lamp("asus", Hub, 0x0B05);
+            var asusRow = UnitRow(asus);
+            var everything = stopped with { LogitechGHubRunning = true, RazerSoftwareRunning = true, SteelSeriesGGRunning = true };
+            var asusLinks = PeripheralLinker.Build(new[] { asusRow }, Inputs(everything, asus)).For(asusRow.Device);
+            Assert.Equal(new[] { asus.Path }, asusLinks.Lighting);
+            Assert.False(asusLinks.HasVendorProgram);
+            Assert.False(PeripheralLinker.VendorProgramRuns(0x0B05, everything));
+
+            // Asleep, the row holds nothing either way, as before.
+            var razer = Lamp("razer", Hub, PeripheralLinker.RazerVid) with { Asleep = true };
+            var asleepRow = UnitRow(razer);
+            Assert.Null(PeripheralLinker.Build(new[] { asleepRow }, Inputs(stopped, razer)).For(asleepRow.Device));
+        }
     }
 
     // ─────────────────────────────────────────────
@@ -663,8 +723,10 @@ namespace PadForge.Tests
         private readonly ConcurrentDictionary<string, Guid> _containers = new(StringComparer.OrdinalIgnoreCase);
         private readonly ConcurrentQueue<(string Path, string Frame, int TimeoutMs)> _oneShots = new();
         private readonly ConcurrentQueue<int> _pauses = new();
+        private readonly ConcurrentQueue<int> _joins = new();
         private readonly ConcurrentQueue<string> _descriptorAsks = new();
         private volatile bool _litFault;
+        private volatile bool _claimUnopenable;
         private int _queryOpens;
         private int _claimOpens;
         private int _litReads;
@@ -720,7 +782,7 @@ namespace PadForge.Tests
                 OpenClaim = path =>
                 {
                     Interlocked.Increment(ref _claimOpens);
-                    return Of(path)?.Open(queryOnly: false);
+                    return _claimUnopenable ? null : Of(path)?.Open(queryOnly: false);
                 },
                 ContainerOf = path =>
                 {
@@ -740,6 +802,11 @@ namespace PadForge.Tests
                     return true;
                 },
                 Pause = ms => _pauses.Enqueue(ms),
+                Join = (thread, ms) =>
+                {
+                    _joins.Enqueue(ms);
+                    return thread.Join(ms);
+                },
                 IdleTickMs = 1,
                 PredecessorJoinMs = predecessorJoinMs,
                 StopJoinMs = stopJoinMs,
@@ -1918,7 +1985,9 @@ namespace PadForge.Tests
             Assert.Equal(Box, asleep.ContainerId);
             Assert.True(backend.Snapshot.Scanned);
             Assert.True(handle.Disposed);
-            Assert.Empty(backend.ClaimedPaths);
+            // Claimed when the write failed, so its hand-back is owed, and
+            // the crash path's record keeps it.
+            Assert.Equal(new[] { BoardPath }, backend.ClaimedPaths);
             Assert.Equal(notices + 1, _notices);
             Assert.Equal(1, _walkAsks);
             Assert.Equal(before + 1, LogLines(line));
@@ -2053,6 +2122,7 @@ namespace PadForge.Tests
             Advance(60000);
             Passes(backend);
             Assert.True(Unit(backend, board).Asleep);
+            Assert.Equal(new[] { BoardPath }, backend.ClaimedPaths);
             int notices = _notices;
 
             Walk(backend);
@@ -2060,6 +2130,9 @@ namespace PadForge.Tests
             Assert.Empty(backend.Snapshot.Units);
             Assert.True(backend.Snapshot.Scanned);
             Assert.Equal(notices + 1, _notices);
+            // Nothing is owed to a device that left, and nothing was sent.
+            Assert.Empty(backend.ClaimedPaths);
+            Assert.Empty(_oneShots);
 
             // Back on the same path: found anew, and awake.
             board.FailWrites = false;
@@ -2086,15 +2159,17 @@ namespace PadForge.Tests
 
         /// <summary>A unit that cannot be opened for its claim, a lamp
         /// request that fails, a claim that fails and a hand-back that
-        /// fails all follow the same rule.</summary>
+        /// fails all follow the same rule. From the claim report on, the
+        /// device may hold the claim, so the unit is owed its hand-back
+        /// and stays on the crash path's record.</summary>
         [Theory]
-        [InlineData("open", "it could not be opened")]
-        [InlineData("request", "its lamp request failed")]
-        [InlineData("claim", "its claim failed")]
-        [InlineData("handback", "its hand-back failed")]
-        [InlineData("reassert", "its claim failed")]
-        [InlineData("rerequest", "its lamp request failed")]
-        public void EveryWriteThatFails_FollowsTheSameRule(string what, string why)
+        [InlineData("open", "it could not be opened", false)]
+        [InlineData("request", "its lamp request failed", false)]
+        [InlineData("claim", "its claim failed", true)]
+        [InlineData("handback", "its hand-back failed", true)]
+        [InlineData("reassert", "its claim failed", true)]
+        [InlineData("rerequest", "its lamp request failed", false)]
+        public void EveryWriteThatFails_FollowsTheSameRule(string what, string why, bool owed)
         {
             var (backend, board) = Found();
             string line = $"PERIPHERAL LampArray '{board.Name}' is asleep: " + why;
@@ -2152,9 +2227,268 @@ namespace PadForge.Tests
             Assert.True(Unit(backend, board).Asleep);
             Assert.Equal(1, _walkAsks);
             Assert.Equal(before + 1, LogLines(line));
-            Assert.Empty(backend.ClaimedPaths);
+            Assert.Equal(owed ? new[] { BoardPath } : Array.Empty<string>(), backend.ClaimedPaths);
             Assert.All(board.Opened, handle => Assert.True(handle.Disposed));
             Assert.DoesNotContain(board.Traffic(), call => call.Text == "set 06 01");
+
+            // The claim ends while the unit sleeps, and the unit answers
+            // again: a hand-back that is owed goes out then, and a unit
+            // that is owed none is sent nothing.
+            board.FailWrites = false;
+            board.Unopenable = false;
+            Dark(board);
+            board.Take();
+            Advance(LampArrayBackend.FirstRetryMs);
+            Passes(backend);
+            Assert.False(Unit(backend, board).Asleep);
+            Assert.Equal(owed ? new[] { "get 01", "set 06 01" } : new[] { "get 01" }, board.Take());
+            Assert.Empty(backend.ClaimedPaths);
+            Assert.All(board.Opened, handle => Assert.True(handle.Disposed));
+        }
+
+        /// <summary>A unit that fell asleep while claimed is owed its
+        /// hand-back: a device that missed one report and stayed has
+        /// AutonomousMode off, and keeps the last color until it loses
+        /// power. While it sleeps nothing is sent to it. When it answers
+        /// again with nothing claiming it, the hand-back goes out on a
+        /// channel opened for it, once, and the crash path's record lets
+        /// the unit go.</summary>
+        [Fact]
+        public void AUnitThatFellAsleepClaimed_IsHandedBackWhenItAnswersAgain_WithNothingClaimingIt()
+        {
+            var (backend, board) = Lit();
+            board.FailWrites = true;
+            Color(board, 0x445566);
+            Advance(33);
+            Passes(backend);
+            Assert.True(Unit(backend, board).Asleep);
+            Assert.Equal(new[] { BoardPath }, backend.ClaimedPaths);
+            board.FailWrites = false;
+            board.Take();
+
+            // The claim ends while the unit sleeps: nothing is sent, and
+            // the debt stands.
+            Dark(board);
+            Advance(LampArrayBackend.FirstRetryMs - 1);
+            Passes(backend);
+            Assert.Empty(board.Take());
+            Assert.Equal(new[] { BoardPath }, backend.ClaimedPaths);
+            int claimOpens = _claimOpens;
+            string line = $"PERIPHERAL LampArray '{board.Name}' lighting handed back";
+            int before = LogLines(line);
+
+            // It answers: described on the handle with no access right,
+            // then handed back on one opened for that and closed again.
+            Advance(1);
+            Passes(backend);
+            Assert.False(Unit(backend, board).Asleep);
+            var calls = board.TakeCalls();
+            Assert.Equal(new[] { "get 01", "set 06 01" }, calls.Select(call => call.Text));
+            Assert.Equal(new[] { true, false }, calls.Select(call => call.QueryOnly));
+            Assert.Equal(claimOpens + 1, _claimOpens);
+            Assert.All(board.Opened, handle => Assert.True(handle.Disposed));
+            Assert.Empty(backend.ClaimedPaths);
+            Assert.Equal(before + 1, LogLines(line));
+
+            // Once. Nothing more goes to a unit nobody lights.
+            Advance(60000);
+            Passes(backend);
+            Assert.Empty(board.Take());
+            Assert.Equal(claimOpens + 1, _claimOpens);
+            Assert.Empty(_oneShots);
+        }
+
+        /// <summary>A device with no control report is owed its lamps'
+        /// off, the report that hands it back.</summary>
+        [Fact]
+        public void ADeviceWithNoControlReport_ThatFellAsleepPainted_HasItsLampsTurnedOffWhenItAnswersAgain()
+        {
+            var (backend, board) = Lit(setUp: b => b.Layout = b.Layout with { HasControl = false, ControlId = 0, ControlLink = 0 });
+            board.FailWrites = true;
+            Color(board, 0x445566);
+            Advance(33);
+            Passes(backend);
+            Assert.True(Unit(backend, board).Asleep);
+            Assert.Equal(new[] { BoardPath }, backend.ClaimedPaths);
+            board.FailWrites = false;
+            Dark(board);
+            board.Take();
+            Advance(LampArrayBackend.FirstRetryMs);
+            Passes(backend);
+            Assert.Equal(new[] { "get 01", "set 05 01 00 00 03 00 00 00 00 00" }, board.Take());
+            Assert.Empty(backend.ClaimedPaths);
+            Assert.Empty(_pauses);
+        }
+
+        /// <summary>A hand-back that cannot be paid stands: the unit goes
+        /// back to sleep, a walk is asked for, it is asked again after the
+        /// next backoff, and it stays on the crash path's record until its
+        /// device takes the report.</summary>
+        [Theory]
+        [InlineData("open")]
+        [InlineData("write")]
+        public void AnOwedHandBackThatFails_Stands_AndIsPaidWhenTheDeviceTakesIt(string what)
+        {
+            var (backend, board) = Lit();
+            board.FailWrites = true;
+            Color(board, 0x445566);
+            Advance(33);
+            Passes(backend);
+            Dark(board);
+            board.Take();
+            board.FailWrites = false;
+            if (what == "open") _claimUnopenable = true;
+            // The attributes read answers, and every report after it fails.
+            else board.OnCall = () => board.FailWrites = true;
+            string line = $"PERIPHERAL LampArray '{board.Name}' is asleep: "
+                          + (what == "open" ? "it could not be opened" : "its hand-back failed");
+            int before = LogLines(line);
+
+            // It answers its attributes read, and the hand-back fails.
+            Advance(LampArrayBackend.FirstRetryMs);
+            Passes(backend);
+            Assert.True(Unit(backend, board).Asleep);
+            Assert.Equal(new[] { "get 01" }, board.Take());
+            Assert.Equal(new[] { BoardPath }, backend.ClaimedPaths);
+            Assert.Equal(2, _walkAsks);
+            Assert.Equal(before + 1, LogLines(line));
+            Assert.All(board.Opened, handle => Assert.True(handle.Disposed));
+
+            // Asked again after ten seconds, the second step of the backoff,
+            // and not before.
+            board.OnCall = null;
+            board.FailWrites = false;
+            _claimUnopenable = false;
+            Advance(2 * LampArrayBackend.FirstRetryMs - 1);
+            Passes(backend);
+            Assert.Empty(board.Take());
+            Advance(1);
+            Passes(backend);
+            Assert.False(Unit(backend, board).Asleep);
+            Assert.Equal(new[] { "get 01", "set 06 01" }, board.Take());
+            Assert.Empty(backend.ClaimedPaths);
+
+            // Paid, so the next failure starts the backoff over: a unit
+            // that cannot be opened for a new claim, with no color painted
+            // in between, is asked again after five seconds.
+            _claimUnopenable = true;
+            Color(board, 0x778899);
+            Passes(backend);
+            Assert.True(Unit(backend, board).Asleep);
+            Assert.Empty(backend.ClaimedPaths);
+            _claimUnopenable = false;
+            int reads = board.DescriptorReads;
+            Advance(LampArrayBackend.FirstRetryMs - 1);
+            Passes(backend);
+            Assert.Equal(reads, board.DescriptorReads);
+            Advance(1);
+            Passes(backend);
+            Assert.Equal(reads + 1, board.DescriptorReads);
+        }
+
+        /// <summary>A hand-back owed to a unit Windows lights by the time
+        /// it answers again is dropped with no frame: Windows repaints the
+        /// device, and AutonomousMode on would switch its effect off. It
+        /// stays dropped when Windows lets the unit go.</summary>
+        [Fact]
+        public void AnOwedHandBack_IsDropped_WhenWindowsLightsTheUnitByThen()
+        {
+            var (backend, board) = Lit();
+            board.FailWrites = true;
+            Color(board, 0x445566);
+            Advance(33);
+            Passes(backend);
+            board.FailWrites = false;
+            Dark(board);
+            board.Take();
+            Assert.Equal(new[] { BoardPath }, backend.ClaimedPaths);
+
+            _windowsLit[BoardPath] = true;
+            Advance(LampArrayBackend.FirstRetryMs);
+            Passes(backend);
+            Assert.False(Unit(backend, board).Asleep);
+            Assert.True(Unit(backend, board).WindowsLit);
+            Assert.Equal(new[] { "get 01" }, board.Take());
+            Assert.Empty(backend.ClaimedPaths);
+
+            _windowsLit[BoardPath] = false;
+            Advance(LampArrayBackend.LitReadMs);
+            Passes(backend);
+            Assert.False(Unit(backend, board).WindowsLit);
+            Assert.Empty(board.Take());
+            Assert.Equal((2, 1), (_queryOpens, _claimOpens));
+        }
+
+        /// <summary>The switch is read again right before an owed
+        /// hand-back too, since the cached answer can be a second old. Here
+        /// the unit answers again under a standing claim, the claim ends
+        /// while its lamps are still being read, and Windows took the unit
+        /// since the worker last looked.</summary>
+        [Fact]
+        public void TheSwitchIsReadAgain_RightBeforeAnOwedHandBack()
+        {
+            var (backend, board) = Lit();
+            board.FailWrites = true;
+            Color(board, 0x445566);
+            Advance(33);
+            Passes(backend);
+            Assert.True(Unit(backend, board).Asleep);
+            board.FailWrites = false;
+            board.Take();
+
+            // Awake under the standing claim, and held in the lamp read by
+            // one read that fails, so no new claim has gone out yet.
+            board.FailLampReads = 1;
+            Advance(LampArrayBackend.FirstRetryMs);
+            Passes(backend);
+            Assert.False(Unit(backend, board).Asleep);
+            Assert.Equal(new[] { BoardPath }, backend.ClaimedPaths);
+            var woke = board.Take();
+            Assert.Equal("get 01", woke[0]);
+            Assert.Contains("set 02 00 00", woke);
+            Assert.DoesNotContain("set 06 00", woke);
+
+            int litReads = _litReads;
+            _windowsLit[BoardPath] = true;
+            Dark(board);
+            Passes(backend);
+            Passes(backend);
+            Assert.True(_litReads > litReads, "the switch was read for the hand-back");
+            Assert.True(Unit(backend, board).WindowsLit);
+            Assert.DoesNotContain(board.Traffic(), call => call.Text == "set 06 01");
+            Assert.Empty(backend.ClaimedPaths);
+        }
+
+        /// <summary>A claim that takes the unit anew ends the debt: its own
+        /// end hands the device back, once.</summary>
+        [Fact]
+        public void AClaimThatTakesTheUnitAnew_EndsTheDebt_AndItsOwnEndHandsBackOnce()
+        {
+            var (backend, board) = Lit();
+            board.FailWrites = true;
+            Color(board, 0x445566);
+            Advance(33);
+            Passes(backend);
+            board.FailWrites = false;
+            board.Take();
+
+            // Awake under the standing claim: read, claimed and painted.
+            Advance(LampArrayBackend.FirstRetryMs);
+            Passes(backend);
+            Passes(backend);
+            Advance(20);
+            Passes(backend);
+            Assert.Equal(Paint(0x445566), board.Take().Last());
+
+            // Let go: one hand-back, on the claim's own channel.
+            Dark(board);
+            Passes(backend);
+            Assert.Equal(new[] { "set 06 01" }, board.Take());
+            Assert.Empty(backend.ClaimedPaths);
+            Advance(60000);
+            Passes(backend);
+            Assert.Empty(board.Take());
+            Assert.Empty(_oneShots);
         }
 
         // ── A scan that gets no answer (spec 11.2 step 17) ──
@@ -2436,10 +2770,11 @@ namespace PadForge.Tests
             Assert.Empty(_oneShots);
         }
 
-        /// <summary>A unit Windows lights and a unit that is asleep get
-        /// nothing at stop either, a unit still reading its lamps was
-        /// never claimed, and a device with no control report that no
-        /// color has reached yet has nothing on it to turn off.</summary>
+        /// <summary>A unit Windows lights and a unit that is asleep and
+        /// owed nothing get nothing at stop either, a unit still reading
+        /// its lamps was never claimed, and a device with no control
+        /// report that no color has reached yet has nothing on it to turn
+        /// off.</summary>
         [Theory]
         [InlineData("windows")]
         [InlineData("asleep")]
@@ -2451,6 +2786,7 @@ namespace PadForge.Tests
             {
                 "reading" => Found(b => b.FailLampReads = 1),
                 "unpainted" => Found(b => b.Layout = b.Layout with { HasControl = false, ControlId = 0, ControlLink = 0 }),
+                "asleep" => Found(),
                 _ => Lit(),
             };
             switch (what)
@@ -2467,11 +2803,13 @@ namespace PadForge.Tests
                     _windowsLit[BoardPath] = true;
                     break;
                 case "asleep":
-                    board.FailWrites = true;
+                    // It could not be opened for its claim, so no claim
+                    // ever went out to it.
+                    board.Unopenable = true;
                     Color(board, 0x445566);
-                    Advance(33);
                     Passes(backend);
-                    board.FailWrites = false;
+                    Assert.True(Unit(backend, board).Asleep);
+                    board.Unopenable = false;
                     break;
                 case "reading":
                     Color(board, 0x112233);
@@ -2482,7 +2820,59 @@ namespace PadForge.Tests
             backend.Stop();
             Assert.Empty(board.Take());
             Assert.Empty(_pauses);
+            Assert.Empty(_oneShots);
             Assert.All(board.Opened, handle => Assert.True(handle.Disposed));
+            Assert.Empty(backend.ClaimedPaths);
+        }
+
+        /// <summary>At stop a unit that is owed its hand-back gets it
+        /// through a handle of its own, bounded as on the crash path: the
+        /// worker has no channel to a unit that is asleep. A unit Windows
+        /// lights by then gets nothing.</summary>
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public void AtStop_AUnitOwedItsHandBack_GetsItThroughAHandleOfItsOwn(bool windowsLit)
+        {
+            var (backend, board) = Lit();
+            board.FailWrites = true;
+            Color(board, 0x445566);
+            Advance(33);
+            Passes(backend);
+            Assert.True(Unit(backend, board).Asleep);
+            Assert.Equal(new[] { BoardPath }, backend.ClaimedPaths);
+            board.Take();
+            _windowsLit[BoardPath] = windowsLit;
+
+            backend.Stop();
+            Assert.Empty(board.Take());
+            Assert.Equal(
+                windowsLit ? Array.Empty<(string, string, int)>() : new[] { (BoardPath, "06 01", LampArrayBackend.OneShotMs) },
+                _oneShots);
+            Assert.Empty(backend.ClaimedPaths);
+            Assert.Empty(_pauses);
+            Assert.All(board.Opened, handle => Assert.True(handle.Disposed));
+        }
+
+        /// <summary>The crash path hands an owed unit back too: it is on
+        /// the record, and whichever of the worker and the crash path gets
+        /// to it sends the unit's own hand-back through a bounded write.</summary>
+        [Fact]
+        public void TheCrashPath_HandsBackAUnitThatIsOwedItsHandBack()
+        {
+            var (backend, board) = Lit();
+            board.FailWrites = true;
+            Color(board, 0x445566);
+            Advance(33);
+            Passes(backend);
+            Assert.True(Unit(backend, board).Asleep);
+            board.Take();
+
+            backend.ReleaseClaimedNow(Tick() + PeripheralOutputHost.PanicBudgetMs);
+            Assert.True(SpinWait.SpinUntil(() => !backend.WorkerAlive, 30000), "the worker stopped");
+            Assert.NotEmpty(_oneShots);
+            Assert.All(_oneShots, shot => Assert.Equal((BoardPath, "06 01", LampArrayBackend.OneShotMs), shot));
+            Assert.Empty(board.Take());
             Assert.Empty(backend.ClaimedPaths);
         }
 
@@ -2577,6 +2967,8 @@ namespace PadForge.Tests
             try
             {
                 backend.ReleaseClaimedNow(Tick() + 100);
+                // The worker is waited for no longer than the deadline leaves.
+                Assert.Equal(new[] { 100 }, _joins);
                 Assert.Equal(new[] { (BoardPath, "06 01", 100) }, _oneShots);
                 Assert.Empty(backend.ClaimedPaths);
                 // Once is enough.
@@ -2609,6 +3001,9 @@ namespace PadForge.Tests
                 _windowsLit[BoardPath] = windowsLit;
                 backend.ReleaseClaimedNow(Tick() + budgetMs);
                 Assert.Empty(_oneShots);
+                // With nothing left of the deadline the worker is not
+                // waited for at all.
+                Assert.Equal(budgetMs > 0 ? new[] { budgetMs } : Array.Empty<int>(), _joins);
             }
             finally
             {
@@ -2631,6 +3026,9 @@ namespace PadForge.Tests
             try
             {
                 backend.ReleaseClaimedNow(Tick() + PeripheralOutputHost.PanicBudgetMs);
+                // The deadline leaves more than the worker may be waited for.
+                Assert.True(PeripheralOutputHost.PanicBudgetMs > LampArrayBackend.PanicJoinMs);
+                Assert.Equal(new[] { LampArrayBackend.PanicJoinMs }, _joins);
                 Assert.Equal(new[] { (BoardPath, "05 01 00 00 03 00 00 00 00 00", LampArrayBackend.OneShotMs) }, _oneShots);
             }
             finally
@@ -3127,6 +3525,99 @@ namespace PadForge.Tests
                 manager.ShutdownPeripheralRows();
             }
         }
+
+        /// <summary>A lit unit row loses its path in the pass that sees its
+        /// vendor's program start, with the row still online: it retires
+        /// only at the input manager's next device scan. That pass comes
+        /// at once, since a claim on such a row brings the read of the
+        /// running programs on every pass, as a claim on the vendor's own
+        /// mouse does. Until then the worker would go on painting, and
+        /// sending its claim again, on a device the program is taking.</summary>
+        [Fact]
+        public void ALitUnitRowsPath_IsWithdrawnInThePassThatSeesItsVendorsProgramStart()
+        {
+            var headset = new DirectUnit(OutputFamily.LampArrayUnit, "headset", Box, PeripheralLinker.RazerVid, 0x0527)
+            {
+                Name = "Razer Headset", Kind = 0x0B,
+            };
+            var strip = new DirectUnit(OutputFamily.LampArrayUnit, "strip", Box, 0x0B05, 0x1A2B) { Name = "Light Strip", Kind = 4 };
+            Guid headsetId = PeripheralUnitRow.IdentityFor(headset.Family, headset.Key);
+            Guid stripId = PeripheralUnitRow.IdentityFor(strip.Family, strip.Key);
+            int runningReads = 0;
+            var lamp = new FakeDirectBackend(OutputFamily.LampArrayUnit);
+            using var host = new PeripheralOutputHost(
+                new HidppBackend(() => Array.Empty<VendorHidCollection>(), (c, s) => null, _ => Guid.Empty, 1, 5),
+                new GameSenseBackend(() => new GameSenseClient(HidppHapticsTests.MissingCoreProps(), 100), _ => 0, 20),
+                () => new SensaHapticsService(30000, 16, 1000, () => 0f) { PlatformCanLoadEngine = () => false },
+                containerOf: _ => Guid.Empty,
+                readPresence: () => Volatile.Read(ref _presence),
+                direct: new IDirectUnitBackend[] { lamp },
+                enumerate: () => Array.Empty<HidCollectionInfo>(),
+                readRunning: current =>
+                {
+                    Interlocked.Increment(ref runningReads);
+                    return PeripheralPresence.CopyRunning(current, Volatile.Read(ref _presence));
+                },
+                ticks: Tick);
+            host.SlotHasController = slot => slot == 2;
+            var manager = new InputManager();
+            var phase = typeof(InputManager).GetMethod("UpdatePeripheralRows", BindingFlags.NonPublic | BindingFlags.Instance);
+            Assert.NotNull(phase);
+            UserDevice Record(Guid id)
+            {
+                lock (SettingsManager.UserDevices.SyncRoot)
+                    return SettingsManager.UserDevices.Items.SingleOrDefault(d => d.InstanceGuid == id);
+            }
+
+            try
+            {
+                host.Start();
+                lamp.Found(headset, strip);
+                Passes(host);
+                Advance(PeripheralLinker.UnitRowHoldMs);
+                Passes(host);
+                phase.Invoke(manager, null);
+                Passes(host);
+                Assert.Equal(new[] { headset.Path }, PeripheralOutputs.Links.For(headsetId).Lighting);
+                Assert.True(PeripheralOutputs.Links.For(headsetId).HasVendorProgram);
+                Assert.False(PeripheralOutputs.Links.For(stripId).HasVendorProgram);
+
+                // Both rows are assigned. The strip alone, of a vendor with
+                // no program to yield to, brings no read of who runs.
+                lock (SettingsManager.UserSettings.SyncRoot)
+                {
+                    SettingsManager.UserSettings.Items.Add(new UserSetting { InstanceGuid = headsetId, MapTo = 2 });
+                    SettingsManager.UserSettings.Items.Add(new UserSetting { InstanceGuid = stripId, MapTo = 2 });
+                }
+                PeripheralOutputs.SetLighting(stripId, slot: 2, player: 1, 1, 2, 3);
+                Passes(host, 4);
+                Assert.True(PeripheralOutputs.TryResolveColor(strip.Path, out _));
+                Assert.Equal(0, Volatile.Read(ref runningReads));
+
+                // The Razer headset is lit: every pass reads who runs.
+                PeripheralOutputs.SetLighting(headsetId, slot: 2, player: 1, 1, 2, 3);
+                Passes(host);
+                Assert.True(PeripheralOutputs.TryResolveColor(headset.Path, out _));
+                Assert.True(Volatile.Read(ref runningReads) >= 1, "a claim on the Razer unit's row is watched for");
+
+                // Synapse starts. No presence interval passes, and the
+                // row's retirement has not come.
+                Volatile.Write(ref _presence, _presence with { RazerSoftwareRunning = true });
+                Passes(host);
+                Assert.True(PeripheralOutputs.Presence.RazerSoftwareRunning);
+                Assert.Null(PeripheralOutputs.Links.For(headsetId));
+                Assert.False(PeripheralOutputs.Links.ByPath.ContainsKey(headset.Path));
+                Assert.True(Record(headsetId).IsOnline);
+                Assert.IsType<PeripheralUnitRow>(Record(headsetId).Device);
+                // The other vendor's row keeps its path.
+                Assert.Equal(new[] { strip.Path }, PeripheralOutputs.Links.For(stripId).Lighting);
+            }
+            finally
+            {
+                host.Stop();
+                manager.ShutdownPeripheralRows();
+            }
+        }
     }
 
     // ─────────────────────────────────────────────
@@ -3248,8 +3739,10 @@ namespace PadForge.Tests
     /// (<see cref="RealHidAccess"/>). The descriptor reads open a
     /// collection themselves and ask the same question first. The lighting
     /// switches are read and never written. The worker's tests hand it its
-    /// walks.
+    /// walks. One test lifts the refusal to count the opens it lets
+    /// through, so the class runs with no other beside it.
     /// </summary>
+    [Collection("PeripheralOutputStatics")]
     public class LampArrayOffLimitsTests
     {
         private static readonly string[] LaneFiles = { "LampArrayBackend.cs", "LampArrayProtocol.cs", "WindowsLightingState.cs" };
@@ -3270,23 +3763,50 @@ namespace PadForge.Tests
             return count;
         }
 
-        /// <summary>The descriptor reads answer as for a collection that
-        /// cannot be read now, and throw nothing. The path has the shape of
-        /// the bench keyboard's own collection under an instance no device
-        /// has, so nothing is opened whatever the refusal does. The flag
-        /// itself is not read here: a test of another class may hold the
-        /// scope that lifts it, for a path that names no device, while this
-        /// one runs. The test below proves the reads ask it first.</summary>
+        /// <summary>The descriptor reads open nothing in the test host. The
+        /// one open behind them is counted here, and no read reaches it
+        /// while the refusal holds: each answers as for a collection that
+        /// cannot be read now, and throws nothing. With the refusal lifted
+        /// each read reaches the open once. The path has the shape of the
+        /// bench keyboard's own collection under an instance no device
+        /// has.</summary>
         [Fact]
         public void TheTestHostRefusesTheDescriptorReads()
         {
             const string keyboard = @"\\?\hid#vid_048d&pid_c193&mi_01#padforge-test#{4d1e55b2-f16f-11cf-88cb-001111000030}";
-            var descriptors = new LampArrayDescriptors();
-            Assert.Null(descriptors.Read(keyboard, out string rejection));
-            Assert.Null(rejection);
+            var asked = new ConcurrentQueue<string>();
+            var descriptors = new LampArrayDescriptors(path =>
+            {
+                asked.Enqueue(path);
+                return null;
+            });
             var layout = new LampArrayLayout(1, 2, 3, 5, 6, true, 51);
-            Assert.Null(descriptors.AttributesAgree(keyboard, layout, new byte[51], default));
-            Assert.Null(descriptors.ProductName(keyboard));
+            void ReadAll(LampArrayDescriptors reads)
+            {
+                Assert.Null(reads.Read(keyboard, out string rejection));
+                Assert.Null(rejection);
+                Assert.Null(reads.AttributesAgree(keyboard, layout, new byte[51], default));
+                Assert.Null(reads.ProductName(keyboard));
+            }
+
+            Assert.True(RealHidAccess.Refused);
+            ReadAll(descriptors);
+            Assert.Empty(asked);
+
+            using (RealHidAccess.AllowForTest())
+            {
+                ReadAll(descriptors);
+                Assert.Equal(new[] { keyboard, keyboard, keyboard }, asked);
+            }
+            ReadAll(descriptors);
+            Assert.Equal(3, asked.Count);
+
+            // No path opens nothing either way, and the app's own reads
+            // are refused like the scripted ones.
+            Assert.Null(descriptors.ProductName(null));
+            Assert.Null(descriptors.ProductName(""));
+            Assert.Equal(3, asked.Count);
+            ReadAll(new LampArrayDescriptors());
         }
 
         /// <summary>The lane has one open of its own, and it asks before
@@ -3296,7 +3816,7 @@ namespace PadForge.Tests
         public void TheLanesOneOpen_AsksBeforeItOpens()
         {
             string source = Source("LampArrayBackend.cs");
-            const string signature = "private static SafeFileHandle OpenQueryOnly(string path)";
+            const string signature = "private SafeFileHandle OpenQueryOnly(string path)";
             int at = source.IndexOf(signature, StringComparison.Ordinal);
             Assert.True(at >= 0, signature);
             Assert.Equal(1, Count(source, "CreateFile("));
@@ -3310,6 +3830,10 @@ namespace PadForge.Tests
 
             Assert.Equal(3, Count(source, "using var handle = OpenQueryOnly(path);"));
             Assert.Equal(4, Count(Code(source), "OpenQueryOnly("));
+            // The open itself is reached from that method alone.
+            Assert.Equal(1, Count(Code(source), "_open(path)"));
+            Assert.Contains("_open = open ?? OpenCollection;", source);
+            Assert.Equal(2, Count(Code(source), "OpenCollection"));
             Assert.Equal(0, Count(Code(Source("LampArrayProtocol.cs")), "CreateFile"));
             Assert.Equal(0, Count(Code(Source("WindowsLightingState.cs")), "CreateFile"));
         }
@@ -3386,7 +3910,9 @@ namespace PadForge.Tests
 
         /// <summary>The worker's tests hand the worker its walks. One test
         /// walks the real collections and opens real ones, the live test,
-        /// past its gate and inside the scope that lifts the refusal.</summary>
+        /// past its gate and inside the scope that lifts the refusal. The
+        /// one other scope that lifts it counts the descriptor reads
+        /// against an open of the test's own, which reaches no collection.</summary>
         [Fact]
         public void OnlyTheLiveTestReachesTheRealCollections()
         {
@@ -3396,9 +3922,18 @@ namespace PadForge.Tests
             // Each name is put together here, so this test is not one of
             // the places it looks for.
             string lift = "RealHidAccess." + "AllowForTest()";
-            Assert.Equal(1, Count(tests, lift));
+            Assert.Equal(2, Count(tests, lift));
             int scope = tests.IndexOf(lift, StringComparison.Ordinal);
             Assert.True(scope > gate, "the refusal is lifted past the gate");
+            int counted = tests.IndexOf(lift, scope + lift.Length, StringComparison.Ordinal);
+            int reads = tests.IndexOf("public void TheTestHostRefusesTheDescriptorReads()", StringComparison.Ordinal);
+            int after = tests.IndexOf("public void TheLanesOneOpen_AsksBeforeItOpens()", StringComparison.Ordinal);
+            Assert.True(reads > scope && counted > reads && after > counted, "the other scope is the descriptor reads' own");
+            // Inside it the reads go through the open that test scripts.
+            Assert.Equal(1, Count(tests.Substring(reads, after - reads), "new LampArray" + "Descriptors()"));
+            Assert.True(tests.IndexOf("new LampArray" + "Descriptors()", reads, StringComparison.Ordinal)
+                        > tests.IndexOf("Assert.Equal(3, asked.Count);", counted, StringComparison.Ordinal),
+                "the app's own reads are made with the refusal back in force");
             foreach (string real in new[]
                      {
                          "HidCollectionRuntime." + "Enumerate()", "HidReportChannel." + "OpenFeatureOnly(",

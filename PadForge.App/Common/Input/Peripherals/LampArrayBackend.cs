@@ -94,6 +94,15 @@ namespace PadForge.Common.Input.Peripherals
     {
         private const int HidP_Output = 1;
 
+        private readonly Func<string, SafeFileHandle> _open;
+
+        public LampArrayDescriptors()
+            : this(null) { }
+
+        /// <summary>Test seam: the open behind <see cref="OpenQueryOnly"/>,
+        /// so a test counts the opens the test host's refusal lets through.</summary>
+        internal LampArrayDescriptors(Func<string, SafeFileHandle> open) => _open = open ?? OpenCollection;
+
         public LampArrayLayout Read(string path, out string rejection)
         {
             rejection = null;
@@ -184,18 +193,21 @@ namespace PadForge.Common.Input.Peripherals
         /// nowhere else, so the test host's refusal
         /// (<see cref="RealHidAccess"/>) covers them all: each then answers
         /// as for a collection that cannot be read now.</summary>
-        private static SafeFileHandle OpenQueryOnly(string path)
+        private SafeFileHandle OpenQueryOnly(string path)
         {
             if (string.IsNullOrEmpty(path)) return null;
             // The test host opens no device (RealHidAccess).
             if (RealHidAccess.Refused) return null;
-            var handle = SonyHeadsetHid.CreateFile(path, 0,
-                SonyHeadsetHid.FILE_SHARE_READ | SonyHeadsetHid.FILE_SHARE_WRITE,
-                IntPtr.Zero, SonyHeadsetHid.OPEN_EXISTING, 0, IntPtr.Zero);
-            if (!handle.IsInvalid) return handle;
-            handle.Dispose();
+            var handle = _open(path);
+            if (handle != null && !handle.IsInvalid) return handle;
+            handle?.Dispose();
             return null;
         }
+
+        private static SafeFileHandle OpenCollection(string path)
+            => SonyHeadsetHid.CreateFile(path, 0,
+                SonyHeadsetHid.FILE_SHARE_READ | SonyHeadsetHid.FILE_SHARE_WRITE,
+                IntPtr.Zero, SonyHeadsetHid.OPEN_EXISTING, 0, IntPtr.Zero);
 
         private static void Add(List<LampValueCap> fields, SonyHeadsetHid.HIDP_VALUE_CAPS[] caps, bool output)
         {
@@ -456,7 +468,15 @@ namespace PadForge.Common.Input.Peripherals
     /// since a device in autonomous mode may ignore every update (HID Usage
     /// Tables 1.6, 26.10.1). A unit that turns Windows-lit while claimed is
     /// let go without a frame. The state is read again every
-    /// <see cref="LitReadMs"/>, and once more right before each hand-back.</para>
+    /// <see cref="LitReadMs"/>, and once more right before each hand-back.
+    /// A collection the scan cannot describe is not listed, so the rule
+    /// that closes a device's own protocol while Windows lights it
+    /// (<see cref="PeripheralLinker.ChooseLighting"/>) does not see it.
+    /// Nothing on record says whether Windows lights such a collection in
+    /// fact: the switch reads on for every collection nobody set, one
+    /// Windows never took among them, and closing a HID++, Razer or
+    /// SteelSeries path on that reading would darken a device that
+    /// nothing else lights.</para>
     ///
     /// <para>The control report is never read back. Microsoft's firmware
     /// samples answer a GET for the attributes and the response alone
@@ -474,15 +494,29 @@ namespace PadForge.Common.Input.Peripherals
     /// attributes read is not listed, and is asked again on the same
     /// backoff.</para>
     ///
-    /// <para>No step sleeps. Every wait is a time the worker comes back
-    /// at: the pause between two tries of a failed read, the wait between
-    /// the claim and the first color, the update interval. A unit's lamps
-    /// are read <see cref="LampsPerPass"/> to a pass. So a device that is
-    /// slow to answer holds up no other unit's colors for longer than one
-    /// such step takes, and a stop is never kept waiting on a pause.
-    /// HidD_SetFeature and HidD_GetFeature themselves take no
-    /// timeout, which is why this family has a thread of its own and the
-    /// crash path writes through a bounded call
+    /// <para>A unit that was claimed when its write failed is owed its
+    /// hand-back from then on. A device that missed one report and stayed
+    /// on the bus still has AutonomousMode off, and keeps the last color
+    /// until it loses power. So the unit stays on the crash path's record,
+    /// and the hand-back goes out when it answers again with nothing
+    /// claiming it, or at stop through a bounded write on a handle of its
+    /// own. A claim that takes the unit anew ends the debt, and so does
+    /// Windows lighting it.</para>
+    ///
+    /// <para>No step of a pass sleeps. Every wait there is a time the
+    /// worker comes back at: the pause between two tries of a failed read,
+    /// the wait between the claim and the first color, the update
+    /// interval. A unit's lamps are read <see cref="LampsPerPass"/> to a
+    /// pass. So a device that is slow to answer holds up no other unit's
+    /// colors for longer than one such step takes. The stop path is the
+    /// one place that sleeps: for a device with no control report it waits
+    /// out what is left of one update interval, a second at most, before
+    /// the report that turns the lamps off. Stop's own wait is longer than
+    /// that. The crash path's is not, so there that report can go out
+    /// inside the interval, where such a device may ignore it (HID Usage
+    /// Tables 1.6, 26.7). HidD_SetFeature and HidD_GetFeature themselves
+    /// take no timeout, which is why this family has a thread of its own
+    /// and the crash path writes through a bounded call
     /// (<see cref="HidReportChannel.RunBounded"/>).</para>
     /// </summary>
     internal sealed class LampArrayBackend : IDirectUnitBackend
@@ -544,10 +578,10 @@ namespace PadForge.Common.Input.Peripherals
         /// right for the scan's read, by the ladder for a claim), the
         /// container lookup, the read of Windows' lighting switch for one
         /// collection, the clock every interval here is measured on, the
-        /// crash path's one-shot writer, the stop path's pause, the idle
-        /// tick, the wait for a predecessor and Stop's own wait, so a bench
-        /// drives the worker against scripted channels and a time it sets
-        /// itself.
+        /// crash path's one-shot writer and its wait for the worker, the
+        /// stop path's pause, the idle tick, the wait for a predecessor and
+        /// Stop's own wait, so a bench drives the worker against scripted
+        /// channels and a time it sets itself.
         /// </summary>
         internal sealed class Seams
         {
@@ -559,6 +593,10 @@ namespace PadForge.Common.Input.Peripherals
             public Func<long> Ticks { get; init; }
             public Func<string, byte[], int, bool> SetFeatureOnce { get; init; }
             public Action<int> Pause { get; init; }
+
+            /// <summary>The crash path's wait for the worker to end, given
+            /// the most it may take.</summary>
+            public Func<Thread, int, bool> Join { get; init; }
             public int IdleTickMs { get; init; } = LampArrayBackend.IdleTickMs;
             public int PredecessorJoinMs { get; init; } = LampArrayBackend.PredecessorJoinMs;
             public int StopJoinMs { get; init; } = LampArrayBackend.StopJoinMs;
@@ -628,6 +666,15 @@ namespace PadForge.Common.Input.Peripherals
 
             public bool Claimed => Phase == Phase.Settling || Phase == Phase.Lit;
 
+            /// <summary>A hand-back is owed: the unit fell asleep while it
+            /// was claimed, so its device may still have AutonomousMode
+            /// off, or hold a color no effect of its own repaints. Paid
+            /// when the unit answers again with nothing claiming it, at
+            /// stop and on the crash path. Ended by a claim that takes the
+            /// unit anew, by Windows lighting it, and by its collection
+            /// leaving the walk.</summary>
+            public bool Owed;
+
             /// <summary>Described, rejected, or asked once without an
             /// answer: nothing the first scan still has to find out.</summary>
             public bool Settled => Unit != null || Rejected || Misses > 0;
@@ -670,6 +717,7 @@ namespace PadForge.Common.Input.Peripherals
         private readonly Func<long> _deadlineTicks;
         private readonly Func<string, byte[], int, bool> _setFeatureOnce;
         private readonly Action<int> _pause;
+        private readonly Func<Thread, int, bool> _join;
         private readonly int _idleTickMs;
         private readonly int _predecessorJoinMs;
         private readonly int _stopJoinMs;
@@ -677,9 +725,10 @@ namespace PadForge.Common.Input.Peripherals
 
         private DirectBackendSnapshot _snapshot = DirectBackendSnapshot.NotScanned;
 
-        /// <summary>The units holding a claim now, each with the report
-        /// that hands it back, for the crash path, which cannot wait on
-        /// this worker. Swapped whole.</summary>
+        /// <summary>The units holding a claim now and the ones owed a
+        /// hand-back (<see cref="Lamp.Owed"/>), each with the report that
+        /// hands it back, for the crash path, which cannot wait on this
+        /// worker. Swapped whole.</summary>
         private (string Path, byte[] HandBack)[] _claimed = NoClaims;
 
         /// <summary>The last walk the host handed over, and how many it
@@ -714,6 +763,7 @@ namespace PadForge.Common.Input.Peripherals
             _deadlineTicks = seams.Ticks ?? (() => Environment.TickCount64);
             _setFeatureOnce = seams.SetFeatureOnce ?? HidReportChannel.SetFeatureOnce;
             _pause = seams.Pause ?? Thread.Sleep;
+            _join = seams.Join ?? ((thread, ms) => thread.Join(ms));
             _idleTickMs = Math.Max(1, seams.IdleTickMs);
             _predecessorJoinMs = seams.PredecessorJoinMs;
             _stopJoinMs = seams.StopJoinMs;
@@ -808,9 +858,10 @@ namespace PadForge.Common.Input.Peripherals
         {
             SignalStop();
             long left = deadline - _deadlineTicks();
-            if (left > 0)
+            var thread = _thread;
+            if (left > 0 && thread != null)
             {
-                try { _thread?.Join((int)Math.Min(PanicJoinMs, left)); } catch { }
+                try { _join(thread, (int)Math.Min(PanicJoinMs, left)); } catch { }
             }
             foreach (var (path, handBack) in Interlocked.Exchange(ref _claimed, NoClaims))
             {
@@ -978,7 +1029,7 @@ namespace PadForge.Common.Input.Peripherals
                 {
                     var lamp = lamps[path];
                     lamps.Remove(path);
-                    if (lamp.Claimed) pass.Claims = true;
+                    if (lamp.Claimed || lamp.Owed) pass.Claims = true;
                     Dispose(ref lamp.Io);
                     Dispose(ref lamp.ProbeIo);
                     if (lamp.Unit == null) continue;
@@ -1259,7 +1310,13 @@ namespace PadForge.Common.Input.Peripherals
             {
                 // Windows holds the device. A claim held until now is let
                 // go without a frame: a hand-back would switch Windows' own
-                // effect off.
+                // effect off. A hand-back still owed is dropped for the
+                // same reason.
+                if (lamp.Owed)
+                {
+                    lamp.Owed = false;
+                    pass.Claims = true;
+                }
                 if (lamp.Phase == Phase.Idle) return;
                 if (lamp.Claimed)
                     PadForge.Engine.SdlDiagLog.WriteLine($"PERIPHERAL LampArray {lamp.Label} lighting left to Windows Dynamic Lighting");
@@ -1269,7 +1326,14 @@ namespace PadForge.Common.Input.Peripherals
 
             if (!wanted)
             {
-                if (lamp.Phase == Phase.Idle) return;
+                if (lamp.Phase == Phase.Idle)
+                {
+                    // Nothing claims it and it answers again: the hand-back
+                    // it has been owed since it fell asleep. A stopping
+                    // worker leaves that to its finally.
+                    if (lamp.Owed && !run.Stop) PayBack(lamp, ref pass);
+                    return;
+                }
                 if (lamp.Claimed && !HandBack(lamp, ref pass)) return;
                 Release(lamp, ref pass);
                 return;
@@ -1318,13 +1382,16 @@ namespace PadForge.Common.Input.Peripherals
                 pass.Claims = true;
                 if (unit.HasControl && !Set(lamp, LampArrayProtocol.Control(unit.ControlId, autonomous: false)))
                 {
-                    Sleep(lamp, "its claim failed", ref pass);
+                    // The device may have taken the report that failed.
+                    Sleep(lamp, "its claim failed", ref pass, claimSent: true);
                     return;
                 }
                 lamp.ClaimedAt = _ticks();
                 lamp.SettleUntil = lamp.ClaimedAt + unit.SettleMs;
                 lamp.Sent = false;
                 lamp.Phase = Phase.Settling;
+                // This claim's own end hands the device back from here on.
+                lamp.Owed = false;
                 PadForge.Engine.SdlDiagLog.WriteLine($"PERIPHERAL LampArray {lamp.Label} lighting claimed");
             }
 
@@ -1541,12 +1608,61 @@ namespace PadForge.Common.Input.Peripherals
             return false;
         }
 
+        /// <summary>
+        /// Pays the hand-back a unit is owed (<see cref="Lamp.Owed"/>), once
+        /// it answers again and nothing claims it: the report
+        /// <see cref="HandBack"/> sends, on a channel opened for it and
+        /// closed after it. A device that reset meanwhile has the mode back
+        /// on, and enabling it again "is a no-op" (HID Usage Tables 1.6,
+        /// 26.10.1). The unit slept through its backoff, 5 seconds at the
+        /// least, so the update interval since its last color is long
+        /// over. A unit Windows lights by now is owed nothing. A report
+        /// that fails puts the unit back to sleep with the debt standing.
+        /// </summary>
+        private void PayBack(Lamp lamp, ref Pass pass)
+        {
+            var unit = lamp.Unit;
+            if (LitNow(unit.Path))
+            {
+                SetWindowsLit(lamp, true, ref pass);
+                lamp.Owed = false;
+                pass.Claims = true;
+                return;
+            }
+            lamp.Io = Open(_openClaim, unit.Path);
+            if (lamp.Io == null)
+            {
+                Sleep(lamp, "it could not be opened", ref pass);
+                return;
+            }
+            if (!Set(lamp, HandBackFrame(unit)))
+            {
+                Sleep(lamp, "its hand-back failed", ref pass);
+                return;
+            }
+            Dispose(ref lamp.Io);
+            lamp.Owed = false;
+            lamp.Misses = 0;
+            pass.Claims = true;
+            PadForge.Engine.SdlDiagLog.WriteLine($"PERIPHERAL LampArray {lamp.Label} lighting handed back");
+        }
+
         /// <summary>The stop path's hand-back, on the worker's own channel.
-        /// A unit Windows lights and a unit that is asleep get nothing.</summary>
+        /// A unit Windows lights gets nothing. A unit that is asleep gets
+        /// nothing either, unless its hand-back is owed
+        /// (<see cref="Lamp.Owed"/>). That one goes out through a handle
+        /// of its own, bounded, as on the crash path, since the worker has
+        /// no channel to the unit.</summary>
         private void HandBackOnStop(Lamp lamp)
         {
-            if (!lamp.Claimed || lamp.Io == null || lamp.Asleep) return;
             var unit = lamp.Unit;
+            if (lamp.Owed && unit != null)
+            {
+                if (lamp.WindowsLit || LitNow(unit.Path)) return;
+                try { _setFeatureOnce(unit.Path, HandBackFrame(unit), OneShotMs); } catch { }
+                return;
+            }
+            if (!lamp.Claimed || lamp.Io == null || lamp.Asleep) return;
             if (lamp.WindowsLit || LitNow(unit.Path)) return;
             if (unit.HasControl)
             {
@@ -1576,14 +1692,23 @@ namespace PadForge.Common.Input.Peripherals
         /// <summary>
         /// A write failed, or the unit could not be opened: the contract's
         /// rule for a unit that cannot be written to now. Its channel is
-        /// closed and its claim forgotten, with nothing sent, since there
-        /// is no channel to send it on. What was read of its lamps is
-        /// forgotten too. It is listed asleep, a walk is asked for, since
-        /// the device may have left, and it is described again after the
+        /// closed and its claim ended, with nothing sent, since there is
+        /// no channel to send it on. A unit that was claimed, or whose
+        /// claim report is the one that failed
+        /// (<paramref name="claimSent"/>), is owed its hand-back from here
+        /// on (<see cref="Lamp.Owed"/>): the device may have missed that
+        /// one report and kept the claim. What was read of its lamps is
+        /// forgotten. It is listed asleep, a walk is asked for, since the
+        /// device may have left, and it is described again after the
         /// backoff.
         /// </summary>
-        private void Sleep(Lamp lamp, string why, ref Pass pass)
+        private void Sleep(Lamp lamp, string why, ref Pass pass, bool claimSent = false)
         {
+            if (lamp.Claimed || claimSent)
+            {
+                lamp.Owed = true;
+                pass.Claims = true;
+            }
             Release(lamp, ref pass);
             lamp.Asleep = true;
             lamp.LampsRead = false;
@@ -1646,13 +1771,14 @@ namespace PadForge.Common.Input.Peripherals
             Volatile.Write(ref _claimed, next);
         }
 
-        /// <summary>Records which units hold a claim, for the crash path.</summary>
+        /// <summary>Records which units hold a claim or are owed a
+        /// hand-back, for the crash path.</summary>
         private void PublishClaimed(WorkerRun run, Dictionary<string, Lamp> lamps)
         {
             if (!InCharge(run)) return;
             var claimed = new List<(string, byte[])>();
             foreach (var lamp in lamps.Values)
-                if (lamp.Claimed) claimed.Add((lamp.Path, HandBackFrame(lamp.Unit)));
+                if (lamp.Claimed || lamp.Owed) claimed.Add((lamp.Path, HandBackFrame(lamp.Unit)));
             Volatile.Write(ref _claimed, claimed.Count == 0 ? NoClaims : claimed.ToArray());
         }
 

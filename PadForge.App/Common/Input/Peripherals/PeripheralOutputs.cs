@@ -136,10 +136,10 @@ namespace PadForge.Common.Input.Peripherals
 
         /// <summary>The row's device is of a vendor whose program drives
         /// every device of that vendor while it runs: a Logitech, Razer or
-        /// SteelSeries device (<see cref="PeripheralLinker.HasVendorProgram"/>).
-        /// A path that lights such a row on its own is withdrawn when the
-        /// program starts, so the link pass watches for the program while
-        /// one is claimed
+        /// SteelSeries device (<see cref="PeripheralLinker.HasVendorProgram"/>),
+        /// or the row of a unit of one. A path that lights such a row on
+        /// its own is withdrawn when the program starts, so the link pass
+        /// watches for the program while one is claimed
         /// (<see cref="PeripheralOutputs.AnyClaimAVendorProgramTakes"/>).</summary>
         public bool HasVendorProgram { get; init; }
 
@@ -801,11 +801,12 @@ namespace PadForge.Common.Input.Peripherals
         /// <summary>Whether a claim resolves on a lighting path that a
         /// vendor's program would take away: a HID++, Razer or SteelSeries
         /// unit, or a LampArray unit held by a row of one of those three
-        /// vendors (<see cref="DeviceLinks.HasVendorProgram"/>). Not a
-        /// LampArray unit Windows Dynamic Lighting lights, which its
-        /// backend leaves unpainted, and not a LampArray unit of any other
-        /// vendor's device or of a unit row, whose path no running flag can
-        /// move. The table and the units come from one pass's publish.</summary>
+        /// vendors, the unit's own row included
+        /// (<see cref="DeviceLinks.HasVendorProgram"/>). Not a LampArray
+        /// unit Windows Dynamic Lighting lights, which its backend leaves
+        /// unpainted, and not a LampArray unit of any other vendor's
+        /// device, whose path no running flag can move. The table and the
+        /// units come from one pass's publish.</summary>
         internal static bool AnyClaimAVendorProgramTakes()
         {
             var links = Links;

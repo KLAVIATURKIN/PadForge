@@ -489,7 +489,7 @@ namespace PadForge.Common.Input.Peripherals
             {
                 if (cap.UsagePage != UsagePage || cap.LinkUsagePage != UsagePage || cap.LinkUsage != MultiUpdateReport) continue;
                 if (LampIdUsage < cap.UsageMin || LampIdUsage > cap.UsageMax) continue;
-                slots += Math.Max(1, (int)cap.ReportCount);
+                slots += ValuesOf(cap, LampIdUsage);
             }
 
             return new LampArrayLayout(attributes[0].ReportId, request[0].ReportId, response[0].ReportId, range[0].ReportId,
@@ -559,9 +559,38 @@ namespace PadForge.Common.Input.Peripherals
             if (found == 0) rejection = $"its {name} has no usage 0x{usage:X2}";
             else if (found > 1) rejection = $"its {name} declares usage 0x{usage:X2} {found} times";
             else if (field.BitSize != bits) rejection = $"usage 0x{usage:X2} of its {name} is {field.BitSize} bits where {bits} are due";
-            else if (field.ReportCount != 1) rejection = $"usage 0x{usage:X2} of its {name} is an array of {field.ReportCount}";
+            else if (ValuesOf(field, usage) != 1) rejection = $"usage 0x{usage:X2} of its {name} is an array of {ValuesOf(field, usage)}";
             else return true;
             return false;
+        }
+
+        /// <summary>
+        /// How many values one usage has in a field as Windows' parser
+        /// lists it. A field of one usage has as many as its report count,
+        /// and more than one is a usage value array: "only one usage is
+        /// specified for a main item whose report count is greater than
+        /// one" (Microsoft's value-capability-arrays.md). A field declared
+        /// with a usage range has one value for each of its usages. Its
+        /// report count is taken both ways, as "the number of individual
+        /// values described by the structure" (the same page, and hidapi's
+        /// rebuild of a descriptor, windows/hidapi_descriptor_reconstruct.c:885-983,
+        /// which writes the count out as the item's Report Count) and as 1,
+        /// since no descriptor read here declares a LampArray field as a
+        /// range. A count above the range's length leaves the surplus on
+        /// the last usage: with five controls and three usages "the third
+        /// usage would also be assigned to the fourth and fifth controls"
+        /// (Device Class Definition for HID 1.11, 6.2.2.8, HidLibrary
+        /// misc/HID1_11.pdf). That usage is then no single value, and is
+        /// turned down. Either way the frames are checked byte for byte
+        /// against the parser's own (<see cref="CrossCheck"/>).
+        /// </summary>
+        internal static int ValuesOf(LampValueCap cap, ushort usage)
+        {
+            int count = Math.Max(1, (int)cap.ReportCount);
+            int span = cap.UsageMax - cap.UsageMin + 1;
+            if (span <= 1) return count;
+            if (count <= span) return 1;
+            return usage == cap.UsageMax ? count - span + 1 : 1;
         }
 
         /// <summary>Builds one report through Windows' HID parser, with no

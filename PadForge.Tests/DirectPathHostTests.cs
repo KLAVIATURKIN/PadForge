@@ -155,6 +155,10 @@ namespace PadForge.Tests
             Assert.False(PeripheralOutputs.AnyClaimAVendorProgramTakes());
             Link(new DeviceLinks { Device = A, Lighting = new[] { lamp.Path }, UnitRow = true });
             Assert.False(PeripheralOutputs.AnyClaimAVendorProgramTakes());
+            // The row of a unit that is such a vendor's device is one its
+            // program takes too.
+            Link(new DeviceLinks { Device = A, Lighting = new[] { lamp.Path }, UnitRow = true, HasVendorProgram = true });
+            Assert.True(PeripheralOutputs.AnyClaimAVendorProgramTakes());
             // Held by two rows, one of them such a vendor's.
             Link(new DeviceLinks { Device = A, Lighting = new[] { lamp.Path } },
                  new DeviceLinks { Device = B, Lighting = new[] { lamp.Path }, HasVendorProgram = true });
