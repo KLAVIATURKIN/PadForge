@@ -10,8 +10,50 @@ using Xunit.Abstractions;
 
 namespace PadForge.Tests;
 
+/// <summary>
+/// Runs beside no other collection. AudioProfileLifecycleTests replaces the
+/// settings every class of the SettingsManagerStatics collection reads (the
+/// device and setting lists, the slot arrays and orders, the profiles), and
+/// the InputService it builds reaches HidHideController's statics when it is
+/// disposed: a fake driver a hiding test had put in HidHideController.IoSeam
+/// would be read, and written with entries in the managed set. It also shuts
+/// down the one AudioPassthroughService the other classes of this collection
+/// use. DisableParallelization keeps it apart from all of them: xunit runs
+/// such a collection after the parallel ones have ended, and its classes one
+/// at a time. Membership in SettingsManagerStatics would keep it from the
+/// hiding tests alone and let it run beside the audio classes here.
+/// </summary>
 [CollectionDefinition("AudioProfileLifecycle", DisableParallelization = true)]
 public sealed class AudioProfileLifecycleCollection { }
+
+/// <summary>The collection above is what keeps
+/// <see cref="AudioProfileLifecycleTests"/> away from the statics it shares.
+/// A change that drops the setting, or moves the class to a collection other
+/// classes run beside, fails here.</summary>
+public sealed class AudioProfileLifecycleIsolationTests
+{
+    [Fact]
+    public void TheClassRunsInACollectionNoOtherRunsBeside()
+    {
+        var collection = Assert.Single(typeof(AudioProfileLifecycleTests).GetCustomAttributesData(),
+            data => data.AttributeType == typeof(CollectionAttribute));
+        Assert.Equal("AudioProfileLifecycle", collection.ConstructorArguments[0].Value);
+
+        var definition = Assert.Single(typeof(AudioProfileLifecycleCollection).GetCustomAttributesData(),
+            data => data.AttributeType == typeof(CollectionDefinitionAttribute));
+        Assert.Equal("AudioProfileLifecycle", definition.ConstructorArguments[0].Value);
+        Assert.True(typeof(AudioProfileLifecycleCollection).GetCustomAttribute<CollectionDefinitionAttribute>()!.DisableParallelization);
+
+        // The hiding tests are in a collection of their own, which has no
+        // definition and so runs with the parallel ones, before this one.
+        Assert.DoesNotContain(typeof(AudioProfileLifecycleTests).Assembly.GetTypes(),
+            type => type.GetCustomAttributesData().Any(data => data.AttributeType == typeof(CollectionDefinitionAttribute)
+                && Equals(data.ConstructorArguments[0].Value, "SettingsManagerStatics")));
+        foreach (var hiding in new[] { typeof(HidHideSelfAccessTests), typeof(HidHideOffLimitsTests), typeof(HidHideDiagnosticsTests) })
+            Assert.Equal("SettingsManagerStatics", Assert.Single(hiding.GetCustomAttributesData(),
+                data => data.AttributeType == typeof(CollectionAttribute)).ConstructorArguments[0].Value);
+    }
+}
 
 [Collection("AudioProfileLifecycle")]
 public sealed class AudioProfileLifecycleTests
@@ -43,6 +85,9 @@ public sealed class AudioProfileLifecycleTests
 
     void RunProfileTransition(bool typeOnly, VirtualControllerType targetType)
     {
+        // No hiding test runs beside this class, so none has a fake driver in
+        // place for the InputService below to reach when it is disposed.
+        Assert.Null(PadForge.Common.HidHideController.IoSeam);
         using var stateScope = new StaticStateScope();
         var oldSettings = SettingsManager.UserSettings;
         var oldDevices = SettingsManager.UserDevices;

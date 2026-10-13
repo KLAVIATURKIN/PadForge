@@ -2443,6 +2443,8 @@ namespace PadForge.Common.Input
         {
             if (_hmaestroContext != null || HmSetupHeld())
                 return;
+            // The test host installs no driver and sets up no context.
+            if (HMaestroVirtualController.OffLimitsForTest) return;
 
             lock (_hmaestroContextLock)
             {
@@ -2474,7 +2476,7 @@ namespace PadForge.Common.Input
                     // preserving sweep internally (HMContext.cs), so this
                     // preflight only needs to be at least as thorough, never
                     // more destructive.
-                    try { HMContext.RemoveAllVirtualControllers(preserveInstall: true); }
+                    try { HMaestroVirtualController.SweepVirtualControllers(); }
                     catch (Exception)
                     {
                     }
@@ -2506,7 +2508,7 @@ namespace PadForge.Common.Input
                         AppDomain.CurrentDomain.ProcessExit += (_, _) =>
                         {
                             if (_cleanShutdownPerformed) return;
-                            try { HMContext.RemoveAllVirtualControllers(preserveInstall: true); } catch { }
+                            try { HMaestroVirtualController.SweepVirtualControllers(); } catch { }
                         };
                     }
 

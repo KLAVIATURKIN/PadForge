@@ -99,6 +99,11 @@ namespace PadForge.Services
 
         public bool TryLoad(out string detail)
         {
+            if (PadForge.Engine.Common.VendorProgramGate.Refuses)
+            {
+                detail = "the test host loads no vendor engine";
+                return false;
+            }
             if (_module != IntPtr.Zero) { detail = "already loaded"; return true; }
 
             string path = null;

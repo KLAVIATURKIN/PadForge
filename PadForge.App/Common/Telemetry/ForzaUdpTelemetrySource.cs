@@ -42,6 +42,8 @@ namespace PadForge.Common.Telemetry
             if (_run) return;
             try
             {
+                // Every address, which the test host binds none of (NetworkListenerGate).
+                PadForge.Engine.Common.NetworkListenerGate.Enter(IPAddress.Any);
                 _udp = new UdpClient(new IPEndPoint(IPAddress.Any, _port));
             }
             catch

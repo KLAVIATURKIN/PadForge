@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+using PadForge.Engine.Common;
 
 namespace PadForge.Tests
 {
@@ -78,12 +80,14 @@ namespace PadForge.Tests
     /// starts is on 127.0.0.1, the app's own classes included, which take a
     /// bind address for it. The app itself listens where it always did.
     ///
-    /// <para>The rule is held three ways. Each fixture reads back the address
+    /// <para>The rule is held four ways. Each fixture reads back the address
     /// its listener bound (LinkServerTests.StartOnFreePort,
     /// HeadTrackingInputTests). LinkServerTests reads the system's tables
     /// for the whole test host while its servers are up. The tests here read
     /// the sources, which is what catches a listener in a test that has not
-    /// been written yet.</para></summary>
+    /// been written yet. And the gate every listener of the app asks refuses
+    /// a bind beyond loopback in this process (NetworkListenerGateTests
+    /// below), which holds when the code under test is what changed.</para></summary>
     public class TestHostListenerTests
     {
         private static string RepoRoot()
@@ -326,6 +330,94 @@ namespace PadForge.Tests
             Assert.Contains("internal IPAddress UdpBindAddress { get; init; } = IPAddress.Any;", At("PadForge.App/Common/Input/HeadTrackerDevice.cs"));
             Assert.Contains("s.Bind(new IPEndPoint(UdpBindAddress, _port));", At("PadForge.App/Common/Input/HeadTrackerDevice.cs"));
             Assert.Contains("_socket.Bind(new IPEndPoint(IPAddress.Loopback, port));", At("PadForge.App/Services/DsuMotionServer.cs"));
+        }
+    }
+
+    /// <summary>The gate every listener of the app asks before it binds
+    /// (NetworkListenerGate). The test host closes it (ListenerOffLimits in
+    /// TestHostFences.cs), so a listener beyond loopback is refused here even
+    /// in a build of the code with one of its checks removed. The rows quote
+    /// the app's own lines, which the scan above rejects in a test, so these
+    /// tests sit in the file that scan leaves out.</summary>
+    public class NetworkListenerGateTests
+    {
+        private const string Gate = "PadForge.Engine/Common/NetworkListenerGate.cs";
+        private const string Telemetry = "PadForge.App/Common/Telemetry/";
+        private const string EnterAny = "PadForge.Engine.Common.NetworkListenerGate.Enter(IPAddress.Any);";
+
+        [Fact]
+        public void TheGate_IsClosedInTheTestHost() => Assert.True(NetworkListenerGate.OffLimitsForTest);
+
+        public static IEnumerable<object[]> AskedFirst() => new[]
+        {
+            new object[] { Gate, "public static void Enter(IPAddress address)", "if (OffLimitsForTest && (address == null || !IPAddress.IsLoopback(address)))" },
+            new object[] { Gate, "public static void EnterPrefix(string prefix)", "if (OffLimitsForTest && !IsLoopbackPrefix(prefix))" },
+            new object[] { "PadForge.App/Services/WebControllerListener.cs", "public void Start(string prefix)", "PadForge.Engine.Common.NetworkListenerGate.EnterPrefix(prefix);" },
+            new object[] { "PadForge.App/Services/WebControllerListener.cs", "public void AddPrefix(string prefix)", "PadForge.Engine.Common.NetworkListenerGate.EnterPrefix(prefix);" },
+            new object[] { "PadForge.Engine/RemoteLink/Dht/UdpKrpcTransport.cs", "public UdpKrpcTransport()", EnterAny },
+        };
+
+        [Theory]
+        [MemberData(nameof(AskedFirst))]
+        public void AListener_AsksTheGateBeforeAnythingElse(string file, string signature, string guard)
+            => FenceSource.AsksFirst(file, signature, guard);
+
+        public static IEnumerable<object[]> AskedBeforeTheBind() => new[]
+        {
+            new object[] { "PadForge.App/Common/Input/HeadTrackerDevice.cs", "internal sealed class HeadTrackerDevice : ISdlInputDevice", "PadForge.Engine.Common.NetworkListenerGate.Enter(UdpBindAddress);", "new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp)" },
+            new object[] { Telemetry + "CodemastersUdpTelemetrySource.cs", "public void Start()", EnterAny, "new UdpClient(" },
+            new object[] { Telemetry + "ForzaUdpTelemetrySource.cs", "public void Start()", EnterAny, "new UdpClient(" },
+            new object[] { Telemetry + "OutGaugeTelemetrySource.cs", "public void Start()", EnterAny, "new UdpClient(" },
+            new object[] { "PadForge.Engine/RemoteLink/LinkDiscovery.cs", "public void Start(int linkPort, string displayName, string fingerprintHex)", EnterAny, "_socket = new Socket(" },
+            new object[] { "PadForge.Engine/RemoteLink/LinkServer.cs", "internal bool Start(int port, IPAddress bindAddress)", "PadForge.Engine.Common.NetworkListenerGate.Enter(bindAddress);", "_tcp = new TcpListener(bindAddress, port);" },
+        };
+
+        /// <summary>A listener that does other work first asks the gate
+        /// before it makes its socket. The census of every socket the app
+        /// opens is EverySocketTheAppOpensIsAccountedFor above.</summary>
+        [Theory]
+        [MemberData(nameof(AskedBeforeTheBind))]
+        public void AListener_AsksTheGateBeforeItBinds(string file, string signature, string guard, string bind)
+            => FenceSource.AsksBefore(file, signature, guard, bind);
+
+        public static IEnumerable<object[]> Addresses() => new[]
+        {
+            new object[] { IPAddress.Loopback, true },
+            new object[] { IPAddress.IPv6Loopback, true },
+            new object[] { IPAddress.Parse("127.0.0.2"), true },
+            new object[] { IPAddress.Any, false },
+            new object[] { IPAddress.IPv6Any, false },
+            new object[] { IPAddress.Parse("192.168.1.20"), false },
+            new object[] { null, false },
+        };
+
+        [Theory]
+        [MemberData(nameof(Addresses))]
+        public void TheGate_PassesLoopbackAlone(IPAddress address, bool passes)
+        {
+            if (passes) { NetworkListenerGate.Enter(address); return; }
+            var refused = Assert.Throws<SocketException>(() => NetworkListenerGate.Enter(address));
+            Assert.Equal(SocketError.AccessDenied, refused.SocketErrorCode);
+        }
+
+        [Theory]
+        [InlineData("http://127.0.0.1:8080/", true)]
+        [InlineData("http://localhost:8080/", true)]
+        [InlineData("https://[::1]:8443/", true)]
+        [InlineData("http://+:8080/", false)]
+        [InlineData("http://*:8080/", false)]
+        [InlineData("http://0.0.0.0:8080/", false)]
+        [InlineData("http://192.168.1.20:8080/", false)]
+        [InlineData("http://padforge.local:8080/", false)]
+        [InlineData("no prefix", false)]
+        [InlineData("", false)]
+        [InlineData(null, false)]
+        public void TheGate_PassesALoopbackPrefixAlone(string prefix, bool passes)
+        {
+            Assert.Equal(passes, NetworkListenerGate.IsLoopbackPrefix(prefix));
+            if (passes) { NetworkListenerGate.EnterPrefix(prefix); return; }
+            var refused = Assert.Throws<HttpListenerException>(() => NetworkListenerGate.EnterPrefix(prefix));
+            Assert.Equal(5, refused.ErrorCode);
         }
     }
 }

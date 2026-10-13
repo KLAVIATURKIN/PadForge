@@ -132,6 +132,13 @@ namespace PadForge.Services
         {
             var result = new PairPassResult();
             if (ct.IsCancellationRequested) return result;
+            // The test host starts no inquiry and pairs, unpairs and
+            // connects nothing: the answer of a PC with no radio.
+            if (PadForge.Common.Input.BluetoothLinkHelper.OffLimitsForTest)
+            {
+                result.Error = "no-radio";
+                return result;
+            }
 
             IntPtr hRadio = IntPtr.Zero;
             IntPtr hRadioFind = IntPtr.Zero;

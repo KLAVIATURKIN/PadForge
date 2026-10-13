@@ -163,6 +163,11 @@ namespace PadForge.Services
             _http = new HttpClient { Timeout = TimeSpan.FromMilliseconds(httpTimeoutMs) };
         }
 
+        /// <summary>Whether a path is the file SteelSeries GG writes its
+        /// server's address to.</summary>
+        internal static bool IsGgsOwnFile(string corePropsPath)
+            => string.Equals(corePropsPath, DefaultCorePropsPath, StringComparison.OrdinalIgnoreCase);
+
         public bool Connected => _base != null;
 
         /// <summary>The device types whose color GG holds now.</summary>
@@ -172,6 +177,10 @@ namespace PadForge.Services
         /// False when GG is not running or refuses.</summary>
         public bool TryConnect(long now)
         {
+            // GG's own address file is not read from the test host, so its
+            // server is never called. A test hands the client a file of its
+            // own.
+            if (PadForge.Engine.Common.VendorProgramGate.Refuses && IsGgsOwnFile(_corePropsPath)) return false;
             string address = ReadAddress(_corePropsPath);
             if (address == null) return false;
             string url = "http://" + address;

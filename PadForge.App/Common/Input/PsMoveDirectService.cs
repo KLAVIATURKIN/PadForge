@@ -519,6 +519,8 @@ namespace PadForge.Common.Input
 
         private bool OpenBluetooth()
         {
+            // The test host opens no device (DirectDeviceAccess).
+            if (DirectDeviceAccess.RefusesAll) return false;
             string path = FindPdoPath();
             if (path == null) return false;
 
@@ -581,6 +583,8 @@ namespace PadForge.Common.Input
         /// (USB PID 0x0C5E, psmove_private.h:58) opens a real input session.</summary>
         private bool OpenUsb()
         {
+            // The test host opens no device (DirectDeviceAccess).
+            if (DirectDeviceAccess.RefusesAll) return false;
             var found = FindUsbHid();
             if (found == null) { _lastDockedPath = null; return false; }
 

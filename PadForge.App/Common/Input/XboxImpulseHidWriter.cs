@@ -322,6 +322,9 @@ namespace PadForge.Common.Input
         private static SafeFileHandle CreateFileSafe(
             string path, uint access, uint share, uint flags)
         {
+            // The test host opens no device (DirectDeviceAccess): the answer
+            // of a failed open.
+            if (DirectDeviceAccess.Refuses(path)) return new SafeFileHandle(new IntPtr(-1), true);
             return CreateFileW(path, access, share, IntPtr.Zero, OPEN_EXISTING, flags, IntPtr.Zero);
         }
 

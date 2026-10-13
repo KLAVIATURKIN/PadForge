@@ -51,6 +51,20 @@ namespace PadForge.Services
         private const int ERROR_NO_SUCH_DEVICE = 433;
         private const string PsmControlPath = @"\\.\BthPS3PSMControl";
 
+        /// <summary>Set by the test assembly for the life of its process
+        /// (PadForge.Tests Ds3DriverOffLimits), never by the app. The work
+        /// of this class is done to the PC: driver packages installed and
+        /// forced onto a device, a class filter registered, the Bluetooth
+        /// radio cycled or toggled, device nodes removed, a profile service
+        /// advertised, BthPS3 and BTHPORT registry keys written, owned and
+        /// deleted, the PSM filter armed and disarmed, a signing certificate
+        /// added to the machine stores, Inf2Cat and signtool run. While this
+        /// is set, none of it happens: each of those members returns or
+        /// throws as a failed call would, and so does the pairing ceremony's
+        /// own open of a controller (Ds3PairingService). Reads are as they
+        /// were. False in production, where every path is as it was.</summary>
+        internal static bool OffLimitsForTest;
+
         private static readonly PsmPatchCoordinator PsmCoordinator = new(
             ReadPsmPatchSnapshot,
             () => SetPsmPatchingCore(false, null, 0),
@@ -86,6 +100,7 @@ namespace PadForge.Services
         /// profile driver and Bluetooth silently never works.</para></summary>
         public static bool EnsureInstalled(Action<string> log)
         {
+            if (OffLimitsForTest) return false;
             try
             {
                 if (IsServiceInstalled("BthPS3"))
@@ -242,6 +257,7 @@ namespace PadForge.Services
         /// Bluetooth device and must never run on a healthy machine.</para></summary>
         private static void RepairPsmFilter(Action<string> log)
         {
+            if (OffLimitsForTest) return;
             log("PSM filter is missing from a half-installed stack; repairing.");
             try
             {
@@ -309,6 +325,9 @@ namespace PadForge.Services
                     if (c.NotAfter > DateTime.Now.AddDays(30) && c.HasPrivateKey)
                         return c.Thumbprint;
             }
+            // The test host adds no certificate to this PC's stores.
+            if (OffLimitsForTest)
+                throw new InvalidOperationException("The test host adds no certificate to this PC's stores.");
 
             using var rsa = RSA.Create(2048);
             var req = new CertificateRequest(Ds3CertSubject, rsa,
@@ -369,6 +388,11 @@ namespace PadForge.Services
         /// under the one certificate.</summary>
         internal static bool SignDriverPackage(string dir, string catalogName, Action<string> log)
         {
+            if (OffLimitsForTest)
+            {
+                log?.Invoke("Preparing the USB driver failed: the test host signs no driver package.");
+                return false;
+            }
             lock (_signLock)
             try
             {
@@ -436,6 +460,8 @@ namespace PadForge.Services
         /// a handle on the catalog and fails the NEXT attempt's delete.</summary>
         private static (int Code, string Output) RunTool(string exe, string args, string workingDir)
         {
+            if (OffLimitsForTest)
+                throw new System.ComponentModel.Win32Exception(5, "The test host starts no process: " + exe);
             var psi = new System.Diagnostics.ProcessStartInfo(exe, args)
             {
                 WorkingDirectory = workingDir,
@@ -510,6 +536,7 @@ namespace PadForge.Services
         public static bool EnsureWinUsbBound(
             Action<string> log, CancellationToken ct, string pidToken, string padLabel)
         {
+            if (OffLimitsForTest) return false;
             try
             {
                 // The DOCKED PAD decides, never the interface registry. The
@@ -927,6 +954,7 @@ namespace PadForge.Services
         /// Returns the number removed.</summary>
         internal static int RemoveStaleBthPs3Children(Action<string> log)
         {
+            if (OffLimitsForTest) return 0;
             int removed = 0;
             try
             {
@@ -1326,6 +1354,7 @@ namespace PadForge.Services
         /// itself (observed on the 2026-08-06 arcade-PC rehearsal).</para></summary>
         public static void CycleBluetoothRadio(Action<string> log)
         {
+            if (OffLimitsForTest) return;
             try
             {
                 lock (_cycleLock)
@@ -1444,6 +1473,7 @@ namespace PadForge.Services
         public static bool WriteRememberedDeviceRecord(byte[] radioMacBigEndian, string deviceMacHex,
             string remoteName, int pid, Action<string> log)
         {
+            if (OffLimitsForTest) return false;
             PurgeForeignDeviceRecord(radioMacBigEndian, deviceMacHex, log);
             if (!WriteDeviceNameRecord(deviceMacHex, remoteName, pid, log)) return false;
             if (!SetDeviceRecordOwnerToSystem(deviceMacHex, log)) return false;
@@ -1480,6 +1510,7 @@ namespace PadForge.Services
         /// radio cycle makes the driver reload it.</summary>
         public static bool EnsureMoveFamilySupportEnabled(Action<string> log)
         {
+            if (OffLimitsForTest) return false;
             bool changed = false;
             try
             {
@@ -1521,6 +1552,7 @@ namespace PadForge.Services
         // record from an earlier pairing can still be overwritten by the elevated app.
         private static bool WriteDeviceNameRecord(string deviceMacHex, string remoteName, int pid, Action<string> log)
         {
+            if (OffLimitsForTest) return false;
             EnablePrivilege("SeBackupPrivilege");
             EnablePrivilege("SeRestorePrivilege");
             int rc = RegCreateKeyEx(HKLM, BthPortDevicesKey + deviceMacHex, 0, null,
@@ -1554,6 +1586,7 @@ namespace PadForge.Services
         // the caller; SeTakeOwnership to touch the record's security at all.
         private static bool SetDeviceRecordOwnerToSystem(string deviceMacHex, Action<string> log)
         {
+            if (OffLimitsForTest) return false;
             EnablePrivilege("SeTakeOwnershipPrivilege");
             EnablePrivilege("SeRestorePrivilege");
             if (!ConvertStringSidToSid("S-1-5-18", out IntPtr pSid)) { log("SID convert failed."); return false; }
@@ -1573,6 +1606,7 @@ namespace PadForge.Services
         /// SYSTEM-owned key still fails with ERROR_ACCESS_DENIED.</summary>
         private static void GrantAdministratorsFullControl(string subKey, Action<string> log)
         {
+            if (OffLimitsForTest) return;
             try
             {
                 using var key = Registry.LocalMachine.OpenSubKey(subKey,
@@ -1597,6 +1631,7 @@ namespace PadForge.Services
         /// Administrators first (SeTakeOwnership/SeRestore) before the delete.</summary>
         public static void DeleteRememberedDeviceRecord(byte[] radioMacBigEndian, string deviceMacHex, Action<string> log)
         {
+            if (OffLimitsForTest) return;
             try
             {
                 EnablePrivilege("SeTakeOwnershipPrivilege");
@@ -1709,6 +1744,9 @@ namespace PadForge.Services
 
         private static IntPtr OpenKeysBackupRestore(byte[] radioMacBigEndian, Action<string> log)
         {
+            // The open creates the radio's key where there is none, so the
+            // test host makes none: the answer of a refused open.
+            if (OffLimitsForTest) return IntPtr.Zero;
             EnablePrivilege("SeBackupPrivilege");
             EnablePrivilege("SeRestorePrivilege");
             var sb = new System.Text.StringBuilder(radioMacBigEndian.Length * 2);
@@ -1867,6 +1905,7 @@ namespace PadForge.Services
 
         private static void InstallInf(string infPath, Action<string> log)
         {
+            if (OffLimitsForTest) throw new InvalidOperationException("The test host installs no driver.");
             if (!File.Exists(infPath)) throw new FileNotFoundException("Bundled driver missing", infPath);
             Devcon.Install(infPath, out bool reboot);
             if (reboot) log("(a reboot was requested by " + Path.GetFileName(infPath) + ")");
@@ -1897,6 +1936,7 @@ namespace PadForge.Services
         /// needs a function driver no INF here can supply.</para></summary>
         private static bool EnsureConsumerParams()
         {
+            if (OffLimitsForTest) return false;
             if (!IsServiceInstalled("BthPS3")) return false;
             using var key = Registry.LocalMachine.CreateSubKey(BthPs3ParamsKey, writable: true);
             if (key == null) return false;
@@ -2024,6 +2064,7 @@ namespace PadForge.Services
         /// SetPsmPatching drives the immediate state.</summary>
         public static void RestoreBthPs3AutoArm()
         {
+            if (OffLimitsForTest) return;
             try
             {
                 using var key = Registry.LocalMachine.OpenSubKey(BthPs3ParamsKey, writable: true);
@@ -2042,6 +2083,7 @@ namespace PadForge.Services
         /// Parameters key.</summary>
         public static void EnsurePadForgeOwnsPsmPatch()
         {
+            if (OffLimitsForTest) return;
             try
             {
                 using var key = Registry.LocalMachine.OpenSubKey(BthPs3ParamsKey, writable: true);
@@ -2091,6 +2133,7 @@ namespace PadForge.Services
 
         private static int SetPsmPatchingCore(bool enable, Action<string> log, int waitForFilterMs)
         {
+            if (OffLimitsForTest) return 0;
             if (waitForFilterMs > 0 && !IsPsmFilterPresent())
                 WaitForPsmControlDevice(waitForFilterMs);
 
@@ -2143,6 +2186,7 @@ namespace PadForge.Services
         /// forever.</summary>
         private static bool EnableBthPs3Service(Action<string> log)
         {
+            if (OffLimitsForTest) return false;
             // Wait for the radio rather than reading its absence as "no radio
             // exists". This ran 0.7 s after a radio cycle and took the early
             // exit, silently skipping the advertisement.

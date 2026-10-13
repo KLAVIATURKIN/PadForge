@@ -151,6 +151,7 @@ namespace PadForge.Common.Input
         /// </summary>
         internal static bool TrySetSessionVolume(IntPtr pSession, float volume)
         {
+            if (AudioEndpointAccess.Refuses) return false;
             var iidVol = IID_SimpleAudioVolume;
             // Marshal.QueryInterface declares the IID as `in Guid` — passing
             // it bare lets the compiler insert the in-pass; an explicit `ref`
@@ -3718,7 +3719,7 @@ namespace PadForge.Common.Input
                     };
                     if (!string.IsNullOrEmpty(workDir))
                         psi.WorkingDirectory = workDir;
-                    System.Diagnostics.Process.Start(psi);
+                    PadForge.Common.ShellLaunch.Start(psi);
                 }
                 catch { /* bad path or blocked launch: the user owns this; never crash the engine */ }
             });
@@ -5870,6 +5871,7 @@ namespace PadForge.Common.Input
         /// </summary>
         private void SetSystemVolume(float volume, bool showOsd = true)
         {
+            if (AudioEndpointAccess.Refuses) return;
             volume = Math.Clamp(volume, 0f, 1f);
 
             // Skip if the volume hasn't changed (within ~0.4% tolerance = 1/256).
@@ -6532,8 +6534,15 @@ namespace PadForge.Common.Input
         private const ushort VK_TAB = 0x09;
         private const ushort VK_RETURN = 0x0D;
 
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern uint SendInput(uint nInputs, INPUT[] pInputs, int cbSize);
+        [DllImport("user32.dll", SetLastError = true, EntryPoint = "SendInput")]
+        private static extern uint SendInputNative(uint nInputs, INPUT[] pInputs, int cbSize);
+
+        /// <summary>The one way a macro injects a key, a button, a wheel
+        /// turn or a move. The test host injects none
+        /// (InputHookManager.DesktopInputOffLimits) and is answered no event
+        /// sent, as when the input is blocked.</summary>
+        private static uint SendInput(uint nInputs, INPUT[] pInputs, int cbSize)
+            => PadForge.Engine.Common.InputHookManager.DesktopInputOffLimits ? 0 : SendInputNative(nInputs, pInputs, cbSize);
 
         [DllImport("user32.dll")]
         private static extern uint MapVirtualKey(uint uCode, uint uMapType);

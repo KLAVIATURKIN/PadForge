@@ -6783,7 +6783,7 @@ namespace PadForge
             string folder = System.IO.Path.GetDirectoryName(_settingsService.SettingsFilePath);
             if (!string.IsNullOrEmpty(folder) && System.IO.Directory.Exists(folder))
             {
-                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                PadForge.Common.ShellLaunch.Start(new System.Diagnostics.ProcessStartInfo
                 {
                     FileName = folder,
                     UseShellExecute = true
@@ -8159,7 +8159,7 @@ namespace PadForge
                 ps.SlotPerDeviceSettingsJson = System.Text.Json.JsonSerializer.Serialize(
                     perDevice ?? Array.Empty<PadForge.Engine.Data.PerDeviceSettingsEntry>(), jsonOpts);
 
-                Clipboard.SetText(ps.ToJson(copyOutputType, copyIsExtended));
+                PadForge.Common.ShellLaunch.SetClipboardText(ps.ToJson(copyOutputType, copyIsExtended));
                 _viewModel.StatusText = Strings.Instance.Status_SettingsCopied;
             }
             catch (Exception ex)
@@ -8387,7 +8387,7 @@ namespace PadForge
                 var macro = padVm.SelectedMacro;
                 if (macro == null) return;
                 var data = SettingsService.BuildMacroDataForMacro(macro, padVm.PadIndex);
-                Clipboard.SetText(SettingsService.SerializeMacrosToClipboard(new[] { data }));
+                PadForge.Common.ShellLaunch.SetClipboardText(SettingsService.SerializeMacrosToClipboard(new[] { data }));
                 _viewModel.StatusText = Strings.Instance.Status_MacroCopied;
             }
             catch (Exception ex)

@@ -194,23 +194,32 @@ namespace PadForge.Tests
             {
                 "PadForge.App/App.xaml.cs",
                 "PadForge.App/Common/Input/InputManager.Step5.VirtualDevices.cs",
+                "PadForge.App/Common/Input/HMaestroVirtualController.cs",
             };
 
-            int callSites = 0;
+            // Every site runs the sweep through one member, which passes
+            // preserveInstall and which the test host refuses
+            // (VirtualControllerOffLimits).
+            int callSites = 0, sweeps = 0;
             foreach (string f in files)
                 foreach (string line in Live(Read(f)).Split('\n'))
                 {
+                    if (line.Contains("HMaestroVirtualController.SweepVirtualControllers();", StringComparison.Ordinal))
+                        sweeps++;
                     int at = line.IndexOf("RemoveAllVirtualControllers(", StringComparison.Ordinal);
                     if (at < 0) continue;
                     callSites++;
+                    Assert.EndsWith("HMaestroVirtualController.cs", f, StringComparison.Ordinal);
                     string args = line.Substring(at + "RemoveAllVirtualControllers(".Length);
                     Assert.True(args.StartsWith("preserveInstall", StringComparison.Ordinal),
                         $"{f}: sweep call site must pass preserveInstall, got: {line.Trim()}");
                 }
 
-            // A guard that finds nothing to guard is not a guard. Both known
-            // sites plus the startup one must be present.
-            Assert.Equal(3, callSites);
+            // A guard that finds nothing to guard is not a guard. The one
+            // member, and its three callers: the two known sites plus the
+            // startup one.
+            Assert.Equal(1, callSites);
+            Assert.Equal(3, sweeps);
         }
 
     }

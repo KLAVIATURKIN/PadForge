@@ -37,8 +37,13 @@ namespace PadForge.Common.Telemetry
         public void Start()
         {
             if (_run) return;
-            try { _udp = new UdpClient(new IPEndPoint(IPAddress.Any, _port)); }
-            catch { _udp = null; return; } // port already bound — stay idle
+            try
+            {
+                // Every address, which the test host binds none of (NetworkListenerGate).
+                PadForge.Engine.Common.NetworkListenerGate.Enter(IPAddress.Any);
+                _udp = new UdpClient(new IPEndPoint(IPAddress.Any, _port));
+            }
+            catch { _udp = null; return; } // The port is already bound. Stay idle.
             _run = true;
             _thread = new Thread(Loop) { IsBackground = true, Name = "OutGaugeTelemetry" };
             _thread.Start();

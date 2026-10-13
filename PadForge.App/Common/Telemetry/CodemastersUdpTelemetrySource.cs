@@ -44,8 +44,13 @@ namespace PadForge.Common.Telemetry
         public void Start()
         {
             if (_run) return;
-            try { _udp = new UdpClient(new IPEndPoint(IPAddress.Any, Port)); }
-            catch { _udp = null; return; } // 20777 already bound (e.g. SimHub) — stay idle
+            try
+            {
+                // Every address, which the test host binds none of (NetworkListenerGate).
+                PadForge.Engine.Common.NetworkListenerGate.Enter(IPAddress.Any);
+                _udp = new UdpClient(new IPEndPoint(IPAddress.Any, Port));
+            }
+            catch { _udp = null; return; } // 20777 is already bound, by SimHub for one. Stay idle.
             _run = true;
             _thread = new Thread(Loop) { IsBackground = true, Name = "CodemastersTelemetry" };
             _thread.Start();

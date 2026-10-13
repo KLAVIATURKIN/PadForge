@@ -103,6 +103,11 @@ namespace PadForge.Common.Input.Peripherals
             _http = new HttpClient { Timeout = TimeSpan.FromMilliseconds(httpTimeoutMs) };
         }
 
+        /// <summary>Whether an endpoint is the one Razer's own server
+        /// listens on.</summary>
+        internal static bool IsRazersServer(string endpoint)
+            => string.Equals(endpoint?.TrimEnd('/'), DefaultEndpoint, StringComparison.OrdinalIgnoreCase);
+
         internal bool WorkerAlive => _loop != null && !_loop.IsCompleted;
 
         /// <summary>Passes the worker has started, for the test of its
@@ -431,6 +436,9 @@ namespace PadForge.Common.Input.Peripherals
 
         private async Task<string> InitAsync(IReadOnlyList<string> categories, CancellationToken ct)
         {
+            // Razer's own server is not called from the test host. A test
+            // stands a server of its own in for it.
+            if (PadForge.Engine.Common.VendorProgramGate.Refuses && IsRazersServer(_endpoint)) return null;
             using var resp = await _http.PostAsync(
                 _endpoint + "/razer/chromasdk", JsonContent(InitBody(categories)), ct).ConfigureAwait(false);
             if (!resp.IsSuccessStatusCode) return null;

@@ -1583,6 +1583,8 @@ namespace PadForge.Common.Input
                         }
                     }
                     RawTransportOpening?.Invoke(path);
+                    // The test host opens no device (DirectDeviceAccess).
+                    if (DirectDeviceAccess.Refuses(path)) return false;
                     h = CreateFileW(path, GENERIC_WRITE | GENERIC_READ, SHARE_RW,
                         IntPtr.Zero, OPEN_EXISTING, FILE_FLAG_OVERLAPPED, IntPtr.Zero);
                     if (h == INVALID || h == IntPtr.Zero) return false;
@@ -2037,6 +2039,7 @@ namespace PadForge.Common.Input
         /// 50 ms init sleeps would starve the 10 ms tick).</summary>
         private static IntPtr OpenPairSecondChild(Sink s, string path)
         {
+            if (DirectDeviceAccess.Refuses(path)) return IntPtr.Zero;
             IntPtr h2 = CreateFileW(path, GENERIC_WRITE | GENERIC_READ, SHARE_RW,
                 IntPtr.Zero, OPEN_EXISTING, FILE_FLAG_OVERLAPPED, IntPtr.Zero);
             if (h2 == INVALID || h2 == IntPtr.Zero) return IntPtr.Zero;

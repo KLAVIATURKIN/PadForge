@@ -1908,7 +1908,15 @@ namespace PadForge.Services
         [DllImport("setupapi.dll", CharSet = CharSet.Unicode, SetLastError = true)] private static extern bool SetupDiGetDeviceInterfaceDetail(IntPtr s, ref SP_DEVICE_INTERFACE_DATA d, IntPtr det, int ds, ref int req, IntPtr di);
         [DllImport("setupapi.dll")] private static extern bool SetupDiDestroyDeviceInfoList(IntPtr s);
 
-        [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)] private static extern IntPtr CreateFile(string n, uint a, uint s, IntPtr sa, uint d, uint f, IntPtr t);
+        [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true, EntryPoint = "CreateFileW")] private static extern IntPtr CreateFileNative(string n, uint a, uint s, IntPtr sa, uint d, uint f, IntPtr t);
+
+        /// <summary>The one way the ceremony opens a controller: a DualShock
+        /// 3 or Navigation controller's WinUSB interface, a PS Move's HID
+        /// collection. Its writes store a host address in the pad. The test
+        /// host opens none (Ds3DriverInstaller.OffLimitsForTest) and is
+        /// answered a failed open.</summary>
+        private static IntPtr CreateFile(string n, uint a, uint s, IntPtr sa, uint d, uint f, IntPtr t)
+            => Ds3DriverInstaller.OffLimitsForTest ? INVALID_HANDLE : CreateFileNative(n, a, s, sa, d, f, t);
         [DllImport("kernel32.dll", SetLastError = true)] private static extern bool CloseHandle(IntPtr h);
     }
 }

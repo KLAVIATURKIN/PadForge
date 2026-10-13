@@ -24,6 +24,9 @@ namespace PadForge.Engine.RemoteLink.Dht
 
         public UdpKrpcTransport()
         {
+            // The DHT socket takes every address, which the test host binds
+            // none of (NetworkListenerGate).
+            PadForge.Engine.Common.NetworkListenerGate.Enter(IPAddress.Any);
             _socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             try { _socket.IOControl(SIO_UDP_CONNRESET, new byte[4], null); } catch { /* non-Windows */ }
             _socket.Bind(new IPEndPoint(IPAddress.Any, 0)); // ephemeral port
@@ -33,6 +36,7 @@ namespace PadForge.Engine.RemoteLink.Dht
         public async Task SendAsync(byte[] datagram, IPEndPoint node, CancellationToken ct)
         {
             if (_disposed) return;
+            if (PadForge.Engine.Common.OutboundNetworkGate.Refuses(node?.Address)) return;
             try { await _socket.SendToAsync(datagram, SocketFlags.None, node, ct).ConfigureAwait(false); }
             catch (ObjectDisposedException) { }
             catch (SocketException) { /* unreachable host: the RPC simply times out */ }
@@ -67,6 +71,7 @@ namespace PadForge.Engine.RemoteLink.Dht
             var list = new System.Collections.Generic.List<IPEndPoint>();
             foreach (var (host, port) in DhtPresenceStore.DefaultBootstrap)
             {
+                if (PadForge.Engine.Common.OutboundNetworkGate.RefusesHost(host)) continue;
                 try
                 {
                     var addrs = await Dns.GetHostAddressesAsync(host, AddressFamily.InterNetwork, ct).ConfigureAwait(false);

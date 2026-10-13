@@ -218,6 +218,8 @@ namespace PadForge.Common.Input
 
         private static bool WriteRaw(string devicePath, byte[] buf)
         {
+            // The test host opens no device (DirectDeviceAccess).
+            if (DirectDeviceAccess.Refuses(devicePath)) return false;
 
             // Open-per-write, the pre-2026-07-20 shape, RESTORED after a
             // field regression: a held-open Bluetooth HID handle made

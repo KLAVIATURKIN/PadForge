@@ -589,6 +589,8 @@ namespace PadForge.Common.Input
             IntPtr h = IntPtr.Zero;
             try
             {
+                // The test host opens no device (DirectDeviceAccess).
+                if (DirectDeviceAccess.Refuses(s.HidPath)) return false;
                 h = CreateFileW(s.HidPath, GENERIC_WRITE | GENERIC_READ, SHARE_RW,
                     IntPtr.Zero, OPEN_EXISTING, WII_OPEN_FLAGS, IntPtr.Zero);
                 if (h == INVALID || h == IntPtr.Zero)

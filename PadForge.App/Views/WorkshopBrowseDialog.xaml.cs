@@ -96,7 +96,8 @@ namespace PadForge.Views
         /// slim fetch, cached under the art budget.</summary>
         private static readonly Lazy<HttpClient> AvatarHttp = new Lazy<HttpClient>(() =>
         {
-            var http = new HttpClient { Timeout = TimeSpan.FromSeconds(15) };
+            var http = PadForge.Engine.Common.OutboundNetworkGate.NewHttpClient();
+            http.Timeout = TimeSpan.FromSeconds(15);
             var version = typeof(WorkshopBrowseDialog).Assembly.GetName().Version?.ToString(3) ?? "1.0.0";
             http.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("PadForge", version));
             return http;
@@ -1204,7 +1205,7 @@ namespace PadForge.Views
                       _selectedConfig.FileId.ToString(CultureInfo.InvariantCulture);
             try
             {
-                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(url) { UseShellExecute = true });
+                PadForge.Common.ShellLaunch.Start(new System.Diagnostics.ProcessStartInfo(url) { UseShellExecute = true });
             }
             catch (Exception)
             {

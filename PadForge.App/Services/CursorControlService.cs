@@ -44,9 +44,15 @@ namespace PadForge.Services
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool GetCursorPos(out POINT lpPoint);
 
-        [DllImport("user32.dll")]
+        [DllImport("user32.dll", EntryPoint = "SetCursorPos")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool SetCursorPos(int X, int Y);
+        private static extern bool SetCursorPosNative(int X, int Y);
+
+        /// <summary>The one way this service moves the cursor. The test host
+        /// moves none (InputHookManager.DesktopInputOffLimits) and is
+        /// answered a refused move.</summary>
+        private static bool SetCursorPos(int X, int Y)
+            => !PadForge.Engine.Common.InputHookManager.DesktopInputOffLimits && SetCursorPosNative(X, Y);
 
         [DllImport("user32.dll")]
         private static extern IntPtr MonitorFromPoint(POINT pt, uint dwFlags);

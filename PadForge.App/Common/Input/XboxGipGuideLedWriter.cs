@@ -486,6 +486,9 @@ namespace PadForge.Common.Input
             // (xbox_open_device / discover_devices). The IOCTL wires this
             // handle into the announce pipeline and provokes the driver to
             // emit announces for already-connected controllers.
+            // The test host opens no device (DirectDeviceAccess), so it
+            // sends the driver neither that IOCTL nor an LED packet.
+            if (DirectDeviceAccess.Refuses("\\\\.\\XboxGIP")) return false;
             _handle = CreateFileW("\\\\.\\XboxGIP",
                 GENERIC_READ | GENERIC_WRITE,
                 FILE_SHARE_READ | FILE_SHARE_WRITE,

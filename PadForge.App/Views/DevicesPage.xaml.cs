@@ -487,7 +487,7 @@ namespace PadForge.Views
                 sb.Append(Uri.EscapeDataString(dev.SdlGuid));
             }
 
-            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+            PadForge.Common.ShellLaunch.Start(new System.Diagnostics.ProcessStartInfo
             {
                 FileName = sb.ToString(),
                 UseShellExecute = true
@@ -595,7 +595,7 @@ namespace PadForge.Views
                 if (dev.HasBattery)
                     sb.AppendLine($"BATT      {dev.BatteryText}" + (dev.BatteryCharging ? " CHG" : string.Empty));
 
-                Clipboard.SetText(sb.ToString());
+                PadForge.Common.ShellLaunch.SetClipboardText(sb.ToString());
                 if (mainVm != null)
                     mainVm.StatusText = Strings.Instance.Status_DossierCopied;
             }

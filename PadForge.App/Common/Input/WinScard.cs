@@ -205,6 +205,9 @@ namespace PadForge.Common.Input
             // would let teardown release it out from under an in-flight RF
             // transmit (a native crash at shutdown). A per-read child context
             // is fully scoped to this call and independent of teardown.
+            // The test host connects to no card and sends none a command
+            // (DirectDeviceAccess).
+            if (DirectDeviceAccess.RefusesAll) return null;
             IntPtr ctx = IntPtr.Zero;
             IntPtr card = IntPtr.Zero;
             try

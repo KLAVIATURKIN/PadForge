@@ -27,7 +27,7 @@ namespace PadForge.Views
             try
             {
                 string path = PadForge.Common.DiagnosticsLogControl.SaveSnapshot();
-                System.Diagnostics.Process.Start("explorer.exe", $"/select,\"{path}\"");
+                PadForge.Common.ShellLaunch.Start("explorer.exe", $"/select,\"{path}\"");
             }
             catch
             {
@@ -41,7 +41,7 @@ namespace PadForge.Views
             try
             {
                 System.IO.Directory.CreateDirectory(PadForge.Common.DiagnosticsLogControl.Folder);
-                System.Diagnostics.Process.Start("explorer.exe",
+                PadForge.Common.ShellLaunch.Start("explorer.exe",
                     PadForge.Common.DiagnosticsLogControl.Folder);
             }
             catch

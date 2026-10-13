@@ -348,7 +348,9 @@ namespace PadForge.Services
                         lastProviderTry = nowTick;
                         Interlocked.Increment(ref _providerInitAttempts);
                         BeforeProviderInit?.Invoke();
-                        try { providerUp = Provider.ProviderInit(); }
+                        // The test host runs the engine and never the
+                        // provider, which reaches Razer's runtime on the PC.
+                        try { providerUp = !PadForge.Engine.Common.VendorProgramGate.Refuses && Provider.ProviderInit(); }
                         catch (DllNotFoundException) { }
                         catch (EntryPointNotFoundException) { }
                         PadForge.Engine.SdlDiagLog.WriteLine($"SENSA provider init => {providerUp}");

@@ -90,6 +90,8 @@ namespace PadForge.SteamWorkshop.Api
         /// </summary>
         public async Task EnsureLoggedOnAsync(CancellationToken ct = default)
         {
+            if (SteamHttp.OffLimitsForTest)
+                throw new SteamWorkshopException("The test host connects to no Steam server.");
             if (_disposed)
                 throw new SteamWorkshopException("The Steam client is disposed.");
             if (_loggedOn && _client.IsConnected) return;

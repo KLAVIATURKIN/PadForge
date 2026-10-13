@@ -343,6 +343,28 @@ namespace PadForge.Common.Input
             }
         }
 
+        /// <summary>Set by the test assembly for the life of its process
+        /// (PadForge.Tests VirtualControllerOffLimits), never by the app.
+        /// HIDMaestro makes device nodes, installs its driver and, for a
+        /// composite persona, attaches a USB device through usbip-win2, and
+        /// its sweep removes every virtual controller on the PC, a running
+        /// PadForge's included. A test hands <see cref="Connect"/> a seam in
+        /// HIDMaestro's place. While this is set, a Connect with no seam
+        /// throws as a create that failed does, the engine sets up no
+        /// HIDMaestro context and installs no driver, and no sweep runs.
+        /// False in production, where every path is as it was.</summary>
+        internal static bool OffLimitsForTest;
+
+        /// <summary>HIDMaestro's sweep of every virtual controller device on
+        /// the PC, its install kept. The one way the app runs it. The test
+        /// host runs none: it made none of them, so the sweep would take a
+        /// running PadForge's controllers.</summary>
+        internal static void SweepVirtualControllers()
+        {
+            if (OffLimitsForTest) return;
+            HMContext.RemoveAllVirtualControllers(preserveInstall: true);
+        }
+
         /// <summary>Test seam for the HIDMaestro call that makes the
         /// controller, null in production. The real call creates a device,
         /// and for a composite persona deploys the USB/IP transport and
@@ -380,6 +402,8 @@ namespace PadForge.Common.Input
             try
             {
                 var seam = CreateControllerSeam;
+                if (seam == null && OffLimitsForTest)
+                    throw new InvalidOperationException("The test host creates no virtual controller device.");
                 _controller = seam != null
                     ? seam(_profile, _identityKey)
                     : _ctx.CreateController(_profile, _identityKey);

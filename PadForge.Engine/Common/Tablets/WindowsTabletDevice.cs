@@ -36,7 +36,7 @@ public sealed class WindowsTabletDevice : ISdlInputDevice
     {
         descriptor = report;
         changed = onChanged;
-        this.openInput = openInput ?? (() => new FileStream(DevicePath, FileMode.Open, FileAccess.Read, FileShare.None, descriptor.ReportLength, FileOptions.Asynchronous));
+        this.openInput = openInput ?? (() => TabletNative.OpenCapture(DevicePath, descriptor.ReportLength));
         this.restart = restart ?? (stop => TabletNative.RestartCollection(DeviceInstanceId, stop));
         this.isStarted = isStarted ?? (() => TabletNative.IsStarted(DeviceInstanceId));
         InstanceGuid = SdlDeviceWrapper.BuildInstanceGuid(report.Path, report.Vendor, report.Product, 0);

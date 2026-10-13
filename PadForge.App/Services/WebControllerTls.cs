@@ -33,6 +33,18 @@ namespace PadForge.Services
         private static readonly WebControllerBindingPool BindingPool = new(
             port => EnsureHttpsBinding(port) != null, RemoveBinding);
 
+        /// <summary>Set by the test assembly for the life of its process
+        /// (PadForge.Tests WebControllerSetupOffLimits), never by the app.
+        /// Serving the web controller changes the PC: a certificate in the
+        /// machine store, an http.sys binding of it to a port, inbound
+        /// firewall rules, each made through netsh. A test hands the server
+        /// an endpoint preparation and a firewall step of its own. While
+        /// this is set, the production ones start no netsh and touch no
+        /// certificate store: the certificate reads as one that could not
+        /// be made, and netsh as a program that did not start. False in
+        /// production, where every path is as it was.</summary>
+        internal static bool OffLimitsForTest;
+
         internal static IDisposable AcquireBinding(int port) => BindingPool.Acquire(port);
 
         /// <summary>Why HTTPS could not be prepared on a port, so the Dashboard
@@ -136,6 +148,7 @@ namespace PadForge.Services
         /// the store) undisposed on each enable.</summary>
         private static string FindOrCreateCertThumbprint()
         {
+            if (OffLimitsForTest) return null;
             using var store = new X509Store(StoreName.My, StoreLocation.LocalMachine);
             store.Open(OpenFlags.ReadWrite);
 
@@ -198,6 +211,8 @@ namespace PadForge.Services
 
         private static string RunNetsh(string arguments)
         {
+            if (OffLimitsForTest)
+                throw new System.ComponentModel.Win32Exception(5, "The test host starts no process: netsh.exe");
             var psi = new ProcessStartInfo
             {
                 FileName = "netsh.exe",

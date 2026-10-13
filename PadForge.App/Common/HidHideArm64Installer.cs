@@ -629,6 +629,15 @@ namespace PadForge.Common
 
                 int? Run(string arguments)
                 {
+                    // The test host installs and removes no HidHide: the
+                    // tool is never started there, which reads as a tool
+                    // that did not start. The installs are tested through a
+                    // runner of the test's own.
+                    if (HidHideController.SeamsOnlyForTest)
+                    {
+                        HidHideController.OffLimitsRefused?.Invoke("nefcon " + arguments);
+                        return null;
+                    }
                     var psi = new ProcessStartInfo
                     {
                         FileName = nefcon,

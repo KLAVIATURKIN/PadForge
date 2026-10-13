@@ -515,6 +515,7 @@ namespace PadForge.Common.Input
         private static EndpointPlayer BuildPlayer(string endpointId, string name,
             RumbleAudioSampleProvider.Voice[] voices)
         {
+            if (AudioEndpointAccess.Refuses) return null;
             try
             {
                 using var en = new MMDeviceEnumerator();

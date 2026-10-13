@@ -72,6 +72,12 @@ namespace PadForge.Engine.Common.Logitech
         public bool Start()
         {
             if (_disposed || _initialized) return _initialized;
+            if (PadForge.Engine.Common.VendorProgramGate.Refuses)
+            {
+                State = LogitechGKeyState.NoSdk;
+                _log("G-Keys: the test host loads no G-key library");
+                return false;
+            }
 
             // Every candidate, not just the first that exists. A registry
             // entry can name the x86 build on an x64 host, which exists and

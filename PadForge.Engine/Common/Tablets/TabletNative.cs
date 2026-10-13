@@ -130,8 +130,27 @@ internal static class TabletNative
         return end >= 0 ? text[..end] : text;
     }
 
+    /// <summary>Set by the test assembly for the life of its process
+    /// (PadForge.Tests TabletOffLimits), never by the app. A capture takes a
+    /// tablet's HID collection for itself and restarts it, which disables
+    /// and enables its device node. A test hands the device an input and a
+    /// restart of its own. While this is set, a device left on the
+    /// production ones opens no collection and restarts none: each throws
+    /// as a failed call does. False in production, where every path is as
+    /// it was.</summary>
+    internal static bool OffLimitsForTest;
+
+    /// <summary>The open a capture makes of a tablet's collection, shared
+    /// with no other reader while it holds it.</summary>
+    internal static Stream OpenCapture(string path, int reportLength)
+    {
+        if (OffLimitsForTest) throw new IOException("The test host opens no tablet collection.");
+        return new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.None, reportLength, FileOptions.Asynchronous);
+    }
+
     internal static void RestartCollection(string instance, CancellationToken stop)
     {
+        if (OffLimitsForTest) throw new InvalidOperationException("The test host restarts no HID collection.");
         if (string.IsNullOrWhiteSpace(instance) || !instance.StartsWith("HID\\", StringComparison.OrdinalIgnoreCase))
             throw new InvalidOperationException("Only a HID collection can be restarted.");
         stop.ThrowIfCancellationRequested();

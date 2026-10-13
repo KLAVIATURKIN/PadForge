@@ -51,7 +51,7 @@ namespace PadForge.Views
 
         private void OnInviteNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {
-            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(e.Uri.AbsoluteUri)
+            PadForge.Common.ShellLaunch.Start(new System.Diagnostics.ProcessStartInfo(e.Uri.AbsoluteUri)
             {
                 UseShellExecute = true
             });

@@ -67,6 +67,9 @@ namespace PadForge.Engine.RemoteLink
 
             try
             {
+                // Discovery answers on every address, which the test host
+                // binds none of (NetworkListenerGate).
+                PadForge.Engine.Common.NetworkListenerGate.Enter(IPAddress.Any);
                 _socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
                 _socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
                 _socket.EnableBroadcast = true;

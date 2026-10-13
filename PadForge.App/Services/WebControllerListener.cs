@@ -19,15 +19,23 @@ namespace PadForge.Services
     {
         private readonly HttpListener _listener = new();
         public bool IsListening => _listener.IsListening;
+        // The test host listens on loopback alone (NetworkListenerGate), and
+        // a prefix on + is every address: it is refused there as http.sys
+        // refuses one, before the prefix is registered.
         public void Start(string prefix)
         {
+            PadForge.Engine.Common.NetworkListenerGate.EnterPrefix(prefix);
             _listener.Prefixes.Add(prefix);
             _listener.Start();
         }
         // On a started listener the collection registers the prefix with
         // http.sys at once and records it only after that succeeds, so a
         // refused prefix leaves the running ones untouched.
-        public void AddPrefix(string prefix) => _listener.Prefixes.Add(prefix);
+        public void AddPrefix(string prefix)
+        {
+            PadForge.Engine.Common.NetworkListenerGate.EnterPrefix(prefix);
+            _listener.Prefixes.Add(prefix);
+        }
         public HttpListenerContext GetContext() => _listener.GetContext();
         public void Stop() => _listener.Stop();
         public void Close() => _listener.Close();

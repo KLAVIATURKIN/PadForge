@@ -3405,6 +3405,8 @@ namespace PadForge.Common.Input
                     // 30 ms event-driven buffer — on USB this buffer sits in
                     // BOTH the macro and mirror paths, so halving it from 60
                     // tightens everything the pad plays.
+                    // The test host opens no stream on an endpoint of the PC.
+                    if (AudioEndpointAccess.Refuses) return;
                     var player = new WasapiOut(match, AudioClientShareMode.Shared, true, 30);
                     if (!TryStartUsbPlayer(s, player, feed, worker)) return;
                 }
@@ -5008,6 +5010,7 @@ namespace PadForge.Common.Input
             /// settings. Returns true when the policy store accepted it.</summary>
             public static bool TryEnableEndpoint(string endpointId)
             {
+                if (AudioEndpointAccess.Refuses) return false;
                 try
                 {
                     var pc = (IPolicyConfig)new PolicyConfigClient();
@@ -5021,6 +5024,7 @@ namespace PadForge.Common.Input
             /// roles (Console / Multimedia / Communications).</summary>
             public static bool TrySetDefaultEndpoint(string endpointId)
             {
+                if (AudioEndpointAccess.Refuses) return false;
                 try
                 {
                     var pc = (IPolicyConfig)new PolicyConfigClient();
@@ -5117,6 +5121,9 @@ namespace PadForge.Common.Input
             /// blocking-read mic loop.</summary>
             public static IntPtr OpenHidSync(string path)
             {
+                // The test host opens no device (DirectDeviceAccess): the
+                // answer of a failed open.
+                if (DirectDeviceAccess.Refuses(path)) return new IntPtr(-1);
                 return CreateFileW(path,
                     0x40000000u | 0x80000000u,
                     0x1u | 0x2u,
@@ -5125,6 +5132,7 @@ namespace PadForge.Common.Input
 
             public static IntPtr OpenHid(string path)
             {
+                if (DirectDeviceAccess.Refuses(path)) return new IntPtr(-1);
                 return CreateFileW(path,
                     0x40000000u | 0x80000000u,        // GENERIC_WRITE | GENERIC_READ
                     0x1u | 0x2u,                      // share read/write

@@ -70,8 +70,22 @@ namespace PadForge.Engine.Common.AnalogKeyboard
 
         public void Release() => ReleaseMutex(_handle);
 
+        /// <summary>Set by the test assembly for the life of its process
+        /// (PadForge.Tests AnalogKeyboardMutexOffLimits), never by the app.
+        /// The three names above are other programs' too: a test host that
+        /// took one would hold up Soup or HallJoy polling a keyboard on the
+        /// PC it runs on. While this is set, none of the three is created or
+        /// opened, and a poller goes on without its mutex, as it does when
+        /// the mutex cannot be had. A name of a test's own is still made.
+        /// False in production, where every path is as it was.</summary>
+        internal static bool OffLimitsForTest;
+
+        private static bool IsShared(string name)
+            => name == DrunkDeer || name == Keychron || name == Madlions;
+
         private static AnalogKeyboardNamedMutex Create(string name)
         {
+            if (OffLimitsForTest && IsShared(name)) return null;
             IntPtr descriptor = IntPtr.Zero;
             try
             {

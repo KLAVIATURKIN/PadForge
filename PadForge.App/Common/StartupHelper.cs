@@ -24,6 +24,16 @@ namespace PadForge.Common
         private const string AppName = "PadForge";
         private const string TaskName = "PadForge";
 
+        /// <summary>Set by the test assembly for the life of its process
+        /// (PadForge.Tests StartupOffLimits), never by the app. The task is
+        /// made for the running program and replaces the one of that name,
+        /// so a test host that created it would put itself in place of the
+        /// PadForge its PC starts at logon. While this is set, schtasks is
+        /// never started and the legacy Run value is not deleted: the task
+        /// reads as absent, as when schtasks fails. False in production,
+        /// where every path is as it was.</summary>
+        internal static bool OffLimitsForTest;
+
         /// <summary>
         /// True when PadForge is configured to launch at logon. Reports the
         /// scheduled task as the source of truth, but also reports the legacy
@@ -82,6 +92,7 @@ namespace PadForge.Common
 
         private static void DeleteLegacyRunEntry()
         {
+            if (OffLimitsForTest) return;
             try
             {
                 using var key = Registry.CurrentUser.OpenSubKey(LegacyRunKeyPath, true);
@@ -125,6 +136,7 @@ namespace PadForge.Common
 
         private static int RunSchtasks(string arguments)
         {
+            if (OffLimitsForTest) return -1;
             try
             {
                 var psi = new ProcessStartInfo

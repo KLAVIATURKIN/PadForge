@@ -2210,6 +2210,9 @@ namespace PadForge.Services
 
         private static string RunNetsh(string arguments)
         {
+            // The test host writes no firewall rule (WebControllerTls.OffLimitsForTest).
+            if (WebControllerTls.OffLimitsForTest)
+                throw new System.ComponentModel.Win32Exception(5, "The test host starts no process: netsh.exe");
             var psi = new ProcessStartInfo
             {
                 FileName = "netsh.exe",

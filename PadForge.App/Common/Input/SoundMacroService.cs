@@ -416,6 +416,8 @@ namespace PadForge.Common.Input
         {
             var o = _outputs[slot] ??= new SlotOutput();
             if (o.Player != null) return o;
+            // The test host plays nothing through the PC's speakers.
+            if (AudioEndpointAccess.Refuses) return o;
             try
             {
                 var mixer = new MixingSampleProvider(

@@ -539,13 +539,25 @@ namespace PadForge.Common.Input
             public InputUnion u;
         }
 
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern uint SendInput(uint nInputs, INPUT[] pInputs, int cbSize);
+        [DllImport("user32.dll", SetLastError = true, EntryPoint = "SendInput")]
+        private static extern uint SendInputNative(uint nInputs, INPUT[] pInputs, int cbSize);
+
+        /// <summary>The one way this controller injects a key or a button.
+        /// The test host injects none
+        /// (InputHookManager.DesktopInputOffLimits) and is answered no event
+        /// sent, as when the input is blocked.</summary>
+        private static uint SendInput(uint nInputs, INPUT[] pInputs, int cbSize)
+            => PadForge.Engine.Common.InputHookManager.DesktopInputOffLimits ? 0 : SendInputNative(nInputs, pInputs, cbSize);
 
         // Absolute cursor positioning for the Wii IR pointer (issue #146),
         // the same call Touchmote's MouseSimulator uses (SetCursorPosition).
-        [DllImport("user32.dll")]
-        private static extern bool SetCursorPos(int x, int y);
+        [DllImport("user32.dll", EntryPoint = "SetCursorPos")]
+        private static extern bool SetCursorPosNative(int x, int y);
+
+        /// <summary>The one way this controller moves the cursor. The test
+        /// host moves none and is answered a refused move.</summary>
+        private static bool SetCursorPos(int x, int y)
+            => !PadForge.Engine.Common.InputHookManager.DesktopInputOffLimits && SetCursorPosNative(x, y);
 
         [StructLayout(LayoutKind.Sequential)]
         private struct POINT

@@ -407,8 +407,8 @@ namespace PadForge
             // (owner report 2026-08-08).
             OrphanSweepTask = System.Threading.Tasks.Task.Run(() =>
             {
-                try { HIDMaestro.HMContext.RemoveAllVirtualControllers(preserveInstall: true); }
-                catch { /* best effort — continue without sweep */ }
+                try { PadForge.Common.Input.HMaestroVirtualController.SweepVirtualControllers(); }
+                catch { /* Best effort. Continue without the sweep. */ }
                 // HM#38 consumer-side ordering hygiene: RemoveAll returns when
                 // the CALL completes, not when PnP removal completes, and a
                 // create racing an in-flight removal was one of the freeze's

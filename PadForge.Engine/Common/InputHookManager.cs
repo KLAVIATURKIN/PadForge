@@ -22,8 +22,30 @@ namespace PadForge.Engine.Common
 
         private delegate IntPtr LowLevelHookProc(int nCode, IntPtr wParam, IntPtr lParam);
 
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern IntPtr SetWindowsHookExW(int idHook, LowLevelHookProc lpfn, IntPtr hMod, uint dwThreadId);
+        /// <summary>Set by the test assembly for the life of its process
+        /// (PadForge.Tests DesktopInputOffLimits), never by the app. The
+        /// desktop a test host runs on is its owner's: a keystroke, a click
+        /// or a cursor move a test injected lands in whatever program has
+        /// the focus, and a low-level hook puts the test host on the path of
+        /// every key and button the PC reads. While this is set, each
+        /// SendInput, SetCursorPos and SetWindowsHookEx of the app and the
+        /// engine does nothing and answers as a failed call would. False in
+        /// production, where every path is as it was.</summary>
+        internal static bool OffLimitsForTest;
+
+        /// <summary>Whether this process leaves the desktop's input alone:
+        /// true in the test host and nowhere else. The app's own SendInput
+        /// and SetCursorPos calls ask it, since they cannot read the flag
+        /// itself.</summary>
+        public static bool DesktopInputOffLimits => OffLimitsForTest;
+
+        [DllImport("user32.dll", SetLastError = true, EntryPoint = "SetWindowsHookExW")]
+        private static extern IntPtr SetWindowsHookExNative(int idHook, LowLevelHookProc lpfn, IntPtr hMod, uint dwThreadId);
+
+        /// <summary>The one way this class installs a hook. The test host
+        /// installs none and is answered no handle.</summary>
+        private static IntPtr SetWindowsHookExW(int idHook, LowLevelHookProc lpfn, IntPtr hMod, uint dwThreadId)
+            => OffLimitsForTest ? IntPtr.Zero : SetWindowsHookExNative(idHook, lpfn, hMod, dwThreadId);
 
         [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -45,8 +67,14 @@ namespace PadForge.Engine.Common
         [DllImport("kernel32.dll")]
         private static extern uint GetCurrentThreadId();
 
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern uint SendInput(uint nInputs, INPUT[] pInputs, int cbSize);
+        [DllImport("user32.dll", SetLastError = true, EntryPoint = "SendInput")]
+        private static extern uint SendInputNative(uint nInputs, INPUT[] pInputs, int cbSize);
+
+        /// <summary>The one way this class injects input. The test host
+        /// injects none and is answered no event sent, as when the input is
+        /// blocked.</summary>
+        private static uint SendInput(uint nInputs, INPUT[] pInputs, int cbSize)
+            => OffLimitsForTest ? 0 : SendInputNative(nInputs, pInputs, cbSize);
 
         [DllImport("user32.dll")]
         private static extern uint MapVirtualKeyW(uint uCode, uint uMapType);

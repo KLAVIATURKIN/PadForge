@@ -815,7 +815,7 @@ namespace PadForge.ViewModels
             {
                 if (!string.IsNullOrEmpty(_webControllerUrl))
                 {
-                    try { System.Windows.Clipboard.SetText(_webControllerUrl); } catch { }
+                    try { PadForge.Common.ShellLaunch.SetClipboardText(_webControllerUrl); } catch { }
                 }
             });
 
@@ -946,7 +946,7 @@ namespace PadForge.ViewModels
             {
                 if (!string.IsNullOrEmpty(_webControllerPlainUrl))
                 {
-                    try { System.Windows.Clipboard.SetText(_webControllerPlainUrl); } catch { }
+                    try { PadForge.Common.ShellLaunch.SetClipboardText(_webControllerPlainUrl); } catch { }
                 }
             });
 
@@ -1079,7 +1079,7 @@ namespace PadForge.ViewModels
             {
                 if (!string.IsNullOrEmpty(_remoteLinkMyCode))
                 {
-                    try { System.Windows.Clipboard.SetText(_remoteLinkMyCode); } catch { }
+                    try { PadForge.Common.ShellLaunch.SetClipboardText(_remoteLinkMyCode); } catch { }
                 }
             });
 

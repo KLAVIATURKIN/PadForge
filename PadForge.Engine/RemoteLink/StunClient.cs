@@ -210,6 +210,7 @@ namespace PadForge.Engine.RemoteLink
             Socket socket, string host, int port, CancellationToken ct = default,
             Action<IPEndPoint, byte[]> onForeignDatagram = null)
         {
+            if (PadForge.Engine.Common.OutboundNetworkGate.RefusesHost(host)) return null;
             IPAddress[] addrs;
             try { addrs = await Dns.GetHostAddressesAsync(host, AddressFamily.InterNetwork, ct).ConfigureAwait(false); }
             catch { return null; }

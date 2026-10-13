@@ -844,6 +844,15 @@ namespace PadForge.Common.Input
         {
             if (_sdlInitialized)
                 return true;
+            // The test host starts no SDL device layer (DirectDeviceAccess).
+            // SDL opens every controller it lists and writes to some as it
+            // opens them, and the DualShock 3 and PS Move services start
+            // below. The answer of an SDL_Init that failed.
+            if (DirectDeviceAccess.RefusesAll)
+            {
+                RaiseError("SDL_Init failed: the test host starts no device layer", null);
+                return false;
+            }
 
             try
             {

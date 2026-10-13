@@ -160,6 +160,7 @@ namespace PadForge.Engine.RemoteLink
 
         private async Task<bool> ConnectOneAsync(string host, CancellationToken ct)
         {
+            if (PadForge.Engine.Common.OutboundNetworkGate.RefusesHost(host)) return false;
             var ws = new ClientWebSocket();
             try
             {

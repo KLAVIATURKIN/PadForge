@@ -273,6 +273,7 @@ namespace PadForge.Engine.RemoteLink
                     {
                         foreach (var (host, port) in StunClient.DefaultServers)
                         {
+                            if (PadForge.Engine.Common.OutboundNetworkGate.RefusesHost(host)) continue;
                             try
                             {
                                 var addrs = await Dns.GetHostAddressesAsync(host, AddressFamily.InterNetwork).ConfigureAwait(false);
@@ -350,6 +351,7 @@ namespace PadForge.Engine.RemoteLink
                 foreach (var (host, port) in StunClient.DefaultServers)
                 {
                     if (ct.IsCancellationRequested) break;
+                    if (PadForge.Engine.Common.OutboundNetworkGate.RefusesHost(host)) continue;
                     IPAddress[] addrs;
                     try { addrs = await Dns.GetHostAddressesAsync(host, AddressFamily.InterNetwork, ct).ConfigureAwait(false); }
                     catch { continue; }
@@ -395,6 +397,7 @@ namespace PadForge.Engine.RemoteLink
 
         private async Task<IPEndPoint> OneStunProbeAsync(Socket sock, IPEndPoint server, CancellationToken ct)
         {
+            if (PadForge.Engine.Common.OutboundNetworkGate.Refuses(server?.Address)) return null;
             // ONE transaction id across the retransmits (RFC 5389 §7.2.1): a
             // fresh id per attempt rejected any response slower than one
             // attempt window (finding 4).
@@ -458,6 +461,8 @@ namespace PadForge.Engine.RemoteLink
 
             try
             {
+                // The test host binds loopback alone (NetworkListenerGate).
+                PadForge.Engine.Common.NetworkListenerGate.Enter(bindAddress);
                 _tcp = new TcpListener(bindAddress, port);
                 _tcp.Start();
 
@@ -746,6 +751,7 @@ namespace PadForge.Engine.RemoteLink
         /// <summary>Initiate an outbound pairing/reconnect to a peer, optionally exposing local devices.</summary>
         public async Task<bool> ConnectAsync(string host, int port, IReadOnlyList<RemotePeerDeviceInfo> exposeLocal, CancellationToken ct = default)
         {
+            if (PadForge.Engine.Common.OutboundNetworkGate.RefusesHost(host)) return false;
             // IPv4 to match the IPv4 UDP data socket (the DsuMotionServer model);
             // a default dual-stack TcpClient yields IPv4-mapped-IPv6 endpoints the
             // IPv4 UDP socket can't SendTo.
@@ -792,6 +798,7 @@ namespace PadForge.Engine.RemoteLink
             public UdpPunchAdapter(Socket s) { _sock = s; }
             public async Task SendToAsync(byte[] dg, IPEndPoint dest, CancellationToken ct)
             {
+                if (PadForge.Engine.Common.OutboundNetworkGate.Refuses(dest?.Address)) return;
                 try { await _sock.SendToAsync(dg, SocketFlags.None, dest, ct).ConfigureAwait(false); }
                 catch (ObjectDisposedException) { } catch (SocketException) { }
             }
@@ -807,6 +814,7 @@ namespace PadForge.Engine.RemoteLink
             {
                 var ep = _peer();
                 if (ep == null) return;
+                if (PadForge.Engine.Common.OutboundNetworkGate.Refuses(ep.Address)) return;
                 try { await _sock.SendToAsync(dg, SocketFlags.None, ep, ct).ConfigureAwait(false); }
                 catch (ObjectDisposedException) { } catch (SocketException) { }
             }
@@ -1578,6 +1586,7 @@ namespace PadForge.Engine.RemoteLink
         {
             var ep = c.PeerUdpEndpoint;
             var sock = _udp;
+            if (ep != null && PadForge.Engine.Common.OutboundNetworkGate.Refuses(ep.Address)) return false;
             if (ep != null && sock != null)
             {
                 try { sock.SendTo(dg, ep); return true; }

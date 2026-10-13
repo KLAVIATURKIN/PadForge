@@ -535,6 +535,8 @@ namespace PadForge.Common.Input
         /// <summary>Open the Bluetooth BthPS3 raw PDO if a wireless DS3 is connected.</summary>
         private bool OpenBluetooth()
         {
+            // The test host opens no device (DirectDeviceAccess).
+            if (DirectDeviceAccess.RefusesAll) return false;
             string path = FindPdoPath();
             if (path == null) return false;
 
@@ -558,6 +560,9 @@ namespace PadForge.Common.Input
         /// device.</summary>
         private bool OpenUsb()
         {
+            // The test host opens no device and binds no driver to one
+            // (DirectDeviceAccess).
+            if (DirectDeviceAccess.RefusesAll) return false;
             string path = FindWinUsbDs3();
             if (path == null)
             {

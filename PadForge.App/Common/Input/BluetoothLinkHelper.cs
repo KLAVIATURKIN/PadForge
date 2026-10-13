@@ -40,6 +40,17 @@ namespace PadForge.Common.Input
         private static readonly System.Collections.Generic.Dictionary<string, long> _lastAttemptTick = new();
         private const int DebounceMs = 3000;
 
+        /// <summary>Set by the test assembly for the life of its process
+        /// (PadForge.Tests BluetoothOffLimits), never by the app. The PC a
+        /// test host runs on has its owner's controllers and headsets on its
+        /// radio. While this is set, nothing here, in WiiPairingService or
+        /// in HeadsetTrackerRepair drops a link, powers a controller off,
+        /// disables or enables a Bluetooth device node, pairs or unpairs a
+        /// device, toggles a device's HID service or rebinds its driver:
+        /// each of those returns as a failed call would. False in
+        /// production, where every path is as it was.</summary>
+        internal static bool OffLimitsForTest;
+
         /// <summary>Device-aware disconnect (issue #162). The radio IOCTL below
         /// only drops BR/EDR ACL links (every reference uses it on {00001124}
         /// classic-BT pads), so BLE controllers need their own lane:
@@ -191,6 +202,7 @@ namespace PadForge.Common.Input
         private static bool TryCycleBthDevNodes(
             System.Collections.Generic.IReadOnlyList<string> instanceIds)
         {
+            if (OffLimitsForTest) return false;
             if (instanceIds == null) return false;
 
             var disabled = new System.Collections.Generic.List<uint>();
@@ -225,6 +237,7 @@ namespace PadForge.Common.Input
 
         private static void ReEnableDevNode(uint devInst)
         {
+            if (OffLimitsForTest) return;
             lock (_pendingReEnable)
             {
                 if (!_pendingReEnable.Remove(devInst))
@@ -239,6 +252,7 @@ namespace PadForge.Common.Input
         /// unable to reconnect until the user finds it in Device Manager.</summary>
         public static void ReEnablePendingDevNodes()
         {
+            if (OffLimitsForTest) return;
             uint[] pending;
             lock (_pendingReEnable)
             {
@@ -378,6 +392,7 @@ namespace PadForge.Common.Input
         /// while the fork still stubs SendEffect with SDL_Unsupported.</summary>
         private static bool TrySwitch2EffectPassthrough(IntPtr gamepadHandle)
         {
+            if (OffLimitsForTest) return false;
             if (gamepadHandle == IntPtr.Zero)
                 return false;
             try
@@ -399,6 +414,7 @@ namespace PadForge.Common.Input
 
         private static async System.Threading.Tasks.Task<bool> TrySwitch2PowerOffAsync(string serial)
         {
+            if (OffLimitsForTest) return false;
             // The caller's pad, as the driver spells it: twelve lowercase hex
             // digits of the Bluetooth address. Anything else (an empty serial
             // from the all-devices target mode, or a serial that is not an
@@ -548,6 +564,7 @@ namespace PadForge.Common.Input
         /// go out back-to-back: a powered-off pad ignores the second write.</summary>
         private static bool TrySteamPowerOff(string devicePath)
         {
+            if (OffLimitsForTest) return false;
             if (string.IsNullOrEmpty(devicePath)) return false;
 
             IntPtr h = CreateFileW(devicePath, GENERIC_READ | GENERIC_WRITE, SHARE_RW,
@@ -605,6 +622,7 @@ namespace PadForge.Common.Input
         /// own slots.</summary>
         private static bool TryXInputPowerOff(ushort vendorId, ushort productId)
         {
+            if (OffLimitsForTest) return false;
             bool any = false;
             for (uint slot = 0; slot < XInputSlotCount; slot++)
             {
@@ -671,6 +689,8 @@ namespace PadForge.Common.Input
 
             if (!TryParseAddress(serial, out long address))
                 return false;
+            // The test host asks no radio to drop a link.
+            if (OffLimitsForTest) return false;
 
             var findParams = new BLUETOOTH_FIND_RADIO_PARAMS
             {

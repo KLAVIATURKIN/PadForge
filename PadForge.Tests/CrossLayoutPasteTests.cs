@@ -2376,7 +2376,7 @@ namespace PadForge.Tests
 
             string copy = Between(window, "private void OnCopySettings(", "private void OnPasteSettings(");
             int profile = At(copy, "ps.SlotProfileId = padVm.ProfileId;");
-            Assert.True(profile < At(copy, "Clipboard.SetText(ps.ToJson(copyOutputType, copyIsExtended));"));
+            Assert.True(profile < At(copy, "PadForge.Common.ShellLaunch.SetClipboardText(ps.ToJson(copyOutputType, copyIsExtended));"));
 
             string paste = Between(window, "private void OnPasteSettings(", "private void OnCopyMacro(");
             int pasteFrom = At(paste, "var copiedFrom = InputService.ClipboardSlotLayout(ps, srcType, srcIsExtended);");

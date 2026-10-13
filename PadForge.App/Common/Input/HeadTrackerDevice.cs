@@ -241,6 +241,8 @@ namespace PadForge.Common.Input
             {
                 try
                 {
+                    // The test host binds loopback alone (NetworkListenerGate).
+                    PadForge.Engine.Common.NetworkListenerGate.Enter(UdpBindAddress);
                     var s = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
                     _socket = s;
                     // Suppress ICMP port-unreachable surfacing as a SocketException
@@ -545,8 +547,23 @@ namespace PadForge.Common.Input
             _mutexName = mutexName;
         }
 
+        /// <summary>Set by the test assembly for the life of its process
+        /// (PadForge.Tests FreeTrackOffLimits), never by the app. FT_SharedMem
+        /// and FT_Mutext are the names every FreeTrack tracker and game on
+        /// the PC shares, and opening the mapping creates it where no
+        /// tracker has. While this is set, a reader on those two names
+        /// opens nothing and answers as a mapping that failed does. A reader
+        /// on names of a test's own still opens. False in production, where
+        /// every path is as it was.</summary>
+        internal static bool OffLimitsForTest;
+
         public bool Open()
         {
+            if (OffLimitsForTest && (_heapName == HeapName || _mutexName == MutexName))
+            {
+                SdlDiagLog.WriteLine("Head tracker: FreeTrack mapping failed: the test host opens no shared FreeTrack memory");
+                return false;
+            }
             try
             {
                 _mmf = MemoryMappedFile.CreateOrOpen(_heapName, HeadPose.FreeTrackHeapBytes, MemoryMappedFileAccess.ReadWrite);

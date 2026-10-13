@@ -6,3 +6,7 @@ using System.Runtime.CompilerServices;
 // absent. PadForge.Engine and PadForge.App already expose their internals to
 // the test assembly for the same reason.
 [assembly: InternalsVisibleTo("PadForge.Tests")]
+
+// The library's own tests keep their process off Steam's servers
+// (SteamHttp.OffLimitsForTest), which they can set only as a friend.
+[assembly: InternalsVisibleTo("PadForge.SteamWorkshop.Tests")]

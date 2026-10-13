@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Runtime.CompilerServices;
-using System.Security.Principal;
 using PadForge.Services;
 using Xunit;
 
@@ -23,19 +22,6 @@ namespace PadForge.Tests
     {
         private readonly Xunit.Abstractions.ITestOutputHelper _output;
         public Ds3WinUsbSigningTests(Xunit.Abstractions.ITestOutputHelper output) => _output = output;
-
-        private static bool Elevated
-        {
-            get
-            {
-                try
-                {
-                    using var id = WindowsIdentity.GetCurrent();
-                    return new WindowsPrincipal(id).IsInRole(WindowsBuiltInRole.Administrator);
-                }
-                catch { return false; }
-            }
-        }
 
         private static string RepoRoot([CallerFilePath] string me = null)
             => Path.GetFullPath(Path.Combine(Path.GetDirectoryName(me), ".."));
@@ -79,94 +65,57 @@ namespace PadForge.Tests
             Inf2Cat.AssertCatalogs("ds3_winusb.inf", File.ReadAllText(inf), "ds3_winusb.cat", _output);
         }
 
-        /// <summary>End to end on this machine: generate the certificate,
-        /// generate the catalog for the staged INF, sign it, and require the
-        /// result to chain to a trusted root. That last assertion is the whole
-        /// point, because it is the exact check Windows performs before it
-        /// will install the package.
-        ///
-        /// Needs elevation (LocalMachine\Root is written) and PadForge always
-        /// runs elevated. Unelevated runs assert the shape instead of
-        /// silently passing.</summary>
+        /// <summary>The pipeline's wiring: the certificate is ensured, the
+        /// catalog generated and the signature made with that certificate's
+        /// thumbprint. The pipeline itself is not run here. It adds a
+        /// certificate to this PC's stores, LocalMachine\Root among them, and
+        /// starts Inf2Cat and signtool, which the test host does to no PC
+        /// (Ds3DriverOffLimits). It ran in a test host with administrator
+        /// rights before, and wrote that certificate on the PC the tests ran
+        /// on.</summary>
         [Fact]
-        public void SigningPipeline_ProducesATrustedCatalog()
+        public void SigningPipeline_IsWiredFromCertificateToSignature()
         {
-            if (!Elevated)
-            {
-                // Not a skip dressed as a pass: the pipeline's wiring is still
-                // asserted, only the machine-state half is out of reach.
-                string src = File.ReadAllText(Path.Combine(RepoRoot(),
-                    "PadForge.App", "Services", "Ds3DriverInstaller.cs"));
-                Assert.Contains("EnsureSigningCertificate()", src, StringComparison.Ordinal);
-                Assert.Contains("Inf2Cat.exe", src, StringComparison.Ordinal);
-                Assert.Contains("/sha1 {thumb}", src, StringComparison.Ordinal);
-                return;
-            }
-
-            string thumb = Ds3DriverInstaller.EnsureSigningCertificate();
-            Assert.False(string.IsNullOrWhiteSpace(thumb));
-
-            string winusb = Path.Combine(Ds3DriverInstaller.ExtractDrivers(), "WinUSB");
-            Assert.True(File.Exists(Path.Combine(winusb, "ds3_winusb.inf")), "INF was not staged");
-
-            var log = new System.Text.StringBuilder();
-            bool signed = Ds3DriverInstaller.SignWinUsbPackage(winusb, m => log.AppendLine(m));
-            Assert.True(signed, "signing failed: " + log);
-
-            Assert.True(Ds3DriverInstaller.IsWinUsbPackageTrusted(out string signer),
-                "catalog does not chain to a trusted root; signer=" + signer);
-            Assert.Contains("PadForge DS3 WinUSB", signer, StringComparison.Ordinal);
-
+            string src = File.ReadAllText(Path.Combine(RepoRoot(),
+                "PadForge.App", "Services", "Ds3DriverInstaller.cs"));
+            Assert.Contains("EnsureSigningCertificate()", src, StringComparison.Ordinal);
+            Assert.Contains("Inf2Cat.exe", src, StringComparison.Ordinal);
+            Assert.Contains("/sha1 {thumb}", src, StringComparison.Ordinal);
             // The success path speaks. A log that only reports failures cannot
             // tell "it worked" from "it never ran", which is the state that
             // made #283 undiagnosable in the first place.
-            Assert.Contains("signed with this PC's certificate", log.ToString(),
-                StringComparison.Ordinal);
+            Assert.Contains("signed with this PC's certificate", src, StringComparison.Ordinal);
         }
 
         /// <summary>Signing REGENERATES rather than trusting a catalog an
         /// earlier run left behind. A stale catalog is validly signed and
         /// still chains, so a presence check would skip regeneration after
         /// the INF changed and hand Windows a package whose hashes no longer
-        /// cover it: the shipped-catalog bug one layer in.</summary>
+        /// cover it: the shipped-catalog bug one layer in. Read from the
+        /// source, since the test host signs nothing
+        /// (Ds3DriverOffLimits).</summary>
         [Fact]
         public void SigningRegenerates_EvenWhenATrustedCatalogAlreadyExists()
         {
-            if (!Elevated)
-            {
-                string src = File.ReadAllText(Path.Combine(RepoRoot(),
-                    "PadForge.App", "Services", "Ds3DriverInstaller.cs"));
-                int at = src.IndexOf("public static bool EnsureWinUsbBound", StringComparison.Ordinal);
-                Assert.True(at > 0);
-                // Semantic window (method start through the install call),
-                // not a fixed length: a fixed 1600-char slice broke the
-                // moment the bind grew its live-node preamble (#285).
-                int end = src.IndexOf("InstallInf(infPath", at, StringComparison.Ordinal);
-                Assert.True(end > at);
-                string body = src.Substring(at, end - at);
-                // The bind must not gate signing on the catalog already being
-                // trusted; that is precisely the short-circuit being removed.
-                Assert.DoesNotContain("!IsWinUsbPackageTrusted(out _) &&", body, StringComparison.Ordinal);
-                Assert.Contains("if (!SignWinUsbPackage(winusb, log))", body, StringComparison.Ordinal);
-                return;
-            }
-
-            string winusb = Path.Combine(Ds3DriverInstaller.ExtractDrivers(), "WinUSB");
-            var sink = new System.Text.StringBuilder();
-            Assert.True(Ds3DriverInstaller.SignWinUsbPackage(winusb, m => sink.AppendLine(m)),
-                "first sign failed: " + sink);
-            string cat = Path.Combine(winusb, "ds3_winusb.cat");
-            Assert.True(File.Exists(cat));
-
-            // Positive control: the catalog is trusted going into the second
-            // call, so "it regenerated anyway" is not vacuously true.
-            Assert.True(Ds3DriverInstaller.IsWinUsbPackageTrusted(out _));
-
-            File.SetLastWriteTimeUtc(cat, new DateTime(2000, 1, 1, 0, 0, 0, DateTimeKind.Utc));
-            Assert.True(Ds3DriverInstaller.SignWinUsbPackage(winusb, m => sink.AppendLine(m)),
-                "second sign failed: " + sink);
-            Assert.True(File.GetLastWriteTimeUtc(cat).Year > 2000,
-                "the catalog was not rewritten, so signing short-circuited on the stale one");
+            string src = File.ReadAllText(Path.Combine(RepoRoot(),
+                "PadForge.App", "Services", "Ds3DriverInstaller.cs"));
+            int at = src.IndexOf("public static bool EnsureWinUsbBound", StringComparison.Ordinal);
+            Assert.True(at > 0);
+            // Semantic window (method start through the install call),
+            // not a fixed length: a fixed 1600-char slice broke the
+            // moment the bind grew its live-node preamble (#285).
+            int end = src.IndexOf("InstallInf(infPath", at, StringComparison.Ordinal);
+            Assert.True(end > at);
+            string body = src.Substring(at, end - at);
+            // The bind must not gate signing on the catalog already being
+            // trusted. That is the short-circuit being removed.
+            Assert.DoesNotContain("!IsWinUsbPackageTrusted(out _) &&", body, StringComparison.Ordinal);
+            Assert.Contains("if (!SignWinUsbPackage(winusb, log))", body, StringComparison.Ordinal);
+            // Every earlier catalog is deleted before the new one is made.
+            int sign = src.IndexOf("internal static bool SignDriverPackage", StringComparison.Ordinal);
+            int delete = src.IndexOf("foreach (string stale in Directory.GetFiles(dir, \"*.cat\"))", sign, StringComparison.Ordinal);
+            int generate = src.IndexOf("RunTool(inf2cat,", sign, StringComparison.Ordinal);
+            Assert.True(sign > 0 && delete > sign && generate > delete, "the stale catalog is not deleted before the new one is generated");
         }
 
         /// <summary>Wiring the audit round locked, where no seam exists to

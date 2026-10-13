@@ -61,6 +61,10 @@ namespace PadForge.Services
         /// </summary>
         internal static Outcome RequestHidServiceByAddress(ulong address, Action<string> log)
         {
+            // The test host toggles no device's HID service
+            // (BluetoothLinkHelper.OffLimitsForTest): the answer of a PC
+            // with no radio.
+            if (PadForge.Common.Input.BluetoothLinkHelper.OffLimitsForTest) return Outcome.Failed;
             log ??= _ => { };
             var radioParams = new BLUETOOTH_FIND_RADIO_PARAMS
             {
@@ -427,6 +431,8 @@ namespace PadForge.Services
         /// per-node retry backoff.</summary>
         internal static bool RebindNode(string hardwareId, Action<string> log)
         {
+            // The test host binds no driver.
+            if (PadForge.Common.Input.BluetoothLinkHelper.OffLimitsForTest) return false;
             log ??= _ => { };
             string inputInf = System.IO.Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.Windows), "INF", "input.inf");
