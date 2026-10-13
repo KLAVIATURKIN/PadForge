@@ -22,14 +22,39 @@ namespace PadForge.Tests
     /// </summary>
     public class LocaleParityTests
     {
-        /// <summary>The locales shipped alongside the base (invariant) resx.
-        /// Hard-coded rather than discovered: a locale silently dropped from
-        /// the build should fail this test, not shrink its own coverage.</summary>
+        /// <summary>The locales shipped alongside the base (invariant) resx:
+        /// every language in the catalog but English (#505). Their number is
+        /// hard-coded in LanguageCatalogTests rather than discovered, so a
+        /// locale silently dropped from the build still fails a test instead
+        /// of shrinking its own coverage.</summary>
         public static readonly string[] Locales =
+            PadForge.Common.LanguageCatalog.All.Where(l => l.Tag != "en").Select(l => l.Tag).ToArray();
+
+        /// <summary>The nine translations that shipped before the catalog.
+        /// They were complete then and must stay complete.</summary>
+        public static readonly string[] FirstNine =
             { "de", "es", "fr", "it", "ja", "ko", "nl", "pt-BR", "zh-Hans" };
 
         public static IEnumerable<object[]> LocaleCases() =>
             Locales.Select(l => new object[] { l });
+
+        /// <summary>The locales whose row in the language table says every
+        /// string is translated. A partial one shows English for the strings
+        /// it leaves out, by design, and LanguageCatalogTests holds each
+        /// row's claim to its file.</summary>
+        public static IEnumerable<object[]> CompleteLocaleCases() =>
+            PadForge.Common.LanguageCatalog.All.Where(l => l.Tag != "en" && l.IsComplete).Select(l => new object[] { l.Tag });
+
+        [Fact]
+        public void TheFirstNineAreStillComplete()
+        {
+            foreach (string locale in FirstNine)
+            {
+                var language = PadForge.Common.LanguageCatalog.Find(locale);
+                Assert.True(language != null, locale + " left the language table");
+                Assert.True(language.IsComplete, locale + " is no longer a complete translation");
+            }
+        }
 
         private static SortedSet<string> KeysFor(CultureInfo culture)
         {
@@ -53,7 +78,7 @@ namespace PadForge.Tests
         }
 
         [Theory]
-        [MemberData(nameof(LocaleCases))]
+        [MemberData(nameof(CompleteLocaleCases))]
         public void Locale_DefinesEveryBaseKey(string locale)
         {
             var baseKeys = KeysFor(CultureInfo.InvariantCulture);

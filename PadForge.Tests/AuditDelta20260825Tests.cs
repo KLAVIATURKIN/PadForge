@@ -397,7 +397,7 @@ namespace PadForge.Tests
         [Fact]
         public void TheHeadTrackerStatusStringsExistInEveryLocale()
         {
-            foreach (string loc in new[] { "en", "pt-BR", "es", "fr", "it", "nl", "de", "ja", "ko", "zh-Hans" })
+            foreach (string loc in PadForge.Tests.LocaleFiles.CompleteTags)
                 Assert.Contains("{0}", Value(loc, "HeadTracker_StatusFreeTrackFailed_Format"));
         }
     }

@@ -18,8 +18,7 @@ namespace PadForge.Tests
     /// </summary>
     public class AboutInvitationTests
     {
-        private static readonly string[] Locales =
-            { "", ".de", ".es", ".fr", ".it", ".ja", ".ko", ".nl", ".pt-BR", ".zh-Hans" };
+        private static readonly string[] Locales = PadForge.Tests.LocaleFiles.CompleteSuffixes;
 
         private static string ResxValue(string resx, string key)
         {

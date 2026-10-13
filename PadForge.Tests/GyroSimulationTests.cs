@@ -1495,7 +1495,7 @@ public class GyroSimulationTests
         string des = RepoText("PadForge.App", "Resources", "Strings", "Strings.Designer.cs");
         foreach (var k in keys)
             Assert.Contains($"public string {k} => Get(\"{k}\");", des);
-        foreach (var loc in new[] { "", ".de", ".es", ".fr", ".it", ".ja", ".ko", ".nl", ".pt-BR", ".zh-Hans" })
+        foreach (var loc in PadForge.Tests.LocaleFiles.CompleteSuffixes)
         {
             string resx = RepoText("PadForge.App", "Resources", "Strings", "Strings" + loc + ".resx");
             foreach (var k in keys)

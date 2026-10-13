@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using PadForge.Common;
 using PadForge.Common.Input;
 using PadForge.Resources.Strings;
 
@@ -54,19 +55,10 @@ namespace PadForge.ViewModels
         //  Language
         // ─────────────────────────────────────────────
 
-        public ObservableCollection<CultureInfo> AvailableLanguages { get; } = new()
-        {
-            new CultureInfo("en"),
-            new CultureInfo("de"),
-            new CultureInfo("fr"),
-            new CultureInfo("ja"),
-            new CultureInfo("ko"),
-            new CultureInfo("zh-Hans"),
-            new CultureInfo("pt-BR"),
-            new CultureInfo("es"),
-            new CultureInfo("it"),
-            new CultureInfo("nl"),
-        };
+        /// <summary>The languages the picker lists, each under its own name
+        /// with its English name beside it. The list is LanguageCatalog's:
+        /// one row for each translation in the tree (#505).</summary>
+        public IReadOnlyList<LanguageInfo> AvailableLanguages => LanguageCatalog.All;
 
         private CultureInfo _selectedLanguage;
 
@@ -79,20 +71,12 @@ namespace PadForge.ViewModels
             get
             {
                 if (_selectedLanguage != null) return _selectedLanguage;
-                // Walk the parent chain before giving up. An exact-name match
-                // alone sent de-DE, zh-Hans-CN and every other specific culture
-                // to AvailableLanguages[0], which is English, even when the
-                // neutral parent (de, zh-Hans) is right there in the list. A
-                // German user with a German Windows saw the picker say English.
-                for (var c = CultureInfo.CurrentUICulture;
-                     c != null && !string.IsNullOrEmpty(c.Name);
-                     c = c.Parent)
-                {
-                    var hit = AvailableLanguages.FirstOrDefault(a => a.Name == c.Name);
-                    if (hit != null) return hit;
-                    if (ReferenceEquals(c, c.Parent)) break;   // InvariantCulture is its own parent
-                }
-                return AvailableLanguages[0];
+                // The catalog walks the parent chain before giving up. An
+                // exact-name match alone sent de-DE, zh-Hans-CN and every
+                // other specific culture to English, even when the neutral
+                // parent (de, zh-Hans) is right there in the list. A German
+                // user with a German Windows saw the picker say English.
+                return (LanguageCatalog.Resolve(CultureInfo.CurrentUICulture) ?? LanguageCatalog.English).Culture;
             }
             set
             {
@@ -157,7 +141,7 @@ namespace PadForge.ViewModels
         {
             if (!string.IsNullOrEmpty(code))
             {
-                var match = AvailableLanguages.FirstOrDefault(c => c.Name == code);
+                CultureInfo match = LanguageCatalog.Find(code)?.Culture;
                 if (match != null)
                 {
                     _selectedLanguage = match;

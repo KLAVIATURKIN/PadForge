@@ -489,12 +489,7 @@ namespace PadForge.Tests
                 "Settings_MinimizeToTrayTip", "Settings_StartMinimizedTip", "Settings_StartAtLoginTip",
                 "DeviceType_LogitechGKeys", "DeviceType_VrController",
             };
-            foreach (string locale in new[]
-                     {
-                         "Strings.resx", "Strings.de.resx", "Strings.es.resx", "Strings.fr.resx",
-                         "Strings.it.resx", "Strings.ja.resx", "Strings.ko.resx", "Strings.nl.resx",
-                         "Strings.pt-BR.resx", "Strings.zh-Hans.resx",
-                     })
+            foreach (string locale in PadForge.Tests.LocaleFiles.Complete)
             {
                 string text = RepoFile("PadForge.App", "Resources", "Strings", locale);
                 foreach (string key in keys)
@@ -515,12 +510,7 @@ namespace PadForge.Tests
         [Fact]
         public void TheSetupTextNamesTheGKeyCommandInEveryLocale()
         {
-            foreach (string locale in new[]
-                     {
-                         "Strings.resx", "Strings.de.resx", "Strings.es.resx", "Strings.fr.resx",
-                         "Strings.it.resx", "Strings.ja.resx", "Strings.ko.resx", "Strings.nl.resx",
-                         "Strings.pt-BR.resx", "Strings.zh-Hans.resx",
-                     })
+            foreach (string locale in PadForge.Tests.LocaleFiles.Complete)
             {
                 string text = RepoFile("PadForge.App", "Resources", "Strings", locale);
 
@@ -552,12 +542,7 @@ namespace PadForge.Tests
         [Fact]
         public void TheSetupTextNamesTheOnBoardModeRuleInEveryLocale()
         {
-            foreach (string locale in new[]
-                     {
-                         "Strings.resx", "Strings.de.resx", "Strings.es.resx", "Strings.fr.resx",
-                         "Strings.it.resx", "Strings.ja.resx", "Strings.ko.resx", "Strings.nl.resx",
-                         "Strings.pt-BR.resx", "Strings.zh-Hans.resx",
-                     })
+            foreach (string locale in PadForge.Tests.LocaleFiles.Complete)
             {
                 string text = RepoFile("PadForge.App", "Resources", "Strings", locale);
                 foreach (string key in new[] { "Settings_GKeysStatus_NoKeysYet", "Settings_GKeysTooltip" })

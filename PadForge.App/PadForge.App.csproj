@@ -82,6 +82,25 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <!-- Every translation builds into a satellite resource, whatever its tag (#505).
+       MSBuild names the culture of Strings.<tag>.resx itself only for a tag it
+       knows. Strings.chk.resx, Strings.tzo.resx and the like it would embed in
+       the main assembly under a name no culture looks up, and those languages
+       would show English. So the culture and the resource name are taken from
+       the file name here for all of them, and RespectAlreadyAssignedItemCulture
+       tells the build to keep what this rule assigned. Languages.tsv is the
+       table LanguageCatalog reads: one row for each of these files. -->
+  <PropertyGroup>
+    <RespectAlreadyAssignedItemCulture>true</RespectAlreadyAssignedItemCulture>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Strings\Strings.*.resx">
+      <Culture>$([System.String]::Copy('%(Filename)').Substring(8))</Culture>
+      <LogicalName>PadForge.Resources.Strings.%(Filename).resources</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Strings\Languages.tsv" LogicalName="PadForge.Languages.tsv" />
+  </ItemGroup>
+
   <ItemGroup>
     <Resource Include="Resources\PadForge.ico" />
     <Resource Include="Resources\PadForge-logo.png" />

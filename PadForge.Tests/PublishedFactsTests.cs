@@ -38,12 +38,7 @@ namespace PadForge.Tests
     /// </summary>
     public class PublishedFactsTests
     {
-        private static readonly string[] Locales =
-        {
-            "Strings.resx", "Strings.de.resx", "Strings.es.resx", "Strings.fr.resx",
-            "Strings.it.resx", "Strings.ja.resx", "Strings.ko.resx", "Strings.nl.resx",
-            "Strings.pt-BR.resx", "Strings.zh-Hans.resx",
-        };
+        private static readonly string[] Locales = PadForge.Tests.LocaleFiles.Complete;
 
         private const string NewInBlock = @"<details>\s*<summary><b>New in ([0-9.]+):</b>.*?</details>";
 

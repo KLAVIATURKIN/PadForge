@@ -209,13 +209,18 @@ namespace PadForge.Tests
                 var window = new Window { Content = text };
                 Assert.Same(UiLanguage.Undeclared, window.Language);
 
-                UiLanguage.Declare(window, XmlLanguage.GetLanguage("zh-Hans"));
+                UiLanguage.Declare(window, XmlLanguage.GetLanguage("zh-Hans"), FlowDirection.LeftToRight);
                 Assert.Equal("zh-Hans", window.Language.IetfLanguageTag, ignoreCase: true);
                 Assert.Equal("zh-Hans", text.Language.IetfLanguageTag, ignoreCase: true);
 
-                UiLanguage.Declare(window, UiLanguage.Undeclared);
+                UiLanguage.Declare(window, UiLanguage.Undeclared, FlowDirection.RightToLeft);
                 Assert.Same(UiLanguage.Undeclared, text.Language);
-                UiLanguage.Declare(null, UiLanguage.Undeclared);
+                Assert.Equal(FlowDirection.RightToLeft, window.FlowDirection);
+                Assert.Equal(FlowDirection.RightToLeft, text.FlowDirection);
+
+                UiLanguage.Declare(window, UiLanguage.Undeclared, FlowDirection.LeftToRight);
+                Assert.Equal(FlowDirection.LeftToRight, text.FlowDirection);
+                UiLanguage.Declare(null, UiLanguage.Undeclared, FlowDirection.LeftToRight);
             });
         }
 
@@ -347,7 +352,7 @@ namespace PadForge.Tests
             Assert.True(picker >= 0);
             string markup = page.Substring(picker, page.IndexOf("</ComboBox>", picker, StringComparison.Ordinal) - picker);
             Assert.Contains("<Style TargetType=\"ComboBoxItem\" BasedOn=\"{StaticResource {x:Type ComboBoxItem}}\">", markup);
-            Assert.Contains("<Setter Property=\"Language\" Value=\"{Binding Converter={StaticResource CultureLanguageConverter}, ConverterCulture=en-US}\"/>", markup);
+            Assert.Contains("<Setter Property=\"Language\" Value=\"{Binding Culture, Converter={StaticResource CultureLanguageConverter}, ConverterCulture=en-US}\"/>", markup);
             Assert.Contains("<conv:CultureLanguageConverter x:Key=\"CultureLanguageConverter\" />", AppFile("App.xaml"));
         }
 
@@ -378,13 +383,19 @@ namespace PadForge.Tests
                 var grid = (Grid)XamlReader.Parse(markup);
                 var picker = (ComboBox)grid.Children[0];
                 Assert.NotNull(picker.ItemContainerStyle);
+                // The rows are the catalog's, chosen by culture, and typing jumps by own name.
+                Assert.Equal("Culture", picker.SelectedValuePath);
+                Assert.Equal("NativeName", TextSearch.GetTextPath(picker));
+                Assert.NotNull(picker.ItemTemplate);
 
                 XmlLanguage RowLanguage(string culture, out XmlLanguage ofItsText)
                 {
                     var text = new TextBlock();
+                    LanguageInfo language = LanguageCatalog.Find(culture);
+                    Assert.NotNull(language);
                     var row = new ComboBoxItem
                     {
-                        DataContext = CultureInfo.GetCultureInfo(culture),
+                        DataContext = language,
                         Content = text,
                         Style = picker.ItemContainerStyle,
                     };

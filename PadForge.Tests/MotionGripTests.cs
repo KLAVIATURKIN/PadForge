@@ -675,7 +675,7 @@ namespace PadForge.Tests
             string des = RepoText("PadForge.App", "Resources", "Strings", "Strings.Designer.cs");
             foreach (var k in new[] { "Settings_MotionGrip", "Settings_MotionGrip_Tooltip", "Pad_Gyro_Grip_Pointing", "Pad_Gyro_Grip_Sideways", "Pad_Gyro_Grip_WiiWheel", "Pad_Gyro_Grip_Upright", "Pad_ResetMotionGrip", "Pad_Gyro_Grip_Header", "Pad_Gyro_Grip_Subtitle" })
                 Assert.Contains($"public string {k} => Get(\"{k}\");", des);
-            foreach (var loc in new[] { "", ".de", ".es", ".fr", ".it", ".ja", ".ko", ".nl", ".pt-BR", ".zh-Hans" })
+            foreach (var loc in PadForge.Tests.LocaleFiles.CompleteSuffixes)
             {
                 string resx = RepoText("PadForge.App", "Resources", "Strings", "Strings" + loc + ".resx");
                 foreach (var k in new[] { "Settings_MotionGrip", "Settings_MotionGrip_Tooltip", "Pad_Gyro_Grip_Pointing", "Pad_Gyro_Grip_Sideways", "Pad_Gyro_Grip_WiiWheel", "Pad_Gyro_Grip_Upright", "Pad_ResetMotionGrip", "Pad_Gyro_Grip_Header", "Pad_Gyro_Grip_Subtitle" })
