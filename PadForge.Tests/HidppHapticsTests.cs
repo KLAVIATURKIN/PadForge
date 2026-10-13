@@ -46,6 +46,9 @@ namespace PadForge.Tests
             public volatile bool FailWrites;
             public readonly ConcurrentQueue<(long Ms, byte[] Frame)> Writes = new();
             public readonly ConcurrentQueue<(byte Device, byte Feature, byte Function)> Asked = new();
+
+            /// <summary>How long each request was given for its answer.</summary>
+            public readonly ConcurrentQueue<(byte Feature, byte Function, int TimeoutMs)> Waits = new();
             public volatile bool Disposed;
             private readonly Stopwatch _clock = Stopwatch.StartNew();
 
@@ -98,6 +101,7 @@ namespace PadForge.Tests
             {
                 if (FailWrites) return new HidppReply(HidppReplyKind.WriteFailed);
                 Asked.Enqueue((deviceIndex, featureIndex, function));
+                Waits.Enqueue((featureIndex, function, timeoutMs));
                 byte[] frame = HidppHapticProtocol.Frame(deviceIndex, featureIndex, function, parameters ?? Array.Empty<byte>());
                 Traffic.Enqueue(("ask", frame));
                 if (featureIndex == 0 && function == 0 && parameters != null && parameters.Length >= 2)

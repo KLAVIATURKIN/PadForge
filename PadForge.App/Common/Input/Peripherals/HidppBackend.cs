@@ -98,9 +98,18 @@ namespace PadForge.Common.Input.Peripherals
     /// outputs (<see cref="HidppReceiverProtocol"/>).
     /// A found device is asked for its configuration every 30 seconds while
     /// quiet: one that does not answer went to sleep, and its slot reopens so
-    /// the next scan finds it when it wakes. A unit held at level 2 gets its
-    /// hand-back before it is forgotten that way, so a keyboard that missed
-    /// one check is not left in host mode with nothing on record.</para>
+    /// the next scan finds it when it wakes.</para>
+    ///
+    /// <para>A claimed unit the worker lets go of that way, or because a
+    /// write to its path failed, is owed its hand-back
+    /// (<see cref="_owed"/>). A device that slept restarts on its own
+    /// effect and is owed nothing in fact. One that missed a single answer
+    /// still holds the claim, and at level 2 is still in host mode. The
+    /// worker cannot tell the two apart, so the hand-back stays on the
+    /// crash path's record and is paid when the unit is found again,
+    /// before anything else goes to it, and at a stop. It ends with no
+    /// frame when a Logitech program starts or the unit's collection
+    /// leaves.</para>
     /// </summary>
     internal sealed class HidppBackend : IDisposable
     {
@@ -151,6 +160,11 @@ namespace PadForge.Common.Input.Peripherals
         private sealed class Light
         {
             public HidppLightPlan Plan;
+
+            /// <summary>The unit the plan was made for, which says whether
+            /// a hand-back owed at its slot is owed to the device found
+            /// there later (<see cref="SameDevice"/>).</summary>
+            public HidppUnit Unit;
             public bool Claimed;
             public int Level;
             public byte SavedMode;
@@ -196,6 +210,17 @@ namespace PadForge.Common.Input.Peripherals
         /// 0x8070 release sent to a 0x8071 index sets the power mode and
         /// releases nothing. Swapped whole.</summary>
         private ClaimRecord[] _claimed = Array.Empty<ClaimRecord>();
+
+        /// <summary>The hand-backs owed to units the worker let go of while
+        /// their devices may still hold the claim, by channel path and
+        /// device index. Each is the claim as it stood: its plan, its level,
+        /// the mode read before it and the frames that hand it back. Worker
+        /// thread only.</summary>
+        private readonly Dictionary<string, Dictionary<byte, Light>> _owed = new(StringComparer.OrdinalIgnoreCase);
+
+        /// <summary>The bound on each write that opens a handle of its own:
+        /// the crash path's, and the stop path's for what is owed.</summary>
+        internal const int OneShotMs = 200;
 
         private readonly Func<IReadOnlyList<VendorHidCollection>> _enumerate;
         private readonly Func<VendorHidCollection, VendorHidCollection, IHidppChannel> _open;
@@ -446,6 +471,11 @@ namespace PadForge.Common.Input.Peripherals
                     try { ReleaseLighting(channel); } catch { }
                     try { channel.Io.Dispose(); } catch { }
                 }
+                // What is still owed goes out through a handle of its own,
+                // as on the crash path: its unit was not found again, so
+                // the worker has no channel that is known to reach it.
+                try { PayOwedNow(); } catch { }
+                _owed.Clear();
                 Volatile.Write(ref _claimed, Array.Empty<ClaimRecord>());
                 Volatile.Write(ref _snapshot, HidppSnapshot.Empty);
             }
@@ -458,6 +488,15 @@ namespace PadForge.Common.Input.Peripherals
         {
             List<string> dead = null;
             bool claims = false, queued = false;
+            // A Logitech program that runs has every Logitech device, the
+            // ones not found again among them. A hand-back that landed
+            // after its claim would clear that claim, so what is owed ends
+            // here with no frame.
+            if (_owed.Count > 0 && PeripheralOutputs.Presence.LogitechGHubRunning)
+            {
+                _owed.Clear();
+                claims = true;
+            }
             foreach (var pair in channels)
             {
                 var channel = pair.Value;
@@ -467,14 +506,46 @@ namespace PadForge.Common.Input.Peripherals
                     {
                         var plan = HidppLightPlan.For(unit);
                         if (plan == null) continue;
-                        channel.Lights[unit.DeviceIndex] = light = new Light { Plan = plan };
+                        channel.Lights[unit.DeviceIndex] = light = new Light { Plan = plan, Unit = unit };
                     }
                     var path = new OutputPath(OutputFamily.HidppUnit, unit.Key);
                     int rgb = 0;
                     PeripheralOutputs.Claimant ruler = default;
                     bool wanted = links.ByPath.ContainsKey(path) && PeripheralOutputs.TryResolveColor(path, out rgb, out ruler);
                     bool ok = true;
-                    if (wanted)
+                    if (Owed(pair.Key, unit.DeviceIndex) is Light debt)
+                    {
+                        if (!SameDevice(debt.Unit, unit))
+                        {
+                            // Another device answers at the slot. The frames
+                            // on the books name the features of the one that
+                            // left, at its indexes, and would mean something
+                            // else here, so nothing is sent.
+                            Settle(pair.Key, unit.DeviceIndex);
+                            claims = true;
+                            PadForge.Engine.SdlDiagLog.WriteLine(
+                                $"PERIPHERAL HID++ '{unit.Name}' is another device than the one owed a hand-back at its slot, which is dropped");
+                        }
+                        else
+                        {
+                            // The unit is back, and its hand-back is owed
+                            // from before the worker let go of it. It is
+                            // paid before anything else goes to the unit, a
+                            // new claim included, which then starts from the
+                            // device's own mode. A stopping worker leaves it
+                            // to its finally.
+                            if (run.Stop) return false;
+                            ok = PayBack(channel.Io, debt, light);
+                            if (ok)
+                            {
+                                Settle(pair.Key, unit.DeviceIndex);
+                                claims = true;
+                                PadForge.Engine.SdlDiagLog.WriteLine(
+                                    $"PERIPHERAL HID++ '{unit.Name}' lighting handed back, owed since the unit was let go");
+                            }
+                        }
+                    }
+                    if (ok && wanted)
                     {
                         // A stopping worker claims nothing more and paints
                         // nothing more. Its finally hands back what it holds.
@@ -499,10 +570,15 @@ namespace PadForge.Common.Input.Peripherals
                     }
                     else if (light.Claimed)
                     {
+                        // A hand-back whose write failed is still owed: the
+                        // path is dropped below with the claim on its books.
                         ok = HandBack(channel.Io, light);
-                        Forget(light);
-                        claims = true;
-                        if (ok) PadForge.Engine.SdlDiagLog.WriteLine($"PERIPHERAL HID++ '{unit.Name}' lighting handed back");
+                        if (ok)
+                        {
+                            Forget(light);
+                            claims = true;
+                            PadForge.Engine.SdlDiagLog.WriteLine($"PERIPHERAL HID++ '{unit.Name}' lighting handed back");
+                        }
                     }
                     if (light.Queue != null) queued = true;
                     if (!ok)
@@ -512,18 +588,8 @@ namespace PadForge.Common.Input.Peripherals
                     }
                 }
             }
-            if (dead != null)
-            {
-                foreach (var path in dead)
-                {
-                    PadForge.Engine.SdlDiagLog.WriteLine("PERIPHERAL HID++ write failed, dropping " + path);
-                    Close(channels, states, path, forget: true);
-                }
-                nextScan = now;
-                Publish(channels, states);
-                claims = true;
-            }
-            if (claims) PublishClaimed(channels);
+            if (dead != null) DropDead(channels, states, dead, now, ref nextScan);
+            else if (claims) PublishClaimed(channels);
             return queued;
         }
 
@@ -639,10 +705,35 @@ namespace PadForge.Common.Input.Peripherals
         {
             var plan = light.Plan;
             light.ClaimedAt = now;
-            byte[] claimRead = channel.Io.Bluetooth ? null : plan.ClaimRead;
+            // A read is made over Bluetooth too, with that link's own
+            // patience: one that goes unanswered there costs this keep-alive
+            // its frames and no more, and with no read a keyboard that slept
+            // and woke would never be claimed again.
+            int patience = channel.Io.Bluetooth ? HidppHapticProtocol.TimeoutMs(true) : HidppLightPlan.AckTimeoutMs;
+            byte[] claimRead = plan.ClaimRead;
+            if (claimRead == null && plan.SwitchesMode(light.Level, light.SavedMode))
+            {
+                // A plan with no claim read holds its claim by repeating
+                // it, which takes the lighting again on a device that slept
+                // and woke. The mode is another matter: the device woke in
+                // its on-board memory mode, and the mode frame is sent once
+                // per claim. So the mode is read, and a device found back
+                // in the mode the claim switched it from is claimed again
+                // as it was first claimed, switch included.
+                var mode = Ask(channel.Io, plan.ModeRead, patience);
+                if (mode.Kind == HidppReplyKind.WriteFailed) return false;
+                if (mode.Kind == HidppReplyKind.Answer && plan.ModeOf(mode) == light.SavedMode)
+                {
+                    PadForge.Engine.SdlDiagLog.WriteLine(
+                        $"PERIPHERAL HID++ '{unit.Name}' was back in its on-board memory mode, claiming again");
+                    light.FailedPaints = 0;
+                    EnqueueClaim(light, rgb, now);
+                    return Send(channel.Io, unit, light, now, ref claims);
+                }
+            }
             if (claimRead != null)
             {
-                var reply = Ask(channel.Io, claimRead, HidppLightPlan.AckTimeoutMs);
+                var reply = Ask(channel.Io, claimRead, patience);
                 if (reply.Kind == HidppReplyKind.WriteFailed) return false;
                 // Asleep or away behind its receiver: every frame now would
                 // be one more wait, and the next keep-alive asks again.
@@ -825,6 +916,113 @@ namespace PadForge.Common.Input.Peripherals
             return true;
         }
 
+        /// <summary>Puts a claimed unit's hand-back on the books as owed,
+        /// when the worker lets go of the unit with no frame: it stopped
+        /// answering, or a write to its path failed. The claim is kept as
+        /// it stood, so what is paid later is the hand-back of that claim,
+        /// with the mode it read.</summary>
+        private void Owe(string path, byte deviceIndex, Light light)
+        {
+            if (!light.Claimed || light.HandBack == null) return;
+            light.Queue = null;
+            if (!_owed.TryGetValue(path, out var units)) _owed[path] = units = new Dictionary<byte, Light>();
+            units[deviceIndex] = light;
+        }
+
+        /// <summary>Drops the paths a write failed on, a color's or a
+        /// pulse's alike. Each claimed unit there is owed its hand-back,
+        /// the channel closes, what the path answered is forgotten, and
+        /// the scan that looks for it again is due at once. The snapshot
+        /// and the crash path's record follow.</summary>
+        private void DropDead(Dictionary<string, Channel> channels, Dictionary<string, HidppPathState> states,
+            List<string> dead, long now, ref long nextScan)
+        {
+            foreach (var path in dead)
+            {
+                PadForge.Engine.SdlDiagLog.WriteLine("PERIPHERAL HID++ write failed, dropping " + path);
+                if (channels.TryGetValue(path, out var channel))
+                    foreach (var unit in channel.Units)
+                        if (channel.Lights.TryGetValue(unit.DeviceIndex, out var light)) Owe(path, unit.DeviceIndex, light);
+                Close(channels, states, path, forget: true);
+            }
+            nextScan = now;
+            Publish(channels, states);
+            PublishClaimed(channels);
+        }
+
+        /// <summary>Whether the unit found at a slot is the device a
+        /// hand-back is owed to there, as far as its frames go: the same
+        /// name, with the effect, per-key and mode features the frames are
+        /// addressed to at the same indexes. A receiver's slot can be given
+        /// to another device while the first is away.</summary>
+        private static bool SameDevice(HidppUnit owed, HidppUnit found)
+            => owed != null && found != null && owed.Name == found.Name
+               && owed.RgbFeatureId == found.RgbFeatureId && owed.RgbIndex == found.RgbIndex
+               && owed.EffectFeatureId == found.EffectFeatureId && owed.EffectIndex == found.EffectIndex
+               && owed.PerKeyFeatureId == found.PerKeyFeatureId && owed.PerKeyIndex == found.PerKeyIndex
+               && owed.ModeFeatureId == found.ModeFeatureId && owed.ModeIndex == found.ModeIndex;
+
+        private Light Owed(string path, byte deviceIndex)
+            => _owed.TryGetValue(path, out var units) && units.TryGetValue(deviceIndex, out var light) ? light : null;
+
+        private void Settle(string path, byte deviceIndex)
+        {
+            if (!_owed.TryGetValue(path, out var units)) return;
+            units.Remove(deviceIndex);
+            if (units.Count == 0) _owed.Remove(path);
+        }
+
+        /// <summary>
+        /// Pays the hand-back a unit is owed, once the unit is found again.
+        /// The release goes out as any hand-back's does. A device that
+        /// slept since has restarted with no claim on it, and a release
+        /// changes nothing there. The mode is not written blind. A device
+        /// that restarted is back in the mode the claim found, and the
+        /// mode call is the one that costs a keyboard its held modifiers
+        /// (<see cref="ClusterPlan"/>, the G515 in Solaar issue 3310). So
+        /// the mode is read first, and written back only to a device that
+        /// is not in it. A read that goes unanswered leaves the write in,
+        /// since a device still in host mode is the worse of the two to
+        /// leave. <paramref name="light"/> is the unit's light now, which
+        /// keeps the plan's distance from the last frame sent here. False
+        /// when a write failed.
+        /// </summary>
+        private bool PayBack(IHidppChannel io, Light debt, Light light)
+        {
+            var plan = debt.Plan;
+            if (plan.SwitchesMode(debt.Level, debt.SavedMode))
+            {
+                var mode = Ask(io, plan.ModeRead, HidppHapticProtocol.TimeoutMs(io.Bluetooth));
+                if (mode.Kind == HidppReplyKind.WriteFailed) return false;
+                if (mode.Kind == HidppReplyKind.Answer && plan.ModeOf(mode) == debt.SavedMode)
+                    debt.HandBack = plan.HandBack(1, debt.SavedMode);
+            }
+            if (!HandBack(io, debt)) return false;
+            light.NextAt = Math.Max(light.NextAt, debt.NextAt);
+            return true;
+        }
+
+        /// <summary>The stop path's share of what is owed: each unit's
+        /// frames in their order through a write that opens its own handle,
+        /// bounded, and a unit is left at its first failed write, as on the
+        /// crash path (<see cref="ReleaseClaimedNow"/>).</summary>
+        private void PayOwedNow()
+        {
+            foreach (var pair in _owed)
+            {
+                foreach (var debt in pair.Value.Values)
+                {
+                    foreach (var step in debt.HandBack)
+                    {
+                        bool written;
+                        try { written = _writeOnce(pair.Key, step.Frame, OneShotMs); }
+                        catch { written = false; }
+                        if (!written) break;
+                    }
+                }
+            }
+        }
+
         /// <summary>Drops a unit's claim from the worker's own books, with
         /// no frame. The plan stays, a fallen-back one included: a device
         /// that refused its per-key frames is not offered them again until
@@ -877,8 +1075,9 @@ namespace PadForge.Common.Input.Peripherals
             Volatile.Write(ref _claimed, next.ToArray());
         }
 
-        /// <summary>Records which units hold a claim, each with the frames
-        /// that hand it back, for the crash path.</summary>
+        /// <summary>Records which units hold a claim and which are owed a
+        /// hand-back, each with the frames that hand it back, for the crash
+        /// path.</summary>
         private void PublishClaimed(Dictionary<string, Channel> channels)
         {
             var claimed = new List<ClaimRecord>();
@@ -886,6 +1085,9 @@ namespace PadForge.Common.Input.Peripherals
                 foreach (var unit in channel.Units)
                     if (channel.Lights.TryGetValue(unit.DeviceIndex, out var light) && light.Claimed && light.HandBack != null)
                         claimed.Add(new ClaimRecord(channel.Io.Path, unit.DeviceIndex, HidppLightPlan.Frames(light.HandBack)));
+            foreach (var pair in _owed)
+                foreach (var debt in pair.Value)
+                    claimed.Add(new ClaimRecord(pair.Key, debt.Key, HidppLightPlan.Frames(debt.Value.HandBack)));
             Volatile.Write(ref _claimed, claimed.ToArray());
         }
 
@@ -916,7 +1118,7 @@ namespace PadForge.Common.Input.Peripherals
                 foreach (byte[] frame in record.HandBack)
                 {
                     bool written;
-                    try { written = _writeOnce(record.Path, frame, 200); }
+                    try { written = _writeOnce(record.Path, frame, OneShotMs); }
                     catch { written = false; }
                     if (!written) break;
                 }
@@ -1002,16 +1204,7 @@ namespace PadForge.Common.Input.Peripherals
                     channel.Play[unit.DeviceIndex] = (level, now + HapticRumbleShaper.IntervalMs(amplitude));
                 }
             }
-            if (dead != null)
-            {
-                foreach (var path in dead)
-                {
-                    PadForge.Engine.SdlDiagLog.WriteLine("PERIPHERAL HID++ write failed, dropping " + path);
-                    Close(channels, states, path, forget: true);
-                }
-                nextScan = now;
-                Publish(channels, states);
-            }
+            if (dead != null) DropDead(channels, states, dead, now, ref nextScan);
             return active;
         }
 
@@ -1024,11 +1217,22 @@ namespace PadForge.Common.Input.Peripherals
             var collections = all.Where(IsHidppLong).ToList();
 
             var present = new HashSet<string>(collections.Select(c => c.Path), StringComparer.OrdinalIgnoreCase);
+            // A collection that left takes its claims and what was owed on
+            // it along: nothing reaches a device that is not there, so the
+            // crash path's record lets go of both.
+            bool left = false;
+            foreach (var path in _owed.Keys.Where(p => !present.Contains(p)).ToList())
+            {
+                _owed.Remove(path);
+                left = true;
+            }
             foreach (var path in states.Keys.Where(p => !present.Contains(p)).ToList())
             {
                 Close(channels, states, path, forget: true);
                 _containers.Remove(path);
+                left = true;
             }
+            if (left) PublishClaimed(channels);
 
             foreach (var collection in collections)
             {
@@ -1146,14 +1350,14 @@ namespace PadForge.Common.Input.Peripherals
         /// that answers and reports a charge has it read again. True when a
         /// slot reopened.
         ///
-        /// <para>A lit unit that leaves this way takes its claim with it
-        /// and gets no frame: the claim is gone from a device that slept,
-        /// and it is made again when the device is found. The exception is
-        /// a unit whose claim switched it to host mode. Its hand-back goes
-        /// out first, the release and then the mode, because a keyboard on
-        /// a cable that missed one answer is still in host mode, with its
-        /// keys reporting nothing its profile would have them report, and
-        /// forgetting it would leave nothing on record to put that right.</para></summary>
+        /// <para>A lit unit that leaves this way gets no frame: a device
+        /// that slept has lost the claim by itself, and frames to it would
+        /// be waits. Its hand-back is owed all the same
+        /// (<see cref="Owe"/>), because a device that missed one answer
+        /// still holds the claim, and a keyboard switched to host mode
+        /// still has its keys reporting nothing its profile would have
+        /// them report. It is paid when the unit is found again, and stays
+        /// on the crash path's record until then.</para></summary>
         private bool Check(WorkerRun run, Dictionary<string, Channel> channels, Dictionary<string, HidppPathState> states)
         {
             bool changed = false;
@@ -1198,7 +1402,10 @@ namespace PadForge.Common.Input.Peripherals
                     PadForge.Engine.SdlDiagLog.WriteLine($"PERIPHERAL HID++ '{unit.Name}' stopped answering");
                     if (channel.Lights.TryGetValue(unit.DeviceIndex, out var light) && light.Claimed)
                     {
-                        if (light.Plan.SwitchesMode(light.Level, light.SavedMode)) HandBack(channel.Io, light);
+                        // Asleep, or awake and one answer short. Nothing
+                        // says which, so nothing is sent and the hand-back
+                        // is owed.
+                        Owe(path, unit.DeviceIndex, light);
                         claims = true;
                     }
                     channel.Units.RemoveAt(i);

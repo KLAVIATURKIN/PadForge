@@ -1404,7 +1404,11 @@ namespace PadForge.Tests
             /// <summary>What the crash path's one-shot writer was handed, and
             /// whether that writer reports its writes as failed.</summary>
             public readonly ConcurrentQueue<(string Path, byte[] Frame)> Once = new();
+            public readonly ConcurrentQueue<int> OnceTimeouts = new();
             public volatile bool OnceFails;
+
+            /// <summary>Whether the walk still finds the unit's collection.</summary>
+            public volatile bool Present = true;
 
             public Bench(HidppLightDevice device, VendorHidCollection collection = null, int reassertMs = int.MaxValue,
                 int idleTickMs = 1)
@@ -1412,8 +1416,14 @@ namespace PadForge.Tests
                 Device = device;
                 Collection = collection ?? (device.Index == HidppHapticProtocol.DirectDeviceIndex ? Cable : Receiver);
                 Channel = device.Channel(Collection.Path, HidppHapticProtocol.IsBluetoothPath(Collection.Path));
-                Backend = new HidppBackend(() => new[] { Collection }, (c, s) => Channel, _ => Container, 1, idleTickMs, reassertMs,
-                    (path, frame, timeout) => { Once.Enqueue((path, frame)); return !OnceFails; },
+                Backend = new HidppBackend(() => Present ? new[] { Collection } : Array.Empty<VendorHidCollection>(),
+                    (c, s) => Channel, _ => Container, 1, idleTickMs, reassertMs,
+                    (path, frame, timeout) =>
+                    {
+                        Once.Enqueue((path, frame));
+                        OnceTimeouts.Enqueue(timeout);
+                        return !OnceFails;
+                    },
                     ticks: () => Interlocked.Read(ref _now));
                 Backend.Start();
                 Assert.True(SpinWait.SpinUntil(() => Backend.Snapshot.Units.Count == 1, 30000), "the scan found the unit");
@@ -1470,6 +1480,65 @@ namespace PadForge.Tests
                 Tick(HidppBackend.FrameTickMs);
                 Tick(HidppBackend.FrameTickMs);
                 return Lit();
+            }
+
+            /// <summary>Makes the scripted device keep the mode a 0x8100
+            /// mode frame sets, written or asked, as a device does. Without
+            /// it the device answers every mode read with the mode it was
+            /// made with.</summary>
+            public void FollowTheMode()
+            {
+                Assert.Equal(HidppUnitProtocol.OnboardProfiles, Unit.ModeFeatureId);
+                var answer = Channel.Answer;
+                Channel.Answer = (d, f, fn, p) =>
+                {
+                    if (d == Unit.DeviceIndex && f == Unit.ModeIndex && fn == HidppUnitProtocol.FunctionOnboardSetMode && p.Length > 0)
+                        Device.Mode = p[0];
+                    return answer(d, f, fn, p);
+                };
+                Channel.Writing = frame =>
+                {
+                    if (frame[1] == Unit.DeviceIndex && frame[2] == Unit.ModeIndex
+                        && frame[3] >> 4 == HidppUnitProtocol.FunctionOnboardSetMode)
+                        Device.Mode = frame[4];
+                };
+            }
+
+            /// <summary>Waits until the worker has let go of the unit.</summary>
+            public void Away()
+                => Assert.True(SpinWait.SpinUntil(() => Backend.Snapshot.Units.Count == 0, 30000), "the unit was let go");
+
+            /// <summary>Moves the clock scan by scan until the worker has
+            /// found the unit again.</summary>
+            public void Back()
+            {
+                for (int i = 0; i < 12 && Backend.Snapshot.Units.Count == 0; i++)
+                {
+                    Advance(HidppBackend.FirstScanMs);
+                    Passes();
+                    Passes();
+                }
+                Assert.Single(Backend.Snapshot.Units);
+            }
+
+            /// <summary>The lighting traffic since the last clear, once at
+            /// least <paramref name="count"/> frames of it are out, without
+            /// the questions the probe asks the effect feature as it finds
+            /// the unit again (0x8071 getInfo, function 0).</summary>
+            public string[] AfterFound(int count)
+            {
+                for (int i = 0; i < 400 && SinceFound().Length < count; i++) Tick(HidppBackend.FrameTickMs);
+                Tick(HidppBackend.FrameTickMs);
+                Tick(HidppBackend.FrameTickMs);
+                return SinceFound();
+            }
+
+            /// <summary>The same traffic as it stands, with the clock left
+            /// where it is.</summary>
+            public string[] SinceFound()
+            {
+                string probe = $"ask 11 {Unit.DeviceIndex:X2} {Unit.EffectIndex:X2} 0";
+                return Lit().Where(l => !l.StartsWith(probe, StringComparison.Ordinal)).ToArray();
             }
 
             /// <summary>Every frame so far on the unit's lighting and mode
@@ -1677,15 +1746,23 @@ namespace PadForge.Tests
         /// its on-board memory mode to host mode, and then claims as level 1
         /// does. The crash path has the hand-back, mode restore last, by
         /// the time the first frame of the claim is written. A keep-alive
-        /// repeats neither the read nor the switch. The hand-back releases,
-        /// waits for that answer, and puts back the mode that was read.</summary>
+        /// reads the mode, and with the device still in host mode it
+        /// repeats neither the switch nor the first claim frame. The
+        /// hand-back releases, waits for that answer, and puts back the
+        /// mode that was read.</summary>
         [Fact]
         public void LevelTwo_ReadsTheMode_SwitchesADeviceReadOnBoard_AndWritesBackWhatItRead()
         {
             using var bench = new Bench(HidppLightDevice.G903(), reassertMs: 1000);
             Assert.Equal(2, bench.Unit.MaxClaimLevel);
             string[] recordAtFirstWrite = null;
-            bench.Channel.Writing = frame => recordAtFirstWrite ??= bench.Record();
+            bench.FollowTheMode();
+            var follow = bench.Channel.Writing;
+            bench.Channel.Writing = frame =>
+            {
+                recordAtFirstWrite ??= bench.Record();
+                follow(frame);
+            };
             bench.Link();
             bench.Light(0xFF0000, level: 2);
 
@@ -1695,7 +1772,7 @@ namespace PadForge.Tests
 
             bench.Clear();
             bench.Tick(1000);
-            Assert.Equal(Join(MouseVendorHold, Clusters(Mouse, 0xFF0000)), bench.After(4));
+            Assert.Equal(Join("ask 11 01 08 2C", MouseVendorHold, Clusters(Mouse, 0xFF0000)), bench.After(5));
 
             bench.Clear();
             bench.Release();
@@ -2047,16 +2124,223 @@ namespace PadForge.Tests
             Assert.Equal(Join(MouseClaim, Clusters(Mouse, 0x0000FF)), bench.After(3));
         }
 
-        /// <summary>A unit that stops answering is forgotten at the next
-        /// liveness check. Held at level 2, with its mode switched, it gets
-        /// its hand-back first, the release and then the mode, each written
-        /// once more when it too goes unanswered, so a keyboard that missed
-        /// one answer is not left in host mode with nothing on record. Held
-        /// at a lower level it gets no frame, as before.</summary>
+        /// <summary>A unit that stops answering is let go at the next
+        /// liveness check with no frame: a device that slept has lost its
+        /// claim by itself, and frames to it would be waits. Its hand-back
+        /// is owed all the same and stays on the crash path's record, since
+        /// a device that missed one answer still holds the claim, and at
+        /// level 2 is still in host mode. When the unit is found again the
+        /// hand-back goes out before anything else, with the mode put back
+        /// where the device is still out of it, and the standing claim is
+        /// then made afresh, read first.</summary>
         [Theory]
         [InlineData(0)]
         [InlineData(2)]
-        public void AUnitThatStopsAnswering_GetsItsModeBackBeforeItIsForgotten_AndNothingAtALowerLevel(int level)
+        public void AUnitThatStopsAnswering_IsSentNothing_AndIsHandedBackWhenItIsFoundAgain(int level)
+        {
+            var device = HidppLightDevice.G903();
+            bool silent = false;
+            device.Silent = (f, fn, p) => silent;
+            using var bench = new Bench(device);
+            bench.FollowTheMode();
+            bench.Link();
+            bench.Light(0xFF0000, level);
+            bench.After(level == 0 ? 3 : 7);
+            string[] owed = bench.Record();
+            Assert.Equal(level == 0 ? new[] { "11 01 07 5C 01" } : new[] { "11 01 07 5C 01", "11 01 08 1C 01" }, owed);
+
+            bench.Clear();
+            silent = true;
+            bench.Advance(HidppBackend.CheckMs);
+            bench.Away();
+            bench.Passes();
+            Assert.Empty(bench.Lit());
+            Assert.Equal(owed, bench.Record());
+            Assert.Empty(bench.Once);
+
+            // It was awake all along and one answer short. Found again, it
+            // is handed back first, and then claimed as a unit just found.
+            // The claim's first frame keeps the plan's distance from the
+            // hand-back's last: with the clock standing still it has not
+            // gone out, where the mode read, a request, has.
+            silent = false;
+            bench.Back();
+            Assert.Equal(level == 0
+                ? new[] { MouseRelease }
+                : new[] { "ask 11 01 08 2C", MouseRelease, MouseRestore, "ask 11 01 08 2C" }, bench.SinceFound());
+            Assert.Equal(level == 0
+                ? Join(MouseRelease, MouseClaim, Clusters(Mouse, 0xFF0000))
+                : Join("ask 11 01 08 2C", MouseRelease, MouseRestore,
+                    "ask 11 01 08 2C", "write 11 01 08 1C 02", MouseVendorClaim, Clusters(Mouse, 0xFF0000)),
+                bench.AfterFound(level == 0 ? 4 : 10));
+            Assert.Equal(owed, bench.Record());
+        }
+
+        /// <summary>A device that slept is back in its on-board memory mode
+        /// when it is found again. The release is paid, the mode is read
+        /// and not written a second time, and with the claim ended
+        /// meanwhile nothing else goes to the unit.</summary>
+        [Fact]
+        public void AnOwedHandBack_WritesNoModeToADeviceThatRestarted_AndNothingMoreWithItsClaimEnded()
+        {
+            var device = HidppLightDevice.G903();
+            bool silent = false;
+            device.Silent = (f, fn, p) => silent;
+            using var bench = new Bench(device);
+            bench.FollowTheMode();
+            bench.Link();
+            bench.Light(0xFF0000, level: 2);
+            bench.After(7);
+            Assert.Equal(0x02, device.Mode);
+
+            bench.Clear();
+            silent = true;
+            bench.Advance(HidppBackend.CheckMs);
+            bench.Away();
+            Assert.Equal(new[] { "11 01 07 5C 01", "11 01 08 1C 01" }, bench.Record());
+
+            // It slept, and woke in its on-board memory mode. The claim
+            // ended while it was away.
+            device.Mode = 0x01;
+            bench.Release();
+            silent = false;
+            int waits = bench.Channel.Waits.Count;
+            bench.Back();
+            Assert.Equal(new[] { "ask 11 01 08 2C", MouseRelease }, bench.AfterFound(2));
+            Assert.Empty(bench.Record());
+            // The one mode read made since the unit came back was given
+            // the link's own time, and nothing was left for the stop.
+            Assert.Equal(new[] { HidppHapticProtocol.TimeoutMs(false) },
+                bench.Channel.Waits.Skip(waits).Where(w => w.Feature == 0x08 && w.Function == 2).Select(w => w.TimeoutMs));
+            bench.Backend.Stop();
+            Assert.Empty(bench.Once);
+        }
+
+        /// <summary>A write that fails drops the whole path, and each
+        /// claimed unit on it is owed its hand-back. A mouse held at level
+        /// 2 is still in host mode when its path answers again, and that
+        /// is the claim's doing: it is handed back with the mode the claim
+        /// first read, and the claim made afresh reads the device's own
+        /// mode. Read as its owner's choice, host mode would never be put
+        /// back.</summary>
+        [Fact]
+        public void AUnitDroppedByAFailedWrite_IsHandedBackWithTheModeItsClaimRead_AndNotTakenForOneKeptInHostMode()
+        {
+            var device = HidppLightDevice.G903();
+            using var bench = new Bench(device);
+            bench.FollowTheMode();
+            bench.Link();
+            bench.Light(0xFF0000, level: 2);
+            bench.After(7);
+            string[] owed = { "11 01 07 5C 01", "11 01 08 1C 01" };
+            Assert.Equal(owed, bench.Record());
+
+            // A new color, and its write fails.
+            bench.Clear();
+            bench.Channel.FailWrites = true;
+            bench.Light(0x00FF00, level: 2);
+            bench.Away();
+            Assert.Equal(owed, bench.Record());
+            Assert.Equal(0x02, device.Mode);
+
+            bench.Channel.FailWrites = false;
+            bench.Back();
+            Assert.Equal(Join("ask 11 01 08 2C", MouseRelease, MouseRestore,
+                "ask 11 01 08 2C", "write 11 01 08 1C 02", MouseVendorClaim, Clusters(Mouse, 0x00FF00)), bench.AfterFound(10));
+            Assert.Equal(owed, bench.Record());
+
+            // The end of this claim puts the on-board mode back.
+            bench.Clear();
+            bench.Release();
+            bench.Passes();
+            Assert.Equal(new[] { MouseRelease, MouseRestore }, bench.Lit());
+            Assert.Equal(0x01, device.Mode);
+            Assert.Empty(bench.Record());
+        }
+
+        /// <summary>A hand-back whose write fails is still owed. The path
+        /// is dropped with the claim on its books, and the hand-back is
+        /// paid when the path answers again.</summary>
+        [Fact]
+        public void AHandBackWhoseWriteFails_IsStillOwed_AndIsPaidWhenThePathAnswersAgain()
+        {
+            using var bench = new Bench(HidppLightDevice.G903());
+            bench.Link();
+            bench.Light(0xFF0000);
+            bench.After(3);
+            string[] owed = { "11 01 07 5C 01" };
+            Assert.Equal(owed, bench.Record());
+
+            bench.Clear();
+            bench.Channel.FailWrites = true;
+            bench.Release();
+            bench.Away();
+            Assert.Equal(owed, bench.Record());
+
+            bench.Channel.FailWrites = false;
+            bench.Back();
+            Assert.Equal(new[] { MouseRelease }, bench.AfterFound(1));
+            Assert.Empty(bench.Record());
+        }
+
+        /// <summary>A receiver's slot can be given to another device while
+        /// the first is away. The frames on the books name the features of
+        /// the device that left, at its indexes, so a unit found at the
+        /// slot under another name, or with a feature elsewhere, is sent
+        /// none of them, and the debt ends.</summary>
+        [Theory]
+        [InlineData("name")]
+        [InlineData("index")]
+        public void WhatIsOwedAtASlot_IsNotPaidToAnotherDeviceFoundThere(string differs)
+        {
+            var device = HidppLightDevice.G903();
+            bool silent = false;
+            device.Silent = (f, fn, p) => silent;
+            var bench = new Bench(device);
+            try
+            {
+                bench.Link();
+                bench.Light(0xFF0000, level: 2);
+                bench.After(7);
+
+                bench.Clear();
+                silent = true;
+                bench.Advance(HidppBackend.CheckMs);
+                bench.Away();
+                Assert.NotEmpty(bench.Record());
+                bench.Release();
+
+                // Another mouse is paired at the slot.
+                if (differs == "name") device.Name = "G703";
+                else device.Features[0x8100] = 0x09;
+                silent = false;
+                bench.Back();
+                bench.Passes();
+                Assert.Empty(bench.Record());
+                // Neither the release nor a mode frame went to it.
+                Assert.DoesNotContain(bench.Channel.Traffic, t => t.Frame[2] == 0x07 && t.Frame[3] >> 4 == 5);
+                Assert.DoesNotContain(bench.Channel.Traffic, t => t.Frame[2] is 0x08 or 0x09 && t.Frame[3] >> 4 == 1 && t.Kind != "reg");
+                bench.Backend.Stop();
+                Assert.Empty(bench.Once);
+            }
+            finally
+            {
+                // The bench's own rule reads every frame by the first
+                // device's features, which the second one moved.
+                bench.Backend.Dispose();
+            }
+        }
+
+        /// <summary>At a stop, what is still owed goes out through a write
+        /// that opens its own handle, each frame in its order and bounded,
+        /// as on the crash path: the unit was not found again, so no
+        /// channel of the worker's reaches it. A unit is left at its first
+        /// failed write.</summary>
+        [Theory]
+        [InlineData(0, false)]
+        [InlineData(2, false)]
+        [InlineData(2, true)]
+        public void AtAStop_WhatIsOwedGoesOutThroughAHandleOfItsOwn(int level, bool fails)
         {
             var device = HidppLightDevice.G903();
             bool silent = false;
@@ -2065,18 +2349,168 @@ namespace PadForge.Tests
             bench.Link();
             bench.Light(0xFF0000, level);
             bench.After(level == 0 ? 3 : 7);
-            Assert.NotEmpty(bench.Record());
+            string[] owed = bench.Record();
 
             bench.Clear();
             silent = true;
             bench.Advance(HidppBackend.CheckMs);
-            Assert.True(SpinWait.SpinUntil(() => bench.Backend.Snapshot.Units.Count == 0, 30000), "the unit was forgotten");
-            bench.Passes();
+            bench.Away();
+            bench.OnceFails = fails;
+            bench.Backend.Stop();
 
-            Assert.Equal(level == 0
-                ? Array.Empty<string>()
-                : new[] { MouseRelease, "write 11 01 07 5C 01", MouseRestore, "write 11 01 08 1C 01" }, bench.Lit());
+            Assert.Equal(fails ? owed.Take(1) : owed, bench.Once.Select(o => HidppHapticsTests.Text(o.Frame)));
+            Assert.All(bench.Once, o => Assert.Equal(bench.Collection.Path, o.Path));
+            Assert.All(bench.OnceTimeouts, t => Assert.Equal(HidppBackend.OneShotMs, t));
+            Assert.Equal(200, HidppBackend.OneShotMs);
+            Assert.Empty(bench.Lit());
             Assert.Empty(bench.Record());
+        }
+
+        /// <summary>A Logitech program that starts has every Logitech
+        /// device, one PadForge let go of among them. What that unit was
+        /// owed ends with no frame, then and when the unit is found again:
+        /// a hand-back after the program's own claim would clear that
+        /// claim.</summary>
+        [Fact]
+        public void WhenALogitechProgramStarts_WhatIsOwedEndsWithNoFrame()
+        {
+            var device = HidppLightDevice.G903();
+            bool silent = false;
+            device.Silent = (f, fn, p) => silent;
+            using var bench = new Bench(device);
+            bench.Link();
+            bench.Light(0xFF0000, level: 2);
+            bench.After(7);
+
+            bench.Clear();
+            silent = true;
+            bench.Advance(HidppBackend.CheckMs);
+            bench.Away();
+            Assert.NotEmpty(bench.Record());
+
+            PeripheralOutputs.Presence = new PeripheralPresence(true, true, false, false, false);
+            PeripheralOutputs.PublishLinks(new LinkTable(new[]
+            {
+                new DeviceLinks
+                {
+                    Device = bench.Row, DirectWhenClosed = true,
+                    Lighting = new[] { new OutputPath(OutputFamily.LedSdkType, "mouse") },
+                },
+            }));
+            bench.Passes();
+            Assert.Empty(bench.Record());
+
+            silent = false;
+            bench.Back();
+            Assert.Empty(bench.AfterFound(0));
+            bench.Backend.Stop();
+            Assert.Empty(bench.Once);
+        }
+
+        /// <summary>A collection that leaves the walk takes what was owed
+        /// on it along: nothing reaches a device that is not there, and the
+        /// crash path's record lets go of it.</summary>
+        [Fact]
+        public void WhatIsOwedOnACollectionThatLeft_EndsWithIt()
+        {
+            var device = HidppLightDevice.G903();
+            bool silent = false;
+            device.Silent = (f, fn, p) => silent;
+            using var bench = new Bench(device);
+            bench.Link();
+            bench.Light(0xFF0000);
+            bench.After(3);
+
+            bench.Clear();
+            silent = true;
+            bench.Advance(HidppBackend.CheckMs);
+            bench.Away();
+            Assert.NotEmpty(bench.Record());
+
+            bench.Present = false;
+            int scans = bench.Backend.ScanCount;
+            for (int i = 0; i < 12 && bench.Backend.ScanCount == scans; i++)
+            {
+                bench.Advance(HidppBackend.FirstScanMs);
+                bench.Passes();
+            }
+            Assert.True(bench.Backend.ScanCount > scans, "a scan ran");
+            bench.Passes();
+            Assert.Empty(bench.Record());
+            bench.Backend.Stop();
+            Assert.Empty(bench.Once);
+        }
+
+        /// <summary>A unit switched to host mode that slept and woke is
+        /// back in its on-board memory mode, with no word. A plan that
+        /// holds its claim by repeating it has no claim read to show that,
+        /// so its keep-alive reads the mode: in host mode still, the hold
+        /// and the colors follow as ever, and found back in the mode the
+        /// claim switched it from, the unit is claimed again as it was
+        /// first claimed, switch included. A read that goes unanswered
+        /// changes nothing. Below level 2, and on a device that was never
+        /// switched, no read is made.</summary>
+        [Fact]
+        public void TheKeepAliveOfAUnitSwitchedToHostMode_ReadsTheMode_AndClaimsAgainOnADeviceThatRestarted()
+        {
+            var device = HidppLightDevice.G903();
+            bool silent = false;
+            device.Silent = (f, fn, p) => silent && f == 0x08;
+            using var bench = new Bench(device, reassertMs: 1000);
+            bench.FollowTheMode();
+            bench.Link();
+            bench.Light(0xFF0000, level: 2);
+            bench.After(7);
+            string[] owed = { "11 01 07 5C 01", "11 01 08 1C 01" };
+            Assert.Equal(owed, bench.Record());
+
+            // In host mode still.
+            bench.Clear();
+            bench.Tick(1000);
+            Assert.Equal(Join("ask 11 01 08 2C", MouseVendorHold, Clusters(Mouse, 0xFF0000)), bench.After(5));
+            Assert.Contains(bench.Channel.Waits, w => w.Feature == 0x08 && w.Function == 2 && w.TimeoutMs == HidppLightPlan.AckTimeoutMs);
+
+            // It slept and woke.
+            device.Mode = 0x01;
+            bench.Clear();
+            bench.Tick(1000);
+            Assert.Equal(Join("ask 11 01 08 2C", "write 11 01 08 1C 02", MouseVendorClaim, Clusters(Mouse, 0xFF0000)), bench.After(7));
+            Assert.Equal(0x02, device.Mode);
+            Assert.Equal(owed, bench.Record());
+
+            // The read goes unanswered.
+            silent = true;
+            bench.Clear();
+            bench.Tick(1000);
+            Assert.Equal(Join("ask 11 01 08 2C", MouseVendorHold, Clusters(Mouse, 0xFF0000)), bench.After(5));
+            silent = false;
+
+            // Held at level 1 from here: the hand-back of the old claim,
+            // the new claim, and keep-alives that read nothing.
+            bench.Clear();
+            bench.Light(0xFF0000, level: 1);
+            Assert.Equal(Join(MouseRelease, MouseRestore, MouseVendorClaim, Clusters(Mouse, 0xFF0000)), bench.After(7));
+            Assert.Equal(0x01, device.Mode);
+            bench.Clear();
+            bench.Tick(1000);
+            Assert.Equal(Join(MouseVendorHold, Clusters(Mouse, 0xFF0000)), bench.After(4));
+        }
+
+        /// <summary>A device its owner keeps in host mode is not switched
+        /// by a claim at level 2, so its keep-alive has no mode of its own
+        /// to watch and reads nothing.</summary>
+        [Fact]
+        public void TheKeepAliveOfAUnitThatWasNeverSwitched_ReadsNothing()
+        {
+            var device = HidppLightDevice.G903();
+            device.Mode = 0x02;
+            using var bench = new Bench(device, reassertMs: 1000);
+            bench.Link();
+            bench.Light(0xFF0000, level: 2);
+            bench.After(6);
+            bench.Clear();
+            bench.Tick(1000);
+            Assert.Equal(Join(MouseVendorHold, Clusters(Mouse, 0xFF0000)), bench.After(4));
         }
 
         /// <summary>A Logitech program starts while a unit is claimed, at
@@ -2337,22 +2771,44 @@ namespace PadForge.Tests
         }
 
         /// <summary>Over Bluetooth the per-key frames are written and not
-        /// awaited, and the keep-alive reads nothing: an idle Bluetooth LE
-        /// link loses answers, so a wait there would stall the paint and
-        /// confirm nothing.</summary>
+        /// awaited: an idle Bluetooth LE link loses answers, so a wait
+        /// there would stall the paint and confirm nothing. The keep-alive
+        /// reads its claim all the same, with that link's own patience,
+        /// since nothing else shows a keyboard that slept and woke. While
+        /// the claim stands the per-key frames follow the read, when it is
+        /// gone the first paint is made whole again, and when the read goes
+        /// unanswered nothing more goes out that time.</summary>
         [Fact]
-        public void OverBluetooth_ThePerKeyFramesAreWritten_AndNothingIsAwaited()
+        public void OverBluetooth_ThePerKeyFramesAreWritten_AndTheKeepAliveStillReadsItsClaim()
         {
-            using var bench = new Bench(HidppLightDevice.G915X(), Bluetooth, reassertMs: 1000);
+            var device = HidppLightDevice.G915X();
+            bool silent = false;
+            device.Silent = (f, fn, p) => silent && f == 0x08 && fn == 5;
+            using var bench = new Bench(device, Bluetooth, reassertMs: 1000);
             Assert.True(bench.Channel.Bluetooth);
             bench.Link();
             bench.Light(0xFD7600);
             Assert.Equal(FirstPaint(0xFD7600, "write"), bench.After(8));
+            Assert.DoesNotContain(bench.Lit(), l => l.StartsWith("ask", StringComparison.Ordinal));
 
+            device.ClaimFlags = HidppUnitProtocol.SwControlClusters;
             bench.Clear();
             bench.Tick(1000);
-            Assert.Equal(Stream(0xFD7600, "write"), bench.After(2));
-            Assert.DoesNotContain(bench.Lit(), l => l.StartsWith("ask", StringComparison.Ordinal));
+            Assert.Equal(Join("ask 11 FF 08 5C", Stream(0xFD7600, "write")), bench.After(3));
+            Assert.Contains(bench.Channel.Waits,
+                w => w.Feature == 0x08 && w.Function == 5 && w.TimeoutMs == HidppHapticProtocol.TimeoutMs(true));
+            Assert.Equal(700, HidppHapticProtocol.TimeoutMs(true));
+
+            silent = true;
+            bench.Clear();
+            bench.Tick(1000);
+            Assert.Equal(new[] { "ask 11 FF 08 5C" }, bench.After(1));
+            silent = false;
+
+            device.ClaimFlags = 0x00;
+            bench.Clear();
+            bench.Tick(1000);
+            Assert.Equal(Join("ask 11 FF 08 5C", FirstPaint(0xFD7600, "write")), bench.After(9));
         }
 
         /// <summary>A keyboard that refuses a per-key frame is lit through
@@ -2533,8 +2989,10 @@ namespace PadForge.Tests
             // crash path writes through the fenced one-shot helper.
             Assert.Contains("_open = open ?? ((c, s) => HidppChannel.Open(c, s));", backend);
             Assert.Contains("_writeOnce = writeOnce ?? RawHidOutput.WriteOnce;", backend);
-            Assert.Contains("try { written = _writeOnce(record.Path, frame, 200); }", backend);
-            Assert.Single(System.Text.RegularExpressions.Regex.Matches(backend, @"_writeOnce\("));
+            Assert.Contains("try { written = _writeOnce(record.Path, frame, OneShotMs); }", backend);
+            // The stop path's write of what a unit is owed is the one other.
+            Assert.Contains("try { written = _writeOnce(pair.Key, step.Frame, OneShotMs); }", backend);
+            Assert.Equal(2, System.Text.RegularExpressions.Regex.Matches(backend, @"_writeOnce\(").Count);
         }
 
         /// <summary>In the test host the shipping channel opens nothing
