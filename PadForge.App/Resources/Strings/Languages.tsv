@@ -32,13 +32,17 @@ it	Italian	Italiano	ltr	Latn	full
 ja	Japanese	日本語	ltr	Jpan	full
 ka	Georgian	ქართული	ltr	Geor	partial
 kk	Kazakh	Қазақша	ltr	Cyrl	full
+kn	Kannada	ಕನ್ನಡ	ltr	Knda	partial
 ko	Korean	한국어	ltr	Kore	full
 lb	Luxembourgish	Lëtzebuergesch	ltr	Latn	partial
 lt	Lithuanian	Lietuvių	ltr	Latn	partial
 lv	Latvian	Latviešu	ltr	Latn	full
 mk	Macedonian	Македонски	ltr	Cyrl	full
+ml	Malayalam	മലയാളം	ltr	Mlym	partial
 mn	Mongolian	Монгол	ltr	Cyrl	partial
+mr	Marathi	मराठी	ltr	Deva	partial
 ms	Malay	Bahasa Melayu	ltr	Latn	partial
+mt	Maltese	Malti	ltr	Latn	partial
 nl	Dutch	Nederlands	ltr	Latn	full
 no	Norwegian	Norsk	ltr	Latn	full
 pl	Polish	Polski	ltr	Latn	full
