@@ -418,7 +418,7 @@
   <data name="About_MvvmToolkit" xml:space="preserve"><value>MVVM Toolkit</value></data>
   <data name="About_MvvmToolkitDesc" xml:space="preserve"><value>用于数据绑定的 CommunityToolkit.Mvvm。MIT。</value></data>
   <data name="About_License" xml:space="preserve"><value>许可证</value></data>
-  <data name="About_LicenseText" xml:space="preserve"><value>本软件基于 CC BY-NC-SA 4.0（知识共享 署名-非商业性使用-相同方式共享 4.0 国际）许可协议发布。Gamepad-Asset-Pack（AL2009man 制作，MIT）提供 2D 控制器素材。GestureSign（TransposonY 制作，GPL-2.0）仅作为 AngularMarginRecognizer 的参考文档，未包含其任何代码。Handheld Companion（CC BY-NC-SA 4.0）提供 PadForge 改编的 Xbox 360 与 Steam Deck 3D 模型。HelixToolkit、HidHide、HIDMaestro、Windows MIDI Services 和 WPF UI 基于 MIT 许可协议。OpenXInput 仅附带上游项目的商标免责声明，按相同条款原样再分发。$Q Recognizer（Magrofuoco、Vatavu、Anthony 和 Wobbrock 制作，BSD 3-Clause）是触摸板 ShapeRecognizer 的参考，以 C# 重新推导实现。SDL3 基于 zlib 许可协议。x360ce（LGPL-3.0-or-later）是 PadForge 分叉所基于的原始代码库。Zergatul.Obs.InputOverlay（Igor Budzhak 制作，MIT）提供鼠标插图。</value></data>
+  <data name="About_LicenseText" xml:space="preserve"><value>本软件基于 CC BY-NC-SA 4.0（知识共享 署名-非商业性使用-相同方式共享 4.0 国际）许可协议发布。Gamepad-Asset-Pack（AL2009man 制作，MIT）提供 2D 控制器素材。GestureSign（TransposonY 制作，GPL-2.0）仅作为 AngularMarginRecognizer 的参考文档，未包含其任何代码。Handheld Companion（CC BY-NC-SA 4.0）提供 PadForge 改编的 Xbox 360 与 Steam Deck 3D 模型。HelixToolkit、HidHide、HIDMaestro、Windows MIDI Services 和 WPF UI 基于 MIT 许可协议。OpenXInput 仅附带上游项目的商标免责声明，按相同条款原样再分发。$Q Recognizer（Magrofuoco、Vatavu、Anthony 和 Wobbrock 制作，BSD 3-Clause）是触摸板 ShapeRecognizer 的参考，以 C# 重新推导实现。SDL3 基于 zlib 许可协议。x360ce (LGPL-3.0-or-later)是 PadForge 分叉所基于的原始代码库。Zergatul.Obs.InputOverlay（Igor Budzhak 制作，MIT）提供鼠标插图。</value></data>
 
   <!-- ═══ Device Types ═══ -->
   <data name="DeviceType_Gamepad" xml:space="preserve"><value>游戏手柄</value></data>
