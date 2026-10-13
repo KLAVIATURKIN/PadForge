@@ -449,9 +449,11 @@ namespace PadForge.Tests
 
         // ── Every call of a kind that reaches the machine is on a list ──
 
-        /// <summary>The start of a creation, with or without the type's
-        /// namespace written out.</summary>
-        private const string New = @"\bnew\s+(?:[A-Za-z_][\w.]*\.)?";
+        /// <summary>A creation of one of the types: by its name, with or
+        /// without its namespace written out and with or without arguments,
+        /// or by a bare new() that takes its type from the declaration.</summary>
+        private static string Creates(string types)
+            => @"\bnew\s+(?:[A-Za-z_][\w.]*\.)?(?:" + types + @")\b(?!\s*[<\[])|\b(?:" + types + @")\s+\w+\s*=\s*new\s*\(";
 
         private static SortedDictionary<string, int> Map(params (string File, int Count)[] entries)
         {
@@ -572,7 +574,8 @@ namespace PadForge.Tests
         public void EverySoundOutputAndSoundSetting_IsOnTheList()
         {
             Assert.Equal(Map((Passthrough, 3), (Macros, 3), (RumbleAudio, 1), (SoundMacro, 1)), FenceSource.Census(
-                New + @"(WasapiOut|WaveOutEvent|DirectSoundOut|AsioOut)\(|\.(SetEndpointVisibility|SetDefaultEndpoint|SetMasterVolumeLevelScalar|SetMasterVolumeLevel|SetMute)\("
+                Creates("WasapiOut|WaveOutEvent|DirectSoundOut|AsioOut")
+                + @"|\.(SetEndpointVisibility|SetDefaultEndpoint|SetMasterVolumeLevelScalar|SetMasterVolumeLevel|SetMute)\("
                 + @"|GetDelegateForFunctionPointer<SetMasterVolumeFn>"));
 
             string passthrough = OffLimitsSource.Read(Passthrough);
@@ -611,7 +614,7 @@ namespace PadForge.Tests
 
             // A stream client: the relay's, the link's and Steam's.
             Assert.Equal(Map((Relay, 1), (LinkServerFile, 1), (SteamClientFile, 1)),
-                FenceSource.Census(New + @"(TcpClient|ClientWebSocket|SteamClient)\("));
+                FenceSource.Census(Creates("TcpClient|ClientWebSocket|SteamClient")));
 
             // An HTTP client. The driver installer's, the updater's and
             // Steam's refuse under their own flags, and the two vendor
@@ -623,7 +626,7 @@ namespace PadForge.Tests
                 (GameSense, 1),
                 (Services + "UpdateService.cs", 1),
                 (Outbound, 2),
-                (SteamHttpFile, 2)), FenceSource.Census(New + @"HttpClient\b"));
+                (SteamHttpFile, 2)), FenceSource.Census(Creates("HttpClient")));
             Assert.Contains("var http = PadForge.Engine.Common.OutboundNetworkGate.NewHttpClient();",
                 OffLimitsSource.Read(WorkshopDialog), StringComparison.Ordinal);
 
