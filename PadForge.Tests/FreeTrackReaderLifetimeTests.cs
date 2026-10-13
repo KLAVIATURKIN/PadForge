@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading;
 using PadForge.Common.Input;
 using PadForge.Engine.Common;
@@ -29,7 +30,15 @@ namespace PadForge.Tests
         /// <summary>A writer holding the mutex must not stall the caller. The
         /// same reader succeeds once the writer releases, which proves the
         /// fixture really drives the lane rather than failing for some other
-        /// reason.</summary>
+        /// reason.
+        ///
+        /// <para>The contested read is made several times and judged by its
+        /// fastest. A wait that came back makes every attempt that long.
+        /// The test host's own pauses, a garbage collection or a lost time
+        /// slice between the two clock reads, lengthen one attempt and not
+        /// all of them: a single reading of 13.13 ms was once taken around
+        /// a read that asks for no wait and reported no pose, in a full run
+        /// of the suite.</para></summary>
         [Fact]
         public void AContestedReadReturnsImmediatelyAndRecoversAfterRelease()
         {
@@ -56,12 +65,20 @@ namespace PadForge.Tests
             writerThread.Start();
             Assert.True(taken.Wait(5000), "the fixture could not take the writer mutex");
 
-            bool contested;
-            var sw = System.Diagnostics.Stopwatch.StartNew();
+            const int attempts = 8;
+            bool contested = false;
+            var took = new double[attempts];
+            int collections = GC.CollectionCount(0);
             try
             {
-                contested = reader.TryRead(buf);
-                sw.Stop();
+                for (int i = 0; i < attempts; i++)
+                {
+                    var sw = System.Diagnostics.Stopwatch.StartNew();
+                    bool read = reader.TryRead(buf);
+                    sw.Stop();
+                    contested |= read;
+                    took[i] = sw.Elapsed.TotalMilliseconds;
+                }
             }
             finally
             {
@@ -69,11 +86,14 @@ namespace PadForge.Tests
                 Assert.True(writerThread.Join(5000), "the writer thread did not exit");
             }
 
-            output.WriteLine($"contested read returned {contested} in {sw.Elapsed.TotalMilliseconds:F2} ms");
+            double fastest = took.Min();
+            output.WriteLine($"contested reads returned {contested} in {string.Join(", ", took.Select(ms => ms.ToString("F2")))} ms,"
+                             + $" with {GC.CollectionCount(0) - collections} collections meanwhile");
             Assert.False(contested, "a contested read must report no new pose rather than copy");
             // The old inline wait was 16 ms per contested read on the poll
-            // thread. Anything at or above it means the wait came back.
-            Assert.True(sw.Elapsed.TotalMilliseconds < 8, $"the poll thread waited {sw.Elapsed.TotalMilliseconds:F2} ms on the writer");
+            // thread. A fastest attempt at or above it means the wait came
+            // back.
+            Assert.True(fastest < 8, $"the poll thread waited {fastest:F2} ms on the writer at its fastest");
             Assert.True(reader.TryRead(buf), "the reader must recover once the writer releases");
         }
 
