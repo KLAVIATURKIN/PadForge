@@ -543,7 +543,7 @@ Une copie de la version précédente se trouve dans ce dossier : {1}</value></da
   <data name="ImportFromDevice_StatusExtractFailed_Format" xml:space="preserve"><value>Échec de l'extraction : {0}</value></data>
   <data name="ImportFromDevice_StatusPersistFailed" xml:space="preserve"><value>Impossible d'analyser le JSON du profil extrait. Rien n'a été enregistré.</value></data>
   <data name="Pad_ExtendedCustomize" xml:space="preserve"><value>Personnaliser</value></data>
-  <data name="Pad_ExtendedCustomizeTooltip" xml:space="preserve"><value>Active les champs de remplacement d'identité et de disposition ci-dessous. Si désactivé, le contrôleur virtuel utilise le profil HIDMaestro tel quel.</value></data>
+  <data name="Pad_ExtendedCustomizeTooltip" xml:space="preserve"><value>Active les champs de remplacement d'identité et de disposition ci-dessous. Si désactivé, le contrôleur virtuel utilise l'identité intégrée et le descripteur HID du profil sélectionné tels que HIDMaestro les fournit.</value></data>
   <data name="Pad_ExtendedResetDefaultsTooltip" xml:space="preserve"><value>Réinitialise tous les champs aux valeurs du catalogue du profil actuel (nom du produit, VID, PID, nombres de sticks/gâchettes/POV/boutons) et désactive le remplacement OEM.</value></data>
   <data name="Pad_ExtendedProductString" xml:space="preserve"><value>Nom du produit</value></data>
   <data name="Pad_ExtendedProductStringTooltip" xml:space="preserve"><value>Remplace la chaîne iProduct que le système signale aux jeux et à joy.cpl. Contrôle aussi le nom affiché dans le Gestionnaire de périphériques.</value></data>
@@ -610,7 +610,7 @@ Une copie de la version précédente se trouve dans ce dossier : {1}</value></da
   <data name="Pad_Mapping_Down_IconTooltip" xml:space="preserve"><value>Bouton qui décrémente l'accumulateur vers le bas lorsqu'il est maintenu</value></data>
   <data name="Pad_Mapping_Down_PickerTooltip" xml:space="preserve"><value>Bas : bouton qui décrémente l'accumulateur vers le bas lorsqu'il est maintenu.</value></data>
   <data name="Pad_Mapping_Rate" xml:space="preserve"><value>Vitesse</value></data>
-  <data name="Pad_Mapping_Rate_Tooltip" xml:space="preserve"><value>Vitesse de balayage en unités par seconde. 0,5 = plage complète en 2 s ; 2 = plage complète en 0,5 s.</value></data>
+  <data name="Pad_Mapping_Rate_Tooltip" xml:space="preserve"><value>Vitesse de balayage en unités par seconde. 0.5 = plage complète en 2 s ; 2 = plage complète en 0.5 s.</value></data>
   <data name="Pad_Mapping_Sticky" xml:space="preserve"><value>Fixe</value></data>
   <data name="Pad_Mapping_Sticky_Tooltip" xml:space="preserve"><value>Lorsqu'activé, l'accumulateur conserve sa valeur après relâchement (régulateur de vitesse). Lorsque désactivé, il revient au minimum au relâchement.</value></data>
   <data name="Pad_Mapping_Min" xml:space="preserve"><value>Min</value></data>
@@ -671,7 +671,7 @@ Une copie de la version précédente se trouve dans ce dossier : {1}</value></da
   <data name="Pad_Formula_Chip_NegateA" xml:space="preserve"><value>Négativer la première source</value></data>
   <data name="Pad_Formula_Chip_OpenGroup" xml:space="preserve"><value>Ouvrir le groupe</value></data>
   <data name="Pad_Formula_Chip_CloseGroup" xml:space="preserve"><value>Fermer le groupe</value></data>
-  <data name="Pad_Formula_Chip_Half" xml:space="preserve"><value>0,5 : demi</value></data>
+  <data name="Pad_Formula_Chip_Half" xml:space="preserve"><value>0.5 : demi</value></data>
   <data name="Pad_Formula_Chip_LessThan" xml:space="preserve"><value>Inférieur à</value></data>
   <data name="Pad_Formula_Chip_GreaterThan" xml:space="preserve"><value>Supérieur à</value></data>
   <data name="Pad_Formula_Chip_LessOrEqual" xml:space="preserve"><value>Inférieur ou égal à</value></data>
@@ -1438,16 +1438,16 @@ Une copie de la version précédente se trouve dans ce dossier : {1}</value></da
   <data name="Mapping_CapSenseLeftGripTouch" xml:space="preserve"><value>Toucher de la poignée gauche</value></data>
   <data name="Mapping_CapSenseRightGripTouch" xml:space="preserve"><value>Toucher de la poignée droite</value></data>
   <data name="Settings_GyroCalibrate_Button" xml:space="preserve"><value>Calibrer le gyro</value></data>
-  <data name="Settings_GyroCalibrate_Tooltip" xml:space="preserve"><value>Pose la manette sur une surface plane et clique sur Calibrer le gyro pour échantillonner la lecture au repos pendant ~1,5 seconde. Soustrait des lectures brutes afin que les mappings gyro ne fassent pas dériver la souris / le stick quand la manette est immobile.</value></data>
+  <data name="Settings_GyroCalibrate_Tooltip" xml:space="preserve"><value>Pose la manette sur une surface plane et clique sur Calibrer le gyro pour échantillonner la lecture au repos pendant ~1.5 seconde. Soustrait des lectures brutes afin que les mappings gyro ne fassent pas dériver la souris / le stick quand la manette est immobile.</value></data>
   <data name="Settings_GyroLastCalibrated_Format" xml:space="preserve"><value>Dernier étalonnage : {0:yyyy-MM-dd HH:mm}</value></data>
   <data name="Settings_GyroNeverCalibrated" xml:space="preserve"><value>Jamais étalonné</value></data>
   <data name="Settings_GyroCalibrating" xml:space="preserve"><value>Étalonnage… ne bouge pas</value></data>
   <data name="Settings_GyroResetCalibration_Button" xml:space="preserve"><value>Réinitialiser l'étalonnage</value></data>
-  <data name="Settings_GyroResetCalibration_Tooltip" xml:space="preserve"><value>Efface le biais du gyroscope au repos et l'horodatage du dernier étalonnage. Le prochain cycle de sondage relance l'auto-étalonnage de 1,5 seconde sur cet appareil.</value></data>
+  <data name="Settings_GyroResetCalibration_Tooltip" xml:space="preserve"><value>Efface le biais du gyroscope au repos et l'horodatage du dernier étalonnage. Le prochain cycle de sondage relance l'auto-étalonnage de 1.5 seconde sur cet appareil.</value></data>
   <data name="Settings_GyroLiveRate_Label" xml:space="preserve"><value>Gyroscope en direct</value></data>
   <data name="Settings_GyroLiveAccel_Label" xml:space="preserve"><value>Accéléromètre en direct</value></data>
   <data name="Settings_GyroSensitivityH" xml:space="preserve"><value>Sensibilité horizontale</value></data>
-  <data name="Settings_GyroSensitivityH_Tooltip" xml:space="preserve"><value>Met à l'échelle la contribution horizontale (Yaw + Roll) du gyroscope. 1,0 laisse le taux tel quel. Valeurs plus élevées amplifient, plus basses atténuent. S'applique à tout l'appareil.</value></data>
+  <data name="Settings_GyroSensitivityH_Tooltip" xml:space="preserve"><value>Met à l'échelle la contribution horizontale (Yaw + Roll) du gyroscope. 1.0 laisse le taux tel quel. Valeurs plus élevées amplifient, plus basses atténuent. S'applique à tout l'appareil.</value></data>
   <data name="Settings_GyroSensitivityV" xml:space="preserve"><value>Sensibilité verticale</value></data>
   <data name="Settings_GyroSensitivityV_Tooltip" xml:space="preserve"><value>Met à l'échelle la contribution verticale (Pitch) du gyroscope. Séparée de l'horizontale pour ajuster les axes X et Y indépendamment.</value></data>
   <data name="Settings_GyroDeadZone" xml:space="preserve"><value>Zone morte</value></data>
@@ -1495,7 +1495,7 @@ Une copie de la version précédente se trouve dans ce dossier : {1}</value></da
   <data name="Pad_Gyro_MagCalibrate" xml:space="preserve"><value>Calibrer le magnétomètre</value></data>
   <data name="Pad_Gyro_MagCalibrate_Stop" xml:space="preserve"><value>Terminer la calibration</value></data>
   <data name="Settings_GyroRealWorldCalibration" xml:space="preserve"><value>Étalonnage réel</value></data>
-  <data name="Settings_GyroRealWorldCalibration_Tooltip" xml:space="preserve"><value>Degrés en jeu par degré physique de rotation du contrôleur. 0 = désactivé. 1 = 1:1 (contrôleur tourné de 90° → vue en jeu de 90°). Étalonner une fois par jeu en tournant le contrôleur de 360° et en ajustant jusqu'à ce que la vue en jeu tourne aussi de 360°.</value></data>
+  <data name="Settings_GyroRealWorldCalibration_Tooltip" xml:space="preserve"><value>Degrés en jeu par degré physique de rotation du contrôleur. 0 = désactivé. 1.0 = 1:1 (contrôleur tourné de 90° → vue en jeu de 90°). Étalonner une fois par jeu en tournant le contrôleur de 360° et en ajustant jusqu'à ce que la vue en jeu tourne aussi de 360°.</value></data>
   <data name="Settings_GyroTightening" xml:space="preserve"><value>Resserrage</value></data>
   <data name="Settings_GyroTightening_Tooltip" xml:space="preserve"><value>En dessous de ce taux, l'entrée est entièrement remplacée par la moyenne du tampon de lissage. Supprime tremblement de main et micro-dérive. Défaut 3°/s.</value></data>
   <data name="Settings_GyroSmoothingThreshold" xml:space="preserve"><value>Seuil de lissage</value></data>
@@ -1569,8 +1569,8 @@ Une copie de la version précédente se trouve dans ce dossier : {1}</value></da
   <data name="Pad_Gyro_ApplyToPassthrough_Tooltip" xml:space="preserve"><value>Applique le réglage facultatif du gyroscope de cet onglet (zone morte, sensibilité, lissage, courbe de réponse, inversion) au mouvement que la manette virtuelle transmet au jeu ou à l'émulateur. Désactivez-le pour n'envoyer que la lecture étalonnée et laisser le jeu appliquer sa propre sensibilité et son propre lissage. La correction de dérive par étalonnage s'applique dans tous les cas.</value></data>
   <data name="Pad_ResetGyroApplyToPassthrough" xml:space="preserve"><value>Réinitialiser le réglage de transmission</value></data>
   <data name="Mapping_GyroSensitivity" xml:space="preserve"><value>Sensibilité</value></data>
-  <data name="Mapping_GyroSensitivity_Tooltip" xml:space="preserve"><value>Multiplicateur de sensibilité du gyroscope par source. 1,0 = valeur par défaut du moteur (500°/s → pleine déviation). Au-dessus de 1,0 = plus sensible. En dessous = moins sensible.</value></data>
-  <data name="Mapping_LeanSensitivity_Tooltip" xml:space="preserve"><value>Multiplicateur de sensibilité d'inclinaison par source. 1,0 = 90° d'inclinaison pour une déflexion complète. Les valeurs supérieures à 1,0 atteignent la déflexion complète avec moins d'inclinaison.</value></data>
+  <data name="Mapping_GyroSensitivity_Tooltip" xml:space="preserve"><value>Multiplicateur de sensibilité du gyroscope par source. 1.0 = valeur par défaut du moteur (500°/s → pleine déviation). Au-dessus de 1.0 = plus sensible. En dessous = moins sensible.</value></data>
+  <data name="Mapping_LeanSensitivity_Tooltip" xml:space="preserve"><value>Multiplicateur de sensibilité d'inclinaison par source. 1.0 = 90° d'inclinaison pour une déflexion complète. Les valeurs supérieures à 1.0 atteignent la déflexion complète avec moins d'inclinaison.</value></data>
   <data name="Mapping_GyroTiltX" xml:space="preserve"><value>Inclinaison gyro réglable X</value></data>
   <data name="Mapping_GyroTiltY" xml:space="preserve"><value>Inclinaison gyro réglable Y</value></data>
   <data name="Pad_GyroTilt_Header" xml:space="preserve"><value>Inclinaison réglable</value></data>
@@ -1587,7 +1587,7 @@ Une copie de la version précédente se trouve dans ce dossier : {1}</value></da
   <data name="Pad_StickMomentum_Tooltip" xml:space="preserve"><value>Mode trackball : donnez une impulsion au stick et relâchez, le curseur continue sa course et ralentit jusqu'à l'arrêt. Bouger le stick le rattrape.</value></data>
   <data name="Pad_StickMomentumGlide_Tooltip" xml:space="preserve"><value>Distance parcourue par le curseur après l'impulsion. Au maximum, il continue jusqu'à ce que vous bougiez le stick.</value></data>
   <data name="Pad_Touchpad_MomentumFlingGain" xml:space="preserve"><value>Gain d'impulsion</value></data>
-  <data name="Pad_Touchpad_MomentumFlingGain_Tooltip" xml:space="preserve"><value>Ajuste la vitesse de lancement d'une impulsion sans changer la vitesse de glissement. 1,00 lance exactement à la vitesse du doigt.</value></data>
+  <data name="Pad_Touchpad_MomentumFlingGain_Tooltip" xml:space="preserve"><value>Ajuste la vitesse de lancement d'une impulsion sans changer la vitesse de glissement. 1.00 lance exactement à la vitesse du doigt.</value></data>
   <data name="Pad_ResetTouchpadMomentumFlingGain" xml:space="preserve"><value>Réinitialiser le gain d'impulsion</value></data>
   <data name="Pad_Touchpad_MomentumMinLift" xml:space="preserve"><value>Seuil d'impulsion</value></data>
   <data name="Pad_Touchpad_MomentumMinLift_Tooltip" xml:space="preserve"><value>Vitesse minimale du doigt au décollage pour que le curseur glisse, en largeurs de pavé par seconde. En dessous, le curseur s'arrête net.</value></data>
@@ -3282,7 +3282,7 @@ Une copie de la version précédente se trouve dans ce dossier : {1}</value></da
   <data name="Mapping_TouchpadWindow_West" xml:space="preserve"><value>Quadrant ouest</value></data>
   <data name="Mapping_TouchpadWindow_Center" xml:space="preserve"><value>Centre</value></data>
   <data name="Pad_Touchpad_TapMaxMotion" xml:space="preserve"><value>Course max. du tap</value></data>
-  <data name="Pad_Touchpad_TapMaxMotion_Tooltip" xml:space="preserve"><value>Distance qu'un doigt peut parcourir en restant un tap, en largeurs de pad. 0,04 vaut 4% du pad.</value></data>
+  <data name="Pad_Touchpad_TapMaxMotion_Tooltip" xml:space="preserve"><value>Distance qu'un doigt peut parcourir en restant un tap, en largeurs de pad. 0.04 vaut 4% du pad.</value></data>
   <data name="Pad_ResetTouchpadTapMaxMotion" xml:space="preserve"><value>Réinitialiser la course max. du tap</value></data>
   <data name="Pad_Touchpad_LongPressMaxMotion" xml:space="preserve"><value>Course max. d'appui long</value></data>
   <data name="Pad_Touchpad_LongPressMaxMotion_Tooltip" xml:space="preserve"><value>Distance qu'un doigt peut dériver pendant un maintien en restant un appui long plutôt qu'un balayage.</value></data>
@@ -3297,15 +3297,15 @@ Une copie de la version précédente se trouve dans ce dossier : {1}</value></da
   <data name="Pad_Touchpad_RotateThreshold_Tooltip" xml:space="preserve"><value>Rotation nécessaire des deux doigts pour déclencher une rotation.</value></data>
   <data name="Pad_ResetTouchpadRotateThresholdDegrees" xml:space="preserve"><value>Réinitialiser le seuil de rotation</value></data>
   <data name="Pad_Touchpad_Pointer_Header" xml:space="preserve"><value>Pointeur absolu</value></data>
-  <data name="Pad_Touchpad_Pointer_Subtitle" xml:space="preserve"><value>Règle les sources Pointeur X/Y du pavé tactile, qui placent le curseur à la position du doigt sur le pad (à mapper sur souris X/Y d'une manette virtuelle clavier / souris). Taille 1,00 avec centre 0,50 fait correspondre le pad à tout l'écran. Réduisez la taille pour confiner le curseur à une partie, et déplacez le centre pour la situer.</value></data>
+  <data name="Pad_Touchpad_Pointer_Subtitle" xml:space="preserve"><value>Règle les sources Pointeur X/Y du pavé tactile, qui placent le curseur à la position du doigt sur le pad (à mapper sur souris X/Y d'une manette virtuelle clavier / souris). Taille 1.00 avec centre 0.50 fait correspondre le pad à tout l'écran. Réduisez la taille pour confiner le curseur à une partie, et déplacez le centre pour la situer.</value></data>
   <data name="Pad_Touchpad_PointerRegionSizeX" xml:space="preserve"><value>Largeur de la Zone</value></data>
-  <data name="Pad_Touchpad_PointerRegionSizeX_Tooltip" xml:space="preserve"><value>Largeur de la zone d'écran à laquelle ce pad correspond, en fraction de la largeur d'écran. 1,00 couvre toute la largeur ; 0,50 confine le curseur à la moitié.</value></data>
+  <data name="Pad_Touchpad_PointerRegionSizeX_Tooltip" xml:space="preserve"><value>Largeur de la zone d'écran à laquelle ce pad correspond, en fraction de la largeur d'écran. 1.00 couvre toute la largeur ; 0.50 confine le curseur à la moitié.</value></data>
   <data name="Pad_Touchpad_PointerRegionSizeY" xml:space="preserve"><value>Hauteur de la Zone</value></data>
   <data name="Pad_Touchpad_PointerRegionSizeY_Tooltip" xml:space="preserve"><value>Hauteur de la zone d'écran, en fraction de la hauteur d'écran.</value></data>
   <data name="Pad_Touchpad_PointerRegionCenterX" xml:space="preserve"><value>Centre de la Zone X</value></data>
-  <data name="Pad_Touchpad_PointerRegionCenterX_Tooltip" xml:space="preserve"><value>Position horizontale de cette zone. 0,00 est le bord gauche, 0,50 le milieu, 1,00 le bord droit.</value></data>
+  <data name="Pad_Touchpad_PointerRegionCenterX_Tooltip" xml:space="preserve"><value>Position horizontale de cette zone. 0.00 est le bord gauche, 0.50 le milieu, 1.00 le bord droit.</value></data>
   <data name="Pad_Touchpad_PointerRegionCenterY" xml:space="preserve"><value>Centre de la Zone Y</value></data>
-  <data name="Pad_Touchpad_PointerRegionCenterY_Tooltip" xml:space="preserve"><value>Position verticale. 0,00 est le bord supérieur, 0,50 le milieu, 1,00 le bord inférieur.</value></data>
+  <data name="Pad_Touchpad_PointerRegionCenterY_Tooltip" xml:space="preserve"><value>Position verticale. 0.00 est le bord supérieur, 0.50 le milieu, 1.00 le bord inférieur.</value></data>
   <data name="Pad_Touchpad_SwipeHaptics_Header" xml:space="preserve"><value>Haptique de balayage</value></data>
   <data name="Pad_Touchpad_SwipeHaptics_Subtitle" xml:space="preserve"><value>Fait vibrer l'haptique de la manette pendant que le doigt parcourt ce pavé tactile, comme les tics de trackpad de Steam Input. Les Steam Controller et le Steam Deck font tiquer l'actionneur sous le pavé ; DualSense et DualShock 4 pulsent les moteurs de vibration.</value></data>
   <data name="Pad_Touchpad_SwipeHapticsEnabled" xml:space="preserve"><value>Activer l'haptique de balayage</value></data>
@@ -3573,7 +3573,7 @@ Une copie de la version précédente se trouve dans ce dossier : {1}</value></da
   <data name="Pad_RumbleAudio_Frequency_Tooltip" xml:space="preserve"><value>Fréquence du son de ce canal, de 20 à 120 Hz. Lancez le balayage de fréquence pour trouver où votre shaker répond le plus fort.</value></data>
   <data name="Pad_RumbleAudio_Gain_Tooltip" xml:space="preserve"><value>Volume de ce canal avant le gain général.</value></data>
   <data name="Pad_RumbleAudio_Test" xml:space="preserve"><value>Tester</value></data>
-  <data name="Pad_RumbleAudio_Test_Tooltip" xml:space="preserve"><value>Joue le son de ce canal pendant 1,5 seconde à son gain réglé.</value></data>
+  <data name="Pad_RumbleAudio_Test_Tooltip" xml:space="preserve"><value>Joue le son de ce canal pendant 1.5 seconde à son gain réglé.</value></data>
   <data name="Pad_RumbleAudio_ResetVoiceLow" xml:space="preserve"><value>Réinitialiser le moteur basse fréquence</value></data>
   <data name="Pad_RumbleAudio_ResetVoiceHigh" xml:space="preserve"><value>Réinitialiser le moteur haute fréquence</value></data>
   <data name="Pad_RumbleAudio_ResetVoiceTriggerLeft" xml:space="preserve"><value>Réinitialiser la gâchette gauche</value></data>

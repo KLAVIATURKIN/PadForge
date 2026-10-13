@@ -1495,7 +1495,7 @@
   <data name="Pad_Gyro_MagCalibrate" xml:space="preserve"><value>자력계 보정</value></data>
   <data name="Pad_Gyro_MagCalibrate_Stop" xml:space="preserve"><value>보정 완료</value></data>
   <data name="Settings_GyroRealWorldCalibration" xml:space="preserve"><value>실세계 보정</value></data>
-  <data name="Settings_GyroRealWorldCalibration_Tooltip" xml:space="preserve"><value>컨트롤러 1°의 물리 회전당 게임 내 회전(도). 0 = 비활성화. 1 = 1:1 (패드 90° 회전 → 게임 시점 90°). 게임마다 한 번, 패드를 360° 돌려 게임 시점도 360° 돌도록 조정해 설정.</value></data>
+  <data name="Settings_GyroRealWorldCalibration_Tooltip" xml:space="preserve"><value>컨트롤러 1°의 물리 회전당 게임 내 회전(도). 0 = 비활성화. 1.0 = 1:1 (패드 90° 회전 → 게임 시점 90°). 게임마다 한 번, 패드를 360° 돌려 게임 시점도 360° 돌도록 조정해 설정.</value></data>
   <data name="Settings_GyroTightening" xml:space="preserve"><value>타이트닝</value></data>
   <data name="Settings_GyroTightening_Tooltip" xml:space="preserve"><value>이 속도 미만에서 입력을 스무딩 버퍼 평균으로 완전히 대체. 손떨림과 미세 드리프트 제거. 기본 3°/s.</value></data>
   <data name="Settings_GyroSmoothingThreshold" xml:space="preserve"><value>스무딩 임계값</value></data>

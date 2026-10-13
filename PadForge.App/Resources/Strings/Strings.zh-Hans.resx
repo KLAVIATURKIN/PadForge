@@ -543,7 +543,7 @@
   <data name="ImportFromDevice_StatusExtractFailed_Format" xml:space="preserve"><value>提取失败：{0}</value></data>
   <data name="ImportFromDevice_StatusPersistFailed" xml:space="preserve"><value>无法解析提取的配置文件 JSON，未保存任何内容。</value></data>
   <data name="Pad_ExtendedCustomize" xml:space="preserve"><value>自定义</value></data>
-  <data name="Pad_ExtendedCustomizeTooltip" xml:space="preserve"><value>启用下方的身份和布局覆盖字段。关闭时，虚拟控制器将完全按照 HIDMaestro 提供的配置文件创建。</value></data>
+  <data name="Pad_ExtendedCustomizeTooltip" xml:space="preserve"><value>启用下方的身份和布局覆盖字段。关闭时，虚拟控制器将完全按照 HIDMaestro 提供的原样，使用所选配置文件的内置身份和 HID 描述符。</value></data>
   <data name="Pad_ExtendedResetDefaultsTooltip" xml:space="preserve"><value>将所有覆盖字段恢复为当前配置文件的目录值（产品名称、VID、PID、摇杆/扳机/POV/按钮数量），并清除 OEM 覆盖标志。</value></data>
   <data name="Pad_ExtendedProductString" xml:space="preserve"><value>产品名称</value></data>
   <data name="Pad_ExtendedProductStringTooltip" xml:space="preserve"><value>覆盖操作系统向游戏和 joy.cpl 报告的 iProduct 字符串。也会控制设备管理器中显示的名称。</value></data>
@@ -1495,7 +1495,7 @@
   <data name="Pad_Gyro_MagCalibrate" xml:space="preserve"><value>校准磁力计</value></data>
   <data name="Pad_Gyro_MagCalibrate_Stop" xml:space="preserve"><value>完成校准</value></data>
   <data name="Settings_GyroRealWorldCalibration" xml:space="preserve"><value>真实世界校准</value></data>
-  <data name="Settings_GyroRealWorldCalibration_Tooltip" xml:space="preserve"><value>每物理旋转 1° 对应的游戏内视角旋转角度。0 = 关闭。1 = 1:1（手柄旋转 90° → 游戏视角旋转 90°）。每个游戏校准一次：把手柄转一整圈 360°，调整数值直到游戏内视角也正好转 360°。</value></data>
+  <data name="Settings_GyroRealWorldCalibration_Tooltip" xml:space="preserve"><value>每物理旋转 1° 对应的游戏内视角旋转角度。0 = 关闭。1.0 = 1:1（手柄旋转 90° → 游戏视角旋转 90°）。每个游戏校准一次：把手柄转一整圈 360°，调整数值直到游戏内视角也正好转 360°。</value></data>
   <data name="Settings_GyroTightening" xml:space="preserve"><value>收紧阈值</value></data>
   <data name="Settings_GyroTightening_Tooltip" xml:space="preserve"><value>低于此速率，输入将完全被平滑缓冲的平均值代替。去除手抖与微小漂移。默认 3°/s。</value></data>
   <data name="Settings_GyroSmoothingThreshold" xml:space="preserve"><value>平滑阈值</value></data>

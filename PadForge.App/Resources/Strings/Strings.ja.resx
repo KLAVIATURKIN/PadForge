@@ -1495,7 +1495,7 @@
   <data name="Pad_Gyro_MagCalibrate" xml:space="preserve"><value>磁力計をキャリブレーション</value></data>
   <data name="Pad_Gyro_MagCalibrate_Stop" xml:space="preserve"><value>キャリブレーションを完了</value></data>
   <data name="Settings_GyroRealWorldCalibration" xml:space="preserve"><value>実世界キャリブレーション</value></data>
-  <data name="Settings_GyroRealWorldCalibration_Tooltip" xml:space="preserve"><value>コントローラーの物理回転 1° あたりのゲーム内回転 (度)。0 = 無効。1 = 1:1 (パッドを 90° 回転→ゲーム内視点も 90°)。ゲームごとに 1 回、パッドを 360° 回しゲーム内視点も 360° 回るよう調整して設定。</value></data>
+  <data name="Settings_GyroRealWorldCalibration_Tooltip" xml:space="preserve"><value>コントローラーの物理回転 1° あたりのゲーム内回転 (度)。0 = 無効。1.0 = 1:1 (パッドを 90° 回転→ゲーム内視点も 90°)。ゲームごとに 1 回、パッドを 360° 回しゲーム内視点も 360° 回るよう調整して設定。</value></data>
   <data name="Settings_GyroTightening" xml:space="preserve"><value>タイトニング</value></data>
   <data name="Settings_GyroTightening_Tooltip" xml:space="preserve"><value>このレート未満では入力をスムージングバッファの平均で完全に置き換える。手ぶれや微小ドリフトを除去。既定 3°/s。</value></data>
   <data name="Settings_GyroSmoothingThreshold" xml:space="preserve"><value>スムージングしきい値</value></data>

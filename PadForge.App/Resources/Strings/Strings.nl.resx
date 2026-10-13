@@ -543,7 +543,7 @@ Een kopie van de vorige versie staat in deze map: {1}</value></data>
   <data name="ImportFromDevice_StatusExtractFailed_Format" xml:space="preserve"><value>Extractie mislukt: {0}</value></data>
   <data name="ImportFromDevice_StatusPersistFailed" xml:space="preserve"><value>De geëxtraheerde profiel-JSON kon niet worden geparst. Niets is opgeslagen.</value></data>
   <data name="Pad_ExtendedCustomize" xml:space="preserve"><value>Aanpassen</value></data>
-  <data name="Pad_ExtendedCustomizeTooltip" xml:space="preserve"><value>Schakelt de velden voor identiteits- en indelingsoverrides hieronder in. Wanneer uit, gebruikt de virtuele controller het HIDMaestro-profiel exact zoals geleverd.</value></data>
+  <data name="Pad_ExtendedCustomizeTooltip" xml:space="preserve"><value>Schakelt de velden voor identiteits- en indelingsoverrides hieronder in. Wanneer uit, gebruikt de virtuele controller de ingebouwde identiteit en HID-descriptor van het gekozen profiel precies zoals HIDMaestro ze levert.</value></data>
   <data name="Pad_ExtendedResetDefaultsTooltip" xml:space="preserve"><value>Zet alle overridevelden terug naar de catalogwaarden van het huidige profiel (productnaam, VID, PID, aantal sticks/triggers/POV's/knoppen) en schakelt de OEM-override uit.</value></data>
   <data name="Pad_ExtendedProductString" xml:space="preserve"><value>Productnaam</value></data>
   <data name="Pad_ExtendedProductStringTooltip" xml:space="preserve"><value>Overschrijft de iProduct-tekenreeks die het besturingssysteem aan games en joy.cpl meldt. Bepaalt ook de naam in Apparaatbeheer.</value></data>
@@ -610,7 +610,7 @@ Een kopie van de vorige versie staat in deze map: {1}</value></data>
   <data name="Pad_Mapping_Down_IconTooltip" xml:space="preserve"><value>Knop die de accumulator omlaag stuurt zolang ingedrukt</value></data>
   <data name="Pad_Mapping_Down_PickerTooltip" xml:space="preserve"><value>Omlaag: knop die de accumulator omlaag stuurt zolang ingedrukt.</value></data>
   <data name="Pad_Mapping_Rate" xml:space="preserve"><value>Snelheid</value></data>
-  <data name="Pad_Mapping_Rate_Tooltip" xml:space="preserve"><value>Veegsnelheid in eenheden per seconde. 0,5 = volledig bereik in 2 s; 2 = volledig bereik in 0,5 s.</value></data>
+  <data name="Pad_Mapping_Rate_Tooltip" xml:space="preserve"><value>Veegsnelheid in eenheden per seconde. 0.5 = volledig bereik in 2 s; 2 = volledig bereik in 0.5 s.</value></data>
   <data name="Pad_Mapping_Sticky" xml:space="preserve"><value>Vasthouden</value></data>
   <data name="Pad_Mapping_Sticky_Tooltip" xml:space="preserve"><value>Als aangevinkt, behoudt de accumulator zijn waarde na loslaten (cruise control). Als uitgevinkt, springt hij terug naar Min bij loslaten.</value></data>
   <data name="Pad_Mapping_Min" xml:space="preserve"><value>Min</value></data>
@@ -1458,16 +1458,16 @@ Een kopie van de vorige versie staat in deze map: {1}</value></data>
   <data name="Mapping_CapSenseLeftGripTouch" xml:space="preserve"><value>Linkergreep-aanraking</value></data>
   <data name="Mapping_CapSenseRightGripTouch" xml:space="preserve"><value>Rechtergreep-aanraking</value></data>
   <data name="Settings_GyroCalibrate_Button" xml:space="preserve"><value>Gyro kalibreren</value></data>
-  <data name="Settings_GyroCalibrate_Tooltip" xml:space="preserve"><value>Leg de controller op een vlak oppervlak en klik op Gyro kalibreren om de waarde in rust ongeveer 1,5 seconde te bemonsteren. Wordt afgetrokken van ruwe metingen zodat gyro-toewijzingen de muis / stick niet laten driften wanneer de controller stilstaat.</value></data>
+  <data name="Settings_GyroCalibrate_Tooltip" xml:space="preserve"><value>Leg de controller op een vlak oppervlak en klik op Gyro kalibreren om de waarde in rust ongeveer 1.5 seconde te bemonsteren. Wordt afgetrokken van ruwe metingen zodat gyro-toewijzingen de muis / stick niet laten driften wanneer de controller stilstaat.</value></data>
   <data name="Settings_GyroLastCalibrated_Format" xml:space="preserve"><value>Laatst gekalibreerd: {0:yyyy-MM-dd HH:mm}</value></data>
   <data name="Settings_GyroNeverCalibrated" xml:space="preserve"><value>Nooit gekalibreerd</value></data>
   <data name="Settings_GyroCalibrating" xml:space="preserve"><value>Kalibreren… houd stil</value></data>
   <data name="Settings_GyroResetCalibration_Button" xml:space="preserve"><value>Kalibratie resetten</value></data>
-  <data name="Settings_GyroResetCalibration_Tooltip" xml:space="preserve"><value>Wist de rust-gyro-bias en de tijdstempel van de laatste kalibratie. De volgende polling-cyclus voert de 1,5-seconde automatische kalibratie opnieuw uit op dit apparaat.</value></data>
+  <data name="Settings_GyroResetCalibration_Tooltip" xml:space="preserve"><value>Wist de rust-gyro-bias en de tijdstempel van de laatste kalibratie. De volgende polling-cyclus voert de 1.5-seconde automatische kalibratie opnieuw uit op dit apparaat.</value></data>
   <data name="Settings_GyroLiveRate_Label" xml:space="preserve"><value>Huidige gyroscoop</value></data>
   <data name="Settings_GyroLiveAccel_Label" xml:space="preserve"><value>Huidige versnellingsmeter</value></data>
   <data name="Settings_GyroSensitivityH" xml:space="preserve"><value>Horizontale gevoeligheid</value></data>
-  <data name="Settings_GyroSensitivityH_Tooltip" xml:space="preserve"><value>Schaalt de horizontale (Yaw + Roll) gyro-bijdrage. 1,0 laat de snelheid ongewijzigd. Hogere waarden versterken, lagere dempen. Geldt apparaatbreed.</value></data>
+  <data name="Settings_GyroSensitivityH_Tooltip" xml:space="preserve"><value>Schaalt de horizontale (Yaw + Roll) gyro-bijdrage. 1.0 laat de snelheid ongewijzigd. Hogere waarden versterken, lagere dempen. Geldt apparaatbreed.</value></data>
   <data name="Settings_GyroSensitivityV" xml:space="preserve"><value>Verticale gevoeligheid</value></data>
   <data name="Settings_GyroSensitivityV_Tooltip" xml:space="preserve"><value>Schaalt de verticale (Pitch) gyro-bijdrage. Apart van horizontaal zodat X- en Y-as onafhankelijk afstembaar zijn.</value></data>
   <data name="Settings_GyroDeadZone" xml:space="preserve"><value>Dode zone</value></data>
@@ -1515,7 +1515,7 @@ Een kopie van de vorige versie staat in deze map: {1}</value></data>
   <data name="Pad_Gyro_MagCalibrate" xml:space="preserve"><value>Magnetometer kalibreren</value></data>
   <data name="Pad_Gyro_MagCalibrate_Stop" xml:space="preserve"><value>Kalibratie voltooien</value></data>
   <data name="Settings_GyroRealWorldCalibration" xml:space="preserve"><value>Realistische kalibratie</value></data>
-  <data name="Settings_GyroRealWorldCalibration_Tooltip" xml:space="preserve"><value>Graden in het spel per graad fysieke controller-rotatie. 0 = uitgeschakeld. 1 = 1:1 (controller 90° draaien → in-game beeld 90°). Per spel één keer kalibreren door de controller 360° te draaien en aan te passen tot het in-game beeld ook 360° draait.</value></data>
+  <data name="Settings_GyroRealWorldCalibration_Tooltip" xml:space="preserve"><value>Graden in het spel per graad fysieke controller-rotatie. 0 = uitgeschakeld. 1.0 = 1:1 (controller 90° draaien → in-game beeld 90°). Per spel één keer kalibreren door de controller 360° te draaien en aan te passen tot het in-game beeld ook 360° draait.</value></data>
   <data name="Settings_GyroTightening" xml:space="preserve"><value>Aanscherping</value></data>
   <data name="Settings_GyroTightening_Tooltip" xml:space="preserve"><value>Onder deze snelheid wordt de invoer volledig vervangen door het gemiddelde van de smoothing-buffer. Dempt handtrilling en micro-drift. Standaard 3°/s.</value></data>
   <data name="Settings_GyroSmoothingThreshold" xml:space="preserve"><value>Smoothing-drempel</value></data>
@@ -1589,8 +1589,8 @@ Een kopie van de vorige versie staat in deze map: {1}</value></data>
   <data name="Pad_Gyro_ApplyToPassthrough_Tooltip" xml:space="preserve"><value>Past de optionele gyro-afstemming van dit tabblad (dode zone, gevoeligheid, afvlakking, responscurve, omkering) toe op de beweging die de virtuele controller aan het spel of de emulator doorgeeft. Schakel het uit om alleen de gekalibreerde meting te sturen en het spel zijn eigen gevoeligheid en afvlakking te laten toepassen. De kalibratie-driftcorrectie geldt in beide gevallen.</value></data>
   <data name="Pad_ResetGyroApplyToPassthrough" xml:space="preserve"><value>Doorgifte-afstemming resetten</value></data>
   <data name="Mapping_GyroSensitivity" xml:space="preserve"><value>Gevoeligheid</value></data>
-  <data name="Mapping_GyroSensitivity_Tooltip" xml:space="preserve"><value>Gevoeligheidsvermenigvuldiger van de gyroscoop per bron. 1,0 = standaard van de engine (500°/s → volledige uitslag). Waarden boven 1,0 zijn gevoeliger. Daaronder minder.</value></data>
-  <data name="Mapping_LeanSensitivity_Tooltip" xml:space="preserve"><value>Kantelgevoeligheid per bron. 1,0 = 90° kanteling voor volledige uitslag. Waarden boven 1,0 bereiken de volledige uitslag met minder kanteling.</value></data>
+  <data name="Mapping_GyroSensitivity_Tooltip" xml:space="preserve"><value>Gevoeligheidsvermenigvuldiger van de gyroscoop per bron. 1.0 = standaard van de engine (500°/s → volledige uitslag). Waarden boven 1.0 zijn gevoeliger. Daaronder minder.</value></data>
+  <data name="Mapping_LeanSensitivity_Tooltip" xml:space="preserve"><value>Kantelgevoeligheid per bron. 1.0 = 90° kanteling voor volledige uitslag. Waarden boven 1.0 bereiken de volledige uitslag met minder kanteling.</value></data>
   <data name="Mapping_GyroTiltX" xml:space="preserve"><value>Gyro-helling X</value></data>
   <data name="Mapping_GyroTiltY" xml:space="preserve"><value>Gyro-helling Y</value></data>
   <data name="Pad_GyroTilt_Header" xml:space="preserve"><value>Gyro-helling</value></data>
@@ -1607,7 +1607,7 @@ Een kopie van de vorige versie staat in deze map: {1}</value></data>
   <data name="Pad_StickMomentum_Tooltip" xml:space="preserve"><value>Trackball-modus: geef de stick een zwiep en laat los, en de cursor blijft doorbewegen tot hij uitrolt. De stick opnieuw bewegen vangt hem op.</value></data>
   <data name="Pad_StickMomentumGlide_Tooltip" xml:space="preserve"><value>Hoe ver de cursor doorglijdt na een zwiep. Aan de bovenkant van het bereik gaat hij door tot je de stick weer beweegt.</value></data>
   <data name="Pad_Touchpad_MomentumFlingGain" xml:space="preserve"><value>Zwiepversterking</value></data>
-  <data name="Pad_Touchpad_MomentumFlingGain_Tooltip" xml:space="preserve"><value>Schaalt de lanceersnelheid van een zwiep zonder de sleepsnelheid te veranderen. 1,00 lanceert precies op vingersnelheid.</value></data>
+  <data name="Pad_Touchpad_MomentumFlingGain_Tooltip" xml:space="preserve"><value>Schaalt de lanceersnelheid van een zwiep zonder de sleepsnelheid te veranderen. 1.00 lanceert precies op vingersnelheid.</value></data>
   <data name="Pad_ResetTouchpadMomentumFlingGain" xml:space="preserve"><value>Zwiepversterking herstellen</value></data>
   <data name="Pad_Touchpad_MomentumMinLift" xml:space="preserve"><value>Zwiepdrempel</value></data>
   <data name="Pad_Touchpad_MomentumMinLift_Tooltip" xml:space="preserve"><value>Hoe snel de vinger bij het loslaten moet bewegen om de cursor te laten glijden, in padbreedtes per seconde. Daaronder stopt de cursor meteen.</value></data>
@@ -2327,12 +2327,12 @@ Een kopie van de vorige versie staat in deze map: {1}</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Vormsjabloon-matcher voor het touchpad (cirkel / vierkant / driehoek / Z / vinkje en zelf opgenomen gebaren). C#-herafleiding van de JavaScript-referentie van Magrofuoco, Vatavu, Anthony en Wobbrock. BSD 3-Clause.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
-  <data name="About_GestureSignDesc" xml:space="preserve"><value>Hoekmarge-score die naast de puntenwolk-matcher draait op vormen met één vinger. Implementeert het scoringsidee van GestureSigns PointPatternAnalyzer in eigen C#. GPL-2.0, alleen documentatie.</value></data>
+  <data name="About_GestureSignDesc" xml:space="preserve"><value>Hoekmarge-score die naast de puntenwolk-matcher draait op vormen met één vinger. Implementeert het scoringsidee uit de PointPatternAnalyzer van GestureSign in eigen C#. GPL-2.0, alleen documentatie.</value></data>
   <data name="Pad_Audio_Reset_All" xml:space="preserve"><value>Geluidsuitvoer herstellen</value></data>
   <data name="About_DsTester" xml:space="preserve"><value>dualsense-tester</value></data>
   <data name="About_DsTesterDesc" xml:space="preserve"><value>Browser-testsuite voor de DualSense door Xuezhou Dai (daidr): referentie voor de Sony feature-report-CRC-framing en de firmware-testopdrachten die PadForge van de virtuele naar de fysieke pad doorstuurt. MIT.</value></data>
   <data name="About_Ds4Audio" xml:space="preserve"><value>DS4AudioStreamer</value></data>
-  <data name="About_Ds4AudioDesc" xml:space="preserve"><value>DualShock 4 Bluetooth-audioreferentie door nefarius: rapport-framing voor PadForges DS4-speakerstream. De SBC-encoder is een originele C#-implementatie volgens de Bluetooth A2DP-specificatie. Met protocoldocumentatie uit khallmarks ds4mac. MIT.</value></data>
+  <data name="About_Ds4AudioDesc" xml:space="preserve"><value>DualShock 4 Bluetooth-audioreferentie door nefarius: rapport-framing voor de DS4-speakerstream van PadForge. De SBC-encoder is een originele C#-implementatie volgens de Bluetooth A2DP-specificatie. Met protocoldocumentatie uit ds4mac van khallmark. MIT.</value></data>
   <data name="Profiles_Export" xml:space="preserve"><value>Exporteren…</value></data>
   <data name="Profiles_Import" xml:space="preserve"><value>Importeren…</value></data>
   <data name="Status_ProfileExported_Format" xml:space="preserve"><value>Profiel "{0}" geëxporteerd.</value></data>
@@ -3302,7 +3302,7 @@ Een kopie van de vorige versie staat in deze map: {1}</value></data>
   <data name="Mapping_TouchpadWindow_West" xml:space="preserve"><value>Westkwadrant</value></data>
   <data name="Mapping_TouchpadWindow_Center" xml:space="preserve"><value>Midden</value></data>
   <data name="Pad_Touchpad_TapMaxMotion" xml:space="preserve"><value>Max. tikafstand</value></data>
-  <data name="Pad_Touchpad_TapMaxMotion_Tooltip" xml:space="preserve"><value>Hoe ver een vinger mag bewegen en toch als tik telt, in padbreedtes. 0,04 is 4% van het pad.</value></data>
+  <data name="Pad_Touchpad_TapMaxMotion_Tooltip" xml:space="preserve"><value>Hoe ver een vinger mag bewegen en toch als tik telt, in padbreedtes. 0.04 is 4% van het pad.</value></data>
   <data name="Pad_ResetTouchpadTapMaxMotion" xml:space="preserve"><value>Max. tikafstand herstellen</value></data>
   <data name="Pad_Touchpad_LongPressMaxMotion" xml:space="preserve"><value>Max. afstand lang indrukken</value></data>
   <data name="Pad_Touchpad_LongPressMaxMotion_Tooltip" xml:space="preserve"><value>Hoe ver een vinger mag afdwalen tijdens het vasthouden en toch als lang indrukken telt in plaats van vegen.</value></data>
@@ -3317,15 +3317,15 @@ Een kopie van de vorige versie staat in deze map: {1}</value></data>
   <data name="Pad_Touchpad_RotateThreshold_Tooltip" xml:space="preserve"><value>Hoe ver twee vingers moeten draaien voordat draaien wordt uitgevoerd.</value></data>
   <data name="Pad_ResetTouchpadRotateThresholdDegrees" xml:space="preserve"><value>Draaidrempel herstellen</value></data>
   <data name="Pad_Touchpad_Pointer_Header" xml:space="preserve"><value>Absolute aanwijzer</value></data>
-  <data name="Pad_Touchpad_Pointer_Subtitle" xml:space="preserve"><value>Stelt de Touchpad Pointer X/Y-bronnen in, die de cursor naar de vingerpositie op het pad brengen (koppel ze aan muis X/Y op een toetsenbord- / muis-controller). Grootte 1,00 met centrum 0,50 beeldt het pad af op het hele scherm. Verklein de grootte om de cursor tot een deel te beperken en verplaats het centrum om dat deel te kiezen.</value></data>
+  <data name="Pad_Touchpad_Pointer_Subtitle" xml:space="preserve"><value>Stelt de Touchpad Pointer X/Y-bronnen in, die de cursor naar de vingerpositie op het pad brengen (koppel ze aan muis X/Y op een toetsenbord- / muis-controller). Grootte 1.00 met centrum 0.50 beeldt het pad af op het hele scherm. Verklein de grootte om de cursor tot een deel te beperken en verplaats het centrum om dat deel te kiezen.</value></data>
   <data name="Pad_Touchpad_PointerRegionSizeX" xml:space="preserve"><value>Gebiedsbreedte</value></data>
-  <data name="Pad_Touchpad_PointerRegionSizeX_Tooltip" xml:space="preserve"><value>Breedte van het schermgebied waarop dit pad wordt afgebeeld, als fractie van de schermbreedte. 1,00 beslaat de volle breedte; 0,50 beperkt de cursor tot de helft.</value></data>
+  <data name="Pad_Touchpad_PointerRegionSizeX_Tooltip" xml:space="preserve"><value>Breedte van het schermgebied waarop dit pad wordt afgebeeld, als fractie van de schermbreedte. 1.00 beslaat de volle breedte; 0.50 beperkt de cursor tot de helft.</value></data>
   <data name="Pad_Touchpad_PointerRegionSizeY" xml:space="preserve"><value>Gebiedshoogte</value></data>
   <data name="Pad_Touchpad_PointerRegionSizeY_Tooltip" xml:space="preserve"><value>Hoogte van het schermgebied, als fractie van de schermhoogte.</value></data>
   <data name="Pad_Touchpad_PointerRegionCenterX" xml:space="preserve"><value>Gebiedscentrum X</value></data>
-  <data name="Pad_Touchpad_PointerRegionCenterX_Tooltip" xml:space="preserve"><value>Horizontale plaatsing van dat gebied. 0,00 is de linkerrand, 0,50 het midden, 1,00 de rechterrand.</value></data>
+  <data name="Pad_Touchpad_PointerRegionCenterX_Tooltip" xml:space="preserve"><value>Horizontale plaatsing van dat gebied. 0.00 is de linkerrand, 0.50 het midden, 1.00 de rechterrand.</value></data>
   <data name="Pad_Touchpad_PointerRegionCenterY" xml:space="preserve"><value>Gebiedscentrum Y</value></data>
-  <data name="Pad_Touchpad_PointerRegionCenterY_Tooltip" xml:space="preserve"><value>Verticale plaatsing. 0,00 is de bovenrand, 0,50 het midden, 1,00 de onderrand.</value></data>
+  <data name="Pad_Touchpad_PointerRegionCenterY_Tooltip" xml:space="preserve"><value>Verticale plaatsing. 0.00 is de bovenrand, 0.50 het midden, 1.00 de onderrand.</value></data>
   <data name="Pad_Touchpad_SwipeHaptics_Header" xml:space="preserve"><value>Veeghaptiek</value></data>
   <data name="Pad_Touchpad_SwipeHaptics_Subtitle" xml:space="preserve"><value>Laat de haptiek van de controller pulseren terwijl je vinger over dit touchpad beweegt, zoals de trackpad-tikken van Steam Input. Steam Controllers en de Steam Deck tikken met de actuator onder het pad; DualSense en DualShock 4 pulseren de trilmotoren.</value></data>
   <data name="Pad_Touchpad_SwipeHapticsEnabled" xml:space="preserve"><value>Veeghaptiek inschakelen</value></data>
@@ -3593,7 +3593,7 @@ Een kopie van de vorige versie staat in deze map: {1}</value></data>
   <data name="Pad_RumbleAudio_Frequency_Tooltip" xml:space="preserve"><value>Toonfrequentie van dit kanaal, 20 tot 120 Hz. Gebruik de frequentiesweep om te vinden waar je shaker het sterkst reageert.</value></data>
   <data name="Pad_RumbleAudio_Gain_Tooltip" xml:space="preserve"><value>Volume van dit kanaal vóór de hoofdversterking.</value></data>
   <data name="Pad_RumbleAudio_Test" xml:space="preserve"><value>Testen</value></data>
-  <data name="Pad_RumbleAudio_Test_Tooltip" xml:space="preserve"><value>Speelt de toon van dit kanaal 1,5 seconde af met de ingestelde versterking.</value></data>
+  <data name="Pad_RumbleAudio_Test_Tooltip" xml:space="preserve"><value>Speelt de toon van dit kanaal 1.5 seconde af met de ingestelde versterking.</value></data>
   <data name="Pad_RumbleAudio_ResetVoiceLow" xml:space="preserve"><value>Laagfrequente motor resetten</value></data>
   <data name="Pad_RumbleAudio_ResetVoiceHigh" xml:space="preserve"><value>Hoogfrequente motor resetten</value></data>
   <data name="Pad_RumbleAudio_ResetVoiceTriggerLeft" xml:space="preserve"><value>Linkertrigger resetten</value></data>
@@ -3757,7 +3757,7 @@ Wil je dat PadForge ze nu verwijdert? Hiervoor zijn verhoogde rechten nodig en h
   <data name="Pad_ResetOutputPath" xml:space="preserve"><value>Uitvoerpad resetten</value></data>
   <data name="Pad_Audio_OutputPath_FollowJack" xml:space="preserve"><value>Koptelefoonaansluiting volgen</value></data>
   <data name="About_DuaLib" xml:space="preserve"><value>duaLib</value></data>
-  <data name="About_DuaLibDesc" xml:space="preserve"><value>DualSense-uitvoerrapport-bytemap en Sony's scePad-semantiek door WujekFoliarz, basis van PadForges effect- en audioschrijvers. MIT.</value></data>
+  <data name="About_DuaLibDesc" xml:space="preserve"><value>DualSense-uitvoerrapport-bytemap en Sony's scePad-semantiek door WujekFoliarz, basis van de effect- en audioschrijvers van PadForge. MIT.</value></data>
   <data name="About_Ds5Bridge" xml:space="preserve"><value>DS5_Bridge</value></data>
   <data name="About_Ds5BridgeDesc" xml:space="preserve"><value>Patroon voor audio-routering op aansluitdetectie door SundayMoments, de referentie achter Koptelefoonaansluiting volgen. Als documentatie gelezen; AGPL-3.0.</value></data>
   <data name="About_QrCodeGen" xml:space="preserve"><value>QR-Code-generator</value></data>
