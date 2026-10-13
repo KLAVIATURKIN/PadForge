@@ -1,6 +1,7 @@
 # tag	English name	own name	direction	script	coverage
 # One row for American English, the text of Strings.resx, and one for each Strings.<tag>.resx beside it.
 # LanguageCatalog reads it.
+af	Afrikaans	Afrikaans	ltr	Latn	partial
 ar	Arabic	العربية	rtl	Arab	partial
 be	Belarusian	Беларуская	ltr	Cyrl	full
 bg	Bulgarian	Български	ltr	Cyrl	full
@@ -8,6 +9,7 @@ bn	Bengali	বাংলা	ltr	Beng	full
 ca	Catalan	Català	ltr	Latn	partial
 chk	Chuukese	Fosun Chuuk	ltr	Latn	partial
 cs	Czech	Čeština	ltr	Latn	full
+cy	Welsh	Cymraeg	ltr	Latn	partial
 da	Danish	Dansk	ltr	Latn	full
 de	German	Deutsch	ltr	Latn	full
 el	Greek	Ελληνικά	ltr	Grek	full
@@ -18,20 +20,25 @@ et	Estonian	Eesti	ltr	Latn	full
 eu	Basque	Euskara	ltr	Latn	partial
 fa	Persian	فارسی	rtl	Arab	full
 fi	Finnish	Suomi	ltr	Latn	full
+fil	Tagalog	Tagalog	ltr	Latn	partial
 fr	French	Français	ltr	Latn	full
 hi	Hindi	हिन्दी	ltr	Deva	full
 hr	Croatian	Hrvatski	ltr	Latn	partial
 hu	Hungarian	Magyar	ltr	Latn	full
+hy	Armenian	Հայերեն	ltr	Armn	partial
 id	Indonesian	Bahasa Indonesia	ltr	Latn	full
 is	Icelandic	Íslenska	ltr	Latn	full
 it	Italian	Italiano	ltr	Latn	full
 ja	Japanese	日本語	ltr	Jpan	full
+ka	Georgian	ქართული	ltr	Geor	partial
 kk	Kazakh	Қазақша	ltr	Cyrl	full
 ko	Korean	한국어	ltr	Kore	full
+lb	Luxembourgish	Lëtzebuergesch	ltr	Latn	partial
 lt	Lithuanian	Lietuvių	ltr	Latn	partial
 lv	Latvian	Latviešu	ltr	Latn	full
 mk	Macedonian	Македонски	ltr	Cyrl	full
 mn	Mongolian	Монгол	ltr	Cyrl	partial
+ms	Malay	Bahasa Melayu	ltr	Latn	partial
 nl	Dutch	Nederlands	ltr	Latn	full
 no	Norwegian	Norsk	ltr	Latn	full
 pl	Polish	Polski	ltr	Latn	full
@@ -41,9 +48,12 @@ ro	Romanian	Română	ltr	Latn	full
 ru	Russian	Русский	ltr	Cyrl	full
 sk	Slovak	Slovenčina	ltr	Latn	full
 sl	Slovenian	Slovenščina	ltr	Latn	full
+sq	Albanian	Shqip	ltr	Latn	partial
 sr	Serbian	Српски	ltr	Cyrl	full
 sv	Swedish	Svenska	ltr	Latn	full
+sw	Swahili	Kiswahili	ltr	Latn	partial
 ta	Tamil	தமிழ்	ltr	Taml	full
+te	Telugu	తెలుగు	ltr	Telu	full
 th	Thai	ไทย	ltr	Thai	full
 tr	Turkish	Türkçe	ltr	Latn	full
 uk	Ukrainian	Українська	ltr	Cyrl	full

@@ -185,6 +185,8 @@ def check(english, translated, script):
         agree("Devices_DriverConfirm_TouchSenseMouse", "must end with the closing sentence of Devices_DriverConfirm_Prodikeys")
     if shown("ControllerType_KeyboardMouse") not in confirm:
         agree("Devices_DriverConfirm_TouchSenseMouse", "must name the type with the exact text of ControllerType_KeyboardMouse")
+    if shown("Pad_Kbm_Surfaces_Both_Name") != shown("ControllerType_KeyboardMouse"):
+        agree("Pad_Kbm_Surfaces_Both_Name", "must be the exact text of ControllerType_KeyboardMouse")
     for key in ("Settings_GKeysStatus_NoKeysYet", "Settings_GKeysTooltip"):
         if len(re.findall(r"G-key(?!s)", shown(key))) < len(re.findall(r"G-key(?!s)", english[key])):
             agree(key, "must name the Logitech Gaming Software command G-key as the English does")
