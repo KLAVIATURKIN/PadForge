@@ -30,7 +30,7 @@ namespace PadForge.Tests
         /// Hard-coded on purpose: a language dropped from the table and from
         /// the tree together would shrink every other test's coverage in
         /// silence, and this number would not move with it.</summary>
-        internal const int LanguageCount = 20;
+        internal const int LanguageCount = 21;
 
         private static string StringsDirectory()
         {
@@ -173,6 +173,16 @@ namespace PadForge.Tests
         [InlineData("en-PH", "en-US")]
         [InlineData("en-PR", "en-US")]
         [InlineData("en-US-POSIX", "en-US")]
+        [InlineData("en-GB", "en-GB")]
+        [InlineData("en-AU", "en-GB")]
+        [InlineData("en-NZ", "en-GB")]
+        [InlineData("en-IE", "en-GB")]
+        [InlineData("en-IN", "en-GB")]
+        [InlineData("en-ZA", "en-GB")]
+        [InlineData("en-SG", "en-GB")]
+        [InlineData("en-DE", "en-GB")]
+        [InlineData("en-150", "en-GB")]
+        [InlineData("en-001", "en-GB")]
         [InlineData("de", "de")]
         [InlineData("de-AT", "de")]
         [InlineData("fr-CA", "fr")]
