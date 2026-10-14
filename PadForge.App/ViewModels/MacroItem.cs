@@ -7605,6 +7605,12 @@ namespace PadForge.ViewModels
                 "RightGrip" => Strings.Instance.Btn_RightGrip,
                 "LeftTouchpadClick" => Strings.Instance.Btn_LeftPadClick,
                 "RightTouchpadClick" => Strings.Instance.Btn_RightPadClick,
+                // The capacitive sensors take the names their input rows
+                // carry, so a real pad's touch maps across under one word.
+                "LeftStickTouch" => Strings.Instance.Mapping_CapSenseLeftStickTouch,
+                "RightStickTouch" => Strings.Instance.Mapping_CapSenseRightStickTouch,
+                "LeftGripTouch" => Strings.Instance.Mapping_CapSenseLeftGripTouch,
+                "RightGripTouch" => Strings.Instance.Mapping_CapSenseRightGripTouch,
                 "DPadUp" => Strings.Instance.Btn_DPadUp,
                 "DPadDown" => Strings.Instance.Btn_DPadDown,
                 "DPadLeft" => Strings.Instance.Btn_DPadLeft,

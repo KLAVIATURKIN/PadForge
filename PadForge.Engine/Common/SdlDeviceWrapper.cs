@@ -278,6 +278,24 @@ namespace PadForge.Engine
         /// the overwhelmingly common capsense-less device.</summary>
         private bool[] _capSenseChannels;
 
+        /// <summary>The capsense channels this pad has, as a bitmask over the
+        /// SDL_GAMEPAD_CAPSENSE_* indices (bit 0 left stick, 1 right stick, 2
+        /// left grip, 3 right grip). Persisted onto UserDevice like the
+        /// touchpad finger counts, so the pad's own picker group and the
+        /// automap offer only the sensors it has, even offline.</summary>
+        public int CapSenseChannelMask
+        {
+            get
+            {
+                var channels = _capSenseChannels;
+                if (channels == null) return 0;
+                int mask = 0;
+                for (int c = 0; c < channels.Length && c < 31; c++)
+                    if (channels[c]) mask |= 1 << c;
+                return mask;
+            }
+        }
+
         /// <summary>Human-readable device name.</summary>
         public string Name { get; private set; } = string.Empty;
 

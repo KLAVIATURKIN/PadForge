@@ -67,7 +67,11 @@ public static class NintendoPreviewMap
     // LB4 RB5 View6 Menu7 LS8 RS9 Steam10 QAM11, then the rear buttons in
     // SDL's R1 L1 R2 L2 order (Paddle1 = R4, Paddle2 = L4, Paddle3 = R5,
     // Paddle4 = L5, the translator convention the 3D model uses too), then
-    // the two pad clicks. The D-pad is a hat on this wire.
+    // the two pad clicks, then the capacitive stick tops. Those two came
+    // with HIDMaestro 1.12.0, which names their bits, and SDL reads them as
+    // SDL_GAMEPAD_CAPSENSE_LEFT_STICK and _RIGHT_STICK. Append only: a
+    // saved binding names its slot by index. The D-pad is a hat on this
+    // wire.
     private static readonly string[] PreviewByDeckBtn =
     {
         "ButtonA", "ButtonB", "ButtonX", "ButtonY",            // 0-3
@@ -77,6 +81,7 @@ public static class NintendoPreviewMap
         "ButtonGuide", "ButtonQuickAccess",                     // 10-11 Steam QAM
         "Paddle1", "Paddle2", "Paddle3", "Paddle4",             // 12-15 R4 L4 R5 L5
         "LeftTouchpadClick", "RightTouchpadClick",              // 16-17
+        "LeftStickTouch", "RightStickTouch",                    // 18-19 capacitive
     };
 
     // Steam Controller 2015 (steam-controller, steam-controller-composite).
@@ -117,6 +122,17 @@ public static class NintendoPreviewMap
         },
     };
 
+    /// <summary>The art a role lights when the previews flash it for
+    /// recording. A capacitive stick top has no art of its own, so it flashes
+    /// its stick's cap, the part a touch preview washes. Every other role,
+    /// grip touch included, is its own art or has none.</summary>
+    public static string ArtRole(string role) => role switch
+    {
+        "LeftStickTouch" => "LeftThumbButton",
+        "RightStickTouch" => "RightThumbButton",
+        _ => role,
+    };
+
     /// <summary>The role a wire slot is actually named, resolving an alias.
     /// Returns the name unchanged when the family has no alias for it.</summary>
     public static string ResolveAlias(string profileId, string previewName)
@@ -128,7 +144,10 @@ public static class NintendoPreviewMap
     // Steam Controller 2026 (steam-controller-2). Two sticks, a real D-pad
     // reported as four buttons (sc2-research HID_REPORT_FORMAT.md, the
     // TritonButtons table, verbatim from SDL3's controller_structs.h), four
-    // rear buttons in the same R4 L4 R5 L5 order as the Deck, Quick Access.
+    // rear buttons in the same R4 L4 R5 L5 order as the Deck, Quick Access,
+    // then the capacitive stick tops and grips, appended with HIDMaestro
+    // 1.12.0 (SDL_hidapi_steam_triton.c reads them as
+    // SDL_GAMEPAD_CAPSENSE_*). Append only, as on the Deck.
     private static readonly string[] PreviewBySteamController2Btn =
     {
         "ButtonA", "ButtonB", "ButtonX", "ButtonY",            // 0-3
@@ -139,6 +158,8 @@ public static class NintendoPreviewMap
         "Paddle1", "Paddle2", "Paddle3", "Paddle4",             // 12-15 R4 L4 R5 L5
         "LeftTouchpadClick", "RightTouchpadClick",              // 16-17
         "DPadUp", "DPadDown", "DPadLeft", "DPadRight",          // 18-21 discrete buttons
+        "LeftStickTouch", "RightStickTouch",                    // 22-23 capacitive
+        "LeftGripTouch", "RightGripTouch",                      // 24-25 capacitive
     };
 
     // Nintendo pads have no analog triggers, so ComputeAxisLayout packs the

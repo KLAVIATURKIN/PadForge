@@ -704,6 +704,11 @@ namespace PadForge.Views
         //  Joystick tilt (adapted from HC UpdateJoystick)
         // ─────────────────────────────────────────────
 
+        /// <summary>The glow factor a touched stick top takes, on the scale
+        /// deflection grades the cap by (1 is a click's full glow). The 2D
+        /// preview's twin is ControllerModel2DView.StickTouchOpacity.</summary>
+        internal const float StickTouchGlow = 0.4f;
+
         /// <summary>Every group one stick is made of, keyed by its ring.
         /// Built once per model, because the deflection path runs per dirty
         /// frame and must not allocate.</summary>
@@ -771,6 +776,16 @@ namespace PadForge.Views
                 // preview glow.
                 bool moved = Math.Abs(normX) > 0.05f || Math.Abs(normY) > 0.05f;
                 float factor = Math.Max(Math.Abs(normX), Math.Abs(normY));
+                // A finger on the capacitive top (Steam Deck, 2026 Steam
+                // Controller) glows the cap faintly, below a click's full
+                // glow, so a touch reads as a touch.
+                bool touched = _vm != null && (btnProp == "LeftThumbButton"
+                    ? _vm.LeftStickTouch : _vm.RightStickTouch);
+                if (touched)
+                {
+                    moved = true;
+                    factor = Math.Max(factor, StickTouchGlow);
+                }
                 void Grade(Model3DGroup grp)
                 {
                     _currentModel.DefaultMaterials.TryGetValue(grp, out var defMat);
@@ -1951,7 +1966,8 @@ namespace PadForge.Views
             // mirroring ControllerModel2DView.UpdateFlashTarget.
             if (target.StartsWith("Raw", StringComparison.Ordinal))
             {
-                target = Models2D.NintendoPreviewMap.ToPreview(target, _vm?.ProfileId);
+                target = Models2D.NintendoPreviewMap.ArtRole(
+                    Models2D.NintendoPreviewMap.ToPreview(target, _vm?.ProfileId));
                 if (string.IsNullOrEmpty(target)) return;
             }
 

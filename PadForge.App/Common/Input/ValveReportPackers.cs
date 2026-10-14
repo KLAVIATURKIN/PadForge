@@ -270,11 +270,16 @@ namespace PadForge.Common.Input
             if (Btn(raw, P, "RightThumbButton")) dest[11] = 0x04;
 
             // ulButtonsH byte 13: L4 0x02 (SDL LEFT_PADDLE1), R4 0x04
-            // (RIGHT_PADDLE1). Stick-touch bits stay 0: capacitive stick
-            // touch has no source on this surface.
+            // (RIGHT_PADDLE1), and the capacitive stick tops, 0x40 left and
+            // 0x80 right (SDL_hidapi_steamdeck.c,
+            // STEAMDECK_HBUTTON_LSTICK_TOUCH 0x00004000 and _RSTICK_TOUCH
+            // 0x00008000 of the ulButtonsH word at 12). HIDMaestro 1.12.0
+            // names the same two bits LeftStickTouch and RightStickTouch.
             byte b13 = 0;
             if (Btn(raw, P, "Paddle2")) b13 |= 0x02;
             if (Btn(raw, P, "Paddle1")) b13 |= 0x04;
+            if (Btn(raw, P, "LeftStickTouch")) b13 |= 0x40;
+            if (Btn(raw, P, "RightStickTouch")) b13 |= 0x80;
             dest[13] = b13;
 
             // byte 14: QAM 0x04.
@@ -439,7 +444,9 @@ namespace PadForge.Common.Input
         /// at 30, accel 34..38, gyro 40..44, quaternion 46..52 zeroed. Y on
         /// the left pad is flipped on the wire (SDL3 PR #15528). Triggers
         /// are int16 on this wire, so the 0..32767 pull maps straight in.
-        /// Capacitive stick and grip touch have no source and stay 0.</summary>
+        /// Capacitive stick and grip touch ride their own rows, the bits
+        /// SDL_hidapi_steam_triton.c reads as SDL_GAMEPAD_CAPSENSE_LEFT_STICK,
+        /// _RIGHT_STICK, _LEFT_GRIP and _RIGHT_GRIP.</summary>
         private static void PackSteamController2026(
             in RawHidState raw,
             in TouchpadState tp,
@@ -487,6 +494,10 @@ namespace PadForge.Common.Input
             Set(TrLPadTouch, pads.lTouch);
             Set(TrLPadClick, pads.lClick);
             Set(TrLTrigClick, lt > 0);
+            Set(TrRStickTouch, Btn(raw, P, "RightStickTouch"));
+            Set(TrLStickTouch, Btn(raw, P, "LeftStickTouch"));
+            Set(TrRGripTouch, Btn(raw, P, "RightGripTouch"));
+            Set(TrLGripTouch, Btn(raw, P, "LeftGripTouch"));
             WriteU32(dest, 2, bits);
 
             WriteI16(dest, 6, (short)lt);

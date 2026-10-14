@@ -306,7 +306,20 @@
          unstable in-progress work from the HIDMaestro repo. Update by
          copying the Release build of HIDMaestro.Core.dll from the
          HIDMaestro repo into Resources\HIDMaestro\ after tagging a
-         release there. Current: v1.11.0, which adds the Nintendo Switch
+         release there. Current: v1.12.0, which adds keyboards and mice
+         (HM#67): 51 keyboard and 52 mouse profiles, each the report
+         descriptor of a real device, driven through SubmitKeyboard,
+         SubmitMouse and SubmitConsumer. Every report a keyboard or mouse
+         gets is delivered in order, one per millisecond at most, and the
+         driver lets go of held keys if the consuming process dies. The
+         Keyboard + Mouse slot sends through them when a keyboard or mouse
+         is picked instead of Windows input. The same release renames the
+         Valve personas' bits the way SDL numbers them and names the
+         capacitive stick and grip sensors, writes a GameInput mapping for
+         no catalog profile, records the registry keys a virtual shares
+         with real devices in a ledger that restores them, and waits in
+         Dispose until Windows reports the device gone.
+         v1.11.0 before it added the Nintendo Switch
          2 Pro Controller: Full persona (HM#66): the pad as it appears
          over USB, with HID on interface 0 and a vendor bulk pair on
          interface 1, where SDL's Switch 2 driver and Steam start the

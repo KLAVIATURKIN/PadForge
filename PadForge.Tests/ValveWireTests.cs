@@ -212,20 +212,21 @@ namespace PadForge.Tests
             v?.GetType().GetProperty(name, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)?.GetValue(v);
 
         /// <summary>HIDMaestro's spec names buttons in its own vocabulary.
-        /// The role each name means on a given wire, from the spec's own
-        /// bit positions cross-read against SDL: "Touchpad" is the left pad
-        /// click on the Deck (bit 17 = LeftPadClick in SDL_hidapi_steamdeck.c)
-        /// and the right pad click on the 2015 pad (bit 18 =
-        /// STEAM_BUTTON_RIGHTPAD_CLICKED_MASK) and the 2026 pad (bit 22 =
-        /// RPad_Click); "LeftPaddle" / "RightPaddle" are the grips on the
-        /// 2015 pad, L5 / R5 on the Deck (whose spec names only its PADDLE2
-        /// bits), and L4 / R4 on the 2026 pad, which names all four since
-        /// HM v1.7.1.</summary>
+        /// The role each name means on a given wire, from the spec's own bit
+        /// positions cross-read against SDL. Since HM 1.12.0 the three
+        /// personas name their bits the way SDL numbers them: "LeftPaddle" /
+        /// "RightPaddle" are L4 / R4 on the Deck and the 2026 pad (the Deck's
+        /// ulButtonsH 0x200 / 0x400, SDL's LEFT_PADDLE1 / RIGHT_PADDLE1) and
+        /// the grips on the 2015 pad, "LeftPaddle2" / "RightPaddle2" are L5 /
+        /// R5, "LeftTouchpad" / "RightTouchpad" are the two pad clicks on every
+        /// wire, and the capacitive stick and grip sensors carry their own
+        /// names. Through HM 1.11.0 the Deck's "LeftPaddle" reached L5 and
+        /// "Touchpad" meant the left click on the Deck and the right click on
+        /// the other two.</summary>
         private static string RoleFor(string specName, string id)
         {
             var fam = NintendoPreviewMap.FamilyOf(id);
             bool sc15 = fam == NintendoPreviewMap.Family.SteamController;
-            bool sc26 = fam == NintendoPreviewMap.Family.SteamController2;
             return specName switch
             {
                 "A" => "ButtonA", "B" => "ButtonB", "X" => "ButtonX", "Y" => "ButtonY",
@@ -233,17 +234,16 @@ namespace PadForge.Tests
                 "Back" => "ButtonBack", "Start" => "ButtonStart", "Guide" => "ButtonGuide",
                 "Misc1" => "ButtonQuickAccess",
                 "LeftStick" => "LeftThumbButton", "RightStick" => "RightThumbButton",
-                // The 2026 pad names all FOUR rear buttons since HM v1.7.1
-                // (HM#58 corrected the pairing to SDL's: R4 is paddle 1 at
-                // bit 7, R5 is paddle 2 at bit 8). PadForge numbers them
-                // R4 L4 R5 L5, so RightPaddle is Paddle1 there while the
-                // Deck, which names only its two PADDLE2 bits, keeps
-                // Paddle3 / Paddle4.
-                "LeftPaddle" => sc15 ? "LeftGrip" : sc26 ? "Paddle2" : "Paddle4",
-                "RightPaddle" => sc15 ? "RightGrip" : sc26 ? "Paddle1" : "Paddle3",
+                // PadForge numbers the rear buttons R4 L4 R5 L5.
+                "LeftPaddle" => sc15 ? "LeftGrip" : "Paddle2",
+                "RightPaddle" => sc15 ? "RightGrip" : "Paddle1",
                 "LeftPaddle2" => "Paddle4",
                 "RightPaddle2" => "Paddle3",
-                "Touchpad" => fam == NintendoPreviewMap.Family.SteamDeck ? "LeftTouchpadClick" : "RightTouchpadClick",
+                // HM's LeftTouchpad names the same bit as Touchpad.
+                "Touchpad" or "LeftTouchpad" => "LeftTouchpadClick",
+                "RightTouchpad" => "RightTouchpadClick",
+                "LeftStickTouch" => "LeftStickTouch", "RightStickTouch" => "RightStickTouch",
+                "LeftGripTouch" => "LeftGripTouch", "RightGripTouch" => "RightGripTouch",
                 "DPAD_UP" => "DPadUp", "DPAD_DOWN" => "DPadDown", "DPAD_LEFT" => "DPadLeft", "DPAD_RIGHT" => "DPadRight",
                 _ => null,   // trigger digitals and pad touches are derived, not slots
             };
@@ -423,10 +423,13 @@ namespace PadForge.Tests
             Assert.NotEqual(0, a[8] & 0x80);   // STEAM_BUTTON_SOUTH_MASK, bit 7 = A
         }
 
-        /// <summary>The 2026 bits HIDMaestro's spec leaves unnamed, from
-        /// sc2-research's TritonButtons table (SDL3 controller_structs.h
-        /// verbatim, checked against 9k captured frames): R4 bit 7, L4 bit
-        /// 17, and the left pad click at bit 26.</summary>
+        /// <summary>The 2026 bits, pinned to SDL's own TritonButtons table
+        /// (SDL_hidapi_steam_triton.c and controller_structs.h, which
+        /// sc2-research checked against 9k captured frames) rather than to
+        /// HIDMaestro's spec, so the two sources agree: R4 bit 7, L4 bit 17,
+        /// the left pad click at bit 26, the capacitive stick tops at 20 and
+        /// 24 and the grips at 28 and 29 (TRITON_*_JOYSTICK_TOUCH and
+        /// TRITON_*_GRIP_TOUCH).</summary>
         [Theory]
         [InlineData("Paddle1", 7)]
         [InlineData("Paddle2", 17)]
@@ -436,7 +439,11 @@ namespace PadForge.Tests
         [InlineData("RightTouchpadClick", 22)]
         [InlineData("ButtonQuickAccess", 4)]
         [InlineData("ButtonGuide", 16)]
-        public void SteamController2026_UnnamedBitsFollowSdl(string role, int bit)
+        [InlineData("RightStickTouch", 20)]
+        [InlineData("LeftStickTouch", 24)]
+        [InlineData("RightGripTouch", 28)]
+        [InlineData("LeftGripTouch", 29)]
+        public void SteamController2026_BitsFollowSdl(string role, int bit)
         {
             const string id = "steam-controller-2";
             var b = PackFor(id, r => r.SetButton(NintendoPreviewMap.IndexOf(id, role), true));
@@ -451,10 +458,10 @@ namespace PadForge.Tests
         /// grid from: two sticks, two triggers, a hat where the wire has
         /// one, and the whole wire table's worth of named buttons.</summary>
         [Theory]
-        [InlineData("steam-deck-composite", 2, 2, 1, 18)]
+        [InlineData("steam-deck-composite", 2, 2, 1, 20)]
         [InlineData("steam-controller", 2, 2, 1, 14)]
         [InlineData("steam-controller-composite", 2, 2, 1, 14)]
-        [InlineData("steam-controller-2", 2, 2, 0, 22)]
+        [InlineData("steam-controller-2", 2, 2, 0, 26)]
         public void WireTable_SizesTheRawSurface(string id, int sticks, int triggers, int povs, int buttons)
         {
             Assert.Equal(sticks, NintendoPreviewMap.StickCount(id));

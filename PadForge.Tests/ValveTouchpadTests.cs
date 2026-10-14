@@ -128,7 +128,7 @@ namespace PadForge.Tests
         /// <summary>A physical Valve pad as SDL presents it: six axes, a
         /// hat, buttons through the last SDL position it sends, two
         /// one-finger pads, gyro and accel.</summary>
-        private static UserDevice ValveSource(int buttons) => new UserDevice
+        private static UserDevice ValveSource(int buttons, int capSense = 0) => new UserDevice
         {
             CapType = (int)InputDeviceType.Gamepad,
             DeviceObjects = Enumerable.Range(0, 6).Select(Ax)
@@ -138,7 +138,14 @@ namespace PadForge.Tests
             CapTouchpadCount = 2,
             HasGyro = true,
             HasAccel = true,
+            CapSenseChannelMask = capSense,
         };
+
+        /// <summary>SDL_GAMEPAD_CAPSENSE_* channel bits: a Steam Deck has the
+        /// two stick tops, a 2026 Steam Controller the stick tops and the
+        /// grips (SDL_hidapi_steamdeck.c 212-215, _steam_triton.c
+        /// 195-203).</summary>
+        private const int DeckCapSense = 0b0011, TritonCapSense = 0b1111;
 
         private static string Raw(PadSetting ps, string id, string role)
         {
@@ -159,7 +166,7 @@ namespace PadForge.Tests
         public void Automap_SteamController2026_RoutesEverythingOneToOne()
         {
             const string id = "steam-controller-2";
-            var ps = SettingsManager.CreateDefaultPadSetting(ValveSource(18), VirtualControllerType.Extended, id);
+            var ps = SettingsManager.CreateDefaultPadSetting(ValveSource(18, TritonCapSense), VirtualControllerType.Extended, id);
 
             Assert.Equal("Button 0", Raw(ps, id, "ButtonA"));
             Assert.Equal("Button 10", Raw(ps, id, "ButtonGuide"));
@@ -172,6 +179,10 @@ namespace PadForge.Tests
             Assert.Equal("Button 17", Raw(ps, id, "RightTouchpadClick"));
             Assert.Equal("POV 0 Up", Raw(ps, id, "DPadUp"));
             Assert.Equal("POV 0 Right", Raw(ps, id, "DPadRight"));
+            Assert.Equal("Gamepad LeftStickTouch", Raw(ps, id, "LeftStickTouch"));
+            Assert.Equal("Gamepad RightStickTouch", Raw(ps, id, "RightStickTouch"));
+            Assert.Equal("Gamepad LeftGripTouch", Raw(ps, id, "LeftGripTouch"));
+            Assert.Equal("Gamepad RightGripTouch", Raw(ps, id, "RightGripTouch"));
 
             for (int i = 0; i < NintendoPreviewMap.ButtonCount(id); i++)
                 Assert.False(string.IsNullOrEmpty(ps.GetRawMapping($"RawBtn{i}")), $"RawBtn{i} unbound");
@@ -216,8 +227,10 @@ namespace PadForge.Tests
         public void Automap_SteamDeck_BindsEverySlot()
         {
             const string id = "steam-deck-composite";
-            var ps = SettingsManager.CreateDefaultPadSetting(ValveSource(18), VirtualControllerType.Extended, id);
+            var ps = SettingsManager.CreateDefaultPadSetting(ValveSource(18, DeckCapSense), VirtualControllerType.Extended, id);
             Assert.Equal("Button 11", Raw(ps, id, "ButtonQuickAccess"));
+            Assert.Equal("Gamepad LeftStickTouch", Raw(ps, id, "LeftStickTouch"));
+            Assert.Equal("Gamepad RightStickTouch", Raw(ps, id, "RightStickTouch"));
             Assert.Equal("Button 15", Raw(ps, id, "Paddle4"));
             Assert.Equal("Button 16", Raw(ps, id, "LeftTouchpadClick"));
             Assert.Equal("Button 17", Raw(ps, id, "RightTouchpadClick"));

@@ -748,8 +748,8 @@ namespace PadForge.Views
             SetOverlayVisible("LeftFunction", _vm.LeftFunction);
             SetOverlayVisible("RightFunction", _vm.RightFunction);
             SetOverlayVisible("ButtonC", _vm.ButtonC);
-            SetOverlayVisible("LeftThumbButton", _vm.LeftThumbButton);
-            SetOverlayVisible("RightThumbButton", _vm.RightThumbButton);
+            SetStickCapVisible("LeftThumbButton", _vm.LeftThumbButton, _vm.LeftStickTouch);
+            SetStickCapVisible("RightThumbButton", _vm.RightThumbButton, _vm.RightStickTouch);
             SetOverlayVisible("ButtonQuickAccess", _vm.ButtonQuickAccess);
             SetOverlayVisible("Paddle1", _vm.Paddle1);
             SetOverlayVisible("Paddle2", _vm.Paddle2);
@@ -785,6 +785,24 @@ namespace PadForge.Views
                 rt.X = rx * _stickMaxTravel;
                 rt.Y = -ry * _stickMaxTravel;
             }
+        }
+
+        /// <summary>How strongly a touched stick top shows its cap's art, where
+        /// a click shows it whole. The 3D preview's twin is
+        /// ControllerModelView.StickTouchGlow.</summary>
+        internal const double StickTouchOpacity = 0.4;
+
+        /// <summary>A stick's cap: full art while clicked, a faint wash while a
+        /// finger rests on a capacitive top (Steam Deck, 2026 Steam
+        /// Controller), nothing otherwise. The art has no touch state of its
+        /// own, so the click art at partial strength stands for it.</summary>
+        private void SetStickCapVisible(string target, bool clicked, bool touched)
+        {
+            if (!_overlayImages.TryGetValue(target, out var img)) return;
+            if (_flashTarget == target || _hoverTarget == target) return;
+            bool show = clicked || touched;
+            img.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
+            if (show) img.Opacity = clicked ? 1.0 : StickTouchOpacity;
         }
 
         private void SetOverlayVisible(string target, bool visible)
@@ -1011,7 +1029,7 @@ namespace PadForge.Views
             // preview element grammar. Translate back before resolving.
             if (target.StartsWith("Raw", StringComparison.Ordinal))
             {
-                target = NintendoPreviewMap.ToPreview(target, _vm?.ProfileId);
+                target = NintendoPreviewMap.ArtRole(NintendoPreviewMap.ToPreview(target, _vm?.ProfileId));
                 if (string.IsNullOrEmpty(target)) return;
             }
 

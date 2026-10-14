@@ -2737,9 +2737,10 @@ try {
                 $n = $d.SelectSingleNode($tag); if ($n) { $n.RemoveAll() }
             }
             # Written only when the source device reported them
-            # (UserDevice.ShouldSerializeCapTouchpadPressure and its twin), so
-            # a new record has neither.
-            foreach ($tag in @("CapTouchpadPressure", "CapTouchpadClick")) {
+            # (UserDevice.ShouldSerializeCapTouchpadPressure and its twin, and
+            # ShouldSerializeCapSenseChannelMask for a pad with capacitive
+            # sensors), so a new record has none of them.
+            foreach ($tag in @("CapTouchpadPressure", "CapTouchpadClick", "CapSenseChannelMask")) {
                 $n = $d.SelectSingleNode($tag); if ($n) { [void]$d.RemoveChild($n) }
             }
         }

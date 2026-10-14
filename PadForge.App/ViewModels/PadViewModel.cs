@@ -1678,6 +1678,14 @@ namespace PadForge.ViewModels
         private bool _leftTouchpadClick, _rightTouchpadClick;
         public bool LeftTouchpadClick { get => _leftTouchpadClick; set => SetProperty(ref _leftTouchpadClick, value); }
         public bool RightTouchpadClick { get => _rightTouchpadClick; set => SetProperty(ref _rightTouchpadClick, value); }
+        // The capacitive sensors HIDMaestro 1.12.0 names on the Deck and the
+        // 2026 pad: the stick tops on both, the grips on the 2026 pad. The
+        // previews draw a stick touch as a faint wash over the stick's cap.
+        private bool _leftStickTouch, _rightStickTouch, _leftGripTouch, _rightGripTouch;
+        public bool LeftStickTouch { get => _leftStickTouch; set => SetProperty(ref _leftStickTouch, value); }
+        public bool RightStickTouch { get => _rightStickTouch; set => SetProperty(ref _rightStickTouch, value); }
+        public bool LeftGripTouch { get => _leftGripTouch; set => SetProperty(ref _leftGripTouch, value); }
+        public bool RightGripTouch { get => _rightGripTouch; set => SetProperty(ref _rightGripTouch, value); }
 
         private bool _dpadUp;
         public bool DPadUp { get => _dpadUp; set => SetProperty(ref _dpadUp, value); }
@@ -3123,7 +3131,9 @@ namespace PadForge.ViewModels
                     "LeftThumbButton", "RightThumbButton",
                     "LeftTouchpadClick", "RightTouchpadClick",
                     "Paddle1", "Paddle2", "Paddle3", "Paddle4",
-                    "LeftGrip", "RightGrip" })
+                    "LeftGrip", "RightGrip",
+                    "LeftStickTouch", "RightStickTouch",
+                    "LeftGripTouch", "RightGripTouch" })
                     AddValve(role);
 
                 foreach (var (label, role, pov) in new[] {
@@ -8920,6 +8930,10 @@ namespace PadForge.ViewModels
                     case "DPadDown": DPadDown = down; dpadOnButtons = true; break;
                     case "DPadLeft": DPadLeft = down; dpadOnButtons = true; break;
                     case "DPadRight": DPadRight = down; dpadOnButtons = true; break;
+                    case "LeftStickTouch": LeftStickTouch = down; break;
+                    case "RightStickTouch": RightStickTouch = down; break;
+                    case "LeftGripTouch": LeftGripTouch = down; break;
+                    case "RightGripTouch": RightGripTouch = down; break;
                 }
             }
 

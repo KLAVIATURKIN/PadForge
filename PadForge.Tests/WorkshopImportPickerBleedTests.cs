@@ -373,11 +373,54 @@ namespace PadForge.Tests
                 Assert.Equal(bare, PadForge.Common.MappingDisplayResolver.ResolveDescriptorText(desc, null, padPrefixAlways: false));
             }
 
+            // The capacitive sensors follow the rings: bare under a pad, which
+            // lists them when it has them, prefixed under "(Any device)".
+            Assert.Equal(si.Mapping_CapSenseLeftStickTouch,
+                PadForge.Common.MappingDisplayResolver.ResolveGamepadText("Gamepad LeftStickTouch", anyDevice: false));
+            Assert.Equal(string.Format(si.Mapping_Gamepad_Format, si.Mapping_CapSenseLeftStickTouch),
+                PadForge.Common.MappingDisplayResolver.ResolveGamepadText("Gamepad LeftStickTouch"));
+
             // Every other Gamepad name reads the same in both contexts.
             Assert.Equal(PadForge.Common.MappingDisplayResolver.ResolveGamepadText("Gamepad ButtonA"),
                 PadForge.Common.MappingDisplayResolver.ResolveGamepadText("Gamepad ButtonA", anyDevice: false));
-            Assert.Equal(PadForge.Common.MappingDisplayResolver.ResolveGamepadText("Gamepad LeftStickTouch"),
-                PadForge.Common.MappingDisplayResolver.ResolveGamepadText("Gamepad LeftStickTouch", anyDevice: false));
+        }
+
+        [Fact]
+        public void CapacitiveSensors_ArePinnableUnderAPadThatHasThem()
+        {
+            // HIDMaestro 1.12.0's Steam Deck and 2026 Steam Controller
+            // personas take stick and grip touch, and a real pad's touch has
+            // to land there one to one, so a pad lists the sensors it has
+            // (UserDevice.CapSenseChannelMask, from SDL_GamepadHasCapSense)
+            // under its own name, the only way to pin one to it, and lists
+            // none it lacks.
+            var (mainVm, svc) = ArrangeDefaultProfileWithXboxPad();
+            var pad0 = mainVm.Pads[0];
+            var device = SettingsManager.UserDevices.Items.First(u => u.InstanceGuid == XboxGuid);
+            var si = PadForge.Resources.Strings.Strings.Instance;
+            string xbox = XboxGuid.ToString();
+            bool OnXbox(InputChoice c) => string.Equals(c.DeviceGuid, xbox, StringComparison.OrdinalIgnoreCase);
+
+            svc.RefreshAvailableInputsForSlot(pad0);
+            var before = pad0.Mappings.First(m => m.TargetSettingName == "ButtonA").AvailableInputs;
+            Assert.DoesNotContain(before, c => OnXbox(c)
+                && PadForge.Engine.Common.Mapping.SourceCoercion.IsCapSenseDescriptor(c.Descriptor));
+
+            device.CapSenseChannelMask = 0b0011;   // the two stick tops, as a Steam Deck
+            svc.RefreshAvailableInputsForSlot(pad0);
+            var choices = pad0.Mappings.First(m => m.TargetSettingName == "ButtonA").AvailableInputs;
+            var left = Assert.Single(choices, c => OnXbox(c)
+                && c.Descriptor == PadForge.Engine.Common.Mapping.SourceCoercion.CapSenseLeftStickDescriptor);
+            var right = Assert.Single(choices, c => OnXbox(c)
+                && c.Descriptor == PadForge.Engine.Common.Mapping.SourceCoercion.CapSenseRightStickDescriptor);
+            Assert.Equal(si.Mapping_CapSenseLeftStickTouch, left.DisplayName);
+            Assert.Equal(si.Mapping_CapSenseRightStickTouch, right.DisplayName);
+            Assert.DoesNotContain(choices, c => OnXbox(c)
+                && (c.Descriptor == PadForge.Engine.Common.Mapping.SourceCoercion.CapSenseLeftGripDescriptor
+                    || c.Descriptor == PadForge.Engine.Common.Mapping.SourceCoercion.CapSenseRightGripDescriptor));
+            // "(Any device)" keeps all four, prefixed.
+            Assert.Equal(4, choices.Count(c => string.IsNullOrEmpty(c.DeviceGuid)
+                && PadForge.Engine.Common.Mapping.SourceCoercion.IsCapSenseDescriptor(c.Descriptor)));
         }
 
         [Fact]

@@ -1095,7 +1095,9 @@ namespace PadForge.Common
             string member = descriptor.Substring("Gamepad ".Length).Trim();
             string memberDisplay = GamepadMemberDisplay(member);
             if (memberDisplay == null) return null;
-            if (!anyDevice && PadForge.Engine.Common.Mapping.SourceCoercion.IsStickRingDescriptor(descriptor))
+            if (!anyDevice
+                && (PadForge.Engine.Common.Mapping.SourceCoercion.IsStickRingDescriptor(descriptor)
+                    || PadForge.Engine.Common.Mapping.SourceCoercion.IsCapSenseDescriptor(descriptor)))
                 return memberDisplay;
             return string.Format(Strings.Instance.Mapping_Gamepad_Format, memberDisplay);
         }
@@ -1863,6 +1865,21 @@ namespace PadForge.Common
                     list.Add(new InputChoice { Descriptor = PadForge.Engine.Common.Mapping.SourceCoercion.LeftStickRingDescriptor,  DisplayName = ResolveGamepadText(PadForge.Engine.Common.Mapping.SourceCoercion.LeftStickRingDescriptor, anyDevice: false) });
                 if (rightStickOk)
                     list.Add(new InputChoice { Descriptor = PadForge.Engine.Common.Mapping.SourceCoercion.RightStickRingDescriptor, DisplayName = ResolveGamepadText(PadForge.Engine.Common.Mapping.SourceCoercion.RightStickRingDescriptor, anyDevice: false) });
+
+                // Capacitive sensors (the fork's SDL_GetGamepadCapSense: the
+                // Steam Deck's stick tops, the 2026 Steam Controller's stick
+                // tops and grips). The same rule as the rings: nothing else in
+                // this group reads them, so an entry here is the only way to
+                // pin one to this pad, and it carries no Gamepad prefix. Only
+                // the channels the pad has (UserDevice.CapSenseChannelMask),
+                // which is also what the Valve automap binds.
+                foreach (var (capDesc, channel) in PadForge.Engine.Common.Mapping.SourceCoercion.CapSenseTable)
+                {
+                    if ((ud.CapSenseChannelMask & (1 << channel)) == 0) continue;
+                    string capLabel = ResolveGamepadText(capDesc, anyDevice: false);
+                    if (capLabel != null)
+                        list.Add(new InputChoice { Descriptor = capDesc, DisplayName = capLabel });
+                }
             }
 
             // Touchpad raw sources (per-finger axes + click) for devices

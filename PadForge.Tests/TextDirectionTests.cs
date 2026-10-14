@@ -61,17 +61,33 @@ namespace PadForge.Tests
             if (failure != null) throw failure;
         }
 
+        /// <summary>A right-to-left window, watched or not, that stays as
+        /// built once it has loaded.
+        ///
+        /// <para>UiLanguageTests calls UiLanguage.Start, which registers a
+        /// class handler on Window.Loaded for the rest of the test process
+        /// (EventManager class handlers cannot be removed). Once it has run,
+        /// every window that loads takes the direction and the Watch value of
+        /// the loading thread's UI culture, and on this English thread that
+        /// turned these windows left to right with Watch off. Three tests of
+        /// this class failed whenever the start happened to run first. So the
+        /// window's direction, language and Watch are set again after it
+        /// loads.</para></summary>
         private static Window Show(UIElement content, bool watch)
         {
             TextDirection.Start();
+            var language = XmlLanguage.GetLanguage("ar");
             var window = new Window
             {
                 Content = content, Width = 700, Height = 300, ShowActivated = false, ShowInTaskbar = false,
                 Left = -10000, Top = -10000, FlowDirection = FlowDirection.RightToLeft,
-                Language = XmlLanguage.GetLanguage("ar"),
+                Language = language,
             };
             if (watch) TextDirection.SetWatch(window, true);
             window.Show();
+            window.Language = language;
+            window.FlowDirection = FlowDirection.RightToLeft;
+            TextDirection.SetWatch(window, watch);
             Drain(window);
             return window;
         }

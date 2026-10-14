@@ -1008,6 +1008,18 @@ namespace PadForge.Common.Input
                         MapValve("RightTouchpadClick", Extra(17) ?? "Touchpad 1 Click");
                     }
 
+                    // Capacitive sensors: the Deck's and the 2026 pad's stick
+                    // tops and the 2026 pad's grips land on the persona's own
+                    // touch rows, where the source pad has the sensor and the
+                    // wire carries it. The source is the pad's own picker
+                    // entry (MappingDisplayResolver lists a channel under the
+                    // pad when CapSenseChannelMask has it).
+                    foreach (var (capDesc, channel) in PadForge.Engine.Common.Mapping.SourceCoercion.CapSenseTable)
+                    {
+                        if ((ud.CapSenseChannelMask & (1 << channel)) == 0) continue;
+                        MapValve(capDesc.Substring("Gamepad ".Length), capDesc);
+                    }
+
                     // IMU: every Valve frame carries gyro and accel, which
                     // the packer fills from the slot's motion channel.
                     if (ud.HasGyro)  ps.MotionGyro  = "Motion Gyro";

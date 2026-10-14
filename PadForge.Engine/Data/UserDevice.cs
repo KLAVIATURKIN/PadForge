@@ -464,6 +464,17 @@ namespace PadForge.Engine.Data
         /// — callers fall back to the legacy two-finger assumption.</summary>
         public int[] CapTouchpadFingerCounts { get; set; }
 
+        /// <summary>The capacitive sensors the pad has, as a bitmask over the
+        /// SDL_GAMEPAD_CAPSENSE_* indices (bit 0 left stick top, 1 right stick
+        /// top, 2 left grip, 3 right grip). Persisted for the reason
+        /// <see cref="CapTouchpadFingerCounts"/> is: the pad's own picker
+        /// group and the automap list a sensor only when the pad has it, and
+        /// they must agree whether or not the pad is on. 0 on configs that
+        /// predate the field and on pads with none.</summary>
+        [XmlElement]
+        public int CapSenseChannelMask { get; set; }
+        public bool ShouldSerializeCapSenseChannelMask() => CapSenseChannelMask != 0;
+
         public bool? CapTouchpadPressure { get; set; }
         public bool? CapTouchpadClick { get; set; }
         public bool ShouldSerializeCapTouchpadPressure() => CapTouchpadPressure.HasValue;
@@ -918,6 +929,7 @@ namespace PadForge.Engine.Data
             HasTouchpad = wrapper.HasTouchpad;
             CapTouchpadCount = wrapper.NumTouchpads;
             CapTouchpadFingerCounts = wrapper.TouchpadFingerCounts;
+            CapSenseChannelMask = wrapper.CapSenseChannelMask;
             CapTouchpadPressure = wrapper.TouchpadPressureSupported;
             CapTouchpadClick = wrapper.TouchpadClickSupported;
             HasRumbleTriggers = wrapper.HasRumbleTriggers;

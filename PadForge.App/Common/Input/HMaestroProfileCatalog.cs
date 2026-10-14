@@ -9,7 +9,7 @@ namespace PadForge.Common.Input
     /// Read-only catalog of HIDMaestro profiles, partitioned by the v3
     /// category dropdown (Xbox / PlayStation / Extended). Owns its own
     /// metadata-only HMContext: it calls LoadDefaultProfiles to enumerate
-    /// the embedded profile JSONs (233 in the shipped SDK) but never instantiates HMController
+    /// the embedded profile JSONs (336 in the shipped SDK) but never instantiates HMController
     /// or installs the driver. The engine's separate HMContext in
     /// InputManager.Step5 owns the live device lifecycle.
     ///
@@ -37,6 +37,8 @@ namespace PadForge.Common.Input
         private static List<HMProfile> _playStationProfiles = new();
         private static List<HMProfile> _nintendoProfiles = new();
         private static List<HMProfile> _extendedProfiles = new();
+        private static List<HMProfile> _keyboardProfiles = new();
+        private static List<HMProfile> _mouseProfiles = new();
 
         /// <summary>
         /// Source of user-imported HIDMaestro profile JSONs to mix into the
@@ -107,6 +109,30 @@ namespace PadForge.Common.Input
             get { EnsureInitialized(); return _extendedProfiles; }
         }
 
+        /// <summary>Keyboard profiles (HIDMaestro 1.12.0, HIDMaestro#67): the
+        /// devices a Keyboard + Mouse slot can send its keys through instead of
+        /// SendInput. Profile type "keyboard". Never in any gamepad bucket: a
+        /// keyboard takes SubmitKeyboard, not gamepad state.</summary>
+        public static IReadOnlyList<HMProfile> KeyboardProfiles
+        {
+            get { EnsureInitialized(); return _keyboardProfiles; }
+        }
+
+        /// <summary>Mouse profiles, profile type "mouse", the twin of
+        /// <see cref="KeyboardProfiles"/>.</summary>
+        public static IReadOnlyList<HMProfile> MouseProfiles
+        {
+            get { EnsureInitialized(); return _mouseProfiles; }
+        }
+
+        /// <summary>True for a keyboard or mouse profile, by the profile's own
+        /// type, the field HIDMaestro decides delivery by
+        /// (ControllerProfile.IsKeyboardOrMouse).</summary>
+        internal static bool IsKeyboardOrMouseProfile(HMProfile p) =>
+            p != null
+            && (string.Equals(p.Type, "keyboard", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(p.Type, "mouse", StringComparison.OrdinalIgnoreCase));
+
         /// <summary>Direct lookup by stable profile ID slug, or null if not loaded.</summary>
         public static HMProfile GetProfileById(string id)
         {
@@ -131,6 +157,8 @@ namespace PadForge.Common.Input
                 _playStationProfiles = new();
                 _nintendoProfiles = new();
                 _extendedProfiles = new();
+                _keyboardProfiles = new();
+                _mouseProfiles = new();
             }
             EnsureInitialized();
             foreach (var reloaded in s_catalogReloaded.Live()) reloaded(null, System.EventArgs.Empty);
@@ -250,8 +278,20 @@ namespace PadForge.Common.Input
                             p.Id != CustomProfileId &&
                             !IsXboxProfile(p) &&
                             !IsPlayStationProfile(p) &&
-                            !IsNintendoProfile(p)));
+                            !IsNintendoProfile(p) &&
+                            !IsKeyboardOrMouseProfile(p)));
                     _extendedProfiles = extended;
+
+                    // Keyboards and mice (HIDMaestro 1.12.0) belong to the
+                    // Keyboard + Mouse slot's device pickers and to no gamepad
+                    // bucket. In Extended they would have taken gamepad
+                    // state, which their reports cannot carry.
+                    _keyboardProfiles = _allProfiles
+                        .Where(p => string.Equals(p.Type, "keyboard", StringComparison.OrdinalIgnoreCase))
+                        .ToList();
+                    _mouseProfiles = _allProfiles
+                        .Where(p => string.Equals(p.Type, "mouse", StringComparison.OrdinalIgnoreCase))
+                        .ToList();
                 }
                 catch
                 {
