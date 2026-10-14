@@ -2,6 +2,7 @@
 # One row for American English, the text of Strings.resx, and one for each Strings.<tag>.resx beside it.
 # LanguageCatalog reads it.
 af	Afrikaans	Afrikaans	ltr	Latn	partial
+am	Amharic	አማርኛ	ltr	Ethi	partial
 ar	Arabic	العربية	rtl	Arab	partial
 be	Belarusian	Беларуская	ltr	Cyrl	full
 bg	Bulgarian	Български	ltr	Cyrl	full
@@ -22,6 +23,7 @@ fa	Persian	فارسی	rtl	Arab	full
 fi	Finnish	Suomi	ltr	Latn	full
 fil	Tagalog	Tagalog	ltr	Latn	partial
 fr	French	Français	ltr	Latn	full
+gu	Gujarati	ગુજરાતી	ltr	Gujr	partial
 hi	Hindi	हिन्दी	ltr	Deva	full
 hr	Croatian	Hrvatski	ltr	Latn	partial
 hu	Hungarian	Magyar	ltr	Latn	full
@@ -32,9 +34,11 @@ it	Italian	Italiano	ltr	Latn	full
 ja	Japanese	日本語	ltr	Jpan	full
 ka	Georgian	ქართული	ltr	Geor	partial
 kk	Kazakh	Қазақша	ltr	Cyrl	full
+km	Khmer	ភាសាខ្មែរ	ltr	Khmr	partial
 kn	Kannada	ಕನ್ನಡ	ltr	Knda	partial
 ko	Korean	한국어	ltr	Kore	full
 lb	Luxembourgish	Lëtzebuergesch	ltr	Latn	partial
+lo	Lao	ລາວ	ltr	Laoo	partial
 lt	Lithuanian	Lietuvių	ltr	Latn	partial
 lv	Latvian	Latviešu	ltr	Latn	full
 mk	Macedonian	Македонски	ltr	Cyrl	full
@@ -43,6 +47,8 @@ mn	Mongolian	Монгол	ltr	Cyrl	partial
 mr	Marathi	मराठी	ltr	Deva	partial
 ms	Malay	Bahasa Melayu	ltr	Latn	partial
 mt	Maltese	Malti	ltr	Latn	partial
+my	Burmese	မြန်မာ	ltr	Mymr	partial
+ne	Nepali	नेपाली	ltr	Deva	full
 nl	Dutch	Nederlands	ltr	Latn	full
 no	Norwegian	Norsk	ltr	Latn	full
 pl	Polish	Polski	ltr	Latn	full
@@ -50,6 +56,7 @@ pt-BR	Portuguese (Brazil)	Português (Brasil)	ltr	Latn	full
 pt-PT	Portuguese (Portugal)	Português (Portugal)	ltr	Latn	full
 ro	Romanian	Română	ltr	Latn	full
 ru	Russian	Русский	ltr	Cyrl	full
+si	Sinhala	සිංහල	ltr	Sinh	partial
 sk	Slovak	Slovenčina	ltr	Latn	full
 sl	Slovenian	Slovenščina	ltr	Latn	full
 sq	Albanian	Shqip	ltr	Latn	partial
