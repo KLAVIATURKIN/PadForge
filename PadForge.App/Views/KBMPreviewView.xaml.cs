@@ -54,9 +54,15 @@ namespace PadForge.Views
         private Polygon _scrollRightArrow;
 
         // The virtual keyboard's lock lights (Num, Caps, Scroll), drawn while
-        // the picked keyboard has an LED report (null otherwise).
+        // the picked keyboard has an LED report (null otherwise). Each light
+        // is also its lock key's control: a click records that key's row.
         private Ellipse[] _ledDots;
+        private string[] _ledTargets;
         private int _paintedLeds = int.MinValue;
+
+        /// <summary>The key each lock light belongs to, in HMKeyboardLeds bit
+        /// order: Num Lock, Caps Lock, Scroll Lock.</summary>
+        internal static readonly int[] LockLightKeys = { 0x90, 0x14, 0x91 };
 
         // Colors — pre-cached dark/light variants (zero per-frame allocation)
         private static bool IsDarkTheme =>
@@ -203,6 +209,7 @@ namespace PadForge.Views
             _layoutBuilt = false;
             _keyWidgets.Clear();
             _ledDots = null;
+            _ledTargets = null;
             _paintedLeds = int.MinValue;
             _scrollLeftArrow = _scrollRightArrow = null;
             _lastTheme = Wpf.Ui.Appearance.ApplicationThemeManager.GetAppTheme();
@@ -344,7 +351,7 @@ namespace PadForge.Views
                     k.W * KeyUnit - KeyGap, k.H * KeyUnit - KeyGap, sendable);
             }
 
-            if (leds) BuildLedStrip(width * KeyUnit);
+            if (leds) BuildLedStrip(width * KeyUnit, caps);
 
             // A board drawn as the nearest standard set says so under it.
             if (family.Approximate)
@@ -400,13 +407,18 @@ namespace PadForge.Views
         }
 
         /// <summary>The lock lights in the board's top right corner, lit from
-        /// the LED report Windows last sent the virtual keyboard.</summary>
-        private void BuildLedStrip(double right)
+        /// the LED report Windows last sent the virtual keyboard. Each light
+        /// is a control as well as a display: hover names its key's row, a
+        /// click records that row, and the light flashes with the key while
+        /// the row records. A light whose key no row reaches, or that the
+        /// keyboard cannot send, only shows.</summary>
+        private void BuildLedStrip(double right, KbmDeviceCaps caps)
         {
             var s = Strings.Instance;
             string[] names = { s.Key_NumLock, s.Key_CapsLock, s.Key_ScrollLock };
             string[] marks = { "1", "A", "⇩" };
             _ledDots = new Ellipse[3];
+            _ledTargets = new string[3];
             for (int i = 0; i < 3; i++)
             {
                 double x = right - (3 - i) * 22;
@@ -423,6 +435,38 @@ namespace PadForge.Views
                 Canvas.SetTop(mark, 2);
                 KeyboardCanvas.Children.Add(mark);
                 _ledDots[i] = dot;
+
+                int vk = LockLightKeys[i];
+                string target = $"KbmKey{vk:X2}";
+                _ledTargets[i] = target;
+                bool live = (caps == null || DeviceSends(caps, vk))
+                    && PadForge.Common.Input.InputManager.IsKbmKeyTarget(vk);
+                if (!live) continue;
+
+                // The dot is 6 px, too small to aim at, so the light and its
+                // mark share one hit area, the way the mouse controls ride a
+                // hit shape of their own.
+                string rowLabel = _vm?.Mappings?.FirstOrDefault(m => m.TargetSettingName == target)?.TargetLabel;
+                var hit = new Rectangle
+                {
+                    Width = 20, Height = 12, Fill = Brushes.Transparent,
+                    Cursor = Cursors.Hand, ToolTip = rowLabel ?? names[i],
+                };
+                Canvas.SetLeft(hit, x - 3);
+                Canvas.SetTop(hit, 1);
+                hit.MouseEnter += (s2, e) =>
+                {
+                    if (_flashTarget != null) return;
+                    dot.Stroke = HoverBrush;
+                    dot.StrokeThickness = 1.5;
+                };
+                hit.MouseLeave += (s2, e) => dot.Stroke = null;
+                hit.MouseLeftButtonDown += (s2, e) =>
+                {
+                    ControllerElementRecordRequested?.Invoke(this, target);
+                    e.Handled = true;
+                };
+                KeyboardCanvas.Children.Add(hit);
             }
         }
 
@@ -720,6 +764,11 @@ namespace PadForge.Views
         {
             if (string.IsNullOrEmpty(_flashTarget)) return;
 
+            // A lock light records its key's row, so it flashes with the key.
+            if (_ledTargets != null)
+                for (int i = 0; i < _ledTargets.Length; i++)
+                    if (_flashTarget == _ledTargets[i]) _ledDots[i].Fill = highlight ? FlashBrush : DimBrush;
+
             foreach (var w in _keyWidgets)
                 if (_flashTarget == w.TargetName) { w.Border.Background = highlight ? FlashBrush : KeyNormalBrush; return; }
 
@@ -805,6 +854,9 @@ namespace PadForge.Views
             {
                 for (int i = 0; i < _ledDots.Length; i++)
                 {
+                    // The light recording its key keeps the flash the timer
+                    // paints, as the keys do.
+                    if (_flashOn && _ledTargets != null && _flashTarget == _ledTargets[i]) continue;
                     bool on = leds >= 0 && (leds & (1 << i)) != 0;
                     _ledDots[i].Fill = on ? AccentBrush : DimBrush;
                     SetGlow(_ledDots[i], on ? EmberGlowSmall : null);

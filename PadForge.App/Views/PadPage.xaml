@@ -1172,6 +1172,16 @@
                         <views:KBMPreviewView x:Name="KBMPreview" Visibility="Collapsed" />
                         <views:VRPreviewView x:Name="VRPreview" Visibility="Collapsed" />
 
+                        <!-- A Valve slot's touch sensors (HIDMaestro 1.12.0): the
+                             stick tops on the Deck and the 2026 pad, the grips on
+                             the 2026 pad. The art has no place to click them, so
+                             each is a capsule that lights while its output is on
+                             and records its row on a click. Collapsed on every
+                             other slot. -->
+                        <views:TouchSensorStrip x:Name="TouchSensors"
+                                                HorizontalAlignment="Center" VerticalAlignment="Top"
+                                                Margin="0,8,0,0" />
+
                         <!-- 2D/3D toggle button (top-left to avoid overlap with 3D Reset View) -->
                         <Button x:Name="ViewModeToggle"
                                 AutomationProperties.AutomationId="ViewModeToggle"

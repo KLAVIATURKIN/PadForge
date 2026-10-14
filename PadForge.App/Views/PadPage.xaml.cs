@@ -938,6 +938,11 @@ namespace PadForge.Views
 
             if (DataContext is not PadViewModel vm) return;
 
+            // The touch sensors' capsules sit over the 2D and 3D views alike
+            // and record through the same funnel.
+            TouchSensors.ControllerElementRecordRequested -= OnModelRecordRequested;
+            TouchSensors.ControllerElementRecordRequested += OnModelRecordRequested;
+
             if (isKBM)
             {
                 KBMPreview.ControllerElementRecordRequested -= OnModelRecordRequested;
