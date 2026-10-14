@@ -1,0 +1,1588 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <!-- ═══ Common ═══ -->
+  <data name="Common_Save" xml:space="preserve"><value>Fi pamọ́</value></data>
+  <data name="Common_Cancel" xml:space="preserve"><value>Fagilé</value></data>
+  <data name="Common_Delete" xml:space="preserve"><value>Paarẹ́</value></data>
+  <data name="Common_Add" xml:space="preserve"><value>Fikún</value></data>
+  <data name="Common_Remove" xml:space="preserve"><value>Yọ kúrò</value></data>
+  <data name="Common_OK" xml:space="preserve"><value>Ó dáa</value></data>
+  <data name="Common_Install" xml:space="preserve"><value>Fi sórí ẹ̀rọ</value></data>
+  <data name="Common_Uninstall" xml:space="preserve"><value>Yọ kúrò lórí ẹ̀rọ</value></data>
+  <data name="Common_Refresh" xml:space="preserve"><value>Sọ dọ̀tun</value></data>
+  <data name="Common_Copy" xml:space="preserve"><value>Ṣàdàkọ</value></data>
+  <data name="Common_Paste" xml:space="preserve"><value>Lẹ̀ẹ́</value></data>
+  <data name="Common_Duplicate" xml:space="preserve"><value>Ṣe ẹ̀dà</value></data>
+  <data name="Common_Enabled" xml:space="preserve"><value>Ti mú ṣiṣẹ́</value></data>
+  <data name="Common_Disabled" xml:space="preserve"><value>Kò ṣiṣẹ́</value></data>
+  <data name="Common_Installed" xml:space="preserve"><value>Ti fi sórí ẹ̀rọ</value></data>
+  <data name="Common_NotInstalled" xml:space="preserve"><value>Kò sí lórí ẹ̀rọ</value></data>
+  <data name="Common_NotAvailableOnArm64" xml:space="preserve"><value>Kò sí fún ARM64</value></data>
+  <data name="Common_Ready" xml:space="preserve"><value>Ti ṣetán</value></data>
+  <data name="Common_Stopped" xml:space="preserve"><value>Ti dúró</value></data>
+  <data name="Common_Running" xml:space="preserve"><value>Ń ṣiṣẹ́</value></data>
+  <data name="Common_Stopping" xml:space="preserve"><value>Ń dúró…</value></data>
+  <data name="Server_RunningOn_Format" xml:space="preserve"><value>Ń ṣiṣẹ́ lórí {0}</value></data>
+  <data name="Server_PortInUse_Format" xml:space="preserve"><value>Pọ́ọ̀tì {0} ti wà ní lílò</value></data>
+  <data name="Server_FailedToStart" xml:space="preserve"><value>Kò lè bẹ̀rẹ̀</value></data>
+  <data name="Common_Online" xml:space="preserve"><value>Lórí ayélujára</value></data>
+  <data name="Common_Offline" xml:space="preserve"><value>Kò sí lórí ayélujára</value></data>
+  <data name="Common_Unknown" xml:space="preserve"><value>Àìmọ̀</value></data>
+  <data name="Common_Default" xml:space="preserve"><value>Àìyípadà</value></data>
+  <data name="Common_Proceed" xml:space="preserve"><value>Tẹ̀síwájú</value></data>
+  <data name="Common_Stop" xml:space="preserve"><value>Dúró</value></data>
+  <data name="Common_Record" xml:space="preserve"><value>Gbà sílẹ̀</value></data>
+  <data name="Common_Recording" xml:space="preserve"><value>Ń gbà sílẹ̀...</value></data>
+  <data name="Common_None" xml:space="preserve"><value>Kò sí</value></data>
+  <data name="Common_Ms" xml:space="preserve"><value>ms</value></data>
+  <data name="Common_PadForge" xml:space="preserve"><value>PadForge</value></data>
+
+  <!-- ═══ Controller Types ═══ -->
+  <data name="ControllerType_Xbox" xml:space="preserve"><value>Xbox</value></data>
+  <data name="ControllerType_PlayStation" xml:space="preserve"><value>PlayStation</value></data>
+  <data name="ControllerType_Nintendo" xml:space="preserve"><value>Nintendo</value></data>
+  <data name="ControllerType_MIDI" xml:space="preserve"><value>MIDI</value></data>
+  <data name="ControllerType_VR" xml:space="preserve"><value>VR</value></data>
+
+  <!-- ═══ MainWindow ═══ -->
+  <data name="Main_ShuttingDown" xml:space="preserve"><value>Ń pa PadForge...</value></data>
+  <data name="Main_StartingUp" xml:space="preserve"><value>Ń bẹ̀rẹ̀ PadForge…</value></data>
+  <data name="Main_ShowPadForge" xml:space="preserve"><value>Ṣàfihàn PadForge</value></data>
+  <data name="Main_VirtualController_Format" xml:space="preserve"><value>Ẹ̀rọ ìdarí àfarawé {0}</value></data>
+
+  <!-- ═══ MainWindow Status Messages ═══ -->
+  <data name="Status_OperationCanceled" xml:space="preserve"><value>Olùlò ti fagilé iṣẹ́ náà.</value></data>
+  <data name="Status_CopyFailed_Format" xml:space="preserve"><value>Kò lè ṣàdàkọ: {0}</value></data>
+  <data name="Status_PasteFailed_Format" xml:space="preserve"><value>Kò lè lẹ̀ẹ́: {0}</value></data>
+  <data name="Status_ProfileCreatedEmpty_Format" xml:space="preserve"><value>A ti ṣẹ̀dá profaili "{0}" (òfo).</value></data>
+  <data name="Status_ProfileCreated_Format" xml:space="preserve"><value>A ti ṣẹ̀dá profaili "{0}".</value></data>
+  <data name="Status_ProfileDeleted_Format" xml:space="preserve"><value>A ti paarẹ́ profaili "{0}".</value></data>
+  <data name="Status_RecordingCanceled" xml:space="preserve"><value>A ti fagilé gbígbà sílẹ̀.</value></data>
+  <data name="Status_Error_Format" xml:space="preserve"><value>Àṣìṣe: {0}</value></data>
+  <data name="Profile_Default" xml:space="preserve"><value>Àìyípadà</value></data>
+  <data name="Profiles_ShortcutMode_Next" xml:space="preserve"><value>Profaili tó kàn</value></data>
+  <data name="Profiles_ShortcutMode_Previous" xml:space="preserve"><value>Profaili tó ṣáájú</value></data>
+  <data name="Status_NoDeviceSelected" xml:space="preserve"><value>Kò sí ẹ̀rọ tí a yàn.</value></data>
+  <data name="Status_DeviceRemoved" xml:space="preserve"><value>A ti yọ ẹ̀rọ kúrò.</value></data>
+  <data name="Status_VCDeleted_Format" xml:space="preserve"><value>A ti paarẹ́ Ẹ̀rọ ìdarí àfarawé {0}.</value></data>
+
+  <!-- ═══ Dashboard ═══ -->
+  <data name="FirstRun_Skip" xml:space="preserve"><value>Fò ó</value></data>
+  <data name="FirstRun_Next" xml:space="preserve"><value>Tó kàn</value></data>
+  <data name="FirstRun_Done" xml:space="preserve"><value>Ó ti parí</value></data>
+  <data name="Tour_Slots_Title" xml:space="preserve"><value>Àwọn àyè</value></data>
+  <data name="Dashboard_Slot" xml:space="preserve"><value>Àyè</value></data>
+  <data name="Pad_ScopeDevice" xml:space="preserve"><value>Ẹ̀rọ</value></data>
+  <data name="Dashboard_Port" xml:space="preserve"><value>Pọ́ọ̀tì</value></data>
+  <data name="RemoteLink_Connect" xml:space="preserve"><value>Sopọ̀</value></data>
+  <data name="RemoteLink_Connected" xml:space="preserve"><value>Ti sopọ̀</value></data>
+  <data name="RemoteLink_Reject" xml:space="preserve"><value>Kọ̀ ọ́</value></data>
+  <data name="Dashboard_NoDevice" xml:space="preserve"><value>Kò sí ẹ̀rọ</value></data>
+
+  <!-- ═══ Settings ═══ -->
+  <data name="Settings_Title" xml:space="preserve"><value>Ètò</value></data>
+  <data name="Settings_ThemeLight" xml:space="preserve"><value>Ìmọ́lẹ̀</value></data>
+  <data name="Settings_ThemeDark" xml:space="preserve"><value>Òkùnkùn</value></data>
+  <data name="Settings_Window" xml:space="preserve"><value>Fèrèsé</value></data>
+  <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
+  <data name="Settings_Language" xml:space="preserve"><value>Èdè</value></data>
+  <data name="Settings_LanguageDesc" xml:space="preserve"><value>Yan èdè tí o fẹ́ láti máa rí.</value></data>
+
+  <!-- ═══ About ═══ -->
+  <data name="About_Title" xml:space="preserve"><value>Nípa</value></data>
+  <data name="About_DotNet10" xml:space="preserve"><value>.NET 10</value></data>
+  <data name="About_SDL3" xml:space="preserve"><value>SDL3</value></data>
+  <data name="About_HelixToolkit" xml:space="preserve"><value>HelixToolkit</value></data>
+  <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
+  <data name="About_HIDMaestro" xml:space="preserve"><value>HIDMaestro</value></data>
+  <data name="About_OpenXInput" xml:space="preserve"><value>OpenXInput</value></data>
+  <data name="About_HidHide" xml:space="preserve"><value>HidHide</value></data>
+  <data name="About_TestimonyScripture" xml:space="preserve"><value>“A sì nsọ̀rọ̀ nípa Krístì, a nyọ̀ nínú Krístì, a nwãsù nípa Krístì, a nsọ-tẹ́lẹ̀ nípa Krístì, a sì nkọ̀wé gẹ́gẹ́bí àwọn ìsọtẹ́lẹ̀ wa, kí àwọn ọmọ wa lè mọ́ orísun èwo ni àwọn lè wò fún ìdáríjì ẹ̀sẹ̀ wọn.”</value></data>
+  <data name="About_TestimonyRef" xml:space="preserve"><value>2 Nífáì 25:26</value></data>
+  <data name="About_TestimonyDoxology" xml:space="preserve"><value>Ògo, ọlá, àti ìyìn fún Olúwa Jésù Krístì, orísun gbogbo òtítọ́ àti ìgbàlà, láé àti láéláé.</value></data>
+  <data name="About_Bs2b" xml:space="preserve"><value>bs2b</value></data>
+  <data name="About_Concentus" xml:space="preserve"><value>Concentus</value></data>
+  <data name="About_SAxense" xml:space="preserve"><value>SAxense</value></data>
+  <data name="About_DsBtHaptics" xml:space="preserve"><value>dualsense-bt-haptics</value></data>
+  <data name="About_DualSenseY" xml:space="preserve"><value>DualSenseY-v2</value></data>
+
+  <!-- ═══ Device Types ═══ -->
+  <data name="DeviceType_Device" xml:space="preserve"><value>Ẹ̀rọ</value></data>
+
+  <data name="MacroDisconnect_Device_Label" xml:space="preserve"><value>Ẹ̀rọ</value></data>
+  <data name="MacroAction_TextBlock_Format" xml:space="preserve"><value>Tẹ "{0}"</value></data>
+  <data name="MacroAction_TextBlock_NoText" xml:space="preserve"><value>(kò sí ọ̀rọ̀)</value></data>
+  <data name="MacroAction_TextBlock_Text" xml:space="preserve"><value>Ọ̀rọ̀</value></data>
+  <data name="Devices_Power" xml:space="preserve"><value>Agbára</value></data>
+  <data name="Devices_IdleDisconnectMinutes" xml:space="preserve"><value>ìṣẹ́jú (0 = láé)</value></data>
+  <data name="Devices_BlissBoxPlayer" xml:space="preserve"><value>Nọ́mbà olùṣeré…</value></data>
+  <data name="BlissBoxPlayer_Title" xml:space="preserve"><value>Nọ́mbà olùṣeré</value></data>
+  <data name="BlissBoxPlayer_Label" xml:space="preserve"><value>Olùṣeré</value></data>
+  <data name="DreamcastScreen_Mode_Label" xml:space="preserve"><value>Fi hàn</value></data>
+  <data name="DreamcastScreen_Mode_ProfileName" xml:space="preserve"><value>Orúkọ profaili</value></data>
+  <data name="DreamcastScreen_Mode_ProfileNumber" xml:space="preserve"><value>Nọ́mbà profaili</value></data>
+  <data name="DreamcastScreen_Mode_ProfilePicture" xml:space="preserve"><value>Àwòrán profaili</value></data>
+  <data name="DreamcastScreen_Mode_Clock" xml:space="preserve"><value>Aago</value></data>
+  <data name="DreamcastScreen_Mode_PlayTime" xml:space="preserve"><value>Àkókò eré</value></data>
+  <data name="DreamcastScreen_Mode_Picture" xml:space="preserve"><value>Àwòrán tí a yàn</value></data>
+  <data name="DreamcastScreen_ChoosePicture" xml:space="preserve"><value>Yan àwòrán…</value></data>
+  <data name="DreamcastScreen_RemoveProfilePicture" xml:space="preserve"><value>Yọ àwòrán profaili kúrò</value></data>
+  <data name="BlissBoxPak_RestoreAction" xml:space="preserve"><value>Mú padà bọ̀ sípò</value></data>
+  <data name="Devices_LightGun" xml:space="preserve"><value>Light gun</value></data>
+  <data name="GunCalibration_Instruction" xml:space="preserve"><value>Dojú ìbọn kọ àfojúsùn náà kí o sì fa tírígà.</value></data>
+  <data name="GunCalibration_Progress" xml:space="preserve"><value>Àfojúsùn {0} nínú {1}</value></data>
+  <data name="GunCalibration_WiiInstruction" xml:space="preserve"><value>Dojú Wii Remote kọ àfojúsùn náà kí o sì tẹ B.</value></data>
+  <data name="DevObj_ConsumerPower" xml:space="preserve"><value>Agbára</value></data>
+  <data name="DevObj_ConsumerMenu" xml:space="preserve"><value>Àkójọ àṣàyàn</value></data>
+  <data name="DevObj_ConsumerMediaStop" xml:space="preserve"><value>Dúró</value></data>
+  <data name="DevObj_ConsumerQuit" xml:space="preserve"><value>Jáde</value></data>
+  <data name="DevObj_ConsumerCalculator" xml:space="preserve"><value>Ẹ̀rọ ìṣírò</value></data>
+  <data name="DevObj_ConsumerBrowserSearch" xml:space="preserve"><value>Ṣàwárí</value></data>
+  <data name="DevObj_ConsumerBrowserRefresh" xml:space="preserve"><value>Sọ di ọ̀tun</value></data>
+  <!-- ═══ Devices ═══ -->
+  <data name="Devices_Title" xml:space="preserve"><value>Àwọn ẹ̀rọ</value></data>
+  <data name="Devices_Total" xml:space="preserve"><value> lápapọ̀</value></data>
+  <data name="Devices_RemoveConfirmTitle" xml:space="preserve"><value>Yọ ẹ̀rọ kúrò</value></data>
+  <data name="Devices_Axes" xml:space="preserve"><value>Àwọn ákísì</value></data>
+  <data name="Devices_Buttons" xml:space="preserve"><value>Àwọn bọ́tìnnì</value></data>
+  <data name="Devices_Keyboard" xml:space="preserve"><value>Pátákó ìtẹ̀wé</value></data>
+  <data name="Devices_AnalogKeysHint" xml:space="preserve"><value>Tẹ kọ́kọ́rọ́ kan láti rí bí ó ṣe lọ sísàlẹ̀ tó.</value></data>
+  <data name="Devices_Mouse" xml:space="preserve"><value>Máòsì</value></data>
+  <data name="Devices_DPadPOV" xml:space="preserve"><value>D-pad / POV</value></data>
+  <data name="Devices_POV" xml:space="preserve"><value>POV </value></data>
+  <data name="Devices_Accelerometer" xml:space="preserve"><value>Accelerometer</value></data>
+  <data name="Devices_Axis_Format" xml:space="preserve"><value>Ákísì {0}</value></data>
+  <data name="Devices_Rumble" xml:space="preserve"><value>Ìmìtìtì</value></data>
+  <data name="Devices_Gyro" xml:space="preserve"><value>Gyro</value></data>
+  <data name="Devices_Nfc" xml:space="preserve"><value>NFC</value></data>
+  <data name="Devices_DeviceKind_Mouse" xml:space="preserve"><value>máòsì</value></data>
+  <data name="Devices_DeviceKind_Keyboard" xml:space="preserve"><value>pátákó ìtẹ̀wé</value></data>
+
+  <!-- ═══ Pad Page ═══ -->
+  <data name="Pad_Macros" xml:space="preserve"><value>Àwọn macro</value></data>
+  <data name="Macro_CopyNameFormat" xml:space="preserve"><value>{0} (Ẹ̀dà)</value></data>
+  <data name="Pad_Mappings" xml:space="preserve"><value>Àwọn ìsopọ̀</value></data>
+  <data name="Pad_Sticks" xml:space="preserve"><value>Àwọn ọ̀pá</value></data>
+  <data name="Pad_Triggers" xml:space="preserve"><value>Àwọn tírígà</value></data>
+  <data name="Pad_ForceFeedback" xml:space="preserve"><value>Force feedback</value></data>
+  <!-- Impulse Triggers tab (Xbox One+ family) -->
+  <data name="Pad_ImpulseTriggers_LeftTrigger" xml:space="preserve"><value>Tírígà òsì</value></data>
+  <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Tírígà ọ̀tún</value></data>
+  <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Pààrọ̀ mọ́tò tírígà òsì àti ọ̀tún</value></data>
+  <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Dán tírígà òsì wò</value></data>
+  <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Dán tírígà ọ̀tún wò</value></data>
+  <data name="Pad_ResetImpulseLeft" xml:space="preserve"><value>Tún tírígà òsì tò</value></data>
+  <data name="Pad_ResetImpulseRight" xml:space="preserve"><value>Tún tírígà ọ̀tún tò</value></data>
+  <data name="Pad_TriggerRouting_LeftTrigger" xml:space="preserve"><value>Tírígà òsì</value></data>
+  <data name="Pad_TriggerRouting_RightTrigger" xml:space="preserve"><value>Tírígà ọ̀tún</value></data>
+  <data name="Pad_TriggerRouting_Source" xml:space="preserve"><value>Orísun</value></data>
+  <data name="Pad_TriggerRouting_Source_None" xml:space="preserve"><value>Kò sí (Pa)</value></data>
+  <data name="Pad_TriggerRouting_Source_MainLeft" xml:space="preserve"><value>Mọ́tò òsì</value></data>
+  <data name="Pad_TriggerRouting_Source_MainRight" xml:space="preserve"><value>Mọ́tò ọ̀tún</value></data>
+  <data name="Pad_TriggerRouting_Mode_Off" xml:space="preserve"><value>Pa</value></data>
+  <data name="Pad_TriggerRouting_Activator" xml:space="preserve"><value>Olùmúṣiṣẹ́</value></data>
+  <data name="Pad_TriggerRouting_ActivatorMode_AlwaysOn" xml:space="preserve"><value>Títàn nígbà gbogbo</value></data>
+  <data name="Pad_ResetTriggerRouteActivator" xml:space="preserve"><value>Tún olùmúṣiṣẹ́ tò</value></data>
+  <data name="Pad_ResetTriggerRouteSource" xml:space="preserve"><value>Tún orísun tò</value></data>
+  <data name="Pad_ConstantTriggerForce_Left" xml:space="preserve"><value>Tírígà òsì</value></data>
+  <data name="Pad_ConstantTriggerForce_Right" xml:space="preserve"><value>Tírígà ọ̀tún</value></data>
+  <data name="Pad_ResetConstantTriggerLeft" xml:space="preserve"><value>Tún tírígà òsì tò</value></data>
+  <data name="Pad_ResetConstantTriggerRight" xml:space="preserve"><value>Tún tírígà ọ̀tún tò</value></data>
+  <data name="Pad_AudioTriggerRumble_Sensitivity" xml:space="preserve"><value>Ìfọkànsí</value></data>
+  <data name="Pad_AudioTriggerRumble_LeftTrigger" xml:space="preserve"><value>Tírígà òsì</value></data>
+  <data name="Pad_AudioTriggerRumble_RightTrigger" xml:space="preserve"><value>Tírígà ọ̀tún</value></data>
+  <data name="Pad_ResetAudioTriggerSensitivity" xml:space="preserve"><value>Tún ìfọkànsí tò</value></data>
+  <data name="Pad_ResetAudioLeftTrigger" xml:space="preserve"><value>Tún tírígà òsì tò</value></data>
+  <data name="Pad_ResetAudioRightTrigger" xml:space="preserve"><value>Tún tírígà ọ̀tún tò</value></data>
+  <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
+  <data name="Pad_Sticks_Header" xml:space="preserve"><value>Àwọn ọ̀pá</value></data>
+  <data name="Pad_Triggers_Header" xml:space="preserve"><value>Àwọn tírígà</value></data>
+  <data name="Pad_ForceFeedback_Header" xml:space="preserve"><value>Force feedback</value></data>
+  <data name="Pad_LeftTrigger" xml:space="preserve"><value>Tírígà òsì</value></data>
+  <data name="Pad_RightTrigger" xml:space="preserve"><value>Tírígà ọ̀tún</value></data>
+  <data name="Pad_AT_Off" xml:space="preserve"><value>Pa</value></data>
+  <data name="Pad_AT_Weapon" xml:space="preserve"><value>Ohun ìjà</value></data>
+  <data name="Pad_AT_Vibration" xml:space="preserve"><value>Ìmìtìtì</value></data>
+  <data name="Pad_AT_Range" xml:space="preserve"><value>Ìwọ̀n</value></data>
+  <data name="Pad_AT_Strength" xml:space="preserve"><value>Agbára</value></data>
+  <!-- Lighting tab (DS4 / DualSense / DualSense Edge) -->
+  <data name="Pad_Lighting" xml:space="preserve"><value>Ìmọ́lẹ̀</value></data>
+  <data name="Pad_Lighting_Header" xml:space="preserve"><value>Ìmọ́lẹ̀</value></data>
+  <data name="Pad_Lighting_BaseColor" xml:space="preserve"><value>Lightbar</value></data>
+  <data name="Pad_Lighting_Hex" xml:space="preserve"><value>HEX</value></data>
+  <data name="Pad_Lighting_MicLed_Off" xml:space="preserve"><value>Pa</value></data>
+  <data name="Pad_Lighting_MicLed_FollowDevice_Picker" xml:space="preserve"><value>Ẹ̀rọ ohùn</value></data>
+  <data name="Pad_ResetLightbar" xml:space="preserve"><value>Tún lightbar tò</value></data>
+  <data name="Pad_ResetForceFeedback" xml:space="preserve"><value>Tún force feedback tò</value></data>
+  <data name="Pad_ResetSection_Format" xml:space="preserve"><value>Tún {0} tò</value></data>
+  <data name="Pad_Lighting_LedBrightness" xml:space="preserve"><value>Ìtànná LED</value></data>
+  <data name="Pad_Lighting_PlayerLed_Off" xml:space="preserve"><value>Pa</value></data>
+  <data name="Pad_Lighting_PlayerLed_PlayerNumber" xml:space="preserve"><value>Nọ́mbà olùṣeré (àìyípadà)</value></data>
+  <data name="Pad_Lighting_PlayerLed_P1" xml:space="preserve"><value>Olùṣeré 1</value></data>
+  <data name="Pad_Lighting_PlayerLed_P2" xml:space="preserve"><value>Olùṣeré 2</value></data>
+  <data name="Pad_Lighting_PlayerLed_P3" xml:space="preserve"><value>Olùṣeré 3</value></data>
+  <data name="Pad_Lighting_PlayerLed_P4" xml:space="preserve"><value>Olùṣeré 4</value></data>
+  <data name="Pad_Lighting_PlayerLed_All" xml:space="preserve"><value>Gbogbo</value></data>
+  <data name="Pad_Lighting_PlayerLed_Brightness_High" xml:space="preserve"><value>Gíga</value></data>
+  <data name="Pad_Lighting_PlayerLed_Brightness_Medium" xml:space="preserve"><value>Àárín</value></data>
+  <data name="Pad_Lighting_PlayerLed_Brightness_Low" xml:space="preserve"><value>Kékeré</value></data>
+  <data name="Pad_Lighting_AudioLightbar_Sensitivity" xml:space="preserve"><value>Ìfọkànsí</value></data>
+  <data name="Pad_Lighting_Mode_Off" xml:space="preserve"><value>Pa</value></data>
+  <data name="Pad_Lighting_Mode_PlayerNumber" xml:space="preserve"><value>Nọ́mbà olùṣeré (àìyípadà)</value></data>
+  <data name="Pad_Lighting_BatteryLowColor" xml:space="preserve"><value>Bátírì kéré</value></data>
+  <data name="Pad_Lighting_BatteryHighColor" xml:space="preserve"><value>Bátírì kún</value></data>
+
+  <!-- v3.2+ Input Reactive overlay (separate dropdown layered on top of base mode) -->
+  <data name="Pad_Lighting_InputReactive_Off" xml:space="preserve"><value>Pa</value></data>
+
+  <data name="Pad_Lighting_RainbowBrightness" xml:space="preserve"><value>Ìtànná</value></data>
+  <data name="Pad_Lighting_AddColor" xml:space="preserve"><value>Ṣàfikún àwọ̀</value></data>
+  <data name="Pad_Preset" xml:space="preserve"><value>Preset</value></data>
+  <data name="Pad_ExtendedSticks" xml:space="preserve"><value>Àwọn ọ̀pá</value></data>
+  <data name="Pad_ExtendedTriggers" xml:space="preserve"><value>Àwọn tírígà</value></data>
+  <data name="Pad_ExtendedPOVs" xml:space="preserve"><value>Àwọn POV</value></data>
+  <data name="Pad_ExtendedButtons" xml:space="preserve"><value>Àwọn bọ́tìnnì</value></data>
+  <data name="ManageProfiles_Title" xml:space="preserve"><value>Àwọn profaili tí a gbé wọlé</value></data>
+  <data name="ManageProfiles_YourProfiles_Format" xml:space="preserve"><value>Àwọn profaili tí o gbé wọlé ({0})</value></data>
+  <data name="ManageProfiles_Export" xml:space="preserve"><value>Gbé jáde…</value></data>
+  <data name="ManageProfiles_Delete" xml:space="preserve"><value>Parẹ́</value></data>
+  <data name="ManageProfiles_StatusExported_Format" xml:space="preserve"><value>A ti gbé e jáde sí {0}</value></data>
+  <data name="ManageProfiles_StatusExportFailed_Format" xml:space="preserve"><value>Gbígbé jáde kùnà: {0}</value></data>
+  <data name="ManageProfiles_ImportFromFile" xml:space="preserve"><value>Gbé wọlé láti fáìlì…</value></data>
+  <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>A ti gbé e wọlé láti {0}.</value></data>
+  <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>Kíkà kùnà: {0}</value></data>
+  <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Sọ di ọ̀tun</value></data>
+  <data name="ImportFromDevice_Import" xml:space="preserve"><value>Gbé wọlé</value></data>
+  <data name="Pad_ExtendedVid" xml:space="preserve"><value>VID</value></data>
+  <data name="Pad_ExtendedPid" xml:space="preserve"><value>PID</value></data>
+  <data name="Pad_ExtendedForceFeedback" xml:space="preserve"><value>Force feedback</value></data>
+  <data name="Pad_MidiOutputPort" xml:space="preserve"><value>Pọ́ọ̀tì ìjáde</value></data>
+  <data name="Pad_MidiOutputPortNone" xml:space="preserve"><value>Kò sí</value></data>
+  <data name="Pad_Kbm_Socd_Mode_Off_Name" xml:space="preserve"><value>Pa</value></data>
+  <data name="Pad_Kbm_Socd_Mode_Off_Description" xml:space="preserve"><value>Kọ́kọ́rọ́ méjèèjì ń kọjá láìyípadà.</value></data>
+  <data name="Pad_KeepAwake_Deflection_Label" xml:space="preserve"><value>Ìyísẹ̀</value></data>
+  <data name="Pad_KeepAwake_Reset_Deflection" xml:space="preserve"><value>Tún ìyísẹ̀ tò</value></data>
+  <data name="Common_Reset_Sensitivity" xml:space="preserve"><value>Tún ìfọkànsí tò</value></data>
+  <data name="Common_Reset_DeadZone" xml:space="preserve"><value>Tún deadzone tò</value></data>
+  <data name="Pad_Socd_Mode_Label" xml:space="preserve"><value>Ipò</value></data>
+  <data name="Pad_Socd_ResetMode_Tooltip" xml:space="preserve"><value>Tún ipò tò</value></data>
+  <data name="Pad_Socd_Mode_Off_Description" xml:space="preserve"><value>Bọ́tìnnì méjèèjì ń kọjá láìyípadà.</value></data>
+  <data name="Pad_SwitchTo2D" xml:space="preserve"><value>Yí padà sí ìwò 2D</value></data>
+  <data name="Pad_SwitchTo3D" xml:space="preserve"><value>Yí padà sí ìwò 3D</value></data>
+  <data name="Pad_TestLeftMotor" xml:space="preserve"><value>Tẹ̀ láti dán mọ́tò òsì wò</value></data>
+  <data name="Pad_LeftMotor" xml:space="preserve"><value>Mọ́tò òsì</value></data>
+  <data name="Pad_TestRightMotor" xml:space="preserve"><value>Tẹ̀ láti dán mọ́tò ọ̀tún wò</value></data>
+  <data name="Pad_RightMotor" xml:space="preserve"><value>Mọ́tò ọ̀tún</value></data>
+  <data name="Pad_CopyFrom" xml:space="preserve"><value>Ṣẹ̀dà láti...</value></data>
+  <data name="Pad_ResetAll" xml:space="preserve"><value>Tún gbogbo rẹ̀ tò</value></data>
+  <data name="Pad_HeaderOutput" xml:space="preserve"><value>Ìjáde</value></data>
+  <data name="Pad_HeaderSource" xml:space="preserve"><value>Orísun</value></data>
+  <data name="Pad_HeaderValue" xml:space="preserve"><value>Iye</value></data>
+  <data name="Pad_HeaderOptions" xml:space="preserve"><value>Àwọn àṣàyàn</value></data>
+  <data name="Pad_Invert" xml:space="preserve"><value>Yí padà</value></data>
+  <data name="Pad_Half" xml:space="preserve"><value>Ìdajì</value></data>
+  <!-- Merge-mapping UI (Issue #61): per-source Kind dropdown + Incremental / InvertOnHold controls. -->
+  <data name="Pad_Mapping_Kind_Direct" xml:space="preserve"><value>Tààrà</value></data>
+  <data name="Pad_Mapping_Kind_Toggle" xml:space="preserve"><value>Yí padà</value></data>
+  <data name="Pad_Mapping_Kind_RapidTrigger" xml:space="preserve"><value>Rapid trigger</value></data>
+  <data name="Pad_Mapping_RapidTrigger_Distance" xml:space="preserve"><value>Ìjìnnà</value></data>
+  <data name="Pad_Mapping_Rate" xml:space="preserve"><value>Ìyára</value></data>
+  <data name="Pad_Mapping_Ramp_Release" xml:space="preserve"><value>Fi sílẹ̀</value></data>
+  <data name="Pad_Mapping_AddSource" xml:space="preserve"><value>+ Fi orísun kún</value></data>
+  <data name="Pad_Mapping_RemoveSource_Tooltip" xml:space="preserve"><value>Yọ orísun yìí kúrò</value></data>
+  <!-- Combine UI (Issue #61): per-row CombineMode dropdown + Custom formula editor + starter presets. English placeholders pending translation. -->
+  <data name="Pad_Combine_Label" xml:space="preserve"><value>Darapọ̀</value></data>
+  <data name="Pad_Combine_Sum_Name" xml:space="preserve"><value>Àpapọ̀</value></data>
+  <data name="Pad_Combine_Sum_Description" xml:space="preserve"><value>Ṣe àròpọ̀ àwọn orísun</value></data>
+  <data name="Pad_Combine_Average_Name" xml:space="preserve"><value>Àròpín</value></data>
+  <data name="Pad_Combine_OR_Name" xml:space="preserve"><value>Èyíkéyìí</value></data>
+  <data name="Pad_Combine_AND_Name" xml:space="preserve"><value>Méjèèjì</value></data>
+  <data name="Pad_Combine_XOR_Name" xml:space="preserve"><value>Ọ̀kan ṣoṣo</value></data>
+  <data name="Pad_Combine_Custom_Name" xml:space="preserve"><value>Àdáni</value></data>
+  <data name="Pad_Formula_Insert" xml:space="preserve"><value>Fi sí i</value></data>
+  <data name="Pad_Formula_Status_Valid" xml:space="preserve"><value>✓ ó tọ́</value></data>
+  <data name="Pad_Formula_Status_And" xml:space="preserve"><value>àti</value></data>
+  <data name="Pad_Formula_Chip_Add" xml:space="preserve"><value>Fi kún</value></data>
+  <data name="Pad_Formula_Chip_Subtract" xml:space="preserve"><value>Yọ kúrò</value></data>
+  <data name="Pad_Formula_Chip_Multiply" xml:space="preserve"><value>Sọ di púpọ̀</value></data>
+  <data name="Pad_Formula_Chip_Divide" xml:space="preserve"><value>Pín</value></data>
+  <data name="Pad_Formula_Chip_LessThan" xml:space="preserve"><value>Kéré ju</value></data>
+  <data name="Pad_Formula_Chip_GreaterThan" xml:space="preserve"><value>Tóbi ju</value></data>
+  <data name="Pad_Formula_Chip_LessOrEqual" xml:space="preserve"><value>Kéré ju tàbí dọ́gba</value></data>
+  <data name="Pad_Formula_Chip_GreaterOrEqual" xml:space="preserve"><value>Tóbi ju tàbí dọ́gba</value></data>
+  <data name="Pad_Formula_Chip_Equal" xml:space="preserve"><value>Dọ́gba pẹ̀lú</value></data>
+  <data name="Pad_Formula_Chip_NotEqual" xml:space="preserve"><value>Kò dọ́gba pẹ̀lú</value></data>
+  <data name="Pad_Formula_Chip_Min" xml:space="preserve"><value>Èyí tó kéré jù nínú iye méjì</value></data>
+  <data name="Pad_Formula_Chip_Max" xml:space="preserve"><value>Èyí tó tóbi jù nínú iye méjì</value></data>
+  <data name="Pad_Formula_Preset_Difference_Name" xml:space="preserve"><value>Ìyàtọ̀</value></data>
+  <data name="Pad_Formula_Var_PositionA" xml:space="preserve"><value>Orísun àkọ́kọ́</value></data>
+  <data name="Pad_Formula_Var_PositionB" xml:space="preserve"><value>Orísun kejì</value></data>
+  <data name="Pad_Formula_Var_PositionC" xml:space="preserve"><value>Orísun kẹta</value></data>
+  <data name="Pad_Formula_Var_PositionD" xml:space="preserve"><value>Orísun kẹrin</value></data>
+  <data name="Pad_Formula_Error_ExpectedRParen" xml:space="preserve"><value>A ń retí ')'</value></data>
+  <data name="Curve_Instant" xml:space="preserve"><value>Lẹ́sẹ̀kẹsẹ̀</value></data>
+  <data name="Curve_Delay" xml:space="preserve"><value>Ìdádúró</value></data>
+  <data name="Curve_Custom" xml:space="preserve"><value>Àdáni</value></data>
+  <data name="Pad_Sticks_Section_CenterPoint" xml:space="preserve"><value>Àmì àárín</value></data>
+  <data name="Pad_Sticks_Section_DeadZone" xml:space="preserve"><value>Deadzone</value></data>
+  <data name="Pad_Sticks_Section_Range" xml:space="preserve"><value>Ìwọ̀n</value></data>
+  <data name="Pad_CenterOffsetX" xml:space="preserve"><value>Àtúnṣe àárín X</value></data>
+  <data name="Pad_CenterOffsetY" xml:space="preserve"><value>Àtúnṣe àárín Y</value></data>
+  <data name="Pad_DeadZoneShape" xml:space="preserve"><value>Ìrísí deadzone</value></data>
+  <data name="Pad_ScrollUp" xml:space="preserve"><value>Òkè</value></data>
+  <data name="Pad_ScrollDown" xml:space="preserve"><value>Ìsàlẹ̀</value></data>
+
+  <!-- ═══ Macros ═══ -->
+  <data name="Macro_Name" xml:space="preserve"><value>Orúkọ</value></data>
+  <data name="Macro_Trigger" xml:space="preserve"><value>Olùmúṣiṣẹ́</value></data>
+  <data name="Macro_OnPress" xml:space="preserve"><value>Nígbà títẹ̀</value></data>
+  <data name="Macro_OnRelease" xml:space="preserve"><value>Nígbà ìfisílẹ̀</value></data>
+  <data name="Macro_WhileHeld" xml:space="preserve"><value>Nígbà tí a dì í mú</value></data>
+  <data name="Macro_Always" xml:space="preserve"><value>Nígbà gbogbo</value></data>
+  <data name="Macro_Expression_Variables" xml:space="preserve"><value>Àwọn àyípadà</value></data>
+  <data name="Macro_Expression_AddVariable" xml:space="preserve"><value>+ Fi àyípadà kún</value></data>
+  <data name="Macro_Expression_Recipe_Single" xml:space="preserve"><value>a nìkan</value></data>
+  <data name="Macro_Expression_Recipe_Both" xml:space="preserve"><value>a àti b</value></data>
+  <data name="Macro_Expression_Recipe_Either" xml:space="preserve"><value>a tàbí b</value></data>
+  <data name="Macro_Expression_Recipe_AButNotB" xml:space="preserve"><value>a ṣùgbọ́n kì í ṣe b</value></data>
+  <data name="Macro_Expression_Recipe_AxisOverHalf" xml:space="preserve"><value>Ákísì ju 50% lọ</value></data>
+  <data name="Macro_Source" xml:space="preserve"><value>Orísun</value></data>
+  <data name="Macro_InputDevice" xml:space="preserve"><value>Àwọn ẹ̀rọ tí a yàn</value></data>
+  <data name="Macro_OutputController" xml:space="preserve"><value>Ẹ̀rọ ìdarí àfarawé</value></data>
+  <data name="Macro_Threshold" xml:space="preserve"><value>Ààlà</value></data>
+  <data name="Macro_Layer" xml:space="preserve"><value>Ìpele</value></data>
+  <data name="Macro_Layer_Any" xml:space="preserve"><value>Ìpele èyíkéyìí</value></data>
+  <data name="Macro_ActionSequence" xml:space="preserve"><value>Ìtẹ̀léra ìṣe</value></data>
+  <data name="Macro_AddAction" xml:space="preserve"><value>Fi ìṣe kún</value></data>
+  <data name="Macro_EditAction" xml:space="preserve"><value>Ṣàtúnṣe ìṣe</value></data>
+  <data name="Macro_ActionType" xml:space="preserve"><value>Irú</value></data>
+  <data name="Macro_Cat_VcButtons" xml:space="preserve"><value>Àwọn bọ́tìnnì àfarawé</value></data>
+  <data name="Macro_Cat_Keyboard" xml:space="preserve"><value>Pátákó ìtẹ̀wé àti ọ̀rọ̀</value></data>
+  <data name="Macro_Cat_Mouse" xml:space="preserve"><value>Máòsì</value></data>
+  <data name="Macro_Cat_Rumble" xml:space="preserve"><value>Ìmìtìtì</value></data>
+  <data name="Macro_Cat_Leds" xml:space="preserve"><value>Lightbar àti LED</value></data>
+  <data name="Macro_Cat_Sound" xml:space="preserve"><value>Ohùn àti ariwo</value></data>
+  <data name="Macro_Cat_Layers" xml:space="preserve"><value>Ìpele àti overlay</value></data>
+  <data name="Macro_ButtonPress" xml:space="preserve"><value>Títẹ̀ bọ́tìnnì</value></data>
+  <data name="Macro_ButtonRelease" xml:space="preserve"><value>Fífi bọ́tìnnì sílẹ̀</value></data>
+  <data name="Macro_KeyPress" xml:space="preserve"><value>Títẹ̀ kọ́kọ́rọ́</value></data>
+  <data name="Macro_KeyRelease" xml:space="preserve"><value>Fífi kọ́kọ́rọ́ sílẹ̀</value></data>
+  <data name="Macro_Delay" xml:space="preserve"><value>Ìdádúró</value></data>
+  <data name="Macro_SetAxis" xml:space="preserve"><value>Ṣètò ákísì</value></data>
+  <data name="Macro_MouseMove" xml:space="preserve"><value>Ìrìn máòsì</value></data>
+  <data name="Macro_Buttons" xml:space="preserve"><value>Àwọn bọ́tìnnì</value></data>
+  <data name="Macro_Duration" xml:space="preserve"><value>Àkókò</value></data>
+  <data name="Macro_Axis" xml:space="preserve"><value>Ákísì</value></data>
+  <data name="Macro_LeftStickX" xml:space="preserve"><value>Ọ̀pá òsì X</value></data>
+  <data name="Macro_LeftStickY" xml:space="preserve"><value>Ọ̀pá òsì Y</value></data>
+  <data name="Macro_RightStickX" xml:space="preserve"><value>Ọ̀pá ọ̀tún X</value></data>
+  <data name="Macro_RightStickY" xml:space="preserve"><value>Ọ̀pá ọ̀tún Y</value></data>
+  <data name="Macro_LeftTrigger" xml:space="preserve"><value>Tírígà òsì</value></data>
+  <data name="Macro_RightTrigger" xml:space="preserve"><value>Tírígà ọ̀tún</value></data>
+  <data name="Macro_AxisValue" xml:space="preserve"><value>Iye</value></data>
+  <data name="Macro_Device" xml:space="preserve"><value>Ẹ̀rọ</value></data>
+  <data name="Macro_MouseLeft" xml:space="preserve"><value>Òsì</value></data>
+  <data name="Macro_MouseRight" xml:space="preserve"><value>Ọ̀tún</value></data>
+  <data name="Macro_MouseMiddle" xml:space="preserve"><value>Àárín</value></data>
+  <data name="Macro_MouseX1" xml:space="preserve"><value>X1 (Ẹ̀yìn)</value></data>
+  <data name="Macro_MouseX2" xml:space="preserve"><value>X2 (Iwájú)</value></data>
+  <data name="Macro_Repeat" xml:space="preserve"><value>Tún ṣe</value></data>
+  <data name="Macro_RepeatMode" xml:space="preserve"><value>Ipò</value></data>
+  <data name="Macro_Once" xml:space="preserve"><value>Lẹ́ẹ̀kan</value></data>
+  <data name="Macro_Count" xml:space="preserve"><value>Iye</value></data>
+  <data name="Macro_DelayMs" xml:space="preserve"><value>Ìdádúró</value></data>
+  <data name="Macro_Sensitivity" xml:space="preserve"><value>Ìfọkànsí</value></data>
+  <data name="Macro_NewMacro" xml:space="preserve"><value>Macro tuntun</value></data>
+  <data name="Macro_None" xml:space="preserve"><value>(kò sí)</value></data>
+  <data name="Macro_DeviceAxis_Format" xml:space="preserve"><value>Ákísì ẹ̀rọ {0}</value></data>
+  <data name="Macro_UnknownAction" xml:space="preserve"><value>Ìṣe tí a kò mọ̀</value></data>
+  <data name="Macro_POV_Format" xml:space="preserve"><value>POV {0} {1}</value></data>
+  <data name="Macro_Button_Format" xml:space="preserve"><value>Bọ́tìnnì {0}</value></data>
+
+  <!-- ═══ Macro Action Display ═══ -->
+  <data name="MacroAction_Press_Format" xml:space="preserve"><value>Tẹ {0} fún {1}ms</value></data>
+  <data name="MacroAction_Release_Format" xml:space="preserve"><value>Fi {0} sílẹ̀</value></data>
+  <data name="MacroAction_Wait_Format" xml:space="preserve"><value>Dúró {0}ms</value></data>
+  <data name="MacroAction_SetAxis_Format" xml:space="preserve"><value>Ṣètò {0} = {1}</value></data>
+  <data name="MacroAction_Type_LightbarColor" xml:space="preserve"><value>Ṣètò àwọ̀ lightbar</value></data>
+  <data name="MacroAction_Type_LightbarModeSet" xml:space="preserve"><value>Ṣètò ipò lightbar</value></data>
+  <data name="MacroAction_LightbarModeSet_Format" xml:space="preserve"><value>Ṣètò ipò lightbar sí {0}</value></data>
+
+  <data name="Macro_LightbarHold_Label" xml:space="preserve"><value>Dì mú</value></data>
+  <data name="Macro_LightbarColorSource_Label" xml:space="preserve"><value>Àwọ̀</value></data>
+  <data name="Macro_LightbarTargetMode_Label" xml:space="preserve"><value>Ipò</value></data>
+
+  <!-- ═══ Macro action: Rumble ═══ -->
+  <data name="MacroAction_Type_Rumble" xml:space="preserve"><value>Ìmìtìtì</value></data>
+  <data name="MacroAction_Type_RumbleStop" xml:space="preserve"><value>Dá ìmìtìtì dúró</value></data>
+  <data name="MacroAction_RumbleStop" xml:space="preserve"><value>Dá ìmìtìtì dúró</value></data>
+  <data name="MacroAction_Type_RumbleTriggerStop" xml:space="preserve"><value>Dá ìmìtìtì tírígà dúró</value></data>
+  <data name="MacroAction_RumbleTriggerStop" xml:space="preserve"><value>Dá ìmìtìtì tírígà dúró</value></data>
+  <data name="Macro_SetGyroEngaged_Mode_Label" xml:space="preserve"><value>Ipò</value></data>
+  <data name="Macro_SetGyroEngaged_Toggle" xml:space="preserve"><value>Yí padà</value></data>
+  <data name="Macro_SetGyroEngaged_On" xml:space="preserve"><value>Tàn</value></data>
+  <data name="Macro_SetGyroEngaged_Off" xml:space="preserve"><value>Pa</value></data>
+  <data name="Macro_CursorRecenterMode_Label" xml:space="preserve"><value>Ipò</value></data>
+  <data name="Macro_CursorPinMode_Label" xml:space="preserve"><value>Ipò</value></data>
+  <data name="MacroAction_MoveMouseToScreenPosition_Format" xml:space="preserve"><value>Gbé máòsì lọ sí {0}, {1}</value></data>
+  <data name="MacroAction_Type_RepeatKeyWhileHeld" xml:space="preserve"><value>Tún kọ́kọ́rọ́ tẹ̀ nígbà tí a dì í mú</value></data>
+  <data name="Macro_MouseX_Label" xml:space="preserve"><value>Máòsì X</value></data>
+  <data name="Macro_MouseY_Label" xml:space="preserve"><value>Máòsì Y</value></data>
+  <data name="Macro_CursorClampMode_Label" xml:space="preserve"><value>Ipò</value></data>
+  <data name="Macro_RumbleHold_Label" xml:space="preserve"><value>Dì mú</value></data>
+  <data name="Macro_RumbleStrengthLeft_Label" xml:space="preserve"><value>Mọ́tò òsì</value></data>
+  <data name="Macro_RumbleStrengthRight_Label" xml:space="preserve"><value>Mọ́tò ọ̀tún</value></data>
+  <data name="Macro_RumbleHoldMs_Label" xml:space="preserve"><value>Dì mú</value></data>
+
+  <!-- ═══ POV Directions ═══ -->
+  <data name="POV_Centered" xml:space="preserve"><value>Ní àárín</value></data>
+  <data name="POV_Up" xml:space="preserve"><value>Òkè</value></data>
+  <data name="POV_UpRight" xml:space="preserve"><value>Òkè-ọ̀tún</value></data>
+  <data name="POV_Right" xml:space="preserve"><value>Ọ̀tún</value></data>
+  <data name="POV_DownRight" xml:space="preserve"><value>Ìsàlẹ̀-ọ̀tún</value></data>
+  <data name="POV_Down" xml:space="preserve"><value>Ìsàlẹ̀</value></data>
+  <data name="POV_DownLeft" xml:space="preserve"><value>Ìsàlẹ̀-òsì</value></data>
+  <data name="POV_Left" xml:space="preserve"><value>Òsì</value></data>
+  <data name="POV_UpLeft" xml:space="preserve"><value>Òkè-Òsì</value></data>
+  <data name="POV_Any" xml:space="preserve"><value>Ìhà èyíkéyìí</value></data>
+
+  <!-- ═══ Mapping ═══ -->
+  <data name="Mapping_NotMapped" xml:space="preserve"><value>Kò ní ìsopọ̀</value></data>
+  <data name="Mapping_Half" xml:space="preserve"><value>Ìdajì</value></data>
+  <data name="Mapping_POV_Format" xml:space="preserve"><value>POV {0} {1}</value></data>
+  <data name="Mapping_NoDeviceMapped" xml:space="preserve"><value>Kò sí ẹ̀rọ tí a so pọ̀</value></data>
+
+  <!-- ═══ Touchpad Mapping Labels ═══ -->
+  <data name="Mapping_TouchpadFingerX_Format" xml:space="preserve"><value>Touchpad {0} ìka {1} X</value></data>
+  <data name="Mapping_TouchpadFingerY_Format" xml:space="preserve"><value>Touchpad {0} ìka {1} Y</value></data>
+  <data name="Mapping_TouchpadFingerTouch_Format" xml:space="preserve"><value>Touchpad {0} ìka {1} ìfọwọ́kàn</value></data>
+  <data name="Mapping_TouchpadFingerXLeft_Format" xml:space="preserve"><value>Touchpad {0} ìka {1} X (ìdajì òsì)</value></data>
+  <data name="Mapping_TouchpadFingerXRight_Format" xml:space="preserve"><value>Touchpad {0} ìka {1} X (ìdajì ọ̀tún)</value></data>
+  <data name="Mapping_TouchpadFingerYLeft_Format" xml:space="preserve"><value>Touchpad {0} ìka {1} Y (ìdajì òsì)</value></data>
+  <data name="Mapping_TouchpadFingerYRight_Format" xml:space="preserve"><value>Touchpad {0} ìka {1} Y (ìdajì ọ̀tún)</value></data>
+  <data name="Mapping_TouchpadFingerTouchLeft_Format" xml:space="preserve"><value>Touchpad {0} ìka {1} ìfọwọ́kàn (ìdajì òsì)</value></data>
+  <data name="Mapping_TouchpadFingerTouchRight_Format" xml:space="preserve"><value>Touchpad {0} ìka {1} ìfọwọ́kàn (ìdajì ọ̀tún)</value></data>
+  <data name="Mapping_TouchpadWindow_Upper" xml:space="preserve"><value>Ìdajì òkè</value></data>
+  <data name="Mapping_TouchpadWindow_Lower" xml:space="preserve"><value>Ìdajì ìsàlẹ̀</value></data>
+  <data name="Mapping_TouchpadWindow_North" xml:space="preserve"><value>Ìdá mẹ́rin àríwá</value></data>
+  <data name="Mapping_TouchpadWindow_South" xml:space="preserve"><value>Ìdá mẹ́rin gúúsù</value></data>
+  <data name="Mapping_TouchpadWindow_East" xml:space="preserve"><value>Ìdá mẹ́rin ìlà-oòrùn</value></data>
+  <data name="Mapping_TouchpadWindow_West" xml:space="preserve"><value>Ìdá mẹ́rin ìwọ̀-oòrùn</value></data>
+  <data name="Mapping_TouchpadWindow_Center" xml:space="preserve"><value>Àárín</value></data>
+
+  <!-- ═══ Touchpad Gesture Mapping Labels ═══ -->
+  <data name="Mapping_TouchpadGesture_SwipeUp" xml:space="preserve"><value>Fífà sókè</value></data>
+  <data name="Mapping_TouchpadGesture_SwipeDown" xml:space="preserve"><value>Fífà sísàlẹ̀</value></data>
+  <data name="Mapping_TouchpadGesture_SwipeLeft" xml:space="preserve"><value>Fífà sí òsì</value></data>
+  <data name="Mapping_TouchpadGesture_SwipeRight" xml:space="preserve"><value>Fífà sí ọ̀tún</value></data>
+  <data name="Mapping_TouchpadGesture_SwipeNE" xml:space="preserve"><value>Fífà sí òkè-ọ̀tún</value></data>
+  <data name="Mapping_TouchpadGesture_SwipeNW" xml:space="preserve"><value>Fífà sí òkè-òsì</value></data>
+  <data name="Mapping_TouchpadGesture_SwipeSE" xml:space="preserve"><value>Fífà sí ìsàlẹ̀-ọ̀tún</value></data>
+  <data name="Mapping_TouchpadGesture_SwipeSW" xml:space="preserve"><value>Fífà sí ìsàlẹ̀-òsì</value></data>
+  <data name="Mapping_TouchpadGesture_Tap" xml:space="preserve"><value>Títẹ̀</value></data>
+  <data name="Mapping_TouchpadGesture_DoubleTap" xml:space="preserve"><value>Títẹ̀ lẹ́ẹ̀mejì</value></data>
+  <data name="Mapping_TouchpadGesture_TripleTap" xml:space="preserve"><value>Títẹ̀ lẹ́ẹ̀mẹ́ta</value></data>
+  <data name="Mapping_TouchpadGesture_LongPress" xml:space="preserve"><value>Títẹ̀ pẹ́</value></data>
+  <data name="Mapping_TouchpadGesture_TouchLeft" xml:space="preserve"><value>Ìfọwọ́kàn òsì</value></data>
+  <data name="Mapping_TouchpadGesture_TouchRight" xml:space="preserve"><value>Ìfọwọ́kàn ọ̀tún</value></data>
+  <data name="Mapping_TouchpadGesture_TouchTop" xml:space="preserve"><value>Ìfọwọ́kàn òkè</value></data>
+  <data name="Mapping_TouchpadGesture_TouchMulti" xml:space="preserve"><value>Ìfọwọ́kàn ìka púpọ̀</value></data>
+  <data name="Mapping_TouchpadGesture_PadPrefix_Format" xml:space="preserve"><value>Touchpad {0}: {1}</value></data>
+  <data name="Mapping_TouchpadGesture_SinglePadNoun_Format" xml:space="preserve"><value>Touchpad {0}</value></data>
+  <data name="Mapping_TouchpadGesture_TwoFingerSwipeUp" xml:space="preserve"><value>Fífà sókè pẹ̀lú ìka méjì</value></data>
+  <data name="Mapping_TouchpadGesture_TwoFingerSwipeDown" xml:space="preserve"><value>Fífà sísàlẹ̀ pẹ̀lú ìka méjì</value></data>
+  <data name="Mapping_TouchpadGesture_TwoFingerSwipeLeft" xml:space="preserve"><value>Fífà sí òsì pẹ̀lú ìka méjì</value></data>
+  <data name="Mapping_TouchpadGesture_TwoFingerSwipeRight" xml:space="preserve"><value>Fífà sí ọ̀tún pẹ̀lú ìka méjì</value></data>
+  <data name="Mapping_TouchpadGesture_TwoFingerTap" xml:space="preserve"><value>Títẹ̀ pẹ̀lú ìka méjì</value></data>
+  <data name="Mapping_TouchpadGesture_StickX" xml:space="preserve"><value>Ọ̀pá X</value></data>
+  <data name="Mapping_TouchpadGesture_StickY" xml:space="preserve"><value>Ọ̀pá Y</value></data>
+  <data name="Mapping_TouchpadGesture_DPadUp" xml:space="preserve"><value>D-pad òkè</value></data>
+  <data name="Mapping_TouchpadGesture_DPadRight" xml:space="preserve"><value>D-pad ọ̀tún</value></data>
+  <data name="Mapping_TouchpadGesture_DPadDown" xml:space="preserve"><value>D-pad ìsàlẹ̀</value></data>
+  <data name="Mapping_TouchpadGesture_DPadLeft" xml:space="preserve"><value>D-pad òsì</value></data>
+  <data name="Mapping_TouchpadGesture_ThreeFingerSwipeUp" xml:space="preserve"><value>Fífà sókè pẹ̀lú ìka mẹ́ta</value></data>
+  <data name="Mapping_TouchpadGesture_ThreeFingerSwipeDown" xml:space="preserve"><value>Fífà sísàlẹ̀ pẹ̀lú ìka mẹ́ta</value></data>
+  <data name="Mapping_TouchpadGesture_ThreeFingerSwipeLeft" xml:space="preserve"><value>Fífà sí òsì pẹ̀lú ìka mẹ́ta</value></data>
+  <data name="Mapping_TouchpadGesture_ThreeFingerSwipeRight" xml:space="preserve"><value>Fífà sí ọ̀tún pẹ̀lú ìka mẹ́ta</value></data>
+  <data name="Mapping_TouchpadGesture_ThreeFingerTap" xml:space="preserve"><value>Títẹ̀ pẹ̀lú ìka mẹ́ta</value></data>
+  <data name="Mapping_TouchpadGesture_FourFingerSwipeUp" xml:space="preserve"><value>Fífà sókè pẹ̀lú ìka mẹ́rin</value></data>
+  <data name="Mapping_TouchpadGesture_FourFingerSwipeDown" xml:space="preserve"><value>Fífà sísàlẹ̀ pẹ̀lú ìka mẹ́rin</value></data>
+  <data name="Mapping_TouchpadGesture_FourFingerSwipeLeft" xml:space="preserve"><value>Fífà sí òsì pẹ̀lú ìka mẹ́rin</value></data>
+  <data name="Mapping_TouchpadGesture_FourFingerSwipeRight" xml:space="preserve"><value>Fífà sí ọ̀tún pẹ̀lú ìka mẹ́rin</value></data>
+  <data name="Mapping_TouchpadGesture_FourFingerTap" xml:space="preserve"><value>Títẹ̀ pẹ̀lú ìka mẹ́rin</value></data>
+  <data name="Mapping_TouchpadGesture_FiveFingerTap" xml:space="preserve"><value>Títẹ̀ pẹ̀lú ìka márùn-ún</value></data>
+  <data name="Mapping_TouchpadGesture_Square" xml:space="preserve"><value>Onígun mẹ́rin</value></data>
+  <data name="Mapping_TouchpadGesture_Triangle" xml:space="preserve"><value>Onígun mẹ́ta</value></data>
+  <data name="Mapping_TouchpadGesture_Z" xml:space="preserve"><value>Ìrísí Z</value></data>
+
+  <!-- ═══ Pad Touchpad Tab ═══ -->
+  <data name="Pad_Touchpad" xml:space="preserve"><value>Touchpad</value></data>
+  <data name="Pad_Touchpad_Header" xml:space="preserve"><value>Touchpad</value></data>
+  <data name="Pad_Touchpad_TouchpadIndex_Label" xml:space="preserve"><value>Touchpad</value></data>
+  <data name="Pad_Touchpad_GesturesEnabled" xml:space="preserve"><value>Mú ìfarajúwe ṣiṣẹ́ lórí touchpad yìí</value></data>
+  <data name="Pad_Touchpad_Mode_Label" xml:space="preserve"><value>Dá mọ̀</value></data>
+  <data name="Pad_Touchpad_Mode_CustomOnly" xml:space="preserve"><value>Ti àdáni nìkan</value></data>
+  <data name="Pad_Touchpad_Mode_Both" xml:space="preserve"><value>Méjèèjì</value></data>
+  <data name="Pad_Touchpad_Taps" xml:space="preserve"><value>Títẹ̀ / Títẹ̀ lẹ́ẹ̀mejì / Títẹ̀ lẹ́ẹ̀mẹ́ta</value></data>
+  <data name="Pad_Touchpad_LongPress" xml:space="preserve"><value>Títẹ̀ pẹ́</value></data>
+  <data name="Pad_Touchpad_TwoFingerSwipes" xml:space="preserve"><value>Fífà pẹ̀lú ìka méjì</value></data>
+  <data name="Pad_Touchpad_ThreeFinger" xml:space="preserve"><value>Ìfarajúwe ìka mẹ́ta</value></data>
+  <data name="Pad_Touchpad_FourFinger" xml:space="preserve"><value>Ìfarajúwe ìka mẹ́rin</value></data>
+  <data name="Pad_Touchpad_FiveFinger" xml:space="preserve"><value>Títẹ̀ pẹ̀lú ìka márùn-ún</value></data>
+  <data name="Pad_Touchpad_Custom_Header" xml:space="preserve"><value>Ìfarajúwe àdáni</value></data>
+  <data name="Pad_Touchpad_RecordNew" xml:space="preserve"><value>+ Gba ìfarajúwe tuntun sílẹ̀</value></data>
+  <data name="Pad_Touchpad_Custom_Empty" xml:space="preserve"><value>Kò sí ìfarajúwe àdáni tí a gbà sílẹ̀ fún profaili yìí. Tẹ Gba ìfarajúwe tuntun sílẹ̀ láti gba ọ̀kan.</value></data>
+  <data name="Pad_Touchpad_CustomGesture_OneFinger" xml:space="preserve"><value>ìka 1</value></data>
+  <data name="Pad_Touchpad_CustomGesture_NFingers_Format" xml:space="preserve"><value>ìka {0}</value></data>
+
+  <!-- Stick / D-pad output card -->
+  <data name="Pad_Touchpad_StickDPadMode_Off" xml:space="preserve"><value>Pa</value></data>
+  <data name="Pad_Touchpad_StickDPadMode_FourWay" xml:space="preserve"><value>Ọ̀nà mẹ́rin</value></data>
+  <data name="Pad_Touchpad_StickDPadMode_EightWay" xml:space="preserve"><value>Ọ̀nà mẹ́jọ</value></data>
+
+  <!-- Mouse Output card -->
+  <data name="Pad_Touchpad_Mouse_Header" xml:space="preserve"><value>Ìjáde máòsì</value></data>
+  <data name="Pad_Touchpad_MouseSensitivityX" xml:space="preserve"><value>Ìfọkànsí máòsì X</value></data>
+  <data name="Pad_Touchpad_MouseSensitivityY" xml:space="preserve"><value>Ìfọkànsí máòsì Y</value></data>
+  <data name="Pad_Touchpad_MouseInvertX" xml:space="preserve"><value>Yí máòsì X padà</value></data>
+  <data name="Pad_Touchpad_MouseInvertX_Tooltip" xml:space="preserve"><value>Yí ìṣípòpadà ìdábùú padà. Ìka sí ọ̀tún yóò gbé kọ́sọ̀ sí òsì.</value></data>
+  <data name="Pad_Touchpad_MouseInvertY" xml:space="preserve"><value>Yí máòsì Y padà</value></data>
+  <data name="Pad_Touchpad_MouseInvertY_Tooltip" xml:space="preserve"><value>Yí ìṣípòpadà òòró padà. Ìka sísàlẹ̀ yóò gbé kọ́sọ̀ sókè.</value></data>
+
+  <!-- Absolute Pointer card (#9 B-15) -->
+  <data name="Pad_Touchpad_PointerRegionSizeX" xml:space="preserve"><value>Ìbú agbègbè</value></data>
+  <data name="Pad_Touchpad_PointerRegionSizeY" xml:space="preserve"><value>Gíga agbègbè</value></data>
+  <data name="Pad_Touchpad_PointerRegionCenterX" xml:space="preserve"><value>Àárín agbègbè X</value></data>
+  <data name="Pad_Touchpad_PointerRegionCenterY" xml:space="preserve"><value>Àárín agbègbè Y</value></data>
+
+  <!-- Swipe Haptics card (discussion #219) -->
+  <data name="Pad_Touchpad_SwipeHapticsEnabled" xml:space="preserve"><value>Mú haptics fífà ṣiṣẹ́</value></data>
+
+  <!-- Reset-All tooltips per card -->
+  <data name="Pad_ResetTouchpadDetection" xml:space="preserve"><value>Tún ìdámọ̀ ìfarajúwe tò</value></data>
+  <data name="Pad_ResetTouchpadMouse" xml:space="preserve"><value>Tún ìjáde máòsì tò</value></data>
+
+  <!-- Per-row Reset tooltips for stick / D-pad card -->
+
+  <!-- Per-row Reset tooltips for mouse-output card -->
+  <data name="Pad_ResetTouchpadMouseSensitivityX" xml:space="preserve"><value>Tún ìfọkànsí máòsì X tò</value></data>
+  <data name="Pad_ResetTouchpadMouseSensitivityY" xml:space="preserve"><value>Tún ìfọkànsí máòsì Y tò</value></data>
+  <data name="Pad_Touchpad_PointerResponse" xml:space="preserve"><value>Ìdáhùn</value></data>
+  <data name="Pad_Touchpad_PointerResponse_Simple" xml:space="preserve"><value>Rírọrùn</value></data>
+  <data name="Pad_Touchpad_TrackpadThreshold" xml:space="preserve"><value>Ààlà ìyára</value></data>
+  <data name="Pad_ResetTouchpadPointerResponse" xml:space="preserve"><value>Tún ìdáhùn tò</value></data>
+  <data name="Pad_ResetTouchpadTrackpadThreshold" xml:space="preserve"><value>Tún ààlà ìyára tò</value></data>
+
+  <!-- Per-row Reset tooltips for absolute-pointer card (#9 B-15) -->
+  <data name="Pad_ResetTouchpadPointerRegionSizeX" xml:space="preserve"><value>Tún ìbú agbègbè tò</value></data>
+  <data name="Pad_ResetTouchpadPointerRegionSizeY" xml:space="preserve"><value>Tún gíga agbègbè tò</value></data>
+  <data name="Pad_ResetTouchpadPointerRegionCenterX" xml:space="preserve"><value>Tún àárín agbègbè X tò</value></data>
+  <data name="Pad_ResetTouchpadPointerRegionCenterY" xml:space="preserve"><value>Tún àárín agbègbè Y tò</value></data>
+
+  <!-- Per-row Reset tooltips for swipe-haptics card -->
+
+  <!-- Per-row Reset tooltips -->
+  <data name="Pad_ResetTouchpadTaps" xml:space="preserve"><value>Tún títẹ̀ / títẹ̀ lẹ́ẹ̀mejì / títẹ̀ lẹ́ẹ̀mẹ́ta tò</value></data>
+  <data name="Pad_ResetTouchpadLongPress" xml:space="preserve"><value>Tún títẹ̀ pẹ́ tò</value></data>
+  <data name="Pad_ResetTouchpadTwoFingerSwipes" xml:space="preserve"><value>Tún fífà pẹ̀lú ìka méjì tò</value></data>
+  <data name="Pad_ResetTouchpadThreeFinger" xml:space="preserve"><value>Tún ìfarajúwe ìka mẹ́ta tò</value></data>
+  <data name="Pad_ResetTouchpadFourFinger" xml:space="preserve"><value>Tún ìfarajúwe ìka mẹ́rin tò</value></data>
+  <data name="Pad_ResetTouchpadFiveFinger" xml:space="preserve"><value>Tún títẹ̀ pẹ̀lú ìka márùn-ún tò</value></data>
+
+  <!-- ═══ Touchpad Gesture Recorder Dialog ═══ -->
+  <data name="Recorder_Title" xml:space="preserve"><value>Gba ìfarajúwe touchpad sílẹ̀</value></data>
+  <data name="Recorder_Drawing" xml:space="preserve"><value>Ń yàwòrán…</value></data>
+  <data name="Recorder_Complete" xml:space="preserve"><value>Gbogbo àpẹẹrẹ ti wọlé. Fún ìfarajúwe náà ní orúkọ kí o sì tẹ Fi pamọ́.</value></data>
+  <data name="Recorder_NextSample_Format" xml:space="preserve"><value>Àpẹẹrẹ {0} nínú {1}</value></data>
+  <data name="Recorder_Samples_Format" xml:space="preserve"><value>Àpẹẹrẹ {0} / {1}</value></data>
+  <data name="Recorder_NameLabel" xml:space="preserve"><value>Orúkọ</value></data>
+  <data name="Recorder_TryAgain" xml:space="preserve"><value>Tún gbìyànjú</value></data>
+  <data name="Recorder_Error_NameEmpty" xml:space="preserve"><value>A nílò orúkọ</value></data>
+  <data name="Recorder_Error_NameTooLong" xml:space="preserve"><value>Orúkọ ti gùn jù (ohun kíkọ 64 ló pọ̀ jù)</value></data>
+  <data name="Recorder_Error_NameInvalidChar" xml:space="preserve"><value>Orúkọ ní àwọn ohun kíkọ tí kò tọ́</value></data>
+  <data name="Recorder_Error_FingerCountMismatch" xml:space="preserve"><value>Iye ìka ti yí padà. A ti pa àwọn àpẹẹrẹ rẹ́.</value></data>
+  <data name="Recorder_Error_BadSample" xml:space="preserve"><value>Kò sí àpẹẹrẹ tó péye tí a gbà. Gbìyànjú láti ya ìfarajúwe náà lẹ́ẹ̀kan sí i.</value></data>
+
+  <data name="Mapping_MotionGyro" xml:space="preserve"><value>Gyro ìṣípòpadà</value></data>
+  <data name="Mapping_MotionAccel" xml:space="preserve"><value>Accelerometer ìṣípòpadà</value></data>
+  <data name="Mapping_MotionPitch" xml:space="preserve"><value>Pitch ìṣípòpadà</value></data>
+  <data name="Mapping_MotionYaw" xml:space="preserve"><value>Yaw ìṣípòpadà</value></data>
+  <data name="Mapping_MotionRoll" xml:space="preserve"><value>Roll ìṣípòpadà</value></data>
+  <data name="Mapping_GyroPitch" xml:space="preserve"><value>Gyro pitch</value></data>
+  <data name="Mapping_GyroAuxPitch" xml:space="preserve"><value>Gyro pitch Joy-Con òsì</value></data>
+  <data name="Mapping_GyroAuxYaw" xml:space="preserve"><value>Gyro yaw Joy-Con òsì</value></data>
+  <data name="Mapping_GyroAuxRoll" xml:space="preserve"><value>Gyro roll Joy-Con òsì</value></data>
+  <data name="Mapping_GyroRPitch" xml:space="preserve"><value>Gyro pitch Joy-Con ọ̀tún</value></data>
+  <data name="Mapping_GyroRYaw" xml:space="preserve"><value>Gyro yaw Joy-Con ọ̀tún</value></data>
+  <data name="Mapping_GyroRRoll" xml:space="preserve"><value>Gyro roll Joy-Con ọ̀tún</value></data>
+  <data name="Mapping_GyroYaw" xml:space="preserve"><value>Gyro yaw</value></data>
+  <data name="Mapping_GyroRoll" xml:space="preserve"><value>Gyro roll</value></data>
+  <data name="Mapping_CapSenseLeftStickTouch" xml:space="preserve"><value>Ìfọwọ́kàn ọ̀pá òsì</value></data>
+  <data name="Mapping_CapSenseRightStickTouch" xml:space="preserve"><value>Ìfọwọ́kàn ọ̀pá ọ̀tún</value></data>
+  <data name="Settings_GyroCalibrate_Button" xml:space="preserve"><value>Ṣe ìwọ̀ntúnwọ̀nsì gyro</value></data>
+  <data name="Settings_GyroLastCalibrated_Format" xml:space="preserve"><value>Ìwọ̀ntúnwọ̀nsì tó kẹ́yìn: {0:yyyy-MM-dd HH:mm}</value></data>
+  <data name="Settings_GyroNeverCalibrated" xml:space="preserve"><value>A kò tíì ṣe ìwọ̀ntúnwọ̀nsì rí</value></data>
+  <data name="Settings_GyroCalibrating" xml:space="preserve"><value>Ń ṣe ìwọ̀ntúnwọ̀nsì… má ṣe mì í</value></data>
+  <data name="Settings_GyroResetCalibration_Button" xml:space="preserve"><value>Tún ìwọ̀ntúnwọ̀nsì tò</value></data>
+  <data name="Settings_GyroSensitivityH" xml:space="preserve"><value>Ìfọkànsí ìdábùú</value></data>
+  <data name="Settings_GyroSensitivityV" xml:space="preserve"><value>Ìfọkànsí òòró</value></data>
+  <data name="Settings_GyroDeadZone" xml:space="preserve"><value>Deadzone</value></data>
+  <data name="Settings_GyroOutputCurve" xml:space="preserve"><value>Ìtẹ̀ ìjáde</value></data>
+  <data name="Pad_Gyro" xml:space="preserve"><value>Gyro</value></data>
+  <data name="Pad_Gyro_Header" xml:space="preserve"><value>Gyro</value></data>
+  <data name="Pad_Gyro_Calibration_Header" xml:space="preserve"><value>Ìwọ̀ntúnwọ̀nsì</value></data>
+  <data name="Pad_Gyro_Sensitivity_Header" xml:space="preserve"><value>Ìfọkànsí</value></data>
+  <data name="Settings_GyroInvertPitch" xml:space="preserve"><value>Yí pitch padà (Y)</value></data>
+  <data name="Settings_GyroInvertYaw" xml:space="preserve"><value>Yí yaw padà (X)</value></data>
+  <data name="Settings_GyroInvertRoll" xml:space="preserve"><value>Yí roll padà (X)</value></data>
+  <data name="Pad_Gyro_MagCalibrate_Stop" xml:space="preserve"><value>Parí ìwọ̀ntúnwọ̀nsì</value></data>
+  <data name="Settings_GyroAimEngageMode_Hold" xml:space="preserve"><value>Dì mú</value></data>
+  <data name="Settings_GyroAimEngageMode_Toggle" xml:space="preserve"><value>Yí padà</value></data>
+  <data name="Settings_GyroEngageStickSide_Right" xml:space="preserve"><value>Ọ̀pá ọ̀tún</value></data>
+  <data name="Settings_GyroEngageStickSide_Left" xml:space="preserve"><value>Ọ̀pá òsì</value></data>
+  <data name="Settings_GyroEngageStickSide_Either" xml:space="preserve"><value>Ọ̀pá èyíkéyìí</value></data>
+  <data name="Settings_GyroEngageStickDirection_Full" xml:space="preserve"><value>Kíkún</value></data>
+  <data name="Settings_GyroEngageStickDirection_X" xml:space="preserve"><value>Ìdábùú (X)</value></data>
+  <data name="Settings_GyroEngageStickDirection_Y" xml:space="preserve"><value>Òòró (Y)</value></data>
+  <data name="Settings_GyroEngageStickDirection_XNeg" xml:space="preserve"><value>Òsì (X-)</value></data>
+  <data name="Settings_GyroEngageStickDirection_XPos" xml:space="preserve"><value>Ọ̀tún (X+)</value></data>
+  <data name="Settings_GyroEngageStickDirection_YNeg" xml:space="preserve"><value>Ìsàlẹ̀ (Y-)</value></data>
+  <data name="Settings_GyroEngageStickDirection_YPos" xml:space="preserve"><value>Òkè (Y+)</value></data>
+  <data name="Pad_Gyro_Grip_Header" xml:space="preserve"><value>Ìdìmú</value></data>
+  <data name="Pad_Gyro_ResetCalibration_All_Tooltip" xml:space="preserve"><value>Tún ìwọ̀ntúnwọ̀nsì tò</value></data>
+  <data name="Pad_Gyro_ResetSensitivity_All_Tooltip" xml:space="preserve"><value>Tún ìfọkànsí tò</value></data>
+  <data name="Pad_ResetMotionGrip" xml:space="preserve"><value>Tún ìdìmú tò</value></data>
+  <data name="Pad_ResetGyroSensitivityH" xml:space="preserve"><value>Tún ìfọkànsí ìdábùú tò</value></data>
+  <data name="Pad_ResetGyroSensitivityV" xml:space="preserve"><value>Tún ìfọkànsí òòró tò</value></data>
+  <data name="Pad_ResetGyroDeadZone" xml:space="preserve"><value>Tún deadzone tò</value></data>
+  <data name="Pad_ResetGyroOutputCurve" xml:space="preserve"><value>Tún ìtẹ̀ ìjáde tò</value></data>
+  <data name="Mapping_GyroSensitivity" xml:space="preserve"><value>Ìfọkànsí</value></data>
+  <data name="Mapping_GyroTiltX" xml:space="preserve"><value>Ìtẹ̀sí gyro X</value></data>
+  <data name="Mapping_GyroTiltY" xml:space="preserve"><value>Ìtẹ̀sí gyro Y</value></data>
+  <data name="Pad_GyroTilt_Header" xml:space="preserve"><value>Ìtẹ̀sí gyro</value></data>
+  <data name="Pad_GyroTilt_Deadzone" xml:space="preserve"><value>Deadzone ìtẹ̀sí</value></data>
+  <data name="Pad_GyroTilt_Reset_Deadzone" xml:space="preserve"><value>Tún deadzone ìtẹ̀sí tò</value></data>
+  <data name="Pad_GyroTilt_Reset_All" xml:space="preserve"><value>Tún ìtẹ̀sí gyro tò</value></data>
+  <data name="Mapping_MouseSpeedX" xml:space="preserve"><value>Ìyára máòsì X</value></data>
+  <data name="Mapping_MouseSpeedY" xml:space="preserve"><value>Ìyára máòsì Y</value></data>
+  <data name="Mapping_MousePositionX" xml:space="preserve"><value>Ipò máòsì X</value></data>
+  <data name="Mapping_MousePositionY" xml:space="preserve"><value>Ipò máòsì Y</value></data>
+  <data name="Mapping_MouseCursorSensitivity" xml:space="preserve"><value>Ìfọkànsí</value></data>
+  <data name="Mapping_MouseMotionX" xml:space="preserve"><value>Ìṣípòpadà máòsì X</value></data>
+  <data name="Mapping_MouseMotionY" xml:space="preserve"><value>Ìṣípòpadà máòsì Y</value></data>
+  <data name="Mapping_IrPointerSensitivity" xml:space="preserve"><value>Ìfọkànsí</value></data>
+  <data name="Mapping_Sensitivity" xml:space="preserve"><value>Ìfọkànsí</value></data>
+  <data name="Mapping_Gamepad_Format" xml:space="preserve"><value>Ẹ̀rọ ìdarí {0}</value></data>
+
+  <!-- ═══ Device Object Names (gamepad) ═══ -->
+  <data name="DevObj_LeftStickX" xml:space="preserve"><value>Ọ̀pá òsì X</value></data>
+  <data name="DevObj_LeftStickY" xml:space="preserve"><value>Ọ̀pá òsì Y</value></data>
+  <data name="DevObj_LeftTrigger" xml:space="preserve"><value>Tírígà òsì</value></data>
+  <data name="DevObj_RightStickX" xml:space="preserve"><value>Ọ̀pá ọ̀tún X</value></data>
+  <data name="DevObj_RightStickY" xml:space="preserve"><value>Ọ̀pá ọ̀tún Y</value></data>
+  <data name="DevObj_RightTrigger" xml:space="preserve"><value>Tírígà ọ̀tún</value></data>
+  <data name="DevObj_DPad" xml:space="preserve"><value>D-pad</value></data>
+  <data name="DevObj_Back" xml:space="preserve"><value>Padà</value></data>
+  <data name="DevObj_Start" xml:space="preserve"><value>Bẹ̀rẹ̀</value></data>
+  <data name="DevObj_Select" xml:space="preserve"><value>Yan</value></data>
+  <data name="DevObj_Option" xml:space="preserve"><value>Àṣàyàn</value></data>
+  <data name="DevObj_Reset" xml:space="preserve"><value>Tún tò</value></data>
+  <data name="DevObj_HomeButton" xml:space="preserve"><value>Bọ́tìnnì ilé</value></data>
+  <data name="DevObj_ZTrigger" xml:space="preserve"><value>Tírígà Z</value></data>
+  <data name="DevObj_StickX" xml:space="preserve"><value>Ọ̀pá X</value></data>
+  <data name="DevObj_StickY" xml:space="preserve"><value>Ọ̀pá Y</value></data>
+  <data name="DevObj_RightDPad" xml:space="preserve"><value>D-pad ọ̀tún</value></data>
+  <data name="DevObj_Arrow_Format" xml:space="preserve"><value>Ọfà {0}</value></data>
+  <data name="DevObj_CButton_Format" xml:space="preserve"><value>C-{0}</value></data>
+  <data name="DevObj_LeftShoulder" xml:space="preserve"><value>Èjìká òsì</value></data>
+  <data name="DevObj_RightShoulder" xml:space="preserve"><value>Èjìká ọ̀tún</value></data>
+  <data name="DevObj_LeftStickButton" xml:space="preserve"><value>Bọ́tìnnì ọ̀pá òsì</value></data>
+  <data name="DevObj_RightStickButton" xml:space="preserve"><value>Bọ́tìnnì ọ̀pá ọ̀tún</value></data>
+
+  <!-- ═══ Device Object Names (raw joystick) ═══ -->
+  <data name="DevObj_XAxis" xml:space="preserve"><value>Ákísì X</value></data>
+  <data name="DevObj_YAxis" xml:space="preserve"><value>Ákísì Y</value></data>
+  <data name="DevObj_ZAxis" xml:space="preserve"><value>Ákísì Z</value></data>
+  <data name="DevObj_XRotation" xml:space="preserve"><value>Yíyí X</value></data>
+  <data name="DevObj_YRotation" xml:space="preserve"><value>Yíyí Y</value></data>
+  <data name="DevObj_ZRotation" xml:space="preserve"><value>Yíyí Z</value></data>
+  <data name="DevObj_POV" xml:space="preserve"><value>POV</value></data>
+  <data name="DevObj_POVN" xml:space="preserve"><value>POV {0}</value></data>
+  <data name="DevObj_Button" xml:space="preserve"><value>Bọ́tìnnì {0}</value></data>
+  <data name="DevObj_AxisN" xml:space="preserve"><value>Ákísì {0}</value></data>
+  <data name="DevObj_Misc1" xml:space="preserve"><value>Pín</value></data>
+  <data name="DevObj_RightPaddle1" xml:space="preserve"><value>Pádù ọ̀tún 1</value></data>
+  <data name="DevObj_RightPaddle2" xml:space="preserve"><value>Pádù ọ̀tún 2</value></data>
+  <data name="DevObj_LeftPaddle1" xml:space="preserve"><value>Pádù òsì 1</value></data>
+  <data name="DevObj_LeftPaddle2" xml:space="preserve"><value>Pádù òsì 2</value></data>
+
+  <!-- ═══ Keyboard Key Names (OEM/Numpad operators: not already in VirtualKey section) ═══ -->
+
+  <!-- ═══ Profiles ═══ -->
+  <data name="Profiles_Title" xml:space="preserve"><value>Àwọn profaili</value></data>
+  <data name="Profiles_Management" xml:space="preserve"><value>Ìṣàkóso profaili</value></data>
+  <data name="Profiles_ActiveProfile" xml:space="preserve"><value>Profaili tó ń ṣiṣẹ́:</value></data>
+  <data name="Profiles_NoSlots" xml:space="preserve"><value>Kò sí àyè</value></data>
+  <data name="Profiles_New" xml:space="preserve"><value>Tuntun</value></data>
+  <data name="Profiles_SaveAs" xml:space="preserve"><value>Fi pamọ́ bí</value></data>
+  <data name="Profiles_Edit" xml:space="preserve"><value>Ṣàtúnṣe</value></data>
+  <data name="Profiles_SelectFirstHint" xml:space="preserve"><value>Kọ́kọ́ yan profaili kan.</value></data>
+  <data name="Profiles_DefaultLockedHint" xml:space="preserve"><value>Profaili “Àìyípadà” tí ó wà nínú ètò kò ṣeé ṣàtúnṣe tàbí paarẹ́.</value></data>
+  <data name="Profiles_DeleteConfirmTitle" xml:space="preserve"><value>Pa profaili rẹ́</value></data>
+  <data name="Profiles_DeleteConfirm_Format" xml:space="preserve"><value>Ṣé kí a pa “{0}” rẹ́? Àyè àti ìsopọ̀ tí a fi pamọ́ fún un yóò parẹ́.</value></data>
+
+  <!-- ═══ Profile Dialog ═══ -->
+  <data name="ProfileDialog_SaveAs" xml:space="preserve"><value>Fi pamọ́ bí profaili</value></data>
+  <data name="ProfileDialog_Edit" xml:space="preserve"><value>Ṣàtúnṣe profaili</value></data>
+  <data name="ProfileDialog_ProfileName" xml:space="preserve"><value>Orúkọ profaili:</value></data>
+  <data name="ProfileDialog_DefaultName" xml:space="preserve"><value>Profaili tuntun</value></data>
+
+  <!-- ═══ CopyFrom Dialog ═══ -->
+  <data name="CopyFrom_Title" xml:space="preserve"><value>Da ètò kọ láti...</value></data>
+  <data name="CopyFrom_SelectDevice" xml:space="preserve"><value>Yan ẹ̀rọ kan láti da ètò rẹ̀ kọ:</value></data>
+
+  <!-- ═══ File Dialogs ═══ -->
+
+  <!-- ═══ App-Level Messages ═══ -->
+  <data name="App_AlreadyRunning" xml:space="preserve"><value>PadForge ti ń ṣiṣẹ́ tẹ́lẹ̀.</value></data>
+  <data name="App_Error" xml:space="preserve"><value>PadForge: Àṣìṣe</value></data>
+  <data name="App_UnexpectedError_Format" xml:space="preserve"><value>Àṣìṣe àìròtẹ́lẹ̀ kan ṣẹlẹ̀:
+
+{0}
+
+{1}</value></data>
+
+  <!-- ═══ Polling Frequency ═══ -->
+  <data name="Dashboard_PollingHz_Format" xml:space="preserve"><value>{0:F1} Hz</value></data>
+  <data name="Dashboard_PollingDash" xml:space="preserve"><value>–</value></data>
+
+  <!-- ═══ Pad: Sticks/Triggers Settings ═══ -->
+  <data name="Pad_DeadZoneX" xml:space="preserve"><value>Deadzone X</value></data>
+  <data name="Pad_DeadZoneY" xml:space="preserve"><value>Deadzone Y</value></data>
+  <data name="Pad_AntiDeadZoneX" xml:space="preserve"><value>Anti-deadzone X</value></data>
+  <data name="Pad_AntiDeadZoneY" xml:space="preserve"><value>Anti-deadzone Y</value></data>
+  <data name="Pad_SensitivityCurves" xml:space="preserve"><value>Àwọn ìtẹ̀ ìfọkànsí</value></data>
+  <data name="Pad_SensitivityCurveHint" xml:space="preserve"><value>Tẹ àwòrán náà lẹ́ẹ̀mejì láti fi ojú àmì kún un. Tẹ bọ́tìnnì ọ̀tún láti yọ ọ́ kúrò. Fà á láti ṣàtúnṣe.</value></data>
+  <data name="Pad_SensitivityX" xml:space="preserve"><value>Ìfọkànsí X</value></data>
+  <data name="Pad_SensitivityY" xml:space="preserve"><value>Ìfọkànsí Y</value></data>
+  <data name="Pad_MinRangeXLeft" xml:space="preserve"><value>Ìwọ̀n tó kéré jù X (Òsì)</value></data>
+  <data name="Pad_MaxRangeXRight" xml:space="preserve"><value>Ìwọ̀n tó pọ̀ jù X (Ọ̀tún)</value></data>
+  <data name="Pad_MinRangeYDown" xml:space="preserve"><value>Ìwọ̀n tó kéré jù Y (Ìsàlẹ̀)</value></data>
+  <data name="Pad_MaxRangeYUp" xml:space="preserve"><value>Ìwọ̀n tó pọ̀ jù Y (Òkè)</value></data>
+  <data name="Pad_XAxis" xml:space="preserve"><value>Ákísì X</value></data>
+  <data name="Pad_YAxis" xml:space="preserve"><value>Ákísì Y</value></data>
+  <data name="Pad_Range" xml:space="preserve"><value>Ìwọ̀n</value></data>
+  <data name="Pad_AntiDeadZone" xml:space="preserve"><value>Anti-deadzone</value></data>
+  <data name="Pad_SensitivityCurve" xml:space="preserve"><value>Ìtẹ̀ ìfọkànsí</value></data>
+  <data name="Pad_SensitivityCurveHintShort" xml:space="preserve"><value>Tẹ lẹ́ẹ̀mejì láti fi ojú àmì kún un. Tẹ bọ́tìnnì ọ̀tún láti yọ ọ́ kúrò. Fà á láti ṣàtúnṣe.</value></data>
+  <data name="Pad_Preset_Label" xml:space="preserve"><value>Preset</value></data>
+  <data name="Pad_TriggerAxis" xml:space="preserve"><value>Ákísì tírígà</value></data>
+
+  <!-- ═══ Pad: Force Feedback ═══ -->
+  <data name="Pad_ForceFeedbackRumble" xml:space="preserve"><value>Force feedback / Ìmìtìtì / Haptics</value></data>
+  <data name="Pad_LeftMotorLabel" xml:space="preserve"><value>Mọ́tò òsì</value></data>
+  <data name="Pad_RightMotorLabel" xml:space="preserve"><value>Mọ́tò ọ̀tún</value></data>
+  <data name="Pad_SwapMotors" xml:space="preserve"><value>Pààrọ̀ mọ́tò òsì àti ọ̀tún</value></data>
+  <data name="Pad_TestRumble" xml:space="preserve"><value>Dán ìmìtìtì wò</value></data>
+
+  <!-- ═══ Pad: Constant Force ═══ -->
+  <data name="Pad_ConstantForce_X" xml:space="preserve"><value>X</value></data>
+  <data name="Pad_ConstantForce_Y" xml:space="preserve"><value>Y</value></data>
+
+  <!-- ═══ Pad: Reset Tooltips ═══ -->
+  <data name="Pad_ResetCenterOffsetX" xml:space="preserve"><value>Tún àtúnṣe àárín X tò</value></data>
+  <data name="Pad_ResetCenterOffsetY" xml:space="preserve"><value>Tún àtúnṣe àárín Y tò</value></data>
+  <data name="Pad_ResetDeadZoneX" xml:space="preserve"><value>Tún deadzone X tò</value></data>
+  <data name="Pad_ResetDeadZoneY" xml:space="preserve"><value>Tún deadzone Y tò</value></data>
+  <data name="Pad_ResetAntiDeadZoneX" xml:space="preserve"><value>Tún anti-deadzone X tò</value></data>
+  <data name="Pad_ResetAntiDeadZoneY" xml:space="preserve"><value>Tún anti-deadzone Y tò</value></data>
+  <data name="Pad_ResetSensitivityX" xml:space="preserve"><value>Tún ìfọkànsí X tò</value></data>
+  <data name="Pad_ResetSensitivityY" xml:space="preserve"><value>Tún ìfọkànsí Y tò</value></data>
+  <data name="Pad_ResetMinRangeX" xml:space="preserve"><value>Tún ìwọ̀n tó kéré jù X tò</value></data>
+  <data name="Pad_ResetMaxRangeX" xml:space="preserve"><value>Tún ìwọ̀n tó pọ̀ jù X tò</value></data>
+  <data name="Pad_ResetMinRangeY" xml:space="preserve"><value>Tún ìwọ̀n tó kéré jù Y tò</value></data>
+  <data name="Pad_ResetMaxRangeY" xml:space="preserve"><value>Tún ìwọ̀n tó pọ̀ jù Y tò</value></data>
+  <data name="Pad_ResetRange" xml:space="preserve"><value>Tún ìwọ̀n tò</value></data>
+  <data name="Pad_ResetAntiDeadZone" xml:space="preserve"><value>Tún anti-deadzone tò</value></data>
+  <data name="Pad_ResetSensitivity" xml:space="preserve"><value>Tún ìfọkànsí tò</value></data>
+  <data name="Pad_ResetLeftMotor" xml:space="preserve"><value>Tún mọ́tò òsì tò</value></data>
+  <data name="Pad_ResetRightMotor" xml:space="preserve"><value>Tún mọ́tò ọ̀tún tò</value></data>
+  <data name="Pad_ResetAudioSensitivity" xml:space="preserve"><value>Tún ìfọkànsí tò</value></data>
+  <data name="Pad_ResetAudioLeftMotor" xml:space="preserve"><value>Tún mọ́tò òsì tò</value></data>
+  <data name="Pad_ResetAudioRightMotor" xml:space="preserve"><value>Tún mọ́tò ọ̀tún tò</value></data>
+
+  <!-- ═══ Pad: Adaptive Triggers reset tooltips ═══ -->
+  <data name="Pad_ResetLeftTrigger" xml:space="preserve"><value>Tún tírígà òsì tò</value></data>
+  <data name="Pad_ResetRightTrigger" xml:space="preserve"><value>Tún tírígà ọ̀tún tò</value></data>
+  <data name="Pad_ResetStrength" xml:space="preserve"><value>Tún agbára tò</value></data>
+
+  <!-- ═══ Pad: Lighting reset tooltips ═══ -->
+  <data name="Pad_ResetLedBrightness" xml:space="preserve"><value>Tún ìtànná LED tò</value></data>
+  <data name="Pad_ResetLightbarRainbowBrightness" xml:space="preserve"><value>Tún ìtànná tò</value></data>
+  <data name="Pad_ResetAudioLightbarSensitivity" xml:space="preserve"><value>Tún ìfọkànsí tò</value></data>
+  <data name="Pad_ResetLightbarRed" xml:space="preserve"><value>Tún àwọ̀ pupa tò</value></data>
+  <data name="Pad_ResetLightbarGreen" xml:space="preserve"><value>Tún àwọ̀ ewé tò</value></data>
+  <data name="Pad_ResetLightbarBlue" xml:space="preserve"><value>Tún àwọ̀ búlúù tò</value></data>
+
+  <!-- ═══ Pad: Macro Hints ═══ -->
+  <data name="Macro_AddTriggerFromList" xml:space="preserve"><value>Fi kún un láti inú àkójọ</value></data>
+  <data name="Macro_Axis_Half" xml:space="preserve"><value>ìdajì ákísì</value></data>
+  <data name="Pad_Either" xml:space="preserve"><value>Ìhà méjèèjì</value></data>
+  <data name="Macro_InvertAxis" xml:space="preserve"><value>Yí ákísì padà</value></data>
+  <data name="Macro_AxisDirection" xml:space="preserve"><value>Ìtọ́sọ́nà</value></data>
+  <data name="Macro_AxisDirection_Any" xml:space="preserve"><value>Èyíkéyìí</value></data>
+
+  <!-- ═══ 3D View ═══ -->
+
+  <!-- ═══ Gamepad Button Labels ═══ -->
+  <data name="Btn_LeftShoulder" xml:space="preserve"><value>Èjìká òsì</value></data>
+  <data name="Btn_RightShoulder" xml:space="preserve"><value>Èjìká ọ̀tún</value></data>
+  <data name="Btn_Back" xml:space="preserve"><value>Padà</value></data>
+  <data name="Btn_Start" xml:space="preserve"><value>Bẹ̀rẹ̀</value></data>
+  <data name="Btn_LeftStickButton" xml:space="preserve"><value>Bọ́tìnnì ọ̀pá òsì</value></data>
+  <data name="Btn_RightStickButton" xml:space="preserve"><value>Bọ́tìnnì ọ̀pá ọ̀tún</value></data>
+  <data name="Btn_DPadUp" xml:space="preserve"><value>D-pad òkè</value></data>
+  <data name="Btn_DPadDown" xml:space="preserve"><value>D-pad ìsàlẹ̀</value></data>
+  <data name="Btn_DPadLeft" xml:space="preserve"><value>D-pad òsì</value></data>
+  <data name="Btn_DPadRight" xml:space="preserve"><value>D-pad ọ̀tún</value></data>
+  <data name="Btn_LeftTrigger" xml:space="preserve"><value>Tírígà òsì</value></data>
+  <data name="Btn_RightTrigger" xml:space="preserve"><value>Tírígà ọ̀tún</value></data>
+  <data name="Stick_LeftThumbstick" xml:space="preserve"><value>Ọ̀pá òsì</value></data>
+  <data name="Stick_RightThumbstick" xml:space="preserve"><value>Ọ̀pá ọ̀tún</value></data>
+  <data name="Stick_ScrollWheel" xml:space="preserve"><value>Kẹ̀kẹ́ máòsì</value></data>
+  <data name="Stick_Format" xml:space="preserve"><value>Ọ̀pá {0}</value></data>
+  <data name="Trigger_Format" xml:space="preserve"><value>Tírígà {0}</value></data>
+  <data name="Btn_LeftStickX" xml:space="preserve"><value>Ọ̀pá òsì X</value></data>
+  <data name="Btn_LeftStickY" xml:space="preserve"><value>Ọ̀pá òsì Y</value></data>
+  <data name="Btn_RightStickX" xml:space="preserve"><value>Ọ̀pá ọ̀tún X</value></data>
+  <data name="Btn_RightStickY" xml:space="preserve"><value>Ọ̀pá ọ̀tún Y</value></data>
+  <data name="Btn_Up" xml:space="preserve"><value>Òkè</value></data>
+  <data name="Btn_Down" xml:space="preserve"><value>Ìsàlẹ̀</value></data>
+  <data name="Btn_Left" xml:space="preserve"><value>Òsì</value></data>
+  <data name="Btn_Right" xml:space="preserve"><value>Ọ̀tún</value></data>
+  <data name="Btn_Cross" xml:space="preserve"><value>Àgbélébùú</value></data>
+  <data name="Btn_Circle" xml:space="preserve"><value>Òbìrìkìtì</value></data>
+  <data name="Btn_Square" xml:space="preserve"><value>Onígun mẹ́rin</value></data>
+  <data name="Btn_Triangle" xml:space="preserve"><value>Onígun mẹ́ta</value></data>
+  <data name="Btn_L1" xml:space="preserve"><value>L1</value></data>
+  <data name="Btn_R1" xml:space="preserve"><value>R1</value></data>
+  <data name="Btn_L3" xml:space="preserve"><value>L3</value></data>
+  <data name="Btn_R3" xml:space="preserve"><value>R3</value></data>
+  <data name="Btn_Share" xml:space="preserve"><value>Pín</value></data>
+  <data name="Btn_Options" xml:space="preserve"><value>Àwọn àṣàyàn</value></data>
+  <data name="Btn_PS" xml:space="preserve"><value>PS</value></data>
+  <data name="Btn_Touchpad" xml:space="preserve"><value>Touchpad</value></data>
+  <data name="Btn_ZL" xml:space="preserve"><value>ZL</value></data>
+  <data name="Btn_ZR" xml:space="preserve"><value>ZR</value></data>
+  <data name="Btn_Home" xml:space="preserve"><value>Ilé</value></data>
+  <data name="Btn_GL" xml:space="preserve"><value>GL</value></data>
+  <data name="Btn_GR" xml:space="preserve"><value>GR</value></data>
+  <data name="Btn_Menu" xml:space="preserve"><value>Àkójọ àṣàyàn</value></data>
+  <data name="Btn_MicMute" xml:space="preserve"><value>Dákẹ́</value></data>
+  <data name="Btn_LeftPaddle" xml:space="preserve"><value>Bọ́tìnnì ẹ̀yìn òsì</value></data>
+  <data name="Btn_RightPaddle" xml:space="preserve"><value>Bọ́tìnnì ẹ̀yìn ọ̀tún</value></data>
+  <data name="Btn_LeftFn" xml:space="preserve"><value>Fn òsì</value></data>
+  <data name="Btn_RightFn" xml:space="preserve"><value>Fn ọ̀tún</value></data>
+  <data name="Btn_VrLeftA" xml:space="preserve"><value>A òsì</value></data>
+  <data name="Btn_VrLeftB" xml:space="preserve"><value>B òsì</value></data>
+  <data name="Btn_VrRightA" xml:space="preserve"><value>A ọ̀tún</value></data>
+  <data name="Btn_VrRightB" xml:space="preserve"><value>B ọ̀tún</value></data>
+  <data name="Vr_LeftHand" xml:space="preserve"><value>Ọwọ́ òsì</value></data>
+  <data name="Vr_RightHand" xml:space="preserve"><value>Ọwọ́ ọ̀tún</value></data>
+  <data name="Vr_Stick" xml:space="preserve"><value>Ọ̀pá</value></data>
+
+  <!-- ═══ Keyboard Key Labels ═══ -->
+  <!-- Mouse VK buttons -->
+  <data name="Key_LButton" xml:space="preserve"><value>Bọ́tìnnì máòsì òsì</value></data>
+  <data name="Key_RButton" xml:space="preserve"><value>Bọ́tìnnì máòsì ọ̀tún</value></data>
+  <data name="Key_MButton" xml:space="preserve"><value>Bọ́tìnnì àárín máòsì</value></data>
+  <data name="Key_XButton1" xml:space="preserve"><value>Bọ́tìnnì máòsì X1</value></data>
+  <data name="Key_XButton2" xml:space="preserve"><value>Bọ́tìnnì máòsì X2</value></data>
+  <!-- Common keys -->
+  <!-- Navigation -->
+  <data name="Key_Left" xml:space="preserve"><value>Ọfà òsì</value></data>
+  <data name="Key_Up" xml:space="preserve"><value>Ọfà òkè</value></data>
+  <data name="Key_Right" xml:space="preserve"><value>Ọfà ọ̀tún</value></data>
+  <data name="Key_Down" xml:space="preserve"><value>Ọfà ìsàlẹ̀</value></data>
+  <data name="Key_Select" xml:space="preserve"><value>Yan</value></data>
+  <data name="Key_Delete" xml:space="preserve"><value>Paarẹ́</value></data>
+  <data name="Key_Help" xml:space="preserve"><value>Ìrànlọ́wọ́</value></data>
+  <!-- Windows keys -->
+  <data name="Key_LWin" xml:space="preserve"><value>Windows òsì</value></data>
+  <data name="Key_RWin" xml:space="preserve"><value>Windows ọ̀tún</value></data>
+  <!-- Numpad -->
+  <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>Kọ́kọ́rọ́ àfikún {0}</value></data>
+  <data name="AnalogKey_Code_Format" xml:space="preserve"><value>Kọ́kọ́rọ́ {0}</value></data>
+  <data name="AnalogKey_CenterFn" xml:space="preserve"><value>Fn àárín</value></data>
+  <data name="AnalogKey_RightFn" xml:space="preserve"><value>Fn ọ̀tún</value></data>
+  <data name="AnalogKey_Position_Format" xml:space="preserve"><value>Ipò kọ́kọ́rọ́ {0}</value></data>
+  <!-- Lock keys -->
+  <!-- Left/Right modifiers -->
+  <data name="Key_LeftShift" xml:space="preserve"><value>Shift òsì</value></data>
+  <data name="Key_RightShift" xml:space="preserve"><value>Shift ọ̀tún</value></data>
+  <data name="Key_LeftCtrl" xml:space="preserve"><value>Ctrl òsì</value></data>
+  <data name="Key_RightCtrl" xml:space="preserve"><value>Ctrl ọ̀tún</value></data>
+  <data name="Key_LeftAlt" xml:space="preserve"><value>Alt òsì</value></data>
+  <data name="Key_RightAlt" xml:space="preserve"><value>Alt ọ̀tún</value></data>
+  <!-- Browser keys -->
+  <!-- Media keys -->
+  <data name="Key_VolumeDown" xml:space="preserve"><value>Rẹ ariwo sílẹ̀</value></data>
+  <data name="Key_VolumeUp" xml:space="preserve"><value>Gbé ariwo sókè</value></data>
+  <data name="Key_MediaNext" xml:space="preserve"><value>Orin tó kàn</value></data>
+  <data name="Key_MediaPrev" xml:space="preserve"><value>Orin tó ṣáájú</value></data>
+
+  <!-- ═══ Mouse Labels ═══ -->
+  <data name="Mouse_LeftClick" xml:space="preserve"><value>Títẹ̀ òsì</value></data>
+  <data name="Mouse_RightClick" xml:space="preserve"><value>Títẹ̀ ọ̀tún</value></data>
+  <data name="Mouse_MiddleClick" xml:space="preserve"><value>Títẹ̀ àárín</value></data>
+  <data name="Mouse_Button4" xml:space="preserve"><value>Máòsì 4</value></data>
+  <data name="Mouse_Button5" xml:space="preserve"><value>Máòsì 5</value></data>
+  <data name="Mouse_X" xml:space="preserve"><value>Máòsì X</value></data>
+  <data name="Mouse_Y" xml:space="preserve"><value>Máòsì Y</value></data>
+
+  <!-- ═══ Extended Custom Labels ═══ -->
+  <data name="Extended_Stick_Format" xml:space="preserve"><value>Ọ̀pá {0} X</value></data>
+  <data name="Extended_StickY_Format" xml:space="preserve"><value>Ọ̀pá {0} Y</value></data>
+  <data name="Extended_Trigger_Format" xml:space="preserve"><value>Tírígà {0}</value></data>
+  <data name="Extended_Button_Format" xml:space="preserve"><value>Bọ́tìnnì {0}</value></data>
+  <data name="Extended_DPad" xml:space="preserve"><value>D-pad</value></data>
+  <data name="Extended_POV_Format" xml:space="preserve"><value>POV {0}</value></data>
+
+  <!-- ═══ Macro Axis Target Labels ═══ -->
+  <data name="MacroAxis_XAxis" xml:space="preserve"><value>Ọ̀pá òsì X</value></data>
+  <data name="MacroAxis_YAxis" xml:space="preserve"><value>Ọ̀pá òsì Y</value></data>
+  <data name="MacroAxis_XRotation" xml:space="preserve"><value>Ọ̀pá ọ̀tún X</value></data>
+  <data name="MacroAxis_YRotation" xml:space="preserve"><value>Ọ̀pá ọ̀tún Y</value></data>
+  <data name="MacroAxis_ZAxis" xml:space="preserve"><value>Tírígà òsì</value></data>
+  <data name="MacroAxis_ZRotation" xml:space="preserve"><value>Tírígà ọ̀tún</value></data>
+
+  <!-- ═══ Preview Views ═══ -->
+  <data name="Preview_Stick_Format" xml:space="preserve"><value>Ọ̀pá {0}</value></data>
+  <data name="Preview_Trigger_Format" xml:space="preserve"><value>T{0}</value></data>
+  <data name="Preview_DPad" xml:space="preserve"><value>D-pad</value></data>
+  <data name="Preview_Buttons" xml:space="preserve"><value>Àwọn bọ́tìnnì</value></data>
+  <data name="Preview_POV_Format" xml:space="preserve"><value>POV {0}</value></data>
+
+  <!-- ═══ Audio Bass Rumble ═══ -->
+  <data name="Settings_AudioRumble" xml:space="preserve"><value>Ìmìtìtì ohùn</value></data>
+  <data name="Settings_AudioRumble_Enable" xml:space="preserve"><value>Mú ìmìtìtì ohùn ṣiṣẹ́</value></data>
+  <data name="Settings_AudioRumble_Sensitivity" xml:space="preserve"><value>Ìfọkànsí</value></data>
+  <data name="Settings_AudioRumble_LeftMotor" xml:space="preserve"><value>Mọ́tò òsì</value></data>
+  <data name="Settings_AudioRumble_RightMotor" xml:space="preserve"><value>Mọ́tò ọ̀tún</value></data>
+  <!-- Shift mode (Issue #61 Phase 6 v1+) -->
+  <data name="Pad_Shift_AddLayer" xml:space="preserve"><value>+ Ìpele Shift</value></data>
+  <data name="Pad_Shift_BaseTabLabel" xml:space="preserve"><value>Ìpìlẹ̀</value></data>
+  <data name="Pad_Shift_DialogTitle" xml:space="preserve"><value>Ìpele Shift</value></data>
+  <data name="Pad_Shift_BaseConfigTitle" xml:space="preserve"><value>Ṣètò ìpìlẹ̀</value></data>
+  <data name="Pad_Shift_LayerName" xml:space="preserve"><value>Orúkọ ìpele</value></data>
+  <data name="Pad_Shift_Mode" xml:space="preserve"><value>Ọ̀nà</value></data>
+  <data name="Pad_Shift_ModeHold" xml:space="preserve"><value>Dì mú</value></data>
+  <data name="Pad_Shift_ModeToggle" xml:space="preserve"><value>Yí padà</value></data>
+  <data name="Pad_Shift_ModePassive" xml:space="preserve"><value>Kò sí bọ́tìnnì</value></data>
+  <data name="Pad_Shift_HintNameRequired" xml:space="preserve"><value>A nílò orúkọ ìpele.</value></data>
+  <data name="Pad_Shift_HintNameDuplicate" xml:space="preserve"><value>Ìpele tí ó ní orúkọ yẹn ti wà lórí àyè yìí.</value></data>
+  <data name="Pad_Shift_Rename" xml:space="preserve"><value>Yí orúkọ ìpele padà…</value></data>
+  <data name="Pad_Shift_Color" xml:space="preserve"><value>Àwọ̀ ìpele</value></data>
+  <data name="Pad_ResetLayerColor" xml:space="preserve"><value>Tún àwọ̀ ìpele tò</value></data>
+  <data name="Pad_Shift_Icon_Reset" xml:space="preserve"><value>Tún tò sí àìyípadà (⇧)</value></data>
+  <data name="Pad_Shift_Copy" xml:space="preserve"><value>Ṣe ẹ̀dà àwọn ìlà ìpele</value></data>
+  <data name="Pad_Shift_Paste" xml:space="preserve"><value>Lẹ̀ àwọn ìlà mọ́ ìpele</value></data>
+  <data name="Pad_Shift_Clear" xml:space="preserve"><value>Pa àwọn ìlà ìpele rẹ́</value></data>
+  <data name="Pad_Shift_Delete" xml:space="preserve"><value>Pa ìpele rẹ́</value></data>
+  <data name="Pad_Shift_DeleteConfirm_Format" xml:space="preserve"><value>Ṣé o fẹ́ pa ìpele "{0}" rẹ́ pẹ̀lú gbogbo ìlà ìsopọ̀ rẹ̀? A kò lè yí èyí padà.</value></data>
+  <data name="Pad_Shift_Delay" xml:space="preserve"><value>Ìdádúró</value></data>
+  <data name="Pad_Shift_AxisThreshold" xml:space="preserve"><value>Ààlà ákísì</value></data>
+  <data name="Pad_Shift_HostLayerAny" xml:space="preserve"><value>Ìpele èyíkéyìí</value></data>
+  <data name="Pad_Shift_CycleNextButton" xml:space="preserve"><value>Bọ́tìnnì tó kàn</value></data>
+  <data name="Pad_Shift_CyclePrevButton" xml:space="preserve"><value>Bọ́tìnnì tó ṣáájú</value></data>
+  <data name="Pad_Shift_KindButton" xml:space="preserve"><value>Bọ́tìnnì</value></data>
+  <data name="Pad_Shift_KindAxis" xml:space="preserve"><value>Ákísì tó kọjá ààlà</value></data>
+
+  <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Ìwọ̀n yíyípo</value></data>
+  <data name="Pad_Steering_Mode_Linear" xml:space="preserve"><value>Pa</value></data>
+  <data name="Pad_Steering_Orient_Forward" xml:space="preserve"><value>Iwájú</value></data>
+  <data name="Pad_Steering_Orient_Left" xml:space="preserve"><value>Òsì</value></data>
+  <data name="Pad_Steering_Orient_Right" xml:space="preserve"><value>Ọ̀tún</value></data>
+  <data name="Pad_Steering_Orient_Backward" xml:space="preserve"><value>Ẹ̀yìn</value></data>
+  <data name="Mapping_FlickStickRight" xml:space="preserve"><value>Flick stick (ọ̀pá ọ̀tún)</value></data>
+  <data name="Mapping_FlickStickLeft" xml:space="preserve"><value>Flick stick (ọ̀pá òsì)</value></data>
+  <data name="Mapping_FlickStickTouchpad_Format" xml:space="preserve"><value>Flick stick (touchpad {0})</value></data>
+  <data name="Pad_FlickStick_Header" xml:space="preserve"><value>Flick stick</value></data>
+  <data name="Pad_FlickStick_Reset_All" xml:space="preserve"><value>Tún flick stick tò</value></data>
+  <data name="Pad_ResetFlickCountsPer360" xml:space="preserve"><value>Tún tò sí 14400</value></data>
+  <data name="Pad_ResetFlickTime" xml:space="preserve"><value>Tún tò sí 0.1 s</value></data>
+  <data name="Pad_ResetFlickThreshold" xml:space="preserve"><value>Tún tò sí 0.9</value></data>
+  <data name="Pad_ResetFlickSnapStrength" xml:space="preserve"><value>Tún tò sí 1.0</value></data>
+  <data name="Pad_ResetFlickForwardDeadzone" xml:space="preserve"><value>Tún tò sí 0°</value></data>
+  <data name="Pad_Steering_Lock_LightbarColor" xml:space="preserve"><value>Àwọ̀ lightbar</value></data>
+  <data name="Pad_Wheel" xml:space="preserve"><value>Kẹ̀kẹ́ ìdarí</value></data>
+  <data name="Pad_ResetWheel" xml:space="preserve"><value>Tún kẹ̀kẹ́ ìdarí tò</value></data>
+  <data name="Pad_ResetRotationRange" xml:space="preserve"><value>Tún ìwọ̀n yíyípo tò</value></data>
+  <data name="Pad_Audio" xml:space="preserve"><value>Ohùn</value></data>
+  <data name="Pad_Pointer" xml:space="preserve"><value>Atọ́ka</value></data>
+  <data name="Pad_Pointer_Header" xml:space="preserve"><value>Atọ́ka IR</value></data>
+  <data name="Pad_Pointer_ModeTitle" xml:space="preserve"><value>Ọ̀nà atọ́ka</value></data>
+  <data name="Pad_Pointer_Mode_Mouse" xml:space="preserve"><value>Máòsì</value></data>
+  <data name="Pad_Pointer_Mode_FpsMouse" xml:space="preserve"><value>Máòsì FPS</value></data>
+  <data name="Pad_Pointer_FpsSpeed" xml:space="preserve"><value>Iyára FPS</value></data>
+  <data name="Pad_ResetPointerMode" xml:space="preserve"><value>Tún ọ̀nà atọ́ka tò</value></data>
+  <data name="Pad_ResetPointerFpsSpeed" xml:space="preserve"><value>Tún iyára FPS tò</value></data>
+  <data name="Pad_Audio_Header" xml:space="preserve"><value>Ohùn</value></data>
+  <data name="Pad_Audio_Output_Header" xml:space="preserve"><value>Ìjáde ohùn</value></data>
+  <data name="Pad_Audio_MasterVolume" xml:space="preserve"><value>Ariwo gbogbogbò</value></data>
+  <data name="Pad_Audio_Reset_MasterVolume" xml:space="preserve"><value>Tún ariwo gbogbogbò tò</value></data>
+  <data name="Pad_Audio_Test" xml:space="preserve"><value>Ìdánwò</value></data>
+  <data name="Pad_Audio_Test_Tooltip" xml:space="preserve"><value>Mú ìró kúkúrú kan dún lórí ẹ̀rọ ìjáde tí a yàn</value></data>
+  <data name="Pad_Audio_StopAll" xml:space="preserve"><value>Dá gbogbo ohùn dúró</value></data>
+  <data name="Pad_Audio_Macros_Header" xml:space="preserve"><value>Àwọn macro ohùn</value></data>
+  <data name="Pad_Audio_NewSoundMacro" xml:space="preserve"><value>Macro ohùn tuntun</value></data>
+  <data name="Pad_Audio_SoundMacroName_Format" xml:space="preserve"><value>Macro ohùn {0}</value></data>
+  <data name="MacroAction_Type_PlaySound" xml:space="preserve"><value>Mú ohùn dún</value></data>
+  <data name="MacroAction_Type_SoundStop" xml:space="preserve"><value>Dá ohùn dúró</value></data>
+  <data name="MacroAction_PlaySound_Format" xml:space="preserve"><value>Mú {0} dún ({1}%)</value></data>
+  <data name="Macro_Sound_File_Label" xml:space="preserve"><value>Fáìlì ohùn</value></data>
+  <data name="Macro_Sound_Browse" xml:space="preserve"><value>Ṣàwárí…</value></data>
+  <data name="Macro_Sound_Volume_Label" xml:space="preserve"><value>Ariwo</value></data>
+  <data name="Pad_Audio_Engage_Always" xml:space="preserve"><value>Nígbà gbogbo</value></data>
+  <data name="Pad_Audio_ToneFilter_Off" xml:space="preserve"><value>Pa</value></data>
+  <data name="Pad_ResetPersonaHaptics" xml:space="preserve"><value>Tún tò sí àìyípadà (Pa)</value></data>
+  <data name="Pad_ResetPersonaHapticsGain" xml:space="preserve"><value>Tún tò sí àìyípadà (100%)</value></data>
+  <data name="Pad_ResetTritonLowPass" xml:space="preserve"><value>Tún tò sí 250 Hz</value></data>
+  <data name="About_DsTester" xml:space="preserve"><value>dualsense-tester</value></data>
+  <data name="About_Ds4Audio" xml:space="preserve"><value>DS4AudioStreamer</value></data>
+  <data name="Profiles_Export" xml:space="preserve"><value>Gbé jáde…</value></data>
+  <data name="Profiles_Import" xml:space="preserve"><value>Gbé wọlé…</value></data>
+  <data name="Status_ProfileExported_Format" xml:space="preserve"><value>A ti gbé profaili "{0}" jáde.</value></data>
+  <data name="Status_ProfileImportFailed" xml:space="preserve"><value>Fáìlì yìí kì í ṣe profaili PadForge tí a lè kà.</value></data>
+  <data name="Menu_Binding_Macro" xml:space="preserve"><value>Macro</value></data>
+  <data name="IconPicker_Emoji" xml:space="preserve"><value>Emoji</value></data>
+  <data name="IconPicker_Images" xml:space="preserve"><value>Àwòrán</value></data>
+  <data name="Emoji_Category_Hands" xml:space="preserve"><value>Ọwọ́</value></data>
+  <data name="Emoji_Category_Animals" xml:space="preserve"><value>Ẹranko</value></data>
+  <data name="Emoji_Category_Food" xml:space="preserve"><value>Oúnjẹ</value></data>
+  <data name="Emoji_Category_Travel" xml:space="preserve"><value>Ìrìn-àjò</value></data>
+  <data name="Emoji_Category_Objects" xml:space="preserve"><value>Nǹkan</value></data>
+  <data name="Emoji_Category_Symbols" xml:space="preserve"><value>Àmì</value></data>
+  <data name="DeviceType_Midi" xml:space="preserve"><value>Ẹ̀rọ ìdarí MIDI</value></data>
+  <data name="Mapping_MidiCc_Format" xml:space="preserve"><value>CC {0}</value></data>
+  <data name="Mapping_MidiCcNamed_Format" xml:space="preserve"><value>CC {0} ({1})</value></data>
+  <data name="Mapping_MidiCcUp_Format" xml:space="preserve"><value>CC {0} +</value></data>
+  <data name="Mapping_MidiCcDown_Format" xml:space="preserve"><value>CC {0} −</value></data>
+  <data name="Common_Reset" xml:space="preserve">
+    <value>Tún tò</value>
+  </data>
+  <data name="RemoteLink_PasswordTitle" xml:space="preserve">
+    <value>Ọ̀rọ̀ aṣínà Remote Link</value>
+  </data>
+  <data name="Dashboard_TouchpadOverlayWindowTitle" xml:space="preserve">
+    <value>Touchpad PadForge</value>
+  </data>
+  <data name="RemoteLink_PasswordEmpty" xml:space="preserve">
+    <value>Tẹ ọ̀rọ̀ aṣínà kan.</value>
+  </data>
+  <data name="RemoteLink_PasswordMismatch" xml:space="preserve">
+    <value>Àwọn ọ̀rọ̀ aṣínà kò bára mu.</value>
+  </data>
+  <data name="RemoteLink_DefaultPeerName" xml:space="preserve">
+    <value>Kọ̀ǹpútà tí a so pọ̀</value>
+  </data>
+  <data name="RemoteLink_Online" xml:space="preserve">
+    <value>Lórí ayélujára</value>
+  </data>
+  <data name="RemoteLink_Offline" xml:space="preserve">
+    <value>Kò sí lórí ayélujára</value>
+  </data>
+  <data name="RemoteLink_PeerPairedSuffix" xml:space="preserve">
+    <value>(ti so pọ̀)</value>
+  </data>
+  <data name="RemoteLink_StatusWrongPassword" xml:space="preserve">
+    <value>Ọ̀rọ̀ aṣínà Remote Link kò tọ̀nà.</value>
+  </data>
+  <data name="Macro_Sound_BrowseFiles" xml:space="preserve"><value>Ṣàwárí fáìlì…</value></data>
+  <data name="PickSound_Title" xml:space="preserve"><value>Yan ohùn kan</value></data>
+  <data name="About_NAudio" xml:space="preserve"><value>NAudio</value></data>
+  <data name="About_Vosk" xml:space="preserve"><value>Vosk</value></data>
+  <data name="About_BouncyCastle" xml:space="preserve"><value>Bouncy Castle</value></data>
+  <data name="About_BthPS3" xml:space="preserve"><value>BthPS3</value></data>
+  <data name="About_DsHidMini" xml:space="preserve"><value>DsHidMini</value></data>
+  <data name="About_NefariusDevMgmt" xml:space="preserve"><value>Nefarius.Utilities.DeviceManagement</value></data>
+  <data name="About_Libusb" xml:space="preserve"><value>libusb</value></data>
+  <data name="About_Nipplejs" xml:space="preserve"><value>nipplejs</value></data>
+  <data name="About_GameControllerDb" xml:space="preserve"><value>SDL_GameControllerDB</value></data>
+  <data name="About_Xbledctl" xml:space="preserve"><value>xbledctl</value></data>
+  <data name="About_JoyShockMapper" xml:space="preserve"><value>JoyShockMapper</value></data>
+  <data name="About_GamepadMotionHelpers" xml:space="preserve"><value>GamepadMotionHelpers</value></data>
+  <data name="About_SteamControllerSinger" xml:space="preserve"><value>SteamControllerSinger</value></data>
+  <data name="About_SteamHapticsSinger" xml:space="preserve"><value>SteamHapticsSinger</value></data>
+  <data name="About_Hitboxer" xml:space="preserve"><value>hitboxer</value></data>
+  <data name="About_SteamKit2" xml:space="preserve"><value>SteamKit2</value></data>
+  <data name="About_ProtobufNet" xml:space="preserve"><value>protobuf-net</value></data>
+  <data name="About_ZstdSharp" xml:space="preserve"><value>ZstdSharp</value></data>
+  <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
+  <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
+  <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
+  <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
+  <data name="About_JoyconSinger" xml:space="preserve"><value>joycon-singer</value></data>
+  <data name="Devices_Pair" xml:space="preserve"><value>So pọ̀</value></data>
+  <data name="WiiPair_Title" xml:space="preserve"><value>So ẹ̀rọ ìdarí kan pọ̀</value></data>
+  <data name="WiiPair_FamilyWii" xml:space="preserve"><value>Nintendo Wii</value></data>
+  <data name="WiiPair_Pair" xml:space="preserve"><value>So pọ̀</value></data>
+  <data name="WiiPair_Searching" xml:space="preserve"><value>Ń wá. Tẹ bọ́tìnnì SYNC báyìí.</value></data>
+  <data name="WiiPair_Found" xml:space="preserve"><value>Àwọn ẹ̀rọ ìdarí tí a rí</value></data>
+  <data name="WiiPair_NothingYet" xml:space="preserve"><value>A kò tíì rí ẹ̀rọ ìdarí kankan. Rí i dájú pé àwọn iná búlúù ń ṣẹ́jú.</value></data>
+  <data name="WiiPair_SuccessFormat" xml:space="preserve"><value>A ti so {0} pọ̀. Yóò hàn nínú àkójọ ẹ̀rọ rẹ.</value></data>
+  <data name="WiiPair_Failed" xml:space="preserve"><value>Síso pọ̀ Wii kò ṣeé parí. Gbìyànjú lẹ́ẹ̀kan sí i.</value></data>
+  <data name="WiiPair_Done" xml:space="preserve"><value>Ó ti parí</value></data>
+  <data name="WiiPair_FamilyDs3" xml:space="preserve"><value>Sony DualShock 3</value></data>
+  <data name="About_OpenVR" xml:space="preserve"><value>OpenVR API</value></data>
+  <data name="Vr_Status_Running" xml:space="preserve"><value>Ń ṣiṣẹ́</value></data>
+  <data name="SerialPair_Port" xml:space="preserve"><value>Pọ́ọ̀tì</value></data>
+  <data name="SerialPair_Controller" xml:space="preserve"><value>Ẹ̀rọ ìdarí</value></data>
+  <data name="SerialPair_Added" xml:space="preserve"><value>Àwọn ẹ̀rọ ìdarí tí a fi kún</value></data>
+  <data name="SerialPair_AddedFormat" xml:space="preserve"><value>A fi {0} kún lórí {1}.</value></data>
+  <data name="SerialPair_NoPorts" xml:space="preserve"><value>Kò sí pọ́ọ̀tì COM kankan.</value></data>
+  <data name="DjiPair_Address" xml:space="preserve"><value>Àdírẹ́sì</value></data>
+  <data name="Ds3Pair_Working" xml:space="preserve"><value>A ń ṣètò ẹ̀rọ ìdarí náà. Má ṣe yọ okùn USB rẹ̀.</value></data>
+  <data name="Ds3Pair_NoUsb" xml:space="preserve"><value>A kò rí DualShock 3 lórí USB. Fi okùn USB so ó mọ́ kọ̀ǹpútà, kí o sì gbìyànjú lẹ́ẹ̀kan sí i.</value></data>
+  <data name="Ds3Pair_InstallFailed" xml:space="preserve"><value>A kò lè fi awakọ̀ Bluetooth fún àwọn ẹ̀rọ ìdarí PlayStation sórí ẹ̀rọ.</value></data>
+  <data name="Ds3Pair_Failed" xml:space="preserve"><value>Síso pọ̀ kò parí. Ìgbésẹ̀ tí ó kùnà wà lókè.</value></data>
+  <data name="Common_Close" xml:space="preserve"><value>Pa dé</value></data>
+  <data name="Nfc_UidLabel" xml:space="preserve"><value>UID:</value></data>
+  <data name="Nfc_Waiting" xml:space="preserve"><value>(ń dúró)</value></data>
+  <data name="Nfc_NameLabel" xml:space="preserve"><value>Orúkọ:</value></data>
+  <data name="Nfc_RegisterButton" xml:space="preserve"><value>Forúkọsílẹ̀</value></data>
+  <data name="DeviceType_VrController" xml:space="preserve"><value>Ẹ̀rọ ìdarí VR</value></data>
+  <data name="DeviceType_AnalogKeyboard" xml:space="preserve"><value>Pátákó ìtẹ̀wé analog</value></data>
+  <data name="DeviceType_PeripheralHaptics" xml:space="preserve"><value>Haptics</value></data>
+  <data name="DeviceType_PeripheralLighting" xml:space="preserve"><value>Ìmọ́lẹ̀</value></data>
+  <data name="HeadTracker_Yaw" xml:space="preserve"><value>Yaw orí</value></data>
+  <data name="HeadTracker_Pitch" xml:space="preserve"><value>Pitch orí</value></data>
+  <data name="HeadTracker_Roll" xml:space="preserve"><value>Roll orí</value></data>
+  <data name="HeadTracker_X" xml:space="preserve"><value>X orí</value></data>
+  <data name="HeadTracker_Y" xml:space="preserve"><value>Y orí</value></data>
+  <data name="HeadTracker_Z" xml:space="preserve"><value>Z orí</value></data>
+  <data name="VrCtl_Yaw" xml:space="preserve"><value>Yaw ẹ̀rọ ìdarí</value></data>
+  <data name="VrCtl_Pitch" xml:space="preserve"><value>Pitch ẹ̀rọ ìdarí</value></data>
+  <data name="VrCtl_Roll" xml:space="preserve"><value>Roll ẹ̀rọ ìdarí</value></data>
+  <data name="VrCtl_X" xml:space="preserve"><value>X ẹ̀rọ ìdarí</value></data>
+  <data name="VrCtl_Y" xml:space="preserve"><value>Y ẹ̀rọ ìdarí</value></data>
+  <data name="VrCtl_Z" xml:space="preserve"><value>Z ẹ̀rọ ìdarí</value></data>
+  <data name="VrCtl_StickX" xml:space="preserve"><value>X ọ̀pá</value></data>
+  <data name="VrCtl_StickY" xml:space="preserve"><value>Y ọ̀pá</value></data>
+  <data name="VrCtl_Trigger" xml:space="preserve"><value>Tírígà</value></data>
+  <data name="VrCtl_StickClick" xml:space="preserve"><value>Títẹ̀ ọ̀pá</value></data>
+  <data name="VrCtl_Primary" xml:space="preserve"><value>Bọ́tìnnì àkọ́kọ́</value></data>
+  <data name="VrCtl_Secondary" xml:space="preserve"><value>Bọ́tìnnì kejì</value></data>
+  <data name="VrCtl_Menu" xml:space="preserve"><value>Bọ́tìnnì àkójọ àṣàyàn</value></data>
+  <data name="Dashboard_HeadTracking" xml:space="preserve"><value>Ìtọpinpin orí</value></data>
+  <data name="HeadTracker_StatusOpenXr_Format" xml:space="preserve"><value>Ń ka {0}</value></data>
+  <data name="Dashboard_HeadTrackingPort" xml:space="preserve"><value>Pọ́ọ̀tì UDP</value></data>
+  <data name="Dashboard_HeadTrackingRotationRange" xml:space="preserve"><value>Ìwọ̀n yíyí (dígírì)</value></data>
+  <data name="Dashboard_HeadTrackingTranslationRange" xml:space="preserve"><value>Ìwọ̀n ìṣípò (cm)</value></data>
+  <data name="Dashboard_HeadTrackingAxisRanges" xml:space="preserve"><value>Ìwọ̀n fún ákísì kọ̀ọ̀kan</value></data>
+  <data name="Dashboard_HeadTrackingAxisYaw" xml:space="preserve"><value>Yaw</value></data>
+  <data name="Dashboard_HeadTrackingAxisPitch" xml:space="preserve"><value>Pitch</value></data>
+  <data name="Dashboard_HeadTrackingAxisRoll" xml:space="preserve"><value>Roll</value></data>
+  <data name="Dashboard_HeadTrackingAxisX" xml:space="preserve"><value>Tẹ̀ sí òsì àti ọ̀tún</value></data>
+  <data name="Dashboard_HeadTrackingAxisY" xml:space="preserve"><value>Dìde àti bẹ̀rẹ̀</value></data>
+  <data name="Dashboard_HeadTrackingAxisZ" xml:space="preserve"><value>Tẹ̀ síwájú àti sẹ́yìn</value></data>
+  <data name="HeadTracker_StatusUdp_Format" xml:space="preserve"><value>Ń gbà á lórí UDP láti {0}.</value></data>
+  <data name="HeadTracker_StatusPortInUse_Format" xml:space="preserve"><value>Ìṣàfilọ́lẹ̀ mìíràn ń lo pọ́ọ̀tì UDP {0}.</value></data>
+  <data name="Handheld_ManageButton" xml:space="preserve"><value>Kọ́ / Ṣàkóso àwọn bọ́tìnnì tó farapamọ́</value></data>
+  <data name="Handheld_Title" xml:space="preserve"><value>Àwọn bọ́tìnnì tó farapamọ́</value></data>
+  <data name="Handheld_LearnHeader" xml:space="preserve"><value>Kọ́ bọ́tìnnì kan</value></data>
+  <data name="Handheld_MachineLabel" xml:space="preserve"><value>Kọ̀ǹpútà:</value></data>
+  <data name="Handheld_StartButton" xml:space="preserve"><value>Bẹ̀rẹ̀ kíkọ́</value></data>
+  <data name="Handheld_PhasePress" xml:space="preserve"><value>Tẹ̀ bọ́tìnnì tó farapamọ́ náà báyìí, lẹ́yìn náà fi sílẹ̀…</value></data>
+  <data name="Handheld_PhaseRelease" xml:space="preserve"><value>Dúró díẹ̀…</value></data>
+  <data name="Handheld_Captured" xml:space="preserve"><value>A ti gba bọ́tìnnì náà. Tẹ orúkọ kan, kí o sì tẹ Forúkọsílẹ̀.</value></data>
+  <data name="Handheld_SourceLabel" xml:space="preserve"><value>Orísun:</value></data>
+  <data name="Handheld_NameLabel" xml:space="preserve"><value>Orúkọ:</value></data>
+  <data name="Handheld_RegisterButton" xml:space="preserve"><value>Forúkọsílẹ̀</value></data>
+  <data name="Handheld_RegisteredHeader" xml:space="preserve"><value>Àwọn bọ́tìnnì tí a ti kọ́</value></data>
+  <data name="Handheld_NoneLearned" xml:space="preserve"><value>A kò tíì kọ́ bọ́tìnnì kankan.</value></data>
+  <data name="Handheld_RegisteredFormat" xml:space="preserve"><value>A ti forúkọ “{0}” sílẹ̀. Bẹ̀rẹ̀ lẹ́ẹ̀kan sí i láti kọ́ òmíràn.</value></data>
+  <data name="Handheld_ChordFormat" xml:space="preserve"><value>Àwọn kọ́kọ́rọ́: {0}</value></data>
+  <data name="Handheld_DaemonWarning_Format" xml:space="preserve"><value>{0} ń ṣiṣẹ́. Ó ṣì ń dáhùn sí àwọn bọ́tìnnì wọ̀nyí títí o fi dá a dúró.</value></data>
+  <data name="Handheld_Export" xml:space="preserve"><value>Gbé jáde…</value></data>
+  <data name="Handheld_Import" xml:space="preserve"><value>Gbé wọlé…</value></data>
+  <data name="Handheld_ExportedFormat" xml:space="preserve"><value>A ti gbé bọ́tìnnì {0} jáde.</value></data>
+  <data name="Handheld_ImportedFormat" xml:space="preserve"><value>A ti gbé bọ́tìnnì {0} wọlé.</value></data>
+  <data name="Pad_Mouse" xml:space="preserve"><value>Máòsì</value></data>
+  <data name="Pad_MouseGestures_Header" xml:space="preserve"><value>Ìfarajúwe máòsì</value></data>
+  <data name="Pad_MouseGestures_Enabled" xml:space="preserve"><value>Mú ìfarajúwe máòsì ṣiṣẹ́</value></data>
+  <data name="Pad_MouseGestures_Button" xml:space="preserve"><value>Àwọn bọ́tìnnì ìfarajúwe</value></data>
+  <data name="Pad_ResetMouseGestures" xml:space="preserve"><value>Tún ìfarajúwe máòsì tò</value></data>
+  <data name="Pad_ResetMouseGestureButton" xml:space="preserve"><value>Tún àwọn bọ́tìnnì ìfarajúwe tò</value></data>
+  <data name="Mapping_MouseGestureLeft" xml:space="preserve"><value>Òsì</value></data>
+  <data name="Mapping_MouseGestureRight" xml:space="preserve"><value>Ọ̀tún</value></data>
+  <data name="Mapping_MouseGestureUp" xml:space="preserve"><value>Òkè</value></data>
+  <data name="Mapping_MouseGestureDown" xml:space="preserve"><value>Ìsàlẹ̀</value></data>
+  <data name="Mapping_MouseGesture_Format" xml:space="preserve"><value>Ìfarajúwe máòsì: {0} + {1}</value></data>
+  <data name="Macro_GuideLedBrightnessName" xml:space="preserve"><value>Ìtànná LED Guide</value></data>
+  <data name="MacroAction_Type_SwitchLayer" xml:space="preserve"><value>Yí ìpele padà</value></data>
+  <data name="MacroAction_Type_SetChromaColor" xml:space="preserve"><value>Ṣètò àwọ̀ Chroma</value></data>
+  <data name="MacroAction_Type_ShowDreamcastScreen" xml:space="preserve"><value>Fi ìbòjú Dreamcast hàn</value></data>
+  <data name="Macro_Dreamcast_Pictures" xml:space="preserve"><value>Àwọn àwòrán</value></data>
+  <data name="Macro_Dreamcast_AddPicture" xml:space="preserve"><value>Fi àwòrán kún…</value></data>
+  <data name="Macro_Dreamcast_RemoveTooltip" xml:space="preserve"><value>Yọ àwòrán kúrò</value></data>
+  <data name="MacroAction_SwitchLayer_Format" xml:space="preserve"><value>Yí sí ìpele {0}</value></data>
+  <data name="Pad_Lighting_GuideLed" xml:space="preserve"><value>LED bọ́tìnnì Guide</value></data>
+  <data name="Pad_Lighting_GuideLed_DeviceDefault" xml:space="preserve"><value>Àìyípadà ẹ̀rọ</value></data>
+  <data name="Pad_Lighting_GuideLed_Fixed" xml:space="preserve"><value>Ìtànná tí kò yí padà</value></data>
+  <data name="Pad_Lighting_GuideLed_Battery" xml:space="preserve"><value>Ìpele bátìrì</value></data>
+  <data name="Pad_Lighting_GuideLed_Brightness" xml:space="preserve"><value>Ìtànná</value></data>
+  <data name="Pad_ResetGuideLed" xml:space="preserve"><value>Tún LED bọ́tìnnì Guide tò</value></data>
+  <data name="Pad_ResetGuideLedMode" xml:space="preserve"><value>Tún ipò LED Guide tò</value></data>
+  <data name="Pad_ResetGuideLedBrightness" xml:space="preserve"><value>Tún ìtànná LED Guide tò</value></data>
+  <data name="MacroAction_Type_GuideLedBrightness" xml:space="preserve"><value>Ṣètò ìtànná LED Guide</value></data>
+  <data name="MacroAction_GuideLedBrightness_Format" xml:space="preserve"><value>Ìtànná LED Guide: {0}%</value></data>
+  <data name="Pad_Mapping_MotionMode" xml:space="preserve"><value>Ipò ìṣípòpadà</value></data>
+  <data name="Pad_Mapping_MotionMode_Tooltip" xml:space="preserve"><value>Bí ìyísẹ̀ ṣe ń gbé ẹ̀rọ ìdarí àfarawé. Ìyára ń yí i, Igun ń tẹ̀ ẹ́.</value></data>
+  <data name="Pad_Mapping_MotionSpeed_Name" xml:space="preserve"><value>Ìyára</value></data>
+  <data name="Pad_Mapping_MotionSpeed_Description" xml:space="preserve"><value>Ìyísẹ̀ ló ń pinnu bí ẹ̀rọ ìdarí ṣe ń yí yára tó. Tí o bá fi sílẹ̀, yóò dúró sí ibi tí ó wà.</value></data>
+  <data name="Pad_Mapping_MotionAngle_Name" xml:space="preserve"><value>Igun</value></data>
+  <data name="Pad_Mapping_MotionAngle_Description" xml:space="preserve"><value>Ìyísẹ̀ ló ń pinnu bí ẹ̀rọ ìdarí ṣe ń tẹ̀ tó. Tí o bá fi sílẹ̀, yóò padà sí títẹ́jú.</value></data>
+  <data name="Pad_Mapping_MotionTopSpeed" xml:space="preserve"><value>Ìyára gíga jùlọ</value></data>
+  <data name="Pad_Mapping_MotionTopSpeed_Tooltip" xml:space="preserve"><value>Ìyára yíyí ní ìyísẹ̀ kíkún, ní dígírì fún ìṣẹ́jú-àáyá kan.</value></data>
+  <data name="Pad_Mapping_MotionStartSpeed" xml:space="preserve"><value>Ìyára ìbẹ̀rẹ̀</value></data>
+  <data name="Pad_Mapping_MotionLeanAngle" xml:space="preserve"><value>Igun ìtẹ̀sí</value></data>
+  <data name="Pad_Mapping_MotionLeanAngle_Tooltip" xml:space="preserve"><value>Ìtẹ̀sí ní ìyísẹ̀ kíkún, ní dígírì.</value></data>
+  <data name="Pad_Mapping_MotionDeadzone" xml:space="preserve"><value>Deadzone ìṣípòpadà</value></data>
+  <data name="Settings_CheckWorkshopUpdates" xml:space="preserve"><value>Ṣàyẹ̀wò àwọn profaili tí a gbé wọlé fún ìmúdójúìwọ̀n</value></data>
+  <data name="Workshop_SearchPlaceholder" xml:space="preserve"><value>Wá àwọn eré</value></data>
+  <data name="Workshop_GamesCount_Format" xml:space="preserve"><value>Eré {0}</value></data>
+  <data name="Workshop_NoGamesFound" xml:space="preserve"><value>A kò rí eré kankan ní ilé ìtajà Steam.</value></data>
+  <data name="Workshop_SearchingSteam" xml:space="preserve"><value>Ń wá lórí Steam…</value></data>
+  <data name="Workshop_Sort_Rating" xml:space="preserve"><value>Ìdíyelé</value></data>
+  <data name="Workshop_Sort_Newest" xml:space="preserve"><value>Tuntun jùlọ</value></data>
+  <data name="Workshop_Sort_Votes" xml:space="preserve"><value>Ìbò tó pọ̀ jùlọ</value></data>
+  <data name="Workshop_Found_Format" xml:space="preserve"><value>A rí {0}</value></data>
+  <data name="Workshop_ShowingOf_Format" xml:space="preserve"><value>Ń fi {0} hàn nínú {1}</value></data>
+  <data name="Workshop_BackToSearch" xml:space="preserve"><value>Wá àwọn eré</value></data>
+  <data name="Workshop_TimeToday" xml:space="preserve"><value>òní</value></data>
+  <data name="Workshop_TimeDays_Format" xml:space="preserve"><value>ọjọ́ {0} sẹ́yìn</value></data>
+  <data name="Workshop_TimeMonths_Format" xml:space="preserve"><value>oṣù {0} sẹ́yìn</value></data>
+  <data name="Workshop_TimeYears_Format" xml:space="preserve"><value>ọdún {0} sẹ́yìn</value></data>
+  <data name="Workshop_Votes_Format" xml:space="preserve"><value>Ìbò {0}</value></data>
+  <data name="Workshop_TagAll" xml:space="preserve"><value>Gbogbo</value></data>
+  <data name="Workshop_ErrorTitle" xml:space="preserve"><value>A kò lè dé Steam</value></data>
+  <data name="Workshop_ErrorBody" xml:space="preserve"><value>A kò lè dé Steam. Ṣàyẹ̀wò àsopọ̀ íntánẹ́ẹ̀tì rẹ. Àwọn profaili tí o ti gbé wọlé ṣì ń ṣiṣẹ́: wọ́n wà lórí PC yìí.</value></data>
+  <data name="Workshop_Retry" xml:space="preserve"><value>Gbìyànjú lẹ́ẹ̀kan sí i</value></data>
+  <data name="Workshop_LegacyOpenButton" xml:space="preserve"><value>Ṣí nínú Steam Workshop</value></data>
+  <data name="Workshop_SaveProfile" xml:space="preserve"><value>Fi profaili pamọ́</value></data>
+  <data name="Workshop_SaveAndApply" xml:space="preserve"><value>Fi pamọ́ kí o sì lò ó</value></data>
+  <data name="Workshop_Tr_RowEmitted" xml:space="preserve"><value>a ti túmọ̀ rẹ̀</value></data>
+  <data name="Workshop_Tr_MacroEmitted" xml:space="preserve"><value>a túmọ̀ rẹ̀ sí macro</value></data>
+  <data name="Workshop_Tr_ShiftLayerEmitted" xml:space="preserve"><value>ìpele: {0}</value></data>
+  <data name="Workshop_Tr_UnknownKey" xml:space="preserve"><value>kọ́kọ́rọ́ {0} tí a kò mọ̀</value></data>
+  <data name="Workshop_Tr_UnknownMouseButton" xml:space="preserve"><value>bọ́tìnnì máòsì {0} tí a kò mọ̀</value></data>
+  <data name="Workshop_Tr_UnknownXInputButton" xml:space="preserve"><value>bọ́tìnnì XInput {0} tí a kò mọ̀</value></data>
+  <data name="Workshop_Tr_UnknownActivatorType" xml:space="preserve"><value>olùmúṣiṣẹ́ {0} tí a kò mọ̀</value></data>
+  <data name="Status_WorkshopNoImportedProfiles" xml:space="preserve"><value>A kò tíì gbé profaili kankan wọlé láti Steam Workshop</value></data>
+  <data name="Status_WorkshopCheckingUpdates" xml:space="preserve"><value>Ń ṣàyẹ̀wò Steam Workshop fún ìmúdójúìwọ̀n…</value></data>
+  <data name="Workshop_UpdatesTitle" xml:space="preserve"><value>Ìmúdójúìwọ̀n Workshop</value></data>
+  <data name="Workshop_UpdateRow_Format" xml:space="preserve"><value>{0} · {1}</value></data>
+  <data name="Macro_HoldForMs" xml:space="preserve"><value>Ní títẹ̀ pẹ́</value></data>
+  <data name="Macro_ShortPress" xml:space="preserve"><value>Ní títẹ̀ kúkúrú</value></data>
+  <data name="Macro_DoublePress" xml:space="preserve"><value>Ní títẹ̀ lẹ́ẹ̀mejì</value></data>
+  <data name="Macro_SinglePress" xml:space="preserve"><value>Ní títẹ̀ lẹ́ẹ̀kan</value></data>
+  <data name="Macro_TriplePress" xml:space="preserve"><value>Ní títẹ̀ lẹ́ẹ̀mẹ́ta</value></data>
+  <data name="Macro_Toggle" xml:space="preserve"><value>Yí padà</value></data>
+  <data name="Macro_Turbo" xml:space="preserve"><value>Turbo</value></data>
+  <data name="Macro_TriggerHoldMs_Label" xml:space="preserve"><value>Àkókò dídìmú</value></data>
+  <data name="MacroAction_RepeatVcButtonWhileHeld_Format" xml:space="preserve"><value>Tún {0} ṣe ní gbogbo {1} ms</value></data>
+  <data name="MacroAction_Type_ToggleVcButton" xml:space="preserve"><value>Yí bọ́tìnnì padà</value></data>
+  <data name="MacroAction_ToggleVcButton_Format" xml:space="preserve"><value>Yí {0} padà</value></data>
+  <data name="MacroAction_Type_ToggleKey" xml:space="preserve"><value>Yí kọ́kọ́rọ́ padà</value></data>
+  <data name="MacroAction_Type_AxisHold" xml:space="preserve"><value>Dì ákísì mú</value></data>
+  <data name="MacroAction_Type_ToggleMouseButton" xml:space="preserve"><value>Yí bọ́tìnnì máòsì padà</value></data>
+  <data name="MacroAction_Type_ToggleVcAxis" xml:space="preserve"><value>Yí ákísì padà</value></data>
+  <data name="MacroAction_AllAxes" xml:space="preserve"><value>Gbogbo ákísì</value></data>
+  <data name="Macro_CycleSteps_Label" xml:space="preserve"><value>Àwọn ìgbésẹ̀</value></data>
+  <data name="Mapping_AnyDevice" xml:space="preserve"><value>(Ẹ̀rọ èyíkéyìí)</value></data>
+  <data name="Pad_Menus" xml:space="preserve"><value>Àwọn àkójọ àṣàyàn</value></data>
+  <data name="Menu_NewNameFormat" xml:space="preserve"><value>Àkójọ àṣàyàn {0}</value></data>
+  <data name="Menu_Name" xml:space="preserve"><value>Orúkọ àkójọ àṣàyàn</value></data>
+  <data name="Menu_Enabled" xml:space="preserve"><value>Ti ṣiṣẹ́</value></data>
+  <data name="Menu_Host_LeftStick" xml:space="preserve"><value>Ọ̀pá òsì</value></data>
+  <data name="Menu_Host_RightStick" xml:space="preserve"><value>Ọ̀pá ọ̀tún</value></data>
+  <data name="Menu_Host_Touchpad_Format" xml:space="preserve"><value>Touchpad {0}</value></data>
+  <data name="Menu_HostHalf" xml:space="preserve"><value>Ìdajì touchpad</value></data>
+  <data name="Menu_Half_Whole" xml:space="preserve"><value>Gbogbo touchpad</value></data>
+  <data name="Menu_Half_Left" xml:space="preserve"><value>Ìdajì òsì</value></data>
+  <data name="Menu_Half_Right" xml:space="preserve"><value>Ìdajì ọ̀tún</value></data>
+  <data name="Menu_ShowLabels" xml:space="preserve"><value>Fi àwọn àkọlé hàn</value></data>
+  <data name="Menu_Position" xml:space="preserve"><value>Ipò lórí ìbòjú</value></data>
+  <data name="Menu_Scale" xml:space="preserve"><value>Ìtóbi</value></data>
+  <data name="Menu_CellCenter" xml:space="preserve"><value>Àárín</value></data>
+  <data name="Menu_Binding_None" xml:space="preserve"><value>Kò sí</value></data>
+  <data name="Menu_Binding_Key" xml:space="preserve"><value>Kọ́kọ́rọ́ pátákó ìtẹ̀wé</value></data>
+  <data name="Menu_Binding_Button" xml:space="preserve"><value>Bọ́tìnnì ẹ̀rọ ìdarí</value></data>
+  <data name="Menu_ShowOnWebController" xml:space="preserve"><value>Fi hàn lórí ẹ̀rọ ìdarí wẹ́ẹ̀bù</value></data>
+  <data name="Menu_NotRecorded" xml:space="preserve"><value>(kò tíì ṣètò)</value></data>
+  <data name="Menu_Binding_RowBound" xml:space="preserve"><value>Ìsopọ̀ tàbí macro kan ń lò ó</value></data>
+  <data name="Pad_Tab_Output" xml:space="preserve"><value>Ìjáde</value></data>
+  <data name="Pad_RumbleAudio_Card_Header" xml:space="preserve"><value>Ìmìtìtì sí ohùn</value></data>
+  <data name="Pad_RumbleAudio_ResetCard_Tooltip" xml:space="preserve"><value>Tún ìmìtìtì sí ohùn tò</value></data>
+  <data name="Pad_RumbleAudio_Enable" xml:space="preserve"><value>Darí ìmìtìtì sí ìjáde ohùn</value></data>
+  <data name="Pad_RumbleAudio_OutputDevice" xml:space="preserve"><value>Ẹ̀rọ ìjáde</value></data>
+  <data name="Pad_RumbleAudio_ResetOutputDevice" xml:space="preserve"><value>Tún ẹ̀rọ ìjáde tò</value></data>
+  <data name="Pad_RumbleAudio_Status_Inactive" xml:space="preserve"><value>Ìjáde ohùn kò ṣiṣẹ́.</value></data>
+  <data name="Pad_RumbleAudio_Status_Missing" xml:space="preserve"><value>Ẹ̀rọ ìjáde tí a yàn kò sí. Ohùn yóò wà ní pípa títí yóò fi padà dé.</value></data>
+  <data name="Pad_RumbleAudio_Voice_TriggerLeft" xml:space="preserve"><value>Tírígà òsì</value></data>
+  <data name="Pad_RumbleAudio_Voice_TriggerRight" xml:space="preserve"><value>Tírígà ọ̀tún</value></data>
+  <data name="Pad_RumbleAudio_Test" xml:space="preserve"><value>Ìdánwò</value></data>
+  <data name="Pad_RumbleAudio_ResetVoiceTriggerLeft" xml:space="preserve"><value>Tún tírígà òsì tò</value></data>
+  <data name="Pad_RumbleAudio_ResetVoiceTriggerRight" xml:space="preserve"><value>Tún tírígà ọ̀tún tò</value></data>
+  <data name="Pad_RumbleAudio_StopTest" xml:space="preserve"><value>Dúró</value></data>
+  <data name="Settings_GyroCalibrateFailed" xml:space="preserve"><value>A kò lè ṣe ìwọ̀ntúnwọ̀nsì. Gbé ẹ̀rọ ìdarí sílẹ̀ kí o sì gbìyànjú lẹ́ẹ̀kan sí i.</value></data>
+  <data name="Common_KeepLegacyDrivers" xml:space="preserve"><value>Pa mọ́</value></data>
+  <data name="LegacyCleanup_Title" xml:space="preserve"><value>Ìfọ̀mọ́ awakọ̀ àtijọ́</value></data>
+  <data name="LegacyCleanup_Failed_Format" xml:space="preserve"><value>Ìṣòro kan ṣẹlẹ̀ nígbà ìfọ̀mọ́: {0}</value></data>
+  <data name="Tray_Exit" xml:space="preserve"><value>Jáde</value></data>
+  <data name="About_Libinput" xml:space="preserve">
+    <value>libinput</value>
+  </data>
+  <data name="About_HandheldCompanion" xml:space="preserve">
+    <value>Handheld Companion</value>
+  </data>
+  <data name="About_GamepadAssetPack" xml:space="preserve">
+    <value>Gamepad-Asset-Pack</value>
+  </data>
+  <data name="About_Ds4Mac" xml:space="preserve">
+    <value>ds4mac</value>
+  </data>
+  <data name="Starter_Wasd_Name" xml:space="preserve"><value>WASD àti máòsì</value></data>
+  <data name="Starter_Fighting_Name" xml:space="preserve"><value>Àwọn eré ìjà</value></data>
+  <data name="Starter_OutputKeyboardMouse" xml:space="preserve"><value>Pátákó ìtẹ̀wé + máòsì</value></data>
+  <data name="Starter_OutputGamepad" xml:space="preserve"><value>Ẹ̀rọ ìdarí</value></data>
+  <data name="Profiles_BrowseStarters" xml:space="preserve"><value>Wo àwọn profaili ìbẹ̀rẹ̀</value></data>
+  <data name="Starter_DialogTitle" xml:space="preserve"><value>Àwọn profaili ìbẹ̀rẹ̀</value></data>
+  <data name="Starter_Intro" xml:space="preserve"><value>Àwọn profaili tí a ti pèsè sílẹ̀ fún gbogbo irú eré kan. Yan ọ̀kan, yan ẹ̀rọ ìdarí èyíkéyìí, kí o sì ṣeré. Fífi pamọ́ yóò ṣàfikún profaili lásán tí o lè ṣàtúnṣe.</value></data>
+  <data name="Starter_Save" xml:space="preserve"><value>Fi profaili pamọ́</value></data>
+  <data name="Status_StarterImported_Format" xml:space="preserve"><value>A ti ṣàfikún profaili ìbẹ̀rẹ̀ "{0}".</value></data>
+  <data name="Starter_TwinStick_Description" xml:space="preserve"><value>Àwọn eré ìbọn tí a ń wò láti òkè. Fi ọ̀pá òsì rìn, fi ọ̀pá ọ̀tún fojú sùn.</value></data>
+  <data name="Starter_Racing_Name" xml:space="preserve"><value>Eré-ìje</value></data>
+  <data name="Starter_Layer_Hotkeys" xml:space="preserve"><value>Àwọn hotkey</value></data>
+  <data name="Starter_Layer_Shortcuts" xml:space="preserve"><value>Àwọn ọ̀nà àbùjá</value></data>
+  <data name="Pad_Audio_Crossfeed_Off" xml:space="preserve"><value>Pa</value></data>
+  <data name="Pad_Audio_Crossfeed_Low" xml:space="preserve"><value>Kékeré</value></data>
+  <data name="Pad_Audio_Crossfeed_Middle" xml:space="preserve"><value>Àárín</value></data>
+  <data name="Pad_Audio_Crossfeed_High" xml:space="preserve"><value>Gíga</value></data>
+  <data name="Pad_Audio_Crossfeed_LowEasy" xml:space="preserve"><value>Kékeré (Rọrùn)</value></data>
+  <data name="Pad_Audio_Crossfeed_MiddleEasy" xml:space="preserve"><value>Àárín (Rọrùn)</value></data>
+  <data name="Pad_Audio_Crossfeed_HighEasy" xml:space="preserve"><value>Gíga (Rọrùn)</value></data>
+  <data name="Pad_Audio_Crossfeed_Custom" xml:space="preserve"><value>Àdáni</value></data>
+  <data name="Pad_Audio_EqCol_On" xml:space="preserve"><value>Tàn</value></data>
+  <data name="Pad_Audio_EqCol_Type" xml:space="preserve"><value>Irú</value></data>
+  <data name="Pad_Audio_EqCol_Q" xml:space="preserve"><value>Q</value></data>
+  <data name="Pad_Audio_EqClear" xml:space="preserve"><value>Pa rẹ́</value></data>
+  <data name="Pad_Audio_EqImportFile" xml:space="preserve"><value>Mú wọlé láti fáìlì</value></data>
+  <data name="Pad_Audio_EqImport_Empty" xml:space="preserve"><value>Kò sí nǹkan láti mú wọlé. EQ lọ́wọ́lọ́wọ́ kò yí padà.</value></data>
+  <data name="Pad_Audio_EqImport_ReadFailed_Format" xml:space="preserve"><value>A kò lè ka fáìlì yẹn: {0}</value></data>
+  <data name="Pad_Audio_OutputPath_Auto" xml:space="preserve"><value>Àìyípadà</value></data>
+  <data name="Pad_Audio_OutputPath_SpeakerOnly" xml:space="preserve"><value>Agbóhùnsáfẹ́fẹ́ nìkan</value></data>
+  <data name="About_DuaLib" xml:space="preserve"><value>duaLib</value></data>
+  <data name="About_Ds5Bridge" xml:space="preserve"><value>DS5_Bridge</value></data>
+  <data name="About_QrCodeGen" xml:space="preserve"><value>QR-Code-generator</value></data>
+  <data name="About_MouseArt" xml:space="preserve"><value>Zergatul.Obs.InputOverlay</value></data>
+  <data name="RemoteLink_StatusConnectingCode" xml:space="preserve"><value>Ń sopọ̀ nípasẹ̀ kóòdù…</value></data>
+  <data name="Dashboard_RemoteLinkMyCode" xml:space="preserve"><value>Kóòdù PC yìí</value></data>
+  <data name="Battery_LowTitle" xml:space="preserve"><value>Bátìrì ẹ̀rọ ìdarí ti lọ sílẹ̀</value></data>
+  <data name="Battery_LowText_Format" xml:space="preserve"><value>{0}: {1}% bátìrì ló kù</value></data>
+  <data name="Settings_BatteryNotify" xml:space="preserve"><value>Ìkìlọ̀ bátìrì</value></data>
+  <data name="Settings_BatteryNotifyDesc" xml:space="preserve"><value>Gba ìfitónilétí nígbà tí bátìrì ẹ̀rọ ìdarí bá ń lọ sílẹ̀, kí ó tó kú láàárín eré.</value></data>
+  <data name="Settings_BatteryNotifyEnable" xml:space="preserve"><value>Sọ fún mi nígbà tí bátìrì bá ń lọ sílẹ̀</value></data>
+  <data name="Settings_BatteryNotifyTest" xml:space="preserve"><value>Dán ìfitónilétí wò</value></data>
+  <data name="Pad_AssignOffer_Format" xml:space="preserve"><value>{0} ṣẹ̀ṣẹ̀ sopọ̀. Yàn án sí ẹ̀rọ ìdarí àfarawé yìí?</value></data>
+  <data name="Pad_AssignOffer_Assign" xml:space="preserve"><value>Yàn</value></data>
+  <data name="Pad_AssignOffer_Dismiss" xml:space="preserve"><value>Kì í ṣe báyìí</value></data>
+  <data name="Voice_AnyPhrase" xml:space="preserve"><value>Gbólóhùn èyíkéyìí</value></data>
+  <data name="Voice_Title" xml:space="preserve"><value>Àwọn macro ohùn</value></data>
+  <data name="Voice_ManageButton" xml:space="preserve"><value>Ṣàkóso àwọn macro ohùn</value></data>
+  <data name="Voice_EnableLabel" xml:space="preserve"><value>Mú àwọn macro ohùn ṣiṣẹ́</value></data>
+  <data name="Voice_ModeLabel" xml:space="preserve"><value>Gbígbọ́</value></data>
+  <data name="Voice_ModeAlways" xml:space="preserve"><value>Nígbà gbogbo</value></data>
+  <data name="Voice_PhraseLabel" xml:space="preserve"><value>Gbólóhùn</value></data>
+  <data name="Voice_NameLabel" xml:space="preserve"><value>Orúkọ</value></data>
+  <data name="Voice_RegisterButton" xml:space="preserve"><value>Forúkọsílẹ̀</value></data>
+  <data name="Voice_RegisteredHeader" xml:space="preserve"><value>Àwọn gbólóhùn tí a forúkọ sílẹ̀</value></data>
+  <data name="DeviceType_Microphone" xml:space="preserve"><value>Gbohùngbohùn</value></data>
+  <data name="Menu_Macro_Missing_Format" xml:space="preserve"><value>{0} (kò sí macro bẹ́ẹ̀)</value></data>
+  <data name="About_Interhaptics" xml:space="preserve">
+    <value>Interhaptics (Wyvrn)</value>
+  </data>
+  <data name="About_ValveCad" xml:space="preserve">
+    <value>Valve Steam Controller CAD</value>
+  </data>
+  <data name="About_Colore" xml:space="preserve">
+    <value>Colore</value>
+  </data>
+  <data name="About_LogitechLedRefs" xml:space="preserve">
+    <value>Àwọn ìtọ́kasí Logitech LED SDK</value>
+  </data>
+  <data name="About_Opentrack" xml:space="preserve">
+    <value>opentrack</value>
+  </data>
+  <data name="About_LegionToolkit" xml:space="preserve">
+    <value>Lenovo Legion Toolkit</value>
+  </data>
+  <data name="About_InputPlumber" xml:space="preserve">
+    <value>InputPlumber</value>
+  </data>
+  <data name="About_Linuxmotehook" xml:space="preserve">
+    <value>linuxmotehook àti WiimoteHook</value>
+  </data>
+  <data name="About_OpenXrRefs" xml:space="preserve"><value>Àwọn ìtọ́kasí OpenXR</value></data>
+  <data name="About_PortMidiRtMidi" xml:space="preserve"><value>PortMidi / RtMidi</value></data>
+  <data name="About_LogitechGKeyRefs" xml:space="preserve"><value>Àwọn ìtọ́kasí Logitech G-key SDK</value></data>
+  <data name="About_AnalogKeyboardRefs" xml:space="preserve"><value>HallJoy, Soup àti AnalogSense</value></data>
+  <data name="About_BlissBoxRefs" xml:space="preserve"><value>Àwọn ìtọ́kasí Bliss-Box</value></data>
+  <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
+  <data name="Pad_Kbm_Surfaces_MouseOnly_Name" xml:space="preserve">
+    <value>Máòsì nìkan</value>
+  </data>
+  <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
+    <value>Pátákó ìtẹ̀wé nìkan</value>
+  </data>
+  <data name="Pad_Mapping_Scope_All" xml:space="preserve">
+    <value>Gbogbo</value>
+  </data>
+  <data name="Pad_Mapping_Scope_Keyboard" xml:space="preserve">
+    <value>Pátákó ìtẹ̀wé</value>
+  </data>
+  <data name="Pad_Mapping_Scope_Mouse" xml:space="preserve">
+    <value>Máòsì</value>
+  </data>
+  <data name="Menu_Layer" xml:space="preserve"><value>Ìpele</value></data>
+  <data name="Menu_Layer_Missing_Format" xml:space="preserve"><value>{0} (kò sí lórí àyè yìí)</value></data>
+  <data name="Menu_IconScale" xml:space="preserve"><value>Ìwọ̀n àmì</value></data>
+  <data name="RemoteLink_AssignmentProfile_Format" xml:space="preserve">
+    <value>Profaili: {0}</value>
+  </data>
+  <data name="RemoteLink_AssignmentNoSlots" xml:space="preserve">
+    <value>Ṣẹ̀dá ẹ̀rọ ìdarí àfarawé kan lórí PC kejì, lẹ́yìn náà sọ ọ́ dọ̀tun.</value>
+  </data>
+  <data name="RemoteLink_AssignmentBusy" xml:space="preserve">
+    <value>Ń dúró de PC kejì...</value>
+  </data>
+  <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Ọ̀pá òsì X</value></data>
+  <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Ọ̀pá òsì Y</value></data>
+  <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Ọ̀pá ọ̀tún X</value></data>
+  <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Ọ̀pá ọ̀tún Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Deadzone àárín</value></data>
+  <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Tún tò sí Ọ̀pá òsì X</value></data>
+  <data name="Pad_SteeringAngleRumble_ResetStrength" xml:space="preserve"><value>Tún agbára tò (50%)</value></data>
+  <data name="Pad_SteeringAngleRumble_ResetDeadzone" xml:space="preserve"><value>Tún deadzone àárín tò (2%)</value></data>
+  <data name="ResetLabel_Profile" xml:space="preserve"><value>Profaili</value></data>
+  <data name="ResetLabel_PositionX" xml:space="preserve"><value>Ipò lórí ojú ìbòjú X</value></data>
+  <data name="ResetLabel_PositionY" xml:space="preserve"><value>Ipò lórí ojú ìbòjú Y</value></data>
+  <data name="Status_RemovingLegacyDrivers" xml:space="preserve"><value>Ń yọ àwọn awakọ̀ àtijọ́ kúrò…</value></data>
+  <data name="About_Nefcon" xml:space="preserve"><value>nefcon</value></data>
+  <data name="About_Kaldi" xml:space="preserve"><value>Kaldi, OpenFst, OpenBLAS àti CLAPACK</value></data>
+  <data name="About_AntiMicroX" xml:space="preserve"><value>AntiMicroX</value></data>
+  <data name="About_AudioEndPointLibrary" xml:space="preserve"><value>AudioEndPointLibrary</value></data>
+  <data name="About_AutoEq" xml:space="preserve"><value>AutoEq</value></data>
+  <data name="About_AutoHotkey" xml:space="preserve"><value>AutoHotkey</value></data>
+  <data name="About_CemuhookProtocol" xml:space="preserve"><value>cemuhook-protocol</value></data>
+  <data name="About_Ds4Drv" xml:space="preserve"><value>ds4drv</value></data>
+  <data name="About_Ds4MapperTest" xml:space="preserve"><value>DS4MapperTest</value></data>
+  <data name="About_Ds5Dongle" xml:space="preserve"><value>DS5Dongle</value></data>
+  <data name="About_DualSenseSupport" xml:space="preserve"><value>DualSenseSupport</value></data>
+  <data name="About_Eden" xml:space="preserve"><value>Eden</value></data>
+  <data name="About_EdRefCard2" xml:space="preserve"><value>EDRefCard2</value></data>
+  <data name="About_FFmpeg" xml:space="preserve"><value>FFmpeg</value></data>
+  <data name="About_Fusion" xml:space="preserve"><value>Fusion</value></data>
+  <data name="About_GamepadBatteryMonitor" xml:space="preserve"><value>Gamepad Battery Monitor</value></data>
+  <data name="About_Hado" xml:space="preserve"><value>hado</value></data>
+  <data name="About_3doverstock" xml:space="preserve"><value>3doverstock</value></data>
+  <data name="About_Hidapi" xml:space="preserve"><value>HIDAPI</value></data>
+  <data name="About_IconSources" xml:space="preserve"><value>Orísun àwọn àmì</value></data>
+  <data name="About_IrohFlexInput" xml:space="preserve"><value>iroh / FlexInput</value></data>
+  <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
+  <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
+  <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>
+  <data name="About_SwitchResearch" xml:space="preserve"><value>Nintendo_Switch_Reverse_Engineering</value></data>
+  <data name="About_OpenRgb" xml:space="preserve"><value>OpenRGB</value></data>
+  <data name="About_OpenTabletDriver" xml:space="preserve"><value>OpenTabletDriver</value></data>
+  <data name="About_PcscSharp" xml:space="preserve"><value>pcsc-sharp</value></data>
+  <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
+  <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
+  <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
+  <data name="About_SpaceMouseRefs" xml:space="preserve"><value>Àwọn ìtọ́kasí SpaceMouse</value></data>
+  <data name="About_SpecialK" xml:space="preserve"><value>Special K</value></data>
+  <data name="About_ThumbstickDeadzones" xml:space="preserve"><value>Thumbstick Deadzones</value></data>
+  <data name="About_Touchmote" xml:space="preserve"><value>Touchmote</value></data>
+  <data name="About_TriggerEffectGenerator" xml:space="preserve"><value>TriggerEffectGenerator</value></data>
+  <data name="About_ViGEmClient" xml:space="preserve"><value>ViGEmClient</value></data>
+  <data name="About_GunConRefs" xml:space="preserve"><value>Àwọn ìtọ́kasí GunCon</value></data>
+  <data name="About_HidDeviceRefs" xml:space="preserve"><value>Àwọn ìtọ́kasí ẹ̀rọ HID</value></data>
+  <data name="About_IForceRefs" xml:space="preserve"><value>Àwọn ìtọ́kasí I-Force</value></data>
+  <data name="About_XboxControllerRefs" xml:space="preserve"><value>Àwọn ìtọ́kasí ẹ̀rọ ìdarí Xbox</value></data>
+  <data name="About_Libwdi" xml:space="preserve"><value>libwdi</value></data>
+  <data name="About_Bluepad32" xml:space="preserve"><value>Bluepad32</value></data>
+  <data name="About_Monado" xml:space="preserve"><value>Monado</value></data>
+  <data name="About_OpenHmd" xml:space="preserve"><value>OpenHMD</value></data>
+  <data name="About_WiiBrew" xml:space="preserve"><value>WiiBrew</value></data>
+  <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
+  <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
+</root>

@@ -6,6 +6,8 @@ am	Amharic	አማርኛ	ltr	Ethi	partial
 ar	Arabic	العربية	rtl	Arab	partial
 be	Belarusian	Беларуская	ltr	Cyrl	full
 bg	Bulgarian	Български	ltr	Cyrl	full
+bi	Bislama	Bislama	ltr	Latn	partial
+bik	Bikol	Bikol	ltr	Latn	partial
 bn	Bengali	বাংলা	ltr	Beng	full
 ca	Catalan	Català	ltr	Latn	partial
 chk	Chuukese	Fosun Chuuk	ltr	Latn	partial
@@ -26,9 +28,11 @@ fr	French	Français	ltr	Latn	full
 gu	Gujarati	ગુજરાતી	ltr	Gujr	partial
 hi	Hindi	हिन्दी	ltr	Deva	full
 hr	Croatian	Hrvatski	ltr	Latn	partial
+ht	Haitian Creole	Kreyòl ayisyen	ltr	Latn	partial
 hu	Hungarian	Magyar	ltr	Latn	full
 hy	Armenian	Հայերեն	ltr	Armn	partial
 id	Indonesian	Bahasa Indonesia	ltr	Latn	full
+ig	Igbo	Igbo	ltr	Latn	partial
 is	Icelandic	Íslenska	ltr	Latn	full
 it	Italian	Italiano	ltr	Latn	full
 ja	Japanese	日本語	ltr	Jpan	full
@@ -70,6 +74,9 @@ tr	Turkish	Türkçe	ltr	Latn	full
 uk	Ukrainian	Українська	ltr	Cyrl	full
 ur	Urdu	اردو	rtl	Arab	full
 vi	Vietnamese	Tiếng Việt	ltr	Latn	full
+xh	Xhosa	IsiXhosa	ltr	Latn	partial
+yo	Yoruba	Èdè Yorùbá	ltr	Latn	partial
 zh-Hans	Chinese (Simplified)	中文（简体）	ltr	Hans	full
 zh-Hant	Chinese (Traditional)	中文（繁體）	ltr	Hant	full
 zh-HK	Cantonese (Traditional)	廣東話（繁體）	ltr	Hant	full
+zu	Zulu	IsiZulu	ltr	Latn	partial
