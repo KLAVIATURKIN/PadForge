@@ -550,7 +550,12 @@
                         <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="KbmSurfaces" Visibility="{Binding Visibility, ElementName=KbmSurfacesCombo}" SettingLabel="{Binding ResetLabel_InputSurfaces, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_PadViewModel_KbmSurfaces_531"/>
                     </StackPanel>
                 </Border>
-<StackPanel Orientation="Horizontal">
+                <!-- The tab group wraps too, as the device tier's tabs do.
+                     Measured with tools/rowmeasure, the six tabs need 837 in
+                     Tamil against the 648 a line holds at the 900 window
+                     minimum with the navigation pane open, so even on a line
+                     of their own the last tabs ran past the edge. -->
+                <WrapPanel Orientation="Horizontal">
                 <!-- The active-profile pill lives in the status bar ONLY.
                      A copy sat here (#175 item 8) until a user read it as a
                      per-pad profile selector (2026-07-05). Profiles are
@@ -619,7 +624,7 @@
                              Visibility="{Binding OutputTabVisible, Converter={StaticResource BoolToVisibilityConverter}}">
                     <TextBlock Text="{Binding Pad_Tab_Output, Source={x:Static strings:Strings.Instance}}" FontSize="15"/>
                 </RadioButton>
-                </StackPanel>
+                </WrapPanel>
 
             </WrapPanel>
             </Border>

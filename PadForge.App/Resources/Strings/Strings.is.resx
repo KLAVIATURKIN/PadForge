@@ -3760,8 +3760,8 @@ Viltu að PadForge fjarlægi þá núna? Þetta krefst stjórnandaréttinda og g
   <data name="Pad_Audio_EqType_Peaking" xml:space="preserve"><value>Toppur</value></data>
   <data name="Pad_Audio_EqType_LowShelf" xml:space="preserve"><value>Lághilla</value></data>
   <data name="Pad_Audio_EqType_HighShelf" xml:space="preserve"><value>Háhilla</value></data>
-  <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>Hápassasía</value></data>
-  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>Lágpassasía</value></data>
+  <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>HPF</value></data>
+  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>LPF</value></data>
   <data name="Pad_Audio_EqType_Notch" xml:space="preserve"><value>Hakasía</value></data>
   <data name="Pad_Audio_EqCol_Freq" xml:space="preserve"><value>Tíðni (Hz)</value></data>
   <data name="Pad_Audio_EqCol_Gain" xml:space="preserve"><value>Mögnun (dB)</value></data>

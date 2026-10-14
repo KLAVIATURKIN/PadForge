@@ -3757,10 +3757,10 @@ Adakah anda mahu PadForge menyahpasangnya sekarang? Ini memerlukan peninggian ke
   <data name="Pad_Audio_EqCol_On" xml:space="preserve"><value>Hidup</value></data>
   <data name="Pad_Audio_EqCol_Type" xml:space="preserve"><value>Jenis</value></data>
   <data name="Pad_Audio_EqType_Peaking" xml:space="preserve"><value>Puncak</value></data>
-  <data name="Pad_Audio_EqType_LowShelf" xml:space="preserve"><value>Rak Rendah</value></data>
-  <data name="Pad_Audio_EqType_HighShelf" xml:space="preserve"><value>Rak Tinggi</value></data>
-  <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>Laluan Tinggi</value></data>
-  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>Laluan Rendah</value></data>
+  <data name="Pad_Audio_EqType_LowShelf" xml:space="preserve"><value>LS</value></data>
+  <data name="Pad_Audio_EqType_HighShelf" xml:space="preserve"><value>HS</value></data>
+  <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>HP</value></data>
+  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>LP</value></data>
   <data name="Pad_Audio_EqType_Notch" xml:space="preserve"><value>Takuk</value></data>
   <data name="Pad_Audio_EqCol_Freq" xml:space="preserve"><value>Frek (Hz)</value></data>
   <data name="Pad_Audio_EqCol_Gain" xml:space="preserve"><value>Gandaan (dB)</value></data>

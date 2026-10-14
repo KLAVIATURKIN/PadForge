@@ -3758,10 +3758,10 @@ Ali želite, da jih PadForge zdaj odstrani? To zahteva skrbniške pravice in lah
   <data name="Pad_Audio_EqCol_On" xml:space="preserve"><value>Vklopljeno</value></data>
   <data name="Pad_Audio_EqCol_Type" xml:space="preserve"><value>Vrsta</value></data>
   <data name="Pad_Audio_EqType_Peaking" xml:space="preserve"><value>Vrh</value></data>
-  <data name="Pad_Audio_EqType_LowShelf" xml:space="preserve"><value>Nizka polica</value></data>
-  <data name="Pad_Audio_EqType_HighShelf" xml:space="preserve"><value>Visoka polica</value></data>
-  <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>Visokoprepustni</value></data>
-  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>Nizkoprepustni</value></data>
+  <data name="Pad_Audio_EqType_LowShelf" xml:space="preserve"><value>LS</value></data>
+  <data name="Pad_Audio_EqType_HighShelf" xml:space="preserve"><value>HS</value></data>
+  <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>HP</value></data>
+  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>LP</value></data>
   <data name="Pad_Audio_EqType_Notch" xml:space="preserve"><value>Zaporni</value></data>
   <data name="Pad_Audio_EqCol_Freq" xml:space="preserve"><value>Frek. (Hz)</value></data>
   <data name="Pad_Audio_EqCol_Gain" xml:space="preserve"><value>Ojačitev (dB)</value></data>

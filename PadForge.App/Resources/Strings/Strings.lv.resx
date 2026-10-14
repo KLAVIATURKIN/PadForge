@@ -3758,11 +3758,11 @@ Vai vēlaties, lai PadForge tos tagad atinstalē? Tam nepieciešamas paaugstinā
   <data name="Pad_Audio_EqCol_On" xml:space="preserve"><value>Iesl.</value></data>
   <data name="Pad_Audio_EqCol_Type" xml:space="preserve"><value>Tips</value></data>
   <data name="Pad_Audio_EqType_Peaking" xml:space="preserve"><value>Pīķa filtrs</value></data>
-  <data name="Pad_Audio_EqType_LowShelf" xml:space="preserve"><value>Zemo frekvenču plaukts</value></data>
-  <data name="Pad_Audio_EqType_HighShelf" xml:space="preserve"><value>Augsto frekvenču plaukts</value></data>
-  <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>Augstfrekvenču filtrs</value></data>
-  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>Zemfrekvenču filtrs</value></data>
-  <data name="Pad_Audio_EqType_Notch" xml:space="preserve"><value>Iegriezuma filtrs</value></data>
+  <data name="Pad_Audio_EqType_LowShelf" xml:space="preserve"><value>Lo Shelf</value></data>
+  <data name="Pad_Audio_EqType_HighShelf" xml:space="preserve"><value>Hi Shelf</value></data>
+  <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>Hi Pass</value></data>
+  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>Lo Pass</value></data>
+  <data name="Pad_Audio_EqType_Notch" xml:space="preserve"><value>Notch</value></data>
   <data name="Pad_Audio_EqCol_Freq" xml:space="preserve"><value>Frekv. (Hz)</value></data>
   <data name="Pad_Audio_EqCol_Gain" xml:space="preserve"><value>Pastipr. (dB)</value></data>
   <data name="Pad_Audio_EqCol_Q" xml:space="preserve"><value>Q</value></data>

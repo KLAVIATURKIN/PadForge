@@ -3751,10 +3751,6 @@ PadForge က ၎င်းတို့ကို ယခုပင် ဖြုတ�
   <data name="Pad_Audio_EqCol_On" xml:space="preserve"><value>ဖွင့်</value></data>
   <data name="Pad_Audio_EqCol_Type" xml:space="preserve"><value>အမျိုးအစား</value></data>
   <data name="Pad_Audio_EqType_Peaking" xml:space="preserve"><value>ထိပ်</value></data>
-  <data name="Pad_Audio_EqType_LowShelf" xml:space="preserve"><value>နိမ့်ကြိမ်နှုန်း စင်</value></data>
-  <data name="Pad_Audio_EqType_HighShelf" xml:space="preserve"><value>မြင့်ကြိမ်နှုန်း စင်</value></data>
-  <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>မြင့်ကြိမ်နှုန်း ဖြတ်သန်း</value></data>
-  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>နိမ့်ကြိမ်နှုန်း ဖြတ်သန်း</value></data>
   <data name="Pad_Audio_EqType_Notch" xml:space="preserve"><value>နော့ချ်</value></data>
   <data name="Pad_Audio_EqCol_Freq" xml:space="preserve"><value>ကြိမ်နှုန်း (Hz)</value></data>
   <data name="Pad_Audio_EqCol_Gain" xml:space="preserve"><value>ချဲ့အား (dB)</value></data>

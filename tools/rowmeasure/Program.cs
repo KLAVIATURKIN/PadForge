@@ -10,11 +10,12 @@ using IOPath = System.IO.Path;
 
 // Width measurement for the fixed-size rows the 2026-09-15 audit flagged as
 // possibly overflowing their containers. Renders the REAL controls with the
-// app's implicit styles and the app font inside an off-screen window, then
-// reads back ActualWidth after the render. The sibling harness under
-// tools/combomeasure does the same for the Indicator LEDs combos; this one
-// covers the Profiles shortcut row, the raw hat strip, the equalizer row and
-// the gesture recorder's hint, across every locale.
+// app's implicit styles and the app fonts inside an off-screen window, then
+// reads back each element's desired width, margin included, after the
+// render. The sibling harness under tools/combomeasure does the same for the
+// lighting pickers. This one covers the Profiles shortcut row, the raw hat
+// strip, the equalizer row and its headings, the gesture recorder's hint and
+// the pad page's first tier, in every language of Languages.tsv.
 //
 // No estimates. Every number printed is what the layout engine produced.
 
@@ -58,6 +59,9 @@ internal static class Program
 
     static Dictionary<string, Dictionary<string, string>> _strings;
     static FontFamily _bodyFont;
+
+    // TelemetryFontFamily in App.xaml.
+    static readonly FontFamily TelemetryFont = new("Cascadia Code, Consolas, Segoe UI");
 
     // The reset control is a fixed 28 by 28 with a 4 left margin (the shared
     // ember icon button style), so it costs 32 wherever it appears.
@@ -103,8 +107,12 @@ internal static class Program
         return cb;
     }
 
-    static TextBlock Text(string s, double size = 13)
-        => new TextBlock { Text = s, FontSize = size };
+    static TextBlock Text(string s, double size = 13, FontWeight? weight = null)
+        => new TextBlock { Text = s, FontSize = size, FontWeight = weight ?? FontWeights.Normal };
+
+    // The width a row pays for an element: its desired width, which carries
+    // its margin. ActualWidth leaves the margin out.
+    static double W(Probe p) => p.El.DesiredSize.Width;
 
     static void Add(string group, string locale, string note, FrameworkElement el, double declared)
     {
@@ -167,6 +175,14 @@ internal static class Program
     }
 
     // ── C226: the Profiles page shortcut row ────────────────────────────
+    //
+    // ProfilesPage.xaml: star columns of 3*, 2*, 3* and * with floors of 120,
+    // 120, 120 and 40, then the action cluster. The row sits in a card (16
+    // padding, 1 border) inside the page scroller's 24 side padding. A mode
+    // name wider than its picker is trimmed, with the full name on hover.
+    const double ProfilesRowAtMinimum = 900 - 244 - 2 * 24 - 2 * 17;
+    static Grid _profilesRow;
+
     static void BuildProfilesRow()
     {
         var modeKeys = new[]
@@ -175,29 +191,74 @@ internal static class Program
             "Profiles_ShortcutMode_Specific", "Profiles_ShortcutMode_ToggleWindow",
             "Profiles_ShortcutMode_ToggleVCsDisabled",
         };
+        // One picker per option. A closed picker is as wide as its selected
+        // item, not its widest.
         foreach (var (tag, _) in Locales)
         {
-            var items = modeKeys.Select(k => S(k, tag)).Where(v => v != null).ToList();
-            if (items.Count == 0) continue;
-            Add("profiles-mode", tag, "mode picker natural", Combo(items), 290);
+            foreach (string key in modeKeys)
+            {
+                string mode = S(key, tag);
+                if (mode != null) Add("profiles-mode", tag, key, Combo(new[] { mode }), 0);
+            }
         }
+
+        // The row itself at the 900 window minimum with the navigation pane
+        // open, so the star columns resolve as WPF resolves them.
+        _profilesRow = new Grid { Width = ProfilesRowAtMinimum };
+        foreach (var (star, floor, cap) in new[]
+                 { (3.0, 120.0, 328.0), (2.0, 120.0, 178.0), (3.0, 120.0, 328.0), (1.0, 40.0, double.PositiveInfinity) })
+        {
+            _profilesRow.ColumnDefinitions.Add(new ColumnDefinition
+            {
+                Width = new GridLength(star, GridUnitType.Star), MinWidth = floor, MaxWidth = cap,
+            });
+        }
+        _profilesRow.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+        var actions = new Border { Width = 3 * ResetCost };
+        Grid.SetColumn(actions, 4);
+        _profilesRow.Children.Add(actions);
+        Add("profiles-row", "en", "the row at the window minimum", _profilesRow, 0);
     }
 
     // ── C228: the raw hat strip in the 340-wide device detail pane ───────
+    //
+    // DevicesPage.xaml: a horizontal stack of cells, each a 36 compass, then
+    // the POV label and the hat's number in the telemetry font at 10 inside a
+    // 6 left margin, the cell inside a 12 right margin.
     static void BuildHatStrip()
     {
-        var cell = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 0, 12, 0) };
-        cell.Children.Add(new Canvas { Width = 36, Height = 36 });
-        cell.Children.Add(Text("POV 0", 10));
-        Add("hat-cell", "en", "one hat cell plus its right margin", cell, 0);
+        foreach (var (tag, _) in Locales)
+        {
+            string pov = S("Devices_POV", tag);
+            if (pov == null) continue;
+            var label = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(6, 0, 0, 0) };
+            label.Children.Add(new TextBlock { Text = pov, FontSize = 10, FontFamily = TelemetryFont });
+            label.Children.Add(new TextBlock { Text = "3", FontSize = 10, FontFamily = TelemetryFont });
+            var cell = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 0, 12, 0) };
+            cell.Children.Add(new Canvas { Width = 36, Height = 36 });
+            cell.Children.Add(label);
+            Add("hat-cell", tag, "one hat cell plus its right margin", cell, 0);
+        }
     }
 
     // ── C285: the equalizer row's fixed columns ──────────────────────────
+    //
+    // PadPage.xaml: columns of 78, 150, 108, 100 and 102, the same in the
+    // heading grid and in each band's row. A band's first column holds a
+    // checkbox and a reset, and each of the next four a control with a reset
+    // docked right inside a 6 right margin. The headings are 11 px text with
+    // no trimming, so a heading wider than its column is cut off.
+    static readonly (string Key, double Width)[] EqColumns =
+    {
+        ("Pad_Audio_EqCol_On", 78), ("Pad_Audio_EqCol_Type", 150), ("Pad_Audio_EqCol_Freq", 108),
+        ("Pad_Audio_EqCol_Gain", 100), ("Pad_Audio_EqCol_Q", 102),
+    };
+
     static void BuildEqRow()
     {
         var checkAndReset = new StackPanel { Orientation = Orientation.Horizontal };
         checkAndReset.Children.Add(new CheckBox());
-        Add("eq-col0", "en", "checkbox (a 32 reset sits beside it)", checkAndReset, 42);
+        Add("eq-col0", "en", "checkbox (a 32 reset sits beside it)", checkAndReset, 0);
 
         var typeKeys = new[]
         {
@@ -205,17 +266,32 @@ internal static class Program
             "Pad_Audio_EqType_HighShelf", "Pad_Audio_EqType_LowPass",
             "Pad_Audio_EqType_HighPass", "Pad_Audio_EqType_Notch",
         };
+        // One picker per option, so an option too wide for its column is
+        // named with its language, and its text alone, so the report can say
+        // how much shorter it has to be.
         foreach (var (tag, _) in Locales)
         {
-            var items = typeKeys.Select(k => S(k, tag)).Where(v => v != null).ToList();
-            if (items.Count == 0) continue;
-            Add("eq-col1", tag, "type picker natural", Combo(items), 150);
+            foreach (string key in typeKeys)
+            {
+                string type = S(key, tag);
+                if (type == null) continue;
+                Add("eq-col1", tag, key, Combo(new[] { type }), 0);
+                Add("eq-col1-text", tag, key, Text(type), 0);
+            }
         }
 
-        foreach (var (name, declared, sample) in new[]
-                 { ("eq-col2 frequency", 96.0, "20000"), ("eq-col3 gain", 88.0, "-24.0"), ("eq-col4 Q", 78.0, "0.707") })
-            Add(name, "en", "editor (a 32 reset docks right, 6 panel margin)",
-                new TextBox { Text = sample }, declared);
+        foreach (var (name, sample) in new[]
+                 { ("eq-col2 frequency", "20000"), ("eq-col3 gain", "-24.0"), ("eq-col4 Q", "0.707") })
+            Add(name, "en", "editor (a 32 reset docks right, 6 panel margin)", new TextBox { Text = sample }, 0);
+
+        foreach (var (tag, _) in Locales)
+        {
+            foreach (var (key, column) in EqColumns)
+            {
+                string heading = S(key, tag);
+                if (heading != null) Add("eq-head", tag, key, Text(heading, 11), column);
+            }
+        }
     }
 
     // ── C286: the recorder dialog's sample-count hint ────────────────────
@@ -232,10 +308,16 @@ internal static class Program
 
     // ── C275: the pad page's first-tier header ──────────────────────────
     //
-    // A DockPanel with LastChildFill false. The scope label, the identity chip
-    // and the preset chip are declared first, so they reserve their width
-    // first; the six tabs are docked right and take what is left. Each piece
-    // is measured with the real font and the real chrome.
+    // A WrapPanel. The scope label, the identity chip, the preset chip and
+    // the tab group each take the next place on the line and move to a new
+    // line when it runs out, and the tab group wraps its own tabs the same
+    // way. Each piece is measured with the real font and the real chrome.
+    static readonly string[] TabKeys =
+    {
+        "Pad_Tab_Preview", "Pad_Mappings", "Pad_Macros",
+        "Pad_Menus", "Pad_Tab_BassShakers", "Pad_Tab_Output",
+    };
+
     static void BuildPadHeader()
     {
         // Scope label: "SLOT" uppercased plus the number, telemetry font at
@@ -248,14 +330,14 @@ internal static class Program
             sp.Children.Add(new TextBlock
             {
                 Text = slot.ToUpperInvariant(),
-                FontFamily = new FontFamily("Consolas, Cascadia Mono, Segoe UI"),
+                FontFamily = TelemetryFont,
                 FontSize = 10,
                 FontWeight = FontWeights.SemiBold,
             });
             sp.Children.Add(new TextBlock
             {
                 Text = "16",
-                FontFamily = new FontFamily("Consolas, Cascadia Mono, Segoe UI"),
+                FontFamily = TelemetryFont,
                 FontSize = 10,
                 FontWeight = FontWeights.SemiBold,
                 Margin = new Thickness(3, 0, 0, 0),
@@ -299,131 +381,163 @@ internal static class Program
             }
         }
 
-        // Preset chip: the word Preset, then the profile combo, then a reset.
-        // The combo is capped at 380 and its content is the profile name.
+        // Preset chip: ChipGhost (9,3 padding, 1 border) in a 10,4,4,4
+        // margin, holding the word Preset in a 6 right margin, the profile
+        // combo at its 380 cap and a reset in a 4,0,8,0 margin.
         foreach (var (tag, _) in Locales)
         {
             string label = S("Pad_Preset", tag);
-            if (label != null) Add("hdr-preset-label", tag, "the word Preset", Text(label, 12.5), 0);
+            if (label == null) continue;
+            var word = Text(label, 12.5);
+            word.Margin = new Thickness(0, 0, 6, 0);
+            var inner = new StackPanel { Orientation = Orientation.Horizontal };
+            inner.Children.Add(word);
+            inner.Children.Add(new Border { Width = 380 });
+            inner.Children.Add(new Border { Width = 28, Margin = new Thickness(4, 0, 8, 0) });
+            Add("hdr-preset", tag, "preset chip at the combo's 380 cap", new Border
+            {
+                Margin = new Thickness(10, 4, 4, 4),
+                Padding = new Thickness(9, 3, 9, 3),
+                BorderThickness = new Thickness(1),
+                Child = inner,
+            }, 0);
         }
 
         // Six tabs. Each is a RadioButton with a 12,5,12,7 content margin and
-        // a 2,4 outer margin, so a tab costs its text plus 28.
-        var tabKeys = new[]
-        {
-            "Pad_Tab_Preview", "Pad_Mappings", "Pad_Macros",
-            "Pad_Menus", "Pad_Tab_BassShakers", "Pad_Tab_Output",
-        };
+        // a 2,4 outer margin. The checked tab's text is SemiBold, so each tab
+        // is measured both ways.
         foreach (var (tag, _) in Locales)
         {
-            double sum = 0;
-            bool complete = true;
-            foreach (string key in tabKeys)
+            foreach (string key in TabKeys)
             {
                 string t = S(key, tag);
-                if (t == null) { complete = false; break; }
-                var tb = Text(t, 15);
-                var host = new Border { Padding = new Thickness(12, 5, 12, 7), Margin = new Thickness(2, 4, 2, 4), Child = tb };
-                Add("hdr-tab-part", tag, key, host, 0);
-                sum += 1; // placeholder, the real sum is taken in Report
+                if (t == null) continue;
+                Add("hdr-tab-part", tag, key, Tab(t, FontWeights.Normal), 0);
+                Add("hdr-tab-bold", tag, key, Tab(t, FontWeights.SemiBold), 0);
             }
-            if (!complete || sum == 0) continue;
         }
     }
+
+    static Border Tab(string text, FontWeight weight) => new Border
+    {
+        Padding = new Thickness(12, 5, 12, 7),
+        Margin = new Thickness(2, 4, 2, 4),
+        Child = Text(text, 15, weight),
+    };
 
     static void Report()
     {
         double Max(string group) => _probes.Where(p => p.Group == group)
-                                           .Select(p => p.El.ActualWidth).DefaultIfEmpty(0).Max();
+                                           .Select(W).DefaultIfEmpty(0).Max();
         string Worst(string group)
         {
             double m = Max(group);
-            return _probes.Where(p => p.Group == group && Math.Abs(p.El.ActualWidth - m) < 0.01)
+            return _probes.Where(p => p.Group == group && Math.Abs(W(p) - m) < 0.01)
                           .Select(p => p.Locale).FirstOrDefault() ?? "";
         }
+        string Verdict(bool fits) => fits ? "  fits" : "  OVERFLOWS";
 
-        Console.WriteLine("== Profiles shortcut row (declared window minimum 900) ==");
-        Console.WriteLine($"  mode picker natural            : {Max("profiles-mode"):F1}  declared 290 (worst {Worst("profiles-mode")})");
-        double actions = 3 * ResetCost;
-        double total = (290 + ResetCost + 6) + (140 + ResetCost + 6) + (290 + ResetCost + 6) + 6 + actions;
-        Console.WriteLine($"  action cluster (three buttons) : {actions:F1}");
-        Console.WriteLine($"  row total at declared widths   : {total:F1}");
-        Console.WriteLine($"  VERDICT                        : {(total > 900 ? "OVERFLOWS" : "fits")}");
+        Console.WriteLine("== Profiles shortcut row (window minimum 900, pane open) ==");
+        var columns = _profilesRow.ColumnDefinitions;
+        double floors = columns.Take(4).Sum(c => c.MinWidth) + 3 * ResetCost;
+        double modePicker = columns[0].ActualWidth - 6 - ResetCost;
+        double widestMode = Max("profiles-mode");
+        Console.WriteLine($"  row width                      : {ProfilesRowAtMinimum:F1}");
+        Console.WriteLine($"  column floors plus actions     : {floors:F1}" + Verdict(floors <= ProfilesRowAtMinimum));
+        Console.WriteLine($"  mode picker                    : {modePicker:F1}");
+        Console.WriteLine($"  widest mode option             : {widestMode:F1} (worst {Worst("profiles-mode")})"
+                          + (widestMode > modePicker ? "  trimmed, full name on hover" : "  fits"));
         Console.WriteLine();
 
+        // DevicesPage.xaml wraps the cells, so a row holds what fits and the
+        // rest start a new row. The last cell's 12 right margin is empty, so it
+        // may pass the edge.
         Console.WriteLine("== Raw hat strip (detail pane 340) ==");
-        double one = Max("hat-cell");
         const double usablePane = 340 - 14 - 14 - 14;
-        Console.WriteLine($"  one hat cell                   : {one:F1}");
+        double one = Max("hat-cell");
+        Console.WriteLine($"  one hat cell                   : {one:F1} (worst {Worst("hat-cell")})" + Verdict(one - 12 <= usablePane));
         Console.WriteLine($"  usable content width           : {usablePane:F1}");
-        for (int hats = 2; hats <= 4; hats++)
-            Console.WriteLine($"  {hats} hats in one row            : {one * hats:F1}"
-                              + (one * hats > usablePane ? "  OVERFLOWS" : "  fits"));
+        Console.WriteLine($"  hats on one row                : {Math.Floor((usablePane + 12) / one)}, the rest wrap");
         Console.WriteLine();
 
         Console.WriteLine("== Equalizer row columns ==");
         double col0 = Max("eq-col0") + ResetCost;
-        Console.WriteLine($"  col 0 checkbox plus reset      : {col0:F1}  declared 42"
-                          + (col0 > 42 ? "  OVERFLOWS" : "  fits"));
-        double col1 = Max("eq-col1");
-        Console.WriteLine($"  col 1 type picker natural      : {col1:F1}  declared 150 (worst {Worst("eq-col1")})"
-                          + (col1 > 150 ? "  OVERFLOWS" : "  fits"));
-        foreach (var (group, declared) in new[]
-                 { ("eq-col2 frequency", 96.0), ("eq-col3 gain", 88.0), ("eq-col4 Q", 78.0) })
+        Console.WriteLine($"  col 0 checkbox plus reset      : {col0:F1}  column 78" + Verdict(col0 <= 78));
+        double col1 = Max("eq-col1") + ResetCost + 6;
+        Console.WriteLine($"  col 1 type picker plus reset   : {col1:F1}  column 150 (worst {Worst("eq-col1")})"
+                          + Verdict(col1 <= 150));
+        foreach (var (group, column) in new[]
+                 { ("eq-col2 frequency", 108.0), ("eq-col3 gain", 100.0), ("eq-col4 Q", 102.0) })
         {
             double need = Max(group) + ResetCost + 6;
-            Console.WriteLine($"  {group,-22}         : {need:F1}  declared {declared}"
-                              + (need > declared ? "  OVERFLOWS" : "  fits"));
+            Console.WriteLine($"  {group,-22}         : {need:F1}  column {column}" + Verdict(need <= column));
         }
+        foreach (var (key, column) in EqColumns)
+        {
+            var heads = _probes.Where(p => p.Group == "eq-head" && p.Note == key).ToList();
+            double widest = heads.Max(W);
+            string worst = heads.First(p => Math.Abs(W(p) - widest) < 0.01).Locale;
+            Console.WriteLine($"  heading {key,-22} : {widest:F1}  column {column} (worst {worst})"
+                              + Verdict(widest <= column));
+        }
+        // Every option and heading wider than its column: the strings to
+        // shorten, each with the width of its text alone and the share of it
+        // that has to go.
+        double TextOf(Probe picker) => W(_probes.First(p => p.Group == "eq-col1-text"
+                                                            && p.Locale == picker.Locale && p.Note == picker.Note));
+        var wide = _probes.Where(p => p.Group == "eq-col1" && W(p) + ResetCost + 6 > 150)
+            .Select(p => $"[{p.Locale}] {p.Note}  {W(p) + ResetCost + 6:F1} > 150"
+                         + $"  text {TextOf(p):F1}, {100 * (W(p) + ResetCost + 6 - 150) / TextOf(p):F0} percent too wide")
+            .Concat(_probes.Where(p => p.Group == "eq-head" && W(p) > p.Declared)
+                .Select(p => $"[{p.Locale}] {p.Note}  {W(p):F1} > {p.Declared}"))
+            .ToList();
+        Console.WriteLine($"  strings wider than their column: {wide.Count}");
+        foreach (string w in wide) Console.WriteLine("    " + w);
         Console.WriteLine();
 
         Console.WriteLine("== Gesture recorder sample-count row (dialog 640, not resizable) ==");
         const double usableRow = 640 - 32;
         double fixedPart = Max("recorder-label") + 8 + 60 + ResetCost + 8 + 12;
-        double hint = Max("recorder-hint");
-        Console.WriteLine($"  label plus picker plus reset   : {fixedPart:F1}");
-        Console.WriteLine($"  hint on ONE line               : {hint:F1} (worst {Worst("recorder-hint")})");
-        Console.WriteLine($"  usable row width               : {usableRow:F1}");
-        Console.WriteLine($"  VERDICT                        : {(fixedPart + hint > usableRow ? "the hint CANNOT fit on one line" : "fits")}");
-        Console.WriteLine($"  width a wrapping hint would get: {usableRow - fixedPart:F1}");
+        Console.WriteLine($"  label plus picker plus reset   : {fixedPart:F1} (worst {Worst("recorder-label")})"
+                          + Verdict(fixedPart < usableRow));
+        Console.WriteLine($"  hint on one line               : {Max("recorder-hint"):F1} (worst {Worst("recorder-hint")})");
+        Console.WriteLine($"  width the hint wraps into      : {usableRow - fixedPart:F1}");
         Console.WriteLine();
 
         // ── C275 ──
-        // At the 900 window minimum the navigation pane is open at 244, so the
-        // page gets 656 before its own padding. The compact pane (48) leaves
-        // 852. Both are reported; the open pane is the case that has to work.
+        // The tier's border takes 8. At the 900 window minimum with the
+        // navigation pane open (244) a line holds 648, with the compact pane
+        // (48) 844, and in the default 1100 window with the pane open 848.
         Console.WriteLine("== Pad page first tier (window minimum 900) ==");
-        double scope = Max("hdr-scope");
-        double identity = Max("hdr-identity");
-        double presetLabel = Max("hdr-preset-label");
-        // The profile combo is capped at 380 and the reset costs 32; the chip
-        // border adds a 10,4,4,4 margin.
-        double preset = presetLabel + 4 + 380 + ResetCost + 8 + 14;
-
-        // Tabs: per locale, the six parts summed. The widest locale wins.
-        double tabs = 0; string tabWorst = "";
-        foreach (var (tag, _) in Locales)
-        {
-            double sum = _probes.Where(p => p.Group == "hdr-tab-part" && p.Locale == tag)
-                                .Sum(p => p.El.ActualWidth);
-            if (sum > tabs) { tabs = sum; tabWorst = tag; }
-        }
-
+        double scope = Max("hdr-scope"), identity = Max("hdr-identity"), preset = Max("hdr-preset");
+        double widestTab = Max("hdr-tab-bold");
         Console.WriteLine($"  scope label                    : {scope:F1} (worst {Worst("hdr-scope")})");
         Console.WriteLine($"  identity chip                  : {identity:F1} (worst {Worst("hdr-identity")})");
-        Console.WriteLine($"  preset chip at its 380 cap     : {preset:F1}");
-        Console.WriteLine($"  six tabs                       : {tabs:F1} (worst {tabWorst})");
-        double tier = scope + identity + preset + tabs + 8;
-        Console.WriteLine($"  tier total                     : {tier:F1}");
-        foreach (var (paneName, pane) in new[] { ("open 244", 244.0), ("compact 48", 48.0) })
+        Console.WriteLine($"  preset chip at its 380 cap     : {preset:F1} (worst {Worst("hdr-preset")})");
+        Console.WriteLine($"  widest single tab, SemiBold    : {widestTab:F1} (worst {Worst("hdr-tab-bold")})");
+
+        // Per language, the six tabs side by side, the widest one SemiBold as
+        // when it is the checked tab.
+        var strips = new List<(string Tag, double Width)>();
+        foreach (var (tag, _) in Locales)
         {
-            double avail = 900 - pane - 8;
-            Console.WriteLine($"  available, pane {paneName,-10}     : {avail:F1}"
-                              + (tier > avail ? "   OVERFLOWS" : "   fits"));
+            var regular = _probes.Where(p => p.Group == "hdr-tab-part" && p.Locale == tag).ToList();
+            var bold = _probes.Where(p => p.Group == "hdr-tab-bold" && p.Locale == tag).ToList();
+            if (regular.Count != TabKeys.Length) continue;
+            double extra = regular.Zip(bold, (r, b) => W(b) - W(r)).Max();
+            strips.Add((tag, regular.Sum(W) + extra));
         }
-        double leftOfTabs = scope + identity + preset + 8;
-        Console.WriteLine($"  left cluster alone             : {leftOfTabs:F1}");
-        Console.WriteLine($"  width left for the tabs (open) : {900 - 244 - 8 - leftOfTabs:F1}"
-                          + (900 - 244 - 8 - leftOfTabs < tabs ? "   TABS CLIPPED" : "   tabs fit"));
+        var widestStrip = strips.OrderByDescending(s => s.Width).First();
+        Console.WriteLine($"  six tabs on one line           : {widestStrip.Width:F1} (worst {widestStrip.Tag})");
+
+        double widestPiece = new[] { scope, identity, preset, widestTab }.Max();
+        foreach (var (name, line) in new[]
+                 { ("900, pane open", 900.0 - 244 - 8), ("900, pane compact", 900.0 - 48 - 8), ("1100, pane open", 1100.0 - 244 - 8) })
+        {
+            var twoLines = strips.Where(s => s.Width > line).Select(s => s.Tag).ToList();
+            Console.WriteLine($"  line at {name,-17}      : {line:F1}" + Verdict(widestPiece <= line));
+            Console.WriteLine($"    tabs wrap to a second line in: {twoLines.Count}"
+                              + (twoLines.Count > 0 ? "  " + string.Join(" ", twoLines) : ""));
+        }
     }
 }

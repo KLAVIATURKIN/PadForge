@@ -3758,10 +3758,7 @@ Kas soovite, et PadForge need nüüd desinstalliks? Selleks on vaja kõrgendatud
   <data name="Pad_Audio_EqCol_On" xml:space="preserve"><value>Sees</value></data>
   <data name="Pad_Audio_EqCol_Type" xml:space="preserve"><value>Tüüp</value></data>
   <data name="Pad_Audio_EqType_Peaking" xml:space="preserve"><value>Tipp</value></data>
-  <data name="Pad_Audio_EqType_LowShelf" xml:space="preserve"><value>Madal riiulfilter</value></data>
-  <data name="Pad_Audio_EqType_HighShelf" xml:space="preserve"><value>Kõrge riiulfilter</value></data>
   <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>Kõrgpääs</value></data>
-  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>Madalpääs</value></data>
   <data name="Pad_Audio_EqType_Notch" xml:space="preserve"><value>Sälkfilter</value></data>
   <data name="Pad_Audio_EqCol_Freq" xml:space="preserve"><value>Sagedus (Hz)</value></data>
   <data name="Pad_Audio_EqCol_Gain" xml:space="preserve"><value>Võimendus (dB)</value></data>

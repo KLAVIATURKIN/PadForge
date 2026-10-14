@@ -3760,7 +3760,7 @@ Vols que PadForge els desinstal·li ara? Cal elevar els permisos i pot trigar un
   <data name="Pad_Audio_EqType_HighShelf" xml:space="preserve"><value>Shelf agut</value></data>
   <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>Passa-alt</value></data>
   <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>Passa-baix</value></data>
-  <data name="Pad_Audio_EqType_Notch" xml:space="preserve"><value>Rebuig de banda</value></data>
+  <data name="Pad_Audio_EqType_Notch" xml:space="preserve"><value>Notch</value></data>
   <data name="Pad_Audio_EqCol_Freq" xml:space="preserve"><value>Freq. (Hz)</value></data>
   <data name="Pad_Audio_EqCol_Gain" xml:space="preserve"><value>Guany (dB)</value></data>
   <data name="Pad_Audio_EqCol_Q" xml:space="preserve"><value>Q</value></data>

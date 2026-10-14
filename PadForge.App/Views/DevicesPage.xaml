@@ -1805,9 +1805,12 @@
                             </TextBlock.Style>
                         </TextBlock>
                         <ItemsControl ItemsSource="{Binding RawPovs}" Margin="0,0,0,8">
+                            <!-- Wraps. Measured with tools/rowmeasure, four hats
+                                 need 321 against the 298 the pane leaves for
+                                 them, so a fourth hat ran past the edge. -->
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Horizontal"/>
+                                    <WrapPanel Orientation="Horizontal"/>
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>

@@ -3760,8 +3760,8 @@ PadForge bunları şimdi kaldırsın mı? Bu işlem yönetici izni gerektirir ve
   <data name="Pad_Audio_EqType_Peaking" xml:space="preserve"><value>Tepe</value></data>
   <data name="Pad_Audio_EqType_LowShelf" xml:space="preserve"><value>Alçak raf</value></data>
   <data name="Pad_Audio_EqType_HighShelf" xml:space="preserve"><value>Yüksek raf</value></data>
-  <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>Yüksek geçiren</value></data>
-  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>Alçak geçiren</value></data>
+  <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>HPF</value></data>
+  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>LPF</value></data>
   <data name="Pad_Audio_EqType_Notch" xml:space="preserve"><value>Çentik</value></data>
   <data name="Pad_Audio_EqCol_Freq" xml:space="preserve"><value>Frekans (Hz)</value></data>
   <data name="Pad_Audio_EqCol_Gain" xml:space="preserve"><value>Kazanç (dB)</value></data>

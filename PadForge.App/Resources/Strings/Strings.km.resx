@@ -3757,7 +3757,6 @@
   <data name="Pad_Audio_EqType_HighShelf" xml:space="preserve"><value>ធ្នើខ្ពស់</value></data>
   <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>ឆ្លងខ្ពស់</value></data>
   <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>ឆ្លងទាប</value></data>
-  <data name="Pad_Audio_EqType_Notch" xml:space="preserve"><value>កាត់ចង្អៀត</value></data>
   <data name="Pad_Audio_EqCol_Freq" xml:space="preserve"><value>ប្រេកង់ (Hz)</value></data>
   <data name="Pad_Audio_EqCol_Gain" xml:space="preserve"><value>កម្រិតពង្រីក (dB)</value></data>
   <data name="Pad_Audio_EqCol_Q" xml:space="preserve"><value>Q</value></data>

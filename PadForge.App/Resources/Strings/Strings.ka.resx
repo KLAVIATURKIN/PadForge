@@ -3754,10 +3754,10 @@
   <data name="Pad_Audio_EqCol_On" xml:space="preserve"><value>ჩართ.</value></data>
   <data name="Pad_Audio_EqCol_Type" xml:space="preserve"><value>ტიპი</value></data>
   <data name="Pad_Audio_EqType_Peaking" xml:space="preserve"><value>პიკი</value></data>
-  <data name="Pad_Audio_EqType_LowShelf" xml:space="preserve"><value>დაბალი შელფი</value></data>
-  <data name="Pad_Audio_EqType_HighShelf" xml:space="preserve"><value>მაღალი შელფი</value></data>
-  <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>მაღალი გატარება</value></data>
-  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>დაბალი გატარება</value></data>
+  <data name="Pad_Audio_EqType_LowShelf" xml:space="preserve"><value>LS</value></data>
+  <data name="Pad_Audio_EqType_HighShelf" xml:space="preserve"><value>HS</value></data>
+  <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>HPF</value></data>
+  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>LPF</value></data>
   <data name="Pad_Audio_EqType_Notch" xml:space="preserve"><value>ნოჩი</value></data>
   <data name="Pad_Audio_EqCol_Freq" xml:space="preserve"><value>სიხშ. (Hz)</value></data>
   <data name="Pad_Audio_EqCol_Gain" xml:space="preserve"><value>გაძლ. (dB)</value></data>

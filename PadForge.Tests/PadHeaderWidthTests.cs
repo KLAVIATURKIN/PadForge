@@ -51,6 +51,36 @@ namespace PadForge.Tests
             Assert.DoesNotContain("<StackPanel DockPanel.Dock=\"Right\" Orientation=\"Horizontal\">", PadPage());
         }
 
+        /// <summary>The tabs wrap among themselves. Measured with
+        /// tools/rowmeasure, the six tabs need 837 in Tamil against the 648 a
+        /// line holds at the 900 minimum with the navigation pane open, so on a
+        /// line of their own in a horizontal stack the last tabs ran past the
+        /// edge (#505).</summary>
+        [Fact]
+        public void TheTabGroupWrapsItsTabs()
+        {
+            string xaml = PadPage();
+            int firstTab = xaml.IndexOf("x:Name=\"TabController\"", StringComparison.Ordinal);
+            Assert.True(firstTab > 0);
+            string before = xaml.Substring(0, firstTab);
+            int wrap = before.LastIndexOf("<WrapPanel Orientation=\"Horizontal\">", StringComparison.Ordinal);
+            int stack = before.LastIndexOf("<StackPanel", StringComparison.Ordinal);
+            Assert.True(wrap > stack, "the panel that holds the slot tabs must be a WrapPanel");
+        }
+
+        /// <summary>The raw hat strip on the Devices page wraps. Measured
+        /// with tools/rowmeasure, four hats need 321 against the 298 the
+        /// detail pane leaves them, so a fourth hat ran past the edge.</summary>
+        [Fact]
+        public void TheRawHatStripWraps()
+        {
+            string xaml = File.ReadAllText(Path.Combine(RepoRoot(), "PadForge.App", "Views", "DevicesPage.xaml"));
+            int hats = xaml.IndexOf("ItemsSource=\"{Binding RawPovs}\"", StringComparison.Ordinal);
+            Assert.True(hats > 0);
+            int end = xaml.IndexOf("</ItemsControl.ItemsPanel>", hats, StringComparison.Ordinal);
+            Assert.Contains("<WrapPanel Orientation=\"Horizontal\"/>", xaml.Substring(hats, end - hats));
+        }
+
         /// <summary>The device selector had a floor and no ceiling in an Auto
         /// column, so one long device name grew the column without bound and
         /// took the width from the device tabs wrapping beside it.</summary>

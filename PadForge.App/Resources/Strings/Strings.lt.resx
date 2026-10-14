@@ -3756,10 +3756,10 @@ Ar norite, kad „PadForge“ jas dabar pašalintų? Tam reikia administratoriau
   <data name="Pad_Audio_EqCol_On" xml:space="preserve"><value>Įj.</value></data>
   <data name="Pad_Audio_EqCol_Type" xml:space="preserve"><value>Tipas</value></data>
   <data name="Pad_Audio_EqType_Peaking" xml:space="preserve"><value>Smailė</value></data>
-  <data name="Pad_Audio_EqType_LowShelf" xml:space="preserve"><value>Žemųjų pakopa</value></data>
-  <data name="Pad_Audio_EqType_HighShelf" xml:space="preserve"><value>Aukštųjų pakopa</value></data>
-  <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>Aukštųjų praleidimas</value></data>
-  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>Žemųjų praleidimas</value></data>
+  <data name="Pad_Audio_EqType_LowShelf" xml:space="preserve"><value>LS</value></data>
+  <data name="Pad_Audio_EqType_HighShelf" xml:space="preserve"><value>HS</value></data>
+  <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>HPF</value></data>
+  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>LPF</value></data>
   <data name="Pad_Audio_EqType_Notch" xml:space="preserve"><value>Užtvarinis</value></data>
   <data name="Pad_Audio_EqCol_Freq" xml:space="preserve"><value>Dažnis (Hz)</value></data>
   <data name="Pad_Audio_EqCol_Gain" xml:space="preserve"><value>Stiprinimas (dB)</value></data>

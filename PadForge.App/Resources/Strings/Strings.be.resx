@@ -3758,10 +3758,10 @@
   <data name="Pad_Audio_EqCol_On" xml:space="preserve"><value>Укл.</value></data>
   <data name="Pad_Audio_EqCol_Type" xml:space="preserve"><value>Тып</value></data>
   <data name="Pad_Audio_EqType_Peaking" xml:space="preserve"><value>Пік</value></data>
-  <data name="Pad_Audio_EqType_LowShelf" xml:space="preserve"><value>Нізкая паліца</value></data>
-  <data name="Pad_Audio_EqType_HighShelf" xml:space="preserve"><value>Высокая паліца</value></data>
-  <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>Фільтр высокіх частот</value></data>
-  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>Фільтр нізкіх частот</value></data>
+  <data name="Pad_Audio_EqType_LowShelf" xml:space="preserve"><value>Low Shelf</value></data>
+  <data name="Pad_Audio_EqType_HighShelf" xml:space="preserve"><value>High Shelf</value></data>
+  <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>High Pass</value></data>
+  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>Low Pass</value></data>
   <data name="Pad_Audio_EqType_Notch" xml:space="preserve"><value>Рэжэктар</value></data>
   <data name="Pad_Audio_EqCol_Freq" xml:space="preserve"><value>Частата (Гц)</value></data>
   <data name="Pad_Audio_EqCol_Gain" xml:space="preserve"><value>Узмацненне (dB)</value></data>

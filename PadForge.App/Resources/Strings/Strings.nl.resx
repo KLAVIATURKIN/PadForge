@@ -3718,8 +3718,8 @@ Wil je dat PadForge ze nu verwijdert? Hiervoor zijn verhoogde rechten nodig en h
   <data name="Pad_Audio_EqType_Peaking" xml:space="preserve"><value>Piek</value></data>
   <data name="Pad_Audio_EqType_LowShelf" xml:space="preserve"><value>Low Shelf</value></data>
   <data name="Pad_Audio_EqType_HighShelf" xml:space="preserve"><value>High Shelf</value></data>
-  <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>Hoogdoorlaat</value></data>
-  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>Laagdoorlaat</value></data>
+  <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>HPF</value></data>
+  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>LPF</value></data>
   <data name="Pad_Audio_EqType_Notch" xml:space="preserve"><value>Notch</value></data>
   <data name="Pad_Audio_EqCol_Freq" xml:space="preserve"><value>Freq. (Hz)</value></data>
   <data name="Pad_Audio_EqCol_Gain" xml:space="preserve"><value>Versterking (dB)</value></data>

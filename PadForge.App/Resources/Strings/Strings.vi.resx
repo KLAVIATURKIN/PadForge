@@ -3760,8 +3760,8 @@ Bạn có muốn PadForge gỡ cài đặt chúng ngay bây giờ không? Việc
   <data name="Pad_Audio_EqType_Peaking" xml:space="preserve"><value>Đỉnh</value></data>
   <data name="Pad_Audio_EqType_LowShelf" xml:space="preserve"><value>Shelf thấp</value></data>
   <data name="Pad_Audio_EqType_HighShelf" xml:space="preserve"><value>Shelf cao</value></data>
-  <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>Thông cao</value></data>
-  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>Thông thấp</value></data>
+  <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>HPF</value></data>
+  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>LPF</value></data>
   <data name="Pad_Audio_EqType_Notch" xml:space="preserve"><value>Notch</value></data>
   <data name="Pad_Audio_EqCol_Freq" xml:space="preserve"><value>Tần số (Hz)</value></data>
   <data name="Pad_Audio_EqCol_Gain" xml:space="preserve"><value>Độ lợi (dB)</value></data>

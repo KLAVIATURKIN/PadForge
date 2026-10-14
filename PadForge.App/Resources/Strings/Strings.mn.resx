@@ -3740,8 +3740,8 @@ PadForge одоо тэдгээрийг устгах уу? Үүнд админи�
   <data name="Pad_Audio_EqCol_On" xml:space="preserve"><value>Идэвхтэй</value></data>
   <data name="Pad_Audio_EqCol_Type" xml:space="preserve"><value>Төрөл</value></data>
   <data name="Pad_Audio_EqType_Peaking" xml:space="preserve"><value>Оргил</value></data>
-  <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>Өндөр нэвтрүүлэх</value></data>
-  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>Бага нэвтрүүлэх</value></data>
+  <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>HPF</value></data>
+  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>LPF</value></data>
   <data name="Pad_Audio_EqCol_Freq" xml:space="preserve"><value>Давтамж (Гц)</value></data>
   <data name="Pad_Audio_EqCol_Gain" xml:space="preserve"><value>Өсгөлт (dB)</value></data>
   <data name="Pad_Audio_EqCol_Q" xml:space="preserve"><value>Q</value></data>

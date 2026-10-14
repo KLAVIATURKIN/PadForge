@@ -3753,10 +3753,10 @@ PadForge-k orain desinstalatzea nahi duzu? Horrek administratzaile-baimenak beha
   <data name="Pad_Audio_EqCol_On" xml:space="preserve"><value>Aktibo</value></data>
   <data name="Pad_Audio_EqCol_Type" xml:space="preserve"><value>Mota</value></data>
   <data name="Pad_Audio_EqType_Peaking" xml:space="preserve"><value>Gailurra</value></data>
-  <data name="Pad_Audio_EqType_LowShelf" xml:space="preserve"><value>Shelf baxua</value></data>
-  <data name="Pad_Audio_EqType_HighShelf" xml:space="preserve"><value>Shelf altua</value></data>
-  <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>Goi-pasoa</value></data>
-  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>Behe-pasoa</value></data>
+  <data name="Pad_Audio_EqType_LowShelf" xml:space="preserve"><value>Low Shelf</value></data>
+  <data name="Pad_Audio_EqType_HighShelf" xml:space="preserve"><value>High Shelf</value></data>
+  <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>High Pass</value></data>
+  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>Low Pass</value></data>
   <data name="Pad_Audio_EqType_Notch" xml:space="preserve"><value>Notch</value></data>
   <data name="Pad_Audio_EqCol_Freq" xml:space="preserve"><value>Maiz. (Hz)</value></data>
   <data name="Pad_Audio_EqCol_Gain" xml:space="preserve"><value>Irabazia (dB)</value></data>

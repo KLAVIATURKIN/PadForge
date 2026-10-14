@@ -21,7 +21,7 @@ el	Greek	Ελληνικά	ltr	Grek	full
 en-GB	English (United Kingdom)	English (United Kingdom)	ltr	Latn	full
 en-US	English (United States)	English (United States)	ltr	Latn	full
 es	Spanish	Español	ltr	Latn	full
-et	Estonian	Eesti	ltr	Latn	full
+et	Estonian	Eesti	ltr	Latn	partial
 eu	Basque	Euskara	ltr	Latn	partial
 fa	Persian	فارسی	rtl	Arab	full
 fi	Finnish	Suomi	ltr	Latn	full
@@ -48,7 +48,7 @@ it	Italian	Italiano	ltr	Latn	full
 ja	Japanese	日本語	ltr	Jpan	full
 ka	Georgian	ქართული	ltr	Geor	partial
 kea	Cape Verdean Creole	Kabuverdianu	ltr	Latn	partial
-kk	Kazakh	Қазақша	ltr	Cyrl	full
+kk	Kazakh	Қазақша	ltr	Cyrl	partial
 km	Khmer	ភាសាខ្មែរ	ltr	Khmr	partial
 kn	Kannada	ಕನ್ನಡ	ltr	Knda	partial
 ko	Korean	한국어	ltr	Kore	full
@@ -76,7 +76,7 @@ om	Oromo	Afaan Oromoo	ltr	Latn	partial
 pap	Papiamento	Papiamentu	ltr	Latn	partial
 pl	Polish	Polski	ltr	Latn	full
 pt-BR	Portuguese (Brazil)	Português (Brasil)	ltr	Latn	full
-pt-PT	Portuguese (Portugal)	Português (Portugal)	ltr	Latn	full
+pt-PT	Portuguese (Portugal)	Português (Portugal)	ltr	Latn	partial
 quh	Quechua (Bolivia)	Qhichwa (Bolivia)	ltr	Latn	partial
 ro	Romanian	Română	ltr	Latn	full
 ru	Russian	Русский	ltr	Cyrl	full
@@ -99,7 +99,7 @@ to	Tongan	Lea faka-Tonga	ltr	Latn	partial
 tpi	Tok Pisin	Tok Pisin	ltr	Latn	partial
 tr	Turkish	Türkçe	ltr	Latn	full
 tw	Twi	Twi	ltr	Latn	partial
-uk	Ukrainian	Українська	ltr	Cyrl	full
+uk	Ukrainian	Українська	ltr	Cyrl	partial
 ur	Urdu	اردو	rtl	Arab	full
 vi	Vietnamese	Tiếng Việt	ltr	Latn	full
 war	Waray	Winaray	ltr	Latn	partial

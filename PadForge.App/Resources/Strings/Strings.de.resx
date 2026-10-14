@@ -3696,8 +3696,8 @@ Sollen sie jetzt deinstalliert werden? Dies erfordert erhöhte Rechte und kann e
   <data name="Pad_Audio_EqCol_On" xml:space="preserve"><value>Ein</value></data>
   <data name="Pad_Audio_EqCol_Type" xml:space="preserve"><value>Typ</value></data>
   <data name="Pad_Audio_EqType_Peaking" xml:space="preserve"><value>Glocke</value></data>
-  <data name="Pad_Audio_EqType_LowShelf" xml:space="preserve"><value>Kuhschwanz Tief</value></data>
-  <data name="Pad_Audio_EqType_HighShelf" xml:space="preserve"><value>Kuhschwanz Hoch</value></data>
+  <data name="Pad_Audio_EqType_LowShelf" xml:space="preserve"><value>Low Shelf</value></data>
+  <data name="Pad_Audio_EqType_HighShelf" xml:space="preserve"><value>High Shelf</value></data>
   <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>Hochpass</value></data>
   <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>Tiefpass</value></data>
   <data name="Pad_Audio_EqType_Notch" xml:space="preserve"><value>Kerbfilter</value></data>

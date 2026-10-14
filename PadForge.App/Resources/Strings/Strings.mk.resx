@@ -3758,10 +3758,10 @@
   <data name="Pad_Audio_EqCol_On" xml:space="preserve"><value>Вкл.</value></data>
   <data name="Pad_Audio_EqCol_Type" xml:space="preserve"><value>Тип</value></data>
   <data name="Pad_Audio_EqType_Peaking" xml:space="preserve"><value>Врв</value></data>
-  <data name="Pad_Audio_EqType_LowShelf" xml:space="preserve"><value>Низок шелф</value></data>
-  <data name="Pad_Audio_EqType_HighShelf" xml:space="preserve"><value>Висок шелф</value></data>
-  <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>Високопропусен</value></data>
-  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>Нископропусен</value></data>
+  <data name="Pad_Audio_EqType_LowShelf" xml:space="preserve"><value>Low Shelf</value></data>
+  <data name="Pad_Audio_EqType_HighShelf" xml:space="preserve"><value>High Shelf</value></data>
+  <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>HPF</value></data>
+  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>LPF</value></data>
   <data name="Pad_Audio_EqType_Notch" xml:space="preserve"><value>Засек</value></data>
   <data name="Pad_Audio_EqCol_Freq" xml:space="preserve"><value>Фрекв. (Hz)</value></data>
   <data name="Pad_Audio_EqCol_Gain" xml:space="preserve"><value>Засилување (dB)</value></data>

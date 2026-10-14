@@ -3762,7 +3762,7 @@ Haluatko, että PadForge poistaa niiden asennuksen nyt? Tämä vaatii järjestel
   <data name="Pad_Audio_EqType_HighShelf" xml:space="preserve"><value>Ylähylly</value></data>
   <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>Ylipäästö</value></data>
   <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>Alipäästö</value></data>
-  <data name="Pad_Audio_EqType_Notch" xml:space="preserve"><value>Lovisuodin</value></data>
+  <data name="Pad_Audio_EqType_Notch" xml:space="preserve"><value>Notch</value></data>
   <data name="Pad_Audio_EqCol_Freq" xml:space="preserve"><value>Taajuus (Hz)</value></data>
   <data name="Pad_Audio_EqCol_Gain" xml:space="preserve"><value>Vahvistus (dB)</value></data>
   <data name="Pad_Audio_EqCol_Q" xml:space="preserve"><value>Q</value></data>

@@ -3707,8 +3707,8 @@ Doni që PadForge t'i çinstalojë tani? Kjo kërkon privilegje administratori d
   <data name="Pad_Audio_EqType_Peaking" xml:space="preserve"><value>Kulm</value></data>
   <data name="Pad_Audio_EqType_LowShelf" xml:space="preserve"><value>Raft i ulët</value></data>
   <data name="Pad_Audio_EqType_HighShelf" xml:space="preserve"><value>Raft i lartë</value></data>
-  <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>Kalim i lartë</value></data>
-  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>Kalim i ulët</value></data>
+  <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>HPF</value></data>
+  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>LPF</value></data>
   <data name="Pad_Audio_EqType_Notch" xml:space="preserve"><value>Notch</value></data>
   <data name="Pad_Audio_EqCol_Freq" xml:space="preserve"><value>Frek (Hz)</value></data>
   <data name="Pad_Audio_EqCol_Gain" xml:space="preserve"><value>Fitim (dB)</value></data>

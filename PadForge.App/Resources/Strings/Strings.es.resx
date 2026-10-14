@@ -3696,8 +3696,8 @@ Hay una copia de la versión anterior en esta carpeta: {1}</value></data>
   <data name="Pad_Audio_EqCol_On" xml:space="preserve"><value>Act.</value></data>
   <data name="Pad_Audio_EqCol_Type" xml:space="preserve"><value>Tipo</value></data>
   <data name="Pad_Audio_EqType_Peaking" xml:space="preserve"><value>Pico</value></data>
-  <data name="Pad_Audio_EqType_LowShelf" xml:space="preserve"><value>Shelf Grave</value></data>
-  <data name="Pad_Audio_EqType_HighShelf" xml:space="preserve"><value>Shelf Agudo</value></data>
+  <data name="Pad_Audio_EqType_LowShelf" xml:space="preserve"><value>LS</value></data>
+  <data name="Pad_Audio_EqType_HighShelf" xml:space="preserve"><value>HS</value></data>
   <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>Paso Alto</value></data>
   <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>Paso Bajo</value></data>
   <data name="Pad_Audio_EqType_Notch" xml:space="preserve"><value>Notch</value></data>

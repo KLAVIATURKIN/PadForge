@@ -3745,8 +3745,8 @@ PadForge ಅವುಗಳನ್ನು ಈಗ ಅನ್‌ಇನ್‌ಸ್ಟಾ
   <data name="Pad_Audio_EqType_Peaking" xml:space="preserve"><value>ಪೀಕ್</value></data>
   <data name="Pad_Audio_EqType_LowShelf" xml:space="preserve"><value>ಲೋ ಶೆಲ್ಫ್</value></data>
   <data name="Pad_Audio_EqType_HighShelf" xml:space="preserve"><value>ಹೈ ಶೆಲ್ಫ್</value></data>
-  <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>ಹೈ ಪಾಸ್</value></data>
-  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>ಲೋ ಪಾಸ್</value></data>
+  <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>HPF</value></data>
+  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>LPF</value></data>
   <data name="Pad_Audio_EqType_Notch" xml:space="preserve"><value>ನಾಚ್</value></data>
   <data name="Pad_Audio_EqCol_Freq" xml:space="preserve"><value>ಆವರ್ತನ (Hz)</value></data>
   <data name="Pad_Audio_EqCol_Gain" xml:space="preserve"><value>ಗೇನ್ (dB)</value></data>

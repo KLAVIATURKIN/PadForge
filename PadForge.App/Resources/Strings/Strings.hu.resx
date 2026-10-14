@@ -3757,11 +3757,11 @@ Szeretné, hogy a PadForge most eltávolítsa őket? Ehhez rendszergazdai jogosu
   <data name="Pad_Audio_EqPreamp_Tooltip" xml:space="preserve"><value>A teljes szint a sávok előtt. Az AutoEq-profilok negatív előerősítéssel érkeznek, hogy a kiemeléseik ne vezéreljenek túl, és importáláskor ez az érték automatikusan beállítódik.</value></data>
   <data name="Pad_Audio_EqCol_On" xml:space="preserve"><value>Be</value></data>
   <data name="Pad_Audio_EqCol_Type" xml:space="preserve"><value>Típus</value></data>
-  <data name="Pad_Audio_EqType_Peaking" xml:space="preserve"><value>Csúcsszűrő</value></data>
-  <data name="Pad_Audio_EqType_LowShelf" xml:space="preserve"><value>Alsó polcszűrő</value></data>
-  <data name="Pad_Audio_EqType_HighShelf" xml:space="preserve"><value>Felső polcszűrő</value></data>
-  <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>Felüláteresztő</value></data>
-  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>Aluláteresztő</value></data>
+  <data name="Pad_Audio_EqType_Peaking" xml:space="preserve"><value>Csúcs</value></data>
+  <data name="Pad_Audio_EqType_LowShelf" xml:space="preserve"><value>LS</value></data>
+  <data name="Pad_Audio_EqType_HighShelf" xml:space="preserve"><value>HS</value></data>
+  <data name="Pad_Audio_EqType_HighPass" xml:space="preserve"><value>HP</value></data>
+  <data name="Pad_Audio_EqType_LowPass" xml:space="preserve"><value>LP</value></data>
   <data name="Pad_Audio_EqType_Notch" xml:space="preserve"><value>Lyukszűrő</value></data>
   <data name="Pad_Audio_EqCol_Freq" xml:space="preserve"><value>Frekv. (Hz)</value></data>
   <data name="Pad_Audio_EqCol_Gain" xml:space="preserve"><value>Erősítés (dB)</value></data>
