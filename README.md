@@ -859,7 +859,7 @@ Learn a handheld's rear paddles, menu keys, and vendor hotkeys by pressing each 
 
 ### Settings
 ![Settings](screenshots/settings.jpg)
-Language (10 locales, live-switch with no restart). Theme (System Default / Light / Dark). Updates. Polling interval (1-16 ms). Auto-start at login, minimize to tray, master input-hiding toggle. Driver status for HidHide, HIDMaestro, Windows MIDI Services, and SteamVR.
+Language (109 languages, switched live with no restart, and laid out right to left for Arabic, Persian, Urdu, and Central Kurdish). Theme (System Default / Light / Dark). Updates. Polling interval (1-16 ms). Auto-start at login, minimize to tray, master input-hiding toggle. Driver status for HidHide, HIDMaestro, Windows MIDI Services, and SteamVR.
 
 ### Input Engine
 ![The Input Engine card in Settings](screenshots/settings-input-engine.jpg)

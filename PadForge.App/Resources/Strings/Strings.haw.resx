@@ -1,0 +1,830 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <!-- ═══ Common ═══ -->
+  <data name="Common_Save" xml:space="preserve"><value>Mālama</value></data>
+  <data name="Common_Cancel" xml:space="preserve"><value>Kāpae</value></data>
+  <data name="Common_Delete" xml:space="preserve"><value>Holoi</value></data>
+  <data name="Common_Add" xml:space="preserve"><value>Hoʻohui</value></data>
+  <data name="Common_Remove" xml:space="preserve"><value>Wehe</value></data>
+  <data name="Common_OK" xml:space="preserve"><value>ʻAe</value></data>
+  <data name="Common_Install" xml:space="preserve"><value>Hoʻokomo</value></data>
+  <data name="Common_Copy" xml:space="preserve"><value>Kope</value></data>
+  <data name="Common_Paste" xml:space="preserve"><value>Hoʻopili</value></data>
+  <data name="Common_Enabled" xml:space="preserve"><value>Ua hoʻā ʻia</value></data>
+  <data name="Common_Disabled" xml:space="preserve"><value>Ua hoʻopio ʻia</value></data>
+  <data name="Common_Installed" xml:space="preserve"><value>Ua hoʻokomo ʻia</value></data>
+  <data name="Common_NotInstalled" xml:space="preserve"><value>ʻAʻole i hoʻokomo ʻia</value></data>
+  <data name="Common_NotAvailableOnArm64" xml:space="preserve"><value>ʻAʻole loaʻa ma ARM64</value></data>
+  <data name="Common_Ready" xml:space="preserve"><value>Mākaukau</value></data>
+  <data name="Common_Stopped" xml:space="preserve"><value>Ua kū</value></data>
+  <data name="Common_Running" xml:space="preserve"><value>Ke holo nei</value></data>
+  <data name="Common_Stopping" xml:space="preserve"><value>Ke hoʻōki ʻia nei…</value></data>
+  <data name="Status_StoppingEngine" xml:space="preserve"><value>Ke hoʻōki ʻia nei ka ʻenekini…</value></data>
+  <data name="Server_FailedToStart" xml:space="preserve"><value>ʻAʻole i hiki ke hoʻomaka</value></data>
+  <data name="Common_Unknown" xml:space="preserve"><value>ʻAʻole i ʻike ʻia</value></data>
+  <data name="Common_Proceed" xml:space="preserve"><value>Hoʻomau</value></data>
+  <data name="Common_Stop" xml:space="preserve"><value>Hoʻōki</value></data>
+  <data name="Common_Record" xml:space="preserve"><value>Hoʻopaʻa</value></data>
+  <data name="Common_Recording" xml:space="preserve"><value>Ke hoʻopaʻa nei...</value></data>
+  <data name="Common_Clear" xml:space="preserve"><value>Holoi</value></data>
+  <data name="Common_None" xml:space="preserve"><value>ʻAʻohe</value></data>
+  <data name="Common_PadForge" xml:space="preserve"><value>PadForge</value></data>
+
+  <!-- ═══ Controller Types ═══ -->
+  <data name="ControllerType_Xbox" xml:space="preserve"><value>Xbox</value></data>
+  <data name="ControllerType_PlayStation" xml:space="preserve"><value>PlayStation</value></data>
+  <data name="ControllerType_Nintendo" xml:space="preserve"><value>Nintendo</value></data>
+  <data name="ControllerType_MIDI" xml:space="preserve"><value>MIDI</value></data>
+  <data name="ControllerType_VR" xml:space="preserve"><value>VR</value></data>
+
+  <!-- ═══ MainWindow ═══ -->
+  <data name="Main_ShuttingDown" xml:space="preserve"><value>Ke pani ʻia nei ʻo PadForge...</value></data>
+  <data name="Main_StartingUp" xml:space="preserve"><value>Ke hoʻomaka ʻia nei ʻo PadForge…</value></data>
+  <data name="Main_DevicesSuffix" xml:space="preserve"><value> hāmeʻa</value></data>
+  <data name="Main_ShowPadForge" xml:space="preserve"><value>Hōʻike iā PadForge</value></data>
+  <data name="Main_EngineStopped" xml:space="preserve"><value>Ua kū ka ʻenekini</value></data>
+  <data name="Main_AwaitingDevices" xml:space="preserve"><value>Ke kali nei i nā hāmeʻa</value></data>
+  <data name="Main_Xbox_Max_Format" xml:space="preserve"><value>Xbox (a hiki i {0})</value></data>
+  <data name="Main_PlayStation_Max_Format" xml:space="preserve"><value>PlayStation (a hiki i {0})</value></data>
+  <data name="Main_Nintendo_Max_Format" xml:space="preserve"><value>Nintendo (a hiki i {0})</value></data>
+  <data name="Main_KBM_Max_Format" xml:space="preserve"><value>Papa pihi + ʻiole (a hiki i {0})</value></data>
+  <data name="Main_MIDI_Max_Format" xml:space="preserve"><value>MIDI (a hiki i {0})</value></data>
+  <data name="Main_VR_Max_Format" xml:space="preserve"><value>VR (a hiki i {0})</value></data>
+
+  <!-- ═══ MainWindow Status Messages ═══ -->
+  <data name="Status_InstallingHidHide" xml:space="preserve"><value>Ke hoʻokomo ʻia nei ʻo HidHide…</value></data>
+  <data name="Status_OperationCanceled" xml:space="preserve"><value>Ua kāpae ʻia ka hana e ka mea hoʻohana.</value></data>
+  <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>ʻAʻole i hiki ke hoʻokomo iā SteamVR: {0}</value></data>
+  <data name="Status_Recorded_Format" xml:space="preserve"><value>Ua hoʻopaʻa ʻia "{0}" ← {1}</value></data>
+  <data name="Status_DirectionRight" xml:space="preserve"><value>(→ ʻākau)</value></data>
+  <data name="Status_DirectionDown" xml:space="preserve"><value>(↓ i lalo)</value></data>
+  <data name="Status_DirectionLeft" xml:space="preserve"><value>(← hema)</value></data>
+  <data name="Status_DirectionUp" xml:space="preserve"><value>(↑ i luna)</value></data>
+  <data name="Status_CopyFailed_Format" xml:space="preserve"><value>ʻAʻole i hiki ke kope: {0}</value></data>
+  <data name="Status_PasteFailed_Format" xml:space="preserve"><value>ʻAʻole i hiki ke hoʻopili: {0}</value></data>
+  <data name="Status_SettingsSaved_Format" xml:space="preserve"><value>Ua mālama ʻia nā hoʻonohonoho ma {0}.</value></data>
+  <data name="Status_ErrorSavingSettings_Format" xml:space="preserve"><value>Hewa i ka mālama ʻana i nā hoʻonohonoho: {0}</value></data>
+  <data name="Status_RecordingCanceled" xml:space="preserve"><value>Ua kāpae ʻia ka hoʻopaʻa ʻana.</value></data>
+  <data name="Status_EngineStarted" xml:space="preserve"><value>Ua hoʻomaka ka ʻenekini.</value></data>
+  <data name="Status_EngineStopped" xml:space="preserve"><value>Ua kū ka ʻenekini.</value></data>
+  <data name="Status_Error_Format" xml:space="preserve"><value>Hewa: {0}</value></data>
+  <data name="Profiles_ShortcutLearn" xml:space="preserve"><value>Hoʻopaʻa</value></data>
+  <data name="Profiles_ShortcutLearning" xml:space="preserve"><value>Ke hoʻopaʻa nei...</value></data>
+  <data name="Status_NoDeviceSelected" xml:space="preserve"><value>ʻAʻohe hāmeʻa i koho ʻia.</value></data>
+  <data name="Status_DeviceRemoved" xml:space="preserve"><value>Ua wehe ʻia ka hāmeʻa.</value></data>
+
+  <!-- ═══ Dashboard ═══ -->
+  <data name="FirstRun_Done" xml:space="preserve"><value>Pau</value></data>
+  <data name="Pad_ScopeDevice" xml:space="preserve"><value>Hāmeʻa</value></data>
+  <data name="RemoteLink_Reject" xml:space="preserve"><value>Hōʻole</value></data>
+
+  <!-- ═══ Settings ═══ -->
+  <data name="Settings_Title" xml:space="preserve"><value>Hoʻonohonoho</value></data>
+  <data name="Settings_ThemeLight" xml:space="preserve"><value>Mālamalama</value></data>
+  <data name="Settings_ThemeDark" xml:space="preserve"><value>Pōʻeleʻele</value></data>
+  <data name="Settings_Window" xml:space="preserve"><value>Pukaaniani</value></data>
+  <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
+  <data name="Settings_Language" xml:space="preserve"><value>ʻŌlelo</value></data>
+  <data name="Settings_LanguageDesc" xml:space="preserve"><value>E koho i ka ʻōlelo āu e makemake ai.</value></data>
+
+  <!-- ═══ About ═══ -->
+  <data name="About_DotNet10" xml:space="preserve"><value>.NET 10</value></data>
+  <data name="About_SDL3" xml:space="preserve"><value>SDL3</value></data>
+  <data name="About_HelixToolkit" xml:space="preserve"><value>HelixToolkit</value></data>
+  <data name="About_ModernWpf" xml:space="preserve"><value>WPF UI</value></data>
+  <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
+  <data name="About_License" xml:space="preserve"><value>Laikini</value></data>
+  <data name="About_HIDMaestro" xml:space="preserve"><value>HIDMaestro</value></data>
+  <data name="About_OpenXInput" xml:space="preserve"><value>OpenXInput</value></data>
+  <data name="About_HidHide" xml:space="preserve"><value>HidHide</value></data>
+  <data name="About_Testimony" xml:space="preserve"><value>He kono</value></data>
+  <data name="About_TestimonyScripture" xml:space="preserve"><value>“A ke kamailio nei makou no Kristo, ke hauoli nei makou iloko o Kristo, ke hai aku nei makou no Kristo, ke wanana nei makou no Kristo, a ke palapala nei makou e like me na wanana a makou, i ike ai na hua a makou i ke kumu e nana aku ai lakou no ke kala ia ana o ka lakou mau hala.”</value></data>
+  <data name="About_TestimonyRef" xml:space="preserve"><value>Ⅱ Nepai 25:26</value></data>
+  <data name="About_TestimonyDoxology" xml:space="preserve"><value>Ka nani, ka hanohano, a me ka hoʻomaikaʻi i ka Haku ʻo Iesū Kristo, ke kumu o ka ʻoiaʻiʻo a me ke ola a pau, a mau loa aku.</value></data>
+  <data name="About_TestimonyInvite" xml:space="preserve"><value>Ua kono ʻia ʻoe me ke aloha e kipa aku i ComeUntoChrist.org a e aʻo hou aku no Ia a no Ka ʻEkalesia o Iesū Kristo o ka Poʻe Hoʻāno o nā Lā Hope Nei.</value></data>
+  <data name="About_Bs2b" xml:space="preserve"><value>bs2b</value></data>
+  <data name="About_Concentus" xml:space="preserve"><value>Concentus</value></data>
+  <data name="About_SAxense" xml:space="preserve"><value>SAxense</value></data>
+  <data name="About_DsBtHaptics" xml:space="preserve"><value>dualsense-bt-haptics</value></data>
+  <data name="About_DualSenseY" xml:space="preserve"><value>DualSenseY-v2</value></data>
+
+  <!-- ═══ Device Types ═══ -->
+  <data name="DeviceType_Mouse" xml:space="preserve"><value>ʻIole</value></data>
+  <data name="DeviceType_Keyboard" xml:space="preserve"><value>Papa pihi</value></data>
+  <data name="DeviceType_Device" xml:space="preserve"><value>Hāmeʻa</value></data>
+
+  <data name="MacroDisconnect_Target_Label" xml:space="preserve"><value>Pahuhopu</value></data>
+  <data name="MacroDisconnect_Device_Label" xml:space="preserve"><value>Hāmeʻa</value></data>
+  <data name="MacroAction_RunProgram_NoProgram" xml:space="preserve"><value>(ʻaʻohe polokalamu)</value></data>
+  <data name="MacroAction_RunProgram_Path" xml:space="preserve"><value>Polokalamu</value></data>
+  <data name="MacroAction_TextBlock_Format" xml:space="preserve"><value>Kikokiko i "{0}"</value></data>
+  <data name="MacroAction_TextBlock_NoText" xml:space="preserve"><value>(ʻaʻohe kikokikona)</value></data>
+  <data name="MacroAction_TextBlock_Text" xml:space="preserve"><value>Kikokikona</value></data>
+  <data name="DreamcastScreen_Mode_Label" xml:space="preserve"><value>Hōʻike</value></data>
+  <data name="DreamcastScreen_Mode_ProfileName" xml:space="preserve"><value>Inoa o ka profile</value></data>
+  <data name="DreamcastScreen_Mode_ProfileNumber" xml:space="preserve"><value>Helu o ka profile</value></data>
+  <data name="DreamcastScreen_Mode_ProfilePicture" xml:space="preserve"><value>Kiʻi o ka profile</value></data>
+  <data name="DreamcastScreen_Mode_Clock" xml:space="preserve"><value>Uaki</value></data>
+  <data name="DreamcastScreen_Mode_Picture" xml:space="preserve"><value>Kiʻi i koho ʻia</value></data>
+  <data name="DreamcastScreen_ChoosePicture" xml:space="preserve"><value>Koho i kiʻi…</value></data>
+  <data name="Devices_LightGun" xml:space="preserve"><value>Light gun</value></data>
+  <data name="DevObj_ConsumerMenu" xml:space="preserve"><value>Papa kuhikuhi</value></data>
+  <data name="DevObj_ConsumerMute" xml:space="preserve"><value>Hoʻohāmau</value></data>
+  <data name="DevObj_ConsumerEmail" xml:space="preserve"><value>Leka uila</value></data>
+  <data name="DevObj_ConsumerBrowserSearch" xml:space="preserve"><value>ʻImi</value></data>
+  <!-- ═══ Devices ═══ -->
+  <data name="Devices_Title" xml:space="preserve"><value>Nā hāmeʻa</value></data>
+  <data name="Devices_RemoveConfirmTitle" xml:space="preserve"><value>Holoi i ka hāmeʻa</value></data>
+  <data name="Devices_Axes" xml:space="preserve"><value>Nā axis</value></data>
+  <data name="Devices_Buttons" xml:space="preserve"><value>Nā pihi</value></data>
+  <data name="Devices_Keyboard" xml:space="preserve"><value>Papa pihi</value></data>
+  <data name="Devices_Mouse" xml:space="preserve"><value>ʻIole</value></data>
+  <data name="Devices_DPadPOV" xml:space="preserve"><value>D-pad / POV</value></data>
+  <data name="Devices_POV" xml:space="preserve"><value>POV </value></data>
+  <data name="Devices_Gyroscope" xml:space="preserve"><value>Gyro</value></data>
+  <data name="Devices_Accelerometer" xml:space="preserve"><value>Accelerometer</value></data>
+  <data name="Devices_Axis_Format" xml:space="preserve"><value>Axis {0}</value></data>
+  <data name="Devices_Rumble" xml:space="preserve"><value>Rumble</value></data>
+  <data name="Devices_Gyro" xml:space="preserve"><value>Gyro</value></data>
+  <data name="Devices_Nfc" xml:space="preserve"><value>NFC</value></data>
+  <data name="Devices_DeviceKind_Mouse" xml:space="preserve"><value>ʻiole</value></data>
+  <data name="Devices_DeviceKind_Keyboard" xml:space="preserve"><value>papa pihi</value></data>
+
+  <!-- ═══ Pad Page ═══ -->
+  <data name="Pad_Macros" xml:space="preserve"><value>Nā macro</value></data>
+  <data name="Macro_CopyNameFormat" xml:space="preserve"><value>{0} (Kope)</value></data>
+  <data name="Pad_Mappings" xml:space="preserve"><value>Nā mapping</value></data>
+  <data name="Pad_Sticks" xml:space="preserve"><value>Nā stick</value></data>
+  <data name="Pad_Triggers" xml:space="preserve"><value>Nā trigger</value></data>
+  <data name="Pad_ForceFeedback" xml:space="preserve"><value>Force feedback</value></data>
+  <!-- Impulse Triggers tab (Xbox One+ family) -->
+  <data name="Pad_ImpulseTriggers_LeftTrigger" xml:space="preserve"><value>Trigger hema</value></data>
+  <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Trigger ʻākau</value></data>
+  <data name="Pad_TriggerRouting_LeftTrigger" xml:space="preserve"><value>Trigger hema</value></data>
+  <data name="Pad_TriggerRouting_RightTrigger" xml:space="preserve"><value>Trigger ʻākau</value></data>
+  <data name="Pad_TriggerRouting_Source" xml:space="preserve"><value>Kumu</value></data>
+  <data name="Pad_TriggerRouting_Source_None" xml:space="preserve"><value>ʻAʻohe (Pio)</value></data>
+  <data name="Pad_TriggerRouting_Source_MainLeft" xml:space="preserve"><value>Mīkini hema</value></data>
+  <data name="Pad_TriggerRouting_Source_MainRight" xml:space="preserve"><value>Mīkini ʻākau</value></data>
+  <data name="Pad_TriggerRouting_Mode_Off" xml:space="preserve"><value>Pio</value></data>
+  <data name="Pad_TriggerRouting_Activator" xml:space="preserve"><value>Activator</value></data>
+  <data name="Pad_ConstantTriggerForce_Left" xml:space="preserve"><value>Trigger hema</value></data>
+  <data name="Pad_ConstantTriggerForce_Right" xml:space="preserve"><value>Trigger ʻākau</value></data>
+  <data name="Pad_AudioTriggerRumble_Sensitivity" xml:space="preserve"><value>Sensitivity</value></data>
+  <data name="Pad_AudioTriggerRumble_LeftTrigger" xml:space="preserve"><value>Trigger hema</value></data>
+  <data name="Pad_AudioTriggerRumble_RightTrigger" xml:space="preserve"><value>Trigger ʻākau</value></data>
+  <data name="Pad_AudioTriggerRumble_Level" xml:space="preserve"><value>Pae</value></data>
+  <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
+  <data name="Pad_Sticks_Header" xml:space="preserve"><value>Nā stick</value></data>
+  <data name="Pad_Triggers_Header" xml:space="preserve"><value>Nā trigger</value></data>
+  <data name="Pad_ForceFeedback_Header" xml:space="preserve"><value>Force feedback</value></data>
+  <data name="Pad_LeftTrigger" xml:space="preserve"><value>Trigger hema</value></data>
+  <data name="Pad_RightTrigger" xml:space="preserve"><value>Trigger ʻākau</value></data>
+  <data name="Pad_AT_Off" xml:space="preserve"><value>Pio</value></data>
+  <data name="Pad_AT_Weapon" xml:space="preserve"><value>Mea kaua</value></data>
+  <data name="Pad_AT_Vibration" xml:space="preserve"><value>Haʻalulu</value></data>
+  <data name="Pad_AT_Range" xml:space="preserve"><value>Range</value></data>
+  <data name="Pad_AT_Strength" xml:space="preserve"><value>Ikaika</value></data>
+  <data name="Pad_AT_Frequency" xml:space="preserve"><value>Alapine (Hz)</value></data>
+  <!-- Lighting tab (DS4 / DualSense / DualSense Edge) -->
+  <data name="Pad_Lighting" xml:space="preserve"><value>Lighting</value></data>
+  <data name="Pad_Lighting_Header" xml:space="preserve"><value>Lighting</value></data>
+  <data name="Pad_Lighting_VendorRowExamples_GameSense" xml:space="preserve"><value>nā headset</value></data>
+  <data name="Pad_Lighting_BaseColor" xml:space="preserve"><value>Lightbar</value></data>
+  <data name="Pad_Lighting_Hex" xml:space="preserve"><value>HEX</value></data>
+  <data name="Pad_Lighting_MicLed_Off" xml:space="preserve"><value>Pio</value></data>
+  <data name="Pad_Lighting_PlayerLed_Off" xml:space="preserve"><value>Pio</value></data>
+  <data name="Pad_Lighting_PlayerLed_Brightness_High" xml:space="preserve"><value>Kiʻekiʻe</value></data>
+  <data name="Pad_Lighting_PlayerLed_Brightness_Medium" xml:space="preserve"><value>Waena</value></data>
+  <data name="Pad_Lighting_PlayerLed_Brightness_Low" xml:space="preserve"><value>Haʻahaʻa</value></data>
+  <data name="Pad_Lighting_AudioLightbar_Sensitivity" xml:space="preserve"><value>Sensitivity</value></data>
+  <data name="Pad_Lighting_Mode_Off" xml:space="preserve"><value>Pio</value></data>
+
+  <!-- v3.2+ Input Reactive overlay (separate dropdown layered on top of base mode) -->
+  <data name="Pad_Lighting_InputReactive_Off" xml:space="preserve"><value>Pio</value></data>
+
+  <data name="Pad_Lighting_RainbowBrightness" xml:space="preserve"><value>Mālamalama</value></data>
+  <data name="Pad_Lighting_AddColor" xml:space="preserve"><value>Hoʻohui i ka waihoʻoluʻu</value></data>
+  <data name="Pad_Preset" xml:space="preserve"><value>Preset</value></data>
+  <data name="Pad_ExtendedSticks" xml:space="preserve"><value>Nā stick</value></data>
+  <data name="Pad_ExtendedTriggers" xml:space="preserve"><value>Nā trigger</value></data>
+  <data name="Pad_ExtendedPOVs" xml:space="preserve"><value>Nā POV</value></data>
+  <data name="Pad_ExtendedButtons" xml:space="preserve"><value>Nā pihi</value></data>
+  <data name="ManageProfiles_Delete" xml:space="preserve"><value>Holoi</value></data>
+  <data name="ManageProfiles_Close" xml:space="preserve"><value>Pani</value></data>
+  <data name="ManageProfiles_StatusDeleted_Format" xml:space="preserve"><value>Ua holoi ʻia "{0}".</value></data>
+  <data name="Pad_ExtendedVid" xml:space="preserve"><value>VID</value></data>
+  <data name="Pad_ExtendedPid" xml:space="preserve"><value>PID</value></data>
+  <data name="Pad_ExtendedForceFeedback" xml:space="preserve"><value>Force feedback</value></data>
+  <data name="Pad_MidiOutputPortNone" xml:space="preserve"><value>ʻAʻohe</value></data>
+  <data name="Pad_Kbm_Socd_Mode_Off_Name" xml:space="preserve"><value>Pio</value></data>
+  <data name="Pad_LeftMotor" xml:space="preserve"><value>Mīkini hema</value></data>
+  <data name="Pad_RightMotor" xml:space="preserve"><value>Mīkini ʻākau</value></data>
+  <data name="Pad_Half" xml:space="preserve"><value>Hapalua</value></data>
+  <!-- Merge-mapping UI (Issue #61): per-source Kind dropdown + Incremental / InvertOnHold controls. -->
+  <data name="Pad_Mapping_Ramp_Release" xml:space="preserve"><value>Hoʻokuʻu</value></data>
+  <!-- Combine UI (Issue #61): per-row CombineMode dropdown + Custom formula editor + starter presets. English placeholders pending translation. -->
+  <data name="Pad_Formula_Status_And" xml:space="preserve"><value>a me</value></data>
+  <data name="Pad_Formula_Chip_Add" xml:space="preserve"><value>Hoʻohui</value></data>
+  <data name="Pad_Formula_Chip_Subtract" xml:space="preserve"><value>Hoʻolawe</value></data>
+  <data name="Pad_Formula_Chip_Multiply" xml:space="preserve"><value>Hoʻonui</value></data>
+  <data name="Pad_Formula_Chip_Divide" xml:space="preserve"><value>Puʻunaue</value></data>
+  <data name="Pad_Formula_Chip_Half" xml:space="preserve"><value>0.5: hapalua</value></data>
+  <data name="Pad_ScrollUp" xml:space="preserve"><value>I luna</value></data>
+  <data name="Pad_ScrollDown" xml:space="preserve"><value>I lalo</value></data>
+
+  <!-- ═══ Macros ═══ -->
+  <data name="Macro_Name" xml:space="preserve"><value>Inoa</value></data>
+  <data name="Macro_Always" xml:space="preserve"><value>I nā manawa a pau</value></data>
+  <data name="Macro_ActionType" xml:space="preserve"><value>ʻAno</value></data>
+  <data name="Macro_Cat_Keyboard" xml:space="preserve"><value>Papa pihi a me ke kikokikona</value></data>
+  <data name="Macro_Cat_Mouse" xml:space="preserve"><value>ʻIole</value></data>
+  <data name="Macro_ButtonPress" xml:space="preserve"><value>Kaomi pihi</value></data>
+  <data name="Macro_ButtonRelease" xml:space="preserve"><value>Hoʻokuʻu pihi</value></data>
+  <data name="Macro_KeyPress" xml:space="preserve"><value>Kaomi pihi</value></data>
+  <data name="Macro_KeyRelease" xml:space="preserve"><value>Hoʻokuʻu pihi</value></data>
+  <data name="Macro_MouseButtonPress" xml:space="preserve"><value>Kaomi pihi ʻiole</value></data>
+  <data name="Macro_MouseButtonRelease" xml:space="preserve"><value>Hoʻokuʻu pihi ʻiole</value></data>
+  <data name="Macro_Buttons" xml:space="preserve"><value>Nā pihi</value></data>
+  <data name="Macro_LeftStickX" xml:space="preserve"><value>Stick hema X</value></data>
+  <data name="Macro_LeftStickY" xml:space="preserve"><value>Stick hema Y</value></data>
+  <data name="Macro_RightStickX" xml:space="preserve"><value>Stick ʻākau X</value></data>
+  <data name="Macro_RightStickY" xml:space="preserve"><value>Stick ʻākau Y</value></data>
+  <data name="Macro_LeftTrigger" xml:space="preserve"><value>Trigger hema</value></data>
+  <data name="Macro_RightTrigger" xml:space="preserve"><value>Trigger ʻākau</value></data>
+  <data name="Macro_Device" xml:space="preserve"><value>Hāmeʻa</value></data>
+  <data name="Macro_MouseLeft" xml:space="preserve"><value>Hema</value></data>
+  <data name="Macro_MouseRight" xml:space="preserve"><value>ʻĀkau</value></data>
+  <data name="Macro_MouseMiddle" xml:space="preserve"><value>Waena</value></data>
+  <data name="Macro_Once" xml:space="preserve"><value>Hoʻokahi manawa</value></data>
+  <data name="Macro_NewMacro" xml:space="preserve"><value>Macro hou</value></data>
+  <data name="Macro_Btn_Format" xml:space="preserve"><value>Pihi {0}</value></data>
+  <data name="Macro_None" xml:space="preserve"><value>(ʻaʻohe)</value></data>
+  <data name="Macro_Button_Format" xml:space="preserve"><value>Pihi {0}</value></data>
+
+  <!-- ═══ Macro Action Display ═══ -->
+  <data name="MacroAction_Release_Format" xml:space="preserve"><value>Hoʻokuʻu {0}</value></data>
+  <data name="MacroAction_KeyRelease_Format" xml:space="preserve"><value>Hoʻokuʻu i nā pihi {0}</value></data>
+  <data name="MacroAction_Wait_Format" xml:space="preserve"><value>Kali {0}ms</value></data>
+  <data name="MacroAction_MousePress_Format" xml:space="preserve"><value>Kaomi ʻiole {0}</value></data>
+  <data name="MacroAction_MouseRelease_Format" xml:space="preserve"><value>Hoʻokuʻu ʻiole {0}</value></data>
+
+  <data name="Macro_LightbarHold_Label" xml:space="preserve"><value>Paʻa</value></data>
+  <data name="Macro_LightbarColorSource_Label" xml:space="preserve"><value>Waihoʻoluʻu</value></data>
+
+  <!-- ═══ Macro action: Rumble ═══ -->
+  <data name="Macro_SetGyroEngaged_On" xml:space="preserve"><value>Ā</value></data>
+  <data name="Macro_SetGyroEngaged_Off" xml:space="preserve"><value>Pio</value></data>
+  <data name="Macro_MouseX_Label" xml:space="preserve"><value>ʻIole X</value></data>
+  <data name="Macro_MouseY_Label" xml:space="preserve"><value>ʻIole Y</value></data>
+  <data name="Macro_RumbleHold_Label" xml:space="preserve"><value>Paʻa</value></data>
+  <data name="Macro_RumbleStrengthLeft_Label" xml:space="preserve"><value>Mīkini hema</value></data>
+  <data name="Macro_RumbleStrengthRight_Label" xml:space="preserve"><value>Mīkini ʻākau</value></data>
+  <data name="Macro_RumbleHoldMs_Label" xml:space="preserve"><value>Paʻa</value></data>
+
+  <!-- ═══ POV Directions ═══ -->
+  <data name="POV_Centered" xml:space="preserve"><value>Ma waena</value></data>
+  <data name="POV_Up" xml:space="preserve"><value>Luna</value></data>
+  <data name="POV_Right" xml:space="preserve"><value>ʻĀkau</value></data>
+  <data name="POV_Down" xml:space="preserve"><value>Lalo</value></data>
+  <data name="POV_Left" xml:space="preserve"><value>Hema</value></data>
+
+  <!-- ═══ Mapping ═══ -->
+  <data name="Mapping_Half" xml:space="preserve"><value>Hapalua</value></data>
+  <data name="Mapping_POV_Format" xml:space="preserve"><value>POV {0} {1}</value></data>
+
+  <!-- ═══ Touchpad Mapping Labels ═══ -->
+  <data name="Mapping_TouchpadWindow_Upper" xml:space="preserve"><value>Hapalua o luna</value></data>
+  <data name="Mapping_TouchpadWindow_Lower" xml:space="preserve"><value>Hapalua o lalo</value></data>
+  <data name="Mapping_TouchpadWindow_Center" xml:space="preserve"><value>Waena</value></data>
+
+  <!-- ═══ Touchpad Gesture Mapping Labels ═══ -->
+  <data name="Mapping_TouchpadGesture_Square" xml:space="preserve"><value>Huinahā like</value></data>
+  <data name="Mapping_TouchpadGesture_Triangle" xml:space="preserve"><value>Huinakolu</value></data>
+
+  <!-- ═══ Pad Touchpad Tab ═══ -->
+  <data name="Pad_Touchpad_CustomGesture_OneFinger" xml:space="preserve"><value>1 manamana lima</value></data>
+  <data name="Pad_Touchpad_CustomGesture_NFingers_Format" xml:space="preserve"><value>{0} manamana lima</value></data>
+
+  <!-- Stick / D-pad output card -->
+  <data name="Pad_Touchpad_StickDPadMode_Off" xml:space="preserve"><value>Pio</value></data>
+
+  <!-- Mouse Output card -->
+
+  <!-- Absolute Pointer card (#9 B-15) -->
+
+  <!-- Swipe Haptics card (discussion #219) -->
+
+  <!-- Reset-All tooltips per card -->
+
+  <!-- Per-row Reset tooltips for stick / D-pad card -->
+
+  <!-- Per-row Reset tooltips for mouse-output card -->
+
+  <!-- Per-row Reset tooltips for absolute-pointer card (#9 B-15) -->
+
+  <!-- Per-row Reset tooltips for swipe-haptics card -->
+
+  <!-- Per-row Reset tooltips -->
+
+  <!-- ═══ Touchpad Gesture Recorder Dialog ═══ -->
+  <data name="Recorder_NameLabel" xml:space="preserve"><value>Inoa</value></data>
+  <data name="Recorder_TryAgain" xml:space="preserve"><value>Hoʻāʻo hou</value></data>
+
+  <data name="Settings_GyroAimEngageMode_Hold" xml:space="preserve"><value>Paʻa</value></data>
+  <data name="Settings_GyroEngageStickSide_Right" xml:space="preserve"><value>Stick ʻākau</value></data>
+  <data name="Settings_GyroEngageStickSide_Left" xml:space="preserve"><value>Stick hema</value></data>
+  <data name="Settings_GyroEngageStickDirection_Full" xml:space="preserve"><value>Piha</value></data>
+  <data name="Settings_GyroEngageStickDirection_XNeg" xml:space="preserve"><value>Hema (X-)</value></data>
+  <data name="Settings_GyroEngageStickDirection_XPos" xml:space="preserve"><value>ʻĀkau (X+)</value></data>
+  <data name="Settings_GyroEngageStickDirection_YNeg" xml:space="preserve"><value>Lalo (Y-)</value></data>
+  <data name="Settings_GyroEngageStickDirection_YPos" xml:space="preserve"><value>Luna (Y+)</value></data>
+  <data name="Pad_Gyro_Space_World" xml:space="preserve"><value>Honua</value></data>
+  <data name="Mapping_MouseSpeedX" xml:space="preserve"><value>Māmā ʻiole X</value></data>
+  <data name="Mapping_MouseSpeedY" xml:space="preserve"><value>Māmā ʻiole Y</value></data>
+  <data name="Mapping_MousePositionX" xml:space="preserve"><value>Kūlana ʻiole X</value></data>
+  <data name="Mapping_MousePositionY" xml:space="preserve"><value>Kūlana ʻiole Y</value></data>
+
+  <!-- ═══ Device Object Names (gamepad) ═══ -->
+  <data name="DevObj_LeftStickX" xml:space="preserve"><value>Stick hema X</value></data>
+  <data name="DevObj_LeftStickY" xml:space="preserve"><value>Stick hema Y</value></data>
+  <data name="DevObj_LeftTrigger" xml:space="preserve"><value>Trigger hema</value></data>
+  <data name="DevObj_RightStickX" xml:space="preserve"><value>Stick ʻākau X</value></data>
+  <data name="DevObj_RightStickY" xml:space="preserve"><value>Stick ʻākau Y</value></data>
+  <data name="DevObj_RightTrigger" xml:space="preserve"><value>Trigger ʻākau</value></data>
+  <data name="DevObj_Mode" xml:space="preserve"><value>ʻAno</value></data>
+  <data name="DevObj_Option" xml:space="preserve"><value>Koho</value></data>
+  <data name="DevObj_LeftShoulder" xml:space="preserve"><value>Poʻohiwi hema</value></data>
+  <data name="DevObj_RightShoulder" xml:space="preserve"><value>Poʻohiwi ʻākau</value></data>
+  <data name="DevObj_LeftStickButton" xml:space="preserve"><value>Pihi stick hema</value></data>
+  <data name="DevObj_RightStickButton" xml:space="preserve"><value>Pihi stick ʻākau</value></data>
+
+  <!-- ═══ Device Object Names (raw joystick) ═══ -->
+  <data name="DevObj_POV" xml:space="preserve"><value>POV</value></data>
+  <data name="DevObj_POVN" xml:space="preserve"><value>POV {0}</value></data>
+  <data name="DevObj_Button" xml:space="preserve"><value>Pihi {0}</value></data>
+  <data name="DevObj_Misc1" xml:space="preserve"><value>Kaʻana</value></data>
+  <data name="DevObj_RightPaddle1" xml:space="preserve"><value>Paddle ʻākau 1</value></data>
+  <data name="DevObj_RightPaddle2" xml:space="preserve"><value>Paddle ʻākau 2</value></data>
+  <data name="DevObj_LeftPaddle1" xml:space="preserve"><value>Paddle hema 1</value></data>
+  <data name="DevObj_LeftPaddle2" xml:space="preserve"><value>Paddle hema 2</value></data>
+
+  <!-- ═══ Keyboard Key Names (OEM/Numpad operators: not already in VirtualKey section) ═══ -->
+
+  <!-- ═══ Profiles ═══ -->
+  <data name="Profiles_Title" xml:space="preserve"><value>Nā profile</value></data>
+  <data name="Profiles_NoSlots" xml:space="preserve"><value>ʻAʻohe slot</value></data>
+  <data name="Profiles_New" xml:space="preserve"><value>Hou</value></data>
+  <data name="Profiles_Edit" xml:space="preserve"><value>Hoʻoponopono</value></data>
+  <data name="Profiles_Load" xml:space="preserve"><value>Hoʻouka</value></data>
+  <data name="Profiles_SelectFirstHint" xml:space="preserve"><value>E koho mua i kekahi profile.</value></data>
+  <data name="Profiles_DeleteConfirmTitle" xml:space="preserve"><value>Holoi i ka profile</value></data>
+
+  <!-- ═══ Profile Dialog ═══ -->
+  <data name="ProfileDialog_Edit" xml:space="preserve"><value>Hoʻoponopono i ka profile</value></data>
+  <data name="ProfileDialog_ProfileName" xml:space="preserve"><value>Inoa o ka profile:</value></data>
+  <data name="ProfileDialog_DefaultName" xml:space="preserve"><value>Profile hou</value></data>
+
+  <!-- ═══ CopyFrom Dialog ═══ -->
+  <data name="CopyFrom_SelectDevice" xml:space="preserve"><value>E koho i kekahi hāmeʻa e kope ai i kona mau hoʻonohonoho:</value></data>
+
+  <!-- ═══ File Dialogs ═══ -->
+
+  <!-- ═══ App-Level Messages ═══ -->
+  <data name="App_AlreadyRunning" xml:space="preserve"><value>Ke holo nei ʻo PadForge.</value></data>
+  <data name="App_Error" xml:space="preserve"><value>PadForge: Hewa</value></data>
+
+  <!-- ═══ Polling Frequency ═══ -->
+  <data name="Dashboard_PollingHz_Format" xml:space="preserve"><value>{0:F1} Hz</value></data>
+  <data name="Dashboard_PollingDash" xml:space="preserve"><value>–</value></data>
+
+  <!-- ═══ Pad: Sticks/Triggers Settings ═══ -->
+
+  <!-- ═══ Pad: Force Feedback ═══ -->
+  <data name="Pad_LeftMotorLabel" xml:space="preserve"><value>Mīkini hema</value></data>
+  <data name="Pad_RightMotorLabel" xml:space="preserve"><value>Mīkini ʻākau</value></data>
+  <data name="Pad_SwapMotors" xml:space="preserve"><value>Hoʻololi i nā mīkini hema a me ʻākau</value></data>
+  <data name="Pad_TestRumble" xml:space="preserve"><value>Hoʻāʻo i ka rumble</value></data>
+
+  <!-- ═══ Pad: Constant Force ═══ -->
+  <data name="Pad_ConstantForce_X" xml:space="preserve"><value>X</value></data>
+  <data name="Pad_ConstantForce_Y" xml:space="preserve"><value>Y</value></data>
+
+  <!-- ═══ Pad: Reset Tooltips ═══ -->
+
+  <!-- ═══ Pad: Adaptive Triggers reset tooltips ═══ -->
+
+  <!-- ═══ Pad: Lighting reset tooltips ═══ -->
+
+  <!-- ═══ Pad: Macro Hints ═══ -->
+
+  <!-- ═══ 3D View ═══ -->
+
+  <!-- ═══ Gamepad Button Labels ═══ -->
+  <data name="Btn_LeftShoulder" xml:space="preserve"><value>Poʻohiwi hema</value></data>
+  <data name="Btn_RightShoulder" xml:space="preserve"><value>Poʻohiwi ʻākau</value></data>
+  <data name="Btn_LeftStickButton" xml:space="preserve"><value>Pihi stick hema</value></data>
+  <data name="Btn_RightStickButton" xml:space="preserve"><value>Pihi stick ʻākau</value></data>
+  <data name="Btn_DPadUp" xml:space="preserve"><value>D-pad i luna</value></data>
+  <data name="Btn_DPadDown" xml:space="preserve"><value>D-pad i lalo</value></data>
+  <data name="Btn_DPadLeft" xml:space="preserve"><value>D-pad hema</value></data>
+  <data name="Btn_DPadRight" xml:space="preserve"><value>D-pad ʻākau</value></data>
+  <data name="Btn_LeftTrigger" xml:space="preserve"><value>Trigger hema</value></data>
+  <data name="Btn_RightTrigger" xml:space="preserve"><value>Trigger ʻākau</value></data>
+  <data name="Stick_LeftThumbstick" xml:space="preserve"><value>Stick hema</value></data>
+  <data name="Stick_RightThumbstick" xml:space="preserve"><value>Stick ʻākau</value></data>
+  <data name="Btn_LeftStickX" xml:space="preserve"><value>Stick hema X</value></data>
+  <data name="Btn_LeftStickY" xml:space="preserve"><value>Stick hema Y</value></data>
+  <data name="Btn_RightStickX" xml:space="preserve"><value>Stick ʻākau X</value></data>
+  <data name="Btn_RightStickY" xml:space="preserve"><value>Stick ʻākau Y</value></data>
+  <data name="Btn_Up" xml:space="preserve"><value>Luna</value></data>
+  <data name="Btn_Down" xml:space="preserve"><value>Lalo</value></data>
+  <data name="Btn_Left" xml:space="preserve"><value>Hema</value></data>
+  <data name="Btn_Right" xml:space="preserve"><value>ʻĀkau</value></data>
+  <data name="Btn_Cross" xml:space="preserve"><value>Keʻa</value></data>
+  <data name="Btn_Circle" xml:space="preserve"><value>Pōʻai</value></data>
+  <data name="Btn_Square" xml:space="preserve"><value>Huinahā like</value></data>
+  <data name="Btn_Triangle" xml:space="preserve"><value>Huinakolu</value></data>
+  <data name="Btn_L1" xml:space="preserve"><value>L1</value></data>
+  <data name="Btn_R1" xml:space="preserve"><value>R1</value></data>
+  <data name="Btn_L3" xml:space="preserve"><value>L3</value></data>
+  <data name="Btn_R3" xml:space="preserve"><value>R3</value></data>
+  <data name="Btn_Share" xml:space="preserve"><value>Kaʻana</value></data>
+  <data name="Btn_Options" xml:space="preserve"><value>Nā koho</value></data>
+  <data name="Btn_PS" xml:space="preserve"><value>PS</value></data>
+  <data name="Btn_L" xml:space="preserve"><value>L</value></data>
+  <data name="Btn_R" xml:space="preserve"><value>R</value></data>
+  <data name="Btn_ZL" xml:space="preserve"><value>ZL</value></data>
+  <data name="Btn_ZR" xml:space="preserve"><value>ZR</value></data>
+  <data name="Btn_GL" xml:space="preserve"><value>GL</value></data>
+  <data name="Btn_GR" xml:space="preserve"><value>GR</value></data>
+  <data name="Btn_Menu" xml:space="preserve"><value>Papa kuhikuhi</value></data>
+  <data name="Btn_Steam" xml:space="preserve"><value>Steam</value></data>
+  <data name="Btn_C" xml:space="preserve"><value>C</value></data>
+  <data name="Btn_LeftPaddle" xml:space="preserve"><value>Pihi hope hema</value></data>
+  <data name="Btn_RightPaddle" xml:space="preserve"><value>Pihi hope ʻākau</value></data>
+  <data name="Btn_LeftFn" xml:space="preserve"><value>Fn hema</value></data>
+  <data name="Btn_RightFn" xml:space="preserve"><value>Fn ʻākau</value></data>
+  <data name="Btn_VrLeftA" xml:space="preserve"><value>A hema</value></data>
+  <data name="Btn_VrLeftB" xml:space="preserve"><value>B hema</value></data>
+  <data name="Btn_VrRightA" xml:space="preserve"><value>A ʻākau</value></data>
+  <data name="Btn_VrRightB" xml:space="preserve"><value>B ʻākau</value></data>
+  <data name="Vr_LeftHand" xml:space="preserve"><value>Lima hema</value></data>
+  <data name="Vr_RightHand" xml:space="preserve"><value>Lima ʻākau</value></data>
+
+  <!-- ═══ Keyboard Key Labels ═══ -->
+  <!-- Mouse VK buttons -->
+  <data name="Key_LButton" xml:space="preserve"><value>Pihi ʻiole hema</value></data>
+  <data name="Key_RButton" xml:space="preserve"><value>Pihi ʻiole ʻākau</value></data>
+  <data name="Key_MButton" xml:space="preserve"><value>Pihi ʻiole waena</value></data>
+  <data name="Key_XButton1" xml:space="preserve"><value>Pihi ʻiole X1</value></data>
+  <data name="Key_XButton2" xml:space="preserve"><value>Pihi ʻiole X2</value></data>
+  <!-- Common keys -->
+  <!-- Navigation -->
+  <data name="Key_Help" xml:space="preserve"><value>Kōkua</value></data>
+  <!-- Windows keys -->
+  <data name="Key_LWin" xml:space="preserve"><value>Windows hema</value></data>
+  <data name="Key_RWin" xml:space="preserve"><value>Windows ʻākau</value></data>
+  <data name="Key_Sleep" xml:space="preserve"><value>Moe</value></data>
+  <!-- Numpad -->
+  <data name="AnalogKey_KatakanaHiragana" xml:space="preserve"><value>Katakana/Hiragana</value></data>
+  <data name="AnalogKey_Henkan" xml:space="preserve"><value>Henkan</value></data>
+  <data name="AnalogKey_Muhenkan" xml:space="preserve"><value>Muhenkan</value></data>
+  <data name="AnalogKey_Hangul" xml:space="preserve"><value>Hangul</value></data>
+  <data name="AnalogKey_Hanja" xml:space="preserve"><value>Hanja</value></data>
+  <data name="AnalogKey_CenterFn" xml:space="preserve"><value>Fn waena</value></data>
+  <data name="AnalogKey_RightFn" xml:space="preserve"><value>Fn ʻākau</value></data>
+  <!-- Lock keys -->
+  <!-- Left/Right modifiers -->
+  <data name="Key_LeftShift" xml:space="preserve"><value>Shift hema</value></data>
+  <data name="Key_RightShift" xml:space="preserve"><value>Shift ʻākau</value></data>
+  <data name="Key_LeftCtrl" xml:space="preserve"><value>Ctrl hema</value></data>
+  <data name="Key_RightCtrl" xml:space="preserve"><value>Ctrl ʻākau</value></data>
+  <data name="Key_LeftAlt" xml:space="preserve"><value>Alt hema</value></data>
+  <data name="Key_RightAlt" xml:space="preserve"><value>Alt ʻākau</value></data>
+  <!-- Browser keys -->
+  <!-- Media keys -->
+
+  <!-- ═══ Mouse Labels ═══ -->
+  <data name="Mouse_Button4" xml:space="preserve"><value>ʻIole 4</value></data>
+  <data name="Mouse_Button5" xml:space="preserve"><value>ʻIole 5</value></data>
+  <data name="Mouse_X" xml:space="preserve"><value>ʻIole X</value></data>
+  <data name="Mouse_Y" xml:space="preserve"><value>ʻIole Y</value></data>
+
+  <!-- ═══ Extended Custom Labels ═══ -->
+  <data name="Extended_Button_Format" xml:space="preserve"><value>Pihi {0}</value></data>
+  <data name="Extended_POV_Format" xml:space="preserve"><value>POV {0}</value></data>
+
+  <!-- ═══ Macro Axis Target Labels ═══ -->
+  <data name="MacroAxis_XAxis" xml:space="preserve"><value>Stick hema X</value></data>
+  <data name="MacroAxis_YAxis" xml:space="preserve"><value>Stick hema Y</value></data>
+  <data name="MacroAxis_XRotation" xml:space="preserve"><value>Stick ʻākau X</value></data>
+  <data name="MacroAxis_YRotation" xml:space="preserve"><value>Stick ʻākau Y</value></data>
+  <data name="MacroAxis_ZAxis" xml:space="preserve"><value>Trigger hema</value></data>
+  <data name="MacroAxis_ZRotation" xml:space="preserve"><value>Trigger ʻākau</value></data>
+
+  <!-- ═══ Preview Views ═══ -->
+  <data name="Preview_Trigger_Format" xml:space="preserve"><value>T{0}</value></data>
+  <data name="Preview_Buttons" xml:space="preserve"><value>Nā pihi</value></data>
+  <data name="Preview_POV_Format" xml:space="preserve"><value>POV {0}</value></data>
+
+  <!-- ═══ Audio Bass Rumble ═══ -->
+  <data name="Settings_AudioRumble_LeftMotor" xml:space="preserve"><value>Mīkini hema</value></data>
+  <data name="Settings_AudioRumble_RightMotor" xml:space="preserve"><value>Mīkini ʻākau</value></data>
+  <data name="Settings_AudioRumble_Level" xml:space="preserve"><value>Pae</value></data>
+  <!-- Shift mode (Issue #61 Phase 6 v1+) -->
+  <data name="Pad_Shift_ModeHold" xml:space="preserve"><value>Paʻa</value></data>
+  <data name="Pad_Shift_KindButton" xml:space="preserve"><value>Pihi</value></data>
+
+  <data name="Pad_Steering_Mode_Linear" xml:space="preserve"><value>Pio</value></data>
+  <data name="Pad_Steering_Orient_Forward" xml:space="preserve"><value>I mua</value></data>
+  <data name="Pad_Steering_Orient_Left" xml:space="preserve"><value>Hema</value></data>
+  <data name="Pad_Steering_Orient_Right" xml:space="preserve"><value>ʻĀkau</value></data>
+  <data name="Pad_Steering_Orient_Backward" xml:space="preserve"><value>I hope</value></data>
+  <data name="Pad_Wheel" xml:space="preserve"><value>Huila</value></data>
+  <data name="Pad_Audio" xml:space="preserve"><value>Leo</value></data>
+  <data name="Pad_Pointer_Mode_Mouse" xml:space="preserve"><value>ʻIole</value></data>
+  <data name="Pad_Audio_Header" xml:space="preserve"><value>Leo</value></data>
+  <data name="Pad_Audio_Test" xml:space="preserve"><value>Hoʻāʻo</value></data>
+  <data name="Pad_Audio_StopAll" xml:space="preserve"><value>E hoʻōki i nā kani a pau</value></data>
+  <data name="MacroAction_Type_SoundStop" xml:space="preserve"><value>E hoʻōki i nā kani</value></data>
+  <data name="Pad_Audio_Engage_Always" xml:space="preserve"><value>I nā manawa a pau</value></data>
+  <data name="Pad_Audio_ToneFilter_Off" xml:space="preserve"><value>Pio</value></data>
+  <data name="About_DsTester" xml:space="preserve"><value>dualsense-tester</value></data>
+  <data name="About_Ds4Audio" xml:space="preserve"><value>DS4AudioStreamer</value></data>
+  <data name="IconPicker_Images" xml:space="preserve"><value>Nā kiʻi</value></data>
+  <data name="Emoji_Category_Hands" xml:space="preserve"><value>Nā lima</value></data>
+  <data name="Emoji_Category_Animals" xml:space="preserve"><value>Nā holoholona</value></data>
+  <data name="Emoji_Category_Food" xml:space="preserve"><value>Meaʻai</value></data>
+  <data name="Emoji_Category_Activities" xml:space="preserve"><value>Nā hana</value></data>
+  <data name="Emoji_Category_Travel" xml:space="preserve"><value>Huakaʻi</value></data>
+  <data name="Emoji_Category_Objects" xml:space="preserve"><value>Nā mea</value></data>
+  <data name="Emoji_Category_Symbols" xml:space="preserve"><value>Nā hōʻailona</value></data>
+  <data name="Mapping_MidiCc_Format" xml:space="preserve"><value>CC {0}</value></data>
+  <data name="Mapping_MidiCcUp_Format" xml:space="preserve"><value>CC {0} +</value></data>
+  <data name="Mapping_MidiCcDown_Format" xml:space="preserve"><value>CC {0} −</value></data>
+  <data name="RemoteLink_PasswordEmpty" xml:space="preserve">
+    <value>E kikokiko i kahi ʻōlelo huna.</value>
+  </data>
+  <data name="RemoteLink_PasswordMismatch" xml:space="preserve">
+    <value>ʻAʻole like nā ʻōlelo huna.</value>
+  </data>
+  <data name="RemoteLink_StatusWrongPassword" xml:space="preserve">
+    <value>ʻAʻole pololei ka ʻōlelo huna Remote Link.</value>
+  </data>
+  <data name="PickSound_Title" xml:space="preserve"><value>E koho i kekahi kani</value></data>
+  <data name="About_NAudio" xml:space="preserve"><value>NAudio</value></data>
+  <data name="About_Vosk" xml:space="preserve"><value>Vosk</value></data>
+  <data name="About_BouncyCastle" xml:space="preserve"><value>Bouncy Castle</value></data>
+  <data name="About_BthPS3" xml:space="preserve"><value>BthPS3</value></data>
+  <data name="About_DsHidMini" xml:space="preserve"><value>DsHidMini</value></data>
+  <data name="About_NefariusDevMgmt" xml:space="preserve"><value>Nefarius.Utilities.DeviceManagement</value></data>
+  <data name="About_Libusb" xml:space="preserve"><value>libusb</value></data>
+  <data name="About_Nipplejs" xml:space="preserve"><value>nipplejs</value></data>
+  <data name="About_GameControllerDb" xml:space="preserve"><value>SDL_GameControllerDB</value></data>
+  <data name="About_Xbledctl" xml:space="preserve"><value>xbledctl</value></data>
+  <data name="About_JoyShockMapper" xml:space="preserve"><value>JoyShockMapper</value></data>
+  <data name="About_GamepadMotionHelpers" xml:space="preserve"><value>GamepadMotionHelpers</value></data>
+  <data name="About_SteamControllerSinger" xml:space="preserve"><value>SteamControllerSinger</value></data>
+  <data name="About_SteamHapticsSinger" xml:space="preserve"><value>SteamHapticsSinger</value></data>
+  <data name="About_Hitboxer" xml:space="preserve"><value>hitboxer</value></data>
+  <data name="About_SteamKit2" xml:space="preserve"><value>SteamKit2</value></data>
+  <data name="About_ProtobufNet" xml:space="preserve"><value>protobuf-net</value></data>
+  <data name="About_ZstdSharp" xml:space="preserve"><value>ZstdSharp</value></data>
+  <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
+  <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
+  <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
+  <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
+  <data name="About_JoyconSinger" xml:space="preserve"><value>joycon-singer</value></data>
+  <data name="WiiPair_FamilyWii" xml:space="preserve"><value>Nintendo Wii</value></data>
+  <data name="WiiPair_Searching" xml:space="preserve"><value>Ke ʻimi nei. E kaomi i ka pihi SYNC i kēia manawa.</value></data>
+  <data name="WiiPair_Done" xml:space="preserve"><value>Pau</value></data>
+  <data name="WiiPair_FamilyDs3" xml:space="preserve"><value>Sony DualShock 3</value></data>
+  <data name="About_OpenVR" xml:space="preserve"><value>OpenVR API</value></data>
+  <data name="Vr_Status_Running" xml:space="preserve"><value>Ke holo nei</value></data>
+  <data name="DjiPair_Address" xml:space="preserve"><value>Helu wahi</value></data>
+  <data name="Common_Close" xml:space="preserve"><value>Pani</value></data>
+  <data name="Nfc_UidLabel" xml:space="preserve"><value>UID:</value></data>
+  <data name="Nfc_Waiting" xml:space="preserve"><value>(ke kali nei)</value></data>
+  <data name="Nfc_NameLabel" xml:space="preserve"><value>Inoa:</value></data>
+  <data name="Nfc_RegisterButton" xml:space="preserve"><value>Hoʻopaʻa inoa</value></data>
+  <data name="VrCtl_Menu" xml:space="preserve"><value>Pihi papa kuhikuhi</value></data>
+  <data name="Handheld_Title" xml:space="preserve"><value>Nā pihi i hūnā ʻia</value></data>
+  <data name="Handheld_MachineLabel" xml:space="preserve"><value>Mīkini:</value></data>
+  <data name="Handheld_PhasePress" xml:space="preserve"><value>Kaomi i ka pihi i hūnā ʻia i kēia manawa, a laila hoʻokuʻu…</value></data>
+  <data name="Handheld_PhaseRelease" xml:space="preserve"><value>Kali iki…</value></data>
+  <data name="Handheld_SourceLabel" xml:space="preserve"><value>Kumu:</value></data>
+  <data name="Handheld_NameLabel" xml:space="preserve"><value>Inoa:</value></data>
+  <data name="Handheld_ChordFormat" xml:space="preserve"><value>Nā pihi: {0}</value></data>
+  <data name="Pad_Mouse" xml:space="preserve"><value>ʻIole</value></data>
+  <data name="Mapping_MouseGestureLeft" xml:space="preserve"><value>Hema</value></data>
+  <data name="Mapping_MouseGestureRight" xml:space="preserve"><value>ʻĀkau</value></data>
+  <data name="Mapping_MouseGestureUp" xml:space="preserve"><value>Luna</value></data>
+  <data name="Mapping_MouseGestureDown" xml:space="preserve"><value>Lalo</value></data>
+  <data name="Mapping_MouseGestureClick" xml:space="preserve"><value>Kaomi</value></data>
+  <data name="Macro_Dreamcast_Pictures" xml:space="preserve"><value>Nā kiʻi</value></data>
+  <data name="Macro_Dreamcast_AddPicture" xml:space="preserve"><value>Hoʻohui i kiʻi…</value></data>
+  <data name="Pad_Lighting_GuideLed_Brightness" xml:space="preserve"><value>Mālamalama</value></data>
+  <data name="Pad_Mapping_MotionSpeed_Name" xml:space="preserve"><value>Māmā</value></data>
+  <data name="Pad_Mapping_MotionAngle_Name" xml:space="preserve"><value>Huina</value></data>
+  <data name="Workshop_SearchPlaceholder" xml:space="preserve"><value>Huli i nā pāʻani</value></data>
+  <data name="Workshop_GamesCount_Format" xml:space="preserve"><value>{0} pāʻani</value></data>
+  <data name="Workshop_SearchingSteam" xml:space="preserve"><value>Ke huli nei ma Steam…</value></data>
+  <data name="Workshop_Sort_Newest" xml:space="preserve"><value>Hou loa</value></data>
+  <data name="Workshop_BackToSearch" xml:space="preserve"><value>Huli i nā pāʻani</value></data>
+  <data name="Workshop_TimeToday" xml:space="preserve"><value>i kēia lā</value></data>
+  <data name="Workshop_TimeDays_Format" xml:space="preserve"><value>{0} lā i hala</value></data>
+  <data name="Workshop_TimeMonths_Format" xml:space="preserve"><value>{0} mahina i hala</value></data>
+  <data name="Workshop_TimeYears_Format" xml:space="preserve"><value>{0} makahiki i hala</value></data>
+  <data name="Workshop_TagAll" xml:space="preserve"><value>Nā mea a pau</value></data>
+  <data name="Workshop_Retry" xml:space="preserve"><value>Hoʻāʻo hou</value></data>
+  <data name="Workshop_SaveProfile" xml:space="preserve"><value>Mālama i ka profile</value></data>
+  <data name="Workshop_UpdateRow_Format" xml:space="preserve"><value>{0} · {1}</value></data>
+  <data name="Pad_Menus" xml:space="preserve"><value>Nā papa kuhikuhi</value></data>
+  <data name="Menu_NewNameFormat" xml:space="preserve"><value>Papa kuhikuhi {0}</value></data>
+  <data name="Menu_Name" xml:space="preserve"><value>Inoa o ka papa kuhikuhi</value></data>
+  <data name="Menu_Style" xml:space="preserve"><value>Kaila</value></data>
+  <data name="Menu_Host_LeftStick" xml:space="preserve"><value>Stick hema</value></data>
+  <data name="Menu_Host_RightStick" xml:space="preserve"><value>Stick ʻākau</value></data>
+  <data name="Menu_Half_Left" xml:space="preserve"><value>Hapa hema</value></data>
+  <data name="Menu_Half_Right" xml:space="preserve"><value>Hapa ʻākau</value></data>
+  <data name="Menu_Scale" xml:space="preserve"><value>Nui</value></data>
+  <data name="Menu_CellCenter" xml:space="preserve"><value>Waena</value></data>
+  <data name="Menu_Binding_None" xml:space="preserve"><value>ʻAʻohe</value></data>
+  <data name="Menu_Binding_Key" xml:space="preserve"><value>Pihi papa pihi</value></data>
+  <data name="Pad_RumbleAudio_Voice_TriggerLeft" xml:space="preserve"><value>Trigger hema</value></data>
+  <data name="Pad_RumbleAudio_Voice_TriggerRight" xml:space="preserve"><value>Trigger ʻākau</value></data>
+  <data name="Pad_RumbleAudio_Test" xml:space="preserve"><value>Hoʻāʻo</value></data>
+  <data name="Pad_RumbleAudio_StopTest" xml:space="preserve"><value>Hoʻōki</value></data>
+  <data name="Tray_Exit" xml:space="preserve"><value>Haʻalele</value></data>
+  <data name="About_Libinput" xml:space="preserve">
+    <value>libinput</value>
+  </data>
+  <data name="About_HandheldCompanion" xml:space="preserve">
+    <value>Handheld Companion</value>
+  </data>
+  <data name="About_GamepadAssetPack" xml:space="preserve">
+    <value>Gamepad-Asset-Pack</value>
+  </data>
+  <data name="About_Ds4Mac" xml:space="preserve">
+    <value>ds4mac</value>
+  </data>
+  <data name="Starter_Fighting_Name" xml:space="preserve"><value>Pāʻani hakakā</value></data>
+  <data name="Starter_Racing_Name" xml:space="preserve"><value>Heihei</value></data>
+  <data name="Pad_Audio_Crossfeed_Off" xml:space="preserve"><value>Pio</value></data>
+  <data name="Pad_Audio_Crossfeed_Low" xml:space="preserve"><value>Haʻahaʻa</value></data>
+  <data name="Pad_Audio_Crossfeed_Middle" xml:space="preserve"><value>Waena</value></data>
+  <data name="Pad_Audio_Crossfeed_High" xml:space="preserve"><value>Kiʻekiʻe</value></data>
+  <data name="Pad_Audio_Crossfeed_LowEasy" xml:space="preserve"><value>Haʻahaʻa (Maʻalahi)</value></data>
+  <data name="Pad_Audio_Crossfeed_MiddleEasy" xml:space="preserve"><value>Waena (Maʻalahi)</value></data>
+  <data name="Pad_Audio_Crossfeed_HighEasy" xml:space="preserve"><value>Kiʻekiʻe (Maʻalahi)</value></data>
+  <data name="Pad_Audio_EqCol_On" xml:space="preserve"><value>Ā</value></data>
+  <data name="Pad_Audio_EqCol_Type" xml:space="preserve"><value>ʻAno</value></data>
+  <data name="Pad_Audio_EqCol_Q" xml:space="preserve"><value>Q</value></data>
+  <data name="Pad_Audio_EqClear" xml:space="preserve"><value>Holoi</value></data>
+  <data name="About_DuaLib" xml:space="preserve"><value>duaLib</value></data>
+  <data name="About_Ds5Bridge" xml:space="preserve"><value>DS5_Bridge</value></data>
+  <data name="About_QrCodeGen" xml:space="preserve"><value>QR-Code-generator</value></data>
+  <data name="About_MouseArt" xml:space="preserve"><value>Zergatul.Obs.InputOverlay</value></data>
+  <data name="Pad_AssignOffer_Dismiss" xml:space="preserve"><value>ʻAʻole i kēia manawa</value></data>
+  <data name="Voice_ModeLabel" xml:space="preserve"><value>Hoʻolohe</value></data>
+  <data name="Voice_ModeAlways" xml:space="preserve"><value>I nā manawa a pau</value></data>
+  <data name="Voice_PhraseLabel" xml:space="preserve"><value>Māmalaʻōlelo</value></data>
+  <data name="Voice_NameLabel" xml:space="preserve"><value>Inoa</value></data>
+  <data name="About_Interhaptics" xml:space="preserve">
+    <value>Interhaptics (Wyvrn)</value>
+  </data>
+  <data name="About_Colore" xml:space="preserve">
+    <value>Colore</value>
+  </data>
+  <data name="About_Opentrack" xml:space="preserve">
+    <value>opentrack</value>
+  </data>
+  <data name="About_LegionToolkit" xml:space="preserve">
+    <value>Lenovo Legion Toolkit</value>
+  </data>
+  <data name="About_InputPlumber" xml:space="preserve">
+    <value>InputPlumber</value>
+  </data>
+  <data name="About_Linuxmotehook" xml:space="preserve">
+    <value>linuxmotehook a me WiimoteHook</value>
+  </data>
+  <data name="About_PortMidiRtMidi" xml:space="preserve"><value>PortMidi / RtMidi</value></data>
+  <data name="About_AnalogKeyboardRefs" xml:space="preserve"><value>HallJoy, Soup, a me AnalogSense</value></data>
+  <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
+  <data name="Pad_Kbm_Surfaces_MouseOnly_Name" xml:space="preserve">
+    <value>ʻIole wale nō</value>
+  </data>
+  <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
+    <value>Papa pihi wale nō</value>
+  </data>
+  <data name="Pad_Mapping_Scope_All" xml:space="preserve">
+    <value>Nā mea a pau</value>
+  </data>
+  <data name="Pad_Mapping_Scope_Keyboard" xml:space="preserve">
+    <value>Papa pihi</value>
+  </data>
+  <data name="Pad_Mapping_Scope_Mouse" xml:space="preserve">
+    <value>ʻIole</value>
+  </data>
+  <data name="About_Nefcon" xml:space="preserve"><value>nefcon</value></data>
+  <data name="About_Kaldi" xml:space="preserve"><value>Kaldi, OpenFst, OpenBLAS, a me CLAPACK</value></data>
+  <data name="About_AntiMicroX" xml:space="preserve"><value>AntiMicroX</value></data>
+  <data name="About_AudioEndPointLibrary" xml:space="preserve"><value>AudioEndPointLibrary</value></data>
+  <data name="About_AutoEq" xml:space="preserve"><value>AutoEq</value></data>
+  <data name="About_AutoHotkey" xml:space="preserve"><value>AutoHotkey</value></data>
+  <data name="About_CemuhookProtocol" xml:space="preserve"><value>cemuhook-protocol</value></data>
+  <data name="About_Ds4Drv" xml:space="preserve"><value>ds4drv</value></data>
+  <data name="About_Ds4MapperTest" xml:space="preserve"><value>DS4MapperTest</value></data>
+  <data name="About_Ds5Dongle" xml:space="preserve"><value>DS5Dongle</value></data>
+  <data name="About_DualSenseSupport" xml:space="preserve"><value>DualSenseSupport</value></data>
+  <data name="About_Eden" xml:space="preserve"><value>Eden</value></data>
+  <data name="About_EdRefCard2" xml:space="preserve"><value>EDRefCard2</value></data>
+  <data name="About_FFmpeg" xml:space="preserve"><value>FFmpeg</value></data>
+  <data name="About_Fusion" xml:space="preserve"><value>Fusion</value></data>
+  <data name="About_GamepadBatteryMonitor" xml:space="preserve"><value>Gamepad Battery Monitor</value></data>
+  <data name="About_Hado" xml:space="preserve"><value>hado</value></data>
+  <data name="About_3doverstock" xml:space="preserve"><value>3doverstock</value></data>
+  <data name="About_Hidapi" xml:space="preserve"><value>HIDAPI</value></data>
+  <data name="About_IrohFlexInput" xml:space="preserve"><value>iroh / FlexInput</value></data>
+  <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
+  <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
+  <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>
+  <data name="About_SwitchResearch" xml:space="preserve"><value>Nintendo_Switch_Reverse_Engineering</value></data>
+  <data name="About_OpenRgb" xml:space="preserve"><value>OpenRGB</value></data>
+  <data name="About_OpenTabletDriver" xml:space="preserve"><value>OpenTabletDriver</value></data>
+  <data name="About_PcscSharp" xml:space="preserve"><value>pcsc-sharp</value></data>
+  <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
+  <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
+  <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
+  <data name="About_SpecialK" xml:space="preserve"><value>Special K</value></data>
+  <data name="About_ThumbstickDeadzones" xml:space="preserve"><value>Thumbstick Deadzones</value></data>
+  <data name="About_Touchmote" xml:space="preserve"><value>Touchmote</value></data>
+  <data name="About_TriggerEffectGenerator" xml:space="preserve"><value>TriggerEffectGenerator</value></data>
+  <data name="About_ViGEmClient" xml:space="preserve"><value>ViGEmClient</value></data>
+  <data name="About_Libwdi" xml:space="preserve"><value>libwdi</value></data>
+  <data name="About_Bluepad32" xml:space="preserve"><value>Bluepad32</value></data>
+  <data name="About_Monado" xml:space="preserve"><value>Monado</value></data>
+  <data name="About_OpenHmd" xml:space="preserve"><value>OpenHMD</value></data>
+  <data name="About_WiiBrew" xml:space="preserve"><value>WiiBrew</value></data>
+  <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
+  <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
+</root>

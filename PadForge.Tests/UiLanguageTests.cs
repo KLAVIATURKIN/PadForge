@@ -453,7 +453,11 @@ namespace PadForge.Tests
             {
                 string tag = culture.IetfLanguageTag;
                 string language = tag.Split('-')[0].ToLowerInvariant();
-                bool shares = language == "zh" || language == "ja" || language == "ko";
+                // Chinese in Pinyin (zh-Latn) is Latin text. It takes the
+                // fonts of undeclared text, and it has no culture of its own
+                // to format numbers in, so it is not declared (#505).
+                bool latin = tag.Split('-').Skip(1).Any(p => string.Equals(p, "Latn", StringComparison.OrdinalIgnoreCase));
+                bool shares = (language == "zh" || language == "ja" || language == "ko") && !latin;
                 XmlLanguage result = UiLanguage.Declared(culture);
                 Assert.True(shares != ReferenceEquals(result, UiLanguage.Undeclared), tag + " is declared as " + result.IetfLanguageTag);
                 if (!shares) continue;

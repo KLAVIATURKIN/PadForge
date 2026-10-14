@@ -1,0 +1,795 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <!-- ═══ Common ═══ -->
+  <data name="Common_Save" xml:space="preserve"><value>Save karo</value></data>
+  <data name="Common_Cancel" xml:space="preserve"><value>Cancel karo</value></data>
+  <data name="Common_Delete" xml:space="preserve"><value>Delete karo</value></data>
+  <data name="Common_Add" xml:space="preserve"><value>Add karo</value></data>
+  <data name="Common_Remove" xml:space="preserve"><value>Hatao</value></data>
+  <data name="Common_OK" xml:space="preserve"><value>OK</value></data>
+  <data name="Common_Install" xml:space="preserve"><value>Install karo</value></data>
+  <data name="Common_Uninstall" xml:space="preserve"><value>Uninstall karo</value></data>
+  <data name="Common_Refresh" xml:space="preserve"><value>Refresh karo</value></data>
+  <data name="Common_Copy" xml:space="preserve"><value>Copy karo</value></data>
+  <data name="Common_Paste" xml:space="preserve"><value>Paste karo</value></data>
+  <data name="Common_Enabled" xml:space="preserve"><value>Chalu</value></data>
+  <data name="Common_Disabled" xml:space="preserve"><value>Band</value></data>
+  <data name="Common_NotInstalled" xml:space="preserve"><value>Install nahi hai</value></data>
+  <data name="Common_Ready" xml:space="preserve"><value>Taiyaar</value></data>
+  <data name="Common_Stopped" xml:space="preserve"><value>Ruk gais</value></data>
+  <data name="Common_Running" xml:space="preserve"><value>Chalu hai</value></data>
+  <data name="Common_Stop" xml:space="preserve"><value>Roko</value></data>
+  <data name="Common_Record" xml:space="preserve"><value>Record karo</value></data>
+  <data name="Common_Clear" xml:space="preserve"><value>Saaf karo</value></data>
+  <data name="Common_None" xml:space="preserve"><value>Kuch nahi</value></data>
+  <data name="Common_PadForge" xml:space="preserve"><value>PadForge</value></data>
+
+  <!-- ═══ Controller Types ═══ -->
+  <data name="ControllerType_Xbox" xml:space="preserve"><value>Xbox</value></data>
+  <data name="ControllerType_PlayStation" xml:space="preserve"><value>PlayStation</value></data>
+  <data name="ControllerType_Nintendo" xml:space="preserve"><value>Nintendo</value></data>
+  <data name="ControllerType_MIDI" xml:space="preserve"><value>MIDI</value></data>
+  <data name="ControllerType_VR" xml:space="preserve"><value>VR</value></data>
+
+  <!-- ═══ MainWindow ═══ -->
+  <data name="Main_AddController" xml:space="preserve"><value>Controller add karo</value></data>
+  <data name="Main_ShowPadForge" xml:space="preserve"><value>PadForge dekhao</value></data>
+
+  <!-- ═══ MainWindow Status Messages ═══ -->
+  <data name="Status_DirectionDown" xml:space="preserve"><value>(↓ neeche)</value></data>
+  <data name="Status_DirectionUp" xml:space="preserve"><value>(↑ upar)</value></data>
+  <data name="Status_Error_Format" xml:space="preserve"><value>Galti: {0}</value></data>
+
+  <!-- ═══ Dashboard ═══ -->
+  <data name="FirstRun_Skip" xml:space="preserve"><value>Chhodo</value></data>
+  <data name="FirstRun_Next" xml:space="preserve"><value>Aage</value></data>
+  <data name="FirstRun_Done" xml:space="preserve"><value>Khatam</value></data>
+  <data name="Dashboard_WebNewAccessCode" xml:space="preserve"><value>Naya code</value></data>
+
+  <!-- ═══ Settings ═══ -->
+  <data name="Settings_CheckNow" xml:space="preserve"><value>Abhi check karo</value></data>
+  <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
+  <data name="Settings_OpenFolder" xml:space="preserve"><value>Folder kholo</value></data>
+  <data name="Settings_Language" xml:space="preserve"><value>Bhasha</value></data>
+
+  <!-- ═══ About ═══ -->
+  <data name="About_DotNet10" xml:space="preserve"><value>.NET 10</value></data>
+  <data name="About_SDL3" xml:space="preserve"><value>SDL3</value></data>
+  <data name="About_HelixToolkit" xml:space="preserve"><value>HelixToolkit</value></data>
+  <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
+  <data name="About_HIDMaestro" xml:space="preserve"><value>HIDMaestro</value></data>
+  <data name="About_OpenXInput" xml:space="preserve"><value>OpenXInput</value></data>
+  <data name="About_HidHide" xml:space="preserve"><value>HidHide</value></data>
+  <data name="About_Bs2b" xml:space="preserve"><value>bs2b</value></data>
+  <data name="About_Concentus" xml:space="preserve"><value>Concentus</value></data>
+  <data name="About_SAxense" xml:space="preserve"><value>SAxense</value></data>
+  <data name="About_DsBtHaptics" xml:space="preserve"><value>dualsense-bt-haptics</value></data>
+  <data name="About_DualSenseY" xml:space="preserve"><value>DualSenseY-v2</value></data>
+
+  <!-- ═══ Device Types ═══ -->
+
+  <data name="MacroAction_Type_RunProgram" xml:space="preserve"><value>Program chalao</value></data>
+  <data name="MacroAction_RunProgram_Format" xml:space="preserve"><value>{0} chalao</value></data>
+  <data name="MacroAction_RunProgram_NoProgram" xml:space="preserve"><value>(koi program nahi)</value></data>
+  <data name="MacroAction_TextBlock_Format" xml:space="preserve"><value>"{0}" type karo</value></data>
+  <data name="MacroAction_TextBlock_NoText" xml:space="preserve"><value>(koi text nahi)</value></data>
+  <data name="DreamcastScreen_Mode_Label" xml:space="preserve"><value>Dekhao</value></data>
+  <data name="DreamcastScreen_Mode_ProfileName" xml:space="preserve"><value>Profile ke naam</value></data>
+  <data name="DreamcastScreen_Mode_ProfileNumber" xml:space="preserve"><value>Profile ke number</value></data>
+  <data name="DreamcastScreen_Mode_Clock" xml:space="preserve"><value>Ghari</value></data>
+  <data name="DreamcastScreen_ChoosePicture" xml:space="preserve"><value>Picture choose karo…</value></data>
+  <data name="DreamcastScreen_ChooseProfilePicture_Format" xml:space="preserve"><value>{0} ke liye picture choose karo…</value></data>
+  <data name="DreamcastScreen_RemoveProfilePicture" xml:space="preserve"><value>Profile ke picture hatao</value></data>
+  <data name="BlissBoxPak_RestoreAction" xml:space="preserve"><value>Restore karo</value></data>
+  <data name="BlissBoxJob_WrongController" xml:space="preserve"><value>Iske liye port me N64 controller chahi.</value></data>
+  <data name="BlissBoxJob_NoPak" xml:space="preserve"><value>Controller me koi Controller Pak nahi hai.</value></data>
+  <data name="BlissBoxJob_PlayerUnchanged" xml:space="preserve"><value>Adapter player number nahi badlis. Fir se try karo.</value></data>
+  <data name="Devices_GunCalibrate" xml:space="preserve"><value>Calibrate karo</value></data>
+  <data name="GunCalibration_Instruction" xml:space="preserve"><value>Gun ke target pe aim karo aur trigger khincho.</value></data>
+  <data name="GunCalibration_Progress" xml:space="preserve"><value>{1} me se target {0}</value></data>
+  <data name="GunCalibration_WiiInstruction" xml:space="preserve"><value>Wii Remote ke target pe point karo aur B dabao.</value></data>
+  <data name="DevObj_ConsumerOk" xml:space="preserve"><value>OK</value></data>
+  <data name="DevObj_ConsumerMenuUp" xml:space="preserve"><value>Menu upar</value></data>
+  <data name="DevObj_ConsumerMenuDown" xml:space="preserve"><value>Menu niche</value></data>
+  <data name="DevObj_ConsumerVolumeUp" xml:space="preserve"><value>Volume badhao</value></data>
+  <data name="DevObj_ConsumerVolumeDown" xml:space="preserve"><value>Volume kam karo</value></data>
+  <data name="DevObj_ConsumerChannelUp" xml:space="preserve"><value>Channel upar</value></data>
+  <data name="DevObj_ConsumerChannelDown" xml:space="preserve"><value>Channel niche</value></data>
+  <data name="DevObj_ConsumerBrowserSearch" xml:space="preserve"><value>Khojo</value></data>
+  <data name="DevObj_ConsumerBrowserRefresh" xml:space="preserve"><value>Refresh karo</value></data>
+  <!-- ═══ Devices ═══ -->
+  <data name="Devices_Title" xml:space="preserve"><value>Device</value></data>
+  <data name="Devices_DriverRestore" xml:space="preserve"><value>Windows ke driver wapas lao</value></data>
+  <data name="Devices_DriverSwitch" xml:space="preserve"><value>Driver badlo</value></data>
+  <data name="Devices_RemoveTooltip" xml:space="preserve"><value>Ii device aur iske settings hatao</value></data>
+  <data name="Devices_RemoveConfirmTitle" xml:space="preserve"><value>Device hatao</value></data>
+  <data name="Devices_Axes" xml:space="preserve"><value>Axis</value></data>
+  <data name="Devices_Buttons" xml:space="preserve"><value>Button</value></data>
+  <data name="Devices_DPadPOV" xml:space="preserve"><value>D-pad / POV</value></data>
+  <data name="Devices_POV" xml:space="preserve"><value>POV </value></data>
+  <data name="Devices_Nfc" xml:space="preserve"><value>NFC</value></data>
+
+  <!-- ═══ Pad Page ═══ -->
+  <data name="Pad_Macros" xml:space="preserve"><value>Macro</value></data>
+  <data name="Pad_Mappings" xml:space="preserve"><value>Mapping</value></data>
+  <data name="Pad_Sticks" xml:space="preserve"><value>Stick</value></data>
+  <data name="Pad_Triggers" xml:space="preserve"><value>Trigger</value></data>
+  <!-- Impulse Triggers tab (Xbox One+ family) -->
+  <data name="Pad_ResetImpulseTriggers" xml:space="preserve"><value>Impulse Trigger reset karo</value></data>
+  <data name="Pad_ResetImpulseOverallGain" xml:space="preserve"><value>Overall gain reset karo</value></data>
+  <data name="Pad_ResetTriggerRouting" xml:space="preserve"><value>Trigger routing reset karo</value></data>
+  <data name="Pad_TriggerRouting_Mode_Off" xml:space="preserve"><value>Band</value></data>
+  <data name="Pad_ResetTriggerRouteActivator" xml:space="preserve"><value>Activator reset karo</value></data>
+  <data name="Pad_ResetTriggerRouteSource" xml:space="preserve"><value>Source reset karo</value></data>
+  <data name="Pad_ResetTriggerRouteMode" xml:space="preserve"><value>Mode reset karo</value></data>
+  <data name="Pad_ResetTriggerRouteScale" xml:space="preserve"><value>Scale reset karo</value></data>
+  <data name="Pad_ResetTriggerRouteActivatorMode" xml:space="preserve"><value>Activator mode reset karo</value></data>
+  <data name="Pad_ResetConstantTriggerForce" xml:space="preserve"><value>Constant trigger force reset karo</value></data>
+  <data name="Pad_ResetAudioTriggerSensitivity" xml:space="preserve"><value>Sensitivity reset karo</value></data>
+  <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
+  <data name="Pad_Sticks_Header" xml:space="preserve"><value>Stick</value></data>
+  <data name="Pad_Triggers_Header" xml:space="preserve"><value>Trigger</value></data>
+  <data name="Pad_AT_Off" xml:space="preserve"><value>Band</value></data>
+  <!-- Lighting tab (DS4 / DualSense / DualSense Edge) -->
+  <data name="Pad_Lighting" xml:space="preserve"><value>Light</value></data>
+  <data name="Pad_Lighting_Header" xml:space="preserve"><value>Light</value></data>
+  <data name="Pad_Lighting_Hex" xml:space="preserve"><value>HEX</value></data>
+  <data name="Pad_Lighting_RemoveColor" xml:space="preserve"><value>Ii rang ke palette se hatao</value></data>
+  <data name="Pad_Lighting_MicLed_Off" xml:space="preserve"><value>Band</value></data>
+  <data name="Pad_ResetLightbar" xml:space="preserve"><value>Lightbar reset karo</value></data>
+  <data name="Pad_ResetIndicatorLeds" xml:space="preserve"><value>Indicator LED reset karo</value></data>
+  <data name="Pad_ResetForceFeedback" xml:space="preserve"><value>Force feedback reset karo</value></data>
+  <data name="Pad_ResetAudioRumble" xml:space="preserve"><value>Audio rumble reset karo</value></data>
+  <data name="Pad_ResetSection_Format" xml:space="preserve"><value>{0} reset karo</value></data>
+  <data name="Pad_Lighting_PlayerLed_Off" xml:space="preserve"><value>Band</value></data>
+  <data name="Pad_Lighting_PlayerLed_All" xml:space="preserve"><value>Sab</value></data>
+  <data name="Pad_Lighting_Mode_Off" xml:space="preserve"><value>Band</value></data>
+
+  <!-- v3.2+ Input Reactive overlay (separate dropdown layered on top of base mode) -->
+  <data name="Pad_Lighting_InputReactive_Off" xml:space="preserve"><value>Band</value></data>
+  <data name="Pad_ResetInputReactive" xml:space="preserve"><value>Input Reactive reset karo</value></data>
+
+  <data name="Pad_Lighting_AddColor" xml:space="preserve"><value>Rang jodo</value></data>
+  <data name="Pad_Lighting_ResetPalette" xml:space="preserve"><value>Palette reset karo</value></data>
+  <data name="Pad_ExtendedSticks" xml:space="preserve"><value>Stick</value></data>
+  <data name="Pad_ExtendedTriggers" xml:space="preserve"><value>Trigger</value></data>
+  <data name="Pad_ExtendedPOVs" xml:space="preserve"><value>POV</value></data>
+  <data name="Pad_ExtendedButtons" xml:space="preserve"><value>Button</value></data>
+  <data name="ManageProfiles_Export" xml:space="preserve"><value>Export karo…</value></data>
+  <data name="ManageProfiles_Delete" xml:space="preserve"><value>Delete karo</value></data>
+  <data name="ManageProfiles_Close" xml:space="preserve"><value>Band karo</value></data>
+  <data name="ManageProfiles_ImportFromFile" xml:space="preserve"><value>File se import karo…</value></data>
+  <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Refresh karo</value></data>
+  <data name="ImportFromDevice_Import" xml:space="preserve"><value>Import karo</value></data>
+  <data name="Pad_ExtendedVid" xml:space="preserve"><value>VID</value></data>
+  <data name="Pad_ExtendedPid" xml:space="preserve"><value>PID</value></data>
+  <data name="Pad_MidiOutputPortNone" xml:space="preserve"><value>Kuch nahi</value></data>
+  <data name="Pad_KeepAwake_Reset_Deflection" xml:space="preserve"><value>Deflection reset karo</value></data>
+  <data name="Common_Reset_Sensitivity" xml:space="preserve"><value>Sensitivity reset karo</value></data>
+  <data name="Common_Reset_DeadZone" xml:space="preserve"><value>Deadzone reset karo</value></data>
+  <data name="Pad_Socd_ResetMode_Tooltip" xml:space="preserve"><value>Mode reset karo</value></data>
+  <data name="Pad_ResetAll" xml:space="preserve"><value>Sab reset karo</value></data>
+  <data name="Pad_Invert" xml:space="preserve"><value>Ulta karo</value></data>
+  <data name="Pad_Half" xml:space="preserve"><value>Aadha</value></data>
+  <!-- Merge-mapping UI (Issue #61): per-source Kind dropdown + Incremental / InvertOnHold controls. -->
+  <!-- Combine UI (Issue #61): per-row CombineMode dropdown + Custom formula editor + starter presets. English placeholders pending translation. -->
+  <data name="Pad_Combine_OR_Name" xml:space="preserve"><value>Koi bhi</value></data>
+  <data name="Pad_Combine_AND_Name" xml:space="preserve"><value>Dono</value></data>
+  <data name="Pad_Combine_XOR_Name" xml:space="preserve"><value>Khaali ek</value></data>
+  <data name="Pad_Formula_Status_And" xml:space="preserve"><value>aur</value></data>
+  <data name="Pad_Formula_Chip_Half" xml:space="preserve"><value>0.5: aadha</value></data>
+  <data name="Pad_ScrollUp" xml:space="preserve"><value>Upar</value></data>
+  <data name="Pad_ScrollDown" xml:space="preserve"><value>Niche</value></data>
+
+  <!-- ═══ Macros ═══ -->
+  <data name="Macro_Name" xml:space="preserve"><value>Naam</value></data>
+  <data name="Macro_Always" xml:space="preserve"><value>Hamesa</value></data>
+  <data name="Macro_ButtonPress" xml:space="preserve"><value>Button dabao</value></data>
+  <data name="Macro_ButtonRelease" xml:space="preserve"><value>Button chhodo</value></data>
+  <data name="Macro_KeyPress" xml:space="preserve"><value>Key dabao</value></data>
+  <data name="Macro_KeyRelease" xml:space="preserve"><value>Key chhodo</value></data>
+  <data name="Macro_MouseButtonPress" xml:space="preserve"><value>Mouse button dabao</value></data>
+  <data name="Macro_MouseButtonRelease" xml:space="preserve"><value>Mouse button chhodo</value></data>
+  <data name="Macro_MouseMiddle" xml:space="preserve"><value>Beech</value></data>
+  <data name="Macro_Once" xml:space="preserve"><value>Ek dafe</value></data>
+  <data name="Macro_NewMacro" xml:space="preserve"><value>Naya macro</value></data>
+  <data name="Macro_None" xml:space="preserve"><value>(kuch nai)</value></data>
+
+  <!-- ═══ Macro Action Display ═══ -->
+  <data name="MacroAction_Release_Format" xml:space="preserve"><value>{0} chhodo</value></data>
+  <data name="MacroAction_KeyRelease_Format" xml:space="preserve"><value>Key {0} chhodo</value></data>
+  <data name="MacroAction_Wait_Format" xml:space="preserve"><value>{0}ms ruko</value></data>
+  <data name="MacroAction_MousePress_Format" xml:space="preserve"><value>Mouse {0} dabao</value></data>
+  <data name="MacroAction_MouseRelease_Format" xml:space="preserve"><value>Mouse {0} chhodo</value></data>
+
+
+  <!-- ═══ Macro action: Rumble ═══ -->
+  <data name="MacroAction_Type_RumbleStop" xml:space="preserve"><value>Rumble band karo</value></data>
+  <data name="MacroAction_RumbleStop" xml:space="preserve"><value>Rumble band karo</value></data>
+  <data name="MacroAction_Type_RumbleTriggerStop" xml:space="preserve"><value>Trigger vibration band karo</value></data>
+  <data name="MacroAction_RumbleTriggerStop" xml:space="preserve"><value>Trigger vibration band karo</value></data>
+
+  <!-- ═══ POV Directions ═══ -->
+  <data name="POV_Centered" xml:space="preserve"><value>Beech me</value></data>
+  <data name="POV_Up" xml:space="preserve"><value>Upar</value></data>
+  <data name="POV_Down" xml:space="preserve"><value>Niche</value></data>
+  <data name="POV_Any" xml:space="preserve"><value>Koi bhi taraf</value></data>
+
+  <!-- ═══ Mapping ═══ -->
+  <data name="Mapping_NotMapped" xml:space="preserve"><value>Mapping nai hai</value></data>
+  <data name="Mapping_Half" xml:space="preserve"><value>Aadha</value></data>
+  <data name="Mapping_POV_Format" xml:space="preserve"><value>POV {0} {1}</value></data>
+  <data name="Mapping_NoDeviceMapped" xml:space="preserve"><value>Koi device ke mapping nai hai</value></data>
+
+  <!-- ═══ Touchpad Mapping Labels ═══ -->
+  <data name="Mapping_TouchpadWindow_Upper" xml:space="preserve"><value>Upar ke aadha</value></data>
+  <data name="Mapping_TouchpadWindow_Lower" xml:space="preserve"><value>Niche ke aadha</value></data>
+  <data name="Mapping_TouchpadWindow_Center" xml:space="preserve"><value>Beech</value></data>
+
+  <!-- ═══ Touchpad Gesture Mapping Labels ═══ -->
+  <data name="Mapping_TouchpadGesture_SwipeUp" xml:space="preserve"><value>Upar swipe</value></data>
+  <data name="Mapping_TouchpadGesture_SwipeDown" xml:space="preserve"><value>Niche swipe</value></data>
+  <data name="Mapping_TouchpadGesture_Tap" xml:space="preserve"><value>Tap</value></data>
+  <data name="Mapping_TouchpadGesture_DoubleTap" xml:space="preserve"><value>Do dafe tap</value></data>
+  <data name="Mapping_TouchpadGesture_TripleTap" xml:space="preserve"><value>Teen dafe tap</value></data>
+  <data name="Mapping_TouchpadGesture_LongPress" xml:space="preserve"><value>Long press</value></data>
+  <data name="Mapping_TouchpadGesture_PadPrefix_Format" xml:space="preserve"><value>Touchpad {0}: {1}</value></data>
+  <data name="Mapping_TouchpadGesture_SinglePadNoun_Format" xml:space="preserve"><value>Touchpad {0}</value></data>
+  <data name="Mapping_TouchpadGesture_TwoFingerSwipeUp" xml:space="preserve"><value>Do ungli se upar swipe</value></data>
+  <data name="Mapping_TouchpadGesture_TwoFingerSwipeDown" xml:space="preserve"><value>Do ungli se niche swipe</value></data>
+  <data name="Mapping_TouchpadGesture_TwoFingerTap" xml:space="preserve"><value>Do ungli se tap</value></data>
+  <data name="Mapping_TouchpadGesture_DPadUp" xml:space="preserve"><value>D-pad upar</value></data>
+  <data name="Mapping_TouchpadGesture_DPadDown" xml:space="preserve"><value>D-pad niche</value></data>
+  <data name="Mapping_TouchpadGesture_ThreeFingerSwipeUp" xml:space="preserve"><value>Teen ungli se upar swipe</value></data>
+  <data name="Mapping_TouchpadGesture_ThreeFingerSwipeDown" xml:space="preserve"><value>Teen ungli se niche swipe</value></data>
+  <data name="Mapping_TouchpadGesture_ThreeFingerTap" xml:space="preserve"><value>Teen ungli se tap</value></data>
+  <data name="Mapping_TouchpadGesture_FourFingerSwipeUp" xml:space="preserve"><value>Chaar ungli se upar swipe</value></data>
+  <data name="Mapping_TouchpadGesture_FourFingerSwipeDown" xml:space="preserve"><value>Chaar ungli se niche swipe</value></data>
+  <data name="Mapping_TouchpadGesture_FourFingerTap" xml:space="preserve"><value>Chaar ungli se tap</value></data>
+  <data name="Mapping_TouchpadGesture_FiveFingerTap" xml:space="preserve"><value>Paanch ungli se tap</value></data>
+
+  <!-- ═══ Pad Touchpad Tab ═══ -->
+  <data name="Pad_Touchpad" xml:space="preserve"><value>Touchpad</value></data>
+  <data name="Pad_Touchpad_Header" xml:space="preserve"><value>Touchpad</value></data>
+  <data name="Pad_Touchpad_TouchpadIndex_Label" xml:space="preserve"><value>Touchpad</value></data>
+  <data name="Pad_Touchpad_Mode_Both" xml:space="preserve"><value>Dono</value></data>
+  <data name="Pad_Touchpad_Taps" xml:space="preserve"><value>Tap / Do dafe tap / Teen dafe tap</value></data>
+  <data name="Pad_Touchpad_LongPress" xml:space="preserve"><value>Long press</value></data>
+  <data name="Pad_Touchpad_Rotate" xml:space="preserve"><value>Ghumao</value></data>
+  <data name="Pad_Touchpad_FiveFinger" xml:space="preserve"><value>Paanch ungli se tap</value></data>
+  <data name="Pad_Touchpad_CustomGesture_OneFinger" xml:space="preserve"><value>1 ungli</value></data>
+  <data name="Pad_Touchpad_CustomGesture_NFingers_Format" xml:space="preserve"><value>{0} ungli</value></data>
+
+  <!-- Stick / D-pad output card -->
+  <data name="Pad_Touchpad_StickDPadMode_Off" xml:space="preserve"><value>Band</value></data>
+
+  <!-- Mouse Output card -->
+
+  <!-- Absolute Pointer card (#9 B-15) -->
+
+  <!-- Swipe Haptics card (discussion #219) -->
+
+  <!-- Reset-All tooltips per card -->
+
+  <!-- Per-row Reset tooltips for stick / D-pad card -->
+
+  <!-- Per-row Reset tooltips for mouse-output card -->
+
+  <!-- Per-row Reset tooltips for absolute-pointer card (#9 B-15) -->
+
+  <!-- Per-row Reset tooltips for swipe-haptics card -->
+
+  <!-- Per-row Reset tooltips -->
+  <data name="Pad_ResetTouchpadTaps" xml:space="preserve"><value>Tap / Do dafe tap / Teen dafe tap reset karo</value></data>
+  <data name="Pad_ResetTouchpadLongPress" xml:space="preserve"><value>Long press reset karo</value></data>
+  <data name="Pad_ResetTouchpadFiveFinger" xml:space="preserve"><value>Paanch ungli se tap reset karo</value></data>
+
+  <!-- ═══ Touchpad Gesture Recorder Dialog ═══ -->
+  <data name="Recorder_TargetDevice_UnknownName" xml:space="preserve"><value>ii touchpad</value></data>
+  <data name="Recorder_NameLabel" xml:space="preserve"><value>Naam</value></data>
+  <data name="Recorder_TryAgain" xml:space="preserve"><value>Phir se koshis karo</value></data>
+  <data name="Recorder_Error_NameEmpty" xml:space="preserve"><value>Naam chaahi</value></data>
+
+  <data name="Mapping_GyroPitch" xml:space="preserve"><value>Gyro pitch</value></data>
+  <data name="Mapping_GyroYaw" xml:space="preserve"><value>Gyro yaw</value></data>
+  <data name="Mapping_GyroRoll" xml:space="preserve"><value>Gyro roll</value></data>
+  <data name="Settings_GyroCalibrate_Button" xml:space="preserve"><value>Gyro calibrate karo</value></data>
+  <data name="Settings_GyroResetCalibration_Button" xml:space="preserve"><value>Calibration reset karo</value></data>
+  <data name="Settings_GyroDeadZone" xml:space="preserve"><value>Deadzone</value></data>
+  <data name="Pad_Gyro" xml:space="preserve"><value>Gyro</value></data>
+  <data name="Pad_Gyro_Header" xml:space="preserve"><value>Gyro</value></data>
+  <data name="Pad_Gyro_Calibration_Header" xml:space="preserve"><value>Calibration</value></data>
+  <data name="Pad_Gyro_Sensitivity_Header" xml:space="preserve"><value>Sensitivity</value></data>
+  <data name="Pad_Gyro_MagCalibrate_Stop" xml:space="preserve"><value>Calibration khatam karo</value></data>
+  <data name="Settings_GyroAimEngageMode_Hold" xml:space="preserve"><value>Dabaae rakho</value></data>
+  <data name="Settings_GyroAimEngageMode_Toggle" xml:space="preserve"><value>Toggle</value></data>
+  <data name="Settings_GyroEngageStickDirection_Full" xml:space="preserve"><value>Pura</value></data>
+  <data name="Settings_GyroEngageStickDirection_YNeg" xml:space="preserve"><value>Niche (Y-)</value></data>
+  <data name="Settings_GyroEngageStickDirection_YPos" xml:space="preserve"><value>Upar (Y+)</value></data>
+  <data name="Pad_Gyro_ResetCalibration_All_Tooltip" xml:space="preserve"><value>Calibration reset karo</value></data>
+  <data name="Pad_Gyro_ResetSensitivity_All_Tooltip" xml:space="preserve"><value>Sensitivity reset karo</value></data>
+  <data name="Pad_ResetGyroDeadZone" xml:space="preserve"><value>Deadzone reset karo</value></data>
+  <data name="Mapping_GyroSensitivity" xml:space="preserve"><value>Sensitivity</value></data>
+  <data name="Mapping_MouseCursorSensitivity" xml:space="preserve"><value>Sensitivity</value></data>
+  <data name="Mapping_IrPointerSensitivity" xml:space="preserve"><value>Sensitivity</value></data>
+  <data name="Mapping_Sensitivity" xml:space="preserve"><value>Sensitivity</value></data>
+  <data name="Mapping_Gamepad_Format" xml:space="preserve"><value>Gamepad {0}</value></data>
+
+  <!-- ═══ Device Object Names (gamepad) ═══ -->
+  <data name="DevObj_DPad" xml:space="preserve"><value>D-pad</value></data>
+  <data name="DevObj_StickX" xml:space="preserve"><value>Stick X</value></data>
+  <data name="DevObj_StickY" xml:space="preserve"><value>Stick Y</value></data>
+  <data name="DevObj_CButton_Format" xml:space="preserve"><value>C-{0}</value></data>
+
+  <!-- ═══ Device Object Names (raw joystick) ═══ -->
+  <data name="DevObj_XAxis" xml:space="preserve"><value>X axis</value></data>
+  <data name="DevObj_YAxis" xml:space="preserve"><value>Y axis</value></data>
+  <data name="DevObj_ZAxis" xml:space="preserve"><value>Z axis</value></data>
+  <data name="DevObj_POV" xml:space="preserve"><value>POV</value></data>
+  <data name="DevObj_POVN" xml:space="preserve"><value>POV {0}</value></data>
+  <data name="DevObj_Button" xml:space="preserve"><value>Button {0}</value></data>
+  <data name="DevObj_AxisN" xml:space="preserve"><value>Axis {0}</value></data>
+
+  <!-- ═══ Keyboard Key Names (OEM/Numpad operators: not already in VirtualKey section) ═══ -->
+
+  <!-- ═══ Profiles ═══ -->
+  <data name="Profiles_Title" xml:space="preserve"><value>Profile</value></data>
+  <data name="Profiles_NoSlots" xml:space="preserve"><value>Koi slot nahi</value></data>
+  <data name="Profiles_New" xml:space="preserve"><value>Naya</value></data>
+  <data name="Profiles_Edit" xml:space="preserve"><value>Edit karo</value></data>
+  <data name="Profiles_Load" xml:space="preserve"><value>Load karo</value></data>
+  <data name="Profiles_SelectFirstHint" xml:space="preserve"><value>Pahile ek profile select karo.</value></data>
+  <data name="Profiles_DeleteConfirmTitle" xml:space="preserve"><value>Profile delete karo</value></data>
+
+  <!-- ═══ Profile Dialog ═══ -->
+  <data name="ProfileDialog_Edit" xml:space="preserve"><value>Profile edit karo</value></data>
+  <data name="ProfileDialog_ProfileName" xml:space="preserve"><value>Profile ke naam:</value></data>
+  <data name="ProfileDialog_DefaultName" xml:space="preserve"><value>Naya profile</value></data>
+
+  <!-- ═══ CopyFrom Dialog ═══ -->
+
+  <!-- ═══ File Dialogs ═══ -->
+
+  <!-- ═══ App-Level Messages ═══ -->
+
+  <!-- ═══ Polling Frequency ═══ -->
+  <data name="Dashboard_PollingHz_Format" xml:space="preserve"><value>{0:F1} Hz</value></data>
+  <data name="Dashboard_PollingDash" xml:space="preserve"><value>–</value></data>
+
+  <!-- ═══ Pad: Sticks/Triggers Settings ═══ -->
+  <data name="Pad_DeadZoneX" xml:space="preserve"><value>Deadzone X</value></data>
+  <data name="Pad_DeadZoneY" xml:space="preserve"><value>Deadzone Y</value></data>
+  <data name="Pad_AntiDeadZoneX" xml:space="preserve"><value>Anti-deadzone X</value></data>
+  <data name="Pad_AntiDeadZoneY" xml:space="preserve"><value>Anti-deadzone Y</value></data>
+  <data name="Pad_SensitivityCurves" xml:space="preserve"><value>Sensitivity curve</value></data>
+  <data name="Pad_SensitivityX" xml:space="preserve"><value>Sensitivity X</value></data>
+  <data name="Pad_SensitivityY" xml:space="preserve"><value>Sensitivity Y</value></data>
+  <data name="Pad_XAxis" xml:space="preserve"><value>X axis</value></data>
+  <data name="Pad_YAxis" xml:space="preserve"><value>Y axis</value></data>
+  <data name="Pad_Range" xml:space="preserve"><value>Range</value></data>
+  <data name="Pad_AntiDeadZone" xml:space="preserve"><value>Anti-deadzone</value></data>
+  <data name="Pad_SensitivityCurve" xml:space="preserve"><value>Sensitivity curve</value></data>
+  <data name="Pad_Preset_Label" xml:space="preserve"><value>Preset</value></data>
+  <data name="Pad_TriggerAxis" xml:space="preserve"><value>Trigger axis</value></data>
+
+  <!-- ═══ Pad: Force Feedback ═══ -->
+  <data name="Pad_TestRumble" xml:space="preserve"><value>Rumble test karo</value></data>
+
+  <!-- ═══ Pad: Constant Force ═══ -->
+  <data name="Pad_ConstantForce_X" xml:space="preserve"><value>X</value></data>
+  <data name="Pad_ConstantForce_Y" xml:space="preserve"><value>Y</value></data>
+
+  <!-- ═══ Pad: Reset Tooltips ═══ -->
+  <data name="Pad_ResetCenterOffsetX" xml:space="preserve"><value>Center offset X reset karo</value></data>
+  <data name="Pad_ResetCenterOffsetY" xml:space="preserve"><value>Center offset Y reset karo</value></data>
+  <data name="Pad_ResetDeadZoneX" xml:space="preserve"><value>Deadzone X reset karo</value></data>
+  <data name="Pad_ResetDeadZoneY" xml:space="preserve"><value>Deadzone Y reset karo</value></data>
+  <data name="Pad_ResetAntiDeadZoneX" xml:space="preserve"><value>Anti-deadzone X reset karo</value></data>
+  <data name="Pad_ResetAntiDeadZoneY" xml:space="preserve"><value>Anti-deadzone Y reset karo</value></data>
+  <data name="Pad_ResetSensitivityX" xml:space="preserve"><value>Sensitivity X reset karo</value></data>
+  <data name="Pad_ResetSensitivityY" xml:space="preserve"><value>Sensitivity Y reset karo</value></data>
+  <data name="Pad_ResetMinRangeX" xml:space="preserve"><value>Min range X reset karo</value></data>
+  <data name="Pad_ResetMaxRangeX" xml:space="preserve"><value>Max range X reset karo</value></data>
+  <data name="Pad_ResetMinRangeY" xml:space="preserve"><value>Min range Y reset karo</value></data>
+  <data name="Pad_ResetMaxRangeY" xml:space="preserve"><value>Max range Y reset karo</value></data>
+  <data name="Pad_ResetRange" xml:space="preserve"><value>Range reset karo</value></data>
+  <data name="Pad_ResetAntiDeadZone" xml:space="preserve"><value>Anti-deadzone reset karo</value></data>
+  <data name="Pad_ResetSensitivity" xml:space="preserve"><value>Sensitivity reset karo</value></data>
+  <data name="Pad_ResetAudioSensitivity" xml:space="preserve"><value>Sensitivity reset karo</value></data>
+
+  <!-- ═══ Pad: Adaptive Triggers reset tooltips ═══ -->
+
+  <!-- ═══ Pad: Lighting reset tooltips ═══ -->
+  <data name="Pad_ResetLightbarMode" xml:space="preserve"><value>Lightbar mode reset karo</value></data>
+  <data name="Pad_ResetLedBrightness" xml:space="preserve"><value>LED brightness reset karo</value></data>
+  <data name="Pad_ResetLightbarRainbowBrightness" xml:space="preserve"><value>Brightness reset karo</value></data>
+  <data name="Pad_ResetAudioLightbarSensitivity" xml:space="preserve"><value>Sensitivity reset karo</value></data>
+  <data name="Pad_ResetLightbarRed" xml:space="preserve"><value>Laal reset karo</value></data>
+  <data name="Pad_ResetLightbarGreen" xml:space="preserve"><value>Hara reset karo</value></data>
+  <data name="Pad_ResetLightbarBlue" xml:space="preserve"><value>Neela reset karo</value></data>
+
+  <!-- ═══ Pad: Macro Hints ═══ -->
+  <data name="Macro_Axis_Inverted" xml:space="preserve"><value>ulta</value></data>
+  <data name="Macro_InvertAxis" xml:space="preserve"><value>Axis ulta karo</value></data>
+  <data name="Macro_AxisDirection_Any" xml:space="preserve"><value>Koi bhi</value></data>
+
+  <!-- ═══ 3D View ═══ -->
+  <data name="Pad_ResetView" xml:space="preserve"><value>View reset karo</value></data>
+
+  <!-- ═══ Gamepad Button Labels ═══ -->
+  <data name="Stick_ScrollWheel" xml:space="preserve"><value>Scroll wheel</value></data>
+  <data name="Stick_Format" xml:space="preserve"><value>Stick {0}</value></data>
+  <data name="Trigger_Format" xml:space="preserve"><value>Trigger {0}</value></data>
+  <data name="Btn_Up" xml:space="preserve"><value>Upar</value></data>
+  <data name="Btn_Down" xml:space="preserve"><value>Niche</value></data>
+  <data name="Btn_L1" xml:space="preserve"><value>L1</value></data>
+  <data name="Btn_R1" xml:space="preserve"><value>R1</value></data>
+  <data name="Btn_L3" xml:space="preserve"><value>L3</value></data>
+  <data name="Btn_R3" xml:space="preserve"><value>R3</value></data>
+  <data name="Btn_PS" xml:space="preserve"><value>PS</value></data>
+  <data name="Btn_Touchpad" xml:space="preserve"><value>Touchpad</value></data>
+  <data name="Btn_L" xml:space="preserve"><value>L</value></data>
+  <data name="Btn_R" xml:space="preserve"><value>R</value></data>
+  <data name="Btn_ZL" xml:space="preserve"><value>ZL</value></data>
+  <data name="Btn_ZR" xml:space="preserve"><value>ZR</value></data>
+  <data name="Btn_GL" xml:space="preserve"><value>GL</value></data>
+  <data name="Btn_GR" xml:space="preserve"><value>GR</value></data>
+  <data name="Btn_Menu" xml:space="preserve"><value>Menu</value></data>
+  <data name="Btn_Steam" xml:space="preserve"><value>Steam</value></data>
+  <data name="Btn_C" xml:space="preserve"><value>C</value></data>
+  <data name="Vr_Stick" xml:space="preserve"><value>Stick</value></data>
+
+  <!-- ═══ Keyboard Key Labels ═══ -->
+  <!-- Mouse VK buttons -->
+  <!-- Common keys -->
+  <data name="Key_Tab" xml:space="preserve"><value>Tab</value></data>
+  <data name="Key_Enter" xml:space="preserve"><value>Enter</value></data>
+  <data name="Key_Shift" xml:space="preserve"><value>Shift</value></data>
+  <data name="Key_Control" xml:space="preserve"><value>Ctrl</value></data>
+  <data name="Key_Alt" xml:space="preserve"><value>Alt</value></data>
+  <data name="Key_Escape" xml:space="preserve"><value>Esc</value></data>
+  <!-- Navigation -->
+  <!-- Windows keys -->
+  <!-- Numpad -->
+  <data name="AnalogKey_KatakanaHiragana" xml:space="preserve"><value>Katakana/Hiragana</value></data>
+  <data name="AnalogKey_Henkan" xml:space="preserve"><value>Henkan</value></data>
+  <data name="AnalogKey_Muhenkan" xml:space="preserve"><value>Muhenkan</value></data>
+  <data name="AnalogKey_Hangul" xml:space="preserve"><value>Hangul</value></data>
+  <data name="AnalogKey_Hanja" xml:space="preserve"><value>Hanja</value></data>
+  <!-- Lock keys -->
+  <!-- Left/Right modifiers -->
+  <!-- Browser keys -->
+  <!-- Media keys -->
+
+  <!-- ═══ Mouse Labels ═══ -->
+  <data name="Mouse_X" xml:space="preserve"><value>Mouse X</value></data>
+  <data name="Mouse_Y" xml:space="preserve"><value>Mouse Y</value></data>
+
+  <!-- ═══ Extended Custom Labels ═══ -->
+  <data name="Extended_Stick_Format" xml:space="preserve"><value>Stick {0} X</value></data>
+  <data name="Extended_StickY_Format" xml:space="preserve"><value>Stick {0} Y</value></data>
+  <data name="Extended_Trigger_Format" xml:space="preserve"><value>Trigger {0}</value></data>
+  <data name="Extended_Button_Format" xml:space="preserve"><value>Button {0}</value></data>
+  <data name="Extended_DPad" xml:space="preserve"><value>D-pad</value></data>
+  <data name="Extended_POV_Format" xml:space="preserve"><value>POV {0}</value></data>
+
+  <!-- ═══ Macro Axis Target Labels ═══ -->
+
+  <!-- ═══ Preview Views ═══ -->
+  <data name="Preview_Stick_Format" xml:space="preserve"><value>Stick {0}</value></data>
+  <data name="Preview_Trigger_Format" xml:space="preserve"><value>T{0}</value></data>
+  <data name="Preview_DPad" xml:space="preserve"><value>D-pad</value></data>
+  <data name="Preview_Buttons" xml:space="preserve"><value>Button</value></data>
+  <data name="Preview_POV_Format" xml:space="preserve"><value>POV {0}</value></data>
+
+  <!-- ═══ Audio Bass Rumble ═══ -->
+  <data name="Settings_AudioRumble" xml:space="preserve"><value>Audio rumble</value></data>
+  <data name="Settings_AudioRumble_Sensitivity" xml:space="preserve"><value>Sensitivity</value></data>
+  <!-- Shift mode (Issue #61 Phase 6 v1+) -->
+  <data name="Pad_Shift_AddLayer" xml:space="preserve"><value>+ Shift layer</value></data>
+  <data name="Pad_Shift_LayerName" xml:space="preserve"><value>Layer ke naam</value></data>
+  <data name="Pad_Shift_ModeHold" xml:space="preserve"><value>Dabaae rakho</value></data>
+  <data name="Pad_Shift_HintNameRequired" xml:space="preserve"><value>Layer ke naam chahi.</value></data>
+  <data name="Pad_Shift_HintInputRequired" xml:space="preserve"><value>Ego activator input chuno.</value></data>
+  <data name="Pad_Shift_Color" xml:space="preserve"><value>Layer ke rang</value></data>
+  <data name="Pad_ResetLayerColor" xml:space="preserve"><value>Layer ke rang reset karo</value></data>
+  <data name="Pad_Shift_Icon_Reset" xml:space="preserve"><value>Default (⇧) pe reset karo</value></data>
+  <data name="Pad_Shift_Delete" xml:space="preserve"><value>Layer delete karo</value></data>
+  <data name="Pad_Shift_HostLayerAny" xml:space="preserve"><value>Koi bhi layer</value></data>
+  <data name="Pad_Shift_CycleNextButton" xml:space="preserve"><value>Agla button</value></data>
+  <data name="Pad_Shift_CyclePrevButton" xml:space="preserve"><value>Pichhla button</value></data>
+
+  <data name="Pad_Steering_Mode_Linear" xml:space="preserve"><value>Band</value></data>
+  <data name="Pad_Steering_Orient_Forward" xml:space="preserve"><value>Aage</value></data>
+  <data name="Pad_Steering_Orient_Backward" xml:space="preserve"><value>Pichhe</value></data>
+  <data name="Pad_Steering_Reset_Mode" xml:space="preserve"><value>Steering mode reset karo</value></data>
+  <data name="Pad_ResetFlickCountsPer360" xml:space="preserve"><value>14400 pe reset karo</value></data>
+  <data name="Pad_ResetFlickTime" xml:space="preserve"><value>0.1 s pe reset karo</value></data>
+  <data name="Pad_ResetFlickThreshold" xml:space="preserve"><value>0.9 pe reset karo</value></data>
+  <data name="Pad_ResetFlickSnapStrength" xml:space="preserve"><value>1.0 pe reset karo</value></data>
+  <data name="Pad_ResetFlickForwardDeadzone" xml:space="preserve"><value>0° pe reset karo</value></data>
+  <data name="Pad_Wheel" xml:space="preserve"><value>Steering wheel</value></data>
+  <data name="Pad_ResetWheel" xml:space="preserve"><value>Steering wheel reset karo</value></data>
+  <data name="Pad_Pointer_SensorBar_Centered" xml:space="preserve"><value>Beech me</value></data>
+  <data name="Pad_Pointer_SensorBar_Above" xml:space="preserve"><value>Screen ke upar</value></data>
+  <data name="Pad_Pointer_SensorBar_Below" xml:space="preserve"><value>Screen ke niche</value></data>
+  <data name="Pad_Audio_StopAll" xml:space="preserve"><value>Sab awaaz band karo</value></data>
+  <data name="Pad_Audio_StopAll_Tooltip" xml:space="preserve"><value>Ii pad pe sab macro ke awaaz band karo</value></data>
+  <data name="Pad_Audio_NewSoundMacro" xml:space="preserve"><value>Nawaa awaaz macro</value></data>
+  <data name="Pad_Audio_SoundMacroName_Format" xml:space="preserve"><value>Awaaz macro {0}</value></data>
+  <data name="MacroAction_Type_PlaySound" xml:space="preserve"><value>Awaaz bajao</value></data>
+  <data name="MacroAction_Type_SoundStop" xml:space="preserve"><value>Awaaz band karo</value></data>
+  <data name="MacroAction_PlaySound_Format" xml:space="preserve"><value>{0} bajao ({1}%)</value></data>
+  <data name="Macro_Sound_File_Label" xml:space="preserve"><value>Awaaz ke file</value></data>
+  <data name="Pad_Audio_Engage_Always" xml:space="preserve"><value>Hamesa</value></data>
+  <data name="Pad_Audio_ToneFilter_Off" xml:space="preserve"><value>Band</value></data>
+  <data name="Pad_Audio_ToneFilter_Cut" xml:space="preserve"><value>Kaat do</value></data>
+  <data name="Pad_ResetPersonaHaptics" xml:space="preserve"><value>Default (band) pe reset karo</value></data>
+  <data name="Pad_ResetPersonaHapticsGain" xml:space="preserve"><value>Default (100%) pe reset karo</value></data>
+  <data name="Pad_ResetTritonLowPass" xml:space="preserve"><value>250 Hz pe reset karo</value></data>
+  <data name="About_DsTester" xml:space="preserve"><value>dualsense-tester</value></data>
+  <data name="About_Ds4Audio" xml:space="preserve"><value>DS4AudioStreamer</value></data>
+  <data name="Macro_Sound_PickFromPackage_Format" xml:space="preserve"><value>{0} se ego awaaz chuno</value></data>
+  <data name="Menu_Icon_None" xml:space="preserve"><value>Koi icon nahi</value></data>
+  <data name="Menu_Icon_PickTitle" xml:space="preserve"><value>Ego icon chuno</value></data>
+  <data name="Emoji_Category_Hands" xml:space="preserve"><value>Haath</value></data>
+  <data name="Emoji_Category_Animals" xml:space="preserve"><value>Jaanwar</value></data>
+  <data name="Emoji_Category_Food" xml:space="preserve"><value>Khaana</value></data>
+  <data name="Mapping_MidiCc_Format" xml:space="preserve"><value>CC {0}</value></data>
+  <data name="Mapping_MidiCcNamed_Format" xml:space="preserve"><value>CC {0} ({1})</value></data>
+  <data name="Mapping_MidiCcUp_Format" xml:space="preserve"><value>CC {0} +</value></data>
+  <data name="Mapping_MidiCcDown_Format" xml:space="preserve"><value>CC {0} −</value></data>
+  <data name="Common_Reset" xml:space="preserve">
+    <value>Reset karo</value>
+  </data>
+  <data name="RemoteLink_PasswordEmpty" xml:space="preserve">
+    <value>Password likho.</value>
+  </data>
+  <data name="PickSound_Title" xml:space="preserve"><value>Ego awaaz chuno</value></data>
+  <data name="About_NAudio" xml:space="preserve"><value>NAudio</value></data>
+  <data name="About_Vosk" xml:space="preserve"><value>Vosk</value></data>
+  <data name="About_BouncyCastle" xml:space="preserve"><value>Bouncy Castle</value></data>
+  <data name="About_BthPS3" xml:space="preserve"><value>BthPS3</value></data>
+  <data name="About_DsHidMini" xml:space="preserve"><value>DsHidMini</value></data>
+  <data name="About_NefariusDevMgmt" xml:space="preserve"><value>Nefarius.Utilities.DeviceManagement</value></data>
+  <data name="About_Libusb" xml:space="preserve"><value>libusb</value></data>
+  <data name="About_Nipplejs" xml:space="preserve"><value>nipplejs</value></data>
+  <data name="About_GameControllerDb" xml:space="preserve"><value>SDL_GameControllerDB</value></data>
+  <data name="About_Xbledctl" xml:space="preserve"><value>xbledctl</value></data>
+  <data name="About_JoyShockMapper" xml:space="preserve"><value>JoyShockMapper</value></data>
+  <data name="About_GamepadMotionHelpers" xml:space="preserve"><value>GamepadMotionHelpers</value></data>
+  <data name="About_SteamControllerSinger" xml:space="preserve"><value>SteamControllerSinger</value></data>
+  <data name="About_SteamHapticsSinger" xml:space="preserve"><value>SteamHapticsSinger</value></data>
+  <data name="About_Hitboxer" xml:space="preserve"><value>hitboxer</value></data>
+  <data name="About_SteamKit2" xml:space="preserve"><value>SteamKit2</value></data>
+  <data name="About_ProtobufNet" xml:space="preserve"><value>protobuf-net</value></data>
+  <data name="About_ZstdSharp" xml:space="preserve"><value>ZstdSharp</value></data>
+  <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
+  <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
+  <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
+  <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
+  <data name="About_JoyconSinger" xml:space="preserve"><value>joycon-singer</value></data>
+  <data name="Devices_Pair" xml:space="preserve"><value>Pair karo</value></data>
+  <data name="WiiPair_Title" xml:space="preserve"><value>Controller pair karo</value></data>
+  <data name="WiiPair_FamilyWii" xml:space="preserve"><value>Nintendo Wii</value></data>
+  <data name="WiiPair_Pair" xml:space="preserve"><value>Pair karo</value></data>
+  <data name="WiiPair_FamilyDs3" xml:space="preserve"><value>Sony DualShock 3</value></data>
+  <data name="Common_Close" xml:space="preserve"><value>Band karo</value></data>
+  <data name="Nfc_UidLabel" xml:space="preserve"><value>UID:</value></data>
+  <data name="Nfc_NameLabel" xml:space="preserve"><value>Naam:</value></data>
+  <data name="Handheld_NameLabel" xml:space="preserve"><value>Naam:</value></data>
+  <data name="Handheld_ChordFormat" xml:space="preserve"><value>Key: {0}</value></data>
+  <data name="Pad_Mouse" xml:space="preserve"><value>Mouse</value></data>
+  <data name="Pad_ResetMouseGestures" xml:space="preserve"><value>Mouse gesture reset karo</value></data>
+  <data name="Pad_ResetMouseGestureButton" xml:space="preserve"><value>Gesture button reset karo</value></data>
+  <data name="Mapping_MouseGestureUp" xml:space="preserve"><value>Upar</value></data>
+  <data name="Mapping_MouseGestureDown" xml:space="preserve"><value>Niche</value></data>
+  <data name="Pad_Lighting_GuideLed_Brightness" xml:space="preserve"><value>Brightness</value></data>
+  <data name="Pad_ResetGuideLed" xml:space="preserve"><value>Guide button LED reset karo</value></data>
+  <data name="Pad_ResetGuideLedMode" xml:space="preserve"><value>Guide LED mode reset karo</value></data>
+  <data name="Pad_ResetGuideLedBrightness" xml:space="preserve"><value>Guide LED brightness reset karo</value></data>
+  <data name="Workshop_GamesCount_Format" xml:space="preserve"><value>{0} game</value></data>
+  <data name="Workshop_TimeToday" xml:space="preserve"><value>aaj</value></data>
+  <data name="Workshop_TagAll" xml:space="preserve"><value>Sab</value></data>
+  <data name="Workshop_SaveProfile" xml:space="preserve"><value>Profile save karo</value></data>
+  <data name="Macro_Toggle" xml:space="preserve"><value>Toggle</value></data>
+  <data name="Macro_Turbo" xml:space="preserve"><value>Turbo</value></data>
+  <data name="MacroAction_ToggleVcButton_Format" xml:space="preserve"><value>{0} toggle karo</value></data>
+  <data name="MacroAction_ToggleMouseButton_Format" xml:space="preserve"><value>Mouse {0} toggle karo</value></data>
+  <data name="MacroAction_AllAxes" xml:space="preserve"><value>Sab axis</value></data>
+  <data name="Mapping_AnyDevice" xml:space="preserve"><value>(Koi bhi device)</value></data>
+  <data name="Menu_NewNameFormat" xml:space="preserve"><value>Menu {0}</value></data>
+  <data name="Menu_Name" xml:space="preserve"><value>Menu ke naam</value></data>
+  <data name="Menu_Binding_None" xml:space="preserve"><value>Kuch nahi</value></data>
+  <data name="Pad_RumbleAudio_ResetVoiceHigh" xml:space="preserve"><value>High motor reset karo</value></data>
+  <data name="Pad_RumbleAudio_ResetVoiceTriggerLeft" xml:space="preserve"><value>Left trigger reset karo</value></data>
+  <data name="Pad_RumbleAudio_ResetVoiceTriggerRight" xml:space="preserve"><value>Right trigger reset karo</value></data>
+  <data name="Pad_RumbleAudio_StopTest" xml:space="preserve"><value>Roko</value></data>
+  <data name="Mapping_AnyNfcTag" xml:space="preserve"><value>Koi bhi NFC tag</value></data>
+  <data name="Mapping_NfcTagNamed" xml:space="preserve"><value>NFC tag: {0}</value></data>
+  <data name="Common_KeepLegacyDrivers" xml:space="preserve"><value>Rakho</value></data>
+  <data name="Tray_Exit" xml:space="preserve"><value>Band karo</value></data>
+  <data name="About_Libinput" xml:space="preserve">
+    <value>libinput</value>
+  </data>
+  <data name="About_HandheldCompanion" xml:space="preserve">
+    <value>Handheld Companion</value>
+  </data>
+  <data name="About_GamepadAssetPack" xml:space="preserve">
+    <value>Gamepad-Asset-Pack</value>
+  </data>
+  <data name="About_Ds4Mac" xml:space="preserve">
+    <value>ds4mac</value>
+  </data>
+  <data name="Starter_Wasd_Name" xml:space="preserve"><value>WASD aur mouse</value></data>
+  <data name="Starter_OutputKeyboardMouse" xml:space="preserve"><value>Keyboard + mouse</value></data>
+  <data name="Starter_OutputGamepad" xml:space="preserve"><value>Gamepad</value></data>
+  <data name="Starter_DialogTitle" xml:space="preserve"><value>Starter profile</value></data>
+  <data name="Starter_Save" xml:space="preserve"><value>Profile save karo</value></data>
+  <data name="Pad_ResetHeadphoneVolume" xml:space="preserve"><value>Headphone volume reset karo</value></data>
+  <data name="Pad_Audio_Crossfeed_Off" xml:space="preserve"><value>Band</value></data>
+  <data name="Pad_Audio_Crossfeed_Low" xml:space="preserve"><value>Kam</value></data>
+  <data name="Pad_Audio_Crossfeed_High" xml:space="preserve"><value>Jaada</value></data>
+  <data name="Pad_Audio_Reset_CrossfeedCut" xml:space="preserve"><value>Cutoff reset karo</value></data>
+  <data name="Pad_Audio_Reset_CrossfeedFeed" xml:space="preserve"><value>Feed reset karo</value></data>
+  <data name="Pad_Audio_EqCol_On" xml:space="preserve"><value>Chalu</value></data>
+  <data name="Pad_Audio_EqClear" xml:space="preserve"><value>Saaf karo</value></data>
+  <data name="Pad_Audio_Reset_Crossfeed" xml:space="preserve"><value>Crossfeed reset karo</value></data>
+  <data name="Pad_Audio_Reset_Eq" xml:space="preserve"><value>Parametric EQ reset karo</value></data>
+  <data name="Pad_Audio_Reset_EqPreamp" xml:space="preserve"><value>Preamp reset karo</value></data>
+  <data name="Pad_Audio_Reset_Limiter" xml:space="preserve"><value>Limiter reset karo</value></data>
+  <data name="Pad_Audio_OutputPath_Auto" xml:space="preserve"><value>Default</value></data>
+  <data name="Pad_Audio_OutputPath_Both" xml:space="preserve"><value>Headphones + speaker</value></data>
+  <data name="Pad_ResetOutputPath" xml:space="preserve"><value>Output path reset karo</value></data>
+  <data name="About_DuaLib" xml:space="preserve"><value>duaLib</value></data>
+  <data name="About_Ds5Bridge" xml:space="preserve"><value>DS5_Bridge</value></data>
+  <data name="About_QrCodeGen" xml:space="preserve"><value>QR-Code-generator</value></data>
+  <data name="About_MouseArt" xml:space="preserve"><value>Zergatul.Obs.InputOverlay</value></data>
+  <data name="Battery_LowText_Format" xml:space="preserve"><value>{0}: {1}% battery bachaa hai</value></data>
+  <data name="Pad_AssignOffer_Assign" xml:space="preserve"><value>Assign karo</value></data>
+  <data name="Pad_AssignOffer_Dismiss" xml:space="preserve"><value>Abhi nai</value></data>
+  <data name="Voice_ModeAlways" xml:space="preserve"><value>Hamesa</value></data>
+  <data name="Voice_NameLabel" xml:space="preserve"><value>Naam</value></data>
+  <data name="Voice_RegisterButton" xml:space="preserve"><value>Register karo</value></data>
+  <data name="DeviceType_Microphone" xml:space="preserve"><value>Microphone</value></data>
+  <data name="About_Interhaptics" xml:space="preserve">
+    <value>Interhaptics (Wyvrn)</value>
+  </data>
+  <data name="About_Colore" xml:space="preserve">
+    <value>Colore</value>
+  </data>
+  <data name="About_Opentrack" xml:space="preserve">
+    <value>opentrack</value>
+  </data>
+  <data name="About_LegionToolkit" xml:space="preserve">
+    <value>Lenovo Legion Toolkit</value>
+  </data>
+  <data name="About_InputPlumber" xml:space="preserve">
+    <value>InputPlumber</value>
+  </data>
+  <data name="About_Linuxmotehook" xml:space="preserve">
+    <value>linuxmotehook aur WiimoteHook</value>
+  </data>
+  <data name="About_PortMidiRtMidi" xml:space="preserve"><value>PortMidi / RtMidi</value></data>
+  <data name="About_AnalogKeyboardRefs" xml:space="preserve"><value>HallJoy, Soup aur AnalogSense</value></data>
+  <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
+  <data name="Pad_Mapping_Scope_All" xml:space="preserve">
+    <value>Sab</value>
+  </data>
+  <data name="Pad_Mapping_Scope_Keyboard" xml:space="preserve">
+    <value>Keyboard</value>
+  </data>
+  <data name="Pad_Mapping_Scope_Mouse" xml:space="preserve">
+    <value>Mouse</value>
+  </data>
+  <data name="Menu_Layer" xml:space="preserve"><value>Layer</value></data>
+  <data name="RemoteLink_AssignmentProfile_Format" xml:space="preserve">
+    <value>Profile: {0}</value>
+  </data>
+  <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Left stick X</value></data>
+  <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Left stick Y</value></data>
+  <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Right stick X</value></data>
+  <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Right stick Y</value></data>
+  <data name="ResetLabel_Profile" xml:space="preserve"><value>Profile</value></data>
+  <data name="ResetLabel_Formula" xml:space="preserve"><value>Formula</value></data>
+  <data name="About_Nefcon" xml:space="preserve"><value>nefcon</value></data>
+  <data name="About_Kaldi" xml:space="preserve"><value>Kaldi, OpenFst, OpenBLAS aur CLAPACK</value></data>
+  <data name="About_AntiMicroX" xml:space="preserve"><value>AntiMicroX</value></data>
+  <data name="About_AudioEndPointLibrary" xml:space="preserve"><value>AudioEndPointLibrary</value></data>
+  <data name="About_AutoEq" xml:space="preserve"><value>AutoEq</value></data>
+  <data name="About_AutoHotkey" xml:space="preserve"><value>AutoHotkey</value></data>
+  <data name="About_CemuhookProtocol" xml:space="preserve"><value>cemuhook-protocol</value></data>
+  <data name="About_Ds4Drv" xml:space="preserve"><value>ds4drv</value></data>
+  <data name="About_Ds4MapperTest" xml:space="preserve"><value>DS4MapperTest</value></data>
+  <data name="About_Ds5Dongle" xml:space="preserve"><value>DS5Dongle</value></data>
+  <data name="About_DualSenseSupport" xml:space="preserve"><value>DualSenseSupport</value></data>
+  <data name="About_Eden" xml:space="preserve"><value>Eden</value></data>
+  <data name="About_EdRefCard2" xml:space="preserve"><value>EDRefCard2</value></data>
+  <data name="About_FFmpeg" xml:space="preserve"><value>FFmpeg</value></data>
+  <data name="About_Fusion" xml:space="preserve"><value>Fusion</value></data>
+  <data name="About_GamepadBatteryMonitor" xml:space="preserve"><value>Gamepad Battery Monitor</value></data>
+  <data name="About_Hado" xml:space="preserve"><value>hado</value></data>
+  <data name="About_3doverstock" xml:space="preserve"><value>3doverstock</value></data>
+  <data name="About_Hidapi" xml:space="preserve"><value>HIDAPI</value></data>
+  <data name="About_IrohFlexInput" xml:space="preserve"><value>iroh / FlexInput</value></data>
+  <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
+  <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
+  <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>
+  <data name="About_SwitchResearch" xml:space="preserve"><value>Nintendo_Switch_Reverse_Engineering</value></data>
+  <data name="About_OpenRgb" xml:space="preserve"><value>OpenRGB</value></data>
+  <data name="About_OpenTabletDriver" xml:space="preserve"><value>OpenTabletDriver</value></data>
+  <data name="About_PcscSharp" xml:space="preserve"><value>pcsc-sharp</value></data>
+  <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
+  <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
+  <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
+  <data name="About_SpecialK" xml:space="preserve"><value>Special K</value></data>
+  <data name="About_ThumbstickDeadzones" xml:space="preserve"><value>Thumbstick Deadzones</value></data>
+  <data name="About_Touchmote" xml:space="preserve"><value>Touchmote</value></data>
+  <data name="About_TriggerEffectGenerator" xml:space="preserve"><value>TriggerEffectGenerator</value></data>
+  <data name="About_ViGEmClient" xml:space="preserve"><value>ViGEmClient</value></data>
+  <data name="About_Libwdi" xml:space="preserve"><value>libwdi</value></data>
+  <data name="About_Bluepad32" xml:space="preserve"><value>Bluepad32</value></data>
+  <data name="About_Monado" xml:space="preserve"><value>Monado</value></data>
+  <data name="About_OpenHmd" xml:space="preserve"><value>OpenHMD</value></data>
+  <data name="About_WiiBrew" xml:space="preserve"><value>WiiBrew</value></data>
+  <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
+  <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
+</root>

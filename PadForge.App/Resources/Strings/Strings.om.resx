@@ -1,0 +1,1661 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <!-- ═══ Common ═══ -->
+  <data name="Common_Save" xml:space="preserve"><value>Olkaa'i</value></data>
+  <data name="Common_Cancel" xml:space="preserve"><value>Dhiisi</value></data>
+  <data name="Common_Delete" xml:space="preserve"><value>Haqi</value></data>
+  <data name="Common_Add" xml:space="preserve"><value>Ida'i</value></data>
+  <data name="Common_Remove" xml:space="preserve"><value>Balleessi</value></data>
+  <data name="Common_OK" xml:space="preserve"><value>Tole</value></data>
+  <data name="Common_Refresh" xml:space="preserve"><value>Haaromsi</value></data>
+  <data name="Common_Copy" xml:space="preserve"><value>Garagalchi</value></data>
+  <data name="Common_Paste" xml:space="preserve"><value>Maxxansi</value></data>
+  <data name="Common_Enabled" xml:space="preserve"><value>Dandeessifameera</value></data>
+  <data name="Common_Disabled" xml:space="preserve"><value>Dhoorkameera</value></data>
+  <data name="Common_Ready" xml:space="preserve"><value>Qophaa'eera</value></data>
+  <data name="Common_Stopped" xml:space="preserve"><value>Dhaabbateera</value></data>
+  <data name="Common_Running" xml:space="preserve"><value>Hojjechaa jira</value></data>
+  <data name="Common_Stopping" xml:space="preserve"><value>Dhaabbachaa jira…</value></data>
+  <data name="Server_RunningOn_Format" xml:space="preserve"><value>{0} irratti hojjechaa jira</value></data>
+  <data name="Server_RunningClients_Format" xml:space="preserve"><value>Hojjechaa jira (maamiltoota {0})</value></data>
+  <data name="Server_PortInUse_Format" xml:space="preserve"><value>Poortiin {0} hojii irra jira</value></data>
+  <data name="Server_FailedToStart" xml:space="preserve"><value>Jalqabuu hin dandeenye</value></data>
+  <data name="Common_Online" xml:space="preserve"><value>Toora irra</value></data>
+  <data name="Common_Offline" xml:space="preserve"><value>Toora ala</value></data>
+  <data name="Common_Unknown" xml:space="preserve"><value>Hin beekamne</value></data>
+  <data name="Common_Default" xml:space="preserve"><value>Durtii</value></data>
+  <data name="Common_Browse" xml:space="preserve"><value>Barbaadi...</value></data>
+  <data name="Common_Proceed" xml:space="preserve"><value>Itti fufi</value></data>
+  <data name="Common_Stop" xml:space="preserve"><value>Dhaabi</value></data>
+  <data name="Common_Record" xml:space="preserve"><value>Galmeessi</value></data>
+  <data name="Common_Recording" xml:space="preserve"><value>Galmeessaa jira...</value></data>
+  <data name="Common_Clear" xml:space="preserve"><value>Qulqulleessi</value></data>
+  <data name="Common_None" xml:space="preserve"><value>Homaa</value></data>
+  <data name="Common_Ms" xml:space="preserve"><value>ms</value></data>
+  <data name="Common_Unassigned" xml:space="preserve"><value>Hin ramadamne</value></data>
+  <data name="Common_PadForge" xml:space="preserve"><value>PadForge</value></data>
+
+  <!-- ═══ Controller Types ═══ -->
+  <data name="ControllerType_Xbox" xml:space="preserve"><value>Xbox</value></data>
+  <data name="ControllerType_PlayStation" xml:space="preserve"><value>PlayStation</value></data>
+  <data name="ControllerType_Nintendo" xml:space="preserve"><value>Nintendo</value></data>
+  <data name="ControllerType_MIDI" xml:space="preserve"><value>MIDI</value></data>
+  <data name="ControllerType_VR" xml:space="preserve"><value>VR</value></data>
+
+  <!-- ═══ MainWindow ═══ -->
+  <data name="Main_ShuttingDown" xml:space="preserve"><value>PadForge cufaa jira...</value></data>
+  <data name="Main_StartingUp" xml:space="preserve"><value>PadForge jalqabaa jira…</value></data>
+  <data name="Main_AddController" xml:space="preserve"><value>Kontirolaa ida'i</value></data>
+  <data name="Main_FullScreen" xml:space="preserve"><value>Iskiriinii guutuu</value></data>
+  <data name="Main_ShowPadForge" xml:space="preserve"><value>PadForge agarsiisi</value></data>
+  <data name="Main_EngineStopped" xml:space="preserve"><value>Injiniin dhaabbateera</value></data>
+  <data name="Main_Xbox_Max_Format" xml:space="preserve"><value>Xbox (hanga {0})</value></data>
+  <data name="Main_PlayStation_Max_Format" xml:space="preserve"><value>PlayStation (hanga {0})</value></data>
+  <data name="Main_Nintendo_Max_Format" xml:space="preserve"><value>Nintendo (hanga {0})</value></data>
+  <data name="Main_MIDI_Max_Format" xml:space="preserve"><value>MIDI (hanga {0})</value></data>
+  <data name="Main_VR_Max_Format" xml:space="preserve"><value>VR (hanga {0})</value></data>
+
+  <!-- ═══ MainWindow Status Messages ═══ -->
+  <data name="Status_OperationCanceled" xml:space="preserve"><value>Hojiin fayyadamaan haqameera.</value></data>
+  <data name="Status_DownloadingSteamVR" xml:space="preserve"><value>SteamVR buufachaa jira…</value></data>
+  <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Tarreen meeshaalee haaromfameera.</value></data>
+  <data name="Status_Recorded_Format" xml:space="preserve"><value>"{0}" galmeeffameera ← {1}</value></data>
+  <data name="Status_DirectionRight" xml:space="preserve"><value>(→ mirga)</value></data>
+  <data name="Status_DirectionDown" xml:space="preserve"><value>(↓ gadi)</value></data>
+  <data name="Status_DirectionLeft" xml:space="preserve"><value>(← bitaa)</value></data>
+  <data name="Status_DirectionUp" xml:space="preserve"><value>(↑ ol)</value></data>
+  <data name="Status_SDL3NotFound" xml:space="preserve"><value>SDL3.dll HIN ARGAMNE</value></data>
+  <data name="Status_SDL3NotFoundDetail" xml:space="preserve"><value>SDL3.dll hin argamne! SDL3.dll PadForge.exe cinaa kaa'i. https://github.com/libsdl-org/SDL/releases irraa buufadhu</value></data>
+  <data name="Status_CopyFailed_Format" xml:space="preserve"><value>Garagalchuun hin milkoofne: {0}</value></data>
+  <data name="Status_PasteFailed_Format" xml:space="preserve"><value>Maxxansuun hin milkoofne: {0}</value></data>
+  <data name="Status_ProfileCreated_Format" xml:space="preserve"><value>Piroofaayiliin "{0}" uumameera.</value></data>
+  <data name="Status_ProfileDeleted_Format" xml:space="preserve"><value>Piroofaayiliin "{0}" haqameera.</value></data>
+  <data name="Status_ProfileUpdated_Format" xml:space="preserve"><value>Piroofaayiliin "{0}" haaromfameera.</value></data>
+  <data name="Status_ProfileLoaded_Format" xml:space="preserve"><value>Piroofaayiliin fe'ame: {0}</value></data>
+  <data name="Status_ErrorLoadingSettings_Format" xml:space="preserve"><value>Qindaa'ina fe'uu irratti dogoggora: {0}</value></data>
+  <data name="Status_SettingsSaved_Format" xml:space="preserve"><value>Qindaa'inni {0} irratti olkaa'ameera.</value></data>
+  <data name="Status_ErrorSavingSettings_Format" xml:space="preserve"><value>Qindaa'ina olkaa'uu irratti dogoggora: {0}</value></data>
+  <data name="Status_SettingsResetDefaults" xml:space="preserve"><value>Qindaa'inni gara durtiitti deebi'eera.</value></data>
+  <data name="Status_RecordingCanceled" xml:space="preserve"><value>Galmeessuun haqameera.</value></data>
+  <data name="Status_EngineStarted" xml:space="preserve"><value>Injiniin jalqabeera.</value></data>
+  <data name="Status_EngineStopped" xml:space="preserve"><value>Injiniin dhaabbateera.</value></data>
+  <data name="Status_Error_Format" xml:space="preserve"><value>Dogoggora: {0}</value></data>
+  <data name="Status_ProfileSwitched_Format" xml:space="preserve"><value>Piroofaayiliin jijjiirame: {0}</value></data>
+  <data name="Status_ProfileSwitchedDefault" xml:space="preserve"><value>Piroofaayiliin jijjiirame: Durtii</value></data>
+  <data name="Profile_Default" xml:space="preserve"><value>Durtii</value></data>
+  <data name="Profiles_ShortcutMode_Next" xml:space="preserve"><value>Piroofaayilii itti aanu</value></data>
+  <data name="Profiles_ShortcutMode_Previous" xml:space="preserve"><value>Piroofaayilii duraa</value></data>
+  <data name="Profiles_ShortcutLearn" xml:space="preserve"><value>Galmeessi</value></data>
+  <data name="Profiles_ShortcutLearning" xml:space="preserve"><value>Galmeessaa jira...</value></data>
+  <data name="Status_NoDeviceSelected" xml:space="preserve"><value>Meeshaan hin filatamne.</value></data>
+  <data name="Status_DeviceRemoved" xml:space="preserve"><value>Meeshaan balleeffameera.</value></data>
+
+  <!-- ═══ Dashboard ═══ -->
+  <data name="FirstRun_Skip" xml:space="preserve"><value>Darbi</value></data>
+  <data name="FirstRun_Next" xml:space="preserve"><value>Itti aanu</value></data>
+  <data name="FirstRun_Done" xml:space="preserve"><value>Xumurameera</value></data>
+  <data name="Dashboard_Slot" xml:space="preserve"><value>Iddoo</value></data>
+  <data name="Pad_ScopeDevice" xml:space="preserve"><value>Meeshaa</value></data>
+  <data name="Dashboard_Port" xml:space="preserve"><value>Poortii</value></data>
+  <data name="RemoteLink_Connect" xml:space="preserve"><value>Walqunnamsiisi</value></data>
+  <data name="RemoteLink_Connected" xml:space="preserve"><value>Walqunnameera</value></data>
+  <data name="RemoteLink_Reject" xml:space="preserve"><value>Didi</value></data>
+  <data name="RemoteLink_Identity" xml:space="preserve"><value>Eenyummaa</value></data>
+  <data name="Dashboard_NoDevice" xml:space="preserve"><value>Meeshaa hin jiru</value></data>
+
+  <!-- ═══ Settings ═══ -->
+  <data name="Settings_Title" xml:space="preserve"><value>Qindaa'ina</value></data>
+  <data name="Settings_ThemeLight" xml:space="preserve"><value>Ifaa</value></data>
+  <data name="Settings_ThemeDark" xml:space="preserve"><value>Dukkana</value></data>
+  <data name="Settings_Window" xml:space="preserve"><value>Foddaa</value></data>
+  <data name="Settings_Updates" xml:space="preserve"><value>Haaromsa</value></data>
+  <data name="Update_Checking" xml:space="preserve"><value>Haaromsa barbaadaa jira…</value></data>
+  <data name="Update_UpToDate_Format" xml:space="preserve"><value>PadForge {0} isa haaraa dha.</value></data>
+  <data name="Update_Available_Format" xml:space="preserve"><value>PadForge {0} ni argama.</value></data>
+  <data name="Update_Downloading_Format" xml:space="preserve"><value>Haaromsa buufachaa jira: {0}%</value></data>
+  <data name="Update_CheckFailed_Format" xml:space="preserve"><value>Haaromsa barbaaduu hin dandeenye: {0}</value></data>
+  <data name="Update_Updated_Format" xml:space="preserve"><value>PadForge gara {0}tti haaromfameera.</value></data>
+  <data name="Settings_Reload" xml:space="preserve"><value>Irra deebi'ii fe'i</value></data>
+  <data name="Settings_ResetToDefaults" xml:space="preserve"><value>Gara durtiitti deebisi</value></data>
+  <data name="Settings_Language" xml:space="preserve"><value>Afaan</value></data>
+
+  <!-- ═══ About ═══ -->
+  <data name="About_Title" xml:space="preserve"><value>Waa'ee</value></data>
+  <data name="About_DotNet10" xml:space="preserve"><value>.NET 10</value></data>
+  <data name="About_SDL3" xml:space="preserve"><value>SDL3</value></data>
+  <data name="About_HelixToolkit" xml:space="preserve"><value>HelixToolkit</value></data>
+  <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
+  <data name="About_License" xml:space="preserve"><value>Hayyama</value></data>
+  <data name="About_HIDMaestro" xml:space="preserve"><value>HIDMaestro</value></data>
+  <data name="About_OpenXInput" xml:space="preserve"><value>OpenXInput</value></data>
+  <data name="About_HidHide" xml:space="preserve"><value>HidHide</value></data>
+  <data name="About_Testimony" xml:space="preserve"><value>Afeerraa</value></data>
+  <data name="About_Bs2b" xml:space="preserve"><value>bs2b</value></data>
+  <data name="About_Concentus" xml:space="preserve"><value>Concentus</value></data>
+  <data name="About_SAxense" xml:space="preserve"><value>SAxense</value></data>
+  <data name="About_DsBtHaptics" xml:space="preserve"><value>dualsense-bt-haptics</value></data>
+  <data name="About_DualSenseY" xml:space="preserve"><value>DualSenseY-v2</value></data>
+
+  <!-- ═══ Device Types ═══ -->
+  <data name="DeviceType_Mouse" xml:space="preserve"><value>Maawusii</value></data>
+  <data name="DeviceType_Keyboard" xml:space="preserve"><value>Kiiboordii</value></data>
+  <data name="DeviceType_Device" xml:space="preserve"><value>Meeshaa</value></data>
+
+  <data name="MacroDisconnect_Device_Label" xml:space="preserve"><value>Meeshaa</value></data>
+  <data name="MacroAction_Type_RunProgram" xml:space="preserve"><value>Sagantaa hojjechiisi</value></data>
+  <data name="MacroAction_RunProgram_Format" xml:space="preserve"><value>{0} hojjechiisi</value></data>
+  <data name="MacroAction_RunProgram_NoProgram" xml:space="preserve"><value>(sagantaa hin jiru)</value></data>
+  <data name="MacroAction_RunProgram_Path" xml:space="preserve"><value>Sagantaa</value></data>
+  <data name="MacroAction_TextBlock_Format" xml:space="preserve"><value>"{0}" barreessi</value></data>
+  <data name="MacroAction_TextBlock_NoText" xml:space="preserve"><value>(barruu hin jiru)</value></data>
+  <data name="MacroAction_TextBlock_Text" xml:space="preserve"><value>Barruu</value></data>
+  <data name="Devices_Power" xml:space="preserve"><value>Humna</value></data>
+  <data name="Devices_IdleDisconnectMinutes" xml:space="preserve"><value>daqiiqaa (0 = gonkumaa)</value></data>
+  <data name="Devices_ReadAsICade" xml:space="preserve"><value>Akka kontirolaa iCade-tti dubbisi</value></data>
+  <data name="Devices_ReadAsKeyboard" xml:space="preserve"><value>Akka kiiboordiitti dubbisi</value></data>
+  <data name="Devices_BlissBoxPlayer" xml:space="preserve"><value>Lakkoofsa taphataa…</value></data>
+  <data name="BlissBoxPlayer_Title" xml:space="preserve"><value>Lakkoofsa taphataa</value></data>
+  <data name="BlissBoxPlayer_Label" xml:space="preserve"><value>Taphataa</value></data>
+  <data name="DreamcastScreen_Mode_Label" xml:space="preserve"><value>Agarsiisi</value></data>
+  <data name="DreamcastScreen_Mode_ProfileName" xml:space="preserve"><value>Maqaa piroofaayilii</value></data>
+  <data name="DreamcastScreen_Mode_ProfileNumber" xml:space="preserve"><value>Lakkoofsa piroofaayilii</value></data>
+  <data name="DreamcastScreen_Mode_ProfilePicture" xml:space="preserve"><value>Suuraa piroofaayilii</value></data>
+  <data name="DreamcastScreen_Mode_Clock" xml:space="preserve"><value>Sa'aatii</value></data>
+  <data name="DreamcastScreen_Mode_PlayTime" xml:space="preserve"><value>Yeroo taphaa</value></data>
+  <data name="DreamcastScreen_Mode_Picture" xml:space="preserve"><value>Suuraa filatame</value></data>
+  <data name="DreamcastScreen_ChoosePicture" xml:space="preserve"><value>Suuraa filadhu…</value></data>
+  <data name="DreamcastScreen_RemoveProfilePicture" xml:space="preserve"><value>Suuraa piroofaayilii haqi</value></data>
+  <data name="BlissBoxPak_RestoreAction" xml:space="preserve"><value>Deebisi</value></data>
+  <data name="Devices_LightGun" xml:space="preserve"><value>Light gun</value></data>
+  <data name="DevObj_ConsumerPower" xml:space="preserve"><value>Humna</value></data>
+  <data name="DevObj_ConsumerMenu" xml:space="preserve"><value>Baafata</value></data>
+  <data name="DevObj_ConsumerOk" xml:space="preserve"><value>OK</value></data>
+  <data name="DevObj_ConsumerPlay" xml:space="preserve"><value>Taphachiisi</value></data>
+  <data name="DevObj_ConsumerRecord" xml:space="preserve"><value>Waraabi</value></data>
+  <data name="DevObj_ConsumerMediaStop" xml:space="preserve"><value>Dhaabi</value></data>
+  <data name="DevObj_ConsumerMute" xml:space="preserve"><value>Callisi</value></data>
+  <data name="DevObj_ConsumerVolumeUp" xml:space="preserve"><value>Sagalee ol kaasi</value></data>
+  <data name="DevObj_ConsumerVolumeDown" xml:space="preserve"><value>Sagalee gadi buusi</value></data>
+  <data name="DevObj_ConsumerQuit" xml:space="preserve"><value>Ba'i</value></data>
+  <data name="DevObj_ConsumerEmail" xml:space="preserve"><value>Imeelii</value></data>
+  <data name="DevObj_ConsumerBrowserSearch" xml:space="preserve"><value>Barbaadi</value></data>
+  <data name="DevObj_ConsumerBrowserRefresh" xml:space="preserve"><value>Haaromsi</value></data>
+  <!-- ═══ Devices ═══ -->
+  <data name="Devices_Title" xml:space="preserve"><value>Meeshaalee</value></data>
+  <data name="Devices_DriverRestore" xml:space="preserve"><value>Draayivarii Windows deebisi</value></data>
+  <data name="Devices_DriverSwitch" xml:space="preserve"><value>Draayivarii jijjiiri</value></data>
+  <data name="Status_DriverSwitching_Format" xml:space="preserve"><value>Draayivarii {0} jijjiiraa jira…</value></data>
+  <data name="Status_DriverBound_Format" xml:space="preserve"><value>{0} draayivarii PadForge irra jira.</value></data>
+  <data name="Status_DriverRestored_Format" xml:space="preserve"><value>{0} draayivarii Windows isaatti deebi'eera.</value></data>
+  <data name="Devices_Total" xml:space="preserve"><value> waliigala</value></data>
+  <data name="Devices_RemoveTooltip" xml:space="preserve"><value>Meeshaa kanaa fi qindaa'ina isaa haqi</value></data>
+  <data name="Devices_RemoveConfirmTitle" xml:space="preserve"><value>Meeshaa haqi</value></data>
+  <data name="Devices_Product" xml:space="preserve"><value>Oomisha: </value></data>
+  <data name="Devices_InputMode" xml:space="preserve"><value>Haalata galtee</value></data>
+  <data name="Devices_HideFromGames" xml:space="preserve"><value>Taphoota irraa dhoksi (HidHide)</value></data>
+  <data name="Devices_HideTooltipInstall" xml:space="preserve"><value>Filannoo kana banuuf draayivarii HidHide fe'i</value></data>
+  <data name="Devices_Buttons" xml:space="preserve"><value>Qabduulee</value></data>
+  <data name="Devices_Keyboard" xml:space="preserve"><value>Kiiboordii</value></data>
+  <data name="Devices_Mouse" xml:space="preserve"><value>Maawusii</value></data>
+  <data name="Devices_DPadPOV" xml:space="preserve"><value>D-Pad / POV</value></data>
+  <data name="Devices_POV" xml:space="preserve"><value>POV </value></data>
+  <data name="Devices_Accelerometer" xml:space="preserve"><value>Akseleromeetira</value></data>
+  <data name="Devices_Axis_Format" xml:space="preserve"><value>Aksisii {0}</value></data>
+  <data name="Devices_Rumble" xml:space="preserve"><value>Raafama</value></data>
+  <data name="Devices_Gyro" xml:space="preserve"><value>Jayiroo</value></data>
+  <data name="Devices_Nfc" xml:space="preserve"><value>NFC</value></data>
+  <data name="Devices_DeviceKind_Mouse" xml:space="preserve"><value>maawusii</value></data>
+  <data name="Devices_DeviceKind_Keyboard" xml:space="preserve"><value>kiiboordii</value></data>
+
+  <!-- ═══ Pad Page ═══ -->
+  <data name="Pad_ForceFeedback" xml:space="preserve"><value>Force feedback</value></data>
+  <!-- Impulse Triggers tab (Xbox One+ family) -->
+  <data name="Pad_ImpulseTriggers_LeftTrigger" xml:space="preserve"><value>Tiriigarii bitaa</value></data>
+  <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Tiriigarii mirgaa</value></data>
+  <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Tiriigarii bitaa qori</value></data>
+  <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Tiriigarii mirgaa qori</value></data>
+  <data name="Pad_ResetImpulseLeft" xml:space="preserve"><value>Tiriigarii bitaa deebisi</value></data>
+  <data name="Pad_ResetImpulseRight" xml:space="preserve"><value>Tiriigarii mirgaa deebisi</value></data>
+  <data name="Pad_TriggerRouting_LeftTrigger" xml:space="preserve"><value>Tiriigarii bitaa</value></data>
+  <data name="Pad_TriggerRouting_RightTrigger" xml:space="preserve"><value>Tiriigarii mirgaa</value></data>
+  <data name="Pad_TriggerRouting_Source" xml:space="preserve"><value>Madda</value></data>
+  <data name="Pad_TriggerRouting_Source_None" xml:space="preserve"><value>Homaa (Cufaa)</value></data>
+  <data name="Pad_TriggerRouting_Source_MainLeft" xml:space="preserve"><value>Mootora bitaa</value></data>
+  <data name="Pad_TriggerRouting_Source_MainRight" xml:space="preserve"><value>Mootora mirgaa</value></data>
+  <data name="Pad_TriggerRouting_Mode" xml:space="preserve"><value>Haalata</value></data>
+  <data name="Pad_TriggerRouting_Mode_Off" xml:space="preserve"><value>Cufaa</value></data>
+  <data name="Pad_TriggerRouting_Activator" xml:space="preserve"><value>Kaasaa</value></data>
+  <data name="Pad_TriggerRouting_ActivatorMode" xml:space="preserve"><value>Haalata kaasaa</value></data>
+  <data name="Pad_TriggerRouting_ActivatorMode_AlwaysOn" xml:space="preserve"><value>Yeroo hunda banaa</value></data>
+  <data name="Pad_ResetTriggerRouteActivator" xml:space="preserve"><value>Kaasaa deebisi</value></data>
+  <data name="Pad_ResetTriggerRouteSource" xml:space="preserve"><value>Madda deebisi</value></data>
+  <data name="Pad_ResetTriggerRouteMode" xml:space="preserve"><value>Haalata deebisi</value></data>
+  <data name="Pad_ResetTriggerRouteActivatorMode" xml:space="preserve"><value>Haalata kaasaa deebisi</value></data>
+  <data name="Pad_ConstantTriggerForce_Left" xml:space="preserve"><value>Tiriigarii bitaa</value></data>
+  <data name="Pad_ConstantTriggerForce_Right" xml:space="preserve"><value>Tiriigarii mirgaa</value></data>
+  <data name="Pad_ResetConstantTriggerLeft" xml:space="preserve"><value>Tiriigarii bitaa deebisi</value></data>
+  <data name="Pad_ResetConstantTriggerRight" xml:space="preserve"><value>Tiriigarii mirgaa deebisi</value></data>
+  <data name="Pad_AudioTriggerRumble_Sensitivity" xml:space="preserve"><value>Miira</value></data>
+  <data name="Pad_AudioTriggerRumble_LeftTrigger" xml:space="preserve"><value>Tiriigarii bitaa</value></data>
+  <data name="Pad_AudioTriggerRumble_RightTrigger" xml:space="preserve"><value>Tiriigarii mirgaa</value></data>
+  <data name="Pad_ResetAudioTriggerSensitivity" xml:space="preserve"><value>Miira deebisi</value></data>
+  <data name="Pad_ResetAudioLeftTrigger" xml:space="preserve"><value>Tiriigarii bitaa deebisi</value></data>
+  <data name="Pad_ResetAudioRightTrigger" xml:space="preserve"><value>Tiriigarii mirgaa deebisi</value></data>
+  <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
+  <data name="Pad_ForceFeedback_Header" xml:space="preserve"><value>Force feedback</value></data>
+  <data name="Pad_LeftTrigger" xml:space="preserve"><value>Tiriigarii bitaa</value></data>
+  <data name="Pad_RightTrigger" xml:space="preserve"><value>Tiriigarii mirgaa</value></data>
+  <data name="Pad_TriggerMode" xml:space="preserve"><value>Haalata</value></data>
+  <data name="Pad_AT_Off" xml:space="preserve"><value>Cufaa</value></data>
+  <data name="Pad_AT_Weapon" xml:space="preserve"><value>Meeshaa waraanaa</value></data>
+  <data name="Pad_AT_Vibration" xml:space="preserve"><value>Raafama</value></data>
+  <data name="Pad_AT_Range" xml:space="preserve"><value>Daangaa</value></data>
+  <data name="Pad_AT_Strength" xml:space="preserve"><value>Cimina</value></data>
+  <data name="Pad_AT_Frequency" xml:space="preserve"><value>Irra deddeebii (Hz)</value></data>
+  <!-- Lighting tab (DS4 / DualSense / DualSense Edge) -->
+  <data name="Pad_Lighting" xml:space="preserve"><value>Ibsaa</value></data>
+  <data name="Pad_Lighting_Header" xml:space="preserve"><value>Ibsaa</value></data>
+  <data name="Pad_Lighting_BaseColor" xml:space="preserve"><value>Lightbar</value></data>
+  <data name="Pad_Lighting_Hex" xml:space="preserve"><value>HEX</value></data>
+  <data name="Pad_Lighting_MicLed_Off" xml:space="preserve"><value>Cufaa</value></data>
+  <data name="Pad_Lighting_MicLed_FollowDevice" xml:space="preserve"><value>Meeshaa sagalee hordofi</value></data>
+  <data name="Pad_Lighting_MicLed_FollowDevice_Picker" xml:space="preserve"><value>Meeshaa sagalee</value></data>
+  <data name="Pad_ResetLightbar" xml:space="preserve"><value>Lightbar deebisi</value></data>
+  <data name="Pad_ResetForceFeedback" xml:space="preserve"><value>Force feedback deebisi</value></data>
+  <data name="Pad_ResetAudioRumble" xml:space="preserve"><value>Raafama sagalee deebisi</value></data>
+  <data name="Pad_ResetSection_Format" xml:space="preserve"><value>{0} deebisi</value></data>
+  <data name="Pad_Lighting_LedBrightness" xml:space="preserve"><value>Ifa LED</value></data>
+  <data name="Pad_Lighting_PlayerLed_Off" xml:space="preserve"><value>Cufaa</value></data>
+  <data name="Pad_Lighting_PlayerLed_PlayerNumber" xml:space="preserve"><value>Lakkoofsa taphataa (Durtii)</value></data>
+  <data name="Pad_Lighting_PlayerLed_P1" xml:space="preserve"><value>Taphataa 1</value></data>
+  <data name="Pad_Lighting_PlayerLed_P2" xml:space="preserve"><value>Taphataa 2</value></data>
+  <data name="Pad_Lighting_PlayerLed_P3" xml:space="preserve"><value>Taphataa 3</value></data>
+  <data name="Pad_Lighting_PlayerLed_P4" xml:space="preserve"><value>Taphataa 4</value></data>
+  <data name="Pad_Lighting_PlayerLed_All" xml:space="preserve"><value>Hunda</value></data>
+  <data name="Pad_Lighting_PlayerLed_Brightness_High" xml:space="preserve"><value>Ol'aanaa</value></data>
+  <data name="Pad_Lighting_PlayerLed_Brightness_Medium" xml:space="preserve"><value>Giddugaleessa</value></data>
+  <data name="Pad_Lighting_PlayerLed_Brightness_Low" xml:space="preserve"><value>Gadi aanaa</value></data>
+  <data name="Pad_Lighting_AudioLightbar_Sensitivity" xml:space="preserve"><value>Miira</value></data>
+  <data name="Pad_Lighting_Mode" xml:space="preserve"><value>Haalata</value></data>
+  <data name="Pad_Lighting_Mode_Off" xml:space="preserve"><value>Cufaa</value></data>
+  <data name="Pad_Lighting_Mode_PlayerNumber" xml:space="preserve"><value>Lakkoofsa taphataa (Durtii)</value></data>
+  <data name="Pad_Lighting_Mode_Static" xml:space="preserve"><value>Halluu dhaabbataa</value></data>
+  <data name="Pad_Lighting_BatteryHighColor" xml:space="preserve"><value>Baatirii guutuu</value></data>
+
+  <!-- v3.2+ Input Reactive overlay (separate dropdown layered on top of base mode) -->
+  <data name="Pad_Lighting_InputReactive_Off" xml:space="preserve"><value>Cufaa</value></data>
+
+  <data name="Pad_Lighting_RainbowBrightness" xml:space="preserve"><value>Ifa</value></data>
+  <data name="Pad_Lighting_AddColor" xml:space="preserve"><value>Halluu dabali</value></data>
+  <data name="Pad_Preset" xml:space="preserve"><value>Qindaa'ina dursee</value></data>
+  <data name="Pad_ExtendedButtons" xml:space="preserve"><value>Qabduulee</value></data>
+  <data name="ManageProfiles_Export" xml:space="preserve"><value>Baasi…</value></data>
+  <data name="ManageProfiles_Delete" xml:space="preserve"><value>Haqi</value></data>
+  <data name="ManageProfiles_Close" xml:space="preserve"><value>Cufi</value></data>
+  <data name="ManageProfiles_StatusExportFailed_Format" xml:space="preserve"><value>Baasuun hin milkoofne: {0}</value></data>
+  <data name="ManageProfiles_StatusDeleted_Format" xml:space="preserve"><value>"{0}" haqameera.</value></data>
+  <data name="ManageProfiles_ImportFromFile" xml:space="preserve"><value>Faayilii irraa galchi…</value></data>
+  <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Haaromsi</value></data>
+  <data name="ImportFromDevice_Import" xml:space="preserve"><value>Galchi</value></data>
+  <data name="Pad_ExtendedVid" xml:space="preserve"><value>VID</value></data>
+  <data name="Pad_ExtendedPid" xml:space="preserve"><value>PID</value></data>
+  <data name="Pad_ExtendedForceFeedback" xml:space="preserve"><value>Force feedback</value></data>
+  <data name="Pad_MidiOutputPortNone" xml:space="preserve"><value>Homaa</value></data>
+  <data name="Pad_Kbm_Socd_Mode_Off_Name" xml:space="preserve"><value>Cufaa</value></data>
+  <data name="Common_Reset_Sensitivity" xml:space="preserve"><value>Miira deebisi</value></data>
+  <data name="Common_Reset_DeadZone" xml:space="preserve"><value>Deedzoonii deebisi</value></data>
+  <data name="Pad_Socd_Mode_Label" xml:space="preserve"><value>Haala</value></data>
+  <data name="Pad_Socd_ResetMode_Tooltip" xml:space="preserve"><value>Haala deebisi</value></data>
+  <data name="Pad_SwitchTo2D" xml:space="preserve"><value>Gara mul'ata 2D tti jijjiiri</value></data>
+  <data name="Pad_SwitchTo3D" xml:space="preserve"><value>Gara mul'ata 3D tti jijjiiri</value></data>
+  <data name="Pad_TestLeftMotor" xml:space="preserve"><value>Mootora bitaa qoruuf cuqaasi</value></data>
+  <data name="Pad_LeftMotor" xml:space="preserve"><value>Mootora bitaa</value></data>
+  <data name="Pad_TestRightMotor" xml:space="preserve"><value>Mootora mirgaa qoruuf cuqaasi</value></data>
+  <data name="Pad_RightMotor" xml:space="preserve"><value>Mootora mirgaa</value></data>
+  <data name="Pad_MapPrompt_Format" xml:space="preserve"><value>Walqabsiisi: {0}</value></data>
+  <data name="Pad_ResetAll" xml:space="preserve"><value>Hunda deebisi</value></data>
+  <data name="Pad_ClearAll" xml:space="preserve"><value>Hunda haqi</value></data>
+  <data name="Pad_HeaderSource" xml:space="preserve"><value>Madda</value></data>
+  <data name="Pad_HeaderValue" xml:space="preserve"><value>Gatii</value></data>
+  <data name="Pad_HeaderOptions" xml:space="preserve"><value>Filannoowwan</value></data>
+  <data name="Pad_Invert" xml:space="preserve"><value>Garagalchi</value></data>
+  <data name="Pad_Half" xml:space="preserve"><value>Walakkaa</value></data>
+  <!-- Merge-mapping UI (Issue #61): per-source Kind dropdown + Incremental / InvertOnHold controls. -->
+  <data name="Pad_Mapping_Kind_Toggle" xml:space="preserve"><value>Jijjiiri</value></data>
+  <data name="Pad_Mapping_Kind_RapidTrigger" xml:space="preserve"><value>Rapid Trigger</value></data>
+  <data name="Pad_Mapping_Ramp_Release" xml:space="preserve"><value>Gadhiisi</value></data>
+  <data name="Pad_Mapping_RemoveSource_Tooltip" xml:space="preserve"><value>Madda kana haqi</value></data>
+  <!-- Combine UI (Issue #61): per-row CombineMode dropdown + Custom formula editor + starter presets. English placeholders pending translation. -->
+  <data name="Pad_Combine_MaxAbs_Name" xml:space="preserve"><value>Kan cimaa</value></data>
+  <data name="Pad_Combine_Sum_Description" xml:space="preserve"><value>Maddoota walitti ida'i</value></data>
+  <data name="Pad_Combine_Average_Name" xml:space="preserve"><value>Giddu-galeessa</value></data>
+  <data name="Pad_Combine_AND_Name" xml:space="preserve"><value>Lachuu</value></data>
+  <data name="Pad_Combine_XOR_Name" xml:space="preserve"><value>Tokko qofa</value></data>
+  <data name="Pad_Formula_Insert" xml:space="preserve"><value>Galchi</value></data>
+  <data name="Pad_Formula_Status_Empty" xml:space="preserve"><value>✓ duwwaa (0 ta'a)</value></data>
+  <data name="Pad_Formula_Status_Valid" xml:space="preserve"><value>✓ sirrii</value></data>
+  <data name="Pad_Formula_Status_NoSourceSingular" xml:space="preserve"><value>madda hin qabu</value></data>
+  <data name="Pad_Formula_Status_NoSourcePlural" xml:space="preserve"><value>madda hin qaban</value></data>
+  <data name="Pad_Formula_Status_TreatedAsZero" xml:space="preserve"><value>akka 0tti fudhatame</value></data>
+  <data name="Pad_Formula_Status_And" xml:space="preserve"><value>fi</value></data>
+  <data name="Pad_Formula_Chip_Add" xml:space="preserve"><value>Ida'i</value></data>
+  <data name="Pad_Formula_Chip_Subtract" xml:space="preserve"><value>Hir'isi</value></data>
+  <data name="Pad_Formula_Chip_Multiply" xml:space="preserve"><value>Baay'isi</value></data>
+  <data name="Pad_Formula_Chip_Divide" xml:space="preserve"><value>Qoodi</value></data>
+  <data name="Pad_Formula_Chip_OpenGroup" xml:space="preserve"><value>Garee bani</value></data>
+  <data name="Pad_Formula_Chip_CloseGroup" xml:space="preserve"><value>Garee cufi</value></data>
+  <data name="Pad_Formula_Chip_Half" xml:space="preserve"><value>0.5: walakkaa</value></data>
+  <data name="Pad_Formula_Chip_LessThan" xml:space="preserve"><value>Irra xiqqaa</value></data>
+  <data name="Pad_Formula_Chip_GreaterThan" xml:space="preserve"><value>Irra guddaa</value></data>
+  <data name="Pad_Formula_Chip_LessOrEqual" xml:space="preserve"><value>Irra xiqqaa ykn wal qixa</value></data>
+  <data name="Pad_Formula_Chip_GreaterOrEqual" xml:space="preserve"><value>Irra guddaa ykn wal qixa</value></data>
+  <data name="Pad_Formula_Chip_Equal" xml:space="preserve"><value>Wal qixa</value></data>
+  <data name="Pad_Formula_Chip_NotEqual" xml:space="preserve"><value>Wal qixa miti</value></data>
+  <data name="Pad_Formula_Chip_Min" xml:space="preserve"><value>Gatii lamaan keessaa kan xiqqaa</value></data>
+  <data name="Pad_Formula_Chip_Max" xml:space="preserve"><value>Gatii lamaan keessaa kan guddaa</value></data>
+  <data name="Pad_Formula_Preset_Difference_Name" xml:space="preserve"><value>Garaagarummaa</value></data>
+  <data name="Pad_Formula_Var_PositionA" xml:space="preserve"><value>Madda jalqabaa</value></data>
+  <data name="Pad_Formula_Var_PositionB" xml:space="preserve"><value>Madda lammaffaa</value></data>
+  <data name="Pad_Formula_Var_PositionC" xml:space="preserve"><value>Madda sadaffaa</value></data>
+  <data name="Pad_Formula_Var_PositionD" xml:space="preserve"><value>Madda afraffaa</value></data>
+  <data name="Pad_Formula_Var_NotYetMapped" xml:space="preserve"><value>ammallee hin walqabsiifamne</value></data>
+  <data name="Pad_Sticks_Section_CenterPoint" xml:space="preserve"><value>Tuqaa giddu-galeessaa</value></data>
+  <data name="Pad_Sticks_Section_DeadZone" xml:space="preserve"><value>Deedzoonii</value></data>
+  <data name="Pad_Sticks_Section_Range" xml:space="preserve"><value>Daangaa</value></data>
+  <data name="Pad_CenterOffsetX" xml:space="preserve"><value>Sirreeffama giddu-galeessaa X</value></data>
+  <data name="Pad_CenterOffsetY" xml:space="preserve"><value>Sirreeffama giddu-galeessaa Y</value></data>
+  <data name="Pad_DeadZoneShape" xml:space="preserve"><value>Boca deedzoonii</value></data>
+  <data name="Pad_MouseMovement" xml:space="preserve"><value>Sochii maawusii</value></data>
+  <data name="Pad_ScrollUp" xml:space="preserve"><value>Ol</value></data>
+  <data name="Pad_ScrollDown" xml:space="preserve"><value>Gadi</value></data>
+
+  <!-- ═══ Macros ═══ -->
+  <data name="Macro_Name" xml:space="preserve"><value>Maqaa</value></data>
+  <data name="Macro_OnPress" xml:space="preserve"><value>Yeroo tuqamu</value></data>
+  <data name="Macro_OnRelease" xml:space="preserve"><value>Yeroo gadhiifamu</value></data>
+  <data name="Macro_WhileHeld" xml:space="preserve"><value>Yeroo qabamee jiru</value></data>
+  <data name="Macro_Always" xml:space="preserve"><value>Yeroo hunda</value></data>
+  <data name="Macro_Expression_Variables" xml:space="preserve"><value>Jijjiiramoota</value></data>
+  <data name="Macro_Source" xml:space="preserve"><value>Madda</value></data>
+  <data name="Macro_InputDevice" xml:space="preserve"><value>Meeshaalee ramadaman</value></data>
+  <data name="Macro_OutputController" xml:space="preserve"><value>Kontirolaa fakkeessaa</value></data>
+  <data name="Macro_Threshold" xml:space="preserve"><value>Daangaa jalqabaa</value></data>
+  <data name="Macro_Layer" xml:space="preserve"><value>Sadarkaa</value></data>
+  <data name="Macro_Layer_Any" xml:space="preserve"><value>Sadarkaa kamiyyuu</value></data>
+  <data name="Macro_AddAction" xml:space="preserve"><value>Gocha dabali</value></data>
+  <data name="Macro_EditAction" xml:space="preserve"><value>Gocha gulaali</value></data>
+  <data name="Macro_ActionType" xml:space="preserve"><value>Gosa</value></data>
+  <data name="Macro_Cat_Mouse" xml:space="preserve"><value>Maawusii</value></data>
+  <data name="Macro_Cat_Rumble" xml:space="preserve"><value>Raafama</value></data>
+  <data name="Macro_ButtonPress" xml:space="preserve"><value>Qabduu tuquu</value></data>
+  <data name="Macro_ButtonRelease" xml:space="preserve"><value>Qabduu gadhiisuu</value></data>
+  <data name="Macro_KeyPress" xml:space="preserve"><value>Furtuu tuquu</value></data>
+  <data name="Macro_KeyRelease" xml:space="preserve"><value>Furtuu gadhiisuu</value></data>
+  <data name="Macro_MouseMove" xml:space="preserve"><value>Sochii maawusii</value></data>
+  <data name="Macro_MouseButtonPress" xml:space="preserve"><value>Qabduu maawusii tuquu</value></data>
+  <data name="Macro_MouseButtonRelease" xml:space="preserve"><value>Qabduu maawusii gadhiisuu</value></data>
+  <data name="Macro_Buttons" xml:space="preserve"><value>Qabduuwwan</value></data>
+  <data name="Macro_Axis" xml:space="preserve"><value>Aksisii</value></data>
+  <data name="Macro_LeftStickX" xml:space="preserve"><value>Sitikii bitaa X</value></data>
+  <data name="Macro_LeftStickY" xml:space="preserve"><value>Sitikii bitaa Y</value></data>
+  <data name="Macro_RightStickX" xml:space="preserve"><value>Sitikii mirgaa X</value></data>
+  <data name="Macro_RightStickY" xml:space="preserve"><value>Sitikii mirgaa Y</value></data>
+  <data name="Macro_LeftTrigger" xml:space="preserve"><value>Tiriigarii bitaa</value></data>
+  <data name="Macro_RightTrigger" xml:space="preserve"><value>Tiriigarii mirgaa</value></data>
+  <data name="Macro_AxisValue" xml:space="preserve"><value>Gatii</value></data>
+  <data name="Macro_SourceAxis" xml:space="preserve"><value>Aksisii maddaa</value></data>
+  <data name="Macro_Device" xml:space="preserve"><value>Meeshaa</value></data>
+  <data name="Macro_MouseLeft" xml:space="preserve"><value>Bitaa</value></data>
+  <data name="Macro_MouseRight" xml:space="preserve"><value>Mirga</value></data>
+  <data name="Macro_MouseMiddle" xml:space="preserve"><value>Giddu-gala</value></data>
+  <data name="Macro_MouseX1" xml:space="preserve"><value>X1 (Duubatti)</value></data>
+  <data name="Macro_MouseX2" xml:space="preserve"><value>X2 (Fuulduratti)</value></data>
+  <data name="Macro_Repeat" xml:space="preserve"><value>Irra deebi'i</value></data>
+  <data name="Macro_RepeatMode" xml:space="preserve"><value>Haala</value></data>
+  <data name="Macro_Once" xml:space="preserve"><value>Al tokko</value></data>
+  <data name="Macro_FixedCount" xml:space="preserve"><value>Lakkoofsa murtaa'aa</value></data>
+  <data name="Macro_UntilRelease" xml:space="preserve"><value>Hanga gadhiifamutti</value></data>
+  <data name="Macro_Count" xml:space="preserve"><value>Lakkoofsa</value></data>
+  <data name="Macro_Sensitivity" xml:space="preserve"><value>Miira</value></data>
+  <data name="Macro_NewMacro" xml:space="preserve"><value>Maakroo haaraa</value></data>
+  <data name="Macro_Btn_Format" xml:space="preserve"><value>Qabduu {0}</value></data>
+  <data name="Macro_None" xml:space="preserve"><value>(homaa)</value></data>
+  <data name="Macro_DeviceAxis_Format" xml:space="preserve"><value>Aksisii meeshaa {0}</value></data>
+  <data name="Macro_UnknownAction" xml:space="preserve"><value>Gocha hin beekamne</value></data>
+  <data name="Macro_POV_Format" xml:space="preserve"><value>POV {0} {1}</value></data>
+  <data name="Macro_Button_Format" xml:space="preserve"><value>Qabduu {0}</value></data>
+
+  <!-- ═══ Macro Action Display ═══ -->
+  <data name="MacroAction_Release_Format" xml:space="preserve"><value>{0} gadhiisi</value></data>
+  <data name="MacroAction_Wait_Format" xml:space="preserve"><value>{0}ms eegi</value></data>
+
+  <data name="Macro_LightbarHold_Label" xml:space="preserve"><value>Qabadhu</value></data>
+  <data name="Macro_LightbarColorSource_Label" xml:space="preserve"><value>Halluu</value></data>
+  <data name="Macro_LightbarColorSource_Fixed" xml:space="preserve"><value>Dhaabbataa</value></data>
+  <data name="Macro_LightbarTargetMode_Label" xml:space="preserve"><value>Haala</value></data>
+
+  <!-- ═══ Macro action: Rumble ═══ -->
+  <data name="MacroAction_Type_Rumble" xml:space="preserve"><value>Raafama</value></data>
+  <data name="MacroAction_Type_RumbleStop" xml:space="preserve"><value>Raafama dhaabi</value></data>
+  <data name="MacroAction_RumbleStop" xml:space="preserve"><value>Raafama dhaabi</value></data>
+  <data name="Macro_SetGyroEngaged_Mode_Label" xml:space="preserve"><value>Haala</value></data>
+  <data name="Macro_SetGyroEngaged_Toggle" xml:space="preserve"><value>Jijjiiri</value></data>
+  <data name="Macro_SetGyroEngaged_On" xml:space="preserve"><value>Banaa</value></data>
+  <data name="Macro_SetGyroEngaged_Off" xml:space="preserve"><value>Cufaa</value></data>
+  <data name="Macro_CursorRecenterMode_Label" xml:space="preserve"><value>Haala</value></data>
+  <data name="Macro_CursorPinMode_Label" xml:space="preserve"><value>Haala</value></data>
+  <data name="Macro_MouseX_Label" xml:space="preserve"><value>Maawusii X</value></data>
+  <data name="Macro_MouseY_Label" xml:space="preserve"><value>Maawusii Y</value></data>
+  <data name="Macro_PickOnScreen" xml:space="preserve"><value>Iskiriinii irratti fili</value></data>
+  <data name="Macro_CursorClampMode_Label" xml:space="preserve"><value>Haala</value></data>
+  <data name="Macro_RumbleHold_Label" xml:space="preserve"><value>Qabadhu</value></data>
+  <data name="Macro_RumbleStrengthLeft_Label" xml:space="preserve"><value>Mootora bitaa</value></data>
+  <data name="Macro_RumbleStrengthRight_Label" xml:space="preserve"><value>Mootora mirgaa</value></data>
+  <data name="Macro_RumbleHoldMs_Label" xml:space="preserve"><value>Qabadhu</value></data>
+
+  <!-- ═══ POV Directions ═══ -->
+  <data name="POV_Centered" xml:space="preserve"><value>Giddu-gala</value></data>
+  <data name="POV_Up" xml:space="preserve"><value>Ol</value></data>
+  <data name="POV_UpRight" xml:space="preserve"><value>Ol-mirga</value></data>
+  <data name="POV_Right" xml:space="preserve"><value>Mirga</value></data>
+  <data name="POV_DownRight" xml:space="preserve"><value>Gadi-mirga</value></data>
+  <data name="POV_Down" xml:space="preserve"><value>Gadi</value></data>
+  <data name="POV_DownLeft" xml:space="preserve"><value>Gadi-bitaa</value></data>
+  <data name="POV_Left" xml:space="preserve"><value>Bitaa</value></data>
+  <data name="POV_UpLeft" xml:space="preserve"><value>Ol-bitaa</value></data>
+  <data name="POV_Any" xml:space="preserve"><value>Kallattii kamiyyuu</value></data>
+
+  <!-- ═══ Mapping ═══ -->
+  <data name="Mapping_NotMapped" xml:space="preserve"><value>Hin walqabsiifamne</value></data>
+  <data name="Mapping_Half" xml:space="preserve"><value>Walakkaa</value></data>
+  <data name="Mapping_POV_Format" xml:space="preserve"><value>POV {0} {1}</value></data>
+  <data name="Mapping_NoDeviceMapped" xml:space="preserve"><value>Meeshaan walqabsiifame hin jiru</value></data>
+
+  <!-- ═══ Touchpad Mapping Labels ═══ -->
+  <data name="Mapping_TouchpadClick" xml:space="preserve"><value>Taachpaadii cuqaasuu</value></data>
+  <data name="Mapping_TouchpadFingerX_Format" xml:space="preserve"><value>Taachpaadii {0} quba {1} X</value></data>
+  <data name="Mapping_TouchpadFingerY_Format" xml:space="preserve"><value>Taachpaadii {0} quba {1} Y</value></data>
+  <data name="Mapping_TouchpadFingerTouch_Format" xml:space="preserve"><value>Taachpaadii {0} quba {1} tuqa</value></data>
+  <data name="Mapping_TouchpadFingerPressure_Format" xml:space="preserve"><value>Taachpaadii {0} quba {1} dhiibbaa</value></data>
+  <data name="Mapping_TouchpadFingerXLeft_Format" xml:space="preserve"><value>Taachpaadii {0} quba {1} X (walakkaa bitaa)</value></data>
+  <data name="Mapping_TouchpadFingerXRight_Format" xml:space="preserve"><value>Taachpaadii {0} quba {1} X (walakkaa mirgaa)</value></data>
+  <data name="Mapping_TouchpadFingerYLeft_Format" xml:space="preserve"><value>Taachpaadii {0} quba {1} Y (walakkaa bitaa)</value></data>
+  <data name="Mapping_TouchpadFingerYRight_Format" xml:space="preserve"><value>Taachpaadii {0} quba {1} Y (walakkaa mirgaa)</value></data>
+  <data name="Mapping_TouchpadFingerTouchLeft_Format" xml:space="preserve"><value>Taachpaadii {0} quba {1} tuqa (walakkaa bitaa)</value></data>
+  <data name="Mapping_TouchpadFingerTouchRight_Format" xml:space="preserve"><value>Taachpaadii {0} quba {1} tuqa (walakkaa mirgaa)</value></data>
+  <data name="Mapping_TouchpadWindow_Upper" xml:space="preserve"><value>Walakkaa olii</value></data>
+  <data name="Mapping_TouchpadWindow_Lower" xml:space="preserve"><value>Walakkaa gadii</value></data>
+  <data name="Mapping_TouchpadWindow_North" xml:space="preserve"><value>Kutaa kaabaa</value></data>
+  <data name="Mapping_TouchpadWindow_South" xml:space="preserve"><value>Kutaa kibbaa</value></data>
+  <data name="Mapping_TouchpadWindow_East" xml:space="preserve"><value>Kutaa bahaa</value></data>
+  <data name="Mapping_TouchpadWindow_West" xml:space="preserve"><value>Kutaa dhihaa</value></data>
+  <data name="Mapping_TouchpadWindow_Center" xml:space="preserve"><value>Giddu-gala</value></data>
+
+  <!-- ═══ Touchpad Gesture Mapping Labels ═══ -->
+  <data name="Mapping_TouchpadGesture_SwipeUp" xml:space="preserve"><value>Gara olitti harkisuu</value></data>
+  <data name="Mapping_TouchpadGesture_SwipeDown" xml:space="preserve"><value>Gara gaditti harkisuu</value></data>
+  <data name="Mapping_TouchpadGesture_SwipeLeft" xml:space="preserve"><value>Gara bitaatti harkisuu</value></data>
+  <data name="Mapping_TouchpadGesture_SwipeRight" xml:space="preserve"><value>Gara mirgaatti harkisuu</value></data>
+  <data name="Mapping_TouchpadGesture_SwipeNE" xml:space="preserve"><value>Gara ol-mirgaatti harkisuu</value></data>
+  <data name="Mapping_TouchpadGesture_SwipeNW" xml:space="preserve"><value>Gara ol-bitaatti harkisuu</value></data>
+  <data name="Mapping_TouchpadGesture_SwipeSE" xml:space="preserve"><value>Gara gadi-mirgaatti harkisuu</value></data>
+  <data name="Mapping_TouchpadGesture_SwipeSW" xml:space="preserve"><value>Gara gadi-bitaatti harkisuu</value></data>
+  <data name="Mapping_TouchpadGesture_Tap" xml:space="preserve"><value>Tuquu</value></data>
+  <data name="Mapping_TouchpadGesture_DoubleTap" xml:space="preserve"><value>Si'a lama tuquu</value></data>
+  <data name="Mapping_TouchpadGesture_TripleTap" xml:space="preserve"><value>Si'a sadi tuquu</value></data>
+  <data name="Mapping_TouchpadGesture_LongPress" xml:space="preserve"><value>Yeroo dheeraaf tuquu</value></data>
+  <data name="Mapping_TouchpadGesture_TouchLeft" xml:space="preserve"><value>Tuqa bitaa</value></data>
+  <data name="Mapping_TouchpadGesture_TouchRight" xml:space="preserve"><value>Tuqa mirgaa</value></data>
+  <data name="Mapping_TouchpadGesture_TouchTop" xml:space="preserve"><value>Tuqa gubbaa</value></data>
+  <data name="Mapping_TouchpadGesture_PadPrefix_Format" xml:space="preserve"><value>Taachpaadii {0}: {1}</value></data>
+  <data name="Mapping_TouchpadGesture_SinglePadNoun_Format" xml:space="preserve"><value>Taachpaadii {0}</value></data>
+  <data name="Mapping_TouchpadGesture_TwoFingerSwipeUp" xml:space="preserve"><value>Quba lamaan gara olitti harkisuu</value></data>
+  <data name="Mapping_TouchpadGesture_TwoFingerSwipeDown" xml:space="preserve"><value>Quba lamaan gara gaditti harkisuu</value></data>
+  <data name="Mapping_TouchpadGesture_TwoFingerSwipeLeft" xml:space="preserve"><value>Quba lamaan gara bitaatti harkisuu</value></data>
+  <data name="Mapping_TouchpadGesture_TwoFingerSwipeRight" xml:space="preserve"><value>Quba lamaan gara mirgaatti harkisuu</value></data>
+  <data name="Mapping_TouchpadGesture_TwoFingerTap" xml:space="preserve"><value>Quba lamaan tuquu</value></data>
+  <data name="Mapping_TouchpadGesture_StickX" xml:space="preserve"><value>Sitikii X</value></data>
+  <data name="Mapping_TouchpadGesture_StickY" xml:space="preserve"><value>Sitikii Y</value></data>
+  <data name="Mapping_TouchpadGesture_DPadUp" xml:space="preserve"><value>D-pad ol</value></data>
+  <data name="Mapping_TouchpadGesture_DPadRight" xml:space="preserve"><value>D-pad mirga</value></data>
+  <data name="Mapping_TouchpadGesture_DPadDown" xml:space="preserve"><value>D-pad gadi</value></data>
+  <data name="Mapping_TouchpadGesture_DPadLeft" xml:space="preserve"><value>D-pad bitaa</value></data>
+  <data name="Mapping_TouchpadGesture_Pinch" xml:space="preserve"><value>Quba lamaan cuniinsuu</value></data>
+  <data name="Mapping_TouchpadGesture_Spread" xml:space="preserve"><value>Quba lamaan babal'isuu</value></data>
+  <data name="Mapping_TouchpadGesture_ThreeFingerSwipeUp" xml:space="preserve"><value>Quba sadiin gara olitti harkisuu</value></data>
+  <data name="Mapping_TouchpadGesture_ThreeFingerSwipeDown" xml:space="preserve"><value>Quba sadiin gara gaditti harkisuu</value></data>
+  <data name="Mapping_TouchpadGesture_ThreeFingerSwipeLeft" xml:space="preserve"><value>Quba sadiin gara bitaatti harkisuu</value></data>
+  <data name="Mapping_TouchpadGesture_ThreeFingerSwipeRight" xml:space="preserve"><value>Quba sadiin gara mirgaatti harkisuu</value></data>
+  <data name="Mapping_TouchpadGesture_ThreeFingerTap" xml:space="preserve"><value>Quba sadiin tuquu</value></data>
+  <data name="Mapping_TouchpadGesture_FourFingerSwipeUp" xml:space="preserve"><value>Quba afuriin gara olitti harkisuu</value></data>
+  <data name="Mapping_TouchpadGesture_FourFingerSwipeDown" xml:space="preserve"><value>Quba afuriin gara gaditti harkisuu</value></data>
+  <data name="Mapping_TouchpadGesture_FourFingerSwipeLeft" xml:space="preserve"><value>Quba afuriin gara bitaatti harkisuu</value></data>
+  <data name="Mapping_TouchpadGesture_FourFingerSwipeRight" xml:space="preserve"><value>Quba afuriin gara mirgaatti harkisuu</value></data>
+  <data name="Mapping_TouchpadGesture_FourFingerTap" xml:space="preserve"><value>Quba afuriin tuquu</value></data>
+  <data name="Mapping_TouchpadGesture_FiveFingerTap" xml:space="preserve"><value>Quba shaniin tuquu</value></data>
+  <data name="Mapping_TouchpadGesture_Z" xml:space="preserve"><value>Boca Z</value></data>
+
+  <!-- ═══ Pad Touchpad Tab ═══ -->
+  <data name="Pad_Touchpad" xml:space="preserve"><value>Taachpaadii</value></data>
+  <data name="Pad_Touchpad_Header" xml:space="preserve"><value>Taachpaadii</value></data>
+  <data name="Pad_Touchpad_TouchpadIndex_Label" xml:space="preserve"><value>Taachpaadii</value></data>
+  <data name="Pad_Touchpad_SelectedTouchpad" xml:space="preserve"><value>Lakkoofsa taachpaadii</value></data>
+  <data name="Pad_Touchpad_GesturesEnabled" xml:space="preserve"><value>Taachpaadii kana irratti mallattoo dandeessisi</value></data>
+  <data name="Pad_Touchpad_Mode_CustomOnly" xml:space="preserve"><value>Dhuunfaa qofa</value></data>
+  <data name="Pad_Touchpad_Mode_Both" xml:space="preserve"><value>Lachuu</value></data>
+  <data name="Pad_Touchpad_Taps" xml:space="preserve"><value>Tuquu / si'a lama tuquu / si'a sadi tuquu</value></data>
+  <data name="Pad_Touchpad_LongPress" xml:space="preserve"><value>Yeroo dheeraaf tuquu</value></data>
+  <data name="Pad_Touchpad_TwoFingerSwipes" xml:space="preserve"><value>Quba lamaan harkisuu</value></data>
+  <data name="Pad_Touchpad_PinchSpread" xml:space="preserve"><value>Cuniinsuu / babal'isuu</value></data>
+  <data name="Pad_Touchpad_Rotate" xml:space="preserve"><value>Naannessuu</value></data>
+  <data name="Pad_Touchpad_ThreeFinger" xml:space="preserve"><value>Mallattoo quba sadii</value></data>
+  <data name="Pad_Touchpad_FourFinger" xml:space="preserve"><value>Mallattoo quba afurii</value></data>
+  <data name="Pad_Touchpad_FiveFinger" xml:space="preserve"><value>Quba shaniin tuquu</value></data>
+  <data name="Pad_Touchpad_Custom_Header" xml:space="preserve"><value>Mallattoo dhuunfaa</value></data>
+  <data name="Pad_Touchpad_RecordNew" xml:space="preserve"><value>+ Mallattoo haaraa galmeessi</value></data>
+  <data name="Pad_Touchpad_CustomGesture_OneFinger" xml:space="preserve"><value>quba 1</value></data>
+  <data name="Pad_Touchpad_CustomGesture_NFingers_Format" xml:space="preserve"><value>quba {0}</value></data>
+
+  <!-- Stick / D-pad output card -->
+  <data name="Pad_Touchpad_StickDPadMode_Label" xml:space="preserve"><value>Haala D-pad</value></data>
+  <data name="Pad_Touchpad_StickDPadMode_Off" xml:space="preserve"><value>Cufaa</value></data>
+  <data name="Pad_Touchpad_StickDPadMode_FourWay" xml:space="preserve"><value>Kallattii 4</value></data>
+  <data name="Pad_Touchpad_StickDPadMode_EightWay" xml:space="preserve"><value>Kallattii 8</value></data>
+
+  <!-- Mouse Output card -->
+  <data name="Pad_Touchpad_MouseSensitivityX" xml:space="preserve"><value>Miira maawusii X</value></data>
+  <data name="Pad_Touchpad_MouseSensitivityY" xml:space="preserve"><value>Miira maawusii Y</value></data>
+  <data name="Pad_Touchpad_MouseInvertX" xml:space="preserve"><value>Maawusii X garagalchi</value></data>
+  <data name="Pad_Touchpad_MouseInvertX_Tooltip" xml:space="preserve"><value>Sochii bitaa-mirgaa garagalcha. Quba gara mirgaatti sochoosuun kursarii gara bitaatti sochoosa.</value></data>
+  <data name="Pad_Touchpad_MouseInvertY" xml:space="preserve"><value>Maawusii Y garagalchi</value></data>
+  <data name="Pad_Touchpad_MouseInvertY_Tooltip" xml:space="preserve"><value>Sochii ol-gadii garagalcha. Quba gara gaditti sochoosuun kursarii gara olitti sochoosa.</value></data>
+
+  <!-- Absolute Pointer card (#9 B-15) -->
+  <data name="Pad_Touchpad_PinchThreshold" xml:space="preserve"><value>Daangaa jalqabaa cuniinsuu</value></data>
+  <data name="Pad_ResetTouchpadPinchThreshold" xml:space="preserve"><value>Daangaa jalqabaa cuniinsuu deebisi</value></data>
+  <data name="Pad_Touchpad_RotateThreshold" xml:space="preserve"><value>Daangaa jalqabaa naannessuu</value></data>
+  <data name="Pad_ResetTouchpadRotateThresholdDegrees" xml:space="preserve"><value>Daangaa jalqabaa naannessuu deebisi</value></data>
+
+  <!-- Swipe Haptics card (discussion #219) -->
+
+  <!-- Reset-All tooltips per card -->
+
+  <!-- Per-row Reset tooltips for stick / D-pad card -->
+  <data name="Pad_ResetTouchpadStickDPadMode" xml:space="preserve"><value>Haala D-pad deebisi</value></data>
+
+  <!-- Per-row Reset tooltips for mouse-output card -->
+  <data name="Pad_ResetTouchpadMouseSensitivityX" xml:space="preserve"><value>Miira maawusii X deebisi</value></data>
+  <data name="Pad_ResetTouchpadMouseSensitivityY" xml:space="preserve"><value>Miira maawusii Y deebisi</value></data>
+  <data name="Pad_ResetTouchpadMouseInvertX" xml:space="preserve"><value>Maawusii X garagalchuu deebisi</value></data>
+  <data name="Pad_ResetTouchpadMouseInvertY" xml:space="preserve"><value>Maawusii Y garagalchuu deebisi</value></data>
+  <data name="Pad_Touchpad_PointerResponse_Simple" xml:space="preserve"><value>Salphaa</value></data>
+  <data name="Pad_Touchpad_TrackpadThreshold" xml:space="preserve"><value>Daangaa jalqabaa saffisaa</value></data>
+  <data name="Pad_Touchpad_TrackpadPadWidth" xml:space="preserve"><value>Bal'ina taachpaadii</value></data>
+  <data name="Pad_ResetTouchpadTrackpadThreshold" xml:space="preserve"><value>Daangaa jalqabaa saffisaa deebisi</value></data>
+  <data name="Pad_ResetTouchpadTrackpadPadWidth" xml:space="preserve"><value>Bal'ina taachpaadii deebisi</value></data>
+
+  <!-- Per-row Reset tooltips for absolute-pointer card (#9 B-15) -->
+
+  <!-- Per-row Reset tooltips for swipe-haptics card -->
+
+  <!-- Per-row Reset tooltips -->
+  <data name="Pad_ResetTouchpadFourWaySwipes" xml:space="preserve"><value>Harkisuu kallattii 4 deebisi</value></data>
+  <data name="Pad_ResetTouchpadEightWaySwipes" xml:space="preserve"><value>Harkisuu kallattii 8 deebisi</value></data>
+  <data name="Pad_ResetTouchpadSwipeDistance" xml:space="preserve"><value>Fageenya harkisuu deebisi</value></data>
+  <data name="Pad_ResetTouchpadTaps" xml:space="preserve"><value>Tuquu / si'a lama tuquu / si'a sadi tuquu deebisi</value></data>
+  <data name="Pad_ResetTouchpadLongPress" xml:space="preserve"><value>Yeroo dheeraaf tuquu deebisi</value></data>
+  <data name="Pad_ResetTouchpadTwoFingerSwipes" xml:space="preserve"><value>Quba lamaan harkisuu deebisi</value></data>
+  <data name="Pad_ResetTouchpadPinchSpread" xml:space="preserve"><value>Cuniinsuu / babal'isuu deebisi</value></data>
+  <data name="Pad_ResetTouchpadRotate" xml:space="preserve"><value>Naannessuu deebisi</value></data>
+  <data name="Pad_ResetTouchpadThreeFinger" xml:space="preserve"><value>Mallattoo quba sadii deebisi</value></data>
+  <data name="Pad_ResetTouchpadFourFinger" xml:space="preserve"><value>Mallattoo quba afurii deebisi</value></data>
+  <data name="Pad_ResetTouchpadFiveFinger" xml:space="preserve"><value>Quba shaniin tuquu deebisi</value></data>
+
+  <!-- ═══ Touchpad Gesture Recorder Dialog ═══ -->
+  <data name="Recorder_Title" xml:space="preserve"><value>Mallattoo taachpaadii galmeessi</value></data>
+  <data name="Recorder_TargetDevice_UnknownName" xml:space="preserve"><value>taachpaadii kana</value></data>
+  <data name="Recorder_NameLabel" xml:space="preserve"><value>Maqaa</value></data>
+  <data name="Recorder_TryAgain" xml:space="preserve"><value>Irra deebi'ii yaali</value></data>
+  <data name="Recorder_Error_NameEmpty" xml:space="preserve"><value>Maqaan barbaachisaadha</value></data>
+  <data name="Recorder_Error_NameTooLong" xml:space="preserve"><value>Maqaan baay'ee dheeraadha (qubee 64 hin caalle)</value></data>
+  <data name="Recorder_Error_NameInvalidChar" xml:space="preserve"><value>Maqaan qubee hin hayyamamne qaba</value></data>
+
+  <data name="Mapping_MotionGyro" xml:space="preserve"><value>Jayiroo sochii</value></data>
+  <data name="Mapping_MotionAccel" xml:space="preserve"><value>Akseleromeetira sochii</value></data>
+  <data name="Mapping_MotionPitch" xml:space="preserve"><value>Piichii sochii</value></data>
+  <data name="Mapping_MotionYaw" xml:space="preserve"><value>Yaawu sochii</value></data>
+  <data name="Mapping_MotionRoll" xml:space="preserve"><value>Roolii sochii</value></data>
+  <data name="Mapping_LeftJoyConAccel" xml:space="preserve"><value>Akseleromeetira Joy-Con bitaa</value></data>
+  <data name="Mapping_GyroPitch" xml:space="preserve"><value>Piichii jayiroo</value></data>
+  <data name="Mapping_GyroAuxPitch" xml:space="preserve"><value>Piichii jayiroo Joy-Con bitaa</value></data>
+  <data name="Mapping_GyroAuxYaw" xml:space="preserve"><value>Yaawu jayiroo Joy-Con bitaa</value></data>
+  <data name="Mapping_GyroAuxRoll" xml:space="preserve"><value>Roolii jayiroo Joy-Con bitaa</value></data>
+  <data name="Mapping_GyroRPitch" xml:space="preserve"><value>Piichii jayiroo Joy-Con mirgaa</value></data>
+  <data name="Mapping_GyroRYaw" xml:space="preserve"><value>Yaawu jayiroo Joy-Con mirgaa</value></data>
+  <data name="Mapping_GyroRRoll" xml:space="preserve"><value>Roolii jayiroo Joy-Con mirgaa</value></data>
+  <data name="Mapping_MotionGyroAux" xml:space="preserve"><value>Jayiroo sochii Joy-Con bitaa</value></data>
+  <data name="Mapping_GyroYaw" xml:space="preserve"><value>Yaawu jayiroo</value></data>
+  <data name="Mapping_GyroRoll" xml:space="preserve"><value>Roolii jayiroo</value></data>
+  <data name="Mapping_CapSenseLeftStickTouch" xml:space="preserve"><value>Tuqa sitikii bitaa</value></data>
+  <data name="Mapping_CapSenseRightStickTouch" xml:space="preserve"><value>Tuqa sitikii mirgaa</value></data>
+  <data name="Mapping_CapSenseLeftGripTouch" xml:space="preserve"><value>Tuqa qabannoo bitaa</value></data>
+  <data name="Mapping_CapSenseRightGripTouch" xml:space="preserve"><value>Tuqa qabannoo mirgaa</value></data>
+  <data name="Settings_GyroLastCalibrated_Format" xml:space="preserve"><value>Kaalibireeshinii dhumaa: {0:yyyy-MM-dd HH:mm}</value></data>
+  <data name="Settings_GyroResetCalibration_Button" xml:space="preserve"><value>Kaalibireeshinii deebisi</value></data>
+  <data name="Settings_GyroDeadZone" xml:space="preserve"><value>Deedzoonii</value></data>
+  <data name="Pad_Gyro" xml:space="preserve"><value>Jayiroo</value></data>
+  <data name="Pad_Gyro_Header" xml:space="preserve"><value>Jayiroo</value></data>
+  <data name="Pad_Gyro_Calibration_Header" xml:space="preserve"><value>Kaalibireeshinii</value></data>
+  <data name="Pad_Gyro_Sensitivity_Header" xml:space="preserve"><value>Miira</value></data>
+  <data name="Settings_GyroInvertPitch" xml:space="preserve"><value>Piichii garagalchi (Y)</value></data>
+  <data name="Settings_GyroInvertYaw" xml:space="preserve"><value>Yaawu garagalchi (X)</value></data>
+  <data name="Settings_GyroInvertRoll" xml:space="preserve"><value>Roolii garagalchi (X)</value></data>
+  <data name="Pad_ResetGyroInvertYaw" xml:space="preserve"><value>Yaawu garagalchuu deebisi</value></data>
+  <data name="Pad_ResetGyroInvertRoll" xml:space="preserve"><value>Roolii garagalchuu deebisi</value></data>
+  <data name="Pad_ResetGyroCompassYaw" xml:space="preserve"><value>Gara durtiitti deebisi (Cufaa)</value></data>
+  <data name="Pad_Gyro_MagCalibrate_Stop" xml:space="preserve"><value>Kaalibireeshinii xumuri</value></data>
+  <data name="Settings_GyroAimEngageMode_Hold" xml:space="preserve"><value>Qabadhu</value></data>
+  <data name="Settings_GyroAimEngageMode_Toggle" xml:space="preserve"><value>Jijjiiri</value></data>
+  <data name="Settings_GyroEngageStickSide_Right" xml:space="preserve"><value>Sitikii mirgaa</value></data>
+  <data name="Settings_GyroEngageStickSide_Left" xml:space="preserve"><value>Sitikii bitaa</value></data>
+  <data name="Settings_GyroEngageStickSide_Either" xml:space="preserve"><value>Sitikii kamiyyuu</value></data>
+  <data name="Settings_GyroEngageStickDirection_Full" xml:space="preserve"><value>Guutuu</value></data>
+  <data name="Settings_GyroEngageStickDirection_XNeg" xml:space="preserve"><value>Bitaa (X-)</value></data>
+  <data name="Settings_GyroEngageStickDirection_XPos" xml:space="preserve"><value>Mirga (X+)</value></data>
+  <data name="Settings_GyroEngageStickDirection_YNeg" xml:space="preserve"><value>Gadi (Y-)</value></data>
+  <data name="Settings_GyroEngageStickDirection_YPos" xml:space="preserve"><value>Ol (Y+)</value></data>
+  <data name="Pad_Gyro_Space_Player" xml:space="preserve"><value>Taphataa</value></data>
+  <data name="Pad_Gyro_Space_World" xml:space="preserve"><value>Addunyaa</value></data>
+  <data name="Pad_Gyro_Grip_Header" xml:space="preserve"><value>Qabannoo</value></data>
+  <data name="Pad_Gyro_Curve_Wide" xml:space="preserve"><value>Bal'aa</value></data>
+  <data name="Pad_Gyro_Curve_ExtraWide" xml:space="preserve"><value>Baay'ee bal'aa</value></data>
+  <data name="Pad_Gyro_ResetCalibration_All_Tooltip" xml:space="preserve"><value>Kaalibireeshinii deebisi</value></data>
+  <data name="Pad_Gyro_ResetSensitivity_All_Tooltip" xml:space="preserve"><value>Miira deebisi</value></data>
+  <data name="Pad_ResetMotionGrip" xml:space="preserve"><value>Qabannoo deebisi</value></data>
+  <data name="Pad_ResetGyroInvertPitch" xml:space="preserve"><value>Piichii garagalchuu deebisi</value></data>
+  <data name="Pad_ResetGyroDeadZone" xml:space="preserve"><value>Deedzoonii deebisi</value></data>
+  <data name="Mapping_GyroSensitivity" xml:space="preserve"><value>Miira</value></data>
+  <data name="Mapping_MouseSpeedX" xml:space="preserve"><value>Saffisa maawusii X</value></data>
+  <data name="Mapping_MouseSpeedY" xml:space="preserve"><value>Saffisa maawusii Y</value></data>
+  <data name="Mapping_MousePositionX" xml:space="preserve"><value>Bakka maawusii X</value></data>
+  <data name="Mapping_MousePositionY" xml:space="preserve"><value>Bakka maawusii Y</value></data>
+  <data name="Mapping_MouseCursorSensitivity" xml:space="preserve"><value>Miira</value></data>
+  <data name="Mapping_JoyConIrBrightness" xml:space="preserve"><value>Ifa IR</value></data>
+  <data name="Mapping_MouseMotionX" xml:space="preserve"><value>Sochii maawusii X</value></data>
+  <data name="Mapping_MouseMotionY" xml:space="preserve"><value>Sochii maawusii Y</value></data>
+  <data name="Mapping_IrPointerSensitivity" xml:space="preserve"><value>Miira</value></data>
+  <data name="Mapping_Sensitivity" xml:space="preserve"><value>Miira</value></data>
+
+  <!-- ═══ Device Object Names (gamepad) ═══ -->
+  <data name="DevObj_LeftStickX" xml:space="preserve"><value>Sitikii bitaa X</value></data>
+  <data name="DevObj_LeftStickY" xml:space="preserve"><value>Sitikii bitaa Y</value></data>
+  <data name="DevObj_LeftTrigger" xml:space="preserve"><value>Tiriigarii bitaa</value></data>
+  <data name="DevObj_RightStickX" xml:space="preserve"><value>Sitikii mirgaa X</value></data>
+  <data name="DevObj_RightStickY" xml:space="preserve"><value>Sitikii mirgaa Y</value></data>
+  <data name="DevObj_RightTrigger" xml:space="preserve"><value>Tiriigarii mirgaa</value></data>
+  <data name="DevObj_DPad" xml:space="preserve"><value>D-pad</value></data>
+  <data name="DevObj_Back" xml:space="preserve"><value>Duubatti</value></data>
+  <data name="DevObj_Start" xml:space="preserve"><value>Jalqabi</value></data>
+  <data name="DevObj_Select" xml:space="preserve"><value>Fili</value></data>
+  <data name="DevObj_Mode" xml:space="preserve"><value>Haala</value></data>
+  <data name="DevObj_Option" xml:space="preserve"><value>Filannoo</value></data>
+  <data name="DevObj_Reset" xml:space="preserve"><value>Deebisi</value></data>
+  <data name="DevObj_Fire" xml:space="preserve"><value>Dhukaasa</value></data>
+  <data name="DevObj_Fire_Format" xml:space="preserve"><value>Dhukaasa {0}</value></data>
+  <data name="DevObj_LeftFire" xml:space="preserve"><value>Dhukaasa bitaa</value></data>
+  <data name="DevObj_RightFire" xml:space="preserve"><value>Dhukaasa mirgaa</value></data>
+  <data name="DevObj_ZTrigger" xml:space="preserve"><value>Tiriigarii Z</value></data>
+  <data name="DevObj_StickX" xml:space="preserve"><value>Sitikii X</value></data>
+  <data name="DevObj_StickY" xml:space="preserve"><value>Sitikii Y</value></data>
+  <data name="DevObj_RightDPad" xml:space="preserve"><value>D-pad mirgaa</value></data>
+  <data name="DevObj_Pressure_Format" xml:space="preserve"><value>Dhiibbaa {0}</value></data>
+  <data name="DevObj_Arrow_Format" xml:space="preserve"><value>Xiyya {0}</value></data>
+  <data name="DevObj_CButton_Format" xml:space="preserve"><value>C-{0}</value></data>
+  <data name="DevObj_LeftShoulder" xml:space="preserve"><value>Garba bitaa</value></data>
+  <data name="DevObj_RightShoulder" xml:space="preserve"><value>Garba mirgaa</value></data>
+  <data name="DevObj_LeftStickButton" xml:space="preserve"><value>Qabduu sitikii bitaa</value></data>
+  <data name="DevObj_RightStickButton" xml:space="preserve"><value>Qabduu sitikii mirgaa</value></data>
+
+  <!-- ═══ Device Object Names (raw joystick) ═══ -->
+  <data name="DevObj_XAxis" xml:space="preserve"><value>Aksisii X</value></data>
+  <data name="DevObj_YAxis" xml:space="preserve"><value>Aksisii Y</value></data>
+  <data name="DevObj_ZAxis" xml:space="preserve"><value>Aksisii Z</value></data>
+  <data name="DevObj_POV" xml:space="preserve"><value>POV</value></data>
+  <data name="DevObj_POVN" xml:space="preserve"><value>POV {0}</value></data>
+  <data name="DevObj_Button" xml:space="preserve"><value>Qabduu {0}</value></data>
+  <data name="Mapping_NfcAnyTag" xml:space="preserve"><value>Taagii NFC kamiyyuu</value></data>
+  <data name="DevObj_AxisN" xml:space="preserve"><value>Aksisii {0}</value></data>
+  <data name="DevObj_Misc1" xml:space="preserve"><value>Qoodi</value></data>
+  <data name="DevObj_RightPaddle1" xml:space="preserve"><value>Paadilii mirgaa 1</value></data>
+  <data name="DevObj_RightPaddle2" xml:space="preserve"><value>Paadilii mirgaa 2</value></data>
+  <data name="DevObj_LeftPaddle1" xml:space="preserve"><value>Paadilii bitaa 1</value></data>
+  <data name="DevObj_LeftPaddle2" xml:space="preserve"><value>Paadilii bitaa 2</value></data>
+
+  <!-- ═══ Keyboard Key Names (OEM/Numpad operators: not already in VirtualKey section) ═══ -->
+  <data name="Key_Comma" xml:space="preserve"><value>Qoodduu</value></data>
+  <data name="Key_Period" xml:space="preserve"><value>Tuqaa</value></data>
+
+  <!-- ═══ Profiles ═══ -->
+  <data name="Profiles_Title" xml:space="preserve"><value>Piroofaayiliiwwan</value></data>
+  <data name="Profiles_Management" xml:space="preserve"><value>Bulchiinsa piroofaayilii</value></data>
+  <data name="Profiles_Description" xml:space="preserve"><value>Appilikeeshinii tokkoon tokkoof piroofaayilii kontirolaa uumi. Piroofaayiliin tapha hojii irra jiru irratti hundaa'ee ofumaan jijjiirama.</value></data>
+  <data name="Profiles_AutoSwitch" xml:space="preserve"><value>Piroofaayilii appilikeeshinii fuula duraa irratti hundaa'uun ofumaan jijjiiri</value></data>
+  <data name="Profiles_ActiveProfile" xml:space="preserve"><value>Piroofaayilii hojii irra jiru:</value></data>
+  <data name="Profiles_NoSlots" xml:space="preserve"><value>Iddoon hin jiru</value></data>
+  <data name="Profiles_AutoSwitchRule_Format" xml:space="preserve"><value>Ofumaan jijjiiruu: {0}</value></data>
+  <data name="Profiles_New" xml:space="preserve"><value>Haaraa</value></data>
+  <data name="Profiles_SaveAs" xml:space="preserve"><value>Maqaa biraan olkaa'i</value></data>
+  <data name="Profiles_Edit" xml:space="preserve"><value>Gulaali</value></data>
+  <data name="Profiles_Load" xml:space="preserve"><value>Fe'i</value></data>
+  <data name="Profiles_SelectFirstHint" xml:space="preserve"><value>Dursa piroofaayilii fili.</value></data>
+  <data name="Profiles_DefaultLockedHint" xml:space="preserve"><value>Piroofaayilii "Durtii" gulaaluun yookaan haquun hin danda'amu.</value></data>
+  <data name="Profiles_DeleteConfirmTitle" xml:space="preserve"><value>Piroofaayilii haqi</value></data>
+  <data name="Profiles_DeleteConfirm_Format" xml:space="preserve"><value>“{0}” haqi? Iddoon fi walqabsiisni isaa olkaa'aman ni balleeffamu.</value></data>
+
+  <!-- ═══ Profile Dialog ═══ -->
+  <data name="ProfileDialog_SaveAs" xml:space="preserve"><value>Akka piroofaayiliitti olkaa'i</value></data>
+  <data name="ProfileDialog_Edit" xml:space="preserve"><value>Piroofaayilii gulaali</value></data>
+  <data name="ProfileDialog_ProfileName" xml:space="preserve"><value>Maqaa piroofaayilii:</value></data>
+  <data name="ProfileDialog_DefaultName" xml:space="preserve"><value>Piroofaayilii haaraa</value></data>
+  <data name="ProfileDialog_PollingDefault" xml:space="preserve"><value>Durtii (qindaa'ina waliigalaa)</value></data>
+
+  <!-- ═══ CopyFrom Dialog ═══ -->
+  <data name="CopyFrom_Title" xml:space="preserve"><value>Qindaa'ina irraa garagalchi...</value></data>
+  <data name="CopyFrom_SelectDevice" xml:space="preserve"><value>Meeshaa qindaa'ina isaa garagalchuuf fili:</value></data>
+
+  <!-- ═══ File Dialogs ═══ -->
+
+  <!-- ═══ App-Level Messages ═══ -->
+  <data name="App_AlreadyRunning" xml:space="preserve"><value>PadForge duraanuu hojjechaa jira.</value></data>
+  <data name="App_FatalError" xml:space="preserve"><value>PadForge: Dogoggora cimaa</value></data>
+  <data name="App_Error" xml:space="preserve"><value>PadForge: Dogoggora</value></data>
+  <data name="App_UnexpectedError_Format" xml:space="preserve"><value>Dogoggorri hin eegamne uumame:
+
+{0}
+
+{1}</value></data>
+
+  <!-- ═══ Polling Frequency ═══ -->
+  <data name="Dashboard_PollingHz_Format" xml:space="preserve"><value>{0:F1} Hz</value></data>
+  <data name="Dashboard_PollingDash" xml:space="preserve"><value>–</value></data>
+
+  <!-- ═══ Pad: Sticks/Triggers Settings ═══ -->
+  <data name="Pad_DeadZoneX" xml:space="preserve"><value>Deedzoonii X</value></data>
+  <data name="Pad_DeadZoneY" xml:space="preserve"><value>Deedzoonii Y</value></data>
+  <data name="Pad_AntiDeadZoneX" xml:space="preserve"><value>Anti-deedzoonii X</value></data>
+  <data name="Pad_AntiDeadZoneY" xml:space="preserve"><value>Anti-deedzoonii Y</value></data>
+  <data name="Pad_SensitivityCurves" xml:space="preserve"><value>Kurfiiwwan miiraa</value></data>
+  <data name="Pad_SensitivityCurveHint" xml:space="preserve"><value>Tuqaa dabaluuf chaartii lamuu cuqaasi. Haquuf mirgaan cuqaasi. Sirreessuuf harkisi.</value></data>
+  <data name="Pad_SensitivityX" xml:space="preserve"><value>Miira X</value></data>
+  <data name="Pad_SensitivityY" xml:space="preserve"><value>Miira Y</value></data>
+  <data name="Pad_MinRangeXLeft" xml:space="preserve"><value>Daangaa xiqqaa X (bitaa)</value></data>
+  <data name="Pad_MaxRangeXRight" xml:space="preserve"><value>Daangaa guddaa X (mirga)</value></data>
+  <data name="Pad_MinRangeYDown" xml:space="preserve"><value>Daangaa xiqqaa Y (gadi)</value></data>
+  <data name="Pad_MaxRangeYUp" xml:space="preserve"><value>Daangaa guddaa Y (ol)</value></data>
+  <data name="Pad_XAxis" xml:space="preserve"><value>Aksisii X</value></data>
+  <data name="Pad_YAxis" xml:space="preserve"><value>Aksisii Y</value></data>
+  <data name="Pad_Range" xml:space="preserve"><value>Daangaa</value></data>
+  <data name="Pad_AntiDeadZone" xml:space="preserve"><value>Anti-deedzoonii</value></data>
+  <data name="Pad_SensitivityCurve" xml:space="preserve"><value>Kurfii miiraa</value></data>
+  <data name="Pad_SensitivityCurveHintShort" xml:space="preserve"><value>Tuqaa dabaluuf lamuu cuqaasi. Haquuf mirgaan cuqaasi. Sirreessuuf harkisi.</value></data>
+  <data name="Pad_Preset_Label" xml:space="preserve"><value>Qindaa'ina dursee</value></data>
+  <data name="Pad_TriggerAxis" xml:space="preserve"><value>Aksisii tiriigarii</value></data>
+
+  <!-- ═══ Pad: Force Feedback ═══ -->
+  <data name="Pad_ForceFeedbackRumble" xml:space="preserve"><value>Force feedback / Raafama / Haaptiksii</value></data>
+  <data name="Pad_LeftMotorLabel" xml:space="preserve"><value>Mootora bitaa</value></data>
+  <data name="Pad_RightMotorLabel" xml:space="preserve"><value>Mootora mirgaa</value></data>
+  <data name="Pad_SwapMotors" xml:space="preserve"><value>Mootora bitaa fi mirgaa wal jijjiiri</value></data>
+  <data name="Pad_TestRumble" xml:space="preserve"><value>Raafama qori</value></data>
+  <data name="Pad_MotorActivity" xml:space="preserve"><value>Sochii mootoraa</value></data>
+
+  <!-- ═══ Pad: Constant Force ═══ -->
+  <data name="Pad_ConstantForce_Header" xml:space="preserve"><value>Humna dhaabbataa</value></data>
+  <data name="Pad_ConstantForce_Toggle" xml:space="preserve"><value>Humna dhaabbataa fayyadami</value></data>
+  <data name="Pad_ConstantForce_X" xml:space="preserve"><value>X</value></data>
+  <data name="Pad_ConstantForce_Y" xml:space="preserve"><value>Y</value></data>
+  <data name="Pad_ResetConstantForce" xml:space="preserve"><value>Humna dhaabbataa deebisi</value></data>
+  <data name="Pad_ResetConstantForceX" xml:space="preserve"><value>Humna dhaabbataa X deebisi</value></data>
+  <data name="Pad_ResetConstantForceY" xml:space="preserve"><value>Humna dhaabbataa Y deebisi</value></data>
+
+  <!-- ═══ Pad: Reset Tooltips ═══ -->
+  <data name="Pad_ResetCenterOffsetX" xml:space="preserve"><value>Sirreeffama giddu-galeessaa X deebisi</value></data>
+  <data name="Pad_ResetCenterOffsetY" xml:space="preserve"><value>Sirreeffama giddu-galeessaa Y deebisi</value></data>
+  <data name="Pad_ResetDeadZoneX" xml:space="preserve"><value>Deedzoonii X deebisi</value></data>
+  <data name="Pad_ResetDeadZoneY" xml:space="preserve"><value>Deedzoonii Y deebisi</value></data>
+  <data name="Pad_ResetAntiDeadZoneX" xml:space="preserve"><value>Anti-deedzoonii X deebisi</value></data>
+  <data name="Pad_ResetAntiDeadZoneY" xml:space="preserve"><value>Anti-deedzoonii Y deebisi</value></data>
+  <data name="Pad_ResetSensitivityX" xml:space="preserve"><value>Miira X deebisi</value></data>
+  <data name="Pad_ResetSensitivityY" xml:space="preserve"><value>Miira Y deebisi</value></data>
+  <data name="Pad_ResetMinRangeX" xml:space="preserve"><value>Daangaa xiqqaa X deebisi</value></data>
+  <data name="Pad_ResetMaxRangeX" xml:space="preserve"><value>Daangaa guddaa X deebisi</value></data>
+  <data name="Pad_ResetMinRangeY" xml:space="preserve"><value>Daangaa xiqqaa Y deebisi</value></data>
+  <data name="Pad_ResetMaxRangeY" xml:space="preserve"><value>Daangaa guddaa Y deebisi</value></data>
+  <data name="Pad_ResetRange" xml:space="preserve"><value>Daangaa deebisi</value></data>
+  <data name="Pad_ResetAntiDeadZone" xml:space="preserve"><value>Anti-deedzoonii deebisi</value></data>
+  <data name="Pad_ResetSensitivity" xml:space="preserve"><value>Miira deebisi</value></data>
+  <data name="Pad_ResetLeftMotor" xml:space="preserve"><value>Mootora bitaa deebisi</value></data>
+  <data name="Pad_ResetRightMotor" xml:space="preserve"><value>Mootora mirgaa deebisi</value></data>
+  <data name="Pad_ResetAudioSensitivity" xml:space="preserve"><value>Miira deebisi</value></data>
+  <data name="Pad_ResetAudioLeftMotor" xml:space="preserve"><value>Mootora bitaa deebisi</value></data>
+  <data name="Pad_ResetAudioRightMotor" xml:space="preserve"><value>Mootora mirgaa deebisi</value></data>
+
+  <!-- ═══ Pad: Adaptive Triggers reset tooltips ═══ -->
+  <data name="Pad_ResetLeftTrigger" xml:space="preserve"><value>Tiriigarii bitaa deebisi</value></data>
+  <data name="Pad_ResetRightTrigger" xml:space="preserve"><value>Tiriigarii mirgaa deebisi</value></data>
+  <data name="Pad_ResetStrength" xml:space="preserve"><value>Humna deebisi</value></data>
+  <data name="Pad_ResetFrequency" xml:space="preserve"><value>Irra deddeebii deebisi</value></data>
+
+  <!-- ═══ Pad: Lighting reset tooltips ═══ -->
+  <data name="Pad_ResetLightbarMode" xml:space="preserve"><value>Haala lightbar deebisi</value></data>
+  <data name="Pad_ResetLedBrightness" xml:space="preserve"><value>Ifa LED deebisi</value></data>
+  <data name="Pad_ResetLightbarRainbowBrightness" xml:space="preserve"><value>Ifa deebisi</value></data>
+  <data name="Pad_ResetAudioLightbarSensitivity" xml:space="preserve"><value>Miira deebisi</value></data>
+  <data name="Pad_ResetLightbarRed" xml:space="preserve"><value>Diimaa deebisi</value></data>
+  <data name="Pad_ResetLightbarGreen" xml:space="preserve"><value>Magariisa deebisi</value></data>
+  <data name="Pad_ResetLightbarBlue" xml:space="preserve"><value>Cuquliisa deebisi</value></data>
+
+  <!-- ═══ Pad: Macro Hints ═══ -->
+  <data name="Macro_AddTriggerFromList" xml:space="preserve"><value>Tarree irraa dabali</value></data>
+  <data name="Macro_RemoveTriggerInput" xml:space="preserve"><value>Galtee haqi</value></data>
+  <data name="Macro_LiveRecord_Placeholder" xml:space="preserve"><value>Galtee kamiyyuu tuqi…</value></data>
+  <data name="Macro_Axis_Inverted" xml:space="preserve"><value>garagalfame</value></data>
+  <data name="Macro_Axis_Half" xml:space="preserve"><value>walakkaa aksisii</value></data>
+  <data name="Pad_Either" xml:space="preserve"><value>Kallattii lamaan</value></data>
+  <data name="Macro_InvertAxis" xml:space="preserve"><value>Aksisii garagalchi</value></data>
+  <data name="Macro_ShowVolumeOsd" xml:space="preserve"><value>OSD sagalee agarsiisi</value></data>
+  <data name="Macro_AxisDirection" xml:space="preserve"><value>Kallattii</value></data>
+  <data name="Macro_AxisDirection_Any" xml:space="preserve"><value>Kamiyyuu</value></data>
+
+  <!-- ═══ 3D View ═══ -->
+  <data name="Pad_ResetView" xml:space="preserve"><value>Mul'ata deebisi</value></data>
+
+  <!-- ═══ Gamepad Button Labels ═══ -->
+  <data name="Btn_LeftShoulder" xml:space="preserve"><value>Garba bitaa</value></data>
+  <data name="Btn_RightShoulder" xml:space="preserve"><value>Garba mirgaa</value></data>
+  <data name="Btn_Back" xml:space="preserve"><value>Duubatti</value></data>
+  <data name="Btn_Start" xml:space="preserve"><value>Jalqabi</value></data>
+  <data name="Btn_LeftStickButton" xml:space="preserve"><value>Qabduu sitikii bitaa</value></data>
+  <data name="Btn_RightStickButton" xml:space="preserve"><value>Qabduu sitikii mirgaa</value></data>
+  <data name="Btn_DPadUp" xml:space="preserve"><value>D-pad ol</value></data>
+  <data name="Btn_DPadDown" xml:space="preserve"><value>D-pad gadi</value></data>
+  <data name="Btn_DPadLeft" xml:space="preserve"><value>D-pad bitaa</value></data>
+  <data name="Btn_DPadRight" xml:space="preserve"><value>D-pad mirgaa</value></data>
+  <data name="Btn_LeftTrigger" xml:space="preserve"><value>Tiriigarii bitaa</value></data>
+  <data name="Btn_RightTrigger" xml:space="preserve"><value>Tiriigarii mirgaa</value></data>
+  <data name="Stick_LeftThumbstick" xml:space="preserve"><value>Sitikii bitaa</value></data>
+  <data name="Stick_RightThumbstick" xml:space="preserve"><value>Sitikii mirgaa</value></data>
+  <data name="Stick_ScrollWheel" xml:space="preserve"><value>Geengoo maawusii</value></data>
+  <data name="Stick_Format" xml:space="preserve"><value>Sitikii {0}</value></data>
+  <data name="Trigger_Format" xml:space="preserve"><value>Tiriigarii {0}</value></data>
+  <data name="Btn_LeftStickX" xml:space="preserve"><value>Sitikii bitaa X</value></data>
+  <data name="Btn_LeftStickY" xml:space="preserve"><value>Sitikii bitaa Y</value></data>
+  <data name="Btn_RightStickX" xml:space="preserve"><value>Sitikii mirgaa X</value></data>
+  <data name="Btn_RightStickY" xml:space="preserve"><value>Sitikii mirgaa Y</value></data>
+  <data name="Btn_Up" xml:space="preserve"><value>Ol</value></data>
+  <data name="Btn_Down" xml:space="preserve"><value>Gadi</value></data>
+  <data name="Btn_Left" xml:space="preserve"><value>Bitaa</value></data>
+  <data name="Btn_Right" xml:space="preserve"><value>Mirga</value></data>
+  <data name="Btn_Cross" xml:space="preserve"><value>Fannoo</value></data>
+  <data name="Btn_Circle" xml:space="preserve"><value>Geengoo</value></data>
+  <data name="Btn_Triangle" xml:space="preserve"><value>Rogsadee</value></data>
+  <data name="Btn_L1" xml:space="preserve"><value>L1</value></data>
+  <data name="Btn_R1" xml:space="preserve"><value>R1</value></data>
+  <data name="Btn_L3" xml:space="preserve"><value>L3</value></data>
+  <data name="Btn_R3" xml:space="preserve"><value>R3</value></data>
+  <data name="Btn_Share" xml:space="preserve"><value>Qoodi</value></data>
+  <data name="Btn_Options" xml:space="preserve"><value>Filannoowwan</value></data>
+  <data name="Btn_PS" xml:space="preserve"><value>PS</value></data>
+  <data name="Btn_Touchpad" xml:space="preserve"><value>Taachpaadii</value></data>
+  <data name="Btn_L" xml:space="preserve"><value>L</value></data>
+  <data name="Btn_R" xml:space="preserve"><value>R</value></data>
+  <data name="Btn_ZL" xml:space="preserve"><value>ZL</value></data>
+  <data name="Btn_ZR" xml:space="preserve"><value>ZR</value></data>
+  <data name="Btn_GL" xml:space="preserve"><value>GL</value></data>
+  <data name="Btn_GR" xml:space="preserve"><value>GR</value></data>
+  <data name="Btn_View" xml:space="preserve"><value>Ilaali</value></data>
+  <data name="Btn_Menu" xml:space="preserve"><value>Baafata</value></data>
+  <data name="Btn_Steam" xml:space="preserve"><value>Steam</value></data>
+  <data name="Btn_LeftGrip" xml:space="preserve"><value>Qabannoo bitaa</value></data>
+  <data name="Btn_RightGrip" xml:space="preserve"><value>Qabannoo mirgaa</value></data>
+  <data name="Btn_C" xml:space="preserve"><value>C</value></data>
+  <data name="Btn_MicMute" xml:space="preserve"><value>Callisi</value></data>
+  <data name="Btn_LeftPaddle" xml:space="preserve"><value>Qabduu duubaa bitaa</value></data>
+  <data name="Btn_RightPaddle" xml:space="preserve"><value>Qabduu duubaa mirgaa</value></data>
+  <data name="Btn_LeftFn" xml:space="preserve"><value>Fn bitaa</value></data>
+  <data name="Btn_RightFn" xml:space="preserve"><value>Fn mirgaa</value></data>
+  <data name="Btn_VrLeftA" xml:space="preserve"><value>A bitaa</value></data>
+  <data name="Btn_VrLeftB" xml:space="preserve"><value>B bitaa</value></data>
+  <data name="Btn_VrLeftATouch" xml:space="preserve"><value>A bitaa (tuquu)</value></data>
+  <data name="Btn_VrLeftBTouch" xml:space="preserve"><value>B bitaa (tuquu)</value></data>
+  <data name="Btn_VrLeftSystem" xml:space="preserve"><value>Sirna bitaa</value></data>
+  <data name="Btn_VrLeftGrip" xml:space="preserve"><value>Qabannoo bitaa</value></data>
+  <data name="Btn_VrRightA" xml:space="preserve"><value>A mirgaa</value></data>
+  <data name="Btn_VrRightB" xml:space="preserve"><value>B mirgaa</value></data>
+  <data name="Btn_VrRightATouch" xml:space="preserve"><value>A mirgaa (tuquu)</value></data>
+  <data name="Btn_VrRightBTouch" xml:space="preserve"><value>B mirgaa (tuquu)</value></data>
+  <data name="Btn_VrRightSystem" xml:space="preserve"><value>Sirna mirgaa</value></data>
+  <data name="Btn_VrRightGrip" xml:space="preserve"><value>Qabannoo mirgaa</value></data>
+  <data name="Vr_LeftHand" xml:space="preserve"><value>Harka bitaa</value></data>
+  <data name="Vr_RightHand" xml:space="preserve"><value>Harka mirgaa</value></data>
+  <data name="Vr_Stick" xml:space="preserve"><value>Sitikii</value></data>
+
+  <!-- ═══ Keyboard Key Labels ═══ -->
+  <!-- Mouse VK buttons -->
+  <data name="Key_LButton" xml:space="preserve"><value>Qabduu maawusii bitaa</value></data>
+  <data name="Key_RButton" xml:space="preserve"><value>Qabduu maawusii mirgaa</value></data>
+  <data name="Key_MButton" xml:space="preserve"><value>Qabduu maawusii giddu-galeessaa</value></data>
+  <data name="Key_XButton1" xml:space="preserve"><value>Qabduu maawusii X1</value></data>
+  <data name="Key_XButton2" xml:space="preserve"><value>Qabduu maawusii X2</value></data>
+  <!-- Common keys -->
+  <!-- Navigation -->
+  <data name="Key_Left" xml:space="preserve"><value>Xiyya bitaa</value></data>
+  <data name="Key_Up" xml:space="preserve"><value>Xiyya olii</value></data>
+  <data name="Key_Right" xml:space="preserve"><value>Xiyya mirgaa</value></data>
+  <data name="Key_Down" xml:space="preserve"><value>Xiyya gadii</value></data>
+  <data name="Key_Select" xml:space="preserve"><value>Fili</value></data>
+  <data name="Key_Print" xml:space="preserve"><value>Maxxansi</value></data>
+  <data name="Key_Insert" xml:space="preserve"><value>Galchi</value></data>
+  <data name="Key_Delete" xml:space="preserve"><value>Haqi</value></data>
+  <data name="Key_Help" xml:space="preserve"><value>Gargaarsa</value></data>
+  <!-- Windows keys -->
+  <data name="Key_LWin" xml:space="preserve"><value>Windows bitaa</value></data>
+  <data name="Key_RWin" xml:space="preserve"><value>Windows mirgaa</value></data>
+  <!-- Numpad -->
+  <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>Furtuu dabalataa {0}</value></data>
+  <data name="AnalogKey_Code_Format" xml:space="preserve"><value>Furtuu {0}</value></data>
+  <data name="AnalogKey_RightFn" xml:space="preserve"><value>Fn mirgaa</value></data>
+  <data name="AnalogKey_Position_Format" xml:space="preserve"><value>Bakka furtuu {0}</value></data>
+  <!-- Lock keys -->
+  <!-- Left/Right modifiers -->
+  <data name="Key_LeftShift" xml:space="preserve"><value>Shift bitaa</value></data>
+  <data name="Key_RightShift" xml:space="preserve"><value>Shift mirgaa</value></data>
+  <data name="Key_LeftCtrl" xml:space="preserve"><value>Ctrl bitaa</value></data>
+  <data name="Key_RightCtrl" xml:space="preserve"><value>Ctrl mirgaa</value></data>
+  <data name="Key_LeftAlt" xml:space="preserve"><value>Alt bitaa</value></data>
+  <data name="Key_RightAlt" xml:space="preserve"><value>Alt mirgaa</value></data>
+  <!-- Browser keys -->
+  <!-- Media keys -->
+  <data name="Key_VolumeMute" xml:space="preserve"><value>Sagalee callisi</value></data>
+  <data name="Key_VolumeDown" xml:space="preserve"><value>Sagalee hir'isi</value></data>
+  <data name="Key_VolumeUp" xml:space="preserve"><value>Sagalee ol kaasi</value></data>
+
+  <!-- ═══ Mouse Labels ═══ -->
+  <data name="Mouse_LeftClick" xml:space="preserve"><value>Cuqaasa bitaa</value></data>
+  <data name="Mouse_RightClick" xml:space="preserve"><value>Cuqaasa mirgaa</value></data>
+  <data name="Mouse_MiddleClick" xml:space="preserve"><value>Cuqaasa giddu-galeessaa</value></data>
+  <data name="Mouse_Button4" xml:space="preserve"><value>Maawusii 4</value></data>
+  <data name="Mouse_Button5" xml:space="preserve"><value>Maawusii 5</value></data>
+  <data name="Mouse_X" xml:space="preserve"><value>Maawusii X</value></data>
+  <data name="Mouse_Y" xml:space="preserve"><value>Maawusii Y</value></data>
+
+  <!-- ═══ Extended Custom Labels ═══ -->
+  <data name="Extended_Stick_Format" xml:space="preserve"><value>Sitikii {0} X</value></data>
+  <data name="Extended_StickY_Format" xml:space="preserve"><value>Sitikii {0} Y</value></data>
+  <data name="Extended_Trigger_Format" xml:space="preserve"><value>Tiriigarii {0}</value></data>
+  <data name="Extended_Button_Format" xml:space="preserve"><value>Qabduu {0}</value></data>
+  <data name="Extended_DPad" xml:space="preserve"><value>D-pad</value></data>
+  <data name="Extended_POV_Format" xml:space="preserve"><value>POV {0}</value></data>
+
+  <!-- ═══ Macro Axis Target Labels ═══ -->
+  <data name="MacroAxis_XAxis" xml:space="preserve"><value>Sitikii bitaa X</value></data>
+  <data name="MacroAxis_YAxis" xml:space="preserve"><value>Sitikii bitaa Y</value></data>
+  <data name="MacroAxis_XRotation" xml:space="preserve"><value>Sitikii mirgaa X</value></data>
+  <data name="MacroAxis_YRotation" xml:space="preserve"><value>Sitikii mirgaa Y</value></data>
+  <data name="MacroAxis_ZAxis" xml:space="preserve"><value>Tiriigarii bitaa</value></data>
+  <data name="MacroAxis_ZRotation" xml:space="preserve"><value>Tiriigarii mirgaa</value></data>
+
+  <!-- ═══ Preview Views ═══ -->
+  <data name="Preview_Stick_Format" xml:space="preserve"><value>Sitikii {0}</value></data>
+  <data name="Preview_Trigger_Format" xml:space="preserve"><value>T{0}</value></data>
+  <data name="Preview_DPad" xml:space="preserve"><value>D-pad</value></data>
+  <data name="Preview_Buttons" xml:space="preserve"><value>Qabduuwwan</value></data>
+  <data name="Preview_POV_Format" xml:space="preserve"><value>POV {0}</value></data>
+
+  <!-- ═══ Audio Bass Rumble ═══ -->
+  <data name="Settings_AudioRumble" xml:space="preserve"><value>Raafama sagalee</value></data>
+  <data name="Settings_AudioRumble_Enable" xml:space="preserve"><value>Raafama sagalee dandeessisi</value></data>
+  <data name="Settings_AudioRumble_Sensitivity" xml:space="preserve"><value>Miira</value></data>
+  <data name="Settings_AudioRumble_LeftMotor" xml:space="preserve"><value>Mootora bitaa</value></data>
+  <data name="Settings_AudioRumble_RightMotor" xml:space="preserve"><value>Mootora mirgaa</value></data>
+  <data name="Settings_SecondsZeroNever" xml:space="preserve"><value>sekondii (0 = gonkumaa)</value></data>
+  <!-- Shift mode (Issue #61 Phase 6 v1+) -->
+  <data name="Pad_Shift_AddLayer" xml:space="preserve"><value>+ Sadarkaa Shift</value></data>
+  <data name="Pad_Shift_BaseTabLabel" xml:space="preserve"><value>Bu'uura</value></data>
+  <data name="Pad_Shift_BaseConfigTitle" xml:space="preserve"><value>Bu'uura qindeessi</value></data>
+  <data name="Pad_Shift_LayerName" xml:space="preserve"><value>Maqaa sadarkaa</value></data>
+  <data name="Pad_Shift_ActivatorInput" xml:space="preserve"><value>Galtee kaasaa</value></data>
+  <data name="Pad_Shift_Mode" xml:space="preserve"><value>Haala</value></data>
+  <data name="Pad_Shift_ModeHold" xml:space="preserve"><value>Qabadhu</value></data>
+  <data name="Pad_Shift_ModeToggle" xml:space="preserve"><value>Jijjiiri</value></data>
+  <data name="Pad_Shift_ModePassive" xml:space="preserve"><value>Qabduu malee</value></data>
+  <data name="Pad_Shift_HintNameRequired" xml:space="preserve"><value>Maqaan sadarkaa barbaachisaadha.</value></data>
+  <data name="Pad_Shift_HintNameDuplicate" xml:space="preserve"><value>Sadarkaan maqaa sana qabu iddoo kana irratti duraanuu jira.</value></data>
+  <data name="Pad_Shift_HintInputRequired" xml:space="preserve"><value>Galtee kaasaa filadhu.</value></data>
+  <data name="Pad_Shift_Configure" xml:space="preserve"><value>Kaasaa qindeessi…</value></data>
+  <data name="Pad_Shift_Rename" xml:space="preserve"><value>Maqaa sadarkaa jijjiiri…</value></data>
+  <data name="Pad_Shift_Color" xml:space="preserve"><value>Halluu sadarkaa</value></data>
+  <data name="Pad_ResetLayerColor" xml:space="preserve"><value>Halluu sadarkaa deebisi</value></data>
+  <data name="Pad_Shift_Icon_Reset" xml:space="preserve"><value>Gara durtiitti deebisi (⇧)</value></data>
+  <data name="Pad_Shift_Copy" xml:space="preserve"><value>Sararoota sadarkaa waraabi</value></data>
+  <data name="Pad_Shift_Paste" xml:space="preserve"><value>Sararoota sadarkaa keessatti maxxansi</value></data>
+  <data name="Pad_Shift_Clear" xml:space="preserve"><value>Sararoota sadarkaa qulqulleessi</value></data>
+  <data name="Pad_Shift_Delete" xml:space="preserve"><value>Sadarkaa haqi</value></data>
+  <data name="Pad_Shift_DeleteConfirmTitle" xml:space="preserve"><value>Sadarkaa haqi</value></data>
+  <data name="Pad_Shift_DeleteConfirm_Format" xml:space="preserve"><value>Sadarkaa "{0}" fi sararoota walqabsiisaa isaa hunda haquu? Kun deebi'uu hin danda'u.</value></data>
+  <data name="Pad_Shift_Delay" xml:space="preserve"><value>Turtii</value></data>
+  <data name="Pad_Shift_HostLayerAny" xml:space="preserve"><value>Sadarkaa kamiyyuu</value></data>
+  <data name="Pad_Shift_CycleNextButton" xml:space="preserve"><value>Qabduu itti aanu</value></data>
+  <data name="Pad_Shift_CyclePrevButton" xml:space="preserve"><value>Qabduu duraa</value></data>
+  <data name="Pad_Shift_Kind" xml:space="preserve"><value>Gosa kaasaa</value></data>
+  <data name="Pad_Shift_KindButton" xml:space="preserve"><value>Qabduu</value></data>
+
+  <data name="Pad_Steering_Mode_Linear" xml:space="preserve"><value>Cufaa</value></data>
+  <data name="Pad_Steering_Orientation" xml:space="preserve"><value>Kallattii kontirolaa</value></data>
+  <data name="Pad_Steering_Orient_Forward" xml:space="preserve"><value>Fuuldura</value></data>
+  <data name="Pad_Steering_Orient_Left" xml:space="preserve"><value>Bitaa</value></data>
+  <data name="Pad_Steering_Orient_Right" xml:space="preserve"><value>Mirga</value></data>
+  <data name="Pad_Steering_Orient_Backward" xml:space="preserve"><value>Duuba</value></data>
+  <data name="Pad_Steering_Reset_Orientation" xml:space="preserve"><value>Kallattii kontirolaa deebisi</value></data>
+  <data name="Mapping_FlickStickRight" xml:space="preserve"><value>Flick stick (Sitikii mirgaa)</value></data>
+  <data name="Mapping_FlickStickLeft" xml:space="preserve"><value>Flick stick (Sitikii bitaa)</value></data>
+  <data name="Mapping_FlickStickTouchpad_Format" xml:space="preserve"><value>Flick stick (Taachpaadii {0})</value></data>
+  <data name="Pad_FlickStick_Header" xml:space="preserve"><value>Flick stick</value></data>
+  <data name="Pad_FlickStick_Reset_All" xml:space="preserve"><value>Flick stick deebisi</value></data>
+  <data name="Pad_ResetFlickCountsPer360" xml:space="preserve"><value>Gara 14400tti deebisi</value></data>
+  <data name="Pad_ResetFlickTime" xml:space="preserve"><value>Gara 0.1 s tti deebisi</value></data>
+  <data name="Pad_ResetFlickThreshold" xml:space="preserve"><value>Gara 0.9tti deebisi</value></data>
+  <data name="Settings_FlickSnapMode_Half" xml:space="preserve"><value>Digirii 180</value></data>
+  <data name="Settings_FlickSnapMode_Four" xml:space="preserve"><value>Digirii 90</value></data>
+  <data name="Settings_FlickSnapMode_Sixths" xml:space="preserve"><value>Digirii 60</value></data>
+  <data name="Settings_FlickSnapMode_Eight" xml:space="preserve"><value>Digirii 45</value></data>
+  <data name="Pad_ResetFlickSnapStrength" xml:space="preserve"><value>Gara 1.0tti deebisi</value></data>
+  <data name="Pad_ResetFlickForwardDeadzone" xml:space="preserve"><value>Gara 0°tti deebisi</value></data>
+  <data name="Pad_Steering_Lock_LightbarColor" xml:space="preserve"><value>Halluu lightbar</value></data>
+  <data name="Pad_Wheel" xml:space="preserve"><value>Geengoo konkolaataa</value></data>
+  <data name="Pad_ResetWheel" xml:space="preserve"><value>Geengoo konkolaataa deebisi</value></data>
+  <data name="Pad_Audio" xml:space="preserve"><value>Sagalee</value></data>
+  <data name="Pad_Pointer_SensorBar_Centered" xml:space="preserve"><value>Giddu-galeessatti</value></data>
+  <data name="Pad_Pointer_SensorBar_Above" xml:space="preserve"><value>Iskiriinii gubbaa</value></data>
+  <data name="Pad_Pointer_SensorBar_Below" xml:space="preserve"><value>Iskiriinii jala</value></data>
+  <data name="Pad_Pointer_Mode_Mouse" xml:space="preserve"><value>Maawusii</value></data>
+  <data name="Pad_Pointer_Mode_FpsMouse" xml:space="preserve"><value>Maawusii FPS</value></data>
+  <data name="Pad_Pointer_Mode_43" xml:space="preserve"><value>Qarqara 4:3</value></data>
+  <data name="Pad_Pointer_Mode_169" xml:space="preserve"><value>Qarqara 16:9</value></data>
+  <data name="Pad_Pointer_FpsSpeed" xml:space="preserve"><value>Saffisa FPS</value></data>
+  <data name="Pad_ResetPointerFpsSpeed" xml:space="preserve"><value>Saffisa FPS deebisi</value></data>
+  <data name="Pad_Audio_Header" xml:space="preserve"><value>Sagalee</value></data>
+  <data name="Pad_Audio_SystemDefault" xml:space="preserve"><value>Durtii sirnaa</value></data>
+  <data name="Pad_Audio_SourceUnavailable" xml:space="preserve"><value>(Meeshaa hin argamne)</value></data>
+  <data name="Pad_Audio_Test" xml:space="preserve"><value>Qormaata</value></data>
+  <data name="Pad_Audio_StopAll" xml:space="preserve"><value>Sagaleewwan hunda dhaabi</value></data>
+  <data name="Pad_Audio_NewSoundMacro" xml:space="preserve"><value>Maakroo sagalee haaraa</value></data>
+  <data name="Pad_Audio_SoundMacroName_Format" xml:space="preserve"><value>Maakroo sagalee {0}</value></data>
+  <data name="MacroAction_Type_PlaySound" xml:space="preserve"><value>Sagalee taphachiisi</value></data>
+  <data name="MacroAction_Type_SoundStop" xml:space="preserve"><value>Sagaleewwan dhaabi</value></data>
+  <data name="MacroAction_PlaySound_Format" xml:space="preserve"><value>{0} taphachiisi ({1}%)</value></data>
+  <data name="Macro_Sound_File_Label" xml:space="preserve"><value>Faayilii sagalee</value></data>
+  <data name="Macro_Sound_Browse" xml:space="preserve"><value>Sakatta'i…</value></data>
+  <data name="Macro_Sound_Volume_Label" xml:space="preserve"><value>Sagalee olka'iinsa</value></data>
+  <data name="Pad_Audio_Engage_Always" xml:space="preserve"><value>Yeroo hunda</value></data>
+  <data name="Pad_Audio_ToneFilter_Off" xml:space="preserve"><value>Cufaa</value></data>
+  <data name="Pad_ResetPersonaHaptics" xml:space="preserve"><value>Gara durtiitti deebisi (Cufaa)</value></data>
+  <data name="Pad_ResetPersonaHapticsGain" xml:space="preserve"><value>Gara durtiitti deebisi (100%)</value></data>
+  <data name="Pad_ResetTritonLowPass" xml:space="preserve"><value>Gara 250 Hz tti deebisi</value></data>
+  <data name="About_DsTester" xml:space="preserve"><value>dualsense-tester</value></data>
+  <data name="About_Ds4Audio" xml:space="preserve"><value>DS4AudioStreamer</value></data>
+  <data name="Profiles_Export" xml:space="preserve"><value>Al-ergi…</value></data>
+  <data name="Profiles_Import" xml:space="preserve"><value>Galchi…</value></data>
+  <data name="Status_ProfileExported_Format" xml:space="preserve"><value>Piroofaayiliin "{0}" al-ergameera.</value></data>
+  <data name="Status_ProfileImportFailed" xml:space="preserve"><value>Faayiliin kun piroofaayilii PadForge dubbifamuu danda'u miti.</value></data>
+  <data name="Menu_Binding_Macro" xml:space="preserve"><value>Maakroo</value></data>
+  <data name="IconPicker_Emoji" xml:space="preserve"><value>Emoojii</value></data>
+  <data name="IconPicker_Images" xml:space="preserve"><value>Suuraalee</value></data>
+  <data name="Emoji_Category_Hands" xml:space="preserve"><value>Harkoota</value></data>
+  <data name="Emoji_Category_Animals" xml:space="preserve"><value>Bineensota</value></data>
+  <data name="Emoji_Category_Food" xml:space="preserve"><value>Nyaata</value></data>
+  <data name="Emoji_Category_Travel" xml:space="preserve"><value>Imala</value></data>
+  <data name="Emoji_Category_Objects" xml:space="preserve"><value>Wantoota</value></data>
+  <data name="Emoji_Category_Symbols" xml:space="preserve"><value>Mallattoolee</value></data>
+  <data name="DeviceType_Midi" xml:space="preserve"><value>Kontirolaa MIDI</value></data>
+  <data name="Mapping_MidiNote_Format" xml:space="preserve"><value>Noota {0} ({1})</value></data>
+  <data name="Mapping_MidiCc_Format" xml:space="preserve"><value>CC {0}</value></data>
+  <data name="Mapping_MidiCcNamed_Format" xml:space="preserve"><value>CC {0} ({1})</value></data>
+  <data name="Mapping_MidiCcUp_Format" xml:space="preserve"><value>CC {0} +</value></data>
+  <data name="Mapping_MidiCcDown_Format" xml:space="preserve"><value>CC {0} −</value></data>
+  <data name="Common_Reset" xml:space="preserve">
+    <value>Deebisi</value>
+  </data>
+  <data name="RemoteLink_PasswordTitle" xml:space="preserve">
+    <value>Jecha icciitii Remote Link</value>
+  </data>
+  <data name="Dashboard_TouchpadOverlayWindowTitle" xml:space="preserve">
+    <value>Taachpaadii PadForge</value>
+  </data>
+  <data name="RemoteLink_PasswordEmpty" xml:space="preserve">
+    <value>Jecha icciitii galchi.</value>
+  </data>
+  <data name="RemoteLink_PasswordMismatch" xml:space="preserve">
+    <value>Jechoonni icciitii wal hin siman.</value>
+  </data>
+  <data name="RemoteLink_DefaultPeerName" xml:space="preserve">
+    <value>PC walqabsiifame</value>
+  </data>
+  <data name="RemoteLink_Online" xml:space="preserve">
+    <value>Toora irra</value>
+  </data>
+  <data name="RemoteLink_Offline" xml:space="preserve">
+    <value>Toora ala</value>
+  </data>
+  <data name="RemoteLink_PeerConnectedSuffix" xml:space="preserve">
+    <value>(walqabateera)</value>
+  </data>
+  <data name="RemoteLink_PeerPairedSuffix" xml:space="preserve">
+    <value>(walqabsiifameera)</value>
+  </data>
+  <data name="RemoteLink_StatusIdentityUpdated" xml:space="preserve">
+    <value>Eegumsi eenyummaa haaromfameera.</value>
+  </data>
+  <data name="RemoteLink_PasswordUnlockPrompt" xml:space="preserve">
+    <value>Eenyummaa kana banuuf jecha icciitii Remote Link kee galchi.</value>
+  </data>
+  <data name="RemoteLink_StatusWrongPassword" xml:space="preserve">
+    <value>Jechi icciitii Remote Link sirrii miti.</value>
+  </data>
+  <data name="RemoteLink_StatusConnecting" xml:space="preserve">
+    <value>Gara {0}:{1} tti walqunnamaa jira…</value>
+  </data>
+  <data name="RemoteLink_StatusStartFailed" xml:space="preserve">
+    <value>Jalqabuun hin milkoofne: {0}</value>
+  </data>
+  <data name="RemoteLink_StatusConnectFailed" xml:space="preserve">
+    <value>Walqunnamtiin hin milkoofne: {0}</value>
+  </data>
+  <data name="Macro_Sound_BrowseFiles" xml:space="preserve"><value>Faayiloota sakatta'i…</value></data>
+  <data name="PickSound_Title" xml:space="preserve"><value>Sagalee filadhu</value></data>
+  <data name="About_NAudio" xml:space="preserve"><value>NAudio</value></data>
+  <data name="About_Vosk" xml:space="preserve"><value>Vosk</value></data>
+  <data name="About_BouncyCastle" xml:space="preserve"><value>Bouncy Castle</value></data>
+  <data name="About_BthPS3" xml:space="preserve"><value>BthPS3</value></data>
+  <data name="About_DsHidMini" xml:space="preserve"><value>DsHidMini</value></data>
+  <data name="About_NefariusDevMgmt" xml:space="preserve"><value>Nefarius.Utilities.DeviceManagement</value></data>
+  <data name="About_Libusb" xml:space="preserve"><value>libusb</value></data>
+  <data name="About_Nipplejs" xml:space="preserve"><value>nipplejs</value></data>
+  <data name="About_GameControllerDb" xml:space="preserve"><value>SDL_GameControllerDB</value></data>
+  <data name="About_Xbledctl" xml:space="preserve"><value>xbledctl</value></data>
+  <data name="About_JoyShockMapper" xml:space="preserve"><value>JoyShockMapper</value></data>
+  <data name="About_GamepadMotionHelpers" xml:space="preserve"><value>GamepadMotionHelpers</value></data>
+  <data name="About_SteamControllerSinger" xml:space="preserve"><value>SteamControllerSinger</value></data>
+  <data name="About_SteamHapticsSinger" xml:space="preserve"><value>SteamHapticsSinger</value></data>
+  <data name="About_Hitboxer" xml:space="preserve"><value>hitboxer</value></data>
+  <data name="About_SteamKit2" xml:space="preserve"><value>SteamKit2</value></data>
+  <data name="About_ProtobufNet" xml:space="preserve"><value>protobuf-net</value></data>
+  <data name="About_ZstdSharp" xml:space="preserve"><value>ZstdSharp</value></data>
+  <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
+  <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
+  <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
+  <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
+  <data name="About_JoyconSinger" xml:space="preserve"><value>joycon-singer</value></data>
+  <data name="Devices_Pair" xml:space="preserve"><value>Walqabsiisi</value></data>
+  <data name="WiiPair_Title" xml:space="preserve"><value>Kontirolaa walqabsiisi</value></data>
+  <data name="WiiPair_FamilyWii" xml:space="preserve"><value>Nintendo Wii</value></data>
+  <data name="WiiPair_Pair" xml:space="preserve"><value>Walqabsiisi</value></data>
+  <data name="WiiPair_Searching" xml:space="preserve"><value>Barbaadaa jira. Amma qabduu SYNC tuqi.</value></data>
+  <data name="WiiPair_Found" xml:space="preserve"><value>Kontirolaawwan argaman</value></data>
+  <data name="WiiPair_SuccessFormat" xml:space="preserve"><value>{0} walqabsiifameera. Tarree meeshaa kee keessatti ni mul'ata.</value></data>
+  <data name="WiiPair_NoBluetooth" xml:space="preserve"><value>Raadiyoon Bluetooth hin argamne. Adaapterii Bluetooth walqabsiisiitii irra deebi'ii yaali.</value></data>
+  <data name="WiiPair_Failed" xml:space="preserve"><value>Walqabsiisni Wii xumuramuu hin dandeenye. Irra deebi'ii yaali.</value></data>
+  <data name="WiiPair_Done" xml:space="preserve"><value>Xumurameera</value></data>
+  <data name="WiiPair_FamilyDs3" xml:space="preserve"><value>Sony DualShock 3</value></data>
+  <data name="About_OpenVR" xml:space="preserve"><value>OpenVR API</value></data>
+  <data name="Vr_Status_Running" xml:space="preserve"><value>Hojjechaa jira</value></data>
+  <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Hojjechaa jira, draayivariin walqabateera</value></data>
+  <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
+  <data name="SerialPair_Port" xml:space="preserve"><value>Poortii</value></data>
+  <data name="SerialPair_Controller" xml:space="preserve"><value>Kontirolaa</value></data>
+  <data name="SerialPair_Added" xml:space="preserve"><value>Kontirolaawwan dabalaman</value></data>
+  <data name="SerialPair_AddedFormat" xml:space="preserve"><value>{0} {1} irratti dabalameera.</value></data>
+  <data name="SerialPair_NoPorts" xml:space="preserve"><value>Poortiin COM tokkollee hin jiru.</value></data>
+  <data name="DjiPair_Address" xml:space="preserve"><value>Teessoo</value></data>
+  <data name="MovePair_NoUsb" xml:space="preserve"><value>Kontirolaan PlayStation Move ykn Navigation USB irratti hin argamne. Keebilii USB'n walqabsiisiitii irra deebi'ii yaali.</value></data>
+  <data name="Ds3Pair_NoUsb" xml:space="preserve"><value>DualShock 3 USB irratti hin argamne. Keebilii USB'n walqabsiisiitii irra deebi'ii yaali.</value></data>
+  <data name="Ds3Pair_InstallFailed" xml:space="preserve"><value>Draayivariin Bluetooth kontirolaawwan PlayStation fe'amuu hin dandeenye.</value></data>
+  <data name="Ds3Pair_Failed" xml:space="preserve"><value>Walqabsiisni hin xumuramne. Tarkaanfiin hin milkoofne olitti agarsiifameera.</value></data>
+  <data name="Common_Close" xml:space="preserve"><value>Cufi</value></data>
+  <data name="Nfc_UidLabel" xml:space="preserve"><value>UID:</value></data>
+  <data name="Nfc_Waiting" xml:space="preserve"><value>(eegaa jira)</value></data>
+  <data name="Nfc_NameLabel" xml:space="preserve"><value>Maqaa:</value></data>
+  <data name="Nfc_RegisterButton" xml:space="preserve"><value>Galmeessi</value></data>
+  <data name="DeviceType_SystemMotion" xml:space="preserve"><value>Sochii sirnaa</value></data>
+  <data name="DeviceType_HeadTracker" xml:space="preserve"><value>Hordofaa mataa</value></data>
+  <data name="DeviceType_VrController" xml:space="preserve"><value>Kontirolaa VR</value></data>
+  <data name="DeviceType_AnalogKeyboard" xml:space="preserve"><value>Kiiboordii analoogii</value></data>
+  <data name="DeviceType_PeripheralHaptics" xml:space="preserve"><value>Haaptiksii</value></data>
+  <data name="DeviceType_PeripheralLighting" xml:space="preserve"><value>Ibsaa</value></data>
+  <data name="HeadTracker_Yaw" xml:space="preserve"><value>Yaawu mataa</value></data>
+  <data name="HeadTracker_Pitch" xml:space="preserve"><value>Piichii mataa</value></data>
+  <data name="HeadTracker_Roll" xml:space="preserve"><value>Roolii mataa</value></data>
+  <data name="HeadTracker_X" xml:space="preserve"><value>Mataa X</value></data>
+  <data name="HeadTracker_Y" xml:space="preserve"><value>Mataa Y</value></data>
+  <data name="HeadTracker_Z" xml:space="preserve"><value>Mataa Z</value></data>
+  <data name="VrCtl_Yaw" xml:space="preserve"><value>Yaawu kontirolaa</value></data>
+  <data name="VrCtl_Pitch" xml:space="preserve"><value>Piichii kontirolaa</value></data>
+  <data name="VrCtl_Roll" xml:space="preserve"><value>Roolii kontirolaa</value></data>
+  <data name="VrCtl_X" xml:space="preserve"><value>Kontirolaa X</value></data>
+  <data name="VrCtl_Y" xml:space="preserve"><value>Kontirolaa Y</value></data>
+  <data name="VrCtl_Z" xml:space="preserve"><value>Kontirolaa Z</value></data>
+  <data name="VrCtl_StickX" xml:space="preserve"><value>Sitikii X</value></data>
+  <data name="VrCtl_StickY" xml:space="preserve"><value>Sitikii Y</value></data>
+  <data name="VrCtl_Trigger" xml:space="preserve"><value>Tiriigarii</value></data>
+  <data name="VrCtl_Primary" xml:space="preserve"><value>Qabduu jalqabaa</value></data>
+  <data name="VrCtl_Secondary" xml:space="preserve"><value>Qabduu lammaffaa</value></data>
+  <data name="VrCtl_Menu" xml:space="preserve"><value>Qabduu baafataa</value></data>
+  <data name="Dashboard_HeadTracking" xml:space="preserve"><value>Hordoffii mataa</value></data>
+  <data name="Dashboard_HeadTrackingEnable" xml:space="preserve"><value>Galtee hordoffii UDP dandeessisi</value></data>
+  <data name="Dashboard_HeadTrackingFreeTrack" xml:space="preserve"><value>Galtee yaadannoo waloo FreeTrack 2.0 dandeessisi</value></data>
+  <data name="Dashboard_HeadTrackingOpenXr" xml:space="preserve"><value>Galtee heedseetii OpenXR dandeessisi</value></data>
+  <data name="Dashboard_HeadTrackingOpenXrSystemDefault" xml:space="preserve"><value>Durtii sirnaa</value></data>
+  <data name="HeadTracker_StatusOpenXr_Format" xml:space="preserve"><value>{0} dubbisaa jira</value></data>
+  <data name="Dashboard_HeadTrackingPort" xml:space="preserve"><value>Poortii UDP</value></data>
+  <data name="Dashboard_HeadTrackingPort_Tooltip" xml:space="preserve"><value>Poortii bahiinsi "UDP over network" OpenTrack itti ergu. Durtiin OpenTrack 4242 dha.</value></data>
+  <data name="Dashboard_HeadTrackingAxisYaw" xml:space="preserve"><value>Yaawu</value></data>
+  <data name="Dashboard_HeadTrackingAxisPitch" xml:space="preserve"><value>Piichii</value></data>
+  <data name="Dashboard_HeadTrackingAxisRoll" xml:space="preserve"><value>Roolii</value></data>
+  <data name="HeadTracker_StatusWaiting_Format" xml:space="preserve"><value>Poortii UDP {0} irratti hordofaa eegaa jira.</value></data>
+  <data name="HeadTracker_StatusUdp_Format" xml:space="preserve"><value>{0} irraa UDP dhaan fudhachaa jira.</value></data>
+  <data name="HeadTracker_StatusFreeTrack" xml:space="preserve"><value>Yaadannoo waloo FreeTrack irraa fudhachaa jira.</value></data>
+  <data name="HeadTracker_StatusPortInUse_Format" xml:space="preserve"><value>Poortii UDP {0} sagantaa biraatiin hojii irra jira.</value></data>
+  <data name="HeadTracker_StatusFreeTrackFailed_Format" xml:space="preserve"><value>Poortii UDP {0} irratti hordofaa eegaa jira. Yaadannoo waloo FreeTrack banuun hin danda'amne.</value></data>
+  <data name="HeadTracker_StatusFreeTrackAlso" xml:space="preserve"><value>Yaadannoo waloo FreeTrack banuunis hin danda'amne.</value></data>
+  <data name="Handheld_ManageButton" xml:space="preserve"><value>Qabduuwwan dhokataa baradhu / bulchi</value></data>
+  <data name="Handheld_Title" xml:space="preserve"><value>Qabduuwwan dhokataa</value></data>
+  <data name="Handheld_LearnHeader" xml:space="preserve"><value>Qabduu baradhu</value></data>
+  <data name="Handheld_StartButton" xml:space="preserve"><value>Barachuu jalqabi</value></data>
+  <data name="Handheld_PhasePress" xml:space="preserve"><value>Amma qabduu dhokataa tuqi, achii gadhiisi…</value></data>
+  <data name="Handheld_PhaseRelease" xml:space="preserve"><value>Xiqqoo eegi…</value></data>
+  <data name="Handheld_Captured" xml:space="preserve"><value>Qabduun qabameera. Maqaa galchii Galmeessi cuqaasi.</value></data>
+  <data name="Handheld_SourceLabel" xml:space="preserve"><value>Madda:</value></data>
+  <data name="Handheld_NameLabel" xml:space="preserve"><value>Maqaa:</value></data>
+  <data name="Handheld_RegisterButton" xml:space="preserve"><value>Galmeessi</value></data>
+  <data name="Handheld_RegisteredHeader" xml:space="preserve"><value>Qabduuwwan baratamani</value></data>
+  <data name="Handheld_NoneLearned" xml:space="preserve"><value>Hanga ammaatti qabduun baratame hin jiru.</value></data>
+  <data name="Handheld_RegisteredFormat" xml:space="preserve"><value>"{0}" galmaa'eera. Kan biraa barachuuf irra deebi'ii jalqabi.</value></data>
+  <data name="Handheld_ChordFormat" xml:space="preserve"><value>Furtuuwwan: {0}</value></data>
+  <data name="Handheld_DaemonWarning_Format" xml:space="preserve"><value>{0} hojjechaa jira. Hanga ati dhaabdutti qabduuwwan kanaaf deebii kennuu itti fufa.</value></data>
+  <data name="Handheld_Export" xml:space="preserve"><value>Al-ergi…</value></data>
+  <data name="Handheld_Import" xml:space="preserve"><value>Galchi…</value></data>
+  <data name="Handheld_ExportedFormat" xml:space="preserve"><value>Qabduuwwan {0} al-ergamaniiru.</value></data>
+  <data name="Handheld_ImportedFormat" xml:space="preserve"><value>Qabduuwwan {0} galfamaniiru.</value></data>
+  <data name="Pad_Mouse" xml:space="preserve"><value>Maawusii</value></data>
+  <data name="Pad_MouseGestures_Header" xml:space="preserve"><value>Mallattoowwan maawusii</value></data>
+  <data name="Pad_MouseGestures_Enabled" xml:space="preserve"><value>Mallattoowwan maawusii dandeessisi</value></data>
+  <data name="Pad_MouseGestures_Button" xml:space="preserve"><value>Qabduuwwan mallattoo</value></data>
+  <data name="Pad_ResetMouseGestures" xml:space="preserve"><value>Mallattoowwan maawusii deebisi</value></data>
+  <data name="Pad_ResetMouseGestureButton" xml:space="preserve"><value>Qabduuwwan mallattoo deebisi</value></data>
+  <data name="Mapping_MouseGestureLeft" xml:space="preserve"><value>Bitaa</value></data>
+  <data name="Mapping_MouseGestureRight" xml:space="preserve"><value>Mirga</value></data>
+  <data name="Mapping_MouseGestureUp" xml:space="preserve"><value>Ol</value></data>
+  <data name="Mapping_MouseGestureDown" xml:space="preserve"><value>Gadi</value></data>
+  <data name="Mapping_MouseGestureClick" xml:space="preserve"><value>Cuqaasuu</value></data>
+  <data name="Mapping_MouseGestureCustom" xml:space="preserve"><value>Dhuunfaa</value></data>
+  <data name="Mapping_MouseGesture_Format" xml:space="preserve"><value>Mallattoo maawusii: {0} + {1}</value></data>
+  <data name="Macro_GuideLedBrightnessName" xml:space="preserve"><value>Ifa LED qabduu Guide</value></data>
+  <data name="MacroAction_Type_SwitchLayer" xml:space="preserve"><value>Sadarkaa jijjiiri</value></data>
+  <data name="Macro_Dreamcast_Pictures" xml:space="preserve"><value>Fakkiiwwan</value></data>
+  <data name="Macro_Dreamcast_AddPicture" xml:space="preserve"><value>Fakkii dabali…</value></data>
+  <data name="Macro_Dreamcast_RemoveTooltip" xml:space="preserve"><value>Fakkii balleessi</value></data>
+  <data name="Macro_Dreamcast_Repeat" xml:space="preserve"><value>Lakkoofsa irra deebii</value></data>
+  <data name="MacroAction_SwitchLayer_Format" xml:space="preserve"><value>Gara sadarkaa {0}-tti jijjiiri</value></data>
+  <data name="Pad_Lighting_GuideLed" xml:space="preserve"><value>LED qabduu Guide</value></data>
+  <data name="Pad_Lighting_GuideLed_DeviceDefault" xml:space="preserve"><value>Durtii meeshaa</value></data>
+  <data name="Pad_Lighting_GuideLed_Fixed" xml:space="preserve"><value>Ifa dhaabbataa</value></data>
+  <data name="Pad_Lighting_GuideLed_Battery" xml:space="preserve"><value>Hamma baatirii</value></data>
+  <data name="Pad_Lighting_GuideLed_Brightness" xml:space="preserve"><value>Ifa</value></data>
+  <data name="Pad_Lighting_GuideLed_Brightness_Tooltip" xml:space="preserve"><value>Ifa LED qabduu Guide 0% (cufaa) hanga 100% (guutuu). Yeroo haalli Ifa dhaabbataa ta'etti hojjeta.</value></data>
+  <data name="Pad_ResetGuideLed" xml:space="preserve"><value>LED qabduu Guide deebisi</value></data>
+  <data name="Pad_ResetGuideLedMode" xml:space="preserve"><value>Haala LED Guide deebisi</value></data>
+  <data name="Pad_ResetGuideLedBrightness" xml:space="preserve"><value>Ifa LED Guide deebisi</value></data>
+  <data name="MacroAction_Type_GuideLedBrightness" xml:space="preserve"><value>Ifa LED Guide qindeessi</value></data>
+  <data name="MacroAction_GuideLedBrightness_Format" xml:space="preserve"><value>Ifa LED Guide: {0}%</value></data>
+  <data name="Pad_Mapping_MotionMode" xml:space="preserve"><value>Haala sochii</value></data>
+  <data name="Pad_Mapping_MotionSpeed_Name" xml:space="preserve"><value>Saffisa</value></data>
+  <data name="Pad_Mapping_MotionAngle_Name" xml:space="preserve"><value>Golee</value></data>
+  <data name="Pad_Mapping_MotionTopSpeed" xml:space="preserve"><value>Saffisa ol'aanaa</value></data>
+  <data name="Pad_Mapping_MotionStartSpeed" xml:space="preserve"><value>Saffisa jalqabaa</value></data>
+  <data name="Pad_Mapping_MotionDeadzone" xml:space="preserve"><value>Deedzoonii sochii</value></data>
+  <data name="Pad_Mapping_TrimReset" xml:space="preserve">
+    <value>Yeroo gadhiifamu deebisi</value>
+  </data>
+  <data name="Workshop_SearchPlaceholder" xml:space="preserve"><value>Taphoota barbaadi</value></data>
+  <data name="Workshop_GamesCount_Format" xml:space="preserve"><value>Taphoota {0}</value></data>
+  <data name="Workshop_NoGamesFound" xml:space="preserve"><value>Gabaa Steam irratti taphni hin argamne.</value></data>
+  <data name="Workshop_SearchingSteam" xml:space="preserve"><value>Steam barbaadaa jira…</value></data>
+  <data name="Workshop_Sort_Newest" xml:space="preserve"><value>Haaraa</value></data>
+  <data name="Workshop_Found_Format" xml:space="preserve"><value>{0} argamaniiru</value></data>
+  <data name="Workshop_ShowingOf_Format" xml:space="preserve"><value>{1} keessaa {0} agarsiisaa jira</value></data>
+  <data name="Workshop_BackToSearch" xml:space="preserve"><value>Taphoota barbaadi</value></data>
+  <data name="Workshop_TimeToday" xml:space="preserve"><value>har'a</value></data>
+  <data name="Workshop_TimeDays_Format" xml:space="preserve"><value>{0} guyyaa dura</value></data>
+  <data name="Workshop_TimeMonths_Format" xml:space="preserve"><value>{0} ji'a dura</value></data>
+  <data name="Workshop_TimeYears_Format" xml:space="preserve"><value>{0} waggaa dura</value></data>
+  <data name="Workshop_TagAll" xml:space="preserve"><value>Hunda</value></data>
+  <data name="Workshop_Retry" xml:space="preserve"><value>Irra deebi'ii yaali</value></data>
+  <data name="Workshop_LegacyOpenButton" xml:space="preserve"><value>Steam Workshop keessatti bani</value></data>
+  <data name="Workshop_SaveProfile" xml:space="preserve"><value>Piroofaayilii olkaa'i</value></data>
+  <data name="Workshop_SaveAndApply" xml:space="preserve"><value>Olkaa'ii hojii irra oolchi</value></data>
+  <data name="Workshop_Tr_RowEmitted" xml:space="preserve"><value>hiikameera</value></data>
+  <data name="Workshop_Tr_MacroEmitted" xml:space="preserve"><value>akka maakrootti hiikameera</value></data>
+  <data name="Workshop_Tr_ShiftLayerEmitted" xml:space="preserve"><value>sadarkaa: {0}</value></data>
+  <data name="Workshop_Tr_UnknownKey" xml:space="preserve"><value>furtuu hin beekamne {0}</value></data>
+  <data name="Workshop_Tr_UnknownMouseButton" xml:space="preserve"><value>qabduu maawusii hin beekamne {0}</value></data>
+  <data name="Workshop_Tr_UnknownXInputButton" xml:space="preserve"><value>qabduu XInput hin beekamne {0}</value></data>
+  <data name="Workshop_Tr_UnknownActivatorType" xml:space="preserve"><value>kaasaa hin beekamne {0}</value></data>
+  <data name="Status_WorkshopCheckingUpdates" xml:space="preserve"><value>Steam Workshop irratti haaromsa ilaalaa jira…</value></data>
+  <data name="Workshop_UpdatesTitle" xml:space="preserve"><value>Haaromsa Workshop</value></data>
+  <data name="Workshop_UpdateRow_Format" xml:space="preserve"><value>{0} · {1}</value></data>
+  <data name="Macro_Toggle" xml:space="preserve"><value>Jijjiiri</value></data>
+  <data name="Macro_Turbo" xml:space="preserve"><value>Turboo</value></data>
+  <data name="Macro_TriggerHoldMs_Label" xml:space="preserve"><value>Yeroo qabachuu</value></data>
+  <data name="MacroAction_RepeatVcButtonWhileHeld_Format" xml:space="preserve"><value>{0} {1} ms keessatti al tokko irra deebi'i</value></data>
+  <data name="MacroAction_Type_ToggleVcButton" xml:space="preserve"><value>Qabduu jijjiiri</value></data>
+  <data name="MacroAction_ToggleVcButton_Format" xml:space="preserve"><value>{0} jijjiiri</value></data>
+  <data name="MacroAction_Type_ToggleKey" xml:space="preserve"><value>Furtuu jijjiiri</value></data>
+  <data name="MacroAction_Type_AxisHold" xml:space="preserve"><value>Aksisii qabadhu</value></data>
+  <data name="MacroAction_HoldAxis_Format" xml:space="preserve"><value>{0} = {1} qabadhu ({2} ms)</value></data>
+  <data name="MacroAction_MouseNudge_Format" xml:space="preserve"><value>Kursarii ({0}, {1}) px sochoosi</value></data>
+  <data name="MacroAction_Type_ToggleMouseButton" xml:space="preserve"><value>Qabduu maawusii jijjiiri</value></data>
+  <data name="MacroAction_ToggleMouseButton_Format" xml:space="preserve"><value>Maawusii {0} jijjiiri</value></data>
+  <data name="MacroAction_Type_ToggleVcAxis" xml:space="preserve"><value>Aksisii jijjiiri</value></data>
+  <data name="MacroAction_ToggleVcAxis_Format" xml:space="preserve"><value>{0} = {1} jijjiiri</value></data>
+  <data name="MacroAction_AllAxes" xml:space="preserve"><value>Aksisiiwwan hunda</value></data>
+  <data name="Macro_CycleSteps_Label" xml:space="preserve"><value>Tarkaanfiiwwan</value></data>
+  <data name="MacroAction_ToggleKey_Format" xml:space="preserve"><value>Furtuuwwan {0} jijjiiri</value></data>
+  <data name="Mapping_AnyDevice" xml:space="preserve"><value>(Meeshaa kamiyyuu)</value></data>
+  <data name="Menu_NewNameFormat" xml:space="preserve"><value>Baafata {0}</value></data>
+  <data name="Menu_Name" xml:space="preserve"><value>Maqaa baafataa</value></data>
+  <data name="Menu_Enabled" xml:space="preserve"><value>Dandeessifame</value></data>
+  <data name="Menu_Style" xml:space="preserve"><value>Akkaataa</value></data>
+  <data name="Menu_Host_LeftStick" xml:space="preserve"><value>Sitikii bitaa</value></data>
+  <data name="Menu_Host_RightStick" xml:space="preserve"><value>Sitikii mirgaa</value></data>
+  <data name="Menu_Host_Touchpad_Format" xml:space="preserve"><value>Taachpaadii {0}</value></data>
+  <data name="Menu_Half_Left" xml:space="preserve"><value>Walakkaa bitaa</value></data>
+  <data name="Menu_Half_Right" xml:space="preserve"><value>Walakkaa mirgaa</value></data>
+  <data name="Menu_Position" xml:space="preserve"><value>Bakka iskiriinii</value></data>
+  <data name="Menu_Scale" xml:space="preserve"><value>Guddina</value></data>
+  <data name="Menu_CellCenter" xml:space="preserve"><value>Giddu-gala</value></data>
+  <data name="Menu_Binding_None" xml:space="preserve"><value>Homaa</value></data>
+  <data name="Menu_Binding_Key" xml:space="preserve"><value>Furtuu kiiboordii</value></data>
+  <data name="Menu_NotRecorded" xml:space="preserve"><value>(hin qindoofne)</value></data>
+  <data name="Dashboard_MenuOverlay" xml:space="preserve"><value>Oovarleeyii baafataa</value></data>
+  <data name="Dashboard_ProfileOverlay" xml:space="preserve"><value>Oovarleeyii jijjiirraa piroofaayilii</value></data>
+  <data name="Pad_Tab_Output" xml:space="preserve"><value>Bahiinsa</value></data>
+  <data name="Pad_RumbleAudio_Card_Header" xml:space="preserve"><value>Raafama gara sagaleetti</value></data>
+  <data name="Pad_RumbleAudio_OutputDevice" xml:space="preserve"><value>Meeshaa bahiinsaa</value></data>
+  <data name="Pad_RumbleAudio_ResetOutputDevice" xml:space="preserve"><value>Meeshaa bahiinsaa deebisi</value></data>
+  <data name="Pad_RumbleAudio_Status_Inactive" xml:space="preserve"><value>Bahiinsi sagalee hojii irra hin jiru.</value></data>
+  <data name="Pad_RumbleAudio_Status_Active_Format" xml:space="preserve"><value>{0} irratti taphachiisaa jira.</value></data>
+  <data name="Pad_RumbleAudio_Status_Missing" xml:space="preserve"><value>Meeshaan bahiinsaa filatame hin argamu. Hamma deebi'utti sagaleen cufaa ta'ee tura.</value></data>
+  <data name="Pad_RumbleAudio_Voice_TriggerLeft" xml:space="preserve"><value>Tiriigarii bitaa</value></data>
+  <data name="Pad_RumbleAudio_Voice_TriggerRight" xml:space="preserve"><value>Tiriigarii mirgaa</value></data>
+  <data name="Pad_RumbleAudio_Test" xml:space="preserve"><value>Qori</value></data>
+  <data name="Pad_RumbleAudio_ResetVoiceHigh" xml:space="preserve"><value>Mootora ol'aanaa deebisi</value></data>
+  <data name="Pad_RumbleAudio_ResetVoiceTriggerLeft" xml:space="preserve"><value>Tiriigarii bitaa deebisi</value></data>
+  <data name="Pad_RumbleAudio_ResetVoiceTriggerRight" xml:space="preserve"><value>Tiriigarii mirgaa deebisi</value></data>
+  <data name="Pad_RumbleAudio_StopTest" xml:space="preserve"><value>Dhaabi</value></data>
+  <data name="Mapping_AnyVoicePhrase" xml:space="preserve"><value>Gaalee sagalee kamiyyuu</value></data>
+  <data name="Mapping_VoicePhraseNamed" xml:space="preserve"><value>Gaalee sagalee: {0}</value></data>
+  <data name="Settings_GyroCalibrateFailed" xml:space="preserve"><value>Kaalibireeshiniin hin milkoofne. Kontirolaa lafa kaa'iitii irra deebi'ii yaali.</value></data>
+  <data name="LegacyCleanup_Failed_Format" xml:space="preserve"><value>Qulqulleessa irratti dogoggorri uumame: {0}</value></data>
+  <data name="Tray_Exit" xml:space="preserve"><value>Ba'i</value></data>
+  <data name="About_Libinput" xml:space="preserve">
+    <value>libinput</value>
+  </data>
+  <data name="About_HandheldCompanion" xml:space="preserve">
+    <value>Handheld Companion</value>
+  </data>
+  <data name="About_GamepadAssetPack" xml:space="preserve">
+    <value>Gamepad-Asset-Pack</value>
+  </data>
+  <data name="About_Ds4Mac" xml:space="preserve">
+    <value>ds4mac</value>
+  </data>
+  <data name="Starter_Wasd_Name" xml:space="preserve"><value>WASD fi Maawusii</value></data>
+  <data name="Starter_Fighting_Name" xml:space="preserve"><value>Taphoota lolaa</value></data>
+  <data name="Starter_OutputKeyboardMouse" xml:space="preserve"><value>Kiiboordii + Maawusii</value></data>
+  <data name="Profiles_BrowseStarters" xml:space="preserve"><value>Piroofaayilii jalqabaa ilaali</value></data>
+  <data name="Starter_DialogTitle" xml:space="preserve"><value>Piroofaayilii jalqabaa</value></data>
+  <data name="Starter_Intro" xml:space="preserve"><value>Piroofaayilii qophaa'an gosa tapha guutuuf. Tokko filadhu, kontirolaa kamiyyuu ramadi, taphadhu. Olkaa'uun piroofaayilii idilee ati gulaaluu dandeessu ida'a.</value></data>
+  <data name="Starter_Save" xml:space="preserve"><value>Piroofaayilii olkaa'i</value></data>
+  <data name="Status_StarterImported_Format" xml:space="preserve"><value>Piroofaayilii jalqabaa "{0}" dabalameera.</value></data>
+  <data name="Starter_Strategy_Name" xml:space="preserve"><value>Tarsiimoo</value></data>
+  <data name="Starter_Racing_Name" xml:space="preserve"><value>Dorgommii</value></data>
+  <data name="Starter_Layer_Hotkeys" xml:space="preserve"><value>Furtuuwwan gabaabaa</value></data>
+  <data name="Pad_Audio_Crossfeed_Off" xml:space="preserve"><value>Cufaa</value></data>
+  <data name="Pad_Audio_Crossfeed_Low" xml:space="preserve"><value>Gad aanaa</value></data>
+  <data name="Pad_Audio_Crossfeed_Middle" xml:space="preserve"><value>Giddu-galeessa</value></data>
+  <data name="Pad_Audio_Crossfeed_High" xml:space="preserve"><value>Ol'aanaa</value></data>
+  <data name="Pad_Audio_Crossfeed_LowEasy" xml:space="preserve"><value>Gad aanaa (Salphaa)</value></data>
+  <data name="Pad_Audio_Crossfeed_MiddleEasy" xml:space="preserve"><value>Giddu-galeessa (Salphaa)</value></data>
+  <data name="Pad_Audio_Crossfeed_HighEasy" xml:space="preserve"><value>Ol'aanaa (Salphaa)</value></data>
+  <data name="Pad_Audio_Crossfeed_Custom" xml:space="preserve"><value>Kan dhuunfaa</value></data>
+  <data name="Pad_Audio_EqCol_On" xml:space="preserve"><value>Banaa</value></data>
+  <data name="Pad_Audio_EqCol_Type" xml:space="preserve"><value>Gosa</value></data>
+  <data name="Pad_Audio_EqCol_Q" xml:space="preserve"><value>Q</value></data>
+  <data name="Pad_Audio_EqClear" xml:space="preserve"><value>Qulqulleessi</value></data>
+  <data name="Pad_Audio_EqImportFile" xml:space="preserve"><value>Faayilii irraa galchi</value></data>
+  <data name="Pad_Audio_EqImport_ReadFailed_Format" xml:space="preserve"><value>Faayilii sana dubbisuun hin danda'amne: {0}</value></data>
+  <data name="Pad_Audio_OutputPath_Auto" xml:space="preserve"><value>Durtii</value></data>
+  <data name="Pad_Audio_OutputPath_SpeakerOnly" xml:space="preserve"><value>Spiikarii qofa</value></data>
+  <data name="About_DuaLib" xml:space="preserve"><value>duaLib</value></data>
+  <data name="About_Ds5Bridge" xml:space="preserve"><value>DS5_Bridge</value></data>
+  <data name="About_QrCodeGen" xml:space="preserve"><value>QR-Code-generator</value></data>
+  <data name="About_MouseArt" xml:space="preserve"><value>Zergatul.Obs.InputOverlay</value></data>
+  <data name="RemoteLink_StatusConnectingCode" xml:space="preserve"><value>Koodiin walqunnamaa jira…</value></data>
+  <data name="Dashboard_RemoteLinkMyCode" xml:space="preserve"><value>Koodii PC kanaa</value></data>
+  <data name="Battery_LowTitle" xml:space="preserve"><value>Baatiriin kontirolaa gad bu'eera</value></data>
+  <data name="Battery_LowText_Format" xml:space="preserve"><value>{0}: baatirii {1}% hafe</value></data>
+  <data name="Settings_BatteryNotify" xml:space="preserve"><value>Akeekkachiisa baatirii</value></data>
+  <data name="Settings_BatteryNotifyDesc" xml:space="preserve"><value>Yeroo baatiriin kontirolaa gad bu'u, osoo tapha gidduutti hin dhaamin dura beeksisa argadhu.</value></data>
+  <data name="Settings_BatteryNotifyEnable" xml:space="preserve"><value>Yeroo baatiriin gad bu'u beeksisi</value></data>
+  <data name="Settings_BatteryNotifyVibrate" xml:space="preserve"><value>Kontirolaa illee raasi</value></data>
+  <data name="Settings_BatteryNotifyTest" xml:space="preserve"><value>Beeksisa yaalii</value></data>
+  <data name="Pad_AssignOffer_Format" xml:space="preserve"><value>{0} amma wal qunnamee jira. Kontirolaa fakkeessaa kanatti ramaduu barbaaddaa?</value></data>
+  <data name="Pad_AssignOffer_Assign" xml:space="preserve"><value>Ramadi</value></data>
+  <data name="Pad_AssignOffer_Dismiss" xml:space="preserve"><value>Amma miti</value></data>
+  <data name="Voice_AnyPhrase" xml:space="preserve"><value>Gaalee kamiyyuu</value></data>
+  <data name="Voice_Title" xml:space="preserve"><value>Maakroolee sagalee</value></data>
+  <data name="Voice_ManageButton" xml:space="preserve"><value>Maakroolee sagalee bulchi</value></data>
+  <data name="Voice_EnableLabel" xml:space="preserve"><value>Maakroolee sagalee dandeessisi</value></data>
+  <data name="Voice_ModeLabel" xml:space="preserve"><value>Dhaggeeffachuu</value></data>
+  <data name="Voice_ModeAlways" xml:space="preserve"><value>Yeroo hunda</value></data>
+  <data name="Voice_PhraseLabel" xml:space="preserve"><value>Gaalee</value></data>
+  <data name="Voice_NameLabel" xml:space="preserve"><value>Maqaa</value></data>
+  <data name="Voice_RegisterButton" xml:space="preserve"><value>Galmeessi</value></data>
+  <data name="Voice_RegisteredHeader" xml:space="preserve"><value>Gaaleewwan galmaa'an</value></data>
+  <data name="DeviceType_Microphone" xml:space="preserve"><value>Maaykiroofoonii</value></data>
+  <data name="Menu_Macro_Missing_Format" xml:space="preserve"><value>{0} (maakroon akkasii hin jiru)</value></data>
+  <data name="About_Interhaptics" xml:space="preserve">
+    <value>Interhaptics (Wyvrn)</value>
+  </data>
+  <data name="About_Colore" xml:space="preserve">
+    <value>Colore</value>
+  </data>
+  <data name="About_Opentrack" xml:space="preserve">
+    <value>opentrack</value>
+  </data>
+  <data name="About_LegionToolkit" xml:space="preserve">
+    <value>Lenovo Legion Toolkit</value>
+  </data>
+  <data name="About_InputPlumber" xml:space="preserve">
+    <value>InputPlumber</value>
+  </data>
+  <data name="About_Linuxmotehook" xml:space="preserve">
+    <value>linuxmotehook fi WiimoteHook</value>
+  </data>
+  <data name="About_OpenXrRefs" xml:space="preserve"><value>Wabiilee OpenXR</value></data>
+  <data name="About_PortMidiRtMidi" xml:space="preserve"><value>PortMidi / RtMidi</value></data>
+  <data name="About_AnalogKeyboardRefs" xml:space="preserve"><value>HallJoy, Soup fi AnalogSense</value></data>
+  <data name="About_BlissBoxRefs" xml:space="preserve"><value>Wabiilee Bliss-Box</value></data>
+  <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
+  <data name="Pad_Kbm_Surfaces_MouseOnly_Name" xml:space="preserve">
+    <value>Maawusii qofa</value>
+  </data>
+  <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
+    <value>Kiiboordii qofa</value>
+  </data>
+  <data name="Pad_Mapping_Scope_All" xml:space="preserve">
+    <value>Hunda</value>
+  </data>
+  <data name="Pad_Mapping_Scope_Keyboard" xml:space="preserve">
+    <value>Kiiboordii</value>
+  </data>
+  <data name="Pad_Mapping_Scope_Mouse" xml:space="preserve">
+    <value>Maawusii</value>
+  </data>
+  <data name="Menu_Layer" xml:space="preserve"><value>Sadarkaa</value></data>
+  <data name="Menu_Layer_Missing_Format" xml:space="preserve"><value>{0} (iddoo kana irratti hin tarreeffamne)</value></data>
+  <data name="RemoteLink_AssignDevices" xml:space="preserve">
+    <value>Meeshaalee qoodaman ramadi</value>
+  </data>
+  <data name="RemoteLink_AssignmentTitle_Format" xml:space="preserve">
+    <value>Ramaddiiwwan {0} irratti</value>
+  </data>
+  <data name="RemoteLink_AssignmentDescription" xml:space="preserve">
+    <value>Meeshaa PC kanaan qoodame filadhu, achiis kontirolaa fakkeessaa isaa PC isa kaan irratti filadhu.</value>
+  </data>
+  <data name="RemoteLink_AssignmentProfile_Format" xml:space="preserve">
+    <value>Piroofaayilii: {0}</value>
+  </data>
+  <data name="RemoteLink_AssignmentUnavailable" xml:space="preserve">
+    <value>Meeshaan ykn walqunnamtiin hin argamu. Irra deebi'ii walqunnamsiisiitii foddaa kana irra deebi'ii bani.</value>
+  </data>
+  <data name="RemoteLink_AssignmentStale" xml:space="preserve">
+    <value>Qindaa'inni PC isa kaan irratti jijjiirameera. Ramaddiiwwan ilaaliitii irra deebi'ii yaali.</value>
+  </data>
+  <data name="RemoteLink_AssignmentNoSlots" xml:space="preserve">
+    <value>PC isa kaan irratti kontirolaa fakkeessaa uumi, achiis haaromsi.</value>
+  </data>
+  <data name="RemoteLink_AssignmentBusy" xml:space="preserve">
+    <value>PC isa kaan eegaa jira...</value>
+  </data>
+  <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Aksisii fakkeessaa</value></data>
+  <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Sitikii bitaa X</value></data>
+  <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Sitikii bitaa Y</value></data>
+  <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Sitikii mirgaa X</value></data>
+  <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Sitikii mirgaa Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Deedzoonii giddu-galeessaa</value></data>
+  <data name="Common_ResetToOff" xml:space="preserve"><value>Gara cufaatti deebisi</value></data>
+  <data name="Pad_SteeringAngleRumble_ResetStrength" xml:space="preserve"><value>Cimina deebisi (50%)</value></data>
+  <data name="Pad_SteeringAngleRumble_ResetDeadzone" xml:space="preserve"><value>Deedzoonii giddu-galeessaa deebisi (2%)</value></data>
+  <data name="ResetLabel_Profile" xml:space="preserve"><value>Piroofaayilii</value></data>
+  <data name="ResetLabel_Formula" xml:space="preserve"><value>Foormulaa</value></data>
+  <data name="ResetLabel_SourceType" xml:space="preserve"><value>Gosa madda</value></data>
+  <data name="ResetLabel_LowColor" xml:space="preserve"><value>Halluu gad aanaa</value></data>
+  <data name="ResetLabel_MidColor" xml:space="preserve"><value>Halluu giddu-galeessaa</value></data>
+  <data name="ResetLabel_HighColor" xml:space="preserve"><value>Halluu ol'aanaa</value></data>
+  <data name="Status_SteamCmdTimedOut" xml:space="preserve"><value>steamcmd daqiiqaa 60 keessatti hin xumurre.</value></data>
+  <data name="Status_RemovingLegacyDrivers" xml:space="preserve"><value>Draayivarii durii haquu jira…</value></data>
+  <data name="About_Nefcon" xml:space="preserve"><value>nefcon</value></data>
+  <data name="About_Kaldi" xml:space="preserve"><value>Kaldi, OpenFst, OpenBLAS fi CLAPACK</value></data>
+  <data name="About_AntiMicroX" xml:space="preserve"><value>AntiMicroX</value></data>
+  <data name="About_AudioEndPointLibrary" xml:space="preserve"><value>AudioEndPointLibrary</value></data>
+  <data name="About_AutoEq" xml:space="preserve"><value>AutoEq</value></data>
+  <data name="About_AutoHotkey" xml:space="preserve"><value>AutoHotkey</value></data>
+  <data name="About_CemuhookProtocol" xml:space="preserve"><value>cemuhook-protocol</value></data>
+  <data name="About_Ds4Drv" xml:space="preserve"><value>ds4drv</value></data>
+  <data name="About_Ds4MapperTest" xml:space="preserve"><value>DS4MapperTest</value></data>
+  <data name="About_Ds5Dongle" xml:space="preserve"><value>DS5Dongle</value></data>
+  <data name="About_DualSenseSupport" xml:space="preserve"><value>DualSenseSupport</value></data>
+  <data name="About_Eden" xml:space="preserve"><value>Eden</value></data>
+  <data name="About_EdRefCard2" xml:space="preserve"><value>EDRefCard2</value></data>
+  <data name="About_FFmpeg" xml:space="preserve"><value>FFmpeg</value></data>
+  <data name="About_Fusion" xml:space="preserve"><value>Fusion</value></data>
+  <data name="About_Hado" xml:space="preserve"><value>hado</value></data>
+  <data name="About_3doverstock" xml:space="preserve"><value>3doverstock</value></data>
+  <data name="About_Hidapi" xml:space="preserve"><value>HIDAPI</value></data>
+  <data name="About_IrohFlexInput" xml:space="preserve"><value>iroh / FlexInput</value></data>
+  <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
+  <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
+  <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>
+  <data name="About_SwitchResearch" xml:space="preserve"><value>Nintendo_Switch_Reverse_Engineering</value></data>
+  <data name="About_OpenRgb" xml:space="preserve"><value>OpenRGB</value></data>
+  <data name="About_OpenTabletDriver" xml:space="preserve"><value>OpenTabletDriver</value></data>
+  <data name="About_PcscSharp" xml:space="preserve"><value>pcsc-sharp</value></data>
+  <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
+  <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
+  <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
+  <data name="About_SpaceMouseRefs" xml:space="preserve"><value>Wabiilee SpaceMouse</value></data>
+  <data name="About_SpecialK" xml:space="preserve"><value>Special K</value></data>
+  <data name="About_Touchmote" xml:space="preserve"><value>Touchmote</value></data>
+  <data name="About_TriggerEffectGenerator" xml:space="preserve"><value>TriggerEffectGenerator</value></data>
+  <data name="About_ViGEmClient" xml:space="preserve"><value>ViGEmClient</value></data>
+  <data name="About_GunConRefs" xml:space="preserve"><value>Wabiilee GunCon</value></data>
+  <data name="About_IForceRefs" xml:space="preserve"><value>Wabiilee I-Force</value></data>
+  <data name="About_RingConRefs" xml:space="preserve"><value>Wabiilee Ring-Con</value></data>
+  <data name="About_XboxControllerRefs" xml:space="preserve"><value>Wabiilee kontirolaa Xbox</value></data>
+  <data name="About_Libwdi" xml:space="preserve"><value>libwdi</value></data>
+  <data name="About_Bluepad32" xml:space="preserve"><value>Bluepad32</value></data>
+  <data name="About_Monado" xml:space="preserve"><value>Monado</value></data>
+  <data name="About_OpenHmd" xml:space="preserve"><value>OpenHMD</value></data>
+  <data name="About_WiiBrew" xml:space="preserve"><value>WiiBrew</value></data>
+  <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
+  <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
+</root>

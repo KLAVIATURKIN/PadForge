@@ -1,0 +1,1179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <!-- ═══ Common ═══ -->
+  <data name="Common_Save" xml:space="preserve"><value>Khaws cia</value></data>
+  <data name="Common_Cancel" xml:space="preserve"><value>Tso tseg</value></data>
+  <data name="Common_Delete" xml:space="preserve"><value>Rho tawm</value></data>
+  <data name="Common_Add" xml:space="preserve"><value>Ntxiv</value></data>
+  <data name="Common_Remove" xml:space="preserve"><value>Tshem tawm</value></data>
+  <data name="Common_OK" xml:space="preserve"><value>OK</value></data>
+  <data name="Common_Install" xml:space="preserve"><value>Nruab</value></data>
+  <data name="Common_Refresh" xml:space="preserve"><value>Ua kom tshiab</value></data>
+  <data name="Common_Copy" xml:space="preserve"><value>Theej</value></data>
+  <data name="Common_Paste" xml:space="preserve"><value>Lo</value></data>
+  <data name="Common_Enabled" xml:space="preserve"><value>Qhib</value></data>
+  <data name="Common_Disabled" xml:space="preserve"><value>Kaw</value></data>
+  <data name="Common_Installed" xml:space="preserve"><value>Nruab lawm</value></data>
+  <data name="Common_NotInstalled" xml:space="preserve"><value>Tsis tau nruab</value></data>
+  <data name="Common_Ready" xml:space="preserve"><value>Npaj txhij</value></data>
+  <data name="Common_Stopped" xml:space="preserve"><value>Nres lawm</value></data>
+  <data name="Common_Running" xml:space="preserve"><value>Tab tom khiav</value></data>
+  <data name="Common_Stopping" xml:space="preserve"><value>Tab tom nres…</value></data>
+  <data name="Server_RunningOn_Format" xml:space="preserve"><value>Tab tom khiav ntawm {0}</value></data>
+  <data name="Server_FailedToStart" xml:space="preserve"><value>Pib tsis tau</value></data>
+  <data name="Common_Unknown" xml:space="preserve"><value>Tsis paub</value></data>
+  <data name="Common_Default" xml:space="preserve"><value>Neej ntawd</value></data>
+  <data name="Common_Browse" xml:space="preserve"><value>Nrhiav...</value></data>
+  <data name="Common_Proceed" xml:space="preserve"><value>Mus ntxiv</value></data>
+  <data name="Common_Stop" xml:space="preserve"><value>Nres</value></data>
+  <data name="Common_None" xml:space="preserve"><value>Tsis muaj</value></data>
+  <data name="Common_Ms" xml:space="preserve"><value>ms</value></data>
+  <data name="Common_PadForge" xml:space="preserve"><value>PadForge</value></data>
+
+  <!-- ═══ Controller Types ═══ -->
+  <data name="ControllerType_Xbox" xml:space="preserve"><value>Xbox</value></data>
+  <data name="ControllerType_PlayStation" xml:space="preserve"><value>PlayStation</value></data>
+  <data name="ControllerType_Nintendo" xml:space="preserve"><value>Nintendo</value></data>
+  <data name="ControllerType_MIDI" xml:space="preserve"><value>MIDI</value></data>
+  <data name="ControllerType_VR" xml:space="preserve"><value>VR</value></data>
+
+  <!-- ═══ MainWindow ═══ -->
+  <data name="Main_ShuttingDown" xml:space="preserve"><value>Tab tom kaw PadForge...</value></data>
+  <data name="Main_StartingUp" xml:space="preserve"><value>Tab tom pib PadForge…</value></data>
+  <data name="Main_ShowPadForge" xml:space="preserve"><value>Qhia PadForge</value></data>
+
+  <!-- ═══ MainWindow Status Messages ═══ -->
+  <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>Nruab SteamVR tsis tau: {0}</value></data>
+  <data name="Status_DirectionRight" xml:space="preserve"><value>(→ sab xis)</value></data>
+  <data name="Status_DirectionDown" xml:space="preserve"><value>(↓ nqis)</value></data>
+  <data name="Status_DirectionLeft" xml:space="preserve"><value>(← sab laug)</value></data>
+  <data name="Status_DirectionUp" xml:space="preserve"><value>(↑ nce)</value></data>
+  <data name="Status_CopyFailed_Format" xml:space="preserve"><value>Theej tsis tau: {0}</value></data>
+  <data name="Status_PasteFailed_Format" xml:space="preserve"><value>Lo tsis tau: {0}</value></data>
+  <data name="Status_SettingsSaved_Format" xml:space="preserve"><value>Khaws kev teeb tsa rau {0} lawm.</value></data>
+  <data name="Status_ErrorSavingSettings_Format" xml:space="preserve"><value>Yuam kev thaum khaws kev teeb tsa: {0}</value></data>
+  <data name="Status_SettingsResetDefaults" xml:space="preserve"><value>Kev teeb tsa rov qab mus rau neej ntawd lawm.</value></data>
+  <data name="Status_Error_Format" xml:space="preserve"><value>Yuam kev: {0}</value></data>
+  <data name="Status_SlotCreateFailed_Format" xml:space="preserve"><value>{0} tsim tsis tau.</value></data>
+  <data name="Profile_Default" xml:space="preserve"><value>Neej ntawd</value></data>
+  <data name="Status_NoDeviceSelected" xml:space="preserve"><value>Tsis tau xaiv khoom siv.</value></data>
+  <data name="Status_DeviceRemoved" xml:space="preserve"><value>Tshem khoom siv tawm lawm.</value></data>
+
+  <!-- ═══ Dashboard ═══ -->
+  <data name="FirstRun_Skip" xml:space="preserve"><value>Hla</value></data>
+  <data name="FirstRun_Next" xml:space="preserve"><value>Tom ntej</value></data>
+  <data name="FirstRun_Done" xml:space="preserve"><value>Tiav lawm</value></data>
+  <data name="Pad_ScopeDevice" xml:space="preserve"><value>Khoom siv</value></data>
+  <data name="RemoteLink_Connect" xml:space="preserve"><value>Txuas</value></data>
+  <data name="RemoteLink_Connected" xml:space="preserve"><value>Txuas lawm</value></data>
+  <data name="RemoteLink_Reject" xml:space="preserve"><value>Tsis lees</value></data>
+  <data name="Dashboard_NoDevice" xml:space="preserve"><value>Tsis muaj khoom siv</value></data>
+
+  <!-- ═══ Settings ═══ -->
+  <data name="Settings_Title" xml:space="preserve"><value>Kev teeb tsa</value></data>
+  <data name="Settings_ThemeLight" xml:space="preserve"><value>Kaj</value></data>
+  <data name="Settings_ThemeDark" xml:space="preserve"><value>Tsaus</value></data>
+  <data name="Settings_Updates" xml:space="preserve"><value>Kev hloov tshiab</value></data>
+  <data name="Settings_CheckForUpdatesTip" xml:space="preserve"><value>Kuaj thaum PadForge pib thiab txhua 12 teev tom qab ntawd.</value></data>
+  <data name="Settings_CheckNow" xml:space="preserve"><value>Kuaj tam sim no</value></data>
+  <data name="Update_Checking" xml:space="preserve"><value>Tab tom kuaj saib puas muaj kev hloov tshiab…</value></data>
+  <data name="Update_UpToDate_Format" xml:space="preserve"><value>PadForge {0} yog tus tshiab tshaj lawm.</value></data>
+  <data name="Update_Available_Format" xml:space="preserve"><value>PadForge {0} muaj lawm.</value></data>
+  <data name="Update_CheckFailed_Format" xml:space="preserve"><value>Kuaj tsis tau kev hloov tshiab: {0}</value></data>
+  <data name="Update_InstallFailed_Format" xml:space="preserve"><value>PadForge nruab tsis tau kev hloov tshiab: {0}</value></data>
+  <data name="Update_RestartFailed_Format" xml:space="preserve"><value>PadForge rov pib tsis tau: {0}</value></data>
+  <data name="Update_Updated_Format" xml:space="preserve"><value>PadForge tau hloov tshiab mus rau {0} lawm.</value></data>
+  <data name="Settings_AddDots" xml:space="preserve"><value>Ntxiv...</value></data>
+  <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Muaj nyob hauv Windows</value></data>
+  <data name="Settings_ResetToDefaults" xml:space="preserve"><value>Rov qab mus rau neej ntawd</value></data>
+  <data name="Settings_UnsavedChanges" xml:space="preserve"><value>Kev hloov uas tsis tau khaws</value></data>
+  <data name="Settings_Language" xml:space="preserve"><value>Hom lus</value></data>
+  <data name="Settings_LanguageDesc" xml:space="preserve"><value>Xaiv hom lus koj nyiam siv.</value></data>
+
+  <!-- ═══ About ═══ -->
+  <data name="About_Title" xml:space="preserve"><value>Txog</value></data>
+  <data name="About_Testimony" xml:space="preserve"><value>Ib qho kev caw</value></data>
+  <data name="About_TestimonyScripture" xml:space="preserve"><value>“Thiab peb hais txog Khetos, peb xyiv fab rau Khetos, peb qhia txog Khetos, peb qhia tej yuav muaj los yav tom ntej txog Khetos, thiab peb sau raws li peb tej lus qhia tej yuav muaj los yav tom ntej, xwv kom peb cov me nyuam yuav paub cia siab rau lub hauv paus twg kom txais kev zam txim rau lawv tej kev txhaum.”</value></data>
+  <data name="About_TestimonyRef" xml:space="preserve"><value>2 Nifais 25:26</value></data>
+  <data name="About_TestimonyDoxology" xml:space="preserve"><value>Lub yeeb koob, kev hwm, thiab kev qhuas rau tus Tswv Yexus Khetos, uas yog lub hauv paus ntawm txhua qhov tseeb thiab kev cawm dim, mus ib txhis tsis kawg.</value></data>
+
+  <!-- ═══ Device Types ═══ -->
+  <data name="DeviceType_Device" xml:space="preserve"><value>Khoom siv</value></data>
+
+  <data name="MacroDisconnect_Device_Label" xml:space="preserve"><value>Khoom siv</value></data>
+  <data name="MacroAction_TextBlock_Format" xml:space="preserve"><value>Ntaus "{0}"</value></data>
+  <data name="MacroAction_TextBlock_NoText" xml:space="preserve"><value>(tsis muaj ntawv)</value></data>
+  <data name="MacroAction_TextBlock_Text" xml:space="preserve"><value>Ntawv</value></data>
+  <data name="Devices_Power" xml:space="preserve"><value>Fais fab</value></data>
+  <data name="Devices_PakBackup" xml:space="preserve"><value>Khaws Controller Pak cia…</value></data>
+  <data name="BlissBoxPlayer_Title" xml:space="preserve"><value>Tus lej tus ua si</value></data>
+  <data name="BlissBoxPlayer_Label" xml:space="preserve"><value>Tus ua si</value></data>
+  <data name="BlissBoxPlayer_Action" xml:space="preserve"><value>Teeb tus ua si</value></data>
+  <data name="DreamcastScreen_Mode_Label" xml:space="preserve"><value>Qhia</value></data>
+  <data name="DreamcastScreen_Mode_Adapter" xml:space="preserve"><value>Duab ntawm adapter</value></data>
+  <data name="DreamcastScreen_Mode_ProfileName" xml:space="preserve"><value>Npe profile</value></data>
+  <data name="DreamcastScreen_Mode_ProfileNumber" xml:space="preserve"><value>Tus lej profile</value></data>
+  <data name="DreamcastScreen_Mode_ProfilePicture" xml:space="preserve"><value>Duab profile</value></data>
+  <data name="DreamcastScreen_Mode_Clock" xml:space="preserve"><value>Moos</value></data>
+  <data name="DreamcastScreen_Mode_PlayTime" xml:space="preserve"><value>Sij hawm ua si</value></data>
+  <data name="DreamcastScreen_Mode_Picture" xml:space="preserve"><value>Duab uas koj xaiv</value></data>
+  <data name="DreamcastScreen_ChoosePicture" xml:space="preserve"><value>Xaiv duab…</value></data>
+  <data name="DreamcastScreen_ChooseProfilePicture_Format" xml:space="preserve"><value>Xaiv duab rau {0}…</value></data>
+  <data name="DreamcastScreen_RemoveProfilePicture" xml:space="preserve"><value>Tshem duab profile</value></data>
+  <data name="Devices_LightGun" xml:space="preserve"><value>Light gun</value></data>
+  <data name="Devices_GunCalibration" xml:space="preserve"><value>Calibration phom</value></data>
+  <data name="GunCalibration_Title" xml:space="preserve"><value>Calibration phom</value></data>
+  <data name="DevObj_ConsumerPower" xml:space="preserve"><value>Fais fab</value></data>
+  <data name="DevObj_ConsumerMenu" xml:space="preserve"><value>Menu</value></data>
+  <data name="DevObj_ConsumerOk" xml:space="preserve"><value>OK</value></data>
+  <data name="DevObj_ConsumerMenuLeft" xml:space="preserve"><value>Menu sab laug</value></data>
+  <data name="DevObj_ConsumerMenuRight" xml:space="preserve"><value>Menu sab xis</value></data>
+  <data name="DevObj_ConsumerNextTrack" xml:space="preserve"><value>Zaj tom ntej</value></data>
+  <data name="DevObj_ConsumerPreviousTrack" xml:space="preserve"><value>Zaj dhau los</value></data>
+  <data name="DevObj_ConsumerMediaStop" xml:space="preserve"><value>Nres</value></data>
+  <data name="DevObj_ConsumerMute" xml:space="preserve"><value>Kaw suab</value></data>
+  <data name="DevObj_ConsumerVolumeUp" xml:space="preserve"><value>Nce suab nrov</value></data>
+  <data name="DevObj_ConsumerVolumeDown" xml:space="preserve"><value>Txo suab nrov</value></data>
+  <data name="DevObj_ConsumerQuit" xml:space="preserve"><value>Tawm</value></data>
+  <data name="DevObj_ConsumerCalculator" xml:space="preserve"><value>Tshuab xam zauv</value></data>
+  <data name="DevObj_ConsumerBrowserSearch" xml:space="preserve"><value>Nrhiav</value></data>
+  <!-- ═══ Devices ═══ -->
+  <data name="Devices_Title" xml:space="preserve"><value>Cov khoom siv</value></data>
+  <data name="Devices_RemoveTooltip" xml:space="preserve"><value>Tshem khoom siv no thiab nws cov kev teeb tsa</value></data>
+  <data name="Devices_RemoveConfirmTitle" xml:space="preserve"><value>Tshem khoom siv</value></data>
+  <data name="Devices_Axes" xml:space="preserve"><value>Cov axis</value></data>
+  <data name="Devices_Buttons" xml:space="preserve"><value>Cov khawm</value></data>
+  <data name="Devices_Keyboard" xml:space="preserve"><value>Keyboard</value></data>
+  <data name="Devices_AnalogKeysHint" xml:space="preserve"><value>Nias ib lub key kom pom tias nws nqis mus tob npaum li cas.</value></data>
+  <data name="Devices_Mouse" xml:space="preserve"><value>Mouse</value></data>
+  <data name="Devices_DPadPOV" xml:space="preserve"><value>D-Pad / POV</value></data>
+  <data name="Devices_POV" xml:space="preserve"><value>POV </value></data>
+  <data name="Devices_Axis_Format" xml:space="preserve"><value>Axis {0}</value></data>
+  <data name="Devices_CapsSummary_Format" xml:space="preserve"><value>{0} axis, {1} khawm, {2} POV</value></data>
+  <data name="Devices_Rumble" xml:space="preserve"><value>Kev co</value></data>
+  <data name="Devices_Gyro" xml:space="preserve"><value>Gyro</value></data>
+  <data name="Devices_Nfc" xml:space="preserve"><value>NFC</value></data>
+  <data name="Devices_DeviceKind_Mouse" xml:space="preserve"><value>mouse</value></data>
+  <data name="Devices_DeviceKind_Keyboard" xml:space="preserve"><value>keyboard</value></data>
+
+  <!-- ═══ Pad Page ═══ -->
+  <data name="Pad_Macros" xml:space="preserve"><value>Cov macro</value></data>
+  <data name="Macro_CopyNameFormat" xml:space="preserve"><value>{0} (Luam)</value></data>
+  <data name="Pad_Mappings" xml:space="preserve"><value>Cov mapping</value></data>
+  <data name="Pad_Sticks" xml:space="preserve"><value>Cov stick</value></data>
+  <data name="Pad_Triggers" xml:space="preserve"><value>Cov trigger</value></data>
+  <data name="Pad_ForceFeedback" xml:space="preserve"><value>Force feedback</value></data>
+  <!-- Impulse Triggers tab (Xbox One+ family) -->
+  <data name="Pad_ImpulseTriggers_LeftTrigger" xml:space="preserve"><value>Trigger sab laug</value></data>
+  <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Trigger sab xis</value></data>
+  <data name="Pad_ResetImpulseLeft" xml:space="preserve"><value>Rov teeb tsa dua trigger sab laug</value></data>
+  <data name="Pad_ResetImpulseRight" xml:space="preserve"><value>Rov teeb tsa dua trigger sab xis</value></data>
+  <data name="Pad_TriggerRouting_LeftTrigger" xml:space="preserve"><value>Trigger sab laug</value></data>
+  <data name="Pad_TriggerRouting_RightTrigger" xml:space="preserve"><value>Trigger sab xis</value></data>
+  <data name="Pad_TriggerRouting_Source_None" xml:space="preserve"><value>Tsis muaj (Kaw)</value></data>
+  <data name="Pad_TriggerRouting_Source_MainLeft" xml:space="preserve"><value>Motor sab laug</value></data>
+  <data name="Pad_TriggerRouting_Source_MainRight" xml:space="preserve"><value>Motor sab xis</value></data>
+  <data name="Pad_TriggerRouting_Mode" xml:space="preserve"><value>Hom</value></data>
+  <data name="Pad_TriggerRouting_Mode_Off" xml:space="preserve"><value>Kaw</value></data>
+  <data name="Pad_TriggerRouting_Activator" xml:space="preserve"><value>Activator</value></data>
+  <data name="Pad_TriggerRouting_ActivatorMode" xml:space="preserve"><value>Hom activator</value></data>
+  <data name="Pad_TriggerRouting_ActivatorMode_AlwaysOn" xml:space="preserve"><value>Qhib tas li</value></data>
+  <data name="Pad_ResetTriggerRouteActivator" xml:space="preserve"><value>Rov teeb tsa dua activator</value></data>
+  <data name="Pad_ResetTriggerRouteMode" xml:space="preserve"><value>Rov teeb tsa dua hom</value></data>
+  <data name="Pad_ResetTriggerRouteActivatorMode" xml:space="preserve"><value>Rov teeb tsa dua hom activator</value></data>
+  <data name="Pad_ConstantTriggerForce_Left" xml:space="preserve"><value>Trigger sab laug</value></data>
+  <data name="Pad_ConstantTriggerForce_Right" xml:space="preserve"><value>Trigger sab xis</value></data>
+  <data name="Pad_ResetConstantTriggerLeft" xml:space="preserve"><value>Rov teeb tsa dua trigger sab laug</value></data>
+  <data name="Pad_ResetConstantTriggerRight" xml:space="preserve"><value>Rov teeb tsa dua trigger sab xis</value></data>
+  <data name="Pad_AudioTriggerRumble_Sensitivity" xml:space="preserve"><value>Kev rhiab</value></data>
+  <data name="Pad_AudioTriggerRumble_LeftTrigger" xml:space="preserve"><value>Trigger sab laug</value></data>
+  <data name="Pad_AudioTriggerRumble_RightTrigger" xml:space="preserve"><value>Trigger sab xis</value></data>
+  <data name="Pad_AudioTriggerRumble_Level" xml:space="preserve"><value>Theem</value></data>
+  <data name="Pad_ResetAudioTriggerSensitivity" xml:space="preserve"><value>Rov teeb tsa dua kev rhiab</value></data>
+  <data name="Pad_ResetAudioLeftTrigger" xml:space="preserve"><value>Rov teeb tsa dua trigger sab laug</value></data>
+  <data name="Pad_ResetAudioRightTrigger" xml:space="preserve"><value>Rov teeb tsa dua trigger sab xis</value></data>
+  <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
+  <data name="Pad_Sticks_Header" xml:space="preserve"><value>Cov stick</value></data>
+  <data name="Pad_Triggers_Header" xml:space="preserve"><value>Cov trigger</value></data>
+  <data name="Pad_ForceFeedback_Header" xml:space="preserve"><value>Force feedback</value></data>
+  <data name="Pad_LeftTrigger" xml:space="preserve"><value>Trigger sab laug</value></data>
+  <data name="Pad_RightTrigger" xml:space="preserve"><value>Trigger sab xis</value></data>
+  <data name="Pad_TriggerMode" xml:space="preserve"><value>Hom</value></data>
+  <data name="Pad_AT_Off" xml:space="preserve"><value>Kaw</value></data>
+  <data name="Pad_AT_Weapon" xml:space="preserve"><value>Riam phom</value></data>
+  <data name="Pad_AT_Vibration" xml:space="preserve"><value>Kev co</value></data>
+  <data name="Pad_AT_Range" xml:space="preserve"><value>Range</value></data>
+  <data name="Pad_AT_Strength" xml:space="preserve"><value>Lub zog</value></data>
+  <data name="Pad_AT_Frequency" xml:space="preserve"><value>Zaus (Hz)</value></data>
+  <!-- Lighting tab (DS4 / DualSense / DualSense Edge) -->
+  <data name="Pad_Lighting" xml:space="preserve"><value>Teeb</value></data>
+  <data name="Pad_Lighting_Header" xml:space="preserve"><value>Teeb</value></data>
+  <data name="Pad_Lighting_BaseColor" xml:space="preserve"><value>Lightbar</value></data>
+  <data name="Pad_Lighting_Hex" xml:space="preserve"><value>HEX</value></data>
+  <data name="Pad_Lighting_MicLed_Off" xml:space="preserve"><value>Kaw</value></data>
+  <data name="Pad_ResetLightbar" xml:space="preserve"><value>Rov teeb tsa dua lightbar</value></data>
+  <data name="Pad_ResetForceFeedback" xml:space="preserve"><value>Rov teeb tsa dua force feedback</value></data>
+  <data name="Pad_ResetSection_Format" xml:space="preserve"><value>Rov teeb tsa dua {0}</value></data>
+  <data name="Pad_ClearMappings" xml:space="preserve"><value>Lwv cov mapping</value></data>
+  <data name="Pad_Lighting_LedBrightness" xml:space="preserve"><value>Kev ci LED</value></data>
+  <data name="Pad_Lighting_PlayerLed_Off" xml:space="preserve"><value>Kaw</value></data>
+  <data name="Pad_Lighting_PlayerLed_PlayerNumber" xml:space="preserve"><value>Tus lej tus ua si (Neej ntawd)</value></data>
+  <data name="Pad_Lighting_PlayerLed_P1" xml:space="preserve"><value>Tus ua si 1</value></data>
+  <data name="Pad_Lighting_PlayerLed_P2" xml:space="preserve"><value>Tus ua si 2</value></data>
+  <data name="Pad_Lighting_PlayerLed_P3" xml:space="preserve"><value>Tus ua si 3</value></data>
+  <data name="Pad_Lighting_PlayerLed_P4" xml:space="preserve"><value>Tus ua si 4</value></data>
+  <data name="Pad_Lighting_PlayerLed_All" xml:space="preserve"><value>Tag nrho</value></data>
+  <data name="Pad_Lighting_PlayerLed_Brightness_High" xml:space="preserve"><value>Siab</value></data>
+  <data name="Pad_Lighting_PlayerLed_Brightness_Medium" xml:space="preserve"><value>Nruab nrab</value></data>
+  <data name="Pad_Lighting_PlayerLed_Brightness_Low" xml:space="preserve"><value>Qis</value></data>
+  <data name="Pad_Lighting_AudioLightbar_Sensitivity" xml:space="preserve"><value>Kev rhiab</value></data>
+  <data name="Pad_Lighting_AudioLightbar_LowColor" xml:space="preserve"><value>Xim thaum ntsiag to</value></data>
+  <data name="Pad_Lighting_AudioLightbar_MidColor" xml:space="preserve"><value>Xim nruab nrab</value></data>
+  <data name="Pad_Lighting_AudioLightbar_HighColor" xml:space="preserve"><value>Xim thaum nrov</value></data>
+  <data name="Pad_Lighting_Mode" xml:space="preserve"><value>Hom</value></data>
+  <data name="Pad_Lighting_Mode_Off" xml:space="preserve"><value>Kaw</value></data>
+  <data name="Pad_Lighting_Mode_PlayerNumber" xml:space="preserve"><value>Tus lej tus ua si (Neej ntawd)</value></data>
+  <data name="Pad_Lighting_BatteryLowColor" xml:space="preserve"><value>Roj teeb tsawg</value></data>
+  <data name="Pad_Lighting_BatteryHighColor" xml:space="preserve"><value>Roj teeb puv</value></data>
+
+  <!-- v3.2+ Input Reactive overlay (separate dropdown layered on top of base mode) -->
+  <data name="Pad_Lighting_InputReactive_Off" xml:space="preserve"><value>Kaw</value></data>
+
+  <data name="Pad_Lighting_RainbowBrightness" xml:space="preserve"><value>Kev ci</value></data>
+  <data name="Pad_Lighting_AddColor" xml:space="preserve"><value>Ntxiv xim</value></data>
+  <data name="Pad_Preset" xml:space="preserve"><value>Preset</value></data>
+  <data name="Pad_ExtendedSticks" xml:space="preserve"><value>Cov stick</value></data>
+  <data name="Pad_ExtendedTriggers" xml:space="preserve"><value>Cov trigger</value></data>
+  <data name="Pad_ExtendedPOVs" xml:space="preserve"><value>Cov POV</value></data>
+  <data name="Pad_ExtendedButtons" xml:space="preserve"><value>Cov khawm</value></data>
+  <data name="ManageProfiles_Delete" xml:space="preserve"><value>Rho tawm</value></data>
+  <data name="ManageProfiles_Close" xml:space="preserve"><value>Kaw</value></data>
+  <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(khoom siv HID tsis muaj npe)</value></data>
+  <data name="Pad_ExtendedVid" xml:space="preserve"><value>VID</value></data>
+  <data name="Pad_ExtendedPid" xml:space="preserve"><value>PID</value></data>
+  <data name="Pad_ExtendedForceFeedback" xml:space="preserve"><value>Force feedback</value></data>
+  <data name="Pad_MidiOutputPortNone" xml:space="preserve"><value>Tsis muaj</value></data>
+  <data name="Pad_Kbm_Socd_Mode_Off_Name" xml:space="preserve"><value>Kaw</value></data>
+  <data name="Common_Reset_Sensitivity" xml:space="preserve"><value>Rov teeb tsa dua kev rhiab</value></data>
+  <data name="Common_Reset_DeadZone" xml:space="preserve"><value>Rov teeb tsa dua deadzone</value></data>
+  <data name="Pad_Socd_Mode_Label" xml:space="preserve"><value>Hom</value></data>
+  <data name="Pad_LeftMotor" xml:space="preserve"><value>Motor sab laug</value></data>
+  <data name="Pad_RightMotor" xml:space="preserve"><value>Motor sab xis</value></data>
+  <data name="Pad_ResetAll" xml:space="preserve"><value>Rov teeb tsa dua tag nrho</value></data>
+  <data name="Pad_ClearAll" xml:space="preserve"><value>Tshem tag nrho</value></data>
+  <data name="Pad_Invert" xml:space="preserve"><value>Thim rov qab</value></data>
+  <data name="Pad_Half" xml:space="preserve"><value>Ib nrab</value></data>
+  <!-- Merge-mapping UI (Issue #61): per-source Kind dropdown + Incremental / InvertOnHold controls. -->
+  <data name="Pad_Mapping_Kind_Toggle" xml:space="preserve"><value>Toggle</value></data>
+  <data name="Pad_Mapping_Kind_RapidTrigger" xml:space="preserve"><value>Rapid trigger</value></data>
+  <!-- Combine UI (Issue #61): per-row CombineMode dropdown + Custom formula editor + starter presets. English placeholders pending translation. -->
+  <data name="Pad_Combine_AND_Name" xml:space="preserve"><value>Ob qho</value></data>
+  <data name="Pad_Combine_XOR_Name" xml:space="preserve"><value>Ib qho xwb</value></data>
+  <data name="Pad_Formula_Insert" xml:space="preserve"><value>Ntxig</value></data>
+  <data name="Pad_Formula_Status_And" xml:space="preserve"><value>thiab</value></data>
+  <data name="Pad_Formula_Chip_Add" xml:space="preserve"><value>Ntxiv</value></data>
+  <data name="Pad_Formula_Chip_Divide" xml:space="preserve"><value>Faib</value></data>
+  <data name="Pad_Sticks_Section_DeadZone" xml:space="preserve"><value>Deadzone</value></data>
+  <data name="Pad_Sticks_Section_Range" xml:space="preserve"><value>Range</value></data>
+  <data name="Pad_ScrollUp" xml:space="preserve"><value>Nce</value></data>
+  <data name="Pad_ScrollDown" xml:space="preserve"><value>Nqis</value></data>
+
+  <!-- ═══ Macros ═══ -->
+  <data name="Macro_Name" xml:space="preserve"><value>Npe</value></data>
+  <data name="Macro_Always" xml:space="preserve"><value>Ib txwm</value></data>
+  <data name="Macro_Threshold" xml:space="preserve"><value>Threshold</value></data>
+  <data name="Macro_Layer" xml:space="preserve"><value>Layer</value></data>
+  <data name="Macro_ActionType" xml:space="preserve"><value>Hom</value></data>
+  <data name="Macro_Cat_Mouse" xml:space="preserve"><value>Mouse</value></data>
+  <data name="Macro_Cat_Rumble" xml:space="preserve"><value>Kev co</value></data>
+  <data name="Macro_Cat_Sound" xml:space="preserve"><value>Suab thiab suab nrov</value></data>
+  <data name="Macro_Buttons" xml:space="preserve"><value>Khawm</value></data>
+  <data name="Macro_Axis" xml:space="preserve"><value>Axis</value></data>
+  <data name="Macro_LeftStickX" xml:space="preserve"><value>Stick sab laug X</value></data>
+  <data name="Macro_LeftStickY" xml:space="preserve"><value>Stick sab laug Y</value></data>
+  <data name="Macro_RightStickX" xml:space="preserve"><value>Stick sab xis X</value></data>
+  <data name="Macro_RightStickY" xml:space="preserve"><value>Stick sab xis Y</value></data>
+  <data name="Macro_LeftTrigger" xml:space="preserve"><value>Trigger sab laug</value></data>
+  <data name="Macro_RightTrigger" xml:space="preserve"><value>Trigger sab xis</value></data>
+  <data name="Macro_Device" xml:space="preserve"><value>Khoom siv</value></data>
+  <data name="Macro_MouseLeft" xml:space="preserve"><value>Sab laug</value></data>
+  <data name="Macro_MouseRight" xml:space="preserve"><value>Sab xis</value></data>
+  <data name="Macro_MouseMiddle" xml:space="preserve"><value>Nruab nrab</value></data>
+  <data name="Macro_MouseX1" xml:space="preserve"><value>X1 (Rov qab)</value></data>
+  <data name="Macro_MouseX2" xml:space="preserve"><value>X2 (Mus tom ntej)</value></data>
+  <data name="Macro_Repeat" xml:space="preserve"><value>Rov ua dua</value></data>
+  <data name="Macro_RepeatMode" xml:space="preserve"><value>Hom</value></data>
+  <data name="Macro_Once" xml:space="preserve"><value>Ib zaug</value></data>
+  <data name="Macro_Sensitivity" xml:space="preserve"><value>Kev rhiab</value></data>
+  <data name="Macro_Btn_Format" xml:space="preserve"><value>Khawm {0}</value></data>
+  <data name="Macro_None" xml:space="preserve"><value>(tsis muaj)</value></data>
+  <data name="Macro_POV_Format" xml:space="preserve"><value>POV {0} {1}</value></data>
+  <data name="Macro_Button_Format" xml:space="preserve"><value>Khawm {0}</value></data>
+
+  <!-- ═══ Macro Action Display ═══ -->
+  <data name="MacroAction_Release_Format" xml:space="preserve"><value>Tso {0}</value></data>
+  <data name="MacroAction_Wait_Format" xml:space="preserve"><value>Tos {0}ms</value></data>
+
+  <data name="Macro_LightbarHold_Label" xml:space="preserve"><value>Nias tuav</value></data>
+  <data name="Macro_LightbarColorSource_Label" xml:space="preserve"><value>Xim</value></data>
+  <data name="Macro_LightbarTargetMode_Label" xml:space="preserve"><value>Hom</value></data>
+
+  <!-- ═══ Macro action: Rumble ═══ -->
+  <data name="MacroAction_Type_Rumble" xml:space="preserve"><value>Kev co</value></data>
+  <data name="MacroAction_Type_RumbleStop" xml:space="preserve"><value>Nres kev co</value></data>
+  <data name="MacroAction_RumbleStop" xml:space="preserve"><value>Nres kev co</value></data>
+  <data name="Macro_SetGyroEngaged_Mode_Label" xml:space="preserve"><value>Hom</value></data>
+  <data name="Macro_SetGyroEngaged_Toggle" xml:space="preserve"><value>Toggle</value></data>
+  <data name="Macro_SetGyroEngaged_On" xml:space="preserve"><value>Qhib</value></data>
+  <data name="Macro_SetGyroEngaged_Off" xml:space="preserve"><value>Kaw</value></data>
+  <data name="Macro_CursorRecenterMode_Label" xml:space="preserve"><value>Hom</value></data>
+  <data name="Macro_CursorPinMode_Label" xml:space="preserve"><value>Hom</value></data>
+  <data name="Macro_CursorClampMode_Label" xml:space="preserve"><value>Hom</value></data>
+  <data name="Macro_RumbleHold_Label" xml:space="preserve"><value>Nias tuav</value></data>
+  <data name="Macro_RumbleStrengthLeft_Label" xml:space="preserve"><value>Motor sab laug</value></data>
+  <data name="Macro_RumbleStrengthRight_Label" xml:space="preserve"><value>Motor sab xis</value></data>
+
+  <!-- ═══ POV Directions ═══ -->
+  <data name="POV_Centered" xml:space="preserve"><value>Nyob nruab nrab</value></data>
+  <data name="POV_Up" xml:space="preserve"><value>Saum toj</value></data>
+  <data name="POV_UpRight" xml:space="preserve"><value>Saum toj sab xis</value></data>
+  <data name="POV_Right" xml:space="preserve"><value>Sab xis</value></data>
+  <data name="POV_DownRight" xml:space="preserve"><value>Hauv qab sab xis</value></data>
+  <data name="POV_Down" xml:space="preserve"><value>Hauv qab</value></data>
+  <data name="POV_DownLeft" xml:space="preserve"><value>Hauv qab sab laug</value></data>
+  <data name="POV_Left" xml:space="preserve"><value>Sab laug</value></data>
+  <data name="POV_UpLeft" xml:space="preserve"><value>Saum toj sab laug</value></data>
+  <data name="POV_Any" xml:space="preserve"><value>Txhua sab</value></data>
+
+  <!-- ═══ Mapping ═══ -->
+  <data name="Mapping_NotMapped" xml:space="preserve"><value>Tsis muaj mapping</value></data>
+  <data name="Mapping_Half" xml:space="preserve"><value>Ib nrab</value></data>
+  <data name="Mapping_POV_Format" xml:space="preserve"><value>POV {0} {1}</value></data>
+
+  <!-- ═══ Touchpad Mapping Labels ═══ -->
+  <data name="Mapping_TouchpadClick" xml:space="preserve"><value>Nyem touchpad</value></data>
+  <data name="Mapping_TouchpadWindow_Upper" xml:space="preserve"><value>Ib nrab saum toj</value></data>
+  <data name="Mapping_TouchpadWindow_Lower" xml:space="preserve"><value>Ib nrab hauv qab</value></data>
+  <data name="Mapping_TouchpadWindow_Center" xml:space="preserve"><value>Nruab nrab</value></data>
+
+  <!-- ═══ Touchpad Gesture Mapping Labels ═══ -->
+  <data name="Mapping_TouchpadGesture_SwipeUp" xml:space="preserve"><value>Swipe mus saum toj</value></data>
+  <data name="Mapping_TouchpadGesture_SwipeDown" xml:space="preserve"><value>Swipe mus hauv qab</value></data>
+  <data name="Mapping_TouchpadGesture_SwipeLeft" xml:space="preserve"><value>Swipe mus sab laug</value></data>
+  <data name="Mapping_TouchpadGesture_SwipeRight" xml:space="preserve"><value>Swipe mus sab xis</value></data>
+  <data name="Mapping_TouchpadGesture_SwipeNE" xml:space="preserve"><value>Swipe mus saum toj sab xis</value></data>
+  <data name="Mapping_TouchpadGesture_SwipeNW" xml:space="preserve"><value>Swipe mus saum toj sab laug</value></data>
+  <data name="Mapping_TouchpadGesture_SwipeSE" xml:space="preserve"><value>Swipe mus hauv qab sab xis</value></data>
+  <data name="Mapping_TouchpadGesture_SwipeSW" xml:space="preserve"><value>Swipe mus hauv qab sab laug</value></data>
+  <data name="Mapping_TouchpadGesture_Tap" xml:space="preserve"><value>Kov</value></data>
+  <data name="Mapping_TouchpadGesture_DoubleTap" xml:space="preserve"><value>Kov ob zaug</value></data>
+  <data name="Mapping_TouchpadGesture_TripleTap" xml:space="preserve"><value>Kov peb zaug</value></data>
+  <data name="Mapping_TouchpadGesture_LongPress" xml:space="preserve"><value>Nias ntev</value></data>
+  <data name="Mapping_TouchpadGesture_TouchLeft" xml:space="preserve"><value>Kov sab laug</value></data>
+  <data name="Mapping_TouchpadGesture_TouchRight" xml:space="preserve"><value>Kov sab xis</value></data>
+  <data name="Mapping_TouchpadGesture_TouchTop" xml:space="preserve"><value>Kov saum toj</value></data>
+  <data name="Mapping_TouchpadGesture_PadPrefix_Format" xml:space="preserve"><value>Touchpad {0}: {1}</value></data>
+  <data name="Mapping_TouchpadGesture_SinglePadNoun_Format" xml:space="preserve"><value>Touchpad {0}</value></data>
+  <data name="Mapping_TouchpadGesture_TwoFingerSwipeUp" xml:space="preserve"><value>Ob tus ntiv tes swipe mus saum toj</value></data>
+  <data name="Mapping_TouchpadGesture_TwoFingerSwipeDown" xml:space="preserve"><value>Ob tus ntiv tes swipe mus hauv qab</value></data>
+  <data name="Mapping_TouchpadGesture_TwoFingerSwipeLeft" xml:space="preserve"><value>Ob tus ntiv tes swipe mus sab laug</value></data>
+  <data name="Mapping_TouchpadGesture_TwoFingerSwipeRight" xml:space="preserve"><value>Ob tus ntiv tes swipe mus sab xis</value></data>
+  <data name="Mapping_TouchpadGesture_TwoFingerTap" xml:space="preserve"><value>Ob tus ntiv tes kov</value></data>
+  <data name="Mapping_TouchpadGesture_DPadUp" xml:space="preserve"><value>D-pad saum toj</value></data>
+  <data name="Mapping_TouchpadGesture_DPadRight" xml:space="preserve"><value>D-pad sab xis</value></data>
+  <data name="Mapping_TouchpadGesture_DPadDown" xml:space="preserve"><value>D-pad hauv qab</value></data>
+  <data name="Mapping_TouchpadGesture_DPadLeft" xml:space="preserve"><value>D-pad sab laug</value></data>
+  <data name="Mapping_TouchpadGesture_ThreeFingerSwipeUp" xml:space="preserve"><value>Peb tus ntiv tes swipe mus saum toj</value></data>
+  <data name="Mapping_TouchpadGesture_ThreeFingerSwipeDown" xml:space="preserve"><value>Peb tus ntiv tes swipe mus hauv qab</value></data>
+  <data name="Mapping_TouchpadGesture_ThreeFingerSwipeLeft" xml:space="preserve"><value>Peb tus ntiv tes swipe mus sab laug</value></data>
+  <data name="Mapping_TouchpadGesture_ThreeFingerSwipeRight" xml:space="preserve"><value>Peb tus ntiv tes swipe mus sab xis</value></data>
+  <data name="Mapping_TouchpadGesture_ThreeFingerTap" xml:space="preserve"><value>Peb tus ntiv tes kov</value></data>
+  <data name="Mapping_TouchpadGesture_FourFingerSwipeUp" xml:space="preserve"><value>Plaub tus ntiv tes swipe mus saum toj</value></data>
+  <data name="Mapping_TouchpadGesture_FourFingerSwipeDown" xml:space="preserve"><value>Plaub tus ntiv tes swipe mus hauv qab</value></data>
+  <data name="Mapping_TouchpadGesture_FourFingerSwipeLeft" xml:space="preserve"><value>Plaub tus ntiv tes swipe mus sab laug</value></data>
+  <data name="Mapping_TouchpadGesture_FourFingerSwipeRight" xml:space="preserve"><value>Plaub tus ntiv tes swipe mus sab xis</value></data>
+  <data name="Mapping_TouchpadGesture_FourFingerTap" xml:space="preserve"><value>Plaub tus ntiv tes kov</value></data>
+  <data name="Mapping_TouchpadGesture_FiveFingerTap" xml:space="preserve"><value>Tsib tus ntiv tes kov</value></data>
+  <data name="Mapping_TouchpadGesture_Square" xml:space="preserve"><value>Plaub fab</value></data>
+
+  <!-- ═══ Pad Touchpad Tab ═══ -->
+  <data name="Pad_Touchpad" xml:space="preserve"><value>Touchpad</value></data>
+  <data name="Pad_Touchpad_Header" xml:space="preserve"><value>Touchpad</value></data>
+  <data name="Pad_Touchpad_TouchpadIndex_Label" xml:space="preserve"><value>Touchpad</value></data>
+  <data name="Pad_Touchpad_SelectedTouchpad" xml:space="preserve"><value>Tus naj npawb touchpad</value></data>
+  <data name="Pad_Touchpad_Mode_Both" xml:space="preserve"><value>Ob qho</value></data>
+  <data name="Pad_Touchpad_Taps" xml:space="preserve"><value>Kov / Kov ob zaug / Kov peb zaug</value></data>
+  <data name="Pad_Touchpad_LongPress" xml:space="preserve"><value>Nias ntev</value></data>
+  <data name="Pad_Touchpad_Rotate" xml:space="preserve"><value>Tig</value></data>
+  <data name="Pad_Touchpad_FiveFinger" xml:space="preserve"><value>Tsib tus ntiv tes kov</value></data>
+  <data name="Pad_Touchpad_CustomGesture_OneFinger" xml:space="preserve"><value>1 tus ntiv tes</value></data>
+  <data name="Pad_Touchpad_CustomGesture_NFingers_Format" xml:space="preserve"><value>{0} tus ntiv tes</value></data>
+
+  <!-- Stick / D-pad output card -->
+  <data name="Pad_Touchpad_StickDPadMode_Off" xml:space="preserve"><value>Kaw</value></data>
+
+  <!-- Mouse Output card -->
+
+  <!-- Absolute Pointer card (#9 B-15) -->
+
+  <!-- Swipe Haptics card (discussion #219) -->
+
+  <!-- Reset-All tooltips per card -->
+
+  <!-- Per-row Reset tooltips for stick / D-pad card -->
+
+  <!-- Per-row Reset tooltips for mouse-output card -->
+
+  <!-- Per-row Reset tooltips for absolute-pointer card (#9 B-15) -->
+
+  <!-- Per-row Reset tooltips for swipe-haptics card -->
+
+  <!-- Per-row Reset tooltips -->
+  <data name="Pad_ResetTouchpadLongPress" xml:space="preserve"><value>Rov teeb tsa nias ntev dua</value></data>
+  <data name="Pad_ResetTouchpadFiveFinger" xml:space="preserve"><value>Rov teeb tsa tsib tus ntiv tes kov dua</value></data>
+
+  <!-- ═══ Touchpad Gesture Recorder Dialog ═══ -->
+  <data name="Recorder_TargetDevice_UnknownName" xml:space="preserve"><value>lub touchpad no</value></data>
+  <data name="Recorder_Drawing" xml:space="preserve"><value>Tab tom kos…</value></data>
+  <data name="Recorder_NameLabel" xml:space="preserve"><value>Npe</value></data>
+  <data name="Recorder_TryAgain" xml:space="preserve"><value>Sim dua</value></data>
+  <data name="Recorder_Error_NameEmpty" xml:space="preserve"><value>Yuav tsum muaj npe</value></data>
+
+  <data name="Mapping_CapSenseLeftStickTouch" xml:space="preserve"><value>Kov stick sab laug</value></data>
+  <data name="Mapping_CapSenseRightStickTouch" xml:space="preserve"><value>Kov stick sab xis</value></data>
+  <data name="Settings_GyroResetCalibration_Button" xml:space="preserve"><value>Rov teeb tsa calibration dua</value></data>
+  <data name="Settings_GyroSensitivityH" xml:space="preserve"><value>Kev rhiab kab rov tav</value></data>
+  <data name="Settings_GyroSensitivityV" xml:space="preserve"><value>Kev rhiab kab ntsug</value></data>
+  <data name="Pad_Gyro" xml:space="preserve"><value>Gyro</value></data>
+  <data name="Pad_Gyro_Header" xml:space="preserve"><value>Gyro</value></data>
+  <data name="Pad_Gyro_Sensitivity_Header" xml:space="preserve"><value>Kev rhiab</value></data>
+  <data name="Pad_ResetGyroCompassYaw" xml:space="preserve"><value>Rov qab mus rau neej ntawd (Kaw)</value></data>
+  <data name="Settings_GyroAimEngageMode_Hold" xml:space="preserve"><value>Nias tuav</value></data>
+  <data name="Settings_GyroAimEngageMode_Toggle" xml:space="preserve"><value>Toggle</value></data>
+  <data name="Settings_GyroEngageStickSide_Right" xml:space="preserve"><value>Stick sab xis</value></data>
+  <data name="Settings_GyroEngageStickSide_Left" xml:space="preserve"><value>Stick sab laug</value></data>
+  <data name="Settings_GyroEngageStickSide_Either" xml:space="preserve"><value>Stick twg los tau</value></data>
+  <data name="Settings_GyroEngageStickDirection_Full" xml:space="preserve"><value>Tag nrho</value></data>
+  <data name="Settings_GyroEngageStickDirection_X" xml:space="preserve"><value>Kab rov tav (X)</value></data>
+  <data name="Settings_GyroEngageStickDirection_Y" xml:space="preserve"><value>Kab ntsug (Y)</value></data>
+  <data name="Settings_GyroEngageStickDirection_XNeg" xml:space="preserve"><value>Sab laug (X-)</value></data>
+  <data name="Settings_GyroEngageStickDirection_XPos" xml:space="preserve"><value>Sab xis (X+)</value></data>
+  <data name="Settings_GyroEngageStickDirection_YNeg" xml:space="preserve"><value>Hauv qab (Y-)</value></data>
+  <data name="Settings_GyroEngageStickDirection_YPos" xml:space="preserve"><value>Saum toj (Y+)</value></data>
+  <data name="Pad_Gyro_ResetCalibration_All_Tooltip" xml:space="preserve"><value>Rov teeb tsa calibration dua</value></data>
+  <data name="Pad_Gyro_ResetSensitivity_All_Tooltip" xml:space="preserve"><value>Rov teeb tsa kev rhiab dua</value></data>
+  <data name="Pad_ResetGyroSensitivityH" xml:space="preserve"><value>Rov teeb tsa kev rhiab kab rov tav dua</value></data>
+  <data name="Pad_ResetGyroSensitivityV" xml:space="preserve"><value>Rov teeb tsa kev rhiab kab ntsug dua</value></data>
+  <data name="Pad_ResetGyroDeadZone" xml:space="preserve"><value>Rov teeb tsa deadzone dua</value></data>
+  <data name="Mapping_GyroSensitivity" xml:space="preserve"><value>Kev rhiab</value></data>
+  <data name="Mapping_MouseSpeedX" xml:space="preserve"><value>Kev ceev mouse X</value></data>
+  <data name="Mapping_MouseSpeedY" xml:space="preserve"><value>Kev ceev mouse Y</value></data>
+  <data name="Mapping_MousePositionX" xml:space="preserve"><value>Qhov chaw mouse X</value></data>
+  <data name="Mapping_MousePositionY" xml:space="preserve"><value>Qhov chaw mouse Y</value></data>
+  <data name="Mapping_MouseCursorSensitivity" xml:space="preserve"><value>Kev rhiab</value></data>
+  <data name="Mapping_IrPointerSensitivity" xml:space="preserve"><value>Kev rhiab</value></data>
+  <data name="Mapping_Sensitivity" xml:space="preserve"><value>Kev rhiab</value></data>
+
+  <!-- ═══ Device Object Names (gamepad) ═══ -->
+  <data name="DevObj_LeftStickX" xml:space="preserve"><value>Stick sab laug X</value></data>
+  <data name="DevObj_LeftStickY" xml:space="preserve"><value>Stick sab laug Y</value></data>
+  <data name="DevObj_LeftTrigger" xml:space="preserve"><value>Trigger sab laug</value></data>
+  <data name="DevObj_RightStickX" xml:space="preserve"><value>Stick sab xis X</value></data>
+  <data name="DevObj_RightStickY" xml:space="preserve"><value>Stick sab xis Y</value></data>
+  <data name="DevObj_RightTrigger" xml:space="preserve"><value>Trigger sab xis</value></data>
+  <data name="DevObj_DPad" xml:space="preserve"><value>D-pad</value></data>
+  <data name="DevObj_ZTrigger" xml:space="preserve"><value>Trigger Z</value></data>
+  <data name="DevObj_StickX" xml:space="preserve"><value>Stick X</value></data>
+  <data name="DevObj_StickY" xml:space="preserve"><value>Stick Y</value></data>
+  <data name="DevObj_RightDPad" xml:space="preserve"><value>D-pad sab xis</value></data>
+  <data name="DevObj_CButton_Format" xml:space="preserve"><value>C-{0}</value></data>
+  <data name="DevObj_LeftShoulder" xml:space="preserve"><value>Xub pwg sab laug</value></data>
+  <data name="DevObj_RightShoulder" xml:space="preserve"><value>Xub pwg sab xis</value></data>
+  <data name="DevObj_LeftStickButton" xml:space="preserve"><value>Khawm stick sab laug</value></data>
+  <data name="DevObj_RightStickButton" xml:space="preserve"><value>Khawm stick sab xis</value></data>
+
+  <!-- ═══ Device Object Names (raw joystick) ═══ -->
+  <data name="DevObj_XAxis" xml:space="preserve"><value>Axis X</value></data>
+  <data name="DevObj_YAxis" xml:space="preserve"><value>Axis Y</value></data>
+  <data name="DevObj_ZAxis" xml:space="preserve"><value>Axis Z</value></data>
+  <data name="DevObj_POV" xml:space="preserve"><value>POV</value></data>
+  <data name="DevObj_POVN" xml:space="preserve"><value>POV {0}</value></data>
+  <data name="DevObj_Button" xml:space="preserve"><value>Khawm {0}</value></data>
+  <data name="DevObj_AxisN" xml:space="preserve"><value>Axis {0}</value></data>
+  <data name="DevObj_RightPaddle1" xml:space="preserve"><value>Paddle sab xis 1</value></data>
+  <data name="DevObj_RightPaddle2" xml:space="preserve"><value>Paddle sab xis 2</value></data>
+  <data name="DevObj_LeftPaddle1" xml:space="preserve"><value>Paddle sab laug 1</value></data>
+  <data name="DevObj_LeftPaddle2" xml:space="preserve"><value>Paddle sab laug 2</value></data>
+
+  <!-- ═══ Keyboard Key Names (OEM/Numpad operators: not already in VirtualKey section) ═══ -->
+
+  <!-- ═══ Profiles ═══ -->
+  <data name="Profiles_Title" xml:space="preserve"><value>Cov profile</value></data>
+  <data name="Profiles_ActiveProfile" xml:space="preserve"><value>Profile uas siv tam sim no:</value></data>
+  <data name="Profiles_NoSlots" xml:space="preserve"><value>Tsis muaj slot</value></data>
+  <data name="Profiles_New" xml:space="preserve"><value>Tshiab</value></data>
+  <data name="Profiles_Edit" xml:space="preserve"><value>Kho</value></data>
+  <data name="Profiles_SelectFirstHint" xml:space="preserve"><value>Xaiv ib qho profile ua ntej.</value></data>
+  <data name="Profiles_DefaultLockedHint" xml:space="preserve"><value>Tsis tuaj yeem kho lossis rho tawm profile “Neej ntawd” uas los nrog PadForge.</value></data>
+  <data name="Profiles_DeleteConfirmTitle" xml:space="preserve"><value>Rho tawm profile</value></data>
+
+  <!-- ═══ Profile Dialog ═══ -->
+  <data name="ProfileDialog_Edit" xml:space="preserve"><value>Kho profile</value></data>
+  <data name="ProfileDialog_ProfileName" xml:space="preserve"><value>Lub npe profile:</value></data>
+  <data name="ProfileDialog_DefaultName" xml:space="preserve"><value>Profile tshiab</value></data>
+
+  <!-- ═══ CopyFrom Dialog ═══ -->
+  <data name="CopyFrom_Title" xml:space="preserve"><value>Theej kev teeb tsa los ntawm...</value></data>
+  <data name="CopyFrom_SelectDevice" xml:space="preserve"><value>Xaiv ib qho khoom siv los theej nws cov kev teeb tsa:</value></data>
+
+  <!-- ═══ File Dialogs ═══ -->
+
+  <!-- ═══ App-Level Messages ═══ -->
+  <data name="App_AlreadyRunning" xml:space="preserve"><value>PadForge twb tab tom khiav lawm.</value></data>
+  <data name="App_Error" xml:space="preserve"><value>PadForge: Yuam kev</value></data>
+  <data name="App_UnexpectedError_Format" xml:space="preserve"><value>Muaj ib qho yuam kev uas tsis tau xav txog tshwm sim:
+
+{0}
+
+{1}</value></data>
+
+  <!-- ═══ Polling Frequency ═══ -->
+  <data name="Dashboard_PollingHz_Format" xml:space="preserve"><value>{0:F1} Hz</value></data>
+  <data name="Dashboard_PollingDash" xml:space="preserve"><value>–</value></data>
+
+  <!-- ═══ Pad: Sticks/Triggers Settings ═══ -->
+  <data name="Pad_DeadZoneX" xml:space="preserve"><value>Deadzone X</value></data>
+  <data name="Pad_DeadZoneY" xml:space="preserve"><value>Deadzone Y</value></data>
+  <data name="Pad_AntiDeadZoneX" xml:space="preserve"><value>Anti-deadzone X</value></data>
+  <data name="Pad_AntiDeadZoneY" xml:space="preserve"><value>Anti-deadzone Y</value></data>
+  <data name="Pad_SensitivityCurves" xml:space="preserve"><value>Cov kab nkhaus kev rhiab</value></data>
+  <data name="Pad_SensitivityX" xml:space="preserve"><value>Kev rhiab X</value></data>
+  <data name="Pad_SensitivityY" xml:space="preserve"><value>Kev rhiab Y</value></data>
+  <data name="Pad_XAxis" xml:space="preserve"><value>Axis X</value></data>
+  <data name="Pad_YAxis" xml:space="preserve"><value>Axis Y</value></data>
+  <data name="Pad_Range" xml:space="preserve"><value>Range</value></data>
+  <data name="Pad_AntiDeadZone" xml:space="preserve"><value>Anti-deadzone</value></data>
+  <data name="Pad_SensitivityCurve" xml:space="preserve"><value>Kab nkhaus kev rhiab</value></data>
+  <data name="Pad_Preset_Label" xml:space="preserve"><value>Preset</value></data>
+  <data name="Pad_TriggerAxis" xml:space="preserve"><value>Trigger axis</value></data>
+
+  <!-- ═══ Pad: Force Feedback ═══ -->
+  <data name="Pad_LeftMotorLabel" xml:space="preserve"><value>Motor sab laug</value></data>
+  <data name="Pad_RightMotorLabel" xml:space="preserve"><value>Motor sab xis</value></data>
+  <data name="Pad_SwapMotors" xml:space="preserve"><value>Pauv motor sab laug thiab sab xis</value></data>
+  <data name="Pad_TestRumble" xml:space="preserve"><value>Sim kev co</value></data>
+
+  <!-- ═══ Pad: Constant Force ═══ -->
+  <data name="Pad_ConstantForce_X" xml:space="preserve"><value>X</value></data>
+  <data name="Pad_ConstantForce_Y" xml:space="preserve"><value>Y</value></data>
+
+  <!-- ═══ Pad: Reset Tooltips ═══ -->
+  <data name="Pad_ResetCenterOffsetX" xml:space="preserve"><value>Rov teeb tsa dua center offset X</value></data>
+  <data name="Pad_ResetCenterOffsetY" xml:space="preserve"><value>Rov teeb tsa dua center offset Y</value></data>
+  <data name="Pad_ResetDeadZoneX" xml:space="preserve"><value>Rov teeb tsa dua deadzone X</value></data>
+  <data name="Pad_ResetDeadZoneY" xml:space="preserve"><value>Rov teeb tsa dua deadzone Y</value></data>
+  <data name="Pad_ResetAntiDeadZoneX" xml:space="preserve"><value>Rov teeb tsa dua anti-deadzone X</value></data>
+  <data name="Pad_ResetAntiDeadZoneY" xml:space="preserve"><value>Rov teeb tsa dua anti-deadzone Y</value></data>
+  <data name="Pad_ResetSensitivityX" xml:space="preserve"><value>Rov teeb tsa dua kev rhiab X</value></data>
+  <data name="Pad_ResetSensitivityY" xml:space="preserve"><value>Rov teeb tsa dua kev rhiab Y</value></data>
+  <data name="Pad_ResetRange" xml:space="preserve"><value>Rov teeb tsa dua range</value></data>
+  <data name="Pad_ResetAntiDeadZone" xml:space="preserve"><value>Rov teeb tsa dua anti-deadzone</value></data>
+  <data name="Pad_ResetSensitivity" xml:space="preserve"><value>Rov teeb tsa dua kev rhiab</value></data>
+  <data name="Pad_ResetLeftMotor" xml:space="preserve"><value>Rov teeb tsa dua motor sab laug</value></data>
+  <data name="Pad_ResetRightMotor" xml:space="preserve"><value>Rov teeb tsa dua motor sab xis</value></data>
+  <data name="Pad_ResetAudioSensitivity" xml:space="preserve"><value>Rov teeb tsa dua kev rhiab</value></data>
+  <data name="Pad_ResetAudioLeftMotor" xml:space="preserve"><value>Rov teeb tsa dua motor sab laug</value></data>
+  <data name="Pad_ResetAudioRightMotor" xml:space="preserve"><value>Rov teeb tsa dua motor sab xis</value></data>
+
+  <!-- ═══ Pad: Adaptive Triggers reset tooltips ═══ -->
+  <data name="Pad_ResetLeftTrigger" xml:space="preserve"><value>Rov teeb tsa dua trigger sab laug</value></data>
+  <data name="Pad_ResetRightTrigger" xml:space="preserve"><value>Rov teeb tsa dua trigger sab xis</value></data>
+  <data name="Pad_ResetStrength" xml:space="preserve"><value>Rov teeb tsa dua lub zog</value></data>
+
+  <!-- ═══ Pad: Lighting reset tooltips ═══ -->
+  <data name="Pad_ResetLightbarMode" xml:space="preserve"><value>Rov teeb tsa dua hom lightbar</value></data>
+  <data name="Pad_ResetLedBrightness" xml:space="preserve"><value>Rov teeb tsa dua kev ci LED</value></data>
+  <data name="Pad_ResetLightbarRainbowBrightness" xml:space="preserve"><value>Rov teeb tsa dua kev ci</value></data>
+  <data name="Pad_ResetAudioLightbarSensitivity" xml:space="preserve"><value>Rov teeb tsa dua kev rhiab</value></data>
+  <data name="Pad_ResetLightbarRed" xml:space="preserve"><value>Rov teeb tsa dua xim liab</value></data>
+  <data name="Pad_ResetLightbarGreen" xml:space="preserve"><value>Rov teeb tsa dua xim ntsuab</value></data>
+  <data name="Pad_ResetLightbarBlue" xml:space="preserve"><value>Rov teeb tsa dua xim xiav</value></data>
+
+  <!-- ═══ Pad: Macro Hints ═══ -->
+  <data name="Macro_Axis_Inverted" xml:space="preserve"><value>thim rov qab</value></data>
+  <data name="Macro_InvertAxis" xml:space="preserve"><value>Thim rov qab axis</value></data>
+
+  <!-- ═══ 3D View ═══ -->
+
+  <!-- ═══ Gamepad Button Labels ═══ -->
+  <data name="Btn_LeftShoulder" xml:space="preserve"><value>Xub pwg sab laug</value></data>
+  <data name="Btn_RightShoulder" xml:space="preserve"><value>Xub pwg sab xis</value></data>
+  <data name="Btn_LeftStickButton" xml:space="preserve"><value>Khawm stick sab laug</value></data>
+  <data name="Btn_RightStickButton" xml:space="preserve"><value>Khawm stick sab xis</value></data>
+  <data name="Btn_DPadUp" xml:space="preserve"><value>D-pad sab saud</value></data>
+  <data name="Btn_DPadDown" xml:space="preserve"><value>D-pad sab hauv qab</value></data>
+  <data name="Btn_DPadLeft" xml:space="preserve"><value>D-pad sab laug</value></data>
+  <data name="Btn_DPadRight" xml:space="preserve"><value>D-pad sab xis</value></data>
+  <data name="Btn_LeftTrigger" xml:space="preserve"><value>Trigger sab laug</value></data>
+  <data name="Btn_RightTrigger" xml:space="preserve"><value>Trigger sab xis</value></data>
+  <data name="Stick_LeftThumbstick" xml:space="preserve"><value>Stick sab laug</value></data>
+  <data name="Stick_RightThumbstick" xml:space="preserve"><value>Stick sab xis</value></data>
+  <data name="Stick_ScrollWheel" xml:space="preserve"><value>Scroll wheel</value></data>
+  <data name="Stick_Format" xml:space="preserve"><value>Stick {0}</value></data>
+  <data name="Trigger_Format" xml:space="preserve"><value>Trigger {0}</value></data>
+  <data name="Btn_LeftStickX" xml:space="preserve"><value>Stick sab laug X</value></data>
+  <data name="Btn_LeftStickY" xml:space="preserve"><value>Stick sab laug Y</value></data>
+  <data name="Btn_RightStickX" xml:space="preserve"><value>Stick sab xis X</value></data>
+  <data name="Btn_RightStickY" xml:space="preserve"><value>Stick sab xis Y</value></data>
+  <data name="Btn_Up" xml:space="preserve"><value>Sab saud</value></data>
+  <data name="Btn_Down" xml:space="preserve"><value>Sab hauv qab</value></data>
+  <data name="Btn_Left" xml:space="preserve"><value>Sab laug</value></data>
+  <data name="Btn_Right" xml:space="preserve"><value>Sab xis</value></data>
+  <data name="Btn_Cross" xml:space="preserve"><value>Ntoo khaub lig</value></data>
+  <data name="Btn_Circle" xml:space="preserve"><value>Voj voog</value></data>
+  <data name="Btn_Square" xml:space="preserve"><value>Plaub fab</value></data>
+  <data name="Btn_Triangle" xml:space="preserve"><value>Peb ceg</value></data>
+  <data name="Btn_L1" xml:space="preserve"><value>L1</value></data>
+  <data name="Btn_R1" xml:space="preserve"><value>R1</value></data>
+  <data name="Btn_L3" xml:space="preserve"><value>L3</value></data>
+  <data name="Btn_R3" xml:space="preserve"><value>R3</value></data>
+  <data name="Btn_PS" xml:space="preserve"><value>PS</value></data>
+  <data name="Btn_Touchpad" xml:space="preserve"><value>Touchpad</value></data>
+  <data name="Btn_L" xml:space="preserve"><value>L</value></data>
+  <data name="Btn_R" xml:space="preserve"><value>R</value></data>
+  <data name="Btn_ZL" xml:space="preserve"><value>ZL</value></data>
+  <data name="Btn_ZR" xml:space="preserve"><value>ZR</value></data>
+  <data name="Btn_GL" xml:space="preserve"><value>GL</value></data>
+  <data name="Btn_GR" xml:space="preserve"><value>GR</value></data>
+  <data name="Btn_Menu" xml:space="preserve"><value>Menu</value></data>
+  <data name="Btn_Steam" xml:space="preserve"><value>Steam</value></data>
+  <data name="Btn_C" xml:space="preserve"><value>C</value></data>
+  <data name="Btn_MicMute" xml:space="preserve"><value>Kaw suab</value></data>
+  <data name="Btn_LeftPaddle" xml:space="preserve"><value>Khawm tom qab sab laug</value></data>
+  <data name="Btn_RightPaddle" xml:space="preserve"><value>Khawm tom qab sab xis</value></data>
+  <data name="Btn_LeftFn" xml:space="preserve"><value>Fn sab laug</value></data>
+  <data name="Btn_RightFn" xml:space="preserve"><value>Fn sab xis</value></data>
+  <data name="Btn_VrLeftA" xml:space="preserve"><value>A sab laug</value></data>
+  <data name="Btn_VrLeftB" xml:space="preserve"><value>B sab laug</value></data>
+  <data name="Btn_VrRightA" xml:space="preserve"><value>A sab xis</value></data>
+  <data name="Btn_VrRightB" xml:space="preserve"><value>B sab xis</value></data>
+  <data name="Vr_LeftHand" xml:space="preserve"><value>Tes sab laug</value></data>
+  <data name="Vr_RightHand" xml:space="preserve"><value>Tes sab xis</value></data>
+  <data name="Vr_Stick" xml:space="preserve"><value>Stick</value></data>
+
+  <!-- ═══ Keyboard Key Labels ═══ -->
+  <!-- Mouse VK buttons -->
+  <data name="Key_LButton" xml:space="preserve"><value>Khawm mouse sab laug</value></data>
+  <data name="Key_RButton" xml:space="preserve"><value>Khawm mouse sab xis</value></data>
+  <data name="Key_MButton" xml:space="preserve"><value>Khawm mouse nruab nrab</value></data>
+  <data name="Key_XButton1" xml:space="preserve"><value>Khawm mouse X1</value></data>
+  <data name="Key_XButton2" xml:space="preserve"><value>Khawm mouse X2</value></data>
+  <!-- Common keys -->
+  <data name="Key_Tab" xml:space="preserve"><value>Tab</value></data>
+  <data name="Key_Enter" xml:space="preserve"><value>Enter</value></data>
+  <data name="Key_Shift" xml:space="preserve"><value>Shift</value></data>
+  <data name="Key_Control" xml:space="preserve"><value>Ctrl</value></data>
+  <data name="Key_Alt" xml:space="preserve"><value>Alt</value></data>
+  <data name="Key_CapsLock" xml:space="preserve"><value>Caps Lock</value></data>
+  <data name="Key_Escape" xml:space="preserve"><value>Esc</value></data>
+  <!-- Navigation -->
+  <data name="Key_Select" xml:space="preserve"><value>Xaiv</value></data>
+  <data name="Key_Help" xml:space="preserve"><value>Kev pab</value></data>
+  <!-- Windows keys -->
+  <data name="Key_LWin" xml:space="preserve"><value>Windows sab laug</value></data>
+  <data name="Key_RWin" xml:space="preserve"><value>Windows sab xis</value></data>
+  <!-- Numpad -->
+  <!-- Lock keys -->
+  <data name="Key_NumLock" xml:space="preserve"><value>Num Lock</value></data>
+  <data name="Key_ScrollLock" xml:space="preserve"><value>Scroll Lock</value></data>
+  <!-- Left/Right modifiers -->
+  <data name="Key_LeftShift" xml:space="preserve"><value>Shift sab laug</value></data>
+  <data name="Key_RightShift" xml:space="preserve"><value>Shift sab xis</value></data>
+  <data name="Key_LeftCtrl" xml:space="preserve"><value>Ctrl sab laug</value></data>
+  <data name="Key_RightCtrl" xml:space="preserve"><value>Ctrl sab xis</value></data>
+  <data name="Key_LeftAlt" xml:space="preserve"><value>Alt sab laug</value></data>
+  <data name="Key_RightAlt" xml:space="preserve"><value>Alt sab xis</value></data>
+  <!-- Browser keys -->
+  <!-- Media keys -->
+  <data name="Key_VolumeMute" xml:space="preserve"><value>Kaw suab</value></data>
+  <data name="Key_VolumeDown" xml:space="preserve"><value>Txo suab nrov</value></data>
+  <data name="Key_VolumeUp" xml:space="preserve"><value>Ntxiv suab nrov</value></data>
+
+  <!-- ═══ Mouse Labels ═══ -->
+  <data name="Mouse_LeftClick" xml:space="preserve"><value>Nyem sab laug</value></data>
+  <data name="Mouse_RightClick" xml:space="preserve"><value>Nyem sab xis</value></data>
+  <data name="Mouse_MiddleClick" xml:space="preserve"><value>Nyem nruab nrab</value></data>
+  <data name="Mouse_X" xml:space="preserve"><value>Mouse X</value></data>
+  <data name="Mouse_Y" xml:space="preserve"><value>Mouse Y</value></data>
+
+  <!-- ═══ Extended Custom Labels ═══ -->
+  <data name="Extended_Stick_Format" xml:space="preserve"><value>Stick {0} X</value></data>
+  <data name="Extended_StickY_Format" xml:space="preserve"><value>Stick {0} Y</value></data>
+  <data name="Extended_Trigger_Format" xml:space="preserve"><value>Trigger {0}</value></data>
+  <data name="Extended_Button_Format" xml:space="preserve"><value>Khawm {0}</value></data>
+  <data name="Extended_DPad" xml:space="preserve"><value>D-pad</value></data>
+  <data name="Extended_POV_Format" xml:space="preserve"><value>POV {0}</value></data>
+
+  <!-- ═══ Macro Axis Target Labels ═══ -->
+  <data name="MacroAxis_XAxis" xml:space="preserve"><value>Stick sab laug X</value></data>
+  <data name="MacroAxis_YAxis" xml:space="preserve"><value>Stick sab laug Y</value></data>
+  <data name="MacroAxis_XRotation" xml:space="preserve"><value>Stick sab xis X</value></data>
+  <data name="MacroAxis_YRotation" xml:space="preserve"><value>Stick sab xis Y</value></data>
+  <data name="MacroAxis_ZAxis" xml:space="preserve"><value>Trigger sab laug</value></data>
+  <data name="MacroAxis_ZRotation" xml:space="preserve"><value>Trigger sab xis</value></data>
+
+  <!-- ═══ Preview Views ═══ -->
+  <data name="Preview_Stick_Format" xml:space="preserve"><value>Stick {0}</value></data>
+  <data name="Preview_Trigger_Format" xml:space="preserve"><value>T{0}</value></data>
+  <data name="Preview_DPad" xml:space="preserve"><value>D-pad</value></data>
+  <data name="Preview_Buttons" xml:space="preserve"><value>Cov khawm</value></data>
+  <data name="Preview_POV_Format" xml:space="preserve"><value>POV {0}</value></data>
+
+  <!-- ═══ Audio Bass Rumble ═══ -->
+  <data name="Settings_AudioRumble" xml:space="preserve"><value>Kev co los ntawm suab</value></data>
+  <data name="Settings_AudioRumble_Enable" xml:space="preserve"><value>Qhib kev co los ntawm suab</value></data>
+  <data name="Settings_AudioRumble_Sensitivity" xml:space="preserve"><value>Kev rhiab</value></data>
+  <data name="Settings_AudioRumble_LeftMotor" xml:space="preserve"><value>Motor sab laug</value></data>
+  <data name="Settings_AudioRumble_RightMotor" xml:space="preserve"><value>Motor sab xis</value></data>
+  <!-- Shift mode (Issue #61 Phase 6 v1+) -->
+  <data name="Pad_Shift_LayerName" xml:space="preserve"><value>Npe ntawm layer</value></data>
+  <data name="Pad_Shift_Mode" xml:space="preserve"><value>Hom</value></data>
+  <data name="Pad_Shift_ModeHold" xml:space="preserve"><value>Nias tuav</value></data>
+  <data name="Pad_Shift_ModeToggle" xml:space="preserve"><value>Toggle</value></data>
+  <data name="Pad_Shift_HintNameRequired" xml:space="preserve"><value>Yuav tsum muaj npe ntawm layer.</value></data>
+  <data name="Pad_Shift_HintNameDuplicate" xml:space="preserve"><value>Twb muaj ib lub layer uas muaj lub npe ntawd nyob hauv slot no lawm.</value></data>
+  <data name="Pad_Shift_Rename" xml:space="preserve"><value>Hloov npe layer…</value></data>
+  <data name="Pad_Shift_Color" xml:space="preserve"><value>Xim ntawm layer</value></data>
+  <data name="Pad_ResetLayerColor" xml:space="preserve"><value>Rov teeb tsa xim ntawm layer dua</value></data>
+  <data name="Pad_Shift_Icon_Reset" xml:space="preserve"><value>Rov teeb tsa dua rau neej ntawd (⇧)</value></data>
+  <data name="Pad_Shift_Delete" xml:space="preserve"><value>Rho tawm layer</value></data>
+  <data name="Pad_Shift_Delay" xml:space="preserve"><value>Ncua sij hawm</value></data>
+  <data name="Pad_Shift_CycleNextButton" xml:space="preserve"><value>Khawm tom ntej</value></data>
+  <data name="Pad_Shift_CyclePrevButton" xml:space="preserve"><value>Khawm dhau los</value></data>
+  <data name="Pad_Shift_KindButton" xml:space="preserve"><value>Khawm</value></data>
+
+  <data name="Pad_Steering_Mode_Linear" xml:space="preserve"><value>Kaw</value></data>
+  <data name="Pad_Steering_Orient_Forward" xml:space="preserve"><value>Pem hauv ntej</value></data>
+  <data name="Pad_Steering_Orient_Left" xml:space="preserve"><value>Sab laug</value></data>
+  <data name="Pad_Steering_Orient_Right" xml:space="preserve"><value>Sab xis</value></data>
+  <data name="Pad_Steering_Orient_Backward" xml:space="preserve"><value>Tom qab</value></data>
+  <data name="Pad_FlickStick_Header" xml:space="preserve"><value>Flick stick</value></data>
+  <data name="Pad_FlickStick_Reset_All" xml:space="preserve"><value>Rov teeb tsa flick stick dua</value></data>
+  <data name="Pad_ResetFlickCountsPer360" xml:space="preserve"><value>Rov teeb tsa dua rau 14400</value></data>
+  <data name="Pad_ResetFlickTime" xml:space="preserve"><value>Rov teeb tsa dua rau 0.1 s</value></data>
+  <data name="Pad_ResetFlickThreshold" xml:space="preserve"><value>Rov teeb tsa dua rau 0.9</value></data>
+  <data name="Pad_ResetFlickSnapStrength" xml:space="preserve"><value>Rov teeb tsa dua rau 1.0</value></data>
+  <data name="Pad_ResetFlickForwardDeadzone" xml:space="preserve"><value>Rov teeb tsa dua rau 0°</value></data>
+  <data name="Pad_Steering_Lock_LightbarColor" xml:space="preserve"><value>Xim ntawm lightbar</value></data>
+  <data name="Pad_Wheel" xml:space="preserve"><value>Wheel</value></data>
+  <data name="Pad_ResetWheel" xml:space="preserve"><value>Rov teeb tsa wheel dua</value></data>
+  <data name="Pad_Audio" xml:space="preserve"><value>Suab</value></data>
+  <data name="Pad_Pointer_SensorBar_Centered" xml:space="preserve"><value>Nruab nrab</value></data>
+  <data name="Pad_Pointer_Mode_Mouse" xml:space="preserve"><value>Mouse</value></data>
+  <data name="Pad_Audio_Header" xml:space="preserve"><value>Suab</value></data>
+  <data name="Pad_Audio_Test" xml:space="preserve"><value>Sim</value></data>
+  <data name="Pad_Audio_StopAll" xml:space="preserve"><value>Nres tag nrho cov suab</value></data>
+  <data name="Pad_Audio_NewSoundMacro" xml:space="preserve"><value>Macro suab tshiab</value></data>
+  <data name="Pad_Audio_SoundMacroName_Format" xml:space="preserve"><value>Macro suab {0}</value></data>
+  <data name="MacroAction_Type_PlaySound" xml:space="preserve"><value>Tso suab</value></data>
+  <data name="MacroAction_Type_SoundStop" xml:space="preserve"><value>Nres suab</value></data>
+  <data name="MacroAction_PlaySound_Format" xml:space="preserve"><value>Tso {0} ({1}%)</value></data>
+  <data name="Macro_Sound_File_Label" xml:space="preserve"><value>Ntaub ntawv suab</value></data>
+  <data name="Macro_Sound_Browse" xml:space="preserve"><value>Nrhiav…</value></data>
+  <data name="Macro_Sound_Preview" xml:space="preserve"><value>Saib ua ntej</value></data>
+  <data name="Macro_Sound_Volume_Label" xml:space="preserve"><value>Suab nrov</value></data>
+  <data name="Pad_Audio_Engage_Always" xml:space="preserve"><value>Ib txwm</value></data>
+  <data name="Pad_Audio_ToneFilter_Off" xml:space="preserve"><value>Kaw</value></data>
+  <data name="Pad_ResetPersonaHaptics" xml:space="preserve"><value>Rov teeb tsa dua rau neej ntawd (Kaw)</value></data>
+  <data name="Pad_ResetPersonaHapticsGain" xml:space="preserve"><value>Rov teeb tsa dua rau neej ntawd (100%)</value></data>
+  <data name="Pad_ResetTritonLowPass" xml:space="preserve"><value>Rov teeb tsa dua rau 250 Hz</value></data>
+  <data name="About_DsTester" xml:space="preserve"><value>dualsense-tester</value></data>
+  <data name="About_Ds4Audio" xml:space="preserve"><value>DS4AudioStreamer</value></data>
+  <data name="Macro_Sound_PickFromPackage_Format" xml:space="preserve"><value>Xaiv ib lub suab ntawm {0}</value></data>
+  <data name="Menu_Binding_Macro" xml:space="preserve"><value>Macro</value></data>
+  <data name="Menu_Icon_None" xml:space="preserve"><value>Tsis muaj icon</value></data>
+  <data name="Menu_Icon_PickTitle" xml:space="preserve"><value>Xaiv ib lub icon</value></data>
+  <data name="IconPicker_Emoji" xml:space="preserve"><value>Emoji</value></data>
+  <data name="IconPicker_Images" xml:space="preserve"><value>Duab</value></data>
+  <data name="Emoji_Category_Hands" xml:space="preserve"><value>Tes</value></data>
+  <data name="Emoji_Category_Animals" xml:space="preserve"><value>Tsiaj</value></data>
+  <data name="Emoji_Category_Food" xml:space="preserve"><value>Zaub mov</value></data>
+  <data name="Emoji_Category_Activities" xml:space="preserve"><value>Kev ua si</value></data>
+  <data name="Emoji_Category_Travel" xml:space="preserve"><value>Kev mus ncig</value></data>
+  <data name="Emoji_Category_Objects" xml:space="preserve"><value>Khoom</value></data>
+  <data name="Emoji_Category_Symbols" xml:space="preserve"><value>Cim</value></data>
+  <data name="DeviceType_Midi" xml:space="preserve"><value>Controller MIDI</value></data>
+  <data name="Mapping_MidiCc_Format" xml:space="preserve"><value>CC {0}</value></data>
+  <data name="Mapping_MidiCcNamed_Format" xml:space="preserve"><value>CC {0} ({1})</value></data>
+  <data name="Mapping_MidiCcUp_Format" xml:space="preserve"><value>CC {0} +</value></data>
+  <data name="Mapping_MidiCcDown_Format" xml:space="preserve"><value>CC {0} −</value></data>
+  <data name="RemoteLink_PeerNamePlaceholder" xml:space="preserve"><value>Muab npe rau lub PC no</value></data>
+  <data name="Common_Reset" xml:space="preserve">
+    <value>Rov teeb tsa dua</value>
+  </data>
+  <data name="RemoteLink_PasswordTitle" xml:space="preserve">
+    <value>Lo lus zais Remote Link</value>
+  </data>
+  <data name="Dashboard_TouchpadOverlayWindowTitle" xml:space="preserve">
+    <value>PadForge Touchpad</value>
+  </data>
+  <data name="RemoteLink_PasswordEmpty" xml:space="preserve">
+    <value>Sau ib lo lus zais.</value>
+  </data>
+  <data name="RemoteLink_PasswordMismatch" xml:space="preserve">
+    <value>Cov lo lus zais tsis sib xws.</value>
+  </data>
+  <data name="RemoteLink_StatusWrongPassword" xml:space="preserve">
+    <value>Lo lus zais Remote Link tsis raug.</value>
+  </data>
+  <data name="RemoteLink_StatusConnecting" xml:space="preserve">
+    <value>Tab tom txuas rau {0}:{1}…</value>
+  </data>
+  <data name="RemoteLink_StatusConnectFailed" xml:space="preserve">
+    <value>Txuas tsis tau: {0}</value>
+  </data>
+  <data name="Macro_Sound_BrowseFiles" xml:space="preserve"><value>Nrhiav ntaub ntawv…</value></data>
+  <data name="PickSound_Title" xml:space="preserve"><value>Xaiv ib lub suab</value></data>
+  <data name="About_NAudio" xml:space="preserve"><value>NAudio</value></data>
+  <data name="About_Vosk" xml:space="preserve"><value>Vosk</value></data>
+  <data name="About_BouncyCastle" xml:space="preserve"><value>Bouncy Castle</value></data>
+  <data name="About_BthPS3" xml:space="preserve"><value>BthPS3</value></data>
+  <data name="About_DsHidMini" xml:space="preserve"><value>DsHidMini</value></data>
+  <data name="About_NefariusDevMgmt" xml:space="preserve"><value>Nefarius.Utilities.DeviceManagement</value></data>
+  <data name="About_Libusb" xml:space="preserve"><value>libusb</value></data>
+  <data name="About_Nipplejs" xml:space="preserve"><value>nipplejs</value></data>
+  <data name="About_GameControllerDb" xml:space="preserve"><value>SDL_GameControllerDB</value></data>
+  <data name="About_Xbledctl" xml:space="preserve"><value>xbledctl</value></data>
+  <data name="About_JoyShockMapper" xml:space="preserve"><value>JoyShockMapper</value></data>
+  <data name="About_GamepadMotionHelpers" xml:space="preserve"><value>GamepadMotionHelpers</value></data>
+  <data name="About_SteamControllerSinger" xml:space="preserve"><value>SteamControllerSinger</value></data>
+  <data name="About_SteamHapticsSinger" xml:space="preserve"><value>SteamHapticsSinger</value></data>
+  <data name="About_Hitboxer" xml:space="preserve"><value>hitboxer</value></data>
+  <data name="About_SteamKit2" xml:space="preserve"><value>SteamKit2</value></data>
+  <data name="About_ProtobufNet" xml:space="preserve"><value>protobuf-net</value></data>
+  <data name="About_ZstdSharp" xml:space="preserve"><value>ZstdSharp</value></data>
+  <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
+  <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
+  <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
+  <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
+  <data name="About_JoyconSinger" xml:space="preserve"><value>joycon-singer</value></data>
+  <data name="Devices_Pair" xml:space="preserve"><value>Pair</value></data>
+  <data name="WiiPair_FamilyWii" xml:space="preserve"><value>Nintendo Wii</value></data>
+  <data name="WiiPair_Instructions" xml:space="preserve"><value>Qhib lub hau roj teeb thiab nias lub khawm SYNC liab. Cia PadForge nrhiav mus txog thaum koj lub controller tshwm.</value></data>
+  <data name="WiiPair_Pair" xml:space="preserve"><value>Pair</value></data>
+  <data name="WiiPair_Searching" xml:space="preserve"><value>Tab tom nrhiav. Nias lub khawm SYNC tam sim no.</value></data>
+  <data name="WiiPair_Found" xml:space="preserve"><value>Cov controller uas nrhiav tau</value></data>
+  <data name="WiiPair_NothingYet" xml:space="preserve"><value>Tseem nrhiav tsis tau ib lub controller. Saib kom cov teeb xiav tab tom ntsais.</value></data>
+  <data name="WiiPair_SuccessFormat" xml:space="preserve"><value>Pair {0} lawm. Nws yuav tshwm rau hauv koj daim ntawv teev khoom siv.</value></data>
+  <data name="WiiPair_NoBluetooth" xml:space="preserve"><value>Nrhiav tsis tau Bluetooth radio. Txuas ib lub Bluetooth adapter thiab sim dua.</value></data>
+  <data name="WiiPair_Failed" xml:space="preserve"><value>Pair Wii tsis tiav. Sim dua.</value></data>
+  <data name="WiiPair_Done" xml:space="preserve"><value>Ua tiav</value></data>
+  <data name="WiiPair_FamilyDs3" xml:space="preserve"><value>Sony DualShock 3</value></data>
+  <data name="About_OpenVR" xml:space="preserve"><value>OpenVR API</value></data>
+  <data name="Vr_Status_Running" xml:space="preserve"><value>Tab tom khiav</value></data>
+  <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Tab tom khiav, driver txuas lawm</value></data>
+  <data name="SerialPair_Port" xml:space="preserve"><value>Port</value></data>
+  <data name="SerialPair_Controller" xml:space="preserve"><value>Controller</value></data>
+  <data name="SerialPair_NoPorts" xml:space="preserve"><value>Tsis muaj COM port.</value></data>
+  <data name="SerialPair_Full" xml:space="preserve"><value>PadForge nyeem tau txog 16 lub serial controller. Rho ib lub tawm kom ntxiv tau lwm lub.</value></data>
+  <data name="MovePair_NoUsb" xml:space="preserve"><value>Nrhiav tsis tau PlayStation Move los yog Navigation controller ntawm USB. Txuas nws nrog ib txoj hlua USB thiab sim dua.</value></data>
+  <data name="Ds3Pair_Working" xml:space="preserve"><value>Tab tom teeb tsa lub controller. Cia nws txuas USB.</value></data>
+  <data name="Ds3Pair_Success" xml:space="preserve"><value>Npaj txhij lawm. Rho txoj hlua tawm ntawm lub controller thiab nias lub khawm PS. Nws yuav tshwm rau hauv koj daim ntawv teev khoom siv.</value></data>
+  <data name="Ds3Pair_NoUsb" xml:space="preserve"><value>Nrhiav tsis tau DualShock 3 ntawm USB. Txuas nws nrog ib txoj hlua USB thiab sim dua.</value></data>
+  <data name="Common_Close" xml:space="preserve"><value>Kaw</value></data>
+  <data name="Nfc_UidLabel" xml:space="preserve"><value>UID:</value></data>
+  <data name="Nfc_Waiting" xml:space="preserve"><value>(tab tom tos)</value></data>
+  <data name="Nfc_NameLabel" xml:space="preserve"><value>Npe:</value></data>
+  <data name="Nfc_RegisterButton" xml:space="preserve"><value>Sau npe</value></data>
+  <data name="DeviceType_HeadTracker" xml:space="preserve"><value>Head tracker</value></data>
+  <data name="DeviceType_VrController" xml:space="preserve"><value>Controller VR</value></data>
+  <data name="DeviceType_PeripheralHaptics" xml:space="preserve"><value>Haptics</value></data>
+  <data name="DeviceType_PeripheralLighting" xml:space="preserve"><value>Teeb</value></data>
+  <data name="HeadTracker_Yaw" xml:space="preserve"><value>Yaw ntawm taub hau</value></data>
+  <data name="HeadTracker_Pitch" xml:space="preserve"><value>Pitch ntawm taub hau</value></data>
+  <data name="HeadTracker_Roll" xml:space="preserve"><value>Roll ntawm taub hau</value></data>
+  <data name="HeadTracker_X" xml:space="preserve"><value>Taub hau X</value></data>
+  <data name="HeadTracker_Y" xml:space="preserve"><value>Taub hau Y</value></data>
+  <data name="HeadTracker_Z" xml:space="preserve"><value>Taub hau Z</value></data>
+  <data name="VrCtl_Yaw" xml:space="preserve"><value>Yaw ntawm controller</value></data>
+  <data name="VrCtl_Pitch" xml:space="preserve"><value>Pitch ntawm controller</value></data>
+  <data name="VrCtl_Roll" xml:space="preserve"><value>Roll ntawm controller</value></data>
+  <data name="VrCtl_X" xml:space="preserve"><value>Controller X</value></data>
+  <data name="VrCtl_Y" xml:space="preserve"><value>Controller Y</value></data>
+  <data name="VrCtl_Z" xml:space="preserve"><value>Controller Z</value></data>
+  <data name="VrCtl_StickX" xml:space="preserve"><value>Stick X</value></data>
+  <data name="VrCtl_StickY" xml:space="preserve"><value>Stick Y</value></data>
+  <data name="VrCtl_Trigger" xml:space="preserve"><value>Trigger</value></data>
+  <data name="VrCtl_Menu" xml:space="preserve"><value>Khawm menu</value></data>
+  <data name="HeadTracker_StatusOpenXrNoRuntime" xml:space="preserve"><value>Tsis tau nruab OpenXR runtime</value></data>
+  <data name="Dashboard_HeadTrackingAxisYaw" xml:space="preserve"><value>Yaw</value></data>
+  <data name="Dashboard_HeadTrackingAxisPitch" xml:space="preserve"><value>Pitch</value></data>
+  <data name="Dashboard_HeadTrackingAxisRoll" xml:space="preserve"><value>Roll</value></data>
+  <data name="Dashboard_HeadTrackingAxisX" xml:space="preserve"><value>Qaij sab laug thiab sab xis</value></data>
+  <data name="Dashboard_HeadTrackingAxisZ" xml:space="preserve"><value>Qaij rau pem hauv ntej thiab tom qab</value></data>
+  <data name="Handheld_Title" xml:space="preserve"><value>Khawm zais</value></data>
+  <data name="Handheld_LearnHeader" xml:space="preserve"><value>Kawm ib lub khawm</value></data>
+  <data name="Handheld_MachineLabel" xml:space="preserve"><value>Tshuab:</value></data>
+  <data name="Handheld_StartButton" xml:space="preserve"><value>Pib kawm</value></data>
+  <data name="Handheld_PhaseRelease" xml:space="preserve"><value>Tos ib pliag…</value></data>
+  <data name="Handheld_NameLabel" xml:space="preserve"><value>Npe:</value></data>
+  <data name="Handheld_RegisterButton" xml:space="preserve"><value>Sau npe</value></data>
+  <data name="Handheld_RegisteredHeader" xml:space="preserve"><value>Khawm uas kawm lawm</value></data>
+  <data name="Handheld_NoneLearned" xml:space="preserve"><value>Tseem tsis tau kawm ib lub khawm li.</value></data>
+  <data name="Handheld_ChordFormat" xml:space="preserve"><value>Key: {0}</value></data>
+  <data name="Pad_Mouse" xml:space="preserve"><value>Mouse</value></data>
+  <data name="Mapping_MouseGestureLeft" xml:space="preserve"><value>Sab laug</value></data>
+  <data name="Mapping_MouseGestureRight" xml:space="preserve"><value>Sab xis</value></data>
+  <data name="Mapping_MouseGestureUp" xml:space="preserve"><value>Sab saud</value></data>
+  <data name="Mapping_MouseGestureDown" xml:space="preserve"><value>Sab hauv qab</value></data>
+  <data name="Mapping_MouseGestureClick" xml:space="preserve"><value>Nias</value></data>
+  <data name="Macro_Dreamcast_Pictures" xml:space="preserve"><value>Duab</value></data>
+  <data name="Macro_Dreamcast_AddPicture" xml:space="preserve"><value>Ntxiv duab…</value></data>
+  <data name="Macro_Dreamcast_RemoveTooltip" xml:space="preserve"><value>Tshem duab</value></data>
+  <data name="Pad_Lighting_GuideLed_Brightness" xml:space="preserve"><value>Kev ci</value></data>
+  <data name="Pad_Mapping_MotionSpeed_Name" xml:space="preserve"><value>Kev ceev</value></data>
+  <data name="Workshop_SearchPlaceholder" xml:space="preserve"><value>Nrhiav game</value></data>
+  <data name="Workshop_GamesCount_Format" xml:space="preserve"><value>{0} game</value></data>
+  <data name="Workshop_NoGamesFound" xml:space="preserve"><value>Nrhiav tsis tau game hauv Steam store.</value></data>
+  <data name="Workshop_SearchingSteam" xml:space="preserve"><value>Tab tom nrhiav hauv Steam…</value></data>
+  <data name="Workshop_Sort_Newest" xml:space="preserve"><value>Tshiab tshaj</value></data>
+  <data name="Workshop_BackToSearch" xml:space="preserve"><value>Nrhiav game</value></data>
+  <data name="Workshop_TimeToday" xml:space="preserve"><value>hnub no</value></data>
+  <data name="Workshop_TimeDays_Format" xml:space="preserve"><value>{0} hnub dhau los</value></data>
+  <data name="Workshop_TimeMonths_Format" xml:space="preserve"><value>{0} hlis dhau los</value></data>
+  <data name="Workshop_TimeYears_Format" xml:space="preserve"><value>{0} xyoos dhau los</value></data>
+  <data name="Workshop_TagAll" xml:space="preserve"><value>Tag nrho</value></data>
+  <data name="Workshop_Retry" xml:space="preserve"><value>Sim dua</value></data>
+  <data name="Workshop_LegacyOpenButton" xml:space="preserve"><value>Qhib hauv Steam Workshop</value></data>
+  <data name="Workshop_SaveProfile" xml:space="preserve"><value>Khaws cia profile</value></data>
+  <data name="Workshop_SaveAndApply" xml:space="preserve"><value>Khaws cia thiab siv</value></data>
+  <data name="Workshop_Tr_UnknownKey" xml:space="preserve"><value>tsis paub key {0}</value></data>
+  <data name="Workshop_Tr_UnknownMouseButton" xml:space="preserve"><value>tsis paub khawm mouse {0}</value></data>
+  <data name="Workshop_Tr_UnknownXInputButton" xml:space="preserve"><value>tsis paub khawm XInput {0}</value></data>
+  <data name="Workshop_UpdateRow_Format" xml:space="preserve"><value>{0} · {1}</value></data>
+  <data name="Macro_Toggle" xml:space="preserve"><value>Toggle</value></data>
+  <data name="Macro_Turbo" xml:space="preserve"><value>Turbo</value></data>
+  <data name="MacroAction_AllAxes" xml:space="preserve"><value>Tag nrho axis</value></data>
+  <data name="Pad_Menus" xml:space="preserve"><value>Menu</value></data>
+  <data name="Menu_NewNameFormat" xml:space="preserve"><value>Menu {0}</value></data>
+  <data name="Menu_Name" xml:space="preserve"><value>Npe menu</value></data>
+  <data name="Menu_Enabled" xml:space="preserve"><value>Qhib</value></data>
+  <data name="Menu_Host_LeftStick" xml:space="preserve"><value>Stick sab laug</value></data>
+  <data name="Menu_Host_RightStick" xml:space="preserve"><value>Stick sab xis</value></data>
+  <data name="Menu_Host_Touchpad_Format" xml:space="preserve"><value>Touchpad {0}</value></data>
+  <data name="Menu_Half_Left" xml:space="preserve"><value>Ib nrab sab laug</value></data>
+  <data name="Menu_Half_Right" xml:space="preserve"><value>Ib nrab sab xis</value></data>
+  <data name="Menu_Scale" xml:space="preserve"><value>Loj me</value></data>
+  <data name="Menu_CellCenter" xml:space="preserve"><value>Nruab nrab</value></data>
+  <data name="Menu_Binding_None" xml:space="preserve"><value>Tsis muaj</value></data>
+  <data name="Dashboard_Overlays" xml:space="preserve"><value>Overlay</value></data>
+  <data name="Pad_RumbleAudio_Voice_TriggerLeft" xml:space="preserve"><value>Trigger sab laug</value></data>
+  <data name="Pad_RumbleAudio_Voice_TriggerRight" xml:space="preserve"><value>Trigger sab xis</value></data>
+  <data name="Pad_RumbleAudio_Test" xml:space="preserve"><value>Sim</value></data>
+  <data name="Pad_RumbleAudio_ResetVoiceLow" xml:space="preserve"><value>Rov teeb tsa dua motor qis</value></data>
+  <data name="Pad_RumbleAudio_ResetVoiceHigh" xml:space="preserve"><value>Rov teeb tsa dua motor siab</value></data>
+  <data name="Pad_RumbleAudio_ResetVoiceTriggerLeft" xml:space="preserve"><value>Rov teeb tsa dua trigger sab laug</value></data>
+  <data name="Pad_RumbleAudio_ResetVoiceTriggerRight" xml:space="preserve"><value>Rov teeb tsa dua trigger sab xis</value></data>
+  <data name="Pad_RumbleAudio_StopTest" xml:space="preserve"><value>Nres</value></data>
+  <data name="Settings_GyroCalibrateFailed" xml:space="preserve"><value>Calibration tsis tau. Muab controller tso cia thiab sim dua.</value></data>
+  <data name="Common_KeepLegacyDrivers" xml:space="preserve"><value>Khaws</value></data>
+  <data name="Tray_Exit" xml:space="preserve"><value>Tawm</value></data>
+  <data name="About_Libinput" xml:space="preserve">
+    <value>libinput</value>
+  </data>
+  <data name="About_HandheldCompanion" xml:space="preserve">
+    <value>Handheld Companion</value>
+  </data>
+  <data name="About_GamepadAssetPack" xml:space="preserve">
+    <value>Gamepad-Asset-Pack</value>
+  </data>
+  <data name="About_Ds4Mac" xml:space="preserve">
+    <value>ds4mac</value>
+  </data>
+  <data name="Starter_Wasd_Name" xml:space="preserve"><value>WASD thiab mouse</value></data>
+  <data name="Starter_Fighting_Name" xml:space="preserve"><value>Kev ua si sib ntaus</value></data>
+  <data name="Profiles_BrowseStarters" xml:space="preserve"><value>Saib starter profile</value></data>
+  <data name="Starter_DialogTitle" xml:space="preserve"><value>Starter profile</value></data>
+  <data name="Starter_Save" xml:space="preserve"><value>Khaws cia profile</value></data>
+  <data name="Status_StarterImported_Format" xml:space="preserve"><value>Ntxiv starter profile "{0}" lawm.</value></data>
+  <data name="Starter_Racing_Name" xml:space="preserve"><value>Sib tw tsheb</value></data>
+  <data name="Starter_Layer_Hotkeys" xml:space="preserve"><value>Hotkey</value></data>
+  <data name="Pad_Audio_Crossfeed_Off" xml:space="preserve"><value>Kaw</value></data>
+  <data name="Pad_Audio_Crossfeed_Low" xml:space="preserve"><value>Qis</value></data>
+  <data name="Pad_Audio_Crossfeed_Middle" xml:space="preserve"><value>Nruab nrab</value></data>
+  <data name="Pad_Audio_Crossfeed_High" xml:space="preserve"><value>Siab</value></data>
+  <data name="Pad_Audio_Crossfeed_LowEasy" xml:space="preserve"><value>Qis (Yooj yim)</value></data>
+  <data name="Pad_Audio_Crossfeed_MiddleEasy" xml:space="preserve"><value>Nruab nrab (Yooj yim)</value></data>
+  <data name="Pad_Audio_Crossfeed_HighEasy" xml:space="preserve"><value>Siab (Yooj yim)</value></data>
+  <data name="Pad_Audio_EqCol_On" xml:space="preserve"><value>Qhib</value></data>
+  <data name="Pad_Audio_EqCol_Type" xml:space="preserve"><value>Hom</value></data>
+  <data name="Pad_Audio_EqCol_Q" xml:space="preserve"><value>Q</value></data>
+  <data name="Pad_Audio_EqClear" xml:space="preserve"><value>Lwv</value></data>
+  <data name="Pad_Audio_EqImport_ReadFailed_Format" xml:space="preserve"><value>Nyeem tsis tau file ntawd: {0}</value></data>
+  <data name="Pad_Audio_OutputPath_Auto" xml:space="preserve"><value>Neej ntawd</value></data>
+  <data name="Pad_Audio_OutputPath_SpeakerOnly" xml:space="preserve"><value>Speaker xwb</value></data>
+  <data name="About_DuaLib" xml:space="preserve"><value>duaLib</value></data>
+  <data name="About_Ds5Bridge" xml:space="preserve"><value>DS5_Bridge</value></data>
+  <data name="About_QrCodeGen" xml:space="preserve"><value>QR-Code-generator</value></data>
+  <data name="About_MouseArt" xml:space="preserve"><value>Zergatul.Obs.InputOverlay</value></data>
+  <data name="Battery_LowTitle" xml:space="preserve"><value>Roj teeb controller tsawg lawm</value></data>
+  <data name="Battery_LowText_Format" xml:space="preserve"><value>{0}: roj teeb tseem tshuav {1}%</value></data>
+  <data name="Settings_BatteryNotify" xml:space="preserve"><value>Ceeb toom roj teeb</value></data>
+  <data name="Settings_BatteryNotifyDesc" xml:space="preserve"><value>Tau txais kev ceeb toom thaum roj teeb ntawm controller tsawg, ua ntej nws tag thaum koj tseem ua si.</value></data>
+  <data name="Settings_BatteryNotifyEnable" xml:space="preserve"><value>Ceeb toom thaum roj teeb tsawg</value></data>
+  <data name="Settings_BatteryNotifyThreshold" xml:space="preserve"><value>Ceeb toom thaum txog lossis qis dua</value></data>
+  <data name="Settings_BatteryNotifyVibrate" xml:space="preserve"><value>Ua rau controller co thiab</value></data>
+  <data name="Settings_BatteryNotifyTest" xml:space="preserve"><value>Sim ceeb toom</value></data>
+  <data name="Voice_ModeLabel" xml:space="preserve"><value>Mloog</value></data>
+  <data name="Voice_ModeAlways" xml:space="preserve"><value>Ib txwm</value></data>
+  <data name="Voice_NameLabel" xml:space="preserve"><value>Npe</value></data>
+  <data name="Voice_RegisterButton" xml:space="preserve"><value>Sau npe</value></data>
+  <data name="About_Interhaptics" xml:space="preserve">
+    <value>Interhaptics (Wyvrn)</value>
+  </data>
+  <data name="About_Colore" xml:space="preserve">
+    <value>Colore</value>
+  </data>
+  <data name="About_Opentrack" xml:space="preserve">
+    <value>opentrack</value>
+  </data>
+  <data name="About_LegionToolkit" xml:space="preserve">
+    <value>Lenovo Legion Toolkit</value>
+  </data>
+  <data name="About_InputPlumber" xml:space="preserve">
+    <value>InputPlumber</value>
+  </data>
+  <data name="About_PortMidiRtMidi" xml:space="preserve"><value>PortMidi / RtMidi</value></data>
+  <data name="Pad_Kbm_Surfaces_MouseOnly_Name" xml:space="preserve">
+    <value>Mouse xwb</value>
+  </data>
+  <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
+    <value>Keyboard xwb</value>
+  </data>
+  <data name="Pad_Mapping_Scope_All" xml:space="preserve">
+    <value>Tag nrho</value>
+  </data>
+  <data name="Pad_Mapping_Scope_Keyboard" xml:space="preserve">
+    <value>Keyboard</value>
+  </data>
+  <data name="Pad_Mapping_Scope_Mouse" xml:space="preserve">
+    <value>Mouse</value>
+  </data>
+  <data name="Menu_Layer" xml:space="preserve"><value>Layer</value></data>
+  <data name="RemoteLink_AssignmentProfile_Format" xml:space="preserve">
+    <value>Profile: {0}</value>
+  </data>
+  <data name="RemoteLink_AssignmentBusy" xml:space="preserve">
+    <value>Tos lwm lub PC...</value>
+  </data>
+  <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Axis virtual</value></data>
+  <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Stick sab laug X</value></data>
+  <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Stick sab laug Y</value></data>
+  <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Stick sab xis X</value></data>
+  <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Stick sab xis Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Deadzone nruab nrab</value></data>
+  <data name="Common_ResetToOff" xml:space="preserve"><value>Rov teeb tsa dua mus rau Kaw</value></data>
+  <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Rov teeb tsa dua mus rau Stick sab laug X</value></data>
+  <data name="Pad_SteeringAngleRumble_ResetStrength" xml:space="preserve"><value>Rov teeb tsa dua lub zog (50%)</value></data>
+  <data name="Pad_SteeringAngleRumble_ResetDeadzone" xml:space="preserve"><value>Rov teeb tsa dua deadzone nruab nrab (2%)</value></data>
+  <data name="ResetLabel_Profile" xml:space="preserve"><value>Profile</value></data>
+  <data name="Status_SteamCmdTimedOut" xml:space="preserve"><value>steamcmd tsis tiav hauv 60 feeb.</value></data>
+  <data name="About_Nefcon" xml:space="preserve"><value>nefcon</value></data>
+  <data name="About_AntiMicroX" xml:space="preserve"><value>AntiMicroX</value></data>
+  <data name="About_AudioEndPointLibrary" xml:space="preserve"><value>AudioEndPointLibrary</value></data>
+  <data name="About_AutoEq" xml:space="preserve"><value>AutoEq</value></data>
+  <data name="About_AutoHotkey" xml:space="preserve"><value>AutoHotkey</value></data>
+  <data name="About_CemuhookProtocol" xml:space="preserve"><value>cemuhook-protocol</value></data>
+  <data name="About_Ds4Drv" xml:space="preserve"><value>ds4drv</value></data>
+  <data name="About_Ds4MapperTest" xml:space="preserve"><value>DS4MapperTest</value></data>
+  <data name="About_Ds5Dongle" xml:space="preserve"><value>DS5Dongle</value></data>
+  <data name="About_DualSenseSupport" xml:space="preserve"><value>DualSenseSupport</value></data>
+  <data name="About_Eden" xml:space="preserve"><value>Eden</value></data>
+  <data name="About_EdRefCard2" xml:space="preserve"><value>EDRefCard2</value></data>
+  <data name="About_FFmpeg" xml:space="preserve"><value>FFmpeg</value></data>
+  <data name="About_Fusion" xml:space="preserve"><value>Fusion</value></data>
+  <data name="About_GamepadBatteryMonitor" xml:space="preserve"><value>Gamepad Battery Monitor</value></data>
+  <data name="About_Hado" xml:space="preserve"><value>hado</value></data>
+  <data name="About_3doverstock" xml:space="preserve"><value>3doverstock</value></data>
+  <data name="About_Hidapi" xml:space="preserve"><value>HIDAPI</value></data>
+  <data name="About_IrohFlexInput" xml:space="preserve"><value>iroh / FlexInput</value></data>
+  <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
+  <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
+  <data name="About_SwitchResearch" xml:space="preserve"><value>Nintendo_Switch_Reverse_Engineering</value></data>
+  <data name="About_OpenRgb" xml:space="preserve"><value>OpenRGB</value></data>
+  <data name="About_OpenTabletDriver" xml:space="preserve"><value>OpenTabletDriver</value></data>
+  <data name="About_PcscSharp" xml:space="preserve"><value>pcsc-sharp</value></data>
+  <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
+  <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
+  <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
+  <data name="About_SpecialK" xml:space="preserve"><value>Special K</value></data>
+  <data name="About_ThumbstickDeadzones" xml:space="preserve"><value>Thumbstick Deadzones</value></data>
+  <data name="About_Touchmote" xml:space="preserve"><value>Touchmote</value></data>
+  <data name="About_TriggerEffectGenerator" xml:space="preserve"><value>TriggerEffectGenerator</value></data>
+  <data name="About_ViGEmClient" xml:space="preserve"><value>ViGEmClient</value></data>
+  <data name="About_Libwdi" xml:space="preserve"><value>libwdi</value></data>
+  <data name="About_Bluepad32" xml:space="preserve"><value>Bluepad32</value></data>
+  <data name="About_Monado" xml:space="preserve"><value>Monado</value></data>
+  <data name="About_OpenHmd" xml:space="preserve"><value>OpenHMD</value></data>
+  <data name="About_WiiBrew" xml:space="preserve"><value>WiiBrew</value></data>
+  <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
+  <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
+</root>

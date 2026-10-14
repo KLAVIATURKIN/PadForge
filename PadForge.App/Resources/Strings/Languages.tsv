@@ -10,7 +10,9 @@ bi	Bislama	Bislama	ltr	Latn	partial
 bik	Bikol	Bikol	ltr	Latn	partial
 bn	Bengali	বাংলা	ltr	Beng	full
 ca	Catalan	Català	ltr	Latn	partial
+ceb	Cebuano	Cebuano	ltr	Latn	partial
 chk	Chuukese	Fosun Chuuk	ltr	Latn	partial
+ckb	Central Kurdish	کوردیی ناوەندی	rtl	Arab	partial
 cs	Czech	Čeština	ltr	Latn	full
 cy	Welsh	Cymraeg	ltr	Latn	partial
 da	Danish	Dansk	ltr	Latn	full
@@ -24,27 +26,40 @@ eu	Basque	Euskara	ltr	Latn	partial
 fa	Persian	فارسی	rtl	Arab	full
 fi	Finnish	Suomi	ltr	Latn	full
 fil	Tagalog	Tagalog	ltr	Latn	partial
+fj	Fijian	Vosa Vakaviti	ltr	Latn	partial
 fr	French	Français	ltr	Latn	full
+gn	Guarani	Avañeʼẽ	ltr	Latn	partial
 gu	Gujarati	ગુજરાતી	ltr	Gujr	partial
+haw	Hawaiian	ʻŌlelo Hawaiʻi	ltr	Latn	partial
 hi	Hindi	हिन्दी	ltr	Deva	full
+hif	Fiji Hindi	Fiji Hindi	ltr	Latn	partial
+hil	Hiligaynon	Hiligaynon	ltr	Latn	partial
+hmn	Hmong	Hmoob	ltr	Latn	partial
 hr	Croatian	Hrvatski	ltr	Latn	partial
 ht	Haitian Creole	Kreyòl ayisyen	ltr	Latn	partial
 hu	Hungarian	Magyar	ltr	Latn	full
 hy	Armenian	Հայերեն	ltr	Armn	partial
+hyw	Western Armenian	Արեւմտահայերէն	ltr	Armn	partial
 id	Indonesian	Bahasa Indonesia	ltr	Latn	full
 ig	Igbo	Igbo	ltr	Latn	partial
+ilo	Ilocano	Ilokano	ltr	Latn	partial
 is	Icelandic	Íslenska	ltr	Latn	full
 it	Italian	Italiano	ltr	Latn	full
 ja	Japanese	日本語	ltr	Jpan	full
 ka	Georgian	ქართული	ltr	Geor	partial
+kea	Cape Verdean Creole	Kabuverdianu	ltr	Latn	partial
 kk	Kazakh	Қазақша	ltr	Cyrl	full
 km	Khmer	ភាសាខ្មែរ	ltr	Khmr	partial
 kn	Kannada	ಕನ್ನಡ	ltr	Knda	partial
 ko	Korean	한국어	ltr	Kore	full
 lb	Luxembourgish	Lëtzebuergesch	ltr	Latn	partial
+lg	Luganda	Luganda	ltr	Latn	partial
+ln	Lingala	Lingála	ltr	Latn	partial
 lo	Lao	ລາວ	ltr	Laoo	partial
 lt	Lithuanian	Lietuvių	ltr	Latn	partial
 lv	Latvian	Latviešu	ltr	Latn	full
+mg	Malagasy	Malagasy	ltr	Latn	partial
+mi	Māori	Te Reo Māori	ltr	Latn	partial
 mk	Macedonian	Македонски	ltr	Cyrl	full
 ml	Malayalam	മലയാളം	ltr	Mlym	partial
 mn	Mongolian	Монгол	ltr	Cyrl	partial
@@ -55,28 +70,43 @@ my	Burmese	မြန်မာ	ltr	Mymr	partial
 ne	Nepali	नेपाली	ltr	Deva	full
 nl	Dutch	Nederlands	ltr	Latn	full
 no	Norwegian	Norsk	ltr	Latn	full
+nso	Northern Sotho	Sepedi	ltr	Latn	partial
+ny	Chichewa	Chichewa	ltr	Latn	partial
+om	Oromo	Afaan Oromoo	ltr	Latn	partial
+pap	Papiamento	Papiamentu	ltr	Latn	partial
 pl	Polish	Polski	ltr	Latn	full
 pt-BR	Portuguese (Brazil)	Português (Brasil)	ltr	Latn	full
 pt-PT	Portuguese (Portugal)	Português (Portugal)	ltr	Latn	full
+quh	Quechua (Bolivia)	Qhichwa (Bolivia)	ltr	Latn	partial
 ro	Romanian	Română	ltr	Latn	full
 ru	Russian	Русский	ltr	Cyrl	full
+rw	Kinyarwanda	Ikinyarwanda	ltr	Latn	partial
 si	Sinhala	සිංහල	ltr	Sinh	partial
 sk	Slovak	Slovenčina	ltr	Latn	full
 sl	Slovenian	Slovenščina	ltr	Latn	full
+sm	Samoan	Gagana Sāmoa	ltr	Latn	partial
+sn	Shona	ChiShona	ltr	Latn	partial
 sq	Albanian	Shqip	ltr	Latn	partial
 sr	Serbian	Српски	ltr	Cyrl	full
+st	Sesotho	Sesotho	ltr	Latn	partial
 sv	Swedish	Svenska	ltr	Latn	full
 sw	Swahili	Kiswahili	ltr	Latn	partial
 ta	Tamil	தமிழ்	ltr	Taml	full
 te	Telugu	తెలుగు	ltr	Telu	full
 th	Thai	ไทย	ltr	Thai	full
+tn	Tswana	Setswana	ltr	Latn	partial
+to	Tongan	Lea faka-Tonga	ltr	Latn	partial
+tpi	Tok Pisin	Tok Pisin	ltr	Latn	partial
 tr	Turkish	Türkçe	ltr	Latn	full
+tw	Twi	Twi	ltr	Latn	partial
 uk	Ukrainian	Українська	ltr	Cyrl	full
 ur	Urdu	اردو	rtl	Arab	full
 vi	Vietnamese	Tiếng Việt	ltr	Latn	full
+war	Waray	Winaray	ltr	Latn	partial
 xh	Xhosa	IsiXhosa	ltr	Latn	partial
 yo	Yoruba	Èdè Yorùbá	ltr	Latn	partial
 zh-Hans	Chinese (Simplified)	中文（简体）	ltr	Hans	full
 zh-Hant	Chinese (Traditional)	中文（繁體）	ltr	Hant	full
 zh-HK	Cantonese (Traditional)	廣東話（繁體）	ltr	Hant	full
+zh-Latn	Chinese (Pinyin)	Hànyǔ Pīnyīn	ltr	Latn	partial
 zu	Zulu	IsiZulu	ltr	Latn	partial

@@ -1,0 +1,632 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <!-- ═══ Common ═══ -->
+  <data name="Common_Save" xml:space="preserve"><value>Maroroya</value></data>
+  <data name="Common_Delete" xml:space="preserve"><value>Bokoca</value></data>
+  <data name="Common_Add" xml:space="preserve"><value>Vakuria</value></data>
+  <data name="Common_Remove" xml:space="preserve"><value>Kauta tani</value></data>
+  <data name="Common_Ready" xml:space="preserve"><value>Vakarau</value></data>
+  <data name="Common_Unknown" xml:space="preserve"><value>Sega ni kilai</value></data>
+  <data name="Common_Proceed" xml:space="preserve"><value>Toso</value></data>
+  <data name="Common_Stop" xml:space="preserve"><value>Tarova</value></data>
+  <data name="Common_None" xml:space="preserve"><value>Sega</value></data>
+  <data name="Common_Ms" xml:space="preserve"><value>ms</value></data>
+  <data name="Common_PadForge" xml:space="preserve"><value>PadForge</value></data>
+
+  <!-- ═══ Controller Types ═══ -->
+  <data name="ControllerType_Xbox" xml:space="preserve"><value>Xbox</value></data>
+  <data name="ControllerType_PlayStation" xml:space="preserve"><value>PlayStation</value></data>
+  <data name="ControllerType_Nintendo" xml:space="preserve"><value>Nintendo</value></data>
+  <data name="ControllerType_MIDI" xml:space="preserve"><value>MIDI</value></data>
+  <data name="ControllerType_VR" xml:space="preserve"><value>VR</value></data>
+
+  <!-- ═══ MainWindow ═══ -->
+
+  <!-- ═══ MainWindow Status Messages ═══ -->
+  <data name="Status_DirectionRight" xml:space="preserve"><value>(→ i matau)</value></data>
+  <data name="Status_DirectionDown" xml:space="preserve"><value>(↓ i ra)</value></data>
+  <data name="Status_DirectionLeft" xml:space="preserve"><value>(← i mawi)</value></data>
+  <data name="Status_DirectionUp" xml:space="preserve"><value>(↑ i cake)</value></data>
+  <data name="Status_Error_Format" xml:space="preserve"><value>Cala: {0}</value></data>
+
+  <!-- ═══ Dashboard ═══ -->
+  <data name="FirstRun_Next" xml:space="preserve"><value>Tarava</value></data>
+  <data name="FirstRun_Done" xml:space="preserve"><value>Oti</value></data>
+  <data name="RemoteLink_Connect" xml:space="preserve"><value>Semata</value></data>
+  <data name="RemoteLink_Connected" xml:space="preserve"><value>Sa semati</value></data>
+  <data name="RemoteLink_Reject" xml:space="preserve"><value>Cakitaka</value></data>
+
+  <!-- ═══ Settings ═══ -->
+  <data name="Settings_ThemeLight" xml:space="preserve"><value>Rarama</value></data>
+  <data name="Settings_ThemeDark" xml:space="preserve"><value>Butobuto</value></data>
+  <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
+  <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
+  <data name="Settings_Language" xml:space="preserve"><value>Vosa</value></data>
+
+  <!-- ═══ About ═══ -->
+  <data name="About_DotNet10" xml:space="preserve"><value>.NET 10</value></data>
+  <data name="About_SDL3" xml:space="preserve"><value>SDL3</value></data>
+  <data name="About_HelixToolkit" xml:space="preserve"><value>HelixToolkit</value></data>
+  <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
+  <data name="About_License" xml:space="preserve"><value>Laiseni</value></data>
+  <data name="About_HIDMaestro" xml:space="preserve"><value>HIDMaestro</value></data>
+  <data name="About_OpenXInput" xml:space="preserve"><value>OpenXInput</value></data>
+  <data name="About_HidHide" xml:space="preserve"><value>HidHide</value></data>
+  <data name="About_Testimony" xml:space="preserve"><value>Dua na veisureti</value></data>
+  <data name="About_TestimonyScripture" xml:space="preserve"><value>“Ia eda veivosakitaki Karisito, eda reki ena vukui Karisito, eda vunautaki Karisito, eda parofisaitaki Karisito, ka eda sa volavola me vaka na noda parofisai, me rawa ni ra kila kina na noda kawa na ivurevure me ra rai kina me bokoci kina na nodra ivalavala ca.”</value></data>
+  <data name="About_TestimonyRef" xml:space="preserve"><value>2 Nifai 25:26</value></data>
+  <data name="About_TestimonyDoxology" xml:space="preserve"><value>Me nona na lagilagi, na doka kei na vakacaucau na Turaga ko Jisu Karisito, na vu ni dina kece kei na veivakabulai, me tawa mudu.</value></data>
+  <data name="About_TestimonyInvite" xml:space="preserve"><value>O ni sureti vakalevu mo ni sikova na ComeUntoChrist.org ka vulica eso tale me baleti Koya kei na Lotu i Jisu Karisito ni Yalododonu Edaidai.</value></data>
+  <data name="About_Bs2b" xml:space="preserve"><value>bs2b</value></data>
+  <data name="About_Concentus" xml:space="preserve"><value>Concentus</value></data>
+  <data name="About_SAxense" xml:space="preserve"><value>SAxense</value></data>
+  <data name="About_DsBtHaptics" xml:space="preserve"><value>dualsense-bt-haptics</value></data>
+  <data name="About_DualSenseY" xml:space="preserve"><value>DualSenseY-v2</value></data>
+
+  <!-- ═══ Device Types ═══ -->
+
+  <data name="Devices_IdleDisconnectMinutes" xml:space="preserve"><value>miniti (0 = sega vakadua)</value></data>
+  <data name="Devices_BlissBoxPlayer" xml:space="preserve"><value>Naba ni dauqito…</value></data>
+  <data name="BlissBoxPlayer_Title" xml:space="preserve"><value>Naba ni dauqito</value></data>
+  <data name="BlissBoxPlayer_Label" xml:space="preserve"><value>Dauqito</value></data>
+  <data name="DreamcastScreen_Mode_Label" xml:space="preserve"><value>Vakaraitaka</value></data>
+  <data name="DreamcastScreen_Mode_Adapter" xml:space="preserve"><value>Na iyaloyalo ni adapter</value></data>
+  <data name="DreamcastScreen_Mode_ProfileName" xml:space="preserve"><value>Yaca ni profile</value></data>
+  <data name="DreamcastScreen_Mode_ProfileNumber" xml:space="preserve"><value>Naba ni profile</value></data>
+  <data name="DreamcastScreen_Mode_ProfilePicture" xml:space="preserve"><value>Na iyaloyalo ni profile</value></data>
+  <data name="DreamcastScreen_Mode_Clock" xml:space="preserve"><value>Kaloko</value></data>
+  <data name="DreamcastScreen_Mode_PlayTime" xml:space="preserve"><value>Gauna ni qito</value></data>
+  <data name="DreamcastScreen_Mode_Picture" xml:space="preserve"><value>Na iyaloyalo e digitaki</value></data>
+  <data name="DreamcastScreen_ChoosePicture" xml:space="preserve"><value>Digitaka e dua na iyaloyalo…</value></data>
+  <data name="DreamcastScreen_RemoveProfilePicture" xml:space="preserve"><value>Kauta tani na iyaloyalo ni profile</value></data>
+  <data name="DevObj_ConsumerBrowserSearch" xml:space="preserve"><value>Vakasaqara</value></data>
+  <!-- ═══ Devices ═══ -->
+  <data name="Devices_POV" xml:space="preserve"><value>POV </value></data>
+  <data name="Devices_Nfc" xml:space="preserve"><value>NFC</value></data>
+
+  <!-- ═══ Pad Page ═══ -->
+  <!-- Impulse Triggers tab (Xbox One+ family) -->
+  <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
+  <data name="Pad_AT_Weapon" xml:space="preserve"><value>Iyaragi</value></data>
+  <data name="Pad_AT_Strength" xml:space="preserve"><value>Kaukauwa</value></data>
+  <!-- Lighting tab (DS4 / DualSense / DualSense Edge) -->
+  <data name="Pad_Lighting" xml:space="preserve"><value>Rarama</value></data>
+  <data name="Pad_Lighting_Header" xml:space="preserve"><value>Rarama</value></data>
+  <data name="Pad_Lighting_Hex" xml:space="preserve"><value>HEX</value></data>
+  <data name="Pad_Lighting_LedBrightness" xml:space="preserve"><value>Rarama ni LED</value></data>
+  <data name="Pad_Lighting_PlayerLed_P1" xml:space="preserve"><value>Dauqito 1</value></data>
+  <data name="Pad_Lighting_PlayerLed_P2" xml:space="preserve"><value>Dauqito 2</value></data>
+  <data name="Pad_Lighting_PlayerLed_P3" xml:space="preserve"><value>Dauqito 3</value></data>
+  <data name="Pad_Lighting_PlayerLed_P4" xml:space="preserve"><value>Dauqito 4</value></data>
+  <data name="Pad_Lighting_PlayerLed_All" xml:space="preserve"><value>Kece</value></data>
+  <data name="Pad_Lighting_PlayerLed_Brightness_High" xml:space="preserve"><value>Cecere</value></data>
+  <data name="Pad_Lighting_PlayerLed_Brightness_Medium" xml:space="preserve"><value>Veimama</value></data>
+  <data name="Pad_Lighting_PlayerLed_Brightness_Low" xml:space="preserve"><value>Lolovira</value></data>
+
+  <!-- v3.2+ Input Reactive overlay (separate dropdown layered on top of base mode) -->
+
+  <data name="Pad_Lighting_RainbowBrightness" xml:space="preserve"><value>Rarama</value></data>
+  <data name="Pad_Lighting_AddColor" xml:space="preserve"><value>Vakuria e dua na roka</value></data>
+  <data name="ManageProfiles_Delete" xml:space="preserve"><value>Bokoca</value></data>
+  <data name="ManageProfiles_Close" xml:space="preserve"><value>Sogota</value></data>
+  <data name="Pad_ExtendedVid" xml:space="preserve"><value>VID</value></data>
+  <data name="Pad_ExtendedPid" xml:space="preserve"><value>PID</value></data>
+  <data name="Pad_MidiOutputPortNone" xml:space="preserve"><value>Sega</value></data>
+  <data name="Pad_LeftMotor" xml:space="preserve"><value>Motor imawi</value></data>
+  <data name="Pad_RightMotor" xml:space="preserve"><value>Motor imatau</value></data>
+  <data name="Pad_ResetAll" xml:space="preserve"><value>Reset kece</value></data>
+  <data name="Pad_Half" xml:space="preserve"><value>Veimama</value></data>
+  <!-- Merge-mapping UI (Issue #61): per-source Kind dropdown + Incremental / InvertOnHold controls. -->
+  <!-- Combine UI (Issue #61): per-row CombineMode dropdown + Custom formula editor + starter presets. English placeholders pending translation. -->
+  <data name="Pad_Combine_XOR_Name" xml:space="preserve"><value>Dua ga</value></data>
+  <data name="Pad_Formula_Status_And" xml:space="preserve"><value>kei</value></data>
+  <data name="Pad_Formula_Chip_Add" xml:space="preserve"><value>Vakuria</value></data>
+  <data name="Pad_Formula_Chip_Divide" xml:space="preserve"><value>Wasea</value></data>
+  <data name="Pad_Formula_Chip_Half" xml:space="preserve"><value>0.5: veimama</value></data>
+  <data name="Pad_ScrollUp" xml:space="preserve"><value>Cake</value></data>
+  <data name="Pad_ScrollDown" xml:space="preserve"><value>Sobu</value></data>
+
+  <!-- ═══ Macros ═══ -->
+  <data name="Macro_Name" xml:space="preserve"><value>Yaca</value></data>
+  <data name="Macro_Always" xml:space="preserve"><value>Ena veigauna kece</value></data>
+  <data name="Macro_Expression_Recipe_Single" xml:space="preserve"><value>a ga</value></data>
+  <data name="Macro_Expression_Recipe_Both" xml:space="preserve"><value>a kei b</value></data>
+  <data name="Macro_Expression_Recipe_Either" xml:space="preserve"><value>a se b</value></data>
+  <data name="Macro_Cat_Leds" xml:space="preserve"><value>Lightbar kei na LED</value></data>
+  <data name="Macro_Cat_Sound" xml:space="preserve"><value>Rorogo kei na volume</value></data>
+  <data name="Macro_ButtonRelease" xml:space="preserve"><value>Sereka na button</value></data>
+  <data name="Macro_KeyRelease" xml:space="preserve"><value>Sereka na key</value></data>
+  <data name="Macro_MouseButtonRelease" xml:space="preserve"><value>Sereka na button ni mouse</value></data>
+  <data name="Macro_LeftTrigger" xml:space="preserve"><value>Trigger imawi</value></data>
+  <data name="Macro_RightTrigger" xml:space="preserve"><value>Trigger imatau</value></data>
+  <data name="Macro_MouseLeft" xml:space="preserve"><value>Imawi</value></data>
+  <data name="Macro_MouseRight" xml:space="preserve"><value>Imatau</value></data>
+  <data name="Macro_Repeat" xml:space="preserve"><value>Vakaruataka</value></data>
+  <data name="Macro_Once" xml:space="preserve"><value>Vakadua</value></data>
+  <data name="Macro_Count" xml:space="preserve"><value>Iwiliwili</value></data>
+  <data name="Macro_NewMacro" xml:space="preserve"><value>Macro vou</value></data>
+  <data name="Macro_None" xml:space="preserve"><value>(sega)</value></data>
+
+  <!-- ═══ Macro Action Display ═══ -->
+  <data name="MacroAction_Release_Format" xml:space="preserve"><value>Sereka {0}</value></data>
+  <data name="MacroAction_KeyRelease_Format" xml:space="preserve"><value>Sereka na key {0}</value></data>
+  <data name="MacroAction_Wait_Format" xml:space="preserve"><value>Wawa {0}ms</value></data>
+  <data name="MacroAction_MouseRelease_Format" xml:space="preserve"><value>Sereka na mouse {0}</value></data>
+
+  <data name="Macro_LightbarHold_Label" xml:space="preserve"><value>Taura</value></data>
+  <data name="Macro_LightbarColorSource_Label" xml:space="preserve"><value>Roka</value></data>
+
+  <!-- ═══ Macro action: Rumble ═══ -->
+  <data name="Macro_RumbleHold_Label" xml:space="preserve"><value>Taura</value></data>
+
+  <!-- ═══ POV Directions ═══ -->
+  <data name="POV_Up" xml:space="preserve"><value>Cake</value></data>
+  <data name="POV_Right" xml:space="preserve"><value>Imatau</value></data>
+  <data name="POV_Down" xml:space="preserve"><value>Ra</value></data>
+  <data name="POV_Left" xml:space="preserve"><value>Imawi</value></data>
+
+  <!-- ═══ Mapping ═══ -->
+  <data name="Mapping_Half" xml:space="preserve"><value>Veimama</value></data>
+  <data name="Mapping_POV_Format" xml:space="preserve"><value>POV {0} {1}</value></data>
+
+  <!-- ═══ Touchpad Mapping Labels ═══ -->
+  <data name="Mapping_TouchpadWindow_Upper" xml:space="preserve"><value>Veimama i cake</value></data>
+  <data name="Mapping_TouchpadWindow_Lower" xml:space="preserve"><value>Veimama i ra</value></data>
+
+  <!-- ═══ Touchpad Gesture Mapping Labels ═══ -->
+  <data name="Mapping_TouchpadGesture_Tap" xml:space="preserve"><value>Tara</value></data>
+  <data name="Mapping_TouchpadGesture_DoubleTap" xml:space="preserve"><value>Tara vakarua</value></data>
+  <data name="Mapping_TouchpadGesture_TripleTap" xml:space="preserve"><value>Tara vakatolu</value></data>
+  <data name="Mapping_TouchpadGesture_PadPrefix_Format" xml:space="preserve"><value>Touchpad {0}: {1}</value></data>
+  <data name="Mapping_TouchpadGesture_SinglePadNoun_Format" xml:space="preserve"><value>Touchpad {0}</value></data>
+  <data name="Mapping_TouchpadGesture_StickX" xml:space="preserve"><value>Stick X</value></data>
+  <data name="Mapping_TouchpadGesture_StickY" xml:space="preserve"><value>Stick Y</value></data>
+
+  <!-- ═══ Pad Touchpad Tab ═══ -->
+  <data name="Pad_Touchpad" xml:space="preserve"><value>Touchpad</value></data>
+  <data name="Pad_Touchpad_Header" xml:space="preserve"><value>Touchpad</value></data>
+  <data name="Pad_Touchpad_TouchpadIndex_Label" xml:space="preserve"><value>Touchpad</value></data>
+  <data name="Pad_Touchpad_Taps" xml:space="preserve"><value>Tara / Tara vakarua / Tara vakatolu</value></data>
+
+  <!-- Stick / D-pad output card -->
+
+  <!-- Mouse Output card -->
+
+  <!-- Absolute Pointer card (#9 B-15) -->
+
+  <!-- Swipe Haptics card (discussion #219) -->
+
+  <!-- Reset-All tooltips per card -->
+
+  <!-- Per-row Reset tooltips for stick / D-pad card -->
+
+  <!-- Per-row Reset tooltips for mouse-output card -->
+
+  <!-- Per-row Reset tooltips for absolute-pointer card (#9 B-15) -->
+
+  <!-- Per-row Reset tooltips for swipe-haptics card -->
+
+  <!-- Per-row Reset tooltips -->
+
+  <!-- ═══ Touchpad Gesture Recorder Dialog ═══ -->
+  <data name="Recorder_NameLabel" xml:space="preserve"><value>Yaca</value></data>
+  <data name="Recorder_TryAgain" xml:space="preserve"><value>Tovolea tale</value></data>
+
+  <data name="Settings_GyroDeadZone" xml:space="preserve"><value>Deadzone</value></data>
+  <data name="Pad_Gyro" xml:space="preserve"><value>Gyro</value></data>
+  <data name="Pad_Gyro_Header" xml:space="preserve"><value>Gyro</value></data>
+  <data name="Pad_Gyro_Calibration_Header" xml:space="preserve"><value>Calibration</value></data>
+  <data name="Pad_Gyro_Sensitivity_Header" xml:space="preserve"><value>Sensitivity</value></data>
+  <data name="Settings_GyroAimEngageMode_Hold" xml:space="preserve"><value>Taura</value></data>
+  <data name="Settings_GyroAimEngageMode_Toggle" xml:space="preserve"><value>Toggle</value></data>
+  <data name="Settings_GyroEngageStickSide_Right" xml:space="preserve"><value>Stick imatau</value></data>
+  <data name="Settings_GyroEngageStickSide_Left" xml:space="preserve"><value>Stick imawi</value></data>
+  <data name="Settings_GyroEngageStickDirection_XNeg" xml:space="preserve"><value>Imawi (X-)</value></data>
+  <data name="Settings_GyroEngageStickDirection_XPos" xml:space="preserve"><value>Imatau (X+)</value></data>
+  <data name="Settings_GyroEngageStickDirection_YNeg" xml:space="preserve"><value>Ra (Y-)</value></data>
+  <data name="Settings_GyroEngageStickDirection_YPos" xml:space="preserve"><value>Cake (Y+)</value></data>
+  <data name="Pad_Gyro_Space_Player" xml:space="preserve"><value>Dauqito</value></data>
+  <data name="Pad_Gyro_Space_World" xml:space="preserve"><value>Vuravura</value></data>
+  <data name="Mapping_GyroSensitivity" xml:space="preserve"><value>Sensitivity</value></data>
+
+  <!-- ═══ Device Object Names (gamepad) ═══ -->
+  <data name="DevObj_LeftStickX" xml:space="preserve"><value>Stick imawi X</value></data>
+  <data name="DevObj_LeftStickY" xml:space="preserve"><value>Stick imawi Y</value></data>
+  <data name="DevObj_LeftTrigger" xml:space="preserve"><value>Trigger imawi</value></data>
+  <data name="DevObj_RightStickX" xml:space="preserve"><value>Stick imatau X</value></data>
+  <data name="DevObj_RightStickY" xml:space="preserve"><value>Stick imatau Y</value></data>
+  <data name="DevObj_RightTrigger" xml:space="preserve"><value>Trigger imatau</value></data>
+  <data name="DevObj_RightDPad" xml:space="preserve"><value>D-pad imatau</value></data>
+
+  <!-- ═══ Device Object Names (raw joystick) ═══ -->
+  <data name="DevObj_POV" xml:space="preserve"><value>POV</value></data>
+  <data name="DevObj_POVN" xml:space="preserve"><value>POV {0}</value></data>
+  <data name="DevObj_RightPaddle1" xml:space="preserve"><value>Paddle imatau 1</value></data>
+  <data name="DevObj_RightPaddle2" xml:space="preserve"><value>Paddle imatau 2</value></data>
+  <data name="DevObj_LeftPaddle1" xml:space="preserve"><value>Paddle imawi 1</value></data>
+  <data name="DevObj_LeftPaddle2" xml:space="preserve"><value>Paddle imawi 2</value></data>
+
+  <!-- ═══ Keyboard Key Names (OEM/Numpad operators: not already in VirtualKey section) ═══ -->
+
+  <!-- ═══ Profiles ═══ -->
+  <data name="Profiles_ActiveProfile" xml:space="preserve"><value>Profile e vakayagataki tiko:</value></data>
+  <data name="Profiles_NoSlots" xml:space="preserve"><value>Sega na slot</value></data>
+  <data name="Profiles_New" xml:space="preserve"><value>Vou</value></data>
+  <data name="Profiles_SelectFirstHint" xml:space="preserve"><value>Digitaka e dua na profile taumada.</value></data>
+  <data name="Profiles_DeleteConfirmTitle" xml:space="preserve"><value>Bokoca na profile</value></data>
+
+  <!-- ═══ Profile Dialog ═══ -->
+  <data name="ProfileDialog_ProfileName" xml:space="preserve"><value>Yaca ni profile:</value></data>
+  <data name="ProfileDialog_DefaultName" xml:space="preserve"><value>Profile vou</value></data>
+
+  <!-- ═══ CopyFrom Dialog ═══ -->
+
+  <!-- ═══ File Dialogs ═══ -->
+
+  <!-- ═══ App-Level Messages ═══ -->
+  <data name="App_AlreadyRunning" xml:space="preserve"><value>Sa dolavi tu na PadForge.</value></data>
+  <data name="App_FatalError" xml:space="preserve"><value>PadForge: Cala bibi</value></data>
+  <data name="App_Error" xml:space="preserve"><value>PadForge: Cala</value></data>
+  <data name="App_UnexpectedError_Format" xml:space="preserve"><value>E yaco e dua na cala e sega ni namaki:
+
+{0}
+
+{1}</value></data>
+
+  <!-- ═══ Polling Frequency ═══ -->
+  <data name="Dashboard_PollingHz_Format" xml:space="preserve"><value>{0:F1} Hz</value></data>
+  <data name="Dashboard_PollingDash" xml:space="preserve"><value>–</value></data>
+
+  <!-- ═══ Pad: Sticks/Triggers Settings ═══ -->
+
+  <!-- ═══ Pad: Force Feedback ═══ -->
+  <data name="Pad_LeftMotorLabel" xml:space="preserve"><value>Motor imawi</value></data>
+  <data name="Pad_RightMotorLabel" xml:space="preserve"><value>Motor imatau</value></data>
+  <data name="Pad_SwapMotors" xml:space="preserve"><value>Veisautaka na motor imawi kei na motor imatau</value></data>
+
+  <!-- ═══ Pad: Constant Force ═══ -->
+  <data name="Pad_ConstantForce_X" xml:space="preserve"><value>X</value></data>
+  <data name="Pad_ConstantForce_Y" xml:space="preserve"><value>Y</value></data>
+
+  <!-- ═══ Pad: Reset Tooltips ═══ -->
+  <data name="Pad_ResetLeftMotor" xml:space="preserve"><value>Reset na motor imawi</value></data>
+  <data name="Pad_ResetRightMotor" xml:space="preserve"><value>Reset na motor imatau</value></data>
+  <data name="Pad_ResetAudioLeftMotor" xml:space="preserve"><value>Reset na motor imawi</value></data>
+  <data name="Pad_ResetAudioRightMotor" xml:space="preserve"><value>Reset na motor imatau</value></data>
+
+  <!-- ═══ Pad: Adaptive Triggers reset tooltips ═══ -->
+  <data name="Pad_ResetLeftTrigger" xml:space="preserve"><value>Reset na trigger imawi</value></data>
+  <data name="Pad_ResetRightTrigger" xml:space="preserve"><value>Reset na trigger imatau</value></data>
+
+  <!-- ═══ Pad: Lighting reset tooltips ═══ -->
+  <data name="Pad_ResetLedBrightness" xml:space="preserve"><value>Reset na rarama ni LED</value></data>
+  <data name="Pad_ResetLightbarRainbowBrightness" xml:space="preserve"><value>Reset na rarama</value></data>
+  <data name="Pad_ResetLightbarRed" xml:space="preserve"><value>Reset na damudamu</value></data>
+  <data name="Pad_ResetLightbarGreen" xml:space="preserve"><value>Reset na drokadroka</value></data>
+  <data name="Pad_ResetLightbarBlue" xml:space="preserve"><value>Reset na karakarawa</value></data>
+
+  <!-- ═══ Pad: Macro Hints ═══ -->
+
+  <!-- ═══ 3D View ═══ -->
+
+  <!-- ═══ Gamepad Button Labels ═══ -->
+  <data name="Btn_DPadUp" xml:space="preserve"><value>D-pad cake</value></data>
+  <data name="Btn_DPadDown" xml:space="preserve"><value>D-pad sobu</value></data>
+  <data name="Btn_DPadLeft" xml:space="preserve"><value>D-pad imawi</value></data>
+  <data name="Btn_DPadRight" xml:space="preserve"><value>D-pad imatau</value></data>
+  <data name="Btn_LeftTrigger" xml:space="preserve"><value>Trigger imawi</value></data>
+  <data name="Btn_RightTrigger" xml:space="preserve"><value>Trigger imatau</value></data>
+  <data name="Btn_LeftStickX" xml:space="preserve"><value>Stick imawi X</value></data>
+  <data name="Btn_LeftStickY" xml:space="preserve"><value>Stick imawi Y</value></data>
+  <data name="Btn_RightStickX" xml:space="preserve"><value>Stick imatau X</value></data>
+  <data name="Btn_RightStickY" xml:space="preserve"><value>Stick imatau Y</value></data>
+  <data name="Btn_Up" xml:space="preserve"><value>Cake</value></data>
+  <data name="Btn_Down" xml:space="preserve"><value>Sobu</value></data>
+  <data name="Btn_Left" xml:space="preserve"><value>Imawi</value></data>
+  <data name="Btn_Right" xml:space="preserve"><value>Imatau</value></data>
+  <data name="Btn_L1" xml:space="preserve"><value>L1</value></data>
+  <data name="Btn_R1" xml:space="preserve"><value>R1</value></data>
+  <data name="Btn_L3" xml:space="preserve"><value>L3</value></data>
+  <data name="Btn_R3" xml:space="preserve"><value>R3</value></data>
+  <data name="Btn_PS" xml:space="preserve"><value>PS</value></data>
+  <data name="Btn_L" xml:space="preserve"><value>L</value></data>
+  <data name="Btn_R" xml:space="preserve"><value>R</value></data>
+  <data name="Btn_ZL" xml:space="preserve"><value>ZL</value></data>
+  <data name="Btn_ZR" xml:space="preserve"><value>ZR</value></data>
+  <data name="Btn_GL" xml:space="preserve"><value>GL</value></data>
+  <data name="Btn_GR" xml:space="preserve"><value>GR</value></data>
+  <data name="Btn_Steam" xml:space="preserve"><value>Steam</value></data>
+  <data name="Btn_C" xml:space="preserve"><value>C</value></data>
+  <data name="Vr_LeftHand" xml:space="preserve"><value>Liga imawi</value></data>
+  <data name="Vr_RightHand" xml:space="preserve"><value>Liga imatau</value></data>
+
+  <!-- ═══ Keyboard Key Labels ═══ -->
+  <!-- Mouse VK buttons -->
+  <!-- Common keys -->
+  <data name="Key_Control" xml:space="preserve"><value>Ctrl</value></data>
+  <data name="Key_Alt" xml:space="preserve"><value>Alt</value></data>
+  <data name="Key_Escape" xml:space="preserve"><value>Esc</value></data>
+  <!-- Navigation -->
+  <!-- Windows keys -->
+  <!-- Numpad -->
+  <data name="AnalogKey_KatakanaHiragana" xml:space="preserve"><value>Katakana/Hiragana</value></data>
+  <data name="AnalogKey_Henkan" xml:space="preserve"><value>Henkan</value></data>
+  <data name="AnalogKey_Muhenkan" xml:space="preserve"><value>Muhenkan</value></data>
+  <data name="AnalogKey_Hangul" xml:space="preserve"><value>Hangul</value></data>
+  <data name="AnalogKey_Hanja" xml:space="preserve"><value>Hanja</value></data>
+  <!-- Lock keys -->
+  <!-- Left/Right modifiers -->
+  <!-- Browser keys -->
+  <!-- Media keys -->
+
+  <!-- ═══ Mouse Labels ═══ -->
+
+  <!-- ═══ Extended Custom Labels ═══ -->
+  <data name="Extended_POV_Format" xml:space="preserve"><value>POV {0}</value></data>
+
+  <!-- ═══ Macro Axis Target Labels ═══ -->
+  <data name="MacroAxis_XAxis" xml:space="preserve"><value>Stick imawi X</value></data>
+  <data name="MacroAxis_YAxis" xml:space="preserve"><value>Stick imawi Y</value></data>
+  <data name="MacroAxis_XRotation" xml:space="preserve"><value>Stick imatau X</value></data>
+  <data name="MacroAxis_YRotation" xml:space="preserve"><value>Stick imatau Y</value></data>
+  <data name="MacroAxis_ZAxis" xml:space="preserve"><value>Trigger imawi</value></data>
+  <data name="MacroAxis_ZRotation" xml:space="preserve"><value>Trigger imatau</value></data>
+
+  <!-- ═══ Preview Views ═══ -->
+  <data name="Preview_POV_Format" xml:space="preserve"><value>POV {0}</value></data>
+
+  <!-- ═══ Audio Bass Rumble ═══ -->
+  <data name="Settings_AudioRumble_LeftMotor" xml:space="preserve"><value>Motor imawi</value></data>
+  <data name="Settings_AudioRumble_RightMotor" xml:space="preserve"><value>Motor imatau</value></data>
+  <!-- Shift mode (Issue #61 Phase 6 v1+) -->
+  <data name="Pad_Shift_LayerName" xml:space="preserve"><value>Yaca ni layer</value></data>
+  <data name="Pad_Shift_ModeHold" xml:space="preserve"><value>Taura</value></data>
+
+  <data name="Pad_Steering_Orient_Forward" xml:space="preserve"><value>I liu</value></data>
+  <data name="Pad_Steering_Orient_Left" xml:space="preserve"><value>Mawi</value></data>
+  <data name="Pad_Steering_Orient_Right" xml:space="preserve"><value>Imatau</value></data>
+  <data name="Pad_Steering_Orient_Backward" xml:space="preserve"><value>I muri</value></data>
+  <data name="Pad_Audio" xml:space="preserve"><value>Rorogo</value></data>
+  <data name="Pad_Audio_Header" xml:space="preserve"><value>Rorogo</value></data>
+  <data name="Pad_Audio_Engage_Always" xml:space="preserve"><value>Ena veigauna kece</value></data>
+  <data name="About_DsTester" xml:space="preserve"><value>dualsense-tester</value></data>
+  <data name="About_Ds4Audio" xml:space="preserve"><value>DS4AudioStreamer</value></data>
+  <data name="IconPicker_Images" xml:space="preserve"><value>Iyaloyalo</value></data>
+  <data name="Emoji_Category_Hands" xml:space="preserve"><value>Liga</value></data>
+  <data name="Emoji_Category_Animals" xml:space="preserve"><value>Manumanu</value></data>
+  <data name="Emoji_Category_Food" xml:space="preserve"><value>Kakana</value></data>
+  <data name="Emoji_Category_Travel" xml:space="preserve"><value>Lakolako</value></data>
+  <data name="Emoji_Category_Objects" xml:space="preserve"><value>Iyaya</value></data>
+  <data name="Emoji_Category_Symbols" xml:space="preserve"><value>Ivakatakilakila</value></data>
+  <data name="Mapping_MidiCc_Format" xml:space="preserve"><value>CC {0}</value></data>
+  <data name="Mapping_MidiCcUp_Format" xml:space="preserve"><value>CC {0} +</value></data>
+  <data name="Mapping_MidiCcDown_Format" xml:space="preserve"><value>CC {0} −</value></data>
+  <data name="PickSound_Title" xml:space="preserve"><value>Digitaka e dua na rorogo</value></data>
+  <data name="About_NAudio" xml:space="preserve"><value>NAudio</value></data>
+  <data name="About_Vosk" xml:space="preserve"><value>Vosk</value></data>
+  <data name="About_BouncyCastle" xml:space="preserve"><value>Bouncy Castle</value></data>
+  <data name="About_BthPS3" xml:space="preserve"><value>BthPS3</value></data>
+  <data name="About_DsHidMini" xml:space="preserve"><value>DsHidMini</value></data>
+  <data name="About_NefariusDevMgmt" xml:space="preserve"><value>Nefarius.Utilities.DeviceManagement</value></data>
+  <data name="About_Libusb" xml:space="preserve"><value>libusb</value></data>
+  <data name="About_Nipplejs" xml:space="preserve"><value>nipplejs</value></data>
+  <data name="About_GameControllerDb" xml:space="preserve"><value>SDL_GameControllerDB</value></data>
+  <data name="About_Xbledctl" xml:space="preserve"><value>xbledctl</value></data>
+  <data name="About_JoyShockMapper" xml:space="preserve"><value>JoyShockMapper</value></data>
+  <data name="About_GamepadMotionHelpers" xml:space="preserve"><value>GamepadMotionHelpers</value></data>
+  <data name="About_SteamControllerSinger" xml:space="preserve"><value>SteamControllerSinger</value></data>
+  <data name="About_SteamHapticsSinger" xml:space="preserve"><value>SteamHapticsSinger</value></data>
+  <data name="About_Hitboxer" xml:space="preserve"><value>hitboxer</value></data>
+  <data name="About_SteamKit2" xml:space="preserve"><value>SteamKit2</value></data>
+  <data name="About_ProtobufNet" xml:space="preserve"><value>protobuf-net</value></data>
+  <data name="About_ZstdSharp" xml:space="preserve"><value>ZstdSharp</value></data>
+  <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
+  <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
+  <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
+  <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
+  <data name="About_JoyconSinger" xml:space="preserve"><value>joycon-singer</value></data>
+  <data name="WiiPair_FamilyWii" xml:space="preserve"><value>Nintendo Wii</value></data>
+  <data name="WiiPair_Done" xml:space="preserve"><value>Sa oti</value></data>
+  <data name="WiiPair_FamilyDs3" xml:space="preserve"><value>Sony DualShock 3</value></data>
+  <data name="About_OpenVR" xml:space="preserve"><value>OpenVR API</value></data>
+  <data name="Common_Close" xml:space="preserve"><value>Sogota</value></data>
+  <data name="Nfc_UidLabel" xml:space="preserve"><value>UID:</value></data>
+  <data name="Nfc_Waiting" xml:space="preserve"><value>(wawa tiko)</value></data>
+  <data name="Nfc_NameLabel" xml:space="preserve"><value>Yaca:</value></data>
+  <data name="DeviceType_PeripheralLighting" xml:space="preserve"><value>Rarama</value></data>
+  <data name="Dashboard_HeadTrackingAxisYaw" xml:space="preserve"><value>Yaw</value></data>
+  <data name="Dashboard_HeadTrackingAxisPitch" xml:space="preserve"><value>Pitch</value></data>
+  <data name="Dashboard_HeadTrackingAxisRoll" xml:space="preserve"><value>Roll</value></data>
+  <data name="Handheld_PhaseRelease" xml:space="preserve"><value>Waraka mada…</value></data>
+  <data name="Handheld_NameLabel" xml:space="preserve"><value>Yaca:</value></data>
+  <data name="Pad_Mouse" xml:space="preserve"><value>Mouse</value></data>
+  <data name="Mapping_MouseGestureLeft" xml:space="preserve"><value>Mawi</value></data>
+  <data name="Mapping_MouseGestureRight" xml:space="preserve"><value>Matau</value></data>
+  <data name="Mapping_MouseGestureUp" xml:space="preserve"><value>Cake</value></data>
+  <data name="Mapping_MouseGestureDown" xml:space="preserve"><value>Ra</value></data>
+  <data name="Macro_Dreamcast_Pictures" xml:space="preserve"><value>Iyaloyalo</value></data>
+  <data name="Macro_Dreamcast_AddPicture" xml:space="preserve"><value>Vakuria e dua na iyaloyalo…</value></data>
+  <data name="Macro_Dreamcast_RemoveTooltip" xml:space="preserve"><value>Kauta laivi na iyaloyalo</value></data>
+  <data name="Pad_Lighting_GuideLed_Brightness" xml:space="preserve"><value>Rarama</value></data>
+  <data name="Pad_Mapping_MotionSpeed_Name" xml:space="preserve"><value>Totolo</value></data>
+  <data name="Workshop_DialogPath" xml:space="preserve"><value>Profile · Steam Workshop</value></data>
+  <data name="Workshop_SearchPlaceholder" xml:space="preserve"><value>Vakasaqara na qito</value></data>
+  <data name="Workshop_Sort_Newest" xml:space="preserve"><value>Vou duadua</value></data>
+  <data name="Workshop_BackToSearch" xml:space="preserve"><value>Vakasaqara na qito</value></data>
+  <data name="Workshop_TimeToday" xml:space="preserve"><value>nikua</value></data>
+  <data name="Workshop_TagAll" xml:space="preserve"><value>Kece</value></data>
+  <data name="Workshop_Retry" xml:space="preserve"><value>Tovolea tale</value></data>
+  <data name="Workshop_LegacyOpenButton" xml:space="preserve"><value>Dolava ena Steam Workshop</value></data>
+  <data name="Workshop_SaveProfile" xml:space="preserve"><value>Maroroya na profile</value></data>
+  <data name="Workshop_UpdateRow_Format" xml:space="preserve"><value>{0} · {1}</value></data>
+  <data name="Macro_Toggle" xml:space="preserve"><value>Toggle</value></data>
+  <data name="Macro_Turbo" xml:space="preserve"><value>Turbo</value></data>
+  <data name="MacroAction_AllAxes" xml:space="preserve"><value>Axis kece</value></data>
+  <data name="Macro_CycleSteps_Label" xml:space="preserve"><value>Ikalawa</value></data>
+  <data name="Pad_Menus" xml:space="preserve"><value>Menu</value></data>
+  <data name="Menu_NewNameFormat" xml:space="preserve"><value>Menu {0}</value></data>
+  <data name="Menu_Host_LeftStick" xml:space="preserve"><value>Stick i mawi</value></data>
+  <data name="Menu_Host_RightStick" xml:space="preserve"><value>Stick i matau</value></data>
+  <data name="Menu_Host_Touchpad_Format" xml:space="preserve"><value>Touchpad {0}</value></data>
+  <data name="Menu_Half_Left" xml:space="preserve"><value>Veimama i mawi</value></data>
+  <data name="Menu_Half_Right" xml:space="preserve"><value>Veimama i matau</value></data>
+  <data name="Menu_CellCenter" xml:space="preserve"><value>Loma</value></data>
+  <data name="Menu_Binding_None" xml:space="preserve"><value>Sega</value></data>
+  <data name="Pad_RumbleAudio_Voice_TriggerLeft" xml:space="preserve"><value>Trigger i mawi</value></data>
+  <data name="Pad_RumbleAudio_Voice_TriggerRight" xml:space="preserve"><value>Trigger i matau</value></data>
+  <data name="Pad_RumbleAudio_Test" xml:space="preserve"><value>Vakatovotovo</value></data>
+  <data name="Pad_RumbleAudio_StopTest" xml:space="preserve"><value>Tarova</value></data>
+  <data name="Common_KeepLegacyDrivers" xml:space="preserve"><value>Maroroya</value></data>
+  <data name="About_Libinput" xml:space="preserve">
+    <value>libinput</value>
+  </data>
+  <data name="About_HandheldCompanion" xml:space="preserve">
+    <value>Handheld Companion</value>
+  </data>
+  <data name="About_GamepadAssetPack" xml:space="preserve">
+    <value>Gamepad-Asset-Pack</value>
+  </data>
+  <data name="About_Ds4Mac" xml:space="preserve">
+    <value>ds4mac</value>
+  </data>
+  <data name="Pad_Audio_Crossfeed_Low" xml:space="preserve"><value>Lolovira</value></data>
+  <data name="Pad_Audio_Crossfeed_Middle" xml:space="preserve"><value>Veimama</value></data>
+  <data name="Pad_Audio_Crossfeed_High" xml:space="preserve"><value>Cecere</value></data>
+  <data name="Pad_Audio_Crossfeed_LowEasy" xml:space="preserve"><value>Lolovira (Rawarawa)</value></data>
+  <data name="Pad_Audio_Crossfeed_MiddleEasy" xml:space="preserve"><value>Veimama (Rawarawa)</value></data>
+  <data name="Pad_Audio_Crossfeed_HighEasy" xml:space="preserve"><value>Cecere (Rawarawa)</value></data>
+  <data name="Pad_Audio_EqCol_Type" xml:space="preserve"><value>Mataqali</value></data>
+  <data name="Pad_Audio_EqCol_Q" xml:space="preserve"><value>Q</value></data>
+  <data name="About_DuaLib" xml:space="preserve"><value>duaLib</value></data>
+  <data name="About_Ds5Bridge" xml:space="preserve"><value>DS5_Bridge</value></data>
+  <data name="About_QrCodeGen" xml:space="preserve"><value>QR-Code-generator</value></data>
+  <data name="About_MouseArt" xml:space="preserve"><value>Zergatul.Obs.InputOverlay</value></data>
+  <data name="Voice_ModeLabel" xml:space="preserve"><value>Vakarorogo</value></data>
+  <data name="Voice_ModeAlways" xml:space="preserve"><value>Ena veigauna kece</value></data>
+  <data name="Voice_NameLabel" xml:space="preserve"><value>Yaca</value></data>
+  <data name="About_Interhaptics" xml:space="preserve">
+    <value>Interhaptics (Wyvrn)</value>
+  </data>
+  <data name="About_Colore" xml:space="preserve">
+    <value>Colore</value>
+  </data>
+  <data name="About_Opentrack" xml:space="preserve">
+    <value>opentrack</value>
+  </data>
+  <data name="About_InputPlumber" xml:space="preserve">
+    <value>InputPlumber</value>
+  </data>
+  <data name="About_PortMidiRtMidi" xml:space="preserve"><value>PortMidi / RtMidi</value></data>
+  <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
+  <data name="Pad_Kbm_Surfaces_MouseOnly_Name" xml:space="preserve">
+    <value>Mouse ga</value>
+  </data>
+  <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
+    <value>Keyboard ga</value>
+  </data>
+  <data name="Pad_Mapping_Scope_All" xml:space="preserve">
+    <value>Kece</value>
+  </data>
+  <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Stick i mawi X</value></data>
+  <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Stick i mawi Y</value></data>
+  <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Stick i matau X</value></data>
+  <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Stick i matau Y</value></data>
+  <data name="About_Nefcon" xml:space="preserve"><value>nefcon</value></data>
+  <data name="About_AntiMicroX" xml:space="preserve"><value>AntiMicroX</value></data>
+  <data name="About_AudioEndPointLibrary" xml:space="preserve"><value>AudioEndPointLibrary</value></data>
+  <data name="About_AutoEq" xml:space="preserve"><value>AutoEq</value></data>
+  <data name="About_AutoHotkey" xml:space="preserve"><value>AutoHotkey</value></data>
+  <data name="About_CemuhookProtocol" xml:space="preserve"><value>cemuhook-protocol</value></data>
+  <data name="About_Ds4Drv" xml:space="preserve"><value>ds4drv</value></data>
+  <data name="About_Ds4MapperTest" xml:space="preserve"><value>DS4MapperTest</value></data>
+  <data name="About_Ds5Dongle" xml:space="preserve"><value>DS5Dongle</value></data>
+  <data name="About_DualSenseSupport" xml:space="preserve"><value>DualSenseSupport</value></data>
+  <data name="About_Eden" xml:space="preserve"><value>Eden</value></data>
+  <data name="About_EdRefCard2" xml:space="preserve"><value>EDRefCard2</value></data>
+  <data name="About_FFmpeg" xml:space="preserve"><value>FFmpeg</value></data>
+  <data name="About_Fusion" xml:space="preserve"><value>Fusion</value></data>
+  <data name="About_GamepadBatteryMonitor" xml:space="preserve"><value>Gamepad Battery Monitor</value></data>
+  <data name="About_Hado" xml:space="preserve"><value>hado</value></data>
+  <data name="About_3doverstock" xml:space="preserve"><value>3doverstock</value></data>
+  <data name="About_Hidapi" xml:space="preserve"><value>HIDAPI</value></data>
+  <data name="About_IrohFlexInput" xml:space="preserve"><value>iroh / FlexInput</value></data>
+  <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
+  <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
+  <data name="About_SwitchResearch" xml:space="preserve"><value>Nintendo_Switch_Reverse_Engineering</value></data>
+  <data name="About_OpenRgb" xml:space="preserve"><value>OpenRGB</value></data>
+  <data name="About_OpenTabletDriver" xml:space="preserve"><value>OpenTabletDriver</value></data>
+  <data name="About_PcscSharp" xml:space="preserve"><value>pcsc-sharp</value></data>
+  <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
+  <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
+  <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
+  <data name="About_SpecialK" xml:space="preserve"><value>Special K</value></data>
+  <data name="About_ThumbstickDeadzones" xml:space="preserve"><value>Thumbstick Deadzones</value></data>
+  <data name="About_Touchmote" xml:space="preserve"><value>Touchmote</value></data>
+  <data name="About_TriggerEffectGenerator" xml:space="preserve"><value>TriggerEffectGenerator</value></data>
+  <data name="About_ViGEmClient" xml:space="preserve"><value>ViGEmClient</value></data>
+  <data name="About_Libwdi" xml:space="preserve"><value>libwdi</value></data>
+  <data name="About_Bluepad32" xml:space="preserve"><value>Bluepad32</value></data>
+  <data name="About_Monado" xml:space="preserve"><value>Monado</value></data>
+  <data name="About_OpenHmd" xml:space="preserve"><value>OpenHMD</value></data>
+  <data name="About_WiiBrew" xml:space="preserve"><value>WiiBrew</value></data>
+  <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
+  <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
+</root>
