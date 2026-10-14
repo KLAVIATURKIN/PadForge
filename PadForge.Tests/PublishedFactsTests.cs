@@ -1114,8 +1114,8 @@ namespace PadForge.Tests
         public void TheAboutCreditsAreOneRowEachInAlphabeticalOrder()
         {
             string xaml = Text("PadForge.App", "Views", "AboutPage.xaml");
-            var names = Regex.Matches(xaml, @"<TextBlock Grid\.Row=""(\d+)"" Text=""\{Binding (About_\w+), Source=");
-            var descriptions = Regex.Matches(xaml, @"<TextBlock Grid\.Row=""(\d+)"" Grid\.Column=""1""\s+Text=""\{Binding (About_\w+), Source=");
+            var names = Regex.Matches(xaml, @"<TextBlock Grid\.Row=""(\d+)"" common:BidiText\.Text=""\{Binding (About_\w+), Source=");
+            var descriptions = Regex.Matches(xaml, @"<TextBlock Grid\.Row=""(\d+)"" Grid\.Column=""1""\s+common:BidiText\.Text=""\{Binding (About_\w+), Source=");
             // Positive control: the patterns still find the grid.
             Assert.True(names.Count > 100, $"found only {names.Count} credit rows");
             Assert.Equal(names.Count, descriptions.Count);
