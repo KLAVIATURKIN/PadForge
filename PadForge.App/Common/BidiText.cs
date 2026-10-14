@@ -27,9 +27,11 @@ namespace PadForge.Common
     /// changes nothing, so the Inlines need no rebuilding when the window's
     /// direction flips. Text with nothing to wrap stays plain Text.</para>
     ///
-    /// <para>Bind these in place of Text and ToolTip. A binding on Text
-    /// writes its plain string over the Inlines each time its source
-    /// changes, which a language switch does.</para>
+    /// <para>Bind these in place of Text and ToolTip. New Inlines cost a
+    /// laid-out TextBlock the binding on its Text, and the next value, such
+    /// as the one a language switch sends, would never arrive. A binding on
+    /// this property is untouched by the Inlines. <see cref="TextDirection"/>
+    /// does the same for text bound the ordinary way.</para>
     /// </summary>
     public static class BidiText
     {

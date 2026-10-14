@@ -102,6 +102,7 @@ namespace PadForge.Common
             _started = true;
             EventManager.RegisterClassHandler(typeof(Window), FrameworkElement.LoadedEvent,
                 new RoutedEventHandler(OnWindowLoaded));
+            TextDirection.Start();
             PadForge.Resources.Strings.Strings.CultureChanged += Apply;
             Apply();
         }
@@ -139,6 +140,8 @@ namespace PadForge.Common
             if ((bool)window.GetValue(KeepsLeftToRightProperty)) direction = FlowDirection.LeftToRight;
             if (!Equals(window.Language, language)) window.Language = language;
             if (window.FlowDirection != direction) window.FlowDirection = direction;
+            // Each TextBlock in a right-to-left window takes the direction its own text needs.
+            TextDirection.SetWatch(window, direction == FlowDirection.RightToLeft);
         }
 
         /// <summary>Set on a window that is itself a picture of a physical
