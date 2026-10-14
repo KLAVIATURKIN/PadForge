@@ -260,12 +260,12 @@ namespace PadForge.ViewModels
         // per-row binding refresh / virtualization. Invalidates on
         // culture change so language switches still take effect.
         private static KindChoice[] _kindOptionsCache;
-        private static int _kindOptionsCacheCulture;
+        private static string _kindOptionsCacheCulture;
         public static System.Collections.Generic.IReadOnlyList<KindChoice> KindOptions
         {
             get
             {
-                int currentCulture = System.Globalization.CultureInfo.CurrentUICulture.LCID;
+                string currentCulture = System.Globalization.CultureInfo.CurrentUICulture.Name;
                 var cached = _kindOptionsCache;
                 if (cached != null && _kindOptionsCacheCulture == currentCulture)
                     return cached;

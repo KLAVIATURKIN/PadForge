@@ -207,6 +207,72 @@ namespace PadForge.Tests
             Assert.Null(LanguageCatalog.Resolve(CultureInfo.GetCultureInfo("eo")));
         }
 
+        /// <summary>The interface looks its strings up in the culture of the
+        /// row the Windows language resolves to, and a language with no row
+        /// keeps its own culture, whose strings are American English.</summary>
+        [Theory]
+        [InlineData("en-AU", "en-GB")]
+        [InlineData("en-IN", "en-GB")]
+        [InlineData("nb-NO", "no")]
+        [InlineData("nn-NO", "no")]
+        [InlineData("pt-AO", "pt-PT")]
+        [InlineData("tl-PH", "fil")]
+        [InlineData("de-AT", "de")]
+        [InlineData("zh-TW", "zh-Hant")]
+        [InlineData("en-US", "en-US")]
+        [InlineData("en-CA", "en-US")]
+        [InlineData("he-IL", "he-IL")]
+        public void TheWindowsLanguageLooksItsStringsUpInItsRowsCulture(string windows, string expected)
+            => Assert.Equal(expected, LanguageCatalog.InterfaceCulture(CultureInfo.GetCultureInfo(windows)).Name);
+
+        /// <summary>ResourceManager walks CultureInfo.Parent, which takes
+        /// nb-NO to nb and en-AU to en, never to the row the catalog finds
+        /// for them: under its own culture each read English, Australian
+        /// English the American spelling, while the picker named the row. The
+        /// first assert shows the parent chain missing the row, the second the
+        /// interface culture reaching it.</summary>
+        [Theory]
+        [InlineData("en-AU", "en-GB")]
+        [InlineData("nb-NO", "no")]
+        [InlineData("pt-AO", "pt-PT")]
+        [InlineData("tl-PH", "fil")]
+        public void ARowReachedOnlyThroughTheCatalogShowsItsOwnText(string windows, string row)
+        {
+            CultureInfo own = CultureInfo.GetCultureInfo(windows);
+            CultureInfo rowCulture = LanguageCatalog.Find(row).Culture;
+            string key = AKeyTheRowWritesItsOwnWay(rowCulture);
+            string rowText = Strings.ResourceManager.GetString(key, rowCulture);
+            Assert.NotEqual(rowText, Strings.ResourceManager.GetString(key, own));
+            Assert.Equal(rowText, Strings.ResourceManager.GetString(key, LanguageCatalog.InterfaceCulture(own)));
+        }
+
+        /// <summary>A key whose text in the row's own file differs from the American English.</summary>
+        private static string AKeyTheRowWritesItsOwnWay(CultureInfo row)
+        {
+            var set = Strings.ResourceManager.GetResourceSet(row, createIfNotExists: true, tryParents: false);
+            Assert.NotNull(set);
+            foreach (System.Collections.DictionaryEntry entry in set)
+                if (entry.Value is string text
+                    && text != Strings.ResourceManager.GetString((string)entry.Key, CultureInfo.InvariantCulture))
+                    return (string)entry.Key;
+            throw new Xunit.Sdk.XunitException(row.Name + " writes nothing its own way");
+        }
+
+        /// <summary>Startup reads the Windows language through the catalog
+        /// before the update helper's windows and the window language start,
+        /// and Reset to Defaults reads it the same way.</summary>
+        [Fact]
+        public void StartupAndResetReadTheWindowsLanguageThroughTheCatalog()
+        {
+            string app = File.ReadAllText(Path.Combine(StringsDirectory(), "..", "..", "App.xaml.cs"));
+            int mapped = app.IndexOf("LanguageCatalog.InterfaceCulture(", StringComparison.Ordinal);
+            Assert.True(mapped > 0, "App.OnStartup does not read the Windows language through the catalog");
+            Assert.True(mapped < app.IndexOf("UiLanguage.Start();", StringComparison.Ordinal));
+            Assert.True(mapped < app.IndexOf("UpdateService.TryRunApplyMode(", StringComparison.Ordinal));
+            string settings = File.ReadAllText(Path.Combine(StringsDirectory(), "..", "..", "ViewModels", "SettingsViewModel.cs"));
+            Assert.Contains("Strings.ChangeCulture(LanguageCatalog.InterfaceCulture(App.StartupUICulture", settings);
+        }
+
         /// <summary>English outside the United States follows British
         /// conventions wherever CLDR gives the region en-001 as a parent,
         /// directly or through en-150. The catalog keeps the list of those

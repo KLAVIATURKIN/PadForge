@@ -105,6 +105,17 @@ namespace PadForge.Common
             return null;
         }
 
+        /// <summary>The culture the interface looks its strings up in while
+        /// it follows <paramref name="culture"/>, the Windows display
+        /// language: the culture of the row it resolves to, else the culture
+        /// itself, whose strings are American English. ResourceManager walks
+        /// CultureInfo.Parent, which never reaches a row the catalog finds
+        /// through an alias or a CLDR parent: under its own culture, Windows
+        /// set to nb-NO read English rather than Norwegian, and en-AU
+        /// American English while the picker said British English.</summary>
+        internal static CultureInfo InterfaceCulture(CultureInfo culture)
+            => Resolve(culture)?.Culture ?? culture;
+
         /// <summary>The regions whose English follows British conventions:
         /// those CLDR gives the parent en-001, directly or through en-150,
         /// read from the CLDR data in Windows' own ICU. .NET's

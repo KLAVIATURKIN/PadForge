@@ -2161,9 +2161,13 @@ namespace PadForge.ViewModels
         // Without the cache, hovering / clicking inside the Mappings tab
         // burned visible CPU because virtualization + per-row binding
         // re-evaluation kept refetching this list.
+        // The stamp is the culture's name, not its LCID. Windows gives a
+        // language it has no number for LCID 4096, so Bislama, Bikol,
+        // Chuukese, Haitian Creole and the rest share one, and a switch
+        // between two of them kept the first one's text (#505).
         private static CombineModeOption[] _availableCombineModesCache;
         private static CombineModeOption[] _availableCombineModesNoTrimCache;
-        private static int _availableCombineModesCacheCulture;
+        private static string _availableCombineModesCacheCulture;
 
         /// <summary>Motion rows use axis combine modes. StickTrim is available on trigger rows.</summary>
         public System.Collections.Generic.IReadOnlyList<CombineModeOption> AvailableCombineModes
@@ -2204,7 +2208,7 @@ namespace PadForge.ViewModels
 
         private static CombineModeOption[] GetAvailableCombineModes()
         {
-            int currentCulture = System.Globalization.CultureInfo.CurrentUICulture.LCID;
+            string currentCulture = System.Globalization.CultureInfo.CurrentUICulture.Name;
             var cached = _availableCombineModesCache;
             if (cached != null && _availableCombineModesCacheCulture == currentCulture)
                 return cached;

@@ -1427,21 +1427,61 @@ namespace PadForge.Views
             return fallback;
         }
 
+        /// <summary>Steam's names for the config-localization languages, by
+        /// the interface language they match: the "API language code" column
+        /// of Steamworks' Supported Languages page, for every language there
+        /// the interface is translated into. Steam keeps two varieties of
+        /// Chinese, Portuguese and Spanish, and a config that has only the
+        /// other one is read in it before English (#505). English is the
+        /// last choice for every language, so it has no row.</summary>
+        internal static readonly IReadOnlyDictionary<string, string[]> SteamLanguageNames = new Dictionary<string, string[]>(StringComparer.OrdinalIgnoreCase)
+        {
+            ["ar"] = new[] { "arabic" },
+            ["bg"] = new[] { "bulgarian" },
+            ["cs"] = new[] { "czech" },
+            ["da"] = new[] { "danish" },
+            ["de"] = new[] { "german" },
+            ["el"] = new[] { "greek" },
+            ["es"] = new[] { "spanish", "latam" },
+            ["fi"] = new[] { "finnish" },
+            ["fr"] = new[] { "french" },
+            ["hu"] = new[] { "hungarian" },
+            ["id"] = new[] { "indonesian" },
+            ["it"] = new[] { "italian" },
+            ["ja"] = new[] { "japanese" },
+            ["ko"] = new[] { "koreana" },
+            ["ms"] = new[] { "malay" },
+            ["nl"] = new[] { "dutch" },
+            ["no"] = new[] { "norwegian" },
+            ["pl"] = new[] { "polish" },
+            ["pt-BR"] = new[] { "brazilian", "portuguese" },
+            ["pt-PT"] = new[] { "portuguese", "brazilian" },
+            ["ro"] = new[] { "romanian" },
+            ["ru"] = new[] { "russian" },
+            ["sv"] = new[] { "swedish" },
+            ["th"] = new[] { "thai" },
+            ["tr"] = new[] { "turkish" },
+            ["uk"] = new[] { "ukrainian" },
+            ["vi"] = new[] { "vietnamese" },
+            ["zh-Hans"] = new[] { "schinese", "tchinese" },
+            ["zh-Hant"] = new[] { "tchinese", "schinese" },
+        };
+
         /// <summary>Config-localization language keys to try, best first.
         /// Steam names them in English ("english", "german"), not as culture
-        /// codes, so the running culture maps through its English name.</summary>
-        private static IEnumerable<string> PreferredConfigLanguages()
+        /// codes, so the interface culture maps through its own name or its
+        /// nearest parent's: zh-HK reads zh-Hant's. The map named only the
+        /// first ten interface languages, and read Traditional Chinese as
+        /// Simplified and Portugal's Portuguese as Brazil's.</summary>
+        internal static IEnumerable<string> PreferredConfigLanguages()
         {
-            var culture = CultureInfo.CurrentUICulture;
-            string steamName = culture.TwoLetterISOLanguageName switch
+            for (var culture = CultureInfo.CurrentUICulture; culture != null && culture.Name.Length > 0; culture = culture.Parent)
             {
-                "de" => "german",   "es" => "spanish",  "fr" => "french",
-                "it" => "italian",  "ja" => "japanese", "ko" => "koreana",
-                "nl" => "dutch",    "pt" => "brazilian", "zh" => "schinese",
-                _ => "english",
-            };
-            yield return steamName;
-            if (steamName != "english") yield return "english";
+                if (!SteamLanguageNames.TryGetValue(culture.Name, out string[] names)) continue;
+                foreach (string name in names) yield return name;
+                break;
+            }
+            yield return "english";
         }
 
         private void PresetChip_Click(object sender, MouseButtonEventArgs e)

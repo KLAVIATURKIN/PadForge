@@ -21,19 +21,20 @@ namespace PadForge.ViewModels
         public static string[] CurvePresetNames { get; private set; } =
             Common.CurveLut.BuildPresetDisplayNames();
 
-        // LCID-stamped rebuild, no handler-order dependence: the previous
+        // Culture-stamped rebuild, no handler-order dependence: the previous
         // static-ctor lambda landed in CultureChanged's weak list (compiler
         // instance target) and could run AFTER the instance re-raises, so
         // the preset combo re-read the OLD-language list against the NEW
         // localized PresetName and the selection went blank (audit
-        // 2026-07-16).
-        private static int s_presetLcid = System.Globalization.CultureInfo.CurrentUICulture.LCID;
+        // 2026-07-16). The stamp is the culture's name: every language
+        // Windows has no number for shares LCID 4096 (#505).
+        private static string s_presetCulture = System.Globalization.CultureInfo.CurrentUICulture.Name;
 
         internal static void EnsurePresetsCultureCurrent()
         {
-            int lcid = System.Globalization.CultureInfo.CurrentUICulture.LCID;
-            if (lcid == s_presetLcid) return;
-            s_presetLcid = lcid;
+            string culture = System.Globalization.CultureInfo.CurrentUICulture.Name;
+            if (culture == s_presetCulture) return;
+            s_presetCulture = culture;
             CurvePresetNames = Common.CurveLut.BuildPresetDisplayNames();
         }
 

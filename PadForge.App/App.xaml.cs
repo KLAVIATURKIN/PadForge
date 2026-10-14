@@ -241,6 +241,19 @@ namespace PadForge
             // this way on 2026-09-23 (see FirstKnownFolderLookup in the tests).
             Environment.GetFolderPath(Environment.SpecialFolder.Windows);
 
+            // The Windows display language reads its own row of the language
+            // table, which .NET's parent chain never reaches: nb-NO reads
+            // Norwegian and en-AU British English (#505). Done first, so the
+            // update helper's windows below read it too. A saved language
+            // replaces it further down.
+            var windowsLanguage = Thread.CurrentThread.CurrentUICulture;
+            var interfaceLanguage = PadForge.Common.LanguageCatalog.InterfaceCulture(windowsLanguage);
+            if (!Equals(interfaceLanguage, windowsLanguage))
+            {
+                Thread.CurrentThread.CurrentUICulture = interfaceLanguage;
+                System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = interfaceLanguage;
+            }
+
             // Every window declares the interface language as it loads, so
             // Chinese, Japanese and Korean text takes its own font (#504).
             // Started before the update helper below, whose windows open
@@ -448,8 +461,9 @@ namespace PadForge
             });
 
             // Capture the pre-override UI culture first: this is the
-            // Windows display language a fresh install runs under, and
-            // Reset to Defaults restores it. InstalledUICulture is the
+            // Windows display language, read through its row of the
+            // language table at the top of this method, that a fresh
+            // install runs under, and Reset to Defaults restores it. InstalledUICulture is the
             // wrong stand-in (OS install language, which can differ from
             // the user's display language).
             StartupUICulture = Thread.CurrentThread.CurrentUICulture;

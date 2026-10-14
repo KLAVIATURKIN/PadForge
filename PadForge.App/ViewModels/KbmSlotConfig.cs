@@ -263,14 +263,14 @@ namespace PadForge.ViewModels
         }
 
         private static KbmSurfaceOption[] _surfaceOptionsCache;
-        private static int _surfaceOptionsCacheCulture;
+        private static string _surfaceOptionsCacheCulture;
 
         public System.Collections.Generic.IReadOnlyList<KbmSurfaceOption> AvailableKbmSurfaces
             => GetSurfaceOptions();
 
         private static KbmSurfaceOption[] GetSurfaceOptions()
         {
-            int culture = System.Globalization.CultureInfo.CurrentUICulture.LCID;
+            string culture = System.Globalization.CultureInfo.CurrentUICulture.Name;
             var cached = _surfaceOptionsCache;
             if (cached != null && _surfaceOptionsCacheCulture == culture)
                 return cached;
@@ -293,14 +293,14 @@ namespace PadForge.ViewModels
         // these properties freely, so the arrays are built once per culture.
 
         private static SocdModeOption[] _modeOptionsCache;
-        private static int _modeOptionsCacheCulture;
+        private static string _modeOptionsCacheCulture;
 
         public System.Collections.Generic.IReadOnlyList<SocdModeOption> AvailableSocdModes
             => GetModeOptions();
 
         private static SocdModeOption[] GetModeOptions()
         {
-            int culture = System.Globalization.CultureInfo.CurrentUICulture.LCID;
+            string culture = System.Globalization.CultureInfo.CurrentUICulture.Name;
             var cached = _modeOptionsCache;
             if (cached != null && _modeOptionsCacheCulture == culture)
                 return cached;
@@ -319,14 +319,14 @@ namespace PadForge.ViewModels
         }
 
         private static SocdKeyOption[] _keyOptionsCache;
-        private static int _keyOptionsCacheCulture;
+        private static string _keyOptionsCacheCulture;
 
         /// <summary>Keyboard keys pickable in a SOCD pair. Same key set and
         /// localized labels as PadViewModel.InitializeKeyboardMouseMappings
         /// builds for the KBM mapping targets.</summary>
         public static System.Collections.Generic.IReadOnlyList<SocdKeyOption> GetKeyOptions()
         {
-            int culture = System.Globalization.CultureInfo.CurrentUICulture.LCID;
+            string culture = System.Globalization.CultureInfo.CurrentUICulture.Name;
             var cached = _keyOptionsCache;
             if (cached != null && _keyOptionsCacheCulture == culture)
                 return cached;

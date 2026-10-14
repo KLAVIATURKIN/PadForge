@@ -131,8 +131,9 @@ namespace PadForge.ViewModels
         {
             _selectedLanguage = null;
             // The culture the process started under, before the saved
-            // override: the OS display language a fresh install shows.
-            Strings.ChangeCulture(App.StartupUICulture ?? CultureInfo.InstalledUICulture);
+            // override: the OS display language a fresh install shows, read
+            // through its row of the language table as startup reads it.
+            Strings.ChangeCulture(LanguageCatalog.InterfaceCulture(App.StartupUICulture ?? CultureInfo.InstalledUICulture));
             OnPropertyChanged(nameof(SelectedLanguage));
         }
 

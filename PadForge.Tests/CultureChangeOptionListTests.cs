@@ -1,4 +1,5 @@
 using System.Globalization;
+using PadForge.Common;
 using PadForge.Engine.Menus;
 using PadForge.Resources.Strings;
 using PadForge.ViewModels;
@@ -56,6 +57,81 @@ namespace PadForge.Tests
             {
                 Strings.ChangeCulture(before);
             }
+        }
+
+        /// <summary>Haitian Creole and Chuukese share LCID 4096, the number
+        /// .NET gives every language Windows has none for. The option lists
+        /// were stamped with the LCID, so a switch from one to the other kept
+        /// the first one's text (#505). Each probe reads differently in the
+        /// two languages, which the loop checks first, so the test cannot
+        /// pass on two equal lists.</summary>
+        [Fact]
+        public void OptionLists_FollowASwitchBetweenLanguagesThatShareAnLcid()
+        {
+            var before = CultureInfo.CurrentUICulture;
+            var haitian = CultureInfo.GetCultureInfo("ht");
+            var chuukese = CultureInfo.GetCultureInfo("chk");
+            Assert.Equal(haitian.LCID, chuukese.LCID);
+            try
+            {
+                var mapping = new MappingItem("Gyro", "MotionGyro", MappingCategory.Motion);
+                var kbm = new KbmSlotConfig();
+                var editor = new MenuEditorItem(new MenuDefinitionEntry());
+
+                Strings.ChangeCulture(haitian);
+                string[] first = Probe(mapping, kbm, editor);
+
+                Strings.ChangeCulture(chuukese);
+                string[] second = Probe(mapping, kbm, editor);
+                var s = Strings.Instance;
+                string[] expected =
+                {
+                    s.Pad_Mapping_Kind_Direct,
+                    s.Pad_Combine_MaxAbs_Name,
+                    s.Pad_Mapping_MotionSpeed_Name,
+                    s.Pad_Kbm_Surfaces_MouseOnly_Name,
+                    s.Pad_Kbm_Socd_Mode_Off_Name,
+                    s.Key_Up,
+                    s.Menu_Fire_Click,
+                    s.Curve_Linear,
+                    s.Curve_Linear,
+                    // The menu cell's key list takes the macro editor's name
+                    // for the key, which reads Key_Up.
+                    MacroAction.VirtualKeyDisplayName(VirtualKey.Up),
+                };
+                Assert.Equal(s.Key_Up, expected[^1]);
+
+                for (int i = 0; i < expected.Length; i++)
+                {
+                    Assert.NotEqual(expected[i], first[i]);
+                    Assert.Equal(expected[i], second[i]);
+                }
+            }
+            finally
+            {
+                Strings.ChangeCulture(before);
+            }
+        }
+
+        /// <summary>The first option of each cached list, in the order the
+        /// test above expects them.</summary>
+        private static string[] Probe(MappingItem mapping, KbmSlotConfig kbm, MenuEditorItem editor)
+        {
+            StickConfigItem.EnsurePresetsCultureCurrent();
+            TriggerConfigItem.EnsurePresetsCultureCurrent();
+            return new[]
+            {
+                MappingSourceItem.KindOptions[0].Name,
+                mapping.AvailableCombineModes.Single(o => o.Value == "MaxAbs").Name,
+                mapping.MotionResponseOptions[0].Name,
+                kbm.AvailableKbmSurfaces.Single(o => o.Value == "MouseOnly").Name,
+                kbm.AvailableSocdModes.Single(o => o.Value == "Off").Name,
+                KbmSlotConfig.GetKeyOptions().Single(o => o.Vk == 0x26).Label,
+                editor.FireOptions[0].Label,
+                StickConfigItem.CurvePresetNames[0],
+                TriggerConfigItem.CurvePresetNames[0],
+                editor.Cells[0].KeyOptions.Single(o => o.Vk == 0x26).Label,
+            };
         }
 
         [Fact]

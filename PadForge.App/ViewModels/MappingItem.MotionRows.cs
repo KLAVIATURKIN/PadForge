@@ -80,7 +80,7 @@ namespace PadForge.ViewModels
         }
 
         private static CombineModeOption[] _motionResponseOptionsCache;
-        private static int _motionResponseOptionsCulture;
+        private static string _motionResponseOptionsCulture;
 
         /// <summary>The Response dropdown's entries, culture-cached like the
         /// combine modes.</summary>
@@ -88,7 +88,7 @@ namespace PadForge.ViewModels
         {
             get
             {
-                int culture = System.Globalization.CultureInfo.CurrentUICulture.LCID;
+                string culture = System.Globalization.CultureInfo.CurrentUICulture.Name;
                 var cached = _motionResponseOptionsCache;
                 if (cached != null && _motionResponseOptionsCulture == culture) return cached;
                 var s = Strings.Instance;
