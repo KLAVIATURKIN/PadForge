@@ -491,6 +491,8 @@
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>Zacksly авторының «Xbox Series Button Icons and Controls» жинағынан алынған стик пен триггер белгішелері (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Сенсорлық тақтадағы пішінді үлгімен салыстырғыш (шеңбер / шаршы / үшбұрыш / Z / құсбелгі және өзіңіз жазып алған қимылдар). Magrofuoco, Vatavu, Anthony және Wobbrock авторларының JavaScript эталонының C# тілінде қайта жасалған нұсқасы. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Пернетақта + тінтуір алдын ала қарау бөлімі салатын пернетақталардағы перне орындары мен негізгі қабат пернелері, QMK орналасу деректерінен және Keychron компаниясының QMK форкінен жасалған. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>Бір саусақпен салынған пішіндерде нүктелер бұлтымен салыстырғышпен қатар жұмыс істейтін бұрыштық шекті бағалау тәсілі. GestureSign жобасындағы PointPatternAnalyzer бағалау идеясын төл C# кодымен іске асырады. GPL-2.0, тек құжаттама ретінде.</value></data>
   <data name="About_License" xml:space="preserve"><value>Лицензия</value></data>
@@ -1316,6 +1318,8 @@
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Тінтуір қозғалысы</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Жоғары</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Төмен</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Солға</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Оңға</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Атауы</value></data>
@@ -3030,7 +3034,7 @@
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Wii жұптастыру рәсімінің, динамиктің ADPCM форматының, Wii Remote пультінің жанынан және тік бағдарының, стик шектеу моделі мен оның сақтау пішімінің және гироскоп осьтері келісімінің құжаттамасы. GPL-2.0-or-later, тек құжаттама ретінде оқылды, GPL коды жеткізілмейді.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock әрекетінің құжаттамасы: әрекетсіз кезде ажырату, сенсорлық тақта шекаралары, батарея деректерін декодтау, Bluetooth ажырату IOCTL, DualSense діріл режимінің биттері, гироскоп тербелісі қисығы, стикті тінтуір ретінде пайдалану масштабы және Bluetooth шығыс есебінің CRC бастапқы мәні. GPL-3.0-or-later, тек құжаттама ретінде оқылды, GPL коды жеткізілмейді.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock әрекетінің құжаттамасы: әрекетсіз кезде ажырату, сенсорлық тақта шекаралары, батарея деректерін декодтау, Bluetooth ажырату IOCTL, DualSense діріл режимінің биттері, гироскоп тербелісі қисығы, стикті тінтуір ретінде пайдалану масштабы және Bluetooth шығыс есебінің CRC бастапқы мәні. Оның виртуалды пернетақтасының перне кестесі PadForge кестесіне бағыт болды. GPL-3.0-or-later, тек құжаттама ретінде оқылды, GPL коды жеткізілмейді.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>xbledctl деректерін растайтын GIP LED командалары құжаттамасы. GPL-2.0-or-later, тек құжаттама.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3058,6 +3062,7 @@
   <data name="Vr_Status_Running" xml:space="preserve"><value>Жұмыс істеп тұр</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Жұмыс істеп тұр, драйвер қосылған</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>Жұмыс істеп тұр, контроллерлер белсенді</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>Басқа OpenVR драйвері HIDMaestro драйверінің атын пайдаланады, сондықтан SteamVR оны PadForge драйверінің орнына жүктей алады және виртуалды VR контроллерлері көрінбейді. Мұны түзету үшін сол драйверді жойыңыз: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Тізбекті контроллер (COM порты)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Windows COM портында қай контроллер тұрғанын анықтай алмайды. Портты және контроллерді таңдап, оны қосыңыз. PadForge бұдан былай сол портты ашады.</value></data>
@@ -3941,6 +3946,19 @@ PadForge оларды қазір жойсын ба? Ол үшін әкімші �
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Тек пернетақта</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>Ең жақын стандартты орналасу ретінде сызылған</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Windows енгізуі</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>Пернетақтамен бірдей құрылғы</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>Тінтуірмен бірдей құрылғы</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Windows енгізуі әр пернені Windows арқылы басады, ал бағдарламалар оның бағдарламадан келгенін біле алады. Пернетақта үлгісі оны бағдарламалар сол жабдық ретінде көретін виртуалды пернетақтада басады. Тағайындау кестесі үлгі жібере алмайтын пернелерді жасырады.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Windows енгізуі меңзерді Windows арқылы жылжытады, ал бағдарламалар оның бағдарламадан келгенін біле алады. Тінтуір үлгісі оны бағдарламалар сол жабдық ретінде көретін виртуалды тінтуірмен жылжытады. Тағайындау кестесі үлгіде жоқ түймелер мен дөңгелектерді жасырады.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Бір мезгілдегі пернелер: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Бір мезгілдегі пернелер: кез келген</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Медиа пернелер</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>Құлып шамдары</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Түймелер: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Дөңгелек</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>Еңкейетін дөңгелек</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Барлығы</value>
   </data>
@@ -4123,7 +4141,7 @@ PadForge оларды қазір жойсын ба? Ол үшін әкімші �
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Mouse Motion X және Y астарындағы Joy-Con 2 оптикалық тінтуір есептегіштері мен айналып өту дельталары, авторлары coffincolors, Frano және moutella. MIT. Тек құжаттама, код жеткізілмейді.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Linux ядросының драйверлері</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3, Move, DualSense, Steam Deck және PID күштік кері байланыс протоколдарының деректері және ACPI WMI блогының орналасуы. GPL-2.0-or-later, тек құжаттама ретінде оқылған, GPL коды жеткізілмейді.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3, Move, DualSense, Steam Deck және PID күштік кері байланыс протоколдарының деректері және ACPI WMI блогының орналасуы. PadForge пернетақта мен тінтуір дескрипторларын hid-core ережелері бойынша оқиды. GPL-2.0-or-later, тек құжаттама ретінде оқылған, GPL коды жеткізілмейді.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Windows контроллер кірісі, соның ішінде Xbox Elite қалақшалары. SDK жүктегіші SDL ішіне байланыстырылған. MIT (SDK жүктегіші).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

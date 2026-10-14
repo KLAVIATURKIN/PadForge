@@ -304,6 +304,8 @@
   <data name="About_DotNet10" xml:space="preserve"><value>.NET 10</value></data>
   <data name="About_SDL3" xml:space="preserve"><value>SDL3</value></data>
   <data name="About_HelixToolkit" xml:space="preserve"><value>HelixToolkit</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Mga posisyon sa key ug mga key sa base layer sa mga keyboard nga gipakita sa preview sa Keyboard + Mouse, gihimo gikan sa layout data sa QMK ug sa QMK fork sa Keychron. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_License" xml:space="preserve"><value>Lisensya</value></data>
   <data name="About_HIDMaestro" xml:space="preserve"><value>HIDMaestro</value></data>
@@ -938,6 +940,8 @@
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Lihok sa mouse</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Pataas</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Paubos</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Pawala</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Patuo</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Ngalan</value></data>
@@ -1784,6 +1788,8 @@
   <!-- Windows keys -->
   <data name="Key_LWin" xml:space="preserve"><value>Wala nga Windows</value></data>
   <data name="Key_RWin" xml:space="preserve"><value>Tuo nga Windows</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <!-- Numpad -->
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>Dugang nga key {0}</value></data>
   <data name="AnalogKey_LeftSpace" xml:space="preserve"><value>Wala nga space</value></data>
@@ -2275,6 +2281,7 @@
   <data name="Vr_Status_Running" xml:space="preserve"><value>Nagdagan</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Nagdagan, konektado ang driver</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>Nagdagan, aktibo ang mga controller</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>Laing OpenVR driver ang naggamit sa ngalan sa driver sa HIDMaestro, mao nga mahimong i-load kini sa SteamVR puli sa driver sa PadForge ug dili motungha ang mga virtual nga VR controller. Tangtanga kana nga driver aron masulbad kini: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Serial nga controller (COM port)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Dili mahibal-an sa Windows kung unsang controller ang naa sa COM port. Pilia ang port ug ang controller, unya idugang kini. Ablihan na sa PadForge kana nga port sukad karon.</value></data>
@@ -2912,6 +2919,18 @@ Gusto ba nimo nga i-uninstall kini sa PadForge karon? Kinahanglan kini og elevat
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Keyboard lang</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>Gipakita sumala sa labing duol nga standard nga layout</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Input sa Windows</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>Parehas nga device sa keyboard</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>Parehas nga device sa mouse</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Ang input sa Windows motipo sa matag key pinaagi sa Windows, ug mahibal-an sa mga programa nga gikan kini sa software. Ang usa ka modelo sa keyboard motipo niini sa usa ka virtual nga keyboard nga makita sa mga programa isip maong hardware. Ang talaan sa mga mapping motago sa mga key nga dili maipadala sa modelo.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Ang input sa Windows molihok sa pointer pinaagi sa Windows, ug mahibal-an sa mga programa nga gikan kini sa software. Ang usa ka modelo sa mouse molihok niini gamit ang usa ka virtual nga mouse nga makita sa mga programa isip maong hardware. Ang talaan sa mga mapping motago sa mga button ug scroll wheel nga wala sa modelo.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Dungan nga mga key: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Dungan nga mga key: Bisan pila</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Mga media key</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>Mga suga sa Lock</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Mga button: {0}</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>Makiling nga scroll wheel</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Tanan</value>
   </data>
@@ -3081,7 +3100,7 @@ Gusto ba nimo nga i-uninstall kini sa PadForge karon? Kinahanglan kini og elevat
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Mga counter sa optical mouse sa Joy-Con 2 ug wraparound delta luyo sa Mouse Motion X ug Y, ni coffincolors, Frano, ug moutella. MIT. Dokumentasyon lang, walay code nga gilakip.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Mga driver sa Linux kernel</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Mga kamatuoran sa protocol sa DualShock 3, Move, DualSense, Steam Deck ug PID force-feedback, ug ang layout sa ACPI WMI block. GPL-2.0-or-later, gibasa isip dokumentasyon lang, walay GPL code nga gilakip.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Mga kamatuoran sa protocol sa DualShock 3, Move, DualSense, Steam Deck ug PID force-feedback, ug ang layout sa ACPI WMI block. Gibasa sa PadForge ang mga descriptor sa keyboard ug mouse sumala sa mga lagda sa hid-core. GPL-2.0-or-later, gibasa isip dokumentasyon lang, walay GPL code nga gilakip.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Input sa controller sa Windows, lakip ang mga paddle sa Xbox Elite. Ang SDK loader gi-link sa SDL. MIT (SDK loader).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

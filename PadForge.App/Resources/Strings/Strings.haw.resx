@@ -150,6 +150,7 @@
   <data name="About_SDL3" xml:space="preserve"><value>SDL3</value></data>
   <data name="About_HelixToolkit" xml:space="preserve"><value>HelixToolkit</value></data>
   <data name="About_ModernWpf" xml:space="preserve"><value>WPF UI</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_License" xml:space="preserve"><value>Laikini</value></data>
   <data name="About_HIDMaestro" xml:space="preserve"><value>HIDMaestro</value></data>
@@ -290,6 +291,8 @@
   <data name="Pad_Formula_Chip_Half" xml:space="preserve"><value>0.5: hapalua</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>I luna</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>I lalo</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>I ka hema</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>I ka ʻākau</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Inoa</value></data>
@@ -544,6 +547,8 @@
   <data name="Key_LWin" xml:space="preserve"><value>Windows hema</value></data>
   <data name="Key_RWin" xml:space="preserve"><value>Windows ʻākau</value></data>
   <data name="Key_Sleep" xml:space="preserve"><value>Moe</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <!-- Numpad -->
   <data name="AnalogKey_KatakanaHiragana" xml:space="preserve"><value>Katakana/Hiragana</value></data>
   <data name="AnalogKey_Henkan" xml:space="preserve"><value>Henkan</value></data>
@@ -776,6 +781,7 @@
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Papa pihi wale nō</value>
   </data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Nā pihi: {0}</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Nā mea a pau</value>
   </data>

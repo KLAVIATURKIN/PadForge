@@ -114,6 +114,8 @@
   <data name="About_DotNet10" xml:space="preserve"><value>.NET 10</value></data>
   <data name="About_SDL3" xml:space="preserve"><value>SDL3</value></data>
   <data name="About_HelixToolkit" xml:space="preserve"><value>HelixToolkit</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Ebifo bya key ne key ez'oku layer esooka ku kiibodi ezirabikira mu preview ya Keyboard + Mouse. Byaggyibwa mu data ya layout ya QMK ne mu fork ya QMK eya Keychron. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_HIDMaestro" xml:space="preserve"><value>HIDMaestro</value></data>
   <data name="About_OpenXInput" xml:space="preserve"><value>OpenXInput</value></data>
@@ -223,6 +225,8 @@
   <data name="Curve_Delay" xml:space="preserve"><value>Okulwawo</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Waggulu</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Wansi</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Kkono</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Ddyo</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Erinnya</value></data>
@@ -415,6 +419,8 @@
   <data name="Key_Escape" xml:space="preserve"><value>Esc</value></data>
   <!-- Navigation -->
   <data name="Key_Help" xml:space="preserve"><value>Obuyambi</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <!-- Windows keys -->
   <!-- Numpad -->
   <!-- Lock keys -->
@@ -585,6 +591,7 @@
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Kiibodi yokka</value>
   </data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Eppeesa: {0}</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Byonna</value>
   </data>

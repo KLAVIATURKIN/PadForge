@@ -491,6 +491,8 @@ A copy of the previous version is in this folder: {1}</value></data>
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>Stick and trigger icons derived from "Xbox Series Button Icons and Controls" by Zacksly (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Touchpad shape-template matcher (Circle / Square / Triangle / Z / Checkmark and custom recorded gestures). C# re-derivation of the JavaScript reference by Magrofuoco, Vatavu, Anthony, and Wobbrock. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Key positions and base-layer keys of the keyboards the Keyboard + Mouse preview draws, generated from QMK’s layout data and Keychron’s QMK fork. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>Angular-margin scoring approach that runs alongside the point-cloud matcher on single-finger shapes. Implements the scoring idea from GestureSign's PointPatternAnalyzer in original C#. GPL-2.0, documentation only.</value></data>
   <data name="About_License" xml:space="preserve"><value>License</value></data>
@@ -1316,6 +1318,8 @@ A copy of the previous version is in this folder: {1}</value></data>
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Mouse Movement</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Up</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Down</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Left</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Right</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Name</value></data>
@@ -2476,6 +2480,11 @@ A copy of the previous version is in this folder: {1}</value></data>
   <data name="Key_Sleep" xml:space="preserve"><value>Sleep</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>Numpad {0}</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>Non-US \ |</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>No Convert</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Convert</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>Intl #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>Intl \</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>Extra Key {0}</value></data>
@@ -3030,7 +3039,7 @@ A copy of the previous version is in this folder: {1}</value></data>
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Documentation for the Wii pairing ceremony, the speaker ADPCM, the sideways and upright Wii Remote orientation, the stick-gate model and its storage format, and the gyro axis convention. GPL-2.0-or-later, read as documentation only, no GPL code ships.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock behavior documentation: idle disconnect, touchpad boundaries, battery decode, the Bluetooth disconnect IOCTL, DualSense rumble-mode bits, the gyro jitter curve, the stick-as-mouse scale, and the Bluetooth output-report CRC seed. GPL-3.0-or-later, read as documentation only, no GPL code ships.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock behavior documentation: idle disconnect, touchpad boundaries, battery decode, the Bluetooth disconnect IOCTL, DualSense rumble-mode bits, the gyro jitter curve, the stick-as-mouse scale, and the Bluetooth output-report CRC seed. Its virtual keyboard’s key table guided PadForge’s. GPL-3.0-or-later, read as documentation only, no GPL code ships.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>GIP LED command documentation corroborating xbledctl. GPL-2.0-or-later, documentation only.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3058,6 +3067,7 @@ A copy of the previous version is in this folder: {1}</value></data>
   <data name="Vr_Status_Running" xml:space="preserve"><value>Running</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Running, driver connected</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>Running, controllers live</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>Another OpenVR driver uses HIDMaestro’s driver name, so SteamVR can load it in place of PadForge’s and the virtual VR controllers will not appear. Remove that driver to clear this: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Serial Controller (COM Port)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Windows cannot tell which controller is on a COM port. Pick the port and the controller, then add it. PadForge opens that port from then on.</value></data>
@@ -3943,6 +3953,45 @@ Would you like PadForge to uninstall them now? This requires elevation and may t
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Keyboard Only</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve">
+    <value>Drawn as the nearest standard layout</value>
+  </data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve">
+    <value>Windows Input</value>
+  </data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve">
+    <value>Same Device as the Keyboard</value>
+  </data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve">
+    <value>Same Device as the Mouse</value>
+  </data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve">
+    <value>Windows input types each key through Windows, and programs can tell it came from software. A keyboard model types it on a virtual keyboard that programs see as that hardware. The mapping table hides the keys the model cannot send.</value>
+  </data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve">
+    <value>Windows input moves the pointer through Windows, and programs can tell it came from software. A mouse model moves it with a virtual mouse that programs see as that hardware. The mapping table hides the buttons and wheels the model does not have.</value>
+  </data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve">
+    <value>Keys at Once: {0}</value>
+  </data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve">
+    <value>Keys at Once: Any</value>
+  </data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve">
+    <value>Media Keys</value>
+  </data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve">
+    <value>Lock Lights</value>
+  </data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve">
+    <value>Buttons: {0}</value>
+  </data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve">
+    <value>Wheel</value>
+  </data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve">
+    <value>Tilt Wheel</value>
+  </data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>All</value>
   </data>
@@ -4125,7 +4174,7 @@ Would you like PadForge to uninstall them now? This requires elevation and may t
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Joy-Con 2 optical mouse counters and wraparound deltas behind Mouse Motion X and Y, by coffincolors, Frano, and moutella. MIT. Documentation only, no code ships.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Linux kernel drivers</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3, Move, DualSense, Steam Deck and PID force-feedback protocol facts, and the ACPI WMI block layout. GPL-2.0-or-later, read as documentation only, no GPL code ships.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3, Move, DualSense, Steam Deck and PID force-feedback protocol facts, and the ACPI WMI block layout. PadForge reads keyboard and mouse descriptors by hid-core’s rules. GPL-2.0-or-later, read as documentation only, no GPL code ships.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Windows controller input, including Xbox Elite paddles. The SDK loader is linked into SDL. MIT (SDK loader).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

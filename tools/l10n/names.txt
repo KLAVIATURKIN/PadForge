@@ -188,6 +188,7 @@ HEX
 HH
 HID
 HID++
+hid-core
 hid-tmff2
 HIDAPI
 HidHide
@@ -347,6 +348,7 @@ PS3
 PS5
 PSM
 PySpaceMouse
+QMK
 QR
 QR-Code-generator
 R1

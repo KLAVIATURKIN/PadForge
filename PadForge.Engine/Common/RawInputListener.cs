@@ -330,6 +330,57 @@ namespace PadForge.Engine
         /// can clear it with the other handle maps.</summary>
         private static readonly ConcurrentDictionary<IntPtr, byte> _iCadeKeyboards = new();
 
+        // ── PadForge's own virtual devices ──
+
+        /// <summary>True for a Raw Input device path that belongs to a device
+        /// PadForge made through HIDMaestro, set by the app (InputManager.Start)
+        /// to HidHideController's HIDMaestro test. Since HIDMaestro 1.12.0 a
+        /// Keyboard + Mouse slot can type and point through a virtual HID
+        /// keyboard and mouse, which Raw Input lists and reports like any
+        /// other. They are the slot's output, so they get no device row and
+        /// their records reach no keyboard, mouse or consumer state, merged or
+        /// not: read back, a slot fed by "All Keyboards" would type into
+        /// itself. SendInput output is told apart by its tag instead
+        /// (<see cref="InputHookManager.OutputTagValue"/>), which a HID device
+        /// cannot carry. Null leaves every device in, as tests run.</summary>
+        public static Func<string, bool> IsOwnVirtualDevicePath { get; set; }
+
+        /// <summary>The answer per device handle, so a record costs one
+        /// lookup. An enumeration drops the handles no longer listed, so a
+        /// handle Windows hands to a later device is asked again.</summary>
+        private static readonly ConcurrentDictionary<IntPtr, bool> _ownVirtual = new();
+
+        /// <summary>True when the device is one of PadForge's own virtual
+        /// devices (<see cref="IsOwnVirtualDevicePath"/>).</summary>
+        internal static bool IsOwnVirtualDevice(IntPtr hDevice)
+        {
+            var test = IsOwnVirtualDevicePath;
+            if (test == null || hDevice == IntPtr.Zero) return false;
+            return _ownVirtual.GetOrAdd(hDevice, h =>
+            {
+                try { return test(GetDeviceName(h) ?? string.Empty); }
+                catch { return false; }
+            });
+        }
+
+        /// <summary>For the tests: records the answer for a handle, or forgets
+        /// it when <paramref name="own"/> is null.</summary>
+        internal static void SetOwnVirtualDeviceForTests(IntPtr hDevice, bool? own)
+        {
+            if (own is bool b) _ownVirtual[hDevice] = b;
+            else _ownVirtual.TryRemove(hDevice, out _);
+        }
+
+        /// <summary>Forgets the answers for handles a listing no longer has.</summary>
+        private static void ForgetUnlisted(RAWINPUTDEVICELIST[] list, int count)
+        {
+            if (_ownVirtual.IsEmpty) return;
+            var present = new HashSet<IntPtr>();
+            for (int i = 0; i < count; i++) present.Add(list[i].hDevice);
+            foreach (var h in _ownVirtual.Keys)
+                if (!present.Contains(h)) _ownVirtual.TryRemove(h, out _);
+        }
+
         /// <summary>Per-mouse state, keyed by hDevice.</summary>
         private static readonly ConcurrentDictionary<IntPtr, MouseDeviceState> _mouseStates = new();
 
@@ -430,6 +481,7 @@ namespace PadForge.Engine
             _consumerStatesValues = Array.Empty<bool[]>();
             _consumerMaxUsages.Clear();
             _isConsumerHandle.Clear();
+            _ownVirtual.Clear();
             // Free the preparsed buffers ONLY when the pump thread confirmed
             // exit. On a join timeout the thread may still be inside
             // HidP_GetUsages with one of these pointers, so freeing would be a
@@ -561,12 +613,17 @@ namespace PadForge.Engine
             if (result == unchecked((uint)-1))
                 return matches.ToArray();
 
+            ForgetUnlisted(deviceList, (int)result);
             for (int i = 0; i < (int)result; i++)
             {
                 if (deviceList[i].dwType != RIM_TYPEHID)
                     continue;
                 IntPtr hDevice = deviceList[i].hDevice;
                 if (!_isConsumerHandle.GetOrAdd(hDevice, IsConsumerControlHandle))
+                    continue;
+                // A virtual keyboard's consumer collection is the slot's own
+                // media-key output.
+                if (IsOwnVirtualDevice(hDevice))
                     continue;
 
                 string devicePath = GetDeviceName(hDevice);
@@ -603,6 +660,7 @@ namespace PadForge.Engine
             if (result == unchecked((uint)-1))
                 return Array.Empty<DeviceInfo>();
 
+            ForgetUnlisted(deviceList, (int)result);
             var matches = new List<DeviceInfo>();
             for (int i = 0; i < (int)result; i++)
             {
@@ -610,6 +668,11 @@ namespace PadForge.Engine
                     continue;
 
                 IntPtr hDevice = deviceList[i].hDevice;
+
+                // PadForge's own virtual keyboard or mouse is output, not a
+                // device to read (IsOwnVirtualDevicePath).
+                if (IsOwnVirtualDevice(hDevice))
+                    continue;
 
                 // A keyboard SDL decodes as an iCade is the iCade joystick's
                 // device, and none of its records reach the keyboard state
@@ -1352,8 +1415,10 @@ namespace PadForge.Engine
             ushort buttonData, int lastX, int lastY, uint extraInformation)
         {
             // PadForge's own mouse output (InputHookManager.OutputTag) is no
-            // input: the merged mouse must not read it back.
-            if (extraInformation == PadForge.Engine.Common.InputHookManager.OutputTagValue)
+            // input: the merged mouse must not read it back. Nor is a report of
+            // its own virtual HID mouse, which carries no tag.
+            if (extraInformation == PadForge.Engine.Common.InputHookManager.OutputTagValue
+                || IsOwnVirtualDevice(hDevice))
                 return;
 
             // Skip the motion of absolute-mode reports. Per the
@@ -1421,6 +1486,11 @@ namespace PadForge.Engine
         internal static void ApplyKeyboardRecord(IntPtr hDevice, ushort makeCode, ushort flags, ushort vKey,
             uint extraInformation = 0)
         {
+            // A key of PadForge's own virtual HID keyboard is the slot's
+            // output, and no keyboard state, merged or not, reads it back.
+            if (IsOwnVirtualDevice(hDevice))
+                return;
+
             // The iCade driver sees every record first, as the fork's driver
             // does (SDL_windowsevents.c, WIN_HandleRawKeyboardInput).
             if (ClaimedByICade(hDevice, makeCode, flags))
@@ -1515,6 +1585,9 @@ namespace PadForge.Engine
             // Gate: only Consumer Control collections (page 0x0C usage 0x01).
             // Verdict cached per handle via RIDI_DEVICEINFO.
             if (!_isConsumerHandle.GetOrAdd(hDevice, IsConsumerControlHandle))
+                return;
+            // A virtual keyboard's media keys are a slot's output.
+            if (IsOwnVirtualDevice(hDevice))
                 return;
 
             IntPtr preparsed = _consumerPreparsed.GetOrAdd(hDevice, FetchPreparsedData);

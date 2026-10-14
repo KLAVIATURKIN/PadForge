@@ -389,7 +389,8 @@ namespace PadForge.Tests
             // through construction. The factories never reread the live
             // Extended arrays.
             Assert.Contains("var capturedBuild = CaptureExtendedBuild(padIndex);", step5);
-            Assert.Contains("CreateVirtualController(capturedIndex, capturedType, capturedProfile, capturedBuild)", step5);
+            Assert.Contains("var capturedKbm = CaptureKbmBuild(padIndex);", step5);
+            Assert.Contains("CreateVirtualController(capturedIndex, capturedType, capturedProfile, capturedBuild, capturedKbm)", step5);
             int factory = step5.IndexOf("private IVirtualController CreateVirtualController(int padIndex, VirtualControllerType controllerType,", StringComparison.Ordinal);
             int hmFactory = step5.IndexOf("private IVirtualController CreateHMaestroController(VirtualControllerType type, string profileId, int padIndex, in ExtendedBuild build)", StringComparison.Ordinal);
             int midiFactory = step5.IndexOf("private IVirtualController CreateMidiController(", StringComparison.Ordinal);
@@ -398,7 +399,7 @@ namespace PadForge.Tests
             Assert.DoesNotContain(".AttachDeviceConfig(", factories);
             Assert.Contains("effects = hm.PrepareDeviceEffectsForPublication(", step5);
             Assert.Contains("try { effects?.StartDeferredEffects(); }", step5);
-            foreach (var live in new[] { "SlotExtendedCustomize[padIndex]", "SlotOemOverrideEnabled[padIndex]", "SlotOemOverrideLabel[padIndex]", "SlotCustomLayouts[padIndex]", "SlotExtendedFfbEnabled[padIndex]", "SlotExtendedVendorId[padIndex]", "SlotExtendedProductId[padIndex]", "SlotProfileIds[padIndex]" })
+            foreach (var live in new[] { "SlotExtendedCustomize[padIndex]", "SlotOemOverrideEnabled[padIndex]", "SlotOemOverrideLabel[padIndex]", "SlotCustomLayouts[padIndex]", "SlotExtendedFfbEnabled[padIndex]", "SlotExtendedVendorId[padIndex]", "SlotExtendedProductId[padIndex]", "SlotProfileIds[padIndex]", "_kbmConfigs[padIndex]", "DesiredKbmBuild(" })
                 Assert.DoesNotContain(live, factories);
             // Teardown closes the lifecycle under the lock, and the live OEM
             // pass leaves an in-flight worker's claim alone.

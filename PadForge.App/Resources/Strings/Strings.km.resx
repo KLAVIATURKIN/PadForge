@@ -491,6 +491,8 @@
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>រូបតំណាងដងបញ្ជា និងទ្រីហ្គឺ ដែលដកស្រង់ពី «Xbox Series Button Icons and Controls» ដោយ Zacksly (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>កម្មវិធីផ្គូផ្គងគំរូរាងលើផ្ទាំងប៉ះ (រង្វង់ / ការ៉េ / ត្រីកោណ / Z / សញ្ញាធីក និងកាយវិការដែលអ្នកថតខ្លួនឯង)។ ការដកស្រាយឡើងវិញជា C# នៃឯកសារយោង JavaScript ដោយ Magrofuoco, Vatavu, Anthony និង Wobbrock។ BSD 3-Clause។</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>ទីតាំងគ្រាប់ចុច និងគ្រាប់ចុចស្រទាប់មូលដ្ឋាន នៃក្ដារចុចដែលការមើលជាមុន ក្ដារចុច + កណ្ដុរ គូរបង្ហាញ បង្កើតចេញពីទិន្នន័យប្លង់របស់ QMK និងច្បាប់ចម្លង QMK របស់ Keychron។ GPL-2.0-or-later។</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>វិធីដាក់ពិន្ទុតាមរឹមមុំ ដែលដំណើរការរួមជាមួយកម្មវិធីផ្គូផ្គងពពកចំណុច លើរាងម្រាមដៃតែមួយ។ អនុវត្តគំនិតដាក់ពិន្ទុពី PointPatternAnalyzer របស់ GestureSign ជាកូដ C# ដើម។ GPL-2.0 ប្រើជាឯកសារយោងតែប៉ុណ្ណោះ។</value></data>
   <data name="About_License" xml:space="preserve"><value>អាជ្ញាប័ណ្ណ</value></data>
@@ -1316,6 +1318,8 @@
   <data name="Pad_MouseMovement" xml:space="preserve"><value>ចលនាកណ្ដុរ</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>ឡើង</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>ចុះ</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>ឆ្វេង</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>ស្ដាំ</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>ឈ្មោះ</value></data>
@@ -2472,6 +2476,10 @@
   <data name="Key_Sleep" xml:space="preserve"><value>គេង</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>ក្ដារលេខ {0}</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>មិនបំប្លែង</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>បំប្លែង</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>Intl #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>Intl \</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>គ្រាប់ចុចបន្ថែម {0}</value></data>
@@ -3026,7 +3034,7 @@
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>ឯកសារសម្រាប់ពិធីផ្គូផ្គង Wii សំឡេង ADPCM នៃឧបករណ៍បំពងសំឡេង ទិសផ្ដេក និងបញ្ឈររបស់ Wii Remote គំរូរបាំងដងបញ្ជា និងទម្រង់ផ្ទុករបស់វា និងអនុសញ្ញាអ័ក្សហ្ស៊ីរ៉ូ។ GPL-2.0-or-later អានជាឯកសារតែប៉ុណ្ណោះ គ្មានកូដ GPL ត្រូវបានបញ្ចូលទេ។</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>ឯកសារឥរិយាបថ DualShock៖ ការផ្ដាច់ពេលទំនេរ ព្រំដែនផ្ទាំងប៉ះ ការឌិកូដថ្ម IOCTL ផ្ដាច់ Bluetooth ប៊ីតរបៀបញ័ររបស់ DualSense ខ្សែកោងការរង្គើហ្ស៊ីរ៉ូ មាត្រដ្ឋានដងបញ្ជាជាកណ្ដុរ និងតម្លៃចាប់ផ្ដើម CRC នៃរបាយការណ៍លទ្ធផល Bluetooth។ GPL-3.0-or-later អានជាឯកសារតែប៉ុណ្ណោះ គ្មានកូដ GPL ត្រូវបានបញ្ចូលទេ។</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>ឯកសារឥរិយាបថ DualShock៖ ការផ្ដាច់ពេលទំនេរ ព្រំដែនផ្ទាំងប៉ះ ការឌិកូដថ្ម IOCTL ផ្ដាច់ Bluetooth ប៊ីតរបៀបញ័ររបស់ DualSense ខ្សែកោងការរង្គើហ្ស៊ីរ៉ូ មាត្រដ្ឋានដងបញ្ជាជាកណ្ដុរ និងតម្លៃចាប់ផ្ដើម CRC នៃរបាយការណ៍លទ្ធផល Bluetooth។ តារាងគ្រាប់ចុចនៃក្ដារចុចនិម្មិតរបស់វាបានណែនាំតារាងរបស់ PadForge។ GPL-3.0-or-later អានជាឯកសារតែប៉ុណ្ណោះ គ្មានកូដ GPL ត្រូវបានបញ្ចូលទេ។</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>ឯកសារពាក្យបញ្ជា LED របស់ GIP ដែលបញ្ជាក់ xbledctl។ GPL-2.0-or-later ឯកសារតែប៉ុណ្ណោះ។</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3054,6 +3062,7 @@
   <data name="Vr_Status_Running" xml:space="preserve"><value>កំពុងដំណើរការ</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>កំពុងដំណើរការ ដ្រាយវ័របានភ្ជាប់</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>កំពុងដំណើរការ ឧបករណ៍បញ្ជាសកម្ម</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>មានដ្រាយវ័រ OpenVR ផ្សេងទៀតប្រើឈ្មោះដ្រាយវ័ររបស់ HIDMaestro ដូច្នេះ SteamVR អាចផ្ទុកវាជំនួសដ្រាយវ័ររបស់ PadForge ហើយឧបករណ៍បញ្ជា VR និម្មិតនឹងមិនបង្ហាញឡើយ។ សូមលុបដ្រាយវ័រនោះចេញ ដើម្បីដោះស្រាយបញ្ហានេះ៖ {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>ឧបករណ៍បញ្ជាសៀរៀល (ច្រក COM)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Windows មិនអាចដឹងថាឧបករណ៍បញ្ជាណាមួយនៅលើច្រក COM ទេ។ ជ្រើសរើសច្រក និងឧបករណ៍បញ្ជា បន្ទាប់មកបន្ថែមវា។ PadForge បើកច្រកនោះចាប់ពីពេលនោះតទៅ។</value></data>
@@ -3937,6 +3946,19 @@
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>ក្ដារចុចតែប៉ុណ្ណោះ</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>គូរជាប្លង់ស្តង់ដារដែលជិតបំផុត</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>ការបញ្ចូលតាម Windows</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>ឧបករណ៍តែមួយជាមួយក្ដារចុច</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>ឧបករណ៍តែមួយជាមួយកណ្ដុរ</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>ការបញ្ចូលតាម Windows វាយគ្រាប់ចុចនីមួយៗតាមរយៈ Windows ហើយកម្មវិធីអាចដឹងថាវាមកពីសូហ្វវែរ។ ម៉ូដែលក្ដារចុចវាយវានៅលើក្ដារចុចនិម្មិត ដែលកម្មវិធីមើលឃើញថាជាផ្នែករឹងនោះ។ តារាងការម៉ាបលាក់គ្រាប់ចុចដែលម៉ូដែលនោះមិនអាចផ្ញើបាន។</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>ការបញ្ចូលតាម Windows ផ្លាស់ទីទ្រនិចកណ្ដុរតាមរយៈ Windows ហើយកម្មវិធីអាចដឹងថាវាមកពីសូហ្វវែរ។ ម៉ូដែលកណ្ដុរផ្លាស់ទីវាដោយកណ្ដុរនិម្មិត ដែលកម្មវិធីមើលឃើញថាជាផ្នែករឹងនោះ។ តារាងការម៉ាបលាក់ប៊ូតុង និងកង់ដែលម៉ូដែលនោះមិនមាន។</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>គ្រាប់ចុចក្នុងពេលតែមួយ៖ {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>គ្រាប់ចុចក្នុងពេលតែមួយ៖ ចំនួនណាក៏បាន</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>គ្រាប់ចុចមេឌៀ</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>ភ្លើងសូចនាករ Lock</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>ប៊ូតុង៖ {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>កង់រំកិល</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>កង់រំកិលផ្អៀង</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>ទាំងអស់</value>
   </data>
@@ -4119,7 +4141,7 @@
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>ឧបករណ៍រាប់កណ្ដុរអុបទិក Joy-Con 2 និងតម្លៃប្រែប្រួលពេលវិលជុំ នៅពីក្រោយ «ចលនាកណ្ដុរ X» និង Y ដោយ coffincolors, Frano និង moutella។ MIT។ ប្រើជាឯកសារតែប៉ុណ្ណោះ មិនមានកូដណាមួយត្រូវបានដាក់បញ្ចូលទេ។</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>ដ្រាយវ័រខឺណែល Linux</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>ការពិតពិធីការរបស់ DualShock 3, Move, DualSense, Steam Deck និងកម្លាំងតប PID និងប្លង់ប្លុក ACPI WMI។ GPL-2.0-or-later អានជាឯកសារតែប៉ុណ្ណោះ មិនមានកូដ GPL ណាមួយត្រូវបានដាក់បញ្ចូលទេ។</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>ការពិតពិធីការរបស់ DualShock 3, Move, DualSense, Steam Deck និងកម្លាំងតប PID និងប្លង់ប្លុក ACPI WMI។ PadForge អានទិន្នន័យពិពណ៌នារបស់ក្ដារចុច និងកណ្ដុរ តាមច្បាប់របស់ hid-core។ GPL-2.0-or-later អានជាឯកសារតែប៉ុណ្ណោះ មិនមានកូដ GPL ណាមួយត្រូវបានដាក់បញ្ចូលទេ។</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>ការបញ្ចូលឧបករណ៍បញ្ជា Windows រួមទាំងប៉ាដល់ Xbox Elite។ កម្មវិធីផ្ទុក SDK ត្រូវបានភ្ជាប់ចូលក្នុង SDL។ MIT (កម្មវិធីផ្ទុក SDK)។</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

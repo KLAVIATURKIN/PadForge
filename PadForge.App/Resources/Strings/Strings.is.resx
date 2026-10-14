@@ -491,6 +491,8 @@ Afrit af fyrri útgáfu er í þessari möppu: {1}</value></data>
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>Tákn fyrir pinna og gikki byggð á „Xbox Series Button Icons and Controls“ eftir Zacksly (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Samsvörun forma á snertifleti við sniðmát (hringur / ferningur / þríhyrningur / Z / hak og sérsniðnar uppteknar bendingar). C#-endurgerð af JavaScript-viðmiðunarútfærslu Magrofuoco, Vatavu, Anthony og Wobbrock. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Staðsetningar lykla og lykla grunnlagsins á lyklaborðunum sem forskoðun Lyklaborð + mús teiknar, búnar til úr útlitsgögnum QMK og QMK-afbrigði Keychron. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>Stigagjöf eftir hornabili sem keyrir samhliða punktaskýjasamsvöruninni á formum með einum fingri. Útfærir hugmyndina að stigagjöfinni úr PointPatternAnalyzer í GestureSign í upprunalegum C#-kóða. GPL-2.0, aðeins sem skjölun.</value></data>
   <data name="About_License" xml:space="preserve"><value>Notkunarleyfi</value></data>
@@ -1316,6 +1318,8 @@ Afrit af fyrri útgáfu er í þessari möppu: {1}</value></data>
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Músarhreyfing</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Upp</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Niður</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Vinstri</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Hægri</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Heiti</value></data>
@@ -2476,6 +2480,11 @@ Afrit af fyrri útgáfu er í þessari möppu: {1}</value></data>
   <data name="Key_Sleep" xml:space="preserve"><value>Svefn</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>Talnaborð {0}</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>Non-US \ |</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>No Convert</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Convert</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>Intl #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>Intl \</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>Aukalykill {0}</value></data>
@@ -3030,7 +3039,7 @@ Afrit af fyrri útgáfu er í þessari möppu: {1}</value></data>
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Skjölun fyrir pörunarferli Wii, ADPCM hátalarans, stefnu Wii Remote á hlið og upprétt, líkan pinnarammans og geymsluform hans, og ásavenju snúningsskynjarans. GPL-2.0-or-later, lesið eingöngu sem skjölun, enginn GPL-kóði fylgir.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Skjölun á hegðun DualShock: aftenging við aðgerðaleysi, mörk snertiflatar, afkóðun rafhlöðu, IOCTL fyrir Bluetooth-aftengingu, titringshamsbitar DualSense, skjálftaferill snúningsskynjara, kvarði fyrir pinna sem mús og CRC-fræ Bluetooth-úttaksskýrslu. GPL-3.0-or-later, lesið eingöngu sem skjölun, enginn GPL-kóði fylgir.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Skjölun á hegðun DualShock: aftenging við aðgerðaleysi, mörk snertiflatar, afkóðun rafhlöðu, IOCTL fyrir Bluetooth-aftengingu, titringshamsbitar DualSense, skjálftaferill snúningsskynjara, kvarði fyrir pinna sem mús og CRC-fræ Bluetooth-úttaksskýrslu. Lyklatafla sýndarlyklaborðs þess var fyrirmynd að töflu PadForge. GPL-3.0-or-later, lesið eingöngu sem skjölun, enginn GPL-kóði fylgir.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>Skjölun á GIP LED-skipunum sem styður niðurstöður xbledctl. GPL-2.0-or-later, aðeins skjölun.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3058,6 +3067,7 @@ Afrit af fyrri útgáfu er í þessari möppu: {1}</value></data>
   <data name="Vr_Status_Running" xml:space="preserve"><value>Í gangi</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Í gangi, rekill tengdur</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>Í gangi, leikjastýringar virkar</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>Annar OpenVR-rekill notar rekilsnafn HIDMaestro, þannig að SteamVR getur hlaðið honum í stað rekils PadForge og sýndarstýringar fyrir VR birtast ekki. Fjarlægðu þann rekil til að laga þetta: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Raðtengd leikjastýring (COM-tengi)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Windows getur ekki greint hvaða leikjastýring er á COM-tengi. Veldu tengið og leikjastýringuna og bættu henni svo við. PadForge opnar það tengi upp frá því.</value></data>
@@ -3943,6 +3953,19 @@ Viltu að PadForge fjarlægi þá núna? Þetta krefst stjórnandaréttinda og g
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Aðeins lyklaborð</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>Teiknað sem næsta staðlaða uppsetning</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Windows-inntak</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>Sama tæki og lyklaborðið</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>Sama tæki og músin</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Windows-inntak slær hvern lykil inn í gegnum Windows og forrit geta séð að það kom frá hugbúnaði. Lyklaborðsgerð slær það inn á sýndarlyklaborði sem forrit sjá sem þann vélbúnað. Vörpunartaflan felur lyklana sem gerðin getur ekki sent.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Windows-inntak hreyfir bendilinn í gegnum Windows og forrit geta séð að það kom frá hugbúnaði. Músargerð hreyfir hann með sýndarmús sem forrit sjá sem þann vélbúnað. Vörpunartaflan felur hnappana og hjólin sem gerðin hefur ekki.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Lyklar í einu: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Lyklar í einu: Allir</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Margmiðlunarlyklar</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>Læsingarljós</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Hnappar: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Hjól</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>Hallahjól</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Allt</value>
   </data>
@@ -4125,7 +4148,7 @@ Viltu að PadForge fjarlægi þá núna? Þetta krefst stjórnandaréttinda og g
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Teljarar ljósmúsar Joy-Con 2 og hringvafin frávik á bak við „Músarhreyfing X“ og „Músarhreyfing Y“, eftir coffincolors, Frano og moutella. MIT. Aðeins skjölun, enginn kóði fylgir.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Reklar Linux-kjarnans</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Staðreyndir um samskiptareglur DualShock 3, Move, DualSense, Steam Deck og PID-kraftsvörunar, og uppsetning ACPI WMI-blokka. GPL-2.0-or-later, lesið eingöngu sem skjölun, enginn GPL-kóði fylgir.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Staðreyndir um samskiptareglur DualShock 3, Move, DualSense, Steam Deck og PID-kraftsvörunar, og uppsetning ACPI WMI-blokka. PadForge les lýsingar lyklaborða og músa eftir reglum hid-core. GPL-2.0-or-later, lesið eingöngu sem skjölun, enginn GPL-kóði fylgir.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Inntak leikjastýringa í Windows, þar á meðal spaðar Xbox Elite. SDK-hlaðarinn er tengdur inn í SDL. MIT (SDK-hlaðari).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

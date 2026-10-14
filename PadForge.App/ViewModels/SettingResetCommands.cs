@@ -373,6 +373,8 @@ namespace PadForge.ViewModels
         internal static bool CanResetSetting(string name) => name is
             nameof(ProfileId) or
             nameof(KbmSurfaces) or
+            nameof(KbmKeyboardDevice) or
+            nameof(KbmMouseDevice) or
             nameof(SteeringLockLightbarColorSource) or
             nameof(SteeringLockLightbarColor) or
             nameof(TriggerRumbleFold) or
@@ -396,6 +398,16 @@ namespace PadForge.ViewModels
                 case nameof(KbmSurfaces):
                 {
                     KbmSurfaces = KbmSlotConfig.DefaultSurfaces;
+                    break;
+                }
+                case nameof(KbmKeyboardDevice):
+                {
+                    KbmKeyboardDevice = KbmSlotConfig.WindowsInput;
+                    break;
+                }
+                case nameof(KbmMouseDevice):
+                {
+                    KbmMouseDevice = KbmSlotConfig.WindowsInput;
                     break;
                 }
                 case nameof(SteeringLockLightbarColorSource):

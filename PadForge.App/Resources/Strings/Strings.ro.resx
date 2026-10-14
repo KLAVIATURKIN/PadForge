@@ -491,6 +491,8 @@ O copie a versiunii anterioare se află în acest folder: {1}</value></data>
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>Pictograme pentru stickuri și trăgace derivate din „Xbox Series Button Icons and Controls” de Zacksly (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Algoritm de potrivire a formelor desenate pe touchpad cu șabloane (Cerc / Pătrat / Triunghi / Z / Bifă și gesturi personalizate înregistrate). Reimplementare în C# a implementării de referință în JavaScript de Magrofuoco, Vatavu, Anthony și Wobbrock. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Pozițiile tastelor și tastele stratului de bază ale tastaturilor desenate în previzualizarea Tastatură + mouse, generate din datele de aranjament ale QMK și din fork-ul QMK al Keychron. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>Metodă de punctare pe bază de margine unghiulară, care rulează alături de algoritmul de potrivire pe nori de puncte pentru formele desenate cu un singur deget. Implementează ideea de punctare din PointPatternAnalyzer al GestureSign în cod C# original. GPL-2.0, doar ca documentație.</value></data>
   <data name="About_License" xml:space="preserve"><value>Licență</value></data>
@@ -1316,6 +1318,8 @@ O copie a versiunii anterioare se află în acest folder: {1}</value></data>
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Mișcarea mouse-ului</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Sus</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Jos</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Stânga</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Dreapta</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Nume</value></data>
@@ -2476,6 +2480,11 @@ O copie a versiunii anterioare se află în acest folder: {1}</value></data>
   <data name="Key_Sleep" xml:space="preserve"><value>Repaus</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>Numeric {0}</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>Non-US \ |</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>No Convert</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Convert</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>Intl #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>Intl \</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>Tastă suplimentară {0}</value></data>
@@ -3030,7 +3039,7 @@ O copie a versiunii anterioare se află în acest folder: {1}</value></data>
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Documentație pentru procedura de asociere Wii, ADPCM-ul difuzorului, orientarea laterală și verticală a Wii Remote, modelul limitatorului de stick și formatul său de stocare, precum și convenția axelor giroscopului. GPL-2.0-or-later, citit doar ca documentație, nu este inclus niciun cod GPL.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Documentație privind comportamentul DualShock: deconectarea la inactivitate, limitele touchpadului, decodarea bateriei, IOCTL-ul de deconectare Bluetooth, biții modului de vibrație DualSense, curba de tremur a giroscopului, scara stick-ca-mouse și valoarea inițială CRC a raportului de ieșire Bluetooth. GPL-3.0-or-later, citit doar ca documentație, nu este inclus niciun cod GPL.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Documentație privind comportamentul DualShock: deconectarea la inactivitate, limitele touchpadului, decodarea bateriei, IOCTL-ul de deconectare Bluetooth, biții modului de vibrație DualSense, curba de tremur a giroscopului, scara stick-ca-mouse și valoarea inițială CRC a raportului de ieșire Bluetooth. Tabelul de taste al tastaturii sale virtuale a ghidat tabelul din PadForge. GPL-3.0-or-later, citit doar ca documentație, nu este inclus niciun cod GPL.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>Documentație pentru comenzile LED GIP, care confirmă xbledctl. GPL-2.0-or-later, doar ca documentație.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3058,6 +3067,7 @@ O copie a versiunii anterioare se află în acest folder: {1}</value></data>
   <data name="Vr_Status_Running" xml:space="preserve"><value>În execuție</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>În execuție, driver conectat</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>În execuție, controlere active</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>Un alt driver OpenVR folosește numele de driver al HIDMaestro, așa că SteamVR îl poate încărca în locul celui al PadForge, iar controlerele VR virtuale nu vor apărea. Eliminați acel driver pentru a remedia: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Controler serial (port COM)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Windows nu poate determina ce controler se află pe un port COM. Alegeți portul și controlerul, apoi adăugați-l. De atunci încolo, PadForge deschide acel port.</value></data>
@@ -3943,6 +3953,19 @@ Doriți ca PadForge să le dezinstaleze acum? Este nevoie de drepturi de adminis
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Doar tastatură</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>Desenat ca cel mai apropiat aspect standard</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Intrare Windows</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>Același dispozitiv cu tastatura</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>Același dispozitiv cu mouse-ul</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Intrarea Windows tastează fiecare tastă prin Windows, iar programele pot detecta că provine din software. Un model de tastatură tastează pe o tastatură virtuală pe care programele o văd ca acel hardware. Tabelul de mapări ascunde tastele pe care modelul nu le poate trimite.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Intrarea Windows mută cursorul prin Windows, iar programele pot detecta că provine din software. Un model de mouse îl mută cu un mouse virtual pe care programele îl văd ca acel hardware. Tabelul de mapări ascunde butoanele și rotițele pe care modelul nu le are.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Taste simultane: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Taste simultane: oricâte</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Taste media</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>Indicatoare luminoase Lock</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Butoane: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Rotiță</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>Rotiță înclinabilă</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Toate</value>
   </data>
@@ -4125,7 +4148,7 @@ Doriți ca PadForge să le dezinstaleze acum? Este nevoie de drepturi de adminis
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Contoarele mouse-ului optic Joy-Con 2 și diferențele cu depășire circulară din spatele Mișcare mouse X și Y, de coffincolors, Frano și moutella. MIT. Doar documentație, nu este inclus niciun cod.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Drivere din kernelul Linux</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Detalii de protocol pentru DualShock 3, Move, DualSense, Steam Deck și force feedback PID, precum și structura blocurilor ACPI WMI. GPL-2.0-or-later, citit doar ca documentație, nu este inclus niciun cod GPL.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Detalii de protocol pentru DualShock 3, Move, DualSense, Steam Deck și force feedback PID, precum și structura blocurilor ACPI WMI. PadForge citește descriptorii tastaturilor și ai mouse-urilor după regulile hid-core. GPL-2.0-or-later, citit doar ca documentație, nu este inclus niciun cod GPL.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Intrarea de la controlere în Windows, inclusiv paletele Xbox Elite. Încărcătorul SDK este legat în SDL. MIT (încărcătorul SDK).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

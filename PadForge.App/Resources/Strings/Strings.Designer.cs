@@ -626,6 +626,8 @@ public class Strings : INotifyPropertyChanged
     public string About_ZackslyIconsDesc => Get("About_ZackslyIconsDesc");
     public string About_QDollar => Get("About_QDollar");
     public string About_QDollarDesc => Get("About_QDollarDesc");
+    public string About_Qmk => Get("About_Qmk");
+    public string About_QmkDesc => Get("About_QmkDesc");
     public string About_GestureSign => Get("About_GestureSign");
     public string About_GestureSignDesc => Get("About_GestureSignDesc");
     public string Pad_Audio_Reset_All => Get("Pad_Audio_Reset_All");
@@ -1038,6 +1040,7 @@ public class Strings : INotifyPropertyChanged
     public string Vr_Status_Running => Get("Vr_Status_Running");
     public string Vr_Status_DriverConnected => Get("Vr_Status_DriverConnected");
     public string Vr_Status_ControllersLive => Get("Vr_Status_ControllersLive");
+    public string Vr_DriverNameConflict_Format => Get("Vr_DriverNameConflict_Format");
     public string MovePair_Family => Get("MovePair_Family");
     public string SerialPair_Family => Get("SerialPair_Family");
     public string SerialPair_Instructions => Get("SerialPair_Instructions");
@@ -1504,6 +1507,19 @@ public class Strings : INotifyPropertyChanged
     public string Pad_Kbm_Surfaces_Both_Name => Get("Pad_Kbm_Surfaces_Both_Name");
     public string Pad_Kbm_Surfaces_MouseOnly_Name => Get("Pad_Kbm_Surfaces_MouseOnly_Name");
     public string Pad_Kbm_Surfaces_KeyboardOnly_Name => Get("Pad_Kbm_Surfaces_KeyboardOnly_Name");
+    public string Pad_Kbm_Preview_Approximate => Get("Pad_Kbm_Preview_Approximate");
+    public string Pad_Kbm_Device_WindowsInput => Get("Pad_Kbm_Device_WindowsInput");
+    public string Pad_Kbm_Device_SameAsKeyboard => Get("Pad_Kbm_Device_SameAsKeyboard");
+    public string Pad_Kbm_Device_SameAsMouse => Get("Pad_Kbm_Device_SameAsMouse");
+    public string Pad_Kbm_Device_Keyboard_Tooltip => Get("Pad_Kbm_Device_Keyboard_Tooltip");
+    public string Pad_Kbm_Device_Mouse_Tooltip => Get("Pad_Kbm_Device_Mouse_Tooltip");
+    public string Pad_Kbm_Caps_KeysAtOnce_Format => Get("Pad_Kbm_Caps_KeysAtOnce_Format");
+    public string Pad_Kbm_Caps_KeysAtOnceAny => Get("Pad_Kbm_Caps_KeysAtOnceAny");
+    public string Pad_Kbm_Caps_MediaKeys => Get("Pad_Kbm_Caps_MediaKeys");
+    public string Pad_Kbm_Caps_LockLights => Get("Pad_Kbm_Caps_LockLights");
+    public string Pad_Kbm_Caps_Buttons_Format => Get("Pad_Kbm_Caps_Buttons_Format");
+    public string Pad_Kbm_Caps_Wheel => Get("Pad_Kbm_Caps_Wheel");
+    public string Pad_Kbm_Caps_TiltWheel => Get("Pad_Kbm_Caps_TiltWheel");
     public string Pad_Mapping_Scope_All => Get("Pad_Mapping_Scope_All");
     public string Pad_Mapping_Scope_Keyboard => Get("Pad_Mapping_Scope_Keyboard");
     public string Pad_Mapping_Scope_Mouse => Get("Pad_Mapping_Scope_Mouse");
@@ -1819,6 +1835,8 @@ public class Strings : INotifyPropertyChanged
     public string Pad_MouseMovement => Get("Pad_MouseMovement");
     public string Pad_ScrollUp => Get("Pad_ScrollUp");
     public string Pad_ScrollDown => Get("Pad_ScrollDown");
+    public string Pad_ScrollLeft => Get("Pad_ScrollLeft");
+    public string Pad_ScrollRight => Get("Pad_ScrollRight");
     public string Pad_DeadZoneX => Get("Pad_DeadZoneX");
     public string Pad_DeadZoneY => Get("Pad_DeadZoneY");
     public string Pad_AntiDeadZoneX => Get("Pad_AntiDeadZoneX");
@@ -3274,6 +3292,11 @@ public class Strings : INotifyPropertyChanged
     public string Key_Sleep => Get("Key_Sleep");
     // Numpad
     public string Key_Numpad => Get("Key_Numpad");
+    public string Key_NonUsBackslash => Get("Key_NonUsBackslash");
+    public string Key_HankakuZenkaku => Get("Key_HankakuZenkaku");
+    public string Key_NonConvert => Get("Key_NonConvert");
+    public string Key_Convert => Get("Key_Convert");
+    public string Key_Kana => Get("Key_Kana");
     public string AnalogKey_IntlHash => Get("AnalogKey_IntlHash");
     public string AnalogKey_IntlBackslash => Get("AnalogKey_IntlBackslash");
     public string AnalogKey_Extra_Format => Get("AnalogKey_Extra_Format");

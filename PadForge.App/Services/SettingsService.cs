@@ -2776,6 +2776,7 @@ namespace PadForge.Services
                     d.Surfaces = s.Surfaces;
                     d.SocdMode = s.SocdMode;
                     d.SocdPairs = s.SocdPairs;
+                    d.SetDevices(s.KeyboardDevice, s.MouseDevice);
                     dst.NotifyKbmSurfacesChanged();
                 }
             }
@@ -3131,6 +3132,8 @@ namespace PadForge.Services
                 Surfaces = cfg.Surfaces,
                 SocdMode = cfg.SocdMode,
                 SocdPairs = cfg.SocdPairs,
+                KeyboardDevice = cfg.KeyboardDevice,
+                MouseDevice = cfg.MouseDevice,
             };
         }
 
@@ -3148,6 +3151,7 @@ namespace PadForge.Services
             d.Surfaces = cfg.Surfaces;
             d.SocdMode = cfg.SocdMode;
             d.SocdPairs = cfg.SocdPairs;
+            d.SetDevices(cfg.KeyboardDevice, cfg.MouseDevice);
             // The mode narrows the mapping table and the preview, so a paste
             // has to tell the view, exactly as a profile apply does.
             padVm.NotifyKbmSurfacesChanged();
@@ -3598,6 +3602,7 @@ namespace PadForge.Services
                     cfg.Surfaces = cfgData.Surfaces;
                     cfg.SocdMode = cfgData.SocdMode;
                     cfg.SocdPairs = cfgData.SocdPairs;
+                    cfg.SetDevices(cfgData.KeyboardDevice, cfgData.MouseDevice);
                     // The mode narrows the mapping table, so the view has to
                     // hear about a load, not just about the dropdown (#408).
                     _mainVm.Pads[idx].NotifyKbmSurfacesChanged();
@@ -5272,7 +5277,9 @@ namespace PadForge.Services
                     SlotIndex = i,
                     Surfaces = cfg.Surfaces,
                     SocdMode = cfg.SocdMode,
-                    SocdPairs = cfg.SocdPairs
+                    SocdPairs = cfg.SocdPairs,
+                    KeyboardDevice = cfg.KeyboardDevice,
+                    MouseDevice = cfg.MouseDevice,
                 });
             }
             return list.Count > 0 ? list.ToArray() : null;
@@ -5289,7 +5296,9 @@ namespace PadForge.Services
                     SlotIndex = i,
                     Surfaces = cfg.Surfaces,
                     SocdMode = cfg.SocdMode,
-                    SocdPairs = cfg.SocdPairs
+                    SocdPairs = cfg.SocdPairs,
+                    KeyboardDevice = cfg.KeyboardDevice,
+                    MouseDevice = cfg.MouseDevice,
                 });
             }
             return list.ToArray();

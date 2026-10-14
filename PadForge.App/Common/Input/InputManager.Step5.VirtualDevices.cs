@@ -508,6 +508,59 @@ namespace PadForge.Common.Input
             SlotCustomLayouts[padIndex], SlotExtendedFfbEnabled[padIndex], SlotExtendedVendorId[padIndex], SlotExtendedProductId[padIndex]);
 
         /// <summary>
+        /// The virtual keyboard and mouse a Keyboard + Mouse slot is built
+        /// with (HIDMaestro 1.12.0), captured with the type and the profile
+        /// when the create is kicked, for the reason <see cref="ExtendedBuild"/>
+        /// is. Each is a HIDMaestro profile id, or empty for Windows input.
+        /// </summary>
+        internal readonly struct KbmBuild
+        {
+            private readonly string _keyboard, _mouse;
+            public KbmBuild(string keyboard, string mouse) { _keyboard = keyboard; _mouse = mouse; }
+            public string Keyboard => _keyboard ?? string.Empty;
+            public string Mouse => _mouse ?? string.Empty;
+            public bool UsesDevices => Keyboard.Length > 0 || Mouse.Length > 0;
+            public bool Matches(string keyboard, string mouse) =>
+                string.Equals(Keyboard, keyboard ?? string.Empty, StringComparison.OrdinalIgnoreCase)
+                && string.Equals(Mouse, mouse ?? string.Empty, StringComparison.OrdinalIgnoreCase);
+            public bool Matches(in KbmBuild other) => Matches(other.Keyboard, other.Mouse);
+            public override string ToString() =>
+                $"keyboard={(Keyboard.Length > 0 ? Keyboard : "windows")} mouse={(Mouse.Length > 0 ? Mouse : "windows")}";
+        }
+
+        /// <summary>The devices the slot's Keyboard + Mouse configuration asks
+        /// for now. A half the surface mode turns off asks for none: a
+        /// virtual mouse on a keyboard-only slot would sit on the bus with
+        /// nothing to send.</summary>
+        internal KbmBuild DesiredKbmBuild(int padIndex)
+        {
+            var cfg = _kbmConfigs[padIndex];
+            if (cfg == null) return default;
+            return new KbmBuild(cfg.KeyboardEnabled ? cfg.KeyboardDevice : null,
+                cfg.MouseEnabled ? cfg.MouseDevice : null);
+        }
+
+        private KbmBuild CaptureKbmBuild(int padIndex) => DesiredKbmBuild(padIndex);
+
+        /// <summary>The lock lights Windows last set on the slot's virtual
+        /// keyboard as HMKeyboardLeds bits, or -1 when the slot has no virtual
+        /// keyboard or Windows has set none. Read off the live controller,
+        /// which the UI thread reaches by reference like every snapshot.</summary>
+        internal int KbmKeyboardLedsOf(int padIndex)
+        {
+            if (padIndex < 0 || padIndex >= MaxPads) return -1;
+            return _virtualControllers[padIndex] is KeyboardMouseVirtualController kbm
+                   && kbm.KeyboardLeds is { } leds
+                ? (int)leds
+                : -1;
+        }
+
+        /// <summary>True when a Keyboard + Mouse controller runs on other
+        /// devices than its slot now asks for.</summary>
+        private bool KbmDevicesChanged(int padIndex, KeyboardMouseVirtualController kbm)
+            => !DesiredKbmBuild(padIndex).Matches(kbm.KeyboardDeviceId, kbm.MouseDeviceId);
+
+        /// <summary>
         /// Set by <see cref="DestroyAllVirtualControllers"/> under the lifecycle
         /// lock and cleared by every Step 5 cycle. A create worker that
         /// finishes after the engine tore everything down (a shutdown past the
@@ -852,6 +905,11 @@ namespace PadForge.Common.Input
         /// reconfigure that must clear the latch.</summary>
         private readonly string[] _createFailedMidiPort = new string[MaxPads];
 
+        /// <summary>The keyboard and mouse devices a failed Keyboard + Mouse
+        /// create was started with. Picking another device, or Windows input,
+        /// is the reconfigure that clears the latch.</summary>
+        private readonly KbmBuild[] _createFailedKbm = new KbmBuild[MaxPads];
+
         /// <summary>The MIDI API in use when a MIDI create failed. A slot that
         /// failed under one API gets a fresh attempt once the probe settles
         /// on another, as when the runtime goes in under the legacy
@@ -1045,6 +1103,8 @@ namespace PadForge.Common.Input
                 return $"type changed to {type}";
             if (!string.Equals(_createFailedProfile[padIndex], SlotProfileIds[padIndex], StringComparison.Ordinal))
                 return "profile changed";
+            if (type == VirtualControllerType.KeyboardMouse && !_createFailedKbm[padIndex].Matches(DesiredKbmBuild(padIndex)))
+                return "keyboard or mouse device changed";
             if (type != VirtualControllerType.Midi)
                 return null;
             if (!string.Equals(_createFailedMidiPort[padIndex], MidiOutputPortOf(padIndex), StringComparison.Ordinal))
@@ -1070,18 +1130,21 @@ namespace PadForge.Common.Input
         }
 
         private void LatchCreateFailed(int padIndex)
-            => LatchCreateFailed(padIndex, SlotControllerTypes[padIndex], SlotProfileIds[padIndex], MidiOutputPortOf(padIndex));
+            => LatchCreateFailed(padIndex, SlotControllerTypes[padIndex], SlotProfileIds[padIndex], MidiOutputPortOf(padIndex),
+                DesiredKbmBuild(padIndex));
 
         /// <summary>The async overload records the configuration the create
         /// was STARTED for, not the slot's current one: a retype during the
         /// create window (the MIDI probe alone can run 10 s) would otherwise
         /// stamp the failure onto the NEW type and permanently block it
         /// (owner race, 2026-07-23).</summary>
-        private void LatchCreateFailed(int padIndex, VirtualControllerType failedType, string failedProfile, string failedMidiPort)
+        private void LatchCreateFailed(int padIndex, VirtualControllerType failedType, string failedProfile, string failedMidiPort,
+            KbmBuild failedKbm)
         {
             _createFailedType[padIndex] = failedType;
             _createFailedProfile[padIndex] = failedProfile;
             _createFailedMidiPort[padIndex] = failedMidiPort ?? string.Empty;
+            _createFailedKbm[padIndex] = failedKbm;
             _createFailedMidiApi[padIndex] = MidiVirtualController.ActiveApi;
             _createFailedMidiGen[padIndex] = MidiVirtualController.Generation;
             _createFailedListingGen[padIndex] = Interlocked.Read(ref _legacyPortListingKicks);
@@ -1091,7 +1154,8 @@ namespace PadForge.Common.Input
             _createPortShared[padIndex] = false;
             _createFailed[padIndex] = true;
             PadForge.Engine.SdlDiagLog.WriteLine(
-                $"VCTRACE slot={padIndex} createFailed LATCH type={failedType} profile={failedProfile ?? "<null>"}");
+                $"VCTRACE slot={padIndex} createFailed LATCH type={failedType} profile={failedProfile ?? "<null>"}"
+                + (failedType == VirtualControllerType.KeyboardMouse ? " " + failedKbm : ""));
         }
 
         /// <summary>
@@ -1401,6 +1465,23 @@ namespace PadForge.Common.Input
                 {
                     if (IsSlotActive(padIndex)) BeginInitializing(padIndex);
                     else _slotInitializing[padIndex] = false;
+                    DestroyVirtualController(padIndex, asyncDispose: true);
+                    _virtualControllers[padIndex] = null;
+                    _createFailed[padIndex] = false;
+                    vc = null;
+                }
+
+                // A Keyboard + Mouse slot rebuilds on the keyboard and mouse it
+                // now asks for: a device picked, put back to Windows input, or a
+                // half the surface mode turned on or off. The creation gate
+                // uses the same comparison.
+                if (vc is KeyboardMouseVirtualController kbmOnDevices
+                    && KbmDevicesChanged(padIndex, kbmOnDevices))
+                {
+                    if (IsSlotActive(padIndex)) BeginInitializing(padIndex);
+                    else _slotInitializing[padIndex] = false;
+                    PadForge.Engine.SdlDiagLog.WriteLine(
+                        $"VCTRACE slot={padIndex} keyboard-mouse device change destroy -> {DesiredKbmBuild(padIndex)}");
                     DestroyVirtualController(padIndex, asyncDispose: true);
                     _virtualControllers[padIndex] = null;
                     _createFailed[padIndex] = false;
@@ -1952,6 +2033,7 @@ namespace PadForge.Common.Input
                             var capturedProfile = SlotProfileIds[padIndex];
                             var capturedMidiPort = MidiOutputPortOf(padIndex);
                             var capturedBuild = CaptureExtendedBuild(padIndex);
+                            var capturedKbm = CaptureKbmBuild(padIndex);
                             var capturedPersonaOwner = _personaAudioOwner;
                             PadForge.Engine.SdlDiagLog.WriteLine(
                                 $"VCTRACE slot={padIndex} async create KICK type={slotType}");
@@ -1961,7 +2043,7 @@ namespace PadForge.Common.Input
                                 bool published = false;
                                 try
                                 {
-                                    vcAsync = CreateVirtualController(capturedIndex, capturedType, capturedProfile, capturedBuild);
+                                    vcAsync = CreateVirtualController(capturedIndex, capturedType, capturedProfile, capturedBuild, capturedKbm);
                                     PadForge.Engine.SdlDiagLog.WriteLine(
                                         $"VCTRACE slot={capturedIndex} async create RESULT vc={(vcAsync == null ? "null" : vcAsync.GetType().Name)} connected={vcAsync?.IsConnected ?? false}");
                                     if (vcAsync != null && vcAsync.IsConnected)
@@ -2030,7 +2112,8 @@ namespace PadForge.Common.Input
                                             {
                                                 RaiseError($"Failed to apply effects for pad {capturedIndex}", ex);
                                             }
-                                            if (vcAsync is HMaestroVirtualController)
+                                            if (vcAsync is HMaestroVirtualController
+                                                || vcAsync is KeyboardMouseVirtualController { HasHidDevices: true })
                                             {
                                                 try { _hmaestroContext?.FinalizeNames(); }
                                                 catch { /* best effort */ }
@@ -2062,7 +2145,7 @@ namespace PadForge.Common.Input
                                             && IsSlotActive(capturedIndex, new Engine.Data.UserSetting[64]);
                                         if (stillEligible)
                                         {
-                                            LatchCreateFailed(capturedIndex, capturedType, capturedProfile, capturedMidiPort);
+                                            LatchCreateFailed(capturedIndex, capturedType, capturedProfile, capturedMidiPort, capturedKbm);
                                         }
                                         else
                                         {
@@ -2087,7 +2170,7 @@ namespace PadForge.Common.Input
                                         // as eligible-but-unbuilt and kicks off another
                                         // connect, accumulating leaked VCs.
                                         try { vcAsync.Dispose(); } catch { /* best effort */ }
-                                        LatchCreateFailed(capturedIndex, capturedType, capturedProfile, capturedMidiPort);
+                                        LatchCreateFailed(capturedIndex, capturedType, capturedProfile, capturedMidiPort, capturedKbm);
                                     }
                                 }
                                 catch (Exception ex)
@@ -2106,7 +2189,7 @@ namespace PadForge.Common.Input
                                     string threwLog = CreateFailedLogLine(capturedIndex, capturedType);
                                     if (capturedType == VirtualControllerType.Midi) RaiseMidiCreateError(capturedIndex, threwLine, threwLog, ex);
                                     else RaiseError(threwLine, threwLog, ex);
-                                    LatchCreateFailed(capturedIndex, capturedType, capturedProfile, capturedMidiPort);
+                                    LatchCreateFailed(capturedIndex, capturedType, capturedProfile, capturedMidiPort, capturedKbm);
                                 }
                                 finally
                                 {
@@ -2740,7 +2823,7 @@ namespace PadForge.Common.Input
         /// lock. A controller built for a type the slot no longer has is
         /// retired by Pass 1's type check on the next cycle.</summary>
         private IVirtualController CreateVirtualController(int padIndex, VirtualControllerType controllerType,
-            string capturedProfileId, in ExtendedBuild build)
+            string capturedProfileId, in ExtendedBuild build, in KbmBuild kbm)
         {
             // Neither mark of an earlier create outlives it. A create that
             // failed and took no latch, as when its slot lost its device
@@ -2780,7 +2863,7 @@ namespace PadForge.Common.Input
                     VirtualControllerType.Extended => CreateHMaestroController(VirtualControllerType.Extended, profileId, padIndex, in build),
                     VirtualControllerType.Nintendo => CreateHMaestroController(VirtualControllerType.Nintendo, profileId, padIndex, in build),
                     VirtualControllerType.Midi => CreateMidiController(padIndex),
-                    VirtualControllerType.KeyboardMouse => new KeyboardMouseVirtualController(padIndex),
+                    VirtualControllerType.KeyboardMouse => CreateKeyboardMouseController(padIndex, in kbm),
                     VirtualControllerType.Vr => new HMaestroVRController(),
                     _ => null
                 };
@@ -2816,6 +2899,32 @@ namespace PadForge.Common.Input
                 RaiseCreateError(padIndex, controllerType, ex);
                 return null;
             }
+        }
+
+        /// <summary>Builds a Keyboard + Mouse controller. A half on Windows
+        /// input needs nothing more. A half on a device needs the HIDMaestro
+        /// context, set up here on the create worker as it is for the
+        /// HIDMaestro types, and its profile: the catalog's own context first,
+        /// then PadForge's wrapper catalog for user-imported profiles. A
+        /// device the slot cannot have fails the create, and the slot does not
+        /// fall back to Windows input it was not set to.</summary>
+        private IVirtualController CreateKeyboardMouseController(int padIndex, in KbmBuild kbm)
+        {
+            if (!kbm.UsesDevices) return new KeyboardMouseVirtualController(padIndex);
+            EnsureHMaestroContext();
+            if (_hmaestroContext == null) return null;
+            HMProfile keyboard = null, mouse = null;
+            if (kbm.Keyboard.Length > 0 && (keyboard = ResolveKbmProfile(kbm.Keyboard)) == null) return null;
+            if (kbm.Mouse.Length > 0 && (mouse = ResolveKbmProfile(kbm.Mouse)) == null) return null;
+            return new KeyboardMouseVirtualController(padIndex, _hmaestroContext, keyboard, mouse);
+        }
+
+        private HMProfile ResolveKbmProfile(string profileId)
+        {
+            var profile = _hmaestroContext.GetProfile(profileId)
+                          ?? HMaestroProfileCatalog.GetProfileById(profileId);
+            if (profile == null) RaiseError($"HIDMaestro profile '{profileId}' not found.", null);
+            return profile;
         }
 
         /// <summary>Raises a failed create's status line, naming the slot the
@@ -3021,7 +3130,7 @@ namespace PadForge.Common.Input
         /// <summary>
         /// Constructs a HIDMaestro-backed virtual controller using the named
         /// embedded profile. The profile slug must match a profile shipped in
-        /// HIDMaestro.Core's embedded catalog (233 profiles across 32 vendors).
+        /// HIDMaestro.Core's embedded catalog (336 profiles in HIDMaestro 1.12.0).
         ///
         /// For Extended slots, applies per-slot customizations on top of the
         /// catalog profile via <see cref="HMProfileBuilder"/>:
@@ -3406,6 +3515,7 @@ namespace PadForge.Common.Input
                     if (SlotControllerTypes[i] == VirtualControllerType.Extended
                         && ExtendedConfigurationChanged(i)) return true;
                 }
+                if (vc is KeyboardMouseVirtualController kbm && KbmDevicesChanged(i, kbm)) return true;
             }
             return false;
         }
@@ -3880,6 +3990,14 @@ namespace PadForge.Common.Input
             // which only asked for async when the VC was HM, and the
             // inactivity timeout, which uses the parameterless overload.
             if (midiVc != null) asyncDispose = true;
+
+            // A Keyboard + Mouse controller on a virtual keyboard or mouse goes
+            // async too: removing the device waits on Windows PnP, which no
+            // poll may sit through. Shutdown keeps it synchronous, the way it
+            // keeps the HIDMaestro controllers, so the context's own dispose
+            // that follows never races a teardown of the same device.
+            if (vc is KeyboardMouseVirtualController { HasHidDevices: true } && !_lifecycleClosed)
+                asyncDispose = true;
 
             if (asyncDispose)
             {

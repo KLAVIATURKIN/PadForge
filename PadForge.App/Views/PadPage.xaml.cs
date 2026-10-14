@@ -2993,6 +2993,9 @@ namespace PadForge.Views
             KbmSurfacesCombo.Visibility = isKbm ? Visibility.Visible : Visibility.Collapsed;
 
             ExtendedConfigBar.Visibility = isExtended ? Visibility.Visible : Visibility.Collapsed;
+            // The keyboard and mouse pickers (HIDMaestro 1.12.0) take Row 1
+            // the way the Extended and MIDI bars do.
+            KbmDeviceBar.Visibility = isKbm ? Visibility.Visible : Visibility.Collapsed;
 
             if (isExtended)
             {

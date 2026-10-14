@@ -114,6 +114,7 @@
   <data name="About_DotNet10" xml:space="preserve"><value>.NET 10</value></data>
   <data name="About_SDL3" xml:space="preserve"><value>SDL3</value></data>
   <data name="About_HelixToolkit" xml:space="preserve"><value>HelixToolkit</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_HIDMaestro" xml:space="preserve"><value>HIDMaestro</value></data>
   <data name="About_OpenXInput" xml:space="preserve"><value>OpenXInput</value></data>
@@ -238,6 +239,8 @@
   <data name="Pad_Formula_Chip_Half" xml:space="preserve"><value>0.5: aadha</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Upar</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Niche</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Baaya</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Daaya</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Naam</value></data>
@@ -506,6 +509,8 @@
   <data name="Key_Control" xml:space="preserve"><value>Ctrl</value></data>
   <data name="Key_Alt" xml:space="preserve"><value>Alt</value></data>
   <data name="Key_Escape" xml:space="preserve"><value>Esc</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <!-- Navigation -->
   <!-- Windows keys -->
   <!-- Numpad -->
@@ -731,6 +736,8 @@
   <data name="About_PortMidiRtMidi" xml:space="preserve"><value>PortMidi / RtMidi</value></data>
   <data name="About_AnalogKeyboardRefs" xml:space="preserve"><value>HallJoy, Soup aur AnalogSense</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Ek saath keys: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Button: {0}</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Sab</value>
   </data>

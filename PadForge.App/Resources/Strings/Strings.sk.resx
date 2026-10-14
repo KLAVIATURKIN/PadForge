@@ -491,6 +491,8 @@ Kópia predchádzajúcej verzie je v tomto priečinku: {1}</value></data>
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>Ikony páčok a spúští odvodené z „Xbox Series Button Icons and Controls“ od autora Zacksly (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Rozpoznávanie tvarov na touchpade podľa šablón (kruh / štvorec / trojuholník / Z / fajka a vlastné nahraté gestá). Nové odvodenie v jazyku C# z referenčnej implementácie v jazyku JavaScript od autorov Magrofuoco, Vatavu, Anthony a Wobbrock. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Pozície kláves a klávesy základnej vrstvy klávesníc, ktoré kreslí náhľad Klávesnica + myš, vygenerované z údajov o rozložení QMK a z forku QMK od Keychron. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>Spôsob hodnotenia podľa uhlovej rezervy, ktorý beží popri porovnávaní mračien bodov pri tvaroch jedným prstom. Implementuje myšlienku hodnotenia z PointPatternAnalyzer projektu GestureSign v pôvodnom kóde C#. GPL-2.0, iba ako dokumentácia.</value></data>
   <data name="About_License" xml:space="preserve"><value>Licencia</value></data>
@@ -1316,6 +1318,8 @@ Kópia predchádzajúcej verzie je v tomto priečinku: {1}</value></data>
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Pohyb myši</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Hore</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Dole</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Vľavo</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Vpravo</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Názov</value></data>
@@ -2476,6 +2480,11 @@ Kópia predchádzajúcej verzie je v tomto priečinku: {1}</value></data>
   <data name="Key_Sleep" xml:space="preserve"><value>Spánok</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>Num {0}</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>Non-US \ |</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>No Convert</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Convert</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>Intl #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>Intl \</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>Ďalší kláves {0}</value></data>
@@ -3030,7 +3039,7 @@ Kópia predchádzajúcej verzie je v tomto priečinku: {1}</value></data>
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Dokumentácia k postupu párovania Wii, ADPCM reproduktora, orientácii Wii Remote bokom a zvisle, modelu brány páčky a jeho formátu ukladania a ku konvencii osí gyroskopu. GPL-2.0-or-later, použité iba ako dokumentácia, nedodáva sa žiadny kód GPL.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Dokumentácia správania DualShock: odpojenie pri nečinnosti, hranice touchpadu, dekódovanie batérie, IOCTL na odpojenie Bluetooth, bity režimu vibrácií DualSense, krivka chvenia gyroskopu, mierka páčky ako myši a počiatočná hodnota CRC výstupného hlásenia Bluetooth. GPL-3.0-or-later, použité iba ako dokumentácia, nedodáva sa žiadny kód GPL.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Dokumentácia správania DualShock: odpojenie pri nečinnosti, hranice touchpadu, dekódovanie batérie, IOCTL na odpojenie Bluetooth, bity režimu vibrácií DualSense, krivka chvenia gyroskopu, mierka páčky ako myši a počiatočná hodnota CRC výstupného hlásenia Bluetooth. Tabuľka kódov kláves jeho virtuálnej klávesnice poslúžila ako vzor pre tabuľku PadForge. GPL-3.0-or-later, použité iba ako dokumentácia, nedodáva sa žiadny kód GPL.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>Dokumentácia príkazov GIP pre LED, ktorá potvrdzuje xbledctl. GPL-2.0-or-later, iba ako dokumentácia.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3058,6 +3067,7 @@ Kópia predchádzajúcej verzie je v tomto priečinku: {1}</value></data>
   <data name="Vr_Status_Running" xml:space="preserve"><value>Spustené</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Spustené, ovládač zariadenia pripojený</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>Spustené, ovládače aktívne</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>Iný ovládač OpenVR používa názov ovládača HIDMaestro, takže ho SteamVR môže načítať namiesto ovládača PadForge a virtuálne ovládače VR sa nezobrazia. Odstráňte tento ovládač: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Sériový ovládač (port COM)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Systém Windows nevie rozpoznať, ktorý ovládač je na porte COM. Vyberte port a ovládač a potom ho pridajte. PadForge bude odvtedy tento port otvárať.</value></data>
@@ -3943,6 +3953,19 @@ Chcete, aby ich PadForge teraz odinštaloval? Vyžaduje to oprávnenia správcu 
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Iba klávesnica</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>Vykreslené ako najbližšie štandardné rozloženie</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Vstup Windows</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>To isté zariadenie ako klávesnica</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>To isté zariadenie ako myš</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Vstup Windows píše každý kláves cez Windows a programy dokážu rozpoznať, že pochádza zo softvéru. Model klávesnice píše na virtuálnej klávesnici, ktorú programy vidia ako tento hardvér. Tabuľka mapovaní skryje klávesy, ktoré model nevie odoslať.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Vstup Windows pohybuje ukazovateľom cez Windows a programy dokážu rozpoznať, že pochádza zo softvéru. Model myši ho pohybuje virtuálnou myšou, ktorú programy vidia ako tento hardvér. Tabuľka mapovaní skryje tlačidlá a kolieska, ktoré model nemá.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Súčasne stlačené klávesy: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Súčasne stlačené klávesy: ľubovoľný počet</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Multimediálne klávesy</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>Kontrolky zámkov</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Tlačidlá: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Koliesko</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>Nakláňacie koliesko</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Všetko</value>
   </data>
@@ -4125,7 +4148,7 @@ Chcete, aby ich PadForge teraz odinštaloval? Vyžaduje to oprávnenia správcu 
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Počítadlá optickej myši Joy-Con 2 a rozdiely s pretečením, na ktorých stojí Pohyb myši X a Y, od autorov coffincolors, Frano a moutella. MIT. Iba dokumentácia, nedodáva sa žiadny kód.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Ovládače jadra Linux</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Fakty o protokoloch DualShock 3, Move, DualSense, Steam Deck a silovej spätnej väzby PID a rozloženie bloku ACPI WMI. GPL-2.0-or-later, použité iba ako dokumentácia, nedodáva sa žiadny kód GPL.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Fakty o protokoloch DualShock 3, Move, DualSense, Steam Deck a silovej spätnej väzby PID a rozloženie bloku ACPI WMI. PadForge číta deskriptory klávesníc a myší podľa pravidiel hid-core. GPL-2.0-or-later, použité iba ako dokumentácia, nedodáva sa žiadny kód GPL.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Vstup ovládačov vo Windows vrátane pádiel Xbox Elite. Zavádzač SDK je prepojený do SDL. MIT (zavádzač SDK).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Modul runtime Microsoft Visual C++</value></data>

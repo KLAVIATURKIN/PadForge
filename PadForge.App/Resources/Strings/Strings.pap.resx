@@ -363,6 +363,8 @@
   <data name="About_ModernWpf" xml:space="preserve"><value>WPF UI</value></data>
   <data name="About_MvvmToolkit" xml:space="preserve"><value>MVVM Toolkit</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Posishon di tekla i tekla di e kapa base di e tekladonan ku e vista previa di Teklado + Mouse ta dibuhá, generá for di e datonan di layout di QMK i di e fork di QMK di Keychron. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_License" xml:space="preserve"><value>Lisensia</value></data>
   <data name="About_HIDMaestro" xml:space="preserve"><value>HIDMaestro</value></data>
@@ -788,6 +790,8 @@
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Movementu di mouse</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Ariba</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Abou</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Robes</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Drechi</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Nòmber</value></data>
@@ -1436,6 +1440,8 @@
   <!-- Windows keys -->
   <data name="Key_LWin" xml:space="preserve"><value>Windows robes</value></data>
   <data name="Key_RWin" xml:space="preserve"><value>Windows drechi</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <!-- Numpad -->
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>Intl #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>Intl \</value></data>
@@ -1742,6 +1748,7 @@
   <data name="About_OpenVR" xml:space="preserve"><value>OpenVR API</value></data>
   <data name="Vr_Status_Running" xml:space="preserve"><value>Ta kore</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Ta kore, driver konektá</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>Un otro driver di OpenVR ta usa e nòmber di driver di HIDMaestro, pues SteamVR por karga esei na lugá di esun di PadForge i e kontrolnan virtual di VR lo no aparesé. Kita e driver ei pa resolvé esaki: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Kontrol serial (pòrt COM)</value></data>
   <data name="SerialPair_Port" xml:space="preserve"><value>Pòrt</value></data>
@@ -2080,6 +2087,14 @@
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Teklado so</value>
   </data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Input di Windows</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>Mesun aparato ku e teklado</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>Mesun aparato ku e mouse</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Teklanan na mes tempu: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Teklanan na mes tempu: kualke</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Teklanan di media</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Botònnan: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Rueda</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Tur</value>
   </data>

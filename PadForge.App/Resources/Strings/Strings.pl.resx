@@ -491,6 +491,8 @@ Kopia poprzedniej wersji znajduje się w tym folderze: {1}</value></data>
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>Ikony drążków i spustów na podstawie pakietu „Xbox Series Button Icons and Controls” autorstwa Zacksly (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Dopasowywanie kształtów z panelu dotykowego do szablonów (okrąg / kwadrat / trójkąt / Z / znacznik wyboru oraz własne nagrane gesty). Ponowna implementacja w C# na podstawie wzorcowego kodu JavaScript, którego autorami są Magrofuoco, Vatavu, Anthony i Wobbrock. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Pozycje klawiszy i klawisze warstwy bazowej klawiatur, które rysuje podgląd Klawiatura + mysz, wygenerowane z danych układów QMK i forka QMK firmy Keychron. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>Metoda oceny oparta na marginesie kątowym, działająca obok dopasowywania chmur punktów dla kształtów rysowanych jednym palcem. Realizuje pomysł oceniania z PointPatternAnalyzer z projektu GestureSign we własnym kodzie C#. GPL-2.0, tylko jako dokumentacja.</value></data>
   <data name="About_License" xml:space="preserve"><value>Licencja</value></data>
@@ -1316,6 +1318,8 @@ Kopia poprzedniej wersji znajduje się w tym folderze: {1}</value></data>
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Ruch myszy</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>W górę</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>W dół</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>W lewo</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>W prawo</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Nazwa</value></data>
@@ -2476,6 +2480,11 @@ Kopia poprzedniej wersji znajduje się w tym folderze: {1}</value></data>
   <data name="Key_Sleep" xml:space="preserve"><value>Uśpij</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>Num {0}</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>Klawisz ISO \ |</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>No Convert</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Convert</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>Intl #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>Intl \</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>Dodatkowy klawisz {0}</value></data>
@@ -3030,7 +3039,7 @@ Kopia poprzedniej wersji znajduje się w tym folderze: {1}</value></data>
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Dokumentacja procedury parowania Wii, kodowania ADPCM głośnika, orientacji Wii Remote bokiem i pionowo, modelu bramki drążka i formatu jego zapisu oraz konwencji osi żyroskopu. GPL-2.0-or-later, wykorzystane wyłącznie jako dokumentacja, kod na licencji GPL nie jest rozpowszechniany.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Dokumentacja zachowania kontrolerów DualShock: rozłączanie przy bezczynności, granice panelu dotykowego, dekodowanie stanu baterii, IOCTL rozłączania Bluetooth, bity trybu wibracji DualSense, krzywa drgań żyroskopu, skala drążka jako myszy i ziarno CRC raportu wyjściowego Bluetooth. GPL-3.0-or-later, wykorzystane wyłącznie jako dokumentacja, kod na licencji GPL nie jest rozpowszechniany.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Dokumentacja zachowania kontrolerów DualShock: rozłączanie przy bezczynności, granice panelu dotykowego, dekodowanie stanu baterii, IOCTL rozłączania Bluetooth, bity trybu wibracji DualSense, krzywa drgań żyroskopu, skala drążka jako myszy i ziarno CRC raportu wyjściowego Bluetooth. Tablica kodów klawiszy jej wirtualnej klawiatury posłużyła za wzór dla tablicy w PadForge. GPL-3.0-or-later, wykorzystane wyłącznie jako dokumentacja, kod na licencji GPL nie jest rozpowszechniany.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>Dokumentacja poleceń LED protokołu GIP, potwierdzająca ustalenia xbledctl. GPL-2.0-or-later, tylko jako dokumentacja.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3058,6 +3067,7 @@ Kopia poprzedniej wersji znajduje się w tym folderze: {1}</value></data>
   <data name="Vr_Status_Running" xml:space="preserve"><value>Działa</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Działa, sterownik połączony</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>Działa, kontrolery aktywne</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>Inny sterownik OpenVR używa nazwy sterownika HIDMaestro, więc SteamVR może załadować go zamiast sterownika PadForge i wirtualne kontrolery VR nie pojawią się. Usuń ten sterownik, aby to naprawić: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Kontroler szeregowy (port COM)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>System Windows nie potrafi rozpoznać, jaki kontroler jest podłączony do portu COM. Wybierz port i kontroler, a następnie go dodaj. Od tej pory PadForge będzie otwierać ten port.</value></data>
@@ -3943,6 +3953,19 @@ Czy PadForge ma je teraz odinstalować? Wymaga to uprawnień administratora i mo
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Tylko klawiatura</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>Narysowano jako najbliższy standardowy układ</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Wejście Windows</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>To samo urządzenie co klawiatura</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>To samo urządzenie co mysz</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Wejście Windows wpisuje każdy klawisz przez system Windows, a programy mogą rozpoznać, że pochodzi z oprogramowania. Model klawiatury wpisuje go na wirtualnej klawiaturze, którą programy widzą jako ten sprzęt. Tabela mapowań ukrywa klawisze, których model nie może wysłać.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Wejście Windows przesuwa wskaźnik przez system Windows, a programy mogą rozpoznać, że pochodzi z oprogramowania. Model myszy przesuwa go za pomocą wirtualnej myszy, którą programy widzą jako ten sprzęt. Tabela mapowań ukrywa przyciski i kółka, których model nie ma.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Klawisze naraz: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Klawisze naraz: dowolna liczba</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Klawisze multimedialne</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>Diody blokad</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Przyciski: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Kółko</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>Kółko z przechyłem</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Wszystko</value>
   </data>
@@ -4125,7 +4148,7 @@ Czy PadForge ma je teraz odinstalować? Wymaga to uprawnień administratora i mo
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Liczniki myszy optycznej Joy-Con 2 i różnice z przepełnieniem, na których opierają się źródła Ruch myszy X i Y. Autorzy: coffincolors, Frano i moutella. MIT. Tylko jako dokumentacja, żaden kod nie jest rozpowszechniany.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Sterowniki jądra Linux</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Fakty o protokołach DualShock 3, Move, DualSense, Steam Deck i force feedback PID oraz układ bloków ACPI WMI. GPL-2.0-or-later, wykorzystane wyłącznie jako dokumentacja, kod na licencji GPL nie jest rozpowszechniany.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Fakty o protokołach DualShock 3, Move, DualSense, Steam Deck i force feedback PID oraz układ bloków ACPI WMI. PadForge odczytuje deskryptory klawiatur i myszy według reguł hid-core. GPL-2.0-or-later, wykorzystane wyłącznie jako dokumentacja, kod na licencji GPL nie jest rozpowszechniany.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Wejście kontrolerów w systemie Windows, w tym łopatki Xbox Elite. Moduł ładujący SDK jest wkompilowany w SDL. MIT (moduł ładujący SDK).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

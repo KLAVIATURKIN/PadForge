@@ -491,6 +491,8 @@ Der ligger en kopi af den tidligere version i denne mappe: {1}</value></data>
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>Stick- og trigger-ikoner afledt af ”Xbox Series Button Icons and Controls” af Zacksly (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Genkendelse af figurer på touchpad ud fra skabeloner (cirkel / firkant / trekant / Z / flueben og selvoptagede gestusser). Ny udledning i C# af JavaScript-referencen fra Magrofuoco, Vatavu, Anthony og Wobbrock. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Tastpositioner og basislagets taster for de tastaturer, som forhåndsvisningen af Tastatur + mus tegner, genereret ud fra QMK's layoutdata og Keychrons QMK-fork. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>Scoringsmetode baseret på vinkelmargin, der kører sammen med punktsky-matcheren på figurer tegnet med én finger. Implementerer scoringsidéen fra PointPatternAnalyzer i GestureSign i egen C#-kode. GPL-2.0, kun som dokumentation.</value></data>
   <data name="About_License" xml:space="preserve"><value>Licens</value></data>
@@ -1316,6 +1318,8 @@ Der ligger en kopi af den tidligere version i denne mappe: {1}</value></data>
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Musebevægelse</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Op</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Ned</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Venstre</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Højre</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Navn</value></data>
@@ -2476,6 +2480,11 @@ Der ligger en kopi af den tidligere version i denne mappe: {1}</value></data>
   <data name="Key_Sleep" xml:space="preserve"><value>Dvale</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>Num {0}</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>Non-US \ |</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>No Convert</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Convert</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>Intl #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>Intl \</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>Ekstra tast {0}</value></data>
@@ -3030,7 +3039,7 @@ Der ligger en kopi af den tidligere version i denne mappe: {1}</value></data>
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Dokumentation af Wii-parringsforløbet, højttalerens ADPCM, Wii Remotes sidelæns og oprette retning, stick-gate-modellen og dens lagringsformat samt konventionen for gyroakser. GPL-2.0-or-later, kun læst som dokumentation, ingen GPL-kode følger med.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Dokumentation af DualShock-adfærd: afbrydelse ved inaktivitet, touchpad-grænser, afkodning af batteri, IOCTL'en til afbrydelse af Bluetooth, bit til vibrationstilstand på DualSense, gyroens jitterkurve, skalaen for stick som mus og CRC-startværdien til Bluetooth-output-reports. GPL-3.0-or-later, kun læst som dokumentation, ingen GPL-kode følger med.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Dokumentation af DualShock-adfærd: afbrydelse ved inaktivitet, touchpad-grænser, afkodning af batteri, IOCTL'en til afbrydelse af Bluetooth, bit til vibrationstilstand på DualSense, gyroens jitterkurve, skalaen for stick som mus og CRC-startværdien til Bluetooth-output-reports. Dens virtuelle tastaturs tasttabel har vejledt tabellen i PadForge. GPL-3.0-or-later, kun læst som dokumentation, ingen GPL-kode følger med.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>Dokumentation af GIP-LED-kommandoer, der bekræfter xbledctl. GPL-2.0-or-later, kun dokumentation.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3058,6 +3067,7 @@ Der ligger en kopi af den tidligere version i denne mappe: {1}</value></data>
   <data name="Vr_Status_Running" xml:space="preserve"><value>Kører</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Kører, driver forbundet</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>Kører, controllere aktive</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>En anden OpenVR-driver bruger samme drivernavn som HIDMaestro, så SteamVR kan indlæse den i stedet for den fra PadForge, og de virtuelle VR-controllere vises ikke. Fjern den driver for at løse det: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Seriel controller (COM-port)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Windows kan ikke se, hvilken controller der sidder på en COM-port. Vælg porten og controlleren, og tilføj den derefter. PadForge åbner den port fremover.</value></data>
@@ -3943,6 +3953,19 @@ Vil du have, at PadForge afinstallerer dem nu? Det kræver administratorrettighe
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Kun tastatur</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>Tegnet som det nærmeste standardlayout</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Windows-input</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>Samme enhed som tastaturet</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>Samme enhed som musen</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Windows-input skriver hver tast via Windows, og programmer kan se, at det kommer fra software. En tastaturmodel skriver på et virtuelt tastatur, som programmer ser som den hardware. Tildelingstabellen skjuler de taster, modellen ikke kan sende.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Windows-input flytter markøren via Windows, og programmer kan se, at det kommer fra software. En musemodel flytter den med en virtuel mus, som programmer ser som den hardware. Tildelingstabellen skjuler de knapper og hjul, modellen ikke har.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Taster samtidig: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Taster samtidig: Vilkårligt antal</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Medietaster</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>Lock-lamper</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Knapper: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Hjul</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>Vippehjul</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Alle</value>
   </data>
@@ -4125,7 +4148,7 @@ Vil du have, at PadForge afinstallerer dem nu? Det kræver administratorrettighe
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Optiske musetællere og wraparound-delta i Joy-Con 2 bag Musebevægelse X og Y, af coffincolors, Frano og moutella. MIT. Kun dokumentation, ingen kode følger med.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Drivere i Linux-kernen</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Protokolfakta om DualShock 3, Move, DualSense, Steam Deck og PID-force feedback samt bloklayoutet for ACPI WMI. GPL-2.0-or-later, kun læst som dokumentation, ingen GPL-kode følger med.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Protokolfakta om DualShock 3, Move, DualSense, Steam Deck og PID-force feedback samt bloklayoutet for ACPI WMI. PadForge læser tastatur- og musedeskriptorer efter reglerne i hid-core. GPL-2.0-or-later, kun læst som dokumentation, ingen GPL-kode følger med.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Controllerinput i Windows, inklusive paddles på Xbox Elite. SDK-loaderen er linket ind i SDL. MIT (SDK-loader).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

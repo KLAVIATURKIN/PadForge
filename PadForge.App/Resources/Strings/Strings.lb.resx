@@ -483,6 +483,8 @@ Eng Kopie vun der viregter Versioun ass an dësem Dossier: {1}</value></data>
   <data name="About_MvvmToolkitDesc" xml:space="preserve"><value>CommunityToolkit.Mvvm fir Datebindung. MIT.</value></data>
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>Stick- an Trigger-Ikonen, ofgeleet vun „Xbox Series Button Icons and Controls“ vum Zacksly (CC BY 3.0)</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Erkennung vu Forme mat Virlagen um Touchpad (Krees / Quadrat / Dräieck / Z / Haken an eegen opgeholl Gesten). C#-Neiimplementéierung vun der JavaScript-Referenz vum Magrofuoco, Vatavu, Anthony a Wobbrock. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Tastepositiounen an d'Tasten op der Basisschicht vun den Tastaturen, déi d'Virschau vun Tastatur + Maus weist, generéiert aus de Layoutdate vu QMK an aus dem QMK-Fork vu Keychron. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>Bewäertung no Wénkelmarge, déi bei Forme mat engem Fanger nieft dem Punktwollek-Matcher leeft. Setzt d'Bewäertungsiddi vum PointPatternAnalyzer vu GestureSign an eegenem C# ëm. GPL-2.0, nëmmen Dokumentatioun.</value></data>
   <data name="About_License" xml:space="preserve"><value>Lizenz</value></data>
@@ -1307,6 +1309,8 @@ Eng Kopie vun der viregter Versioun ass an dësem Dossier: {1}</value></data>
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Mausbeweegung</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Erop</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Erof</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Lénks</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Riets</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Numm</value></data>
@@ -2454,6 +2458,11 @@ Eng Kopie vun der viregter Versioun ass an dësem Dossier: {1}</value></data>
   <data name="Key_Apps" xml:space="preserve"><value>Applikatiounen</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>Zifferblock {0}</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>Net-US-Tast \ |</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>Net konvertéieren</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Konvertéieren</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>Intl #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>Intl \</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>Zousaztast {0}</value></data>
@@ -3006,7 +3015,7 @@ Eng Kopie vun der viregter Versioun ass an dësem Dossier: {1}</value></data>
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Dokumentatioun zur Wii-Kopplungszeremonie, zum ADPCM vum Lautsprecher, zur säitlecher an oprechter Orientéierung vun der Wii Remote, zum Stick-Gate-Modell a sengem Späicherformat an zur Konventioun vun de Gyro-Achsen. GPL-2.0-or-later, nëmmen als Dokumentatioun gelies, kee GPL-Code gëtt matgeliwwert.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Dokumentatioun vum Verhale vum DualShock: Trennung bei Inaktivitéit, Touchpad-Grenzen, Dekodéierung vun der Batterie, den IOCTL fir iwwer Bluetooth ze trennen, d'Bits vum Vibratiounsmodus vum DualSense, d'Gyro-Jitter-Kurv, d'Skaléierung fir de Stick als Maus an de CRC-Startwäert vun de Bluetooth-Output-Reports. GPL-3.0-or-later, nëmmen als Dokumentatioun gelies, kee GPL-Code gëtt matgeliwwert.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Dokumentatioun vum Verhale vum DualShock: Trennung bei Inaktivitéit, Touchpad-Grenzen, Dekodéierung vun der Batterie, den IOCTL fir iwwer Bluetooth ze trennen, d'Bits vum Vibratiounsmodus vum DualSense, d'Gyro-Jitter-Kurv, d'Skaléierung fir de Stick als Maus an de CRC-Startwäert vun de Bluetooth-Output-Reports. D'Tastentabell vu senger virtueller Tastatur huet als Virbild fir déi vu PadForge gedéngt. GPL-3.0-or-later, nëmmen als Dokumentatioun gelies, kee GPL-Code gëtt matgeliwwert.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>Dokumentatioun vun de GIP-LED-Befeeler, déi xbledctl bestätegt. GPL-2.0-or-later, nëmmen Dokumentatioun.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3034,6 +3043,7 @@ Eng Kopie vun der viregter Versioun ass an dësem Dossier: {1}</value></data>
   <data name="Vr_Status_Running" xml:space="preserve"><value>Leeft</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Leeft, Treiber verbonnen</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>Leeft, Controller aktiv</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>En anere OpenVR-Treiber benotzt den Treibernumm vun HIDMaestro, dofir kann SteamVR en amplaz vum Treiber vu PadForge lueden, an déi virtuell VR-Controller erschéngen net. Läscht deen Treiber, fir dëst ze behiewen: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Serielle Controller (COM-Port)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Windows weess net, wéi e Controller un engem COM-Port hänkt. Wielt de Port an de Controller, a setzt en dann derbäi. PadForge mécht dee Port vun do un op.</value></data>
@@ -3917,6 +3927,19 @@ Soll PadForge se elo desinstalléieren? Dat brauch Administratorrechter a ka e M
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Nëmmen Tastatur</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>Als dat nootste Standardlayout gezeechent</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Windows-Agab</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>Selwechten Apparat wéi d'Tastatur</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>Selwechten Apparat wéi d'Maus</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Windows-Agab tippt all Tast iwwer Windows, a Programmer kënnen erkennen, datt se vun enger Software kënnt. E Tastaturmodell tippt se op enger virtueller Tastatur, déi Programmer als déi Hardware gesinn. D'Zouuerdnungstabell verstoppt d'Tasten, déi de Modell net schécke kann.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Windows-Agab beweegt de Mauszeiger iwwer Windows, a Programmer kënnen erkennen, datt dat vun enger Software kënnt. E Mausmodell beweegt en mat enger virtueller Maus, déi Programmer als déi Hardware gesinn. D'Zouuerdnungstabell verstoppt d'Knäppercher an d'Rieder, déi de Modell net huet.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Tasten gläichzäiteg: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Tasten gläichzäiteg: onbegrenzt</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Medientasten</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>Statusluuchten</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Knäppercher: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Scrollrad</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>Kippscrollrad</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>All</value>
   </data>
@@ -4099,7 +4122,7 @@ Soll PadForge se elo desinstalléieren? Dat brauch Administratorrechter a ka e M
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Optesch Mauszieler vum Joy-Con 2 an Iwwerlaf-Deltaen hannert Mausbeweegung X an Y, vu coffincolors, Frano a moutella. MIT. Nëmmen Dokumentatioun, et gëtt kee Code matgeliwwert.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Linux-Kernel-Treiber</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Protokollfakten zu DualShock 3, Move, DualSense, Steam Deck a PID-Force-Feedback, an de Blocklayout vun ACPI WMI. GPL-2.0-or-later, nëmmen als Dokumentatioun gelies, et gëtt kee GPL-Code matgeliwwert.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Protokollfakten zu DualShock 3, Move, DualSense, Steam Deck a PID-Force-Feedback, an de Blocklayout vun ACPI WMI. PadForge liest d'Deskriptore vu Tastaturen a Mais no de Reegele vun hid-core. GPL-2.0-or-later, nëmmen als Dokumentatioun gelies, et gëtt kee GPL-Code matgeliwwert.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Controller-Agab ënner Windows, inklusiv de Paddles vum Xbox Elite. De SDK-Loader ass an SDL gelinkt. MIT (SDK-Loader).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

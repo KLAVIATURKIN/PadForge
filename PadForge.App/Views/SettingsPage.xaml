@@ -734,6 +734,17 @@
                                 <TextBlock Text="{Binding SteamVrStatusText}" FontWeight="SemiBold"/>
                             </StackPanel>
 
+                            <!-- HIDMaestro 1.12.0 lists other OpenVR drivers
+                                 SteamVR can see under HIDMaestro's driver name
+                                 (HMVR.FindDriverNameConflicts). OpenVR loads
+                                 one driver per name, so with one present the
+                                 VR slot's controllers can fail to appear for
+                                 no other visible reason. -->
+                            <TextBlock Text="{Binding SteamVrDriverConflictText}"
+                                       Margin="0,8,12,0" TextWrapping="Wrap"
+                                       Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                                       Visibility="{Binding HasSteamVrDriverConflict, Converter={StaticResource BoolToVisibilityConverter}}"/>
+
                             <!-- Install-location picker: shown only before an
                                  install exists. Not persisted by PadForge; on
                                  success the HIDMaestro path hint becomes the

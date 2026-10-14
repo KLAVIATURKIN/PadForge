@@ -491,6 +491,8 @@
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>Εικονίδια μοχλών και σκανδαλών που προέρχονται από το «Xbox Series Button Icons and Controls» του Zacksly (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Εργαλείο ταύτισης προτύπων σχημάτων για την επιφάνεια αφής (Κύκλος / Τετράγωνο / Τρίγωνο / Z / Σημάδι ελέγχου και προσαρμοσμένες καταγεγραμμένες χειρονομίες). Εκ νέου υλοποίηση σε C# της υλοποίησης αναφοράς σε JavaScript των Magrofuoco, Vatavu, Anthony και Wobbrock. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Θέσεις πλήκτρων και πλήκτρα βασικού επιπέδου των πληκτρολογίων που σχεδιάζει η προεπισκόπηση Πληκτρολόγιο + ποντίκι, δημιουργημένα από τα δεδομένα διάταξης του QMK και το fork του QMK της Keychron. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>Μέθοδος βαθμολόγησης με γωνιακό περιθώριο, που εκτελείται παράλληλα με το εργαλείο ταύτισης νέφους σημείων στα σχήματα ενός δαχτύλου. Υλοποιεί την ιδέα βαθμολόγησης του PointPatternAnalyzer του GestureSign σε πρωτότυπο κώδικα C#. GPL-2.0, μόνο ως τεκμηρίωση.</value></data>
   <data name="About_License" xml:space="preserve"><value>Άδεια χρήσης</value></data>
@@ -1316,6 +1318,8 @@
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Κίνηση ποντικιού</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Πάνω</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Κάτω</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Αριστερά</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Δεξιά</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Όνομα</value></data>
@@ -2476,6 +2480,11 @@
   <data name="Key_Sleep" xml:space="preserve"><value>Αναστολή λειτουργίας</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>Αριθμητικό {0}</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>Non-US \ |</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>No Convert</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Convert</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>Διεθνές #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>Διεθνές \</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>Επιπλέον πλήκτρο {0}</value></data>
@@ -3030,7 +3039,7 @@
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Τεκμηρίωση για τη διαδικασία σύζευξης του Wii, το ADPCM του ηχείου, τον πλάγιο και τον όρθιο προσανατολισμό του Wii Remote, το μοντέλο πύλης μοχλού και τη μορφή αποθήκευσής του, καθώς και τη σύμβαση αξόνων του γυροσκοπίου. GPL-2.0-or-later, μελετήθηκε μόνο ως τεκμηρίωση, δεν διανέμεται κώδικας GPL.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Τεκμηρίωση της συμπεριφοράς του DualShock: αποσύνδεση σε αδράνεια, όρια επιφάνειας αφής, αποκωδικοποίηση μπαταρίας, το IOCTL αποσύνδεσης Bluetooth, τα bit λειτουργίας δόνησης του DualSense, η καμπύλη τρέμουλου του γυροσκοπίου, η κλίμακα μοχλού ως ποντικιού και η αρχική τιμή CRC της αναφοράς εξόδου Bluetooth. GPL-3.0-or-later, μελετήθηκε μόνο ως τεκμηρίωση, δεν διανέμεται κώδικας GPL.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Τεκμηρίωση της συμπεριφοράς του DualShock: αποσύνδεση σε αδράνεια, όρια επιφάνειας αφής, αποκωδικοποίηση μπαταρίας, το IOCTL αποσύνδεσης Bluetooth, τα bit λειτουργίας δόνησης του DualSense, η καμπύλη τρέμουλου του γυροσκοπίου, η κλίμακα μοχλού ως ποντικιού και η αρχική τιμή CRC της αναφοράς εξόδου Bluetooth. Ο πίνακας πλήκτρων του εικονικού πληκτρολογίου του καθοδήγησε τον αντίστοιχο πίνακα του PadForge. GPL-3.0-or-later, μελετήθηκε μόνο ως τεκμηρίωση, δεν διανέμεται κώδικας GPL.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>Τεκμηρίωση των εντολών LED του GIP, που επιβεβαιώνει το xbledctl. GPL-2.0-or-later, μόνο ως τεκμηρίωση.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3058,6 +3067,7 @@
   <data name="Vr_Status_Running" xml:space="preserve"><value>Εκτελείται</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Εκτελείται, το πρόγραμμα οδήγησης συνδέθηκε</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>Εκτελείται, τα χειριστήρια είναι ενεργά</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>Ένα άλλο πρόγραμμα οδήγησης OpenVR χρησιμοποιεί το όνομα προγράμματος οδήγησης του HIDMaestro, οπότε το SteamVR μπορεί να το φορτώσει στη θέση αυτού του PadForge και τα εικονικά χειριστήρια VR δεν θα εμφανιστούν. Αφαιρέστε αυτό το πρόγραμμα οδήγησης για να το διορθώσετε: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Σειριακό χειριστήριο (θύρα COM)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Τα Windows δεν μπορούν να αναγνωρίσουν ποιο χειριστήριο βρίσκεται σε μια θύρα COM. Επιλέξτε τη θύρα και το χειριστήριο και έπειτα προσθέστε το. Από εκεί και πέρα, το PadForge ανοίγει αυτή τη θύρα.</value></data>
@@ -3943,6 +3953,19 @@
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Μόνο πληκτρολόγιο</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>Σχεδιάστηκε με την πλησιέστερη τυπική διάταξη</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Είσοδος Windows</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>Ίδια συσκευή με το πληκτρολόγιο</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>Ίδια συσκευή με το ποντίκι</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Η είσοδος Windows πληκτρολογεί κάθε πλήκτρο μέσω των Windows και τα προγράμματα μπορούν να καταλάβουν ότι προήλθε από λογισμικό. Ένα μοντέλο πληκτρολογίου το πληκτρολογεί σε ένα εικονικό πληκτρολόγιο που τα προγράμματα βλέπουν ως αυτό το υλικό. Ο πίνακας αντιστοιχίσεων κρύβει τα πλήκτρα που το μοντέλο δεν μπορεί να στείλει.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Η είσοδος Windows μετακινεί τον δείκτη μέσω των Windows και τα προγράμματα μπορούν να καταλάβουν ότι προήλθε από λογισμικό. Ένα μοντέλο ποντικιού τον μετακινεί με ένα εικονικό ποντίκι που τα προγράμματα βλέπουν ως αυτό το υλικό. Ο πίνακας αντιστοιχίσεων κρύβει τα κουμπιά και τις ροδέλες που το μοντέλο δεν διαθέτει.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Ταυτόχρονα πλήκτρα: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Ταυτόχρονα πλήκτρα: Οποιοσδήποτε αριθμός</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Πλήκτρα πολυμέσων</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>Λυχνίες κλειδώματος</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Κουμπιά: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Ροδέλα</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>Ροδέλα με κλίση</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Όλα</value>
   </data>
@@ -4125,7 +4148,7 @@
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Οι οπτικοί μετρητές ποντικιού του Joy-Con 2 και οι μεταβολές με αναδίπλωση πίσω από τις εισόδους «Κίνηση ποντικιού X» και «Κίνηση ποντικιού Y», των coffincolors, Frano και moutella. MIT. Μόνο ως τεκμηρίωση, δεν διανέμεται κώδικας.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Προγράμματα οδήγησης του πυρήνα Linux</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Στοιχεία πρωτοκόλλου για DualShock 3, Move, DualSense, Steam Deck και ανάδραση δύναμης PID, καθώς και η διάταξη μπλοκ ACPI WMI. GPL-2.0-or-later, μελετήθηκε μόνο ως τεκμηρίωση, δεν διανέμεται κώδικας GPL.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Στοιχεία πρωτοκόλλου για DualShock 3, Move, DualSense, Steam Deck και ανάδραση δύναμης PID, καθώς και η διάταξη μπλοκ ACPI WMI. Το PadForge διαβάζει τους περιγραφείς πληκτρολογίων και ποντικιών σύμφωνα με τους κανόνες του hid-core. GPL-2.0-or-later, μελετήθηκε μόνο ως τεκμηρίωση, δεν διανέμεται κώδικας GPL.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Είσοδος χειριστηρίων των Windows, μαζί με τα πτερύγια του Xbox Elite. Ο φορτωτής του SDK είναι συνδεδεμένος στο SDL. MIT (φορτωτής SDK).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Περιβάλλον εκτέλεσης Microsoft Visual C++</value></data>

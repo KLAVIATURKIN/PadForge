@@ -491,6 +491,8 @@ Kopio edellisestä versiosta on tässä kansiossa: {1}</value></data>
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>Sauva- ja liipaisinkuvakkeet, jotka perustuvat teokseen ”Xbox Series Button Icons and Controls”, tekijä Zacksly (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Kosketuslevyn muotomallien tunnistin (ympyrä / neliö / kolmio / Z / valintamerkki ja omat nauhoitetut eleet). C#-toteutus, joka on johdettu uudelleen JavaScript-viitetoteutuksesta (tekijät Magrofuoco, Vatavu, Anthony ja Wobbrock). BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Näppäinpaikat ja perustason näppäimet näppäimistöille, jotka Näppäimistö + hiiri -esikatselu piirtää, luotu QMK-asettelutiedoista ja Keychronin QMK-haarasta. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>Kulmamarginaaliin perustuva pisteytystapa, joka toimii pistepilvitunnistimen rinnalla yhden sormen muodoissa. Toteuttaa GestureSign-projektin PointPatternAnalyzer-luokan pisteytysidean alkuperäisellä C#-koodilla. GPL-2.0, vain dokumentaationa.</value></data>
   <data name="About_License" xml:space="preserve"><value>Lisenssi</value></data>
@@ -1316,6 +1318,8 @@ Kopio edellisestä versiosta on tässä kansiossa: {1}</value></data>
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Hiiren liike</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Ylös</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Alas</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Vasemmalle</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Oikealle</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Nimi</value></data>
@@ -2476,6 +2480,11 @@ Kopio edellisestä versiosta on tässä kansiossa: {1}</value></data>
   <data name="Key_Sleep" xml:space="preserve"><value>Lepotila</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>Num {0}</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>Non-US \ |</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>No Convert</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Convert</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>Intl #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>Intl \</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>Lisänäppäin {0}</value></data>
@@ -3030,7 +3039,7 @@ Kopio edellisestä versiosta on tässä kansiossa: {1}</value></data>
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Dokumentaatio Wii-pariliitoksen menettelystä, kaiuttimen ADPCM-koodauksesta, Wii Remote -ohjaimen vaaka- ja pystyasennoista, sauvan rajausmallista ja sen tallennusmuodosta sekä gyron akselikäytännöstä. GPL-2.0-or-later, käytetty vain dokumentaationa, GPL-koodia ei toimiteta.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock-ohjainten toiminnan dokumentaatio: katkaisu käyttämättömänä, kosketuslevyn rajat, akun dekoodaus, Bluetooth-yhteyden katkaisun IOCTL, DualSense-ohjaimen tärinätilan bitit, gyron nykimiskäyrä, sauva hiirenä -skaala ja Bluetooth-lähtöraportin CRC-siemen. GPL-3.0-or-later, käytetty vain dokumentaationa, GPL-koodia ei toimiteta.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock-ohjainten toiminnan dokumentaatio: katkaisu käyttämättömänä, kosketuslevyn rajat, akun dekoodaus, Bluetooth-yhteyden katkaisun IOCTL, DualSense-ohjaimen tärinätilan bitit, gyron nykimiskäyrä, sauva hiirenä -skaala ja Bluetooth-lähtöraportin CRC-siemen. Sen virtuaalinäppäimistön näppäintaulukko ohjasi PadForge-ohjelman omaa taulukkoa. GPL-3.0-or-later, käytetty vain dokumentaationa, GPL-koodia ei toimiteta.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>GIP-protokollan LED-komentojen dokumentaatio, joka vahvistaa xbledctl-tutkimuksen havainnot. GPL-2.0-or-later, vain dokumentaationa.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3058,6 +3067,7 @@ Kopio edellisestä versiosta on tässä kansiossa: {1}</value></data>
   <data name="Vr_Status_Running" xml:space="preserve"><value>Käynnissä</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Käynnissä, ajuri yhdistetty</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>Käynnissä, ohjaimet aktiivisia</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>Toinen OpenVR-ajuri käyttää HIDMaestro-ajurin nimeä, joten SteamVR voi ladata sen PadForge-ajurin sijaan, eivätkä virtuaaliset VR-ohjaimet tule näkyviin. Poista tämä ajuri korjataksesi tilanteen: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Sarjaohjain (COM-portti)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Windows ei pysty tunnistamaan, mikä ohjain on COM-portissa. Valitse portti ja ohjain ja lisää se. PadForge avaa kyseisen portin siitä lähtien.</value></data>
@@ -3943,6 +3953,19 @@ Haluatko, että PadForge poistaa niiden asennuksen nyt? Tämä vaatii järjestel
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Vain näppäimistö</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>Piirretty lähimmän vakioasettelun mukaan</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Windows-syöte</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>Sama laite kuin näppäimistö</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>Sama laite kuin hiiri</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Windows-syöte kirjoittaa jokaisen näppäimen Windowsin kautta, ja ohjelmat voivat havaita sen tulevan ohjelmistosta. Näppäimistömalli kirjoittaa sen virtuaalinäppäimistöllä, jonka ohjelmat näkevät kyseisenä laitteena. Määritystaulukko piilottaa näppäimet, joita malli ei voi lähettää.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Windows-syöte siirtää osoitinta Windowsin kautta, ja ohjelmat voivat havaita sen tulevan ohjelmistosta. Hiirimalli siirtää sitä virtuaalihiirellä, jonka ohjelmat näkevät kyseisenä laitteena. Määritystaulukko piilottaa painikkeet ja pyörät, joita mallilla ei ole.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Näppäimiä kerralla: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Näppäimiä kerralla: mikä tahansa määrä</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Multimedianäppäimet</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>Lukitusvalot</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Painikkeita: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Pyörä</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>Kallistuva pyörä</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Kaikki</value>
   </data>
@@ -4125,7 +4148,7 @@ Haluatko, että PadForge poistaa niiden asennuksen nyt? Tämä vaatii järjestel
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Joy-Con 2 -ohjaimen optisen hiiren laskurit ja ylivuotoerot syötteiden Hiiren liike X ja Y taustalla, tekijät coffincolors, Frano ja moutella. MIT. Vain dokumentaatio, koodia ei toimiteta.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Linux-ytimen ajurit</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3-, Move-, DualSense-, Steam Deck- ja PID-voimapalauteprotokollien tiedot sekä ACPI WMI -lohkon rakenne. GPL-2.0-or-later, käytetty vain dokumentaationa, GPL-koodia ei toimiteta.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3-, Move-, DualSense-, Steam Deck- ja PID-voimapalauteprotokollien tiedot sekä ACPI WMI -lohkon rakenne. PadForge lukee näppäimistöjen ja hiirten HID-kuvaajat hid-core-tiedoston sääntöjen mukaan. GPL-2.0-or-later, käytetty vain dokumentaationa, GPL-koodia ei toimiteta.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Windowsin ohjainsyöte, mukaan lukien Xbox Elite -ohjaimen takapainikkeet. SDK-lataaja on linkitetty SDL-kirjastoon. MIT (SDK-lataaja).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

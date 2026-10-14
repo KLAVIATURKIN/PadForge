@@ -765,6 +765,8 @@ Een kopie van de vorige versie staat in deze map: {1}</value></data>
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Muisbeweging</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Omhoog</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Omlaag</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Links</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Rechts</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Naam</value></data>
@@ -1270,6 +1272,11 @@ Een kopie van de vorige versie staat in deze map: {1}</value></data>
   <data name="Key_Sleep" xml:space="preserve"><value>Slaapstand</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>Numeriek toetsenbord {0}</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>Non-US \ |</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>No Convert</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Convert</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>Intl #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>Intl \</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>Extra toets {0}</value></data>
@@ -2326,6 +2333,8 @@ Een kopie van de vorige versie staat in deze map: {1}</value></data>
   <data name="Pad_Audio_NoSpeaker" xml:space="preserve"><value>Het geselecteerde apparaat heeft geen ingebouwde speaker. Macrogeluiden van deze pad spelen op de standaarduitvoer.</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Vormsjabloon-matcher voor het touchpad (cirkel / vierkant / driehoek / Z / vinkje en zelf opgenomen gebaren). C#-herafleiding van de JavaScript-referentie van Magrofuoco, Vatavu, Anthony en Wobbrock. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Toetsposities en basislaagtoetsen van de toetsenborden die het voorbeeld van Toetsenbord + Muis tekent, gegenereerd uit de indelingsgegevens van QMK en de QMK-fork van Keychron. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>Hoekmarge-score die naast de puntenwolk-matcher draait op vormen met één vinger. Implementeert het scoringsidee uit de PointPatternAnalyzer van GestureSign in eigen C#. GPL-2.0, alleen documentatie.</value></data>
   <data name="Pad_Audio_Reset_All" xml:space="preserve"><value>Geluidsuitvoer herstellen</value></data>
@@ -2883,7 +2892,7 @@ Een kopie van de vorige versie staat in deze map: {1}</value></data>
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Documentatie van de Wii-koppelingsprocedure, de luidspreker-ADPCM, de zijwaartse en rechtopstaande richting van de Wii Remote, het stick-gatemodel en de opslagindeling ervan, en de conventie voor de gyro-assen. GPL-2.0-or-later, alleen als documentatie gelezen, er wordt geen GPL-code meegeleverd.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Documentatie van DualShock-gedrag: inactiviteitsverbreking, touchpadgrenzen, batterijdecodering, de IOCTL voor het verbreken van Bluetooth, de trilmodusbits van de DualSense, de gyro-jittercurve, de schaal voor stick als muis en de CRC-beginwaarde van de Bluetooth-uitvoerrapporten. GPL-3.0-or-later, alleen als documentatie gelezen, er wordt geen GPL-code meegeleverd.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Documentatie van DualShock-gedrag: inactiviteitsverbreking, touchpadgrenzen, batterijdecodering, de IOCTL voor het verbreken van Bluetooth, de trilmodusbits van de DualSense, de gyro-jittercurve, de schaal voor stick als muis en de CRC-beginwaarde van de Bluetooth-uitvoerrapporten. De toetsentabel van het virtuele toetsenbord ervan diende als leidraad voor die van PadForge. GPL-3.0-or-later, alleen als documentatie gelezen, er wordt geen GPL-code meegeleverd.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>Documentatie van de GIP-LED-opdrachten die xbledctl bevestigt. GPL-2.0-or-later, alleen documentatie.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -2932,6 +2941,7 @@ Een kopie van de vorige versie staat in deze map: {1}</value></data>
   <data name="Vr_Status_Running" xml:space="preserve"><value>Actief</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Actief, stuurprogramma verbonden</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>Actief, controllers live</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>Een ander OpenVR-stuurprogramma gebruikt de stuurprogrammanaam van HIDMaestro, waardoor SteamVR dat kan laden in plaats van het stuurprogramma van PadForge en de virtuele VR-controllers niet verschijnen. Verwijder dat stuurprogramma om dit op te lossen: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Seriële controller (COM-poort)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Windows kan niet zien welke controller op een COM-poort zit. Kies de poort en de controller en voeg hem toe. PadForge opent die poort vanaf dan.</value></data>
@@ -3914,6 +3924,19 @@ Wil je dat PadForge ze nu verwijdert? Hiervoor zijn verhoogde rechten nodig en h
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Alleen toetsenbord</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>Getekend als de dichtstbijzijnde standaardindeling</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Windows-invoer</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>Zelfde apparaat als het toetsenbord</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>Zelfde apparaat als de muis</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Windows-invoer typt elke toets via Windows, en programma's kunnen zien dat de invoer van software komt. Een toetsenbordmodel typt via een virtueel toetsenbord dat programma's als die hardware zien. De toewijzingstabel verbergt de toetsen die het model niet kan verzenden.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Windows-invoer beweegt de aanwijzer via Windows, en programma's kunnen zien dat de invoer van software komt. Een muismodel beweegt de aanwijzer met een virtuele muis die programma's als die hardware zien. De toewijzingstabel verbergt de knoppen en wielen die het model niet heeft.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Toetsen tegelijk: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Toetsen tegelijk: willekeurig</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Mediatoetsen</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>Lock-lampjes</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Knoppen: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Wiel</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>Kantelwiel</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Alles</value>
   </data>
@@ -4096,7 +4119,7 @@ Wil je dat PadForge ze nu verwijdert? Hiervoor zijn verhoogde rechten nodig en h
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Optische muistellers van de Joy-Con 2 en wraparound-delta's achter Muisbeweging X en Y, door coffincolors, Frano en moutella. MIT. Alleen documentatie, er wordt geen code meegeleverd.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Linux-kernelstuurprogramma's</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Protocolfeiten van de DualShock 3, Move, DualSense, Steam Deck en PID-force-feedback, en de ACPI WMI-blokindeling. GPL-2.0-or-later, alleen als documentatie gelezen, er wordt geen GPL-code meegeleverd.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Protocolfeiten van de DualShock 3, Move, DualSense, Steam Deck en PID-force-feedback, en de ACPI WMI-blokindeling. PadForge leest de descriptors van toetsenborden en muizen volgens de regels van hid-core. GPL-2.0-or-later, alleen als documentatie gelezen, er wordt geen GPL-code meegeleverd.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Controllerinvoer van Windows, inclusief de paddles van de Xbox Elite. De SDK-loader is in SDL gelinkt. MIT (SDK-loader).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

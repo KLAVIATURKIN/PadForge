@@ -491,6 +491,8 @@
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>Икони за палки и тригери изведени од „Xbox Series Button Icons and Controls“ од Zacksly (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Препознавач на облици на допирната табла според шаблони (круг / квадрат / триаголник / Z / штикла и сопствени снимени гестови). Повторна изведба во C# на референтната имплементација во JavaScript од Magrofuoco, Vatavu, Anthony и Wobbrock. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Позиции на тастерите и тастери од основниот слој на тастатурите што ги црта прегледот на Тастатура + глушец, генерирани од податоците за распоред на QMK и од QMK-разгранувањето на Keychron. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>Пристап за бодување според аголна маргина што работи покрај препознавачот на облак од точки за облици со еден прст. Ја имплементира идејата за бодување од PointPatternAnalyzer на GestureSign во оригинален C#. GPL-2.0, само документација.</value></data>
   <data name="About_License" xml:space="preserve"><value>Лиценца</value></data>
@@ -1316,6 +1318,8 @@
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Движење на глушецот</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Горе</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Долу</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Лево</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Десно</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Име</value></data>
@@ -2476,6 +2480,11 @@
   <data name="Key_Sleep" xml:space="preserve"><value>Мирување</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>Нум. {0}</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>Не-US \ |</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>No Convert</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Convert</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>Intl #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>Intl \</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>Дополнителен тастер {0}</value></data>
@@ -3030,7 +3039,7 @@
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Документација за постапката на спарување на Wii, ADPCM на звучникот, страничната и исправената ориентација на Wii Remote, моделот на рамката на палката и неговиот формат на зачувување, како и конвенцијата за оските на жироскопот. GPL-2.0-or-later, прочитано само како документација, не се испорачува GPL-код.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Документација за однесувањето на DualShock: исклучување при неактивност, граници на допирната табла, декодирање на батеријата, IOCTL за исклучување на Bluetooth, битовите за режимот на вибрации на DualSense, кривата на треперење на жироскопот, скалата палка-како-глушец и почетната вредност на CRC за излезниот Bluetooth-извештај. GPL-3.0-or-later, прочитано само како документација, не се испорачува GPL-код.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Документација за однесувањето на DualShock: исклучување при неактивност, граници на допирната табла, декодирање на батеријата, IOCTL за исклучување на Bluetooth, битовите за режимот на вибрации на DualSense, кривата на треперење на жироскопот, скалата палка-како-глушец и почетната вредност на CRC за излезниот Bluetooth-извештај. Табелата со кодови на тастерите на неговата виртуелна тастатура ја водеше табелата на PadForge. GPL-3.0-or-later, прочитано само како документација, не се испорачува GPL-код.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>Документација за LED-командите на GIP, која го потврдува xbledctl. GPL-2.0-or-later, само документација.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3058,6 +3067,7 @@
   <data name="Vr_Status_Running" xml:space="preserve"><value>Работи</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Работи, двигателот е поврзан</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>Работи, контролерите се активни</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>Друг OpenVR двигател го користи името на двигателот на HIDMaestro, па SteamVR може да го вчита наместо оној на PadForge и виртуелните VR-контролери нема да се појават. Отстранете го тој двигател за да го решите ова: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Сериски контролер (COM-порта)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Windows не може да препознае кој контролер е на COM-порта. Изберете ги портата и контролерот, а потоа додајте го. Оттогаш PadForge ја отвора таа порта.</value></data>
@@ -3943,6 +3953,19 @@
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Само тастатура</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>Нацртано како најблиска стандардна распоредба</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Внес преку Windows</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>Истиот уред како тастатурата</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>Истиот уред како глушецот</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Внесот преку Windows ги впишува тастерите преку Windows, а програмите можат да забележат дека потекнува од софтвер. Моделот на тастатура ги впишува на виртуелна тастатура што програмите ја гледаат како тој уред. Табелата за мапирање ги крие тастерите што моделот не може да ги испрати.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Внесот преку Windows го движи покажувачот преку Windows, а програмите можат да забележат дека потекнува од софтвер. Моделот на глушец го движи со виртуелен глушец што програмите го гледаат како тој уред. Табелата за мапирање ги крие копчињата и тркалцата што моделот ги нема.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Истовремени тастери: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Истовремени тастери: било кои</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Мултимедијални тастери</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>Светла за заклучување</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Копчиња: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Тркалце</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>Накривено тркалце</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Сите</value>
   </data>
@@ -4125,7 +4148,7 @@
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Бројачите на оптичкиот глушец на Joy-Con 2 и делтите со превртување зад „Движење на глушецот X“ и Y, од coffincolors, Frano и moutella. MIT. Само документација, не се испорачува код.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Двигатели од кернелот на Linux</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Факти за протоколите на DualShock 3, Move, DualSense, Steam Deck и PID-повратната сила, како и распоредот на блоковите ACPI WMI. GPL-2.0-or-later, прочитано само како документација, не се испорачува GPL-код.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Факти за протоколите на DualShock 3, Move, DualSense, Steam Deck и PID-повратната сила, како и распоредот на блоковите ACPI WMI. PadForge ги чита дескрипторите на тастатури и глувци според правилата на hid-core. GPL-2.0-or-later, прочитано само како документација, не се испорачува GPL-код.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Влез од контролери во Windows, вклучувајќи ги лопатките на Xbox Elite. Вчитувачот на SDK е поврзан во SDL. MIT (вчитувач на SDK).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

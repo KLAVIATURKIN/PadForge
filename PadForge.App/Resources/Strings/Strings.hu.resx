@@ -491,6 +491,8 @@ Az előző verzió egy példánya ebben a mappában található: {1}</value></da
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>A karok és ravaszok ikonjai Zacksly „Xbox Series Button Icons and Controls” (CC BY 3.0) című munkájából származnak</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Érintőpados alakzatsablon-illesztő (kör / négyzet / háromszög / Z / pipa és egyénileg rögzített kézmozdulatok). Magrofuoco, Vatavu, Anthony és Wobbrock JavaScript-referenciájának újraalkotása C# nyelven. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>A Billentyűzet + egér előnézet által rajzolt billentyűzetek billentyűpozíciói és alaprétegbeli billentyűi, a QMK elrendezési adataiból és a Keychron QMK-forkjából előállítva. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>Szögtűrésen alapuló pontozási módszer, amely az egyujjas alakzatoknál a pontfelhő-illesztő mellett fut. A GestureSign PointPatternAnalyzer összetevőjének pontozási ötletét valósítja meg eredeti C# kódban. GPL-2.0, csak dokumentációként.</value></data>
   <data name="About_License" xml:space="preserve"><value>Licenc</value></data>
@@ -1316,6 +1318,8 @@ Az előző verzió egy példánya ebben a mappában található: {1}</value></da
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Egérmozgás</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Fel</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Le</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Balra</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Jobbra</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Név</value></data>
@@ -2476,6 +2480,11 @@ Az előző verzió egy példánya ebben a mappában található: {1}</value></da
   <data name="Key_Sleep" xml:space="preserve"><value>Alvó állapot</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>Numerikus {0}</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>Non-US \ |</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>No Convert</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Convert</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>Intl #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>Intl \</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>{0}. extra billentyű</value></data>
@@ -3030,7 +3039,7 @@ Az előző verzió egy példánya ebben a mappában található: {1}</value></da
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Dokumentáció a Wii párosítási folyamatához, a hangszóró ADPCM-kódolásához, a Wii Remote oldalra fordított és függőleges tájolásához, a karkapu-modellhez és annak tárolási formátumához, valamint a giroszkóptengelyek konvenciójához. GPL-2.0-or-later, kizárólag dokumentációként olvasva, a program nem tartalmaz GPL-kódot.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>A DualShock viselkedésének dokumentációja: leválasztás tétlenség esetén, az érintőpad határai, az akkumulátor dekódolása, a Bluetooth-leválasztás IOCTL-je, a DualSense rezgésmód-bitjei, a giroszkóp remegési görbéje, a kar-egér skála és a Bluetooth output report CRC kezdőértéke. GPL-3.0-or-later, kizárólag dokumentációként olvasva, a program nem tartalmaz GPL-kódot.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>A DualShock viselkedésének dokumentációja: leválasztás tétlenség esetén, az érintőpad határai, az akkumulátor dekódolása, a Bluetooth-leválasztás IOCTL-je, a DualSense rezgésmód-bitjei, a giroszkóp remegési görbéje, a kar-egér skála és a Bluetooth output report CRC kezdőértéke. Virtuális billentyűzetének billentyűkódtáblája útmutatásul szolgált a PadForge sajátjához. GPL-3.0-or-later, kizárólag dokumentációként olvasva, a program nem tartalmaz GPL-kódot.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>A GIP LED-parancsainak dokumentációja, amely megerősíti az xbledctl eredményeit. GPL-2.0-or-later, csak dokumentációként.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3058,6 +3067,7 @@ Az előző verzió egy példánya ebben a mappában található: {1}</value></da
   <data name="Vr_Status_Running" xml:space="preserve"><value>Fut</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Fut, az illesztőprogram csatlakoztatva</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>Fut, a kontrollerek élnek</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>Egy másik OpenVR-illesztőprogram a HIDMaestro illesztőprogramnevét használja, ezért a SteamVR azt töltheti be a PadForge-é helyett, és a virtuális VR-kontrollerek nem jelennek meg. A megoldáshoz távolítsa el azt az illesztőprogramot: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Soros kontroller (COM-port)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>A Windows nem tudja megállapítani, melyik kontroller van egy COM-porton. Válassza ki a portot és a kontrollert, majd adja hozzá. A PadForge ettől kezdve megnyitja ezt a portot.</value></data>
@@ -3943,6 +3953,19 @@ Szeretné, hogy a PadForge most eltávolítsa őket? Ehhez rendszergazdai jogosu
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Csak billentyűzet</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>A legközelebbi szabványos kiosztással rajzolva</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Windows-bemenet</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>Ugyanaz az eszköz, mint a billentyűzet</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>Ugyanaz az eszköz, mint az egér</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>A Windows-bemenet a Windowson keresztül gépeli be az egyes billentyűket, és a programok felismerhetik, hogy szoftverből érkezett. A billentyűzetmodell egy virtuális billentyűzeten gépeli be, amelyet a programok ennek a hardvernek látnak. A hozzárendelési táblázat elrejti azokat a billentyűket, amelyeket a modell nem tud küldeni.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>A Windows-bemenet a Windowson keresztül mozgatja a mutatót, és a programok felismerhetik, hogy szoftverből érkezett. Az egérmodell virtuális egérrel mozgatja, amelyet a programok ennek a hardvernek látnak. A hozzárendelési táblázat elrejti azokat a gombokat és görgőket, amelyekkel a modell nem rendelkezik.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Egyidejű billentyűk: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Egyidejű billentyűk: bármennyi</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Médiabillentyűk</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>Lock-jelzőfények</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Gombok: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Görgő</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>Dönthető görgő</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Mind</value>
   </data>
@@ -4125,7 +4148,7 @@ Szeretné, hogy a PadForge most eltávolítsa őket? Ehhez rendszergazdai jogosu
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>A Joy-Con 2 optikai egérszámlálói és körbeforduló különbségértékei, amelyekre az Egérmozgás X és Y épül, készítette: coffincolors, Frano és moutella. MIT. Csak dokumentációként, a program nem tartalmaz belőlük kódot.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Linux kernel-illesztőprogramok</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>A DualShock 3, a Move, a DualSense, a Steam Deck és a PID erő-visszacsatolás protokolljának tényadatai, valamint az ACPI WMI-blokk felépítése. GPL-2.0-or-later, kizárólag dokumentációként olvasva, a program nem tartalmaz GPL-kódot.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>A DualShock 3, a Move, a DualSense, a Steam Deck és a PID erő-visszacsatolás protokolljának tényadatai, valamint az ACPI WMI-blokk felépítése. A PadForge a billentyűzetek és egerek leíróit a hid-core szabályai szerint olvassa. GPL-2.0-or-later, kizárólag dokumentációként olvasva, a program nem tartalmaz GPL-kódot.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Windows-kontrollerbemenet, az Xbox Elite lapátjait is beleértve. Az SDK betöltője az SDL része. MIT (SDK-betöltő).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ futtatókörnyezet</value></data>

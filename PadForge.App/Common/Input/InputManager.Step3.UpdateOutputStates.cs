@@ -2799,6 +2799,11 @@ namespace PadForge.Common.Input
         private static readonly byte[] KbmKeyVkCodes;
         private static readonly int KbmKeyCount;
 
+        /// <summary>True when the key index has a Keyboard + Mouse row, so
+        /// the preview draws it clickable.</summary>
+        internal static bool IsKbmKeyTarget(int vk)
+            => vk >= 0 && vk <= 0xFF && Array.IndexOf(KbmKeyVkCodes, (byte)vk) >= 0;
+
         // ── Interpolated-key name tables (audit 1n) ──
         // The mapping dictionaries are keyed by a closed, index-driven
         // vocabulary ("KbmKey41", "RawAxis3", "MidiCC7", ...).
@@ -2914,6 +2919,9 @@ namespace PadForge.Common.Input
             // Numpad Enter, kept at its own index (RawInputListener.NumpadEnterKey).
             // The preview keyboard draws it, so leaving it out made that key dead.
             vks.Add(0x88);
+            // F13-F24, the non-US and Japanese keys, and the media keys, from
+            // the table the grid and the SOCD list read too.
+            vks.AddRange(KbmExtraKeys.Vks);
 
             KbmKeyVkCodes = vks.ToArray();
             KbmKeyCount = KbmKeyVkCodes.Length;

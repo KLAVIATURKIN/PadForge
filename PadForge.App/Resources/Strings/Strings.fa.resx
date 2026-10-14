@@ -491,6 +491,8 @@
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>نمادهای استیک و ماشه، برگرفته از «Xbox Series Button Icons and Controls» اثر Zacksly (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>تطبیق‌دهنده الگوی شکل برای تاچ‌پد (دایره / مربع / مثلث / Z / تیک و ژست‌های سفارشی ضبط‌شده). بازنویسی مرجع JavaScript اثر Magrofuoco، Vatavu، Anthony و Wobbrock به زبان C#. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>جایگاه کلیدها و کلیدهای لایه پایه صفحه‌کلیدهایی که پیش‌نمایش صفحه‌کلید + ماوس رسم می‌کند، تولیدشده از داده‌های چیدمان QMK و انشعاب QMK شرکت Keychron. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>روش امتیازدهی با حاشیه زاویه‌ای که در شکل‌های تک‌انگشتی در کنار تطبیق‌دهنده ابر نقاط اجرا می‌شود. ایده امتیازدهی PointPatternAnalyzer در GestureSign را با کد C# مستقل پیاده‌سازی می‌کند. GPL-2.0، فقط به‌عنوان مستندات.</value></data>
   <data name="About_License" xml:space="preserve"><value>مجوز</value></data>
@@ -1316,6 +1318,8 @@
   <data name="Pad_MouseMovement" xml:space="preserve"><value>حرکت ماوس</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>بالا</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>پایین</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>چپ</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>راست</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>نام</value></data>
@@ -2476,6 +2480,11 @@
   <data name="Key_Sleep" xml:space="preserve"><value>خواب</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>صفحه‌کلید عددی {0}</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>Non-US \ |</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>No Convert</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Convert</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>بین‌المللی #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>بین‌المللی \</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>کلید اضافی {0}</value></data>
@@ -3030,7 +3039,7 @@
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>مستندات فرایند جفت‌سازی Wii، ADPCM بلندگو، جهت‌گیری افقی و ایستاده Wii Remote، مدل دریچه استیک و قالب ذخیره‌سازی آن، و قرارداد محورهای ژیروسکوپ. GPL-2.0-or-later، فقط به‌عنوان مستندات خوانده شده و هیچ کد GPL عرضه نمی‌شود.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>مستندات رفتار DualShock: قطع اتصال در بیکاری، مرزهای تاچ‌پد، رمزگشایی باتری، IOCTL قطع اتصال بلوتوث، بیت‌های حالت لرزش DualSense، منحنی نوسان ژیروسکوپ، مقیاس استیک به‌عنوان ماوس و مقدار اولیه CRC گزارش خروجی بلوتوث. GPL-3.0-or-later، فقط به‌عنوان مستندات خوانده شده و هیچ کد GPL عرضه نمی‌شود.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>مستندات رفتار DualShock: قطع اتصال در بیکاری، مرزهای تاچ‌پد، رمزگشایی باتری، IOCTL قطع اتصال بلوتوث، بیت‌های حالت لرزش DualSense، منحنی نوسان ژیروسکوپ، مقیاس استیک به‌عنوان ماوس و مقدار اولیه CRC گزارش خروجی بلوتوث. جدول کلیدهای صفحه‌کلید مجازی آن راهنمای جدول PadForge بود. GPL-3.0-or-later، فقط به‌عنوان مستندات خوانده شده و هیچ کد GPL عرضه نمی‌شود.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>مستندات فرمان LED در GIP که xbledctl را تأیید می‌کند. GPL-2.0-or-later، فقط مستندات.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3058,6 +3067,7 @@
   <data name="Vr_Status_Running" xml:space="preserve"><value>در حال اجرا</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>در حال اجرا، درایور متصل</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>در حال اجرا، کنترلرها فعال</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>درایور دیگری برای OpenVR از همان نام درایور HIDMaestro استفاده می‌کند، بنابراین SteamVR ممکن است آن را به‌جای درایور PadForge بارگذاری کند و کنترلرهای مجازی VR ظاهر نخواهند شد. برای رفع این مشکل، آن درایور را حذف کنید: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>کنترلر سریال (پورت COM)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Windows نمی‌تواند تشخیص دهد کدام کنترلر روی یک پورت COM است. پورت و کنترلر را انتخاب و سپس اضافه کنید. از آن پس PadForge همان پورت را باز می‌کند.</value></data>
@@ -3943,6 +3953,19 @@
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>فقط صفحه‌کلید</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>با نزدیک‌ترین چیدمان استاندارد رسم شده است</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>ورودی Windows</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>همان دستگاه صفحه‌کلید</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>همان دستگاه ماوس</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>ورودی Windows هر کلید را از طریق Windows تایپ می‌کند و برنامه‌ها می‌توانند تشخیص دهند که از نرم‌افزار آمده است. مدل صفحه‌کلید آن را روی یک صفحه‌کلید مجازی تایپ می‌کند که برنامه‌ها آن را همان سخت‌افزار می‌بینند. جدول نگاشت کلیدهایی را که مدل نمی‌تواند ارسال کند پنهان می‌کند.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>ورودی Windows نشانگر را از طریق Windows حرکت می‌دهد و برنامه‌ها می‌توانند تشخیص دهند که از نرم‌افزار آمده است. مدل ماوس آن را با یک ماوس مجازی حرکت می‌دهد که برنامه‌ها آن را همان سخت‌افزار می‌بینند. جدول نگاشت دکمه‌ها و چرخ‌هایی را که مدل ندارد پنهان می‌کند.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>تعداد کلید هم‌زمان: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>تعداد کلید هم‌زمان: نامحدود</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>کلیدهای رسانه</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>چراغ‌های قفل</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>دکمه‌ها: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>چرخ</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>چرخ کج‌شونده</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>همه</value>
   </data>
@@ -4125,7 +4148,7 @@
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>شمارنده‌های ماوس نوری Joy-Con 2 و تفاضل‌های چرخشی که مبنای «حرکت ماوس X» و «حرکت ماوس Y» هستند، اثر coffincolors، Frano و moutella. MIT. فقط مستندات، هیچ کدی عرضه نمی‌شود.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>درایورهای هسته Linux</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>جزئیات پروتکل‌های DualShock 3، Move، DualSense، Steam Deck و فورس فیدبک PID، و چیدمان بلوک ACPI WMI. GPL-2.0-or-later، فقط به‌عنوان مستندات خوانده شده و هیچ کد GPL عرضه نمی‌شود.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>جزئیات پروتکل‌های DualShock 3، Move، DualSense، Steam Deck و فورس فیدبک PID، و چیدمان بلوک ACPI WMI. PadForge توصیف‌گرهای صفحه‌کلید و ماوس را طبق قواعد hid-core می‌خواند. GPL-2.0-or-later، فقط به‌عنوان مستندات خوانده شده و هیچ کد GPL عرضه نمی‌شود.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>ورودی کنترلر در Windows، از جمله پدل‌های Xbox Elite. بارگذار SDK درون SDL پیوند شده است. MIT (بارگذار SDK).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

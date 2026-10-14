@@ -491,6 +491,8 @@
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>Ձողի և ձգանի պատկերակներ, ստացված Zacksly-ի «Xbox Series Button Icons and Controls»-ից (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Հպահարթակի ձևերի կաղապարների համընկնեցնող (Շրջան / Քառակուսի / Եռանկյուն / Z / Նշան և սեփական գրանցված ժեստեր)։ Magrofuoco, Vatavu, Anthony և Wobbrock-ի JavaScript հղումային իրականացման վերածնում C#-ով։ BSD 3-Clause։</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Ստեղների դիրքերը և հիմնային շերտի ստեղները այն ստեղնաշարերի, որոնք նկարվում են «Ստեղնաշար + Մկնիկ» նախադիտման մեջ, ստեղծված QMK-ի դասավորության տվյալներից և Keychron-ի QMK ֆորկից։ GPL-2.0-or-later։</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>Անկյունային լուսանցքի գնահատման մոտեցում, որը աշխատում է կետային ամպի համընկնողի կողքին միամատ ձևերի վրա։ Իրականացնում է GestureSign-ի PointPatternAnalyzer-ի գնահատման գաղափարը բնօրինակ C#-ով։ GPL-2.0, միայն փաստաթղթավորում։</value></data>
   <data name="About_License" xml:space="preserve"><value>Լիցենզիա</value></data>
@@ -1316,6 +1318,8 @@
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Մկնիկի շարժում</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Վերև</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Ներքև</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Ձախ</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Աջ</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Անուն</value></data>
@@ -2444,6 +2448,11 @@
   <data name="Key_RWin" xml:space="preserve"><value>Աջ Windows</value></data>
   <data name="Key_Apps" xml:space="preserve"><value>Հավելվածներ</value></data>
   <data name="Key_Sleep" xml:space="preserve"><value>Քնի ռեժիմ</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>Ոչ ԱՄՆ \ |</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>No Convert</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Convert</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <!-- Numpad -->
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>Լրացուցիչ ստեղն {0}</value></data>
   <data name="AnalogKey_Code_Format" xml:space="preserve"><value>Ստեղն {0}</value></data>
@@ -2988,7 +2997,7 @@
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Փաստաթղթեր՝ Wii զուգակցման ծեսի, բարձրախոսի ADPCM-ի, Wii Remote-ի կողքաշրջված և ուղղահայաց դիրքավորման, ձողի դարպասի մոդելի և դրա պահպանման ձևաչափի և գիրոյի առանցքների պայմանականության մասին։ GPL-2.0-or-later, կարդացված միայն որպես փաստաթուղթ, GPL կոդ չի ներառվում։</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock-ի վարքագծի փաստաթղթեր. անգործության անջատում, հպահարթակի սահմաններ, մարտկոցի վերծանում, Bluetooth-ի անջատման IOCTL, DualSense-ի թրթռոցի ռեժիմի բիթեր, գիրոյի դողի կոր, ձողը-որպես-մկնիկ մասշտաբ և Bluetooth ելքային հաշվետվության CRC սերմ։ GPL-3.0-or-later, կարդացված միայն որպես փաստաթուղթ, GPL կոդ չի ներառվում։</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock-ի վարքագծի փաստաթղթեր. անգործության անջատում, հպահարթակի սահմաններ, մարտկոցի վերծանում, Bluetooth-ի անջատման IOCTL, DualSense-ի թրթռոցի ռեժիմի բիթեր, գիրոյի դողի կոր, ձողը-որպես-մկնիկ մասշտաբ և Bluetooth ելքային հաշվետվության CRC սերմ։ Նրա վիրտուալ ստեղնաշարի ստեղների աղյուսակը ուղղորդել է PadForge-ինը։ GPL-3.0-or-later, կարդացված միայն որպես փաստաթուղթ, GPL կոդ չի ներառվում։</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>GIP LED հրամանի փաստաթղթեր, որոնք հաստատում են xbledctl-ը։ GPL-2.0-or-later, միայն փաստաթղթեր։</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3016,6 +3025,7 @@
   <data name="Vr_Status_Running" xml:space="preserve"><value>Աշխատում է</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Աշխատում է, դրայվերը միացված է</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>Աշխատում է, կառավարիչները ակտիվ են</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>Մեկ այլ OpenVR դրայվեր օգտագործում է HIDMaestro-ի դրայվերի անունը, ուստի SteamVR-ը կարող է բեռնել այն PadForge-ի դրայվերի փոխարեն, և վիրտուալ VR կառավարիչները չեն հայտնվի։ Խնդիրը վերացնելու համար հեռացրեք այդ դրայվերը՝ {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Սերիական կառավարիչ (COM պորտ)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Windows-ը չի կարող որոշել, թե որ կառավարիչն է COM պորտում։ Ընտրեք պորտը և կառավարիչը, ապա ավելացրեք այն։ PadForge-ը այդ պահից բացում է այդ պորտը։</value></data>
@@ -3901,6 +3911,19 @@
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Միայն ստեղնաշար</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>Գծված է ամենամոտ ստանդարտ դասավորությամբ</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Windows-ի մուտքագրում</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>Նույն սարքը, ինչ ստեղնաշարը</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>Նույն սարքը, ինչ մկնիկը</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Windows-ի մուտքագրումը ստեղները մուտքագրում է Windows-ի միջոցով, և ծրագրերը կարող են հասկանալ, որ այն ծրագրային է։ Ստեղնաշարի մոդելը մուտքագրում է վիրտուալ ստեղնաշարով, որը ծրագրերը տեսնում են որպես այդ սարքը։ Կապակցումների աղյուսակը թաքցնում է այն ստեղները, որոնք մոդելը չի կարող ուղարկել։</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Windows-ի մուտքագրումը ցուցիչը տեղաշարժում է Windows-ի միջոցով, և ծրագրերը կարող են հասկանալ, որ այն ծրագրային է։ Մկնիկի մոդելը այն տեղաշարժում է վիրտուալ մկնիկով, որը ծրագրերը տեսնում են որպես այդ սարքը։ Կապակցումների աղյուսակը թաքցնում է այն կոճակներն ու անիվները, որոնք մոդելը չունի։</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Միաժամանակ ստեղներ՝ {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Միաժամանակ ստեղներ՝ ցանկացած</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Մեդիա ստեղներ</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>Կողպման լույսեր</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Կոճակներ՝ {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Անիվ</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>Թեքվող անիվ</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Բոլորը</value>
   </data>
@@ -4083,7 +4106,7 @@
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Joy-Con 2-ի օպտիկական մկնիկի հաշվիչները և շրջանցման դելտաները Mouse Motion X և Y-ի հիմքում՝ coffincolors, Frano և moutella։ MIT։ Միայն փաստաթղթավորում, կոդ չի տեղակայվում։</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Linux-ի միջուկի դրայվերներ</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3-ի, Move-ի, DualSense-ի, Steam Deck-ի և PID հետադարձ ուժի արձանագրության փաստերը, և ACPI WMI բլոկի դասավորությունը։ GPL-2.0-or-later, կարդացվել է միայն որպես փաստաթղթավորում, GPL կոդ չի տեղակայվում։</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3-ի, Move-ի, DualSense-ի, Steam Deck-ի և PID հետադարձ ուժի արձանագրության փաստերը, և ACPI WMI բլոկի դասավորությունը։ PadForge-ը ստեղնաշարերի և մկնիկների նկարագրիչները կարդում է hid-core-ի կանոններով։ GPL-2.0-or-later, կարդացվել է միայն որպես փաստաթղթավորում, GPL կոդ չի տեղակայվում։</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Windows-ի կառավարիչների մուտքը, ներառյալ Xbox Elite-ի պադլները։ SDK բեռնիչը կապակցված է SDL-ին։ MIT (SDK բեռնիչ)։</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

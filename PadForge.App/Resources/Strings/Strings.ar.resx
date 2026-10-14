@@ -491,6 +491,8 @@
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>أيقونات العصا والزناد مشتقة من «Xbox Series Button Icons and Controls» من إعداد Zacksly (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>مطابق قوالب الأشكال للوحة اللمس (دائرة / مربع / مثلث / Z / علامة صح وإيماءات مخصصة مسجلة). إعادة اشتقاق بلغة C# لمرجع JavaScript من إعداد Magrofuoco وVatavu وAnthony وWobbrock. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>مواضع المفاتيح ومفاتيح الطبقة الأساسية في لوحات المفاتيح التي ترسمها معاينة لوحة مفاتيح + ماوس، مولدة من بيانات تخطيط QMK ومن نسخة Keychron من QMK. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>أسلوب تقييم بالهامش الزاوي يعمل بجانب مطابق سحابة النقاط على الأشكال المرسومة بإصبع واحد. ينفذ فكرة التقييم من PointPatternAnalyzer في GestureSign بشيفرة C# أصلية. GPL-2.0، للتوثيق فقط.</value></data>
   <data name="About_License" xml:space="preserve"><value>الترخيص</value></data>
@@ -1316,6 +1318,8 @@
   <data name="Pad_MouseMovement" xml:space="preserve"><value>حركة الماوس</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>أعلى</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>أسفل</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>يسار</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>يمين</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>الاسم</value></data>
@@ -2475,6 +2479,11 @@
   <data name="Key_Sleep" xml:space="preserve"><value>السكون</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>لوحة الأرقام {0}</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>\ |</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>No Convert</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Convert</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>دولي #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>دولي \</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>مفتاح إضافي {0}</value></data>
@@ -3029,7 +3038,7 @@
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>توثيق لإجراء إقران Wii، وصيغة ADPCM لمكبر الصوت، ووضعيتي Wii Remote الجانبية والعمودية، ونموذج حدود العصا وتنسيق تخزينه، واصطلاح محاور الجيروسكوب. GPL-2.0-or-later، تمت قراءته كتوثيق فقط، ولا يتضمن البرنامج أي شيفرة GPL.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>توثيق سلوك DualShock: قطع الاتصال عند الخمول، وحدود لوحة اللمس، وفك ترميز البطارية، وأمر IOCTL لقطع اتصال Bluetooth، وبتات وضع الاهتزاز في DualSense، ومنحنى ارتعاش الجيروسكوب، ومقياس استخدام العصا كماوس، وبذرة CRC لتقرير الإخراج عبر Bluetooth. GPL-3.0-or-later، تمت قراءته كتوثيق فقط، ولا يتضمن البرنامج أي شيفرة GPL.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>توثيق سلوك DualShock: قطع الاتصال عند الخمول، وحدود لوحة اللمس، وفك ترميز البطارية، وأمر IOCTL لقطع اتصال Bluetooth، وبتات وضع الاهتزاز في DualSense، ومنحنى ارتعاش الجيروسكوب، ومقياس استخدام العصا كماوس، وبذرة CRC لتقرير الإخراج عبر Bluetooth. أرشد جدول مفاتيح لوحة المفاتيح الظاهرية فيه جدول PadForge. GPL-3.0-or-later، تمت قراءته كتوثيق فقط، ولا يتضمن البرنامج أي شيفرة GPL.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>توثيق أوامر GIP LED يؤيد ما في xbledctl. GPL-2.0-or-later، للتوثيق فقط.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3057,6 +3066,7 @@
   <data name="Vr_Status_Running" xml:space="preserve"><value>قيد التشغيل</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>قيد التشغيل، برنامج التشغيل متصل</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>قيد التشغيل، وحدات التحكم نشطة</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>يستخدم برنامج تشغيل OpenVR آخر اسم برنامج التشغيل لدى HIDMaestro، لذا قد يحمّله SteamVR بدلاً من برنامج تشغيل PadForge ولن تظهر وحدات التحكم الظاهرية للواقع الافتراضي. أزل برنامج التشغيل هذا لحل المشكلة: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>وحدة تحكم تسلسلية (منفذ COM)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>لا يستطيع Windows معرفة وحدة التحكم الموصولة بمنفذ COM. اختر المنفذ ووحدة التحكم، ثم أضفها. بعدها يفتح PadForge ذلك المنفذ دائما.</value></data>
@@ -3942,6 +3952,19 @@
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>لوحة المفاتيح فقط</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>مرسومة بأقرب تخطيط قياسي</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>إدخال Windows</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>نفس جهاز لوحة المفاتيح</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>نفس جهاز الماوس</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>يكتب إدخال Windows كل مفتاح عبر Windows، ويمكن للبرامج معرفة أنه صادر من برنامج. أما طراز لوحة المفاتيح فيكتبه على لوحة مفاتيح ظاهرية تراها البرامج كأنها ذلك الجهاز. يخفي جدول التعيينات المفاتيح التي لا يستطيع الطراز إرسالها.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>يحرك إدخال Windows المؤشر عبر Windows، ويمكن للبرامج معرفة أنه صادر من برنامج. أما طراز الماوس فيحركه بماوس ظاهري تراه البرامج كأنه ذلك الجهاز. يخفي جدول التعيينات الأزرار والعجلات التي لا يملكها الطراز.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>المفاتيح المتزامنة: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>المفاتيح المتزامنة: أي عدد</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>مفاتيح الوسائط</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>أضواء الأقفال</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>الأزرار: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>العجلة</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>عجلة مائلة</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>الكل</value>
   </data>
@@ -4124,7 +4147,7 @@
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>عدادات الماوس الضوئي في Joy-Con 2 وفروق الالتفاف التي تقف وراء «حركة الماوس X» و«حركة الماوس Y»، من إعداد coffincolors وFrano وmoutella. MIT. للتوثيق فقط، ولا يتضمن البرنامج أي شيفرة.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>برامج تشغيل نواة Linux</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>حقائق بروتوكولات DualShock 3 وMove وDualSense وSteam Deck وردود فعل القوة PID، وتخطيط كتل ACPI WMI. GPL-2.0-or-later، تمت قراءته كتوثيق فقط، ولا يتضمن البرنامج أي شيفرة GPL.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>حقائق بروتوكولات DualShock 3 وMove وDualSense وSteam Deck وردود فعل القوة PID، وتخطيط كتل ACPI WMI. تقرأ PadForge واصفات لوحة المفاتيح والماوس وفق قواعد hid-core. GPL-2.0-or-later، تمت قراءته كتوثيق فقط، ولا يتضمن البرنامج أي شيفرة GPL.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>إدخال وحدات التحكم في Windows، ومنه مجاديف Xbox Elite. محمّل SDK مرتبط داخل SDL. MIT (محمّل SDK).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

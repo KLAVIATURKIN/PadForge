@@ -491,6 +491,8 @@
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>“Xbox Series Button Icons and Controls” എന്നതിൽ നിന്ന് ഉരുത്തിരിഞ്ഞ സ്റ്റിക്ക്, ട്രിഗർ ഐക്കണുകൾ, രചയിതാവ് Zacksly (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>ടച്ച്പാഡ് ആകൃതി-ടെംപ്ലേറ്റ് മാച്ചർ (വൃത്തം / ചതുരം / ത്രികോണം / Z / ശരി ചിഹ്നം, റെക്കോർഡ് ചെയ്ത ഇഷ്ടാനുസൃത ജെസ്ചറുകൾ). Magrofuoco, Vatavu, Anthony, Wobbrock എന്നിവരുടെ JavaScript റഫറൻസിന്റെ C# പുനരാവിഷ്കാരം. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>കീബോർഡ് + മൗസ് പ്രിവ്യൂ വരയ്ക്കുന്ന കീബോർഡുകളുടെ കീ സ്ഥാനങ്ങളും ബേസ്-ലെയർ കീകളും, QMK-യുടെ ലേഔട്ട് ഡാറ്റയിൽ നിന്നും Keychron-ന്റെ QMK ഫോർക്കിൽ നിന്നും നിർമ്മിച്ചത്. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>ഒറ്റ വിരൽ ആകൃതികളിൽ പോയിന്റ്-ക്ലൗഡ് മാച്ചറിനൊപ്പം പ്രവർത്തിക്കുന്ന ആംഗുലർ-മാർജിൻ സ്കോറിംഗ് രീതി. GestureSign-ന്റെ PointPatternAnalyzer-ലെ സ്കോറിംഗ് ആശയം യഥാർത്ഥ C#-ൽ നടപ്പാക്കുന്നു. GPL-2.0, ഡോക്യുമെന്റേഷൻ മാത്രം.</value></data>
   <data name="About_License" xml:space="preserve"><value>ലൈസൻസ്</value></data>
@@ -1314,6 +1316,8 @@
   <data name="Pad_MouseMovement" xml:space="preserve"><value>മൗസ് ചലനം</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>മുകളിലേക്ക്</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>താഴേക്ക്</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>ഇടത്</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>വലത്</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>പേര്</value></data>
@@ -2450,6 +2454,11 @@
   <data name="Key_Sleep" xml:space="preserve"><value>സ്ലീപ്പ്</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>നംപാഡ് {0}</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>നോൺ-യുഎസ് \ |</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>No Convert</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Convert</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>അധിക കീ {0}</value></data>
   <data name="AnalogKey_Code_Format" xml:space="preserve"><value>കീ {0}</value></data>
   <data name="AnalogKey_LeftSpace" xml:space="preserve"><value>ഇടത് സ്പേസ്</value></data>
@@ -2993,7 +3002,7 @@
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Wii ജോടിയാക്കൽ ചടങ്ങ്, സ്പീക്കർ ADPCM, വശത്തേക്കും നിവർന്നും പിടിക്കുന്ന Wii Remote ഓറിയന്റേഷൻ, സ്റ്റിക്ക്-ഗേറ്റ് മോഡലും അതിന്റെ സംഭരണ ഫോർമാറ്റും, ഗൈറോ ആക്സിസ് കൺവെൻഷൻ എന്നിവയുടെ ഡോക്യുമെന്റേഷൻ. GPL-2.0-or-later, ഡോക്യുമെന്റേഷൻ ആയി മാത്രം വായിച്ചു, GPL കോഡ് ഒന്നും ഷിപ്പ് ചെയ്യുന്നില്ല.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock പെരുമാറ്റ ഡോക്യുമെന്റേഷൻ: ഐഡിൽ ഡിസ്കണക്റ്റ്, ടച്ച്പാഡ് അതിരുകൾ, ബാറ്ററി ഡീകോഡ്, Bluetooth ഡിസ്കണക്റ്റ് IOCTL, DualSense റംബിൾ-മോഡ് ബിറ്റുകൾ, ഗൈറോ ജിറ്റർ കർവ്, സ്റ്റിക്ക്-ആസ്-മൗസ് സ്കെയിൽ, Bluetooth ഔട്ട്പുട്ട്-റിപ്പോർട്ട് CRC സീഡ്. GPL-3.0-or-later, ഡോക്യുമെന്റേഷൻ ആയി മാത്രം വായിച്ചു, GPL കോഡ് ഒന്നും ഷിപ്പ് ചെയ്യുന്നില്ല.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock പെരുമാറ്റ ഡോക്യുമെന്റേഷൻ: ഐഡിൽ ഡിസ്കണക്റ്റ്, ടച്ച്പാഡ് അതിരുകൾ, ബാറ്ററി ഡീകോഡ്, Bluetooth ഡിസ്കണക്റ്റ് IOCTL, DualSense റംബിൾ-മോഡ് ബിറ്റുകൾ, ഗൈറോ ജിറ്റർ കർവ്, സ്റ്റിക്ക്-ആസ്-മൗസ് സ്കെയിൽ, Bluetooth ഔട്ട്പുട്ട്-റിപ്പോർട്ട് CRC സീഡ്. ഇതിന്റെ വെർച്വൽ കീബോർഡിന്റെ കീ പട്ടിക PadForge-ന്റേതിന് വഴികാട്ടിയായി. GPL-3.0-or-later, ഡോക്യുമെന്റേഷൻ ആയി മാത്രം വായിച്ചു, GPL കോഡ് ഒന്നും ഷിപ്പ് ചെയ്യുന്നില്ല.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>xbledctl-നെ സാധൂകരിക്കുന്ന GIP LED കമാൻഡ് ഡോക്യുമെന്റേഷൻ. GPL-2.0-or-later, ഡോക്യുമെന്റേഷൻ മാത്രം.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3021,6 +3030,7 @@
   <data name="Vr_Status_Running" xml:space="preserve"><value>പ്രവർത്തിക്കുന്നു</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>പ്രവർത്തിക്കുന്നു, ഡ്രൈവർ കണക്റ്റ് ചെയ്തു</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>പ്രവർത്തിക്കുന്നു, കൺട്രോളറുകൾ സജീവം</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>മറ്റൊരു OpenVR ഡ്രൈവർ HIDMaestro-യുടെ ഡ്രൈവർ പേര് ഉപയോഗിക്കുന്നു, അതിനാൽ SteamVR അത് PadForge-ന്റേതിന് പകരം ലോഡ് ചെയ്തേക്കാം, വെർച്വൽ VR കൺട്രോളറുകൾ ദൃശ്യമാകില്ല. ഇത് പരിഹരിക്കാൻ ആ ഡ്രൈവർ നീക്കം ചെയ്യുക: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>സീരിയൽ കൺട്രോളർ (COM പോർട്ട്)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>ഒരു COM പോർട്ടിൽ ഏത് കൺട്രോളറാണെന്ന് Windows-ന് പറയാനാകില്ല. പോർട്ടും കൺട്രോളറും തിരഞ്ഞെടുത്ത് ചേർക്കുക. അതിനുശേഷം PadForge ആ പോർട്ട് തുറക്കും.</value></data>
@@ -3906,6 +3916,19 @@ PadForge ഇവ ഇപ്പോൾ അൺഇൻസ്റ്റാൾ ചെയ�
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>കീബോർഡ് മാത്രം</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>ഏറ്റവും അടുത്ത സ്റ്റാൻഡേർഡ് ലേഔട്ടായി വരച്ചിരിക്കുന്നു</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Windows ഇൻപുട്ട്</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>കീബോർഡിന്റെ അതേ ഉപകരണം</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>മൗസിന്റെ അതേ ഉപകരണം</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Windows ഇൻപുട്ട് ഓരോ കീയും Windows വഴി ടൈപ്പ് ചെയ്യുന്നു, ഇത് സോഫ്റ്റ്വെയറിൽ നിന്നാണെന്ന് പ്രോഗ്രാമുകൾക്ക് തിരിച്ചറിയാനാകും. ഒരു കീബോർഡ് മോഡൽ ഒരു വെർച്വൽ കീബോർഡിൽ ടൈപ്പ് ചെയ്യുന്നു, പ്രോഗ്രാമുകൾ അതിനെ ആ ഹാർഡ്വെയറായി കാണുന്നു. ആ മോഡലിന് അയയ്ക്കാൻ കഴിയാത്ത കീകൾ മാപ്പിംഗ് പട്ടിക മറയ്ക്കുന്നു.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Windows ഇൻപുട്ട് Windows വഴി പോയിന്റർ നീക്കുന്നു, ഇത് സോഫ്റ്റ്വെയറിൽ നിന്നാണെന്ന് പ്രോഗ്രാമുകൾക്ക് തിരിച്ചറിയാനാകും. ഒരു മൗസ് മോഡൽ ഒരു വെർച്വൽ മൗസ് ഉപയോഗിച്ച് അതിനെ നീക്കുന്നു, പ്രോഗ്രാമുകൾ അതിനെ ആ ഹാർഡ്വെയറായി കാണുന്നു. ആ മോഡലിൽ ഇല്ലാത്ത ബട്ടണുകളും വീലുകളും മാപ്പിംഗ് പട്ടിക മറയ്ക്കുന്നു.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>ഒരേസമയം കീകൾ: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>ഒരേസമയം കീകൾ: ഏതും</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>മീഡിയ കീകൾ</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>ലോക്ക് ലൈറ്റുകൾ</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>ബട്ടണുകൾ: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>വീൽ</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>ടിൽറ്റ് വീൽ</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>എല്ലാം</value>
   </data>
@@ -4088,7 +4111,7 @@ PadForge ഇവ ഇപ്പോൾ അൺഇൻസ്റ്റാൾ ചെയ�
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>coffincolors, Frano, moutella എന്നിവരുടെ, മൗസ് മോഷൻ X, Y എന്നിവയ്ക്ക് പിന്നിലെ Joy-Con 2 ഒപ്റ്റിക്കൽ മൗസ് കൗണ്ടറുകളും വ്രാപ്പറൗണ്ട് ഡെൽറ്റകളും. MIT. ഡോക്യുമെന്റേഷൻ മാത്രം, കോഡ് ഉൾപ്പെടുന്നില്ല.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Linux kernel ഡ്രൈവറുകൾ</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3, Move, DualSense, Steam Deck, PID ഫോഴ്സ് ഫീഡ്ബാക്ക് പ്രോട്ടോക്കോൾ വസ്തുതകളും ACPI WMI ബ്ലോക്ക് ലേഔട്ടും. GPL-2.0-or-later, ഡോക്യുമെന്റേഷനായി മാത്രം വായിച്ചത്, GPL കോഡ് ഒന്നും ഉൾപ്പെടുത്തുന്നില്ല.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3, Move, DualSense, Steam Deck, PID ഫോഴ്സ് ഫീഡ്ബാക്ക് പ്രോട്ടോക്കോൾ വസ്തുതകളും ACPI WMI ബ്ലോക്ക് ലേഔട്ടും. PadForge കീബോർഡ്, മൗസ് ഡിസ്ക്രിപ്റ്ററുകൾ hid-core-ന്റെ നിയമങ്ങൾ അനുസരിച്ച് വായിക്കുന്നു. GPL-2.0-or-later, ഡോക്യുമെന്റേഷനായി മാത്രം വായിച്ചത്, GPL കോഡ് ഒന്നും ഉൾപ്പെടുത്തുന്നില്ല.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Xbox Elite പാഡിലുകൾ ഉൾപ്പെടെ Windows കൺട്രോളർ ഇൻപുട്ട്. SDK ലോഡർ SDL-ലേക്ക് ലിങ്ക് ചെയ്തിരിക്കുന്നു. MIT (SDK loader).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

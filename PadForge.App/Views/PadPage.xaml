@@ -1043,6 +1043,84 @@
             </StackPanel>
         </Border>
 
+        <!-- ══════════════════════════════════════
+             ROW 1 (alt): KEYBOARD + MOUSE DEVICE BAR
+             (visible only when OutputType == KeyboardMouse)
+             The keyboard and the mouse the slot sends through: Windows
+             input, or a keyboard or mouse model from HIDMaestro 1.12.0 that
+             programs see as hardware. Each half's picker shows while the
+             surface mode drives that half, with what the model can send
+             beside it.
+             ══════════════════════════════════════ -->
+        <Border x:Name="KbmDeviceBar" Grid.Row="1" Margin="4,4,4,0"
+                Padding="10,6" CornerRadius="4"
+                Background="{DynamicResource SolidBackgroundFillColorBaseBrush}"
+                BorderBrush="{DynamicResource TextFillColorDisabledBrush}" BorderThickness="1"
+                Visibility="Collapsed">
+            <WrapPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" Margin="0,2,16,2"
+                            Visibility="{Binding KbmKeyboardDeviceVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <TextBlock Text="{Binding DeviceType_Keyboard, Source={x:Static strings:Strings.Instance}}"
+                               VerticalAlignment="Center" Margin="0,0,6,0" FontSize="13"
+                               Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                    <ComboBox x:Name="KbmKeyboardDeviceCombo" MinWidth="220" MaxWidth="360" VerticalAlignment="Center"
+                              AutomationProperties.AutomationId="KbmKeyboardDeviceCombo"
+                              IsSynchronizedWithCurrentItem="False"
+                              ItemsSource="{Binding KbmConfig.AvailableKeyboardDevices}"
+                              DisplayMemberPath="Name"
+                              SelectedValuePath="Value"
+                              SelectedValue="{Binding KbmKeyboardDevice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              ToolTip="{Binding Pad_Kbm_Device_Keyboard_Tooltip, Source={x:Static strings:Strings.Instance}}"
+                              PreviewKeyDown="MappingComboBox_PreviewKeyDown"/>
+                    <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="KbmKeyboardDevice" SettingLabel="{Binding DeviceType_Keyboard, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_PadViewModel_KbmKeyboardDevice" Margin="4,0,8,0"/>
+                    <ItemsControl ItemsSource="{Binding KbmKeyboardCapabilities}" VerticalAlignment="Center" Focusable="False">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Style="{StaticResource ChipGhost}" Padding="7,1" Margin="0,0,4,0">
+                                    <TextBlock Text="{Binding}" FontSize="11.5"/>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,2,0,2"
+                            Visibility="{Binding KbmMouseDeviceVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <TextBlock Text="{Binding DeviceType_Mouse, Source={x:Static strings:Strings.Instance}}"
+                               VerticalAlignment="Center" Margin="0,0,6,0" FontSize="13"
+                               Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                    <ComboBox x:Name="KbmMouseDeviceCombo" MinWidth="220" MaxWidth="360" VerticalAlignment="Center"
+                              AutomationProperties.AutomationId="KbmMouseDeviceCombo"
+                              IsSynchronizedWithCurrentItem="False"
+                              ItemsSource="{Binding KbmConfig.AvailableMouseDevices}"
+                              DisplayMemberPath="Name"
+                              SelectedValuePath="Value"
+                              SelectedValue="{Binding KbmMouseDevice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              ToolTip="{Binding Pad_Kbm_Device_Mouse_Tooltip, Source={x:Static strings:Strings.Instance}}"
+                              PreviewKeyDown="MappingComboBox_PreviewKeyDown"/>
+                    <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="KbmMouseDevice" SettingLabel="{Binding DeviceType_Mouse, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_PadViewModel_KbmMouseDevice" Margin="4,0,8,0"/>
+                    <ItemsControl ItemsSource="{Binding KbmMouseCapabilities}" VerticalAlignment="Center" Focusable="False">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Style="{StaticResource ChipGhost}" Padding="7,1" Margin="0,0,4,0">
+                                    <TextBlock Text="{Binding}" FontSize="11.5"/>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </WrapPanel>
+        </Border>
+
         <!-- Expose Mappings count for UI Automation tests (invisible but accessible) -->
         <TextBlock AutomationProperties.AutomationId="MappingsCountIndicator"
                    AutomationProperties.Name="{Binding Mappings.Count}"

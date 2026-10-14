@@ -491,6 +491,8 @@ Kopja tal-verżjoni ta' qabel tinsab f'dan il-folder: {1}</value></data>
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>Ikoni tal-istick u tat-trigger derivati minn “Xbox Series Button Icons and Controls” ta' Zacksly (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Matcher ta' mudelli ta' forom fuq it-touchpad (Ċirku / Kwadru / Trijangolu / Z / Sinjal ta' verifika u ġesti personalizzati rreġistrati). Derivazzjoni mill-ġdid f'C# tar-referenza JavaScript ta' Magrofuoco, Vatavu, Anthony u Wobbrock. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Il-pożizzjonijiet tat-tasti u t-tasti tas-saff bażi tat-tastieri li jidhru fil-preview ta' Tastiera + Maws, iġġenerati mid-data tat-tqassim ta' QMK u mill-fork ta' QMK ta' Keychron. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>Approċċ ta' punteġġ bil-marġni angolari li jaħdem flimkien mal-matcher tal-point-cloud fuq forom b'subgħa wieħed. Jimplimenta l-idea tal-punteġġ mill-PointPatternAnalyzer ta' GestureSign f'kodiċi C# oriġinali. GPL-2.0, dokumentazzjoni biss.</value></data>
   <data name="About_License" xml:space="preserve"><value>Liċenzja</value></data>
@@ -1315,6 +1317,8 @@ Kopja tal-verżjoni ta' qabel tinsab f'dan il-folder: {1}</value></data>
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Moviment tal-maws</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Fuq</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Isfel</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Xellug</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Lemin</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Isem</value></data>
@@ -2423,6 +2427,8 @@ Kopja tal-verżjoni ta' qabel tinsab f'dan il-folder: {1}</value></data>
   <data name="Key_Apps" xml:space="preserve"><value>Applikazzjonijiet</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>Tastiera numerika {0}</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>Tast żejjed {0}</value></data>
   <data name="AnalogKey_Code_Format" xml:space="preserve"><value>Tast {0}</value></data>
   <data name="AnalogKey_KatakanaHiragana" xml:space="preserve"><value>Katakana/Hiragana</value></data>
@@ -2971,7 +2977,7 @@ Kopja tal-verżjoni ta' qabel tinsab f'dan il-folder: {1}</value></data>
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Dokumentazzjoni għaċ-ċerimonja tal-ippearjar tal-Wii, l-ADPCM tal-ispeaker, l-orjentazzjoni tal-Wii Remote mimdud fuq il-ġenb u wieqaf, il-mudell tal-gate tal-istick u l-format tal-ħażna tiegħu, u l-konvenzjoni tal-assi tal-ġiroskopju. GPL-2.0-or-later, moqrija bħala dokumentazzjoni biss, l-ebda kodiċi GPL ma jiġi inkluż.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Dokumentazzjoni tal-imġiba tad-DualShock: skonnessjoni meta jkun inattiv, il-limiti tat-touchpad, id-dekodifika tal-batterija, l-IOCTL tal-iskonnessjoni Bluetooth, il-bits tal-modalità tar-rumble tad-DualSense, il-kurva tal-jitter tal-ġiroskopju, l-iskala tal-istick bħala maws, u s-seed tas-CRC tal-output report Bluetooth. GPL-3.0-or-later, moqrija bħala dokumentazzjoni biss, l-ebda kodiċi GPL ma jiġi inkluż.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Dokumentazzjoni tal-imġiba tad-DualShock: skonnessjoni meta jkun inattiv, il-limiti tat-touchpad, id-dekodifika tal-batterija, l-IOCTL tal-iskonnessjoni Bluetooth, il-bits tal-modalità tar-rumble tad-DualSense, il-kurva tal-jitter tal-ġiroskopju, l-iskala tal-istick bħala maws, u s-seed tas-CRC tal-output report Bluetooth. It-tabella tat-tasti tat-tastiera virtwali tiegħu ggwidat dik ta' PadForge. GPL-3.0-or-later, moqrija bħala dokumentazzjoni biss, l-ebda kodiċi GPL ma jiġi inkluż.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>Dokumentazzjoni tal-kmand LED tal-GIP li tikkorrobora xbledctl. GPL-2.0-or-later, dokumentazzjoni biss.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -2999,6 +3005,7 @@ Kopja tal-verżjoni ta' qabel tinsab f'dan il-folder: {1}</value></data>
   <data name="Vr_Status_Running" xml:space="preserve"><value>Qed jaħdem</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Qed jaħdem, driver konness</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>Qed jaħdem, kontrolluri attivi</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>Driver ieħor tal-OpenVR juża l-isem tad-driver ta' HIDMaestro, għalhekk SteamVR jista' jtellgħu minflok dak ta' PadForge u l-kontrolluri virtwali tal-VR ma jidhrux. Neħħi dak id-driver biex tirranġa dan: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Kontrollur serjali (port COM)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Windows ma jistax jgħid liema kontrollur jinsab fuq port COM. Agħżel il-port u l-kontrollur, imbagħad żidu. Minn dak il-ħin 'il quddiem PadForge jiftaħ dak il-port.</value></data>
@@ -3875,6 +3882,19 @@ Trid li PadForge jiddiżinstallahom issa? Dan jeħtieġ permessi ta' amministrat
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Tastiera biss</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>Imfassal bħala l-eqreb tqassim standard</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Input ta' Windows</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>L-istess apparat tat-tastiera</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>L-istess apparat tal-maws</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>L-input ta' Windows jittajpja kull tast permezz ta' Windows, u l-programmi jistgħu jindunaw li ġie minn software. Mudell ta' tastiera jittajpjah fuq tastiera virtwali li l-programmi jarawha bħala dak il-hardware. It-tabella tal-mappjar taħbi t-tasti li l-mudell ma jistax jibgħat.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>L-input ta' Windows iċaqlaq il-kursur permezz ta' Windows, u l-programmi jistgħu jindunaw li ġie minn software. Mudell ta' maws iċaqilqu b'maws virtwali li l-programmi jarawh bħala dak il-hardware. It-tabella tal-mappjar taħbi l-buttuni u r-roti li l-mudell m'għandux.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Tasti f'daqqa: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Tasti f'daqqa: kwalunkwe numru</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Tasti tal-midja</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>Dwal tal-Lock</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Buttuni: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Rota</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>Rota li tixxaqleb</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Kollox</value>
   </data>
@@ -4057,7 +4077,7 @@ Trid li PadForge jiddiżinstallahom issa? Dan jeħtieġ permessi ta' amministrat
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Il-counters tal-maws ottiku tal-Joy-Con 2 u d-deltas b'wraparound wara Moviment tal-maws X u Y, minn coffincolors, Frano u moutella. MIT. Dokumentazzjoni biss, l-ebda kodiċi ma jiġi inkluż.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Drivers tal-kernel ta' Linux</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Fatti tal-protokoll tad-DualShock 3, Move, DualSense, Steam Deck u force feedback PID, u t-tqassim tal-blokk ACPI WMI. GPL-2.0-or-later, moqri biss bħala dokumentazzjoni, l-ebda kodiċi GPL ma jiġi inkluż.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Fatti tal-protokoll tad-DualShock 3, Move, DualSense, Steam Deck u force feedback PID, u t-tqassim tal-blokk ACPI WMI. PadForge jaqra d-deskritturi tat-tastieri u tal-maws skont ir-regoli ta' hid-core. GPL-2.0-or-later, moqri biss bħala dokumentazzjoni, l-ebda kodiċi GPL ma jiġi inkluż.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>L-input tal-kontrolluri ta' Windows, inklużi l-paddles tal-Xbox Elite. Il-loader tal-SDK huwa marbut fl-SDL. MIT (loader tal-SDK).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

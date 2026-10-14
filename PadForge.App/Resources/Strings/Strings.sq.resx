@@ -491,6 +491,8 @@ Një kopje e versionit të mëparshëm ndodhet në këtë dosje: {1}</value></da
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>Ikona levash dhe këmbëzash të marra nga "Xbox Series Button Icons and Controls" nga Zacksly (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Përputhës shabllonesh formash për touchpad (rreth / katror / trekëndësh / Z / shenjë kontrolli dhe gjeste të regjistruara me porosi). Rizbatim në C# i referencës JavaScript nga Magrofuoco, Vatavu, Anthony dhe Wobbrock. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Pozicionet e tasteve dhe tastet e shtresës bazë të tastierave që pamja paraprake e Tastierë + maus i vizaton, të gjeneruara nga të dhënat e planimetrisë së QMK dhe nga fork-u i QMK i Keychron. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>Qasje vlerësimi me margjinë këndore që punon krahas përputhësit të reve pikash për forma me një gisht. Zbaton idenë e vlerësimit nga PointPatternAnalyzer i GestureSign në C# origjinal. GPL-2.0, vetëm dokumentacion.</value></data>
   <data name="About_License" xml:space="preserve"><value>Licenca</value></data>
@@ -1315,6 +1317,8 @@ Një kopje e versionit të mëparshëm ndodhet në këtë dosje: {1}</value></da
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Lëvizja e mausit</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Lart</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Poshtë</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Majtas</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Djathtas</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Emri</value></data>
@@ -2434,6 +2438,8 @@ Një kopje e versionit të mëparshëm ndodhet në këtë dosje: {1}</value></da
   <data name="Key_Sleep" xml:space="preserve"><value>Gjumë</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>Tastiera numerike {0}</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>Tasti shtesë {0}</value></data>
   <data name="AnalogKey_Code_Format" xml:space="preserve"><value>Tasti {0}</value></data>
   <data name="AnalogKey_LeftSpace" xml:space="preserve"><value>Hapësira majtas</value></data>
@@ -2977,7 +2983,7 @@ Një kopje e versionit të mëparshëm ndodhet në këtë dosje: {1}</value></da
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Dokumentim për ceremoninë e çiftimit të Wii, ADPCM e altoparlantit, orientimin anash dhe në këmbë të Wii Remote, modelin e portës së levës dhe formatin e ruajtjes së tij, dhe konventën e boshteve të xhiros. GPL-2.0-or-later, lexuar vetëm si dokumentim, nuk përfshihet kod GPL.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Dokumentim i sjelljes së DualShock: shkëputja në mungesë veprimi, kufijtë e touchpad-it, dekodimi i baterisë, IOCTL i shkëputjes Bluetooth, bitet e mënyrës së dridhjes së DualSense, kurba e dridhjes së xhiros, shkalla e levës-si-maus dhe fara CRC e output report Bluetooth. GPL-3.0-or-later, lexuar vetëm si dokumentim, nuk përfshihet kod GPL.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Dokumentim i sjelljes së DualShock: shkëputja në mungesë veprimi, kufijtë e touchpad-it, dekodimi i baterisë, IOCTL i shkëputjes Bluetooth, bitet e mënyrës së dridhjes së DualSense, kurba e dridhjes së xhiros, shkalla e levës-si-maus dhe fara CRC e output report Bluetooth. Tabela e kodeve të tasteve të tastierës së tij virtuale ka udhëzuar tabelën e PadForge. GPL-3.0-or-later, lexuar vetëm si dokumentim, nuk përfshihet kod GPL.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>Dokumentim i komandës LED GIP që përforcon xbledctl. GPL-2.0-or-later, vetëm dokumentim.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3005,6 +3011,7 @@ Një kopje e versionit të mëparshëm ndodhet në këtë dosje: {1}</value></da
   <data name="Vr_Status_Running" xml:space="preserve"><value>Në punë</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Në punë, drajveri i lidhur</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>Në punë, kontrolluesit aktivë</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>Një drajver tjetër OpenVR përdor emrin e drajverit të HIDMaestro, prandaj SteamVR mund ta ngarkojë atë në vend të drajverit të PadForge dhe kontrolluesit virtualë VR nuk do të shfaqen. Hiqeni atë drajver për ta zgjidhur: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Kontrollues serial (portë COM)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Windows nuk mund të dallojë cili kontrollues është në një portë COM. Zgjidh portën dhe kontrolluesin, pastaj shtoje. PadForge e hap atë portë nga ajo kohë e tutje.</value></data>
@@ -3890,6 +3897,19 @@ Doni që PadForge t'i çinstalojë tani? Kjo kërkon privilegje administratori d
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Vetëm tastierë</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>Vizatuar si pamja standarde më e afërt</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Hyrja nga Windows</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>E njëjta pajisje me tastierën</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>E njëjta pajisje me mausin</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Hyrja nga Windows i shtyp tastet përmes Windows dhe programet mund ta dallojnë se vjen nga softueri. Një model tastiere i shtyp në një tastierë virtuale që programet e shohin si atë harduer. Tabela e hartëzimeve fsheh tastet që modeli nuk mund t'i dërgojë.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Hyrja nga Windows e lëviz kursorin përmes Windows dhe programet mund ta dallojnë se vjen nga softueri. Një model mausi e lëviz me një maus virtual që programet e shohin si atë harduer. Tabela e hartëzimeve fsheh butonat dhe rrotat që modeli nuk i ka.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Tastet njëkohësisht: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Tastet njëkohësisht: pa kufi</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Tastet e medias</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>Dritat e kyçjes</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Butonat: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Rrota</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>Rrota e anueshme</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Të gjitha</value>
   </data>
@@ -4072,7 +4092,7 @@ Doni që PadForge t'i çinstalojë tani? Kjo kërkon privilegje administratori d
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Numëruesit dhe deltat e mbështjella të mausit optik të Joy-Con 2 pas Lëvizjes së mausit X dhe Y, nga coffincolors, Frano dhe moutella. MIT. Vetëm dokumentim, nuk përfshihet kod.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Drajverët e kernelit Linux</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Faktet e protokollit të DualShock 3, Move, DualSense, Steam Deck dhe PID force-feedback, dhe struktura e bllokut ACPI WMI. GPL-2.0-or-later, lexuar vetëm si dokumentim, nuk përfshihet kod GPL.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Faktet e protokollit të DualShock 3, Move, DualSense, Steam Deck dhe PID force-feedback, dhe struktura e bllokut ACPI WMI. PadForge i lexon përshkruesit e tastierave dhe të mausave sipas rregullave të hid-core. GPL-2.0-or-later, lexuar vetëm si dokumentim, nuk përfshihet kod GPL.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Hyrja e kontrolluesve në Windows, përfshirë paddle-t e Xbox Elite. Ngarkuesi i SDK-së është i lidhur në SDL. MIT (ngarkuesi i SDK-së).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

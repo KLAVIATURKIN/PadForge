@@ -491,6 +491,8 @@
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>Значки стиков и триггеров сделаны на основе набора «Xbox Series Button Icons and Controls» от Zacksly (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Сопоставление фигур на тачпаде с шаблонами (круг / квадрат / треугольник / Z / галочка и собственные записанные жесты). Повторная реализация на C# эталонного кода JavaScript авторов Magrofuoco, Vatavu, Anthony и Wobbrock. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Позиции клавиш и клавиши базового слоя клавиатур, которые рисует предпросмотр «Клавиатура + мышь», созданы по данным раскладок QMK и форка QMK от Keychron. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>Оценка по угловому отступу, которая работает вместе с сопоставлением облака точек на фигурах, нарисованных одним пальцем. Идея оценки из PointPatternAnalyzer в GestureSign реализована в собственном коде на C#. GPL-2.0, использована только как документация.</value></data>
   <data name="About_License" xml:space="preserve"><value>Лицензия</value></data>
@@ -1316,6 +1318,8 @@
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Движение мыши</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Вверх</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Вниз</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Влево</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Вправо</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Название</value></data>
@@ -2476,6 +2480,11 @@
   <data name="Key_Sleep" xml:space="preserve"><value>Сон</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>Num {0}</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>Non-US \ |</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>No Convert</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Convert</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>Intl #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>Intl \</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>Доп. клавиша {0}</value></data>
@@ -3030,7 +3039,7 @@
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Документация по процедуре сопряжения Wii, ADPCM динамика, положениям Wii Remote боком и вертикально, модели ограничителя стика и формату ее хранения, а также по соглашению об осях гироскопа. GPL-2.0-or-later, использована только как документация, код под GPL не поставляется.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Документация по поведению DualShock: отключение при бездействии, границы тачпада, расшифровка заряда батареи, IOCTL отключения Bluetooth, биты режима вибрации DualSense, кривая дрожания гироскопа, масштаб режима «стик как мышь» и начальное значение CRC выходных отчетов Bluetooth. GPL-3.0-or-later, использована только как документация, код под GPL не поставляется.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Документация по поведению DualShock: отключение при бездействии, границы тачпада, расшифровка заряда батареи, IOCTL отключения Bluetooth, биты режима вибрации DualSense, кривая дрожания гироскопа, масштаб режима «стик как мышь» и начальное значение CRC выходных отчетов Bluetooth. Таблица клавиш его виртуальной клавиатуры послужила ориентиром для таблицы PadForge. GPL-3.0-or-later, использована только как документация, код под GPL не поставляется.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>Документация по командам LED-индикаторов GIP, которая подтверждает данные xbledctl. GPL-2.0-or-later, только документация.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3058,6 +3067,7 @@
   <data name="Vr_Status_Running" xml:space="preserve"><value>Работает</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Работает, драйвер подключен</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>Работает, контроллеры активны</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>Другой драйвер OpenVR использует имя драйвера HIDMaestro, поэтому SteamVR может загрузить его вместо драйвера PadForge, и виртуальные VR-контроллеры не появятся. Удалите этот драйвер, чтобы устранить проблему: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Последовательный контроллер (COM-порт)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Windows не может определить, какой контроллер подключен к COM-порту. Выберите порт и контроллер, затем добавьте его. С этого момента PadForge будет открывать этот порт.</value></data>
@@ -3943,6 +3953,19 @@
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Только клавиатура</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>Нарисовано по ближайшей стандартной раскладке</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Ввод Windows</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>То же устройство, что и клавиатура</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>То же устройство, что и мышь</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Ввод Windows набирает каждую клавишу средствами Windows, и программы могут определить, что она пришла из программы. Модель клавиатуры набирает ее на виртуальной клавиатуре, которую программы видят как это оборудование. Таблица назначений скрывает клавиши, которые модель не может отправить.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Ввод Windows перемещает указатель средствами Windows, и программы могут определить, что он пришел из программы. Модель мыши перемещает его виртуальной мышью, которую программы видят как это оборудование. Таблица назначений скрывает кнопки и колеса, которых у модели нет.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Одновременно клавиш: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Одновременно клавиш: любое число</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Мультимедийные клавиши</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>Индикаторы Lock</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Кнопок: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Колесо</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>Наклонное колесо</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Все</value>
   </data>
@@ -4125,7 +4148,7 @@
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Счетчики оптической мыши Joy-Con 2 и приращения с переполнением, на которых основаны «Движение мыши X» и «Движение мыши Y», от coffincolors, Frano и moutella. MIT. Только документация, код не поставляется.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Драйверы ядра Linux</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Факты о протоколах DualShock 3, Move, DualSense, Steam Deck и силовой обратной связи PID, а также раскладка блока ACPI WMI. GPL-2.0-or-later, использована только как документация, код под GPL не поставляется.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Факты о протоколах DualShock 3, Move, DualSense, Steam Deck и силовой обратной связи PID, а также раскладка блока ACPI WMI. PadForge читает дескрипторы клавиатур и мышей по правилам hid-core. GPL-2.0-or-later, использована только как документация, код под GPL не поставляется.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Ввод с контроллеров в Windows, включая лепестки Xbox Elite. Загрузчик SDK скомпонован с SDL. MIT (загрузчик SDK).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

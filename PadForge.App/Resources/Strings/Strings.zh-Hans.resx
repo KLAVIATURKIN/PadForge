@@ -765,6 +765,8 @@
   <data name="Pad_MouseMovement" xml:space="preserve"><value>鼠标移动</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>上</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>下</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>左</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>右</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>名称</value></data>
@@ -1265,6 +1267,11 @@
   <data name="Key_Sleep" xml:space="preserve"><value>睡眠</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>小键盘 {0}</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>Non-US \ |</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>No Convert</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Convert</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>Intl #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>Intl \</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>附加键 {0}</value></data>
@@ -2211,6 +2218,8 @@
   <data name="Pad_Steering_Reset_LightbarHold" xml:space="preserve"><value>重置灯条保持</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>触摸板形状模板匹配器（圆形 / 方形 / 三角形 / Z / 对勾，以及自定义录制的手势）。基于 Magrofuoco、Vatavu、Anthony 和 Wobbrock 的 JavaScript 参考实现以 C# 重新推导。BSD 3-Clause。</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>键盘 + 鼠标预览所绘制键盘的按键位置和基础层按键，由 QMK 的布局数据和 Keychron 的 QMK 分支生成。GPL-2.0-or-later。</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>角度容差评分方式，在单指形状上与点云匹配器并行运行。以原创 C# 实现 GestureSign 的 PointPatternAnalyzer 的评分思路。GPL-2.0，仅文档。</value></data>
   <data name="MacroAction_PlaySoundLoop_Format" xml:space="preserve"><value>循环播放 {0}（{1}%）</value></data>
@@ -2863,7 +2872,7 @@
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Wii 配对流程、扬声器 ADPCM、Wii 遥控器横握与竖握方向、摇杆限位模型及其存储格式以及陀螺仪轴约定的文档。GPL-2.0-or-later，仅作文档参考，不随附任何 GPL 代码。</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock 行为文档：空闲断开、触摸板边界、电池解码、蓝牙断开 IOCTL、DualSense 振动模式位、陀螺仪抖动曲线、摇杆模拟鼠标的缩放以及蓝牙输出报告的 CRC 种子。GPL-3.0-or-later，仅作文档参考，不随附任何 GPL 代码。</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock 行为文档：空闲断开、触摸板边界、电池解码、蓝牙断开 IOCTL、DualSense 振动模式位、陀螺仪抖动曲线、摇杆模拟鼠标的缩放以及蓝牙输出报告的 CRC 种子。其虚拟键盘的按键表为 PadForge 的按键表提供了参考。GPL-3.0-or-later，仅作文档参考，不随附任何 GPL 代码。</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>印证 xbledctl 的 GIP LED 命令文档。GPL-2.0-or-later，仅文档。</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -2912,6 +2921,7 @@
   <data name="Vr_Status_Running" xml:space="preserve"><value>运行中</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>运行中，驱动已连接</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>运行中，控制器已激活</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>另一个 OpenVR 驱动使用了 HIDMaestro 的驱动名称，SteamVR 可能会加载它而不是 PadForge 的驱动，虚拟 VR 控制器将不会出现。请移除该驱动以解决此问题：{0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / 导航控制器</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>串口控制器（COM 端口）</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Windows 无法判断 COM 端口上连接的是哪种控制器。请选择端口和控制器，然后添加。之后 PadForge 会打开该端口。</value></data>
@@ -3894,6 +3904,19 @@
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>仅键盘</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>按最接近的标准布局绘制</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Windows 输入</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>与键盘为同一设备</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>与鼠标为同一设备</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Windows 输入通过 Windows 键入每个按键，程序能分辨出它来自软件。键盘型号则通过虚拟键盘键入，程序会将其视为该硬件。映射表会隐藏该型号无法发送的按键。</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Windows 输入通过 Windows 移动指针，程序能分辨出它来自软件。鼠标型号则通过虚拟鼠标移动指针，程序会将其视为该硬件。映射表会隐藏该型号没有的按钮和滚轮。</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>同时按键数：{0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>同时按键数：不限</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>媒体键</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>锁定指示灯</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>按钮数：{0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>滚轮</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>倾斜滚轮</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>全部</value>
   </data>
@@ -4076,7 +4099,7 @@
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>鼠标移动 X 和 Y 背后的 Joy-Con 2 光学鼠标计数器与回绕增量，由 coffincolors、Frano 和 moutella 提供。MIT。仅作文档参考，不随附任何代码。</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Linux 内核驱动</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3、Move、DualSense、Steam Deck 与 PID 力反馈的协议细节，以及 ACPI WMI 块布局。GPL-2.0-or-later，仅作文档参考，不随附任何 GPL 代码。</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3、Move、DualSense、Steam Deck 与 PID 力反馈的协议细节，以及 ACPI WMI 块布局。PadForge 按 hid-core 的规则读取键盘和鼠标的描述符。GPL-2.0-or-later，仅作文档参考，不随附任何 GPL 代码。</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Windows 手柄输入，包括 Xbox Elite 拨片。SDK 加载器链接进 SDL。MIT（SDK 加载器）。</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

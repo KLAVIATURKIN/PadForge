@@ -738,7 +738,68 @@ namespace PadForge.ViewModels
 
         /// <summary>Raises the SteamVR row's change notification. MainWindow's
         /// periodic status refresh calls it.</summary>
-        public void RefreshSteamVrStatus() => OnPropertyChanged(nameof(SteamVrStatusText));
+        public void RefreshSteamVrStatus()
+        {
+            OnPropertyChanged(nameof(SteamVrStatusText));
+            RefreshSteamVrDriverConflict();
+        }
+
+        private string _steamVrDriverConflictText = string.Empty;
+
+        /// <summary>The warning the SteamVR row shows when another OpenVR
+        /// driver is registered under HIDMaestro's driver name, naming its
+        /// folders. Empty when there is none. OpenVR requires driver names to
+        /// be unique, so SteamVR may load that driver in place of
+        /// HIDMaestro's and the VR slot's controllers never appear
+        /// (HMVR.FindDriverNameConflicts, HIDMaestro 1.12.0).</summary>
+        public string SteamVrDriverConflictText
+        {
+            get => _steamVrDriverConflictText;
+            private set
+            {
+                if (SetProperty(ref _steamVrDriverConflictText, value ?? string.Empty))
+                    OnPropertyChanged(nameof(HasSteamVrDriverConflict));
+            }
+        }
+
+        public bool HasSteamVrDriverConflict => _steamVrDriverConflictText.Length > 0;
+
+        private long _steamVrConflictCheckedTick;
+        private bool _steamVrConflictChecked;
+        private const long SteamVrConflictTtlMs = 10_000;
+
+        /// <summary>Test seam for the conflict probe, the SDK's own call in
+        /// production. It reads the user's openvrpaths.vrpath and SteamVR's
+        /// drivers folder and changes nothing.</summary>
+        internal static Func<IReadOnlyList<string>> SteamVrConflictProbe = () => HIDMaestro.HMVR.FindDriverNameConflicts();
+
+        /// <summary>Re-reads the conflict list at most every ten seconds:
+        /// the probe reads files, and the periodic refresh runs far more often
+        /// than a user installs an OpenVR driver.</summary>
+        private void RefreshSteamVrDriverConflict()
+        {
+            if (!_isSteamVrInstalled)
+            {
+                SteamVrDriverConflictText = string.Empty;
+                return;
+            }
+            long now = Environment.TickCount64;
+            if (_steamVrConflictChecked && now - _steamVrConflictCheckedTick < SteamVrConflictTtlMs) return;
+            _steamVrConflictChecked = true;
+            _steamVrConflictCheckedTick = now;
+            IReadOnlyList<string> folders;
+            try { folders = SteamVrConflictProbe(); }
+            catch { folders = null; }
+            SteamVrDriverConflictText = SteamVrDriverConflictLine(folders);
+        }
+
+        /// <summary>The warning for a conflict list: empty for none, else the
+        /// format with the folders joined one per line.</summary>
+        internal static string SteamVrDriverConflictLine(IReadOnlyList<string> folders)
+            => folders == null || folders.Count == 0
+                ? string.Empty
+                : string.Format(Strings.Instance.Vr_DriverNameConflict_Format,
+                    string.Join(Environment.NewLine, folders));
 
         private string _steamVrInstallDir = PadForge.Common.DriverInstaller.SteamVrInstallDir;
 

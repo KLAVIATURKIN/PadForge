@@ -491,6 +491,8 @@
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>Значкі стыкаў і куркоў на аснове «Xbox Series Button Icons and Controls» ад Zacksly (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Распазнаванне фігур па шаблонах на сэнсарнай панэлі (круг / квадрат / трохвугольнік / Z / галачка і ўласныя запісаныя жэсты). Перапрацоўка на C# эталоннай рэалізацыі на JavaScript ад Magrofuoco, Vatavu, Anthony і Wobbrock. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Пазіцыі клавіш і клавішы базавага пласта клавіятур, якія малюе перадпрагляд Клавіятура + мыш, створаныя з даных раскладкі QMK і форка QMK ад Keychron. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>Метад ацэнкі па вуглавым запасе, які працуе разам з распазнаваннем па воблаку пунктаў для фігур адным пальцам. Рэалізуе ідэю ацэнкі з PointPatternAnalyzer праекта GestureSign уласным кодам на C#. GPL-2.0, толькі як дакументацыя.</value></data>
   <data name="About_License" xml:space="preserve"><value>Ліцэнзія</value></data>
@@ -1316,6 +1318,8 @@
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Рух мышы</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Уверх</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Уніз</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Улева</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Управа</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Назва</value></data>
@@ -2476,6 +2480,11 @@
   <data name="Key_Sleep" xml:space="preserve"><value>Сон</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>Лічб. панэль {0}</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>Non-US \ |</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>No Convert</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Convert</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>Міжнар. #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>Міжнар. \</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>Дадатковая клавіша {0}</value></data>
@@ -3030,7 +3039,7 @@
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Дакументацыя па працэдуры спалучэння Wii, ADPCM для дынаміка, гарызантальнай і вертыкальнай арыентацыі Wii Remote, мадэлі абмежавальніка стыка і яе фармаце захавання, а таксама па пагадненні пра восі гіраскопа. GPL-2.0-or-later, выкарыстоўваецца толькі як дакументацыя, код GPL не пастаўляецца.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Дакументацыя па паводзінах DualShock: адключэнне пры бяздзейнасці, межы сэнсарнай панэлі, дэкадаванне зараду батарэі, IOCTL адключэння Bluetooth, біты рэжыму вібрацыі DualSense, крывая дрыжання гіраскопа, маштаб стыка як мышы і пачатковае значэнне CRC для выхадной справаздачы Bluetooth. GPL-3.0-or-later, выкарыстоўваецца толькі як дакументацыя, код GPL не пастаўляецца.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Дакументацыя па паводзінах DualShock: адключэнне пры бяздзейнасці, межы сэнсарнай панэлі, дэкадаванне зараду батарэі, IOCTL адключэння Bluetooth, біты рэжыму вібрацыі DualSense, крывая дрыжання гіраскопа, маштаб стыка як мышы і пачатковае значэнне CRC для выхадной справаздачы Bluetooth. Табліца кодаў клавіш яго віртуальнай клавіятуры паслужыла арыентырам для табліцы PadForge. GPL-3.0-or-later, выкарыстоўваецца толькі як дакументацыя, код GPL не пастаўляецца.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>Дакументацыя каманд GIP LED, якая пацвярджае xbledctl. GPL-2.0-or-later, толькі як дакументацыя.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3058,6 +3067,7 @@
   <data name="Vr_Status_Running" xml:space="preserve"><value>Працуе</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Працуе, драйвер падключаны</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>Працуе, кантролеры актыўныя</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>Іншы драйвер OpenVR выкарыстоўвае імя драйвера HIDMaestro, таму SteamVR можа загрузіць яго замест драйвера PadForge, і віртуальныя VR-кантролеры не з’явяцца. Выдаліце гэты драйвер, каб гэта выправіць: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Паслядоўны кантролер (COM-порт)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Windows не можа вызначыць, які кантролер падключаны да COM-порта. Выберыце порт і кантролер, потым дадайце яго. Пасля гэтага PadForge будзе адкрываць гэты порт.</value></data>
@@ -3943,6 +3953,19 @@
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Толькі клавіятура</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>Намалявана як найбольш блізкая стандартная раскладка</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Увод Windows</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>Тая ж прылада, што і клавіятура</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>Тая ж прылада, што і мыш</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Увод Windows набірае кожную клавішу праз Windows, і праграмы могуць распазнаць, што ён ідзе ад праграмы. Мадэль клавіятуры набірае яго на віртуальнай клавіятуры, якую праграмы бачаць як гэтую прыладу. Табліца прызначэнняў хавае клавішы, якія мадэль не можа адпраўляць.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Увод Windows перамяшчае ўказальнік праз Windows, і праграмы могуць распазнаць, што ён ідзе ад праграмы. Мадэль мышы перамяшчае яго віртуальнай мышшу, якую праграмы бачаць як гэтую прыладу. Табліца прызначэнняў хавае кнопкі і колы, якіх у мадэлі няма.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Адначасовых клавіш: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Адначасовых клавіш: любая колькасць</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Мультымедыйныя клавішы</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>Індыкатары блакіроўкі</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Кнопкі: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Кола</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>Нахільнае кола</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Усе</value>
   </data>
@@ -4125,7 +4148,7 @@
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Лічыльнікі аптычнай мышы Joy-Con 2 і дэльты пераходу праз мяжу, на якіх трымаюцца «Рух мышы X» і «Y», аўтары coffincolors, Frano і moutella. MIT. Толькі дакументацыя, код не пастаўляецца.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Драйверы ядра Linux</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Факты пратаколаў DualShock 3, Move, DualSense, Steam Deck і сілавой зваротнай сувязі PID, а таксама раскладка блока ACPI WMI. GPL-2.0-or-later, чытаецца толькі як дакументацыя, код GPL не пастаўляецца.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Факты пратаколаў DualShock 3, Move, DualSense, Steam Deck і сілавой зваротнай сувязі PID, а таксама раскладка блока ACPI WMI. PadForge чытае дэскрыпторы клавіятур і мышэй па правілах hid-core. GPL-2.0-or-later, чытаецца толькі як дакументацыя, код GPL не пастаўляецца.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Увод кантролераў Windows, уключаючы пялёсткі Xbox Elite. Загрузчык SDK злучаны з SDL. MIT (загрузчык SDK).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Асяроддзе выканання Microsoft Visual C++</value></data>

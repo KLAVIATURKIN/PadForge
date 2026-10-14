@@ -34,6 +34,23 @@ namespace PadForge.ViewModels
         public string Name { get; set; } = "";
     }
 
+    /// <summary>One entry in the Keyboard or Mouse device dropdown: Windows
+    /// input, a HIDMaestro keyboard or mouse profile, or the other half's
+    /// device when it carries this half too.</summary>
+    public sealed class KbmDeviceOption
+    {
+        /// <summary>The profile id, or <see cref="KbmSlotConfig.WindowsInput"/>.</summary>
+        public string Value { get; set; } = "";
+        public string Name { get; set; } = "";
+
+        // Equal by value: a list rebuilt for the other half's device holds new
+        // instances, and the dropdown keeps its selection only when it finds
+        // the selected entry in the new list.
+        public override bool Equals(object obj) =>
+            obj is KbmDeviceOption o && string.Equals(o.Value, Value, System.StringComparison.OrdinalIgnoreCase);
+        public override int GetHashCode() => System.StringComparer.OrdinalIgnoreCase.GetHashCode(Value ?? "");
+    }
+
     /// <summary>Pickable keyboard key for the SOCD pair editor. The list
     /// mirrors the KBM mapping targets built by
     /// PadViewModel.InitializeKeyboardMouseMappings (same keys, same
@@ -141,6 +158,131 @@ namespace PadForge.ViewModels
 
         /// <summary>Whether the mouse half is live.</summary>
         public bool MouseEnabled => _surfaces != "KeyboardOnly";
+
+        /// <summary>The device value of a half that sends through Windows
+        /// input (SendInput), the default and what every file written before
+        /// the device pickers existed reads as.</summary>
+        public const string WindowsInput = "";
+
+        private string _keyboardDevice = WindowsInput;
+        /// <summary>The HIDMaestro profile the keyboard half types through
+        /// (HIDMaestro 1.12.0), or <see cref="WindowsInput"/>. A mouse profile
+        /// that carries a keyboard collection is allowed: it is the mouse
+        /// half's device, and the slot then makes one device for both halves.
+        /// A mouse riding the old keyboard's device follows the keyboard to
+        /// its new one when that device has a mouse, and goes back to Windows
+        /// input when it has none.</summary>
+        public string KeyboardDevice
+        {
+            get => _keyboardDevice;
+            set
+            {
+                // A null write is a picker artifact, never a user choice: WPF's
+                // Selector pushes null back when the selected entry leaves a
+                // rebuilt list (MacroItem.LayerMask, MappingSourceItem). Windows
+                // input is the entry whose value is the empty string.
+                if (value == null) return;
+                string next = value;
+                if (next == _keyboardDevice) return;
+                string old = _keyboardDevice;
+                string mouse = _mouseDevice;
+                if (old.Length > 0 && string.Equals(mouse, old, System.StringComparison.OrdinalIgnoreCase))
+                    mouse = PadForge.Common.Input.KbmDeviceCatalog.HasMouse(next) ? next : WindowsInput;
+                SetDevices(next, mouse);
+            }
+        }
+
+        private string _mouseDevice = WindowsInput;
+        /// <summary>The HIDMaestro profile the mouse half points through, or
+        /// <see cref="WindowsInput"/>. The twin of
+        /// <see cref="KeyboardDevice"/>.</summary>
+        public string MouseDevice
+        {
+            get => _mouseDevice;
+            set
+            {
+                // See KeyboardDevice: a null write is a picker artifact.
+                if (value == null) return;
+                string next = value;
+                if (next == _mouseDevice) return;
+                string old = _mouseDevice;
+                string keyboard = _keyboardDevice;
+                if (old.Length > 0 && string.Equals(keyboard, old, System.StringComparison.OrdinalIgnoreCase))
+                    keyboard = PadForge.Common.Input.KbmDeviceCatalog.HasKeyboard(next) ? next : WindowsInput;
+                SetDevices(keyboard, next);
+            }
+        }
+
+        /// <summary>Sets both devices as one change, as a load, a paste or a
+        /// profile apply carries them, and as the setters above settle a
+        /// shared device. Both fields hold their new values before either
+        /// dropdown hears of it, so neither list is rebuilt around a value
+        /// the other half is about to replace.</summary>
+        public void SetDevices(string keyboard, string mouse)
+        {
+            keyboard ??= WindowsInput;
+            mouse ??= WindowsInput;
+            bool keyboardChanged = keyboard != _keyboardDevice;
+            bool mouseChanged = mouse != _mouseDevice;
+            if (!keyboardChanged && !mouseChanged) return;
+            _keyboardDevice = keyboard;
+            _mouseDevice = mouse;
+            // Each list depends on the other half's device.
+            if (keyboardChanged) OnPropertyChanged(nameof(AvailableMouseDevices));
+            if (mouseChanged) OnPropertyChanged(nameof(AvailableKeyboardDevices));
+            if (keyboardChanged) OnPropertyChanged(nameof(KeyboardDevice));
+            if (mouseChanged) OnPropertyChanged(nameof(MouseDevice));
+        }
+
+        /// <summary>The keyboard dropdown: Windows input, the mouse's own
+        /// device when it is a mouse with a keyboard, then every keyboard
+        /// profile by name.</summary>
+        public System.Collections.Generic.IReadOnlyList<KbmDeviceOption> AvailableKeyboardDevices
+            => PadForge.Common.Input.KbmDeviceCatalog.KeyboardOptions(_mouseDevice);
+
+        /// <summary>The mouse dropdown: Windows input, the keyboard's own
+        /// device when it is a keyboard with a pointing device, then every
+        /// mouse profile by name.</summary>
+        public System.Collections.Generic.IReadOnlyList<KbmDeviceOption> AvailableMouseDevices
+            => PadForge.Common.Input.KbmDeviceCatalog.MouseOptions(_keyboardDevice);
+
+        /// <summary>True when either half sends through a device.</summary>
+        public bool UsesDevices => _keyboardDevice.Length > 0 || _mouseDevice.Length > 0;
+
+        /// <summary>Whether the device behind a row's half can send the row's
+        /// target. A half on Windows input sends every target. A virtual
+        /// keyboard sends the keys its report reaches and a virtual mouse the
+        /// buttons, wheel and tilt it has (KbmDeviceCaps), and the senders
+        /// drop the rest, so the table hides those rows the way it hides a
+        /// half the surface mode turns off, and keeps their bindings. A device
+        /// id the catalog does not have hides nothing: its create fails and
+        /// says so.</summary>
+        public bool DeviceCanSend(string settingName)
+        {
+            if (string.IsNullOrEmpty(settingName)) return true;
+            if (settingName.StartsWith("KbmKey", System.StringComparison.Ordinal))
+            {
+                var caps = PadForge.Common.Input.KbmDeviceCatalog.CapsOf(_keyboardDevice);
+                if (caps == null) return true;
+                if (!byte.TryParse(settingName.AsSpan(6), System.Globalization.NumberStyles.HexNumber,
+                        System.Globalization.CultureInfo.InvariantCulture, out byte vk))
+                    return true;
+                var key = PadForge.Common.Input.KbmHidKeyMap.Nominal(vk);
+                return key.IsKeyboard ? key.Usage <= 0xFF && caps.CanSendKey((byte)key.Usage)
+                    : key.IsConsumer && caps.CanSendConsumer(key.Usage);
+            }
+            if (!settingName.StartsWith("Kbm", System.StringComparison.Ordinal)) return true;
+            var mouse = PadForge.Common.Input.KbmDeviceCatalog.CapsOf(_mouseDevice);
+            if (mouse == null) return true;
+            if (settingName.StartsWith("KbmMBtn", System.StringComparison.Ordinal))
+                return int.TryParse(settingName.AsSpan(7), System.Globalization.NumberStyles.Integer,
+                           System.Globalization.CultureInfo.InvariantCulture, out int button)
+                       && mouse.CanSendMouseButton(button);
+            if (settingName.StartsWith("KbmScrollH", System.StringComparison.Ordinal)) return mouse.HasPan;
+            if (settingName.StartsWith("KbmScroll", System.StringComparison.Ordinal)) return mouse.HasWheel;
+            if (settingName.StartsWith("KbmMouse", System.StringComparison.Ordinal)) return mouse.HasMouse;
+            return true;
+        }
 
         /// <summary>Whether a row of the given half should be shown and
         /// dispatched under the current mode.</summary>
@@ -259,6 +401,7 @@ namespace PadForge.ViewModels
         public void ResetToDefaults()
         {
             Surfaces = DefaultSurfaces;
+            SetDevices(WindowsInput, WindowsInput);
             ResetSocdToDefaults();
         }
 
@@ -398,6 +541,9 @@ namespace PadForge.ViewModels
             Add("Num /", 0x6F);
             Add(string.Format(s.Key_Numpad, s.Key_Enter), 0x88);
 
+            foreach (byte vk in PadForge.Common.Input.KbmExtraKeys.Vks)
+                Add(PadForge.Common.Input.KbmExtraKeys.Label(vk), vk);
+
             var arr = list.ToArray();
             _keyOptionsCache = arr;
             _keyOptionsCacheCulture = culture;
@@ -415,5 +561,16 @@ namespace PadForge.ViewModels
         [XmlAttribute] public string Surfaces { get; set; } = KbmSlotConfig.DefaultSurfaces;
         [XmlAttribute] public string SocdMode { get; set; } = "Off";
         [XmlAttribute] public string SocdPairs { get; set; } = KbmSlotConfig.DefaultSocdPairs;
+
+        /// <summary>The keyboard half's HIDMaestro profile id. An absent
+        /// attribute is Windows input, what every file written before the
+        /// device pickers existed meant.</summary>
+        [XmlAttribute] public string KeyboardDevice { get; set; } = KbmSlotConfig.WindowsInput;
+        public bool ShouldSerializeKeyboardDevice() => !string.IsNullOrEmpty(KeyboardDevice);
+
+        /// <summary>The mouse half's HIDMaestro profile id, the twin of
+        /// <see cref="KeyboardDevice"/>.</summary>
+        [XmlAttribute] public string MouseDevice { get; set; } = KbmSlotConfig.WindowsInput;
+        public bool ShouldSerializeMouseDevice() => !string.IsNullOrEmpty(MouseDevice);
     }
 }

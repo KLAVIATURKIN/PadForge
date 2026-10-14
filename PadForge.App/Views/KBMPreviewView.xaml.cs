@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using PadForge.Common.Input;
 using PadForge.Engine;
 using PadForge.Resources.Strings;
 using PadForge.ViewModels;
@@ -48,6 +49,14 @@ namespace PadForge.Views
         private Shape _x1Rect;
         private Shape _x2Rect;
         private Canvas _moveArrowCanvas;
+        // Tilt arrows, drawn while the mouse half can pan (null otherwise).
+        private Polygon _scrollLeftArrow;
+        private Polygon _scrollRightArrow;
+
+        // The virtual keyboard's lock lights (Num, Caps, Scroll), drawn while
+        // the picked keyboard has an LED report (null otherwise).
+        private Ellipse[] _ledDots;
+        private int _paintedLeds = int.MinValue;
 
         // Colors — pre-cached dark/light variants (zero per-frame allocation)
         private static bool IsDarkTheme =>
@@ -125,8 +134,21 @@ namespace PadForge.Views
             {
                 CompositionTarget.Rendering -= OnRendering;
                 CompositionTarget.Rendering += OnRendering;
+                InputLanguageManager.Current.InputLanguageChanged -= OnInputLanguageChanged;
+                InputLanguageManager.Current.InputLanguageChanged += OnInputLanguageChanged;
             };
-            Unloaded += (s, e) => CompositionTarget.Rendering -= OnRendering;
+            Unloaded += (s, e) =>
+            {
+                CompositionTarget.Rendering -= OnRendering;
+                InputLanguageManager.Current.InputLanguageChanged -= OnInputLanguageChanged;
+            };
+        }
+
+        /// <summary>A device keyboard's legends and targets follow the input
+        /// layout, so a layout switch redraws it.</summary>
+        private void OnInputLanguageChanged(object sender, InputLanguageEventArgs e)
+        {
+            if (_layoutBuilt && KeyboardFamilies.For(_vm?.KbmKeyboardDevice) != null) RebuildLayout();
         }
 
         public void Bind(PadViewModel vm)
@@ -159,6 +181,12 @@ namespace PadForge.Views
         private void OnVmPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(PadViewModel.OutputType)) { Dispatcher.Invoke(RebuildLayout); return; }
+            // A picked keyboard or mouse redraws as that device.
+            if (e.PropertyName is nameof(PadViewModel.KbmKeyboardDevice) or nameof(PadViewModel.KbmMouseDevice))
+            {
+                Dispatcher.Invoke(RebuildLayout);
+                return;
+            }
             if (e.PropertyName == nameof(PadViewModel.KbmSurfaces))
             {
                 // Marked dirty like both siblings: a half coming back into
@@ -174,6 +202,9 @@ namespace PadForge.Views
         {
             _layoutBuilt = false;
             _keyWidgets.Clear();
+            _ledDots = null;
+            _paintedLeds = int.MinValue;
+            _scrollLeftArrow = _scrollRightArrow = null;
             _lastTheme = Wpf.Ui.Appearance.ApplicationThemeManager.GetAppTheme();
             if (_vm == null || _vm.OutputType != VirtualControllerType.KeyboardMouse) return;
             BuildKeyboardCanvas();
@@ -223,38 +254,223 @@ namespace PadForge.Views
         //  Keyboard
         // ─────────────────────────────────────────────
 
+        /// <summary>The generic keyboard canvas size, which the XAML
+        /// declares.</summary>
+        private const double GenericKeyboardWidth = 556, GenericKeyboardHeight = 136;
+
+        /// <summary>Pixels per key unit in a device drawing, the generic
+        /// layout's key pitch.</summary>
+        private const double KeyUnit = 24, KeyGap = 2;
+
+        /// <summary>The keyboard half: the picked keyboard as its own board
+        /// (HIDMaestro 1.12.0, KeyboardFamilies), or the generic keyboard for
+        /// Windows input and for a keyboard profile no drawing covers.</summary>
         private void BuildKeyboardCanvas()
         {
             KeyboardCanvas.Children.Clear();
-            var keys = KeyboardKeyItem.BuildLayout();
-            foreach (var key in keys)
-            {
-                string targetName = $"KbmKey{key.VKeyIndex:X2}";
-                string tooltipLabel = _vm?.Mappings?.FirstOrDefault(m => m.TargetSettingName == targetName)?.TargetLabel ?? key.Label;
-                var border = new Border
-                {
-                    Width = key.KeyWidth, Height = key.KeyHeight,
-                    CornerRadius = new CornerRadius(3),
-                    Background = KeyNormalBrush, Cursor = Cursors.Hand,
-                    ToolTip = tooltipLabel
-                };
-                border.Child = new TextBlock
-                {
-                    Text = key.Label, FontSize = 8,
-                    FontFamily = (FontFamily)FindResource("TelemetryFontFamily"),
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    VerticalAlignment = VerticalAlignment.Center,
-                    Opacity = 0.8, IsHitTestVisible = false
-                };
-                Canvas.SetLeft(border, key.X);
-                Canvas.SetTop(border, key.Y);
-                KeyboardCanvas.Children.Add(border);
+            string deviceId = _vm?.KbmKeyboardDevice;
+            var caps = KbmDeviceCatalog.CapsOf(deviceId);
+            var family = KeyboardFamilies.For(deviceId);
+            if (family != null) BuildDeviceKeyboard(family, caps);
+            else BuildGenericKeyboard(caps);
+        }
 
-                border.MouseEnter += (s, e) => { if (_flashTarget == null) { border.BorderBrush = HoverBrush; border.BorderThickness = new Thickness(1.5); } };
-                border.MouseLeave += (s, e) => { if (_flashTarget == null) { border.BorderBrush = null; border.BorderThickness = new Thickness(0); } };
-                border.MouseLeftButtonDown += (s, e) => { ControllerElementRecordRequested?.Invoke(this, targetName); e.Handled = true; };
-                _keyWidgets.Add(new KbmKeyWidget { VKeyIndex = key.VKeyIndex, Border = border, TargetName = targetName });
+        private void BuildGenericKeyboard(KbmDeviceCaps caps)
+        {
+            KeyboardCanvas.Width = GenericKeyboardWidth;
+            KeyboardCanvas.Height = GenericKeyboardHeight;
+            foreach (var key in KeyboardKeyItem.BuildLayout())
+            {
+                bool sendable = caps == null || DeviceSends(caps, key.VKeyIndex);
+                AddKey(key.VKeyIndex, key.Label, null, key.X, key.Y, key.KeyWidth, key.KeyHeight, sendable);
             }
+
+            // Four media keys over the number pad, where 108-key boards have
+            // them. The grid carries the rest of the media and browser keys.
+            const double u = 24, kh = 20;
+            int[] media = { 0xAD, 0xAE, 0xAF, 0xB3 };
+            for (int i = 0; i < media.Length; i++)
+            {
+                bool sendable = caps == null || DeviceSends(caps, media[i]);
+                AddKey(media[i], MediaGlyph(KbmHidKeyMap.Nominal(media[i]).Usage), SymbolFont,
+                    (19 + i) * u, 0, u - KeyGap, kh, sendable);
+            }
+        }
+
+        /// <summary>Whether the picked keyboard sends the key at index
+        /// <paramref name="vk"/>.</summary>
+        private static bool DeviceSends(KbmDeviceCaps caps, int vk)
+        {
+            var key = KbmHidKeyMap.Nominal(vk);
+            return key.IsKeyboard ? key.Usage <= 0xFF && caps.CanSendKey((byte)key.Usage)
+                : key.IsConsumer && caps.CanSendConsumer(key.Usage);
+        }
+
+        /// <summary>A keyboard as its board: QMK's key positions, each key
+        /// standing for the row the input layout gives it, with the legend
+        /// that layout types, and its lock lights when it has them.</summary>
+        private void BuildDeviceKeyboard(KeyboardFamilies.Family family, KbmDeviceCaps caps)
+        {
+            IntPtr layout = KbmHidKeyMap.UiLayout();
+            bool leds = caps?.HasKeyboardLeds == true;
+            double top = leds ? KeyUnit * 0.6 : 0;
+            double width = 0, height = 0;
+            foreach (var k in family.Keys)
+            {
+                width = Math.Max(width, k.X + k.W);
+                height = Math.Max(height, k.Y + k.H);
+            }
+            KeyboardCanvas.Width = width * KeyUnit;
+            KeyboardCanvas.Height = top + height * KeyUnit;
+
+            foreach (var k in family.Keys)
+            {
+                var usage = new KbmHidKeyMap.HidKey(k.Page, k.Id);
+                int vk = k.Usage == 0 ? -1 : KbmHidKeyMap.TargetOf(usage, layout);
+                bool sendable = k.Usage != 0 && (caps == null
+                    || (usage.IsKeyboard ? k.Id <= 0xFF && caps.CanSendKey((byte)k.Id)
+                        : usage.IsConsumer && caps.CanSendConsumer(k.Id)));
+                string legend = KeyboardFamilies.FixedLegend(k, family.Legends);
+                FontFamily font = null;
+                if (legend == null && usage.IsConsumer)
+                {
+                    legend = MediaGlyph(k.Id);
+                    font = SymbolFont;
+                }
+                if (legend == null && usage.IsKeyboard && KbmHidKeyMap.IsCharacterUsage(k.Id))
+                    legend = KbmHidKeyMap.CharacterLegend(vk, layout);
+                legend ??= ShortLegend(vk);
+                AddKey(vk, legend, font, k.X * KeyUnit, top + k.Y * KeyUnit,
+                    k.W * KeyUnit - KeyGap, k.H * KeyUnit - KeyGap, sendable);
+            }
+
+            if (leds) BuildLedStrip(width * KeyUnit);
+
+            // A board drawn as the nearest standard set says so under it.
+            if (family.Approximate)
+            {
+                var note = new TextBlock
+                {
+                    Text = Strings.Instance.Pad_Kbm_Preview_Approximate,
+                    FontSize = 8, Opacity = 0.6, IsHitTestVisible = false,
+                };
+                Canvas.SetLeft(note, 0);
+                Canvas.SetTop(note, KeyboardCanvas.Height + 2);
+                KeyboardCanvas.Children.Add(note);
+                KeyboardCanvas.Height += 14;
+            }
+        }
+
+        /// <summary>One key. A key the device cannot send, or one no row
+        /// reaches, is drawn faint and takes no clicks. Whether a row reaches
+        /// it is the engine's key list, not the mapping rows, which a slot
+        /// can still be building when the preview draws.</summary>
+        private void AddKey(int vk, string legend, FontFamily font, double x, double y, double w, double h, bool sendable)
+        {
+            string targetName = vk >= 0 ? $"KbmKey{vk:X2}" : null;
+            string rowLabel = targetName == null ? null
+                : _vm?.Mappings?.FirstOrDefault(m => m.TargetSettingName == targetName)?.TargetLabel;
+            bool live = sendable && PadForge.Common.Input.InputManager.IsKbmKeyTarget(vk);
+            var border = new Border
+            {
+                Width = w, Height = h,
+                CornerRadius = new CornerRadius(3),
+                Background = KeyNormalBrush,
+                Cursor = live ? Cursors.Hand : null,
+                ToolTip = rowLabel ?? (string.IsNullOrEmpty(legend) ? null : legend),
+                Opacity = live ? 1.0 : 0.35,
+            };
+            border.Child = new TextBlock
+            {
+                Text = legend ?? string.Empty, FontSize = 8,
+                FontFamily = font ?? (FontFamily)FindResource("TelemetryFontFamily"),
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                Opacity = 0.8, IsHitTestVisible = false
+            };
+            Canvas.SetLeft(border, x);
+            Canvas.SetTop(border, y);
+            KeyboardCanvas.Children.Add(border);
+            if (!live) return;
+
+            border.MouseEnter += (s, e) => { if (_flashTarget == null) { border.BorderBrush = HoverBrush; border.BorderThickness = new Thickness(1.5); } };
+            border.MouseLeave += (s, e) => { if (_flashTarget == null) { border.BorderBrush = null; border.BorderThickness = new Thickness(0); } };
+            border.MouseLeftButtonDown += (s, e) => { ControllerElementRecordRequested?.Invoke(this, targetName); e.Handled = true; };
+            _keyWidgets.Add(new KbmKeyWidget { VKeyIndex = vk, Border = border, TargetName = targetName });
+        }
+
+        /// <summary>The lock lights in the board's top right corner, lit from
+        /// the LED report Windows last sent the virtual keyboard.</summary>
+        private void BuildLedStrip(double right)
+        {
+            var s = Strings.Instance;
+            string[] names = { s.Key_NumLock, s.Key_CapsLock, s.Key_ScrollLock };
+            string[] marks = { "1", "A", "⇩" };
+            _ledDots = new Ellipse[3];
+            for (int i = 0; i < 3; i++)
+            {
+                double x = right - (3 - i) * 22;
+                var dot = new Ellipse { Width = 6, Height = 6, Fill = DimBrush, ToolTip = names[i] };
+                Canvas.SetLeft(dot, x);
+                Canvas.SetTop(dot, 4);
+                KeyboardCanvas.Children.Add(dot);
+                var mark = new TextBlock
+                {
+                    Text = marks[i], FontSize = 7, Opacity = 0.7, IsHitTestVisible = false,
+                    FontFamily = (FontFamily)FindResource("TelemetryFontFamily"),
+                };
+                Canvas.SetLeft(mark, x + 8);
+                Canvas.SetTop(mark, 2);
+                KeyboardCanvas.Children.Add(mark);
+                _ledDots[i] = dot;
+            }
+        }
+
+        private static readonly FontFamily SymbolFont = new("Segoe MDL2 Assets");
+
+        /// <summary>A Segoe MDL2 Assets glyph for a consumer usage the
+        /// key map sends, or null.</summary>
+        internal static string MediaGlyph(ushort usage) => usage switch
+        {
+            0xE2 => "",   // Mute
+            0xEA => "",   // Volume Down
+            0xE9 => "",   // Volume Up
+            0xCD => "",   // Play/Pause
+            0xB7 => "",   // Stop
+            0xB6 => "",   // Previous Track
+            0xB5 => "",   // Next Track
+            0x192 => "",  // Calculator
+            0x18A => "",  // Mail
+            0x194 => "",  // File Browser
+            0x183 => "",  // Media Player
+            0x221 => "",  // Browser Search
+            0x223 => "",  // Browser Home
+            0x224 => "",  // Browser Back
+            0x225 => "",  // Browser Forward
+            0x226 => "",  // Browser Stop
+            0x227 => "",  // Browser Refresh
+            0x22A => "",  // Browser Favorites
+            _ => null,
+        };
+
+        /// <summary>The generic keyboard's short legend for a key whose
+        /// legend no layout writes.</summary>
+        internal static string ShortLegend(int vk)
+        {
+            if (vk >= 0x70 && vk <= 0x87) return "F" + (vk - 0x6F).ToString(System.Globalization.CultureInfo.InvariantCulture);
+            if (vk >= 0x60 && vk <= 0x69) return (vk - 0x60).ToString(System.Globalization.CultureInfo.InvariantCulture);
+            return vk switch
+            {
+                0x1B => "Esc", 0x2C => "PrSc", 0x91 => "ScLk", 0x13 => "Pse",
+                0x08 => "←", 0x09 => "Tab", 0x14 => "Caps", 0x0D => "↵", 0x88 => "↵",
+                0xA0 or 0xA1 => "Shift", 0xA2 or 0xA3 => "Ctrl", 0xA4 or 0xA5 => "Alt",
+                0x5B or 0x5C => "Win", 0x5D => "Menu", 0x20 => "",
+                0x2D => "Ins", 0x24 => "Hm", 0x21 => "PU", 0x2E => "Del", 0x23 => "End", 0x22 => "PD",
+                0x26 => "▲", 0x25 => "◄", 0x28 => "▼", 0x27 => "►",
+                0x90 => "Num", 0x6F => "/", 0x6A => "*", 0x6D => "-", 0x6B => "+", 0x6E => ".",
+                0xF3 => "半/全",
+                _ => "",
+            };
         }
 
         // ─────────────────────────────────────────────
@@ -348,7 +564,72 @@ namespace PadForge.Views
                 e.Handled = true;
             };
 
+            ApplyMouseCaps(KbmDeviceCatalog.CapsOf(_vm?.KbmMouseDevice));
+
             MouseCanvas.Height = MouseGlyph.BodyH + 6;
+        }
+
+        /// <summary>Draws the controls the slot's mouse has (HIDMaestro
+        /// 1.12.0). Windows input sends every control, so it keeps them all.
+        /// A virtual mouse loses the side buttons past its button count, a
+        /// button it lacks goes faint and takes no clicks, the scroll arrows
+        /// go with a missing wheel, and a mouse that tilts gets left and right
+        /// arrows beside the wheel.</summary>
+        private void ApplyMouseCaps(KbmDeviceCaps caps)
+        {
+            bool Has(int button) => caps == null || caps.CanSendMouseButton(button);
+            bool wheel = caps == null || caps.HasWheel;
+            bool pan = caps == null || caps.HasPan;
+
+            void Side(Shape visual, Shape hover, Shape hit, bool present)
+            {
+                var v = present ? Visibility.Visible : Visibility.Collapsed;
+                if (visual != null) visual.Visibility = v;
+                if (hit != null) hit.Visibility = v;
+                if (!present && hover != null) hover.Visibility = Visibility.Collapsed;
+            }
+            void Faint(Shape visual, Shape hit, bool present)
+            {
+                if (visual != null) visual.Opacity = present ? 1.0 : 0.3;
+                if (hit != null) hit.IsHitTestVisible = present;
+            }
+
+            Side(_parts.X1, _parts.X1Hover, _parts.X1Hit, Has(3));
+            Side(_parts.X2, _parts.X2Hover, _parts.X2Hit, Has(4));
+            Faint(_parts.Lmb, _parts.LmbHit, Has(0));
+            Faint(_parts.Rmb, _parts.RmbHit, Has(1));
+            // The wheel art is also the middle button: it stays while either
+            // is there, and takes clicks only while the middle button is.
+            Faint(_parts.Wheel, _parts.WheelHit, Has(2));
+            if (wheel && !Has(2)) _parts.Wheel.Opacity = 1.0;
+            _scrollUpArrow.Visibility = wheel ? Visibility.Visible : Visibility.Collapsed;
+            _scrollDownArrow.Visibility = wheel ? Visibility.Visible : Visibility.Collapsed;
+
+            if (!pan) return;
+            // On the wheel, between its up and down arrows, where those two
+            // already read against the wheel's own dark fill.
+            double cy = (MouseGlyph.WheelTop + MouseGlyph.WheelBottom) / 2;
+            double left = MouseArt.WheelRect.X + 3, right = MouseArt.WheelRect.X + MouseArt.WheelRect.Width - 3;
+            _scrollLeftArrow = new Polygon
+            {
+                Points = new PointCollection { new(left, cy), new(left + 7, cy - 4.5), new(left + 7, cy + 4.5) },
+                Fill = DimBrush, Cursor = Cursors.Hand,
+                ToolTip = MappingLabel("KbmScrollH") + " " + Strings.Instance.Pad_ScrollLeft,
+            };
+            _scrollRightArrow = new Polygon
+            {
+                Points = new PointCollection { new(right, cy), new(right - 7, cy - 4.5), new(right - 7, cy + 4.5) },
+                Fill = DimBrush, Cursor = Cursors.Hand,
+                ToolTip = MappingLabel("KbmScrollH") + " " + Strings.Instance.Pad_ScrollRight,
+            };
+            foreach (var (arrow, target) in new[] { (_scrollLeftArrow, "KbmScrollHNeg"), (_scrollRightArrow, "KbmScrollH") })
+            {
+                var a = arrow;
+                a.MouseEnter += (s, e) => { if (_flashTarget == null) a.Fill = HoverBrush; };
+                a.MouseLeave += (s, e) => { if (_flashTarget == null) a.Fill = DimBrush; };
+                a.MouseLeftButtonDown += (s, e) => { ControllerElementRecordRequested?.Invoke(this, target); e.Handled = true; };
+                MouseCanvas.Children.Add(a);
+            }
         }
 
         // ─────────────────────────────────────────────
@@ -399,6 +680,7 @@ namespace PadForge.Views
             && a.Keys2 == b.Keys2 && a.Keys3 == b.Keys3
             && a.MouseButtons == b.MouseButtons
             && a.ScrollDelta == b.ScrollDelta
+            && a.ScrollDeltaH == b.ScrollDeltaH
             && a.MouseDeltaX == b.MouseDeltaX
             && a.MouseDeltaY == b.MouseDeltaY
             && a.MouseGyroX == b.MouseGyroX
@@ -480,13 +762,12 @@ namespace PadForge.Views
                 _scrollWheelPill.Fill = highlight ? FlashBrush : ScrollWheelBrush;
                 return;
             }
-            // The horizontal pair had no branch at all, so a source mapped to
-            // horizontal scroll flashed nothing and the preview looked dead.
-            // The pad draws no left/right arrows, so the wheel itself is the
-            // whole surface, which is what the two vertical branches light in
-            // addition to their arrow.
+            // The horizontal pair lights the wheel and, on a mouse that tilts,
+            // its arrow, the way the vertical pair does.
             if (_flashTarget == "KbmScrollH" || _flashTarget == "KbmScrollHNeg")
             {
+                var arrow = _flashTarget == "KbmScrollH" ? _scrollRightArrow : _scrollLeftArrow;
+                if (arrow != null) arrow.Fill = highlight ? FlashBrush : DimBrush;
                 _scrollWheelPill.Fill = highlight ? FlashBrush : ScrollWheelBrush;
                 return;
             }
@@ -508,13 +789,27 @@ namespace PadForge.Views
 
             if (_vm == null || !_layoutBuilt) return;
             var kbm = _vm.KbmOutputSnapshot;
+            int leds = _vm.KbmKeyboardLeds;
             // Repaint when OUR data moved, not only when the view model
             // happened to raise something. See _painted.
-            bool moved = !_paintedValid || !SamePreviewState(kbm, _painted);
+            bool moved = !_paintedValid || !SamePreviewState(kbm, _painted) || leds != _paintedLeds;
             if (!_dirty && !moved) return;
             _dirty = false;
             _painted = kbm;
             _paintedValid = true;
+            _paintedLeds = leds;
+
+            // Lock lights: Num, Caps, Scroll, bits 0 to 2 of the LED report
+            // (HMKeyboardLeds). -1 is a keyboard Windows has not set yet.
+            if (_ledDots != null)
+            {
+                for (int i = 0; i < _ledDots.Length; i++)
+                {
+                    bool on = leds >= 0 && (leds & (1 << i)) != 0;
+                    _ledDots[i].Fill = on ? AccentBrush : DimBrush;
+                    SetGlow(_ledDots[i], on ? EmberGlowSmall : null);
+                }
+            }
 
             // Keyboard keys
             foreach (var w in _keyWidgets)
@@ -609,6 +904,14 @@ namespace PadForge.Views
                 SetGlow(_scrollUpArrow, scroll > 0 ? EmberGlowSmall : null);
                 _scrollDownArrow.Fill = scroll < 0 ? AccentBrush : DimBrush;
                 SetGlow(_scrollDownArrow, scroll < 0 ? EmberGlowSmall : null);
+                if (_scrollLeftArrow != null)
+                {
+                    short tilt = kbm.ScrollDeltaH;
+                    _scrollLeftArrow.Fill = tilt < 0 ? AccentBrush : DimBrush;
+                    SetGlow(_scrollLeftArrow, tilt < 0 ? EmberGlowSmall : null);
+                    _scrollRightArrow.Fill = tilt > 0 ? AccentBrush : DimBrush;
+                    SetGlow(_scrollRightArrow, tilt > 0 ? EmberGlowSmall : null);
+                }
             }
         }
 

@@ -491,6 +491,8 @@
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>Стик ба гохны дүрс тэмдгүүдийг Zacksly (CC BY 3.0)-ийн “Xbox Series Button Icons and Controls” багцаас гаргасан</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Мэдрэгч самбарын дүрсийн загвар тааруулагч (Тойрог / Дөрвөлжин / Гурвалжин / Z / Зөв тэмдэг болон өөрөө бичсэн дохионууд). Magrofuoco, Vatavu, Anthony, Wobbrock нарын JavaScript жишиг хэрэгжүүлэлтийг C# дээр дахин гаргасан хувилбар. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>«Гар + хулгана» урьдчилан харагдацад зурагддаг гаруудын товчлуурын байрлал ба үндсэн давхаргын товчлуурууд. QMK-ийн байршлын өгөгдөл болон Keychron-ы QMK салаа хувилбараас үүсгэсэн. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>Нэг хурууны дүрс дээр цэгийн үүлний тааруулагчтай зэрэгцэн ажилладаг, өнцгийн зөрүүгээр оноо өгөх арга. GestureSign-ий PointPatternAnalyzer-ын оноо өгөх санааг анхны C# кодоор хэрэгжүүлсэн. GPL-2.0, зөвхөн баримт бичиг болгон ашигласан.</value></data>
   <data name="About_License" xml:space="preserve"><value>Лиценз</value></data>
@@ -1316,6 +1318,8 @@
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Хулганы хөдөлгөөн</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Дээш</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Доош</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Зүүн</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Баруун</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Нэр</value></data>
@@ -2476,6 +2480,11 @@
   <data name="Key_Sleep" xml:space="preserve"><value>Унтах</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>Тоон самбар {0}</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>Нэмэлт \ |</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>Хөрвүүлэхгүй</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Хөрвүүлэх</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>Олон улсын #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>Олон улсын \</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>Нэмэлт товчлуур {0}</value></data>
@@ -3030,7 +3039,7 @@
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Wii хослуулах журам, чанга яригчийн ADPCM, хажуу болон босоо Wii Remote-ын чиглэл, стикийн хүрээний загвар ба түүний хадгалах формат, гироскопын тэнхлэгийн тохиролцооны баримт бичиг. GPL-2.0-or-later, зөвхөн баримт бичиг болгон уншсан, GPL код агуулаагүй.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock-ийн ажиллагааны баримт бичиг: идэвхгүй үеийн салгалт, мэдрэгч самбарын хил, батарейн тайлал, Bluetooth салгах IOCTL, DualSense чичиргээний горимын битүүд, гироскопын чичирхийллийн муруй, стикийг хулгана болгох масштаб, Bluetooth гаралтын репортын CRC эхлэх утга. GPL-3.0-or-later, зөвхөн баримт бичиг болгон уншсан, GPL код агуулаагүй.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock-ийн ажиллагааны баримт бичиг: идэвхгүй үеийн салгалт, мэдрэгч самбарын хил, батарейн тайлал, Bluetooth салгах IOCTL, DualSense чичиргээний горимын битүүд, гироскопын чичирхийллийн муруй, стикийг хулгана болгох масштаб, Bluetooth гаралтын репортын CRC эхлэх утга. Түүний виртуал гарын товчлуурын хүснэгтийг PadForge-ийн хүснэгтэд жишиг болгосон. GPL-3.0-or-later, зөвхөн баримт бичиг болгон уншсан, GPL код агуулаагүй.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>xbledctl-ийг баталгаажуулсан GIP LED командын баримт бичиг. GPL-2.0-or-later, зөвхөн баримт бичиг.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3058,6 +3067,7 @@
   <data name="Vr_Status_Running" xml:space="preserve"><value>Ажиллаж байна</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Ажиллаж байна, драйвер холбогдсон</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>Ажиллаж байна, контроллерууд идэвхтэй</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>Өөр нэг OpenVR драйвер HIDMaestro-ийн драйверын нэрийг ашиглаж байгаа тул SteamVR түүнийг PadForge-ийн драйверын оронд ачаалж болох бөгөөд тэгвэл виртуал VR контроллерууд гарч ирэхгүй. Үүнийг засахын тулд тэр драйверыг устгана уу: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Цуваа контроллер (COM порт)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Windows аль контроллер COM портод холбогдсоныг ялгаж чадахгүй. Порт ба контроллерыг сонгоод нэмнэ үү. Үүнээс хойш PadForge тэр портыг нээнэ.</value></data>
@@ -3922,6 +3932,19 @@ PadForge одоо тэдгээрийг устгах уу? Үүнд админи�
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Зөвхөн гар</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>Хамгийн ойрын стандарт байрлалаар зурагдсан</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Windows оролт</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>Гартай ижил төхөөрөмж</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>Хулганатай ижил төхөөрөмж</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Windows оролт нь товчлуур бүрийг Windows-оор дамжуулан бичдэг бөгөөд програмууд үүнийг програм хангамжаас ирснийг мэдэж чадна. Гарын загвар нь товчлуурыг виртуал гараар бичдэг бөгөөд програмууд түүнийг тухайн төхөөрөмж гэж хардаг. Оноолтын хүснэгт загварын илгээж чадахгүй товчлууруудыг нуудаг.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Windows оролт нь курсорыг Windows-оор дамжуулан хөдөлгөдөг бөгөөд програмууд үүнийг програм хангамжаас ирснийг мэдэж чадна. Хулганы загвар нь курсорыг виртуал хулганаар хөдөлгөдөг бөгөөд програмууд түүнийг тухайн төхөөрөмж гэж хардаг. Оноолтын хүснэгт загварт байхгүй товч болон дугуйнуудыг нуудаг.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Нэг зэрэг дарах товчлуур: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Нэг зэрэг дарах товчлуур: Хязгааргүй</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Медиа товчлуурууд</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>Түгжээний гэрлүүд</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Товч: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Гүйлгэх дугуй</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>Хазайдаг дугуй</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Бүгд</value>
   </data>
@@ -4103,7 +4126,7 @@ PadForge одоо тэдгээрийг устгах уу? Үүнд админи�
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Хулганы хөдөлгөөн X ба Y-ийн ард байгаа Joy-Con 2-ын оптик хулганы тоолуур ба эргэлтийн дельтаууд, coffincolors, Frano, moutella нарын бүтээл. MIT. Зөвхөн баримт бичиг, код багтаагүй.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Linux цөмийн драйверууд</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3, Move, DualSense, Steam Deck болон PID хүчний эргэх холбооны протоколын баримтууд, мөн ACPI WMI блокийн бүтэц. GPL-2.0-or-later, зөвхөн баримт бичиг болгон уншсан, GPL код багтаагүй.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3, Move, DualSense, Steam Deck болон PID хүчний эргэх холбооны протоколын баримтууд, мөн ACPI WMI блокийн бүтэц. PadForge гар болон хулганы дескрипторуудыг hid-core-ийн дүрмээр уншдаг. GPL-2.0-or-later, зөвхөн баримт бичиг болгон уншсан, GPL код багтаагүй.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Windows контроллерын оролт, Xbox Elite-ийн арын товч орно. SDK ачаалагч нь SDL-д холбогдсон. MIT (SDK ачаалагч).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

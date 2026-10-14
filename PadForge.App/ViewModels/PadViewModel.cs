@@ -952,6 +952,14 @@ namespace PadForge.ViewModels
             OnPropertyChanged(nameof(KbmSurfaces));
             OnPropertyChanged(nameof(KbmSocdEditorVisible));
             OnPropertyChanged(nameof(KbmSurfaceScopeVisible));
+            // The device pickers follow the halves the mode leaves on, and
+            // the table hides what a picked device cannot send.
+            OnPropertyChanged(nameof(KbmKeyboardDevice));
+            OnPropertyChanged(nameof(KbmMouseDevice));
+            OnPropertyChanged(nameof(KbmKeyboardDeviceVisible));
+            OnPropertyChanged(nameof(KbmMouseDeviceVisible));
+            OnPropertyChanged(nameof(KbmKeyboardCapabilities));
+            OnPropertyChanged(nameof(KbmMouseCapabilities));
             // A mode that hides the scope box has to retire the scope with it,
             // or the box comes back later still narrowed to a half that is now
             // the only half.
@@ -961,6 +969,84 @@ namespace PadForge.ViewModels
                 OnPropertyChanged(nameof(MappingSurfaceScope));
             }
             ApplyMappingPickerFilter();
+        }
+
+        /// <summary>The keyboard half's device (HIDMaestro 1.12.0), forwarded
+        /// from <see cref="KbmConfig"/> for the device bar, for the reason
+        /// <see cref="KbmSurfaces"/> is forwarded.</summary>
+        public string KbmKeyboardDevice
+        {
+            get => _kbmConfig?.KeyboardDevice ?? KbmSlotConfig.WindowsInput;
+            set
+            {
+                // A null write is a picker artifact, never a user pick
+                // (KbmSlotConfig.KeyboardDevice).
+                if (value == null) return;
+                var cfg = _kbmConfig;
+                if (cfg == null || cfg.KeyboardDevice == value) return;
+                cfg.KeyboardDevice = value;
+                NotifyKbmSurfacesChanged();
+            }
+        }
+
+        /// <summary>The mouse half's device, the twin of
+        /// <see cref="KbmKeyboardDevice"/>.</summary>
+        public string KbmMouseDevice
+        {
+            get => _kbmConfig?.MouseDevice ?? KbmSlotConfig.WindowsInput;
+            set
+            {
+                if (value == null) return;
+                var cfg = _kbmConfig;
+                if (cfg == null || cfg.MouseDevice == value) return;
+                cfg.MouseDevice = value;
+                NotifyKbmSurfacesChanged();
+            }
+        }
+
+        /// <summary>The keyboard picker shows while the slot drives its
+        /// keyboard half.</summary>
+        public bool KbmKeyboardDeviceVisible => _kbmConfig?.KeyboardEnabled ?? true;
+
+        /// <summary>The mouse picker shows while the slot drives its mouse
+        /// half.</summary>
+        public bool KbmMouseDeviceVisible => _kbmConfig?.MouseEnabled ?? true;
+
+        /// <summary>What the picked keyboard can send, as short labels for
+        /// the device bar. Empty on Windows input.</summary>
+        public IReadOnlyList<string> KbmKeyboardCapabilities
+        {
+            get
+            {
+                var caps = KbmDeviceCatalog.CapsOf(_kbmConfig?.KeyboardDevice);
+                if (caps == null || !caps.HasKeyboard) return Array.Empty<string>();
+                var s = Strings.Instance;
+                var list = new List<string>(3)
+                {
+                    caps.NKeyRollover
+                        ? s.Pad_Kbm_Caps_KeysAtOnceAny
+                        : string.Format(s.Pad_Kbm_Caps_KeysAtOnce_Format, caps.KeyArraySlots),
+                };
+                if (caps.HasConsumer) list.Add(s.Pad_Kbm_Caps_MediaKeys);
+                if (caps.HasKeyboardLeds) list.Add(s.Pad_Kbm_Caps_LockLights);
+                return list;
+            }
+        }
+
+        /// <summary>What the picked mouse can send, the twin of
+        /// <see cref="KbmKeyboardCapabilities"/>.</summary>
+        public IReadOnlyList<string> KbmMouseCapabilities
+        {
+            get
+            {
+                var caps = KbmDeviceCatalog.CapsOf(_kbmConfig?.MouseDevice);
+                if (caps == null || !caps.HasMouse) return Array.Empty<string>();
+                var s = Strings.Instance;
+                var list = new List<string>(3) { string.Format(s.Pad_Kbm_Caps_Buttons_Format, caps.MouseButtonCount) };
+                if (caps.HasWheel) list.Add(s.Pad_Kbm_Caps_Wheel);
+                if (caps.HasPan) list.Add(s.Pad_Kbm_Caps_TiltWheel);
+                return list;
+            }
         }
 
         // ═══════════════════════════════════════════════
@@ -1270,6 +1356,11 @@ namespace PadForge.ViewModels
             // no business showing rows the engine will not dispatch.
             if (cfg != null && !cfg.Allows(kind.Value)) return false;
 
+            // Then the half's device: a key, button or wheel the slot's
+            // keyboard or mouse model cannot send is a row that can never
+            // fire, so it hides the same way and keeps its binding.
+            if (cfg != null && !cfg.DeviceCanSend(m.TargetSettingName)) return false;
+
             // Then the transient view scope.
             if (scope == "Keyboard") return kind.Value == KbmSurfaceKind.Keyboard;
             if (scope == "Mouse") return kind.Value == KbmSurfaceKind.Mouse;
@@ -1323,7 +1414,7 @@ namespace PadForge.ViewModels
                 // three are inert (#408).
                 var kbmCfg = OutputType == VirtualControllerType.KeyboardMouse ? KbmConfig : null;
                 bool surfaceNarrows = _mappingSurfaceScope != "All"
-                    || (kbmCfg != null && kbmCfg.Surfaces != KbmSlotConfig.DefaultSurfaces);
+                    || (kbmCfg != null && (kbmCfg.Surfaces != KbmSlotConfig.DefaultSurfaces || kbmCfg.UsesDevices));
 
                 if (string.IsNullOrEmpty(_mappingInputSearch) && !surfaceNarrows)
                     rowView.Filter = null;
@@ -3062,6 +3153,12 @@ namespace PadForge.ViewModels
             // Numpad Enter's own index (RawInputListener.NumpadEnterKey). It
             // goes out as VK_RETURN with the extended flag (OutputKey).
             AddKey(string.Format(Strings.Instance.Key_Numpad, Strings.Instance.Key_Enter), 0x88);
+
+            // ── F13-F24, the non-US and Japanese keys, media keys ──
+            // Last, so the rows above keep their places. The engine's key
+            // list and the SOCD list read the same table.
+            foreach (byte vk in KbmExtraKeys.Vks)
+                AddKey(KbmExtraKeys.Label(vk), vk);
         }
 
         /// <summary>Which half of a Keyboard + Mouse slot a mapping row
@@ -8773,6 +8870,13 @@ namespace PadForge.ViewModels
         /// Updated at 30Hz alongside UpdateFromEngineState.
         /// </summary>
         public KbmRawState KbmOutputSnapshot { get; set; }
+
+        /// <summary>The lock lights Windows last set on the slot's virtual
+        /// keyboard (HIDMaestro 1.12.0 HMKeyboardLeds: bit 0 Num Lock, 1 Caps
+        /// Lock, 2 Scroll Lock), or -1 while it has none. A plain field the
+        /// poll fills beside <see cref="KbmOutputSnapshot"/>, which the
+        /// preview reads per frame.</summary>
+        public int KbmKeyboardLeds { get; set; } = -1;
 
         /// <summary>
         /// Latest VrRawState snapshot for the VR preview (#49). Same plain

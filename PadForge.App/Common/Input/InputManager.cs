@@ -1768,6 +1768,14 @@ namespace PadForge.Common.Input
             // enumeration skips XUSB interfaces backed by a HIDMaestro virtual,
             // so they never take a user index. No per-process slot tracking,
             // no function-pointer hook.
+            //
+            // Keyboards and mice PadForge reads through its own Raw Input
+            // listener, which no fork filters. A Keyboard + Mouse slot can
+            // type and point through HIDMaestro's keyboards and mice
+            // (HIDMaestro 1.12.0), so the listener asks the same HIDMaestro
+            // test HidHide uses and leaves those devices out.
+            RawInputListener.IsOwnVirtualDevicePath ??= path =>
+                HidHideController.IsHidMaestroDeviceInstance(HidHideController.DevicePathToInstanceId(path));
 
             RawInputListener.Start();
 

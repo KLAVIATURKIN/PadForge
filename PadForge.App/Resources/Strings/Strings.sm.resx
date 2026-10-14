@@ -117,6 +117,7 @@
   <data name="About_SDL3" xml:space="preserve"><value>SDL3</value></data>
   <data name="About_HelixToolkit" xml:space="preserve"><value>HelixToolkit</value></data>
   <data name="About_ModernWpf" xml:space="preserve"><value>WPF UI</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_HIDMaestro" xml:space="preserve"><value>HIDMaestro</value></data>
   <data name="About_OpenXInput" xml:space="preserve"><value>OpenXInput</value></data>
@@ -293,6 +294,8 @@
   <data name="Curve_Delay" xml:space="preserve"><value>Faʻatuai</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>I luga</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>I lalo</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Agavale</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Taumatau</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Igoa</value></data>
@@ -596,6 +599,8 @@
   <data name="Key_LWin" xml:space="preserve"><value>Windows agavale</value></data>
   <data name="Key_RWin" xml:space="preserve"><value>Windows taumatau</value></data>
   <data name="Key_Sleep" xml:space="preserve"><value>Moe</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <!-- Numpad -->
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>Ki faʻaopoopo {0}</value></data>
   <data name="AnalogKey_Code_Format" xml:space="preserve"><value>Ki {0}</value></data>
@@ -936,6 +941,8 @@
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Na o le keyboard</value>
   </data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Ki i le taimi e tasi: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Faʻamau: {0}</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Mea uma</value>
   </data>

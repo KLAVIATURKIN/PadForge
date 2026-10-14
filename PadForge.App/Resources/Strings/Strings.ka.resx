@@ -491,6 +491,8 @@
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>Zacksly-ს „Xbox Series Button Icons and Controls“-იდან მიღებული სტიკისა და ტრიგერის ხატულები (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>ტაჩპედის ფიგურების შაბლონების შემჯერებელი (წრე / კვადრატი / სამკუთხედი / Z / ნიშნული და საკუთარი ჩაწერილი ჟესტები). JavaScript-ის საცნობარო ვერსიის C#-ზე ხელახლა შექმნილი ვარიანტი. ავტორები: Magrofuoco, Vatavu, Anthony და Wobbrock. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>კლავიშების პოზიციები და საბაზისო შრის კლავიშები იმ კლავიატურებისა, რომლებსაც „კლავიატურა + მაუსი“-ს გადახედვა ხატავს. შექმნილია QMK-ის განლაგების მონაცემებიდან და Keychron-ის QMK ფორკიდან. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>კუთხური ზღვრის შეფასების მიდგომა, რომელიც წერტილთა ღრუბლის შემჯერებელთან ერთად მუშაობს ერთთითიან ფორმებზე. ახორციელებს შეფასების იდეას GestureSign-ის PointPatternAnalyzer-იდან ორიგინალ C#-ში. GPL-2.0, მხოლოდ დოკუმენტაციისთვის.</value></data>
   <data name="About_License" xml:space="preserve"><value>ლიცენზია</value></data>
@@ -1316,6 +1318,8 @@
   <data name="Pad_MouseMovement" xml:space="preserve"><value>მაუსის მოძრაობა</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>ზევით</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>ქვევით</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>მარცხნივ</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>მარჯვნივ</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>სახელი</value></data>
@@ -2476,6 +2480,11 @@
   <data name="Key_Sleep" xml:space="preserve"><value>ძილი</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>ციფრული კლავიატურა {0}</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>არა-US \ |</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>No Convert</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Convert</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>დამატებითი კლავიში {0}</value></data>
   <data name="AnalogKey_Code_Format" xml:space="preserve"><value>კლავიში {0}</value></data>
   <data name="AnalogKey_KatakanaHiragana" xml:space="preserve"><value>Katakana/Hiragana</value></data>
@@ -3026,7 +3035,7 @@
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>დოკუმენტაცია Wii-ს დაწყვილების პროცედურისთვის, დინამიკის ADPCM-ისთვის, Wii Remote-ის გვერდულად და ვერტიკალურად დაჭერის ორიენტაციისთვის, სტიკის გეითის მოდელისა და მისი შენახვის ფორმატისთვის და გიროსკოპის ღერძების კონვენციისთვის. GPL-2.0-or-later, წაკითხულია მხოლოდ როგორც დოკუმენტაცია, GPL კოდი არ შედის.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock-ის ქცევის დოკუმენტაცია: უმოქმედობისას გათიშვა, ტაჩპედის საზღვრები, ბატარეის დეკოდირება, Bluetooth-ის გათიშვის IOCTL, DualSense-ის ვიბრაციის რეჟიმის ბიტები, გიროსკოპის ჯიტერის მრუდი, სტიკის მაუსად გამოყენების მასშტაბი და Bluetooth output-report-ის CRC seed. GPL-3.0-or-later, წაკითხულია მხოლოდ როგორც დოკუმენტაცია, GPL კოდი არ შედის.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock-ის ქცევის დოკუმენტაცია: უმოქმედობისას გათიშვა, ტაჩპედის საზღვრები, ბატარეის დეკოდირება, Bluetooth-ის გათიშვის IOCTL, DualSense-ის ვიბრაციის რეჟიმის ბიტები, გიროსკოპის ჯიტერის მრუდი, სტიკის მაუსად გამოყენების მასშტაბი და Bluetooth output-report-ის CRC seed. მისი ვირტუალური კლავიატურის კლავიშების ცხრილი PadForge-ის ცხრილის შექმნას წარმართავდა. GPL-3.0-or-later, წაკითხულია მხოლოდ როგორც დოკუმენტაცია, GPL კოდი არ შედის.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>GIP LED-ის ბრძანების დოკუმენტაცია, რომელიც xbledctl-ს ადასტურებს. GPL-2.0-or-later, მხოლოდ დოკუმენტაცია.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3054,6 +3063,7 @@
   <data name="Vr_Status_Running" xml:space="preserve"><value>მუშაობს</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>მუშაობს, დრაივერი დაკავშირებულია</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>მუშაობს, კონტროლერები აქტიურია</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>სხვა OpenVR დრაივერი იყენებს HIDMaestro-ს დრაივერის სახელს, ამიტომ SteamVR-მა შეიძლება ის ჩატვირთოს PadForge-ის დრაივერის ნაცვლად და ვირტუალური VR კონტროლერები არ გამოჩნდეს. ამის გასასწორებლად ამოშალეთ ეს დრაივერი: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>სერიული კონტროლერი (COM პორტი)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Windows ვერ ხვდება, რომელი კონტროლერია COM პორტზე. აირჩიეთ პორტი და კონტროლერი, შემდეგ დაამატეთ. PadForge ამ პორტს ამიერიდან გახსნის.</value></data>
@@ -3936,6 +3946,19 @@
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>მხოლოდ კლავიატურა</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>დახატულია უახლოესი სტანდარტული განლაგებით</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Windows-ის შეყვანა</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>იგივე მოწყობილობა, რაც კლავიატურა</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>იგივე მოწყობილობა, რაც მაუსი</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Windows-ის შეყვანა თითოეულ კლავიშს Windows-ის მეშვეობით აკრიბებს და პროგრამებს შეუძლიათ გაარკვიონ, რომ ის პროგრამულადაა გაგზავნილი. კლავიატურის მოდელი მას აკრიბებს ვირტუალურ კლავიატურაზე, რომელსაც პროგრამები ამ აპარატურად ხედავენ. მიბმების ცხრილი მალავს კლავიშებს, რომელთა გაგზავნაც მოდელს არ შეუძლია.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Windows-ის შეყვანა მაჩვენებელს Windows-ის მეშვეობით ამოძრავებს და პროგრამებს შეუძლიათ გაარკვიონ, რომ ის პროგრამულადაა გაგზავნილი. მაუსის მოდელი მას ამოძრავებს ვირტუალური მაუსით, რომელსაც პროგრამები ამ აპარატურად ხედავენ. მიბმების ცხრილი მალავს ღილაკებსა და ბორბლებს, რომლებიც მოდელს არ აქვს.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>ერთდროულად კლავიშები: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>ერთდროულად კლავიშები: ნებისმიერი</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>მედია კლავიშები</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>ჩაკეტვის ინდიკატორები</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>ღილაკები: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>ბორბალი</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>დახრადი ბორბალი</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>ყველა</value>
   </data>
@@ -4117,7 +4140,7 @@
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Joy-Con 2-ის ოპტიკური მაუსის მრიცხველები და გადატრიალების დელტები „მაუსის მოძრაობა X და Y“-ის უკან, ავტორები coffincolors, Frano და moutella. MIT. მხოლოდ დოკუმენტაცია, კოდი არ შედის პროგრამაში.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Linux-ის ბირთვის დრაივერები</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3-ის, Move-ის, DualSense-ის, Steam Deck-ისა და PID ძალისმიერი უკუკავშირის პროტოკოლის ფაქტები და ACPI WMI ბლოკის განლაგება. GPL-2.0-or-later, წაკითხულია მხოლოდ როგორც დოკუმენტაცია, GPL კოდი არ შედის.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3-ის, Move-ის, DualSense-ის, Steam Deck-ისა და PID ძალისმიერი უკუკავშირის პროტოკოლის ფაქტები და ACPI WMI ბლოკის განლაგება. PadForge კლავიატურებისა და მაუსების დესკრიპტორებს hid-core-ის წესებით კითხულობს. GPL-2.0-or-later, წაკითხულია მხოლოდ როგორც დოკუმენტაცია, GPL კოდი არ შედის.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Windows-ის კონტროლერის შეყვანა, Xbox Elite-ის უკანა ღილაკების ჩათვლით. SDK ჩამტვირთველი SDL-შია მიბმული. MIT (SDK ჩამტვირთველი).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ რანტაიმი</value></data>

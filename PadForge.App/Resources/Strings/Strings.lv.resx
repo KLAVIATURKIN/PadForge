@@ -491,6 +491,8 @@ Iepriekšējās versijas kopija atrodas šajā mapē: {1}</value></data>
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>Sviru un mēlīšu ikonas, kas atvasinātas no Zacksly darba „Xbox Series Button Icons and Controls” (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Skārienpaliktņa formu veidņu salīdzinātājs (aplis / kvadrāts / trijstūris / Z / ķeksītis un pielāgoti ierakstīti žesti). Magrofuoco, Vatavu, Anthony un Wobbrock JavaScript atsauces implementācijas C# atvasinājums. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Taustiņu pozīcijas un pamatslāņa taustiņi tastatūrām, ko zīmē priekšskatījums Tastatūra + pele, ģenerēti no QMK izkārtojuma datiem un Keychron QMK atzara. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>Leņķiskās rezerves vērtēšanas pieeja, kas darbojas līdzās punktu mākoņa salīdzinātājam viena pirksta formām. Īsteno GestureSign PointPatternAnalyzer vērtēšanas ideju oriģinālā C# kodā. GPL-2.0, tikai dokumentācija.</value></data>
   <data name="About_License" xml:space="preserve"><value>Licence</value></data>
@@ -1316,6 +1318,8 @@ Iepriekšējās versijas kopija atrodas šajā mapē: {1}</value></data>
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Peles kustība</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Augšup</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Lejup</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Pa kreisi</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Pa labi</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Nosaukums</value></data>
@@ -2476,6 +2480,11 @@ Iepriekšējās versijas kopija atrodas šajā mapē: {1}</value></data>
   <data name="Key_Sleep" xml:space="preserve"><value>Miega režīms</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>Ciparu tastatūra {0}</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>Ne-ASV \ |</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>No Convert</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Convert</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>Intl #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>Intl \</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>Papildu taustiņš {0}</value></data>
@@ -3030,7 +3039,7 @@ Iepriekšējās versijas kopija atrodas šajā mapē: {1}</value></data>
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Dokumentācija par Wii savienošanas pārī procedūru, skaļruņa ADPCM, Wii Remote sānisko un vertikālo orientāciju, sviras ierobežotāja modeli un tā glabāšanas formātu, kā arī žiroskopa asu konvenciju. GPL-2.0-or-later, izmantota tikai kā dokumentācija, GPL kods netiek izplatīts.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock darbības dokumentācija: atvienošana dīkstāvē, skārienpaliktņa robežas, akumulatora dekodēšana, Bluetooth atvienošanas IOCTL, DualSense vibrācijas režīma biti, žiroskopa trīces līkne, sviras kā peles mērogs un Bluetooth izvades ziņojuma CRC sākumvērtība. GPL-3.0-or-later, izmantota tikai kā dokumentācija, GPL kods netiek izplatīts.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock darbības dokumentācija: atvienošana dīkstāvē, skārienpaliktņa robežas, akumulatora dekodēšana, Bluetooth atvienošanas IOCTL, DualSense vibrācijas režīma biti, žiroskopa trīces līkne, sviras kā peles mērogs un Bluetooth izvades ziņojuma CRC sākumvērtība. Tās virtuālās tastatūras taustiņu tabula bija paraugs PadForge tabulai. GPL-3.0-or-later, izmantota tikai kā dokumentācija, GPL kods netiek izplatīts.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>GIP LED komandu dokumentācija, kas apstiprina xbledctl. GPL-2.0-or-later, tikai dokumentācija.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3058,6 +3067,7 @@ Iepriekšējās versijas kopija atrodas šajā mapē: {1}</value></data>
   <data name="Vr_Status_Running" xml:space="preserve"><value>Darbojas</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Darbojas, draiveris pievienots</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>Darbojas, kontrolleri aktīvi</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>Cits OpenVR draiveris izmanto HIDMaestro draivera nosaukumu, tāpēc SteamVR to var ielādēt PadForge draivera vietā, un virtuālie VR kontrolleri neparādīsies. Lai to novērstu, noņemiet šo draiveri: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Seriālais kontrolleris (COM ports)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Windows nevar noteikt, kurš kontrolleris ir pievienots COM portam. Izvēlieties portu un kontrolleri, pēc tam pievienojiet to. Turpmāk PadForge atvērs šo portu.</value></data>
@@ -3943,6 +3953,19 @@ Vai vēlaties, lai PadForge tos tagad atinstalē? Tam nepieciešamas paaugstinā
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Tikai tastatūra</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>Zīmēts kā tuvākais standarta izkārtojums</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Windows ievade</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>Tā pati ierīce, kas tastatūrai</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>Tā pati ierīce, kas pelei</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Windows ievade raksta katru taustiņu caur Windows, un programmas var noteikt, ka tā nāk no programmatūras. Tastatūras modelis raksta to virtuālā tastatūrā, ko programmas redz kā šo aparatūru. Piesaistes tabula paslēpj taustiņus, ko modelis nevar nosūtīt.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Windows ievade pārvieto kursoru caur Windows, un programmas var noteikt, ka tā nāk no programmatūras. Peles modelis to pārvieto ar virtuālo peli, ko programmas redz kā šo aparatūru. Piesaistes tabula paslēpj pogas un ritenīšus, kuru modelim nav.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Taustiņi vienlaikus: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Taustiņi vienlaikus: jebkurš skaits</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Multivides taustiņi</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>Indikatoru gaismas</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Pogas: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Ritenītis</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>Sasverams ritenītis</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Visas</value>
   </data>
@@ -4125,7 +4148,7 @@ Vai vēlaties, lai PadForge tos tagad atinstalē? Tam nepieciešamas paaugstinā
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Joy-Con 2 optiskās peles skaitītāji un pārpildes delta vērtības, uz kurām balstās „Peles kustība X” un „Peles kustība Y”, autori coffincolors, Frano un moutella. MIT. Tikai dokumentācija, kods netiek izplatīts.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Linux kodola draiveri</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3, Move, DualSense, Steam Deck un PID spēka atgriezeniskās saites protokola fakti un ACPI WMI bloka izkārtojums. GPL-2.0-or-later, izmantots tikai kā dokumentācija, GPL kods netiek izplatīts.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3, Move, DualSense, Steam Deck un PID spēka atgriezeniskās saites protokola fakti un ACPI WMI bloka izkārtojums. PadForge nolasa tastatūru un peļu deskriptorus pēc hid-core noteikumiem. GPL-2.0-or-later, izmantots tikai kā dokumentācija, GPL kods netiek izplatīts.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Windows kontrolleru ievade, ieskaitot Xbox Elite lāpstiņas. SDK ielādētājs ir saistīts ar SDL. MIT (SDK ielādētājs).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

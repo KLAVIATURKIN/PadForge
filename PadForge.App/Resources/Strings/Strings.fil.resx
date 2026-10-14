@@ -491,6 +491,8 @@ May kopya ng nakaraang bersyon sa folder na ito: {1}</value></data>
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>Mga icon ng stick at trigger na hango sa "Xbox Series Button Icons and Controls" ni Zacksly (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Tagatugma ng shape template ng touchpad (Bilog / Parisukat / Tatsulok / Z / Tsek at mga custom na na-record na gesture). C# re-derivation ng JavaScript reference nina Magrofuoco, Vatavu, Anthony, at Wobbrock. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Mga posisyon ng key at base-layer na key ng mga keyboard na iginuguhit ng preview ng Keyboard + Mouse, nabuo mula sa layout data ng QMK at sa QMK fork ng Keychron. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>Paraan ng angular-margin scoring na tumatakbo kasabay ng point-cloud matcher sa mga hugis na isang daliri. Ipinapatupad ang ideya ng scoring mula sa PointPatternAnalyzer ng GestureSign sa orihinal na C#. GPL-2.0, dokumentasyon lang.</value></data>
   <data name="About_License" xml:space="preserve"><value>Lisensya</value></data>
@@ -1316,6 +1318,8 @@ May kopya ng nakaraang bersyon sa folder na ito: {1}</value></data>
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Galaw ng Mouse</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Pataas</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Pababa</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Pakaliwa</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Pakanan</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Pangalan</value></data>
@@ -2331,6 +2335,11 @@ May kopya ng nakaraang bersyon sa folder na ito: {1}</value></data>
   <!-- Windows keys -->
   <data name="Key_LWin" xml:space="preserve"><value>Kaliwang Windows</value></data>
   <data name="Key_RWin" xml:space="preserve"><value>Kanang Windows</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>Non-US \ |</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>No Convert</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Convert</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <!-- Numpad -->
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>Karagdagang Key {0}</value></data>
   <data name="AnalogKey_LeftSpace" xml:space="preserve"><value>Kaliwang Space</value></data>
@@ -2841,7 +2850,7 @@ May kopya ng nakaraang bersyon sa folder na ito: {1}</value></data>
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Dokumentasyon para sa Wii pairing ceremony, sa speaker na ADPCM, sa pahiga at patayong oryentasyon ng Wii Remote, sa stick-gate model at storage format nito, at sa gyro axis convention. GPL-2.0-or-later, binasa bilang dokumentasyon lang, walang GPL code na kasama.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Dokumentasyon ng gawi ng DualShock: idle disconnect, mga hangganan ng touchpad, battery decode, ang Bluetooth disconnect IOCTL, mga bit ng DualSense rumble-mode, ang gyro jitter curve, ang stick-as-mouse scale, at ang CRC seed ng Bluetooth output report. GPL-3.0-or-later, binasa bilang dokumentasyon lang, walang GPL code na kasama.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Dokumentasyon ng gawi ng DualShock: idle disconnect, mga hangganan ng touchpad, battery decode, ang Bluetooth disconnect IOCTL, mga bit ng DualSense rumble-mode, ang gyro jitter curve, ang stick-as-mouse scale, at ang CRC seed ng Bluetooth output report. Ginabayan ng key table ng virtual keyboard nito ang sa PadForge. GPL-3.0-or-later, binasa bilang dokumentasyon lang, walang GPL code na kasama.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>Dokumentasyon ng GIP LED command na nagpapatibay sa xbledctl. GPL-2.0-or-later, dokumentasyon lang.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -2869,6 +2878,7 @@ May kopya ng nakaraang bersyon sa folder na ito: {1}</value></data>
   <data name="Vr_Status_Running" xml:space="preserve"><value>Tumatakbo</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Tumatakbo, nakakonekta ang driver</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>Tumatakbo, aktibo ang mga controller</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>May isa pang OpenVR driver na gumagamit ng pangalan ng driver ng HIDMaestro, kaya maaari itong i-load ng SteamVR sa halip na ang sa PadForge at hindi lalabas ang mga virtual VR controller. Alisin ang driver na iyon para maayos ito: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Serial Controller (COM Port)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Hindi matukoy ng Windows kung aling controller ang nasa COM port. Piliin ang port at ang controller, saka idagdag. Bubuksan ng PadForge ang port na iyon mula noon.</value></data>
@@ -3754,6 +3764,19 @@ Gusto mo bang i-uninstall na ang mga ito ng PadForge ngayon? Nangangailangan ito
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Keyboard Lang</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>Iginuhit bilang pinakamalapit na karaniwang layout</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Windows Input</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>Parehong Device ng Keyboard</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>Parehong Device ng Mouse</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Tina-type ng Windows input ang bawat key sa pamamagitan ng Windows, at nakikita ng mga program na galing ito sa software. Tina-type ng modelo ng keyboard ito sa isang virtual keyboard na nakikita ng mga program bilang hardware na iyon. Itinatago ng mapping table ang mga key na hindi kayang ipadala ng modelo.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Ginagalaw ng Windows input ang pointer sa pamamagitan ng Windows, at nakikita ng mga program na galing ito sa software. Ginagalaw ito ng modelo ng mouse gamit ang isang virtual mouse na nakikita ng mga program bilang hardware na iyon. Itinatago ng mapping table ang mga button at wheel na wala sa modelo.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Mga Key Nang Sabay: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Mga Key Nang Sabay: Anuman</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Media Keys</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>Lock Lights</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Mga Button: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Wheel</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>Tilt Wheel</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Lahat</value>
   </data>
@@ -3936,7 +3959,7 @@ Gusto mo bang i-uninstall na ang mga ito ng PadForge ngayon? Nangangailangan ito
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Mga optical mouse counter at wraparound delta ng Joy-Con 2 sa likod ng Mouse Motion X at Y, nina coffincolors, Frano, at moutella. MIT. Dokumentasyon lamang, walang code na kasama.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Mga driver ng Linux kernel</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Mga katotohanan sa protocol ng DualShock 3, Move, DualSense, Steam Deck at PID force-feedback, at ang layout ng ACPI WMI block. GPL-2.0-or-later, binasa bilang dokumentasyon lamang, walang GPL code na kasama.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Mga katotohanan sa protocol ng DualShock 3, Move, DualSense, Steam Deck at PID force-feedback, at ang layout ng ACPI WMI block. Binabasa ng PadForge ang mga descriptor ng keyboard at mouse ayon sa mga patakaran ng hid-core. GPL-2.0-or-later, binasa bilang dokumentasyon lamang, walang GPL code na kasama.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Input ng controller sa Windows, kasama ang mga paddle ng Xbox Elite. Naka-link sa SDL ang SDK loader. MIT (SDK loader).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

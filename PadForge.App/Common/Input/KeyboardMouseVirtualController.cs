@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using HIDMaestro;
 using PadForge.Engine;
 
 namespace PadForge.Common.Input
 {
     /// <summary>
     /// Virtual controller that translates KbmRawState into keyboard and mouse
-    /// input via the Windows SendInput API. Always available (no driver required).
+    /// input. Each half sends through Windows input (SendInput, no driver
+    /// needed) or through a virtual HID keyboard or mouse HIDMaestro makes
+    /// from the profile the slot picked (HIDMaestro 1.12.0, HIDMaestro#67),
+    /// which programs that read devices see as hardware.
     ///
     /// Mapping targets are configured in the mapping page and stored in PadSetting
     /// as KBM dictionary entries. Step 3 maps physical inputs to KbmRawState,
@@ -17,6 +21,52 @@ namespace PadForge.Common.Input
     {
         private bool _connected;
         private bool _disposed;
+
+        private readonly int _padIndex;
+        private readonly HMContext _ctx;
+        private readonly HMProfile _keyboardProfile;
+        private readonly HMProfile _mouseProfile;
+        private KbmHidKeyboard _hidKeyboard;
+        private KbmHidMouse _hidMouse;
+
+        /// <summary>The HIDMaestro keyboard profile this controller types
+        /// through, or "" for Windows input.</summary>
+        public string KeyboardDeviceId => _keyboardProfile?.Id ?? string.Empty;
+
+        /// <summary>The HIDMaestro mouse profile this controller points
+        /// through, or "" for Windows input.</summary>
+        public string MouseDeviceId => _mouseProfile?.Id ?? string.Empty;
+
+        /// <summary>True when either half sends through a virtual HID
+        /// device, whose removal waits on Windows and so never runs on the
+        /// polling thread.</summary>
+        public bool HasHidDevices => _keyboardProfile != null || _mouseProfile != null;
+
+        /// <summary>The LEDs Windows last set on the virtual keyboard, or
+        /// null while it has none or Windows set none yet.</summary>
+        public HMKeyboardLeds? KeyboardLeds => _hidKeyboard?.Leds;
+
+        /// <summary>The identity key a slot's virtual keyboard or mouse is
+        /// made under (HIDMaestro 1.8.0, HM#60), so it comes back at the same
+        /// device paths after a restart. Keyed on the pad index: a Keyboard +
+        /// Mouse controller stays with its slot through a reorder (rule h at
+        /// the top of InputManager.Step5.VirtualDevices.cs), and the half
+        /// keeps the keyboard and the mouse apart.</summary>
+        internal static string IdentityKeyFor(int padIndex, bool keyboard)
+            => "padforge:pad"
+               + padIndex.ToString(System.Globalization.CultureInfo.InvariantCulture)
+               + ":KeyboardMouse:" + (keyboard ? "keyboard" : "mouse");
+
+        /// <summary>Test seam for the HIDMaestro call that makes a virtual
+        /// keyboard or mouse, null in production. The test host makes no
+        /// device (<see cref="HMaestroVirtualController.OffLimitsForTest"/>),
+        /// so a test hands its own sink here.</summary>
+        internal Func<HMProfile, string, IKbmHidSink> CreateSinkSeam;
+
+        /// <summary>Test seam for the key map a virtual keyboard resolves each
+        /// press through, null in production, where the press reads the
+        /// foreground window's layout (KbmHidKeyMap.Resolve).</summary>
+        internal Func<int, KbmHidKeyMap.HidKey> KeyResolverSeam;
 
         // Change detection: previous key states (4 × 64 bits = 256 VK codes)
         private ulong _prevKeys0, _prevKeys1, _prevKeys2, _prevKeys3;
@@ -141,12 +191,66 @@ namespace PadForge.Common.Input
         public int FeedbackPadIndex { get; set; }
 
         public KeyboardMouseVirtualController(int padIndex)
+            : this(padIndex, null, null, null)
         {
+        }
+
+        /// <param name="ctx">The HIDMaestro context the virtual devices are
+        /// made in. Needed only when a profile is given.</param>
+        /// <param name="keyboardProfile">The keyboard to type through, or null
+        /// for Windows input.</param>
+        /// <param name="mouseProfile">The mouse to point through, or null for
+        /// Windows input.</param>
+        public KeyboardMouseVirtualController(int padIndex, HMContext ctx,
+            HMProfile keyboardProfile, HMProfile mouseProfile)
+        {
+            _padIndex = padIndex;
+            _ctx = ctx;
+            _keyboardProfile = keyboardProfile;
+            _mouseProfile = mouseProfile;
         }
 
         public void Connect()
         {
             if (_connected) return;
+            // The virtual devices first: a half that cannot be made fails the
+            // create, as any other HIDMaestro controller's does, rather than
+            // falling back to Windows input the slot was not set to. One
+            // profile for both halves is one device, as the hardware is.
+            IKbmHidSink keyboardSink = null, mouseSink = null;
+            try
+            {
+                if (_keyboardProfile != null && _mouseProfile != null
+                    && string.Equals(_keyboardProfile.Id, _mouseProfile.Id, StringComparison.OrdinalIgnoreCase))
+                {
+                    keyboardSink = mouseSink = new SharedKbmHidSink(CreateSink(_keyboardProfile, keyboard: true), users: 2);
+                }
+                else
+                {
+                    if (_keyboardProfile != null) keyboardSink = CreateSink(_keyboardProfile, keyboard: true);
+                    if (_mouseProfile != null) mouseSink = CreateSink(_mouseProfile, keyboard: false);
+                }
+                // Each sender owns its sink once it holds it.
+                if (keyboardSink != null)
+                {
+                    _hidKeyboard = new KbmHidKeyboard(keyboardSink, KbmDeviceCaps.For(_keyboardProfile),
+                        _keyboardProfile.Id, _padIndex, KeyResolverSeam);
+                    keyboardSink = null;
+                }
+                if (mouseSink != null)
+                {
+                    _hidMouse = new KbmHidMouse(mouseSink, KbmDeviceCaps.For(_mouseProfile),
+                        _mouseProfile.Id, _padIndex);
+                    mouseSink = null;
+                }
+            }
+            catch
+            {
+                DisposeHidDevices();
+                try { keyboardSink?.Dispose(); } catch { /* the create's own failure is the one to report */ }
+                try { mouseSink?.Dispose(); } catch { /* the create's own failure is the one to report */ }
+                throw;
+            }
             _connected = true;
             _prevKeys0 = _prevKeys1 = _prevKeys2 = _prevKeys3 = 0;
             _prevMouseButtons = 0;
@@ -172,11 +276,45 @@ namespace PadForge.Common.Input
             _socd.Configure(mode, pairs);
         }
 
+        /// <summary>Makes one virtual device through HIDMaestro, or through
+        /// <see cref="CreateSinkSeam"/> in a test.</summary>
+        private IKbmHidSink CreateSink(HMProfile profile, bool keyboard)
+        {
+            string key = IdentityKeyFor(_padIndex, keyboard);
+            var seam = CreateSinkSeam;
+            if (seam != null) return seam(profile, key);
+            if (HMaestroVirtualController.OffLimitsForTest)
+                throw new InvalidOperationException("The test host creates no virtual keyboard or mouse.");
+            if (_ctx == null)
+                throw new InvalidOperationException("No HIDMaestro context to create the virtual keyboard or mouse in.");
+            var controller = _ctx.CreateController(profile, key);
+            try { return new HMControllerSink(controller); }
+            catch
+            {
+                try { controller.Dispose(); } catch { /* the create's own failure is the one to report */ }
+                throw;
+            }
+        }
+
+        /// <summary>Removes the virtual devices. Each one lets go of what it
+        /// holds first, and the removal waits on Windows, so this runs on a
+        /// teardown or create worker, never the polling thread.</summary>
+        private void DisposeHidDevices()
+        {
+            var kb = _hidKeyboard;
+            var mouse = _hidMouse;
+            _hidKeyboard = null;
+            _hidMouse = null;
+            try { kb?.Dispose(); } catch { /* best effort */ }
+            try { mouse?.Dispose(); } catch { /* best effort */ }
+        }
+
         public void Disconnect()
         {
             if (!_connected) return;
             _connected = false;
             ReleaseAll();
+            DisposeHidDevices();
             _mxAccumulator = 0f;
             _myAccumulator = 0f;
             _scrollAccumulator = 0f;
@@ -222,26 +360,39 @@ namespace PadForge.Common.Input
             _socd.Apply(ref raw.Keys0, ref raw.Keys1, ref raw.Keys2, ref raw.Keys3);
 
             // --- Keyboard keys (change detection per VK) ---
-            // Releases across ALL four words before any press: the
-            // release-before-press discipline must be global, not
-            // per-word, or a cross-word SOCD pair (arrow + letter) still
-            // exposed both directions held between the two SendInput
-            // calls when the winner's word processed first.
-            ProcessKeyWord(raw.Keys0, _prevKeys0, 0, releases: true);
-            ProcessKeyWord(raw.Keys1, _prevKeys1, 64, releases: true);
-            ProcessKeyWord(raw.Keys2, _prevKeys2, 128, releases: true);
-            ProcessKeyWord(raw.Keys3, _prevKeys3, 192, releases: true);
-            ProcessKeyWord(raw.Keys0, _prevKeys0, 0, releases: false);
-            ProcessKeyWord(raw.Keys1, _prevKeys1, 64, releases: false);
-            ProcessKeyWord(raw.Keys2, _prevKeys2, 128, releases: false);
-            ProcessKeyWord(raw.Keys3, _prevKeys3, 192, releases: false);
+            // A virtual HID keyboard takes the whole state: one report
+            // carries every key, so an SOCD swap's release and press reach
+            // Windows together and nothing can sample between them.
+            var hidKeyboard = _hidKeyboard;
+            if (hidKeyboard != null)
+            {
+                hidKeyboard.Submit(raw.Keys0, raw.Keys1, raw.Keys2, raw.Keys3);
+            }
+            else
+            {
+                // Releases across ALL four words before any press: the
+                // release-before-press discipline must be global, not
+                // per-word, or a cross-word SOCD pair (arrow + letter) still
+                // exposed both directions held between the two SendInput
+                // calls when the winner's word processed first.
+                ProcessKeyWord(raw.Keys0, _prevKeys0, 0, releases: true);
+                ProcessKeyWord(raw.Keys1, _prevKeys1, 64, releases: true);
+                ProcessKeyWord(raw.Keys2, _prevKeys2, 128, releases: true);
+                ProcessKeyWord(raw.Keys3, _prevKeys3, 192, releases: true);
+                ProcessKeyWord(raw.Keys0, _prevKeys0, 0, releases: false);
+                ProcessKeyWord(raw.Keys1, _prevKeys1, 64, releases: false);
+                ProcessKeyWord(raw.Keys2, _prevKeys2, 128, releases: false);
+                ProcessKeyWord(raw.Keys3, _prevKeys3, 192, releases: false);
+            }
             _prevKeys0 = raw.Keys0;
             _prevKeys1 = raw.Keys1;
             _prevKeys2 = raw.Keys2;
             _prevKeys3 = raw.Keys3;
 
             // --- Mouse buttons (change detection) ---
-            ProcessMouseButtons(raw.MouseButtons);
+            var hidMouse = _hidMouse;
+            if (hidMouse != null) hidMouse.SetButtons(raw.MouseButtons);
+            else ProcessMouseButtons(raw.MouseButtons);
             _prevMouseButtons = raw.MouseButtons;
 
             // --- Mouse movement (deadzone already applied in Step 3) ---
@@ -261,7 +412,7 @@ namespace PadForge.Common.Input
                 _mxAccumulator -= dx;
                 _myAccumulator -= dy;
                 if (dx != 0 || dy != 0)
-                    InputManager.AccumulateMouseMoveInput(dx, dy);
+                    Move(dx, dy);
             }
 
             // --- Gyro exact counts (#79 feel) ---
@@ -287,7 +438,7 @@ namespace PadForge.Common.Input
                 int gdx = StepExactCounts(ref _gxAccumulator, -raw.MouseGyroX);
                 int gdy = StepExactCounts(ref _gyAccumulator, -raw.MouseGyroY);
                 if (gdx != 0 || gdy != 0)
-                    InputManager.AccumulateMouseMoveInput(gdx, gdy);
+                    Move(gdx, gdy);
             }
 
             // --- Touchpad exact counts (the gyro lane's twin) ---
@@ -306,7 +457,7 @@ namespace PadForge.Common.Input
                 int tdx = StepExactCounts(ref _txAccumulator, raw.MouseTouchX);
                 int tdy = StepExactCounts(ref _tyAccumulator, raw.MouseTouchY);
                 if (tdx != 0 || tdy != 0)
-                    InputManager.AccumulateMouseMoveInput(tdx, tdy);
+                    Move(tdx, tdy);
             }
 
             // --- Stick trackball coast (#291), exact counts ---
@@ -319,7 +470,7 @@ namespace PadForge.Common.Input
                 int sdx = StepExactCounts(ref _sxAccumulator, raw.MouseStickCoastX);
                 int sdy = StepExactCounts(ref _syAccumulator, -raw.MouseStickCoastY);
                 if (sdx != 0 || sdy != 0)
-                    InputManager.AccumulateMouseMoveInput(sdx, sdy);
+                    Move(sdx, sdy);
             }
 
             // --- Flick stick exact counts (#225) ---
@@ -330,7 +481,7 @@ namespace PadForge.Common.Input
             // residual. Scaling here would break the flick = exact camera
             // angle contract.
             if (raw.MouseFlickX != 0)
-                InputManager.AccumulateMouseMoveInput(raw.MouseFlickX, 0);
+                Move(raw.MouseFlickX, 0);
 
             // --- Absolute pointer (Wii IR pointing, issue #146) ---
             // Touchmote idiom: position the OS cursor directly at the aim point
@@ -383,7 +534,10 @@ namespace PadForge.Common.Input
                 int scroll = (int)_scrollAccumulator;
                 _scrollAccumulator -= scroll;
                 if (scroll != 0)
-                    InputManager.AccumulateMouseScrollInput(scroll * 120); // 120 = WHEEL_DELTA
+                {
+                    if (hidMouse != null) hidMouse.AddWheel(scroll);
+                    else InputManager.AccumulateMouseScrollInput(scroll * 120); // 120 = WHEEL_DELTA
+                }
             }
 
             // --- Horizontal mouse scroll (issue #154, the office-mouse tilt
@@ -395,8 +549,21 @@ namespace PadForge.Common.Input
                 int scrollH = (int)_scrollAccumulatorH;
                 _scrollAccumulatorH -= scrollH;
                 if (scrollH != 0)
-                    InputManager.AccumulateMouseScrollHInput(scrollH * 120); // 120 = WHEEL_DELTA
+                {
+                    if (hidMouse != null) hidMouse.AddPan(scrollH);
+                    else InputManager.AccumulateMouseScrollHInput(scrollH * 120); // 120 = WHEEL_DELTA
+                }
             }
+        }
+
+        /// <summary>Relative movement in counts, through the virtual mouse
+        /// when the slot has one, else through the injector thread's
+        /// SendInput lane.</summary>
+        private void Move(int dx, int dy)
+        {
+            var hidMouse = _hidMouse;
+            if (hidMouse != null) hidMouse.AddMotion(dx, dy);
+            else InputManager.AccumulateMouseMoveInput(dx, dy);
         }
 
         public void RegisterFeedbackCallback(int padIndex, Vibration[] vibrationStates)
@@ -464,14 +631,22 @@ namespace PadForge.Common.Input
         {
             // Release all held keys (current = 0, so only the release
             // phase has work).
-            ProcessKeyWord(0, _prevKeys0, 0, releases: true);
-            ProcessKeyWord(0, _prevKeys1, 64, releases: true);
-            ProcessKeyWord(0, _prevKeys2, 128, releases: true);
-            ProcessKeyWord(0, _prevKeys3, 192, releases: true);
+            if (_hidKeyboard != null)
+            {
+                _hidKeyboard.ReleaseAll();
+            }
+            else
+            {
+                ProcessKeyWord(0, _prevKeys0, 0, releases: true);
+                ProcessKeyWord(0, _prevKeys1, 64, releases: true);
+                ProcessKeyWord(0, _prevKeys2, 128, releases: true);
+                ProcessKeyWord(0, _prevKeys3, 192, releases: true);
+            }
             _prevKeys0 = _prevKeys1 = _prevKeys2 = _prevKeys3 = 0;
 
             // Release all mouse buttons
-            ProcessMouseButtons(0);
+            if (_hidMouse != null) _hidMouse.SetButtons(0);
+            else ProcessMouseButtons(0);
             _prevMouseButtons = 0;
         }
 

@@ -491,6 +491,8 @@ Existe uma cópia da versão anterior nesta pasta: {1}</value></data>
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>Ícones de manípulos e gatilhos derivados de "Xbox Series Button Icons and Controls", de Zacksly (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Comparador de modelos de formas para o painel tátil (círculo / quadrado / triângulo / Z / visto e gestos personalizados gravados). Rederivação em C# da referência em JavaScript de Magrofuoco, Vatavu, Anthony e Wobbrock. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Posições das teclas e teclas da camada base dos teclados que a pré-visualização de Teclado + Rato desenha, geradas a partir dos dados de disposição do QMK e do fork do QMK da Keychron. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>Método de pontuação por margem angular que funciona em paralelo com o comparador de nuvem de pontos nas formas de um só dedo. Implementa em C# original a ideia de pontuação do PointPatternAnalyzer do GestureSign. GPL-2.0, apenas documentação.</value></data>
   <data name="About_License" xml:space="preserve"><value>Licença</value></data>
@@ -1316,6 +1318,8 @@ Existe uma cópia da versão anterior nesta pasta: {1}</value></data>
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Movimento do rato</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Cima</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Baixo</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Esquerda</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Direita</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Nome</value></data>
@@ -2476,6 +2480,11 @@ Existe uma cópia da versão anterior nesta pasta: {1}</value></data>
   <data name="Key_Sleep" xml:space="preserve"><value>Suspender</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>Teclado numérico {0}</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>\ | (ISO)</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>No Convert</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Convert</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>Intl #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>Intl \</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>Tecla extra {0}</value></data>
@@ -3030,7 +3039,7 @@ Existe uma cópia da versão anterior nesta pasta: {1}</value></data>
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Documentação da cerimónia de emparelhamento da Wii, do ADPCM do altifalante, da orientação de lado e na vertical do Comando Wii, do modelo de moldura do manípulo e do respetivo formato de armazenamento, e da convenção dos eixos do giroscópio. GPL-2.0-or-later, lido apenas como documentação, nenhum código GPL é distribuído.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Documentação do comportamento do DualShock: desligar por inatividade, limites do painel tátil, descodificação da bateria, o IOCTL de desligar o Bluetooth, os bits do modo de vibração do DualSense, a curva de tremor do giroscópio, a escala do manípulo como rato e a semente CRC do relatório de saída Bluetooth. GPL-3.0-or-later, lido apenas como documentação, nenhum código GPL é distribuído.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Documentação do comportamento do DualShock: desligar por inatividade, limites do painel tátil, descodificação da bateria, o IOCTL de desligar o Bluetooth, os bits do modo de vibração do DualSense, a curva de tremor do giroscópio, a escala do manípulo como rato e a semente CRC do relatório de saída Bluetooth. A tabela de teclas do seu teclado virtual serviu de guia à do PadForge. GPL-3.0-or-later, lido apenas como documentação, nenhum código GPL é distribuído.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>Documentação das instruções de LED do GIP, que corrobora o xbledctl. GPL-2.0-or-later, apenas documentação.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3058,6 +3067,7 @@ Existe uma cópia da versão anterior nesta pasta: {1}</value></data>
   <data name="Vr_Status_Running" xml:space="preserve"><value>Em execução</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Em execução, controlador ligado</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>Em execução, comandos ativos</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>Outro controlador OpenVR usa o nome de controlador do HIDMaestro, pelo que o SteamVR pode carregá-lo em vez do controlador do PadForge e os comandos VR virtuais não vão aparecer. Remova esse controlador para resolver: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Comando série (porta COM)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>O Windows não consegue saber que comando está numa porta COM. Escolha a porta e o comando e depois adicione-o. A partir daí, o PadForge abre essa porta.</value></data>
@@ -3941,6 +3951,19 @@ Pretende que o PadForge os desinstale agora? Esta operação requer elevação e
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Apenas teclado</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>Desenhado como o esquema padrão mais próximo</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Entrada do Windows</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>Mesmo dispositivo que o teclado</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>Mesmo dispositivo que o rato</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>A entrada do Windows escreve cada tecla através do Windows, e os programas conseguem perceber que veio de software. Um modelo de teclado escreve-a num teclado virtual que os programas veem como esse hardware. A tabela de mapeamento oculta as teclas que o modelo não consegue enviar.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>A entrada do Windows move o ponteiro através do Windows, e os programas conseguem perceber que veio de software. Um modelo de rato move-o com um rato virtual que os programas veem como esse hardware. A tabela de mapeamento oculta os botões e as rodas que o modelo não tem.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Teclas em simultâneo: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Teclas em simultâneo: qualquer número</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Teclas multimédia</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>Luzes de bloqueio</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Botões: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Roda</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>Roda inclinável</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Tudo</value>
   </data>
@@ -4123,7 +4146,7 @@ Pretende que o PadForge os desinstale agora? Esta operação requer elevação e
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Contadores do rato ótico do Joy-Con 2 e deltas com retorno a zero por trás de Movimento do rato X e Y, de coffincolors, Frano e moutella. MIT. Apenas documentação, nenhum código é distribuído.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Controladores do kernel Linux</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Factos dos protocolos do DualShock 3, do Move, do DualSense, da Steam Deck e de force feedback PID, e a estrutura dos blocos ACPI WMI. GPL-2.0-or-later, lido apenas como documentação, nenhum código GPL é distribuído.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Factos dos protocolos do DualShock 3, do Move, do DualSense, da Steam Deck e de force feedback PID, e a estrutura dos blocos ACPI WMI. O PadForge lê os descritores de teclados e ratos segundo as regras do hid-core. GPL-2.0-or-later, lido apenas como documentação, nenhum código GPL é distribuído.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Entrada de comandos do Windows, incluindo as patilhas do Xbox Elite. O carregador do SDK está ligado ao SDL. MIT (carregador do SDK).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

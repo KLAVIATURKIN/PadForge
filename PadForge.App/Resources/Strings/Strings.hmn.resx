@@ -150,6 +150,7 @@
 
   <!-- ═══ About ═══ -->
   <data name="About_Title" xml:space="preserve"><value>Txog</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
   <data name="About_Testimony" xml:space="preserve"><value>Ib qho kev caw</value></data>
   <data name="About_TestimonyScripture" xml:space="preserve"><value>“Thiab peb hais txog Khetos, peb xyiv fab rau Khetos, peb qhia txog Khetos, peb qhia tej yuav muaj los yav tom ntej txog Khetos, thiab peb sau raws li peb tej lus qhia tej yuav muaj los yav tom ntej, xwv kom peb cov me nyuam yuav paub cia siab rau lub hauv paus twg kom txais kev zam txim rau lawv tej kev txhaum.”</value></data>
   <data name="About_TestimonyRef" xml:space="preserve"><value>2 Nifais 25:26</value></data>
@@ -335,6 +336,8 @@
   <data name="Pad_Sticks_Section_Range" xml:space="preserve"><value>Range</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Nce</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Nqis</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Sab laug</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Sab xis</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Npe</value></data>
@@ -740,6 +743,8 @@
   <!-- Windows keys -->
   <data name="Key_LWin" xml:space="preserve"><value>Windows sab laug</value></data>
   <data name="Key_RWin" xml:space="preserve"><value>Windows sab xis</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <!-- Numpad -->
   <!-- Lock keys -->
   <data name="Key_NumLock" xml:space="preserve"><value>Num Lock</value></data>
@@ -1108,6 +1113,7 @@
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Keyboard xwb</value>
   </data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Khawm: {0}</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Tag nrho</value>
   </data>

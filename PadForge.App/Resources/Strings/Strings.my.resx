@@ -491,6 +491,8 @@
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>Zacksly (CC BY 3.0) ၏ “Xbox Series Button Icons and Controls” မှ ဆင်းသက်လာသော စတစ်နှင့် ထရီဂါ အိုင်ကွန်များ</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>တာ့ချ်ပက် ပုံသဏ္ဌာန်ပုံစံ ကိုက်ညီစစ်ဆေးကိရိယာ (စက်ဝိုင်း / စတုရန်း / တြိဂံ / Z / အမှန်ခြစ် နှင့် စိတ်ကြိုက်မှတ်တမ်းတင်ထားသော လက်ဟန်များ)။ Magrofuoco၊ Vatavu၊ Anthony နှင့် Wobbrock တို့၏ JavaScript ကိုးကားချက်ကို C# ဖြင့် ပြန်လည်ရေးသားထားခြင်း။ BSD 3-Clause။</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>ကီးဘုတ် + မောက်စ် အစမ်းပြကွက်က ဆွဲပြသော ကီးဘုတ်များ၏ ကီးနေရာများနှင့် အခြေခံအလွှာ ကီးများ၊ QMK ၏ layout ဒေတာနှင့် Keychron ၏ QMK fork မှ ထုတ်ယူထားသည်။ GPL-2.0-or-later။</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>လက်တစ်ချောင်းတည်းဖြင့် ဆွဲသော ပုံသဏ္ဌာန်များပေါ်တွင် point-cloud ကိုက်ညီစစ်ဆေးကိရိယာနှင့်အတူ လည်ပတ်သော Angular-margin အမှတ်ပေးနည်း။ GestureSign ၏ PointPatternAnalyzer မှ အမှတ်ပေးအယူအဆကို မူရင်း C# ဖြင့် အကောင်အထည်ဖော်ထားသည်။ GPL-2.0၊ စာရွက်စာတမ်းအဖြစ်သာ။</value></data>
   <data name="About_License" xml:space="preserve"><value>လိုင်စင်</value></data>
@@ -1316,6 +1318,8 @@
   <data name="Pad_MouseMovement" xml:space="preserve"><value>မောက်စ် ရွေ့လျားမှု</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>အပေါ်</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>အောက်</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>ဘယ်</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>ညာ</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>အမည်</value></data>
@@ -2471,6 +2475,10 @@
   <data name="Key_Apps" xml:space="preserve"><value>အပလီကေးရှင်းများ</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>ဂဏန်းကီးပက် {0}</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>မပြောင်းလဲ</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>ပြောင်းလဲ</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>နိုင်ငံတကာ #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>နိုင်ငံတကာ \</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>အပိုကီး {0}</value></data>
@@ -3024,7 +3032,7 @@
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Wii တွဲချိတ်ခြင်း လုပ်ငန်းစဉ်၊ စပီကာ ADPCM၊ ဘေးတိုက် နှင့် ထောင်လိုက် Wii Remote ဦးတည်ပုံ၊ စတစ်ဂိတ် မော်ဒယ် နှင့် ၎င်း၏ သိမ်းဆည်းပုံစံ နှင့် ဂိုင်ရို ဝင်ရိုး သတ်မှတ်ပုံအတွက် စာရွက်စာတမ်း။ GPL-2.0-or-later၊ စာရွက်စာတမ်းအဖြစ်သာ ဖတ်ထားပြီး GPL ကုဒ် မပါဝင်ပါ။</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock အပြုအမူ စာရွက်စာတမ်း: အသုံးမပြုချိန် ချိတ်ဆက်မှုဖြတ်ခြင်း၊ တာ့ချ်ပက် နယ်နိမိတ်များ၊ ဘက်ထရီ ဖော်ထုတ်ခြင်း၊ Bluetooth ချိတ်ဆက်မှုဖြတ် IOCTL၊ DualSense တုန်ခါမှု မုဒ် ဘစ်များ၊ ဂိုင်ရို တုန်ယင်မှု မျဉ်းကွေး၊ စတစ်-မောက်စ် အချိုး နှင့် Bluetooth အထွက်ရီပို့ CRC အစတန်ဖိုး။ GPL-3.0-or-later၊ စာရွက်စာတမ်းအဖြစ်သာ ဖတ်ထားပြီး GPL ကုဒ် မပါဝင်ပါ။</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock အပြုအမူ စာရွက်စာတမ်း: အသုံးမပြုချိန် ချိတ်ဆက်မှုဖြတ်ခြင်း၊ တာ့ချ်ပက် နယ်နိမိတ်များ၊ ဘက်ထရီ ဖော်ထုတ်ခြင်း၊ Bluetooth ချိတ်ဆက်မှုဖြတ် IOCTL၊ DualSense တုန်ခါမှု မုဒ် ဘစ်များ၊ ဂိုင်ရို တုန်ယင်မှု မျဉ်းကွေး၊ စတစ်-မောက်စ် အချိုး နှင့် Bluetooth အထွက်ရီပို့ CRC အစတန်ဖိုး။ ၎င်း၏ ဗာချွယ်ကီးဘုတ် ကီးဇယားက PadForge ၏ ကီးဇယားကို လမ်းညွှန်ခဲ့သည်။ GPL-3.0-or-later၊ စာရွက်စာတမ်းအဖြစ်သာ ဖတ်ထားပြီး GPL ကုဒ် မပါဝင်ပါ။</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>xbledctl ကို အတည်ပြုသော GIP LED အမိန့် စာရွက်စာတမ်း။ GPL-2.0-or-later၊ စာရွက်စာတမ်းသာ။</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3052,6 +3060,7 @@
   <data name="Vr_Status_Running" xml:space="preserve"><value>အလုပ်လုပ်နေသည်</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>အလုပ်လုပ်နေသည်၊ ဒရိုက်ဗာ ချိတ်ဆက်ထား</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>အလုပ်လုပ်နေသည်၊ ကွန်ထရိုလာများ အသက်ဝင်နေ</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>အခြား OpenVR ဒရိုက်ဗာတစ်ခုက HIDMaestro ၏ ဒရိုက်ဗာအမည်ကို အသုံးပြုနေသောကြောင့် SteamVR သည် PadForge ၏ ဒရိုက်ဗာအစား ၎င်းကို တင်နိုင်ပြီး ဗာချွယ် VR ကွန်ထရိုလာများ ပေါ်လာမည် မဟုတ်ပါ။ ဤပြဿနာကို ဖြေရှင်းရန် ထိုဒရိုက်ဗာကို ဖယ်ရှားပါ- {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>စီးရီးယဲလ် ကွန်ထရိုလာ (COM ပေါ့တ်)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>COM ပေါ့တ်တွင် မည်သည့် ကွန်ထရိုလာ ရှိသည်ကို Windows က မသိနိုင်ပါ။ ပေါ့တ် နှင့် ကွန်ထရိုလာကို ရွေးပြီး ထည့်ပါ။ ထိုအချိန်မှစ၍ PadForge က ထိုပေါ့တ်ကို ဖွင့်သည်။</value></data>
@@ -3932,6 +3941,19 @@ PadForge က ၎င်းတို့ကို ယခုပင် ဖြုတ�
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>ကီးဘုတ်သာ</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>အနီးဆုံး စံအပြင်အဆင်အဖြစ် ဆွဲထားသည်</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Windows အဝင်</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>ကီးဘုတ်နှင့် တူညီသော စက်ပစ္စည်း</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>မောက်စ်နှင့် တူညီသော စက်ပစ္စည်း</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Windows အဝင်သည် ကီးတစ်ခုချင်းစီကို Windows မှတစ်ဆင့် ရိုက်ထည့်ပြီး ဆော့ဖ်ဝဲမှ လာကြောင်း ပရိုဂရမ်များ သိနိုင်သည်။ ကီးဘုတ်မော်ဒယ်တစ်ခုသည် ပရိုဂရမ်များက ထိုဟာ့ဒ်ဝဲအဖြစ် မြင်သော ဗာချွယ်ကီးဘုတ်ပေါ်တွင် ရိုက်ထည့်သည်။ မော်ဒယ်က ပို့၍မရသော ကီးများကို မက်ပင်းဇယားက ဝှက်ထားသည်။</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Windows အဝင်သည် ကာဆာကို Windows မှတစ်ဆင့် ရွှေ့ပြီး ဆော့ဖ်ဝဲမှ လာကြောင်း ပရိုဂရမ်များ သိနိုင်သည်။ မောက်စ်မော်ဒယ်တစ်ခုသည် ပရိုဂရမ်များက ထိုဟာ့ဒ်ဝဲအဖြစ် မြင်သော ဗာချွယ်မောက်စ်ဖြင့် ရွှေ့သည်။ မော်ဒယ်တွင် မပါရှိသော ခလုတ်များနှင့် လှိမ့်ဘီးများကို မက်ပင်းဇယားက ဝှက်ထားသည်။</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>တစ်ပြိုင်နက်နှိပ်နိုင်သော ကီး: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>တစ်ပြိုင်နက်နှိပ်နိုင်သော ကီး: မည်မျှမဆို</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>မီဒီယာကီးများ</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>Lock မီးများ</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>ခလုတ်များ: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>လှိမ့်ဘီး</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>စောင်းနိုင်သော လှိမ့်ဘီး</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>အားလုံး</value>
   </data>
@@ -4114,7 +4136,7 @@ PadForge က ၎င်းတို့ကို ယခုပင် ဖြုတ�
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>“မောက်စ် လှုပ်ရှားမှု X” နှင့် “Y” နောက်ကွယ်ရှိ Joy-Con 2 optical မောက်စ် counter များနှင့် wraparound delta များ၊ ရေးသားသူများ coffincolors၊ Frano နှင့် moutella။ MIT။ စာရွက်စာတမ်းအဖြစ်သာ၊ ကုဒ် မပါဝင်ပါ။</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Linux kernel ဒရိုက်ဗာများ</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3၊ Move၊ DualSense၊ Steam Deck နှင့် PID အားပြန်တုံ့ပြန်မှု ပရိုတိုကော အချက်အလက်များနှင့် ACPI WMI block အပြင်အဆင်။ GPL-2.0-or-later၊ စာရွက်စာတမ်းအဖြစ်သာ ဖတ်ရှုထားပြီး GPL ကုဒ် မပါဝင်ပါ။</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3၊ Move၊ DualSense၊ Steam Deck နှင့် PID အားပြန်တုံ့ပြန်မှု ပရိုတိုကော အချက်အလက်များနှင့် ACPI WMI block အပြင်အဆင်။ PadForge သည် ကီးဘုတ်နှင့် မောက်စ် descriptor များကို hid-core ၏ စည်းမျဉ်းများအတိုင်း ဖတ်သည်။ GPL-2.0-or-later၊ စာရွက်စာတမ်းအဖြစ်သာ ဖတ်ရှုထားပြီး GPL ကုဒ် မပါဝင်ပါ။</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Xbox Elite နောက်ခလုတ်များ အပါအဝင် Windows ကွန်ထရိုလာ အဝင်။ SDK loader ကို SDL ထဲသို့ ချိတ်ဆက်ထားသည်။ MIT (SDK loader)။</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

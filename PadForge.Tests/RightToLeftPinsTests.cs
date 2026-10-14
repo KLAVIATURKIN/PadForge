@@ -173,7 +173,7 @@ namespace PadForge.Tests
                 ["ControllerSchematicView.xaml.cs"] = 4,
                 ["CurveEditor.xaml.cs"] = 1,
                 ["GunCalibrationScreen.cs"] = 1,
-                ["KBMPreviewView.xaml.cs"] = 2,
+                ["KBMPreviewView.xaml.cs"] = 4,
                 ["MainWindow.xaml.cs"] = 8,
                 ["MenuOverlayWindow.xaml.cs"] = 2,
                 ["MouseGlyph.cs"] = 3,

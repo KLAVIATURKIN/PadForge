@@ -91,6 +91,18 @@
   },
   {
     "File": "PadForge.App/Views/PadPage.xaml",
+    "Id": "Reset_PadViewModel_KbmKeyboardDevice",
+    "Owner": "PadForge.ViewModels.PadViewModel",
+    "Property": "KbmKeyboardDevice"
+  },
+  {
+    "File": "PadForge.App/Views/PadPage.xaml",
+    "Id": "Reset_PadViewModel_KbmMouseDevice",
+    "Owner": "PadForge.ViewModels.PadViewModel",
+    "Property": "KbmMouseDevice"
+  },
+  {
+    "File": "PadForge.App/Views/PadPage.xaml",
     "Id": "Reset_PadViewModel_ProfileId_845",
     "Owner": "PadForge.ViewModels.PadViewModel",
     "Property": "ProfileId"

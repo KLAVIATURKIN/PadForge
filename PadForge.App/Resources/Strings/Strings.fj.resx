@@ -105,6 +105,7 @@
   <data name="About_DotNet10" xml:space="preserve"><value>.NET 10</value></data>
   <data name="About_SDL3" xml:space="preserve"><value>SDL3</value></data>
   <data name="About_HelixToolkit" xml:space="preserve"><value>HelixToolkit</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_License" xml:space="preserve"><value>Laiseni</value></data>
   <data name="About_HIDMaestro" xml:space="preserve"><value>HIDMaestro</value></data>
@@ -183,6 +184,8 @@
   <data name="Pad_Formula_Chip_Half" xml:space="preserve"><value>0.5: veimama</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Cake</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Sobu</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Mawi</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Matau</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Yaca</value></data>
@@ -404,6 +407,8 @@
   <data name="Key_Control" xml:space="preserve"><value>Ctrl</value></data>
   <data name="Key_Alt" xml:space="preserve"><value>Alt</value></data>
   <data name="Key_Escape" xml:space="preserve"><value>Esc</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <!-- Navigation -->
   <!-- Windows keys -->
   <!-- Numpad -->

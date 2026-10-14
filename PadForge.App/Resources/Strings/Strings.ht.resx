@@ -449,6 +449,8 @@ Gen yon kopi vèsyon anvan an nan dosye sa a: {1}</value></data>
   <data name="About_ZackslyIcons" xml:space="preserve"><value>Pakèt ikòn Zacksly</value></data>
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>Ikòn stick ak gachèt ki soti nan "Xbox Series Button Icons and Controls" pa Zacksly (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Pozisyon touch yo ak touch kouch debaz yo pou klavye ke apèsi Klavye + Sourit la desine, jenere apati done dispozisyon QMK ak vèsyon QMK pa Keychron. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_License" xml:space="preserve"><value>Lisans</value></data>
   <data name="About_HIDMaestro" xml:space="preserve"><value>HIDMaestro</value></data>
@@ -1187,6 +1189,8 @@ Gen yon kopi vèsyon anvan an nan dosye sa a: {1}</value></data>
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Mouvman sourit</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Anwo</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Anba</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Agoch</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Adwat</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Non</value></data>
@@ -2133,6 +2137,8 @@ Gen yon kopi vèsyon anvan an nan dosye sa a: {1}</value></data>
   <data name="Key_Apps" xml:space="preserve"><value>Aplikasyon</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>Klavye nimerik {0}</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>Touch anplis {0}</value></data>
   <data name="AnalogKey_Code_Format" xml:space="preserve"><value>Touch {0}</value></data>
   <data name="AnalogKey_KatakanaHiragana" xml:space="preserve"><value>Katakana/Hiragana</value></data>
@@ -2654,6 +2660,7 @@ Gen yon kopi vèsyon anvan an nan dosye sa a: {1}</value></data>
   <data name="Vr_Status_Running" xml:space="preserve"><value>Ap mache</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Ap mache, pilòt konekte</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>Ap mache, kontwolè aktif</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>Yon lòt pilòt OpenVR ap itilize non pilòt HIDMaestro a, kidonk SteamVR ka chaje l olye pilòt PadForge la, epi kontwolè VR vityèl yo p ap parèt. Retire pilòt sa a pou rezoud pwoblèm nan: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Kontwolè seri (pò COM)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Windows pa ka konnen ki kontwolè ki sou yon pò COM. Chwazi pò a ak kontwolè a, epi ajoute l. Apati kounye a PadForge ap louvri pò sa a.</value></data>
@@ -3297,6 +3304,18 @@ Gen yon kopi vèsyon anvan an nan dosye sa a: {1}</value></data>
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Klavye sèlman</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>Desine tankou dispozisyon estanda ki pi pre a</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Antre Windows</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>Menm aparèy ak klavye a</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>Menm aparèy ak sourit la</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Avèk antre Windows, chak touch tape atravè Windows, epi pwogram yo ka konnen li soti nan yon lojisyèl. Avèk yon modèl klavye, li tape sou yon klavye vityèl pwogram yo wè tankou materyèl sa a. Tablo asiyasyon an kache touch modèl la pa ka voye yo.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Avèk antre Windows, kisè a deplase atravè Windows, epi pwogram yo ka konnen li soti nan yon lojisyèl. Avèk yon modèl sourit, li deplase avèk yon sourit vityèl pwogram yo wè tankou materyèl sa a. Tablo asiyasyon an kache bouton ak wou modèl la pa genyen yo.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Touch an menm tan: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Touch an menm tan: nenpòt kantite</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Touch medya</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Bouton: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Wou</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>Wou ki ka panche</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Tout</value>
   </data>
@@ -3479,7 +3498,7 @@ Gen yon kopi vèsyon anvan an nan dosye sa a: {1}</value></data>
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Kontè sourit optik Joy-Con 2 ak delta ki fè wonn ki dèyè Mouvman sourit X ak Y, pa coffincolors, Frano, ak moutella. MIT. Dokimantasyon sèlman, okenn kòd pa enkli.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Pilòt nwayo Linux</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Enfòmasyon pwotokòl DualShock 3, Move, DualSense, Steam Deck ak retou fòs PID, ak dispozisyon blòk ACPI WMI. GPL-2.0-or-later, li kòm dokimantasyon sèlman, okenn kòd GPL pa enkli.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Enfòmasyon pwotokòl DualShock 3, Move, DualSense, Steam Deck ak retou fòs PID, ak dispozisyon blòk ACPI WMI. PadForge li deskriptè klavye ak sourit yo dapre règ hid-core. GPL-2.0-or-later, li kòm dokimantasyon sèlman, okenn kòd GPL pa enkli.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Antre kontwolè Windows, ki gen ladan pal Xbox Elite yo. Chajè SDK a lye nan SDL. MIT (chajè SDK).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

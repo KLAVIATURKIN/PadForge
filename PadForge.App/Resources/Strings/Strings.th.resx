@@ -491,6 +491,8 @@
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>ไอคอนสติ๊กและทริกเกอร์ดัดแปลงจาก "Xbox Series Button Icons and Controls" โดย Zacksly (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>ตัวจับคู่แม่แบบรูปร่างบนทัชแพด (วงกลม / สี่เหลี่ยม / สามเหลี่ยม / Z / เครื่องหมายถูก และท่าทางสัมผัสที่บันทึกเอง) เขียนขึ้นใหม่ด้วย C# จากต้นฉบับอ้างอิง JavaScript ของ Magrofuoco, Vatavu, Anthony และ Wobbrock สัญญาอนุญาต BSD 3-Clause</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>ตำแหน่งคีย์และคีย์ชั้นฐานของคีย์บอร์ดที่พรีวิวคีย์บอร์ด + เมาส์วาดขึ้น สร้างจากข้อมูลเลย์เอาต์ของ QMK และ QMK fork ของ Keychron GPL-2.0-or-later</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>วิธีให้คะแนนแบบระยะขอบเชิงมุม ซึ่งทำงานควบคู่กับตัวจับคู่แบบพอยต์คลาวด์สำหรับรูปร่างที่วาดด้วยนิ้วเดียว นำแนวคิดการให้คะแนนจาก PointPatternAnalyzer ของ GestureSign มาเขียนเป็น C# ขึ้นใหม่เอง สัญญาอนุญาต GPL-2.0 ใช้เป็นเอกสารอ้างอิงเท่านั้น</value></data>
   <data name="About_License" xml:space="preserve"><value>สัญญาอนุญาต</value></data>
@@ -1316,6 +1318,8 @@
   <data name="Pad_MouseMovement" xml:space="preserve"><value>การเคลื่อนที่ของเมาส์</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>ขึ้น</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>ลง</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>ซ้าย</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>ขวา</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>ชื่อ</value></data>
@@ -2476,6 +2480,11 @@
   <data name="Key_Sleep" xml:space="preserve"><value>Sleep</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>นัมแพด {0}</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>Non-US \ |</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>No Convert</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Convert</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>สากล #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>สากล \</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>คีย์เสริม {0}</value></data>
@@ -3030,7 +3039,7 @@
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>เอกสารอ้างอิงสำหรับขั้นตอนการจับคู่ของ Wii, ADPCM ของลำโพง การวางแนว Wii Remote แบบแนวนอนและแบบตั้งตรง โมเดลเกตของสติ๊กและรูปแบบการจัดเก็บ และข้อตกลงเรื่องแกนไจโร สัญญาอนุญาต GPL-2.0-or-later ใช้อ่านเป็นเอกสารอ้างอิงเท่านั้น ไม่มีโค้ด GPL รวมอยู่ในโปรแกรม</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>เอกสารอ้างอิงพฤติกรรมของ DualShock: การตัดการเชื่อมต่อเมื่อไม่ได้ใช้งาน ขอบเขตทัชแพด การถอดรหัสแบตเตอรี่ IOCTL สำหรับตัดการเชื่อมต่อ Bluetooth บิตโหมดการสั่นของ DualSense เส้นโค้งการสั่นไหวของไจโร สเกลการใช้สติ๊กเป็นเมาส์ และค่าซีด CRC ของ output report ผ่าน Bluetooth สัญญาอนุญาต GPL-3.0-or-later ใช้อ่านเป็นเอกสารอ้างอิงเท่านั้น ไม่มีโค้ด GPL รวมอยู่ในโปรแกรม</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>เอกสารอ้างอิงพฤติกรรมของ DualShock: การตัดการเชื่อมต่อเมื่อไม่ได้ใช้งาน ขอบเขตทัชแพด การถอดรหัสแบตเตอรี่ IOCTL สำหรับตัดการเชื่อมต่อ Bluetooth บิตโหมดการสั่นของ DualSense เส้นโค้งการสั่นไหวของไจโร สเกลการใช้สติ๊กเป็นเมาส์ และค่าซีด CRC ของ output report ผ่าน Bluetooth ตารางคีย์ของคีย์บอร์ดเสมือนของโปรเจกต์นี้เป็นแนวทางให้ตารางคีย์ของ PadForge สัญญาอนุญาต GPL-3.0-or-later ใช้อ่านเป็นเอกสารอ้างอิงเท่านั้น ไม่มีโค้ด GPL รวมอยู่ในโปรแกรม</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>เอกสารอ้างอิงคำสั่ง LED ของ GIP ที่ยืนยันข้อมูลของ xbledctl สัญญาอนุญาต GPL-2.0-or-later ใช้เป็นเอกสารอ้างอิงเท่านั้น</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3058,6 +3067,7 @@
   <data name="Vr_Status_Running" xml:space="preserve"><value>กำลังทำงาน</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>กำลังทำงาน เชื่อมต่อไดรเวอร์แล้ว</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>กำลังทำงาน คอนโทรลเลอร์พร้อมใช้งาน</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>OpenVR ไดรเวอร์อื่นใช้ชื่อไดรเวอร์เดียวกับของ HIDMaestro ทำให้ SteamVR อาจโหลดไดรเวอร์นั้นแทนของ PadForge และคอนโทรลเลอร์ VR เสมือนจะไม่ปรากฏ ลบไดรเวอร์นั้นเพื่อแก้ไข: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>คอนโทรลเลอร์แบบอนุกรม (พอร์ต COM)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Windows ไม่สามารถบอกได้ว่าคอนโทรลเลอร์ใดอยู่บนพอร์ต COM เลือกพอร์ตและคอนโทรลเลอร์ แล้วเพิ่ม จากนั้น PadForge จะเปิดพอร์ตนั้นทุกครั้ง</value></data>
@@ -3943,6 +3953,19 @@
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>คีย์บอร์ดเท่านั้น</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>วาดตามเลย์เอาต์มาตรฐานที่ใกล้เคียงที่สุด</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>อินพุต Windows</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>อุปกรณ์เดียวกับคีย์บอร์ด</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>อุปกรณ์เดียวกับเมาส์</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>อินพุต Windows พิมพ์แต่ละคีย์ผ่าน Windows และโปรแกรมต่าง ๆ สามารถรู้ได้ว่ามาจากซอฟต์แวร์ รุ่นคีย์บอร์ดจะพิมพ์ผ่านคีย์บอร์ดเสมือนที่โปรแกรมมองเห็นเป็นฮาร์ดแวร์รุ่นนั้น ตารางการแมปจะซ่อนคีย์ที่รุ่นนั้นส่งไม่ได้</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>อินพุต Windows เลื่อนตัวชี้ผ่าน Windows และโปรแกรมต่าง ๆ สามารถรู้ได้ว่ามาจากซอฟต์แวร์ รุ่นเมาส์จะเลื่อนตัวชี้ผ่านเมาส์เสมือนที่โปรแกรมมองเห็นเป็นฮาร์ดแวร์รุ่นนั้น ตารางการแมปจะซ่อนปุ่มและล้อที่รุ่นนั้นไม่มี</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>คีย์พร้อมกัน: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>คีย์พร้อมกัน: ไม่จำกัด</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>คีย์มีเดีย</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>ไฟสถานะล็อก</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>ปุ่ม: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>ล้อเลื่อน</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>ล้อเลื่อนเอียงได้</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>ทั้งหมด</value>
   </data>
@@ -4125,7 +4148,7 @@
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>ตัวนับเมาส์ออปติคัลของ Joy-Con 2 และค่าเปลี่ยนแปลงแบบวนรอบที่อยู่เบื้องหลังการเคลื่อนที่ของเมาส์ X และ Y โดย coffincolors, Frano และ moutella สัญญาอนุญาต MIT ใช้เป็นเอกสารอ้างอิงเท่านั้น ไม่มีโค้ดรวมอยู่ในโปรแกรม</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>ไดรเวอร์เคอร์เนล Linux</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>ข้อเท็จจริงของโปรโตคอล DualShock 3, Move, DualSense, Steam Deck และฟอร์ซฟีดแบ็กแบบ PID และโครงสร้างบล็อก ACPI WMI สัญญาอนุญาต GPL-2.0-or-later ใช้อ่านเป็นเอกสารอ้างอิงเท่านั้น ไม่มีโค้ด GPL รวมอยู่ในโปรแกรม</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>ข้อเท็จจริงของโปรโตคอล DualShock 3, Move, DualSense, Steam Deck และฟอร์ซฟีดแบ็กแบบ PID และโครงสร้างบล็อก ACPI WMI PadForge อ่าน descriptor ของคีย์บอร์ดและเมาส์ตามกฎของ hid-core สัญญาอนุญาต GPL-2.0-or-later ใช้อ่านเป็นเอกสารอ้างอิงเท่านั้น ไม่มีโค้ด GPL รวมอยู่ในโปรแกรม</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>อินพุตคอนโทรลเลอร์ของ Windows รวมถึงแพดเดิลของ Xbox Elite ตัวโหลด SDK ถูกลิงก์ไว้ใน SDL สัญญาอนุญาต MIT (ตัวโหลด SDK)</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

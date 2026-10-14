@@ -765,6 +765,8 @@ Una copia della versione precedente si trova in questa cartella: {1}</value></da
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Movimento mouse</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Su</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Giù</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Sinistra</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Destra</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Nome</value></data>
@@ -1270,6 +1272,11 @@ Una copia della versione precedente si trova in questa cartella: {1}</value></da
   <data name="Key_Sleep" xml:space="preserve"><value>Sospensione</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>Tastierino numerico {0}</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>Non US \ |</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>No Convert</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Convert</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>Intl #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>Intl \</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>Tasto aggiuntivo {0}</value></data>
@@ -2328,6 +2335,8 @@ Una copia della versione precedente si trova in questa cartella: {1}</value></da
   <data name="Pad_Audio_NoSpeaker" xml:space="preserve"><value>Il dispositivo selezionato non ha un altoparlante integrato. I suoni macro di questo pad escono sull’uscita predefinita.</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Riconoscitore di sagome per il touchpad (cerchio / quadrato / triangolo / Z / spunta e gesti registrati personalizzati). Rielaborazione in C# del riferimento JavaScript di Magrofuoco, Vatavu, Anthony e Wobbrock. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Posizioni dei tasti e tasti del livello base delle tastiere che l'anteprima Tastiera + Mouse disegna, generati dai dati di layout di QMK e dal fork QMK di Keychron. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>Punteggio a margine angolare che affianca il riconoscitore a nuvola di punti sulle forme a un dito. Implementa in C# originale l'idea di punteggio del PointPatternAnalyzer di GestureSign. GPL-2.0, solo documentazione.</value></data>
   <data name="Pad_Audio_Reset_All" xml:space="preserve"><value>Reimposta Uscita audio</value></data>
@@ -2885,7 +2894,7 @@ Una copia della versione precedente si trova in questa cartella: {1}</value></da
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Documentazione della cerimonia di abbinamento Wii, dell'ADPCM dell'altoparlante, dell'orientamento laterale e verticale del Wii Remote, del modello del gate della levetta con il suo formato di salvataggio, e della convenzione degli assi del giroscopio. GPL-2.0-or-later, letto solo come documentazione, nessun codice GPL distribuito.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Documentazione del comportamento del DualShock: disconnessione per inattività, limiti del touchpad, decodifica della batteria, l'IOCTL di disconnessione Bluetooth, i bit della modalità di vibrazione del DualSense, la curva di jitter del giroscopio, la scala della levetta come mouse e il seme CRC dei report di uscita Bluetooth. GPL-3.0-or-later, letto solo come documentazione, nessun codice GPL distribuito.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Documentazione del comportamento del DualShock: disconnessione per inattività, limiti del touchpad, decodifica della batteria, l'IOCTL di disconnessione Bluetooth, i bit della modalità di vibrazione del DualSense, la curva di jitter del giroscopio, la scala della levetta come mouse e il seme CRC dei report di uscita Bluetooth. La tabella dei tasti della sua tastiera virtuale ha guidato quella di PadForge. GPL-3.0-or-later, letto solo come documentazione, nessun codice GPL distribuito.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>Documentazione dei comandi LED GIP che conferma xbledctl. GPL-2.0-or-later, solo documentazione.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -2934,6 +2943,7 @@ Una copia della versione precedente si trova in questa cartella: {1}</value></da
   <data name="Vr_Status_Running" xml:space="preserve"><value>In esecuzione</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>In esecuzione, driver connesso</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>In esecuzione, controller attivi</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>Un altro driver OpenVR usa lo stesso nome driver di HIDMaestro, quindi SteamVR può caricarlo al posto di quello di PadForge e i controller VR virtuali non compariranno. Rimuovi quel driver per risolvere: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Controller seriale (porta COM)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Windows non può sapere quale controller si trova su una porta COM. Scegli la porta e il controller, poi aggiungilo. Da quel momento PadForge apre quella porta.</value></data>
@@ -3916,6 +3926,19 @@ Vuoi che PadForge li disinstalli ora? L'operazione richiede privilegi elevati e 
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Solo tastiera</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>Disegnata con il layout standard più vicino</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Input di Windows</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>Stesso dispositivo della tastiera</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>Stesso dispositivo del mouse</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>L'input di Windows digita ogni tasto tramite Windows e i programmi possono riconoscere che proviene da software. Un modello di tastiera lo digita su una tastiera virtuale che i programmi vedono come quell'hardware. La tabella delle mappature nasconde i tasti che il modello non può inviare.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>L'input di Windows sposta il puntatore tramite Windows e i programmi possono riconoscere che proviene da software. Un modello di mouse lo sposta con un mouse virtuale che i programmi vedono come quell'hardware. La tabella delle mappature nasconde i pulsanti e le rotelle che il modello non ha.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Tasti simultanei: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Tasti simultanei: qualsiasi</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Tasti multimediali</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>Spie di blocco</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Pulsanti: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Rotella</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>Rotella inclinabile</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Tutto</value>
   </data>
@@ -4098,7 +4121,7 @@ Vuoi che PadForge li disinstalli ora? L'operazione richiede privilegi elevati e 
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Contatori del mouse ottico del Joy-Con 2 e delta con riavvolgimento alla base di Movimento del mouse X e Y, di coffincolors, Frano e moutella. MIT. Solo documentazione, nessun codice distribuito.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Driver del kernel Linux</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Dettagli di protocollo di DualShock 3, Move, DualSense, Steam Deck e force feedback PID, e il layout dei blocchi ACPI WMI. GPL-2.0-or-later, letto solo come documentazione, nessun codice GPL distribuito.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Dettagli di protocollo di DualShock 3, Move, DualSense, Steam Deck e force feedback PID, e il layout dei blocchi ACPI WMI. PadForge legge i descrittori di tastiere e mouse secondo le regole di hid-core. GPL-2.0-or-later, letto solo come documentazione, nessun codice GPL distribuito.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Input dei controller di Windows, incluse le palette dell'Xbox Elite. Il loader dell'SDK è collegato in SDL. MIT (loader dell'SDK).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

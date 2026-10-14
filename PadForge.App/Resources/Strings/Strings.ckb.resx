@@ -491,6 +491,8 @@
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>ئایکۆنەکانی ستیک و تریگەر، وەرگیراو لە «Xbox Series Button Icons and Controls» لەلایەن Zacksly (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>هاوتاکەری قاڵبی شێوە بۆ تاچپاد (بازنە / چوارگۆشە / سێگۆشە / Z / نیشانەی ڕاست و ئاماژەی تۆمارکراوی تایبەت). دووبارە دەرهێنانێکی C# ی نموونەی JavaScript ی Magrofuoco، Vatavu، Anthony و Wobbrock. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>شوێنی کلیلەکان و کلیلەکانی چینی بنەڕەتی ئەو تەختەکلیلانەی کە پێشاندانی تەختەکلیل + ماوس دەیانکێشێت، دروستکراو لە داتای ڕیزبەندیی QMK و فۆرکی QMK ی Keychron. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>شێوازی خاڵدانانی پەراوێزی گۆشەیی کە لە تەنیشت هاوتاکەری هەوری خاڵ لەسەر شێوەکانی یەک پەنجە کاردەکات. بیرۆکەی خاڵدانانی PointPatternAnalyzer ی GestureSign لە C# ی ڕەسەندا جێبەجێ دەکات. GPL-2.0، تەنها وەک بەڵگەنامە.</value></data>
   <data name="About_License" xml:space="preserve"><value>مۆڵەت</value></data>
@@ -1313,6 +1315,8 @@
   <data name="Pad_MouseMovement" xml:space="preserve"><value>جووڵەی ماوس</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>سەرەوە</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>خوارەوە</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>چەپ</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>ڕاست</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>ناو</value></data>
@@ -2468,6 +2472,10 @@
   <data name="Key_Sleep" xml:space="preserve"><value>خەوتن</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>تەختەی ژمارەکان {0}</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>بێ گۆڕینەوە</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>گۆڕینەوە</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>نێودەوڵەتی #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>نێودەوڵەتی \</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>کلیلی زیادە {0}</value></data>
@@ -3015,7 +3023,7 @@
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>بەڵگەنامە بۆ ڕێوڕەسمی جووتکردنی Wii، ADPCMی بڵندگۆ، ئاراستەی لاتەنیشت و ڕاستەوەستاوی Wii Remote، مۆدێلی دەروازەی ستیک و شێوازی هەڵگرتنی، و ڕێسای تەوەرەکانی جایرۆ. GPL-2.0-or-later، تەنها وەک بەڵگەنامە خوێندراوەتەوە، هیچ کۆدێکی GPL لەگەڵ بەرنامەکە نییە.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>بەڵگەنامەی ڕەفتاری DualShock: پچڕانی پەیوەندی لە کاتی بێکاری، سنوورەکانی تاچپاد، شیکردنەوەی پاتری، IOCTLی پچڕاندنی بلووتوس، بیتەکانی دۆخی لەرزینی DualSense، چەماوەی لەرزۆکیی جایرۆ، پێوەری ستیک وەک ماوس، و تۆوی CRCی ڕاپۆرتی دەرچوونی بلووتوس. GPL-3.0-or-later، تەنها وەک بەڵگەنامە خوێندراوەتەوە، هیچ کۆدێکی GPL لەگەڵ بەرنامەکە نییە.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>بەڵگەنامەی ڕەفتاری DualShock: پچڕانی پەیوەندی لە کاتی بێکاری، سنوورەکانی تاچپاد، شیکردنەوەی پاتری، IOCTLی پچڕاندنی بلووتوس، بیتەکانی دۆخی لەرزینی DualSense، چەماوەی لەرزۆکیی جایرۆ، پێوەری ستیک وەک ماوس، و تۆوی CRCی ڕاپۆرتی دەرچوونی بلووتوس. خشتەی کلیلەکانی تەختەکلیلە مەجازییەکەی ڕێنمایی خشتەکەی PadForge ی کرد. GPL-3.0-or-later، تەنها وەک بەڵگەنامە خوێندراوەتەوە، هیچ کۆدێکی GPL لەگەڵ بەرنامەکە نییە.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>بەڵگەنامەی فەرمانی LEDی GIP کە دۆزینەوەکانی xbledctl پشتڕاست دەکاتەوە. GPL-2.0-or-later، تەنها بەڵگەنامە.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3043,6 +3051,7 @@
   <data name="Vr_Status_Running" xml:space="preserve"><value>کاردەکات</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>کاردەکات، درایڤەر پەیوەستە</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>کاردەکات، کۆنترۆڵەرەکان چالاکن</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>درایڤەرێکی تری OpenVR ناوی درایڤەری HIDMaestro بەکاردەهێنێت، بۆیە SteamVR لەوانەیە ئەو لە جیاتی درایڤەری PadForge باربکات و کۆنترۆڵەرە مەجازییەکانی VR دەرناکەون. بۆ چارەسەرکردنی ئەمە ئەو درایڤەرە لاببە: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>کۆنترۆڵەری زنجیرەیی (پۆرتی COM)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>ویندۆز ناتوانێت بزانێت کام کۆنترۆڵەر لەسەر پۆرتێکی COM ە. پۆرتەکە و کۆنترۆڵەرەکە هەڵبژێرە، پاشان زیادی بکە. لەمەودوا PadForge ئەو پۆرتە دەکاتەوە.</value></data>
@@ -3928,6 +3937,19 @@
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>تەنها تەختەکلیل</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>وەک نزیکترین ڕیزبەندی ستاندارد کێشراوە</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>تێخستنی Windows</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>هەمان ئامێری تەختەکلیلەکە</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>هەمان ئامێری ماوسەکە</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>تێخستنی Windows هەر کلیلێک لە ڕێگەی Windows-ەوە دەنووسێت، و بەرنامەکان دەتوانن بزانن کە لە نەرمەکاڵاوە هاتووە. مۆدێلێکی تەختەکلیل لەسەر تەختەکلیلێکی مەجازی دەینووسێت کە بەرنامەکان وەک ئەو ڕەقەکاڵایە دەیبینن. خشتەی بەستنەوەکان ئەو کلیلانە دەشارێتەوە کە مۆدێلەکە ناتوانێت بیاننێرێت.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>تێخستنی Windows نیشاندەر لە ڕێگەی Windows-ەوە دەجووڵێنێت، و بەرنامەکان دەتوانن بزانن کە لە نەرمەکاڵاوە هاتووە. مۆدێلێکی ماوس بە ماوسێکی مەجازی دەیجووڵێنێت کە بەرنامەکان وەک ئەو ڕەقەکاڵایە دەیبینن. خشتەی بەستنەوەکان ئەو دوگمە و تەگەرانە دەشارێتەوە کە مۆدێلەکە نییەتی.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>کلیل لە یەک کاتدا: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>کلیل لە یەک کاتدا: هەر ژمارەیەک</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>کلیلەکانی میدیا</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>چراکانی Lock</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>دوگمەکان: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>تەگەرە</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>تەگەرەی لارکراوە</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>هەموو</value>
   </data>
@@ -4110,7 +4132,7 @@
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>ژمێرەرەکانی ماوسی ئۆپتیکی Joy-Con 2 و دەلتا بازنەییەکان لە پشت جووڵەی ماوس X و Y، لەلایەن coffincolors، Frano و moutella. MIT. تەنها بەڵگەنامە، هیچ کۆدێک لەگەڵ بەرنامەکەدا نییە.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>درایڤەرەکانی کێرنێڵی Linux</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>ڕاستییەکانی پرۆتۆکۆلی DualShock 3، Move، DualSense، Steam Deck و فیدباکی هێزی PID، و ڕیزبەندیی بلۆکی WMI ی ACPI. GPL-2.0-or-later، تەنها وەک بەڵگەنامە خوێندراوەتەوە، هیچ کۆدێکی GPL لەگەڵ بەرنامەکەدا نییە.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>ڕاستییەکانی پرۆتۆکۆلی DualShock 3، Move، DualSense، Steam Deck و فیدباکی هێزی PID، و ڕیزبەندیی بلۆکی WMI ی ACPI. PadForge وەسفکەرەکانی تەختەکلیل و ماوس بەپێی یاساکانی hid-core دەخوێنێتەوە. GPL-2.0-or-later، تەنها وەک بەڵگەنامە خوێندراوەتەوە، هیچ کۆدێکی GPL لەگەڵ بەرنامەکەدا نییە.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>تێخراوی کۆنترۆڵەری Windows، لەوانە پادڵەکانی Xbox Elite. بارکەری SDK لە SDL دا بەستراوە. MIT (بارکەری SDK).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

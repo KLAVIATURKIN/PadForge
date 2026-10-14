@@ -491,6 +491,8 @@ Mae copi o'r fersiwn flaenorol yn y ffolder hon: {1}</value></data>
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>Eiconau ffon a sbardun sy'n deillio o "Xbox Series Button Icons and Controls" gan Zacksly (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Paru templedi siâp ar gyfer y pad cyffwrdd (Cylch / Sgwâr / Triongl / Z / Tic ac ystumiau wedi'u recordio'n bwrpasol). Ailddeilliad C# o'r cyfeirnod JavaScript gan Magrofuoco, Vatavu, Anthony, a Wobbrock. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Safleoedd bysellau a bysellau'r haen sylfaen ar y bysellfyrddau y mae rhagolwg Bysellfwrdd + Llygoden yn eu darlunio, wedi'u cynhyrchu o ddata cynllun QMK a fforc QMK Keychron. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>Dull sgorio ymyl onglaidd sy'n rhedeg ochr yn ochr â'r paru cwmwl pwyntiau ar siapiau un bys. Yn gweithredu'r syniad sgorio o PointPatternAnalyzer GestureSign mewn C# gwreiddiol. GPL-2.0, dogfennaeth yn unig.</value></data>
   <data name="About_License" xml:space="preserve"><value>Trwydded</value></data>
@@ -1314,6 +1316,8 @@ Mae copi o'r fersiwn flaenorol yn y ffolder hon: {1}</value></data>
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Symudiad Llygoden</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>I Fyny</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>I Lawr</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>I'r Chwith</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>I'r Dde</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Enw</value></data>
@@ -2471,6 +2475,10 @@ Mae copi o'r fersiwn flaenorol yn y ffolder hon: {1}</value></data>
   <data name="Key_Sleep" xml:space="preserve"><value>Cwsg</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>Bysellbad rhifol {0}</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>No Convert</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Convert</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>Intl #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>Intl \</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>Bysell Ychwanegol {0}</value></data>
@@ -3025,7 +3033,7 @@ Mae copi o'r fersiwn flaenorol yn y ffolder hon: {1}</value></data>
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Dogfennaeth ar gyfer seremoni paru Wii, ADPCM yr uchelseinydd, cyfeiriadedd ochrol ac unionsyth y Wii Remote, y model giât ffon a'i fformat storio, a chonfensiwn echelinau'r gyrosgop. GPL-2.0-or-later, wedi'i ddarllen fel dogfennaeth yn unig, ni chludir cod GPL.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Dogfennaeth ymddygiad DualShock: datgysylltu segur, ffiniau pad cyffwrdd, datgodio batri, IOCTL datgysylltu Bluetooth, darnau modd dirgryniad DualSense, cromlin crynu gyrosgop, graddfa ffon-fel-llygoden, a hedyn CRC adroddiad allbwn Bluetooth. GPL-3.0-or-later, wedi'i ddarllen fel dogfennaeth yn unig, ni chludir cod GPL.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Dogfennaeth ymddygiad DualShock: datgysylltu segur, ffiniau pad cyffwrdd, datgodio batri, IOCTL datgysylltu Bluetooth, darnau modd dirgryniad DualSense, cromlin crynu gyrosgop, graddfa ffon-fel-llygoden, a hedyn CRC adroddiad allbwn Bluetooth. Arweiniodd tabl bysellau ei fysellfwrdd rhithwir dabl PadForge ei hun. GPL-3.0-or-later, wedi'i ddarllen fel dogfennaeth yn unig, ni chludir cod GPL.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>Dogfennaeth gorchymyn LED GIP sy'n cadarnhau xbledctl. GPL-2.0-or-later, dogfennaeth yn unig.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3053,6 +3061,7 @@ Mae copi o'r fersiwn flaenorol yn y ffolder hon: {1}</value></data>
   <data name="Vr_Status_Running" xml:space="preserve"><value>Yn rhedeg</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Yn rhedeg, gyrrwr wedi'i gysylltu</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>Yn rhedeg, rheolyddion yn fyw</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>Mae gyrrwr OpenVR arall yn defnyddio enw gyrrwr HIDMaestro, felly gall SteamVR ei lwytho yn lle un PadForge ac ni fydd y rheolyddion VR rhithwir yn ymddangos. Tynnwch y gyrrwr hwnnw i glirio hyn: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Rheolydd cyfresol (porth COM)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Ni all Windows ddweud pa reolydd sydd ar borth COM. Dewiswch y porth a'r rheolydd, yna ychwanegwch ef. Mae PadForge yn agor y porth hwnnw o hynny ymlaen.</value></data>
@@ -3929,6 +3938,19 @@ Hoffech chi i PadForge eu dadosod nawr? Mae hyn angen caniatâd gweinyddwr ac ef
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Bysellfwrdd yn Unig</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>Wedi'i luniadu fel y cynllun safonol agosaf</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Mewnbwn Windows</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>Yr Un Dyfais â'r Bysellfwrdd</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>Yr Un Dyfais â'r Llygoden</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Mae mewnbwn Windows yn teipio pob bysell trwy Windows, a gall rhaglenni ddweud ei fod wedi dod o feddalwedd. Mae model bysellfwrdd yn ei deipio ar fysellfwrdd rhithwir y mae rhaglenni'n ei weld fel y caledwedd hwnnw. Mae'r tabl mapio yn cuddio'r bysellau na all y model eu hanfon.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Mae mewnbwn Windows yn symud y pwyntydd trwy Windows, a gall rhaglenni ddweud ei fod wedi dod o feddalwedd. Mae model llygoden yn ei symud gyda llygoden rhithwir y mae rhaglenni'n ei gweld fel y caledwedd hwnnw. Mae'r tabl mapio yn cuddio'r botymau a'r olwynion nad oes gan y model.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Bysellau ar Unwaith: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Bysellau ar Unwaith: Unrhyw Nifer</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Bysellau Cyfryngau</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>Goleuadau Clo</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Botymau: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Olwyn</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>Olwyn Ogwyddo</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Pob</value>
   </data>
@@ -4107,7 +4129,7 @@ Hoffech chi i PadForge eu dadosod nawr? Mae hyn angen caniatâd gweinyddwr ac ef
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Cownteri llygoden optegol Joy-Con 2 a deltâu lapio o amgylch y tu ôl i Symudiad Llygoden X ac Y, gan coffincolors, Frano, a moutella. MIT. Dogfennaeth yn unig, ni ddosberthir cod.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Gyrwyr cnewyllyn Linux</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Ffeithiau protocol DualShock 3, Move, DualSense, Steam Deck ac adborth grym PID, a chynllun bloc ACPI WMI. GPL-2.0-or-later, wedi'i ddarllen fel dogfennaeth yn unig, ni ddosberthir cod GPL.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Ffeithiau protocol DualShock 3, Move, DualSense, Steam Deck ac adborth grym PID, a chynllun bloc ACPI WMI. Mae PadForge yn darllen disgrifyddion bysellfwrdd a llygoden yn ôl rheolau hid-core. GPL-2.0-or-later, wedi'i ddarllen fel dogfennaeth yn unig, ni ddosberthir cod GPL.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Mewnbwn rheolydd Windows, gan gynnwys padlau Xbox Elite. Mae llwythwr yr SDK wedi'i gysylltu i SDL. MIT (llwythwr SDK).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Amser Rhedeg Microsoft Visual C++</value></data>

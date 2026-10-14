@@ -491,6 +491,8 @@ Salinan versi sebelumnya berada dalam folder ini: {1}</value></data>
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>Ikon kayu bedik dan pencetus yang diterbitkan daripada "Xbox Series Button Icons and Controls" oleh Zacksly (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Pemadan templat bentuk pad sentuh (Bulatan / Segi Empat Sama / Segi Tiga / Z / Tanda Semak dan gerak isyarat rakaman tersuai). Terbitan semula dalam C# bagi rujukan JavaScript oleh Magrofuoco, Vatavu, Anthony, dan Wobbrock. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Kedudukan kekunci dan kekunci lapisan asas bagi papan kekunci yang dilukis oleh pratonton Papan Kekunci + Tetikus, dijana daripada data reka letak QMK dan fork QMK milik Keychron. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>Pendekatan pemarkahan margin sudut yang berjalan bersama pemadan awan titik pada bentuk satu jari. Melaksanakan idea pemarkahan daripada PointPatternAnalyzer GestureSign dalam C# asli. GPL-2.0, dokumentasi sahaja.</value></data>
   <data name="About_License" xml:space="preserve"><value>Lesen</value></data>
@@ -1316,6 +1318,8 @@ Salinan versi sebelumnya berada dalam folder ini: {1}</value></data>
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Pergerakan Tetikus</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Atas</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Bawah</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Kiri</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Kanan</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Nama</value></data>
@@ -3029,7 +3033,7 @@ Salinan versi sebelumnya berada dalam folder ini: {1}</value></data>
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Dokumentasi untuk upacara penggandingan Wii, ADPCM pembesar suara, orientasi Wii Remote mengiring dan tegak, model get kayu bedik dan format storannya, serta konvensyen paksi giro. GPL-2.0-or-later, dibaca sebagai dokumentasi sahaja, tiada kod GPL dihantar.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Dokumentasi tingkah laku DualShock: putus sambungan melahu, sempadan pad sentuh, nyahkod bateri, IOCTL putus sambungan Bluetooth, bit mod getaran DualSense, lengkung jitter giro, skala kayu bedik sebagai tetikus dan benih CRC laporan output Bluetooth. GPL-3.0-or-later, dibaca sebagai dokumentasi sahaja, tiada kod GPL dihantar.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Dokumentasi tingkah laku DualShock: putus sambungan melahu, sempadan pad sentuh, nyahkod bateri, IOCTL putus sambungan Bluetooth, bit mod getaran DualSense, lengkung jitter giro, skala kayu bedik sebagai tetikus dan benih CRC laporan output Bluetooth. Jadual kekunci papan kekunci mayanya menjadi panduan untuk jadual PadForge. GPL-3.0-or-later, dibaca sebagai dokumentasi sahaja, tiada kod GPL dihantar.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>Dokumentasi arahan LED GIP yang menyokong xbledctl. GPL-2.0-or-later, dokumentasi sahaja.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3057,6 +3061,7 @@ Salinan versi sebelumnya berada dalam folder ini: {1}</value></data>
   <data name="Vr_Status_Running" xml:space="preserve"><value>Berjalan</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Berjalan, pemacu bersambung</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>Berjalan, pengawal aktif</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>Pemacu OpenVR lain menggunakan nama pemacu HIDMaestro, jadi SteamVR boleh memuatkannya menggantikan pemacu PadForge dan pengawal VR maya tidak akan muncul. Buang pemacu itu untuk menyelesaikannya: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Pengawal Bersiri (Port COM)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Windows tidak dapat mengetahui pengawal mana yang berada pada port COM. Pilih port dan pengawal, kemudian tambahkannya. PadForge membuka port itu mulai sekarang.</value></data>
@@ -3942,6 +3947,19 @@ Adakah anda mahu PadForge menyahpasangnya sekarang? Ini memerlukan peninggian ke
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Papan Kekunci Sahaja</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>Dilukis sebagai reka letak standard yang terdekat</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Input Windows</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>Peranti Sama dengan Papan Kekunci</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>Peranti Sama dengan Tetikus</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Input Windows menaip setiap kekunci melalui Windows, dan program dapat mengetahui bahawa ia datang daripada perisian. Model papan kekunci menaipnya pada papan kekunci maya yang dilihat program sebagai perkakasan itu. Jadual pemetaan menyembunyikan kekunci yang tidak dapat dihantar oleh model itu.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Input Windows menggerakkan penunjuk melalui Windows, dan program dapat mengetahui bahawa ia datang daripada perisian. Model tetikus menggerakkannya dengan tetikus maya yang dilihat program sebagai perkakasan itu. Jadual pemetaan menyembunyikan butang dan roda yang tidak dimiliki oleh model itu.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Kekunci Serentak: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Kekunci Serentak: Mana-mana</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Kekunci Media</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>Lampu Kunci</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Butang: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Roda</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>Roda Condong</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Semua</value>
   </data>
@@ -4124,7 +4142,7 @@ Adakah anda mahu PadForge menyahpasangnya sekarang? Ini memerlukan peninggian ke
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Pembilang tetikus optik Joy-Con 2 dan delta lilitan di sebalik Gerakan Tetikus X dan Y, oleh coffincolors, Frano, dan moutella. MIT. Dokumentasi sahaja, tiada kod disertakan.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Pemacu kernel Linux</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Fakta protokol DualShock 3, Move, DualSense, Steam Deck dan maklum balas daya PID, dan susun atur blok ACPI WMI. GPL-2.0-or-later, dibaca sebagai dokumentasi sahaja, tiada kod GPL disertakan.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Fakta protokol DualShock 3, Move, DualSense, Steam Deck dan maklum balas daya PID, dan susun atur blok ACPI WMI. PadForge membaca deskriptor papan kekunci dan tetikus mengikut peraturan hid-core. GPL-2.0-or-later, dibaca sebagai dokumentasi sahaja, tiada kod GPL disertakan.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Input pengawal Windows, termasuk paddle Xbox Elite. Pemuat SDK dipaut ke dalam SDL. MIT (pemuat SDK).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Masa Jalan Microsoft Visual C++</value></data>

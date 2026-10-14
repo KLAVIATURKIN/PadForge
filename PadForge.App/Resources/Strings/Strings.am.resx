@@ -490,6 +490,8 @@
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>ከ«Xbox Series Button Icons and Controls» በZacksly (CC BY 3.0) የተወሰዱ የስቲክ እና የትሪገር አዶዎች</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>የመዳሰሻ ሰሌዳ ቅርጽ-አብነት አዛማጅ (ክብ / ካሬ / ሶስት ማዕዘን / Z / የትክክል ምልክት እና ብጁ የተቀረጹ የእጅ ምልክቶች)። በMagrofuoco፣ Vatavu፣ Anthony እና Wobbrock የተዘጋጀው የJavaScript ማጣቀሻ የC# ዳግም ትግበራ። BSD 3-Clause።</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>የቁልፍ ሰሌዳ + መዳፊት ቅድመ-ዕይታ የሚስላቸው የቁልፍ ሰሌዳዎች የቁልፍ ቦታዎች እና የመሠረት ንብርብር ቁልፎች፣ ከQMK የአቀማመጥ ውሂብ እና ከKeychron የQMK ቅርንጫፍ የተፈጠሩ። GPL-2.0-or-later።</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>በነጠላ ጣት ቅርጾች ላይ ከነጥብ-ደመና አዛማጁ ጎን ለጎን የሚሠራ የማዕዘን-ህዳግ የነጥብ አሰጣጥ ዘዴ። ከGestureSign PointPatternAnalyzer የነጥብ አሰጣጥ ሐሳቡን በኦሪጅናል C# ይተገብራል። GPL-2.0፣ እንደ ሰነድ ብቻ።</value></data>
   <data name="About_License" xml:space="preserve"><value>ፈቃድ</value></data>
@@ -1315,6 +1317,8 @@
   <data name="Pad_MouseMovement" xml:space="preserve"><value>የመዳፊት እንቅስቃሴ</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>ላይ</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>ታች</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>ግራ</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>ቀኝ</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>ስም</value></data>
@@ -2451,6 +2455,8 @@
   <data name="Key_Sleep" xml:space="preserve"><value>እንቅልፍ</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>የቁጥር ሰሌዳ {0}</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>ተጨማሪ ቁልፍ {0}</value></data>
   <data name="AnalogKey_Code_Format" xml:space="preserve"><value>ቁልፍ {0}</value></data>
   <data name="AnalogKey_LeftSpace" xml:space="preserve"><value>የግራ ክፍተት</value></data>
@@ -2994,7 +3000,7 @@
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>ለWii የማጣመሪያ ሂደት፣ ለድምጽ ማጉያው ADPCM፣ ለጎን እና ቀጥ ያለ የWii Remote አቅጣጫ፣ ለስቲክ በር ሞዴልና ለማከማቻ ቅርጸቱ፣ እንዲሁም ለጋይሮ ዘንግ ስምምነት ሰነዶች። GPL-2.0-or-later፣ እንደ ሰነድ ብቻ ተነቧል፣ ምንም የGPL ኮድ አይካተትም።</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>የDualShock ባህሪ ሰነዶች፦ ሥራ ሲፈታ ግንኙነት ማቋረጥ፣ የመዳሰሻ ሰሌዳ ወሰኖች፣ የባትሪ ፍቺ፣ የBluetooth ግንኙነት ማቋረጫ IOCTL፣ የDualSense የንዝረት ሁነታ ቢቶች፣ የጋይሮ መንቀጥቀጥ ኩርባ፣ የስቲክ-እንደ-መዳፊት ልኬት እና የBluetooth የውጽዓት ሪፖርት CRC ዘር። GPL-3.0-or-later፣ እንደ ሰነድ ብቻ ተነቧል፣ ምንም የGPL ኮድ አይካተትም።</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>የDualShock ባህሪ ሰነዶች፦ ሥራ ሲፈታ ግንኙነት ማቋረጥ፣ የመዳሰሻ ሰሌዳ ወሰኖች፣ የባትሪ ፍቺ፣ የBluetooth ግንኙነት ማቋረጫ IOCTL፣ የDualSense የንዝረት ሁነታ ቢቶች፣ የጋይሮ መንቀጥቀጥ ኩርባ፣ የስቲክ-እንደ-መዳፊት ልኬት እና የBluetooth የውጽዓት ሪፖርት CRC ዘር። የምናባዊ የቁልፍ ሰሌዳው የቁልፍ ሰንጠረዥ ለPadForge ሰንጠረዥ መመሪያ ሆኗል። GPL-3.0-or-later፣ እንደ ሰነድ ብቻ ተነቧል፣ ምንም የGPL ኮድ አይካተትም።</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>xbledctlን የሚያረጋግጥ የGIP LED ትዕዛዝ ሰነድ። GPL-2.0-or-later፣ ሰነድ ብቻ።</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3022,6 +3028,7 @@
   <data name="Vr_Status_Running" xml:space="preserve"><value>በመሥራት ላይ</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>በመሥራት ላይ፣ አሽከርካሪ ተገናኝቷል</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>በመሥራት ላይ፣ መቆጣጠሪያዎች ንቁ ናቸው</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>ሌላ የOpenVR አሽከርካሪ የHIDMaestro አሽከርካሪ ስምን ይጠቀማል፣ ስለዚህ SteamVR በPadForge አሽከርካሪ ምትክ ሊጭነው ይችላል፣ ምናባዊ የVR መቆጣጠሪያዎቹም አይታዩም። ይህን ለመፍታት ያንን አሽከርካሪ ያስወግዱ፦ {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>ሲሪያል መቆጣጠሪያ (COM ወደብ)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Windows በCOM ወደብ ላይ የትኛው መቆጣጠሪያ እንዳለ ማወቅ አይችልም። ወደቡን እና መቆጣጠሪያውን ይምረጡ፣ ከዚያም ያክሉት። PadForge ከዚያ በኋላ ያንን ወደብ ይከፍታል።</value></data>
@@ -3907,6 +3914,19 @@ PadForge አሁን እንዲያራግፋቸው ይፈልጋሉ? ይህ የአስ
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>የቁልፍ ሰሌዳ ብቻ</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>በጣም ቅርብ በሆነው መደበኛ አቀማመጥ ተስሏል</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Windows ግብዓት</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>ከቁልፍ ሰሌዳው ጋር ተመሳሳይ መሣሪያ</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>ከመዳፊቱ ጋር ተመሳሳይ መሣሪያ</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Windows ግብዓት እያንዳንዱን ቁልፍ በWindows በኩል ይተይባል፣ ፕሮግራሞችም ከሶፍትዌር እንደመጣ ማወቅ ይችላሉ። የቁልፍ ሰሌዳ ሞዴል ደግሞ ፕሮግራሞች እንደዚያ ሃርድዌር በሚያዩት ምናባዊ የቁልፍ ሰሌዳ ላይ ይተይበዋል። የማዛመጃ ሰንጠረዡ ሞዴሉ መላክ የማይችላቸውን ቁልፎች ይደብቃል።</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Windows ግብዓት ጠቋሚውን በWindows በኩል ያንቀሳቅሳል፣ ፕሮግራሞችም ከሶፍትዌር እንደመጣ ማወቅ ይችላሉ። የመዳፊት ሞዴል ደግሞ ፕሮግራሞች እንደዚያ ሃርድዌር በሚያዩት ምናባዊ መዳፊት ያንቀሳቅሰዋል። የማዛመጃ ሰንጠረዡ ሞዴሉ የሌሉትን አዝራሮችና ጎማዎች ይደብቃል።</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>በአንድ ጊዜ የሚጫኑ ቁልፎች፦ {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>በአንድ ጊዜ የሚጫኑ ቁልፎች፦ ያልተገደበ</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>የሚዲያ ቁልፎች</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>የመቆለፊያ መብራቶች</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>አዝራሮች፦ {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>ጎማ</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>የሚያጋድል ጎማ</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>ሁሉም</value>
   </data>
@@ -4089,7 +4109,7 @@ PadForge አሁን እንዲያራግፋቸው ይፈልጋሉ? ይህ የአስ
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>ከ«የመዳፊት እንቅስቃሴ X» እና «Y» በስተጀርባ ያሉት የJoy-Con 2 ኦፕቲካል የመዳፊት ቆጣሪዎች እና የመጠቅለያ ልዩነቶች፣ በcoffincolors፣ Frano እና moutella። MIT። ሰነድ ብቻ፣ ምንም ኮድ አይካተትም።</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>የLinux ከርነል አሽከርካሪዎች</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>የDualShock 3፣ Move፣ DualSense፣ Steam Deck እና PID የኃይል ግብረመልስ ፕሮቶኮል እውነታዎች፣ እና የACPI WMI ብሎክ አቀማመጥ። GPL-2.0-or-later፣ እንደ ሰነድ ብቻ ተነቧል፣ ምንም የGPL ኮድ አይካተትም።</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>የDualShock 3፣ Move፣ DualSense፣ Steam Deck እና PID የኃይል ግብረመልስ ፕሮቶኮል እውነታዎች፣ እና የACPI WMI ብሎክ አቀማመጥ። PadForge የቁልፍ ሰሌዳ እና የመዳፊት ገላጮችን የhid-core ሕጎችን በመከተል ያነባል። GPL-2.0-or-later፣ እንደ ሰነድ ብቻ ተነቧል፣ ምንም የGPL ኮድ አይካተትም።</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>የWindows መቆጣጠሪያ ግብዓት፣ የXbox Elite ፓድሎችን ጨምሮ። የSDK ጫኚው ከSDL ጋር ተያይዟል። MIT (SDK ጫኚ)።</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

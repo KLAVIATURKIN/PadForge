@@ -491,6 +491,8 @@
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>स्टिक और ट्रिगर आइकन Zacksly के "Xbox Series Button Icons and Controls" से लिए गए हैं (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>टचपैड आकृति-टेम्पलेट मैचर (वृत्त / वर्ग / त्रिभुज / Z / चेकमार्क और रिकॉर्ड किए गए कस्टम जेस्चर)। Magrofuoco, Vatavu, Anthony और Wobbrock के JavaScript संदर्भ का C# में पुनर्निर्माण। BSD 3-Clause।</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>कीबोर्ड + माउस प्रीव्यू जिन कीबोर्ड को बनाता है, उनकी कुंजी की स्थितियाँ और बेस-लेयर कुंजियाँ, QMK के लेआउट डेटा और Keychron के QMK फ़ोर्क से तैयार की गईं। GPL-2.0-or-later।</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>कोणीय-मार्जिन स्कोरिंग तरीका, जो एक उँगली की आकृतियों पर पॉइंट-क्लाउड मैचर के साथ-साथ चलता है। GestureSign के PointPatternAnalyzer का स्कोरिंग विचार मौलिक C# में लागू करता है। GPL-2.0, केवल दस्तावेज़ के रूप में।</value></data>
   <data name="About_License" xml:space="preserve"><value>लाइसेंस</value></data>
@@ -1316,6 +1318,8 @@
   <data name="Pad_MouseMovement" xml:space="preserve"><value>माउस मूवमेंट</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>ऊपर</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>नीचे</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>बाएँ</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>दाएँ</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>नाम</value></data>
@@ -2476,6 +2480,11 @@
   <data name="Key_Sleep" xml:space="preserve"><value>स्लीप</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>नमपैड {0}</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>Non-US \ |</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>No Convert</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Convert</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>अंतर्राष्ट्रीय #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>अंतर्राष्ट्रीय \</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>अतिरिक्त कुंजी {0}</value></data>
@@ -3030,7 +3039,7 @@
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Wii पेयरिंग प्रक्रिया, स्पीकर ADPCM, आड़े और सीधे खड़े Wii Remote की दिशा, स्टिक-गेट मॉडल और उसके स्टोरेज फ़ॉर्मेट, और जाइरो अक्ष परिपाटी का दस्तावेज़। GPL-2.0-or-later, केवल दस्तावेज़ के रूप में पढ़ा गया, कोई GPL कोड साथ नहीं आता।</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock के व्यवहार का दस्तावेज़: निष्क्रिय होने पर डिस्कनेक्ट, टचपैड की सीमाएँ, बैटरी डीकोड, Bluetooth डिस्कनेक्ट IOCTL, DualSense रंबल-मोड बिट, जाइरो जिटर वक्र, स्टिक-से-माउस स्केल और Bluetooth आउटपुट-रिपोर्ट का CRC सीड। GPL-3.0-or-later, केवल दस्तावेज़ के रूप में पढ़ा गया, कोई GPL कोड साथ नहीं आता।</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock के व्यवहार का दस्तावेज़: निष्क्रिय होने पर डिस्कनेक्ट, टचपैड की सीमाएँ, बैटरी डीकोड, Bluetooth डिस्कनेक्ट IOCTL, DualSense रंबल-मोड बिट, जाइरो जिटर वक्र, स्टिक-से-माउस स्केल और Bluetooth आउटपुट-रिपोर्ट का CRC सीड। इसके वर्चुअल कीबोर्ड की कुंजी तालिका ने PadForge की तालिका का मार्गदर्शन किया। GPL-3.0-or-later, केवल दस्तावेज़ के रूप में पढ़ा गया, कोई GPL कोड साथ नहीं आता।</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>GIP LED कमांड का दस्तावेज़, जो xbledctl की पुष्टि करता है। GPL-2.0-or-later, केवल दस्तावेज़ के रूप में।</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3058,6 +3067,7 @@
   <data name="Vr_Status_Running" xml:space="preserve"><value>चल रहा है</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>चल रहा है, ड्राइवर कनेक्टेड</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>चल रहा है, कंट्रोलर सक्रिय</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>कोई दूसरा OpenVR ड्राइवर HIDMaestro के ड्राइवर नाम का उपयोग करता है, इसलिए SteamVR उसे PadForge के ड्राइवर की जगह लोड कर सकता है और वर्चुअल VR कंट्रोलर दिखाई नहीं देंगे। इसे ठीक करने के लिए वह ड्राइवर हटाएँ: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>सीरियल कंट्रोलर (COM पोर्ट)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Windows यह नहीं बता सकता कि COM पोर्ट पर कौन-सा कंट्रोलर है। पोर्ट और कंट्रोलर चुनें, फिर उसे जोड़ें। उसके बाद से PadForge वही पोर्ट खोलता है।</value></data>
@@ -3943,6 +3953,19 @@
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>केवल कीबोर्ड</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>निकटतम मानक लेआउट के रूप में बनाया गया</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Windows इनपुट</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>कीबोर्ड वाला ही डिवाइस</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>माउस वाला ही डिवाइस</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Windows इनपुट हर कुंजी Windows के ज़रिए टाइप करता है, और प्रोग्राम पहचान सकते हैं कि वह सॉफ़्टवेयर से आया है। कीबोर्ड मॉडल उसे एक वर्चुअल कीबोर्ड पर टाइप करता है, जिसे प्रोग्राम उसी हार्डवेयर के रूप में देखते हैं। मैपिंग तालिका वे कुंजियाँ छिपा देती है जो मॉडल नहीं भेज सकता।</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Windows इनपुट पॉइंटर को Windows के ज़रिए हिलाता है, और प्रोग्राम पहचान सकते हैं कि वह सॉफ़्टवेयर से आया है। माउस मॉडल उसे एक वर्चुअल माउस से हिलाता है, जिसे प्रोग्राम उसी हार्डवेयर के रूप में देखते हैं। मैपिंग तालिका वे बटन और व्हील छिपा देती है जो मॉडल में नहीं हैं।</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>एक साथ कुंजियाँ: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>एक साथ कुंजियाँ: कोई भी</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>मीडिया कुंजियाँ</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>लॉक लाइटें</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>बटन: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>व्हील</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>टिल्ट व्हील</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>सभी</value>
   </data>
@@ -4125,7 +4148,7 @@
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>माउस मोशन X और Y के पीछे के Joy-Con 2 ऑप्टिकल माउस काउंटर और रैपअराउंड डेल्टा, coffincolors, Frano और moutella द्वारा। MIT। केवल दस्तावेज़, कोई कोड साथ नहीं आता।</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Linux कर्नेल ड्राइवर</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3, Move, DualSense, Steam Deck और PID फ़ोर्स-फ़ीडबैक प्रोटोकॉल के तथ्य, और ACPI WMI ब्लॉक लेआउट। GPL-2.0-or-later, केवल दस्तावेज़ के रूप में पढ़ा गया, कोई GPL कोड साथ नहीं आता।</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3, Move, DualSense, Steam Deck और PID फ़ोर्स-फ़ीडबैक प्रोटोकॉल के तथ्य, और ACPI WMI ब्लॉक लेआउट। PadForge कीबोर्ड और माउस के डिस्क्रिप्टर hid-core के नियमों के अनुसार पढ़ता है। GPL-2.0-or-later, केवल दस्तावेज़ के रूप में पढ़ा गया, कोई GPL कोड साथ नहीं आता।</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Windows कंट्रोलर इनपुट, Xbox Elite के पैडल सहित। SDK लोडर SDL में लिंक है। MIT (SDK लोडर)।</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

@@ -491,6 +491,8 @@
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>Zacksly-இன் "Xbox Series Button Icons and Controls" என்பதிலிருந்து பெறப்பட்ட ஸ்டிக் மற்றும் டிரிகர் ஐகான்கள் (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>டச்பேட் வடிவ-வார்ப்புருப் பொருத்தி (வட்டம் / சதுரம் / முக்கோணம் / Z / சரிக்குறி மற்றும் தனிப்பயனாகப் பதிவுசெய்த சைகைகள்). Magrofuoco, Vatavu, Anthony, Wobbrock ஆகியோரின் JavaScript மேற்கோள் செயலாக்கத்தை அடிப்படையாகக் கொண்டு C#-இல் மறுஉருவாக்கம் செய்யப்பட்டது. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>விசைப்பலகை + சுட்டி முன்னோட்டம் வரையும் விசைப்பலகைகளின் விசை நிலைகளும் அடிப்படை அடுக்கு விசைகளும், QMK-இன் தளவமைப்புத் தரவிலிருந்தும் Keychron-இன் QMK ஃபோர்க்கிலிருந்தும் உருவாக்கப்பட்டவை. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>ஒற்றை-விரல் வடிவங்களில் புள்ளி-மேகப் பொருத்தியுடன் இணைந்து இயங்கும் கோண-விளிம்பு மதிப்பெண் முறை. GestureSign-இன் PointPatternAnalyzer-இல் உள்ள மதிப்பெண் யோசனையைப் புதிதாக எழுதிய C# குறியீட்டில் செயல்படுத்துகிறது. GPL-2.0, ஆவணமாக மட்டும்.</value></data>
   <data name="About_License" xml:space="preserve"><value>உரிமம்</value></data>
@@ -1316,6 +1318,8 @@
   <data name="Pad_MouseMovement" xml:space="preserve"><value>சுட்டி நகர்வு</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>மேல்</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>கீழ்</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>இடது</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>வலது</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>பெயர்</value></data>
@@ -2476,6 +2480,11 @@
   <data name="Key_Sleep" xml:space="preserve"><value>உறக்கம்</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>நம்பேட் {0}</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>Non-US \ |</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>No Convert</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Convert</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>சர்வதேச #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>சர்வதேச \</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>கூடுதல் விசை {0}</value></data>
@@ -3030,7 +3039,7 @@
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Wii இணைசேர்ப்பு நடைமுறை, ஸ்பீக்கர் ADPCM, பக்கவாட்டு மற்றும் நிமிர்ந்த Wii Remote திசையமைவு, ஸ்டிக்-கேட் மாடல் மற்றும் அதன் சேமிப்பு வடிவம், கைரோ அச்சு மரபு ஆகியவற்றுக்கான ஆவணம். GPL-2.0-or-later, ஆவணமாக மட்டுமே படிக்கப்பட்டது, GPL குறியீடு எதுவும் சேர்க்கப்படவில்லை.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock நடத்தை ஆவணம்: செயலற்றபோது துண்டிப்பு, டச்பேட் எல்லைகள், பேட்டரி டிகோட், Bluetooth துண்டிப்பு IOCTL, DualSense அதிர்வுப் பயன்முறை பிட்கள், கைரோ நடுக்க வளைவு, ஸ்டிக்கைச் சுட்டியாக்கும் அளவுகோல், Bluetooth அவுட்புட்-ரிப்போர்ட் CRC சீட். GPL-3.0-or-later, ஆவணமாக மட்டுமே படிக்கப்பட்டது, GPL குறியீடு எதுவும் சேர்க்கப்படவில்லை.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock நடத்தை ஆவணம்: செயலற்றபோது துண்டிப்பு, டச்பேட் எல்லைகள், பேட்டரி டிகோட், Bluetooth துண்டிப்பு IOCTL, DualSense அதிர்வுப் பயன்முறை பிட்கள், கைரோ நடுக்க வளைவு, ஸ்டிக்கைச் சுட்டியாக்கும் அளவுகோல், Bluetooth அவுட்புட்-ரிப்போர்ட் CRC சீட். இதன் மெய்நிகர் விசைப்பலகையின் விசை அட்டவணை PadForge-இன் அட்டவணைக்கு வழிகாட்டியது. GPL-3.0-or-later, ஆவணமாக மட்டுமே படிக்கப்பட்டது, GPL குறியீடு எதுவும் சேர்க்கப்படவில்லை.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>xbledctl-ஐ உறுதிப்படுத்தும் GIP LED கட்டளை ஆவணம். GPL-2.0-or-later, ஆவணமாக மட்டும்.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3058,6 +3067,7 @@
   <data name="Vr_Status_Running" xml:space="preserve"><value>இயங்குகிறது</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>இயங்குகிறது, இயக்கி இணைக்கப்பட்டது</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>இயங்குகிறது, கட்டுப்படுத்திகள் செயலில்</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>மற்றொரு OpenVR இயக்கி HIDMaestro-வின் இயக்கிப் பெயரைப் பயன்படுத்துகிறது, எனவே SteamVR அதை PadForge-இன் இயக்கிக்குப் பதிலாக ஏற்றலாம், மெய்நிகர் VR கட்டுப்படுத்திகள் தோன்றாது. இதைச் சரிசெய்ய அந்த இயக்கியை அகற்றவும்: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>சீரியல் கட்டுப்படுத்தி (COM போர்ட்)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>ஒரு COM போர்ட்டில் எந்தக் கட்டுப்படுத்தி உள்ளது என்பதை Windows-ஆல் அறிய முடியாது. போர்ட்டையும் கட்டுப்படுத்தியையும் தேர்ந்தெடுத்து, பிறகு அதைச் சேர்க்கவும். அதன் பிறகு PadForge அந்தப் போர்ட்டைத் திறக்கும்.</value></data>
@@ -3943,6 +3953,19 @@ PadForge இப்போதே அவற்றை நிறுவல் நீ�
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>விசைப்பலகை மட்டும்</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>அருகிலுள்ள நிலையான தளவமைப்பாக வரையப்பட்டது</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Windows உள்ளீடு</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>விசைப்பலகையின் அதே சாதனம்</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>சுட்டியின் அதே சாதனம்</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Windows உள்ளீடு ஒவ்வொரு விசையையும் Windows மூலம் தட்டச்சு செய்கிறது, இது மென்பொருளிலிருந்து வந்தது என்பதை நிரல்கள் அறியலாம். ஒரு விசைப்பலகை மாடல் அதை மெய்நிகர் விசைப்பலகையில் தட்டச்சு செய்கிறது, அதை நிரல்கள் அந்த வன்பொருளாகவே காண்கின்றன. அந்த மாடலால் அனுப்ப முடியாத விசைகளை மேப்பிங் அட்டவணை மறைக்கிறது.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Windows உள்ளீடு சுட்டிக்குறியை Windows மூலம் நகர்த்துகிறது, இது மென்பொருளிலிருந்து வந்தது என்பதை நிரல்கள் அறியலாம். ஒரு சுட்டி மாடல் அதை மெய்நிகர் சுட்டியால் நகர்த்துகிறது, அதை நிரல்கள் அந்த வன்பொருளாகவே காண்கின்றன. அந்த மாடலில் இல்லாத பொத்தான்களையும் சக்கரங்களையும் மேப்பிங் அட்டவணை மறைக்கிறது.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>ஒரே நேரத்தில் விசைகள்: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>ஒரே நேரத்தில் விசைகள்: ஏதேனும்</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>மீடியா விசைகள்</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>லாக் விளக்குகள்</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>பொத்தான்கள்: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>சக்கரம்</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>சாய்வு சக்கரம்</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>அனைத்தும்</value>
   </data>
@@ -4125,7 +4148,7 @@ PadForge இப்போதே அவற்றை நிறுவல் நீ�
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>சுட்டி அசைவு X மற்றும் Y-க்குப் பின்னால் உள்ள Joy-Con 2 ஆப்டிகல் சுட்டி எண்ணிகளும் சுற்றுத் திரும்பும் மாறுபாடுகளும், coffincolors, Frano, moutella ஆகியோர் உருவாக்கியவை. MIT. ஆவணமாக மட்டும், எந்தக் குறியீடும் சேர்க்கப்படவில்லை.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Linux கெர்னல் இயக்கிகள்</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3, Move, DualSense, Steam Deck, PID ஃபோர்ஸ் ஃபீட்பேக் நெறிமுறைத் தகவல்கள், மற்றும் ACPI WMI பிளாக் அமைப்பு. GPL-2.0-or-later, ஆவணமாக மட்டுமே படிக்கப்பட்டது, GPL குறியீடு எதுவும் சேர்க்கப்படவில்லை.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3, Move, DualSense, Steam Deck, PID ஃபோர்ஸ் ஃபீட்பேக் நெறிமுறைத் தகவல்கள், மற்றும் ACPI WMI பிளாக் அமைப்பு. PadForge விசைப்பலகை மற்றும் சுட்டி டிஸ்கிரிப்டர்களை hid-core விதிகளின்படி படிக்கிறது. GPL-2.0-or-later, ஆவணமாக மட்டுமே படிக்கப்பட்டது, GPL குறியீடு எதுவும் சேர்க்கப்படவில்லை.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Xbox Elite பேடில்கள் உட்பட Windows கட்டுப்படுத்தி உள்ளீடு. SDK லோடர் SDL-உடன் இணைக்கப்பட்டுள்ளது. MIT (SDK லோடர்).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

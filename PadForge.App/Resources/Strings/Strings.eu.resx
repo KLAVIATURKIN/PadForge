@@ -491,6 +491,8 @@ Aurreko bertsioaren kopia bat karpeta honetan dago: {1}</value></data>
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>Zacksly-ren «Xbox Series Button Icons and Controls» lanetik eratorritako palanka- eta katu-ikonoak (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Ukipen-panelerako forma-txantiloien parekatzailea (zirkulua / karratua / triangelua / Z / egiaztapen-marka eta grabatutako keinu pertsonalizatuak). Magrofuoco, Vatavu, Anthony eta Wobbrock-en JavaScript erreferentziatik C#-n berreraikitako bertsioa. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Teklatua + sagua aurrebistak marrazten dituen teklatuen tekla-posizioak eta oinarri-geruzako teklak, QMK-ren diseinu-datuetatik eta Keychron-en QMK fork-etik sortuak. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>Marjina angeluarreko puntuazio-metodoa, hatz bakarreko formetan puntu-hodeien parekatzailearekin batera exekutatzen dena. GestureSign-en PointPatternAnalyzer-en puntuazio-ideia C# originalean inplementatzen du. GPL-2.0, dokumentazio gisa soilik.</value></data>
   <data name="About_License" xml:space="preserve"><value>Lizentzia</value></data>
@@ -1316,6 +1318,8 @@ Aurreko bertsioaren kopia bat karpeta honetan dago: {1}</value></data>
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Saguaren mugimendua</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Gora</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Behera</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Ezkerra</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Eskuina</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Izena</value></data>
@@ -3025,7 +3029,7 @@ Aurreko bertsioaren kopia bat karpeta honetan dago: {1}</value></data>
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Wii parekatze-prozesuaren, bozgorailuaren ADPCM-aren, Wii Remote-aren albotiko eta zutiko orientazioen, palanka-atearen ereduaren eta haren biltegiratze-formatuaren, eta giroskopioaren ardatz-konbentzioaren dokumentazioa. GPL-2.0-or-later, dokumentazio gisa soilik irakurria. Ez da GPL koderik banatzen.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock-en portaeraren dokumentazioa: inaktibitateagatiko deskonexioa, ukipen-panelaren mugak, bateriaren deskodetzea, Bluetooth deskonexioaren IOCTL-a, DualSense-ren bibrazio-moduko bitak, giroskopioaren dardara-kurba, palanka sagu gisa erabiltzeko eskala eta Bluetooth irteera-txostenaren CRC hazia. GPL-3.0-or-later, dokumentazio gisa soilik irakurria. Ez da GPL koderik banatzen.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock-en portaeraren dokumentazioa: inaktibitateagatiko deskonexioa, ukipen-panelaren mugak, bateriaren deskodetzea, Bluetooth deskonexioaren IOCTL-a, DualSense-ren bibrazio-moduko bitak, giroskopioaren dardara-kurba, palanka sagu gisa erabiltzeko eskala eta Bluetooth irteera-txostenaren CRC hazia. Bere teklatu birtualaren tekla-taulak PadForge-ren taula gidatu zuen. GPL-3.0-or-later, dokumentazio gisa soilik irakurria. Ez da GPL koderik banatzen.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>GIP LED komandoen dokumentazioa, xbledctl berresten duena. GPL-2.0-or-later, dokumentazio gisa soilik.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3053,6 +3057,7 @@ Aurreko bertsioaren kopia bat karpeta honetan dago: {1}</value></data>
   <data name="Vr_Status_Running" xml:space="preserve"><value>Exekutatzen</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Exekutatzen, kontrolatzailea konektatuta</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>Exekutatzen, kontrolagailuak aktibo</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>Beste OpenVR kontrolatzaile batek HIDMaestro-ren kontrolatzaile-izena erabiltzen du, beraz SteamVR-k hura kargatu dezake PadForge-renaren ordez eta VR kontrolagailu birtualak ez dira agertuko. Kendu kontrolatzaile hori arazoa konpontzeko: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Serieko kontrolagailua (COM ataka)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Windows-ek ezin du jakin COM ataka batean zein kontrolagailu dagoen. Aukeratu ataka eta kontrolagailua, eta gehitu. Hortik aurrera, PadForge-k ataka hori irekiko du.</value></data>
@@ -3938,6 +3943,19 @@ PadForge-k orain desinstalatzea nahi duzu? Horrek administratzaile-baimenak beha
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Teklatua soilik</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>Diseinu estandar hurbilenarekin marraztuta</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Windows sarrera</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>Teklatuaren gailu bera</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>Saguaren gailu bera</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Windows sarrerak tekla bakoitza Windowsen bidez idazten du, eta programek software bidez etorri dela jakin dezakete. Teklatu-modelo batek teklatu birtual batean idazten du, programek hardware hori bezala ikusten dutena. Esleipen-taulak modeloak bidali ezin dituen teklak ezkutatzen ditu.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Windows sarrerak erakuslea Windowsen bidez mugitzen du, eta programek software bidez etorri dela jakin dezakete. Sagu-modelo batek sagu birtual batekin mugitzen du, programek hardware hori bezala ikusten dutena. Esleipen-taulak modeloak ez dituen botoiak eta gurpilak ezkutatzen ditu.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Aldi berean sakatutako teklak: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Aldi berean sakatutako teklak: edozein</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Multimedia-teklak</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>Blokeo-argiak</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Botoiak: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Gurpila</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>Alboratzen den gurpila</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Guztiak</value>
   </data>
@@ -4120,7 +4138,7 @@ PadForge-k orain desinstalatzea nahi duzu? Horrek administratzaile-baimenak beha
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Joy-Con 2-ren sagu optikoaren kontagailuak eta bira-delta-ak, Sagu-mugimendua X eta Y-ren atzean daudenak, egileak: coffincolors, Frano eta moutella. MIT. Dokumentazioa soilik, ez da koderik banatzen.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Linux kernelaren kontrolatzaileak</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3, Move, DualSense, Steam Deck eta PID indar-atzeraelikaduraren protokolo-datuak, eta ACPI WMI blokeen antolaketa. GPL-2.0-or-later, dokumentazio gisa soilik irakurria, ez da GPL koderik banatzen.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3, Move, DualSense, Steam Deck eta PID indar-atzeraelikaduraren protokolo-datuak, eta ACPI WMI blokeen antolaketa. PadForge-k teklatuen eta sagu-gailuen deskriptoreak hid-core-ren arauen arabera irakurtzen ditu. GPL-2.0-or-later, dokumentazio gisa soilik irakurria, ez da GPL koderik banatzen.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Windows-eko kontrolagailuen sarrera, Xbox Elite-ren palak barne. SDK kargatzailea SDL-n lotuta dago. MIT (SDK kargatzailea).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

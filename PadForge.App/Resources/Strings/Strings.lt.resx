@@ -489,6 +489,8 @@ Ankstesnės versijos kopija yra šiame aplanke: {1}</value></data>
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>Svirtelių ir gaidukų piktogramos, sukurtos pagal Zacksly darbą „Xbox Series Button Icons and Controls“ (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Jutiklinio skydelio formų šablonų atpažinimas (apskritimas / kvadratas / trikampis / Z / varnelė ir pačių įrašyti gestai). C# versija, iš naujo parašyta pagal Magrofuoco, Vatavu, Anthony ir Wobbrock JavaScript etaloninę realizaciją. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Klaviatūrų, kurias nubraižo peržiūra „Klaviatūra + pelė“, klavišų padėtys ir pagrindinio sluoksnio klavišai, sugeneruoti pagal QMK išdėstymo duomenis ir „Keychron“ QMK šaką. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>Kampinės paraštės vertinimo metodas, veikiantis kartu su taškų debesies atpažinimu vieno piršto formoms. Įgyvendina GestureSign PointPatternAnalyzer vertinimo idėją originaliu C# kodu. GPL-2.0, tik dokumentacija.</value></data>
   <data name="About_License" xml:space="preserve"><value>Licencija</value></data>
@@ -1314,6 +1316,8 @@ Ankstesnės versijos kopija yra šiame aplanke: {1}</value></data>
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Pelės judėjimas</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Aukštyn</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Žemyn</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Kairėn</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Dešinėn</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Pavadinimas</value></data>
@@ -3028,7 +3032,7 @@ Ankstesnės versijos kopija yra šiame aplanke: {1}</value></data>
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Dokumentacija apie „Wii“ susiejimo procedūrą, garsiakalbio ADPCM, „Wii Remote“ šoninę ir stačią orientaciją, svirtelės ribų modelį ir jo saugojimo formatą bei giroskopo ašių susitarimą. GPL-2.0-or-later, skaityta tik kaip dokumentacija, joks GPL kodas neplatinamas.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>„DualShock“ veikimo dokumentacija: atjungimas neveikiant, jutiklinio skydelio ribos, akumuliatoriaus duomenų dekodavimas, „Bluetooth“ atjungimo IOCTL, „DualSense“ vibracijos režimo bitai, giroskopo drebėjimo kreivė, svirtelės kaip pelės mastelis ir „Bluetooth“ išvesties ataskaitos CRC pradinė reikšmė. GPL-3.0-or-later, skaityta tik kaip dokumentacija, joks GPL kodas neplatinamas.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>„DualShock“ veikimo dokumentacija: atjungimas neveikiant, jutiklinio skydelio ribos, akumuliatoriaus duomenų dekodavimas, „Bluetooth“ atjungimo IOCTL, „DualSense“ vibracijos režimo bitai, giroskopo drebėjimo kreivė, svirtelės kaip pelės mastelis ir „Bluetooth“ išvesties ataskaitos CRC pradinė reikšmė. Jo virtualios klaviatūros klavišų lentelė padėjo sudaryti „PadForge“ lentelę. GPL-3.0-or-later, skaityta tik kaip dokumentacija, joks GPL kodas neplatinamas.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>GIP LED komandų dokumentacija, patvirtinanti xbledctl duomenis. GPL-2.0-or-later, tik dokumentacija.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3056,6 +3060,7 @@ Ankstesnės versijos kopija yra šiame aplanke: {1}</value></data>
   <data name="Vr_Status_Running" xml:space="preserve"><value>Veikia</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Veikia, tvarkyklė prijungta</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>Veikia, valdikliai aktyvūs</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>Kita OpenVR tvarkyklė naudoja tokį patį pavadinimą kaip HIDMaestro tvarkyklė, todėl SteamVR gali įkelti ją vietoj PadForge tvarkyklės, ir virtualūs VR valdikliai nebus rodomi. Norėdami tai išspręsti, pašalinkite tą tvarkyklę: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Nuoseklusis valdiklis (COM prievadas)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>„Windows“ negali nustatyti, koks valdiklis prijungtas prie COM prievado. Pasirinkite prievadą ir valdiklį, tada jį pridėkite. Nuo tada „PadForge“ atidarys tą prievadą.</value></data>
@@ -3941,6 +3946,19 @@ Ar norite, kad „PadForge“ jas dabar pašalintų? Tam reikia administratoriau
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Tik klaviatūra</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>Nubraižyta pagal artimiausią standartinį išdėstymą</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Windows įvestis</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>Tas pats įrenginys kaip klaviatūra</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>Tas pats įrenginys kaip pelė</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Windows įvestis renka kiekvieną klavišą per Windows, o programos gali atpažinti, kad ji gauta iš programinės įrangos. Klaviatūros modelis renka ją virtualioje klaviatūroje, kurią programos mato kaip tą aparatinę įrangą. Priskyrimų lentelė paslepia klavišus, kurių modelis negali siųsti.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Windows įvestis judina žymeklį per Windows, o programos gali atpažinti, kad ji gauta iš programinės įrangos. Pelės modelis jį judina virtualia pele, kurią programos mato kaip tą aparatinę įrangą. Priskyrimų lentelė paslepia mygtukus ir ratukus, kurių modelis neturi.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Vienu metu klavišų: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Vienu metu klavišų: bet kiek</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Medijos klavišai</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>Užraktų lemputės</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Mygtukai: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Ratukas</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>Palenkiamas ratukas</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Visi</value>
   </data>
@@ -4123,7 +4141,7 @@ Ar norite, kad „PadForge“ jas dabar pašalintų? Tam reikia administratoriau
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>„Joy-Con 2“ optinės pelės skaitikliai ir persivyniojantys pokyčiai, kuriais grindžiami „Pelės judesys X“ ir „Pelės judesys Y“, autoriai coffincolors, Frano ir moutella. MIT. Tik dokumentacija, joks kodas neplatinamas.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>„Linux“ branduolio tvarkyklės</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>„DualShock 3“, „Move“, „DualSense“, „Steam Deck“ ir PID jėgos grįžtamojo ryšio protokolų faktai bei ACPI WMI bloko struktūra. GPL-2.0-or-later, skaityta tik kaip dokumentacija, joks GPL kodas neplatinamas.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>„DualShock 3“, „Move“, „DualSense“, „Steam Deck“ ir PID jėgos grįžtamojo ryšio protokolų faktai bei ACPI WMI bloko struktūra. „PadForge“ klaviatūrų ir pelių deskriptorius skaito pagal „hid-core“ taisykles. GPL-2.0-or-later, skaityta tik kaip dokumentacija, joks GPL kodas neplatinamas.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>„Windows“ valdiklių įvestis, įskaitant „Xbox Elite“ menteles. SDK įkėlėjas susietas su SDL. MIT (SDK įkėlėjas).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

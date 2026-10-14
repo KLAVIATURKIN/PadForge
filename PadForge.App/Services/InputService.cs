@@ -2925,7 +2925,10 @@ namespace PadForge.Services
 
                 // For KBM slots, push the combined KbmRawState.
                 if (_inputManager.SlotControllerTypes[i] == VirtualControllerType.KeyboardMouse)
+                {
                     padVm.KbmOutputSnapshot = _inputManager.CombinedKbmRawStates[i];
+                    padVm.KbmKeyboardLeds = _inputManager.KbmKeyboardLedsOf(i);
+                }
 
                 // For Vr slots, push the combined VrRawState to the preview.
                 if (_inputManager.SlotControllerTypes[i] == VirtualControllerType.Vr)
@@ -18701,7 +18704,9 @@ namespace PadForge.Services
                     SlotIndex = i,
                     Surfaces = cfg.Surfaces,
                     SocdMode = cfg.SocdMode,
-                    SocdPairs = cfg.SocdPairs
+                    SocdPairs = cfg.SocdPairs,
+                    KeyboardDevice = cfg.KeyboardDevice,
+                    MouseDevice = cfg.MouseDevice,
                 });
             }
             return list.Count > 0 ? list.ToArray() : null;
@@ -19560,6 +19565,7 @@ namespace PadForge.Services
                         cfg.Surfaces = cfgData.Surfaces;
                         cfg.SocdMode = cfgData.SocdMode;
                         cfg.SocdPairs = cfgData.SocdPairs;
+                        cfg.SetDevices(cfgData.KeyboardDevice, cfgData.MouseDevice);
                         // The mode narrows the mapping table, so the view has
                         // to hear about a profile apply too (#408).
                         _mainVm.Pads[idx].NotifyKbmSurfacesChanged();

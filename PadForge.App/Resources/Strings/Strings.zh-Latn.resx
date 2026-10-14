@@ -491,6 +491,8 @@ Zhī qián bǎnběn de fùběn wèiyú cǐ wénjiànjiā: {1}</value></data>
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>Yáogǎn hé bānjī túbiāo gǎibiān zì Zacksly de "Xbox Series Button Icons and Controls" (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Chùkòngbǎn xíngzhuàng móbǎn pǐpèiqì (yuánxíng / fāngxíng / sānjiǎoxíng / Z / duìgōu, yǐjí zìdìngyì lùzhì de shǒushì). Jīyú Magrofuoco, Vatavu, Anthony hé Wobbrock de JavaScript cānkǎo shíxiàn, yǐ C# chóngxīn tuīdǎo. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Jiànpán + shǔbiāo yùlǎn suǒ huìzhì de jiànpán de àn jiàn wèizhì hé jīchǔ céng àn jiàn, shēngchéng zì QMK de bùjú shùjù hé Keychron de QMK fēnzhī. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>Jiǎodù róngchā píngfēn fāngshì, zài dānzhǐ xíngzhuàng shàng yǔ diǎnyún pǐpèiqì bìngxíng yùnxíng. Yǐ yuánchuàng C# shíxiàn GestureSign de PointPatternAnalyzer de píngfēn sīlù. GPL-2.0, jǐn wéndàng.</value></data>
   <data name="About_License" xml:space="preserve"><value>Xǔkězhèng</value></data>
@@ -1315,6 +1317,8 @@ Zhī qián bǎnběn de fùběn wèiyú cǐ wénjiànjiā: {1}</value></data>
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Shǔbiāo yídòng</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Shàng</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Xià</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Zuǒ</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Yòu</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Míngchēng</value></data>
@@ -2459,6 +2463,11 @@ Zhī qián bǎnběn de fùběn wèiyú cǐ wénjiànjiā: {1}</value></data>
   <data name="Key_Sleep" xml:space="preserve"><value>Shuìmián</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>Shùzì jiànpán {0}</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>Fēi Měishì \ |</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Bànjiǎo/Quánjiǎo</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>Wú Biànhuàn</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Biànhuàn</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Jiǎmíng</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>Fùjiā jiàn {0}</value></data>
   <data name="AnalogKey_Code_Format" xml:space="preserve"><value>Jiàn {0}</value></data>
   <data name="AnalogKey_KatakanaHiragana" xml:space="preserve"><value>Piànjiǎmíng/Píngjiǎmíng</value></data>
@@ -3003,7 +3012,7 @@ Zhī qián bǎnběn de fùběn wèiyú cǐ wénjiànjiā: {1}</value></data>
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Guānyú Wii pèiduì liúchéng, yángshēngqì ADPCM, Wii Remote héngwò yǔ shùwò fāngxiàng, yáogǎn xiànwèi móxíng jí qí cúnchǔ géshì, yǐjí tuóluóyí zhóu yuēdìng de wéndàng. GPL-2.0-or-later, jǐn zuòwéi wéndàng cānkǎo, bù suífù rènhé GPL dàimǎ.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock xíngwéi wéndàng: kōngxián duànkāi, chùkòngbǎn biānjiè, diànliàng jiěmǎ, lányá duànkāi IOCTL, DualSense zhèndòng móshì wèi, tuóluóyí dǒudòng qūxiàn, yáogǎn mónǐ shǔbiāo de suōfàng, yǐjí lányá shūchū bàogào CRC zhǒngzi. GPL-3.0-or-later, jǐn zuòwéi wéndàng cānkǎo, bù suífù rènhé GPL dàimǎ.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock xíngwéi wéndàng: kōngxián duànkāi, chùkòngbǎn biānjiè, diànliàng jiěmǎ, lányá duànkāi IOCTL, DualSense zhèndòng móshì wèi, tuóluóyí dǒudòng qūxiàn, yáogǎn mónǐ shǔbiāo de suōfàng, yǐjí lányá shūchū bàogào CRC zhǒngzi. Qí xūnǐ jiànpán de jiànmǎ biǎo wèi PadForge de jiànmǎ biǎo tígōngle zhǐyǐn. GPL-3.0-or-later, jǐn zuòwéi wéndàng cānkǎo, bù suífù rènhé GPL dàimǎ.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>Yìzhèng xbledctl de GIP LED mìnglìng wéndàng. GPL-2.0-or-later, jǐn wéndàng.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3031,6 +3040,7 @@ Zhī qián bǎnběn de fùběn wèiyú cǐ wénjiànjiā: {1}</value></data>
   <data name="Vr_Status_Running" xml:space="preserve"><value>Yùnxíng zhōng</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Yùnxíng zhōng, qūdòng yǐ liánjiē</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>Yùnxíng zhōng, kòngzhìqì yǐ jīhuó</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>Lìng yī gè OpenVR qūdòng chéngxù shǐyòng le HIDMaestro de qūdòng míngchēng, yīncǐ SteamVR kěnéng huì jiāzài tā ér bù shì PadForge de, xūnǐ VR kòngzhìqì jiāng bù huì chūxiàn. Yào xiāochú cǐ wèntí, qǐng shānchú gāi qūdòng chéngxù: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Dǎoháng kòngzhìqì</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Chuànkǒu kòngzhìqì (COM duānkǒu)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Windows wúfǎ pànduàn COM duānkǒu shàng liánjiē de shì nǎ zhǒng kòngzhìqì. Qǐng xuǎnzé duānkǒu hé kòngzhìqì, ránhòu tiānjiā. Cǐhòu PadForge huì dǎkāi gāi duānkǒu.</value></data>
@@ -3877,6 +3887,19 @@ Yào ràng PadForge xiànzài xièzài tāmen ma? Cǐ cāozuò xūyào tíshēng
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Jǐn jiànpán</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>Àn zuì jiējìn de biāozhǔn bùjú huìzhì</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Windows shūrù</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>Yǔ jiànpán tóng yī shèbèi</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>Yǔ shǔbiāo tóng yī shèbèi</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Windows shūrù tōngguò Windows dǎ chū měi gè àn jiàn, chéngxù néng kàn chū tā láizì ruǎnjiàn. Jiànpán xínghào zé zài xūnǐ jiànpán shàng dǎzì, chéngxù jiāng qí shìwéi gāi yìngjiàn. Yìngshè biǎo huì yǐncáng gāi xínghào wúfǎ fāsòng de àn jiàn.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Windows shūrù tōngguò Windows yídòng zhǐzhēn, chéngxù néng kàn chū tā láizì ruǎnjiàn. Shǔbiāo xínghào zé yòng xūnǐ shǔbiāo yídòng zhǐzhēn, chéngxù jiāng qí shìwéi gāi yìngjiàn. Yìngshè biǎo huì yǐncáng gāi xínghào méiyǒu de ànniǔ hé gǔnlún.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Tóngshí àn jiàn shù: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Tóngshí àn jiàn shù: Bùxiàn</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Duōméitǐ jiàn</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>Suǒdìng zhǐshìdēng</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Ànniǔ: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Gǔnlún</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>Qīngxié gǔnlún</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Quánbù</value>
   </data>
@@ -4039,7 +4062,7 @@ Yào ràng PadForge xiànzài xièzài tāmen ma? Cǐ cāozuò xūyào tíshēng
   <data name="About_IrohFlexInputDesc" xml:space="preserve"><value>Remote Link bèiyòng tōngdào bèihòu de zhōngjì xiéyì, yǔ FlexInput yīyàng liánjiē n0.computer de miǎnfèi gōnggòng zhōngjì. iroh: MIT OR Apache-2.0. FlexInput: MIT. Jǐn wéndàng cānkǎo, bù suí fù dàimǎ.</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Shǔbiāo yídòng X hé Y bèihòu de Joy-Con 2 guāngxué shǔbiāo jìshùqì yǔ huírào zēngliàng, yóu coffincolors, Frano hé moutella tígōng. MIT. Jǐn wéndàng cānkǎo, bù suí fù dàimǎ.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Linux nèihé qūdòng chéngxù</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3, Move, DualSense, Steam Deck hé PID lìfǎnkuì de xiéyì shìshí, yǐjí ACPI WMI kuài bùjú. GPL-2.0-or-later, jǐn zuòwéi wéndàng yuèdú, bù suí fù rènhé GPL dàimǎ.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3, Move, DualSense, Steam Deck hé PID lìfǎnkuì de xiéyì shìshí, yǐjí ACPI WMI kuài bùjú. PadForge ànzhào hid-core de guīzé dúqǔ jiànpán hé shǔbiāo de miáoshùfú. GPL-2.0-or-later, jǐn zuòwéi wéndàng yuèdú, bù suí fù rènhé GPL dàimǎ.</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Windows kòngzhìqì shūrù, bāokuò Xbox Elite bèijiàn. SDK jiāzàiqì liànjiē jìn SDL. MIT (SDK jiāzàiqì).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ yùnxíngshí</value></data>
   <data name="About_VcRuntimeDesc" xml:space="preserve"><value>SDL3.dll suǒxū de C++ yùnxíngshí (msvcp140.dll, vcruntime140.dll, x64 bǎnběn hái yǒu vcruntime140_1.dll), wèi jīng xiūgǎi de suí PadForge tígōng. Microsoft Visual Studio xǔkě tiáokuǎn.</value></data>

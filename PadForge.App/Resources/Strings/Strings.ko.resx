@@ -765,6 +765,8 @@
   <data name="Pad_MouseMovement" xml:space="preserve"><value>마우스 이동</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>위</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>아래</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>왼쪽</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>오른쪽</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>이름</value></data>
@@ -1265,6 +1267,11 @@
   <data name="Key_Sleep" xml:space="preserve"><value>절전</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>숫자 키패드 {0}</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>Non-US \ |</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>No Convert</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Convert</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>Intl #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>Intl \</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>추가 키 {0}</value></data>
@@ -2306,6 +2313,8 @@
   <data name="Pad_Audio_NoSpeaker" xml:space="preserve"><value>선택한 장치에는 내장 스피커가 없습니다. 이 패드의 매크로 사운드는 시스템 기본 출력으로 재생됩니다.</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>터치패드 도형 템플릿 매처(원 / 사각형 / 삼각형 / Z / 체크 표시 및 직접 기록한 제스처). Magrofuoco, Vatavu, Anthony, Wobbrock의 JavaScript 레퍼런스를 C#으로 재구현. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>키보드 + 마우스 미리보기가 그리는 키보드의 키 위치와 기본 레이어 키. QMK의 레이아웃 데이터와 Keychron의 QMK 포크에서 생성했습니다. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>한 손가락 도형에서 포인트 클라우드 매처와 함께 동작하는 각도 마진 점수 방식. GestureSign의 PointPatternAnalyzer의 점수 방식 아이디어를 독자적인 C#으로 구현. GPL-2.0, 문서 전용.</value></data>
   <data name="Pad_Audio_Reset_All" xml:space="preserve"><value>사운드 출력 초기화</value></data>
@@ -2863,7 +2872,7 @@
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Wii 페어링 절차, 스피커 ADPCM, Wii 리모컨의 옆으로 잡기와 세워 잡기 방향, 스틱 게이트 모델과 그 저장 형식, 자이로 축 규약에 대한 문서. GPL-2.0-or-later, 문서로만 참고했으며 GPL 코드는 포함하지 않습니다.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock 동작 문서: 유휴 연결 해제, 터치패드 경계, 배터리 디코딩, Bluetooth 연결 해제 IOCTL, DualSense 진동 모드 비트, 자이로 지터 곡선, 스틱 마우스 배율, Bluetooth 출력 리포트 CRC 시드. GPL-3.0-or-later, 문서로만 참고했으며 GPL 코드는 포함하지 않습니다.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock 동작 문서: 유휴 연결 해제, 터치패드 경계, 배터리 디코딩, Bluetooth 연결 해제 IOCTL, DualSense 진동 모드 비트, 자이로 지터 곡선, 스틱 마우스 배율, Bluetooth 출력 리포트 CRC 시드. 가상 키보드의 키 테이블이 PadForge의 키 테이블에 참고가 되었습니다. GPL-3.0-or-later, 문서로만 참고했으며 GPL 코드는 포함하지 않습니다.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>xbledctl을 뒷받침하는 GIP LED 명령 문서. GPL-2.0-or-later, 문서 전용.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -2912,6 +2921,7 @@
   <data name="Vr_Status_Running" xml:space="preserve"><value>실행 중</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>실행 중, 드라이버 연결됨</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>실행 중, 컨트롤러 활성</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>다른 OpenVR 드라이버가 HIDMaestro의 드라이버 이름을 사용하고 있어 SteamVR이 PadForge의 드라이버 대신 해당 드라이버를 불러올 수 있으며, 가상 VR 컨트롤러가 나타나지 않습니다. 이를 해결하려면 해당 드라이버를 제거하세요: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / 네비게이션</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>시리얼 컨트롤러(COM 포트)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Windows는 COM 포트에 어떤 컨트롤러가 연결되어 있는지 알 수 없습니다. 포트와 컨트롤러를 선택한 후 추가하세요. 이후 PadForge가 해당 포트를 엽니다.</value></data>
@@ -3894,6 +3904,19 @@
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>키보드만</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>가장 가까운 표준 배열로 표시됨</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Windows 입력</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>키보드와 같은 장치</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>마우스와 같은 장치</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Windows 입력은 Windows를 통해 각 키를 입력하며, 프로그램은 소프트웨어에서 온 입력임을 알 수 있습니다. 키보드 모델은 프로그램이 해당 하드웨어로 인식하는 가상 키보드로 입력합니다. 매핑 표에는 모델이 보낼 수 없는 키가 숨겨집니다.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Windows 입력은 Windows를 통해 포인터를 움직이며, 프로그램은 소프트웨어에서 온 입력임을 알 수 있습니다. 마우스 모델은 프로그램이 해당 하드웨어로 인식하는 가상 마우스로 포인터를 움직입니다. 매핑 표에는 모델에 없는 버튼과 휠이 숨겨집니다.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>동시 입력 키: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>동시 입력 키: 제한 없음</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>미디어 키</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>잠금 표시등</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>버튼: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>휠</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>틸트 휠</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>전체</value>
   </data>
@@ -4076,7 +4099,7 @@
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>마우스 이동 X와 Y를 뒷받침하는 Joy-Con 2 광학 마우스 카운터와 순환 델타. coffincolors, Frano, moutella 제작. MIT. 문서로만 참고했으며 코드는 포함하지 않습니다.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Linux 커널 드라이버</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3, Move, DualSense, Steam Deck, PID 포스 피드백의 프로토콜 사실과 ACPI WMI 블록 레이아웃. GPL-2.0-or-later, 문서로만 참고했으며 GPL 코드는 포함하지 않습니다.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3, Move, DualSense, Steam Deck, PID 포스 피드백의 프로토콜 사실과 ACPI WMI 블록 레이아웃. PadForge는 hid-core의 규칙에 따라 키보드와 마우스 디스크립터를 읽습니다. GPL-2.0-or-later, 문서로만 참고했으며 GPL 코드는 포함하지 않습니다.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Xbox Elite 패들을 포함한 Windows 컨트롤러 입력. SDK 로더는 SDL에 링크되어 있습니다. MIT (SDK 로더).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

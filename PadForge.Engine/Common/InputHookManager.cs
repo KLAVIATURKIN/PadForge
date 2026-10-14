@@ -403,7 +403,9 @@ namespace PadForge.Engine.Common
         }
 
         // Keys whose scan code carries the E0 prefix. Without the extended
-        // flag SendInput types the numpad twin (Insert becomes Numpad 0).
+        // flag SendInput types the numpad twin (Insert becomes Numpad 0), and
+        // a media key's scan code reads as a letter to a game that reads scan
+        // codes (Play/Pause is E0 22, and a bare 22 is G).
         public static bool IsExtendedKey(int vk) => vk switch
         {
             0xA3 or 0xA5 => true,           // RControl, RMenu
@@ -414,6 +416,12 @@ namespace PadForge.Engine.Common
             0x5B or 0x5C or 0x5D => true,   // LWin, RWin, Apps
             0x90 or 0x6F => true,           // NumLock, Divide
             0x2C => true,                   // Snapshot
+            // Browser, volume, media and launch keys, VK_BROWSER_BACK
+            // (0xA6) through VK_LAUNCH_APP2 (0xB7): E0 6A, E0 69, E0 67,
+            // E0 68, E0 65, E0 66, E0 32, E0 20, E0 2E, E0 30, E0 19, E0 10,
+            // E0 24, E0 22, E0 6C, E0 6D, E0 6B and E0 21 (SDL's
+            // windows_scancode_table).
+            >= 0xA6 and <= 0xB7 => true,
             _ => false
         };
 
@@ -696,6 +704,15 @@ namespace PadForge.Engine.Common
             // before anything below can count it as one.
             if (extraInfo == OutputTag) return false;
 
+            // Nor is a key PadForge's own virtual HID keyboard sends, which
+            // arrives with no tag and no injected flag (OwnHidOutput).
+            if ((flags & LLKHF_INJECTED) == 0)
+            {
+                bool e0 = (flags & LLKHF_EXTENDED) != 0;
+                if (OwnHidOutput.IsOwnKey(RawInputListener.KeyIndex(vk, (int)scanCode, e0), (int)scanCode, e0, isDown))
+                    return false;
+            }
+
             // Track physical key state for global-hotkey combo
             // matching. Updated unconditionally (including for
             // non-suppressed keys) so hotkeys composed entirely of
@@ -828,8 +845,10 @@ namespace PadForge.Engine.Common
         /// hook.</summary>
         internal static bool HandleMouseButton(int buttonId, bool isDown, IntPtr extraInfo, uint flags)
         {
-            // PadForge's own output is no physical button (OutputTag).
+            // PadForge's own output is no physical button (OutputTag), and
+            // neither is a click of its own virtual HID mouse (OwnHidOutput).
             if (extraInfo == OutputTag) return false;
+            if ((flags & LLMHF_INJECTED) == 0 && OwnHidOutput.IsOwnButton(buttonId, isDown)) return false;
             if (_chordEngine != null
                 && ChordSwallows(HandheldChordDefinition.MouseCode + buttonId, isDown, extraInfo, (flags & LLMHF_INJECTED) != 0))
                 return true;

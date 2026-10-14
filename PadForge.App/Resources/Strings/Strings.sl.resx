@@ -491,6 +491,8 @@ Kopija prejšnje različice je v tej mapi: {1}</value></data>
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>Ikone palic in sprožilcev, izpeljane iz dela „Xbox Series Button Icons and Controls“ avtorja Zacksly (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Prepoznavanje oblik na sledilni ploščici po predlogah (krog / kvadrat / trikotnik / Z / kljukica in posnete kretnje po meri). Izpeljava v jeziku C# po referenčni implementaciji v jeziku JavaScript avtorjev Magrofuoco, Vatavu, Anthony in Wobbrock. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Položaji tipk in tipke osnovne plasti tipkovnic, ki jih predogled Tipkovnica + miška nariše, ustvarjeni iz podatkov o postavitvi QMK in Keychronove različice QMK. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>Pristop točkovanja s kotnim odmikom, ki pri oblikah, narisanih z enim prstom, deluje vzporedno s primerjalnikom oblakov točk. Zamisel točkovanja iz razreda PointPatternAnalyzer projekta GestureSign izvede v izvirni kodi C#. GPL-2.0, samo kot dokumentacija.</value></data>
   <data name="About_License" xml:space="preserve"><value>Licenca</value></data>
@@ -1316,6 +1318,8 @@ Kopija prejšnje različice je v tej mapi: {1}</value></data>
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Premikanje miške</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Gor</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Dol</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Levo</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Desno</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Ime</value></data>
@@ -2476,6 +2480,11 @@ Kopija prejšnje različice je v tej mapi: {1}</value></data>
   <data name="Key_Sleep" xml:space="preserve"><value>Spanje</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>Številčnica {0}</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>Non-US \ |</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>No Convert</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Convert</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>Mednarodna tipka #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>Mednarodna tipka \</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>Dodatna tipka {0}</value></data>
@@ -3030,7 +3039,7 @@ Kopija prejšnje različice je v tej mapi: {1}</value></data>
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Dokumentacija za postopek seznanjanja Wii, ADPCM zvočnika, ležečo in pokončno usmerjenost Wii Remote, model vodila palice in njegovo obliko shranjevanja ter konvencijo osi žiroskopa. GPL-2.0-or-later, prebrano le kot dokumentacija, nobena koda GPL ni vključena.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Dokumentacija delovanja krmilnikov DualShock: prekinitev ob nedejavnosti, meje sledilne ploščice, dekodiranje baterije, IOCTL za prekinitev povezave Bluetooth, biti načina vibriranja DualSense, krivulja tresenja žiroskopa, merilo palice kot miške in seme CRC izhodnega poročila Bluetooth. GPL-3.0-or-later, prebrano le kot dokumentacija, nobena koda GPL ni vključena.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Dokumentacija delovanja krmilnikov DualShock: prekinitev ob nedejavnosti, meje sledilne ploščice, dekodiranje baterije, IOCTL za prekinitev povezave Bluetooth, biti načina vibriranja DualSense, krivulja tresenja žiroskopa, merilo palice kot miške in seme CRC izhodnega poročila Bluetooth. Tabela kod tipk njegove navidezne tipkovnice je vodila tabelo v programu PadForge. GPL-3.0-or-later, prebrano le kot dokumentacija, nobena koda GPL ni vključena.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>Dokumentacija ukazov GIP za lučke LED, ki potrjuje xbledctl. GPL-2.0-or-later, samo kot dokumentacija.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3058,6 +3067,7 @@ Kopija prejšnje različice je v tej mapi: {1}</value></data>
   <data name="Vr_Status_Running" xml:space="preserve"><value>Deluje</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Deluje, gonilnik povezan</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>Deluje, krmilniki aktivni</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>Drug gonilnik OpenVR uporablja ime gonilnika HIDMaestro, zato ga lahko SteamVR naloži namesto gonilnika PadForge in navidezni krmilniki VR se ne bodo prikazali. Odstranite ta gonilnik, da to odpravite: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Serijski krmilnik (vrata COM)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Windows ne more ugotoviti, kateri krmilnik je na vratih COM. Izberite vrata in krmilnik ter ga dodajte. PadForge bo od tedaj naprej odpiral ta vrata.</value></data>
@@ -3943,6 +3953,19 @@ Ali želite, da jih PadForge zdaj odstrani? To zahteva skrbniške pravice in lah
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Samo tipkovnica</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>Narisano kot najbližja standardna razporeditev</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Vnos Windows</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>Ista naprava kot tipkovnica</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>Ista naprava kot miška</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Vnos Windows vtipka vsako tipko prek sistema Windows, programi pa lahko prepoznajo, da izvira iz programske opreme. Model tipkovnice tipka na navidezni tipkovnici, ki jo programi vidijo kot to strojno opremo. Tabela preslikav skrije tipke, ki jih model ne more poslati.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Vnos Windows premika kazalec prek sistema Windows, programi pa lahko prepoznajo, da izvira iz programske opreme. Model miške ga premika z navidezno miško, ki jo programi vidijo kot to strojno opremo. Tabela preslikav skrije gumbe in kolesca, ki jih model nima.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Hkratne tipke: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Hkratne tipke: poljubno</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Predstavnostne tipke</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>Lučke tipk Lock</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Gumbi: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Kolesce</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>Nagibno kolesce</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Vse</value>
   </data>
@@ -4125,7 +4148,7 @@ Ali želite, da jih PadForge zdaj odstrani? To zahteva skrbniške pravice in lah
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Števci optične miške Joy-Con 2 in prelivne razlike za Gibanje miške X in Y. Avtorji: coffincolors, Frano in moutella. MIT. Samo dokumentacija, nobena koda ni vključena.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Gonilniki jedra Linux</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Dejstva o protokolih DualShock 3, Move, DualSense, Steam Deck in povratne sile PID ter razporeditev blokov ACPI WMI. GPL-2.0-or-later, prebrano le kot dokumentacija, nobena koda GPL ni vključena.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Dejstva o protokolih DualShock 3, Move, DualSense, Steam Deck in povratne sile PID ter razporeditev blokov ACPI WMI. PadForge bere deskriptorje tipkovnic in miši po pravilih hid-core. GPL-2.0-or-later, prebrano le kot dokumentacija, nobena koda GPL ni vključena.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Vnos krmilnikov v sistemu Windows, vključno z zadnjimi ročicami Xbox Elite. Nalagalnik SDK je povezan v SDL. MIT (nalagalnik SDK).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Izvajalno okolje Microsoft Visual C++</value></data>

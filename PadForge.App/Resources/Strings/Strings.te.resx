@@ -491,6 +491,8 @@
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>Zacksly రూపొందించిన "Xbox Series Button Icons and Controls" నుండి తీసుకున్న స్టిక్, ట్రిగ్గర్ ఐకాన్లు (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>టచ్ ప్యాడ్ ఆకార-టెంప్లేట్ మ్యాచర్ (వృత్తం / చతురస్రం / త్రిభుజం / Z / టిక్ గుర్తు మరియు రికార్డ్ చేసిన కస్టమ్ సంజ్ఞలు). Magrofuoco, Vatavu, Anthony, Wobbrock రూపొందించిన JavaScript రిఫరెన్స్ యొక్క C# పునఃఉత్పన్నం. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>కీబోర్డ్ + మౌస్ ప్రివ్యూ గీసే కీబోర్డులలోని కీ స్థానాలు, బేస్-లేయర్ కీలు. QMK లేఅవుట్ డేటా మరియు Keychron QMK ఫోర్క్ నుండి రూపొందించబడ్డాయి. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>ఒకే వేలి ఆకారాలపై పాయింట్-క్లౌడ్ మ్యాచర్‌తో పాటు నడిచే కోణీయ-మార్జిన్ స్కోరింగ్ విధానం. GestureSign యొక్క PointPatternAnalyzerలోని స్కోరింగ్ ఆలోచనను అసలు C#లో అమలు చేస్తుంది. GPL-2.0, డాక్యుమెంటేషన్ మాత్రమే.</value></data>
   <data name="About_License" xml:space="preserve"><value>లైసెన్స్</value></data>
@@ -1316,6 +1318,8 @@
   <data name="Pad_MouseMovement" xml:space="preserve"><value>మౌస్ కదలిక</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>పైకి</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>కిందికి</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>ఎడమ</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>కుడి</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>పేరు</value></data>
@@ -2476,6 +2480,11 @@
   <data name="Key_Sleep" xml:space="preserve"><value>స్లీప్</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>నంప్యాడ్ {0}</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>నాన్-US \ |</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>No Convert</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Convert</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>అంతర్జాతీయ #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>అంతర్జాతీయ \</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>అదనపు కీ {0}</value></data>
@@ -3030,7 +3039,7 @@
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Wii జత చేసే విధానం, స్పీకర్ ADPCM, Wii Remote పక్కకు, నిటారుగా ఉండే ఓరియెంటేషన్, స్టిక్-గేట్ మోడల్ దాని నిల్వ ఫార్మాట్, గైరో అక్ష సంప్రదాయం గురించిన డాక్యుమెంటేషన్. GPL-2.0-or-later, డాక్యుమెంటేషన్గా మాత్రమే చదవబడింది, GPL కోడ్ ఏదీ చేర్చబడలేదు.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock ప్రవర్తన డాక్యుమెంటేషన్: ఇడిల్ డిస్కనెక్ట్, టచ్ ప్యాడ్ సరిహద్దులు, బ్యాటరీ డీకోడ్, బ్లూటూత్ డిస్కనెక్ట్ IOCTL, DualSense రంబుల్-మోడ్ బిట్లు, గైరో జిట్టర్ వక్రరేఖ, స్టిక్-యాజ్-మౌస్ స్కేల్, బ్లూటూత్ అవుట్పుట్-రిపోర్ట్ CRC సీడ్. GPL-3.0-or-later, డాక్యుమెంటేషన్గా మాత్రమే చదవబడింది, GPL కోడ్ ఏదీ చేర్చబడలేదు.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>DualShock ప్రవర్తన డాక్యుమెంటేషన్: ఇడిల్ డిస్కనెక్ట్, టచ్ ప్యాడ్ సరిహద్దులు, బ్యాటరీ డీకోడ్, బ్లూటూత్ డిస్కనెక్ట్ IOCTL, DualSense రంబుల్-మోడ్ బిట్లు, గైరో జిట్టర్ వక్రరేఖ, స్టిక్-యాజ్-మౌస్ స్కేల్, బ్లూటూత్ అవుట్పుట్-రిపోర్ట్ CRC సీడ్. దీని వర్చువల్ కీబోర్డ్ కీ పట్టిక PadForge పట్టికకు మార్గదర్శకంగా ఉంది. GPL-3.0-or-later, డాక్యుమెంటేషన్గా మాత్రమే చదవబడింది, GPL కోడ్ ఏదీ చేర్చబడలేదు.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>xbledctl ను బలపరిచే GIP LED కమాండ్ డాక్యుమెంటేషన్. GPL-2.0-or-later, డాక్యుమెంటేషన్ మాత్రమే.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3058,6 +3067,7 @@
   <data name="Vr_Status_Running" xml:space="preserve"><value>నడుస్తోంది</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>నడుస్తోంది, డ్రైవర్ కనెక్ట్ అయింది</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>నడుస్తోంది, కంట్రోలర్లు సక్రియం</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>మరొక OpenVR డ్రైవర్ HIDMaestro డ్రైవర్ పేరునే ఉపయోగిస్తోంది. అందువల్ల SteamVR PadForge డ్రైవర్ బదులు దానిని లోడ్ చేయవచ్చు, వర్చువల్ VR కంట్రోలర్లు కనిపించవు. దీన్ని సరిచేయడానికి ఆ డ్రైవర్ను తొలగించండి: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>సీరియల్ కంట్రోలర్ (COM పోర్ట్)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>ఒక COM పోర్ట్లో ఏ కంట్రోలర్ ఉందో Windows చెప్పలేదు. పోర్ట్ను, కంట్రోలర్ను ఎంచుకుని, జోడించండి. అప్పటి నుండి PadForge ఆ పోర్ట్ను తెరుస్తుంది.</value></data>
@@ -3943,6 +3953,19 @@ PadForge వాటిని ఇప్పుడు అన్ఇన్స్టా
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>కీబోర్డ్ మాత్రమే</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>అత్యంత దగ్గరి ప్రామాణిక లేఅవుట్గా చూపబడింది</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Windows ఇన్పుట్</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>కీబోర్డ్ ఉన్న అదే పరికరం</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>మౌస్ ఉన్న అదే పరికరం</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Windows ఇన్పుట్ ప్రతి కీని Windows ద్వారా టైప్ చేస్తుంది, ఇది సాఫ్ట్వేర్ నుండి వచ్చిందని ప్రోగ్రామ్లు గుర్తించగలవు. కీబోర్డ్ మోడల్ దానిని వర్చువల్ కీబోర్డ్లో టైప్ చేస్తుంది, ప్రోగ్రామ్లు దానిని ఆ హార్డ్వేర్గా చూస్తాయి. ఆ మోడల్ పంపలేని కీలను మ్యాపింగ్ పట్టిక దాచిపెడుతుంది.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Windows ఇన్పుట్ పాయింటర్ను Windows ద్వారా కదిలిస్తుంది, ఇది సాఫ్ట్వేర్ నుండి వచ్చిందని ప్రోగ్రామ్లు గుర్తించగలవు. మౌస్ మోడల్ దానిని వర్చువల్ మౌస్తో కదిలిస్తుంది, ప్రోగ్రామ్లు దానిని ఆ హార్డ్వేర్గా చూస్తాయి. ఆ మోడల్కు లేని బటన్లను, వీల్స్ను మ్యాపింగ్ పట్టిక దాచిపెడుతుంది.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>ఒకేసారి కీలు: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>ఒకేసారి కీలు: ఏవైనా</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>మీడియా కీలు</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>లాక్ లైట్లు</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>బటన్లు: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>వీల్</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>టిల్ట్ వీల్</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>అన్నీ</value>
   </data>
@@ -4125,7 +4148,7 @@ PadForge వాటిని ఇప్పుడు అన్ఇన్స్టా
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Mouse Motion X మరియు Y వెనుక ఉన్న Joy-Con 2 ఆప్టికల్ మౌస్ కౌంటర్లు మరియు వ్రాపరౌండ్ డెల్టాలు, coffincolors, Frano మరియు moutella ద్వారా. MIT. డాక్యుమెంటేషన్ మాత్రమే, కోడ్ ఏదీ పంపిణీ చేయబడదు.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Linux కెర్నల్ డ్రైవర్లు</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3, Move, DualSense, Steam Deck మరియు PID ఫోర్స్ ఫీడ్బ్యాక్ ప్రోటోకాల్ వాస్తవాలు, మరియు ACPI WMI బ్లాక్ లేఅవుట్. GPL-2.0-or-later, డాక్యుమెంటేషన్గా మాత్రమే చదవబడింది, GPL కోడ్ ఏదీ పంపిణీ చేయబడదు.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>DualShock 3, Move, DualSense, Steam Deck మరియు PID ఫోర్స్ ఫీడ్బ్యాక్ ప్రోటోకాల్ వాస్తవాలు, మరియు ACPI WMI బ్లాక్ లేఅవుట్. PadForge కీబోర్డ్, మౌస్ డిస్క్రిప్టర్లను hid-core నియమాల ప్రకారం చదువుతుంది. GPL-2.0-or-later, డాక్యుమెంటేషన్గా మాత్రమే చదవబడింది, GPL కోడ్ ఏదీ పంపిణీ చేయబడదు.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Xbox Elite ప్యాడిల్స్తో సహా Windows కంట్రోలర్ ఇన్పుట్. SDK లోడర్ SDL లోకి లింక్ చేయబడింది. MIT (SDK లోడర్).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ రన్టైమ్</value></data>

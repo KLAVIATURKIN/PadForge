@@ -489,6 +489,8 @@ Hi ha una còpia de la versió anterior en aquesta carpeta: {1}</value></data>
   <data name="About_ZackslyIconsDesc" xml:space="preserve"><value>Icones de palanques i gallets derivades de «Xbox Series Button Icons and Controls» de Zacksly (CC BY 3.0)</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Comparador de plantilles de formes per al panell tàctil (cercle / quadrat / triangle / Z / marca de validació i gestos personalitzats enregistrats). Nova derivació en C# de la implementació de referència en JavaScript de Magrofuoco, Vatavu, Anthony i Wobbrock. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Posicions de tecla i tecles de la capa base dels teclats que dibuixa la vista prèvia de Teclat + ratolí, generades a partir de les dades de disposició de QMK i de la bifurcació de QMK de Keychron. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>Mètode de puntuació per marge angular que funciona al costat del comparador de núvols de punts en les formes d'un sol dit. Implementa en C# original la idea de puntuació del PointPatternAnalyzer de GestureSign. GPL-2.0, només com a documentació.</value></data>
   <data name="About_License" xml:space="preserve"><value>Llicència</value></data>
@@ -1314,6 +1316,8 @@ Hi ha una còpia de la versió anterior en aquesta carpeta: {1}</value></data>
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Moviment del ratolí</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Amunt</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Avall</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Esquerra</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Dreta</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Nom</value></data>
@@ -2474,6 +2478,11 @@ Hi ha una còpia de la versió anterior en aquesta carpeta: {1}</value></data>
   <data name="Key_Sleep" xml:space="preserve"><value>Suspèn</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>Teclat numèric {0}</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>\ | (no EUA)</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>No Convert</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Convert</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>Intl #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>Intl \</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>Tecla addicional {0}</value></data>
@@ -3028,7 +3037,7 @@ Hi ha una còpia de la versió anterior en aquesta carpeta: {1}</value></data>
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Documentació del procés d'aparellament de la Wii, l'ADPCM de l'altaveu, l'orientació de costat i vertical del comandament de Wii, el model de la guia de la palanca i el seu format d'emmagatzematge, i la convenció d'eixos del giroscopi. GPL-2.0-or-later, llegit només com a documentació, no s'hi inclou cap codi GPL.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Documentació del comportament del DualShock: desconnexió per inactivitat, límits del panell tàctil, descodificació de la bateria, l'IOCTL de desconnexió Bluetooth, els bits del mode de vibració del DualSense, la corba de tremolor del giroscopi, l'escala de la palanca com a ratolí i la llavor del CRC dels informes de sortida Bluetooth. GPL-3.0-or-later, llegit només com a documentació, no s'hi inclou cap codi GPL.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Documentació del comportament del DualShock: desconnexió per inactivitat, límits del panell tàctil, descodificació de la bateria, l'IOCTL de desconnexió Bluetooth, els bits del mode de vibració del DualSense, la corba de tremolor del giroscopi, l'escala de la palanca com a ratolí i la llavor del CRC dels informes de sortida Bluetooth. La taula de tecles del seu teclat virtual ha servit de guia per a la de PadForge. GPL-3.0-or-later, llegit només com a documentació, no s'hi inclou cap codi GPL.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>Documentació de les ordres LED de GIP que corrobora xbledctl. GPL-2.0-or-later, només com a documentació.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -3056,6 +3065,7 @@ Hi ha una còpia de la versió anterior en aquesta carpeta: {1}</value></data>
   <data name="Vr_Status_Running" xml:space="preserve"><value>En execució</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>En execució, controlador connectat</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>En execució, comandaments actius</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>Un altre controlador OpenVR utilitza el nom del controlador de HIDMaestro, de manera que SteamVR pot carregar-lo en lloc del de PadForge i els comandaments virtuals de RV no apareixeran. Elimina aquest controlador per solucionar-ho: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Comandament sèrie (port COM)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Windows no pot saber quin comandament hi ha en un port COM. Tria el port i el comandament i afegeix-lo. A partir d'aleshores, PadForge obrirà aquest port.</value></data>
@@ -3941,6 +3951,19 @@ Vols que PadForge els desinstal·li ara? Cal elevar els permisos i pot trigar un
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Només teclat</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>Dibuixat com la disposició estàndard més propera</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Entrada de Windows</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>El mateix dispositiu que el teclat</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>El mateix dispositiu que el ratolí</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>L'entrada de Windows escriu cada tecla a través de Windows, i els programes poden detectar que ve del programari. Un model de teclat l'escriu en un teclat virtual que els programes veuen com aquell maquinari. La taula d'assignacions amaga les tecles que el model no pot enviar.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>L'entrada de Windows mou el punter a través de Windows, i els programes poden detectar que ve del programari. Un model de ratolí el mou amb un ratolí virtual que els programes veuen com aquell maquinari. La taula d'assignacions amaga els botons i les rodes que el model no té.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Tecles alhora: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Tecles alhora: qualsevol</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Tecles multimèdia</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>Llums de bloqueig</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Botons: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Roda</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>Roda inclinable</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Tot</value>
   </data>
@@ -4123,7 +4146,7 @@ Vols que PadForge els desinstal·li ara? Cal elevar els permisos i pot trigar un
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Comptadors del ratolí òptic del Joy-Con 2 i increments amb desbordament circular de Moviment del ratolí X i Y, de coffincolors, Frano i moutella. MIT. Només documentació, no s'hi inclou cap codi.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Controladors del nucli de Linux</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Dades de protocol del DualShock 3, el Move, el DualSense, la Steam Deck i la retroacció de força PID, i la disposició dels blocs WMI d'ACPI. GPL-2.0-or-later, llegit només com a documentació, no s'hi inclou cap codi GPL.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Dades de protocol del DualShock 3, el Move, el DualSense, la Steam Deck i la retroacció de força PID, i la disposició dels blocs WMI d'ACPI. PadForge llegeix els descriptors de teclats i ratolins segons les regles de hid-core. GPL-2.0-or-later, llegit només com a documentació, no s'hi inclou cap codi GPL.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Entrada de comandaments de Windows, incloses les paletes del Xbox Elite. El carregador de l'SDK està enllaçat dins d'SDL. MIT (carregador de l'SDK).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

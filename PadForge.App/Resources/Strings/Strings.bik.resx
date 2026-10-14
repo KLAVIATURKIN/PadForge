@@ -111,6 +111,7 @@
   <data name="About_ModernWpf" xml:space="preserve"><value>WPF UI</value></data>
   <data name="About_MvvmToolkit" xml:space="preserve"><value>MVVM Toolkit</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
   <data name="About_HIDMaestro" xml:space="preserve"><value>HIDMaestro</value></data>
   <data name="About_OpenXInput" xml:space="preserve"><value>OpenXInput</value></data>
   <data name="About_HidHide" xml:space="preserve"><value>HidHide</value></data>
@@ -256,6 +257,8 @@
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Paghiro kan mouse</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Itaas</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Ibaba</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Wala</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Tuo</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Pangaran</value></data>
@@ -572,6 +575,8 @@
   <!-- Windows keys -->
   <data name="Key_LWin" xml:space="preserve"><value>Walang Windows</value></data>
   <data name="Key_RWin" xml:space="preserve"><value>Tuong Windows</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <!-- Numpad -->
   <!-- Lock keys -->
   <!-- Left/Right modifiers -->
@@ -952,6 +957,10 @@
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Keyboard sana</value>
   </data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Input kan Windows</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Mga media key</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Mga button: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Scroll wheel</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Gabos</value>
   </data>

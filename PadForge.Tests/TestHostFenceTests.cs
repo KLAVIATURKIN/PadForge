@@ -421,6 +421,7 @@ namespace PadForge.Tests
         {
             new object[] { Bluetooth, "public static bool TryDisconnect(string serial)", "if (OffLimitsForTest) return false;", "BluetoothFindFirstRadio(" },
             new object[] { VirtualController, "public void Connect()", "if (seam == null && OffLimitsForTest)", "_ctx.CreateController(_profile, _identityKey)" },
+            new object[] { Kbm, "private IKbmHidSink CreateSink(HMProfile profile, bool keyboard)", "if (HMaestroVirtualController.OffLimitsForTest)", "_ctx.CreateController(profile, key)" },
             new object[] { Input + "HapticToneService.cs", "private static bool BuildSink(Sink s, Func<Action, bool> publish = null)", "if (DirectDeviceAccess.Refuses(path)) return false;", "h = CreateFileW(path, GENERIC_WRITE | GENERIC_READ, SHARE_RW," },
             new object[] { HeadTracker, "internal sealed class FreeTrackReader : IDisposable", "if (OffLimitsForTest && (_heapName == HeapName || _mutexName == MutexName))", "MemoryMappedFile.CreateOrOpen(" },
             new object[] { Input + "InputManager.Step5.VirtualDevices.cs", "private void EnsureHMaestroContext()", "if (HMaestroVirtualController.OffLimitsForTest) return;", "lock (_hmaestroContextLock)" },

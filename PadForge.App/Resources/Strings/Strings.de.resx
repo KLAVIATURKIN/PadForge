@@ -765,6 +765,8 @@ Eine Kopie der vorherigen Version liegt in diesem Ordner: {1}</value></data>
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Mausbewegung</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Hoch</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Runter</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Links</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Rechts</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Name</value></data>
@@ -1265,6 +1267,11 @@ Eine Kopie der vorherigen Version liegt in diesem Ordner: {1}</value></data>
   <data name="Key_Sleep" xml:space="preserve"><value>Ruhezustand</value></data>
   <!-- Numpad -->
   <data name="Key_Numpad" xml:space="preserve"><value>Ziffernblock {0}</value></data>
+  <data name="Key_NonUsBackslash" xml:space="preserve"><value>Nicht-US \ |</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_NonConvert" xml:space="preserve"><value>No Convert</value></data>
+  <data name="Key_Convert" xml:space="preserve"><value>Convert</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>Intl #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>Intl \</value></data>
   <data name="AnalogKey_Extra_Format" xml:space="preserve"><value>Zusatztaste {0}</value></data>
@@ -2306,6 +2313,8 @@ Eine Kopie der vorherigen Version liegt in diesem Ordner: {1}</value></data>
   <data name="Pad_Audio_NoSpeaker" xml:space="preserve"><value>Das ausgewählte Gerät hat keinen eingebauten Lautsprecher. Makro-Sounds dieses Pads laufen über die Standard-Ausgabe.</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
   <data name="About_QDollarDesc" xml:space="preserve"><value>Formvorlagen-Matcher für das Touchpad (Kreis / Quadrat / Dreieck / Z / Häkchen und eigene aufgezeichnete Gesten). C#-Neuableitung der JavaScript-Referenz von Magrofuoco, Vatavu, Anthony und Wobbrock. BSD 3-Clause.</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Tastenpositionen und Tasten der Basisebene der Tastaturen, die die Vorschau von Tastatur + Maus zeichnet, erzeugt aus den Layoutdaten von QMK und dem QMK-Fork von Keychron. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_GestureSignDesc" xml:space="preserve"><value>Winkelmargen-Bewertung, die bei Einfinger-Formen neben dem Punktwolken-Matcher läuft. Setzt die Bewertungsidee aus dem PointPatternAnalyzer von GestureSign in eigenem C# um. GPL-2.0, nur Dokumentation.</value></data>
   <data name="Pad_Audio_Reset_All" xml:space="preserve"><value>Tonausgabe zurücksetzen</value></data>
@@ -2863,7 +2872,7 @@ Eine Kopie der vorherigen Version liegt in diesem Ordner: {1}</value></data>
   <data name="About_Dolphin" xml:space="preserve"><value>Dolphin</value></data>
   <data name="About_DolphinDesc" xml:space="preserve"><value>Dokumentation zur Wii-Kopplungszeremonie, zum Lautsprecher-ADPCM, zur seitlichen und aufrechten Ausrichtung der Wii-Fernbedienung, zum Stick-Gate-Modell und seinem Speicherformat sowie zur Konvention der Gyro-Achsen. GPL-2.0-or-later, nur als Dokumentation gelesen, kein GPL-Code wird ausgeliefert.</value></data>
   <data name="About_Ds4Windows" xml:space="preserve"><value>DS4Windows</value></data>
-  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Dokumentation des DualShock-Verhaltens: Leerlauf-Trennung, Touchpad-Grenzen, Akku-Dekodierung, der IOCTL zum Trennen über Bluetooth, die Rumble-Modus-Bits des DualSense, die Gyro-Jitter-Kurve, die Skalierung für Stick als Maus und der CRC-Startwert der Bluetooth-Ausgabereports. GPL-3.0-or-later, nur als Dokumentation gelesen, kein GPL-Code wird ausgeliefert.</value></data>
+  <data name="About_Ds4WindowsDesc" xml:space="preserve"><value>Dokumentation des DualShock-Verhaltens: Leerlauf-Trennung, Touchpad-Grenzen, Akku-Dekodierung, der IOCTL zum Trennen über Bluetooth, die Rumble-Modus-Bits des DualSense, die Gyro-Jitter-Kurve, die Skalierung für Stick als Maus und der CRC-Startwert der Bluetooth-Ausgabereports. Die Tastentabelle der virtuellen Tastatur von DS4Windows diente als Vorlage für die von PadForge. GPL-3.0-or-later, nur als Dokumentation gelesen, kein GPL-Code wird ausgeliefert.</value></data>
   <data name="About_XoneXow" xml:space="preserve"><value>xone / xow</value></data>
   <data name="About_XoneXowDesc" xml:space="preserve"><value>Dokumentation der GIP-LED-Befehle, die xbledctl bestätigt. GPL-2.0-or-later, nur Dokumentation.</value></data>
   <data name="About_WiimoteLib" xml:space="preserve"><value>WiimoteLib</value></data>
@@ -2912,6 +2921,7 @@ Eine Kopie der vorherigen Version liegt in diesem Ordner: {1}</value></data>
   <data name="Vr_Status_Running" xml:space="preserve"><value>Wird ausgeführt</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Wird ausgeführt, Treiber verbunden</value></data>
   <data name="Vr_Status_ControllersLive" xml:space="preserve"><value>Wird ausgeführt, Controller aktiv</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>Ein anderer OpenVR-Treiber verwendet den Treibernamen von HIDMaestro, daher kann SteamVR ihn anstelle des Treibers von PadForge laden, und die virtuellen VR-Controller erscheinen nicht. Entfernen Sie diesen Treiber, um das Problem zu beheben: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Serieller Controller (COM-Port)</value></data>
   <data name="SerialPair_Instructions" xml:space="preserve"><value>Windows erkennt nicht, welcher Controller an einem COM-Port hängt. Wählen Sie den Port und den Controller und fügen Sie ihn hinzu. PadForge öffnet diesen Port von da an.</value></data>
@@ -3894,6 +3904,19 @@ Sollen sie jetzt deinstalliert werden? Dies erfordert erhöhte Rechte und kann e
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Nur Tastatur</value>
   </data>
+  <data name="Pad_Kbm_Preview_Approximate" xml:space="preserve"><value>Als nächstliegendes Standardlayout dargestellt</value></data>
+  <data name="Pad_Kbm_Device_WindowsInput" xml:space="preserve"><value>Windows-Eingabe</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>Dasselbe Gerät wie die Tastatur</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>Dasselbe Gerät wie die Maus</value></data>
+  <data name="Pad_Kbm_Device_Keyboard_Tooltip" xml:space="preserve"><value>Die Windows-Eingabe tippt jede Taste über Windows, und Programme erkennen, dass sie von Software stammt. Ein Tastaturmodell tippt sie auf einer virtuellen Tastatur, die Programme als diese Hardware sehen. Die Zuordnungstabelle blendet die Tasten aus, die das Modell nicht senden kann.</value></data>
+  <data name="Pad_Kbm_Device_Mouse_Tooltip" xml:space="preserve"><value>Die Windows-Eingabe bewegt den Mauszeiger über Windows, und Programme erkennen, dass sie von Software stammt. Ein Mausmodell bewegt ihn mit einer virtuellen Maus, die Programme als diese Hardware sehen. Die Zuordnungstabelle blendet die Tasten und Räder aus, die das Modell nicht hat.</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Gleichzeitige Tasten: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Gleichzeitige Tasten: Beliebig</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Medientasten</value></data>
+  <data name="Pad_Kbm_Caps_LockLights" xml:space="preserve"><value>Lock-Anzeigen</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Tasten: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Rad</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>Kipprad</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Alle</value>
   </data>
@@ -4076,7 +4099,7 @@ Sollen sie jetzt deinstalliert werden? Dies erfordert erhöhte Rechte und kann e
   <data name="About_Jc2Mouse" xml:space="preserve"><value>jc2mouse / joycon2cpp / joycon2mouse</value></data>
   <data name="About_Jc2MouseDesc" xml:space="preserve"><value>Optische Maus-Zähler des Joy-Con 2 und Überlauf-Deltas hinter Mausbewegung X und Y, von coffincolors, Frano und moutella. MIT. Nur Dokumentation, kein Code wird ausgeliefert.</value></data>
   <data name="About_LinuxKernel" xml:space="preserve"><value>Linux-Kernel-Treiber</value></data>
-  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Protokollfakten zu DualShock 3, Move, DualSense, Steam Deck und PID-Force-Feedback sowie das ACPI-WMI-Blocklayout. GPL-2.0-or-later, nur als Dokumentation gelesen, kein GPL-Code wird ausgeliefert.</value></data>
+  <data name="About_LinuxKernelDesc" xml:space="preserve"><value>Protokollfakten zu DualShock 3, Move, DualSense, Steam Deck und PID-Force-Feedback sowie das ACPI-WMI-Blocklayout. PadForge liest Deskriptoren von Tastaturen und Mäusen nach den Regeln von hid-core. GPL-2.0-or-later, nur als Dokumentation gelesen, kein GPL-Code wird ausgeliefert.</value></data>
   <data name="About_GameInput" xml:space="preserve"><value>Microsoft GameInput</value></data>
   <data name="About_GameInputDesc" xml:space="preserve"><value>Controller-Eingabe unter Windows, einschließlich der Paddles des Xbox Elite. Der SDK-Loader ist in SDL gelinkt. MIT (SDK-Loader).</value></data>
   <data name="About_VcRuntime" xml:space="preserve"><value>Microsoft Visual C++ Runtime</value></data>

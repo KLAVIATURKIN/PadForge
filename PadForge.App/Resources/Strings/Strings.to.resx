@@ -108,6 +108,7 @@
   <data name="About_SDL3" xml:space="preserve"><value>SDL3</value></data>
   <data name="About_HelixToolkit" xml:space="preserve"><value>HelixToolkit</value></data>
   <data name="About_ModernWpf" xml:space="preserve"><value>WPF UI</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_HIDMaestro" xml:space="preserve"><value>HIDMaestro</value></data>
   <data name="About_OpenXInput" xml:space="preserve"><value>OpenXInput</value></data>
@@ -207,6 +208,8 @@
   <data name="Curve_Delay" xml:space="preserve"><value>Toloi</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>ʻOlunga</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Lalo</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Toʻohema</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Toʻomataʻu</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Hingoa</value></data>
@@ -426,6 +429,8 @@
   <data name="Key_LWin" xml:space="preserve"><value>Windows toʻohema</value></data>
   <data name="Key_RWin" xml:space="preserve"><value>Windows toʻomataʻu</value></data>
   <data name="Key_Sleep" xml:space="preserve"><value>Mohe</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <!-- Numpad -->
   <data name="AnalogKey_KatakanaHiragana" xml:space="preserve"><value>Katakana/Hiragana</value></data>
   <data name="AnalogKey_Henkan" xml:space="preserve"><value>Henkan</value></data>
@@ -597,6 +602,9 @@
   </data>
   <data name="About_PortMidiRtMidi" xml:space="preserve"><value>PortMidi / RtMidi</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>Naunau tatau mo e keyboard</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>Naunau tatau mo e mouse</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Ngaahi button: {0}</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Kotoa</value>
   </data>

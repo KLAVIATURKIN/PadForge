@@ -173,6 +173,8 @@
   <data name="About_ModernWpf" xml:space="preserve"><value>WPF UI</value></data>
   <data name="About_MvvmToolkit" xml:space="preserve"><value>MVVM Toolkit</value></data>
   <data name="About_QDollar" xml:space="preserve"><value>$Q Recognizer</value></data>
+  <data name="About_Qmk" xml:space="preserve"><value>QMK Firmware</value></data>
+  <data name="About_QmkDesc" xml:space="preserve"><value>Toeran'ny bokotra fitendry sy bokotra fitendry amin'ny layer fototra amin'ireo fitendry aseho amin'ny topi-maso Keyboard + Mouse, novokarina avy amin'ny angon-drakitra momba ny layout an'ny QMK sy ny fork QMK an'ny Keychron. GPL-2.0-or-later.</value></data>
   <data name="About_GestureSign" xml:space="preserve"><value>GestureSign</value></data>
   <data name="About_HIDMaestro" xml:space="preserve"><value>HIDMaestro</value></data>
   <data name="About_OpenXInput" xml:space="preserve"><value>OpenXInput</value></data>
@@ -570,6 +572,8 @@
   <data name="Pad_MouseMovement" xml:space="preserve"><value>Fihetsehan'ny totozy</value></data>
   <data name="Pad_ScrollUp" xml:space="preserve"><value>Ambony</value></data>
   <data name="Pad_ScrollDown" xml:space="preserve"><value>Ambany</value></data>
+  <data name="Pad_ScrollLeft" xml:space="preserve"><value>Havia</value></data>
+  <data name="Pad_ScrollRight" xml:space="preserve"><value>Havanana</value></data>
 
   <!-- ═══ Macros ═══ -->
   <data name="Macro_Name" xml:space="preserve"><value>Anarana</value></data>
@@ -1106,6 +1110,8 @@
   <!-- Windows keys -->
   <data name="Key_LWin" xml:space="preserve"><value>Windows havia</value></data>
   <data name="Key_RWin" xml:space="preserve"><value>Windows havanana</value></data>
+  <data name="Key_HankakuZenkaku" xml:space="preserve"><value>Hankaku/Zenkaku</value></data>
+  <data name="Key_Kana" xml:space="preserve"><value>Kana</value></data>
   <!-- Numpad -->
   <data name="AnalogKey_IntlHash" xml:space="preserve"><value>Intl #</value></data>
   <data name="AnalogKey_IntlBackslash" xml:space="preserve"><value>Intl \</value></data>
@@ -1384,6 +1390,7 @@
   <data name="About_OpenVR" xml:space="preserve"><value>OpenVR API</value></data>
   <data name="Vr_Status_Running" xml:space="preserve"><value>Mandeha</value></data>
   <data name="Vr_Status_DriverConnected" xml:space="preserve"><value>Mandeha, mifandray ny pilote</value></data>
+  <data name="Vr_DriverNameConflict_Format" xml:space="preserve"><value>Misy pilote OpenVR hafa mampiasa ny anaran'ny pilote HIDMaestro, ka mety hampiditra azy io ho solon'ny an'i PadForge i SteamVR, ary tsy hiseho ireo contrôleur VR virtoaly. Esory io pilote io mba hamahana izany: {0}</value></data>
   <data name="MovePair_Family" xml:space="preserve"><value>PlayStation Move / Navigation</value></data>
   <data name="SerialPair_Family" xml:space="preserve"><value>Contrôleur série (port COM)</value></data>
   <data name="SerialPair_Port" xml:space="preserve"><value>Port</value></data>
@@ -1635,6 +1642,14 @@
   <data name="Pad_Kbm_Surfaces_KeyboardOnly_Name" xml:space="preserve">
     <value>Fitendry ihany</value>
   </data>
+  <data name="Pad_Kbm_Device_SameAsKeyboard" xml:space="preserve"><value>Fitaovana mitovy amin'ny fitendry</value></data>
+  <data name="Pad_Kbm_Device_SameAsMouse" xml:space="preserve"><value>Fitaovana mitovy amin'ny totozy</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnce_Format" xml:space="preserve"><value>Bokotra fitendry miaraka: {0}</value></data>
+  <data name="Pad_Kbm_Caps_KeysAtOnceAny" xml:space="preserve"><value>Bokotra fitendry miaraka: na firy na firy</value></data>
+  <data name="Pad_Kbm_Caps_MediaKeys" xml:space="preserve"><value>Bokotra media</value></data>
+  <data name="Pad_Kbm_Caps_Buttons_Format" xml:space="preserve"><value>Bokotra: {0}</value></data>
+  <data name="Pad_Kbm_Caps_Wheel" xml:space="preserve"><value>Kodiarana</value></data>
+  <data name="Pad_Kbm_Caps_TiltWheel" xml:space="preserve"><value>Kodiarana mitongilana</value></data>
   <data name="Pad_Mapping_Scope_All" xml:space="preserve">
     <value>Rehetra</value>
   </data>
