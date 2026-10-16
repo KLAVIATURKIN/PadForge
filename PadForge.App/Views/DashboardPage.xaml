@@ -1512,7 +1512,7 @@
                         <TextBlock Text="{Binding Dashboard_Port, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"
                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                    Margin="0,0,8,0"/>
-                        <ui:NumberBox Value="{Binding WebControllerPort, Mode=TwoWay}"
+                        <ui:NumberBox Value="{Binding WebControllerPort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=1000}"
                                       Minimum="1024" Maximum="65535"
                                       SpinButtonPlacementMode="Inline" Width="200"/>
                         <reset:SettingResetButton Command="{Binding ResetWebPortCommand}" SettingLabel="{Binding Dashboard_WebControllerPort, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"/>
@@ -1631,7 +1631,7 @@
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Dashboard_Port, Source={x:Static strings:Strings.Instance}}"
                                    VerticalAlignment="Center" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,8,8"/>
-                        <ui:NumberBox Grid.Row="0" Grid.Column="1" Value="{Binding WebControllerPlainHttpPort, Mode=TwoWay}"
+                        <ui:NumberBox Grid.Row="0" Grid.Column="1" Value="{Binding WebControllerPlainHttpPort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=1000}"
                                       Minimum="1024" Maximum="65535"
                                       SpinButtonPlacementMode="Inline" Width="200" Margin="0,0,0,8"/>
                         <!-- Left, or it centers in a column the wider New Code
@@ -1743,7 +1743,7 @@
                         <TextBlock Text="{Binding Dashboard_Port, Source={x:Static strings:Strings.Instance}}"
                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                    VerticalAlignment="Center" Margin="0,0,8,0"/>
-                        <ui:NumberBox Value="{Binding RemoteLinkPort, Mode=TwoWay}"
+                        <ui:NumberBox Value="{Binding RemoteLinkPort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=1000}"
                                       Minimum="1024" Maximum="65535"
                                       SpinButtonPlacementMode="Inline" Width="200"/>
                         <reset:SettingResetButton Command="{Binding ResetRemoteLinkPortCommand}" SettingLabel="{Binding Dashboard_RemoteLinkPort, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"/>
@@ -2025,7 +2025,7 @@
                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,8,8"/>
                         <StackPanel x:Name="HeadTrackingUdpPortControls" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,8"
                                     IsEnabled="{Binding HeadTrackingEnabled}">
-                            <ui:NumberBox Value="{Binding HeadTrackingUdpPort, Mode=TwoWay}"
+                            <ui:NumberBox Value="{Binding HeadTrackingUdpPort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=1000}"
                                           Minimum="1" Maximum="65535"
                                           SpinButtonPlacementMode="Inline" Width="200"
                                           ToolTip="{Binding Dashboard_HeadTrackingPort_Tooltip, Source={x:Static strings:Strings.Instance}}"/>
@@ -2034,7 +2034,7 @@
                         <TextBlock Grid.Row="1" Text="{Binding Dashboard_HeadTrackingRotationRange, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"
                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,8,8"/>
                         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,8">
-                            <ui:NumberBox Value="{Binding HeadTrackingRotationRange, Mode=TwoWay}"
+                            <ui:NumberBox Value="{Binding HeadTrackingRotationRange, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           Minimum="1" Maximum="180"
                                           SpinButtonPlacementMode="Inline" Width="200"
                                           ToolTip="{Binding Dashboard_HeadTrackingRotationRange_Tooltip, Source={x:Static strings:Strings.Instance}}"/>
@@ -2043,7 +2043,7 @@
                         <TextBlock Grid.Row="2" Text="{Binding Dashboard_HeadTrackingTranslationRange, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"
                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,8,0"/>
                         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,0">
-                            <ui:NumberBox Value="{Binding HeadTrackingTranslationRange, Mode=TwoWay}"
+                            <ui:NumberBox Value="{Binding HeadTrackingTranslationRange, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           Minimum="1" Maximum="500"
                                           SpinButtonPlacementMode="Inline" Width="200"
                                           ToolTip="{Binding Dashboard_HeadTrackingTranslationRange_Tooltip, Source={x:Static strings:Strings.Instance}}"/>
@@ -2061,7 +2061,7 @@
                         <TextBlock Grid.Row="5" Text="{Binding Dashboard_HeadTrackingAxisYaw, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"
                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,8,8"/>
                         <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,8">
-                            <ui:NumberBox Value="{Binding HeadTrackingRangeYaw, Mode=TwoWay}"
+                            <ui:NumberBox Value="{Binding HeadTrackingRangeYaw, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           Minimum="0" Maximum="180"
                                           SpinButtonPlacementMode="Inline" Width="200"
                                           ToolTip="{Binding Dashboard_HeadTrackingAxisRange_Tooltip, Source={x:Static strings:Strings.Instance}}"/>
@@ -2070,7 +2070,7 @@
                         <TextBlock Grid.Row="6" Text="{Binding Dashboard_HeadTrackingAxisPitch, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"
                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,8,8"/>
                         <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,8">
-                            <ui:NumberBox Value="{Binding HeadTrackingRangePitch, Mode=TwoWay}"
+                            <ui:NumberBox Value="{Binding HeadTrackingRangePitch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           Minimum="0" Maximum="180"
                                           SpinButtonPlacementMode="Inline" Width="200"
                                           ToolTip="{Binding Dashboard_HeadTrackingAxisRange_Tooltip, Source={x:Static strings:Strings.Instance}}"/>
@@ -2079,7 +2079,7 @@
                         <TextBlock Grid.Row="7" Text="{Binding Dashboard_HeadTrackingAxisRoll, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"
                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,8,8"/>
                         <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,8">
-                            <ui:NumberBox Value="{Binding HeadTrackingRangeRoll, Mode=TwoWay}"
+                            <ui:NumberBox Value="{Binding HeadTrackingRangeRoll, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           Minimum="0" Maximum="180"
                                           SpinButtonPlacementMode="Inline" Width="200"
                                           ToolTip="{Binding Dashboard_HeadTrackingAxisRange_Tooltip, Source={x:Static strings:Strings.Instance}}"/>
@@ -2088,7 +2088,7 @@
                         <TextBlock Grid.Row="8" Text="{Binding Dashboard_HeadTrackingAxisX, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"
                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,8,8"/>
                         <StackPanel Grid.Row="8" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,8">
-                            <ui:NumberBox Value="{Binding HeadTrackingRangeX, Mode=TwoWay}"
+                            <ui:NumberBox Value="{Binding HeadTrackingRangeX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           Minimum="0" Maximum="500"
                                           SpinButtonPlacementMode="Inline" Width="200"
                                           ToolTip="{Binding Dashboard_HeadTrackingAxisRange_Tooltip, Source={x:Static strings:Strings.Instance}}"/>
@@ -2097,7 +2097,7 @@
                         <TextBlock Grid.Row="9" Text="{Binding Dashboard_HeadTrackingAxisY, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"
                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,8,8"/>
                         <StackPanel Grid.Row="9" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,8">
-                            <ui:NumberBox Value="{Binding HeadTrackingRangeY, Mode=TwoWay}"
+                            <ui:NumberBox Value="{Binding HeadTrackingRangeY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           Minimum="0" Maximum="500"
                                           SpinButtonPlacementMode="Inline" Width="200"
                                           ToolTip="{Binding Dashboard_HeadTrackingAxisRange_Tooltip, Source={x:Static strings:Strings.Instance}}"/>
@@ -2106,7 +2106,7 @@
                         <TextBlock Grid.Row="10" Text="{Binding Dashboard_HeadTrackingAxisZ, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"
                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,8,0"/>
                         <StackPanel Grid.Row="10" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,0">
-                            <ui:NumberBox Value="{Binding HeadTrackingRangeZ, Mode=TwoWay}"
+                            <ui:NumberBox Value="{Binding HeadTrackingRangeZ, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           Minimum="0" Maximum="500"
                                           SpinButtonPlacementMode="Inline" Width="200"
                                           ToolTip="{Binding Dashboard_HeadTrackingAxisRange_Tooltip, Source={x:Static strings:Strings.Instance}}"/>
@@ -2149,7 +2149,7 @@
                         <TextBlock Text="{Binding Dashboard_Port, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"
                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                    Margin="0,0,8,0"/>
-                        <ui:NumberBox Value="{Binding DsuMotionServerPort, Mode=TwoWay}"
+                        <ui:NumberBox Value="{Binding DsuMotionServerPort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=1000}"
                                       Minimum="1024" Maximum="65535"
                                       SpinButtonPlacementMode="Inline" Width="200"/>
                         <reset:SettingResetButton Command="{Binding ResetDsuPortCommand}" SettingLabel="{Binding Dashboard_MotionServerPort, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"/>
@@ -2263,7 +2263,7 @@
                         <!-- 200 like the port boxes: the focus-time clear X plus
                              the inline spin buttons cramped the value at 130
                              (same fix as the Menus tab's number boxes). -->
-                        <ui:NumberBox Value="{Binding TouchpadOverlayOpacityPercent, Mode=TwoWay}"
+                        <ui:NumberBox Value="{Binding TouchpadOverlayOpacityPercent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       Minimum="0" Maximum="100"
                                       SpinButtonPlacementMode="Inline" Width="200"
                                       Margin="8,0,0,0"/>

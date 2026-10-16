@@ -348,7 +348,7 @@
                                    Margin="0,0,8,8"/>
                         <DockPanel LastChildFill="True" Grid.Column="1" Margin="0,0,0,8">
                             <reset:SettingResetButton DockPanel.Dock="Right" Command="{Binding ResetSettingCommand}" CommandParameter="PollingRateMs" SettingLabel="{Binding Settings_PollingInterval, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_SettingsViewModel_PollingRateMs_179"/>
-                            <ui:NumberBox Value="{Binding PollingRateMs, Mode=TwoWay}"
+                            <ui:NumberBox Value="{Binding PollingRateMs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           Minimum="1" Maximum="16"
                                           SpinButtonPlacementMode="Inline" Width="200"
                                           ToolTip="{Binding Settings_PollingIntervalTooltip, Source={x:Static strings:Strings.Instance}}"/>
@@ -369,7 +369,7 @@
                                    Margin="0,0,8,0"/>
                         <DockPanel LastChildFill="True" Grid.Row="2" Grid.Column="1">
                             <reset:SettingResetButton DockPanel.Dock="Right" Command="{Binding ResetSettingCommand}" CommandParameter="HmInactivityDestroyTimeoutSeconds" SettingLabel="{Binding Settings_HmInactivityTimeout, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_SettingsViewModel_HmInactivityDestroyTimeoutSeconds_197"/>
-                            <ui:NumberBox Value="{Binding HmInactivityDestroyTimeoutSeconds, Mode=TwoWay}"
+                            <ui:NumberBox Value="{Binding HmInactivityDestroyTimeoutSeconds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           Minimum="0" Maximum="3600"
                                           SpinButtonPlacementMode="Inline" Width="200"
                                           ToolTip="{Binding Settings_HmInactivityTimeoutTooltip, Source={x:Static strings:Strings.Instance}}"/>
@@ -454,7 +454,7 @@
                         <TextBlock Text="{Binding Settings_BatteryNotifyThreshold, Source={x:Static strings:Strings.Instance}}"
                                    VerticalAlignment="Center"
                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,8,0"/>
-                        <ui:NumberBox Value="{Binding BatteryNotifyThreshold, Mode=TwoWay}"
+                        <ui:NumberBox Value="{Binding BatteryNotifyThreshold, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       Minimum="5" Maximum="50"
                                       SpinButtonPlacementMode="Inline" Width="160" IsEnabled="{Binding DataContext.BatteryNotifyEnabled, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
                         <TextBlock Text="%" VerticalAlignment="Center" Margin="6,0,0,0"
