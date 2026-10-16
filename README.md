@@ -639,11 +639,11 @@ Polling rate, device count, every virtual controller slot, and the service secti
 
 ### 3D controller visualization
 ![Controller](screenshots/controller.jpg)
-Interactive 3D model per profile. Rotate, zoom, pan. Buttons, sticks, and triggers highlight while you press them. Xbox Series profiles add a clickable Share button.
+Interactive 3D model per profile. Rotate, zoom, pan. Buttons, sticks, and triggers highlight while you press them. Click one to map it: the next input you press or move becomes its binding. Xbox Series profiles add a clickable Share button.
 
 ### 2D controller visualization
 ![Controller 2D](screenshots/controller-2d.jpg)
-Flat schematic of the same controller, same live state. Useful on small monitors or for streaming overlays.
+Flat schematic of the same controller, same live state. Click a control to map it, as on the 3D model. Useful on small monitors or for streaming overlays.
 
 ### Button and axis mappings
 ![Mappings](screenshots/mappings.jpg)
@@ -745,7 +745,7 @@ Browse community controller configs from the Steam Workshop over an anonymous St
 
 ### Keyboard + Mouse virtual controller
 ![KBM Preview](screenshots/kbm-preview.jpg)
-Map a controller stick to mouse movement. Map face buttons to WASD. Cursor and scroll speeds are time-based rates (1200 px/s at full deflection), so they feel the same at every polling rate. The preview lights up every mapped key and mouse button in real time.
+Map a controller stick to mouse movement. Map face buttons to WASD. Cursor and scroll speeds are time-based rates (1200 px/s at full deflection), so they feel the same at every polling rate. The keyboard and the mouse each send through Windows input, which needs no driver, or through one of HIDMaestro's 51 keyboard and 52 mouse models, which Windows sees as that hardware rather than as software input. The preview lights up every mapped key and mouse button in real time. It draws the picked keyboard's own board, from full size and ISO to 60 percent and Happy Hacking JIS, and the picked mouse's buttons, wheel and tilt. Nine keyboards without an exact drawing show the nearest standard board and say so. Click any key, mouse control or lock light to map it: the next input you press or move becomes its binding.
 
 ### SOCD cleaning
 ![SOCD cleaning](screenshots/kbm-socd.jpg)
