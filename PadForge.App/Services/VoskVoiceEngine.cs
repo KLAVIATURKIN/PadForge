@@ -283,6 +283,40 @@ namespace PadForge.Services
         /// that runs the real thing owns its end and no worker outlives it.</summary>
         internal static void UnpackNow() => Unpack();
 
+        /// <summary>Moves the unpacked model folder to where the model is
+        /// loaded from, and tries again while Windows refuses.
+        ///
+        /// <para>Windows will not rename a folder while any file inside it
+        /// is open, however that file was opened, and a file the unpack has
+        /// just written is often open for a moment in another program: a
+        /// virus scanner, the search indexer, a sync client. The refusal
+        /// arrives as an IOException carrying 0x80070005 (dotnet/runtime,
+        /// FileSystem.Windows.cs, MoveDirectory). Taken as final, it failed
+        /// the whole unpack and left voice macros on SAPI until the
+        /// five-minute retry. The tries and waits are the ones the .NET SDK
+        /// gives the same move of a staged folder
+        /// (FileAccessRetrier.RetryOnMoveAccessFailure): ten tries, waits from
+        /// 10 ms doubling, about five seconds before the refusal stands and
+        /// goes to Unpack's handler.</para></summary>
+        internal static void MoveIntoPlace(string from, string to, Action<int> sleep)
+        {
+            const int AccessDenied = unchecked((int)0x80070005);
+            int wait = 10;
+            for (int tries = 1; ; tries++)
+            {
+                try
+                {
+                    Directory.Move(from, to);
+                    return;
+                }
+                catch (IOException ex) when (ex.HResult == AccessDenied && tries < 10)
+                {
+                    sleep(wait);
+                    wait *= 2;
+                }
+            }
+        }
+
         private static void Unpack()
         {
             // Read once. Every path below hangs off this one value, so an
@@ -328,7 +362,7 @@ namespace PadForge.Services
                     string inner = Directory.GetDirectories(extractTo).FirstOrDefault() ?? extractTo;
                     string final = Path.Combine(root, ModelName);
                     try { Directory.Delete(final, true); } catch { }
-                    Directory.Move(inner, final);
+                    MoveIntoPlace(inner, final, Thread.Sleep);
                     try { Directory.Delete(extractTo, true); } catch { }
 
                     CompleteUnpack(final);

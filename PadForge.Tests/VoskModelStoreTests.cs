@@ -357,6 +357,67 @@ namespace PadForge.Tests
             Assert.True(File.Exists(Path.Combine(final, "am", "final.mdl")), "the acoustic model did not reach the cache");
         }
 
+        /// <summary>A staged model folder with one file in it, the way the
+        /// unpack leaves the model just before it moves it into place.</summary>
+        private string StagedFolder(out string file)
+        {
+            string staged = Path.Combine(_root, VoskModelStore.ModelName + ".extract", VoskModelStore.ModelName);
+            Directory.CreateDirectory(Path.Combine(staged, "am"));
+            file = Path.Combine(staged, "am", "final.mdl");
+            File.WriteAllBytes(file, new byte[64]);
+            return staged;
+        }
+
+        /// <summary>Windows will not rename a folder while any file inside it
+        /// is open, even through a handle that shares everything, and a file
+        /// the unpack has just written is often open for a moment in a virus
+        /// scanner or a sync client. That refusal once failed the unpack and
+        /// left voice macros on SAPI for five minutes. The move is tried
+        /// again now, and it goes through once the file is let go.</summary>
+        [Fact]
+        public void AMoveRefusedWhileAFileInsideIsOpen_IsTriedAgain_UntilItGoesThrough()
+        {
+            string staged = StagedFolder(out string file);
+            string final = Path.Combine(_root, VoskModelStore.ModelName);
+            var held = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
+            var waits = new System.Collections.Generic.List<int>();
+
+            VoskModelStore.MoveIntoPlace(staged, final, ms =>
+            {
+                waits.Add(ms);
+                held?.Dispose();
+                held = null;
+                System.Threading.Thread.Sleep(ms);
+            });
+
+            // A wait is only taken after a refusal, so the first one shows the
+            // open file did block the first try.
+            Assert.NotEmpty(waits);
+            Assert.Equal(10, waits[0]);
+            Assert.True(File.Exists(Path.Combine(final, "am", "final.mdl")), "the model did not reach its place");
+            Assert.False(Directory.Exists(staged));
+        }
+
+        /// <summary>A file that stays open keeps the refusal standing. After
+        /// ten tries, with waits from 10 ms doubling, the refusal goes on to
+        /// the unpack's handler, which schedules the five-minute retry, and
+        /// the staged model is still there for it.</summary>
+        [Fact]
+        public void AMoveRefusedEveryTime_StopsAfterTenTries_WithTheRefusal()
+        {
+            string staged = StagedFolder(out string file);
+            string final = Path.Combine(_root, VoskModelStore.ModelName);
+            var waits = new System.Collections.Generic.List<int>();
+            IOException refused;
+            using (new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete))
+                refused = Assert.Throws<IOException>(() => VoskModelStore.MoveIntoPlace(staged, final, waits.Add));
+
+            Assert.Equal(unchecked((int)0x80070005), refused.HResult);
+            Assert.Equal(new[] { 10, 20, 40, 80, 160, 320, 640, 1280, 2560 }, waits);
+            Assert.False(Directory.Exists(final));
+            Assert.True(File.Exists(file), "a refused move lost the staged model");
+        }
+
         /// <summary>The same three outcomes at the end of a fresh unpack. A
         /// library that will not load switches the store off and keeps what
         /// was unpacked. A model that will not load is thrown to the unpack's
