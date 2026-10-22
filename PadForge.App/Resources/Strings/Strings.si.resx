@@ -2650,6 +2650,8 @@
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>සලකුණු කළ විට, මෙම ස්ථරය පැහැදිලිව සිතියම්ගත නොකරන ඉලක්ක මූලික ස්ථරයට යොමු වේ. සලකුණු නොකළ විට (පෙරනිමි), ස්ථරය මූලිකය සම්පූර්ණයෙන්ම ප්‍රතිස්ථාපනය කරන අතර සිතියම්ගත නොකළ ඉලක්ක අක්‍රියව පවතී.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>භ්‍රමණ පරාසය</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>භ්‍රමණ පරාසය සකසන්න</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>පරාසය සුක්කානමට සහ එහිම මෘදුකාංගයට භාර කිරීමට මෙහි සලකුණ ඉවත් කරන්න. එවිට PadForge සුක්කානමට කිසිදු පරාසයක් නොයවයි.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>ස්වයං මධ්‍යගත කිරීමේ ශක්තිය</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>RPM ෂිෆ්ට් LED</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>සුක්කානම් හැසිරවීම</value></data>

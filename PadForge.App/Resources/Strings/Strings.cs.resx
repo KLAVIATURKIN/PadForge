@@ -2692,6 +2692,8 @@ Kopie předchozí verze je v této složce: {1}</value></data>
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Když je zaškrtnuto, cíle, které tato vrstva výslovně nemapuje, propadnou na základní vrstvu. Když není zaškrtnuto (výchozí), vrstva základ zcela nahradí a nenamapované cíle zůstanou vypnuté.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Rozsah otáčení</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Nastavovat rozsah otáčení</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Zrušte zaškrtnutí, pokud má rozsah ponechat volant a jeho vlastní software. PadForge pak volantu žádný rozsah neposílá.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Síla automatického centrování</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>Kontrolky řazení podle otáček</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Řízení</value></data>

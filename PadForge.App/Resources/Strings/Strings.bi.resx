@@ -968,6 +968,8 @@
   <data name="Pad_Shift_KindButton_Subtitle" xml:space="preserve"><value>Wan baton nomo (o wan direksen blong POV) we yu presem i statem layer.</value></data>
   <data name="Pad_Shift_ModeHold_Subtitle" xml:space="preserve"><value>Layer i stap on taem yu holem activator. I of taem yu lego.</value></data>
   <data name="Pad_Shift_ModeToggle_Subtitle" xml:space="preserve"><value>Tajem blong statem. Tajem bakegen blong stopem. Layer i stap nomata yu presem plante taem.</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Setem renj blong wil</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Sapos yu tekemaot maak long bokis ia, wil mo program blong hem nomo i setem renj. Ale PadForge i no sendem eni renj i go long wil.</value></data>
 
   <data name="Pad_Steering_Mode_Linear" xml:space="preserve"><value>Of</value></data>
   <data name="Pad_Steering_Orient_Forward" xml:space="preserve"><value>Fored</value></data>

@@ -821,6 +821,7 @@
   <data name="Pad_Shift_CycleNextButton" xml:space="preserve"><value>Bhatani rinotevera</value></data>
   <data name="Pad_Shift_CyclePrevButton" xml:space="preserve"><value>Bhatani rakapfuura</value></data>
   <data name="Pad_Shift_KindButton" xml:space="preserve"><value>Bhatani</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Bvisa chiratidzo ichi kuti usiye range kuwheel nesoftware yayo. Ipapo PadForge haitumiri range kuwheel.</value></data>
 
   <data name="Pad_Steering_Orient_Forward" xml:space="preserve"><value>Mberi</value></data>
   <data name="Pad_Steering_Orient_Left" xml:space="preserve"><value>Kuruboshwe</value></data>

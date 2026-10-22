@@ -575,6 +575,7 @@
   <data name="Pad_Shift_HostLayerAny" xml:space="preserve"><value>Koi bhi layer</value></data>
   <data name="Pad_Shift_CycleNextButton" xml:space="preserve"><value>Agla button</value></data>
   <data name="Pad_Shift_CyclePrevButton" xml:space="preserve"><value>Pichhla button</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Rotation range set karo</value></data>
 
   <data name="Pad_Steering_Mode_Linear" xml:space="preserve"><value>Band</value></data>
   <data name="Pad_Steering_Orient_Forward" xml:space="preserve"><value>Aage</value></data>

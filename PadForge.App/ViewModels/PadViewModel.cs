@@ -4438,6 +4438,13 @@ namespace PadForge.ViewModels
             set => SetProperty(ref _wheelRotationRange, Math.Clamp(value, _wheelRangeMinimum, _wheelRangeMaximum));
         }
 
+        private bool _wheelRotationRangeEnabled = true;
+        /// <summary>Whether PadForge sends <see cref="WheelRotationRange"/> to the
+        /// wheel. Off leaves the range to the wheel and its own software, and
+        /// PadForge sends none (discussion #512). Persisted in
+        /// PadSetting.RotationRangeEnabled.</summary>
+        public bool WheelRotationRangeEnabled { get => _wheelRotationRangeEnabled; set => SetProperty(ref _wheelRotationRangeEnabled, value); }
+
         private int _wheelRangeMinimum = Common.Input.WheelRangeLimits.AnyMin;
         private int _wheelRangeMaximum = Common.Input.WheelRangeLimits.AnyMax;
 
@@ -4503,6 +4510,7 @@ namespace PadForge.ViewModels
             _resetWheelAllCommand ??= new RelayCommand(() =>
             {
                 WheelRotationRange = 900;
+                WheelRotationRangeEnabled = true;
                 WheelAutoCenter = 0;
                 WheelRpmLeds = false;
             });

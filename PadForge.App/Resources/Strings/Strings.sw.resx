@@ -2633,6 +2633,8 @@ Nakala ya toleo la awali iko kwenye folda hii: {1}</value></data>
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Ikichaguliwa, malengo ambayo tabaka hili halina ramani yake wazi huangukia tabaka la Msingi. Isipochaguliwa (chaguomsingi), tabaka hubadilisha Msingi kabisa na malengo yasiyo na ramani hubaki yamezimwa.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Masafa ya Mzunguko</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Weka Masafa ya Mzunguko</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Ondoa tiki hapa ili kuachia usukani na programu yake masafa hayo. PadForge haitatuma masafa yoyote kwa usukani.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Nguvu ya Kujielekeza Katikati</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>LED za Shift za RPM</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Usukani</value></data>

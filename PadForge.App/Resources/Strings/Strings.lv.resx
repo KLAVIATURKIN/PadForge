@@ -2692,6 +2692,8 @@ Iepriekšējās versijas kopija atrodas šajā mapē: {1}</value></data>
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Ja atzīmēts, mērķi, kurus šis slānis tieši nepiesaista, tiek ņemti no pamata slāņa. Ja nav atzīmēts (noklusējums), slānis pilnībā aizstāj pamata slāni, un nepiesaistītie mērķi paliek izslēgti.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Rotācijas diapazons</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Iestatīt rotācijas diapazonu</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Notīriet šo izvēles rūtiņu, lai diapazonu atstātu stūrei un tās programmatūrai. Tad PadForge stūrei nesūta nekādu diapazonu.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Automātiskās centrēšanas stiprums</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>RPM pārnesumu maiņas LED</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Stūrēšana</value></data>

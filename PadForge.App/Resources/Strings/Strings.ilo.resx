@@ -718,6 +718,7 @@
   <data name="Pad_Shift_HostLayerAny" xml:space="preserve"><value>Uray ania a layer</value></data>
   <data name="Pad_Shift_CycleNextButton" xml:space="preserve"><value>Sumaruno a butones</value></data>
   <data name="Pad_Shift_KindButton" xml:space="preserve"><value>Butones</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Ikkatem ti tsek daytoy tapno ti wheel ken ti bukodna a software ti mangikeddeng iti range. Saanton a mangipatulod ti PadForge iti aniaman a range iti wheel.</value></data>
 
   <data name="Pad_Steering_Orient_Forward" xml:space="preserve"><value>Agpasango</value></data>
   <data name="Pad_Steering_Orient_Left" xml:space="preserve"><value>Kannigid</value></data>

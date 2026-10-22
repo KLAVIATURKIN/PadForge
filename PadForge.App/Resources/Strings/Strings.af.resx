@@ -2574,6 +2574,8 @@
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Wanneer afgemerk, val teikens wat hierdie laag nie uitdruklik toewys nie terug na die Basislaag. Wanneer nie afgemerk nie (verstek), vervang die laag Basis heeltemal en bly nie-toegewysde teikens af.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Rotasiereeks</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Stel rotasiereeks</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Ontmerk dit om die reeks aan die stuurwiel en sy eie sagteware oor te laat. PadForge stuur dan geen reeks na die stuurwiel nie.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Outo-sentreringsterkte</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>RPM-skakel-LED's</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Stuur</value></data>

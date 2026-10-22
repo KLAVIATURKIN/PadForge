@@ -895,6 +895,12 @@
   },
   {
     "File": "PadForge.App/Views/PadPage.xaml",
+    "Id": "Reset_PadViewModel_WheelRotationRangeEnabled_12112",
+    "Owner": "PadForge.ViewModels.PadViewModel",
+    "Property": "WheelRotationRangeEnabled"
+  },
+  {
+    "File": "PadForge.App/Views/PadPage.xaml",
     "Id": "Reset_PadViewModel_ConstantForceEnabled_7429",
     "Owner": "PadForge.ViewModels.PadViewModel",
     "Property": "ConstantForceEnabled"

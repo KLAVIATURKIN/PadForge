@@ -1068,6 +1068,8 @@
   <data name="Pad_Shift_CyclePrevButton" xml:space="preserve"><value>Buto ibanziriza</value></data>
   <data name="Pad_Shift_KindButton" xml:space="preserve"><value>Buto</value></data>
   <data name="Pad_Shift_ModeHold_Subtitle" xml:space="preserve"><value>Urwego rukomeza gukora igihe igikora gifashwe. Ruhagarara iyo urekuye.</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Kugena intera yo kuzunguruka</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Kuraho aka kamenyetso kugira ngo usigire ivolani na porogaramu yayo bwite kugena intera. Icyo gihe PadForge ntiyoherereza ivolani intera iyo ari yo yose.</value></data>
 
   <data name="Pad_Steering_Mode_Linear" xml:space="preserve"><value>Bifunze</value></data>
   <data name="Pad_Steering_Orient_Forward" xml:space="preserve"><value>Imbere</value></data>

@@ -2692,6 +2692,8 @@
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Калі ўключана, мэты, якія гэты слой яўна не прызначае, бяруцца з базавага слоя. Калі выключана (па змаўчанні), слой цалкам замяняе базавы, а непрызначаныя мэты застаюцца выключанымі.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Дыяпазон павароту</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Задаваць дыяпазон павароту</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Зніміце сцяжок, каб пакінуць дыяпазон рулю і яго ўласнай праграме. Тады PadForge не адпраўляе рулю ніякага дыяпазону.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Сіла аўтацэнтравання</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>LED-індыкатары абаротаў</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Рулявое кіраванне</value></data>

@@ -1193,6 +1193,8 @@
   <data name="Pad_Shift_Delete" xml:space="preserve"><value>Mukua te paparanga</value></data>
   <data name="Pad_Shift_Delay" xml:space="preserve"><value>Whakaroa</value></data>
   <data name="Pad_Shift_KindButton" xml:space="preserve"><value>Pātene</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Tautuhia te awhe hurihanga</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Tangohia te tohu i tēnei kia waiho te awhe mā te wheel me tōna ake pūmanawa e whakarite. Kāore PadForge e tuku awhe ki te wheel.</value></data>
 
   <data name="Pad_Steering_Mode_Linear" xml:space="preserve"><value>Weto</value></data>
   <data name="Pad_Steering_Orient_Left" xml:space="preserve"><value>Mauī</value></data>

@@ -729,6 +729,7 @@
   <data name="Pad_Shift_CycleNextButton" xml:space="preserve"><value>Bọtịn na-esote</value></data>
   <data name="Pad_Shift_CyclePrevButton" xml:space="preserve"><value>Bọtịn gara aga</value></data>
   <data name="Pad_Shift_KindButton" xml:space="preserve"><value>Bọtịn</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Wepụ akara a ka ịhapụ range ahụ n'aka wheel ahụ na sọftụwia nke ya. PadForge agaghịzi ezigara wheel ahụ range ọ bụla.</value></data>
 
   <data name="Pad_Steering_Mode_Linear" xml:space="preserve"><value>Gbanyụọ</value></data>
   <data name="Pad_Steering_Orient_Forward" xml:space="preserve"><value>N'ihu</value></data>

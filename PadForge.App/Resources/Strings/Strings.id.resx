@@ -2692,6 +2692,8 @@ Salinan versi sebelumnya ada di folder ini: {1}</value></data>
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Jika dicentang, target yang tidak dipetakan secara eksplisit oleh lapisan ini diteruskan ke lapisan Dasar. Jika tidak dicentang (default), lapisan ini menggantikan Dasar sepenuhnya dan target yang tidak dipetakan tetap nonaktif.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Rentang rotasi</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Atur rentang rotasi</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Hapus centang untuk menyerahkan rentang ini kepada setir dan software bawaannya. PadForge kemudian tidak mengirim rentang apa pun ke setir.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Kekuatan pemusatan otomatis</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>LED perpindahan gigi RPM</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Kemudi</value></data>

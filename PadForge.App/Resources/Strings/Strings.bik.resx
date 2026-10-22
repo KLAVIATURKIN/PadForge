@@ -669,6 +669,7 @@
   <data name="Pad_Shift_HostLayerAny" xml:space="preserve"><value>Maski anong layer</value></data>
   <data name="Pad_Shift_CycleNextButton" xml:space="preserve"><value>Sunod na button</value></data>
   <data name="Pad_Shift_KindButton" xml:space="preserve"><value>Button</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Halîon an tsek digdi tangani na an manibela asin an saiyang sadiring software an magbutang kan range. Dai na magpapadara nin range an PadForge sa manibela.</value></data>
 
   <data name="Pad_Steering_Orient_Forward" xml:space="preserve"><value>Atubangan</value></data>
   <data name="Pad_Steering_Orient_Left" xml:space="preserve"><value>Wala</value></data>

@@ -2692,6 +2692,8 @@ Kopio edellisestä versiosta on tässä kansiossa: {1}</value></data>
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Kun valittuna, kohteet, joita tämä kerros ei erikseen määritä, siirtyvät peruskerrokselle. Kun ei valittuna (oletus), kerros korvaa peruskerroksen kokonaan ja määrittämättömät kohteet pysyvät pois päältä.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Kiertokulma</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Aseta kiertokulma</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Poista valinta, niin kiertokulma jää ratin ja sen oman ohjelmiston hoidettavaksi. PadForge ei silloin lähetä ratille mitään kiertokulmaa.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Automaattisen keskityksen voimakkuus</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>Kierrosluvun vaihtovalot</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Ohjaus</value></data>

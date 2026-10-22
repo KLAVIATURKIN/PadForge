@@ -2692,6 +2692,8 @@
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>نشان زد ہونے پر وہ اہداف جنہیں یہ لیئر واضح طور پر میپ نہیں کرتی، بنیادی لیئر پر چلے جاتے ہیں۔ نشان زد نہ ہونے پر (ڈیفالٹ) یہ لیئر بنیادی لیئر کی جگہ پوری طرح لے لیتی ہے اور غیر میپ شدہ اہداف آف رہتے ہیں۔</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>گردش کی رینج</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>گردش کی رینج سیٹ کریں</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>رینج کو وہیل اور اس کے اپنے سافٹ ویئر پر چھوڑنے کے لیے اسے غیر منتخب کریں۔ تب PadForge وہیل کو کوئی رینج نہیں بھیجتا۔</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>خودکار مرکز کی طاقت</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>RPM شفٹ LED</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>اسٹیئرنگ</value></data>

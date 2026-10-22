@@ -122,15 +122,18 @@ namespace PadForge.Engine.RemoteLink
         // ── Wheel FFB ───────────────────────────────────────────────────────
 
         /// <summary>The semantic steering-FFB frame (the consumer's WheelFfbSig plus
-        /// rotation range and the resolved RPM-LED mask). Owner re-encodes per vendor.</summary>
+        /// rotation range and the resolved RPM-LED mask). Owner re-encodes per vendor.
+        /// <paramref name="rangeLeftToWheel"/> is flag bit 3: the owner sends the wheel
+        /// no range (#512). The range still rides the frame, so an owner from before
+        /// the bit, whose decode reads bits 0 to 2 only, sets the range it always did.</summary>
         public static byte[] EncodeWheel(
             bool hasCond, bool dir, short force, short peak, int ac, uint effect, int period,
             short pc, short nc, short off, int db, int ps, int ns, int condGain,
-            ushort rangeDeg, ushort ledMask, bool ledValid)
+            ushort rangeDeg, ushort ledMask, bool ledValid, bool rangeLeftToWheel = false)
         {
             var w = new Writer(48);
             w.U8((byte)Kind.Wheel);
-            w.U8((byte)((hasCond ? 1 : 0) | (dir ? 2 : 0) | (ledValid ? 4 : 0)));
+            w.U8((byte)((hasCond ? 1 : 0) | (dir ? 2 : 0) | (ledValid ? 4 : 0) | (rangeLeftToWheel ? 8 : 0)));
             w.I16(force);
             w.I16(peak);
             w.I32(ac);
@@ -185,17 +188,20 @@ namespace PadForge.Engine.RemoteLink
         public readonly struct WheelFrame
         {
             public readonly bool HasCond, Dir, LedValid;
+            /// <summary>The consumer leaves the range to the wheel (#512): send none.</summary>
+            public readonly bool RangeLeftToWheel;
             public readonly short Force, Peak, Pc, Nc, Off;
             public readonly int Ac, Period, Db, Ps, Ns, CondGain;
             public readonly uint Effect;
             public readonly ushort RangeDeg, LedMask;
             public WheelFrame(bool hasCond, bool dir, bool ledValid, short force, short peak,
                 short pc, short nc, short off, int ac, int period, int db, int ps, int ns,
-                int condGain, uint effect, ushort rangeDeg, ushort ledMask)
+                int condGain, uint effect, ushort rangeDeg, ushort ledMask, bool rangeLeftToWheel = false)
             {
                 HasCond = hasCond; Dir = dir; LedValid = ledValid; Force = force; Peak = peak;
                 Pc = pc; Nc = nc; Off = off; Ac = ac; Period = period; Db = db; Ps = ps; Ns = ns;
                 CondGain = condGain; Effect = effect; RangeDeg = rangeDeg; LedMask = ledMask;
+                RangeLeftToWheel = rangeLeftToWheel;
             }
         }
 
@@ -292,7 +298,8 @@ namespace PadForge.Engine.RemoteLink
                         ushort led = r.U16();
                         var wf = new WheelFrame(
                             (flags & 1) != 0, (flags & 2) != 0, (flags & 4) != 0,
-                            force, peak, pc, nc, off, ac, period, db, ps, ns, cg, eff, range, led);
+                            force, peak, pc, nc, off, ac, period, db, ps, ns, cg, eff, range, led,
+                            (flags & 8) != 0);
                         effect = new OutputEffect(kind, null, null, wf);
                         return true;
                     }

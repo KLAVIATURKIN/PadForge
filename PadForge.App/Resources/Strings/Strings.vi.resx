@@ -2692,6 +2692,8 @@ Bản sao của phiên bản trước nằm trong thư mục này: {1}</value></
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Khi được chọn, các đích mà lớp này không ánh xạ rõ ràng sẽ rơi xuống lớp Cơ sở. Khi bỏ chọn (mặc định), lớp thay thế hoàn toàn Cơ sở và các đích chưa ánh xạ vẫn tắt.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Phạm vi xoay</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Đặt phạm vi xoay</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Bỏ chọn để giao phạm vi cho vô lăng và phần mềm riêng của nó. Khi đó PadForge không gửi phạm vi nào cho vô lăng.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Lực tự về tâm</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>Đèn LED báo sang số theo RPM</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Đánh lái</value></data>

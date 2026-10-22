@@ -2692,6 +2692,8 @@
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>টিক দেওয়া থাকলে এই লেয়ার যেসব টার্গেট স্পষ্টভাবে ম্যাপ করে না সেগুলো বেস লেয়ার থেকে নেওয়া হয়। টিক না থাকলে (ডিফল্ট) লেয়ারটি বেসের জায়গা পুরোপুরি নেয় এবং ম্যাপ না করা টার্গেট বন্ধ থাকে।</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>ঘূর্ণনের পরিসর</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>ঘূর্ণনের পরিসর নির্ধারণ করুন</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>পরিসরটি হুইল ও তার নিজস্ব সফটওয়্যারের ওপর ছেড়ে দিতে এই টিকচিহ্ন তুলে দিন। তখন PadForge হুইলকে কোনো পরিসর পাঠায় না।</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>স্বয়ংক্রিয় কেন্দ্রে ফেরার শক্তি</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>RPM শিফট LED</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>স্টিয়ারিং</value></data>

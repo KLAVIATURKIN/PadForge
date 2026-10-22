@@ -2692,6 +2692,8 @@ A copy of the previous version is in this folder: {1}</value></data>
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>When checked, targets this layer doesn't explicitly map fall through to the Base layer. When unchecked (default), the layer replaces Base entirely and unmapped targets stay off.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Rotation Range</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Set Rotation Range</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Clear this to leave the range to the wheel and its own software. PadForge then sends the wheel no range.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Auto Centering Strength</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>RPM Shift LEDs</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Steering</value></data>

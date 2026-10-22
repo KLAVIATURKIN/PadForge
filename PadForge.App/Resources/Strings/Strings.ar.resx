@@ -2691,6 +2691,8 @@
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>عند التحديد، الأهداف التي لا تعيّنها هذه الطبقة صراحة ترجع إلى الطبقة الأساسية. عند إلغاء التحديد (الافتراضي)، تحل الطبقة محل الأساسية كليا وتبقى الأهداف غير المعينة متوقفة.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>نطاق الدوران</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>ضبط نطاق الدوران</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>أزل التحديد لترك النطاق لعجلة القيادة وبرنامجها الخاص. عندها لا ترسل PadForge أي نطاق إلى العجلة.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>شدة التوسيط التلقائي</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>مصابيح RPM لتبديل السرعة</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>التوجيه</value></data>

@@ -2686,6 +2686,8 @@ Mae copi o'r fersiwn flaenorol yn y ffolder hon: {1}</value></data>
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Wrth ei dicio, mae targedau nad yw'r haen hon yn eu mapio'n benodol yn disgyn drwodd i'r haen Sylfaen. Wrth ei ddad-dicio (rhagosodedig), mae'r haen yn disodli'r Sylfaen yn llwyr ac mae targedau heb eu mapio yn aros i ffwrdd.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Amrediad cylchdroi</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Gosod Amrediad Cylchdroi</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Dad-diciwch hwn i adael yr amrediad i'r olwyn a'i meddalwedd ei hun. Yna ni fydd PadForge yn anfon unrhyw amrediad at yr olwyn.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Cryfder canoli awtomatig</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>Goleuadau LED shifft RPM</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Llywio</value></data>

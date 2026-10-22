@@ -850,6 +850,8 @@
   <data name="Pad_Shift_CycleNextButton" xml:space="preserve"><value>Khawm tom ntej</value></data>
   <data name="Pad_Shift_CyclePrevButton" xml:space="preserve"><value>Khawm dhau los</value></data>
   <data name="Pad_Shift_KindButton" xml:space="preserve"><value>Khawm</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Teeb tsa range ntawm kev tig</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Tshem tus cim no kom tso range rau lub wheel thiab nws tus kheej software. Ces PadForge yuav tsis xa range rau lub wheel.</value></data>
 
   <data name="Pad_Steering_Mode_Linear" xml:space="preserve"><value>Kaw</value></data>
   <data name="Pad_Steering_Orient_Forward" xml:space="preserve"><value>Pem hauv ntej</value></data>

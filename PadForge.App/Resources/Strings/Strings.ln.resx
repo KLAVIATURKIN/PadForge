@@ -1077,6 +1077,8 @@
   <data name="Pad_Shift_KindButton" xml:space="preserve"><value>Bouton</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Plage ya rotation</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Kotya plage ya rotation</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Longola elembo awa mpo na kotika plage na maboko ya volant mpe ya logiciel na yango moko. Na nsima, PadForge ekotindela volant plage ata moko te.</value></data>
   <data name="Pad_Steering_Orient_Forward" xml:space="preserve"><value>Liboso</value></data>
   <data name="Pad_Steering_Orient_Left" xml:space="preserve"><value>Loboko ya mwasi</value></data>
   <data name="Pad_Steering_Orient_Right" xml:space="preserve"><value>Loboko ya mobali</value></data>

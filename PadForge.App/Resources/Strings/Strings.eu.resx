@@ -2682,6 +2682,8 @@ Aurreko bertsioaren kopia bat karpeta honetan dago: {1}</value></data>
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Markatuta dagoenean, geruza honek esplizituki esleitzen ez dituen helburuak oinarri-geruzara jotzen dute. Markatu gabe dagoenean (lehenetsia), geruzak oinarria guztiz ordezten du, eta esleitu gabeko helburuak desaktibatuta geratzen dira.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Biraketa-heina</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Ezarri biraketa-heina</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Desmarkatu hau heina bolantearen eta bere softwarearen esku uzteko. Orduan PadForge-k ez dio bolanteari heinarik bidaltzen.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Zentratze automatikoaren indarra</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>Abiadura-aldaketako LED-ak (RPM)</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Gidatzea</value></data>

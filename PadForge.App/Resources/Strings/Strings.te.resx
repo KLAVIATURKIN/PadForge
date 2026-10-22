@@ -2692,6 +2692,8 @@
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>ఎంచుకుంటే, ఈ లేయర్ స్పష్టంగా మ్యాప్ చేయని లక్ష్యాలు బేస్ లేయర్కు వెళ్తాయి. ఎంచుకోకపోతే (డిఫాల్ట్), లేయర్ బేస్ను పూర్తిగా భర్తీ చేస్తుంది, మ్యాప్ చేయని లక్ష్యాలు ఆఫ్లోనే ఉంటాయి.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>భ్రమణ పరిధి</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>భ్రమణ పరిధిని సెట్ చేయి</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>పరిధిని స్టీరింగ్ వీల్కు, దాని స్వంత సాఫ్ట్వేర్కు వదిలేయడానికి దీన్ని క్లియర్ చేయి. అప్పుడు PadForge స్టీరింగ్ వీల్కు ఏ పరిధినీ పంపదు.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>ఆటో సెంటరింగ్ బలం</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>RPM షిఫ్ట్ LEDలు</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>స్టీరింగ్</value></data>

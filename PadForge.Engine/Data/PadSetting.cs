@@ -310,6 +310,11 @@ namespace PadForge.Engine.Data
         /// HID writer. Default 900.</summary>
         [XmlElement] public string RotationRange { get; set; } = "900";
 
+        /// <summary>Whether PadForge sends <see cref="RotationRange"/> to the wheel
+        /// ("1", the default) or leaves the range to the wheel and its own software
+        /// ("0", discussion #512).</summary>
+        [XmlElement] public string RotationRangeEnabled { get; set; } = "1";
+
         /// <summary>Wheel auto-center spring strength (0–100%; 0 = off). Native
         /// wheel FFB only (Logitech/Thrustmaster). Default 0.</summary>
         [XmlElement] public string AutoCenterStrength { get; set; } = "0";
@@ -1570,6 +1575,7 @@ namespace PadForge.Engine.Data
             sb.Append(ForceType); sb.Append('|');
             sb.Append(ForceOverall); sb.Append('|');
             sb.Append(RotationRange); sb.Append('|');
+            sb.Append(RotationRangeEnabled); sb.Append('|');
             sb.Append(AutoCenterStrength); sb.Append('|');
             sb.Append(WheelRpmLeds); sb.Append('|');
             sb.Append(SteeringAngleRumbleEnabled); sb.Append('|');
@@ -2295,7 +2301,7 @@ namespace PadForge.Engine.Data
             nameof(ForceType), nameof(ForceOverall), nameof(ForceSwapMotor),
             nameof(TriggerRumbleFold),
             nameof(LeftMotorStrength), nameof(RightMotorStrength),
-            nameof(RotationRange), nameof(AutoCenterStrength), nameof(WheelRpmLeds),
+            nameof(RotationRange), nameof(RotationRangeEnabled), nameof(AutoCenterStrength), nameof(WheelRpmLeds),
             nameof(SteeringAngleRumbleEnabled), nameof(SteeringAngleRumbleAxis), nameof(SteeringAngleRumbleStrength), nameof(SteeringAngleRumbleDeadzone),
             // Steering at-lock feedback (#94)
             nameof(SteeringLockRumbleEnabled), nameof(SteeringLockTriggerVibEnabled),

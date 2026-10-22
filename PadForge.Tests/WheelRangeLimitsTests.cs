@@ -11,6 +11,7 @@ using System.Windows.Threading;
 using PadForge.Common.Input;
 using PadForge.Engine;
 using PadForge.Engine.Data;
+using PadForge.Engine.RemoteLink;
 using PadForge.Services;
 using PadForge.ViewModels;
 using Xunit;
@@ -211,6 +212,118 @@ public class WheelRangeLimitsTests
                 window.Close();
             }
         });
+    }
+
+    /// <summary>Set Rotation Range off leaves the range to the wheel and its
+    /// own software (#512). A new device sends its range, and one left to the
+    /// wheel sends none, on this PC or through a peer that owns the wheel.</summary>
+    [Fact]
+    public void ARangeLeftToTheWheelIsNeverSent()
+    {
+        Assert.Equal("1", new PadSetting().RotationRangeEnabled);
+        Assert.True(WheelRangeLimits.SendsRange(new PadSetting()));
+        Assert.False(WheelRangeLimits.SendsRange(new PadSetting { RotationRangeEnabled = "0" }));
+
+        var left = new OutputEffectCodec.WheelFrame(false, false, false, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            100, 0, 540, 0, rangeLeftToWheel: true);
+        Assert.Equal(0, InputService.RemoteWheelRange(left));
+        var sent = new OutputEffectCodec.WheelFrame(false, false, false, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            100, 0, 540, 0);
+        Assert.Equal(540, InputService.RemoteWheelRange(sent));
+    }
+
+    /// <summary>The switch is part of the device's settings: the settings
+    /// checksum sees it, a clone keeps it, and a load reads it back.</summary>
+    [Fact]
+    public void TheSwitchTravelsWithTheDevicesSettings()
+    {
+        var off = new PadSetting { RotationRangeEnabled = "0" };
+        Assert.NotEqual(new PadSetting().ComputeChecksum(), off.ComputeChecksum());
+        Assert.Equal("0", off.CloneDeep().RotationRangeEnabled);
+
+        var vm = new MainViewModel().Pads[0];
+        InputService.LoadPadSettingIntoViewModel(vm, off);
+        Assert.False(vm.WheelRotationRangeEnabled);
+        InputService.LoadPadSettingIntoViewModel(vm, new PadSetting());
+        Assert.True(vm.WheelRotationRangeEnabled);
+    }
+
+    /// <summary>The row's own reset and the Wheel card's Reset All both turn
+    /// the switch back on.</summary>
+    [Fact]
+    public void BothResetsTurnTheSwitchBackOn()
+    {
+        var vm = new MainViewModel().Pads[0];
+        vm.WheelRotationRangeEnabled = false;
+        vm.ResetSettingCommand.Execute(nameof(PadViewModel.WheelRotationRangeEnabled));
+        Assert.True(vm.WheelRotationRangeEnabled);
+        vm.WheelRotationRangeEnabled = false;
+        vm.ResetWheelAllCommand.Execute(null);
+        Assert.True(vm.WheelRotationRangeEnabled);
+    }
+
+    /// <summary>Two wheels on one slot each keep their own switch across a
+    /// device switch, which saves the outgoing wheel before the incoming one
+    /// loads.</summary>
+    [Fact]
+    public void EachWheelKeepsItsOwnSwitch()
+    {
+        var oldSettings = SettingsManager.UserSettings;
+        var oldDevices = SettingsManager.UserDevices;
+        InputService input = null;
+        try
+        {
+            SettingsManager.UserSettings = new SettingsCollection();
+            SettingsManager.UserDevices = new DeviceCollection();
+            var tsPc = AddWheel(0x044F, 0xB689, "540");
+            var g29 = AddWheel(0x046D, 0xC24F, "900");
+
+            var main = new MainViewModel();
+            input = new InputService(main);
+            var pad = main.Pads[0];
+            var tsPcRow = new PadViewModel.MappedDeviceInfo { InstanceGuid = tsPc.Device, Name = "TS-PC", IsOnline = true };
+            var g29Row = new PadViewModel.MappedDeviceInfo { InstanceGuid = g29.Device, Name = "G29", IsOnline = true };
+            pad.MappedDevices.Add(tsPcRow);
+            pad.MappedDevices.Add(g29Row);
+
+            pad.SelectedMappedDevice = tsPcRow;
+            Assert.True(pad.WheelRotationRangeEnabled);
+            pad.WheelRotationRangeEnabled = false;
+            pad.SelectedMappedDevice = g29Row;
+            Assert.True(pad.WheelRotationRangeEnabled);
+            Assert.Equal("0", tsPc.Setting.GetPadSetting().RotationRangeEnabled);
+            pad.SelectedMappedDevice = tsPcRow;
+            Assert.False(pad.WheelRotationRangeEnabled);
+            Assert.Equal("1", g29.Setting.GetPadSetting().RotationRangeEnabled);
+        }
+        finally
+        {
+            if (input != null)
+            {
+                PadForge.Resources.Strings.Strings.CultureChanged -=
+                    (Action)Delegate.CreateDelegate(typeof(Action), input,
+                        typeof(InputService).GetMethod("OnCultureChanged", BindingFlags.Instance | BindingFlags.NonPublic)!);
+                input.Dispose();
+            }
+            SettingsManager.UserSettings = oldSettings;
+            SettingsManager.UserDevices = oldDevices;
+        }
+    }
+
+    /// <summary>The Rotation Range row rests while the range is left to the
+    /// wheel: the switch sits above it and turns the slider's row off.</summary>
+    [Fact]
+    public void TheSliderRestsWhileTheRangeIsLeftToTheWheel()
+    {
+        var d = new DirectoryInfo(AppContext.BaseDirectory);
+        while (d != null && !Directory.Exists(Path.Combine(d.FullName, "PadForge.App"))) d = d.Parent;
+        Assert.NotNull(d);
+        string page = File.ReadAllText(Path.Combine(d.FullName, "PadForge.App", "Views", "PadPage.xaml"));
+        int box = page.IndexOf("IsChecked=\"{Binding WheelRotationRangeEnabled, Mode=TwoWay}\"", StringComparison.Ordinal);
+        int row = page.IndexOf("<StackPanel Orientation=\"Horizontal\" IsEnabled=\"{Binding WheelRotationRangeEnabled}\">", StringComparison.Ordinal);
+        int slider = page.IndexOf("<Slider Value=\"{Binding WheelRotationRange, Mode=TwoWay}\"", StringComparison.Ordinal);
+        Assert.True(box > 0 && row > box && slider > row, "the switch, its row and the slider are out of order");
+        Assert.DoesNotContain("</StackPanel>", page.Substring(row, slider - row));
     }
 
     private static (Guid Device, UserSetting Setting) AddWheel(int vendorId, int productId, string range)

@@ -2692,6 +2692,8 @@
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Когато е отметнато, целите, които този слой не съпоставя изрично, използват основния слой. Когато не е отметнато (по подразбиране), слоят замества изцяло основния и несъпоставените цели остават изключени.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Обхват на въртене</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Задаване на обхвата на въртене</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Изключете, за да оставите обхвата на волана и неговия собствен софтуер. Тогава PadForge не изпраща на волана никакъв обхват.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Сила на автоцентрирането</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>LED индикатори за обороти</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Управление</value></data>

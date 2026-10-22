@@ -2668,6 +2668,8 @@ Eng Kopie vun der viregter Versioun ass an dësem Dossier: {1}</value></data>
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Wann ugekräizt, falen Ziler, déi dës Schicht net explizitt zouuerdent, op d'Basis-Schicht zréck. Wann net ugekräizt (Standard), ersetzt d'Schicht d'Basis ganz an net zougeuerdent Ziler bleiwen aus.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Dréiberäich</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Dréiberäich festleeën</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Maacht dës Optioun aus, fir de Beräich dem Steierrad a senger eegener Software z'iwwerloossen. PadForge schéckt dem Steierrad da kee Beräich.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Stäerkt vun der Autozentréierung</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>LEDs fir d'Schalten (RPM)</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Steierung</value></data>

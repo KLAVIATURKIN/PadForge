@@ -687,6 +687,7 @@
   <data name="Pad_Shift_CycleNextButton" xml:space="preserve"><value>Faʻamau e sosoʻo ai</value></data>
   <data name="Pad_Shift_CyclePrevButton" xml:space="preserve"><value>Faʻamau muamua</value></data>
   <data name="Pad_Shift_KindButton" xml:space="preserve"><value>Faʻamau</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Aveʻese le siaki e tuʻu ai le range i le foeuli ma lana lava polokalame. E lē auina atu e PadForge se range i le foeuli.</value></data>
 
   <data name="Pad_Steering_Orient_Forward" xml:space="preserve"><value>Agaʻi i luma</value></data>
   <data name="Pad_Steering_Orient_Left" xml:space="preserve"><value>Agavale</value></data>

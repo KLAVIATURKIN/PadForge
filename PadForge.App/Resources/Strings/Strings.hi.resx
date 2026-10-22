@@ -2692,6 +2692,8 @@
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>चेक होने पर, जिन लक्ष्यों को यह लेयर खुद मैप नहीं करती वे बेस लेयर से आते हैं। चेक न होने पर (डिफ़ॉल्ट), लेयर बेस की जगह पूरी तरह ले लेती है और बिना मैप वाले लक्ष्य बंद रहते हैं।</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>घूर्णन रेंज</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>घूर्णन रेंज सेट करें</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>रेंज को व्हील और उसके अपने सॉफ़्टवेयर पर छोड़ने के लिए इसे अनचेक करें। तब PadForge व्हील को कोई रेंज नहीं भेजता।</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>ऑटो-सेंटरिंग शक्ति</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>RPM शिफ़्ट LED</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>स्टीयरिंग</value></data>

@@ -2685,6 +2685,8 @@ Ankstesnės versijos kopija yra šiame aplanke: {1}</value></data>
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Pažymėjus, tikslai, kurių šis sluoksnis aiškiai nepriskiria, perimami iš bazinio sluoksnio. Nepažymėjus (numatytoji reikšmė), sluoksnis visiškai pakeičia bazinį, o nepriskirti tikslai lieka išjungti.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Sukimo diapazonas</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Nustatyti sukimo diapazoną</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Panaikinkite šį žymėjimą, kad diapazoną paliktumėte vairui ir jo programinei įrangai. Tuomet PadForge vairui nesiunčia jokio diapazono.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Automatinio centravimo stiprumas</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>RPM pavarų perjungimo LED</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Vairavimas</value></data>

@@ -2692,6 +2692,8 @@
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>चिन्ह लगाइएमा, यो लेयरले स्पष्ट रूपमा म्याप नगरेका लक्ष्यहरू आधार लेयरबाट लिइन्छन्। चिन्ह हटाइएमा (पूर्वनिर्धारित), लेयरले आधारलाई पूर्ण रूपमा प्रतिस्थापन गर्छ र म्याप नगरिएका लक्ष्यहरू बन्द रहन्छन्।</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>घुमाइको दायरा</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>घुमाइको दायरा सेट गर्नुहोस्</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>दायरा ह्विल र यसको आफ्नै सफ्टवेयरलाई छोड्न यसलाई खाली गर्नुहोस्। त्यसपछि PadForge ले ह्विललाई कुनै दायरा पठाउँदैन।</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>स्वतः केन्द्रीकरणको बल</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>RPM सिफ्ट LED</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>स्टियरिङ</value></data>

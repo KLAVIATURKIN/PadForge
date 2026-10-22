@@ -2692,6 +2692,8 @@
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Όταν είναι επιλεγμένο, οι στόχοι που αυτό το επίπεδο δεν αντιστοιχίζει ρητά καταφεύγουν στο Βασικό επίπεδο. Όταν δεν είναι επιλεγμένο (προεπιλογή), το επίπεδο αντικαθιστά πλήρως το Βασικό και οι μη αντιστοιχισμένοι στόχοι μένουν ανενεργοί.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Εύρος περιστροφής</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Ορισμός εύρους περιστροφής</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Αποεπιλέξτε το για να αφήσετε το εύρος στην τιμονιέρα και στο δικό της λογισμικό. Το PadForge τότε δεν στέλνει εύρος στην τιμονιέρα.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Ισχύς αυτόματου κεντραρίσματος</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>LED αλλαγής ταχύτητας (RPM)</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Τιμόνι</value></data>

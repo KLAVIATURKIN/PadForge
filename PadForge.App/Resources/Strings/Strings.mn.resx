@@ -2692,6 +2692,8 @@
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Чагтлагдсан үед энэ давхаргын тодорхой оноогоогүй зорилтууд Суурь давхарга руу шилжинэ. Чагтлаагүй (үндсэн) үед давхарга Суурийг бүхэлд нь орлож, оноогоогүй зорилтууд унтраалттай үлдэнэ.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Эргэлтийн муж</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Эргэлтийн мужийг тохируулах</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Мужийг жолоо болон түүний өөрийн программ хангамжид даатгах бол үүнийг сонгохгүй болгоно уу. Тэгвэл PadForge жолоо руу ямар ч муж илгээхгүй.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Автомат төвлөрлийн хүч</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>RPM шилжүүлэх LED</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Жолоодлого</value></data>

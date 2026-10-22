@@ -2691,6 +2691,8 @@ Eelmise versiooni koopia on selles kaustas: {1}</value></data>
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Kui see on märgitud, kasutavad sihid, mida see kiht otseselt ei vastenda, põhikihi vastendust. Kui märkimata (vaikimisi), asendab kiht põhikihi täielikult ja vastendamata sihid jäävad välja lülitatuks.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Pöördenurga vahemik</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Määra pöördenurga vahemik</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Eemalda see märge, et jätta vahemik rooli ja selle enda tarkvara otsustada. PadForge ei saada siis roolile ühtegi vahemikku.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Automaatse tsentreerimise tugevus</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>Käiguvahetuse pöörete LED-id</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Roolimine</value></data>

@@ -2692,6 +2692,8 @@ Der ligger en kopi af den tidligere version i denne mappe: {1}</value></data>
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Når den er markeret, falder mål, som dette lag ikke udtrykkeligt tildeler, igennem til laget Basis. Når den ikke er markeret (standard), erstatter laget Basis helt, og mål uden tildeling forbliver slået fra.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Rotationsområde</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Indstil rotationsområde</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Fjern markeringen for at overlade området til ratten og dens egen software. PadForge sender så intet område til ratten.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Styrke for autocentrering</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>Gearskiftlys (RPM)</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Styring</value></data>

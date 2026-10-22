@@ -1156,6 +1156,7 @@
   <data name="Pad_Shift_CyclePrevButton" xml:space="preserve"><value>Qabduu duraa</value></data>
   <data name="Pad_Shift_Kind" xml:space="preserve"><value>Gosa kaasaa</value></data>
   <data name="Pad_Shift_KindButton" xml:space="preserve"><value>Qabduu</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Daangaa geengoo konkolaataa fi sooftiweerii isaa mataa isaatiif dhiisuuf kana haqi. Achiis PadForge geengichaaf daangaa tokkollee hin ergu.</value></data>
 
   <data name="Pad_Steering_Mode_Linear" xml:space="preserve"><value>Cufaa</value></data>
   <data name="Pad_Steering_Orientation" xml:space="preserve"><value>Kallattii kontirolaa</value></data>

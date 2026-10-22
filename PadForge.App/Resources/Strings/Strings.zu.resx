@@ -1552,6 +1552,8 @@
   <data name="Pad_Shift_ModeHold_Subtitle" xml:space="preserve"><value>Ungqimba luhlala lusebenza uma isiqalisi sibanjiwe. Luyayeka uma usidedela.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Ibanga lokuzungeza</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Setha ibanga lokuzungeza</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Susa umaka kulokhu ukuze ushiyele isondo nesofthiwe yalo ukusetha ibanga. Bese i-PadForge ingalithumeleli isondo noma yiliphi ibanga.</value></data>
   <data name="Pad_Steering_Mode_Linear" xml:space="preserve"><value>Valiwe</value></data>
   <data name="Pad_Steering_Orient_Forward" xml:space="preserve"><value>Phambili</value></data>
   <data name="Pad_Steering_Orient_Left" xml:space="preserve"><value>Kwesobunxele</value></data>

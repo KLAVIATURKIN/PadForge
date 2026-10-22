@@ -1026,6 +1026,8 @@
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Taim yu makim, ol samting dispela lea i no mapim i go daun long Bes lea. Taim yu no makim (default), lea i kisim ples bilong Bes olgeta na ol samting i no gat mapin i stap of.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Renj bilong tanim</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Setim renj bilong tanim</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Rausim maka long hia bilong larim stiaring wil na program bilong em yet i lukautim renj. Nau PadForge i no salim wanpela renj i go long stiaring wil.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Strong bilong go bek long namel</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>Ol LED bilong RPM shift</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Stiaring</value></data>

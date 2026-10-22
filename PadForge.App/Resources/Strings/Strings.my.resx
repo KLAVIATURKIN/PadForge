@@ -2685,6 +2685,8 @@
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>အမှန်ခြစ်ထားလျှင် ဤအလွှာက တိုက်ရိုက် မက်ပင်းမလုပ်ထားသော ပစ်မှတ်များသည် အခြေခံအလွှာသို့ ဆင်းသွားသည်။ အမှန်ခြစ်မထားလျှင် (မူလ) အလွှာသည် အခြေခံကို လုံးဝ အစားထိုးပြီး မက်ပင်းမလုပ်ထားသော ပစ်မှတ်များ ပိတ်ထားသည်။</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>လည်ပတ်မှု အပိုင်းအခြား</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>လည်ပတ်မှု အပိုင်းအခြား သတ်မှတ်ရန်</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>အပိုင်းအခြားကို စတီယာရင်ဘီးနှင့် ၎င်း၏ ကိုယ်ပိုင်ဆော့ဖ်ဝဲက သတ်မှတ်စေရန် ဤအမှန်ခြစ်ကို ဖြုတ်ပါ။ ထိုအခါ PadForge သည် စတီယာရင်ဘီးထံ မည်သည့် အပိုင်းအခြားမျှ မပို့ပါ။</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>အလိုအလျောက် ဗဟိုပြန်ခြင်း အား</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>RPM ဂီယာပြောင်း LED များ</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>စတီယာရင်ထိန်းခြင်း</value></data>

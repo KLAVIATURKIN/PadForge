@@ -2692,6 +2692,8 @@
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Когда отмечено, цели, которые этот слой не назначает явно, берутся из базового слоя. Когда не отмечено (по умолчанию), слой полностью заменяет базовый, а неназначенные цели остаются выключенными.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Диапазон поворота</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Задать диапазон поворота</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Снимите флажок, чтобы оставить диапазон на усмотрение руля и его собственного ПО. Тогда PadForge не передает рулю никакой диапазон.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Сила автоцентровки</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>Индикаторы оборотов (RPM)</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Руление</value></data>

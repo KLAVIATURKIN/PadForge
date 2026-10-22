@@ -2692,6 +2692,8 @@
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>اگر تیک خورده باشد، مقصدهایی که این لایه صریحاً نگاشت نکرده به لایه پایه رجوع می‌کنند. اگر تیک نخورده باشد (پیش‌فرض)، لایه کاملاً جایگزین پایه می‌شود و مقصدهای نگاشت‌نشده خاموش می‌مانند.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>محدوده چرخش</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>تنظیم محدوده چرخش</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>برای واگذاشتن محدوده به فرمان و نرم‌افزار خودش، این گزینه را غیرفعال کنید. در این صورت PadForge هیچ محدوده‌ای برای فرمان ارسال نمی‌کند.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>شدت مرکزگیری خودکار</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>LEDهای تعویض دنده RPM</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>هدایت</value></data>

@@ -2692,6 +2692,8 @@ Existe uma cópia da versão anterior nesta pasta: {1}</value></data>
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Quando está marcado, os destinos que esta camada não mapeia explicitamente recorrem à camada Base. Quando está desmarcado (predefinido), a camada substitui a Base por completo e os destinos não mapeados ficam desligados.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Intervalo de rotação</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Definir intervalo de rotação</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Desmarque esta opção para deixar o intervalo a cargo do volante e do respetivo software. O PadForge deixa então de enviar qualquer intervalo ao volante.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Força da centragem automática</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>LEDs de mudança por RPM</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Direção</value></data>

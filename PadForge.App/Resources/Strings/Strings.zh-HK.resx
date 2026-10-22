@@ -2692,6 +2692,8 @@
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>勾選時，此層沒有明確對應的目標會退回使用基礎層。取消勾選時（預設），此層會完全取代基礎層，未對應的目標會保持關閉。</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>旋轉範圍</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>設定旋轉範圍</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>取消勾選後，旋轉範圍會交由方向盤及其專用軟件處理。PadForge 之後不會向方向盤傳送任何範圍。</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>自動回中強度</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>轉速換檔 LED</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>轉向</value></data>

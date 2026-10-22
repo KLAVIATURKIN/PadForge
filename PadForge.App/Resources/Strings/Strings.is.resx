@@ -2692,6 +2692,8 @@ Afrit af fyrri útgáfu er í þessari möppu: {1}</value></data>
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Þegar hakað er við fellur úttak sem þetta lag varpar ekki sérstaklega niður á grunnlagið. Þegar ekki er hakað við (sjálfgefið) kemur lagið alveg í stað grunnsins og óvarpað úttak helst óvirkt.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Snúningssvið</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Stilla snúningssvið</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Taktu hakið úr þessu til að láta stýrið og hugbúnað þess sjá um sviðið. PadForge sendir stýrinu þá ekkert svið.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Styrkur sjálfvirkrar miðjunar</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>LED-skiptiljós (RPM)</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Stýring</value></data>

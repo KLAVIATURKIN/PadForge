@@ -2692,6 +2692,8 @@ Kopija prejšnje različice je v tej mapi: {1}</value></data>
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Ko je označeno, cilji, ki jih ta plast izrecno ne preslika, prevzamejo osnovno plast. Ko ni označeno (privzeto), plast v celoti nadomesti osnovo, nepreslikani cilji pa ostanejo izklopljeni.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Obseg vrtenja</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Nastavi obseg vrtenja</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Počistite to, če želite obseg prepustiti volanu in njegovi programski opremi. PadForge potem volanu ne pošlje nobenega obsega.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Moč samodejnega središčenja</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>Lučke za prestavljanje (RPM)</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Krmiljenje</value></data>

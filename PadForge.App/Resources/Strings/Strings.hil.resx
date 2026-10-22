@@ -828,6 +828,7 @@
   <data name="Pad_Shift_CyclePrevButton" xml:space="preserve"><value>Nahauna nga button</value></data>
   <data name="Pad_Shift_CycleIncludeBase" xml:space="preserve"><value>Iupod ang Base</value></data>
   <data name="Pad_Shift_ModeHold_Subtitle" xml:space="preserve"><value>Aktibo ang layer samtang ginauyatan ang activator. Mag-untat ini kon buy-an mo.</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Kuhaa ang tsek sini para ibilin ang range sa manibela kag sa iya kaugalingon nga software. Indi na magpadala ang PadForge sang bisan ano nga range sa manibela.</value></data>
 
   <data name="Pad_Steering_Mode_Linear" xml:space="preserve"><value>Patay</value></data>
   <data name="Pad_Steering_Orient_Left" xml:space="preserve"><value>Wala</value></data>

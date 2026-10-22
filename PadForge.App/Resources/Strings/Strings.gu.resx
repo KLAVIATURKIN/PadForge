@@ -2680,6 +2680,8 @@
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>ચેક કરેલ હોય ત્યારે, આ લેયર સ્પષ્ટ રીતે મેપ ન કરે તેવા ટાર્ગેટ બેઝ લેયર પર જાય છે. ચેક વગર (ડિફોલ્ટ), લેયર બેઝને સંપૂર્ણ બદલે છે અને મેપ ન કરેલા ટાર્ગેટ બંધ રહે છે.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>પરિભ્રમણ શ્રેણી</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>પરિભ્રમણ શ્રેણી સેટ કરો</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>શ્રેણી વ્હીલ અને તેના પોતાના સૉફ્ટવેર પર છોડવા માટે આને અનચેક કરો. ત્યારે PadForge વ્હીલને કોઈ શ્રેણી મોકલતું નથી.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>ઑટો સેન્ટરિંગ બળ</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>RPM શિફ્ટ LEDs</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>સ્ટીયરિંગ</value></data>

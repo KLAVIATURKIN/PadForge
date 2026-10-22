@@ -2205,6 +2205,8 @@ Une copie de la version précédente se trouve dans ce dossier : {1}</value></da
   <data name="Recorder_Error_NoEngine" xml:space="preserve"><value>Moteur non démarré. Démarre le moteur avant d'enregistrer.</value></data>
   <data name="Recorder_Error_BadSample" xml:space="preserve"><value>Aucun échantillon valide capturé. Essaie de redessiner le geste.</value></data>
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Plage de rotation</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Définir la plage de rotation</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Décochez cette case pour laisser la plage au volant et à son propre logiciel. PadForge n’envoie alors aucune plage au volant.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Auto-centrage</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>LED de régime</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Direction</value></data>

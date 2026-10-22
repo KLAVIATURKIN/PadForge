@@ -982,6 +982,8 @@
   <data name="Pad_Shift_CycleNextButton" xml:space="preserve"><value>Iqhosha elilandelayo</value></data>
   <data name="Pad_Shift_CyclePrevButton" xml:space="preserve"><value>Iqhosha langaphambili</value></data>
   <data name="Pad_Shift_KindButton" xml:space="preserve"><value>Iqhosha</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Seta uluhlu lokujikeleza</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Susa uphawu apha ukuze ushiye uluhlu kwivili nakwinkqubo yalo. Emva koko i-PadForge ayilithumeleli ivili naluphi na uluhlu.</value></data>
 
   <data name="Pad_Steering_Orient_Forward" xml:space="preserve"><value>Phambili</value></data>
   <data name="Pad_Steering_Orient_Left" xml:space="preserve"><value>Ekhohlo</value></data>

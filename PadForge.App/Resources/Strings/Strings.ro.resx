@@ -2692,6 +2692,8 @@ O copie a versiunii anterioare se află în acest folder: {1}</value></data>
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Când este bifat, țintele pe care acest strat nu le mapează explicit sunt preluate din stratul Bază. Când nu este bifat (implicit), stratul înlocuiește complet Baza, iar țintele nemapate rămân inactive.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Unghi de rotație</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Setare unghi de rotație</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Debifați această opțiune pentru a lăsa unghiul de rotație în seama volanului și a software-ului propriu. PadForge nu îi mai trimite atunci volanului niciun unghi.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Forța de centrare automată</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>LED-uri RPM pentru schimbarea treptei</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Direcție</value></data>

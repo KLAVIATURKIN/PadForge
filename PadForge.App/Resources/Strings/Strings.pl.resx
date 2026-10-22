@@ -2692,6 +2692,8 @@ Kopia poprzedniej wersji znajduje się w tym folderze: {1}</value></data>
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Gdy opcja jest zaznaczona, cele, których ta warstwa nie mapuje wprost, przechodzą do warstwy bazowej. Gdy jest odznaczona (domyślnie), warstwa całkowicie zastępuje warstwę bazową, a niezmapowane cele pozostają wyłączone.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Zakres obrotu</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Ustaw zakres obrotu</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Odznacz, aby zostawić zakres kierownicy i jej własnemu oprogramowaniu. PadForge nie wyśle wtedy do kierownicy żadnego zakresu.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Siła autocentrowania</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>Diody zmiany biegów (RPM)</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Kierowanie</value></data>

@@ -2691,6 +2691,8 @@ Kopija prethodne verzije nalazi se u ovoj mapi: {1}</value></data>
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Kada je označeno, ciljevi koje ovaj sloj izričito ne mapira preuzimaju se iz osnovnog sloja. Kada nije označeno (zadano), sloj u potpunosti zamjenjuje osnovni sloj, a nemapirani ciljevi ostaju isključeni.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Raspon okretanja</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Postavi raspon okretanja</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Isključite ovu opciju da raspon prepustite volanu i njegovu vlastitom programu. PadForge tada volanu ne šalje nikakav raspon.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Jačina automatskog centriranja</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>RPM LED-ovi za promjenu brzine</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Upravljanje</value></data>

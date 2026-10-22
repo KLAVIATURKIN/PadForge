@@ -2636,6 +2636,8 @@ Një kopje e versionit të mëparshëm ndodhet në këtë dosje: {1}</value></da
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Kur është zgjedhur, objektivat që kjo shtresë nuk i hartëzon shprehimisht kalojnë te shtresa Bazë. Kur nuk është zgjedhur (parazgjedhja), shtresa zëvendëson plotësisht Bazën dhe objektivat e pahartëzuar mbeten të fikur.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Diapazoni i rrotullimit</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Cakto diapazonin e rrotullimit</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Hiqe shenjën për t'ia lënë diapazonin timonit dhe softuerit të tij. Atëherë PadForge nuk i dërgon timonit asnjë diapazon.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Fuqia e qendërzimit automatik</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>LED-et e ndërrimit të RPM</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Drejtimi</value></data>

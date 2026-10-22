@@ -2687,6 +2687,8 @@
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Якщо позначено, цілі, які цей шар явно не прив'язує, переходять до базового шару. Якщо не позначено (типово), шар повністю замінює базовий, а неприв'язані цілі залишаються вимкненими.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Діапазон обертання</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Задавати діапазон обертання</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Зніміть позначку, щоб залишити діапазон на розсуд керма та його власного програмного забезпечення. Тоді PadForge не надсилатиме керму жодного діапазону.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Сила автоцентрування</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>LED-індикатори обертів</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Кермування</value></data>

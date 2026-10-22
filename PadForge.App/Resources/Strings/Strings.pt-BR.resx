@@ -2205,6 +2205,8 @@ Há uma cópia da versão anterior nesta pasta: {1}</value></data>
   <data name="Recorder_Error_NoEngine" xml:space="preserve"><value>Motor não está em execução. Inicie o motor antes de gravar.</value></data>
   <data name="Recorder_Error_BadSample" xml:space="preserve"><value>Nenhuma amostra válida capturada. Tente desenhar o gesto novamente.</value></data>
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Faixa de Rotação</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Definir Faixa de Rotação</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Desmarque para deixar a faixa a cargo do volante e do software do próprio fabricante. O PadForge então não envia nenhuma faixa ao volante.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Força de Autocentralização</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>LEDs de Rotação</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Esterçamento</value></data>

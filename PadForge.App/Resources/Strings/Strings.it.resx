@@ -2227,6 +2227,8 @@ Una copia della versione precedente si trova in questa cartella: {1}</value></da
   <data name="Recorder_Error_NoEngine" xml:space="preserve"><value>Motore non in esecuzione. Avvia il motore prima di registrare.</value></data>
   <data name="Recorder_Error_BadSample" xml:space="preserve"><value>Nessun campione valido acquisito. Prova a disegnare di nuovo il gesto.</value></data>
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Intervallo di rotazione</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Imposta intervallo di rotazione</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Deseleziona per lasciare l’intervallo al volante e al suo software. PadForge non invierà quindi alcun intervallo al volante.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Autocentratura</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>LED di regime</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Sterzo</value></data>

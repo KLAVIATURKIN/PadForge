@@ -2630,6 +2630,8 @@ Kopja tal-verżjoni ta' qabel tinsab f'dan il-folder: {1}</value></data>
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Meta jkun immarkat, il-miri li dan is-saff ma jimmappjax espliċitament jgħaddu għas-saff tal-Bażi. Meta ma jkunx immarkat (default), is-saff jieħu post il-Bażi għalkollox u l-miri mhux immappjati jibqgħu mitfija.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Firxa tar-rotazzjoni</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Issettja l-firxa tar-rotazzjoni</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Neħħi l-marka minn din biex tħalli l-firxa f'idejn ir-rota tas-sewqan u s-software tagħha stess. PadForge imbagħad ma jibgħat l-ebda firxa lir-rota tas-sewqan.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Saħħa taċ-ċentrar awtomatiku</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>LED tal-gerijiet RPM</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Sewqan</value></data>

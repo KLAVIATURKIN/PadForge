@@ -1245,6 +1245,8 @@
   <data name="Pad_Shift_CyclePrevButton" xml:space="preserve"><value>Bokotra teo aloha</value></data>
   <data name="Pad_Shift_Kind" xml:space="preserve"><value>Karazana activateur</value></data>
   <data name="Pad_Shift_KindButton" xml:space="preserve"><value>Bokotra</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Ferao ny elanelan'ny fihodinana</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Esory ny marika eto raha hamela ny elanelana ho an'ny familiana sy ny rindrambaiko manokana azy ianao. Tsy mandefa elanelana na inona na inona any amin'ny familiana intsony ny PadForge avy eo.</value></data>
 
   <data name="Pad_Steering_Mode_Linear" xml:space="preserve"><value>Tsy mandeha</value></data>
   <data name="Pad_Steering_Orient_Left" xml:space="preserve"><value>Havia</value></data>

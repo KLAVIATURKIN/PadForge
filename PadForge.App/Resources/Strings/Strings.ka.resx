@@ -2688,6 +2688,8 @@
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>მონიშვნისას სამიზნეები, რომლებსაც ეს შრე პირდაპირ არ მიაბამს, ბაზის შრეზე გადადის. მონიშვნის გარეშე (ნაგულისხმევი) შრე ბაზას მთლიანად ცვლის და მიუბმელი სამიზნეები გამორთული რჩება.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>ბრუნვის დიაპაზონი</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>ბრუნვის დიაპაზონის დაყენება</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>მოხსენით მონიშვნა, რომ დიაპაზონი საჭეს და მის საკუთარ პროგრამას დარჩეს. მაშინ PadForge საჭეს დიაპაზონს არ გაუგზავნის.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>ავტოცენტრირების ძალა</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>RPM გადაცემის LED-ები</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>მართვა</value></data>

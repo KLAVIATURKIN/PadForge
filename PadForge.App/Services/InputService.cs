@@ -6511,6 +6511,7 @@ namespace PadForge.Services
             // Force feedback (int properties — not locale-affected).
             ps.ForceOverall = padVm.ForceOverallGain.ToString();
             ps.RotationRange = padVm.WheelRotationRange.ToString();
+            ps.RotationRangeEnabled = padVm.WheelRotationRangeEnabled ? "1" : "0";
             ps.AutoCenterStrength = padVm.WheelAutoCenter.ToString();
             ps.WheelRpmLeds = padVm.WheelRpmLeds ? "1" : "0";
             ps.LeftMotorStrength = padVm.LeftMotorStrength.ToString();
@@ -6915,6 +6916,7 @@ namespace PadForge.Services
             // Force feedback.
             padVm.ForceOverallGain = TryParseInt(ps.ForceOverall, 100);
             padVm.LoadWheelRotationRange(TryParseInt(ps.RotationRange, 900), WheelRangeLimitsOf(deviceGuid));
+            padVm.WheelRotationRangeEnabled = ps.RotationRangeEnabled != "0";
             padVm.WheelAutoCenter = TryParseInt(ps.AutoCenterStrength, 0);
             padVm.WheelRpmLeds = ps.WheelRpmLeds == "1";
             padVm.LeftMotorStrength = TryParseInt(ps.LeftMotorStrength, 100);
@@ -12835,14 +12837,17 @@ namespace PadForge.Services
                 else ThrustmasterRawHidWriter.WriteConstantForce(path, w.Force);
             }
 
-            // Range + auto-center + RPM LEDs — re-send only when changed.
+            // Range, auto-center and RPM LEDs. Each is re-sent only when it changes. A
+            // range the consumer leaves to the wheel (#512) is never sent, and
+            // 0 stands for it so turning the range back on sends it again.
             var prev = _remoteWheelOneShot.TryGetValue(source.InstanceGuid, out var p) ? p : (-1, -1, -1, false);
-            if (prev.Item1 != w.RangeDeg || prev.Item2 != w.Ac)
+            int range = RemoteWheelRange(w);
+            if (prev.Item1 != range || prev.Item2 != w.Ac)
             {
                 int acMag = w.Ac;
-                if (isLogi) { LogitechRawHidWriter.WriteRange(path, w.RangeDeg, pid); LogitechRawHidWriter.WriteAutocenter(path, acMag, LogitechRawHidWriter.IsMomo(pid)); }
-                else if (isFan) { FanatecRawHidWriter.WriteRange(path, w.RangeDeg, pid); FanatecRawHidWriter.WriteAutocenter(path, acMag); }
-                else { ThrustmasterRawHidWriter.WriteRange(path, w.RangeDeg, pid); ThrustmasterRawHidWriter.WriteAutocenter(path, acMag); }
+                if (isLogi) { if (range != 0) LogitechRawHidWriter.WriteRange(path, range, pid); LogitechRawHidWriter.WriteAutocenter(path, acMag, LogitechRawHidWriter.IsMomo(pid)); }
+                else if (isFan) { if (range != 0) FanatecRawHidWriter.WriteRange(path, range, pid); FanatecRawHidWriter.WriteAutocenter(path, acMag); }
+                else { if (range != 0) ThrustmasterRawHidWriter.WriteRange(path, range, pid); ThrustmasterRawHidWriter.WriteAutocenter(path, acMag); }
             }
             if (prev.Item3 != w.LedMask || prev.Item4 != w.LedValid)
             {
@@ -12851,8 +12856,12 @@ namespace PadForge.Services
                 else if (isFan) FanatecRawHidWriter.WriteRpmLeds(path, mask);
                 else ThrustmasterRawHidWriter.WriteRpmLeds(path, mask);
             }
-            _remoteWheelOneShot[source.InstanceGuid] = (w.RangeDeg, w.Ac, w.LedMask, w.LedValid);
+            _remoteWheelOneShot[source.InstanceGuid] = (range, w.Ac, w.LedMask, w.LedValid);
         }
+
+        /// <summary>The range a relayed wheel frame asks the owner to send, or
+        /// 0 when the consumer leaves the range to the wheel (#512).</summary>
+        internal static int RemoteWheelRange(in OutputEffectCodec.WheelFrame w) => w.RangeLeftToWheel ? 0 : w.RangeDeg;
 
         // ─────────────────────────────────────────────
         //  Touchpad Overlay lifecycle

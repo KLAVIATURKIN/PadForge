@@ -2680,6 +2680,8 @@
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>निवडल्यास, या लेयरने स्पष्टपणे मॅप न केलेली लक्ष्ये बेस लेयरकडे जातात. निवड काढलेली असताना (डिफॉल्ट), लेयर बेसची पूर्णपणे जागा घेतो आणि मॅप न केलेली लक्ष्ये बंद राहतात.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>फिरण्याची श्रेणी</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>फिरण्याची श्रेणी सेट करा</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>श्रेणी व्हील आणि त्याच्या स्वतःच्या सॉफ्टवेअरवर सोपवण्यासाठी हे अनचेक करा. PadForge मग व्हीलला कोणतीही श्रेणी पाठवत नाही.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>ऑटो सेंटरिंग ताकद</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>RPM शिफ्ट LED</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>स्टीअरिंग</value></data>

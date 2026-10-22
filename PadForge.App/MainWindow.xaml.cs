@@ -1449,7 +1449,8 @@ namespace PadForge
                         nameof(PadViewModel.ForceOverallGain) or nameof(PadViewModel.LeftMotorStrength) or
                         nameof(PadViewModel.RightMotorStrength) or nameof(PadViewModel.SwapMotors) or
                         nameof(PadViewModel.TriggerRumbleFold) or
-                        nameof(PadViewModel.WheelRotationRange) or nameof(PadViewModel.WheelAutoCenter) or
+                        nameof(PadViewModel.WheelRotationRange) or nameof(PadViewModel.WheelRotationRangeEnabled) or
+                        nameof(PadViewModel.WheelAutoCenter) or
                         nameof(PadViewModel.WheelRpmLeds) or
                         nameof(PadViewModel.ImpulseOverallGain) or
                         nameof(PadViewModel.ImpulseLeftStrength) or nameof(PadViewModel.ImpulseRightStrength) or

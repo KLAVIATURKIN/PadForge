@@ -2692,6 +2692,8 @@
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>เมื่อเลือก เป้าหมายที่เลเยอร์นี้ไม่ได้แมปไว้โดยตรงจะส่งต่อไปยังเลเยอร์ฐาน เมื่อไม่เลือก (ค่าเริ่มต้น) เลเยอร์จะแทนที่ฐานทั้งหมด และเป้าหมายที่ไม่ได้แมปจะปิดอยู่</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>ช่วงการหมุน</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>ตั้งช่วงการหมุน</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>ยกเลิกการเลือกเพื่อปล่อยให้พวงมาลัยและซอฟต์แวร์ของพวงมาลัยจัดการช่วงเอง PadForge จะไม่ส่งช่วงใด ๆ ไปยังพวงมาลัย</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>ความแรงการคืนศูนย์อัตโนมัติ</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>ไฟ LED เปลี่ยนเกียร์ตาม RPM</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>การบังคับเลี้ยว</value></data>

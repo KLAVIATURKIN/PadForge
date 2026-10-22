@@ -1599,6 +1599,8 @@
   <data name="Pad_Shift_FireOnRelease" xml:space="preserve"><value>Aktivá ora bo larga</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Rango di rotashon</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Fiha rango di rotashon</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Kita e marka pa laga e rango na e stür i su propio software. Asina PadForge no ta manda e stür ningun rango.</value></data>
   <data name="Pad_Steering_Mode_Linear" xml:space="preserve"><value>Apagá</value></data>
   <data name="Pad_Steering_Mode_AngleX" xml:space="preserve"><value>Ángulo na eje (X)</value></data>
   <data name="Pad_Steering_Mode_AngleY" xml:space="preserve"><value>Ángulo na eje (Y)</value></data>

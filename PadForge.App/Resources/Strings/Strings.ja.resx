@@ -2205,6 +2205,8 @@
   <data name="Recorder_Error_NoEngine" xml:space="preserve"><value>エンジンが動作していません。記録前にエンジンを起動してください。</value></data>
   <data name="Recorder_Error_BadSample" xml:space="preserve"><value>有効なサンプルが取得できませんでした。もう一度ジェスチャーを描いてみてください。</value></data>
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>回転範囲</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>回転範囲を設定</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>チェックを外すと、回転範囲の制御をステアリングとその専用ソフトウェアに任せます。PadForgeはステアリングに範囲を送信しなくなります。</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>オートセンター強度</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>RPMシフトLED</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>ステアリング</value></data>

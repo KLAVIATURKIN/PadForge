@@ -793,6 +793,8 @@
   <data name="Pad_Shift_CycleNextButton" xml:space="preserve"><value>Batani lotsatira</value></data>
   <data name="Pad_Shift_CyclePrevButton" xml:space="preserve"><value>Batani lapitalo</value></data>
   <data name="Pad_Shift_KindButton" xml:space="preserve"><value>Batani</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Khazikitsani range ya kuzungulira</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Chotsani chizindikiro ichi kuti range isankhidwe ndi wheel ndi pulogalamu yake. Pamenepo PadForge satumiza range iliyonse ku wheel.</value></data>
 
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Kuyendetsa</value></data>
   <data name="Pad_Steering_Mode" xml:space="preserve"><value>Njira yoyendetsera</value></data>

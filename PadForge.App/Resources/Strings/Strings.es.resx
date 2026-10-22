@@ -2205,6 +2205,8 @@ Hay una copia de la versión anterior en esta carpeta: {1}</value></data>
   <data name="Recorder_Error_NoEngine" xml:space="preserve"><value>El motor no está en marcha. Inícialo antes de grabar.</value></data>
   <data name="Recorder_Error_BadSample" xml:space="preserve"><value>No se capturó una muestra válida. Intenta dibujar el gesto de nuevo.</value></data>
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Rango de rotación</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Establecer rango de rotación</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Desmarca esta casilla para dejar el rango en manos del volante y su propio software. PadForge no le enviará entonces ningún rango al volante.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Autocentrado</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>LED de cambio</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Dirección</value></data>

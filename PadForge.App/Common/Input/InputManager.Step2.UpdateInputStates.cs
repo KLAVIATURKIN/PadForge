@@ -1344,7 +1344,8 @@ namespace PadForge.Common.Input
                             hasCond ? ca.PositiveCoefficient : (short)0, hasCond ? ca.NegativeCoefficient : (short)0,
                             hasCond ? ca.Offset : (short)0, hasCond ? (int)ca.DeadBand : 0,
                             hasCond ? (int)ca.PositiveSaturation : 0, hasCond ? (int)ca.NegativeSaturation : 0, condGain,
-                            (ushort)peerRange, (ushort)ledMask, ledsOn);
+                            (ushort)peerRange, (ushort)ledMask, ledsOn,
+                            rangeLeftToWheel: !WheelRangeLimits.SendsRange(firstPadSetting));
                         return;
                     }
 
@@ -1392,25 +1393,30 @@ namespace PadForge.Common.Input
                     }
                     _appliedWheelFfb[ud.DevicePath] = ffbSig;
 
-                    // Wheel settings (rotation range + auto-center) — one-shot,
-                    // re-sent only when the persisted value changes.
-                    int desRange = System.Math.Clamp(TryParseIntStatic(firstPadSetting.RotationRange, 900), 40, 2520); // per-wheel max enforced in each writer's WriteRange
+                    // Wheel settings (rotation range and auto-center). One-shot,
+                    // re-sent only when the persisted value changes. A range
+                    // left to the wheel (#512) is never sent, and 0 stands for
+                    // it here so turning the range back on sends it again.
+                    bool sendRange = WheelRangeLimits.SendsRange(firstPadSetting);
+                    int desRange = sendRange ? System.Math.Clamp(TryParseIntStatic(firstPadSetting.RotationRange, 900), 40, 2520) : 0; // per-wheel max enforced in each writer's WriteRange
                     if (!_appliedWheelSettings.TryGetValue(ud.DevicePath, out var prevWs) || prevWs.range != desRange || prevWs.ac != desAc)
                     {
                         bool applied;
                         if (isLogitechWheel)
                         {
-                            applied  = LogitechRawHidWriter.WriteRange(ud.DevicePath, desRange, ud.ProdId);
+                            applied  = !sendRange || LogitechRawHidWriter.WriteRange(ud.DevicePath, desRange, ud.ProdId);
                             applied &= LogitechRawHidWriter.WriteAutocenter(ud.DevicePath, acMag, LogitechRawHidWriter.IsMomo(ud.ProdId));
                         }
                         else if (isFanatecWheel)
                         {
-                            applied  = FanatecRawHidWriter.WriteRange(ud.DevicePath, desRange, ud.ProdId); // f5 in the range sequence disables the firmware centering spring
+                            // f5 in the range sequence disables the firmware centering spring,
+                            // so a base whose range is left to it keeps its own centering too.
+                            applied  = !sendRange || FanatecRawHidWriter.WriteRange(ud.DevicePath, desRange, ud.ProdId);
                             applied &= FanatecRawHidWriter.WriteAutocenter(ud.DevicePath, acMag);          // software centering spring replaces it (slot 1); disables at 0
                         }
                         else
                         {
-                            applied  = ThrustmasterRawHidWriter.WriteRange(ud.DevicePath, desRange, ud.ProdId);
+                            applied  = !sendRange || ThrustmasterRawHidWriter.WriteRange(ud.DevicePath, desRange, ud.ProdId);
                             applied &= ThrustmasterRawHidWriter.WriteAutocenter(ud.DevicePath, acMag);
                         }
                         // Cache only once the wheel actually accepted the settings.

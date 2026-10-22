@@ -2205,6 +2205,8 @@
   <data name="Recorder_Error_NoEngine" xml:space="preserve"><value>엔진이 실행되고 있지 않습니다. 녹화하기 전에 엔진을 시작하세요.</value></data>
   <data name="Recorder_Error_BadSample" xml:space="preserve"><value>유효한 샘플이 캡처되지 않았습니다. 제스처를 다시 그려보세요.</value></data>
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>회전 범위</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>회전 범위 설정</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>이 항목을 해제하면 회전 범위를 휠과 휠 전용 소프트웨어에 맡깁니다. 이때 PadForge는 휠에 범위를 보내지 않습니다.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>자동 센터링 강도</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>RPM 시프트 LED</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>조향</value></data>

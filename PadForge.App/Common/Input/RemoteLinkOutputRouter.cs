@@ -211,11 +211,11 @@ namespace PadForge.Common.Input
 
         public static bool ShipWheel(string path, bool hasCond, bool dir, short force, short peak,
             int ac, uint effect, int period, short pc, short nc, short off, int db, int ps, int ns,
-            int condGain, ushort rangeDeg, ushort ledMask, bool ledValid)
+            int condGain, ushort rangeDeg, ushort ledMask, bool ledValid, bool rangeLeftToWheel = false)
         {
             if (!_byPath.TryGetValue(path, out var target)) return false;
             byte[] payload = OutputEffectCodec.EncodeWheel(hasCond, dir, force, peak, ac, effect,
-                period, pc, nc, off, db, ps, ns, condGain, rangeDeg, ledMask, ledValid);
+                period, pc, nc, off, db, ps, ns, condGain, rangeDeg, ledMask, ledValid, rangeLeftToWheel);
             lock (target.Gate)
             {
                 if (target.Wheel != null && payload.AsSpan().SequenceEqual(target.Wheel)) return true;

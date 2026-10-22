@@ -2673,6 +2673,8 @@
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>ເມື່ອໝາຍເລືອກ, ເປົ້າໝາຍທີ່ຊັ້ນນີ້ບໍ່ໄດ້ແມັບໄວ້ໂດຍກົງຈະໃຊ້ຄ່າຈາກຊັ້ນພື້ນຖານ. ເມື່ອບໍ່ໝາຍເລືອກ (ຄ່າເລີ່ມຕົ້ນ), ຊັ້ນຈະແທນທີ່ຊັ້ນພື້ນຖານທັງໝົດ ແລະ ເປົ້າໝາຍທີ່ບໍ່ໄດ້ແມັບຈະປິດຢູ່.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>ຂອບເຂດການໝຸນ</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>ຕັ້ງຂອບເຂດການໝຸນ</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>ຍົກເລີກການເລືອກອັນນີ້ເພື່ອປ່ອຍໃຫ້ພວງມາໄລ ແລະ ຊອບແວຂອງມັນເອງກຳນົດຂອບເຂດ. ຈາກນັ້ນ PadForge ຈະບໍ່ສົ່ງຂອບເຂດໃດໆໄປຫາພວງມາໄລ.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>ຄວາມແຮງການກັບຄືນຈຸດກາງອັດຕະໂນມັດ</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>LED ບອກປ່ຽນເກຍ RPM</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>ການບັງຄັບລ້ຽວ</value></data>

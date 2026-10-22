@@ -2225,6 +2225,8 @@ Een kopie van de vorige versie staat in deze map: {1}</value></data>
   <data name="Recorder_Error_NoEngine" xml:space="preserve"><value>Engine draait niet. Start de engine voordat je opneemt.</value></data>
   <data name="Recorder_Error_BadSample" xml:space="preserve"><value>Geen geldige opname vastgelegd. Probeer het gebaar opnieuw te tekenen.</value></data>
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Rotatiebereik</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Rotatiebereik instellen</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Schakel dit uit om het bereik over te laten aan het stuur en de bijbehorende software. PadForge stuurt het stuur dan geen bereik.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Automatisch centreren</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>Schakel-leds</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Sturen</value></data>

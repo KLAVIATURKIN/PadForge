@@ -2503,6 +2503,8 @@ May kopya ng nakaraang bersyon sa folder na ito: {1}</value></data>
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Kapag may check, ang mga target na hindi tahasang ima-map ng layer na ito ay mapupunta sa Base layer. Kapag walang check (default), pinapalitan ng layer ang buong Base at mananatiling patay ang mga hindi naka-map na target.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Saklaw ng Pag-ikot</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Itakda ang Saklaw ng Pag-ikot</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>I-clear ito para iwan ang saklaw sa wheel at sa sarili nitong software. Hindi na magpapadala ang PadForge ng anumang saklaw sa wheel.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Lakas ng Auto Centering</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>RPM Shift LED</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Steering</value></data>

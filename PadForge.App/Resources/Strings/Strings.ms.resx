@@ -2686,6 +2686,8 @@ Salinan versi sebelumnya berada dalam folder ini: {1}</value></data>
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Apabila ditandakan, sasaran yang tidak dipetakan secara eksplisit oleh lapisan ini jatuh ke lapisan Asas. Apabila tidak ditandakan (lalai), lapisan menggantikan Asas sepenuhnya dan sasaran yang tidak dipetakan kekal mati.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Julat Putaran</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Tetapkan Julat Putaran</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Kosongkan pilihan ini untuk menyerahkan julat kepada roda stereng dan perisiannya sendiri. PadForge kemudian tidak menghantar sebarang julat kepada roda stereng.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Kekuatan Pemusatan Automatik</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>LED Anjakan RPM</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Stereng</value></data>

@@ -2665,6 +2665,8 @@ Zhī qián bǎnběn de fùběn wèiyú cǐ wénjiànjiā: {1}</value></data>
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Xuǎnzhòng shí, cǐ céng wèi míngquè yìngshè de mùbiāo huì huítuì dào jīchǔ céng. Wèi xuǎnzhòng (mòrèn) shí, cǐ céng wánquán tìdài jīchǔ céng, wèi yìngshè de mùbiāo bǎochí guānbì.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Xuánzhuǎn fànwéi</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Shèzhì xuánzhuǎn fànwéi</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Qǔxiāo gōuxuǎn cǐ xiàng, fànwéi jiāng yóu fāngxiàngpán jí qí zìshēn ruǎnjiàn kòngzhì. PadForge suíhòu bù xiàng fāngxiàngpán fāsòng rènhé fànwéi.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Zìdòng huízhōng qiángdù</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>RPM huàndǎng LED</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Zhuǎnxiàng</value></data>

@@ -2677,6 +2677,8 @@
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>کاتێک دیاری کرابێت، ئەو ئامانجانەی ئەم چینە بە ڕاشکاوی نایانبەستێتەوە دەگەڕێنەوە بۆ چینی بنچینە. کاتێک دیاری نەکرابێت (بنەڕەت)، چینەکە بە تەواوی جێگەی بنچینە دەگرێتەوە و ئامانجە نەبەستراوەکان کوژاوە دەمێننەوە.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>مەودای سووڕانەوە</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>ڕێکخستنی مەودای سووڕانەوە</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>نیشانەی ئەمە لابدە بۆ ئەوەی مەوداکە بۆ سوکانەکە و نەرمەکاڵای خۆی جێبهێڵیت. ئینجا PadForge هیچ مەودایەک بۆ سوکانەکە نانێرێت.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>هێزی گەڕانەوەی خۆکار بۆ ناوەند</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>LEDی RPM بۆ گۆڕینی گێڕ</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>ئاراستەکردن</value></data>

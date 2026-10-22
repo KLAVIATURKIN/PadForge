@@ -12102,18 +12102,29 @@
                                             ToolTip="{Binding Pad_ResetWheel, Source={x:Static strings:Strings.Instance}}"/>
                                 </StackPanel>
 
-                                <!-- Rotation range — wheel hardware steering lock (not a force).
-                                     Native HID command (vendor wheels only); hidden for generic
-                                     SDL wheels, which expose no set-range API. -->
-                                <StackPanel x:Name="WheelRangeRow" Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="{Binding Pad_Wheel_RotationRange, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource DzLabel}"/>
-                                    <Slider Value="{Binding WheelRotationRange, Mode=TwoWay}"
-                                            Minimum="{Binding WheelRangeMinimum}" Maximum="{Binding WheelRangeMaximum}"
-                                            Style="{StaticResource DzSlider}"/>
-                                    <TextBox Text="{Binding WheelRotationRange, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
-                                             Style="{StaticResource DzValueEdit}"/>
-                                    <TextBlock Text="&#176;" Style="{StaticResource DzPercent}"/>
-                                    <ui:Button Command="{Binding ResetWheelRotationRangeCommand}" Style="{StaticResource ResetButton}" ToolTip="{Binding Pad_ResetRotationRange, Source={x:Static strings:Strings.Instance}}"/>
+                                <!-- Rotation range. The wheel's hardware steering lock, not a force.
+                                     A native HID command, vendor wheels only. Hidden for generic
+                                     SDL wheels, which expose no set-range API. Set Rotation
+                                     Range off leaves the range to the wheel and its own
+                                     software, and the slider rests (discussion #512). -->
+                                <StackPanel x:Name="WheelRangeRow" Margin="0,0,0,8">
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                                        <CheckBox x:Name="WheelRangeEnabledCheckBox" VerticalAlignment="Center" Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                  Content="{Binding Pad_Wheel_SetRotationRange, Source={x:Static strings:Strings.Instance}}"
+                                                  ToolTip="{Binding Pad_Wheel_SetRotationRangeTooltip, Source={x:Static strings:Strings.Instance}}"
+                                                  IsChecked="{Binding WheelRotationRangeEnabled, Mode=TwoWay}"/>
+                                        <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="WheelRotationRangeEnabled" SettingLabel="{Binding Pad_Wheel_SetRotationRange, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_PadViewModel_WheelRotationRangeEnabled_12112"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" IsEnabled="{Binding WheelRotationRangeEnabled}">
+                                        <TextBlock Text="{Binding Pad_Wheel_RotationRange, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource DzLabel}"/>
+                                        <Slider Value="{Binding WheelRotationRange, Mode=TwoWay}"
+                                                Minimum="{Binding WheelRangeMinimum}" Maximum="{Binding WheelRangeMaximum}"
+                                                Style="{StaticResource DzSlider}"/>
+                                        <TextBox Text="{Binding WheelRotationRange, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                                 Style="{StaticResource DzValueEdit}"/>
+                                        <TextBlock Text="&#176;" Style="{StaticResource DzPercent}"/>
+                                        <ui:Button Command="{Binding ResetWheelRotationRangeCommand}" Style="{StaticResource ResetButton}" ToolTip="{Binding Pad_ResetRotationRange, Source={x:Static strings:Strings.Instance}}"/>
+                                    </StackPanel>
                                 </StackPanel>
 
                                 <!-- Auto-center — centering spring force -->

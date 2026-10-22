@@ -14,6 +14,11 @@ namespace PadForge.Common.Input
         public const int AnyMin = 40;
         public const int AnyMax = 2520;
 
+        /// <summary>Whether a device's settings send the wheel its range. Off
+        /// leaves the range to the wheel and its own software, and PadForge
+        /// sends the wheel no range at all (discussion #512).</summary>
+        public static bool SendsRange(PadForge.Engine.Data.PadSetting ps) => ps?.RotationRangeEnabled != "0";
+
         /// <summary>The model's range in degrees, or null for a device that no
         /// native writer drives.</summary>
         public static (int Min, int Max)? For(ushort vendorId, ushort productId)

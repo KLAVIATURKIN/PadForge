@@ -2654,6 +2654,8 @@
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Երբ նշուած է, այն թիրախները, որոնք այս շերտը յստակօրէն չի համապատասխանեցներ, կ'անցնին հիմնական շերտին։ Երբ նշուած չէ (լռելեայն), շերտը ամբողջովին կը փոխարինէ հիմնականը, եւ չհամապատասխանեցուած թիրախները անջատ կը մնան։</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Պտոյտի միջակայք</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Կարգաւորել պտոյտի միջակայքը</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Նշանը հանեցէք, որպէսզի միջակայքը ձգէք ղեկին եւ անոր սեփական ծրագիրին։ Այն ատեն PadForge ղեկին որեւէ միջակայք չի ղրկեր։</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Ինքնաբերաբար կեդրոնացման ուժ</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>RPM փոխանցման LED-ներ</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Ղեկով վարում</value></data>

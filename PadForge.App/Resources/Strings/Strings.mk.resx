@@ -2692,6 +2692,8 @@
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Кога е штиклирано, целите што овој слој не ги мапира експлицитно паѓаат на основниот слој. Кога не е штиклирано (стандардно), слојот целосно го заменува основниот, а немапираните цели остануваат исклучени.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Опсег на ротација</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Постави опсег на ротација</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Отстранете ја ознаката за да го препуштите опсегот на воланот и неговиот софтвер. PadForge тогаш не му праќа никаков опсег на воланот.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Јачина на автоматското центрирање</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>LED-диоди за RPM при менување брзини</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Управување</value></data>

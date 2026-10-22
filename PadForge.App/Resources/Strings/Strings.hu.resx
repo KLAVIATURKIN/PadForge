@@ -2692,6 +2692,8 @@ Az előző verzió egy példánya ebben a mappában található: {1}</value></da
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Bejelölve azok a célok, amelyeket ez a réteg nem rendel hozzá kifejezetten, az alaprétegre esnek vissza. Jelölés nélkül (alapértelmezés) a réteg teljesen felváltja az Alapot, és a nem hozzárendelt célok kikapcsolva maradnak.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Elfordulási tartomány</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Elfordulási tartomány beállítása</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>A jelölés törlésével a tartományt a kormány és a saját szoftvere kezeli. A PadForge ekkor nem küld tartományt a kormánynak.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Automatikus középre állítás erőssége</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>Fordulatszám-váltásjelző LED-ek</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Kormányzás</value></data>

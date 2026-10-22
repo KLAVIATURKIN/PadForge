@@ -2687,6 +2687,8 @@
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>ពេលធីក គោលដៅដែលស្រទាប់នេះមិនបានម៉ាបច្បាស់លាស់ នឹងធ្លាក់ទៅស្រទាប់មូលដ្ឋាន។ ពេលមិនធីក (លំនាំដើម) ស្រទាប់ជំនួសមូលដ្ឋានទាំងស្រុង ហើយគោលដៅដែលមិនបានម៉ាបនៅតែបិទ។</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>ជួរបង្វិល</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>កំណត់ជួរបង្វិល</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>ដោះធីកនេះ ដើម្បីទុកការកំណត់ជួរឲ្យចង្កូត និងកម្មវិធីផ្ទាល់របស់វា។ ពេលនោះ PadForge មិនផ្ញើជួរណាមួយទៅចង្កូតទេ។</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>កម្លាំងត្រឡប់ទៅកណ្ដាលស្វ័យប្រវត្តិ</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>LED ប្ដូរលេខតាម RPM</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>ការបត់ចង្កូត</value></data>

@@ -1101,6 +1101,8 @@
   <data name="Pad_Shift_KindAxis" xml:space="preserve"><value>Ákísì tó kọjá ààlà</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Ìwọ̀n yíyípo</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Ṣètò ìwọ̀n yíyípo</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Mú àmì yìí kúrò láti fi ìwọ̀n náà sílẹ̀ fún kẹ̀kẹ́ ìdarí àti sọ́fítíwía tirẹ̀. Nígbà náà, PadForge kò ní fi ìwọ̀n kankan ránṣẹ́ sí kẹ̀kẹ́ ìdarí náà.</value></data>
   <data name="Pad_Steering_Mode_Linear" xml:space="preserve"><value>Pa</value></data>
   <data name="Pad_Steering_Orient_Forward" xml:space="preserve"><value>Iwájú</value></data>
   <data name="Pad_Steering_Orient_Left" xml:space="preserve"><value>Òsì</value></data>

@@ -1958,6 +1958,8 @@
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Kung naka-check, ang mga target nga wala tin-aw nga gi-mapping niini nga layer mokuha gikan sa Base nga layer. Kung wala naka-check (default), hingpit nga ilisan sa layer ang Base ug magpabiling off ang mga target nga walay mapping.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Range sa pagtuyok</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>I-set ang range sa pagtuyok</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Tangtangi kini og check aron ang manibela ug ang kaugalingon niini nga software ang mobuot sa range. Unya dili na magpadala ang PadForge og bisan unsang range sa manibela.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Kusog sa auto centering</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>RPM shift nga mga LED</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Pagmaneho</value></data>

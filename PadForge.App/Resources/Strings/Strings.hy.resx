@@ -2650,6 +2650,8 @@
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Եթե նշված է, այս շերտում բացահայտորեն չկապակցված թիրախները անցնում են հիմնական շերտին։ Երբ նշված չէ (լռելյայն), շերտը լիովին փոխարինում է հիմնականին, և չկապակցված թիրախները մնում են անջատված։</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Պտտման միջակայք</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Սահմանել պտտման միջակայքը</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Հանեք նշումը, որպեսզի միջակայքը թողնեք ղեկին և նրա սեփական ծրագրին։ Այդ դեպքում PadForge-ը ղեկին միջակայք չի ուղարկում։</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Ինքնակենտրոնացման ուժգնություն</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>RPM փոխանցման LED-ներ</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Ղեկավարում</value></data>

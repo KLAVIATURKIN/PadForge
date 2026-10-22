@@ -90,6 +90,27 @@ namespace PadForge.Tests
         }
 
         [Fact]
+        public void WheelRoundTripsWithItsRangeLeftToTheWheel()
+        {
+            foreach (bool left in new[] { false, true })
+            {
+                byte[] wire = OutputEffectCodec.EncodeWheel(
+                    hasCond: false, dir: true, force: 100, peak: 0, ac: 0, effect: 0, period: 0,
+                    pc: 0, nc: 0, off: 0, db: 0, ps: 0, ns: 0, condGain: 100,
+                    rangeDeg: 540, ledMask: 0, ledValid: false, rangeLeftToWheel: left);
+                // Bit 3 is new, and bits 0 to 2 keep their meaning, so an owner
+                // that reads only those still finds the range and sets it.
+                Assert.Equal(left ? 0x0A : 0x02, wire[1]);
+                Assert.True(OutputEffectCodec.TryDecode(wire, out var e));
+                Assert.Equal(left, e.Wheel.RangeLeftToWheel);
+                Assert.Equal(540, e.Wheel.RangeDeg);
+                Assert.True(e.Wheel.Dir);
+                Assert.False(e.Wheel.HasCond);
+                Assert.False(e.Wheel.LedValid);
+            }
+        }
+
+        [Fact]
         public void WheelRoundTrips()
         {
             byte[] wire = OutputEffectCodec.EncodeWheel(

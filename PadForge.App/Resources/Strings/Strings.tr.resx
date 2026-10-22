@@ -2692,6 +2692,8 @@
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>İşaretliyken bu katmanın açıkça eşlemediği hedefler Temel katmana düşer. İşaretli değilken (varsayılan), katman Temel katmanın yerini tamamen alır ve eşlenmemiş hedefler kapalı kalır.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Dönüş aralığı</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Dönüş aralığını ayarla</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Aralığı direksiyona ve kendi yazılımına bırakmak için bu kutunun işaretini kaldırın. PadForge bu durumda direksiyona hiçbir aralık göndermez.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Otomatik ortalama gücü</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>Devir vites LED'leri</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Yönlendirme</value></data>

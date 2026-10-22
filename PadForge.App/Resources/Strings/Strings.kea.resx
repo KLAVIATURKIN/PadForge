@@ -1852,6 +1852,8 @@
   <data name="Pad_Shift_FireOnRelease" xml:space="preserve"><value>Dispara óras ki bu solta</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Intervalu di rotason</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Difini intervalu di rotason</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Disativa es opson pa dexa intervalu ku volanti i ku software di se fabrikanti. Asi, PadForge ka ta manda ninhun intervalu pa volanti.</value></data>
   <data name="Pad_Steering_Mode_Linear" xml:space="preserve"><value>Dizligadu</value></data>
   <data name="Pad_Steering_Mode_AngleX" xml:space="preserve"><value>Ángulu pa eixu (X)</value></data>
   <data name="Pad_Steering_Mode_AngleY" xml:space="preserve"><value>Ángulu pa eixu (Y)</value></data>

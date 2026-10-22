@@ -2673,6 +2673,8 @@
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>ಗುರುತಿಸಿದಾಗ, ಈ ಲೇಯರ್ ಸ್ಪಷ್ಟವಾಗಿ ಮ್ಯಾಪ್ ಮಾಡದ ಗುರಿಗಳು ಬೇಸ್ ಲೇಯರ್‌ನಿಂದ ಪಡೆಯಲ್ಪಡುತ್ತವೆ. ಗುರುತಿಸದಿದ್ದರೆ (ಡೀಫಾಲ್ಟ್), ಲೇಯರ್ ಬೇಸ್ ಅನ್ನು ಸಂಪೂರ್ಣವಾಗಿ ಬದಲಿಸುತ್ತದೆ ಮತ್ತು ಮ್ಯಾಪ್ ಆಗದ ಗುರಿಗಳು ಆಫ್ ಆಗಿರುತ್ತವೆ.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>ತಿರುಗುವ ವ್ಯಾಪ್ತಿ</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>ತಿರುಗುವ ವ್ಯಾಪ್ತಿ ಹೊಂದಿಸಿ</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>ವ್ಯಾಪ್ತಿಯನ್ನು ವೀಲ್ ಮತ್ತು ಅದರ ಸ್ವಂತ ಸಾಫ್ಟ್‌ವೇರ್‌ಗೆ ಬಿಡಲು ಇದನ್ನು ತೆರವುಗೊಳಿಸಿ. ಆಗ PadForge ವೀಲ್‌ಗೆ ಯಾವುದೇ ವ್ಯಾಪ್ತಿಯನ್ನು ಕಳುಹಿಸುವುದಿಲ್ಲ.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>ಸ್ವಯಂ ಕೇಂದ್ರೀಕರಣ ಬಲ</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>RPM ಶಿಫ್ಟ್ LED ಗಳು</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>ಸ್ಟೀರಿಂಗ್</value></data>

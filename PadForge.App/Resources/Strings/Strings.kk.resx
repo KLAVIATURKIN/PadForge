@@ -2687,6 +2687,8 @@
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>Белгіленсе, бұл қабат нақты тағайындамаған нысаналар негізгі қабатқа өтеді. Белгіленбесе (әдепкі), қабат негізгіні толығымен ауыстырады, ал тағайындалмаған нысаналар өшірулі қалады.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>Бұру ауқымы</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>Бұру ауқымын орнату</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>Ауқымды рөлге және оның өз бағдарламасына қалдыру үшін құсбелгіні алып тастаңыз. Сонда PadForge рөлге ешқандай ауқым жібермейді.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>Автоорталау күші</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>RPM беріліс ауыстыру LED шамдары</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>Рөлдеу</value></data>

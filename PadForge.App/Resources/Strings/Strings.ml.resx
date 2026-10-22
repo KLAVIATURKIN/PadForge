@@ -2655,6 +2655,8 @@
   <data name="Pad_Shift_InheritUnmapped_Tooltip" xml:space="preserve"><value>ടിക്ക് ചെയ്താൽ, ഈ ലെയർ വ്യക്തമായി മാപ്പ് ചെയ്യാത്ത ലക്ഷ്യങ്ങൾ ബേസ് ലെയറിൽ നിന്ന് എടുക്കും. ടിക്ക് ഇല്ലെങ്കിൽ (സ്ഥിരസ്ഥിതി), ലെയർ ബേസിനെ പൂർണ്ണമായി മാറ്റിസ്ഥാപിക്കുകയും മാപ്പ് ചെയ്യാത്ത ലക്ഷ്യങ്ങൾ ഓഫായി തുടരുകയും ചെയ്യും.</value></data>
 
   <data name="Pad_Wheel_RotationRange" xml:space="preserve"><value>ഭ്രമണ പരിധി</value></data>
+  <data name="Pad_Wheel_SetRotationRange" xml:space="preserve"><value>ഭ്രമണ പരിധി സജ്ജമാക്കുക</value></data>
+  <data name="Pad_Wheel_SetRotationRangeTooltip" xml:space="preserve"><value>പരിധി വീലിനും അതിന്റെ സ്വന്തം സോഫ്റ്റ്വെയറിനും വിട്ടുകൊടുക്കാൻ ഇതിലെ ടിക്ക് നീക്കുക. അപ്പോൾ PadForge വീലിലേക്ക് ഒരു പരിധിയും അയയ്ക്കില്ല.</value></data>
   <data name="Pad_Wheel_Autocenter" xml:space="preserve"><value>ഓട്ടോ സെന്ററിംഗ് ശക്തി</value></data>
   <data name="Pad_Wheel_RpmLeds" xml:space="preserve"><value>RPM ഷിഫ്റ്റ് LED-കൾ</value></data>
   <data name="Pad_Steering_Header" xml:space="preserve"><value>സ്റ്റിയറിംഗ്</value></data>

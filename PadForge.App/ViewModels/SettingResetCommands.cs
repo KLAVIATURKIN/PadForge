@@ -379,6 +379,7 @@ namespace PadForge.ViewModels
             nameof(SteeringLockLightbarColor) or
             nameof(TriggerRumbleFold) or
             nameof(SwapMotors) or
+            nameof(WheelRotationRangeEnabled) or
             nameof(ConstantForceEnabled) or
             nameof(AudioRumbleEnabled) or
             nameof(ImpulseSwapTriggers) or
@@ -428,6 +429,11 @@ namespace PadForge.ViewModels
                 case nameof(SwapMotors):
                 {
                     SwapMotors = false;
+                    break;
+                }
+                case nameof(WheelRotationRangeEnabled):
+                {
+                    WheelRotationRangeEnabled = true;
                     break;
                 }
                 case nameof(ConstantForceEnabled):
