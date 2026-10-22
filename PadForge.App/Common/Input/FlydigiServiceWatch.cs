@@ -16,7 +16,8 @@ namespace PadForge.Common.Input
     /// the Devices page names it while it runs and the arrival log records
     /// whether it could reach the pad. Modeled on
     /// <see cref="HandheldDaemonWatch"/>: process names as Flydigi ships
-    /// them, refreshed on the device sweep, never per poll.
+    /// them, refreshed by a worker the device sweep starts, never on the
+    /// polling thread (InputManager.FlydigiWatchTick says why).
     /// </summary>
     internal static class FlydigiServiceWatch
     {

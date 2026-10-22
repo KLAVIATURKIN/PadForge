@@ -200,12 +200,8 @@ namespace PadForge.Common.Input
                         // service, so every arrival records whether it runs and
                         // whether it can reach this pad (hiding inactive, or
                         // whitelisted), beside SDL's own driver-outcome line.
-                        FlydigiServiceWatch.Refresh();
-                        _flydigiWatchTick = Environment.TickCount64;
-                        Engine.SdlDiagLog.WriteLine(FlydigiServiceWatch.DescribeArrival(
-                            wrapper.VendorId, wrapper.ProductId, instanceId, wrapper.Backend, wrapper.DevicePath,
-                            FlydigiServiceWatch.Detail,
-                            HidHideController.DescribeReach("SpaceStationService.exe", "GameControllerService.exe")));
+                        RecordFlydigiArrival(wrapper.VendorId, wrapper.ProductId, instanceId, wrapper.Backend, wrapper.DevicePath,
+                            HidHideController.DescribeReach("SpaceStationService.exe", "GameControllerService.exe"));
                     }
 
                     UserDevice ud = FindOrCreateUserDevice(wrapper.InstanceGuid, wrapper.ProductGuid,
@@ -587,13 +583,8 @@ namespace PadForge.Common.Input
             // current while the service starts and stops between arrivals.
             // A start or stop of the service with no device change must still
             // reach the rows, and DevicesUpdated is what re-populates them.
-            long flydigiNow = Environment.TickCount64;
-            if (flydigiNow - _flydigiWatchTick >= 10000)
-            {
-                _flydigiWatchTick = flydigiNow;
-                if (FlydigiServiceWatch.Refresh())
-                    MarkChanged(ref changed, "flydigi", $"service running=[{FlydigiServiceWatch.Running}]");
-            }
+            if (FlydigiWatchTick(Environment.TickCount64, out string flydigiRunning))
+                MarkChanged(ref changed, "flydigi", $"service running=[{flydigiRunning}]");
 
 
             // The rows now say what is connected (DevicesEnumerated). Noted
@@ -608,6 +599,73 @@ namespace PadForge.Common.Input
         }
 
         private long _flydigiWatchTick;
+        private volatile bool _flydigiWatchRunning;
+        private string _flydigiRunningSeen = string.Empty;
+
+        /// <summary>The least time between two Flydigi service scans. Tests
+        /// set 0.</summary>
+        internal int FlydigiWatchIntervalMs = 10_000;
+
+        /// <summary>The scan a worker runs. Tests replace it.</summary>
+        internal Action FlydigiWatchScan = () => FlydigiServiceWatch.Refresh();
+
+        /// <summary>Starts the Flydigi service scan on a worker when none is
+        /// running and the interval has passed, as the handheld sweep starts
+        /// its worker half, and reports a change of
+        /// <see cref="FlydigiServiceWatch.Running"/> the rows have not had yet.
+        /// A scan an arrival started counts too, since it sets the same value.
+        /// Polling thread only.
+        ///
+        /// <para>The scan walks every process on the PC. On a PC with about
+        /// 480 processes and 10,000 threads that took 230 to 290 ms (the
+        /// kernel's own process query costs that much, so no lighter call
+        /// helps), and run here it stopped the 1000 Hz loop for that long
+        /// every 10 s: the polling rate read 700 to 750 Hz and a virtual
+        /// controller hung for the length of each scan.</para></summary>
+        internal bool FlydigiWatchTick(long now, out string running)
+        {
+            if (!_flydigiWatchRunning && now - _flydigiWatchTick >= FlydigiWatchIntervalMs)
+            {
+                _flydigiWatchTick = now;
+                _flydigiWatchRunning = true;
+                var scan = FlydigiWatchScan;
+                Task.Run(() =>
+                {
+                    try { scan(); }
+                    catch { }
+                    finally { _flydigiWatchRunning = false; }
+                });
+            }
+            running = FlydigiServiceWatch.Running;
+            if (string.Equals(running, _flydigiRunningSeen, StringComparison.Ordinal)) return false;
+            _flydigiRunningSeen = running;
+            return true;
+        }
+
+        /// <summary>Writes the FLYDIGI arrival record from a worker, after a
+        /// scan of its own, so the record names what runs as the pad arrives
+        /// and the polling thread never waits on the scan
+        /// (<see cref="FlydigiWatchTick"/> says what it costs). The HidHide
+        /// reach is read by the caller, on the polling thread, where it always
+        /// was. Polling thread only.</summary>
+        internal void RecordFlydigiArrival(ushort vendorId, ushort productId, uint sdlInstanceId,
+            string backend, string devicePath, string hidHideReach)
+        {
+            _flydigiWatchTick = Environment.TickCount64;
+            var scan = FlydigiWatchScan;
+            Task.Run(() =>
+            {
+                try
+                {
+                    scan();
+                    Engine.SdlDiagLog.WriteLine(FlydigiServiceWatch.DescribeArrival(
+                        vendorId, productId, sdlInstanceId, backend, devicePath,
+                        FlydigiServiceWatch.Detail, hidHideReach));
+                }
+                catch { }
+            });
+        }
+
         private readonly FlydigiReprobePolicy _flydigiReprobe = new FlydigiReprobePolicy();
 
         private long _flydigiObserveTick;

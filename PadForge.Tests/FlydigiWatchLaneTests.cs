@@ -1,0 +1,124 @@
+using System;
+using System.Diagnostics;
+using System.Reflection;
+using System.Threading;
+using PadForge.Common.Input;
+using PadForge.Engine;
+using Xunit;
+
+namespace PadForge.Tests
+{
+    /// <summary>
+    /// The Flydigi service scan walks every process on the PC, and on a PC
+    /// with about 480 processes and 10,000 threads that took 230 to 290 ms.
+    /// The device sweep ran it on the polling thread every 10 s, so the
+    /// 1000 Hz loop stopped for that long each time: the polling rate read
+    /// 700 to 750 Hz and the virtual controller hung for the length of the
+    /// scan. These pin that the sweep only starts the scan, on a worker, one
+    /// at a time, and that what the scan finds still reaches the rows.
+    /// </summary>
+    [Collection("SettingsManagerStatics")]
+    public class FlydigiWatchLaneTests
+    {
+        private static bool Running(InputManager im)
+            => (bool)typeof(InputManager).GetField("_flydigiWatchRunning", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(im);
+
+        private static void SetSeen(InputManager im, string value)
+            => typeof(InputManager).GetField("_flydigiRunningSeen", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(im, value);
+
+        [Fact]
+        public void TheSweepDoesNotWaitForTheScan()
+        {
+            using var gate = new ManualResetEventSlim(false);
+            int scans = 0;
+            var im = new InputManager { FlydigiWatchIntervalMs = 0 };
+            im.FlydigiWatchScan = () => { Interlocked.Increment(ref scans); gate.Wait(10_000); };
+            try
+            {
+                var clock = Stopwatch.StartNew();
+                im.FlydigiWatchTick(Environment.TickCount64, out _);
+                Assert.True(clock.ElapsedMilliseconds < 1_000, $"the tick waited {clock.ElapsedMilliseconds} ms for the scan");
+                Assert.True(SpinWait.SpinUntil(() => Volatile.Read(ref scans) == 1, 5_000), "the scan never started");
+            }
+            finally { gate.Set(); }
+            Assert.True(SpinWait.SpinUntil(() => !Running(im), 5_000));
+        }
+
+        [Fact]
+        public void OneScanRunsAtATime()
+        {
+            using var gate = new ManualResetEventSlim(false);
+            int scans = 0;
+            var im = new InputManager { FlydigiWatchIntervalMs = 0 };
+            im.FlydigiWatchScan = () => { Interlocked.Increment(ref scans); gate.Wait(10_000); };
+            try
+            {
+                im.FlydigiWatchTick(Environment.TickCount64, out _);
+                Assert.True(SpinWait.SpinUntil(() => Volatile.Read(ref scans) == 1, 5_000));
+                for (int i = 0; i < 20; i++) im.FlydigiWatchTick(Environment.TickCount64, out _);
+                Thread.Sleep(200);
+                Assert.Equal(1, Volatile.Read(ref scans));
+            }
+            finally { gate.Set(); }
+            // The next tick after the scan ends starts another.
+            Assert.True(SpinWait.SpinUntil(() =>
+            {
+                im.FlydigiWatchTick(Environment.TickCount64, out _);
+                return Volatile.Read(ref scans) == 2;
+            }, 5_000));
+            Assert.True(SpinWait.SpinUntil(() => !Running(im), 5_000));
+        }
+
+        [Fact]
+        public void ScansAreTenSecondsApart()
+        {
+            int scans = 0;
+            var im = new InputManager();
+            Assert.Equal(10_000, im.FlydigiWatchIntervalMs);
+            im.FlydigiWatchScan = () => Interlocked.Increment(ref scans);
+
+            im.FlydigiWatchTick(100_000, out _);
+            Assert.True(SpinWait.SpinUntil(() => Volatile.Read(ref scans) == 1 && !Running(im), 5_000));
+            im.FlydigiWatchTick(109_999, out _);
+            Thread.Sleep(100);
+            Assert.Equal(1, Volatile.Read(ref scans));
+            im.FlydigiWatchTick(110_000, out _);
+            Assert.True(SpinWait.SpinUntil(() => Volatile.Read(ref scans) == 2 && !Running(im), 5_000));
+        }
+
+        [Fact]
+        public void ARunningSetTheRowsHaveNotHadIsReportedOnce()
+        {
+            var im = new InputManager();
+            im.FlydigiWatchScan = () => { };
+            SetSeen(im, "a set no scan reports");
+
+            Assert.True(im.FlydigiWatchTick(Environment.TickCount64, out string running));
+            Assert.Equal(FlydigiServiceWatch.Running, running);
+            Assert.False(im.FlydigiWatchTick(Environment.TickCount64, out _));
+            Assert.True(SpinWait.SpinUntil(() => !Running(im), 5_000));
+        }
+
+        [Fact]
+        public void TheArrivalRecordWaitsForItsScanOnAWorker()
+        {
+            using var gate = new ManualResetEventSlim(false);
+            var im = new InputManager();
+            im.FlydigiWatchScan = () => gate.Wait(10_000);
+            string path = "flydigi-lane-" + Guid.NewGuid().ToString("N");
+            try
+            {
+                var clock = Stopwatch.StartNew();
+                im.RecordFlydigiArrival(0x37D7, 0x2401, 7, "hidapi", path, "hidhide=test");
+                Assert.True(clock.ElapsedMilliseconds < 1_000, $"the arrival waited {clock.ElapsedMilliseconds} ms for the scan");
+                Thread.Sleep(100);
+                Assert.DoesNotContain(path, SdlDiagLog.Snapshot());
+            }
+            finally { gate.Set(); }
+            Assert.True(SpinWait.SpinUntil(() => SdlDiagLog.Snapshot().Contains(path), 5_000), "the arrival record was never written");
+            string snapshot = SdlDiagLog.Snapshot();
+            string line = snapshot.Substring(snapshot.IndexOf("FLYDIGI arrival 37D7:2401 sdl=7", StringComparison.Ordinal));
+            Assert.Contains("hidhide=test", line.Substring(0, line.IndexOf('\n') < 0 ? line.Length : line.IndexOf('\n')));
+        }
+    }
+}

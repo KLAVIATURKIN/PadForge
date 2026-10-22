@@ -116,9 +116,17 @@ namespace PadForge.Tests
             string im = File.ReadAllText(Path.Combine(RepoRoot(), "PadForge.App", "Common", "Input", "InputManager.cs"));
             Assert.Contains(im.Split('\n'), l => l.Trim() == "ApplyFlydigiEnhancedProtocol(_flydigiEnhancedDesired);");
             string step1 = File.ReadAllText(Path.Combine(RepoRoot(), "PadForge.App", "Common", "Input", "InputManager.Step1.UpdateDevices.cs"));
-            Assert.Contains(step1.Split('\n'), l => l.Trim() == "if (FlydigiServiceWatch.Refresh())");
+            Assert.Contains(step1.Split('\n'), l => l.Trim() == "if (FlydigiWatchTick(Environment.TickCount64, out string flydigiRunning))");
             Assert.Contains(step1.Split('\n'), l => l.Trim().StartsWith("MarkChanged(ref changed, \"flydigi\", "));
+            Assert.Contains(step1.Split('\n'), l => l.Trim().StartsWith("RecordFlydigiArrival(wrapper.VendorId, wrapper.ProductId, instanceId,"));
             Assert.Contains(step1.Split('\n'), l => l.Trim().StartsWith("Engine.SdlDiagLog.WriteLine(FlydigiServiceWatch.DescribeArrival("));
+            // The scan walks every process, 230 to 290 ms on a PC with about
+            // 480 processes, so neither the sweep nor an arrival may call it
+            // on the polling thread. Only the worker's seam names it.
+            Assert.DoesNotContain(step1.Split('\n'), l => l.Trim() == "if (FlydigiServiceWatch.Refresh())");
+            Assert.DoesNotContain(step1.Split('\n'), l => l.Trim() == "FlydigiServiceWatch.Refresh();");
+            Assert.Single(step1.Split('\n'), l => l.Contains("FlydigiServiceWatch.Refresh()"));
+            Assert.Contains(step1.Split('\n'), l => l.Trim() == "internal Action FlydigiWatchScan = () => FlydigiServiceWatch.Refresh();");
         }
 
         // SDL_CreateJoystickGUID: bus(2) crc(2) vendor(2) 0(2) product(2) 0(2)
