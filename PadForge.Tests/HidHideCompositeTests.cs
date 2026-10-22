@@ -477,6 +477,51 @@ namespace PadForge.Tests
             }
         }
 
+        /// <summary>Discussion #515: vJoy's joysticks are collections of a
+        /// root-enumerated HID device, "HID\HIDCLASS&amp;COLnn"
+        /// (vJoyInstallLib.cpp:444), with no vendor id in the id. A test for
+        /// a vendor id sent every vJoy row to the lookup by vendor and
+        /// product id, where no node matched, so a row set to hide hid
+        /// nothing. A synthetic path still converts to an id that is no
+        /// device node.</summary>
+        [Theory]
+        [InlineData(@"HID\HIDCLASS&COL01\1&2D595CA7&0&0000", true)]
+        [InlineData(@"HID\HIDCLASS\1&2D595CA7&0&0000", true)]
+        [InlineData(@"HID\VID_054C&PID_0CE6&MI_03\8&127E3E0&0&0000", true)]
+        [InlineData(@"HID\{00001124-0000-1000-8000-00805F9B34FB}_VID&0002054C_PID&0CE6\9&1F&0&0000", true)]
+        [InlineData(@"USB\VID_057E&PID_0337\5&2E4D6F8&0&3", true)]
+        [InlineData(@"XInput\0", false)]
+        [InlineData("web://controller/1", false)]
+        [InlineData("", false)]
+        [InlineData(null, false)]
+        public void ADeviceNodeId_IsAnyHidCollection_OrAnIdWithAVendorId(string id, bool expected)
+            => Assert.Equal(expected, HidHideController.IsDeviceNodeId(id));
+
+        [Fact]
+        public void AVjoyJoystick_IsHiddenAndKeptOutByItsOwnNode()
+        {
+            const string path = @"\\?\HID#HIDCLASS&Col02#1&2d595ca7&0&0001#{4d1e55b2-f16f-11cf-88cb-001111000030}";
+            string id = HidHideController.DevicePathToInstanceId(path);
+            Assert.Equal(@"HID\HIDCLASS&Col02\1&2d595ca7&0&0001", id);
+            Assert.True(HidHideController.IsDeviceNodeId(id));
+
+            var visible = new PadForge.Engine.Data.UserDevice
+            {
+                VendorId = 0x1234, ProdId = 0xBEAD, IsOnline = true, HidHideEnabled = false, DevicePath = path,
+                CapType = PadForge.Engine.InputDeviceType.Joystick,
+            };
+            Func<string, IReadOnlyList<string>> chainOf = node => new[] { node };
+            Assert.Equal(Set(new[] { id }), PadForge.Services.InputService.BuildHidHideKeepOut(new[] { visible }, chainOf));
+
+            var counts = PadForge.Services.InputService.CountControllerRowsPerUsbDevice(new[] { visible }, chainOf);
+            Assert.True(counts.TryGetValue(id, out int rows) && rows == 1, "the vJoy row counted on its node");
+
+            // The apply loop takes the row's own node through the same test.
+            string body = RepoText("PadForge.App", "Services", "InputService.cs");
+            Assert.Contains("if (HidHideController.IsDeviceNodeId(instanceId))", body);
+            Assert.DoesNotContain("instanceId.Contains(\"VID_\", StringComparison.OrdinalIgnoreCase)", body);
+        }
+
         private static string RepoText(params string[] parts)
         {
             string dir = AppContext.BaseDirectory;

@@ -13571,10 +13571,7 @@ namespace PadForge.Services
                 bool offline = !ud.IsOnline;
                 if (offline && rowsCurrent) continue;
                 string id = HidHideController.DevicePathToInstanceId(ud.DevicePath);
-                if (id == null) continue;
-                if (!id.Contains("VID_", StringComparison.OrdinalIgnoreCase)
-                    && !id.Contains("VID&", StringComparison.OrdinalIgnoreCase))
-                    continue;
+                if (!HidHideController.IsDeviceNodeId(id)) continue;
                 IReadOnlyList<string> chain;
                 try { chain = chainOf(id); }
                 catch { chain = new[] { id }; }
@@ -13659,10 +13656,7 @@ namespace PadForge.Services
                     || ud.CapType == InputDeviceType.Supplemental;
                 if (!controller) continue;
                 string id = HidHideController.DevicePathToInstanceId(ud.DevicePath);
-                if (id == null) continue;
-                if (!id.Contains("VID_", StringComparison.OrdinalIgnoreCase)
-                    && !id.Contains("VID&", StringComparison.OrdinalIgnoreCase))
-                    continue;
+                if (!HidHideController.IsDeviceNodeId(id)) continue;
                 rowsOn.TryGetValue(id, out var rows);
                 if (ud.IsOnline) rows.online++;
                 else (rows.remembered ??= new List<string>()).Add(ud.SerialNumber?.Trim() ?? string.Empty);
@@ -14355,16 +14349,17 @@ namespace PadForge.Services
                             continue;
                         }
 
-                        // If the DevicePath produced a valid HID instance ID, use it directly.
-                        // Match three transports:
+                        // If the DevicePath produced a device node's instance ID, use it directly.
+                        // Match three transports and a root-enumerated HID device:
                         //   USB:        HID\VID_054C&PID_0CE6\...           (underscore form)
                         //   BLE:        HID\{...}&DEV&VID_045E&PID_0B13&... (underscore form, GATT)
                         //   BT Classic: HID\{...}_VID&0002054c_PID&0ce6\... (ampersand form, BR/EDR over RFCOMM)
+                        //   Root:       HID\HIDCLASS&COL01\...              (vJoy, no vendor id, #515)
                         // The previous "VID_" substring check rejected BT Classic outright,
-                        // so DualSense over Bluetooth was never blacklisted.
-                        if (instanceId != null
-                            && (instanceId.Contains("VID_", StringComparison.OrdinalIgnoreCase)
-                                || instanceId.Contains("VID&", StringComparison.OrdinalIgnoreCase)))
+                        // so DualSense over Bluetooth was never blacklisted, and a test for a
+                        // vendor id at all sent every vJoy row to the VID/PID lookup below,
+                        // where no node matched and nothing was hidden.
+                        if (HidHideController.IsDeviceNodeId(instanceId))
                         {
                             // Expand to base-container + sibling HIDs, mirroring
                             // HidHide Configuration Client. Without this, only

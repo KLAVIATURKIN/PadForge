@@ -1193,6 +1193,21 @@ namespace PadForge.Common
             return new string(mfg, 0, strLen);
         }
 
+        /// <summary>Whether an instance id that <see cref="DevicePathToInstanceId"/>
+        /// made from a row's device path names a device node, as opposed to a
+        /// synthetic path such as "XInput#0", which comes back as "XInput\0".
+        /// A HID collection counts whatever follows "HID\": a collection of a
+        /// root-enumerated device carries no vendor id, and vJoy's are
+        /// "HID\HIDCLASS&amp;COLnn" (vJoyInstallLib.cpp:444), which a test for
+        /// "VID_" alone sent to the lookup by vendor and product id, where no
+        /// node matched and nothing was hidden (discussion #515). Any other id
+        /// counts when it carries a USB or Bluetooth vendor id.</summary>
+        internal static bool IsDeviceNodeId(string instanceId)
+            => !string.IsNullOrEmpty(instanceId)
+               && (instanceId.StartsWith(@"HID\", StringComparison.OrdinalIgnoreCase)
+                   || instanceId.Contains("VID_", StringComparison.OrdinalIgnoreCase)
+                   || instanceId.Contains("VID&", StringComparison.OrdinalIgnoreCase));
+
         /// <summary>
         /// Converts a device path (\\?\HID#VID_...) to a PnP device instance ID
         /// (HID\VID_...\...) suitable for the HidHide blacklist.
