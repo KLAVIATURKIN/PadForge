@@ -340,6 +340,17 @@ namespace PadForge.Engine.RemoteLink
         // then per record [record index][string].
         private const byte DeviceListExtV11Magic = 0xEC;
 
+        // Twelfth extension tail: which capacitive sensors a pad has, the
+        // owner's UserDevice.CapSenseChannelMask (bit N for
+        // SDL_GAMEPAD_CAPSENSE N: the stick tops of the Steam Deck and the
+        // 2026 Steam Controller, and the 2026 pad's grips). Their state
+        // already crosses in the input codec's CapSense block, but without
+        // the mask the peer's copy of the pad listed no sensor under the pad
+        // and its Valve automap bound none. Written only when some row
+        // carries a mask and the list with it fits the old peers' budget.
+        // Encoding: [magic][records], then per record [record index][mask].
+        private const byte DeviceListExtV12Magic = 0xED;
+
         /// <summary>The longest identity the v11 tail accepts: twelve hex
         /// digits, "/node:", a driver release and "/cal" fit with room to
         /// spare.</summary>
@@ -384,28 +395,31 @@ namespace PadForge.Engine.RemoteLink
             for (int i = count - 2; i >= 0; i--)
                 after[i] = after[i + 1] + MandatoryMetadataBytes(devices[i + 1]);
 
-            // The v9, v10 and v11 tails are metadata, as the names are, and
-            // ride only while the list with them fits the budget without a
-            // single name: they must never push a list an older peer could
-            // read past what it can. Only the connect-time list can reach
-            // one, so a publication to a peer that reads full lists passes
-            // that peer's budget, and a large inventory keeps them. The rest
-            // masks go first, since they change how a trigger reads, then the
+            // The v9 to v12 tails are metadata, as the names are, and ride
+            // only while the list with them fits the budget without a single
+            // name: they must never push a list an older peer could read past
+            // what it can. Only the connect-time list can reach one, so a
+            // publication to a peer that reads full lists passes that peer's
+            // budget, and a large inventory keeps them. The rest masks go
+            // first, since they change how a trigger reads, then the
             // DualShock 3 identities, which decide what a calibration takes,
-            // where a key list changes only what the picker offers.
+            // then the capacitive sensor masks, which decide what the automap
+            // binds, where a key list changes only what the picker offers.
             var keyOrders = EncodeKeyOrderTail(devices, count);
             var restMasks = EncodeRestMaskTail(devices, count);
             var identities = EncodeDs3IdentityTail(devices, count);
+            var capSense = EncodeCapSenseTail(devices, count);
             int required = buf.Count + 1 + tail.Count + (count > 0 ? after[0] + MandatoryMetadataBytes(devices[0]) : 0);
-            var fit = FitOptionalTails(required, tailBudget, restMasks.Count, identities.Count, keyOrders.Count);
+            var fit = FitOptionalTails(required, tailBudget, restMasks.Count, identities.Count, capSense.Count, keyOrders.Count);
             // The names get the room the older budget leaves them whichever
             // budget the tails ride in, so a tail only a full-list peer takes
             // never costs a device its names.
             int namesTail = tail.Count + FitOptionalTails(required, OldPeerPayloadBudget,
-                restMasks.Count, identities.Count, keyOrders.Count).Bytes;
+                restMasks.Count, identities.Count, capSense.Count, keyOrders.Count).Bytes;
             if (fit.KeyOrders) tail.AddRange(keyOrders);
             if (fit.Masks) tail.AddRange(restMasks);
             if (fit.Identities) tail.AddRange(identities);
+            if (fit.CapSense) tail.AddRange(capSense);
 
             // Metadata extension (one section per v1 record, same order), so
             // a remote device's mapping picker and Devices-page preview show
@@ -642,18 +656,42 @@ namespace PadForge.Engine.RemoteLink
             return tail;
         }
 
-        /// <summary>Which of the v10, v11 and v9 tails fit in
+        /// <summary>Which of the v10, v11, v12 and v9 tails fit in
         /// <paramref name="budget"/> after <paramref name="required"/> bytes,
         /// taken in that order, and the bytes they add.</summary>
-        private static (bool Masks, bool Identities, bool KeyOrders, int Bytes) FitOptionalTails(
-            int required, int budget, int masks, int identities, int keyOrders)
+        private static (bool Masks, bool Identities, bool CapSense, bool KeyOrders, int Bytes) FitOptionalTails(
+            int required, int budget, int masks, int identities, int capSense, int keyOrders)
         {
             bool m = masks > 0 && required + masks <= budget;
             if (m) required += masks;
             bool id = identities > 0 && required + identities <= budget;
             if (id) required += identities;
+            bool c = capSense > 0 && required + capSense <= budget;
+            if (c) required += capSense;
             bool k = keyOrders > 0 && required + keyOrders <= budget;
-            return (m, id, k, (m ? masks : 0) + (id ? identities : 0) + (k ? keyOrders : 0));
+            return (m, id, c, k, (m ? masks : 0) + (id ? identities : 0) + (c ? capSense : 0) + (k ? keyOrders : 0));
+        }
+
+        /// <summary>The v12 tail, the capacitive sensors of each pad that has
+        /// any, or nothing when no row carries a mask. The mask's low byte
+        /// holds every SDL_GAMEPAD_CAPSENSE channel there is, four.</summary>
+        private static List<byte> EncodeCapSenseTail(IReadOnlyList<RemotePeerDeviceInfo> devices, int count)
+        {
+            var tail = new List<byte>();
+            int masks = 0;
+            for (int i = 0; i < count; i++)
+                if ((devices[i].CapSenseChannelMask & 0xFF) != 0) masks++;
+            if (masks == 0) return tail;
+            tail.Add(DeviceListExtV12Magic);
+            tail.Add((byte)masks);
+            for (int i = 0; i < count; i++)
+            {
+                byte mask = (byte)devices[i].CapSenseChannelMask;
+                if (mask == 0) continue;
+                tail.Add((byte)i);
+                tail.Add(mask);
+            }
+            return tail;
         }
 
         /// <summary>The v11 tail, the owner's DualShock 3 identities, or
@@ -1098,6 +1136,34 @@ namespace PadForge.Engine.RemoteLink
                 catch
                 {
                     foreach (var info in list) info.Ds3Identity = null;
+                    v1ExtOk = false; // cursor unreliable: do not read v12
+                }
+            }
+
+            // v12 tail: capacitive sensor masks. Same guarantees as v9.
+            if (v1ExtOk)
+            {
+                try
+                {
+                    if (o < data.Length && data[o] == DeviceListExtV12Magic)
+                    {
+                        o++;
+                        int records = data[o++];
+                        var masks = new int?[count];
+                        for (int r = 0; r < records; r++)
+                        {
+                            int index = data[o++];
+                            if (index >= count || masks[index] != null)
+                                throw new InvalidOperationException("capsense mask record");
+                            masks[index] = data[o++];
+                        }
+                        for (int i = 0; i < count; i++)
+                            if (masks[i] is int mask) list[i].CapSenseChannelMask = mask;
+                    }
+                }
+                catch
+                {
+                    foreach (var info in list) info.CapSenseChannelMask = 0;
                 }
             }
             return list;

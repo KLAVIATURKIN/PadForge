@@ -64,6 +64,20 @@ namespace PadForge.Views
             DataContextChanged += (s, e) => { if (IsLoaded) Attach(DataContext as PadViewModel); };
             Loaded += (s, e) => Attach(DataContext as PadViewModel);
             Unloaded += (s, e) => Attach(null);
+            // Each capsule carries its label as text, so a language switch
+            // rebuilds them: the view model's own refresh raises none of the
+            // properties the strip rebuilds on. Held weakly by Strings.
+            Strings.CultureChanged += OnCultureChanged;
+        }
+
+        private void OnCultureChanged()
+        {
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.BeginInvoke(new Action(OnCultureChanged));
+                return;
+            }
+            if (_vm != null) Rebuild();
         }
 
         /// <summary>The touch roles a slot's capsules show: the capacitive

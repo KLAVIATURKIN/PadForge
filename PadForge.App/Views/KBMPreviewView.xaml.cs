@@ -148,7 +148,16 @@ namespace PadForge.Views
                 CompositionTarget.Rendering -= OnRendering;
                 InputLanguageManager.Current.InputLanguageChanged -= OnInputLanguageChanged;
             };
+            // The drawings carry their tooltips and the approximate caption as
+            // text, so a language switch redraws them. Held weakly by Strings.
+            Strings.CultureChanged += OnCultureChanged;
         }
+
+        /// <summary>Redraws once every handler of the switch has run, so the
+        /// mapping rows the tooltips name are already in the new
+        /// language.</summary>
+        private void OnCultureChanged()
+            => Dispatcher.BeginInvoke(new Action(() => { if (_layoutBuilt) RebuildLayout(); }));
 
         /// <summary>A device keyboard's legends and targets follow the input
         /// layout, so a layout switch redraws it.</summary>

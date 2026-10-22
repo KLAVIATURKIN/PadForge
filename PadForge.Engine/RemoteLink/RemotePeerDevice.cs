@@ -161,6 +161,15 @@ namespace PadForge.Engine.RemoteLink
         /// 0.15 rad/s rule stands.</summary>
         public string Ds3Identity { get; set; }
 
+        /// <summary>The capacitive sensors the owner's pad has, as a bitmask
+        /// over the SDL_GAMEPAD_CAPSENSE_* indices (the owner's
+        /// UserDevice.CapSenseChannelMask): the stick tops of the Steam Deck
+        /// and the 2026 Steam Controller, and the 2026 pad's grips. A pad's own
+        /// picker group and the Valve automap list a sensor only where the mask
+        /// has it. 0 for a pad with none and from a peer that predates the v12
+        /// tail, where the sensors are offered under (Any Device) alone.</summary>
+        public int CapSenseChannelMask { get; set; }
+
         internal RemotePeerDeviceInfo CloneForSlot(byte slot)
         {
             var copy = (RemotePeerDeviceInfo)MemberwiseClone();
@@ -339,6 +348,11 @@ namespace PadForge.Engine.RemoteLink
         public bool HasTouchpad => Info.HasTouchpad;
         public int NumTouchpads => Info.HasTouchpad ? Math.Max(1, Info.NumTouchpads) : 0;
         public int[] TouchpadFingerCounts => Info.TouchpadFingerCounts ?? Array.Empty<int>();
+        /// <summary>The owner's answer, carried by the device list's v12 tail.
+        /// The interface's default of 0 left a shared Steam Deck or 2026
+        /// Steam Controller with no sensor in its own picker group and none
+        /// for the Valve automap to bind.</summary>
+        public int CapSenseChannelMask => Info.CapSenseChannelMask;
         public bool? TouchpadPressureSupported => Info.TouchpadPressureSupported;
         public bool? TouchpadClickSupported => Info.TouchpadClickSupported;
         public HapticEffectStrategy HapticStrategy => HapticEffectStrategy.None;

@@ -12305,6 +12305,7 @@ namespace PadForge.Services
                                 HasTouchpad = dev.HasTouchpad,
                                 NumTouchpads = dev.NumTouchpads,
                                 TouchpadFingerCounts = dev.TouchpadFingerCounts,
+                                CapSenseChannelMask = dev.CapSenseChannelMask,
                                 TouchpadPressureSupported = dev.TouchpadPressureSupported,
                                 TouchpadClickSupported = dev.TouchpadClickSupported,
                                 InputDeviceType = devType,
@@ -15209,6 +15210,7 @@ namespace PadForge.Services
                   .Append(d.CapTouchpadCount).Append('|')
                   .Append(d.CapTouchpadPressure).Append('|')
                   .Append(d.CapTouchpadClick).Append('|')
+                  .Append(d.CapSenseChannelMask).Append('|')
                   .Append(d.HasGyro).Append(d.HasAccel)
                   .Append(d.HasGyroAux).Append(d.HasAccelAux)
                   .Append(d.HasTouchpad).Append(d.HasRumbleTriggers)

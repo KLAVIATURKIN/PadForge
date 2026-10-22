@@ -124,6 +124,7 @@ namespace PadForge.Tests
         [InlineData("HasRumbleTriggers")]
         [InlineData("HasExtraGenericAxes")]
         [InlineData("CapTouchpadFingerCounts")]
+        [InlineData("CapSenseChannelMask")]
         [InlineData("DeviceObjects")]
         public void EveryArrivalStampedField_CountsAsAChange(string field)
         {
@@ -146,11 +147,70 @@ namespace PadForge.Tests
                 case "HasRumbleTriggers": a.HasRumbleTriggers = true; break;
                 case "HasExtraGenericAxes": a.HasExtraGenericAxes = true; break;
                 case "CapTouchpadFingerCounts": a.CapTouchpadFingerCounts = new[] { 2, 2 }; break;
+                case "CapSenseChannelMask": a.CapSenseChannelMask = 0x3; break;
                 case "DeviceObjects": a.DeviceObjects = new DeviceObjectItem[3]; break;
                 default: Assert.Fail("unhandled field " + field); break;
             }
 
             Assert.NotEqual(before, Sig(a));
+        }
+
+        /// <summary>The list above is written by hand, and a field added to
+        /// the arrival path without a row there went unnoticed: the capacitive
+        /// sensor mask (31bb0c65) never reached the signature, so a mask that
+        /// arrived on a row saved before it was never written. So the
+        /// arrival path's own assignments are the list: every property
+        /// LoadFromDevice sets must be read by the signature, except the two
+        /// its comment names as runtime-only.</summary>
+        [Fact]
+        public void EveryFieldTheArrivalPathSets_IsInTheSignature()
+        {
+            string device = Body(Src(@"PadForge.Engine\Data\UserDevice.cs"),
+                "private void LoadFromDevice(ISdlInputDevice wrapper)");
+            string signature = Body(Src(@"PadForge.App\Services\InputService.cs"),
+                "internal static string BuildDeviceRegistrySignature(");
+            var assigned = new SortedSet<string>(System.StringComparer.Ordinal);
+            foreach (System.Text.RegularExpressions.Match m in System.Text.RegularExpressions.Regex.Matches(
+                         device, @"^\s+([A-Z][A-Za-z0-9]*)\s*=[^=]", System.Text.RegularExpressions.RegexOptions.Multiline))
+                assigned.Add(m.Groups[1].Value);
+            Assert.Contains("CapTouchpadFingerCounts", assigned);
+            Assert.Contains("ForceFeedbackState", assigned);
+            assigned.Remove("Device");
+            assigned.Remove("ForceFeedbackState");
+            var missing = new List<string>();
+            foreach (string name in assigned)
+                if (!signature.Contains("d." + name + ")", System.StringComparison.Ordinal)
+                    && !signature.Contains("d." + name + ";", System.StringComparison.Ordinal)
+                    && !signature.Contains("d." + name + "?", System.StringComparison.Ordinal))
+                    missing.Add(name);
+            Assert.True(missing.Count == 0, "LoadFromDevice sets fields the signature leaves out: " + string.Join(", ", missing));
+        }
+
+        private static string Src(string relative)
+        {
+            var dir = new System.IO.DirectoryInfo(System.AppContext.BaseDirectory);
+            while (dir != null && !System.IO.File.Exists(System.IO.Path.Combine(dir.FullName, "SharedVersion.cs")))
+                dir = dir.Parent;
+            Assert.NotNull(dir);
+            return System.IO.File.ReadAllText(System.IO.Path.Combine(dir.FullName, relative));
+        }
+
+        /// <summary>The text of the method that starts at
+        /// <paramref name="signature"/>, from its first brace to the brace
+        /// that closes it.</summary>
+        private static string Body(string source, string signature)
+        {
+            int start = source.IndexOf(signature, System.StringComparison.Ordinal);
+            Assert.True(start >= 0, "not found: " + signature);
+            int open = source.IndexOf('{', start);
+            int depth = 0;
+            for (int i = open; i < source.Length; i++)
+            {
+                if (source[i] == '{') depth++;
+                else if (source[i] == '}' && --depth == 0) return source.Substring(open, i - open + 1);
+            }
+            Assert.Fail("unbalanced braces after " + signature);
+            return null;
         }
 
         /// <summary>Nothing changed, nothing written. Stated directly,
