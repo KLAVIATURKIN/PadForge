@@ -189,24 +189,42 @@ namespace PadForge.Engine
         public bool HasJoyCon2Mouse { get; private set; }
 
         /// <summary>Cycles the motion sensors off and back on. The SDL
-        /// fork decides the right Joy-Con NIR camera's fate only at this
-        /// enable edge (SDL_hidapi_switch.c SetSensorsEnabled: hint set ->
-        /// EnableIRSensor, hint clear while active -> DisableIRSensor via
-        /// the disable leg), so a RUNTIME flip of the IR hint needs one
-        /// bounce to take effect without a reconnect (#248 audit round 2).
+        /// fork decides two cameras' fate only at this enable edge. The
+        /// right Joy-Con's NIR camera (SDL_hidapi_switch.c SetSensorsEnabled:
+        /// hint set -> EnableIRSensor, hint clear while active ->
+        /// DisableIRSensor via the disable leg) needs one bounce for a
+        /// RUNTIME flip of the IR hint to take effect without a reconnect
+        /// (#248 audit round 2). A Wii Remote's IR camera that failed to
+        /// start is retried only by this toggle or a reopen
+        /// (SDL_hidapi_wii.c EnableIR), see <see cref="StepIrCameraCheck"/>.
+        /// Both open paths enable the sensors, so both are cycled.
         /// Gyro/accel streams resume immediately; one bounce costs a few
         /// sensor frames.</summary>
         public void BounceMotionSensors()
         {
-            if (GameController == IntPtr.Zero) return;
-            if (HasGyro) SDL_SetGamepadSensorEnabled(GameController, SDL_SENSOR_GYRO, false);
-            if (HasAccel) SDL_SetGamepadSensorEnabled(GameController, SDL_SENSOR_ACCEL, false);
-            if (HasGyroAux) SDL_SetGamepadSensorEnabled(GameController, SDL_SENSOR_GYRO_L, false);
-            if (HasAccelAux) SDL_SetGamepadSensorEnabled(GameController, SDL_SENSOR_ACCEL_L, false);
-            if (HasGyro) SDL_SetGamepadSensorEnabled(GameController, SDL_SENSOR_GYRO, true);
-            if (HasAccel) SDL_SetGamepadSensorEnabled(GameController, SDL_SENSOR_ACCEL, true);
-            if (HasGyroAux) SDL_SetGamepadSensorEnabled(GameController, SDL_SENSOR_GYRO_L, true);
-            if (HasAccelAux) SDL_SetGamepadSensorEnabled(GameController, SDL_SENSOR_ACCEL_L, true);
+            IntPtr gamepad = GameController;
+            if (gamepad != IntPtr.Zero)
+            {
+                if (HasGyro) SDL_SetGamepadSensorEnabled(gamepad, SDL_SENSOR_GYRO, false);
+                if (HasAccel) SDL_SetGamepadSensorEnabled(gamepad, SDL_SENSOR_ACCEL, false);
+                if (HasGyroAux) SDL_SetGamepadSensorEnabled(gamepad, SDL_SENSOR_GYRO_L, false);
+                if (HasAccelAux) SDL_SetGamepadSensorEnabled(gamepad, SDL_SENSOR_ACCEL_L, false);
+                if (HasGyro) SDL_SetGamepadSensorEnabled(gamepad, SDL_SENSOR_GYRO, true);
+                if (HasAccel) SDL_SetGamepadSensorEnabled(gamepad, SDL_SENSOR_ACCEL, true);
+                if (HasGyroAux) SDL_SetGamepadSensorEnabled(gamepad, SDL_SENSOR_GYRO_L, true);
+                if (HasAccelAux) SDL_SetGamepadSensorEnabled(gamepad, SDL_SENSOR_ACCEL_L, true);
+                return;
+            }
+            IntPtr joystick = Joystick;
+            if (joystick == IntPtr.Zero) return;
+            if (HasGyro) SDL_SetJoystickSensorEnabled(joystick, SDL_SENSOR_GYRO, false);
+            if (HasAccel) SDL_SetJoystickSensorEnabled(joystick, SDL_SENSOR_ACCEL, false);
+            if (HasGyroAux) SDL_SetJoystickSensorEnabled(joystick, SDL_SENSOR_GYRO_L, false);
+            if (HasAccelAux) SDL_SetJoystickSensorEnabled(joystick, SDL_SENSOR_ACCEL_L, false);
+            if (HasGyro) SDL_SetJoystickSensorEnabled(joystick, SDL_SENSOR_GYRO, true);
+            if (HasAccel) SDL_SetJoystickSensorEnabled(joystick, SDL_SENSOR_ACCEL, true);
+            if (HasGyroAux) SDL_SetJoystickSensorEnabled(joystick, SDL_SENSOR_GYRO_L, true);
+            if (HasAccelAux) SDL_SetJoystickSensorEnabled(joystick, SDL_SENSOR_ACCEL_L, true);
         }
 
         /// <summary>Whether this device has an NFC reader the SDL fork can
@@ -775,6 +793,14 @@ namespace PadForge.Engine
             // wrapper instead.
             _nfcPrevUid = null;
             if (_nfcPulseUntil != null) Array.Clear(_nfcPulseUntil, 0, _nfcPulseUntil.Length);
+
+            // The IR camera check and the accelerometer seed it reads belong
+            // to the connection: a reopened remote's camera starts again.
+            _irCheckStarted = false;
+            _irReportSeen = false;
+            _irCheckGaveUp = false;
+            _irBounces = 0;
+            _irAccelSeeded = false;
 
             // Same reason, wider scope: every capability flag and probe
             // result below is stamped by Open from the handle it just got.
@@ -1354,15 +1380,19 @@ namespace PadForge.Engine
             // negated and SDL's Y as the remote's Z
             // (SDL_hidapi_wii.c HandleWiiRemoteAccelData).
             bool accel = state.Accel != null && state.Accel.Length > 1;
+            short d0x = SDL_GetJoystickAxis(Joystick, 6);
+            short d0y = SDL_GetJoystickAxis(Joystick, 7);
+            short d1x = SDL_GetJoystickAxis(Joystick, 8);
+            short d1y = SDL_GetJoystickAxis(Joystick, 9);
+            long now = System.Diagnostics.Stopwatch.GetTimestamp();
             var (x, y, detected, calibrated) = StepIrPointer(
-                SDL_GetJoystickAxis(Joystick, 6),
-                SDL_GetJoystickAxis(Joystick, 7),
-                SDL_GetJoystickAxis(Joystick, 8),
-                SDL_GetJoystickAxis(Joystick, 9),
+                d0x, d0y, d1x, d1y,
                 accel ? -state.Accel[0] : 0f,
                 accel ? state.Accel[1] : 0f,
-                System.Diagnostics.Stopwatch.GetTimestamp(),
+                now,
                 trigger);
+            if (StepIrCameraCheck(d0x, d0y, d1x, d1y, _irAccelSeeded, now))
+                ScheduleIrCameraBounce();
 
             // Pointer-tab tuning (sensor-bar offset, smoothing) is applied at
             // the SLOT-scoped read (SourceCoercion.ReadTunedIrPointer), not
@@ -1429,6 +1459,109 @@ namespace PadForge.Engine
                 return (x, y, true, false);
             (x, y) = ApplyWiiPointerCalibration(x, y, calibration);
             return (x, y, true, true);
+        }
+
+        // ── The IR camera's start (#484) ──
+        // The fork powers a Wii Remote's camera only on the sensor-enable
+        // edge, with five register writes it waits on in turn
+        // (SDL_hidapi_wii.c EnableIR). A write that times out leaves the
+        // camera off, recorded only in the driver's m_bIRActive, and by the
+        // driver's own comment only the next sensor toggle or a reopen tries
+        // again. Open enables the sensors once, so a camera that did not
+        // start stayed off for the connection while every button worked:
+        // the aim lost after a remote reconnected (discussion #484). The
+        // fork posts every IR report on axes 6-9 as a dot or -1, and SDL
+        // starts them at 0, so four zeros while the accelerometer reports
+        // mean no IR report has come. The check then bounces the sensors,
+        // the toggle the driver's comment names. Poll-thread state.
+
+        /// <summary>How long the camera has after the remote's first report
+        /// to send its first IR report: the power-up is five acknowledged
+        /// writes of up to 250 ms each (SDL_hidapi_wii.c ReadInputSync). Each
+        /// later bounce waits twice as long as the one before.</summary>
+        internal const int IrCameraFirstCheckMs = 3000;
+
+        /// <summary>Bounces per connection. Each holds SDL's joystick lock
+        /// while the driver writes, so a camera that never answers is left
+        /// alone after these.</summary>
+        internal const int IrCameraMaxBounces = 3;
+
+        private bool _irCheckStarted;
+        private bool _irReportSeen;
+        private bool _irCheckGaveUp;
+        private int _irBounces;
+        private long _irCheckStart;
+        private long _irBounceDue;
+        private int _irBouncing;
+
+        /// <summary>Whether this poll should bounce the sensors to start the
+        /// IR camera, from the four dot axes, whether the remote's
+        /// accelerometer has reported and the poll's Stopwatch time. The
+        /// clock starts at the remote's first report, so a remote that sends
+        /// nothing, which a bounce cannot help, is never bounced. An IR report
+        /// on any axis ends the check for the connection. Split from
+        /// <see cref="ReadIrPointer"/> so it runs without SDL.</summary>
+        internal bool StepIrCameraCheck(short d0x, short d0y, short d1x, short d1y, bool reporting, long now)
+        {
+            if (_irReportSeen)
+                return false;
+            if (d0x != 0 || d0y != 0 || d1x != 0 || d1y != 0)
+            {
+                _irReportSeen = true;
+                if (_irBounces > 0)
+                    SdlDiagLog.WriteLine($"WIIIR {Name} SDL#{SdlInstanceId} camera started after {_irBounces} bounce(s), {IrCameraSeconds(now):F1} s after the remote's first report");
+                return false;
+            }
+            if (!reporting)
+                return false;
+            if (!_irCheckStarted)
+            {
+                _irCheckStarted = true;
+                _irCheckStart = now;
+                _irBounceDue = now + IrCameraTicks(IrCameraFirstCheckMs);
+                return false;
+            }
+            if (_irCheckGaveUp || now < _irBounceDue)
+                return false;
+            if (_irBounces >= IrCameraMaxBounces)
+            {
+                _irCheckGaveUp = true;
+                SdlDiagLog.WriteLine($"WIIIR {Name} SDL#{SdlInstanceId} no IR report {IrCameraSeconds(now):F1} s after the remote's first report and {_irBounces} bounces, so the camera stays off until the remote reconnects");
+                return false;
+            }
+            _irBounces++;
+            _irBounceDue = now + IrCameraTicks(IrCameraFirstCheckMs << _irBounces);
+            SdlDiagLog.WriteLine($"WIIIR {Name} SDL#{SdlInstanceId} no IR report {IrCameraSeconds(now):F1} s after the remote's first report, bouncing the sensors ({_irBounces} of {IrCameraMaxBounces})");
+            return true;
+        }
+
+        private static long IrCameraTicks(int ms) => ms * System.Diagnostics.Stopwatch.Frequency / 1000;
+
+        private double IrCameraSeconds(long now) => (now - _irCheckStart) / (double)System.Diagnostics.Stopwatch.Frequency;
+
+        /// <summary>Bounces the sensors on a worker, as the Joy-Con camera's
+        /// hint flip does (InputService), since the driver's power-up waits
+        /// on acknowledged writes. One bounce at a time.</summary>
+        private void ScheduleIrCameraBounce()
+        {
+            if (System.Threading.Interlocked.Exchange(ref _irBouncing, 1) != 0)
+                return;
+            System.Threading.Tasks.Task.Run(() =>
+            {
+                try
+                {
+                    if (!_disposed)
+                        BounceMotionSensors();
+                }
+                catch
+                {
+                    // A remote closing under the bounce: its next arrival checks again.
+                }
+                finally
+                {
+                    System.Threading.Volatile.Write(ref _irBouncing, 0);
+                }
+            });
         }
 
         // ── Twist compensation (#485) ──

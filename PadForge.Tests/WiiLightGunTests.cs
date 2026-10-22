@@ -666,5 +666,167 @@ namespace PadForge.Tests
             string xaml = RepoText("PadForge.App/Views/DevicesPage.xaml");
             Assert.Contains("ToolTip=\"{Binding SelectedDevice.GunCalibrateTooltip}\"", xaml);
         }
+
+        // ── The IR camera's start (#484) ──
+        // A remote turned off and on came back with every button working and
+        // no aim. The fork powers the camera only on the sensor-enable edge,
+        // a power-up that times out is retried only by the next toggle or a
+        // reopen (SDL_hidapi_wii.c EnableIR), and PadForge enabled the
+        // sensors once per open.
+
+        private static bool Check(SdlDeviceWrapper w, short axes, bool reporting, int ms)
+            => w.StepIrCameraCheck(axes, axes, axes, axes, reporting, Ms(ms));
+
+        /// <summary>A camera that sends no IR report is bounced three seconds
+        /// after the remote's first report, then six and twelve seconds after
+        /// each bounce, and left alone after the third.</summary>
+        [Fact]
+        public void ACameraThatSendsNoReport_IsBouncedThreeTimes_AtGrowingIntervals()
+        {
+            var w = new SdlDeviceWrapper();
+            Assert.False(Check(w, 0, true, 0));
+            Assert.False(Check(w, 0, true, 2999));
+            Assert.True(Check(w, 0, true, 3000));
+            Assert.False(Check(w, 0, true, 3001));
+            Assert.False(Check(w, 0, true, 8999));
+            Assert.True(Check(w, 0, true, 9000));
+            Assert.False(Check(w, 0, true, 20999));
+            Assert.True(Check(w, 0, true, 21000));
+            Assert.False(Check(w, 0, true, 45000));
+            Assert.False(Check(w, 0, true, 600000));
+        }
+
+        /// <summary>Each bounce is logged, and the give-up once, not on every
+        /// poll after it.</summary>
+        [Fact]
+        public void TheBouncesAndTheGiveUp_AreLoggedOnceEach()
+        {
+            var w = new SdlDeviceWrapper();
+            string name = "IR check " + Guid.NewGuid().ToString("N");
+            typeof(SdlDeviceWrapper).GetProperty(nameof(SdlDeviceWrapper.Name)).SetValue(w, name);
+            Assert.False(Check(w, 0, true, 0));
+            foreach (int ms in new[] { 3000, 9000, 21000 })
+                Assert.True(Check(w, 0, true, ms));
+            for (int ms = 45000; ms < 46000; ms++)
+                Assert.False(Check(w, 0, true, ms));
+
+            int Lines(string text)
+            {
+                int n = 0;
+                foreach (string line in SdlDiagLog.Snapshot().Split('\n'))
+                    if (line.Contains(name) && line.Contains(text)) n++;
+                return n;
+            }
+            Assert.Equal(3, Lines("bouncing the sensors"));
+            Assert.Equal(1, Lines("stays off until the remote reconnects"));
+        }
+
+        /// <summary>Any IR report ends the check. -1 is a report with no dot
+        /// in view, which only a running camera sends.</summary>
+        [Theory]
+        [InlineData(-1)]
+        [InlineData(512)]
+        public void AnIrReport_EndsTheCheck(short axes)
+        {
+            var w = new SdlDeviceWrapper();
+            Assert.False(Check(w, 0, true, 0));
+            Assert.False(Check(w, axes, true, 100));
+            Assert.False(Check(w, 0, true, 3000));
+            Assert.False(Check(w, 0, true, 60000));
+        }
+
+        /// <summary>A remote whose accelerometer has not reported is sending
+        /// nothing, and a bounce cannot start its camera. Its clock starts at
+        /// its first report.</summary>
+        [Fact]
+        public void ARemoteThatSendsNothing_IsNotBounced_UntilThreeSecondsAfterItsFirstReport()
+        {
+            var w = new SdlDeviceWrapper();
+            Assert.False(Check(w, 0, false, 0));
+            Assert.False(Check(w, 0, false, 3000));
+            Assert.False(Check(w, 0, false, 60000));
+            Assert.False(Check(w, 0, true, 60001));
+            Assert.False(Check(w, 0, true, 63000));
+            Assert.True(Check(w, 0, true, 63001));
+        }
+
+        /// <summary>A report after a bounce ends the bounces.</summary>
+        [Fact]
+        public void AReportAfterABounce_EndsTheBounces()
+        {
+            var w = new SdlDeviceWrapper();
+            Assert.False(Check(w, 0, true, 0));
+            Assert.True(Check(w, 0, true, 3000));
+            Assert.False(Check(w, -1, true, 3500));
+            Assert.False(Check(w, 0, true, 9000));
+            Assert.False(Check(w, 0, true, 21000));
+        }
+
+        /// <summary>The remote arriving twice. Each arrival opens a fresh
+        /// wrapper (InputManager.Step1), and a wrapper closed for a reopen
+        /// forgets the last connection's check and accelerometer seed, so a
+        /// camera that ran on the first connection and not on the second is
+        /// still bounced.</summary>
+        [Fact]
+        public void TheSecondArrival_ChecksTheCameraAgain()
+        {
+            var first = new SdlDeviceWrapper();
+            Assert.False(Check(first, 0, true, 0));
+            Assert.False(Check(first, -1, true, 50));
+            Assert.False(Check(first, 0, true, 3000));
+
+            var second = new SdlDeviceWrapper();
+            Assert.False(Check(second, 0, true, 0));
+            Assert.True(Check(second, 0, true, 3000));
+
+            var close = typeof(SdlDeviceWrapper).GetMethod("CloseInternal",
+                System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+            var seeded = typeof(SdlDeviceWrapper).GetField("_irAccelSeeded",
+                System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+            Assert.NotNull(close);
+            Assert.NotNull(seeded);
+
+            // Reopened after the camera ran.
+            var ran = new SdlDeviceWrapper();
+            Assert.False(Check(ran, 0, true, 0));
+            Assert.False(Check(ran, -1, true, 50));
+            close.Invoke(ran, null);
+            Assert.False(Check(ran, 0, true, 100000));
+            Assert.True(Check(ran, 0, true, 103000));
+
+            // Reopened after the check gave up.
+            var gaveUp = new SdlDeviceWrapper();
+            gaveUp.StepIrPointer(-1, -1, -1, -1, 0f, G, Ms(0), trigger: false);
+            Assert.True((bool)seeded.GetValue(gaveUp));
+            Assert.False(Check(gaveUp, 0, true, 0));
+            foreach (int ms in new[] { 3000, 9000, 21000 })
+                Assert.True(Check(gaveUp, 0, true, ms));
+            Assert.False(Check(gaveUp, 0, true, 45000));
+            close.Invoke(gaveUp, null);
+            Assert.False((bool)seeded.GetValue(gaveUp));
+            Assert.False(Check(gaveUp, 0, true, 100000));
+            Assert.True(Check(gaveUp, 0, true, 103000));
+        }
+
+        /// <summary>The poll runs the check on the dot axes it reads anyway,
+        /// with the accelerometer's first report as the sign the remote is
+        /// sending, and bounces off the poll thread, one bounce at a time,
+        /// through whichever API opened the remote.</summary>
+        [Fact]
+        public void ThePollBouncesOffItsThread_ThroughEitherOpenPath()
+        {
+            string wrapper = RepoText("PadForge.Engine/Common/SdlDeviceWrapper.cs");
+            Assert.Contains("if (StepIrCameraCheck(d0x, d0y, d1x, d1y, _irAccelSeeded, now))\n                ScheduleIrCameraBounce();", wrapper);
+            int schedule = wrapper.IndexOf("private void ScheduleIrCameraBounce()", StringComparison.Ordinal);
+            int end = wrapper.IndexOf("// ── Twist compensation (#485) ──", schedule, StringComparison.Ordinal);
+            Assert.True(schedule >= 0 && end > schedule, "the bounce scheduler moved");
+            string body = wrapper[schedule..end];
+            Assert.Contains("System.Threading.Interlocked.Exchange(ref _irBouncing, 1) != 0", body);
+            Assert.Contains("System.Threading.Tasks.Task.Run(", body);
+            Assert.Contains("BounceMotionSensors();", body);
+            Assert.Contains("System.Threading.Volatile.Write(ref _irBouncing, 0);", body);
+            Assert.Contains("if (HasAccel) SDL_SetJoystickSensorEnabled(joystick, SDL_SENSOR_ACCEL, false);", wrapper);
+            Assert.Contains("if (HasAccel) SDL_SetJoystickSensorEnabled(joystick, SDL_SENSOR_ACCEL, true);", wrapper);
+        }
     }
 }
