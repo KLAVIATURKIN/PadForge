@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro हटाइयो। Windows अर्को पटक सुरु हुँदा हटाउने काम पूरा गर्छ।</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro हटाउने कार्य रोकियो। {0} बन्द गर्नुहोस्, अनि फेरि स्थापना हटाउनुहोस्।</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro आंशिक रूपमा मात्र हटाइयो। के बाँकी रह्यो र किन भन्ने सूचीमा देखाइएको छ।</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>BthPS3 हटाइँदैछ…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 हटाइयो।</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 हटाइयो। Windows अर्को पटक सुरु हुँदा हटाउने काम पूरा गर्छ।</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>BthPS3 हटाउने काम रोकियो। {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 आंशिक रूपमा मात्र हटाइयो। के बाँकी रह्यो र किन भन्ने सूचीमा देखाइएको छ।</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>यन्त्र सूची ताजा गरियो।</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>“{0}” रेकर्ड गरियो ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>अब म्याप गर्नुहोस्: {0} {1}</value></data>
@@ -441,6 +446,26 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>रहन्छ: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>पढ्न सकिएन: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>हटाइएन: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>BthPS3 Bluetooth ड्राइभर</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>PlayStation 3 कन्ट्रोलरहरू, PlayStation Move र नेभिगेसन कन्ट्रोलरलाई Bluetooth मार्फत जडान हुन दिन्छ। PadForge मा समाहित, र तीमध्ये कुनै एकलाई पहिलो पटक जोडा बनाउँदा स्थापना हुन्छ।</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>BthPS3 को स्थापना हटाउनुहोस्</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>यसले यो PC बाट BthPS3 हटाउँछ: यसका ड्राइभरहरू, यसले Bluetooth मा थप्ने फिल्टर, र PadForge ले जोडा बनाउनका लागि PlayStation 3 कन्ट्रोलरहरूलाई दिएको WinUSB ड्राइभर। PadForge ले पहिले आफ्नो इन्जिन रोक्छ, र ड्राइभरहरू अनलोड हुँदा Bluetooth केही क्षणका लागि बन्द हुन्छ। त्यसपछि PlayStation 3, Move र नेभिगेसन कन्ट्रोलरहरूले USB मार्फत मात्र काम गर्छन्। तीमध्ये कुनै एकलाई जोडा बनाउँदा BthPS3 फेरि स्थापना हुन्छ।</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>BthPS3 ले यो PC मा छोडेका कुराहरू पढ्दै…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 ले यो PC मा हटाउनुपर्ने केही पनि छोडेको छैन।</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini ले यी ड्राइभरहरू प्रयोग गर्छ, त्यसैले यो स्थापित रहुन्जेल तिनीहरू रहन्छन्।</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>एउटा PlayStation कन्ट्रोलर Bluetooth मार्फत जडान भएको छ। यसलाई बन्द गर्नुहोस्, अनि फेरि प्रयास गर्नुहोस्। कन्ट्रोलर जडान भएको बेला ड्राइभरहरू अनलोड गर्दा Windows क्र्यास हुन सक्छ।</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge ले Bluetooth मार्फत जडान भएका PlayStation कन्ट्रोलरहरू जाँच्न सकेन। केही क्षणपछि फेरि प्रयास गर्नुहोस्।</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>प्रोग्राम, आफ्नै अनइन्स्टलरले हटाउँछ</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Bluetooth फिल्टर दर्ता</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>ड्राइभर सेवा</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>ड्राइभर फाइल</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>ड्राइभर प्याकेज</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>PadForge को WinUSB ड्राइभर प्याकेज</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>PadForge को ड्राइभर साइनिङ प्रमाणपत्र</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>PadForge का अन्य WinUSB ड्राइभरहरू यसैद्वारा साइन गरिएका छन्।</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>यो अझै यो PC मा छ।</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth फेरि अन भएन। Windows सेटिङहरूमा यसलाई अन गर्नुहोस्।</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>भर्चुअल MIDI पोर्टहरू र MIDI इनपुट। Windows 11 25H2 मा नोभेम्बर 2026 को अन्तिमतिरको अद्यावधिकदेखि API समावेश छ। अरू PC हरूले Windows MIDI Services रनटाइम, जुन PadForge ले स्थापना गर्न सक्छ, वा पुरानो MIDI API प्रयोग गर्छन्।</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Windows मा निर्मित</value></data>

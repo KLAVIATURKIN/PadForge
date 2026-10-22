@@ -92,6 +92,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro e tlošitšwe. Windows e tla fetša go e tloša ge e thoma gape.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Go tloša HIDMaestro go emišitšwe. Tswalela {0}, ke moka o tloše gape.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro e tlošitšwe ka karolo. Lelokelelo le bontšha seo se šetšego le lebaka.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Go tloša BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 e tlošitšwe.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 e tlošitšwe. Windows e tla fetša go e tloša ge e thoma gape.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Go tloša BthPS3 go emišitšwe. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 e tlošitšwe ka karolo. Lelokelelo le bontšha seo se šetšego le lebaka.</value></data>
 
   <!-- ═══ MainWindow ═══ -->
 
@@ -126,6 +131,23 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>E a šala: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Ga e a kgona go balwa: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Ga e a tlošwa: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>Draebara ya Bluetooth ya BthPS3</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>E dumelela dikhontroulara tša PlayStation 3, PlayStation Move le khontroulara ya Navigation go kgokagana ka Bluetooth. E akareditšwe ka go PadForge gomme e tsenywa la mathomo ge ye nngwe ya tšona e kopanywa.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Tloša BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Se se tloša BthPS3 go PC ye: didraebara tša yona, filthara yeo e e tsenyago go Bluetooth, le draebara ya WinUSB yeo PadForge e e filego dikhontroulara tša PlayStation 3 bakeng sa go kopanya. PadForge e thoma ka go emiša enjene ya yona, gomme Bluetooth e tingwa nakwana ge didraebara di ntšhwa. Ka morago dikhontroulara tša PlayStation 3, Move le Navigation di šoma ka USB fela. Go kopanya ye nngwe go tla tsenya BthPS3 gape.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Go bala seo BthPS3 e se tlogetšego go PC ye…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 ga se ya tlogela selo sa go tlošwa go PC ye.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini e diriša didraebara tše, ka gona di a šala ge feela e tsentšwe.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>Khontroulara ya PlayStation e kgokagantšwe ka Bluetooth. E time, ke moka o leke gape. Go ntšha didraebara ge khontroulara e kgokagantšwe go ka dira gore Windows e eme ka phošo.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge e paletšwe ke go hlahloba dikhontroulara tša PlayStation tše di kgokagantšwego ka Bluetooth. Leka gape ka morago ga nakwana.</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Ngwadišo ya filthara ya Bluetooth</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Tirelo ya draebara</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Faele ya draebara</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Sephuthelwana sa draebara</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>Sephuthelwana sa draebara ya WinUSB sa PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>E sa le gona go PC ye.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth ga se ya tšhuma gape. E tšhume go Dipeakanyo tša Windows.</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_Language" xml:space="preserve"><value>Polelo</value></data>
 

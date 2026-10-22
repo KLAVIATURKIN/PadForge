@@ -117,6 +117,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Kua tangohia a HIDMaestro. Ka whakaotia e Windows te tangohanga ā te wā ka tīmata anō ia.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Kua mutu te tango i HIDMaestro. Katia a {0}, kātahi ka wetetāuta anō.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Kua tangohia ētahi wāhanga o HIDMaestro. Kei te rārangi ngā mea i mahue me te take.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>E tango ana i BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>Kua tangohia a BthPS3.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>Kua tangohia a BthPS3. Ka whakaotia e Windows te tangohanga ā te wā ka tīmata anō ia.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Kua whakamutua te tangohanga o BthPS3. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>Kua tangohia ētahi wāhanga o BthPS3. Kei te rārangi ngā mea i mahue me te take.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Kua whakahoutia te rārangi pūrere.</value></data>
   <data name="Status_DirectionRight" xml:space="preserve"><value>(→ matau)</value></data>
   <data name="Status_DirectionDown" xml:space="preserve"><value>(↓ raro)</value></data>
@@ -194,6 +199,25 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Ka noho tonu: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Kāore i taea te pānui: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Kāore i tangohia: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>Taraiwa Bluetooth BthPS3</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Ka taea e ngā controller PlayStation 3, te PlayStation Move me te Navigation controller te hono mā te Bluetooth. Kua whakaurua ki roto i a PadForge, ā, ka tāutahia i te wā tuatahi ka honoa tētahi o rātou.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Wetetāuta i BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Ka tangohia e tēnei a BthPS3 i tēnei PC: ōna taraiwa, te tātari ka tāpiritia e ia ki te Bluetooth, me te taraiwa WinUSB i hoatu e PadForge ki ngā controller PlayStation 3 hei hono. Ka whakamutua e PadForge tōna pūkaha i te tuatahi, ā, ka weto te Bluetooth mō tētahi wā poto i te wā e wetewetea ana ngā taraiwa. Ā muri iho, mā te USB anake e mahi ai ngā controller PlayStation 3, Move me Navigation. Ki te honoa tētahi mā te Bluetooth, ka tāutahia anō a BthPS3.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>E pānui ana i ngā mea i waiho e BthPS3 ki tēnei PC…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>Kāore he mea i waiho e BthPS3 ki tēnei PC hei tango.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>Ka whakamahia ēnei taraiwa e DsHidMini, nō reira ka noho tonu ēnei mō te wā e tāutahia ana a DsHidMini.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>Kei te hono tētahi controller PlayStation mā te Bluetooth. Whakawetohia, kātahi ka ngana anō. Ki te wetewetea ngā taraiwa i te wā e hono ana tētahi controller, ka hinga pea a Windows.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>Kāore i taea e PadForge te tirotiro mēnā kei te hono ētahi controller PlayStation mā te Bluetooth. Ngana anō ā kō ake nei.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Hōtaka, ka tangohia e tōna ake hōtaka wetetāuta</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Ratonga taraiwa</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Kōnae taraiwa</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Mōkī taraiwa</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>Mōkī taraiwa WinUSB a PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>Tiwhikete waitohu taraiwa a PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>Kua waitohua ētahi atu taraiwa WinUSB a PadForge ki tēnei tiwhikete.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Kei tēnei PC tonu.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Kāore te Bluetooth i hoki anō ki te kā. Whakakāngia i ngā Tautuhinga o Windows.</value></data>
   <data name="Settings_MidiStatusUnavailable" xml:space="preserve"><value>Kāore e wātea</value></data>
   <data name="Settings_MidiStatusNotRunning" xml:space="preserve"><value>Kāore e rere ana</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>

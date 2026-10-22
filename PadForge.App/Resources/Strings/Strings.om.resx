@@ -121,6 +121,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro haqameera. Windows yeroo itti aanu ka'u haquu sana ni xumura.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Haquun HIDMaestro dhaabbateera. {0} cufi, achiis irra deebi'ii haqi.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro gartokkoon haqameera. Tarreeffamni waan hafee fi sababa isaa agarsiisa.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>BthPS3 haqamaa jira…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 haqameera.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 haqameera. Windows yeroo itti aanu ka'u haquu sana ni xumura.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Haquun BthPS3 dhaabbateera. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 gartokkoon haqameera. Tarreeffamni waan hafee fi sababa isaa agarsiisa.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Tarreen meeshaalee haaromfameera.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>"{0}" galmeeffameera ← {1}</value></data>
   <data name="Status_DirectionRight" xml:space="preserve"><value>(→ mirga)</value></data>
@@ -189,6 +194,25 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Hafa: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Dubbifamuu hin dandeenye: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Hin haqamne: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>Draayivarii Bluetooth BthPS3</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Kontirolaawwan PlayStation 3, PlayStation Move fi kontirolaa Navigation karaa Bluetooth akka walqabatan dandeessisa. PadForge keessatti hammatameera, yeroo isaan keessaa tokko jalqaba walqabsiifamu fe'ama.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>BthPS3 haqi</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Kun BthPS3 PC kana irraa haqa: draayivarootni isaa, filtarii inni Bluetooth irratti dabalu, fi draayivarii WinUSB PadForge walqabsiisuuf kontirolaawwan PlayStation 3 kenne. PadForge dursee injiinii isaa dhaabsisa, yeroo draayivarootni hojii irraa ka'anitti immoo Bluetooth yeroo gabaabaaf ni cufama. Sana booda kontirolaawwan PlayStation 3, Move fi Navigation USB qofaan hojjetu. Tokko walqabsiisuun BthPS3 deebisee fe'a.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Waan BthPS3 PC kana irratti dhiise dubbisaa jira…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 PC kana irratti waan haqamu tokkollee hin dhiisne.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini draayivaroota kana fayyadama, kanaaf hamma inni fe'amee jirutti ni hafu.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>Kontirolaan PlayStation tokko karaa Bluetooth walqabateera. Isa cufi, achiis irra deebi'ii yaali. Yeroo kontirolaan walqabatee jiru draayivaroota hojii irraa kaasuun Windows dogoggoraan akka dhaabbatu gochuu danda'a.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge kontirolaawwan PlayStation karaa Bluetooth walqabatan sakatta'uu hin dandeenye. Yeroo muraasa booda irra deebi'ii yaali.</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Galmee filtarii Bluetooth</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Tajaajila draayivarii</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Faayilii draayivarii</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Paakeejii draayivarii</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>Paakeejii draayivarii WinUSB PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>Sartifikeetii mallattoo draayivarii PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>Draayivarootni WinUSB biroo PadForge isaatiin mallatteeffamaniiru.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Ammallee PC kana irra jira.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth deebi'ee hin banamne. Qindaa'ina Windows keessatti bani.</value></data>
   <data name="Settings_Reload" xml:space="preserve"><value>Irra deebi'ii fe'i</value></data>
   <data name="Settings_ResetToDefaults" xml:space="preserve"><value>Gara durtiitti deebisi</value></data>
   <data name="Settings_Language" xml:space="preserve"><value>Afaan</value></data>

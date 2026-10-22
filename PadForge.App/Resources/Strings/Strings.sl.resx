@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Program HIDMaestro je bil odstranjen. Windows dokonča odstranitev ob naslednjem zagonu.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Odstranjevanje programa HIDMaestro je ustavljeno. Zaprite {0} in nato znova odstranite namestitev.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Program HIDMaestro je bil odstranjen le delno. Seznam prikazuje, kaj je ostalo in zakaj.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Odstranjevanje programa BthPS3 …</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>Program BthPS3 je bil odstranjen.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>Program BthPS3 je bil odstranjen. Windows dokonča odstranitev ob naslednjem zagonu.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Odstranjevanje programa BthPS3 je bilo ustavljeno. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>Program BthPS3 je bil odstranjen le delno. Seznam prikazuje, kaj je ostalo in zakaj.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Seznam naprav je osvežen.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Posneto „{0}“ ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Zdaj preslikajte: {0} {1}</value></data>
@@ -441,6 +446,26 @@ Kopija prejšnje različice je v tej mapi: {1}</value></data>
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Ostane: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Branje ni uspelo: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Ni odstranjeno: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>Gonilnik Bluetooth BthPS3</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Omogoča povezavo krmilnikov PlayStation 3, naprave PlayStation Move in krmilnika Navigation prek Bluetootha. Vgrajen je v PadForge in se namesti ob prvem seznanjanju enega od njih.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Odstrani namestitev programa BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>S tem odstranite BthPS3 iz tega računalnika: njegove gonilnike, filter, ki ga doda v Bluetooth, in gonilnik WinUSB, ki ga je PadForge dodelil krmilnikom PlayStation 3 za seznanjanje. PadForge najprej ustavi svoj mehanizem, Bluetooth pa se med odstranjevanjem gonilnikov za trenutek izklopi. Krmilniki PlayStation 3, Move in Navigation nato delujejo samo prek USB. Ko enega seznanite, se BthPS3 znova namesti.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Branje tega, kar je BthPS3 pustil v tem računalniku …</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 v tem računalniku ni pustil ničesar za odstranitev.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini uporablja te gonilnike, zato ostanejo, dokler je nameščen.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>Krmilnik PlayStation je povezan prek Bluetootha. Izklopite ga in poskusite znova. Odstranitev gonilnikov, medtem ko je krmilnik povezan, lahko povzroči zrušitev sistema Windows.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge ni mogel preveriti, ali so krmilniki PlayStation povezani prek Bluetootha. Čez trenutek poskusite znova.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Program, odstrani ga njegov lastni program za odstranitev</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Registracija filtra Bluetooth</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Storitev gonilnika</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Datoteka gonilnika</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Paket gonilnika</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>Paket gonilnika WinUSB programa PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>Podpisno potrdilo gonilnikov programa PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>Z njim so podpisani drugi gonilniki WinUSB programa PadForge.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Še vedno je v tem računalniku.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth se ni znova vklopil. Vklopite ga v nastavitvah sistema Windows.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Navidezna vrata MIDI in vnos MIDI. Windows 11 25H2 vključuje API od posodobitve konec novembra 2026. Drugi računalniki uporabljajo izvajalno okolje Windows MIDI Services, ki ga PadForge lahko namesti, ali starejši API za MIDI.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Vgrajeno v Windows</value></data>

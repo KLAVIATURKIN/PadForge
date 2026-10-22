@@ -93,6 +93,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro e tlositswe. Windows e tla qeta ho e tlosa ha e qala hape.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Ho tlosa HIDMaestro ho emisitswe. Kwala {0}, ebe o e tlosa hape.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro e tlositswe ka karolo. Lenane le bontsha se setseng le lebaka.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Ho tlosa BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 e tlositswe.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 e tlositswe. Windows e tla qeta ho e tlosa ha e qala hape.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Ho tlosa BthPS3 ho emisitswe. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 e tlositswe ka karolo. Lenane le bontsha se setseng le lebaka.</value></data>
 
   <!-- ═══ MainWindow Status Messages ═══ -->
   <data name="Status_Error_Format" xml:space="preserve"><value>Phoso: {0}</value></data>
@@ -113,6 +118,26 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>E sala: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Ha e a kgona ho balwa: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Ha e a tloswa: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>Driver ya Bluetooth ya BthPS3</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>E dumella di-controller tsa PlayStation 3, PlayStation Move le Navigation controller ho hokahana ka Bluetooth. E kentswe ka hare ho PadForge, mme e kenngwa la pele ha e nngwe ya tsona e hokahanngwa le PC.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Tlosa BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Sena se tlosa BthPS3 ho PC ena: di-driver tsa yona, filter eo e e kenyang ho Bluetooth, le driver ya WinUSB eo PadForge e e fileng di-controller tsa PlayStation 3 bakeng sa ho hokahanya. PadForge e qala ka ho emisa enjene ya yona, mme Bluetooth e tingwa nakwana ha di-driver di ntse di tloswa. Ka mora moo di-controller tsa PlayStation 3, Move le Navigation di sebetsa ka USB feela. Ho hokahanya e nngwe ho kenya BthPS3 hape.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>E bala seo BthPS3 e se siileng ho PC ena…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 ha e a sia letho ho PC ena le ka tloswang.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini e sebedisa di-driver tsena, kahoo di sala ha feela e ntse e kentswe.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>Controller ya PlayStation e hokahantswe ka Bluetooth. E time, ebe o leka hape. Ho tlosa di-driver ha controller e hokahantswe ho ka etsa hore Windows e eme ka phoso.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge ha e a kgona ho hlahloba di-controller tsa PlayStation tse hokahantsweng ka Bluetooth. Leka hape kamora nakwana.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Lenaneo, le tloswang ke lenaneo la lona la ho tlosa</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Ngodiso ya filter ya Bluetooth</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Service ya driver</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Faele ya driver</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Package ya driver</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>Package ya driver ya WinUSB ya PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>Setifikeiti sa ho saena driver sa PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>Di-driver tse ding tsa WinUSB tsa PadForge di saennwe ka sona.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>E ntse e le ho PC ena.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth ha e a ka ya buleha hape. E bule ho Disetting tsa Windows.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_Language" xml:space="preserve"><value>Puo</value></data>

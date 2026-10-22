@@ -134,6 +134,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro i raus pinis. Windows bai pinisim rausim taim em i stat gen.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Rausim HIDMaestro i stop. Pasim {0}, na rausim gen.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro i raus hap tasol. Lis i soim wanem samting i stap yet na bilong wanem.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Rausim BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 i raus pinis.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 i raus pinis. Windows bai pinisim rausim taim em i stat gen.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Rausim BthPS3 i stop. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 i raus hap tasol. Lis i soim wanem samting i stap yet na bilong wanem.</value></data>
   <data name="Status_DirectionRight" xml:space="preserve"><value>(→ han sut)</value></data>
   <data name="Status_DirectionDown" xml:space="preserve"><value>(↓ daun)</value></data>
   <data name="Status_DirectionLeft" xml:space="preserve"><value>(← han kais)</value></data>
@@ -211,6 +216,23 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>I stap yet: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>No inap ritim: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>I no raus: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>BthPS3 Bluetooth draiva</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>I larim ol PlayStation 3 kontrola, PlayStation Move na Navigation kontrola i konek long Bluetooth. Em i stap insait long PadForge, na PadForge i instolim long namba wan taim yu pairim wanpela bilong ol.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Rausim BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Dispela i rausim BthPS3 long dispela PC: ol draiva bilong en, filter em i putim long Bluetooth, na WinUSB draiva PadForge i givim ol PlayStation 3 kontrola bilong pairim. PadForge i stopim ensin bilong en pastaim, na Bluetooth i of liklik taim taim ol draiva i stop. Bihain ol PlayStation 3, Move na Navigation kontrola i wok long USB tasol. Taim yu pairim wanpela, PadForge bai instolim BthPS3 gen.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Ritim wanem samting BthPS3 i lusim long dispela PC…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 i no lusim wanpela samting long dispela PC bilong rausim.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini i yusim ol dispela draiva, olsem na ol i stap yet taim DsHidMini i stap instol.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>Wanpela PlayStation kontrola i konek long Bluetooth. Ofim em, na traim gen. Sapos yu rausim ol draiva taim kontrola i konek, Windows inap long bagarap.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge i no inap long sekim ol PlayStation kontrola i konek long Bluetooth. Traim gen liklik taim bihain.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Program, uninstaller bilong em yet i rausim</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Sevis bilong draiva</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Fail bilong draiva</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>Setifiket bilong sainim draiva bilong PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>Ol arapela WinUSB draiva bilong PadForge i sain wantaim dispela.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Em i stap yet long dispela PC.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth i no on gen. Onim long Settings bilong Windows.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>I stap insait long Windows</value></data>
   <data name="Settings_MidiStatusUnavailable" xml:space="preserve"><value>I no stap</value></data>

@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro gouf ewechgeholl. Windows schléisst d'Ewechhuelen of, wann et déi nächst Kéier gestart gëtt.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>D'Ewechhuele vun HIDMaestro gouf gestoppt. Maacht {0} zou an desinstalléiert dann nach eng Kéier.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro gouf nëmmen deelweis ewechgeholl. D'Lëscht weist, wat bliwwen ass a firwat.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>BthPS3 gëtt ewechgeholl…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 gouf ewechgeholl.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 gouf ewechgeholl. Windows schléisst d'Ewechhuelen of, wann et déi nächst Kéier gestart gëtt.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>D'Ewechhuele vu BthPS3 gouf gestoppt. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 gouf nëmmen deelweis ewechgeholl. D'Lëscht weist, wat bliwwen ass a firwat.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Apparatelëscht aktualiséiert.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Opgeholl: „{0}“ ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Elo zouuerdnen: {0} {1}</value></data>
@@ -439,6 +444,26 @@ Eng Kopie vun der viregter Versioun ass an dësem Dossier: {1}</value></data>
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Bleift: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Konnt net gelies ginn: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Net ewechgeholl: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>BthPS3-Bluetooth-Treiber</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Erlaabt de PlayStation-3-Controller, der PlayStation Move an dem Navigation-Controller, sech iwwer Bluetooth ze verbannen. A PadForge integréiert a gëtt installéiert, wann ee vun hinnen déi éischte Kéier gekoppelt gëtt.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>BthPS3 desinstalléieren</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Dëst hëlt BthPS3 vun dësem PC ewech: seng Treiber, de Filter, deen et dem Bluetooth bäisetzt, an de WinUSB-Treiber, dee PadForge de PlayStation-3-Controller fir d'Koppelen ginn huet. PadForge stoppt virdrun seng Engine, a Bluetooth gëtt kuerz ausgeschalt, wärend d'Treiber ofgelueden ginn. PlayStation-3-, Move- a Navigation-Controller funktionéieren duerno nëmmen nach iwwer USB. Wann een esou e Controller gekoppelt gëtt, gëtt BthPS3 nees installéiert.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Et gëtt gelies, wat BthPS3 op dësem PC hannerlooss huet…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 huet op dësem PC näischt hannerlooss, wat ze läschen ass.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini benotzt dës Treiber, dofir bleiwen se, soulaang et installéiert ass.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>E PlayStation-Controller ass iwwer Bluetooth verbonnen. Schalt en aus a probéiert dann nach eng Kéier. Wann d'Treiber ofgelueden ginn, wärend e Controller verbonnen ass, kann Windows ofstierzen.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge konnt net iwwerpréiwen, ob PlayStation-Controller iwwer Bluetooth verbonne sinn. Probéiert et an engem Moment nach eng Kéier.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Programm, gëtt mat sengem eegenen Desinstallatiounsprogramm ewechgeholl</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Registréierung vum Bluetooth-Filter</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Treiberservice</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Treiberfichier</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Treiberpak</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>WinUSB-Treiberpak vu PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>Treiber-Signatur-Zertifikat vu PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>Déi aner WinUSB-Treiber vu PadForge sinn domat signéiert.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Et ass nach ëmmer op dësem PC.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth ass net nees ugaangen. Schalt et an de Windows-Astellungen un.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Virtuell MIDI-Porten an MIDI-Agab. Windows 11 25H2 enthält d'API zënter der Aktualiséierung vun Enn November 2026. Aner PCe benotzen d'Runtime vu Windows MIDI Services, déi PadForge installéiere kann, oder d'Legacy-MIDI-API.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>A Windows integréiert</value></data>

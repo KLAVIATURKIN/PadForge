@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>ລຶບ HIDMaestro ອອກແລ້ວ. Windows ຈະລຶບອອກໃຫ້ສຳເລັດເມື່ອ Windows ເລີ່ມເທື່ອຕໍ່ໄປ.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>ການລຶບ HIDMaestro ຢຸດລົງ. ປິດ {0} ແລ້ວຖອນການຕິດຕັ້ງອີກຄັ້ງ.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro ຖືກລຶບອອກພຽງບາງສ່ວນ. ລາຍການສະແດງສິ່ງທີ່ຍັງເຫຼືອ ແລະ ເຫດຜົນ.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>ກຳລັງລຶບ BthPS3 ອອກ…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>ລຶບ BthPS3 ອອກແລ້ວ.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>ລຶບ BthPS3 ອອກແລ້ວ. Windows ຈະລຶບອອກໃຫ້ສຳເລັດເມື່ອ Windows ເລີ່ມເທື່ອຕໍ່ໄປ.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>ການລຶບ BthPS3 ຢຸດລົງ. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 ຖືກລຶບອອກພຽງບາງສ່ວນ. ລາຍການສະແດງສິ່ງທີ່ຍັງເຫຼືອ ແລະ ເຫດຜົນ.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>ໂຫຼດລາຍການອຸປະກອນຄືນໃໝ່ແລ້ວ.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>ອັດແລ້ວ “{0}” ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>ຕອນນີ້ແມັບ: {0} {1}</value></data>
@@ -441,6 +446,26 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>ຍັງຄົງຢູ່: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>ອ່ານບໍ່ໄດ້: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>ບໍ່ໄດ້ລຶບ: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>ໄດຣເວີ Bluetooth BthPS3</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>ໃຫ້ຕົວຄວບຄຸມ PlayStation 3, PlayStation Move ແລະ ຕົວຄວບຄຸມ Navigation ເຊື່ອມຕໍ່ຜ່ານ Bluetooth ໄດ້. ຝັງຢູ່ໃນ PadForge ແລະ ຕິດຕັ້ງເມື່ອຈັບຄູ່ຕົວຄວບຄຸມໃດໜຶ່ງເຫຼົ່ານີ້ຄັ້ງທຳອິດ.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>ຖອນການຕິດຕັ້ງ BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>ການນີ້ຈະລຶບ BthPS3 ອອກຈາກຄອມພິວເຕີເຄື່ອງນີ້: ໄດຣເວີຂອງມັນ, ຕົວກັ່ນຕອງທີ່ມັນເພີ່ມເຂົ້າໃນ Bluetooth ແລະ ໄດຣເວີ WinUSB ທີ່ PadForge ໃຫ້ຕົວຄວບຄຸມ PlayStation 3 ໃຊ້ສຳລັບການຈັບຄູ່. PadForge ຈະຢຸດເອັນຈິນຂອງຕົນກ່ອນ ແລະ Bluetooth ຈະປິດຊົ່ວຄາວໃນຂະນະທີ່ໄດຣເວີຖືກຖອດອອກ. ຫຼັງຈາກນັ້ນ ຕົວຄວບຄຸມ PlayStation 3, Move ແລະ Navigation ຈະໃຊ້ໄດ້ຜ່ານ USB ເທົ່ານັ້ນ. ການຈັບຄູ່ຕົວຄວບຄຸມໃດໜຶ່ງຈະຕິດຕັ້ງ BthPS3 ຄືນ.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>ກຳລັງອ່ານສິ່ງທີ່ BthPS3 ປະໄວ້ໃນຄອມພິວເຕີເຄື່ອງນີ້…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>ບໍ່ມີຫຍັງຂອງ BthPS3 ເຫຼືອຢູ່ໃນຄອມພິວເຕີເຄື່ອງນີ້ໃຫ້ລຶບ.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini ໃຊ້ໄດຣເວີເຫຼົ່ານີ້, ສະນັ້ນພວກມັນຈະຍັງຄົງຢູ່ຕາບໃດທີ່ DsHidMini ຍັງຕິດຕັ້ງຢູ່.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>ມີຕົວຄວບຄຸມ PlayStation ເຊື່ອມຕໍ່ຜ່ານ Bluetooth ຢູ່. ໃຫ້ປິດມັນ, ແລ້ວລອງໃໝ່. ການຖອດໄດຣເວີອອກໃນຂະນະທີ່ມີຕົວຄວບຄຸມເຊື່ອມຕໍ່ຢູ່ ອາດເຮັດໃຫ້ Windows ຂັດຂ້ອງ.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge ບໍ່ສາມາດກວດສອບຕົວຄວບຄຸມ PlayStation ທີ່ເຊື່ອມຕໍ່ຜ່ານ Bluetooth ໄດ້. ລອງໃໝ່ໃນອີກຈັກໜ້ອຍ.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>ໂປຣແກຣມ, ລຶບອອກດ້ວຍຕົວຖອນການຕິດຕັ້ງຂອງມັນເອງ</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>ການລົງທະບຽນຕົວກັ່ນຕອງ Bluetooth</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>ບໍລິການໄດຣເວີ</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>ໄຟລ໌ໄດຣເວີ</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>ແພັກເກດໄດຣເວີ</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>ແພັກເກດໄດຣເວີ WinUSB ຂອງ PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>ໃບຢັ້ງຢືນການລົງລາຍເຊັນໄດຣເວີຂອງ PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>ໄດຣເວີ WinUSB ອື່ນໆຂອງ PadForge ລົງລາຍເຊັນດ້ວຍໃບຢັ້ງຢືນນີ້.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>ມັນຍັງຢູ່ໃນຄອມພິວເຕີເຄື່ອງນີ້.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth ບໍ່ໄດ້ເປີດຄືນ. ເປີດມັນໃນການຕັ້ງຄ່າ Windows.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>ພອດ MIDI ສະເໝືອນ ແລະ ອິນພຸດ MIDI. Windows 11 25H2 ມີ API ນີ້ມາຈາກອັບເດດທ້າຍເດືອນພະຈິກ 2026. PC ອື່ນໃຊ້ຣັນທາມ Windows MIDI Services, ເຊິ່ງ PadForge ສາມາດຕິດຕັ້ງໄດ້, ຫຼື MIDI API ແບບເກົ່າ.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>ມີມາໃນ Windows</value></data>

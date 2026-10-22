@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro-ն հեռացվեց։ Windows-ը հեռացումն ավարտում է հաջորդ գործարկման ժամանակ։</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro-ի հեռացումը դադարեցվեց։ Փակեք {0}, ապա նորից ապատեղադրեք։</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro-ն մասամբ հեռացվեց։ Ցանկում երևում է, թե ինչն է մնացել և ինչու։</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>BthPS3-ի հեռացում…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3-ը հեռացվեց։</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3-ը հեռացվեց։ Windows-ը հեռացումն ավարտում է հաջորդ գործարկման ժամանակ։</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>BthPS3-ի հեռացումը դադարեցվեց։ {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3-ը մասամբ հեռացվեց։ Ցանկում երևում է, թե ինչն է մնացել և ինչու։</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Սարքերի ցանկը թարմացվեց։</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Գրանցվեց «{0}» ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Այժմ կապակցեք՝ {0} {1}</value></data>
@@ -441,6 +446,26 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Մնում է՝ {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Չհաջողվեց կարդալ՝ {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Չհեռացվեց՝ {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>BthPS3 Bluetooth դրայվեր</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Թույլ է տալիս PlayStation 3 կառավարիչներին, PlayStation Move-ին և Navigation կառավարիչին միանալ Bluetooth-ով։ Ներկառուցված է PadForge-ում և տեղադրվում է դրանցից որևէ մեկի առաջին զուգակցման ժամանակ։</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Ապատեղադրել BthPS3-ը</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Սա հեռացնում է BthPS3-ը այս համակարգչից՝ նրա դրայվերները, Bluetooth-ին ավելացրած զտիչը և WinUSB դրայվերը, որ PadForge-ը տվել էր PlayStation 3 կառավարիչներին զուգակցման համար։ PadForge-ը նախ կանգնեցնում է իր մեխանիզմը, իսկ դրայվերների բեռնաթափման ընթացքում Bluetooth-ը կարճ ժամանակ անջատվում է։ PlayStation 3, Move և Navigation կառավարիչներն այնուհետև աշխատում են միայն USB-ով։ Դրանցից որևէ մեկի զուգակցումը BthPS3-ը նորից է տեղադրում։</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Ընթերցվում է, թե BthPS3-ը ինչ է թողել այս համակարգչում…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3-ը այս համակարգչում հեռացնելու ոչինչ չի թողել։</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini-ն օգտագործում է այս դրայվերները, ուստի դրանք մնում են, քանի դեռ այն տեղադրված է։</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>PlayStation կառավարիչը միացված է Bluetooth-ով։ Անջատեք այն և նորից փորձեք։ Դրայվերների բեռնաթափումը կառավարիչը միացված ժամանակ կարող է խափանել Windows-ի աշխատանքը։</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge-ը չկարողացավ ստուգել Bluetooth-ով միացված PlayStation կառավարիչների առկայությունը։ Մի պահ անց նորից փորձեք։</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Ծրագիր, հեռացվում է իր սեփական ապատեղադրիչով</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Bluetooth զտիչի գրանցում</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Դրայվերի ծառայություն</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Դրայվերի ֆայլ</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Դրայվերի փաթեթ</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>PadForge-ի WinUSB դրայվերի փաթեթ</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>PadForge-ի դրայվերի ստորագրման վկայագիր</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>PadForge-ի մյուս WinUSB դրայվերները ստորագրված են դրանով։</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Այն դեռ կա այս համակարգչում։</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth-ը նորից չմիացավ։ Միացրեք այն Windows-ի Կարգավորումներում։</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Վիրտուալ MIDI պորտեր և MIDI մուտք։ Windows 11 25H2-ը ներառում է API-ն 2026 թվի նոյեմբերի վերջի թարմացումից։ Մյուս համակարգիչները օգտագործում են Windows MIDI Services runtime-ը, որը PadForge-ը կարող է տեղադրել, կամ հին MIDI API-ն։</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Ներկառուցված է Windows-ում</value></data>

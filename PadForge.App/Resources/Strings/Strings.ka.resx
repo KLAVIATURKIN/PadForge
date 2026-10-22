@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro წაიშალა. Windows წაშლას შემდეგი გაშვებისას დაასრულებს.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro-ს წაშლა შეწყდა. დახურეთ {0} და ხელახლა დააჭირეთ დეინსტალაციას.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro ნაწილობრივ წაიშალა. სიაში ჩანს, რა დარჩა და რატომ.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>BthPS3-ს წაშლა…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 წაიშალა.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 წაიშალა. Windows წაშლას შემდეგი გაშვებისას დაასრულებს.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>BthPS3-ს წაშლა შეწყდა. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 ნაწილობრივ წაიშალა. სიაში ჩანს, რა დარჩა და რატომ.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>მოწყობილობების სია განახლდა.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>ჩაწერილია „{0}“ ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>ახლა მიაბით: {0} {1}</value></data>
@@ -441,6 +446,26 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>რჩება: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>ვერ წაიკითხა: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>ვერ წაიშალა: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>BthPS3 Bluetooth დრაივერი</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>აძლევს საშუალებას PlayStation 3-ის კონტროლერებს, PlayStation Move-სა და Navigation კონტროლერს Bluetooth-ით დაუკავშირდნენ. ჩაშენებულია PadForge-ში და ირთვება მათგან პირველის დაწყვილებისას.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>BthPS3-ს დეინსტალაცია</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>ეს წაშლის BthPS3-ს ამ კომპიუტერიდან: მის დრაივერებს, Bluetooth-ში მის მიერ დამატებულ ფილტრს და WinUSB დრაივერს, რომელიც PadForge-მა PlayStation 3-ის კონტროლერებს დაწყვილებისთვის მისცა. PadForge ჯერ თავის ძრავას გააჩერებს, ხოლო დრაივერების გამოტვირთვისას Bluetooth ცოტა ხნით გამოირთვება. PlayStation 3-ის, Move-ისა და Navigation კონტროლერები ამის შემდეგ მხოლოდ USB-ით იმუშავებენ. მათგან რომელიმეს დაწყვილება BthPS3-ს ხელახლა დააყენებს.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>მიმდინარეობს იმის წაკითხვა, რაც BthPS3-მ ამ კომპიუტერზე დატოვა…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3-მ ამ კომპიუტერზე წასაშლელი არაფერი დატოვა.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>ამ დრაივერებს DsHidMini იყენებს, ამიტომ ისინი დარჩება, სანამ DsHidMini დაყენებულია.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>PlayStation-ის კონტროლერი Bluetooth-ით არის დაკავშირებული. გამორთეთ და სცადეთ ხელახლა. დრაივერების გამოტვირთვამ, სანამ კონტროლერი დაკავშირებულია, შეიძლება Windows-ის ავარია გამოიწვიოს.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge-მა ვერ შეამოწმა, არის თუ არა Bluetooth-ით დაკავშირებული PlayStation-ის კონტროლერები. სცადეთ ცოტა ხანში ხელახლა.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>პროგრამა, იშლება საკუთარი დეინსტალატორით</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Bluetooth ფილტრის რეგისტრაცია</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>დრაივერის სერვისი</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>დრაივერის ფაილი</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>დრაივერის პაკეტი</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>PadForge-ის WinUSB დრაივერის პაკეტი</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>PadForge-ის დრაივერის ხელმოწერის სერტიფიკატი</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>PadForge-ის სხვა WinUSB დრაივერები მისით არის ხელმოწერილი.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>ის კვლავ ამ კომპიუტერზეა.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth ხელახლა არ ჩაირთო. ჩართეთ Windows-ის პარამეტრებში.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>ვირტუალური MIDI პორტები და MIDI შეყვანა. Windows 11 25H2 შეიცავს API-ს 2026 წლის ნოემბრის ბოლოს განახლებიდან. სხვა კომპიუტერები იყენებენ Windows MIDI Services-ის გაშვების გარემოს, რომლის დაყენებაც PadForge-ს შეუძლია, ან მოძველებულ MIDI API-ს.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>ჩაშენებულია Windows-ში</value></data>

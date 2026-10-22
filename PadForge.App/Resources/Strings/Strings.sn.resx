@@ -90,6 +90,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro yabviswa. Windows ichapedzisa kubvisa painozotanga zvakare.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Kubvisa HIDMaestro kwamira. Vhara {0}, wozobvisa zvakare.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro haina kubviswa yose. Rondedzero inoratidza zvasara nezvikonzero.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Kubvisa BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 yabviswa.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 yabviswa. Windows ichapedzisa kubvisa painozotanga zvakare.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Kubvisa BthPS3 kwamiswa. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 haina kubviswa yose. Rondedzero inoratidza zvasara nezvikonzero.</value></data>
 
   <!-- ═══ MainWindow Status Messages ═══ -->
   <data name="Status_DirectionRight" xml:space="preserve"><value>(→ kurudyi)</value></data>
@@ -121,6 +126,26 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Inosara: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Hazvina kuverengeka: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Hazvina kubviswa: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>BthPS3: dhiraivha ye-Bluetooth</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Inobvumira kontiroura dze-PlayStation 3, PlayStation Move nekontiroura yeNavigation kubatana ne-Bluetooth. Iri mukati ma-PadForge uye inoiswa kekutanga imwe yadzo painobatanidzwa.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Bvisa BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Izvi zvinobvisa BthPS3 paPC ino: madhiraivha ayo, sefa yainowedzera ku-Bluetooth, nedhiraivha ye-WinUSB yakapihwa kontiroura dze-PlayStation 3 nePadForge kuti dzibatanidzwe. PadForge inotanga yamisa injini yayo, uye Bluetooth inodzimwa kwechinguva madhiraivha achibviswa. Kontiroura dze-PlayStation 3, Move neNavigation dzinobva dzashanda ne-USB chete. Kubatanidza imwe yadzo kunoisa BthPS3 zvakare.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>BthPS3: kuverenga zvayakasiya paPC ino…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 haina chayakasiya paPC ino chekubvisa.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini inoshandisa madhiraivha aya, saka anosara kana DsHidMini yakaiswa.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>Kontiroura ye-PlayStation yakabatana ne-Bluetooth. Idzime, wozoedza zvakare. Kubvisa madhiraivha kontiroura yakabatana kunogona kuita kuti Windows imire nekukanganisa.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge haina kugona kutarisa kontiroura dze-PlayStation dzakabatana ne-Bluetooth. Edza zvakare munguva pfupi.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Purogiramu, inobviswa nepurogiramu yayo yekubvisa</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Kunyoreswa kwesefa ye-Bluetooth</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Sevhisi yedhiraivha</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Faira redhiraivha</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Pakeji yedhiraivha</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>Pakeji yedhiraivha ye-WinUSB ye-PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>Chitupa chekusaina dhiraivha che-PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>Mamwe madhiraivha e-WinUSB e-PadForge akasainwa nacho.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Ichiri paPC ino.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth haina kubatidzwa zvakare. Ibatidze muMasetingi eWindows.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_Language" xml:space="preserve"><value>Mutauro</value></data>

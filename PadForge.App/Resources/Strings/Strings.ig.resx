@@ -95,6 +95,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>E wepụla HIDMaestro. Windows ga-emecha iwepụ ya mgbe ọ ga-amalite ọzọ.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Mwepụ HIDMaestro kwụsịrị. Mechie {0}, wee wepụ ya ọzọ.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>E wepụrụ naanị otu akụkụ nke HIDMaestro. Ndepụta ahụ na-egosi ihe fọdụrụ na ihe kpatara ya.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Na-ewepụ BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>E wepụla BthPS3.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>E wepụla BthPS3. Windows ga-emecha iwepụ ya mgbe ọ ga-amalite ọzọ.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>E kwụsịrị iwepụ BthPS3. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>E wepụrụ naanị otu akụkụ nke BthPS3. Ndepụta ahụ na-egosi ihe fọdụrụ na ihe kpatara ya.</value></data>
   <data name="Status_Error_Format" xml:space="preserve"><value>Njehie: {0}</value></data>
   <data name="Profiles_ShortcutLearn" xml:space="preserve"><value>Dekọọ</value></data>
   <data name="Profiles_ShortcutLearning" xml:space="preserve"><value>Na-edekọ...</value></data>
@@ -120,6 +125,24 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Ọ na-anọgide: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Enweghị ike ịgụ ya: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>E wepụghị ya: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>Driver Bluetooth nke BthPS3</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Na-enye controller PlayStation 3, PlayStation Move na Navigation controller ohere ijikọ site na Bluetooth. Ọ dị n'ime PadForge, a na-awụnye ya oge mbụ e jikọọrọ otu n'ime ha.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Wepụ BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Nke a na-ewepụ BthPS3 na PC a: driver ya niile, filter ọ na-agbakwunye na Bluetooth, na WinUSB driver PadForge nyere controller PlayStation 3 maka ijikọ. PadForge ga-ebu ụzọ kwụsị engine ya, Bluetooth ga-agbanyụkwa nwa oge ka a na-ewepụ driver ndị ahụ. Mgbe ahụ, controller PlayStation 3, Move na Navigation ga-arụ ọrụ naanị site na USB. Ijikọ otu n'ime ha ga-awụnye BthPS3 ọzọ.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Na-agụ ihe BthPS3 hapụrụ na PC a…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 ahapụghị ihe ọ bụla a ga-ewepụ na PC a.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini na-eji driver ndị a, ya mere ha ga-anọgide ma ọ bụrụ na a ka wụnyere ya.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>Otu controller PlayStation jikọrọ site na Bluetooth. Gbanyụọ ya, wee nwaa ọzọ. Iwepụ driver ndị ahụ mgbe controller jikọrọ nwere ike ime ka Windows kwụsị na mperi.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge enweghị ike ịlele controller PlayStation ndị jikọrọ site na Bluetooth. Nwaa ọzọ n'oge na-adịghị anya.</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Ndebanye filter Bluetooth</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Faịlụ driver</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Ngwugwu driver</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>Ngwugwu WinUSB driver nke PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>Asambodo mbinye aka driver nke PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>E ji ya bịanye aka na WinUSB driver ndị ọzọ nke PadForge.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Ọ ka dị na PC a.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth agbanyeghị ọzọ. Gbanye ya na ntọala Windows.</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_OpenFolder" xml:space="preserve"><value>Mepee folda</value></data>
   <data name="Settings_Language" xml:space="preserve"><value>Asụsụ</value></data>

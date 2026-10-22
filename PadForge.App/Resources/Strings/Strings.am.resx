@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro ተወግዷል። Windows በሚቀጥለው ሲጀምር ማስወገዱን ያጠናቅቃል።</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>የHIDMaestro ማስወገድ ቆሟል። {0}ን ዝጋ፣ ከዚያ እንደገና አራግፍ።</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro በከፊል ተወግዷል። ዝርዝሩ የቀረውን እና ምክንያቱን ያሳያል።</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>BthPS3 በማስወገድ ላይ…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 ተወግዷል።</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 ተወግዷል። Windows በሚቀጥለው ሲጀምር ማስወገዱን ያጠናቅቃል።</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>የBthPS3 ማስወገድ ቆሟል። {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 በከፊል ተወግዷል። ዝርዝሩ የቀረውን እና ምክንያቱን ያሳያል።</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>የመሣሪያ ዝርዝሩ ታድሷል።</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>«{0}» ተቀርጿል ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>አሁን ያዛምዱ፦ {0} {1}</value></data>
@@ -440,6 +445,26 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>ይቀራል፦ {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>ሊነበብ አልቻለም፦ {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>አልተወገደም፦ {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>BthPS3 የBluetooth አሽከርካሪ</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>የPlayStation 3 መቆጣጠሪያዎች፣ PlayStation Move እና የNavigation መቆጣጠሪያ በBluetooth እንዲገናኙ ያስችላል። በPadForge ውስጥ የተካተተ ሲሆን ከእነሱ አንዱ መጀመሪያ ሲጣመር ይጫናል።</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>BthPS3ን አራግፍ</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>ይህ BthPS3ን ከዚህ ኮምፒውተር ያስወግዳል፦ አሽከርካሪዎቹን፣ በBluetooth ላይ የሚጨምረውን ማጣሪያ እና PadForge ለማጣመር ለPlayStation 3 መቆጣጠሪያዎች የሰጠውን የWinUSB አሽከርካሪ። PadForge መጀመሪያ ሞተሩን ያቆማል። አሽከርካሪዎቹ በሚወርዱበት ጊዜ Bluetooth ለአፍታ ይጠፋል። ከዚያ በኋላ PlayStation 3፣ Move እና Navigation መቆጣጠሪያዎች በUSB ብቻ ይሠራሉ። አንዱን ማጣመር BthPS3ን እንደገና ይጭናል።</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>BthPS3 በዚህ ኮምፒውተር ላይ የተወውን በማንበብ ላይ…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 በዚህ ኮምፒውተር ላይ የሚወገድ ምንም ነገር አልተወም።</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini እነዚህን አሽከርካሪዎች ስለሚጠቀም እሱ ተጭኖ እስካለ ድረስ ይቀራሉ።</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>የPlayStation መቆጣጠሪያ በBluetooth ተገናኝቷል። ያጥፉት፣ ከዚያ እንደገና ይሞክሩ። መቆጣጠሪያ ተገናኝቶ እያለ አሽከርካሪዎቹን ማውረድ Windows እንዲበላሽ ሊያደርግ ይችላል።</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge በBluetooth የተገናኙ የPlayStation መቆጣጠሪያዎችን መፈተሽ አልቻለም። ትንሽ ቆይተው እንደገና ይሞክሩ።</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>ፕሮግራም፣ በራሱ ማራገፊያ የሚወገድ</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>የBluetooth ማጣሪያ ምዝገባ</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>የአሽከርካሪ አገልግሎት</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>የአሽከርካሪ ፋይል</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>የአሽከርካሪ ጥቅል</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>የPadForge የWinUSB አሽከርካሪ ጥቅል</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>የPadForge የአሽከርካሪ መፈረሚያ ሰርተፊኬት</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>የPadForge ሌሎች የWinUSB አሽከርካሪዎች በእሱ የተፈረሙ ናቸው።</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>አሁንም በዚህ ኮምፒውተር ላይ አለ።</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth እንደገና አልበራም። በWindows ቅንብሮች ውስጥ ያብሩት።</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>ምናባዊ MIDI ወደቦች እና የMIDI ግብዓት። Windows 11 25H2 ከኖቬምበር 2026 መጨረሻ ዝማኔ ጀምሮ API-ውን ያካትታል። ሌሎች ፒሲዎች PadForge ሊጭነው የሚችለውን የWindows MIDI Services ራንታይም፣ ወይም የቆየውን MIDI API ይጠቀማሉ።</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>በWindows ውስጥ አብሮ የተሰራ</value></data>

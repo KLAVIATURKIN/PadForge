@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Đã gỡ HIDMaestro. Windows sẽ hoàn tất việc gỡ vào lần khởi động tiếp theo.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Việc gỡ HIDMaestro đã dừng. Hãy đóng {0}, rồi gỡ cài đặt lại.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro mới được gỡ một phần. Danh sách cho biết những gì còn lại và lý do.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Đang gỡ BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>Đã gỡ BthPS3.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>Đã gỡ BthPS3. Windows sẽ hoàn tất việc gỡ vào lần khởi động tiếp theo.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Việc gỡ BthPS3 đã dừng. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 mới được gỡ một phần. Danh sách cho biết những gì còn lại và lý do.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Đã làm mới danh sách thiết bị.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Đã ghi "{0}" ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Bây giờ ánh xạ: {0} {1}</value></data>
@@ -441,6 +446,26 @@ Bản sao của phiên bản trước nằm trong thư mục này: {1}</value></
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Còn lại: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Không đọc được: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Chưa gỡ: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>Trình điều khiển Bluetooth BthPS3</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Cho phép tay cầm PlayStation 3, PlayStation Move và tay cầm Navigation kết nối qua Bluetooth. Được nhúng trong PadForge và cài đặt vào lần đầu ghép đôi một trong số đó.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Gỡ cài đặt BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Thao tác này gỡ BthPS3 khỏi PC này: các trình điều khiển của nó, bộ lọc nó thêm vào Bluetooth, và trình điều khiển WinUSB mà PadForge đã cấp cho tay cầm PlayStation 3 để ghép đôi. PadForge dừng bộ máy của mình trước, và Bluetooth tắt trong giây lát khi các trình điều khiển được gỡ nạp. Sau đó tay cầm PlayStation 3, Move và Navigation chỉ hoạt động qua USB. Ghép đôi một tay cầm sẽ cài đặt lại BthPS3.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Đang đọc những gì BthPS3 để lại trên PC này…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 không để lại gì trên PC này để gỡ.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini dùng các trình điều khiển này, nên chúng còn lại khi DsHidMini vẫn được cài đặt.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>Một tay cầm PlayStation đang kết nối qua Bluetooth. Hãy tắt nó rồi thử lại. Gỡ nạp các trình điều khiển khi có tay cầm đang kết nối có thể làm Windows bị sập.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge không kiểm tra được các tay cầm PlayStation đang kết nối qua Bluetooth. Hãy thử lại sau giây lát.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Chương trình, được gỡ bằng trình gỡ cài đặt riêng của nó</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Đăng ký bộ lọc Bluetooth</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Dịch vụ trình điều khiển</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Tệp trình điều khiển</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Gói trình điều khiển</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>Gói trình điều khiển WinUSB của PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>Chứng chỉ ký trình điều khiển của PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>Các trình điều khiển WinUSB khác của PadForge được ký bằng nó.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Nó vẫn còn trên PC này.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth chưa bật lại. Hãy bật nó trong Cài đặt Windows.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Cổng MIDI ảo và đầu vào MIDI. Windows 11 25H2 có sẵn API này kể từ bản cập nhật cuối tháng 11 năm 2026. Các PC khác dùng runtime Windows MIDI Services, mà PadForge có thể cài đặt, hoặc API MIDI cũ.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Tích hợp sẵn trong Windows</value></data>

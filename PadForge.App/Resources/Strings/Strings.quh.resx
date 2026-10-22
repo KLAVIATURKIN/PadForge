@@ -99,6 +99,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro-qa urqhusqaña. Windows-qa urqhuyta tukuchinqa, kutimanta qallariqtin.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro-ta urqhuyqa sayarqa. {0} wisq'ay, chaymanta wakmanta desinstalay.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro-pa wakinllan urqhusqa. Listapi rikukun ima qhipakusqanta, imarayku qhipakusqantapas.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>BthPS3-ta urqhuchkan…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3-qa urqhusqaña.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3-qa urqhusqaña. Windows-qa urqhuyta tukuchinqa, kutimanta qallariqtin.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>BthPS3-ta urqhuyqa sayarqa. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3-pa wakinllan urqhusqa. Listapi rikukun ima qhipakusqanta, imarayku qhipakusqantapas.</value></data>
 
   <!-- ═══ MainWindow Status Messages ═══ -->
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Dispositivokunap listan musuqchasqa.</value></data>
@@ -134,6 +139,26 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Qhipakun: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Mana ñawinchay atikurqanchu: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Mana urqhusqachu: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>BthPS3 Bluetooth controlador</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>PlayStation 3 controlkuna, PlayStation Move, Navigation controlpas Bluetooth-wan tinkikunankupaq. PadForge ukhupi kachkan, ñawpaq kutipi hukninta emparejaqtiyki instalakun.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>BthPS3-ta desinstalay</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Kayqa BthPS3-ta kay PC-manta urqhun: controladorninkunata, Bluetooth-man yapasqan filtrota, PlayStation 3 controlkunaman emparejanankupaq PadForge-pa qusqan WinUSB controladortapas. PadForge-qa ñawpaqta motorninta sayachin, Bluetooth-qa huk ratullapaq sayan controladorkuna urqhukuchkaptin. Chaymantaqa PlayStation 3, Move, Navigation controlkunaqa USB-llawan llamk'anqa. Hukninta emparejaqtiyki BthPS3 watiqmanta instalakun.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>BthPS3 kay PC-pi saqisqanta ñawinchachkan…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3-qa kay PC-pi mana urqhunapaq imatapas saqirqanchu.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini-qa kay controladorkunata llamk'achin, chayrayku qhipakunku DsHidMini instalasqa kachkaptin.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>Huk PlayStation controlmi Bluetooth-wan tinkisqa kachkan. Controlta wañuchiy, chaymanta watiqmanta ruway. Control tinkisqa kachkaptin controladorkunata urqhuyqa Windows-ta pantachinman.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge-qa mana qhawayta atirqanchu Bluetooth-wan tinkisqa PlayStation controlkuna kasqanta. Huk ratumanta watiqmanta ruway.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Programa, kikin desinstaladorninwan urqhusqa</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Bluetooth filtropa registron</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Controladorpa servicion</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Controladorpa archivon</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Controladorpa paqueten</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>PadForge-pa WinUSB controlador paqueten</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>PadForge-pa controlador firma certificadon</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>PadForge-pa wak WinUSB controladorninkunaqa kaywan firmasqa kanku.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Kay PC-pi kachkanraq.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth-qa mana watiqmanta llamk'ayta qallarirqanchu. Windows Configuración-pi qallarichiy.</value></data>
 
   <!-- ═══ Settings ═══ -->
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>

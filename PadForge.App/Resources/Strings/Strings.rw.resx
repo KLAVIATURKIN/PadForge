@@ -110,6 +110,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro yakuwemo. Windows irangiza kuyikuramo ubutaha itangiye.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Gukuramo HIDMaestro byahagaze. Funga {0}, hanyuma wongere ukuremo.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro yakuwemo igice. Urutonde rugaragaza ibyasigaye n'impamvu.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Gukuramo BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 yakuwemo.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 yakuwemo. Windows irangiza kuyikuramo ubutaha itangiye.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Gukuramo BthPS3 byahagaze. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 yakuwemo igice. Urutonde rugaragaza ibyasigaye n'impamvu.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Urutonde rw'ibikoresho rwavuguruwe.</value></data>
   <data name="Status_DirectionRight" xml:space="preserve"><value>(→ iburyo)</value></data>
   <data name="Status_DirectionDown" xml:space="preserve"><value>(↓ hasi)</value></data>
@@ -174,6 +179,26 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Bisigaraho: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Ntibyashobotse gusomwa: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Ntibyakuweho: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>Driver ya Bluetooth BthPS3</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Ituma kontorola za PlayStation 3, PlayStation Move na kontorola ya Navigation bihuza binyuze kuri Bluetooth. Ibitswe muri PadForge kandi ishyirwamo ubwa mbere imwe muri zo ihujwe.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Kuramo BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Ibi bikura BthPS3 kuri iyi PC: driver zayo, filter yongera kuri Bluetooth, na driver ya WinUSB PadForge yahaye kontorola za PlayStation 3 kugira ngo zihuzwe. PadForge ibanza guhagarika engine yayo, kandi Bluetooth irazima akanya gato mu gihe driver zivanwamo. Nyuma yaho kontorola za PlayStation 3, Move na Navigation zikora binyuze kuri USB gusa. Guhuza imwe muri zo byongera gushyiramo BthPS3.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Gusoma ibyo BthPS3 yasize kuri iyi PC…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 nta kintu yasize kuri iyi PC cyo gukuraho.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini ikoresha izi driver, bityo zigumaho igihe cyose ishyizwemo.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>Hari kontorola ya PlayStation ihujwe binyuze kuri Bluetooth. Yizimye, hanyuma wongere ugerageze. Kuvanamo driver mu gihe kontorola ihujwe bishobora gutuma Windows ihagarara mu buryo butunguranye.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge ntiyashoboye kugenzura kontorola za PlayStation zihujwe binyuze kuri Bluetooth. Ongera ugerageze mu kanya.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Porogaramu, ikurwamo n'uburyo bwayo bwite bwo kuyikuramo</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Iyandikwa rya filter ya Bluetooth</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Serivisi ya driver</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Dosiye ya driver</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Ipaki ya driver</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>Ipaki ya driver ya WinUSB ya PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>Icyemezo cyo gusinya driver cya PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>Izindi driver za WinUSB za PadForge zisinywe na cyo.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Biracyari kuri iyi PC.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth ntiyongeye kwaka. Yifungure mu Igenamiterere rya Windows.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Byubatswe muri Windows</value></data>
   <data name="Settings_MidiStatusUnavailable" xml:space="preserve"><value>Ntibiboneka</value></data>
   <data name="Settings_MidiStatusNotRunning" xml:space="preserve"><value>Ntibikora</value></data>

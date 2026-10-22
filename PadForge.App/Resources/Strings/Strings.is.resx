@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro-rekillinn var fjarlægður. Windows lýkur fjarlægingunni næst þegar tölvan er ræst.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Fjarlæging HIDMaestro stöðvaðist. Lokaðu {0} og veldu síðan Fjarlægja aftur.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro-rekillinn var aðeins fjarlægður að hluta. Listinn sýnir hvað varð eftir og hvers vegna.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Fjarlægir BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3-reklarnir voru fjarlægðir.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3-reklarnir voru fjarlægðir. Windows lýkur fjarlægingunni næst þegar tölvan er ræst.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Fjarlægingu BthPS3 var hætt. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3-reklarnir voru aðeins fjarlægðir að hluta. Listinn sýnir hvað varð eftir og hvers vegna.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Tækjalisti endurnýjaður.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Tekið upp „{0}“ ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Varpaðu nú: {0} {1}</value></data>
@@ -441,6 +446,26 @@ Afrit af fyrri útgáfu er í þessari möppu: {1}</value></data>
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Helst áfram: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Ekki tókst að lesa: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Ekki fjarlægt: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>BthPS3 Bluetooth-rekill</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Leyfir PlayStation 3-leikjastýringum, PlayStation Move og Navigation-stýringunni að tengjast um Bluetooth. Innbyggður í PadForge og settur upp í fyrsta sinn sem ein þeirra er pöruð.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Fjarlægja BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Þetta fjarlægir BthPS3 af þessari tölvu: rekla þess, síuna sem það bætir við Bluetooth og WinUSB-rekilinn sem PadForge gaf PlayStation 3-leikjastýringum fyrir pörun. PadForge stöðvar vélina sína fyrst og slökkt er á Bluetooth í smástund á meðan reklarnir eru afhlaðnir. PlayStation 3-, Move- og Navigation-stýringar virka þá aðeins um USB. Pörun einnar þeirra setur BthPS3 upp aftur.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Les hvað BthPS3 skildi eftir á þessari tölvu…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 skildi ekkert eftir á þessari tölvu til að fjarlægja.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini notar þessa rekla, þess vegna haldast þeir á meðan DsHidMini er á tölvunni.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>PlayStation-leikjastýring er tengd um Bluetooth. Slökktu á henni og reyndu aftur. Ef reklar eru afhlaðnir á meðan stýring er tengd getur það látið Windows hrynja.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge gat ekki athugað hvort PlayStation-leikjastýringar séu tengdar um Bluetooth. Reyndu aftur eftir augnablik.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Forrit, fjarlægt með eigin fjarlægingarforriti</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Skráning Bluetooth-síu</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Reklaþjónusta</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Reklaskrá</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Reklapakki</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>WinUSB-reklapakki PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>Undirritunarvottorð PadForge fyrir rekla</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>Aðrir WinUSB-reklar PadForge eru undirritaðir með því.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Það er enn á þessari tölvu.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth kviknaði ekki aftur. Kveiktu á því í stillingum Windows.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Sýndar-MIDI-gáttir og MIDI-inntak. Windows 11 25H2 inniheldur API-ið frá og með uppfærslunni í lok nóvember 2026. Aðrar tölvur nota keyrsluumhverfi Windows MIDI Services, sem PadForge getur sett upp, eða eldra MIDI API.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Innbyggt í Windows</value></data>

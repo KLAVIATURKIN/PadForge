@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro kendu da. Windows-ek kentzea amaituko du hurrengoan abiarazten denean.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro kentzea geldiarazi da. Itxi {0}, eta gero desinstalatu berriro.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro partzialki kendu da. Zerrendak erakusten du zer geratu den eta zergatik.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>BthPS3 kentzen…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 kendu da.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 kendu da. Windows-ek kentzea amaituko du hurrengoan abiarazten denean.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>BthPS3 kentzea gelditu da. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 partzialki kendu da. Zerrendak erakusten du zer geratu den eta zergatik.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Gailu-zerrenda freskatu da.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Grabatuta: «{0}» ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Esleitu orain: {0} {1}</value></data>
@@ -441,6 +446,26 @@ Aurreko bertsioaren kopia bat karpeta honetan dago: {1}</value></data>
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Geratzen da: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Ezin izan da irakurri: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Ez da kendu: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>BthPS3 Bluetooth kontrolatzailea</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>PlayStation 3 kontrolagailuei, PlayStation Move-ri eta Navigation kontrolagailuari Bluetooth bidez konektatzeko aukera ematen die. PadForge-n txertatuta dago eta horietako bat lehen aldiz parekatzean instalatzen da.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Desinstalatu BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Honek BthPS3 kentzen du PC honetatik: bere kontrolatzaileak, Bluetooth-era gehitzen duen iragazkia eta PadForge-k PlayStation 3 kontrolagailuei parekatzeko eman dien WinUSB kontrolatzailea. PadForge-k bere motorra gelditzen du lehenik, eta Bluetooth une batez itzali egiten da kontrolatzaileak deskargatzen diren bitartean. Ondoren, PlayStation 3, Move eta Navigation kontrolagailuek USB bidez bakarrik funtzionatzen dute. Horietako bat parekatzean BthPS3 berriro instalatzen da.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>BthPS3-k PC honetan utzitakoa irakurtzen…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3-k ez du ezer utzi PC honetan kentzeko.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini-k kontrolatzaile hauek erabiltzen ditu, beraz instalatuta dagoen bitartean geratzen dira.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>PlayStation kontrolagailu bat Bluetooth bidez konektatuta dago. Itzali eta saiatu berriro. Kontrolagailu bat konektatuta dagoela kontrolatzaileak deskargatzeak Windows kraskatu dezake.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge-k ezin izan du egiaztatu Bluetooth bidez konektatutako PlayStation kontrolagailurik dagoen. Saiatu berriro une batean.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Programa, bere desinstalatzaileak kendua</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Bluetooth iragazkiaren erregistroa</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Kontrolatzaile-zerbitzua</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Kontrolatzaile-fitxategia</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Kontrolatzaile-paketea</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>PadForge-ren WinUSB kontrolatzaile-paketea</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>PadForge-ren kontrolatzaileen sinadura-ziurtagiria</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>PadForge-ren beste WinUSB kontrolatzaile batzuk harekin sinatuta daude.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Oraindik PC honetan dago.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth ez da berriro piztu. Piztu ezazu Windows-eko Ezarpenetan.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>MIDI ataka birtualak eta MIDI sarrera. Windows 11 25H2 bertsioak API hori dakar 2026ko azaro amaierako eguneratzetik aurrera. Beste PCek Windows MIDI Services exekuzio-ingurunea erabiltzen dute (PadForge-k instala dezake), edo MIDI API zaharra.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Windows-en integratuta</value></data>

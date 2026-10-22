@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro bol odstránený. Windows dokončí odstránenie pri svojom ďalšom spustení.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Odstraňovanie HIDMaestro sa zastavilo. Zatvorte {0} a potom znova odinštalujte.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro bol odstránený iba čiastočne. Zoznam ukazuje, čo zostalo a prečo.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Odstraňuje sa BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 bol odstránený.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 bol odstránený. Windows dokončí odstránenie pri svojom ďalšom spustení.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Odstraňovanie BthPS3 sa zastavilo. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 bol odstránený iba čiastočne. Zoznam ukazuje, čo zostalo a prečo.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Zoznam zariadení bol obnovený.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Nahraté „{0}“ ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Teraz namapujte: {0} {1}</value></data>
@@ -441,6 +446,26 @@ Kópia predchádzajúcej verzie je v tomto priečinku: {1}</value></data>
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Zostáva: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Nepodarilo sa prečítať: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Neodstránené: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>Ovládač Bluetooth BthPS3</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Umožňuje pripojiť cez Bluetooth ovládače PlayStation 3, PlayStation Move a ovládač Navigation. Je vstavaný v PadForge a nainštaluje sa pri prvom spárovaní niektorého z nich.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Odinštalovať BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Týmto sa z tohto počítača odstráni BthPS3: jeho ovládače zariadení, filter, ktorý pridáva do Bluetooth, a ovládač WinUSB, ktorý PadForge priradil ovládačom PlayStation 3 na párovanie. PadForge najprv zastaví svoje jadro a Bluetooth sa na chvíľu vypne, kým sa ovládače uvoľnia z pamäte. Ovládače PlayStation 3, Move a Navigation potom fungujú iba cez USB. Po spárovaní niektorého z nich sa BthPS3 nainštaluje znova.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Zisťuje sa, čo BthPS3 nechal v tomto počítači…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 v tomto počítači nenechal nič na odstránenie.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini tieto ovládače používa, preto zostanú, kým je nainštalovaný.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>Ovládač PlayStation je pripojený cez Bluetooth. Vypnite ho a skúste to znova. Uvoľnenie ovládačov zariadení, kým je ovládač pripojený, môže spôsobiť pád systému Windows.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge nemohol zistiť, či sú ovládače PlayStation pripojené cez Bluetooth. Skúste to o chvíľu znova.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Program, odstraňuje ho vlastný odinštalátor</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Registrácia filtra Bluetooth</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Služba ovládača zariadenia</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Súbor ovládača zariadenia</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Balík ovládača zariadenia</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>Balík ovládača WinUSB od PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>Podpisový certifikát ovládačov od PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>Sú ním podpísané ostatné ovládače WinUSB od PadForge.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Stále je v tomto počítači.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth sa znova nezapol. Zapnite ho v nastaveniach systému Windows.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Virtuálne porty MIDI a vstup MIDI. Windows 11 25H2 obsahuje toto API od aktualizácie z konca novembra 2026. Ostatné počítače používajú modul runtime Windows MIDI Services, ktorý dokáže nainštalovať PadForge, alebo staršie rozhranie MIDI API.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Súčasť systému Windows</value></data>

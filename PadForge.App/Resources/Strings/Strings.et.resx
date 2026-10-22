@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro eemaldati. Windows lõpetab eemaldamise järgmisel käivitumisel.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro eemaldamine peatus. Sulgege {0} ja desinstallige uuesti.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro eemaldati osaliselt. Loend näitab, mis jäi alles ja miks.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>BthPS3 eemaldamine…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 eemaldati.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 eemaldati. Windows lõpetab eemaldamise järgmisel käivitumisel.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>BthPS3 eemaldamine peatus. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 eemaldati osaliselt. Loend näitab, mis jäi alles ja miks.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Seadmeloend värskendatud.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Lindistatud „{0}“ ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Nüüd vastendage: {0} {1}</value></data>
@@ -441,6 +446,26 @@ Eelmise versiooni koopia on selles kaustas: {1}</value></data>
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Jääb alles: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Lugemine ebaõnnestus: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Ei eemaldatud: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>BthPS3 Bluetoothi draiver</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Võimaldab PlayStation 3 kontrolleritel, PlayStation Move'il ja Navigation-kontrolleril ühenduda Bluetoothi kaudu. Manustatud PadForge'i ja installitakse, kui üks neist esimest korda seotakse.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Desinstalli BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>See eemaldab BthPS3 sellest arvutist: selle draiverid, Bluetoothi lisatud filtri ning WinUSB draiveri, mille PadForge andis PlayStation 3 kontrolleritele sidumiseks. PadForge peatab enne oma mootori ja Bluetooth lülitub draiverite mahalaadimise ajaks korraks välja. PlayStation 3, Move ja Navigation kontrollerid töötavad seejärel ainult USB kaudu. Ühe sidumine installib BthPS3 uuesti.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Loen, mida BthPS3 sellesse arvutisse jättis…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 ei jätnud sellesse arvutisse midagi eemaldatavat.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini kasutab neid draivereid, seega jäävad need alles, kuni see on installitud.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>PlayStation-kontroller on Bluetoothi kaudu ühendatud. Lülitage see välja ja proovige uuesti. Draiverite mahalaadimine ühendatud kontrolleri korral võib Windowsi krahhi põhjustada.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge ei saanud kontrollida, kas Bluetoothi kaudu on ühendatud PlayStation-kontrollereid. Proovige hetke pärast uuesti.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Programm, mille eemaldab selle enda desinstallija</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Bluetoothi filtri registreering</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Draiveriteenus</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Draiverifail</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Draiveripakett</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>PadForge'i WinUSB draiveripakett</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>PadForge'i draiverite allkirjastamissertifikaat</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>PadForge'i muud WinUSB draiverid on sellega allkirjastatud.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>See on sellel arvutis endiselt olemas.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth ei lülitunud tagasi sisse. Lülitage see sisse Windowsi sätetes.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Virtuaalsed MIDI-pordid ja MIDI-sisend. Windows 11 25H2 sisaldab seda API-t alates 2026. aasta novembri lõpu värskendusest. Teised arvutid kasutavad käituskeskkonda Windows MIDI Services, mille PadForge saab installida, või pärand-MIDI API-t.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Windowsi sisseehitatud</value></data>

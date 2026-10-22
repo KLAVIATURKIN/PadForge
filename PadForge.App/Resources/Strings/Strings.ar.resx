@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>تمت إزالة HIDMaestro. سيكمل Windows الإزالة عند بدء تشغيله في المرة القادمة.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>توقفت إزالة HIDMaestro. أغلق {0}، ثم أعد إلغاء التثبيت.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>تمت إزالة HIDMaestro جزئيا. تعرض القائمة ما بقي وسبب بقائه.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>جارٍ إزالة BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>تمت إزالة BthPS3.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>تمت إزالة BthPS3. سيكمل Windows الإزالة عند بدء تشغيله في المرة القادمة.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>توقفت إزالة BthPS3. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>تمت إزالة BthPS3 جزئيا. تعرض القائمة ما بقي وسبب بقائه.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>تم تحديث قائمة الأجهزة.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>تم تسجيل {1} لتعيين «{0}»</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>عيّن الآن: {0} {1}</value></data>
@@ -441,6 +446,26 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>يبقى: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>تعذرت القراءة: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>لم تتم الإزالة: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>برنامج تشغيل Bluetooth BthPS3</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>يتيح اتصال وحدات تحكم PlayStation 3 وPlayStation Move ووحدة تحكم Navigation عبر Bluetooth. مضمن في PadForge ويتم تثبيته عند إقران إحداها لأول مرة.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>إلغاء تثبيت BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>تزيل هذه العملية BthPS3 من هذا الكمبيوتر: برامج تشغيله والمرشح الذي يضيفه إلى Bluetooth وبرنامج تشغيل WinUSB الذي منحه PadForge لوحدات تحكم PlayStation 3 من أجل الإقران. يوقف PadForge محركه أولا، ويتوقف Bluetooth عن العمل لحظة أثناء إلغاء تحميل برامج التشغيل. بعد ذلك تعمل وحدات تحكم PlayStation 3 وMove وNavigation عبر USB فقط. يؤدي إقران إحداها إلى تثبيت BthPS3 مرة أخرى.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>جارٍ قراءة ما تركه BthPS3 على هذا الكمبيوتر…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>لم يترك BthPS3 شيئا على هذا الكمبيوتر لإزالته.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>يستخدم DsHidMini برامج التشغيل هذه، لذا تبقى ما دام مثبتا.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>وحدة تحكم PlayStation متصلة عبر Bluetooth. أوقف تشغيلها ثم حاول مرة أخرى. قد يؤدي إلغاء تحميل برامج التشغيل أثناء اتصال وحدة تحكم إلى تعطل Windows.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>تعذر على PadForge التحقق من وجود وحدات تحكم PlayStation متصلة عبر Bluetooth. حاول مرة أخرى بعد لحظة.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>برنامج تتم إزالته بواسطة برنامج إلغاء التثبيت الخاص به</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>تسجيل مرشح Bluetooth</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>خدمة برنامج التشغيل</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>ملف برنامج التشغيل</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>حزمة برنامج التشغيل</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>حزمة برنامج تشغيل WinUSB الخاصة بـ PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>شهادة توقيع برامج التشغيل الخاصة بـ PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>برامج تشغيل WinUSB الأخرى في PadForge موقعة بها.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>ما زال موجودا على هذا الكمبيوتر.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>لم يتم تشغيل Bluetooth من جديد. شغله من إعدادات Windows.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>منافذ MIDI ظاهرية وإدخال MIDI. يتضمن Windows 11 25H2 واجهة API بدءا من تحديث أواخر نوفمبر 2026. أجهزة الكمبيوتر الأخرى تستخدم وقت تشغيل Windows MIDI Services، الذي يستطيع PadForge تثبيته، أو واجهة MIDI API القديمة.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>مدمج في Windows</value></data>

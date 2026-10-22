@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>„HIDMaestro“ pašalinta. Windows užbaigs pašalinimą, kai kitą kartą bus paleistas kompiuteris.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>„HIDMaestro“ šalinimas sustabdytas. Uždarykite {0} ir pašalinkite dar kartą.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>„HIDMaestro“ pašalinta tik iš dalies. Sąraše matyti, kas liko ir kodėl.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Šalinama „BthPS3“…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>„BthPS3“ pašalinta.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>„BthPS3“ pašalinta. Windows užbaigs pašalinimą, kai kitą kartą bus paleistas kompiuteris.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>„BthPS3“ šalinimas sustabdytas. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>„BthPS3“ pašalinta tik iš dalies. Sąraše matyti, kas liko ir kodėl.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Įrenginių sąrašas atnaujintas.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Įrašyta „{0}“ ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Dabar priskirkite: {0} {1}</value></data>
@@ -439,6 +444,26 @@ Ankstesnės versijos kopija yra šiame aplanke: {1}</value></data>
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Lieka: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Nepavyko perskaityti: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Nepašalinta: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>„BthPS3“ „Bluetooth“ tvarkyklė</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Leidžia „PlayStation 3“ valdikliams, „PlayStation Move“ ir „Navigation“ valdikliui jungtis per „Bluetooth“. Įtraukta į „PadForge“ ir įdiegiama, kai pirmą kartą susiejamas vienas iš jų.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Pašalinti „BthPS3“</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Tai pašalins „BthPS3“ iš šio kompiuterio: jos tvarkykles, filtrą, kurį ji prideda prie „Bluetooth“, ir „WinUSB“ tvarkyklę, kurią „PadForge“ suteikė „PlayStation 3“ valdikliams susiejimui. Pirmiausia „PadForge“ sustabdo savo variklį, o tvarkyklėms išsikraunant „Bluetooth“ trumpam išsijungia. „PlayStation 3“, „Move“ ir „Navigation“ valdikliai tada veiks tik per USB. Susiejus vieną iš jų, „BthPS3“ įdiegiama iš naujo.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Skaitoma, ką „BthPS3“ paliko šiame kompiuteryje…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>„BthPS3“ šiame kompiuteryje nieko nepaliko, ką reikėtų šalinti.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>„DsHidMini“ naudoja šias tvarkykles, todėl jos lieka, kol programa įdiegta.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>„PlayStation“ valdiklis prijungtas per „Bluetooth“. Išjunkite jį ir bandykite dar kartą. Iškrovus tvarkykles, kol valdiklis prijungtas, Windows gali sugesti.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>„PadForge“ nepavyko patikrinti, ar per „Bluetooth“ prijungti „PlayStation“ valdikliai. Pabandykite dar kartą po akimirkos.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Programa, šalinama savo šalinimo programa</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>„Bluetooth“ filtro registracija</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Tvarkyklės tarnyba</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Tvarkyklės failas</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Tvarkyklės paketas</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>„PadForge“ „WinUSB“ tvarkyklės paketas</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>„PadForge“ tvarkyklių pasirašymo sertifikatas</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>„Bluetooth“</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>Juo pasirašytos kitos „PadForge“ „WinUSB“ tvarkyklės.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Jis vis dar yra šiame kompiuteryje.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>„Bluetooth“ vėl neįsijungė. Įjunkite jį Windows nustatymuose.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Virtualūs MIDI prievadai ir MIDI įvestis. „Windows 11“ 25H2 šią API turi nuo 2026 m. lapkričio pabaigos naujinimo. Kiti kompiuteriai naudoja „Windows MIDI Services“ vykdymo aplinką, kurią gali įdiegti „PadForge“, arba senąją MIDI API.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Integruota į „Windows“</value></data>

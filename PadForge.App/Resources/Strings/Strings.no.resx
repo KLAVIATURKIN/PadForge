@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro ble fjernet. Windows fullfører fjerningen ved neste oppstart.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Fjerningen av HIDMaestro stoppet. Lukk {0}, og avinstaller på nytt.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro ble bare delvis fjernet. Listen viser hva som ble igjen og hvorfor.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Fjerner BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 ble fjernet.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 ble fjernet. Windows fullfører fjerningen ved neste oppstart.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Fjerningen av BthPS3 stoppet. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 ble bare delvis fjernet. Listen viser hva som ble igjen og hvorfor.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Enhetslisten er oppdatert.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Tatt opp: «{0}» ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Tilordne nå: {0} {1}</value></data>
@@ -441,6 +446,26 @@ En kopi av den forrige versjonen ligger i denne mappen: {1}</value></data>
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Blir værende: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Kunne ikke leses: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Ikke fjernet: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>BthPS3 Bluetooth-driver</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Lar PlayStation 3-kontrollere, PlayStation Move og Navigation-kontrolleren koble til via Bluetooth. Innebygd i PadForge og installert første gang en av dem sammenkobles.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Avinstaller BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Dette fjerner BthPS3 fra denne PC-en: driverne, filteret det legger til i Bluetooth, og WinUSB-driveren PadForge ga PlayStation 3-kontrollere for sammenkobling. PadForge stopper først motoren sin, og Bluetooth slås av et øyeblikk mens driverne lastes ut. PlayStation 3-, Move- og Navigation-kontrollere fungerer deretter bare via USB. Sammenkobling av en slik kontroller installerer BthPS3 på nytt.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Leser hva BthPS3 har latt ligge igjen på denne PC-en…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 har ikke latt noe ligge igjen på denne PC-en som kan fjernes.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini bruker disse driverne, så de blir værende så lenge det er installert.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>En PlayStation-kontroller er koblet til via Bluetooth. Slå den av, og prøv på nytt. Hvis driverne lastes ut mens en kontroller er tilkoblet, kan Windows krasje.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge kunne ikke sjekke om PlayStation-kontrollere er koblet til via Bluetooth. Prøv igjen om et øyeblikk.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Program, fjernes av sin egen avinstallasjonsrutine</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Bluetooth-filterregistrering</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Drivertjeneste</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Driverfil</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Driverpakke</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>WinUSB-driverpakken til PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>Driversigneringssertifikatet til PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>Andre WinUSB-drivere fra PadForge er signert med det.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Det finnes fortsatt på denne PC-en.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth ble ikke slått på igjen. Slå det på i Windows-innstillinger.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Virtuelle MIDI-porter og MIDI-inndata. Windows 11 25H2 har API-et fra oppdateringen i slutten av november 2026. Andre PC-er bruker kjøretidsmiljøet for Windows MIDI Services, som PadForge kan installere, eller det eldre MIDI-API-et.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Innebygd i Windows</value></data>

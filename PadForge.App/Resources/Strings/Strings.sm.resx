@@ -99,6 +99,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Ua aveʻesea le HIDMaestro. E faʻamaeʻa e Windows le aveʻesega pe a toe amata.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Ua taofi le aveʻesega o le HIDMaestro. Tapuni {0}, ona toe aveʻese lea.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Ua aveʻesea se vaega o le HIDMaestro. O loʻo faʻaalia i le lisi mea na tumau ma le mafuaʻaga.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>O loʻo aveʻesea le BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>Ua aveʻesea le BthPS3.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>Ua aveʻesea le BthPS3. E faʻamaeʻa e Windows le aveʻesega pe a toe amata.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Ua taofi le aveʻesega o le BthPS3. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>Ua aveʻesea se vaega o le BthPS3. O loʻo faʻaalia i le lisi mea na tumau ma le mafuaʻaga.</value></data>
   <data name="Status_RecordingCanceled" xml:space="preserve"><value>Ua faʻaleaogā le puʻeina.</value></data>
   <data name="Status_Error_Format" xml:space="preserve"><value>Mea sese: {0}</value></data>
   <data name="Profiles_ShortcutLearn" xml:space="preserve"><value>Puʻe</value></data>
@@ -121,6 +126,20 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Tumau: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Ua le mafai ona faitau: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Ua le aveʻesea: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>Driver Bluetooth BthPS3</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>E mafai ai e controller PlayStation 3, le PlayStation Move ma le Navigation controller ona fesoʻotaʻi e ala i le Bluetooth. O loʻo i totonu o le PadForge ma e faʻapipiʻi i le taimi muamua e pair ai se tasi o i latou.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Aveʻese le BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>E aveʻese ai le BthPS3 mai lenei PC: ona driver, le filter e faʻaopoopo i le Bluetooth, ma le driver WinUSB na tuʻuina atu e le PadForge i controller PlayStation 3 mo le pair. E taofi muamua e le PadForge lana engine, ma e tape le Bluetooth mo sina taimi aʻo aveʻese driver. Ona galulue ai lea o controller PlayStation 3, Move ma Navigation na o le USB. O le pair o se tasi e toe faʻapipiʻi ai le BthPS3.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>O loʻo faitau mea na tuʻu e le BthPS3 i lenei PC…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>E leai se mea na tuʻu e le BthPS3 i lenei PC e aveʻese.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>E faʻaaogā e le DsHidMini nei driver, o lea e tumau ai aʻo faʻapipiʻi pea le DsHidMini.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>O loʻo fesoʻotaʻi se controller PlayStation e ala i le Bluetooth. Tape le controller, ona toe taumafai lea. E ono taofi faʻafuaseʻi ai Windows i se mea sese pe a aveʻese driver aʻo fesoʻotaʻi se controller.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>Sa le mafai e le PadForge ona siaki controller PlayStation o loʻo fesoʻotaʻi e ala i le Bluetooth. Toe taumafai i sina taimi.</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Faila o le driver</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>O isi driver WinUSB a le PadForge ua sainia i ai.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>O loʻo i lenei PC pea.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>E leʻi toe ki le Bluetooth. Ki i faʻatulagaga o Windows.</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_Language" xml:space="preserve"><value>Gagana</value></data>
 

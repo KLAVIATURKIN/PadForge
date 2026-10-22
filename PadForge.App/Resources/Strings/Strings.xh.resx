@@ -86,6 +86,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>I-HIDMaestro isusiwe. I-Windows igqiba ukuyisusa xa iqala kwakhona.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Ukususwa kwe-HIDMaestro kuyekile. Vala {0}, emva koko uyisuse kwakhona.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>I-HIDMaestro isuswe ngokuyinxalenye. Uluhlu lubonisa oko kushiyekileyo nesizathu.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Kususwa i-BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>I-BthPS3 isusiwe.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>I-BthPS3 isusiwe. I-Windows igqiba ukuyisusa xa iqala kwakhona.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Ukususwa kwe-BthPS3 kumisiwe. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>I-BthPS3 isuswe ngokuyinxalenye. Uluhlu lubonisa oko kushiyekileyo nesizathu.</value></data>
 
   <!-- ═══ MainWindow ═══ -->
 
@@ -118,6 +123,26 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Iyahlala: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Akukwazekanga ukuyifunda: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Ayisuswanga: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>Idrayiva ye-Bluetooth ye-BthPS3</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Ivumela izilawuli ze-PlayStation 3, i-PlayStation Move nesilawuli se-Navigation ukuba ziqhagamshele nge-Bluetooth. Ifakwe ngaphakathi kwi-PadForge kwaye ifakwa xa esinye sazo sidityaniswa okokuqala.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Susa i-BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Oku kususa i-BthPS3 kule PC: iidrayiva zayo, isihluzi sayo se-Bluetooth, nedrayiva ye-WinUSB efakwe yi-PadForge kwizilawuli ze-PlayStation 3 ukuze zidityaniswe. I-PadForge iqala ngokumisa injini yayo, kwaye i-Bluetooth icinywa okwexeshana ngelixa iidrayiva zikhutshwa. Emva koko izilawuli ze-PlayStation 3, Move ne-Navigation zisebenza nge-USB kuphela. Ukudibanisa esinye kufaka i-BthPS3 kwakhona.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Kufundwa oko i-BthPS3 ikushiye kule PC…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>I-BthPS3 ayishiyanga nto kule PC ekufuneka isuswe.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>I-DsHidMini isebenzisa ezi drayiva, ngoko ziyahlala logama isafakiwe.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>Isilawuli se-PlayStation siqhagamshelwe nge-Bluetooth. Sicime, uze uzame kwakhona. Ukukhupha iidrayiva ngelixa isilawuli siqhagamshelwe kunokwenza i-Windows ime ngempazamo.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>I-PadForge ayikwazanga ukujonga izilawuli ze-PlayStation eziqhagamshelwe nge-Bluetooth. Zama kwakhona emva kwexeshana.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Inkqubo, isuswa yinkqubo yayo yokuyisusa</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Ubhaliso lwesihluzi se-Bluetooth</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Inkonzo yedrayiva</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Ifayile yedrayiva</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Ipakethe yedrayiva</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>Ipakethe yedrayiva ye-WinUSB ye-PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>Isatifikethi se-PadForge sokutyikitya iidrayiva</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>I-Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>Ezinye iidrayiva ze-WinUSB ze-PadForge zityikitywe ngaso.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Isekhona kule PC.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>I-Bluetooth ayiphindanga yavuleka. Yivule kwiisetingi ze-Windows.</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_Language" xml:space="preserve"><value>Ulwimi</value></data>
 

@@ -168,6 +168,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>已移除 HIDMaestro。Windows 将在下次启动时完成移除。</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro 移除已中止。请关闭 {0}，然后再次卸载。</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro 仅被部分移除。列表中显示了保留的项目及原因。</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>正在移除 BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>已移除 BthPS3。</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>已移除 BthPS3。Windows 将在下次启动时完成移除。</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>BthPS3 移除已停止。{0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 仅被部分移除。列表中显示了保留的项目及原因。</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>设备列表已刷新。</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>已录制 "{0}" ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>现在映射：{0} {1}</value></data>
@@ -371,6 +376,26 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>保留：{0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>无法读取：{0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>未移除：{0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>BthPS3 蓝牙驱动程序</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>让 PlayStation 3 控制器、PlayStation Move 和 Navigation 控制器能通过蓝牙连接。已嵌入 PadForge，在首次配对其中任一设备时安装。</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>卸载 BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>这将从此电脑中移除 BthPS3：包括其驱动程序、它添加到蓝牙的过滤器，以及 PadForge 为配对而提供给 PlayStation 3 控制器的 WinUSB 驱动程序。PadForge 会先停止其引擎，驱动程序卸载期间蓝牙会短暂关闭。之后 PlayStation 3、Move 和 Navigation 控制器只能通过 USB 使用。配对其中任何一个会再次安装 BthPS3。</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>正在读取 BthPS3 在此电脑上留下的内容…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 没有在此电脑上留下任何可移除的内容。</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini 使用这些驱动程序，因此只要它仍已安装，这些驱动程序就会保留。</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>有 PlayStation 控制器正通过蓝牙连接。请将其关闭，然后重试。在控制器已连接时卸载驱动程序可能导致 Windows 崩溃。</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge 无法检查是否有 PlayStation 控制器通过蓝牙连接。请稍后重试。</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>程序，由其自带的卸载程序移除</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>蓝牙过滤器注册</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>驱动程序服务</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>驱动程序文件</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>驱动程序包</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>PadForge 的 WinUSB 驱动程序包</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>PadForge 的驱动程序签名证书</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>蓝牙</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>PadForge 的其他 WinUSB 驱动程序使用它签名。</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>它仍在此电脑上。</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>蓝牙未重新开启。请在 Windows 设置中将其开启。</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>虚拟 MIDI 端口和 MIDI 输入。自 2026 年 11 月下旬的更新起，Windows 11 25H2 内置该 API。其他电脑使用 PadForge 可安装的 Windows MIDI Services 运行时，或旧版 MIDI API。</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Windows 内置</value></data>

@@ -352,7 +352,7 @@ namespace PadForge.Tests
             new object[] { Ds3Driver, "public static bool EnsureInstalled(Action<string> log)", "if (OffLimitsForTest) return false;" },
             new object[] { Ds3Driver, "private static void RepairPsmFilter(Action<string> log)", "if (OffLimitsForTest) return;" },
             new object[] { Ds3Driver, "internal static bool SignDriverPackage(string dir, string catalogName, Action<string> log)", "if (OffLimitsForTest)" },
-            new object[] { Ds3Driver, "private static (int Code, string Output) RunTool(string exe, string args, string workingDir)", "if (OffLimitsForTest)" },
+            new object[] { Ds3Driver, "private static (int Code, string Output) RunTool(string exe, string args, string workingDir, int timeoutMs = 120000)", "if (OffLimitsForTest)" },
             new object[] { Ds3Driver, "public static bool EnsureWinUsbBound(\n", "if (OffLimitsForTest) return false;" },
             new object[] { Ds3Driver, "internal static int RemoveStaleBthPs3Children(Action<string> log)", "if (OffLimitsForTest) return 0;" },
             new object[] { Ds3Driver, "public static void CycleBluetoothRadio(Action<string> log)", "if (OffLimitsForTest) return;" },
@@ -369,6 +369,17 @@ namespace PadForge.Tests
             new object[] { Ds3Driver, "public static void EnsurePadForgeOwnsPsmPatch()", "if (OffLimitsForTest) return;" },
             new object[] { Ds3Driver, "private static int SetPsmPatchingCore(bool enable, Action<string> log, int waitForFilterMs)", "if (OffLimitsForTest) return 0;" },
             new object[] { Ds3Driver, "private static bool EnableBthPs3Service(Action<string> log)", "if (OffLimitsForTest) return false;" },
+            // Removing BthPS3, its WinUSB package and the certificate.
+            new object[] { Ds3Driver, "internal static int UninstallBthPs3Setup(string productCode, Action<string> log)", "if (OffLimitsForTest) return -1;" },
+            new object[] { Ds3Driver, "internal static void RemoveBthPs3ClassFilter(Action<string> log)", "if (OffLimitsForTest) return;" },
+            new object[] { Ds3Driver, "internal static bool DisableBthPs3Service(Action<string> log)", "if (OffLimitsForTest) return false;" },
+            new object[] { Ds3Driver, "internal static bool SetRadioOn(bool on, Action<string> log)", "if (OffLimitsForTest) return false;" },
+            new object[] { Ds3Driver, "internal static void RestartOffRadio(Action<string> log)", "if (OffLimitsForTest) return;" },
+            new object[] { Ds3Driver, "internal static void RemoveBthPs3Package(DriverPackage package, Action<string> log)", "if (OffLimitsForTest) return;" },
+            new object[] { Ds3Driver, "internal static void DeletePadForgePackage(DriverPackage package, Action<string> log)", "if (OffLimitsForTest) return;" },
+            new object[] { Ds3Driver, "internal static bool DeleteDriverService(string name, Action<string> log)", "if (OffLimitsForTest) return false;" },
+            new object[] { Ds3Driver, "internal static bool DeleteDriverFile(string path, Action<string> log)", "if (OffLimitsForTest) return false;" },
+            new object[] { Ds3Driver, "internal static void RemoveSigningCertificate(Action<string> log)", "if (OffLimitsForTest) return;" },
             new object[] { Services + "Ds3PairingService.cs", "private static IntPtr CreateFile(string n, uint a, uint s, IntPtr sa, uint d, uint f, IntPtr t)", "Ds3DriverInstaller.OffLimitsForTest ? INVALID_HANDLE : CreateFileNative(n, a, s, sa, d, f, t);" },
 
             // The web controller's certificate, binding and firewall rules.
@@ -497,7 +508,7 @@ namespace PadForge.Tests
 
             // The four that start a tool do it inside the member that asks.
             Assert.Contains("Process.Start(psi)", FenceSource.Body(OffLimitsSource.Read(Startup), "private static int RunSchtasks(string arguments)"), StringComparison.Ordinal);
-            Assert.Contains("Process.Start(psi)", FenceSource.Body(OffLimitsSource.Read(Ds3Driver), "private static (int Code, string Output) RunTool(string exe, string args, string workingDir)"), StringComparison.Ordinal);
+            Assert.Contains("Process.Start(psi)", FenceSource.Body(OffLimitsSource.Read(Ds3Driver), "private static (int Code, string Output) RunTool(string exe, string args, string workingDir, int timeoutMs = 120000)"), StringComparison.Ordinal);
             Assert.Contains("Process.Start(psi)", FenceSource.Body(OffLimitsSource.Read(WebTls), "private static string RunNetsh(string arguments)"), StringComparison.Ordinal);
             Assert.Contains("Process.Start(psi)", FenceSource.Body(OffLimitsSource.Read(Services + "WebControllerServer.cs"), "private static string RunNetsh(string arguments)"), StringComparison.Ordinal);
         }

@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro tika noņemts. Windows pabeidz noņemšanu, kad dators tiek startēts nākamreiz.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro noņemšana apturēta. Aizveriet {0} un atinstalējiet vēlreiz.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro tika noņemts daļēji. Sarakstā redzams, kas palika un kāpēc.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Notiek BthPS3 noņemšana…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 tika noņemts.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 tika noņemts. Windows pabeidz noņemšanu, kad dators tiek startēts nākamreiz.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>BthPS3 noņemšana apturēta. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 tika noņemts daļēji. Sarakstā redzams, kas palika un kāpēc.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Ierīču saraksts atsvaidzināts.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Ierakstīts „{0}” ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Tagad piesaistiet: {0} {1}</value></data>
@@ -441,6 +446,26 @@ Iepriekšējās versijas kopija atrodas šajā mapē: {1}</value></data>
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Paliek: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Nevarēja nolasīt: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Nav noņemts: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>BthPS3 Bluetooth draiveris</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Ļauj PlayStation 3 kontrolleriem, PlayStation Move un Navigation kontrolleram izveidot savienojumu, izmantojot Bluetooth. Iegults PadForge un tiek instalēts, kad kāds no tiem tiek savienots pārī pirmo reizi.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Atinstalēt BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Tiks noņemts BthPS3 no šī datora: tā draiveri, filtrs, ko tas pievieno Bluetooth, un WinUSB draiveris, ko PadForge piešķīra PlayStation 3 kontrolleriem savienošanai pārī. PadForge vispirms aptur savu dzinēju, un Bluetooth uz brīdi izslēdzas, kamēr draiveri tiek izlādēti. PlayStation 3, Move un Navigation kontrolleri pēc tam darbojas tikai caur USB. Savienojot pārī kādu no tiem, BthPS3 tiek instalēts atkārtoti.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Notiek BthPS3 šajā datorā atstāto datu nolasīšana…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 šajā datorā nav atstājis neko noņemamu.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini izmanto šos draiverus, tāpēc tie paliek, kamēr tas ir instalēts.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>PlayStation kontrolleris ir savienots, izmantojot Bluetooth. Izslēdziet to un mēģiniet vēlreiz. Izlādējot draiverus, kamēr kontrolleris ir savienots, Windows var avarēt.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge nevarēja pārbaudīt, vai ar Bluetooth ir savienoti PlayStation kontrolleri. Mēģiniet vēlreiz pēc brīža.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Programma, ko noņem tās pašas atinstalētājs</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Bluetooth filtra reģistrācija</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Draivera pakalpojums</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Draivera fails</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Draivera pakotne</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>PadForge WinUSB draivera pakotne</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>PadForge draiveru parakstīšanas sertifikāts</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>Ar to ir parakstīti citi PadForge WinUSB draiveri.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Tas joprojām ir šajā datorā.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth neieslēdzās atpakaļ. Ieslēdziet to Windows iestatījumos.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Virtuālie MIDI porti un MIDI ievade. Windows 11 25H2 ietver šo API, sākot ar 2026. gada novembra beigu atjauninājumu. Citos datoros tiek izmantots Windows MIDI Services izpildlaiks, ko PadForge var instalēt, vai mantotais MIDI API.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Iebūvēts sistēmā Windows</value></data>

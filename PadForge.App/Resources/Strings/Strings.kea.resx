@@ -143,6 +143,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro dja tradu. Windows ta kaba di tra-l próximu bes ki e liga.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Dizinstalason di HIDMaestro para. Fitxa {0} i dipos dizinstala otu bes.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro tradu só un parti. Lista ta mostra kuzê ki fika i pamodi.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Ta tra BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 dja tradu.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 dja tradu. Windows ta kaba di tra-l próximu bes ki e liga.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>PadForge para di tra BthPS3. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 tradu só un parti. Lista ta mostra kuzê ki fika i pamodi.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Lista di dispozitivu atualizadu.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Gravadu "{0}" ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Gosi mapeia: {0} {1}</value></data>
@@ -282,6 +287,26 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Ta fika: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Ka da pa lé: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Ka tradu: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>Driver Bluetooth BthPS3</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Ta dexa komandus PlayStation 3, PlayStation Move i komandu Navigation liga pa Bluetooth. E ta bem dentu di PadForge i e ta instaladu primeru bes ki un di es ta emparelhadu.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Dizinstala BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Kel-li ta tra BthPS3 di es PC: si driver, filtru ki e ta pui na Bluetooth, i driver WinUSB ki PadForge da komandus PlayStation 3 pa emparelha. PadForge ta para si motor primeru, i Bluetooth ta dizliga un bokadu enkuantu driver ta sai di memória. Dipos, komandus PlayStation 3, Move i Navigation ta funsiona só pa USB. Emparelha un di es ta torna instala BthPS3.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Ta lé kuzê ki BthPS3 dexa na es PC…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 ka dexa nada na es PC pa tra.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini ta uza es driver, entãu es ta fika enkuantu e sta instaladu.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>Un komandu PlayStation sta ligadu pa Bluetooth. Dizliga-l, dipos tenta otu bes. Tra driver enkuantu un komandu sta ligadu pode faze Windows para ku un eru.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge ka konsigi djobe si tem komandu PlayStation ligadu pa Bluetooth. Tenta otu bes más logu.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Programa, ki si própi dizinstalador ta tra</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Registru di filtru Bluetooth</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Servisu di driver</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Fitxeru di driver</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Pakoti di driver</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>Pakoti di driver WinUSB di PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>Sertifikadu di asinatura di driver di PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>Otus driver WinUSB di PadForge sta asinadu ku el.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>E inda sta na es PC.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth ka torna liga. Liga-l na Konfigurason di Windows.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiStatusUnavailable" xml:space="preserve"><value>Ka sta disponível</value></data>
   <data name="Settings_MidiStatusNotRunning" xml:space="preserve"><value>Ka sta ta funsiona</value></data>

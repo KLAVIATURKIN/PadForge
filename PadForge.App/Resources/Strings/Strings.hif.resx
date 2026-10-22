@@ -92,6 +92,8 @@
   <!-- ═══ MainWindow ═══ -->
   <data name="Main_AddController" xml:space="preserve"><value>Controller add karo</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>PadForge dekhao</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 uninstall hoe gaya.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>BthPS3 uninstall ruk gaya. {0}</value></data>
 
   <!-- ═══ MainWindow Status Messages ═══ -->
   <data name="Status_DirectionDown" xml:space="preserve"><value>(↓ neeche)</value></data>
@@ -108,6 +110,16 @@
   <data name="Settings_CheckNow" xml:space="preserve"><value>Abhi check karo</value></data>
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>HIDMaestro uninstall karo</value></data>
   <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Process {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>BthPS3 Bluetooth driver</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>BthPS3 uninstall karo</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Bluetooth filter ke registration</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Driver ke service</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Driver ke file</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Driver ke package</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>PadForge ke WinUSB driver package</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>PadForge ke driver signing certificate</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Uu abhi bhi ii PC pe hai.</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_OpenFolder" xml:space="preserve"><value>Folder kholo</value></data>
   <data name="Settings_Language" xml:space="preserve"><value>Bhasha</value></data>

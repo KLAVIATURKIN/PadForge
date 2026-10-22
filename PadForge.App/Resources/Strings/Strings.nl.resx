@@ -168,6 +168,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro is verwijderd. Windows voltooit de verwijdering bij de volgende start.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Verwijderen van HIDMaestro gestopt. Sluit {0} en verwijder opnieuw.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro is gedeeltelijk verwijderd. De lijst toont wat is achtergebleven en waarom.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>BthPS3 wordt verwijderd…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 is verwijderd.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 is verwijderd. Windows voltooit de verwijdering bij de volgende start.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Verwijdering van BthPS3 is gestopt. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 is gedeeltelijk verwijderd. De lijst toont wat is achtergebleven en waarom.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Apparatenlijst vernieuwd.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Opgenomen "{0}" ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Nu toewijzen: {0} {1}</value></data>
@@ -371,6 +376,26 @@ Een kopie van de vorige versie staat in deze map: {1}</value></data>
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Blijft staan: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Kon niet worden gelezen: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Niet verwijderd: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>BthPS3 Bluetooth-stuurprogramma</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Hiermee kunnen PlayStation 3-controllers, de PlayStation Move en de Navigation-controller via Bluetooth verbinden. Ingebed in PadForge en geïnstalleerd zodra een van deze voor het eerst wordt gekoppeld.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>BthPS3 verwijderen</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Hiermee verwijdert u BthPS3 van deze pc: de stuurprogramma's, het filter dat het aan Bluetooth toevoegt en het WinUSB-stuurprogramma dat PadForge aan PlayStation 3-controllers gaf voor het koppelen. PadForge stopt eerst de engine en Bluetooth wordt even uitgeschakeld terwijl de stuurprogramma's worden uitgeladen. PlayStation 3-, Move- en Navigation-controllers werken daarna alleen nog via USB. Bij het koppelen van zo'n controller wordt BthPS3 opnieuw geïnstalleerd.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Bezig met lezen wat BthPS3 op deze pc heeft achtergelaten…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 heeft niets op deze pc achtergelaten om te verwijderen.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini gebruikt deze stuurprogramma's, dus ze blijven staan zolang het is geïnstalleerd.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>Er is een PlayStation-controller via Bluetooth verbonden. Schakel de controller uit en probeer het opnieuw. Als u de stuurprogramma's uitlaadt terwijl een controller verbonden is, kan Windows crashen.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge kon niet controleren of er PlayStation-controllers via Bluetooth zijn verbonden. Probeer het over een moment opnieuw.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Programma, wordt verwijderd door het eigen verwijderprogramma</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Bluetooth-filterregistratie</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Stuurprogrammaservice</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Stuurprogrammabestand</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Stuurprogrammapakket</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>WinUSB-stuurprogrammapakket van PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>Ondertekeningscertificaat voor stuurprogramma's van PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>Andere WinUSB-stuurprogramma's van PadForge zijn ermee ondertekend.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Het staat nog op deze pc.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth is niet weer ingeschakeld. Schakel het in via Windows-instellingen.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Virtuele MIDI-poorten en MIDI-invoer. Windows 11 25H2 bevat de API vanaf de update van eind november 2026. Andere pc's gebruiken de Windows MIDI Services-runtime, die PadForge kan installeren, of de verouderde MIDI-API.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Ingebouwd in Windows</value></data>

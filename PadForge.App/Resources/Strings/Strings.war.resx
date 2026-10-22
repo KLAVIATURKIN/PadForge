@@ -119,6 +119,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Na-uninstall na an HIDMaestro. Tatapuson han Windows an pag-uninstall ha sunod nga pag-start hini.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Naundang an pag-uninstall han HIDMaestro. I-close an {0}, katapos i-uninstall utro.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Bahin la han HIDMaestro an na-uninstall. Ipapakita han listahan kun ano an nahibilin ngan kay ano.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Gin-uuninstall an BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>Na-uninstall na an BthPS3.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>Na-uninstall na an BthPS3. Tatapuson han Windows an pag-uninstall ha sunod nga pag-start hini.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Naundang an pag-uninstall han BthPS3. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>Bahin la han BthPS3 an na-uninstall. Ipapakita han listahan kun ano an nahibilin ngan kay ano.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Gin-refresh an listahan han device.</value></data>
   <data name="Status_DirectionRight" xml:space="preserve"><value>(→ tuo)</value></data>
   <data name="Status_DirectionDown" xml:space="preserve"><value>(↓ ubos)</value></data>
@@ -203,6 +208,26 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Magpapabilin: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Diri nabasa: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Diri nakuha: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>BthPS3 nga Bluetooth driver</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Nagtutugot ha mga PlayStation 3 nga controller, ha PlayStation Move ngan ha Navigation controller nga makakonekta pinaagi han Bluetooth. Nakaupod ha PadForge ngan gin-iinstall ha siyahan nga higayon nga i-pair an usa hini.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>I-uninstall an BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Kukuhaon hini an BthPS3 tikang hini nga PC: an iya mga driver, an filter nga iya gindugang ha Bluetooth, ngan an WinUSB driver nga ginhatag han PadForge ha mga PlayStation 3 nga controller para ha pag-pair. Uundangon anay han PadForge an iya engine, ngan mapapalong an Bluetooth hin kadali samtang gin-uunload an mga driver. Katapos, an mga PlayStation 3, Move ngan Navigation nga controller magagamit la pinaagi han USB. Kun i-pair an usa hini, i-iinstall utro an BthPS3.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Ginbabasa kun ano an ginbilin han BthPS3 hini nga PC…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>Waray ginbilin an BthPS3 hini nga PC nga kinahanglan kuhaon.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>Ginagamit han DsHidMini ini nga mga driver, salit magpapabilin hira samtang naka-install ini.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>May PlayStation nga controller nga nakakonekta pinaagi han Bluetooth. I-off ini, dayon sulayi utro. An pag-unload han mga driver samtang may nakakonekta nga controller mahimo makapa-crash han Windows.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>Diri nakasusi an PadForge kun may mga PlayStation nga controller nga nakakonekta pinaagi han Bluetooth. Sulayi utro hin kadali.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Programa, kukuhaon han iya kalugaringon nga uninstaller</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Pagrehistro han Bluetooth filter</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Serbisyo han driver</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>File han driver</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Package han driver</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>WinUSB nga driver package han PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>Signing certificate han driver han PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>Naka-sign hini an iba nga WinUSB nga mga driver han PadForge.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Aada pa ini hini nga PC.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Waray na-on utro an Bluetooth. I-on ini ha Settings han Windows.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiStatusUnavailable" xml:space="preserve"><value>Diri magamit</value></data>
   <data name="Settings_MidiStatusNotRunning" xml:space="preserve"><value>Diri nadalagan</value></data>

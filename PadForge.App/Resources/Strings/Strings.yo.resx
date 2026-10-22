@@ -115,6 +115,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>A ti yọ HIDMaestro kúrò. Windows yóò parí yíyọ ọ́ kúrò nígbà tí ó bá tún bẹ̀rẹ̀.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Yíyọ HIDMaestro kúrò dúró. Pa {0} dé, lẹ́yìn náà yọ ọ́ kúrò lórí ẹ̀rọ lẹ́ẹ̀kan sí i.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>A yọ HIDMaestro kúrò ní apá kan. Àkójọ náà fi ohun tó kù àti ìdí rẹ̀ hàn.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>A ń yọ BthPS3 kúrò…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>A ti yọ BthPS3 kúrò.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>A ti yọ BthPS3 kúrò. Windows yóò parí yíyọ ọ́ kúrò nígbà tí ó bá tún bẹ̀rẹ̀.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Yíyọ BthPS3 kúrò ti dúró. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>A yọ BthPS3 kúrò ní apá kan. Àkójọ náà fi ohun tó kù àti ìdí rẹ̀ hàn.</value></data>
   <data name="Status_CopyFailed_Format" xml:space="preserve"><value>Kò lè ṣàdàkọ: {0}</value></data>
   <data name="Status_PasteFailed_Format" xml:space="preserve"><value>Kò lè lẹ̀ẹ́: {0}</value></data>
   <data name="Status_ProfileCreatedEmpty_Format" xml:space="preserve"><value>A ti ṣẹ̀dá profaili "{0}" (òfo).</value></data>
@@ -154,6 +159,24 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Ó wà síbẹ̀: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>A kò lè kà á: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>A kò yọ ọ́ kúrò: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>Awakọ̀ Bluetooth BthPS3</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Ó jẹ́ kí àwọn ẹ̀rọ ìdarí PlayStation 3, PlayStation Move àti ẹ̀rọ ìdarí Navigation sopọ̀ nípasẹ̀ Bluetooth. Ó wà nínú PadForge, a sì máa ń fi sórí ẹ̀rọ nígbà àkọ́kọ́ tí a bá so ọ̀kan nínú wọn pọ̀.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Yọ BthPS3 kúrò lórí ẹ̀rọ</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Èyí yóò yọ BthPS3 kúrò lórí PC yìí: àwọn awakọ̀ rẹ̀, filter tí ó fi kún Bluetooth, àti awakọ̀ WinUSB tí PadForge fún àwọn ẹ̀rọ ìdarí PlayStation 3 fún síso pọ̀. PadForge yóò kọ́kọ́ dá engine rẹ̀ dúró, Bluetooth yóò sì dúró fún ìgbà díẹ̀ nígbà tí a bá ń yọ àwọn awakọ̀ kúrò. Lẹ́yìn náà, àwọn ẹ̀rọ ìdarí PlayStation 3, Move àti Navigation yóò ṣiṣẹ́ nípasẹ̀ USB nìkan. Síso ọ̀kan pọ̀ yóò tún fi BthPS3 sórí ẹ̀rọ.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>A ń ka ohun tí BthPS3 fi sílẹ̀ lórí PC yìí…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 kò fi nǹkan kan sílẹ̀ lórí PC yìí láti yọ kúrò.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini ń lo àwọn awakọ̀ wọ̀nyí, nítorí náà wọ́n yóò wà síbẹ̀ níwọ̀n ìgbà tí ó bá wà lórí ẹ̀rọ.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>Ẹ̀rọ ìdarí PlayStation kan ti sopọ̀ nípasẹ̀ Bluetooth. Pa á, lẹ́yìn náà gbìyànjú lẹ́ẹ̀kan sí i. Yíyọ àwọn awakọ̀ kúrò nígbà tí ẹ̀rọ ìdarí kan ti sopọ̀ lè mú kí Windows dúró pẹ̀lú àṣìṣe.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge kò lè ṣàyẹ̀wò àwọn ẹ̀rọ ìdarí PlayStation tí ó sopọ̀ nípasẹ̀ Bluetooth. Gbìyànjú lẹ́ẹ̀kan sí i láìpẹ́.</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Ìforúkọsílẹ̀ filter Bluetooth</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Fáìlì awakọ̀</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Àpò awakọ̀</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>Àpò awakọ̀ WinUSB ti PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>Ìwé-ẹ̀rí ìbuwọ́lù awakọ̀ ti PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>A fi í buwọ́lu àwọn awakọ̀ WinUSB mìíràn ti PadForge.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Ó ṣì wà lórí PC yìí.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth kò tún padà ṣiṣẹ́. Ṣí i nínú Ètò Windows.</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_Language" xml:space="preserve"><value>Èdè</value></data>
   <data name="Settings_LanguageDesc" xml:space="preserve"><value>Yan èdè tí o fẹ́ láti máa rí.</value></data>

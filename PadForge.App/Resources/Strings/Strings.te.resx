@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro తొలగించబడింది. Windows తదుపరిసారి ప్రారంభమైనప్పుడు తొలగింపును పూర్తి చేస్తుంది.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro తొలగింపు ఆగిపోయింది. {0} మూసివేసి, మళ్లీ అన్ఇన్స్టాల్ చేయండి.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro పాక్షికంగా తొలగించబడింది. ఏవి మిగిలాయో, ఎందుకో జాబితా చూపిస్తుంది.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>BthPS3 తొలగిస్తోంది…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 తొలగించబడింది.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 తొలగించబడింది. Windows తదుపరిసారి ప్రారంభమైనప్పుడు తొలగింపును పూర్తి చేస్తుంది.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>BthPS3 తొలగింపు ఆగిపోయింది. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 పాక్షికంగా తొలగించబడింది. ఏవి మిగిలాయో, ఎందుకో జాబితా చూపిస్తుంది.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>పరికరాల జాబితా రిఫ్రెష్ చేయబడింది.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>నమోదు చేయబడింది "{0}" ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>ఇప్పుడు మ్యాప్ చేయండి: {0} {1}</value></data>
@@ -441,6 +446,26 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>మిగులుతుంది: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>చదవలేకపోయింది: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>తొలగించబడలేదు: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>BthPS3 బ్లూటూత్ డ్రైవర్</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>PlayStation 3 కంట్రోలర్లు, PlayStation Move, Navigation కంట్రోలర్ బ్లూటూత్ ద్వారా కనెక్ట్ అవ్వడానికి వీలు కల్పిస్తుంది. PadForgeలో పొందుపరచబడింది, వాటిలో ఒకటి మొదటిసారి జత చేసినప్పుడు ఇన్స్టాల్ అవుతుంది.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>BthPS3 అన్ఇన్స్టాల్ చేయి</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>ఇది BthPS3ని ఈ PC నుండి తొలగిస్తుంది: దాని డ్రైవర్లు, అది బ్లూటూత్కు జోడించే ఫిల్టర్, మరియు జత చేయడానికి PadForge PlayStation 3 కంట్రోలర్లకు ఇచ్చిన WinUSB డ్రైవర్. PadForge ముందుగా తన ఇంజిన్ ఆపుతుంది, డ్రైవర్లు అన్లోడ్ అయ్యేటప్పుడు బ్లూటూత్ కొద్దిసేపు ఆఫ్ అవుతుంది. ఆ తర్వాత PlayStation 3, Move, Navigation కంట్రోలర్లు USB ద్వారా మాత్రమే పనిచేస్తాయి. వాటిలో ఒకదాన్ని జత చేస్తే BthPS3 మళ్లీ ఇన్స్టాల్ అవుతుంది.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>BthPS3 ఈ PCలో వదిలినవి చదువుతోంది…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>తొలగించడానికి BthPS3 ఈ PCలో ఏమీ వదల్లేదు.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini ఈ డ్రైవర్లను ఉపయోగిస్తుంది, కాబట్టి అది ఇన్స్టాల్ అయి ఉన్నంత వరకు అవి ఉంటాయి.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>PlayStation కంట్రోలర్ బ్లూటూత్ ద్వారా కనెక్ట్ అయి ఉంది. దాన్ని ఆఫ్ చేసి, మళ్లీ ప్రయత్నించండి. కంట్రోలర్ కనెక్ట్ అయి ఉండగా డ్రైవర్లను అన్లోడ్ చేస్తే Windows క్రాష్ కావచ్చు.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>బ్లూటూత్ ద్వారా కనెక్ట్ అయిన PlayStation కంట్రోలర్ల కోసం PadForge తనిఖీ చేయలేకపోయింది. కాసేపటి తర్వాత మళ్లీ ప్రయత్నించండి.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>ప్రోగ్రామ్, దాని స్వంత అన్ఇన్స్టాలర్ ద్వారా తొలగించబడుతుంది</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>బ్లూటూత్ ఫిల్టర్ నమోదు</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>డ్రైవర్ సర్వీస్</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>డ్రైవర్ ఫైల్</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>డ్రైవర్ ప్యాకేజీ</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>PadForge WinUSB డ్రైవర్ ప్యాకేజీ</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>PadForge డ్రైవర్ సైనింగ్ సర్టిఫికెట్</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>బ్లూటూత్</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>PadForge ఇతర WinUSB డ్రైవర్లు దీనితో సైన్ చేయబడ్డాయి.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>ఇది ఇంకా ఈ PCలో ఉంది.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>బ్లూటూత్ తిరిగి ఆన్ కాలేదు. Windows సెట్టింగులలో దాన్ని ఆన్ చేయండి.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>వర్చువల్ MIDI పోర్ట్‌లు, MIDI ఇన్పుట్. Windows 11 25H2లో 2026 నవంబర్ చివరి అప్డేట్ నుండి API ఉంటుంది. ఇతర PCలు PadForge ఇన్స్టాల్ చేయగల Windows MIDI Services రన్టైమ్‌ను లేదా లెగసీ MIDI APIని ఉపయోగిస్తాయి.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Windowsలో అంతర్నిర్మితం</value></data>

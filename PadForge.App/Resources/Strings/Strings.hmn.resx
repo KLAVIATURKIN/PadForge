@@ -107,6 +107,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro raug tshem tawm lawm. Windows yuav ua kom tiav txoj kev tshem tawm thaum nws pib zaum tom ntej.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Kev tshem HIDMaestro tawm tau nres lawm. Kaw {0}, ces tshem tawm dua.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro raug tshem tawm ib feem xwb. Daim ntawv teev qhia tias yam twg tseem nyob thiab vim li cas.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Tab tom tshem BthPS3 tawm…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 raug tshem tawm lawm.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 raug tshem tawm lawm. Windows yuav ua kom tiav txoj kev tshem tawm thaum nws pib zaum tom ntej.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Kev tshem BthPS3 tawm tau nres lawm. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 raug tshem tawm ib feem xwb. Daim ntawv teev qhia tias yam twg tseem nyob thiab vim li cas.</value></data>
   <data name="Status_DirectionRight" xml:space="preserve"><value>(→ sab xis)</value></data>
   <data name="Status_DirectionDown" xml:space="preserve"><value>(↓ nqis)</value></data>
   <data name="Status_DirectionLeft" xml:space="preserve"><value>(← sab laug)</value></data>
@@ -154,6 +159,23 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Tseem nyob: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Nyeem tsis tau: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Tsis tau tshem tawm: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>Driver Bluetooth BthPS3</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Cia PlayStation 3 controller, PlayStation Move thiab Navigation controller txuas tau los ntawm Bluetooth. Nws nyob hauv PadForge thiab raug nruab thawj zaug uas ib lub ntawm cov no pair nrog lub PC.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Tshem tawm BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Qhov no tshem BthPS3 tawm ntawm lub PC no: nws cov driver, lub filter uas nws ntxiv rau Bluetooth, thiab WinUSB driver uas PadForge muab rau PlayStation 3 controller kom pair tau. PadForge yuav nres nws lub engine ua ntej, thiab Bluetooth yuav kaw ib pliag thaum cov driver nres. Tom qab ntawd, PlayStation 3, Move thiab Navigation controller tsuas ua haujlwm tau los ntawm USB xwb. Thaum pair ib lub dua, BthPS3 yuav raug nruab dua.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Tab tom nyeem seb BthPS3 tseg dab tsi rau ntawm lub PC no…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 tsis tau tseg dab tsi rau ntawm lub PC no kom tshem tawm.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini siv cov driver no, yog li lawv tseem nyob ntev li DsHidMini tseem nruab nyob.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>Muaj ib lub PlayStation controller txuas los ntawm Bluetooth. Kaw nws, ces sim dua. Yog tshem cov driver tawm thaum muaj controller txuas nyob, yuav ua rau Windows nres nrog qhov yuam kev.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge kuaj tsis tau seb puas muaj PlayStation controller txuas los ntawm Bluetooth. Tos ib pliag thiab sim dua.</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Kev sau npe filter Bluetooth</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Ntaub ntawv driver</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Pob driver</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>Pob WinUSB driver ntawm PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>PadForge lwm cov WinUSB driver raug kos npe nrog nws.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Nws tseem nyob ntawm lub PC no.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth tsis tau qhib rov qab. Qhib nws hauv Windows Settings.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Muaj nyob hauv Windows</value></data>
   <data name="Settings_ResetToDefaults" xml:space="preserve"><value>Rov qab mus rau neej ntawd</value></data>
   <data name="Settings_UnsavedChanges" xml:space="preserve"><value>Kev hloov uas tsis tau khaws</value></data>

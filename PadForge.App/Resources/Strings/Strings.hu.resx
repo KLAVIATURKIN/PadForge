@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>A HIDMaestro el lett távolítva. A Windows a következő indításakor befejezi az eltávolítást.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>A HIDMaestro eltávolítása leállt. Zárja be a következőt: {0}, majd távolítsa el újra.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>A HIDMaestro csak részben lett eltávolítva. A lista mutatja, mi maradt meg és miért.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>A BthPS3 eltávolítása…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>A BthPS3 el lett távolítva.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>A BthPS3 el lett távolítva. A Windows a következő indításakor befejezi az eltávolítást.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>A BthPS3 eltávolítása leállt. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>A BthPS3 csak részben lett eltávolítva. A lista mutatja, mi maradt meg és miért.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Az eszközlista frissítve.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Rögzítve: „{0}” ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Most rendelje hozzá: {0} {1}</value></data>
@@ -441,6 +446,26 @@ Az előző verzió egy példánya ebben a mappában található: {1}</value></da
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Megmarad: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Nem olvasható be: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Nem lett eltávolítva: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>BthPS3 Bluetooth-illesztőprogram</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Lehetővé teszi, hogy a PlayStation 3 kontrollerek, a PlayStation Move és a Navigation kontroller Bluetooth-on keresztül csatlakozzanak. A PadForge része, és az első ilyen eszköz párosításakor települ.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>BthPS3 eltávolítása</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Ez eltávolítja a BthPS3-at erről a számítógépről: az illesztőprogramjait, a Bluetooth-hoz adott szűrőjét, valamint azt a WinUSB-illesztőprogramot, amelyet a PadForge a PlayStation 3 kontrollereknek adott a párosításhoz. A PadForge előbb leállítja a bemeneti motorját, és a Bluetooth egy pillanatra kikapcsol, amíg az illesztőprogramok kiürülnek. A PlayStation 3, a Move és a Navigation kontrollerek ezután csak USB-n működnek. Bármelyik párosítása újra telepíti a BthPS3-at.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>A BthPS3 által a számítógépen hagyottak beolvasása…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>A BthPS3 nem hagyott eltávolítandót ezen a számítógépen.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>A DsHidMini használja ezeket az illesztőprogramokat, ezért amíg telepítve van, megmaradnak.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>Egy PlayStation kontroller Bluetooth-on keresztül csatlakozik. Kapcsolja ki, majd próbálja újra. Az illesztőprogramok kiürítése csatlakoztatott kontroller mellett összeomlaszthatja a Windowst.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>A PadForge nem tudta ellenőrizni, van-e Bluetooth-on csatlakoztatott PlayStation kontroller. Próbálja újra egy pillanat múlva.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Program, a saját eltávolítója távolítja el</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Bluetooth-szűrő regisztrációja</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Illesztőprogram-szolgáltatás</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Illesztőprogram-fájl</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Illesztőprogram-csomag</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>A PadForge WinUSB-illesztőprogram-csomagja</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>A PadForge illesztőprogram-aláíró tanúsítványa</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>A PadForge többi WinUSB-illesztőprogramja ezzel van aláírva.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Még mindig a számítógépen van.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>A Bluetooth nem kapcsolt vissza. Kapcsolja be a Windows Beállításokban.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Virtuális MIDI-portok és MIDI-bemenet. A Windows 11 25H2 a 2026. november végi frissítéstől tartalmazza az API-t. A többi számítógép a Windows MIDI Services futtatókörnyezetet használja, amelyet a PadForge telepíteni tud, vagy a régi MIDI API-t.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>A Windows része</value></data>

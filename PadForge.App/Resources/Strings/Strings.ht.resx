@@ -170,6 +170,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Yo retire HIDMaestro. Windows ap fini retire l pwochen fwa li demare.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Retrè HIDMaestro a kanpe. Fèmen {0}, epi dezenstale l ankò.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Yo retire yon pati nan HIDMaestro sèlman. Lis la montre sa ki rete ak poukisa.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Ap retire BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>Yo retire BthPS3.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>Yo retire BthPS3. Windows ap fini retire l pwochen fwa li demare.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Yo sispann retire BthPS3. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>Yo retire yon pati nan BthPS3 sèlman. Lis la montre sa ki rete ak poukisa.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Lis aparèy yo rafrechi.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Anrejistre "{0}" ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Kounye a asiyen: {0} {1}</value></data>
@@ -406,6 +411,26 @@ Gen yon kopi vèsyon anvan an nan dosye sa a: {1}</value></data>
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Rete: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Pa t ka li l: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Pa t retire: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>Pilòt Bluetooth BthPS3</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Pèmèt kontwolè PlayStation 3 yo, PlayStation Move la ak kontwolè Navigation lan konekte pa Bluetooth. Entegre nan PadForge epi li enstale premye fwa youn ladan yo asosye.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Dezenstale BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Sa a retire BthPS3 sou PC sa a: pilòt li yo, filt li ajoute nan Bluetooth la, ak pilòt WinUSB PadForge te bay kontwolè PlayStation 3 yo pou asosye yo. PadForge kanpe motè li an premye, epi Bluetooth etenn pou yon ti moman pandan pilòt yo ap dechaje. Apre sa, kontwolè PlayStation 3, Move ak Navigation yo mache pa USB sèlman. Si ou asosye youn ladan yo, sa enstale BthPS3 ankò.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Ap li sa BthPS3 kite sou PC sa a…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 pa kite anyen pou retire sou PC sa a.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini itilize pilòt sa yo, kidonk yo rete toutotan li enstale.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>Gen yon kontwolè PlayStation ki konekte pa Bluetooth. Etenn li, epi eseye ankò. Si ou dechaje pilòt yo pandan yon kontwolè konekte, Windows ka plante.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge pa t ka verifye si gen kontwolè PlayStation ki konekte pa Bluetooth. Eseye ankò nan yon ti moman.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Pwogram, pwòp pwogram dezenstalasyon li retire l</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Anrejistreman filt Bluetooth</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Sèvis pilòt</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Fichye pilòt</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Pakè pilòt</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>Pakè pilòt WinUSB PadForge la</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>Sètifika siyati pilòt PadForge la</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>Lòt pilòt WinUSB PadForge yo siyen avè l.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Li toujou sou PC sa a.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth pa t limen ankò. Limen l nan Paramèt Windows yo.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Pò MIDI vityèl ak antre MIDI. Windows 11 25H2 gen API a depi mizajou fen novanm 2026 la. Lòt PC yo sèvi ak runtime Windows MIDI Services, PadForge ka enstale l, oswa ak ansyen API MIDI a.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Entegre nan Windows</value></data>

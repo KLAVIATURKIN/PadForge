@@ -108,6 +108,9 @@
   <data name="Status_DownloadingSteamVR" xml:space="preserve"><value>Oñemboguejyhína SteamVR…</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Ojeipe'ahína HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro ojeipe'áma.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Ojeipe'ahína BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 ojeipe'áma.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Ndojeipe'ái BthPS3. {0}</value></data>
   <data name="Status_DirectionRight" xml:space="preserve"><value>(→ akatúa)</value></data>
   <data name="Status_DirectionDown" xml:space="preserve"><value>(↓ yvy gotyo)</value></data>
   <data name="Status_DirectionLeft" xml:space="preserve"><value>(← asu)</value></data>
@@ -138,6 +141,10 @@
   <data name="Settings_Window" xml:space="preserve"><value>Ovetã</value></data>
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Opyta: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Ndojeipe'ái: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>Driver BthPS3 Bluetooth</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 ndohejái mba'eve ko PC-pe ojeipe'a hag̃ua.</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Oĩ gueteri ko PC-pe.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_OpenFolder" xml:space="preserve"><value>Mbojuruja ñongatuha</value></data>

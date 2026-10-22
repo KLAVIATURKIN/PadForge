@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro ကို ဖယ်ရှားပြီးပါပြီ။ Windows သည် နောက်တစ်ကြိမ် စတင်သည့်အခါ ဖယ်ရှားမှုကို အပြီးသတ်သည်။</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro ဖယ်ရှားခြင်း ရပ်သွားသည်။ {0} ကို ပိတ်ပြီး ထပ်မံ ဖြုတ်ချပါ။</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro ကို တစ်စိတ်တစ်ပိုင်းသာ ဖယ်ရှားနိုင်ခဲ့သည်။ ကျန်ခဲ့သည်များနှင့် အကြောင်းရင်းကို စာရင်းတွင် ပြထားသည်။</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>BthPS3 ကို ဖယ်ရှားနေသည်…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 ကို ဖယ်ရှားပြီးပါပြီ။</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 ကို ဖယ်ရှားပြီးပါပြီ။ Windows သည် နောက်တစ်ကြိမ် စတင်သည့်အခါ ဖယ်ရှားမှုကို အပြီးသတ်သည်။</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>BthPS3 ဖယ်ရှားမှု ရပ်သွားသည်။ {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 ကို တစ်စိတ်တစ်ပိုင်းသာ ဖယ်ရှားနိုင်ခဲ့သည်။ ကျန်ခဲ့သည်များနှင့် အကြောင်းရင်းကို စာရင်းတွင် ပြထားသည်။</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>စက်ပစ္စည်းစာရင်းကို ပြန်လည်ဆန်းသစ်ပြီးပါပြီ။</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>မှတ်တမ်းတင်ပြီး “{0}” ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>ယခု မက်ပ်လုပ်ရန်: {0} {1}</value></data>
@@ -441,6 +446,26 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>ကျန်ရှိမည်: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>ဖတ်၍ မရပါ: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>ဖယ်ရှား၍ မရပါ: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>BthPS3 Bluetooth ဒရိုက်ဗာ</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>PlayStation 3 ကွန်ထရိုလာများ၊ PlayStation Move နှင့် Navigation ကွန်ထရိုလာကို Bluetooth ဖြင့် ချိတ်ဆက်နိုင်စေသည်။ PadForge တွင် ထည့်သွင်းပါဝင်ပြီး ၎င်းတို့ထဲမှ တစ်ခုကို ပထမဆုံးအကြိမ် တွဲချိတ်သည့်အခါ ထည့်သွင်းသည်။</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>BthPS3 ကို ဖြုတ်ချ</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>ဤလုပ်ဆောင်ချက်သည် BthPS3 ကို ဤကွန်ပျူတာမှ ဖယ်ရှားသည်: ၎င်း၏ ဒရိုက်ဗာများ၊ ၎င်းက Bluetooth တွင် ထည့်ထားသော စစ်ထုတ်ဒရိုက်ဗာနှင့် တွဲချိတ်ရန်အတွက် PadForge က PlayStation 3 ကွန်ထရိုလာများအား ပေးထားသော WinUSB ဒရိုက်ဗာ။ PadForge သည် ၎င်း၏ အင်ဂျင်ကို ဦးစွာ ရပ်ပြီး ဒရိုက်ဗာများကို ဖြုတ်နေစဉ် Bluetooth ခဏ ပိတ်သွားသည်။ ထို့နောက် PlayStation 3၊ Move နှင့် Navigation ကွန်ထရိုလာများသည် USB ဖြင့်သာ အလုပ်လုပ်မည်။ ၎င်းတို့ထဲမှ တစ်ခုကို တွဲချိတ်ပါက BthPS3 ကို ပြန်လည်ထည့်သွင်းသည်။</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>BthPS3 က ဤကွန်ပျူတာပေါ်တွင် ချန်ထားခဲ့သည်များကို ဖတ်နေသည်…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 က ဤကွန်ပျူတာပေါ်တွင် ဖယ်ရှားစရာ ဘာမျှ ချန်မထားခဲ့ပါ။</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini သည် ဤဒရိုက်ဗာများကို အသုံးပြုသောကြောင့် ၎င်းကို ထည့်သွင်းထားသရွေ့ ဒရိုက်ဗာများ ကျန်ရှိမည်။</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>PlayStation ကွန်ထရိုလာတစ်ခုကို Bluetooth ဖြင့် ချိတ်ဆက်ထားသည်။ ၎င်းကို ပိတ်ပြီးမှ ထပ်ကြိုးစားပါ။ ကွန်ထရိုလာ ချိတ်ဆက်ထားစဉ် ဒရိုက်ဗာများကို ဖြုတ်ပါက Windows ပျက်ကျနိုင်သည်။</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>Bluetooth ဖြင့် ချိတ်ဆက်ထားသော PlayStation ကွန်ထရိုလာများကို PadForge က စစ်ဆေး၍ မရပါ။ ခဏအကြာတွင် ထပ်ကြိုးစားပါ။</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>ပရိုဂရမ်၊ ၎င်း၏ကိုယ်ပိုင် ဖြုတ်ချရေးပရိုဂရမ်ဖြင့် ဖယ်ရှားသည်</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Bluetooth စစ်ထုတ်ဒရိုက်ဗာ မှတ်ပုံတင်ချက်</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>ဒရိုက်ဗာ ဝန်ဆောင်မှု</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>ဒရိုက်ဗာ ဖိုင်</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>ဒရိုက်ဗာ ပက်ကေ့ချ်</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>PadForge ၏ WinUSB ဒရိုက်ဗာ ပက်ကေ့ချ်</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>PadForge ၏ ဒရိုက်ဗာ လက်မှတ်ထိုး certificate</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>PadForge ၏ အခြား WinUSB ဒရိုက်ဗာများကို ၎င်းဖြင့် လက်မှတ်ထိုးထားသည်။</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>၎င်းသည် ဤကွန်ပျူတာပေါ်တွင် ရှိနေဆဲဖြစ်သည်။</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth ပြန်မဖွင့်ပါ။ Windows ဆက်တင်များတွင် ၎င်းကို ဖွင့်ပါ။</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>ဗာချွယ် MIDI ပေါ့တ်များနှင့် MIDI အဝင်။ Windows 11 25H2 တွင် 2026 နိုဝင်ဘာလ နှောင်းပိုင်း အပ်ဒိတ်မှစ၍ API ပါဝင်သည်။ အခြား PC များသည် PadForge ထည့်သွင်းပေးနိုင်သော Windows MIDI Services ရန်တိုင်း သို့မဟုတ် MIDI API အဟောင်းကို အသုံးပြုသည်။</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Windows တွင် ပါဝင်ပြီး</value></data>

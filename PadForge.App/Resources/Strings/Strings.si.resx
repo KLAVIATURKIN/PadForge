@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro ඉවත් කරන ලදී. Windows ඊළඟ වතාවේ ආරම්භ වන විට ඉවත් කිරීම අවසන් කරයි.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro ඉවත් කිරීම නතර විය. {0} වසා, නැවත අස්ථාපනය කරන්න.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro අර්ධ වශයෙන් ඉවත් කරන ලදී. ඉතිරි වූ දේ සහ ඊට හේතුව ලැයිස්තුවේ පෙන්වයි.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>BthPS3 ඉවත් කරමින්…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 ඉවත් කරන ලදී.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 ඉවත් කරන ලදී. Windows ඊළඟ වතාවේ ආරම්භ වන විට ඉවත් කිරීම අවසන් කරයි.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>BthPS3 ඉවත් කිරීම නතර විය. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 අර්ධ වශයෙන් ඉවත් කරන ලදී. ඉතිරි වූ දේ සහ ඊට හේතුව ලැයිස්තුවේ පෙන්වයි.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>උපාංග ලැයිස්තුව නැවුම් කරන ලදී.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>"{0}" පටිගත කරන ලදී ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>දැන් සිතියම්ගත කරන්න: {0} {1}</value></data>
@@ -441,6 +446,26 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>ඉතිරි වේ: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>කියවිය නොහැකි විය: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>ඉවත් කර නැත: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>BthPS3 Bluetooth ධාවකය</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>PlayStation 3 පාලකවලට, PlayStation Move සහ Navigation පාලකයට Bluetooth හරහා සම්බන්ධ වීමට ඉඩ දෙයි. PadForge තුළ කාවද්දා ඇති අතර, ඒවායින් එකක් පළමු වරට යුගල කරන විට ස්ථාපනය වේ.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>BthPS3 අස්ථාපනය කරන්න</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>මෙය මෙම පරිගණකයෙන් BthPS3 ඉවත් කරයි: එහි ධාවක, එය Bluetooth වෙත එක් කරන පෙරහන, සහ යුගල කිරීම සඳහා PadForge විසින් PlayStation 3 පාලකවලට ලබා දුන් WinUSB ධාවකය. PadForge පළමුව එහි එන්ජිම නවත්වන අතර, ධාවක ඉවත් කෙරෙන අතරතුර Bluetooth මොහොතකට ක්‍රියාවිරහිත වේ. ඉන්පසු PlayStation 3, Move සහ Navigation පාලක ක්‍රියා කරන්නේ USB හරහා පමණි. එකක් යුගල කිරීමෙන් BthPS3 නැවත ස්ථාපනය වේ.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>BthPS3 මෙම පරිගණකයේ ඉතිරි කළ දේ කියවමින්…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 මෙම පරිගණකයේ ඉවත් කිරීමට කිසිවක් ඉතිරි කර නැත.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini මෙම ධාවක භාවිත කරයි, එබැවින් එය ස්ථාපිතව ඇති තාක් කල් ඒවා ඉතිරි වේ.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>PlayStation පාලකයක් Bluetooth හරහා සම්බන්ධ වී ඇත. එය ක්‍රියාවිරහිත කර, නැවත උත්සාහ කරන්න. පාලකයක් සම්බන්ධ වී ඇති විට ධාවක ඉවත් කිරීමෙන් Windows බිඳ වැටිය හැක.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>Bluetooth හරහා සම්බන්ධ වූ PlayStation පාලක PadForge හට පරීක්ෂා කළ නොහැකි විය. මොහොතකින් නැවත උත්සාහ කරන්න.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>වැඩසටහන, එහිම අස්ථාපකය මගින් ඉවත් කෙරේ</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Bluetooth පෙරහන් ලියාපදිංචිය</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>ධාවක සේවාව</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>ධාවක ගොනුව</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>ධාවක පැකේජය</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>PadForge හි WinUSB ධාවක පැකේජය</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>PadForge හි ධාවක අත්සන් කිරීමේ සහතිකය</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>PadForge හි අනෙකුත් WinUSB ධාවක එයින් අත්සන් කර ඇත.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>එය තවමත් මෙම පරිගණකයේ ඇත.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth නැවත ක්‍රියාත්මක නොවීය. Windows සැකසීම් තුළ එය ක්‍රියාත්මක කරන්න.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>අතථ්‍ය MIDI තොට සහ MIDI ආදානය. Windows 11 25H2 හි 2026 නොවැම්බර් අගභාගයේ යාවත්කාලීනයේ සිට API ඇතුළත් වේ. අනෙකුත් පරිගණක PadForge හට ස්ථාපනය කළ හැකි Windows MIDI Services ධාවන කාලය හෝ පැරණි MIDI API භාවිත කරයි.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Windows තුළ ගොඩනංවා ඇත</value></data>

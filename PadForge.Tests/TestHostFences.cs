@@ -86,8 +86,9 @@ namespace PadForge.Tests
         internal static void Set() => StartupHelper.OffLimitsForTest = true;
     }
 
-    /// <summary>No driver is installed, signed or forced onto a device, no
-    /// certificate added, no radio cycled, and no pairing record
+    /// <summary>No driver is installed, removed, signed or forced onto a
+    /// device, no certificate added or removed, no radio cycled or
+    /// switched, no setup's uninstaller run, and no pairing record
     /// written.</summary>
     internal static class Ds3DriverOffLimits
     {

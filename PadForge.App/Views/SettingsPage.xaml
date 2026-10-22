@@ -642,6 +642,65 @@
                 </StackPanel>
             </Border>
 
+            <!-- ═══ BthPS3 Bluetooth Driver ═══ -->
+            <Border Style="{StaticResource CardBorder}" Margin="0,0,0,20">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                        <TextBlock Text="&#xE702;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                   VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBlock Text="{Binding Settings_BthPS3, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource CardTitle}"/>
+                    </StackPanel>
+                    <TextBlock Text="{Binding Settings_BthPS3Desc, Source={x:Static strings:Strings.Instance}}"
+                               Style="{StaticResource CardDescription}" Margin="0,0,0,12"
+                               TextWrapping="Wrap"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Lit while either BthPS3 driver is installed as a
+                             service, as the HIDMaestro card's flame is lit
+                             while its driver is in the store. The version
+                             line is the BthPS3 PadForge carries, which a
+                             pairing installs. -->
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Path FlowDirection="LeftToRight" Margin="0,0,8,0">
+                                    <Path.Style>
+                                        <Style TargetType="Path" BasedOn="{StaticResource LivenessFlameBase}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsBthPS3Installed}" Value="True">
+                                                    <Setter Property="Fill" Value="{DynamicResource EmberBrush}"/>
+                                                    <Setter Property="Stroke" Value="{x:Null}"/>
+                                                    <Setter Property="Effect">
+                                                        <Setter.Value>
+                                                            <DropShadowEffect Color="#FF6B2C" BlurRadius="8" ShadowDepth="0" Opacity="0.5"/>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Path.Style>
+                                </Path>
+                                <TextBlock Text="{Binding BthPS3StatusText}" FontWeight="SemiBold"/>
+                            </StackPanel>
+                            <TextBlock Text="{Binding BthPS3Version}" FontSize="12" FontFamily="{StaticResource TelemetryFontFamily}" Foreground="{DynamicResource TextFillColorTertiaryBrush}" Margin="0,4,0,0"/>
+                        </StackPanel>
+
+                        <!-- Uninstall removes BthPS3 from the PC, so it wears
+                             the shared destructive chrome. It opens a preview
+                             to confirm in, and stays available with the
+                             drivers gone, since PadForge's WinUSB package and
+                             certificate can remain. -->
+                        <Button Grid.Column="1" VerticalAlignment="Center"
+                                Content="{Binding Common_Uninstall, Source={x:Static strings:Strings.Instance}}"
+                                Command="{Binding UninstallBthPS3Command}"
+                                Style="{StaticResource EmberDestructiveButton}"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
             <!-- ═══ Windows MIDI Services ═══ -->
             <Border Style="{StaticResource CardBorder}" Margin="0,0,0,20">
                 <StackPanel>

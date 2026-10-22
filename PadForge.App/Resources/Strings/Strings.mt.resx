@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro tneħħa. Windows ilesti t-tneħħija meta jerġa' jibda.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>It-tneħħija ta' HIDMaestro waqfet. Agħlaq {0}, imbagħad erġa' ddiżinstalla.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro tneħħa parzjalment. Il-lista turi x'baqa' u għaliex.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Qed jitneħħa BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 tneħħa.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 tneħħa. Windows ilesti t-tneħħija meta jerġa' jibda.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>It-tneħħija ta' BthPS3 waqfet. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 tneħħa parzjalment. Il-lista turi x'baqa' u għaliex.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Il-lista tal-apparati ġiet aġġornata.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Irreġistrat “{0}” ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Issa mappja: {0} {1}</value></data>
@@ -441,6 +446,26 @@ Kopja tal-verżjoni ta' qabel tinsab f'dan il-folder: {1}</value></data>
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Jibqa': {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Ma setax jinqara: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Ma tneħħiex: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>Driver Bluetooth BthPS3</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Iħalli lill-kontrolluri PlayStation 3, lill-PlayStation Move u lill-kontrollur Navigation jikkonnettjaw permezz tal-Bluetooth. Inkorporat f'PadForge u jiġi installat l-ewwel darba li wieħed minnhom jiġi ppearjat.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Diżinstalla BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Dan ineħħi BthPS3 minn dan il-PC: id-drivers tiegħu, il-filtru li jżid mal-Bluetooth, u d-driver WinUSB li PadForge ta lill-kontrolluri PlayStation 3 għall-ippearjar. PadForge l-ewwel iwaqqaf il-magna tiegħu, u l-Bluetooth jintefa għal mument waqt li d-drivers jitneħħew mill-memorja. Imbagħad il-kontrolluri PlayStation 3, Move u Navigation jaħdmu biss permezz tal-USB. Meta wieħed minnhom jiġi ppearjat, BthPS3 jerġa' jiġi installat.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Qed jinqara x'ħalla BthPS3 fuq dan il-PC…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 ma ħalla xejn x'jitneħħa fuq dan il-PC.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini juża dawn id-drivers, għalhekk jibqgħu sakemm ikun installat.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>Hemm kontrollur PlayStation konness permezz tal-Bluetooth. Itfih, imbagħad erġa' pprova. Jekk id-drivers jitneħħew mill-memorja waqt li kontrollur ikun konness, Windows jista' jieqaf b'żball.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge ma setax jiċċekkja għal kontrolluri PlayStation konnessi permezz tal-Bluetooth. Erġa' pprova ftit wara.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Programm li jitneħħa bil-programm ta' diżinstallazzjoni tiegħu stess</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Reġistrazzjoni tal-filtru Bluetooth</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Servizz tad-driver</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Fajl tad-driver</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Pakkett tad-driver</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>Pakkett tad-driver WinUSB ta' PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>Ċertifikat tal-iffirmar tad-drivers ta' PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>Id-drivers WinUSB l-oħra ta' PadForge huma ffirmati bih.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Għadu fuq dan il-PC.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Il-Bluetooth ma reġax inxtegħel. Ixgħlu mis-Settings ta' Windows.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Portijiet MIDI virtwali u input MIDI. Windows 11 25H2 jinkludi l-API mill-aġġornament ta' tard f'Novembru 2026. PCs oħra jużaw ir-runtime ta' Windows MIDI Services, li PadForge jista' jinstalla, jew l-API MIDI l-qadima.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Integrat f'Windows</value></data>

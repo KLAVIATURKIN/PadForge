@@ -134,6 +134,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro i aot finis. Windows i finisim wok blong tekemaot hem nekis taem we hem i stat.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Tekemaot HIDMaestro i stop. Klosem {0}, ale traem tekemaot hem bakegen.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Sam pat blong HIDMaestro i aot nomo. Lis i soem wanem i stap yet mo from wanem.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Stap tekemaot BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 i aot finis.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 i aot finis. Windows i finisim wok blong tekemaot hem nekis taem we hem i stat.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Wok blong tekemaot BthPS3 i stop. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>Sam pat blong BthPS3 i aot nomo. Lis i soem wanem i stap yet mo from wanem.</value></data>
   <data name="Status_DirectionRight" xml:space="preserve"><value>(→ raet)</value></data>
   <data name="Status_DirectionDown" xml:space="preserve"><value>(↓ daon)</value></data>
   <data name="Status_DirectionLeft" xml:space="preserve"><value>(← lef)</value></data>
@@ -195,6 +200,24 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>I stap yet: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>I no save ridim: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>I no aot: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>BthPS3 Bluetooth draeva</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Hem i letem ol PlayStation 3 kontrola, PlayStation Move mo Navigation kontrola oli konek long Bluetooth. Hem i stap insaed long PadForge, mo PadForge i instolem hem fastaem we yu joenem wan long olgeta.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Tekemaot BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Hemia i tekemaot BthPS3 long PC ia: ol draeva blong hem, filta we hem i putum long Bluetooth, mo WinUSB draeva we PadForge i givim long ol PlayStation 3 kontrola blong joenem olgeta. PadForge i stopem enjin blong hem fastaem, mo Bluetooth i of smoltaem taem ol draeva oli aot. Afta, ol PlayStation 3, Move mo Navigation kontrola oli wok long USB nomo. Sapos yu joenem wan, PadForge i instolem BthPS3 bakegen.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Stap ridim wanem BthPS3 i livim long PC ia…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 i no livim wan samting long PC ia blong tekemaot.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini i yusum ol draeva ia, taswe oli stap yet taem DsHidMini i instol finis.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>Wan PlayStation kontrola i konek long Bluetooth. Tanem of hem, afta traem bakegen. Sapos ol draeva oli aot taem wan kontrola i konek, Windows i save stop wetem wan eror.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge i no save jekem sapos i gat ol PlayStation kontrola we oli konek long Bluetooth. Traem bakegen smoltaem afta.</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Sevis blong draeva</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Fael blong draeva</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Pakej blong draeva</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>Pakej blong WinUSB draeva blong PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>Setifiket blong saenem draeva blong PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>PadForge i saenem ol narafala WinUSB draeva blong hem wetem setifiket ia.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Hem i stap yet long PC ia.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth i no kam on bakegen. Tanem on long Settings blong Windows.</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_OpenFolder" xml:space="preserve"><value>Openem folda</value></data>
   <data name="Settings_Language" xml:space="preserve"><value>Lanwis</value></data>

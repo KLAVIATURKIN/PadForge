@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro жойылды. Windows жоюды келесі іске қосылғанда аяқтайды.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro жою тоқтатылды. {0} жабыңыз, содан кейін қайта жойыңыз.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro ішінара жойылды. Тізімде не қалғаны және неге қалғаны көрсетілген.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>BthPS3 жойылуда…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 жойылды.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 жойылды. Windows жоюды келесі іске қосылғанда аяқтайды.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>BthPS3 жою тоқтатылды. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 ішінара жойылды. Тізімде не қалғаны және неге қалғаны көрсетілген.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Құрылғылар тізімі жаңартылды.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>«{0}» жазылды ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Енді тағайындаңыз: {0} {1}</value></data>
@@ -441,6 +446,26 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Қалады: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Оқу мүмкін болмады: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Жойылмады: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>BthPS3 Bluetooth драйвері</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>PlayStation 3 контроллерлерінің, PlayStation Move және Navigation контроллерінің Bluetooth арқылы қосылуына мүмкіндік береді. PadForge ішіне ендірілген және олардың бірі алғаш жұптастырылғанда орнатылады.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>BthPS3 жою</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Бұл BthPS3-ті осы компьютерден жояды: оның драйверлерін, оның Bluetooth-қа қосатын сүзгісін және PadForge жұптастыру үшін PlayStation 3 контроллерлеріне берген WinUSB драйверін. PadForge алдымен өз қозғалтқышын тоқтатады, ал драйверлер түсірілгенше Bluetooth біраз уақытқа өшеді. Содан кейін PlayStation 3, Move және Navigation контроллерлері тек USB арқылы жұмыс істейді. Біреуін жұптастыру BthPS3-ті қайта орнатады.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>BthPS3 осы компьютерде не қалдырғаны оқылуда…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 осы компьютерде жоятын ештеңе қалдырмады.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini осы драйверлерді пайдаланады, сондықтан ол орнатылып тұрғанда олар қалады.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>PlayStation контроллері Bluetooth арқылы қосылған. Оны өшіріп, қайталап көріңіз. Контроллер қосулы кезде драйверлерді түсіру Windows жұмысының бұзылуына әкелуі мүмкін.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge Bluetooth арқылы қосылған PlayStation контроллерлерін тексере алмады. Біраздан кейін қайталап көріңіз.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Бағдарлама, өзінің жою бағдарламасымен жойылады</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Bluetooth сүзгісін тіркеу</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Драйвер қызметі</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Драйвер файлы</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Драйвер бумасы</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>PadForge-дің WinUSB драйвер бумасы</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>PadForge-дің драйверге қол қою сертификаты</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>PadForge-дің басқа WinUSB драйверлеріне осымен қол қойылған.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Ол әлі де осы компьютерде.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth қайта қосылмады. Оны Windows параметрлерінде қосыңыз.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Виртуалды MIDI порттары және MIDI кірісі. Windows 11 25H2 жүйесінде бұл API 2026 жылғы қараша айының соңындағы жаңартудан бастап бар. Басқа компьютерлер PadForge орната алатын Windows MIDI Services орындау ортасын немесе ескі MIDI API интерфейсін пайдаланады.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Windows жүйесіне кірістірілген</value></data>

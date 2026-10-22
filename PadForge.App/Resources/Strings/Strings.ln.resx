@@ -102,6 +102,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro elongolami. Windows ekosilisa kolongola yango tango ekobanda lisusu.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Kolongola HIDMaestro etelemi. Kanga {0}, sima longola yango lisusu.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro elongolami kaka ndambo. Liste emonisi oyo etikali mpe mpo na nini.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Kolongola BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 elongolami.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 elongolami. Windows ekosilisa kolongola yango tango ekobanda lisusu.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Kolongola BthPS3 etelemi. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 elongolami kaka ndambo. Liste emonisi oyo etikali mpe mpo na nini.</value></data>
 
   <!-- ═══ MainWindow Status Messages ═══ -->
   <data name="Status_DirectionDown" xml:space="preserve"><value>(↓ nse)</value></data>
@@ -132,6 +137,24 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Etikali: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Ekokaki kotangama te: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Elongolami te: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>Pilote Bluetooth BthPS3</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Epesaka nzela na ba manette ya PlayStation 3, PlayStation Move mpe manette Navigation kokangana na nzela ya Bluetooth. Ezali kati na PadForge mpe etiamaka na PC mbala ya liboso oyo moko na yango ekangani na Bluetooth.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Kolongola BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Oyo ekolongola BthPS3 na PC oyo: ba pilote na yango, filtre oyo etiaka na Bluetooth, mpe pilote WinUSB oyo PadForge apesaki ba manette PlayStation 3 mpo na kokangana na Bluetooth. PadForge akotelemisa moteur na ye liboso, mpe Bluetooth ekozima mwa ntango moke tango ba pilote ezali kolongwa. Sima na yango, ba manette PlayStation 3, Move mpe Navigation ekosala kaka na USB. Kokangisa moko na yango na Bluetooth ekotia BthPS3 lisusu.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Kotanga oyo BthPS3 etikaki na PC oyo…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 etikaki eloko moko te ya kolongola na PC oyo.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini esalelaka ba pilote oyo, yango wana ekotikala tango nyonso DsHidMini ezali na PC oyo.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>Manette moko ya PlayStation ekangani na Bluetooth. Zimisa yango, sima meka lisusu. Kolongola ba pilote tango manette ekangani ekoki kotelemisa Windows na libunga.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge ekokaki te kotala soki ba manette ya PlayStation ekangani na Bluetooth. Meka lisusu sima na mwa ntango.</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Service ya pilote</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Fichier ya pilote</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Paquet ya pilote</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>Paquet ya pilote WinUSB ya PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>Certificat ya signature ya ba pilote ya PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>Ba pilote mosusu ya WinUSB ya PadForge esinyami na yango.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Ezali naino na PC oyo.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth ezongaki kopela te. Pelisa yango na Paramètres ya Windows.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_Language" xml:space="preserve"><value>Lokota</value></data>

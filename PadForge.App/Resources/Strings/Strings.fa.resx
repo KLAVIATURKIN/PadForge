@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro حذف شد. Windows حذف را در راه‌اندازی بعدی کامل می‌کند.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>حذف HIDMaestro متوقف شد. {0} را ببندید، سپس دوباره حذف نصب کنید.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro فقط تا حدی حذف شد. فهرست نشان می‌دهد چه چیزی باقی ماند و چرا.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>در حال حذف BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 حذف شد.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 حذف شد. Windows حذف را در راه‌اندازی بعدی کامل می‌کند.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>حذف BthPS3 متوقف شد. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 فقط تا حدی حذف شد. فهرست نشان می‌دهد چه چیزی باقی ماند و چرا.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>فهرست دستگاه‌ها تازه‌سازی شد.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>{1} برای «{0}» ضبط شد</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>اکنون نگاشت کنید: {0} {1}</value></data>
@@ -441,6 +446,26 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>باقی می‌ماند: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>خوانده نشد: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>حذف نشد: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>درایور بلوتوث BthPS3</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>به کنترلرهای PlayStation 3، PlayStation Move و کنترلر Navigation امکان اتصال از طریق بلوتوث را می‌دهد. درون PadForge جاسازی شده و نخستین باری که یکی از آن‌ها جفت شود نصب می‌شود.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>حذف نصب BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>این کار BthPS3 را از این رایانه حذف می‌کند: درایورها، فیلتری که به بلوتوث اضافه می‌کند و درایور WinUSB که PadForge برای جفت‌سازی به کنترلرهای PlayStation 3 داده بود. PadForge ابتدا موتور خود را متوقف می‌کند و تا زمانی که درایورها از حافظه خارج می‌شوند، بلوتوث لحظه‌ای خاموش می‌شود. کنترلرهای PlayStation 3، Move و Navigation پس از آن فقط از طریق USB کار می‌کنند. جفت کردن یکی از آن‌ها BthPS3 را دوباره نصب می‌کند.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>در حال خواندن آنچه BthPS3 روی این رایانه به جا گذاشته…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 چیزی روی این رایانه برای حذف باقی نگذاشته است.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini از این درایورها استفاده می‌کند، بنابراین تا زمانی که نصب است باقی می‌مانند.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>یک کنترلر PlayStation از طریق بلوتوث متصل است. آن را خاموش کنید و دوباره امتحان کنید. خارج کردن درایورها از حافظه در حالی که کنترلری متصل است می‌تواند باعث توقف Windows با خطا شود.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge نتوانست بررسی کند که کنترلر PlayStation از طریق بلوتوث متصل است یا نه. کمی بعد دوباره امتحان کنید.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>برنامه، حذف‌شده با حذف‌کننده خودش</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>ثبت فیلتر بلوتوث</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>سرویس درایور</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>فایل درایور</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>بسته درایور</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>بسته درایور WinUSB مربوط به PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>گواهی امضای درایور PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>بلوتوث</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>سایر درایورهای WinUSB مربوط به PadForge با آن امضا شده‌اند.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>هنوز روی این رایانه هست.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>بلوتوث دوباره روشن نشد. آن را در تنظیمات Windows روشن کنید.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>پورت‌های مجازی MIDI و ورودی MIDI. Windows 11 25H2 از به‌روزرسانی اواخر نوامبر 2026 این API را در خود دارد. رایانه‌های دیگر از محیط اجرای Windows MIDI Services، که PadForge می‌تواند نصبش کند، یا از API قدیمی MIDI استفاده می‌کنند.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>تعبیه‌شده در Windows</value></data>

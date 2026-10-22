@@ -168,6 +168,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro를 제거했습니다. 제거는 Windows가 다음에 시작될 때 마무리됩니다.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro 제거가 중단되었습니다. {0}을(를) 닫은 다음 다시 제거하세요.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro가 일부만 제거되었습니다. 남은 항목과 그 이유는 목록에 표시됩니다.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>BthPS3 제거 중…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3를 제거했습니다.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3를 제거했습니다. 제거는 Windows가 다음에 시작될 때 마무리됩니다.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>BthPS3 제거가 중단되었습니다. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3가 일부만 제거되었습니다. 남은 항목과 그 이유는 목록에 표시됩니다.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>장치 목록을 새로고침했습니다.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>"{0}" 기록됨 ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>매핑할 항목: {0} {1}</value></data>
@@ -371,6 +376,26 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>남음: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>읽을 수 없음: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>제거되지 않음: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>BthPS3 Bluetooth 드라이버</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>PlayStation 3 컨트롤러, PlayStation Move, Navigation 컨트롤러를 Bluetooth로 연결할 수 있게 합니다. PadForge에 내장되어 있으며 이 중 하나를 처음 페어링할 때 설치됩니다.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>BthPS3 제거</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>이 PC에서 BthPS3의 드라이버, Bluetooth에 추가한 필터, 그리고 페어링용으로 PadForge가 PlayStation 3 컨트롤러에 지정한 WinUSB 드라이버를 제거합니다. PadForge가 먼저 엔진을 중지하며, 드라이버를 언로드하는 동안 Bluetooth가 잠시 꺼집니다. 이후 PlayStation 3, Move, Navigation 컨트롤러는 USB로만 작동합니다. 하나를 페어링하면 BthPS3가 다시 설치됩니다.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>이 PC에 BthPS3가 남긴 항목을 읽는 중…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>이 PC에 BthPS3가 남긴 제거할 항목이 없습니다.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini가 이 드라이버를 사용하므로 설치되어 있는 동안에는 그대로 남습니다.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>PlayStation 컨트롤러가 Bluetooth로 연결되어 있습니다. 컨트롤러를 끈 다음 다시 시도하세요. 컨트롤러가 연결된 상태에서 드라이버를 언로드하면 Windows가 중단될 수 있습니다.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge가 Bluetooth로 연결된 PlayStation 컨트롤러를 확인하지 못했습니다. 잠시 후 다시 시도하세요.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>프로그램, 자체 제거 프로그램으로 제거됨</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Bluetooth 필터 등록</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>드라이버 서비스</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>드라이버 파일</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>드라이버 패키지</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>PadForge의 WinUSB 드라이버 패키지</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>PadForge의 드라이버 서명 인증서</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>PadForge의 다른 WinUSB 드라이버가 이 인증서로 서명되어 있습니다.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>아직 이 PC에 있습니다.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth가 다시 켜지지 않았습니다. Windows 설정에서 켜세요.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>가상 MIDI 포트와 MIDI 입력입니다. 2026년 11월 말 업데이트부터 Windows 11 25H2에 API가 기본 제공됩니다. 다른 PC는 PadForge가 설치할 수 있는 Windows MIDI Services 런타임이나 레거시 MIDI API를 사용합니다.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Windows에 기본 제공</value></data>

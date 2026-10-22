@@ -117,6 +117,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Voaala ny HIDMaestro. Ho vitain'ny Windows ny fanesorana rehefa manomboka indray izy.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Nijanona ny fanalana ny HIDMaestro. Akatony {0}, dia esory indray.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Ampahany ihany no voaala tamin'ny HIDMaestro. Asehon'ny lisitra izay nijanona sy ny antony.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Manala ny BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>Voaala ny BthPS3.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>Voaala ny BthPS3. Ho vitain'ny Windows ny fanesorana rehefa manomboka indray izy.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Najanona ny fanesorana ny BthPS3. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>Ampahany ihany no voaala tamin'ny BthPS3. Asehon'ny lisitra izay nijanona sy ny antony.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Nohavaozina ny lisitry ny fitaovana.</value></data>
   <data name="Status_DirectionRight" xml:space="preserve"><value>(→ ankavanana)</value></data>
   <data name="Status_DirectionDown" xml:space="preserve"><value>(↓ ambany)</value></data>
@@ -173,6 +178,26 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Mijanona: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Tsy voavaky: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Tsy voaala: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>Pilote Bluetooth BthPS3</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Mamela ny contrôleur PlayStation 3, ny PlayStation Move ary ny contrôleur Navigation hifandray amin'ny Bluetooth. Tafiditra ao amin'ny PadForge ary apetraka rehefa ampifandraisina voalohany ny iray amin'izy ireo.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Esory ny BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Manala ny BthPS3 amin'ity PC ity izany: ireo pilote-ny, ny filtre ampiany amin'ny Bluetooth, ary ny pilote WinUSB nomen'ny PadForge ny contrôleur PlayStation 3 ho an'ny fampifandraisana. Ajanon'ny PadForge aloha ny moterany, ary maty vetivety ny Bluetooth mandritra ny fanalana ireo pilote. Amin'ny USB ihany no hiasan'ny contrôleur PlayStation 3, Move ary Navigation avy eo. Ny fampifandraisana ny iray amin'izy ireo dia mametraka indray ny BthPS3.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Mamaky izay navelan'ny BthPS3 teto amin'ity PC ity…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>Tsy nisy navelan'ny BthPS3 teto amin'ity PC ity hesorina.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>Mampiasa ireo pilote ireo ny DsHidMini, koa mijanona izy ireo raha mbola voapetraka ny DsHidMini.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>Misy contrôleur PlayStation mifandray amin'ny Bluetooth. Vonoy izy, dia andramo indray. Mety hampijanona ny Windows amin'ny hadisoana ny fanalana ireo pilote raha mbola mifandray ny contrôleur.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>Tsy nahavita nanamarina ny PadForge raha misy contrôleur PlayStation mifandray amin'ny Bluetooth. Andramo indray afaka kelikely.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Programa, esorin'ny programa fanesorana azy manokana</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Fisoratana anarana ny filtre Bluetooth</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Serivisin'ny pilote</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Rakitry ny pilote</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Fonosan'ny pilote</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>Fonosan'ny pilote WinUSB an'ny PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>Certificat fanaovan-tsonia pilote an'ny PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>Voasonia amin'izy io ireo pilote WinUSB hafa an'ny PadForge.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Mbola ao amin'ity PC ity izy.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Tsy nirehitra indray ny Bluetooth. Velomy ao amin'ny Fikirakiran'ny Windows izy.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_OpenFolder" xml:space="preserve"><value>Sokafy ny lahatahiry</value></data>

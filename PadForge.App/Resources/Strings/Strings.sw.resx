@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro imeondolewa. Windows hukamilisha uondoaji itakapoanza tena.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Uondoaji wa HIDMaestro umesimama. Funga {0}, kisha ondoa usakinishaji tena.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro imeondolewa kwa sehemu. Orodha inaonyesha kilichobaki na sababu.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Inaondoa BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 imeondolewa.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 imeondolewa. Windows hukamilisha uondoaji itakapoanza tena.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Uondoaji wa BthPS3 umesimama. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 imeondolewa kwa sehemu. Orodha inaonyesha kilichobaki na sababu.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Orodha ya vifaa imeonyeshwa upya.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Imerekodi "{0}" ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Sasa panga ramani: {0} {1}</value></data>
@@ -439,6 +444,26 @@ Nakala ya toleo la awali iko kwenye folda hii: {1}</value></data>
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Inabaki: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Haikuweza kusomwa: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Haikuondolewa: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>Kiendeshi cha Bluetooth cha BthPS3</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Huruhusu vidhibiti vya PlayStation 3, PlayStation Move na kidhibiti cha Navigation kuunganishwa kupitia Bluetooth. Kimepachikwa ndani ya PadForge na husakinishwa mara ya kwanza kimoja kati ya hivyo kinapooanishwa.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Ondoa usakinishaji wa BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Hii huondoa BthPS3 kwenye kompyuta hii: viendeshi vyake, kichujio inachoongeza kwenye Bluetooth, na kiendeshi cha WinUSB ambacho PadForge iliweka kwa vidhibiti vya PlayStation 3 kwa ajili ya kuoanisha. PadForge husimamisha injini yake kwanza, na Bluetooth huzimika kwa muda viendeshi vinapoondolewa kwenye kumbukumbu. Vidhibiti vya PlayStation 3, Move na Navigation kisha vitafanya kazi kupitia USB pekee. Kuoanisha kimoja husakinisha BthPS3 tena.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Inasoma vilivyobaki vya BthPS3 kwenye kompyuta hii…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 haikuacha chochote cha kuondoa kwenye kompyuta hii.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini hutumia viendeshi hivi, kwa hivyo vinabaki ikiwa imesakinishwa.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>Kidhibiti cha PlayStation kimeunganishwa kupitia Bluetooth. Kizime, kisha ujaribu tena. Kuondoa viendeshi kwenye kumbukumbu wakati kidhibiti kimeunganishwa kunaweza kusababisha Windows kuacha kufanya kazi kwa hitilafu.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge haikuweza kukagua vidhibiti vya PlayStation vilivyounganishwa kupitia Bluetooth. Jaribu tena baada ya muda mfupi.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Programu, huondolewa na kiondoaji chake chenyewe</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Usajili wa kichujio cha Bluetooth</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Huduma ya kiendeshi</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Faili ya kiendeshi</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Kifurushi cha kiendeshi</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>Kifurushi cha kiendeshi cha WinUSB cha PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>Cheti cha kusaini kiendeshi cha PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>Viendeshi vingine vya WinUSB vya PadForge vimesainiwa nacho.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Bado kipo kwenye kompyuta hii.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth haikuwashwa tena. Iwashe katika Mipangilio ya Windows.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Milango pepe ya MIDI na ingizo la MIDI. Windows 11 25H2 inajumuisha API kutoka sasisho la mwishoni mwa Novemba 2026. Kompyuta nyingine hutumia runtime ya Windows MIDI Services, ambayo PadForge inaweza kusakinisha, au API ya zamani ya MIDI.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Imejengwa ndani ya Windows</value></data>

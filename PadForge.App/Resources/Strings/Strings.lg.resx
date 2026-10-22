@@ -80,6 +80,9 @@
   <data name="ControllerType_MIDI" xml:space="preserve"><value>MIDI</value></data>
   <data name="ControllerType_VR" xml:space="preserve"><value>VR</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Okuggyawo HIDMaestro…</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Okuggyawo BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 eggyiddwawo.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Okuggyawo BthPS3 kuyimiriziddwa. {0}</value></data>
 
   <!-- ═══ MainWindow ═══ -->
 
@@ -108,6 +111,11 @@
   <data name="Settings_ThemeDark" xml:space="preserve"><value>Ekizikiza</value></data>
   <data name="Settings_Window" xml:space="preserve"><value>Eddirisa</value></data>
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Ggyawo HIDMaestro</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>Driver ya Bluetooth eya BthPS3</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Ggyawo BthPS3</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Fayiro ya driver</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Kikyali ku kompyuta eno.</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_Language" xml:space="preserve"><value>Olulimi</value></data>
   <data name="Settings_LanguageDesc" xml:space="preserve"><value>Londa olulimi lw'oyagala.</value></data>

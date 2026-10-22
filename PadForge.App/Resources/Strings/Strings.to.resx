@@ -86,6 +86,9 @@
   <data name="Main_EngineStopped" xml:space="preserve"><value>Kuo taʻofi ʻa e misini</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>ʻOku toʻo ʻa e HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>Kuo toʻo ʻa e HIDMaestro.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>ʻOku toʻo ʻa e BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>Kuo toʻo ʻa e BthPS3.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Kuo taʻofi hono toʻo ʻo e BthPS3. {0}</value></data>
 
   <!-- ═══ MainWindow Status Messages ═══ -->
   <data name="Status_EngineStarted" xml:space="preserve"><value>Kuo kamata ʻa e misini.</value></data>
@@ -101,6 +104,9 @@
   <data name="Settings_ThemeLight" xml:space="preserve"><value>Maama</value></data>
   <data name="Settings_ThemeDark" xml:space="preserve"><value>Fakapoʻuli</value></data>
   <data name="Settings_Window" xml:space="preserve"><value>Matapā</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Toʻo ʻa e BthPS3</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>ʻOku kei ʻi he PC ko ʻení.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_Language" xml:space="preserve"><value>Lea</value></data>

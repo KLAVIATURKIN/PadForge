@@ -168,6 +168,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro を削除しました。削除は、Windows の次回起動時に完了します。</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro の削除を中止しました。{0} を閉じてから、もう一度アンインストールしてください。</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro は一部のみ削除されました。残った項目とその理由は一覧に表示されています。</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>BthPS3 を削除しています…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 を削除しました。</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 を削除しました。削除は、Windows の次回起動時に完了します。</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>BthPS3 の削除を中止しました。{0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 は一部のみ削除されました。残った項目とその理由は一覧に表示されています。</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>デバイスリストを更新しました。</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>「{0}」を記録 ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>次のマッピング: {0} {1}</value></data>
@@ -371,6 +376,26 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>残る項目: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>読み取れませんでした: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>削除されませんでした: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>BthPS3 Bluetooth ドライバー</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>PlayStation 3 コントローラー、PlayStation Move、Navigation コントローラーを Bluetooth で接続できるようにします。PadForge に組み込まれており、これらのいずれかを初めてペアリングするときにインストールされます。</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>BthPS3 をアンインストール</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>この PC から BthPS3 を削除します。対象はドライバー、BthPS3 が Bluetooth に追加するフィルター、およびペアリングのために PadForge が PlayStation 3 コントローラーに割り当てた WinUSB ドライバーです。PadForge は先にエンジンを停止します。ドライバーのアンロード中は、Bluetooth が一時的にオフになります。その後、PlayStation 3、Move、Navigation コントローラーは USB でのみ動作します。いずれかをペアリングすると、BthPS3 が再びインストールされます。</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>この PC に BthPS3 が残したものを読み取っています…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>この PC には、BthPS3 が残した削除対象はありません。</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini がこれらのドライバーを使用しているため、DsHidMini がインストールされている間は残ります。</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>PlayStation コントローラーが Bluetooth で接続されています。コントローラーの電源を切ってから、もう一度お試しください。コントローラーが接続されたままドライバーをアンロードすると、Windows がクラッシュすることがあります。</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>Bluetooth で接続されている PlayStation コントローラーを PadForge が確認できませんでした。しばらくしてからもう一度お試しください。</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>プログラム (専用のアンインストーラーで削除)</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Bluetooth フィルターの登録</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>ドライバーサービス</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>ドライバーファイル</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>ドライバーパッケージ</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>PadForge の WinUSB ドライバーパッケージ</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>PadForge のドライバー署名証明書</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>PadForge の他の WinUSB ドライバーがこの証明書で署名されています。</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>まだこの PC に残っています。</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth が再びオンになりませんでした。Windows の設定でオンにしてください。</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>仮想 MIDI ポートと MIDI 入力です。2026 年 11 月下旬の更新プログラムから Windows 11 25H2 に API が組み込まれます。その他の PC では、PadForge がインストールできる Windows MIDI Services ランタイム、または従来の MIDI API を使用します。</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Windows に組み込み</value></data>

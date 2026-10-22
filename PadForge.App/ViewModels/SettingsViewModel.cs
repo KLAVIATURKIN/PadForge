@@ -90,6 +90,7 @@ namespace PadForge.ViewModels
             Title = Strings.Instance.Settings_Title;
             OnPropertyChanged(nameof(HidHideStatusText));
             OnPropertyChanged(nameof(HIDMaestroStatusText));
+            OnPropertyChanged(nameof(BthPS3StatusText));
             OnPropertyChanged(nameof(MidiServicesStatusText));
             OnPropertyChanged(nameof(MidiServicesDetailText));
             OnPropertyChanged(nameof(MidiInstallTooltip));
@@ -256,6 +257,52 @@ namespace PadForge.ViewModels
 
         /// <summary>Raised when the user asks to remove HIDMaestro.</summary>
         public event EventHandler UninstallHIDMaestroRequested;
+
+        /// <summary>The BthPS3 version PadForge carries and installs, from
+        /// the DriverVer of its embedded BthPS3.inf.</summary>
+        public string BthPS3Version { get; } = GetBundledBthPs3Version();
+
+        private static string GetBundledBthPs3Version()
+        {
+            try
+            {
+                var v = Services.Ds3DriverInstaller.BundledBthPs3Version();
+                return v != null ? $"v{v.Major}.{v.Minor}.{v.Build}" : string.Empty;
+            }
+            catch { return string.Empty; }
+        }
+
+        private bool _isBthPS3Installed;
+
+        /// <summary>Whether either BthPS3 driver is installed as a service
+        /// (Services.Ds3DriverInstaller.IsAnyBthPs3DriverInstalled). PadForge installs
+        /// BthPS3 the first time a PlayStation 3, Move or Navigation
+        /// controller is paired, and Uninstall removes it.</summary>
+        public bool IsBthPS3Installed
+        {
+            get => _isBthPS3Installed;
+            set
+            {
+                if (SetProperty(ref _isBthPS3Installed, value))
+                    OnPropertyChanged(nameof(BthPS3StatusText));
+            }
+        }
+
+        /// <summary>BthPS3 status display text.</summary>
+        public string BthPS3StatusText =>
+            _isBthPS3Installed ? Strings.Instance.Common_Installed : Strings.Instance.Common_NotInstalled;
+
+        private RelayCommand _uninstallBthPS3Command;
+
+        /// <summary>Opens the removal of BthPS3 from the PC. Always available:
+        /// with the drivers gone, the dialog still lists the WinUSB package
+        /// and certificate PadForge left, or says nothing is left.</summary>
+        public RelayCommand UninstallBthPS3Command =>
+            _uninstallBthPS3Command ??= new RelayCommand(
+                () => UninstallBthPS3Requested?.Invoke(this, EventArgs.Empty));
+
+        /// <summary>Raised when the user asks to remove BthPS3.</summary>
+        public event EventHandler UninstallBthPS3Requested;
 
         private RelayCommand _installHidHideCommand;
 

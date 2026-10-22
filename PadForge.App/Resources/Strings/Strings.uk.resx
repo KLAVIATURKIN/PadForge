@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro видалено. Windows завершить видалення під час наступного запуску.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Видалення HIDMaestro зупинено. Закрийте {0}, потім знову натисніть «Видалити».</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro видалено частково. У списку показано, що залишилося і чому.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Видалення BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 видалено.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 видалено. Windows завершить видалення під час наступного запуску.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Видалення BthPS3 зупинено. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 видалено частково. У списку показано, що залишилося і чому.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Список пристроїв оновлено.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Записано «{0}» ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Тепер прив'яжіть: {0} {1}</value></data>
@@ -441,6 +446,26 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Залишається: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Не вдалося прочитати: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Не видалено: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>Драйвер BthPS3 для Bluetooth</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Дає змогу контролерам PlayStation 3, PlayStation Move і контролеру Navigation підключатися через Bluetooth. Вбудований у PadForge і встановлюється під час першого створення пари з одним із них.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Видалити BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Це видаляє BthPS3 з цього ПК: його драйвери, фільтр, який він додає до Bluetooth, і драйвер WinUSB, який PadForge надав контролерам PlayStation 3 для створення пари. Спершу PadForge зупиняє свій рушій, а Bluetooth на мить вимикається, поки драйвери вивантажуються. Після цього контролери PlayStation 3, Move і Navigation працюватимуть лише через USB. Створення пари з одним із них знову встановить BthPS3.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Читання того, що BthPS3 залишив на цьому ПК…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 не залишив на цьому ПК нічого для видалення.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini використовує ці драйвери, тому вони залишаються, доки його встановлено.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>Контролер PlayStation підключено через Bluetooth. Вимкніть його і повторіть спробу. Вивантаження драйверів під час підключеного контролера може призвести до збою Windows.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge не вдалося перевірити, чи підключено контролери PlayStation через Bluetooth. Повторіть спробу за мить.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Програма, яку видаляє власний деінсталятор</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Реєстрація фільтра Bluetooth</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Служба драйвера</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Файл драйвера</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Пакет драйвера</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>Пакет драйвера WinUSB від PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>Сертифікат підпису драйверів PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>Ним підписано інші драйвери WinUSB від PadForge.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Він досі на цьому ПК.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth не ввімкнувся знову. Ввімкніть його в параметрах Windows.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Віртуальні порти MIDI та введення MIDI. Windows 11 25H2 містить цей API починаючи з оновлення кінця листопада 2026 року. Інші ПК використовують середовище виконання Windows MIDI Services, яке PadForge може встановити, або застарілий MIDI API.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Вбудовано у Windows</value></data>

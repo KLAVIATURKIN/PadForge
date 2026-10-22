@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro yǐ yíchú. Windows huì zài xià cì qǐdòng shí wánchéng yíchú.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro yíchú yǐ tíngzhǐ. Qǐng guānbì {0}, ránhòu zàicì xièzài.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro zhǐ yíchú le yībùfen. Lièbiǎo xiǎnshì liúxià de xiàngmù jí yuányīn.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Zhèngzài yíchú BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 yǐ yíchú.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 yǐ yíchú. Windows huì zài xià cì qǐdòng shí wánchéng yíchú.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>BthPS3 de yíchú yǐ zhōngzhǐ. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 zhǐ yíchú le yībùfen. Lièbiǎo xiǎnshì liúxià de xiàngmù jí yuányīn.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Shèbèi lièbiǎo yǐ shuāxīn.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Yǐ lùzhì "{0}" ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Xiànzài yìngshè: {0} {1}</value></data>
@@ -441,6 +446,26 @@ Zhī qián bǎnběn de fùběn wèiyú cǐ wénjiànjiā: {1}</value></data>
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Bǎoliú: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Wúfǎ dúqǔ: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Wèi yíchú: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>BthPS3 lányá qūdòng chéngxù</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Ràng PlayStation 3 kòngzhìqì, PlayStation Move hé Navigation kòngzhìqì néng tōngguò lányá liánjiē. Qiànrù dào PadForge zhōng, zài shǒu cì pèiduì qízhōng yí gè shí ānzhuāng.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Xièzài BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Cǐ cāozuò jiāng cóng zhè tái diànnǎo shàng yíchú BthPS3: qí qūdòng chéngxù, tā tiānjiā dào lányá de guòlǜ qūdòng, yǐjí PadForge wèi PlayStation 3 kòngzhìqì pèiduì ér tígōng de WinUSB qūdòng chéngxù. PadForge huì xiān tíngzhǐ zìshēn de yǐnqíng, xièzài qūdòng chéngxù qījiān lányá huì zànshí guānbì. Zhīhòu PlayStation 3, Move hé Navigation kòngzhìqì zhǐ néng tōngguò USB shǐyòng. Pèiduì qízhōng rènhé yí gè huì zàicì ānzhuāng BthPS3.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Zhèngzài dúqǔ BthPS3 zài zhè tái diànnǎo shàng liúxià de nèiróng…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 zài zhè tái diànnǎo shàng méiyǒu liúxià kě yíchú de nèiróng.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini shǐyòng zhèxiē qūdòng chéngxù, yīncǐ zhǐyào tā yǐ ānzhuāng, tāmen jiù huì bǎoliú.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>Yǒu PlayStation kòngzhìqì zhèngzài tōngguò lányá liánjiē. Qǐng guānbì tā, ránhòu zàicì chángshì. Kòngzhìqì liánjiē shí xièzài qūdòng chéngxù kěnéng dǎozhì Windows bēngkuì.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge wúfǎ jiǎnchá shìfǒu yǒu PlayStation kòngzhìqì tōngguò lányá liánjiē. Qǐng shāohòu zàicì chángshì.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Chéngxù, yóu qí zìshēn de xièzài chéngxù yíchú</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Lányá guòlǜ qūdòng zhùcè</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Qūdòng fúwù</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Qūdòng wénjiàn</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Qūdòng chéngxù bāo</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>PadForge de WinUSB qūdòng chéngxù bāo</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>PadForge de qūdòng qiānmíng zhèngshū</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Lányá</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>PadForge de qítā WinUSB qūdòng chéngxù dōu shǐyòng tā qiānmíng.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Tā réng zài zhè tái diànnǎo shàng.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Lányá wèi néng chóngxīn kāiqǐ. Qǐng zài Windows shèzhì zhōng kāiqǐ tā.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Xūnǐ MIDI duānkǒu hé MIDI shūrù. Zì 2026 nián 11 yuè xiàxún de gēngxīn qǐ, Windows 11 25H2 nèizhì gāi API. Qítā diànnǎo shǐyòng PadForge kě ānzhuāng de Windows MIDI Services yùnxíngshí, huò jiùbǎn MIDI API.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Windows nèizhì</value></data>

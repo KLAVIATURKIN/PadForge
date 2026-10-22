@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro u hoq. Windows e përfundon heqjen kur niset herës tjetër.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Heqja e HIDMaestro u ndal. Mbyllni {0}, pastaj çinstaloni përsëri.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro u hoq pjesërisht. Lista tregon çfarë mbeti dhe pse.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Po hiqet BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 u hoq.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 u hoq. Windows e përfundon heqjen kur niset herës tjetër.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Heqja e BthPS3 u ndal. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 u hoq pjesërisht. Lista tregon çfarë mbeti dhe pse.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Lista e pajisjeve u rifreskua.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>U regjistrua "{0}" ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Tani hartëzo: {0} {1}</value></data>
@@ -441,6 +446,26 @@ Një kopje e versionit të mëparshëm ndodhet në këtë dosje: {1}</value></da
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Mbetet: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Nuk u lexua: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Nuk u hoq: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>Drajveri Bluetooth BthPS3</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Lejon kontrolluesit PlayStation 3, PlayStation Move dhe kontrolluesin Navigation të lidhen përmes Bluetooth. I ngulitur në PadForge dhe instalohet herën e parë që çiftohet një prej tyre.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Çinstalo BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Kjo heq BthPS3 nga ky PC: drajverët e tij, filtrin që shton te Bluetooth dhe drajverin WinUSB që PadForge u dha kontrolluesve PlayStation 3 për çiftim. PadForge ndalon fillimisht motorin e vet dhe Bluetooth fiket për një çast ndërsa drajverët shkarkohen. Kontrolluesit PlayStation 3, Move dhe Navigation pastaj punojnë vetëm përmes USB. Çiftimi i njërit e instalon përsëri BthPS3.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Po lexohet çfarë la BthPS3 në këtë PC…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 nuk la asgjë për t'u hequr në këtë PC.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini i përdor këta drajverë, kështu që mbeten sa kohë është i instaluar.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>Një kontrollues PlayStation është i lidhur përmes Bluetooth. Fike dhe provo sërish. Shkarkimi i drajverëve ndërsa një kontrollues është i lidhur mund ta bëjë Windows të ndalojë me gabim.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge nuk mundi të kontrollonte për kontrollues PlayStation të lidhur përmes Bluetooth. Provo sërish pas një çasti.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Program, hiqet nga çinstaluesi i vet</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Regjistrim i filtrit Bluetooth</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Shërbim drajveri</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Skedar drajveri</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Paketë drajveri</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>Paketa e drajverit WinUSB të PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>Certifikata e nënshkrimit të drajverëve të PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>Drajverët e tjerë WinUSB të PadForge nënshkruhen me të.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Është ende në këtë PC.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth nuk u ndez sërish. Ndize te Cilësimet e Windows.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Porta virtuale MIDI dhe hyrja MIDI. Windows 11 25H2 e përfshin API-n nga përditësimi i fundit të nëntorit 2026. PC-të e tjera përdorin runtime-in Windows MIDI Services, që PadForge mund ta instalojë, ose API-n e vjetër MIDI.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>E integruar në Windows</value></data>

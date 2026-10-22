@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro telah dihapus. Windows menyelesaikan penghapusan saat komputer dimulai berikutnya.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Penghapusan HIDMaestro dihentikan. Tutup {0}, lalu hapus instalan lagi.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro hanya sebagian dihapus. Daftar menunjukkan apa yang tersisa dan alasannya.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Menghapus BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 telah dihapus.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 telah dihapus. Windows menyelesaikan penghapusan saat komputer dimulai berikutnya.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Penghapusan BthPS3 dihentikan. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 hanya sebagian dihapus. Daftar menunjukkan apa yang tersisa dan alasannya.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Daftar perangkat disegarkan.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Terekam "{0}" ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Sekarang petakan: {0} {1}</value></data>
@@ -441,6 +446,26 @@ Salinan versi sebelumnya ada di folder ini: {1}</value></data>
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Tetap ada: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Tidak dapat dibaca: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Tidak dihapus: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>Driver Bluetooth BthPS3</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Memungkinkan kontroler PlayStation 3, PlayStation Move, dan kontroler Navigation tersambung melalui Bluetooth. Tertanam di PadForge dan diinstal saat salah satunya pertama kali disandingkan.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Hapus instalan BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Ini menghapus BthPS3 dari PC ini: driver-nya, filter yang ditambahkannya ke Bluetooth, dan driver WinUSB yang diberikan PadForge kepada kontroler PlayStation 3 untuk penyandingan. PadForge menghentikan mesinnya terlebih dahulu, dan Bluetooth mati sesaat saat driver dibongkar. Kontroler PlayStation 3, Move, dan Navigation kemudian hanya berfungsi melalui USB. Menyandingkan salah satunya menginstal BthPS3 lagi.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Membaca apa yang ditinggalkan BthPS3 di PC ini…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 tidak meninggalkan apa pun di PC ini untuk dihapus.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini memakai driver ini, jadi driver tetap ada selama DsHidMini terinstal.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>Kontroler PlayStation tersambung melalui Bluetooth. Matikan, lalu coba lagi. Membongkar driver saat kontroler tersambung dapat membuat Windows crash.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge tidak dapat memeriksa kontroler PlayStation yang tersambung melalui Bluetooth. Coba lagi sebentar lagi.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Program, dihapus oleh uninstaller-nya sendiri</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Registrasi filter Bluetooth</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Layanan driver</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>File driver</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Paket driver</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>Paket driver WinUSB PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>Sertifikat penandatanganan driver PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>Driver WinUSB PadForge lainnya ditandatangani dengan sertifikat ini.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Masih ada di PC ini.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth tidak menyala kembali. Nyalakan di Pengaturan Windows.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Port MIDI virtual dan input MIDI. Windows 11 25H2 menyertakan API ini sejak pembaruan akhir November 2026. PC lain memakai runtime Windows MIDI Services, yang dapat diinstal PadForge, atau API MIDI lama.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Bawaan Windows</value></data>

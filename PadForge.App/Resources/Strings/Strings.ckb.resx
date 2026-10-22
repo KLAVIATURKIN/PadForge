@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro لابرا. Windows جاری داهاتوو کە دەست پێ دەکات لابردنەکە تەواو دەکات.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>لابردنی HIDMaestro ڕاگیرا. {0} دابخە، پاشان دووبارە هەوڵی لابردنی دامەزراندن بدەوە.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>بەشێک لە HIDMaestro لابرا. لیستەکە نیشان دەدات چی ماوەتەوە و بۆچی.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>BthPS3 لادەبرێت…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 لابرا.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 لابرا. Windows جاری داهاتوو کە دەست پێ دەکات لابردنەکە تەواو دەکات.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>لابردنی BthPS3 ڕاگیرا. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>بەشێک لە BthPS3 لابرا. لیستەکە نیشان دەدات چی ماوەتەوە و بۆچی.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>لیستی ئامێرەکان نوێکرایەوە.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>{1} بۆ «{0}» تۆمارکرا</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>ئێستا بیبەستەوە: {0} {1}</value></data>
@@ -441,6 +446,26 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>دەمێنێتەوە: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>نەتوانرا بخوێندرێتەوە: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>لانەبرا: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>درایڤەری بلووتوسی BthPS3</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>ڕێگە دەدات کۆنترۆڵەرەکانی PlayStation 3، PlayStation Move و کۆنترۆڵەری Navigation لە ڕێگەی بلووتوسەوە پەیوەست ببن. لەناو PadForge دا جێگیرکراوە و یەکەم جار کە یەکێکیان جووت دەکرێت دادەمەزرێت.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>لابردنی دامەزراندنی BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>ئەمە BthPS3 لەم کۆمپیوتەرە لادەبات: درایڤەرەکانی، ئەو فلتەرەی بۆ بلووتوس زیادی دەکات، و ئەو درایڤەرە WinUSB ەی کە PadForge بۆ جووتکردن بە کۆنترۆڵەرەکانی PlayStation 3 ی دابوو. PadForge سەرەتا بزوێنەرەکەی ڕادەگرێت، و لە کاتی وەستاندنی درایڤەرەکاندا بلووتوس بۆ ماوەیەکی کورت دەکوژێتەوە. پاشان کۆنترۆڵەرەکانی PlayStation 3، Move و Navigation تەنها لە ڕێگەی USB ەوە کار دەکەن. جووتکردنی یەکێکیان BthPS3 دووبارە دادەمەزرێنێتەوە.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>خوێندنەوەی ئەوەی BthPS3 لەم کۆمپیوتەرەدا بەجێی هێشتووە…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 هیچ شتێکی بۆ لابردن لەم کۆمپیوتەرەدا بەجێ نەهێشتووە.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini ئەم درایڤەرانە بەکاردەهێنێت، بۆیە تا ئەو دامەزرابێت دەمێننەوە.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>کۆنترۆڵەرێکی PlayStation لە ڕێگەی بلووتوسەوە پەیوەستە. بیکوژێنەرەوە، پاشان دووبارە هەوڵ بدەرەوە. وەستاندنی درایڤەرەکان لە کاتێکدا کۆنترۆڵەرێک پەیوەستە دەتوانێت Windows تێک بشکێنێت.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge نەیتوانی بپشکنێت ئایا کۆنترۆڵەری PlayStation لە ڕێگەی بلووتوسەوە پەیوەستە. دوای کەمێک دووبارە هەوڵ بدەرەوە.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>بەرنامە، بە بەرنامەی لابردنی خۆی لادەبرێت</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>تۆمارکردنی فلتەری بلووتوس</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>خزمەتگوزاریی درایڤەر</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>فایلی درایڤەر</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>پاکێجی درایڤەر</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>پاکێجی درایڤەری WinUSB ی PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>بڕوانامەی واژۆکردنی درایڤەری PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>بلووتوس</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>درایڤەرە WinUSB ەکانی تری PadForge بەم بڕوانامەیە واژۆ کراون.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>هێشتا لەم کۆمپیوتەرەدایە.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>بلووتوس دووبارە هەڵنەکرایەوە. لە ڕێکخستنەکانی Windows دا هەڵیبکە.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>پۆرتە مەجازییەکانی MIDI و تێخستنی MIDI. Windows 11 25H2 لە نوێکاری کۆتایی نۆڤەمبەری 2026 ەوە API یەکەی تێدایە. کۆمپیوتەرەکانی تر ڕەنتایمی Windows MIDI Services بەکاردەهێنن، کە PadForge دەتوانێت دایبمەزرێنێت، یان API ی کۆنی MIDI.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>لەناو Windows دا</value></data>

@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Tynnwyd HIDMaestro. Mae Windows yn gorffen y gwaith tynnu pan fydd yn cychwyn nesaf.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Stopiwyd tynnu HIDMaestro. Caewch {0}, yna dadosodwch eto.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Tynnwyd HIDMaestro yn rhannol. Mae'r rhestr yn dangos beth arhosodd a pham.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Yn tynnu BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>Tynnwyd BthPS3.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>Tynnwyd BthPS3. Mae Windows yn gorffen y gwaith tynnu pan fydd yn cychwyn nesaf.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Stopiwyd tynnu BthPS3. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>Tynnwyd BthPS3 yn rhannol. Mae'r rhestr yn dangos beth arhosodd a pham.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Adnewyddwyd y rhestr dyfeisiau.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Recordiwyd "{0}" ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Nawr mapiwch: {0} {1}</value></data>
@@ -441,6 +446,26 @@ Mae copi o'r fersiwn flaenorol yn y ffolder hon: {1}</value></data>
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Yn aros: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Ni ellid ei ddarllen: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Heb ei dynnu: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>Gyrrwr Bluetooth BthPS3</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Yn gadael i reolyddion PlayStation 3, y PlayStation Move a'r rheolydd Navigation gysylltu dros Bluetooth. Wedi'i fewnblannu yn PadForge a'i osod y tro cyntaf y caiff un ohonynt ei baru.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Dadosod BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Mae hyn yn tynnu BthPS3 o'r PC hwn: ei yrwyr, yr hidlydd y mae'n ei ychwanegu at Bluetooth, a'r gyrrwr WinUSB a roddodd PadForge i reolyddion PlayStation 3 ar gyfer paru. Mae PadForge yn stopio ei injan yn gyntaf, ac mae Bluetooth yn diffodd am eiliad tra bydd y gyrwyr yn dadlwytho. Wedyn mae rheolyddion PlayStation 3, Move a Navigation yn gweithio dros USB yn unig. Mae paru un yn gosod BthPS3 eto.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Yn darllen beth adawodd BthPS3 ar y PC hwn…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>Ni adawodd BthPS3 ddim ar y PC hwn i'w dynnu.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>Mae DsHidMini yn defnyddio'r gyrwyr hyn, felly maen nhw'n aros tra bydd wedi'i osod.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>Mae rheolydd PlayStation wedi'i gysylltu dros Bluetooth. Diffoddwch ef, yna ceisiwch eto. Gall dadlwytho'r gyrwyr tra bo rheolydd wedi'i gysylltu chwalu Windows.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>Nid oedd PadForge yn gallu gwirio am reolyddion PlayStation sydd wedi'u cysylltu dros Bluetooth. Ceisiwch eto mewn eiliad.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Rhaglen, wedi'i thynnu gan ei dadosodwr ei hun</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Cofrestriad hidlydd Bluetooth</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Gwasanaeth gyrrwr</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Ffeil gyrrwr</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Pecyn gyrrwr</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>Pecyn gyrrwr WinUSB PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>Tystysgrif llofnodi gyrwyr PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>Mae gyrwyr WinUSB eraill PadForge wedi'u llofnodi â hi.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Mae'n dal ar y PC hwn.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Ni chafodd Bluetooth ei droi ymlaen eto. Trowch ef ymlaen yn Gosodiadau Windows.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Pyrth MIDI rhithwir a mewnbwn MIDI. Mae Windows 11 25H2 yn cynnwys yr API o ddiweddariad diwedd Tachwedd 2026. Mae PCs eraill yn defnyddio amser rhedeg Windows MIDI Services, y gall PadForge ei osod, neu'r API MIDI etifeddol.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Wedi'i adeiladu i mewn i Windows</value></data>

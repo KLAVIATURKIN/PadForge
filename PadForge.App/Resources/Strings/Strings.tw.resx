@@ -84,6 +84,10 @@
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Yɛreyi HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>Wɔayi HIDMaestro.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Wɔagyae HIDMaestro yi. To {0} mu, na san yi no bio.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Yɛreyi BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>Wɔayi BthPS3.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>Wɔayi BthPS3. Sɛ Windows fi ase bio a, ɛbɛwie yi no.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Yɛagyae BthPS3 yi. {0}</value></data>
 
   <!-- ═══ MainWindow ═══ -->
 
@@ -107,6 +111,11 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Aka hɔ: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Wɔantumi ankenkan: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Wɔanyi: {0}</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Yi BthPS3 fi hɔ</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Yɛrekenkan nea BthPS3 gyaw wɔ PC yi so…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 annyaw biribiara wɔ PC yi so a wobɛyi.</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Ɛda so wɔ PC yi so.</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_Language" xml:space="preserve"><value>Kasa</value></data>
   <data name="Settings_LanguageDesc" xml:space="preserve"><value>Paw kasa a wopɛ.</value></data>

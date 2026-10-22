@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>S'ha eliminat HIDMaestro. Windows acaba l'eliminació la propera vegada que s'inicia.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>S'ha aturat l'eliminació de HIDMaestro. Tanca {0} i torna a desinstal·lar.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro s'ha eliminat només en part. La llista mostra què s'ha quedat i per què.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>S'està eliminant BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>S'ha eliminat BthPS3.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>S'ha eliminat BthPS3. Windows acaba l'eliminació la propera vegada que s'inicia.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>L'eliminació de BthPS3 s'ha aturat. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 s'ha eliminat només en part. La llista mostra què s'ha quedat i per què.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>S'ha actualitzat la llista de dispositius.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Enregistrat «{0}» ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Ara assigna: {0} {1}</value></data>
@@ -439,6 +444,26 @@ Hi ha una còpia de la versió anterior en aquesta carpeta: {1}</value></data>
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Es queda: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>No s'ha pogut llegir: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>No eliminat: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>Controlador Bluetooth BthPS3</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Permet que els comandaments de PlayStation 3, el PlayStation Move i el comandament Navigation es connectin per Bluetooth. Integrat a PadForge i instal·lat la primera vegada que se n'aparella un.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Desinstal·la BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Això elimina BthPS3 d'aquest PC: els controladors, el filtre que afegeix al Bluetooth i el controlador WinUSB que PadForge va donar als comandaments de PlayStation 3 per aparellar-los. PadForge n'atura primer el motor, i el Bluetooth s'apaga un moment mentre es descarreguen els controladors. Els comandaments PlayStation 3, Move i Navigation funcionaran llavors només per USB. En aparellar-ne un, BthPS3 es torna a instal·lar.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>S'està llegint què ha deixat BthPS3 en aquest PC…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 no ha deixat res per eliminar en aquest PC.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini fa servir aquests controladors, de manera que es queden mentre estigui instal·lat.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>Hi ha un comandament de PlayStation connectat per Bluetooth. Apaga'l i torna-ho a provar. Descarregar els controladors amb un comandament connectat pot bloquejar Windows.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge no ha pogut comprovar si hi ha comandaments de PlayStation connectats per Bluetooth. Torna-ho a provar d'aquí a un moment.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Programa, eliminat pel seu propi desinstal·lador</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Registre del filtre Bluetooth</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Servei del controlador</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Fitxer del controlador</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Paquet del controlador</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>Paquet del controlador WinUSB de PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>Certificat de signatura de controladors de PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>Els altres controladors WinUSB de PadForge estan signats amb aquest.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Encara és en aquest PC.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>El Bluetooth no s'ha tornat a activar. Activa'l a la Configuració de Windows.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Ports MIDI virtuals i entrada MIDI. Windows 11 25H2 inclou l'API des de l'actualització de finals de novembre de 2026. Els altres PC fan servir l'entorn d'execució de Windows MIDI Services, que PadForge pot instal·lar, o l'API MIDI heretada.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Integrat a Windows</value></data>

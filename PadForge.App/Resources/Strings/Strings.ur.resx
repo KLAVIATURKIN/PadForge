@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro ہٹا دیا گیا۔ Windows اگلی بار شروع ہونے پر ہٹانے کا عمل مکمل کرتا ہے۔</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro کو ہٹانا رک گیا۔ {0} بند کریں، پھر دوبارہ اَن انسٹال کریں۔</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro جزوی طور پر ہٹایا گیا۔ فہرست دکھاتی ہے کہ کیا رہ گیا اور کیوں۔</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>BthPS3 ہٹایا جا رہا ہے…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 ہٹا دیا گیا۔</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 ہٹا دیا گیا۔ Windows اگلی بار شروع ہونے پر ہٹانے کا عمل مکمل کرتا ہے۔</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>BthPS3 کو ہٹانے کا عمل رک گیا۔ {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 جزوی طور پر ہٹایا گیا۔ فہرست دکھاتی ہے کہ کیا رہ گیا اور کیوں۔</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>آلات کی فہرست تازہ ہو گئی۔</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>ریکارڈ ہو گیا: "{0}" کے لیے {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>اب میپ کریں: {0} {1}</value></data>
@@ -441,6 +446,26 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>رہتا ہے: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>پڑھا نہیں جا سکا: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>ہٹایا نہیں گیا: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>BthPS3 بلوٹوتھ ڈرائیور</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>PlayStation 3 کنٹرولرز، PlayStation Move اور Navigation کنٹرولر کو بلوٹوتھ پر منسلک ہونے دیتا ہے۔ PadForge میں شامل ہے اور ان میں سے کسی کا پہلی بار جوڑا بناتے وقت انسٹال ہوتا ہے۔</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>BthPS3 اَن انسٹال کریں</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>یہ BthPS3 کو اس PC سے ہٹا دیتا ہے: اس کے ڈرائیورز، بلوٹوتھ میں شامل ہونے والا فلٹر، اور وہ WinUSB ڈرائیور جو PadForge نے جوڑا بنانے کے لیے PlayStation 3 کنٹرولرز کو دیا تھا۔ PadForge پہلے اپنا انجن روکتا ہے، اور ڈرائیورز کے ان لوڈ ہونے کے دوران بلوٹوتھ کچھ دیر کے لیے بند ہو جاتا ہے۔ اس کے بعد PlayStation 3، Move اور Navigation کنٹرولرز صرف USB پر کام کرتے ہیں۔ ان میں سے کسی کا جوڑا بنانے پر BthPS3 دوبارہ انسٹال ہو جاتا ہے۔</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>دیکھا جا رہا ہے کہ BthPS3 نے اس PC پر کیا چھوڑا ہے…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 نے اس PC پر ہٹانے کے لیے کچھ نہیں چھوڑا۔</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini ان ڈرائیورز کو استعمال کرتا ہے، اس لیے جب تک وہ انسٹال ہے یہ رہتے ہیں۔</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>ایک PlayStation کنٹرولر بلوٹوتھ پر منسلک ہے۔ اسے بند کریں، پھر دوبارہ کوشش کریں۔ کنٹرولر کے منسلک ہوتے ہوئے ڈرائیورز کو ان لوڈ کرنے سے Windows کریش ہو سکتا ہے۔</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge بلوٹوتھ پر منسلک PlayStation کنٹرولرز کی جانچ نہیں کر سکا۔ تھوڑی دیر بعد دوبارہ کوشش کریں۔</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>پروگرام، جسے اس کا اپنا اَن انسٹالر ہٹاتا ہے</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>بلوٹوتھ فلٹر کا اندراج</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>ڈرائیور سروس</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>ڈرائیور فائل</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>ڈرائیور پیکیج</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>PadForge کا WinUSB ڈرائیور پیکیج</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>PadForge کا ڈرائیور دستخطی سرٹیفکیٹ</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>بلوٹوتھ</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>PadForge کے دوسرے WinUSB ڈرائیورز اسی سے دستخط شدہ ہیں۔</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>یہ اب بھی اس PC پر موجود ہے۔</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>بلوٹوتھ دوبارہ آن نہیں ہوا۔ اسے Windows کی ترتیبات میں آن کریں۔</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>ورچوئل MIDI پورٹس اور MIDI ان پٹ۔ Windows 11 25H2 میں نومبر 2026 کے آخر کی اپ ڈیٹ سے یہ API شامل ہے۔ دوسرے PC پر Windows MIDI Services رن ٹائم استعمال ہوتا ہے، جسے PadForge انسٹال کر سکتا ہے، یا پھر پرانا MIDI API۔</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Windows میں شامل</value></data>

@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Naalis na ang HIDMaestro. Tatapusin ng Windows ang pag-alis sa susunod na pag-start nito.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Huminto ang pag-alis ng HIDMaestro. Isara ang {0}, pagkatapos ay i-uninstall ulit.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Bahagya lang naalis ang HIDMaestro. Ipinapakita ng listahan kung ano ang natira at bakit.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Inaalis ang BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>Naalis na ang BthPS3.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>Naalis na ang BthPS3. Tatapusin ng Windows ang pag-alis sa susunod na pag-start nito.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Huminto ang pag-alis ng BthPS3. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>Bahagya lang naalis ang BthPS3. Ipinapakita ng listahan kung ano ang natira at bakit.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Na-refresh ang listahan ng device.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Na-record ang "{0}" ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Susunod na i-map: {0} {1}</value></data>
@@ -441,6 +446,26 @@ May kopya ng nakaraang bersyon sa folder na ito: {1}</value></data>
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Mananatili: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Hindi nabasa: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Hindi naalis: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>BthPS3 Bluetooth driver</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Nagpapakonekta sa mga PlayStation 3 controller, sa PlayStation Move at sa Navigation controller sa pamamagitan ng Bluetooth. Nakapaloob sa PadForge at ini-install sa unang pag-pair ng isa sa mga ito.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>I-uninstall ang BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Aalisin nito ang BthPS3 sa PC na ito: ang mga driver nito, ang filter na idinaragdag nito sa Bluetooth, at ang WinUSB driver na ibinigay ng PadForge sa mga PlayStation 3 controller para sa pag-pair. Ihihinto muna ng PadForge ang engine nito, at pansamantalang mag-o-off ang Bluetooth habang ina-unload ang mga driver. Sa USB na lang gagana ang mga PlayStation 3, Move at Navigation controller pagkatapos. Ii-install ulit ang BthPS3 kapag nag-pair ng isa.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Binabasa ang iniwan ng BthPS3 sa PC na ito…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>Walang iniwan ang BthPS3 sa PC na ito na kailangang alisin.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>Ginagamit ng DsHidMini ang mga driver na ito, kaya mananatili ang mga ito hangga't naka-install ito.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>May PlayStation controller na nakakonekta sa pamamagitan ng Bluetooth. I-off ito, saka subukan ulit. Ang pag-unload ng mga driver habang may nakakonektang controller ay maaaring mag-crash ng Windows.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>Hindi nasuri ng PadForge kung may mga PlayStation controller na nakakonekta sa pamamagitan ng Bluetooth. Subukan ulit pagkalipas ng ilang sandali.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Program, inaalis ng sarili nitong uninstaller</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Rehistrasyon ng Bluetooth filter</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Driver service</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Driver file</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Driver package</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>WinUSB driver package ng PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>Driver signing certificate ng PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>Pinirmahan gamit nito ang iba pang WinUSB driver ng PadForge.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Nasa PC na ito pa rin ito.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Hindi muling nag-on ang Bluetooth. I-on ito sa Windows Settings.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Mga virtual MIDI port at MIDI input. Kasama sa Windows 11 25H2 ang API mula sa update sa huling bahagi ng Nobyembre 2026. Ang ibang PC ay gumagamit ng runtime ng Windows MIDI Services, na maaaring i-install ng PadForge, o ng legacy MIDI API.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Kasama sa Windows</value></data>

@@ -81,6 +81,11 @@
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>Sa kau tani na HIDMaestro.</value></data>
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Sa kau tani na HIDMaestro. Ena vakaotia na Windows na kena kau tani ni sa tekivu tale.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>E sega ni kau tani taucoko na HIDMaestro. E vakaraitaka na lisi na ka e vo kei na vuna.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Sa kau tani tiko na BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>Sa kau tani na BthPS3.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>Sa kau tani na BthPS3. Ena vakaotia na Windows na kena kau tani ni sa tekivu tale.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Sa tarovi na kena kau tani na BthPS3. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>E sega ni kau tani taucoko na BthPS3. E vakaraitaka na lisi na ka e vo kei na vuna.</value></data>
 
   <!-- ═══ MainWindow ═══ -->
 
@@ -108,6 +113,15 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>E vo: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>E sega ni rawa ni wiliki: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>E sega ni kau tani: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>Driver Bluetooth ni BthPS3</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>E rawa kina ni sema ena Bluetooth na controller ni PlayStation 3, na PlayStation Move kei na Navigation controller. E tu ena loma ni PadForge, ka install ena imatai ni gauna e pair kina e dua vei ira.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Bokoca na BthPS3</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Wilika tiko na ka e biuta na BthPS3 ena PC qo…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>E sega ni dua na ka e biuta na BthPS3 ena PC qo me kau tani.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>E vakayagataka na DsHidMini na driver qo, era na vo ke se tu na DsHidMini ena PC qo.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>E sega ni rawa vua na PadForge me vakadikevi ira na controller ni PlayStation e sema tiko ena Bluetooth. Tovolea tale ena dua na gauna lekaleka.</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>E se tu ga ena PC qo.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_Language" xml:space="preserve"><value>Vosa</value></data>

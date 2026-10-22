@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro a fost eliminat. Windows finalizează eliminarea la următoarea pornire.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Eliminarea HIDMaestro s-a oprit. Închideți {0}, apoi dezinstalați din nou.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro a fost eliminat parțial. Lista arată ce a rămas și de ce.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Se elimină BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 a fost eliminat.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 a fost eliminat. Windows finalizează eliminarea la următoarea pornire.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Eliminarea BthPS3 s-a oprit. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 a fost eliminat parțial. Lista arată ce a rămas și de ce.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Lista de dispozitive a fost reîmprospătată.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>S-a înregistrat „{0}” ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Mapați acum: {0} {1}</value></data>
@@ -441,6 +446,26 @@ O copie a versiunii anterioare se află în acest folder: {1}</value></data>
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Rămâne: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Nu a putut fi citit: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Nu a fost eliminat: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>Driver Bluetooth BthPS3</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Permite controlerelor PlayStation 3, PlayStation Move și controlerului Navigation să se conecteze prin Bluetooth. Inclus în PadForge și instalat la prima asociere a unuia dintre ele.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Dezinstalare BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Aceasta elimină BthPS3 de pe acest PC: driverele sale, filtrul pe care îl adaugă în Bluetooth și driverul WinUSB pe care PadForge l-a dat controlerelor PlayStation 3 pentru asociere. PadForge oprește mai întâi motorul său, iar Bluetooth se oprește pentru scurt timp cât timp driverele se descarcă. Controlerele PlayStation 3, Move și Navigation funcționează apoi doar prin USB. Asocierea unuia instalează BthPS3 din nou.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Se citește ce a lăsat BthPS3 pe acest PC…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 nu a lăsat nimic de eliminat pe acest PC.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini folosește aceste drivere, deci rămân cât timp este instalat.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>Un controler PlayStation este conectat prin Bluetooth. Oprește-l, apoi încearcă din nou. Descărcarea driverelor cât timp un controler este conectat poate duce la oprirea Windows cu o eroare.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge nu a putut verifica dacă există controlere PlayStation conectate prin Bluetooth. Încearcă din nou peste un moment.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Program, eliminat de propriul dezinstalator</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Înregistrare filtru Bluetooth</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Serviciu de driver</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Fișier de driver</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Pachet de driver</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>Pachet de driver WinUSB din PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>Certificatul de semnare a driverelor din PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>Celelalte drivere WinUSB ale PadForge sunt semnate cu el.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Este încă pe acest PC.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth nu s-a repornit. Pornește-l din Setările Windows.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Porturi MIDI virtuale și intrare MIDI. Windows 11 25H2 include API-ul începând cu actualizarea de la sfârșitul lui noiembrie 2026. Celelalte PC-uri folosesc mediul de execuție Windows MIDI Services, pe care PadForge îl poate instala, sau vechiul API MIDI.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Integrat în Windows</value></data>

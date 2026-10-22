@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro ត្រូវបានលុបហើយ។ Windows បញ្ចប់ការលុបនៅពេលចាប់ផ្ដើមលើកក្រោយ។</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>ការលុប HIDMaestro បានឈប់។ បិទ {0} រួចលុបការដំឡើងម្ដងទៀត។</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro ត្រូវបានលុបមួយផ្នែក។ បញ្ជីបង្ហាញអ្វីដែលនៅសល់ និងមូលហេតុ។</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>កំពុងលុប BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 ត្រូវបានលុបហើយ។</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 ត្រូវបានលុបហើយ។ Windows បញ្ចប់ការលុបនៅពេលចាប់ផ្ដើមលើកក្រោយ។</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>ការលុប BthPS3 បានឈប់។ {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 ត្រូវបានលុបមួយផ្នែក។ បញ្ជីបង្ហាញអ្វីដែលនៅសល់ និងមូលហេតុ។</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>បញ្ជីឧបករណ៍ត្រូវបានផ្ទុកឡើងវិញ។</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>បានថត «{0}» ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>ឥឡូវម៉ាប៖ {0} {1}</value></data>
@@ -441,6 +446,26 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>នៅដដែល៖ {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>មិនអាចអានបាន៖ {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>មិនបានលុប៖ {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>ដ្រាយវ័រ Bluetooth BthPS3</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>អនុញ្ញាតឱ្យឧបករណ៍បញ្ជា PlayStation 3 ឧបករណ៍ PlayStation Move និងឧបករណ៍បញ្ជា Navigation ភ្ជាប់តាម Bluetooth។ បង្កប់ក្នុង PadForge ហើយដំឡើងនៅពេលឧបករណ៍មួយក្នុងចំណោមពួកវាត្រូវបានផ្គូផ្គងលើកដំបូង។</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>លុបការដំឡើង BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>សកម្មភាពនេះលុប BthPS3 ចេញពីកុំព្យូទ័រនេះ៖ ដ្រាយវ័ររបស់វា តម្រងដែលវាបន្ថែមទៅ Bluetooth និងដ្រាយវ័រ WinUSB ដែល PadForge បានផ្ដល់ឱ្យឧបករណ៍បញ្ជា PlayStation 3 សម្រាប់ការផ្គូផ្គង។ PadForge បញ្ឈប់ម៉ាស៊ីនរបស់វាជាមុនសិន ហើយ Bluetooth បិទមួយភ្លែត ខណៈពេលដែលដ្រាយវ័រត្រូវបានដកចេញ។ បន្ទាប់មក ឧបករណ៍បញ្ជា PlayStation 3 Move និង Navigation ដំណើរការតាម USB តែប៉ុណ្ណោះ។ ការផ្គូផ្គងឧបករណ៍មួយនឹងដំឡើង BthPS3 ម្ដងទៀត។</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>កំពុងអានអ្វីដែល BthPS3 បានទុកនៅលើកុំព្យូទ័រនេះ…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 មិនបានទុកអ្វីនៅលើកុំព្យូទ័រនេះដែលត្រូវលុបទេ។</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini ប្រើដ្រាយវ័រទាំងនេះ ដូច្នេះពួកវានៅដដែល ខណៈពេលដែល DsHidMini នៅតែបានដំឡើង។</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>ឧបករណ៍បញ្ជា PlayStation មួយកំពុងភ្ជាប់តាម Bluetooth។ សូមបិទវា រួចព្យាយាមម្ដងទៀត។ ការដកដ្រាយវ័រចេញ ខណៈពេលដែលឧបករណ៍បញ្ជាកំពុងភ្ជាប់ អាចធ្វើឱ្យ Windows គាំង។</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge មិនអាចពិនិត្យរកឧបករណ៍បញ្ជា PlayStation ដែលភ្ជាប់តាម Bluetooth បានទេ។ សូមព្យាយាមម្ដងទៀតបន្តិចទៀត។</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>កម្មវិធី ដែលលុបដោយកម្មវិធីលុបការដំឡើងរបស់វាផ្ទាល់</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>ការចុះឈ្មោះតម្រង Bluetooth</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>សេវាដ្រាយវ័រ</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>ឯកសារដ្រាយវ័រ</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>កញ្ចប់ដ្រាយវ័រ</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>កញ្ចប់ដ្រាយវ័រ WinUSB របស់ PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>វិញ្ញាបនបត្រចុះហត្ថលេខាដ្រាយវ័ររបស់ PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>ដ្រាយវ័រ WinUSB ផ្សេងទៀតរបស់ PadForge ត្រូវបានចុះហត្ថលេខាជាមួយវា។</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>វានៅតែមាននៅលើកុំព្យូទ័រនេះ។</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth មិនបានបើកវិញទេ។ សូមបើកវានៅក្នុងការកំណត់របស់ Windows។</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>ច្រក MIDI និម្មិត និងការបញ្ចូល MIDI។ Windows 11 25H2 មាន API នេះ ចាប់ពីបច្ចុប្បន្នភាពចុងខែវិច្ឆិកា 2026។ កុំព្យូទ័រផ្សេងទៀតប្រើកម្មវិធីដំណើរការ Windows MIDI Services ដែល PadForge អាចដំឡើងបាន ឬ API MIDI ចាស់។</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>បង្កប់ក្នុង Windows</value></data>

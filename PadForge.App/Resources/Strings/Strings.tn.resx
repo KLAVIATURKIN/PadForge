@@ -90,6 +90,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro e tlositswe. Windows e fetsa go e tlosa fa e simolola gape.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Go tlosa HIDMaestro go emisitswe. Tswala {0}, morago o e tlose gape.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Karolo nngwe fela ya HIDMaestro e tlositswe. Lenane le bontsha se se setseng le lebaka.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Go tlosa BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 e tlositswe.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 e tlositswe. Windows e fetsa go e tlosa fa e simolola gape.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Go tlosa BthPS3 go emisitswe. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>Karolo nngwe fela ya BthPS3 e tlositswe. Lenane le bontsha se se setseng le lebaka.</value></data>
 
   <!-- ═══ MainWindow ═══ -->
 
@@ -122,6 +127,13 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>E sala: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Ga e a kgona go balwa: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Ga e a tlosiwa: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>Driver ya Bluetooth ya BthPS3</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Tlosa BthPS3</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Go bala se BthPS3 e se tlogetseng mo khomputareng e…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 ga e a tlogela sepe se se ka tlosiwang mo khomputareng e.</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Faele ya driver</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>E sa ntse e le mo khomputareng e.</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_Language" xml:space="preserve"><value>Puo</value></data>
   <data name="Settings_LanguageDesc" xml:space="preserve"><value>Tlhopha puo e o e ratang.</value></data>

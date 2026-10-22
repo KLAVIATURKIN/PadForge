@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro நீக்கப்பட்டது. Windows அடுத்த முறை தொடங்கும்போது நீக்கத்தை முடிக்கும்.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro நீக்கம் நிறுத்தப்பட்டது. {0} நிரலை மூடி, மீண்டும் நிறுவல் நீக்கவும்.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro பகுதியளவு மட்டுமே நீக்கப்பட்டது. எவை, ஏன் எஞ்சின என்பதைப் பட்டியல் காட்டுகிறது.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>BthPS3 நீக்கப்படுகிறது…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 நீக்கப்பட்டது.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 நீக்கப்பட்டது. Windows அடுத்த முறை தொடங்கும்போது நீக்கத்தை முடிக்கும்.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>BthPS3 நீக்கம் நிறுத்தப்பட்டது. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 பகுதியளவு மட்டுமே நீக்கப்பட்டது. எவை, ஏன் எஞ்சின என்பதைப் பட்டியல் காட்டுகிறது.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>சாதனப் பட்டியல் புதுப்பிக்கப்பட்டது.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>பதிவுசெய்யப்பட்டது "{0}" ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>இப்போது மேப் செய்யவும்: {0} {1}</value></data>
@@ -441,6 +446,26 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>இருக்கும்: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>படிக்க முடியவில்லை: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>நீக்கப்படவில்லை: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>BthPS3 Bluetooth இயக்கி</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>PlayStation 3 கட்டுப்படுத்திகள், PlayStation Move மற்றும் Navigation கட்டுப்படுத்தி ஆகியவை Bluetooth வழியாக இணைய அனுமதிக்கிறது. PadForge-இல் உட்பொதிக்கப்பட்டுள்ளது. அவற்றில் ஒன்றை முதன்முறை இணைசேர்க்கும்போது நிறுவப்படும்.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>BthPS3-ஐ நிறுவல் நீக்கு</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>இது இந்த PC-யிலிருந்து BthPS3-ஐ நீக்கும்: அதன் இயக்கிகள், அது Bluetooth-இல் சேர்க்கும் வடிகட்டி, இணைசேர்க்க PlayStation 3 கட்டுப்படுத்திகளுக்கு PadForge வழங்கிய WinUSB இயக்கி. முதலில் PadForge தன் இன்ஜினை நிறுத்தும், இயக்கிகள் இறக்கப்படும்போது Bluetooth சிறிது நேரம் அணைந்திருக்கும். அதன்பிறகு PlayStation 3, Move, Navigation கட்டுப்படுத்திகள் USB வழியாக மட்டுமே வேலை செய்யும். ஒன்றை இணைசேர்த்தால் BthPS3 மீண்டும் நிறுவப்படும்.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>இந்த PC-யில் BthPS3 விட்டுச்சென்றதைப் படிக்கிறது…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>இந்த PC-யில் BthPS3 நீக்குவதற்கு எதையும் விட்டுச்செல்லவில்லை.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini இந்த இயக்கிகளைப் பயன்படுத்துவதால், அது நிறுவப்பட்டிருக்கும்வரை இவை இருக்கும்.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>ஒரு PlayStation கட்டுப்படுத்தி Bluetooth வழியாக இணைக்கப்பட்டுள்ளது. அதை அணைத்துவிட்டு மீண்டும் முயலவும். கட்டுப்படுத்தி இணைந்திருக்கும்போது இயக்கிகளை இறக்கினால் Windows செயலிழக்கக்கூடும்.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>Bluetooth வழியாக இணைக்கப்பட்ட PlayStation கட்டுப்படுத்திகளை PadForge-ஆல் சரிபார்க்க முடியவில்லை. சிறிது நேரம் கழித்து மீண்டும் முயலவும்.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>நிரல், தனது சொந்த நிறுவல் நீக்கியால் நீக்கப்படுகிறது</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Bluetooth வடிகட்டிப் பதிவு</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>இயக்கி சேவை</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>இயக்கிக் கோப்பு</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>இயக்கித் தொகுப்பு</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>PadForge-இன் WinUSB இயக்கித் தொகுப்பு</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>PadForge-இன் இயக்கி கையொப்பச் சான்றிதழ்</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>PadForge-இன் மற்ற WinUSB இயக்கிகள் இதனால் கையொப்பமிடப்பட்டுள்ளன.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>இது இன்னும் இந்த PC-யில் உள்ளது.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth மீண்டும் இயக்கப்படவில்லை. Windows அமைப்புகளில் அதை இயக்கவும்.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>மெய்நிகர் MIDI போர்ட்டுகளும் MIDI உள்ளீடும். Windows 11 25H2, 2026 நவம்பர் இறுதிப் புதுப்பிப்பிலிருந்து இந்த API-ஐக் கொண்டுள்ளது. பிற PC-கள், PadForge நிறுவக்கூடிய Windows MIDI Services ரன்டைமையோ மரபு MIDI API-ஐயோ பயன்படுத்தும்.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Windows-இல் உள்ளமைந்தது</value></data>

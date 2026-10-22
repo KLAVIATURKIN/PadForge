@@ -690,6 +690,9 @@ namespace PadForge
             // Removing HIDMaestro from the PC (#516, #518).
             _viewModel.Settings.UninstallHIDMaestroRequested += async (s, e) => await UninstallHIDMaestroAsync();
 
+            // Removing BthPS3 from the PC.
+            _viewModel.Settings.UninstallBthPS3Requested += async (s, e) => await UninstallBthPS3Async();
+
             // Wire HidHide whitelist add (file browser).
             _viewModel.Settings.AddWhitelistPathRequested += (s, e) =>
             {
@@ -2415,6 +2418,7 @@ namespace PadForge
 
             RefreshHidHideStatus();
             RefreshHIDMaestroStatus();
+            RefreshBthPS3Status();
             StartDriverStatusTimer();
 
             // Same reason as the two above: this used to sit in the loaded
@@ -2692,6 +2696,8 @@ namespace PadForge
                 // The engine installs HIDMaestro with its first virtual
                 // controller, so the card follows it here.
                 RefreshHIDMaestroStatus();
+                // A pairing installs BthPS3. Two registry reads.
+                RefreshBthPS3Status();
                 RefreshMidiServicesStatus();
                 // Status decay (#175 item 7) rides this always-on 5 s lane
                 // (started in the constructor, never stopped) instead of a
@@ -9109,6 +9115,54 @@ namespace PadForge
         /// (HIDMaestroRemoval.IsDriverInstalled).</summary>
         private void RefreshHIDMaestroStatus()
             => _viewModel.Settings.IsHIDMaestroInstalled = HIDMaestroRemoval.IsDriverInstalled();
+
+        /// <summary>
+        /// Removes BthPS3 from the PC, after the user confirmed it against
+        /// the removal's preview (BthPS3Removal).
+        ///
+        /// <para>The engine stops first, through the stop the Dashboard toggle
+        /// runs, which closes every PlayStation 3, Move and Navigation
+        /// controller PadForge reads through BthPS3 or WinUSB, and binds no
+        /// WinUSB driver while the removal runs. A stop the toggle already
+        /// started is waited out. The engine stays stopped, as after the
+        /// HIDMaestro removal.</para>
+        ///
+        /// <para>The removal runs on the driver operation's worker, behind
+        /// its overlay. Every step and item goes to the diagnostics log. A
+        /// removal that could not take everything lists what stayed and
+        /// why.</para>
+        /// </summary>
+        private async Task UninstallBthPS3Async()
+        {
+            if (!Views.UninstallBthPS3Dialog.Confirm(this, () => Task.Run(BthPS3Removal.Preview)))
+                return;
+
+            bool stopEngine = _viewModel.IsEngineRunning;
+            if (stopEngine) ShowEngineStopping();
+            var pendingStop = _engineStopTask;
+
+            BthPS3Removal.Report report = null;
+            await RunDriverOperationAsync(Strings.Instance.Status_RemovingBthPS3, () =>
+            {
+                // A stop that failed has nothing left to wait for.
+                try { pendingStop?.Wait(); } catch { }
+                report = BthPS3Removal.Run(stopEngine ? _inputService.Stop : null);
+            }, RefreshBthPS3Status);
+            if (stopEngine) RebuildControllerSection();
+
+            // No report: the operation failed and its status line says why.
+            if (report == null) return;
+            BthPS3Removal.Log(report);
+            string line = BthPS3Removal.StatusLine(report);
+            _viewModel.SetStatus(line, persist: true);
+            if (report.Status == BthPS3Removal.RemovalStatus.Failed)
+                Views.UninstallBthPS3Dialog.ShowReport(this, report, line);
+        }
+
+        /// <summary>Lights the Settings card's BthPS3 status from the two
+        /// driver services (Ds3DriverInstaller.IsAnyBthPs3DriverInstalled).</summary>
+        private void RefreshBthPS3Status()
+            => _viewModel.Settings.IsBthPS3Installed = Ds3DriverInstaller.IsAnyBthPs3DriverInstalled();
 
         /// <summary>
         /// Rebuilds the dashboard SlotSummaries from SettingsManager state.

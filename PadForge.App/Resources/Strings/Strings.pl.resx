@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro został usunięty. Windows dokończy usuwanie przy następnym uruchomieniu.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Usuwanie HIDMaestro zatrzymane. Zamknij {0}, a następnie odinstaluj ponownie.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro został usunięty częściowo. Lista pokazuje, co zostało i dlaczego.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Usuwanie BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>BthPS3 został usunięty.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>BthPS3 został usunięty. Windows dokończy usuwanie przy następnym uruchomieniu.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Zatrzymano usuwanie BthPS3. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>BthPS3 został usunięty częściowo. Lista pokazuje, co zostało i dlaczego.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Odświeżono listę urządzeń.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Nagrano „{0}” ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Teraz zmapuj: {0} {1}</value></data>
@@ -441,6 +446,26 @@ Kopia poprzedniej wersji znajduje się w tym folderze: {1}</value></data>
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Pozostaje: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Nie udało się odczytać: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Nie usunięto: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>Sterownik Bluetooth BthPS3</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Umożliwia łączenie kontrolerów PlayStation 3, PlayStation Move i kontrolera Navigation przez Bluetooth. Wbudowany w PadForge i instalowany przy pierwszym sparowaniu jednego z nich.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Odinstaluj BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Spowoduje to usunięcie BthPS3 z tego komputera: jego sterowników, filtra dodawanego do Bluetooth oraz sterownika WinUSB, który PadForge przypisał kontrolerom PlayStation 3 na potrzeby parowania. PadForge najpierw zatrzymuje swój silnik, a Bluetooth na chwilę się wyłącza podczas zwalniania sterowników. Kontrolery PlayStation 3, Move i Navigation będą wtedy działać wyłącznie przez USB. Sparowanie któregoś z nich ponownie zainstaluje BthPS3.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Odczytywanie tego, co BthPS3 pozostawił na tym komputerze…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>BthPS3 nie pozostawił na tym komputerze niczego do usunięcia.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>DsHidMini korzysta z tych sterowników, więc pozostają one, dopóki jest zainstalowany.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>Kontroler PlayStation jest połączony przez Bluetooth. Wyłącz go i spróbuj ponownie. Zwolnienie sterowników przy połączonym kontrolerze może spowodować awarię Windows.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>PadForge nie mógł sprawdzić, czy kontrolery PlayStation są połączone przez Bluetooth. Spróbuj ponownie za chwilę.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Program usuwany przez własny deinstalator</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Rejestracja filtra Bluetooth</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Usługa sterownika</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Plik sterownika</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Pakiet sterownika</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>Pakiet sterownika WinUSB z PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>Certyfikat podpisu sterowników PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>Inne sterowniki WinUSB z PadForge są nim podpisane.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Nadal jest na tym komputerze.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Bluetooth nie włączył się ponownie. Włącz go w Ustawieniach systemu Windows.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Wirtualne porty MIDI i wejście MIDI. System Windows 11 25H2 zawiera to API od aktualizacji z końca listopada 2026 r. Inne komputery używają środowiska uruchomieniowego Windows MIDI Services, które PadForge może zainstalować, albo starszego API MIDI.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Wbudowane w system Windows</value></data>

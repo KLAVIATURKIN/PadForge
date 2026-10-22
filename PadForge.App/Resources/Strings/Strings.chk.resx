@@ -107,6 +107,7 @@
   <data name="Update_PreReleaseAvailable_Format" xml:space="preserve"><value>A wor pre-release {0}.</value></data>
   <data name="Update_RestartFailed_Format" xml:space="preserve"><value>PadForge ese tongeni poputá sefál: {0}</value></data>
   <data name="Settings_AddDots" xml:space="preserve"><value>Apachaatá...</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
   <data name="Settings_MidiStatusUnavailable" xml:space="preserve"><value>Ese wor</value></data>
   <data name="Settings_MidiStatusNotRunning" xml:space="preserve"><value>Ese angang</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>

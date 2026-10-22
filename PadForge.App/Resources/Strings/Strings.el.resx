@@ -171,6 +171,11 @@
   <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Το HIDMaestro αφαιρέθηκε. Τα Windows ολοκληρώνουν την αφαίρεση την επόμενη φορά που θα ξεκινήσουν.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Η αφαίρεση του HIDMaestro διακόπηκε. Κλείστε το {0} και επιλέξτε ξανά Απεγκατάσταση.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Το HIDMaestro αφαιρέθηκε εν μέρει. Η λίστα δείχνει τι έμεινε και γιατί.</value></data>
+  <data name="Status_RemovingBthPS3" xml:space="preserve"><value>Αφαίρεση του BthPS3…</value></data>
+  <data name="Status_BthPS3Removed" xml:space="preserve"><value>Το BthPS3 αφαιρέθηκε.</value></data>
+  <data name="Status_BthPS3RemovedRestart" xml:space="preserve"><value>Το BthPS3 αφαιρέθηκε. Τα Windows ολοκληρώνουν την αφαίρεση την επόμενη φορά που θα ξεκινήσουν.</value></data>
+  <data name="Status_BthPS3RemovalBlocked_Format" xml:space="preserve"><value>Η αφαίρεση του BthPS3 διακόπηκε. {0}</value></data>
+  <data name="Status_BthPS3RemovalFailed" xml:space="preserve"><value>Το BthPS3 αφαιρέθηκε εν μέρει. Η λίστα δείχνει τι έμεινε και γιατί.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Η λίστα συσκευών ανανεώθηκε.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Καταγράφηκε «{0}» ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Αντιστοιχίστε τώρα: {0} {1}</value></data>
@@ -441,6 +446,26 @@
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Παραμένει: {0}</value></data>
   <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Δεν ήταν δυνατή η ανάγνωση: {0}</value></data>
   <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Δεν αφαιρέθηκε: {0}</value></data>
+  <data name="Settings_BthPS3" xml:space="preserve"><value>Πρόγραμμα οδήγησης Bluetooth BthPS3</value></data>
+  <data name="Settings_BthPS3Desc" xml:space="preserve"><value>Επιτρέπει σε χειριστήρια PlayStation 3, στο PlayStation Move και στο χειριστήριο Navigation να συνδέονται μέσω Bluetooth. Είναι ενσωματωμένο στο PadForge και εγκαθίσταται την πρώτη φορά που γίνεται σύζευξη ενός από αυτά.</value></data>
+  <data name="BthPS3Uninstall_Title" xml:space="preserve"><value>Απεγκατάσταση του BthPS3</value></data>
+  <data name="BthPS3Uninstall_Message" xml:space="preserve"><value>Αυτή η ενέργεια αφαιρεί το BthPS3 από αυτόν τον υπολογιστή: τα προγράμματα οδήγησής του, το φίλτρο που προσθέτει στο Bluetooth και το πρόγραμμα οδήγησης WinUSB που έδωσε το PadForge στα χειριστήρια PlayStation 3 για τη σύζευξη. Το PadForge σταματά πρώτα τη μηχανή του και το Bluetooth απενεργοποιείται για λίγο ενώ εκφορτώνονται τα προγράμματα οδήγησης. Τα χειριστήρια PlayStation 3, Move και Navigation λειτουργούν τότε μόνο μέσω USB. Η σύζευξη ενός από αυτά εγκαθιστά ξανά το BthPS3.</value></data>
+  <data name="BthPS3Uninstall_Reading" xml:space="preserve"><value>Ανάγνωση όσων άφησε το BthPS3 σε αυτόν τον υπολογιστή…</value></data>
+  <data name="BthPS3Uninstall_Nothing" xml:space="preserve"><value>Το BthPS3 δεν άφησε τίποτα προς αφαίρεση σε αυτόν τον υπολογιστή.</value></data>
+  <data name="BthPS3Uninstall_DsHidMini" xml:space="preserve"><value>Το DsHidMini χρησιμοποιεί αυτά τα προγράμματα οδήγησης, γι' αυτό παραμένουν όσο είναι εγκατεστημένο.</value></data>
+  <data name="BthPS3Uninstall_Connected" xml:space="preserve"><value>Ένα χειριστήριο PlayStation είναι συνδεδεμένο μέσω Bluetooth. Απενεργοποιήστε το και δοκιμάστε ξανά. Η εκφόρτωση των προγραμμάτων οδήγησης ενώ είναι συνδεδεμένο χειριστήριο μπορεί να προκαλέσει κατάρρευση των Windows.</value></data>
+  <data name="BthPS3Uninstall_NotChecked" xml:space="preserve"><value>Το PadForge δεν μπόρεσε να ελέγξει για χειριστήρια PlayStation συνδεδεμένα μέσω Bluetooth. Δοκιμάστε ξανά σε λίγο.</value></data>
+  <data name="BthPS3Uninstall_KindSetup" xml:space="preserve"><value>Πρόγραμμα, αφαιρείται από το δικό του πρόγραμμα απεγκατάστασης</value></data>
+  <data name="BthPS3Uninstall_KindFilter" xml:space="preserve"><value>Καταχώριση φίλτρου Bluetooth</value></data>
+  <data name="BthPS3Uninstall_KindService" xml:space="preserve"><value>Υπηρεσία προγράμματος οδήγησης</value></data>
+  <data name="BthPS3Uninstall_KindFile" xml:space="preserve"><value>Αρχείο προγράμματος οδήγησης</value></data>
+  <data name="BthPS3Uninstall_KindPackage" xml:space="preserve"><value>Πακέτο προγράμματος οδήγησης</value></data>
+  <data name="BthPS3Uninstall_KindWinUsb" xml:space="preserve"><value>Πακέτο προγράμματος οδήγησης WinUSB του PadForge</value></data>
+  <data name="BthPS3Uninstall_KindCertificate" xml:space="preserve"><value>Πιστοποιητικό υπογραφής προγραμμάτων οδήγησης του PadForge</value></data>
+  <data name="BthPS3Uninstall_KindRadio" xml:space="preserve"><value>Bluetooth</value></data>
+  <data name="BthPS3Uninstall_CertificateKept" xml:space="preserve"><value>Τα υπόλοιπα προγράμματα οδήγησης WinUSB του PadForge είναι υπογεγραμμένα με αυτό.</value></data>
+  <data name="BthPS3Uninstall_StillThere" xml:space="preserve"><value>Βρίσκεται ακόμα σε αυτόν τον υπολογιστή.</value></data>
+  <data name="BthPS3Uninstall_RadioOff" xml:space="preserve"><value>Το Bluetooth δεν ενεργοποιήθηκε ξανά. Ενεργοποιήστε το στις Ρυθμίσεις των Windows.</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Εικονικές θύρες MIDI και είσοδος MIDI. Τα Windows 11 25H2 περιλαμβάνουν το API από την ενημέρωση του τέλους Νοεμβρίου 2026. Οι άλλοι υπολογιστές χρησιμοποιούν το περιβάλλον εκτέλεσης των Windows MIDI Services, το οποίο μπορεί να εγκαταστήσει το PadForge, ή το παλαιού τύπου API MIDI.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Ενσωματωμένο στα Windows</value></data>
