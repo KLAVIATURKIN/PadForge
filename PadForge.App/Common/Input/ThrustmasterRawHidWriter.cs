@@ -158,14 +158,33 @@ namespace PadForge.Common.Input
             return new byte[] { 0x00, HeaderId, 0x89, 0x00 };
         }
 
+        /// <summary>The rotation range a model takes, in degrees, which both
+        /// <see cref="WriteRange"/> and the Wheel tab's slider follow
+        /// (<see cref="WheelRangeLimits"/>). Every model takes the T300RS's
+        /// range command (t300rs_set_range, which clamps 40-1080), and each
+        /// keeps the range Thrustmaster documents for it: 40-1080 on the
+        /// T300RS, TS-PC and TS-XW (their SDK notes: FAQ thr_eng_00155,
+        /// thr_eng_00175 and TSXW_Manual_Rotation_Angle.pdf), and 180-900 on
+        /// the T248 (its support page: "the minimum angle of this wheel is
+        /// 180°"). hid-tmff2 clamps those three at 140 with no source given:
+        /// its TS-PC file began as a copy of its TS-XW file (hid-tmff2 #65),
+        /// and a TS-PC set to 40° was sent 140° (discussion #512). No
+        /// Thrustmaster document gives the TX's minimum, so the TX keeps
+        /// hid-tmff2's 140-900, from the T248 file its own was copied from.</summary>
+        internal static (int Min, int Max) RangeLimits(ushort pid) => pid switch
+        {
+            0xB696 => (180, 900), // T248
+            0xB669 => (140, 900), // TX
+            _ => (40, 1080),      // T300RS (three), TS-PC, TS-XW
+        };
+
         /// <summary>Sets the wheel's rotation range in degrees (t300rs_set_range:
-        /// scaled by 0x3c, <c>08 11 lo hi</c>). Clamped per model.</summary>
+        /// scaled by 0x3c, <c>08 11 lo hi</c>). Clamped per model
+        /// (<see cref="RangeLimits"/>).</summary>
         public static bool WriteRange(string devicePath, int degrees, ushort pid)
         {
             if (string.IsNullOrEmpty(devicePath)) return false;
-            // T300RS 40..1080; T248/TX 140..900; TS-XW/TS-PC 140..1080 (hid-tmff2 per-model set_range).
-            int min = (pid == 0xB66E || pid == 0xB66F || pid == 0xB66D) ? 40 : 140;
-            int max = (pid == 0xB696 || pid == 0xB669) ? 900 : 1080;
+            var (min, max) = RangeLimits(pid);
             if (degrees < min) degrees = min; else if (degrees > max) degrees = max;
             int scaled = degrees * 0x3c;
             return Send(devicePath, new byte[] { 0x08, 0x11, (byte)(scaled & 0xff), (byte)((scaled >> 8) & 0xff) });

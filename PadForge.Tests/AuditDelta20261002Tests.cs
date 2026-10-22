@@ -780,7 +780,7 @@ namespace PadForge.Tests
 
             var vm = new PadViewModel(0);
             typeof(PadForge.Services.InputService).GetMethod("LoadPadSettingIntoViewModelCore",
-                BindingFlags.Static | BindingFlags.NonPublic).Invoke(null, new object[] { vm, ps });
+                BindingFlags.Static | BindingFlags.NonPublic).Invoke(null, new object[] { vm, ps, Guid.Empty });
             Assert.Equal(on, vm.GyroInvertPitch);
             Assert.Equal(on, vm.GyroInvertYaw);
             Assert.Equal(on, vm.GyroInvertRoll);

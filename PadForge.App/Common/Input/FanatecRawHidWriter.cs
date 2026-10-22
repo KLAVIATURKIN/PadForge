@@ -259,14 +259,19 @@ namespace PadForge.Common.Input
             }
         }
 
+        /// <summary>The rotation range a base takes, in degrees, which both
+        /// <see cref="WriteRange"/> and the Wheel tab's slider follow
+        /// (<see cref="WheelRangeLimits"/>): min_range 90 (hid-ftec.c:862) up
+        /// to the base's maximum.</summary>
+        internal static (int Min, int Max) RangeLimits(ushort pid) => (90, MaxRange(pid));
+
         /// <summary>Sets the wheel's hardware rotation range in degrees, clamped to the
         /// device max (ftec_set_range: f5 coarse-limit + f8 09 01 06 01 + f8 81 lo hi).</summary>
         public static bool WriteRange(string devicePath, int degrees, ushort pid)
         {
             if (string.IsNullOrEmpty(devicePath)) return false;
-            if (degrees < 90) degrees = 90; // min_range = 90 (hid-ftec.c:862)
-            int max = MaxRange(pid);
-            if (degrees > max) degrees = max;
+            var (min, max) = RangeLimits(pid);
+            if (degrees < min) degrees = min; else if (degrees > max) degrees = max;
             // ftec_set_range sends THREE reports in order (hid-ftecff.c:207-235): the
             // f5 coarse-limit (which also disables the firmware centering spring), the
             // f8 09 01 06 01 setup, then f8 81 lo hi. Sending only f8 81 left the

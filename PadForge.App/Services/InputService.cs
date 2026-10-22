@@ -6747,7 +6747,7 @@ namespace PadForge.Services
                 return;
             }
 
-            LoadPadSettingIntoViewModel(padVm, ps);
+            LoadPadSettingIntoViewModel(padVm, ps, instanceGuid);
         }
 
         /// <summary>Applies every writer-mirrored tuning field from
@@ -6766,13 +6766,16 @@ namespace PadForge.Services
         /// load from a user edit: the MotionGrip listener in MainWindow
         /// recenters the motion state on a user change only (#392), and a
         /// device selection or profile switch must not drop every device's
-        /// gravity estimate on the slot.</summary>
-        internal static void LoadPadSettingIntoViewModel(PadViewModel padVm, PadSetting ps)
+        /// gravity estimate on the slot. <paramref name="deviceGuid"/> is the
+        /// device <paramref name="ps"/> belongs to, the selected one when
+        /// omitted, whose wheel bounds the rotation range (#512).</summary>
+        internal static void LoadPadSettingIntoViewModel(PadViewModel padVm, PadSetting ps, Guid? deviceGuid = null)
         {
             padVm.IsLoadingPadSetting = true;
             try
             {
-                LoadPadSettingIntoViewModelCore(padVm, ps);
+                LoadPadSettingIntoViewModelCore(padVm, ps,
+                    deviceGuid ?? padVm.SelectedMappedDevice?.InstanceGuid ?? Guid.Empty);
             }
             finally
             {
@@ -6833,7 +6836,7 @@ namespace PadForge.Services
                     guids[i].ToString());
         }
 
-        private static void LoadPadSettingIntoViewModelCore(PadViewModel padVm, PadSetting ps)
+        private static void LoadPadSettingIntoViewModelCore(PadViewModel padVm, PadSetting ps, Guid deviceGuid)
         {
             // Dead zones.
             padVm.LeftDeadZoneShape = (int)Common.Input.InputManager.ParseDeadZoneShape(ps.LeftThumbDeadZoneShape);
@@ -6911,7 +6914,7 @@ namespace PadForge.Services
 
             // Force feedback.
             padVm.ForceOverallGain = TryParseInt(ps.ForceOverall, 100);
-            padVm.WheelRotationRange = TryParseInt(ps.RotationRange, 900);
+            padVm.LoadWheelRotationRange(TryParseInt(ps.RotationRange, 900), WheelRangeLimitsOf(deviceGuid));
             padVm.WheelAutoCenter = TryParseInt(ps.AutoCenterStrength, 0);
             padVm.WheelRpmLeds = ps.WheelRpmLeds == "1";
             padVm.LeftMotorStrength = TryParseInt(ps.LeftMotorStrength, 100);
@@ -16878,6 +16881,16 @@ namespace PadForge.Services
             int[] dense = new int[count];
             for (int i = 0; i < count; i++) dense[i] = i;
             return dense;
+        }
+
+        /// <summary>The rotation range the device's wheel takes, from the
+        /// writer that drives it, or null for a device no native writer
+        /// drives or none recorded (#512).</summary>
+        internal static (int Min, int Max)? WheelRangeLimitsOf(Guid instanceGuid)
+        {
+            if (instanceGuid == Guid.Empty) return null;
+            var ud = FindUserDevice(instanceGuid);
+            return ud == null ? null : WheelRangeLimits.For(ud.VendorId, ud.ProdId);
         }
 
         /// <summary>

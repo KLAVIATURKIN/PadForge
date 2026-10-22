@@ -4428,9 +4428,53 @@ namespace PadForge.ViewModels
         public bool TriggerRumbleFold { get => _triggerRumbleFold; set => SetProperty(ref _triggerRumbleFold, value); }
 
         private int _wheelRotationRange = 900;
-        /// <summary>Native-FFB wheel hardware rotation range (40–1080°). Persisted
-        /// in PadSetting.RotationRange; applied via the vendor HID writer in Step 2.</summary>
-        public int WheelRotationRange { get => _wheelRotationRange; set => SetProperty(ref _wheelRotationRange, Math.Clamp(value, 40, 2520)); }
+        /// <summary>Native-FFB wheel hardware rotation range in degrees, within
+        /// the loaded wheel's range (<see cref="WheelRangeMinimum"/>,
+        /// <see cref="WheelRangeMaximum"/>). Persisted in PadSetting.RotationRange;
+        /// applied via the vendor HID writer in Step 2.</summary>
+        public int WheelRotationRange
+        {
+            get => _wheelRotationRange;
+            set => SetProperty(ref _wheelRotationRange, Math.Clamp(value, _wheelRangeMinimum, _wheelRangeMaximum));
+        }
+
+        private int _wheelRangeMinimum = Common.Input.WheelRangeLimits.AnyMin;
+        private int _wheelRangeMaximum = Common.Input.WheelRangeLimits.AnyMax;
+
+        /// <summary>The least range the loaded wheel takes, which bounds the
+        /// slider and <see cref="WheelRotationRange"/> (discussion #512: a
+        /// TS-PC set to 40° was sent 140° behind a slider that offered 40°).</summary>
+        public int WheelRangeMinimum { get => _wheelRangeMinimum; private set => SetProperty(ref _wheelRangeMinimum, value); }
+
+        /// <summary>The greatest range the loaded wheel takes.</summary>
+        public int WheelRangeMaximum { get => _wheelRangeMaximum; private set => SetProperty(ref _wheelRangeMaximum, value); }
+
+        /// <summary>Loads a device's stored range with the bounds of that
+        /// device's wheel (<see cref="Common.Input.WheelRangeLimits"/>), or
+        /// the widest any writer takes when no native writer drives it. A
+        /// stored range outside the bounds loads as the bound, the range the
+        /// wheel gets. The bounds change only here, with the values of the
+        /// device they belong to: a device switch saves the outgoing device's
+        /// values before the incoming device loads, and bounds changed
+        /// between the two would clamp the outgoing device's range by the
+        /// incoming wheel and save it that way.</summary>
+        public void LoadWheelRotationRange(int degrees, (int Min, int Max)? limits)
+        {
+            var (min, max) = limits ?? (Common.Input.WheelRangeLimits.AnyMin, Common.Input.WheelRangeLimits.AnyMax);
+            if (min > max) (min, max) = (max, min);
+            // Ordered so the slider's Minimum never passes its Maximum.
+            if (min > _wheelRangeMaximum)
+            {
+                WheelRangeMaximum = max;
+                WheelRangeMinimum = min;
+            }
+            else
+            {
+                WheelRangeMinimum = min;
+                WheelRangeMaximum = max;
+            }
+            WheelRotationRange = degrees;
+        }
 
         private int _wheelAutoCenter;
         /// <summary>Native-FFB wheel auto-center strength (0–100%; 0 = off).

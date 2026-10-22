@@ -12107,7 +12107,8 @@
                                      SDL wheels, which expose no set-range API. -->
                                 <StackPanel x:Name="WheelRangeRow" Orientation="Horizontal" Margin="0,0,0,8">
                                     <TextBlock Text="{Binding Pad_Wheel_RotationRange, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource DzLabel}"/>
-                                    <Slider Value="{Binding WheelRotationRange, Mode=TwoWay}" Minimum="40" Maximum="2520"
+                                    <Slider Value="{Binding WheelRotationRange, Mode=TwoWay}"
+                                            Minimum="{Binding WheelRangeMinimum}" Maximum="{Binding WheelRangeMaximum}"
                                             Style="{StaticResource DzSlider}"/>
                                     <TextBox Text="{Binding WheelRotationRange, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                              Style="{StaticResource DzValueEdit}"/>

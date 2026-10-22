@@ -3662,7 +3662,8 @@ namespace PadForge.Services
 
                 // Load force feedback settings.
                 padVm.ForceOverallGain = TryParseInt(ps.ForceOverall, 100);
-                padVm.WheelRotationRange = TryParseInt(ps.RotationRange, 900);
+                padVm.LoadWheelRotationRange(TryParseInt(ps.RotationRange, 900),
+                    InputService.WheelRangeLimitsOf(us.InstanceGuid));
                 padVm.WheelAutoCenter = TryParseInt(ps.AutoCenterStrength, 0);
                 padVm.WheelRpmLeds = ps.WheelRpmLeds == "1";
                 padVm.LeftMotorStrength = TryParseInt(ps.LeftMotorStrength, 100);

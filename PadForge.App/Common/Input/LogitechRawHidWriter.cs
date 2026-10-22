@@ -184,6 +184,17 @@ namespace PadForge.Common.Input
             _ => 900,                           // G25 / DFGT / DFP / G27 / G29 / G923
         };
 
+        /// <summary>Whether the wheel turns a fixed range and takes no range
+        /// command (lg4ff_devices: no set_range for these four).</summary>
+        private static bool FixedRange(ushort pid) => pid is 0xC293 or 0xC294 or 0xC295 or 0xCA03;
+
+        /// <summary>The rotation range a model takes, in degrees, which both
+        /// <see cref="WriteRange"/> and the Wheel tab's slider follow
+        /// (<see cref="WheelRangeLimits"/>): 40 up to the lg4ff device table's
+        /// maximum, or that one angle for a wheel with a fixed range.</summary>
+        internal static (int Min, int Max) RangeLimits(ushort pid)
+            => FixedRange(pid) ? (MaxRange(pid), MaxRange(pid)) : (40, MaxRange(pid));
+
         /// <summary>Sets the wheel's hardware rotation range in degrees, clamped to the
         /// per-wheel max. G25/DFGT/G27/G29/G923 use <c>f8 81 lo hi</c> (lg4ff_set_range_g25);
         /// the Driving Force Pro uses a coarse+fine command (lg4ff_set_range_dfp); MOMO /
@@ -191,11 +202,10 @@ namespace PadForge.Common.Input
         public static bool WriteRange(string devicePath, int degrees, ushort pid)
         {
             if (string.IsNullOrEmpty(devicePath)) return false;
-            if (degrees < 40) degrees = 40;
-            int max = MaxRange(pid);
-            if (degrees > max) degrees = max;
+            var (min, max) = RangeLimits(pid);
+            if (degrees < min) degrees = min; else if (degrees > max) degrees = max;
 
-            if (pid == 0xC293 || pid == 0xC294 || pid == 0xC295 || pid == 0xCA03) return true; // fixed range, no command
+            if (FixedRange(pid)) return true; // fixed range, no command
             if (pid == 0xC298) return WriteRangeDfp(devicePath, degrees);     // Driving Force Pro
 
             byte[] cmd = new byte[7]; // G25 / DFGT / G27 / G29 / G923
