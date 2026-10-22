@@ -272,7 +272,11 @@ namespace PadForge.Tests
             int idle = im.IndexOf("if (_enumerationTimer.ElapsedMilliseconds >= 5000", System.StringComparison.Ordinal);
             int normal = im.IndexOf("if (firstCycle || _enumerationTimer.ElapsedMilliseconds >= EnumerationIntervalMs", System.StringComparison.Ordinal);
             Assert.True(idle > 0 && normal > 0);
-            Assert.Contains("FlydigiReprobeTick();", im.Substring(idle, 400));
+            // The idle sweep's stall timing sits between its gate and the
+            // tick, so the idle window ends at the input pass that follows.
+            int idlePass = im.IndexOf("using (EnterMenuPublication())", idle, System.StringComparison.Ordinal);
+            Assert.True(idlePass > idle);
+            Assert.Contains("FlydigiReprobeTick();", im.Substring(idle, idlePass - idle));
             Assert.Contains("FlydigiReprobeTick();", im.Substring(normal, 600));
             string step1 = File.ReadAllText(Path.Combine(RepoRoot(), "PadForge.App", "Common", "Input", "InputManager.Step1.UpdateDevices.cs"));
             int tick = step1.IndexOf("private void FlydigiReprobeTick()", System.StringComparison.Ordinal);

@@ -2079,7 +2079,14 @@ namespace PadForge.Common.Input
                             if (_enumerationTimer.ElapsedMilliseconds >= 5000 || ConsumeBlissBoxSwitchChange())
                             {
                                 _enumerationTimer.Restart();
+                                // Timed as the active branch times its sweep,
+                                // at the same bar, so a sweep stall shows in a
+                                // log taken with no slot online.
+                                long tsIdleEnum = Stopwatch.GetTimestamp();
                                 UpdateDevices();
+                                long idleEnumMs = (Stopwatch.GetTimestamp() - tsIdleEnum) * 1000 / Stopwatch.Frequency;
+                                if (idleEnumMs >= 25)
+                                    Engine.SdlDiagLog.WriteLine($"STALL idle enum={idleEnumMs}ms");
                             }
                             RetryPendingBlissBoxRows();
                             FlydigiReprobeTick();

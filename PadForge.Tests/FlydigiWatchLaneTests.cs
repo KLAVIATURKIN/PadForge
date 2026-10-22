@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using System.Threading;
 using PadForge.Common.Input;
@@ -119,6 +120,34 @@ namespace PadForge.Tests
             string snapshot = SdlDiagLog.Snapshot();
             string line = snapshot.Substring(snapshot.IndexOf("FLYDIGI arrival 37D7:2401 sdl=7", StringComparison.Ordinal));
             Assert.Contains("hidhide=test", line.Substring(0, line.IndexOf('\n') < 0 ? line.Length : line.IndexOf('\n')));
+        }
+
+        private static string RepoRoot()
+        {
+            var d = new DirectoryInfo(AppContext.BaseDirectory);
+            while (d != null && !File.Exists(Path.Combine(d.FullName, "PadForge.sln")))
+                d = d.Parent;
+            Assert.NotNull(d);
+            return d.FullName;
+        }
+
+        /// <summary>The idle branch timed SDL and not the device sweep, so the
+        /// 250 ms process walk wrote no STALL line until a slot came online.
+        /// The idle sweep now writes one past 25 ms, as the active sweep
+        /// does.</summary>
+        [Fact]
+        public void TheIdleBranchTimesItsDeviceSweep()
+        {
+            string loop = File.ReadAllText(Path.Combine(RepoRoot(), "PadForge.App", "Common", "Input", "InputManager.cs")).Replace("\r\n", "\n");
+            int idle = loop.IndexOf("if (BeginIdlePoll())", StringComparison.Ordinal);
+            Assert.True(idle > 0);
+            int active = loop.IndexOf("cycleTimer.Restart();", idle, StringComparison.Ordinal);
+            Assert.True(active > idle);
+            string branch = loop.Substring(idle, active - idle);
+            Assert.Contains("long tsIdleEnum = Stopwatch.GetTimestamp();\n                                UpdateDevices();\n", branch);
+            Assert.Contains("if (idleEnumMs >= 25)\n                                    Engine.SdlDiagLog.WriteLine($\"STALL idle enum={idleEnumMs}ms\");", branch);
+            // The active sweep keeps its own timing at the same bar.
+            Assert.Contains("if (sdlMs >= 25 || enumMs >= 25 || cycleMs >= 50)", loop);
         }
     }
 }

@@ -1606,7 +1606,7 @@ namespace PadForge.Tests
             Assert.Contains("if (_enumerationTimer.ElapsedMilliseconds >= 5000 || ConsumeBlissBoxSwitchChange())", loop);
             Assert.Contains("if (firstCycle || _enumerationTimer.ElapsedMilliseconds >= EnumerationIntervalMs || ConsumeBlissBoxSwitchChange())", loop);
             // Every cycle, right after the sweep, in both loops.
-            Assert.Contains("                                UpdateDevices();\n                            }\n                            RetryPendingBlissBoxRows();", loop);
+            Assert.Contains("                                    Engine.SdlDiagLog.WriteLine($\"STALL idle enum={idleEnumMs}ms\");\n                            }\n                            RetryPendingBlissBoxRows();", loop);
             Assert.Contains("                            enumMs = (Stopwatch.GetTimestamp() - tsEnum) * 1000 / Stopwatch.Frequency;\n                        }\n                        RetryPendingBlissBoxRows();", loop);
             // Phase 1l catches the sweep's generation up, so a phase before it
             // that throws costs one extra sweep, not one a cycle.
