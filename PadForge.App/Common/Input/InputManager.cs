@@ -107,10 +107,32 @@ namespace PadForge.Common.Input
 
         private Thread _pollingThread;
 
-        // Last tick the unconditional poll heartbeat was written. See the
-        // HEARTBEAT write in the poll loop for why an always-on line exists
-        // in a log where everything else is edge-gated.
+        // Last tick the unconditional poll heartbeat was written. See
+        // WritePollHeartbeat for why an always-on line exists in a log where
+        // everything else is edge-gated.
         private long _pollHeartbeatTick;
+
+        /// <summary>The poll loop's channel heartbeat, every 10 s, from every
+        /// branch the loop takes. Every other line in this log is edge-gated
+        /// or threshold-gated, so an absence of lines has two possible
+        /// meanings: nothing happened, or the thing that writes stopped. The
+        /// 2026-07-26 VC investigation could not tell those apart and drew the
+        /// wrong conclusion from silence. This line is written from the poll
+        /// loop itself, so if it is present the loop AND the log are alive,
+        /// and any other silence is genuinely "no events". If it is absent,
+        /// the loop or the channel is dead. The idle and focus-suspended
+        /// branches go back to the loop's top before the active branch ends,
+        /// so they write it too: an idle engine once logged no heartbeat at
+        /// all and read as a dead loop. One line per 10 s is ~8.6k lines a
+        /// day, which the mirror carries without trouble.</summary>
+        private void WritePollHeartbeat(long cycleMs)
+        {
+            if (Environment.TickCount64 - _pollHeartbeatTick <= 10_000)
+                return;
+            _pollHeartbeatTick = Environment.TickCount64;
+            Engine.SdlDiagLog.WriteLine(
+                $"HEARTBEAT poll hz={CurrentFrequency:F0} idle={(IsIdle ? 1 : 0)} cycle={cycleMs}ms");
+        }
         // Injects accumulated macro mouse-move delta with a single SendInput per
         // tick, off the poll thread. See FlushPendingMouseMove: SendInput on the
         // 1000 Hz poll thread let a mouse-move macro drop the poll rate to ~200 Hz.
@@ -2055,6 +2077,7 @@ namespace PadForge.Common.Input
                     // ── Idle mode: skip expensive pipeline, sleep at ~20Hz ──
                     if (BeginIdlePoll())
                     {
+                        long tsIdleCycle = Stopwatch.GetTimestamp();
                         try
                         {
                             // #236: the feedback lane below never runs in
@@ -2124,6 +2147,7 @@ namespace PadForge.Common.Input
                         _frequencyCounter = 0;
                         _frequencyTimer.Restart();
                         FrequencyUpdated?.Invoke(this, EventArgs.Empty);
+                        WritePollHeartbeat((Stopwatch.GetTimestamp() - tsIdleCycle) * 1000 / Stopwatch.Frequency);
                         Thread.Sleep(50);
                         firstCycle = true; // Ensure immediate enumeration on wake
                         // Reset wall-clock drift tracker so stale drift from
@@ -2139,6 +2163,7 @@ namespace PadForge.Common.Input
                         _frequencyCounter = 0;
                         _frequencyTimer.Restart();
                         FrequencyUpdated?.Invoke(this, EventArgs.Empty);
+                        WritePollHeartbeat(0);
                         Thread.Sleep(100);
                         firstCycle = true;
                         wallClock.Restart();
@@ -2224,25 +2249,8 @@ namespace PadForge.Common.Input
                             Engine.SdlDiagLog.WriteLine(
                                 $"STALL poll sdl={sdlMs}ms enum={enumMs}ms cycle={cycleMs}ms");
 
-                        // Channel heartbeat, UNCONDITIONAL, every 10 s. Every
-                        // other line in this log is edge-gated or
-                        // threshold-gated, so an absence of lines has two
-                        // possible meanings: nothing happened, or the thing
-                        // that writes stopped. The 2026-07-26 VC
-                        // investigation could not tell those apart and drew
-                        // the wrong conclusion from silence. This line is
-                        // emitted from the poll loop itself, so if it is
-                        // present the loop AND the log are alive, and any
-                        // other silence is genuinely "no events". If it is
-                        // absent, the loop or the channel is dead. One line
-                        // per 10 s is ~8.6k lines a day, which the mirror
-                        // carries without trouble.
-                        if (Environment.TickCount64 - _pollHeartbeatTick > 10_000)
-                        {
-                            _pollHeartbeatTick = Environment.TickCount64;
-                            Engine.SdlDiagLog.WriteLine(
-                                $"HEARTBEAT poll hz={CurrentFrequency:F0} idle={(IsIdle ? 1 : 0)} cycle={cycleMs}ms");
-                        }
+                        // Channel heartbeat, every 10 s from every branch.
+                        WritePollHeartbeat(cycleMs);
 
                         // Frequency measurement.
                         _frequencyCounter++;

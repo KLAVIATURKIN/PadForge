@@ -149,5 +149,25 @@ namespace PadForge.Tests
             // The active sweep keeps its own timing at the same bar.
             Assert.Contains("if (sdlMs >= 25 || enumMs >= 25 || cycleMs >= 50)", loop);
         }
+
+        /// <summary>The heartbeat tells a live loop from a dead one, so every
+        /// branch of the loop writes it. The idle and focus-suspended branches
+        /// went back to the loop's top before the active branch's write, so an
+        /// idle engine logged no heartbeat at all and read as a dead
+        /// loop.</summary>
+        [Fact]
+        public void EveryBranchOfThePollLoopWritesTheHeartbeat()
+        {
+            string loop = File.ReadAllText(Path.Combine(RepoRoot(), "PadForge.App", "Common", "Input", "InputManager.cs")).Replace("\r\n", "\n");
+            int idle = loop.IndexOf("if (BeginIdlePoll())", StringComparison.Ordinal);
+            int focus = loop.IndexOf("if (ApplyFocusSuspension())", Math.Max(idle, 0), StringComparison.Ordinal);
+            int active = loop.IndexOf("cycleTimer.Restart();", Math.Max(focus, 0), StringComparison.Ordinal);
+            int end = loop.IndexOf("// Frequency measurement.", Math.Max(active, 0), StringComparison.Ordinal);
+            Assert.True(idle > 0 && focus > idle && active > focus && end > active, "the poll loop moved");
+            Assert.Contains("WritePollHeartbeat((Stopwatch.GetTimestamp() - tsIdleCycle) * 1000 / Stopwatch.Frequency);\n                        Thread.Sleep(50);",
+                loop.Substring(idle, focus - idle));
+            Assert.Contains("WritePollHeartbeat(0);\n                        Thread.Sleep(100);", loop.Substring(focus, active - focus));
+            Assert.Contains("WritePollHeartbeat(cycleMs);", loop.Substring(active, end - active));
+        }
     }
 }
