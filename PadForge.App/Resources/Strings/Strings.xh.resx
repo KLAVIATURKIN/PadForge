@@ -81,6 +81,11 @@
   <data name="ControllerType_Nintendo" xml:space="preserve"><value>Nintendo</value></data>
   <data name="ControllerType_MIDI" xml:space="preserve"><value>MIDI</value></data>
   <data name="ControllerType_VR" xml:space="preserve"><value>VR</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Kususwa i-HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>I-HIDMaestro isusiwe.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>I-HIDMaestro isusiwe. I-Windows icima iifayile zayo zokugqibela xa iqala kwakhona.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Ukususwa kwe-HIDMaestro kuyekile. Vala {0}, emva koko uyisuse kwakhona.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>I-HIDMaestro isuswe ngokuyinxalenye. Uluhlu lubonisa oko kushiyekileyo nesizathu.</value></data>
 
   <!-- ═══ MainWindow ═══ -->
 
@@ -102,6 +107,17 @@
   <data name="Settings_ThemeDark" xml:space="preserve"><value>Emnyama</value></data>
   <data name="Settings_Window" xml:space="preserve"><value>Ifestile</value></data>
   <data name="Settings_Updates" xml:space="preserve"><value>Uhlaziyo</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Susa i-HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Oku kususa i-HIDMaestro kule PC: izilawuli zayo ezibonakalayo, idrayiva, isatifikethi sokutyikitya, izitshixo zerejistri neefayile. I-PadForge iqala ngokumisa injini yayo. Ezinye iinkqubo ezisebenzisa i-HIDMaestro ziphulukana nedrayiva yayo de ziqale kwakhona. I-PadForge iyayifaka kwakhona xa iqala isilawuli esibonakalayo ngokulandelayo.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Susa kananjalo i-usbip-win2 efakwe yinkqubo yayo yokufaka</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Iinguqulelo ezindala ze-PadForge zafaka i-usbip-win2 ngenkqubo yokufaka ye-usbip-win2. Oku kuyisusa nayo, ngaphandle kokuba enye inkqubo isebenzisa i-usbip-win2. Isihluzi sayo se-USB root hub siyahlala, kuba ukusisusa kuqalisa kwakhona zonke ii-USB root hub.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Kufundwa oko i-HIDMaestro ikushiye kule PC…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>I-HIDMaestro ayishiyanga nto kule PC ekufuneka isuswe.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Ezi nkqubo zisebenzisa i-HIDMaestro. Zivale, emva koko ukhethe "Hlaziya".</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Inkqubo {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Iyahlala: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Akukwazekanga ukuyifunda: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Ayisuswanga: {0}</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_Language" xml:space="preserve"><value>Ulwimi</value></data>
 
@@ -289,6 +305,9 @@
   <data name="ManageProfiles_DeleteTitle" xml:space="preserve"><value>Cima iprofayile engenisiweyo?</value></data>
   <data name="ManageProfiles_ImportFromFile" xml:space="preserve"><value>Ngenisa kwifayile…</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>Ukufunda kusilele: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>I-HIDMaestro iyalile le profayile ku-{1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Le profayile ayinayo i-HID descriptor, ngoko akukho silawuli sinokwenziwa ngayo.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Akungeniswanga nto. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Hlaziya</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>Ngenisa</value></data>
   <data name="Pad_ExtendedForceFeedback" xml:space="preserve"><value>I-force feedback</value></data>

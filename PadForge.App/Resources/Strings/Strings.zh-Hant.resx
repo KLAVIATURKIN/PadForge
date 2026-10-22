@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>SteamVR 安裝失敗：{0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>正在解除安裝 SteamVR…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR 正在執行。請先關閉再解除安裝。</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>正在移除 HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro 已移除。</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro 已移除。Windows 會在下次啟動時刪除其最後的檔案。</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro 移除已停止。請關閉 {0}，然後再次解除安裝。</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro 僅部分移除。清單顯示了哪些項目保留下來及其原因。</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>裝置清單已重新整理。</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>已錄製「{0}」← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>現在請對應：{0} {1}</value></data>
@@ -425,6 +430,17 @@
   <data name="Settings_AddDots" xml:space="preserve"><value>新增...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>HIDMaestro 驅動程式</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>使用者模式的虛擬 HID 控制器引擎。內嵌於 PadForge.App。首次建立虛擬控制器時自動安裝。在 v3 中取代 ViGEmBus 和 vJoy。</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>解除安裝 HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>這會從此電腦移除 HIDMaestro：其虛擬控制器、驅動程式、簽署憑證、登錄機碼和檔案。PadForge 會先停止其引擎。其他使用 HIDMaestro 的程式在下次啟動前會失去其驅動程式。PadForge 會在下次啟動虛擬控制器時再次安裝它。</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>同時移除由 usbip-win2 自身安裝程式安裝的 usbip-win2</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>舊版 PadForge 會用 usbip-win2 的安裝程式安裝 usbip-win2。這會一併移除該安裝，除非有其他程式使用 usbip-win2。其 USB 根集線器篩選器會保留，因為移除它會重新啟動所有 USB 根集線器。</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>正在讀取 HIDMaestro 在此電腦上留下的內容…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro 在此電腦上沒有留下可移除的內容。</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>這些程式正在使用 HIDMaestro。請關閉它們，然後選取「重新整理」。</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>處理序 {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>保留：{0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>無法讀取：{0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>未移除：{0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>虛擬 MIDI 連接埠和 MIDI 輸入。Windows 11 25H2 自 2026 年 11 月下旬的更新起內建此 API。其他電腦則使用 PadForge 可安裝的 Windows MIDI Services 執行階段，或舊版 MIDI API。</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Windows 內建</value></data>
@@ -1018,6 +1034,9 @@
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>匯入設定檔 JSON</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>已從 {0} 匯入。</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>讀取失敗：{0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro 在 {1} 拒絕了此設定檔：{0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>此設定檔沒有 HID 描述元，因此無法據以建立任何控制器。</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>未匯入任何內容。{0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>重新整理</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>匯入</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>（未命名的 HID 裝置）</value></data>
@@ -3940,7 +3959,7 @@
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>Bliss-Box 參考資料</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>「讀取 Bliss-Box 轉接器」所用的 Bliss-Box API，讀自 Bliss-Box LLC 的 API Tool(BSD 式授權，可免費轉散發)和 DeviceBuddy(原始碼可取得，Bliss-Box LLC)；按鈕名稱來自 SteveFox1620 的 retroarch-joypad-autoconfig 分支中的 Bliss-Box 檔案，Controller Pak 總和檢查碼與 libdragon(Unlicense)比對，PlayStation 手把的回覆則來自 psx-spx 和 Linux 的 psxpad-spi 驅動程式(GPL-2.0-or-later)。控制器名稱和支援說明也來自 Bliss-Box LLC 的相容性清單，轉接器的行為則已對照其韌體檢查。僅作為文件參考，未隨附任何程式碼。</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>Vadym Hrynchyshyn 的 USB 傳輸層，供 HIDMaestro 的複合 USB 控制器使用。其已簽署的安裝程式隨附在 HIDMaestro 內，並在首次建立複合控制器時執行。BSD 2-Clause。</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>Vadym Hrynchyshyn 開發的 USB 傳輸層，供 HIDMaestro 的複合 USB 控制器使用。HIDMaestro 內含其已簽署的主機控制器驅動程式，並在首次建立複合控制器時安裝。BSD 2-Clause。</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>選擇此插槽的哪一半要作用。關閉其中一半會隱藏其列並停止傳送，但會保留其對應，因此重新開啟就能還原。</value>
   </data>

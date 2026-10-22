@@ -97,6 +97,11 @@
   <data name="Main_Nintendo_Max_Format" xml:space="preserve"><value>Nintendo (max {0})</value></data>
   <data name="Main_MIDI_Max_Format" xml:space="preserve"><value>MIDI (max {0})</value></data>
   <data name="Main_VR_Max_Format" xml:space="preserve"><value>VR (max {0})</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Kolongola HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro elongolami.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro elongolami. Windows ekolongola ba fichiers na yango oyo etikali tango ekobanda lisusu.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Kolongola HIDMaestro etelemi. Kanga {0}, sima longola yango lisusu.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro elongolami kaka ndambo. Liste emonisi oyo etikali mpe mpo na nini.</value></data>
 
   <!-- ═══ MainWindow Status Messages ═══ -->
   <data name="Status_DirectionDown" xml:space="preserve"><value>(↓ nse)</value></data>
@@ -121,6 +126,12 @@
   <!-- ═══ Settings ═══ -->
   <data name="Settings_Window" xml:space="preserve"><value>Lininisa</value></data>
   <data name="Settings_CheckNow" xml:space="preserve"><value>Kotala sikoyo</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Kolongola HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Kotanga oyo HIDMaestro etikaki na PC oyo…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro etikaki eloko moko te ya kolongola na PC oyo.</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Etikali: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Ekokaki kotangama te: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Elongolami te: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_Language" xml:space="preserve"><value>Lokota</value></data>
@@ -353,6 +364,9 @@
   <data name="Pad_ExtendedButtons" xml:space="preserve"><value>Ba bouton</value></data>
   <data name="ManageProfiles_Delete" xml:space="preserve"><value>Longola</value></data>
   <data name="ManageProfiles_Close" xml:space="preserve"><value>Kanga</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro eboyi profil oyo na {1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Profil oyo ezali na descripteur HID te, yango wana manette moko te ekoki kosalema na yango.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Eloko moko te ekotisami. {0}</value></data>
   <data name="Pad_ExtendedVid" xml:space="preserve"><value>VID</value></data>
   <data name="Pad_ExtendedPid" xml:space="preserve"><value>PID</value></data>
   <data name="Pad_ExtendedForceFeedback" xml:space="preserve"><value>Retour de force</value></data>

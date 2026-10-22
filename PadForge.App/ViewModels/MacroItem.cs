@@ -7485,12 +7485,14 @@ namespace PadForge.ViewModels
         /// slot's HIDMaestro profile is a Switch Pro family pad whose
         /// descriptor button order is the Nintendo standard (B A Y X, L R,
         /// ZL ZR, Minus Plus, stick clicks, Home, Capture). Grounded in the
-        /// switch-pro profile's layout roles. Covers "switch-pro" and the
-        /// "switch2-pro" id family ("switch2-pro-controller" in the current
-        /// catalog).</summary>
+        /// switch-pro profile's layout roles. Covers "switch-pro", its USB
+        /// descriptor "switch-pro-usb" (HIDMaestro 2.0.0, the same button
+        /// order), and the "switch2-pro" id family ("switch2-pro-controller"
+        /// in the current catalog).</summary>
         public static bool IsNintendoLetteredProfile(string profileId) =>
             !string.IsNullOrEmpty(profileId)
             && (string.Equals(profileId, "switch-pro", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(profileId, "switch-pro-usb", StringComparison.OrdinalIgnoreCase)
                 || profileId.StartsWith("switch2-pro", StringComparison.OrdinalIgnoreCase));
 
         /// <summary>Valve lettering gate: the Steam Deck, the 2015 Steam

@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>SteamVR-ის დაყენება ვერ მოხერხდა: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>SteamVR-ის დეინსტალაცია…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR გაშვებულია. დეინსტალაციამდე დახურეთ.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro-ს წაშლა…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro წაიშალა.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro წაიშალა. Windows მის ბოლო ფაილებს შემდეგი გაშვებისას წაშლის.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro-ს წაშლა შეწყდა. დახურეთ {0} და ხელახლა დააჭირეთ დეინსტალაციას.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro ნაწილობრივ წაიშალა. სიაში ჩანს, რა დარჩა და რატომ.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>მოწყობილობების სია განახლდა.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>ჩაწერილია „{0}“ ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>ახლა მიაბით: {0} {1}</value></data>
@@ -425,6 +430,17 @@
   <data name="Settings_AddDots" xml:space="preserve"><value>დამატება...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>HIDMaestro დრაივერი</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>მომხმარებლის რეჟიმის ვირტუალური HID კონტროლერის ძრავა. ჩაშენებულია PadForge.App-ში. ავტომატურად დაყენდება პირველი ვირტუალური კონტროლერის შექმნისას. v3-ში ანაცვლებს ViGEmBus-სა და vJoy-ს.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>HIDMaestro-ს დეინსტალაცია</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>ეს წაშლის HIDMaestro-ს ამ კომპიუტერიდან: მის ვირტუალურ კონტროლერებს, დრაივერს, ხელმოწერის სერტიფიკატს, რეესტრის გასაღებებსა და ფაილებს. PadForge ჯერ თავის ძრავას გააჩერებს. სხვა პროგრამები, რომლებიც HIDMaestro-ს იყენებენ, მის დრაივერს დაკარგავენ, სანამ ხელახლა არ გაეშვებიან. PadForge მას ხელახლა დააყენებს, როცა შემდეგ ვირტუალურ კონტროლერს შექმნის.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>usbip-win2-ის, რომელიც მისივე ინსტალერით არის დაყენებული, ასევე წაშლა</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>PadForge-ის ძველი ვერსიები usbip-win2-ს მისივე ინსტალერით აყენებდა. ეს წაშლის ამ დაყენებასაც, თუ usbip-win2-ს სხვა პროგრამა არ იყენებს. მისი USB root hub-ის ფილტრი დარჩება, რადგან მისი წაშლა ყველა USB root hub-ს გადატვირთავს.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>მიმდინარეობს იმის წაკითხვა, რაც HIDMaestro-მ ამ კომპიუტერზე დატოვა…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro-მ ამ კომპიუტერზე წასაშლელი არაფერი დატოვა.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>ეს პროგრამები HIDMaestro-ს იყენებენ. დახურეთ ისინი და დააჭირეთ განახლებას.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>პროცესი {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>რჩება: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>ვერ წაიკითხა: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>ვერ წაიშალა: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>ვირტუალური MIDI პორტები და MIDI შეყვანა. Windows 11 25H2 შეიცავს API-ს 2026 წლის ნოემბრის ბოლოს განახლებიდან. სხვა კომპიუტერები იყენებენ Windows MIDI Services-ის გაშვების გარემოს, რომლის დაყენებაც PadForge-ს შეუძლია, ან მოძველებულ MIDI API-ს.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>ჩაშენებულია Windows-ში</value></data>
@@ -1018,6 +1034,9 @@
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>პროფილის JSON-ის იმპორტი</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>იმპორტირებულია: {0}.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>წაკითხვა ვერ მოხერხდა: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro-მ ეს პროფილი უარყო აქ: {1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>ამ პროფილს HID აღმწერი არ აქვს, ამიტომ მისგან კონტროლერის შექმნა შეუძლებელია.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>არაფერი იმპორტირებულა. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>განახლება</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>იმპორტი</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(უსახელო HID მოწყობილობა)</value></data>
@@ -3933,7 +3952,7 @@
   <data name="About_AnalogKeyboardRefs" xml:space="preserve"><value>HallJoy, Soup და AnalogSense</value></data>
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>Bliss-Box-ის წყაროები</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>USB ტრანსპორტი, ავტორი Vadym Hrynchyshyn, HIDMaestro-ს კომპოზიტური USB კონტროლერებისთვის. მისი ხელმოწერილი ინსტალერი HIDMaestro-შია ჩაშენებული და ეშვება კომპოზიტური კონტროლერის პირველად შექმნისას. BSD 2-Clause.</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>USB ტრანსპორტი, ავტორი Vadym Hrynchyshyn, HIDMaestro-ს კომპოზიტური USB კონტროლერებისთვის. HIDMaestro-ს თან ახლავს მისი ხელმოწერილი ჰოსტ-კონტროლერის დრაივერი და აყენებს მას კომპოზიტური კონტროლერის პირველად შექმნისას. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>აირჩიეთ ამ სლოტის რომელი ნახევრებია აქტიური. ნახევრის გამორთვა მალავს მის რიგებს და აჩერებს გაგზავნას, მიბმებს კი ინარჩუნებს, ამიტომ ხელახლა ჩართვისას ისინი აღდგება.</value>
   </data>

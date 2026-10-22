@@ -17,8 +17,9 @@ namespace PadForge.Tests
     /// beside the plain profile, and the state both are handed.
     ///
     /// <para>The wire tests run HIDMaestro's own encoders off the SDK on
-    /// disk: VendorBlobCodec for the plain profile's report 0x09 and
-    /// Switch2ProPacker for the composite's state body. That is the
+    /// disk: VendorBlobCodec for the plain profile's report 0x09 and for the
+    /// composite's 24-byte state block, which HIDMaestro 2.0.0 made profile
+    /// data in place of Switch2ProPacker. That is the
     /// consuming side's definition of every bit, the standard ValveWireTests
     /// set. A Switch 2 Pro slot once handed HIDMaestro its raw button mask,
     /// bit N for row N. The first Pro Controller's packer reads a mask that
@@ -107,17 +108,26 @@ namespace PadForge.Tests
             return report;
         }
 
-        /// <summary>The composite's 24-byte state body for a state, from
-        /// Switch2ProPacker.BuildBody: buttons as a u32, four stick values,
-        /// six motion counts.</summary>
+        /// <summary>The composite's 24-byte state block for a state: buttons
+        /// as a u32, four stick values, six motion counts. HIDMaestro 2.0.0
+        /// made the persona profile data, and SubmitState encodes the
+        /// profile's stateBlock fields with VendorBlobCodec.EncodeInput over
+        /// StateBlockSpecForCodec, or runs the state program the build
+        /// generated from those same fields (HMController.SubmitState).</summary>
         private static byte[] FullBody(HMGamepadState s)
         {
-            var v = Resolved(Profile(Full), s);
-            var packer = Sdk.GetType("HIDMaestro.Internal.Switch2ProPacker", true);
-            var body = new byte[(int)packer.GetField("BodySize", Any).GetValue(null)];
-            packer.GetMethod("BuildBody", Any).Invoke(null, new object[]
+            var p = Profile(Full);
+            var v = Resolved(p, s);
+            object inner = typeof(HMProfile).GetProperty("Inner", Any).GetValue(p);
+            object spec = inner.GetType().GetMethod("StateBlockSpecForCodec", Any).Invoke(inner, null);
+            var codec = Sdk.GetType("HIDMaestro.Internal.VendorBlobCodec", true);
+            object counters = Activator.CreateInstance(codec.GetNestedType("EncoderState", Any));
+            var body = new byte[(int)spec.GetType().GetProperty("Size", Any).GetValue(spec)];
+            codec.GetMethod("EncodeInput", Any).Invoke(null, new object[]
             {
-                s, v[0], v[1], v[2], v[3], v[4], v[5], body,
+                spec, s,
+                (float)v[0], (float)v[1], (float)v[2], (float)v[3], (float)v[4], (float)v[5],
+                body, counters,
             });
             return body;
         }
@@ -140,16 +150,19 @@ namespace PadForge.Tests
 
         // ── The catalog ──
 
-        /// <summary>The Nintendo picker offers the persona beside the two
-        /// profiles it had, and the Extended picker does not list it.</summary>
+        /// <summary>The Nintendo picker offers the persona beside the
+        /// profiles it had, the first Pro Controller on Bluetooth and on USB
+        /// (switch-pro-usb, HIDMaestro 2.0.0) among them, and the Extended
+        /// picker does not list it.</summary>
         [Fact]
         public void TheNintendoPickerOffersThePersona()
         {
             var nintendo = HMaestroProfileCatalog.NintendoProfiles.Select(p => p.Id).ToArray();
             Assert.Contains(S1, nintendo);
+            Assert.Contains("switch-pro-usb", nintendo);
             Assert.Contains(Plain, nintendo);
             Assert.Contains(Full, nintendo);
-            Assert.Equal(3, nintendo.Length);
+            Assert.Equal(4, nintendo.Length);
             Assert.DoesNotContain(HMaestroProfileCatalog.ExtendedProfiles, p => p.Id == Full);
         }
 
@@ -382,18 +395,22 @@ namespace PadForge.Tests
 
         // ── No finished report ──
 
-        /// <summary>The persona takes state and no finished report. Its
-        /// device side picks the report and stamps the counters, and
-        /// HMController.SubmitRawReport and SubmitRawExtendedReport throw
-        /// NotSupportedException on it, so no packer may name it and its
-        /// layout must fit the state.</summary>
+        /// <summary>A persona that builds its own reports takes state and no
+        /// finished report. Its device side picks the report and stamps the
+        /// counters, and a raw submit on it must be its state block
+        /// (HMController.SubmitRawReport throws ArgumentException for another
+        /// length), so no packer may name it and the composite's layout must
+        /// fit the state. The set is HIDMaestro's own
+        /// (HMProfile.BuildsItsOwnReports): from 2.0.0 the Switch Pro on both
+        /// descriptors and the DualShock 3 build theirs as the Switch 2 Pro
+        /// composite does.</summary>
         [Fact]
         public void APersonaThatBuildsItsOwnReportsHasNoPacker()
         {
             var own = HMaestroProfileCatalog.AllProfiles
                 .Where(HMaestroVirtualController.DeviceBuildsReports)
-                .Select(p => p.Id).ToArray();
-            Assert.Equal(new[] { Full }, own);
+                .Select(p => p.Id).OrderBy(id => id, StringComparer.Ordinal).ToArray();
+            Assert.Equal(new[] { "dualshock-3-full", S1, "switch-pro-usb", Full }, own);
 
             Assert.False(HMaestroVirtualController.DeviceBuildsReports(Profile(Plain)));
             Assert.False(HMaestroVirtualController.DeviceBuildsReports(Profile("dualsense-composite")));
@@ -438,33 +455,62 @@ namespace PadForge.Tests
 
         // ── Rumble ──
 
-        private delegate void DecodeRumble(ReadOnlySpan<byte> data, out byte leftMotor, out byte rightMotor);
+        /// <summary>An output report's data, after its ID, through the
+        /// profile's own protocol decoder, as HMController.RunDecoder runs it
+        /// before it raises OutputDecoded: the compiled device model's
+        /// decoders, bound by ProgramBinder, the one that names the report
+        /// ID, its output read back by its semantic names.</summary>
+        private static Dictionary<string, byte> DecodeOutput(string profileId, byte reportId, byte[] data)
+        {
+            object inner = typeof(HMProfile).GetProperty("Inner", Any).GetValue(Profile(profileId));
+            object model = inner.GetType().GetMethod("GetOrCompileModel", Any).Invoke(inner, null);
+            var binder = Sdk.GetType("HIDMaestro.Internal.ProgramBinder", true);
+            var form = Sdk.GetType("HIDMaestro.Internal.Programs.ProgramForm", true);
+            int slack = (int)form.GetField("Slack", Any).GetValue(null);
+            int maxReport = (int)form.GetField("MaxReport", Any).GetValue(null);
+            foreach (object runner in (Array)binder.GetMethod("BindDecoders", Any).Invoke(null, new object[] { model, false }))
+            {
+                object decoder = runner.GetType().GetProperty("Form", Any).GetValue(runner);
+                if (Array.IndexOf((byte[])decoder.GetType().GetProperty("Reports").GetValue(decoder), reportId) < 0) continue;
+                int min = (int)decoder.GetType().GetProperty("MinLength").GetValue(decoder);
+                var scratch = new byte[Math.Max(min, data.Length + 1) + slack + 1];
+                var output = GC.AllocateArray<byte>(maxReport, pinned: true);
+                bool decoded = (bool)runner.GetType().GetMethod("RunOutput", Any).Invoke(runner, new object[]
+                {
+                    reportId, data, data.Length, scratch,
+                    System.Runtime.InteropServices.Marshal.UnsafeAddrOfPinnedArrayElement(output, 0),
+                });
+                Assert.True(decoded, $"report 0x{reportId:X2} of {data.Length} bytes was not decoded");
+                var semantics = (string[])decoder.GetType().GetProperty("Semantics").GetValue(decoder);
+                var fields = new Dictionary<string, byte>();
+                for (int i = 0; i < semantics.Length; i++) fields[semantics[i]] = output[i];
+                return fields;
+            }
+            throw new Xunit.Sdk.XunitException($"{profileId} decodes no output report 0x{reportId:X2}");
+        }
 
         /// <summary>The bundled SDK decodes the persona's output report 0x02
-        /// into the two motor bytes the Nintendo arm of OutputDecoded reads.
-        /// The frame is the one SDL writes for SDL_RumbleGamepad(0x8000,
-        /// 0x4000), in both actuator blocks. HIDMaestro 1.10.1 has no such
-        /// decode.</summary>
+        /// into the two motor bytes the Nintendo arm of OutputDecoded reads,
+        /// leftMotor and rightMotor. The frame is the one SDL writes for
+        /// SDL_RumbleGamepad(0x8000, 0x4000), in both actuator blocks.
+        /// HIDMaestro 1.10.1 has no such decode, and 2.0.0 moved it from
+        /// code into the profile's protocol.decoders.rumble.</summary>
         [Fact]
         public void TheBundledSdkDecodesThePersonasRumble()
         {
-            var packer = Sdk.GetType("HIDMaestro.Internal.Switch2ProPacker", true);
-            var decode = (DecodeRumble)packer.GetMethod("DecodeRumble", Any)
-                .CreateDelegate(typeof(DecodeRumble));
-
             var data = new byte[32];
             byte[] frame = { 0x87, 0xC5, 0x21, 0x91, 0x38 };
             data[0] = 0x50;
             data[16] = 0x50;
             frame.CopyTo(data, 1);
             frame.CopyTo(data, 17);
-            decode(data, out byte left, out byte right);
-            Assert.Equal(127, left);
-            Assert.Equal(64, right);
+            var motors = DecodeOutput(Full, 0x02, data);
+            Assert.Equal(127, motors["leftMotor"]);
+            Assert.Equal(64, motors["rightMotor"]);
 
-            decode(new byte[32], out left, out right);
-            Assert.Equal(0, left);
-            Assert.Equal(0, right);
+            motors = DecodeOutput(Full, 0x02, new byte[32]);
+            Assert.Equal(0, motors["leftMotor"]);
+            Assert.Equal(0, motors["rightMotor"]);
 
             // The arm that takes the pair trusts a Nintendo profile's motors
             // without a Sony validity flag.

@@ -138,6 +138,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>Instalason di SteamVR falha: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>Ta dizinstala SteamVR…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR sta ta funsiona. Fitxa-l antis di dizinstala.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Ta tra HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro dja tradu.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro dja tradu. Windows ta paga kes últimu fitxeru di el próximu bes ki e liga.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Dizinstalason di HIDMaestro para. Fitxa {0} i dipos dizinstala otu bes.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro tradu só un parti. Lista ta mostra kuzê ki fika i pamodi.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Lista di dispozitivu atualizadu.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Gravadu "{0}" ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Gosi mapeia: {0} {1}</value></data>
@@ -266,6 +271,17 @@
   <data name="Settings_HidHide" xml:space="preserve"><value>Driver HidHide</value></data>
   <data name="Settings_AddDots" xml:space="preserve"><value>Djunta...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>Driver HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Dizinstala HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Kel-li ta tra HIDMaestro di es PC: si komandu virtual, driver, sertifikadu di asinatura, txabi di registru i fitxeru. PadForge ta para si motor primeru. Otus programa ki ta uza HIDMaestro ta fika sen si driver ti es torna liga. PadForge ta torna instala-l próximu bes ki e kumesa un komandu virtual.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Tra tanbê usbip-win2 instaladu ku si própi instalador</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Versons antigu di PadForge instala usbip-win2 ku instalador di usbip-win2. Kel-li tanbê ta tra kel instalason, a menus ki otu programa ta uza usbip-win2. Filtru di USB root hub ta fika, pamodi tra-l ta torna inisia tudu USB root hub.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Ta lé kuzê ki HIDMaestro dexa na es PC…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro ka dexa nada na es PC pa tra.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Kes programa li ta uza HIDMaestro. Fitxa-s i dipos skodje Atualiza.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Prosesu {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Ta fika: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Ka da pa lé: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Ka tradu: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiStatusUnavailable" xml:space="preserve"><value>Ka sta disponível</value></data>
   <data name="Settings_MidiStatusNotRunning" xml:space="preserve"><value>Ka sta ta funsiona</value></data>
@@ -550,6 +566,9 @@
   <data name="ManageProfiles_DeleteTitle" xml:space="preserve"><value>Apaga perfil importadu?</value></data>
   <data name="ManageProfiles_StatusDeleted_Format" xml:space="preserve"><value>"{0}" apagadu.</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>Importadu di {0}.</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro rijeita es perfil na {1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Es perfil ka ten deskritor HID, pur isu ka ta da pa faze nenhun komandu ku el.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Nada ka importadu. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Atualiza</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>Importa</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(dispozitivu HID sen nómi)</value></data>

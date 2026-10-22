@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>Namestitev programa SteamVR ni uspela: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>Odstranjevanje programa SteamVR …</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR se izvaja. Pred odstranitvijo ga zaprite.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Odstranjevanje programa HIDMaestro …</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>Program HIDMaestro je bil odstranjen.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Program HIDMaestro je bil odstranjen. Windows izbriše zadnje datoteke ob naslednjem zagonu.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Odstranjevanje programa HIDMaestro je ustavljeno. Zaprite {0} in nato znova odstranite namestitev.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Program HIDMaestro je bil odstranjen le delno. Seznam prikazuje, kaj je ostalo in zakaj.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Seznam naprav je osvežen.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Posneto „{0}“ ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Zdaj preslikajte: {0} {1}</value></data>
@@ -425,6 +430,17 @@ Kopija prejšnje različice je v tej mapi: {1}</value></data>
   <data name="Settings_AddDots" xml:space="preserve"><value>Dodaj ...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>Gonilnik HIDMaestro</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>Mehanizem navideznih krmilnikov HID v uporabniškem načinu. Vgrajen v PadForge.App. Samodejno se namesti, ko ustvarite prvi navidezni krmilnik. V različici v3 nadomešča ViGEmBus in vJoy.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Odstrani namestitev programa HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>S tem odstranite HIDMaestro iz tega računalnika: njegove navidezne krmilnike, gonilnik, podpisno potrdilo, registrske ključe in datoteke. PadForge najprej ustavi svoj mehanizem. Drugi programi, ki uporabljajo HIDMaestro, izgubijo njegov gonilnik do naslednjega zagona. PadForge ga znova namesti, ko naslednjič zažene navidezni krmilnik.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Odstrani tudi usbip-win2, nameščen z lastnim namestitvenim programom</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Starejše različice programa PadForge so namestile usbip-win2 z njegovim namestitvenim programom. S tem odstranite tudi to namestitev, razen če usbip-win2 uporablja drug program. Filter za USB korensko zvezdišče ostane, ker bi njegova odstranitev znova zagnala vsa USB korenska zvezdišča.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Branje tega, kar je HIDMaestro pustil v tem računalniku …</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro v tem računalniku ni pustil ničesar za odstranitev.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Ti programi uporabljajo HIDMaestro. Zaprite jih in nato izberite Osveži.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Proces {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Ostane: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Branje ni uspelo: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Ni odstranjeno: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Navidezna vrata MIDI in vnos MIDI. Windows 11 25H2 vključuje API od posodobitve konec novembra 2026. Drugi računalniki uporabljajo izvajalno okolje Windows MIDI Services, ki ga PadForge lahko namesti, ali starejši API za MIDI.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Vgrajeno v Windows</value></data>
@@ -1018,6 +1034,9 @@ Kopija prejšnje različice je v tej mapi: {1}</value></data>
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>Uvoz profila JSON</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>Uvoženo iz {0}.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>Branje ni uspelo: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro je zavrnil ta profil pri {1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Ta profil nima deskriptorja HID, zato iz njega ni mogoče ustvariti krmilnika.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Nič ni bilo uvoženo. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Osveži</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>Uvozi</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(neimenovana naprava HID)</value></data>
@@ -3940,7 +3959,7 @@ Ali želite, da jih PadForge zdaj odstrani? To zahteva skrbniške pravice in lah
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>Reference za Bliss-Box</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>API Bliss-Box za „Beri adapterje Bliss-Box“, prebran iz orodja Bliss-Box LLC API Tool (BSD-style, redistribution free of charge) in DeviceBuddy (source available, Bliss-Box LLC), z imeni gumbov iz datotek Bliss-Box v izpeljanki retroarch-joypad-autoconfig avtorja SteveFox1620, s kontrolnimi vsotami Controller Pak, preverjenimi z libdragon (Unlicense), in odzivom krmilnika PlayStation iz psx-spx in Linux psxpad-spi driver (GPL-2.0-or-later). Imena krmilnikov in opombe o podpori izhajajo tudi s seznama združljivosti podjetja Bliss-Box LLC, delovanje adapterjev pa je bilo preverjeno z njihovo vdelano programsko opremo. Samo dokumentacija, nobena koda ni vključena.</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>Prenos USB avtorja Vadym Hrynchyshyn za sestavljene krmilnike USB v HIDMaestro. Njegov podpisani namestitveni program je vključen v HIDMaestro in se zažene, ko je prvič ustvarjen sestavljeni krmilnik. BSD 2-Clause.</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>Prenos USB avtorja Vadym Hrynchyshyn za sestavljene krmilnike USB v HIDMaestro. HIDMaestro vsebuje njegov podpisani gonilnik gostiteljskega krmilnika in ga namesti, ko je prvič ustvarjen sestavljeni krmilnik. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>Izberite, katere polovice te reže so dejavne. Izklop polovice skrije njene vrstice in ustavi pošiljanje, preslikave pa ohrani, zato jih ponovni vklop obnovi.</value>
   </data>

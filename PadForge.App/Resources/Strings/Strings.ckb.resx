@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>دامەزراندنی SteamVR سەرکەوتوو نەبوو: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>SteamVR لادەبرێت…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR کاردەکات. پێش لابردن دایبخە.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro لادەبرێت…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro لابرا.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro لابرا. Windows جاری داهاتوو کە دەست پێ دەکات دوایین فایلەکانی دەسڕێتەوە.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>لابردنی HIDMaestro ڕاگیرا. {0} دابخە، پاشان دووبارە هەوڵی لابردنی دامەزراندن بدەوە.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>بەشێک لە HIDMaestro لابرا. لیستەکە نیشان دەدات چی ماوەتەوە و بۆچی.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>لیستی ئامێرەکان نوێکرایەوە.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>{1} بۆ «{0}» تۆمارکرا</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>ئێستا بیبەستەوە: {0} {1}</value></data>
@@ -425,6 +430,17 @@
   <data name="Settings_AddDots" xml:space="preserve"><value>زیادکردن...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>درایڤەری HIDMaestro</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>بزوێنەری کۆنترۆڵەری HID ی مەجازی لە دۆخی بەکارهێنەردا. لەناو PadForge.App دا جێگیرکراوە. لە یەکەم دروستکردنی کۆنترۆڵەری مەجازیدا خۆکارانە دادەمەزرێت. لە v3 دا جێگەی ViGEmBus و vJoy ی گرتەوە.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>لابردنی دامەزراندنی HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>ئەمە HIDMaestro لەم کۆمپیوتەرە لادەبات: کۆنترۆڵەرە مەجازییەکانی، درایڤەرەکەی، بڕوانامەی واژۆکردنەکەی، کلیلەکانی ڕێجیستری و فایلەکانی. PadForge سەرەتا بزوێنەرەکەی ڕادەگرێت. ئەو بەرنامانەی تر کە HIDMaestro بەکاردەهێنن درایڤەرەکەی لەدەست دەدەن تا جاری داهاتوو کە دەست پێ دەکەنەوە. PadForge جاری داهاتوو کە کۆنترۆڵەرێکی مەجازی دەست پێ دەکات دووبارە دایدەمەزرێنێتەوە.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>usbip-win2 یش لاببە کە بە دامەزرێنەری خۆی دامەزرابوو</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>وەشانە کۆنەکانی PadForge بە دامەزرێنەری usbip-win2 خۆی usbip-win2 یان دادەمەزراند. ئەمە ئەو دامەزراندنەش لادەبات، مەگەر بەرنامەیەکی تر usbip-win2 بەکاربهێنێت. فلتەرەکەی بۆ هەبی سەرەکیی USB دەمێنێتەوە، چونکە لابردنی هەموو هەبە سەرەکییەکانی USB دووبارە دەستپێدەکاتەوە.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>خوێندنەوەی ئەوەی HIDMaestro لەم کۆمپیوتەرەدا بەجێی هێشتووە…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro هیچ شتێکی بۆ لابردن لەم کۆمپیوتەرەدا بەجێ نەهێشتووە.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>ئەم بەرنامانە HIDMaestro بەکاردەهێنن. دایانبخە، پاشان نوێکردنەوە هەڵبژێرە.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>پرۆسەی {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>دەمێنێتەوە: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>نەتوانرا بخوێندرێتەوە: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>لانەبرا: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>پۆرتە مەجازییەکانی MIDI و تێخستنی MIDI. Windows 11 25H2 لە نوێکاری کۆتایی نۆڤەمبەری 2026 ەوە API یەکەی تێدایە. کۆمپیوتەرەکانی تر ڕەنتایمی Windows MIDI Services بەکاردەهێنن، کە PadForge دەتوانێت دایبمەزرێنێت، یان API ی کۆنی MIDI.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>لەناو Windows دا</value></data>
@@ -1015,6 +1031,9 @@
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>هاوردەکردنی JSON ی پرۆفایل</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>لە {0} هاوردە کرا.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>خوێندنەوە شکستی هێنا: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro ئەم پرۆفایلەی لە {1} ڕەتکردەوە: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>ئەم پرۆفایلە وەسفکەری HID ی نییە، بۆیە هیچ کۆنترۆڵەرێکی لێ دروست ناکرێت.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>هیچ شتێک هاوردە نەکرا. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>نوێکردنەوە</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>هاوردەکردن</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(ئامێری HID ی بێناو)</value></data>
@@ -3924,7 +3943,7 @@
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>سەرچاوەکانی Bliss-Box</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>API ی Bliss-Box لە پشت خوێندنەوەی ئەداپتەرەکانی Bliss-Box، خوێندراوە لە API Tool ی Bliss-Box LLC (لە شێوەی BSD، دابەشکردنەوەی بێبەرامبەر) و DeviceBuddy (سەرچاوە بەردەستە، Bliss-Box LLC)، لەگەڵ ناوی دوگمەکان لە فایلەکانی Bliss-Box لە لقی retroarch-joypad-autoconfig ی SteveFox1620، چێکسەمەکانی Controller Pak کە لەگەڵ libdragon (Unlicense) بەراورد کراون، و وەڵامی گەیمپادی PlayStation لە psx-spx و درایڤەری psxpad-spi ی Linux (GPL-2.0-or-later). ناوی کۆنترۆڵەرەکان و تێبینییەکانی پشتگیری هەروەها لە لیستی گونجاندنی Bliss-Box LLC هاتوون، و ڕەفتاری ئەداپتەرەکان لەگەڵ فێرموێرەکەیان پشکنراوە. تەنها بەڵگەنامە، هیچ کۆدێک لەگەڵ بەرنامەکەدا نییە.</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>گواستنەوەی USB لەلایەن Vadym Hrynchyshyn بۆ کۆنترۆڵەرە USB ییە پێکهاتەکانی HIDMaestro. دامەزرێنەرە واژۆکراوەکەی لەناو HIDMaestro دایە و یەکەم جار کە کۆنترۆڵەرێکی پێکهاتە دروست دەکرێت کار دەکات. BSD 2-Clause.</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>گواستنەوەی USB لەلایەن Vadym Hrynchyshyn بۆ کۆنترۆڵەرە USB ییە پێکهاتەکانی HIDMaestro. HIDMaestro درایڤەری واژۆکراوی کۆنترۆڵەری هۆستی ئەو لەگەڵ خۆیدا هەڵدەگرێت و یەکەم جار کە کۆنترۆڵەرێکی پێکهاتە دروست دەکرێت دایدەمەزرێنێت. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>هەڵبژێرە کام نیوەی ئەم شوێنە چالاک بن. کوژاندنەوەی نیوەیەک ڕیزەکانی دەشارێتەوە و ناردنی دەوەستێنێت، و بەستنەوەکانی دەهێڵێتەوە بۆ ئەوەی کاتێک دووبارە دەیکەیتەوە بگەڕێنەوە.</value>
   </data>

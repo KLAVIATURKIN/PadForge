@@ -81,6 +81,8 @@
   <data name="ControllerType_Nintendo" xml:space="preserve"><value>Nintendo</value></data>
   <data name="ControllerType_MIDI" xml:space="preserve"><value>MIDI</value></data>
   <data name="ControllerType_VR" xml:space="preserve"><value>VR</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Hinahali an HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>Hinali na an HIDMaestro.</value></data>
 
   <!-- ═══ MainWindow ═══ -->
 
@@ -97,6 +99,9 @@
   <!-- ═══ Settings ═══ -->
   <data name="Settings_ThemeLight" xml:space="preserve"><value>Maliwanag</value></data>
   <data name="Settings_ThemeDark" xml:space="preserve"><value>Madiklom</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Proseso {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Dai nabasa: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Dai nahali: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_Language" xml:space="preserve"><value>Tataramon</value></data>
@@ -223,6 +228,7 @@
   <data name="Pad_ExtendedTriggers" xml:space="preserve"><value>Mga trigger</value></data>
   <data name="Pad_ExtendedPOVs" xml:space="preserve"><value>Mga POV</value></data>
   <data name="Pad_ExtendedButtons" xml:space="preserve"><value>Mga button</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Mayong na-import. {0}</value></data>
   <data name="Pad_ExtendedVid" xml:space="preserve"><value>VID</value></data>
   <data name="Pad_ExtendedPid" xml:space="preserve"><value>PID</value></data>
   <data name="Pad_ExtendedForceFeedback" xml:space="preserve"><value>Force feedback</value></data>

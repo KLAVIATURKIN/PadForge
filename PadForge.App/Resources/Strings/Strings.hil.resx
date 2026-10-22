@@ -112,6 +112,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>Napaslawan ang pag-install sang SteamVR: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>Gina-uninstall ang SteamVR…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>Nagadalagan ang SteamVR. Sirhi anay ini antes i-uninstall.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Ginakuha ang HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>Nakuha na ang HIDMaestro.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Nakuha na ang HIDMaestro. Panasan sang Windows ang nabilin sini nga mga file sa masunod nga pagsugod sini.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Gin-untat ang pagkuha sang HIDMaestro. Sirhi ang {0}, dayon i-uninstall liwat.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Bahin lang sang HIDMaestro ang nakuha. Ginapakita sang listahan kon ano ang nabilin kag ngaa.</value></data>
   <data name="Status_DirectionRight" xml:space="preserve"><value>(→ tuo)</value></data>
   <data name="Status_DirectionDown" xml:space="preserve"><value>(↓ idalom)</value></data>
   <data name="Status_DirectionLeft" xml:space="preserve"><value>(← wala)</value></data>
@@ -145,6 +150,17 @@
   <data name="Settings_Title" xml:space="preserve"><value>Mga Setting</value></data>
   <data name="Settings_ThemeLight" xml:space="preserve"><value>Masanag</value></data>
   <data name="Settings_ThemeDark" xml:space="preserve"><value>Madulom</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>I-uninstall ang HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Ginakuha sini ang HIDMaestro sa sini nga PC: ang iya mga virtual controller, driver, signing certificate, registry key kag mga file. Untaton anay sang PadForge ang iya engine. Ang iban nga mga programa nga nagagamit sang HIDMaestro madulaan sang iya driver tubtob sa masunod nila nga pagsugod. I-install liwat ini sang PadForge sa masunod nga pagsugod sini sang virtual controller.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Kuhaa man ang usbip-win2 nga gin-install sang iya kaugalingon nga installer</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Ang mas daan nga mga bersyon sang PadForge nag-install sang usbip-win2 paagi sa installer sang usbip-win2. Ginakuha man sini ina nga pag-install, luwas kon may iban nga programa nga nagagamit sang usbip-win2. Nagapabilin ang iya filter sa USB root hub, kay ang pagkuha sini magapa-restart sang tanan nga USB root hub.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Ginabasa kon ano ang ginbilin sang HIDMaestro sa sini nga PC…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>Wala sing ginbilin ang HIDMaestro sa sini nga PC nga kuhaon.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Ini nga mga programa nagagamit sang HIDMaestro. Sirhi sila, dayon pilia ang I-refresh.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Proseso {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Nagapabilin: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Indi mabasa: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Wala makuha: {0}</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_OpenFolder" xml:space="preserve"><value>Buksi ang folder</value></data>
   <data name="Settings_UnsavedChanges" xml:space="preserve"><value>Mga pagbag-o nga wala pa matipig</value></data>
@@ -286,6 +302,9 @@
   <data name="Pad_ExtendedTriggers" xml:space="preserve"><value>Mga trigger</value></data>
   <data name="Pad_ExtendedPOVs" xml:space="preserve"><value>Mga POV</value></data>
   <data name="Pad_ExtendedButtons" xml:space="preserve"><value>Mga button</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>Ginbalibaran sang HIDMaestro ini nga profile sa {1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Wala sing HID descriptor ini nga profile, gani wala sing controller nga mahimo halin sini.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Wala sing na-import. {0}</value></data>
   <data name="Pad_ExtendedVid" xml:space="preserve"><value>VID</value></data>
   <data name="Pad_ExtendedPid" xml:space="preserve"><value>PID</value></data>
   <data name="Pad_ExtendedForceFeedback" xml:space="preserve"><value>Force feedback</value></data>

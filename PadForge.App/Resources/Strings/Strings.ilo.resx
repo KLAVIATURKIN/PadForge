@@ -92,6 +92,10 @@
 
   <!-- ═══ MainWindow ═══ -->
   <data name="Main_ShowPadForge" xml:space="preserve"><value>Ipakita ti PadForge</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Ik-ikkaten ti HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>Naikkaten ti HIDMaestro.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Nasardeng ti panangikkat iti HIDMaestro. Irikep ti {0}, sa ikkaten manen.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Paset laeng ti HIDMaestro ti naikkat. Ipakita ti listaan no ania ti nabati ken no apay.</value></data>
 
   <!-- ═══ MainWindow Status Messages ═══ -->
   <data name="Status_DirectionRight" xml:space="preserve"><value>(→ kannawan)</value></data>
@@ -109,6 +113,15 @@
   <!-- ═══ Settings ═══ -->
   <data name="Settings_ThemeLight" xml:space="preserve"><value>Nalawag</value></data>
   <data name="Settings_ThemeDark" xml:space="preserve"><value>Nasipnget</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Ikkaten ti HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Ikkaten met ti usbip-win2 a naikabil babaen ti bukodna nga installer</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Basbasaen no ania ti imbati ti HIDMaestro iti daytoy a PC…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>Awan ti imbati ti HIDMaestro iti daytoy a PC a maikkat.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Us-usaren dagitoy a programa ti HIDMaestro. Irikep dagitoy, sa piliem ti Pabaruen.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Proseso {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Mabati: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Saan a mabasa: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Saan a naikkat: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_Language" xml:space="preserve"><value>Pagsasao</value></data>
@@ -281,6 +294,9 @@
   <data name="Pad_ExtendedButtons" xml:space="preserve"><value>Dagiti butones</value></data>
   <data name="ManageProfiles_Delete" xml:space="preserve"><value>Ikkaten</value></data>
   <data name="ManageProfiles_Close" xml:space="preserve"><value>Irikep</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>Saan nga inawat ti HIDMaestro daytoy a profile iti {1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Awan ti HID descriptor daytoy a profile, isu nga awan ti controller a maaramid manipud iti daytoy.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Awan ti na-import. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>I-refresh</value></data>
   <data name="Pad_ExtendedVid" xml:space="preserve"><value>VID</value></data>
   <data name="Pad_ExtendedPid" xml:space="preserve"><value>PID</value></data>

@@ -141,6 +141,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>Ukufaka i-SteamVR kuhlulekile: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>Kukhishwa i-SteamVR…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>I-SteamVR iyasebenza. Yivale ngaphambi kokuyikhipha.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Kususwa i-HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>I-HIDMaestro isusiwe.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>I-HIDMaestro isusiwe. I-Windows izosusa amafayela okugcina e-HIDMaestro lapho iqala ngokuzayo.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Ukususwa kwe-HIDMaestro kumisiwe. Vala {0}, bese ukhipha futhi.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>I-HIDMaestro isuswe ngokwengxenye. Uhlu lubonisa okusele nokuthi kungani.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Uhlu lwamadivayisi luvuselelwe.</value></data>
   <data name="Status_DirectionRight" xml:space="preserve"><value>(→ kwesokudla)</value></data>
   <data name="Status_DirectionDown" xml:space="preserve"><value>(↓ phansi)</value></data>
@@ -246,6 +251,17 @@
   <data name="Settings_HidHide" xml:space="preserve"><value>Umshayeli we-HidHide</value></data>
   <data name="Settings_HidHideDesc" xml:space="preserve"><value>Fihla amadivayisi angokoqobo kumageyimu ukuze kugwenywe okokufaka okuphindwe kabili.</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>Umshayeli we-HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Khipha i-HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Lokhu kususa i-HIDMaestro kule PC: izilawuli zayo ezibonakalayo, umshayeli, isitifiketi sokusayina, okhiye be-registry namafayela. I-PadForge imisa injini yayo kuqala. Ezinye izinhlelo ezisebenzisa i-HIDMaestro zilahlekelwa umshayeli wayo kuze kube yilapho ziqala kabusha. I-PadForge iyayifaka futhi ngesikhathi esilandelayo lapho iqala isilawuli esibonakalayo.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Susa futhi ne-usbip-win2 efakwe ngohlelo lwayo lokufaka</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Izinguqulo ezindala ze-PadForge zafaka i-usbip-win2 ngohlelo lokufaka lwe-usbip-win2. Lokhu kususa nalokho kufakwa, ngaphandle uma olunye uhlelo lusebenzisa i-usbip-win2. Isihlungi sayo se-USB root hub siyasala, ngoba ukusisusa kuqala kabusha wonke ama-USB root hub.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Kufundwa lokho i-HIDMaestro ekushiye kule PC…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>I-HIDMaestro ayishiyanga lutho kule PC okufanele lususwe.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Lezi zinhlelo zisebenzisa i-HIDMaestro. Zivale, bese ukhetha okuthi Vuselela.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Inqubo {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Kuyasala: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Akukwazanga ukufundwa: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Akususwanga: {0}</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Kwakhelwe ku-Windows</value></data>
   <data name="Settings_MidiStatusUnavailable" xml:space="preserve"><value>Akutholakali</value></data>
   <data name="Settings_MidiStatusNotRunning" xml:space="preserve"><value>Akusebenzi</value></data>
@@ -543,6 +559,9 @@
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>Ngenisa iphrofayela ye-JSON</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>Kungeniswe kusuka ku-{0}.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>Ukufunda kuhlulekile: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>I-HIDMaestro yenqabe le phrofayela ku-{1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Le phrofayela ayinayo i-HID descriptor, ngakho akukho silawuli esingenziwa ngayo.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Akukho okungenisiwe. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Vuselela</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>Ngenisa</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(idivayisi ye-HID engenalo igama)</value></data>

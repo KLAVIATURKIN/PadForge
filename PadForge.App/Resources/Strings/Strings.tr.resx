@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>SteamVR kurulamadı: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>SteamVR kaldırılıyor…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR çalışıyor. Kaldırmadan önce kapatın.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro kaldırılıyor…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro kaldırıldı.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro kaldırıldı. Windows, dosyalarının geri kalanını bilgisayar bir sonraki açılışında siler.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro kaldırma işlemi durdu. {0} programını kapatın, ardından yeniden kaldırın.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro kısmen kaldırıldı. Liste, nelerin neden kaldığını gösterir.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Cihaz listesi yenilendi.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Kaydedildi: "{0}" ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Şimdi eşleyin: {0} {1}</value></data>
@@ -425,6 +430,17 @@
   <data name="Settings_AddDots" xml:space="preserve"><value>Ekle...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>HIDMaestro sürücüsü</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>Kullanıcı modunda çalışan sanal HID kontrolcü motoru. PadForge.App içine gömülüdür. İlk sanal kontrolcü oluşturulduğunda otomatik olarak kurulur. v3 sürümünde ViGEmBus ve vJoy'un yerini alır.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>HIDMaestro'yu kaldır</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Bu işlem HIDMaestro'yu bu bilgisayardan kaldırır: sanal kontrolcülerini, sürücüsünü, imzalama sertifikasını, kayıt defteri anahtarlarını ve dosyalarını. PadForge önce motorunu durdurur. HIDMaestro kullanan diğer programlar, bir sonraki başlatılışlarına kadar sürücüsünü kaybeder. PadForge bir sonraki sanal kontrolcü başlatışında onu yeniden kurar.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Kendi yükleyicisiyle kurulan usbip-win2'yi de kaldır</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Eski PadForge sürümleri usbip-win2'yi usbip-win2'nin kendi yükleyicisiyle kurardı. Bu seçenek o kurulumu da kaldırır, ancak başka bir program usbip-win2 kullanıyorsa kaldırmaz. Kaldırılması her USB kök hub'ını yeniden başlattığı için USB kök hub filtresi kalır.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>HIDMaestro'nun bu bilgisayarda bıraktıkları okunuyor…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro bu bilgisayarda kaldırılacak bir şey bırakmamış.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Bu programlar HIDMaestro kullanıyor. Bunları kapatın, ardından Yenile'yi seçin.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>İşlem {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Kalır: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Okunamadı: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Kaldırılamadı: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Sanal MIDI portları ve MIDI girişi. Windows 11 25H2, Kasım 2026 sonu güncellemesinden itibaren bu API'yi içerir. Diğer bilgisayarlar, PadForge'un kurabildiği Windows MIDI Services çalışma zamanını veya eski MIDI API'sini kullanır.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Windows'ta yerleşik</value></data>
@@ -1018,6 +1034,9 @@
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>Profil JSON'unu içe aktar</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>Şuradan içe aktarıldı: {0}.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>Okunamadı: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro bu profili {1} konumunda reddetti: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Bu profilde HID tanımlayıcısı yok, bu yüzden ondan bir kontrolcü oluşturulamaz.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Hiçbir şey içe aktarılmadı. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Yenile</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>İçe aktar</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(adsız HID cihazı)</value></data>
@@ -3940,7 +3959,7 @@ PadForge bunları şimdi kaldırsın mı? Bu işlem yönetici izni gerektirir ve
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>Bliss-Box referansları</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>Bliss-Box adaptörlerini oku özelliğinin arkasındaki Bliss-Box API'si. Bliss-Box LLC'nin API Tool aracından (BSD tarzı, ücretsiz yeniden dağıtım) ve DeviceBuddy'den (kaynağı açık, Bliss-Box LLC) okundu. Düğme adları SteveFox1620'nin retroarch-joypad-autoconfig çatalındaki Bliss-Box dosyalarından alındı, Controller Pak sağlama toplamları libdragon (Unlicense) ile denetlendi, PlayStation kumandası yanıtı ise psx-spx ve Linux'un psxpad-spi sürücüsünden (GPL-2.0-or-later) alındı. Kontrolcü adları ve destek notları ayrıca Bliss-Box LLC'nin uyumluluk listesinden gelir ve adaptörlerin davranışı donanım yazılımlarıyla denetlenmiştir. Yalnızca belge, hiçbir kod dağıtılmıyor.</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>HIDMaestro'nun bileşik USB kontrolcüleri için Vadym Hrynchyshyn'in USB aktarımı. İmzalı kurulum programı HIDMaestro'nun içinde gelir ve bir bileşik kontrolcü ilk kez oluşturulduğunda çalışır. BSD 2-Clause.</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>HIDMaestro'nun bileşik USB kontrolcüleri için Vadym Hrynchyshyn'in USB aktarımı. HIDMaestro, imzalı ana denetleyici sürücüsünü kendisi taşır ve bir bileşik kontrolcü ilk kez oluşturulduğunda kurar. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>Bu yuvanın hangi yarılarının etkin olacağını seçin. Bir yarıyı kapatmak satırlarını gizler ve göndermesini durdurur, ancak eşlemelerini saklar. Yeniden açtığınızda eşlemeler geri gelir.</value>
   </data>

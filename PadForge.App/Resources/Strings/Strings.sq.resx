@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>Instalimi i SteamVR dështoi: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>Po çinstalohet SteamVR…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR është në punë. Mbylle para çinstalimit.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Po hiqet HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro u hoq.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro u hoq. Windows fshin skedarët e fundit të tij kur niset herës tjetër.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Heqja e HIDMaestro u ndal. Mbyllni {0}, pastaj çinstaloni përsëri.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro u hoq pjesërisht. Lista tregon çfarë mbeti dhe pse.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Lista e pajisjeve u rifreskua.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>U regjistrua "{0}" ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Tani hartëzo: {0} {1}</value></data>
@@ -425,6 +430,17 @@ Një kopje e versionit të mëparshëm ndodhet në këtë dosje: {1}</value></da
   <data name="Settings_AddDots" xml:space="preserve"><value>Shto...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>Drajveri HIDMaestro</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>Motor kontrolluesish virtualë HID në modalitetin e përdoruesit. I ngulitur në PadForge.App. Instalohet automatikisht me krijimin e kontrolluesit të parë virtual. Zëvendëson ViGEmBus dhe vJoy në v3.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Çinstalo HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Kjo heq HIDMaestro nga ky PC: kontrolluesit e tij virtualë, drajverin, certifikatën e nënshkrimit, çelësat e regjistrit dhe skedarët. PadForge ndalon fillimisht motorin e vet. Programet e tjera që përdorin HIDMaestro e humbasin drajverin e tij deri sa të niset secili sërish. PadForge e instalon përsëri herën tjetër që nis një kontrollues virtual.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Hiq edhe usbip-win2 të vendosur nga instaluesi i tij</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Versionet e vjetra të PadForge e vendosnin usbip-win2 me instaluesin e vet. Kjo e heq edhe atë instalim, përveç nëse një program tjetër përdor usbip-win2. Filtri i tij i USB root hub mbetet, sepse heqja e tij rinis çdo USB root hub.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Po lexohet çfarë la HIDMaestro në këtë PC…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro nuk la asgjë për t'u hequr në këtë PC.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Këto programe përdorin HIDMaestro. Mbyllini, pastaj zgjidhni Rifresko.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Procesi {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Mbetet: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Nuk u lexua: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Nuk u hoq: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Porta virtuale MIDI dhe hyrja MIDI. Windows 11 25H2 e përfshin API-n nga përditësimi i fundit të nëntorit 2026. PC-të e tjera përdorin runtime-in Windows MIDI Services, që PadForge mund ta instalojë, ose API-n e vjetër MIDI.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>E integruar në Windows</value></data>
@@ -1017,6 +1033,9 @@ Një kopje e versionit të mëparshëm ndodhet në këtë dosje: {1}</value></da
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>Importo JSON të profilit</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>U importua nga {0}.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>Leximi dështoi: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro e refuzoi këtë profil te {1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Ky profil nuk ka përshkrues HID, ndaj nuk mund të krijohet kontrollues prej tij.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Asgjë nuk u importua. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Rifresko</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>Importo</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(pajisje HID pa emër)</value></data>
@@ -3884,7 +3903,7 @@ Doni që PadForge t'i çinstalojë tani? Kjo kërkon privilegje administratori d
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>Referencat Bliss-Box</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>API-ja Bliss-Box pas «Read Bliss-Box Adapters», lexuar nga API Tool i Bliss-Box LLC (e llojit BSD, shpërndarje pa pagesë) dhe DeviceBuddy (burim i disponueshëm, Bliss-Box LLC), me emrat e butonave nga skedarët Bliss-Box në forkun retroarch-joypad-autoconfig të SteveFox1620, kontrollet e Controller Pak të kontrolluara me libdragon (Unlicense), dhe përgjigjja e padit PlayStation nga psx-spx dhe drajveri psxpad-spi i Linux (GPL-2.0-or-later). Emrat e kontrolluesve dhe shënimet e mbështetjes vijnë gjithashtu nga lista e përputhshmërisë e Bliss-Box LLC, dhe sjellja e përshtatësve u kontrollua me firmuerin e tyre. Vetëm dokumentim, nuk përfshihet kod.</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>Transporti USB nga Vadym Hrynchyshyn për kontrolluesit e përbërë USB të HIDMaestro. Instaluesi i tij i nënshkruar vjen brenda HIDMaestro dhe ekzekutohet herën e parë që krijohet një kontrollues i përbërë. BSD 2-Clause.</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>Transporti USB nga Vadym Hrynchyshyn për kontrolluesit e përbërë USB të HIDMaestro. HIDMaestro mbart drajverin e nënshkruar të kontrolluesit pritës dhe e instalon herën e parë që krijohet një kontrollues i përbërë. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>Zgjidhni cilat gjysma të këtij slot-i janë aktive. Fikja e një gjysme fsheh rreshtat e saj dhe ndalon dërgimin, dhe i ruan hartëzimet e saj, ndaj rindezja i rikthen ato.</value>
   </data>

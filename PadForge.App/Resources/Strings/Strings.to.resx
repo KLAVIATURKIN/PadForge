@@ -84,6 +84,8 @@
   <data name="Main_StartingUp" xml:space="preserve"><value>ʻOku kamata ʻa e PadForge…</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>Fakahaaʻi ʻa e PadForge</value></data>
   <data name="Main_EngineStopped" xml:space="preserve"><value>Kuo taʻofi ʻa e misini</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>ʻOku toʻo ʻa e HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>Kuo toʻo ʻa e HIDMaestro.</value></data>
 
   <!-- ═══ MainWindow Status Messages ═══ -->
   <data name="Status_EngineStarted" xml:space="preserve"><value>Kuo kamata ʻa e misini.</value></data>

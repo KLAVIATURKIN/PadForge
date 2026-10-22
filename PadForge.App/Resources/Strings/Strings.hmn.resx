@@ -102,6 +102,11 @@
 
   <!-- ═══ MainWindow Status Messages ═══ -->
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>Nruab SteamVR tsis tau: {0}</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Tab tom tshem HIDMaestro tawm…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro raug tshem tawm lawm.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro raug tshem tawm lawm. Windows yuav tshem nws cov ntaub ntawv kawg tawm thaum nws pib zaum tom ntej.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Kev tshem HIDMaestro tawm tau nres lawm. Kaw {0}, ces tshem tawm dua.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro raug tshem tawm ib feem xwb. Daim ntawv teev qhia tias yam twg tseem nyob thiab vim li cas.</value></data>
   <data name="Status_DirectionRight" xml:space="preserve"><value>(→ sab xis)</value></data>
   <data name="Status_DirectionDown" xml:space="preserve"><value>(↓ nqis)</value></data>
   <data name="Status_DirectionLeft" xml:space="preserve"><value>(← sab laug)</value></data>
@@ -142,6 +147,13 @@
   <data name="Update_RestartFailed_Format" xml:space="preserve"><value>PadForge rov pib tsis tau: {0}</value></data>
   <data name="Update_Updated_Format" xml:space="preserve"><value>PadForge tau hloov tshiab mus rau {0} lawm.</value></data>
   <data name="Settings_AddDots" xml:space="preserve"><value>Ntxiv...</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Tshem tawm HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Tab tom nyeem seb HIDMaestro tseg dab tsi rau ntawm lub PC no…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro tsis tau tseg dab tsi rau ntawm lub PC no kom tshem tawm.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Cov kev pab cuam no siv HIDMaestro. Kaw lawv, ces xaiv “Ua kom tshiab”.</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Tseem nyob: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Nyeem tsis tau: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Tsis tau tshem tawm: {0}</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Muaj nyob hauv Windows</value></data>
   <data name="Settings_ResetToDefaults" xml:space="preserve"><value>Rov qab mus rau neej ntawd</value></data>
   <data name="Settings_UnsavedChanges" xml:space="preserve"><value>Kev hloov uas tsis tau khaws</value></data>
@@ -307,6 +319,8 @@
   <data name="Pad_ExtendedButtons" xml:space="preserve"><value>Cov khawm</value></data>
   <data name="ManageProfiles_Delete" xml:space="preserve"><value>Rho tawm</value></data>
   <data name="ManageProfiles_Close" xml:space="preserve"><value>Kaw</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro tsis lees txais profile no ntawm {1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Profile no tsis muaj HID descriptor, yog li ua tsis tau ib lub controller los ntawm nws.</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(khoom siv HID tsis muaj npe)</value></data>
   <data name="Pad_ExtendedVid" xml:space="preserve"><value>VID</value></data>
   <data name="Pad_ExtendedPid" xml:space="preserve"><value>PID</value></data>

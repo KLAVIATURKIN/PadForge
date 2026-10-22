@@ -112,6 +112,11 @@
   <!-- ═══ MainWindow Status Messages ═══ -->
   <data name="Status_OperationCanceled" xml:space="preserve"><value>Nofoanan'ny mpampiasa ny asa.</value></data>
   <data name="Status_DownloadingSteamVR" xml:space="preserve"><value>Maka ny SteamVR…</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Manala ny HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>Voaala ny HIDMaestro.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Voaala ny HIDMaestro. Hofafan'ny Windows ireo rakitra farany sisa rehefa manomboka indray izy.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Nijanona ny fanalana ny HIDMaestro. Akatony {0}, dia esory indray.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Ampahany ihany no voaala tamin'ny HIDMaestro. Asehon'ny lisitra izay nijanona sy ny antony.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Nohavaozina ny lisitry ny fitaovana.</value></data>
   <data name="Status_DirectionRight" xml:space="preserve"><value>(→ ankavanana)</value></data>
   <data name="Status_DirectionDown" xml:space="preserve"><value>(↓ ambany)</value></data>
@@ -157,6 +162,17 @@
   <data name="Update_Available_Format" xml:space="preserve"><value>Efa misy ny PadForge {0}.</value></data>
   <data name="Update_Downloading_Format" xml:space="preserve"><value>Maka ny fanavaozana: {0}%</value></data>
   <data name="Update_Updated_Format" xml:space="preserve"><value>Nohavaozina ho {0} ny PadForge.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Esory ny HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Manala ny HIDMaestro amin'ity PC ity izany: ireo contrôleur virtoaly, pilote, certificat fanaovan-tsonia, fanalahidy ao amin'ny registre ary rakitra. Ajanon'ny PadForge aloha ny moterany. Tsy manana ny pilote-ny intsony ireo programa hafa mampiasa ny HIDMaestro mandra-panombohany indray. Apetraky ny PadForge indray izy amin'ny manaraka hanombohany contrôleur virtoaly.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Esory koa ny usbip-win2 napetraky ny installer azy manokana</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Ireo kinova PadForge taloha dia nametraka ny usbip-win2 tamin'ny installer an'ny usbip-win2. Esorin'ity koa izany fametrahana izany, raha tsy misy programa hafa mampiasa ny usbip-win2. Mijanona ny filtre an'ny USB root hub, satria ny fanesorana azy dia mamerina manomboka ny USB root hub rehetra.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Mamaky izay navelan'ny HIDMaestro teto amin'ity PC ity…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>Tsy nisy navelan'ny HIDMaestro teto amin'ity PC ity hesorina.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Mampiasa ny HIDMaestro ireto programa ireto. Akatony izy ireo, avy eo safidio "Havaozy".</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Processus {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Mijanona: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Tsy voavaky: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Tsy voaala: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_OpenFolder" xml:space="preserve"><value>Sokafy ny lahatahiry</value></data>
@@ -372,6 +388,9 @@
   <data name="Pad_ExtendedButtons" xml:space="preserve"><value>Bokotra</value></data>
   <data name="ManageProfiles_Delete" xml:space="preserve"><value>Fafao</value></data>
   <data name="ManageProfiles_Close" xml:space="preserve"><value>Akatony</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>Nolavin'ny HIDMaestro ity profil ity tao amin'ny {1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Tsy manana descripteur HID ity profil ity, ka tsy afaka hanaovana contrôleur avy aminy.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Tsy nisy nampidirina. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Havaozy</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(fitaovana HID tsy misy anarana)</value></data>
   <data name="Pad_ExtendedVid" xml:space="preserve"><value>VID</value></data>

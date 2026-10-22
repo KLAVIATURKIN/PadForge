@@ -90,6 +90,11 @@
 
   <!-- ═══ MainWindow Status Messages ═══ -->
   <data name="Status_OperationCanceled" xml:space="preserve"><value>Onye ọrụ kagburu ọrụ a.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Na-ewepụ HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>E wepụla HIDMaestro.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>E wepụla HIDMaestro. Windows ga-ehichapụ faịlụ ya ndị fọdụrụ mgbe ọ ga-amalite ọzọ.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Mwepụ HIDMaestro kwụsịrị. Mechie {0}, wee wepụ ya ọzọ.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>E wepụrụ naanị otu akụkụ nke HIDMaestro. Ndepụta ahụ na-egosi ihe fọdụrụ na ihe kpatara ya.</value></data>
   <data name="Status_Error_Format" xml:space="preserve"><value>Njehie: {0}</value></data>
   <data name="Profiles_ShortcutLearn" xml:space="preserve"><value>Dekọọ</value></data>
   <data name="Profiles_ShortcutLearning" xml:space="preserve"><value>Na-edekọ...</value></data>
@@ -107,6 +112,14 @@
   <data name="Settings_CheckNow" xml:space="preserve"><value>Lelee ugbu a</value></data>
   <data name="Update_Checking" xml:space="preserve"><value>Na-enyocha mmelite…</value></data>
   <data name="Settings_AddDots" xml:space="preserve"><value>Tinye...</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Wepụ HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Nke a na-ewepụ HIDMaestro na PC a: virtual controller ya niile, driver ya, asambodo mbinye aka ya, igodo registry ya na faịlụ ya. PadForge ga-ebu ụzọ kwụsị engine ya. Mmemme ndị ọzọ na-eji HIDMaestro agaghị enwe driver ya ruo mgbe ha ga-amalite ọzọ. PadForge ga-awụnye ya ọzọ mgbe ọ ga-amalite virtual controller ọzọ.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Na-agụ ihe HIDMaestro hapụrụ na PC a…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro ahapụghị ihe ọ bụla a ga-ewepụ na PC a.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Mmemme ndị a na-eji HIDMaestro. Mechie ha, wee họrọ “Mee ka ọ dị ọhụrụ”.</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Ọ na-anọgide: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Enweghị ike ịgụ ya: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>E wepụghị ya: {0}</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_OpenFolder" xml:space="preserve"><value>Mepee folda</value></data>
   <data name="Settings_Language" xml:space="preserve"><value>Asụsụ</value></data>
@@ -275,6 +288,9 @@
   <data name="ManageProfiles_Close" xml:space="preserve"><value>Mechie</value></data>
   <data name="ManageProfiles_StatusDeleted_Format" xml:space="preserve"><value>E hichapụla "{0}".</value></data>
   <data name="ManageProfiles_ImportFromFile" xml:space="preserve"><value>Bubata site na faịlụ…</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro jụrụ profile a na {1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Profile a enweghị HID descriptor, ya mere enweghị ike ịme controller site na ya.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Ọ dịghị ihe e bubatara. {0}</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>Bubata</value></data>
   <data name="Pad_ExtendedVid" xml:space="preserve"><value>VID</value></data>
   <data name="Pad_ExtendedPid" xml:space="preserve"><value>PID</value></data>

@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>Nepavyko įdiegti „SteamVR“: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>Šalinama „SteamVR“…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>„SteamVR“ veikia. Uždarykite ją prieš šalindami.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Šalinama „HIDMaestro“…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>„HIDMaestro“ pašalinta.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>„HIDMaestro“ pašalinta. Paskutinius jos failus Windows ištrins kitą kartą paleidus kompiuterį.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>„HIDMaestro“ šalinimas sustabdytas. Uždarykite {0} ir pašalinkite dar kartą.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>„HIDMaestro“ pašalinta tik iš dalies. Sąraše matyti, kas liko ir kodėl.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Įrenginių sąrašas atnaujintas.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Įrašyta „{0}“ ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Dabar priskirkite: {0} {1}</value></data>
@@ -423,6 +428,17 @@ Ankstesnės versijos kopija yra šiame aplanke: {1}</value></data>
   <data name="Settings_AddDots" xml:space="preserve"><value>Pridėti...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>„HIDMaestro“ tvarkyklė</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>Naudotojo režimo virtualių HID valdiklių variklis. Įtrauktas į PadForge.App. Įdiegiamas automatiškai, kai sukuriamas pirmasis virtualus valdiklis. Nuo v3 pakeičia „ViGEmBus“ ir „vJoy“.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Pašalinti „HIDMaestro“</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Tai pašalins „HIDMaestro“ iš šio kompiuterio: jos virtualius valdiklius, tvarkyklę, pasirašymo sertifikatą, registro raktus ir failus. Pirmiausia „PadForge“ sustabdo savo variklį. Kitos programos, naudojančios „HIDMaestro“, praras jos tvarkyklę, kol bus paleistos iš naujo. „PadForge“ ją įdiegs iš naujo, kai kitą kartą paleis virtualų valdiklį.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Taip pat pašalinti usbip-win2, įdiegtą jo paties diegimo programa</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Senesnės „PadForge“ versijos įdiegdavo usbip-win2 jo paties diegimo programa. Taip pašalinama ir ji, nebent usbip-win2 naudoja kita programa. USB šakninio šakotuvo filtras lieka, nes jį pašalinus paleidžiami iš naujo visi USB šakniniai šakotuvai.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Skaitoma, ką „HIDMaestro“ paliko šiame kompiuteryje…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>„HIDMaestro“ šiame kompiuteryje nieko nepaliko, ką reikėtų šalinti.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Šias programas naudoja „HIDMaestro“. Uždarykite jas ir spustelėkite „Atnaujinti“.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Procesas {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Lieka: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Nepavyko perskaityti: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Nepašalinta: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Virtualūs MIDI prievadai ir MIDI įvestis. „Windows 11“ 25H2 šią API turi nuo 2026 m. lapkričio pabaigos naujinimo. Kiti kompiuteriai naudoja „Windows MIDI Services“ vykdymo aplinką, kurią gali įdiegti „PadForge“, arba senąją MIDI API.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Integruota į „Windows“</value></data>
@@ -1016,6 +1032,9 @@ Ankstesnės versijos kopija yra šiame aplanke: {1}</value></data>
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>Importuoti profilio JSON</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>Importuota iš {0}.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>Nepavyko perskaityti: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>„HIDMaestro“ atmetė šį profilį ties {1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Šis profilis neturi HID deskriptoriaus, todėl iš jo negalima sukurti valdiklio.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Nieko neimportuota. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Atnaujinti</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>Importuoti</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(bevardis HID įrenginys)</value></data>
@@ -3933,7 +3952,7 @@ Ar norite, kad „PadForge“ jas dabar pašalintų? Tam reikia administratoriau
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>„Bliss-Box“ šaltiniai</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>„Bliss-Box“ API, kuria grindžiamas „Bliss-Box“ adapterių skaitymas, perskaityta iš Bliss-Box LLC „API Tool“ (BSD tipo, platinama nemokamai) ir DeviceBuddy (šaltinio kodas prieinamas, Bliss-Box LLC), su mygtukų pavadinimais iš „Bliss-Box“ failų SteveFox1620 retroarch-joypad-autoconfig atšakoje, „Controller Pak“ kontrolinėmis sumomis, patikrintomis pagal libdragon (Unlicense), ir „PlayStation“ pulto atsakymu iš psx-spx ir „Linux“ psxpad-spi tvarkyklės (GPL-2.0-or-later). Valdiklių pavadinimai ir palaikymo pastabos taip pat paimti iš Bliss-Box LLC suderinamumo sąrašo, o adapterių veikimas patikrintas pagal jų programinę aparatinę įrangą. Tik dokumentacija, joks kodas neplatinamas.</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>USB perdavimas „HIDMaestro“ sudėtiniams USB valdikliams, autorius Vadym Hrynchyshyn. Jo pasirašyta diegimo programa pateikiama „HIDMaestro“ viduje ir paleidžiama, kai pirmą kartą sukuriamas sudėtinis valdiklis. BSD 2-Clause.</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>USB perdavimas „HIDMaestro“ sudėtiniams USB valdikliams, autorius Vadym Hrynchyshyn. „HIDMaestro“ pateikia jo pasirašytą USB pagrindinio valdiklio tvarkyklę ir ją įdiegia, kai pirmą kartą sukuriamas sudėtinis valdiklis. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>Pasirinkite, kurios šio lizdo pusės veikia. Išjungus pusę, jos eilutės paslepiamos ir ji nebesiunčia duomenų, bet jos priskyrimai išlieka, todėl vėl ją įjungus jie atkuriami.</value>
   </data>

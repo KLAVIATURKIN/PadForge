@@ -25,7 +25,7 @@ namespace PadForge.Tests
     {
         private static byte[] Pack(Action<RawHidState> arrange = null,
             TouchpadState tp = default, MotionSnapshot motion = default,
-            uint packetNum = 7)
+            uint packetNum = 7, uint imuMicros = 0)
         {
             var raw = RawHidState.Create(8, 22, 1);
             raw.Povs[0] = -1;
@@ -35,7 +35,7 @@ namespace PadForge.Tests
             arrange?.Invoke(raw);
             var dest = new byte[ValveReportPackers.MaxReportSize];
             ValveReportPackers.ForProfile("steam-deck-composite").Pack(
-                raw, tp, motion, packetNum, dest);
+                raw, tp, motion, packetNum, imuMicros, dest);
             return dest;
         }
 
@@ -158,20 +158,29 @@ namespace PadForge.Tests
         /// it. The raw surface stores one bipolar, rest at short.MinValue and
         /// full pull at short.MaxValue; the wire carries 0 to 32767, which
         /// SDL decodes back with * 2 - 32768 (SDL_hidapi_steamdeck.c 234).
-        /// A pulled trigger also sets its digital bit (byte 8: L2 0x02,
-        /// R2 0x01).
+        /// A trigger pulled to 90 percent of its travel, 29490 of 32767, sets
+        /// its digital bit (byte 8: L2 0x02, R2 0x01), Valve's firmware
+        /// default (ValveReportPackers.TriggerClickPull).
         ///
         /// <para>This used to clamp to [0, 32767], which read every value
         /// below mid-travel as rest. The old shape of this test asserted it:
         /// a raw -5, five counts BELOW the middle of the pull, was expected
-        /// to come out at rest.</para></summary>
+        /// to come out at rest. It also once set the digital bit at any
+        /// travel.</para></summary>
         [Fact]
         public void Triggers_RescaleAndSetDigitalBits()
         {
             var b = Pack(r => { r.Axes[2] = 16000; r.Axes[5] = short.MinValue; });
             Assert.Equal((16000 + 32768) / 2, U16(b, 44));
             Assert.Equal(0, U16(b, 46));                       // resting
-            Assert.Equal(0x02, b[8] & 0x03);
+            Assert.Equal(0, b[8] & 0x03);                      // 74 percent: no click
+
+            // 29489 on the wire is short of the threshold, 29490 reaches it.
+            Assert.Equal(29489, U16(Pack(r => r.Axes[2] = 26210), 44));
+            Assert.Equal(0, Pack(r => r.Axes[2] = 26210)[8] & 0x02);
+            Assert.Equal(29490, U16(Pack(r => r.Axes[2] = 26212), 44));
+            Assert.Equal(0x02, Pack(r => r.Axes[2] = 26212)[8] & 0x02);
+            Assert.Equal(0x01, Pack(r => r.Axes[5] = short.MaxValue)[8] & 0x03);
 
             // Rest, half and full, and the half is the one a clamp lost.
             Assert.Equal(0, U16(Pack(r => r.Axes[2] = short.MinValue), 44));
@@ -202,19 +211,26 @@ namespace PadForge.Tests
         }
 
         /// <summary>The shared touch click clicks the touched pad, and the
-        /// left one when neither is touched. Pressure mirrors the click at
-        /// full scale (HC's value). Each pad also has its own raw click slot
-        /// (16 left, 17 right), which clicks that pad regardless of touch.</summary>
+        /// left one when neither is touched. A touched or clicked pad reads
+        /// full pressure, 32767, which SDL decodes as 1.0 (word over 32768,
+        /// SDL_hidapi_steamdeck.c 272 and 284). The packer once wrote
+        /// HandheldCompanion's 0xFFFF on a click, which SDL read as 2.0, and
+        /// 0 on a touch. Each pad also has its own raw click slot (16 left,
+        /// 17 right), which clicks that pad regardless of touch.</summary>
         [Fact]
         public void PadClick_FollowsTheTouchedPad()
         {
             var right = Pack(tp: new TouchpadState { Down1 = true, X1 = 0.5f, Y1 = 0.5f, Click = true });
             Assert.Equal(0x04, right[10] & 0x06);          // right click only
-            Assert.Equal(ushort.MaxValue, U16(right, 58)); // right pressure
+            Assert.Equal(32767, U16(right, 58));           // right pressure, 1.0
+            Assert.Equal(0, U16(right, 56));               // nothing on the left
 
             var none = Pack(tp: new TouchpadState { Click = true });
             Assert.Equal(0x02, none[10] & 0x06);           // left fallback
-            Assert.Equal(ushort.MaxValue, U16(none, 56));
+            Assert.Equal(32767, U16(none, 56));
+
+            var touch = Pack(tp: new TouchpadState { Down0 = true, X0 = 0.5f, Y0 = 0.5f });
+            Assert.Equal(32767, U16(touch, 56));           // a touch alone presses too
 
             var slots = Pack(r => { r.SetButton(16, true); r.SetButton(17, true); });
             Assert.Equal(0x06, slots[10] & 0x06);          // both, from their own slots

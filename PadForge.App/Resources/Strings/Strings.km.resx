@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>ការដំឡើង SteamVR បរាជ័យ៖ {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>កំពុងលុបការដំឡើង SteamVR…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR កំពុងដំណើរការ។ សូមបិទវាមុនពេលលុបការដំឡើង។</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>កំពុងលុប HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro ត្រូវបានលុបហើយ។</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro ត្រូវបានលុបហើយ។ Windows លុបឯកសារចុងក្រោយរបស់វានៅពេលចាប់ផ្ដើមលើកក្រោយ។</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>ការលុប HIDMaestro បានឈប់។ បិទ {0} រួចលុបការដំឡើងម្ដងទៀត។</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro ត្រូវបានលុបមួយផ្នែក។ បញ្ជីបង្ហាញអ្វីដែលនៅសល់ និងមូលហេតុ។</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>បញ្ជីឧបករណ៍ត្រូវបានផ្ទុកឡើងវិញ។</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>បានថត «{0}» ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>ឥឡូវម៉ាប៖ {0} {1}</value></data>
@@ -425,6 +430,17 @@
   <data name="Settings_AddDots" xml:space="preserve"><value>បន្ថែម...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>ដ្រាយវ័រ HIDMaestro</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>ម៉ាស៊ីនឧបករណ៍បញ្ជា HID និម្មិតក្នុងរបៀបអ្នកប្រើ។ បង្កប់ក្នុង PadForge.App។ ដំឡើងដោយស្វ័យប្រវត្តិ នៅពេលបង្កើតឧបករណ៍បញ្ជានិម្មិតលើកដំបូង។ ជំនួស ViGEmBus និង vJoy ក្នុង v3។</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>លុបការដំឡើង HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>សកម្មភាពនេះលុប HIDMaestro ចេញពីកុំព្យូទ័រនេះ៖ ឧបករណ៍បញ្ជានិម្មិត ដ្រាយវ័រ វិញ្ញាបនបត្រចុះហត្ថលេខា កូនសោបញ្ជីឈ្មោះ និងឯកសាររបស់វា។ PadForge បញ្ឈប់ម៉ាស៊ីនរបស់វាជាមុនសិន។ កម្មវិធីផ្សេងទៀតដែលប្រើ HIDMaestro នឹងបាត់ដ្រាយវ័ររបស់វា រហូតដល់ពួកវាចាប់ផ្ដើមលើកក្រោយ។ PadForge ដំឡើងវាម្ដងទៀតនៅពេលវាចាប់ផ្ដើមឧបករណ៍បញ្ជានិម្មិតលើកក្រោយ។</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>លុប usbip-win2 ដែលបានដំឡើងដោយកម្មវិធីដំឡើងរបស់វាផងដែរ</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>កំណែ PadForge ចាស់ៗបានដំឡើង usbip-win2 ដោយប្រើកម្មវិធីដំឡើងរបស់ usbip-win2។ សកម្មភាពនេះលុបការដំឡើងនោះផងដែរ លុះត្រាតែមានកម្មវិធីផ្សេងទៀតប្រើ usbip-win2។ តម្រងរបស់វានៅលើ USB root hub នៅដដែល ព្រោះការលុបវាធ្វើឱ្យ USB root hub ទាំងអស់ចាប់ផ្ដើមឡើងវិញ។</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>កំពុងអានអ្វីដែល HIDMaestro បានទុកនៅលើកុំព្យូទ័រនេះ…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro មិនបានទុកអ្វីនៅលើកុំព្យូទ័រនេះដែលត្រូវលុបទេ។</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>កម្មវិធីទាំងនេះប្រើ HIDMaestro។ បិទពួកវា រួចជ្រើស «ផ្ទុកឡើងវិញ»។</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>ដំណើរការ {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>នៅដដែល៖ {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>មិនអាចអានបាន៖ {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>មិនបានលុប៖ {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>ច្រក MIDI និម្មិត និងការបញ្ចូល MIDI។ Windows 11 25H2 មាន API នេះ ចាប់ពីបច្ចុប្បន្នភាពចុងខែវិច្ឆិកា 2026។ កុំព្យូទ័រផ្សេងទៀតប្រើកម្មវិធីដំណើរការ Windows MIDI Services ដែល PadForge អាចដំឡើងបាន ឬ API MIDI ចាស់។</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>បង្កប់ក្នុង Windows</value></data>
@@ -1018,6 +1034,9 @@
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>នាំចូល JSON ប្រូហ្វាល់</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>បាននាំចូលពី {0}។</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>ការអានបរាជ័យ៖ {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro បានបដិសេធប្រូហ្វាល់នេះនៅ {1}៖ {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>ប្រូហ្វាល់នេះគ្មាន HID descriptor ទេ ដូច្នេះមិនអាចបង្កើតឧបករណ៍បញ្ជាពីវាបានទេ។</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>គ្មានអ្វីត្រូវបាននាំចូលទេ។ {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>ផ្ទុកឡើងវិញ</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>នាំចូល</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(ឧបករណ៍ HID គ្មានឈ្មោះ)</value></data>
@@ -3933,7 +3952,7 @@
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>ឯកសារយោង Bliss-Box</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>Bliss-Box API នៅពីក្រោយ «អានអាដាប់ទ័រ Bliss-Box» ដែលអានពី API Tool របស់ Bliss-Box LLC (បែប BSD ចែកចាយឡើងវិញដោយឥតគិតថ្លៃ) និង DeviceBuddy (មានកូដប្រភព, Bliss-Box LLC) ជាមួយឈ្មោះប៊ូតុងពីឯកសារ Bliss-Box ក្នុងកំណែបំបែក retroarch-joypad-autoconfig របស់ SteveFox1620, checksum Controller Pak ដែលផ្ទៀងផ្ទាត់ជាមួយ libdragon (Unlicense) និងការឆ្លើយតបរបស់ហ្គេមផេត PlayStation ពី psx-spx និងដ្រាយវ័រ psxpad-spi របស់ Linux (GPL-2.0-or-later)។ ឈ្មោះឧបករណ៍បញ្ជា និងកំណត់ចំណាំការគាំទ្រក៏មកពីបញ្ជីភាពត្រូវគ្នារបស់ Bliss-Box LLC ហើយឥរិយាបថរបស់អាដាប់ទ័រត្រូវបានផ្ទៀងផ្ទាត់ជាមួយហ្វឺមវែររបស់វា។ ប្រើជាឯកសារតែប៉ុណ្ណោះ មិនមានកូដណាមួយត្រូវបានដាក់បញ្ចូលទេ។</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>ការដឹកជញ្ជូន USB ដោយ Vadym Hrynchyshyn សម្រាប់ឧបករណ៍បញ្ជា USB សមាសធាតុរបស់ HIDMaestro។ កម្មវិធីដំឡើងដែលមានហត្ថលេខារបស់វាមកជាមួយ HIDMaestro ហើយដំណើរការលើកដំបូងដែលឧបករណ៍បញ្ជាសមាសធាតុត្រូវបានបង្កើត។ BSD 2-Clause។</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>ការដឹកជញ្ជូន USB ដោយ Vadym Hrynchyshyn សម្រាប់ឧបករណ៍បញ្ជា USB សមាសធាតុរបស់ HIDMaestro។ HIDMaestro មានភ្ជាប់មកជាមួយនូវដ្រាយវ័រឧបករណ៍បញ្ជាម៉ាស៊ីនមេដែលមានហត្ថលេខារបស់វា ហើយដំឡើងវានៅលើកដំបូងដែលឧបករណ៍បញ្ជាសមាសធាតុត្រូវបានបង្កើត។ BSD 2-Clause។</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>ជ្រើសរើសពាក់កណ្ដាលនៃរន្ធនេះដែលដំណើរការ។ ការបិទពាក់កណ្ដាលមួយ លាក់ជួររបស់វា ហើយបញ្ឈប់វាពីការផ្ញើ ប៉ុន្តែរក្សាការម៉ាបរបស់វា ដូច្នេះការបើកវាវិញនឹងស្ដារពួកវាឡើងវិញ។</value>
   </data>

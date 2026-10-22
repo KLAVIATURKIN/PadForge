@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>Instalace SteamVR se nezdařila: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>Odinstalace SteamVR…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR je spuštěný. Před odinstalací ho ukončete.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Odebírání HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro byl odebrán.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro byl odebrán. Windows smaže zbývající soubory při příštím spuštění.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Odebrání HIDMaestro bylo zastaveno. Zavřete {0} a poté odinstalujte znovu.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro byl odebrán jen částečně. Seznam ukazuje, co zůstalo a proč.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Seznam zařízení byl aktualizován.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Zaznamenáno „{0}“ ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Nyní namapujte: {0} {1}</value></data>
@@ -425,6 +430,17 @@ Kopie předchozí verze je v této složce: {1}</value></data>
   <data name="Settings_AddDots" xml:space="preserve"><value>Přidat...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>Systémový ovladač HIDMaestro</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>Jádro virtuálních ovladačů HID v uživatelském režimu. Je součástí PadForge.App. Instaluje se automaticky při prvním vytvoření virtuálního ovladače. Od v3 nahrazuje ViGEmBus a vJoy.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Odinstalovat HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Tím se z tohoto počítače odebere HIDMaestro: jeho virtuální ovladače, systémový ovladač, podpisový certifikát, klíče registru a soubory. PadForge nejprve zastaví své jádro. Ostatní programy, které HIDMaestro používají, ztratí jeho ovladač až do dalšího spuštění. PadForge ho nainstaluje znovu, až příště spustí virtuální ovladač.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Odebrat také usbip-win2 nainstalovaný jeho vlastním instalátorem</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Starší verze PadForge instalovaly usbip-win2 pomocí instalátoru usbip-win2. Tím se odebere i tato instalace, pokud usbip-win2 nepoužívá jiný program. Jeho filtr kořenového rozbočovače USB zůstane, protože jeho odebráním se restartují všechny kořenové rozbočovače USB.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Zjišťuje se, co HIDMaestro v tomto počítači zanechal…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro v tomto počítači nezanechal nic k odebrání.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Tyto programy používají HIDMaestro. Zavřete je a poté vyberte Aktualizovat.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Proces {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Zůstane: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Nelze přečíst: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Neodebráno: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Virtuální porty MIDI a vstup MIDI. Windows 11 25H2 obsahuje toto API od aktualizace z konce listopadu 2026. Ostatní počítače používají běhové prostředí Windows MIDI Services, které PadForge umí nainstalovat, nebo starší MIDI API.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Součást Windows</value></data>
@@ -1018,6 +1034,9 @@ Kopie předchozí verze je v této složce: {1}</value></data>
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>Importovat profil z JSON</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>Importováno z {0}.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>Čtení se nezdařilo: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro odmítl tento profil v místě {1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Tento profil nemá deskriptor HID, takže z něj nelze vytvořit žádný ovladač.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Nic nebylo importováno. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Aktualizovat</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>Importovat</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(nepojmenované zařízení HID)</value></data>
@@ -3940,7 +3959,7 @@ Má je PadForge teď odinstalovat? Vyžaduje to zvýšená oprávnění a může
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>Reference k Bliss-Box</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>API Bliss-Box, které stojí za volbou Číst adaptéry Bliss-Box, čtené z nástroje API Tool společnosti Bliss-Box LLC (licence ve stylu BSD, bezplatná redistribuce) a z DeviceBuddy (dostupný zdrojový kód, Bliss-Box LLC), s názvy tlačítek ze souborů Bliss-Box ve forku retroarch-joypad-autoconfig od SteveFox1620, s kontrolními součty Controller Pak ověřenými podle libdragon (Unlicense) a s odpovědí ovladače PlayStation z psx-spx a ze systémového ovladače psxpad-spi pro Linux (GPL-2.0-or-later). Názvy ovladačů a poznámky k podpoře pocházejí také ze seznamu kompatibility společnosti Bliss-Box LLC a chování adaptérů bylo ověřeno podle jejich firmwaru. Jen dokumentace, žádný kód se nedodává.</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>Přenos USB, autor Vadym Hrynchyshyn, pro kompozitní ovladače USB z HIDMaestro. Jeho podepsaný instalátor se dodává uvnitř HIDMaestro a spustí se při prvním vytvoření kompozitního ovladače. BSD 2-Clause.</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>Přenos USB, autor Vadym Hrynchyshyn, pro kompozitní ovladače USB z HIDMaestro. HIDMaestro obsahuje jeho podepsaný ovladač hostitelského řadiče a nainstaluje ho při prvním vytvoření kompozitního ovladače. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>Zvolte, které poloviny tohoto slotu jsou aktivní. Vypnutí poloviny skryje její řádky a zastaví její odesílání, ale mapování zachová, takže se po opětovném zapnutí obnoví.</value>
   </data>

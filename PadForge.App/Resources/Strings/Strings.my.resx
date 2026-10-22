@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>SteamVR ထည့်သွင်းခြင်း မအောင်မြင်ပါ: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>SteamVR ကို ဖြုတ်ချနေသည်…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR လည်ပတ်နေသည်။ မဖြုတ်ချမီ ၎င်းကို ပိတ်ပါ။</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro ကို ဖယ်ရှားနေသည်…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro ကို ဖယ်ရှားပြီးပါပြီ။</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro ကို ဖယ်ရှားပြီးပါပြီ။ ၎င်း၏ ကျန်ရှိသော ဖိုင်များကို Windows နောက်တစ်ကြိမ် စတင်သည့်အခါ Windows က ဖျက်သည်။</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro ဖယ်ရှားခြင်း ရပ်သွားသည်။ {0} ကို ပိတ်ပြီး ထပ်မံ ဖြုတ်ချပါ။</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro ကို တစ်စိတ်တစ်ပိုင်းသာ ဖယ်ရှားနိုင်ခဲ့သည်။ ကျန်ခဲ့သည်များနှင့် အကြောင်းရင်းကို စာရင်းတွင် ပြထားသည်။</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>စက်ပစ္စည်းစာရင်းကို ပြန်လည်ဆန်းသစ်ပြီးပါပြီ။</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>မှတ်တမ်းတင်ပြီး “{0}” ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>ယခု မက်ပ်လုပ်ရန်: {0} {1}</value></data>
@@ -425,6 +430,17 @@
   <data name="Settings_AddDots" xml:space="preserve"><value>ထည့်ရန်...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>HIDMaestro ဒရိုက်ဗာ</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>အသုံးပြုသူမုဒ် ဗာချွယ် HID ကွန်ထရိုလာ အင်ဂျင်။ PadForge.App တွင် ထည့်သွင်းပါဝင်သည်။ ပထမဆုံး ဗာချွယ်ကွန်ထရိုလာ ဖန်တီးချိန်တွင် အလိုအလျောက် ထည့်သွင်းသည်။ v3 တွင် ViGEmBus နှင့် vJoy ကို အစားထိုးသည်။</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>HIDMaestro ကို ဖြုတ်ချ</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>ဤလုပ်ဆောင်ချက်သည် HIDMaestro ကို ဤကွန်ပျူတာမှ ဖယ်ရှားသည်: ၎င်း၏ ဗာချွယ်ကွန်ထရိုလာများ၊ ဒရိုက်ဗာ၊ လက်မှတ်ထိုး certificate၊ registry key များနှင့် ဖိုင်များ။ PadForge သည် ၎င်း၏ အင်ဂျင်ကို ဦးစွာ ရပ်သည်။ HIDMaestro ကို အသုံးပြုသော အခြားပရိုဂရမ်များသည် ၎င်းတို့ နောက်တစ်ကြိမ် စတင်သည်အထိ ၎င်း၏ ဒရိုက်ဗာကို အသုံးမပြုနိုင်ပါ။ PadForge သည် နောက်တစ်ကြိမ် ဗာချွယ်ကွန်ထရိုလာ စတင်သည့်အခါ ၎င်းကို ပြန်လည်ထည့်သွင်းသည်။</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>usbip-win2 ၏ ကိုယ်ပိုင် installer ဖြင့် ထည့်သွင်းထားသော usbip-win2 ကိုလည်း ဖယ်ရှားရန်</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>PadForge ဗားရှင်းအဟောင်းများသည် usbip-win2 ကို usbip-win2 ၏ installer ဖြင့် ထည့်သွင်းခဲ့သည်။ အခြားပရိုဂရမ်တစ်ခုက usbip-win2 ကို အသုံးမပြုလျှင် ထိုထည့်သွင်းမှုကိုလည်း ဖယ်ရှားသည်။ ၎င်း၏ USB root hub filter ကို ဖယ်ရှားလျှင် USB root hub အားလုံး ပြန်လည်စတင်မည်ဖြစ်၍ ၎င်းကို ချန်ထားသည်။</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>HIDMaestro က ဤကွန်ပျူတာပေါ်တွင် ချန်ထားခဲ့သည်များကို ဖတ်နေသည်…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro က ဤကွန်ပျူတာပေါ်တွင် ဖယ်ရှားစရာ ဘာမျှ ချန်မထားခဲ့ပါ။</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>ဤပရိုဂရမ်များသည် HIDMaestro ကို အသုံးပြုနေသည်။ ၎င်းတို့ကို ပိတ်ပြီး “ပြန်လည်ဆန်းသစ်” ကို ရွေးပါ။</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>လုပ်ငန်းစဉ် {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>ကျန်ရှိမည်: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>ဖတ်၍ မရပါ: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>ဖယ်ရှား၍ မရပါ: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>ဗာချွယ် MIDI ပေါ့တ်များနှင့် MIDI အဝင်။ Windows 11 25H2 တွင် 2026 နိုဝင်ဘာလ နှောင်းပိုင်း အပ်ဒိတ်မှစ၍ API ပါဝင်သည်။ အခြား PC များသည် PadForge ထည့်သွင်းပေးနိုင်သော Windows MIDI Services ရန်တိုင်း သို့မဟုတ် MIDI API အဟောင်းကို အသုံးပြုသည်။</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Windows တွင် ပါဝင်ပြီး</value></data>
@@ -1018,6 +1034,9 @@
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>ပရိုဖိုင် JSON တင်သွင်းရန်</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>{0} မှ တင်သွင်းပြီးပါပြီ။</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>ဖတ်၍ မရပါ: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro သည် ဤပရိုဖိုင်ကို {1} တွင် ငြင်းပယ်ခဲ့သည်: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>ဤပရိုဖိုင်တွင် HID ဖော်ပြချက် မပါဝင်သဖြင့် ၎င်းမှ ကွန်ထရိုလာ ပြုလုပ်၍ မရပါ။</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>ဘာမျှ မတင်သွင်းခဲ့ပါ။ {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>ပြန်လည်ဆန်းသစ်ရန်</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>တင်သွင်းရန်</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(အမည်မဲ့ HID စက်ပစ္စည်း)</value></data>
@@ -3928,7 +3947,7 @@ PadForge က ၎င်းတို့ကို ယခုပင် ဖြုတ�
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>Bliss-Box ကိုးကားချက်များ</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>“Bliss-Box အဒက်ပ်တာများ ဖတ်ရန်” နောက်ကွယ်ရှိ Bliss-Box API ကို Bliss-Box LLC ၏ API Tool (BSD-style၊ အခမဲ့ ပြန်လည်ဖြန့်ဝေနိုင်) နှင့် DeviceBuddy (source ရရှိနိုင်၊ Bliss-Box LLC) မှ ဖတ်ရှုထားသည်။ ခလုတ်အမည်များကို SteveFox1620 ၏ retroarch-joypad-autoconfig fork ရှိ Bliss-Box ဖိုင်များမှ ယူထားပြီး Controller Pak checksum များကို libdragon (Unlicense) နှင့် စစ်ဆေးထားကာ PlayStation ဂိမ်းပက်၏ အဖြေကို psx-spx နှင့် Linux ၏ psxpad-spi ဒရိုက်ဗာ (GPL-2.0-or-later) မှ ယူထားသည်။ ကွန်ထရိုလာအမည်များနှင့် ပံ့ပိုးမှုမှတ်စုများကို Bliss-Box LLC ၏ လိုက်ဖက်မှုစာရင်းမှလည်း ယူထားပြီး အဒက်ပ်တာများ၏ အပြုအမူကို ၎င်းတို့၏ ဖမ်းဝဲနှင့် စစ်ဆေးထားသည်။ စာရွက်စာတမ်းအဖြစ်သာ၊ ကုဒ် မပါဝင်ပါ။</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>HIDMaestro ၏ ပေါင်းစပ် USB ကွန်ထရိုလာများအတွက် USB transport၊ ရေးသားသူ Vadym Hrynchyshyn။ ၎င်း၏ လက်မှတ်ထိုးထားသော installer ကို HIDMaestro အတွင်း ထည့်သွင်းထားပြီး ပေါင်းစပ်ကွန်ထရိုလာကို ပထမဆုံး ဖန်တီးချိန်တွင် လည်ပတ်သည်။ BSD 2-Clause။</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>HIDMaestro ၏ ပေါင်းစပ် USB ကွန်ထရိုလာများအတွက် USB transport၊ ရေးသားသူ Vadym Hrynchyshyn။ HIDMaestro သည် ၎င်း၏ လက်မှတ်ထိုးထားသော host controller ဒရိုက်ဗာကို ပါဝင်ထားပြီး ပေါင်းစပ်ကွန်ထရိုလာကို ပထမဆုံး ဖန်တီးချိန်တွင် ထည့်သွင်းသည်။ BSD 2-Clause။</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>ဤဆလော့၏ မည်သည့်တစ်ဝက်များ အသက်ဝင်မည်ကို ရွေးပါ။ တစ်ဝက်ကို ပိတ်လျှင် ၎င်း၏အတန်းများကို ဝှက်ပြီး ပို့ခြင်းကို ရပ်စေသော်လည်း ၎င်း၏မက်ပင်းများကို ထားရှိသောကြောင့် ပြန်ဖွင့်လျှင် ပြန်ရရှိမည်။</value>
   </data>

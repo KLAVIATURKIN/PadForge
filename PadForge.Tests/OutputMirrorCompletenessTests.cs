@@ -170,8 +170,10 @@ namespace PadForge.Tests
         /// <summary>
         /// EVERY HIDMaestro sweep call site passes preserveInstall.
         ///
-        /// <para>The parameterless overload is uninstall-grade: it deletes
-        /// the whole HKLM\SOFTWARE\HIDMaestro tree, which carries the HID
+        /// <para>The parameterless overload passes preserveInstall false: once
+        /// no controller of any program remains on the driver, it deletes the
+        /// driver packages and the whole HKLM\SOFTWARE\HIDMaestro tree, which
+        /// carries the HID
         /// manifest hash (the same-version fast path), the SteamVRPath hint
         /// that locates a steamcmd SteamVR, and the VR driver's registration
         /// gate. Losing that gate makes the next VR slot re-extract
@@ -216,10 +218,13 @@ namespace PadForge.Tests
                 }
 
             // A guard that finds nothing to guard is not a guard. The one
-            // member, and its three callers: the two known sites plus the
-            // startup one.
+            // member, and its two callers: the launch sweep and the context
+            // preflight. The process-exit hook went with HIDMaestro 2.0.0,
+            // whose sweep leaves a running program's controllers alone and
+            // whose own exit handler removes the ones a program did not
+            // dispose.
             Assert.Equal(1, callSites);
-            Assert.Equal(3, sweeps);
+            Assert.Equal(2, sweeps);
         }
 
     }

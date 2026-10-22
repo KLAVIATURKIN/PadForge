@@ -116,6 +116,11 @@
   <!-- ═══ MainWindow Status Messages ═══ -->
   <data name="Status_OperationCanceled" xml:space="preserve"><value>Hojiin fayyadamaan haqameera.</value></data>
   <data name="Status_DownloadingSteamVR" xml:space="preserve"><value>SteamVR buufachaa jira…</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro haqamaa jira…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro haqameera.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro haqameera. Windows yeroo itti aanu ka'u faayiloota isaa hafan haqa.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Haquun HIDMaestro dhaabbateera. {0} cufi, achiis irra deebi'ii haqi.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro gartokkoon haqameera. Tarreeffamni waan hafee fi sababa isaa agarsiisa.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Tarreen meeshaalee haaromfameera.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>"{0}" galmeeffameera ← {1}</value></data>
   <data name="Status_DirectionRight" xml:space="preserve"><value>(→ mirga)</value></data>
@@ -173,6 +178,17 @@
   <data name="Update_Downloading_Format" xml:space="preserve"><value>Haaromsa buufachaa jira: {0}%</value></data>
   <data name="Update_CheckFailed_Format" xml:space="preserve"><value>Haaromsa barbaaduu hin dandeenye: {0}</value></data>
   <data name="Update_Updated_Format" xml:space="preserve"><value>PadForge gara {0}tti haaromfameera.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>HIDMaestro haqi</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Kun HIDMaestro PC kana irraa haqa: kontirolaa fakkeessaa isaa, draayivarii isaa, sartifikeetii mallattoo isaa, furtuulee rejistirii fi faayiloota isaa. PadForge dursee injiinii isaa dhaabsisa. Sagantaaleen biroo HIDMaestro fayyadaman hanga yeroo itti aanu ka'anitti draayivarii isaa dhabu. PadForge yeroo itti aanu kontirolaa fakkeessaa jalqabsiisu deebisee isa fe'a.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>usbip-win2 sagantaa fe'insaa mataa isaatiin fe'ames haqi</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Veershiniiwwan PadForge duraanii usbip-win2 sagantaa fe'insaa usbip-win2-tiin fe'aniiru. Sagantaan biraa usbip-win2 yoo hin fayyadamne malee, kun fe'insa sanas ni haqa. Filtarii USB root hub isaa ni hafa, sababni isaas haquun isaa USB root hub hunda irra deebisee jalqabsiisa.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Waan HIDMaestro PC kana irratti dhiise dubbisaa jira…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro PC kana irratti waan haqamu tokkollee hin dhiisne.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Sagantaaleen kun HIDMaestro fayyadamu. Isaan cufiitii, achiis Haaromsi filadhu.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Adeemsa {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Hafa: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Dubbifamuu hin dandeenye: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Hin haqamne: {0}</value></data>
   <data name="Settings_Reload" xml:space="preserve"><value>Irra deebi'ii fe'i</value></data>
   <data name="Settings_ResetToDefaults" xml:space="preserve"><value>Gara durtiitti deebisi</value></data>
   <data name="Settings_Language" xml:space="preserve"><value>Afaan</value></data>
@@ -355,6 +371,9 @@
   <data name="ManageProfiles_StatusExportFailed_Format" xml:space="preserve"><value>Baasuun hin milkoofne: {0}</value></data>
   <data name="ManageProfiles_StatusDeleted_Format" xml:space="preserve"><value>"{0}" haqameera.</value></data>
   <data name="ManageProfiles_ImportFromFile" xml:space="preserve"><value>Faayilii irraa galchi…</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro piroofaayilii kana {1} irratti dide: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Piroofaayiliin kun diskiriptarii HID hin qabu, kanaaf kontirolaan tokkollee isa irraa uumamuu hin danda'u.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Homtuu hin galchamne. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Haaromsi</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>Galchi</value></data>
   <data name="Pad_ExtendedVid" xml:space="preserve"><value>VID</value></data>

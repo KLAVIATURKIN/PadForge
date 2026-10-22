@@ -89,6 +89,7 @@ namespace PadForge.ViewModels
         {
             Title = Strings.Instance.Settings_Title;
             OnPropertyChanged(nameof(HidHideStatusText));
+            OnPropertyChanged(nameof(HIDMaestroStatusText));
             OnPropertyChanged(nameof(MidiServicesStatusText));
             OnPropertyChanged(nameof(MidiServicesDetailText));
             OnPropertyChanged(nameof(MidiInstallTooltip));
@@ -224,6 +225,37 @@ namespace PadForge.ViewModels
             }
             catch { return string.Empty; }
         }
+
+        private bool _isHIDMaestroInstalled;
+
+        /// <summary>Whether HIDMaestro's driver is in the driver store
+        /// (Services.HIDMaestroRemoval.IsDriverInstalled). PadForge installs it
+        /// with its first virtual controller, and Uninstall removes it.</summary>
+        public bool IsHIDMaestroInstalled
+        {
+            get => _isHIDMaestroInstalled;
+            set
+            {
+                if (SetProperty(ref _isHIDMaestroInstalled, value))
+                    OnPropertyChanged(nameof(HIDMaestroStatusText));
+            }
+        }
+
+        /// <summary>HIDMaestro status display text.</summary>
+        public string HIDMaestroStatusText =>
+            _isHIDMaestroInstalled ? Strings.Instance.Common_Installed : Strings.Instance.Common_NotInstalled;
+
+        private RelayCommand _uninstallHIDMaestroCommand;
+
+        /// <summary>Opens the removal of HIDMaestro from the PC (#518). Always
+        /// available: with the driver gone, the dialog still lists whatever
+        /// else HIDMaestro left, or says nothing is left.</summary>
+        public RelayCommand UninstallHIDMaestroCommand =>
+            _uninstallHIDMaestroCommand ??= new RelayCommand(
+                () => UninstallHIDMaestroRequested?.Invoke(this, EventArgs.Empty));
+
+        /// <summary>Raised when the user asks to remove HIDMaestro.</summary>
+        public event EventHandler UninstallHIDMaestroRequested;
 
         private RelayCommand _installHidHideCommand;
 

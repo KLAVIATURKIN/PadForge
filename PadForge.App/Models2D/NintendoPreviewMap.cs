@@ -194,7 +194,11 @@ public static class NintendoPreviewMap
     {
         if (string.IsNullOrEmpty(profileId)) return Family.None;
         if (Starts(profileId, "switch2-pro")) return Family.Switch2Pro;
-        if (string.Equals(profileId, "switch-pro", System.StringComparison.OrdinalIgnoreCase)) return Family.SwitchPro;
+        // The original Pro Controller on either descriptor: Bluetooth's, and
+        // the USB one HIDMaestro 2.0.0 added, whose buttons are the same and
+        // whose right stick sits on Z and Rz.
+        if (string.Equals(profileId, "switch-pro", System.StringComparison.OrdinalIgnoreCase)
+            || string.Equals(profileId, "switch-pro-usb", System.StringComparison.OrdinalIgnoreCase)) return Family.SwitchPro;
         if (Starts(profileId, "steam-deck")) return Family.SteamDeck;
         if (Starts(profileId, "steam-controller-2")) return Family.SteamController2;
         if (Starts(profileId, "steam-controller")) return Family.SteamController;

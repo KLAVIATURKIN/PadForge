@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>A SteamVR telepítése nem sikerült: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>A SteamVR eltávolítása…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>A SteamVR fut. Eltávolítás előtt zárja be.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>A HIDMaestro eltávolítása…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>A HIDMaestro el lett távolítva.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>A HIDMaestro el lett távolítva. A Windows a következő indításakor törli az utolsó fájlokat.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>A HIDMaestro eltávolítása leállt. Zárja be a következőt: {0}, majd távolítsa el újra.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>A HIDMaestro csak részben lett eltávolítva. A lista mutatja, mi maradt meg és miért.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Az eszközlista frissítve.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Rögzítve: „{0}” ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Most rendelje hozzá: {0} {1}</value></data>
@@ -425,6 +430,17 @@ Az előző verzió egy példánya ebben a mappában található: {1}</value></da
   <data name="Settings_AddDots" xml:space="preserve"><value>Hozzáadás...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>HIDMaestro illesztőprogram</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>Felhasználói módban futó virtuális HID-kontrollermotor. A PadForge.App része. Az első virtuális kontroller létrehozásakor automatikusan települ. A v3 verzióban a ViGEmBus és a vJoy helyébe lép.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>HIDMaestro eltávolítása</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Ez eltávolítja a HIDMaestro-t erről a számítógépről: a virtuális kontrollereit, az illesztőprogramját, az aláíró tanúsítványát, a beállításjegyzék-kulcsait és a fájljait. A PadForge előbb leállítja a bemeneti motorját. A HIDMaestro-t használó többi program a következő indításig elveszíti az illesztőprogramját. A PadForge újra telepíti, amikor legközelebb virtuális kontrollert indít.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>A usbip-win2 eltávolítása is, ha a saját telepítője telepítette</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>A PadForge régebbi verziói a usbip-win2 saját telepítőjével telepítették a usbip-win2-t. Ez azt a telepítést is eltávolítja, kivéve ha más program használja a usbip-win2-t. A USB-gyökérhub szűrője megmarad, mert eltávolítása újraindítja az összes USB-gyökérhubot.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>A HIDMaestro által a számítógépen hagyottak beolvasása…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>A HIDMaestro nem hagyott eltávolítandót ezen a számítógépen.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Ezek a programok használják a HIDMaestro-t. Zárja be őket, majd válassza a Frissítés gombot.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Folyamat {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Megmarad: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Nem olvasható be: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Nem lett eltávolítva: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Virtuális MIDI-portok és MIDI-bemenet. A Windows 11 25H2 a 2026. november végi frissítéstől tartalmazza az API-t. A többi számítógép a Windows MIDI Services futtatókörnyezetet használja, amelyet a PadForge telepíteni tud, vagy a régi MIDI API-t.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>A Windows része</value></data>
@@ -1018,6 +1034,9 @@ Az előző verzió egy példánya ebben a mappában található: {1}</value></da
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>Profil JSON importálása</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>Importálva innen: {0}.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>Az olvasás nem sikerült: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>A HIDMaestro elutasította ezt a profilt (hely: {1}): {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Ennek a profilnak nincs HID-leírója, ezért nem készíthető belőle kontroller.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Semmi sem lett importálva. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Frissítés</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>Importálás</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(névtelen HID-eszköz)</value></data>
@@ -3940,7 +3959,7 @@ Szeretné, hogy a PadForge most eltávolítsa őket? Ehhez rendszergazdai jogosu
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>Bliss-Box-referenciák</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>A Bliss-Box adapterek olvasása funkció mögötti Bliss-Box API, a Bliss-Box LLC API Tool (BSD-stílusú, díjmentesen továbbterjeszthető) és DeviceBuddy (elérhető forráskódú, Bliss-Box LLC) programja alapján. A gombnevek SteveFox1620 retroarch-joypad-autoconfig forkjának Bliss-Box fájljaiból származnak, a Controller Pak ellenőrzőösszegei a libdragon (Unlicense) alapján lettek ellenőrizve, a PlayStation kontroller válasza pedig a psx-spx és a Linux psxpad-spi illesztőprogramja (GPL-2.0-or-later) alapján készült. A kontrollernevek és a támogatási megjegyzések emellett a Bliss-Box LLC kompatibilitási listájából származnak, az adapterek viselkedése pedig a firmware-ük alapján lett ellenőrizve. Csak dokumentációként, a program nem tartalmaz belőlük kódot.</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>USB-átvitel a HIDMaestro összetett USB-kontrollereihez, készítette: Vadym Hrynchyshyn. Az aláírt telepítője a HIDMaestro része, és az első összetett kontroller létrehozásakor fut le. BSD 2-Clause.</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>USB-átvitel a HIDMaestro összetett USB-kontrollereihez, készítette: Vadym Hrynchyshyn. A HIDMaestro magában hordozza az aláírt gazdavezérlő-illesztőprogramját, és az első összetett kontroller létrehozásakor telepíti. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>Válassza ki, a foglalat mely fele legyen aktív. Egy fél kikapcsolása elrejti a sorait és leállítja a küldését, de megtartja a hozzárendeléseit, így visszakapcsoláskor visszaállnak.</value>
   </data>

@@ -89,6 +89,11 @@
                             <TextBlock Text="{Binding Name}" FontWeight="SemiBold"/>
                             <TextBlock Text="{Binding Id}" FontFamily="{StaticResource TelemetryFontFamily}"
                                        FontSize="12" Foreground="{DynamicResource TextFillColorTertiaryBrush}"/>
+                            <!-- Why HIDMaestro left this profile out of the
+                                 pickers (2.0.0 loads profiles strictly). -->
+                            <TextBlock Text="{Binding Problem}" FontSize="12" TextWrapping="Wrap"
+                                       Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                                       Visibility="{Binding Problem, Converter={StaticResource StringToVisibility}}"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

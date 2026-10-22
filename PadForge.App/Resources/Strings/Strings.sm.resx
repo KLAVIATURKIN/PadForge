@@ -94,6 +94,11 @@
 
   <!-- ═══ MainWindow Status Messages ═══ -->
   <data name="Status_OperationCanceled" xml:space="preserve"><value>Ua faʻaleaogā e le tagata faʻaaogā.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>O loʻo aveʻesea le HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>Ua aveʻesea le HIDMaestro.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Ua aveʻesea le HIDMaestro. E tapeʻese e Windows ona faila mulimuli pe a toe amata.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Ua taofi le aveʻesega o le HIDMaestro. Tapuni {0}, ona toe aveʻese lea.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Ua aveʻesea se vaega o le HIDMaestro. O loʻo faʻaalia i le lisi mea na tumau ma le mafuaʻaga.</value></data>
   <data name="Status_RecordingCanceled" xml:space="preserve"><value>Ua faʻaleaogā le puʻeina.</value></data>
   <data name="Status_Error_Format" xml:space="preserve"><value>Mea sese: {0}</value></data>
   <data name="Profiles_ShortcutLearn" xml:space="preserve"><value>Puʻe</value></data>
@@ -109,6 +114,13 @@
   <!-- ═══ Settings ═══ -->
   <data name="Settings_ThemeLight" xml:space="preserve"><value>Malamalama</value></data>
   <data name="Settings_ThemeDark" xml:space="preserve"><value>Pogisa</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Aveʻese le HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>O loʻo faitau mea na tuʻu e le HIDMaestro i lenei PC…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>E leai se mea na tuʻu e le HIDMaestro i lenei PC e aveʻese.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>O loʻo faʻaaogā e nei polokalame le HIDMaestro. Tapuni i latou, ona filifili lea o le Faʻafou.</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Tumau: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Ua le mafai ona faitau: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Ua le aveʻesea: {0}</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_Language" xml:space="preserve"><value>Gagana</value></data>
 
@@ -266,6 +278,8 @@
   <data name="ManageProfiles_Delete" xml:space="preserve"><value>Tapeʻese</value></data>
   <data name="ManageProfiles_Close" xml:space="preserve"><value>Tapuni</value></data>
   <data name="ManageProfiles_StatusDeleted_Format" xml:space="preserve"><value>Ua tapeʻese "{0}".</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>Na teena e le HIDMaestro lenei profile i {1}: {0}</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>E leai se mea na faʻaulufale mai. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Faʻafou</value></data>
   <data name="Pad_ExtendedVid" xml:space="preserve"><value>VID</value></data>
   <data name="Pad_ExtendedPid" xml:space="preserve"><value>PID</value></data>

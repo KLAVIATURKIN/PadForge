@@ -5955,9 +5955,25 @@ namespace PadForge.Services
                 {
                     Id = p.Id,
                     Name = name,
+                    Problem = DescribeUserProfileProblem(
+                        Common.Input.HMaestroProfileCatalog.GetUserProfileProblem(p.Json)),
                 });
             }
             return list;
+        }
+
+        /// <summary>The line Manage Profiles shows for a profile left out of
+        /// the pickers: HIDMaestro's reason and JSON path for a refused file,
+        /// which HIDMaestro writes in English as it writes its exception
+        /// messages, or the missing descriptor. Null for no problem.</summary>
+        internal static string DescribeUserProfileProblem(
+            Common.Input.HMaestroProfileCatalog.UserProfileProblem problem)
+        {
+            if (problem == null) return null;
+            return problem.Refusal != null
+                ? string.Format(Strings.Instance.ManageProfiles_ProblemRefused_Format,
+                    problem.Refusal.Reason, problem.Refusal.JsonPath)
+                : Strings.Instance.ManageProfiles_ProblemNoDescriptor;
         }
 
         /// <summary>
@@ -6034,9 +6050,18 @@ namespace PadForge.Services
         /// so the Extended dropdown picks up the new entry, and marks
         /// settings dirty. Returns the suffixed id so the caller can set
         /// the current slot's ProfileId directly.
+        ///
+        /// <para>A profile HIDMaestro would leave out of the pickers is not
+        /// stored: HIDMaestro 2.0.0 refuses a file whose JSON its schema or
+        /// checks reject, and a profile with no HID descriptor cannot be
+        /// deployed. Either one returns null with the reason in
+        /// <paramref name="problem"/>, the store as it was, and no prior
+        /// capture of the same id replaced. Storing it would point the
+        /// slot at a profile that is not there.</para>
         /// </summary>
-        public string AddUserProfile(string extractedJson)
+        public string AddUserProfile(string extractedJson, out string problem)
         {
+            problem = null;
             if (string.IsNullOrWhiteSpace(extractedJson)) return null;
 
             string suffixed;
@@ -6071,6 +6096,13 @@ namespace PadForge.Services
             }
             catch { id = null; }
             if (string.IsNullOrWhiteSpace(id)) return null;
+
+            var refusal = Common.Input.HMaestroProfileCatalog.CheckUserProfile(suffixed);
+            if (refusal != null)
+            {
+                problem = DescribeUserProfileProblem(refusal);
+                return null;
+            }
 
             _userProfiles.RemoveAll(p =>
                 string.Equals(p.Id, id, StringComparison.OrdinalIgnoreCase));

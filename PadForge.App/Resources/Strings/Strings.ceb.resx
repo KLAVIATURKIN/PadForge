@@ -144,6 +144,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>Napakyas ang pag-install sa SteamVR: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>Nag-uninstall sa SteamVR…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>Nagdagan ang SteamVR. Sirad-i kini una sa pag-uninstall.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Ginatangtang ang HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>Natangtang na ang HIDMaestro.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Natangtang na ang HIDMaestro. Papason sa Windows ang nahibilin nga mga file niini inig sunod nga pagsugod niini.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Nahunong ang pagtangtang sa HIDMaestro. Isira ang {0}, dayon i-uninstall pag-usab.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Bahin ra sa HIDMaestro ang natangtang. Gipakita sa listahan kung unsa ang nahibilin ug ngano.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Na-refresh ang listahan sa device.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Narekord ang "{0}" ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Karon i-map: {0} {1}</value></data>
@@ -282,6 +287,17 @@
   <data name="Settings_HidHideDesc" xml:space="preserve"><value>Itago ang pisikal nga mga device gikan sa mga dula aron malikayan ang dobleng input.</value></data>
   <data name="Settings_AddDots" xml:space="preserve"><value>Idugang...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>HIDMaestro nga driver</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>I-uninstall ang HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Tangtangon niini ang HIDMaestro gikan niining PC: ang mga virtual nga controller niini, driver, signing certificate, registry key ug mga file. Hunongon una sa PadForge ang engine niini. Ang ubang programa nga naggamit sa HIDMaestro mawad-an sa driver niini hangtod sa ilang sunod nga pagsugod. I-install kini pag-usab sa PadForge sa sunod nga higayon nga magsugod kini og virtual nga controller.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Tangtanga usab ang usbip-win2 nga gi-install sa kaugalingon niini nga installer</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Ang mas daan nga mga bersyon sa PadForge nag-install sa usbip-win2 gamit ang installer sa usbip-win2. Tangtangon usab niini kana nga pag-install, gawas kon adunay laing programa nga naggamit sa usbip-win2. Magpabilin ang filter niini sa USB root hub, kay ang pagtangtang niini mo-restart sa tanang USB root hub.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Ginabasa kung unsa ang gibilin sa HIDMaestro niining PC…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>Walay gibilin ang HIDMaestro niining PC nga tangtangon.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Kini nga mga programa naggamit sa HIDMaestro. Isira kini, dayon pilia ang I-refresh.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Proseso {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Magpabilin: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Dili mabasa: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Wala matangtang: {0}</value></data>
   <data name="Settings_MidiStatusUnavailable" xml:space="preserve"><value>Dili magamit</value></data>
   <data name="Settings_MidiStatusNotRunning" xml:space="preserve"><value>Wala nagdagan</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
@@ -707,6 +723,9 @@
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>I-import ang profile JSON</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>Na-import gikan sa {0}.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>Napakyas ang pagbasa: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>Gibalibaran sa HIDMaestro kini nga profile sa {1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Walay HID descriptor kini nga profile, busa walay controller nga mahimo gikan niini.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Walay na-import. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>I-refresh</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>I-import</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(walay ngalan nga HID device)</value></data>
@@ -2909,7 +2928,7 @@ Gusto ba nimo nga i-uninstall kini sa PadForge karon? Kinahanglan kini og elevat
   <data name="About_AnalogKeyboardRefs" xml:space="preserve"><value>HallJoy, Soup, ug AnalogSense</value></data>
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>Mga reperensya sa Bliss-Box</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>USB transport ni Vadym Hrynchyshyn para sa composite USB controller sa HIDMaestro. Ang pirmado nga installer niini gilakip sa HIDMaestro ug modagan sa unang higayon nga mahimo ang composite controller. BSD 2-Clause.</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>USB transport ni Vadym Hrynchyshyn para sa composite USB controller sa HIDMaestro. Gidala sa HIDMaestro ang pirmado nga host controller driver niini ug gi-install kini sa unang higayon nga mahimo ang composite controller. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>Pilia kung hain nga katunga niini nga slot ang aktibo. Ang pagpatay sa usa ka katunga motago sa mga row niini ug mohunong sa pagpadala niini, apan ipabilin ang mga mapping niini aron mabalik kini kung andaron pag-usab.</value>
   </data>

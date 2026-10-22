@@ -687,6 +687,9 @@ namespace PadForge
             _viewModel.Settings.UninstallHidHideRequested += async (s, e) => await RunDriverOperationAsync(
                 Strings.Instance.Status_UninstallingHidHide, DriverInstaller.UninstallHidHide, RefreshHidHideStatus);
 
+            // Removing HIDMaestro from the PC (#516, #518).
+            _viewModel.Settings.UninstallHIDMaestroRequested += async (s, e) => await UninstallHIDMaestroAsync();
+
             // Wire HidHide whitelist add (file browser).
             _viewModel.Settings.AddWhitelistPathRequested += (s, e) =>
             {
@@ -2241,15 +2244,12 @@ namespace PadForge
                     // DestroyAllVirtualControllers + HMContext.Dispose
                     // grind through (multi-second per Microsoft xinputhid
                     // VC).  Sidebar rebuild fires when the teardown
-                    // completes.
-                    _viewModel.IsEngineRunning = false;
-                    _viewModel.Dashboard.EngineStateKey = "Stopping";
-                    _viewModel.Dashboard.EngineStatus = Strings.Instance.Common_Stopping;
-                    _viewModel.SetStatus(Strings.Instance.Status_StoppingEngine, persist: true);
-                    _viewModel.RefreshCommands();
-                    System.Threading.Tasks.Task.Run(() => _inputService.Stop())
-                        .ContinueWith(_ => RebuildControllerSection(),
-                            System.Threading.Tasks.TaskScheduler.FromCurrentSynchronizationContext());
+                    // completes. The task is kept so a removal of
+                    // HIDMaestro can wait out a teardown still in flight.
+                    ShowEngineStopping();
+                    _engineStopTask = System.Threading.Tasks.Task.Run(() => _inputService.Stop());
+                    _engineStopTask.ContinueWith(_ => RebuildControllerSection(),
+                        System.Threading.Tasks.TaskScheduler.FromCurrentSynchronizationContext());
                 }
                 else
                 {
@@ -2411,6 +2411,7 @@ namespace PadForge
                 _ = Task.Run(HidHideArm64Installer.RemoveDanglingFilters);
 
             RefreshHidHideStatus();
+            RefreshHIDMaestroStatus();
             StartDriverStatusTimer();
 
             // Same reason as the two above: this used to sit in the loaded
@@ -2685,6 +2686,9 @@ namespace PadForge
             _driverStatusTimer.Tick += (s, ev) =>
             {
                 RefreshHidHideStatus();
+                // The engine installs HIDMaestro with its first virtual
+                // controller, so the card follows it here.
+                RefreshHIDMaestroStatus();
                 RefreshMidiServicesStatus();
                 // Status decay (#175 item 7) rides this always-on 5 s lane
                 // (started in the constructor, never stopped) instead of a
@@ -9032,6 +9036,76 @@ namespace PadForge
         /// sentence is read.</summary>
         internal static void LogDriverFailure(Exception ex)
             => Engine.SdlDiagLog.WriteLine($"DRIVER operation failed: {ex.GetType().Name}: {ex.Message}");
+
+        /// <summary>The engine stop the Dashboard toggle runs on a worker,
+        /// kept until the next one replaces it.</summary>
+        private Task _engineStopTask;
+
+        /// <summary>The Dashboard's Stopping state, shown at once for a stop
+        /// that runs on a worker.</summary>
+        private void ShowEngineStopping()
+        {
+            _viewModel.IsEngineRunning = false;
+            _viewModel.Dashboard.EngineStateKey = "Stopping";
+            _viewModel.Dashboard.EngineStatus = Strings.Instance.Common_Stopping;
+            _viewModel.SetStatus(Strings.Instance.Status_StoppingEngine, persist: true);
+            _viewModel.RefreshCommands();
+        }
+
+        /// <summary>
+        /// Removes HIDMaestro from the PC (#516, #518), after the user
+        /// confirmed it against HIDMaestro's own preview.
+        ///
+        /// <para>The engine stops first, through the stop the Dashboard
+        /// toggle runs, which removes PadForge's virtual controllers and
+        /// disposes its HIDMaestro context. HIDMaestro would remove those
+        /// controllers anyway, but a controller PadForge still held would
+        /// stay an object with no device behind it, and the engine could
+        /// create another while the removal ran. A stop the toggle already
+        /// started is waited out, since its teardown still holds them. The
+        /// engine stays stopped. Starting it installs HIDMaestro again, as
+        /// HIDMaestro's docs/UNINSTALL.md says a program may.</para>
+        ///
+        /// <para>The removal runs on the driver operation's worker, behind
+        /// its overlay, for seconds to minutes (HMUninstall.Run). Every item
+        /// goes to the diagnostics log. A removal that could not take
+        /// everything lists what stayed and why.</para>
+        /// </summary>
+        private async Task UninstallHIDMaestroAsync()
+        {
+            if (!Views.UninstallHIDMaestroDialog.Confirm(this,
+                    includeUsbip => Task.Run(() => HIDMaestroRemoval.Preview(includeUsbip)),
+                    out bool includeUsbip))
+                return;
+
+            bool stopEngine = _viewModel.IsEngineRunning;
+            if (stopEngine) ShowEngineStopping();
+            var pendingStop = _engineStopTask;
+
+            HIDMaestro.HMUninstallReport report = null;
+            await RunDriverOperationAsync(Strings.Instance.Status_RemovingHIDMaestro, () =>
+            {
+                // A stop that failed has nothing left to wait for.
+                try { pendingStop?.Wait(); } catch { }
+                report = HIDMaestroRemoval.Run(includeUsbip, stopEngine ? _inputService.Stop : null);
+            }, RefreshHIDMaestroStatus);
+            if (stopEngine) RebuildControllerSection();
+
+            // No report: the operation failed and its status line says why,
+            // or the test host, which removes nothing, answered.
+            if (report == null) return;
+            HIDMaestroRemoval.Log(report);
+            string line = HIDMaestroRemoval.StatusLine(report);
+            _viewModel.SetStatus(line, persist: true);
+            if (report.Status == HIDMaestro.HMUninstallStatus.Failed)
+                Views.UninstallHIDMaestroDialog.ShowReport(this, report, line);
+        }
+
+        /// <summary>Lights the Settings card's HIDMaestro status from the
+        /// driver store, never from an HIDMaestro context
+        /// (HIDMaestroRemoval.IsDriverInstalled).</summary>
+        private void RefreshHIDMaestroStatus()
+            => _viewModel.Settings.IsHIDMaestroInstalled = HIDMaestroRemoval.IsDriverInstalled();
 
         /// <summary>
         /// Rebuilds the dashboard SlotSummaries from SettingsManager state.

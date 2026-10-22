@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>Uppsetning SteamVR mistókst: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>Fjarlægir SteamVR…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR er í gangi. Lokaðu því áður en það er fjarlægt.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Fjarlægir HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro-rekillinn var fjarlægður.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro-rekillinn var fjarlægður. Windows eyðir síðustu skrám hans næst þegar tölvan er ræst.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Fjarlæging HIDMaestro stöðvaðist. Lokaðu {0} og veldu síðan Fjarlægja aftur.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro-rekillinn var aðeins fjarlægður að hluta. Listinn sýnir hvað varð eftir og hvers vegna.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Tækjalisti endurnýjaður.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Tekið upp „{0}“ ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Varpaðu nú: {0} {1}</value></data>
@@ -425,6 +430,17 @@ Afrit af fyrri útgáfu er í þessari möppu: {1}</value></data>
   <data name="Settings_AddDots" xml:space="preserve"><value>Bæta við...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>HIDMaestro-rekill</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>Sýndar-HID-stýringarvél í notandaham. Innbyggð í PadForge.App. Sett upp sjálfkrafa þegar fyrsta sýndarstýringin er búin til. Kemur í stað ViGEmBus og vJoy í v3.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Fjarlægja HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Þetta fjarlægir HIDMaestro af þessari tölvu: sýndarstýringar þess, rekil, undirritunarvottorð, skrásetningarlykla og skrár. PadForge stöðvar vélina sína fyrst. Önnur forrit sem nota HIDMaestro missa rekil þess þar til þau ræsast næst. PadForge setur hann upp aftur næst þegar PadForge ræsir sýndarstýringu.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Fjarlægja einnig usbip-win2 sem var sett upp með eigin uppsetningarforriti</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Eldri útgáfur PadForge settu usbip-win2 upp með uppsetningarforriti usbip-win2. Þetta fjarlægir þá uppsetningu líka, nema annað forrit noti usbip-win2. Sían á USB-rótarhubbunum helst áfram, því fjarlæging hennar endurræsir alla USB-rótarhubba.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Les hvað HIDMaestro skildi eftir á þessari tölvu…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro skildi ekkert eftir á þessari tölvu til að fjarlægja.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Þessi forrit nota HIDMaestro. Lokaðu þeim og veldu síðan Endurnýja.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Ferli {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Helst áfram: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Ekki tókst að lesa: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Ekki fjarlægt: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Sýndar-MIDI-gáttir og MIDI-inntak. Windows 11 25H2 inniheldur API-ið frá og með uppfærslunni í lok nóvember 2026. Aðrar tölvur nota keyrsluumhverfi Windows MIDI Services, sem PadForge getur sett upp, eða eldra MIDI API.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Innbyggt í Windows</value></data>
@@ -1018,6 +1034,9 @@ Afrit af fyrri útgáfu er í þessari möppu: {1}</value></data>
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>Flytja inn snið úr JSON</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>Flutt inn úr {0}.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>Lestur mistókst: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro hafnaði þessu sniði við {1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Í þessu sniði vantar HID-lýsi, svo ekki er hægt að búa til leikjastýringu úr því.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Engu var flutt inn. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Endurnýja</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>Flytja inn</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(ónefnt HID-tæki)</value></data>
@@ -3940,7 +3959,7 @@ Viltu að PadForge fjarlægi þá núna? Þetta krefst stjórnandaréttinda og g
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>Viðmiðanir fyrir Bliss-Box</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>Bliss-Box API á bak við „Lesa Bliss-Box-millistykki“, lesið úr API Tool frá Bliss-Box LLC (í anda BSD, dreifing án endurgjalds) og DeviceBuddy (frumkóði aðgengilegur, Bliss-Box LLC), með hnappaheitum úr Bliss-Box-skránum í retroarch-joypad-autoconfig-kvísl SteveFox1620, gátsummum Controller Pak bornum saman við libdragon (Unlicense) og svari PlayStation-leikjastýringar úr psx-spx og psxpad-spi-rekli Linux (GPL-2.0-or-later). Heiti leikjastýringa og athugasemdir um stuðning koma einnig af samhæfislista Bliss-Box LLC, og hegðun millistykkjanna var borin saman við fastbúnað þeirra. Aðeins skjölun, enginn kóði fylgir.</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>USB-flutningur eftir Vadym Hrynchyshyn fyrir samsettar USB-leikjastýringar HIDMaestro. Undirritað uppsetningarforrit hans fylgir með inni í HIDMaestro og keyrir í fyrsta sinn sem samsett leikjastýring er búin til. BSD 2-Clause.</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>USB-flutningur eftir Vadym Hrynchyshyn fyrir samsettar USB-leikjastýringar HIDMaestro. HIDMaestro hefur meðferðis undirritaðan rekil sinn fyrir hýsilstýringu og setur hann upp í fyrsta sinn sem samsett leikjastýring er búin til. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>Veldu hvaða helmingar þessarar raufar eru virkir. Ef slökkt er á helmingi eru línur hans faldar og hann hættir að senda, en varpanir hans haldast svo þær koma aftur þegar kveikt er á honum.</value>
   </data>

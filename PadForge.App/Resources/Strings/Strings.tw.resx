@@ -81,6 +81,9 @@
   <data name="ControllerType_Nintendo" xml:space="preserve"><value>Nintendo</value></data>
   <data name="ControllerType_MIDI" xml:space="preserve"><value>MIDI</value></data>
   <data name="ControllerType_VR" xml:space="preserve"><value>VR</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Yɛreyi HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>Wɔayi HIDMaestro.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Wɔagyae HIDMaestro yi. To {0} mu, na san yi no bio.</value></data>
 
   <!-- ═══ MainWindow ═══ -->
 
@@ -98,6 +101,12 @@
   <data name="Settings_Title" xml:space="preserve"><value>Nhyehyɛe</value></data>
   <data name="Settings_ThemeLight" xml:space="preserve"><value>Hann</value></data>
   <data name="Settings_ThemeDark" xml:space="preserve"><value>Esum</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Yi HIDMaestro fi hɔ</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Yɛrekenkan nea HIDMaestro gyaw wɔ PC yi so…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro annyaw biribiara wɔ PC yi so a wobɛyi.</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Aka hɔ: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Wɔantumi ankenkan: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Wɔanyi: {0}</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_Language" xml:space="preserve"><value>Kasa</value></data>
   <data name="Settings_LanguageDesc" xml:space="preserve"><value>Paw kasa a wopɛ.</value></data>
@@ -180,6 +189,8 @@
   <data name="Pad_Lighting_AddColor" xml:space="preserve"><value>Fa ahosuo ka ho</value></data>
   <data name="ManageProfiles_Delete" xml:space="preserve"><value>Popa</value></data>
   <data name="ManageProfiles_Close" xml:space="preserve"><value>To mu</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro ampene profile yi so wɔ {1}: {0}</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Wɔamfa biribiara amma. {0}</value></data>
   <data name="Pad_ExtendedVid" xml:space="preserve"><value>VID</value></data>
   <data name="Pad_ExtendedPid" xml:space="preserve"><value>PID</value></data>
   <data name="Pad_MidiOutputPortNone" xml:space="preserve"><value>Hwee</value></data>

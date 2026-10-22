@@ -110,6 +110,11 @@
 
   <!-- ═══ MainWindow Status Messages ═══ -->
   <data name="Status_OperationCanceled" xml:space="preserve"><value>Olùlò ti fagilé iṣẹ́ náà.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>A ń yọ HIDMaestro kúrò…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>A ti yọ HIDMaestro kúrò.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>A ti yọ HIDMaestro kúrò. Windows yóò pa àwọn fáìlì rẹ̀ tó kù rẹ́ nígbà tí ó bá tún bẹ̀rẹ̀.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Yíyọ HIDMaestro kúrò dúró. Pa {0} dé, lẹ́yìn náà yọ ọ́ kúrò lórí ẹ̀rọ lẹ́ẹ̀kan sí i.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>A yọ HIDMaestro kúrò ní apá kan. Àkójọ náà fi ohun tó kù àti ìdí rẹ̀ hàn.</value></data>
   <data name="Status_CopyFailed_Format" xml:space="preserve"><value>Kò lè ṣàdàkọ: {0}</value></data>
   <data name="Status_PasteFailed_Format" xml:space="preserve"><value>Kò lè lẹ̀ẹ́: {0}</value></data>
   <data name="Status_ProfileCreatedEmpty_Format" xml:space="preserve"><value>A ti ṣẹ̀dá profaili "{0}" (òfo).</value></data>
@@ -142,6 +147,13 @@
   <data name="Settings_ThemeLight" xml:space="preserve"><value>Ìmọ́lẹ̀</value></data>
   <data name="Settings_ThemeDark" xml:space="preserve"><value>Òkùnkùn</value></data>
   <data name="Settings_Window" xml:space="preserve"><value>Fèrèsé</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Yọ HIDMaestro kúrò lórí ẹ̀rọ</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>A ń ka ohun tí HIDMaestro fi sílẹ̀ lórí PC yìí…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro kò fi nǹkan kan sílẹ̀ lórí PC yìí láti yọ kúrò.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Àwọn ètò yìí ń lo HIDMaestro. Pa wọ́n dé, lẹ́yìn náà yan Sọ dọ̀tun.</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Ó wà síbẹ̀: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>A kò lè kà á: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>A kò yọ ọ́ kúrò: {0}</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_Language" xml:space="preserve"><value>Èdè</value></data>
   <data name="Settings_LanguageDesc" xml:space="preserve"><value>Yan èdè tí o fẹ́ láti máa rí.</value></data>
@@ -311,6 +323,9 @@
   <data name="ManageProfiles_ImportFromFile" xml:space="preserve"><value>Gbé wọlé láti fáìlì…</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>A ti gbé e wọlé láti {0}.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>Kíkà kùnà: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro kọ profaili yìí ní {1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Profaili yìí kò ní HID descriptor, nítorí náà a kò lè ṣe ẹ̀rọ ìdarí kankan láti inú rẹ̀.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>A kò gbé nǹkan kan wọlé. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Sọ di ọ̀tun</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>Gbé wọlé</value></data>
   <data name="Pad_ExtendedVid" xml:space="preserve"><value>VID</value></data>

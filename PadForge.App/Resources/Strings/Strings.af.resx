@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>SteamVR-installasie het misluk: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>Deïnstalleer tans SteamVR…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR loop. Sluit dit voordat jy deïnstalleer.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro word tans verwyder…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro is verwyder.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro is verwyder. Windows vee die laaste van sy lêers uit wanneer dit weer begin.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Verwydering van HIDMaestro het gestop. Maak {0} toe en deïnstalleer dan weer.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro is gedeeltelik verwyder. Die lys wys wat agtergebly het en hoekom.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Toestellys is ververs.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Opgeneem "{0}" ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Wys nou toe: {0} {1}</value></data>
@@ -425,6 +430,17 @@
   <data name="Settings_AddDots" xml:space="preserve"><value>Voeg by...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>HIDMaestro-drywer</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>Gebruikermodus virtuele HID-controllerenjin. Ingebed in PadForge.App. Word outomaties geïnstalleer wanneer die eerste virtuele controller geskep word. Vervang ViGEmBus en vJoy in v3.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Deïnstalleer HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Dit verwyder HIDMaestro van hierdie rekenaar: sy virtuele controllers, drywer, ondertekeningsertifikaat, registersleutels en lêers. PadForge stop eers sy enjin. Ander programme wat HIDMaestro gebruik, verloor sy drywer totdat hulle weer begin. PadForge installeer dit weer die volgende keer wanneer dit 'n virtuele controller begin.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Verwyder ook usbip-win2 wat met sy eie installeerder opgestel is</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Ouer PadForge-weergawes het usbip-win2 met usbip-win2 se installeerder opgestel. Dit verwyder daardie opstelling ook, tensy 'n ander program usbip-win2 gebruik. Sy USB-worteltoestel-filter bly, omdat die verwydering daarvan elke USB-worteltoestel herbegin.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Lees tans wat HIDMaestro op hierdie rekenaar gelaat het…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro het niks op hierdie rekenaar gelaat om te verwyder nie.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Hierdie programme gebruik HIDMaestro. Maak hulle toe en kies dan Verfris.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Proses {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Bly: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Kon nie gelees word nie: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Nie verwyder nie: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Virtuele MIDI-poorte en MIDI-invoer. Windows 11 25H2 sluit die API in vanaf die opdatering van laat November 2026. Ander rekenaars gebruik die Windows MIDI Services-looptyd, wat PadForge kan installeer, of die ouer MIDI-API.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Ingebou in Windows</value></data>
@@ -1018,6 +1034,9 @@
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>Voer profiel-JSON in</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>Ingevoer uit {0}.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>Lees het misluk: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro het hierdie profiel by {1} geweier: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Hierdie profiel het geen HID-beskrywer nie, so geen controller kan daaruit gemaak word nie.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Niks is ingevoer nie. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Verfris</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>Voer in</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(onbenoemde HID-toestel)</value></data>
@@ -3777,7 +3796,7 @@ Wil jy hê PadForge moet dit nou deïnstalleer? Dit vereis verhoogde regte en ka
   <data name="About_AnalogKeyboardRefsDesc" xml:space="preserve"><value>Analoogsleutelbord-invoer dra HallJoy se sleutelbordroetes, sleuteltabelle en modelkatalogusse oor na C# (AGPL-3.0, PashOK7) en volg Soup en die AnalogSense JavaScript SDK (MIT, Calamity, Inc.), nagegaan teen die Wooting Analog SDK (MPL-2.0). Ander sleutelborde volg AnalogKeys (MIT, Nisayera), KeyAxis (MIT, RigZeeel), HallEffectAnalogMapper (MIT, Ricards Mironovs), libhmk en hmkconf (GPL-3.0-or-later, peppapighs), en die Soup-forks van DenkiSuki, LeiterConsulting en paysdelest (MIT). Verslagformate en sleuteltabelle kom ook uit Razer se Synapse Web en NuPhy se NuPhyIO-konfigureerders, OpenRazer (GPL-2.0-or-later), Abbytech se razer-analog-keyboard, TinyUSB (MIT) en Sainan se vaslegginsnotas.</value></data>
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>Bliss-Box-verwysings</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>Die Bliss-Box-API agter Lees Bliss-Box-adapters, gelees uit Bliss-Box LLC se API Tool (BSD-styl, herverspreiding gratis) en DeviceBuddy (bronkode beskikbaar, Bliss-Box LLC), met knoppienames uit die Bliss-Box-lêers in SteveFox1620 se retroarch-joypad-autoconfig-fork, Controller Pak-kontrolesomme nagegaan teen libdragon (Unlicense), en die PlayStation-controller-antwoord uit psx-spx en Linux se psxpad-spi-drywer (GPL-2.0-or-later). Controllername en ondersteuningsnotas kom ook uit Bliss-Box LLC se versoenbaarheidslys, en die adapters se gedrag is teen hul firmware nagegaan. Slegs dokumentasie, geen kode word gelewer nie.</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>USB-vervoer deur Vadym Hrynchyshyn vir HIDMaestro se saamgestelde USB-controllers. Sy ondertekende installeerder word binne HIDMaestro gelewer en loop die eerste keer wanneer 'n saamgestelde controller geskep word. BSD 2-Clause.</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>USB-vervoer deur Vadym Hrynchyshyn vir HIDMaestro se saamgestelde USB-controllers. HIDMaestro bring sy ondertekende gasheerbeheerder-drywer saam en installeer dit die eerste keer wanneer 'n saamgestelde controller geskep word. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>Kies watter helftes van hierdie gleuf aktief is. Om 'n helfte af te skakel versteek sy rye en stop dit om te stuur, en hou sy toewysings sodat dit herstel word wanneer jy dit weer aanskakel.</value>
   </data>

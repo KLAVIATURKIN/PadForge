@@ -163,6 +163,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>SteamVR のインストールに失敗しました: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>SteamVR をアンインストールしています…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR が実行中です。アンインストールする前に終了してください。</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro を削除しています…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro を削除しました。</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro を削除しました。残りのファイルは、Windows の次回起動時に削除されます。</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro の削除を中止しました。{0} を閉じてから、もう一度アンインストールしてください。</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro は一部のみ削除されました。残った項目とその理由は一覧に表示されています。</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>デバイスリストを更新しました。</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>「{0}」を記録 ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>次のマッピング: {0} {1}</value></data>
@@ -355,6 +360,17 @@
   <data name="Settings_AddDots" xml:space="preserve"><value>追加...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>HIDMaestro ドライバー</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>ユーザーモード仮想 HID コントローラーエンジン。PadForge.App に組み込まれており、最初の仮想コントローラー作成時に自動的にインストールされます。v3 で ViGEmBus と vJoy を置き換えます。</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>HIDMaestro をアンインストール</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>この PC から HIDMaestro を削除します。対象は仮想コントローラー、ドライバー、署名証明書、レジストリキー、ファイルです。PadForge は先にエンジンを停止します。HIDMaestro を使用している他のプログラムは、次に起動するまでそのドライバーを使えなくなります。PadForge は、次に仮想コントローラーを開始するときに再びインストールします。</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>usbip-win2 独自のインストーラーでセットアップしたものも削除する</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>以前のバージョンの PadForge は、usbip-win2 のインストーラーで usbip-win2 をセットアップしていました。他のプログラムが usbip-win2 を使用していない場合は、そのセットアップも削除します。USB ルートハブのフィルターは、削除するとすべての USB ルートハブが再起動されるため、残します。</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>この PC に HIDMaestro が残したものを読み取っています…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>この PC には、HIDMaestro が残した削除対象はありません。</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>次のプログラムが HIDMaestro を使用しています。閉じてから、[更新] を選択してください。</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>プロセス {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>残る項目: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>読み取れませんでした: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>削除されませんでした: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>仮想 MIDI ポートと MIDI 入力です。2026 年 11 月下旬の更新プログラムから Windows 11 25H2 に API が組み込まれます。その他の PC では、PadForge がインストールできる Windows MIDI Services ランタイム、または従来の MIDI API を使用します。</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Windows に組み込み</value></data>
@@ -535,6 +551,9 @@
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>プロファイル JSON をインポート</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>{0} からインポートしました。</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>読み込みに失敗しました: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro はこのプロファイルを {1} で拒否しました: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>このプロファイルには HID ディスクリプタがないため、コントローラーを作成できません。</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>何もインポートされませんでした。{0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>更新</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>インポート</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(名前なしの HID デバイス)</value></data>
@@ -3891,7 +3910,7 @@
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>Bliss-Box の参照元</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>「Bliss-Box アダプターを読み取る」の Bliss-Box API は、Bliss-Box LLC の API Tool（BSD 形式、再配布は無償）と DeviceBuddy（ソース公開、Bliss-Box LLC）から読み取り、ボタン名は SteveFox1620 による retroarch-joypad-autoconfig のフォークにある Bliss-Box 用ファイル、コントローラパックのチェックサムは libdragon（Unlicense）と照合し、PlayStation コントローラーの応答は psx-spx と Linux の psxpad-spi ドライバー（GPL-2.0-or-later）に基づいています。コントローラー名の一部と対応状況の注記は Bliss-Box LLC の互換性リストに基づき、アダプターの動作はそのファームウェアで確認しています。資料のみで、コードは同梱していません。</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>HIDMaestro の複合 USB コントローラー用の USB トランスポート (Vadym Hrynchyshyn 作)。署名済みインストーラーは HIDMaestro に同梱され、複合コントローラーを初めて作成するときに実行されます。BSD 2-Clause。</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>HIDMaestro の複合 USB コントローラー用の USB トランスポート (Vadym Hrynchyshyn 作)。HIDMaestro は署名済みのホストコントローラードライバーを自身で保持し、複合コントローラーを初めて作成するときにインストールします。BSD 2-Clause。</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>このスロットで有効にする面を選びます。無効にした面は行が非表示になり送信も止まりますが、割り当ては保持されるため再度有効にすると元に戻ります。</value>
   </data>

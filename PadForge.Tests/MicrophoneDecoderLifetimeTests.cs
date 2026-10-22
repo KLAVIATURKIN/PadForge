@@ -46,6 +46,8 @@ public sealed class MicrophoneDecoderLifetimeTests(ITestOutputHelper output)
             var engineField = typeof(HMMicrophoneInput).GetField("_engine", Private)!;
             engine = RuntimeHelpers.GetUninitializedObject(engineField.FieldType);
             engine.GetType().GetField("_lock", Private)!.SetValue(engine, new object());
+            // HIDMaestro 2.0.0 reads IsStreaming from the stream table: empty reads as not streaming.
+            engine.GetType().GetField("_altSetting", Private)!.SetValue(engine, new Dictionary<byte, byte>());
             engine.GetType().GetField("_micRing", Private)!.SetValue(engine, ring);
             engine.GetType().GetField("_micFrameBytes", Private)!.SetValue(engine, 2);
             engineField.SetValue(microphone, engine);

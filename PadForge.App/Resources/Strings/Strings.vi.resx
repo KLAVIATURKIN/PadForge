@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>Cài đặt SteamVR thất bại: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>Đang gỡ cài đặt SteamVR…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR đang chạy. Hãy đóng nó trước khi gỡ cài đặt.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Đang gỡ HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>Đã gỡ HIDMaestro.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Đã gỡ HIDMaestro. Windows sẽ xóa các tệp cuối cùng của nó vào lần khởi động tiếp theo.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Việc gỡ HIDMaestro đã dừng. Hãy đóng {0}, rồi gỡ cài đặt lại.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro mới được gỡ một phần. Danh sách cho biết những gì còn lại và lý do.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Đã làm mới danh sách thiết bị.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Đã ghi "{0}" ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Bây giờ ánh xạ: {0} {1}</value></data>
@@ -425,6 +430,17 @@ Bản sao của phiên bản trước nằm trong thư mục này: {1}</value></
   <data name="Settings_AddDots" xml:space="preserve"><value>Thêm...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>Trình điều khiển HIDMaestro</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>Bộ máy tay cầm HID ảo ở chế độ người dùng. Được nhúng trong PadForge.App. Tự động cài đặt khi tạo tay cầm ảo lần đầu. Thay thế ViGEmBus và vJoy trong v3.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Gỡ cài đặt HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Thao tác này gỡ HIDMaestro khỏi PC này: các tay cầm ảo, trình điều khiển, chứng chỉ ký, khóa registry và tệp của nó. PadForge dừng bộ máy của mình trước. Các chương trình khác dùng HIDMaestro sẽ mất trình điều khiển của nó cho đến lần khởi động tiếp theo. PadForge sẽ cài đặt lại khi nó khởi động tay cầm ảo lần tới.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Gỡ cả usbip-win2 được cài bằng trình cài đặt riêng của nó</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Các phiên bản PadForge cũ đã cài usbip-win2 bằng trình cài đặt của usbip-win2. Thao tác này cũng gỡ bản cài đó, trừ khi chương trình khác đang dùng usbip-win2. Bộ lọc của USB root hub được giữ lại, vì gỡ nó sẽ khởi động lại mọi USB root hub.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Đang đọc những gì HIDMaestro để lại trên PC này…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro không để lại gì trên PC này để gỡ.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Các chương trình này đang dùng HIDMaestro. Hãy đóng chúng, rồi chọn Làm mới.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Tiến trình {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Còn lại: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Không đọc được: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Chưa gỡ: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Cổng MIDI ảo và đầu vào MIDI. Windows 11 25H2 có sẵn API này kể từ bản cập nhật cuối tháng 11 năm 2026. Các PC khác dùng runtime Windows MIDI Services, mà PadForge có thể cài đặt, hoặc API MIDI cũ.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Tích hợp sẵn trong Windows</value></data>
@@ -1018,6 +1034,9 @@ Bản sao của phiên bản trước nằm trong thư mục này: {1}</value></
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>Nhập JSON hồ sơ</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>Đã nhập từ {0}.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>Đọc thất bại: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro đã từ chối hồ sơ này tại {1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Hồ sơ này không có bộ mô tả HID, nên không thể tạo tay cầm từ nó.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Không có gì được nhập. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Làm mới</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>Nhập</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(thiết bị HID không tên)</value></data>
@@ -3940,7 +3959,7 @@ Bạn có muốn PadForge gỡ cài đặt chúng ngay bây giờ không? Việc
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>Tài liệu tham chiếu Bliss-Box</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>API Bliss-Box đứng sau tính năng Đọc bộ chuyển đổi Bliss-Box, được đọc từ API Tool của Bliss-Box LLC (kiểu BSD, phân phối lại miễn phí) và DeviceBuddy (có sẵn mã nguồn, Bliss-Box LLC), cùng tên các nút từ các tệp Bliss-Box trong bản fork retroarch-joypad-autoconfig của SteveFox1620, mã kiểm tra của Controller Pak được đối chiếu với libdragon (Unlicense), và phản hồi của tay cầm PlayStation từ psx-spx và trình điều khiển psxpad-spi của Linux (GPL-2.0-or-later). Tên tay cầm và ghi chú hỗ trợ còn lấy từ danh sách tương thích của Bliss-Box LLC, và hành vi của các bộ chuyển đổi đã được đối chiếu với firmware của chúng. Chỉ dùng làm tài liệu, không có mã nào được phát hành kèm.</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>Lớp truyền tải USB của Vadym Hrynchyshyn cho các tay cầm USB tổng hợp của HIDMaestro. Trình cài đặt đã ký của nó được đóng gói trong HIDMaestro và chạy vào lần đầu tiên một tay cầm tổng hợp được tạo. BSD 2-Clause.</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>Lớp truyền tải USB của Vadym Hrynchyshyn cho các tay cầm USB tổng hợp của HIDMaestro. HIDMaestro mang theo trình điều khiển bộ điều khiển máy chủ đã ký của nó và cài đặt vào lần đầu tiên một tay cầm tổng hợp được tạo. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>Chọn những nửa nào của khe này đang hoạt động. Tắt một nửa sẽ ẩn các hàng của nó và ngăn nó gửi, đồng thời giữ lại các ánh xạ của nó để khi bật lại thì chúng được khôi phục.</value>
   </data>

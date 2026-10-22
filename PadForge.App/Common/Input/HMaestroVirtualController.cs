@@ -78,7 +78,6 @@ namespace PadForge.Common.Input
         // decodes its rumble outputs onto OutputDecoded like Sony, and
         // so does the Switch 2 Pro composite (HM v1.11.0, HM#66).
         private const ushort NintendoVid = 0x057E;
-        private const ushort Switch2ProPid = 0x2069;
 
         private bool IsDualSenseVirtual =>
             _profile.VendorId == SonyVid
@@ -164,18 +163,16 @@ namespace PadForge.Common.Input
             string.Equals(profileId, "steam-deck-composite", StringComparison.OrdinalIgnoreCase);
 
         /// <summary>True for a persona whose device side builds every input
-        /// report. It takes state and no finished frame: on it
-        /// HMController.SubmitRawReport and SubmitRawExtendedReport throw
-        /// NotSupportedException. That is the Switch 2 Pro composite
-        /// (HIDMaestro 1.11.0, HIDMaestro#66), which picks report 0x09 or
-        /// 0x05 and stamps its counters itself. The test is HIDMaestro's
-        /// own: a USB/IP controller on 057E:2069 (HMController's
-        /// _switch2Protocol).</summary>
+        /// report from a state block, HIDMaestro's own
+        /// <see cref="HMProfile.BuildsItsOwnReports"/> (2.0.0): switch-pro,
+        /// switch-pro-usb, dualshock-3-full and the Switch 2 Pro composite.
+        /// It takes state and no finished frame. A raw submit on it is its
+        /// state block, and HMController.SubmitRawReport throws
+        /// ArgumentException for any other length. PadForge once kept a test
+        /// of its own here, a USB/IP controller on 057E:2069, which named the
+        /// Switch 2 Pro composite alone.</summary>
         internal static bool DeviceBuildsReports(HMProfile profile) =>
-            profile != null
-            && profile.RequiresUsbipBackend
-            && profile.VendorId == NintendoVid
-            && profile.ProductId == Switch2ProPid;
+            profile != null && profile.BuildsItsOwnReports;
 
         /// <summary>See <see cref="DeviceBuildsReports"/>.</summary>
         internal bool BuildsItsOwnReports { get; }
@@ -347,22 +344,38 @@ namespace PadForge.Common.Input
         /// (PadForge.Tests VirtualControllerOffLimits), never by the app.
         /// HIDMaestro makes device nodes, installs its driver and, for a
         /// composite persona, attaches a USB device through usbip-win2, and
-        /// its sweep removes every virtual controller on the PC, a running
-        /// PadForge's included. A test hands <see cref="Connect"/> a seam in
-        /// HIDMaestro's place. While this is set, a Connect with no seam
-        /// throws as a create that failed does, the engine sets up no
-        /// HIDMaestro context and installs no driver, and no sweep runs.
-        /// False in production, where every path is as it was.</summary>
+        /// its sweep removes the controllers ended programs left on the PC
+        /// (every controller on the PC through 1.x, a running PadForge's
+        /// included), and its removal takes it off the PC. A test hands
+        /// <see cref="Connect"/> a seam in HIDMaestro's place. While this is
+        /// set, a Connect with no seam throws as a create that failed does,
+        /// the engine sets up no HIDMaestro context and installs no driver,
+        /// and no sweep or removal runs. False in production, where every
+        /// path is as it was.</summary>
         internal static bool OffLimitsForTest;
 
-        /// <summary>HIDMaestro's sweep of every virtual controller device on
-        /// the PC, its install kept. The one way the app runs it. The test
-        /// host runs none: it made none of them, so the sweep would take a
-        /// running PadForge's controllers.</summary>
+        /// <summary>HIDMaestro's sweep of the virtual controllers that
+        /// programs which have ended left on the PC, a crashed PadForge's
+        /// among them, its install kept. Since 2.0.0 it leaves every running
+        /// program's controllers alone, this one's included
+        /// (HMContext.RemoveAllVirtualControllers). The one way the app runs
+        /// it. The test host runs none: it made none of them, and the sweep
+        /// changes the PC.</summary>
         internal static void SweepVirtualControllers()
         {
             if (OffLimitsForTest) return;
             HMContext.RemoveAllVirtualControllers(preserveInstall: true);
+        }
+
+        /// <summary>HIDMaestro's removal of itself from the PC
+        /// (HMUninstall.Run, 2.0.1): every virtual controller, the driver,
+        /// its certificate, its registry keys and its files. The one way the
+        /// app runs it (Services.HIDMaestroRemoval). The test host runs none
+        /// and gets null.</summary>
+        internal static HMUninstallReport RemoveHIDMaestro(HMUninstallOptions options)
+        {
+            if (OffLimitsForTest) return null;
+            return HMUninstall.Run(options);
         }
 
         /// <summary>Test seam for the HIDMaestro call that makes the

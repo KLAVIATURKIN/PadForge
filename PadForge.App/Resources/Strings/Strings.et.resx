@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>SteamVR-i installimine nurjus: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>SteamVR-i desinstallimine…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR töötab. Sulgege see enne desinstallimist.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro eemaldamine…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro eemaldati.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro eemaldati. Windows kustutab selle viimased failid järgmisel käivitumisel.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro eemaldamine peatus. Sulgege {0} ja desinstallige uuesti.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro eemaldati osaliselt. Loend näitab, mis jäi alles ja miks.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Seadmeloend värskendatud.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Lindistatud „{0}“ ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Nüüd vastendage: {0} {1}</value></data>
@@ -425,6 +430,17 @@ Eelmise versiooni koopia on selles kaustas: {1}</value></data>
   <data name="Settings_AddDots" xml:space="preserve"><value>Lisa...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>HIDMaestro draiver</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>Kasutajarežiimis töötav virtuaalsete HID-kontrollerite mootor. Manustatud koostu PadForge.App. Installitakse automaatselt esimese virtuaalse kontrolleri loomisel. Asendab versioonis v3 draivereid ViGEmBus ja vJoy.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Desinstalli HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>See eemaldab HIDMaestro sellest arvutist: selle virtuaalsed kontrollerid, draiveri, allkirjastamissertifikaadi, registrivõtmed ja failid. PadForge peatab enne oma mootori. Teised HIDMaestrot kasutavad programmid kaotavad selle draiveri kuni järgmise käivitumiseni. PadForge installib selle uuesti, kui käivitab järgmine kord virtuaalse kontrolleri.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Eemalda ka usbip-win2, mis on installitud selle enda installeriga</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>PadForge'i vanemad versioonid installisid usbip-win2 selle enda installeriga. See eemaldab ka selle installi, kui usbip-win2 pole kasutusel mõnes teises programmis. Selle USB juurjaoturi filter jääb alles, sest selle eemaldamine taaskäivitab kõik USB juurjaoturid.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Loen, mida HIDMaestro sellesse arvutisse jättis…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro ei jätnud sellesse arvutisse midagi eemaldatavat.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Need programmid kasutavad tarkvara HIDMaestro. Sulgege need ja valige Värskenda.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Protsess {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Jääb alles: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Lugemine ebaõnnestus: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Ei eemaldatud: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Virtuaalsed MIDI-pordid ja MIDI-sisend. Windows 11 25H2 sisaldab seda API-t alates 2026. aasta novembri lõpu värskendusest. Teised arvutid kasutavad käituskeskkonda Windows MIDI Services, mille PadForge saab installida, või pärand-MIDI API-t.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Windowsi sisseehitatud</value></data>
@@ -1018,6 +1034,9 @@ Eelmise versiooni koopia on selles kaustas: {1}</value></data>
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>Impordi profiili JSON</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>Imporditud asukohast {0}.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>Lugemine nurjus: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro keeldus seda profiili vastu võtmast kohas {1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Selles profiilis pole HID-deskriptorit, seega ei saa selle põhjal kontrollerit luua.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Midagi ei imporditud. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Värskenda</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>Impordi</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(nimetu HID-seade)</value></data>
@@ -3936,7 +3955,7 @@ Kas soovite, et PadForge need nüüd desinstalliks? Selleks on vaja kõrgendatud
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>Bliss-Box-viited</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>Bliss-Box API, millele tugineb valik Loe Bliss-Box-adaptereid, loetud Bliss-Box LLC tööriistast API Tool (BSD-tüüpi, tasuta edasilevitamine) ja tööriistast DeviceBuddy (lähtekood saadaval, Bliss-Box LLC), nupunimed SteveFox1620 retroarch-joypad-autoconfig haru Bliss-Box-failidest, Controller Paki kontrollsummad võrreldud teegiga libdragon (Unlicense) ning PlayStation-mängupuldi vastus pärineb dokumendist psx-spx ja Linux-tuuma draiverist psxpad-spi (GPL-2.0-or-later). Kontrollerite nimed ja toe märkmed pärinevad ka Bliss-Box LLC ühilduvusloendist ning adapterite käitumist on kontrollitud nende püsivara põhjal. Ainult dokumentatsioon, koodi ei levitata.</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>USB-transport HIDMaestro liitkontrollerite jaoks, autor Vadym Hrynchyshyn. Selle allkirjastatud installer on HIDMaestro sees ja käivitub esimese liitkontrolleri loomisel. BSD 2-Clause.</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>USB-transport HIDMaestro liitkontrollerite jaoks, autor Vadym Hrynchyshyn. HIDMaestro sisaldab selle allkirjastatud hostkontrolleri draiverit ja installib selle esimese liitkontrolleri loomisel. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>Valige, millised selle pesa pooled on aktiivsed. Poole väljalülitamine peidab selle read ja peatab saatmise, kuid säilitab vastendused, nii et uuesti sisselülitamine taastab need.</value>
   </data>

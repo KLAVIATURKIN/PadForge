@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>Methodd gosod SteamVR: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>Yn dadosod SteamVR…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>Mae SteamVR yn rhedeg. Caewch ef cyn dadosod.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Yn tynnu HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>Tynnwyd HIDMaestro.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Tynnwyd HIDMaestro. Mae Windows yn dileu ei ffeiliau olaf pan fydd yn cychwyn nesaf.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Stopiwyd tynnu HIDMaestro. Caewch {0}, yna dadosodwch eto.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Tynnwyd HIDMaestro yn rhannol. Mae'r rhestr yn dangos beth arhosodd a pham.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Adnewyddwyd y rhestr dyfeisiau.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Recordiwyd "{0}" ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Nawr mapiwch: {0} {1}</value></data>
@@ -425,6 +430,17 @@ Mae copi o'r fersiwn flaenorol yn y ffolder hon: {1}</value></data>
   <data name="Settings_AddDots" xml:space="preserve"><value>Ychwanegu...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>Gyrrwr HIDMaestro</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>Peiriant rheolydd HID rhithwir modd defnyddiwr. Wedi'i fewnblannu yn PadForge.App. Gosodir yn awtomatig wrth greu'r rheolydd rhithwir cyntaf. Yn cymryd lle ViGEmBus a vJoy yn v3.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Dadosod HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Mae hyn yn tynnu HIDMaestro o'r PC hwn: ei reolyddion rhithwir, ei yrrwr, ei dystysgrif llofnodi, allweddi'r gofrestrfa a ffeiliau. Mae PadForge yn stopio ei injan yn gyntaf. Mae rhaglenni eraill sy'n defnyddio HIDMaestro yn colli ei yrrwr nes iddynt gychwyn nesaf. Mae PadForge yn ei osod eto'r tro nesaf y bydd yn cychwyn rheolydd rhithwir.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Tynnu usbip-win2 a osodwyd gan ei osodwr ei hun hefyd</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Gosododd fersiynau hŷn o PadForge usbip-win2 gyda gosodwr usbip-win2. Mae hyn yn tynnu'r gosodiad hwnnw hefyd, oni bai fod rhaglen arall yn defnyddio usbip-win2. Mae ei hidlydd canolbwynt gwraidd USB yn aros, gan fod ei dynnu yn ailgychwyn pob canolbwynt gwraidd USB.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Yn darllen beth adawodd HIDMaestro ar y PC hwn…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>Ni adawodd HIDMaestro ddim ar y PC hwn i'w dynnu.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Mae'r rhaglenni hyn yn defnyddio HIDMaestro. Caewch nhw, yna dewiswch Adnewyddu.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Proses {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Yn aros: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Ni ellid ei ddarllen: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Heb ei dynnu: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Pyrth MIDI rhithwir a mewnbwn MIDI. Mae Windows 11 25H2 yn cynnwys yr API o ddiweddariad diwedd Tachwedd 2026. Mae PCs eraill yn defnyddio amser rhedeg Windows MIDI Services, y gall PadForge ei osod, neu'r API MIDI etifeddol.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Wedi'i adeiladu i mewn i Windows</value></data>
@@ -1016,6 +1032,9 @@ Mae copi o'r fersiwn flaenorol yn y ffolder hon: {1}</value></data>
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>Mewnforio JSON y Proffil</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>Mewnforiwyd o {0}.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>Methodd y darllen: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>Gwrthododd HIDMaestro y proffil hwn yn {1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Nid oes gan y proffil hwn ddisgrifydd HID, felly ni ellir gwneud rheolydd ohono.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Ni fewnforiwyd dim. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Adnewyddu</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>Mewnforio</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(dyfais HID dienw)</value></data>
@@ -3925,7 +3944,7 @@ Hoffech chi i PadForge eu dadosod nawr? Mae hyn angen caniatâd gweinyddwr ac ef
   <data name="About_AnalogKeyboardRefs" xml:space="preserve"><value>HallJoy, Soup, ac AnalogSense</value></data>
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>Cyfeiriadau Bliss-Box</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>Cludiant USB gan Vadym Hrynchyshyn ar gyfer rheolyddion USB cyfansawdd HIDMaestro. Mae ei osodwr llofnodedig yn dod y tu mewn i HIDMaestro ac yn rhedeg y tro cyntaf y crëir rheolydd cyfansawdd. BSD 2-Clause.</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>Cludiant USB gan Vadym Hrynchyshyn ar gyfer rheolyddion USB cyfansawdd HIDMaestro. Mae HIDMaestro yn cario ei yrrwr rheolydd gwesteiwr llofnodedig ac yn ei osod y tro cyntaf y crëir rheolydd cyfansawdd. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>Dewiswch pa haneri o'r slot hwn sy'n fyw. Mae diffodd hanner yn cuddio ei resi ac yn ei atal rhag anfon, ac yn cadw ei fapiadau fel bod ei droi ymlaen eto yn eu hadfer.</value>
   </data>

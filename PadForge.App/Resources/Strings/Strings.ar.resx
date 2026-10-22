@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>فشل تثبيت SteamVR: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>جارٍ إلغاء تثبيت SteamVR…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR قيد التشغيل. أغلقه قبل إلغاء التثبيت.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>جارٍ إزالة HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>تمت إزالة HIDMaestro.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>تمت إزالة HIDMaestro. سيحذف Windows آخر ملفاته عند بدء تشغيله في المرة القادمة.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>توقفت إزالة HIDMaestro. أغلق {0}، ثم أعد إلغاء التثبيت.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>تمت إزالة HIDMaestro جزئيا. تعرض القائمة ما بقي وسبب بقائه.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>تم تحديث قائمة الأجهزة.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>تم تسجيل {1} لتعيين «{0}»</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>عيّن الآن: {0} {1}</value></data>
@@ -425,6 +430,17 @@
   <data name="Settings_AddDots" xml:space="preserve"><value>إضافة...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>برنامج تشغيل HIDMaestro</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>محرك وحدات تحكم HID ظاهرية يعمل في وضع المستخدم. مضمن في PadForge.App. يتم تثبيته تلقائيا عند إنشاء أول وحدة تحكم ظاهرية. يحل محل ViGEmBus وvJoy في v3.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>إلغاء تثبيت HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>تزيل هذه العملية HIDMaestro من هذا الكمبيوتر: وحدات التحكم الظاهرية وبرنامج التشغيل وشهادة التوقيع ومفاتيح السجل والملفات. يوقف PadForge محركه أولا. تفقد البرامج الأخرى التي تستخدم HIDMaestro برنامج تشغيله إلى أن تبدأ من جديد. يثبته PadForge مرة أخرى عند بدء وحدة تحكم ظاهرية في المرة القادمة.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>إزالة usbip-win2 المثبت بواسطة برنامج التثبيت الخاص به أيضا</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>ثبتت إصدارات PadForge الأقدم usbip-win2 باستخدام برنامج التثبيت الخاص به. يزيل هذا الخيار ذلك التثبيت أيضا، ما لم يستخدم برنامج آخر usbip-win2. يبقى مرشح محور USB الجذري، لأن إزالته تعيد تشغيل كل محور USB جذري.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>جارٍ قراءة ما تركه HIDMaestro على هذا الكمبيوتر…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>لم يترك HIDMaestro شيئا على هذا الكمبيوتر لإزالته.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>تستخدم هذه البرامج HIDMaestro. أغلقها، ثم اضغط تحديث.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>العملية {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>يبقى: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>تعذرت القراءة: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>لم تتم الإزالة: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>منافذ MIDI ظاهرية وإدخال MIDI. يتضمن Windows 11 25H2 واجهة API بدءا من تحديث أواخر نوفمبر 2026. أجهزة الكمبيوتر الأخرى تستخدم وقت تشغيل Windows MIDI Services، الذي يستطيع PadForge تثبيته، أو واجهة MIDI API القديمة.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>مدمج في Windows</value></data>
@@ -1018,6 +1034,9 @@
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>استيراد JSON لملف التعريف</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>تم الاستيراد من {0}.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>فشلت القراءة: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>رفض HIDMaestro ملف التعريف هذا عند {1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>ليس في ملف التعريف هذا واصف HID، لذا لا يمكن إنشاء وحدة تحكم منه.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>لم يتم استيراد شيء. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>تحديث</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>استيراد</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(جهاز HID بلا اسم)</value></data>
@@ -3939,7 +3958,7 @@
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>مراجع Bliss-Box</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>واجهة Bliss-Box API التي تقف وراء «قراءة محولات Bliss-Box»، تمت قراءتها من API Tool من Bliss-Box LLC (على نمط BSD، وإعادة التوزيع مجانية) وDeviceBuddy (المصدر متاح، Bliss-Box LLC)، مع أسماء الأزرار من ملفات Bliss-Box في تفرع retroarch-joypad-autoconfig الذي أعده SteveFox1620، ومطابقة مجاميع Controller Pak الاختبارية مع libdragon (Unlicense)، ورد ذراع تحكم PlayStation من psx-spx وبرنامج التشغيل psxpad-spi في Linux (GPL-2.0-or-later). أسماء وحدات التحكم وملاحظات الدعم مأخوذة كذلك من قائمة التوافق من Bliss-Box LLC، وتمت مطابقة سلوك المحولات مع برنامجها الثابت. للتوثيق فقط، ولا يتضمن البرنامج أي شيفرة.</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>ناقل USB من إعداد Vadym Hrynchyshyn لوحدات تحكم USB المركبة في HIDMaestro. برنامج تثبيته الموقع يأتي داخل HIDMaestro ويعمل عند إنشاء أول وحدة تحكم مركبة. BSD 2-Clause.</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>ناقل USB من إعداد Vadym Hrynchyshyn لوحدات تحكم USB المركبة في HIDMaestro. يحمل HIDMaestro برنامج تشغيل وحدة التحكم المضيفة الموقع الخاص به ويثبته عند إنشاء أول وحدة تحكم مركبة. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>اختر أي نصفي هذه الخانة يعمل. إيقاف نصف يخفي صفوفه ويمنعه من الإرسال، ويحتفظ بتعييناته فتعود عند تشغيله من جديد.</value>
   </data>

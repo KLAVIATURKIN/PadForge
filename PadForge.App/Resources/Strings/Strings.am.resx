@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>የSteamVR ጭነት አልተሳካም፦ {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>SteamVR በማራገፍ ላይ…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR እየሄደ ነው። ከማራገፍዎ በፊት ይዝጉት።</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro በማስወገድ ላይ…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro ተወግዷል።</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro ተወግዷል። Windows የመጨረሻዎቹን ፋይሎቹን በሚቀጥለው ሲጀምር ይሰርዛል።</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>የHIDMaestro ማስወገድ ቆሟል። {0}ን ዝጋ፣ ከዚያ እንደገና አራግፍ።</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro በከፊል ተወግዷል። ዝርዝሩ የቀረውን እና ምክንያቱን ያሳያል።</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>የመሣሪያ ዝርዝሩ ታድሷል።</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>«{0}» ተቀርጿል ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>አሁን ያዛምዱ፦ {0} {1}</value></data>
@@ -424,6 +429,17 @@
   <data name="Settings_AddDots" xml:space="preserve"><value>አክል...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>HIDMaestro አሽከርካሪ</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>የተጠቃሚ-ሁነታ ምናባዊ HID መቆጣጠሪያ ሞተር። በPadForge.App ውስጥ የተካተተ። ምናባዊ መቆጣጠሪያ መጀመሪያ ሲፈጠር በራስ-ሰር ይጫናል። በv3 ውስጥ ViGEmBus እና vJoyን ይተካል።</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>HIDMaestroን አራግፍ</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>ይህ HIDMaestroን ከዚህ ኮምፒውተር ያስወግዳል፦ ምናባዊ መቆጣጠሪያዎቹን፣ አሽከርካሪውን፣ የመፈረሚያ ሰርተፊኬቱን፣ የመዝገብ ቤት ቁልፎቹን እና ፋይሎቹን። PadForge መጀመሪያ ሞተሩን ያቆማል። HIDMaestroን የሚጠቀሙ ሌሎች ፕሮግራሞች በሚቀጥለው እስኪጀምሩ ድረስ አሽከርካሪውን ያጣሉ። PadForge በሚቀጥለው ጊዜ ምናባዊ መቆጣጠሪያ ሲጀምር እንደገና ይጭነዋል።</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>በራሱ ጫኚ የተጫነውን usbip-win2ም አስወግድ</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>የቆዩ የPadForge ስሪቶች usbip-win2ን በusbip-win2 ጫኚ ጭነዋል። ሌላ ፕሮግራም usbip-win2ን ካልተጠቀመ በስተቀር ይህ ያንንም ጭነት ያስወግዳል። የUSB ስር ማዕከል ማጣሪያው ይቀራል፣ ምክንያቱም እሱን ማስወገድ እያንዳንዱን የUSB ስር ማዕከል ዳግም ያስጀምራል።</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>HIDMaestro በዚህ ኮምፒውተር ላይ የተወውን በማንበብ ላይ…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro በዚህ ኮምፒውተር ላይ የሚወገድ ምንም ነገር አልተወም።</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>እነዚህ ፕሮግራሞች HIDMaestroን ይጠቀማሉ። ዝጋቸው፣ ከዚያ አድስን ምረጥ።</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>ሂደት {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>ይቀራል፦ {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>ሊነበብ አልቻለም፦ {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>አልተወገደም፦ {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>ምናባዊ MIDI ወደቦች እና የMIDI ግብዓት። Windows 11 25H2 ከኖቬምበር 2026 መጨረሻ ዝማኔ ጀምሮ API-ውን ያካትታል። ሌሎች ፒሲዎች PadForge ሊጭነው የሚችለውን የWindows MIDI Services ራንታይም፣ ወይም የቆየውን MIDI API ይጠቀማሉ።</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>በWindows ውስጥ አብሮ የተሰራ</value></data>
@@ -1017,6 +1033,9 @@
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>የመገለጫ JSON አስገባ</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>ከ{0} ገብቷል።</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>ማንበብ አልተሳካም: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro ይህን መገለጫ በ{1} ላይ አልተቀበለውም፦ {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>ይህ መገለጫ HID ገላጭ የለውም፣ ስለዚህ ከእሱ ምንም መቆጣጠሪያ ሊሠራ አይችልም።</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>ምንም አልገባም። {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>አድስ</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>አስገባ</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(ስም የሌለው HID መሣሪያ)</value></data>
@@ -3901,7 +3920,7 @@ PadForge አሁን እንዲያራግፋቸው ይፈልጋሉ? ይህ የአስ
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>የBliss-Box ማጣቀሻዎች</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>ከ«Bliss-Box አስማሚዎችን አንብብ» በስተጀርባ ያለው Bliss-Box API፣ ከBliss-Box LLC API Tool (የBSD ዓይነት፣ በነፃ እንደገና ማሰራጨት የሚፈቀድ) እና DeviceBuddy (ምንጩ የሚገኝ፣ Bliss-Box LLC) የተነበበ። የአዝራር ስሞች በSteveFox1620 retroarch-joypad-autoconfig ቅርንጫፍ ውስጥ ካሉት የBliss-Box ፋይሎች፣ የController Pak ቼክሰሞች ከlibdragon (Unlicense) ጋር የተረጋገጡ፣ እና የPlayStation መቆጣጠሪያ ምላሽ ከpsx-spx እና ከLinux psxpad-spi አሽከርካሪ (GPL-2.0-or-later) የመጡ ናቸው። የመቆጣጠሪያ ስሞች እና የድጋፍ ማስታወሻዎች ከBliss-Box LLC የተኳሃኝነት ዝርዝርም ይመጣሉ፣ እና የአስማሚዎቹ ባህሪ ከፈርምዌራቸው ጋር ተረጋግጧል። ሰነድ ብቻ፣ ምንም ኮድ አይካተትም።</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>ለHIDMaestro የተቀናጁ USB መቆጣጠሪያዎች የUSB ማጓጓዣ፣ በVadym Hrynchyshyn። የተፈረመው ጫኚው በHIDMaestro ውስጥ ተካቶ ይመጣል እና የተቀናጀ መቆጣጠሪያ ለመጀመሪያ ጊዜ ሲፈጠር ይሠራል። BSD 2-Clause።</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>ለHIDMaestro የተቀናጁ USB መቆጣጠሪያዎች የUSB ማጓጓዣ፣ በVadym Hrynchyshyn። HIDMaestro የተፈረመውን የአስተናጋጅ መቆጣጠሪያ አሽከርካሪውን ይዞ ይመጣል እና የተቀናጀ መቆጣጠሪያ ለመጀመሪያ ጊዜ ሲፈጠር ይጭነዋል። BSD 2-Clause።</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>የዚህ ቦታ የትኞቹ ግማሾች እንደሚሠሩ ይምረጡ። አንድን ግማሽ ማጥፋት ረድፎቹን ይደብቃል እና መላኩን ያቆማል፣ ማዛመጃዎቹን ግን ያቆያል፣ ስለዚህ መልሶ ማብራት ይመልሳቸዋል።</value>
   </data>

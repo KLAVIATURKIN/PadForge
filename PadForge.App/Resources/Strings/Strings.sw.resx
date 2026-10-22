@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>Usakinishaji wa SteamVR umeshindwa: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>Inaondoa usakinishaji wa SteamVR…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR inaendesha. Ifunge kabla ya kuondoa usakinishaji.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Inaondoa HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro imeondolewa.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro imeondolewa. Windows itafuta faili zake za mwisho itakapoanza tena.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Uondoaji wa HIDMaestro umesimama. Funga {0}, kisha ondoa usakinishaji tena.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro imeondolewa kwa sehemu. Orodha inaonyesha kilichobaki na sababu.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Orodha ya vifaa imeonyeshwa upya.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Imerekodi "{0}" ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Sasa panga ramani: {0} {1}</value></data>
@@ -423,6 +428,17 @@ Nakala ya toleo la awali iko kwenye folda hii: {1}</value></data>
   <data name="Settings_AddDots" xml:space="preserve"><value>Ongeza...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>Kiendeshi cha HIDMaestro</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>Injini ya kidhibiti pepe cha HID ya hali ya mtumiaji. Imepachikwa ndani ya PadForge.App. Husakinishwa kiotomatiki kidhibiti pepe cha kwanza kinapoundwa. Hubadilisha ViGEmBus na vJoy katika v3.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Ondoa usakinishaji wa HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Hii huondoa HIDMaestro kwenye kompyuta hii: vidhibiti vyake pepe, kiendeshi, cheti cha kusaini, funguo za rejista na faili. PadForge husimamisha injini yake kwanza. Programu nyingine zinazotumia HIDMaestro zitapoteza kiendeshi chake hadi zitakapoanza tena. PadForge huisakinisha tena itakapoanzisha kidhibiti pepe tena.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Ondoa pia usbip-win2 iliyosakinishwa kwa kisakinishi chake</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Matoleo ya zamani ya PadForge yalisakinisha usbip-win2 kwa kisakinishi cha usbip-win2. Hii huondoa usakinishaji huo pia, isipokuwa programu nyingine inatumia usbip-win2. Kichujio chake cha USB root hub kinabaki, kwa sababu kukiondoa huanzisha upya kila USB root hub.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Inasoma vilivyobaki vya HIDMaestro kwenye kompyuta hii…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro haikuacha chochote cha kuondoa kwenye kompyuta hii.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Programu hizi zinatumia HIDMaestro. Zifunge, kisha chagua Onyesha upya.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Mchakato {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Inabaki: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Haikuweza kusomwa: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Haikuondolewa: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Milango pepe ya MIDI na ingizo la MIDI. Windows 11 25H2 inajumuisha API kutoka sasisho la mwishoni mwa Novemba 2026. Kompyuta nyingine hutumia runtime ya Windows MIDI Services, ambayo PadForge inaweza kusakinisha, au API ya zamani ya MIDI.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Imejengwa ndani ya Windows</value></data>
@@ -1015,6 +1031,9 @@ Nakala ya toleo la awali iko kwenye folda hii: {1}</value></data>
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>Ingiza JSON ya Wasifu</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>Imeingizwa kutoka {0}.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>Kusoma kumeshindwa: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro ilikataa wasifu huu kwenye {1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Wasifu huu hauna HID descriptor, kwa hivyo hakuna kidhibiti kinachoweza kuundwa kutoka kwake.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Hakuna kilichoingizwa. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Onyesha Upya</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>Ingiza</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(kifaa cha HID kisicho na jina)</value></data>
@@ -3876,7 +3895,7 @@ Ungependa PadForge iviondoe sasa? Hii inahitaji ruhusa za msimamizi na inaweza k
   <data name="About_AnalogKeyboardRefs" xml:space="preserve"><value>HallJoy, Soup, na AnalogSense</value></data>
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>Marejeo ya Bliss-Box</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>Usafirishaji wa USB na Vadym Hrynchyshyn kwa vidhibiti vya mchanganyiko vya USB vya HIDMaestro. Kisakinishi chake kilichosainiwa kimejumuishwa ndani ya HIDMaestro na huendeshwa mara ya kwanza kidhibiti cha mchanganyiko kinapoundwa. BSD 2-Clause.</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>Usafirishaji wa USB na Vadym Hrynchyshyn kwa vidhibiti vya mchanganyiko vya USB vya HIDMaestro. HIDMaestro hubeba kiendeshi chake cha host controller kilichosainiwa na kukisakinisha mara ya kwanza kidhibiti cha mchanganyiko kinapoundwa. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>Chagua nusu zipi za nafasi hii zinafanya kazi. Kuzima nusu huficha safu zake na kuizuia kutuma, na huhifadhi ramani zake ili kuiwasha tena kuzirejeshe.</value>
   </data>

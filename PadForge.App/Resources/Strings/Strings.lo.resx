@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>ການຕິດຕັ້ງ SteamVR ລົ້ມເຫຼວ: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>ກຳລັງຖອນການຕິດຕັ້ງ SteamVR…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR ກຳລັງເຮັດວຽກຢູ່. ປິດມັນກ່ອນຖອນການຕິດຕັ້ງ.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>ກຳລັງລຶບ HIDMaestro ອອກ…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>ລຶບ HIDMaestro ອອກແລ້ວ.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>ລຶບ HIDMaestro ອອກແລ້ວ. Windows ຈະລຶບໄຟລ໌ສຸດທ້າຍຂອງມັນເມື່ອ Windows ເລີ່ມເທື່ອຕໍ່ໄປ.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>ການລຶບ HIDMaestro ຢຸດລົງ. ປິດ {0} ແລ້ວຖອນການຕິດຕັ້ງອີກຄັ້ງ.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro ຖືກລຶບອອກພຽງບາງສ່ວນ. ລາຍການສະແດງສິ່ງທີ່ຍັງເຫຼືອ ແລະ ເຫດຜົນ.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>ໂຫຼດລາຍການອຸປະກອນຄືນໃໝ່ແລ້ວ.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>ອັດແລ້ວ “{0}” ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>ຕອນນີ້ແມັບ: {0} {1}</value></data>
@@ -425,6 +430,17 @@
   <data name="Settings_AddDots" xml:space="preserve"><value>ເພີ່ມ...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>ໄດຣເວີ HIDMaestro</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>ເອັນຈິນຕົວຄວບຄຸມ HID ສະເໝືອນໃນໂໝດຜູ້ໃຊ້. ຝັງຢູ່ໃນ PadForge.App. ຕິດຕັ້ງອັດຕະໂນມັດເມື່ອສ້າງຕົວຄວບຄຸມສະເໝືອນຄັ້ງທຳອິດ. ແທນທີ່ ViGEmBus ແລະ vJoy ໃນ v3.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>ຖອນການຕິດຕັ້ງ HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>ການນີ້ຈະລຶບ HIDMaestro ອອກຈາກຄອມພິວເຕີເຄື່ອງນີ້: ຕົວຄວບຄຸມສະເໝືອນ, ໄດຣເວີ, ໃບຢັ້ງຢືນການລົງລາຍເຊັນ, ຄີຣີຈິສຕຣີ ແລະ ໄຟລ໌ຂອງມັນ. PadForge ຈະຢຸດເອັນຈິນຂອງຕົນກ່ອນ. ໂປຣແກຣມອື່ນທີ່ໃຊ້ HIDMaestro ຈະບໍ່ມີໄດຣເວີຂອງມັນຈົນກວ່າຈະເລີ່ມໃໝ່ເທື່ອຕໍ່ໄປ. PadForge ຈະຕິດຕັ້ງມັນຄືນໃນເທື່ອຕໍ່ໄປທີ່ເລີ່ມຕົວຄວບຄຸມສະເໝືອນ.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>ລຶບ usbip-win2 ທີ່ຕິດຕັ້ງດ້ວຍຕົວຕິດຕັ້ງຂອງມັນເອງອອກນຳ</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>PadForge ລຸ້ນເກົ່າຕິດຕັ້ງ usbip-win2 ດ້ວຍຕົວຕິດຕັ້ງຂອງ usbip-win2. ການນີ້ຈະລຶບການຕິດຕັ້ງນັ້ນອອກນຳ ເວັ້ນເສຍແຕ່ມີໂປຣແກຣມອື່ນໃຊ້ usbip-win2. ຟິວເຕີ USB root hub ຂອງມັນຍັງຄົງຢູ່ ເພາະການລຶບມັນອອກຈະເຮັດໃຫ້ USB root hub ທຸກອັນເລີ່ມໃໝ່.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>ກຳລັງອ່ານສິ່ງທີ່ HIDMaestro ປະໄວ້ໃນຄອມພິວເຕີເຄື່ອງນີ້…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>ບໍ່ມີຫຍັງຂອງ HIDMaestro ເຫຼືອຢູ່ໃນຄອມພິວເຕີເຄື່ອງນີ້ໃຫ້ລຶບ.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>ໂປຣແກຣມເຫຼົ່ານີ້ໃຊ້ HIDMaestro. ປິດພວກມັນ ແລ້ວເລືອກ ໂຫຼດຄືນ.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>ໂປຣເຊສ {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>ຍັງຄົງຢູ່: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>ອ່ານບໍ່ໄດ້: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>ບໍ່ໄດ້ລຶບ: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>ພອດ MIDI ສະເໝືອນ ແລະ ອິນພຸດ MIDI. Windows 11 25H2 ມີ API ນີ້ມາຈາກອັບເດດທ້າຍເດືອນພະຈິກ 2026. PC ອື່ນໃຊ້ຣັນທາມ Windows MIDI Services, ເຊິ່ງ PadForge ສາມາດຕິດຕັ້ງໄດ້, ຫຼື MIDI API ແບບເກົ່າ.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>ມີມາໃນ Windows</value></data>
@@ -1017,6 +1033,9 @@
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>ນຳເຂົ້າ JSON ຂອງໂປຣໄຟລ໌</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>ນຳເຂົ້າຈາກ {0} ແລ້ວ.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>ອ່ານບໍ່ສຳເລັດ: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro ປະຕິເສດໂປຣໄຟລ໌ນີ້ທີ່ {1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>ໂປຣໄຟລ໌ນີ້ບໍ່ມີ HID descriptor ຈຶ່ງບໍ່ສາມາດສ້າງຕົວຄວບຄຸມຈາກມັນໄດ້.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>ບໍ່ມີຫຍັງຖືກນຳເຂົ້າ. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>ໂຫຼດຄືນ</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>ນຳເຂົ້າ</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(ອຸປະກອນ HID ບໍ່ມີຊື່)</value></data>
@@ -3919,7 +3938,7 @@
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>ແຫຼ່ງອ້າງອີງ Bliss-Box</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>Bliss-Box API ທີ່ຢູ່ເບື້ອງຫຼັງ “ອ່ານອະແດັບເຕີ Bliss-Box” ອ້າງອີງຈາກ API Tool ຂອງ Bliss-Box LLC (ແບບ BSD, ແຈກຢາຍຕໍ່ໄດ້ໂດຍບໍ່ເສຍຄ່າ) ແລະ DeviceBuddy (ເປີດໃຫ້ເບິ່ງຊອດ, Bliss-Box LLC) ພ້ອມຊື່ປຸ່ມຈາກໄຟລ໌ Bliss-Box ໃນ fork retroarch-joypad-autoconfig ຂອງ SteveFox1620, checksum ຂອງ Controller Pak ທີ່ກວດທຽບກັບ libdragon (Unlicense) ແລະ ການຕອບກັບຂອງແພດ PlayStation ຈາກ psx-spx ແລະ ໄດຣເວີ psxpad-spi ຂອງ Linux (GPL-2.0-or-later) ຊື່ຕົວຄວບຄຸມ ແລະ ບັນທຶກການຮອງຮັບຍັງມາຈາກລາຍການຄວາມເຂົ້າກັນໄດ້ຂອງ Bliss-Box LLC ແລະ ພຶດຕິກຳຂອງອະແດັບເຕີໄດ້ຖືກກວດທຽບກັບເຟີມແວຂອງມັນ ເປັນເອກະສານເທົ່ານັ້ນ, ບໍ່ມີໂຄດໃດຖືກລວມມາ</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>ການຮັບສົ່ງ USB ໂດຍ Vadym Hrynchyshyn ສຳລັບຕົວຄວບຄຸມ USB ແບບຄອມໂພສິດຂອງ HIDMaestro ຕົວຕິດຕັ້ງທີ່ລົງລາຍເຊັນແລ້ວຂອງມັນມາພ້ອມ HIDMaestro ແລະ ເຮັດວຽກໃນຄັ້ງທຳອິດທີ່ສ້າງຕົວຄວບຄຸມແບບຄອມໂພສິດ BSD 2-Clause</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>ການຮັບສົ່ງ USB ໂດຍ Vadym Hrynchyshyn ສຳລັບຕົວຄວບຄຸມ USB ແບບຄອມໂພສິດຂອງ HIDMaestro ໄດຣເວີຕົວຄວບຄຸມໂຮສທີ່ລົງລາຍເຊັນແລ້ວຂອງມັນມາພ້ອມ HIDMaestro ແລະ HIDMaestro ຕິດຕັ້ງມັນໃນຄັ້ງທຳອິດທີ່ສ້າງຕົວຄວບຄຸມແບບຄອມໂພສິດ BSD 2-Clause</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>ເລືອກວ່າເຄິ່ງໃດຂອງຊ່ອງນີ້ເຮັດວຽກ ການປິດເຄິ່ງໜຶ່ງຈະເຊື່ອງແຖວຂອງມັນ ແລະ ຢຸດບໍ່ໃຫ້ມັນສົ່ງ ແຕ່ຍັງເກັບການແມັບໄວ້ ເມື່ອເປີດຄືນຈະກູ້ຄືນມາ</value>
   </data>

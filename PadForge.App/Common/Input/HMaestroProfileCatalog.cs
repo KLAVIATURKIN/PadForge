@@ -9,7 +9,7 @@ namespace PadForge.Common.Input
     /// Read-only catalog of HIDMaestro profiles, partitioned by the v3
     /// category dropdown (Xbox / PlayStation / Extended). Owns its own
     /// metadata-only HMContext: it calls LoadDefaultProfiles to enumerate
-    /// the embedded profile JSONs (336 in the shipped SDK) but never instantiates HMController
+    /// the embedded profile JSONs (337 in the shipped SDK) but never instantiates HMController
     /// or installs the driver. The engine's separate HMContext in
     /// InputManager.Step5 owns the live device lifecycle.
     ///
@@ -39,6 +39,17 @@ namespace PadForge.Common.Input
         private static List<HMProfile> _extendedProfiles = new();
         private static List<HMProfile> _keyboardProfiles = new();
         private static List<HMProfile> _mouseProfiles = new();
+        private static Dictionary<string, UserProfileProblem> _userProfileProblems = new(StringComparer.Ordinal);
+
+        /// <summary>Why one user profile is missing from the pickers.</summary>
+        public sealed class UserProfileProblem
+        {
+            /// <summary>HIDMaestro's refusal of the profile, with the JSON
+            /// path and the reason. Null when HIDMaestro loaded the profile
+            /// and it has no HID descriptor, which keeps it out of the
+            /// pickers all the same.</summary>
+            public HMProfileLoadIssue Refusal { get; init; }
+        }
 
         /// <summary>
         /// Source of user-imported HIDMaestro profile JSONs to mix into the
@@ -91,8 +102,9 @@ namespace PadForge.Common.Input
         }
 
         /// <summary>Nintendo-family controller profiles: switch-pro,
-        /// switch2-pro-controller and switch2-pro-controller-composite (see
-        /// IsNintendoProfile). Mutually exclusive with the other buckets.</summary>
+        /// switch-pro-usb, switch2-pro-controller and
+        /// switch2-pro-controller-composite (see IsNintendoProfile). Mutually
+        /// exclusive with the other buckets.</summary>
         public static IReadOnlyList<HMProfile> NintendoProfiles
         {
             get { EnsureInitialized(); return _nintendoProfiles; }
@@ -142,6 +154,125 @@ namespace PadForge.Common.Input
                 string.Equals(p.Id, id, StringComparison.OrdinalIgnoreCase));
         }
 
+        /// <summary>Why the user profile with this JSON, as
+        /// <see cref="UserProfilesProvider"/> handed it in, is not in the
+        /// pickers, or null when it is.</summary>
+        public static UserProfileProblem GetUserProfileProblem(string json)
+        {
+            if (string.IsNullOrEmpty(json)) return null;
+            EnsureInitialized();
+            return _userProfileProblems.TryGetValue(json, out var problem) ? problem : null;
+        }
+
+        /// <summary>Why HIDMaestro would keep this profile JSON out of the
+        /// pickers, checked in a context of its own beside the built-in
+        /// catalog, or null when it loads with a descriptor. The import
+        /// asks before it stores a profile, so a slot is never pointed at
+        /// one that is not there. Null too when HIDMaestro cannot be
+        /// loaded at all, which the catalog and the engine report on their
+        /// own.</summary>
+        public static UserProfileProblem CheckUserProfile(string json)
+        {
+            if (string.IsNullOrWhiteSpace(json)) return null;
+            try
+            {
+                using var ctx = new HMContext();
+                ctx.LoadDefaultProfiles();
+                return LoadUserProfiles(ctx, new[] { json }).TryGetValue(json, out var problem) ? problem : null;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Loads the user's profile JSONs into <paramref name="ctx"/>, which
+        /// already holds the built-in catalog, and returns why each one that
+        /// will not appear in the pickers is missing, keyed by its JSON.
+        ///
+        /// <para>HIDMaestro only loads profiles from a directory, so the
+        /// JSONs are staged to a temporary one just long enough for
+        /// LoadProfilesFromDirectory to read them. Since 2.0.0 that load is
+        /// strict and throws for no single file: a file that does not parse,
+        /// a key the schema lacks, a value a check refuses or an id already
+        /// loaded refuses that file alone, and HMContext.ProfileLoadIssues
+        /// lists it with its JSON path and the reason. A profile that loads
+        /// without a HID descriptor is left out of the pickers too
+        /// (IsDeployable), so it gets a problem of its own. A model problem
+        /// leaves the profile in the pickers, running on the model its
+        /// identity gives it, and only goes to the log.</para>
+        /// </summary>
+        internal static Dictionary<string, UserProfileProblem> LoadUserProfiles(
+            HMContext ctx, IReadOnlyList<string> userJsons)
+        {
+            var problems = new Dictionary<string, UserProfileProblem>(StringComparer.Ordinal);
+            if (ctx == null || userJsons == null || userJsons.Count == 0) return problems;
+
+            string dir = System.IO.Path.Combine(
+                System.IO.Path.GetTempPath(),
+                $"padforge-userprofiles-{Guid.NewGuid():N}");
+            try
+            {
+                System.IO.Directory.CreateDirectory(dir);
+                // The load names each file under the full path of the
+                // directory it was given (ProfileDatabase.Load), so the
+                // staged names are built the same way to match its issues.
+                string root = System.IO.Path.GetFullPath(dir);
+                var staged = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                for (int i = 0; i < userJsons.Count; i++)
+                {
+                    string json = userJsons[i];
+                    if (string.IsNullOrWhiteSpace(json)) continue;
+                    string file = System.IO.Path.Combine(root, $"user-{i:D4}.json");
+                    System.IO.File.WriteAllText(file, json);
+                    staged[file] = json;
+                }
+                if (staged.Count == 0) return problems;
+                ctx.LoadProfilesFromDirectory(root);
+
+                foreach (var issue in ctx.ProfileLoadIssues)
+                {
+                    if (!staged.TryGetValue(issue.File, out var json)) continue;
+                    if (issue.Kind == HMProfileLoadIssueKind.ModelProblem)
+                    {
+                        PadForge.Engine.SdlDiagLog.WriteLine(
+                            $"PROFILES: user profile {issue.ProfileId} loaded with a model problem at {issue.JsonPath}: {issue.Reason}");
+                        continue;
+                    }
+                    PadForge.Engine.SdlDiagLog.WriteLine(
+                        $"PROFILES: user profile {issue.ProfileId ?? "(no id)"} refused at {issue.JsonPath}: {issue.Reason}");
+                    if (!problems.ContainsKey(json))
+                        problems[json] = new UserProfileProblem { Refusal = issue };
+                }
+
+                foreach (string json in staged.Values)
+                {
+                    if (problems.ContainsKey(json)) continue;
+                    string id = null;
+                    try { id = System.Text.Json.Nodes.JsonNode.Parse(json)?["id"]?.GetValue<string>(); }
+                    catch { }
+                    var loaded = string.IsNullOrEmpty(id) ? null : ctx.GetProfile(id);
+                    if (loaded == null || loaded.IsDeployable) continue;
+                    PadForge.Engine.SdlDiagLog.WriteLine(
+                        $"PROFILES: user profile {id} has no HID descriptor and is not offered");
+                    problems[json] = new UserProfileProblem();
+                }
+            }
+            catch
+            {
+                // Best effort, as the catalog has always been: a staging or
+                // load failure must not break the built-in profiles, which
+                // are already loaded.
+            }
+            finally
+            {
+                try { System.IO.Directory.Delete(dir, recursive: true); }
+                catch { }
+            }
+            return problems;
+        }
+
         /// <summary>
         /// Force the catalog to re-initialize on the next access. Call
         /// after a user imports a new profile so the Extended dropdown
@@ -159,6 +290,7 @@ namespace PadForge.Common.Input
                 _extendedProfiles = new();
                 _keyboardProfiles = new();
                 _mouseProfiles = new();
+                _userProfileProblems = new(StringComparer.Ordinal);
             }
             EnsureInitialized();
             foreach (var reloaded in s_catalogReloaded.Live()) reloaded(null, System.EventArgs.Empty);
@@ -171,51 +303,29 @@ namespace PadForge.Common.Input
             {
                 if (_initialized) return;
 
-                string userTempDir = null;
                 try
                 {
                     using var ctx = new HMContext();
                     ctx.LoadDefaultProfiles();
+                    // A refused catalog file would drop a built-in profile
+                    // without a word, so whatever the catalog's own load
+                    // lists goes to the log. HIDMaestro's release checks keep
+                    // this empty.
+                    foreach (var issue in ctx.ProfileLoadIssues)
+                        PadForge.Engine.SdlDiagLog.WriteLine($"PROFILES: catalog {issue.Kind} {issue}");
 
-                    // Write any user-imported profile JSONs to a temp
-                    // directory and load them through HMContext so they
-                    // participate in the same parsing + validation path as
-                    // the built-in catalog. HIDMaestro only exposes a
-                    // directory-based loader, so we stage the JSONs to
-                    // disk just long enough for LoadProfilesFromDirectory
-                    // to consume them.
-                    var userJsons = UserProfilesProvider?.Invoke();
-                    if (userJsons != null && userJsons.Count > 0)
-                    {
-                        userTempDir = System.IO.Path.Combine(
-                            System.IO.Path.GetTempPath(),
-                            $"padforge-userprofiles-{System.Guid.NewGuid():N}");
-                        try
-                        {
-                            System.IO.Directory.CreateDirectory(userTempDir);
-                            for (int i = 0; i < userJsons.Count; i++)
-                            {
-                                var json = userJsons[i];
-                                if (string.IsNullOrWhiteSpace(json)) continue;
-                                System.IO.File.WriteAllText(
-                                    System.IO.Path.Combine(userTempDir, $"user-{i:D4}.json"),
-                                    json);
-                            }
-                            ctx.LoadProfilesFromDirectory(userTempDir);
-                        }
-                        catch
-                        {
-                            // User-profile staging/loading is best-effort —
-                            // a single corrupt entry must not break the
-                            // catalog. Built-in profiles are already loaded.
-                        }
-                    }
+                    // The user's imported profiles load through the same
+                    // context, so they get the same parse and checks as the
+                    // built-in catalog, and each one that does not make the
+                    // pickers keeps its reason for Manage Profiles.
+                    _userProfileProblems = LoadUserProfiles(ctx, UserProfilesProvider?.Invoke());
 
                     // Filter undeployable profiles at catalog load. HIDMaestro
-                    // ships some profile JSONs that lack a HID descriptor —
-                    // HMContext.CreateController throws ArgumentException
-                    // "Profile 'X' has no HID descriptor and cannot be
-                    // deployed." for those. Excluding them at the catalog
+                    // ships some profile JSONs that lack a HID descriptor, and
+                    // HMContext.CreateController throws HMProfileException
+                    // "Profile 'X' at $.descriptor: the profile has no HID
+                    // descriptor and cannot be deployed." for those.
+                    // Excluding them at the catalog
                     // level prevents the user from selecting a broken
                     // profile in any dropdown, so creation never attempts a
                     // controller it can't deploy. When HIDMaestro ships a
@@ -295,16 +405,8 @@ namespace PadForge.Common.Input
                 }
                 catch
                 {
-                    // Catalog unavailable — leave the empty lists in place.
+                    // Catalog unavailable. Leave the empty lists in place.
                     // The engine's own HMContext will surface the real error.
-                }
-                finally
-                {
-                    if (userTempDir != null)
-                    {
-                        try { System.IO.Directory.Delete(userTempDir, recursive: true); }
-                        catch { }
-                    }
                 }
 
                 _initialized = true;
@@ -346,9 +448,19 @@ namespace PadForge.Common.Input
         private static readonly HashSet<string> WithheldProfileIds =
             new HashSet<string>(StringComparer.OrdinalIgnoreCase)
             {
-                // Empty. Every profile now ships the 2D and 3D art it
-                // needs. The three Valve entries that lived here were
-                // released once their meshes and overlays landed.
+                // The three Valve entries that lived here were released once
+                // their meshes and overlays landed.
+                //
+                // The Wii U GameCube adapter on USB/IP (057E:0337). HIDMaestro
+                // 2.0.0 gave it a descriptor, so it became deployable for the
+                // first time, and offering it as it stands would give a device
+                // nothing reads: Dolphin and Slippi open it only after
+                // HMController.BindWinUsb, and Windows' HID driver fails it
+                // with Code 10, as on a real adapter. It also reports four
+                // ports where a slot drives one, and VendorUsbDriverInstaller
+                // binds WinUSB to a real adapter of the same ids for input.
+                // No released build offered it.
+                "gamecube-adapter",
             };
 
         internal static bool IsWithheldProfile(string profileId) =>
@@ -492,19 +604,24 @@ namespace PadForge.Common.Input
 
         /// <summary>
         /// True for the profiles the Nintendo category offers: the original
-        /// Switch Pro Controller, and the Switch 2 Pro Controller in its two
-        /// forms. switch2-pro-controller is the HID gamepad every reader
-        /// sees. switch2-pro-controller-composite (HIDMaestro 1.11.0,
-        /// HIDMaestro#66) is the pad's two-interface USB form, which Steam
-        /// and SDL built with libusb start and read motion from. No other
-        /// reader gets input from it, as with the real pad on Windows, so
-        /// it is offered beside the plain one and replaces nothing. Joy-Cons,
-        /// the NSO retro pads, and the GameCube adapter stay in Extended
-        /// until the category is widened further. Widening is an id-list
-        /// edit here, nothing else.
+        /// Switch Pro Controller on its Bluetooth descriptor and, from
+        /// HIDMaestro 2.0.0, on its USB one (switch-pro-usb, the USB
+        /// handshake and 64-byte reports SDL's USB path expects), and the
+        /// Switch 2 Pro Controller in its two forms. switch2-pro-controller is
+        /// the HID gamepad every reader sees. switch2-pro-controller-composite
+        /// (HIDMaestro 1.11.0, HIDMaestro#66) is the pad's two-interface USB
+        /// form, which Steam and SDL built with libusb start and read motion
+        /// from. No other reader gets input from it, as with the real pad on
+        /// Windows, so it is offered beside the plain one and replaces
+        /// nothing. Joy-Cons and the NSO retro pads stay in Extended until the
+        /// category is widened further, and the GameCube adapter persona is
+        /// withheld (WithheldProfileIds). Widening is an id-list edit here,
+        /// beside NintendoPreviewMap.FamilyOf and
+        /// MacroItem.IsNintendoLetteredProfile.
         /// </summary>
         private static bool IsNintendoProfile(HMProfile p) =>
             string.Equals(p.Id, "switch-pro", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(p.Id, "switch-pro-usb", StringComparison.OrdinalIgnoreCase)
             || string.Equals(p.Id, "switch2-pro-controller", StringComparison.OrdinalIgnoreCase)
             || string.Equals(p.Id, "switch2-pro-controller-composite", StringComparison.OrdinalIgnoreCase);
 

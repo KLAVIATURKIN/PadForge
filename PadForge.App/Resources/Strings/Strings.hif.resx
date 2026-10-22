@@ -106,6 +106,8 @@
 
   <!-- ═══ Settings ═══ -->
   <data name="Settings_CheckNow" xml:space="preserve"><value>Abhi check karo</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>HIDMaestro uninstall karo</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Process {0}</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_OpenFolder" xml:space="preserve"><value>Folder kholo</value></data>
   <data name="Settings_Language" xml:space="preserve"><value>Bhasha</value></data>

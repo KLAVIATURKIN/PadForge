@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>SteamVR суулгаж чадсангүй: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>SteamVR-ыг устгаж байна…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR ажиллаж байна. Устгахаас өмнө хаана уу.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro-г устгаж байна…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro устгагдлаа.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro устгагдлаа. Үлдсэн файлуудыг нь Windows дараагийн удаа эхлэхдээ устгана.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro-г устгах ажиллагаа зогслоо. Дараахыг хаагаад дахин устгана уу: {0}.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro хэсэгчлэн устгагдлаа. Юу үлдсэн, яагаад гэдгийг жагсаалтаас харна уу.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Төхөөрөмжийн жагсаалтыг сэргээлээ.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Бичигдлээ: “{0}” ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Одоо оноох: {0} {1}</value></data>
@@ -425,6 +430,17 @@
   <data name="Settings_AddDots" xml:space="preserve"><value>Нэмэх...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>HIDMaestro драйвер</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>Хэрэглэгчийн горимын виртуал HID контроллерийн хөдөлгүүр. PadForge.App дотор шингэсэн. Анхны виртуал контроллер үүсгэхэд автоматаар суулгагдана. v3-д ViGEmBus болон vJoy-г орлосон.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>HIDMaestro-г устгах</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Энэ нь HIDMaestro-г энэ компьютерээс устгана: түүний виртуал контроллерууд, драйвер, гарын үсгийн гэрчилгээ, бүртгэлийн түлхүүрүүд болон файлууд. PadForge эхлээд өөрийн хөдөлгүүрийг зогсооно. HIDMaestro ашигладаг бусад програмууд дараагийн удаа эхлэх хүртлээ түүний драйвергүй болно. PadForge дараагийн удаа виртуал контроллер эхлүүлэхдээ үүнийг дахин суулгана.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Өөрийн суулгагчаар суулгасан usbip-win2 програмыг мөн устгах</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>PadForge-ийн хуучин хувилбарууд usbip-win2 програмыг usbip-win2-ийн суулгагчаар суулгадаг байсан. Өөр програм usbip-win2 ашиглахгүй бол энэ нь тэр суулгалтыг мөн устгана. Түүний USB үндсэн хабын шүүлтүүр үлдэнэ, учир нь үүнийг устгавал бүх USB үндсэн хаб дахин эхэлнэ.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>HIDMaestro-гийн энэ компьютерт үлдээсэн зүйлсийг уншиж байна…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro энэ компьютерт устгах зүйл үлдээгээгүй байна.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Эдгээр програм HIDMaestro-г ашиглаж байна. Тэдгээрийг хаагаад «Сэргээх» товчийг сонгоно уу.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Процесс {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Үлдэнэ: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Уншиж чадсангүй: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Устгагдаагүй: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Виртуал MIDI портууд болон MIDI оролт. Windows 11 25H2 нь 2026 оны 11-р сарын сүүлээр гарсан шинэчлэлтээс эхлэн API-г агуулдаг. Бусад компьютер PadForge-ийн суулгаж чадах Windows MIDI Services ажиллах орчин, эсвэл хуучин MIDI API-г ашиглана.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Windows-д багтсан</value></data>
@@ -1018,6 +1034,9 @@
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>Профайлын JSON импортлох</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>Импортолсон: {0}.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>Уншиж чадсангүй: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro энэ профайлыг {1} байршилд татгалзсан: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Энэ профайлд HID тодорхойлогч байхгүй тул үүнээс контроллер үүсгэх боломжгүй.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Юу ч импортлогдсонгүй. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Сэргээх</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>Импортлох</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(нэргүй HID төхөөрөмж)</value></data>
@@ -3919,7 +3938,7 @@ PadForge одоо тэдгээрийг устгах уу? Үүнд админи�
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>Bliss-Box эх сурвалжууд</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>Bliss-Box адаптеруудыг унших функцийн ард байгаа Bliss-Box API-г Bliss-Box LLC-ийн API Tool (BSD маягийн, үнэ төлбөргүй дахин түгээх) болон DeviceBuddy (эх код нийтэд нээлттэй, Bliss-Box LLC)-ээс уншсан. Товчны нэрсийг SteveFox1620-ийн retroarch-joypad-autoconfig салаан дахь Bliss-Box файлуудаас авч, Controller Pak-ийн шалгах нийлбэрийг libdragon (Unlicense)-тэй тулган шалгаж, PlayStation контроллерын хариуг psx-spx ба Linux-ийн psxpad-spi драйвер (GPL-2.0-or-later)-ээс авсан. Контроллерын нэрс ба дэмжлэгийн тэмдэглэлийг мөн Bliss-Box LLC-ийн нийцлийн жагсаалтаас авч, адаптеруудын ажиллагааг тэдгээрийн фирмвэртэй тулган шалгасан. Зөвхөн баримт бичиг, код багтаагүй.</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>HIDMaestro-ийн нийлмэл USB контроллеруудад зориулсан USB дамжуулалт, Vadym Hrynchyshyn-ийн бүтээл. Түүний гарын үсэгтэй суулгагч нь HIDMaestro дотор ирдэг бөгөөд нийлмэл контроллер анх үүсэх үед ажиллана. BSD 2-Clause.</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>HIDMaestro-ийн нийлмэл USB контроллеруудад зориулсан USB дамжуулалт, Vadym Hrynchyshyn-ийн бүтээл. HIDMaestro нь түүний гарын үсэгтэй хост контроллерийн драйверийг агуулдаг бөгөөд нийлмэл контроллер анх үүсэх үед суулгана. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>Энэ слотын аль хагасууд идэвхтэй байхыг сонгоно уу. Хагасыг унтраавал мөрүүд нь нуугдаж, илгээхээ болино. Оноолтууд нь хадгалагдах тул дахин асаахад сэргэнэ.</value>
   </data>

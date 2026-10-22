@@ -112,6 +112,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>I rahua te tāuta o SteamVR: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>E wetetāuta ana i SteamVR…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>E rere ana a SteamVR. Katia i mua i te wetetāuta.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>E tango ana i HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>Kua tangohia a HIDMaestro.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Kua tangohia a HIDMaestro. Ka mukua e Windows ōna kōnae whakamutunga ā te wā ka tīmata anō ia.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Kua mutu te tango i HIDMaestro. Katia a {0}, kātahi ka wetetāuta anō.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Kua tangohia ētahi wāhanga o HIDMaestro. Kei te rārangi ngā mea i mahue me te take.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Kua whakahoutia te rārangi pūrere.</value></data>
   <data name="Status_DirectionRight" xml:space="preserve"><value>(→ matau)</value></data>
   <data name="Status_DirectionDown" xml:space="preserve"><value>(↓ raro)</value></data>
@@ -178,6 +183,17 @@
   <data name="Update_RestartFailed_Format" xml:space="preserve"><value>Kāore i taea e PadForge te tīmata anō: {0}</value></data>
   <data name="Update_Updated_Format" xml:space="preserve"><value>Kua whakahōungia a PadForge ki {0}.</value></data>
   <data name="Settings_AddDots" xml:space="preserve"><value>Tāpiri...</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Wetetāuta i HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Ka tangohia e tēnei a HIDMaestro i tēnei PC: ōna controller mariko, tōna taraiwa, tōna tiwhikete waitohu, ōna kī rēhita me ōna kōnae. Ka whakamutua e PadForge tōna pūkaha i te tuatahi. Ka ngaro te taraiwa o HIDMaestro i ētahi atu hōtaka e whakamahi ana i a ia, kia tīmata anō rā anō rātou. Ka tāuta anō a PadForge i a HIDMaestro ā te wā e tīmata ai ia i tētahi controller mariko.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Tangohia hoki a usbip-win2 i tāutaina mā tōna ake hōtaka tāuta</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>I tāutaina e ngā putanga tawhito o PadForge a usbip-win2 mā te hōtaka tāuta a usbip-win2. Ka tangohia hoki e tēnei taua tāutanga, ki te kore tētahi atu hōtaka e whakamahi ana i a usbip-win2. Ka noho tonu tōna tātari mō te USB root hub, nā te mea ka tīmata anō ngā USB root hub katoa ina tangohia.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>E pānui ana i ngā mea i waiho e HIDMaestro ki tēnei PC…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>Kāore he mea i waiho e HIDMaestro ki tēnei PC hei tango.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Ka whakamahi ēnei hōtaka i a HIDMaestro. Katia, kātahi ka tīpako i Whakahou.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Tukanga {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Ka noho tonu: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Kāore i taea te pānui: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Kāore i tangohia: {0}</value></data>
   <data name="Settings_MidiStatusUnavailable" xml:space="preserve"><value>Kāore e wātea</value></data>
   <data name="Settings_MidiStatusNotRunning" xml:space="preserve"><value>Kāore e rere ana</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
@@ -402,6 +418,9 @@
   <data name="ManageProfiles_ImportFromFile" xml:space="preserve"><value>Kawemai mai i te kōnae…</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>Kua kawemai mai i {0}.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>I rahua te pānui: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>I whakakāhoretia e HIDMaestro tēnei kōtaha i {1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Kāore he HID descriptor o tēnei kōtaha, nō reira kāore e taea te hanga controller i a ia.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Kāore he mea i kawemaitia. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Whakahou</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>Kawemai</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(pūrere HID kāore he ingoa)</value></data>

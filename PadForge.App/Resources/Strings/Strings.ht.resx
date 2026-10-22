@@ -165,6 +165,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>Enstalasyon SteamVR echwe: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>Ap dezenstale SteamVR…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR ap mache. Fèmen l anvan ou dezenstale.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Ap retire HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>Yo retire HIDMaestro.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Yo retire HIDMaestro. Windows ap efase dènye fichye li yo pwochen fwa li demare.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Retrè HIDMaestro a kanpe. Fèmen {0}, epi dezenstale l ankò.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Yo retire yon pati nan HIDMaestro sèlman. Lis la montre sa ki rete ak poukisa.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Lis aparèy yo rafrechi.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Anrejistre "{0}" ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Kounye a asiyen: {0} {1}</value></data>
@@ -390,6 +395,17 @@ Gen yon kopi vèsyon anvan an nan dosye sa a: {1}</value></data>
   <data name="Settings_AddDots" xml:space="preserve"><value>Ajoute...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>Pilòt HIDMaestro</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>Motè kontwolè HID vityèl ki mache an mòd itilizatè. Entegre nan PadForge.App. Li enstale otomatikman premye fwa ou kreye yon kontwolè vityèl. Li ranplase ViGEmBus ak vJoy nan v3.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Dezenstale HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Sa a retire HIDMaestro sou PC sa a: kontwolè vityèl li yo, pilòt li, sètifika siyati li, kle rejis li yo ak fichye li yo. PadForge kanpe motè li an premye. Lòt pwogram ki itilize HIDMaestro pèdi pilòt li jiskaske yo demare ankò. PadForge ap enstale l ankò pwochen fwa li demare yon kontwolè vityèl.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Retire tou usbip-win2 pwòp enstalatè li te enstale a</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Ansyen vèsyon PadForge yo te enstale usbip-win2 ak enstalatè usbip-win2 a. Sa a retire enstalasyon sa a tou, sòf si yon lòt pwogram itilize usbip-win2. Filtè li sou hub rasin USB yo rete, paske retire l ta redemare tout hub rasin USB yo.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Ap li sa HIDMaestro kite sou PC sa a…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro pa kite anyen pou retire sou PC sa a.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Pwogram sa yo itilize HIDMaestro. Fèmen yo, epi chwazi Rafrechi.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Pwosesis {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Rete: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Pa t ka li l: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Pa t retire: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Pò MIDI vityèl ak antre MIDI. Windows 11 25H2 gen API a depi mizajou fen novanm 2026 la. Lòt PC yo sèvi ak runtime Windows MIDI Services, PadForge ka enstale l, oswa ak ansyen API MIDI a.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Entegre nan Windows</value></data>
@@ -941,6 +957,9 @@ Gen yon kopi vèsyon anvan an nan dosye sa a: {1}</value></data>
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>Enpòte JSON pwofil</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>Enpòte apati {0}.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>Lekti echwe: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro refize pwofil sa a nan {1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Pwofil sa a pa gen deskriptè HID, kidonk yo pa ka fè okenn kontwolè avè l.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Anyen pa t enpòte. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Rafrechi</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>Enpòte</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(aparèy HID san non)</value></data>
@@ -3291,7 +3310,7 @@ Gen yon kopi vèsyon anvan an nan dosye sa a: {1}</value></data>
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>Referans Bliss-Box</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>API Bliss-Box ki dèyè Li adaptatè Bliss-Box yo, li nan API Tool Bliss-Box LLC (estil BSD, redistribisyon gratis) ak DeviceBuddy (sous disponib, Bliss-Box LLC), ak non bouton ki soti nan fichye Bliss-Box nan fork retroarch-joypad-autoconfig SteveFox1620 a, checksum Controller Pak yo verifye ak libdragon (Unlicense), ak repons manèt PlayStation la ki soti nan psx-spx ak pilòt psxpad-spi Linux (GPL-2.0-or-later). Non kontwolè yo ak nòt sipò yo soti tou nan lis konpatibilite Bliss-Box LLC, e yo verifye konpòtman adaptatè yo ak firmware yo. Dokimantasyon sèlman, okenn kòd pa enkli.</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>Transpò USB pa Vadym Hrynchyshyn pou kontwolè USB konpoze HIDMaestro yo. Enstalatè siyen li a enkli nan HIDMaestro epi li mache premye fwa yo kreye yon kontwolè konpoze. BSD 2-Clause.</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>Transpò USB pa Vadym Hrynchyshyn pou kontwolè USB konpoze HIDMaestro yo. HIDMaestro gen pilòt kontwolè host siyen li a ladan l, epi li enstale l premye fwa yo kreye yon kontwolè konpoze. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>Chwazi ki mwatye nan plas sa a ki aktif. Lè w etenn yon mwatye, liy li yo kache epi li sispann voye, men asiyasyon li yo rete, kidonk lè w limen l ankò yo retounen.</value>
   </data>

@@ -14,9 +14,8 @@ namespace PadForge.Tests
 {
     /// <summary>
     /// A failed HIDMaestro setup no longer waits for an engine restart. The
-    /// next create after a short hold runs the setup again, a successful retry
-    /// clears the error it left in the status line, and an engine stop and
-    /// start no longer turns off the exit sweep for the rest of the session.
+    /// next create after a short hold runs the setup again, and a successful
+    /// retry clears the error it left in the status line.
     /// </summary>
     [Collection("SettingsManagerStatics")]
     public class HidMaestroSetupRetryTests
@@ -52,9 +51,8 @@ namespace PadForge.Tests
 
         /// <summary>The setup reads the hold, never a latch that only an
         /// engine stop clears. A failure disposes the half-built context and
-        /// stamps the hold. A success clears it, reports the recovery, and
-        /// puts the exit sweep back on for the new context. An engine stop
-        /// clears the hold too.</summary>
+        /// stamps the hold. A success clears it and reports the recovery. An
+        /// engine stop clears the hold too.</summary>
         [Fact]
         public void TheSetupRetriesAndReportsRecovery()
         {
@@ -65,7 +63,6 @@ namespace PadForge.Tests
             Assert.Contains("if (_hmaestroContext != null || HmSetupHeld())", ensure);
             Assert.Contains("bool recovered = _hmaestroSetupFailedTick != 0;", ensure);
             Assert.Contains("Volatile.Write(ref _hmaestroSetupFailedTick, 0);", ensure);
-            Assert.Contains("_cleanShutdownPerformed = false;", ensure);
             Assert.Contains("if (recovered) RaiseErrorResolved(HmSetupFailedMessage);", ensure);
             Assert.Contains("try { ctx?.Dispose(); } catch { }", ensure);
             Assert.Contains("Volatile.Write(ref _hmaestroSetupFailedTick, Math.Max(1, Environment.TickCount64));", ensure);

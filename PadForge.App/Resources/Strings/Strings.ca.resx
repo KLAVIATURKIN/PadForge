@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>Ha fallat la instal·lació de SteamVR: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>S'està desinstal·lant SteamVR…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR s'està executant. Tanca'l abans de desinstal·lar-lo.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>S'està eliminant HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>S'ha eliminat HIDMaestro.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>S'ha eliminat HIDMaestro. Windows suprimeix els últims fitxers la propera vegada que s'inicia.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>S'ha aturat l'eliminació de HIDMaestro. Tanca {0} i torna a desinstal·lar.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro s'ha eliminat només en part. La llista mostra què s'ha quedat i per què.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>S'ha actualitzat la llista de dispositius.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Enregistrat «{0}» ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Ara assigna: {0} {1}</value></data>
@@ -423,6 +428,17 @@ Hi ha una còpia de la versió anterior en aquesta carpeta: {1}</value></data>
   <data name="Settings_AddDots" xml:space="preserve"><value>Afegeix...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>Controlador HIDMaestro</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>Motor de comandaments HID virtuals en mode d'usuari. Integrat a PadForge.App. S'instal·la automàticament en crear el primer comandament virtual. Substitueix ViGEmBus i vJoy a la v3.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Desinstal·la HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Això elimina HIDMaestro d'aquest PC: els comandaments virtuals, el controlador, el certificat de signatura, les claus del registre i els fitxers. PadForge n'atura primer el motor. Els altres programes que fan servir HIDMaestro perden el seu controlador fins que es tornin a iniciar. PadForge el torna a instal·lar la propera vegada que inicia un comandament virtual.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Elimina també usbip-win2 instal·lat amb el seu propi instal·lador</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Les versions antigues de PadForge instal·laven usbip-win2 amb el seu instal·lador propi. Això també elimina aquesta instal·lació, tret que un altre programa faci servir usbip-win2. El filtre del concentrador arrel USB es queda, perquè eliminar-lo reinicia tots els concentradors arrel USB.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>S'està llegint què ha deixat HIDMaestro en aquest PC…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro no ha deixat res per eliminar en aquest PC.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Aquests programes fan servir HIDMaestro. Tanca'ls i després selecciona Actualitza.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Procés {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Es queda: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>No s'ha pogut llegir: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>No eliminat: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Ports MIDI virtuals i entrada MIDI. Windows 11 25H2 inclou l'API des de l'actualització de finals de novembre de 2026. Els altres PC fan servir l'entorn d'execució de Windows MIDI Services, que PadForge pot instal·lar, o l'API MIDI heretada.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Integrat a Windows</value></data>
@@ -1016,6 +1032,9 @@ Hi ha una còpia de la versió anterior en aquesta carpeta: {1}</value></data>
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>Importa el JSON del perfil</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>S'ha importat des de {0}.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>Ha fallat la lectura: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro ha rebutjat aquest perfil a {1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Aquest perfil no té descriptor HID, de manera que no se'n pot crear cap comandament.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>No s'ha importat res. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Actualitza</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>Importa</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(dispositiu HID sense nom)</value></data>
@@ -3938,7 +3957,7 @@ Vols que PadForge els desinstal·li ara? Cal elevar els permisos i pot trigar un
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>Referències de Bliss-Box</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>L'API de Bliss-Box de Llegeix els adaptadors Bliss-Box, extreta de l'API Tool de Bliss-Box LLC (d'estil BSD, redistribució gratuïta) i de DeviceBuddy (codi font disponible, Bliss-Box LLC), amb els noms dels botons dels fitxers de Bliss-Box de la bifurcació de retroarch-joypad-autoconfig de SteveFox1620, les sumes de verificació del Controller Pak contrastades amb libdragon (Unlicense) i la resposta dels comandaments de PlayStation de psx-spx i del controlador psxpad-spi de Linux (GPL-2.0-or-later). Els noms dels comandaments i les notes de compatibilitat també provenen de la llista de compatibilitat de Bliss-Box LLC, i el comportament dels adaptadors s'ha comprovat amb el seu microprogramari. Només documentació, no s'hi inclou cap codi.</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>Transport USB de Vadym Hrynchyshyn per als comandaments USB compostos de HIDMaestro. El seu instal·lador signat s'inclou dins de HIDMaestro i s'executa el primer cop que es crea un comandament compost. BSD 2-Clause.</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>Transport USB de Vadym Hrynchyshyn per als comandaments USB compostos de HIDMaestro. HIDMaestro inclou el seu controlador de host USB signat i l'instal·la el primer cop que es crea un comandament compost. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>Tria quines meitats d'aquesta ranura estan actives. Desactivar una meitat n'amaga les files i fa que deixi d'enviar, però en conserva les assignacions, de manera que es recuperen quan la tornes a activar.</value>
   </data>

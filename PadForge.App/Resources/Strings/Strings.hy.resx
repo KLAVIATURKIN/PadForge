@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>SteamVR-ի տեղադրումը ձախողվեց՝ {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>SteamVR-ի ապատեղադրում…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR-ն աշխատում է։ Փակեք այն ապատեղադրելուց առաջ։</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro-ի հեռացում…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro-ն հեռացվեց։</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro-ն հեռացվեց։ Windows-ը նրա վերջին ֆայլերը կջնջի հաջորդ գործարկման ժամանակ։</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro-ի հեռացումը դադարեցվեց։ Փակեք {0}, ապա նորից ապատեղադրեք։</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro-ն մասամբ հեռացվեց։ Ցանկում երևում է, թե ինչն է մնացել և ինչու։</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Սարքերի ցանկը թարմացվեց։</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Գրանցվեց «{0}» ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Այժմ կապակցեք՝ {0} {1}</value></data>
@@ -425,6 +430,17 @@
   <data name="Settings_AddDots" xml:space="preserve"><value>Ավելացնել...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>HIDMaestro դրայվեր</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>Օգտատիրոջ ռեժիմի վիրտուալ HID կառավարիչների մեխանիզմ։ Ներկառուցված է PadForge.App-ում։ Տեղադրվում է ինքնաշխատ առաջին վիրտուալ կառավարիչը ստեղծելիս։ v3-ում փոխարինում է ViGEmBus-ին և vJoy-ին։</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Ապատեղադրել HIDMaestro-ն</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Սա հեռացնում է HIDMaestro-ն այս համակարգչից՝ նրա վիրտուալ կառավարիչները, դրայվերը, ստորագրման վկայագիրը, ռեեստրի բանալիներն ու ֆայլերը։ PadForge-ը նախ կանգնեցնում է իր մեխանիզմը։ HIDMaestro-ն օգտագործող այլ ծրագրեր կորցնում են նրա դրայվերը մինչև հաջորդ գործարկումը։ PadForge-ը նորից տեղադրում է այն հաջորդ անգամ վիրտուալ կառավարիչ գործարկելիս։</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Հեռացնել նաև usbip-win2-ը, որը տեղադրվել է իր սեփական տեղադրիչով</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>PadForge-ի հին տարբերակները usbip-win2-ը տեղադրել են նրա սեփական տեղադրիչով։ Սա հեռացնում է նաև այդ տեղադրումը, եթե usbip-win2-ն այլ ծրագիր չի օգտագործում։ Նրա USB արմատային հանգույցի զտիչը մնում է, քանի որ այն հեռացնելը վերագործարկում է բոլոր USB արմատային հանգույցները։</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Ընթերցվում է, թե HIDMaestro-ն ինչ է թողել այս համակարգչում…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro-ն այս համակարգչում հեռացնելու ոչինչ չի թողել։</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Այս ծրագրերն օգտագործում են HIDMaestro-ն։ Փակեք դրանք, ապա սեղմեք «Թարմացնել»։</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Գործընթաց {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Մնում է՝ {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Չհաջողվեց կարդալ՝ {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Չհեռացվեց՝ {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Վիրտուալ MIDI պորտեր և MIDI մուտք։ Windows 11 25H2-ը ներառում է API-ն 2026 թվի նոյեմբերի վերջի թարմացումից։ Մյուս համակարգիչները օգտագործում են Windows MIDI Services runtime-ը, որը PadForge-ը կարող է տեղադրել, կամ հին MIDI API-ն։</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Ներկառուցված է Windows-ում</value></data>
@@ -1018,6 +1034,9 @@
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>Ներմուծել պրոֆիլի JSON</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>Ներմուծվեց {0}-ից։</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>Կարդալը ձախողվեց՝ {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro-ն մերժեց այս պրոֆիլը ({1})՝ {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Այս պրոֆիլը HID նկարագրիչ չունի, ուստի դրանից կառավարիչ ստեղծել հնարավոր չէ։</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Ոչինչ չներմուծվեց։ {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Թարմացնել</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>Ներմուծել</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(անանուն HID սարք)</value></data>
@@ -3898,7 +3917,7 @@
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>Bliss-Box-ի հղումներ</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>Bliss-Box API-ն «Կարդալ Bliss-Box ադապտերները» գործառույթի հիմքում, կարդացված Bliss-Box LLC-ի API Tool-ից (BSD-ձևաչափ, անվճար վերաբաշխում) և DeviceBuddy-ից (կոդը հասանելի, Bliss-Box LLC), կոճակների անուններով SteveFox1620-ի retroarch-joypad-autoconfig fork-ի Bliss-Box ֆայլերից, Controller Pak-ի ստուգիչ գումարները՝ ստուգված libdragon-ով (Unlicense), և PlayStation pad-ի պատասխանը psx-spx-ից և Linux-ի psxpad-spi դրայվերից (GPL-2.0-or-later)։ Կառավարիչների անունները և աջակցության նշումները նաև գալիս են Bliss-Box LLC-ի համատեղելիության ցանկից, իսկ ադապտերների վարքը ստուգվել է նրանց որոնվածքի հետ։ Միայն փաստաթղթավորում, կոդ չի տեղակայվում։</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>HIDMaestro-ի կոմպոզիտ USB կառավարիչների USB տրանսպորտը՝ Vadym Hrynchyshyn։ Նրա ստորագրված տեղադրիչը տեղակայվում է HIDMaestro-ի ներսում և աշխատում է առաջին անգամ, երբ ստեղծվում է կոմպոզիտ կառավարիչ։ BSD 2-Clause։</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>HIDMaestro-ի կոմպոզիտ USB կառավարիչների USB տրանսպորտը՝ Vadym Hrynchyshyn։ HIDMaestro-ն իր մեջ ներառում է ստորագրված հոսթ կոնտրոլերի դրայվերը և տեղադրում է այն կոմպոզիտ կառավարիչն առաջին անգամ ստեղծելիս։ BSD 2-Clause։</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>Ընտրեք, այս սլոթի որ կեսերն են աշխատում։ Կեսն անջատելը թաքցնում է նրա տողերը և դադարեցնում ուղարկումը, բայց պահում է նրա կապակցումները, որպեսզի նորից միացնելիս դրանք վերականգնվեն։</value>
   </data>

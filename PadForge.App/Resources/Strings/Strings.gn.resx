@@ -106,6 +106,8 @@
   <!-- ═══ MainWindow Status Messages ═══ -->
   <data name="Status_InstallingHidHide" xml:space="preserve"><value>Oñemohendahína HidHide…</value></data>
   <data name="Status_DownloadingSteamVR" xml:space="preserve"><value>Oñemboguejyhína SteamVR…</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Ojeipe'ahína HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro ojeipe'áma.</value></data>
   <data name="Status_DirectionRight" xml:space="preserve"><value>(→ akatúa)</value></data>
   <data name="Status_DirectionDown" xml:space="preserve"><value>(↓ yvy gotyo)</value></data>
   <data name="Status_DirectionLeft" xml:space="preserve"><value>(← asu)</value></data>
@@ -134,6 +136,8 @@
   <data name="Settings_ThemeLight" xml:space="preserve"><value>Hesakã</value></data>
   <data name="Settings_ThemeDark" xml:space="preserve"><value>Iñypytũ</value></data>
   <data name="Settings_Window" xml:space="preserve"><value>Ovetã</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Opyta: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Ndojeipe'ái: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_OpenFolder" xml:space="preserve"><value>Mbojuruja ñongatuha</value></data>

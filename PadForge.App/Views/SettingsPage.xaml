@@ -594,20 +594,51 @@
                     <TextBlock Text="{Binding Settings_HIDMaestroDesc, Source={x:Static strings:Strings.Instance}}"
                                Style="{StaticResource CardDescription}" Margin="0,0,0,12"
                                TextWrapping="Wrap"/>
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Path FlowDirection="LeftToRight" Style="{StaticResource LivenessFlameBase}" Margin="0,0,8,0"
-                                  Fill="{DynamicResource EmberBrush}" Stroke="{x:Null}">
-                                <!-- Always lit, so the glow is static (#175 glow sweep). -->
-                                <Path.Effect>
-                                    <DropShadowEffect Color="#FF6B2C" BlurRadius="8" ShadowDepth="0" Opacity="0.5"/>
-                                </Path.Effect>
-                            </Path>
-                            <TextBlock Text="{Binding Common_Installed, Source={x:Static strings:Strings.Instance}}"
-                                       FontWeight="SemiBold"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Lit while the driver is in the driver store, as the
+                             HidHide card's flame is lit while HidHide is. The
+                             version line is the SDK PadForge carries, which
+                             installs the driver with the first virtual
+                             controller. -->
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Path FlowDirection="LeftToRight" Margin="0,0,8,0">
+                                    <Path.Style>
+                                        <Style TargetType="Path" BasedOn="{StaticResource LivenessFlameBase}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsHIDMaestroInstalled}" Value="True">
+                                                    <Setter Property="Fill" Value="{DynamicResource EmberBrush}"/>
+                                                    <Setter Property="Stroke" Value="{x:Null}"/>
+                                                    <Setter Property="Effect">
+                                                        <Setter.Value>
+                                                            <DropShadowEffect Color="#FF6B2C" BlurRadius="8" ShadowDepth="0" Opacity="0.5"/>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Path.Style>
+                                </Path>
+                                <TextBlock Text="{Binding HIDMaestroStatusText}" FontWeight="SemiBold"/>
+                            </StackPanel>
+                            <TextBlock Text="{Binding HIDMaestroVersion}" FontSize="12" FontFamily="{StaticResource TelemetryFontFamily}" Foreground="{DynamicResource TextFillColorTertiaryBrush}" Margin="0,4,0,0"/>
                         </StackPanel>
-                        <TextBlock Text="{Binding HIDMaestroVersion}" FontSize="12" FontFamily="{StaticResource TelemetryFontFamily}" Foreground="{DynamicResource TextFillColorTertiaryBrush}" Margin="0,4,0,0"/>
-                    </StackPanel>
+
+                        <!-- Uninstall removes HIDMaestro from the PC (#518), so it
+                             wears the shared destructive chrome. It opens a
+                             preview to confirm in, and stays available with
+                             the driver gone, since HIDMaestro can leave other
+                             things behind. -->
+                        <Button Grid.Column="1" VerticalAlignment="Center"
+                                Content="{Binding Common_Uninstall, Source={x:Static strings:Strings.Instance}}"
+                                Command="{Binding UninstallHIDMaestroCommand}"
+                                Style="{StaticResource EmberDestructiveButton}"/>
+                    </Grid>
                 </StackPanel>
             </Border>
 

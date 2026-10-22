@@ -163,6 +163,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>SteamVR 설치 실패: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>SteamVR 제거 중…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR이 실행 중입니다. 제거하기 전에 종료하세요.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro 제거 중…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro를 제거했습니다.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro를 제거했습니다. 나머지 파일은 Windows가 다음에 시작될 때 삭제합니다.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro 제거가 중단되었습니다. {0}을(를) 닫은 다음 다시 제거하세요.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro가 일부만 제거되었습니다. 남은 항목과 그 이유는 목록에 표시됩니다.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>장치 목록을 새로고침했습니다.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>"{0}" 기록됨 ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>매핑할 항목: {0} {1}</value></data>
@@ -355,6 +360,17 @@
   <data name="Settings_AddDots" xml:space="preserve"><value>추가...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>HIDMaestro 드라이버</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>사용자 모드 가상 HID 컨트롤러 엔진. PadForge.App에 내장되어 있으며 첫 가상 컨트롤러 생성 시 자동으로 설치됩니다. v3에서 ViGEmBus와 vJoy를 대체합니다.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>HIDMaestro 제거</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>이 PC에서 HIDMaestro의 가상 컨트롤러, 드라이버, 서명 인증서, 레지스트리 키, 파일을 제거합니다. PadForge가 먼저 엔진을 중지합니다. HIDMaestro를 사용하는 다른 프로그램은 다음에 시작될 때까지 드라이버를 사용할 수 없게 됩니다. PadForge는 다음에 가상 컨트롤러를 시작할 때 드라이버를 다시 설치합니다.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>자체 설치 프로그램으로 설치된 usbip-win2도 제거</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>이전 버전의 PadForge는 usbip-win2의 설치 프로그램으로 usbip-win2를 설치했습니다. 다른 프로그램이 usbip-win2를 사용하지 않는 한 그 설치도 제거합니다. USB 루트 허브 필터는 제거하면 모든 USB 루트 허브가 다시 시작되므로 그대로 둡니다.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>이 PC에 HIDMaestro가 남긴 항목을 읽는 중…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>이 PC에 HIDMaestro가 남긴 제거할 항목이 없습니다.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>이 프로그램들이 HIDMaestro를 사용하고 있습니다. 닫은 다음 새로고침을 선택하세요.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>프로세스 {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>남음: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>읽을 수 없음: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>제거되지 않음: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>가상 MIDI 포트와 MIDI 입력입니다. 2026년 11월 말 업데이트부터 Windows 11 25H2에 API가 기본 제공됩니다. 다른 PC는 PadForge가 설치할 수 있는 Windows MIDI Services 런타임이나 레거시 MIDI API를 사용합니다.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Windows에 기본 제공</value></data>
@@ -535,6 +551,9 @@
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>프로필 JSON 가져오기</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>{0}에서 가져왔습니다.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>읽기 실패: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro가 {1}에서 이 프로필을 거부했습니다: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>이 프로필에는 HID 디스크립터가 없으므로 컨트롤러를 만들 수 없습니다.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>가져온 항목이 없습니다. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>새로 고침</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>가져오기</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(이름 없는 HID 장치)</value></data>
@@ -3891,7 +3910,7 @@
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>Bliss-Box 참조</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>‘Bliss-Box 어댑터 읽기’의 Bliss-Box API는 Bliss-Box LLC의 API Tool(BSD 계열, 무상 재배포)과 DeviceBuddy(소스 공개, Bliss-Box LLC)에서 읽었으며, 버튼 이름은 SteveFox1620의 retroarch-joypad-autoconfig 포크에 있는 Bliss-Box 파일에서, 컨트롤러 팩 체크섬은 libdragon(Unlicense)과 대조했고, PlayStation 컨트롤러 응답은 psx-spx와 Linux psxpad-spi 드라이버(GPL-2.0-or-later)에서 가져왔습니다. 컨트롤러 이름 일부와 지원 관련 참고 사항은 Bliss-Box LLC의 호환성 목록에서 가져왔으며, 어댑터 동작은 해당 펌웨어로 확인했습니다. 문서만 참고했으며 코드는 포함하지 않습니다.</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>HIDMaestro의 복합 USB 컨트롤러를 위한 USB 전송 계층입니다 (Vadym Hrynchyshyn 제작). 서명된 설치 프로그램이 HIDMaestro에 포함되어 있으며 복합 컨트롤러를 처음 만들 때 실행됩니다. BSD 2-Clause.</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>HIDMaestro의 복합 USB 컨트롤러를 위한 USB 전송 계층입니다 (Vadym Hrynchyshyn 제작). HIDMaestro가 서명된 호스트 컨트롤러 드라이버를 포함하고 있으며 복합 컨트롤러를 처음 만들 때 설치합니다. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>이 슬롯에서 사용할 면을 선택합니다. 끈 쪽은 행이 숨겨지고 전송도 멈추지만 매핑은 그대로 남아 다시 켜면 복원됩니다.</value>
   </data>

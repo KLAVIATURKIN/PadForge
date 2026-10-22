@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>L-installazzjoni ta' SteamVR falliet: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>Qed jiddiżinstalla SteamVR…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR qed jaħdem. Agħlqu qabel tiddiżinstallah.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Qed jitneħħa HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro tneħħa.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro tneħħa. Windows iħassar l-aħħar fajls tiegħu meta jerġa' jibda.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>It-tneħħija ta' HIDMaestro waqfet. Agħlaq {0}, imbagħad erġa' ddiżinstalla.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro tneħħa parzjalment. Il-lista turi x'baqa' u għaliex.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Il-lista tal-apparati ġiet aġġornata.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Irreġistrat “{0}” ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Issa mappja: {0} {1}</value></data>
@@ -425,6 +430,17 @@ Kopja tal-verżjoni ta' qabel tinsab f'dan il-folder: {1}</value></data>
   <data name="Settings_AddDots" xml:space="preserve"><value>Żid...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>Driver HIDMaestro</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>Engine ta' kontrolluri HID virtwali f'user mode. Inkorporat f'PadForge.App. Jiġi installat awtomatikament meta jinħoloq l-ewwel kontrollur virtwali. Jieħu post ViGEmBus u vJoy fil-v3.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Diżinstalla HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Dan ineħħi HIDMaestro minn dan il-PC: il-kontrolluri virtwali, id-driver, iċ-ċertifikat tal-iffirmar, iċ-ċwievet tar-registry u l-fajls tiegħu. PadForge l-ewwel iwaqqaf il-magna tiegħu. Programmi oħra li jużaw HIDMaestro jitilfu d-driver tiegħu sakemm jerġgħu jibdew. PadForge jerġa' jinstallah id-darba li jmiss li jibda kontrollur virtwali.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Neħħi wkoll usbip-win2 installat bl-installer tiegħu stess</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Verżjonijiet eqdem ta' PadForge installaw usbip-win2 bl-installer ta' usbip-win2. Dan ineħħi dik l-installazzjoni wkoll, sakemm ma jkunx hemm programm ieħor li juża usbip-win2. Il-filtru tiegħu fuq l-USB root hub jibqa', għax it-tneħħija tiegħu terġa' tibda kull USB root hub.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Qed jinqara x'ħalla HIDMaestro fuq dan il-PC…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro ma ħalla xejn x'jitneħħa fuq dan il-PC.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Dawn il-programmi jużaw HIDMaestro. Agħlaqhom, imbagħad agħżel Aġġorna.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Proċess {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Jibqa': {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Ma setax jinqara: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Ma tneħħiex: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Portijiet MIDI virtwali u input MIDI. Windows 11 25H2 jinkludi l-API mill-aġġornament ta' tard f'Novembru 2026. PCs oħra jużaw ir-runtime ta' Windows MIDI Services, li PadForge jista' jinstalla, jew l-API MIDI l-qadima.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Integrat f'Windows</value></data>
@@ -1017,6 +1033,9 @@ Kopja tal-verżjoni ta' qabel tinsab f'dan il-folder: {1}</value></data>
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>Importa l-JSON tal-profil</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>Importat minn {0}.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>Il-qari falla: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro irrifjuta dan il-profil f'{1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Dan il-profil m'għandux deskrittur HID, għalhekk ma jista' jsir l-ebda kontrollur minnu.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Ma ġie importat xejn. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Aġġorna</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>Importa</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(apparat HID bla isem)</value></data>
@@ -3869,7 +3888,7 @@ Trid li PadForge jiddiżinstallahom issa? Dan jeħtieġ permessi ta' amministrat
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>Referenzi ta' Bliss-Box</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>L-API ta' Bliss-Box wara Aqra l-adapters Bliss-Box, moqrija mill-API Tool ta' Bliss-Box LLC (stil BSD, ridistribuzzjoni mingħajr ħlas) u minn DeviceBuddy (sors disponibbli, Bliss-Box LLC), bl-ismijiet tal-buttuni mill-fajls Bliss-Box fil-fork retroarch-joypad-autoconfig ta' SteveFox1620, il-checksums tal-Controller Pak ikkontrollati ma' libdragon (Unlicense), u t-tweġiba tal-kontrollur PlayStation minn psx-spx u mid-driver psxpad-spi ta' Linux (GPL-2.0-or-later). L-ismijiet tal-kontrolluri u n-noti tal-appoġġ ġejjin ukoll mil-lista tal-kompatibbiltà ta' Bliss-Box LLC, u l-imġiba tal-adapters ġiet ikkontrollata mal-firmware tagħhom. Dokumentazzjoni biss, l-ebda kodiċi ma jiġi inkluż.</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>Trasport USB minn Vadym Hrynchyshyn għall-kontrolluri USB komposti ta' HIDMaestro. L-installer iffirmat tiegħu jiġi ma' HIDMaestro u jitħaddem l-ewwel darba li jinħoloq kontrollur kompost. BSD 2-Clause.</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>Trasport USB minn Vadym Hrynchyshyn għall-kontrolluri USB komposti ta' HIDMaestro. HIDMaestro jġorr id-driver iffirmat tal-host controller tiegħu u jinstallah l-ewwel darba li jinħoloq kontrollur kompost. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>Agħżel liema nofsijiet ta' dan is-slot huma attivi. Meta titfi nofs, ir-ringieli tiegħu jinħbew u ma jibqax jibgħat, iżda l-mappjar tiegħu jinżamm, għalhekk meta terġa' tixgħelu kollox jerġa' lura.</value>
   </data>

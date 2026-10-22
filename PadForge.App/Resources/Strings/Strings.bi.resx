@@ -129,6 +129,11 @@
   <data name="Status_DownloadingSteamVR" xml:space="preserve"><value>I stap daonlodem SteamVR…</value></data>
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>Instol blong SteamVR i no wok: {0}</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR i stap wok. Klosem fastaem bifo yu tekemaot.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Stap tekemaot HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro i aot finis.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro i aot finis. Windows i sakemaot ol laswan fael blong hem nekis taem we hem i stat.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Tekemaot HIDMaestro i stop. Klosem {0}, ale traem tekemaot hem bakegen.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Sam pat blong HIDMaestro i aot nomo. Lis i soem wanem i stap yet mo from wanem.</value></data>
   <data name="Status_DirectionRight" xml:space="preserve"><value>(→ raet)</value></data>
   <data name="Status_DirectionDown" xml:space="preserve"><value>(↓ daon)</value></data>
   <data name="Status_DirectionLeft" xml:space="preserve"><value>(← lef)</value></data>
@@ -180,6 +185,16 @@
   <data name="Settings_Window" xml:space="preserve"><value>Windo</value></data>
   <data name="Settings_CheckNow" xml:space="preserve"><value>Jekem naoia</value></data>
   <data name="Update_DownloadStalled" xml:space="preserve"><value>Daonlod i stop.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Tekemaot HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Hemia i tekemaot HIDMaestro long PC ia: ol virtual kontrola blong hem, draeva, setifiket blong saenem, ol ki blong registry mo ol fael. PadForge i stopem enjin blong hem fastaem. Ol narafala program we oli yusum HIDMaestro bambae oli no gat draeva blong hem kasem taem oli stat bakegen. PadForge i instolem hem bakegen nekis taem we hem i statem wan virtual kontrola.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Tekemaot tu usbip-win2 we instola blong hem i bin instolem</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Ol olfala vesen blong PadForge oli instolem usbip-win2 wetem instola blong usbip-win2. Hemia i tekemaot setap ia tu, sapos i no gat narafala program we i yusum usbip-win2. Filta blong USB root hub blong hem i stap, from we sapos yu tekemaot, evri USB root hub i stat bakegen.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Stap ridim wanem HIDMaestro i livim long PC ia…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro i no livim wan samting long PC ia blong tekemaot.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Proses {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>I stap yet: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>I no save ridim: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>I no aot: {0}</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_OpenFolder" xml:space="preserve"><value>Openem folda</value></data>
   <data name="Settings_Language" xml:space="preserve"><value>Lanwis</value></data>
@@ -375,6 +390,9 @@
   <data name="Pad_ExtendedPOVs" xml:space="preserve"><value>Ol POV</value></data>
   <data name="Pad_ExtendedButtons" xml:space="preserve"><value>Ol baton</value></data>
   <data name="ManageProfiles_Close" xml:space="preserve"><value>Klosem</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro i no akseptem profael ia long {1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Profael ia i no gat HID descriptor, taswe i no save mekem wan kontrola long hem.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Program i no impotem wan samting. {0}</value></data>
   <data name="Pad_ExtendedVid" xml:space="preserve"><value>VID</value></data>
   <data name="Pad_ExtendedPid" xml:space="preserve"><value>PID</value></data>
   <data name="Pad_ExtendedForceFeedback" xml:space="preserve"><value>Force feedback</value></data>

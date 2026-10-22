@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>Η εγκατάσταση του SteamVR απέτυχε: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>Απεγκατάσταση του SteamVR…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>Το SteamVR εκτελείται. Κλείστε το πριν από την απεγκατάσταση.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Αφαίρεση του HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>Το HIDMaestro αφαιρέθηκε.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Το HIDMaestro αφαιρέθηκε. Τα Windows διαγράφουν τα τελευταία αρχεία του την επόμενη φορά που θα ξεκινήσουν.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Η αφαίρεση του HIDMaestro διακόπηκε. Κλείστε το {0} και επιλέξτε ξανά Απεγκατάσταση.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Το HIDMaestro αφαιρέθηκε εν μέρει. Η λίστα δείχνει τι έμεινε και γιατί.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Η λίστα συσκευών ανανεώθηκε.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Καταγράφηκε «{0}» ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Αντιστοιχίστε τώρα: {0} {1}</value></data>
@@ -425,6 +430,17 @@
   <data name="Settings_AddDots" xml:space="preserve"><value>Προσθήκη...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>Πρόγραμμα οδήγησης HIDMaestro</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>Μηχανή εικονικών χειριστηρίων HID σε λειτουργία χρήστη. Ενσωματωμένη στο PadForge.App. Εγκαθίσταται αυτόματα κατά τη δημιουργία του πρώτου εικονικού χειριστηρίου. Αντικαθιστά τα ViGEmBus και vJoy στην έκδοση v3.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Απεγκατάσταση του HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Αυτή η ενέργεια αφαιρεί το HIDMaestro από αυτόν τον υπολογιστή: τα εικονικά χειριστήρια, το πρόγραμμα οδήγησης, το πιστοποιητικό υπογραφής, τα κλειδιά μητρώου και τα αρχεία του. Το PadForge σταματά πρώτα τη μηχανή του. Άλλα προγράμματα που χρησιμοποιούν το HIDMaestro χάνουν το πρόγραμμα οδήγησής του μέχρι την επόμενη εκκίνησή τους. Το PadForge το εγκαθιστά ξανά την επόμενη φορά που θα ξεκινήσει ένα εικονικό χειριστήριο.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Αφαίρεση και του usbip-win2 που εγκαταστάθηκε με το δικό του πρόγραμμα εγκατάστασης</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Παλαιότερες εκδόσεις του PadForge εγκατέστησαν το usbip-win2 με το πρόγραμμα εγκατάστασης του usbip-win2. Αυτό αφαιρεί και εκείνη την εγκατάσταση, εκτός αν το usbip-win2 χρησιμοποιείται από άλλο πρόγραμμα. Το φίλτρο του διανομέα ρίζας USB παραμένει, επειδή η αφαίρεσή του επανεκκινεί κάθε διανομέα ρίζας USB.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Ανάγνωση όσων άφησε το HIDMaestro σε αυτόν τον υπολογιστή…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>Το HIDMaestro δεν άφησε τίποτα προς αφαίρεση σε αυτόν τον υπολογιστή.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Αυτά τα προγράμματα χρησιμοποιούν το HIDMaestro. Κλείστε τα και επιλέξτε Ανανέωση.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Διεργασία {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Παραμένει: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Δεν ήταν δυνατή η ανάγνωση: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Δεν αφαιρέθηκε: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Εικονικές θύρες MIDI και είσοδος MIDI. Τα Windows 11 25H2 περιλαμβάνουν το API από την ενημέρωση του τέλους Νοεμβρίου 2026. Οι άλλοι υπολογιστές χρησιμοποιούν το περιβάλλον εκτέλεσης των Windows MIDI Services, το οποίο μπορεί να εγκαταστήσει το PadForge, ή το παλαιού τύπου API MIDI.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Ενσωματωμένο στα Windows</value></data>
@@ -1018,6 +1034,9 @@
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>Εισαγωγή JSON προφίλ</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>Εισήχθη από το {0}.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>Η ανάγνωση απέτυχε: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>Το HIDMaestro απέρριψε αυτό το προφίλ στο {1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Αυτό το προφίλ δεν έχει περιγραφέα HID, επομένως δεν μπορεί να δημιουργηθεί χειριστήριο από αυτό.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Δεν εισήχθη τίποτα. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Ανανέωση</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>Εισαγωγή</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(συσκευή HID χωρίς όνομα)</value></data>
@@ -3940,7 +3959,7 @@
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>Αναφορές για το Bliss-Box</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>Το Bliss-Box API πίσω από την «Ανάγνωση προσαρμογέων Bliss-Box», όπως διαβάστηκε από το API Tool της Bliss-Box LLC (τύπου BSD, δωρεάν αναδιανομή) και το DeviceBuddy (διαθέσιμος πηγαίος κώδικας, Bliss-Box LLC), με ονόματα κουμπιών από τα αρχεία Bliss-Box στη διακλάδωση retroarch-joypad-autoconfig του SteveFox1620, αθροίσματα ελέγχου του Controller Pak ελεγμένα έναντι του libdragon (Unlicense) και την απάντηση του χειριστηρίου PlayStation από το psx-spx και το πρόγραμμα οδήγησης psxpad-spi του Linux (GPL-2.0-or-later). Τα ονόματα των χειριστηρίων και οι σημειώσεις υποστήριξης προέρχονται επίσης από τη λίστα συμβατότητας της Bliss-Box LLC, και η συμπεριφορά των προσαρμογέων ελέγχθηκε έναντι του υλικολογισμικού τους. Μόνο ως τεκμηρίωση, δεν διανέμεται κώδικας.</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>Μεταφορά USB του Vadym Hrynchyshyn για τα σύνθετα χειριστήρια USB του HIDMaestro. Το υπογεγραμμένο πρόγραμμα εγκατάστασής του περιλαμβάνεται στο HIDMaestro και εκτελείται την πρώτη φορά που δημιουργείται ένα σύνθετο χειριστήριο. BSD 2-Clause.</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>Μεταφορά USB του Vadym Hrynchyshyn για τα σύνθετα χειριστήρια USB του HIDMaestro. Το HIDMaestro περιλαμβάνει το υπογεγραμμένο πρόγραμμα οδήγησης του ελεγκτή κεντρικού υπολογιστή και το εγκαθιστά την πρώτη φορά που δημιουργείται ένα σύνθετο χειριστήριο. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>Επιλέξτε ποια μισά αυτής της υποδοχής είναι ενεργά. Η απενεργοποίηση ενός μισού κρύβει τις γραμμές του και σταματά την αποστολή του, ενώ διατηρεί τις αντιστοιχίσεις του, ώστε να επανέρχονται όταν το ενεργοποιήσετε ξανά.</value>
   </data>

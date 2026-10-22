@@ -31,7 +31,7 @@ namespace PadForge.Tests
             raw.Axes[2] = raw.Axes[5] = short.MinValue;   // triggers rest low
 
             var dest = new byte[ValveReportPackers.MaxReportSize];
-            ValveReportPackers.ForProfile(id).Pack(raw, tp, default, 1, dest);
+            ValveReportPackers.ForProfile(id).Pack(raw, tp, default, 1, 0, dest);
             return dest;
         }
 

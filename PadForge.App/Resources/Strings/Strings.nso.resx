@@ -87,6 +87,11 @@
   <data name="ControllerType_PlayStation" xml:space="preserve"><value>PlayStation</value></data>
   <data name="ControllerType_Nintendo" xml:space="preserve"><value>Nintendo</value></data>
   <data name="ControllerType_MIDI" xml:space="preserve"><value>MIDI</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Go tloša HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro e tlošitšwe.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro e tlošitšwe. Windows e tla phumola difaele tša yona tša mafelelo ge e thoma gape.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Go tloša HIDMaestro go emišitšwe. Tswalela {0}, ke moka o tloše gape.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro e tlošitšwe ka karolo. Lelokelelo le bontšha seo se šetšego le lebaka.</value></data>
 
   <!-- ═══ MainWindow ═══ -->
 
@@ -113,6 +118,14 @@
   <data name="Settings_Updates" xml:space="preserve"><value>Dimpshafatšo</value></data>
   <data name="Settings_CheckNow" xml:space="preserve"><value>Lekola bjale</value></data>
   <data name="Update_Checking" xml:space="preserve"><value>E lekola dimpshafatšo…</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Tloša HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Go bala seo HIDMaestro e se tlogetšego go PC ye…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro ga se ya tlogela selo sa go tlošwa go PC ye.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Mananeo a a šomiša HIDMaestro. A tswalele, ke moka o kgethe "Mpshafatša".</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Tshepedišo {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>E a šala: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Ga e a kgona go balwa: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Ga e a tlošwa: {0}</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_Language" xml:space="preserve"><value>Polelo</value></data>
 
@@ -222,6 +235,9 @@
   <data name="Pad_ExtendedButtons" xml:space="preserve"><value>Dikonope</value></data>
   <data name="ManageProfiles_Delete" xml:space="preserve"><value>Phumola</value></data>
   <data name="ManageProfiles_Close" xml:space="preserve"><value>Tswalela</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro e ganne profaele ye go {1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Profaele ye ga e na HID descriptor, ka gona ga go khontroulara yeo e ka dirwago ka yona.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Ga go selo se se tsentšwego. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Mpshafatša</value></data>
   <data name="Pad_ExtendedVid" xml:space="preserve"><value>VID</value></data>
   <data name="Pad_ExtendedPid" xml:space="preserve"><value>PID</value></data>

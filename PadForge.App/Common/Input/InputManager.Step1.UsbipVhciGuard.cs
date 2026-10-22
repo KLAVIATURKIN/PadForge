@@ -129,8 +129,10 @@ namespace PadForge.Common.Input
         // controller is connected. One can outlive the session that made
         // it: a session that ended without its exit sweep leaves the device
         // enumerated until the next launch's sweep (App.OrphanSweepTask,
-        // HIDMaestro's RemoveAllVirtualControllers, which unplugs it in
-        // UsbipBackend.DetachAllOwned). So while that sweep runs, the test
+        // HIDMaestro's RemoveAllVirtualControllers, which unplugs an ended
+        // session's imports in OwnerSweep.Reclaim through
+        // UsbipBackend.DetachDeadImport and DetachImportsOfDeadServers). So
+        // while that sweep runs, the test
         // also holds for the ids of every composite profile the catalog
         // offers. Outside those two windows such a device is taken for a
         // real or third-party one and not passed over. The residual is a

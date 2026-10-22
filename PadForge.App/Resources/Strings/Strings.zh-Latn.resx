@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>SteamVR ānzhuāng shībài: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>Zhèngzài xièzài SteamVR…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR zhèngzài yùnxíng. Qǐng xiān guānbì, zài xièzài.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Zhèngzài yíchú HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro yǐ yíchú.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro yǐ yíchú. Windows huì zài xià cì qǐdòng shí shānchú qí zuìhòu de wénjiàn.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro yíchú yǐ tíngzhǐ. Qǐng guānbì {0}, ránhòu zàicì xièzài.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro zhǐ yíchú le yībùfen. Lièbiǎo xiǎnshì liúxià de xiàngmù jí yuányīn.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Shèbèi lièbiǎo yǐ shuāxīn.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Yǐ lùzhì "{0}" ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Xiànzài yìngshè: {0} {1}</value></data>
@@ -425,6 +430,17 @@ Zhī qián bǎnběn de fùběn wèiyú cǐ wénjiànjiā: {1}</value></data>
   <data name="Settings_AddDots" xml:space="preserve"><value>Tiānjiā...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>HIDMaestro qūdòng chéngxù</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>Yònghù móshì xūnǐ HID kòngzhìqì yǐnqíng. Qiànrù dào PadForge.App zhōng, zài shǒu cì chuàngjiàn xūnǐ kòngzhìqì shí zìdòng ānzhuāng. Zài v3 zhōng tìdài ViGEmBus hé vJoy.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Xièzài HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Cǐ cāozuò jiāng cóng zhè tái diànnǎo shàng yíchú HIDMaestro: qí xūnǐ kòngzhìqì, qūdòng chéngxù, qiānmíng zhèngshū, zhùcèbiǎo xiàng hé wénjiàn. PadForge huì xiān tíngzhǐ zìshēn de yǐnqíng. Qítā shǐyòng HIDMaestro de chéngxù zài xià cì qǐdòng zhīqián huì shīqù qí qūdòng chéngxù. PadForge xià cì qǐdòng xūnǐ kòngzhìqì shí huì zàicì ānzhuāng tā.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Tóngshí yíchú yóu usbip-win2 zìshēn ānzhuāng chéngxù ānzhuāng de usbip-win2</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Jiù bǎnběn de PadForge shǐyòng usbip-win2 zìshēn de ānzhuāng chéngxù ānzhuāng le usbip-win2. Cǐ cāozuò yě huì yíchú gāi ānzhuāng, chúfēi qítā chéngxù zhèngzài shǐyòng usbip-win2. Qí USB gēn jíxiànqì guòlǜqì huì bǎoliú, yīnwèi yíchú tā huì chóngxīn qǐdòng suǒyǒu USB gēn jíxiànqì.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Zhèngzài dúqǔ HIDMaestro zài zhè tái diànnǎo shàng liúxià de nèiróng…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro zài zhè tái diànnǎo shàng méiyǒu liúxià kě yíchú de nèiróng.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Zhèxiē chéngxù zhèngzài shǐyòng HIDMaestro. Qǐng guānbì tāmen, ránhòu diǎnjī Shuāxīn.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Jìnchéng {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Bǎoliú: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Wúfǎ dúqǔ: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Wèi yíchú: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Xūnǐ MIDI duānkǒu hé MIDI shūrù. Zì 2026 nián 11 yuè xiàxún de gēngxīn qǐ, Windows 11 25H2 nèizhì gāi API. Qítā diànnǎo shǐyòng PadForge kě ānzhuāng de Windows MIDI Services yùnxíngshí, huò jiùbǎn MIDI API.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Windows nèizhì</value></data>
@@ -1017,6 +1033,9 @@ Zhī qián bǎnběn de fùběn wèiyú cǐ wénjiànjiā: {1}</value></data>
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>Dǎorù pèizhì wénjiàn JSON</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>Yǐ cóng {0} dǎorù.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>Dúqǔ shībài: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro jùjué le cǐ pèizhì wénjiàn, wèizhì {1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Cǐ pèizhì wénjiàn méiyǒu HID miáoshùfú, yīncǐ wúfǎ jù cǐ chuàngjiàn kòngzhìqì.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Wèi dǎorù rènhé nèiróng. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Shuāxīn</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>Dǎorù</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(Wèi mìngmíng de HID shèbèi)</value></data>
@@ -3874,7 +3893,7 @@ Yào ràng PadForge xiànzài xièzài tāmen ma? Cǐ cāozuò xūyào tíshēng
   <data name="About_AnalogKeyboardRefsDesc" xml:space="preserve"><value>Mónǐ jiànpán shūrù bǎ HallJoy de jiànpán lùyóu, ànjiàn biǎo hé xínghào mùlù yízhí dào C# (AGPL-3.0, PashOK7), bìng zūnxún Soup hé AnalogSense JavaScript SDK (MIT, Calamity, Inc.), yǔ Wooting Analog SDK (MPL-2.0) héduì. Qítā jiànpán zūnxún AnalogKeys (MIT, Nisayera), KeyAxis (MIT, RigZeeel), HallEffectAnalogMapper (MIT, Ricards Mironovs), libhmk hé hmkconf (GPL-3.0-or-later, peppapighs), yǐjí DenkiSuki, LeiterConsulting hé paysdelest de Soup fēnzhī (MIT). Bàogào géshì hé ànjiàn biǎo hái láizì Razer de Synapse Web yǔ NuPhy de NuPhyIO pèizhì gōngjù, OpenRazer (GPL-2.0-or-later), Abbytech de razer-analog-keyboard, TinyUSB (MIT) yǐjí Sainan de zhuābāo bǐjì.</value></data>
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>Bliss-Box cānkǎo láiyuán</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>“Dúqǔ Bliss-Box shìpèiqì” suǒ yòng de Bliss-Box API qǔ zì Bliss-Box LLC de API Tool (lèi BSD xǔkě, miǎnfèi zàifāfā) hé DeviceBuddy (yuánmǎ kějiàn, Bliss-Box LLC), ànniǔ míngchēng qǔ zì SteveFox1620 de retroarch-joypad-autoconfig fēnzhī zhōng de Bliss-Box wénjiàn, Controller Pak jiǎoyànhé yǔ libdragon (Unlicense) héduì, PlayStation shǒubǐng yìngdá qǔ zì psx-spx hé Linux de psxpad-spi qūdòng chéngxù (GPL-2.0-or-later). Kòngzhìqì míngchēng hé zhīchí shuōmíng yě láizì Bliss-Box LLC de jiānróngxìng lièbiǎo, shìpèiqì de xíngwéi yǐ gēnjù qí gùjiàn héduì. Jǐn wéndàng cānkǎo, bù suí fù dàimǎ.</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>Vadym Hrynchyshyn kāifā de USB chuánshūcéng, yòngyú HIDMaestro de fùhé USB kòngzhìqì. Qí yǐ qiānmíng de ānzhuāng chéngxù suí HIDMaestro tígōng, bìng zài shǒu cì chuàngjiàn fùhé kòngzhìqì shí yùnxíng. BSD 2-Clause.</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>Vadym Hrynchyshyn kāifā de USB chuánshūcéng, yòngyú HIDMaestro de fùhé USB kòngzhìqì. HIDMaestro zìdài qí yǐ qiānmíng de USB zhǔjī kòngzhìqì qūdòng chéngxù, bìng zài shǒu cì chuàngjiàn fùhé kòngzhìqì shí ānzhuāng. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>Xuǎnzé cǐ cáowèi qǐyòng nǎxiē bùfen. Guānbì de yī cè huì yǐncáng qí háng bìng tíngzhǐ fāsòng, dàn yìngshè huì bǎoliú, chóngxīn kāiqǐ hòu jí kě huīfù.</value>
   </data>

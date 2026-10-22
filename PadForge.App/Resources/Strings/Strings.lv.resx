@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>SteamVR instalēšana neizdevās: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>Notiek SteamVR atinstalēšana…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR darbojas. Pirms atinstalēšanas aizveriet to.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Notiek HIDMaestro noņemšana…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro tika noņemts.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro tika noņemts. Windows izdzēš tā pēdējos failus, kad dators tiek startēts nākamreiz.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro noņemšana apturēta. Aizveriet {0} un atinstalējiet vēlreiz.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro tika noņemts daļēji. Sarakstā redzams, kas palika un kāpēc.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Ierīču saraksts atsvaidzināts.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Ierakstīts „{0}” ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Tagad piesaistiet: {0} {1}</value></data>
@@ -425,6 +430,17 @@ Iepriekšējās versijas kopija atrodas šajā mapē: {1}</value></data>
   <data name="Settings_AddDots" xml:space="preserve"><value>Pievienot...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>HIDMaestro draiveris</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>Lietotāja režīma virtuālo HID kontrolleru dzinējs. Iegults PadForge.App. Tiek automātiski instalēts, izveidojot pirmo virtuālo kontrolleri. Versijā v3 aizstāj ViGEmBus un vJoy.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Atinstalēt HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Tiks noņemts HIDMaestro no šī datora: tā virtuālie kontrolleri, draiveris, parakstīšanas sertifikāts, reģistra atslēgas un faili. PadForge vispirms aptur savu dzinēju. Citas programmas, kas izmanto HIDMaestro, zaudē tā draiveri, līdz tās tiek startētas nākamreiz. PadForge to instalē atkārtoti, kad nākamreiz startē virtuālo kontrolleri.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Noņemt arī usbip-win2, kas instalēts ar savu instalētāju</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Vecākas PadForge versijas instalēja usbip-win2 ar usbip-win2 paša instalētāju. Tiks noņemta arī šī instalācija, ja vien usbip-win2 neizmanto cita programma. Tā USB saknes centrmezgla filtrs paliek, jo tā noņemšana restartē katru USB saknes centrmezglu.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Notiek HIDMaestro šajā datorā atstāto datu nolasīšana…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro šajā datorā nav atstājis neko noņemamu.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Šīs programmas izmanto HIDMaestro. Aizveriet tās un pēc tam atlasiet Atsvaidzināt.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Process {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Paliek: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Nevarēja nolasīt: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Nav noņemts: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Virtuālie MIDI porti un MIDI ievade. Windows 11 25H2 ietver šo API, sākot ar 2026. gada novembra beigu atjauninājumu. Citos datoros tiek izmantots Windows MIDI Services izpildlaiks, ko PadForge var instalēt, vai mantotais MIDI API.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Iebūvēts sistēmā Windows</value></data>
@@ -1018,6 +1034,9 @@ Iepriekšējās versijas kopija atrodas šajā mapē: {1}</value></data>
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>Importēt profila JSON</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>Importēts no {0}.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>Nolasīšana neizdevās: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro noraidīja šo profilu pie {1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Šim profilam nav HID deskriptora, tāpēc no tā nevar izveidot kontrolleri.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Nekas netika importēts. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Atsvaidzināt</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>Importēt</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(nenosaukta HID ierīce)</value></data>
@@ -3940,7 +3959,7 @@ Vai vēlaties, lai PadForge tos tagad atinstalē? Tam nepieciešamas paaugstinā
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>Bliss-Box atsauces</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>Bliss-Box API, uz kura balstās „Lasīt Bliss-Box adapterus”, iegūts no Bliss-Box LLC API Tool (BSD stila, bezmaksas tālākizplatīšana) un DeviceBuddy (pieejams pirmkods, Bliss-Box LLC), ar pogu nosaukumiem no Bliss-Box failiem SteveFox1620 atzarojumā retroarch-joypad-autoconfig, Controller Pak kontrolsummām, kas pārbaudītas ar libdragon (Unlicense), un PlayStation spēļu pults atbildi no psx-spx un Linux draivera psxpad-spi (GPL-2.0-or-later). Kontrolleru nosaukumi un atbalsta piezīmes ņemti arī no Bliss-Box LLC saderības saraksta, un adapteru darbība pārbaudīta ar to aparātprogrammatūru. Tikai dokumentācija, kods netiek izplatīts.</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>USB transports HIDMaestro saliktajiem USB kontrolleriem, autors Vadym Hrynchyshyn. Tā parakstītais instalētājs ir iekļauts HIDMaestro un tiek palaists, kad pirmo reizi tiek izveidots salikts kontrolleris. BSD 2-Clause.</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>USB transports HIDMaestro saliktajiem USB kontrolleriem, autors Vadym Hrynchyshyn. HIDMaestro ietver tā parakstīto resursdatora kontrollera draiveri un instalē to, kad pirmo reizi tiek izveidots salikts kontrolleris. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>Izvēlieties, kuras šī slota puses ir aktīvas. Izslēdzot pusi, tās rindas tiek paslēptas un tā pārstāj sūtīt datus, bet tās piesaistes tiek saglabātas, tāpēc, atkal ieslēdzot, tās tiek atjaunotas.</value>
   </data>

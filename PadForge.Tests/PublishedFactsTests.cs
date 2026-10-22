@@ -46,21 +46,27 @@ namespace PadForge.Tests
         /// Every profile count README.md and BUILD.md give matches the
         /// HIDMaestro.Core that ships: the catalog size, the profiles
         /// PadForge offers (a captured descriptor, nothing withheld, Custom
-        /// not counted), and the difference. Three README sites and BUILD.md
-        /// still said 231 and 133 after two HIDMaestro bumps moved the rest.
-        /// The released "New in" blocks keep the counts of their release.
+        /// not counted), and the profiles that lack a captured descriptor.
+        /// Three README sites and BUILD.md still said 231 and 133 after two
+        /// HIDMaestro bumps moved the rest. The missing captures are counted
+        /// on their own: a withheld profile has a capture, so the catalog
+        /// less the offered profiles overstated them once HIDMaestro 2.0.0
+        /// gave the withheld Wii U GameCube adapter its descriptor. The
+        /// released "New in" blocks keep the counts of their release.
         /// </summary>
         [Fact]
         public void EveryProfileCountMatchesTheBundledCatalog()
         {
-            int total, offered;
+            int total, offered, missing;
             using (var ctx = new HMContext())
             {
                 ctx.LoadDefaultProfiles();
                 total = ctx.AllProfiles.Count;
                 offered = ctx.AllProfiles.Count(p => p.IsDeployable && !HMaestroProfileCatalog.IsWithheldProfile(p.Id));
+                missing = ctx.AllProfiles.Count(p => !p.IsDeployable);
             }
             Assert.True(total > offered && offered > 0, $"catalog {total}, offered {offered}");
+            Assert.True(missing > 0 && missing < total, $"catalog {total}, missing captures {missing}");
 
             var texts = new[] { ("README.md", ReadmeWithoutNewInBlocks()), ("BUILD.md", Text("BUILD.md")) };
 
@@ -78,7 +84,7 @@ namespace PadForge.Tests
                     foreach (Match m in Regex.Matches(text, pattern))
                         counts.Add(($"{name}: {m.Value}", int.Parse(m.Groups[1].Value), offered));
                 foreach (Match m in Regex.Matches(text, @"(\d+) are missing their captures"))
-                    counts.Add(($"{name}: {m.Value}", int.Parse(m.Groups[1].Value), total - offered));
+                    counts.Add(($"{name}: {m.Value}", int.Parse(m.Groups[1].Value), missing));
             }
 
             // Positive control: the patterns still find the sentences.

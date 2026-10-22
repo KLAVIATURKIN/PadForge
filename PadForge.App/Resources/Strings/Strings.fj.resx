@@ -77,6 +77,10 @@
   <data name="ControllerType_Nintendo" xml:space="preserve"><value>Nintendo</value></data>
   <data name="ControllerType_MIDI" xml:space="preserve"><value>MIDI</value></data>
   <data name="ControllerType_VR" xml:space="preserve"><value>VR</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Sa kau tani tiko na HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>Sa kau tani na HIDMaestro.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Sa kau tani na HIDMaestro. Ena bokoca na Windows na kena faile e vo ni sa tekivu tale.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>E sega ni kau tani taucoko na HIDMaestro. E vakaraitaka na lisi na ka e vo kei na vuna.</value></data>
 
   <!-- ═══ MainWindow ═══ -->
 
@@ -97,6 +101,13 @@
   <!-- ═══ Settings ═══ -->
   <data name="Settings_ThemeLight" xml:space="preserve"><value>Rarama</value></data>
   <data name="Settings_ThemeDark" xml:space="preserve"><value>Butobuto</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Bokoca na HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Wilika tiko na ka e biuta na HIDMaestro ena PC qo…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>E sega ni dua na ka e biuta na HIDMaestro ena PC qo me kau tani.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Era vakayagataka na HIDMaestro na parokaramu oqo. Sogota, qai digitaka na Vakavoui.</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>E vo: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>E sega ni rawa ni wiliki: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>E sega ni kau tani: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_Language" xml:space="preserve"><value>Vosa</value></data>
@@ -168,6 +179,9 @@
   <data name="Pad_Lighting_AddColor" xml:space="preserve"><value>Vakuria e dua na roka</value></data>
   <data name="ManageProfiles_Delete" xml:space="preserve"><value>Bokoca</value></data>
   <data name="ManageProfiles_Close" xml:space="preserve"><value>Sogota</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>E cakitaka na HIDMaestro na profile qo ena {1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>E sega ni tiko ena profile qo e dua na HID descriptor, sa sega kina ni rawa ni caka mai kina e dua na controller.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>E sega ni dua na ka e vakacurumi. {0}</value></data>
   <data name="Pad_ExtendedVid" xml:space="preserve"><value>VID</value></data>
   <data name="Pad_ExtendedPid" xml:space="preserve"><value>PID</value></data>
   <data name="Pad_MidiOutputPortNone" xml:space="preserve"><value>Sega</value></data>

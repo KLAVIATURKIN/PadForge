@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>SteamVR ස්ථාපනය අසමත් විය: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>SteamVR අස්ථාපනය කරමින්…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR ධාවනය වෙමින් පවතී. අස්ථාපනය කිරීමට පෙර එය වසන්න.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro ඉවත් කරමින්…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro ඉවත් කරන ලදී.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro ඉවත් කරන ලදී. Windows ඊළඟ වතාවේ ආරම්භ වන විට එහි ඉතිරි ගොනු මකා දමයි.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro ඉවත් කිරීම නතර විය. {0} වසා, නැවත අස්ථාපනය කරන්න.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro අර්ධ වශයෙන් ඉවත් කරන ලදී. ඉතිරි වූ දේ සහ ඊට හේතුව ලැයිස්තුවේ පෙන්වයි.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>උපාංග ලැයිස්තුව නැවුම් කරන ලදී.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>"{0}" පටිගත කරන ලදී ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>දැන් සිතියම්ගත කරන්න: {0} {1}</value></data>
@@ -425,6 +430,17 @@
   <data name="Settings_AddDots" xml:space="preserve"><value>එක් කරන්න...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>HIDMaestro ධාවකය</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>පරිශීලක ප්‍රකාරයේ අතථ්‍ය HID පාලක එන්ජිම. PadForge.App තුළ කාවද්දා ඇත. පළමු අතථ්‍ය පාලකය සාදන විට ස්වයංක්‍රීයව ස්ථාපනය වේ. v3 හි ViGEmBus සහ vJoy ප්‍රතිස්ථාපනය කරයි.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>HIDMaestro අස්ථාපනය කරන්න</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>මෙය මෙම පරිගණකයෙන් HIDMaestro ඉවත් කරයි: එහි අතථ්‍ය පාලක, ධාවකය, අත්සන් කිරීමේ සහතිකය, රෙජිස්ට්‍රි යතුරු සහ ගොනු. PadForge පළමුව එහි එන්ජිම නවත්වයි. HIDMaestro භාවිත කරන වෙනත් වැඩසටහන්වලට ඒවා ඊළඟ වතාවේ ආරම්භ වන තෙක් එහි ධාවකය අහිමි වේ. PadForge ඊළඟ වතාවේ අතථ්‍ය පාලකයක් ආරම්භ කරන විට එය නැවත ස්ථාපනය කරයි.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>එහිම ස්ථාපකයෙන් ස්ථාපනය කළ usbip-win2 ද ඉවත් කරන්න</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>පැරණි PadForge අනුවාද usbip-win2 හි ස්ථාපකයෙන් usbip-win2 ස්ථාපනය කළේය. වෙනත් වැඩසටහනක් usbip-win2 භාවිත නොකරන්නේ නම්, මෙය එම ස්ථාපනයද ඉවත් කරයි. එය ඉවත් කිරීමෙන් සෑම USB මූල හබ් එකක්ම නැවත ආරම්භ වන බැවින්, එහි USB මූල හබ් පෙරහන ඉතිරි වේ.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>HIDMaestro මෙම පරිගණකයේ ඉතිරි කළ දේ කියවමින්…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro මෙම පරිගණකයේ ඉවත් කිරීමට කිසිවක් ඉතිරි කර නැත.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>මෙම වැඩසටහන් HIDMaestro භාවිත කරයි. ඒවා වසා, "නැවුම් කරන්න" තෝරන්න.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>ක්‍රියාවලිය {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>ඉතිරි වේ: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>කියවිය නොහැකි විය: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>ඉවත් කර නැත: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>අතථ්‍ය MIDI තොට සහ MIDI ආදානය. Windows 11 25H2 හි 2026 නොවැම්බර් අගභාගයේ යාවත්කාලීනයේ සිට API ඇතුළත් වේ. අනෙකුත් පරිගණක PadForge හට ස්ථාපනය කළ හැකි Windows MIDI Services ධාවන කාලය හෝ පැරණි MIDI API භාවිත කරයි.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Windows තුළ ගොඩනංවා ඇත</value></data>
@@ -1017,6 +1033,9 @@
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>පැතිකඩ JSON ආයාත කරන්න</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>{0} වෙතින් ආයාත කරන ලදී.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>කියවීම අසාර්ථක විය: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro මෙම පැතිකඩ {1} හිදී ප්‍රතික්ෂේප කළේය: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>මෙම පැතිකඩෙහි HID විස්තරකයක් නැත, එබැවින් එයින් කිසිදු පාලකයක් සෑදිය නොහැක.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>කිසිවක් ආයාත නොකෙරිණි. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>නැවුම් කරන්න</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>ආයාත කරන්න</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(නම් නොකළ HID උපාංගය)</value></data>
@@ -3894,7 +3913,7 @@ PadForge විසින් ඒවා දැන් අස්ථාපනය ක�
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>Bliss-Box මූලාශ්‍ර</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>"Bliss-Box ඇඩැප්ටර කියවන්න" පිටුපස ඇති Bliss-Box API, Bliss-Box LLC හි API Tool (BSD ආකාරයේ, ගාස්තුවකින් තොරව නැවත බෙදාහැරීම) සහ DeviceBuddy (මූලාශ්‍ර කේතය ලබා ගත හැක, Bliss-Box LLC) වෙතින් කියවන ලදී. බොත්තම් නාම SteveFox1620 හි retroarch-joypad-autoconfig ෆෝක් එකේ Bliss-Box ගොනුවලින්ද, Controller Pak චෙක්සම් libdragon (Unlicense) සමඟ පරීක්ෂා කිරීමෙන්ද, PlayStation පාලක පිළිතුර psx-spx සහ Linux හි psxpad-spi ධාවකයෙන් (GPL-2.0-or-later)ද ගන්නා ලදී. පාලක නාම සහ සහාය සටහන්ද Bliss-Box LLC හි ගැළපුම් ලැයිස්තුවෙන් පැමිණෙන අතර, ඇඩැප්ටරවල හැසිරීම ඒවායේ ස්ථිරාංග සමඟ පරීක්ෂා කරන ලදී. ලේඛන පමණි, කිසිදු කේතයක් ඇතුළත් නොවේ.</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>HIDMaestro හි සංයුක්ත USB පාලක සඳහා Vadym Hrynchyshyn විසින් USB ප්‍රවාහනය. එහි අත්සන් කළ ස්ථාපකය HIDMaestro තුළ ඇතුළත් වන අතර සංයුක්ත පාලකයක් පළමු වරට නිර්මාණය කරන විට ධාවනය වේ. BSD 2-Clause.</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>HIDMaestro හි සංයුක්ත USB පාලක සඳහා Vadym Hrynchyshyn විසින් USB ප්‍රවාහනය. HIDMaestro එහි අත්සන් කළ ධාරක පාලක ධාවකය රැගෙන යන අතර සංයුක්ත පාලකයක් පළමු වරට නිර්මාණය කරන විට එය ස්ථාපනය කරයි. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>මෙම ස්ලොට් එකේ ක්‍රියාත්මක වන්නේ කුමන අර්ධදැයි තෝරන්න. අර්ධයක් අක්‍රිය කිරීමෙන් එහි පේළි සැඟවී එය යැවීම නවතී, නමුත් එහි සිතියම්ගත කිරීම් තබා ගන්නා බැවින් නැවත සක්‍රිය කළ විට ඒවා ප්‍රතිසාධනය වේ.</value>
   </data>

@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>Ezin izan da SteamVR instalatu: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>SteamVR desinstalatzen…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR exekutatzen ari da. Itxi desinstalatu aurretik.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro kentzen…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro kendu da.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro kendu da. Windows-ek bere azken fitxategiak ezabatuko ditu hurrengoan abiarazten denean.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro kentzea geldiarazi da. Itxi {0}, eta gero desinstalatu berriro.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro partzialki kendu da. Zerrendak erakusten du zer geratu den eta zergatik.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Gailu-zerrenda freskatu da.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Grabatuta: «{0}» ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Esleitu orain: {0} {1}</value></data>
@@ -425,6 +430,17 @@ Aurreko bertsioaren kopia bat karpeta honetan dago: {1}</value></data>
   <data name="Settings_AddDots" xml:space="preserve"><value>Gehitu...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>HIDMaestro kontrolatzailea</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>Erabiltzaile-moduko HID kontrolagailu birtualen motorra. PadForge.App-en txertatuta. Automatikoki instalatzen da lehen kontrolagailu birtuala sortzean. v3-n ViGEmBus eta vJoy ordezten ditu.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Desinstalatu HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Honek HIDMaestro kentzen du PC honetatik: bere kontrolagailu birtualak, kontrolatzailea, sinadura-ziurtagiria, erregistro-gakoak eta fitxategiak. PadForge-k bere motorra gelditzen du lehenik. HIDMaestro erabiltzen duten beste programek bere kontrolatzailea galtzen dute hurrengoan abiarazten diren arte. PadForge-k berriro instalatzen du hurrengoan kontrolagailu birtual bat abiarazten duenean.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Kendu, gainera, usbip-win2 bere instalatzaile propioarekin instalatutakoa</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>PadForge-ren bertsio zaharragoek usbip-win2 instalatu zuten usbip-win2-ren instalatzailearekin. Honek instalazio hori ere kentzen du, beste programa batek usbip-win2 erabiltzen ez badu. Bere USB root hub iragazkia geratzen da, kentzeak USB root hub guztiak berrabiarazten dituelako.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>HIDMaestro-k PC honetan utzitakoa irakurtzen…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro-k ez du ezer utzi PC honetan kentzeko.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Programa hauek HIDMaestro erabiltzen dute. Itxi itzazu, eta gero hautatu Freskatu.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>{0} prozesua</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Geratzen da: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Ezin izan da irakurri: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Ez da kendu: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>MIDI ataka birtualak eta MIDI sarrera. Windows 11 25H2 bertsioak API hori dakar 2026ko azaro amaierako eguneratzetik aurrera. Beste PCek Windows MIDI Services exekuzio-ingurunea erabiltzen dute (PadForge-k instala dezake), edo MIDI API zaharra.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Windows-en integratuta</value></data>
@@ -1018,6 +1034,9 @@ Aurreko bertsioaren kopia bat karpeta honetan dago: {1}</value></data>
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>Inportatu profilaren JSON fitxategia</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>Hemendik inportatuta: {0}.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>Irakurketak huts egin du: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro-k baztertu du profil hau {1} lekuan: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Profil honek ez du HID deskriptorerik, beraz ezin da kontrolagailurik sortu harekin.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Ez da ezer inportatu. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Freskatu</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>Inportatu</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(izenik gabeko HID gailua)</value></data>
@@ -3930,7 +3949,7 @@ PadForge-k orain desinstalatzea nahi duzu? Horrek administratzaile-baimenak beha
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>Bliss-Box erreferentziak</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>"Bliss-Box egokigailuak irakurri" aukeraren atzean dagoen Bliss-Box API-a, hauetatik irakurria: Bliss-Box LLC-ren API Tool (BSD motakoa, doako birbanaketa) eta DeviceBuddy (iturburua eskuragarri, Bliss-Box LLC). Botoien izenak SteveFox1620-ren retroarch-joypad-autoconfig fork-eko Bliss-Box fitxategietatik datoz, Controller Pak-en kontrol-batuketak libdragon (Unlicense) proiektuarekin egiaztatu dira, eta PlayStation kontrolagailuaren erantzuna psx-spx-etik eta Linux-en psxpad-spi kontrolatzailetik dator (GPL-2.0-or-later). Kontrolagailuen izenak eta euskarri-oharrak Bliss-Box LLC-ren bateragarritasun-zerrendatik ere badatoz, eta egokigailuen portaera haien firmwarearekin egiaztatu zen. Dokumentazioa soilik, ez da koderik banatzen.</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>Vadym Hrynchyshyn-en USB garraioa HIDMaestro-ren kontrolagailu USB konposatuentzat. Sinatutako instalatzailea HIDMaestro-ren barruan dator eta kontrolagailu konposatu bat sortzen den lehen aldian exekutatzen da. BSD 2-Clause.</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>Vadym Hrynchyshyn-en USB garraioa HIDMaestro-ren kontrolagailu USB konposatuentzat. HIDMaestro-k bere ostalari-kontrolagailuaren kontrolatzaile sinatua darama, eta kontrolagailu konposatu bat sortzen den lehen aldian instalatzen du. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>Aukeratu zirrikitu honen zein erdi dauden aktibo. Erdi bat desaktibatzeak bere errenkadak ezkutatzen ditu eta bidaltzeari uzten dio, baina bere esleipenak gordetzen ditu, berriro aktibatzean leheneratzeko.</value>
   </data>

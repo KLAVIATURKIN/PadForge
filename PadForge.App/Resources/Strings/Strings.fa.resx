@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>نصب SteamVR ناموفق بود: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>در حال حذف نصب SteamVR…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR در حال اجراست. پیش از حذف نصب، آن را ببندید.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>در حال حذف HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro حذف شد.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro حذف شد. Windows آخرین فایل‌های آن را در راه‌اندازی بعدی حذف می‌کند.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>حذف HIDMaestro متوقف شد. {0} را ببندید، سپس دوباره حذف نصب کنید.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro فقط تا حدی حذف شد. فهرست نشان می‌دهد چه چیزی باقی ماند و چرا.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>فهرست دستگاه‌ها تازه‌سازی شد.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>{1} برای «{0}» ضبط شد</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>اکنون نگاشت کنید: {0} {1}</value></data>
@@ -425,6 +430,17 @@
   <data name="Settings_AddDots" xml:space="preserve"><value>افزودن...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>درایور HIDMaestro</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>موتور کنترلر مجازی HID در حالت کاربر. درون PadForge.App جاسازی شده است. با ایجاد نخستین کنترلر مجازی به‌طور خودکار نصب می‌شود. در v3 جایگزین ViGEmBus و vJoy شده است.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>حذف نصب HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>این کار HIDMaestro را از این رایانه حذف می‌کند: کنترلرهای مجازی، درایور، گواهی امضا، کلیدهای رجیستری و فایل‌های آن. PadForge ابتدا موتور خود را متوقف می‌کند. برنامه‌های دیگری که از HIDMaestro استفاده می‌کنند تا اجرای بعدی خود، درایور آن را از دست می‌دهند. PadForge دفعه بعد که یک کنترلر مجازی راه‌اندازی کند، دوباره آن را نصب می‌کند.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>حذف usbip-win2 نصب‌شده با نصب‌کننده خودش</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>نسخه‌های قدیمی PadForge، usbip-win2 را با نصب‌کننده خود usbip-win2 نصب می‌کردند. این کار آن نصب را هم حذف می‌کند، مگر اینکه برنامه دیگری از usbip-win2 استفاده کند. فیلتر هاب ریشه USB آن باقی می‌ماند، زیرا حذف آن همه هاب‌های ریشه USB را از نو راه‌اندازی می‌کند.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>در حال خواندن آنچه HIDMaestro روی این رایانه به جا گذاشته…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro چیزی روی این رایانه برای حذف باقی نگذاشته است.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>این برنامه‌ها از HIDMaestro استفاده می‌کنند. آن‌ها را ببندید، سپس تازه‌سازی را انتخاب کنید.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>فرایند {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>باقی می‌ماند: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>خوانده نشد: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>حذف نشد: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>پورت‌های مجازی MIDI و ورودی MIDI. Windows 11 25H2 از به‌روزرسانی اواخر نوامبر 2026 این API را در خود دارد. رایانه‌های دیگر از محیط اجرای Windows MIDI Services، که PadForge می‌تواند نصبش کند، یا از API قدیمی MIDI استفاده می‌کنند.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>تعبیه‌شده در Windows</value></data>
@@ -1018,6 +1034,9 @@
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>وارد کردن JSON پروفایل</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>از {0} وارد شد.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>خواندن ناموفق بود: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro این پروفایل را در {1} رد کرد: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>این پروفایل توصیفگر HID ندارد، پس نمی‌توان از آن کنترلری ساخت.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>چیزی وارد نشد. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>تازه‌سازی</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>وارد کردن</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(دستگاه HID بدون نام)</value></data>
@@ -3940,7 +3959,7 @@
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>مراجع Bliss-Box</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>API مربوط به Bliss-Box که مبنای «خواندن آداپتورهای Bliss-Box» است، خوانده‌شده از API Tool شرکت Bliss-Box LLC (به سبک BSD، بازتوزیع رایگان) و DeviceBuddy (کد در دسترس، Bliss-Box LLC)، همراه با نام دکمه‌ها از فایل‌های Bliss-Box در انشعاب retroarch-joypad-autoconfig اثر SteveFox1620، چک‌سام‌های Controller Pak که با libdragon (Unlicense) تطبیق داده شده‌اند، و پاسخ گیم‌پد PlayStation از psx-spx و درایور psxpad-spi در Linux (GPL-2.0-or-later). نام کنترلرها و یادداشت‌های پشتیبانی نیز از فهرست سازگاری Bliss-Box LLC گرفته شده و رفتار آداپتورها با فریم‌ور آن‌ها بررسی شده است. فقط مستندات، هیچ کدی عرضه نمی‌شود.</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>لایه انتقال USB اثر Vadym Hrynchyshyn برای کنترلرهای USB ترکیبی HIDMaestro. نصب‌کننده امضاشده آن درون HIDMaestro عرضه می‌شود و نخستین بار که یک کنترلر ترکیبی ساخته می‌شود اجرا می‌شود. BSD 2-Clause.</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>لایه انتقال USB اثر Vadym Hrynchyshyn برای کنترلرهای USB ترکیبی HIDMaestro. HIDMaestro درایور کنترلر میزبان امضاشده آن را همراه خود دارد و نخستین بار که یک کنترلر ترکیبی ساخته می‌شود آن را نصب می‌کند. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>انتخاب کنید کدام نیمه‌های این اسلات فعال باشند. خاموش کردن یک نیمه، ردیف‌هایش را پنهان و ارسالش را متوقف می‌کند، اما نگاشت‌هایش را نگه می‌دارد تا با روشن کردن دوباره بازگردانده شوند.</value>
   </data>

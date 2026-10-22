@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>Penginstalan SteamVR gagal: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>Menghapus instalan SteamVR…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR sedang berjalan. Tutup dahulu sebelum menghapus instalannya.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Menghapus HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro telah dihapus.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro telah dihapus. Windows menghapus file terakhirnya saat komputer dimulai berikutnya.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Penghapusan HIDMaestro dihentikan. Tutup {0}, lalu hapus instalan lagi.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro hanya sebagian dihapus. Daftar menunjukkan apa yang tersisa dan alasannya.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Daftar perangkat disegarkan.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Terekam "{0}" ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Sekarang petakan: {0} {1}</value></data>
@@ -425,6 +430,17 @@ Salinan versi sebelumnya ada di folder ini: {1}</value></data>
   <data name="Settings_AddDots" xml:space="preserve"><value>Tambah...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>Driver HIDMaestro</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>Mesin kontroler HID virtual mode pengguna. Tertanam di PadForge.App. Diinstal secara otomatis saat kontroler virtual pertama dibuat. Menggantikan ViGEmBus dan vJoy di v3.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Hapus instalan HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Ini menghapus HIDMaestro dari PC ini: kontroler virtual, driver, sertifikat penandatanganan, kunci registri, dan file-nya. PadForge menghentikan mesinnya terlebih dahulu. Program lain yang memakai HIDMaestro kehilangan drivernya sampai program itu dimulai lagi. PadForge menginstalnya lagi saat berikutnya memulai kontroler virtual.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Hapus juga usbip-win2 yang diinstal oleh penginstalnya sendiri</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>PadForge versi lama menginstal usbip-win2 dengan penginstal usbip-win2. Ini juga menghapus instalan tersebut, kecuali program lain memakai usbip-win2. Filter USB root hub-nya tetap ada, karena menghapusnya akan memulai ulang setiap USB root hub.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Membaca apa yang ditinggalkan HIDMaestro di PC ini…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro tidak meninggalkan apa pun di PC ini untuk dihapus.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Program ini memakai HIDMaestro. Tutup program tersebut, lalu pilih Segarkan.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Proses {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Tetap ada: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Tidak dapat dibaca: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Tidak dihapus: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Port MIDI virtual dan input MIDI. Windows 11 25H2 menyertakan API ini sejak pembaruan akhir November 2026. PC lain memakai runtime Windows MIDI Services, yang dapat diinstal PadForge, atau API MIDI lama.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Bawaan Windows</value></data>
@@ -1018,6 +1034,9 @@ Salinan versi sebelumnya ada di folder ini: {1}</value></data>
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>Impor JSON profil</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>Diimpor dari {0}.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>Pembacaan gagal: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro menolak profil ini di {1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Profil ini tidak memiliki deskriptor HID, sehingga tidak ada kontroler yang dapat dibuat darinya.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Tidak ada yang diimpor. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Segarkan</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>Impor</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(perangkat HID tanpa nama)</value></data>
@@ -3940,7 +3959,7 @@ Apakah Anda ingin PadForge menghapus instalannya sekarang? Tindakan ini memerluk
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>Referensi Bliss-Box</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>API Bliss-Box di balik Baca adaptor Bliss-Box, dibaca dari API Tool milik Bliss-Box LLC (bergaya BSD, redistribusi tanpa biaya) dan DeviceBuddy (sumber tersedia, Bliss-Box LLC), dengan nama tombol dari file Bliss-Box dalam fork retroarch-joypad-autoconfig milik SteveFox1620, checksum Controller Pak yang diperiksa terhadap libdragon (Unlicense), dan balasan gamepad PlayStation dari psx-spx serta driver psxpad-spi Linux (GPL-2.0-or-later). Nama kontroler dan catatan dukungan juga berasal dari daftar kompatibilitas Bliss-Box LLC, dan perilaku adaptor diperiksa terhadap firmware-nya. Hanya dokumentasi, tidak ada kode yang disertakan.</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>Transpor USB karya Vadym Hrynchyshyn untuk kontroler USB komposit HIDMaestro. Penginstalnya yang bertanda tangan disertakan di dalam HIDMaestro dan berjalan saat kontroler komposit pertama kali dibuat. BSD 2-Clause.</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>Transpor USB karya Vadym Hrynchyshyn untuk kontroler USB komposit HIDMaestro. HIDMaestro membawa driver host controller yang bertanda tangan dan menginstalnya saat kontroler komposit pertama kali dibuat. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>Pilih paruh mana dari slot ini yang aktif. Mematikan satu paruh menyembunyikan barisnya dan menghentikannya mengirim, tetapi pemetaannya disimpan sehingga menyalakannya lagi akan memulihkannya.</value>
   </data>

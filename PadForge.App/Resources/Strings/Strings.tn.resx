@@ -85,6 +85,11 @@
   <data name="ControllerType_Nintendo" xml:space="preserve"><value>Nintendo</value></data>
   <data name="ControllerType_MIDI" xml:space="preserve"><value>MIDI</value></data>
   <data name="ControllerType_VR" xml:space="preserve"><value>VR</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Go tlosa HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro e tlositswe.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro e tlositswe. Windows e phimola difaele tsa yone tsa bofelo fa e simolola gape.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Go tlosa HIDMaestro go emisitswe. Tswala {0}, morago o e tlose gape.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Karolo nngwe fela ya HIDMaestro e tlositswe. Lenane le bontsha se se setseng le lebaka.</value></data>
 
   <!-- ═══ MainWindow ═══ -->
 
@@ -113,6 +118,10 @@
   <data name="Settings_ThemeDark" xml:space="preserve"><value>Lefifi</value></data>
   <data name="Settings_CheckNow" xml:space="preserve"><value>Tlhola jaanong</value></data>
   <data name="Settings_AddDots" xml:space="preserve"><value>Oketsa...</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Tlosa HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>E sala: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Ga e a kgona go balwa: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Ga e a tlosiwa: {0}</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_Language" xml:space="preserve"><value>Puo</value></data>
   <data name="Settings_LanguageDesc" xml:space="preserve"><value>Tlhopha puo e o e ratang.</value></data>

@@ -333,6 +333,7 @@ namespace PadForge.Tests
 
             // Virtual controller devices.
             new object[] { VirtualController, "internal static void SweepVirtualControllers()", "if (OffLimitsForTest) return;" },
+            new object[] { VirtualController, "internal static HMUninstallReport RemoveHIDMaestro(HMUninstallOptions options)", "if (OffLimitsForTest) return null;" },
 
             // Keys, buttons, the cursor and hooks.
             new object[] { Hooks, "public static bool DesktopInputOffLimits", "OffLimitsForTest;" },
@@ -729,6 +730,21 @@ namespace PadForge.Tests
             var restart = Assert.Throws<InvalidOperationException>(
                 () => TabletNative.RestartCollection(@"HID\VID_0000&PID_0000\padforge-none", CancellationToken.None));
             Assert.Equal("The test host restarts no HID collection.", restart.Message);
+        }
+
+        /// <summary>HIDMaestro is never removed from the PC (#518): the
+        /// removal answers null, and the Settings flow's own path reaches it
+        /// with no seam. The source is read before the call, since the
+        /// call is the removal.</summary>
+        [Fact]
+        public void HIDMaestro_IsNotRemoved()
+        {
+            FenceSource.AsksFirst(VirtualController, "internal static HMUninstallReport RemoveHIDMaestro(HMUninstallOptions options)", "if (OffLimitsForTest) return null;");
+            Assert.Contains("RunSeam != null ? RunSeam(options) : HMaestroVirtualController.RemoveHIDMaestro(options);",
+                OffLimitsSource.Read(Services + "HIDMaestroRemoval.cs"), StringComparison.Ordinal);
+            EveryFence_IsSetInTheTestHost();
+            Assert.Null(HMaestroVirtualController.RemoveHIDMaestro(new HIDMaestro.HMUninstallOptions { IncludeUsbip = true }));
+            Assert.Null(HIDMaestroRemoval.Run(includeUsbip: false, stopEngine: null));
         }
 
         /// <summary>The memory and the mutex every FreeTrack tracker and

@@ -113,6 +113,11 @@
   <data name="Status_InstallingHidHide" xml:space="preserve"><value>Ke hoʻokomo ʻia nei ʻo HidHide…</value></data>
   <data name="Status_OperationCanceled" xml:space="preserve"><value>Ua kāpae ʻia ka hana e ka mea hoʻohana.</value></data>
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>ʻAʻole i hiki ke hoʻokomo iā SteamVR: {0}</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Ke holoi ʻia nei ʻo HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>Ua holoi ʻia ʻo HIDMaestro.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Ua holoi ʻia ʻo HIDMaestro. Na Windows e holoi i ke koena o nā faila i kona hoʻomaka hou ʻana.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Ua hoʻōki ʻia ka holoi ʻana iā HIDMaestro. E pani iā {0}, a laila e hoʻāʻo hou.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Ua holoi ʻia kekahi hapa o HIDMaestro. Hōʻike ka papa inoa i nā mea i koe a me ke kumu.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Ua hoʻopaʻa ʻia "{0}" ← {1}</value></data>
   <data name="Status_DirectionRight" xml:space="preserve"><value>(→ ʻākau)</value></data>
   <data name="Status_DirectionDown" xml:space="preserve"><value>(↓ i lalo)</value></data>
@@ -141,6 +146,13 @@
   <data name="Settings_ThemeLight" xml:space="preserve"><value>Mālamalama</value></data>
   <data name="Settings_ThemeDark" xml:space="preserve"><value>Pōʻeleʻele</value></data>
   <data name="Settings_Window" xml:space="preserve"><value>Pukaaniani</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Wehe iā HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Ke heluhelu nei i nā mea a HIDMaestro i waiho ai ma kēia kamepiula…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>ʻAʻohe mea a HIDMaestro i waiho ai ma kēia kamepiula e holoi ai.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Hoʻohana kēia mau polokalamu iā HIDMaestro. E pani iā lākou, a laila e koho i ka Hoʻohou.</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Koe: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>ʻAʻole i hiki ke heluhelu: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>ʻAʻole i holoi ʻia: {0}</value></data>
   <data name="Settings_SteamVR" xml:space="preserve"><value>SteamVR</value></data>
   <data name="Settings_Language" xml:space="preserve"><value>ʻŌlelo</value></data>
   <data name="Settings_LanguageDesc" xml:space="preserve"><value>E koho i ka ʻōlelo āu e makemake ai.</value></data>
@@ -272,6 +284,8 @@
   <data name="ManageProfiles_Delete" xml:space="preserve"><value>Holoi</value></data>
   <data name="ManageProfiles_Close" xml:space="preserve"><value>Pani</value></data>
   <data name="ManageProfiles_StatusDeleted_Format" xml:space="preserve"><value>Ua holoi ʻia "{0}".</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>Ua hōʻole ʻo HIDMaestro i kēia profile ma {1}: {0}</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>ʻAʻohe mea i lawe ʻia mai. {0}</value></data>
   <data name="Pad_ExtendedVid" xml:space="preserve"><value>VID</value></data>
   <data name="Pad_ExtendedPid" xml:space="preserve"><value>PID</value></data>
   <data name="Pad_ExtendedForceFeedback" xml:space="preserve"><value>Force feedback</value></data>

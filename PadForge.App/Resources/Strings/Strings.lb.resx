@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>SteamVR-Installatioun feelgeschloen: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>SteamVR gëtt desinstalléiert…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR leeft. Maacht et zou, ier Dir desinstalléiert.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro gëtt ewechgeholl…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro gouf ewechgeholl.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro gouf ewechgeholl. Windows läscht déi lescht vu senge Fichieren, wann et déi nächst Kéier gestart gëtt.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>D'Ewechhuele vun HIDMaestro gouf gestoppt. Maacht {0} zou an desinstalléiert dann nach eng Kéier.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro gouf nëmmen deelweis ewechgeholl. D'Lëscht weist, wat bliwwen ass a firwat.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Apparatelëscht aktualiséiert.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Opgeholl: „{0}“ ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Elo zouuerdnen: {0} {1}</value></data>
@@ -423,6 +428,17 @@ Eng Kopie vun der viregter Versioun ass an dësem Dossier: {1}</value></data>
   <data name="Settings_AddDots" xml:space="preserve"><value>Derbäisetzen...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>HIDMaestro-Treiber</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>Engine fir virtuell HID-Controller am Benotzermodus. A PadForge.App integréiert. Gëtt automatesch installéiert, wann den éischte virtuelle Controller ugeluecht gëtt. Ersetzt ViGEmBus a vJoy a v3.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>HIDMaestro desinstalléieren</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Dëst hëlt HIDMaestro vun dësem PC ewech: seng virtuell Controller, säin Treiber, säin Signatur-Zertifikat, Registry-Schlësselen a Fichieren. PadForge stoppt virdrun seng Engine. Aner Programmer, déi HIDMaestro benotzen, verléieren säin Treiber, bis se déi nächst Kéier gestart ginn. PadForge installéiert en nees, wann et déi nächst Kéier e virtuelle Controller start.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Och usbip-win2 ewechhuelen, dat mat sengem eegenen Installer installéiert gouf</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Méi al PadForge-Versiounen hunn usbip-win2 mam Installer vun usbip-win2 installéiert. Dëst hëlt déi Installatioun och ewech, ausser en anert Programm benotzt usbip-win2. Säin Filter um USB-Root-Hub bleift, well all USB-Root-Hub nei gestart gëtt, wann en ewechgeholl gëtt.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Et gëtt gelies, wat HIDMaestro op dësem PC hannerlooss huet…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro huet op dësem PC näischt hannerlooss, wat ze läschen ass.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Dës Programmer benotzen HIDMaestro. Maacht se zou a wielt dann „Aktualiséieren“.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Prozess {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Bleift: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Konnt net gelies ginn: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Net ewechgeholl: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Virtuell MIDI-Porten an MIDI-Agab. Windows 11 25H2 enthält d'API zënter der Aktualiséierung vun Enn November 2026. Aner PCe benotzen d'Runtime vu Windows MIDI Services, déi PadForge installéiere kann, oder d'Legacy-MIDI-API.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>A Windows integréiert</value></data>
@@ -1009,6 +1025,9 @@ Eng Kopie vun der viregter Versioun ass an dësem Dossier: {1}</value></data>
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>Profil-JSON importéieren</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>Aus {0} importéiert.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>Liese feelgeschloen: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro huet dëse Profil bei {1} ofgeleent: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Dëse Profil huet keen HID-Descriptor, dofir kann kee Controller domat erstallt ginn.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Et gouf näischt importéiert. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Aktualiséieren</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>Importéieren</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(HID-Apparat ouni Numm)</value></data>
@@ -3914,7 +3933,7 @@ Soll PadForge se elo desinstalléieren? Dat brauch Administratorrechter a ka e M
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>Bliss-Box-Referenzen</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>D'Bliss-Box-API hannert „Bliss-Box-Adaptere liesen“, gelies aus dem API Tool vu Bliss-Box LLC (BSD-ähnlech, Weidergab gratis) an DeviceBuddy (Quellcode zougänglech, Bliss-Box LLC), mat Knäppchennimm aus de Bliss-Box-Fichieren am Fork vu retroarch-joypad-autoconfig vum SteveFox1620, Controller-Pak-Préifsummen, verglach mat libdragon (Unlicense), an der Äntwert vum PlayStation-Controller aus psx-spx an dem Linux-Treiber psxpad-spi (GPL-2.0-or-later). Controllernimm an Notizen zur Ënnerstëtzung kommen och aus der Kompatibilitéitslëscht vu Bliss-Box LLC, an d'Verhale vun den Adaptere gouf mat hirer Firmware iwwerpréift. Nëmmen Dokumentatioun, et gëtt kee Code matgeliwwert.</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>USB-Transport vum Vadym Hrynchyshyn fir déi zesummegesat USB-Controller vun HIDMaestro. Säin signéierten Installer ass an HIDMaestro enthalen a leeft dat éischt Mol, wann e zesummegesaten Controller erstallt gëtt. BSD 2-Clause.</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>USB-Transport vum Vadym Hrynchyshyn fir déi zesummegesat USB-Controller vun HIDMaestro. HIDMaestro bréngt säin signéierten Host-Controller-Treiber mat an installéiert en dat éischt Mol, wann e zesummegesaten Controller erstallt gëtt. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>Wielt, wéi eng Hälfte vun dësem Slot aktiv sinn. Wann eng Hälft ausgeschalt gëtt, ginn hir Zeile verstoppt a si schéckt näischt méi, mee hir Zouuerdnunge bleiwen erhalen, sou datt se beim Erëmuschalten zréckkommen.</value>
   </data>

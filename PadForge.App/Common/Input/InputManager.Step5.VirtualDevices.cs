@@ -100,7 +100,6 @@ namespace PadForge.Common.Input
         /// </summary>
         private static HMContext _hmaestroContext;
         private static readonly object _hmaestroContextLock = new object();
-        private static bool _processExitHookRegistered;
 
         /// <summary>When the last HIDMaestro setup failed, as
         /// Environment.TickCount64, or 0. A failed setup used to stay failed
@@ -121,16 +120,6 @@ namespace PadForge.Common.Input
 
         private static bool HmSetupHeld()
             => HmSetupHeldAt(Volatile.Read(ref _hmaestroSetupFailedTick), Environment.TickCount64);
-
-        /// <summary>
-        /// Set once <see cref="DisposeHMaestroContextOnShutdown"/> has run a
-        /// full synchronous teardown inside OnClosing's Task.Run. The AppDomain
-        /// ProcessExit handler checks this flag and skips its static
-        /// <see cref="HMContext.RemoveAllVirtualControllers"/> call — otherwise
-        /// the safety-net sweep enumerates the PnP tree after Close() returns
-        /// and adds 5–6s of lingering headless work after the window vanishes.
-        /// </summary>
-        private static volatile bool _cleanShutdownPerformed;
 
         /// <summary>
         /// Virtual controller targets, indexed by pad index. The VC at
@@ -2333,6 +2322,7 @@ namespace PadForge.Common.Input
                                     CombinedTouchpadStates[padIndex],
                                     MotionSnapshots[padIndex],
                                     unchecked((uint)_deckFrameCounter++),
+                                    ValveReportPackers.MicrosNow(),
                                     _deckReportScratch);
                                 hmExt.SubmitRawReport(new ReadOnlySpan<byte>(_deckReportScratch, 0, valvePacker.Size));
                             }
@@ -2537,28 +2527,28 @@ namespace PadForge.Common.Input
                 HMContext ctx = null;
                 try
                 {
-                    // Preflight: sweep any leftover HIDMaestro virtual devices
-                    // from prior sessions (crash, forced kill, ungraceful exit).
-                    // Without this, InstallDriver's internal RemoveOldDriverPackages
-                    // step fails with "device using INF" because stale device nodes
-                    // still reference the old driver package.
+                    // Preflight: remove what programs that have ended left
+                    // behind, a crashed or killed PadForge's controllers among
+                    // them. Since HIDMaestro 2.0.0 this sweep never touches a
+                    // running program's controllers, this one's included
+                    // (HMContext.RemoveAllVirtualControllers). InstallDriver
+                    // reclaims the devices of ended programs by itself before
+                    // it deploys, because a device bound to the old INF keeps
+                    // pnputil from replacing the package. The sweep also prunes
+                    // HIDMaestro's registry ledger and the records Windows
+                    // keeps of removed devices (OwnerSweep.RemoveOrphaned).
                     //
-                    // preserveInstall: TRUE, same as the startup sweep. The
-                    // stale DEVICE NODES are what block the install, and the
-                    // preserving overload still evicts every one of them; the
-                    // flag guards only package removal and the
-                    // HKLM\SOFTWARE\HIDMaestro delete. Nuking that tree here
-                    // re-armed the exact bug the startup sweep's own fix had
-                    // just closed: it holds the VR driver's registration gate
-                    // and the SteamVRPath hint, so on any session mixing a
-                    // conventional HM slot with a VR slot, creating the
-                    // conventional one sent the VR slot back to re-extracting
-                    // driver_hidmaestro.dll into a running vrserver.exe. It
-                    // also costs the ~3 s full deploy on the next launch by
-                    // discarding the manifest hash. InstallDriver runs its own
-                    // preserving sweep internally (HMContext.cs), so this
-                    // preflight only needs to be at least as thorough, never
-                    // more destructive.
+                    // preserveInstall: TRUE. The flag guards the driver
+                    // packages and HKLM\SOFTWARE\HIDMaestro, and HIDMaestro
+                    // names a program's own launch sweep as the case for
+                    // keeping them. That tree holds the manifest hash behind
+                    // InstallDriver's fast path, so removing it costs the
+                    // ~3 s full deploy for nothing. It also holds the VR
+                    // driver's install hash and the SteamVRPath hint, and an
+                    // earlier preflight that removed it sent a VR slot back to
+                    // extracting driver_hidmaestro.dll into a running
+                    // vrserver.exe whenever a session mixed a conventional
+                    // slot with a VR slot.
                     try { HMaestroVirtualController.SweepVirtualControllers(); }
                     catch (Exception)
                     {
@@ -2569,31 +2559,19 @@ namespace PadForge.Common.Input
                     ctx.InstallDriver();
                     bool recovered = _hmaestroSetupFailedTick != 0;
                     Volatile.Write(ref _hmaestroSetupFailedTick, 0);
-                    // A clean shutdown covered the context it disposed. This
-                    // one still needs the exit sweep below if the process
-                    // ends without one.
-                    _cleanShutdownPerformed = false;
                     if (recovered) RaiseErrorResolved(HmSetupFailedMessage);
 
-                    // Safety net: purge any devices we created if the process
-                    // exits ungracefully without disposing HMController instances.
-                    // Registered once per process: the flag below keeps a later
-                    // context, after an engine stop and start, from adding a
-                    // second hook. preserveInstall: TRUE for the same
-                    // reason as the preflight above, and HM names the exit
-                    // sweep as the other case for it: the purge is about
-                    // DEVICES, and taking the packages and the registry tree
-                    // with them only makes the NEXT launch reinstall from
-                    // scratch and re-lose the VR gate.
-                    if (!_processExitHookRegistered)
-                    {
-                        _processExitHookRegistered = true;
-                        AppDomain.CurrentDomain.ProcessExit += (_, _) =>
-                        {
-                            if (_cleanShutdownPerformed) return;
-                            try { HMaestroVirtualController.SweepVirtualControllers(); } catch { }
-                        };
-                    }
+                    // No exit sweep of PadForge's own. Through 1.x the sweep
+                    // removed every controller on the PC, so a ProcessExit
+                    // hook here was the safety net for a process that ended
+                    // without disposing its controllers. Since 2.0.0 the sweep
+                    // leaves a running program's controllers alone, this
+                    // one's included, and HIDMaestro's own ProcessExit handler,
+                    // added with its owner claim at the program's first
+                    // cleanup, InstallDriver or create (MachineClaims.EnsureOwner),
+                    // removes the controllers a program did not dispose. A killed
+                    // PadForge's controllers go with the next sweep of any
+                    // program on the PC, this preflight's among them.
 
                     // Published last, after everything that can throw. A
                     // context published before a throw stayed in the field
@@ -3130,7 +3108,8 @@ namespace PadForge.Common.Input
         /// <summary>
         /// Constructs a HIDMaestro-backed virtual controller using the named
         /// embedded profile. The profile slug must match a profile shipped in
-        /// HIDMaestro.Core's embedded catalog (336 profiles in HIDMaestro 1.12.0).
+        /// HIDMaestro.Core's embedded catalog (337 profiles in HIDMaestro 2.0.2),
+        /// or a user profile the catalog loaded beside it.
         ///
         /// For Extended slots, applies per-slot customizations on top of the
         /// catalog profile via <see cref="HMProfileBuilder"/>:
@@ -4049,10 +4028,9 @@ namespace PadForge.Common.Input
         /// so the synchronous HIDMaestro teardown (each Xbox Series BT profile
         /// takes ~11s per the README) runs inside OnClosing's Task.Run and
         /// keeps the shutdown overlay visible the whole time. Without this
-        /// explicit call the actual teardown would happen in the AppDomain
-        /// ProcessExit handler, which fires AFTER the window has closed —
-        /// making it look like the window closed early with cleanup still
-        /// running headless.
+        /// explicit call the teardown would happen in HIDMaestro's own
+        /// ProcessExit handler, which runs AFTER the window has closed, so
+        /// the window would look closed with cleanup still running headless.
         /// </summary>
         private void DisposeHMaestroContextOnShutdown()
         {
@@ -4068,7 +4046,6 @@ namespace PadForge.Common.Input
                 try { ctx.Dispose(); }
                 catch (Exception ex) { RaiseError("Error disposing HIDMaestro context", ex); }
             }
-            _cleanShutdownPerformed = true;
         }
 
         private void ReleaseSlotEffectsAndClaims(int padIndex)

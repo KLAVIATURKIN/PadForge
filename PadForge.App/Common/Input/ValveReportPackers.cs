@@ -49,11 +49,15 @@ namespace PadForge.Common.Input
         /// 0x42 is 54 bytes including its id byte.</summary>
         internal const int MaxReportSize = 64;
 
+        /// <param name="imuMicros">The time of the frame in microseconds,
+        /// from <see cref="MicrosNow"/>. Only the 2026 pad's frame carries
+        /// one.</param>
         internal delegate void PackerFn(
             in RawHidState raw,
             in TouchpadState tp,
             in MotionSnapshot motion,
             uint packetNum,
+            uint imuMicros,
             Span<byte> dest);
 
         internal sealed class Packer
@@ -166,6 +170,39 @@ namespace PadForge.Common.Input
         private static short NegateSat(short v)
             => v == short.MinValue ? short.MaxValue : (short)(-v);
 
+        /// <summary>The pull at which the Deck and the 2026 controller set
+        /// their digital trigger bits: 90 percent of 32767, the default of
+        /// the trigger threshold setting in Valve's firmware for both, which
+        /// Steam leaves alone. HIDMaestro 2.0.2 carries the same count as
+        /// triggerThreshold {max 32767, at 29490} on steam-deck-composite and
+        /// steam-controller-2. These packers once set the bits at any travel,
+        /// so a light pull fired a Steam Input full-pull binding.</summary>
+        internal const int TriggerClickPull = 29490;
+
+        /// <summary>A pad's analog pressure while a finger is on it or it is
+        /// clicked: full scale. SDL reads the word over 32768
+        /// (SDL_hidapi_steamdeck.c 272 and 284, SDL_hidapi_steam_triton.c 258
+        /// and 270), so 32767 is pressure 1.0, what HIDMaestro's own encoder
+        /// sends for a touch that carries no pressure of its own. The packers
+        /// once wrote 0xFFFF on a click and 0 on a touch, which SDL read as
+        /// 2.0 and 0.</summary>
+        internal const ushort FullPadPressure = 32767;
+
+        private static ushort PadPressure(bool touched, bool clicked)
+            => touched || clicked ? FullPadPressure : (ushort)0;
+
+        /// <summary>A monotonic clock in microseconds for the 2026 pad's IMU
+        /// timestamp, wrapping every 71.6 minutes as its 32-bit word does.
+        /// SDL_hidapi_steam_triton.c (274 to 277) moves its sensor clock by
+        /// the word's difference from the last report, in microseconds, and
+        /// its Uint32 subtraction carries across the wrap.</summary>
+        internal static uint MicrosNow()
+        {
+            long ticks = System.Diagnostics.Stopwatch.GetTimestamp();
+            long f = System.Diagnostics.Stopwatch.Frequency;
+            return unchecked((uint)(ticks / f * 1_000_000 + ticks % f * 1_000_000 / f));
+        }
+
         private static short ScaleGyro(float dps)
             => (short)Math.Clamp((int)MathF.Round(dps / 2000f * 32768f), short.MinValue, short.MaxValue);
 
@@ -205,6 +242,7 @@ namespace PadForge.Common.Input
             in TouchpadState tp,
             in MotionSnapshot motion,
             uint packetNum,
+            uint imuMicros,
             Span<byte> dest)
         {
             const string P = "steam-deck-composite";
@@ -222,10 +260,10 @@ namespace PadForge.Common.Input
 
             // ulButtonsL bits 0..7 (STEAMDECK_LBUTTON: R2 0x01, L2 0x02,
             // R 0x04, L 0x08, Y 0x10, B 0x20, X 0x40, A 0x80). The digital
-            // trigger bits follow the analog pull, HC's rule (> 0).
+            // trigger bits set at Valve's threshold, TriggerClickPull.
             byte b8 = 0;
-            if (rt > 0) b8 |= 0x01;
-            if (lt > 0) b8 |= 0x02;
+            if (rt >= TriggerClickPull) b8 |= 0x01;
+            if (lt >= TriggerClickPull) b8 |= 0x02;
             if (Btn(raw, P, "RightShoulder")) b8 |= 0x04;
             if (Btn(raw, P, "LeftShoulder")) b8 |= 0x08;
             if (Btn(raw, P, "ButtonY")) b8 |= 0x10;
@@ -312,8 +350,8 @@ namespace PadForge.Common.Input
             WriteI16(dest, 52, rx);
             WriteI16(dest, 54, NegateSat(ry));
 
-            WriteU16(dest, 56, pads.lClick ? ushort.MaxValue : (ushort)0);
-            WriteU16(dest, 58, pads.rClick ? ushort.MaxValue : (ushort)0);
+            WriteU16(dest, 56, PadPressure(pads.lTouch, pads.lClick));
+            WriteU16(dest, 58, PadPressure(pads.rTouch, pads.rClick));
         }
 
         // ── Steam Controller 2015, ValveInReport type 0x01 ──────────────
@@ -345,12 +383,18 @@ namespace PadForge.Common.Input
         /// (SDL_hidapi_steam.c maps it to the right stick), and the finger
         /// bit follows any deflection so Steam sees pad input. The left
         /// pad's four directional click zones are the wire's D-pad bits and
-        /// come from the hat.</para></summary>
+        /// come from the hat.</para>
+        ///
+        /// <para>The digital trigger bits are each trigger's end-of-travel
+        /// click: set where the 8-bit trigger byte reads 255, the threshold
+        /// HIDMaestro 2.0.2's steam-controller-composite carries (255 of
+        /// 255).</para></summary>
         private static void PackSteamController2015(
             in RawHidState raw,
             in TouchpadState tp,
             in MotionSnapshot motion,
             uint packetNum,
+            uint imuMicros,
             Span<byte> dest)
         {
             const string P = "steam-controller";
@@ -363,6 +407,7 @@ namespace PadForge.Common.Input
 
             int lt = Trigger(raw, AxLT);
             int rt = Trigger(raw, AxRT);
+            byte lt8 = (byte)(lt >> 7), rt8 = (byte)(rt >> 7);   // 8-bit triggers, 0..255
             short lx = Axis(raw, AxLX), ly = Axis(raw, AxLY);
             short rx = Axis(raw, AxRX), ry = Axis(raw, AxRY);
 
@@ -372,8 +417,8 @@ namespace PadForge.Common.Input
 
             uint bits = 0;
             void Set(int bit, bool on) { if (on) bits |= 1u << bit; }
-            Set(Sc15RightTrigger, rt > 0);
-            Set(Sc15LeftTrigger, lt > 0);
+            Set(Sc15RightTrigger, rt8 == 255);
+            Set(Sc15LeftTrigger, lt8 == 255);
             Set(Sc15RightBumper, Btn(raw, P, "RightShoulder"));
             Set(Sc15LeftBumper, Btn(raw, P, "LeftShoulder"));
             Set(Sc15Y, Btn(raw, P, "ButtonY"));
@@ -397,8 +442,8 @@ namespace PadForge.Common.Input
             dest[8] = (byte)(bits & 0xFF);
             dest[9] = (byte)((bits >> 8) & 0xFF);
             dest[10] = (byte)((bits >> 16) & 0xFF);
-            dest[11] = (byte)(lt >> 7);     // 8-bit trigger, 0..255
-            dest[12] = (byte)(rt >> 7);
+            dest[11] = lt8;
+            dest[12] = rt8;
 
             // Pads: signed i16, +Y up, 0 center. Left from finger 0. Right
             // from finger 1 when touched, else from the right-stick axes.
@@ -418,13 +463,15 @@ namespace PadForge.Common.Input
             WriteU16(dest, 24, (ushort)lt);
             WriteU16(dest, 26, (ushort)rt);
 
-            // IMU, same frame map as the Deck (SDL_hidapi_steam.c decodes
-            // the 2015 pad's sensors the same way).
+            // IMU. SDL_hidapi_steam.c (1536 to 1543) decodes the 2015 pad as
+            // the Deck in every slot but one: gyro Z is +sGyroY, where accel
+            // Z is -sAccelY. So roll goes in un-negated, and writing it
+            // negated, as the Deck's map does, turned roll around.
             WriteI16(dest, 28, ScaleAccel(motion.AccelX));
             WriteI16(dest, 30, ScaleAccel(-motion.AccelZ));
             WriteI16(dest, 32, ScaleAccel(motion.AccelY));
             WriteI16(dest, 34, ScaleGyro(motion.GyroPitch));
-            WriteI16(dest, 36, ScaleGyro(-motion.GyroRoll));
+            WriteI16(dest, 36, ScaleGyro(motion.GyroRoll));
             WriteI16(dest, 38, ScaleGyro(motion.GyroYaw));
             // Quaternion 40..46 stays zero.
         }
@@ -446,12 +493,19 @@ namespace PadForge.Common.Input
         /// are int16 on this wire, so the 0..32767 pull maps straight in.
         /// Capacitive stick and grip touch ride their own rows, the bits
         /// SDL_hidapi_steam_triton.c reads as SDL_GAMEPAD_CAPSENSE_LEFT_STICK,
-        /// _RIGHT_STICK, _LEFT_GRIP and _RIGHT_GRIP.</summary>
+        /// _RIGHT_STICK, _LEFT_GRIP and _RIGHT_GRIP.
+        ///
+        /// <para>The IMU timestamp counts microseconds: SDL moves its sensor
+        /// clock by its difference from the last report
+        /// (SDL_hidapi_steam_triton.c 274 to 277). It carried the frame
+        /// counter, one count a frame, and SDL's sensor clock ran about a
+        /// thousand times slow.</para></summary>
         private static void PackSteamController2026(
             in RawHidState raw,
             in TouchpadState tp,
             in MotionSnapshot motion,
             uint packetNum,
+            uint imuMicros,
             Span<byte> dest)
         {
             const string P = "steam-controller-2";
@@ -490,10 +544,10 @@ namespace PadForge.Common.Input
             Set(TrLB, Btn(raw, P, "LeftShoulder"));
             Set(TrRPadTouch, pads.rTouch);
             Set(TrRPadClick, pads.rClick);
-            Set(TrRTrigClick, rt > 0);
+            Set(TrRTrigClick, rt >= TriggerClickPull);
             Set(TrLPadTouch, pads.lTouch);
             Set(TrLPadClick, pads.lClick);
-            Set(TrLTrigClick, lt > 0);
+            Set(TrLTrigClick, lt >= TriggerClickPull);
             Set(TrRStickTouch, Btn(raw, P, "RightStickTouch"));
             Set(TrLStickTouch, Btn(raw, P, "LeftStickTouch"));
             Set(TrRGripTouch, Btn(raw, P, "RightGripTouch"));
@@ -509,12 +563,12 @@ namespace PadForge.Common.Input
 
             WriteI16(dest, 18, pads.lTouch ? NormToPad(tp.X0) : (short)0);
             WriteI16(dest, 20, pads.lTouch ? NormToPadY(tp.Y0) : (short)0);  // SDL decodes both pads as y = -wire/65536 + 0.5 (_steam_triton.c 252 / 264)
-            WriteU16(dest, 22, pads.lClick ? ushort.MaxValue : (ushort)0);
+            WriteU16(dest, 22, PadPressure(pads.lTouch, pads.lClick));
             WriteI16(dest, 24, pads.rTouch ? NormToPad(tp.X1) : (short)0);
             WriteI16(dest, 26, pads.rTouch ? NormToPadY(tp.Y1) : (short)0);
-            WriteU16(dest, 28, pads.rClick ? ushort.MaxValue : (ushort)0);
+            WriteU16(dest, 28, PadPressure(pads.rTouch, pads.rClick));
 
-            WriteU32(dest, 30, packetNum);
+            WriteU32(dest, 30, imuMicros);
             WriteI16(dest, 34, ScaleAccel(motion.AccelX));
             WriteI16(dest, 36, ScaleAccel(-motion.AccelZ));
             WriteI16(dest, 38, ScaleAccel(motion.AccelY));

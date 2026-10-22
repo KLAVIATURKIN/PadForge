@@ -17,6 +17,10 @@ namespace PadForge.Views
         {
             public string Id { get; init; }
             public string Name { get; init; }
+
+            /// <summary>Why the profile is not in the pickers, or null when
+            /// it is (HMaestroProfileCatalog.GetUserProfileProblem).</summary>
+            public string Problem { get; init; }
         }
 
         /// <summary>Row model for the connected-devices list.</summary>
@@ -169,10 +173,10 @@ namespace PadForge.Views
                 return;
             }
 
-            string id = _settingsService.AddUserProfile(json);
+            string id = _settingsService.AddUserProfile(json, out string problem);
             if (string.IsNullOrWhiteSpace(id))
             {
-                StatusText.Text = Strings.Instance.ImportFromDevice_StatusPersistFailed;
+                StatusText.Text = ImportFailedText(problem);
                 return;
             }
 
@@ -252,10 +256,10 @@ namespace PadForge.Views
             {
                 var profile = HMDeviceExtractor.Extract(row.Info);
                 string rawJson = HMDeviceExtractor.ToJson(profile);
-                string id = _settingsService.AddUserProfile(rawJson);
+                string id = _settingsService.AddUserProfile(rawJson, out string problem);
                 if (string.IsNullOrWhiteSpace(id))
                 {
-                    StatusText.Text = Strings.Instance.ImportFromDevice_StatusPersistFailed;
+                    StatusText.Text = ImportFailedText(problem);
                     return;
                 }
                 ImportedProfileId = id;
@@ -267,5 +271,13 @@ namespace PadForge.Views
                     Strings.Instance.ImportFromDevice_StatusExtractFailed_Format, ex.Message);
             }
         }
+
+        /// <summary>The status line for an import that stored nothing: the
+        /// reason HIDMaestro would leave the profile out of the pickers, or
+        /// the parse failure when the JSON had no id to store it by.</summary>
+        internal static string ImportFailedText(string problem) =>
+            string.IsNullOrEmpty(problem)
+                ? Strings.Instance.ImportFromDevice_StatusPersistFailed
+                : string.Format(Strings.Instance.ManageProfiles_StatusImportRefused_Format, problem);
     }
 }

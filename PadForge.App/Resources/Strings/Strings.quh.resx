@@ -94,6 +94,11 @@
   <data name="Main_ShowPadForge" xml:space="preserve"><value>PadForge-ta rikuchiy</value></data>
   <data name="Main_EngineStopped" xml:space="preserve"><value>Motor sayachisqa</value></data>
   <data name="Main_AwaitingDevices" xml:space="preserve"><value>Dispositivokunata suyachkan</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro-ta urqhuchkan…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro-qa urqhusqaña.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro-qa urqhusqaña. Windows-qa puchuq archivonkunata chinkachinqa, kutimanta qallariqtin.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro-ta urqhuyqa sayarqa. {0} wisq'ay, chaymanta wakmanta desinstalay.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro-pa wakinllan urqhusqa. Listapi rikukun ima qhipakusqanta, imarayku qhipakusqantapas.</value></data>
 
   <!-- ═══ MainWindow Status Messages ═══ -->
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Dispositivokunap listan musuqchasqa.</value></data>
@@ -118,6 +123,17 @@
   <data name="Instr_Raw" xml:space="preserve"><value>RAW</value></data>
   <data name="Instr_Out" xml:space="preserve"><value>OUT</value></data>
   <data name="Dashboard_RemoteLink" xml:space="preserve"><value>Remote Link</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>HIDMaestro-ta desinstalay</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Kayqa HIDMaestro-ta kay PC-manta urqhun: control virtualninkunata, controladorninta, firma certificadonta, registropi clavenkunata, archivonkunatapas. PadForge-qa ñawpaqta motorninta sayachin. HIDMaestro-ta llamk'achiq wak programakunaqa controladorninta chinkachinku, kutimanta qallarinankukama. PadForge-qa watiqmanta instalanqa, hukmanta control virtualta qallarichiqtin.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Kikin instaladorninwan churasqa usbip-win2-tapas urqhuy</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Ñawpa PadForge versionkunaqa usbip-win2-ta usbip-win2-pa instaladorninwan churarqanku. Kayqa chay churasqatapas urqhun, manachus wak programa usbip-win2-ta llamk'achin chayqa. Concentrador raíz USB-pa filtronqa qhipakun, imaraykuchus urqhuspaqa tukuy concentrador raíz USB-kunata watiqmanta qallarichin.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>HIDMaestro kay PC-pi saqisqanta ñawinchachkan…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro-qa kay PC-pi mana urqhunapaq imatapas saqirqanchu.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Kay programakunaqa HIDMaestro-ta llamk'achinku. Chaykunata wisq'ay, chaymanta Musuqchay nisqata akllay.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Proceso {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Qhipakun: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Mana ñawinchay atikurqanchu: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Mana urqhusqachu: {0}</value></data>
 
   <!-- ═══ Settings ═══ -->
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
@@ -261,6 +277,9 @@
   <data name="Pad_ExtendedButtons" xml:space="preserve"><value>Botonkuna</value></data>
   <data name="ManageProfiles_Delete" xml:space="preserve"><value>Pichay</value></data>
   <data name="ManageProfiles_Close" xml:space="preserve"><value>Wichq'ay</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro-qa kay perfilta {1} nisqapi mana chaskirqanchu: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Kay perfilpiqa mana descriptor HID kanchu, chayrayku mana ima controlpas chaymanta ruwakuyta atinchu.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Mana imapas importakurqanchu. {0}</value></data>
   <data name="Pad_ExtendedVid" xml:space="preserve"><value>VID</value></data>
   <data name="Pad_ExtendedPid" xml:space="preserve"><value>PID</value></data>
   <data name="Pad_ExtendedForceFeedback" xml:space="preserve"><value>Force feedback</value></data>

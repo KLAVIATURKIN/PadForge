@@ -161,6 +161,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>Instalashon di SteamVR a faya: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>Ta deshinstalá SteamVR…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR ta kore. Sera e promé ku bo deshinstalá.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Ta kita HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro a wòrdu kitá.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro a wòrdu kitá. Windows ta kita e último archivonan di dje ora e kuminsá e siguiente biaha.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Deshinstalashon di HIDMaestro a para. Sera {0}, despues deshinstalá atrobe.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro a wòrdu kitá en parte. E lista ta mustra kiko a keda i pakiko.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Lista di aparatonan aktualisá.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Grabá "{0}" ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Asigná awor: {0} {1}</value></data>
@@ -335,6 +340,17 @@
   <data name="Settings_HidHideDesc" xml:space="preserve"><value>Skonde aparatonan físiko for di wega pa evitá entrada dobel.</value></data>
   <data name="Settings_AddDots" xml:space="preserve"><value>Agregá...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>Driver HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Deshinstalá HIDMaestro</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Esaki ta kita HIDMaestro for di e PC aki: su kontrolnan virtual, driver, sertifikado di firma, yabinan di registro i archivonan. PadForge ta para su motor promé. Otro programanan ku ta usa HIDMaestro ta pèrdè su driver te ora nan kuminsá atrobe. PadForge ta instalá HIDMaestro atrobe e siguiente biaha ku e kuminsá un kontrol virtual.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Kita tambe usbip-win2 instalá ku su mes instaladó</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Vershonnan mas bieu di PadForge a instalá usbip-win2 ku e instaladó di usbip-win2. Esaki ta kita e instalashon ei tambe, a ménos ku otro programa ta usa usbip-win2. Su filter riba e USB root hub ta keda, pasobra si e wòrdu kitá, tur USB root hub ta kuminsá di nobo.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Ta lesa kiko HIDMaestro a laga atras riba e PC aki…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro no a laga nada riba e PC aki pa kita.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>E programanan aki ta usa HIDMaestro. Sera nan, despues selektá Aktualisá.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Proseso {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Ta keda: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>No por a lesa: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>No a wòrdu kitá: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Integrá den Windows</value></data>
   <data name="Settings_MidiStatusUnavailable" xml:space="preserve"><value>No ta disponibel</value></data>
@@ -636,6 +652,9 @@
   <data name="ManageProfiles_ImportFromFile" xml:space="preserve"><value>Importá for di archivo…</value></data>
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>Importá JSON di perfil</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>Importá for di {0}.</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro a rechasá e perfil aki na {1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>E perfil aki no tin deskriptor HID, p'esei no por traha ningun kontrol for di dje.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Nada no a wòrdu importá. {0}</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>Importá</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(aparato HID sin nòmber)</value></data>
   <data name="Pad_ExtendedVid" xml:space="preserve"><value>VID</value></data>

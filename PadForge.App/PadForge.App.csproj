@@ -306,7 +306,23 @@
          unstable in-progress work from the HIDMaestro repo. Update by
          copying the Release build of HIDMaestro.Core.dll from the
          HIDMaestro repo into Resources\HIDMaestro\ after tagging a
-         release there. Current: v1.12.0, which adds keyboards and mice
+         release there. Current: v2.0.2, which gives the Valve personas
+         a report clock of their own (4 ms on the Deck and the 2026
+         controller, 9 ms on the 2015 controller), calibrated motion, a
+         unit serial per identity and the firmware's trigger click
+         thresholds, which PadForge's packers now match.
+         v2.0.1 before it removes HIDMaestro from the PC through
+         HMUninstall, which the Settings card runs (#518), and installs
+         usbip-win2's host controller without usbip-win2's installer.
+         v2.0.0 before that loads profiles strictly and lists each file
+         it refuses (HMContext.ProfileLoadIssues), sweeps only the
+         controllers of programs that have ended, stages its tools for
+         an elevated process only, builds the Switch Pro, DualShock 3
+         Full and Switch 2 Pro composite reports from state
+         (HMProfile.BuildsItsOwnReports), and adds switch-pro-usb and a
+         descriptor for the Wii U GameCube adapter, which PadForge
+         withholds.
+         v1.12.0 before it added keyboards and mice
          (HM#67): 51 keyboard and 52 mouse profiles, each the report
          descriptor of a real device, driven through SubmitKeyboard,
          SubmitMouse and SubmitConsumer. Every report a keyboard or mouse

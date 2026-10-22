@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>SteamVR:n asennus epäonnistui: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>Poistetaan SteamVR…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR on käynnissä. Sulje se ennen asennuksen poistamista.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Poistetaan HIDMaestro…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro poistettiin.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro poistettiin. Windows poistaa sen viimeiset tiedostot seuraavan käynnistyksen yhteydessä.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro-ajurin poisto keskeytyi. Sulje {0} ja poista asennus uudelleen.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro poistettiin vain osittain. Luettelo näyttää, mitä jäi ja miksi.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Laiteluettelo päivitetty.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Nauhoitettu ”{0}” ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>Määritä nyt: {0} {1}</value></data>
@@ -425,6 +430,17 @@ Kopio edellisestä versiosta on tässä kansiossa: {1}</value></data>
   <data name="Settings_AddDots" xml:space="preserve"><value>Lisää...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>HIDMaestro-ajuri</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>Käyttäjätilassa toimiva virtuaalisten HID-ohjainten moottori. Upotettu PadForge.App-sovellukseen. Asennetaan automaattisesti, kun ensimmäinen virtuaaliohjain luodaan. Korvaa ViGEmBus- ja vJoy-ajurit versiossa v3.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Poista HIDMaestro-asennus</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Tämä poistaa HIDMaestro-ajurin tästä tietokoneesta: sen virtuaaliohjaimet, ajurin, allekirjoitusvarmenteen, rekisteriavaimet ja tiedostot. PadForge pysäyttää ensin moottorinsa. Muut ohjelmat, jotka käyttävät HIDMaestro-ajuria, menettävät sen, kunnes ne käynnistetään seuraavan kerran. PadForge asentaa sen uudelleen, kun se seuraavan kerran käynnistää virtuaaliohjaimen.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Poista myös usbip-win2, joka on asennettu sen omalla asennusohjelmalla</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Vanhemmat PadForge-versiot asensivat usbip-win2:n sen omalla asennusohjelmalla. Tämä poistaa myös sen asennuksen, ellei jokin toinen ohjelma käytä usbip-win2:ta. Sen USB-juurikeskittimen suodatin jää paikalleen, koska sen poistaminen käynnistää uudelleen kaikki USB-juurikeskittimet.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Luetaan, mitä HIDMaestro jätti tähän tietokoneeseen…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro ei jättänyt tähän tietokoneeseen mitään poistettavaa.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Nämä ohjelmat käyttävät HIDMaestro-ajuria. Sulje ne ja valitse Päivitä.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Prosessi {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>Jää: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>Lukeminen ei onnistunut: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>Ei poistettu: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>Virtuaaliset MIDI-portit ja MIDI-syöte. Windows 11 25H2 sisältää API:n marraskuun 2026 lopun päivityksestä alkaen. Muut tietokoneet käyttävät Windows MIDI Services -ajoympäristöä, jonka PadForge voi asentaa, tai vanhaa MIDI-API:a.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Sisäänrakennettu Windowsiin</value></data>
@@ -1018,6 +1034,9 @@ Kopio edellisestä versiosta on tässä kansiossa: {1}</value></data>
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>Tuo profiilin JSON</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>Tuotu tiedostosta {0}.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>Lukeminen epäonnistui: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro hylkäsi tämän profiilin kohdassa {1}: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>Tässä profiilissa ei ole HID-kuvaajaa, joten siitä ei voi luoda ohjainta.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>Mitään ei tuotu. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>Päivitä</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>Tuo</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(nimetön HID-laite)</value></data>
@@ -3940,7 +3959,7 @@ Haluatko, että PadForge poistaa niiden asennuksen nyt? Tämä vaatii järjestel
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>Bliss-Box-viitteet</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>Lue Bliss-Box-sovittimet -toiminnon taustalla oleva Bliss-Box API, luettu Bliss-Box LLC:n API Tool -työkalusta (BSD-tyyppinen, vapaasti jaettavissa maksutta) ja DeviceBuddy-ohjelmasta (lähdekoodi saatavilla, Bliss-Box LLC), painikkeiden nimet SteveFox1620-käyttäjän retroarch-joypad-autoconfig-haaran Bliss-Box-tiedostoista, Controller Pak -tarkistussummat tarkistettu libdragon-kirjastoa (Unlicense) vasten sekä PlayStation-ohjaimen vastaus lähteistä psx-spx ja Linux-ytimen psxpad-spi-ajuri (GPL-2.0-or-later). Ohjainten nimet ja tukitiedot ovat peräisin myös Bliss-Box LLC:n yhteensopivuusluettelosta, ja sovittimien toiminta on tarkistettu niiden laiteohjelmistoa vasten. Vain dokumentaatio, koodia ei toimiteta.</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>USB-siirto HIDMaestro-ajurin yhdistelmä-USB-ohjaimille, tekijä Vadym Hrynchyshyn. Sen allekirjoitettu asennusohjelma sisältyy HIDMaestro-ajuriin ja suoritetaan, kun ensimmäinen yhdistelmäohjain luodaan. BSD 2-Clause.</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>USB-siirto HIDMaestro-ajurin yhdistelmä-USB-ohjaimille, tekijä Vadym Hrynchyshyn. HIDMaestro sisältää sen allekirjoitetun isäntäohjainajurin ja asentaa sen, kun ensimmäinen yhdistelmäohjain luodaan. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>Valitse, mitkä tämän paikan puoliskot ovat käytössä. Puoliskon poistaminen käytöstä piilottaa sen rivit ja estää sitä lähettämästä, mutta säilyttää sen määritykset, joten uudelleen käyttöön ottaminen palauttaa ne.</value>
   </data>

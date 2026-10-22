@@ -166,6 +166,11 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>SteamVR ಸ್ಥಾಪನೆ ವಿಫಲವಾಗಿದೆ: {0}</value></data>
   <data name="Status_UninstallingSteamVR" xml:space="preserve"><value>SteamVR ಅಸ್ಥಾಪಿಸಲಾಗುತ್ತಿದೆ…</value></data>
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR ಚಾಲನೆಯಲ್ಲಿದೆ. ಅಸ್ಥಾಪಿಸುವ ಮೊದಲು ಅದನ್ನು ಮುಚ್ಚಿ.</value></data>
+  <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro ತೆಗೆದುಹಾಕಲಾಗುತ್ತಿದೆ…</value></data>
+  <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro ತೆಗೆದುಹಾಕಲಾಗಿದೆ.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro ತೆಗೆದುಹಾಕಲಾಗಿದೆ. Windows ಮುಂದಿನ ಬಾರಿ ಪ್ರಾರಂಭವಾದಾಗ ಅದರ ಕೊನೆಯ ಫೈಲ್‌ಗಳನ್ನು ಅಳಿಸುತ್ತದೆ.</value></data>
+  <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro ತೆಗೆದುಹಾಕುವಿಕೆ ನಿಂತಿದೆ. {0} ಅನ್ನು ಮುಚ್ಚಿ, ನಂತರ ಮತ್ತೆ ಅಸ್ಥಾಪಿಸಿ.</value></data>
+  <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro ಭಾಗಶಃ ಮಾತ್ರ ತೆಗೆದುಹಾಕಲಾಗಿದೆ. ಯಾವುದು ಉಳಿದಿದೆ ಮತ್ತು ಏಕೆ ಎಂಬುದನ್ನು ಪಟ್ಟಿ ತೋರಿಸುತ್ತದೆ.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>ಸಾಧನ ಪಟ್ಟಿಯನ್ನು ರಿಫ್ರೆಶ್ ಮಾಡಲಾಗಿದೆ.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>ದಾಖಲಿಸಲಾಗಿದೆ “{0}” ← {1}</value></data>
   <data name="Status_NowMap_Format" xml:space="preserve"><value>ಈಗ ಮ್ಯಾಪ್ ಮಾಡಿ: {0} {1}</value></data>
@@ -423,6 +428,17 @@
   <data name="Settings_AddDots" xml:space="preserve"><value>ಸೇರಿಸಿ...</value></data>
   <data name="Settings_HIDMaestro" xml:space="preserve"><value>HIDMaestro ಡ್ರೈವರ್</value></data>
   <data name="Settings_HIDMaestroDesc" xml:space="preserve"><value>ಯೂಸರ್-ಮೋಡ್ ವರ್ಚುವಲ್ HID ಕಂಟ್ರೋಲರ್ ಎಂಜಿನ್. PadForge.App ನಲ್ಲಿ ಅಳವಡಿಸಲಾಗಿದೆ. ಮೊದಲ ವರ್ಚುವಲ್ ಕಂಟ್ರೋಲರ್ ರಚನೆಯಾದಾಗ ತಾನಾಗಿ ಸ್ಥಾಪನೆಯಾಗುತ್ತದೆ. v3 ನಲ್ಲಿ ViGEmBus ಮತ್ತು vJoy ಅನ್ನು ಬದಲಿಸುತ್ತದೆ.</value></data>
+  <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>HIDMaestro ಅಸ್ಥಾಪಿಸಿ</value></data>
+  <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>ಇದು ಈ PC ಯಿಂದ HIDMaestro ಅನ್ನು ತೆಗೆದುಹಾಕುತ್ತದೆ: ಅದರ ವರ್ಚುವಲ್ ಕಂಟ್ರೋಲರ್‌ಗಳು, ಡ್ರೈವರ್, ಸಹಿ ಪ್ರಮಾಣಪತ್ರ, ರಿಜಿಸ್ಟ್ರಿ ಕೀಗಳು ಮತ್ತು ಫೈಲ್‌ಗಳು. PadForge ಮೊದಲು ತನ್ನ ಎಂಜಿನ್ ಅನ್ನು ನಿಲ್ಲಿಸುತ್ತದೆ. HIDMaestro ಬಳಸುವ ಇತರ ಪ್ರೋಗ್ರಾಂಗಳು ಮುಂದಿನ ಬಾರಿ ಪ್ರಾರಂಭವಾಗುವವರೆಗೆ ಅದರ ಡ್ರೈವರ್ ಕಳೆದುಕೊಳ್ಳುತ್ತವೆ. PadForge ಮುಂದಿನ ಬಾರಿ ವರ್ಚುವಲ್ ಕಂಟ್ರೋಲರ್ ಪ್ರಾರಂಭಿಸಿದಾಗ ಅದನ್ನು ಮತ್ತೆ ಸ್ಥಾಪಿಸುತ್ತದೆ.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>usbip-win2 ನ ಸ್ವಂತ ಇನ್‌ಸ್ಟಾಲರ್‌ನಿಂದ ಸ್ಥಾಪಿಸಿದ usbip-win2 ಅನ್ನೂ ತೆಗೆದುಹಾಕಿ</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>ಹಳೆಯ PadForge ಆವೃತ್ತಿಗಳು usbip-win2 ನ ಇನ್‌ಸ್ಟಾಲರ್‌ನಿಂದ usbip-win2 ಅನ್ನು ಸ್ಥಾಪಿಸುತ್ತಿದ್ದವು. ಬೇರೆ ಪ್ರೋಗ್ರಾಂ usbip-win2 ಬಳಸುತ್ತಿದ್ದರೆ ಹೊರತು ಇದು ಆ ಸ್ಥಾಪನೆಯನ್ನೂ ತೆಗೆದುಹಾಕುತ್ತದೆ. ಅದರ USB ರೂಟ್ ಹಬ್ ಫಿಲ್ಟರ್ ಉಳಿಯುತ್ತದೆ, ಏಕೆಂದರೆ ಅದನ್ನು ತೆಗೆದರೆ ಪ್ರತಿ USB ರೂಟ್ ಹಬ್ ಮರುಪ್ರಾರಂಭವಾಗುತ್ತದೆ.</value></data>
+  <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>HIDMaestro ಈ PC ಯಲ್ಲಿ ಬಿಟ್ಟಿದ್ದನ್ನು ಓದಲಾಗುತ್ತಿದೆ…</value></data>
+  <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro ಈ PC ಯಲ್ಲಿ ತೆಗೆದುಹಾಕಲು ಏನನ್ನೂ ಬಿಟ್ಟಿಲ್ಲ.</value></data>
+  <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>ಈ ಪ್ರೋಗ್ರಾಂಗಳು HIDMaestro ಬಳಸುತ್ತಿವೆ. ಅವುಗಳನ್ನು ಮುಚ್ಚಿ, ನಂತರ ರಿಫ್ರೆಶ್ ಮಾಡಿ ಆಯ್ಕೆಮಾಡಿ.</value></data>
+  <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>ಪ್ರಕ್ರಿಯೆ {0}</value></data>
+  <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>ಉಳಿಯುತ್ತದೆ: {0}</value></data>
+  <data name="HIDMaestroUninstall_CannotRead_Format" xml:space="preserve"><value>ಓದಲಾಗಲಿಲ್ಲ: {0}</value></data>
+  <data name="HIDMaestroUninstall_NotRemoved_Format" xml:space="preserve"><value>ತೆಗೆದುಹಾಕಿಲ್ಲ: {0}</value></data>
   <data name="Settings_MidiServices" xml:space="preserve"><value>Windows MIDI Services</value></data>
   <data name="Settings_MidiDesc" xml:space="preserve"><value>ವರ್ಚುವಲ್ MIDI ಪೋರ್ಟ್‌ಗಳು ಮತ್ತು MIDI ಇನ್‌ಪುಟ್. Windows 11 25H2 ನವೆಂಬರ್ 2026 ರ ಕೊನೆಯ ನವೀಕರಣದಿಂದ API ಅನ್ನು ಒಳಗೊಂಡಿದೆ. ಇತರ PC ಗಳು PadForge ಸ್ಥಾಪಿಸಬಲ್ಲ Windows MIDI Services ರನ್‌ಟೈಮ್ ಅಥವಾ ಲೆಗಸಿ MIDI API ಬಳಸುತ್ತವೆ.</value></data>
   <data name="Settings_MidiStatusInBox" xml:space="preserve"><value>Windows ನಲ್ಲಿ ಅಂತರ್ನಿರ್ಮಿತ</value></data>
@@ -1013,6 +1029,9 @@
   <data name="ManageProfiles_ImportFromFileTitle" xml:space="preserve"><value>ಪ್ರೊಫೈಲ್ JSON ಆಮದು ಮಾಡಿ</value></data>
   <data name="ManageProfiles_StatusImportFileSucceeded_Format" xml:space="preserve"><value>{0} ನಿಂದ ಆಮದು ಮಾಡಲಾಯಿತು.</value></data>
   <data name="ManageProfiles_StatusImportFileFailed_Format" xml:space="preserve"><value>ಓದುವುದು ವಿಫಲವಾಯಿತು: {0}</value></data>
+  <data name="ManageProfiles_ProblemRefused_Format" xml:space="preserve"><value>HIDMaestro ಈ ಪ್ರೊಫೈಲ್ ಅನ್ನು {1} ನಲ್ಲಿ ನಿರಾಕರಿಸಿದೆ: {0}</value></data>
+  <data name="ManageProfiles_ProblemNoDescriptor" xml:space="preserve"><value>ಈ ಪ್ರೊಫೈಲ್‌ನಲ್ಲಿ HID ಡಿಸ್ಕ್ರಿಪ್ಟರ್ ಇಲ್ಲ, ಆದ್ದರಿಂದ ಇದರಿಂದ ಯಾವುದೇ ಕಂಟ್ರೋಲರ್ ಅನ್ನು ರಚಿಸಲಾಗುವುದಿಲ್ಲ.</value></data>
+  <data name="ManageProfiles_StatusImportRefused_Format" xml:space="preserve"><value>ಏನನ್ನೂ ಆಮದು ಮಾಡಿಲ್ಲ. {0}</value></data>
   <data name="ImportFromDevice_Refresh" xml:space="preserve"><value>ರಿಫ್ರೆಶ್</value></data>
   <data name="ImportFromDevice_Import" xml:space="preserve"><value>ಆಮದು ಮಾಡಿ</value></data>
   <data name="ImportFromDevice_UnnamedDevice" xml:space="preserve"><value>(ಹೆಸರಿಲ್ಲದ HID ಸಾಧನ)</value></data>
@@ -3920,7 +3939,7 @@ PadForge ಅವುಗಳನ್ನು ಈಗ ಅನ್‌ಇನ್‌ಸ್ಟಾ
   <data name="About_BlissBoxRefs" xml:space="preserve"><value>Bliss-Box ಉಲ್ಲೇಖಗಳು</value></data>
   <data name="About_BlissBoxRefsDesc" xml:space="preserve"><value>Bliss-Box ಅಡಾಪ್ಟರ್‌ಗಳನ್ನು ಓದುವ ಹಿಂದಿನ Bliss-Box API, Bliss-Box LLC ಯ API Tool (BSD-ಶೈಲಿ, ಉಚಿತ ಮರುವಿತರಣೆ) ಮತ್ತು DeviceBuddy (ಮೂಲ ಲಭ್ಯ, Bliss-Box LLC) ನಿಂದ ಓದಲಾಗಿದೆ, ಬಟನ್ ಹೆಸರುಗಳು SteveFox1620 ರ retroarch-joypad-autoconfig ಫೋರ್ಕ್‌ನ Bliss-Box ಫೈಲ್‌ಗಳಿಂದ, Controller Pak ಚೆಕ್‌ಸಮ್‌ಗಳನ್ನು libdragon (Unlicense) ವಿರುದ್ಧ ಪರಿಶೀಲಿಸಲಾಗಿದೆ, ಮತ್ತು PlayStation ಪ್ಯಾಡ್ ಉತ್ತರ psx-spx ಮತ್ತು Linux ನ psxpad-spi ಡ್ರೈವರ್ (GPL-2.0-or-later) ನಿಂದ. ಕಂಟ್ರೋಲರ್ ಹೆಸರುಗಳು ಮತ್ತು ಬೆಂಬಲ ಟಿಪ್ಪಣಿಗಳು Bliss-Box LLC ಯ ಹೊಂದಾಣಿಕೆ ಪಟ್ಟಿಯಿಂದಲೂ ಬರುತ್ತವೆ, ಮತ್ತು ಅಡಾಪ್ಟರ್‌ಗಳ ವರ್ತನೆಯನ್ನು ಅವುಗಳ ಫರ್ಮ್‌ವೇರ್ ವಿರುದ್ಧ ಪರಿಶೀಲಿಸಲಾಗಿದೆ. ದಾಖಲೆ ಮಾತ್ರ. ಯಾವುದೇ ಕೋಡ್ ಸೇರಿಸಲಾಗಿಲ್ಲ.</value></data>
   <data name="About_UsbipWin2" xml:space="preserve"><value>usbip-win2</value></data>
-  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>HIDMaestro ದ ಸಂಯುಕ್ತ USB ಕಂಟ್ರೋಲರ್‌ಗಳಿಗೆ Vadym Hrynchyshyn ಅವರ USB ಸಾರಿಗೆ. ಅದರ ಸಹಿ ಮಾಡಿದ ಇನ್‌ಸ್ಟಾಲರ್ HIDMaestro ಒಳಗೇ ಬರುತ್ತದೆ ಮತ್ತು ಸಂಯುಕ್ತ ಕಂಟ್ರೋಲರ್ ಮೊದಲ ಬಾರಿ ರಚಿಸಿದಾಗ ಚಲಿಸುತ್ತದೆ. BSD 2-Clause.</value></data>
+  <data name="About_UsbipWin2Desc" xml:space="preserve"><value>HIDMaestro ದ ಸಂಯುಕ್ತ USB ಕಂಟ್ರೋಲರ್‌ಗಳಿಗೆ Vadym Hrynchyshyn ಅವರ USB ಸಾರಿಗೆ. HIDMaestro ತನ್ನೊಂದಿಗೆ ಸಹಿ ಮಾಡಿದ ಹೋಸ್ಟ್ ಕಂಟ್ರೋಲರ್ ಡ್ರೈವರ್ ಅನ್ನು ಹೊಂದಿದ್ದು, ಸಂಯುಕ್ತ ಕಂಟ್ರೋಲರ್ ಮೊದಲ ಬಾರಿ ರಚಿಸಿದಾಗ ಅದನ್ನು ಸ್ಥಾಪಿಸುತ್ತದೆ. BSD 2-Clause.</value></data>
   <data name="Pad_Kbm_Surfaces_Tooltip" xml:space="preserve">
     <value>ಈ ಸ್ಲಾಟ್‌ನ ಯಾವ ಅರ್ಧಗಳು ಸಕ್ರಿಯವೆಂದು ಆರಿಸಿ. ಅರ್ಧವನ್ನು ಆಫ್ ಮಾಡಿದರೆ ಅದರ ಸಾಲುಗಳು ಮರೆಯಾಗುತ್ತವೆ ಮತ್ತು ಕಳುಹಿಸುವುದು ನಿಲ್ಲುತ್ತದೆ, ಆದರೆ ಅದರ ಮ್ಯಾಪಿಂಗ್‌ಗಳು ಉಳಿಯುತ್ತವೆ, ಮತ್ತೆ ಆನ್ ಮಾಡಿದಾಗ ಮರಳುತ್ತವೆ.</value>
   </data>

@@ -114,6 +114,15 @@ public sealed class PersonaFeedOwnershipTests : IDisposable
         Backing(mic, nameof(HMMicrophoneInput.Channels), 2);
         Backing(mic, nameof(HMMicrophoneInput.SampleRateHz), 48000);
         Backing(mic, nameof(HMMicrophoneInput.BitsPerSample), 16);
+        // HIDMaestro 2.0.0 reads IsStreaming from the device's stream table,
+        // so each side gets an engine whose table is empty: not streaming,
+        // what the stored property read before.
+        var engineField = typeof(HMAudioOutput).GetField("_engine", Private)!;
+        var engine = RuntimeHelpers.GetUninitializedObject(engineField.FieldType);
+        engineField.FieldType.GetField("_lock", Private)!.SetValue(engine, new object());
+        engineField.FieldType.GetField("_altSetting", Private)!.SetValue(engine, new Dictionary<byte, byte>());
+        engineField.SetValue(output, engine);
+        typeof(HMMicrophoneInput).GetField("_engine", Private)!.SetValue(mic, engine);
         Backing(audio, nameof(HMUsbAudio.Output), output);
         Backing(audio, nameof(HMUsbAudio.Microphone), mic);
         return audio;
