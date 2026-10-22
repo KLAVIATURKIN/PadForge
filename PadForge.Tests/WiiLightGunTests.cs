@@ -718,7 +718,7 @@ namespace PadForge.Tests
                 return n;
             }
             Assert.Equal(3, Lines("bouncing the sensors"));
-            Assert.Equal(1, Lines("stays off until the remote reconnects"));
+            Assert.Equal(1, Lines("left to the driver's retries"));
         }
 
         /// <summary>Any IR report ends the check. -1 is a report with no dot

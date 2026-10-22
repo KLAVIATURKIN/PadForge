@@ -194,9 +194,10 @@ namespace PadForge.Engine
         /// hint set -> EnableIRSensor, hint clear while active ->
         /// DisableIRSensor via the disable leg) needs one bounce for a
         /// RUNTIME flip of the IR hint to take effect without a reconnect
-        /// (#248 audit round 2). A Wii Remote's IR camera that failed to
-        /// start is retried only by this toggle or a reopen
-        /// (SDL_hidapi_wii.c EnableIR), see <see cref="StepIrCameraCheck"/>.
+        /// (#248 audit round 2). For a Wii Remote's IR camera a bounce is one
+        /// more start, and it sets the driver's own retry delays back to the
+        /// first (SDL_hidapi_wii.c SetJoystickSensorsEnabled,
+        /// hifihedgehog/SDL#39), see <see cref="StepIrCameraCheck"/>.
         /// Both open paths enable the sensors, so both are cycled.
         /// Gyro/accel streams resume immediately; one bounce costs a few
         /// sensor frames.</summary>
@@ -1462,18 +1463,20 @@ namespace PadForge.Engine
         }
 
         // ── The IR camera's start (#484) ──
-        // The fork powers a Wii Remote's camera only on the sensor-enable
-        // edge, with five register writes it waits on in turn
-        // (SDL_hidapi_wii.c EnableIR). A write that times out leaves the
-        // camera off, recorded only in the driver's m_bIRActive, and by the
-        // driver's own comment only the next sensor toggle or a reopen tries
-        // again. Open enables the sensors once, so a camera that did not
-        // start stayed off for the connection while every button worked:
-        // the aim lost after a remote reconnected (discussion #484). The
-        // fork posts every IR report on axes 6-9 as a dot or -1, and SDL
-        // starts them at 0, so four zeros while the accelerometer reports
-        // mean no IR report has come. The check then bounces the sensors,
-        // the toggle the driver's comment names. Poll-thread state.
+        // The fork powers a Wii Remote's camera on the sensor-enable edge,
+        // with five register writes it waits on in turn (SDL_hidapi_wii.c
+        // EnableIR). Before SDL c2eb7a5f2a a write that timed out left the
+        // camera off for the connection, since only the next sensor toggle
+        // or a reopen tried again and Open enables the sensors once: the aim
+        // lost after a remote reconnected while every button worked
+        // (discussion #484). The driver now starts a failed camera again
+        // after 1, 2 and 4 s and then every 8 s, and reads the camera bit in
+        // a status report (hifihedgehog/SDL#39). This check stays as a
+        // backstop that records the start in the log. The fork posts every
+        // IR report on axes 6-9 as a dot or -1, and SDL starts them at 0, so
+        // four zeros while the accelerometer reports mean no IR report has
+        // come. The check then bounces the sensors, which starts the camera
+        // once more and sets the driver's delays back. Poll-thread state.
 
         /// <summary>How long the camera has after the remote's first report
         /// to send its first IR report: the power-up is five acknowledged
@@ -1482,8 +1485,8 @@ namespace PadForge.Engine
         internal const int IrCameraFirstCheckMs = 3000;
 
         /// <summary>Bounces per connection. Each holds SDL's joystick lock
-        /// while the driver writes, so a camera that never answers is left
-        /// alone after these.</summary>
+        /// while the driver writes, so after these the camera is left to the
+        /// driver's own retries.</summary>
         internal const int IrCameraMaxBounces = 3;
 
         private bool _irCheckStarted;
@@ -1526,7 +1529,7 @@ namespace PadForge.Engine
             if (_irBounces >= IrCameraMaxBounces)
             {
                 _irCheckGaveUp = true;
-                SdlDiagLog.WriteLine($"WIIIR {Name} SDL#{SdlInstanceId} no IR report {IrCameraSeconds(now):F1} s after the remote's first report and {_irBounces} bounces, so the camera stays off until the remote reconnects");
+                SdlDiagLog.WriteLine($"WIIIR {Name} SDL#{SdlInstanceId} no IR report {IrCameraSeconds(now):F1} s after the remote's first report and {_irBounces} bounces, so the camera is left to the driver's retries");
                 return false;
             }
             _irBounces++;
