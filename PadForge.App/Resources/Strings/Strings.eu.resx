@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR exekutatzen ari da. Itxi desinstalatu aurretik.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro kentzen…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro kendu da.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro kendu da. Windows-ek bere azken fitxategiak ezabatuko ditu hurrengoan abiarazten denean.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro kendu da. Windows-ek kentzea amaituko du hurrengoan abiarazten denean.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro kentzea geldiarazi da. Itxi {0}, eta gero desinstalatu berriro.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro partzialki kendu da. Zerrendak erakusten du zer geratu den eta zergatik.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Gailu-zerrenda freskatu da.</value></data>
@@ -433,7 +433,7 @@ Aurreko bertsioaren kopia bat karpeta honetan dago: {1}</value></data>
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Desinstalatu HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Honek HIDMaestro kentzen du PC honetatik: bere kontrolagailu birtualak, kontrolatzailea, sinadura-ziurtagiria, erregistro-gakoak eta fitxategiak. PadForge-k bere motorra gelditzen du lehenik. HIDMaestro erabiltzen duten beste programek bere kontrolatzailea galtzen dute hurrengoan abiarazten diren arte. PadForge-k berriro instalatzen du hurrengoan kontrolagailu birtual bat abiarazten duenean.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Kendu, gainera, usbip-win2 bere instalatzaile propioarekin instalatutakoa</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>PadForge-ren bertsio zaharragoek usbip-win2 instalatu zuten usbip-win2-ren instalatzailearekin. Honek instalazio hori ere kentzen du, beste programa batek usbip-win2 erabiltzen ez badu. Bere USB root hub iragazkia geratzen da, kentzeak USB root hub guztiak berrabiarazten dituelako.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>PadForge-ren bertsio zaharragoek usbip-win2 instalatu zuten usbip-win2-ren instalatzailearekin. Honek instalazio hori ere kentzen du, bere USB root hub iragazkia barne, beste programa batek usbip-win2 erabiltzen ez badu. Iragazkia kentzeak USB 3 root hub guztiak berrabiarazten ditu, beraz USB gailuak une batez deskonektatzen dira.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>HIDMaestro-k PC honetan utzitakoa irakurtzen…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro-k ez du ezer utzi PC honetan kentzeko.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Programa hauek HIDMaestro erabiltzen dute. Itxi itzazu, eta gero hautatu Freskatu.</value></data>

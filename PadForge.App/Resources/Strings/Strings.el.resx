@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>Το SteamVR εκτελείται. Κλείστε το πριν από την απεγκατάσταση.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Αφαίρεση του HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>Το HIDMaestro αφαιρέθηκε.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Το HIDMaestro αφαιρέθηκε. Τα Windows διαγράφουν τα τελευταία αρχεία του την επόμενη φορά που θα ξεκινήσουν.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Το HIDMaestro αφαιρέθηκε. Τα Windows ολοκληρώνουν την αφαίρεση την επόμενη φορά που θα ξεκινήσουν.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Η αφαίρεση του HIDMaestro διακόπηκε. Κλείστε το {0} και επιλέξτε ξανά Απεγκατάσταση.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Το HIDMaestro αφαιρέθηκε εν μέρει. Η λίστα δείχνει τι έμεινε και γιατί.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Η λίστα συσκευών ανανεώθηκε.</value></data>
@@ -433,7 +433,7 @@
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Απεγκατάσταση του HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Αυτή η ενέργεια αφαιρεί το HIDMaestro από αυτόν τον υπολογιστή: τα εικονικά χειριστήρια, το πρόγραμμα οδήγησης, το πιστοποιητικό υπογραφής, τα κλειδιά μητρώου και τα αρχεία του. Το PadForge σταματά πρώτα τη μηχανή του. Άλλα προγράμματα που χρησιμοποιούν το HIDMaestro χάνουν το πρόγραμμα οδήγησής του μέχρι την επόμενη εκκίνησή τους. Το PadForge το εγκαθιστά ξανά την επόμενη φορά που θα ξεκινήσει ένα εικονικό χειριστήριο.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Αφαίρεση και του usbip-win2 που εγκαταστάθηκε με το δικό του πρόγραμμα εγκατάστασης</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Παλαιότερες εκδόσεις του PadForge εγκατέστησαν το usbip-win2 με το πρόγραμμα εγκατάστασης του usbip-win2. Αυτό αφαιρεί και εκείνη την εγκατάσταση, εκτός αν το usbip-win2 χρησιμοποιείται από άλλο πρόγραμμα. Το φίλτρο του διανομέα ρίζας USB παραμένει, επειδή η αφαίρεσή του επανεκκινεί κάθε διανομέα ρίζας USB.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Παλαιότερες εκδόσεις του PadForge εγκατέστησαν το usbip-win2 με το πρόγραμμα εγκατάστασης του usbip-win2. Αυτό αφαιρεί και εκείνη την εγκατάσταση, μαζί με το φίλτρο του διανομέα ρίζας USB, εκτός αν το usbip-win2 χρησιμοποιείται από άλλο πρόγραμμα. Η αφαίρεση του φίλτρου επανεκκινεί κάθε διανομέα ρίζας USB 3, οπότε οι συσκευές USB αποσυνδέονται για λίγο.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Ανάγνωση όσων άφησε το HIDMaestro σε αυτόν τον υπολογιστή…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>Το HIDMaestro δεν άφησε τίποτα προς αφαίρεση σε αυτόν τον υπολογιστή.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Αυτά τα προγράμματα χρησιμοποιούν το HIDMaestro. Κλείστε τα και επιλέξτε Ανανέωση.</value></data>

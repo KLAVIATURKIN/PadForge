@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR je spuštěný. Před odinstalací ho ukončete.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Odebírání HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro byl odebrán.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro byl odebrán. Windows smaže zbývající soubory při příštím spuštění.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro byl odebrán. Windows odebrání dokončí při příštím spuštění.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Odebrání HIDMaestro bylo zastaveno. Zavřete {0} a poté odinstalujte znovu.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro byl odebrán jen částečně. Seznam ukazuje, co zůstalo a proč.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Seznam zařízení byl aktualizován.</value></data>
@@ -433,7 +433,7 @@ Kopie předchozí verze je v této složce: {1}</value></data>
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Odinstalovat HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Tím se z tohoto počítače odebere HIDMaestro: jeho virtuální ovladače, systémový ovladač, podpisový certifikát, klíče registru a soubory. PadForge nejprve zastaví své jádro. Ostatní programy, které HIDMaestro používají, ztratí jeho ovladač až do dalšího spuštění. PadForge ho nainstaluje znovu, až příště spustí virtuální ovladač.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Odebrat také usbip-win2 nainstalovaný jeho vlastním instalátorem</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Starší verze PadForge instalovaly usbip-win2 pomocí instalátoru usbip-win2. Tím se odebere i tato instalace, pokud usbip-win2 nepoužívá jiný program. Jeho filtr kořenového rozbočovače USB zůstane, protože jeho odebráním se restartují všechny kořenové rozbočovače USB.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Starší verze PadForge instalovaly usbip-win2 pomocí instalátoru usbip-win2. Tím se odebere i tato instalace, včetně jeho filtru kořenového rozbočovače USB, pokud usbip-win2 nepoužívá jiný program. Odebráním filtru se restartují všechny kořenové rozbočovače USB 3, takže se USB zařízení na okamžik odpojí.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Zjišťuje se, co HIDMaestro v tomto počítači zanechal…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro v tomto počítači nezanechal nic k odebrání.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Tyto programy používají HIDMaestro. Zavřete je a poté vyberte Aktualizovat.</value></data>

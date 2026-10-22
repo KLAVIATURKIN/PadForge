@@ -99,7 +99,7 @@
   <data name="Main_VR_Max_Format" xml:space="preserve"><value>VR (max {0})</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Kolongola HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro elongolami.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro elongolami. Windows ekolongola ba fichiers na yango oyo etikali tango ekobanda lisusu.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro elongolami. Windows ekosilisa kolongola yango tango ekobanda lisusu.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Kolongola HIDMaestro etelemi. Kanga {0}, sima longola yango lisusu.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro elongolami kaka ndambo. Liste emonisi oyo etikali mpe mpo na nini.</value></data>
 

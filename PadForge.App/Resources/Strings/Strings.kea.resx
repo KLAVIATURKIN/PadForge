@@ -140,7 +140,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR sta ta funsiona. Fitxa-l antis di dizinstala.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Ta tra HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro dja tradu.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro dja tradu. Windows ta paga kes últimu fitxeru di el próximu bes ki e liga.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro dja tradu. Windows ta kaba di tra-l próximu bes ki e liga.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Dizinstalason di HIDMaestro para. Fitxa {0} i dipos dizinstala otu bes.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro tradu só un parti. Lista ta mostra kuzê ki fika i pamodi.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Lista di dispozitivu atualizadu.</value></data>
@@ -274,7 +274,7 @@
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Dizinstala HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Kel-li ta tra HIDMaestro di es PC: si komandu virtual, driver, sertifikadu di asinatura, txabi di registru i fitxeru. PadForge ta para si motor primeru. Otus programa ki ta uza HIDMaestro ta fika sen si driver ti es torna liga. PadForge ta torna instala-l próximu bes ki e kumesa un komandu virtual.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Tra tanbê usbip-win2 instaladu ku si própi instalador</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Versons antigu di PadForge instala usbip-win2 ku instalador di usbip-win2. Kel-li tanbê ta tra kel instalason, a menus ki otu programa ta uza usbip-win2. Filtru di USB root hub ta fika, pamodi tra-l ta torna inisia tudu USB root hub.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Versons antigu di PadForge instala usbip-win2 ku instalador di usbip-win2. Kel-li tanbê ta tra kel instalason, ku si filtru di USB root hub, a menus ki otu programa ta uza usbip-win2. Tra kel filtru ta torna inisia tudu USB 3 root hub, purisu dispozitivus USB ta disliga pa un momentu.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Ta lé kuzê ki HIDMaestro dexa na es PC…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro ka dexa nada na es PC pa tra.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Kes programa li ta uza HIDMaestro. Fitxa-s i dipos skodje Atualiza.</value></data>

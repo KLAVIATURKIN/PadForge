@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR ධාවනය වෙමින් පවතී. අස්ථාපනය කිරීමට පෙර එය වසන්න.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro ඉවත් කරමින්…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro ඉවත් කරන ලදී.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro ඉවත් කරන ලදී. Windows ඊළඟ වතාවේ ආරම්භ වන විට එහි ඉතිරි ගොනු මකා දමයි.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro ඉවත් කරන ලදී. Windows ඊළඟ වතාවේ ආරම්භ වන විට ඉවත් කිරීම අවසන් කරයි.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro ඉවත් කිරීම නතර විය. {0} වසා, නැවත අස්ථාපනය කරන්න.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro අර්ධ වශයෙන් ඉවත් කරන ලදී. ඉතිරි වූ දේ සහ ඊට හේතුව ලැයිස්තුවේ පෙන්වයි.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>උපාංග ලැයිස්තුව නැවුම් කරන ලදී.</value></data>
@@ -433,7 +433,7 @@
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>HIDMaestro අස්ථාපනය කරන්න</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>මෙය මෙම පරිගණකයෙන් HIDMaestro ඉවත් කරයි: එහි අතථ්‍ය පාලක, ධාවකය, අත්සන් කිරීමේ සහතිකය, රෙජිස්ට්‍රි යතුරු සහ ගොනු. PadForge පළමුව එහි එන්ජිම නවත්වයි. HIDMaestro භාවිත කරන වෙනත් වැඩසටහන්වලට ඒවා ඊළඟ වතාවේ ආරම්භ වන තෙක් එහි ධාවකය අහිමි වේ. PadForge ඊළඟ වතාවේ අතථ්‍ය පාලකයක් ආරම්භ කරන විට එය නැවත ස්ථාපනය කරයි.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>එහිම ස්ථාපකයෙන් ස්ථාපනය කළ usbip-win2 ද ඉවත් කරන්න</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>පැරණි PadForge අනුවාද usbip-win2 හි ස්ථාපකයෙන් usbip-win2 ස්ථාපනය කළේය. වෙනත් වැඩසටහනක් usbip-win2 භාවිත නොකරන්නේ නම්, මෙය එම ස්ථාපනයද ඉවත් කරයි. එය ඉවත් කිරීමෙන් සෑම USB මූල හබ් එකක්ම නැවත ආරම්භ වන බැවින්, එහි USB මූල හබ් පෙරහන ඉතිරි වේ.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>පැරණි PadForge අනුවාද usbip-win2 හි ස්ථාපකයෙන් usbip-win2 ස්ථාපනය කළේය. වෙනත් වැඩසටහනක් usbip-win2 භාවිත නොකරන්නේ නම්, මෙය එහි USB මූල හබ් පෙරහනද ඇතුළුව එම ස්ථාපනයද ඉවත් කරයි. පෙරහන ඉවත් කිරීමෙන් සෑම USB 3 මූල හබ් එකක්ම නැවත ආරම්භ වන බැවින්, USB උපාංග මොහොතකට විසන්ධි වේ.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>HIDMaestro මෙම පරිගණකයේ ඉතිරි කළ දේ කියවමින්…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro මෙම පරිගණකයේ ඉවත් කිරීමට කිසිවක් ඉතිරි කර නැත.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>මෙම වැඩසටහන් HIDMaestro භාවිත කරයි. ඒවා වසා, "නැවුම් කරන්න" තෝරන්න.</value></data>

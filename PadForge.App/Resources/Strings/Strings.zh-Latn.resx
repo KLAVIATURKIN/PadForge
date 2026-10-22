@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR zhèngzài yùnxíng. Qǐng xiān guānbì, zài xièzài.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Zhèngzài yíchú HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro yǐ yíchú.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro yǐ yíchú. Windows huì zài xià cì qǐdòng shí shānchú qí zuìhòu de wénjiàn.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro yǐ yíchú. Windows huì zài xià cì qǐdòng shí wánchéng yíchú.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro yíchú yǐ tíngzhǐ. Qǐng guānbì {0}, ránhòu zàicì xièzài.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro zhǐ yíchú le yībùfen. Lièbiǎo xiǎnshì liúxià de xiàngmù jí yuányīn.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Shèbèi lièbiǎo yǐ shuāxīn.</value></data>
@@ -433,7 +433,7 @@ Zhī qián bǎnběn de fùběn wèiyú cǐ wénjiànjiā: {1}</value></data>
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Xièzài HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Cǐ cāozuò jiāng cóng zhè tái diànnǎo shàng yíchú HIDMaestro: qí xūnǐ kòngzhìqì, qūdòng chéngxù, qiānmíng zhèngshū, zhùcèbiǎo xiàng hé wénjiàn. PadForge huì xiān tíngzhǐ zìshēn de yǐnqíng. Qítā shǐyòng HIDMaestro de chéngxù zài xià cì qǐdòng zhīqián huì shīqù qí qūdòng chéngxù. PadForge xià cì qǐdòng xūnǐ kòngzhìqì shí huì zàicì ānzhuāng tā.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Tóngshí yíchú yóu usbip-win2 zìshēn ānzhuāng chéngxù ānzhuāng de usbip-win2</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Jiù bǎnběn de PadForge shǐyòng usbip-win2 zìshēn de ānzhuāng chéngxù ānzhuāng le usbip-win2. Cǐ cāozuò yě huì yíchú gāi ānzhuāng, chúfēi qítā chéngxù zhèngzài shǐyòng usbip-win2. Qí USB gēn jíxiànqì guòlǜqì huì bǎoliú, yīnwèi yíchú tā huì chóngxīn qǐdòng suǒyǒu USB gēn jíxiànqì.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Jiù bǎnběn de PadForge shǐyòng usbip-win2 zìshēn de ānzhuāng chéngxù ānzhuāng le usbip-win2. Cǐ cāozuò yě huì yíchú gāi ānzhuāng, bāokuò qí USB gēn jíxiànqì guòlǜqì, chúfēi qítā chéngxù zhèngzài shǐyòng usbip-win2. Yíchú guòlǜqì huì chóngxīn qǐdòng suǒyǒu USB 3 gēn jíxiànqì, yīncǐ USB shèbèi huì duànkāi piànkè.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Zhèngzài dúqǔ HIDMaestro zài zhè tái diànnǎo shàng liúxià de nèiróng…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro zài zhè tái diànnǎo shàng méiyǒu liúxià kě yíchú de nèiróng.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Zhèxiē chéngxù zhèngzài shǐyòng HIDMaestro. Qǐng guānbì tāmen, ránhòu diǎnjī Shuāxīn.</value></data>

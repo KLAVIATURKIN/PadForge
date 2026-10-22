@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR در حال اجراست. پیش از حذف نصب، آن را ببندید.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>در حال حذف HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro حذف شد.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro حذف شد. Windows آخرین فایل‌های آن را در راه‌اندازی بعدی حذف می‌کند.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro حذف شد. Windows حذف را در راه‌اندازی بعدی کامل می‌کند.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>حذف HIDMaestro متوقف شد. {0} را ببندید، سپس دوباره حذف نصب کنید.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro فقط تا حدی حذف شد. فهرست نشان می‌دهد چه چیزی باقی ماند و چرا.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>فهرست دستگاه‌ها تازه‌سازی شد.</value></data>
@@ -433,7 +433,7 @@
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>حذف نصب HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>این کار HIDMaestro را از این رایانه حذف می‌کند: کنترلرهای مجازی، درایور، گواهی امضا، کلیدهای رجیستری و فایل‌های آن. PadForge ابتدا موتور خود را متوقف می‌کند. برنامه‌های دیگری که از HIDMaestro استفاده می‌کنند تا اجرای بعدی خود، درایور آن را از دست می‌دهند. PadForge دفعه بعد که یک کنترلر مجازی راه‌اندازی کند، دوباره آن را نصب می‌کند.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>حذف usbip-win2 نصب‌شده با نصب‌کننده خودش</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>نسخه‌های قدیمی PadForge، usbip-win2 را با نصب‌کننده خود usbip-win2 نصب می‌کردند. این کار آن نصب را هم حذف می‌کند، مگر اینکه برنامه دیگری از usbip-win2 استفاده کند. فیلتر هاب ریشه USB آن باقی می‌ماند، زیرا حذف آن همه هاب‌های ریشه USB را از نو راه‌اندازی می‌کند.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>نسخه‌های قدیمی PadForge، usbip-win2 را با نصب‌کننده خود usbip-win2 نصب می‌کردند. این کار آن نصب را هم حذف می‌کند، از جمله فیلتر هاب ریشه USB آن، مگر اینکه برنامه دیگری از usbip-win2 استفاده کند. حذف فیلتر همه هاب‌های ریشه USB 3 را از نو راه‌اندازی می‌کند، پس دستگاه‌های USB برای لحظه‌ای قطع می‌شوند.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>در حال خواندن آنچه HIDMaestro روی این رایانه به جا گذاشته…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro چیزی روی این رایانه برای حذف باقی نگذاشته است.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>این برنامه‌ها از HIDMaestro استفاده می‌کنند. آن‌ها را ببندید، سپس تازه‌سازی را انتخاب کنید.</value></data>

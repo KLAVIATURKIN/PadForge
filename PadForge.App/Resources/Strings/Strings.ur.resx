@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR چل رہا ہے۔ اَن انسٹال کرنے سے پہلے اسے بند کریں۔</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro ہٹایا جا رہا ہے…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro ہٹا دیا گیا۔</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro ہٹا دیا گیا۔ Windows اس کی آخری فائلیں اگلی بار شروع ہونے پر حذف کرتا ہے۔</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro ہٹا دیا گیا۔ Windows اگلی بار شروع ہونے پر ہٹانے کا عمل مکمل کرتا ہے۔</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro کو ہٹانا رک گیا۔ {0} بند کریں، پھر دوبارہ اَن انسٹال کریں۔</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro جزوی طور پر ہٹایا گیا۔ فہرست دکھاتی ہے کہ کیا رہ گیا اور کیوں۔</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>آلات کی فہرست تازہ ہو گئی۔</value></data>
@@ -433,7 +433,7 @@
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>HIDMaestro اَن انسٹال کریں</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>یہ HIDMaestro کو اس PC سے ہٹا دیتا ہے: اس کے ورچوئل کنٹرولرز، ڈرائیور، دستخطی سرٹیفکیٹ، رجسٹری کیز اور فائلیں۔ PadForge پہلے اپنا انجن روکتا ہے۔ HIDMaestro استعمال کرنے والے دوسرے پروگرام اگلی بار شروع ہونے تک اس کے ڈرائیور سے محروم رہتے ہیں۔ PadForge اگلی بار ورچوئل کنٹرولر شروع کرتے وقت اسے دوبارہ انسٹال کر دیتا ہے۔</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>usbip-win2 کو بھی ہٹائیں جو اس کے اپنے انسٹالر سے سیٹ اَپ ہوا تھا</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>پرانے PadForge ورژنز نے usbip-win2 کو usbip-win2 کے انسٹالر سے سیٹ اَپ کیا تھا۔ یہ اس سیٹ اَپ کو بھی ہٹاتا ہے، الا یہ کہ کوئی دوسرا پروگرام usbip-win2 استعمال کرتا ہو۔ اس کا USB روٹ ہب فلٹر رہنے دیا جاتا ہے، کیونکہ اسے ہٹانے سے ہر USB روٹ ہب ری اسٹارٹ ہو جاتا ہے۔</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>پرانے PadForge ورژنز نے usbip-win2 کو usbip-win2 کے انسٹالر سے سیٹ اَپ کیا تھا۔ یہ اس سیٹ اَپ کو بھی ہٹاتا ہے، اس کا USB روٹ ہب فلٹر بھی شامل، الا یہ کہ کوئی دوسرا پروگرام usbip-win2 استعمال کرتا ہو۔ فلٹر ہٹانے سے ہر USB 3 روٹ ہب ری اسٹارٹ ہو جاتا ہے، اس لیے USB آلات لمحہ بھر کے لیے منقطع ہو جاتے ہیں۔</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>دیکھا جا رہا ہے کہ HIDMaestro نے اس PC پر کیا چھوڑا ہے…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro نے اس PC پر ہٹانے کے لیے کچھ نہیں چھوڑا۔</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>یہ پروگرام HIDMaestro استعمال کرتے ہیں۔ انہیں بند کریں، پھر تازہ کریں منتخب کریں۔</value></data>

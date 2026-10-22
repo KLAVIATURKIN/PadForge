@@ -167,7 +167,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR ap mache. Fèmen l anvan ou dezenstale.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Ap retire HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>Yo retire HIDMaestro.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Yo retire HIDMaestro. Windows ap efase dènye fichye li yo pwochen fwa li demare.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Yo retire HIDMaestro. Windows ap fini retire l pwochen fwa li demare.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Retrè HIDMaestro a kanpe. Fèmen {0}, epi dezenstale l ankò.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Yo retire yon pati nan HIDMaestro sèlman. Lis la montre sa ki rete ak poukisa.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Lis aparèy yo rafrechi.</value></data>
@@ -398,7 +398,7 @@ Gen yon kopi vèsyon anvan an nan dosye sa a: {1}</value></data>
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Dezenstale HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Sa a retire HIDMaestro sou PC sa a: kontwolè vityèl li yo, pilòt li, sètifika siyati li, kle rejis li yo ak fichye li yo. PadForge kanpe motè li an premye. Lòt pwogram ki itilize HIDMaestro pèdi pilòt li jiskaske yo demare ankò. PadForge ap enstale l ankò pwochen fwa li demare yon kontwolè vityèl.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Retire tou usbip-win2 pwòp enstalatè li te enstale a</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Ansyen vèsyon PadForge yo te enstale usbip-win2 ak enstalatè usbip-win2 a. Sa a retire enstalasyon sa a tou, sòf si yon lòt pwogram itilize usbip-win2. Filtè li sou hub rasin USB yo rete, paske retire l ta redemare tout hub rasin USB yo.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Ansyen vèsyon PadForge yo te enstale usbip-win2 ak enstalatè usbip-win2 a. Sa a retire enstalasyon sa a tou, ansanm ak filtè li sou hub rasin USB yo, sòf si yon lòt pwogram itilize usbip-win2. Retire filtè a redemare tout hub rasin USB 3 yo, kidonk aparèy USB yo dekonekte pou yon ti moman.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Ap li sa HIDMaestro kite sou PC sa a…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro pa kite anyen pou retire sou PC sa a.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Pwogram sa yo itilize HIDMaestro. Fèmen yo, epi chwazi Rafrechi.</value></data>

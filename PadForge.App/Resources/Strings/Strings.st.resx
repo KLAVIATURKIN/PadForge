@@ -90,7 +90,7 @@
   <data name="Main_StartingUp" xml:space="preserve"><value>Ho qala PadForge…</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Ho tlosa HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro e tlositswe.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro e tlositswe. Windows e tla hlakola difaele tsa yona tsa ho qetela ha e qala hape.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro e tlositswe. Windows e tla qeta ho e tlosa ha e qala hape.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Ho tlosa HIDMaestro ho emisitswe. Kwala {0}, ebe o e tlosa hape.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro e tlositswe ka karolo. Lenane le bontsha se setseng le lebaka.</value></data>
 

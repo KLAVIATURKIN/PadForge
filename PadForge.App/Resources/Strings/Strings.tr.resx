@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR çalışıyor. Kaldırmadan önce kapatın.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro kaldırılıyor…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro kaldırıldı.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro kaldırıldı. Windows, dosyalarının geri kalanını bilgisayar bir sonraki açılışında siler.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro kaldırıldı. Windows, kaldırma işlemini bilgisayar bir sonraki açılışında tamamlar.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro kaldırma işlemi durdu. {0} programını kapatın, ardından yeniden kaldırın.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro kısmen kaldırıldı. Liste, nelerin neden kaldığını gösterir.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Cihaz listesi yenilendi.</value></data>
@@ -433,7 +433,7 @@
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>HIDMaestro'yu kaldır</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Bu işlem HIDMaestro'yu bu bilgisayardan kaldırır: sanal kontrolcülerini, sürücüsünü, imzalama sertifikasını, kayıt defteri anahtarlarını ve dosyalarını. PadForge önce motorunu durdurur. HIDMaestro kullanan diğer programlar, bir sonraki başlatılışlarına kadar sürücüsünü kaybeder. PadForge bir sonraki sanal kontrolcü başlatışında onu yeniden kurar.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Kendi yükleyicisiyle kurulan usbip-win2'yi de kaldır</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Eski PadForge sürümleri usbip-win2'yi usbip-win2'nin kendi yükleyicisiyle kurardı. Bu seçenek o kurulumu da kaldırır, ancak başka bir program usbip-win2 kullanıyorsa kaldırmaz. Kaldırılması her USB kök hub'ını yeniden başlattığı için USB kök hub filtresi kalır.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Eski PadForge sürümleri usbip-win2'yi usbip-win2'nin kendi yükleyicisiyle kurardı. Bu seçenek o kurulumu da kaldırır, USB kök hub filtresi dahil, ancak başka bir program usbip-win2 kullanıyorsa kaldırmaz. Filtrenin kaldırılması her USB 3 kök hub'ını yeniden başlattığı için USB cihazlarının bağlantısı kısa süreliğine kesilir.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>HIDMaestro'nun bu bilgisayarda bıraktıkları okunuyor…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro bu bilgisayarda kaldırılacak bir şey bırakmamış.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Bu programlar HIDMaestro kullanıyor. Bunları kapatın, ardından Yenile'yi seçin.</value></data>

@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR is running. Close it before uninstalling.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Removing HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro was removed.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro was removed. Windows deletes the last of its files when it next starts.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro was removed. Windows finishes the removal when it next starts.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro removal stopped. Close {0}, then uninstall again.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro was partly removed. The list shows what stayed and why.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Device list refreshed.</value></data>
@@ -433,7 +433,7 @@ A copy of the previous version is in this folder: {1}</value></data>
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Uninstall HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>This removes HIDMaestro from this PC: its virtual controllers, driver, signing certificate, registry keys and files. PadForge stops its engine first. Other programs that use HIDMaestro lose its driver until they next start. PadForge installs it again the next time it starts a virtual controller.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Also remove usbip-win2 set up by its own installer</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Older PadForge versions set up usbip-win2 with usbip-win2's installer. This removes that setup too, unless another program uses usbip-win2. Its USB root hub filter stays, since removing it restarts every USB root hub.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Older PadForge versions set up usbip-win2 with usbip-win2's installer. This removes that setup too, its USB root hub filter included, unless another program uses usbip-win2. Removing the filter restarts every USB 3 root hub, so USB devices disconnect for a moment.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Reading what HIDMaestro left on this PC…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro left nothing on this PC to remove.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>These programs use HIDMaestro. Close them, then select Refresh.</value></data>

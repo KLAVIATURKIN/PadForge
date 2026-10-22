@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>A SteamVR fut. Eltávolítás előtt zárja be.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>A HIDMaestro eltávolítása…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>A HIDMaestro el lett távolítva.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>A HIDMaestro el lett távolítva. A Windows a következő indításakor törli az utolsó fájlokat.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>A HIDMaestro el lett távolítva. A Windows a következő indításakor befejezi az eltávolítást.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>A HIDMaestro eltávolítása leállt. Zárja be a következőt: {0}, majd távolítsa el újra.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>A HIDMaestro csak részben lett eltávolítva. A lista mutatja, mi maradt meg és miért.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Az eszközlista frissítve.</value></data>
@@ -433,7 +433,7 @@ Az előző verzió egy példánya ebben a mappában található: {1}</value></da
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>HIDMaestro eltávolítása</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Ez eltávolítja a HIDMaestro-t erről a számítógépről: a virtuális kontrollereit, az illesztőprogramját, az aláíró tanúsítványát, a beállításjegyzék-kulcsait és a fájljait. A PadForge előbb leállítja a bemeneti motorját. A HIDMaestro-t használó többi program a következő indításig elveszíti az illesztőprogramját. A PadForge újra telepíti, amikor legközelebb virtuális kontrollert indít.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>A usbip-win2 eltávolítása is, ha a saját telepítője telepítette</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>A PadForge régebbi verziói a usbip-win2 saját telepítőjével telepítették a usbip-win2-t. Ez azt a telepítést is eltávolítja, kivéve ha más program használja a usbip-win2-t. A USB-gyökérhub szűrője megmarad, mert eltávolítása újraindítja az összes USB-gyökérhubot.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>A PadForge régebbi verziói a usbip-win2 saját telepítőjével telepítették a usbip-win2-t. Ez azt a telepítést is eltávolítja, az USB-gyökérhub szűrőjét is beleértve, kivéve ha más program használja a usbip-win2-t. A szűrő eltávolítása újraindítja az összes USB 3 gyökérhubot, ezért az USB-eszközök rövid időre leválnak.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>A HIDMaestro által a számítógépen hagyottak beolvasása…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>A HIDMaestro nem hagyott eltávolítandót ezen a számítógépen.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Ezek a programok használják a HIDMaestro-t. Zárja be őket, majd válassza a Frissítés gombot.</value></data>

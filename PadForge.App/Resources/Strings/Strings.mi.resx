@@ -114,7 +114,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>E rere ana a SteamVR. Katia i mua i te wetetāuta.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>E tango ana i HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>Kua tangohia a HIDMaestro.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Kua tangohia a HIDMaestro. Ka mukua e Windows ōna kōnae whakamutunga ā te wā ka tīmata anō ia.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Kua tangohia a HIDMaestro. Ka whakaotia e Windows te tangohanga ā te wā ka tīmata anō ia.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Kua mutu te tango i HIDMaestro. Katia a {0}, kātahi ka wetetāuta anō.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Kua tangohia ētahi wāhanga o HIDMaestro. Kei te rārangi ngā mea i mahue me te take.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Kua whakahoutia te rārangi pūrere.</value></data>
@@ -186,7 +186,7 @@
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Wetetāuta i HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Ka tangohia e tēnei a HIDMaestro i tēnei PC: ōna controller mariko, tōna taraiwa, tōna tiwhikete waitohu, ōna kī rēhita me ōna kōnae. Ka whakamutua e PadForge tōna pūkaha i te tuatahi. Ka ngaro te taraiwa o HIDMaestro i ētahi atu hōtaka e whakamahi ana i a ia, kia tīmata anō rā anō rātou. Ka tāuta anō a PadForge i a HIDMaestro ā te wā e tīmata ai ia i tētahi controller mariko.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Tangohia hoki a usbip-win2 i tāutaina mā tōna ake hōtaka tāuta</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>I tāutaina e ngā putanga tawhito o PadForge a usbip-win2 mā te hōtaka tāuta a usbip-win2. Ka tangohia hoki e tēnei taua tāutanga, ki te kore tētahi atu hōtaka e whakamahi ana i a usbip-win2. Ka noho tonu tōna tātari mō te USB root hub, nā te mea ka tīmata anō ngā USB root hub katoa ina tangohia.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>I tāutaina e ngā putanga tawhito o PadForge a usbip-win2 mā te hōtaka tāuta a usbip-win2. Ka tangohia hoki e tēnei taua tāutanga, tae atu ki tōna tātari mō te USB root hub, ki te kore tētahi atu hōtaka e whakamahi ana i a usbip-win2. Ina tangohia te tātari, ka tīmata anō ngā USB 3 root hub katoa, nā reira ka motu te hononga o ngā pūrere USB mō te wā poto.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>E pānui ana i ngā mea i waiho e HIDMaestro ki tēnei PC…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>Kāore he mea i waiho e HIDMaestro ki tēnei PC hei tango.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Ka whakamahi ēnei hōtaka i a HIDMaestro. Katia, kātahi ka tīpako i Whakahou.</value></data>

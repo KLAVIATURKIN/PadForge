@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR je pokrenut. Zatvorite ga prije deinstaliranja.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Uklanjanje programa HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro je uklonjen.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro je uklonjen. Windows briše posljednje datoteke pri sljedećem pokretanju.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro je uklonjen. Windows dovršava uklanjanje pri sljedećem pokretanju.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Uklanjanje programa HIDMaestro je zaustavljeno. Zatvorite {0}, a zatim ponovno deinstalirajte.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro je djelomično uklonjen. Popis prikazuje što je ostalo i zašto.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Popis uređaja je osvježen.</value></data>
@@ -433,7 +433,7 @@ Kopija prethodne verzije nalazi se u ovoj mapi: {1}</value></data>
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Deinstaliraj HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Ovo uklanja HIDMaestro s ovog računala: njegove virtualne kontrolere, upravljački program, potvrdu za potpisivanje, registarske ključeve i datoteke. PadForge prvo zaustavlja svoj mehanizam. Drugi programi koji koriste HIDMaestro gube njegov upravljački program do sljedećeg pokretanja. PadForge ga ponovno instalira sljedeći put kad pokrene virtualni kontroler.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Ukloni i usbip-win2 postavljen vlastitim instalacijskim programom</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Starije verzije programa PadForge postavljale su usbip-win2 njegovim instalacijskim programom. Ovo uklanja i taj postav, osim ako usbip-win2 koristi neki drugi program. Njegov filtar USB korijenskog čvorišta ostaje jer bi se njegovim uklanjanjem ponovno pokrenula sva USB korijenska čvorišta.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Starije verzije programa PadForge postavljale su usbip-win2 njegovim instalacijskim programom. Ovo uklanja i taj postav, uključujući filtar USB korijenskog čvorišta, osim ako usbip-win2 koristi neki drugi program. Uklanjanje filtra ponovno pokreće sva USB 3 korijenska čvorišta pa se USB uređaji nakratko odspoje.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Čitanje onoga što je HIDMaestro ostavio na ovom računalu…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro nije ostavio ništa za uklanjanje na ovom računalu.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Ove programe koristi HIDMaestro. Zatvorite ih, a zatim odaberite Osvježi.</value></data>

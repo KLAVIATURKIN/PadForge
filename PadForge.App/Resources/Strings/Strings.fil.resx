@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>Tumatakbo ang SteamVR. Isara ito bago i-uninstall.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Inaalis ang HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>Naalis na ang HIDMaestro.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Naalis na ang HIDMaestro. Buburahin ng Windows ang huling mga file nito sa susunod na pag-start nito.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Naalis na ang HIDMaestro. Tatapusin ng Windows ang pag-alis sa susunod na pag-start nito.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Huminto ang pag-alis ng HIDMaestro. Isara ang {0}, pagkatapos ay i-uninstall ulit.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Bahagya lang naalis ang HIDMaestro. Ipinapakita ng listahan kung ano ang natira at bakit.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Na-refresh ang listahan ng device.</value></data>
@@ -433,7 +433,7 @@ May kopya ng nakaraang bersyon sa folder na ito: {1}</value></data>
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>I-uninstall ang HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Aalisin nito ang HIDMaestro sa PC na ito: ang mga virtual controller, driver, signing certificate, registry key at mga file nito. Ihihinto muna ng PadForge ang engine nito. Mawawalan ng driver ng HIDMaestro ang ibang program na gumagamit nito hanggang sa susunod nilang pag-start. Ii-install ito ulit ng PadForge sa susunod na magsimula ito ng virtual controller.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Alisin din ang usbip-win2 na na-set up gamit ang sarili nitong installer</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Ang mga mas lumang bersyon ng PadForge ay nag-set up ng usbip-win2 gamit ang installer ng usbip-win2. Aalisin din nito ang setup na iyon, maliban kung may ibang program na gumagamit ng usbip-win2. Mananatili ang filter nito sa USB root hub, dahil ang pag-alis nito ay magre-restart sa bawat USB root hub.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Ang mga mas lumang bersyon ng PadForge ay nag-set up ng usbip-win2 gamit ang installer ng usbip-win2. Aalisin din nito ang setup na iyon, kasama ang filter nito sa USB root hub, maliban kung may ibang program na gumagamit ng usbip-win2. Ang pag-alis ng filter ay magre-restart sa bawat USB 3 root hub, kaya saglit na madidiskonekta ang mga USB device.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Binabasa ang iniwan ng HIDMaestro sa PC na ito…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>Walang iniwan ang HIDMaestro sa PC na ito na kailangang alisin.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Ginagamit ng mga program na ito ang HIDMaestro. Isara ang mga ito, pagkatapos ay piliin ang I-refresh.</value></data>

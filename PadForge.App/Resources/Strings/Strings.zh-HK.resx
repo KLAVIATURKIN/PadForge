@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR 正在執行。請先關閉再解除安裝。</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>正在移除 HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>已移除 HIDMaestro。</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>已移除 HIDMaestro。Windows 會在下次啟動時刪除其餘檔案。</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>已移除 HIDMaestro。Windows 會在下次啟動時完成移除。</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro 移除已中止。請關閉 {0}，然後再次解除安裝。</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro 只移除了一部分。清單顯示了哪些項目留下及原因。</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>裝置清單已重新整理。</value></data>
@@ -433,7 +433,7 @@
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>解除安裝 HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>這會從此電腦移除 HIDMaestro：其虛擬控制器、驅動程式、簽署憑證、登錄機碼和檔案。PadForge 會先停止其引擎。其他使用 HIDMaestro 的程式在下次啟動前會失去其驅動程式。PadForge 下次啟動虛擬控制器時會再次安裝。</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>同時移除由 usbip-win2 自己的安裝程式安裝的 usbip-win2</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>舊版 PadForge 曾用 usbip-win2 的安裝程式安裝 usbip-win2。此選項會一併移除該安裝，除非有其他程式正在使用 usbip-win2。其 USB 根集線器篩選器會保留，因為移除它會重新啟動所有 USB 根集線器。</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>舊版 PadForge 曾用 usbip-win2 的安裝程式安裝 usbip-win2。此選項會一併移除該安裝，包括其 USB 根集線器篩選器，除非有其他程式正在使用 usbip-win2。移除篩選器會重新啟動所有 USB 3 根集線器，因此 USB 裝置會短暫中斷連線。</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>正在讀取 HIDMaestro 在此電腦上留下的內容…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro 在此電腦上沒有留下任何可移除的內容。</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>以下程式正在使用 HIDMaestro。請關閉它們，然後按「重新整理」。</value></data>

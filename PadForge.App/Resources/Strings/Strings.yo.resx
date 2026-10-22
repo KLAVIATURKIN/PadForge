@@ -112,7 +112,7 @@
   <data name="Status_OperationCanceled" xml:space="preserve"><value>Olùlò ti fagilé iṣẹ́ náà.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>A ń yọ HIDMaestro kúrò…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>A ti yọ HIDMaestro kúrò.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>A ti yọ HIDMaestro kúrò. Windows yóò pa àwọn fáìlì rẹ̀ tó kù rẹ́ nígbà tí ó bá tún bẹ̀rẹ̀.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>A ti yọ HIDMaestro kúrò. Windows yóò parí yíyọ ọ́ kúrò nígbà tí ó bá tún bẹ̀rẹ̀.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Yíyọ HIDMaestro kúrò dúró. Pa {0} dé, lẹ́yìn náà yọ ọ́ kúrò lórí ẹ̀rọ lẹ́ẹ̀kan sí i.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>A yọ HIDMaestro kúrò ní apá kan. Àkójọ náà fi ohun tó kù àti ìdí rẹ̀ hàn.</value></data>
   <data name="Status_CopyFailed_Format" xml:space="preserve"><value>Kò lè ṣàdàkọ: {0}</value></data>

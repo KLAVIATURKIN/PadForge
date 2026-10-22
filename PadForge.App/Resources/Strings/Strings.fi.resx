@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR on käynnissä. Sulje se ennen asennuksen poistamista.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Poistetaan HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro poistettiin.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro poistettiin. Windows poistaa sen viimeiset tiedostot seuraavan käynnistyksen yhteydessä.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro poistettiin. Windows viimeistelee poiston seuraavan käynnistyksen yhteydessä.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro-ajurin poisto keskeytyi. Sulje {0} ja poista asennus uudelleen.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro poistettiin vain osittain. Luettelo näyttää, mitä jäi ja miksi.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Laiteluettelo päivitetty.</value></data>
@@ -433,7 +433,7 @@ Kopio edellisestä versiosta on tässä kansiossa: {1}</value></data>
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Poista HIDMaestro-asennus</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Tämä poistaa HIDMaestro-ajurin tästä tietokoneesta: sen virtuaaliohjaimet, ajurin, allekirjoitusvarmenteen, rekisteriavaimet ja tiedostot. PadForge pysäyttää ensin moottorinsa. Muut ohjelmat, jotka käyttävät HIDMaestro-ajuria, menettävät sen, kunnes ne käynnistetään seuraavan kerran. PadForge asentaa sen uudelleen, kun se seuraavan kerran käynnistää virtuaaliohjaimen.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Poista myös usbip-win2, joka on asennettu sen omalla asennusohjelmalla</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Vanhemmat PadForge-versiot asensivat usbip-win2:n sen omalla asennusohjelmalla. Tämä poistaa myös sen asennuksen, ellei jokin toinen ohjelma käytä usbip-win2:ta. Sen USB-juurikeskittimen suodatin jää paikalleen, koska sen poistaminen käynnistää uudelleen kaikki USB-juurikeskittimet.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Vanhemmat PadForge-versiot asensivat usbip-win2:n sen omalla asennusohjelmalla. Tämä poistaa myös sen asennuksen USB-juurikeskittimen suodattimineen, ellei jokin toinen ohjelma käytä usbip-win2:ta. Suodattimen poistaminen käynnistää uudelleen kaikki USB 3 -juurikeskittimet, joten USB-laitteet katkeavat hetkeksi.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Luetaan, mitä HIDMaestro jätti tähän tietokoneeseen…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro ei jättänyt tähän tietokoneeseen mitään poistettavaa.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Nämä ohjelmat käyttävät HIDMaestro-ajuria. Sulje ne ja valitse Päivitä.</value></data>

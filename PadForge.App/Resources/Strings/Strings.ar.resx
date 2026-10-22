@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR قيد التشغيل. أغلقه قبل إلغاء التثبيت.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>جارٍ إزالة HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>تمت إزالة HIDMaestro.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>تمت إزالة HIDMaestro. سيحذف Windows آخر ملفاته عند بدء تشغيله في المرة القادمة.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>تمت إزالة HIDMaestro. سيكمل Windows الإزالة عند بدء تشغيله في المرة القادمة.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>توقفت إزالة HIDMaestro. أغلق {0}، ثم أعد إلغاء التثبيت.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>تمت إزالة HIDMaestro جزئيا. تعرض القائمة ما بقي وسبب بقائه.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>تم تحديث قائمة الأجهزة.</value></data>
@@ -433,7 +433,7 @@
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>إلغاء تثبيت HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>تزيل هذه العملية HIDMaestro من هذا الكمبيوتر: وحدات التحكم الظاهرية وبرنامج التشغيل وشهادة التوقيع ومفاتيح السجل والملفات. يوقف PadForge محركه أولا. تفقد البرامج الأخرى التي تستخدم HIDMaestro برنامج تشغيله إلى أن تبدأ من جديد. يثبته PadForge مرة أخرى عند بدء وحدة تحكم ظاهرية في المرة القادمة.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>إزالة usbip-win2 المثبت بواسطة برنامج التثبيت الخاص به أيضا</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>ثبتت إصدارات PadForge الأقدم usbip-win2 باستخدام برنامج التثبيت الخاص به. يزيل هذا الخيار ذلك التثبيت أيضا، ما لم يستخدم برنامج آخر usbip-win2. يبقى مرشح محور USB الجذري، لأن إزالته تعيد تشغيل كل محور USB جذري.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>ثبتت إصدارات PadForge الأقدم usbip-win2 باستخدام برنامج التثبيت الخاص به. يزيل هذا الخيار ذلك التثبيت أيضا، بما في ذلك مرشح محور USB الجذري، ما لم يستخدم برنامج آخر usbip-win2. تؤدي إزالة المرشح إلى إعادة تشغيل كل محور USB 3 جذري، فتنقطع أجهزة USB عن الاتصال لحظة.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>جارٍ قراءة ما تركه HIDMaestro على هذا الكمبيوتر…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>لم يترك HIDMaestro شيئا على هذا الكمبيوتر لإزالته.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>تستخدم هذه البرامج HIDMaestro. أغلقها، ثم اضغط تحديث.</value></data>

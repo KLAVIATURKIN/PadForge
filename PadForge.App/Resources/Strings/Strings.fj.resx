@@ -79,7 +79,7 @@
   <data name="ControllerType_VR" xml:space="preserve"><value>VR</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Sa kau tani tiko na HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>Sa kau tani na HIDMaestro.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Sa kau tani na HIDMaestro. Ena bokoca na Windows na kena faile e vo ni sa tekivu tale.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Sa kau tani na HIDMaestro. Ena vakaotia na Windows na kena kau tani ni sa tekivu tale.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>E sega ni kau tani taucoko na HIDMaestro. E vakaraitaka na lisi na ka e vo kei na vuna.</value></data>
 
   <!-- ═══ MainWindow ═══ -->

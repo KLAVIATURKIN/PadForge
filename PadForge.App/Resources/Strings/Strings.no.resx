@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR kjører. Lukk programmet før du avinstallerer.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Fjerner HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro ble fjernet.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro ble fjernet. Windows sletter de siste filene ved neste oppstart.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro ble fjernet. Windows fullfører fjerningen ved neste oppstart.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Fjerningen av HIDMaestro stoppet. Lukk {0}, og avinstaller på nytt.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro ble bare delvis fjernet. Listen viser hva som ble igjen og hvorfor.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Enhetslisten er oppdatert.</value></data>
@@ -433,7 +433,7 @@ En kopi av den forrige versjonen ligger i denne mappen: {1}</value></data>
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Avinstaller HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Dette fjerner HIDMaestro fra denne PC-en: virtuelle kontrollere, driver, signeringssertifikat, registernøkler og filer. PadForge stopper først motoren sin. Andre programmer som bruker HIDMaestro mister driveren til de starter på nytt. PadForge installerer den på nytt neste gang det starter en virtuell kontroller.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Fjern også usbip-win2 som er satt opp med sitt eget installasjonsprogram</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Eldre PadForge-versjoner satte opp usbip-win2 med installasjonsprogrammet til usbip-win2. Dette fjerner også det oppsettet, med mindre et annet program bruker usbip-win2. Filteret på USB-rothubben blir værende, siden fjerning av det starter alle USB-rothubber på nytt.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Eldre PadForge-versjoner satte opp usbip-win2 med installasjonsprogrammet til usbip-win2. Dette fjerner også det oppsettet, inkludert USB-rothubbfilteret, med mindre et annet program bruker usbip-win2. Når filteret fjernes, starter alle USB 3-rothubber på nytt, så USB-enheter kobles fra et øyeblikk.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Leser hva HIDMaestro har latt ligge igjen på denne PC-en…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro har ikke latt noe ligge igjen på denne PC-en som kan fjernes.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Disse programmene bruker HIDMaestro. Lukk dem, og velg Oppdater.</value></data>

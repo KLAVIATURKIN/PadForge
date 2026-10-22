@@ -107,7 +107,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR irakora. Yifunge mbere yo kuyikuramo.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Gukuramo HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro yakuwemo.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro yakuwemo. Windows isiba amadosiye yayo asigaye ubutaha itangiye.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro yakuwemo. Windows irangiza kuyikuramo ubutaha itangiye.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Gukuramo HIDMaestro byahagaze. Funga {0}, hanyuma wongere ukuremo.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro yakuwemo igice. Urutonde rugaragaza ibyasigaye n'impamvu.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Urutonde rw'ibikoresho rwavuguruwe.</value></data>
@@ -166,7 +166,7 @@
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Kuramo HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Ibi bikura HIDMaestro kuri iyi PC: kontorola zayo z'ikoranabuhanga, driver, icyemezo cyo gusinya, imfunguzo za registry n'amadosiye. PadForge ibanza guhagarika engine yayo. Izindi porogaramu zikoresha HIDMaestro zibura driver yayo kugeza zongeye gutangira. PadForge yongera kuyishyiramo ubutaha itangije kontorola y'ikoranabuhanga.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Kuramo na usbip-win2 yashyizwemo na porogaramu yayo yo kuyishyiramo</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Verisiyo za kera za PadForge zashyizemo usbip-win2 hakoreshejwe porogaramu yo kuyishyiramo ya usbip-win2. Ibi bikuraho n'iryo shyirwamo, keretse niba indi porogaramu ikoresha usbip-win2. Filter yayo kuri USB root hub isigaraho, kuko kuyikuraho byatangiza bundi bushya USB root hub zose.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Verisiyo za kera za PadForge zashyizemo usbip-win2 hakoreshejwe porogaramu yo kuyishyiramo ya usbip-win2. Ibi bikuraho n'iryo shyirwamo, harimo na filter yayo kuri USB root hub, keretse niba indi porogaramu ikoresha usbip-win2. Gukuraho filter bitangiza bundi bushya USB 3 root hub zose, bityo ibikoresho bya USB bigacika akanya gato.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Gusoma ibyo HIDMaestro yasize kuri iyi PC…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro nta kintu yasize kuri iyi PC cyo gukuraho.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Izi porogaramu zikoresha HIDMaestro. Zifunge, hanyuma uhitemo Vugurura.</value></data>

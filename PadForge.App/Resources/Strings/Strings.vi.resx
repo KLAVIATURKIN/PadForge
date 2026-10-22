@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR đang chạy. Hãy đóng nó trước khi gỡ cài đặt.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Đang gỡ HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>Đã gỡ HIDMaestro.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Đã gỡ HIDMaestro. Windows sẽ xóa các tệp cuối cùng của nó vào lần khởi động tiếp theo.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Đã gỡ HIDMaestro. Windows sẽ hoàn tất việc gỡ vào lần khởi động tiếp theo.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Việc gỡ HIDMaestro đã dừng. Hãy đóng {0}, rồi gỡ cài đặt lại.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro mới được gỡ một phần. Danh sách cho biết những gì còn lại và lý do.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Đã làm mới danh sách thiết bị.</value></data>
@@ -433,7 +433,7 @@ Bản sao của phiên bản trước nằm trong thư mục này: {1}</value></
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Gỡ cài đặt HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Thao tác này gỡ HIDMaestro khỏi PC này: các tay cầm ảo, trình điều khiển, chứng chỉ ký, khóa registry và tệp của nó. PadForge dừng bộ máy của mình trước. Các chương trình khác dùng HIDMaestro sẽ mất trình điều khiển của nó cho đến lần khởi động tiếp theo. PadForge sẽ cài đặt lại khi nó khởi động tay cầm ảo lần tới.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Gỡ cả usbip-win2 được cài bằng trình cài đặt riêng của nó</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Các phiên bản PadForge cũ đã cài usbip-win2 bằng trình cài đặt của usbip-win2. Thao tác này cũng gỡ bản cài đó, trừ khi chương trình khác đang dùng usbip-win2. Bộ lọc của USB root hub được giữ lại, vì gỡ nó sẽ khởi động lại mọi USB root hub.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Các phiên bản PadForge cũ đã cài usbip-win2 bằng trình cài đặt của usbip-win2. Thao tác này cũng gỡ bản cài đó, gồm cả bộ lọc USB root hub của nó, trừ khi chương trình khác đang dùng usbip-win2. Gỡ bộ lọc sẽ khởi động lại mọi USB 3 root hub, nên các thiết bị USB sẽ ngắt kết nối trong giây lát.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Đang đọc những gì HIDMaestro để lại trên PC này…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro không để lại gì trên PC này để gỡ.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Các chương trình này đang dùng HIDMaestro. Hãy đóng chúng, rồi chọn Làm mới.</value></data>

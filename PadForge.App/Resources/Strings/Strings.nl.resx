@@ -165,7 +165,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR is actief. Sluit het voordat je de installatie verwijdert.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro wordt verwijderd…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro is verwijderd.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro is verwijderd. Windows verwijdert de laatste bestanden ervan bij de volgende start.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro is verwijderd. Windows voltooit de verwijdering bij de volgende start.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Verwijderen van HIDMaestro gestopt. Sluit {0} en verwijder opnieuw.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro is gedeeltelijk verwijderd. De lijst toont wat is achtergebleven en waarom.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Apparatenlijst vernieuwd.</value></data>
@@ -363,7 +363,7 @@ Een kopie van de vorige versie staat in deze map: {1}</value></data>
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>HIDMaestro verwijderen</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Hiermee verwijdert u HIDMaestro van deze pc: de virtuele controllers, het stuurprogramma, het ondertekeningscertificaat, de registersleutels en de bestanden. PadForge stopt eerst de engine. Andere programma's die HIDMaestro gebruiken, verliezen het stuurprogramma tot hun volgende start. PadForge installeert het opnieuw wanneer het de volgende keer een virtuele controller start.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Ook usbip-win2 verwijderen dat met het eigen installatieprogramma is geïnstalleerd</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Oudere PadForge-versies installeerden usbip-win2 met het installatieprogramma van usbip-win2. Hiermee verwijdert u die installatie ook, tenzij een ander programma usbip-win2 gebruikt. Het filter van de USB-roothub blijft staan, omdat het verwijderen ervan elke USB-roothub opnieuw start.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Oudere PadForge-versies installeerden usbip-win2 met het installatieprogramma van usbip-win2. Hiermee verwijdert u die installatie ook, inclusief het filter van de USB-roothub, tenzij een ander programma usbip-win2 gebruikt. Als het filter wordt verwijderd, start elke USB 3-roothub opnieuw, waardoor USB-apparaten even de verbinding verliezen.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Bezig met lezen wat HIDMaestro op deze pc heeft achtergelaten…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro heeft niets op deze pc achtergelaten om te verwijderen.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Deze programma's gebruiken HIDMaestro. Sluit ze en kies Vernieuwen.</value></data>

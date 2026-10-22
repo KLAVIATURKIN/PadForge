@@ -165,7 +165,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR が実行中です。アンインストールする前に終了してください。</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro を削除しています…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro を削除しました。</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro を削除しました。残りのファイルは、Windows の次回起動時に削除されます。</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro を削除しました。削除は、Windows の次回起動時に完了します。</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro の削除を中止しました。{0} を閉じてから、もう一度アンインストールしてください。</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro は一部のみ削除されました。残った項目とその理由は一覧に表示されています。</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>デバイスリストを更新しました。</value></data>
@@ -363,7 +363,7 @@
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>HIDMaestro をアンインストール</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>この PC から HIDMaestro を削除します。対象は仮想コントローラー、ドライバー、署名証明書、レジストリキー、ファイルです。PadForge は先にエンジンを停止します。HIDMaestro を使用している他のプログラムは、次に起動するまでそのドライバーを使えなくなります。PadForge は、次に仮想コントローラーを開始するときに再びインストールします。</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>usbip-win2 独自のインストーラーでセットアップしたものも削除する</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>以前のバージョンの PadForge は、usbip-win2 のインストーラーで usbip-win2 をセットアップしていました。他のプログラムが usbip-win2 を使用していない場合は、そのセットアップも削除します。USB ルートハブのフィルターは、削除するとすべての USB ルートハブが再起動されるため、残します。</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>以前のバージョンの PadForge は、usbip-win2 のインストーラーで usbip-win2 をセットアップしていました。他のプログラムが usbip-win2 を使用していない場合は、USB ルートハブのフィルターを含め、そのセットアップも削除します。フィルターを削除すると、すべての USB 3 ルートハブが再起動されるため、USB デバイスが一時的に切断されます。</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>この PC に HIDMaestro が残したものを読み取っています…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>この PC には、HIDMaestro が残した削除対象はありません。</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>次のプログラムが HIDMaestro を使用しています。閉じてから、[更新] を選択してください。</value></data>

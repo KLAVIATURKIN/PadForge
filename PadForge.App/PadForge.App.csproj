@@ -306,7 +306,11 @@
          unstable in-progress work from the HIDMaestro repo. Update by
          copying the Release build of HIDMaestro.Core.dll from the
          HIDMaestro repo into Resources\HIDMaestro\ after tagging a
-         release there. Current: v2.0.2, which gives the Valve personas
+         release there. Current: v2.0.3, whose removal also takes
+         usbip-win2's USB root hub filter when usbip-win2 is included and
+         no other program uses it. Taking the filter off restarts every
+         USB 3 root hub, and the filter's service goes at the next start.
+         v2.0.2 before it gives the Valve personas
          a report clock of their own (4 ms on the Deck and the 2026
          controller, 9 ms on the 2015 controller), calibrated motion, a
          unit serial per identity and the firmware's trigger click

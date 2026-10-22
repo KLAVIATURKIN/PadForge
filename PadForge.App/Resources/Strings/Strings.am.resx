@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR እየሄደ ነው። ከማራገፍዎ በፊት ይዝጉት።</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro በማስወገድ ላይ…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro ተወግዷል።</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro ተወግዷል። Windows የመጨረሻዎቹን ፋይሎቹን በሚቀጥለው ሲጀምር ይሰርዛል።</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro ተወግዷል። Windows በሚቀጥለው ሲጀምር ማስወገዱን ያጠናቅቃል።</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>የHIDMaestro ማስወገድ ቆሟል። {0}ን ዝጋ፣ ከዚያ እንደገና አራግፍ።</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro በከፊል ተወግዷል። ዝርዝሩ የቀረውን እና ምክንያቱን ያሳያል።</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>የመሣሪያ ዝርዝሩ ታድሷል።</value></data>
@@ -432,7 +432,7 @@
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>HIDMaestroን አራግፍ</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>ይህ HIDMaestroን ከዚህ ኮምፒውተር ያስወግዳል፦ ምናባዊ መቆጣጠሪያዎቹን፣ አሽከርካሪውን፣ የመፈረሚያ ሰርተፊኬቱን፣ የመዝገብ ቤት ቁልፎቹን እና ፋይሎቹን። PadForge መጀመሪያ ሞተሩን ያቆማል። HIDMaestroን የሚጠቀሙ ሌሎች ፕሮግራሞች በሚቀጥለው እስኪጀምሩ ድረስ አሽከርካሪውን ያጣሉ። PadForge በሚቀጥለው ጊዜ ምናባዊ መቆጣጠሪያ ሲጀምር እንደገና ይጭነዋል።</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>በራሱ ጫኚ የተጫነውን usbip-win2ም አስወግድ</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>የቆዩ የPadForge ስሪቶች usbip-win2ን በusbip-win2 ጫኚ ጭነዋል። ሌላ ፕሮግራም usbip-win2ን ካልተጠቀመ በስተቀር ይህ ያንንም ጭነት ያስወግዳል። የUSB ስር ማዕከል ማጣሪያው ይቀራል፣ ምክንያቱም እሱን ማስወገድ እያንዳንዱን የUSB ስር ማዕከል ዳግም ያስጀምራል።</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>የቆዩ የPadForge ስሪቶች usbip-win2ን በusbip-win2 ጫኚ ጭነዋል። ሌላ ፕሮግራም usbip-win2ን ካልተጠቀመ በስተቀር ይህ ያንንም ጭነት ከUSB ስር ማዕከል ማጣሪያው ጋር ያስወግዳል። ማጣሪያውን ማስወገድ እያንዳንዱን የUSB 3 ስር ማዕከል ዳግም ያስጀምራል፣ ስለዚህ የUSB መሣሪያዎች ለአፍታ ይቋረጣሉ።</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>HIDMaestro በዚህ ኮምፒውተር ላይ የተወውን በማንበብ ላይ…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro በዚህ ኮምፒውተር ላይ የሚወገድ ምንም ነገር አልተወም።</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>እነዚህ ፕሮግራሞች HIDMaestroን ይጠቀማሉ። ዝጋቸው፣ ከዚያ አድስን ምረጥ።</value></data>

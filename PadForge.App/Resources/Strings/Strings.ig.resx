@@ -92,7 +92,7 @@
   <data name="Status_OperationCanceled" xml:space="preserve"><value>Onye ọrụ kagburu ọrụ a.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Na-ewepụ HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>E wepụla HIDMaestro.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>E wepụla HIDMaestro. Windows ga-ehichapụ faịlụ ya ndị fọdụrụ mgbe ọ ga-amalite ọzọ.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>E wepụla HIDMaestro. Windows ga-emecha iwepụ ya mgbe ọ ga-amalite ọzọ.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Mwepụ HIDMaestro kwụsịrị. Mechie {0}, wee wepụ ya ọzọ.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>E wepụrụ naanị otu akụkụ nke HIDMaestro. Ndepụta ahụ na-egosi ihe fọdụrụ na ihe kpatara ya.</value></data>
   <data name="Status_Error_Format" xml:space="preserve"><value>Njehie: {0}</value></data>

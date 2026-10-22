@@ -92,7 +92,7 @@
   <data name="Main_ShowPadForge" xml:space="preserve"><value>Onetsani PadForge</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Kuchotsa HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro yachotsedwa.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro yachotsedwa. Windows idzachotsa mafayilo ake otsala ikadzayambanso.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro yachotsedwa. Windows idzamaliza kuichotsa ikadzayambanso.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Kuchotsa HIDMaestro kwayima. Tsekani {0}, kenako chotsaninso.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro yachotsedwa pang'ono. Mndandanda ukuwonetsa zomwe zatsala ndi chifukwa chake.</value></data>
 
@@ -123,7 +123,7 @@
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Chotsani HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Izi zichotsa HIDMaestro pa PC iyi: makontrola ake a pakompyuta, dalaivala, satifiketi yosainira, makiyi a registry ndi mafayilo. PadForge iyamba yaimitsa injini yake. Mapulogalamu ena omwe amagwiritsa ntchito HIDMaestro sadzakhala ndi dalaivala wake mpaka adzayambenso. PadForge idzayiyikanso nthawi ina ikadzayambitsa kontrola ya pakompyuta.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Chotsaninso usbip-win2 yomwe inaikidwa ndi pulogalamu yake yoyikira</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Mitundu yakale ya PadForge inaika usbip-win2 pogwiritsa ntchito pulogalamu yoyikira ya usbip-win2. Izi zichotsanso zimenezo, pokhapokha ngati pulogalamu ina ikugwiritsa ntchito usbip-win2. Fyuluta yake ya USB root hub imatsala, chifukwa kuyichotsa kumayambitsanso ma USB root hub onse.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Mitundu yakale ya PadForge inaika usbip-win2 pogwiritsa ntchito pulogalamu yoyikira ya usbip-win2. Izi zichotsanso zimenezo, kuphatikizapo fyuluta yake ya USB root hub, pokhapokha ngati pulogalamu ina ikugwiritsa ntchito usbip-win2. Kuchotsa fyulutayo kumayambitsanso ma USB 3 root hub onse, choncho zipangizo za USB zimasiya kulumikizana kwa kanthawi.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Kuwerenga zomwe HIDMaestro yasiya pa PC iyi…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro sinasiye chilichonse choti chichotsedwe pa PC iyi.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Mapulogalamu awa amagwiritsa ntchito HIDMaestro. Atsekeni, kenako sankhani Tsitsimutsani.</value></data>

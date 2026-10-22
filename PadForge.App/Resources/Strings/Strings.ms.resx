@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR sedang berjalan. Tutupnya sebelum menyahpasang.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Mengalih keluar HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro telah dialih keluar.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro telah dialih keluar. Windows memadam fail terakhirnya apabila ia dimulakan semula.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro telah dialih keluar. Windows menyiapkan pengalihan keluar itu apabila ia dimulakan semula.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Pengalihan keluar HIDMaestro dihentikan. Tutup {0}, kemudian nyahpasang semula.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro dialih keluar sebahagian sahaja. Senarai menunjukkan apa yang masih ada dan sebabnya.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Senarai peranti dimuat semula.</value></data>
@@ -433,7 +433,7 @@ Salinan versi sebelumnya berada dalam folder ini: {1}</value></data>
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Nyahpasang HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Ini mengalih keluar HIDMaestro daripada PC ini: pengawal mayanya, pemacu, sijil tandatangan, kunci pendaftaran dan fail. PadForge menghentikan enjinnya dahulu. Program lain yang menggunakan HIDMaestro kehilangan pemacunya sehingga ia dimulakan semula. PadForge memasangnya semula pada kali berikutnya ia memulakan pengawal maya.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Alih keluar juga usbip-win2 yang dipasang oleh pemasangnya sendiri</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>PadForge versi lama memasang usbip-win2 dengan pemasang usbip-win2. Ini turut mengalih keluar pemasangan itu, melainkan program lain menggunakan usbip-win2. Penapis hab akar USB-nya kekal, kerana mengalih keluarnya memulakan semula setiap hab akar USB.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>PadForge versi lama memasang usbip-win2 dengan pemasang usbip-win2. Ini turut mengalih keluar pemasangan itu, termasuk penapis hab akar USB-nya, melainkan program lain menggunakan usbip-win2. Mengalih keluar penapis itu memulakan semula setiap hab akar USB 3, jadi peranti USB terputus seketika.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Membaca apa yang ditinggalkan HIDMaestro pada PC ini…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro tidak meninggalkan apa-apa pada PC ini untuk dialih keluar.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Program ini menggunakan HIDMaestro. Tutup program tersebut, kemudian pilih Muat semula.</value></data>

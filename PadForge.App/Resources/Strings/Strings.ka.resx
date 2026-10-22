@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR გაშვებულია. დეინსტალაციამდე დახურეთ.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro-ს წაშლა…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro წაიშალა.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro წაიშალა. Windows მის ბოლო ფაილებს შემდეგი გაშვებისას წაშლის.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro წაიშალა. Windows წაშლას შემდეგი გაშვებისას დაასრულებს.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro-ს წაშლა შეწყდა. დახურეთ {0} და ხელახლა დააჭირეთ დეინსტალაციას.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro ნაწილობრივ წაიშალა. სიაში ჩანს, რა დარჩა და რატომ.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>მოწყობილობების სია განახლდა.</value></data>
@@ -433,7 +433,7 @@
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>HIDMaestro-ს დეინსტალაცია</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>ეს წაშლის HIDMaestro-ს ამ კომპიუტერიდან: მის ვირტუალურ კონტროლერებს, დრაივერს, ხელმოწერის სერტიფიკატს, რეესტრის გასაღებებსა და ფაილებს. PadForge ჯერ თავის ძრავას გააჩერებს. სხვა პროგრამები, რომლებიც HIDMaestro-ს იყენებენ, მის დრაივერს დაკარგავენ, სანამ ხელახლა არ გაეშვებიან. PadForge მას ხელახლა დააყენებს, როცა შემდეგ ვირტუალურ კონტროლერს შექმნის.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>usbip-win2-ის, რომელიც მისივე ინსტალერით არის დაყენებული, ასევე წაშლა</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>PadForge-ის ძველი ვერსიები usbip-win2-ს მისივე ინსტალერით აყენებდა. ეს წაშლის ამ დაყენებასაც, თუ usbip-win2-ს სხვა პროგრამა არ იყენებს. მისი USB root hub-ის ფილტრი დარჩება, რადგან მისი წაშლა ყველა USB root hub-ს გადატვირთავს.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>PadForge-ის ძველი ვერსიები usbip-win2-ს მისივე ინსტალერით აყენებდა. ეს წაშლის ამ დაყენებასაც, მისი USB root hub-ის ფილტრის ჩათვლით, თუ usbip-win2-ს სხვა პროგრამა არ იყენებს. ფილტრის წაშლა ყველა USB 3 root hub-ს გადატვირთავს, ამიტომ USB მოწყობილობებს ცოტა ხნით კავშირი გაუწყდებათ.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>მიმდინარეობს იმის წაკითხვა, რაც HIDMaestro-მ ამ კომპიუტერზე დატოვა…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro-მ ამ კომპიუტერზე წასაშლელი არაფერი დატოვა.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>ეს პროგრამები HIDMaestro-ს იყენებენ. დახურეთ ისინი და დააჭირეთ განახლებას.</value></data>

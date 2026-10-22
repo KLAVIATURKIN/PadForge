@@ -96,7 +96,7 @@
   <data name="Status_OperationCanceled" xml:space="preserve"><value>Ua faʻaleaogā e le tagata faʻaaogā.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>O loʻo aveʻesea le HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>Ua aveʻesea le HIDMaestro.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Ua aveʻesea le HIDMaestro. E tapeʻese e Windows ona faila mulimuli pe a toe amata.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Ua aveʻesea le HIDMaestro. E faʻamaeʻa e Windows le aveʻesega pe a toe amata.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Ua taofi le aveʻesega o le HIDMaestro. Tapuni {0}, ona toe aveʻese lea.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Ua aveʻesea se vaega o le HIDMaestro. O loʻo faʻaalia i le lisi mea na tumau ma le mafuaʻaga.</value></data>
   <data name="Status_RecordingCanceled" xml:space="preserve"><value>Ua faʻaleaogā le puʻeina.</value></data>

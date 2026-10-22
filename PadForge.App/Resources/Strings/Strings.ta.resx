@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR இயங்குகிறது. நிறுவல் நீக்குவதற்கு முன் அதை மூடவும்.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro நீக்கப்படுகிறது…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro நீக்கப்பட்டது.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro நீக்கப்பட்டது. அதன் கடைசிக் கோப்புகளை Windows அடுத்த முறை தொடங்கும்போது நீக்கும்.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro நீக்கப்பட்டது. Windows அடுத்த முறை தொடங்கும்போது நீக்கத்தை முடிக்கும்.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro நீக்கம் நிறுத்தப்பட்டது. {0} நிரலை மூடி, மீண்டும் நிறுவல் நீக்கவும்.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro பகுதியளவு மட்டுமே நீக்கப்பட்டது. எவை, ஏன் எஞ்சின என்பதைப் பட்டியல் காட்டுகிறது.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>சாதனப் பட்டியல் புதுப்பிக்கப்பட்டது.</value></data>
@@ -433,7 +433,7 @@
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>HIDMaestro-ஐ நிறுவல் நீக்கு</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>இது இந்த PC-யிலிருந்து HIDMaestro-ஐ நீக்கும்: அதன் மெய்நிகர் கட்டுப்படுத்திகள், இயக்கி, கையொப்பச் சான்றிதழ், பதிவேட்டு விசைகள், கோப்புகள். முதலில் PadForge தன் இன்ஜினை நிறுத்தும். HIDMaestro-ஐப் பயன்படுத்தும் பிற நிரல்கள், அடுத்த முறை தொடங்கும்வரை அதன் இயக்கியை இழக்கும். PadForge அடுத்த முறை மெய்நிகர் கட்டுப்படுத்தியைத் தொடங்கும்போது அதை மீண்டும் நிறுவும்.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>usbip-win2-இன் சொந்த நிறுவி மூலம் அமைக்கப்பட்ட usbip-win2-ஐயும் நீக்கு</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>பழைய PadForge பதிப்புகள் usbip-win2-இன் நிறுவி மூலம் usbip-win2-ஐ அமைத்தன. வேறு நிரல் usbip-win2-ஐப் பயன்படுத்தாவிட்டால், இந்த அமைவையும் இது நீக்கும். அதன் USB ரூட் ஹப் வடிகட்டி அப்படியே இருக்கும், ஏனெனில் அதை நீக்கினால் ஒவ்வொரு USB ரூட் ஹப்பும் மறுதொடக்கமாகும்.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>பழைய PadForge பதிப்புகள் usbip-win2-இன் நிறுவி மூலம் usbip-win2-ஐ அமைத்தன. வேறு நிரல் usbip-win2-ஐப் பயன்படுத்தாவிட்டால், அதன் USB ரூட் ஹப் வடிகட்டி உட்பட இந்த அமைவையும் இது நீக்கும். வடிகட்டியை நீக்குவது ஒவ்வொரு USB 3 ரூட் ஹப்பையும் மறுதொடக்கம் செய்யும், அதனால் USB சாதனங்கள் சிறிது நேரம் துண்டிக்கப்படும்.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>இந்த PC-யில் HIDMaestro விட்டுச்சென்றதைப் படிக்கிறது…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>இந்த PC-யில் HIDMaestro நீக்குவதற்கு எதையும் விட்டுச்செல்லவில்லை.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>இந்த நிரல்கள் HIDMaestro-ஐப் பயன்படுத்துகின்றன. அவற்றை மூடி, புதுப்பி என்பதைத் தேர்ந்தெடுக்கவும்.</value></data>

@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR ກຳລັງເຮັດວຽກຢູ່. ປິດມັນກ່ອນຖອນການຕິດຕັ້ງ.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>ກຳລັງລຶບ HIDMaestro ອອກ…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>ລຶບ HIDMaestro ອອກແລ້ວ.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>ລຶບ HIDMaestro ອອກແລ້ວ. Windows ຈະລຶບໄຟລ໌ສຸດທ້າຍຂອງມັນເມື່ອ Windows ເລີ່ມເທື່ອຕໍ່ໄປ.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>ລຶບ HIDMaestro ອອກແລ້ວ. Windows ຈະລຶບອອກໃຫ້ສຳເລັດເມື່ອ Windows ເລີ່ມເທື່ອຕໍ່ໄປ.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>ການລຶບ HIDMaestro ຢຸດລົງ. ປິດ {0} ແລ້ວຖອນການຕິດຕັ້ງອີກຄັ້ງ.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro ຖືກລຶບອອກພຽງບາງສ່ວນ. ລາຍການສະແດງສິ່ງທີ່ຍັງເຫຼືອ ແລະ ເຫດຜົນ.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>ໂຫຼດລາຍການອຸປະກອນຄືນໃໝ່ແລ້ວ.</value></data>
@@ -433,7 +433,7 @@
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>ຖອນການຕິດຕັ້ງ HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>ການນີ້ຈະລຶບ HIDMaestro ອອກຈາກຄອມພິວເຕີເຄື່ອງນີ້: ຕົວຄວບຄຸມສະເໝືອນ, ໄດຣເວີ, ໃບຢັ້ງຢືນການລົງລາຍເຊັນ, ຄີຣີຈິສຕຣີ ແລະ ໄຟລ໌ຂອງມັນ. PadForge ຈະຢຸດເອັນຈິນຂອງຕົນກ່ອນ. ໂປຣແກຣມອື່ນທີ່ໃຊ້ HIDMaestro ຈະບໍ່ມີໄດຣເວີຂອງມັນຈົນກວ່າຈະເລີ່ມໃໝ່ເທື່ອຕໍ່ໄປ. PadForge ຈະຕິດຕັ້ງມັນຄືນໃນເທື່ອຕໍ່ໄປທີ່ເລີ່ມຕົວຄວບຄຸມສະເໝືອນ.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>ລຶບ usbip-win2 ທີ່ຕິດຕັ້ງດ້ວຍຕົວຕິດຕັ້ງຂອງມັນເອງອອກນຳ</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>PadForge ລຸ້ນເກົ່າຕິດຕັ້ງ usbip-win2 ດ້ວຍຕົວຕິດຕັ້ງຂອງ usbip-win2. ການນີ້ຈະລຶບການຕິດຕັ້ງນັ້ນອອກນຳ ເວັ້ນເສຍແຕ່ມີໂປຣແກຣມອື່ນໃຊ້ usbip-win2. ຟິວເຕີ USB root hub ຂອງມັນຍັງຄົງຢູ່ ເພາະການລຶບມັນອອກຈະເຮັດໃຫ້ USB root hub ທຸກອັນເລີ່ມໃໝ່.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>PadForge ລຸ້ນເກົ່າຕິດຕັ້ງ usbip-win2 ດ້ວຍຕົວຕິດຕັ້ງຂອງ usbip-win2. ການນີ້ຈະລຶບການຕິດຕັ້ງນັ້ນອອກນຳ ລວມທັງຟິວເຕີ USB root hub ຂອງມັນ ເວັ້ນເສຍແຕ່ມີໂປຣແກຣມອື່ນໃຊ້ usbip-win2. ການລຶບຟິວເຕີອອກຈະເຮັດໃຫ້ USB 3 root hub ທຸກອັນເລີ່ມໃໝ່ ດັ່ງນັ້ນອຸປະກອນ USB ຈະຕັດການເຊື່ອມຕໍ່ຊົ່ວຄາວ.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>ກຳລັງອ່ານສິ່ງທີ່ HIDMaestro ປະໄວ້ໃນຄອມພິວເຕີເຄື່ອງນີ້…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>ບໍ່ມີຫຍັງຂອງ HIDMaestro ເຫຼືອຢູ່ໃນຄອມພິວເຕີເຄື່ອງນີ້ໃຫ້ລຶບ.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>ໂປຣແກຣມເຫຼົ່ານີ້ໃຊ້ HIDMaestro. ປິດພວກມັນ ແລ້ວເລືອກ ໂຫຼດຄືນ.</value></data>

@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>„SteamVR“ veikia. Uždarykite ją prieš šalindami.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Šalinama „HIDMaestro“…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>„HIDMaestro“ pašalinta.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>„HIDMaestro“ pašalinta. Paskutinius jos failus Windows ištrins kitą kartą paleidus kompiuterį.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>„HIDMaestro“ pašalinta. Windows užbaigs pašalinimą, kai kitą kartą bus paleistas kompiuteris.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>„HIDMaestro“ šalinimas sustabdytas. Uždarykite {0} ir pašalinkite dar kartą.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>„HIDMaestro“ pašalinta tik iš dalies. Sąraše matyti, kas liko ir kodėl.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Įrenginių sąrašas atnaujintas.</value></data>
@@ -431,7 +431,7 @@ Ankstesnės versijos kopija yra šiame aplanke: {1}</value></data>
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Pašalinti „HIDMaestro“</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Tai pašalins „HIDMaestro“ iš šio kompiuterio: jos virtualius valdiklius, tvarkyklę, pasirašymo sertifikatą, registro raktus ir failus. Pirmiausia „PadForge“ sustabdo savo variklį. Kitos programos, naudojančios „HIDMaestro“, praras jos tvarkyklę, kol bus paleistos iš naujo. „PadForge“ ją įdiegs iš naujo, kai kitą kartą paleis virtualų valdiklį.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Taip pat pašalinti usbip-win2, įdiegtą jo paties diegimo programa</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Senesnės „PadForge“ versijos įdiegdavo usbip-win2 jo paties diegimo programa. Taip pašalinama ir ji, nebent usbip-win2 naudoja kita programa. USB šakninio šakotuvo filtras lieka, nes jį pašalinus paleidžiami iš naujo visi USB šakniniai šakotuvai.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Senesnės „PadForge“ versijos įdiegdavo usbip-win2 jo paties diegimo programa. Taip pašalinama ir ji, įskaitant jos USB šakninio šakotuvo filtrą, nebent usbip-win2 naudoja kita programa. Pašalinus filtrą paleidžiami iš naujo visi USB 3 šakniniai šakotuvai, todėl USB įrenginiai trumpam atsijungia.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Skaitoma, ką „HIDMaestro“ paliko šiame kompiuteryje…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>„HIDMaestro“ šiame kompiuteryje nieko nepaliko, ką reikėtų šalinti.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Šias programas naudoja „HIDMaestro“. Uždarykite jas ir spustelėkite „Atnaujinti“.</value></data>

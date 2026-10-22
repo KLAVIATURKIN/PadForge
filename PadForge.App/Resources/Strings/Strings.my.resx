@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR လည်ပတ်နေသည်။ မဖြုတ်ချမီ ၎င်းကို ပိတ်ပါ။</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro ကို ဖယ်ရှားနေသည်…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro ကို ဖယ်ရှားပြီးပါပြီ။</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro ကို ဖယ်ရှားပြီးပါပြီ။ ၎င်း၏ ကျန်ရှိသော ဖိုင်များကို Windows နောက်တစ်ကြိမ် စတင်သည့်အခါ Windows က ဖျက်သည်။</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro ကို ဖယ်ရှားပြီးပါပြီ။ Windows သည် နောက်တစ်ကြိမ် စတင်သည့်အခါ ဖယ်ရှားမှုကို အပြီးသတ်သည်။</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro ဖယ်ရှားခြင်း ရပ်သွားသည်။ {0} ကို ပိတ်ပြီး ထပ်မံ ဖြုတ်ချပါ။</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro ကို တစ်စိတ်တစ်ပိုင်းသာ ဖယ်ရှားနိုင်ခဲ့သည်။ ကျန်ခဲ့သည်များနှင့် အကြောင်းရင်းကို စာရင်းတွင် ပြထားသည်။</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>စက်ပစ္စည်းစာရင်းကို ပြန်လည်ဆန်းသစ်ပြီးပါပြီ။</value></data>
@@ -433,7 +433,7 @@
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>HIDMaestro ကို ဖြုတ်ချ</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>ဤလုပ်ဆောင်ချက်သည် HIDMaestro ကို ဤကွန်ပျူတာမှ ဖယ်ရှားသည်: ၎င်း၏ ဗာချွယ်ကွန်ထရိုလာများ၊ ဒရိုက်ဗာ၊ လက်မှတ်ထိုး certificate၊ registry key များနှင့် ဖိုင်များ။ PadForge သည် ၎င်း၏ အင်ဂျင်ကို ဦးစွာ ရပ်သည်။ HIDMaestro ကို အသုံးပြုသော အခြားပရိုဂရမ်များသည် ၎င်းတို့ နောက်တစ်ကြိမ် စတင်သည်အထိ ၎င်း၏ ဒရိုက်ဗာကို အသုံးမပြုနိုင်ပါ။ PadForge သည် နောက်တစ်ကြိမ် ဗာချွယ်ကွန်ထရိုလာ စတင်သည့်အခါ ၎င်းကို ပြန်လည်ထည့်သွင်းသည်။</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>usbip-win2 ၏ ကိုယ်ပိုင် installer ဖြင့် ထည့်သွင်းထားသော usbip-win2 ကိုလည်း ဖယ်ရှားရန်</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>PadForge ဗားရှင်းအဟောင်းများသည် usbip-win2 ကို usbip-win2 ၏ installer ဖြင့် ထည့်သွင်းခဲ့သည်။ အခြားပရိုဂရမ်တစ်ခုက usbip-win2 ကို အသုံးမပြုလျှင် ထိုထည့်သွင်းမှုကိုလည်း ဖယ်ရှားသည်။ ၎င်း၏ USB root hub filter ကို ဖယ်ရှားလျှင် USB root hub အားလုံး ပြန်လည်စတင်မည်ဖြစ်၍ ၎င်းကို ချန်ထားသည်။</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>PadForge ဗားရှင်းအဟောင်းများသည် usbip-win2 ကို usbip-win2 ၏ installer ဖြင့် ထည့်သွင်းခဲ့သည်။ အခြားပရိုဂရမ်တစ်ခုက usbip-win2 ကို အသုံးမပြုလျှင် ၎င်း၏ USB root hub filter အပါအဝင် ထိုထည့်သွင်းမှုကိုလည်း ဖယ်ရှားသည်။ filter ကို ဖယ်ရှားလျှင် USB 3 root hub အားလုံး ပြန်လည်စတင်သဖြင့် USB စက်ပစ္စည်းများ ခဏတာ ချိတ်ဆက်မှု ပြတ်သွားမည်။</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>HIDMaestro က ဤကွန်ပျူတာပေါ်တွင် ချန်ထားခဲ့သည်များကို ဖတ်နေသည်…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro က ဤကွန်ပျူတာပေါ်တွင် ဖယ်ရှားစရာ ဘာမျှ ချန်မထားခဲ့ပါ။</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>ဤပရိုဂရမ်များသည် HIDMaestro ကို အသုံးပြုနေသည်။ ၎င်းတို့ကို ပိတ်ပြီး “ပြန်လည်ဆန်းသစ်” ကို ရွေးပါ။</value></data>

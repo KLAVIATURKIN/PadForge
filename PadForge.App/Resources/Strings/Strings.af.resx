@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR loop. Sluit dit voordat jy deïnstalleer.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro word tans verwyder…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro is verwyder.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro is verwyder. Windows vee die laaste van sy lêers uit wanneer dit weer begin.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro is verwyder. Windows voltooi die verwydering wanneer dit weer begin.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Verwydering van HIDMaestro het gestop. Maak {0} toe en deïnstalleer dan weer.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro is gedeeltelik verwyder. Die lys wys wat agtergebly het en hoekom.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Toestellys is ververs.</value></data>
@@ -433,7 +433,7 @@
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Deïnstalleer HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Dit verwyder HIDMaestro van hierdie rekenaar: sy virtuele controllers, drywer, ondertekeningsertifikaat, registersleutels en lêers. PadForge stop eers sy enjin. Ander programme wat HIDMaestro gebruik, verloor sy drywer totdat hulle weer begin. PadForge installeer dit weer die volgende keer wanneer dit 'n virtuele controller begin.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Verwyder ook usbip-win2 wat met sy eie installeerder opgestel is</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Ouer PadForge-weergawes het usbip-win2 met usbip-win2 se installeerder opgestel. Dit verwyder daardie opstelling ook, tensy 'n ander program usbip-win2 gebruik. Sy USB-worteltoestel-filter bly, omdat die verwydering daarvan elke USB-worteltoestel herbegin.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Ouer PadForge-weergawes het usbip-win2 met usbip-win2 se installeerder opgestel. Dit verwyder daardie opstelling ook, insluitend sy USB-worteltoestel-filter, tensy 'n ander program usbip-win2 gebruik. Die verwydering van die filter herbegin elke USB 3-worteltoestel, so USB-toestelle ontkoppel vir 'n oomblik.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Lees tans wat HIDMaestro op hierdie rekenaar gelaat het…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro het niks op hierdie rekenaar gelaat om te verwyder nie.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Hierdie programme gebruik HIDMaestro. Maak hulle toe en kies dan Verfris.</value></data>

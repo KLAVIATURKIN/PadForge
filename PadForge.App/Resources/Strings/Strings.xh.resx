@@ -83,7 +83,7 @@
   <data name="ControllerType_VR" xml:space="preserve"><value>VR</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Kususwa i-HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>I-HIDMaestro isusiwe.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>I-HIDMaestro isusiwe. I-Windows icima iifayile zayo zokugqibela xa iqala kwakhona.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>I-HIDMaestro isusiwe. I-Windows igqiba ukuyisusa xa iqala kwakhona.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Ukususwa kwe-HIDMaestro kuyekile. Vala {0}, emva koko uyisuse kwakhona.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>I-HIDMaestro isuswe ngokuyinxalenye. Uluhlu lubonisa oko kushiyekileyo nesizathu.</value></data>
 
@@ -110,7 +110,7 @@
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Susa i-HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Oku kususa i-HIDMaestro kule PC: izilawuli zayo ezibonakalayo, idrayiva, isatifikethi sokutyikitya, izitshixo zerejistri neefayile. I-PadForge iqala ngokumisa injini yayo. Ezinye iinkqubo ezisebenzisa i-HIDMaestro ziphulukana nedrayiva yayo de ziqale kwakhona. I-PadForge iyayifaka kwakhona xa iqala isilawuli esibonakalayo ngokulandelayo.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Susa kananjalo i-usbip-win2 efakwe yinkqubo yayo yokufaka</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Iinguqulelo ezindala ze-PadForge zafaka i-usbip-win2 ngenkqubo yokufaka ye-usbip-win2. Oku kuyisusa nayo, ngaphandle kokuba enye inkqubo isebenzisa i-usbip-win2. Isihluzi sayo se-USB root hub siyahlala, kuba ukusisusa kuqalisa kwakhona zonke ii-USB root hub.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Iinguqulelo ezindala ze-PadForge zafaka i-usbip-win2 ngenkqubo yokufaka ye-usbip-win2. Oku kuyisusa nayo, kuquka isihluzi sayo se-USB root hub, ngaphandle kokuba enye inkqubo isebenzisa i-usbip-win2. Ukususa isihluzi kuqalisa kwakhona zonke ii-USB 3 root hub, ngoko izixhobo ze-USB ziqhawuka okwexeshana.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Kufundwa oko i-HIDMaestro ikushiye kule PC…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>I-HIDMaestro ayishiyanga nto kule PC ekufuneka isuswe.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Ezi nkqubo zisebenzisa i-HIDMaestro. Zivale, emva koko ukhethe "Hlaziya".</value></data>

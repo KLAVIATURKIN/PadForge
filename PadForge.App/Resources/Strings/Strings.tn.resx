@@ -87,7 +87,7 @@
   <data name="ControllerType_VR" xml:space="preserve"><value>VR</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Go tlosa HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro e tlositswe.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro e tlositswe. Windows e phimola difaele tsa yone tsa bofelo fa e simolola gape.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro e tlositswe. Windows e fetsa go e tlosa fa e simolola gape.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Go tlosa HIDMaestro go emisitswe. Tswala {0}, morago o e tlose gape.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Karolo nngwe fela ya HIDMaestro e tlositswe. Lenane le bontsha se se setseng le lebaka.</value></data>
 

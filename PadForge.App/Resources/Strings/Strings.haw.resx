@@ -115,7 +115,7 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>ʻAʻole i hiki ke hoʻokomo iā SteamVR: {0}</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Ke holoi ʻia nei ʻo HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>Ua holoi ʻia ʻo HIDMaestro.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Ua holoi ʻia ʻo HIDMaestro. Na Windows e holoi i ke koena o nā faila i kona hoʻomaka hou ʻana.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Ua holoi ʻia ʻo HIDMaestro. Na Windows e hoʻopau i ka holoi ʻana i kona hoʻomaka hou ʻana.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Ua hoʻōki ʻia ka holoi ʻana iā HIDMaestro. E pani iā {0}, a laila e hoʻāʻo hou.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Ua holoi ʻia kekahi hapa o HIDMaestro. Hōʻike ka papa inoa i nā mea i koe a me ke kumu.</value></data>
   <data name="Status_Recorded_Format" xml:space="preserve"><value>Ua hoʻopaʻa ʻia "{0}" ← {1}</value></data>

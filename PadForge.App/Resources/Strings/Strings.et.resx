@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR töötab. Sulgege see enne desinstallimist.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro eemaldamine…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro eemaldati.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro eemaldati. Windows kustutab selle viimased failid järgmisel käivitumisel.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro eemaldati. Windows lõpetab eemaldamise järgmisel käivitumisel.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro eemaldamine peatus. Sulgege {0} ja desinstallige uuesti.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro eemaldati osaliselt. Loend näitab, mis jäi alles ja miks.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Seadmeloend värskendatud.</value></data>
@@ -433,7 +433,7 @@ Eelmise versiooni koopia on selles kaustas: {1}</value></data>
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Desinstalli HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>See eemaldab HIDMaestro sellest arvutist: selle virtuaalsed kontrollerid, draiveri, allkirjastamissertifikaadi, registrivõtmed ja failid. PadForge peatab enne oma mootori. Teised HIDMaestrot kasutavad programmid kaotavad selle draiveri kuni järgmise käivitumiseni. PadForge installib selle uuesti, kui käivitab järgmine kord virtuaalse kontrolleri.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Eemalda ka usbip-win2, mis on installitud selle enda installeriga</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>PadForge'i vanemad versioonid installisid usbip-win2 selle enda installeriga. See eemaldab ka selle installi, kui usbip-win2 pole kasutusel mõnes teises programmis. Selle USB juurjaoturi filter jääb alles, sest selle eemaldamine taaskäivitab kõik USB juurjaoturid.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>PadForge'i vanemad versioonid installisid usbip-win2 selle enda installeriga. See eemaldab ka selle installi, kaasa arvatud selle USB juurjaoturi filtri, kui usbip-win2 pole kasutusel mõnes teises programmis. Filtri eemaldamine taaskäivitab kõik USB 3 juurjaoturid, seega USB-seadmed ühenduvad korraks lahti.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Loen, mida HIDMaestro sellesse arvutisse jättis…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro ei jätnud sellesse arvutisse midagi eemaldatavat.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Need programmid kasutavad tarkvara HIDMaestro. Sulgege need ja valige Värskenda.</value></data>

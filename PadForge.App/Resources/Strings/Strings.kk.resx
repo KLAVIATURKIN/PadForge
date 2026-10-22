@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR жұмыс істеп тұр. Жоймас бұрын оны жабыңыз.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro жойылуда…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro жойылды.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro жойылды. Windows оның соңғы файлдарын келесі іске қосылғанда жояды.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro жойылды. Windows жоюды келесі іске қосылғанда аяқтайды.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro жою тоқтатылды. {0} жабыңыз, содан кейін қайта жойыңыз.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro ішінара жойылды. Тізімде не қалғаны және неге қалғаны көрсетілген.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Құрылғылар тізімі жаңартылды.</value></data>
@@ -433,7 +433,7 @@
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>HIDMaestro жою</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Бұл HIDMaestro-ны осы компьютерден жояды: оның виртуалды контроллерлерін, драйверін, қол қою сертификатын, тізілім кілттерін және файлдарын. PadForge алдымен өз қозғалтқышын тоқтатады. HIDMaestro пайдаланатын басқа бағдарламалар келесі іске қосылғанға дейін оның драйверінсіз қалады. PadForge келесі рет виртуалды контроллерді іске қосқанда оны қайта орнатады.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Өз орнатқышымен орнатылған usbip-win2 бағдарламасын да жою</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>PadForge-дің ескі нұсқалары usbip-win2 бағдарламасын usbip-win2 орнатқышымен орнататын. Бұл сол орнатуды да жояды, егер usbip-win2 бағдарламасын басқа бағдарлама пайдаланбаса. Оның USB түбірлік хаб сүзгісі қалады, себебі оны жою әрбір USB түбірлік хабты қайта іске қосады.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>PadForge-дің ескі нұсқалары usbip-win2 бағдарламасын usbip-win2 орнатқышымен орнататын. Бұл сол орнатуды да жояды, оның USB түбірлік хаб сүзгісімен қоса, егер usbip-win2 бағдарламасын басқа бағдарлама пайдаланбаса. Сүзгіні жою әрбір USB 3 түбірлік хабты қайта іске қосады, сондықтан USB құрылғылары бір сәтке ажырайды.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>HIDMaestro осы компьютерде не қалдырғаны оқылуда…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro осы компьютерде жоятын ештеңе қалдырмады.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Бұл бағдарламаларды HIDMaestro пайдаланады. Оларды жабыңыз, содан кейін Жаңарту түймесін басыңыз.</value></data>

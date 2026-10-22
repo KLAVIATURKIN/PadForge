@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR jest uruchomiony. Zamknij go przed odinstalowaniem.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Usuwanie HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro został usunięty.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro został usunięty. Windows usunie ostatnie pliki przy następnym uruchomieniu.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro został usunięty. Windows dokończy usuwanie przy następnym uruchomieniu.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Usuwanie HIDMaestro zatrzymane. Zamknij {0}, a następnie odinstaluj ponownie.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro został usunięty częściowo. Lista pokazuje, co zostało i dlaczego.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Odświeżono listę urządzeń.</value></data>
@@ -433,7 +433,7 @@ Kopia poprzedniej wersji znajduje się w tym folderze: {1}</value></data>
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Odinstaluj HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Spowoduje to usunięcie HIDMaestro z tego komputera: jego wirtualnych kontrolerów, sterownika, certyfikatu podpisu, kluczy rejestru i plików. PadForge najpierw zatrzymuje swój silnik. Inne programy korzystające z HIDMaestro stracą jego sterownik do czasu następnego uruchomienia. PadForge zainstaluje go ponownie przy następnym uruchomieniu wirtualnego kontrolera.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Usuń także usbip-win2 zainstalowany jego własnym instalatorem</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Starsze wersje PadForge instalowały usbip-win2 za pomocą instalatora usbip-win2. Spowoduje to usunięcie także tej instalacji, chyba że usbip-win2 używa inny program. Filtr głównego koncentratora USB pozostaje, ponieważ jego usunięcie restartuje każdy główny koncentrator USB.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Starsze wersje PadForge instalowały usbip-win2 za pomocą instalatora usbip-win2. Spowoduje to usunięcie także tej instalacji, łącznie z filtrem głównego koncentratora USB, chyba że usbip-win2 używa inny program. Usunięcie filtra restartuje każdy główny koncentrator USB 3, więc urządzenia USB na chwilę się rozłączają.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Odczytywanie tego, co HIDMaestro pozostawił na tym komputerze…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro nie pozostawił na tym komputerze niczego do usunięcia.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Te programy używają HIDMaestro. Zamknij je, a następnie wybierz Odśwież.</value></data>

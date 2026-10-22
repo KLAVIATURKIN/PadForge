@@ -131,7 +131,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR i stap wok. Klosem fastaem bifo yu tekemaot.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Stap tekemaot HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro i aot finis.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro i aot finis. Windows i sakemaot ol laswan fael blong hem nekis taem we hem i stat.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro i aot finis. Windows i finisim wok blong tekemaot hem nekis taem we hem i stat.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Tekemaot HIDMaestro i stop. Klosem {0}, ale traem tekemaot hem bakegen.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Sam pat blong HIDMaestro i aot nomo. Lis i soem wanem i stap yet mo from wanem.</value></data>
   <data name="Status_DirectionRight" xml:space="preserve"><value>(→ raet)</value></data>
@@ -188,7 +188,7 @@
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Tekemaot HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Hemia i tekemaot HIDMaestro long PC ia: ol virtual kontrola blong hem, draeva, setifiket blong saenem, ol ki blong registry mo ol fael. PadForge i stopem enjin blong hem fastaem. Ol narafala program we oli yusum HIDMaestro bambae oli no gat draeva blong hem kasem taem oli stat bakegen. PadForge i instolem hem bakegen nekis taem we hem i statem wan virtual kontrola.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Tekemaot tu usbip-win2 we instola blong hem i bin instolem</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Ol olfala vesen blong PadForge oli instolem usbip-win2 wetem instola blong usbip-win2. Hemia i tekemaot setap ia tu, sapos i no gat narafala program we i yusum usbip-win2. Filta blong USB root hub blong hem i stap, from we sapos yu tekemaot, evri USB root hub i stat bakegen.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Ol olfala vesen blong PadForge oli instolem usbip-win2 wetem instola blong usbip-win2. Hemia i tekemaot setap ia tu, wetem filta blong USB root hub blong hem, sapos i no gat narafala program we i yusum usbip-win2. Taem yu tekemaot filta ia, evri USB 3 root hub i stat bakegen, ale ol USB divaes oli no moa konek blong smol taem.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Stap ridim wanem HIDMaestro i livim long PC ia…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro i no livim wan samting long PC ia blong tekemaot.</value></data>
   <data name="HIDMaestroUninstall_Process_Format" xml:space="preserve"><value>Proses {0}</value></data>

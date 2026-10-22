@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR është në punë. Mbylle para çinstalimit.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Po hiqet HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro u hoq.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro u hoq. Windows fshin skedarët e fundit të tij kur niset herës tjetër.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro u hoq. Windows e përfundon heqjen kur niset herës tjetër.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Heqja e HIDMaestro u ndal. Mbyllni {0}, pastaj çinstaloni përsëri.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro u hoq pjesërisht. Lista tregon çfarë mbeti dhe pse.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Lista e pajisjeve u rifreskua.</value></data>
@@ -433,7 +433,7 @@ Një kopje e versionit të mëparshëm ndodhet në këtë dosje: {1}</value></da
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Çinstalo HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Kjo heq HIDMaestro nga ky PC: kontrolluesit e tij virtualë, drajverin, certifikatën e nënshkrimit, çelësat e regjistrit dhe skedarët. PadForge ndalon fillimisht motorin e vet. Programet e tjera që përdorin HIDMaestro e humbasin drajverin e tij deri sa të niset secili sërish. PadForge e instalon përsëri herën tjetër që nis një kontrollues virtual.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Hiq edhe usbip-win2 të vendosur nga instaluesi i tij</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Versionet e vjetra të PadForge e vendosnin usbip-win2 me instaluesin e vet. Kjo e heq edhe atë instalim, përveç nëse një program tjetër përdor usbip-win2. Filtri i tij i USB root hub mbetet, sepse heqja e tij rinis çdo USB root hub.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Versionet e vjetra të PadForge e vendosnin usbip-win2 me instaluesin e vet. Kjo e heq edhe atë instalim, përfshirë filtrin e tij të USB root hub, përveç nëse një program tjetër përdor usbip-win2. Heqja e filtrit rinis çdo USB 3 root hub, ndaj pajisjet USB shkëputen për një moment.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Po lexohet çfarë la HIDMaestro në këtë PC…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro nuk la asgjë për t'u hequr në këtë PC.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Këto programe përdorin HIDMaestro. Mbyllini, pastaj zgjidhni Rifresko.</value></data>

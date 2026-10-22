@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR ажиллаж байна. Устгахаас өмнө хаана уу.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro-г устгаж байна…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro устгагдлаа.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro устгагдлаа. Үлдсэн файлуудыг нь Windows дараагийн удаа эхлэхдээ устгана.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro устгагдлаа. Windows дараагийн удаа эхлэхдээ устгалыг дуусгана.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro-г устгах ажиллагаа зогслоо. Дараахыг хаагаад дахин устгана уу: {0}.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro хэсэгчлэн устгагдлаа. Юу үлдсэн, яагаад гэдгийг жагсаалтаас харна уу.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Төхөөрөмжийн жагсаалтыг сэргээлээ.</value></data>
@@ -433,7 +433,7 @@
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>HIDMaestro-г устгах</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Энэ нь HIDMaestro-г энэ компьютерээс устгана: түүний виртуал контроллерууд, драйвер, гарын үсгийн гэрчилгээ, бүртгэлийн түлхүүрүүд болон файлууд. PadForge эхлээд өөрийн хөдөлгүүрийг зогсооно. HIDMaestro ашигладаг бусад програмууд дараагийн удаа эхлэх хүртлээ түүний драйвергүй болно. PadForge дараагийн удаа виртуал контроллер эхлүүлэхдээ үүнийг дахин суулгана.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Өөрийн суулгагчаар суулгасан usbip-win2 програмыг мөн устгах</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>PadForge-ийн хуучин хувилбарууд usbip-win2 програмыг usbip-win2-ийн суулгагчаар суулгадаг байсан. Өөр програм usbip-win2 ашиглахгүй бол энэ нь тэр суулгалтыг мөн устгана. Түүний USB үндсэн хабын шүүлтүүр үлдэнэ, учир нь үүнийг устгавал бүх USB үндсэн хаб дахин эхэлнэ.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>PadForge-ийн хуучин хувилбарууд usbip-win2 програмыг usbip-win2-ийн суулгагчаар суулгадаг байсан. Өөр програм usbip-win2 ашиглахгүй бол энэ нь тэр суулгалтыг USB үндсэн хабын шүүлтүүртэй нь хамт мөн устгана. Шүүлтүүрийг устгахад бүх USB 3 үндсэн хаб дахин эхэлдэг тул USB төхөөрөмжүүдийн холболт түр зуур тасарна.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>HIDMaestro-гийн энэ компьютерт үлдээсэн зүйлсийг уншиж байна…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro энэ компьютерт устгах зүйл үлдээгээгүй байна.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Эдгээр програм HIDMaestro-г ашиглаж байна. Тэдгээрийг хаагаад «Сэргээх» товчийг сонгоно уу.</value></data>

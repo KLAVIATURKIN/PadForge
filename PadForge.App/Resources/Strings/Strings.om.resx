@@ -118,7 +118,7 @@
   <data name="Status_DownloadingSteamVR" xml:space="preserve"><value>SteamVR buufachaa jira…</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro haqamaa jira…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro haqameera.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro haqameera. Windows yeroo itti aanu ka'u faayiloota isaa hafan haqa.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro haqameera. Windows yeroo itti aanu ka'u haquu sana ni xumura.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Haquun HIDMaestro dhaabbateera. {0} cufi, achiis irra deebi'ii haqi.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro gartokkoon haqameera. Tarreeffamni waan hafee fi sababa isaa agarsiisa.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Tarreen meeshaalee haaromfameera.</value></data>
@@ -181,7 +181,7 @@
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>HIDMaestro haqi</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Kun HIDMaestro PC kana irraa haqa: kontirolaa fakkeessaa isaa, draayivarii isaa, sartifikeetii mallattoo isaa, furtuulee rejistirii fi faayiloota isaa. PadForge dursee injiinii isaa dhaabsisa. Sagantaaleen biroo HIDMaestro fayyadaman hanga yeroo itti aanu ka'anitti draayivarii isaa dhabu. PadForge yeroo itti aanu kontirolaa fakkeessaa jalqabsiisu deebisee isa fe'a.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>usbip-win2 sagantaa fe'insaa mataa isaatiin fe'ames haqi</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Veershiniiwwan PadForge duraanii usbip-win2 sagantaa fe'insaa usbip-win2-tiin fe'aniiru. Sagantaan biraa usbip-win2 yoo hin fayyadamne malee, kun fe'insa sanas ni haqa. Filtarii USB root hub isaa ni hafa, sababni isaas haquun isaa USB root hub hunda irra deebisee jalqabsiisa.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Veershiniiwwan PadForge duraanii usbip-win2 sagantaa fe'insaa usbip-win2-tiin fe'aniiru. Sagantaan biraa usbip-win2 yoo hin fayyadamne malee, kun fe'insa sana, filtarii USB root hub isaa dabalatee, ni haqa. Filtarii sana haquun USB 3 root hub hunda irra deebisee jalqabsiisa, kanaaf meeshaaleen USB yeroo muraasaaf addaan citu.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Waan HIDMaestro PC kana irratti dhiise dubbisaa jira…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro PC kana irratti waan haqamu tokkollee hin dhiisne.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Sagantaaleen kun HIDMaestro fayyadamu. Isaan cufiitii, achiis Haaromsi filadhu.</value></data>

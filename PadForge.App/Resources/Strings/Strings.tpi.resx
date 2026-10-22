@@ -131,7 +131,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR i ran. Pasim pastaim, bihain rausim.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Rausim HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro i raus pinis.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro i raus pinis. Windows bai rausim ol laspela fail bilong en taim em i stat gen.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro i raus pinis. Windows bai pinisim rausim taim em i stat gen.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Rausim HIDMaestro i stop. Pasim {0}, na rausim gen.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro i raus hap tasol. Lis i soim wanem samting i stap yet na bilong wanem.</value></data>
   <data name="Status_DirectionRight" xml:space="preserve"><value>(→ han sut)</value></data>
@@ -205,7 +205,7 @@
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Rausim HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Dispela i rausim HIDMaestro long dispela PC: ol virtual kontrola, draiva, setifiket bilong sainim, ol ki bilong registry na ol fail bilong en. PadForge i stopim ensin bilong en pastaim. Ol arapela program i yusim HIDMaestro bai i no gat draiva bilong en inap long taim ol i stat gen. PadForge bai instolim gen taim em i statim wanpela virtual kontrola.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Rausim tu usbip-win2 we installer bilong em yet i instolim</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Ol olpela vesen bilong PadForge i instolim usbip-win2 wantaim installer bilong usbip-win2. Dispela i rausim dispela tu, sapos i no gat narapela program i yusim usbip-win2. Filta bilong USB root hub bilong en i stap, long wanem, sapos yu rausim em, olgeta USB root hub bai stat gen.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Ol olpela vesen bilong PadForge i instolim usbip-win2 wantaim installer bilong usbip-win2. Dispela i rausim dispela tu, wantaim filta bilong USB root hub bilong en, sapos i no gat narapela program i yusim usbip-win2. Taim yu rausim filta, olgeta USB 3 root hub bai stat gen, olsem na ol USB masin bai i no konek inap liklik taim.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Ritim wanem samting HIDMaestro i lusim long dispela PC…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro i no lusim wanpela samting long dispela PC bilong rausim.</value></data>
   <data name="HIDMaestroUninstall_Stays_Format" xml:space="preserve"><value>I stap yet: {0}</value></data>

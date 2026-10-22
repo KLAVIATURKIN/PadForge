@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR darbojas. Pirms atinstalēšanas aizveriet to.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Notiek HIDMaestro noņemšana…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro tika noņemts.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro tika noņemts. Windows izdzēš tā pēdējos failus, kad dators tiek startēts nākamreiz.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro tika noņemts. Windows pabeidz noņemšanu, kad dators tiek startēts nākamreiz.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro noņemšana apturēta. Aizveriet {0} un atinstalējiet vēlreiz.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro tika noņemts daļēji. Sarakstā redzams, kas palika un kāpēc.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Ierīču saraksts atsvaidzināts.</value></data>
@@ -433,7 +433,7 @@ Iepriekšējās versijas kopija atrodas šajā mapē: {1}</value></data>
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Atinstalēt HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Tiks noņemts HIDMaestro no šī datora: tā virtuālie kontrolleri, draiveris, parakstīšanas sertifikāts, reģistra atslēgas un faili. PadForge vispirms aptur savu dzinēju. Citas programmas, kas izmanto HIDMaestro, zaudē tā draiveri, līdz tās tiek startētas nākamreiz. PadForge to instalē atkārtoti, kad nākamreiz startē virtuālo kontrolleri.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Noņemt arī usbip-win2, kas instalēts ar savu instalētāju</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Vecākas PadForge versijas instalēja usbip-win2 ar usbip-win2 paša instalētāju. Tiks noņemta arī šī instalācija, ja vien usbip-win2 neizmanto cita programma. Tā USB saknes centrmezgla filtrs paliek, jo tā noņemšana restartē katru USB saknes centrmezglu.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Vecākas PadForge versijas instalēja usbip-win2 ar usbip-win2 paša instalētāju. Tiks noņemta arī šī instalācija, ieskaitot tās USB saknes centrmezgla filtru, ja vien usbip-win2 neizmanto cita programma. Filtra noņemšana restartē katru USB 3 saknes centrmezglu, tāpēc USB ierīces uz brīdi atvienojas.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Notiek HIDMaestro šajā datorā atstāto datu nolasīšana…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro šajā datorā nav atstājis neko noņemamu.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Šīs programmas izmanto HIDMaestro. Aizveriet tās un pēc tam atlasiet Atsvaidzināt.</value></data>

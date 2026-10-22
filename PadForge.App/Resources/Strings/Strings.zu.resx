@@ -143,7 +143,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>I-SteamVR iyasebenza. Yivale ngaphambi kokuyikhipha.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Kususwa i-HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>I-HIDMaestro isusiwe.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>I-HIDMaestro isusiwe. I-Windows izosusa amafayela okugcina e-HIDMaestro lapho iqala ngokuzayo.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>I-HIDMaestro isusiwe. I-Windows izoqedela ukususwa lapho iqala ngokuzayo.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Ukususwa kwe-HIDMaestro kumisiwe. Vala {0}, bese ukhipha futhi.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>I-HIDMaestro isuswe ngokwengxenye. Uhlu lubonisa okusele nokuthi kungani.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Uhlu lwamadivayisi luvuselelwe.</value></data>
@@ -254,7 +254,7 @@
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Khipha i-HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Lokhu kususa i-HIDMaestro kule PC: izilawuli zayo ezibonakalayo, umshayeli, isitifiketi sokusayina, okhiye be-registry namafayela. I-PadForge imisa injini yayo kuqala. Ezinye izinhlelo ezisebenzisa i-HIDMaestro zilahlekelwa umshayeli wayo kuze kube yilapho ziqala kabusha. I-PadForge iyayifaka futhi ngesikhathi esilandelayo lapho iqala isilawuli esibonakalayo.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Susa futhi ne-usbip-win2 efakwe ngohlelo lwayo lokufaka</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Izinguqulo ezindala ze-PadForge zafaka i-usbip-win2 ngohlelo lokufaka lwe-usbip-win2. Lokhu kususa nalokho kufakwa, ngaphandle uma olunye uhlelo lusebenzisa i-usbip-win2. Isihlungi sayo se-USB root hub siyasala, ngoba ukusisusa kuqala kabusha wonke ama-USB root hub.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Izinguqulo ezindala ze-PadForge zafaka i-usbip-win2 ngohlelo lokufaka lwe-usbip-win2. Lokhu kususa nalokho kufakwa, kuhlanganise nesihlungi sayo se-USB root hub, ngaphandle uma olunye uhlelo lusebenzisa i-usbip-win2. Ukususa isihlungi kuqala kabusha wonke ama-USB 3 root hub, ngakho amadivayisi e-USB anqamuka isikhashana.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Kufundwa lokho i-HIDMaestro ekushiye kule PC…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>I-HIDMaestro ayishiyanga lutho kule PC okufanele lususwe.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Lezi zinhlelo zisebenzisa i-HIDMaestro. Zivale, bese ukhetha okuthi Vuselela.</value></data>

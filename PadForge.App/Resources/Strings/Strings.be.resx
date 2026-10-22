@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR працуе. Закрыйце яго перад выдаленнем.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Выдаленне HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro выдалены.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro выдалены. Windows выдаліць апошнія яго файлы пры наступным запуску.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro выдалены. Windows завершыць выдаленне пры наступным запуску.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Выдаленне HIDMaestro спынена. Закрыйце {0}, потым выдаліце яшчэ раз.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro выдалены часткова. У спісе паказана, што засталося і чаму.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Спіс прылад абноўлены.</value></data>
@@ -433,7 +433,7 @@
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Выдаліць HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Гэта выдаліць HIDMaestro з гэтага ПК: яго віртуальныя кантролеры, драйвер, сертыфікат подпісу, ключы рэестра і файлы. Спачатку PadForge спыняе свой рухавік. Іншыя праграмы, якія выкарыстоўваюць HIDMaestro, губляюць яго драйвер да наступнага запуску. PadForge усталюе яго зноў, калі наступным разам запусціць віртуальны кантролер.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Таксама выдаліць usbip-win2, усталяваны яго ўласным усталёўшчыкам</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Старыя версіі PadForge усталёўвалі usbip-win2 яго ўласным усталёўшчыкам. Гэта выдаліць і такую ўсталёўку, калі usbip-win2 не выкарыстоўвае іншая праграма. Яго фільтр каранёвага USB-хаба застанецца, бо яго выдаленне перазапускае ўсе каранёвыя USB-хабы.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Старыя версіі PadForge усталёўвалі usbip-win2 яго ўласным усталёўшчыкам. Гэта выдаліць і такую ўсталёўку разам з фільтрам каранёвага USB-хаба, калі usbip-win2 не выкарыстоўвае іншая праграма. Выдаленне фільтра перазапускае ўсе каранёвыя USB 3-хабы, таму USB-прылады на імгненне адключацца.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Чытанне таго, што HIDMaestro пакінуў на гэтым ПК…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro не пакінуў на гэтым ПК нічога для выдалення.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Гэтыя праграмы выкарыстоўваюць HIDMaestro. Закрыйце іх, потым націсніце «Абнавіць».</value></data>

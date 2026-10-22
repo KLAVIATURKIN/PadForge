@@ -146,7 +146,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>Nagdagan ang SteamVR. Sirad-i kini una sa pag-uninstall.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Ginatangtang ang HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>Natangtang na ang HIDMaestro.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Natangtang na ang HIDMaestro. Papason sa Windows ang nahibilin nga mga file niini inig sunod nga pagsugod niini.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Natangtang na ang HIDMaestro. Humanon sa Windows ang pagtangtang inig sunod nga pagsugod niini.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Nahunong ang pagtangtang sa HIDMaestro. Isira ang {0}, dayon i-uninstall pag-usab.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Bahin ra sa HIDMaestro ang natangtang. Gipakita sa listahan kung unsa ang nahibilin ug ngano.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Na-refresh ang listahan sa device.</value></data>
@@ -290,7 +290,7 @@
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>I-uninstall ang HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Tangtangon niini ang HIDMaestro gikan niining PC: ang mga virtual nga controller niini, driver, signing certificate, registry key ug mga file. Hunongon una sa PadForge ang engine niini. Ang ubang programa nga naggamit sa HIDMaestro mawad-an sa driver niini hangtod sa ilang sunod nga pagsugod. I-install kini pag-usab sa PadForge sa sunod nga higayon nga magsugod kini og virtual nga controller.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Tangtanga usab ang usbip-win2 nga gi-install sa kaugalingon niini nga installer</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Ang mas daan nga mga bersyon sa PadForge nag-install sa usbip-win2 gamit ang installer sa usbip-win2. Tangtangon usab niini kana nga pag-install, gawas kon adunay laing programa nga naggamit sa usbip-win2. Magpabilin ang filter niini sa USB root hub, kay ang pagtangtang niini mo-restart sa tanang USB root hub.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Ang mas daan nga mga bersyon sa PadForge nag-install sa usbip-win2 gamit ang installer sa usbip-win2. Tangtangon usab niini kana nga pag-install, apil ang filter niini sa USB root hub, gawas kon adunay laing programa nga naggamit sa usbip-win2. Ang pagtangtang sa filter mo-restart sa tanang USB 3 root hub, busa madiskonekta kadiyot ang mga USB device.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Ginabasa kung unsa ang gibilin sa HIDMaestro niining PC…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>Walay gibilin ang HIDMaestro niining PC nga tangtangon.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Kini nga mga programa naggamit sa HIDMaestro. Isira kini, dayon pilia ang I-refresh.</value></data>

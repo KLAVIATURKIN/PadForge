@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR กำลังทำงานอยู่ โปรดปิดก่อนถอนการติดตั้ง</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>กำลังลบ HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>ลบ HIDMaestro แล้ว</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>ลบ HIDMaestro แล้ว Windows จะลบไฟล์ที่เหลือเมื่อเริ่มทำงานครั้งถัดไป</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>ลบ HIDMaestro แล้ว Windows จะลบให้เสร็จสิ้นเมื่อเริ่มทำงานครั้งถัดไป</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>การลบ HIDMaestro หยุดลง ปิด {0} แล้วถอนการติดตั้งอีกครั้ง</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>ลบ HIDMaestro ได้เพียงบางส่วน รายการแสดงสิ่งที่ยังเหลืออยู่และสาเหตุ</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>รีเฟรชรายการอุปกรณ์แล้ว</value></data>
@@ -433,7 +433,7 @@
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>ถอนการติดตั้ง HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>การดำเนินการนี้จะลบ HIDMaestro ออกจากพีซีเครื่องนี้ ทั้งคอนโทรลเลอร์เสมือน ไดรเวอร์ ใบรับรองการลงนาม คีย์รีจิสทรี และไฟล์ PadForge จะหยุดเอนจินก่อน โปรแกรมอื่นที่ใช้ HIDMaestro จะไม่มีไดรเวอร์ของ HIDMaestro จนกว่าจะเริ่มทำงานครั้งถัดไป PadForge จะติดตั้งใหม่อีกครั้งเมื่อเริ่มคอนโทรลเลอร์เสมือนครั้งถัดไป</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>ลบ usbip-win2 ที่ติดตั้งด้วยตัวติดตั้งของตัวเองด้วย</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>PadForge รุ่นเก่าติดตั้ง usbip-win2 ด้วยตัวติดตั้งของ usbip-win2 การดำเนินการนี้จะลบการติดตั้งนั้นด้วย เว้นแต่โปรแกรมอื่นใช้ usbip-win2 อยู่ ตัวกรอง USB root hub ของ usbip-win2 จะยังอยู่ เพราะการลบจะรีสตาร์ท USB root hub ทุกตัว</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>PadForge รุ่นเก่าติดตั้ง usbip-win2 ด้วยตัวติดตั้งของ usbip-win2 การดำเนินการนี้จะลบการติดตั้งนั้นด้วย รวมถึงตัวกรอง USB root hub ของ usbip-win2 เว้นแต่โปรแกรมอื่นใช้ usbip-win2 อยู่ การลบตัวกรองจะรีสตาร์ท USB 3 root hub ทุกตัว อุปกรณ์ USB จึงหลุดการเชื่อมต่อชั่วครู่</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>กำลังอ่านสิ่งที่ HIDMaestro ทิ้งไว้ในพีซีเครื่องนี้…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro ไม่เหลืออะไรให้ลบในพีซีเครื่องนี้</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>โปรแกรมเหล่านี้ใช้ HIDMaestro อยู่ ปิดโปรแกรมแล้วเลือกรีเฟรช</value></data>

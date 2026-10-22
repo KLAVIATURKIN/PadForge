@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR កំពុងដំណើរការ។ សូមបិទវាមុនពេលលុបការដំឡើង។</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>កំពុងលុប HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro ត្រូវបានលុបហើយ។</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro ត្រូវបានលុបហើយ។ Windows លុបឯកសារចុងក្រោយរបស់វានៅពេលចាប់ផ្ដើមលើកក្រោយ។</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro ត្រូវបានលុបហើយ។ Windows បញ្ចប់ការលុបនៅពេលចាប់ផ្ដើមលើកក្រោយ។</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>ការលុប HIDMaestro បានឈប់។ បិទ {0} រួចលុបការដំឡើងម្ដងទៀត។</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro ត្រូវបានលុបមួយផ្នែក។ បញ្ជីបង្ហាញអ្វីដែលនៅសល់ និងមូលហេតុ។</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>បញ្ជីឧបករណ៍ត្រូវបានផ្ទុកឡើងវិញ។</value></data>
@@ -433,7 +433,7 @@
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>លុបការដំឡើង HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>សកម្មភាពនេះលុប HIDMaestro ចេញពីកុំព្យូទ័រនេះ៖ ឧបករណ៍បញ្ជានិម្មិត ដ្រាយវ័រ វិញ្ញាបនបត្រចុះហត្ថលេខា កូនសោបញ្ជីឈ្មោះ និងឯកសាររបស់វា។ PadForge បញ្ឈប់ម៉ាស៊ីនរបស់វាជាមុនសិន។ កម្មវិធីផ្សេងទៀតដែលប្រើ HIDMaestro នឹងបាត់ដ្រាយវ័ររបស់វា រហូតដល់ពួកវាចាប់ផ្ដើមលើកក្រោយ។ PadForge ដំឡើងវាម្ដងទៀតនៅពេលវាចាប់ផ្ដើមឧបករណ៍បញ្ជានិម្មិតលើកក្រោយ។</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>លុប usbip-win2 ដែលបានដំឡើងដោយកម្មវិធីដំឡើងរបស់វាផងដែរ</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>កំណែ PadForge ចាស់ៗបានដំឡើង usbip-win2 ដោយប្រើកម្មវិធីដំឡើងរបស់ usbip-win2។ សកម្មភាពនេះលុបការដំឡើងនោះផងដែរ លុះត្រាតែមានកម្មវិធីផ្សេងទៀតប្រើ usbip-win2។ តម្រងរបស់វានៅលើ USB root hub នៅដដែល ព្រោះការលុបវាធ្វើឱ្យ USB root hub ទាំងអស់ចាប់ផ្ដើមឡើងវិញ។</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>កំណែ PadForge ចាស់ៗបានដំឡើង usbip-win2 ដោយប្រើកម្មវិធីដំឡើងរបស់ usbip-win2។ សកម្មភាពនេះលុបការដំឡើងនោះផងដែរ រួមទាំងតម្រងរបស់វានៅលើ USB root hub លុះត្រាតែមានកម្មវិធីផ្សេងទៀតប្រើ usbip-win2។ ការលុបតម្រងនេះធ្វើឱ្យ USB 3 root hub ទាំងអស់ចាប់ផ្ដើមឡើងវិញ ដូច្នេះឧបករណ៍ USB នឹងផ្ដាច់មួយភ្លែត។</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>កំពុងអានអ្វីដែល HIDMaestro បានទុកនៅលើកុំព្យូទ័រនេះ…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro មិនបានទុកអ្វីនៅលើកុំព្យូទ័រនេះដែលត្រូវលុបទេ។</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>កម្មវិធីទាំងនេះប្រើ HIDMaestro។ បិទពួកវា រួចជ្រើស «ផ្ទុកឡើងវិញ»។</value></data>

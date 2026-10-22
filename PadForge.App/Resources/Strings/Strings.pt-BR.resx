@@ -165,7 +165,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>O SteamVR está em execução. Feche-o antes de desinstalar.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Removendo o HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>O HIDMaestro foi removido.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>O HIDMaestro foi removido. O Windows exclui os últimos arquivos dele na próxima vez que for iniciado.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>O HIDMaestro foi removido. O Windows conclui a remoção na próxima vez que for iniciado.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>A remoção do HIDMaestro foi interrompida. Feche {0} e desinstale novamente.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>O HIDMaestro foi removido apenas em parte. A lista mostra o que permaneceu e por quê.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Lista de dispositivos atualizada.</value></data>
@@ -363,7 +363,7 @@ Há uma cópia da versão anterior nesta pasta: {1}</value></data>
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Desinstalar o HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Isto remove o HIDMaestro deste PC: seus controles virtuais, driver, certificado de assinatura, chaves do registro e arquivos. O PadForge para o próprio motor primeiro. Outros programas que usam o HIDMaestro perdem o driver dele até serem iniciados novamente. O PadForge o instala de novo na próxima vez que iniciar um controle virtual.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Remover também o usbip-win2 instalado pelo próprio instalador</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Versões antigas do PadForge instalavam o usbip-win2 com o instalador do usbip-win2. Isto remove essa instalação também, a menos que outro programa use o usbip-win2. O filtro do hub raiz USB permanece, pois removê-lo reinicia todos os hubs raiz USB.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Versões antigas do PadForge instalavam o usbip-win2 com o instalador do usbip-win2. Isto remove essa instalação também, inclusive o filtro do hub raiz USB, a menos que outro programa use o usbip-win2. Remover o filtro reinicia todos os hubs raiz USB 3, então os dispositivos USB se desconectam por um instante.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Lendo o que o HIDMaestro deixou neste PC…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>O HIDMaestro não deixou nada para remover neste PC.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Estes programas usam o HIDMaestro. Feche-os e selecione Atualizar.</value></data>

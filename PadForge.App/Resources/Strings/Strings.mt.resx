@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR qed jaħdem. Agħlqu qabel tiddiżinstallah.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Qed jitneħħa HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro tneħħa.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro tneħħa. Windows iħassar l-aħħar fajls tiegħu meta jerġa' jibda.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro tneħħa. Windows ilesti t-tneħħija meta jerġa' jibda.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>It-tneħħija ta' HIDMaestro waqfet. Agħlaq {0}, imbagħad erġa' ddiżinstalla.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro tneħħa parzjalment. Il-lista turi x'baqa' u għaliex.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Il-lista tal-apparati ġiet aġġornata.</value></data>
@@ -433,7 +433,7 @@ Kopja tal-verżjoni ta' qabel tinsab f'dan il-folder: {1}</value></data>
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Diżinstalla HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Dan ineħħi HIDMaestro minn dan il-PC: il-kontrolluri virtwali, id-driver, iċ-ċertifikat tal-iffirmar, iċ-ċwievet tar-registry u l-fajls tiegħu. PadForge l-ewwel iwaqqaf il-magna tiegħu. Programmi oħra li jużaw HIDMaestro jitilfu d-driver tiegħu sakemm jerġgħu jibdew. PadForge jerġa' jinstallah id-darba li jmiss li jibda kontrollur virtwali.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Neħħi wkoll usbip-win2 installat bl-installer tiegħu stess</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Verżjonijiet eqdem ta' PadForge installaw usbip-win2 bl-installer ta' usbip-win2. Dan ineħħi dik l-installazzjoni wkoll, sakemm ma jkunx hemm programm ieħor li juża usbip-win2. Il-filtru tiegħu fuq l-USB root hub jibqa', għax it-tneħħija tiegħu terġa' tibda kull USB root hub.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Verżjonijiet eqdem ta' PadForge installaw usbip-win2 bl-installer ta' usbip-win2. Dan ineħħi dik l-installazzjoni wkoll, inkluż il-filtru tiegħu fuq l-USB root hub, sakemm ma jkunx hemm programm ieħor li juża usbip-win2. It-tneħħija tal-filtru terġa' tibda kull USB 3 root hub, għalhekk l-apparati USB jiskonnettjaw għal mument.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Qed jinqara x'ħalla HIDMaestro fuq dan il-PC…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro ma ħalla xejn x'jitneħħa fuq dan il-PC.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Dawn il-programmi jużaw HIDMaestro. Agħlaqhom, imbagħad agħżel Aġġorna.</value></data>

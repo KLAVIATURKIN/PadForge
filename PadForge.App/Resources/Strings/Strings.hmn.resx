@@ -104,7 +104,7 @@
   <data name="Status_SteamVRInstallFailed_Format" xml:space="preserve"><value>Nruab SteamVR tsis tau: {0}</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Tab tom tshem HIDMaestro tawm…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro raug tshem tawm lawm.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro raug tshem tawm lawm. Windows yuav tshem nws cov ntaub ntawv kawg tawm thaum nws pib zaum tom ntej.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro raug tshem tawm lawm. Windows yuav ua kom tiav txoj kev tshem tawm thaum nws pib zaum tom ntej.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Kev tshem HIDMaestro tawm tau nres lawm. Kaw {0}, ces tshem tawm dua.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro raug tshem tawm ib feem xwb. Daim ntawv teev qhia tias yam twg tseem nyob thiab vim li cas.</value></data>
   <data name="Status_DirectionRight" xml:space="preserve"><value>(→ sab xis)</value></data>

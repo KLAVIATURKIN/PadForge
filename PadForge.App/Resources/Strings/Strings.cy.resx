@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>Mae SteamVR yn rhedeg. Caewch ef cyn dadosod.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Yn tynnu HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>Tynnwyd HIDMaestro.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Tynnwyd HIDMaestro. Mae Windows yn dileu ei ffeiliau olaf pan fydd yn cychwyn nesaf.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Tynnwyd HIDMaestro. Mae Windows yn gorffen y gwaith tynnu pan fydd yn cychwyn nesaf.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Stopiwyd tynnu HIDMaestro. Caewch {0}, yna dadosodwch eto.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Tynnwyd HIDMaestro yn rhannol. Mae'r rhestr yn dangos beth arhosodd a pham.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Adnewyddwyd y rhestr dyfeisiau.</value></data>
@@ -433,7 +433,7 @@ Mae copi o'r fersiwn flaenorol yn y ffolder hon: {1}</value></data>
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Dadosod HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Mae hyn yn tynnu HIDMaestro o'r PC hwn: ei reolyddion rhithwir, ei yrrwr, ei dystysgrif llofnodi, allweddi'r gofrestrfa a ffeiliau. Mae PadForge yn stopio ei injan yn gyntaf. Mae rhaglenni eraill sy'n defnyddio HIDMaestro yn colli ei yrrwr nes iddynt gychwyn nesaf. Mae PadForge yn ei osod eto'r tro nesaf y bydd yn cychwyn rheolydd rhithwir.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Tynnu usbip-win2 a osodwyd gan ei osodwr ei hun hefyd</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Gosododd fersiynau hŷn o PadForge usbip-win2 gyda gosodwr usbip-win2. Mae hyn yn tynnu'r gosodiad hwnnw hefyd, oni bai fod rhaglen arall yn defnyddio usbip-win2. Mae ei hidlydd canolbwynt gwraidd USB yn aros, gan fod ei dynnu yn ailgychwyn pob canolbwynt gwraidd USB.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Gosododd fersiynau hŷn o PadForge usbip-win2 gyda gosodwr usbip-win2. Mae hyn yn tynnu'r gosodiad hwnnw hefyd, gan gynnwys ei hidlydd canolbwynt gwraidd USB, oni bai fod rhaglen arall yn defnyddio usbip-win2. Mae tynnu'r hidlydd yn ailgychwyn pob canolbwynt gwraidd USB 3, felly mae dyfeisiau USB yn datgysylltu am eiliad.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Yn darllen beth adawodd HIDMaestro ar y PC hwn…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>Ni adawodd HIDMaestro ddim ar y PC hwn i'w dynnu.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Mae'r rhaglenni hyn yn defnyddio HIDMaestro. Caewch nhw, yna dewiswch Adnewyddu.</value></data>

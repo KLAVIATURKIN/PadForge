@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR er í gangi. Lokaðu því áður en það er fjarlægt.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Fjarlægir HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro-rekillinn var fjarlægður.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro-rekillinn var fjarlægður. Windows eyðir síðustu skrám hans næst þegar tölvan er ræst.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro-rekillinn var fjarlægður. Windows lýkur fjarlægingunni næst þegar tölvan er ræst.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Fjarlæging HIDMaestro stöðvaðist. Lokaðu {0} og veldu síðan Fjarlægja aftur.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro-rekillinn var aðeins fjarlægður að hluta. Listinn sýnir hvað varð eftir og hvers vegna.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Tækjalisti endurnýjaður.</value></data>
@@ -433,7 +433,7 @@ Afrit af fyrri útgáfu er í þessari möppu: {1}</value></data>
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Fjarlægja HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Þetta fjarlægir HIDMaestro af þessari tölvu: sýndarstýringar þess, rekil, undirritunarvottorð, skrásetningarlykla og skrár. PadForge stöðvar vélina sína fyrst. Önnur forrit sem nota HIDMaestro missa rekil þess þar til þau ræsast næst. PadForge setur hann upp aftur næst þegar PadForge ræsir sýndarstýringu.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Fjarlægja einnig usbip-win2 sem var sett upp með eigin uppsetningarforriti</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Eldri útgáfur PadForge settu usbip-win2 upp með uppsetningarforriti usbip-win2. Þetta fjarlægir þá uppsetningu líka, nema annað forrit noti usbip-win2. Sían á USB-rótarhubbunum helst áfram, því fjarlæging hennar endurræsir alla USB-rótarhubba.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Eldri útgáfur PadForge settu usbip-win2 upp með uppsetningarforriti usbip-win2. Þetta fjarlægir þá uppsetningu líka, þar með talda síuna á USB-rótarhubbunum, nema annað forrit noti usbip-win2. Þegar sían er fjarlægð endurræsast allir USB 3 rótarhubbar, þannig að USB-tæki aftengjast örskamma stund.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Les hvað HIDMaestro skildi eftir á þessari tölvu…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro skildi ekkert eftir á þessari tölvu til að fjarlægja.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Þessi forrit nota HIDMaestro. Lokaðu þeim og veldu síðan Endurnýja.</value></data>

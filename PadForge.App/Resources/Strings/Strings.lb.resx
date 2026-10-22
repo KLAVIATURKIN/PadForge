@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR leeft. Maacht et zou, ier Dir desinstalléiert.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro gëtt ewechgeholl…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro gouf ewechgeholl.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro gouf ewechgeholl. Windows läscht déi lescht vu senge Fichieren, wann et déi nächst Kéier gestart gëtt.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro gouf ewechgeholl. Windows schléisst d'Ewechhuelen of, wann et déi nächst Kéier gestart gëtt.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>D'Ewechhuele vun HIDMaestro gouf gestoppt. Maacht {0} zou an desinstalléiert dann nach eng Kéier.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro gouf nëmmen deelweis ewechgeholl. D'Lëscht weist, wat bliwwen ass a firwat.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Apparatelëscht aktualiséiert.</value></data>
@@ -431,7 +431,7 @@ Eng Kopie vun der viregter Versioun ass an dësem Dossier: {1}</value></data>
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>HIDMaestro desinstalléieren</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Dëst hëlt HIDMaestro vun dësem PC ewech: seng virtuell Controller, säin Treiber, säin Signatur-Zertifikat, Registry-Schlësselen a Fichieren. PadForge stoppt virdrun seng Engine. Aner Programmer, déi HIDMaestro benotzen, verléieren säin Treiber, bis se déi nächst Kéier gestart ginn. PadForge installéiert en nees, wann et déi nächst Kéier e virtuelle Controller start.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Och usbip-win2 ewechhuelen, dat mat sengem eegenen Installer installéiert gouf</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Méi al PadForge-Versiounen hunn usbip-win2 mam Installer vun usbip-win2 installéiert. Dëst hëlt déi Installatioun och ewech, ausser en anert Programm benotzt usbip-win2. Säin Filter um USB-Root-Hub bleift, well all USB-Root-Hub nei gestart gëtt, wann en ewechgeholl gëtt.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Méi al PadForge-Versiounen hunn usbip-win2 mam Installer vun usbip-win2 installéiert. Dëst hëlt déi Installatioun och ewech, säi Filter um USB-Root-Hub abegraff, ausser en anert Programm benotzt usbip-win2. Wann de Filter ewechgeholl gëtt, gëtt all USB-3-Root-Hub nei gestart, sou datt USB-Apparater fir e Moment d'Verbindung verléieren.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Et gëtt gelies, wat HIDMaestro op dësem PC hannerlooss huet…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro huet op dësem PC näischt hannerlooss, wat ze läschen ass.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Dës Programmer benotzen HIDMaestro. Maacht se zou a wielt dann „Aktualiséieren“.</value></data>

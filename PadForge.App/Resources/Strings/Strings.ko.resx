@@ -165,7 +165,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR이 실행 중입니다. 제거하기 전에 종료하세요.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro 제거 중…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro를 제거했습니다.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro를 제거했습니다. 나머지 파일은 Windows가 다음에 시작될 때 삭제합니다.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro를 제거했습니다. 제거는 Windows가 다음에 시작될 때 마무리됩니다.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro 제거가 중단되었습니다. {0}을(를) 닫은 다음 다시 제거하세요.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro가 일부만 제거되었습니다. 남은 항목과 그 이유는 목록에 표시됩니다.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>장치 목록을 새로고침했습니다.</value></data>
@@ -363,7 +363,7 @@
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>HIDMaestro 제거</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>이 PC에서 HIDMaestro의 가상 컨트롤러, 드라이버, 서명 인증서, 레지스트리 키, 파일을 제거합니다. PadForge가 먼저 엔진을 중지합니다. HIDMaestro를 사용하는 다른 프로그램은 다음에 시작될 때까지 드라이버를 사용할 수 없게 됩니다. PadForge는 다음에 가상 컨트롤러를 시작할 때 드라이버를 다시 설치합니다.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>자체 설치 프로그램으로 설치된 usbip-win2도 제거</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>이전 버전의 PadForge는 usbip-win2의 설치 프로그램으로 usbip-win2를 설치했습니다. 다른 프로그램이 usbip-win2를 사용하지 않는 한 그 설치도 제거합니다. USB 루트 허브 필터는 제거하면 모든 USB 루트 허브가 다시 시작되므로 그대로 둡니다.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>이전 버전의 PadForge는 usbip-win2의 설치 프로그램으로 usbip-win2를 설치했습니다. 다른 프로그램이 usbip-win2를 사용하지 않는 한 USB 루트 허브 필터를 포함해 그 설치도 제거합니다. 필터를 제거하면 모든 USB 3 루트 허브가 다시 시작되므로 USB 장치의 연결이 잠시 끊어집니다.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>이 PC에 HIDMaestro가 남긴 항목을 읽는 중…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>이 PC에 HIDMaestro가 남긴 제거할 항목이 없습니다.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>이 프로그램들이 HIDMaestro를 사용하고 있습니다. 닫은 다음 새로고침을 선택하세요.</value></data>

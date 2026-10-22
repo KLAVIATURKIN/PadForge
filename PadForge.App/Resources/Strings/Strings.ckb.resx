@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR کاردەکات. پێش لابردن دایبخە.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro لادەبرێت…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro لابرا.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro لابرا. Windows جاری داهاتوو کە دەست پێ دەکات دوایین فایلەکانی دەسڕێتەوە.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro لابرا. Windows جاری داهاتوو کە دەست پێ دەکات لابردنەکە تەواو دەکات.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>لابردنی HIDMaestro ڕاگیرا. {0} دابخە، پاشان دووبارە هەوڵی لابردنی دامەزراندن بدەوە.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>بەشێک لە HIDMaestro لابرا. لیستەکە نیشان دەدات چی ماوەتەوە و بۆچی.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>لیستی ئامێرەکان نوێکرایەوە.</value></data>
@@ -433,7 +433,7 @@
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>لابردنی دامەزراندنی HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>ئەمە HIDMaestro لەم کۆمپیوتەرە لادەبات: کۆنترۆڵەرە مەجازییەکانی، درایڤەرەکەی، بڕوانامەی واژۆکردنەکەی، کلیلەکانی ڕێجیستری و فایلەکانی. PadForge سەرەتا بزوێنەرەکەی ڕادەگرێت. ئەو بەرنامانەی تر کە HIDMaestro بەکاردەهێنن درایڤەرەکەی لەدەست دەدەن تا جاری داهاتوو کە دەست پێ دەکەنەوە. PadForge جاری داهاتوو کە کۆنترۆڵەرێکی مەجازی دەست پێ دەکات دووبارە دایدەمەزرێنێتەوە.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>usbip-win2 یش لاببە کە بە دامەزرێنەری خۆی دامەزرابوو</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>وەشانە کۆنەکانی PadForge بە دامەزرێنەری usbip-win2 خۆی usbip-win2 یان دادەمەزراند. ئەمە ئەو دامەزراندنەش لادەبات، مەگەر بەرنامەیەکی تر usbip-win2 بەکاربهێنێت. فلتەرەکەی بۆ هەبی سەرەکیی USB دەمێنێتەوە، چونکە لابردنی هەموو هەبە سەرەکییەکانی USB دووبارە دەستپێدەکاتەوە.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>وەشانە کۆنەکانی PadForge بە دامەزرێنەری usbip-win2 خۆی usbip-win2 یان دادەمەزراند. ئەمە ئەو دامەزراندنەش لادەبات، لەگەڵ فلتەرەکەی بۆ هەبی سەرەکیی USB دا، مەگەر بەرنامەیەکی تر usbip-win2 بەکاربهێنێت. لابردنی فلتەرەکە هەموو هەبە سەرەکییەکانی USB 3 دووبارە دەستپێدەکاتەوە، بۆیە پەیوەندیی ئامێرەکانی USB بۆ ساتێک دەپچڕێت.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>خوێندنەوەی ئەوەی HIDMaestro لەم کۆمپیوتەرەدا بەجێی هێشتووە…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro هیچ شتێکی بۆ لابردن لەم کۆمپیوتەرەدا بەجێ نەهێشتووە.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>ئەم بەرنامانە HIDMaestro بەکاردەهێنن. دایانبخە، پاشان نوێکردنەوە هەڵبژێرە.</value></data>

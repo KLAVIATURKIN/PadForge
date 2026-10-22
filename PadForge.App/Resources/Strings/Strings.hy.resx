@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR-ն աշխատում է։ Փակեք այն ապատեղադրելուց առաջ։</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>HIDMaestro-ի հեռացում…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro-ն հեռացվեց։</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro-ն հեռացվեց։ Windows-ը նրա վերջին ֆայլերը կջնջի հաջորդ գործարկման ժամանակ։</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro-ն հեռացվեց։ Windows-ը հեռացումն ավարտում է հաջորդ գործարկման ժամանակ։</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>HIDMaestro-ի հեռացումը դադարեցվեց։ Փակեք {0}, ապա նորից ապատեղադրեք։</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro-ն մասամբ հեռացվեց։ Ցանկում երևում է, թե ինչն է մնացել և ինչու։</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Սարքերի ցանկը թարմացվեց։</value></data>
@@ -433,7 +433,7 @@
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Ապատեղադրել HIDMaestro-ն</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Սա հեռացնում է HIDMaestro-ն այս համակարգչից՝ նրա վիրտուալ կառավարիչները, դրայվերը, ստորագրման վկայագիրը, ռեեստրի բանալիներն ու ֆայլերը։ PadForge-ը նախ կանգնեցնում է իր մեխանիզմը։ HIDMaestro-ն օգտագործող այլ ծրագրեր կորցնում են նրա դրայվերը մինչև հաջորդ գործարկումը։ PadForge-ը նորից տեղադրում է այն հաջորդ անգամ վիրտուալ կառավարիչ գործարկելիս։</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Հեռացնել նաև usbip-win2-ը, որը տեղադրվել է իր սեփական տեղադրիչով</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>PadForge-ի հին տարբերակները usbip-win2-ը տեղադրել են նրա սեփական տեղադրիչով։ Սա հեռացնում է նաև այդ տեղադրումը, եթե usbip-win2-ն այլ ծրագիր չի օգտագործում։ Նրա USB արմատային հանգույցի զտիչը մնում է, քանի որ այն հեռացնելը վերագործարկում է բոլոր USB արմատային հանգույցները։</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>PadForge-ի հին տարբերակները usbip-win2-ը տեղադրել են նրա սեփական տեղադրիչով։ Սա հեռացնում է նաև այդ տեղադրումը՝ ներառյալ նրա USB արմատային հանգույցի զտիչը, եթե usbip-win2-ն այլ ծրագրեր չեն օգտագործում։ Զտիչը հեռացնելը վերագործարկում է USB 3 բոլոր արմատային հանգույցները, ուստի USB սարքերը մի պահ անջատվում են։</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Ընթերցվում է, թե HIDMaestro-ն ինչ է թողել այս համակարգչում…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro-ն այս համակարգչում հեռացնելու ոչինչ չի թողել։</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Այս ծրագրերն օգտագործում են HIDMaestro-ն։ Փակեք դրանք, ապա սեղմեք «Թարմացնել»։</value></data>

@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR inaendesha. Ifunge kabla ya kuondoa usakinishaji.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Inaondoa HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>HIDMaestro imeondolewa.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro imeondolewa. Windows itafuta faili zake za mwisho itakapoanza tena.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>HIDMaestro imeondolewa. Windows hukamilisha uondoaji itakapoanza tena.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Uondoaji wa HIDMaestro umesimama. Funga {0}, kisha ondoa usakinishaji tena.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro imeondolewa kwa sehemu. Orodha inaonyesha kilichobaki na sababu.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Orodha ya vifaa imeonyeshwa upya.</value></data>
@@ -431,7 +431,7 @@ Nakala ya toleo la awali iko kwenye folda hii: {1}</value></data>
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Ondoa usakinishaji wa HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Hii huondoa HIDMaestro kwenye kompyuta hii: vidhibiti vyake pepe, kiendeshi, cheti cha kusaini, funguo za rejista na faili. PadForge husimamisha injini yake kwanza. Programu nyingine zinazotumia HIDMaestro zitapoteza kiendeshi chake hadi zitakapoanza tena. PadForge huisakinisha tena itakapoanzisha kidhibiti pepe tena.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Ondoa pia usbip-win2 iliyosakinishwa kwa kisakinishi chake</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Matoleo ya zamani ya PadForge yalisakinisha usbip-win2 kwa kisakinishi cha usbip-win2. Hii huondoa usakinishaji huo pia, isipokuwa programu nyingine inatumia usbip-win2. Kichujio chake cha USB root hub kinabaki, kwa sababu kukiondoa huanzisha upya kila USB root hub.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Matoleo ya zamani ya PadForge yalisakinisha usbip-win2 kwa kisakinishi cha usbip-win2. Hii huondoa usakinishaji huo pia, pamoja na kichujio chake cha USB root hub, isipokuwa programu nyingine inatumia usbip-win2. Kuondoa kichujio huanzisha upya kila USB 3 root hub, kwa hiyo vifaa vya USB hukatika kwa muda mfupi.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Inasoma vilivyobaki vya HIDMaestro kwenye kompyuta hii…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro haikuacha chochote cha kuondoa kwenye kompyuta hii.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Programu hizi zinatumia HIDMaestro. Zifunge, kisha chagua Onyesha upya.</value></data>

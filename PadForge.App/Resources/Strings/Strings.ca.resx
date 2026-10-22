@@ -168,7 +168,7 @@
   <data name="Status_SteamVRRunningCloseFirst" xml:space="preserve"><value>SteamVR s'està executant. Tanca'l abans de desinstal·lar-lo.</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>S'està eliminant HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>S'ha eliminat HIDMaestro.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>S'ha eliminat HIDMaestro. Windows suprimeix els últims fitxers la propera vegada que s'inicia.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>S'ha eliminat HIDMaestro. Windows acaba l'eliminació la propera vegada que s'inicia.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>S'ha aturat l'eliminació de HIDMaestro. Tanca {0} i torna a desinstal·lar.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>HIDMaestro s'ha eliminat només en part. La llista mostra què s'ha quedat i per què.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>S'ha actualitzat la llista de dispositius.</value></data>
@@ -431,7 +431,7 @@ Hi ha una còpia de la versió anterior en aquesta carpeta: {1}</value></data>
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Desinstal·la HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Això elimina HIDMaestro d'aquest PC: els comandaments virtuals, el controlador, el certificat de signatura, les claus del registre i els fitxers. PadForge n'atura primer el motor. Els altres programes que fan servir HIDMaestro perden el seu controlador fins que es tornin a iniciar. PadForge el torna a instal·lar la propera vegada que inicia un comandament virtual.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Elimina també usbip-win2 instal·lat amb el seu propi instal·lador</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Les versions antigues de PadForge instal·laven usbip-win2 amb el seu instal·lador propi. Això també elimina aquesta instal·lació, tret que un altre programa faci servir usbip-win2. El filtre del concentrador arrel USB es queda, perquè eliminar-lo reinicia tots els concentradors arrel USB.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Les versions antigues de PadForge instal·laven usbip-win2 amb el seu instal·lador propi. Això també elimina aquesta instal·lació, inclòs el seu filtre del concentrador arrel USB, tret que un altre programa faci servir usbip-win2. Eliminar el filtre reinicia tots els concentradors arrel USB 3, de manera que els dispositius USB es desconnecten un moment.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>S'està llegint què ha deixat HIDMaestro en aquest PC…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>HIDMaestro no ha deixat res per eliminar en aquest PC.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Aquests programes fan servir HIDMaestro. Tanca'ls i després selecciona Actualitza.</value></data>

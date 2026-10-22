@@ -114,7 +114,7 @@
   <data name="Status_DownloadingSteamVR" xml:space="preserve"><value>Maka ny SteamVR…</value></data>
   <data name="Status_RemovingHIDMaestro" xml:space="preserve"><value>Manala ny HIDMaestro…</value></data>
   <data name="Status_HIDMaestroRemoved" xml:space="preserve"><value>Voaala ny HIDMaestro.</value></data>
-  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Voaala ny HIDMaestro. Hofafan'ny Windows ireo rakitra farany sisa rehefa manomboka indray izy.</value></data>
+  <data name="Status_HIDMaestroRemovedRestart" xml:space="preserve"><value>Voaala ny HIDMaestro. Ho vitain'ny Windows ny fanesorana rehefa manomboka indray izy.</value></data>
   <data name="Status_HIDMaestroRemovalBlocked_Format" xml:space="preserve"><value>Nijanona ny fanalana ny HIDMaestro. Akatony {0}, dia esory indray.</value></data>
   <data name="Status_HIDMaestroRemovalFailed" xml:space="preserve"><value>Ampahany ihany no voaala tamin'ny HIDMaestro. Asehon'ny lisitra izay nijanona sy ny antony.</value></data>
   <data name="Status_DeviceListRefreshed" xml:space="preserve"><value>Nohavaozina ny lisitry ny fitaovana.</value></data>
@@ -165,7 +165,7 @@
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>Esory ny HIDMaestro</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Manala ny HIDMaestro amin'ity PC ity izany: ireo contrôleur virtoaly, pilote, certificat fanaovan-tsonia, fanalahidy ao amin'ny registre ary rakitra. Ajanon'ny PadForge aloha ny moterany. Tsy manana ny pilote-ny intsony ireo programa hafa mampiasa ny HIDMaestro mandra-panombohany indray. Apetraky ny PadForge indray izy amin'ny manaraka hanombohany contrôleur virtoaly.</value></data>
   <data name="HIDMaestroUninstall_IncludeUsbip" xml:space="preserve"><value>Esory koa ny usbip-win2 napetraky ny installer azy manokana</value></data>
-  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Ireo kinova PadForge taloha dia nametraka ny usbip-win2 tamin'ny installer an'ny usbip-win2. Esorin'ity koa izany fametrahana izany, raha tsy misy programa hafa mampiasa ny usbip-win2. Mijanona ny filtre an'ny USB root hub, satria ny fanesorana azy dia mamerina manomboka ny USB root hub rehetra.</value></data>
+  <data name="HIDMaestroUninstall_IncludeUsbipDesc" xml:space="preserve"><value>Ireo kinova PadForge taloha dia nametraka ny usbip-win2 tamin'ny installer an'ny usbip-win2. Esorin'ity koa izany fametrahana izany, miaraka amin'ny filtre an'ny USB root hub, raha tsy misy programa hafa mampiasa ny usbip-win2. Ny fanesorana ny filtre dia mamerina manomboka ny USB 3 root hub rehetra, ka tapaka vetivety ny fitaovana USB.</value></data>
   <data name="HIDMaestroUninstall_Reading" xml:space="preserve"><value>Mamaky izay navelan'ny HIDMaestro teto amin'ity PC ity…</value></data>
   <data name="HIDMaestroUninstall_Nothing" xml:space="preserve"><value>Tsy nisy navelan'ny HIDMaestro teto amin'ity PC ity hesorina.</value></data>
   <data name="HIDMaestroUninstall_Blocked" xml:space="preserve"><value>Mampiasa ny HIDMaestro ireto programa ireto. Akatony izy ireo, avy eo safidio "Havaozy".</value></data>
