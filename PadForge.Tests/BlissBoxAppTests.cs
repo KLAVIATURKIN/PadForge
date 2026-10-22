@@ -1508,7 +1508,7 @@ namespace PadForge.Tests
             // stop, under the gate relayed frames take.
             Assert.Contains("bool impulse = !peer && !padix && !blissBox", code);
             Assert.Contains("lock (row.OutputSync)", code);
-            Assert.Contains("Buzz(0, 0);\n                                ushort lt = fs?.LeftTriggerMotorSpeed ?? 0, rt = fs?.RightTriggerMotorSpeed ?? 0;\n                                if (_inputManager?.OutputsQuiesced == true && (left | right | lt | rt) != 0) return;\n                                PadForge.Common.Input.XboxImpulseHidWriter.Write(row, left, right, lt, rt);", code);
+            Assert.Contains("Buzz(0, 0);\n                                ushort lt = fs?.LeftTriggerMotorSpeed ?? 0, rt = fs?.RightTriggerMotorSpeed ?? 0;\n                                if (_inputManager?.OutputsQuiesced == true && (left | right | lt | rt) != 0) return;\n                                PadForge.Common.Input.XboxImpulseHidWriter.Write(row, left, right, lt, rt, force: true);", code);
             // A row removed during the last pulse gets a stop, as does a peer
             // row, whose level belongs to the relay.
             Assert.Contains("if (row == null || peer) { Buzz(0, 0); return; }", code);

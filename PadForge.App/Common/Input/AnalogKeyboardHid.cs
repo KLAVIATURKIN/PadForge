@@ -386,25 +386,11 @@ namespace PadForge.Common.Input
         }
 
         /// <summary>True while Razer Synapse runs, the process check Soup's
-        /// areRazerAnalogueReportsEnabled makes.</summary>
+        /// areRazerAnalogueReportsEnabled makes, from one walk of the process
+        /// list for both names. Worker threads only:
+        /// <see cref="AnalogKeyboardDevice.SynapseCheck"/> runs it.</summary>
         internal static bool IsSynapseRunning()
-        {
-            foreach (string name in AnalogKeyboardCatalog.SynapseProcessNames)
-            {
-                System.Diagnostics.Process[] found = null;
-                try
-                {
-                    found = System.Diagnostics.Process.GetProcessesByName(name);
-                    if (found.Length > 0) return true;
-                }
-                catch { }
-                finally
-                {
-                    if (found != null) foreach (var p in found) p.Dispose();
-                }
-            }
-            return false;
-        }
+            => ProcessPresence.RunningAmong(AnalogKeyboardCatalog.SynapseProcessNames).Count > 0;
 
         internal const int HidP_Input = 0;
         internal const int HidP_Output = 1;

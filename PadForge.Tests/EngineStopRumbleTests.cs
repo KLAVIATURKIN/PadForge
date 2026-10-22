@@ -16,7 +16,7 @@ namespace PadForge.Tests
             string code = RepoText("PadForge.App", "Common", "Input", "InputManager.cs");
             int sweep = code.IndexOf("private void StopAllForceFeedback()", StringComparison.Ordinal);
             Assert.True(sweep > 0);
-            int zero = code.IndexOf("try { XboxImpulseHidWriter.Write(ud, 0, 0, 0, 0); }", sweep, StringComparison.Ordinal);
+            int zero = code.IndexOf("try { XboxImpulseHidWriter.Write(ud, 0, 0, 0, 0, force: true); }", sweep, StringComparison.Ordinal);
             int sdl = code.IndexOf("try { ud.ForceFeedbackState.StopDeviceForces(ud.Device); }", sweep, StringComparison.Ordinal);
             Assert.True(zero > sweep && sdl > zero, "the raw zero must come before the stop that clears the record it reads");
             Assert.Contains("if (ud.ForceFeedbackState.IsActive\n                                && PadForge.Engine.XboxControllerIdentity.IsImpulseTriggerDevice(ud.VendorId, ud.ProdId))", code);

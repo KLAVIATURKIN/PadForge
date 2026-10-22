@@ -59,7 +59,8 @@ namespace PadForge.Common.Input
             ushort leftMotor16,
             ushort rightMotor16,
             ushort leftTrigger16,
-            ushort rightTrigger16)
+            ushort rightTrigger16,
+            bool force = false)
         {
             if (ud == null) return false;
             if (!XboxControllerIdentity.IsImpulseTriggerDevice(ud.VendorId, ud.ProdId))
@@ -97,9 +98,19 @@ namespace PadForge.Common.Input
                 s_targets.TryRemove(ud.DevicePath, out _);
             }
 
-            string interfacePath = ResolveInterfacePath(ud);
-            if (string.IsNullOrEmpty(interfacePath))
+            // A pad whose last resolve, open or write failed waits out the
+            // cooldown. The poll thread re-arms a refused write every frame,
+            // and each try ran the XUSB interface sweep with a probe open per
+            // interface, so a pad whose interface would not open swept at
+            // the poll rate. A stop or a user's test passes force and tries
+            // at once.
+            long now = Environment.TickCount64;
+            if (!force && s_retryAt.TryGetValue(ud.DevicePath, out long retryAt) && now < retryAt)
                 return false;
+
+            string interfacePath = Resolver(ud);
+            if (string.IsNullOrEmpty(interfacePath))
+                return Failed(ud.DevicePath, now);
 
             var handle = CreateFileSafe(
                 interfacePath,
@@ -107,11 +118,12 @@ namespace PadForge.Common.Input
                 FILE_SHARE_READ | FILE_SHARE_WRITE,
                 0); // synchronous open, matching X1nput
             if (handle.IsInvalid)
-                return false;
+                return Failed(ud.DevicePath, now);
 
             bool ok = WriteFile(handle, buf, (uint)buf.Length, out _, IntPtr.Zero);
             if (ok)
             {
+                s_retryAt.TryRemove(ud.DevicePath, out _);
                 // TryAdd, not the indexer: if the other caller cached this
                 // same device between our miss and here, its handle is as
                 // good as ours, so drop ours rather than orphan it under an
@@ -123,8 +135,33 @@ namespace PadForge.Common.Input
                 return true;
             }
             handle.Dispose();
+            return Failed(ud.DevicePath, now);
+        }
+
+        /// <summary>How long a pad whose resolve, open or write failed waits
+        /// before Write tries it again.</summary>
+        internal const long FailedRetryCooldownMs = 1000;
+
+        /// <summary>The XUSB interface lookup Write runs on a miss,
+        /// <see cref="ResolveInterfacePath"/>. Tests replace it.</summary>
+        internal static Func<UserDevice, string> Resolver = ResolveInterfacePath;
+
+        /// <summary>Per device path, the time before which Write does not try
+        /// again after a failure. Cleared by <see cref="InvalidateCachedTargets"/>,
+        /// since a device change can make the interface resolvable.</summary>
+        private static readonly System.Collections.Concurrent.ConcurrentDictionary<string, long> s_retryAt =
+            new(StringComparer.OrdinalIgnoreCase);
+
+        private static bool Failed(string devicePath, long now)
+        {
+            s_retryAt[devicePath] = now + FailedRetryCooldownMs;
             return false;
         }
+
+        /// <summary>Whether a failure holds <paramref name="devicePath"/> in
+        /// its cooldown at <paramref name="now"/>. For tests.</summary>
+        internal static bool CoolingDown(string devicePath, long now)
+            => s_retryAt.TryGetValue(devicePath, out long retryAt) && now < retryAt;
 
         private sealed class CachedTarget
         {
@@ -162,6 +199,7 @@ namespace PadForge.Common.Input
                 try { kv.Value?.Handle?.Dispose(); } catch { /* best effort */ }
             }
             s_targets.Clear();
+            s_retryAt.Clear();
         }
 
         // Same two-caller reason: per-thread, so a local write and a remote

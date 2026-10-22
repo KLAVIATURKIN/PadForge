@@ -152,18 +152,13 @@ namespace PadForge.Services
                 if (hwnd == _lastFgHwnd && pid == _lastFgPid)
                     return _lastFgPath;
 
-                string path;
-                try
-                {
-                    using var proc = Process.GetProcessById((int)pid);
-                    path = proc.MainModule?.FileName;
-                }
-                catch
-                {
-                    // Elevated / protected target: cache the null so the
-                    // failing open isn't retried 30x a second either.
-                    path = null;
-                }
+                // A limited query, the access Windows still grants for a
+                // protected process. MainModule needs memory-read access,
+                // which such a process refuses, so its path was null and its
+                // profile rule never matched, and GetProcessById walks every
+                // process when it cannot open its target. A null is cached
+                // too, so a failing query isn't retried 30x a second.
+                string path = PadForge.Common.Input.ProcessImage.PathOf(pid);
                 _lastFgHwnd = hwnd;
                 _lastFgPid = pid;
                 _lastFgPath = path;

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -82,16 +83,18 @@ namespace PadForge.Services
         internal static readonly string[] HostProcesses = { "lghub_agent", "lgs", "LCore" };
 
         /// <summary>The first of <see cref="HostProcesses"/> running, or
-        /// null.</summary>
+        /// null, from one walk of the process list. It took a walk per name,
+        /// three while G HUB is closed, at 230 to 290 ms each on a PC with
+        /// about 480 processes.</summary>
         internal static string RunningHost()
+            => FirstRunning(PadForge.Common.Input.ProcessPresence.RunningAmong(HostProcesses));
+
+        /// <summary>The first of <see cref="HostProcesses"/>, in their order,
+        /// that <paramref name="running"/> holds, or null.</summary>
+        internal static string FirstRunning(ICollection<string> running)
         {
             foreach (string name in HostProcesses)
-            {
-                var procs = Process.GetProcessesByName(name);
-                bool any = procs.Length > 0;
-                foreach (var p in procs) p.Dispose();
-                if (any) return name;
-            }
+                if (running.Contains(name)) return name;
             return null;
         }
 

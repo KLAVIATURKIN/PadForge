@@ -47,6 +47,13 @@ namespace PadForge.Common.Input
         /// <summary>How often a Razer row checks that Synapse still runs.</summary>
         private const int SynapseCheckIntervalMs = 2000;
 
+        /// <summary>The one Synapse check every Razer row's reader asks. Its
+        /// process walk runs on a worker. On the reader it froze the keyboard's
+        /// reads for one walk per Synapse name, about 500 ms of every 2 s
+        /// while Synapse was closed, on a PC with about 480 processes.</summary>
+        internal static readonly PeriodicWorkerCheck SynapseCheck =
+            new PeriodicWorkerCheck(AnalogKeyboardHidRuntime.IsSynapseRunning, SynapseCheckIntervalMs);
+
         /// <summary>How long a normal stop waits for the reader to finish its
         /// pass and let the route undo what it changed on the keyboard, before
         /// it cancels the I/O outright.</summary>
@@ -394,21 +401,22 @@ namespace PadForge.Common.Input
             var pass = new AnalogKeyInputState();
             Func<int, bool> isHeld = IsHeldByWindows;
             int misses = 0;
-            long nextSynapseCheck = 0;
+            long synapseApplied = 0;
             int minInterval = session is AnalogKeyboardPoller ? PollPeriodMs : 0;
             while (!_stopRequested)
             {
                 if (session.NeedsSynapse)
                 {
-                    long now = Environment.TickCount64;
-                    if (now >= nextSynapseCheck)
+                    // Each finished check is applied once, so a row resets as
+                    // often as it did when it ran the check itself.
+                    var synapse = SynapseCheck.Poll(Environment.TickCount64);
+                    if (synapse != null && synapse.Generation != synapseApplied)
                     {
-                        nextSynapseCheck = now + SynapseCheckIntervalMs;
-                        bool running = AnalogKeyboardHidRuntime.IsSynapseRunning();
-                        _synapseRunning = running;
+                        synapseApplied = synapse.Generation;
+                        _synapseRunning = synapse.Value;
                         // Without Synapse the keyboard stops reporting, and a
                         // key held at that moment would stay down forever.
-                        if (!running)
+                        if (!synapse.Value)
                         {
                             pass.ResetForReuse();
                             lock (_stateLock) _live.ResetForReuse();

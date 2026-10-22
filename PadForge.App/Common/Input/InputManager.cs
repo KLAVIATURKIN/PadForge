@@ -2431,7 +2431,7 @@ namespace PadForge.Common.Input
                             if (ud.ForceFeedbackState.IsActive
                                 && PadForge.Engine.XboxControllerIdentity.IsImpulseTriggerDevice(ud.VendorId, ud.ProdId))
                             {
-                                try { XboxImpulseHidWriter.Write(ud, 0, 0, 0, 0); }
+                                try { XboxImpulseHidWriter.Write(ud, 0, 0, 0, 0, force: true); }
                                 catch { /* best effort */ }
                             }
                             // A Bliss-Box port's SDL rumble is inert while the

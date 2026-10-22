@@ -17373,7 +17373,7 @@ namespace PadForge.Services
                                 Buzz(0, 0);
                                 ushort lt = fs?.LeftTriggerMotorSpeed ?? 0, rt = fs?.RightTriggerMotorSpeed ?? 0;
                                 if (_inputManager?.OutputsQuiesced == true && (left | right | lt | rt) != 0) return;
-                                PadForge.Common.Input.XboxImpulseHidWriter.Write(row, left, right, lt, rt);
+                                PadForge.Common.Input.XboxImpulseHidWriter.Write(row, left, right, lt, rt, force: true);
                             }
                         }
                         for (int i = 0; i < 2; i++)

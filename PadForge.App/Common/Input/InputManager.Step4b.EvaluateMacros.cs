@@ -197,9 +197,11 @@ namespace PadForge.Common.Input
                         if (!TryGetSessionProcessId(pSession, out uint pid) || pid == 0)
                             continue;
 
-                        using var proc = System.Diagnostics.Process.GetProcessById((int)pid);
-                        if (seen.Add(proc.ProcessName))
-                            names.Add(proc.ProcessName);
+                        // One limited query of this process. ProcessName on a
+                        // process it cannot open walks every process.
+                        string name = PadForge.Common.Input.ProcessImage.NameOf(pid);
+                        if (name != null && seen.Add(name))
+                            names.Add(name);
                     }
                     catch { }
                     finally
@@ -2473,7 +2475,7 @@ namespace PadForge.Common.Input
                     float vol = useDevice ? ReadAxisFromDevice(action)
                         : ReadAxisAsVolume(in gp, action.AxisTarget);
                     if (action.InvertAxis) vol = 1f - vol;
-                    SetSystemVolume(vol * (action.VolumeLimit / 100f), action.ShowVolumeOsd);
+                    PostSystemVolume(vol * (action.VolumeLimit / 100f), action.ShowVolumeOsd);
                     break;
                 }
                 case MacroActionType.AppVolume:
@@ -2482,7 +2484,7 @@ namespace PadForge.Common.Input
                         float vol = useDevice ? ReadAxisFromDevice(action)
                             : ReadAxisAsVolume(in gp, action.AxisTarget);
                         if (action.InvertAxis) vol = 1f - vol;
-                        SetAppVolume(vol * (action.VolumeLimit / 100f), action.ProcessName);
+                        PostAppVolume(vol * (action.VolumeLimit / 100f), action.ProcessName);
                     }
                     break;
                 case MacroActionType.MouseMove:
@@ -5110,7 +5112,7 @@ namespace PadForge.Common.Input
                     float vol = useDevice ? ReadAxisFromDevice(action)
                         : ReadAxisAsVolumeRaw(in raw, action.AxisTarget);
                     if (action.InvertAxis) vol = 1f - vol;
-                    SetSystemVolume(vol * (action.VolumeLimit / 100f), action.ShowVolumeOsd);
+                    PostSystemVolume(vol * (action.VolumeLimit / 100f), action.ShowVolumeOsd);
                     break;
                 }
                 case MacroActionType.AppVolume:
@@ -5119,7 +5121,7 @@ namespace PadForge.Common.Input
                         float vol = useDevice ? ReadAxisFromDevice(action)
                             : ReadAxisAsVolumeRaw(in raw, action.AxisTarget);
                         if (action.InvertAxis) vol = 1f - vol;
-                        SetAppVolume(vol * (action.VolumeLimit / 100f), action.ProcessName);
+                        PostAppVolume(vol * (action.VolumeLimit / 100f), action.ProcessName);
                     }
                     break;
                 case MacroActionType.MouseMove:
@@ -5839,6 +5841,124 @@ namespace PadForge.Common.Input
         }
 
         // ─────────────────────────────────────────────
+        //  Volume macro lane
+        // ─────────────────────────────────────────────
+
+        // The System Volume and App Volume actions run every frame while their
+        // macro is active, and applying them on the poll thread put the audio
+        // service's calls there: an endpoint write per change, four volume
+        // keys and a second write for the OSD, and for App Volume a pass over
+        // every audio session that named each session's process. The poll
+        // thread now posts the newest target, and a worker applies the posted
+        // targets every VolumeWorkerPeriodMs through the same SetSystemVolume
+        // and SetAppVolume, whose change detection, OSD correction window and
+        // retry cooldowns are all measured in time and hold as they were.
+        private readonly object _volumeLock = new();
+        private bool _systemVolumePosted;
+        private float _systemVolumeTarget;
+        private bool _systemVolumeOsd;
+        private readonly Dictionary<string, float> _appVolumePosted = new(StringComparer.OrdinalIgnoreCase);
+        private long _volumePostedMs;
+        private bool _volumeWorkerRunning;
+
+        /// <summary>How often the volume worker applies the posted targets.
+        /// Tests shorten it.</summary>
+        internal int VolumeWorkerPeriodMs = 5;
+
+        /// <summary>How long the volume worker runs on with nothing posted
+        /// before it ends. Tests shorten it.</summary>
+        internal int VolumeWorkerIdleMs = 2_000;
+
+        /// <summary>What the worker runs for a posted target, SetSystemVolume
+        /// and SetAppVolume when null. Tests replace them.</summary>
+        internal Action<float, bool> SystemVolumeApply;
+        internal Action<float, string> AppVolumeApply;
+
+        /// <summary>Posts the System Volume target for the worker. Never
+        /// waits on the audio service. Poll thread.</summary>
+        internal void PostSystemVolume(float volume, bool showOsd)
+        {
+            lock (_volumeLock)
+            {
+                _systemVolumeTarget = volume;
+                _systemVolumeOsd = showOsd;
+                _systemVolumePosted = true;
+                NoteVolumePostLocked();
+            }
+        }
+
+        /// <summary>Posts the App Volume target for one process. Never waits
+        /// on the audio service. Poll thread.</summary>
+        internal void PostAppVolume(float volume, string processName)
+        {
+            lock (_volumeLock)
+            {
+                _appVolumePosted[processName] = volume;
+                NoteVolumePostLocked();
+            }
+        }
+
+        private void NoteVolumePostLocked()
+        {
+            _volumePostedMs = Environment.TickCount64;
+            if (_volumeWorkerRunning) return;
+            _volumeWorkerRunning = true;
+            new Thread(VolumeWorker) { IsBackground = true, Name = "PadForge Volume" }.Start();
+        }
+
+        /// <summary>Applies the targets posted since its last pass, one pass
+        /// every VolumeWorkerPeriodMs, and ends once nothing has been posted
+        /// for VolumeWorkerIdleMs. The only caller of SetSystemVolume and
+        /// SetAppVolume, so their state has one thread.</summary>
+        private void VolumeWorker()
+        {
+            var apps = new List<KeyValuePair<string, float>>();
+            while (true)
+            {
+                bool system;
+                float systemTarget;
+                bool osd;
+                apps.Clear();
+                lock (_volumeLock)
+                {
+                    if (!_systemVolumePosted && _appVolumePosted.Count == 0
+                        && Environment.TickCount64 - _volumePostedMs >= VolumeWorkerIdleMs)
+                    {
+                        _volumeWorkerRunning = false;
+                        return;
+                    }
+                    system = _systemVolumePosted;
+                    systemTarget = _systemVolumeTarget;
+                    osd = _systemVolumeOsd;
+                    _systemVolumePosted = false;
+                    apps.AddRange(_appVolumePosted);
+                    _appVolumePosted.Clear();
+                }
+                if (system)
+                {
+                    try
+                    {
+                        var apply = SystemVolumeApply;
+                        if (apply != null) apply(systemTarget, osd);
+                        else SetSystemVolume(systemTarget, osd);
+                    }
+                    catch { }
+                }
+                foreach (var app in apps)
+                {
+                    try
+                    {
+                        var apply = AppVolumeApply;
+                        if (apply != null) apply(app.Value, app.Key);
+                        else SetAppVolume(app.Value, app.Key);
+                    }
+                    catch { }
+                }
+                Thread.Sleep(VolumeWorkerPeriodMs);
+            }
+        }
+
+        // ─────────────────────────────────────────────
         //  System volume control for SystemVolume macro action
         // ─────────────────────────────────────────────
 
@@ -5986,13 +6106,11 @@ namespace PadForge.Common.Input
                         if (!AudioSessionHelper.TryGetSessionProcessId(pSession, out uint pid) || pid == 0)
                             continue;
 
-                        string exeName;
-                        try
-                        {
-                            using var proc = Process.GetProcessById((int)pid);
-                            exeName = proc.ProcessName;
-                        }
-                        catch { continue; }
+                        // One limited query of this process. ProcessName on a
+                        // process it cannot open walks every process, 245 to
+                        // 639 ms on a PC with about 480 processes.
+                        string exeName = ProcessImage.NameOf(pid);
+                        if (exeName == null) continue;
 
                         if (!exeName.Equals(processName, StringComparison.OrdinalIgnoreCase))
                             continue;

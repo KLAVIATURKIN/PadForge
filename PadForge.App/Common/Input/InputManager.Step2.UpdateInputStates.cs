@@ -832,7 +832,7 @@ namespace PadForge.Common.Input
                         {
                             if (isXboxImpulse)
                             {
-                                XboxImpulseHidWriter.Write(ud, 0, 0, 0, 0);
+                                XboxImpulseHidWriter.Write(ud, 0, 0, 0, 0, force: true);
                                 ud.ForceFeedbackState.TryRecordXboxImpulseSnapshot(0, 0, 0, 0);
                             }
                             else if (isPadixConverter)
