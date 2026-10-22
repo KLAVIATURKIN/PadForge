@@ -1504,7 +1504,7 @@ namespace PadForge.Common
             string dir = GetOwnedSteamVrDir()
                 ?? throw new DriverCheckException(DriverCheckFailure.NoOwnedSteamVr,
                     "PadForge has no SteamVR install of its own to remove.");
-            if (Process.GetProcessesByName("vrserver").Length > 0)
+            if (PadForge.Common.Input.ProcessPresence.RunningAmong(new[] { "vrserver" }).Count > 0)
                 throw new DriverCheckException(DriverCheckFailure.SteamVrRunning, "SteamVR is running.");
             // Independent of the install-side refusal: the hint is a plain
             // registry value anyone can edit, and this is the line that

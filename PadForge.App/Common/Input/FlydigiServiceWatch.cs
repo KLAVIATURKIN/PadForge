@@ -56,18 +56,20 @@ namespace PadForge.Common.Input
         public static bool Refresh()
         {
             string before = _running;
-            Process[] procs = null;
             try
             {
                 var found = new List<string>();
                 var details = new List<string>();
                 var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-                procs = Process.GetProcesses();
-                foreach (var p in procs)
+                var running = RunningProcessList.Read();
+                if (running == null)
                 {
-                    string n;
-                    try { n = p.ProcessName; }
-                    catch { continue; }
+                    _detail = "scan-failed";
+                    return false;
+                }
+                foreach (var p in running)
+                {
+                    string n = p.Name;
                     string canonical = null;
                     foreach (var name in Names)
                         if (string.Equals(n, name, StringComparison.OrdinalIgnoreCase)) { canonical = name; break; }
@@ -85,11 +87,6 @@ namespace PadForge.Common.Input
             {
                 _detail = "scan-failed " + ex.GetType().Name;
             }
-            finally
-            {
-                if (procs != null)
-                    foreach (var p in procs) { try { p.Dispose(); } catch { } }
-            }
             return !string.Equals(before, _running, StringComparison.Ordinal);
         }
 
@@ -103,16 +100,15 @@ namespace PadForge.Common.Input
             string backend, string devicePath, string serviceDetail, string hidHideSnapshot)
             => $"FLYDIGI arrival {vendorId:X4}:{productId:X4} sdl={sdlInstanceId} backend={backend} path={devicePath} service=[{serviceDetail}] {hidHideSnapshot}";
 
-        private static string Describe(Process p, string name)
+        private static string Describe(RunningProcessList.Entry p, string name)
         {
-            // MainModule needs access the caller may not have for a SYSTEM
-            // service even when elevated. The name and pid always print.
-            string path = "", version = "";
+            // The path comes from the limited query that named the process,
+            // which a SYSTEM service answers. The version is read from the
+            // file. The name and pid always print.
+            string path = p.Path ?? "", version = "";
             try
             {
-                var mm = p.MainModule;
-                path = mm?.FileName ?? "";
-                version = mm?.FileVersionInfo?.FileVersion ?? "";
+                if (path.Length > 0) version = FileVersionInfo.GetVersionInfo(path).FileVersion ?? "";
             }
             catch { }
             return path.Length > 0

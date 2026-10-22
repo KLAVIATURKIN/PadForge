@@ -777,7 +777,10 @@ namespace PadForge
             // explicit confirm naming the exact directory.
             _viewModel.Settings.UninstallSteamVrRequested += async (s, e) =>
             {
-                if (System.Diagnostics.Process.GetProcessesByName("vrserver").Length > 0)
+                // One limited query per process, about 7 ms. A walk of the
+                // kernel's process records cost 240 to 360 ms on a PC with
+                // 9,000 threads, on this, the UI thread.
+                if (PadForge.Common.Input.ProcessPresence.RunningAmong(new[] { "vrserver" }).Count > 0)
                 {
                     _viewModel.SetStatus(Strings.Instance.Status_SteamVRRunningCloseFirst, persist: true);
                     return;

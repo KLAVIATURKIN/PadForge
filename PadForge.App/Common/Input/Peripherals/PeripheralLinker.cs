@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Threading;
 using Microsoft.Win32;
 using PadForge.Engine;
@@ -188,15 +187,14 @@ namespace PadForge.Common.Input.Peripherals
     /// every pass while a vendor's program could take a device PadForge
     /// lights on its own.
     ///
-    /// <para>What that read costs is the process snapshot. Measured on the
-    /// bench PC with 500 to 590 processes running: one Toolhelp snapshot
-    /// takes 14 ms in a harness of its own, 11.5 ms of it in
-    /// CreateToolhelp32Snapshot and the close of its handle, and 23 to
-    /// 36 ms in a test host beside other work. Taken on every 500 ms pass
-    /// that is 140 to 344 ms of the link thread in every 5 s for as long
-    /// as a device stays lit, where the read it replaced, three
-    /// Process.GetProcessesByName calls every 5 s, took 32 to 64 ms. The
-    /// list of process IDs alone (K32EnumProcesses) takes 0.02 ms.</para>
+    /// <para>What that read costs is the snapshot of process names. A
+    /// Toolhelp snapshot took 14 ms on one bench PC with 500 to 590
+    /// processes, and 358 ms of CPU on a PC with 404 processes and 8,884
+    /// threads, where one every 5 s held the link thread at 7 percent of a
+    /// core. The snapshot now names each process from the list of process
+    /// IDs (<see cref="RunningProcessList"/>), 7 ms on that same PC. The
+    /// list of process IDs alone (K32EnumProcesses) takes 0.02 to
+    /// 0.05 ms.</para>
     ///
     /// <para>So the fast read asks for that list first and compares it
     /// with the one seen at the last snapshot. The same IDs in the same
@@ -299,107 +297,32 @@ namespace PadForge.Common.Input.Peripherals
         }
     }
 
-    /// <summary>The image names of the running processes from one Toolhelp
-    /// snapshot, the way uncoil looks for Synapse (uncoil
-    /// apps/uncoild/src/conflicts.rs:77-100), in place of one
+    /// <summary>The image names of the running processes, from
+    /// <see cref="RunningProcessList"/>, in place of one
     /// Process.GetProcessesByName call per name, each of which walks every
     /// process on the PC and opens a handle to each match. Only the names
-    /// are read.</summary>
+    /// are kept.</summary>
     internal static class RunningProcesses
     {
         /// <summary>Every running process's image name, "lghub_agent.exe",
-        /// or null when the snapshot could not be taken.</summary>
+        /// or null when the list could not be read.</summary>
         internal static List<string> ImageNames()
         {
-            IntPtr snapshot;
-            try { snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0); }
-            catch { return null; }
-            if (snapshot == IntPtr.Zero || snapshot == new IntPtr(-1)) return null;
-            try
+            var running = RunningProcessList.Read();
+            if (running == null) return null;
+            var names = new List<string>(running.Count);
+            foreach (var process in running)
             {
-                var names = new List<string>(256);
-                var entry = new PROCESSENTRY32W { dwSize = (uint)Marshal.SizeOf<PROCESSENTRY32W>() };
-                for (bool more = Process32FirstW(snapshot, ref entry); more; more = Process32NextW(snapshot, ref entry))
-                    if (!string.IsNullOrEmpty(entry.szExeFile)) names.Add(entry.szExeFile);
-                return names;
+                string name = process.FileName;
+                if (!string.IsNullOrEmpty(name)) names.Add(name);
             }
-            catch
-            {
-                return null;
-            }
-            finally
-            {
-                CloseHandle(snapshot);
-            }
+            return names;
         }
 
         /// <summary>Every running process's ID, in the order Windows lists
-        /// them, or null when the list could not be read. One call that
-        /// fills an array: no handle is opened and no name is read, so it
-        /// costs a small part of what a snapshot does.</summary>
-        internal static uint[] ProcessIds()
-        {
-            try
-            {
-                var buffer = new uint[1024];
-                while (true)
-                {
-                    uint size = (uint)(buffer.Length * sizeof(uint));
-                    if (!K32EnumProcesses(buffer, size, out uint filled)) return null;
-                    if (filled < size)
-                    {
-                        var ids = new uint[filled / sizeof(uint)];
-                        Array.Copy(buffer, ids, ids.Length);
-                        return ids;
-                    }
-                    // A buffer filled to the end may have left IDs out, so
-                    // the list is read again with twice the room.
-                    if (buffer.Length >= 1 << 20) return null;
-                    buffer = new uint[buffer.Length * 2];
-                }
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        private const uint TH32CS_SNAPPROCESS = 0x00000002;
-
-        // tlhelp32.h: the name is MAX_PATH characters, and the heap ID is
-        // pointer-sized, which pads the struct on 64-bit Windows.
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-        private struct PROCESSENTRY32W
-        {
-            public uint dwSize;
-            public uint cntUsage;
-            public uint th32ProcessID;
-            public IntPtr th32DefaultHeapID;
-            public uint th32ModuleID;
-            public uint cntThreads;
-            public uint th32ParentProcessID;
-            public int pcPriClassBase;
-            public uint dwFlags;
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
-            public string szExeFile;
-        }
-
-        [DllImport("kernel32.dll", SetLastError = true)]
-        private static extern IntPtr CreateToolhelp32Snapshot(uint flags, uint processId);
-
-        [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        private static extern bool Process32FirstW(IntPtr snapshot, ref PROCESSENTRY32W entry);
-
-        [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        private static extern bool Process32NextW(IntPtr snapshot, ref PROCESSENTRY32W entry);
-
-        [DllImport("kernel32.dll", SetLastError = true)]
-        private static extern bool CloseHandle(IntPtr handle);
-
-        // The size and the count are in bytes, and a count equal to the
-        // size means the buffer may have been too small.
-        [DllImport("kernel32.dll", SetLastError = true)]
-        private static extern bool K32EnumProcesses([Out] uint[] processIds, uint size, out uint bytesReturned);
+        /// them, or null when the list could not be read
+        /// (<see cref="RunningProcessList.Ids"/>).</summary>
+        internal static uint[] ProcessIds() => RunningProcessList.Ids();
     }
 
     /// <summary>One device row as the linker sees it: an online mouse,

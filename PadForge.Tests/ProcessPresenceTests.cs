@@ -11,12 +11,16 @@ using Xunit;
 namespace PadForge.Tests
 {
     /// <summary>
-    /// A walk of the process list cost 230 to 290 ms on a PC with about 480
-    /// processes and 10,000 threads. These pin the two answers to that: one
-    /// walk for any number of names, and a check that runs on a worker so the
-    /// thread that asks never waits on it. The Razer Synapse check took one
-    /// walk per name on the analog keyboard's reader, which froze the
-    /// keyboard's reads, and the Logitech check took one walk per name.
+    /// A walk of the kernel's process records (Process.GetProcesses, a
+    /// Toolhelp snapshot) cost 230 to 360 ms on a PC with 400 to 480
+    /// processes and 9,000 to 10,000 threads. These pin the answers to that:
+    /// no walk at all, since the processes are named from the list of process
+    /// ids at about 7 ms (RunningProcessList), one read for any number of
+    /// names, and a check that runs on a worker so the thread that asks never
+    /// waits on it. The Razer Synapse check took one walk per name on the
+    /// analog keyboard's reader, which froze the keyboard's reads, and the
+    /// peripheral link, the Flydigi watch and the handheld watch held a core
+    /// at 20 percent and more with a walk every few seconds.
     /// </summary>
     public class ProcessPresenceTests
     {
@@ -44,6 +48,63 @@ namespace PadForge.Tests
 
             Assert.Single(found);
             Assert.Equal(asked, found.Single());
+        }
+
+        [Fact]
+        public void TheProcessList_NamesThisProcess_FromItsOwnQuery()
+        {
+            var ids = RunningProcessList.Ids();
+            Assert.NotNull(ids);
+            Assert.Contains((uint)Environment.ProcessId, ids);
+
+            var running = RunningProcessList.Read();
+            Assert.NotNull(running);
+            Assert.Equal(running.Count, running.Select(p => p.Id).Distinct().Count());
+            var me = Assert.Single(running, p => p.Id == (uint)Environment.ProcessId);
+            Assert.Equal(Environment.ProcessPath, me.Path, ignoreCase: true);
+            Assert.Equal(Path.GetFileName(Environment.ProcessPath), me.FileName, ignoreCase: true);
+            using var self = Process.GetCurrentProcess();
+            Assert.Equal(self.ProcessName, me.Name, ignoreCase: true);
+        }
+
+        [Theory]
+        [InlineData("lghub_agent.exe", "lghub_agent")]
+        [InlineData("LGHUB.EXE", "LGHUB")]
+        [InlineData("ArmouryCrate.Service.exe", "ArmouryCrate.Service")]
+        [InlineData("Flydigi Space Station.exe", "Flydigi Space Station")]
+        [InlineData("screensaver.scr", "screensaver.scr")]
+        [InlineData("vrserver", "vrserver")]
+        [InlineData(null, null)]
+        public void ShortName_DropsOnlyAFinalExe_AsProcessNameDoes(string fileName, string expected)
+            => Assert.Equal(expected, RunningProcessList.ShortName(fileName));
+
+        /// <summary>The class guard. A full walk of the kernel's process
+        /// records costs a few milliseconds on one PC and hundreds on another,
+        /// so no production code takes one: it reads RunningProcessList.
+        /// Comment lines may name the calls.</summary>
+        [Fact]
+        public void NoProductionCode_WalksTheKernelsProcessRecords()
+        {
+            string[] banned = { "GetProcesses(", "GetProcessesByName(", "CreateToolhelp32Snapshot", "Process32First", "Process32Next" };
+            var hits = new List<string>();
+            foreach (string project in new[] { "PadForge.App", "PadForge.Engine" })
+            {
+                string root = Path.Combine(RepoRoot(), project);
+                foreach (string file in Directory.EnumerateFiles(root, "*.cs", SearchOption.AllDirectories))
+                {
+                    string rel = Path.GetRelativePath(root, file);
+                    if (rel.StartsWith("bin" + Path.DirectorySeparatorChar) || rel.StartsWith("obj" + Path.DirectorySeparatorChar)) continue;
+                    var lines = File.ReadAllLines(file);
+                    for (int i = 0; i < lines.Length; i++)
+                    {
+                        string line = lines[i].TrimStart();
+                        if (line.StartsWith("//")) continue;
+                        foreach (string call in banned)
+                            if (line.Contains(call, StringComparison.Ordinal)) hits.Add($"{project}/{rel}:{i + 1}: {line}");
+                    }
+                }
+            }
+            Assert.True(hits.Count == 0, "process walks:\n" + string.Join("\n", hits));
         }
 
         [Fact]

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -36,20 +35,29 @@ namespace PadForge.Common.Input
         /// process is gone or answers no limited query.</summary>
         public static string PathOf(uint processId)
         {
+            char[] buffer = null;
+            return PathOf(processId, ref buffer);
+        }
+
+        /// <summary><see cref="PathOf(uint)"/> with a buffer the caller keeps
+        /// across calls, grown here when a path does not fit, so a walk of
+        /// every process allocates one buffer.</summary>
+        internal static string PathOf(uint processId, ref char[] buffer)
+        {
             if (processId == 0) return null;
             IntPtr handle = OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, false, processId);
             if (handle == IntPtr.Zero) return null;
             try
             {
-                for (uint capacity = 512; capacity <= 32768; capacity *= 4)
+                if (buffer == null || buffer.Length < 512) buffer = new char[512];
+                while (true)
                 {
-                    var buffer = new char[capacity];
-                    uint size = capacity;
+                    uint size = (uint)buffer.Length;
                     if (QueryFullProcessImageNameW(handle, 0, buffer, ref size))
                         return new string(buffer, 0, (int)size);
-                    if (Marshal.GetLastWin32Error() != ERROR_INSUFFICIENT_BUFFER) return null;
+                    if (Marshal.GetLastWin32Error() != ERROR_INSUFFICIENT_BUFFER || buffer.Length >= 32768) return null;
+                    buffer = new char[buffer.Length * 4];
                 }
-                return null;
             }
             finally { CloseHandle(handle); }
         }
@@ -64,12 +72,104 @@ namespace PadForge.Common.Input
     }
 
     /// <summary>
-    /// Which of a few named programs run, from one walk of the process list.
-    /// A walk costs what the kernel's process query costs: 230 to 290 ms on a
-    /// PC with about 480 processes and 10,000 threads, where no lighter call
-    /// was faster. <c>Process.GetProcessesByName</c> walks the whole list
-    /// once per name, so a check of several names asks for one walk here.
-    /// Worker threads only. A thread that holds a rate asks a
+    /// The running processes, each as its id and image path: the list of
+    /// process ids (<c>K32EnumProcesses</c>), then one limited query per
+    /// process (<see cref="ProcessImage"/>), the way Microsoft's
+    /// "Enumerating All Processes" sample names them.
+    ///
+    /// <para><c>Process.GetProcesses</c> and a Toolhelp snapshot both copy
+    /// the kernel's record of every process and every thread, and on a PC
+    /// with about 400 processes and 9,000 threads one copy cost 240 to 360 ms
+    /// of CPU, nearly all of it in the kernel. Taken every few seconds by the
+    /// peripheral link, the Flydigi watch and the handheld watch, those
+    /// copies held a core at 20 percent and more while the engine ran. On
+    /// the same PC the id list costs 0.05 ms and a pass that names every
+    /// process 7 ms, elevated.</para>
+    ///
+    /// <para>A process that answers no limited query is left out. Elevated,
+    /// as PadForge runs, those are the kernel's own (System, Registry,
+    /// Memory Compression). Unelevated, every process of another account is
+    /// left out too.</para>
+    /// </summary>
+    internal static class RunningProcessList
+    {
+        /// <summary>One running process.</summary>
+        internal readonly record struct Entry(uint Id, string Path)
+        {
+            /// <summary>The image's file name, "lghub_agent.exe".</summary>
+            public string FileName => System.IO.Path.GetFileName(Path);
+
+            /// <summary>The file name without a final ".exe", as
+            /// <c>Process.ProcessName</c> gives it.</summary>
+            public string Name => ShortName(FileName);
+        }
+
+        /// <summary><paramref name="fileName"/> without a final ".exe", in
+        /// any case, the one extension <c>Process.ProcessName</c>
+        /// drops.</summary>
+        internal static string ShortName(string fileName)
+            => fileName != null && fileName.EndsWith(".exe", StringComparison.OrdinalIgnoreCase)
+                ? fileName.Substring(0, fileName.Length - 4)
+                : fileName;
+
+        /// <summary>Every running process's id, in the order Windows lists
+        /// them, or null when the list could not be read. One call that
+        /// fills an array: no handle is opened and no name is read.</summary>
+        internal static uint[] Ids()
+        {
+            try
+            {
+                var buffer = new uint[1024];
+                while (true)
+                {
+                    uint size = (uint)(buffer.Length * sizeof(uint));
+                    if (!K32EnumProcesses(buffer, size, out uint filled)) return null;
+                    if (filled < size)
+                    {
+                        var ids = new uint[filled / sizeof(uint)];
+                        Array.Copy(buffer, ids, ids.Length);
+                        return ids;
+                    }
+                    // A buffer filled to the end may have left ids out, so
+                    // the list is read again with twice the room.
+                    if (buffer.Length >= 1 << 20) return null;
+                    buffer = new uint[buffer.Length * 2];
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>Every running process that answers a limited query, or
+        /// null when the list of ids could not be read.</summary>
+        internal static List<Entry> Read()
+        {
+            uint[] ids = Ids();
+            if (ids == null) return null;
+            var entries = new List<Entry>(ids.Length);
+            char[] buffer = null;
+            foreach (uint id in ids)
+            {
+                string path = ProcessImage.PathOf(id, ref buffer);
+                if (!string.IsNullOrEmpty(path)) entries.Add(new Entry(id, path));
+            }
+            return entries;
+        }
+
+        // The size and the count are in bytes, and a count equal to the
+        // size means the buffer may have been too small.
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern bool K32EnumProcesses([Out] uint[] processIds, uint size, out uint bytesReturned);
+    }
+
+    /// <summary>
+    /// Which of a few named programs run, from one read of
+    /// <see cref="RunningProcessList"/>, about 7 ms where a walk of the
+    /// kernel's process records cost 240 to 360 ms.
+    /// <c>Process.GetProcessesByName</c> takes that walk once per name. Worker
+    /// threads only. A thread that holds a rate asks a
     /// <see cref="PeriodicWorkerCheck"/>.
     /// </summary>
     internal static class ProcessPresence
@@ -77,28 +177,17 @@ namespace PadForge.Common.Input
         /// <summary>The entries of <paramref name="names"/> (image names
         /// without .exe, compared without case) that a running process
         /// carries, spelled as the caller spelled them. Empty when none runs
-        /// or the walk fails.</summary>
+        /// or the list cannot be read.</summary>
         public static HashSet<string> RunningAmong(IReadOnlyCollection<string> names)
         {
             var found = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            Process[] procs = null;
-            try
+            var running = RunningProcessList.Read();
+            if (running == null) return found;
+            foreach (var process in running)
             {
-                procs = Process.GetProcesses();
-                foreach (var p in procs)
-                {
-                    string n;
-                    try { n = p.ProcessName; }
-                    catch { continue; }
-                    foreach (var name in names)
-                        if (string.Equals(n, name, StringComparison.OrdinalIgnoreCase)) { found.Add(name); break; }
-                }
-            }
-            catch { }
-            finally
-            {
-                if (procs != null)
-                    foreach (var p in procs) { try { p.Dispose(); } catch { } }
+                string n = process.Name;
+                foreach (var name in names)
+                    if (string.Equals(n, name, StringComparison.OrdinalIgnoreCase)) { found.Add(name); break; }
             }
             return found;
         }

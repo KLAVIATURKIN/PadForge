@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace PadForge.Common.Input
 {
@@ -33,25 +32,26 @@ namespace PadForge.Common.Input
 
         /// <summary>Re-scans the process list. Worker thread only.
         ///
-        /// <para>Runs on the sweep's own cadence, deliberately. An audit round
-        /// rate-limited this to 30 s on the assumption that enumerating every
-        /// process is expensive; measured, it is 3 ms across 335 processes, on
-        /// a worker thread. The notice it feeds says "this vendor tool is
-        /// still taking your buttons", which is exactly what a user re-reads
-        /// in the seconds after closing that tool, so a stale window costs
-        /// more than the scan does.</para></summary>
+        /// <para>Runs on the sweep's own cadence, every 4 s, deliberately.
+        /// The notice it feeds says "this vendor tool is still taking your
+        /// buttons", which is exactly what a user re-reads in the seconds
+        /// after closing that tool, so a stale window costs more than the
+        /// scan does. The scan reads <see cref="RunningProcessList"/>, about
+        /// 7 ms. <c>Process.GetProcesses</c> measured 3 ms across 335
+        /// processes on one PC and 240 to 360 ms on another with 9,000
+        /// threads, every 4 s.</para></summary>
         public static void Refresh()
         {
             try
             {
+                var running = RunningProcessList.Read();
+                if (running == null) return;
                 var found = new List<string>();
                 var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-                foreach (var p in Process.GetProcesses())
+                foreach (var p in running)
                 {
-                    string n;
-                    try { n = p.ProcessName; } catch { continue; }
-                    finally { p.Dispose(); }
-                    if (!seen.Add(n)) continue;
+                    string n = p.Name;
+                    if (string.IsNullOrEmpty(n) || !seen.Add(n)) continue;
                     foreach (var name in Names)
                         if (string.Equals(n, name, StringComparison.OrdinalIgnoreCase)) { found.Add(n); break; }
                 }
