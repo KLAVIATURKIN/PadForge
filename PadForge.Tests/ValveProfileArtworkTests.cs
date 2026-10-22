@@ -46,17 +46,36 @@ namespace PadForge.Tests
             return null;
         }
 
-        /// <summary>Nothing is withheld any more. The gate stays in the code
-        /// as a mechanism, but it must be empty, because an id left in it
-        /// would silently vanish from every picker.</summary>
+        /// <summary>No Valve profile is withheld any more, since an id left in
+        /// the gate silently vanishes from every picker. The gate has held one
+        /// id since HIDMaestro 2.0.0, the GameCube adapter's Full persona
+        /// (<see cref="TheGameCubeAdapterPersonaIsWithheld"/>), and nothing
+        /// the catalog offers is in it.</summary>
         [Fact]
-        public void NoProfileIsWithheld()
+        public void NoValveProfileIsWithheld()
         {
             foreach (var id in Released)
                 Assert.False(HMaestroProfileCatalog.IsWithheldProfile(id));
 
             Assert.All(HMaestroProfileCatalog.AllProfiles,
                 p => Assert.False(HMaestroProfileCatalog.IsWithheldProfile(p.Id)));
+        }
+
+        /// <summary>HIDMaestro 2.0.0 gave the GameCube adapter's Full persona
+        /// (gamecube-adapter, the Wii U adapter on USB/IP) a descriptor, and
+        /// PadForge withholds it: Dolphin and Slippi read the adapter only
+        /// after HMController.BindWinUsb, it reports four ports where a slot
+        /// drives one, and PadForge binds WinUSB to a real adapter of the
+        /// same ids for input. The adapter's HID-mode profile stays
+        /// offered.</summary>
+        [Fact]
+        public void TheGameCubeAdapterPersonaIsWithheld()
+        {
+            Assert.True(HMaestroProfileCatalog.IsWithheldProfile("gamecube-adapter"));
+            Assert.Null(HMaestroProfileCatalog.GetProfileById("gamecube-adapter"));
+            Assert.DoesNotContain(HMaestroProfileCatalog.ExtendedProfiles, p => p.Id == "gamecube-adapter");
+            Assert.Contains(HMaestroProfileCatalog.ExtendedProfiles, p => p.Id == "gamecube-adapter-hid");
+            Assert.False(HMaestroProfileCatalog.IsWithheldProfile("gamecube-adapter-hid"));
         }
 
         /// <summary>The released profiles reach the buckets a user picks

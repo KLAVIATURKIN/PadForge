@@ -291,7 +291,9 @@ namespace PadForge.Services
         // GenerateCatalogs). We own our own certificate rather than borrowing
         // HIDMaestro's, because its subject is that SDK's internal detail,
         // and we borrow only its extracted toolchain (Inf2Cat.exe,
-        // signtool.exe), which is stable.
+        // signtool.exe), which is stable. Since HIDMaestro 2.0.0 it stages
+        // that toolchain under %ProgramFiles%\HIDMaestro\Staging, for an
+        // elevated process only, which PadForge always is.
         //
         // Shipping a pre-signed catalog is what broke: the one in the repo
         // was signed by a prototype certificate that existed on exactly one
