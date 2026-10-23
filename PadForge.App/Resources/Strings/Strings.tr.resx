@@ -102,9 +102,20 @@
   <data name="Common_Record" xml:space="preserve"><value>Kayda al</value></data>
   <data name="Common_Recording" xml:space="preserve"><value>Kayıt yapılıyor...</value></data>
   <data name="Common_Clear" xml:space="preserve"><value>Temizle</value></data>
+  <data name="Common_Increase" xml:space="preserve"><value>Artır</value></data>
+  <data name="Common_Decrease" xml:space="preserve"><value>Azalt</value></data>
+  <data name="Common_ScrollUp" xml:space="preserve"><value>Yukarı Kaydır</value></data>
+  <data name="Common_ScrollDown" xml:space="preserve"><value>Aşağı Kaydır</value></data>
+  <data name="Common_ScrollLeft" xml:space="preserve"><value>Sola Kaydır</value></data>
+  <data name="Common_ScrollRight" xml:space="preserve"><value>Sağa Kaydır</value></data>
+  <data name="Common_PageUp" xml:space="preserve"><value>Sayfa Yukarı</value></data>
+  <data name="Common_PageDown" xml:space="preserve"><value>Sayfa Aşağı</value></data>
+  <data name="Common_PageLeft" xml:space="preserve"><value>Sayfa Sola</value></data>
+  <data name="Common_PageRight" xml:space="preserve"><value>Sayfa Sağa</value></data>
   <data name="Common_None" xml:space="preserve"><value>Yok</value></data>
   <data name="Common_Ms" xml:space="preserve"><value>ms</value></data>
   <data name="Common_Unassigned" xml:space="preserve"><value>Atanmamış</value></data>
+  <data name="Common_DoesNotApply" xml:space="preserve"><value>Geçerli değil</value></data>
   <data name="Common_PadForge" xml:space="preserve"><value>PadForge</value></data>
 
   <!-- ═══ Controller Types ═══ -->
@@ -124,6 +135,9 @@
   <data name="Main_AddController" xml:space="preserve"><value>Kontrolcü ekle</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Sanal kontrolcüyü sil</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Tam ekran</value></data>
+  <data name="Main_Minimize" xml:space="preserve"><value>Simge Durumuna Küçült</value></data>
+  <data name="Main_Maximize" xml:space="preserve"><value>Büyüt</value></data>
+  <data name="Main_Restore" xml:space="preserve"><value>Önceki Boyuta Getir</value></data>
   <data name="Main_NavigationPane" xml:space="preserve"><value>Gezinti Bölmesi</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>PadForge'u göster</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>Sanal kontrolcü {0}</value></data>
@@ -1345,6 +1359,7 @@
   <data name="Curve_SCurve" xml:space="preserve"><value>S eğrisi</value></data>
   <data name="Curve_Delay" xml:space="preserve"><value>Gecikme</value></data>
   <data name="Curve_Custom" xml:space="preserve"><value>Özel</value></data>
+  <data name="CurveEditor_PointFormat" xml:space="preserve"><value>Nokta {0} / {1}, giriş %{2}, çıkış %{3}</value></data>
   <data name="Pad_CalibrateCenter" xml:space="preserve"><value>Merkezi kalibre et</value></data>
   <data name="Pad_Sticks_Section_CenterPoint" xml:space="preserve"><value>Merkez noktası</value></data>
   <data name="Pad_Sticks_Section_DeadZone" xml:space="preserve"><value>Ölü bölge</value></data>

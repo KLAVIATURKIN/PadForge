@@ -99,9 +99,20 @@
   <data name="Common_Record" xml:space="preserve"><value>录制</value></data>
   <data name="Common_Recording" xml:space="preserve"><value>录制中...</value></data>
   <data name="Common_Clear" xml:space="preserve"><value>清除</value></data>
+  <data name="Common_Increase" xml:space="preserve"><value>增加</value></data>
+  <data name="Common_Decrease" xml:space="preserve"><value>减少</value></data>
+  <data name="Common_ScrollUp" xml:space="preserve"><value>向上滚动</value></data>
+  <data name="Common_ScrollDown" xml:space="preserve"><value>向下滚动</value></data>
+  <data name="Common_ScrollLeft" xml:space="preserve"><value>向左滚动</value></data>
+  <data name="Common_ScrollRight" xml:space="preserve"><value>向右滚动</value></data>
+  <data name="Common_PageUp" xml:space="preserve"><value>向上翻页</value></data>
+  <data name="Common_PageDown" xml:space="preserve"><value>向下翻页</value></data>
+  <data name="Common_PageLeft" xml:space="preserve"><value>向左翻页</value></data>
+  <data name="Common_PageRight" xml:space="preserve"><value>向右翻页</value></data>
   <data name="Common_None" xml:space="preserve"><value>无</value></data>
   <data name="Common_Ms" xml:space="preserve"><value>ms</value></data>
   <data name="Common_Unassigned" xml:space="preserve"><value>未分配</value></data>
+  <data name="Common_DoesNotApply" xml:space="preserve"><value>不适用</value></data>
   <data name="Common_PadForge" xml:space="preserve"><value>PadForge</value></data>
 
   <!-- ═══ Controller Types ═══ -->
@@ -121,6 +132,9 @@
   <data name="Main_AddController" xml:space="preserve"><value>添加控制器</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>删除虚拟控制器</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>全屏</value></data>
+  <data name="Main_Minimize" xml:space="preserve"><value>最小化</value></data>
+  <data name="Main_Maximize" xml:space="preserve"><value>最大化</value></data>
+  <data name="Main_Restore" xml:space="preserve"><value>还原</value></data>
   <data name="Main_NavigationPane" xml:space="preserve"><value>导航窗格</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>显示 PadForge</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>虚拟控制器 {0}</value></data>
@@ -792,6 +806,7 @@
   <data name="Curve_SCurve" xml:space="preserve"><value>S 曲线</value></data>
   <data name="Curve_Delay" xml:space="preserve"><value>延迟</value></data>
   <data name="Curve_Custom" xml:space="preserve"><value>自定义</value></data>
+  <data name="CurveEditor_PointFormat" xml:space="preserve"><value>第 {0} 个点，共 {1} 个，输入 {2}%，输出 {3}%</value></data>
   <data name="Pad_CalibrateCenter" xml:space="preserve"><value>校准中心</value></data>
   <data name="Pad_Sticks_Section_CenterPoint" xml:space="preserve"><value>中心点</value></data>
   <data name="Pad_Sticks_Section_DeadZone" xml:space="preserve"><value>死区</value></data>

@@ -102,9 +102,20 @@
   <data name="Common_Record" xml:space="preserve"><value>Posnemi</value></data>
   <data name="Common_Recording" xml:space="preserve"><value>Snemanje ...</value></data>
   <data name="Common_Clear" xml:space="preserve"><value>Počisti</value></data>
+  <data name="Common_Increase" xml:space="preserve"><value>Povečaj</value></data>
+  <data name="Common_Decrease" xml:space="preserve"><value>Zmanjšaj</value></data>
+  <data name="Common_ScrollUp" xml:space="preserve"><value>Pomik navzgor</value></data>
+  <data name="Common_ScrollDown" xml:space="preserve"><value>Pomik navzdol</value></data>
+  <data name="Common_ScrollLeft" xml:space="preserve"><value>Pomik levo</value></data>
+  <data name="Common_ScrollRight" xml:space="preserve"><value>Pomik desno</value></data>
+  <data name="Common_PageUp" xml:space="preserve"><value>Stran navzgor</value></data>
+  <data name="Common_PageDown" xml:space="preserve"><value>Stran navzdol</value></data>
+  <data name="Common_PageLeft" xml:space="preserve"><value>Stran levo</value></data>
+  <data name="Common_PageRight" xml:space="preserve"><value>Stran desno</value></data>
   <data name="Common_None" xml:space="preserve"><value>Brez</value></data>
   <data name="Common_Ms" xml:space="preserve"><value>ms</value></data>
   <data name="Common_Unassigned" xml:space="preserve"><value>Nedodeljeno</value></data>
+  <data name="Common_DoesNotApply" xml:space="preserve"><value>Ne velja</value></data>
   <data name="Common_PadForge" xml:space="preserve"><value>PadForge</value></data>
 
   <!-- ═══ Controller Types ═══ -->
@@ -124,6 +135,9 @@
   <data name="Main_AddController" xml:space="preserve"><value>Dodaj krmilnik</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Izbriši navidezni krmilnik</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Celozaslonski način</value></data>
+  <data name="Main_Minimize" xml:space="preserve"><value>Pomanjšaj</value></data>
+  <data name="Main_Maximize" xml:space="preserve"><value>Povečaj</value></data>
+  <data name="Main_Restore" xml:space="preserve"><value>Obnovi</value></data>
   <data name="Main_NavigationPane" xml:space="preserve"><value>Podokno za krmarjenje</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>Pokaži PadForge</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>Navidezni krmilnik {0}</value></data>
@@ -1345,6 +1359,7 @@ Kopija prejšnje različice je v tej mapi: {1}</value></data>
   <data name="Curve_SCurve" xml:space="preserve"><value>Krivulja S</value></data>
   <data name="Curve_Delay" xml:space="preserve"><value>Zakasnitev</value></data>
   <data name="Curve_Custom" xml:space="preserve"><value>Po meri</value></data>
+  <data name="CurveEditor_PointFormat" xml:space="preserve"><value>Točka {0} od {1}, vhod {2} %, izhod {3} %</value></data>
   <data name="Pad_CalibrateCenter" xml:space="preserve"><value>Umeri središče</value></data>
   <data name="Pad_Sticks_Section_CenterPoint" xml:space="preserve"><value>Središčna točka</value></data>
   <data name="Pad_Sticks_Section_DeadZone" xml:space="preserve"><value>Mrtvo območje</value></data>

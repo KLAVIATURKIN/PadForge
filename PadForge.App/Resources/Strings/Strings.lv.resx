@@ -102,9 +102,20 @@
   <data name="Common_Record" xml:space="preserve"><value>Ierakstīt</value></data>
   <data name="Common_Recording" xml:space="preserve"><value>Ieraksta...</value></data>
   <data name="Common_Clear" xml:space="preserve"><value>Notīrīt</value></data>
+  <data name="Common_Increase" xml:space="preserve"><value>Palielināt</value></data>
+  <data name="Common_Decrease" xml:space="preserve"><value>Samazināt</value></data>
+  <data name="Common_ScrollUp" xml:space="preserve"><value>Ritināt uz augšu</value></data>
+  <data name="Common_ScrollDown" xml:space="preserve"><value>Ritināt uz leju</value></data>
+  <data name="Common_ScrollLeft" xml:space="preserve"><value>Ritināt pa kreisi</value></data>
+  <data name="Common_ScrollRight" xml:space="preserve"><value>Ritināt pa labi</value></data>
+  <data name="Common_PageUp" xml:space="preserve"><value>Lappuse uz augšu</value></data>
+  <data name="Common_PageDown" xml:space="preserve"><value>Lappuse uz leju</value></data>
+  <data name="Common_PageLeft" xml:space="preserve"><value>Lappuse pa kreisi</value></data>
+  <data name="Common_PageRight" xml:space="preserve"><value>Lappuse pa labi</value></data>
   <data name="Common_None" xml:space="preserve"><value>Nav</value></data>
   <data name="Common_Ms" xml:space="preserve"><value>ms</value></data>
   <data name="Common_Unassigned" xml:space="preserve"><value>Nepiešķirts</value></data>
+  <data name="Common_DoesNotApply" xml:space="preserve"><value>Nav piemērojams</value></data>
   <data name="Common_PadForge" xml:space="preserve"><value>PadForge</value></data>
 
   <!-- ═══ Controller Types ═══ -->
@@ -124,6 +135,9 @@
   <data name="Main_AddController" xml:space="preserve"><value>Pievienot kontrolleri</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Dzēst virtuālo kontrolleri</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Pilnekrāns</value></data>
+  <data name="Main_Minimize" xml:space="preserve"><value>Minimizēt</value></data>
+  <data name="Main_Maximize" xml:space="preserve"><value>Maksimizēt</value></data>
+  <data name="Main_Restore" xml:space="preserve"><value>Atjaunot</value></data>
   <data name="Main_NavigationPane" xml:space="preserve"><value>Navigācijas panelis</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>Rādīt PadForge</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>Virtuālais kontrolleris {0}</value></data>
@@ -1345,6 +1359,7 @@ Iepriekšējās versijas kopija atrodas šajā mapē: {1}</value></data>
   <data name="Curve_SCurve" xml:space="preserve"><value>S veida līkne</value></data>
   <data name="Curve_Delay" xml:space="preserve"><value>Aizkave</value></data>
   <data name="Curve_Custom" xml:space="preserve"><value>Pielāgota</value></data>
+  <data name="CurveEditor_PointFormat" xml:space="preserve"><value>Punkts {0} no {1}, ievade {2}%, izvade {3}%</value></data>
   <data name="Pad_CalibrateCenter" xml:space="preserve"><value>Kalibrēt centru</value></data>
   <data name="Pad_Sticks_Section_CenterPoint" xml:space="preserve"><value>Centra punkts</value></data>
   <data name="Pad_Sticks_Section_DeadZone" xml:space="preserve"><value>Nejutības zona</value></data>

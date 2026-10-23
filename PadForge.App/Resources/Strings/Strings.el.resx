@@ -102,9 +102,20 @@
   <data name="Common_Record" xml:space="preserve"><value>Καταγραφή</value></data>
   <data name="Common_Recording" xml:space="preserve"><value>Καταγραφή...</value></data>
   <data name="Common_Clear" xml:space="preserve"><value>Εκκαθάριση</value></data>
+  <data name="Common_Increase" xml:space="preserve"><value>Αύξηση</value></data>
+  <data name="Common_Decrease" xml:space="preserve"><value>Μείωση</value></data>
+  <data name="Common_ScrollUp" xml:space="preserve"><value>Κύλιση προς τα πάνω</value></data>
+  <data name="Common_ScrollDown" xml:space="preserve"><value>Κύλιση προς τα κάτω</value></data>
+  <data name="Common_ScrollLeft" xml:space="preserve"><value>Κύλιση προς τα αριστερά</value></data>
+  <data name="Common_ScrollRight" xml:space="preserve"><value>Κύλιση προς τα δεξιά</value></data>
+  <data name="Common_PageUp" xml:space="preserve"><value>Σελίδα επάνω</value></data>
+  <data name="Common_PageDown" xml:space="preserve"><value>Σελίδα κάτω</value></data>
+  <data name="Common_PageLeft" xml:space="preserve"><value>Σελίδα αριστερά</value></data>
+  <data name="Common_PageRight" xml:space="preserve"><value>Σελίδα δεξιά</value></data>
   <data name="Common_None" xml:space="preserve"><value>Κανένα</value></data>
   <data name="Common_Ms" xml:space="preserve"><value>ms</value></data>
   <data name="Common_Unassigned" xml:space="preserve"><value>Χωρίς ανάθεση</value></data>
+  <data name="Common_DoesNotApply" xml:space="preserve"><value>Δεν ισχύει</value></data>
   <data name="Common_PadForge" xml:space="preserve"><value>PadForge</value></data>
 
   <!-- ═══ Controller Types ═══ -->
@@ -124,6 +135,9 @@
   <data name="Main_AddController" xml:space="preserve"><value>Προσθήκη χειριστηρίου</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Διαγραφή εικονικού χειριστηρίου</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Πλήρης οθόνη</value></data>
+  <data name="Main_Minimize" xml:space="preserve"><value>Ελαχιστοποίηση</value></data>
+  <data name="Main_Maximize" xml:space="preserve"><value>Μεγιστοποίηση</value></data>
+  <data name="Main_Restore" xml:space="preserve"><value>Επαναφορά</value></data>
   <data name="Main_NavigationPane" xml:space="preserve"><value>Παράθυρο πλοήγησης</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>Εμφάνιση του PadForge</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>Εικονικό χειριστήριο {0}</value></data>
@@ -1345,6 +1359,7 @@
   <data name="Curve_SCurve" xml:space="preserve"><value>Καμπύλη S</value></data>
   <data name="Curve_Delay" xml:space="preserve"><value>Καθυστέρηση</value></data>
   <data name="Curve_Custom" xml:space="preserve"><value>Προσαρμοσμένη</value></data>
+  <data name="CurveEditor_PointFormat" xml:space="preserve"><value>Σημείο {0} από {1}, είσοδος {2}%, έξοδος {3}%</value></data>
   <data name="Pad_CalibrateCenter" xml:space="preserve"><value>Βαθμονόμηση κέντρου</value></data>
   <data name="Pad_Sticks_Section_CenterPoint" xml:space="preserve"><value>Κεντρικό σημείο</value></data>
   <data name="Pad_Sticks_Section_DeadZone" xml:space="preserve"><value>Νεκρή ζώνη</value></data>

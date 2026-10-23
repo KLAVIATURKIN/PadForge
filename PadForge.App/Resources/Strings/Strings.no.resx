@@ -102,9 +102,20 @@
   <data name="Common_Record" xml:space="preserve"><value>Ta opp</value></data>
   <data name="Common_Recording" xml:space="preserve"><value>Tar opp...</value></data>
   <data name="Common_Clear" xml:space="preserve"><value>Tøm</value></data>
+  <data name="Common_Increase" xml:space="preserve"><value>Øk</value></data>
+  <data name="Common_Decrease" xml:space="preserve"><value>Reduser</value></data>
+  <data name="Common_ScrollUp" xml:space="preserve"><value>Rull opp</value></data>
+  <data name="Common_ScrollDown" xml:space="preserve"><value>Rull ned</value></data>
+  <data name="Common_ScrollLeft" xml:space="preserve"><value>Rull til venstre</value></data>
+  <data name="Common_ScrollRight" xml:space="preserve"><value>Rull til høyre</value></data>
+  <data name="Common_PageUp" xml:space="preserve"><value>Side opp</value></data>
+  <data name="Common_PageDown" xml:space="preserve"><value>Side ned</value></data>
+  <data name="Common_PageLeft" xml:space="preserve"><value>Side til venstre</value></data>
+  <data name="Common_PageRight" xml:space="preserve"><value>Side til høyre</value></data>
   <data name="Common_None" xml:space="preserve"><value>Ingen</value></data>
   <data name="Common_Ms" xml:space="preserve"><value>ms</value></data>
   <data name="Common_Unassigned" xml:space="preserve"><value>Ikke tilordnet</value></data>
+  <data name="Common_DoesNotApply" xml:space="preserve"><value>Gjelder ikke</value></data>
   <data name="Common_PadForge" xml:space="preserve"><value>PadForge</value></data>
 
   <!-- ═══ Controller Types ═══ -->
@@ -124,6 +135,9 @@
   <data name="Main_AddController" xml:space="preserve"><value>Legg til kontroller</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Slett virtuell kontroller</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Fullskjerm</value></data>
+  <data name="Main_Minimize" xml:space="preserve"><value>Minimer</value></data>
+  <data name="Main_Maximize" xml:space="preserve"><value>Maksimer</value></data>
+  <data name="Main_Restore" xml:space="preserve"><value>Gjenopprett</value></data>
   <data name="Main_NavigationPane" xml:space="preserve"><value>Navigasjonsrute</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>Vis PadForge</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>Virtuell kontroller {0}</value></data>
@@ -1345,6 +1359,7 @@ En kopi av den forrige versjonen ligger i denne mappen: {1}</value></data>
   <data name="Curve_SCurve" xml:space="preserve"><value>S-kurve</value></data>
   <data name="Curve_Delay" xml:space="preserve"><value>Forsinkelse</value></data>
   <data name="Curve_Custom" xml:space="preserve"><value>Egendefinert</value></data>
+  <data name="CurveEditor_PointFormat" xml:space="preserve"><value>Punkt {0} av {1}, inndata {2} %, utdata {3} %</value></data>
   <data name="Pad_CalibrateCenter" xml:space="preserve"><value>Kalibrer midtpunkt</value></data>
   <data name="Pad_Sticks_Section_CenterPoint" xml:space="preserve"><value>Midtpunkt</value></data>
   <data name="Pad_Sticks_Section_DeadZone" xml:space="preserve"><value>Dødsone</value></data>

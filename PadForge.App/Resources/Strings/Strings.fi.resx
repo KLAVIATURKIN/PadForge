@@ -102,9 +102,20 @@
   <data name="Common_Record" xml:space="preserve"><value>Nauhoita</value></data>
   <data name="Common_Recording" xml:space="preserve"><value>Nauhoitetaan...</value></data>
   <data name="Common_Clear" xml:space="preserve"><value>Tyhjennä</value></data>
+  <data name="Common_Increase" xml:space="preserve"><value>Suurenna</value></data>
+  <data name="Common_Decrease" xml:space="preserve"><value>Pienennä</value></data>
+  <data name="Common_ScrollUp" xml:space="preserve"><value>Vieritä ylös</value></data>
+  <data name="Common_ScrollDown" xml:space="preserve"><value>Vieritä alas</value></data>
+  <data name="Common_ScrollLeft" xml:space="preserve"><value>Vieritä vasemmalle</value></data>
+  <data name="Common_ScrollRight" xml:space="preserve"><value>Vieritä oikealle</value></data>
+  <data name="Common_PageUp" xml:space="preserve"><value>Sivu ylös</value></data>
+  <data name="Common_PageDown" xml:space="preserve"><value>Sivu alas</value></data>
+  <data name="Common_PageLeft" xml:space="preserve"><value>Sivu vasemmalle</value></data>
+  <data name="Common_PageRight" xml:space="preserve"><value>Sivu oikealle</value></data>
   <data name="Common_None" xml:space="preserve"><value>Ei mitään</value></data>
   <data name="Common_Ms" xml:space="preserve"><value>ms</value></data>
   <data name="Common_Unassigned" xml:space="preserve"><value>Ei määritetty</value></data>
+  <data name="Common_DoesNotApply" xml:space="preserve"><value>Ei sovellu</value></data>
   <data name="Common_PadForge" xml:space="preserve"><value>PadForge</value></data>
 
   <!-- ═══ Controller Types ═══ -->
@@ -124,6 +135,9 @@
   <data name="Main_AddController" xml:space="preserve"><value>Lisää ohjain</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Poista virtuaaliohjain</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Koko näyttö</value></data>
+  <data name="Main_Minimize" xml:space="preserve"><value>Pienennä</value></data>
+  <data name="Main_Maximize" xml:space="preserve"><value>Suurenna</value></data>
+  <data name="Main_Restore" xml:space="preserve"><value>Palauta</value></data>
   <data name="Main_NavigationPane" xml:space="preserve"><value>Siirtymisruutu</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>Näytä PadForge</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>Virtuaaliohjain {0}</value></data>
@@ -1345,6 +1359,7 @@ Kopio edellisestä versiosta on tässä kansiossa: {1}</value></data>
   <data name="Curve_SCurve" xml:space="preserve"><value>S-käyrä</value></data>
   <data name="Curve_Delay" xml:space="preserve"><value>Viive</value></data>
   <data name="Curve_Custom" xml:space="preserve"><value>Mukautettu</value></data>
+  <data name="CurveEditor_PointFormat" xml:space="preserve"><value>Piste {0}/{1}, syöte {2} %, tulos {3} %</value></data>
   <data name="Pad_CalibrateCenter" xml:space="preserve"><value>Kalibroi keskipiste</value></data>
   <data name="Pad_Sticks_Section_CenterPoint" xml:space="preserve"><value>Keskipiste</value></data>
   <data name="Pad_Sticks_Section_DeadZone" xml:space="preserve"><value>Kuollut alue</value></data>

@@ -102,9 +102,20 @@
   <data name="Common_Record" xml:space="preserve"><value>บันทึกอินพุต</value></data>
   <data name="Common_Recording" xml:space="preserve"><value>กำลังบันทึก...</value></data>
   <data name="Common_Clear" xml:space="preserve"><value>ล้าง</value></data>
+  <data name="Common_Increase" xml:space="preserve"><value>เพิ่ม</value></data>
+  <data name="Common_Decrease" xml:space="preserve"><value>ลด</value></data>
+  <data name="Common_ScrollUp" xml:space="preserve"><value>เลื่อนขึ้น</value></data>
+  <data name="Common_ScrollDown" xml:space="preserve"><value>เลื่อนลง</value></data>
+  <data name="Common_ScrollLeft" xml:space="preserve"><value>เลื่อนไปทางซ้าย</value></data>
+  <data name="Common_ScrollRight" xml:space="preserve"><value>เลื่อนไปทางขวา</value></data>
+  <data name="Common_PageUp" xml:space="preserve"><value>เลื่อนขึ้นหนึ่งหน้า</value></data>
+  <data name="Common_PageDown" xml:space="preserve"><value>เลื่อนลงหนึ่งหน้า</value></data>
+  <data name="Common_PageLeft" xml:space="preserve"><value>เลื่อนไปทางซ้ายหนึ่งหน้า</value></data>
+  <data name="Common_PageRight" xml:space="preserve"><value>เลื่อนไปทางขวาหนึ่งหน้า</value></data>
   <data name="Common_None" xml:space="preserve"><value>ไม่มี</value></data>
   <data name="Common_Ms" xml:space="preserve"><value>ms</value></data>
   <data name="Common_Unassigned" xml:space="preserve"><value>ยังไม่ได้กำหนด</value></data>
+  <data name="Common_DoesNotApply" xml:space="preserve"><value>ไม่เกี่ยวข้อง</value></data>
   <data name="Common_PadForge" xml:space="preserve"><value>PadForge</value></data>
 
   <!-- ═══ Controller Types ═══ -->
@@ -124,6 +135,9 @@
   <data name="Main_AddController" xml:space="preserve"><value>เพิ่มคอนโทรลเลอร์</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>ลบคอนโทรลเลอร์เสมือน</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>เต็มหน้าจอ</value></data>
+  <data name="Main_Minimize" xml:space="preserve"><value>ย่อเล็กสุด</value></data>
+  <data name="Main_Maximize" xml:space="preserve"><value>ขยายใหญ่สุด</value></data>
+  <data name="Main_Restore" xml:space="preserve"><value>คืนค่า</value></data>
   <data name="Main_NavigationPane" xml:space="preserve"><value>บานหน้าต่างนำทาง</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>แสดง PadForge</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>คอนโทรลเลอร์เสมือน {0}</value></data>
@@ -1345,6 +1359,7 @@
   <data name="Curve_SCurve" xml:space="preserve"><value>เส้นโค้ง S</value></data>
   <data name="Curve_Delay" xml:space="preserve"><value>หน่วง</value></data>
   <data name="Curve_Custom" xml:space="preserve"><value>กำหนดเอง</value></data>
+  <data name="CurveEditor_PointFormat" xml:space="preserve"><value>จุดที่ {0} จาก {1} อินพุต {2}% เอาต์พุต {3}%</value></data>
   <data name="Pad_CalibrateCenter" xml:space="preserve"><value>ปรับเทียบจุดกึ่งกลาง</value></data>
   <data name="Pad_Sticks_Section_CenterPoint" xml:space="preserve"><value>จุดกึ่งกลาง</value></data>
   <data name="Pad_Sticks_Section_DeadZone" xml:space="preserve"><value>เดดโซน</value></data>

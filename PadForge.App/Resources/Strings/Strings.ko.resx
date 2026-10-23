@@ -99,9 +99,20 @@
   <data name="Common_Record" xml:space="preserve"><value>기록</value></data>
   <data name="Common_Recording" xml:space="preserve"><value>기록 중...</value></data>
   <data name="Common_Clear" xml:space="preserve"><value>지우기</value></data>
+  <data name="Common_Increase" xml:space="preserve"><value>증가</value></data>
+  <data name="Common_Decrease" xml:space="preserve"><value>감소</value></data>
+  <data name="Common_ScrollUp" xml:space="preserve"><value>위로 스크롤</value></data>
+  <data name="Common_ScrollDown" xml:space="preserve"><value>아래로 스크롤</value></data>
+  <data name="Common_ScrollLeft" xml:space="preserve"><value>왼쪽으로 스크롤</value></data>
+  <data name="Common_ScrollRight" xml:space="preserve"><value>오른쪽으로 스크롤</value></data>
+  <data name="Common_PageUp" xml:space="preserve"><value>위로 한 페이지</value></data>
+  <data name="Common_PageDown" xml:space="preserve"><value>아래로 한 페이지</value></data>
+  <data name="Common_PageLeft" xml:space="preserve"><value>왼쪽으로 한 페이지</value></data>
+  <data name="Common_PageRight" xml:space="preserve"><value>오른쪽으로 한 페이지</value></data>
   <data name="Common_None" xml:space="preserve"><value>없음</value></data>
   <data name="Common_Ms" xml:space="preserve"><value>ms</value></data>
   <data name="Common_Unassigned" xml:space="preserve"><value>할당되지 않음</value></data>
+  <data name="Common_DoesNotApply" xml:space="preserve"><value>해당 없음</value></data>
   <data name="Common_PadForge" xml:space="preserve"><value>PadForge</value></data>
 
   <!-- ═══ Controller Types ═══ -->
@@ -121,6 +132,9 @@
   <data name="Main_AddController" xml:space="preserve"><value>컨트롤러 추가</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>가상 컨트롤러 삭제</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>전체 화면</value></data>
+  <data name="Main_Minimize" xml:space="preserve"><value>최소화</value></data>
+  <data name="Main_Maximize" xml:space="preserve"><value>최대화</value></data>
+  <data name="Main_Restore" xml:space="preserve"><value>이전 크기로 복원</value></data>
   <data name="Main_NavigationPane" xml:space="preserve"><value>탐색 창</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>PadForge 표시</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>가상 컨트롤러 {0}</value></data>
@@ -792,6 +806,7 @@
   <data name="Curve_SCurve" xml:space="preserve"><value>S 커브</value></data>
   <data name="Curve_Delay" xml:space="preserve"><value>지연</value></data>
   <data name="Curve_Custom" xml:space="preserve"><value>사용자 정의</value></data>
+  <data name="CurveEditor_PointFormat" xml:space="preserve"><value>{1}개 중 {0}번째 점, 입력 {2}%, 출력 {3}%</value></data>
   <data name="Pad_CalibrateCenter" xml:space="preserve"><value>중앙 보정</value></data>
   <data name="Pad_Sticks_Section_CenterPoint" xml:space="preserve"><value>중심점</value></data>
   <data name="Pad_Sticks_Section_DeadZone" xml:space="preserve"><value>데드존</value></data>

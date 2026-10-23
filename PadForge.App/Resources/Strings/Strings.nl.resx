@@ -99,9 +99,20 @@
   <data name="Common_Record" xml:space="preserve"><value>Opnemen</value></data>
   <data name="Common_Recording" xml:space="preserve"><value>Bezig met opnemen...</value></data>
   <data name="Common_Clear" xml:space="preserve"><value>Wissen</value></data>
+  <data name="Common_Increase" xml:space="preserve"><value>Verhogen</value></data>
+  <data name="Common_Decrease" xml:space="preserve"><value>Verlagen</value></data>
+  <data name="Common_ScrollUp" xml:space="preserve"><value>Omhoog schuiven</value></data>
+  <data name="Common_ScrollDown" xml:space="preserve"><value>Omlaag schuiven</value></data>
+  <data name="Common_ScrollLeft" xml:space="preserve"><value>Naar links schuiven</value></data>
+  <data name="Common_ScrollRight" xml:space="preserve"><value>Naar rechts schuiven</value></data>
+  <data name="Common_PageUp" xml:space="preserve"><value>Pagina omhoog</value></data>
+  <data name="Common_PageDown" xml:space="preserve"><value>Pagina omlaag</value></data>
+  <data name="Common_PageLeft" xml:space="preserve"><value>Pagina naar links</value></data>
+  <data name="Common_PageRight" xml:space="preserve"><value>Pagina naar rechts</value></data>
   <data name="Common_None" xml:space="preserve"><value>Geen</value></data>
   <data name="Common_Ms" xml:space="preserve"><value>ms</value></data>
   <data name="Common_Unassigned" xml:space="preserve"><value>Niet toegewezen</value></data>
+  <data name="Common_DoesNotApply" xml:space="preserve"><value>Niet van toepassing</value></data>
   <data name="Common_PadForge" xml:space="preserve"><value>PadForge</value></data>
 
   <!-- ═══ Controller Types ═══ -->
@@ -121,6 +132,9 @@
   <data name="Main_AddController" xml:space="preserve"><value>Controller toevoegen</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Virtuele controller verwijderen</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Volledig scherm</value></data>
+  <data name="Main_Minimize" xml:space="preserve"><value>Minimaliseren</value></data>
+  <data name="Main_Maximize" xml:space="preserve"><value>Maximaliseren</value></data>
+  <data name="Main_Restore" xml:space="preserve"><value>Herstellen</value></data>
   <data name="Main_NavigationPane" xml:space="preserve"><value>Navigatiepaneel</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>PadForge tonen</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>Virtuele Controller {0}</value></data>
@@ -792,6 +806,7 @@ Een kopie van de vorige versie staat in deze map: {1}</value></data>
   <data name="Curve_SCurve" xml:space="preserve"><value>S-curve</value></data>
   <data name="Curve_Delay" xml:space="preserve"><value>Vertraagd</value></data>
   <data name="Curve_Custom" xml:space="preserve"><value>Aangepast</value></data>
+  <data name="CurveEditor_PointFormat" xml:space="preserve"><value>Punt {0} van {1}, invoer {2}%, uitvoer {3}%</value></data>
   <data name="Pad_CalibrateCenter" xml:space="preserve"><value>Midden kalibreren</value></data>
   <data name="Pad_Sticks_Section_CenterPoint" xml:space="preserve"><value>Middelpunt</value></data>
   <data name="Pad_Sticks_Section_DeadZone" xml:space="preserve"><value>Deadzone</value></data>

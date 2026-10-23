@@ -102,9 +102,20 @@
   <data name="Common_Record" xml:space="preserve"><value>Сними</value></data>
   <data name="Common_Recording" xml:space="preserve"><value>Снимање...</value></data>
   <data name="Common_Clear" xml:space="preserve"><value>Исчисти</value></data>
+  <data name="Common_Increase" xml:space="preserve"><value>Зголеми</value></data>
+  <data name="Common_Decrease" xml:space="preserve"><value>Намали</value></data>
+  <data name="Common_ScrollUp" xml:space="preserve"><value>Лизгај нагоре</value></data>
+  <data name="Common_ScrollDown" xml:space="preserve"><value>Лизгај надолу</value></data>
+  <data name="Common_ScrollLeft" xml:space="preserve"><value>Лизгај налево</value></data>
+  <data name="Common_ScrollRight" xml:space="preserve"><value>Лизгај надесно</value></data>
+  <data name="Common_PageUp" xml:space="preserve"><value>Страница нагоре</value></data>
+  <data name="Common_PageDown" xml:space="preserve"><value>Страница надолу</value></data>
+  <data name="Common_PageLeft" xml:space="preserve"><value>Страница налево</value></data>
+  <data name="Common_PageRight" xml:space="preserve"><value>Страница надесно</value></data>
   <data name="Common_None" xml:space="preserve"><value>Ништо</value></data>
   <data name="Common_Ms" xml:space="preserve"><value>ms</value></data>
   <data name="Common_Unassigned" xml:space="preserve"><value>Недоделено</value></data>
+  <data name="Common_DoesNotApply" xml:space="preserve"><value>Не се применува</value></data>
   <data name="Common_PadForge" xml:space="preserve"><value>PadForge</value></data>
 
   <!-- ═══ Controller Types ═══ -->
@@ -124,6 +135,9 @@
   <data name="Main_AddController" xml:space="preserve"><value>Додај контролер</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Избриши виртуелен контролер</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Цел екран</value></data>
+  <data name="Main_Minimize" xml:space="preserve"><value>Минимизирај</value></data>
+  <data name="Main_Maximize" xml:space="preserve"><value>Максимизирај</value></data>
+  <data name="Main_Restore" xml:space="preserve"><value>Врати</value></data>
   <data name="Main_NavigationPane" xml:space="preserve"><value>Навигациски панел</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>Прикажи PadForge</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>Виртуелен контролер {0}</value></data>
@@ -1345,6 +1359,7 @@
   <data name="Curve_SCurve" xml:space="preserve"><value>S-крива</value></data>
   <data name="Curve_Delay" xml:space="preserve"><value>Со задоцнување</value></data>
   <data name="Curve_Custom" xml:space="preserve"><value>Прилагодена</value></data>
+  <data name="CurveEditor_PointFormat" xml:space="preserve"><value>Точка {0} од {1}, влез {2}%, излез {3}%</value></data>
   <data name="Pad_CalibrateCenter" xml:space="preserve"><value>Калибрирај центар</value></data>
   <data name="Pad_Sticks_Section_CenterPoint" xml:space="preserve"><value>Централна точка</value></data>
   <data name="Pad_Sticks_Section_DeadZone" xml:space="preserve"><value>Мртва зона</value></data>

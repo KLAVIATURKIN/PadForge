@@ -102,9 +102,20 @@
   <data name="Common_Record" xml:space="preserve"><value>Ghi</value></data>
   <data name="Common_Recording" xml:space="preserve"><value>Đang ghi...</value></data>
   <data name="Common_Clear" xml:space="preserve"><value>Xóa</value></data>
+  <data name="Common_Increase" xml:space="preserve"><value>Tăng</value></data>
+  <data name="Common_Decrease" xml:space="preserve"><value>Giảm</value></data>
+  <data name="Common_ScrollUp" xml:space="preserve"><value>Cuộn lên</value></data>
+  <data name="Common_ScrollDown" xml:space="preserve"><value>Cuộn xuống</value></data>
+  <data name="Common_ScrollLeft" xml:space="preserve"><value>Cuộn sang trái</value></data>
+  <data name="Common_ScrollRight" xml:space="preserve"><value>Cuộn sang phải</value></data>
+  <data name="Common_PageUp" xml:space="preserve"><value>Lên một trang</value></data>
+  <data name="Common_PageDown" xml:space="preserve"><value>Xuống một trang</value></data>
+  <data name="Common_PageLeft" xml:space="preserve"><value>Sang trái một trang</value></data>
+  <data name="Common_PageRight" xml:space="preserve"><value>Sang phải một trang</value></data>
   <data name="Common_None" xml:space="preserve"><value>Không có</value></data>
   <data name="Common_Ms" xml:space="preserve"><value>ms</value></data>
   <data name="Common_Unassigned" xml:space="preserve"><value>Chưa gán</value></data>
+  <data name="Common_DoesNotApply" xml:space="preserve"><value>Không áp dụng</value></data>
   <data name="Common_PadForge" xml:space="preserve"><value>PadForge</value></data>
 
   <!-- ═══ Controller Types ═══ -->
@@ -124,6 +135,9 @@
   <data name="Main_AddController" xml:space="preserve"><value>Thêm tay cầm</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Xóa tay cầm ảo</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Toàn màn hình</value></data>
+  <data name="Main_Minimize" xml:space="preserve"><value>Thu nhỏ</value></data>
+  <data name="Main_Maximize" xml:space="preserve"><value>Phóng to</value></data>
+  <data name="Main_Restore" xml:space="preserve"><value>Khôi phục</value></data>
   <data name="Main_NavigationPane" xml:space="preserve"><value>Ngăn điều hướng</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>Hiện PadForge</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>Tay cầm ảo {0}</value></data>
@@ -1345,6 +1359,7 @@ Bản sao của phiên bản trước nằm trong thư mục này: {1}</value></
   <data name="Curve_SCurve" xml:space="preserve"><value>Đường cong chữ S</value></data>
   <data name="Curve_Delay" xml:space="preserve"><value>Trễ</value></data>
   <data name="Curve_Custom" xml:space="preserve"><value>Tùy chỉnh</value></data>
+  <data name="CurveEditor_PointFormat" xml:space="preserve"><value>Điểm {0} trên {1}, đầu vào {2}%, đầu ra {3}%</value></data>
   <data name="Pad_CalibrateCenter" xml:space="preserve"><value>Hiệu chỉnh tâm</value></data>
   <data name="Pad_Sticks_Section_CenterPoint" xml:space="preserve"><value>Điểm tâm</value></data>
   <data name="Pad_Sticks_Section_DeadZone" xml:space="preserve"><value>Vùng chết</value></data>

@@ -102,9 +102,20 @@
   <data name="Common_Record" xml:space="preserve"><value>ضبط</value></data>
   <data name="Common_Recording" xml:space="preserve"><value>در حال ضبط...</value></data>
   <data name="Common_Clear" xml:space="preserve"><value>پاک کردن</value></data>
+  <data name="Common_Increase" xml:space="preserve"><value>افزایش</value></data>
+  <data name="Common_Decrease" xml:space="preserve"><value>کاهش</value></data>
+  <data name="Common_ScrollUp" xml:space="preserve"><value>پیمایش به بالا</value></data>
+  <data name="Common_ScrollDown" xml:space="preserve"><value>پیمایش به پایین</value></data>
+  <data name="Common_ScrollLeft" xml:space="preserve"><value>پیمایش به چپ</value></data>
+  <data name="Common_ScrollRight" xml:space="preserve"><value>پیمایش به راست</value></data>
+  <data name="Common_PageUp" xml:space="preserve"><value>یک صفحه بالا</value></data>
+  <data name="Common_PageDown" xml:space="preserve"><value>یک صفحه پایین</value></data>
+  <data name="Common_PageLeft" xml:space="preserve"><value>یک صفحه به چپ</value></data>
+  <data name="Common_PageRight" xml:space="preserve"><value>یک صفحه به راست</value></data>
   <data name="Common_None" xml:space="preserve"><value>هیچ‌کدام</value></data>
   <data name="Common_Ms" xml:space="preserve"><value>ms</value></data>
   <data name="Common_Unassigned" xml:space="preserve"><value>اختصاص‌نیافته</value></data>
+  <data name="Common_DoesNotApply" xml:space="preserve"><value>کاربرد ندارد</value></data>
   <data name="Common_PadForge" xml:space="preserve"><value>PadForge</value></data>
 
   <!-- ═══ Controller Types ═══ -->
@@ -124,6 +135,9 @@
   <data name="Main_AddController" xml:space="preserve"><value>افزودن کنترلر</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>حذف کنترلر مجازی</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>تمام‌صفحه</value></data>
+  <data name="Main_Minimize" xml:space="preserve"><value>کوچک‌سازی</value></data>
+  <data name="Main_Maximize" xml:space="preserve"><value>بزرگ‌سازی</value></data>
+  <data name="Main_Restore" xml:space="preserve"><value>بازگرداندن</value></data>
   <data name="Main_NavigationPane" xml:space="preserve"><value>پنجره ناوبری</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>نمایش PadForge</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>کنترلر مجازی {0}</value></data>
@@ -1345,6 +1359,7 @@
   <data name="Curve_SCurve" xml:space="preserve"><value>منحنی S</value></data>
   <data name="Curve_Delay" xml:space="preserve"><value>تأخیر</value></data>
   <data name="Curve_Custom" xml:space="preserve"><value>سفارشی</value></data>
+  <data name="CurveEditor_PointFormat" xml:space="preserve"><value>نقطه {0} از {1}، ورودی {2}%، خروجی {3}%</value></data>
   <data name="Pad_CalibrateCenter" xml:space="preserve"><value>کالیبره کردن مرکز</value></data>
   <data name="Pad_Sticks_Section_CenterPoint" xml:space="preserve"><value>نقطه مرکز</value></data>
   <data name="Pad_Sticks_Section_DeadZone" xml:space="preserve"><value>ناحیه مرده</value></data>

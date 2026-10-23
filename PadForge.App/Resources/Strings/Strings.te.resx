@@ -102,9 +102,20 @@
   <data name="Common_Record" xml:space="preserve"><value>రికార్డ్ చేయి</value></data>
   <data name="Common_Recording" xml:space="preserve"><value>రికార్డ్ అవుతోంది...</value></data>
   <data name="Common_Clear" xml:space="preserve"><value>క్లియర్ చేయి</value></data>
+  <data name="Common_Increase" xml:space="preserve"><value>పెంచు</value></data>
+  <data name="Common_Decrease" xml:space="preserve"><value>తగ్గించు</value></data>
+  <data name="Common_ScrollUp" xml:space="preserve"><value>పైకి స్క్రోల్ చేయి</value></data>
+  <data name="Common_ScrollDown" xml:space="preserve"><value>కిందికి స్క్రోల్ చేయి</value></data>
+  <data name="Common_ScrollLeft" xml:space="preserve"><value>ఎడమకు స్క్రోల్ చేయి</value></data>
+  <data name="Common_ScrollRight" xml:space="preserve"><value>కుడికి స్క్రోల్ చేయి</value></data>
+  <data name="Common_PageUp" xml:space="preserve"><value>పేజీ పైకి</value></data>
+  <data name="Common_PageDown" xml:space="preserve"><value>పేజీ కిందికి</value></data>
+  <data name="Common_PageLeft" xml:space="preserve"><value>పేజీ ఎడమకు</value></data>
+  <data name="Common_PageRight" xml:space="preserve"><value>పేజీ కుడికి</value></data>
   <data name="Common_None" xml:space="preserve"><value>ఏదీ లేదు</value></data>
   <data name="Common_Ms" xml:space="preserve"><value>ms</value></data>
   <data name="Common_Unassigned" xml:space="preserve"><value>కేటాయించలేదు</value></data>
+  <data name="Common_DoesNotApply" xml:space="preserve"><value>వర్తించదు</value></data>
   <data name="Common_PadForge" xml:space="preserve"><value>PadForge</value></data>
 
   <!-- ═══ Controller Types ═══ -->
@@ -124,6 +135,9 @@
   <data name="Main_AddController" xml:space="preserve"><value>కంట్రోలర్ జోడించు</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>వర్చువల్ కంట్రోలర్‌ను తొలగించు</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>పూర్తి స్క్రీన్</value></data>
+  <data name="Main_Minimize" xml:space="preserve"><value>కనిష్టీకరించు</value></data>
+  <data name="Main_Maximize" xml:space="preserve"><value>గరిష్టీకరించు</value></data>
+  <data name="Main_Restore" xml:space="preserve"><value>పునరుద్ధరించు</value></data>
   <data name="Main_NavigationPane" xml:space="preserve"><value>నావిగేషన్ పేన్</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>PadForge చూపించు</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>వర్చువల్ కంట్రోలర్ {0}</value></data>
@@ -1345,6 +1359,7 @@
   <data name="Curve_SCurve" xml:space="preserve"><value>S-వక్రరేఖ</value></data>
   <data name="Curve_Delay" xml:space="preserve"><value>ఆలస్యం</value></data>
   <data name="Curve_Custom" xml:space="preserve"><value>కస్టమ్</value></data>
+  <data name="CurveEditor_PointFormat" xml:space="preserve"><value>పాయింట్ {0}/{1}, ఇన్పుట్ {2}%, అవుట్పుట్ {3}%</value></data>
   <data name="Pad_CalibrateCenter" xml:space="preserve"><value>మధ్యను క్రమాంకనం చేయి</value></data>
   <data name="Pad_Sticks_Section_CenterPoint" xml:space="preserve"><value>మధ్య బిందువు</value></data>
   <data name="Pad_Sticks_Section_DeadZone" xml:space="preserve"><value>డెడ్ జోన్</value></data>

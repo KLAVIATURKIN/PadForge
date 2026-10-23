@@ -102,9 +102,20 @@
   <data name="Common_Record" xml:space="preserve"><value>ریکارڈ کریں</value></data>
   <data name="Common_Recording" xml:space="preserve"><value>ریکارڈنگ جاری ہے...</value></data>
   <data name="Common_Clear" xml:space="preserve"><value>صاف کریں</value></data>
+  <data name="Common_Increase" xml:space="preserve"><value>اضافہ کریں</value></data>
+  <data name="Common_Decrease" xml:space="preserve"><value>کمی کریں</value></data>
+  <data name="Common_ScrollUp" xml:space="preserve"><value>اوپر اسکرول کریں</value></data>
+  <data name="Common_ScrollDown" xml:space="preserve"><value>نیچے اسکرول کریں</value></data>
+  <data name="Common_ScrollLeft" xml:space="preserve"><value>بائیں اسکرول کریں</value></data>
+  <data name="Common_ScrollRight" xml:space="preserve"><value>دائیں اسکرول کریں</value></data>
+  <data name="Common_PageUp" xml:space="preserve"><value>صفحہ اوپر</value></data>
+  <data name="Common_PageDown" xml:space="preserve"><value>صفحہ نیچے</value></data>
+  <data name="Common_PageLeft" xml:space="preserve"><value>صفحہ بائیں</value></data>
+  <data name="Common_PageRight" xml:space="preserve"><value>صفحہ دائیں</value></data>
   <data name="Common_None" xml:space="preserve"><value>کوئی نہیں</value></data>
   <data name="Common_Ms" xml:space="preserve"><value>ملی سیکنڈ</value></data>
   <data name="Common_Unassigned" xml:space="preserve"><value>غیر تفویض شدہ</value></data>
+  <data name="Common_DoesNotApply" xml:space="preserve"><value>لاگو نہیں ہوتا</value></data>
   <data name="Common_PadForge" xml:space="preserve"><value>PadForge</value></data>
 
   <!-- ═══ Controller Types ═══ -->
@@ -124,6 +135,9 @@
   <data name="Main_AddController" xml:space="preserve"><value>کنٹرولر شامل کریں</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>ورچوئل کنٹرولر حذف کریں</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>پوری اسکرین</value></data>
+  <data name="Main_Minimize" xml:space="preserve"><value>چھوٹا کریں</value></data>
+  <data name="Main_Maximize" xml:space="preserve"><value>بڑا کریں</value></data>
+  <data name="Main_Restore" xml:space="preserve"><value>بحال کریں</value></data>
   <data name="Main_NavigationPane" xml:space="preserve"><value>نیویگیشن پین</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>PadForge دکھائیں</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>ورچوئل کنٹرولر {0}</value></data>
@@ -1345,6 +1359,7 @@
   <data name="Curve_SCurve" xml:space="preserve"><value>S-خم</value></data>
   <data name="Curve_Delay" xml:space="preserve"><value>تاخیر</value></data>
   <data name="Curve_Custom" xml:space="preserve"><value>حسب ضرورت</value></data>
+  <data name="CurveEditor_PointFormat" xml:space="preserve"><value>پوائنٹ {0} از {1}، ان پٹ {2}%، آؤٹ پٹ {3}%</value></data>
   <data name="Pad_CalibrateCenter" xml:space="preserve"><value>مرکز کیلیبریٹ کریں</value></data>
   <data name="Pad_Sticks_Section_CenterPoint" xml:space="preserve"><value>مرکزی نقطہ</value></data>
   <data name="Pad_Sticks_Section_DeadZone" xml:space="preserve"><value>ڈیڈ زون</value></data>

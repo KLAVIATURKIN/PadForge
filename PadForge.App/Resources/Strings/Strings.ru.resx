@@ -102,9 +102,20 @@
   <data name="Common_Record" xml:space="preserve"><value>Записать</value></data>
   <data name="Common_Recording" xml:space="preserve"><value>Запись...</value></data>
   <data name="Common_Clear" xml:space="preserve"><value>Очистить</value></data>
+  <data name="Common_Increase" xml:space="preserve"><value>Увеличить</value></data>
+  <data name="Common_Decrease" xml:space="preserve"><value>Уменьшить</value></data>
+  <data name="Common_ScrollUp" xml:space="preserve"><value>Строка вверх</value></data>
+  <data name="Common_ScrollDown" xml:space="preserve"><value>Строка вниз</value></data>
+  <data name="Common_ScrollLeft" xml:space="preserve"><value>Строка влево</value></data>
+  <data name="Common_ScrollRight" xml:space="preserve"><value>Строка вправо</value></data>
+  <data name="Common_PageUp" xml:space="preserve"><value>Страница вверх</value></data>
+  <data name="Common_PageDown" xml:space="preserve"><value>Страница вниз</value></data>
+  <data name="Common_PageLeft" xml:space="preserve"><value>Страница влево</value></data>
+  <data name="Common_PageRight" xml:space="preserve"><value>Страница вправо</value></data>
   <data name="Common_None" xml:space="preserve"><value>Нет</value></data>
   <data name="Common_Ms" xml:space="preserve"><value>мс</value></data>
   <data name="Common_Unassigned" xml:space="preserve"><value>Не назначено</value></data>
+  <data name="Common_DoesNotApply" xml:space="preserve"><value>Не применяется</value></data>
   <data name="Common_PadForge" xml:space="preserve"><value>PadForge</value></data>
 
   <!-- ═══ Controller Types ═══ -->
@@ -124,6 +135,9 @@
   <data name="Main_AddController" xml:space="preserve"><value>Добавить контроллер</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Удалить виртуальный контроллер</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Полный экран</value></data>
+  <data name="Main_Minimize" xml:space="preserve"><value>Свернуть</value></data>
+  <data name="Main_Maximize" xml:space="preserve"><value>Развернуть</value></data>
+  <data name="Main_Restore" xml:space="preserve"><value>Восстановить</value></data>
   <data name="Main_NavigationPane" xml:space="preserve"><value>Панель навигации</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>Показать PadForge</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>Виртуальный контроллер {0}</value></data>
@@ -1345,6 +1359,7 @@
   <data name="Curve_SCurve" xml:space="preserve"><value>S-образная</value></data>
   <data name="Curve_Delay" xml:space="preserve"><value>С задержкой</value></data>
   <data name="Curve_Custom" xml:space="preserve"><value>Пользовательская</value></data>
+  <data name="CurveEditor_PointFormat" xml:space="preserve"><value>Точка {0} из {1}, вход {2} %, выход {3} %</value></data>
   <data name="Pad_CalibrateCenter" xml:space="preserve"><value>Калибровать центр</value></data>
   <data name="Pad_Sticks_Section_CenterPoint" xml:space="preserve"><value>Центральная точка</value></data>
   <data name="Pad_Sticks_Section_DeadZone" xml:space="preserve"><value>Мертвая зона</value></data>

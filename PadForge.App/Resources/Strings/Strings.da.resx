@@ -102,9 +102,20 @@
   <data name="Common_Record" xml:space="preserve"><value>Optag</value></data>
   <data name="Common_Recording" xml:space="preserve"><value>Optager...</value></data>
   <data name="Common_Clear" xml:space="preserve"><value>Ryd</value></data>
+  <data name="Common_Increase" xml:space="preserve"><value>Forøg</value></data>
+  <data name="Common_Decrease" xml:space="preserve"><value>Formindsk</value></data>
+  <data name="Common_ScrollUp" xml:space="preserve"><value>Rul op</value></data>
+  <data name="Common_ScrollDown" xml:space="preserve"><value>Rul ned</value></data>
+  <data name="Common_ScrollLeft" xml:space="preserve"><value>Rul til venstre</value></data>
+  <data name="Common_ScrollRight" xml:space="preserve"><value>Rul til højre</value></data>
+  <data name="Common_PageUp" xml:space="preserve"><value>Side op</value></data>
+  <data name="Common_PageDown" xml:space="preserve"><value>Side ned</value></data>
+  <data name="Common_PageLeft" xml:space="preserve"><value>Side til venstre</value></data>
+  <data name="Common_PageRight" xml:space="preserve"><value>Side til højre</value></data>
   <data name="Common_None" xml:space="preserve"><value>Ingen</value></data>
   <data name="Common_Ms" xml:space="preserve"><value>ms</value></data>
   <data name="Common_Unassigned" xml:space="preserve"><value>Ikke tildelt</value></data>
+  <data name="Common_DoesNotApply" xml:space="preserve"><value>Gælder ikke</value></data>
   <data name="Common_PadForge" xml:space="preserve"><value>PadForge</value></data>
 
   <!-- ═══ Controller Types ═══ -->
@@ -124,6 +135,9 @@
   <data name="Main_AddController" xml:space="preserve"><value>Tilføj controller</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Slet virtuel controller</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Fuld skærm</value></data>
+  <data name="Main_Minimize" xml:space="preserve"><value>Minimer</value></data>
+  <data name="Main_Maximize" xml:space="preserve"><value>Maksimer</value></data>
+  <data name="Main_Restore" xml:space="preserve"><value>Gendan</value></data>
   <data name="Main_NavigationPane" xml:space="preserve"><value>Navigationsrude</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>Vis PadForge</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>Virtuel controller {0}</value></data>
@@ -1345,6 +1359,7 @@ Der ligger en kopi af den tidligere version i denne mappe: {1}</value></data>
   <data name="Curve_SCurve" xml:space="preserve"><value>S-kurve</value></data>
   <data name="Curve_Delay" xml:space="preserve"><value>Forsinkelse</value></data>
   <data name="Curve_Custom" xml:space="preserve"><value>Brugerdefineret</value></data>
+  <data name="CurveEditor_PointFormat" xml:space="preserve"><value>Punkt {0} af {1}, input {2} %, output {3} %</value></data>
   <data name="Pad_CalibrateCenter" xml:space="preserve"><value>Kalibrer midten</value></data>
   <data name="Pad_Sticks_Section_CenterPoint" xml:space="preserve"><value>Midtpunkt</value></data>
   <data name="Pad_Sticks_Section_DeadZone" xml:space="preserve"><value>Dødzone</value></data>

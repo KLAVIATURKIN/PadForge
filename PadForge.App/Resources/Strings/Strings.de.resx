@@ -99,9 +99,20 @@
   <data name="Common_Record" xml:space="preserve"><value>Aufnehmen</value></data>
   <data name="Common_Recording" xml:space="preserve"><value>Aufnahme...</value></data>
   <data name="Common_Clear" xml:space="preserve"><value>Leeren</value></data>
+  <data name="Common_Increase" xml:space="preserve"><value>Erhöhen</value></data>
+  <data name="Common_Decrease" xml:space="preserve"><value>Verringern</value></data>
+  <data name="Common_ScrollUp" xml:space="preserve"><value>Nach oben scrollen</value></data>
+  <data name="Common_ScrollDown" xml:space="preserve"><value>Nach unten scrollen</value></data>
+  <data name="Common_ScrollLeft" xml:space="preserve"><value>Nach links scrollen</value></data>
+  <data name="Common_ScrollRight" xml:space="preserve"><value>Nach rechts scrollen</value></data>
+  <data name="Common_PageUp" xml:space="preserve"><value>Eine Seite nach oben</value></data>
+  <data name="Common_PageDown" xml:space="preserve"><value>Eine Seite nach unten</value></data>
+  <data name="Common_PageLeft" xml:space="preserve"><value>Eine Seite nach links</value></data>
+  <data name="Common_PageRight" xml:space="preserve"><value>Eine Seite nach rechts</value></data>
   <data name="Common_None" xml:space="preserve"><value>Keine</value></data>
   <data name="Common_Ms" xml:space="preserve"><value>ms</value></data>
   <data name="Common_Unassigned" xml:space="preserve"><value>Nicht zugewiesen</value></data>
+  <data name="Common_DoesNotApply" xml:space="preserve"><value>Nicht zutreffend</value></data>
   <data name="Common_PadForge" xml:space="preserve"><value>PadForge</value></data>
 
   <!-- ═══ Controller Types ═══ -->
@@ -121,6 +132,9 @@
   <data name="Main_AddController" xml:space="preserve"><value>Controller hinzufügen</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Virtuellen Controller löschen</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Vollbild</value></data>
+  <data name="Main_Minimize" xml:space="preserve"><value>Minimieren</value></data>
+  <data name="Main_Maximize" xml:space="preserve"><value>Maximieren</value></data>
+  <data name="Main_Restore" xml:space="preserve"><value>Wiederherstellen</value></data>
   <data name="Main_NavigationPane" xml:space="preserve"><value>Navigationsbereich</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>PadForge anzeigen</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>Virtueller Controller {0}</value></data>
@@ -792,6 +806,7 @@ Eine Kopie der vorherigen Version liegt in diesem Ordner: {1}</value></data>
   <data name="Curve_SCurve" xml:space="preserve"><value>S-Kurve</value></data>
   <data name="Curve_Delay" xml:space="preserve"><value>Verzögert</value></data>
   <data name="Curve_Custom" xml:space="preserve"><value>Benutzerdefiniert</value></data>
+  <data name="CurveEditor_PointFormat" xml:space="preserve"><value>Punkt {0} von {1}, Eingabe {2} %, Ausgabe {3} %</value></data>
   <data name="Pad_CalibrateCenter" xml:space="preserve"><value>Mitte kalibrieren</value></data>
   <data name="Pad_Sticks_Section_CenterPoint" xml:space="preserve"><value>Mittelpunkt</value></data>
   <data name="Pad_Sticks_Section_DeadZone" xml:space="preserve"><value>Deadzone</value></data>

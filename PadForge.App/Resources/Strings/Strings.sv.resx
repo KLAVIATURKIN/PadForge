@@ -102,9 +102,20 @@
   <data name="Common_Record" xml:space="preserve"><value>Spela in</value></data>
   <data name="Common_Recording" xml:space="preserve"><value>Spelar in...</value></data>
   <data name="Common_Clear" xml:space="preserve"><value>Rensa</value></data>
+  <data name="Common_Increase" xml:space="preserve"><value>Öka</value></data>
+  <data name="Common_Decrease" xml:space="preserve"><value>Minska</value></data>
+  <data name="Common_ScrollUp" xml:space="preserve"><value>Rulla upp</value></data>
+  <data name="Common_ScrollDown" xml:space="preserve"><value>Rulla ned</value></data>
+  <data name="Common_ScrollLeft" xml:space="preserve"><value>Rulla åt vänster</value></data>
+  <data name="Common_ScrollRight" xml:space="preserve"><value>Rulla åt höger</value></data>
+  <data name="Common_PageUp" xml:space="preserve"><value>Sida upp</value></data>
+  <data name="Common_PageDown" xml:space="preserve"><value>Sida ned</value></data>
+  <data name="Common_PageLeft" xml:space="preserve"><value>Sida åt vänster</value></data>
+  <data name="Common_PageRight" xml:space="preserve"><value>Sida åt höger</value></data>
   <data name="Common_None" xml:space="preserve"><value>Ingen</value></data>
   <data name="Common_Ms" xml:space="preserve"><value>ms</value></data>
   <data name="Common_Unassigned" xml:space="preserve"><value>Inte tilldelad</value></data>
+  <data name="Common_DoesNotApply" xml:space="preserve"><value>Gäller inte</value></data>
   <data name="Common_PadForge" xml:space="preserve"><value>PadForge</value></data>
 
   <!-- ═══ Controller Types ═══ -->
@@ -124,6 +135,9 @@
   <data name="Main_AddController" xml:space="preserve"><value>Lägg till handkontroll</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Radera virtuell handkontroll</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Helskärm</value></data>
+  <data name="Main_Minimize" xml:space="preserve"><value>Minimera</value></data>
+  <data name="Main_Maximize" xml:space="preserve"><value>Maximera</value></data>
+  <data name="Main_Restore" xml:space="preserve"><value>Återställ</value></data>
   <data name="Main_NavigationPane" xml:space="preserve"><value>Navigeringsfönster</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>Visa PadForge</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>Virtuell handkontroll {0}</value></data>
@@ -1345,6 +1359,7 @@ En kopia av den föregående versionen finns i den här mappen: {1}</value></dat
   <data name="Curve_SCurve" xml:space="preserve"><value>S-kurva</value></data>
   <data name="Curve_Delay" xml:space="preserve"><value>Fördröjd</value></data>
   <data name="Curve_Custom" xml:space="preserve"><value>Anpassad</value></data>
+  <data name="CurveEditor_PointFormat" xml:space="preserve"><value>Punkt {0} av {1}, indata {2} %, utdata {3} %</value></data>
   <data name="Pad_CalibrateCenter" xml:space="preserve"><value>Kalibrera centrum</value></data>
   <data name="Pad_Sticks_Section_CenterPoint" xml:space="preserve"><value>Centrumpunkt</value></data>
   <data name="Pad_Sticks_Section_DeadZone" xml:space="preserve"><value>Dödzon</value></data>

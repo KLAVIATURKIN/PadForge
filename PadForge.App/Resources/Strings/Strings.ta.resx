@@ -102,9 +102,20 @@
   <data name="Common_Record" xml:space="preserve"><value>பதிவுசெய்</value></data>
   <data name="Common_Recording" xml:space="preserve"><value>பதிவுசெய்கிறது...</value></data>
   <data name="Common_Clear" xml:space="preserve"><value>அழி</value></data>
+  <data name="Common_Increase" xml:space="preserve"><value>அதிகரி</value></data>
+  <data name="Common_Decrease" xml:space="preserve"><value>குறை</value></data>
+  <data name="Common_ScrollUp" xml:space="preserve"><value>மேலே உருட்டு</value></data>
+  <data name="Common_ScrollDown" xml:space="preserve"><value>கீழே உருட்டு</value></data>
+  <data name="Common_ScrollLeft" xml:space="preserve"><value>இடப்புறம் உருட்டு</value></data>
+  <data name="Common_ScrollRight" xml:space="preserve"><value>வலப்புறம் உருட்டு</value></data>
+  <data name="Common_PageUp" xml:space="preserve"><value>ஒரு பக்கம் மேலே</value></data>
+  <data name="Common_PageDown" xml:space="preserve"><value>ஒரு பக்கம் கீழே</value></data>
+  <data name="Common_PageLeft" xml:space="preserve"><value>ஒரு பக்கம் இடப்புறம்</value></data>
+  <data name="Common_PageRight" xml:space="preserve"><value>ஒரு பக்கம் வலப்புறம்</value></data>
   <data name="Common_None" xml:space="preserve"><value>ஏதுமில்லை</value></data>
   <data name="Common_Ms" xml:space="preserve"><value>ms</value></data>
   <data name="Common_Unassigned" xml:space="preserve"><value>ஒதுக்கப்படாதது</value></data>
+  <data name="Common_DoesNotApply" xml:space="preserve"><value>பொருந்தாது</value></data>
   <data name="Common_PadForge" xml:space="preserve"><value>PadForge</value></data>
 
   <!-- ═══ Controller Types ═══ -->
@@ -124,6 +135,9 @@
   <data name="Main_AddController" xml:space="preserve"><value>கட்டுப்படுத்தியைச் சேர்</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>மெய்நிகர் கட்டுப்படுத்தியை நீக்கு</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>முழுத்திரை</value></data>
+  <data name="Main_Minimize" xml:space="preserve"><value>சிறிதாக்கு</value></data>
+  <data name="Main_Maximize" xml:space="preserve"><value>பெரிதாக்கு</value></data>
+  <data name="Main_Restore" xml:space="preserve"><value>மீட்டெடு</value></data>
   <data name="Main_NavigationPane" xml:space="preserve"><value>வழிசெலுத்தல் பலகம்</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>PadForge-ஐக் காட்டு</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>மெய்நிகர் கட்டுப்படுத்தி {0}</value></data>
@@ -1345,6 +1359,7 @@
   <data name="Curve_SCurve" xml:space="preserve"><value>S-வளைவு</value></data>
   <data name="Curve_Delay" xml:space="preserve"><value>தாமதம்</value></data>
   <data name="Curve_Custom" xml:space="preserve"><value>தனிப்பயன்</value></data>
+  <data name="CurveEditor_PointFormat" xml:space="preserve"><value>புள்ளி {0} / {1}, உள்ளீடு {2}%, வெளியீடு {3}%</value></data>
   <data name="Pad_CalibrateCenter" xml:space="preserve"><value>மையத்தை அளவுத்திருத்து</value></data>
   <data name="Pad_Sticks_Section_CenterPoint" xml:space="preserve"><value>மையப் புள்ளி</value></data>
   <data name="Pad_Sticks_Section_DeadZone" xml:space="preserve"><value>டெட்ஜோன்</value></data>

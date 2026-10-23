@@ -102,9 +102,20 @@
   <data name="Common_Record" xml:space="preserve"><value>Rögzítés</value></data>
   <data name="Common_Recording" xml:space="preserve"><value>Rögzítés...</value></data>
   <data name="Common_Clear" xml:space="preserve"><value>Törlés</value></data>
+  <data name="Common_Increase" xml:space="preserve"><value>Növelés</value></data>
+  <data name="Common_Decrease" xml:space="preserve"><value>Csökkentés</value></data>
+  <data name="Common_ScrollUp" xml:space="preserve"><value>Görgetés felfelé</value></data>
+  <data name="Common_ScrollDown" xml:space="preserve"><value>Görgetés lefelé</value></data>
+  <data name="Common_ScrollLeft" xml:space="preserve"><value>Görgetés balra</value></data>
+  <data name="Common_ScrollRight" xml:space="preserve"><value>Görgetés jobbra</value></data>
+  <data name="Common_PageUp" xml:space="preserve"><value>Lapozás felfelé</value></data>
+  <data name="Common_PageDown" xml:space="preserve"><value>Lapozás lefelé</value></data>
+  <data name="Common_PageLeft" xml:space="preserve"><value>Lapozás balra</value></data>
+  <data name="Common_PageRight" xml:space="preserve"><value>Lapozás jobbra</value></data>
   <data name="Common_None" xml:space="preserve"><value>Nincs</value></data>
   <data name="Common_Ms" xml:space="preserve"><value>ms</value></data>
   <data name="Common_Unassigned" xml:space="preserve"><value>Nincs hozzárendelve</value></data>
+  <data name="Common_DoesNotApply" xml:space="preserve"><value>Nem alkalmazható</value></data>
   <data name="Common_PadForge" xml:space="preserve"><value>PadForge</value></data>
 
   <!-- ═══ Controller Types ═══ -->
@@ -124,6 +135,9 @@
   <data name="Main_AddController" xml:space="preserve"><value>Kontroller hozzáadása</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Virtuális kontroller törlése</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Teljes képernyő</value></data>
+  <data name="Main_Minimize" xml:space="preserve"><value>Kicsinyítés</value></data>
+  <data name="Main_Maximize" xml:space="preserve"><value>Nagyítás</value></data>
+  <data name="Main_Restore" xml:space="preserve"><value>Visszaállítás</value></data>
   <data name="Main_NavigationPane" xml:space="preserve"><value>Navigációs panel</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>A PadForge megjelenítése</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>{0}. virtuális kontroller</value></data>
@@ -1345,6 +1359,7 @@ Az előző verzió egy példánya ebben a mappában található: {1}</value></da
   <data name="Curve_SCurve" xml:space="preserve"><value>S-görbe</value></data>
   <data name="Curve_Delay" xml:space="preserve"><value>Késleltetett</value></data>
   <data name="Curve_Custom" xml:space="preserve"><value>Egyéni</value></data>
+  <data name="CurveEditor_PointFormat" xml:space="preserve"><value>{0}. pont, összesen {1}, bemenet {2}%, kimenet {3}%</value></data>
   <data name="Pad_CalibrateCenter" xml:space="preserve"><value>Középpont kalibrálása</value></data>
   <data name="Pad_Sticks_Section_CenterPoint" xml:space="preserve"><value>Középpont</value></data>
   <data name="Pad_Sticks_Section_DeadZone" xml:space="preserve"><value>Holtzóna</value></data>

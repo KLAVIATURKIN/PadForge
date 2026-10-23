@@ -102,9 +102,20 @@
   <data name="Common_Record" xml:space="preserve"><value>रिकॉर्ड करें</value></data>
   <data name="Common_Recording" xml:space="preserve"><value>रिकॉर्ड हो रहा है...</value></data>
   <data name="Common_Clear" xml:space="preserve"><value>साफ़ करें</value></data>
+  <data name="Common_Increase" xml:space="preserve"><value>बढ़ाएँ</value></data>
+  <data name="Common_Decrease" xml:space="preserve"><value>घटाएँ</value></data>
+  <data name="Common_ScrollUp" xml:space="preserve"><value>ऊपर स्क्रॉल करें</value></data>
+  <data name="Common_ScrollDown" xml:space="preserve"><value>नीचे स्क्रॉल करें</value></data>
+  <data name="Common_ScrollLeft" xml:space="preserve"><value>बाएँ स्क्रॉल करें</value></data>
+  <data name="Common_ScrollRight" xml:space="preserve"><value>दाएँ स्क्रॉल करें</value></data>
+  <data name="Common_PageUp" xml:space="preserve"><value>एक पृष्ठ ऊपर</value></data>
+  <data name="Common_PageDown" xml:space="preserve"><value>एक पृष्ठ नीचे</value></data>
+  <data name="Common_PageLeft" xml:space="preserve"><value>एक पृष्ठ बाएँ</value></data>
+  <data name="Common_PageRight" xml:space="preserve"><value>एक पृष्ठ दाएँ</value></data>
   <data name="Common_None" xml:space="preserve"><value>कोई नहीं</value></data>
   <data name="Common_Ms" xml:space="preserve"><value>ms</value></data>
   <data name="Common_Unassigned" xml:space="preserve"><value>असाइन नहीं</value></data>
+  <data name="Common_DoesNotApply" xml:space="preserve"><value>लागू नहीं</value></data>
   <data name="Common_PadForge" xml:space="preserve"><value>PadForge</value></data>
 
   <!-- ═══ Controller Types ═══ -->
@@ -124,6 +135,9 @@
   <data name="Main_AddController" xml:space="preserve"><value>कंट्रोलर जोड़ें</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>वर्चुअल कंट्रोलर हटाएँ</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>पूर्ण स्क्रीन</value></data>
+  <data name="Main_Minimize" xml:space="preserve"><value>छोटा करें</value></data>
+  <data name="Main_Maximize" xml:space="preserve"><value>बड़ा करें</value></data>
+  <data name="Main_Restore" xml:space="preserve"><value>पूर्ववत आकार में लाएँ</value></data>
   <data name="Main_NavigationPane" xml:space="preserve"><value>नेविगेशन पैनल</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>PadForge दिखाएँ</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>वर्चुअल कंट्रोलर {0}</value></data>
@@ -1345,6 +1359,7 @@
   <data name="Curve_SCurve" xml:space="preserve"><value>S-वक्र</value></data>
   <data name="Curve_Delay" xml:space="preserve"><value>विलंब</value></data>
   <data name="Curve_Custom" xml:space="preserve"><value>कस्टम</value></data>
+  <data name="CurveEditor_PointFormat" xml:space="preserve"><value>बिंदु {0} / {1}, इनपुट {2}%, आउटपुट {3}%</value></data>
   <data name="Pad_CalibrateCenter" xml:space="preserve"><value>केंद्र कैलिब्रेट करें</value></data>
   <data name="Pad_Sticks_Section_CenterPoint" xml:space="preserve"><value>केंद्र बिंदु</value></data>
   <data name="Pad_Sticks_Section_DeadZone" xml:space="preserve"><value>डेडज़ोन</value></data>
