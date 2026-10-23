@@ -786,7 +786,7 @@ namespace PadForge.Tests
                          ("| [InputPlumber](", "| GPL-3.0-or-later |"), ("| [Linux kernel](", "| GPL-2.0-or-later |"),
                          ("| [Special K](", "| GPL-3.0-or-later |"), ("| [VIIPER (hbashton fork)](", "| GPL-3.0-or-later |"),
                          ("| [x360ce](", "| LGPL-3.0-or-later |"), ("| [xone](", "| GPL-2.0-or-later |"),
-                         ("| Analog keyboard references |", "| MIT, MPL-2.0, GPL-3.0-or-later (libhmk, hmkconf), GPL-2.0-or-later (OpenRazer) |"),
+                         ("| Analog keyboard references |", "| MIT, MPL-2.0, GPL-3.0-or-later (libhmk, hmkconf), GPL-2.0-or-later (OpenRazer), none published (razer-analog-keyboard, Sainan's capture gists) |"),
                          ("| Bluetooth RFCOMM and iCade references |", "| GPL-2.0-or-later, GPL-3.0-or-later, LGPL-2.1-or-later, MIT, none published (flatlib.jp, zeemouse) |"),
                          ("| SpaceMouse references |", "| CC BY-NC-SA 4.0, GPL-3.0-or-later, MIT |"),
                          ("| Specialty USB device references |", "| Apache-2.0, GPL-2.0, GPL-2.0-or-later, GPL-3.0, GPL-3.0-or-later, MIT, none published (ttyT1941 wiki) |"),
