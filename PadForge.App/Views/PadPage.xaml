@@ -1121,11 +1121,6 @@
             </WrapPanel>
         </Border>
 
-        <!-- Expose Mappings count for UI Automation tests (invisible but accessible) -->
-        <TextBlock AutomationProperties.AutomationId="MappingsCountIndicator"
-                   AutomationProperties.Name="{Binding Mappings.Count}"
-                   Width="0" Height="0" Opacity="0"/>
-
         <!-- ═══════════════════════════════════════════
              ROW 2: Configuration TabControl
              Tabs: Controller | Mappings | Left Stick | Right Stick | Triggers | Force Feedback | Macros
@@ -1264,7 +1259,7 @@
                               MouseLeftButtonDown="LeftMotor_Click"
                               ToolTip="{Binding Pad_TestLeftMotor, Source={x:Static strings:Strings.Instance}}"
                               Background="Transparent">
-                            <ProgressBar Template="{StaticResource MotorCapsuleTemplate}" Height="32"
+                            <ProgressBar AutomationProperties.Name="{Binding Pad_LeftMotor, Source={x:Static strings:Strings.Instance}}" Template="{StaticResource MotorCapsuleTemplate}" Height="32"
                                          Value="{Binding LeftMotorDisplay, Mode=OneWay}" Minimum="0" Maximum="1"
                                          IsHitTestVisible="False"/>
                             <!-- Button typography, not mono tokens (user report
@@ -1285,7 +1280,7 @@
                               MouseLeftButtonDown="RightMotor_Click"
                               ToolTip="{Binding Pad_TestRightMotor, Source={x:Static strings:Strings.Instance}}"
                               Background="Transparent">
-                            <ProgressBar Template="{StaticResource MotorCapsuleTemplate}" Height="32"
+                            <ProgressBar AutomationProperties.Name="{Binding Pad_RightMotor, Source={x:Static strings:Strings.Instance}}" Template="{StaticResource MotorCapsuleTemplate}" Height="32"
                                          Value="{Binding RightMotorDisplay, Mode=OneWay}" Minimum="0" Maximum="1"
                                          IsHitTestVisible="False"/>
                             <TextBlock Text="{Binding Pad_RightMotor, Source={x:Static strings:Strings.Instance}}"

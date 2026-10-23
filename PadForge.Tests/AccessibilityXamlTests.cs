@@ -169,6 +169,29 @@ namespace PadForge.Tests
         }
 
         [Fact]
+        public void EachSettingsUninstallButton_IsNamedForItsCard()
+        {
+            // Five buttons on the Settings page show "Uninstall". Named alike,
+            // they read the same in a screen reader's list of buttons, and Axe
+            // fails focusable siblings with one name and type, so each one's
+            // name puts its card's title before the word.
+            var page = XDocument.Load(Path.Combine(RepoRoot(), "PadForge.App", "Views", "SettingsPage.xaml"), LoadOptions.SetLineInfo);
+            var buttons = page.Descendants().Where(e => e.Name.LocalName == "Button"
+                && ((string)e.Attribute("Content") ?? "").Contains("Common_Uninstall", StringComparison.Ordinal)).ToList();
+            Assert.Equal(5, buttons.Count);
+            var titles = new List<string>();
+            foreach (var b in buttons)
+            {
+                var parts = b.Elements().FirstOrDefault(e => e.Name.LocalName == "AutomationProperties.Name")
+                    ?.Descendants().Where(e => e.Name.LocalName == "Binding").Select(e => (string)e.Attribute("Path")).ToList();
+                Assert.True(parts is { Count: 2 } && parts[1] == "Common_Uninstall",
+                    $"SettingsPage.xaml:{((IXmlLineInfo)b).LineNumber} has no card title in its name");
+                titles.Add(parts[0]);
+            }
+            Assert.Equal(titles.Count, titles.Distinct().Count());
+        }
+
+        [Fact]
         public void EveryDialogWindow_ClosesOnEscape()
         {
             // A cancel button (IsCancel) takes Escape: WPF registers it as

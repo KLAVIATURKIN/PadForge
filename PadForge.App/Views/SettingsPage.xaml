@@ -531,7 +531,14 @@
                             <Button Content="{Binding Common_Uninstall, Source={x:Static strings:Strings.Instance}}"
                                     Command="{Binding UninstallHidHideCommand}"
                                     Style="{StaticResource EmberDestructiveButton}"
-                                    Visibility="{Binding IsHidHideInstalled, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                    Visibility="{Binding IsHidHideInstalled, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <AutomationProperties.Name>
+                                    <MultiBinding StringFormat="{}{0}: {1}">
+                                        <Binding Path="Settings_HidHide" Source="{x:Static strings:Strings.Instance}"/>
+                                        <Binding Path="Common_Uninstall" Source="{x:Static strings:Strings.Instance}"/>
+                                    </MultiBinding>
+                                </AutomationProperties.Name>
+                            </Button>
                         </StackPanel>
                     </Grid>
 
@@ -638,7 +645,14 @@
                         <Button Grid.Column="1" VerticalAlignment="Center"
                                 Content="{Binding Common_Uninstall, Source={x:Static strings:Strings.Instance}}"
                                 Command="{Binding UninstallHIDMaestroCommand}"
-                                Style="{StaticResource EmberDestructiveButton}"/>
+                                Style="{StaticResource EmberDestructiveButton}">
+                            <AutomationProperties.Name>
+                                <MultiBinding StringFormat="{}{0}: {1}">
+                                    <Binding Path="Settings_HIDMaestro" Source="{x:Static strings:Strings.Instance}"/>
+                                    <Binding Path="Common_Uninstall" Source="{x:Static strings:Strings.Instance}"/>
+                                </MultiBinding>
+                            </AutomationProperties.Name>
+                        </Button>
                     </Grid>
                 </StackPanel>
             </Border>
@@ -697,7 +711,14 @@
                         <Button Grid.Column="1" VerticalAlignment="Center"
                                 Content="{Binding Common_Uninstall, Source={x:Static strings:Strings.Instance}}"
                                 Command="{Binding UninstallBthPS3Command}"
-                                Style="{StaticResource EmberDestructiveButton}"/>
+                                Style="{StaticResource EmberDestructiveButton}">
+                            <AutomationProperties.Name>
+                                <MultiBinding StringFormat="{}{0}: {1}">
+                                    <Binding Path="Settings_BthPS3" Source="{x:Static strings:Strings.Instance}"/>
+                                    <Binding Path="Common_Uninstall" Source="{x:Static strings:Strings.Instance}"/>
+                                </MultiBinding>
+                            </AutomationProperties.Name>
+                        </Button>
                     </Grid>
                 </StackPanel>
             </Border>
@@ -781,7 +802,14 @@
                                     Command="{Binding UninstallMidiServicesCommand}"
                                     Style="{StaticResource EmberDestructiveButton}"
                                     AutomationProperties.AutomationId="MidiRuntimeUninstallButton"
-                                    Visibility="{Binding IsMidiRuntimeInstalled, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                    Visibility="{Binding IsMidiRuntimeInstalled, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <AutomationProperties.Name>
+                                    <MultiBinding StringFormat="{}{0}: {1}">
+                                        <Binding Path="Settings_MidiServices" Source="{x:Static strings:Strings.Instance}"/>
+                                        <Binding Path="Common_Uninstall" Source="{x:Static strings:Strings.Instance}"/>
+                                    </MultiBinding>
+                                </AutomationProperties.Name>
+                            </Button>
                         </StackPanel>
                     </Grid>
                 </StackPanel>
@@ -867,7 +895,14 @@
                             <Button Content="{Binding Common_Uninstall, Source={x:Static strings:Strings.Instance}}"
                                     Command="{Binding UninstallSteamVrCommand}"
                                     Style="{StaticResource EmberDestructiveButton}"
-                                    Visibility="{Binding ShowSteamVrUninstall, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                    Visibility="{Binding ShowSteamVrUninstall, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <AutomationProperties.Name>
+                                    <MultiBinding StringFormat="{}{0}: {1}">
+                                        <Binding Path="Settings_SteamVR" Source="{x:Static strings:Strings.Instance}"/>
+                                        <Binding Path="Common_Uninstall" Source="{x:Static strings:Strings.Instance}"/>
+                                    </MultiBinding>
+                                </AutomationProperties.Name>
+                            </Button>
                         </StackPanel>
                     </Grid>
                 </StackPanel>

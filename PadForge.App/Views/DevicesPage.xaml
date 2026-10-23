@@ -409,6 +409,19 @@
                                 <StackPanel Grid.Column="1" Grid.RowSpan="2"
                                             VerticalAlignment="Center" Margin="8,0,0,0">
                                     <ItemsControl ItemsSource="{Binding SlotBadges}">
+                                        <!-- Out of the screen-reader tree while empty: an empty list draws
+                                             nothing and has no size and no margin, so collapsing it changes
+                                             nothing on screen. -->
+                                        <ItemsControl.Style>
+                                            <Style TargetType="ItemsControl" BasedOn="{StaticResource {x:Type ItemsControl}}">
+                                                <Setter Property="Focusable" Value="False"/>
+                                                <Style.Triggers>
+                                                    <Trigger Property="HasItems" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ItemsControl.Style>
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
                                                 <WrapPanel MaxWidth="118" HorizontalAlignment="Right"/>

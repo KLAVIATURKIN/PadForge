@@ -44,7 +44,17 @@ $status = Join-Path $OutDir "status-$Label.txt"
 
 $pf = Get-Process PadForge -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowHandle -ne 0 } | Select-Object -First 1
 if (-not $pf) { "PadForge is not running" | Add-Content $status; exit 1 }
+# The main window is the largest of PadForge's top-level windows.
+# Process.MainWindowHandle is the first visible unowned window in Z order,
+# which can be a topmost overlay.
+Add-Type -AssemblyName UIAutomationClient, UIAutomationTypes
 $h = $pf.MainWindowHandle
+$area = 0
+$own = New-Object System.Windows.Automation.PropertyCondition([System.Windows.Automation.AutomationElement]::ProcessIdProperty, $pf.Id)
+foreach ($top in [System.Windows.Automation.AutomationElement]::RootElement.FindAll([System.Windows.Automation.TreeScope]::Children, $own)) {
+    $r = $top.Current.BoundingRectangle
+    if (-not $r.IsEmpty -and $r.Width * $r.Height -gt $area) { $area = $r.Width * $r.Height; $h = [IntPtr]$top.Current.NativeWindowHandle }
+}
 "padforge pid=$($pf.Id) hwnd=$h" | Add-Content $status
 
 $nvdaExe = Join-Path $NvdaDir 'portable\nvda.exe'

@@ -202,8 +202,18 @@ $ECP = [System.Windows.Automation.ExpandCollapsePattern]::Pattern
 
 $pf = Get-Process PadForge -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowHandle -ne 0 } | Select-Object -First 1
 if (-not $pf) { Note 'PadForge is not running. Start it with the deploy recipe first.'; Save; exit -1 }
-$hwnd = $pf.MainWindowHandle
-$win = $AE::FromHandle($hwnd)
+# The main window is the largest of PadForge's top-level windows.
+# Process.MainWindowHandle is the first visible unowned window in Z order,
+# which can be a topmost overlay with three elements.
+$win = $null
+$area = 0
+$own = New-Object System.Windows.Automation.PropertyCondition($AE::ProcessIdProperty, $pf.Id)
+foreach ($top in $AE::RootElement.FindAll([System.Windows.Automation.TreeScope]::Children, $own)) {
+    $r = $top.Current.BoundingRectangle
+    if (-not $r.IsEmpty -and $r.Width * $r.Height -gt $area) { $area = $r.Width * $r.Height; $win = $top }
+}
+if (-not $win) { $win = $AE::FromHandle($pf.MainWindowHandle) }
+$hwnd = [IntPtr]$win.Current.NativeWindowHandle
 $clock = [Diagnostics.Stopwatch]::StartNew()
 Note "PadForge pid=$($pf.Id) hwnd=$hwnd started=$($pf.StartTime.ToString('o'))"
 
@@ -230,10 +240,13 @@ function Front {
     return $false
 }
 
+# Clicks an element's center. Returns $true, or why it could not: 'no
+# rectangle' for an element that is gone or has no size, 'not in front' when
+# the window would not come forward.
 function Click-Center($el) {
-    $r = $el.Current.BoundingRectangle
-    if ($r.Width -le 0 -or $r.Height -le 0) { return $false }
-    if (-not (Front)) { return $false }
+    try { $r = $el.Current.BoundingRectangle } catch { return 'no rectangle' }
+    if ($r.Width -le 0 -or $r.Height -le 0) { return 'no rectangle' }
+    if (-not (Front)) { return 'not in front' }
     [A11yWin]::SetCursorPos([int]($r.X + $r.Width / 2), [int]($r.Y + $r.Height / 2)) | Out-Null
     [A11yWin]::mouse_event(2, 0, 0, 0, [UIntPtr]::Zero)
     [A11yWin]::mouse_event(4, 0, 0, 0, [UIntPtr]::Zero)
@@ -342,7 +355,15 @@ foreach ($tag in $tags) {
     $entry = $nav["Nav_$tag"]
     if (-not $entry) { Note "Nav_${tag}: not found"; continue }
     $viewId = if ($tag -like 'Pad*') { 'PadPageView' } else { "${tag}PageView" }
-    if (-not (Click-Center $entry)) { Note "Nav_${tag}: could not click"; continue }
+    $clicked = Click-Center $entry
+    if ($clicked -ne $true) {
+        # The sidebar can rebuild an entry after the first view read it, which
+        # leaves the cached element with no rectangle. Find it again, live.
+        $live = $win.FindFirst([System.Windows.Automation.TreeScope]::Descendants,
+            (New-Object System.Windows.Automation.PropertyCondition([System.Windows.Automation.AutomationElement]::AutomationIdProperty, "Nav_$tag")))
+        if ($live) { $clicked = Click-Center $live }
+    }
+    if ($clicked -ne $true) { Note "Nav_${tag}: could not click ($clicked)"; continue }
     $script:pageEl = $null
     $waited = Wait-For { $script:pageEl = Find-Child $win $viewId; $null -ne $script:pageEl }
     if ($waited -lt 0) { Note "${tag}: $viewId did not appear within 4 s"; continue }
@@ -357,7 +378,7 @@ foreach ($tag in $tags) {
         $wasSelected = $false
         try { $wasSelected = $tab.GetCurrentPattern($SIP).Current.IsSelected } catch { }
         $beforeTab = First-Child $pane
-        if (-not (Click-Center $tab)) { continue }
+        if ((Click-Center $tab) -ne $true) { continue }
         if (-not $wasSelected) {
             $waitedTab = Wait-For { (First-Child $pane)[0] -ne $beforeTab[0] }
             if ($waitedTab -lt 0) { Note "$tag / ${tabName}: the tab content did not change within 4 s" }
