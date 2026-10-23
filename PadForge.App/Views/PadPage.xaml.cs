@@ -3344,7 +3344,8 @@ namespace PadForge.Views
         /// <summary>Builds the lightbar preview scene for one Sony family
         /// out of the project's real 2D controller art (#175): the
         /// Gamepad-Asset-Pack base composite at native resolution inside
-        /// the LightbarPreviewHost Viewbox, plus one Rectangle per lightbar
+        /// the LightbarPreviewHost Viewbox, the triggers and stick caps it
+        /// leaves out (AddLightbarRestParts), plus one Rectangle per lightbar
         /// element whose OpacityMask is the pack's own strip PNG, so the
         /// lit shape is the art's shape (the DS4 front strip's alpha fades
         /// at both ends exactly like the baked art). Strip rectangles use
@@ -3388,7 +3389,9 @@ namespace PadForge.Views
             };
             Canvas.SetLeft(baseImg, 0);
             Canvas.SetTop(baseImg, 0);
+            Panel.SetZIndex(baseImg, 1);
             scene.Children.Add(baseImg);
+            AddLightbarRestParts(scene, isDs4);
 
             // Seed fill: the cold Off blue, frozen. SyncLightbarPreview
             // replaces it on the first pass right after this build.
@@ -3421,11 +3424,43 @@ namespace PadForge.Views
                 : new[] { MakeLitRect(_lightbarDs5Mask, 411, 189, 647, 293) };
             foreach (var rect in _lightbarRects)
                 _lightbarLitGroup.Children.Add(rect);
+            Panel.SetZIndex(_lightbarLitGroup, 3);
             scene.Children.Add(_lightbarLitGroup);
 
             LightbarPreviewHost.Children.Clear();
             LightbarPreviewHost.Children.Add(scene);
             _lightbarBuiltFamilyIsDs4 = isDs4;
+        }
+
+        /// <summary>Adds the parts of the controller the base art leaves out,
+        /// as the Preview tab's 2D view draws them at rest
+        /// (ControllerModel2DView.BuildModel): the L2 and R2 trigger
+        /// silhouettes behind the body (z 0, the body at z 1 covers their
+        /// lower edge) and the stick caps in front of it (z 2). They stay
+        /// still: this picture shows the lightbar, not the input. The lit
+        /// strips go above them all.</summary>
+        internal static void AddLightbarRestParts(Canvas scene, bool isDs4)
+        {
+            var overlays = isDs4 ? Models2D.DS4Layout.Overlays : Models2D.DualSenseLayout.Overlays;
+            string folder = isDs4 ? "DS4" : "DualSense";
+            foreach (var ov in overlays)
+            {
+                if (ov.ElementType is not (Models2D.OverlayElementType.TriggerBase or Models2D.OverlayElementType.StickRing))
+                    continue;
+                // A missing bitmap leaves the part empty, the soft degradation
+                // the strips and the 2D view use.
+                var part = new Image
+                {
+                    Source = EmbeddedBitmaps.Load($"2DModels/{folder}/{ov.ImageFile}"),
+                    Width = ov.Width,
+                    Height = ov.Height,
+                    Stretch = Stretch.Fill,
+                };
+                Canvas.SetLeft(part, ov.X);
+                Canvas.SetTop(part, ov.Y);
+                Panel.SetZIndex(part, ov.ElementType == Models2D.OverlayElementType.TriggerBase ? 0 : 2);
+                scene.Children.Add(part);
+            }
         }
 
         private System.Windows.Shapes.Rectangle MakeLitRect(

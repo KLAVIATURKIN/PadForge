@@ -177,7 +177,7 @@ namespace PadForge.Tests
                 ["MainWindow.xaml.cs"] = 8,
                 ["MenuOverlayWindow.xaml.cs"] = 2,
                 ["MouseGlyph.cs"] = 3,
-                ["PadPage.xaml.cs"] = 3,
+                ["PadPage.xaml.cs"] = 4,
                 ["TouchpadGestureRecorderDialog.xaml.cs"] = 1,
                 ["TriggerEffectGraph.xaml.cs"] = 2,
                 ["TriggerTravelArc.xaml.cs"] = 2,

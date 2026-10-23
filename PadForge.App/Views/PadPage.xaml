@@ -8952,7 +8952,8 @@
 
                                 <!-- Lightbar preview (#175): the project's real 2D
                                      controller art instead of a hand-drawn silhouette.
-                                     Base composite + lightbar strip PNGs are the
+                                     Base composite, its trigger and stick layers at
+                                     rest, and the lightbar strip PNGs are the
                                      Gamepad-Asset-Pack 2DModels assets (MIT, already
                                      credited in the csproj), composed at native base
                                      resolution inside this Viewbox. Strip positions were
