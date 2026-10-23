@@ -1393,8 +1393,6 @@ function Nav {
 
 function Find-AllSlots {
     param([int]$Retries = 3, [int]$DelayMs = 1500)
-    $skip = @("Dashboard", "Profiles", "Devices", "Add Controller", "About", "Settings",
-              "", "PadForge", "Toggle navigation", "Back", "Close Navigation")
     for ($attempt = 1; $attempt -le $Retries; $attempt++) {
         $menuHost = Find-UIA -Aid "MenuItemsHost"
         $searchIn = if ($menuHost) { $menuHost } else { $script:uiaWin }
@@ -1416,16 +1414,13 @@ function Find-AllSlots {
         $all = $searchIn.FindAll($TD, $orCond)
         $slots = @()
         foreach ($item in $all) {
-            $n = $item.Current.Name
-            $cls = $item.Current.ClassName
-            # Slot entries report ClassName 'ItemsControlItem' now, not
-            # 'NavigationViewItem'. Accept both, and drop the entries whose
-            # Name is a namespace-qualified type ('Wpf.Ui.Controls.
-            # NavigationViewItemSeparator', 'System.Windows.Controls.Grid'),
-            # which is what the class check used to filter out for free.
-            if (($cls -eq "NavigationViewItem" -or $cls -eq "ItemsControlItem") -and
-                ($n -match '^Pad\d+$' -or ($n -notin $skip -and $n.Length -gt 0 -and $n -notmatch '\.'))) {
-                Write-Host "    Slot: '$n' (class=$cls)"
+            # A controller entry carries the AutomationId Nav_Pad<N>
+            # (MainWindow.SetNavAutomationId). Names will not do: the entries
+            # read "Slot 1", and so do the Dashboard's slot cards and the
+            # Devices page's slot badges, which are DataItems too.
+            $aid = $item.Current.AutomationId
+            if ($aid -match '^Nav_Pad\d+$') {
+                Write-Host "    Slot: '$($item.Current.Name)' ($aid)"
                 $slots += $item
             }
         }
@@ -3474,38 +3469,11 @@ for ($delPass = 0; $delPass -lt 16; $delPass++) {
     if ((Get-Count $existingSlots) -eq 0) { break }
     # Select the first slot
     Select-El $existingSlots[0] -Label "Select for delete" -Delay 500
-    # Find and click the delete/close button (X) — it's a Button with the delete tooltip
-    $padPage = Find-UIA -Aid "PadPageView"
-    $delBtn = $null
-    if ($padPage) {
-        $allBtns = $padPage.FindAll($TC, (New-Object System.Windows.Automation.PropertyCondition(
-            [System.Windows.Automation.AutomationElement]::ControlTypeProperty,
-            [System.Windows.Automation.ControlType]::Button)))
-        foreach ($b in $allBtns) {
-            if ($b.Current.Name -match "Delete|Remove|Close") { $delBtn = $b; break }
-        }
-    }
-    if (-not $delBtn) {
-        # Fallback: use keyboard shortcut or find by sidebar card X button
-        Write-Host "  !! Could not find delete button, trying sidebar X..."
-        # The sidebar card has its own X button — search within the slot element
-        $slotBtns = $existingSlots[0].FindAll($TC, (New-Object System.Windows.Automation.PropertyCondition(
-            [System.Windows.Automation.AutomationElement]::ControlTypeProperty,
-            [System.Windows.Automation.ControlType]::Button)))
-        # This used to assign every button in turn and keep whichever came last,
-        # on the assumption that the X is always last, then click it up to 16
-        # times. Nothing checked what it was clicking. Try the same name match
-        # the primary path uses, scoped to the card this time, and only fall
-        # back to the last button while SAYING which one that is, so a wrong
-        # click shows up in the log instead of silently happening 16 times.
-        foreach ($b in $slotBtns) {
-            if ($b.Current.Name -match "Delete|Remove|Close") { $delBtn = $b; break }
-        }
-        if (-not $delBtn -and (Get-Count $slotBtns) -gt 0) {
-            $delBtn = $slotBtns[(Get-Count $slotBtns) - 1]
-            Write-Host "  (fallback) clicking last card button: '$($delBtn.Current.Name)'" -ForegroundColor Yellow
-        }
-    }
+    # The slot card's own X, found by its AutomationId inside the card. A
+    # name match over the controller page clicked whatever button came first
+    # once every button there is named from its tooltip.
+    $delBtn = $existingSlots[0].FindFirst($TD, (New-Object System.Windows.Automation.PropertyCondition(
+        [System.Windows.Automation.AutomationElement]::AutomationIdProperty, "Nav_DeleteSlot")))
     if ($delBtn) {
         Click-El $delBtn -Label "Delete slot" -Delay 800
     } else {

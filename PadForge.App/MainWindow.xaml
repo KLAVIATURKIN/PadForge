@@ -58,13 +58,13 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="PaneToggleBtn" Grid.Column="0" Click="PaneToggleBtn_Click"
+            <controls:StateToggleButton x:Name="PaneToggleBtn" IsOn="{Binding IsPaneOpen, ElementName=NavView}" Grid.Column="0" Click="PaneToggleBtn_Click"
                     Width="48" Height="48"
                     Background="Transparent"
                     BorderThickness="0" Padding="0"
                     HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                 <TextBlock Text="&#xE700;" FontFamily="Segoe MDL2 Assets" FontSize="16"/>
-            </Button>
+            </controls:StateToggleButton>
             <ui:TitleBar x:Name="AppTitleBar" Grid.Column="1"
                          CloseClicked="TitleBar_CloseClicked"
                          MaximizeClicked="TitleBar_MaximizeClicked"
@@ -81,7 +81,7 @@
                     </Border>
                 </ui:TitleBar.Header>
                 <ui:TitleBar.TrailingContent>
-                    <Button x:Name="FullScreenBtn" AutomationProperties.Name="{Binding Main_FullScreen, Source={x:Static strings:Strings.Instance}}" Click="FullScreenBtn_Click" Width="44" Height="30"
+                    <controls:StateToggleButton x:Name="FullScreenBtn" AutomationProperties.Name="{Binding Main_FullScreen, Source={x:Static strings:Strings.Instance}}" Click="FullScreenBtn_Click" Width="44" Height="30"
                             Background="Transparent" BorderThickness="0" Padding="0"
                             VerticalAlignment="Top" Margin="0"
                             WindowChrome.IsHitTestVisibleInChrome="True">
@@ -121,7 +121,7 @@
                              evaluated before the tree connects and logged a
                              BINDERR on every launch. -->
                         <TextBlock x:Name="FullScreenIcon" Text="&#xE740;" FontFamily="Segoe MDL2 Assets" FontSize="10"/>
-                    </Button>
+                    </controls:StateToggleButton>
                 </ui:TitleBar.TrailingContent>
             </ui:TitleBar>
         </Grid>

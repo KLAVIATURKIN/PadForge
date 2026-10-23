@@ -1,3 +1,4 @@
+using System;
 using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 
@@ -15,13 +16,11 @@ namespace PadForge.Controls
     /// selected tab's content.</summary>
     public sealed class ContentTabControl : TabControl
     {
-        public ContentTabControl()
+        protected override void OnInitialized(EventArgs e)
         {
-            // An implicit style is found by the element's own type
-            // (FrameworkElement.UpdateStyleProperty), so the TabControl style
-            // is referenced by its key, as SettingResetButton references its
-            // own style.
-            SetResourceReference(StyleProperty, typeof(TabControl));
+            // The TabControl style when nothing else styles this one.
+            BaseStyle.Take(this, typeof(TabControl));
+            base.OnInitialized(e);
         }
 
         protected override AutomationPeer OnCreateAutomationPeer() => new ContentPeer(this);

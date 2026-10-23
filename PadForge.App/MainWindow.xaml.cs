@@ -2747,6 +2747,7 @@ namespace PadForge
                 WindowStyle = WindowStyle.None;
                 WindowState = WindowState.Maximized;
                 FullScreenIcon.Text = "\uE73F";
+                FullScreenBtn.IsOn = true;
             }
 
             // Ambient-motion gate: the always-on breathes (rail heat ring,
@@ -3469,6 +3470,9 @@ namespace PadForge
                 Opacity = 0
             };
             deleteBtn.SetResourceReference(FrameworkElement.StyleProperty, "EmberIconButtonHot");
+            // Tools find the card's delete button by this id, not by a name
+            // that a translation or another button's tooltip could share.
+            System.Windows.Automation.AutomationProperties.SetAutomationId(deleteBtn, "Nav_DeleteSlot");
             deleteBtn.Click += OnSidebarDeleteSlot;
             System.Windows.Controls.DockPanel.SetDock(deleteBtn, System.Windows.Controls.Dock.Right);
             row.Children.Add(deleteBtn);
@@ -3554,8 +3558,11 @@ namespace PadForge
                 flameGlyph.BeginAnimation(System.Windows.UIElement.OpacityProperty, flashAnimation);
             }
 
-            var powerBtn = new System.Windows.Controls.Button
+            // A StateToggleButton reads to a screen reader as a toggle, on
+            // while the slot is enabled.
+            var powerBtn = new PadForge.Controls.StateToggleButton
             {
+                IsOn = navItem.IsEnabled,
                 Content = flameGlyph,
                 Background = System.Windows.Media.Brushes.Transparent,
                 BorderThickness = new Thickness(0),
@@ -3612,8 +3619,11 @@ namespace PadForge
 
             System.Windows.Controls.Button MakeTypeButton(UIElement content, bool active, System.Windows.RoutedEventHandler click, string tip, bool enabled)
             {
-                var b = new System.Windows.Controls.Button
+                // A SegmentButton reads to a screen reader as a radio button,
+                // checked on the slot's current type.
+                var b = new PadForge.Controls.SegmentButton
                 {
+                    IsSelected = active,
                     Content = content,
                     // 2px sides (#49 seven-tile fit; was 3px since the #175
                     // two-digit fit): the VR tile pushed the worst case
@@ -5627,8 +5637,9 @@ namespace PadForge
             bool xboxAtCapacity = xboxCount >= SettingsManager.MaxXbox360Slots;
             bool xboxDisabled = globalAtCapacity || xboxAtCapacity;
             if (xboxDisabled) xboxPopupPath.Opacity = 0.35;
-            var xboxBtn = new System.Windows.Controls.Button
+            var xboxBtn = new PadForge.Controls.AvailabilityButton
             {
+                IsAvailable = !xboxDisabled,
                 Content = xboxPopupPath,
                 ToolTip = xboxAtCapacity
                         ? string.Format(Strings.Instance.Main_Xbox_Max_Format, SettingsManager.MaxXbox360Slots)
@@ -5640,6 +5651,10 @@ namespace PadForge
                 Cursor = xboxDisabled ? System.Windows.Input.Cursors.No : System.Windows.Input.Cursors.Hand
             };
             System.Windows.Automation.AutomationProperties.SetAutomationId(xboxBtn, "AddXbox360Btn");
+            // Named by its type. When the type is unavailable the tooltip
+            // gives the reason, as help text, and the peer reports the
+            // entry unavailable.
+            System.Windows.Automation.AutomationProperties.SetName(xboxBtn, Strings.Instance.ControllerType_Xbox);
             xboxBtn.Click += (s, e) =>
             {
                 if (xboxDisabled) return;
@@ -5667,8 +5682,9 @@ namespace PadForge
             bool playstationAtCapacity = playstationCount >= SettingsManager.MaxPlayStationSlots;
             bool playstationDisabled = globalAtCapacity || playstationAtCapacity;
             if (playstationDisabled) playstationPopupPath.Opacity = 0.35;
-            var playstationBtn = new System.Windows.Controls.Button
+            var playstationBtn = new PadForge.Controls.AvailabilityButton
             {
+                IsAvailable = !playstationDisabled,
                 Content = playstationPopupPath,
                 ToolTip = playstationAtCapacity
                         ? string.Format(Strings.Instance.Main_PlayStation_Max_Format, SettingsManager.MaxPlayStationSlots)
@@ -5681,6 +5697,7 @@ namespace PadForge
             };
             // AutomationId kept as "AddDS4Btn" for stable UI-automation hookup.
             System.Windows.Automation.AutomationProperties.SetAutomationId(playstationBtn, "AddDS4Btn");
+            System.Windows.Automation.AutomationProperties.SetName(playstationBtn, Strings.Instance.ControllerType_PlayStation);
             playstationBtn.Click += (s, e) =>
             {
                 if (playstationDisabled) return;
@@ -5708,8 +5725,9 @@ namespace PadForge
             bool nintendoAtCapacity = nintendoCount >= SettingsManager.MaxNintendoSlots;
             bool nintendoDisabled = globalAtCapacity || nintendoAtCapacity;
             if (nintendoDisabled) nintendoPopupPath.Opacity = 0.35;
-            var nintendoBtn = new System.Windows.Controls.Button
+            var nintendoBtn = new PadForge.Controls.AvailabilityButton
             {
+                IsAvailable = !nintendoDisabled,
                 Content = nintendoPopupPath,
                 ToolTip = nintendoAtCapacity
                         ? string.Format(Strings.Instance.Main_Nintendo_Max_Format, SettingsManager.MaxNintendoSlots)
@@ -5721,6 +5739,7 @@ namespace PadForge
                 Cursor = nintendoDisabled ? System.Windows.Input.Cursors.No : System.Windows.Input.Cursors.Hand
             };
             System.Windows.Automation.AutomationProperties.SetAutomationId(nintendoBtn, "AddNintendoBtn");
+            System.Windows.Automation.AutomationProperties.SetName(nintendoBtn, Strings.Instance.ControllerType_Nintendo);
             nintendoBtn.Click += (s, e) =>
             {
                 if (nintendoDisabled) return;
@@ -5747,8 +5766,9 @@ namespace PadForge
             bool extendedAtCapacity = extendedCount >= SettingsManager.MaxExtendedSlots;
             bool extendedDisabled = globalAtCapacity || extendedAtCapacity;
             if (extendedDisabled) extendedPopupPath.Opacity = 0.35;
-            var extendedBtn = new System.Windows.Controls.Button
+            var extendedBtn = new PadForge.Controls.AvailabilityButton
             {
+                IsAvailable = !extendedDisabled,
                 Content = extendedPopupPath,
                 ToolTip = extendedAtCapacity
                         ? string.Format(Strings.Instance.Main_Extended_Max_Format, SettingsManager.MaxExtendedSlots)
@@ -5760,6 +5780,7 @@ namespace PadForge
                 Cursor = extendedDisabled ? System.Windows.Input.Cursors.No : System.Windows.Input.Cursors.Hand
             };
             System.Windows.Automation.AutomationProperties.SetAutomationId(extendedBtn, "AddRawBtn");
+            System.Windows.Automation.AutomationProperties.SetName(extendedBtn, Strings.Instance.ControllerType_Extended);
             extendedBtn.Click += (s, e) =>
             {
                 if (extendedDisabled) return;
@@ -5787,8 +5808,9 @@ namespace PadForge
             bool kbmAtCapacity = kbmCount >= SettingsManager.MaxKeyboardMouseSlots;
             bool kbmDisabled = globalAtCapacity || kbmAtCapacity;
             if (kbmDisabled) kbmPopupIcon.Opacity = 0.35;
-            var kbmPopupBtn = new System.Windows.Controls.Button
+            var kbmPopupBtn = new PadForge.Controls.AvailabilityButton
             {
+                IsAvailable = !kbmDisabled,
                 Content = kbmPopupIcon,
                 ToolTip = kbmAtCapacity ? string.Format(Strings.Instance.Main_KBM_Max_Format, SettingsManager.MaxKeyboardMouseSlots)
                         : Strings.Instance.ControllerType_KeyboardMouse,
@@ -5799,6 +5821,7 @@ namespace PadForge
                 Cursor = kbmDisabled ? System.Windows.Input.Cursors.No : System.Windows.Input.Cursors.Hand
             };
             System.Windows.Automation.AutomationProperties.SetAutomationId(kbmPopupBtn, "AddKeyboardMouseBtn");
+            System.Windows.Automation.AutomationProperties.SetName(kbmPopupBtn, Strings.Instance.ControllerType_KeyboardMouse);
             kbmPopupBtn.Click += (s, e) =>
             {
                 if (kbmDisabled) return;
@@ -5829,8 +5852,9 @@ namespace PadForge
             string midiTooltip = !midiAvailable ? Strings.Instance.Main_MIDI_NotRunning
                                : midiAtCapacity ? string.Format(Strings.Instance.Main_MIDI_Max_Format, SettingsManager.MaxMidiSlots)
                                : Strings.Instance.ControllerType_MIDI;
-            var midiBtn = new System.Windows.Controls.Button
+            var midiBtn = new PadForge.Controls.AvailabilityButton
             {
+                IsAvailable = !midiDisabled,
                 Content = midiPopupIcon,
                 ToolTip = midiTooltip,
                 Background = System.Windows.Media.Brushes.Transparent,
@@ -5840,6 +5864,7 @@ namespace PadForge
                 Cursor = midiDisabled ? System.Windows.Input.Cursors.No : System.Windows.Input.Cursors.Hand
             };
             System.Windows.Automation.AutomationProperties.SetAutomationId(midiBtn, "AddMidiBtn");
+            System.Windows.Automation.AutomationProperties.SetName(midiBtn, Strings.Instance.ControllerType_MIDI);
             midiBtn.Click += (s, e) =>
             {
                 if (midiDisabled) return;
@@ -5870,8 +5895,9 @@ namespace PadForge
             string vrTooltip = !vrAvailable ? Strings.Instance.Main_VR_RequiresSteamVR
                              : vrAtCapacity ? string.Format(Strings.Instance.Main_VR_Max_Format, SettingsManager.MaxVrSlots)
                              : Strings.Instance.ControllerType_VR;
-            var vrBtn = new System.Windows.Controls.Button
+            var vrBtn = new PadForge.Controls.AvailabilityButton
             {
+                IsAvailable = !vrDisabled,
                 Content = vrPopupIcon,
                 ToolTip = vrTooltip,
                 Background = System.Windows.Media.Brushes.Transparent,
@@ -5881,6 +5907,7 @@ namespace PadForge
                 Cursor = vrDisabled ? System.Windows.Input.Cursors.No : System.Windows.Input.Cursors.Hand
             };
             System.Windows.Automation.AutomationProperties.SetAutomationId(vrBtn, "AddVrBtn");
+            System.Windows.Automation.AutomationProperties.SetName(vrBtn, Strings.Instance.ControllerType_VR);
             vrBtn.Click += (s, e) =>
             {
                 if (vrDisabled) return;
@@ -6684,6 +6711,7 @@ namespace PadForge
                 WindowStyle = WindowStyle.SingleBorderWindow;
                 WindowState = _preFullScreenState;
                 FullScreenIcon.Text = "\uE740";
+                FullScreenBtn.IsOn = false;
             }
             else
             {
@@ -6708,6 +6736,7 @@ namespace PadForge
                 WindowStyle = WindowStyle.None;
                 foreach (var st in path) WindowState = st;
                 FullScreenIcon.Text = "\uE73F";
+                FullScreenBtn.IsOn = true;
             }
             _viewModel.Settings.MainWindowFullScreen = _isFullScreen;
             _settingsService.MarkDirty();
@@ -6743,6 +6772,7 @@ namespace PadForge
                 _isFullScreen = false;
                 WindowStyle = WindowStyle.SingleBorderWindow;
                 FullScreenIcon.Text = "\uE740";
+                FullScreenBtn.IsOn = false;
                 // And record it. The button path saves this; leaving through
                 // the title bar did not, so the saved flag stayed true and the
                 // next launch came up full screen, which also suppressed the

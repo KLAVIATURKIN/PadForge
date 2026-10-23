@@ -95,34 +95,48 @@ try {
 
     $TD = [System.Windows.Automation.TreeScope]::Descendants
 
-    function Add-SlotByName {
-        param([string]$ByName, [string]$Label)
+    Add-Type @'
+using System;
+using System.Runtime.InteropServices;
+public static class AddSlotsWin {
+    [DllImport("user32.dll")] public static extern bool SetForegroundWindow(IntPtr h);
+    [DllImport("user32.dll")] public static extern bool SetCursorPos(int x, int y);
+    [DllImport("user32.dll")] public static extern void mouse_event(uint f, uint dx, uint dy, uint d, UIntPtr e);
+}
+'@
+
+    # Controls are found by AutomationId, which stays put when a name is
+    # translated or reworded.
+    function Add-SlotById {
+        param([string]$Aid, [string]$Label)
         $addCond = New-Object System.Windows.Automation.PropertyCondition(
-            [System.Windows.Automation.AutomationElement]::NameProperty, "Add Controller")
+            [System.Windows.Automation.AutomationElement]::AutomationIdProperty, "Nav_AddController")
         $addBtn = $win.FindFirst($TD, $addCond)
         if (-not $addBtn) { "  !! Add Controller not found" | Out-File $logFile -Encoding ascii -Append; return }
-        # Always go through SelectionItem.Select for the sidebar nav. The
-        # Invoke pattern doesn't fire the click handler that opens the popup.
-        try {
-            $addBtn.GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern).Select()
-        } catch {
-            try { $addBtn.GetCurrentPattern([System.Windows.Automation.InvokePattern]::Pattern).Invoke() } catch {}
-        }
+        # The sidebar entry's UIA node is WPF's DataItem wrapper, which offers
+        # no SelectionItem or Invoke pattern (ItemAutomationPeer.GetPattern),
+        # so the entry is clicked at its center, as tools/a11y_uia_audit.ps1
+        # selects pages.
+        [AddSlotsWin]::SetForegroundWindow($proc.MainWindowHandle) | Out-Null
+        $r = $addBtn.Current.BoundingRectangle
+        [AddSlotsWin]::SetCursorPos([int]($r.X + $r.Width / 2), [int]($r.Y + $r.Height / 2)) | Out-Null
+        [AddSlotsWin]::mouse_event(2, 0, 0, 0, [UIntPtr]::Zero)
+        [AddSlotsWin]::mouse_event(4, 0, 0, 0, [UIntPtr]::Zero)
         Start-Sleep -Milliseconds 1500
 
-        # Find the type button by accessibility Name. Search the desktop
-        # root because WPF Popups can be hosted in a separate top-level
-        # window outside the main app's UIA subtree.
+        # Find the type button. Search the desktop root because WPF Popups
+        # can be hosted in a separate top-level window outside the main
+        # app's UIA subtree.
         $btn = $null
         for ($attempt = 0; $attempt -lt 5; $attempt++) {
             $cond = New-Object System.Windows.Automation.PropertyCondition(
-                [System.Windows.Automation.AutomationElement]::NameProperty, $ByName)
+                [System.Windows.Automation.AutomationElement]::AutomationIdProperty, $Aid)
             $btn = $root.FindFirst($TD, $cond)
             if ($btn) { break }
             Start-Sleep -Milliseconds 600
         }
         if (-not $btn) {
-            "  !! '$ByName' button not found in popup" | Out-File $logFile -Encoding ascii -Append
+            "  !! '$Aid' button not found in popup" | Out-File $logFile -Encoding ascii -Append
             [System.Windows.Forms.SendKeys]::SendWait("{ESC}")
             Start-Sleep -Milliseconds 400
             return
@@ -135,10 +149,10 @@ try {
     # We have an Xbox slot already. Add the 4 missing types.
     # Type-group reorder will sort them: existing Xbox stays at 0,
     # then PlayStation, Extended, KBM, MIDI in that order.
-    Add-SlotByName "PlayStation"     "PlayStation"
-    Add-SlotByName "Extended"        "Extended"
-    Add-SlotByName "Keyboard+Mouse"  "Keyboard+Mouse"
-    Add-SlotByName "MIDI"            "MIDI"
+    Add-SlotById "AddDS4Btn"            "PlayStation"
+    Add-SlotById "AddRawBtn"            "Extended"
+    Add-SlotById "AddKeyboardMouseBtn"  "Keyboard+Mouse"
+    Add-SlotById "AddMidiBtn"           "MIDI"
 
     Start-Sleep -Seconds 5
     "Done adding. Waiting 10s for HM bring-up to complete..." | Out-File $logFile -Encoding ascii -Append

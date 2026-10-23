@@ -242,18 +242,19 @@ namespace PadForge.Common
             return null;
         }
 
-        /// <summary>The label beside an element in its parent: the nearest
-        /// earlier sibling in its panel and Grid row that holds a label, with
-        /// inputs, reset buttons and literal text without a letter (a dash
-        /// between two range boxes) passed over, then the SettingLabel of a
-        /// reset button later in the row. A reset button docked ahead of the
-        /// element (a DockPanel lists the right-docked button first) counts
-        /// when no text label precedes the element and no reset button
-        /// follows it. Literal text right after an input is that input's unit
-        /// (the Hz after a frequency box) and labels nothing. In a Grid, a row
-        /// above the element's row that holds a label and no input labels it
-        /// next. Open is whether nothing before the element stopped the
-        /// search.</summary>
+        /// <summary>The label beside an element in its parent and Grid row.
+        /// The row's reset button comes first: its SettingLabel names the
+        /// setting itself, where the text beside a field can be as short as the
+        /// "Port" four Dashboard rows show. That is a reset button later in the
+        /// row, past the element's value box and any value it shows but not
+        /// past another label, or one docked ahead of it (a DockPanel lists the
+        /// right-docked button first). Next comes the nearest earlier sibling
+        /// that holds a label, with inputs, reset buttons and literal text
+        /// without a letter (a dash between two range boxes) passed over.
+        /// Literal text right after an input is that input's unit (the Hz after
+        /// a frequency box) and labels nothing. In a Grid, a row above the
+        /// element's row that holds a label and no input labels it last. Open
+        /// is whether nothing before the element stopped the search.</summary>
         private static object FindLabelAt(FrameworkElement input, out bool open)
         {
             open = false;
@@ -270,6 +271,7 @@ namespace PadForge.Common
             int row = Grid.GetRow(input);
 
             SettingResetButton before = null;
+            FrameworkElement textLabel = null;
             bool passedInput = false;
             open = true;
             for (int i = index - 1; i >= 0; i--)
@@ -295,8 +297,8 @@ namespace PadForge.Common
                     break;
                 // A panel holding an input of its own is another control's
                 // row, not this input's label.
-                if (!HoldsInput(s) && FirstStringsLabel(s) is FrameworkElement label)
-                    return label;
+                if (!HoldsInput(s))
+                    textLabel = FirstStringsLabel(s);
                 break;
             }
             for (int i = index + 1; i < siblings.Count; i++)
@@ -307,10 +309,15 @@ namespace PadForge.Common
                 if (s is SettingResetButton reset && !string.IsNullOrEmpty(reset.SettingLabel))
                     return reset;
                 if (IsInput(s))
+                    continue;
+                // A label starts another control's row.
+                if (FirstStringsLabel(s) != null)
                     break;
             }
             if (before != null)
                 return before;
+            if (textLabel != null)
+                return textLabel;
             if (open && grid && row > 0)
                 return RowAbove(siblings, row, ref open);
             return null;

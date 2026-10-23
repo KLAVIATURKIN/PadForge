@@ -398,7 +398,7 @@ namespace PadForge.Tests
             _ => cls,
         };
 
-        private static readonly HashSet<string> Buttons = new() { "Button", "ToggleButton", "RepeatButton", "HyperlinkButton", "Anchor", "SplitButton", "DropDownButton" };
+        private static readonly HashSet<string> Buttons = new() { "Button", "ToggleButton", "RepeatButton", "HyperlinkButton", "Anchor", "SplitButton", "DropDownButton", "SegmentButton", "StateToggleButton", "AvailabilityButton" };
         private static readonly HashSet<string> Inputs = new() { "TextBox", "NumberBox", "PasswordBox", "ComboBox", "Slider", "AutoSuggestBox", "RichTextBox" };
         // The inputs the label scan passes over (AccessibleNames.IsInput): a
         // range slider sits between a label and the boxes that set its ends.
@@ -698,15 +698,16 @@ namespace PadForge.Tests
             return null;
         }
 
-        /// <summary>The nearest earlier sibling in the same Grid row that holds
-        /// a label, skipping other inputs so a slider's value box finds the
-        /// slider's label, and literal text without a letter, then the
-        /// SettingLabel of a reset button later in the row, then that of a
-        /// reset button docked ahead of the element with no input between
-        /// them. Literal text right after an input is its unit and labels
-        /// nothing. In a Grid, a row above holding a label and no input labels
-        /// it next. Open is whether nothing before the element stopped the
-        /// search. AccessibleNames.FindLabelAt is the runtime twin.</summary>
+        /// <summary>The label beside an element in its Grid row: the
+        /// SettingLabel of the row's reset button first, later in the row (past
+        /// inputs and values, not past another label) or docked ahead of the
+        /// element with no input between them, then the nearest earlier sibling
+        /// that holds a label, skipping other inputs so a slider's value box
+        /// finds the slider's label, and literal text without a letter. Literal
+        /// text right after an input is its unit and labels nothing. In a Grid,
+        /// a row above holding a label and no input labels it last. Open is
+        /// whether nothing before the element stopped the search.
+        /// AccessibleNames.FindLabelAt is the runtime twin.</summary>
         private static string SiblingLabel(XElement n, out bool open)
         {
             open = false;
@@ -718,6 +719,7 @@ namespace PadForge.Tests
             string myRow = Row(n);
             bool grid = Local(p) == "Grid";
             string before = null;
+            string textLabel = null;
             bool passedInput = false;
             open = true;
             for (int i = idx - 1; i >= 0; i--)
@@ -746,10 +748,8 @@ namespace PadForge.Tests
                     break;
                 // A panel holding an input of its own is another control's
                 // row (AccessibleNames.HoldsInput).
-                if (s.Descendants().Any(d => ScanInputs.Contains(Local(d))))
-                    break;
-                if (FirstLabelIn(s) is string found)
-                    return found;
+                if (!s.Descendants().Any(d => ScanInputs.Contains(Local(d))))
+                    textLabel = FirstLabelIn(s);
                 break;
             }
             for (int i = idx + 1; i < sibs.Count; i++)
@@ -763,10 +763,15 @@ namespace PadForge.Tests
                 if (tag == "SettingResetButton" && Attr(s, "SettingLabel") is { Length: > 0 } label)
                     return label;
                 if (ScanInputs.Contains(tag))
+                    continue;
+                // A label starts another control's row.
+                if (FirstLabelIn(s) != null)
                     break;
             }
             if (before != null)
                 return before;
+            if (textLabel != null)
+                return textLabel;
             if (open && grid && int.TryParse(myRow, out int rowIndex) && rowIndex > 0)
             {
                 // The row above (AccessibleNames.RowAbove).

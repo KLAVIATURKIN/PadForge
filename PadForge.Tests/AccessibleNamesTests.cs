@@ -175,6 +175,14 @@ namespace PadForge.Tests
             lowRow.Orientation = Orientation.Horizontal;
             var range = Panel(new TextBlock { Text = "Range" }, lowRow);
 
+            // The row's reset button names the setting ahead of a short label,
+            // for the slider and its value box alike.
+            var portLabel = new TextBlock { Text = "Port" };
+            var port = new Slider();
+            var portBox = new TextBox();
+            var portRow = Panel(portLabel, port, portBox, new SettingResetButton { SettingLabel = "Web Controller Port" });
+            portRow.Orientation = Orientation.Horizontal;
+
             // Hz is the frequency box's unit, not the gain slider's label.
             var gain = new Slider { ToolTip = "Gain" };
             var units = Panel(new TextBox(), new TextBlock { Text = "Hz" }, gain);
@@ -187,10 +195,12 @@ namespace PadForge.Tests
             BidiText.SetToolTip(bidiTipped, "Key combination");
             var placeholder = new Wpf.Ui.Controls.TextBox { PlaceholderText = "Search" };
             var bare = new ComboBox();
-            Shown(Panel(labeled, docked, rgb, range, units, tipped, bidiTipped, placeholder, bare), () =>
+            Shown(Panel(labeled, docked, rgb, range, portRow, units, tipped, bidiTipped, placeholder, bare), () =>
             {
-                foreach (var input in new FrameworkElement[] { slider, named, red, redBox, span, low, lowBox, gain, tipped, bidiTipped, placeholder, bare })
+                foreach (var input in new FrameworkElement[] { slider, named, red, redBox, span, low, lowBox, port, portBox, gain, tipped, bidiTipped, placeholder, bare })
                     AccessibleNames.NameInput(input);
+                Assert.Equal("Web Controller Port", NameOf(port));
+                Assert.Equal("Web Controller Port", NameOf(portBox));
                 Assert.Equal("Key combination", NameOf(bidiTipped));
                 Assert.Equal("Gain", NameOf(gain));
                 Assert.Same(label, AutomationProperties.GetLabeledBy(slider));

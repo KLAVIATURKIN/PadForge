@@ -130,8 +130,17 @@ namespace PadForge.ViewModels
         public string EngineStateKey
         {
             get => _engineStateKey;
-            set => SetProperty(ref _engineStateKey, value);
+            set
+            {
+                if (SetProperty(ref _engineStateKey, value))
+                    OnPropertyChanged(nameof(IsEngineOn));
+            }
         }
+
+        /// <summary>Whether the engine is on, idle and stopping included: the
+        /// state the engine button reports to a screen reader, where its
+        /// flame shows it on screen.</summary>
+        public bool IsEngineOn => _engineStateKey != "Stopped";
 
         private double _pollingFrequency;
 

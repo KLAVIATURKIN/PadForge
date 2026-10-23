@@ -1,3 +1,4 @@
+using System;
 using System.Windows.Automation.Peers;
 using Wpf.Ui.Controls;
 
@@ -11,13 +12,11 @@ namespace PadForge.Controls
     /// as a control element.</summary>
     public sealed class QuietNavigationSeparator : NavigationViewItemSeparator
     {
-        public QuietNavigationSeparator()
+        protected override void OnInitialized(EventArgs e)
         {
-            // An implicit style is found by the element's own type
-            // (FrameworkElement.UpdateStyleProperty), so wpf-ui's separator
-            // style is referenced by its key, as ContentTabControl references
-            // the TabControl style.
-            SetResourceReference(StyleProperty, typeof(NavigationViewItemSeparator));
+            // The NavigationViewItemSeparator style when nothing else styles this one.
+            BaseStyle.Take(this, typeof(NavigationViewItemSeparator));
+            base.OnInitialized(e);
         }
 
         protected override AutomationPeer OnCreateAutomationPeer() => new QuietPeer(this);
