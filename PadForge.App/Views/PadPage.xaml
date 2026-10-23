@@ -1130,7 +1130,7 @@
              ROW 2: Configuration TabControl
              Tabs: Controller | Mappings | Left Stick | Right Stick | Triggers | Force Feedback | Macros
              ═══════════════════════════════════════════ -->
-        <TabControl Grid.Row="2"
+        <controls:ContentTabControl Grid.Row="2"
                     PreviewKeyDown="ConfigTabControl_PreviewKeyDown"
                     SelectedIndex="{Binding SelectedConfigTab, Mode=TwoWay}">
             <TabControl.Template>
@@ -14432,6 +14432,6 @@
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>
-        </TabControl>
+        </controls:ContentTabControl>
     </Grid>
 </UserControl>

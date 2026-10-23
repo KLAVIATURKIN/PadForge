@@ -3092,6 +3092,7 @@ namespace PadForge
                 Tag = "Dashboard",
                 Icon = EmberNavIcon("\uF404")
             };
+            SetNavAutomationId(_navDashboard, "Dashboard");
             NavView.MenuItems.Add(_navDashboard);
 
             // Profiles.
@@ -3101,6 +3102,7 @@ namespace PadForge
                 Icon = EmberNavIcon("\uE8F1"),
                 Content = Strings.Instance.Profiles_Title
             };
+            SetNavAutomationId(_navProfiles, "Profiles");
             NavView.MenuItems.Add(_navProfiles);
 
             // Devices.
@@ -3110,6 +3112,7 @@ namespace PadForge
                 Tag = "Devices",
                 Icon = EmberNavIcon("\uE772")
             };
+            SetNavAutomationId(_navDevices, "Devices");
             NavView.MenuItems.Add(_navDevices);
 
             // Controller entries (initially none — populated dynamically).
@@ -3308,6 +3311,7 @@ namespace PadForge
             SuppressBuiltInSelectionVisual(menuItem);
             AttachCollapsedIconHover(menuItem);
             System.Windows.Automation.AutomationProperties.SetName(menuItem, navItem.Tag);
+            SetNavAutomationId(menuItem, navItem.Tag);
             UpdateControllerNavItemContent(menuItem, navItem);
             if (collapsed)
             {
@@ -3981,8 +3985,18 @@ namespace PadForge
             SuppressBuiltInSelectionVisual(item);
             AttachCollapsedIconHover(item);
             System.Windows.Automation.AutomationProperties.SetName(item, Strings.Instance.Main_AddController);
+            SetNavAutomationId(item, "AddController");
             return item;
         }
+
+        /// <summary>Gives a sidebar entry the stable AutomationId "Nav_" plus
+        /// its tag (Nav_Dashboard, Nav_Pad1), which UI tools select it by. The
+        /// entry's UIA node is WPF's DataItem wrapper, which reports the
+        /// entry's own AutomationId (ItemAutomationPeer.GetAutomationIdCore).
+        /// The names change with the language and the slot, the ids do
+        /// not.</summary>
+        private static void SetNavAutomationId(NavigationViewItem item, string tag)
+            => System.Windows.Automation.AutomationProperties.SetAutomationId(item, "Nav_" + tag);
 
         /// <summary>Gives the COLLAPSED-rail icon of a mini-card entry the same
         /// subtle hover feedback the expanded pill has: a 2 px lift plus a faint
