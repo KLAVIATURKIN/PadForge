@@ -264,9 +264,21 @@ namespace PadForge.Common
             public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) => null;
         }
 
-        /// <summary>Names a shown input that has no name of its own.</summary>
+        /// <summary>Names a shown input that has no name of its own. A slider
+        /// names its track's buttons too.</summary>
         internal static void NameInput(FrameworkElement input)
         {
+            // The increase button of PadForge's slider template draws nothing,
+            // and wpf-ui's implicit RepeatButton style aligns it left and
+            // center (Button.xaml DefaultRepeatButtonStyle), so it never takes
+            // a size and has no first size of its own to be named on.
+            if (input is Slider slider && slider.Template?.FindName("PART_Track", slider) is Track track)
+            {
+                if (track.DecreaseRepeatButton != null)
+                    NameButton(track.DecreaseRepeatButton);
+                if (track.IncreaseRepeatButton != null)
+                    NameButton(track.IncreaseRepeatButton);
+            }
             if (IsTemplatePart(input) || HasOwnName(input))
                 return;
             ClearAuto(input);

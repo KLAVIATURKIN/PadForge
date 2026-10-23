@@ -56,6 +56,16 @@ foreach ($top in [System.Windows.Automation.AutomationElement]::RootElement.Find
     if (-not $r.IsEmpty -and $r.Width * $r.Height -gt $area) { $area = $r.Width * $r.Height; $h = [IntPtr]$top.Current.NativeWindowHandle }
 }
 "padforge pid=$($pf.Id) hwnd=$h" | Add-Content $status
+Add-Type @'
+using System;
+using System.Runtime.InteropServices;
+public static class NvdaPassGate {
+    [DllImport("user32.dll")] public static extern bool IsWindowEnabled(IntPtr h);
+}
+'@
+# A modal dialog disables the main window and takes the keys, so the pass
+# would read the dialog or nothing. Name the cause and stop before NVDA starts.
+if (-not [NvdaPassGate]::IsWindowEnabled($h)) { "a dialog is open over the PadForge window: close it, then run the pass again" | Add-Content $status; exit 1 }
 
 $nvdaExe = Join-Path $NvdaDir 'portable\nvda.exe'
 Start-Process $nvdaExe -ArgumentList @('-l', '12', "--log-file=$log", "--config-path=$(Join-Path $NvdaDir 'config')", '-m')

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Automation;
@@ -689,6 +690,62 @@ namespace PadForge.Tests
             Assert.Equal(strings.Main_Minimize, AutomationProperties.GetName(button));
             button.ButtonType = Wpf.Ui.Controls.TitleBarButtonType.Help;
             Assert.Equal(string.Empty, AutomationProperties.GetName(button));
+        });
+
+        public sealed class GridRow
+        {
+            public string Label { get; set; }
+
+            public override string ToString() => "row " + Label;
+        }
+
+        [Fact]
+        public void AGridCellStyleBasedOnTheGridsCellStyle_NamesTheCell_AsAScreenReaderReadsIt() => RunSta(() =>
+        {
+            // The Mappings grid's pattern (PadPage.xaml MappingCellStyle): the
+            // grid's cell style is keyed, and each template column's cell
+            // style is based on it and sets the cell's name. A template column
+            // without one reads WPF's "Item: ..., Column Display Index: N"
+            // (DataGridCellItemAutomationPeer.GetNameCore).
+            var grid = (DataGrid)System.Windows.Markup.XamlReader.Parse(
+                "<DataGrid xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"" +
+                " xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\" AutoGenerateColumns=\"False\"" +
+                " CanUserAddRows=\"False\" HeadersVisibility=\"Column\">" +
+                "<DataGrid.Resources><Style x:Key=\"MappingCellStyle\" TargetType=\"DataGridCell\">" +
+                "<Setter Property=\"Padding\" Value=\"2\"/></Style></DataGrid.Resources>" +
+                "<DataGrid.CellStyle><StaticResource ResourceKey=\"MappingCellStyle\"/></DataGrid.CellStyle>" +
+                "<DataGrid.Columns>" +
+                "<DataGridTemplateColumn Header=\"Output\"><DataGridTemplateColumn.CellStyle>" +
+                "<Style TargetType=\"DataGridCell\" BasedOn=\"{StaticResource MappingCellStyle}\">" +
+                "<Setter Property=\"AutomationProperties.Name\" Value=\"{Binding Label, TargetNullValue=''}\"/></Style>" +
+                "</DataGridTemplateColumn.CellStyle><DataGridTemplateColumn.CellTemplate>" +
+                "<DataTemplate><TextBlock Text=\"{Binding Label}\"/></DataTemplate></DataGridTemplateColumn.CellTemplate>" +
+                "</DataGridTemplateColumn>" +
+                "<DataGridTemplateColumn Header=\"Unnamed\"><DataGridTemplateColumn.CellTemplate>" +
+                "<DataTemplate><TextBlock Text=\"{Binding Label}\"/></DataTemplate></DataGridTemplateColumn.CellTemplate>" +
+                "</DataGridTemplateColumn>" +
+                "</DataGrid.Columns></DataGrid>");
+            grid.ItemsSource = new[] { new GridRow { Label = "B" }, new GridRow { Label = "A" } };
+            var window = Host(grid);
+            try
+            {
+                window.Show();
+                window.UpdateLayout();
+                Pump();
+                var rows = PeerOf(grid).GetChildren().OfType<DataGridItemAutomationPeer>().ToList();
+                Assert.Equal(2, rows.Count);
+                var cells = rows[0].GetChildren().OfType<DataGridCellItemAutomationPeer>().ToList();
+                Assert.Equal(2, cells.Count);
+                Assert.Equal("B", cells[0].GetName());
+                // The unnamed column reads WPF's fallback, which names the
+                // item by its ToString.
+                Assert.Contains("row B", cells[1].GetName());
+                Assert.Equal("A", rows[1].GetChildren().OfType<DataGridCellItemAutomationPeer>().First().GetName());
+            }
+            finally
+            {
+                window.Close();
+            }
         });
     }
 }

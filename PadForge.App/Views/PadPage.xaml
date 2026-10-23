@@ -1178,7 +1178,7 @@
                                                 Margin="0,8,0,0" />
 
                         <!-- 2D/3D toggle button (top-left to avoid overlap with 3D Reset View) -->
-                        <Button AutomationProperties.Name="{Binding ToolTip, RelativeSource={RelativeSource Self}}" x:Name="ViewModeToggle"
+                        <Button AutomationProperties.Name="{Binding ToolTip, RelativeSource={RelativeSource Self}, TargetNullValue='', FallbackValue=''}" x:Name="ViewModeToggle"
                                 AutomationProperties.AutomationId="ViewModeToggle"
                                 HorizontalAlignment="Left" VerticalAlignment="Top"
                                 Margin="8,8,0,0" Padding="6,4"
@@ -5941,7 +5941,7 @@
                                                     Width="Auto">
                                 <DataGridTemplateColumn.CellStyle>
                                     <Style TargetType="DataGridCell" BasedOn="{StaticResource MappingCellStyle}">
-                                        <Setter Property="AutomationProperties.Name" Value="{Binding TargetLabel}"/>
+                                        <Setter Property="AutomationProperties.Name" Value="{Binding TargetLabel, TargetNullValue=''}"/>
                                     </Style>
                                 </DataGridTemplateColumn.CellStyle>
                                 <DataGridTemplateColumn.CellTemplate>
@@ -6008,7 +6008,7 @@
                                                 Width="Auto">
                                 <DataGridTemplateColumn.CellStyle>
                                     <Style TargetType="DataGridCell" BasedOn="{StaticResource MappingCellStyle}">
-                                        <Setter Property="AutomationProperties.Name" Value="{Binding SourceDisplayText}"/>
+                                        <Setter Property="AutomationProperties.Name" Value="{Binding SourceDisplayText, TargetNullValue=''}"/>
                                     </Style>
                                 </DataGridTemplateColumn.CellStyle>
                                 <DataGridTemplateColumn.CellTemplate>
@@ -6257,7 +6257,7 @@
                             <DataGridTemplateColumn Header="" Width="Auto">
                                 <DataGridTemplateColumn.CellStyle>
                                     <Style TargetType="DataGridCell" BasedOn="{StaticResource MappingCellStyle}">
-                                        <Setter Property="AutomationProperties.Name" Value="{Binding RecordButtonText}"/>
+                                        <Setter Property="AutomationProperties.Name" Value="{Binding RecordButtonText, TargetNullValue=''}"/>
                                     </Style>
                                 </DataGridTemplateColumn.CellStyle>
                                 <DataGridTemplateColumn.CellTemplate>
@@ -6464,7 +6464,7 @@
                             <DataGridTemplateColumn Header="{Binding Pad_HeaderDeadZone, Source={x:Static strings:Strings.Instance}}" Width="Auto">
                                 <DataGridTemplateColumn.CellStyle>
                                     <Style TargetType="DataGridCell" BasedOn="{StaticResource MappingCellStyle}">
-                                        <Setter Property="AutomationProperties.Name" Value="{Binding MappingDeadZone, StringFormat={}{0}%}"/>
+                                        <Setter Property="AutomationProperties.Name" Value="{Binding MappingDeadZone, TargetNullValue='', StringFormat={}{0}%}"/>
                                         <Style.Triggers>
                                             <!-- The cell shows nothing on such a row. -->
                                             <DataTrigger Binding="{Binding IsDeadZoneApplicable}" Value="False">
@@ -13404,7 +13404,7 @@
                                               ToolTip="{Binding HostInputTip}"
                                               DisplayMemberPath="Label"
                                               SelectedItem="{Binding SelectedHost, Mode=TwoWay}"/>
-                                    <ui:Button AutomationProperties.Name="{Binding HostRecordText}" Command="{Binding DataContext.MenuHostRecordCommand,
+                                    <ui:Button AutomationProperties.Name="{Binding HostRecordText, TargetNullValue=''}" Command="{Binding DataContext.MenuHostRecordCommand,
                                                    RelativeSource={RelativeSource AncestorType=TabItem}}"
                                                Style="{StaticResource EmberIconButtonHot}" Margin="6,0,0,0">
                                         <controls:GlyphText Text="{Binding HostRecordIcon}" FontFamily="Segoe MDL2 Assets"
@@ -13477,7 +13477,7 @@
                                             </TextBlock.Style>
                                         </TextBlock>
                                     </StackPanel>
-                                    <ui:Button AutomationProperties.Name="{Binding CustomXRecordText}" Command="{Binding DataContext.MenuRecordTargetCommand,
+                                    <ui:Button AutomationProperties.Name="{Binding CustomXRecordText, TargetNullValue=''}" Command="{Binding DataContext.MenuRecordTargetCommand,
                                                    RelativeSource={RelativeSource AncestorType=TabItem}}"
                                                CommandParameter="CustomX"
                                                Style="{StaticResource EmberIconButtonHot}" Margin="6,0,0,0"
@@ -13533,7 +13533,7 @@
                                             </TextBlock.Style>
                                         </TextBlock>
                                     </StackPanel>
-                                    <ui:Button AutomationProperties.Name="{Binding CustomYRecordText}" Command="{Binding DataContext.MenuRecordTargetCommand,
+                                    <ui:Button AutomationProperties.Name="{Binding CustomYRecordText, TargetNullValue=''}" Command="{Binding DataContext.MenuRecordTargetCommand,
                                                    RelativeSource={RelativeSource AncestorType=TabItem}}"
                                                CommandParameter="CustomY"
                                                Style="{StaticResource EmberIconButtonHot}" Margin="6,0,0,0"
@@ -13593,7 +13593,7 @@
                                             </TextBlock.Style>
                                         </TextBlock>
                                     </StackPanel>
-                                    <ui:Button AutomationProperties.Name="{Binding ClickRecordText}" Command="{Binding DataContext.MenuRecordTargetCommand,
+                                    <ui:Button AutomationProperties.Name="{Binding ClickRecordText, TargetNullValue=''}" Command="{Binding DataContext.MenuRecordTargetCommand,
                                                    RelativeSource={RelativeSource AncestorType=TabItem}}"
                                                CommandParameter="Click"
                                                Style="{StaticResource EmberIconButtonHot}" Margin="6,0,0,0"

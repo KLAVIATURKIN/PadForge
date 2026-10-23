@@ -120,5 +120,57 @@ namespace PadForge.Tests
         {
             Assert.Null(TreeWalk.Parent(null));
         }
+
+        /// <summary>The same disease in Visual.IsAncestorOf: it throws on a
+        /// ContentElement (VisualTreeUtils.AsVisual), and the dialog focus
+        /// check reads Keyboard.FocusedElement, which a Hyperlink can
+        /// be.</summary>
+        [Fact]
+        public void RawIsAncestorOf_StillThrowsOnAHyperlink()
+        {
+            RunSta(() =>
+            {
+                var link = new Hyperlink(new Run("Docs"));
+                var host = new Border { Child = new TextBlock(link) };
+                Assert.Throws<InvalidOperationException>(() => host.IsAncestorOf(link));
+            });
+        }
+
+        /// <summary>The dialog focus check (InitialFocus) reads a focused
+        /// Hyperlink in the window as focus inside it, and the window itself,
+        /// a Hyperlink elsewhere and no focus as focus elsewhere, without
+        /// throwing.</summary>
+        [Fact]
+        public void TheDialogFocusCheck_ReadsAFocusedHyperlinkWithoutThrowing()
+        {
+            RunSta(() =>
+            {
+                var link = new Hyperlink(new Run("Docs"));
+                var button = new Button();
+                var window = new Window
+                {
+                    Width = 200, Height = 100, ShowActivated = false, ShowInTaskbar = false,
+                    Left = -10000, Top = -10000,
+                    Content = new StackPanel { Children = { new TextBlock(link), button } },
+                };
+                var outside = new Hyperlink(new Run("Elsewhere"));
+                var elsewhere = new TextBlock(outside);
+                try
+                {
+                    window.Show();
+                    window.UpdateLayout();
+                    Assert.True(InitialFocus.FocusIsInside(window, link));
+                    Assert.True(InitialFocus.FocusIsInside(window, button));
+                    Assert.False(InitialFocus.FocusIsInside(window, window));
+                    Assert.False(InitialFocus.FocusIsInside(window, outside));
+                    Assert.False(InitialFocus.FocusIsInside(window, null));
+                }
+                finally
+                {
+                    window.Close();
+                }
+                GC.KeepAlive(elsewhere);
+            });
+        }
     }
 }

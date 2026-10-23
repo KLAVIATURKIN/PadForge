@@ -41,10 +41,16 @@ namespace PadForge.Common
             {
                 if (Window.GetWindow(content) is not Window window)
                     return;
-                if (Keyboard.FocusedElement is DependencyObject focused && focused != window && window.IsAncestorOf(focused))
+                if (FocusIsInside(window, Keyboard.FocusedElement))
                     return;
                 content.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
             }));
         }
+
+        /// <summary>Whether the focused element is in the window, the window
+        /// itself not counting. The focused element can be a Hyperlink, which
+        /// Visual.IsAncestorOf throws on, so the walk is TreeWalk's.</summary>
+        internal static bool FocusIsInside(Window window, IInputElement focused)
+            => focused is DependencyObject d && d != window && TreeWalk.IsWithin(window, d);
     }
 }

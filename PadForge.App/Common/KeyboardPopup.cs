@@ -2,7 +2,6 @@ using System;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace PadForge.Common
@@ -50,18 +49,10 @@ namespace PadForge.Common
                 // a choice did not move the page away from it. An opener that
                 // takes no focus itself (the profile pill's UserControl)
                 // hands it to the first control inside it.
-                if (opener.IsVisible && (Keyboard.FocusedElement is not DependencyObject focused || IsWithin(content, focused))
+                if (opener.IsVisible && (Keyboard.FocusedElement is not DependencyObject focused || TreeWalk.IsWithin(content, focused))
                     && !opener.Focus())
                     opener.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
             };
-        }
-
-        private static bool IsWithin(DependencyObject root, DependencyObject d)
-        {
-            for (; d != null; d = d is Visual or System.Windows.Media.Media3D.Visual3D ? VisualTreeHelper.GetParent(d) : LogicalTreeHelper.GetParent(d))
-                if (d == root)
-                    return true;
-            return false;
         }
     }
 }

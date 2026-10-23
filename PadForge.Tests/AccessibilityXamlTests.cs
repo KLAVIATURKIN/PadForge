@@ -258,6 +258,34 @@ namespace PadForge.Tests
         }
 
         [Fact]
+        public void EveryNameBoundOutsideTheStringTable_ReadsEmptyForNull()
+        {
+            // AutomationProperties.Name refuses null, so a name bound to a
+            // value that starts out null logged a binding error on every
+            // launch: the web controller QR images and the 2D/3D toggle did.
+            // TargetNullValue gives such a name the empty string. A binding to
+            // the string table never yields null, and a MultiBinding with a
+            // StringFormat always yields a string.
+            var missing = new List<string>();
+            foreach (var (rel, text) in XamlA11yAudit.Files(RepoRoot()))
+            {
+                foreach (var e in XDocument.Parse(text, LoadOptions.SetLineInfo).Descendants())
+                {
+                    string binding = e.Attributes().FirstOrDefault(a => a.Name.LocalName == "AutomationProperties.Name")?.Value;
+                    if (binding == null && e.Name.LocalName == "Setter"
+                        && ((string)e.Attribute("Property") ?? "").EndsWith("AutomationProperties.Name", StringComparison.Ordinal))
+                        binding = (string)e.Attribute("Value");
+                    if (binding == null || !binding.StartsWith("{Binding", StringComparison.Ordinal)
+                        || binding.Contains("Strings.Instance", StringComparison.Ordinal)
+                        || binding.Contains("TargetNullValue", StringComparison.Ordinal))
+                        continue;
+                    missing.Add($"{rel}:{((IXmlLineInfo)e).LineNumber}");
+                }
+            }
+            Assert.True(missing.Count == 0, "Names bound with no value for null: " + string.Join(", ", missing));
+        }
+
+        [Fact]
         public void EveryCopiedWpfUiTemplate_NamesThePackageVersionInUse()
         {
             // App.xaml copies wpf-ui templates and says from which version. A

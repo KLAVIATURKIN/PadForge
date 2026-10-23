@@ -283,6 +283,40 @@ namespace PadForge.Tests
             => UIElementAutomationPeer.CreatePeerForElement(list).GetChildren().Select(p => p.GetName()).ToArray();
 
         [Fact]
+        public void ASlidersTrackButtons_AreNamedWithTheSlider_EvenOneThatNeverTakesASize() => RunSta(() =>
+        {
+            // PadForge's slider template (App.xaml EmberSlider): the increase
+            // button draws nothing, and wpf-ui's implicit RepeatButton style
+            // aligns it left and center (Button.xaml DefaultRepeatButtonStyle),
+            // so it never takes a size and has no first size to be named on.
+            var slider = (Slider)XamlReader.Parse(
+                "<Slider xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"" +
+                " xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\" Minimum=\"0\" Maximum=\"255\" Value=\"128\" Width=\"148\">" +
+                "<Slider.Template><ControlTemplate TargetType=\"Slider\"><Grid MinHeight=\"24\"><Track x:Name=\"PART_Track\">" +
+                "<Track.DecreaseRepeatButton><RepeatButton Command=\"Slider.DecreaseLarge\"><RepeatButton.Template>" +
+                "<ControlTemplate TargetType=\"RepeatButton\"><Grid Background=\"Transparent\"><Border Height=\"4\" Margin=\"1,0,0,0\"/></Grid></ControlTemplate>" +
+                "</RepeatButton.Template></RepeatButton></Track.DecreaseRepeatButton>" +
+                "<Track.IncreaseRepeatButton><RepeatButton Command=\"Slider.IncreaseLarge\"><RepeatButton.Template>" +
+                "<ControlTemplate TargetType=\"RepeatButton\"><Grid Background=\"Transparent\"/></ControlTemplate>" +
+                "</RepeatButton.Template></RepeatButton></Track.IncreaseRepeatButton>" +
+                "<Track.Thumb><Thumb Width=\"14\" Height=\"14\"/></Track.Thumb>" +
+                "</Track></Grid></ControlTemplate></Slider.Template></Slider>");
+            var panel = Panel(slider);
+            var aligned = new Style(typeof(System.Windows.Controls.Primitives.RepeatButton));
+            aligned.Setters.Add(new Setter(FrameworkElement.HorizontalAlignmentProperty, HorizontalAlignment.Left));
+            aligned.Setters.Add(new Setter(FrameworkElement.VerticalAlignmentProperty, VerticalAlignment.Center));
+            panel.Resources.Add(typeof(System.Windows.Controls.Primitives.RepeatButton), aligned);
+            Shown(panel, () =>
+            {
+                var track = (System.Windows.Controls.Primitives.Track)slider.Template.FindName("PART_Track", slider);
+                Assert.Equal(new Size(0, 0), track.IncreaseRepeatButton.RenderSize);
+                AccessibleNames.NameInput(slider);
+                Assert.Equal(Strings.Instance.Common_Decrease, NameOf(track.DecreaseRepeatButton));
+                Assert.Equal(Strings.Instance.Common_Increase, NameOf(track.IncreaseRepeatButton));
+            });
+        });
+
+        [Fact]
         public void AListItemThatWouldReadATypeOrEnumName_IsLabeledByTheTextItShows() => RunSta(() =>
         {
             var plain = new ItemsControl

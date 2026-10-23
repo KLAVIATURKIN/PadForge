@@ -90,6 +90,7 @@ public static class A11yWin {
     [DllImport("user32.dll")] public static extern uint GetWindowThreadProcessId(IntPtr h, IntPtr pid);
     [DllImport("user32.dll")] public static extern bool AttachThreadInput(uint a, uint b, bool attach);
     [DllImport("kernel32.dll")] public static extern uint GetCurrentThreadId();
+    [DllImport("user32.dll")] public static extern bool IsWindowEnabled(IntPtr h);
 }
 '@
 # The rules and the walk run here rather than in a PowerShell loop over every
@@ -216,6 +217,9 @@ if (-not $win) { $win = $AE::FromHandle($pf.MainWindowHandle) }
 $hwnd = [IntPtr]$win.Current.NativeWindowHandle
 $clock = [Diagnostics.Stopwatch]::StartNew()
 Note "PadForge pid=$($pf.Id) hwnd=$hwnd started=$($pf.StartTime.ToString('o'))"
+# A modal dialog disables the main window, and a click on a disabled window
+# does nothing, so every page would time out. Name the cause and stop.
+if (-not [A11yWin]::IsWindowEnabled($hwnd)) { Note 'A dialog is open over the PadForge window. Close it, then run the audit again.'; Save; exit -1 }
 
 # The Alt tap and the attached input queue let SetForegroundWindow past the
 # foreground lock (tooling memory, 2026-10-06). Skipped when PadForge is

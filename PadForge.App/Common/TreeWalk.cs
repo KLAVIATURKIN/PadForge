@@ -24,5 +24,17 @@ namespace PadForge.Common
                 ? VisualTreeHelper.GetParent(d)
                 : LogicalTreeHelper.GetParent(d);
         }
+
+        /// <summary>Whether d is root or under it, climbing through Parent.
+        /// Visual.IsAncestorOf throws on a ContentElement as GetParent does,
+        /// and the focused element (Keyboard.FocusedElement) can be a
+        /// Hyperlink.</summary>
+        internal static bool IsWithin(DependencyObject root, DependencyObject d)
+        {
+            for (; d != null; d = Parent(d))
+                if (d == root)
+                    return true;
+            return false;
+        }
     }
 }
