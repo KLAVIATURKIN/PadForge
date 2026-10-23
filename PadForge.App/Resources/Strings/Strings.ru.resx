@@ -124,6 +124,7 @@
   <data name="Main_AddController" xml:space="preserve"><value>Добавить контроллер</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Удалить виртуальный контроллер</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Полный экран</value></data>
+  <data name="Main_NavigationPane" xml:space="preserve"><value>Панель навигации</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>Показать PadForge</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>Виртуальный контроллер {0}</value></data>
   <data name="Main_EngineStopped" xml:space="preserve"><value>Движок остановлен</value></data>
@@ -2953,6 +2954,7 @@
   <data name="RemoteLink_PasswordTitle" xml:space="preserve">
     <value>Пароль Удаленной связи</value>
   </data>
+  <data name="RemoteLink_PasswordConfirm" xml:space="preserve"><value>Подтвердите пароль</value></data>
   <data name="Dashboard_TouchpadOverlayWindowTitle" xml:space="preserve">
     <value>Тачпад PadForge</value>
   </data>
@@ -3141,6 +3143,7 @@
   <data name="Ds3Pair_NoRadio" xml:space="preserve"><value>Радиомодуль Bluetooth недоступен. Включите Bluetooth и повторите попытку. Сопряжение нужно только для беспроводной игры; контроллер, подключенный кабелем, работает и без него.</value></data>
   <data name="Ds3Pair_Failed" xml:space="preserve"><value>Сопряжение не завершилось. Шаг, на котором произошел сбой, показан выше.</value></data>
   <data name="Common_Close" xml:space="preserve"><value>Закрыть</value></data>
+  <data name="Common_ResizePanes" xml:space="preserve"><value>Изменить размер панелей</value></data>
   <data name="Nfc_Title" xml:space="preserve"><value>Метки NFC</value></data>
   <data name="Nfc_RegisterHeader" xml:space="preserve"><value>Регистрация метки</value></data>
   <data name="Nfc_TapPrompt" xml:space="preserve"><value>Приложите метку к считывателю, чтобы считать ее UID.</value></data>

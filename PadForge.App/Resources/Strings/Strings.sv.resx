@@ -124,6 +124,7 @@
   <data name="Main_AddController" xml:space="preserve"><value>Lägg till handkontroll</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Radera virtuell handkontroll</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Helskärm</value></data>
+  <data name="Main_NavigationPane" xml:space="preserve"><value>Navigeringsfönster</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>Visa PadForge</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>Virtuell handkontroll {0}</value></data>
   <data name="Main_EngineStopped" xml:space="preserve"><value>Motorn stoppad</value></data>
@@ -2953,6 +2954,7 @@ En kopia av den föregående versionen finns i den här mappen: {1}</value></dat
   <data name="RemoteLink_PasswordTitle" xml:space="preserve">
     <value>Lösenord för Fjärrlänk</value>
   </data>
+  <data name="RemoteLink_PasswordConfirm" xml:space="preserve"><value>Bekräfta lösenord</value></data>
   <data name="Dashboard_TouchpadOverlayWindowTitle" xml:space="preserve">
     <value>PadForge-styrplatta</value>
   </data>
@@ -3141,6 +3143,7 @@ En kopia av den föregående versionen finns i den här mappen: {1}</value></dat
   <data name="Ds3Pair_NoRadio" xml:space="preserve"><value>Ingen Bluetooth-radio är tillgänglig. Slå på Bluetooth och försök igen. Parkoppling behövs bara för trådlöst spelande; en kabelansluten handkontroll fungerar utan den.</value></data>
   <data name="Ds3Pair_Failed" xml:space="preserve"><value>Parkopplingen slutfördes inte. Steget som misslyckades visas ovan.</value></data>
   <data name="Common_Close" xml:space="preserve"><value>Stäng</value></data>
+  <data name="Common_ResizePanes" xml:space="preserve"><value>Ändra storlek på fönsterpaneler</value></data>
   <data name="Nfc_Title" xml:space="preserve"><value>NFC-taggar</value></data>
   <data name="Nfc_RegisterHeader" xml:space="preserve"><value>Registrera en tagg</value></data>
   <data name="Nfc_TapPrompt" xml:space="preserve"><value>Håll en tagg mot läsaren för att fånga dess UID.</value></data>

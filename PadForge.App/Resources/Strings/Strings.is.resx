@@ -124,6 +124,7 @@
   <data name="Main_AddController" xml:space="preserve"><value>Bæta við leikjastýringu</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Eyða sýndarstýringu</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Heilskjár</value></data>
+  <data name="Main_NavigationPane" xml:space="preserve"><value>Leiðsagnarrúða</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>Sýna PadForge</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>Sýndarstýring {0}</value></data>
   <data name="Main_EngineStopped" xml:space="preserve"><value>Vélin stöðvuð</value></data>
@@ -2953,6 +2954,7 @@ Afrit af fyrri útgáfu er í þessari möppu: {1}</value></data>
   <data name="RemoteLink_PasswordTitle" xml:space="preserve">
     <value>Lykilorð Fjartengingar</value>
   </data>
+  <data name="RemoteLink_PasswordConfirm" xml:space="preserve"><value>Staðfesta lykilorð</value></data>
   <data name="Dashboard_TouchpadOverlayWindowTitle" xml:space="preserve">
     <value>PadForge-snertiflötur</value>
   </data>
@@ -3141,6 +3143,7 @@ Afrit af fyrri útgáfu er í þessari möppu: {1}</value></data>
   <data name="Ds3Pair_NoRadio" xml:space="preserve"><value>Enginn Bluetooth-sendir er tiltækur. Kveiktu á Bluetooth og reyndu aftur. Pörun þarf aðeins fyrir þráðlausa spilun; leikjastýring tengd með snúru virkar án hennar.</value></data>
   <data name="Ds3Pair_Failed" xml:space="preserve"><value>Pörun lauk ekki. Skrefið sem mistókst er sýnt hér fyrir ofan.</value></data>
   <data name="Common_Close" xml:space="preserve"><value>Loka</value></data>
+  <data name="Common_ResizePanes" xml:space="preserve"><value>Breyta stærð rúða</value></data>
   <data name="Nfc_Title" xml:space="preserve"><value>NFC-merki</value></data>
   <data name="Nfc_RegisterHeader" xml:space="preserve"><value>Skrá merki</value></data>
   <data name="Nfc_TapPrompt" xml:space="preserve"><value>Berðu merki að lesaranum til að lesa UID þess.</value></data>

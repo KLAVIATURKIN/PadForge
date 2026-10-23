@@ -124,6 +124,7 @@
   <data name="Main_AddController" xml:space="preserve"><value>Dodaj krmilnik</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Izbriši navidezni krmilnik</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Celozaslonski način</value></data>
+  <data name="Main_NavigationPane" xml:space="preserve"><value>Podokno za krmarjenje</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>Pokaži PadForge</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>Navidezni krmilnik {0}</value></data>
   <data name="Main_EngineStopped" xml:space="preserve"><value>Mehanizem je ustavljen</value></data>
@@ -2953,6 +2954,7 @@ Kopija prejšnje različice je v tej mapi: {1}</value></data>
   <data name="RemoteLink_PasswordTitle" xml:space="preserve">
     <value>Geslo za Oddaljeno povezavo</value>
   </data>
+  <data name="RemoteLink_PasswordConfirm" xml:space="preserve"><value>Potrdi geslo</value></data>
   <data name="Dashboard_TouchpadOverlayWindowTitle" xml:space="preserve">
     <value>Sledilna ploščica PadForge</value>
   </data>
@@ -3141,6 +3143,7 @@ Kopija prejšnje različice je v tej mapi: {1}</value></data>
   <data name="Ds3Pair_NoRadio" xml:space="preserve"><value>Radio Bluetooth ni na voljo. Vklopite Bluetooth in poskusite znova. Seznanjanje je potrebno le za brezžično igranje. Krmilnik, povezan s kablom, deluje tudi brez njega.</value></data>
   <data name="Ds3Pair_Failed" xml:space="preserve"><value>Seznanjanje se ni dokončalo. Korak, ki ni uspel, je prikazan zgoraj.</value></data>
   <data name="Common_Close" xml:space="preserve"><value>Zapri</value></data>
+  <data name="Common_ResizePanes" xml:space="preserve"><value>Spremeni velikost podoken</value></data>
   <data name="Nfc_Title" xml:space="preserve"><value>Oznake NFC</value></data>
   <data name="Nfc_RegisterHeader" xml:space="preserve"><value>Registrirajte oznako</value></data>
   <data name="Nfc_TapPrompt" xml:space="preserve"><value>Oznako prislonite na bralnik, da zajamete njen UID.</value></data>

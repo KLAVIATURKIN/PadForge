@@ -3587,6 +3587,9 @@ namespace PadForge
             };
             powerBtn.Click += OnSidebarPowerToggle;
             System.Windows.Automation.AutomationProperties.SetAutomationId(powerBtn, "Nav_SlotPower");
+            // The toggle's name says what it switches, and its state tooltip
+            // is the help text a screen reader reads after the state.
+            System.Windows.Automation.AutomationProperties.SetName(powerBtn, Strings.Instance.Common_Enabled);
             row.Children.Add(powerBtn);
 
             // Global slot number. The pill reads "what this slot IS" (#175):

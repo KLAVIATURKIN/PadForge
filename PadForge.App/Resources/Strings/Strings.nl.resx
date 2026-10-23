@@ -121,6 +121,7 @@
   <data name="Main_AddController" xml:space="preserve"><value>Controller toevoegen</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Virtuele controller verwijderen</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Volledig scherm</value></data>
+  <data name="Main_NavigationPane" xml:space="preserve"><value>Navigatiepaneel</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>PadForge tonen</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>Virtuele Controller {0}</value></data>
   <data name="Main_EngineStopped" xml:space="preserve"><value>Engine gestopt</value></data>
@@ -2453,6 +2454,7 @@ Een kopie van de vorige versie staat in deze map: {1}</value></data>
   <data name="RemoteLink_PasswordTitle" xml:space="preserve">
     <value>Remote Link-wachtwoord</value>
   </data>
+  <data name="RemoteLink_PasswordConfirm" xml:space="preserve"><value>Wachtwoord bevestigen</value></data>
   <data name="Dashboard_TouchpadOverlayWindowTitle" xml:space="preserve">
     <value>PadForge-touchpad</value>
   </data>
@@ -2647,6 +2649,7 @@ Een kopie van de vorige versie staat in deze map: {1}</value></data>
   <data name="WiiPair_Failed" xml:space="preserve"><value>Het koppelen van de Wii kon niet worden voltooid. Probeer het opnieuw.</value></data>
   <data name="WiiPair_Done" xml:space="preserve"><value>Klaar</value></data>
   <data name="Common_Close" xml:space="preserve"><value>Sluiten</value></data>
+  <data name="Common_ResizePanes" xml:space="preserve"><value>Grootte van deelvensters aanpassen</value></data>
   <data name="Nfc_Title" xml:space="preserve"><value>NFC-tags</value></data>
   <data name="Nfc_RegisterHeader" xml:space="preserve"><value>Een tag registreren</value></data>
   <data name="Nfc_TapPrompt" xml:space="preserve"><value>Houd een tag bij de lezer om de UID vast te leggen.</value></data>

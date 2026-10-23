@@ -124,6 +124,7 @@
   <data name="Main_AddController" xml:space="preserve"><value>Pridať ovládač</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Odstrániť virtuálny ovládač</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Celá obrazovka</value></data>
+  <data name="Main_NavigationPane" xml:space="preserve"><value>Navigačný panel</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>Zobraziť PadForge</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>Virtuálny ovládač {0}</value></data>
   <data name="Main_EngineStopped" xml:space="preserve"><value>Jadro je zastavené</value></data>
@@ -2953,6 +2954,7 @@ Kópia predchádzajúcej verzie je v tomto priečinku: {1}</value></data>
   <data name="RemoteLink_PasswordTitle" xml:space="preserve">
     <value>Heslo Vzdialeného prepojenia</value>
   </data>
+  <data name="RemoteLink_PasswordConfirm" xml:space="preserve"><value>Potvrdiť heslo</value></data>
   <data name="Dashboard_TouchpadOverlayWindowTitle" xml:space="preserve">
     <value>Touchpad PadForge</value>
   </data>
@@ -3141,6 +3143,7 @@ Kópia predchádzajúcej verzie je v tomto priečinku: {1}</value></data>
   <data name="Ds3Pair_NoRadio" xml:space="preserve"><value>Nie je k dispozícii žiadne rádio Bluetooth. Zapnite Bluetooth a skúste to znova. Párovanie je potrebné iba na bezdrôtové hranie, ovládač pripojený káblom funguje aj bez neho.</value></data>
   <data name="Ds3Pair_Failed" xml:space="preserve"><value>Párovanie sa nedokončilo. Krok, ktorý zlyhal, je uvedený vyššie.</value></data>
   <data name="Common_Close" xml:space="preserve"><value>Zavrieť</value></data>
+  <data name="Common_ResizePanes" xml:space="preserve"><value>Zmeniť veľkosť panelov</value></data>
   <data name="Nfc_Title" xml:space="preserve"><value>Štítky NFC</value></data>
   <data name="Nfc_RegisterHeader" xml:space="preserve"><value>Zaregistrovať štítok</value></data>
   <data name="Nfc_TapPrompt" xml:space="preserve"><value>Priložte štítok k čítačke, aby sa zachytilo jeho UID.</value></data>

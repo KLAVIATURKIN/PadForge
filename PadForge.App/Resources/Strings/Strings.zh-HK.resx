@@ -124,6 +124,7 @@
   <data name="Main_AddController" xml:space="preserve"><value>新增控制器</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>刪除虛擬控制器</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>全熒幕</value></data>
+  <data name="Main_NavigationPane" xml:space="preserve"><value>導覽窗格</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>顯示 PadForge</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>虛擬控制器 {0}</value></data>
   <data name="Main_EngineStopped" xml:space="preserve"><value>引擎已停止</value></data>
@@ -2953,6 +2954,7 @@
   <data name="RemoteLink_PasswordTitle" xml:space="preserve">
     <value>遠端連線密碼</value>
   </data>
+  <data name="RemoteLink_PasswordConfirm" xml:space="preserve"><value>確認密碼</value></data>
   <data name="Dashboard_TouchpadOverlayWindowTitle" xml:space="preserve">
     <value>PadForge 觸控板</value>
   </data>
@@ -3141,6 +3143,7 @@
   <data name="Ds3Pair_NoRadio" xml:space="preserve"><value>沒有可用的藍牙無線電。請開啟藍牙，然後再試一次。只有無線遊玩才需要配對，以線連接的控制器無需配對亦可使用。</value></data>
   <data name="Ds3Pair_Failed" xml:space="preserve"><value>配對未能完成。失敗的步驟已在上方顯示。</value></data>
   <data name="Common_Close" xml:space="preserve"><value>關閉</value></data>
+  <data name="Common_ResizePanes" xml:space="preserve"><value>調整窗格大小</value></data>
   <data name="Nfc_Title" xml:space="preserve"><value>NFC 標籤</value></data>
   <data name="Nfc_RegisterHeader" xml:space="preserve"><value>登記標籤</value></data>
   <data name="Nfc_TapPrompt" xml:space="preserve"><value>把標籤輕觸讀取器，以擷取其 UID。</value></data>

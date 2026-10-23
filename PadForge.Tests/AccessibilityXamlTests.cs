@@ -59,40 +59,15 @@ namespace PadForge.Tests
         private static readonly Dictionary<(string File, string Class), int> Ceilings = new()
         {
             [("PadForge.App/Controls/CurveEditor.xaml", XamlA11yAudit.MouseOnly)] = 2,
-
-            [("PadForge.App/MainWindow.xaml", XamlA11yAudit.BtnNoTooltip)] = 1,
-
-
             [("PadForge.App/MainWindow.xaml", XamlA11yAudit.MouseOnly)] = 1,
-
-
             [("PadForge.App/Views/ColorPickerControl.xaml", XamlA11yAudit.MouseOnly)] = 4,
-
             [("PadForge.App/Views/Controls/ProfilePill.xaml", XamlA11yAudit.MouseOnly)] = 1,
-
-
             [("PadForge.App/Views/DashboardPage.xaml", XamlA11yAudit.MouseOnly)] = 1,
-
             [("PadForge.App/Views/DevicesPage.xaml", XamlA11yAudit.MouseOnly)] = 10,
-
-            [("PadForge.App/Views/DreamcastScreenDialog.xaml", XamlA11yAudit.ImageNoName)] = 1,
-
-
-
             [("PadForge.App/Views/PadPage.xaml", XamlA11yAudit.MouseOnly)] = 18,
-
-
-            [("PadForge.App/Views/RemoteLinkPasswordDialog.xaml", XamlA11yAudit.InNothing)] = 1,
-
-
-
             [("PadForge.App/Views/TouchpadGestureRecorderDialog.xaml", XamlA11yAudit.MouseOnly)] = 2,
-
             [("PadForge.App/Views/TouchpadOverlay.xaml", XamlA11yAudit.MouseOnly)] = 4,
-
-
             [("PadForge.App/Views/WorkshopBrowseDialog.xaml", XamlA11yAudit.MouseOnly)] = 6,
-
         };
 
         // Findings that stay, each with its reason, matched by file, class and

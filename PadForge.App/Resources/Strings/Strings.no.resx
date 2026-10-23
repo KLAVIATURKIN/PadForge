@@ -124,6 +124,7 @@
   <data name="Main_AddController" xml:space="preserve"><value>Legg til kontroller</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Slett virtuell kontroller</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Fullskjerm</value></data>
+  <data name="Main_NavigationPane" xml:space="preserve"><value>Navigasjonsrute</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>Vis PadForge</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>Virtuell kontroller {0}</value></data>
   <data name="Main_EngineStopped" xml:space="preserve"><value>Motoren er stoppet</value></data>
@@ -2953,6 +2954,7 @@ En kopi av den forrige versjonen ligger i denne mappen: {1}</value></data>
   <data name="RemoteLink_PasswordTitle" xml:space="preserve">
     <value>Passord for Fjernkobling</value>
   </data>
+  <data name="RemoteLink_PasswordConfirm" xml:space="preserve"><value>Bekreft passord</value></data>
   <data name="Dashboard_TouchpadOverlayWindowTitle" xml:space="preserve">
     <value>PadForge-berøringsplate</value>
   </data>
@@ -3141,6 +3143,7 @@ En kopi av den forrige versjonen ligger i denne mappen: {1}</value></data>
   <data name="Ds3Pair_NoRadio" xml:space="preserve"><value>Ingen Bluetooth-radio er tilgjengelig. Slå på Bluetooth og prøv igjen. Sammenkobling trengs bare for trådløst spill; en kontroller koblet til med kabel fungerer uten.</value></data>
   <data name="Ds3Pair_Failed" xml:space="preserve"><value>Sammenkoblingen ble ikke fullført. Trinnet som mislyktes, vises ovenfor.</value></data>
   <data name="Common_Close" xml:space="preserve"><value>Lukk</value></data>
+  <data name="Common_ResizePanes" xml:space="preserve"><value>Endre størrelse på rutene</value></data>
   <data name="Nfc_Title" xml:space="preserve"><value>NFC-brikker</value></data>
   <data name="Nfc_RegisterHeader" xml:space="preserve"><value>Registrer en brikke</value></data>
   <data name="Nfc_TapPrompt" xml:space="preserve"><value>Hold en brikke mot leseren for å lese UID-en.</value></data>

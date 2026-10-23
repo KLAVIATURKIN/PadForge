@@ -704,7 +704,7 @@
                                 <!-- Row 0: [Flame] Slot N ... [X] -->
                                 <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
                                     <!-- Power button -->
-                                    <controls:StateToggleButton IsOn="{Binding IsEnabled}" Click="PowerToggle_Click" Tag="{Binding PadIndex}">
+                                    <controls:StateToggleButton AutomationProperties.Name="{Binding Common_Enabled, Source={x:Static strings:Strings.Instance}}" IsOn="{Binding IsEnabled}" Click="PowerToggle_Click" Tag="{Binding PadIndex}">
                                         <Button.Style>
                                             <Style TargetType="Button" BasedOn="{StaticResource TypeSwitchButton}">
                                                 <Setter Property="Cursor" Value="Hand"/>

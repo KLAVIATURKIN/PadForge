@@ -124,6 +124,7 @@
   <data name="Main_AddController" xml:space="preserve"><value>Προσθήκη χειριστηρίου</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Διαγραφή εικονικού χειριστηρίου</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Πλήρης οθόνη</value></data>
+  <data name="Main_NavigationPane" xml:space="preserve"><value>Παράθυρο πλοήγησης</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>Εμφάνιση του PadForge</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>Εικονικό χειριστήριο {0}</value></data>
   <data name="Main_EngineStopped" xml:space="preserve"><value>Η μηχανή σταμάτησε</value></data>
@@ -2953,6 +2954,7 @@
   <data name="RemoteLink_PasswordTitle" xml:space="preserve">
     <value>Κωδικός πρόσβασης Απομακρυσμένης σύνδεσης</value>
   </data>
+  <data name="RemoteLink_PasswordConfirm" xml:space="preserve"><value>Επιβεβαίωση κωδικού πρόσβασης</value></data>
   <data name="Dashboard_TouchpadOverlayWindowTitle" xml:space="preserve">
     <value>Επιφάνεια αφής PadForge</value>
   </data>
@@ -3141,6 +3143,7 @@
   <data name="Ds3Pair_NoRadio" xml:space="preserve"><value>Δεν υπάρχει διαθέσιμος πομποδέκτης Bluetooth. Ενεργοποιήστε το Bluetooth και δοκιμάστε ξανά. Η σύζευξη χρειάζεται μόνο για ασύρματο παιχνίδι. Ένα χειριστήριο συνδεδεμένο με καλώδιο λειτουργεί και χωρίς αυτήν.</value></data>
   <data name="Ds3Pair_Failed" xml:space="preserve"><value>Η σύζευξη δεν ολοκληρώθηκε. Το βήμα που απέτυχε εμφανίζεται παραπάνω.</value></data>
   <data name="Common_Close" xml:space="preserve"><value>Κλείσιμο</value></data>
+  <data name="Common_ResizePanes" xml:space="preserve"><value>Αλλαγή μεγέθους πάνελ</value></data>
   <data name="Nfc_Title" xml:space="preserve"><value>Ετικέτες NFC</value></data>
   <data name="Nfc_RegisterHeader" xml:space="preserve"><value>Καταχώριση ετικέτας</value></data>
   <data name="Nfc_TapPrompt" xml:space="preserve"><value>Ακουμπήστε μια ετικέτα στον αναγνώστη για να καταγραφεί το UID της.</value></data>

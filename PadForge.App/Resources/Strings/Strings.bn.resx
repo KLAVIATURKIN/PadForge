@@ -124,6 +124,7 @@
   <data name="Main_AddController" xml:space="preserve"><value>কন্ট্রোলার যোগ করুন</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>ভার্চুয়াল কন্ট্রোলার মুছুন</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>পূর্ণ স্ক্রিন</value></data>
+  <data name="Main_NavigationPane" xml:space="preserve"><value>নেভিগেশন প্যান</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>PadForge দেখান</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>ভার্চুয়াল কন্ট্রোলার {0}</value></data>
   <data name="Main_EngineStopped" xml:space="preserve"><value>ইঞ্জিন থেমে আছে</value></data>
@@ -2953,6 +2954,7 @@
   <data name="RemoteLink_PasswordTitle" xml:space="preserve">
     <value>রিমোট লিংক পাসওয়ার্ড</value>
   </data>
+  <data name="RemoteLink_PasswordConfirm" xml:space="preserve"><value>পাসওয়ার্ড নিশ্চিত করুন</value></data>
   <data name="Dashboard_TouchpadOverlayWindowTitle" xml:space="preserve">
     <value>PadForge টাচপ্যাড</value>
   </data>
@@ -3141,6 +3143,7 @@
   <data name="Ds3Pair_NoRadio" xml:space="preserve"><value>কোনো Bluetooth রেডিও উপলব্ধ নেই। Bluetooth চালু করে আবার চেষ্টা করুন। পেয়ারিং কেবল তারবিহীনভাবে খেলার জন্য দরকার; USB কেবলে সংযুক্ত কন্ট্রোলার এটি ছাড়াই কাজ করে।</value></data>
   <data name="Ds3Pair_Failed" xml:space="preserve"><value>পেয়ারিং সম্পন্ন হয়নি। যে ধাপটি ব্যর্থ হয়েছে তা উপরে দেখানো হয়েছে।</value></data>
   <data name="Common_Close" xml:space="preserve"><value>বন্ধ করুন</value></data>
+  <data name="Common_ResizePanes" xml:space="preserve"><value>প্যানের আকার পরিবর্তন</value></data>
   <data name="Nfc_Title" xml:space="preserve"><value>NFC ট্যাগ</value></data>
   <data name="Nfc_RegisterHeader" xml:space="preserve"><value>একটি ট্যাগ নিবন্ধন করুন</value></data>
   <data name="Nfc_TapPrompt" xml:space="preserve"><value>ট্যাগের UID ধরতে সেটি রিডারে ছোঁয়ান।</value></data>

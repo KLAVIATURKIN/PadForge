@@ -124,6 +124,7 @@
   <data name="Main_AddController" xml:space="preserve"><value>کنٹرولر شامل کریں</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>ورچوئل کنٹرولر حذف کریں</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>پوری اسکرین</value></data>
+  <data name="Main_NavigationPane" xml:space="preserve"><value>نیویگیشن پین</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>PadForge دکھائیں</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>ورچوئل کنٹرولر {0}</value></data>
   <data name="Main_EngineStopped" xml:space="preserve"><value>انجن رکا ہوا ہے</value></data>
@@ -2953,6 +2954,7 @@
   <data name="RemoteLink_PasswordTitle" xml:space="preserve">
     <value>ریموٹ لنک پاس ورڈ</value>
   </data>
+  <data name="RemoteLink_PasswordConfirm" xml:space="preserve"><value>پاس ورڈ کی تصدیق کریں</value></data>
   <data name="Dashboard_TouchpadOverlayWindowTitle" xml:space="preserve">
     <value>PadForge ٹچ پیڈ</value>
   </data>
@@ -3141,6 +3143,7 @@
   <data name="Ds3Pair_NoRadio" xml:space="preserve"><value>کوئی بلوٹوتھ ریڈیو دستیاب نہیں۔ بلوٹوتھ آن کریں اور دوبارہ کوشش کریں۔ جوڑا بنانا صرف وائرلیس استعمال کے لیے ضروری ہے؛ کیبل سے لگا کنٹرولر اس کے بغیر بھی کام کرتا ہے۔</value></data>
   <data name="Ds3Pair_Failed" xml:space="preserve"><value>جوڑا بنانا مکمل نہیں ہوا۔ ناکام ہونے والا مرحلہ اوپر دکھایا گیا ہے۔</value></data>
   <data name="Common_Close" xml:space="preserve"><value>بند کریں</value></data>
+  <data name="Common_ResizePanes" xml:space="preserve"><value>پینز کا سائز تبدیل کریں</value></data>
   <data name="Nfc_Title" xml:space="preserve"><value>NFC ٹیگز</value></data>
   <data name="Nfc_RegisterHeader" xml:space="preserve"><value>ٹیگ رجسٹر کریں</value></data>
   <data name="Nfc_TapPrompt" xml:space="preserve"><value>ٹیگ کا UID کیپچر کرنے کے لیے اسے ریڈر پر ٹیپ کریں۔</value></data>

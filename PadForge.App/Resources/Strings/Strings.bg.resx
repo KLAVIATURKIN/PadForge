@@ -124,6 +124,7 @@
   <data name="Main_AddController" xml:space="preserve"><value>Добави контролер</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Изтрий виртуалния контролер</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Цял екран</value></data>
+  <data name="Main_NavigationPane" xml:space="preserve"><value>Навигационен панел</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>Покажи PadForge</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>Виртуален контролер {0}</value></data>
   <data name="Main_EngineStopped" xml:space="preserve"><value>Двигателят е спрян</value></data>
@@ -2953,6 +2954,7 @@
   <data name="RemoteLink_PasswordTitle" xml:space="preserve">
     <value>Парола за Отдалечена връзка</value>
   </data>
+  <data name="RemoteLink_PasswordConfirm" xml:space="preserve"><value>Потвърждение на паролата</value></data>
   <data name="Dashboard_TouchpadOverlayWindowTitle" xml:space="preserve">
     <value>Тъчпад на PadForge</value>
   </data>
@@ -3141,6 +3143,7 @@
   <data name="Ds3Pair_NoRadio" xml:space="preserve"><value>Няма наличен Bluetooth адаптер. Включете Bluetooth и опитайте отново. Сдвояването е нужно само за безжична игра; контролер, свързан с кабел, работи и без него.</value></data>
   <data name="Ds3Pair_Failed" xml:space="preserve"><value>Сдвояването не завърши. Неуспешната стъпка е показана по-горе.</value></data>
   <data name="Common_Close" xml:space="preserve"><value>Затвори</value></data>
+  <data name="Common_ResizePanes" xml:space="preserve"><value>Преоразмеряване на панелите</value></data>
   <data name="Nfc_Title" xml:space="preserve"><value>NFC етикети</value></data>
   <data name="Nfc_RegisterHeader" xml:space="preserve"><value>Регистриране на етикет</value></data>
   <data name="Nfc_TapPrompt" xml:space="preserve"><value>Докоснете етикет до четеца, за да се прочете неговият UID.</value></data>

@@ -58,7 +58,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <controls:StateToggleButton x:Name="PaneToggleBtn" IsOn="{Binding IsPaneOpen, ElementName=NavView}" Grid.Column="0" Click="PaneToggleBtn_Click"
+            <controls:StateToggleButton AutomationProperties.Name="{Binding Main_NavigationPane, Source={x:Static strings:Strings.Instance}}" x:Name="PaneToggleBtn" IsOn="{Binding IsPaneOpen, ElementName=NavView}" Grid.Column="0" Click="PaneToggleBtn_Click"
                     Width="48" Height="48"
                     Background="Transparent"
                     BorderThickness="0" Padding="0"

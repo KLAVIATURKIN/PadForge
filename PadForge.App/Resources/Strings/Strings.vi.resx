@@ -124,6 +124,7 @@
   <data name="Main_AddController" xml:space="preserve"><value>Thêm tay cầm</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Xóa tay cầm ảo</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Toàn màn hình</value></data>
+  <data name="Main_NavigationPane" xml:space="preserve"><value>Ngăn điều hướng</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>Hiện PadForge</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>Tay cầm ảo {0}</value></data>
   <data name="Main_EngineStopped" xml:space="preserve"><value>Bộ máy đã dừng</value></data>
@@ -2953,6 +2954,7 @@ Bản sao của phiên bản trước nằm trong thư mục này: {1}</value></
   <data name="RemoteLink_PasswordTitle" xml:space="preserve">
     <value>Mật khẩu Liên kết từ xa</value>
   </data>
+  <data name="RemoteLink_PasswordConfirm" xml:space="preserve"><value>Xác nhận mật khẩu</value></data>
   <data name="Dashboard_TouchpadOverlayWindowTitle" xml:space="preserve">
     <value>Bàn cảm ứng PadForge</value>
   </data>
@@ -3141,6 +3143,7 @@ Bản sao của phiên bản trước nằm trong thư mục này: {1}</value></
   <data name="Ds3Pair_NoRadio" xml:space="preserve"><value>Không có bộ thu phát Bluetooth nào khả dụng. Hãy bật Bluetooth rồi thử lại. Chỉ cần ghép đôi khi chơi không dây; tay cầm kết nối bằng cáp vẫn hoạt động mà không cần ghép đôi.</value></data>
   <data name="Ds3Pair_Failed" xml:space="preserve"><value>Ghép đôi chưa hoàn tất. Bước bị lỗi được hiển thị ở trên.</value></data>
   <data name="Common_Close" xml:space="preserve"><value>Đóng</value></data>
+  <data name="Common_ResizePanes" xml:space="preserve"><value>Đổi kích thước ngăn</value></data>
   <data name="Nfc_Title" xml:space="preserve"><value>Thẻ NFC</value></data>
   <data name="Nfc_RegisterHeader" xml:space="preserve"><value>Đăng ký thẻ</value></data>
   <data name="Nfc_TapPrompt" xml:space="preserve"><value>Chạm một thẻ vào đầu đọc để lấy UID của nó.</value></data>

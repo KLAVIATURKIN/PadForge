@@ -124,6 +124,7 @@
   <data name="Main_AddController" xml:space="preserve"><value>Adăugare controler</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Ștergere controler virtual</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Ecran complet</value></data>
+  <data name="Main_NavigationPane" xml:space="preserve"><value>Panou de navigare</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>Afișare PadForge</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>Controler virtual {0}</value></data>
   <data name="Main_EngineStopped" xml:space="preserve"><value>Motor oprit</value></data>
@@ -2953,6 +2954,7 @@ O copie a versiunii anterioare se află în acest folder: {1}</value></data>
   <data name="RemoteLink_PasswordTitle" xml:space="preserve">
     <value>Parolă Legătură la distanță</value>
   </data>
+  <data name="RemoteLink_PasswordConfirm" xml:space="preserve"><value>Confirmare parolă</value></data>
   <data name="Dashboard_TouchpadOverlayWindowTitle" xml:space="preserve">
     <value>Touchpad PadForge</value>
   </data>
@@ -3141,6 +3143,7 @@ O copie a versiunii anterioare se află în acest folder: {1}</value></data>
   <data name="Ds3Pair_NoRadio" xml:space="preserve"><value>Nu este disponibil niciun radio Bluetooth. Activați Bluetooth și încercați din nou. Asocierea este necesară doar pentru jocul fără fir; un controler conectat prin cablu funcționează și fără ea.</value></data>
   <data name="Ds3Pair_Failed" xml:space="preserve"><value>Asocierea nu s-a finalizat. Pasul care a eșuat este afișat mai sus.</value></data>
   <data name="Common_Close" xml:space="preserve"><value>Închidere</value></data>
+  <data name="Common_ResizePanes" xml:space="preserve"><value>Redimensionare panouri</value></data>
   <data name="Nfc_Title" xml:space="preserve"><value>Etichete NFC</value></data>
   <data name="Nfc_RegisterHeader" xml:space="preserve"><value>Înregistrare etichetă</value></data>
   <data name="Nfc_TapPrompt" xml:space="preserve"><value>Atingeți cititorul cu o etichetă pentru a-i captura UID-ul.</value></data>

@@ -206,6 +206,7 @@ public class Strings : INotifyPropertyChanged
     public string Main_AddController => Get("Main_AddController");
     public string Main_DeleteVC => Get("Main_DeleteVC");
     public string Main_FullScreen => Get("Main_FullScreen");
+    public string Main_NavigationPane => Get("Main_NavigationPane");
     public string Main_ShowPadForge => Get("Main_ShowPadForge");
     public string Main_VirtualController_Format => Get("Main_VirtualController_Format");
     public string Main_EngineStopped => Get("Main_EngineStopped");
@@ -462,6 +463,7 @@ public class Strings : INotifyPropertyChanged
     public string RemoteLink_NearbyTitle => Get("RemoteLink_NearbyTitle");
     public string Common_Reset => Get("Common_Reset");
     public string RemoteLink_PasswordTitle => Get("RemoteLink_PasswordTitle");
+    public string RemoteLink_PasswordConfirm => Get("RemoteLink_PasswordConfirm");
     public string Dashboard_TouchpadOverlayWindowTitle => Get("Dashboard_TouchpadOverlayWindowTitle");
     public string RemoteLink_PasswordEmpty => Get("RemoteLink_PasswordEmpty");
     public string RemoteLink_PasswordMismatch => Get("RemoteLink_PasswordMismatch");
@@ -3031,6 +3033,7 @@ public class Strings : INotifyPropertyChanged
     public string DevObj_Button => Get("DevObj_Button");
     public string Mapping_NfcAnyTag => Get("Mapping_NfcAnyTag");
     public string Common_Close => Get("Common_Close");
+    public string Common_ResizePanes => Get("Common_ResizePanes");
     public string Nfc_Title => Get("Nfc_Title");
     public string Nfc_RegisterHeader => Get("Nfc_RegisterHeader");
     public string Nfc_TapPrompt => Get("Nfc_TapPrompt");

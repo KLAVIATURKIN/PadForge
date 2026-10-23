@@ -1372,7 +1372,7 @@
                         </ListBox>
                     </DockPanel>
 
-                    <GridSplitter Grid.Column="1" Width="4" Margin="4,0"
+                    <GridSplitter AutomationProperties.Name="{Binding Common_ResizePanes, Source={x:Static strings:Strings.Instance}}" Grid.Column="1" Width="4" Margin="4,0"
                                   HorizontalAlignment="Center" VerticalAlignment="Stretch"
                                   ResizeBehavior="PreviousAndNext"/>
 
@@ -13192,7 +13192,7 @@
                                  DisplayMemberPath="Name"/>
                     </DockPanel>
 
-                    <GridSplitter Grid.Column="1" Width="4" Margin="4,0"
+                    <GridSplitter AutomationProperties.Name="{Binding Common_ResizePanes, Source={x:Static strings:Strings.Instance}}" Grid.Column="1" Width="4" Margin="4,0"
                                   HorizontalAlignment="Center" VerticalAlignment="Stretch"
                                   ResizeBehavior="PreviousAndNext"/>
 

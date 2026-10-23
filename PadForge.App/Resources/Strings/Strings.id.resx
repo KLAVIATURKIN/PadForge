@@ -124,6 +124,7 @@
   <data name="Main_AddController" xml:space="preserve"><value>Tambah kontroler</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Hapus kontroler virtual</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Layar penuh</value></data>
+  <data name="Main_NavigationPane" xml:space="preserve"><value>Panel Navigasi</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>Tampilkan PadForge</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>Kontroler Virtual {0}</value></data>
   <data name="Main_EngineStopped" xml:space="preserve"><value>Mesin berhenti</value></data>
@@ -2953,6 +2954,7 @@ Salinan versi sebelumnya ada di folder ini: {1}</value></data>
   <data name="RemoteLink_PasswordTitle" xml:space="preserve">
     <value>Kata sandi Tautan Jarak Jauh</value>
   </data>
+  <data name="RemoteLink_PasswordConfirm" xml:space="preserve"><value>Konfirmasi Kata Sandi</value></data>
   <data name="Dashboard_TouchpadOverlayWindowTitle" xml:space="preserve">
     <value>Panel sentuh PadForge</value>
   </data>
@@ -3141,6 +3143,7 @@ Salinan versi sebelumnya ada di folder ini: {1}</value></data>
   <data name="Ds3Pair_NoRadio" xml:space="preserve"><value>Tidak ada radio Bluetooth yang tersedia. Nyalakan Bluetooth dan coba lagi. Penyandingan hanya diperlukan untuk bermain nirkabel; kontroler yang tersambung dengan kabel berfungsi tanpa penyandingan.</value></data>
   <data name="Ds3Pair_Failed" xml:space="preserve"><value>Penyandingan tidak selesai. Langkah yang gagal ditampilkan di atas.</value></data>
   <data name="Common_Close" xml:space="preserve"><value>Tutup</value></data>
+  <data name="Common_ResizePanes" xml:space="preserve"><value>Ubah Ukuran Panel</value></data>
   <data name="Nfc_Title" xml:space="preserve"><value>Tag NFC</value></data>
   <data name="Nfc_RegisterHeader" xml:space="preserve"><value>Daftarkan tag</value></data>
   <data name="Nfc_TapPrompt" xml:space="preserve"><value>Tempelkan tag pada pembaca untuk menangkap UID-nya.</value></data>

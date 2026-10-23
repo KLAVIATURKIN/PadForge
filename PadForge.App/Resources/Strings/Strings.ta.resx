@@ -124,6 +124,7 @@
   <data name="Main_AddController" xml:space="preserve"><value>கட்டுப்படுத்தியைச் சேர்</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>மெய்நிகர் கட்டுப்படுத்தியை நீக்கு</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>முழுத்திரை</value></data>
+  <data name="Main_NavigationPane" xml:space="preserve"><value>வழிசெலுத்தல் பலகம்</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>PadForge-ஐக் காட்டு</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>மெய்நிகர் கட்டுப்படுத்தி {0}</value></data>
   <data name="Main_EngineStopped" xml:space="preserve"><value>இன்ஜின் நிறுத்தப்பட்டது</value></data>
@@ -2953,6 +2954,7 @@
   <data name="RemoteLink_PasswordTitle" xml:space="preserve">
     <value>தொலை இணைப்புக் கடவுச்சொல்</value>
   </data>
+  <data name="RemoteLink_PasswordConfirm" xml:space="preserve"><value>கடவுச்சொல்லை உறுதிப்படுத்து</value></data>
   <data name="Dashboard_TouchpadOverlayWindowTitle" xml:space="preserve">
     <value>PadForge டச்பேட்</value>
   </data>
@@ -3141,6 +3143,7 @@
   <data name="Ds3Pair_NoRadio" xml:space="preserve"><value>Bluetooth ரேடியோ எதுவும் கிடைக்கவில்லை. Bluetooth-ஐ ஆன் செய்து மீண்டும் முயலவும். வயர்லெஸ் முறையில் விளையாடுவதற்கு மட்டுமே இணைசேர்ப்பு தேவை; கேபிள் மூலம் இணைக்கப்பட்ட கட்டுப்படுத்தி அது இல்லாமலே வேலை செய்யும்.</value></data>
   <data name="Ds3Pair_Failed" xml:space="preserve"><value>இணைசேர்ப்பு முடியவில்லை. தோல்வியடைந்த படி மேலே காட்டப்பட்டுள்ளது.</value></data>
   <data name="Common_Close" xml:space="preserve"><value>மூடு</value></data>
+  <data name="Common_ResizePanes" xml:space="preserve"><value>பலகங்களின் அளவை மாற்று</value></data>
   <data name="Nfc_Title" xml:space="preserve"><value>NFC டேக்குகள்</value></data>
   <data name="Nfc_RegisterHeader" xml:space="preserve"><value>ஒரு டேக்கைப் பதிவுசெய்</value></data>
   <data name="Nfc_TapPrompt" xml:space="preserve"><value>ஒரு டேக்கின் UID-ஐப் பெற, அதை ரீடரில் தட்டவும்.</value></data>

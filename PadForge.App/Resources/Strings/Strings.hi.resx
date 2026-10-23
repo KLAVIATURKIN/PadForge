@@ -124,6 +124,7 @@
   <data name="Main_AddController" xml:space="preserve"><value>कंट्रोलर जोड़ें</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>वर्चुअल कंट्रोलर हटाएँ</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>पूर्ण स्क्रीन</value></data>
+  <data name="Main_NavigationPane" xml:space="preserve"><value>नेविगेशन पैनल</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>PadForge दिखाएँ</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>वर्चुअल कंट्रोलर {0}</value></data>
   <data name="Main_EngineStopped" xml:space="preserve"><value>इंजन रुका है</value></data>
@@ -2953,6 +2954,7 @@
   <data name="RemoteLink_PasswordTitle" xml:space="preserve">
     <value>रिमोट लिंक पासवर्ड</value>
   </data>
+  <data name="RemoteLink_PasswordConfirm" xml:space="preserve"><value>पासवर्ड की पुष्टि करें</value></data>
   <data name="Dashboard_TouchpadOverlayWindowTitle" xml:space="preserve">
     <value>PadForge टचपैड</value>
   </data>
@@ -3141,6 +3143,7 @@
   <data name="Ds3Pair_NoRadio" xml:space="preserve"><value>कोई Bluetooth रेडियो उपलब्ध नहीं है। Bluetooth चालू करें और दोबारा कोशिश करें। पेयरिंग केवल वायरलेस खेलने के लिए चाहिए; केबल से जुड़ा कंट्रोलर इसके बिना भी काम करता है।</value></data>
   <data name="Ds3Pair_Failed" xml:space="preserve"><value>पेयरिंग पूरी नहीं हुई। जो चरण विफल हुआ वह ऊपर दिखाया गया है।</value></data>
   <data name="Common_Close" xml:space="preserve"><value>बंद करें</value></data>
+  <data name="Common_ResizePanes" xml:space="preserve"><value>पैनल का आकार बदलें</value></data>
   <data name="Nfc_Title" xml:space="preserve"><value>NFC टैग</value></data>
   <data name="Nfc_RegisterHeader" xml:space="preserve"><value>टैग रजिस्टर करें</value></data>
   <data name="Nfc_TapPrompt" xml:space="preserve"><value>टैग का UID कैप्चर करने के लिए उसे रीडर पर टैप करें।</value></data>

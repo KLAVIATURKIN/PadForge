@@ -121,6 +121,7 @@
   <data name="Main_AddController" xml:space="preserve"><value>Aggiungi controller</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Elimina controller virtuale</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Schermo intero</value></data>
+  <data name="Main_NavigationPane" xml:space="preserve"><value>Riquadro di navigazione</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>Mostra PadForge</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>Controller virtuale {0}</value></data>
   <data name="Main_EngineStopped" xml:space="preserve"><value>Motore arrestato</value></data>
@@ -2455,6 +2456,7 @@ Una copia della versione precedente si trova in questa cartella: {1}</value></da
   <data name="RemoteLink_PasswordTitle" xml:space="preserve">
     <value>Password di Remote Link</value>
   </data>
+  <data name="RemoteLink_PasswordConfirm" xml:space="preserve"><value>Conferma password</value></data>
   <data name="Dashboard_TouchpadOverlayWindowTitle" xml:space="preserve">
     <value>Touchpad PadForge</value>
   </data>
@@ -2649,6 +2651,7 @@ Una copia della versione precedente si trova in questa cartella: {1}</value></da
   <data name="WiiPair_Failed" xml:space="preserve"><value>Impossibile completare l'associazione Wii. Riprova.</value></data>
   <data name="WiiPair_Done" xml:space="preserve"><value>Fatto</value></data>
   <data name="Common_Close" xml:space="preserve"><value>Chiudi</value></data>
+  <data name="Common_ResizePanes" xml:space="preserve"><value>Ridimensiona riquadri</value></data>
   <data name="Nfc_Title" xml:space="preserve"><value>Tag NFC</value></data>
   <data name="Nfc_RegisterHeader" xml:space="preserve"><value>Registra un tag</value></data>
   <data name="Nfc_TapPrompt" xml:space="preserve"><value>Avvicina un tag al lettore per acquisirne l'UID.</value></data>

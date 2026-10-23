@@ -124,6 +124,7 @@
   <data name="Main_AddController" xml:space="preserve"><value>Kontroller hozzáadása</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Virtuális kontroller törlése</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Teljes képernyő</value></data>
+  <data name="Main_NavigationPane" xml:space="preserve"><value>Navigációs panel</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>A PadForge megjelenítése</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>{0}. virtuális kontroller</value></data>
   <data name="Main_EngineStopped" xml:space="preserve"><value>A bemeneti motor leállt</value></data>
@@ -2953,6 +2954,7 @@ Az előző verzió egy példánya ebben a mappában található: {1}</value></da
   <data name="RemoteLink_PasswordTitle" xml:space="preserve">
     <value>Távoli kapcsolat jelszava</value>
   </data>
+  <data name="RemoteLink_PasswordConfirm" xml:space="preserve"><value>Jelszó megerősítése</value></data>
   <data name="Dashboard_TouchpadOverlayWindowTitle" xml:space="preserve">
     <value>PadForge érintőpad</value>
   </data>
@@ -3141,6 +3143,7 @@ Az előző verzió egy példánya ebben a mappában található: {1}</value></da
   <data name="Ds3Pair_NoRadio" xml:space="preserve"><value>Nem érhető el Bluetooth-rádió. Kapcsolja be a Bluetooth-t, majd próbálja újra. Párosításra csak a vezeték nélküli játékhoz van szükség; a kábellel csatlakoztatott kontroller enélkül is működik.</value></data>
   <data name="Ds3Pair_Failed" xml:space="preserve"><value>A párosítás nem fejeződött be. A sikertelen lépés fent látható.</value></data>
   <data name="Common_Close" xml:space="preserve"><value>Bezárás</value></data>
+  <data name="Common_ResizePanes" xml:space="preserve"><value>Panelek átméretezése</value></data>
   <data name="Nfc_Title" xml:space="preserve"><value>NFC-címkék</value></data>
   <data name="Nfc_RegisterHeader" xml:space="preserve"><value>Címke regisztrálása</value></data>
   <data name="Nfc_TapPrompt" xml:space="preserve"><value>Érintsen egy címkét az olvasóhoz az UID rögzítéséhez.</value></data>

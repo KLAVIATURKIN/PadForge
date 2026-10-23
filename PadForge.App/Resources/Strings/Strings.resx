@@ -124,6 +124,7 @@
   <data name="Main_AddController" xml:space="preserve"><value>Add Controller</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Delete virtual controller</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Full Screen</value></data>
+  <data name="Main_NavigationPane" xml:space="preserve"><value>Navigation Pane</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>Show PadForge</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>Virtual Controller {0}</value></data>
   <data name="Main_EngineStopped" xml:space="preserve"><value>Engine stopped</value></data>
@@ -2953,6 +2954,7 @@ A copy of the previous version is in this folder: {1}</value></data>
   <data name="RemoteLink_PasswordTitle" xml:space="preserve">
     <value>Remote Link Password</value>
   </data>
+  <data name="RemoteLink_PasswordConfirm" xml:space="preserve"><value>Confirm Password</value></data>
   <data name="Dashboard_TouchpadOverlayWindowTitle" xml:space="preserve">
     <value>PadForge Touchpad</value>
   </data>
@@ -3141,6 +3143,7 @@ A copy of the previous version is in this folder: {1}</value></data>
   <data name="Ds3Pair_NoRadio" xml:space="preserve"><value>No Bluetooth radio is available. Turn Bluetooth on and try again. Pairing is only needed for wireless play; a cable-connected controller works without it.</value></data>
   <data name="Ds3Pair_Failed" xml:space="preserve"><value>Pairing did not complete. The step that failed is shown above.</value></data>
   <data name="Common_Close" xml:space="preserve"><value>Close</value></data>
+  <data name="Common_ResizePanes" xml:space="preserve"><value>Resize Panes</value></data>
   <data name="Nfc_Title" xml:space="preserve"><value>NFC Tags</value></data>
   <data name="Nfc_RegisterHeader" xml:space="preserve"><value>Register a Tag</value></data>
   <data name="Nfc_TapPrompt" xml:space="preserve"><value>Tap a tag on the reader to capture its UID.</value></data>

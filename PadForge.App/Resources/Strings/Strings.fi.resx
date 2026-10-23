@@ -124,6 +124,7 @@
   <data name="Main_AddController" xml:space="preserve"><value>Lisää ohjain</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Poista virtuaaliohjain</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Koko näyttö</value></data>
+  <data name="Main_NavigationPane" xml:space="preserve"><value>Siirtymisruutu</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>Näytä PadForge</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>Virtuaaliohjain {0}</value></data>
   <data name="Main_EngineStopped" xml:space="preserve"><value>Moottori pysäytetty</value></data>
@@ -2953,6 +2954,7 @@ Kopio edellisestä versiosta on tässä kansiossa: {1}</value></data>
   <data name="RemoteLink_PasswordTitle" xml:space="preserve">
     <value>Etälinkin salasana</value>
   </data>
+  <data name="RemoteLink_PasswordConfirm" xml:space="preserve"><value>Vahvista salasana</value></data>
   <data name="Dashboard_TouchpadOverlayWindowTitle" xml:space="preserve">
     <value>PadForge-kosketuslevy</value>
   </data>
@@ -3141,6 +3143,7 @@ Kopio edellisestä versiosta on tässä kansiossa: {1}</value></data>
   <data name="Ds3Pair_NoRadio" xml:space="preserve"><value>Bluetooth-radiota ei ole käytettävissä. Ota Bluetooth käyttöön ja yritä uudelleen. Pariliitos tarvitaan vain langattomaan pelaamiseen. Kaapelilla yhdistetty ohjain toimii ilman sitä.</value></data>
   <data name="Ds3Pair_Failed" xml:space="preserve"><value>Pariliitos ei valmistunut. Epäonnistunut vaihe näkyy yllä.</value></data>
   <data name="Common_Close" xml:space="preserve"><value>Sulje</value></data>
+  <data name="Common_ResizePanes" xml:space="preserve"><value>Muuta ruutujen kokoa</value></data>
   <data name="Nfc_Title" xml:space="preserve"><value>NFC-tunnisteet</value></data>
   <data name="Nfc_RegisterHeader" xml:space="preserve"><value>Rekisteröi tunniste</value></data>
   <data name="Nfc_TapPrompt" xml:space="preserve"><value>Napauta tunnisteella lukijaa, jotta sen UID luetaan.</value></data>

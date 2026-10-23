@@ -124,6 +124,7 @@
   <data name="Main_AddController" xml:space="preserve"><value>కంట్రోలర్ జోడించు</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>వర్చువల్ కంట్రోలర్‌ను తొలగించు</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>పూర్తి స్క్రీన్</value></data>
+  <data name="Main_NavigationPane" xml:space="preserve"><value>నావిగేషన్ పేన్</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>PadForge చూపించు</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>వర్చువల్ కంట్రోలర్ {0}</value></data>
   <data name="Main_EngineStopped" xml:space="preserve"><value>ఇంజిన్ ఆగింది</value></data>
@@ -2953,6 +2954,7 @@
   <data name="RemoteLink_PasswordTitle" xml:space="preserve">
     <value>రిమోట్ లింక్ పాస్వర్డ్</value>
   </data>
+  <data name="RemoteLink_PasswordConfirm" xml:space="preserve"><value>పాస్వర్డ్‌ను నిర్ధారించండి</value></data>
   <data name="Dashboard_TouchpadOverlayWindowTitle" xml:space="preserve">
     <value>PadForge టచ్ ప్యాడ్</value>
   </data>
@@ -3141,6 +3143,7 @@
   <data name="Ds3Pair_NoRadio" xml:space="preserve"><value>బ్లూటూత్ రేడియో అందుబాటులో లేదు. బ్లూటూత్ ఆన్ చేసి మళ్లీ ప్రయత్నించండి. జత చేయడం వైర్లెస్ ప్లేకు మాత్రమే అవసరం, కేబుల్ కనెక్ట్ చేసిన కంట్రోలర్ అది లేకుండా పనిచేస్తుంది.</value></data>
   <data name="Ds3Pair_Failed" xml:space="preserve"><value>జత చేయడం పూర్తి కాలేదు. విఫలమైన దశ పైన చూపబడింది.</value></data>
   <data name="Common_Close" xml:space="preserve"><value>మూసివేయి</value></data>
+  <data name="Common_ResizePanes" xml:space="preserve"><value>పేన్‌ల పరిమాణం మార్చండి</value></data>
   <data name="Nfc_Title" xml:space="preserve"><value>NFC ట్యాగ్లు</value></data>
   <data name="Nfc_RegisterHeader" xml:space="preserve"><value>ట్యాగ్ నమోదు చేయి</value></data>
   <data name="Nfc_TapPrompt" xml:space="preserve"><value>UID ను సంగ్రహించడానికి రీడర్పై ట్యాగ్ను ట్యాప్ చేయండి.</value></data>

@@ -124,6 +124,7 @@
   <data name="Main_AddController" xml:space="preserve"><value>Додај контролер</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Избриши виртуелен контролер</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Цел екран</value></data>
+  <data name="Main_NavigationPane" xml:space="preserve"><value>Навигациски панел</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>Прикажи PadForge</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>Виртуелен контролер {0}</value></data>
   <data name="Main_EngineStopped" xml:space="preserve"><value>Моторот е запрен</value></data>
@@ -2953,6 +2954,7 @@
   <data name="RemoteLink_PasswordTitle" xml:space="preserve">
     <value>Лозинка за Далечинска врска</value>
   </data>
+  <data name="RemoteLink_PasswordConfirm" xml:space="preserve"><value>Потврди лозинка</value></data>
   <data name="Dashboard_TouchpadOverlayWindowTitle" xml:space="preserve">
     <value>PadForge допирна табла</value>
   </data>
@@ -3141,6 +3143,7 @@
   <data name="Ds3Pair_NoRadio" xml:space="preserve"><value>Нема достапно Bluetooth-радио. Вклучете го Bluetooth и обидете се повторно. Спарувањето е потребно само за безжично играње; контролер поврзан со кабел работи и без него.</value></data>
   <data name="Ds3Pair_Failed" xml:space="preserve"><value>Спарувањето не заврши. Чекорот што не успеа е прикажан погоре.</value></data>
   <data name="Common_Close" xml:space="preserve"><value>Затвори</value></data>
+  <data name="Common_ResizePanes" xml:space="preserve"><value>Промени ја големината на панелите</value></data>
   <data name="Nfc_Title" xml:space="preserve"><value>NFC-ознаки</value></data>
   <data name="Nfc_RegisterHeader" xml:space="preserve"><value>Регистрирај ознака</value></data>
   <data name="Nfc_TapPrompt" xml:space="preserve"><value>Допрете ознака на читачот за да се сними нејзиниот UID.</value></data>

@@ -124,6 +124,7 @@
   <data name="Main_AddController" xml:space="preserve"><value>Kontrolcü ekle</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Sanal kontrolcüyü sil</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Tam ekran</value></data>
+  <data name="Main_NavigationPane" xml:space="preserve"><value>Gezinti Bölmesi</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>PadForge'u göster</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>Sanal kontrolcü {0}</value></data>
   <data name="Main_EngineStopped" xml:space="preserve"><value>Motor durduruldu</value></data>
@@ -2953,6 +2954,7 @@
   <data name="RemoteLink_PasswordTitle" xml:space="preserve">
     <value>Uzak Bağlantı parolası</value>
   </data>
+  <data name="RemoteLink_PasswordConfirm" xml:space="preserve"><value>Parolayı Onayla</value></data>
   <data name="Dashboard_TouchpadOverlayWindowTitle" xml:space="preserve">
     <value>PadForge dokunmatik yüzeyi</value>
   </data>
@@ -3141,6 +3143,7 @@
   <data name="Ds3Pair_NoRadio" xml:space="preserve"><value>Kullanılabilir bir Bluetooth radyosu yok. Bluetooth'u açıp yeniden deneyin. Eşleştirme yalnızca kablosuz kullanım için gereklidir. Kabloyla bağlı bir kontrolcü eşleştirme olmadan çalışır.</value></data>
   <data name="Ds3Pair_Failed" xml:space="preserve"><value>Eşleştirme tamamlanmadı. Başarısız olan adım yukarıda gösterilir.</value></data>
   <data name="Common_Close" xml:space="preserve"><value>Kapat</value></data>
+  <data name="Common_ResizePanes" xml:space="preserve"><value>Bölmeleri Yeniden Boyutlandır</value></data>
   <data name="Nfc_Title" xml:space="preserve"><value>NFC etiketleri</value></data>
   <data name="Nfc_RegisterHeader" xml:space="preserve"><value>Etiket kaydet</value></data>
   <data name="Nfc_TapPrompt" xml:space="preserve"><value>UID'sini yakalamak için bir etiketi okuyucuya dokundurun.</value></data>

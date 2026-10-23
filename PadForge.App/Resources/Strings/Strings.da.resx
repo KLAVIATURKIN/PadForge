@@ -124,6 +124,7 @@
   <data name="Main_AddController" xml:space="preserve"><value>Tilføj controller</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Slet virtuel controller</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Fuld skærm</value></data>
+  <data name="Main_NavigationPane" xml:space="preserve"><value>Navigationsrude</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>Vis PadForge</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>Virtuel controller {0}</value></data>
   <data name="Main_EngineStopped" xml:space="preserve"><value>Motoren er stoppet</value></data>
@@ -2953,6 +2954,7 @@ Der ligger en kopi af den tidligere version i denne mappe: {1}</value></data>
   <data name="RemoteLink_PasswordTitle" xml:space="preserve">
     <value>Adgangskode til Fjernlink</value>
   </data>
+  <data name="RemoteLink_PasswordConfirm" xml:space="preserve"><value>Bekræft adgangskode</value></data>
   <data name="Dashboard_TouchpadOverlayWindowTitle" xml:space="preserve">
     <value>PadForge-touchpad</value>
   </data>
@@ -3141,6 +3143,7 @@ Der ligger en kopi af den tidligere version i denne mappe: {1}</value></data>
   <data name="Ds3Pair_NoRadio" xml:space="preserve"><value>Ingen Bluetooth-radio er tilgængelig. Slå Bluetooth til, og prøv igen. Parring er kun nødvendig for trådløst spil. En controller, der er tilsluttet med kabel, virker uden.</value></data>
   <data name="Ds3Pair_Failed" xml:space="preserve"><value>Parringen blev ikke fuldført. Det trin, der mislykkedes, vises ovenfor.</value></data>
   <data name="Common_Close" xml:space="preserve"><value>Luk</value></data>
+  <data name="Common_ResizePanes" xml:space="preserve"><value>Ændr rudestørrelse</value></data>
   <data name="Nfc_Title" xml:space="preserve"><value>NFC-tags</value></data>
   <data name="Nfc_RegisterHeader" xml:space="preserve"><value>Registrer et tag</value></data>
   <data name="Nfc_TapPrompt" xml:space="preserve"><value>Hold et tag mod læseren for at aflæse dets UID.</value></data>

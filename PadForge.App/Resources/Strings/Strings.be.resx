@@ -124,6 +124,7 @@
   <data name="Main_AddController" xml:space="preserve"><value>Дадаць кантролер</value></data>
   <data name="Main_DeleteVC" xml:space="preserve"><value>Выдаліць віртуальны кантролер</value></data>
   <data name="Main_FullScreen" xml:space="preserve"><value>Поўны экран</value></data>
+  <data name="Main_NavigationPane" xml:space="preserve"><value>Панэль навігацыі</value></data>
   <data name="Main_ShowPadForge" xml:space="preserve"><value>Паказаць PadForge</value></data>
   <data name="Main_VirtualController_Format" xml:space="preserve"><value>Віртуальны кантролер {0}</value></data>
   <data name="Main_EngineStopped" xml:space="preserve"><value>Рухавік спынены</value></data>
@@ -2953,6 +2954,7 @@
   <data name="RemoteLink_PasswordTitle" xml:space="preserve">
     <value>Пароль Аддаленай сувязі</value>
   </data>
+  <data name="RemoteLink_PasswordConfirm" xml:space="preserve"><value>Пацвердзіць пароль</value></data>
   <data name="Dashboard_TouchpadOverlayWindowTitle" xml:space="preserve">
     <value>Сэнсарная панэль PadForge</value>
   </data>
@@ -3141,6 +3143,7 @@
   <data name="Ds3Pair_NoRadio" xml:space="preserve"><value>Радыёмодуль Bluetooth недаступны. Уключыце Bluetooth і паспрабуйце зноў. Спалучэнне патрэбна толькі для бесправадной гульні. Кантролер, падключаны кабелем, працуе і без яго.</value></data>
   <data name="Ds3Pair_Failed" xml:space="preserve"><value>Спалучэнне не завершана. Крок, на якім адбыўся збой, паказаны вышэй.</value></data>
   <data name="Common_Close" xml:space="preserve"><value>Закрыць</value></data>
+  <data name="Common_ResizePanes" xml:space="preserve"><value>Змяніць памер панэляў</value></data>
   <data name="Nfc_Title" xml:space="preserve"><value>NFC-тэгі</value></data>
   <data name="Nfc_RegisterHeader" xml:space="preserve"><value>Рэгістрацыя тэга</value></data>
   <data name="Nfc_TapPrompt" xml:space="preserve"><value>Прыкладзіце тэг да счытвальніка, каб атрымаць яго UID.</value></data>
