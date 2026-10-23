@@ -189,11 +189,12 @@ namespace PadForge.Engine
         public bool HasJoyCon2Mouse { get; private set; }
 
         /// <summary>Cycles the motion sensors off and back on. The SDL
-        /// fork powers a Wii Remote's IR camera on the enable edge
+        /// fork starts a Wii Remote's IR camera on the enable edge
         /// (SDL_hidapi_wii.c SetJoystickSensorsEnabled, EnableIR), so a
-        /// bounce is one more start, and it sets the driver's own retry
-        /// delays back to the first (hifihedgehog/SDL#39), see
-        /// <see cref="StepIrCameraCheck"/>. A right Joy-Con's NIR camera
+        /// bounce is one more start, and the toggle sets the driver's own
+        /// retry delays back to the first (hifihedgehog/SDL#39). Since SDL
+        /// 77cf0379f5 neither edge waits on the remote (hifihedgehog/SDL#40),
+        /// see <see cref="StepIrCameraCheck"/>. A right Joy-Con's NIR camera
         /// needs no bounce: the fork follows its hint on every update
         /// (SDL_hidapi_switch.c UpdateIR).
         /// Both open paths enable the sensors, so both are cycled.
@@ -1461,30 +1462,35 @@ namespace PadForge.Engine
         }
 
         // ── The IR camera's start (#484) ──
-        // The fork powers a Wii Remote's camera on the sensor-enable edge,
-        // with five register writes it waits on in turn (SDL_hidapi_wii.c
-        // EnableIR). Before SDL c2eb7a5f2a a write that timed out left the
-        // camera off for the connection, since only the next sensor toggle
-        // or a reopen tried again and Open enables the sensors once: the aim
-        // lost after a remote reconnected while every button worked
+        // The fork starts a Wii Remote's camera from the sensor-enable edge:
+        // reports 0x13 and 0x1a and five register writes, each sent once the
+        // remote acknowledges the one before it (SDL_hidapi_wii.c EnableIR,
+        // SendCameraStep). Before SDL c2eb7a5f2a a write that timed out left
+        // the camera off for the connection, since only the next sensor
+        // toggle or a reopen tried again and Open enables the sensors once:
+        // the aim lost after a remote reconnected while every button worked
         // (discussion #484). The driver now starts a failed camera again
         // after 1, 2 and 4 s and then every 8 s, and reads the camera bit in
-        // a status report (hifihedgehog/SDL#39). This check stays as a
-        // backstop that records the start in the log. The fork posts every
-        // IR report on axes 6-9 as a dot or -1, and SDL starts them at 0, so
-        // four zeros while the accelerometer reports mean no IR report has
-        // come. The check then bounces the sensors, which starts the camera
-        // once more and sets the driver's delays back. Poll-thread state.
+        // a status report (hifihedgehog/SDL#39). Since 77cf0379f5 the start
+        // runs on the driver's update loop and waits on nothing
+        // (hifihedgehog/SDL#40). This check stays as a backstop that records
+        // the start in the log. The fork posts every IR report on axes 6-9 as
+        // a dot or -1, and SDL starts them at 0, so four zeros while the
+        // accelerometer reports mean no IR report has come. The check then
+        // bounces the sensors, which starts the camera once more and sets the
+        // driver's delays back. Poll-thread state.
 
         /// <summary>How long the camera has after the remote's first report
-        /// to send its first IR report: the power-up is five acknowledged
-        /// writes of up to 250 ms each (SDL_hidapi_wii.c ReadInputSync). Each
+        /// to send its first IR report. A start is seven writes, each sent
+        /// once the one before it is acknowledged, and a write still without
+        /// its acknowledgment 250 ms after it went out goes again, four sends
+        /// in all (SDL_hidapi_wii.c WII_WRITE_PATIENCE_MS, UpdateWrites). Each
         /// later bounce waits twice as long as the one before.</summary>
         internal const int IrCameraFirstCheckMs = 3000;
 
-        /// <summary>Bounces per connection. Each holds SDL's joystick lock
-        /// while the driver writes, so after these the camera is left to the
-        /// driver's own retries.</summary>
+        /// <summary>Bounces per connection. Each cuts the motion streams for a
+        /// few frames, and the driver keeps retrying on its own, so after
+        /// these the camera is left to the driver's retries.</summary>
         internal const int IrCameraMaxBounces = 3;
 
         private bool _irCheckStarted;
@@ -1540,9 +1546,11 @@ namespace PadForge.Engine
 
         private double IrCameraSeconds(long now) => (now - _irCheckStart) / (double)System.Diagnostics.Stopwatch.Frequency;
 
-        /// <summary>Bounces the sensors on a worker, since the driver's
-        /// power-up waits on acknowledged writes under SDL's joystick lock.
-        /// One bounce at a time.</summary>
+        /// <summary>Bounces the sensors on a worker, one bounce at a time.
+        /// Before SDL 77cf0379f5 the driver's camera start waited on
+        /// acknowledged writes under SDL's joystick lock. It waits on nothing
+        /// now (hifihedgehog/SDL#40), and the worker only keeps the sensor
+        /// calls off the poll thread.</summary>
         private void ScheduleIrCameraBounce()
         {
             if (System.Threading.Interlocked.Exchange(ref _irBouncing, 1) != 0)

@@ -613,12 +613,15 @@ namespace PadForge.Tests
         // ── Wiring that runs only with a live device ──
 
         private static string RepoText(string relative)
+            => File.ReadAllText(RepoFile(relative)).Replace("\r\n", "\n");
+
+        private static string RepoFile(string relative)
         {
             var dir = new DirectoryInfo(AppContext.BaseDirectory);
             while (dir != null && !File.Exists(Path.Combine(dir.FullName, "PadForge.sln")))
                 dir = dir.Parent;
             Assert.NotNull(dir);
-            return File.ReadAllText(Path.Combine(dir.FullName, relative)).Replace("\r\n", "\n");
+            return Path.Combine(dir.FullName, relative);
         }
 
         [Fact]
@@ -669,10 +672,10 @@ namespace PadForge.Tests
 
         // ── The IR camera's start (#484) ──
         // A remote turned off and on came back with every button working and
-        // no aim. The fork powers the camera only on the sensor-enable edge,
-        // a power-up that times out is retried only by the next toggle or a
-        // reopen (SDL_hidapi_wii.c EnableIR), and PadForge enabled the
-        // sensors once per open.
+        // no aim. The fork powered the camera only on the sensor-enable edge,
+        // a power-up that timed out was retried only by the next toggle or a
+        // reopen (SDL_hidapi_wii.c EnableIR, before SDL c2eb7a5f2a), and
+        // PadForge enabled the sensors once per open.
 
         private static bool Check(SdlDeviceWrapper w, short axes, bool reporting, int ms)
             => w.StepIrCameraCheck(axes, axes, axes, axes, reporting, Ms(ms));
@@ -827,6 +830,37 @@ namespace PadForge.Tests
             Assert.Contains("System.Threading.Volatile.Write(ref _irBouncing, 0);", body);
             Assert.Contains("if (HasAccel) SDL_SetJoystickSensorEnabled(joystick, SDL_SENSOR_ACCEL, false);", wrapper);
             Assert.Contains("if (HasAccel) SDL_SetJoystickSensorEnabled(joystick, SDL_SENSOR_ACCEL, true);", wrapper);
+        }
+
+        /// <summary>Both shipped SDL builds start a failed camera again on
+        /// their own (hifihedgehog/SDL#39) and run the start without waiting
+        /// on the remote, logging a report or register still unacknowledged
+        /// after its last send (hifihedgehog/SDL#40). The check above is a
+        /// backstop for that driver, and its comments describe it.</summary>
+        [Theory]
+        [InlineData("x64")]
+        [InlineData("arm64")]
+        public void TheShippedSdlBuild_RetriesTheCamera_AndStartsItWithoutWaiting(string arch)
+        {
+            byte[] dll = File.ReadAllBytes(RepoFile("PadForge.App/Resources/SDL3/" + arch + "/SDL3.dll"));
+            foreach (string line in new[]
+            {
+                "Status shows the IR camera off, starting it again",
+                "IR camera report 0x%.2x not acknowledged after %d sends",
+                "IR camera register 0x%.6x not written: no acknowledgment after %d sends",
+            })
+                Assert.True(IndexOf(dll, System.Text.Encoding.ASCII.GetBytes(line)) >= 0, arch + " SDL3.dll lacks \"" + line + "\"");
+        }
+
+        private static int IndexOf(byte[] haystack, byte[] needle)
+        {
+            for (int i = 0; i + needle.Length <= haystack.Length; i++)
+            {
+                int j = 0;
+                while (j < needle.Length && haystack[i + j] == needle[j]) j++;
+                if (j == needle.Length) return i;
+            }
+            return -1;
         }
     }
 }
