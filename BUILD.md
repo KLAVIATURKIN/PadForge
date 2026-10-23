@@ -175,28 +175,28 @@ All native DLLs, driver installers, and model assets are included in the reposit
 
 **PadForge.App.csproj:**
 ```
-CommunityToolkit.Mvvm 8.2.2                        MVVM data binding
+CommunityToolkit.Mvvm 8.4.2                        MVVM data binding
 Concentus 2.2.2                                    Opus codec for DualSense Bluetooth speaker and microphone audio
 HelixToolkit.Core.Wpf 2.27.3                       3D viewport rendering
-Microsoft.Windows.CsWinRT 2.2.0                    Projection of the in-box Windows.Devices.Midi2 (metadata in Resources/WinMD)
+Microsoft.Windows.CsWinRT 2.3.1                    Projection of the in-box Windows.Devices.Midi2 (metadata in Resources/WinMD)
 Microsoft.Windows.Devices.Midi2 1.0.16-rc.3.7      Projection of the App SDK runtime, Microsoft's install or PadForge's build (from nuget-local/)
 NAudio.Wasapi 2.2.1                                WASAPI loopback capture and output
 Nefarius.Utilities.DeviceManagement 6.1.0          Driver-store installs for the DualShock 3 Bluetooth stack, USB port cycling for a hidden controller
-System.Management 10.0.11                          WMI queries for the handheld hidden-button learner
-System.Speech 10.0.0                               SAPI recognizer for voice macros
+System.Management 10.0.13                          WMI queries for the handheld hidden-button learner
+System.Speech 10.0.13                              SAPI recognizer for voice macros
 Vosk 0.3.38                                        Offline recognizer for voice macros
 WPF-UI 4.3.0                                       Fluent Design theme
 ```
 
 **PadForge.Engine.csproj:**
 ```
-BouncyCastle.Cryptography 2.6.2                    Remote Link pairing and transport cryptography
-System.Security.Cryptography.ProtectedData 10.0.9  DPAPI protection for this PC's Remote Link identity key
+BouncyCastle.Cryptography 2.7.0                    Remote Link pairing and transport cryptography
+System.Security.Cryptography.ProtectedData 10.0.13  DPAPI protection for this PC's Remote Link identity key
 ```
 
 **PadForge.SteamWorkshop.csproj:**
 ```
-SteamKit2 3.4.0                                    Anonymous Steam session for Workshop config import
+SteamKit2 3.5.0                                    Anonymous Steam session for Workshop config import
 ```
 
 ## Build

@@ -27,7 +27,7 @@
     <!-- Steam protocol client (LGPL-2.1-only). Pinned exactly: Valve adjusts the
          Steam protocol periodically and SteamKit2 catches up in point releases;
          an unpinned range would silently drift the wire contract. -->
-    <PackageReference Include="SteamKit2" Version="3.4.0" />
+    <PackageReference Include="SteamKit2" Version="3.5.0" />
   </ItemGroup>
 
   <ItemGroup>

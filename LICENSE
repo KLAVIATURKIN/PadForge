@@ -78,7 +78,7 @@ assettocorsasharedmemory
 
 Bouncy Castle (bc-csharp)
   https://github.com/bcgit/bc-csharp
-  Copyright (c) 2000-2025 The Legion of the Bouncy Castle Inc.
+  Copyright (c) 2000-2026 The Legion of the Bouncy Castle Inc.
   (https://www.bouncycastle.org)
   Cryptography for Remote Link pairing and transport: X25519 key agreement,
   Ed25519 signatures, and ChaCha20-Poly1305.
@@ -3476,7 +3476,7 @@ The same notice covers the other MIT-licensed code and artwork that
 PadForge ports or embeds, each named above)
 ==========================================================================
 
-Copyright (c) 2000-2025 The Legion of the Bouncy Castle Inc.
+Copyright (c) 2000-2026 The Legion of the Bouncy Castle Inc.
   (Bouncy Castle)
 Copyright (c) 2016 Jeff Rebacz
   (colorwin, inside nefconc.exe)
