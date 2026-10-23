@@ -3081,7 +3081,7 @@ namespace PadForge
             // DynamicResource reference keeps them tracking theme swaps.
             static FontIcon EmberNavIcon(string glyph)
             {
-                var icon = new FontIcon
+                var icon = new PadForge.Controls.DecorativeFontIcon
                 {
                     FontFamily = new System.Windows.Media.FontFamily("Segoe MDL2 Assets"),
                     Glyph = glyph,
@@ -3425,6 +3425,13 @@ namespace PadForge
             // The entry's screen-reader name follows its slot number, as the
             // card does.
             System.Windows.Automation.AutomationProperties.SetName(menuItem, AccessibleNames.SlotTitle(navItem.SlotNumber));
+            // Keyboard focus on a button of the old card returns to the same
+            // button on the new one, so a key press that rebuilds the card (a
+            // type change, the power toggle) leaves the focus where it was.
+            string focusedId = menuItem.Content is Visual oldCard
+                && System.Windows.Input.Keyboard.FocusedElement is FrameworkElement focused
+                && oldCard.IsAncestorOf(focused)
+                ? System.Windows.Automation.AutomationProperties.GetAutomationId(focused) : null;
             string iconKey = navItem.IconKey;
             bool isXbox = iconKey == "XboxControllerIcon";
             bool isPlayStation = iconKey == "DS4ControllerIcon";
@@ -3437,7 +3444,7 @@ namespace PadForge
             var row = new System.Windows.Controls.DockPanel();
 
             // Delete button — docked right so it stays at the far end of the card.
-            var deleteIcon = new System.Windows.Controls.TextBlock
+            var deleteIcon = new PadForge.Controls.GlyphText
             {
                 Text = "\uE711",
                 FontFamily = new System.Windows.Media.FontFamily("Segoe MDL2 Assets"),
@@ -3579,6 +3586,7 @@ namespace PadForge
                 Cursor = System.Windows.Input.Cursors.Hand
             };
             powerBtn.Click += OnSidebarPowerToggle;
+            System.Windows.Automation.AutomationProperties.SetAutomationId(powerBtn, "Nav_SlotPower");
             row.Children.Add(powerBtn);
 
             // Global slot number. The pill reads "what this slot IS" (#175):
@@ -3621,7 +3629,7 @@ namespace PadForge
                 HorizontalAlignment = HorizontalAlignment.Right
             };
 
-            System.Windows.Controls.Button MakeTypeButton(UIElement content, bool active, System.Windows.RoutedEventHandler click, string tip, bool enabled)
+            System.Windows.Controls.Button MakeTypeButton(UIElement content, bool active, System.Windows.RoutedEventHandler click, string tip, bool enabled, string id)
             {
                 // A SegmentButton reads to a screen reader as a radio button,
                 // checked on the slot's current type.
@@ -3647,6 +3655,7 @@ namespace PadForge
                     IsEnabled = enabled,
                     Cursor = System.Windows.Input.Cursors.Hand
                 };
+                System.Windows.Automation.AutomationProperties.SetAutomationId(b, "Nav_SlotType_" + id);
                 b.SetResourceReference(FrameworkElement.StyleProperty,
                     active ? "MiniTypeButtonActiveStyle" : "MiniTypeButtonStyle");
                 if (active)
@@ -3676,7 +3685,7 @@ namespace PadForge
 
             UIElement TypeGlyph(string glyph, bool active)
             {
-                var tb = new System.Windows.Controls.TextBlock
+                var tb = new PadForge.Controls.GlyphText
                 {
                     Text = glyph,
                     FontFamily = new System.Windows.Media.FontFamily("Segoe MDL2 Assets"),
@@ -3689,14 +3698,14 @@ namespace PadForge
                 return tb;
             }
 
-            segRow.Children.Add(MakeTypeButton(TypeLogo(XboxSvgPath, isXbox), isXbox, OnSidebarTypeXbox, Strings.Instance.ControllerType_Xbox, true));
-            segRow.Children.Add(MakeTypeButton(TypeLogo(DS4SvgPath, isPlayStation), isPlayStation, OnSidebarTypePlayStation, Strings.Instance.ControllerType_PlayStation, true));
-            segRow.Children.Add(MakeTypeButton(TypeLogo(SwitchSvgPath, isNintendo), isNintendo, OnSidebarTypeNintendo, Strings.Instance.ControllerType_Nintendo, true));
-            segRow.Children.Add(MakeTypeButton(TypeLogo(ExtendedSvgPath, isExtended), isExtended, OnSidebarTypeExtended, Strings.Instance.ControllerType_Extended, true));
-            segRow.Children.Add(MakeTypeButton(TypeGlyph("\uE961", isKbm), isKbm, OnSidebarTypeKeyboardMouse, Strings.Instance.ControllerType_KeyboardMouse, true));
-            segRow.Children.Add(MakeTypeButton(TypeGlyph("\uE8D6", isMidi), isMidi, OnSidebarTypeMidi, hasMidi ? Strings.Instance.ControllerType_MIDI : Strings.Instance.Main_MIDI_NotRunning, hasMidi || isMidi));
+            segRow.Children.Add(MakeTypeButton(TypeLogo(XboxSvgPath, isXbox), isXbox, OnSidebarTypeXbox, Strings.Instance.ControllerType_Xbox, true, "Xbox"));
+            segRow.Children.Add(MakeTypeButton(TypeLogo(DS4SvgPath, isPlayStation), isPlayStation, OnSidebarTypePlayStation, Strings.Instance.ControllerType_PlayStation, true, "PlayStation"));
+            segRow.Children.Add(MakeTypeButton(TypeLogo(SwitchSvgPath, isNintendo), isNintendo, OnSidebarTypeNintendo, Strings.Instance.ControllerType_Nintendo, true, "Nintendo"));
+            segRow.Children.Add(MakeTypeButton(TypeLogo(ExtendedSvgPath, isExtended), isExtended, OnSidebarTypeExtended, Strings.Instance.ControllerType_Extended, true, "Extended"));
+            segRow.Children.Add(MakeTypeButton(TypeGlyph("\uE961", isKbm), isKbm, OnSidebarTypeKeyboardMouse, Strings.Instance.ControllerType_KeyboardMouse, true, "KeyboardMouse"));
+            segRow.Children.Add(MakeTypeButton(TypeGlyph("\uE8D6", isMidi), isMidi, OnSidebarTypeMidi, hasMidi ? Strings.Instance.ControllerType_MIDI : Strings.Instance.Main_MIDI_NotRunning, hasMidi || isMidi, "Midi"));
             bool hasSteamVr = PadForge.Common.Input.HMaestroVRController.IsAvailable();
-            segRow.Children.Add(MakeTypeButton(TypeGlyph("\uF119", isVr), isVr, OnSidebarTypeVr, hasSteamVr ? Strings.Instance.ControllerType_VR : Strings.Instance.Main_VR_RequiresSteamVR, hasSteamVr || isVr));
+            segRow.Children.Add(MakeTypeButton(TypeGlyph("\uF119", isVr), isVr, OnSidebarTypeVr, hasSteamVr ? Strings.Instance.ControllerType_VR : Strings.Instance.Main_VR_RequiresSteamVR, hasSteamVr || isVr, "Vr"));
             var instanceLabel = new System.Windows.Controls.TextBlock
             {
                 // "#{n}" to match the slot card seg (#175 iter 71); guard in
@@ -3918,9 +3927,30 @@ namespace PadForge
             card.DragLeave += OnSidebarCardDragLeave;
 
             menuItem.Content = card;
+            if (!string.IsNullOrEmpty(focusedId))
+            {
+                // Loaded runs after layout, once the new card is in the tree.
+                Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Loaded, new Action(() =>
+                {
+                    if (FindByAutomationId(card, focusedId) is UIElement again)
+                        again.Focus();
+                }));
+            }
 
-            // Never touch Icon here — PaneClosed/PaneOpened handlers manage it exclusively.
+            // Never touch Icon here. PaneClosed/PaneOpened handlers manage it exclusively.
             // Re-rendering the bitmap on every 30Hz update causes visual flashing.
+        }
+
+        /// <summary>The first element at or under root, in the visual tree,
+        /// with this AutomationId, or null.</summary>
+        private static FrameworkElement FindByAutomationId(DependencyObject root, string id)
+        {
+            if (root is FrameworkElement fe && System.Windows.Automation.AutomationProperties.GetAutomationId(fe) == id)
+                return fe;
+            for (int i = 0; i < System.Windows.Media.VisualTreeHelper.GetChildrenCount(root); i++)
+                if (FindByAutomationId(System.Windows.Media.VisualTreeHelper.GetChild(root, i), id) is FrameworkElement hit)
+                    return hit;
+            return null;
         }
 
         /// <summary>Re-renders every controller nav card in its CURRENT pane
@@ -4384,7 +4414,7 @@ namespace PadForge
         /// so it re-tints on a theme flip.</summary>
         private static FontIcon MakeAddControllerCollapsedIcon()
         {
-            var icon = new FontIcon
+            var icon = new PadForge.Controls.DecorativeFontIcon
             {
                 FontFamily = new System.Windows.Media.FontFamily("Segoe MDL2 Assets"),
                 Glyph = "",
@@ -4401,7 +4431,7 @@ namespace PadForge
         /// lift plus a faint ember bloom.</summary>
         private System.Windows.Controls.Border BuildAddControllerCard()
         {
-            var glyph = new TextBlock
+            var glyph = new PadForge.Controls.GlyphText
             {
                 Text = "",
                 FontFamily = new System.Windows.Media.FontFamily("Segoe MDL2 Assets"),
@@ -4585,7 +4615,7 @@ namespace PadForge
             {
                 string glyph = iconKey == "MidiControllerIcon" ? "\uE8D6"
                     : iconKey == "VrControllerIcon" ? "\uF119" : "\uE961";
-                row2.Children.Add(new System.Windows.Controls.TextBlock
+                row2.Children.Add(new PadForge.Controls.GlyphText
                 {
                     Text = glyph,
                     FontFamily = mdl2,
@@ -5800,7 +5830,7 @@ namespace PadForge
             stack.Children.Add(extendedBtn);
 
             // Keyboard+Mouse button — MDL2 glyph E961, theme-aware foreground.
-            var kbmPopupIcon = new System.Windows.Controls.TextBlock
+            var kbmPopupIcon = new PadForge.Controls.GlyphText
             {
                 Text = "\uE961",
                 FontFamily = new System.Windows.Media.FontFamily("Segoe MDL2 Assets"),
@@ -5840,7 +5870,7 @@ namespace PadForge
             stack.Children.Add(kbmPopupBtn);
 
             // MIDI button — theme-aware icon fill.
-            var midiPopupIcon = new System.Windows.Controls.TextBlock
+            var midiPopupIcon = new PadForge.Controls.GlyphText
             {
                 Text = "\uE8D6",
                 FontFamily = new System.Windows.Media.FontFamily("Segoe MDL2 Assets"),
@@ -5883,7 +5913,7 @@ namespace PadForge
             stack.Children.Add(midiBtn);
 
             // VR button. Theme-aware icon fill.
-            var vrPopupIcon = new System.Windows.Controls.TextBlock
+            var vrPopupIcon = new PadForge.Controls.GlyphText
             {
                 Text = "",
                 FontFamily = new System.Windows.Media.FontFamily("Segoe MDL2 Assets"),
@@ -6331,20 +6361,11 @@ namespace PadForge
             }
         }
 
-        /// <summary>Announces the status bar's message. The TextBlock is a
-        /// polite live region, and WPF raises no LiveRegionChanged of its own,
-        /// so it is raised here. NVDA speaks the region's name, its text
-        /// (NVDAObject.event_liveRegionChange). Nothing is raised while the
-        /// window is not active, so a status message never interrupts a game
-        /// PadForge sits behind.</summary>
-        private void AnnounceStatus()
-        {
-            if (!IsActive || string.IsNullOrEmpty(StatusMessageText.Text)
-                || !System.Windows.Automation.Peers.AutomationPeer.ListenerExists(System.Windows.Automation.Peers.AutomationEvents.LiveRegionChanged))
-                return;
-            System.Windows.Automation.Peers.UIElementAutomationPeer.CreatePeerForElement(StatusMessageText)?
-                .RaiseAutomationEvent(System.Windows.Automation.Peers.AutomationEvents.LiveRegionChanged);
-        }
+        /// <summary>Announces the status bar's message, a polite live region.
+        /// The bar shows messages, which can repeat, so each one is announced
+        /// as it is set, on the conditions every live line shares
+        /// (LiveText.Announce).</summary>
+        private void AnnounceStatus() => PadForge.Common.LiveText.Announce(StatusMessageText);
 
         private void PaneToggleBtn_Click(object sender, RoutedEventArgs e)
         {

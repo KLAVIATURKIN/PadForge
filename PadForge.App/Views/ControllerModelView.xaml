@@ -11,7 +11,12 @@
              xmlns:reset="clr-namespace:PadForge.Controls">
 
     <Grid>
+        <!-- Out of focus: rotation, pan, move and zoom are off, so the
+             view has no keyboard role, and as an ItemsControl it was a
+             focusable list with no name. Clicks on the model still reach
+             the preview handlers. -->
         <helix:HelixViewport3D FlowDirection="LeftToRight" x:Name="ModelViewPort"
+                               Focusable="False"
                                IsRotationEnabled="False"
                                IsPanEnabled="False"
                                IsMoveEnabled="False"
@@ -71,7 +76,7 @@
                        Margin="0,0,8,0"
                        ToolTip="{Binding Pad_ToggleAnnotations, Source={x:Static strings:Strings.Instance}}"
                        Click="AnnotationToggle_Click">
-                <TextBlock x:Name="AnnotationToggleGlyph" FontFamily="Segoe MDL2 Assets"
+                <reset:GlyphText x:Name="AnnotationToggleGlyph" FontFamily="Segoe MDL2 Assets"
                            FontSize="14" Text="&#xE8EC;"/>
             </ui:Button>
             <Button x:Name="ResetViewButton"

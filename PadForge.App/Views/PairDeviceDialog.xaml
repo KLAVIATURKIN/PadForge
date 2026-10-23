@@ -51,7 +51,7 @@
                 <ui:Button Grid.Column="2" Style="{StaticResource EmberIconButton}"
                            VerticalAlignment="Center" Click="Dismiss_Click"
                            ToolTip="{Binding Common_Close, Source={x:Static strings:Strings.Instance}}">
-                    <TextBlock Text="&#xE8BB;" FontFamily="Segoe MDL2 Assets" FontSize="10"/>
+                    <reset:GlyphText Text="&#xE8BB;" FontFamily="Segoe MDL2 Assets" FontSize="10"/>
                 </ui:Button>
             </Grid>
         </Border>
@@ -175,7 +175,7 @@
                                 <ui:Button DockPanel.Dock="Right" Style="{StaticResource EmberIconButton}"
                                            VerticalAlignment="Center" Click="SerialRemove_Click" Tag="{Binding}"
                                            ToolTip="{Binding Common_Remove, Source={x:Static strings:Strings.Instance}}">
-                                    <TextBlock Text="&#xE74D;" FontFamily="Segoe MDL2 Assets" FontSize="11"/>
+                                    <reset:GlyphText Text="&#xE74D;" FontFamily="Segoe MDL2 Assets" FontSize="11"/>
                                 </ui:Button>
                                 <TextBlock Text="{Binding Display}" VerticalAlignment="Center"
                                            TextTrimming="CharacterEllipsis" Margin="0,0,8,0"/>
@@ -198,7 +198,7 @@
                                 <ui:Button DockPanel.Dock="Right" Style="{StaticResource EmberIconButton}"
                                            VerticalAlignment="Center" Click="DjiRemove_Click" Tag="{Binding}"
                                            ToolTip="{Binding Common_Remove, Source={x:Static strings:Strings.Instance}}">
-                                    <TextBlock Text="&#xE74D;" FontFamily="Segoe MDL2 Assets" FontSize="11"/>
+                                    <reset:GlyphText Text="&#xE74D;" FontFamily="Segoe MDL2 Assets" FontSize="11"/>
                                 </ui:Button>
                                 <TextBlock Text="{Binding}" VerticalAlignment="Center"
                                            TextTrimming="CharacterEllipsis" Margin="0,0,8,0"/>
@@ -215,7 +215,7 @@
                            Style="{StaticResource EmberPrimaryButton}"
                            Content="{Binding WiiPair_Pair, Source={x:Static strings:Strings.Instance}}"
                            Click="Pair_Click"/>
-                <Button x:Name="DismissButton" MinWidth="90"
+                <Button x:Name="DismissButton" MinWidth="90" IsCancel="True"
                         Content="{Binding Common_Cancel, Source={x:Static strings:Strings.Instance}}"
                         Click="Dismiss_Click"/>
             </StackPanel>

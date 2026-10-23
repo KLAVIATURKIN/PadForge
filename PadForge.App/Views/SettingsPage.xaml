@@ -6,7 +6,8 @@
              xmlns:po="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="po"
-             xmlns:reset="clr-namespace:PadForge.Controls">
+             xmlns:reset="clr-namespace:PadForge.Controls"
+             xmlns:common="clr-namespace:PadForge.Common">
 
     <UserControl.Resources>
         <!-- Hover glow (#175): hover color changes carry a hue-matched
@@ -56,11 +57,11 @@
         </Style>
     </UserControl.Resources>
 
-    <ScrollViewer Padding="24,0">
+    <ScrollViewer AutomationProperties.Name="{Binding Settings_Title, Source={x:Static strings:Strings.Instance}}" Padding="24,0">
         <StackPanel Margin="0,16,0,16">
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                <TextBlock Text="&#xE713;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                <reset:GlyphText Text="&#xE713;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                            VerticalAlignment="Center" Margin="0,0,10,0"/>
                 <TextBlock AutomationProperties.HeadingLevel="Level1" Text="{Binding Settings_Title, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource TitleTextBlockStyle}" FontFamily="{StaticResource DisplayFontFamily}" FontWeight="650" FontSize="26"/>
             </StackPanel>
@@ -69,7 +70,7 @@
             <Border Style="{StaticResource CardBorder}" Margin="0,0,0,20">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                        <TextBlock Text="&#xF2B7;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                        <reset:GlyphText Text="&#xF2B7;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                    VerticalAlignment="Center" Margin="0,0,8,0"/>
                         <TextBlock Text="{Binding Settings_Language, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource CardTitle}"/>
                     </StackPanel>
@@ -111,7 +112,7 @@
             <Border Style="{StaticResource CardBorder}" Margin="0,0,0,20">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                        <TextBlock Text="&#xE790;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                        <reset:GlyphText Text="&#xE790;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                    VerticalAlignment="Center" Margin="0,0,8,0"/>
                         <TextBlock Text="{Binding Settings_Appearance, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource CardTitle}"/>
                     </StackPanel>
@@ -135,7 +136,7 @@
             <Border Style="{StaticResource CardBorder}" Margin="0,0,0,20">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                        <TextBlock Text="&#xE737;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                        <reset:GlyphText Text="&#xE737;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                    VerticalAlignment="Center" Margin="0,0,8,0"/>
                         <TextBlock Text="{Binding Settings_Window, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource CardTitle}"/>
                     </StackPanel>
@@ -187,7 +188,7 @@
             <Border Style="{StaticResource CardBorder}" Margin="0,0,0,20">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                        <TextBlock Text="&#xE896;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                        <reset:GlyphText Text="&#xE896;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                    VerticalAlignment="Center" Margin="0,0,8,0"/>
                         <TextBlock Text="{Binding Settings_Updates, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource CardTitle}"/>
                     </StackPanel>
@@ -219,7 +220,7 @@
                     </StackPanel>
                     <!-- Empty until a check has run, the G-key status's shape.
                          Ember while an update is waiting. -->
-                    <TextBlock Text="{Binding UpdateStatusText}"
+                    <TextBlock common:LiveText.Polite="True" Text="{Binding UpdateStatusText}"
                                Visibility="{Binding UpdateStatusText, Converter={StaticResource StringToVisibility}}"
                                TextWrapping="Wrap" Margin="0,4,0,8">
                         <TextBlock.Style>
@@ -256,7 +257,7 @@
             <Border Style="{StaticResource CardBorder}" Margin="0,0,0,20">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                        <TextBlock Text="&#xE9F5;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                        <reset:GlyphText Text="&#xE9F5;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                    VerticalAlignment="Center" Margin="0,0,8,0"/>
                         <TextBlock Text="{Binding Settings_InputEngine, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource CardTitle}"/>
                     </StackPanel>
@@ -295,7 +296,7 @@
                     <!-- Which of the seven cases the machine is in, so a
                          quiet G-key is never a mystery. Empty while the
                          feature is off, the polling-override note's shape. -->
-                    <TextBlock Text="{Binding GKeysStatus}"
+                    <TextBlock common:LiveText.Polite="True" Text="{Binding GKeysStatus}"
                                Visibility="{Binding GKeysStatus, Converter={StaticResource StringToVisibility}}"
                                TextWrapping="Wrap" Margin="0,0,0,8"
                                Foreground="{DynamicResource EmberBrush}"/>
@@ -310,7 +311,7 @@
                     </StackPanel>
                     <!-- Which keyboards are being read, and which wait for
                          Razer Synapse. Empty while the feature is off. -->
-                    <TextBlock Text="{Binding AnalogKeyboardsStatus}"
+                    <TextBlock common:LiveText.Polite="True" Text="{Binding AnalogKeyboardsStatus}"
                                Visibility="{Binding AnalogKeyboardsStatus, Converter={StaticResource StringToVisibility}}"
                                TextWrapping="Wrap" Margin="0,0,0,8"
                                Foreground="{DynamicResource EmberBrush}"/>
@@ -325,7 +326,7 @@
                     </StackPanel>
                     <!-- Each port and the controller in it. Empty while the
                          feature is off. -->
-                    <TextBlock Text="{Binding BlissBoxStatus}"
+                    <TextBlock common:LiveText.Polite="True" Text="{Binding BlissBoxStatus}"
                                Visibility="{Binding BlissBoxStatus, Converter={StaticResource StringToVisibility}}"
                                TextWrapping="Wrap" Margin="0,0,0,8"
                                Foreground="{DynamicResource EmberBrush}"/>
@@ -388,7 +389,7 @@
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                         <!-- Matches the banner this card governs (E8DE). -->
-                        <TextBlock Text="&#xE8DE;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                        <reset:GlyphText Text="&#xE8DE;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                    VerticalAlignment="Center" Margin="0,0,8,0"/>
                         <TextBlock Text="{Binding Settings_AssignOffer, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource CardTitle}"/>
                     </StackPanel>
@@ -418,7 +419,7 @@
             <Border Style="{StaticResource CardBorder}" Margin="0,0,0,20">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                        <TextBlock Text="&#xE7F8;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                        <reset:GlyphText Text="&#xE7F8;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                    VerticalAlignment="Center" Margin="0,0,8,0"/>
                         <TextBlock Text="{Binding Settings_Handheld, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource CardTitle}"/>
                     </StackPanel>
@@ -438,7 +439,7 @@
             <Border Style="{StaticResource CardBorder}" Margin="0,0,0,20">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                        <TextBlock Text="&#xE83F;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                        <reset:GlyphText Text="&#xE83F;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                    VerticalAlignment="Center" Margin="0,0,8,0"/>
                         <TextBlock Text="{Binding Settings_BatteryNotify, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource CardTitle}"/>
                     </StackPanel>
@@ -478,7 +479,7 @@
             <Border Style="{StaticResource CardBorder}" Margin="0,0,0,20">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                        <TextBlock Text="&#xED1A;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                        <reset:GlyphText Text="&#xED1A;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                    VerticalAlignment="Center" Margin="0,0,8,0"/>
                         <TextBlock Text="{Binding Settings_HidHide, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource CardTitle}"/>
                     </StackPanel>
@@ -509,7 +510,7 @@
                                         </Style>
                                     </Path.Style>
                                 </Path>
-                                <TextBlock Text="{Binding HidHideStatusText}" FontWeight="SemiBold"/>
+                                <TextBlock common:LiveText.Polite="True" Text="{Binding HidHideStatusText}" FontWeight="SemiBold"/>
                             </StackPanel>
                             <TextBlock Text="{Binding HidHideVersion}" FontSize="12" FontFamily="{StaticResource TelemetryFontFamily}" Foreground="{DynamicResource TextFillColorTertiaryBrush}" Margin="0,4,0,0"/>
                         </StackPanel>
@@ -587,7 +588,7 @@
             <Border Style="{StaticResource CardBorder}" Margin="0,0,0,20">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                        <TextBlock Text="&#xE7FC;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                        <reset:GlyphText Text="&#xE7FC;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                    VerticalAlignment="Center" Margin="0,0,8,0"/>
                         <TextBlock Text="{Binding Settings_HIDMaestro, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource CardTitle}"/>
                     </StackPanel>
@@ -624,7 +625,7 @@
                                         </Style>
                                     </Path.Style>
                                 </Path>
-                                <TextBlock Text="{Binding HIDMaestroStatusText}" FontWeight="SemiBold"/>
+                                <TextBlock common:LiveText.Polite="True" Text="{Binding HIDMaestroStatusText}" FontWeight="SemiBold"/>
                             </StackPanel>
                             <TextBlock Text="{Binding HIDMaestroVersion}" FontSize="12" FontFamily="{StaticResource TelemetryFontFamily}" Foreground="{DynamicResource TextFillColorTertiaryBrush}" Margin="0,4,0,0"/>
                         </StackPanel>
@@ -646,7 +647,7 @@
             <Border Style="{StaticResource CardBorder}" Margin="0,0,0,20">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                        <TextBlock Text="&#xE702;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                        <reset:GlyphText Text="&#xE702;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                    VerticalAlignment="Center" Margin="0,0,8,0"/>
                         <TextBlock Text="{Binding Settings_BthPS3, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource CardTitle}"/>
                     </StackPanel>
@@ -705,7 +706,7 @@
             <Border Style="{StaticResource CardBorder}" Margin="0,0,0,20">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                        <TextBlock Text="&#xE8D6;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                        <reset:GlyphText Text="&#xE8D6;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                    VerticalAlignment="Center" Margin="0,0,8,0"/>
                         <TextBlock Text="{Binding Settings_MidiServices, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource CardTitle}"/>
                     </StackPanel>
@@ -736,7 +737,7 @@
                                         </Style>
                                     </Path.Style>
                                 </Path>
-                                <TextBlock Text="{Binding MidiServicesStatusText}" FontWeight="SemiBold"/>
+                                <TextBlock common:LiveText.Polite="True" Text="{Binding MidiServicesStatusText}" FontWeight="SemiBold"/>
                             </StackPanel>
                             <!-- The older runtime's version reads in the telemetry
                                  face like the other cards' versions. The notes
@@ -790,7 +791,7 @@
             <Border Style="{StaticResource CardBorder}" Margin="0,0,0,20">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                        <TextBlock Text="&#xF119;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                        <reset:GlyphText Text="&#xF119;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                    VerticalAlignment="Center" Margin="0,0,8,0"/>
                         <TextBlock Text="{Binding Settings_SteamVR, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource CardTitle}"/>
                     </StackPanel>
@@ -821,7 +822,7 @@
                                         </Style>
                                     </Path.Style>
                                 </Path>
-                                <TextBlock Text="{Binding SteamVrStatusText}" FontWeight="SemiBold"/>
+                                <TextBlock common:LiveText.Polite="True" Text="{Binding SteamVrStatusText}" FontWeight="SemiBold"/>
                             </StackPanel>
 
                             <!-- HIDMaestro 1.12.0 lists other OpenVR drivers
@@ -876,7 +877,7 @@
             <Border Style="{StaticResource CardBorder}" Margin="0,0,0,20">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                        <TextBlock Text="&#xE716;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                        <reset:GlyphText Text="&#xE716;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                    VerticalAlignment="Center" Margin="0,0,8,0"/>
                         <TextBlock Text="{Binding Settings_CommunityConfigs, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource CardTitle}"/>
                     </StackPanel>
@@ -915,7 +916,7 @@
             <Border Style="{StaticResource CardBorder}" Margin="0,0,0,20">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                        <TextBlock Text="&#xE8A5;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                        <reset:GlyphText Text="&#xE8A5;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                    VerticalAlignment="Center" Margin="0,0,8,0"/>
                         <TextBlock Text="{Binding Settings_SettingsFile, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource CardTitle}"/>
                     </StackPanel>
@@ -952,7 +953,7 @@
             <Border Style="{StaticResource CardBorder}" Margin="0,0,0,20">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                        <TextBlock Text="&#xE9D9;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                        <reset:GlyphText Text="&#xE9D9;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                    VerticalAlignment="Center" Margin="0,0,8,0"/>
                         <TextBlock Text="{Binding Settings_Diagnostics, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource CardTitle}"/>
                     </StackPanel>

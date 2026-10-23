@@ -540,7 +540,7 @@ namespace PadForge.Views
                     Orientation = Orientation.Horizontal,
                     Margin = new Thickness(0, shown == 0 ? 0 : 2, 0, 0),
                 };
-                var glyph = new TextBlock
+                var glyph = new PadForge.Controls.GlyphText
                 {
                     FontFamily = new FontFamily("Segoe MDL2 Assets"),
                     FontSize = 10,

@@ -5181,6 +5181,30 @@ namespace PadForge.Views
             lb.SelectedItem = dragged;
         }
 
+        // The keyboard path for the same reorder: Alt+Up and Alt+Down move
+        // the selected step one place, with the single Actions.Move the drag
+        // commits, and the step keeps the focus.
+        private void ActionsList_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (sender is not ListBox lb || Keyboard.Modifiers != ModifierKeys.Alt) return;
+            // With Alt held, WPF reports an arrow as a system key.
+            Key key = e.Key == Key.System ? e.SystemKey : e.Key;
+            int step = key == Key.Up ? -1 : key == Key.Down ? 1 : 0;
+            if (step == 0) return;
+            e.Handled = true;
+            if (lb.SelectedItem is not MacroAction selected) return;
+            if (lb.ItemsSource is not System.Collections.ObjectModel.ObservableCollection<MacroAction> actions) return;
+            int oldIndex = actions.IndexOf(selected);
+            int newIndex = oldIndex + step;
+            if (oldIndex < 0 || newIndex < 0 || newIndex >= actions.Count) return;
+            actions.Move(oldIndex, newIndex);
+            lb.SelectedItem = selected;
+            lb.ScrollIntoView(selected);
+            // After layout, once the moved step's container is in place.
+            lb.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Loaded, new Action(() =>
+                (lb.ItemContainerGenerator.ContainerFromItem(selected) as ListBoxItem)?.Focus()));
+        }
+
         private static MacroAction ActionFromVisual(DependencyObject d)
         {
             // TreeWalk, not VisualTreeHelper: both callers seed this from

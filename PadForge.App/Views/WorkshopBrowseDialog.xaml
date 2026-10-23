@@ -317,7 +317,7 @@
                 <ui:Button Grid.Column="4" Style="{StaticResource EmberIconButton}"
                            VerticalAlignment="Center" Click="Dismiss_Click"
                            ToolTip="{Binding Common_Close, Source={x:Static strings:Strings.Instance}}">
-                    <TextBlock Text="&#xE8BB;" FontFamily="Segoe MDL2 Assets" FontSize="10"/>
+                    <controls:GlyphText Text="&#xE8BB;" FontFamily="Segoe MDL2 Assets" FontSize="10"/>
                 </ui:Button>
             </Grid>
         </Border>
@@ -395,7 +395,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="&#xE721;" FontFamily="Segoe MDL2 Assets" FontSize="13"
+                        <controls:GlyphText Text="&#xE721;" FontFamily="Segoe MDL2 Assets" FontSize="13"
                                    Foreground="{DynamicResource TextFillColorTertiaryBrush}"
                                    VerticalAlignment="Center" Margin="0,0,10,0"/>
                         <Grid Grid.Column="1">

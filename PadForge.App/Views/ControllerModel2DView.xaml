@@ -43,7 +43,7 @@
                        Style="{StaticResource EmberIconButton}"
                        ToolTip="{Binding Pad_ToggleAnnotations, Source={x:Static strings:Strings.Instance}}"
                        Click="AnnotationToggle_Click">
-                <TextBlock x:Name="AnnotationToggleGlyph" FontFamily="Segoe MDL2 Assets"
+                <reset:GlyphText x:Name="AnnotationToggleGlyph" FontFamily="Segoe MDL2 Assets"
                            FontSize="14" Text="&#xE8EC;"/>
             </ui:Button>
         </StackPanel>

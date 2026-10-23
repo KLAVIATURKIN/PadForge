@@ -50,7 +50,7 @@
                 <ui:Button Grid.Column="2" Style="{StaticResource EmberIconButton}"
                            VerticalAlignment="Center" Click="CancelBtn_Click"
                            ToolTip="{Binding Common_Close, Source={x:Static strings:Strings.Instance}}">
-                    <TextBlock Text="&#xE8BB;" FontFamily="Segoe MDL2 Assets" FontSize="10"/>
+                    <reset:GlyphText Text="&#xE8BB;" FontFamily="Segoe MDL2 Assets" FontSize="10"/>
                 </ui:Button>
             </Grid>
         </Border>
@@ -171,7 +171,7 @@
                         Click="SaveBtn_Click"/>
                 <Button Content="{Binding Common_Cancel, Source={x:Static strings:Strings.Instance}}"
                         MinWidth="90"
-                        Click="CancelBtn_Click"/>
+                        IsCancel="True" Click="CancelBtn_Click"/>
             </StackPanel>
         </Grid>
     </Grid>

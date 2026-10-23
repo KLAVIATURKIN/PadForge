@@ -373,7 +373,7 @@ namespace PadForge.Views
         private void ShowHidingWarningFlyout(CheckBox cb, ViewModels.DevicesViewModel vm,
             ViewModels.DeviceRowViewModel dev, string message, bool isHidHide)
         {
-            var warningIcon = new TextBlock
+            var warningIcon = new PadForge.Controls.GlyphText
             {
                 Text = "\uE7BA",
                 FontFamily = new System.Windows.Media.FontFamily("Segoe MDL2 Assets"),

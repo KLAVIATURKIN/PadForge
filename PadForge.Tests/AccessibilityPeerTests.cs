@@ -141,6 +141,102 @@ namespace PadForge.Tests
             }
         });
 
+        [Fact]
+        public void AGlyphText_LeavesTheControlView_AndTakesTheTextBlockStyle() => RunSta(() =>
+        {
+            var marker = new SolidColorBrush(Colors.Tomato);
+            var style = new Style(typeof(TextBlock));
+            style.Setters.Add(new Setter(TextBlock.ForegroundProperty, marker));
+            var glyph = new GlyphText { Text = ((char)0xE7C8).ToString() };
+            var plain = new TextBlock { Text = "Record" };
+            var panel = new StackPanel();
+            panel.Resources.Add(typeof(TextBlock), style);
+            panel.Children.Add(glyph);
+            panel.Children.Add(plain);
+            var window = new Window
+            {
+                Width = 200, Height = 200, ShowActivated = false, ShowInTaskbar = false,
+                Left = -10000, Top = -10000, Content = panel,
+            };
+            try
+            {
+                window.Show();
+                Assert.False(PeerOf(glyph).IsControlElement());
+                Assert.False(PeerOf(glyph).IsContentElement());
+                Assert.True(PeerOf(plain).IsControlElement());
+                // It draws as the TextBlock beside it does.
+                Assert.Same(style, glyph.Style);
+                Assert.Same(marker, glyph.Foreground);
+            }
+            finally
+            {
+                window.Close();
+            }
+        });
+
+        [Fact]
+        public void ADecorativeIcon_HidesTheGlyphItDraws_WhereAWpfUiIconShowsIt() => RunSta(() =>
+        {
+            var plainButton = new System.Windows.Controls.Button { Content = new Wpf.Ui.Controls.SymbolIcon { Symbol = Wpf.Ui.Controls.SymbolRegular.Delete24 } };
+            var quietButton = new System.Windows.Controls.Button { Content = new DecorativeSymbolIcon { Symbol = Wpf.Ui.Controls.SymbolRegular.Delete24 } };
+            var fontButton = new System.Windows.Controls.Button { Content = new DecorativeFontIcon { Glyph = ((char)0xE713).ToString() } };
+            var panel = new StackPanel();
+            panel.Children.Add(plainButton);
+            panel.Children.Add(quietButton);
+            panel.Children.Add(fontButton);
+            var window = new Window
+            {
+                Width = 200, Height = 200, ShowActivated = false, ShowInTaskbar = false,
+                Left = -10000, Top = -10000, Content = panel,
+            };
+            try
+            {
+                window.Show();
+                window.UpdateLayout();
+                // The plain icon has no peer, so its glyph TextBlock is the
+                // button's child in the control view.
+                var plainKids = PeerOf(plainButton).GetChildren() ?? new System.Collections.Generic.List<AutomationPeer>();
+                Assert.Contains(plainKids, k => k.GetAutomationControlType() == AutomationControlType.Text && k.IsControlElement());
+                foreach (var button in new[] { quietButton, fontButton })
+                {
+                    var kids = PeerOf(button).GetChildren() ?? new System.Collections.Generic.List<AutomationPeer>();
+                    Assert.DoesNotContain(kids, k => k.IsControlElement() || k.IsContentElement() || (k.GetChildren()?.Count ?? 0) > 0);
+                }
+            }
+            finally
+            {
+                window.Close();
+            }
+        });
+
+        [Fact]
+        public void AStatusLineMarkedLive_ReadsAsAPoliteLiveRegion_UntilUnmarked() => RunSta(() =>
+        {
+            var line = new TextBlock { Text = "Stopped" };
+            var window = new Window
+            {
+                Width = 200, Height = 200, ShowActivated = false, ShowInTaskbar = false,
+                Left = -10000, Top = -10000, Content = line,
+            };
+            try
+            {
+                window.Show();
+                Assert.Equal(AutomationLiveSetting.Off, PeerOf(line).GetLiveSetting());
+                PadForge.Common.LiveText.SetPolite(line, true);
+                Assert.Equal(AutomationLiveSetting.Polite, PeerOf(line).GetLiveSetting());
+                // A change schedules the announcement, which needs a listener
+                // and the active window, and neither exists here.
+                line.Text = "Listening on port 8080";
+                Pump();
+                PadForge.Common.LiveText.SetPolite(line, false);
+                Assert.Equal(AutomationLiveSetting.Off, PeerOf(line).GetLiveSetting());
+            }
+            finally
+            {
+                window.Close();
+            }
+        });
+
         private static T Find<T>(DependencyObject root) where T : DependencyObject
         {
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(root); i++)

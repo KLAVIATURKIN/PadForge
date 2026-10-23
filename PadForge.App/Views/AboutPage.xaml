@@ -6,11 +6,11 @@
              xmlns:strings="clr-namespace:PadForge.Resources.Strings"
              xmlns:common="clr-namespace:PadForge.Common">
 
-    <ScrollViewer Padding="24,0">
+    <ScrollViewer AutomationProperties.Name="{Binding About_Title, Source={x:Static strings:Strings.Instance}}" Padding="24,0">
         <StackPanel Margin="0,16,0,16">
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                <TextBlock Text="&#xE946;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                <controls:GlyphText Text="&#xE946;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                            VerticalAlignment="Center" Margin="0,0,10,0"/>
                 <TextBlock AutomationProperties.HeadingLevel="Level1" common:BidiText.Text="{Binding About_Title, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource TitleTextBlockStyle}" FontFamily="{StaticResource DisplayFontFamily}" FontWeight="650" FontSize="26"/>
             </StackPanel>
@@ -39,7 +39,7 @@
                  page's body size. Centering a narrow column inside a
                  wide card bands the sides with whitespace; do not. -->
             <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
-                <TextBlock Text="&#xE734;" Style="{StaticResource SectionGlyph}"/>
+                <controls:GlyphText Text="&#xE734;" Style="{StaticResource SectionGlyph}"/>
                 <TextBlock common:BidiText.Text="{Binding About_Testimony, Source={x:Static strings:Strings.Instance}, Converter={StaticResource UpperConverter}}" Style="{StaticResource SectionTitle}"/>
             </StackPanel>
             <Border Style="{StaticResource CardBorder}" Padding="20" Margin="0,0,0,20">
@@ -60,7 +60,7 @@
 
             <!-- Description -->
             <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
-                <TextBlock Text="&#xE7C3;" Style="{StaticResource SectionGlyph}"/>
+                <controls:GlyphText Text="&#xE7C3;" Style="{StaticResource SectionGlyph}"/>
                 <TextBlock common:BidiText.Text="{Binding About_Overview, Source={x:Static strings:Strings.Instance}, Converter={StaticResource UpperConverter}}" Style="{StaticResource SectionTitle}"/>
             </StackPanel>
             <Border Style="{StaticResource CardBorder}" Padding="20" Margin="0,0,0,20">
@@ -70,7 +70,7 @@
 
             <!-- Technologies -->
             <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
-                <TextBlock Text="&#xE74C;" Style="{StaticResource SectionGlyph}"/>
+                <controls:GlyphText Text="&#xE74C;" Style="{StaticResource SectionGlyph}"/>
                 <TextBlock common:BidiText.Text="{Binding About_BuiltWith, Source={x:Static strings:Strings.Instance}, Converter={StaticResource UpperConverter}}" Style="{StaticResource SectionTitle}"/>
             </StackPanel>
             <Border Style="{StaticResource CardBorder}" Padding="20" Margin="0,0,0,20">
@@ -751,7 +751,7 @@
 
             <!-- License -->
             <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
-                <TextBlock Text="&#xE8D7;" Style="{StaticResource SectionGlyph}"/>
+                <controls:GlyphText Text="&#xE8D7;" Style="{StaticResource SectionGlyph}"/>
                 <TextBlock common:BidiText.Text="{Binding About_License, Source={x:Static strings:Strings.Instance}, Converter={StaticResource UpperConverter}}" Style="{StaticResource SectionTitle}"/>
             </StackPanel>
             <Border Style="{StaticResource CardBorder}" Padding="20" Margin="0,0,0,20">

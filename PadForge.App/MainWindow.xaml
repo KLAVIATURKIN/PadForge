@@ -63,7 +63,7 @@
                     Background="Transparent"
                     BorderThickness="0" Padding="0"
                     HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                <TextBlock Text="&#xE700;" FontFamily="Segoe MDL2 Assets" FontSize="16"/>
+                <controls:GlyphText Text="&#xE700;" FontFamily="Segoe MDL2 Assets" FontSize="16"/>
             </controls:StateToggleButton>
             <ui:TitleBar x:Name="AppTitleBar" Grid.Column="1"
                          CloseClicked="TitleBar_CloseClicked"
@@ -120,7 +120,7 @@
                              both FindAncestor and ElementName bindings
                              evaluated before the tree connects and logged a
                              BINDERR on every launch. -->
-                        <TextBlock x:Name="FullScreenIcon" Text="&#xE740;" FontFamily="Segoe MDL2 Assets" FontSize="10"/>
+                        <controls:GlyphText x:Name="FullScreenIcon" Text="&#xE740;" FontFamily="Segoe MDL2 Assets" FontSize="10"/>
                     </controls:StateToggleButton>
                 </ui:TitleBar.TrailingContent>
             </ui:TitleBar>
@@ -162,12 +162,12 @@
                 <ui:NavigationViewItem x:Name="NavSettings" Content="{Binding Settings_Title, Source={x:Static strings:Strings.Instance}}" Tag="Settings" AutomationProperties.AutomationId="Nav_Settings" AutomationProperties.PositionInSet="1" AutomationProperties.SizeOfSet="2">
                     <ui:NavigationViewItem.Icon>
                         <!-- Ember, matching the page header's icon color. -->
-                        <ui:FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE713;" Foreground="{DynamicResource EmberBrush}"/>
+                        <controls:DecorativeFontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE713;" Foreground="{DynamicResource EmberBrush}"/>
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
                 <ui:NavigationViewItem x:Name="NavAbout" Content="{Binding About_Title, Source={x:Static strings:Strings.Instance}}" Tag="About" AutomationProperties.AutomationId="Nav_About" AutomationProperties.PositionInSet="2" AutomationProperties.SizeOfSet="2">
                     <ui:NavigationViewItem.Icon>
-                        <ui:FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE946;" Foreground="{DynamicResource EmberBrush}"/>
+                        <controls:DecorativeFontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE946;" Foreground="{DynamicResource EmberBrush}"/>
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
             </ui:NavigationView.FooterMenuItems>

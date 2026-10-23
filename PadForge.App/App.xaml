@@ -4,6 +4,7 @@
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              xmlns:uictrl="clr-namespace:Wpf.Ui.Controls;assembly=Wpf.Ui"
              xmlns:conv="clr-namespace:PadForge.Converters"
+             xmlns:controls="clr-namespace:PadForge.Controls"
 >
 
     <Application.Resources>
@@ -579,7 +580,7 @@
                 <Setter Property="ContentTemplate">
                     <Setter.Value>
                         <DataTemplate>
-                            <TextBlock Text="{Binding}" FontFamily="Segoe MDL2 Assets" FontSize="12"/>
+                            <controls:GlyphText Text="{Binding}" FontFamily="Segoe MDL2 Assets" FontSize="12"/>
                         </DataTemplate>
                     </Setter.Value>
                 </Setter>

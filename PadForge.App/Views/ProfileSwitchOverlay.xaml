@@ -1,6 +1,7 @@
 <Window x:Class="PadForge.Views.ProfileSwitchOverlay"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:PadForge.Controls"
         WindowStyle="None"
         AllowsTransparency="True"
         ResizeMode="NoResize"
@@ -45,7 +46,7 @@
                     BorderThickness="1">
                 <Grid Margin="16,13,16,13">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <TextBlock x:Name="StatusIcon"
+                        <controls:GlyphText x:Name="StatusIcon"
                                    Text="&#xE8F1;"
                                    FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
                                    FontSize="16"

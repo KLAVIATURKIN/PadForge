@@ -194,6 +194,96 @@ namespace PadForge.Tests
         }
 
         [Fact]
+        public void EveryDialogWindow_ClosesOnEscape()
+        {
+            // A cancel button (IsCancel) takes Escape: WPF registers it as
+            // the Escape access key, runs its Click, then
+            // Window.DialogCancelCommand (Button.OnClick). A dialog without
+            // one handles Escape in its own key handler.
+            var views = Path.Combine(RepoRoot(), "PadForge.App", "Views");
+            var missing = Directory.EnumerateFiles(views, "*Dialog.xaml")
+                .Where(p => !File.ReadAllText(p).Contains("IsCancel=\"True\"", StringComparison.Ordinal)
+                    && !(File.Exists(p + ".cs") && File.ReadAllText(p + ".cs").Contains("Key.Escape", StringComparison.Ordinal)))
+                .Select(Path.GetFileName)
+                .ToList();
+            Assert.True(missing.Count == 0, "Dialog windows that Escape does not close: " + string.Join(", ", missing));
+        }
+
+        [Fact]
+        public void EveryIconGlyph_IsAGlyphText()
+        {
+            // A TextBlock in an icon font reads its private-use character to a
+            // screen reader. GlyphText draws the same and leaves the control
+            // view. A TextBlock inside a ControlTemplate is hidden already
+            // (TextBlockAutomationPeer.IsControlElementCore). wpf-ui's FontIcon
+            // and SymbolIcon draw with a TextBlock built in code, outside any
+            // template, so PadForge places their Decorative subclasses.
+            var glyphStyles = new[] { "SectionGlyph", "StageGlyphText" };
+            static bool IconFont(string font)
+                => font.Contains("MDL2", StringComparison.OrdinalIgnoreCase) || font.Contains("Fluent Icons", StringComparison.Ordinal);
+            var plain = new List<string>();
+            foreach (var (rel, text) in XamlA11yAudit.Files(RepoRoot()))
+            {
+                foreach (var tb in XDocument.Parse(text, LoadOptions.SetLineInfo).Descendants().Where(e => e.Name.LocalName == "TextBlock"))
+                {
+                    if (tb.Ancestors().Any(a => a.Name.LocalName == "ControlTemplate"))
+                        continue;
+                    string font = tb.Attributes().FirstOrDefault(a => a.Name.LocalName == "FontFamily")?.Value ?? "";
+                    string style = tb.Attributes().FirstOrDefault(a => a.Name.LocalName == "Style")?.Value ?? "";
+                    // An inline style based on a glyph style, or setting an
+                    // icon font, draws a glyph too.
+                    var inline = tb.Elements().FirstOrDefault(c => c.Name.LocalName == "TextBlock.Style")?.Elements().FirstOrDefault();
+                    string basedOn = inline?.Attributes().FirstOrDefault(a => a.Name.LocalName == "BasedOn")?.Value ?? "";
+                    bool inlineFont = inline != null && inline.Descendants().Any(s => s.Name.LocalName == "Setter"
+                        && ((string)s.Attribute("Property") ?? "").EndsWith("FontFamily", StringComparison.Ordinal)
+                        && IconFont((string)s.Attribute("Value") ?? ""));
+                    if (IconFont(font) || inlineFont || glyphStyles.Any(s => style.Contains(s, StringComparison.Ordinal) || basedOn.Contains(s, StringComparison.Ordinal)))
+                        plain.Add($"{rel}:{((IXmlLineInfo)tb).LineNumber}");
+                }
+                foreach (var icon in XDocument.Parse(text, LoadOptions.SetLineInfo).Descendants()
+                    .Where(e => e.Name.LocalName is "FontIcon" or "SymbolIcon"))
+                {
+                    if (!icon.Ancestors().Any(a => a.Name.LocalName == "ControlTemplate"))
+                        plain.Add($"{rel}:{((IXmlLineInfo)icon).LineNumber}");
+                }
+            }
+            // UI built in C#: a TextBlock initializer that sets an icon font,
+            // by name or through a variable named for it (mdl2).
+            var app = Path.Combine(RepoRoot(), "PadForge.App");
+            foreach (var path in Directory.EnumerateFiles(app, "*.cs", SearchOption.AllDirectories))
+            {
+                string rel = Path.GetRelativePath(app, path);
+                if (rel.StartsWith("obj", StringComparison.Ordinal) || rel.StartsWith("bin", StringComparison.Ordinal))
+                    continue;
+                var lines = File.ReadAllLines(path);
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    if (Regex.IsMatch(lines[i], @"new (Wpf\.Ui\.Controls\.)?(FontIcon|SymbolIcon)\b"))
+                    {
+                        plain.Add($"PadForge.App/{rel.Replace(Path.DirectorySeparatorChar, '/')}:{i + 1}");
+                        continue;
+                    }
+                    if (!Regex.IsMatch(lines[i], @"new (System\.Windows\.Controls\.)?TextBlock\b"))
+                        continue;
+                    for (int k = i; k < Math.Min(lines.Length, i + 12); k++)
+                    {
+                        if (Regex.Match(lines[k], @"\bFontFamily\s*=\s*(.*)$") is { Success: true } m && IconFont(m.Groups[1].Value))
+                        {
+                            plain.Add($"PadForge.App/{rel.Replace(Path.DirectorySeparatorChar, '/')}:{i + 1}");
+                            break;
+                        }
+                        // The initializer ends at its closing brace, on the
+                        // same line or on a line of its own.
+                        if (k == i ? lines[k].Contains('}') : lines[k].TrimStart().StartsWith('}'))
+                            break;
+                    }
+                }
+            }
+            Assert.True(plain.Count == 0,
+                "Icon glyphs a screen reader reads as a private-use character. Use GlyphText, DecorativeFontIcon or DecorativeSymbolIcon: " + string.Join(", ", plain));
+        }
+
+        [Fact]
         public void EveryAllowlistEntry_StillMatchesAFinding()
         {
             var findings = XamlA11yAudit.Measure(RepoRoot());

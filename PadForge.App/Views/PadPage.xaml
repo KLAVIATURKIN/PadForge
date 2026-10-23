@@ -108,7 +108,7 @@
             <Setter Property="ContentTemplate">
                 <Setter.Value>
                     <DataTemplate>
-                        <TextBlock Text="{Binding}" FontFamily="Segoe MDL2 Assets" FontSize="12"/>
+                        <controls:GlyphText Text="{Binding}" FontFamily="Segoe MDL2 Assets" FontSize="12"/>
                     </DataTemplate>
                 </Setter.Value>
             </Setter>
@@ -430,7 +430,7 @@
                             </Image.Style>
                         </controls:DecorativeImage>
                         <!-- MIDI glyph icon (visible only when OutputType == Midi) -->
-                        <TextBlock Text="&#xEC4F;" FontFamily="Segoe MDL2 Assets" FontSize="14"
+                        <controls:GlyphText Text="&#xEC4F;" FontFamily="Segoe MDL2 Assets" FontSize="14"
                                    VerticalAlignment="Center" Margin="0,0,4,0">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">
@@ -442,9 +442,9 @@
                                     </Style.Triggers>
                                 </Style>
                             </TextBlock.Style>
-                        </TextBlock>
+                        </controls:GlyphText>
                         <!-- Keyboard+Mouse glyph icon (visible only when OutputType == KeyboardMouse) -->
-                        <TextBlock Text="&#xE961;" FontFamily="Segoe MDL2 Assets" FontSize="14"
+                        <controls:GlyphText Text="&#xE961;" FontFamily="Segoe MDL2 Assets" FontSize="14"
                                    VerticalAlignment="Center" Margin="0,0,4,0">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">
@@ -456,7 +456,7 @@
                                     </Style.Triggers>
                                 </Style>
                             </TextBlock.Style>
-                        </TextBlock>
+                        </controls:GlyphText>
                         <!-- Type name + instance token share ONE TextBlock so
                              they render on a single baseline (user report
                              2026-07-06: the mono #N sat low beside the body
@@ -812,7 +812,7 @@
                          CATCH-ALL controller character (DeviceTypeGlyph's
                          fallback for every unrecognized row), so the prompt
                          wore the same face as a device it could not name. -->
-                    <TextBlock Text="&#xE8DE;" FontFamily="Segoe MDL2 Assets" FontSize="16"
+                    <controls:GlyphText Text="&#xE8DE;" FontFamily="Segoe MDL2 Assets" FontSize="16"
                                Foreground="{DynamicResource EmberBrush}"
                                VerticalAlignment="Center" Margin="0,0,10,0"/>
                     <TextBlock Grid.Column="1" Text="{Binding AssignOfferText}"
@@ -1188,7 +1188,7 @@
                                 HorizontalAlignment="Left" VerticalAlignment="Top"
                                 Margin="8,8,0,0" Padding="6,4"
                                 Click="ViewModeToggle_Click" ToolTip="{Binding Pad_SwitchTo2D, Source={x:Static strings:Strings.Instance}}">
-                            <TextBlock x:Name="ViewModeIcon" FontFamily="Segoe MDL2 Assets" FontSize="16"
+                            <controls:GlyphText x:Name="ViewModeIcon" FontFamily="Segoe MDL2 Assets" FontSize="16"
                                        Text="&#xE8B9;"/>
                         </Button>
                     </Grid>
@@ -1826,7 +1826,7 @@
                                                     <ui:Button Command="{Binding RecordCommand}"
                                                                Style="{StaticResource EmberIconButtonHot}"
                                                                VerticalAlignment="Center">
-                                                        <TextBlock Text="{Binding RecordIcon}" FontFamily="Segoe MDL2 Assets"
+                                                        <controls:GlyphText Text="{Binding RecordIcon}" FontFamily="Segoe MDL2 Assets"
                                                                    Foreground="{DynamicResource EmberBrush}"/>
                                                         <ui:Button.ToolTip>
                                                             <TextBlock Text="{Binding RecordTooltip}"/>
@@ -1837,7 +1837,7 @@
                                                     <ui:Button AutomationProperties.Name="{Binding Common_Clear, Source={x:Static strings:Strings.Instance}}" Command="{Binding ClearBindingCommand}"
                                                                Style="{StaticResource EmberIconButtonHot}"
                                                                VerticalAlignment="Center">
-                                                        <TextBlock Text="&#xE75C;" FontFamily="Segoe MDL2 Assets"
+                                                        <controls:GlyphText Text="&#xE75C;" FontFamily="Segoe MDL2 Assets"
                                                                    Foreground="{DynamicResource TextFillColorTertiaryBrush}"/>
                                                         <ui:Button.ToolTip>
                                                             <TextBlock Text="{Binding Common_Clear, Source={x:Static strings:Strings.Instance}}"/>
@@ -1851,7 +1851,7 @@
                                                                VerticalAlignment="Center"
                                                                Command="{Binding DataContext.RemoveExpressionVariableCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                                                CommandParameter="{Binding}">
-                                                        <TextBlock Text="&#xE74D;" FontFamily="Segoe MDL2 Assets"
+                                                        <controls:GlyphText Text="&#xE74D;" FontFamily="Segoe MDL2 Assets"
                                                                    Foreground="{DynamicResource TextFillColorTertiaryBrush}"/>
                                                         <ui:Button.ToolTip>
                                                             <TextBlock Text="{Binding Common_Delete, Source={x:Static strings:Strings.Instance}}"/>
@@ -1918,14 +1918,14 @@
                                      Add / Remove / Duplicate sit above its list. -->
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
                                     <ui:Button Command="{Binding RecordTriggerCommand}" Style="{StaticResource EmberIconButtonHot}">
-                                        <TextBlock Text="{Binding RecordTriggerIcon}" FontFamily="Segoe MDL2 Assets"
+                                        <controls:GlyphText Text="{Binding RecordTriggerIcon}" FontFamily="Segoe MDL2 Assets"
                                                    Foreground="{DynamicResource EmberBrush}"/>
                                         <ui:Button.ToolTip>
                                             <TextBlock Text="{Binding RecordTriggerButtonText}"/>
                                         </ui:Button.ToolTip>
                                     </ui:Button>
                                     <ui:Button AutomationProperties.Name="{Binding Common_Clear, Source={x:Static strings:Strings.Instance}}" Command="{Binding ClearTriggerCommand}" Style="{StaticResource EmberIconButtonHot}">
-                                        <TextBlock Text="&#xE75C;" FontFamily="Segoe MDL2 Assets"
+                                        <controls:GlyphText Text="&#xE75C;" FontFamily="Segoe MDL2 Assets"
                                                    Foreground="{DynamicResource TextFillColorTertiaryBrush}"/>
                                         <ui:Button.ToolTip>
                                             <TextBlock Text="{Binding Common_Clear, Source={x:Static strings:Strings.Instance}}"/>
@@ -2020,7 +2020,7 @@
                                                             <ui:Button AutomationProperties.Name="{Binding Macro_RemoveTriggerInput, Source={x:Static strings:Strings.Instance}}" Grid.Column="1" Command="{Binding RemoveCommand}"
                                                                        Style="{StaticResource EmberIconButtonHot}"
                                                                        VerticalAlignment="Top">
-                                                                <TextBlock Text="&#xE711;" FontFamily="Segoe MDL2 Assets"
+                                                                <controls:GlyphText Text="&#xE711;" FontFamily="Segoe MDL2 Assets"
                                                                            Foreground="{DynamicResource TextFillColorTertiaryBrush}"/>
                                                                 <ui:Button.ToolTip>
                                                                     <TextBlock Text="{Binding Macro_RemoveTriggerInput, Source={x:Static strings:Strings.Instance}}"/>
@@ -2115,6 +2115,7 @@
                                          HorizontalContentAlignment="Stretch"
                                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                          AllowDrop="True"
+                                         PreviewKeyDown="ActionsList_PreviewKeyDown"
                                          PreviewMouseLeftButtonDown="ActionsList_PreviewMouseLeftButtonDown"
                                          PreviewMouseMove="ActionsList_PreviewMouseMove"
                                          DragOver="ActionsList_DragOver"
@@ -2590,7 +2591,7 @@
                                             <ui:Button Command="{Binding RecordSourceCommand}"
                                                        Style="{StaticResource EmberIconButtonHot}"
                                                        VerticalAlignment="Center" Margin="4,0,0,0">
-                                                <TextBlock Text="{Binding SourceRecordIcon}" FontFamily="Segoe MDL2 Assets"
+                                                <controls:GlyphText Text="{Binding SourceRecordIcon}" FontFamily="Segoe MDL2 Assets"
                                                            Foreground="{DynamicResource EmberBrush}"/>
                                                 <ui:Button.ToolTip>
                                                     <TextBlock Text="{Binding SourceRecordTooltip}"/>
@@ -2599,7 +2600,7 @@
                                             <ui:Button AutomationProperties.Name="{Binding Common_Clear, Source={x:Static strings:Strings.Instance}}" Command="{Binding ClearSourceCommand}"
                                                        Style="{StaticResource EmberIconButtonHot}"
                                                        VerticalAlignment="Center">
-                                                <TextBlock Text="&#xE75C;" FontFamily="Segoe MDL2 Assets"
+                                                <controls:GlyphText Text="&#xE75C;" FontFamily="Segoe MDL2 Assets"
                                                            Foreground="{DynamicResource TextFillColorTertiaryBrush}"/>
                                                 <ui:Button.ToolTip>
                                                     <TextBlock Text="{Binding Common_Clear, Source={x:Static strings:Strings.Instance}}"/>
@@ -2828,7 +2829,7 @@
                                                                                Style="{StaticResource EmberIconButtonHot}"
                                                                                HorizontalAlignment="Right" Margin="0,0,0,4"
                                                                                ToolTip="{Binding Pad_Lighting_RemoveColor, Source={x:Static strings:Strings.Instance}}">
-                                                                        <TextBlock Text="&#xE738;" FontFamily="Segoe MDL2 Assets" FontSize="12"
+                                                                        <controls:GlyphText Text="&#xE738;" FontFamily="Segoe MDL2 Assets" FontSize="12"
                                                                                    Foreground="{DynamicResource TextFillColorTertiaryBrush}"/>
                                                                     </ui:Button>
                                                                     <views:ColorPickerControl HorizontalAlignment="Left"
@@ -3333,7 +3334,7 @@
                                                 <ui:Button Command="{Binding RecordSourceCommand}"
                                                            Style="{StaticResource EmberIconButtonHot}"
                                                            VerticalAlignment="Center" Margin="4,0,0,0">
-                                                    <TextBlock Text="{Binding SourceRecordIcon}" FontFamily="Segoe MDL2 Assets"
+                                                    <controls:GlyphText Text="{Binding SourceRecordIcon}" FontFamily="Segoe MDL2 Assets"
                                                                Foreground="{DynamicResource EmberBrush}"/>
                                                     <ui:Button.ToolTip>
                                                         <TextBlock Text="{Binding SourceRecordTooltip}"/>
@@ -3342,7 +3343,7 @@
                                                 <ui:Button AutomationProperties.Name="{Binding Common_Clear, Source={x:Static strings:Strings.Instance}}" Command="{Binding ClearSourceCommand}"
                                                            Style="{StaticResource EmberIconButtonHot}"
                                                            VerticalAlignment="Center">
-                                                    <TextBlock Text="&#xE75C;" FontFamily="Segoe MDL2 Assets"
+                                                    <controls:GlyphText Text="&#xE75C;" FontFamily="Segoe MDL2 Assets"
                                                                Foreground="{DynamicResource TextFillColorTertiaryBrush}"/>
                                                     <ui:Button.ToolTip>
                                                         <TextBlock Text="{Binding Common_Clear, Source={x:Static strings:Strings.Instance}}"/>
@@ -3446,7 +3447,7 @@
                                                 <ui:Button Command="{Binding RecordSourceCommand}"
                                                            Style="{StaticResource EmberIconButtonHot}"
                                                            VerticalAlignment="Center" Margin="4,0,0,0">
-                                                    <TextBlock Text="{Binding SourceRecordIcon}" FontFamily="Segoe MDL2 Assets"
+                                                    <controls:GlyphText Text="{Binding SourceRecordIcon}" FontFamily="Segoe MDL2 Assets"
                                                                Foreground="{DynamicResource EmberBrush}"/>
                                                     <ui:Button.ToolTip>
                                                         <TextBlock Text="{Binding SourceRecordTooltip}"/>
@@ -3455,7 +3456,7 @@
                                                 <ui:Button AutomationProperties.Name="{Binding Common_Clear, Source={x:Static strings:Strings.Instance}}" Command="{Binding ClearSourceCommand}"
                                                            Style="{StaticResource EmberIconButtonHot}"
                                                            VerticalAlignment="Center">
-                                                    <TextBlock Text="&#xE75C;" FontFamily="Segoe MDL2 Assets"
+                                                    <controls:GlyphText Text="&#xE75C;" FontFamily="Segoe MDL2 Assets"
                                                                Foreground="{DynamicResource TextFillColorTertiaryBrush}"/>
                                                     <ui:Button.ToolTip>
                                                         <TextBlock Text="{Binding Common_Clear, Source={x:Static strings:Strings.Instance}}"/>
@@ -3542,7 +3543,7 @@
                                                 <ui:Button Command="{Binding RecordSourceCommand}"
                                                            Style="{StaticResource EmberIconButtonHot}"
                                                            VerticalAlignment="Center" Margin="4,0,0,0">
-                                                    <TextBlock Text="{Binding SourceRecordIcon}" FontFamily="Segoe MDL2 Assets"
+                                                    <controls:GlyphText Text="{Binding SourceRecordIcon}" FontFamily="Segoe MDL2 Assets"
                                                                Foreground="{DynamicResource EmberBrush}"/>
                                                     <ui:Button.ToolTip>
                                                         <TextBlock Text="{Binding SourceRecordTooltip}"/>
@@ -3551,7 +3552,7 @@
                                                 <ui:Button AutomationProperties.Name="{Binding Common_Clear, Source={x:Static strings:Strings.Instance}}" Command="{Binding ClearSourceCommand}"
                                                            Style="{StaticResource EmberIconButtonHot}"
                                                            VerticalAlignment="Center">
-                                                    <TextBlock Text="&#xE75C;" FontFamily="Segoe MDL2 Assets"
+                                                    <controls:GlyphText Text="&#xE75C;" FontFamily="Segoe MDL2 Assets"
                                                                Foreground="{DynamicResource TextFillColorTertiaryBrush}"/>
                                                     <ui:Button.ToolTip>
                                                         <TextBlock Text="{Binding Common_Clear, Source={x:Static strings:Strings.Instance}}"/>
@@ -3691,7 +3692,7 @@
                         <ToggleButton AutomationProperties.Name="{Binding Mapping_FilterDevices_Tooltip, Source={x:Static strings:Strings.Instance}}" x:Name="MappingDeviceFilterToggle" Margin="4,0,0,0" Padding="8,4"
                                       VerticalAlignment="Center"
                                       ToolTip="{Binding Mapping_FilterDevices_Tooltip, Source={x:Static strings:Strings.Instance}}">
-                            <ui:SymbolIcon Symbol="Filter24"/>
+                            <controls:DecorativeSymbolIcon Symbol="Filter24"/>
                         </ToggleButton>
                         <Popup IsOpen="{Binding IsChecked, ElementName=MappingDeviceFilterToggle}"
                                PlacementTarget="{Binding ElementName=MappingDeviceFilterToggle}"
@@ -5361,7 +5362,7 @@
                                                             <ui:Button Command="{Binding RecordParamModifierCommand}"
                                                                        Style="{StaticResource EmberIconButtonHot}"
                                                                        VerticalAlignment="Center">
-                                                                <TextBlock Text="{Binding RecordIconParamModifier}" FontFamily="Segoe MDL2 Assets"
+                                                                <controls:GlyphText Text="{Binding RecordIconParamModifier}" FontFamily="Segoe MDL2 Assets"
                                                                            Foreground="{DynamicResource EmberBrush}"/>
                                                                 <ui:Button.ToolTip>
                                                                     <TextBlock Text="{Binding RecordTextParamModifier}"/>
@@ -5382,7 +5383,7 @@
                                                                    Style="{StaticResource EmberIconButtonHot}"
                                                                    VerticalAlignment="Center"
                                                                    Visibility="{Binding IsKindDescriptorless, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Invert}">
-                                                            <TextBlock Text="{Binding RecordButtonIcon}" FontFamily="Segoe MDL2 Assets"
+                                                            <controls:GlyphText Text="{Binding RecordButtonIcon}" FontFamily="Segoe MDL2 Assets"
                                                                        Foreground="{DynamicResource EmberBrush}"/>
                                                             <ui:Button.ToolTip>
                                                                 <TextBlock Text="{Binding RecordButtonText}"/>
@@ -5392,7 +5393,7 @@
                                                                    Style="{StaticResource EmberIconButtonHot}"
                                                                    VerticalAlignment="Center"
                                                                    Visibility="{Binding IsKindDescriptorless, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Invert}">
-                                                            <TextBlock Text="&#xE75C;" FontFamily="Segoe MDL2 Assets"
+                                                            <controls:GlyphText Text="&#xE75C;" FontFamily="Segoe MDL2 Assets"
                                                                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"/>
                                                             <ui:Button.ToolTip>
                                                                 <TextBlock Text="{Binding Common_Clear, Source={x:Static strings:Strings.Instance}}"/>
@@ -5643,7 +5644,7 @@
                                                             <ui:Button Command="{Binding RecordParamUpCommand}"
                                                                        Style="{StaticResource EmberIconButtonHot}"
                                                                        Margin="0,0,4,0" VerticalAlignment="Center">
-                                                                <TextBlock Text="{Binding RecordIconParamUp}" FontFamily="Segoe MDL2 Assets"
+                                                                <controls:GlyphText Text="{Binding RecordIconParamUp}" FontFamily="Segoe MDL2 Assets"
                                                                            Foreground="{DynamicResource EmberBrush}"/>
                                                                 <ui:Button.ToolTip>
                                                                     <TextBlock Text="{Binding RecordTextParamUp}"/>
@@ -5705,7 +5706,7 @@
                                                             <ui:Button Command="{Binding RecordParamDownCommand}"
                                                                        Style="{StaticResource EmberIconButtonHot}"
                                                                        Margin="0,0,8,0" VerticalAlignment="Center">
-                                                                <TextBlock Text="{Binding RecordIconParamDown}" FontFamily="Segoe MDL2 Assets"
+                                                                <controls:GlyphText Text="{Binding RecordIconParamDown}" FontFamily="Segoe MDL2 Assets"
                                                                            Foreground="{DynamicResource EmberBrush}"/>
                                                                 <ui:Button.ToolTip>
                                                                     <TextBlock Text="{Binding RecordTextParamDown}"/>
@@ -5803,7 +5804,7 @@
                                                             <ui:Button Command="{Binding RecordParamUpCommand}"
                                                                        Style="{StaticResource EmberIconButtonHot}"
                                                                        Margin="0,0,4,0" VerticalAlignment="Center">
-                                                                <TextBlock Text="{Binding RecordIconParamUp}" FontFamily="Segoe MDL2 Assets"
+                                                                <controls:GlyphText Text="{Binding RecordIconParamUp}" FontFamily="Segoe MDL2 Assets"
                                                                            Foreground="{DynamicResource EmberBrush}"/>
                                                                 <ui:Button.ToolTip>
                                                                     <TextBlock Text="{Binding RecordTextParamUp}"/>
@@ -5865,7 +5866,7 @@
                                                             <ui:Button Command="{Binding RecordParamDownCommand}"
                                                                        Style="{StaticResource EmberIconButtonHot}"
                                                                        Margin="0,0,8,0" VerticalAlignment="Center">
-                                                                <TextBlock Text="{Binding RecordIconParamDown}" FontFamily="Segoe MDL2 Assets"
+                                                                <controls:GlyphText Text="{Binding RecordIconParamDown}" FontFamily="Segoe MDL2 Assets"
                                                                            Foreground="{DynamicResource EmberBrush}"/>
                                                                 <ui:Button.ToolTip>
                                                                     <TextBlock Text="{Binding RecordTextParamDown}"/>
@@ -6255,7 +6256,7 @@
                                                    IsEnabled="{Binding IsRecordable}"
                                                    Style="{StaticResource EmberIconButtonHot}">
                                             <!-- Ember (#175): record is about to write a binding. -->
-                                            <TextBlock Text="{Binding RecordButtonIcon}" FontFamily="Segoe MDL2 Assets"
+                                            <controls:GlyphText Text="{Binding RecordButtonIcon}" FontFamily="Segoe MDL2 Assets"
                                                        Foreground="{DynamicResource EmberBrush}"/>
                                             <ui:Button.ToolTip>
                                                 <TextBlock Text="{Binding RecordButtonText}"/>
@@ -6270,7 +6271,7 @@
                                     <DataTemplate>
                                         <ui:Button AutomationProperties.Name="{Binding Common_Clear, Source={x:Static strings:Strings.Instance}}" Command="{Binding ClearCommand}"
                                                    Style="{StaticResource EmberIconButtonHot}">
-                                            <TextBlock Text="&#xE75C;" FontFamily="Segoe MDL2 Assets"
+                                            <controls:GlyphText Text="&#xE75C;" FontFamily="Segoe MDL2 Assets"
                                                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"/>
                                             <ui:Button.ToolTip>
                                                 <TextBlock Text="{Binding Common_Clear, Source={x:Static strings:Strings.Instance}}"/>
@@ -6475,7 +6476,7 @@
 
             <!-- ─── TAB 3: Sticks (dynamic) ─── -->
             <TabItem>
-                <ScrollViewer Padding="24,0" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
+                <ScrollViewer AutomationProperties.Name="{Binding Pad_Sticks, Source={x:Static strings:Strings.Instance}}" Padding="24,0" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
                     <StackPanel Margin="0,16,0,16">
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                             <viewControls:LabeledShapeIcon Shape="Stick" Width="24" Height="24"
@@ -7375,7 +7376,7 @@
                                                                CommandParameter="{Binding}" Style="{StaticResource EmberIconButtonHot}"
                                                                HorizontalAlignment="Right" Margin="0,0,0,4"
                                                                ToolTip="{Binding Pad_Lighting_RemoveColor, Source={x:Static strings:Strings.Instance}}">
-                                                        <TextBlock Text="&#xE738;" FontFamily="Segoe MDL2 Assets" FontSize="12"
+                                                        <controls:GlyphText Text="&#xE738;" FontFamily="Segoe MDL2 Assets" FontSize="12"
                                                                    Foreground="{DynamicResource TextFillColorTertiaryBrush}"/>
                                                     </ui:Button>
                                                     <!-- Full picker, same gamut as every other color selector:
@@ -7427,7 +7428,7 @@
                                 </ItemsControl>
                                 <Button Command="{Binding AddSteeringLockPaletteColorCommand}" HorizontalAlignment="Left" Padding="10,4">
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="&#xE710;" FontFamily="Segoe MDL2 Assets" FontSize="12" Margin="0,0,6,0" VerticalAlignment="Center"/>
+                                        <controls:GlyphText Text="&#xE710;" FontFamily="Segoe MDL2 Assets" FontSize="12" Margin="0,0,6,0" VerticalAlignment="Center"/>
                                         <TextBlock Text="{Binding Pad_Lighting_AddColor, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </Button>
@@ -7468,7 +7469,7 @@
                     <Border x:Name="FlickStickCard" Style="{StaticResource CardBorder}" Visibility="Collapsed">
                         <StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                <TextBlock Text="&#xE72C;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                <controls:GlyphText Text="&#xE72C;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                            VerticalAlignment="Center" Margin="0,0,8,0"/>
                                 <TextBlock Text="{Binding Pad_FlickStick_Header, Source={x:Static strings:Strings.Instance}}"
                                            Style="{StaticResource CardTitle}"/>
@@ -7563,7 +7564,7 @@
 
             <!-- ─── TAB 4: Triggers (dynamic) ─── -->
             <TabItem>
-                <ScrollViewer Padding="24,0" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
+                <ScrollViewer AutomationProperties.Name="{Binding Pad_Triggers, Source={x:Static strings:Strings.Instance}}" Padding="24,0" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
                     <StackPanel Margin="0,16,0,16">
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                             <viewControls:LabeledShapeIcon Shape="TriggerLeft" Width="24" Height="24"
@@ -7754,10 +7755,10 @@
 
             <!-- ─── TAB 5: Force Feedback ─── -->
             <TabItem>
-                <ScrollViewer Padding="24,0" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
+                <ScrollViewer AutomationProperties.Name="{Binding Pad_ForceFeedback, Source={x:Static strings:Strings.Instance}}" Padding="24,0" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
                     <StackPanel Margin="0,16,0,16">
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                            <TextBlock Text="&#xE877;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                            <controls:GlyphText Text="&#xE877;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                        VerticalAlignment="Center" Margin="0,0,10,0"/>
                             <TextBlock Text="{Binding Pad_ForceFeedback_Header, Source={x:Static strings:Strings.Instance}}"
                                        Style="{StaticResource TitleTextBlockStyle}" FontFamily="{StaticResource DisplayFontFamily}" FontWeight="650" FontSize="26"/>
@@ -7777,7 +7778,7 @@
                         <Border Style="{StaticResource CardBorder}">
                             <StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                            <TextBlock Text="&#xE877;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                            <controls:GlyphText Text="&#xE877;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                        VerticalAlignment="Center" Margin="0,0,8,0"/>
                             <TextBlock Text="{Binding Pad_ForceFeedbackRumble, Source={x:Static strings:Strings.Instance}}"
                                        Style="{StaticResource CardTitle}"/>
@@ -7999,7 +8000,7 @@
                         <Border Style="{StaticResource CardBorder}">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="&#xF0AD;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                    <controls:GlyphText Text="&#xF0AD;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Pad_ConstantForce_Header, Source={x:Static strings:Strings.Instance}}"
                                                Style="{StaticResource CardTitle}"/>
@@ -8094,7 +8095,7 @@
                         <Border Style="{StaticResource CardBorder}">
                             <StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                            <TextBlock Text="&#xE767;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                            <controls:GlyphText Text="&#xE767;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                        VerticalAlignment="Center" Margin="0,0,8,0"/>
                             <TextBlock Text="{Binding Settings_AudioRumble, Source={x:Static strings:Strings.Instance}}"
                                        Style="{StaticResource CardTitle}"/>
@@ -8171,7 +8172,7 @@
                         <Border Style="{StaticResource CardBorder}">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="&#xE72A;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                    <controls:GlyphText Text="&#xE72A;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Pad_TriggerRouting_Header, Source={x:Static strings:Strings.Instance}}"
                                                Style="{StaticResource CardTitle}"/>
@@ -8253,7 +8254,7 @@
                                         </TextBlock>
                                     </StackPanel>
                                     <ui:Button Command="{Binding LeftTriggerRouteActivatorRecordCommand}" Style="{StaticResource EmberIconButtonHot}" VerticalAlignment="Top">
-                                        <TextBlock Text="{Binding LeftTriggerRouteActivatorRecordButtonIcon}" FontFamily="Segoe MDL2 Assets"
+                                        <controls:GlyphText Text="{Binding LeftTriggerRouteActivatorRecordButtonIcon}" FontFamily="Segoe MDL2 Assets"
                                                    Foreground="{DynamicResource EmberBrush}"/>
                                         <ui:Button.ToolTip><TextBlock Text="{Binding LeftTriggerRouteActivatorRecordButtonText}"/></ui:Button.ToolTip>
                                     </ui:Button>
@@ -8343,7 +8344,7 @@
                                         </TextBlock>
                                     </StackPanel>
                                     <ui:Button Command="{Binding RightTriggerRouteActivatorRecordCommand}" Style="{StaticResource EmberIconButtonHot}" VerticalAlignment="Top">
-                                        <TextBlock Text="{Binding RightTriggerRouteActivatorRecordButtonIcon}" FontFamily="Segoe MDL2 Assets"
+                                        <controls:GlyphText Text="{Binding RightTriggerRouteActivatorRecordButtonIcon}" FontFamily="Segoe MDL2 Assets"
                                                    Foreground="{DynamicResource EmberBrush}"/>
                                         <ui:Button.ToolTip><TextBlock Text="{Binding RightTriggerRouteActivatorRecordButtonText}"/></ui:Button.ToolTip>
                                     </ui:Button>
@@ -8373,7 +8374,7 @@
                  (visible only for DualSense / DualSense Edge slots)
                  ══════════════════════════════════════ -->
             <TabItem>
-                <ScrollViewer Padding="24,0" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
+                <ScrollViewer AutomationProperties.Name="{Binding Pad_AdaptiveTriggers, Source={x:Static strings:Strings.Instance}}" Padding="24,0" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
                     <StackPanel Margin="0,16,0,16">
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                             <Viewbox Width="24" Height="24" Stretch="Uniform"
@@ -8809,10 +8810,10 @@
                  (visible for DS4 / DualSense / DualSense Edge slots)
                  ══════════════════════════════════════ -->
             <TabItem>
-                <ScrollViewer Padding="24,0" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
+                <ScrollViewer AutomationProperties.Name="{Binding Pad_Lighting, Source={x:Static strings:Strings.Instance}}" Padding="24,0" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
                     <StackPanel Margin="0,16,0,16">
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                            <TextBlock Text="&#xE781;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                            <controls:GlyphText Text="&#xE781;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                        VerticalAlignment="Center" Margin="0,0,10,0"/>
                             <TextBlock Text="{Binding Pad_Lighting_Header, Source={x:Static strings:Strings.Instance}}"
                                        Style="{StaticResource TitleTextBlockStyle}" FontFamily="{StaticResource DisplayFontFamily}" FontWeight="650" FontSize="26"/>
@@ -8909,7 +8910,7 @@
                         <Border x:Name="LightbarModeCard" Style="{StaticResource CardBorder}">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="&#xE790;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                    <controls:GlyphText Text="&#xE790;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Pad_Lighting_BaseColor, Source={x:Static strings:Strings.Instance}}"
                                                Style="{StaticResource CardTitle}"/>
@@ -9087,7 +9088,7 @@
                                                                    Style="{StaticResource EmberIconButtonHot}"
                                                                    HorizontalAlignment="Right" Margin="0,0,0,4"
                                                                    ToolTip="{Binding Pad_Lighting_RemoveColor, Source={x:Static strings:Strings.Instance}}">
-                                                            <TextBlock Text="&#xE738;" FontFamily="Segoe MDL2 Assets" FontSize="12"
+                                                            <controls:GlyphText Text="&#xE738;" FontFamily="Segoe MDL2 Assets" FontSize="12"
                                                                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"/>
                                                         </ui:Button>
                                                         <views:ColorPickerControl HorizontalAlignment="Left" Margin="0,0,0,8"
@@ -9138,7 +9139,7 @@
                                         <Button Command="{Binding DeviceConfig.AddPaletteColorCommand}"
                                                 Padding="10,4">
                                             <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="&#xE710;" FontFamily="Segoe MDL2 Assets" FontSize="12" Margin="0,0,6,0" VerticalAlignment="Center"/>
+                                                <controls:GlyphText Text="&#xE710;" FontFamily="Segoe MDL2 Assets" FontSize="12" Margin="0,0,6,0" VerticalAlignment="Center"/>
                                                 <TextBlock Text="{Binding Pad_Lighting_AddColor, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"/>
                                             </StackPanel>
                                         </Button>
@@ -9146,7 +9147,7 @@
                                                 Margin="8,0,0,0" Padding="10,4"
                                                 ToolTip="{Binding Pad_Lighting_ResetPaletteTooltip, Source={x:Static strings:Strings.Instance}}">
                                             <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="&#xE72C;" FontFamily="Segoe MDL2 Assets" FontSize="12" Margin="0,0,6,0" VerticalAlignment="Center"/>
+                                                <controls:GlyphText Text="&#xE72C;" FontFamily="Segoe MDL2 Assets" FontSize="12" Margin="0,0,6,0" VerticalAlignment="Center"/>
                                                 <TextBlock Text="{Binding Pad_Lighting_ResetPalette, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"/>
                                             </StackPanel>
                                         </Button>
@@ -9805,7 +9806,7 @@
                                                                    Style="{StaticResource EmberIconButtonHot}"
                                                                    HorizontalAlignment="Right" Margin="0,0,0,4"
                                                                    ToolTip="{Binding Pad_Lighting_RemoveColor, Source={x:Static strings:Strings.Instance}}">
-                                                            <TextBlock Text="&#xE738;" FontFamily="Segoe MDL2 Assets" FontSize="12"
+                                                            <controls:GlyphText Text="&#xE738;" FontFamily="Segoe MDL2 Assets" FontSize="12"
                                                                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"/>
                                                         </ui:Button>
                                                         <views:ColorPickerControl HorizontalAlignment="Left" Margin="0,0,0,8"
@@ -9856,7 +9857,7 @@
                                         <Button Command="{Binding DeviceConfig.AddInputReactivePaletteColorCommand}"
                                                 Padding="10,4">
                                             <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="&#xE710;" FontFamily="Segoe MDL2 Assets" FontSize="12" Margin="0,0,6,0" VerticalAlignment="Center"/>
+                                                <controls:GlyphText Text="&#xE710;" FontFamily="Segoe MDL2 Assets" FontSize="12" Margin="0,0,6,0" VerticalAlignment="Center"/>
                                                 <TextBlock Text="{Binding Pad_Lighting_AddColor, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"/>
                                             </StackPanel>
                                         </Button>
@@ -9864,7 +9865,7 @@
                                                 Margin="8,0,0,0" Padding="10,4"
                                                 ToolTip="{Binding Pad_Lighting_ResetPaletteTooltip, Source={x:Static strings:Strings.Instance}}">
                                             <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="&#xE72C;" FontFamily="Segoe MDL2 Assets" FontSize="12" Margin="0,0,6,0" VerticalAlignment="Center"/>
+                                                <controls:GlyphText Text="&#xE72C;" FontFamily="Segoe MDL2 Assets" FontSize="12" Margin="0,0,6,0" VerticalAlignment="Center"/>
                                                 <TextBlock Text="{Binding Pad_Lighting_ResetPalette, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"/>
                                             </StackPanel>
                                         </Button>
@@ -9922,7 +9923,7 @@
                         <Border x:Name="IndicatorLedsCard" Style="{StaticResource CardBorder}">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="&#xEF31;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                    <controls:GlyphText Text="&#xEF31;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Pad_Lighting_IndicatorLeds, Source={x:Static strings:Strings.Instance}}"
                                                Style="{StaticResource CardTitle}"/>
@@ -10174,7 +10175,7 @@
                         <Border x:Name="GuideLedCard" Style="{StaticResource CardBorder}" Visibility="Collapsed">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="&#xE706;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                    <controls:GlyphText Text="&#xE706;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Pad_Lighting_GuideLed, Source={x:Static strings:Strings.Instance}}"
                                                Style="{StaticResource CardTitle}"/>
@@ -10225,10 +10226,10 @@
                  (visible when the selected mapped device has a gyroscope or an accelerometer)
                  ══════════════════════════════════════ -->
             <TabItem>
-                <ScrollViewer Padding="24,0" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
+                <ScrollViewer AutomationProperties.Name="{Binding Pad_Gyro, Source={x:Static strings:Strings.Instance}}" Padding="24,0" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
                     <StackPanel Margin="0,16,0,16">
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                            <TextBlock Text="&#xE7AD;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                            <controls:GlyphText Text="&#xE7AD;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                        VerticalAlignment="Center" Margin="0,0,10,0"/>
                             <TextBlock Text="{Binding Pad_Gyro_Header, Source={x:Static strings:Strings.Instance}}"
                                        Style="{StaticResource TitleTextBlockStyle}" FontFamily="{StaticResource DisplayFontFamily}" FontWeight="650" FontSize="26"/>
@@ -10248,7 +10249,7 @@
                         <Border Style="{StaticResource CardBorder}">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="&#xE815;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                    <controls:GlyphText Text="&#xE815;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Pad_Gyro_Grip_Header, Source={x:Static strings:Strings.Instance}}"
                                                Style="{StaticResource CardTitle}"/>
@@ -10278,7 +10279,7 @@
                         <Border x:Name="GyroSimulationCard" Style="{StaticResource CardBorder}" Visibility="Collapsed">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="&#xE7AD;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                    <controls:GlyphText Text="&#xE7AD;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Pad_Gyro_Simulation_Header, Source={x:Static strings:Strings.Instance}}"
                                                Style="{StaticResource CardTitle}"/>
@@ -10323,7 +10324,7 @@
                         <Border x:Name="GyroPassthroughCard" Style="{StaticResource CardBorder}">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="&#xE72A;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                    <controls:GlyphText Text="&#xE72A;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Pad_Gyro_Passthrough_Header, Source={x:Static strings:Strings.Instance}}"
                                                Style="{StaticResource CardTitle}"/>
@@ -10403,7 +10404,7 @@
                         <Border Style="{StaticResource CardBorder}">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="&#xE99A;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                    <controls:GlyphText Text="&#xE99A;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Pad_GyroTilt_Header, Source={x:Static strings:Strings.Instance}}"
                                                Style="{StaticResource CardTitle}"/>
@@ -10443,7 +10444,7 @@
                         <Border x:Name="GyroCalibrationCard" Style="{StaticResource CardBorder}">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="&#xF272;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                    <controls:GlyphText Text="&#xF272;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Pad_Gyro_Calibration_Header, Source={x:Static strings:Strings.Instance}}"
                                                Style="{StaticResource CardTitle}"/>
@@ -10523,7 +10524,7 @@
                         <Border x:Name="GyroSensitivityCard" Style="{StaticResource CardBorder}">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="&#xE9E9;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                    <controls:GlyphText Text="&#xE9E9;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Pad_Gyro_Sensitivity_Header, Source={x:Static strings:Strings.Instance}}"
                                                Style="{StaticResource CardTitle}"/>
@@ -10644,7 +10645,7 @@
                         <Border x:Name="CompassYawCard" Style="{StaticResource CardBorder}" Visibility="Collapsed">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="&#xE707;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                    <controls:GlyphText Text="&#xE707;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Pad_Gyro_Compass_Header, Source={x:Static strings:Strings.Instance}}"
                                                Style="{StaticResource CardTitle}"/>
@@ -10680,7 +10681,7 @@
                         <Border x:Name="GyroResponseCard" Style="{StaticResource CardBorder}">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="&#xF1CB;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                    <controls:GlyphText Text="&#xF1CB;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Pad_Gyro_Response_Header, Source={x:Static strings:Strings.Instance}}"
                                                Style="{StaticResource CardTitle}"/>
@@ -10786,7 +10787,7 @@
                         <Border x:Name="GyroEngageCard" Style="{StaticResource CardBorder}">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="&#xE7E8;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                    <controls:GlyphText Text="&#xE7E8;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Pad_Gyro_Engage_Header, Source={x:Static strings:Strings.Instance}}"
                                                Style="{StaticResource CardTitle}"/>
@@ -10906,7 +10907,7 @@
                                     <ui:Button Command="{Binding GyroAimEngageRecordCommand}"
                                                Style="{StaticResource EmberIconButtonHot}"
                                                VerticalAlignment="Top">
-                                        <TextBlock Text="{Binding GyroAimEngageRecordButtonIcon}" FontFamily="Segoe MDL2 Assets"
+                                        <controls:GlyphText Text="{Binding GyroAimEngageRecordButtonIcon}" FontFamily="Segoe MDL2 Assets"
                                                    Foreground="{DynamicResource EmberBrush}"/>
                                         <ui:Button.ToolTip>
                                             <TextBlock Text="{Binding GyroAimEngageRecordButtonText}"/>
@@ -10951,7 +10952,7 @@
                  Xbox One / Elite / Series).
                  ══════════════════════════════════════ -->
             <TabItem>
-                <ScrollViewer Padding="24,0" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
+                <ScrollViewer AutomationProperties.Name="{Binding Pad_ImpulseTriggers, Source={x:Static strings:Strings.Instance}}" Padding="24,0" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
                     <StackPanel Margin="0,16,0,16">
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                             <Viewbox Width="24" Height="24" Stretch="Uniform"
@@ -11104,7 +11105,7 @@
                         <Border Style="{StaticResource CardBorder}">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="&#xF0AD;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                    <controls:GlyphText Text="&#xF0AD;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Pad_ConstantTriggerForce_Header, Source={x:Static strings:Strings.Instance}}"
                                                Style="{StaticResource CardTitle}"/>
@@ -11149,7 +11150,7 @@
                         <Border Style="{StaticResource CardBorder}">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="&#xE767;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                    <controls:GlyphText Text="&#xE767;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Pad_AudioTriggerRumble_Header, Source={x:Static strings:Strings.Instance}}"
                                                Style="{StaticResource CardTitle}"/>
@@ -11231,10 +11232,10 @@
                  selected mapped device.
                  ═══════════════════════════════════════════ -->
             <TabItem>
-                <ScrollViewer Padding="24,0" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
+                <ScrollViewer AutomationProperties.Name="{Binding Pad_Touchpad, Source={x:Static strings:Strings.Instance}}" Padding="24,0" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
                     <StackPanel Margin="0,16,0,16">
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                            <TextBlock Text="&#xEFA5;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                            <controls:GlyphText Text="&#xEFA5;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                        VerticalAlignment="Center" Margin="0,0,10,0"/>
                             <TextBlock Text="{Binding Pad_Touchpad_Header, Source={x:Static strings:Strings.Instance}}"
                                        Style="{StaticResource TitleTextBlockStyle}" FontFamily="{StaticResource DisplayFontFamily}" FontWeight="650" FontSize="26"/>
@@ -11372,7 +11373,7 @@
                         <Border Style="{StaticResource CardBorder}">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="&#xE962;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                    <controls:GlyphText Text="&#xE962;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Pad_Touchpad_Mouse_Header, Source={x:Static strings:Strings.Instance}}"
                                                Style="{StaticResource CardTitle}"/>
@@ -11566,7 +11567,7 @@
                         <Border Style="{StaticResource CardBorder}">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="&#xE962;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                    <controls:GlyphText Text="&#xE962;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Pad_Touchpad_Pointer_Header, Source={x:Static strings:Strings.Instance}}"
                                                Style="{StaticResource CardTitle}"/>
@@ -11642,7 +11643,7 @@
                         <Border Style="{StaticResource CardBorder}">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="&#xEDA4;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                    <controls:GlyphText Text="&#xEDA4;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Pad_Touchpad_SyntheticPressure_Header, Source={x:Static strings:Strings.Instance}}"
                                                Style="{StaticResource CardTitle}"/>
@@ -11695,7 +11696,7 @@
                                 Visibility="{Binding SelectedDeviceHasTouchpadPulse, Converter={StaticResource BoolToVisibilityConverter}}">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="&#xE877;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                    <controls:GlyphText Text="&#xE877;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Pad_Touchpad_SwipeHaptics_Header, Source={x:Static strings:Strings.Instance}}"
                                                Style="{StaticResource CardTitle}"/>
@@ -11734,7 +11735,7 @@
                         <Border Style="{StaticResource CardBorder}">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="&#xED10;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                    <controls:GlyphText Text="&#xED10;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Pad_Touchpad_Detection_Header, Source={x:Static strings:Strings.Instance}}"
                                                Style="{StaticResource CardTitle}"/>
@@ -11786,7 +11787,7 @@
                         <Border Style="{StaticResource CardBorder}">
                             <StackPanel IsEnabled="{Binding TouchpadInBoxSectionEnabled}">
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="&#xF12B;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                    <controls:GlyphText Text="&#xF12B;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Pad_Touchpad_InBox_Header, Source={x:Static strings:Strings.Instance}}"
                                                Style="{StaticResource CardTitle}"/>
@@ -12019,7 +12020,7 @@
                         <Border Style="{StaticResource CardBorder}">
                             <StackPanel IsEnabled="{Binding TouchpadCustomSectionEnabled}">
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="&#xF4A5;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                    <controls:GlyphText Text="&#xF4A5;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Pad_Touchpad_Custom_Header, Source={x:Static strings:Strings.Instance}}"
                                                Style="{StaticResource CardTitle}"/>
@@ -12068,7 +12069,7 @@
 
             <!-- ═══ Wheel (Tag 11) — native-FFB wheels only ═══ -->
             <TabItem>
-                <ScrollViewer Padding="24,0" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
+                <ScrollViewer AutomationProperties.Name="{Binding Pad_Wheel, Source={x:Static strings:Strings.Instance}}" Padding="24,0" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
                     <StackPanel Margin="0,16,0,16">
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                             <Viewbox Width="22" Height="22" VerticalAlignment="Center" Margin="0,0,10,0">
@@ -12154,10 +12155,10 @@
 
             <!-- === TAB 12: Audio (slot-level, issue #83) === -->
             <TabItem>
-                <ScrollViewer Padding="24,0" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
+                <ScrollViewer AutomationProperties.Name="{Binding Pad_Audio, Source={x:Static strings:Strings.Instance}}" Padding="24,0" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
                     <StackPanel Margin="0,16,0,16">
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                            <TextBlock Text="&#xE767;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                            <controls:GlyphText Text="&#xE767;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                        VerticalAlignment="Center" Margin="0,0,10,0"/>
                             <TextBlock Text="{Binding Pad_Audio_Header, Source={x:Static strings:Strings.Instance}}"
                                        Style="{StaticResource TitleTextBlockStyle}" FontFamily="{StaticResource DisplayFontFamily}" FontWeight="650" FontSize="26"/>
@@ -12170,7 +12171,7 @@
                         <Border Style="{StaticResource CardBorder}">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="&#xE7F5;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                    <controls:GlyphText Text="&#xE7F5;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Pad_Audio_Output_Header, Source={x:Static strings:Strings.Instance}}"
                                                Style="{StaticResource CardTitle}"/>
@@ -12293,7 +12294,7 @@
                                         <ui:Button Command="{Binding MirrorEngageRecordCommand}"
                                                    Style="{StaticResource EmberIconButtonHot}"
                                                    VerticalAlignment="Top">
-                                            <TextBlock Text="{Binding MirrorEngageRecordButtonIcon}" FontFamily="Segoe MDL2 Assets"
+                                            <controls:GlyphText Text="{Binding MirrorEngageRecordButtonIcon}" FontFamily="Segoe MDL2 Assets"
                                                        Foreground="{DynamicResource EmberBrush}"/>
                                             <ui:Button.ToolTip>
                                                 <TextBlock Text="{Binding MirrorEngageRecordButtonText}"/>
@@ -12719,7 +12720,7 @@
                                                                    Command="{Binding DataContext.RemoveEqBandCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                                                    CommandParameter="{Binding}"
                                                                    ToolTip="{Binding Pad_Audio_EqRemove, Source={x:Static strings:Strings.Instance}}">
-                                                            <ui:SymbolIcon Symbol="Delete24"/>
+                                                            <controls:DecorativeSymbolIcon Symbol="Delete24"/>
                                                         </ui:Button>
                                                     </Grid>
                                                 </DataTemplate>
@@ -12795,7 +12796,7 @@
                         <Border Style="{StaticResource CardBorder}">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="&#xEC4F;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                    <controls:GlyphText Text="&#xEC4F;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Pad_Audio_Macros_Header, Source={x:Static strings:Strings.Instance}}"
                                                Style="{StaticResource CardTitle}"/>
@@ -12815,7 +12816,7 @@
                                                     HorizontalContentAlignment="Left" Margin="0,0,0,4" Padding="8,5"
                                                     ToolTip="{Binding Pad_Audio_OpenMacro_Tooltip, Source={x:Static strings:Strings.Instance}}">
                                                 <StackPanel Orientation="Horizontal">
-                                                    <TextBlock Text="&#xEC4F;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                                                    <controls:GlyphText Text="&#xEC4F;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
                                                                FontSize="13" VerticalAlignment="Center" Margin="0,0,8,0"/>
                                                     <TextBlock Text="{Binding Name}" FontWeight="SemiBold" VerticalAlignment="Center"/>
                                                     <TextBlock Text="{Binding SoundFilesSummary}" VerticalAlignment="Center"
@@ -12832,7 +12833,7 @@
                         <Border Style="{StaticResource CardBorder}">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="&#xE8B7;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                    <controls:GlyphText Text="&#xE8B7;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Pad_Audio_Packages_Header, Source={x:Static strings:Strings.Instance}}"
                                                Style="{StaticResource CardTitle}"/>
@@ -12858,7 +12859,7 @@
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal" Margin="0,2">
-                                                <TextBlock Text="&#xE8D6;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                                                <controls:GlyphText Text="&#xE8D6;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
                                                            FontSize="13" VerticalAlignment="Center" Margin="0,0,8,0"/>
                                                 <TextBlock Text="{Binding Name}" FontWeight="SemiBold" VerticalAlignment="Center"/>
                                                 <TextBlock Text="{Binding Path}" VerticalAlignment="Center"
@@ -12875,10 +12876,10 @@
 
             <!-- === TAB 13: Pointer (Wii Remote IR camera tuning, issue #146) === -->
             <TabItem>
-                <ScrollViewer Padding="24,0" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
+                <ScrollViewer AutomationProperties.Name="{Binding Pad_Pointer, Source={x:Static strings:Strings.Instance}}" Padding="24,0" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
                     <StackPanel Margin="0,16,0,16">
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                            <TextBlock Text="&#xE8B0;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                            <controls:GlyphText Text="&#xE8B0;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                        VerticalAlignment="Center" Margin="0,0,10,0"/>
                             <TextBlock Text="{Binding Pad_Pointer_Header, Source={x:Static strings:Strings.Instance}}"
                                        Style="{StaticResource TitleTextBlockStyle}" FontFamily="{StaticResource DisplayFontFamily}" FontWeight="650" FontSize="26"/>
@@ -12893,7 +12894,7 @@
                         <Border Style="{StaticResource CardBorder}">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="&#xE962;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                    <controls:GlyphText Text="&#xE962;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Pad_Pointer_ModeTitle, Source={x:Static strings:Strings.Instance}}"
                                                Style="{StaticResource CardTitle}"/>
@@ -12948,7 +12949,7 @@
                         <Border Style="{StaticResource CardBorder}">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="&#xE9E9;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                    <controls:GlyphText Text="&#xE9E9;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Pad_Pointer_TuningTitle, Source={x:Static strings:Strings.Instance}}"
                                                Style="{StaticResource CardTitle}"/>
@@ -13001,7 +13002,7 @@
 
             <!-- === TAB 14: Mouse (mouse gestures, issue #200) === -->
             <TabItem>
-                <ScrollViewer VerticalScrollBarVisibility="Visible" Padding="0,0,8,0">
+                <ScrollViewer AutomationProperties.Name="{Binding Pad_Mouse, Source={x:Static strings:Strings.Instance}}" VerticalScrollBarVisibility="Visible" Padding="0,0,8,0">
                     <StackPanel>
                         <!-- Mouse Gestures card: hold the gesture button, flick,
                              one action fires at release. Five actions per button
@@ -13009,7 +13010,7 @@
                         <Border Style="{StaticResource CardBorder}">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="&#xE962;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                    <controls:GlyphText Text="&#xE962;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Pad_MouseGestures_Header, Source={x:Static strings:Strings.Instance}}"
                                                Style="{StaticResource CardTitle}"/>
@@ -13112,7 +13113,7 @@
                                         <ui:Button Command="{Binding MouseGestureCustomEngageRecordCommand}"
                                                    Style="{StaticResource EmberIconButtonHot}"
                                                    VerticalAlignment="Top" IsEnabled="{Binding DataContext.MouseGesturesEnabled, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
-                                            <TextBlock Text="{Binding MouseGestureCustomEngageRecordButtonIcon}" FontFamily="Segoe MDL2 Assets"
+                                            <controls:GlyphText Text="{Binding MouseGestureCustomEngageRecordButtonIcon}" FontFamily="Segoe MDL2 Assets"
                                                        Foreground="{DynamicResource EmberBrush}"/>
                                             <ui:Button.ToolTip>
                                                 <TextBlock Text="{Binding MouseGestureCustomEngageRecordButtonText}"/>
@@ -13383,7 +13384,7 @@
                                     <ui:Button AutomationProperties.Name="{Binding HostRecordText}" Command="{Binding DataContext.MenuHostRecordCommand,
                                                    RelativeSource={RelativeSource AncestorType=TabItem}}"
                                                Style="{StaticResource EmberIconButtonHot}" Margin="6,0,0,0">
-                                        <TextBlock Text="{Binding HostRecordIcon}" FontFamily="Segoe MDL2 Assets"
+                                        <controls:GlyphText Text="{Binding HostRecordIcon}" FontFamily="Segoe MDL2 Assets"
                                                    Foreground="{DynamicResource EmberBrush}"/>
                                     </ui:Button>
                                     <ui:Button Command="{Binding ResetHostCommand}" Style="{StaticResource ResetButton}" ToolTip="{Binding Menu_Reset_HostInput, Source={x:Static strings:Strings.Instance}}"/>
@@ -13458,7 +13459,7 @@
                                                CommandParameter="CustomX"
                                                Style="{StaticResource EmberIconButtonHot}" Margin="6,0,0,0"
                                                VerticalAlignment="Top">
-                                        <TextBlock Text="{Binding CustomXRecordIcon}" FontFamily="Segoe MDL2 Assets"
+                                        <controls:GlyphText Text="{Binding CustomXRecordIcon}" FontFamily="Segoe MDL2 Assets"
                                                    Foreground="{DynamicResource EmberBrush}"/>
                                     </ui:Button>
                                     <ui:Button Command="{Binding ResetCustomXCommand}" Style="{StaticResource ResetButton}" VerticalAlignment="Top" ToolTip="{Binding Menu_Reset_CustomX, Source={x:Static strings:Strings.Instance}}"/>
@@ -13514,7 +13515,7 @@
                                                CommandParameter="CustomY"
                                                Style="{StaticResource EmberIconButtonHot}" Margin="6,0,0,0"
                                                VerticalAlignment="Top">
-                                        <TextBlock Text="{Binding CustomYRecordIcon}" FontFamily="Segoe MDL2 Assets"
+                                        <controls:GlyphText Text="{Binding CustomYRecordIcon}" FontFamily="Segoe MDL2 Assets"
                                                    Foreground="{DynamicResource EmberBrush}"/>
                                     </ui:Button>
                                     <ui:Button Command="{Binding ResetCustomYCommand}" Style="{StaticResource ResetButton}" VerticalAlignment="Top" ToolTip="{Binding Menu_Reset_CustomY, Source={x:Static strings:Strings.Instance}}"/>
@@ -13574,7 +13575,7 @@
                                                CommandParameter="Click"
                                                Style="{StaticResource EmberIconButtonHot}" Margin="6,0,0,0"
                                                VerticalAlignment="Top">
-                                        <TextBlock Text="{Binding ClickRecordIcon}" FontFamily="Segoe MDL2 Assets"
+                                        <controls:GlyphText Text="{Binding ClickRecordIcon}" FontFamily="Segoe MDL2 Assets"
                                                    Foreground="{DynamicResource EmberBrush}"/>
                                     </ui:Button>
                                     <ui:Button Command="{Binding ResetClickCommand}" Style="{StaticResource ResetButton}" VerticalAlignment="Top" ToolTip="{Binding Menu_Reset_Click, Source={x:Static strings:Strings.Instance}}"/>
@@ -13811,7 +13812,7 @@
                                                            FontSize="13" TextAlignment="Center"
                                                            VerticalAlignment="Center"
                                                            Visibility="{Binding IsGlyphIcon, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                                <TextBlock Text="&#xE8B9;" FontFamily="Segoe MDL2 Assets"
+                                                <controls:GlyphText Text="&#xE8B9;" FontFamily="Segoe MDL2 Assets"
                                                            FontSize="14" Margin="0,0,6,0"
                                                            VerticalAlignment="Center"
                                                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
@@ -13873,7 +13874,7 @@
                                                      file, from the shared icon picker (#390, #471). -->
                                                 <ui:Button AutomationProperties.Name="{Binding Menu_ChooseIcon_Tip, Source={x:Static strings:Strings.Instance}}" Click="MenuCellChooseIcon_Click" Margin="6,0,0,0"
                                                            ToolTip="{Binding Menu_ChooseIcon_Tip, Source={x:Static strings:Strings.Instance}}">
-                                                    <TextBlock Text="&#xEB9F;" FontFamily="Segoe MDL2 Assets" FontSize="14"/>
+                                                    <controls:GlyphText Text="&#xEB9F;" FontFamily="Segoe MDL2 Assets" FontSize="14"/>
                                                 </ui:Button>
                                                 <ui:Button Command="{Binding ResetCellCommand}" Style="{StaticResource ResetButton}" Margin="6,0,0,0" ToolTip="{Binding Menu_Reset_Cell, Source={x:Static strings:Strings.Instance}}"/>
                                             </StackPanel>
@@ -13887,7 +13888,7 @@
                             <Border Style="{StaticResource CardBorder}" Margin="0,16,0,0">
                                 <StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                        <TextBlock Text="&#xEB9F;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                        <controls:GlyphText Text="&#xEB9F;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                    VerticalAlignment="Center" Margin="0,0,8,0"/>
                                         <TextBlock Text="{Binding Pad_Menus_IconPackages_Header, Source={x:Static strings:Strings.Instance}}"
                                                    Style="{StaticResource CardTitle}"/>
@@ -13913,7 +13914,7 @@
                                         <ListBox.ItemTemplate>
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal" Margin="0,2">
-                                                    <TextBlock Text="&#xEB9F;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                                                    <controls:GlyphText Text="&#xEB9F;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
                                                                FontSize="13" VerticalAlignment="Center" Margin="0,0,8,0"/>
                                                     <TextBlock Text="{Binding Name}" FontWeight="SemiBold" VerticalAlignment="Center"/>
                                                     <TextBlock Text="{Binding Path}" VerticalAlignment="Center"
@@ -13931,10 +13932,10 @@
 
             <!-- === TAB 16: Bass Shakers (slot-level, issue #236 rumble to audio) === -->
             <TabItem>
-                <ScrollViewer Padding="24,0" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
+                <ScrollViewer AutomationProperties.Name="{Binding Pad_Tab_BassShakers, Source={x:Static strings:Strings.Instance}}" Padding="24,0" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
                     <StackPanel Margin="0,16,0,16">
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                            <TextBlock Text="&#xE7F5;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                            <controls:GlyphText Text="&#xE7F5;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                        VerticalAlignment="Center" Margin="0,0,10,0"/>
                             <TextBlock Text="{Binding Pad_RumbleAudio_Header, Source={x:Static strings:Strings.Instance}}"
                                        Style="{StaticResource TitleTextBlockStyle}" FontFamily="{StaticResource DisplayFontFamily}" FontWeight="650" FontSize="26"/>
@@ -13947,7 +13948,7 @@
                         <Border Style="{StaticResource CardBorder}">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="&#xE877;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                    <controls:GlyphText Text="&#xE877;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Pad_RumbleAudio_Card_Header, Source={x:Static strings:Strings.Instance}}"
                                                Style="{StaticResource CardTitle}"/>
@@ -14098,10 +14099,10 @@
                  Visible for every slot type except MIDI, which has none of
                  these surfaces. -->
             <TabItem>
-                <ScrollViewer Padding="24,0" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
+                <ScrollViewer AutomationProperties.Name="{Binding Pad_Tab_Output, Source={x:Static strings:Strings.Instance}}" Padding="24,0" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
                     <StackPanel Margin="0,16,0,16">
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                            <TextBlock Text="&#xE7FC;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                            <controls:GlyphText Text="&#xE7FC;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                        VerticalAlignment="Center" Margin="0,0,10,0"/>
                             <TextBlock Text="{Binding Pad_Tab_Output, Source={x:Static strings:Strings.Instance}}"
                                        Style="{StaticResource TitleTextBlockStyle}" FontFamily="{StaticResource DisplayFontFamily}" FontWeight="650" FontSize="26"/>
@@ -14122,7 +14123,7 @@
                                 Visibility="{Binding SocdCardVisible, Converter={StaticResource BoolToVisibilityConverter}}">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="&#xE8AB;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                    <controls:GlyphText Text="&#xE8AB;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Pad_Socd_Card_Header, Source={x:Static strings:Strings.Instance}}"
                                                Style="{StaticResource CardTitle}"/>
@@ -14228,7 +14229,7 @@
                                                                    VerticalAlignment="Center" Margin="2,0,0,0"
                                                                    Command="{Binding DataContext.RemoveSocdPairCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                                                    CommandParameter="{Binding}">
-                                                            <TextBlock Text="&#xE74D;" FontFamily="Segoe MDL2 Assets"
+                                                            <controls:GlyphText Text="&#xE74D;" FontFamily="Segoe MDL2 Assets"
                                                                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"/>
                                                             <ui:Button.ToolTip>
                                                                 <TextBlock Text="{Binding Pad_Socd_RemovePair_Tooltip, Source={x:Static strings:Strings.Instance}}"/>
@@ -14241,7 +14242,7 @@
                                         <Button Command="{Binding AddSocdPairCommand}" HorizontalAlignment="Left" Padding="10,4"
                                                 ToolTip="{Binding Pad_Socd_AddPair_Tooltip, Source={x:Static strings:Strings.Instance}}">
                                             <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="&#xE710;" FontFamily="Segoe MDL2 Assets" FontSize="12" Margin="0,0,6,0" VerticalAlignment="Center"/>
+                                                <controls:GlyphText Text="&#xE710;" FontFamily="Segoe MDL2 Assets" FontSize="12" Margin="0,0,6,0" VerticalAlignment="Center"/>
                                                 <TextBlock Text="{Binding Pad_Socd_AddPair, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"/>
                                             </StackPanel>
                                         </Button>
@@ -14260,7 +14261,7 @@
                                 Visibility="{Binding KbmSocdEditorVisible, Converter={StaticResource BoolToVisibilityConverter}}">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="&#xE8AB;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                    <controls:GlyphText Text="&#xE8AB;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Pad_Socd_Card_Header, Source={x:Static strings:Strings.Instance}}"
                                                Style="{StaticResource CardTitle}"/>
@@ -14332,7 +14333,7 @@
                                                                    VerticalAlignment="Center" Margin="2,0,0,0"
                                                                    Command="{Binding DataContext.KbmConfig.RemoveSocdPairCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                                                    CommandParameter="{Binding}">
-                                                            <TextBlock Text="&#xE74D;" FontFamily="Segoe MDL2 Assets"
+                                                            <controls:GlyphText Text="&#xE74D;" FontFamily="Segoe MDL2 Assets"
                                                                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"/>
                                                             <ui:Button.ToolTip>
                                                                 <TextBlock Text="{Binding Pad_Kbm_Socd_RemovePair_Tooltip, Source={x:Static strings:Strings.Instance}}"/>
@@ -14345,7 +14346,7 @@
                                         <Button Command="{Binding KbmConfig.AddSocdPairCommand}" HorizontalAlignment="Left" Padding="10,4"
                                                 ToolTip="{Binding Pad_Kbm_Socd_AddPair_Tooltip, Source={x:Static strings:Strings.Instance}}">
                                             <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="&#xE710;" FontFamily="Segoe MDL2 Assets" FontSize="12" Margin="0,0,6,0" VerticalAlignment="Center"/>
+                                                <controls:GlyphText Text="&#xE710;" FontFamily="Segoe MDL2 Assets" FontSize="12" Margin="0,0,6,0" VerticalAlignment="Center"/>
                                                 <TextBlock Text="{Binding Pad_Kbm_Socd_AddPair, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"/>
                                             </StackPanel>
                                         </Button>
@@ -14369,7 +14370,7 @@
                                 Visibility="{Binding KeepAwakeCardVisible, Converter={StaticResource BoolToVisibilityConverter}}">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                                    <TextBlock Text="&#xE706;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                    <controls:GlyphText Text="&#xE706;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                                                VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Pad_KeepAwake_Card_Header, Source={x:Static strings:Strings.Instance}}"
                                                Style="{StaticResource CardTitle}"/>

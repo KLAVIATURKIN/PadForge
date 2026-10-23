@@ -171,19 +171,19 @@
          the identical 24px inset, but the clip edge now sits at the viewer
          bounds, giving edge cards 24+8 = 32px of aura room per side
          (BlurRadius 30). -->
-    <ScrollViewer>
+    <ScrollViewer AutomationProperties.Name="{Binding Dashboard_Title, Source={x:Static strings:Strings.Instance}}">
         <StackPanel Margin="24,16,24,16">
 
             <!-- Page header -->
             <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                <TextBlock Text="&#xF404;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                <reset:GlyphText Text="&#xF404;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                            VerticalAlignment="Center" Margin="0,0,10,0"/>
                 <TextBlock AutomationProperties.HeadingLevel="Level1" Text="{Binding Dashboard_Title, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource TitleTextBlockStyle}" FontFamily="{StaticResource DisplayFontFamily}" FontWeight="650" FontSize="26" Foreground="{DynamicResource TextFillColorPrimaryBrush}"/>
             </StackPanel>
 
             <!-- ═══ Input Engine ═══ -->
             <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
-                <TextBlock Text="&#xE9F5;" Style="{StaticResource SectionGlyph}"/>
+                <reset:GlyphText Text="&#xE9F5;" Style="{StaticResource SectionGlyph}"/>
                 <TextBlock Text="{Binding Dashboard_InputEngine, Source={x:Static strings:Strings.Instance}, Converter={StaticResource UpperConverter}}" Style="{StaticResource SectionTitle}"/>
             </StackPanel>
 
@@ -311,7 +311,7 @@
                         </Path>
                     </controls:StateToggleButton>
 
-                    <TextBlock Grid.Column="1" Text="{Binding EngineStatus}"
+                    <TextBlock common:LiveText.Polite="True" Grid.Column="1" Text="{Binding EngineStatus}"
                                VerticalAlignment="Center">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
@@ -342,7 +342,7 @@
 
             <!-- ═══ Virtual controller slot cards ═══ -->
             <StackPanel Orientation="Horizontal" Margin="0,8,0,12">
-                <TextBlock Text="&#xE7FC;" Style="{StaticResource SectionGlyph}"/>
+                <reset:GlyphText Text="&#xE7FC;" Style="{StaticResource SectionGlyph}"/>
                 <TextBlock Text="{Binding Dashboard_VirtualControllers, Source={x:Static strings:Strings.Instance}, Converter={StaticResource UpperConverter}}" Style="{StaticResource SectionTitle}"/>
             </StackPanel>
 
@@ -417,7 +417,7 @@
                                                SnapsToDevicePixels="True"/>
                                     <StackPanel Orientation="Horizontal"
                                                 HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <TextBlock Text="&#xE710;" FontFamily="Segoe MDL2 Assets" FontSize="16"
+                                        <reset:GlyphText Text="&#xE710;" FontFamily="Segoe MDL2 Assets" FontSize="16"
                                                    VerticalAlignment="Center" Margin="0,0,8,0"
                                                    Foreground="{DynamicResource TextFillColorTertiaryBrush}"/>
                                         <TextBlock Text="{Binding Main_AddController, Source={x:Static strings:Strings.Instance}}"
@@ -1039,7 +1039,7 @@
                                                     </Style.Triggers>
                                                 </Style>
                                             </Button.Style>
-                                            <TextBlock Text="&#xE961;" FontFamily="Segoe MDL2 Assets" FontSize="13" Margin="2,0"/>
+                                            <reset:GlyphText Text="&#xE961;" FontFamily="Segoe MDL2 Assets" FontSize="13" Margin="2,0"/>
                                         </controls:SegmentButton>
 
                                         <!-- MIDI type button -->
@@ -1077,7 +1077,7 @@
                                                     </Style.Triggers>
                                                 </Style>
                                             </Button.Style>
-                                            <TextBlock Text="&#xE8D6;" FontFamily="Segoe MDL2 Assets" FontSize="13" Margin="2,0"/>
+                                            <reset:GlyphText Text="&#xE8D6;" FontFamily="Segoe MDL2 Assets" FontSize="13" Margin="2,0"/>
                                         </controls:SegmentButton>
 
                                         <!-- VR type button -->
@@ -1115,7 +1115,7 @@
                                                     </Style.Triggers>
                                                 </Style>
                                             </Button.Style>
-                                            <TextBlock Text="&#xF119;" FontFamily="Segoe MDL2 Assets" FontSize="13" Margin="2,0"/>
+                                            <reset:GlyphText Text="&#xF119;" FontFamily="Segoe MDL2 Assets" FontSize="13" Margin="2,0"/>
                                         </controls:SegmentButton>
                                         <TextBlock Text="{Binding TypeInstanceLabel, StringFormat={}#{0}}"
                                                    FontFamily="{StaticResource TelemetryFontFamily}"
@@ -1158,7 +1158,7 @@
                                             </Style.Triggers>
                                         </Style>
                                     </ui:Button.Style>
-                                    <TextBlock Text="&#xE711;" FontFamily="Segoe MDL2 Assets" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                                    <reset:GlyphText Text="&#xE711;" FontFamily="Segoe MDL2 Assets" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
                                 </ui:Button>
 
                                 <!-- Row 2: Device name (compact). Cold: the
@@ -1220,7 +1220,7 @@
                                                                         </Style>
                                                                     </StackPanel.Style>
                                                                     <!-- Same device-class glyph as the roster line (#175). -->
-                                                                    <TextBlock Text="{Binding TypeGlyph}"
+                                                                    <reset:GlyphText Text="{Binding TypeGlyph}"
                                                                                FontFamily="Segoe MDL2 Assets" FontSize="11"
                                                                                Foreground="{DynamicResource TextFillColorTertiaryBrush}"
                                                                                VerticalAlignment="Center" Margin="0,0,6,0"/>
@@ -1238,12 +1238,12 @@
                                                                             </Style>
                                                                         </TextBlock.Style>
                                                                     </TextBlock>
-                                                                    <TextBlock Text="{Binding TransportGlyph}"
+                                                                    <reset:GlyphText Text="{Binding TransportGlyph}"
                                                                                FontFamily="Segoe MDL2 Assets" FontSize="10"
                                                                                Foreground="{DynamicResource TextFillColorTertiaryBrush}"
                                                                                VerticalAlignment="Center" Margin="5,0,0,0"
                                                                                Visibility="{Binding HasTransportGlyph, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                                                    <TextBlock Text="{Binding BatteryGlyph}"
+                                                                    <reset:GlyphText Text="{Binding BatteryGlyph}"
                                                                                FontFamily="Segoe MDL2 Assets" FontSize="11"
                                                                                Foreground="{DynamicResource ColdBrush}"
                                                                                VerticalAlignment="Center" Margin="6,0,0,0"
@@ -1295,7 +1295,7 @@
                                                         <!-- Device-class glyph (#175): keyboards read as keyboards,
                                                              mice as mice (DeviceTypeGlyph vocabulary); rides inside
                                                              each roster item so it repeats per device. -->
-                                                        <TextBlock Text="{Binding TypeGlyph}"
+                                                        <reset:GlyphText Text="{Binding TypeGlyph}"
                                                                    FontFamily="Segoe MDL2 Assets" FontSize="11"
                                                                    Foreground="{DynamicResource TextFillColorTertiaryBrush}"
                                                                    VerticalAlignment="Center" Margin="0,0,5,0"/>
@@ -1316,12 +1316,12 @@
                                                         <!-- Transport (#175 competitor item 9): Bluetooth
                                                              links carry the E702 glyph, wired stays
                                                              unmarked. -->
-                                                        <TextBlock Text="{Binding TransportGlyph}"
+                                                        <reset:GlyphText Text="{Binding TransportGlyph}"
                                                                    FontFamily="Segoe MDL2 Assets" FontSize="10"
                                                                    Foreground="{DynamicResource TextFillColorTertiaryBrush}"
                                                                    VerticalAlignment="Center" Margin="5,0,0,0"
                                                                    Visibility="{Binding HasTransportGlyph, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                                        <TextBlock Text="{Binding BatteryGlyph}"
+                                                        <reset:GlyphText Text="{Binding BatteryGlyph}"
                                                                    FontFamily="Segoe MDL2 Assets" FontSize="11"
                                                                    Foreground="{DynamicResource ColdBrush}"
                                                                    VerticalAlignment="Center" Margin="6,0,0,0"
@@ -1341,7 +1341,7 @@
                                 <!-- Row 3: Status -->
                                 <StackPanel Grid.Row="3" Orientation="Horizontal"
                                             Margin="0,2,0,0">
-                                    <TextBlock Text="{Binding StatusText}" FontSize="11" FontWeight="SemiBold">
+                                    <TextBlock common:LiveText.Polite="True" Text="{Binding StatusText}" FontSize="11" FontWeight="SemiBold">
                                         <TextBlock.Style>
                                             <Style TargetType="TextBlock">
                                                 <Setter Property="Foreground" Value="{DynamicResource TextFillColorTertiaryBrush}"/>
@@ -1425,7 +1425,7 @@
                                                     <Path FlowDirection="LeftToRight" Data="{StaticResource ZackslyTriggerOuterBodyGeometry}" Style="{StaticResource StageGlyphShape}"/>
                                                 </Grid>
                                                 <!-- Font stages (gyro / lighting / touchpad / audio). -->
-                                                <TextBlock Text="{Binding Glyph}">
+                                                <reset:GlyphText Text="{Binding Glyph}">
                                                     <TextBlock.Style>
                                                         <Style TargetType="TextBlock" BasedOn="{StaticResource StageGlyphText}">
                                                             <Style.Triggers>
@@ -1435,7 +1435,7 @@
                                                             </Style.Triggers>
                                                         </Style>
                                                     </TextBlock.Style>
-                                                </TextBlock>
+                                                </reset:GlyphText>
                                             </Grid>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
@@ -1447,7 +1447,7 @@
                                      (E72A, same as the PadPage routing arrows)
                                      at the right edge. Opacity swap only; no
                                      layout shift, no hit-testing. -->
-                                <TextBlock Grid.RowSpan="5" Text="&#xE72A;"
+                                <reset:GlyphText Grid.RowSpan="5" Text="&#xE72A;"
                                            FontFamily="Segoe MDL2 Assets" FontSize="12"
                                            IsHitTestVisible="False"
                                            HorizontalAlignment="Right" VerticalAlignment="Center"
@@ -1463,7 +1463,7 @@
                                             </Style.Triggers>
                                         </Style>
                                     </TextBlock.Style>
-                                </TextBlock>
+                                </reset:GlyphText>
                             </Grid>
                         </Border>
                         </Grid>
@@ -1496,7 +1496,7 @@
 
             <!-- ═══ Web Controller ═══ -->
             <StackPanel Orientation="Horizontal" Margin="0,20,0,12">
-                <TextBlock Text="&#xE774;" Style="{StaticResource SectionGlyph}"/>
+                <reset:GlyphText Text="&#xE774;" Style="{StaticResource SectionGlyph}"/>
                 <TextBlock Text="{Binding Dashboard_WebController, Source={x:Static strings:Strings.Instance}, Converter={StaticResource UpperConverter}}" Style="{StaticResource SectionTitle}"/>
             </StackPanel>
 
@@ -1545,7 +1545,7 @@
                                 </Style>
                             </Path.Style>
                         </Path>
-                        <TextBlock Text="{Binding WebControllerStatus}" FontSize="12"
+                        <TextBlock common:LiveText.Polite="True" Text="{Binding WebControllerStatus}" FontSize="12"
                                    FontFamily="{StaticResource TelemetryFontFamily}"
                                    Foreground="{DynamicResource ColdBrush}"/>
                     </StackPanel>
@@ -1558,7 +1558,7 @@
                             Background="{DynamicResource SystemFillColorCautionBackgroundBrush}"
                             CornerRadius="6" Padding="10,8" Margin="0,8,0,0" HorizontalAlignment="Left">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="&#xE7BA;" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Top"
+                            <reset:GlyphText Text="&#xE7BA;" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Top"
                                        Foreground="{DynamicResource SystemFillColorCautionBrush}" Margin="0,1,8,0"/>
                             <TextBlock Text="{Binding WebControllerHttpsWarning}" TextWrapping="Wrap"
                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}" MaxWidth="360"/>
@@ -1584,7 +1584,7 @@
                                            Command="{Binding CopyWebControllerUrlCommand}" Margin="6,0,0,0"
                                            VerticalAlignment="Center"
                                            ToolTip="{Binding Common_Copy, Source={x:Static strings:Strings.Instance}}">
-                                    <TextBlock Text="&#xE8C8;" FontFamily="Segoe MDL2 Assets" FontSize="13"
+                                    <reset:GlyphText Text="&#xE8C8;" FontFamily="Segoe MDL2 Assets" FontSize="13"
                                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
                                 </ui:Button>
                             </StackPanel>
@@ -1678,7 +1678,7 @@
                                 </Style>
                             </Path.Style>
                         </Path>
-                        <TextBlock Text="{Binding WebControllerPlainStatus}" FontSize="12"
+                        <TextBlock common:LiveText.Polite="True" Text="{Binding WebControllerPlainStatus}" FontSize="12"
                                    FontFamily="{StaticResource TelemetryFontFamily}"
                                    Foreground="{DynamicResource ColdBrush}"/>
                     </StackPanel>
@@ -1708,7 +1708,7 @@
                                            Command="{Binding CopyWebControllerPlainUrlCommand}" Margin="6,0,0,0"
                                            VerticalAlignment="Center"
                                            ToolTip="{Binding Common_Copy, Source={x:Static strings:Strings.Instance}}">
-                                    <TextBlock Text="&#xE8C8;" FontFamily="Segoe MDL2 Assets" FontSize="13"
+                                    <reset:GlyphText Text="&#xE8C8;" FontFamily="Segoe MDL2 Assets" FontSize="13"
                                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
                                 </ui:Button>
                             </StackPanel>
@@ -1719,7 +1719,7 @@
 
             <!-- Remote Link (issue #138) -->
             <StackPanel Orientation="Horizontal" Margin="0,20,0,12">
-                <TextBlock Text="&#xE969;" Style="{StaticResource SectionGlyph}"/>
+                <reset:GlyphText Text="&#xE969;" Style="{StaticResource SectionGlyph}"/>
                 <TextBlock Text="{Binding Dashboard_RemoteLink, Source={x:Static strings:Strings.Instance}, Converter={StaticResource UpperConverter}}" Style="{StaticResource SectionTitle}"/>
             </StackPanel>
 
@@ -1778,7 +1778,7 @@
                                 </Style>
                             </Path.Style>
                         </Path>
-                        <TextBlock Text="{Binding RemoteLinkStatus}" FontSize="12"
+                        <TextBlock common:LiveText.Polite="True" Text="{Binding RemoteLinkStatus}" FontSize="12"
                                    FontFamily="{StaticResource TelemetryFontFamily}"
                                    Foreground="{DynamicResource ColdBrush}"/>
                     </StackPanel>
@@ -1922,7 +1922,7 @@
                             Background="{DynamicResource SystemFillColorCautionBackgroundBrush}"
                             CornerRadius="6" Padding="10,8" Margin="0,0,0,12">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="&#xE7BA;" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Top"
+                            <reset:GlyphText Text="&#xE7BA;" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Top"
                                        Foreground="{DynamicResource SystemFillColorCautionBrush}" Margin="0,1,8,0"/>
                             <TextBlock Text="{Binding RemoteLinkNatWarning}" TextWrapping="Wrap"
                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}" MaxWidth="360"/>
@@ -1953,7 +1953,7 @@
                  contract). The status line is the Devices row's source
                  line, pushed by InputService on the dashboard tick. -->
             <StackPanel Orientation="Horizontal" Margin="0,20,0,12">
-                <TextBlock Text="&#xE77B;" Style="{StaticResource SectionGlyph}"/>
+                <reset:GlyphText Text="&#xE77B;" Style="{StaticResource SectionGlyph}"/>
                 <TextBlock Text="{Binding Dashboard_HeadTracking, Source={x:Static strings:Strings.Instance}, Converter={StaticResource UpperConverter}}" Style="{StaticResource SectionTitle}"/>
             </StackPanel>
 
@@ -2125,7 +2125,7 @@
                     <!-- The Devices row's source line: which of the three
                          sources is live, or why none is. Stopped while the
                          feature is off or the engine is down. -->
-                    <TextBlock Text="{Binding HeadTrackingStatus}" FontSize="12"
+                    <TextBlock common:LiveText.Polite="True" Text="{Binding HeadTrackingStatus}" FontSize="12"
                                FontFamily="{StaticResource TelemetryFontFamily}"
                                Foreground="{DynamicResource ColdBrush}" Margin="0,0,0,4"/>
                     <TextBlock Text="{Binding Dashboard_HeadTrackingFooter, Source={x:Static strings:Strings.Instance}}"
@@ -2135,7 +2135,7 @@
 
             <!-- ═══ Motion Server ═══ -->
             <StackPanel Orientation="Horizontal" Margin="0,20,0,12">
-                <TextBlock Text="&#xE7AD;" Style="{StaticResource SectionGlyph}"/>
+                <reset:GlyphText Text="&#xE7AD;" Style="{StaticResource SectionGlyph}"/>
                 <TextBlock Text="{Binding Dashboard_MotionServer, Source={x:Static strings:Strings.Instance}, Converter={StaticResource UpperConverter}}" Style="{StaticResource SectionTitle}"/>
             </StackPanel>
 
@@ -2184,7 +2184,7 @@
                                 </Style>
                             </Path.Style>
                         </Path>
-                        <TextBlock Text="{Binding DsuServerStatus}" FontSize="12"
+                        <TextBlock common:LiveText.Polite="True" Text="{Binding DsuServerStatus}" FontSize="12"
                                    FontFamily="{StaticResource TelemetryFontFamily}"
                                    Foreground="{DynamicResource ColdBrush}"/>
                     </StackPanel>
@@ -2196,7 +2196,7 @@
             <!-- ═══ Overlays (menu #9 B-17, shift layer, profile switch) ═══ -->
             <StackPanel Orientation="Horizontal" Margin="0,20,0,12">
                 <!-- E700 = Segoe MDL2 GlobalNavButton, the canonical menu glyph. -->
-                <TextBlock Text="&#xE700;" Style="{StaticResource SectionGlyph}"/>
+                <reset:GlyphText Text="&#xE700;" Style="{StaticResource SectionGlyph}"/>
                 <TextBlock Text="{Binding Dashboard_Overlays, Source={x:Static strings:Strings.Instance}, Converter={StaticResource UpperConverter}}" Style="{StaticResource SectionTitle}"/>
             </StackPanel>
 
@@ -2228,7 +2228,7 @@
 
             <!-- ═══ Touchpad Overlay ═══ -->
             <StackPanel Orientation="Horizontal" Margin="0,20,0,12">
-                <TextBlock Text="&#xEDA4;" Style="{StaticResource SectionGlyph}"/>
+                <reset:GlyphText Text="&#xEDA4;" Style="{StaticResource SectionGlyph}"/>
                 <TextBlock Text="{Binding Dashboard_TouchpadOverlay, Source={x:Static strings:Strings.Instance}, Converter={StaticResource UpperConverter}}" Style="{StaticResource SectionTitle}"/>
             </StackPanel>
 
@@ -2304,7 +2304,7 @@
                                 </Style>
                             </Path.Style>
                         </Path>
-                        <TextBlock Text="{Binding TouchpadOverlayStatus}" FontSize="12"
+                        <TextBlock common:LiveText.Polite="True" Text="{Binding TouchpadOverlayStatus}" FontSize="12"
                                    FontFamily="{StaticResource TelemetryFontFamily}"
                                    Foreground="{DynamicResource ColdBrush}"/>
                     </StackPanel>

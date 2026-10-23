@@ -162,20 +162,20 @@
 
         <!-- Header -->
         <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
-            <TextBlock Text="&#xE772;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+            <reset:GlyphText Text="&#xE772;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                        VerticalAlignment="Center" Margin="0,0,10,0"/>
             <TextBlock AutomationProperties.HeadingLevel="Level1" Text="{Binding Devices_Title, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource TitleTextBlockStyle}" FontFamily="{StaticResource DisplayFontFamily}" FontWeight="650" FontSize="26"/>
             <ui:Button Style="{StaticResource EmberIconButton}" Margin="16,0,0,0"
                        VerticalAlignment="Center"
                        Command="{Binding RefreshCommand}"
                        ToolTip="{Binding Common_Refresh, Source={x:Static strings:Strings.Instance}}">
-                <TextBlock Text="&#xE72C;" FontFamily="Segoe MDL2 Assets" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                <reset:GlyphText Text="&#xE72C;" FontFamily="Segoe MDL2 Assets" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
             </ui:Button>
             <ui:Button Style="{StaticResource EmberIconButton}" Margin="8,0,0,0"
                        VerticalAlignment="Center"
                        Command="{Binding PairCommand}"
                        ToolTip="{Binding Devices_Pair, Source={x:Static strings:Strings.Instance}}">
-                <TextBlock Text="&#xE702;" FontFamily="Segoe MDL2 Assets" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                <reset:GlyphText Text="&#xE702;" FontFamily="Segoe MDL2 Assets" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
             </ui:Button>
             <!-- Telemetry counter (#175 typography): counts mono cold,
                  labels mono tertiary, same treatment as the status bar
@@ -441,7 +441,7 @@
                                                         <Grid VerticalAlignment="Center">
                                                             <Path FlowDirection="LeftToRight" Data="{Binding TypeGeometry, Mode=OneWay}" Width="10" Height="10"
                                                                   Stretch="Uniform" Fill="#FFFFF3E8"/>
-                                                            <TextBlock Text="{Binding TypeGlyph, Mode=OneWay}" FontFamily="Segoe MDL2 Assets"
+                                                            <reset:GlyphText Text="{Binding TypeGlyph, Mode=OneWay}" FontFamily="Segoe MDL2 Assets"
                                                                        FontSize="10" Foreground="#FFFFF3E8"
                                                                        HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                        Visibility="{Binding TypeGlyph, Converter={StaticResource StringToVisibility}}"/>
@@ -484,7 +484,7 @@
                                             </Style.Triggers>
                                         </Style>
                                     </ui:Button.Style>
-                                    <TextBlock Text="&#xE711;" FontFamily="Segoe MDL2 Assets" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                                    <reset:GlyphText Text="&#xE711;" FontFamily="Segoe MDL2 Assets" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
                                 </ui:Button>
 
                                 <!-- Row 1: Type | VID:PID | Capabilities. A WrapPanel
@@ -512,7 +512,7 @@
                                     <StackPanel Orientation="Horizontal"
                                                 Visibility="{Binding HasBattery, Converter={StaticResource BoolToVisibilityConverter}}">
                                         <TextBlock Text=" &#x2022; " Style="{StaticResource DeviceMetaText}"/>
-                                        <TextBlock Text="{Binding BatteryGlyph}" Style="{StaticResource DeviceMetaText}" FontFamily="Segoe MDL2 Assets"
+                                        <reset:GlyphText Text="{Binding BatteryGlyph}" Style="{StaticResource DeviceMetaText}" FontFamily="Segoe MDL2 Assets"
                                                    VerticalAlignment="Center"/>
                                         <TextBlock Text="{Binding BatteryText}" Style="{StaticResource DeviceMetaText}"
                                                    Margin="4,0,0,0" VerticalAlignment="Center"/>
@@ -621,7 +621,7 @@
                             </Style.Triggers>
                         </Style>
                     </StackPanel.Style>
-                    <TextBlock Text="&#xE772;" FontFamily="Segoe MDL2 Assets" FontSize="34"
+                    <reset:GlyphText Text="&#xE772;" FontFamily="Segoe MDL2 Assets" FontSize="34"
                                Foreground="{DynamicResource SteelLineBrush}"
                                HorizontalAlignment="Center"/>
                     <TextBlock Text="{Binding Devices_EmptyHint, Source={x:Static strings:Strings.Instance}}"
@@ -663,7 +663,7 @@
                             <ui:Button Style="{StaticResource EmberIconButton}" HorizontalAlignment="Right"
                                        Click="CopyDossier_Click"
                                        ToolTip="{Binding Common_Copy, Source={x:Static strings:Strings.Instance}}">
-                                <TextBlock Text="&#xE8C8;" FontFamily="Segoe MDL2 Assets" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                                <reset:GlyphText Text="&#xE8C8;" FontFamily="Segoe MDL2 Assets" FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
                             </ui:Button>
                         </Grid>
                         <Border Background="{DynamicResource SteelGroundBrush}" BorderBrush="{DynamicResource SteelLineBrush}"
@@ -773,7 +773,7 @@
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,2"
                                             Visibility="{Binding SelectedDevice.IsBluetoothLink, Converter={StaticResource BoolToVisibilityConverter}}">
                                     <TextBlock Text="LINK" Width="64" FontSize="10" FontFamily="{StaticResource TelemetryFontFamily}" Foreground="{DynamicResource TextFillColorTertiaryBrush}" VerticalAlignment="Center"/>
-                                    <TextBlock Text="&#xE702;" FontFamily="Segoe MDL2 Assets" FontSize="10" Foreground="{DynamicResource ColdBrush}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                                    <reset:GlyphText Text="&#xE702;" FontFamily="Segoe MDL2 Assets" FontSize="10" Foreground="{DynamicResource ColdBrush}" VerticalAlignment="Center" Margin="0,0,4,0"/>
                                     <TextBlock Text="BT" FontSize="11" FontFamily="{StaticResource TelemetryFontFamily}" Foreground="{DynamicResource ColdBrush}" VerticalAlignment="Center"/>
                                 </StackPanel>
                                 <!-- Serial as SDL reports it (BT MAC on most
@@ -788,7 +788,7 @@
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,2"
                                             Visibility="{Binding SelectedDevice.HasBattery, Converter={StaticResource BoolToVisibilityConverter}}">
                                     <TextBlock Text="BATT" Width="64" FontSize="10" FontFamily="{StaticResource TelemetryFontFamily}" Foreground="{DynamicResource TextFillColorTertiaryBrush}" VerticalAlignment="Center"/>
-                                    <TextBlock Text="{Binding SelectedDevice.BatteryGlyph}" FontFamily="Segoe MDL2 Assets" FontSize="11" Foreground="{DynamicResource ColdBrush}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                                    <reset:GlyphText Text="{Binding SelectedDevice.BatteryGlyph}" FontFamily="Segoe MDL2 Assets" FontSize="11" Foreground="{DynamicResource ColdBrush}" VerticalAlignment="Center" Margin="0,0,4,0"/>
                                     <TextBlock Text="{Binding SelectedDevice.BatteryText}" FontSize="11" FontFamily="{StaticResource TelemetryFontFamily}" Foreground="{DynamicResource ColdBrush}" VerticalAlignment="Center"/>
                                 </StackPanel>
                                 <!-- Capability row: the established capability
@@ -813,19 +813,19 @@
                                                 ToolTip="{Binding Devices_IdentifyTooltip, Source={x:Static strings:Strings.Instance}}"
                                                 Visibility="{Binding SelectedDevice.HasRumble, Converter={StaticResource BoolToVisibilityConverter}}"
                                                 MouseLeftButtonUp="IdentifyChip_Click">
-                                            <TextBlock Text="&#xE877;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="12" Foreground="{DynamicResource EmberBrush}"/>
+                                            <reset:GlyphText Text="&#xE877;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="12" Foreground="{DynamicResource EmberBrush}"/>
                                         </Border>
                                         <Border Background="{DynamicResource EmberTintBrush}" BorderBrush="#66FF6B2C" BorderThickness="1"
                                                 CornerRadius="4" Padding="6,3" Margin="0,0,4,0"
                                                 ToolTip="{Binding Devices_Gyro, Source={x:Static strings:Strings.Instance}}"
                                                 Visibility="{Binding SelectedDevice.HasGyro, Converter={StaticResource BoolToVisibilityConverter}}">
-                                            <TextBlock Text="&#xE7AD;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="12" Foreground="{DynamicResource EmberBrush}"/>
+                                            <reset:GlyphText Text="&#xE7AD;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="12" Foreground="{DynamicResource EmberBrush}"/>
                                         </Border>
                                         <Border Background="{DynamicResource EmberTintBrush}" BorderBrush="#66FF6B2C" BorderThickness="1"
                                                 CornerRadius="4" Padding="6,3" Margin="0,0,4,0"
                                                 ToolTip="{Binding Btn_Touchpad, Source={x:Static strings:Strings.Instance}}"
                                                 Visibility="{Binding SelectedDevice.ShowTouchpadCapability, Converter={StaticResource BoolToVisibilityConverter}}">
-                                            <TextBlock Text="&#xEFA5;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="12" Foreground="{DynamicResource EmberBrush}"/>
+                                            <reset:GlyphText Text="&#xEFA5;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="12" Foreground="{DynamicResource EmberBrush}"/>
                                         </Border>
                                     </WrapPanel>
                                 </StackPanel>
@@ -1012,7 +1012,7 @@
                              HeadTracker without a local device to ask, so the
                              status is empty there and an empty line would still
                              hold its margin open. -->
-                        <TextBlock Text="{Binding HeadTrackerStatus}" TextWrapping="Wrap"
+                        <TextBlock common:LiveText.Polite="True" Text="{Binding HeadTrackerStatus}" TextWrapping="Wrap"
                                    FontSize="11" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,0,8"
                                    Visibility="{Binding HeadTrackerStatus, Converter={StaticResource StringToVisibility}}"/>
 
@@ -1075,7 +1075,7 @@
                                                     <Path FlowDirection="LeftToRight" Data="{Binding TypeGeometry, Mode=OneWay}" Width="10" Height="10"
                                                           Stretch="Uniform"
                                                           Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType=ToggleButton}}"/>
-                                                    <TextBlock Text="{Binding TypeGlyph, Mode=OneWay}" FontFamily="Segoe MDL2 Assets"
+                                                    <reset:GlyphText Text="{Binding TypeGlyph, Mode=OneWay}" FontFamily="Segoe MDL2 Assets"
                                                                FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                Visibility="{Binding TypeGlyph, Converter={StaticResource StringToVisibility}}"/>
                                                 </Grid>

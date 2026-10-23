@@ -1,4 +1,5 @@
 using System;
+using System.Windows;
 using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 
@@ -16,6 +17,16 @@ namespace PadForge.Controls
     /// selected tab's content.</summary>
     public sealed class ContentTabControl : TabControl
     {
+        static ContentTabControl()
+        {
+            // The tab strip and the content take focus, and the control has
+            // no keyboard role of its own: Ctrl+Tab reaches TabControl's
+            // OnKeyDown from the focused content. TabControl leaves itself
+            // focusable while out of the Tab order (IsTabStop false), so UI
+            // Automation listed a focusable pane with no name.
+            FocusableProperty.OverrideMetadata(typeof(ContentTabControl), new FrameworkPropertyMetadata(false));
+        }
+
         protected override void OnInitialized(EventArgs e)
         {
             // The TabControl style when nothing else styles this one.
