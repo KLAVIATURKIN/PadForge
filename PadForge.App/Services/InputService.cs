@@ -3444,8 +3444,9 @@ namespace PadForge.Services
             // right Joy-Con NFC (#248 audit). When BOTH families are
             // configured for one standalone right Joy-Con, the camera wins
             // by fork arbitration; that conflict is the author's own
-            // mapping choice. Hint changes take effect on the fork's next
-            // sensors-enable edge, worst case a device reconnect.
+            // mapping choice. The fork reads this hint, as it reads the NFC
+            // one, on every device update (SDL_hidapi_switch.c UpdateIR,
+            // UpdateNfc), so a change takes effect on the next update.
             long irReq = PadForge.Engine.Common.Mapping.SourceCoercion.LastJoyConIrReadRequestTick;
             bool irLocal = irReq != 0 && nowTick - irReq < McuDemandWindowMs;
             // Registration preempts the camera (#248 audit round 3): the
@@ -3464,35 +3465,15 @@ namespace PadForge.Services
                     _joyConIrHintOn = irWanted;
                     PadForge.Common.Input.NfcTagRegistry.JoyConIrHintOn = irWanted;
                     PadForge.Engine.SdlDiagLog.WriteLine($"JoyCon IR hint -> {(irWanted ? "ON" : "off")}");
-                    // The fork applies the hint only at the sensors-enable
-                    // edge, so drive every open IR-capable Joy-Con
-                    // (standalone right, or a combined pair whose right
-                    // half runs the camera, #275) through that edge now:
-                    // camera starts on ON, stops on OFF (freeing the MCU
-                    // for NFC) without a reconnect. The combined driver
-                    // forwards the sensors toggle to each child.
-                    // Collected under the lock, bounced OUTSIDE it on a
-                    // worker (#248 audit round 3): the fork's IR bring-up
-                    // is synchronous MCU work that can run for seconds and
-                    // holds SDL's joystick lock, and neither this timer
-                    // thread nor UserDevices.SyncRoot may block on it.
-                    System.Collections.Generic.List<PadForge.Engine.SdlDeviceWrapper> toBounce = null;
-                    var devs = SettingsManager.UserDevices;
-                    if (devs != null)
-                        lock (devs.SyncRoot)
-                        {
-                            foreach (var ud in devs.Items)
-                                if (ud != null && ud.IsOnline && ud.VendorId == 0x057E
-                                    && (ud.ProdId == 0x2007 || ud.ProdId == 0x2008)
-                                    && ud.Device is PadForge.Engine.SdlDeviceWrapper w)
-                                    (toBounce ??= new()).Add(w);
-                        }
-                    if (toBounce != null)
-                        System.Threading.Tasks.Task.Run(() =>
-                        {
-                            foreach (var w in toBounce)
-                                try { w.BounceMotionSensors(); } catch { }
-                        });
+                    // The hint is all the camera needs. Each update, the fork
+                    // starts the camera on a right Joy-Con (standalone, or a
+                    // combined pair's right half, #275) whose sensors are on
+                    // while the hint asks for it, and tears it down when the
+                    // hint stops asking, which frees the MCU for NFC
+                    // (SDL_hidapi_switch.c UpdateIR, since SDL 3f4999d129 in
+                    // 51f408fb). The sensor bounce that once followed a flip
+                    // only turned the IMU off and on, two subcommands that
+                    // wait for the pad's reply under SDL's joystick lock.
                 }
             }
 

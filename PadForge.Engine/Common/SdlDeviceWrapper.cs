@@ -189,15 +189,13 @@ namespace PadForge.Engine
         public bool HasJoyCon2Mouse { get; private set; }
 
         /// <summary>Cycles the motion sensors off and back on. The SDL
-        /// fork decides two cameras' fate only at this enable edge. The
-        /// right Joy-Con's NIR camera (SDL_hidapi_switch.c SetSensorsEnabled:
-        /// hint set -> EnableIRSensor, hint clear while active ->
-        /// DisableIRSensor via the disable leg) needs one bounce for a
-        /// RUNTIME flip of the IR hint to take effect without a reconnect
-        /// (#248 audit round 2). For a Wii Remote's IR camera a bounce is one
-        /// more start, and it sets the driver's own retry delays back to the
-        /// first (SDL_hidapi_wii.c SetJoystickSensorsEnabled,
-        /// hifihedgehog/SDL#39), see <see cref="StepIrCameraCheck"/>.
+        /// fork powers a Wii Remote's IR camera on the enable edge
+        /// (SDL_hidapi_wii.c SetJoystickSensorsEnabled, EnableIR), so a
+        /// bounce is one more start, and it sets the driver's own retry
+        /// delays back to the first (hifihedgehog/SDL#39), see
+        /// <see cref="StepIrCameraCheck"/>. A right Joy-Con's NIR camera
+        /// needs no bounce: the fork follows its hint on every update
+        /// (SDL_hidapi_switch.c UpdateIR).
         /// Both open paths enable the sensors, so both are cycled.
         /// Gyro/accel streams resume immediately; one bounce costs a few
         /// sensor frames.</summary>
@@ -1542,9 +1540,9 @@ namespace PadForge.Engine
 
         private double IrCameraSeconds(long now) => (now - _irCheckStart) / (double)System.Diagnostics.Stopwatch.Frequency;
 
-        /// <summary>Bounces the sensors on a worker, as the Joy-Con camera's
-        /// hint flip does (InputService), since the driver's power-up waits
-        /// on acknowledged writes. One bounce at a time.</summary>
+        /// <summary>Bounces the sensors on a worker, since the driver's
+        /// power-up waits on acknowledged writes under SDL's joystick lock.
+        /// One bounce at a time.</summary>
         private void ScheduleIrCameraBounce()
         {
             if (System.Threading.Interlocked.Exchange(ref _irBouncing, 1) != 0)
