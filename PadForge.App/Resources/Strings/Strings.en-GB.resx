@@ -63,6 +63,8 @@
   <!-- ═══ Controller Types ═══ -->
 
   <!-- ═══ MainWindow ═══ -->
+  <data name="Main_Minimize" xml:space="preserve"><value>Minimise</value></data>
+  <data name="Main_Maximize" xml:space="preserve"><value>Maximise</value></data>
   <data name="Main_Initializing" xml:space="preserve"><value>Initialising</value></data>
 
   <!-- ═══ MainWindow Status Messages ═══ -->

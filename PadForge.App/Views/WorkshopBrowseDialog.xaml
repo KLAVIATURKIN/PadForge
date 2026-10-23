@@ -571,18 +571,18 @@
                         </Grid>
                     </Border>
                     <StackPanel Grid.Column="1" Margin="18,0,0,0" VerticalAlignment="Bottom">
-                        <Border HorizontalAlignment="Left" CornerRadius="10" Padding="12,4"
+                        <controls:ClickBorder HorizontalAlignment="Left" CornerRadius="10" Padding="12,4"
                                 Background="#8C0A0D12" BorderThickness="1"
                                 BorderBrush="{DynamicResource SteelLineSoftBrush}"
-                                Cursor="Hand" MouseLeftButtonUp="BackToSearch_Click">
+                                Cursor="Hand" Click="BackToSearch_Click">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="&#x2190;" FontFamily="{StaticResource TelemetryFontFamily}"
+                                <controls:GlyphText Text="&#x2190;" FontFamily="{StaticResource TelemetryFontFamily}"
                                            FontSize="11" Foreground="#94A3BD" Margin="0,0,6,0"/>
                                 <TextBlock Text="{Binding Workshop_BackToSearch, Source={x:Static strings:Strings.Instance}}"
                                            FontFamily="{StaticResource TelemetryFontFamily}" FontSize="11"
                                            Foreground="#94A3BD"/>
                             </StackPanel>
-                        </Border>
+                        </controls:ClickBorder>
                         <TextBlock x:Name="GameNameText" FontFamily="{StaticResource DisplayFontFamily}"
                                    FontSize="26" FontWeight="Bold" Margin="0,8,0,0"
                                    Foreground="#E9EDF4" TextTrimming="CharacterEllipsis">
@@ -662,22 +662,20 @@
                                             <!-- Sort key. Each entry is a Steam query type, so the
                                                  ORDER IS STEAM'S over the whole result set, not a
                                                  re-shuffle of the page already loaded. -->
-                                            <Border x:Name="SortChip" Style="{StaticResource WsFilterChip}"
-                                                    MouseLeftButtonUp="SortChip_Click">
+                                            <controls:ClickBorder x:Name="SortChip" Style="{StaticResource WsFilterChip}" Click="SortChip_Click">
                                                 <StackPanel Orientation="Horizontal">
                                                     <TextBlock x:Name="SortChipText"
                                                                FontFamily="{StaticResource TelemetryFontFamily}" FontSize="11"/>
-                                                    <TextBlock Text="&#x25BE;" Margin="5,0,0,0" FontSize="9"
+                                                    <controls:GlyphText Text="&#x25BE;" Margin="5,0,0,0" FontSize="9"
                                                                VerticalAlignment="Center" Opacity="0.7"/>
                                                 </StackPanel>
-                                            </Border>
+                                            </controls:ClickBorder>
                                             <!-- Direction. Steam only ever ranks descending, so this
                                                  reverses what has been loaded. -->
-                                            <Border x:Name="SortDirChip" Style="{StaticResource WsFilterChip}"
-                                                    MouseLeftButtonUp="SortDir_Click">
+                                            <controls:ClickBorder x:Name="SortDirChip" Style="{StaticResource WsFilterChip}" Click="SortDir_Click">
                                                 <TextBlock x:Name="SortDirText"
                                                            FontFamily="{StaticResource TelemetryFontFamily}" FontSize="11"/>
-                                            </Border>
+                                            </controls:ClickBorder>
                                         </WrapPanel>
                                     </StackPanel>
                                 </Border>
@@ -692,11 +690,11 @@
                                         </ItemsControl.ItemsPanel>
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
-                                                <Border Style="{StaticResource WsFilterChip}" MouseLeftButtonUp="TagChip_Click">
+                                                <controls:ClickBorder Style="{StaticResource WsFilterChip}" Click="TagChip_Click" IsSelected="{Binding IsActive, Mode=OneWay}">
                                                     <TextBlock Text="{Binding Label}"
                                                                FontFamily="{StaticResource TelemetryFontFamily}"
                                                                FontSize="10.5" FontWeight="SemiBold"/>
-                                                </Border>
+                                                </controls:ClickBorder>
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
@@ -1005,11 +1003,11 @@
                                             </ItemsControl.ItemsPanel>
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
-                                                    <Border Style="{StaticResource WsPresetChip}" MouseLeftButtonUp="PresetChip_Click">
+                                                    <controls:ClickBorder Style="{StaticResource WsPresetChip}" Click="PresetChip_Click" IsChecked="{Binding IsIncluded, Mode=OneWay}">
                                                         <TextBlock Text="{Binding Label}"
                                                                    FontFamily="{StaticResource TelemetryFontFamily}"
                                                                    FontSize="10.5" FontWeight="SemiBold"/>
-                                                    </Border>
+                                                    </controls:ClickBorder>
                                                 </DataTemplate>
                                             </ItemsControl.ItemTemplate>
                                         </ItemsControl>

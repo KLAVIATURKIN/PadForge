@@ -21,7 +21,9 @@ namespace PadForge.Tests
     public class XamlResourceKeyTests
     {
         private static readonly Regex KeyDef = new(@"x:Key=""([^""]+)""", RegexOptions.Compiled);
-        private static readonly Regex StaticUse = new(@"StaticResource\s+([A-Za-z0-9_]+)", RegexOptions.Compiled);
+        // The key of {StaticResource Foo}, of {StaticResource ResourceKey=Foo},
+        // and of the element form <StaticResource ResourceKey="Foo"/>.
+        private static readonly Regex StaticUse = new(@"StaticResource\s+(?:ResourceKey\s*=\s*""?)?([A-Za-z0-9_]+)", RegexOptions.Compiled);
 
         /// <summary>Keys that live in the Wpf.Ui control library rather than
         /// in this repo's markup, so scanning our own files cannot see them.
@@ -31,7 +33,9 @@ namespace PadForge.Tests
         private static bool IsLibraryKey(string key)
             => (key.StartsWith("Default", StringComparison.Ordinal)
                 && key.EndsWith("Style", StringComparison.Ordinal))
-               || key == "TitleTextBlockStyle";
+               || LibraryKeys.Contains(key);
+
+        private static readonly HashSet<string> LibraryKeys = new(StringComparer.Ordinal) { "TitleTextBlockStyle" };
 
         /// <summary>Strips XML comments before scanning. Prose inside them
         /// mentions resources in passing ("the StaticResource font is only
@@ -106,6 +110,10 @@ namespace PadForge.Tests
             var hits = StaticUse.Matches("Style=\"{StaticResource DzValueEdit}\"");
             Assert.Single(hits);
             Assert.Equal("DzValueEdit", hits[0].Groups[1].Value);
+            // The element form names its key in ResourceKey.
+            hits = StaticUse.Matches("<DataGrid.CellStyle><StaticResource ResourceKey=\"MappingCellStyle\"/></DataGrid.CellStyle>");
+            Assert.Single(hits);
+            Assert.Equal("MappingCellStyle", hits[0].Groups[1].Value);
         }
     }
 }

@@ -4,6 +4,7 @@
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         xmlns:strings="clr-namespace:PadForge.Resources.Strings"
         xmlns:reset="clr-namespace:PadForge.Controls"
+        xmlns:common="clr-namespace:PadForge.Common"
         ExtendsContentIntoTitleBar="True"
         WindowBackdropType="Mica"
         Width="480" SizeToContent="Height"
@@ -15,7 +16,7 @@
     <!-- What a Dreamcast pad's VMU shows in a Bliss-Box port (issue #469):
          the mode, a preview drawn the way the VMU draws it, and the picture
          choices the mode takes. -->
-    <Grid Margin="20,18,20,18">
+    <Grid common:InitialFocus.First="True" Margin="20,18,20,18">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>

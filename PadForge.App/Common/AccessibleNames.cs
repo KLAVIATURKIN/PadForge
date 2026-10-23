@@ -6,6 +6,7 @@ using System.Windows.Automation;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Media;
 using PadForge.Controls;
 using PadForge.Resources.Strings;
@@ -13,9 +14,9 @@ using PadForge.Resources.Strings;
 namespace PadForge.Common
 {
     /// <summary>
-    /// Names controls for screen readers from text the UI already shows, as
-    /// each control first shows. Nothing on screen changes and no string is
-    /// added.
+    /// Names controls for screen readers as each control first shows, from
+    /// text the UI already shows wherever there is any. Nothing on screen
+    /// changes.
     /// The order is the HTML accessible-name order: visible text first, then
     /// the tooltip (HTML's title), then placeholder text.
     ///
@@ -39,6 +40,11 @@ namespace PadForge.Common
     /// enum value would read its code name in place of the text its template
     /// shows. Such an item is labeled by the first text it shows. Items that
     /// already read well are left alone.</para>
+    ///
+    /// <para>A button that is a part of a control's template and shows no
+    /// text (a scroll bar's arrows, a number box's arrows, the title bar's
+    /// buttons) is named for what it does, from strings kept for that
+    /// (NamePart).</para>
     ///
     /// <para>A name set in XAML or code is never replaced. A name set here is
     /// marked, so a control that shows again after being collapsed is named
@@ -95,11 +101,17 @@ namespace PadForge.Common
         internal static string SlotTitle(int slotNumber)
             => Strings.Instance.Dashboard_Slot + " " + slotNumber.ToString(CultureInfo.InvariantCulture);
 
-        /// <summary>Names a shown button that has no name of its own.</summary>
+        /// <summary>Names a shown button that has no name of its own. A part
+        /// of a control's template is NamePart's.</summary>
         internal static void NameButton(ButtonBase button)
         {
-            if (IsTemplatePart(button) || HasOwnName(button))
+            if (HasOwnName(button))
                 return;
+            if (IsTemplatePart(button))
+            {
+                NamePart(button);
+                return;
+            }
             ClearAuto(button);
             if (button.Content is FrameworkElement content && content is not TextBlock
                 && FirstShownText(content) is TextBlock text)
@@ -150,6 +162,106 @@ namespace PadForge.Common
                 return copy;
             }
             return new Binding(nameof(TextBlock.Text)) { Source = tip, Mode = BindingMode.OneWay };
+        }
+
+        /// <summary>The Strings key that names a part of a control's template
+        /// by the command it runs: a scroll bar's arrows and the page areas
+        /// either side of its thumb, and a slider's track either side of its
+        /// thumb.</summary>
+        private static readonly Dictionary<ICommand, string> CommandNames = new()
+        {
+            [ScrollBar.LineUpCommand] = nameof(Strings.Common_ScrollUp),
+            [ScrollBar.LineDownCommand] = nameof(Strings.Common_ScrollDown),
+            [ScrollBar.LineLeftCommand] = nameof(Strings.Common_ScrollLeft),
+            [ScrollBar.LineRightCommand] = nameof(Strings.Common_ScrollRight),
+            [ScrollBar.PageUpCommand] = nameof(Strings.Common_PageUp),
+            [ScrollBar.PageDownCommand] = nameof(Strings.Common_PageDown),
+            [ScrollBar.PageLeftCommand] = nameof(Strings.Common_PageLeft),
+            [ScrollBar.PageRightCommand] = nameof(Strings.Common_PageRight),
+            [Slider.DecreaseLarge] = nameof(Strings.Common_Decrease),
+            [Slider.IncreaseLarge] = nameof(Strings.Common_Increase),
+        };
+
+        /// <summary>The Strings key that names a wpf-ui template part by its
+        /// name: a number box's arrows, and the clear button of a number box
+        /// or a text box.</summary>
+        private static readonly Dictionary<string, string> PartNames = new(StringComparer.Ordinal)
+        {
+            ["PART_InlineIncrementButton"] = nameof(Strings.Common_Increase),
+            ["PART_InlineDecrementButton"] = nameof(Strings.Common_Decrease),
+            ["PART_CompactIncrementButton"] = nameof(Strings.Common_Increase),
+            ["PART_CompactDecrementButton"] = nameof(Strings.Common_Decrease),
+            ["PART_ClearButton"] = nameof(Strings.Common_Clear),
+        };
+
+        /// <summary>Names a button that is a part of a control's template:
+        /// a scroll bar's arrows and page areas, a slider's track, a number
+        /// box's arrows and clear button, and the title bar's minimize,
+        /// maximize or restore, and close buttons. The name is bound to its
+        /// Strings key, so it follows a language change, and a title bar
+        /// button's follows its type as maximize turns to restore. Only the
+        /// name is set: what the part draws stays as its template draws it.
+        /// Other parts are left to the control whose template they are.</summary>
+        internal static void NamePart(ButtonBase button)
+        {
+            BindingBase name;
+            if (button is Wpf.Ui.Controls.TitleBarButton bar)
+            {
+                var multi = new MultiBinding { Converter = TitleBarNameConverter.Instance };
+                multi.Bindings.Add(new Binding(nameof(Wpf.Ui.Controls.TitleBarButton.ButtonType)) { Source = bar });
+                foreach (string key in TitleBarNameConverter.Keys)
+                    multi.Bindings.Add(new Binding(key) { Source = Strings.Instance });
+                name = multi;
+            }
+            else if (PartKey(button) is string key)
+            {
+                name = new Binding(key) { Source = Strings.Instance };
+            }
+            else
+            {
+                return;
+            }
+            ClearAuto(button);
+            BindingOperations.SetBinding(button, AutomationProperties.NameProperty, name);
+            button.SetValue(AutoProperty, true);
+        }
+
+        private static string PartKey(ButtonBase button)
+            => button.Command != null && CommandNames.TryGetValue(button.Command, out string byCommand) ? byCommand
+             : PartNames.TryGetValue(button.Name ?? string.Empty, out string byName) ? byName
+             : null;
+
+        /// <summary>A title bar button's name from [0] its ButtonType and the
+        /// strings [1] Minimize, [2] Maximize, [3] Restore and [4] Close.
+        /// Empty for the help button, which PadForge's title bar hides.</summary>
+        internal sealed class TitleBarNameConverter : IMultiValueConverter
+        {
+            internal static readonly TitleBarNameConverter Instance = new();
+
+            internal static readonly string[] Keys =
+            {
+                nameof(Strings.Main_Minimize),
+                nameof(Strings.Main_Maximize),
+                nameof(Strings.Main_Restore),
+                nameof(Strings.Common_Close),
+            };
+
+            public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+            {
+                int index = values.Length > 0 && values[0] is Wpf.Ui.Controls.TitleBarButtonType type
+                    ? type switch
+                    {
+                        Wpf.Ui.Controls.TitleBarButtonType.Minimize => 1,
+                        Wpf.Ui.Controls.TitleBarButtonType.Maximize => 2,
+                        Wpf.Ui.Controls.TitleBarButtonType.Restore => 3,
+                        Wpf.Ui.Controls.TitleBarButtonType.Close => 4,
+                        _ => 0,
+                    }
+                    : 0;
+                return index > 0 && index < values.Length && values[index] is string text ? text : string.Empty;
+            }
+
+            public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) => null;
         }
 
         /// <summary>Names a shown input that has no name of its own.</summary>

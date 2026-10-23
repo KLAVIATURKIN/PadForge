@@ -42,7 +42,7 @@ namespace PadForge.Views.Controls
             };
         }
 
-        private void Pill_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void Pill_Click(object sender, RoutedEventArgs e)
         {
             Clicked?.Invoke(this, EventArgs.Empty);
         }

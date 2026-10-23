@@ -367,10 +367,10 @@
                         <Grid Margin="8"
                               Visibility="{Binding ShowAddController, Converter={StaticResource BoolToVisibilityConverter}}"
                               AutomationProperties.Name="{Binding Main_AddController, Source={x:Static strings:Strings.Instance}}">
-                            <Border x:Name="AddControllerCard"
+                            <reset:ClickBorder x:Name="AddControllerCard"
                                     Width="252" MinHeight="132"
                                     Background="Transparent" CornerRadius="8"
-                                    Cursor="Hand" MouseLeftButtonUp="AddControllerCard_Click">
+                                    Cursor="Hand" Click="AddControllerCard_Click">
                                 <Border.RenderTransform>
                                     <TranslateTransform/>
                                 </Border.RenderTransform>
@@ -425,7 +425,7 @@
                                                    Foreground="{DynamicResource TextFillColorTertiaryBrush}"/>
                                     </StackPanel>
                                 </Grid>
-                            </Border>
+                            </reset:ClickBorder>
                         </Grid>
                     </CompositeCollection>
                 </ItemsControl.ItemsSource>
@@ -1808,66 +1808,81 @@
                                Style="{StaticResource CardSectionTitle}" FontSize="14" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,0,6"/>
                     <TextBlock Text="{Binding RemoteLink_PairedPeersDescription, Source={x:Static strings:Strings.Instance}}"
                                Style="{StaticResource CardDescription}"/>
-                    <ItemsControl ItemsSource="{Binding RemoteLink.TrustedPeers}" Margin="0,12,0,0">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Margin="0,0,0,10">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Path FlowDirection="LeftToRight" Grid.Column="0" Margin="2,0,10,0" ToolTip="{Binding OnlineText}">
-                                        <Path.Style>
-                                            <Style TargetType="Path" BasedOn="{StaticResource LivenessFlameBase}">
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsOnline}" Value="True">
-                                                        <Setter Property="Fill" Value="{DynamicResource EmberBrush}"/>
-                                                        <Setter Property="Stroke" Value="{x:Null}"/>
-                                                        <Setter Property="Effect">
-                                                            <Setter.Value>
-                                                                <DropShadowEffect Color="#FF6B2C" BlurRadius="8" ShadowDepth="0" Opacity="0.5"/>
-                                                            </Setter.Value>
-                                                        </Setter>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Path.Style>
-                                    </Path>
-                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                        <DockPanel LastChildFill="True" HorizontalAlignment="Left">
-                                            <reset:SettingResetButton DockPanel.Dock="Right" Command="{Binding ResetSettingCommand}" CommandParameter="Name" SettingLabel="{Binding Macro_Name, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_RemoteLinkTrustedPeer_Name_1678"/>
-                                            <ui:TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
-                                                        PlaceholderText="{Binding RemoteLink_PeerNamePlaceholder, Source={x:Static strings:Strings.Instance}}" MaxLength="40" MinWidth="240"/>
-                                        </DockPanel>
-                                        <TextBlock FontSize="11" Foreground="{DynamicResource TextFillColorTertiaryBrush}" Margin="2,3,0,0" TextTrimming="CharacterEllipsis">
-                                            <Run Text="{Binding HostName, Mode=OneWay}" FontWeight="SemiBold"/>
-                                            <Run Text="{Binding FingerprintDisplay, Mode=OneWay, StringFormat='  ·  {0}'}" FontFamily="{StaticResource TelemetryFontFamily}"/>
-                                        </TextBlock>
-                                        <StackPanel Orientation="Horizontal" Margin="0,6,8,0">
-                                            <CheckBox VerticalAlignment="Center" IsChecked="{Binding AllowRemoteAssignments, Mode=TwoWay}"
-                                                      Content="{Binding RemoteLink_AllowAssignments, Source={x:Static strings:Strings.Instance}}"
-                                                      ToolTip="{Binding RemoteLink_AssignmentPermissionDescription, Source={x:Static strings:Strings.Instance}}"/>
-                                            <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="AllowRemoteAssignments" SettingLabel="{Binding RemoteLink_AllowAssignments, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_RemoteLinkTrustedPeer_AllowRemoteAssignments_1685"/>
+                    <Border Margin="0,12,0,0">
+                        <ItemsControl ItemsSource="{Binding RemoteLink.TrustedPeers}">
+                            <!-- Out of the screen-reader tree while empty, as the Devices page's
+                                 slot badges are: an empty list draws nothing and has no size,
+                                 so collapsing it changes nothing on screen. -->
+                            <ItemsControl.Style>
+                                <Style TargetType="ItemsControl" BasedOn="{StaticResource {x:Type ItemsControl}}">
+                                    <Setter Property="Focusable" Value="False"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="HasItems" Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ItemsControl.Style>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,0,0,10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Path FlowDirection="LeftToRight" Grid.Column="0" Margin="2,0,10,0" ToolTip="{Binding OnlineText}">
+                                            <Path.Style>
+                                                <Style TargetType="Path" BasedOn="{StaticResource LivenessFlameBase}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsOnline}" Value="True">
+                                                            <Setter Property="Fill" Value="{DynamicResource EmberBrush}"/>
+                                                            <Setter Property="Stroke" Value="{x:Null}"/>
+                                                            <Setter Property="Effect">
+                                                                <Setter.Value>
+                                                                    <DropShadowEffect Color="#FF6B2C" BlurRadius="8" ShadowDepth="0" Opacity="0.5"/>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Path.Style>
+                                        </Path>
+                                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                            <DockPanel LastChildFill="True" HorizontalAlignment="Left">
+                                                <reset:SettingResetButton DockPanel.Dock="Right" Command="{Binding ResetSettingCommand}" CommandParameter="Name" SettingLabel="{Binding Macro_Name, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_RemoteLinkTrustedPeer_Name_1678"/>
+                                                <ui:TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                                            PlaceholderText="{Binding RemoteLink_PeerNamePlaceholder, Source={x:Static strings:Strings.Instance}}" MaxLength="40" MinWidth="240"/>
+                                            </DockPanel>
+                                            <TextBlock FontSize="11" Foreground="{DynamicResource TextFillColorTertiaryBrush}" Margin="2,3,0,0" TextTrimming="CharacterEllipsis">
+                                                <Run Text="{Binding HostName, Mode=OneWay}" FontWeight="SemiBold"/>
+                                                <Run Text="{Binding FingerprintDisplay, Mode=OneWay, StringFormat='  ·  {0}'}" FontFamily="{StaticResource TelemetryFontFamily}"/>
+                                            </TextBlock>
+                                            <StackPanel Orientation="Horizontal" Margin="0,6,8,0">
+                                                <CheckBox VerticalAlignment="Center" IsChecked="{Binding AllowRemoteAssignments, Mode=TwoWay}"
+                                                          Content="{Binding RemoteLink_AllowAssignments, Source={x:Static strings:Strings.Instance}}"
+                                                          ToolTip="{Binding RemoteLink_AssignmentPermissionDescription, Source={x:Static strings:Strings.Instance}}"/>
+                                                <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="AllowRemoteAssignments" SettingLabel="{Binding RemoteLink_AllowAssignments, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_RemoteLinkTrustedPeer_AllowRemoteAssignments_1685"/>
+                                            </StackPanel>
                                         </StackPanel>
-                                    </StackPanel>
-                                    <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
-                                        <!-- No Appearance=Primary (dark text on the accent
-                                             slab): Connect is the row's primary affirmative
-                                             and wears the shared ember accent instead. -->
-                                        <ui:Button Content="{Binding Dashboard_RemoteLinkConnectButton, Source={x:Static strings:Strings.Instance}}"
-                                                   Command="{Binding ConnectCommand}" Style="{StaticResource EmberPrimaryButton}" Margin="0,0,8,0"
-                                                   Visibility="{Binding CanConnect, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                        <Button Content="{Binding RemoteLink_Revoke, Source={x:Static strings:Strings.Instance}}"
-                                                Command="{Binding RevokeCommand}"/>
-                                        <Button Content="{Binding RemoteLink_AssignDevices, Source={x:Static strings:Strings.Instance}}"
-                                                Command="{Binding AssignmentsCommand}" Margin="8,0,0,0"
-                                                Visibility="{Binding IsOnline, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                    </StackPanel>
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                                        <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                                            <!-- No Appearance=Primary (dark text on the accent
+                                                 slab): Connect is the row's primary affirmative
+                                                 and wears the shared ember accent instead. -->
+                                            <ui:Button Content="{Binding Dashboard_RemoteLinkConnectButton, Source={x:Static strings:Strings.Instance}}"
+                                                       Command="{Binding ConnectCommand}" Style="{StaticResource EmberPrimaryButton}" Margin="0,0,8,0"
+                                                       Visibility="{Binding CanConnect, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            <Button Content="{Binding RemoteLink_Revoke, Source={x:Static strings:Strings.Instance}}"
+                                                    Command="{Binding RevokeCommand}"/>
+                                            <Button Content="{Binding RemoteLink_AssignDevices, Source={x:Static strings:Strings.Instance}}"
+                                                    Command="{Binding AssignmentsCommand}" Margin="8,0,0,0"
+                                                    Visibility="{Binding IsOnline, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Border>
                     <Button Content="{Binding RemoteLink_RevokeAll, Source={x:Static strings:Strings.Instance}}"
                             Command="{Binding RemoteLink.RevokeAllPeersCommand}" HorizontalAlignment="Left" Margin="0,4,0,0"/>
 

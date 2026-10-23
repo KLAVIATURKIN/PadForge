@@ -214,7 +214,7 @@
                      hair-space letterspaced literals; counts come from the
                      VM on the same cadence as the header counter. -->
                 <WrapPanel Margin="6,0,0,4">
-                    <Border Tag="ALL" MouseLeftButtonUp="FacetChip_Click">
+                    <reset:ClickBorder Tag="ALL" Click="FacetChip_Click" IsSelected="{Binding SelectedFacet, Mode=OneWay, Converter={StaticResource EnumEqualityConverter}, ConverterParameter=ALL}">
                         <Border.Style>
                             <Style TargetType="Border" BasedOn="{StaticResource FacetChipBase}">
                                 <Style.Triggers>
@@ -230,8 +230,8 @@
                             <TextBlock Text="A&#8202;L&#8202;L" Style="{StaticResource FacetToken}"/>
                             <TextBlock Text="{Binding TotalCount, Mode=OneWay}" Style="{StaticResource FacetCount}"/>
                         </StackPanel>
-                    </Border>
-                    <Border Tag="GAMEPAD" MouseLeftButtonUp="FacetChip_Click">
+                    </reset:ClickBorder>
+                    <reset:ClickBorder Tag="GAMEPAD" Click="FacetChip_Click" IsSelected="{Binding SelectedFacet, Mode=OneWay, Converter={StaticResource EnumEqualityConverter}, ConverterParameter=GAMEPAD}">
                         <Border.Style>
                             <Style TargetType="Border" BasedOn="{StaticResource FacetChipBase}">
                                 <Style.Triggers>
@@ -247,8 +247,8 @@
                             <TextBlock Text="G&#8202;A&#8202;M&#8202;E&#8202;P&#8202;A&#8202;D" Style="{StaticResource FacetToken}"/>
                             <TextBlock Text="{Binding FacetCountGamepad, Mode=OneWay}" Style="{StaticResource FacetCount}"/>
                         </StackPanel>
-                    </Border>
-                    <Border Tag="JOYSTICK" MouseLeftButtonUp="FacetChip_Click">
+                    </reset:ClickBorder>
+                    <reset:ClickBorder Tag="JOYSTICK" Click="FacetChip_Click" IsSelected="{Binding SelectedFacet, Mode=OneWay, Converter={StaticResource EnumEqualityConverter}, ConverterParameter=JOYSTICK}">
                         <Border.Style>
                             <Style TargetType="Border" BasedOn="{StaticResource FacetChipBase}">
                                 <Style.Triggers>
@@ -264,8 +264,8 @@
                             <TextBlock Text="J&#8202;O&#8202;Y&#8202;S&#8202;T&#8202;I&#8202;C&#8202;K" Style="{StaticResource FacetToken}"/>
                             <TextBlock Text="{Binding FacetCountJoystick, Mode=OneWay}" Style="{StaticResource FacetCount}"/>
                         </StackPanel>
-                    </Border>
-                    <Border Tag="WHEEL" MouseLeftButtonUp="FacetChip_Click">
+                    </reset:ClickBorder>
+                    <reset:ClickBorder Tag="WHEEL" Click="FacetChip_Click" IsSelected="{Binding SelectedFacet, Mode=OneWay, Converter={StaticResource EnumEqualityConverter}, ConverterParameter=WHEEL}">
                         <Border.Style>
                             <Style TargetType="Border" BasedOn="{StaticResource FacetChipBase}">
                                 <Style.Triggers>
@@ -281,8 +281,8 @@
                             <TextBlock Text="W&#8202;H&#8202;E&#8202;E&#8202;L" Style="{StaticResource FacetToken}"/>
                             <TextBlock Text="{Binding FacetCountWheel, Mode=OneWay}" Style="{StaticResource FacetCount}"/>
                         </StackPanel>
-                    </Border>
-                    <Border Tag="KEYBOARD" MouseLeftButtonUp="FacetChip_Click">
+                    </reset:ClickBorder>
+                    <reset:ClickBorder Tag="KEYBOARD" Click="FacetChip_Click" IsSelected="{Binding SelectedFacet, Mode=OneWay, Converter={StaticResource EnumEqualityConverter}, ConverterParameter=KEYBOARD}">
                         <Border.Style>
                             <Style TargetType="Border" BasedOn="{StaticResource FacetChipBase}">
                                 <Style.Triggers>
@@ -298,8 +298,8 @@
                             <TextBlock Text="K&#8202;E&#8202;Y&#8202;B&#8202;O&#8202;A&#8202;R&#8202;D" Style="{StaticResource FacetToken}"/>
                             <TextBlock Text="{Binding FacetCountKeyboard, Mode=OneWay}" Style="{StaticResource FacetCount}"/>
                         </StackPanel>
-                    </Border>
-                    <Border Tag="MOUSE" MouseLeftButtonUp="FacetChip_Click">
+                    </reset:ClickBorder>
+                    <reset:ClickBorder Tag="MOUSE" Click="FacetChip_Click" IsSelected="{Binding SelectedFacet, Mode=OneWay, Converter={StaticResource EnumEqualityConverter}, ConverterParameter=MOUSE}">
                         <Border.Style>
                             <Style TargetType="Border" BasedOn="{StaticResource FacetChipBase}">
                                 <Style.Triggers>
@@ -315,8 +315,8 @@
                             <TextBlock Text="M&#8202;O&#8202;U&#8202;S&#8202;E" Style="{StaticResource FacetToken}"/>
                             <TextBlock Text="{Binding FacetCountMouse, Mode=OneWay}" Style="{StaticResource FacetCount}"/>
                         </StackPanel>
-                    </Border>
-                    <Border Tag="OTHER" MouseLeftButtonUp="FacetChip_Click">
+                    </reset:ClickBorder>
+                    <reset:ClickBorder Tag="OTHER" Click="FacetChip_Click" IsSelected="{Binding SelectedFacet, Mode=OneWay, Converter={StaticResource EnumEqualityConverter}, ConverterParameter=OTHER}">
                         <Border.Style>
                             <Style TargetType="Border" BasedOn="{StaticResource FacetChipBase}">
                                 <Style.Triggers>
@@ -332,7 +332,7 @@
                             <TextBlock Text="O&#8202;T&#8202;H&#8202;E&#8202;R" Style="{StaticResource FacetToken}"/>
                             <TextBlock Text="{Binding FacetCountOther, Mode=OneWay}" Style="{StaticResource FacetCount}"/>
                         </StackPanel>
-                    </Border>
+                    </reset:ClickBorder>
                 </WrapPanel>
 
             <ListBox Grid.Row="1"
@@ -820,14 +820,13 @@
                                              direction 2026-08-12). Clicking it vibrates
                                              the selected device; the tooltip carries
                                              both facts. -->
-                                        <Border Background="{DynamicResource EmberTintBrush}" BorderBrush="#66FF6B2C" BorderThickness="1"
+                                        <reset:ClickBorder Background="{DynamicResource EmberTintBrush}" BorderBrush="#66FF6B2C" BorderThickness="1"
                                                 CornerRadius="4" Padding="6,3" Margin="0,0,4,0"
                                                 Cursor="Hand"
                                                 ToolTip="{Binding Devices_IdentifyTooltip, Source={x:Static strings:Strings.Instance}}"
-                                                Visibility="{Binding SelectedDevice.HasRumble, Converter={StaticResource BoolToVisibilityConverter}}"
-                                                MouseLeftButtonUp="IdentifyChip_Click">
+                                                Visibility="{Binding SelectedDevice.HasRumble, Converter={StaticResource BoolToVisibilityConverter}}" Click="IdentifyChip_Click">
                                             <reset:GlyphText Text="&#xE877;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="12" Foreground="{DynamicResource EmberBrush}"/>
-                                        </Border>
+                                        </reset:ClickBorder>
                                         <Border Background="{DynamicResource EmberTintBrush}" BorderBrush="#66FF6B2C" BorderThickness="1"
                                                 CornerRadius="4" Padding="6,3" Margin="0,0,4,0"
                                                 ToolTip="{Binding Devices_Gyro, Source={x:Static strings:Strings.Instance}}"

@@ -4,6 +4,7 @@
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:strings="clr-namespace:PadForge.Resources.Strings"
     xmlns:controls="clr-namespace:PadForge.Controls"
+    xmlns:common="clr-namespace:PadForge.Common"
     Width="620" MinWidth="480" Height="500" MinHeight="360"
     WindowStartupLocation="CenterOwner" WindowBackdropType="Mica"
     ExtendsContentIntoTitleBar="True">
@@ -34,7 +35,7 @@
                 </ui:Button>
             </Grid>
         </Border>
-        <Grid Grid.Row="1" Margin="20,16,20,16">
+        <Grid common:InitialFocus.First="True" Grid.Row="1" Margin="20,16,20,16">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>

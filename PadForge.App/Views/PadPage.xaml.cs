@@ -1075,7 +1075,7 @@ namespace PadForge.Views
         /// visual. SHIFT has no single owning row; it cycles the layer
         /// tab strip the way ShiftLayerTab_Click does (authoring
         /// selection only, nothing persisted).</summary>
-        private void PipelineChip_Click(object sender, MouseButtonEventArgs e)
+        private void PipelineChip_Click(object sender, RoutedEventArgs e)
         {
             if (DataContext is not PadViewModel vm) return;
             if (sender is not FrameworkElement fe || fe.Tag is not string kind) return;
@@ -2725,13 +2725,13 @@ namespace PadForge.Views
             }
         }
 
-        private void LeftMotor_Click(object sender, MouseButtonEventArgs e)
+        private void LeftMotor_Click(object sender, RoutedEventArgs e)
         {
             if (DataContext is PadViewModel padVm)
                 padVm.FireTestLeftMotor();
         }
 
-        private void RightMotor_Click(object sender, MouseButtonEventArgs e)
+        private void RightMotor_Click(object sender, RoutedEventArgs e)
         {
             if (DataContext is PadViewModel padVm)
                 padVm.FireTestRightMotor();
@@ -3774,7 +3774,7 @@ namespace PadForge.Views
         /// rows all follow on their own. The hex box is code-behind
         /// synced (not value-bound), so re-sync it explicitly, same
         /// contract as LightbarHexBox_Apply.</summary>
-        private void LightbarSwatch_Click(object sender, MouseButtonEventArgs e)
+        private void LightbarSwatch_Click(object sender, RoutedEventArgs e)
         {
             if (sender is not FrameworkElement fe || fe.Tag is not string hex) return;
             if (DataContext is not PadViewModel vm || vm.DeviceConfig == null) return;

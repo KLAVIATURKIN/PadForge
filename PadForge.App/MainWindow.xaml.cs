@@ -348,24 +348,30 @@ namespace PadForge
                 {
                     if (elem is NavigationViewItem nvi && nvi.Tag != null)
                     {
-                        var tag = nvi.Tag.ToString();
-                        if (tag == "AddController")
-                            ShowControllerTypePopup(nvi);
-                        else if (!_rebuildingControllerSection)
-                        {
-                            // Clear active state on all items, set on clicked one.
-                            foreach (var mi in NavView.MenuItems)
-                                if (mi is NavigationViewItem other) other.IsActive = false;
-                            foreach (var mi in NavView.FooterMenuItems)
-                                if (mi is NavigationViewItem other) other.IsActive = false;
-                            nvi.IsActive = true;
-                            NavigateToTag(tag);
-                        }
+                        ActivateNavItem(nvi);
                         break;
                     }
                     // TreeWalk, not VisualTreeHelper: OriginalSource can be
                     // an inline Run, and GetParent throws on those (#333).
                     elem = PadForge.Common.TreeWalk.Parent(elem);
+                }
+            };
+
+            // The keyboard path: Enter or Space on a focused entry. wpf-ui
+            // starts navigation from a key press only for an entry with a
+            // TargetPageType (NavigationViewItem.OnClick), and these entries
+            // navigate by tag, so a key press on one did nothing. A button
+            // inside a slot card keeps its own Enter and Space: only the
+            // focused entry itself is handled.
+            NavView.PreviewKeyDown += (s, e) =>
+            {
+                if (e.Key is not (System.Windows.Input.Key.Enter or System.Windows.Input.Key.Space)
+                    || System.Windows.Input.Keyboard.Modifiers != System.Windows.Input.ModifierKeys.None)
+                    return;
+                if (System.Windows.Input.Keyboard.FocusedElement is NavigationViewItem nvi && nvi.Tag != null)
+                {
+                    ActivateNavItem(nvi);
+                    e.Handled = true;
                 }
             };
 
@@ -3944,6 +3950,26 @@ namespace PadForge
             // Re-rendering the bitmap on every 30Hz update causes visual flashing.
         }
 
+        /// <summary>Opens what a sidebar entry stands for: the Add Controller
+        /// popup, or the entry's page, marked active. A click and a key press
+        /// both come here.</summary>
+        private void ActivateNavItem(NavigationViewItem nvi)
+        {
+            var tag = nvi.Tag.ToString();
+            if (tag == "AddController")
+                ShowControllerTypePopup(nvi);
+            else if (!_rebuildingControllerSection)
+            {
+                // Clear active state on all items, set on clicked one.
+                foreach (var mi in NavView.MenuItems)
+                    if (mi is NavigationViewItem other) other.IsActive = false;
+                foreach (var mi in NavView.FooterMenuItems)
+                    if (mi is NavigationViewItem other) other.IsActive = false;
+                nvi.IsActive = true;
+                NavigateToTag(tag);
+            }
+        }
+
         /// <summary>The first element at or under root, in the visual tree,
         /// with this AutomationId, or null.</summary>
         private static FrameworkElement FindByAutomationId(DependencyObject root, string id)
@@ -5960,6 +5986,7 @@ namespace PadForge
 
             border.Child = stack;
             popup.Child = container;
+            PadForge.Common.KeyboardPopup.Wire(popup, anchor, container);
             popup.IsOpen = true;
         }
 
@@ -6158,6 +6185,7 @@ namespace PadForge
             };
             border.Child = scroller;
             popup.Child = container;
+            PadForge.Common.KeyboardPopup.Wire(popup, anchor, container);
             popup.IsOpen = true;
         }
 

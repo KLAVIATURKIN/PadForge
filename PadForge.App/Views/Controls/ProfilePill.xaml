@@ -1,7 +1,8 @@
 <UserControl x:Class="PadForge.Views.Controls.ProfilePill"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:strings="clr-namespace:PadForge.Resources.Strings">
+             xmlns:strings="clr-namespace:PadForge.Resources.Strings"
+             xmlns:controls="clr-namespace:PadForge.Controls">
     <!-- Active-profile pill (#175 item 8): rounded steel chip carrying a
          lit flame + the active profile name in telemetry mono. Hosted in
          the pad-page tier-1 bar and the status-bar instrument cluster.
@@ -12,9 +13,8 @@
          Click opens the switcher flyout; MainWindow wires it. Hover is a
          fill lighten only: the Effect slot is reserved for the code-driven
          auto-switch flare (one Effect slot per element). -->
-    <Border x:Name="PillBorder" CornerRadius="9" BorderThickness="1"
-            Padding="8,2" Cursor="Hand"
-            MouseLeftButtonUp="Pill_MouseLeftButtonUp">
+    <controls:ClickBorder x:Name="PillBorder" CornerRadius="9" BorderThickness="1"
+            Padding="8,2" Cursor="Hand" Click="Pill_Click">
         <Border.Style>
             <Style TargetType="Border">
                 <Setter Property="BorderBrush" Value="{DynamicResource SteelLineSoftBrush}"/>
@@ -26,6 +26,13 @@
                 </Style.Triggers>
             </Style>
         </Border.Style>
+        <!-- Read as "Active profile: <name>", the tooltip's words. -->
+        <AutomationProperties.Name>
+            <MultiBinding StringFormat="{}{0} {1}">
+                <Binding Path="Profiles_ActiveProfile" Source="{x:Static strings:Strings.Instance}"/>
+                <Binding Path="ActiveProfileInfo"/>
+            </MultiBinding>
+        </AutomationProperties.Name>
         <!-- Tooltip carries the untruncated name (slot-card precedent). -->
         <Border.ToolTip>
             <StackPanel Orientation="Horizontal">
@@ -46,5 +53,5 @@
                        MaxWidth="140" TextTrimming="CharacterEllipsis"
                        VerticalAlignment="Center"/>
         </StackPanel>
-    </Border>
+    </controls:ClickBorder>
 </UserControl>

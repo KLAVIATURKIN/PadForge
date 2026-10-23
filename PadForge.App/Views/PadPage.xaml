@@ -1254,11 +1254,10 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Grid Grid.Column="0" Cursor="Hand" Margin="0,0,12,0"
+                        <controls:ClickBorder Grid.Column="0" Cursor="Hand" Margin="0,0,12,0"
                               MouseEnter="Motor_MouseEnter" MouseLeave="Motor_MouseLeave"
-                              MouseLeftButtonDown="LeftMotor_Click"
                               ToolTip="{Binding Pad_TestLeftMotor, Source={x:Static strings:Strings.Instance}}"
-                              Background="Transparent">
+                              Background="Transparent" ClickMode="Press" Click="LeftMotor_Click"><Grid>
                             <ProgressBar AutomationProperties.Name="{Binding Pad_LeftMotor, Source={x:Static strings:Strings.Instance}}" Template="{StaticResource MotorCapsuleTemplate}" Height="32"
                                          Value="{Binding LeftMotorDisplay, Mode=OneWay}" Minimum="0" Maximum="1"
                                          IsHitTestVisible="False"/>
@@ -1273,13 +1272,12 @@
                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                        HorizontalAlignment="Center" VerticalAlignment="Center"
                                        IsHitTestVisible="False"/>
-                        </Grid>
+                        </Grid></controls:ClickBorder>
 
-                        <Grid Grid.Column="1" Cursor="Hand" Margin="12,0,0,0"
+                        <controls:ClickBorder Grid.Column="1" Cursor="Hand" Margin="12,0,0,0"
                               MouseEnter="Motor_MouseEnter" MouseLeave="Motor_MouseLeave"
-                              MouseLeftButtonDown="RightMotor_Click"
                               ToolTip="{Binding Pad_TestRightMotor, Source={x:Static strings:Strings.Instance}}"
-                              Background="Transparent">
+                              Background="Transparent" ClickMode="Press" Click="RightMotor_Click"><Grid>
                             <ProgressBar AutomationProperties.Name="{Binding Pad_RightMotor, Source={x:Static strings:Strings.Instance}}" Template="{StaticResource MotorCapsuleTemplate}" Height="32"
                                          Value="{Binding RightMotorDisplay, Mode=OneWay}" Minimum="0" Maximum="1"
                                          IsHitTestVisible="False"/>
@@ -1288,7 +1286,7 @@
                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                        HorizontalAlignment="Center" VerticalAlignment="Center"
                                        IsHitTestVisible="False"/>
-                        </Grid>
+                        </Grid></controls:ClickBorder>
                     </Grid>
 
                     <!-- ══════════════════════════════════════
@@ -4009,9 +4007,8 @@
 
                         <!-- CURVE: any curve-bearing output with a non-linear
                              sensitivity curve. -->
-                        <Border Style="{StaticResource PipelineChip}" Tag="Curve"
-                                MouseLeftButtonUp="PipelineChip_Click"
-                                Visibility="{Binding PipelineCurveActive, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <controls:ClickBorder Style="{StaticResource PipelineChip}" Tag="Curve"
+                                Visibility="{Binding PipelineCurveActive, Converter={StaticResource BoolToVisibilityConverter}}" Click="PipelineChip_Click">
                             <Border.ToolTip>
                                 <StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0,0,0,3">
@@ -4043,12 +4040,11 @@
                                 </Path>
                                 <TextBlock Text="CURVE" Style="{StaticResource PipelineChipToken}"/>
                             </StackPanel>
-                        </Border>
+                        </controls:ClickBorder>
 
                         <!-- GYRO: rows fed by a Gyro axis source. -->
-                        <Border Style="{StaticResource PipelineChip}" Tag="Gyro"
-                                MouseLeftButtonUp="PipelineChip_Click"
-                                Visibility="{Binding PipelineGyroActive, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <controls:ClickBorder Style="{StaticResource PipelineChip}" Tag="Gyro"
+                                Visibility="{Binding PipelineGyroActive, Converter={StaticResource BoolToVisibilityConverter}}" Click="PipelineChip_Click">
                             <Border.ToolTip>
                                 <StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0,0,0,3">
@@ -4080,13 +4076,12 @@
                                 </Path>
                                 <TextBlock Text="GYRO" Style="{StaticResource PipelineChipToken}"/>
                             </StackPanel>
-                        </Border>
+                        </controls:ClickBorder>
 
                         <!-- SHIFT: slot has layers beyond Base; flames while
                              the engine holds a non-Base layer engaged. -->
-                        <Border Style="{StaticResource PipelineChip}" Tag="Shift"
-                                MouseLeftButtonUp="PipelineChip_Click"
-                                Visibility="{Binding PipelineShiftActive, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <controls:ClickBorder Style="{StaticResource PipelineChip}" Tag="Shift"
+                                Visibility="{Binding PipelineShiftActive, Converter={StaticResource BoolToVisibilityConverter}}" Click="PipelineChip_Click">
                             <Border.ToolTip>
                                 <TextBlock Text="{Binding PipelineShiftSummary}"
                                            FontFamily="{StaticResource TelemetryFontFamily}" FontSize="11"/>
@@ -4111,12 +4106,11 @@
                                 </Path>
                                 <TextBlock Text="SHIFT" Style="{StaticResource PipelineChipToken}"/>
                             </StackPanel>
-                        </Border>
+                        </controls:ClickBorder>
 
                         <!-- INV: rows with the invert transform on. -->
-                        <Border Style="{StaticResource PipelineChip}" Tag="Invert"
-                                MouseLeftButtonUp="PipelineChip_Click"
-                                Visibility="{Binding PipelineInvertActive, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <controls:ClickBorder Style="{StaticResource PipelineChip}" Tag="Invert"
+                                Visibility="{Binding PipelineInvertActive, Converter={StaticResource BoolToVisibilityConverter}}" Click="PipelineChip_Click">
                             <Border.ToolTip>
                                 <StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0,0,0,3">
@@ -4148,13 +4142,12 @@
                                 </Path>
                                 <TextBlock Text="INV" Style="{StaticResource PipelineChipToken}"/>
                             </StackPanel>
-                        </Border>
+                        </controls:ClickBorder>
 
                         <!-- DZ: rows with a per-mapping deadzone off its
                              50% default. -->
-                        <Border Style="{StaticResource PipelineChip}" Tag="DeadZone"
-                                MouseLeftButtonUp="PipelineChip_Click"
-                                Visibility="{Binding PipelineDeadZoneActive, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <controls:ClickBorder Style="{StaticResource PipelineChip}" Tag="DeadZone"
+                                Visibility="{Binding PipelineDeadZoneActive, Converter={StaticResource BoolToVisibilityConverter}}" Click="PipelineChip_Click">
                             <Border.ToolTip>
                                 <StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0,0,0,3">
@@ -4186,7 +4179,7 @@
                                 </Path>
                                 <TextBlock Text="DZ" Style="{StaticResource PipelineChipToken}"/>
                             </StackPanel>
-                        </Border>
+                        </controls:ClickBorder>
                     </WrapPanel>
 
                     <!-- Mapping DataGrid. HorizontalAlignment=Left so the DataGrid
@@ -4214,6 +4207,36 @@
                               Grid.IsSharedSizeScope="True"
                               SelectionChanged="MappingDataGrid_SelectionChanged"
                               Loaded="MappingDataGrid_Loaded">
+                        <!-- The look of every cell. Each template column bases a cell
+                             style on it that names its cells for screen readers, which
+                             would otherwise read WPF's "Item: ..., Column Display
+                             Index: N" (DataGridCellItemAutomationPeer.GetNameCore). -->
+                        <DataGrid.Resources>
+                            <Style x:Key="MappingCellStyle" TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                                <!-- HorizontalContentAlignment used to be Stretch here.
+                                     That made every cell hand its child the full column
+                                     width during arrange, which (combined with the
+                                     CellsPanel's measure pass) inflated the Auto Options
+                                     column to absorb the leftover horizontal slack of
+                                     the row. Switched to Left so cells size and align
+                                     to their content's actual DesiredSize. Columns
+                                     that need horizontal fill (the Source ComboBox)
+                                     set Stretch on their own template root. -->
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                <Style.Triggers>
+                                    <!-- The base DataGridCell paints #FFF0F0F0 (the classic
+                                         Windows control gray) on IsSelected, which is the
+                                         searing white on a selected row in dark mode. Keep
+                                         selected cells transparent so the row's subtle ember
+                                         wash shows through uniformly, and hold the text light. -->
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="BorderBrush" Value="Transparent"/>
+                                        <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.Resources>
                         <!-- Ember close-out item 8: mono eyebrow column headers
                              (spec 235-244). Attached directly here, NOT as an
                              implicit page-level style (that broke once with a
@@ -4245,30 +4268,7 @@
                             </Style>
                         </DataGrid.ColumnHeaderStyle>
                         <DataGrid.CellStyle>
-                            <Style TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">
-                                <!-- HorizontalContentAlignment used to be Stretch here.
-                                     That made every cell hand its child the full column
-                                     width during arrange, which (combined with the
-                                     CellsPanel's measure pass) inflated the Auto Options
-                                     column to absorb the leftover horizontal slack of
-                                     the row. Switched to Left so cells size and align
-                                     to their content's actual DesiredSize. Columns
-                                     that need horizontal fill (the Source ComboBox)
-                                     set Stretch on their own template root. -->
-                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
-                                <Style.Triggers>
-                                    <!-- The base DataGridCell paints #FFF0F0F0 (the classic
-                                         Windows control gray) on IsSelected, which is the
-                                         searing white on a selected row in dark mode. Keep
-                                         selected cells transparent so the row's subtle ember
-                                         wash shows through uniformly, and hold the text light. -->
-                                    <Trigger Property="IsSelected" Value="True">
-                                        <Setter Property="Background" Value="Transparent"/>
-                                        <Setter Property="BorderBrush" Value="Transparent"/>
-                                        <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
+                            <StaticResource ResourceKey="MappingCellStyle"/>
                         </DataGrid.CellStyle>
                         <DataGrid.RowStyle>
                             <Style TargetType="DataGridRow">
@@ -5939,6 +5939,11 @@
                                  reads ember. Source cells stay cold. -->
                             <DataGridTemplateColumn Header="{Binding Pad_HeaderOutput, Source={x:Static strings:Strings.Instance}}"
                                                     Width="Auto">
+                                <DataGridTemplateColumn.CellStyle>
+                                    <Style TargetType="DataGridCell" BasedOn="{StaticResource MappingCellStyle}">
+                                        <Setter Property="AutomationProperties.Name" Value="{Binding TargetLabel}"/>
+                                    </Style>
+                                </DataGridTemplateColumn.CellStyle>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Border Background="{DynamicResource EmberTintBrush}"
@@ -6001,6 +6006,11 @@
                             </DataGridTemplateColumn>
                             <DataGridTemplateColumn Header="{Binding Pad_HeaderSource, Source={x:Static strings:Strings.Instance}}"
                                                 Width="Auto">
+                                <DataGridTemplateColumn.CellStyle>
+                                    <Style TargetType="DataGridCell" BasedOn="{StaticResource MappingCellStyle}">
+                                        <Setter Property="AutomationProperties.Name" Value="{Binding SourceDisplayText}"/>
+                                    </Style>
+                                </DataGridTemplateColumn.CellStyle>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Vertical">
@@ -6245,6 +6255,11 @@
                             </DataGridTextColumn>
                             <!-- Record button -->
                             <DataGridTemplateColumn Header="" Width="Auto">
+                                <DataGridTemplateColumn.CellStyle>
+                                    <Style TargetType="DataGridCell" BasedOn="{StaticResource MappingCellStyle}">
+                                        <Setter Property="AutomationProperties.Name" Value="{Binding RecordButtonText}"/>
+                                    </Style>
+                                </DataGridTemplateColumn.CellStyle>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <ui:Button Command="{Binding ToggleRecordCommand}"
@@ -6262,6 +6277,11 @@
                             </DataGridTemplateColumn>
                             <!-- Clear button -->
                             <DataGridTemplateColumn Header="" Width="Auto">
+                                <DataGridTemplateColumn.CellStyle>
+                                    <Style TargetType="DataGridCell" BasedOn="{StaticResource MappingCellStyle}">
+                                        <Setter Property="AutomationProperties.Name" Value="{Binding Common_Clear, Source={x:Static strings:Strings.Instance}}"/>
+                                    </Style>
+                                </DataGridTemplateColumn.CellStyle>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <ui:Button AutomationProperties.Name="{Binding Common_Clear, Source={x:Static strings:Strings.Instance}}" Command="{Binding ClearCommand}"
@@ -6287,6 +6307,11 @@
                                  template feeds the StackPanel the column's stretched
                                  width during measurement, and the column inflates. -->
                             <DataGridTemplateColumn Header="{Binding Pad_HeaderOptions, Source={x:Static strings:Strings.Instance}}" Width="Auto">
+                                <DataGridTemplateColumn.CellStyle>
+                                    <Style TargetType="DataGridCell" BasedOn="{StaticResource MappingCellStyle}">
+                                        <Setter Property="AutomationProperties.Name" Value="{Binding Pad_HeaderOptions, Source={x:Static strings:Strings.Instance}}"/>
+                                    </Style>
+                                </DataGridTemplateColumn.CellStyle>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
@@ -6437,6 +6462,17 @@
 
                             <!-- Deadzone (per-mapping axis activation threshold) -->
                             <DataGridTemplateColumn Header="{Binding Pad_HeaderDeadZone, Source={x:Static strings:Strings.Instance}}" Width="Auto">
+                                <DataGridTemplateColumn.CellStyle>
+                                    <Style TargetType="DataGridCell" BasedOn="{StaticResource MappingCellStyle}">
+                                        <Setter Property="AutomationProperties.Name" Value="{Binding MappingDeadZone, StringFormat={}{0}%}"/>
+                                        <Style.Triggers>
+                                            <!-- The cell shows nothing on such a row. -->
+                                            <DataTrigger Binding="{Binding IsDeadZoneApplicable}" Value="False">
+                                                <Setter Property="AutomationProperties.Name" Value="{Binding Common_DoesNotApply, Source={x:Static strings:Strings.Instance}}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGridTemplateColumn.CellStyle>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="4,0">
@@ -9218,8 +9254,8 @@
                                             Blue="{Binding DeviceConfig.LightbarBlue, Mode=TwoWay}"/>
                                         <!-- Preset swatches (#175 competitor item 6): eight
                                              one-click colors writing the same LightbarRed/
-                                             Green/Blue trio the picker binds. Border +
-                                             Cursor=Hand + MouseLeftButtonDown follows the
+                                             Green/Blue trio the picker binds. A ClickBorder
+                                             with Cursor=Hand and ClickMode Press follows the
                                              motor-bar click idiom (LeftMotor_Click). Tag
                                              carries RRGGBB like the FormulaPreset_Click
                                              buttons carry their formula. First chip is the
@@ -9228,10 +9264,9 @@
                                              hex box because that box is code-behind-synced,
                                              not value-bound. -->
                                                                                 <StackPanel Orientation="Horizontal" Margin="0,2,0,10">
-                                        <Border Width="24" Height="24" CornerRadius="6" Margin="0,0,6,0" Cursor="Hand"
+                                        <controls:ClickBorder Width="24" Height="24" CornerRadius="6" Margin="0,0,6,0" Cursor="Hand"
                                                 Background="{DynamicResource SteelRaisedBrush}"
-                                                Tag="0000FF" ToolTip="#0000FF"
-                                                MouseLeftButtonDown="LightbarSwatch_Click">
+                                                Tag="0000FF" ToolTip="#0000FF" ClickMode="Press" Click="LightbarSwatch_Click">
                                             <Border.Style>
                                                 <Style TargetType="Border">
                                                     <Setter Property="BorderBrush" Value="{DynamicResource SteelLineSoftBrush}"/>
@@ -9245,11 +9280,10 @@
                                                 </Style>
                                             </Border.Style>
                                             <Border CornerRadius="3" Margin="3" Background="#FF0000FF" IsHitTestVisible="False"/>
-                                        </Border>
-                                        <Border Width="24" Height="24" CornerRadius="6" Margin="0,0,6,0" Cursor="Hand"
+                                        </controls:ClickBorder>
+                                        <controls:ClickBorder Width="24" Height="24" CornerRadius="6" Margin="0,0,6,0" Cursor="Hand"
                                                 Background="{DynamicResource SteelRaisedBrush}"
-                                                Tag="FF0000" ToolTip="#FF0000"
-                                                MouseLeftButtonDown="LightbarSwatch_Click">
+                                                Tag="FF0000" ToolTip="#FF0000" ClickMode="Press" Click="LightbarSwatch_Click">
                                             <Border.Style>
                                                 <Style TargetType="Border">
                                                     <Setter Property="BorderBrush" Value="{DynamicResource SteelLineSoftBrush}"/>
@@ -9263,11 +9297,10 @@
                                                 </Style>
                                             </Border.Style>
                                             <Border CornerRadius="3" Margin="3" Background="#FFFF0000" IsHitTestVisible="False"/>
-                                        </Border>
-                                        <Border Width="24" Height="24" CornerRadius="6" Margin="0,0,6,0" Cursor="Hand"
+                                        </controls:ClickBorder>
+                                        <controls:ClickBorder Width="24" Height="24" CornerRadius="6" Margin="0,0,6,0" Cursor="Hand"
                                                 Background="{DynamicResource SteelRaisedBrush}"
-                                                Tag="00FF00" ToolTip="#00FF00"
-                                                MouseLeftButtonDown="LightbarSwatch_Click">
+                                                Tag="00FF00" ToolTip="#00FF00" ClickMode="Press" Click="LightbarSwatch_Click">
                                             <Border.Style>
                                                 <Style TargetType="Border">
                                                     <Setter Property="BorderBrush" Value="{DynamicResource SteelLineSoftBrush}"/>
@@ -9281,11 +9314,10 @@
                                                 </Style>
                                             </Border.Style>
                                             <Border CornerRadius="3" Margin="3" Background="#FF00FF00" IsHitTestVisible="False"/>
-                                        </Border>
-                                        <Border Width="24" Height="24" CornerRadius="6" Margin="0,0,6,0" Cursor="Hand"
+                                        </controls:ClickBorder>
+                                        <controls:ClickBorder Width="24" Height="24" CornerRadius="6" Margin="0,0,6,0" Cursor="Hand"
                                                 Background="{DynamicResource SteelRaisedBrush}"
-                                                Tag="FF00FF" ToolTip="#FF00FF"
-                                                MouseLeftButtonDown="LightbarSwatch_Click">
+                                                Tag="FF00FF" ToolTip="#FF00FF" ClickMode="Press" Click="LightbarSwatch_Click">
                                             <Border.Style>
                                                 <Style TargetType="Border">
                                                     <Setter Property="BorderBrush" Value="{DynamicResource SteelLineSoftBrush}"/>
@@ -9299,11 +9331,10 @@
                                                 </Style>
                                             </Border.Style>
                                             <Border CornerRadius="3" Margin="3" Background="#FFFF00FF" IsHitTestVisible="False"/>
-                                        </Border>
-                                        <Border Width="24" Height="24" CornerRadius="6" Margin="0,0,6,0" Cursor="Hand"
+                                        </controls:ClickBorder>
+                                        <controls:ClickBorder Width="24" Height="24" CornerRadius="6" Margin="0,0,6,0" Cursor="Hand"
                                                 Background="{DynamicResource SteelRaisedBrush}"
-                                                Tag="FFBF00" ToolTip="#FFBF00"
-                                                MouseLeftButtonDown="LightbarSwatch_Click">
+                                                Tag="FFBF00" ToolTip="#FFBF00" ClickMode="Press" Click="LightbarSwatch_Click">
                                             <Border.Style>
                                                 <Style TargetType="Border">
                                                     <Setter Property="BorderBrush" Value="{DynamicResource SteelLineSoftBrush}"/>
@@ -9317,11 +9348,10 @@
                                                 </Style>
                                             </Border.Style>
                                             <Border CornerRadius="3" Margin="3" Background="#FFFFBF00" IsHitTestVisible="False"/>
-                                        </Border>
-                                        <Border Width="24" Height="24" CornerRadius="6" Margin="0,0,6,0" Cursor="Hand"
+                                        </controls:ClickBorder>
+                                        <controls:ClickBorder Width="24" Height="24" CornerRadius="6" Margin="0,0,6,0" Cursor="Hand"
                                                 Background="{DynamicResource SteelRaisedBrush}"
-                                                Tag="00FFFF" ToolTip="#00FFFF"
-                                                MouseLeftButtonDown="LightbarSwatch_Click">
+                                                Tag="00FFFF" ToolTip="#00FFFF" ClickMode="Press" Click="LightbarSwatch_Click">
                                             <Border.Style>
                                                 <Style TargetType="Border">
                                                     <Setter Property="BorderBrush" Value="{DynamicResource SteelLineSoftBrush}"/>
@@ -9335,11 +9365,10 @@
                                                 </Style>
                                             </Border.Style>
                                             <Border CornerRadius="3" Margin="3" Background="#FF00FFFF" IsHitTestVisible="False"/>
-                                        </Border>
-                                        <Border Width="24" Height="24" CornerRadius="6" Margin="0,0,6,0" Cursor="Hand"
+                                        </controls:ClickBorder>
+                                        <controls:ClickBorder Width="24" Height="24" CornerRadius="6" Margin="0,0,6,0" Cursor="Hand"
                                                 Background="{DynamicResource SteelRaisedBrush}"
-                                                Tag="FFFFFF" ToolTip="#FFFFFF"
-                                                MouseLeftButtonDown="LightbarSwatch_Click">
+                                                Tag="FFFFFF" ToolTip="#FFFFFF" ClickMode="Press" Click="LightbarSwatch_Click">
                                             <Border.Style>
                                                 <Style TargetType="Border">
                                                     <Setter Property="BorderBrush" Value="{DynamicResource SteelLineSoftBrush}"/>
@@ -9353,11 +9382,10 @@
                                                 </Style>
                                             </Border.Style>
                                             <Border CornerRadius="3" Margin="3" Background="#FFFFFFFF" IsHitTestVisible="False"/>
-                                        </Border>
-                                        <Border Width="24" Height="24" CornerRadius="6" Margin="0,0,6,0" Cursor="Hand"
+                                        </controls:ClickBorder>
+                                        <controls:ClickBorder Width="24" Height="24" CornerRadius="6" Margin="0,0,6,0" Cursor="Hand"
                                                 Background="{DynamicResource SteelRaisedBrush}"
-                                                Tag="FF6B2C" ToolTip="#FF6B2C"
-                                                MouseLeftButtonDown="LightbarSwatch_Click">
+                                                Tag="FF6B2C" ToolTip="#FF6B2C" ClickMode="Press" Click="LightbarSwatch_Click">
                                             <Border.Style>
                                                 <Style TargetType="Border">
                                                     <Setter Property="BorderBrush" Value="{DynamicResource SteelLineSoftBrush}"/>
@@ -9371,7 +9399,7 @@
                                                 </Style>
                                             </Border.Style>
                                             <Border CornerRadius="3" Margin="3" Background="#FFFF6B2C" IsHitTestVisible="False"/>
-                                        </Border>
+                                        </controls:ClickBorder>
                                         </StackPanel>
                                         <Grid Margin="0,0,0,10">
                                             <Grid.ColumnDefinitions>

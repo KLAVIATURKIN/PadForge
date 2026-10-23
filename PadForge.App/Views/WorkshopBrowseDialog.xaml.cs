@@ -467,7 +467,7 @@ namespace PadForge.Views
             return false;
         }
 
-        private void BackToSearch_Click(object sender, MouseButtonEventArgs e)
+        private void BackToSearch_Click(object sender, RoutedEventArgs e)
         {
             // Search state survives untouched behind the game room
             // (design: back returns without losing state).
@@ -816,7 +816,7 @@ namespace PadForge.Views
         /// <summary>Cycles the sort order and refetches. Refetch rather than
         /// re-sort, because the order decides WHICH configs come back, not
         /// just how the loaded ones line up.</summary>
-        private void SortChip_Click(object sender, MouseButtonEventArgs e)
+        private void SortChip_Click(object sender, RoutedEventArgs e)
         {
             _sortIndex = (_sortIndex + 1) % SortOrders.Length;
             UpdateSortChips();
@@ -832,7 +832,7 @@ namespace PadForge.Views
         /// keeps working, and each new page is folded in and the whole list
         /// re-reversed, so the order stays consistent as it grows.</para>
         /// </summary>
-        private void SortDir_Click(object sender, MouseButtonEventArgs e)
+        private void SortDir_Click(object sender, RoutedEventArgs e)
         {
             _sortAscending = !_sortAscending;
             UpdateSortChips();
@@ -1056,7 +1056,7 @@ namespace PadForge.Views
             }
         }
 
-        private void TagChip_Click(object sender, MouseButtonEventArgs e)
+        private void TagChip_Click(object sender, RoutedEventArgs e)
         {
             if ((sender as FrameworkElement)?.DataContext is not WorkshopTagChipItem chip) return;
             if (string.Equals(chip.Tag, _activeTag, StringComparison.Ordinal)) return;
@@ -1484,7 +1484,7 @@ namespace PadForge.Views
             yield return "english";
         }
 
-        private void PresetChip_Click(object sender, MouseButtonEventArgs e)
+        private void PresetChip_Click(object sender, RoutedEventArgs e)
         {
             if ((sender as FrameworkElement)?.DataContext is not WorkshopPresetChipItem chip) return;
             chip.IsIncluded = !chip.IsIncluded;

@@ -58,16 +58,6 @@ namespace PadForge.Tests
         // file or class missing here holds at zero.
         private static readonly Dictionary<(string File, string Class), int> Ceilings = new()
         {
-            [("PadForge.App/Controls/CurveEditor.xaml", XamlA11yAudit.MouseOnly)] = 2,
-            [("PadForge.App/MainWindow.xaml", XamlA11yAudit.MouseOnly)] = 1,
-            [("PadForge.App/Views/ColorPickerControl.xaml", XamlA11yAudit.MouseOnly)] = 4,
-            [("PadForge.App/Views/Controls/ProfilePill.xaml", XamlA11yAudit.MouseOnly)] = 1,
-            [("PadForge.App/Views/DashboardPage.xaml", XamlA11yAudit.MouseOnly)] = 1,
-            [("PadForge.App/Views/DevicesPage.xaml", XamlA11yAudit.MouseOnly)] = 10,
-            [("PadForge.App/Views/PadPage.xaml", XamlA11yAudit.MouseOnly)] = 18,
-            [("PadForge.App/Views/TouchpadGestureRecorderDialog.xaml", XamlA11yAudit.MouseOnly)] = 2,
-            [("PadForge.App/Views/TouchpadOverlay.xaml", XamlA11yAudit.MouseOnly)] = 4,
-            [("PadForge.App/Views/WorkshopBrowseDialog.xaml", XamlA11yAudit.MouseOnly)] = 6,
         };
 
         // Findings that stay, each with its reason, matched by file, class and
@@ -82,6 +72,26 @@ namespace PadForge.Tests
                 "The picker sets the button's text in code (ClearButton.Content = clearLabel)."),
             ("PadForge.App/Views/PadPage.xaml", XamlA11yAudit.ItemsUnnamed, "DataGrid|MappingDataGrid",
                 "MappingItem.ToString reads each row's target and its source."),
+            ("PadForge.App/Controls/CurveEditor.xaml", XamlA11yAudit.MouseOnly, "Canvas|ChartCanvas",
+                "The curve editor takes keys itself: the arrows select and move a point, Insert adds one, Delete removes one."),
+            ("PadForge.App/MainWindow.xaml", XamlA11yAudit.MouseOnly, "Border|AppBrandingBorder",
+                "Dragging the title area moves the window. Alt+Space opens the window menu, which moves it from the keyboard."),
+            ("PadForge.App/Views/ColorPickerControl.xaml", XamlA11yAudit.MouseOnly, "Canvas|SvCanvas",
+                "The R, G, B and hex fields beside the canvas set the same color."),
+            ("PadForge.App/Views/ColorPickerControl.xaml", XamlA11yAudit.MouseOnly, "Canvas|HueCanvas",
+                "The R, G, B and hex fields beside the canvas set the same color."),
+            ("PadForge.App/Views/DevicesPage.xaml", XamlA11yAudit.MouseOnly, "Border|PreviewMouseLeftButtonDown:DeviceCard_MouseDown",
+                "Dragging a device card onto a slot assigns it. The slot toggles in the device's details assign it from the keyboard."),
+            ("PadForge.App/Views/DevicesPage.xaml", XamlA11yAudit.MouseOnly, "Border|PreviewMouseLeftButtonUp:DeviceCard_MouseUp",
+                "Dragging a device card onto a slot assigns it. The slot toggles in the device's details assign it from the keyboard."),
+            ("PadForge.App/Views/PadPage.xaml", XamlA11yAudit.MouseOnly, "Border|ConstantForcePadBorder",
+                "The X and Y sliders and boxes beside the pad set the same force."),
+            ("PadForge.App/Views/TouchpadGestureRecorderDialog.xaml", XamlA11yAudit.MouseOnly, "Canvas|DrawingCanvas",
+                "A gesture is a drawn path: a controller's touchpad, a mouse, a pen or a finger draws it."),
+            ("PadForge.App/Views/TouchpadOverlay.xaml", XamlA11yAudit.MouseOnly, "Border|ClickBar",
+                "The overlay is an on-screen touchpad, a surface for the mouse, a pen or a finger."),
+            ("PadForge.App/Views/TouchpadOverlay.xaml", XamlA11yAudit.MouseOnly, "Path|ResizeGrip",
+                "The grip resizes the on-screen touchpad, a surface for the mouse, a pen or a finger."),
         };
 
         private static bool Allowed(XamlA11yAudit.Finding f)
@@ -205,6 +215,62 @@ namespace PadForge.Tests
                 .Select(Path.GetFileName)
                 .ToList();
             Assert.True(missing.Count == 0, "Dialog windows that Escape does not close: " + string.Join(", ", missing));
+        }
+
+        [Fact]
+        public void EveryDialogWindow_PutsTheFocusInside_WhenItOpens()
+        {
+            // A dialog that leaves the focus on its window sends the first key
+            // press nowhere. InitialFocus.First moves it to the first control
+            // when a key press opened the dialog, and the rest focus a field
+            // in code.
+            var views = Path.Combine(RepoRoot(), "PadForge.App", "Views");
+            var focusCall = new Regex(@"\.Focus\(\)|MoveFocus\(|Keyboard\.Focus\(");
+            var missing = Directory.EnumerateFiles(views, "*Dialog.xaml")
+                .Where(p => !File.ReadAllText(p).Contains("InitialFocus.First=\"True\"", StringComparison.Ordinal)
+                    && !(File.Exists(p + ".cs") && focusCall.IsMatch(File.ReadAllText(p + ".cs"))))
+                .Select(Path.GetFileName)
+                .ToList();
+            Assert.True(missing.Count == 0, "Dialog windows that open with the focus on the window: " + string.Join(", ", missing));
+        }
+
+        [Fact]
+        public void EveryDataGridTemplateColumn_NamesItsCells()
+        {
+            // WPF names a cell from its content's plain text, and a template
+            // column's ContentPresenter has none, so a screen reader heard
+            // "Item: ..., Column Display Index: N"
+            // (DataGridCellItemAutomationPeer.GetNameCore).
+            var missing = new List<string>();
+            foreach (var (rel, text) in XamlA11yAudit.Files(RepoRoot()))
+            {
+                foreach (var column in XDocument.Parse(text, LoadOptions.SetLineInfo).Descendants()
+                    .Where(e => e.Name.LocalName == "DataGridTemplateColumn"))
+                {
+                    bool named = column.Elements().Where(e => e.Name.LocalName == "DataGridTemplateColumn.CellStyle")
+                        .Descendants().Any(s => s.Name.LocalName == "Setter"
+                            && ((string)s.Attribute("Property") ?? "").EndsWith("AutomationProperties.Name", StringComparison.Ordinal));
+                    if (!named)
+                        missing.Add($"{rel}:{((IXmlLineInfo)column).LineNumber}");
+                }
+            }
+            Assert.True(missing.Count == 0, "Template columns whose cells read WPF's default name: " + string.Join(", ", missing));
+        }
+
+        [Fact]
+        public void EveryCopiedWpfUiTemplate_NamesThePackageVersionInUse()
+        {
+            // App.xaml copies wpf-ui templates and says from which version. A
+            // package bump fails here until each copy is checked against the
+            // new version and its note updated.
+            string root = RepoRoot();
+            string csproj = File.ReadAllText(Path.Combine(root, "PadForge.App", "PadForge.App.csproj"));
+            string version = Regex.Match(csproj, "<PackageReference Include=\"WPF-UI\" Version=\"([^\"]+)\"").Groups[1].Value;
+            Assert.False(string.IsNullOrEmpty(version));
+            string app = File.ReadAllText(Path.Combine(root, "PadForge.App", "App.xaml"));
+            var cited = Regex.Matches(app, @"Wpf\.Ui (\d+\.\d+\.\d+)").Select(m => m.Groups[1].Value).ToList();
+            Assert.NotEmpty(cited);
+            Assert.All(cited, v => Assert.Equal(version, v));
         }
 
         [Fact]
@@ -544,6 +610,7 @@ namespace PadForge.Tests
         private static readonly HashSet<string> PlaceholderNamed = new() { "TextBox", "NumberBox", "PasswordBox" };
         private static readonly string[] MouseEvents =
             { "MouseLeftButtonDown", "MouseLeftButtonUp", "MouseDown", "MouseUp", "PreviewMouseLeftButtonDown", "PreviewMouseDown", "PreviewMouseLeftButtonUp" };
+        private static readonly string[] KeyEvents = { "KeyDown", "PreviewKeyDown", "KeyUp", "PreviewKeyUp" };
         private static readonly HashSet<string> Controlish = new(Buttons.Concat(Inputs).Concat(Toggles)
             .Concat(new[] { "MenuItem", "ListBoxItem", "ListViewItem", "TabItem", "Thumb", "ScrollBar" }));
         private static readonly Regex Pua = new(@"[\uE000-\uF8FF]");
@@ -671,8 +738,13 @@ namespace PadForge.Tests
 
                     if (Lists.Contains(tag) && Attr(n, "ItemsSource") is { Length: > 0 } items)
                     {
-                        bool setter = n.DescendantsAndSelf().Any(c => Local(c) == "Setter"
-                            && (Attr(c, "Property") ?? "").EndsWith("AutomationProperties.Name", StringComparison.Ordinal));
+                        // A name setter in the row or item container style
+                        // names the items. One in a column's cell style names
+                        // only the cells.
+                        bool setter = n.Descendants().Any(c => Local(c) == "Setter"
+                            && (Attr(c, "Property") ?? "").EndsWith("AutomationProperties.Name", StringComparison.Ordinal)
+                            && c.Ancestors().TakeWhile(a => a != n).Any(a => Local(a).EndsWith(".RowStyle", StringComparison.Ordinal)
+                                || Local(a).EndsWith(".ItemContainerStyle", StringComparison.Ordinal)));
                         if (!setter)
                             Add(string.IsNullOrEmpty(Attr(n, "DisplayMemberPath")) ? ItemsUnnamed : ItemsDisplayMemberPath, null, items, items);
                     }
@@ -680,7 +752,10 @@ namespace PadForge.Tests
                     if (tag == "Image" && AttrAuto(n, "Name") == null)
                         Add(ImageNoName, null, Attr(n, "Source"), Attr(n, "Source"));
 
-                    if (!Controlish.Contains(tag))
+                    // An element with a key handler of its own has a keyboard
+                    // path beside its mouse one (the Workshop shelf opens a game
+                    // on Enter, the macro steps move on Alt+Up and Alt+Down).
+                    if (!Controlish.Contains(tag) && !KeyEvents.Any(ev => Attr(n, ev) is { Length: > 0 }))
                         foreach (string ev in MouseEvents)
                             if (Attr(n, ev) is { Length: > 0 } handler)
                                 Add(MouseOnly, null, ev + ":" + handler, ev + ":" + handler);

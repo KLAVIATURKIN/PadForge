@@ -63,7 +63,7 @@ namespace PadForge.Views
             EngineToggleRequested?.Invoke(this, EventArgs.Empty);
         }
 
-        private void AddControllerCard_Click(object sender, MouseButtonEventArgs e)
+        private void AddControllerCard_Click(object sender, RoutedEventArgs e)
         {
             AddControllerRequested?.Invoke(this, EventArgs.Empty);
         }

@@ -150,7 +150,7 @@ namespace PadForge.Views
 
         /// <summary>The rumble capability chip's click (a Border, so a mouse
         /// handler rather than a Button Click).</summary>
-        private void IdentifyChip_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void IdentifyChip_Click(object sender, RoutedEventArgs e)
             => IdentifyDevice_Click(sender, e);
 
         /// <summary>Identify buzz (#293): route through InputService, which
@@ -240,7 +240,7 @@ namespace PadForge.Views
         /// <summary>Facet chip click (#175 phase 2 item 13): filters the
         /// device list by type family. Chips are Border tokens (PipelineChip
         /// precedent); Tag carries the locale-neutral facet token.</summary>
-        private void FacetChip_Click(object sender, MouseButtonEventArgs e)
+        private void FacetChip_Click(object sender, RoutedEventArgs e)
         {
             if (sender is FrameworkElement fe && fe.Tag is string facet &&
                 DataContext is ViewModels.DevicesViewModel vm)

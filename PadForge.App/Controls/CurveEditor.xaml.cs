@@ -1,11 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Windows;
+using System.Windows.Automation;
+using System.Windows.Automation.Peers;
+using System.Windows.Automation.Provider;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using PadForge.Common;
+using PadForge.Resources.Strings;
 
 namespace PadForge.Controls
 {
@@ -83,6 +88,8 @@ namespace PadForge.Controls
         private readonly List<Ellipse> _pointEllipses = new();
         private int _dragIndex = -1;
         private bool _isDragging;
+        // The point the keys act on while the editor holds keyboard focus.
+        private int _keyIndex;
 
         // Visual elements
         private readonly Polyline _curveLine = new();
@@ -179,14 +186,14 @@ namespace PadForge.Controls
             _pointEllipses.Clear();
 
             var gridBrush = TryFindResource("ControlStrokeColorSecondaryBrush") as Brush
-                ?? Application.Current.TryFindResource("ControlStrokeColorSecondaryBrush") as Brush
+                ?? Application.Current?.TryFindResource("ControlStrokeColorSecondaryBrush") as Brush
                 ?? new SolidColorBrush(Color.FromRgb(0x5C, 0x5C, 0x5C));
 
             _curveStrokeBrush = TryFindResource("TextFillColorSecondaryBrush") as Brush
-                ?? Application.Current.TryFindResource("TextFillColorSecondaryBrush") as Brush
+                ?? Application.Current?.TryFindResource("TextFillColorSecondaryBrush") as Brush
                 ?? CurveStrokeFallbackBrush;
             _handleBrush = TryFindResource("TextFillColorTertiaryBrush") as Brush
-                ?? Application.Current.TryFindResource("TextFillColorTertiaryBrush") as Brush
+                ?? Application.Current?.TryFindResource("TextFillColorTertiaryBrush") as Brush
                 ?? HandleFallbackBrush;
 
             // Grid lines at 25%/75%
@@ -204,7 +211,7 @@ namespace PadForge.Controls
             // original grid tone so the radar-sidebar mini-plots are
             // pixel-identical.
             var steelBrush = TryFindResource("SteelLineBrush") as Brush
-                ?? Application.Current.TryFindResource("SteelLineBrush") as Brush
+                ?? Application.Current?.TryFindResource("SteelLineBrush") as Brush
                 ?? (Brush)SteelLineFallbackBrush;
             _refDiag.Stroke = IsFullWidth ? steelBrush : gridBrush;
             _refDiag.StrokeThickness = IsFullWidth ? 1.0 : 0.5;
@@ -239,7 +246,7 @@ namespace PadForge.Controls
             if (IsFullWidth)
             {
                 _dragReadout.FontFamily = TryFindResource("TelemetryFontFamily") as FontFamily
-                    ?? Application.Current.TryFindResource("TelemetryFontFamily") as FontFamily
+                    ?? Application.Current?.TryFindResource("TelemetryFontFamily") as FontFamily
                     ?? new FontFamily("Consolas");
                 _dragReadout.FontSize = 10;
                 _dragReadout.Foreground = EmberHotBrush;
@@ -410,12 +417,15 @@ namespace PadForge.Controls
                 ChartCanvas.Children.Remove(e);
             _pointEllipses.Clear();
 
+            _keyIndex = Math.Clamp(_keyIndex, 0, Math.Max(0, _controlPoints.Count - 1));
+            int marked = MarkedIndex;
             for (int i = 0; i < _controlPoints.Count; i++)
             {
                 var (cx, cy) = _controlPoints[i];
                 var (px, py) = CurveToPixel(cx, cy);
 
-                bool isDragged = _isDragging && i == _dragIndex;
+                // The grabbed handle, or the point the keys act on.
+                bool isDragged = i == marked;
                 var ellipse = new Ellipse
                 {
                     Width = PointRadius * 2,
@@ -449,15 +459,23 @@ namespace PadForge.Controls
             Canvas.SetTop(_liveDot, py - 3.5);
         }
 
+        /// <summary>The point drawn ember-hot: the grabbed handle during a
+        /// drag, else the point the keys act on while the editor holds
+        /// keyboard focus, else none. A mouse click clears keyboard focus
+        /// (MainWindow), so the keyboard's mark never shows to the mouse.</summary>
+        private int MarkedIndex => _isDragging ? _dragIndex : IsKeyboardFocused ? _keyIndex : -1;
+
         // Mono coordinate readout beside the dragged node ("62, 48" in curve
         // percent), full-width mode only. Purely value-driven: shown on grab,
-        // repositioned per move, hidden on release.
+        // repositioned per move, hidden on release. The point the keys act on
+        // shows it the same way while the editor holds keyboard focus.
         private void UpdateDragReadout()
         {
-            if (!IsFullWidth || !_isDragging || _dragIndex < 0 || _dragIndex >= _controlPoints.Count)
+            int marked = MarkedIndex;
+            if (!IsFullWidth || marked < 0 || marked >= _controlPoints.Count)
                 return;
 
-            var (cx, cy) = _controlPoints[_dragIndex];
+            var (cx, cy) = _controlPoints[marked];
             _dragReadout.Text = $"{Math.Round(cx * 100):0}, {Math.Round(cy * 100):0}";
 
             var (px, py) = CurveToPixel(cx, cy);
@@ -492,7 +510,7 @@ namespace PadForge.Controls
         {
             if (sender is not Ellipse ellipse) return;
             int i = _pointEllipses.IndexOf(ellipse);
-            if (_isDragging && i == _dragIndex) return;
+            if (i == MarkedIndex) return;
             ellipse.Fill = _handleBrush;
             ellipse.Stroke = _curveStrokeBrush;
             ellipse.Effect = null;
@@ -640,6 +658,178 @@ namespace PadForge.Controls
             DrawCurveLine();
             DrawControlPoints();
             UpdateLiveDot();
+        }
+
+        // ── Keyboard editing ──
+
+        /// <summary>What a key did: nothing the editor handles, a point
+        /// selected (or a move the point could not make), or the points
+        /// changed.</summary>
+        internal enum KeyResult { Ignored, Selected, Changed }
+
+        private const double KeyStep = 0.01;
+        private const double PageStep = 0.10;
+        // The gap a point keeps from its neighbors, as a drag keeps it.
+        private const double MinGap = 0.01;
+
+        /// <summary>Applies one key to the points and the index of the point
+        /// the keys act on. Left and Right select the point before and after,
+        /// Home and End the first and last. Up and Down move the point's
+        /// output one percent, Page Up and Page Down ten. Shift+Left and
+        /// Shift+Right move an interior point's input one percent, short of
+        /// its neighbors as a drag stops. Insert adds a point on the curve
+        /// halfway to the next point (from the one before, on the last
+        /// point), Delete removes an interior point. The endpoints keep their
+        /// inputs and stay, as they do under the mouse.</summary>
+        internal static KeyResult ApplyKey(List<(double X, double Y)> points, ref int index,
+            ModifierKeys modifiers, Key key, Func<double, double> curveAt)
+        {
+            if (points.Count < 2)
+                return KeyResult.Ignored;
+            int last = points.Count - 1;
+            index = Math.Clamp(index, 0, last);
+            bool interior = index > 0 && index < last;
+            var (x, y) = points[index];
+
+            if (modifiers == ModifierKeys.Shift && key is Key.Left or Key.Right)
+            {
+                if (!interior)
+                    return KeyResult.Selected;
+                double moved = Math.Round(x + (key == Key.Left ? -KeyStep : KeyStep), 2);
+                moved = Math.Clamp(moved, points[index - 1].X + MinGap, points[index + 1].X - MinGap);
+                return Move(points, index, moved, y);
+            }
+            if (modifiers != ModifierKeys.None)
+                return KeyResult.Ignored;
+
+            switch (key)
+            {
+                case Key.Left:
+                    index = Math.Max(0, index - 1);
+                    return KeyResult.Selected;
+                case Key.Right:
+                    index = Math.Min(last, index + 1);
+                    return KeyResult.Selected;
+                case Key.Home:
+                    index = 0;
+                    return KeyResult.Selected;
+                case Key.End:
+                    index = last;
+                    return KeyResult.Selected;
+                case Key.Up:
+                case Key.Down:
+                case Key.PageUp:
+                case Key.PageDown:
+                    double step = key switch
+                    {
+                        Key.Up => KeyStep,
+                        Key.Down => -KeyStep,
+                        Key.PageUp => PageStep,
+                        _ => -PageStep,
+                    };
+                    return Move(points, index, x, Math.Clamp(Math.Round(y + step, 2), 0, 1));
+                case Key.Insert:
+                    int before = index == last ? last - 1 : index;
+                    double mid = Math.Round((points[before].X + points[before + 1].X) / 2, 3);
+                    if (mid - points[before].X < MinGap || points[before + 1].X - mid < MinGap)
+                        return KeyResult.Selected;
+                    points.Insert(before + 1, (mid, Math.Clamp(curveAt(mid), 0, 1)));
+                    index = before + 1;
+                    return KeyResult.Changed;
+                case Key.Delete:
+                    if (!interior)
+                        return KeyResult.Selected;
+                    points.RemoveAt(index);
+                    index--;
+                    return KeyResult.Changed;
+            }
+            return KeyResult.Ignored;
+        }
+
+        private static KeyResult Move(List<(double X, double Y)> points, int index, double x, double y)
+        {
+            if (points[index].X == x && points[index].Y == y)
+                return KeyResult.Selected;
+            points[index] = (x, y);
+            return KeyResult.Changed;
+        }
+
+        /// <summary>The point the keys act on as a screen reader reads it:
+        /// "Point 2 of 4, input 50%, output 38%". The numbers are curve
+        /// percent, as the drag readout shows them.</summary>
+        internal string PointText
+        {
+            get
+            {
+                if (_controlPoints.Count == 0)
+                    return string.Empty;
+                int i = Math.Clamp(_keyIndex, 0, _controlPoints.Count - 1);
+                var (x, y) = _controlPoints[i];
+                return string.Format(CultureInfo.CurrentCulture, Strings.Instance.CurveEditor_PointFormat,
+                    i + 1, _controlPoints.Count, Math.Round(x * 100), Math.Round(y * 100));
+            }
+        }
+
+        protected override void OnGotKeyboardFocus(KeyboardFocusChangedEventArgs e)
+        {
+            base.OnGotKeyboardFocus(e);
+            if (e.NewFocus == this && IsLoaded && !_isDragging)
+            {
+                DrawControlPoints();
+                UpdateDragReadout();
+            }
+        }
+
+        protected override void OnLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
+        {
+            base.OnLostKeyboardFocus(e);
+            if (e.OldFocus == this && IsLoaded && !_isDragging)
+            {
+                HideDragReadout();
+                DrawControlPoints();
+            }
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+            if (e.Handled || _isDragging || e.OriginalSource != this || !IsLoaded)
+                return;
+            string before = PointText;
+            double[] lut = CurveLut.GetOrBuild(CurveString);
+            KeyResult result = ApplyKey(_controlPoints, ref _keyIndex, Keyboard.Modifiers, e.Key,
+                x => lut != null ? CurveLut.Lookup(lut, x) : x);
+            if (result == KeyResult.Ignored)
+                return;
+            e.Handled = true;
+            if (result == KeyResult.Changed)
+                CommitPoints();
+            else
+                DrawControlPoints();
+            UpdateDragReadout();
+            string after = PointText;
+            if (after != before && UIElementAutomationPeer.FromElement(this) is CurveEditorPeer peer)
+                peer.RaisePropertyChangedEvent(ValuePatternIdentifiers.ValueProperty, before, after);
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer() => new CurveEditorPeer(this);
+
+        /// <summary>The editor's value for a screen reader: the point the
+        /// keys act on, read again after each key that changes it.</summary>
+        private sealed class CurveEditorPeer : UserControlAutomationPeer, IValueProvider
+        {
+            public CurveEditorPeer(CurveEditor owner) : base(owner) { }
+
+            public override object GetPattern(PatternInterface patternInterface)
+                => patternInterface == PatternInterface.Value ? this : base.GetPattern(patternInterface);
+
+            string IValueProvider.Value => ((CurveEditor)Owner).PointText;
+
+            // The value describes the point. The keys change it, and text
+            // set through UI Automation does not.
+            bool IValueProvider.IsReadOnly => true;
+
+            void IValueProvider.SetValue(string value) => throw new InvalidOperationException();
         }
 
         // ── Property change handlers ──
