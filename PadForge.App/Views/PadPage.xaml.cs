@@ -5186,23 +5186,39 @@ namespace PadForge.Views
         // commits, and the step keeps the focus.
         private void ActionsList_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (sender is not ListBox lb || Keyboard.Modifiers != ModifierKeys.Alt) return;
-            // With Alt held, WPF reports an arrow as a system key.
-            Key key = e.Key == Key.System ? e.SystemKey : e.Key;
-            int step = key == Key.Up ? -1 : key == Key.Down ? 1 : 0;
+            if (sender is not ListBox lb) return;
+            int step = ReorderStep(Keyboard.Modifiers, e.Key, e.SystemKey);
             if (step == 0) return;
             e.Handled = true;
             if (lb.SelectedItem is not MacroAction selected) return;
             if (lb.ItemsSource is not System.Collections.ObjectModel.ObservableCollection<MacroAction> actions) return;
-            int oldIndex = actions.IndexOf(selected);
-            int newIndex = oldIndex + step;
-            if (oldIndex < 0 || newIndex < 0 || newIndex >= actions.Count) return;
-            actions.Move(oldIndex, newIndex);
+            if (!MoveStep(actions, selected, step)) return;
             lb.SelectedItem = selected;
             lb.ScrollIntoView(selected);
             // After layout, once the moved step's container is in place.
             lb.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Loaded, new Action(() =>
                 (lb.ItemContainerGenerator.ContainerFromItem(selected) as ListBoxItem)?.Focus()));
+        }
+
+        /// <summary>How far Alt+Up (-1) or Alt+Down (+1) moves a step, or 0 for
+        /// any other key. With Alt held, WPF reports an arrow as Key.System
+        /// and the arrow itself in SystemKey.</summary>
+        internal static int ReorderStep(ModifierKeys modifiers, Key key, Key systemKey)
+        {
+            if (modifiers != ModifierKeys.Alt) return 0;
+            Key arrow = key == Key.System ? systemKey : key;
+            return arrow == Key.Up ? -1 : arrow == Key.Down ? 1 : 0;
+        }
+
+        /// <summary>Moves an item one step with the collection's own Move, so
+        /// selection and bindings survive. False at either end.</summary>
+        internal static bool MoveStep<T>(System.Collections.ObjectModel.ObservableCollection<T> items, T item, int step)
+        {
+            int oldIndex = items.IndexOf(item);
+            int newIndex = oldIndex + step;
+            if (oldIndex < 0 || step == 0 || newIndex < 0 || newIndex >= items.Count) return false;
+            items.Move(oldIndex, newIndex);
+            return true;
         }
 
         private static MacroAction ActionFromVisual(DependencyObject d)

@@ -210,6 +210,25 @@ namespace PadForge.Tests
         });
 
         [Fact]
+        public void AltUpAndAltDown_MoveAMacroStepOnePlace_AndNothingElseDoes()
+        {
+            // With Alt held, an arrow arrives as Key.System.
+            Assert.Equal(-1, PadForge.Views.PadPage.ReorderStep(System.Windows.Input.ModifierKeys.Alt, System.Windows.Input.Key.System, System.Windows.Input.Key.Up));
+            Assert.Equal(1, PadForge.Views.PadPage.ReorderStep(System.Windows.Input.ModifierKeys.Alt, System.Windows.Input.Key.System, System.Windows.Input.Key.Down));
+            Assert.Equal(0, PadForge.Views.PadPage.ReorderStep(System.Windows.Input.ModifierKeys.None, System.Windows.Input.Key.Up, System.Windows.Input.Key.None));
+            Assert.Equal(0, PadForge.Views.PadPage.ReorderStep(System.Windows.Input.ModifierKeys.Alt | System.Windows.Input.ModifierKeys.Shift, System.Windows.Input.Key.System, System.Windows.Input.Key.Up));
+            Assert.Equal(0, PadForge.Views.PadPage.ReorderStep(System.Windows.Input.ModifierKeys.Alt, System.Windows.Input.Key.System, System.Windows.Input.Key.Left));
+
+            var steps = new System.Collections.ObjectModel.ObservableCollection<string> { "a", "b", "c" };
+            Assert.True(PadForge.Views.PadPage.MoveStep(steps, "b", -1));
+            Assert.Equal(new[] { "b", "a", "c" }, steps);
+            Assert.False(PadForge.Views.PadPage.MoveStep(steps, "b", -1));
+            Assert.True(PadForge.Views.PadPage.MoveStep(steps, "a", 1));
+            Assert.Equal(new[] { "b", "c", "a" }, steps);
+            Assert.False(PadForge.Views.PadPage.MoveStep(steps, "a", 1));
+        }
+
+        [Fact]
         public void AStatusLineMarkedLive_ReadsAsAPoliteLiveRegion_UntilUnmarked() => RunSta(() =>
         {
             var line = new TextBlock { Text = "Stopped" };
