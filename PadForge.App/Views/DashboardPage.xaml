@@ -222,7 +222,8 @@
                          flames wear, and the tooltip mirrors their state-aware
                          pattern (#175 phase 2 item 3). -->
                     <Button Padding="2" VerticalAlignment="Center"
-                            Click="EngineToggle_Click" Margin="0,0,8,0">
+                            Click="EngineToggle_Click" Margin="0,0,8,0"
+                            AutomationProperties.Name="{Binding Dashboard_InputEngine, Source={x:Static strings:Strings.Instance}}">
                         <Button.Style>
                             <Style TargetType="Button" BasedOn="{StaticResource TypeSwitchButton}">
                                 <!-- Default = stopped, like the slot flame's
@@ -363,7 +364,8 @@
                              Same click handler and hover lift as the old
                              full-width band it replaces. -->
                         <Grid Margin="8"
-                              Visibility="{Binding ShowAddController, Converter={StaticResource BoolToVisibilityConverter}}">
+                              Visibility="{Binding ShowAddController, Converter={StaticResource BoolToVisibilityConverter}}"
+                              AutomationProperties.Name="{Binding Main_AddController, Source={x:Static strings:Strings.Instance}}">
                             <Border x:Name="AddControllerCard"
                                     Width="252" MinHeight="132"
                                     Background="Transparent" CornerRadius="8"
@@ -1931,7 +1933,8 @@
                                Style="{StaticResource CardSectionTitle}" FontSize="14" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,0,6"/>
                     <StackPanel Orientation="Horizontal">
                         <ui:TextBox Text="{Binding RemoteLinkConnectHost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    PlaceholderText="192.168.1.20:27500" Width="220" VerticalAlignment="Center"/>
+                                    PlaceholderText="192.168.1.20:27500" Width="220" VerticalAlignment="Center"
+                                    AutomationProperties.Name="{Binding Dashboard_RemoteLinkConnect, Source={x:Static strings:Strings.Instance}}"/>
                         <ui:Button Command="{Binding ConnectToPeerCommand}" Margin="8,0,0,0"
                                    Content="{Binding Dashboard_RemoteLinkConnectButton, Source={x:Static strings:Strings.Instance}}"/>
                     </StackPanel>

@@ -3310,7 +3310,7 @@ namespace PadForge
             };
             SuppressBuiltInSelectionVisual(menuItem);
             AttachCollapsedIconHover(menuItem);
-            System.Windows.Automation.AutomationProperties.SetName(menuItem, navItem.Tag);
+            System.Windows.Automation.AutomationProperties.SetName(menuItem, AccessibleNames.SlotTitle(navItem.SlotNumber));
             SetNavAutomationId(menuItem, navItem.Tag);
             UpdateControllerNavItemContent(menuItem, navItem);
             if (collapsed)
@@ -3417,6 +3417,9 @@ namespace PadForge
         private void UpdateControllerNavItemContent(NavigationViewItem menuItem, NavControllerItemViewModel navItem)
         {
             if (_isDraggingCard) return;
+            // The entry's screen-reader name follows its slot number, as the
+            // card does.
+            System.Windows.Automation.AutomationProperties.SetName(menuItem, AccessibleNames.SlotTitle(navItem.SlotNumber));
             string iconKey = navItem.IconKey;
             bool isXbox = iconKey == "XboxControllerIcon";
             bool isPlayStation = iconKey == "DS4ControllerIcon";

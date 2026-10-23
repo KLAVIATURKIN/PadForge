@@ -140,7 +140,7 @@
                                    Visibility="Collapsed"/>
                         </Grid>
                     </Button>
-                    <TextBox Grid.Column="1" x:Name="LayerNameBox" VerticalContentAlignment="Center"/>
+                    <TextBox AutomationProperties.Name="{Binding Pad_Shift_LayerName, Source={x:Static strings:Strings.Instance}}" Grid.Column="1" x:Name="LayerNameBox" VerticalContentAlignment="Center"/>
                 </Grid>
 
                 <!-- Activator kind. Items show a bold name + small description
@@ -201,7 +201,7 @@
                                 </GroupStyle>
                             </ComboBox.GroupStyle>
                         </ComboBox>
-                        <ui:Button Grid.Column="1" x:Name="InputRecordButton"
+                        <ui:Button AutomationProperties.Name="{Binding Common_Record, Source={x:Static strings:Strings.Instance}}" Grid.Column="1" x:Name="InputRecordButton"
                                    Style="{StaticResource EmberIconButtonHot}"
                                    VerticalAlignment="Center"
                                    Click="InputRecord_Click">
@@ -211,7 +211,7 @@
                                 <TextBlock Text="{Binding Common_Record, Source={x:Static strings:Strings.Instance}}"/>
                             </ui:Button.ToolTip>
                         </ui:Button>
-                        <ui:Button Grid.Column="2" x:Name="InputClearButton"
+                        <ui:Button AutomationProperties.Name="{Binding Common_Clear, Source={x:Static strings:Strings.Instance}}" Grid.Column="2" x:Name="InputClearButton"
                                    Style="{StaticResource EmberIconButtonHot}"
                                    VerticalAlignment="Center"
                                    Click="InputClear_Click">
@@ -270,7 +270,7 @@
                                 </GroupStyle>
                             </ComboBox.GroupStyle>
                         </ComboBox>
-                        <ui:Button Grid.Column="1" x:Name="ChordSecondRecordButton"
+                        <ui:Button AutomationProperties.Name="{Binding Common_Record, Source={x:Static strings:Strings.Instance}}" Grid.Column="1" x:Name="ChordSecondRecordButton"
                                    Style="{StaticResource EmberIconButtonHot}"
                                    VerticalAlignment="Center"
                                    Click="ChordSecondRecord_Click">
@@ -280,7 +280,7 @@
                                 <TextBlock Text="{Binding Common_Record, Source={x:Static strings:Strings.Instance}}"/>
                             </ui:Button.ToolTip>
                         </ui:Button>
-                        <ui:Button Grid.Column="2" x:Name="ChordSecondClearButton"
+                        <ui:Button AutomationProperties.Name="{Binding Common_Clear, Source={x:Static strings:Strings.Instance}}" Grid.Column="2" x:Name="ChordSecondClearButton"
                                    Style="{StaticResource EmberIconButtonHot}"
                                    VerticalAlignment="Center"
                                    Click="ChordSecondClear_Click">

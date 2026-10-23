@@ -877,7 +877,7 @@
                                                 <TextBlock Text="{Binding LearnButtonText}"/>
                                             </ui:Button.ToolTip>
                                         </ui:Button>
-                                        <ui:Button Style="{StaticResource EmberIconButtonHot}"
+                                        <ui:Button AutomationProperties.Name="{Binding Common_Clear, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource EmberIconButtonHot}"
                                                    Command="{Binding ClearCommand}" Margin="0,0,4,0">
                                             <TextBlock Text="&#xE75C;" FontFamily="Segoe MDL2 Assets"
                                                        FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
@@ -885,7 +885,7 @@
                                                 <TextBlock Text="{Binding Common_Clear, Source={x:Static strings:Strings.Instance}}"/>
                                             </ui:Button.ToolTip>
                                         </ui:Button>
-                                        <ui:Button Style="{StaticResource EmberIconButtonHot}"
+                                        <ui:Button AutomationProperties.Name="{Binding Common_Delete, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource EmberIconButtonHot}"
                                                    Command="{Binding DeleteCommand}" Margin="0">
                                             <TextBlock Text="&#xE74D;" FontFamily="Segoe MDL2 Assets"
                                                        FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>

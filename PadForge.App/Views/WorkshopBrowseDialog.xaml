@@ -398,7 +398,7 @@
                                    Foreground="{DynamicResource TextFillColorTertiaryBrush}"
                                    VerticalAlignment="Center" Margin="0,0,10,0"/>
                         <Grid Grid.Column="1">
-                            <TextBox x:Name="SearchBox" Background="Transparent" BorderThickness="0"
+                            <TextBox AutomationProperties.Name="{Binding Workshop_SearchPlaceholder, Source={x:Static strings:Strings.Instance}}" x:Name="SearchBox" Background="Transparent" BorderThickness="0"
                                      FontSize="13.5" Padding="0" VerticalAlignment="Center"
                                      CaretBrush="{DynamicResource EmberBrush}"
                                      TextChanged="SearchBox_TextChanged" KeyDown="SearchBox_KeyDown"/>
@@ -642,7 +642,7 @@
                                                 Background="{DynamicResource SteelGroundBrush}"
                                                 BorderThickness="1" BorderBrush="{DynamicResource SteelLineBrush}">
                                             <Grid>
-                                                <TextBox x:Name="ConfigSearchBox" Background="Transparent"
+                                                <TextBox AutomationProperties.Name="{Binding Workshop_SearchConfigs, Source={x:Static strings:Strings.Instance}}" x:Name="ConfigSearchBox" Background="Transparent"
                                                          BorderThickness="0" Padding="0" FontSize="12"
                                                          Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                                                          CaretBrush="{DynamicResource EmberBrush}"

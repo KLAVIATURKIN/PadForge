@@ -6,6 +6,7 @@
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         xmlns:local="clr-namespace:PadForge"
         xmlns:views="clr-namespace:PadForge.Views"
+        xmlns:controls="clr-namespace:PadForge.Controls"
         xmlns:viewControls="clr-namespace:PadForge.Views.Controls"
         xmlns:strings="clr-namespace:PadForge.Resources.Strings"
         ExtendsContentIntoTitleBar="True"
@@ -80,7 +81,7 @@
                     </Border>
                 </ui:TitleBar.Header>
                 <ui:TitleBar.TrailingContent>
-                    <Button x:Name="FullScreenBtn" Click="FullScreenBtn_Click" Width="44" Height="30"
+                    <Button x:Name="FullScreenBtn" AutomationProperties.Name="{Binding Main_FullScreen, Source={x:Static strings:Strings.Instance}}" Click="FullScreenBtn_Click" Width="44" Height="30"
                             Background="Transparent" BorderThickness="0" Padding="0"
                             VerticalAlignment="Top" Margin="0"
                             WindowChrome.IsHitTestVisibleInChrome="True">
@@ -157,14 +158,14 @@
             <!-- MenuItems built programmatically in code-behind (BuildNavigationItems) -->
 
             <ui:NavigationView.FooterMenuItems>
-                <ui:NavigationViewItemSeparator/>
-                <ui:NavigationViewItem x:Name="NavSettings" Content="{Binding Settings_Title, Source={x:Static strings:Strings.Instance}}" Tag="Settings" AutomationProperties.AutomationId="Nav_Settings">
+                <controls:QuietNavigationSeparator/>
+                <ui:NavigationViewItem x:Name="NavSettings" Content="{Binding Settings_Title, Source={x:Static strings:Strings.Instance}}" Tag="Settings" AutomationProperties.AutomationId="Nav_Settings" AutomationProperties.PositionInSet="1" AutomationProperties.SizeOfSet="2">
                     <ui:NavigationViewItem.Icon>
                         <!-- Ember, matching the page header's icon color. -->
                         <ui:FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE713;" Foreground="{DynamicResource EmberBrush}"/>
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
-                <ui:NavigationViewItem x:Name="NavAbout" Content="{Binding About_Title, Source={x:Static strings:Strings.Instance}}" Tag="About" AutomationProperties.AutomationId="Nav_About">
+                <ui:NavigationViewItem x:Name="NavAbout" Content="{Binding About_Title, Source={x:Static strings:Strings.Instance}}" Tag="About" AutomationProperties.AutomationId="Nav_About" AutomationProperties.PositionInSet="2" AutomationProperties.SizeOfSet="2">
                     <ui:NavigationViewItem.Icon>
                         <ui:FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE946;" Foreground="{DynamicResource EmberBrush}"/>
                     </ui:NavigationViewItem.Icon>

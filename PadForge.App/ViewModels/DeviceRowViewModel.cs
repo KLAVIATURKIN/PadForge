@@ -1276,6 +1276,11 @@ namespace PadForge.ViewModels
 
         /// <summary>MDL2 glyph for the non-vector types, empty otherwise.</summary>
         public string TypeGlyph => SlotTypeIconMap.GlyphFor(VcType);
+
+        /// <summary>The badge's screen-reader name, "Slot 3": the badge is a
+        /// list item, and ItemAutomationPeer.GetNameCore falls back to the
+        /// item's ToString().</summary>
+        public override string ToString() => Common.AccessibleNames.SlotTitle(SlotNumber);
     }
 
     /// <summary>Branded VC-type icon lookup for the slot pills (#175 phase 2

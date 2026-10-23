@@ -10,7 +10,9 @@
   view and reports:
     FOCUSABLE_NO_NAME  a keyboard-focusable element with an empty name
     GLYPH_NAME         a name holding a private-use character, U+E000 to U+F8FF
-    TYPE_NAME          a name shaped like a .NET type name (PadForge.ViewModels.X)
+    TYPE_NAME          a name shaped like a .NET type name (PadForge.ViewModels.X),
+                       text and links left out, since a credit such as
+                       Nefarius.Utilities.DeviceManagement is shown text
     INPUT_NO_NAME      an Edit, ComboBox or Slider without a name
     ITEM_NO_NAME       a Button, ListItem or DataItem without a name
   It covers the UI built in C# (the sidebar cards, the Add Controller entry),
@@ -19,8 +21,8 @@
   One pass per verification point. The pass waits on conditions, never on
   fixed pauses: a click waits until UIA shows the new page or tab content, a
   combo box closes once its items exist, and each view is one cached UIA call
-  walked in compiled C#. After the first view only the page area is read,
-  since the sidebar does not change.
+  walked in compiled C#. After the first view only the visible page is
+  read, since the sidebar does not change.
 
   Run it elevated. PadForge runs as administrator, and UI Automation does not
   reach into an elevated process from a lower one. Start PadForge first with
@@ -105,7 +107,6 @@ public sealed class A11yView {
     public List<AutomationElement> Combos = new List<AutomationElement>();
     public List<AutomationElement> NavItems = new List<AutomationElement>();
     public List<AutomationElement> TabButtons = new List<AutomationElement>();
-    public AutomationElement ContentHost;
     public AutomationElement TabContent;
 }
 
@@ -158,7 +159,9 @@ public static class A11yWalk {
             var rules = new List<string>();
             if (c.IsKeyboardFocusable && empty) rules.Add("FOCUSABLE_NO_NAME");
             if (!empty && HasGlyph(name)) rules.Add("GLYPH_NAME");
-            if (!empty && TypeName.IsMatch(name)) rules.Add("TYPE_NAME");
+            // Text and links show their own words, and a dotted name there is
+            // a credit (Nefarius.Utilities.DeviceManagement), not a type.
+            if (!empty && type != "Text" && type != "Hyperlink" && TypeName.IsMatch(name)) rules.Add("TYPE_NAME");
             if (empty && (type == "Edit" || type == "ComboBox" || type == "Slider")) rules.Add("INPUT_NO_NAME");
             if (empty && (type == "Button" || type == "ListItem" || type == "DataItem")) rules.Add("ITEM_NO_NAME");
             if (rules.Count > 0) {
@@ -175,7 +178,6 @@ public static class A11yWalk {
             if (type == "ComboBox" && c.IsEnabled && !c.IsOffscreen) v.Combos.Add(el);
             if (type == "DataItem" && aid.StartsWith("Nav_", StringComparison.Ordinal)) v.NavItems.Add(el);
             if (type == "RadioButton" && TabId.IsMatch(aid) && c.IsEnabled && !c.IsOffscreen) v.TabButtons.Add(el);
-            if (aid == "PART_NavigationViewContentPresenter") v.ContentHost = el;
             if (type == "Pane" && it.ParentAid == "PadPageView") v.TabContent = el;
 
             string label = !empty ? name : (aid.Length > 0 ? "#" + aid : (c.ClassName ?? ""));
@@ -232,6 +234,21 @@ function Click-Center($el) {
     [A11yWin]::mouse_event(2, 0, 0, 0, [UIntPtr]::Zero)
     [A11yWin]::mouse_event(4, 0, 0, 0, [UIntPtr]::Zero)
     return $true
+}
+
+# The child of a parent with the given AutomationId, read live, or null. The
+# pages sit in the navigation view's content overlay, one visible at a time,
+# and the overlay Grid has no peer, so the visible page is a child of the
+# window (DashboardPageView, PadPageView and so on, MainWindow.xaml).
+function Find-Child($parent, [string]$aid) {
+    try {
+        $ch = $Walker.GetFirstChild($parent)
+        while ($ch) {
+            if ($ch.Current.AutomationId -eq $aid) { return $ch }
+            $ch = $Walker.GetNextSibling($ch)
+        }
+    } catch { }
+    return $null
 }
 
 # The first child of a host, as a runtime id and a class name, read live.
@@ -310,8 +327,6 @@ function Audit-View($root, [string]$where) {
 
 # The whole window once, for the sidebar, the title bar and the first page.
 $first = Audit-View $win 'Window'
-$host_ = $first.ContentHost
-if (-not $host_) { Note 'The page area (PART_NavigationViewContentPresenter) was not found.'; Save; exit -2 }
 $nav = @{}
 foreach ($n in $first.NavItems) { $nav[$n.Cached.AutomationId] = $n }
 $tags = @($first.NavItems | ForEach-Object { $_.Cached.AutomationId.Substring(4) } | Where-Object { $_ -ne 'AddController' })
@@ -321,13 +336,12 @@ Note "pages: $($tags -join ', ')"
 foreach ($tag in $tags) {
     $entry = $nav["Nav_$tag"]
     if (-not $entry) { Note "Nav_${tag}: not found"; continue }
-    $expect = if ($tag -like 'Pad*') { 'PadPage' } else { "${tag}Page" }
-    $before = First-Child $host_
+    $viewId = if ($tag -like 'Pad*') { 'PadPageView' } else { "${tag}PageView" }
     if (-not (Click-Center $entry)) { Note "Nav_${tag}: could not click"; continue }
-    $sameKind = $before[1] -eq $expect -and $tag -notlike 'Pad*'
-    $waited = Wait-For { $now = First-Child $host_; $now[1] -eq $expect -and ($sameKind -or $now[0] -ne $before[0]) }
-    if ($waited -lt 0) { Note "${tag}: the page did not change within 4 s" }
-    $page = Audit-View $host_ $tag
+    $script:pageEl = $null
+    $waited = Wait-For { $script:pageEl = Find-Child $win $viewId; $null -ne $script:pageEl }
+    if ($waited -lt 0) { Note "${tag}: $viewId did not appear within 4 s"; continue }
+    $page = Audit-View $script:pageEl $tag
     if ($NoTabs -or -not $page.TabContent) { continue }
 
     $pane = $page.TabContent

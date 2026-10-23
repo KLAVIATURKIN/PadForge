@@ -1897,6 +1897,11 @@ namespace PadForge.ViewModels
             set => SetProperty(ref _name, value);
         }
 
+        /// <summary>The entry's screen-reader name, the profile's name:
+        /// ListBoxItem and ItemAutomationPeer read an item that is not text
+        /// through its ToString().</summary>
+        public override string ToString() => Name ?? string.Empty;
+
         private string _executables;
         public string Executables
         {

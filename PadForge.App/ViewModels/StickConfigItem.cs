@@ -45,6 +45,11 @@ namespace PadForge.ViewModels
         public int Index { get; }
         public string IconLabel { get; }
 
+        /// <summary>The card's screen-reader name, its title: the card is a
+        /// list item, and ItemAutomationPeer.GetNameCore falls back to the
+        /// item's ToString().</summary>
+        public override string ToString() => Title ?? string.Empty;
+
         /// <summary>Per-card "Reset {Title}" tooltip — composes the localized
         /// section reset format with the stick's own localized name so the
         /// tooltip reads "Reset Left Stick" / "Reset Right Stick" / etc.

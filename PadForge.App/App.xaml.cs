@@ -260,6 +260,11 @@ namespace PadForge
             // ahead of everything else here.
             PadForge.Common.UiLanguage.Start();
 
+            // Buttons, inputs and list items take their screen-reader names
+            // from text the UI already shows (a label, a tooltip, the text
+            // inside) as they first show, nothing on screen changing.
+            PadForge.Common.AccessibleNames.Start();
+
             // In-app updates (#457). A copy started from the update folder with
             // --apply-update is the installer, not PadForge: it replaces the
             // copy that started it and exits. This runs before everything below,

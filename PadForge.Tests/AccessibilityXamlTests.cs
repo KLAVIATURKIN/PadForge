@@ -13,20 +13,25 @@ namespace PadForge.Tests
 {
     /// <summary>
     /// The screen-reader guard over PadForge.App's XAML. A static audit finds
-    /// each control a screen reader would announce without a usable name,
-    /// sorts it by the fix it needs, and holds every file and class at a
-    /// ceiling. A new offender fails the suite, and each phase of the
-    /// accessibility work lowers the ceilings it clears.
+    /// each control a screen reader would still announce without a usable
+    /// name once AccessibleNames has named what it can, and holds every file
+    /// and class at a ceiling. A new offender fails the suite, and each phase
+    /// of the accessibility work lowers the ceilings it clears.
     ///
     /// <para>WPF names a control from AutomationProperties.Name, then
     /// LabeledBy, then the element's plain text
-    /// (FrameworkElementAutomationPeer.GetNameCore), so a button holding a
-    /// Segoe MDL2 glyph is named with the glyph's code and a tooltip is only
-    /// help text (GetHelpTextCore). A TextBox or NumberBox takes a name only
-    /// from Name or LabeledBy, never from its placeholder. An item is named by
-    /// its container's peer and then by the item's ToString(), and
-    /// DisplayMemberPath does not change that (ItemAutomationPeer.GetNameCore,
-    /// ContentControl.PrepareContentControl).</para>
+    /// (FrameworkElementAutomationPeer.GetNameCore), so on its own a button
+    /// holding a Segoe MDL2 glyph is named with the glyph's code, a tooltip is
+    /// only help text (GetHelpTextCore), and a TextBox never takes its
+    /// placeholder. An item is named by its container's peer and then by the
+    /// item's ToString(), and DisplayMemberPath does not change that
+    /// (ItemAutomationPeer.GetNameCore, ContentControl.PrepareContentControl).
+    /// AccessibleNames fills those gaps as controls load, and the audit counts
+    /// a control as named when one of its rules reaches it: a button that
+    /// shows no text takes a string tooltip, an input takes the label beside
+    /// it, then a string tooltip, then a TextBox's placeholder, and the items
+    /// of a ListBox, ListView, ComboBox or plain ItemsControl take the text
+    /// they show. What stays counted is what no rule names.</para>
     ///
     /// <para>UI built in C# (the sidebar controller cards, the Add Controller
     /// popup) is invisible here. tools/a11y_uia_audit.ps1 covers it at
@@ -47,104 +52,69 @@ namespace PadForge.Tests
             return d.FullName;
         }
 
-        // The counts this test measured when it landed (HEAD 475cc2c4,
-        // 2026-10-22). Counts, not lines, since lines drift. Each phase lowers
-        // the ones it clears, and a file or class missing here holds at zero.
+        // The counts measured after the names phase (2026-10-23). Counts, not
+        // lines, since lines drift. Each phase lowers the ones it clears, and a
+        // file or class missing here holds at zero.
         private static readonly Dictionary<(string File, string Class), int> Ceilings = new()
         {
             [("PadForge.App/Controls/CurveEditor.xaml", XamlA11yAudit.MouseOnly)] = 2,
-            [("PadForge.App/MainWindow.xaml", XamlA11yAudit.BtnNoTooltip)] = 2,
+
+            [("PadForge.App/MainWindow.xaml", XamlA11yAudit.BtnNoTooltip)] = 1,
+
             [("PadForge.App/MainWindow.xaml", XamlA11yAudit.ImageNoName)] = 1,
+
             [("PadForge.App/MainWindow.xaml", XamlA11yAudit.MouseOnly)] = 1,
+
             [("PadForge.App/Views/AboutPage.xaml", XamlA11yAudit.ImageNoName)] = 1,
-            [("PadForge.App/Views/BlissBoxPlayerDialog.xaml", XamlA11yAudit.InSiblingLabel)] = 1,
+
             [("PadForge.App/Views/ColorPickerControl.xaml", XamlA11yAudit.MouseOnly)] = 4,
-            [("PadForge.App/Views/ConfirmDialog.xaml", XamlA11yAudit.BtnNoTooltip)] = 1,
-            [("PadForge.App/Views/ControllerModel2DView.xaml", XamlA11yAudit.BtnTooltipKey)] = 1,
-            [("PadForge.App/Views/ControllerModel2DView.xaml", XamlA11yAudit.InSiblingLabel)] = 1,
-            [("PadForge.App/Views/ControllerModelView.xaml", XamlA11yAudit.BtnTooltipKey)] = 1,
-            [("PadForge.App/Views/ControllerModelView.xaml", XamlA11yAudit.InSiblingLabel)] = 1,
+
             [("PadForge.App/Views/Controls/ProfilePill.xaml", XamlA11yAudit.MouseOnly)] = 1,
-            [("PadForge.App/Views/CopyFromDialog.xaml", XamlA11yAudit.BtnTooltipKey)] = 1,
-            [("PadForge.App/Views/DashboardPage.xaml", XamlA11yAudit.BtnStyleTooltip)] = 9,
-            [("PadForge.App/Views/DashboardPage.xaml", XamlA11yAudit.BtnTooltipKey)] = 3,
+
             [("PadForge.App/Views/DashboardPage.xaml", XamlA11yAudit.ImageNoName)] = 2,
-            [("PadForge.App/Views/DashboardPage.xaml", XamlA11yAudit.InNothing)] = 4,
-            [("PadForge.App/Views/DashboardPage.xaml", XamlA11yAudit.InPlaceholder)] = 2,
-            [("PadForge.App/Views/DashboardPage.xaml", XamlA11yAudit.InSiblingLabel)] = 17,
-            [("PadForge.App/Views/DashboardPage.xaml", XamlA11yAudit.ItemsDisplayMemberPath)] = 1,
-            [("PadForge.App/Views/DashboardPage.xaml", XamlA11yAudit.ItemsUnnamed)] = 7,
+
             [("PadForge.App/Views/DashboardPage.xaml", XamlA11yAudit.MouseOnly)] = 1,
-            [("PadForge.App/Views/DevicesPage.xaml", XamlA11yAudit.BtnTooltipKey)] = 4,
-            [("PadForge.App/Views/DevicesPage.xaml", XamlA11yAudit.InSiblingLabel)] = 1,
-            [("PadForge.App/Views/DevicesPage.xaml", XamlA11yAudit.ItemsUnnamed)] = 13,
+
             [("PadForge.App/Views/DevicesPage.xaml", XamlA11yAudit.MouseOnly)] = 10,
-            [("PadForge.App/Views/DreamcastScreenDialog.xaml", XamlA11yAudit.BtnNoTooltip)] = 1,
+
             [("PadForge.App/Views/DreamcastScreenDialog.xaml", XamlA11yAudit.ImageNoName)] = 1,
-            [("PadForge.App/Views/DreamcastScreenDialog.xaml", XamlA11yAudit.InSiblingLabel)] = 1,
-            [("PadForge.App/Views/IconPicker.xaml", XamlA11yAudit.BtnNoTooltip)] = 1,
+
             [("PadForge.App/Views/IconPicker.xaml", XamlA11yAudit.ImageNoName)] = 1,
-            [("PadForge.App/Views/IconPicker.xaml", XamlA11yAudit.ItemsUnnamed)] = 1,
-            [("PadForge.App/Views/LearnHandheldButtonDialog.xaml", XamlA11yAudit.BtnTooltipKey)] = 1,
-            [("PadForge.App/Views/LearnHandheldButtonDialog.xaml", XamlA11yAudit.InSiblingLabel)] = 2,
-            [("PadForge.App/Views/ManageProfilesDialog.xaml", XamlA11yAudit.BtnTooltipKey)] = 1,
-            [("PadForge.App/Views/PadPage.xaml", XamlA11yAudit.BtnTooltipKey)] = 301,
-            [("PadForge.App/Views/PadPage.xaml", XamlA11yAudit.BtnTooltipOther)] = 13,
+
             [("PadForge.App/Views/PadPage.xaml", XamlA11yAudit.ImageNoName)] = 3,
-            [("PadForge.App/Views/PadPage.xaml", XamlA11yAudit.InNothing)] = 96,
-            [("PadForge.App/Views/PadPage.xaml", XamlA11yAudit.InSiblingLabel)] = 466,
-            [("PadForge.App/Views/PadPage.xaml", XamlA11yAudit.InTooltipOnly)] = 56,
-            [("PadForge.App/Views/PadPage.xaml", XamlA11yAudit.ItemsDisplayMemberPath)] = 56,
-            [("PadForge.App/Views/PadPage.xaml", XamlA11yAudit.ItemsUnnamed)] = 42,
+
             [("PadForge.App/Views/PadPage.xaml", XamlA11yAudit.MouseOnly)] = 18,
-            [("PadForge.App/Views/PadPage.xaml", XamlA11yAudit.ToggleNoText)] = 2,
-            [("PadForge.App/Views/PairDeviceDialog.xaml", XamlA11yAudit.BtnTooltipKey)] = 3,
-            [("PadForge.App/Views/PairDeviceDialog.xaml", XamlA11yAudit.InNothing)] = 4,
-            [("PadForge.App/Views/PickSoundDialog.xaml", XamlA11yAudit.BtnTooltipKey)] = 1,
-            [("PadForge.App/Views/ProfileDialog.xaml", XamlA11yAudit.BtnTooltipKey)] = 1,
-            [("PadForge.App/Views/ProfileDialog.xaml", XamlA11yAudit.InNothing)] = 1,
-            [("PadForge.App/Views/ProfileDialog.xaml", XamlA11yAudit.InSiblingLabel)] = 1,
-            [("PadForge.App/Views/ProfilesPage.xaml", XamlA11yAudit.BtnTooltipOther)] = 2,
+
             [("PadForge.App/Views/ProfilesPage.xaml", XamlA11yAudit.ImageNoName)] = 1,
-            [("PadForge.App/Views/ProfilesPage.xaml", XamlA11yAudit.InNothing)] = 3,
-            [("PadForge.App/Views/ProfilesPage.xaml", XamlA11yAudit.ItemsDisplayMemberPath)] = 2,
-            [("PadForge.App/Views/ProfilesPage.xaml", XamlA11yAudit.ItemsUnnamed)] = 3,
-            [("PadForge.App/Views/RegisterNfcTagDialog.xaml", XamlA11yAudit.BtnTooltipKey)] = 1,
-            [("PadForge.App/Views/RegisterNfcTagDialog.xaml", XamlA11yAudit.InSiblingLabel)] = 1,
-            [("PadForge.App/Views/RegisterVoicePhraseDialog.xaml", XamlA11yAudit.BtnTooltipKey)] = 1,
-            [("PadForge.App/Views/RegisterVoicePhraseDialog.xaml", XamlA11yAudit.InSiblingLabel)] = 4,
-            [("PadForge.App/Views/RemoteAssignmentsDialog.xaml", XamlA11yAudit.BtnTooltipKey)] = 1,
-            [("PadForge.App/Views/RemoteAssignmentsDialog.xaml", XamlA11yAudit.InNothing)] = 1,
-            [("PadForge.App/Views/RemoteLinkPairDialog.xaml", XamlA11yAudit.BtnTooltipKey)] = 1,
-            [("PadForge.App/Views/RemoteLinkPasswordDialog.xaml", XamlA11yAudit.BtnTooltipKey)] = 1,
-            [("PadForge.App/Views/RemoteLinkPasswordDialog.xaml", XamlA11yAudit.InNothing)] = 2,
-            [("PadForge.App/Views/SettingsPage.xaml", XamlA11yAudit.InNothing)] = 2,
-            [("PadForge.App/Views/SettingsPage.xaml", XamlA11yAudit.InSiblingLabel)] = 2,
-            [("PadForge.App/Views/SettingsPage.xaml", XamlA11yAudit.InTooltipOnly)] = 2,
-            [("PadForge.App/Views/SettingsPage.xaml", XamlA11yAudit.ItemsUnnamed)] = 2,
-            [("PadForge.App/Views/ShiftActivatorDialog.xaml", XamlA11yAudit.BtnTooltipKey)] = 7,
-            [("PadForge.App/Views/ShiftActivatorDialog.xaml", XamlA11yAudit.BtnTooltipOther)] = 4,
+
+            [("PadForge.App/Views/RemoteLinkPasswordDialog.xaml", XamlA11yAudit.InNothing)] = 1,
+
             [("PadForge.App/Views/ShiftActivatorDialog.xaml", XamlA11yAudit.ImageNoName)] = 1,
-            [("PadForge.App/Views/ShiftActivatorDialog.xaml", XamlA11yAudit.InNothing)] = 16,
-            [("PadForge.App/Views/ShiftActivatorDialog.xaml", XamlA11yAudit.InSiblingLabel)] = 2,
-            [("PadForge.App/Views/ShiftActivatorDialog.xaml", XamlA11yAudit.InTooltipOnly)] = 1,
+
             [("PadForge.App/Views/ShiftLayerFlyout.xaml", XamlA11yAudit.ImageNoName)] = 1,
-            [("PadForge.App/Views/StarterProfilesDialog.xaml", XamlA11yAudit.BtnTooltipKey)] = 1,
-            [("PadForge.App/Views/TouchpadGestureRecorderDialog.xaml", XamlA11yAudit.BtnTooltipKey)] = 1,
-            [("PadForge.App/Views/TouchpadGestureRecorderDialog.xaml", XamlA11yAudit.InSiblingLabel)] = 2,
+
             [("PadForge.App/Views/TouchpadGestureRecorderDialog.xaml", XamlA11yAudit.MouseOnly)] = 2,
+
             [("PadForge.App/Views/TouchpadOverlay.xaml", XamlA11yAudit.MouseOnly)] = 4,
-            [("PadForge.App/Views/WorkshopBrowseDialog.xaml", XamlA11yAudit.BtnTooltipKey)] = 1,
+
             [("PadForge.App/Views/WorkshopBrowseDialog.xaml", XamlA11yAudit.ImageNoName)] = 4,
-            [("PadForge.App/Views/WorkshopBrowseDialog.xaml", XamlA11yAudit.InNothing)] = 2,
-            [("PadForge.App/Views/WorkshopBrowseDialog.xaml", XamlA11yAudit.ItemsUnnamed)] = 1,
+
             [("PadForge.App/Views/WorkshopBrowseDialog.xaml", XamlA11yAudit.MouseOnly)] = 6,
+
         };
 
         // Findings that stay, each with its reason, matched by file, class and
         // identity (the tag with its AutomationId, x:Name or binding).
         private static readonly (string File, string Class, string Identity, string Reason)[] Allowlist =
         {
+            ("PadForge.App/Views/ConfirmDialog.xaml", XamlA11yAudit.BtnNoTooltip, "Button|ActionButton",
+                "The dialog sets the button's text in code (ActionButton.Content = actionText)."),
+            ("PadForge.App/Views/DreamcastScreenDialog.xaml", XamlA11yAudit.BtnNoTooltip, "Button|ChooseProfilePictureButton",
+                "The dialog gives the button a TextBlock of text in code."),
+            ("PadForge.App/Views/IconPicker.xaml", XamlA11yAudit.BtnNoTooltip, "Button|ClearButton",
+                "The picker sets the button's text in code (ClearButton.Content = clearLabel)."),
+            ("PadForge.App/Views/PadPage.xaml", XamlA11yAudit.ItemsUnnamed, "DataGrid|MappingDataGrid",
+                "MappingItem.ToString reads each row's target and its source."),
         };
 
         private static bool Allowed(XamlA11yAudit.Finding f)
@@ -204,6 +174,7 @@ namespace PadForge.Tests
                 summary = findings.GroupBy(f => f.Class).OrderBy(g => g.Key, StringComparer.Ordinal).ToDictionary(g => g.Key, g => g.Count()),
                 ceilings = table.ToString(),
                 findings,
+                labels = XamlA11yAudit.Labels(XamlA11yAudit.Files(RepoRoot())),
             };
             File.WriteAllText(path, JsonSerializer.Serialize(doc, new JsonSerializerOptions { WriteIndented = true }));
         }
@@ -216,7 +187,7 @@ namespace PadForge.Tests
                 "<UserControl xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"\n" +
                 "             xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\"\n" +
                 "             xmlns:ui=\"http://schemas.lepo.co/wpfui/2022/xaml\"\n" +
-                "             xmlns:reset=\"clr-namespace:PadForge.Controls\"\n" +
+                "             xmlns:reset=\"clr-namespace:PadForge.Controls\" xmlns:common=\"clr-namespace:PadForge.Common\"\n" +
                 "             xmlns:strings=\"clr-namespace:PadForge.Resources.Strings\">\n" +
                 "  <UserControl.Resources>\n" + resources + "\n  </UserControl.Resources>\n" +
                 body + "\n</UserControl>";
@@ -226,7 +197,7 @@ namespace PadForge.Tests
         private const string Key = "{Binding Common_Close, Source={x:Static strings:Strings.Instance}}";
 
         [Fact]
-        public void AButtonWithoutText_IsSortedByWhereItsNameWouldComeFrom()
+        public void AButtonThatShowsNoText_IsNamedByAStringTooltip_AndOnlyATooltipElementOrNoneIsCounted()
         {
             var f = Audit(
                 "<StackPanel>\n" +
@@ -236,19 +207,21 @@ namespace PadForge.Tests
                 "  <Button Content=\"Close\"/>\n" +
                 "  <Button Content=\"{Binding Label}\"/>\n" +
                 "  <Button Content=\"&#xE711;\" AutomationProperties.Name=\"" + Key + "\"/>\n" +
+                "  <Button Content=\"&#xE711;\"><Button.ToolTip><TextBlock Text=\"" + Key + "\"/></Button.ToolTip></Button>\n" +
+                "  <Button><StackPanel><TextBlock Text=\"&#xE700;\"/><TextBlock Text=\"" + Key + "\"/></StackPanel></Button>\n" +
                 "</StackPanel>");
-            Assert.Equal(new[] { XamlA11yAudit.BtnTooltipKey, XamlA11yAudit.BtnTooltipOther, XamlA11yAudit.BtnNoTooltip },
-                f.Select(x => x.Class));
-            Assert.Equal("Common_Close", f[0].Key);
+            Assert.Equal(new[] { XamlA11yAudit.BtnNoTooltip, XamlA11yAudit.BtnTooltipElement }, f.Select(x => x.Class));
+            Assert.Equal(new[] { 12, 16 }, f.Select(x => x.Line));
         }
 
         [Fact]
-        public void AStyleThatNamesTheButton_CountsThroughBasedOn_AndTriggerTooltipsAreStateText()
+        public void AStyleNamesAButtonThroughBasedOn_AsDoesATooltipItSets()
         {
             var f = Audit(
                 "<StackPanel>\n" +
                 "  <Button Style=\"{StaticResource Tight}\" Content=\"&#xE711;\"/>\n" +
                 "  <Button Style=\"{StaticResource Stateful}\" Content=\"&#xE7E8;\"/>\n" +
+                "  <Button Style=\"{StaticResource Plain}\" Content=\"&#xE7E8;\"/>\n" +
                 "</StackPanel>",
                 "    <Style x:Key=\"Reset\" TargetType=\"Button\">\n" +
                 "      <Setter Property=\"AutomationProperties.Name\" Value=\"{Binding ToolTip, RelativeSource={RelativeSource Self}}\"/>\n" +
@@ -256,10 +229,11 @@ namespace PadForge.Tests
                 "    <Style x:Key=\"Tight\" TargetType=\"Button\" BasedOn=\"{StaticResource Reset}\"/>\n" +
                 "    <Style x:Key=\"Stateful\" TargetType=\"Button\">\n" +
                 "      <Style.Triggers><DataTrigger Binding=\"{Binding On}\" Value=\"True\"><Setter Property=\"ToolTip\" Value=\"{Binding OnText}\"/></DataTrigger></Style.Triggers>\n" +
-                "    </Style>");
+                "    </Style>\n" +
+                "    <Style x:Key=\"Plain\" TargetType=\"Button\"/>");
             var only = Assert.Single(f);
-            Assert.Equal(XamlA11yAudit.BtnStyleTooltip, only.Class);
-            Assert.Equal(17, only.Line);
+            Assert.Equal(XamlA11yAudit.BtnNoTooltip, only.Class);
+            Assert.Equal(19, only.Line);
         }
 
         [Fact]
@@ -275,7 +249,7 @@ namespace PadForge.Tests
         }
 
         [Fact]
-        public void AnInput_TakesTheLabelBesideIt_InItsOwnGridRow_OrTheResetButtonsSettingLabel()
+        public void AnInput_IsNamedByTheLabelBesideIt_OrAboveItsRow_OrAResetButtonsSettingLabel()
         {
             var f = Audit(
                 "<StackPanel>\n" +
@@ -288,39 +262,75 @@ namespace PadForge.Tests
                 "    <ui:NumberBox Value=\"{Binding Range}\"/>\n" +
                 "    <reset:SettingResetButton SettingLabel=\"{Binding Head_Range, Source={x:Static strings:Strings.Instance}}\"/>\n" +
                 "  </StackPanel>\n" +
+                "  <DockPanel>\n" +
+                "    <reset:SettingResetButton DockPanel.Dock=\"Right\" SettingLabel=\"{Binding Macro_Name, Source={x:Static strings:Strings.Instance}}\"/>\n" +
+                "    <ui:TextBox Text=\"{Binding Name}\"/>\n" +
+                "  </DockPanel>\n" +
+                "  <StackPanel Orientation=\"Horizontal\">\n" +
+                "    <reset:SettingResetButton SettingLabel=\"{Binding Head_Range, Source={x:Static strings:Strings.Instance}}\"/>\n" +
+                "    <Slider Value=\"{Binding Low}\"/>\n" +
+                "    <Slider Value=\"{Binding High}\"/>\n" +
+                "  </StackPanel>\n" +
+                "  <StackPanel Orientation=\"Horizontal\">\n" +
+                "    <TextBlock Text=\"R\"/>\n" +
+                "    <Slider Value=\"{Binding Red}\"/>\n" +
+                "    <TextBox Text=\"{Binding Red}\"/>\n" +
+                "    <TextBlock Text=\"-\"/>\n" +
+                "    <TextBox Text=\"{Binding Span}\"/>\n" +
+                "  </StackPanel>\n" +
+                "  <TextBox Text=\"{Binding After}\"/>\n" +
+                "  <TextBlock Text=\"{Binding Pad_Range, Source={x:Static strings:Strings.Instance}, Converter={StaticResource Upper}}\"/>\n" +
+                "  <StackPanel Orientation=\"Horizontal\">\n" +
+                "    <Slider Value=\"{Binding Low2}\"/>\n" +
+                "    <TextBox Text=\"{Binding Low2}\"/>\n" +
+                "    <TextBlock Text=\"-\"/>\n" +
+                "    <TextBox Text=\"{Binding High2}\"/>\n" +
+                "  </StackPanel>\n" +
+                "  <StackPanel Orientation=\"Horizontal\">\n" +
+                "    <TextBox Text=\"{Binding Freq}\"/>\n" +
+                "    <TextBlock Text=\"Hz\"/>\n" +
+                "    <Slider Value=\"{Binding Gain}\"/>\n" +
+                "  </StackPanel>\n" +
                 "</StackPanel>");
-            Assert.Equal(new[] { XamlA11yAudit.InSiblingLabel, XamlA11yAudit.InNothing, XamlA11yAudit.InSiblingLabel },
-                f.Select(x => x.Class));
-            Assert.Equal("Dash_Port", f[0].Key);
-            Assert.Equal("Head_Range", f[2].Key);
+            // The dash passes the R to the box after it. The box after the R
+            // row follows a row holding inputs of its own, whose R names that
+            // row, not the box. The range row's inputs take the label above
+            // it. Hz is the frequency box's unit, not the gain slider's label.
+            Assert.Equal(new[] { "{Binding Other}", "{Binding High}", "{Binding After}", "{Binding Freq}", "{Binding Gain}" },
+                f.Select(x => x.Detail));
+            Assert.All(f, x => Assert.Equal(XamlA11yAudit.InNothing, x.Class));
         }
 
         [Fact]
-        public void AnInputWithoutALabel_IsSortedByWhatItHas_AndANamedOneIsNotCounted()
+        public void AnInputWithoutALabel_IsNamedByAStringTooltipOrATextBoxPlaceholder()
         {
             var f = Audit(
                 "<StackPanel>\n" +
                 "  <TextBox ToolTip=\"{Binding Help}\"/>\n" +
+                "  <TextBox common:BidiText.ToolTip=\"{Binding Help}\"/>\n" +
                 "  <ui:TextBox PlaceholderText=\"{Binding Hint}\"/>\n" +
+                "  <ui:AutoSuggestBox PlaceholderText=\"{Binding Hint}\"/>\n" +
                 "  <ComboBox SelectedItem=\"{Binding Mode}\"/>\n" +
+                "  <Slider><Slider.ToolTip><TextBlock Text=\"{Binding Help}\"/></Slider.ToolTip></Slider>\n" +
                 "  <Slider AutomationProperties.Name=\"" + Key + "\"/>\n" +
                 "  <CheckBox/>\n" +
+                "  <CheckBox ToolTip=\"" + Key + "\"/>\n" +
                 "  <CheckBox Content=\"{Binding Label}\"/>\n" +
                 "</StackPanel>");
-            Assert.Equal(new[] { XamlA11yAudit.InTooltipOnly, XamlA11yAudit.InPlaceholder, XamlA11yAudit.InNothing, XamlA11yAudit.ToggleNoText },
+            Assert.Equal(new[] { XamlA11yAudit.InPlaceholder, XamlA11yAudit.InNothing, XamlA11yAudit.InTooltipElement, XamlA11yAudit.ToggleNoText },
                 f.Select(x => x.Class));
         }
 
         [Fact]
-        public void ListsImagesAndMouseHandlers_AreCountedUnlessTheirItemsOrElementsAreNamed()
+        public void OnlyListsWhoseItemsNoRuleReaches_AndImagesAndMouseHandlers_AreCounted()
         {
             var f = Audit(
                 "<StackPanel>\n" +
                 "  <ListBox ItemsSource=\"{Binding Devices}\"/>\n" +
-                "  <ListBox ItemsSource=\"{Binding Peers}\" DisplayMemberPath=\"Name\"/>\n" +
-                "  <ListBox ItemsSource=\"{Binding Slots}\">\n" +
-                "    <ListBox.ItemContainerStyle><Style TargetType=\"ListBoxItem\"><Setter Property=\"AutomationProperties.Name\" Value=\"{Binding Title}\"/></Style></ListBox.ItemContainerStyle>\n" +
-                "  </ListBox>\n" +
+                "  <ComboBox ItemsSource=\"{Binding Peers}\" DisplayMemberPath=\"Name\" AutomationProperties.Name=\"" + Key + "\"/>\n" +
+                "  <ItemsControl ItemsSource=\"{Binding Slots}\"/>\n" +
+                "  <DataGrid ItemsSource=\"{Binding Rows}\"/>\n" +
+                "  <TreeView ItemsSource=\"{Binding Nodes}\" DisplayMemberPath=\"Title\"/>\n" +
                 "  <Image Source=\"logo.png\"/>\n" +
                 "  <Image Source=\"qr.png\" AutomationProperties.Name=\"" + Key + "\"/>\n" +
                 "  <Border MouseLeftButtonDown=\"Chip_Click\"/>\n" +
@@ -341,32 +351,30 @@ namespace PadForge.Tests
     /// </summary>
     internal static class XamlA11yAudit
     {
-        /// <summary>A button whose tooltip binds a Strings key: bind its name
-        /// to the same key.</summary>
-        internal const string BtnTooltipKey = "BTN_TOOLTIP_KEY";
-        /// <summary>A button whose tooltip is not a Strings key.</summary>
-        internal const string BtnTooltipOther = "BTN_TOOLTIP_OTHER";
-        /// <summary>A button whose tooltip comes from style setters or
-        /// triggers (state text): it needs a stable name.</summary>
-        internal const string BtnStyleTooltip = "BTN_STYLE_TOOLTIP";
-        /// <summary>A button with no text and no tooltip.</summary>
+        /// <summary>A button that shows no text and has no tooltip.</summary>
         internal const string BtnNoTooltip = "BTN_NO_TOOLTIP";
-        /// <summary>An input with a visible label beside it, or a reset
-        /// button's SettingLabel after it.</summary>
-        internal const string InSiblingLabel = "IN_SIBLING_LABEL";
-        /// <summary>An input whose only text is a tooltip sentence.</summary>
-        internal const string InTooltipOnly = "IN_TOOLTIP_ONLY";
-        /// <summary>An input with only placeholder text.</summary>
+        /// <summary>A button that shows no text and whose tooltip is an
+        /// element, which AccessibleNames does not read as a name.</summary>
+        internal const string BtnTooltipElement = "BTN_TOOLTIP_ELEMENT";
+        /// <summary>An input without a label beside it whose tooltip is an
+        /// element.</summary>
+        internal const string InTooltipElement = "IN_TOOLTIP_ELEMENT";
+        /// <summary>An input without a label beside it whose placeholder
+        /// AccessibleNames does not read: only a TextBox, NumberBox or
+        /// PasswordBox gives its placeholder as a name.</summary>
         internal const string InPlaceholder = "IN_PLACEHOLDER";
-        /// <summary>An input with no label source at all.</summary>
+        /// <summary>An input with no label beside it, no string tooltip and no
+        /// placeholder.</summary>
         internal const string InNothing = "IN_NOTHING";
-        /// <summary>A check box, radio button or switch with no text.</summary>
+        /// <summary>A check box, radio button or switch with no text and no
+        /// string tooltip.</summary>
         internal const string ToggleNoText = "TOGGLE_NO_TEXT";
-        /// <summary>A list bound to ItemsSource whose items read their
-        /// ToString().</summary>
+        /// <summary>A DataGrid or TreeView bound to ItemsSource, whose items
+        /// read their ToString(): AccessibleNames reaches ListBoxItem and
+        /// ContentPresenter containers only.</summary>
         internal const string ItemsUnnamed = "ITEMS_UNNAMED";
-        /// <summary>A list with DisplayMemberPath: the closed value reads text,
-        /// the items still read ToString().</summary>
+        /// <summary>A DataGrid or TreeView with DisplayMemberPath: the items
+        /// still read ToString().</summary>
         internal const string ItemsDisplayMemberPath = "ITEMS_DISPLAYMEMBERPATH";
         /// <summary>An image without a name.</summary>
         internal const string ImageNoName = "IMAGE_NO_NAME";
@@ -377,12 +385,9 @@ namespace PadForge.Tests
 
         internal static string ConstantName(string cls) => cls switch
         {
-            BtnTooltipKey => nameof(BtnTooltipKey),
-            BtnTooltipOther => nameof(BtnTooltipOther),
-            BtnStyleTooltip => nameof(BtnStyleTooltip),
             BtnNoTooltip => nameof(BtnNoTooltip),
-            InSiblingLabel => nameof(InSiblingLabel),
-            InTooltipOnly => nameof(InTooltipOnly),
+            BtnTooltipElement => nameof(BtnTooltipElement),
+            InTooltipElement => nameof(InTooltipElement),
             InPlaceholder => nameof(InPlaceholder),
             InNothing => nameof(InNothing),
             ToggleNoText => nameof(ToggleNoText),
@@ -395,14 +400,23 @@ namespace PadForge.Tests
 
         private static readonly HashSet<string> Buttons = new() { "Button", "ToggleButton", "RepeatButton", "HyperlinkButton", "Anchor", "SplitButton", "DropDownButton" };
         private static readonly HashSet<string> Inputs = new() { "TextBox", "NumberBox", "PasswordBox", "ComboBox", "Slider", "AutoSuggestBox", "RichTextBox" };
+        // The inputs the label scan passes over (AccessibleNames.IsInput): a
+        // range slider sits between a label and the boxes that set its ends.
+        private static readonly HashSet<string> ScanInputs = new(Inputs) { "RangeSlider" };
+        // A panel or border, whose row the label scan climbs to when the input
+        // inside it has no label of its own (AccessibleNames.FindLabel).
+        private static readonly HashSet<string> RowParents = new() { "StackPanel", "DockPanel", "WrapPanel", "Grid", "UniformGrid", "Canvas", "VirtualizingStackPanel", "Border", "Viewbox" };
         private static readonly HashSet<string> Toggles = new() { "CheckBox", "RadioButton", "ToggleSwitch" };
-        private static readonly HashSet<string> Lists = new() { "ListBox", "ListView", "ItemsControl", "DataGrid", "TreeView", "ComboBox" };
+        // Lists whose item containers AccessibleNames.NameItem does not reach.
+        private static readonly HashSet<string> Lists = new() { "DataGrid", "TreeView" };
+        // The controls whose placeholder AccessibleNames.NameInput reads.
+        private static readonly HashSet<string> PlaceholderNamed = new() { "TextBox", "NumberBox", "PasswordBox" };
         private static readonly string[] MouseEvents =
             { "MouseLeftButtonDown", "MouseLeftButtonUp", "MouseDown", "MouseUp", "PreviewMouseLeftButtonDown", "PreviewMouseDown", "PreviewMouseLeftButtonUp" };
         private static readonly HashSet<string> Controlish = new(Buttons.Concat(Inputs).Concat(Toggles)
             .Concat(new[] { "MenuItem", "ListBoxItem", "ListViewItem", "TabItem", "Thumb", "ScrollBar" }));
         private static readonly Regex Pua = new(@"[\uE000-\uF8FF]");
-        private static readonly Regex StrKey = new(@"\{Binding\s+(?:Path=)?(\w+),\s*Source=\{x:Static\s+\w+:Strings\.Instance\}\}");
+        private static readonly Regex StrKey = new(@"\{Binding\s+(?:Path=)?(\w+),\s*Source=\{x:Static\s+\w+:Strings\.Instance\}");
         private static readonly Regex StyleRef = new(@"\{(?:StaticResource|DynamicResource)\s+(\w+)\}");
 
         private sealed class StyleInfo
@@ -417,15 +431,43 @@ namespace PadForge.Tests
 
         /// <summary>Audits every XAML file under PadForge.App, build output
         /// left out, in ordinal path order.</summary>
-        internal static List<Finding> Measure(string repoRoot)
+        internal static List<Finding> Measure(string repoRoot) => Measure(Files(repoRoot));
+
+        /// <summary>Every XAML file under PadForge.App, build output left
+        /// out, in ordinal path order, with its repo-relative path.</summary>
+        internal static List<(string Rel, string Text)> Files(string repoRoot)
         {
             string app = Path.Combine(repoRoot, "PadForge.App");
-            var files = Directory.EnumerateFiles(app, "*.xaml", SearchOption.AllDirectories)
+            return Directory.EnumerateFiles(app, "*.xaml", SearchOption.AllDirectories)
                 .Where(p => !Path.GetRelativePath(app, p).Split(Path.DirectorySeparatorChar).SkipLast(1).Any(s => s == "obj" || s == "bin"))
                 .OrderBy(p => p, StringComparer.Ordinal)
                 .Select(p => (Path.GetRelativePath(repoRoot, p).Replace('\\', '/'), File.ReadAllText(p)))
                 .ToList();
-            return Measure(files);
+        }
+
+        internal sealed record Labeled(string File, int Line, string Tag, string Label, bool Above);
+
+        /// <summary>Every input without a name of its own that the label rules
+        /// name, with the label it takes and whether that label sits above the
+        /// input's row, for review in the audit dump.</summary>
+        internal static List<Labeled> Labels(IReadOnlyList<(string Rel, string Text)> files)
+        {
+            var labeled = new List<Labeled>();
+            foreach (var (rel, text) in files)
+            {
+                var root = XDocument.Parse(text, LoadOptions.SetLineInfo).Root;
+                foreach (var n in root.DescendantsAndSelf())
+                {
+                    if (!Inputs.Contains(Local(n)) || n.Ancestors().Any(a => Local(a) == "ControlTemplate")
+                        || AttrAuto(n, "Name") != null || AttrAuto(n, "LabeledBy") != null)
+                        continue;
+                    string own = SiblingLabel(n, out _);
+                    string label = own ?? LabelOf(n);
+                    if (label != null)
+                        labeled.Add(new Labeled(rel, ((IXmlLineInfo)n).LineNumber, Local(n), label, own == null));
+                }
+            }
+            return labeled;
         }
 
         internal static List<Finding> Measure(IReadOnlyList<(string Rel, string Text)> files)
@@ -459,31 +501,40 @@ namespace PadForge.Tests
                     void Add(string cls, string key, string detail, string extra)
                         => findings.Add(new Finding(rel, cls, line, tag, key, detail, Identity(n, extra)));
 
+                    // A button that shows no text is named by a string tooltip
+                    // (AccessibleNames.NameButton), so only no tooltip or a
+                    // tooltip element leaves it unnamed.
                     if (Buttons.Contains(tag) && !named && string.IsNullOrEmpty(TextOf(n, st)))
                     {
                         var (tt, src) = ToolTipOf(n, st);
-                        string cls = tt == null ? BtnNoTooltip
-                            : src == "style" ? BtnStyleTooltip
-                            : StrKey.IsMatch(tt) ? BtnTooltipKey
-                            : BtnTooltipOther;
-                        Add(cls, KeyOf(tt), tt, Attr(n, "Click") ?? Attr(n, "Command") ?? KeyOf(tt) ?? tt);
+                        if (tt == null || src == "element")
+                            Add(tt == null ? BtnNoTooltip : BtnTooltipElement, null, tt, Attr(n, "Click") ?? Attr(n, "Command"));
                     }
 
-                    if (Inputs.Contains(tag) && !named)
+                    // An input is named by the label beside it, then a string
+                    // tooltip, then a TextBox's placeholder
+                    // (AccessibleNames.NameInput).
+                    if (Inputs.Contains(tag) && !named && LabelOf(n) == null)
                     {
-                        string lab = SiblingLabel(n);
-                        var (tt, _) = ToolTipOf(n, st);
+                        var (tt, src) = ToolTipOf(n, st);
                         string ph = Attr(n, "PlaceholderText");
-                        string cls = !string.IsNullOrEmpty(lab) ? InSiblingLabel
-                            : !string.IsNullOrEmpty(tt) ? InTooltipOnly
-                            : !string.IsNullOrEmpty(ph) ? InPlaceholder
-                            : InNothing;
-                        string bound = Attr(n, "Text") ?? Attr(n, "Value") ?? Attr(n, "SelectedItem") ?? Attr(n, "SelectedValue");
-                        Add(cls, KeyOf(lab) ?? KeyOf(tt) ?? KeyOf(ph), lab ?? tt ?? ph ?? bound, bound);
+                        bool placeholderNames = !string.IsNullOrEmpty(ph) && PlaceholderNamed.Contains(tag);
+                        if ((tt == null || src == "element") && !placeholderNames)
+                        {
+                            string cls = tt != null ? InTooltipElement
+                                : !string.IsNullOrEmpty(ph) ? InPlaceholder
+                                : InNothing;
+                            string bound = Attr(n, "Text") ?? Attr(n, "Value") ?? Attr(n, "SelectedItem") ?? Attr(n, "SelectedValue");
+                            Add(cls, KeyOf(ph), tt ?? ph ?? bound, bound);
+                        }
                     }
 
                     if (Toggles.Contains(tag) && !named && string.IsNullOrEmpty(TextOf(n, st)))
-                        Add(ToggleNoText, null, null, Attr(n, "IsChecked"));
+                    {
+                        var (tt, src) = ToolTipOf(n, st);
+                        if (tt == null || src == "element")
+                            Add(ToggleNoText, null, null, Attr(n, "IsChecked"));
+                    }
 
                     if (Lists.Contains(tag) && Attr(n, "ItemsSource") is { Length: > 0 } items)
                     {
@@ -619,7 +670,9 @@ namespace PadForge.Tests
 
         private static (string Text, string Source) ToolTipOf(XElement n, StyleInfo st)
         {
-            if (Attr(n, "ToolTip") is string t)
+            // BidiText.ToolTip draws a string as a TextBlock tooltip, and
+            // AccessibleNames reads the string from it.
+            if ((Attr(n, "ToolTip") ?? Attr(n, "BidiText.ToolTip")) is string t)
                 return (t, "attr");
             if (n.Elements().Any(c => Local(c).EndsWith(".ToolTip", StringComparison.Ordinal)))
                 return ("(element)", "element");
@@ -628,12 +681,35 @@ namespace PadForge.Tests
             return (null, null);
         }
 
-        /// <summary>The nearest earlier label sibling in the same Grid row,
-        /// skipping other inputs so a slider's value box finds the slider's
-        /// label, then the SettingLabel of a reset button later in the
-        /// row.</summary>
-        private static string SiblingLabel(XElement n)
+        /// <summary>An input's label: the one beside it, else, while it sits
+        /// first in a panel or border, the one beside that panel, up to three
+        /// levels. AccessibleNames.FindLabel is the runtime twin.</summary>
+        private static string LabelOf(XElement n)
         {
+            XElement e = n;
+            for (int level = 0; level <= 3; level++)
+            {
+                if (SiblingLabel(e, out bool open) is string label)
+                    return label;
+                if (!open || e.Parent is not { } p || !RowParents.Contains(Local(p)))
+                    return null;
+                e = p;
+            }
+            return null;
+        }
+
+        /// <summary>The nearest earlier sibling in the same Grid row that holds
+        /// a label, skipping other inputs so a slider's value box finds the
+        /// slider's label, and literal text without a letter, then the
+        /// SettingLabel of a reset button later in the row, then that of a
+        /// reset button docked ahead of the element with no input between
+        /// them. Literal text right after an input is its unit and labels
+        /// nothing. In a Grid, a row above holding a label and no input labels
+        /// it next. Open is whether nothing before the element stopped the
+        /// search. AccessibleNames.FindLabelAt is the runtime twin.</summary>
+        private static string SiblingLabel(XElement n, out bool open)
+        {
+            open = false;
             var p = n.Parent;
             if (p == null)
                 return null;
@@ -641,6 +717,9 @@ namespace PadForge.Tests
             int idx = sibs.IndexOf(n);
             string myRow = Row(n);
             bool grid = Local(p) == "Grid";
+            string before = null;
+            bool passedInput = false;
+            open = true;
             for (int i = idx - 1; i >= 0; i--)
             {
                 var s = sibs[i];
@@ -649,21 +728,28 @@ namespace PadForge.Tests
                     continue;
                 if (grid && Row(s) != myRow)
                     continue;
-                if (Inputs.Contains(tag) || tag == "SettingResetButton")
-                    continue;
-                foreach (var d in s.DescendantsAndSelf())
+                if (ScanInputs.Contains(tag))
                 {
-                    if (Local(d) is "TextBlock" or "Label")
-                    {
-                        string t = Attr(d, "Text");
-                        if (string.IsNullOrEmpty(t))
-                            t = Attr(d, "Content");
-                        if (string.IsNullOrEmpty(t))
-                            t = OwnText(d).Trim();
-                        if (t.Length > 0 && !Pua.IsMatch(t) && t != "%" && StrKey.IsMatch(t))
-                            return t;
-                    }
+                    passedInput = true;
+                    continue;
                 }
+                if (tag == "SettingResetButton")
+                {
+                    if (!passedInput && before == null && Attr(s, "SettingLabel") is { Length: > 0 } earlier)
+                        before = earlier;
+                    continue;
+                }
+                if (IsSeparator(s))
+                    continue;
+                open = false;
+                if (LiteralText(s) != null && EarlierInRow(sibs, i, grid, myRow) is { } prior && ScanInputs.Contains(Local(prior)))
+                    break;
+                // A panel holding an input of its own is another control's
+                // row (AccessibleNames.HoldsInput).
+                if (s.Descendants().Any(d => ScanInputs.Contains(Local(d))))
+                    break;
+                if (FirstLabelIn(s) is string found)
+                    return found;
                 break;
             }
             for (int i = idx + 1; i < sibs.Count; i++)
@@ -676,8 +762,86 @@ namespace PadForge.Tests
                     continue;
                 if (tag == "SettingResetButton" && Attr(s, "SettingLabel") is { Length: > 0 } label)
                     return label;
-                if (Inputs.Contains(tag))
+                if (ScanInputs.Contains(tag))
                     break;
+            }
+            if (before != null)
+                return before;
+            if (open && grid && int.TryParse(myRow, out int rowIndex) && rowIndex > 0)
+            {
+                // The row above (AccessibleNames.RowAbove).
+                string upper = (rowIndex - 1).ToString(System.Globalization.CultureInfo.InvariantCulture);
+                var above = sibs.Where(x => !Local(x).Contains('.') && Row(x) == upper).ToList();
+                if (above.Count > 0)
+                {
+                    open = false;
+                    if (above.Any(x => ScanInputs.Contains(Local(x)) || x.Descendants().Any(d => ScanInputs.Contains(Local(d)))))
+                        return null;
+                    foreach (var x in above)
+                        if (FirstLabelIn(x) is string text)
+                            return text;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>The first TextBlock or Label in an element, in document
+        /// order, whose text is a Strings key or a literal with a letter in it
+        /// (AccessibleNames.FirstStringsLabel).</summary>
+        private static string FirstLabelIn(XElement s)
+        {
+            foreach (var d in s.DescendantsAndSelf())
+            {
+                if (Local(d) is "TextBlock" or "Label")
+                {
+                    string t = Attr(d, "Text");
+                    if (string.IsNullOrEmpty(t))
+                        t = Attr(d, "Content");
+                    // Text written between a TextBlock's tags becomes inlines
+                    // and leaves its Text unset, while a Label's becomes its
+                    // Content.
+                    bool literal = !string.IsNullOrEmpty(t) || Local(d) == "Label";
+                    if (string.IsNullOrEmpty(t))
+                        t = OwnText(d).Trim();
+                    // A Strings key, or a literal with a letter in it
+                    // (AccessibleNames.IsLabelSource).
+                    if (t.Length > 0 && !Pua.IsMatch(t) && t != "%"
+                        && (StrKey.IsMatch(t) || (literal && !t.StartsWith("{", StringComparison.Ordinal) && t.Any(char.IsLetter))))
+                        return t;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>A TextBlock or Label whose text is written in the XAML
+        /// without a letter, such as the dash between two range boxes
+        /// (AccessibleNames.IsSeparator).</summary>
+        private static bool IsSeparator(XElement e)
+            => LiteralText(e) is string text && !text.Any(char.IsLetter);
+
+        /// <summary>Text a TextBlock or Label is given in the XAML itself, not
+        /// through a binding, or null (AccessibleNames.LiteralText).</summary>
+        private static string LiteralText(XElement e)
+        {
+            string text = Local(e) switch
+            {
+                "TextBlock" => Attr(e, "Text"),
+                "Label" => Attr(e, "Content") ?? OwnText(e).Trim(),
+                _ => null,
+            };
+            return text != null && !text.StartsWith("{", StringComparison.Ordinal) ? text : null;
+        }
+
+        /// <summary>The element sibling before index in the same Grid row,
+        /// property elements left out, or null.</summary>
+        private static XElement EarlierInRow(List<XElement> sibs, int index, bool grid, string row)
+        {
+            for (int i = index - 1; i >= 0; i--)
+            {
+                if (Local(sibs[i]).Contains('.'))
+                    continue;
+                if (!grid || Row(sibs[i]) == row)
+                    return sibs[i];
             }
             return null;
         }

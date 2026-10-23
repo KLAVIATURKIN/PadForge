@@ -1423,6 +1423,12 @@ namespace PadForge.ViewModels
             set => SetProperty(ref _slotNumber, value);
         }
 
+        /// <summary>The card's screen-reader name, the "Slot 3" its header
+        /// shows: the card is an item of SlotsItemsControl, and
+        /// ItemAutomationPeer.GetNameCore falls back to the item's
+        /// ToString().</summary>
+        public override string ToString() => Common.AccessibleNames.SlotTitle(SlotNumber);
+
         private string _typeInstanceLabel = "1";
 
         /// <summary>Per-type instance number label (e.g., "1", "2").</summary>
@@ -1482,6 +1488,21 @@ namespace PadForge.ViewModels
         /// <summary>True for the Triggers entry. Rendered with the
         /// Zacksly trigger body geometry instead of a font glyph.</summary>
         public bool IsTriggerShape { get; }
+
+        /// <summary>The stage's screen-reader name: the name of the
+        /// controller tab whose glyph it shows. The stage is a list item,
+        /// and ItemAutomationPeer.GetNameCore falls back to the item's
+        /// ToString().</summary>
+        public override string ToString() => Kind switch
+        {
+            "Sticks" => Strings.Instance.Pad_Sticks,
+            "Triggers" => Strings.Instance.Pad_Triggers,
+            "Gyro" => Strings.Instance.Pad_Gyro,
+            "Lighting" => Strings.Instance.Pad_Lighting,
+            "Touchpad" => Strings.Instance.Pad_Touchpad,
+            "Audio" => Strings.Instance.Pad_Audio,
+            _ => Kind,
+        };
 
         private bool _isHot;
 

@@ -1183,7 +1183,7 @@
                                                 Margin="0,8,0,0" />
 
                         <!-- 2D/3D toggle button (top-left to avoid overlap with 3D Reset View) -->
-                        <Button x:Name="ViewModeToggle"
+                        <Button AutomationProperties.Name="{Binding ToolTip, RelativeSource={RelativeSource Self}}" x:Name="ViewModeToggle"
                                 AutomationProperties.AutomationId="ViewModeToggle"
                                 HorizontalAlignment="Left" VerticalAlignment="Top"
                                 Margin="8,8,0,0" Padding="6,4"
@@ -1834,7 +1834,7 @@
                                                     </ui:Button>
                                                     <!-- Clear binding button. Keeps the variable slot but
                                                          resets the device/channel binding. -->
-                                                    <ui:Button Command="{Binding ClearBindingCommand}"
+                                                    <ui:Button AutomationProperties.Name="{Binding Common_Clear, Source={x:Static strings:Strings.Instance}}" Command="{Binding ClearBindingCommand}"
                                                                Style="{StaticResource EmberIconButtonHot}"
                                                                VerticalAlignment="Center">
                                                         <TextBlock Text="&#xE75C;" FontFamily="Segoe MDL2 Assets"
@@ -1847,7 +1847,7 @@
                                                          macro's variable list. Subsequent variables shift
                                                          letters (b becomes a, etc.). Binds back up to the
                                                          macro via RelativeSource AncestorType=ItemsControl. -->
-                                                    <ui:Button Style="{StaticResource EmberIconButtonHot}"
+                                                    <ui:Button AutomationProperties.Name="{Binding Common_Delete, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource EmberIconButtonHot}"
                                                                VerticalAlignment="Center"
                                                                Command="{Binding DataContext.RemoveExpressionVariableCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                                                CommandParameter="{Binding}">
@@ -1924,7 +1924,7 @@
                                             <TextBlock Text="{Binding RecordTriggerButtonText}"/>
                                         </ui:Button.ToolTip>
                                     </ui:Button>
-                                    <ui:Button Command="{Binding ClearTriggerCommand}" Style="{StaticResource EmberIconButtonHot}">
+                                    <ui:Button AutomationProperties.Name="{Binding Common_Clear, Source={x:Static strings:Strings.Instance}}" Command="{Binding ClearTriggerCommand}" Style="{StaticResource EmberIconButtonHot}">
                                         <TextBlock Text="&#xE75C;" FontFamily="Segoe MDL2 Assets"
                                                    Foreground="{DynamicResource TextFillColorTertiaryBrush}"/>
                                         <ui:Button.ToolTip>
@@ -2017,7 +2017,7 @@
                                                                     <ui:Button Command="{Binding ThresholdEntry.ResetDescriptorDeadZoneCommand}" Style="{StaticResource ResetButton}" ToolTip="{Binding Common_Reset_DeadZone, Source={x:Static strings:Strings.Instance}}"/>
                                                                 </WrapPanel>
                                                             </StackPanel>
-                                                            <ui:Button Grid.Column="1" Command="{Binding RemoveCommand}"
+                                                            <ui:Button AutomationProperties.Name="{Binding Macro_RemoveTriggerInput, Source={x:Static strings:Strings.Instance}}" Grid.Column="1" Command="{Binding RemoveCommand}"
                                                                        Style="{StaticResource EmberIconButtonHot}"
                                                                        VerticalAlignment="Top">
                                                                 <TextBlock Text="&#xE711;" FontFamily="Segoe MDL2 Assets"
@@ -2596,7 +2596,7 @@
                                                     <TextBlock Text="{Binding SourceRecordTooltip}"/>
                                                 </ui:Button.ToolTip>
                                             </ui:Button>
-                                            <ui:Button Command="{Binding ClearSourceCommand}"
+                                            <ui:Button AutomationProperties.Name="{Binding Common_Clear, Source={x:Static strings:Strings.Instance}}" Command="{Binding ClearSourceCommand}"
                                                        Style="{StaticResource EmberIconButtonHot}"
                                                        VerticalAlignment="Center">
                                                 <TextBlock Text="&#xE75C;" FontFamily="Segoe MDL2 Assets"
@@ -2649,7 +2649,7 @@
                                         <StackPanel Orientation="Horizontal">
                                             <!-- Instance binding, NOT x:Static: an x:Static ItemsSource is
                                                  evaluated once and never refreshes on a live language change. -->
-                                            <ComboBox ItemsSource="{Binding VirtualKeyChoices}"
+                                            <ComboBox AutomationProperties.Name="{Binding Macro_KeyCombo, Source={x:Static strings:Strings.Instance}}" ItemsSource="{Binding VirtualKeyChoices}"
                                                       DisplayMemberPath="DisplayName"
                                                       SelectedValuePath="Key"
                                                       SelectedValue="{Binding SelectedKeyToAdd, Mode=TwoWay}"
@@ -2727,7 +2727,7 @@
                                                 </ItemsControl.ItemsPanel>
                                                 <ItemsControl.ItemTemplate>
                                                     <DataTemplate>
-                                                        <Button Margin="0,0,6,6" Padding="2" Click="RemoveDreamcastFrame_Click"
+                                                        <Button AutomationProperties.Name="{Binding Macro_Dreamcast_RemoveTooltip, Source={x:Static strings:Strings.Instance}}" Margin="0,0,6,6" Padding="2" Click="RemoveDreamcastFrame_Click"
                                                                 ToolTip="{Binding Macro_Dreamcast_RemoveTooltip, Source={x:Static strings:Strings.Instance}}">
                                                             <Image FlowDirection="LeftToRight" Source="{Binding}" Width="96" Height="64"
                                                                    RenderOptions.BitmapScalingMode="NearestNeighbor"/>
@@ -3038,9 +3038,9 @@
                                                        FontSize="11" TextWrapping="Wrap" Margin="0,0,0,6"
                                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
                                             <StackPanel Orientation="Horizontal">
-                                                <Slider Value="{Binding GuideLedPercent, Mode=TwoWay}" Minimum="0" Maximum="100"
+                                                <Slider AutomationProperties.Name="{Binding MacroAction_Type_GuideLedBrightness, Source={x:Static strings:Strings.Instance}}" Value="{Binding GuideLedPercent, Mode=TwoWay}" Minimum="0" Maximum="100"
                                                         Width="180" VerticalAlignment="Center"/>
-                                                <TextBox Text="{Binding GuideLedPercent, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                                <TextBox AutomationProperties.Name="{Binding MacroAction_Type_GuideLedBrightness, Source={x:Static strings:Strings.Instance}}" Text="{Binding GuideLedPercent, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                                          Style="{StaticResource DzValueEdit}"/>
                                                 <TextBlock Foreground="{DynamicResource TextFillColorTertiaryBrush}" Text="%" VerticalAlignment="Center" Margin="2,0,0,0"/>
                                                 <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="GuideLedPercent" SettingLabel="{Binding Macro_GuideLedBrightnessName, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_MacroAction_GuideLedPercent_2729"/>
@@ -3339,7 +3339,7 @@
                                                         <TextBlock Text="{Binding SourceRecordTooltip}"/>
                                                     </ui:Button.ToolTip>
                                                 </ui:Button>
-                                                <ui:Button Command="{Binding ClearSourceCommand}"
+                                                <ui:Button AutomationProperties.Name="{Binding Common_Clear, Source={x:Static strings:Strings.Instance}}" Command="{Binding ClearSourceCommand}"
                                                            Style="{StaticResource EmberIconButtonHot}"
                                                            VerticalAlignment="Center">
                                                     <TextBlock Text="&#xE75C;" FontFamily="Segoe MDL2 Assets"
@@ -3452,7 +3452,7 @@
                                                         <TextBlock Text="{Binding SourceRecordTooltip}"/>
                                                     </ui:Button.ToolTip>
                                                 </ui:Button>
-                                                <ui:Button Command="{Binding ClearSourceCommand}"
+                                                <ui:Button AutomationProperties.Name="{Binding Common_Clear, Source={x:Static strings:Strings.Instance}}" Command="{Binding ClearSourceCommand}"
                                                            Style="{StaticResource EmberIconButtonHot}"
                                                            VerticalAlignment="Center">
                                                     <TextBlock Text="&#xE75C;" FontFamily="Segoe MDL2 Assets"
@@ -3548,7 +3548,7 @@
                                                         <TextBlock Text="{Binding SourceRecordTooltip}"/>
                                                     </ui:Button.ToolTip>
                                                 </ui:Button>
-                                                <ui:Button Command="{Binding ClearSourceCommand}"
+                                                <ui:Button AutomationProperties.Name="{Binding Common_Clear, Source={x:Static strings:Strings.Instance}}" Command="{Binding ClearSourceCommand}"
                                                            Style="{StaticResource EmberIconButtonHot}"
                                                            VerticalAlignment="Center">
                                                     <TextBlock Text="&#xE75C;" FontFamily="Segoe MDL2 Assets"
@@ -3688,7 +3688,7 @@
                                     VerticalAlignment="Center"
                                     PlaceholderText="{Binding Mapping_FilterSearch_Placeholder, Source={x:Static strings:Strings.Instance}}"
                                     Text="{Binding MappingInputSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        <ToggleButton x:Name="MappingDeviceFilterToggle" Margin="4,0,0,0" Padding="8,4"
+                        <ToggleButton AutomationProperties.Name="{Binding Mapping_FilterDevices_Tooltip, Source={x:Static strings:Strings.Instance}}" x:Name="MappingDeviceFilterToggle" Margin="4,0,0,0" Padding="8,4"
                                       VerticalAlignment="Center"
                                       ToolTip="{Binding Mapping_FilterDevices_Tooltip, Source={x:Static strings:Strings.Instance}}">
                             <ui:SymbolIcon Symbol="Filter24"/>
@@ -5388,7 +5388,7 @@
                                                                 <TextBlock Text="{Binding RecordButtonText}"/>
                                                             </ui:Button.ToolTip>
                                                         </ui:Button>
-                                                        <ui:Button Command="{Binding ClearCommand}"
+                                                        <ui:Button AutomationProperties.Name="{Binding Common_Clear, Source={x:Static strings:Strings.Instance}}" Command="{Binding ClearCommand}"
                                                                    Style="{StaticResource EmberIconButtonHot}"
                                                                    VerticalAlignment="Center"
                                                                    Visibility="{Binding IsKindDescriptorless, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Invert}">
@@ -5551,10 +5551,10 @@
                                                                     </Style.Triggers>
                                                                 </Style>
                                                             </StackPanel.Style>
-                                                            <Slider Style="{StaticResource DzSlider}" Width="120" Minimum="1"
+                                                            <Slider AutomationProperties.Name="{Binding Pad_HeaderDeadZone, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource DzSlider}" Width="120" Minimum="1"
                                                                     Value="{Binding DeadZone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                     TickFrequency="1"/>
-                                                            <TextBox Text="{Binding DeadZone, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                                            <TextBox AutomationProperties.Name="{Binding Pad_HeaderDeadZone, Source={x:Static strings:Strings.Instance}}" Text="{Binding DeadZone, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                                                      Style="{StaticResource DzValueEdit}"/>
                                                             <TextBlock Text="%" Style="{StaticResource DzPercent}"/>
                                                             <ui:Button Command="{Binding ResetDeadZoneCommand}" Style="{StaticResource ResetButton}" ToolTip="{Binding Common_Reset_DeadZone, Source={x:Static strings:Strings.Instance}}"/>
@@ -6013,7 +6013,7 @@
                                                  the cell holds only the mapping and never crowds the picker
                                                  (#111). The grouped view headers each device; SelectedItem
                                                  tags the row with the picked DeviceGuid + DeviceLabel. -->
-                                            <ComboBox ItemsSource="{Binding AvailableInputsView}"
+                                            <ComboBox AutomationProperties.Name="{Binding Pad_HeaderSource, Source={x:Static strings:Strings.Instance}}" ItemsSource="{Binding AvailableInputsView}"
                                                       SelectedItem="{Binding SelectedInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                       Visibility="{Binding IsPrimaryDescriptor, Converter={StaticResource BoolToVisibilityConverter}}"
                                                       DisplayMemberPath="DisplayName"
@@ -6268,7 +6268,7 @@
                             <DataGridTemplateColumn Header="" Width="Auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <ui:Button Command="{Binding ClearCommand}"
+                                        <ui:Button AutomationProperties.Name="{Binding Common_Clear, Source={x:Static strings:Strings.Instance}}" Command="{Binding ClearCommand}"
                                                    Style="{StaticResource EmberIconButtonHot}">
                                             <TextBlock Text="&#xE75C;" FontFamily="Segoe MDL2 Assets"
                                                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"/>
@@ -6456,10 +6456,10 @@
                                                     </Style.Triggers>
                                                 </Style>
                                             </StackPanel.Style>
-                                            <Slider Style="{StaticResource DzSlider}" Width="120" Minimum="1"
+                                            <Slider AutomationProperties.Name="{Binding Pad_HeaderDeadZone, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource DzSlider}" Width="120" Minimum="1"
                                                     Value="{Binding MappingDeadZone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     TickFrequency="1"/>
-                                            <TextBox Text="{Binding MappingDeadZone, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                            <TextBox AutomationProperties.Name="{Binding Pad_HeaderDeadZone, Source={x:Static strings:Strings.Instance}}" Text="{Binding MappingDeadZone, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                                      Style="{StaticResource DzValueEdit}"/>
                                             <TextBlock Text="%" Style="{StaticResource DzPercent}"/>
                                             <ui:Button Command="{Binding ResetDeadZoneCommand}" Style="{StaticResource ResetButton}" ToolTip="{Binding Pad_Reset_AxisToButtonDeadZone, Source={x:Static strings:Strings.Instance}}"/>
@@ -12681,7 +12681,7 @@
                                                             <ColumnDefinition Width="*"/>
                                                         </Grid.ColumnDefinitions>
                                                         <StackPanel Orientation="Horizontal" Grid.Column="0" VerticalAlignment="Center">
-                                                            <CheckBox VerticalAlignment="Center" IsChecked="{Binding Enabled, Mode=TwoWay}"/>
+                                                            <CheckBox AutomationProperties.Name="{Binding Common_Enabled, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center" IsChecked="{Binding Enabled, Mode=TwoWay}"/>
                                                             <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="Enabled" SettingLabel="{Binding Common_Enabled, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_EqBandVm_Enabled_11933"/>
                                                         </StackPanel>
                                                         <!-- The picker binds the enum values, so it needs an
@@ -12715,7 +12715,7 @@
                                                             <TextBox
                                                                      Text="{Binding Q, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=0.###}"/>
                                                         </DockPanel>
-                                                        <ui:Button Grid.Column="5" HorizontalAlignment="Left" Padding="6,2"
+                                                        <ui:Button AutomationProperties.Name="{Binding Pad_Audio_EqRemove, Source={x:Static strings:Strings.Instance}}" Grid.Column="5" HorizontalAlignment="Left" Padding="6,2"
                                                                    Command="{Binding DataContext.RemoveEqBandCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                                                    CommandParameter="{Binding}"
                                                                    ToolTip="{Binding Pad_Audio_EqRemove, Source={x:Static strings:Strings.Instance}}">
@@ -13845,14 +13845,14 @@
                                                           ItemsSource="{Binding BindingKindOptions}"
                                                           DisplayMemberPath="Label" SelectedValuePath="Value"
                                                           SelectedValue="{Binding BindingKind, Mode=TwoWay}"/>
-                                                <ComboBox MinWidth="140" Margin="8,0,0,0"
+                                                <ComboBox AutomationProperties.Name="{Binding Menu_Binding_Key, Source={x:Static strings:Strings.Instance}}" MinWidth="140" Margin="8,0,0,0"
                                                           common:ComboBoxWidthBehavior.SizeToItems="True"
                                                           common:ComboBoxWidthBehavior.WidthGroup="MenuCellKeyCombos"
                                                           ItemsSource="{Binding KeyOptions}"
                                                           DisplayMemberPath="Label" SelectedValuePath="Vk"
                                                           SelectedValue="{Binding SelectedKeyVk, Mode=TwoWay}"
                                                           Visibility="{Binding ShowKeyPicker, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                                <ComboBox MinWidth="140" Margin="8,0,0,0"
+                                                <ComboBox AutomationProperties.Name="{Binding Menu_Binding_Button, Source={x:Static strings:Strings.Instance}}" MinWidth="140" Margin="8,0,0,0"
                                                           common:ComboBoxWidthBehavior.SizeToItems="True"
                                                           common:ComboBoxWidthBehavior.WidthGroup="MenuCellButtonCombos"
                                                           ItemsSource="{Binding ButtonOptions}"
@@ -13871,7 +13871,7 @@
                                                           Visibility="{Binding ShowMacroPicker, Converter={StaticResource BoolToVisibilityConverter}}"/>
                                                 <!-- Cell icon: an emoji, a pack entry or an image
                                                      file, from the shared icon picker (#390, #471). -->
-                                                <ui:Button Click="MenuCellChooseIcon_Click" Margin="6,0,0,0"
+                                                <ui:Button AutomationProperties.Name="{Binding Menu_ChooseIcon_Tip, Source={x:Static strings:Strings.Instance}}" Click="MenuCellChooseIcon_Click" Margin="6,0,0,0"
                                                            ToolTip="{Binding Menu_ChooseIcon_Tip, Source={x:Static strings:Strings.Instance}}">
                                                     <TextBlock Text="&#xEB9F;" FontFamily="Segoe MDL2 Assets" FontSize="14"/>
                                                 </ui:Button>
@@ -14224,7 +14224,7 @@
                                                                      VerticalContentAlignment="Center" Padding="2,1"
                                                                      ToolTip="{Binding Pad_Socd_IndexB_Tooltip, Source={x:Static strings:Strings.Instance}}"/>
                                                         </StackPanel>
-                                                        <ui:Button Style="{StaticResource EmberIconButtonHot}"
+                                                        <ui:Button AutomationProperties.Name="{Binding Pad_Socd_RemovePair_Tooltip, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource EmberIconButtonHot}"
                                                                    VerticalAlignment="Center" Margin="2,0,0,0"
                                                                    Command="{Binding DataContext.RemoveSocdPairCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                                                    CommandParameter="{Binding}">
@@ -14328,7 +14328,7 @@
                                                                   SelectedValuePath="Vk" DisplayMemberPath="Label"
                                                                   MinWidth="72" VerticalAlignment="Center" Padding="4,2"
                                                                   ToolTip="{Binding Pad_Kbm_Socd_KeyB_Tooltip, Source={x:Static strings:Strings.Instance}}"/>
-                                                        <ui:Button Style="{StaticResource EmberIconButtonHot}"
+                                                        <ui:Button AutomationProperties.Name="{Binding Pad_Kbm_Socd_RemovePair_Tooltip, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource EmberIconButtonHot}"
                                                                    VerticalAlignment="Center" Margin="2,0,0,0"
                                                                    Command="{Binding DataContext.KbmConfig.RemoveSocdPairCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                                                    CommandParameter="{Binding}">
