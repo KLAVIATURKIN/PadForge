@@ -402,7 +402,7 @@
                         <!-- Gamepad glyph + slot number removed (#175
                              iteration 3): the tier's Slot N scope label
                              already says it. The badge keeps type + instance. -->
-                        <Image FlowDirection="LeftToRight" Width="14" Height="14" Margin="0,0,4,0" VerticalAlignment="Center">
+                        <controls:DecorativeImage FlowDirection="LeftToRight" Width="14" Height="14" Margin="0,0,4,0" VerticalAlignment="Center">
                             <Image.Style>
                                 <Style TargetType="Image">
                                     <Setter Property="Source" Value="{StaticResource GenericControllerIcon}"/>
@@ -428,7 +428,7 @@
                                     </Style.Triggers>
                                 </Style>
                             </Image.Style>
-                        </Image>
+                        </controls:DecorativeImage>
                         <!-- MIDI glyph icon (visible only when OutputType == Midi) -->
                         <TextBlock Text="&#xEC4F;" FontFamily="Segoe MDL2 Assets" FontSize="14"
                                    VerticalAlignment="Center" Margin="0,0,4,0">
@@ -1350,7 +1350,7 @@
                                     ToolTip="{Binding Pad_CopyFromTooltip, Source={x:Static strings:Strings.Instance}}"/>
                         </WrapPanel>
 
-                        <ListBox ItemsSource="{Binding Macros}"
+                        <ListBox AutomationProperties.Name="{Binding Pad_Macros, Source={x:Static strings:Strings.Instance}}" ItemsSource="{Binding Macros}"
                                  SelectedItem="{Binding SelectedMacro, Mode=TwoWay}"
                                  TextSearch.TextPath="Name"
                                  ItemContainerStyle="{StaticResource EmberSelectListItem}">
@@ -2729,7 +2729,7 @@
                                                     <DataTemplate>
                                                         <Button AutomationProperties.Name="{Binding Macro_Dreamcast_RemoveTooltip, Source={x:Static strings:Strings.Instance}}" Margin="0,0,6,6" Padding="2" Click="RemoveDreamcastFrame_Click"
                                                                 ToolTip="{Binding Macro_Dreamcast_RemoveTooltip, Source={x:Static strings:Strings.Instance}}">
-                                                            <Image FlowDirection="LeftToRight" Source="{Binding}" Width="96" Height="64"
+                                                            <controls:DecorativeImage FlowDirection="LeftToRight" Source="{Binding}" Width="96" Height="64"
                                                                    RenderOptions.BitmapScalingMode="NearestNeighbor"/>
                                                         </Button>
                                                     </DataTemplate>
@@ -4199,7 +4199,7 @@
                          horizontal slack and bloats. With HorizontalAlignment=Left,
                          each column genuinely auto-collapses to its own content
                          and any empty space sits to the right of the grid. -->
-                    <DataGrid Grid.Row="3"
+                    <DataGrid AutomationProperties.Name="{Binding Pad_Mappings, Source={x:Static strings:Strings.Instance}}" Grid.Row="3"
                               x:Name="MappingDataGrid"
                               EnableRowVirtualization="True"
                               VirtualizingPanel.VirtualizationMode="Recycling"
@@ -13185,7 +13185,7 @@
                                     Padding="8,4" Margin="0,0,0,4"/>
                         </WrapPanel>
 
-                        <ListBox ItemsSource="{Binding Menus}"
+                        <ListBox AutomationProperties.Name="{Binding Pad_Menus, Source={x:Static strings:Strings.Instance}}" ItemsSource="{Binding Menus}"
                                  SelectedItem="{Binding SelectedMenu, Mode=TwoWay}"
                                  ItemContainerStyle="{StaticResource EmberSelectListItem}"
                                  DisplayMemberPath="Name"/>
@@ -13380,7 +13380,7 @@
                                               ToolTip="{Binding HostInputTip}"
                                               DisplayMemberPath="Label"
                                               SelectedItem="{Binding SelectedHost, Mode=TwoWay}"/>
-                                    <ui:Button Command="{Binding DataContext.MenuHostRecordCommand,
+                                    <ui:Button AutomationProperties.Name="{Binding HostRecordText}" Command="{Binding DataContext.MenuHostRecordCommand,
                                                    RelativeSource={RelativeSource AncestorType=TabItem}}"
                                                Style="{StaticResource EmberIconButtonHot}" Margin="6,0,0,0">
                                         <TextBlock Text="{Binding HostRecordIcon}" FontFamily="Segoe MDL2 Assets"
@@ -13453,7 +13453,7 @@
                                             </TextBlock.Style>
                                         </TextBlock>
                                     </StackPanel>
-                                    <ui:Button Command="{Binding DataContext.MenuRecordTargetCommand,
+                                    <ui:Button AutomationProperties.Name="{Binding CustomXRecordText}" Command="{Binding DataContext.MenuRecordTargetCommand,
                                                    RelativeSource={RelativeSource AncestorType=TabItem}}"
                                                CommandParameter="CustomX"
                                                Style="{StaticResource EmberIconButtonHot}" Margin="6,0,0,0"
@@ -13509,7 +13509,7 @@
                                             </TextBlock.Style>
                                         </TextBlock>
                                     </StackPanel>
-                                    <ui:Button Command="{Binding DataContext.MenuRecordTargetCommand,
+                                    <ui:Button AutomationProperties.Name="{Binding CustomYRecordText}" Command="{Binding DataContext.MenuRecordTargetCommand,
                                                    RelativeSource={RelativeSource AncestorType=TabItem}}"
                                                CommandParameter="CustomY"
                                                Style="{StaticResource EmberIconButtonHot}" Margin="6,0,0,0"
@@ -13569,7 +13569,7 @@
                                             </TextBlock.Style>
                                         </TextBlock>
                                     </StackPanel>
-                                    <ui:Button Command="{Binding DataContext.MenuRecordTargetCommand,
+                                    <ui:Button AutomationProperties.Name="{Binding ClickRecordText}" Command="{Binding DataContext.MenuRecordTargetCommand,
                                                    RelativeSource={RelativeSource AncestorType=TabItem}}"
                                                CommandParameter="Click"
                                                Style="{StaticResource EmberIconButtonHot}" Margin="6,0,0,0"
@@ -13800,7 +13800,7 @@
                                                  the icon so no size sits on a cell that renders none. -->
                                             <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="0,0,8,0"
                                                         Visibility="{Binding HasIcon, Converter={StaticResource BoolToVisibilityConverter}}">
-                                                <Image FlowDirection="LeftToRight" Width="16" Height="16" Margin="0,0,6,0"
+                                                <controls:DecorativeImage FlowDirection="LeftToRight" Width="16" Height="16" Margin="0,0,6,0"
                                                        VerticalAlignment="Center"
                                                        Source="{Binding IconImage}"
                                                        ToolTip="{Binding IconName}"

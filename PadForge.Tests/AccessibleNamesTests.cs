@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 using System.Windows;
@@ -128,7 +129,7 @@ namespace PadForge.Tests
                 Assert.Equal("Delete", NameOf(glyph));
                 Assert.Equal("Close", NameOf(text));
                 Assert.Equal("Record", NameOf(panel));
-                // A tooltip element is not read: the button keeps WPF's own
+                // A ToolTip control is not read: the button keeps WPF's own
                 // name, and XAML names such a button itself.
                 Assert.Equal(Glyph, NameOf(element));
                 Assert.Equal("Own", NameOf(own));
@@ -139,6 +140,51 @@ namespace PadForge.Tests
 
                 glyph.ToolTip = "Remove";
                 Assert.Equal("Remove", NameOf(glyph));
+            });
+        });
+
+        private sealed class RecordState : INotifyPropertyChanged
+        {
+            private string _text = "Record";
+
+            public string Text
+            {
+                get => _text;
+                set
+                {
+                    _text = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Text)));
+                }
+            }
+
+            public event PropertyChangedEventHandler PropertyChanged;
+        }
+
+        [Fact]
+        public void AButtonThatShowsNoText_IsNamedByTheTextItsTooltipTextBlockShows() => RunSta(() =>
+        {
+            // The record buttons: a glyph that turns to Stop while recording,
+            // and a TextBlock tooltip bound to the row's "Record" or
+            // "Recording".
+            var state = new RecordState();
+            var tip = new TextBlock();
+            tip.SetBinding(TextBlock.TextProperty, new Binding(nameof(RecordState.Text)));
+            var bound = new Button { Content = new TextBlock { Text = Glyph }, ToolTip = tip, DataContext = state };
+            var literal = new Button { Content = new TextBlock { Text = Glyph }, ToolTip = new TextBlock { Text = "Clear" } };
+            var shows = new Button { Content = "Close", ToolTip = new TextBlock { Text = "Closes the dialog" } };
+            var buttons = new[] { bound, literal, shows };
+            Shown(Panel(buttons), () =>
+            {
+                // The tooltip's own binding reads nothing until the tooltip
+                // opens.
+                Assert.Equal(string.Empty, tip.Text);
+                foreach (var b in buttons)
+                    AccessibleNames.NameButton(b);
+                Assert.Equal("Record", NameOf(bound));
+                state.Text = "Recording";
+                Assert.Equal("Recording", NameOf(bound));
+                Assert.Equal("Clear", NameOf(literal));
+                Assert.Equal("Close", NameOf(shows));
             });
         });
 

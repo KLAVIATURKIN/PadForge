@@ -28,10 +28,11 @@ namespace PadForge.Tests
     /// (ItemAutomationPeer.GetNameCore, ContentControl.PrepareContentControl).
     /// AccessibleNames fills those gaps as controls load, and the audit counts
     /// a control as named when one of its rules reaches it: a button that
-    /// shows no text takes a string tooltip, an input takes the label beside
-    /// it, then a string tooltip, then a TextBox's placeholder, and the items
-    /// of a ListBox, ListView, ComboBox or plain ItemsControl take the text
-    /// they show. What stays counted is what no rule names.</para>
+    /// shows no text (a glyph, or text set in an icon font) takes a string or
+    /// TextBlock tooltip, an input takes the label beside it, then a string
+    /// tooltip, then a TextBox's placeholder, and the items of a ListBox,
+    /// ListView, ComboBox or plain ItemsControl take the text they show. What
+    /// stays counted is what no rule names.</para>
     ///
     /// <para>UI built in C# (the sidebar controller cards, the Add Controller
     /// popup) is invisible here. tools/a11y_uia_audit.ps1 covers it at
@@ -61,17 +62,14 @@ namespace PadForge.Tests
 
             [("PadForge.App/MainWindow.xaml", XamlA11yAudit.BtnNoTooltip)] = 1,
 
-            [("PadForge.App/MainWindow.xaml", XamlA11yAudit.ImageNoName)] = 1,
 
             [("PadForge.App/MainWindow.xaml", XamlA11yAudit.MouseOnly)] = 1,
 
-            [("PadForge.App/Views/AboutPage.xaml", XamlA11yAudit.ImageNoName)] = 1,
 
             [("PadForge.App/Views/ColorPickerControl.xaml", XamlA11yAudit.MouseOnly)] = 4,
 
             [("PadForge.App/Views/Controls/ProfilePill.xaml", XamlA11yAudit.MouseOnly)] = 1,
 
-            [("PadForge.App/Views/DashboardPage.xaml", XamlA11yAudit.ImageNoName)] = 2,
 
             [("PadForge.App/Views/DashboardPage.xaml", XamlA11yAudit.MouseOnly)] = 1,
 
@@ -79,25 +77,19 @@ namespace PadForge.Tests
 
             [("PadForge.App/Views/DreamcastScreenDialog.xaml", XamlA11yAudit.ImageNoName)] = 1,
 
-            [("PadForge.App/Views/IconPicker.xaml", XamlA11yAudit.ImageNoName)] = 1,
 
-            [("PadForge.App/Views/PadPage.xaml", XamlA11yAudit.ImageNoName)] = 3,
 
             [("PadForge.App/Views/PadPage.xaml", XamlA11yAudit.MouseOnly)] = 18,
 
-            [("PadForge.App/Views/ProfilesPage.xaml", XamlA11yAudit.ImageNoName)] = 1,
 
             [("PadForge.App/Views/RemoteLinkPasswordDialog.xaml", XamlA11yAudit.InNothing)] = 1,
 
-            [("PadForge.App/Views/ShiftActivatorDialog.xaml", XamlA11yAudit.ImageNoName)] = 1,
 
-            [("PadForge.App/Views/ShiftLayerFlyout.xaml", XamlA11yAudit.ImageNoName)] = 1,
 
             [("PadForge.App/Views/TouchpadGestureRecorderDialog.xaml", XamlA11yAudit.MouseOnly)] = 2,
 
             [("PadForge.App/Views/TouchpadOverlay.xaml", XamlA11yAudit.MouseOnly)] = 4,
 
-            [("PadForge.App/Views/WorkshopBrowseDialog.xaml", XamlA11yAudit.ImageNoName)] = 4,
 
             [("PadForge.App/Views/WorkshopBrowseDialog.xaml", XamlA11yAudit.MouseOnly)] = 6,
 
@@ -155,6 +147,53 @@ namespace PadForge.Tests
         }
 
         [Fact]
+        public void EveryPlainList_StaysOutOfTheTabOrder()
+        {
+            // App.xaml's implicit ItemsControl style takes plain lists out of the
+            // Tab order. A list with a style of its own misses it, so that style
+            // or the list sets Focusable.
+            var app = XDocument.Load(Path.Combine(RepoRoot(), "PadForge.App", "App.xaml"));
+            bool implicitStyle = app.Descendants().Any(e => e.Name.LocalName == "Style"
+                && (string)e.Attribute("TargetType") == "ItemsControl"
+                && !e.Attributes().Any(a => a.Name.LocalName == "Key")
+                && SetsFocusableFalse(e));
+            Assert.True(implicitStyle, "App.xaml lost the implicit ItemsControl style that sets Focusable to False.");
+
+            var stops = new List<string>();
+            foreach (var (rel, text) in XamlA11yAudit.Files(RepoRoot()))
+            {
+                foreach (var list in XDocument.Parse(text, LoadOptions.SetLineInfo).Descendants().Where(e => e.Name.LocalName == "ItemsControl"))
+                {
+                    if (list.Attributes().Any(a => a.Name.LocalName == "Focusable"))
+                        continue;
+                    var inline = list.Elements().FirstOrDefault(c => c.Name.LocalName == "ItemsControl.Style")?.Elements().FirstOrDefault();
+                    bool styled = list.Attributes().Any(a => a.Name.LocalName == "Style") || inline != null;
+                    if (styled && !(inline != null && SetsFocusableFalse(inline)))
+                        stops.Add($"{rel}:{((IXmlLineInfo)list).LineNumber}");
+                }
+            }
+            Assert.True(stops.Count == 0, "Plain lists left in the Tab order by a style of their own: " + string.Join(", ", stops));
+        }
+
+        private static bool SetsFocusableFalse(XElement style)
+            => style.Elements().Any(s => s.Name.LocalName == "Setter"
+                && (string)s.Attribute("Property") == "Focusable" && (string)s.Attribute("Value") == "False");
+
+        [Fact]
+        public void EveryDialogWindow_TellsScreenReadersItIsADialog()
+        {
+            // AutomationProperties.IsDialog on the window's root makes its peer
+            // report a dialog (UIA IsDialog), which screen readers announce as one.
+            var views = Path.Combine(RepoRoot(), "PadForge.App", "Views");
+            var missing = Directory.EnumerateFiles(views, "*Dialog.xaml")
+                .Where(p => !XDocument.Load(p).Root.Attributes()
+                    .Any(a => a.Name.LocalName == "AutomationProperties.IsDialog" && a.Value == "True"))
+                .Select(Path.GetFileName)
+                .ToList();
+            Assert.True(missing.Count == 0, "Dialog windows without AutomationProperties.IsDialog=\"True\": " + string.Join(", ", missing));
+        }
+
+        [Fact]
         public void EveryAllowlistEntry_StillMatchesAFinding()
         {
             var findings = XamlA11yAudit.Measure(RepoRoot());
@@ -197,7 +236,7 @@ namespace PadForge.Tests
         private const string Key = "{Binding Common_Close, Source={x:Static strings:Strings.Instance}}";
 
         [Fact]
-        public void AButtonThatShowsNoText_IsNamedByAStringTooltip_AndOnlyATooltipElementOrNoneIsCounted()
+        public void AButtonThatShowsNoText_IsNamedByAStringOrTextBlockTooltip_AndOnlyAnotherTooltipElementOrNoneIsCounted()
         {
             var f = Audit(
                 "<StackPanel>\n" +
@@ -207,11 +246,14 @@ namespace PadForge.Tests
                 "  <Button Content=\"Close\"/>\n" +
                 "  <Button Content=\"{Binding Label}\"/>\n" +
                 "  <Button Content=\"&#xE711;\" AutomationProperties.Name=\"" + Key + "\"/>\n" +
-                "  <Button Content=\"&#xE711;\"><Button.ToolTip><TextBlock Text=\"" + Key + "\"/></Button.ToolTip></Button>\n" +
+                "  <Button Content=\"&#xE711;\"><Button.ToolTip><StackPanel><TextBlock Text=\"" + Key + "\"/></StackPanel></Button.ToolTip></Button>\n" +
                 "  <Button><StackPanel><TextBlock Text=\"&#xE700;\"/><TextBlock Text=\"" + Key + "\"/></StackPanel></Button>\n" +
+                "  <Button><TextBlock Text=\"{Binding RecordIcon}\" FontFamily=\"Segoe MDL2 Assets\"/></Button>\n" +
+                "  <Button><TextBlock Text=\"{Binding RecordIcon}\" FontFamily=\"Segoe MDL2 Assets\"/><Button.ToolTip><TextBlock Text=\"{Binding RecordText}\"/></Button.ToolTip></Button>\n" +
+                "  <Button Content=\"&#xE711;\"><Button.ToolTip><TextBlock Text=\"" + Key + "\"/></Button.ToolTip></Button>\n" +
                 "</StackPanel>");
-            Assert.Equal(new[] { XamlA11yAudit.BtnNoTooltip, XamlA11yAudit.BtnTooltipElement }, f.Select(x => x.Class));
-            Assert.Equal(new[] { 12, 16 }, f.Select(x => x.Line));
+            Assert.Equal(new[] { XamlA11yAudit.BtnNoTooltip, XamlA11yAudit.BtnTooltipElement, XamlA11yAudit.BtnNoTooltip }, f.Select(x => x.Class));
+            Assert.Equal(new[] { 12, 16, 18 }, f.Select(x => x.Line));
         }
 
         [Fact]
@@ -354,7 +396,8 @@ namespace PadForge.Tests
         /// <summary>A button that shows no text and has no tooltip.</summary>
         internal const string BtnNoTooltip = "BTN_NO_TOOLTIP";
         /// <summary>A button that shows no text and whose tooltip is an
-        /// element, which AccessibleNames does not read as a name.</summary>
+        /// element other than a TextBlock, which AccessibleNames does not
+        /// read as a name.</summary>
         internal const string BtnTooltipElement = "BTN_TOOLTIP_ELEMENT";
         /// <summary>An input without a label beside it whose tooltip is an
         /// element.</summary>
@@ -519,7 +562,9 @@ namespace PadForge.Tests
                         var (tt, src) = ToolTipOf(n, st);
                         string ph = Attr(n, "PlaceholderText");
                         bool placeholderNames = !string.IsNullOrEmpty(ph) && PlaceholderNamed.Contains(tag);
-                        if ((tt == null || src == "element") && !placeholderNames)
+                        // NameInput reads a string tooltip only, so a TextBlock
+                        // tooltip leaves an input unnamed.
+                        if ((tt == null || src is "element" or "element-text") && !placeholderNames)
                         {
                             string cls = tt != null ? InTooltipElement
                                 : !string.IsNullOrEmpty(ph) ? InPlaceholder
@@ -654,7 +699,9 @@ namespace PadForge.Tests
                     continue;
                 foreach (var d in c.DescendantsAndSelf())
                 {
-                    if (Local(d) is "TextBlock" or "Run" or "AccessText" or "Label")
+                    // Text set in an icon font is a glyph, a bound one too: the
+                    // record buttons bind a Record or Stop glyph.
+                    if ((Local(d) is "TextBlock" or "Run" or "AccessText" or "Label") && !InIconFont(d, n))
                     {
                         string t = Attr(d, "Text");
                         if (string.IsNullOrEmpty(t))
@@ -668,14 +715,35 @@ namespace PadForge.Tests
             return null;
         }
 
+        /// <summary>Whether an element's text is drawn in an icon font set on
+        /// it or on an element between it and the control.</summary>
+        private static bool InIconFont(XElement d, XElement control)
+        {
+            for (XElement e = d; e != null && e != control; e = e.Parent)
+                if ((Attr(e, "FontFamily") ?? Attr(e, "TextElement.FontFamily")) is string font
+                    && (font.Contains("MDL2 Assets", StringComparison.Ordinal) || font.Contains("Fluent Icons", StringComparison.Ordinal)))
+                    return true;
+            return false;
+        }
+
         private static (string Text, string Source) ToolTipOf(XElement n, StyleInfo st)
         {
             // BidiText.ToolTip draws a string as a TextBlock tooltip, and
             // AccessibleNames reads the string from it.
             if ((Attr(n, "ToolTip") ?? Attr(n, "BidiText.ToolTip")) is string t)
                 return (t, "attr");
-            if (n.Elements().Any(c => Local(c).EndsWith(".ToolTip", StringComparison.Ordinal)))
+            if (n.Elements().FirstOrDefault(c => Local(c).EndsWith(".ToolTip", StringComparison.Ordinal)) is XElement tip)
+            {
+                // A TextBlock tooltip with text of its own, written or bound
+                // to the data, a source or Strings, names a button
+                // (AccessibleNames.TipText). A binding to another element
+                // is not followed, nor is any other tooltip element.
+                if (tip.Elements().FirstOrDefault() is XElement first && Local(first) == "TextBlock"
+                    && Attr(first, "Text") is { Length: > 0 } text
+                    && !text.Contains("ElementName", StringComparison.Ordinal) && !text.Contains("RelativeSource", StringComparison.Ordinal))
+                    return (text, "element-text");
                 return ("(element)", "element");
+            }
             if (st.ToolTip != null || st.ToolTipTrigger)
                 return (st.ToolTip ?? "(trigger)", "style");
             return (null, null);

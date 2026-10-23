@@ -112,6 +112,35 @@ namespace PadForge.Tests
             Assert.Throws<ElementNotEnabledException>(() => invoke.Invoke());
         });
 
+        [Fact]
+        public void ADecorativeImage_LeavesTheControlView_WhereAnImageStays() => RunSta(() =>
+        {
+            // Shown, since a peer counts only a visible element as a control
+            // element (UIElementAutomationPeer.IsControlElementCore).
+            var decorative = new DecorativeImage { Width = 10, Height = 10 };
+            var plain = new Image { Width = 10, Height = 10 };
+            var panel = new StackPanel();
+            panel.Children.Add(decorative);
+            panel.Children.Add(plain);
+            var window = new Window
+            {
+                Width = 200, Height = 200, ShowActivated = false, ShowInTaskbar = false,
+                Left = -10000, Top = -10000, Content = panel,
+            };
+            try
+            {
+                window.Show();
+                Assert.True(decorative.IsVisible);
+                Assert.False(PeerOf(decorative).IsControlElement());
+                Assert.False(PeerOf(decorative).IsContentElement());
+                Assert.True(PeerOf(plain).IsControlElement());
+            }
+            finally
+            {
+                window.Close();
+            }
+        });
+
         private static T Find<T>(DependencyObject root) where T : DependencyObject
         {
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(root); i++)

@@ -73,7 +73,7 @@
                     <Border x:Name="AppBrandingBorder" Padding="12,0"
                             Background="Transparent" MouseLeftButtonDown="BrandingBar_MouseDown">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <Image FlowDirection="LeftToRight" Source="/Resources/PadForge-icon.png" Width="20" Height="20"
+                            <controls:DecorativeImage FlowDirection="LeftToRight" Source="/Resources/PadForge-icon.png" Width="20" Height="20"
                                    RenderOptions.BitmapScalingMode="HighQuality" VerticalAlignment="Center"/>
                             <TextBlock Text="PadForge" FontSize="12"
                                        VerticalAlignment="Center" Margin="8,0,0,0"/>
@@ -203,7 +203,7 @@
 
                 <!-- Named so the #175 item 7 decay sweep can fade it out
                      before the clear (code-behind BeginAnimation). -->
-                <TextBlock x:Name="StatusMessageText" Grid.Column="0"
+                <TextBlock x:Name="StatusMessageText" Grid.Column="0" AutomationProperties.LiveSetting="Polite"
                            Text="{Binding StatusText}"
                            VerticalAlignment="Center"
                            Foreground="{DynamicResource TextFillColorTertiaryBrush}"

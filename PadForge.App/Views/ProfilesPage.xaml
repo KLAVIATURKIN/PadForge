@@ -59,7 +59,7 @@
             <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
                 <TextBlock Text="&#xE8F1;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                            VerticalAlignment="Center" Margin="0,0,10,0"/>
-                <TextBlock Text="{Binding Profiles_Title, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource TitleTextBlockStyle}" FontFamily="{StaticResource DisplayFontFamily}" FontWeight="650" FontSize="26"/>
+                <TextBlock AutomationProperties.HeadingLevel="Level1" Text="{Binding Profiles_Title, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource TitleTextBlockStyle}" FontFamily="{StaticResource DisplayFontFamily}" FontWeight="650" FontSize="26"/>
             </StackPanel>
 
             <Border Style="{StaticResource CardBorder}" Margin="0,0,0,20">
@@ -163,7 +163,7 @@
                              to the extent (60→92, 420→452) so the visible content
                              window and the slot height the siblings see (bounds
                              minus the negative margins) are unchanged. -->
-                        <ListBox x:Name="ProfileListBox"
+                        <ListBox AutomationProperties.Name="{Binding Profiles_Title, Source={x:Static strings:Strings.Instance}}" x:Name="ProfileListBox"
                                  ItemsSource="{Binding ProfileItems}"
                                  SelectedItem="{Binding SelectedProfile}"
                                  Margin="-16"
@@ -409,7 +409,7 @@
                                                 </Path>
                                                 <!-- Icon collapses when the converter yields null
                                                      (no executables, or the file is gone). -->
-                                                <Image FlowDirection="LeftToRight" Grid.Column="1" Width="20" Height="20"
+                                                <reset:DecorativeImage FlowDirection="LeftToRight" Grid.Column="1" Width="20" Height="20"
                                                        Margin="0,0,6,0" VerticalAlignment="Center"
                                                        RenderOptions.BitmapScalingMode="HighQuality"
                                                        Source="{Binding FirstExecutablePath, Converter={StaticResource ExeIconConverter}}">
@@ -422,7 +422,7 @@
                                                             </Style.Triggers>
                                                         </Style>
                                                     </Image.Style>
-                                                </Image>
+                                                </reset:DecorativeImage>
                                                 <!-- Foreground pinned so no container state can
                                                      ever flow a flipped brush into the title. -->
                                                 <TextBlock Grid.Column="2" Text="{Binding Name}" FontWeight="SemiBold"

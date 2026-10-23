@@ -2439,6 +2439,10 @@ namespace PadForge
                 {
                     StatusMessageText.BeginAnimation(UIElement.OpacityProperty, null);
                     StatusMessageText.Opacity = 1.0;
+                    // A screen reader hears a new message once the binding
+                    // has put it on screen.
+                    if (!string.IsNullOrEmpty(_viewModel.StatusText))
+                        Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Background, new Action(AnnounceStatus));
                 }
                 // The nav flames read engine-level state (IsEngineRunning
                 // and the idle-following HasActiveSlots) but re-render only
@@ -6325,6 +6329,21 @@ namespace PadForge
                 _controllerTypePopup.IsOpen = false;
                 _controllerTypePopup = null;
             }
+        }
+
+        /// <summary>Announces the status bar's message. The TextBlock is a
+        /// polite live region, and WPF raises no LiveRegionChanged of its own,
+        /// so it is raised here. NVDA speaks the region's name, its text
+        /// (NVDAObject.event_liveRegionChange). Nothing is raised while the
+        /// window is not active, so a status message never interrupts a game
+        /// PadForge sits behind.</summary>
+        private void AnnounceStatus()
+        {
+            if (!IsActive || string.IsNullOrEmpty(StatusMessageText.Text)
+                || !System.Windows.Automation.Peers.AutomationPeer.ListenerExists(System.Windows.Automation.Peers.AutomationEvents.LiveRegionChanged))
+                return;
+            System.Windows.Automation.Peers.UIElementAutomationPeer.CreatePeerForElement(StatusMessageText)?
+                .RaiseAutomationEvent(System.Windows.Automation.Peers.AutomationEvents.LiveRegionChanged);
         }
 
         private void PaneToggleBtn_Click(object sender, RoutedEventArgs e)

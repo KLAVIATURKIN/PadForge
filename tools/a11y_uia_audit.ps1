@@ -55,6 +55,10 @@ param(
     # microsoft/axe-windows src/CLI. Its exit code is 0 for no errors, 1 for
     # errors and 2 for a failed scan (ReturnValueChooser.cs).
     [switch]$Axe,
+    # Also scan each controller tab with Axe. Each scan reads the whole
+    # process and takes about 20 s, so by default Axe covers the window and
+    # the pages, and the UIA walk alone covers the tabs.
+    [switch]$AxeTabs,
     [string]$AxeCli = (Join-Path $env:LOCALAPPDATA 'PadForgeStudio\tooling\axe-cli\AxeWindowsCLI.exe')
 )
 
@@ -295,7 +299,7 @@ $findings = New-Object System.Collections.Generic.List[object]
 # Audits the view under $root: opens its combo boxes, walks it once more if
 # any opened, keeps the findings not seen in an earlier view, and scans it
 # with Axe when asked. Returns the walk, whose lists name the next targets.
-function Audit-View($root, [string]$where) {
+function Audit-View($root, [string]$where, [bool]$scan = $true) {
     $start = $clock.ElapsedMilliseconds
     $v = [A11yWalk]::Walk($root, $where)
     $opened = 0
@@ -310,7 +314,7 @@ function Audit-View($root, [string]$where) {
         $seen[$k] = $true; $findings.Add($f); $new++
     }
     Note ("{0}: {1} elements, {2} combo boxes opened, {3} new findings, {4} ms" -f $where, $v.Count, $opened, $new, ($clock.ElapsedMilliseconds - $start))
-    if ($Axe) {
+    if ($Axe -and $scan) {
         $dir = Join-Path $OutDir "axe-$stamp"
         New-Item -ItemType Directory -Force $dir | Out-Null
         $scanId = $where -replace '[^\w\-]+', '_'
@@ -330,7 +334,8 @@ $first = Audit-View $win 'Window'
 $nav = @{}
 foreach ($n in $first.NavItems) { $nav[$n.Cached.AutomationId] = $n }
 $tags = @($first.NavItems | ForEach-Object { $_.Cached.AutomationId.Substring(4) } | Where-Object { $_ -ne 'AddController' })
-if ($Pages) { $tags = $Pages }
+# -File passes "Devices,Pad1" as one string, so names are split on commas.
+if ($Pages) { $tags = @($Pages | ForEach-Object { $_ -split ',' } | ForEach-Object { $_.Trim() } | Where-Object { $_ }) }
 Note "pages: $($tags -join ', ')"
 
 foreach ($tag in $tags) {
@@ -357,7 +362,7 @@ foreach ($tag in $tags) {
             $waitedTab = Wait-For { (First-Child $pane)[0] -ne $beforeTab[0] }
             if ($waitedTab -lt 0) { Note "$tag / ${tabName}: the tab content did not change within 4 s" }
         }
-        Audit-View $pane "$tag / $tabName" | Out-Null
+        Audit-View $pane "$tag / $tabName" $AxeTabs.IsPresent | Out-Null
     }
     if ($open) { Click-Center $open | Out-Null }
 }

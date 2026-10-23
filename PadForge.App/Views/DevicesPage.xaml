@@ -164,7 +164,7 @@
         <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
             <TextBlock Text="&#xE772;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                        VerticalAlignment="Center" Margin="0,0,10,0"/>
-            <TextBlock Text="{Binding Devices_Title, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource TitleTextBlockStyle}" FontFamily="{StaticResource DisplayFontFamily}" FontWeight="650" FontSize="26"/>
+            <TextBlock AutomationProperties.HeadingLevel="Level1" Text="{Binding Devices_Title, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource TitleTextBlockStyle}" FontFamily="{StaticResource DisplayFontFamily}" FontWeight="650" FontSize="26"/>
             <ui:Button Style="{StaticResource EmberIconButton}" Margin="16,0,0,0"
                        VerticalAlignment="Center"
                        Command="{Binding RefreshCommand}"
@@ -1348,6 +1348,7 @@
                         <ItemsControl ItemsSource="{Binding RawAxes}" Margin="0,0,0,8">
                             <ItemsControl.Style>
                                 <Style TargetType="ItemsControl">
+                                    <Setter Property="Focusable" Value="False"/>
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding IsKeyboardDevice}" Value="True">
                                             <Setter Property="Visibility" Value="Collapsed"/>
@@ -1461,6 +1462,7 @@
                         <ItemsControl ItemsSource="{Binding RawButtons}" Margin="0,0,0,8">
                             <ItemsControl.Style>
                                 <Style TargetType="ItemsControl">
+                                    <Setter Property="Focusable" Value="False"/>
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding IsKeyboardDevice}" Value="True">
                                             <Setter Property="Visibility" Value="Collapsed"/>

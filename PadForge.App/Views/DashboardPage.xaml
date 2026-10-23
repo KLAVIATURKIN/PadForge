@@ -178,7 +178,7 @@
             <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
                 <TextBlock Text="&#xF404;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
                            VerticalAlignment="Center" Margin="0,0,10,0"/>
-                <TextBlock Text="{Binding Dashboard_Title, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource TitleTextBlockStyle}" FontFamily="{StaticResource DisplayFontFamily}" FontWeight="650" FontSize="26" Foreground="{DynamicResource TextFillColorPrimaryBrush}"/>
+                <TextBlock AutomationProperties.HeadingLevel="Level1" Text="{Binding Dashboard_Title, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource TitleTextBlockStyle}" FontFamily="{StaticResource DisplayFontFamily}" FontWeight="650" FontSize="26" Foreground="{DynamicResource TextFillColorPrimaryBrush}"/>
             </StackPanel>
 
             <!-- ═══ Input Engine ═══ -->
@@ -1570,7 +1570,7 @@
                     <StackPanel Orientation="Horizontal" Margin="0,10,0,0"
                                 Visibility="{Binding HasWebControllerQr, Converter={StaticResource BoolToVisibilityConverter}}">
                         <Border Background="White" CornerRadius="6" Padding="6" VerticalAlignment="Top">
-                            <Image FlowDirection="LeftToRight" Source="{Binding WebControllerQr}" Width="132" Height="132"
+                            <Image AutomationProperties.Name="{Binding WebControllerUrl}" FlowDirection="LeftToRight" Source="{Binding WebControllerQr}" Width="132" Height="132"
                                    RenderOptions.BitmapScalingMode="NearestNeighbor"
                                    RenderOptions.EdgeMode="Aliased"/>
                         </Border>
@@ -1690,7 +1690,7 @@
                                 Visibility="{Binding WebControllerPlainUrl, Converter={StaticResource StringToVisibility}}">
                         <Border Background="White" CornerRadius="6" Padding="6" VerticalAlignment="Top" Margin="0,0,12,0"
                                 Visibility="{Binding HasWebControllerPlainQr, Converter={StaticResource BoolToVisibilityConverter}}">
-                            <Image FlowDirection="LeftToRight" Source="{Binding WebControllerPlainQr}" Width="132" Height="132"
+                            <Image AutomationProperties.Name="{Binding WebControllerPlainUrl}" FlowDirection="LeftToRight" Source="{Binding WebControllerPlainQr}" Width="132" Height="132"
                                    RenderOptions.BitmapScalingMode="NearestNeighbor"
                                    RenderOptions.EdgeMode="Aliased"/>
                         </Border>

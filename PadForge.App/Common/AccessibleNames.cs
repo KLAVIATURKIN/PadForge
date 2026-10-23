@@ -23,14 +23,15 @@ namespace PadForge.Common
     /// is a panel holding text is labeled by the first text it shows, since
     /// FrameworkElement.GetPlainText gives a panel no text and the button
     /// would read nothing. A button that shows no text (a glyph, an icon, a
-    /// shape) is named by its tooltip, when the tooltip is a string, or the
-    /// string BidiText.ToolTip draws.</para>
+    /// shape) is named by its tooltip, when the tooltip is a string, the
+    /// string BidiText.ToolTip draws, or a TextBlock.</para>
     ///
     /// <para>An input (TextBox, NumberBox, PasswordBox, ComboBox, Slider,
-    /// RichTextBox, ListBox) without a name of its own is labeled by the label
-    /// beside it or above its row (FindLabel), and AccessibilityXamlTests
-    /// counts the inputs that rule reaches as named. An input without such a
-    /// label is named by its tooltip, or else by its placeholder text.</para>
+    /// RichTextBox, ListBox, CurveEditor) without a name of its own is
+    /// labeled by the label beside it or above its row (FindLabel), and
+    /// AccessibilityXamlTests counts the inputs that rule reaches as named. An
+    /// input without such a label is named by its tooltip, or else by its
+    /// placeholder text.</para>
     ///
     /// <para>A list item whose data has no ToString of its own and whose
     /// content is not text would read a type name, since
@@ -66,7 +67,8 @@ namespace PadForge.Common
             // it first shows, and again each time it shows after being
             // collapsed.
             var onInput = Sized(fe => NameInput(fe));
-            foreach (Type type in new[] { typeof(TextBox), typeof(PasswordBox), typeof(ComboBox), typeof(Slider), typeof(RichTextBox), typeof(ListBox) })
+            // A CurveEditor takes the axis label above it as an input does.
+            foreach (Type type in new[] { typeof(TextBox), typeof(PasswordBox), typeof(ComboBox), typeof(Slider), typeof(RichTextBox), typeof(ListBox), typeof(CurveEditor) })
                 EventManager.RegisterClassHandler(type, FrameworkElement.SizeChangedEvent, onInput);
             // Button, RepeatButton and ToggleButton, so CheckBox and
             // RadioButton too.
@@ -110,9 +112,44 @@ namespace PadForge.Common
                 name.Bindings.Add(new Binding(nameof(FrameworkElement.ToolTip)) { Source = button });
                 name.Bindings.Add(new Binding(nameof(ContentControl.Content)) { Source = button });
                 name.Bindings.Add(new Binding { Path = new PropertyPath(BidiText.ToolTipProperty), Source = button });
+                if (button.ToolTip is TextBlock tip)
+                    name.Bindings.Add(TipText(tip));
                 BindingOperations.SetBinding(button, AutomationProperties.NameProperty, name);
             }
             button.SetValue(AutoProperty, true);
+        }
+
+        /// <summary>The text a TextBlock tooltip shows. The TextBlock joins
+        /// the tree only when the tooltip opens
+        /// (PopupControlService.BeginShowToolTip), so before then a binding of
+        /// its own to the data context reads nothing. Such a binding is copied
+        /// to read the button's data context, which the open tooltip inherits
+        /// through its popup (Popup uses its placement target as its
+        /// inheritance parent). Text set in the XAML or bound to a source
+        /// reads as it is.</summary>
+        private static BindingBase TipText(TextBlock tip)
+        {
+            if (BindingOperations.GetBinding(tip, TextBlock.TextProperty) is Binding b
+                && b.Source == null && b.ElementName == null && b.RelativeSource == null)
+            {
+                var copy = new Binding
+                {
+                    Path = b.Path,
+                    Converter = b.Converter,
+                    ConverterParameter = b.ConverterParameter,
+                    ConverterCulture = b.ConverterCulture,
+                    StringFormat = b.StringFormat,
+                    Mode = BindingMode.OneWay,
+                };
+                // BindingBase stores even an unset value it is given, so only
+                // values the tooltip's binding sets are copied.
+                if (b.TargetNullValue != DependencyProperty.UnsetValue)
+                    copy.TargetNullValue = b.TargetNullValue;
+                if (b.FallbackValue != DependencyProperty.UnsetValue)
+                    copy.FallbackValue = b.FallbackValue;
+                return copy;
+            }
+            return new Binding(nameof(TextBlock.Text)) { Source = tip, Mode = BindingMode.OneWay };
         }
 
         /// <summary>Names a shown input that has no name of its own.</summary>
@@ -462,15 +499,18 @@ namespace PadForge.Common
             return false;
         }
 
-        /// <summary>A button's name from [0] its ToolTip, [1] its Content and
-        /// [2] its BidiText.ToolTip: the tooltip when it is a string and the
-        /// content shows no text, otherwise empty. UI Automation treats an
-        /// empty name as unset and falls back to the button's own text
+        /// <summary>A button's name from [0] its ToolTip, [1] its Content,
+        /// [2] its BidiText.ToolTip and [3] the text a TextBlock tooltip shows
+        /// (TipText): the tooltip's text when the content shows no text,
+        /// otherwise empty. UI Automation treats an empty name as unset and
+        /// falls back to the button's own text
         /// (FrameworkElementAutomationPeer.GetNameCore), so text a button
         /// shows stays its name. BidiText.ToolTip draws its string as a
         /// TextBlock, so the string is read from the attached property. Any
         /// other tooltip element gives empty: bound as is, it would read
-        /// "System.Windows.Controls.ToolTip".</summary>
+        /// "System.Windows.Controls.ToolTip". [3] is read only while the
+        /// tooltip is still a TextBlock, the one it was taken from until the
+        /// button is named again.</summary>
         internal sealed class ButtonNameConverter : IMultiValueConverter
         {
             internal static readonly ButtonNameConverter Instance = new();
@@ -481,7 +521,10 @@ namespace PadForge.Common
                     return string.Empty;
                 if (values[0] is string tip && IsLabelText(tip))
                     return tip;
-                return values.Length > 2 && values[2] is string bidi && IsLabelText(bidi) ? bidi : string.Empty;
+                if (values.Length > 2 && values[2] is string bidi && IsLabelText(bidi))
+                    return bidi;
+                return values.Length > 3 && values[0] is TextBlock && values[3] is string shown && IsLabelText(shown)
+                    ? shown : string.Empty;
             }
 
             public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) => null;

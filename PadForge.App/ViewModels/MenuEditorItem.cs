@@ -200,6 +200,7 @@ namespace PadForge.ViewModels
             OnPropertyChanged(nameof(HostInputLabel));
             OnPropertyChanged(nameof(HostInputTip));
             OnPropertyChanged(nameof(HostInputCaption));
+            RaiseRecordTexts();
             RefreshLayerChoices();
             RefreshInputChoices();
             foreach (var cell in Cells)
@@ -1049,7 +1050,16 @@ namespace PadForge.ViewModels
                 OnPropertyChanged(nameof(CustomXRecordIcon));
                 OnPropertyChanged(nameof(CustomYRecordIcon));
                 OnPropertyChanged(nameof(ClickRecordIcon));
+                RaiseRecordTexts();
             }
+        }
+
+        private void RaiseRecordTexts()
+        {
+            OnPropertyChanged(nameof(HostRecordText));
+            OnPropertyChanged(nameof(CustomXRecordText));
+            OnPropertyChanged(nameof(CustomYRecordText));
+            OnPropertyChanged(nameof(ClickRecordText));
         }
 
         internal void BeginRecord(MenuRecordTarget target)
@@ -1068,6 +1078,17 @@ namespace PadForge.ViewModels
         public string CustomXRecordIcon => IconFor(MenuRecordTarget.CustomX);
         public string CustomYRecordIcon => IconFor(MenuRecordTarget.CustomY);
         public string ClickRecordIcon => IconFor(MenuRecordTarget.Click);
+
+        private string TextFor(MenuRecordTarget t)
+            => _recordingTarget == t ? Strings.Instance.Common_Recording : Strings.Instance.Common_Record;
+
+        /// <summary>The record buttons' names for screen readers, "Record"
+        /// or "Recording" as the glyph shows, the text the Aim Engage record
+        /// button's tooltip gives.</summary>
+        public string HostRecordText => TextFor(MenuRecordTarget.Host);
+        public string CustomXRecordText => TextFor(MenuRecordTarget.CustomX);
+        public string CustomYRecordText => TextFor(MenuRecordTarget.CustomY);
+        public string ClickRecordText => TextFor(MenuRecordTarget.Click);
 
         // ── Fire mode / shape ────────────────────────────────────
 

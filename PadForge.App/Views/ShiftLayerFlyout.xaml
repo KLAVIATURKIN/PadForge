@@ -1,6 +1,7 @@
 <Window x:Class="PadForge.Views.ShiftLayerFlyout"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:PadForge.Controls"
         WindowStyle="None"
         AllowsTransparency="True"
         ResizeMode="NoResize"
@@ -49,7 +50,7 @@
                                    Foreground="White"/>
 
                         <!-- A picture icon (#471), in the glyph's spot and box. -->
-                        <Image FlowDirection="LeftToRight" x:Name="StatusImage"
+                        <controls:DecorativeImage FlowDirection="LeftToRight" x:Name="StatusImage"
                                Width="20" Height="20"
                                Stretch="Uniform"
                                RenderOptions.BitmapScalingMode="HighQuality"
