@@ -150,6 +150,14 @@ $map = @{
     "pad-playstation-ds3"           = "playstation-ds3"
     "pad-menus"                     = "menus"
     "icon-picker"                   = "icon-picker"
+    # v5.1.0 additions
+    "pad-lighting-peripheral"       = "lighting-peripheral"
+    "pad-forcefeedback-peripheral"  = "force-feedback-peripheral"
+    "settings-language-list"        = "settings-language-list"
+    "settings-language-rtl"         = "settings-language-rtl"
+    "settings-bthps3"               = "settings-bthps3"
+    "settings-hidmaestro-uninstall" = "settings-hidmaestro-uninstall"
+    "settings-bthps3-uninstall"     = "settings-bthps3-uninstall"
 }
 
 $jpgEncoder = [System.Drawing.Imaging.ImageCodecInfo]::GetImageEncoders() | Where-Object { $_.MimeType -eq "image/jpeg" }
