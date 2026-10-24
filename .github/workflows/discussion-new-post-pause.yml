@@ -9,7 +9,9 @@
 # locked at once, and is deleted an hour later.
 #
 # Keep a post: unlock it within the hour. The delete step and the sweep
-# both skip a discussion that is no longer locked.
+# both skip a discussion that is no longer locked, and take the marker off
+# its notice, so a lock put on it later, as when it is answered and
+# closed, does not mark it for deletion again.
 #
 # Lift the pause: disable this workflow in the Actions tab.
 #
@@ -18,10 +20,12 @@
 #
 # The sweep runs every 15 minutes and deletes any paused discussion whose
 # notice is over an hour old, so a cancelled or failed run cannot leave
-# one behind. It touches a discussion only when all three hold: it is
+# one behind. It deletes a discussion only when all three hold: it is
 # locked, its author is outside the project, and the owner's account
 # posted the notice. Anyone can type the marker into a comment, so the
-# marker alone would let a commenter mark any thread for deletion.
+# marker alone would let a commenter mark any thread for deletion. A
+# paused discussion it finds unlocked after the hour is kept, and its
+# notice loses the marker.
 
 name: Pause new discussions
 
@@ -46,6 +50,9 @@ permissions:
 
 env:
   MARKER: '<!-- padforge-new-discussion-pause -->'
+  # What the marker becomes on a notice whose discussion was kept. It does
+  # not contain MARKER, so nothing reads it as a pause.
+  KEPT: '<!-- padforge-new-discussion-kept -->'
 
 jobs:
   pause:
@@ -88,11 +95,31 @@ jobs:
       - name: Delete unless unlocked
         run: |
           set -euo pipefail
+          # "true", "false", or "null" for a discussion that is gone. The
+          # // operator would turn false into its fallback too.
           locked=$(gh api graphql \
             -f query='query($d:ID!){node(id:$d){... on Discussion{locked}}}' \
-            -f d="$DISCUSSION_ID" --jq '.data.node.locked // "gone"' 2>/dev/null || echo gone)
+            -f d="$DISCUSSION_ID" --jq '.data.node.locked | tostring' 2>/dev/null || echo error)
+          if [ "$locked" = "false" ]; then
+            # Kept. The owner's notice loses its marker, so the sweep never
+            # takes this discussion for a paused one.
+            gh api graphql \
+              -f query='query($d:ID!){node(id:$d){... on Discussion{comments(first:10){nodes{id body author{login}}}}}}' \
+              -f d="$DISCUSSION_ID" \
+            | jq -c --arg m "$MARKER" --arg k "$KEPT" --arg owner "${GITHUB_REPOSITORY%/*}" '
+                .data.node.comments.nodes[]
+                | select(.author.login == $owner and (.body | contains($m)))
+                | {id, body: (.body | split($m) | join($k))}' \
+            | while read -r row; do
+                gh api graphql \
+                  -f query='mutation($c:ID!,$b:String!){updateDiscussionComment(input:{commentId:$c,body:$b}){comment{id}}}' \
+                  -f c="$(jq -r .id <<<"$row")" -f b="$(jq -r .body <<<"$row")" > /dev/null
+              done
+            echo "Discussion #$NUMBER was unlocked, so it stays."
+            exit 0
+          fi
           if [ "$locked" != "true" ]; then
-            echo "Discussion #$NUMBER is unlocked or already gone ($locked). Leaving it."
+            echo "Discussion #$NUMBER is gone or could not be read ($locked). Leaving it."
             exit 0
           fi
           gh api graphql \
@@ -113,10 +140,32 @@ jobs:
           set -euo pipefail
           o="${GITHUB_REPOSITORY%/*}"; n="${GITHUB_REPOSITORY#*/}"
           now=$(date -u +%s)
-          gh api graphql \
-            -f query='query($o:String!,$n:String!){repository(owner:$o,name:$n){discussions(first:50,orderBy:{field:CREATED_AT,direction:DESC}){nodes{id number locked authorAssociation comments(first:10){nodes{body createdAt author{login}}}}}}}' \
-            -f o="$o" -f n="$n" \
-          | jq -r --arg m "$MARKER" --arg owner "$o" --argjson now "$now" '
+          data=$(gh api graphql \
+            -f query='query($o:String!,$n:String!){repository(owner:$o,name:$n){discussions(first:50,orderBy:{field:CREATED_AT,direction:DESC}){nodes{id number locked authorAssociation comments(first:10){nodes{id body createdAt author{login}}}}}}}' \
+            -f o="$o" -f n="$n")
+          # Kept: a paused discussion that is unlocked once its hour is up.
+          # Its notice loses the marker, as the delete step does it, for a
+          # pause whose run ended before that step.
+          jq -c --arg m "$MARKER" --arg k "$KEPT" --arg owner "$o" --argjson now "$now" '
+              .data.repository.discussions.nodes[]
+              | select(.locked | not)
+              | select(.authorAssociation as $a | ["OWNER","MEMBER","COLLABORATOR"] | index($a) | not)
+              | .number as $num
+              | .comments.nodes[]
+              | select(.author.login == $owner and (.body | contains($m))
+                       and ((.createdAt | fromdateiso8601) <= ($now - 3600)))
+              | {id, num: $num, body: (.body | split($m) | join($k))}' <<<"$data" \
+          | while read -r row; do
+              num=$(jq -r .num <<<"$row")
+              if gh api graphql \
+                   -f query='mutation($c:ID!,$b:String!){updateDiscussionComment(input:{commentId:$c,body:$b}){comment{id}}}' \
+                   -f c="$(jq -r .id <<<"$row")" -f b="$(jq -r .body <<<"$row")" > /dev/null; then
+                echo "Kept #$num: its notice no longer marks it."
+              else
+                echo "Could not take the marker off the notice on #$num."
+              fi
+            done
+          jq -r --arg m "$MARKER" --arg owner "$o" --argjson now "$now" '
               .data.repository.discussions.nodes[]
               | select(.locked)
               | select(.authorAssociation as $a | ["OWNER","MEMBER","COLLABORATOR"] | index($a) | not)
@@ -124,7 +173,7 @@ jobs:
                         | select(.author.login == $owner and (.body | contains($m)))
                         | (.createdAt | fromdateiso8601)]
                        | length > 0 and min <= ($now - 3600))
-              | "\(.id) \(.number)"' \
+              | "\(.id) \(.number)"' <<<"$data" \
           | while read -r id num; do
               if gh api graphql \
                    -f query='mutation($d:ID!){deleteDiscussion(input:{id:$d}){discussion{number}}}' \
