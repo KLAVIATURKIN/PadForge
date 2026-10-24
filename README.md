@@ -28,7 +28,7 @@ Free Windows app. No subscription. No paywall. No nag screens. Built on HelixToo
 
 PadForge is for sim racers running wheels in games that only understand Xbox controllers. For DualSense owners who want adaptive triggers and lightbar effects in Steam games that ignore them. For accessibility users mapping whatever hardware they can use. For anyone whose controller doesn't match what their game expects.
 
-<p align="center"><b>16</b> virtual controllers at once · <b>1,108</b> devices known by USB identity · <b>337</b> device profiles · <b>1000 Hz</b> polling · <b>$0</b> forever</p>
+<p align="center"><b>16</b> virtual controllers at once · <b>1,109</b> devices known by USB identity · <b>337</b> device profiles · <b>1000 Hz</b> polling · <b>$0</b> forever</p>
 
 ![Dashboard](screenshots/dashboard.jpg)
 
@@ -51,6 +51,22 @@ PadForge is for sim racers running wheels in games that only understand Xbox con
   <br>
   <em>Powered by HIDMaestro. One driver, 337 device profiles.</em>
 </p>
+
+<details>
+<summary><b>New in 5.1.0:</b> 109 languages, screen readers, lighting and rumble for assigned mice and keyboards, virtual keyboards and mice, and HIDMaestro 2.0</summary>
+
+- The interface comes in 109 languages, 99 of them new and 42 complete, with British English beside American English. Arabic, Persian, Urdu and Central Kurdish lay it out right to left, and Chinese, Japanese and Korean text draws in its own font. With no language picked, PadForge follows the Windows display language.
+- PadForge works with a screen reader and from the keyboard. It is tested with NVDA: every control the Tab key reaches has a spoken name in the interface's language, the type tiles and power buttons speak their state, status changes are spoken as they happen, and Escape closes a dialog. The app looks as it did.
+- A mouse or keyboard assigned to a virtual controller takes that controller's lighting from its own Lighting tab, with the DualSense lightbar's modes, once Control This Device’s Lighting is on. While its vendor's software is closed, PadForge lights Logitech devices over HID++, Razer and SteelSeries devices through their own reports, and Dynamic Lighting devices over HID LampArray. While Synapse, G HUB, Logitech Gaming Software or GG runs, the lighting goes through it. The Razer Chroma, Logitech LIGHTSYNC and SteelSeries GG rows on the Devices page carry it to headsets, mousepads and the rest, in place of the Dashboard's Lightbar Mirrors.
+- Haptic mice take their virtual controller's rumble: the Logitech MX Master 4 over HID++ with no Logitech software, the SteelSeries Rival 500, 700 and 710 through SteelSeries GG, and the Logitech iFeel mice once they run on PadForge's driver. The Razer Sensa row carries it to Razer Sensa HD devices, in place of the Dashboard's Sensa section. A Dashboard switch that was on becomes an assignment.
+- A Keyboard + Mouse slot can type and point through one of HIDMaestro's 51 keyboard and 52 mouse models, which programs see as that hardware, or through Windows input as before. The preview draws the picked keyboard's own board and the mouse's buttons, wheel and tilt, and a click on any key, mouse control or lock light maps it.
+- The HIDMaestro card in Settings shows whether its driver is in place, and its Uninstall removes HIDMaestro from the PC after a preview of what it takes and what it keeps. The BthPS3 card does the same for the PlayStation Bluetooth drivers.
+- MIDI works without Windows MIDI Services. On Windows 10, on Windows 11 before 24H2 and in Legacy API mode, each MIDI slot sends to an existing port picked on its page. On Windows 11 24H2 and later, Settings installs PadForge's own build of the Windows MIDI Services runtime, and PadForge moves to the API built into Windows once Windows has it.
+- The PS VR Aim Controller maps as a gamepad, and the NYXI Hyperion 3 and the Joy-Con 2 clones that speak the console protocol connect over Bluetooth. PadForge now knows 1,109 devices by USB identity. A wheel's rotation range slider stops at the wheel's own limits, and clearing Set Rotation Range leaves the range to the wheel's own software ([#512](https://github.com/hifihedgehog/PadForge/discussions/512)).
+- Fixes. A NumberBox saves every change, arrow clicks included ([#511](https://github.com/hifihedgehog/PadForge/discussions/511)). Hide from Games hides a vJoy joystick ([#515](https://github.com/hifihedgehog/PadForge/discussions/515)). A Wii Remote whose IR camera sends nothing gets the camera restarted ([#484](https://github.com/hifihedgehog/PadForge/discussions/484)). A USB controller PadForge hides is taken away from a game or launcher that opened it first. The MIDI runtime install no longer stops to ask for a Windows restart when the Visual C++ runtime updates.
+- Bundled: HIDMaestro 2.0.3 with 337 device profiles, and BthPS3 3.2.1.
+
+</details>
 
 <details>
 <summary><b>New in 5.0.0:</b> analog keyboards with Rapid Trigger, Bliss-Box adapters, a Wii Remote light gun, motion from a stick, and 350 more devices known by USB identity</summary>
@@ -560,7 +576,7 @@ Turn on Disconnect Bluetooth When Plugged In over USB and a controller that repo
 
 Turn on Read Bliss-Box Adapters and each port of a Bliss-Box adapter names the console controller plugged into it and maps it the way SDL maps that console's pad. A DualShock 2's pressure-sensitive buttons read as analog, rumble reaches the pads that have motors, a Dreamcast pad's VMU shows your pictures, and an N64 Controller Pak backs up to a file and restores from one.
 
-### 1,108 devices by name, and the ones Windows can't read.
+### 1,109 devices by name, and the ones Windows can't read.
 
 PadForge's SDL3 build adds 289 pads from the community SDL_GameControllerDB to the pads SDL knows on its own, and it reads controllers Windows gives no usable input: Bluetooth LE pads, the iCade, serial I-Force wheels with their force feedback, DJI RC remotes, clone Xbox 360 receivers, the Ring-Con, the PS Move Sharp Shooter and Racing Wheel, Namco USIO arcade boards and more. The [Supported Devices](https://padforge.org/docs/devices/supported/) page names every one.
 
