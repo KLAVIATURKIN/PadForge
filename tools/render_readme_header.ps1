@@ -11,17 +11,18 @@ $profileDir = Join-Path $env:TEMP "PadForge_ReadmeHeader"
 # Escaped, so a space or a # in the path neither splits the argument nor
 # ends the address.
 $url = ([System.Uri]$page).AbsoluteUri
-# A render that fails then leaves no file, where the last banner would pass
-# for this run's.
-Remove-Item -LiteralPath $out -ErrorAction SilentlyContinue
+# Edge writes a new file of its own, which replaces the banner only once it
+# exists, so a render that fails leaves the banner as it was and says so.
+$fresh = Join-Path $env:TEMP ("PadForge_ReadmeHeader_{0}.png" -f [guid]::NewGuid().ToString("N"))
 Start-Process $edge -Wait -ArgumentList @(
     "--headless=new", "--disable-gpu", "--hide-scrollbars",
     "--user-data-dir=`"$profileDir`"",
     "--force-device-scale-factor=2", "--window-size=1280,360",
     "--default-background-color=00000000", "--virtual-time-budget=10000",
-    "--screenshot=`"$out`"", $url)
+    "--screenshot=`"$fresh`"", $url)
 Remove-Item -LiteralPath $profileDir -Recurse -Force -ErrorAction SilentlyContinue
-if (-not (Test-Path -LiteralPath $out)) { throw "Edge wrote no $out" }
+if (-not (Test-Path -LiteralPath $fresh)) { throw "Edge wrote no banner, so $out is unchanged" }
+Move-Item -LiteralPath $fresh -Destination $out -Force
 Add-Type -AssemblyName System.Drawing
 $img = [System.Drawing.Image]::FromFile($out)
 Write-Host ("{0}: {1} x {2}, {3} KB" -f $out, $img.Width, $img.Height, [math]::Round((Get-Item $out).Length / 1024))
