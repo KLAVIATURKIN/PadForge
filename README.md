@@ -26,7 +26,7 @@ Free Windows app. No subscription. No paywall. No nag screens. Built on HelixToo
 
 PadForge is for sim racers running wheels in games that only understand Xbox controllers. For DualSense owners who want adaptive triggers and lightbar effects in Steam games that ignore them. For accessibility users mapping whatever hardware they can use. For anyone whose controller doesn't match what their game expects.
 
-<p align="center"><b>16</b> virtual controllers at once · <b>1,109</b> devices known by USB identity · <b>337</b> device profiles · <b>1000 Hz</b> polling · <b>$0</b> forever</p>
+<p align="center"><b>16</b> virtual controllers at once · <b>1,110</b> devices known by USB identity · <b>337</b> device profiles · <b>1000 Hz</b> polling · <b>$0</b> forever</p>
 
 ![Dashboard](screenshots/dashboard.jpg)
 
@@ -60,7 +60,7 @@ PadForge is for sim racers running wheels in games that only understand Xbox con
 - A Keyboard + Mouse slot can now type and point through a virtual keyboard and mouse: pick one of 51 keyboard and 52 mouse models, and programs see that model. Windows input still works as before. The preview draws the keyboard you picked, key for key, with the mouse's buttons, wheel and tilt, and a click on any of them maps it.
 - Settings can now remove HIDMaestro, and the PlayStation Bluetooth drivers, from the PC. Each removal shows what it takes and what it keeps before it starts.
 - MIDI works without Windows MIDI Services, whose installers Microsoft removed on October 1. On Windows 11 24H2 and later, Settings installs PadForge's own build of that runtime. Everywhere else, each MIDI slot sends to a MIDI port you pick on its page. Once Windows has its built-in MIDI API, PadForge uses that.
-- The PS VR Aim Controller maps as a gamepad, and the NYXI Hyperion 3 and other Joy-Con 2 clones that speak the console protocol connect over Bluetooth. PadForge now knows 1,109 devices by USB identity. A wheel's rotation slider stops at that wheel's own limits, and clearing Set Rotation Range leaves the range to the wheel's own software ([#512](https://github.com/hifihedgehog/PadForge/discussions/512)).
+- The PS VR Aim Controller maps as a gamepad, and the NYXI Hyperion 3 and other Joy-Con 2 clones that speak the console protocol connect over Bluetooth. PadForge now knows 1,110 devices by USB identity. A wheel's rotation slider stops at that wheel's own limits, and clearing Set Rotation Range leaves the range to the wheel's own software ([#512](https://github.com/hifihedgehog/PadForge/discussions/512)).
 - Fixes. A number box saves every change, arrow clicks included ([#511](https://github.com/hifihedgehog/PadForge/discussions/511)). Hide from Games hides a vJoy joystick ([#515](https://github.com/hifihedgehog/PadForge/discussions/515)). A Wii Remote that reconnects with its IR camera off gets the camera back, so aiming works again ([#484](https://github.com/hifihedgehog/PadForge/discussions/484)). A USB controller PadForge hides is taken away from a game or launcher that opened it first. A Switch 2 Pro slot presses the control each row names, and Paste and Copy From carry the mappings between slots of different layouts.
 - Bundled: HIDMaestro 2.0.3 with 337 device profiles, and BthPS3 3.2.1.
 
@@ -574,7 +574,7 @@ Turn on Disconnect Bluetooth When Plugged In over USB and a controller that repo
 
 Turn on Read Bliss-Box Adapters and each port of a Bliss-Box adapter names the console controller plugged into it and maps it the way SDL maps that console's pad. A DualShock 2's pressure-sensitive buttons read as analog, rumble reaches the pads that have motors, a Dreamcast pad's VMU shows your pictures, and an N64 Controller Pak backs up to a file and restores from one.
 
-### 1,109 devices by name, and the ones Windows can't read.
+### 1,110 devices by name, and the ones Windows can't read.
 
 PadForge's SDL3 build adds 289 pads from the community SDL_GameControllerDB to the pads SDL knows on its own, and it reads controllers Windows gives no usable input: Bluetooth LE pads, the iCade, serial I-Force wheels with their force feedback, DJI RC remotes, clone Xbox 360 receivers, the Ring-Con, the PS Move Sharp Shooter and Racing Wheel, Namco USIO arcade boards and more. The [Supported Devices](https://padforge.org/docs/devices/supported/) page names every one.
 
