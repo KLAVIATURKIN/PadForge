@@ -248,6 +248,39 @@ namespace PadForge.Tests
         }
 
         [Fact]
+        public void MicFrames_SplitSbcFramesByTheirHeaders()
+        {
+            // Plain SBC (syncword 0x9C) takes its length from its header: two
+            // 64-byte 16 kHz mono frames from the ffmpeg vector.
+            byte[] all = File.ReadAllBytes(Path.Combine(AppContext.BaseDirectory, "TestData", "Sbc", "sbc16m.sbc"));
+            byte[] a = all[..64], b = all[64..128];
+            var got = Extract(InputReport(0x15, state: true, audio: true, audioAt: 78, sequence: 40, frames: new[] { a, b }), out int count);
+            Assert.Equal(2, count);
+            Assert.Equal(a, got[0].Frame);
+            Assert.Equal(b, got[1].Frame);
+            Assert.Equal((ushort)41, got[1].Seq);
+        }
+
+        [Theory]
+        [InlineData(0x11)]
+        [InlineData(0x12)]
+        [InlineData(0x13)]
+        [InlineData(0x14)]
+        [InlineData(0x15)]
+        [InlineData(0x16)]
+        [InlineData(0x17)]
+        [InlineData(0x18)]
+        [InlineData(0x19)]
+        public void Status_ChecksTheCrcAtEachReportLength(byte id)
+        {
+            byte[] r = InputReport(id, state: true, audio: false, status: Ds4BtAudio.StatusHeadphones);
+            Assert.True(Ds4BtAudio.TryReadStatus(r, Ds4BtAudio.MaxInputReportSize, out byte status));
+            Assert.Equal(Ds4BtAudio.StatusHeadphones, status);
+            r[Ds4BtAudio.InputReportLength(id) - 5] ^= 0x01; // the last byte under the CRC
+            Assert.False(Ds4BtAudio.TryReadStatus(r, Ds4BtAudio.MaxInputReportSize, out _));
+        }
+
+        [Fact]
         public void MicFrames_TheShortReportHasNoCrcToFail()
         {
             // Report 0x01, which a Bluetooth DualShock 4 sends until a host
@@ -294,6 +327,29 @@ namespace PadForge.Tests
             Assert.Equal(6, chunks.Count);
             Assert.Equal(1, stream.OutOfOrder);
             Assert.Equal(0, stream.DecodeFailures);
+        }
+
+        [Theory]
+        [InlineData(1)]
+        [InlineData(4)]
+        [InlineData(5)]
+        public void MicStream_ConcealsUpToFourLostFrames(int lost)
+        {
+            var stream = new Ds4MicStream();
+            var chunks = new List<short[]>();
+            void Sink(ReadOnlySpan<short> pcm) => chunks.Add(pcm.ToArray());
+
+            stream.Feed(10, Msbc(0), Sink);
+            short[] last = chunks[0];
+            stream.Feed((ushort)(11 + lost), Msbc(1), Sink);
+
+            bool concealed = lost <= Ds4MicStream.MaxConcealedFrames;
+            Assert.Equal(concealed ? lost : 0, stream.FramesConcealed);
+            Assert.Equal(concealed ? 0 : 1, stream.Discontinuities);
+            Assert.Equal(2 + (concealed ? lost : 0), chunks.Count);
+            for (int k = 0; concealed && k < lost; k++)
+                for (int i = 0; i < last.Length; i++)
+                    Assert.Equal((short)Math.Round(last[i] * Math.Pow(0.82, k + 1)), chunks[1 + k][i]);
         }
 
         private static double Goertzel(short[] x, int from, int count, double freq, double rate)
@@ -434,6 +490,19 @@ namespace PadForge.Tests
             int raisedJack = Count(vm, "OnPropertyChanged(nameof(SelectedDeviceHasHeadphoneJack));");
             Assert.True(raisedJack >= 3);
             Assert.Equal(raisedJack, Count(vm, "OnPropertyChanged(nameof(SelectedDeviceHasHeadsetAndSpeakerPath));"));
+        }
+
+        [Fact]
+        public void Dispatcher_KeepsItsTimerWhileAMicrophoneIsArmed()
+        {
+            // An armed microphone lapses after about four seconds without an
+            // 0xA1 effects report, so it joins the speaker path at both of the
+            // dispatcher's timer-demand checks.
+            string src = RepoFile("PadForge.App", "Common", "Input", "UserEffectsDispatcher.cs");
+            int speaker = Count(src, "|| AudioPassthroughService.SlotWantsSpeakerPath(_padIndex)");
+            Assert.Equal(2, speaker);
+            Assert.Equal(speaker, Count(src, "|| AudioPassthroughService.SlotHasArmedDs4Mic(_padIndex)"));
+            Assert.False(AudioPassthroughService.SlotHasArmedDs4Mic(0)); // the lane is off (SDL#41)
         }
 
         [Fact]

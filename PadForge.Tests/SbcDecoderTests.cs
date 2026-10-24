@@ -8,12 +8,16 @@ namespace PadForge.Tests
 {
     /// <summary>
     /// The SBC decoder behind the DualShock 4 headset microphone (#528).
-    /// The vectors in TestData/Sbc were encoded by ffmpeg 8.1 from one
-    /// multitone-plus-chirp signal, and each .pcm beside them is ffmpeg's own
-    /// decode of the same frames: mSBC, 16 kHz mono SBC, 32 kHz stereo SBC
+    /// Each vector in TestData/Sbc sits beside a .pcm that is ffmpeg 8.1's own
+    /// decode of the same frames. ffmpeg encoded four of them from one
+    /// multitone-plus-chirp signal: mSBC, 16 kHz mono SBC, 32 kHz stereo SBC
     /// with 8 subbands, and 48 kHz stereo SBC with 4 subbands, all loudness
-    /// allocation. Joint stereo and SNR allocation come from PadForge's own
-    /// encoder, which writes both.
+    /// allocation, since ffmpeg's encoder has no allocation option. The two
+    /// "-snr" vectors carry SNR allocation, 16 kHz mono and 32 kHz joint
+    /// stereo: frames with a valid header and CRC around seeded random scale
+    /// factors (5 to 11), join bits and sample bits, which decode whatever
+    /// they hold. PadForge's own encoder, which writes joint stereo with SNR,
+    /// round-trips as well.
     /// </summary>
     public class SbcDecoderTests
     {
@@ -59,6 +63,8 @@ namespace PadForge.Tests
         [InlineData("sbc16m.sbc", 64, 128, 1)]
         [InlineData("sbc32s.sbc", 128, 128, 2)]
         [InlineData("sbc48s.sbc", 42, 64, 2)]
+        [InlineData("sbc16m-snr.sbc", 64, 128, 1)]
+        [InlineData("sbc32j-snr.sbc", 109, 128, 2)]
         public void Decode_MatchesFfmpeg(string name, int frameLength, int samplesPerChannel, int channels)
         {
             byte[] stream = File.ReadAllBytes(Path.Combine(AppContext.BaseDirectory, "TestData", "Sbc", name));
