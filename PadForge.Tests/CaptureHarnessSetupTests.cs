@@ -1303,6 +1303,15 @@ namespace PadForge.Tests
             string capBody = script.Substring(cap, capEnd - cap);
             Assert.Contains("Get-SidebarSlotCount", capBody, StringComparison.Ordinal);
             Assert.Contains("$script:ExpectedSlots", capBody, StringComparison.Ordinal);
+
+            // A PadForge frame is the window's visible frame clipped to the
+            // monitor's work area. The window rectangle of a maximized window
+            // adds 11 px of black on three sides and 11 px of the taskbar at
+            // the bottom, which every frame of 5.0.0 carried.
+            int dwm = capBody.IndexOf("[Win32]::DwmGetWindowAttribute(", StringComparison.Ordinal);
+            int work = capBody.IndexOf(".WorkingArea", StringComparison.Ordinal);
+            int capGrab = capBody.IndexOf("CopyFromScreen", StringComparison.Ordinal);
+            Assert.True(dwm >= 0 && work > dwm && capGrab > work, "Cap does not clip its frame to the visible window and the work area");
         }
 
         /// <summary>

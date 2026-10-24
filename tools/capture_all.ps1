@@ -1855,10 +1855,26 @@ function Cap {
         Set-AssignOfferBoxes $false | Out-Null
         return
     }
-    $w = $r.Right - $r.Left; $h = $r.Bottom - $r.Top
+    # The window's visible frame, DWM's extended frame bounds
+    # (DWMWA_EXTENDED_FRAME_BOUNDS, 9), as Cap-Web takes Edge's. The window
+    # rectangle of a maximized window runs 11 px past the screen on the left,
+    # right and top, and those strips came out black: 2582 x 1550 frames that
+    # padforge.org's trim_shots.py cropped to 2560 x 1539 by hand.
+    $fr = New-Object Win32+RECT
+    $frSize = [System.Runtime.InteropServices.Marshal]::SizeOf([type][Win32+RECT])
+    if ([Win32]::DwmGetWindowAttribute([IntPtr]$script:hwnd, 9, [ref]$fr, $frSize) -ne 0) { $fr = $r }
+    # The monitor's work area clips it. A maximized window's frame runs 11 px
+    # into the taskbar at the bottom, and every frame since 5.0.0 carried
+    # that strip of the taskbar.
+    $wa = [System.Windows.Forms.Screen]::FromHandle([IntPtr]$script:hwnd).WorkingArea
+    if ($fr.Left -lt $wa.Left) { $fr.Left = $wa.Left }
+    if ($fr.Top -lt $wa.Top) { $fr.Top = $wa.Top }
+    if ($fr.Right -gt $wa.Right) { $fr.Right = $wa.Right }
+    if ($fr.Bottom -gt $wa.Bottom) { $fr.Bottom = $wa.Bottom }
+    $w = $fr.Right - $fr.Left; $h = $fr.Bottom - $fr.Top
     $bmp = New-Object System.Drawing.Bitmap($w, $h)
     $g = [System.Drawing.Graphics]::FromImage($bmp)
-    $g.CopyFromScreen($r.Left, $r.Top, 0, 0, [System.Drawing.Size]::new($w, $h))
+    $g.CopyFromScreen($fr.Left, $fr.Top, 0, 0, [System.Drawing.Size]::new($w, $h))
     $g.Dispose()
     $p = Join-Path $script:OutputDir "$Name.png"
     $bmp.Save($p, [System.Drawing.Imaging.ImageFormat]::Png)
@@ -6450,6 +6466,10 @@ function Expand-DisconnectTarget {
 if ($Only.Count -gt 0) {
     Write-Host ""
     Write-Host "=== FOCUSED PASS ($($Only.Count) target(s)) ===" -ForegroundColor Cyan
+    # PadForge saves its settings once it has loaded them, and that
+    # "Settings saved" line outlasted Cap's own 12 s wait when the first
+    # frame came at once: about.png of 2026-10-23 carried it.
+    Wait-AfterRestartSave
 
     # Devices page, one selected device, one or more shots off that selection.
     $deviceTargets = @(
