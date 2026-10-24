@@ -37,9 +37,12 @@ namespace PadForge.Common.Input
         public const int ControlReportSize = 78;
         public const int MaxInputReportSize = 547;
 
-        /// <summary>Headphone and speaker volume ceiling (ds4mac: 0x00 to 0x4F).</summary>
+        /// <summary>Headphone and speaker volume ceiling: 0x4F in ds4mac and
+        /// in the hbashton fork's ScaleAudioVolume (DS4Device.cs at 68a5c64).
+        /// DS4AudioStreamer sends 0x50, and DS4-Sound-Link writes up to 127.</summary>
         public const byte VolumeMax = 0x4F;
-        /// <summary>Microphone gain ceiling (ds4mac: 0x01 to 0x40).</summary>
+        /// <summary>Microphone gain ceiling: 0x40 in ds4mac and in the
+        /// hbashton fork's ScaleAudioVolume.</summary>
         public const byte MicGainMax = 0x40;
 
         // Byte 3 of report 0x11 enables the volume bytes it carries.
