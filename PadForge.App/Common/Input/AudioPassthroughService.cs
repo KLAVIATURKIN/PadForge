@@ -3099,8 +3099,9 @@ namespace PadForge.Common.Input
             // requires a persona lane, which is what tied Follow Headphone
             // Jack to owning a virtual DualSense. The DualSense on either
             // transport, and the DualShock 4 on Bluetooth (#528), each with its
-            // own status-byte shape. A wired DualShock 4 has no audio, and
-            // Sony's USB adapter (0x0BA0) keeps its Windows endpoint's routing.
+            // own status-byte shape. A wired DualShock 4 builds no sink (the
+            // reconcile above skips it), and Sony's USB adapter (0x0BA0) keeps
+            // its Windows endpoint's routing.
             var jackWanted = new HashSet<Guid>();
             lock (_lock)
             {

@@ -6098,8 +6098,8 @@ namespace PadForge.ViewModels
         /// DualSense (0x0CE6) and DualSense Edge (0x0DF2), and a DualShock 4
         /// (0x05C4, 0x09CC) over Bluetooth, which writes its split left and
         /// right headphone bytes from the same Headphone Volume (#528). A
-        /// wired DualShock 4 has no audio, and Sony's USB adapter keeps its
-        /// own Windows endpoint.</summary>
+        /// wired DualShock 4 gets no audio lane, and Sony's USB adapter keeps
+        /// its own Windows endpoint.</summary>
         public bool SelectedDeviceHasHeadphoneJack
         {
             get
