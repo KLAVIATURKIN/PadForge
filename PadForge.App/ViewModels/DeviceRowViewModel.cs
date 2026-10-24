@@ -1186,11 +1186,15 @@ namespace PadForge.ViewModels
         /// (issue #317): devices that carry voice phrases. Standalone
         /// microphone rows always; a DualSense only over Bluetooth, where
         /// its embedded mic is not a system device and the pad itself
-        /// carries the phrases (wired, its endpoint row does).</summary>
+        /// carries the phrases (wired, its endpoint row does); and a
+        /// DualShock 4 over Bluetooth, whose headset microphone PadForge
+        /// reads from the pad (#528).</summary>
         public bool ShowManageVoicePhrases
             => (DeviceTypeKey == "Microphone"
                 || (VendorId == 0x054C && (ProductId == 0x0CE6 || ProductId == 0x0DF2)
-                    && IsBluetoothLink))
+                    && IsBluetoothLink)
+                || (VendorId == 0x054C && (ProductId == 0x05C4 || ProductId == 0x09CC)
+                    && IsBluetoothLink && PadForge.Common.Input.AudioPassthroughService.EnableDs4BtMic))
                // Same peer:// exclusion as ShowRegisterNfcTag (#248 lesson):
                // recognition runs on the pad's OWNER; the dialog here would
                // be a dead button. Today IsBluetoothLink happens to answer

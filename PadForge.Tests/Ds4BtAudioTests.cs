@@ -1,4 +1,5 @@
 using System;
+using System.Buffers.Binary;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -417,16 +418,30 @@ namespace PadForge.Tests
         [InlineData(true, true, 0, 9500, true)]      // voice wanted 0.5 s ago
         [InlineData(true, true, 7000, 0, false)]     // the want is 3 s old
         [InlineData(true, false, 9000, 0, false)]    // no microphone plugged in
-        [InlineData(false, true, 9000, 9000, false)] // the lane is off (SDL#41)
+        [InlineData(false, true, 9000, 9000, false)] // the lane switched off
         [InlineData(true, true, 0, 0, false)]        // nobody wants it
         public void ArmedRule_NeedsTheGateAMicrophoneAndARecentWant(bool enabled, bool plugged,
                                                                     long persona, long voice, bool armed)
             => Assert.Equal(armed, AudioPassthroughService.Ds4MicArmedRule(enabled, plugged, persona, voice, 10000));
 
-        [Fact]
-        public void MicLane_StaysOffUntilSdl41Lands()
+        [Theory]
+        [InlineData("x64")]
+        [InlineData("arm64")]
+        public void MicLane_IsOn_WithAnSdlBuildThatKeepsInputFlowing(string arch)
         {
-            Assert.False(AudioPassthroughService.EnableDs4BtMic);
+            // An armed microphone sends state in reports 0x12 to 0x19, which
+            // SDL dropped until fork e0b84e3498 (hifihedgehog/SDL#41) checked
+            // each report's CRC at its own length. Its table of those lengths
+            // is the fingerprint: no earlier SDL3.dll holds that run of bytes.
+            Assert.True(AudioPassthroughService.EnableDs4BtMic);
+            int[] values = { 78, 142, 206, 270, 334, 398, 462, 526, 547 };
+            var lengths = new byte[values.Length * sizeof(int)];
+            for (int i = 0; i < values.Length; i++)
+                BinaryPrimitives.WriteInt32LittleEndian(lengths.AsSpan(i * sizeof(int)), values[i]);
+            byte[] dll = File.ReadAllBytes(RepoPath("PadForge.App", "Resources", "SDL3", arch, "SDL3.dll"));
+            Assert.True(dll.AsSpan().IndexOf(lengths) >= 0, arch + " SDL3.dll predates hifihedgehog/SDL#41");
+
+            // A pad no reader has seen stays in speaker mode.
             Assert.Equal(Ds4BtAudio.ModeSpeaker, AudioPassthroughService.Ds4AudioMode(Guid.NewGuid()));
         }
 
@@ -458,14 +473,16 @@ namespace PadForge.Tests
         public void BluetoothDs4_IsRecognizedByModelAndTransport(int pid, string path, bool expected)
             => Assert.Equal(expected, AudioPassthroughService.IsBluetoothDs4(0x054C, (ushort)pid, path));
 
-        private static string RepoFile(params string[] parts)
+        private static string RepoPath(params string[] parts)
         {
             var dir = new DirectoryInfo(AppContext.BaseDirectory);
             while (dir != null && !File.Exists(Path.Combine(dir.FullName, "PadForge.sln")))
                 dir = dir.Parent;
             Assert.NotNull(dir);
-            return File.ReadAllText(Path.Combine(new[] { dir.FullName }.Concat(parts).ToArray()));
+            return Path.Combine(new[] { dir.FullName }.Concat(parts).ToArray());
         }
+
+        private static string RepoFile(params string[] parts) => File.ReadAllText(RepoPath(parts));
 
         private static int Count(string text, string what)
         {
@@ -502,7 +519,7 @@ namespace PadForge.Tests
             int speaker = Count(src, "|| AudioPassthroughService.SlotWantsSpeakerPath(_padIndex)");
             Assert.Equal(2, speaker);
             Assert.Equal(speaker, Count(src, "|| AudioPassthroughService.SlotHasArmedDs4Mic(_padIndex)"));
-            Assert.False(AudioPassthroughService.SlotHasArmedDs4Mic(0)); // the lane is off (SDL#41)
+            Assert.False(AudioPassthroughService.SlotHasArmedDs4Mic(0)); // no pad has wanted it
         }
 
         [Fact]

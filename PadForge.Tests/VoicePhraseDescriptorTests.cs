@@ -132,20 +132,47 @@ namespace PadForge.Tests
             Assert.False(SourceCoercion.ReadHardwareBoolDescriptor(null, "Any Voice Phrase"));
         }
 
+        private const string Ds4BtPath = @"\\?\HID#{00001124-0000-1000-8000-00805f9b34fb}_VID&0002054c_PID&09cc";
+        private const string Ds4V1BtPath = @"\\?\HID#{00001124-0000-1000-8000-00805f9b34fb}_VID&0002054c_PID&05c4";
+        private const string Ds4UsbPath = @"\\?\HID#VID_054C&PID_09CC&MI_03#7&1f882a25&0&0000";
+
         /// <summary>The embedded-microphone gate: the DualSense family
-        /// carries phrases on the pad's own surface; everything else gets
-        /// them from a standalone microphone device row instead.</summary>
+        /// carries phrases on the pad's own surface, and so does a DualShock 4
+        /// on Bluetooth, through the headset in its jack (#528). Everything
+        /// else gets them from a standalone microphone device row instead.</summary>
         [Theory]
-        [InlineData(0x054C, 0x0CE6, true)]   // DualSense
-        [InlineData(0x054C, 0x0DF2, true)]   // DualSense Edge
-        [InlineData(0x054C, 0x09CC, false)]  // DualShock 4: mic is headset-jack only
-        [InlineData(0x057E, 0x2009, false)]  // Switch Pro: no microphone
-        [InlineData(0x045E, 0x0CE6, false)]  // wrong vendor, right PID
-        public void HasVoicePhrases_GatesByExactHardware(int vid, int pid, bool expected)
+        [InlineData(0x054C, 0x0CE6, "", true)]           // DualSense
+        [InlineData(0x054C, 0x0DF2, "", true)]           // DualSense Edge
+        [InlineData(0x054C, 0x09CC, Ds4BtPath, true)]    // DualShock 4 on Bluetooth
+        [InlineData(0x054C, 0x05C4, Ds4V1BtPath, true)]  // first DualShock 4 on Bluetooth
+        [InlineData(0x054C, 0x09CC, Ds4UsbPath, false)]  // DualShock 4 on a cable: PadForge reads no microphone there
+        [InlineData(0x054C, 0x09CC, "", false)]          // no path yet
+        [InlineData(0x057E, 0x2009, "", false)]          // Switch Pro: no microphone
+        [InlineData(0x045E, 0x0CE6, "", false)]          // wrong vendor, right PID
+        public void HasVoicePhrases_GatesByExactHardware(int vid, int pid, string path, bool expected)
         {
             var ud = new PadForge.Engine.Data.UserDevice
-            { VendorId = (ushort)vid, ProdId = (ushort)pid };
+            { VendorId = (ushort)vid, ProdId = (ushort)pid, DevicePath = path };
             Assert.Equal(expected, ud.HasVoicePhrases);
+        }
+
+        /// <summary>The Manage Voice Macros button follows the same pads: a
+        /// DualShock 4 shows it on Bluetooth while its microphone lane is on,
+        /// as the DualSense shows it on Bluetooth (#528).</summary>
+        [Fact]
+        public void ManageVoiceMacros_ShowsForABluetoothDualShock4()
+        {
+            var dir = new System.IO.DirectoryInfo(System.AppContext.BaseDirectory);
+            while (dir != null && !System.IO.File.Exists(System.IO.Path.Combine(dir.FullName, "PadForge.sln")))
+                dir = dir.Parent;
+            Assert.NotNull(dir);
+            string src = System.IO.File.ReadAllText(System.IO.Path.Combine(
+                dir.FullName, "PadForge.App", "ViewModels", "DeviceRowViewModel.cs"));
+            int at = src.IndexOf("public bool ShowManageVoicePhrases", System.StringComparison.Ordinal);
+            Assert.True(at > 0);
+            string body = src.Substring(at, 700);
+            Assert.Contains("ProductId == 0x05C4 || ProductId == 0x09CC", body);
+            Assert.Contains("IsBluetoothLink && PadForge.Common.Input.AudioPassthroughService.EnableDs4BtMic", body);
         }
     }
 }

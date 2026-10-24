@@ -4704,7 +4704,7 @@ namespace PadForge.Common.Input
             }
             lane.Handle = h;
             var toggle = new byte[Ds5HapticBtReportSize];
-            var report = new byte[547]; // BT DS5 input caps length; 0x31 arrives in the first 78
+            var report = new byte[547]; // the largest Sony BT report. The DS5's 0x31 input is 78 bytes.
             var dec = OpusCodecFactory.CreateDecoder(Rate, BtMicChannels);
             var pcm = new short[BtMicFrameSamples * BtMicChannels];
             bool sessionOpen = false;

@@ -312,9 +312,9 @@ namespace PadForge.Services
         /// carry them.
         ///
         /// <para>A DualShock 4 (0x05C4, 0x09CC) over Bluetooth counts too
-        /// once its headset microphone lane is enabled (#528): its
-        /// microphone is the headset plugged into its jack, read from its
-        /// input reports.</para></summary>
+        /// while <see cref="AudioPassthroughService.EnableDs4BtMic"/> is on
+        /// (#528): its microphone is the headset plugged into its jack, read
+        /// from its input reports.</para></summary>
         internal static bool IsPadWithEmbeddedMic(PadForge.Engine.Data.UserDevice ud)
             => ud.VendorId == 0x054C
                && (ud.ProdId == 0x0CE6 || ud.ProdId == 0x0DF2

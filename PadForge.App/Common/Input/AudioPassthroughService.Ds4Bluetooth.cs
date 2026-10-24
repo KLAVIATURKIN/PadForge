@@ -24,15 +24,17 @@ namespace PadForge.Common.Input
 
         // ── Headset microphone mode ─────────────────────────────────────
 
-        /// <summary>The DualShock 4 headset microphone. Off until PadForge
-        /// takes an SDL build with hifihedgehog/SDL#41: with the microphone
-        /// armed the controller sends its state inside input reports larger
-        /// than 0x11, and the SDL driver checks their CRC at byte 78 and
-        /// drops them, which would stop the pad's input. The DualSense
-        /// microphone waited the same way on hifihedgehog/SDL#20
-        /// (<see cref="EnableBtMic"/>). A readonly field rather than a
-        /// constant, so the gated code stays compiled and warning-free.</summary>
-        internal static readonly bool EnableDs4BtMic = false;
+        /// <summary>The DualShock 4 headset microphone. With it armed the
+        /// controller sends its state inside input reports 0x12 to 0x19, and
+        /// SDL checked every one's CRC at byte 78 and dropped them, which
+        /// stopped the pad's input. The SDL build PadForge takes from fork
+        /// e0b84e3498 (hifihedgehog/SDL#41) checks each report at its own
+        /// length, so the microphone is on. The DualSense microphone waited
+        /// the same way on hifihedgehog/SDL#20 (<see cref="EnableBtMic"/>).
+        /// Setting this false turns both DualShock 4 microphone lanes off. A
+        /// readonly field rather than a constant, so the gated code compiles
+        /// warning-free either way.</summary>
+        internal static readonly bool EnableDs4BtMic = true;
 
         /// <summary>How long a reader's last "wanted" keeps the microphone
         /// armed, so a consumer that blinks does not flap the mode.</summary>

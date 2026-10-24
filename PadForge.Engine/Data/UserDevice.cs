@@ -431,13 +431,18 @@ namespace PadForge.Engine.Data
         /// <summary>Voice phrases ride this pad's own surface (#317): the
         /// DualSense / DualSense Edge carry an embedded microphone, so
         /// recognitions stamp VoicePulse buttons on the pad and the picker
-        /// offers "Any Voice Phrase" / per-phrase sources here. Standalone
-        /// microphone devices are NOT gated by this: they expose phrases as
-        /// named raw buttons directly (the PC/SC-reader pattern). Computed,
-        /// not stored.</summary>
+        /// offers "Any Voice Phrase" / per-phrase sources here. A DualShock 4
+        /// on Bluetooth does too (#528): PadForge reads the microphone of a
+        /// headset plugged into its jack from its input reports, so the path
+        /// must carry the Bluetooth HID service class, as the audio service
+        /// tests it. Standalone microphone devices are NOT gated by this:
+        /// they expose phrases as named raw buttons directly (the PC/SC-reader
+        /// pattern). Computed, not stored.</summary>
         [XmlIgnore]
         public bool HasVoicePhrases => VendorId == 0x054C
-            && (ProdId == 0x0CE6 || ProdId == 0x0DF2);
+            && (ProdId == 0x0CE6 || ProdId == 0x0DF2
+                || ((ProdId == 0x05C4 || ProdId == 0x09CC)
+                    && (DevicePath ?? "").IndexOf("{00001124", StringComparison.OrdinalIgnoreCase) >= 0));
 
         // Wii IR pointer tuning (sensor-bar position/compensation, smoothing)
         // moved to PadSetting (issue #146 follow-up) so each (device, slot)

@@ -2207,7 +2207,8 @@ namespace PadForge.Common
             }
 
             // Voice phrases (#317): pads with an embedded microphone (the
-            // DualSense family) hear phrases on their own surface, so the
+            // DualSense family, and a DualShock 4 on Bluetooth through the
+            // headset in its jack, #528) hear phrases on their own surface, so the
             // picker offers "Any Voice Phrase" plus each registered phrase
             // exactly like the NFC tag family above. Standalone microphone
             // devices skip this: their phrases are named raw buttons.

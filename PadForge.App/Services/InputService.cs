@@ -4478,7 +4478,8 @@ namespace PadForge.Services
                 // or profile carries its microphone right now: the mic is
                 // physically the pad's, and recognitions through it stamp
                 // the pad's pulse range either directly (pad sessions) or
-                // via the endpoint-to-pad bridge.
+                // via the endpoint-to-pad bridge. A DualShock 4 on Bluetooth
+                // shows it too, for the headset in its jack (#528).
                 int voiceBase = isMic ? 0
                     : ud.HasVoicePhrases
                         ? PadForge.Common.Input.VoicePulse.ButtonBase : -1;
