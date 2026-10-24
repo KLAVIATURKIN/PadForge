@@ -1,0 +1,87 @@
+<!doctype html>
+<!--
+    The README's header banner, screenshots/header.png. It takes padforge.org's
+    look: the hero's ground and light, its type, and its trust strip. Render it
+    with tools/render_readme_header.ps1, which writes the PNG at twice this
+    size. The page reads its fonts from Google Fonts, as padforge.org does.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PadForge README header</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Instrument+Sans:wght@400;600&family=JetBrains+Mono:wght@600&display=block" rel="stylesheet">
+<style>
+    /* padforge.org's tokens (style.css :root). */
+    :root {
+        --bg: #06080c;
+        --ember: #f2652a;
+        --telemetry: #6fc3d6;
+        --text-hi: #f7f9fc;
+        --text: #d4dae3;
+        --text-dim: #5d6877;
+        --hairline: rgba(255, 255, 255, 0.07);
+        --border: #212a36;
+    }
+    html, body { margin: 0; padding: 0; background: transparent; }
+    .banner {
+        position: relative; overflow: hidden;
+        width: 1280px; height: 360px; box-sizing: border-box;
+        border-radius: 18px;
+        background: var(--bg);
+        box-shadow: inset 0 0 0 1px var(--border);
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        text-align: center;
+    }
+    /* The site hero's light: an ember bloom behind the title and cold ones
+       at the corners (style.css .hero::before), set for a wide frame. */
+    .banner::before {
+        content: ""; position: absolute; inset: 0;
+        background:
+            radial-gradient(64% 90% at 50% 44%, rgba(242,101,42,0.15), transparent 74%),
+            radial-gradient(30% 60% at 84% 86%, rgba(111,195,214,0.08), transparent 72%),
+            radial-gradient(28% 55% at 12% 10%, rgba(111,195,214,0.05), transparent 70%);
+    }
+    .banner > * { position: relative; }
+    .brand {
+        display: flex; align-items: center; gap: 14px;
+        font-family: "Archivo", "Segoe UI", sans-serif; font-weight: 800;
+        font-size: 30px; letter-spacing: -0.02em; color: var(--text-hi);
+        margin-bottom: 22px;
+    }
+    .brand img { width: 46px; height: 46px; border-radius: 12px; }
+    h1 {
+        margin: 0;
+        font-family: "Archivo", "Segoe UI", sans-serif; font-weight: 700;
+        font-size: 92px; line-height: 0.92; letter-spacing: -0.038em;
+        color: var(--text-hi);
+    }
+    h1 em { font-style: normal; color: var(--ember); }
+    .trust {
+        display: flex; align-items: center; gap: 28px;
+        margin-top: 34px; padding-top: 18px;
+        border-top: 1px solid var(--hairline);
+        font-family: "Instrument Sans", "Segoe UI", sans-serif;
+        font-size: 16px; color: var(--text-dim);
+    }
+    .trust b { font-weight: 600; color: var(--text); }
+    .kicker {
+        font-family: "JetBrains Mono", Consolas, monospace; font-weight: 600;
+        font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase;
+        color: var(--telemetry);
+    }
+</style>
+</head>
+<body>
+<div class="banner">
+    <div class="brand"><img src="../screenshots/icon.png" alt="">PadForge</div>
+    <h1>Any input. Any <em>controller</em>.</h1>
+    <div class="trust">
+        <span class="kicker">Free for Windows</span>
+        <span><b>No paywall.</b> No subscription.</span>
+        <span><b>Source available.</b> No telemetry.</span>
+    </div>
+</div>
+</body>
+</html>

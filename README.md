@@ -1,8 +1,6 @@
 <p align="center">
-  <img src="screenshots/icon.png" alt="PadForge" width="128">
+  <img src="screenshots/header.png" alt="PadForge. Any input. Any controller. Free for Windows, with no paywall, no subscription and no telemetry, and its source available." width="100%">
 </p>
-
-<h1 align="center">PadForge</h1>
 
 *"And we talk of Christ, we rejoice in Christ, we preach of Christ, we prophesy of Christ, and we write according to our prophecies, that our children may know to what source they may look for a remission of their sins."* — 2 Nephi 25:26
 
