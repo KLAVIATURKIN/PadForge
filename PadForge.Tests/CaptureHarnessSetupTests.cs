@@ -33,10 +33,13 @@ namespace PadForge.Tests
     /// statement is known to need.
     ///
     /// <para>A capture run swaps the owner's settings file for one of its
-    /// own, and seven more scripts under tools write that file too. All
-    /// eight load the functions that guard it from settings_guard.ps1. The
-    /// rules that keep the owner's file from being lost are held here by
-    /// position in the syntax tree, with nothing of the eight scripts run:
+    /// own, and three more scripts under tools write that file too: the
+    /// diagnostics sweep and the two staging scripts. All four load the
+    /// functions that guard it from settings_guard.ps1. Every screenshot,
+    /// the web controller's pages and the colorways included, comes from
+    /// capture_all.ps1 alone. The rules that keep the owner's file from
+    /// being lost are held here by position in the syntax tree, with
+    /// nothing of the four scripts run:
     /// the copy taken before a file is overwritten or deleted, the marker
     /// and the stop for a backup no marker speaks for, the order of the
     /// restore, and how a settings file is read and written. So is the exit
@@ -690,10 +693,6 @@ namespace PadForge.Tests
         private static readonly SettingsScript[] SettingsScriptList =
         {
             new("capture_all.ps1", "PadForgeXml", "xmlBak", "PadForgeExe", "Stop-Process", 19, 4, 2, 1, 15, 6),
-            new("capture_vr.ps1", "PadForgeXml", "bak", "PadForgeExe", "Kill-PadForge", 6, 4, 1, 1, 1, 1),
-            new("capture_colorways.ps1", "PadForgeXml", "bak", "PadForgeExe", "Kill-PadForge", 6, 4, 1, 1, 1, 1),
-            new("capture_mouse_gestures.ps1", "PadForgeXml", "bak", "PadForgeExe", "Stop-Process", 6, 4, 1, 1, 1, 1),
-            new("capture_web.ps1", "pfXml", "pfBak", "exe", "Kill-PadForge", 6, 4, 1, 1, 1, 1),
             new("diag-sweep.ps1", "pfXml", "pfBak", "dst", "Stop-Process", 6, 4, 1, 1, 1, 1),
             new("prep_xml_for_capture.ps1", "XmlPath", "BakPath", "ExePath", "Stop-Process", 4, 2, 1, 0, 1, 1),
             new("add_slots_via_ui.ps1", "XmlPath", "BakPath", "ExePath", "Stop-Process", 3, 3, 0, 1, 0, 0),
@@ -1022,46 +1021,15 @@ namespace PadForge.Tests
         }
 
         /// <summary>
-        /// A run of capture_vr.ps1 or capture_colorways.ps1 that skipped a
-        /// scene, or saved no shot for one, ends with exit code 1 and names
-        /// what it missed, as capture_all.ps1 does. Both ended with 0
-        /// whatever they skipped, so a caller could not tell a run that
-        /// kept an old picture under a scene's name from a clean one. Every
-        /// way out of a scene, and the way out of a shot with no window to
-        /// take, records the scene in $script:missed first, and the exit
-        /// code is written out after the finally: a script that simply ends
-        /// hands its caller the exit code of its last native command.
-        /// </summary>
-        [Theory]
-        [InlineData("capture_vr.ps1", 3)]
-        [InlineData("capture_colorways.ps1", 3)]
-        public void ASkippedSceneEndsTheRunWithExitCodeOne(string script, int fewestSkips)
-        {
-            var run = ReadTree("ending", script);
-            Assert.Equal(new[] { "$script:missed = @()" }, run.Strings("FlagSetBeforeTheTry"));
-
-            // Positive control: the scan finds the ways out of a scene and
-            // out of a shot.
-            var skips = run.Strings("Skips");
-            Assert.True(skips.Count >= fewestSkips, $"{script}: the scan found {skips.Count} ways out of a scene");
-            Assert.NotEmpty(run.Strings("ShotReturns"));
-
-            var silent = run.Strings("SkipsNotRecorded").Concat(run.Strings("ShotReturnsNotRecorded")).ToList();
-            Assert.True(silent.Count == 0, $"{script} skips a scene or a shot without recording it:\n" + string.Join("\n", silent));
-            Assert.Equal(new[] { "$script:missed.Count -gt 0 => 1", "always => 0" }, run.Strings("ClosingExits"));
-            Assert.Equal("exit 0", run.Result.GetProperty("LastStatement").GetString());
-        }
-
-        /// <summary>
-        /// A run of capture_mouse_gestures.ps1 or add_slots_via_ui.ps1 that
-        /// failed ends with exit code 1. Each holds its work in a try whose
-        /// catch logs the error and keeps it from ending the script, so both
-        /// ended with exit code 0 after a failure. The catch now sets a flag
+        /// A run of add_slots_via_ui.ps1 that failed ends with exit code 1.
+        /// It holds its work in a try whose catch logs the error and keeps it
+        /// from ending the script, so it ended with exit code 0 after a
+        /// failure, as capture_mouse_gestures.ps1 did before its one shot
+        /// moved into capture_all.ps1. The catch now sets a flag
         /// first, the flag is cleared before the try opens, and the exit
         /// code is written out at the end.
         /// </summary>
         [Theory]
-        [InlineData("capture_mouse_gestures.ps1")]
         [InlineData("add_slots_via_ui.ps1")]
         public void AFailureTheCatchKeptEndsTheRunWithExitCodeOne(string script)
         {
@@ -1073,7 +1041,7 @@ namespace PadForge.Tests
         }
 
         /// <summary>
-        /// The four functions that write the settings file they are handed
+        /// The five functions that write the settings file they are handed
         /// through -XmlPath, and every function that reaches one of them,
         /// are called only inside the try whose finally puts the owner's
         /// settings back. The scan of the try's reach skips writes inside
@@ -1085,7 +1053,7 @@ namespace PadForge.Tests
         {
             var run = ReadTree("settings");
             Assert.Equal(
-                new[] { "Ensure-DeviceAssigned", "Ensure-MacrosLoaded", "Seed-AudioDsp", "Set-SlotPreset" },
+                new[] { "Ensure-DeviceAssigned", "Ensure-MacrosLoaded", "Seed-AudioDsp", "Set-SlotPreset", "Write-StagedScene" },
                 run.Strings("XmlPathWriters"));
             // Positive control: the reach holds a function that only calls one.
             Assert.Contains("Capture-Ds3Preset", run.Strings("ReachTheWriters"));
@@ -1237,9 +1205,10 @@ namespace PadForge.Tests
         /// functions. No script defines one of those functions again or sets
         /// one of the guard's values, so there is one marker rule, one folder
         /// of copies and one loader and saver, and a fix to any of them
-        /// reaches all eight scripts. capture_all.ps1, capture_vr.ps1 and
-        /// capture_colorways.ps1 carried the block word for word, and the
-        /// other five carried none of it.
+        /// reaches every script that writes the file. Before the guard was
+        /// shared, capture_all.ps1 and two capture scripts since folded into
+        /// it carried the block word for word, and the rest carried none of
+        /// it.
         /// </summary>
         [Theory]
         [MemberData(nameof(SettingsScripts))]
@@ -1259,7 +1228,7 @@ namespace PadForge.Tests
 
         /// <summary>
         /// The scripts that name the owner's settings file in their code are
-        /// the eight the guard tests cover. A ninth that names it fails here
+        /// the four the guard tests cover. A fifth that names it fails here
         /// until it is added to the list, and with it to the tests of the
         /// copies, the marker, the stop and the encoding. A name in a comment
         /// does not count: the two wrappers mention the file and never touch
@@ -1271,6 +1240,177 @@ namespace PadForge.Tests
             var run = ReadTree("names");
             var named = run.Strings("NameTheSettingsFile").OrderBy(n => n, StringComparer.Ordinal).ToList();
             Assert.Equal(SettingsScriptList.Select(s => s.Name).OrderBy(n => n, StringComparer.Ordinal), named);
+        }
+
+        /// <summary>
+        /// Every screenshot comes from capture_all.ps1. The web controller's
+        /// pages and the colorways were separate scripts carrying copies of
+        /// its recipes, and the copies fell behind: four web pages shipped
+        /// stale in 5.0.0, and the colorways showed one controller in the
+        /// sidebar where every other frame shows seven. So no other script
+        /// under tools grabs the screen into the docs' image folder, the web
+        /// pages and the colorways are tables in capture_all.ps1 that both
+        /// its passes read, and its shot function refuses a PadForge frame
+        /// whose sidebar does not show every staged slot.
+        /// </summary>
+        [Fact]
+        public void EveryScreenshotComesFromTheOneCaptureScript()
+        {
+            string capture = AuditDelta20260823Tests.FindRepoFile(Path.Combine("tools", "capture_all.ps1"));
+            string tools = Path.GetDirectoryName(capture);
+            var takers = Directory.GetFiles(tools, "*.ps1")
+                .Where(f => !string.Equals(Path.GetFileName(f), "capture_all.ps1", StringComparison.OrdinalIgnoreCase))
+                .Where(f =>
+                {
+                    string text = File.ReadAllText(f);
+                    return text.Contains("CopyFromScreen", StringComparison.Ordinal)
+                        && Regex.IsMatch(text, @"wiki[\\/]+images", RegexOptions.IgnoreCase);
+                })
+                .Select(Path.GetFileName)
+                .ToList();
+            Assert.True(takers.Count == 0, "scripts other than capture_all.ps1 take screenshots for the docs: " + string.Join(", ", takers));
+
+            string script = File.ReadAllText(capture);
+            // Positive control: capture_all.ps1 grabs the screen into the docs' folder.
+            Assert.Contains("CopyFromScreen", script, StringComparison.Ordinal);
+            Assert.Matches(@"wiki[\\/]+images", script);
+            foreach (string page in new[] { "web-landing", "web-controller", "web-dualsense", "web-steamdeck", "web-switch2pro", "web-custom" })
+                Assert.Contains($"Name = '{page}'", script, StringComparison.Ordinal);
+            Assert.Contains("$script:ColorwayScenes = @(", script, StringComparison.Ordinal);
+
+            // Both passes run the same recipes: the focused pass and the full
+            // run each call the popup's, the web pages' and the colorways'.
+            Assert.Equal(2, Regex.Matches(script, @"^\s*Capture-AddControllerPopup\s*$", RegexOptions.Multiline).Count);
+            Assert.Equal(2, Regex.Matches(script, @"^\s*Capture-WebShots\s*$", RegexOptions.Multiline).Count);
+            Assert.Equal(2, Regex.Matches(script, @"^\s*Capture-Colorways\s*$", RegexOptions.Multiline).Count);
+            Assert.Equal(2, Regex.Matches(script, @"^\s*Capture-StarterGallery\s*$", RegexOptions.Multiline).Count);
+
+            // A web page is taken by Edge's visible frame. The window's own
+            // rectangle counts the invisible resize border, and the frames
+            // the recipe took that way showed the desktop down two edges.
+            int web = script.IndexOf("function Cap-Web {", StringComparison.Ordinal);
+            int webEnd = script.IndexOf("\nfunction ", web + 1, StringComparison.Ordinal);
+            Assert.True(web >= 0 && webEnd > web, "no Cap-Web function");
+            string webBody = script.Substring(web, webEnd - web);
+            int bounds = webBody.IndexOf("[Win32]::DwmGetWindowAttribute($ehwnd, 9,", StringComparison.Ordinal);
+            int webGrab = webBody.IndexOf("CopyFromScreen", StringComparison.Ordinal);
+            Assert.True(bounds >= 0 && webGrab > bounds, "Cap-Web does not take the window's visible frame");
+
+            // The shot function checks the sidebar against the staged count.
+            int cap = script.IndexOf("function Cap {", StringComparison.Ordinal);
+            int capEnd = script.IndexOf("\nfunction ", cap + 1, StringComparison.Ordinal);
+            Assert.True(cap >= 0 && capEnd > cap, "no Cap function");
+            string capBody = script.Substring(cap, capEnd - cap);
+            Assert.Contains("Get-SidebarSlotCount", capBody, StringComparison.Ordinal);
+            Assert.Contains("$script:ExpectedSlots", capBody, StringComparison.Ordinal);
+        }
+
+        /// <summary>
+        /// Each colorway row of capture_all.ps1 names its colorway as the 3D
+        /// view's picker lists it, since the recipe picks the row by that
+        /// name: the AppearanceNames entry beside the row's App in its
+        /// family's AppearanceIds. A colorway the app renames or drops fails
+        /// here, not as a refused shot at the end of a run.
+        /// </summary>
+        [Fact]
+        public void EachColorwayRowNamesItsColorwayAsThePickerDoes()
+        {
+            string script = File.ReadAllText(AuditDelta20260823Tests.FindRepoFile(Path.Combine("tools", "capture_all.ps1")));
+            int rowCount = Regex.Matches(script, @"@\{ Shot = ""colorway-").Count;
+            var rows = Regex.Matches(script,
+                @"Shot = ""(colorway-[a-z0-9-]+)"";\s+Type = \d; Profile = ""[a-z0-9-]+""; Fam = ""(\w+)"";\s+App = ""(\w+)""; Name = ""([^""]+)""");
+            // Positive control: the table is there, and every row reads whole.
+            Assert.True(rowCount >= 20, $"found {rowCount} colorway rows");
+            Assert.Equal(rowCount, rows.Count);
+            foreach (Match m in rows)
+            {
+                string shot = m.Groups[1].Value, family = m.Groups[2].Value, id = m.Groups[3].Value;
+                (string[] ids, string[] names) = family switch
+                {
+                    "DualSense" => (PadForge.Models3D.ControllerModelDualSense.AppearanceIds, PadForge.Models3D.ControllerModelDualSense.AppearanceNames),
+                    "XboxSeries" => (PadForge.Models3D.ControllerModelXboxSeries.AppearanceIds, PadForge.Models3D.ControllerModelXboxSeries.AppearanceNames),
+                    _ => (null, null),
+                };
+                Assert.True(ids != null, $"{shot}: no colorway list for the family {family}");
+                int i = Array.IndexOf(ids, id);
+                Assert.True(i >= 0, $"{shot}: {id} is not a {family} colorway");
+                Assert.Equal(names[i], m.Groups[4].Value);
+            }
+        }
+
+        /// <summary>
+        /// No frame shows a control lit by the pointer. On 2026-10-23 a run
+        /// showed a lit trigger on the controller model: the click that
+        /// opened the slot left the pointer over its page's model, which
+        /// lights what sits under the pointer. capture_all.ps1 moves the
+        /// pointer onto the main window's empty title bar after every click
+        /// and before every frame, into the dialog's own head while a modal
+        /// dialog is up, and before a frame waits for a hover where the
+        /// pointer was to fade out. Every click goes through Click-At, the
+        /// one function that clicks the screen and then parks. The web pages'
+        /// frames move the pointer onto Edge's title bar, off the page. No
+        /// park in the window's bottom-right corner is left: that corner
+        /// holds the status bar's engine pill.
+        /// </summary>
+        [Fact]
+        public void ThePointerRestsOffEveryControlBeforeEachFrame()
+        {
+            string script = File.ReadAllText(AuditDelta20260823Tests.FindRepoFile(Path.Combine("tools", "capture_all.ps1")));
+            string Body(string name)
+            {
+                int at = script.IndexOf("function " + name + " {", StringComparison.Ordinal);
+                Assert.True(at >= 0, "no function " + name);
+                int end = script.IndexOf("\nfunction ", at + 1, StringComparison.Ordinal);
+                return end > at ? script.Substring(at, end - at) : script.Substring(at);
+            }
+
+            string park = Body("Park-Pointer");
+            Assert.Contains("IsWindowEnabled", park, StringComparison.Ordinal);
+            Assert.Contains("[UiSettle]::ActiveDialog(", park, StringComparison.Ordinal);
+            Assert.Contains("[UiSettle]::WaitStableBox(", park, StringComparison.Ordinal);
+
+            string cap = Body("Cap");
+            int settle = cap.IndexOf("Park-Pointer -Settle", StringComparison.Ordinal);
+            int grab = cap.IndexOf("CopyFromScreen", StringComparison.Ordinal);
+            Assert.True(settle >= 0 && grab > settle, "Cap does not park the pointer and wait before it grabs the screen");
+            Assert.DoesNotContain("[Win32]::MoveTo(", cap, StringComparison.Ordinal);
+
+            string clickAt = Body("Click-At");
+            int press = clickAt.IndexOf("[Win32]::ClickAt(", StringComparison.Ordinal);
+            int parked = press < 0 ? -1 : clickAt.IndexOf("Park-Pointer", press, StringComparison.Ordinal);
+            Assert.True(press >= 0 && parked > press, "Click-At does not park the pointer after its click");
+            Assert.Single(Regex.Matches(script, @"\[Win32\]::ClickAt\("));
+            Assert.Contains("Click-At (", Body("Click-El"), StringComparison.Ordinal);
+
+            string web = Body("Cap-Web");
+            int move = web.IndexOf("[Win32]::MoveTo(", StringComparison.Ordinal);
+            int webGrab = web.IndexOf("CopyFromScreen", StringComparison.Ordinal);
+            Assert.True(move >= 0 && webGrab > move, "Cap-Web does not move the pointer off the page before it grabs the screen");
+
+            Assert.DoesNotContain("Bottom - 15)", script, StringComparison.Ordinal);
+        }
+
+        /// <summary>
+        /// The frames after the Workshop recipe show the staged slots. The
+        /// recipe applies the profile it imports, which brings only the slots
+        /// of the config it came from, and on 2026-10-23 every frame after it
+        /// showed one slot in the sidebar. Its own frame is the one exempt
+        /// from the sidebar check, and the Default profile, which holds the
+        /// staged slots, is loaded back before the next frame.
+        /// </summary>
+        [Fact]
+        public void TheWorkshopRecipeLoadsTheStagedSlotsBackBeforeTheNextFrame()
+        {
+            string script = File.ReadAllText(AuditDelta20260823Tests.FindRepoFile(Path.Combine("tools", "capture_all.ps1")));
+            int cap = script.IndexOf("Cap \"workshop-applied\"", StringComparison.Ordinal);
+            Assert.True(cap >= 0, "no workshop-applied frame");
+            int restore = script.IndexOf("Restore-DefaultProfile", cap, StringComparison.Ordinal);
+            int next = script.IndexOf("Cap \"", cap + 1, StringComparison.Ordinal);
+            Assert.True(restore > cap && (next < 0 || restore < next), "the Default profile is not loaded back before the next frame");
+            string before = script.Substring(Math.Max(0, cap - 400), Math.Min(400, cap));
+            Assert.Contains("$script:ExpectedSlots = 0", before, StringComparison.Ordinal);
+            // That frame is the only place inside the run that turns the check off.
+            Assert.Single(Regex.Matches(script, @"^[ \t]+\$script:ExpectedSlots = 0\s*$", RegexOptions.Multiline));
         }
 
         /// <summary>
@@ -1313,15 +1453,17 @@ namespace PadForge.Tests
 
         /// <summary>
         /// Each backup has a marker of its own, named after the backup's full
-        /// path. The eight scripts keep their backups in five places. With
-        /// the one marker file the three capture scripts shared, a run of one
-        /// script would replace the marker of a backup another had left, and
-        /// that script's next run would stop over its own backup. Scripts
-        /// that keep their backup in the same place share its marker, as the
-        /// three capture scripts do. The marker paths are worked out for the
-        /// five backups under this test's folder, by the guard's own
-        /// function, which touches no file: five backups, five markers, all
-        /// in the folder the guard keeps them in.
+        /// path. The four scripts keep their backups in three places: the
+        /// capture beside the settings file, the two staging scripts beside
+        /// it under a name of their own, the diagnostics sweep in TEMP. With
+        /// one marker file for all of them, a run of one script would replace
+        /// the marker of a backup another had left, and that script's next
+        /// run would stop over its own backup. Scripts that keep their backup
+        /// in the same place share its marker, as the two staging scripts do.
+        /// The marker paths are worked out for the three backups under this
+        /// test's folder, by the guard's own function, which touches no file:
+        /// three backups, three markers, all in the folder the guard keeps
+        /// them in.
         /// </summary>
         [Fact]
         public void EachBackupHasAMarkerOfItsOwn()
@@ -1330,8 +1472,6 @@ namespace PadForge.Tests
             {
                 Path.Combine("PadForge", "PadForge.xml.bak"),
                 Path.Combine("PadForge", "PadForge.xml.bak-capture"),
-                Path.Combine("Temp", "PadForge.xml.mousegestures.bak"),
-                Path.Combine("Temp", "PadForge.xml.webcapture.bak"),
                 Path.Combine("Temp", "PadForge.xml.diagsweep.bak"),
             };
             string root = null;
@@ -1394,10 +1534,10 @@ namespace PadForge.Tests
         /// never push the owner's out. The first copy a run takes of a path
         /// is of a file it found, and the newest fourteen of those are kept.
         /// A later copy of the same path is of a file the run wrote, and
-        /// the newest six are kept. One run of capture_colorways.ps1 writes
-        /// the settings file twenty-three times, so a single count of twenty
-        /// would have dropped the copy of the owner's file before that run
-        /// ended. The new copy is in place before anything is removed.
+        /// the newest six are kept. The colorway step of capture_all.ps1
+        /// writes the settings file twenty-three times in one run, so a
+        /// single count of twenty would have dropped the copy of the owner's
+        /// file before that run ended. The new copy is in place before anything is removed.
         ///
         /// <para>The newest are found by name, so the time in a name is UTC
         /// and fixed in width. A local time runs through one hour twice when
@@ -1889,8 +2029,8 @@ function Get-ReusedFileBlock($tree) {
 # The settings file, read from the syntax tree alone. Nothing below runs a
 # statement of the script.
 
-# The names the eight scripts give the settings file and its backup. $XmlPath
-# is the settings file as capture_all.ps1's four functions that write it are
+# The names the four scripts give the settings file and its backup. $XmlPath
+# is the settings file as capture_all.ps1's five functions that write it are
 # handed it, and as prep_xml_for_capture.ps1 and add_slots_via_ui.ps1 name it.
 $settingsVars = @('PadForgeXml', 'XmlPath', 'pfXml', 'xmlBak', 'bak', 'pfBak', 'BakPath')
 $backupVars = @('xmlBak', 'bak', 'pfBak', 'BakPath')
