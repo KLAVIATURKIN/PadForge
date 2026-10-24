@@ -8,7 +8,12 @@ $out = Join-Path $repo "screenshots\header.png"
 $edge = "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
 if (-not (Test-Path $edge)) { $edge = "C:\Program Files\Microsoft\Edge\Application\msedge.exe" }
 $profileDir = Join-Path $env:TEMP "PadForge_ReadmeHeader"
-$url = "file:///" + ($page -replace '\\', '/')
+# Escaped, so a space or a # in the path neither splits the argument nor
+# ends the address.
+$url = ([System.Uri]$page).AbsoluteUri
+# A render that fails then leaves no file, where the last banner would pass
+# for this run's.
+Remove-Item -LiteralPath $out -ErrorAction SilentlyContinue
 Start-Process $edge -Wait -ArgumentList @(
     "--headless=new", "--disable-gpu", "--hide-scrollbars",
     "--user-data-dir=`"$profileDir`"",
@@ -16,6 +21,7 @@ Start-Process $edge -Wait -ArgumentList @(
     "--default-background-color=00000000", "--virtual-time-budget=10000",
     "--screenshot=`"$out`"", $url)
 Remove-Item -LiteralPath $profileDir -Recurse -Force -ErrorAction SilentlyContinue
+if (-not (Test-Path -LiteralPath $out)) { throw "Edge wrote no $out" }
 Add-Type -AssemblyName System.Drawing
 $img = [System.Drawing.Image]::FromFile($out)
 Write-Host ("{0}: {1} x {2}, {3} KB" -f $out, $img.Width, $img.Height, [math]::Round((Get-Item $out).Length / 1024))

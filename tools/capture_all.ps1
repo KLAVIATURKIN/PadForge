@@ -198,10 +198,8 @@ public static class UiSettle {
         return (int)sw.ElapsedMilliseconds;
     }
 
-    // A hash of every eighth pixel of the window, in both directions.
-    public static long Hash(IntPtr hwnd) { return HashPart(hwnd, 0, 0, 1, 1); }
-
-    // The same over part of the window, given as fractions of its width and
+    // A hash of every eighth pixel of part of the window, in both
+    // directions. The part is given as fractions of the window's width and
     // height: left, top, width, height.
     public static long HashPart(IntPtr hwnd, double fx, double fy, double fw, double fh) {
         RECT wr;
@@ -7264,7 +7262,7 @@ if ($Only.Count -gt 0) {
 
     # The web controller's pages, then the 5.1.0 recipes, then the
     # colorways: the language shots take the interface out of English and
-    # put it back, and each colorway scene replaces the staged settings.
+    # put it back, and the colorways' scene rewrites the staged settings.
     Capture-AddControllerPopup
     Capture-WebShots
     Capture-UninstallPreviews
@@ -9273,11 +9271,18 @@ if (Scroll-ToAnchor -Anchor "Community Configs") {
 }
 ScrollContent -Clicks 90
 
+# The Add Controller popup, on a scene of its own that the recipe puts back.
+try {
+    Capture-AddControllerPopup
+} catch {
+    $script:StateFailures += "the Add Controller popup failed: $($_.Exception.Message)"
+    Write-Host "  !! the Add Controller popup failed: $($_.Exception.Message)" -ForegroundColor Red
+}
+
 # ---- 23. Web controller pages ----
 # Every page in $script:WebShots, through the recipe the focused pass uses.
 Write-Host "[$(Next)/$total] Web controller pages"
 try {
-    Capture-AddControllerPopup
     Capture-WebShots
 } catch {
     $script:StateFailures += "the web controller pages failed: $($_.Exception.Message)"
@@ -9300,8 +9305,9 @@ try {
 }
 
 # ---- 39. The colorway gallery ----
-# Last of all: each scene replaces the staged settings with a one-slot copy
-# of the owner's, and STEP 4 puts the owner's file back after it.
+# Last of all: its scene rewrites the staged settings, each colorway
+# family's slot on the profile its colorways render, and STEP 4 puts the
+# owner's file back after it.
 Write-Host "[$(Next)/$total] Colorways"
 try {
     Capture-Colorways
@@ -9407,7 +9413,6 @@ Write-Host "=== DONE ===" -ForegroundColor Cyan
 # non-empty list is a run whose output still needs work, and saying so here is
 # the whole point.
 $auditRoot = Split-Path (Split-Path $OutputDir -Parent) -Parent   # padforge.org
-$wikiDir   = Join-Path (Split-Path $OutputDir -Parent) ""
 $mdFiles   = @(Get-ChildItem -Path (Split-Path $OutputDir -Parent) -Filter *.md -Recurse -EA SilentlyContinue)
 $imgFiles  = @(Get-ChildItem -Path $OutputDir -Filter *.png -EA SilentlyContinue)
 

@@ -16,8 +16,11 @@ namespace PadForge.Tests
     /// Each element it put in place of another draws the same pixels as the
     /// element it replaced, rendered side by side here: a ClickBorder in
     /// place of a Border, a GlyphText in place of a TextBlock, the motor test
-    /// area's ClickBorder around the Grid that held its attributes, and the
-    /// Paired PCs list inside a Border that holds its margin, empty or not.
+    /// area's ClickBorder around the Grid that held its attributes, the
+    /// Paired PCs list inside a Border that holds its margin, empty or not,
+    /// the three Button subclasses in place of Buttons, the decorative icons
+    /// in place of wpf-ui's, a DecorativeImage in place of an Image and a
+    /// ContentTabControl in place of a TabControl.
     /// </summary>
     public class AccessibilityLooksTheSameTests
     {
@@ -165,6 +168,147 @@ namespace PadForge.Tests
             }
             SameDrawing(Card(false, Array.Empty<string>()), Card(true, Array.Empty<string>()), 200, 80);
             SameDrawing(Card(false, new[] { "OFFICE-PC", "DEN-LAPTOP" }), Card(true, new[] { "OFFICE-PC", "DEN-LAPTOP" }), 200, 100);
+        });
+
+        // An implicit style keyed by the base type, the way App.xaml keys its
+        // Button style and wpf-ui keys its own, on a host the element sits in.
+        // WPF finds an implicit style by the element's own type, so a subclass
+        // gets this one only through BaseStyle.
+        private static Border Host(Type key, Style implicitStyle, UIElement child)
+        {
+            var host = new Border { Background = Brushes.Black };
+            host.Resources[key] = implicitStyle;
+            host.Child = child;
+            return host;
+        }
+
+        // Built the way XAML builds an element: its properties set between
+        // BeginInit and EndInit, where Initialized fires.
+        private static T Built<T>(T element, Action<T> set) where T : FrameworkElement
+        {
+            element.BeginInit();
+            set(element);
+            element.EndInit();
+            return element;
+        }
+
+        private static Style TileStyle(Color fill)
+        {
+            var style = new Style(typeof(Button));
+            style.Setters.Add(new Setter(Control.BackgroundProperty, new SolidColorBrush(fill)));
+            style.Setters.Add(new Setter(Control.ForegroundProperty, Brushes.White));
+            style.Setters.Add(new Setter(Control.BorderBrushProperty, new SolidColorBrush(Color.FromRgb(0xFF, 0x6B, 0x2C))));
+            style.Setters.Add(new Setter(Control.BorderThicknessProperty, new Thickness(2)));
+            style.Setters.Add(new Setter(Control.PaddingProperty, new Thickness(10, 4, 10, 4)));
+            var chrome = new FrameworkElementFactory(typeof(Border));
+            foreach (var (to, from) in new[]
+            {
+                (Border.BackgroundProperty, Control.BackgroundProperty),
+                (Border.BorderBrushProperty, Control.BorderBrushProperty),
+                (Border.BorderThicknessProperty, Control.BorderThicknessProperty),
+                (Border.PaddingProperty, Control.PaddingProperty),
+            })
+                chrome.SetBinding(to, new System.Windows.Data.Binding { RelativeSource = System.Windows.Data.RelativeSource.TemplatedParent, Path = new PropertyPath(from) });
+            chrome.SetValue(Border.CornerRadiusProperty, new CornerRadius(6));
+            chrome.AppendChild(new FrameworkElementFactory(typeof(ContentPresenter)));
+            style.Setters.Add(new Setter(Control.TemplateProperty, new ControlTemplate(typeof(Button)) { VisualTree = chrome }));
+            return style;
+        }
+
+        [Fact]
+        public void TheButtonSubclasses_TakeTheButtonStyle_WhenNothingElseStylesThem() => RunSta(() =>
+        {
+            // The sidebar's power flame and Add Controller entries set no
+            // style of their own, as the plain Buttons before them did not.
+            var buttonStyle = TileStyle(Color.FromRgb(0x1B, 0x23, 0x33));
+            Button Tile(Button b) => Built(b, x => x.Content = Label("Nintendo"));
+            Border Reference() => Host(typeof(Button), buttonStyle, Tile(new Button()));
+            SameDrawing(Reference(), Host(typeof(Button), buttonStyle, Tile(new SegmentButton { IsSelected = true })));
+            SameDrawing(Reference(), Host(typeof(Button), buttonStyle, Tile(new StateToggleButton { IsOn = true })));
+            SameDrawing(Reference(), Host(typeof(Button), buttonStyle, Tile(new AvailabilityButton { IsAvailable = false })));
+        });
+
+        [Fact]
+        public void TheButtonSubclasses_KeepTheStyleTheyAreGiven() => RunSta(() =>
+        {
+            var buttonStyle = TileStyle(Color.FromRgb(0x1B, 0x23, 0x33));
+            var own = TileStyle(Color.FromRgb(0x2E, 0x6A, 0x8F));
+            Button Tile(Button b) => Built(b, x => { x.Style = own; x.Content = Label("Xbox"); });
+            Border Reference() => Host(typeof(Button), buttonStyle, Tile(new Button()));
+            SameDrawing(Reference(), Host(typeof(Button), buttonStyle, Tile(new SegmentButton())));
+            SameDrawing(Reference(), Host(typeof(Button), buttonStyle, Tile(new StateToggleButton())));
+            SameDrawing(Reference(), Host(typeof(Button), buttonStyle, Tile(new AvailabilityButton())));
+        });
+
+        [Fact]
+        public void TheButtonSubclasses_KeepTheStyleTheirTemplateSets() => RunSta(() =>
+        {
+            // A style the DataTemplate sets, as the Dashboard slot card sets
+            // its type tiles'. The first build of the change replaced it
+            // with the Button style, and the tiles lost their look.
+            var buttonStyle = TileStyle(Color.FromRgb(0x1B, 0x23, 0x33));
+            ContentPresenter FromTemplate(string element)
+            {
+                string xaml =
+                    "<DataTemplate xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation' "
+                    + "xmlns:c='clr-namespace:PadForge.Controls;assembly=" + typeof(SegmentButton).Assembly.GetName().Name + "'>"
+                    + "<" + element + " Content='PS'><Button.Style><Style TargetType='Button'>"
+                    + "<Setter Property='Background' Value='#2E6A8F'/><Setter Property='Foreground' Value='White'/>"
+                    + "<Setter Property='Template'><Setter.Value><ControlTemplate TargetType='Button'>"
+                    + "<Border Background='{TemplateBinding Background}' Padding='8,3'><ContentPresenter/></Border>"
+                    + "</ControlTemplate></Setter.Value></Setter></Style></Button.Style></" + element + "></DataTemplate>";
+                var template = (DataTemplate)System.Windows.Markup.XamlReader.Parse(xaml);
+                return new ContentPresenter { Content = new object(), ContentTemplate = template };
+            }
+            SameDrawing(Host(typeof(Button), buttonStyle, FromTemplate("Button")),
+                        Host(typeof(Button), buttonStyle, FromTemplate("c:SegmentButton")));
+            SameDrawing(Host(typeof(Button), buttonStyle, FromTemplate("Button")),
+                        Host(typeof(Button), buttonStyle, FromTemplate("c:StateToggleButton")));
+        });
+
+        [Fact]
+        public void TheDecorativeIconsImageAndTabControl_TakeTheirBaseStyles() => RunSta(() =>
+        {
+            Style IconStyle(Type type)
+            {
+                var style = new Style(type);
+                style.Setters.Add(new Setter(Wpf.Ui.Controls.FontIcon.FontSizeProperty, 20.0));
+                style.Setters.Add(new Setter(Wpf.Ui.Controls.IconElement.ForegroundProperty, Brushes.White));
+                return style;
+            }
+            Wpf.Ui.Controls.FontIcon Glyph(Wpf.Ui.Controls.FontIcon icon) =>
+                Built(icon, x => { x.Glyph = ""; x.FontFamily = new FontFamily("Segoe MDL2 Assets"); });
+            SameDrawing(Host(typeof(Wpf.Ui.Controls.FontIcon), IconStyle(typeof(Wpf.Ui.Controls.FontIcon)), Glyph(new Wpf.Ui.Controls.FontIcon())),
+                        Host(typeof(Wpf.Ui.Controls.FontIcon), IconStyle(typeof(Wpf.Ui.Controls.FontIcon)), Glyph(new DecorativeFontIcon())), 40, 40);
+
+            // SymbolIcon reads its font from the FluentSystemIcons resource
+            // wpf-ui's dictionaries hold. Any font stands in for it here: the
+            // two draw whatever it draws for the symbol.
+            Border SymbolHost(Wpf.Ui.Controls.SymbolIcon icon)
+            {
+                var host = Host(typeof(Wpf.Ui.Controls.SymbolIcon), IconStyle(typeof(Wpf.Ui.Controls.SymbolIcon)),
+                    Built(icon, x => x.Symbol = Wpf.Ui.Controls.SymbolRegular.Home24));
+                host.Resources["FluentSystemIcons"] = new FontFamily("Segoe UI");
+                return host;
+            }
+            SameDrawing(SymbolHost(new Wpf.Ui.Controls.SymbolIcon()), SymbolHost(new DecorativeSymbolIcon()), 40, 40);
+
+            var imageStyle = new Style(typeof(Image));
+            imageStyle.Setters.Add(new Setter(UIElement.OpacityProperty, 0.6));
+            var picture = new DrawingImage(new GeometryDrawing(new SolidColorBrush(Color.FromRgb(0xFF, 0x6B, 0x2C)), null,
+                new EllipseGeometry(new Point(12, 12), 10, 6)));
+            Image Picture(Image image) => Built(image, x => { x.Source = picture; x.Width = 24; x.Height = 24; });
+            SameDrawing(Host(typeof(Image), imageStyle, Picture(new Image())), Host(typeof(Image), imageStyle, Picture(new DecorativeImage())), 40, 40);
+
+            var tabStyle = new Style(typeof(TabControl));
+            tabStyle.Setters.Add(new Setter(Control.BackgroundProperty, new SolidColorBrush(Color.FromRgb(0x1B, 0x23, 0x33))));
+            TabControl Tabs(TabControl tabs) => Built(tabs, x =>
+            {
+                x.Items.Add(new TabItem { Header = "Preview", Content = Label("Preview") });
+                x.Items.Add(new TabItem { Header = "Mappings", Content = Label("Mappings") });
+                x.SelectedIndex = 0;
+            });
+            SameDrawing(Host(typeof(TabControl), tabStyle, Tabs(new TabControl())), Host(typeof(TabControl), tabStyle, Tabs(new ContentTabControl())), 200, 80);
         });
 
         [Fact]
