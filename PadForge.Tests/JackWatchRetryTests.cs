@@ -25,7 +25,7 @@ public sealed class JackWatchRetryTests(ITestOutputHelper output)
         object Watch(Guid id){lock(gate)return watches[id];}
         object Start(Guid id)
         {
-            ensure.Invoke(null,[id,path,bluetooth]);var watch=Watch(id);
+            ensure.Invoke(null,[id,path,bluetooth,false]);var watch=Watch(id);
             if(watch!=null&&!seen.Contains(watch))seen.Add(watch);return watch;
         }
         bool Failed(object watch)=>(bool)watch.GetType().GetField("OpenFailed")!.GetValue(watch);

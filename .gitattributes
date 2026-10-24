@@ -16,3 +16,7 @@ PadForge.App/Resources/BthPS3/BthPS3PSM/*.inf -text
 # A shell script checked out with CRLF does not run: bash reads the carriage
 # return as part of each command. Pin LF whatever core.autocrlf says.
 *.sh text eol=lf
+
+# SBC test vectors and their decoded PCM are raw bytes. Any CR or LF in
+# them is data, so git never converts them.
+PadForge.Tests/TestData/Sbc/* binary

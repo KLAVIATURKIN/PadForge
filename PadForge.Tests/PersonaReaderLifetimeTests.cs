@@ -16,6 +16,11 @@ public sealed class PersonaReaderLifetimeTests(ITestOutputHelper output)
     const BindingFlags Private = BindingFlags.Instance | BindingFlags.NonPublic;
     [DllImport("kernel32.dll", SetLastError = true)] static extern uint GetFileType(IntPtr handle);
 
+    // StartBtMic gained an optional DualShock 4 flag (#528). Reflection does
+    // not fill optional parameters, so the lanes' shared call does.
+    static object[] WithDefaults(MethodInfo method, params object[] given)
+        => method.GetParameters().Select((p, i) => i < given.Length ? given[i] : p.DefaultValue).ToArray();
+
     [Theory]
     [InlineData(false, false)]
     [InlineData(false, true)]
@@ -66,7 +71,7 @@ public sealed class PersonaReaderLifetimeTests(ITestOutputHelper output)
                     if (!release.Wait(5000)) throw new TimeoutException();
                 }
             };
-            start.Invoke(null, [feed, oldPad, @"\\.\pipe\" + name, 1]);
+            start.Invoke(null, WithDefaults(start, feed, oldPad, @"\\.\pipe\" + name, 1));
             await connected.WaitAsync(TimeSpan.FromSeconds(5));
             reader = (Thread)feed.GetType().GetField(lane + "Thread")!.GetValue(feed)!;
             await server.WriteAsync(packet);
@@ -85,7 +90,7 @@ public sealed class PersonaReaderLifetimeTests(ITestOutputHelper output)
             bool unpublished = (IntPtr)feed.GetType().GetField(lane + "Handle")!.GetValue(feed)! == IntPtr.Zero;
             bool retained = GetFileType(handle) == 3;
             holdOpen = true;
-            start.Invoke(null, [feed, newPad, @"\\.\pipe\missing-" + name, 1]);
+            start.Invoke(null, WithDefaults(start, feed, newPad, @"\\.\pipe\missing-" + name, 1));
             Assert.True(opening.Wait(2000));
             replacement = (Thread)feed.GetType().GetField(lane + "Thread")!.GetValue(feed)!;
             AudioPassthroughService.NoteHeadphoneJack(newPad, true);

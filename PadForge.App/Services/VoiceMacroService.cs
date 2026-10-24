@@ -309,10 +309,16 @@ namespace PadForge.Services
         /// the phrases; on the full persona profile the persona's headset
         /// mic endpoint does. Phrases live wherever the microphone
         /// surfaces, and only when it surfaces NOWHERE does the pad itself
-        /// carry them.</summary>
+        /// carry them.
+        ///
+        /// <para>A DualShock 4 (0x05C4, 0x09CC) over Bluetooth counts too
+        /// once its headset microphone lane is enabled (#528): its
+        /// microphone is the headset plugged into its jack, read from its
+        /// input reports.</para></summary>
         internal static bool IsPadWithEmbeddedMic(PadForge.Engine.Data.UserDevice ud)
             => ud.VendorId == 0x054C
-               && (ud.ProdId == 0x0CE6 || ud.ProdId == 0x0DF2)
+               && (ud.ProdId == 0x0CE6 || ud.ProdId == 0x0DF2
+                   || (AudioPassthroughService.EnableDs4BtMic && (ud.ProdId == 0x05C4 || ud.ProdId == 0x09CC)))
                && PadForge.Common.DeviceTransport.IsBluetooth(ud.DevicePath, ud.VendorId, ud.ProdId)
                // On the full profile the persona decodes this pad's mic
                // into a real capture endpoint (a DIFFERENT container, the

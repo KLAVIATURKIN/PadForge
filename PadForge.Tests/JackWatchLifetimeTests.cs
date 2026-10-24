@@ -33,7 +33,7 @@ public sealed class JackWatchLifetimeTests(ITestOutputHelper output)
                 if (pad != id) return; if (!before && count > 0) Interlocked.Increment(ref rawReads);
                 if (before == !afterRead && Interlocked.Increment(ref boundaries) == 2) { paused.Set(); if (!release.Wait(5000)) throw new TimeoutException(); }
             };
-            type.GetMethod("EnsureJackWatch", Static)!.Invoke(null, [id, @"\\.\pipe\" + name, false]);
+            type.GetMethod("EnsureJackWatch", Static)!.Invoke(null, [id, @"\\.\pipe\" + name, false, false]);
             await connection.WaitAsync(TimeSpan.FromSeconds(5));
             lock (gate) watch = watches[id]; reader = (Thread)watch.GetType().GetField("Thread")!.GetValue(watch);
             var report = new byte[78]; report[0] = 1; report[54] = 1;

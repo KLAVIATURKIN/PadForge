@@ -125,7 +125,8 @@ namespace PadForge.Tests
             // The sink-owned loop notes the bit without touching a feed.
             int at = src.IndexOf("private static void JackWatchLoop", StringComparison.Ordinal);
             Assert.True(at > 0, "the sink-owned jack loop moved");
-            string body = src.Substring(at, Math.Min(3000, src.Length - at));
+            // 4000: the loop gained the Bluetooth DualShock 4 shape (#528).
+            string body = src.Substring(at, Math.Min(4000, src.Length - at));
             Assert.Contains("NoteHeadphoneJack(pad", body);
             Assert.DoesNotContain("feed.", body);
         }
@@ -154,11 +155,15 @@ namespace PadForge.Tests
         {
             string body = Audio();
             int at = body.IndexOf("private static void JackWatchLoop", StringComparison.Ordinal);
-            string loop = body.Substring(at, Math.Min(3000, body.Length - at));
+            string loop = body.Substring(at, Math.Min(4000, body.Length - at));
             Assert.Contains("0x31", loop);   // BT state report id
             Assert.Contains("0x01", loop);   // USB input report id
             Assert.Contains("55", loop);     // BT status byte
             Assert.Contains("54", loop);     // USB status byte
+            // A Bluetooth DualShock 4 (#528): its own reports, its own byte
+            // (raw 32, bit 5), read through the CRC-checked status parser.
+            Assert.Contains("Ds4BtAudio.TryReadStatus", loop);
+            Assert.Contains("Ds4BtAudio.StatusHeadphones", loop);
         }
 
         /// <summary>A sink coming alive nudges the dispatcher, the twin of the

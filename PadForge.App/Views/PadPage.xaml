@@ -12450,12 +12450,13 @@
                                     <ui:Button Command="{Binding ResetSoundMasterVolumeCommand}" Style="{StaticResource ResetButton}"
                                             ToolTip="{Binding Pad_Audio_Reset_MasterVolume, Source={x:Static strings:Strings.Instance}}"/>
                                 </StackPanel>
-                                <!-- Headphone jack hardware volume (DualSense / Edge only:
-                                     DS4 declares split L/R bytes and is not wired). Sits
-                                     directly under Master Volume as its hardware sibling.
-                                     The value is written into the pad's firmware register,
-                                     so it holds with no app in the loop. HeadphoneVolumeUp/
-                                     Down macro actions step this same setting. -->
+                                <!-- Headphone jack hardware volume (DualSense / Edge, and a
+                                     DualShock 4 over Bluetooth, which writes the same level
+                                     into its split L/R bytes, #528). Sits directly under
+                                     Master Volume as its hardware sibling. The value is
+                                     written into the pad's firmware register, so it holds
+                                     with no app in the loop. HeadphoneVolumeUp/Down macro
+                                     actions step this same setting. -->
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8"
                                             Visibility="{Binding SelectedDeviceHasHeadphoneJack, Converter={StaticResource BoolToVisibilityConverter}}">
                                     <TextBlock Text="{Binding Pad_Audio_HeadphoneVolume, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource DzLabel}"
@@ -12497,7 +12498,11 @@
                                      values 1-4 map to firmware paths 0-3; Automatic writes
                                      nothing and keeps the #83 macro-speaker behavior. An
                                      explicit choice here OWNS the byte: the macro-speaker
-                                     block yields its path half and keeps volume only. -->
+                                     block yields its path half and keeps volume only.
+                                     A DualShock 4 over Bluetooth takes the same list (#528):
+                                     its stream targets the speaker or the headphone jack, so
+                                     Headphones + Speaker collapses for it, and the collapsed
+                                     item keeps its index so the stored enum keeps its meaning. -->
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8"
                                             Visibility="{Binding SelectedDeviceHasHeadphoneJack, Converter={StaticResource BoolToVisibilityConverter}}">
                                     <TextBlock Text="{Binding Pad_Audio_OutputPath, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource DzLabel}"/>
@@ -12507,7 +12512,8 @@
                                         <ComboBoxItem Content="{Binding Pad_Audio_OutputPath_Auto, Source={x:Static strings:Strings.Instance}}"/>
                                         <ComboBoxItem Content="{Binding Pad_Audio_OutputPath_Stereo, Source={x:Static strings:Strings.Instance}}"/>
                                         <ComboBoxItem Content="{Binding Pad_Audio_OutputPath_Mono, Source={x:Static strings:Strings.Instance}}"/>
-                                        <ComboBoxItem Content="{Binding Pad_Audio_OutputPath_Both, Source={x:Static strings:Strings.Instance}}"/>
+                                        <ComboBoxItem Content="{Binding Pad_Audio_OutputPath_Both, Source={x:Static strings:Strings.Instance}}"
+                                                      Visibility="{Binding SelectedDeviceHasHeadsetAndSpeakerPath, Converter={StaticResource BoolToVisibilityConverter}}"/>
                                         <ComboBoxItem Content="{Binding Pad_Audio_OutputPath_SpeakerOnly, Source={x:Static strings:Strings.Instance}}"/>
                                         <ComboBoxItem Content="{Binding Pad_Audio_OutputPath_FollowJack, Source={x:Static strings:Strings.Instance}}"/>
                                     </ComboBox>

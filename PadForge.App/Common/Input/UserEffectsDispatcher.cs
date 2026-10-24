@@ -322,6 +322,11 @@ namespace PadForge.Common.Input
         // as the headphone volume (duaLib.cpp:597).
         private readonly Dictionary<Guid, int> _prevAudioOutputPath = new();
 
+        // Whether each Bluetooth DualShock 4's headset microphone was armed
+        // at its last packet (#528). Arming asserts the microphone gain
+        // once, the same change gating as the headphone volume.
+        private readonly Dictionary<Guid, bool> _prevDs4MicArmed = new();
+
         // Devices seen offline since their last dispatch, so the return
         // re-arms every change-gated authority write (the duaLib
         // wasDisconnected pattern). Accessed only inside devices.SyncRoot
@@ -559,6 +564,7 @@ namespace PadForge.Common.Input
                     _audioMuteBurstLeft.Remove(g);
                     _prevHeadphoneVolume.Remove(g);
                     _prevAudioOutputPath.Remove(g);
+                    _prevDs4MicArmed.Remove(g);
                 }
                 // A new assignment starts with no external lighting claim.
                 // Keep the established devices-before-external lock order.
@@ -1340,7 +1346,10 @@ namespace PadForge.Common.Input
             }
             else if (ConfigNeedsTimer(_config)) return true;
             return !_failedDeliveries.IsEmpty || _slotNeedsRumbleTimer
-                || AudioPassthroughService.SlotWantsSpeakerPath(_padIndex);
+                || AudioPassthroughService.SlotWantsSpeakerPath(_padIndex)
+                // An armed DualShock 4 microphone lapses after about four
+                // seconds without a 0xA1 effects report (#528).
+                || AudioPassthroughService.SlotHasArmedDs4Mic(_padIndex);
         }
 
         private void UpdateAnimTimer()
@@ -1492,7 +1501,10 @@ namespace PadForge.Common.Input
             }
 
             bool outputNeedsDispatch = !_failedDeliveries.IsEmpty || _slotNeedsRumbleTimer
-                || AudioPassthroughService.SlotWantsSpeakerPath(_padIndex);
+                || AudioPassthroughService.SlotWantsSpeakerPath(_padIndex)
+                // An armed DualShock 4 microphone lapses after about four
+                // seconds without a 0xA1 effects report (#528).
+                || AudioPassthroughService.SlotHasArmedDs4Mic(_padIndex);
 
             // If no device wants an animated mode, no Reactive override,
             // no input-reactive overlay, and no output work to push,
@@ -2032,6 +2044,7 @@ namespace PadForge.Common.Input
                         _audioMuteBurstLeft[ud.InstanceGuid] = AudioMuteBurstFrames;
                         _prevHeadphoneVolume.Remove(ud.InstanceGuid);
                         _prevAudioOutputPath.Remove(ud.InstanceGuid);
+                        _prevDs4MicArmed.Remove(ud.InstanceGuid);
                         // A BT re-pair also puts the LEDs back under firmware
                         // control, so the connect release is owed again.
                         if (isDs5 && PlayStationEffectWriter.IsBluetoothPath(ud.DevicePath))
@@ -2225,6 +2238,7 @@ namespace PadForge.Common.Input
                         // Force one headphone-volume write on a fresh claim.
                         _prevHeadphoneVolume.Remove(ud.InstanceGuid);
                         _prevAudioOutputPath.Remove(ud.InstanceGuid);
+                        _prevDs4MicArmed.Remove(ud.InstanceGuid);
                     }
 
                     // Identity precedence: a pad shared across virtual
@@ -2534,6 +2548,23 @@ namespace PadForge.Common.Input
                         || prevPath != pathVal;
                     _prevAudioOutputPath[ud.InstanceGuid] = pathVal;
                     bool assertAudioCtl = pathVal > 0 && (assertAudioMute || pathChanged);
+
+                    // DualShock 4 on Bluetooth (#528). Byte 2 is 0xA1 while its
+                    // headset microphone is armed and 0xA0 otherwise, and the
+                    // microphone gain is asserted when arming starts. Its route
+                    // lives in the audio stream's target byte, so this packet
+                    // carries the route's volumes instead (the jack routes mute
+                    // the speaker, Speaker Only mutes the jack), asserted on the
+                    // DualSense rule: the claim burst, a level change, a route
+                    // change. Wired, the pad has no audio, and Sony's USB adapter
+                    // keeps its own.
+                    bool ds4Bt = !isDs5 && isBluetooth;
+                    var (ds4Headphone, ds4Speaker) = Ds4BtAudio.VolumesFor(pathVal, hpVol);
+                    bool assertDs4Volumes = ds4Bt && (assertAudioMute || hpChanged || pathChanged);
+                    bool ds4MicArmed = ds4Bt && AudioPassthroughService.IsDs4MicArmed(ud.InstanceGuid);
+                    bool ds4MicWasArmed = _prevDs4MicArmed.TryGetValue(ud.InstanceGuid, out var dma) && dma;
+                    _prevDs4MicArmed[ud.InstanceGuid] = ds4MicArmed;
+                    bool assertDs4Mic = ds4MicArmed && (!ds4MicWasArmed || assertAudioMute);
                     // Track whether THIS tick wrote a trigger effect for
                     // either source — PadForge cfg OR a dispatcher-injected
                     // override (external mirror, impulse-trigger → AT
@@ -2610,7 +2641,10 @@ namespace PadForge.Common.Input
                                 devCfg, devPeak, nowMs,
                                 _randomColor, devPulseColor, devPulseIntensity,
                                 rR, rL, assertRumbleEnable, devOverrides, pctByte,
-                                devPlayerNumber);
+                                devPlayerNumber,
+                                ds4Headphone, ds4Speaker, assertDs4Volumes,
+                                ds4MicArmed ? Ds4BtAudio.ModeMicrophone : Ds4BtAudio.ModeSpeaker,
+                                assertDs4Mic);
 
                         // Macro-sound speaker routing (issue #83). The DualSense
                         // firmware sends its USB program audio to the headphone

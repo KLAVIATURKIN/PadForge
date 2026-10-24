@@ -18,9 +18,12 @@ namespace PadForge.Common.Input
     /// at compile-time-known offsets, plus a separate hand-rolled CRC32
     /// for the BT envelope. Now: one dictionary, the SDK does the rest.</para>
     ///
-    /// <para>DS4 is much simpler than DualSense — no adaptive triggers,
-    /// no player-indicator row, no mic LED, no audio output. Two output
-    /// report shapes (both expressed via a single dictionary):</para>
+    /// <para>DS4 is much simpler than DualSense. It has no adaptive
+    /// triggers, no player-indicator row and no mic LED. Its Bluetooth audio rides the
+    /// audio lane's own reports, and this packet carries the audio mode in
+    /// byte 2 plus the headphone and microphone levels when they change
+    /// (#528). Two output report shapes (both expressed via a single
+    /// dictionary):</para>
     ///
     /// <list type="bullet">
     /// <item><b>USB Report 0x05</b> — 32 bytes. Encoder consumes
@@ -63,18 +66,21 @@ namespace PadForge.Common.Input
     {
         // Validity flags: rumble (bit 0), lightbar RGB (bit 1) and lightbar
         // flash (bit 2). Bits 4 to 7 enable the headphone, mic and speaker
-        // volume bytes, which this packet never supplies, so asserting them
-        // wrote volume 0 over the pad's own levels. SDL, Linux
-        // hid-playstation, DS4Windows, OpenRGB and RPCS3 all send 0x07.
+        // volume bytes. They stay clear unless a level changes, because an
+        // asserted bit with no value behind it wrote volume 0 over the pad's
+        // own levels. SDL, Linux hid-playstation, DS4Windows, OpenRGB and
+        // RPCS3 all send 0x07 for effects alone.
         private const byte ValidFlagsAll = 0x07;
 
-        // BT framing header bytes — placed at byte 1 (btTag) and byte 2
+        // BT framing header bytes, placed at byte 1 (btTag) and byte 2
         // (btReserved) of Report 0x11 by the encoder when the BT profile
         // is selected. ds4drv's reference implementation uses 0xC0 / 0xA0;
-        // OpenRGB matches. The USB profile encoder ignores these fields
-        // because they aren't declared in the USB spec.
+        // OpenRGB matches. Byte 2 is also the audio mode (#528): 0xA0
+        // keeps ordinary input, 0xA1 adds the headset microphone, per the
+        // hbashton DS4Windows fork's hardware sweeps. The USB profile
+        // encoder ignores these fields because they aren't declared in the
+        // USB spec.
         private const byte BtFramingTag      = 0xC0;
-        private const byte BtFramingReserved = 0xA0;
 
         /// <summary>Builds the parsed-field dictionary for one DualShock 4
         /// effect packet. Pass to <c>HMOutputEncoder.Encode</c> with either
@@ -93,7 +99,12 @@ namespace PadForge.Common.Input
             bool assertRumbleEnable = true,
             UserEffectsDispatcher.ExternalSubsystemOverrides overrides = default,
             byte batteryPercent = 100,
-            int playerNumber = 0)
+            int playerNumber = 0,
+            byte headphoneVolume = Ds4BtAudio.VolumeMax,
+            byte speakerVolume = Ds4BtAudio.VolumeMax,
+            bool assertVolumes = false,
+            byte audioMode = Ds4BtAudio.ModeSpeaker,
+            bool assertMicGain = false)
         {
             // Per-subsystem mirroring: when a host has recently written
             // rumble or lightbar to our virtual, mirror their bytes
@@ -131,12 +142,23 @@ namespace PadForge.Common.Input
                 ? ValidFlagsAll
                 : (byte)(ValidFlagsAll & ~0x01);
 
-            // No user-configurable flash for now — leave on/off zeroed so
+            // The route's volumes (#528, Ds4BtAudio.VolumesFor): the jack's
+            // Headphone Volume and the speaker, each muted on the other's
+            // routes. Enabled only when the level or the route changed or the
+            // audio claim burst runs, the DualSense rule. The microphone gain
+            // goes out once when the headset microphone arms.
+            if (assertVolumes)
+                validFlag0 |= Ds4BtAudio.FlagHeadphoneLeft | Ds4BtAudio.FlagHeadphoneRight
+                            | Ds4BtAudio.FlagSpeaker;
+            if (assertMicGain)
+                validFlag0 |= Ds4BtAudio.FlagMicrophone;
+
+            // No user-configurable flash for now. Leave on/off zeroed so
             // the firmware holds the chosen color without blinking.
             return new Dictionary<string, object>
             {
                 { "btTag",       BtFramingTag      },  // BT only
-                { "btReserved",  BtFramingReserved },  // BT only
+                { "btReserved",  audioMode         },  // BT only
                 { "validFlag0",  validFlag0        },
                 { "validFlag1",  (byte)0           },
                 { "rightMotor",  effectiveRumbleR  },
@@ -144,6 +166,10 @@ namespace PadForge.Common.Input
                 { "lightbar",    new byte[] { r, g, bRgb } },
                 { "flashOn",     (byte)0           },
                 { "flashOff",    (byte)0           },
+                { "headphoneVolumeLeft",  headphoneVolume },
+                { "headphoneVolumeRight", headphoneVolume },
+                { "micVolume",   Ds4BtAudio.MicGainMax },
+                { "speakerVolume", speakerVolume },
             };
         }
 

@@ -36,6 +36,7 @@
   <ItemGroup>
     <Using Include="Xunit" />
     <None Update="TestData\GyroTiltReference.csv" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="TestData\Sbc\*" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <!-- MSBuild copies a referenced project's satellite assemblies only for the

@@ -1565,6 +1565,7 @@ namespace PadForge.ViewModels
                     OnPropertyChanged(nameof(SelectedDeviceHasSpeaker));
                     OnPropertyChanged(nameof(SelectedDeviceHasDspChain));
                     OnPropertyChanged(nameof(SelectedDeviceHasHeadphoneJack));
+                    OnPropertyChanged(nameof(SelectedDeviceHasHeadsetAndSpeakerPath));
                     OnPropertyChanged(nameof(SelectedDeviceHasDs5AudioBuffer));
                     OnPropertyChanged(nameof(SelectedDeviceHasNoSpeaker));
                     OnPropertyChanged(nameof(SelectedDeviceHasHapticTones));
@@ -1642,6 +1643,7 @@ namespace PadForge.ViewModels
             OnPropertyChanged(nameof(SelectedDeviceHasSpeaker));
             OnPropertyChanged(nameof(SelectedDeviceHasDspChain));
             OnPropertyChanged(nameof(SelectedDeviceHasHeadphoneJack));
+            OnPropertyChanged(nameof(SelectedDeviceHasHeadsetAndSpeakerPath));
             OnPropertyChanged(nameof(SelectedDeviceHasDs5AudioBuffer));
             OnPropertyChanged(nameof(SelectedDeviceHasNoSpeaker));
             OnPropertyChanged(nameof(SelectedDeviceHasHapticTones));
@@ -6092,9 +6094,12 @@ namespace PadForge.ViewModels
         // ═══════════════════════════════════════════════
 
         /// <summary>True when the SELECTED assigned device has a 3.5 mm
-        /// headset jack PadForge can drive the hardware volume of:
-        /// DualSense (0x0CE6) and DualSense Edge (0x0DF2). DS4 declares
-        /// split headphoneVolumeLeft/Right bytes and is not wired yet.</summary>
+        /// headset jack PadForge can drive the hardware volume and route of:
+        /// DualSense (0x0CE6) and DualSense Edge (0x0DF2), and a DualShock 4
+        /// (0x05C4, 0x09CC) over Bluetooth, which writes its split left and
+        /// right headphone bytes from the same Headphone Volume (#528). A
+        /// wired DualShock 4 has no audio, and Sony's USB adapter keeps its
+        /// own Windows endpoint.</summary>
         public bool SelectedDeviceHasHeadphoneJack
         {
             get
@@ -6103,7 +6108,28 @@ namespace PadForge.ViewModels
                 if (sel == null || sel.InstanceGuid == Guid.Empty) return false;
                 var ud = PadForge.Common.Input.SettingsManager.FindDeviceByInstanceGuid(sel.InstanceGuid);
                 if (ud == null) return false;
-                return ud.VendorId == 0x054C
+                if (ud.VendorId == 0x054C
+                    && ((ushort)ud.ProdId == 0x0CE6 || (ushort)ud.ProdId == 0x0DF2))
+                    return true;
+                return PadForge.Common.Input.AudioPassthroughService.IsBluetoothDs4(
+                    (ushort)ud.VendorId, (ushort)ud.ProdId, ud.DevicePath);
+            }
+        }
+
+        /// <summary>The selected device has a route that plays the headphones
+        /// and the speaker together, Output Path's "Headphones + Speaker".
+        /// The DualSense family does. The DualShock 4 plays one or the other
+        /// (target 0x02 or 0x24 in its stream), so the item is hidden for it
+        /// and its index stays in place, which keeps the stored enum's
+        /// meaning (#528).</summary>
+        public bool SelectedDeviceHasHeadsetAndSpeakerPath
+        {
+            get
+            {
+                var sel = SelectedMappedDevice;
+                if (sel == null || sel.InstanceGuid == Guid.Empty) return false;
+                var ud = PadForge.Common.Input.SettingsManager.FindDeviceByInstanceGuid(sel.InstanceGuid);
+                return ud != null && ud.VendorId == 0x054C
                     && ((ushort)ud.ProdId == 0x0CE6 || (ushort)ud.ProdId == 0x0DF2);
             }
         }
@@ -6149,7 +6175,7 @@ namespace PadForge.ViewModels
                 if (ud.VendorId != 0x054C) return false;
                 // DS5 family: audio on both transports. DS4: audio is
                 // Bluetooth-only (wired DS4 exposes no USB audio interface);
-                // Sony's USB wireless adaptor (0x0BA0) tunnels the radio link
+                // Sony's USB wireless adapter (0x0BA0) tunnels the radio link
                 // and provides real USB audio endpoints.
                 if (ud.ProdId is 0x0CE6 or 0x0DF2 or 0x0BA0) return true;
                 if (ud.ProdId is 0x05C4 or 0x09CC)
@@ -7954,6 +7980,7 @@ namespace PadForge.ViewModels
                     OnPropertyChanged(nameof(SelectedDeviceHasSpeaker));
                     OnPropertyChanged(nameof(SelectedDeviceHasDspChain));
                     OnPropertyChanged(nameof(SelectedDeviceHasHeadphoneJack));
+                    OnPropertyChanged(nameof(SelectedDeviceHasHeadsetAndSpeakerPath));
                     OnPropertyChanged(nameof(SelectedDeviceHasDs5AudioBuffer));
                     OnPropertyChanged(nameof(SelectedDeviceHasNoSpeaker));
                     OnPropertyChanged(nameof(SelectedDeviceHasHapticTones));

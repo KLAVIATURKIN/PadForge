@@ -796,6 +796,12 @@ namespace PadForge.Services
             => ResolveDeviceAudioConfig(slot, deviceGuid)?.Ds5AudioBufferLength
                ?? AudioPassthroughService.Ds5AudioBufferLengthDefault;
 
+        /// <summary>The device's Headphone Volume for the DualShock 4 arm
+        /// report (#528). With no config it is 100, the level that report
+        /// always carried.</summary>
+        internal int ResolveDeviceHeadphoneVolume(int slot, Guid deviceGuid)
+            => ResolveDeviceAudioConfig(slot, deviceGuid)?.HeadphoneVolume ?? 100;
+
         /// <summary>
         /// Creates the InputManager, subscribes to events, starts the engine
         /// and the UI update timer.
@@ -1286,6 +1292,7 @@ namespace PadForge.Services
             // Reads stay free of settings locks on the render thread.
             AudioPassthroughService.DeviceAudioOutputPathProvider = ResolveDeviceAudioOutputPath;
             AudioPassthroughService.DeviceAudioBufferLengthProvider = ResolveDeviceAudioBufferLength;
+            AudioPassthroughService.DeviceHeadphoneVolumeProvider = ResolveDeviceHeadphoneVolume;
 
             AudioPassthroughService.SlotWantsMacroAudioProvider = slot =>
             {

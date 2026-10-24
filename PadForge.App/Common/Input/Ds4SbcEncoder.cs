@@ -41,7 +41,8 @@ namespace PadForge.Common.Input
         // A2DP spec B.8 Table 8.24 "Proto_8_80", read row-wise. The table
         // lists rows alternating sign on the 4th/8th/... row groups exactly
         // as printed; values are the prototype filter hp[n], n = 0..79.
-        private static readonly double[] Proto880 =
+        // SbcDecoder windows its synthesis with the same printed table.
+        internal static readonly double[] Proto880 =
         {
             0.00000000E+00,  1.56575398E-04,  3.43256425E-04,  5.54620202E-04,
             8.23919506E-04,  1.13992507E-03,  1.47640169E-03,  1.78371725E-03,
