@@ -17,11 +17,11 @@ namespace PadForge
         /// card sends a user with no SDK (issue #521).</summary>
         internal const string FalconSdkDownloadUrl = "https://www.forcedimension.com/software/sdk";
 
-        /// <summary>The Novint Falcon card's buttons and the pad page's
-        /// Calibrate (issue #521), the Keyboard Screens card's shape: a
-        /// dhd64.dll the user has, Force Dimension's driver for a Falcon
-        /// with none, the SDK's download page, and a reach sweep on the
-        /// selected Falcon.</summary>
+        /// <summary>The Novint Falcon card's buttons and a Falcon row's
+        /// Calibrate Reach on the Devices page (issue #521), the Keyboard
+        /// Screens card's shape: a dhd64.dll the user has, Force Dimension's
+        /// driver for a Falcon with none, the SDK's download page, and a
+        /// reach sweep on the selected Falcon.</summary>
         private void WireFalcon()
         {
             var settings = _viewModel.Settings;
@@ -57,33 +57,32 @@ namespace PadForge
                 }
             };
 
-            foreach (var pad in _viewModel.Pads)
-                pad.FalconCalibrateRequested += (s, _) =>
-                {
-                    if (s is PadViewModel pvm) CalibrateFalcon(pvm);
-                };
+            _viewModel.Devices.FalconCalibrateRequested += (_, _) =>
+            {
+                if (_viewModel.Devices.SelectedDevice is { } row) CalibrateFalcon(row);
+            };
         }
 
-        /// <summary>Starts a reach sweep on the slot's selected Falcon and
-        /// keeps the result on the Falcon's record, where the row's reach
-        /// comes from when it next opens.</summary>
-        private void CalibrateFalcon(PadViewModel pvm)
+        /// <summary>Starts a reach sweep on the selected Falcon and keeps the
+        /// result on the Falcon's record, where the row's reach comes from,
+        /// for every slot it feeds.</summary>
+        private void CalibrateFalcon(DeviceRowViewModel row)
         {
             var s = Strings.Instance;
-            Guid guid = pvm.SelectedMappedDevice?.InstanceGuid ?? Guid.Empty;
+            Guid guid = row.InstanceGuid;
             if (guid == Guid.Empty) return;
             var falcon = _inputService?.FindFalcon(guid);
             if (falcon == null || !falcon.IsAttached)
             {
-                pvm.FalconCalibrationStatus = s.Falcon_Calibrate_NotOpen;
+                row.FalconCalibrationStatus = s.Falcon_Calibrate_NotOpen;
                 return;
             }
-            if (!falcon.BeginCalibration(result => Dispatcher.BeginInvoke(() => FalconCalibrated(pvm, guid, falcon, result))))
+            if (!falcon.BeginCalibration(result => Dispatcher.BeginInvoke(() => FalconCalibrated(row, guid, falcon, result))))
                 return;
-            pvm.FalconCalibrationStatus = s.Falcon_Calibrate_Running;
+            row.FalconCalibrationStatus = s.Falcon_Calibrate_Running;
         }
 
-        private void FalconCalibrated(PadViewModel pvm, Guid guid, FalconDevice falcon, FalconCalibration result)
+        private void FalconCalibrated(DeviceRowViewModel row, Guid guid, FalconDevice falcon, FalconCalibration result)
         {
             var s = Strings.Instance;
             bool all = result.MeasuredX && result.MeasuredY && result.MeasuredZ;
@@ -98,10 +97,9 @@ namespace PadForge
                     _settingsService.MarkDirty();
                 }
             }
-            // The selection moved during the sweep: the line belongs to
-            // the Falcon now selected, whose own line the page shows.
-            if (pvm.SelectedMappedDevice?.InstanceGuid != guid) return;
-            pvm.FalconCalibrationStatus = all
+            // The line is the row's own, so it waits there when the selection
+            // moved during the sweep.
+            row.FalconCalibrationStatus = all
                 ? string.Format(CultureInfo.CurrentCulture, s.Falcon_Calibrate_Done_Format, line)
                 : any
                     ? string.Format(CultureInfo.CurrentCulture, s.Falcon_Calibrate_Partial_Format, line)

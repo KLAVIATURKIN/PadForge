@@ -323,14 +323,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>Analog klavyeleri oku</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA ve diğer üreticilerin analog klavyelerinde her tuşa ne kadar basıldığını okur ve her klavyeyi kendi cihaz satırında gösterir. Desteklenen tüm modeller belgelerde listelenir. Razer klavyeler için Razer Synapse'in çalışıyor olması gerekir. Diğerlerinin çoğu, kendi yapılandırma yazılımının kullandığı kanal üzerinden okunduğundan, bu seçenek açıkken o yazılımı kapatın.</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>Desteklenen bir analog klavye bulunamadı.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>{0} okunuyor.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>Şunu okumak için Razer Synapse'i başlatın: {0}.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>Şunu okumak için Razer Synapse'i başlatın: {0}.</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Bliss-Box adaptörlerini oku</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>Bliss-Box adaptörleriyle kendi API'leri üzerinden iletişim kurar. Her portun satırı, o porta takılı kontrolcüyü ve düğmelerini adlandırır, DualShock 2'nin basınç değerlerini okur, adaptörün kendi motor komutlarıyla titreşim verir ve Dreamcast ekranı, Controller Pak ve oyuncu numarası eylemlerini sunar. Bu seçenek açıkken Bliss-Box API Tool ve DeviceBuddy'yi kapatın, çünkü onlar da adaptörle aynı kanal üzerinden iletişim kurar. Bu seçenek açıkken PadForge her portu SDL'nin oyun kumandası eşlemesi yerine adaptörün kendi düzeninde okur. Bu yüzden seçeneği açtıktan veya kapattıktan sonra portu yeniden eşleyin.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Bliss-Box portu bulunamadı.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>{0} okunuyor.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>port {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>bağlanıyor</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>kontrolcü yok</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>Tür {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Web kontrolcüsü</value></data>
@@ -4292,7 +4288,7 @@ PadForge bunları şimdi kaldırsın mı? Bu işlem yönetici izni gerektirir ve
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>İşaretli 8 bit Bluetooth haptik kodlamasını netleştiren, işaretli 16 bit ve 3 kHz örneklemeli PS5 haptik PCM biçimi. AGPL-3.0, yalnızca belge olarak okundu, hiçbir AGPL kodu dağıtılmıyor.</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Klavye Ekranları</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Logitech'in GamePanel klavyelerinin ve Mad Catz S.T.R.I.K.E. 7'nin yerleşik ekranlarına ve Logitech Arx Control üzerinden bir telefona çizim yapar: profil, saat, oyun süresi, kronometre, bir resim ya da bir DualShock 4 veya DualSense ışık çubuğunun rengi. Bu ekranların yanındaki tuşlar, Klavye Ekran Tuşları satırında düğme olur.</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Logitech'in GamePanel klavyelerinin ve Mad Catz S.T.R.I.K.E. 7'nin yerleşik ekranlarına ve Logitech Arx Control üzerinden bir telefona çizim yapar: profil, saat, oyun süresi, kronometre, bir resim ya da bir DualShock 4 veya DualSense ışık çubuğunun rengi. Her ekranın Cihazlar sayfasında kendi satırı vardır. Ne göstereceğini orada ayarlarsınız. Ekranın yanındaki tuşlar, satırının düğmeleridir.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Klavye ekranlarına çiz</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Logitech G15, G15 v2, G510, G13, Z-10, GamePanel ve G19 ekranlarına, Arx Control'e ve Mad Catz S.T.R.I.K.E. 7'ye çizer. Logitech Gaming Software çalışırken PadForge çizimi onun üzerinden yapar. O yokken PadForge tek renkli ekranlara HID üzerinden yazar ve WinUSB'yi G19'un ekran arayüzüne bağlar. Bunu kapatmak G19'un ekranını Windows'a geri verir.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Tek renkli ekran…</value></data>
@@ -4332,7 +4328,8 @@ PadForge bunları şimdi kaldırsın mı? Bu işlem yönetici izni gerektirir ve
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>ekran bulunamadı</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, ışık çubuğu rengi bekleniyor</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, resim seçilmedi</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Klavye Ekran Tuşları</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Logitech Gaming Software çalışırken bu türdeki her ekran, {0} için ayarlanan resmi gösterir.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Klavye Ekranı</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Ekran tuşu {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Applet tuşu</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Ekran sol</value></data>
@@ -4351,7 +4348,7 @@ PadForge bunları şimdi kaldırsın mı? Bu işlem yönetici izni gerektirir ve
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Ekran, etkin profilin devreye girmesinden bu yana geçen saat ve dakikayı gösterir. Bir oyunun programına bağlı profil oyun başlayınca devreye girer, yani sayaç o oturumu sayar. Varsayılan profilde sayaç altyapının başlangıcından itibaren işler.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Ekran, seçtiğiniz bir resmi kendi boyutunda gösterir. Ekrandan büyük bir resimde ekran boyutunda bir pencere görünür ve bu pencereyi Klavye ekranı resmini kaydır makrosu hareket ettirir. S.T.R.I.K.E. 7'de ekranda gezdirilen bir parmak da onu hareket ettirir.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Ekran, Kronometre makrosunun başlattığı, duraklattığı ve sıfırladığı kronometreyi gösterir. Her ekran aynı kronometreyi gösterir.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Ekran, en düşük yuvadaki DualShock 4 veya DualSense'in ışık çubuğunun rengini gösterir. Tek renkli ekran parlaklığı nokta deseni olarak gösterir. Bir ışık çubuğuna renk ulaşana kadar PadForge hiçbir şey göstermez.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Ekran, bu ekranın beslediği en düşük yuvadaki DualShock 4 veya DualSense'in ışık çubuğunun rengini gösterir. Ekran hiçbir yuvayı beslemiyorsa tüm yuvalar arasındaki en düşük yuvaya bakar. Tek renkli ekran parlaklığı nokta deseni olarak gösterir. Bir ışık çubuğuna renk ulaşana kadar PadForge hiçbir şey göstermez.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Resimler (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Tüm Dosyalar (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Kaydır</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Kaydır X</value></data>
@@ -4363,11 +4360,11 @@ PadForge bunları şimdi kaldırsın mı? Bu işlem yönetici izni gerektirir ve
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>S.T.R.I.K.E. 7 SDK indirmesi bilinen SHA-256 değeriyle eşleşmedi, bu yüzden ondan hiçbir şey saklanmadı.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Visual C++ 2008 çalışma zamanı, kurucusu çalıştıktan sonra da eksik.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Klavye ekranını göster</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Seçilen türdeki her klavye ekranında resimleri oynatır, sonra her ekranı kendi moduna döndürür.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Seçilen türdeki, bu yuvayı besleyen her klavye ekranında resimleri oynatır, sonra her ekranı kendi moduna döndürür.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>{0} resimlerini göster: {1} × {2} ms, yineleme sayısı {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Resimler ekrana sığdırılır: tek renkli ekranda 160 × 43 siyah beyaz piksel, G19'unkinde 320 × 240, Arx Control ve S.T.R.I.K.E. 7 için 480 × 320. En kısa kare süresi saniyenin onda biridir.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Klavye ekranı modu</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Bir tür klavye ekranını başka bir moda geçirir ve bunu o ekranın ayarı olarak saklar.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Seçilen türdeki, bu yuvayı besleyen her klavye ekranını başka bir moda geçirir ve bunu o ekranın ayarı olarak saklar.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} şunu gösterir: {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Mod, başka bir makro ya da ekranın iletişim kutusu değiştirene kadar kalır.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Kronometre</value></data>
@@ -4376,9 +4373,9 @@ PadForge bunları şimdi kaldırsın mı? Bu işlem yönetici izni gerektirir ve
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Kronometreyi sıfırla</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Sıfırlama kronometreyi durdurur ve sıfıra getirir. Kronometre modundaki her klavye ekranı aynı kronometreyi gösterir.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Klavye ekranı resmini kaydır</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Her klavye ekranının penceresini, ekrandan büyük bir resmin (örneğin bir haritanın) üzerinde hareket ettirir.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Bu yuvayı besleyen her klavye ekranının penceresini, ekrandan büyük bir resmin (örneğin bir haritanın) üzerinde hareket ettirir.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Resimleri {0}, {1} px kaydır</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Kendisinden büyük seçili bir resim gösteren her ekran türünü hareket ettirir. Pencere resmin kenarlarında durur.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Bu yuvayı besleyen ve kendisinden büyük seçili bir resim gösteren her ekranı hareket ettirir. Pencere resmin kenarlarında durur.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Ekran</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Eylem</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Yön</value></data>
@@ -4460,6 +4457,6 @@ PadForge bunları şimdi kaldırsın mı? Bu işlem yönetici izni gerektirir ve
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Falcon'un tutamağa uyguladığı en yüksek kuvvet, 1 ile 8 newton arasında.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Kuvvet sınırını sıfırla</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Erişimi kalibre et</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Tutamağın ne kadar uzağa gittiğini ölçer. Tarama sürdüğü dört saniye boyunca tutamağı erişim alanının her kenarına götürün. Bu sırada kuvvetler durur.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>Erişimi kalibre et</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Tutamağın ne kadar uzağa gittiğini ölçer. Tarama sürdüğü dört saniye boyunca tutamağı erişim alanının her kenarına götürün. Bu sırada kuvvetler durur.</value></data>
 </root>

@@ -323,14 +323,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>एनालॉग कीबोर्ड पढ़ें</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA और अन्य निर्माताओं के एनालॉग कीबोर्ड पर हर कुंजी कितनी दबी है, यह पढ़ता है। हर कीबोर्ड अपनी अलग डिवाइस पंक्ति में दिखता है। दस्तावेज़ में हर समर्थित मॉडल की सूची है। Razer कीबोर्ड के लिए Razer Synapse का चलना ज़रूरी है। बाकी ज़्यादातर कीबोर्ड उसी चैनल से पढ़े जाते हैं जिसका उपयोग उनका अपना कॉन्फ़िगरेटर करता है, इसलिए जब यह चालू हो तब कॉन्फ़िगरेटर बंद रखें।</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>कोई समर्थित एनालॉग कीबोर्ड नहीं मिला।</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>{0} पढ़ा जा रहा है।</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>{0} पढ़ने के लिए Razer Synapse शुरू करें।</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>{0} पढ़ने के लिए Razer Synapse शुरू करें।</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Bliss-Box एडैप्टर पढ़ें</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>Bliss-Box एडैप्टर से उनके API के ज़रिए बात करता है। हर पोर्ट की पंक्ति उसमें लगे कंट्रोलर और उसके बटनों के नाम बताती है, DualShock 2 का दबाव पढ़ती है, एडैप्टर के अपने मोटर कमांड से रंबल चलाती है, और Dreamcast स्क्रीन, Controller Pak और प्लेयर नंबर की क्रियाएँ देती है। जब यह चालू हो तब Bliss-Box API Tool और DeviceBuddy बंद रखें, क्योंकि वे भी उसी चैनल पर एडैप्टर से बात करते हैं। जब यह चालू होता है, PadForge हर पोर्ट को SDL की गेमपैड मैपिंग के बजाय एडैप्टर के अपने लेआउट में पढ़ता है, इसलिए इसे चालू या बंद करने के बाद पोर्ट को फिर से मैप करें।</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>कोई Bliss-Box पोर्ट नहीं मिला।</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>{0} पढ़ा जा रहा है।</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>पोर्ट {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>कनेक्ट हो रहा है</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>कोई कंट्रोलर नहीं</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>प्रकार {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>वेब कंट्रोलर</value></data>
@@ -4292,7 +4288,7 @@
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PS5 का हैप्टिक PCM फ़ॉर्मेट, 3 kHz पर साइन्ड 16-बिट, जिससे साइन्ड 8-बिट Bluetooth हैप्टिक्स एनकोडिंग तय हुई। AGPL-3.0, केवल दस्तावेज़ के रूप में पढ़ा गया, कोई AGPL कोड साथ नहीं आता।</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>कीबोर्ड स्क्रीन</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Logitech के GamePanel कीबोर्ड और Mad Catz S.T.R.I.K.E. 7 की बिल्ट-इन स्क्रीन पर, और Logitech Arx Control के ज़रिए फ़ोन पर दिखाता है: प्रोफ़ाइल, घड़ी, खेलने का समय, स्टॉपवॉच, कोई चित्र, या DualShock 4 या DualSense के लाइटबार का रंग। इन स्क्रीन के बगल की कुंजियाँ कीबोर्ड स्क्रीन कुंजियाँ पंक्ति में बटन बन जाती हैं।</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Logitech के GamePanel कीबोर्ड और Mad Catz S.T.R.I.K.E. 7 की बिल्ट-इन स्क्रीन पर, और Logitech Arx Control के ज़रिए फ़ोन पर दिखाता है: प्रोफ़ाइल, घड़ी, खेलने का समय, स्टॉपवॉच, कोई चित्र, या DualShock 4 या DualSense के लाइटबार का रंग। हर स्क्रीन की डिवाइस पेज पर अपनी पंक्ति होती है, जहाँ आप तय करते हैं कि वह क्या दिखाए। स्क्रीन के बगल की कुंजियाँ उसकी पंक्ति के बटन हैं।</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>कीबोर्ड स्क्रीन चलाएँ</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Logitech G15, G15 v2, G510, G13, Z-10, GamePanel और G19 की स्क्रीन पर, Arx Control पर और Mad Catz S.T.R.I.K.E. 7 पर दिखाता है। Logitech Gaming Software चलने पर PadForge उसी के ज़रिए दिखाता है। उसके बिना PadForge मोनोक्रोम स्क्रीन पर HID से लिखता है और G19 के स्क्रीन इंटरफ़ेस से WinUSB जोड़ता है। इसे बंद करने पर G19 की स्क्रीन Windows को वापस मिल जाती है।</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>मोनोक्रोम स्क्रीन…</value></data>
@@ -4332,7 +4328,8 @@
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>कोई स्क्रीन नहीं मिली</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, लाइटबार के रंग का इंतज़ार है</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, कोई चित्र नहीं चुना गया</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>कीबोर्ड स्क्रीन कुंजियाँ</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>जब तक Logitech Gaming Software चल रहा है, इस प्रकार की हर स्क्रीन वही चित्र दिखाती है जो {0} के लिए सेट है।</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>कीबोर्ड स्क्रीन</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>स्क्रीन कुंजी {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>एप्लेट कुंजी</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>स्क्रीन बाएँ</value></data>
@@ -4351,7 +4348,7 @@
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>स्क्रीन दिखाती है कि सक्रिय प्रोफ़ाइल के चालू होने के बाद कितने घंटे और मिनट हुए हैं। किसी गेम के प्रोग्राम से जुड़ी प्रोफ़ाइल गेम शुरू होने पर चालू होती है, इसलिए गिनती उसी सत्र की होती है। डिफ़ॉल्ट प्रोफ़ाइल में गिनती इंजन के शुरू होने से होती है।</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>स्क्रीन आपका चुना हुआ चित्र उसके अपने आकार में दिखाती है। स्क्रीन से बड़े चित्र का स्क्रीन के आकार जितना हिस्सा दिखता है, जिसे कीबोर्ड स्क्रीन चित्र पैन करें मैक्रो खिसकाता है। S.T.R.I.K.E. 7 पर स्क्रीन पर उँगली घसीटने से भी वह खिसकता है।</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>स्क्रीन स्टॉपवॉच दिखाती है, जिसे स्टॉपवॉच मैक्रो शुरू करता है, रोकता है और रीसेट करता है। हर स्क्रीन वही स्टॉपवॉच दिखाती है।</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>स्क्रीन सबसे कम नंबर वाले स्लॉट के DualShock 4 या DualSense के लाइटबार का रंग दिखाती है। मोनोक्रोम स्क्रीन उसकी चमक बिंदुओं के पैटर्न में दिखाती है। जब तक किसी लाइटबार तक रंग नहीं पहुँचता, PadForge कुछ नहीं दिखाता।</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>स्क्रीन उस सबसे कम नंबर वाले स्लॉट के DualShock 4 या DualSense के लाइटबार का रंग दिखाती है जिसे यह स्क्रीन इनपुट देती है। किसी भी स्लॉट को इनपुट न देने पर वह सभी स्लॉट में सबसे कम नंबर वाले स्लॉट का रंग दिखाती है। मोनोक्रोम स्क्रीन उसकी चमक बिंदुओं के पैटर्न में दिखाती है। जब तक किसी लाइटबार तक रंग नहीं पहुँचता, PadForge कुछ नहीं दिखाता।</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>चित्र (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|सभी फ़ाइलें (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>पैन</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>पैन X</value></data>
@@ -4363,11 +4360,11 @@
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>S.T.R.I.K.E. 7 SDK का डाउनलोड उसके ज्ञात SHA-256 से मेल नहीं खाता, इसलिए उससे कुछ भी नहीं रखा गया।</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>इंस्टॉलर चलने के बाद भी Visual C++ 2008 रनटाइम गायब है।</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>कीबोर्ड स्क्रीन दिखाएँ</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>चुने गए प्रकार की हर कीबोर्ड स्क्रीन पर चित्र चलाता है, फिर हर स्क्रीन को उसके अपने मोड में लौटा देता है।</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>इस स्लॉट को इनपुट देने वाली चुने गए प्रकार की हर कीबोर्ड स्क्रीन पर चित्र चलाता है, फिर हर स्क्रीन को उसके अपने मोड में लौटा देता है।</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>{0} चित्र दिखाएँ: {1} × {2} ms, दोहराव संख्या {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>चित्र स्क्रीन के हिसाब से फ़िट किए जाते हैं: मोनोक्रोम स्क्रीन पर 160 बाय 43 श्वेत-श्याम पिक्सेल, G19 की स्क्रीन पर 320 बाय 240, और Arx Control तथा S.T.R.I.K.E. 7 के लिए 480 बाय 320। सबसे छोटा फ़्रेम समय 0.1 सेकंड है।</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>कीबोर्ड स्क्रीन मोड</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>किसी प्रकार की कीबोर्ड स्क्रीन को दूसरे मोड में बदलता है और उसे उस स्क्रीन की सेटिंग के रूप में रखता है।</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>इस स्लॉट को इनपुट देने वाली चुने गए प्रकार की हर कीबोर्ड स्क्रीन को दूसरे मोड में बदलता है और उसे उस स्क्रीन की सेटिंग के रूप में रखता है।</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} में {1} दिखता है</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>मोड तब तक रहता है जब तक कोई दूसरा मैक्रो या स्क्रीन का डायलॉग उसे नहीं बदलता।</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>स्टॉपवॉच</value></data>
@@ -4376,9 +4373,9 @@
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>स्टॉपवॉच रीसेट करें</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>रीसेट स्टॉपवॉच को रोक देता है और शून्य पर ले आता है। स्टॉपवॉच मोड की हर कीबोर्ड स्क्रीन वही स्टॉपवॉच दिखाती है।</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>कीबोर्ड स्क्रीन चित्र पैन करें</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>स्क्रीन से बड़े चित्र पर हर कीबोर्ड स्क्रीन की विंडो खिसकाता है, जैसे नक्शे के लिए।</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>इस स्लॉट को इनपुट देने वाली हर कीबोर्ड स्क्रीन की विंडो स्क्रीन से बड़े चित्र पर खिसकाता है, जैसे नक्शे के लिए।</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>चित्र पैन करें: {0}, {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>हर उस तरह की स्क्रीन को खिसकाता है जो अपने से बड़ा चुना हुआ चित्र दिखा रही हो। विंडो चित्र के किनारों पर रुक जाती है।</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>इस स्लॉट को इनपुट देने वाली हर उस स्क्रीन को खिसकाता है जो अपने से बड़ा चुना हुआ चित्र दिखा रही हो। विंडो चित्र के किनारों पर रुक जाती है।</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>स्क्रीन</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>कार्रवाई</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>दिशा</value></data>
@@ -4460,6 +4457,6 @@
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Falcon हैंडल पर अधिकतम कितना बल लगाता है, 1 से 8 न्यूटन तक।</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>बल सीमा रीसेट करें</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>रीच कैलिब्रेट करें</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>मापता है कि हैंडल कितनी दूर तक जाता है। स्वीप चलने के चार सेकंड में उसे अपनी रीच के हर किनारे तक ले जाएँ। इस दौरान बल बंद रहते हैं।</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>रीच कैलिब्रेट करें</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>मापता है कि हैंडल कितनी दूर तक जाता है। स्वीप चलने के चार सेकंड में उसे अपनी रीच के हर किनारे तक ले जाएँ। इस दौरान बल बंद रहते हैं।</value></data>
 </root>

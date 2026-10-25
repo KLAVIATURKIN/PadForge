@@ -31,6 +31,12 @@ namespace PadForge.Common.Input.KeyboardScreens
         /// <paramref name="current"/> says are still on the slot their color
         /// came from. A device that left the slot is forgotten.</summary>
         public static bool TryGetLowest(Func<Guid, int, bool> current, out (byte R, byte G, byte B) color)
+            => TryGetLowest(current, null, out color);
+
+        /// <summary>The same, among the slots <paramref name="slots"/>
+        /// allows, or every slot when it is null: a keyboard screen follows
+        /// the slots its row feeds.</summary>
+        public static bool TryGetLowest(Func<Guid, int, bool> current, Func<int, bool> slots, out (byte R, byte G, byte B) color)
         {
             color = default;
             int best = int.MaxValue;
@@ -44,7 +50,7 @@ namespace PadForge.Common.Input.KeyboardScreens
                         (gone ??= new List<Guid>()).Add(device);
                         continue;
                     }
-                    if (entry.Slot >= best) continue;
+                    if (entry.Slot >= best || (slots != null && !slots(entry.Slot))) continue;
                     best = entry.Slot;
                     color = (entry.R, entry.G, entry.B);
                 }

@@ -308,14 +308,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>Կարդալ անալոկ ստեղնաշարերը</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Կը կարդայ, թէ որքան սեղմուած է իւրաքանչիւր ստեղն Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA եւ այլ արտադրողներու անալոկ ստեղնաշարերուն վրայ՝ իւրաքանչիւրը իբրեւ իր սեփական սարքի տող։ Ձեռնարկը կը թուէ բոլոր աջակցուած տիպարները։ Razer ստեղնաշարերուն համար պէտք է աշխատի Razer Synapse-ը։ Միւսներէն շատերը կը կարդացուին այն կապուղիով, որ անոնց սեփական կարգաւորիչը կը գործածէ, ուստի փակեցէք կարգաւորիչը, երբ ասիկա միացուած է։</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>Աջակցուած անալոկ ստեղնաշար չգտնուեցաւ։</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>Կը կարդայ {0}։</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>Գործարկեցէք Razer Synapse-ը՝ {0} կարդալու համար։</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>Գործարկեցէք Razer Synapse-ը՝ {0} կարդալու համար։</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Կարդալ Bliss-Box յարմարիչները</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>Կը հաղորդակցի Bliss-Box յարմարիչներուն հետ անոնց API-ի միջոցով։ Իւրաքանչիւր փորթի տողը կը նշէ անոր միացուած կառավարիչը եւ անոր կոճակները, կը կարդայ DualShock 2-ի ճնշումը, կը թրթռացնէ յարմարիչին սեփական մոթորի հրամաններով եւ կ՚առաջարկէ Dreamcast-ի պաստառի, Controller Pak-ի եւ խաղացողի թիւի գործողութիւնները։ Փակեցէք Bliss-Box API Tool-ը եւ DeviceBuddy-ն, երբ ասիկա միացուած է, որովհետեւ անոնք նոյն կապուղիով կը հաղորդակցին յարմարիչին հետ։ Երբ ասիկա միացուած է, PadForge-ը իւրաքանչիւր փորթ կը կարդայ յարմարիչին սեփական դասաւորութեամբ՝ SDL-ի կառավարիչի համապատասխանեցման փոխարէն, ուստի ասիկա միացնելէ կամ անջատելէ ետք փորթը նորէն համապատասխանեցուցէք։</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Bliss-Box փորթ չգտնուեցաւ։</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>Կը կարդայ {0}։</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>փորթ {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>կը միանայ</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>կառավարիչ չկայ</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>Տեսակ {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Ցանցային կառավարիչ</value></data>
@@ -4227,7 +4223,7 @@
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PS5-ի հպական PCM ձեւաչափը՝ նշանով 16-բիթ, 3 kHz, որ որոշեց նշանով 8-բիթ Bluetooth հպական կոդաւորումը։ AGPL-3.0, կարդացուած միայն որպէս փաստաթղթաւորում, AGPL կոդ չի ներառուիր։</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Ստեղնաշարի պաստառներ</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Կը գծէ Logitech-ի GamePanel ստեղնաշարերուն եւ Mad Catz S.T.R.I.K.E. 7-ի մէջ կառուցուած պաստառներուն վրայ, ինչպէս նաեւ հեռաձայնի մը վրայ՝ Logitech Arx Control-ի միջոցով։ Կը ցուցադրէ փրոֆիլը, ժամացոյց մը, խաղի ժամանակը, վայրկենաչափ մը, պատկեր մը կամ DualShock 4-ի կամ DualSense-ի լուսաշերտին գոյնը։ Այդ պաստառներուն քովի ստեղները կը դառնան կոճակներ «Ստեղնաշարի պաստառի ստեղներ» շարքին մէջ։</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Կը գծէ Logitech-ի GamePanel ստեղնաշարերուն եւ Mad Catz S.T.R.I.K.E. 7-ի մէջ կառուցուած պաստառներուն վրայ, ինչպէս նաեւ հեռաձայնի մը վրայ՝ Logitech Arx Control-ի միջոցով։ Կը ցուցադրէ փրոֆիլը, ժամացոյց մը, խաղի ժամանակը, վայրկենաչափ մը, պատկեր մը կամ DualShock 4-ի կամ DualSense-ի լուսաշերտին գոյնը։ Իւրաքանչիւր պաստառ «Սարքեր» էջին վրայ իր սեփական շարքը ունի, ուր կ'որոշէք թէ ինչ պիտի ցուցադրէ։ Պաստառի մը քովի ստեղները անոր շարքին կոճակներն են։</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Կառավարել ստեղնաշարի պաստառները</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Կը գծէ Logitech G15, G15 v2, G510, G13, Z-10, GamePanel եւ G19 պաստառներուն վրայ, Arx Control-ի վրայ եւ Mad Catz S.T.R.I.K.E. 7-ի վրայ։ Երբ Logitech Gaming Software-ը կ'աշխատի, PadForge-ը անոր միջոցով կը գծէ։ Առանց անոր՝ PadForge-ը միագոյն պաստառներուն կը գրէ HID-ի միջոցով եւ WinUSB-ը կը կապէ G19-ի պաստառի միջերեսին։ Ասիկա անջատելով՝ G19-ի պաստառը կը վերադառնայ Windows-ին։</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Միագոյն պաստառ…</value></data>
@@ -4267,7 +4263,8 @@
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>պաստառ չգտնուեցաւ</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, կը սպասէ լուսաշերտի գոյնի</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, պատկեր ընտրուած չէ</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Ստեղնաշարի պաստառի ստեղներ</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Մինչ Logitech Gaming Software-ը կը գործէ, այս տեսակի բոլոր պաստառները կը ցուցադրեն {0}-ին համար սահմանուած պատկերը։</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Ստեղնաշարի պաստառ</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Պաստառի ստեղն {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Ափլէթի ստեղն</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Պաստառ՝ ձախ</value></data>
@@ -4286,7 +4283,7 @@
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Պաստառը կը ցուցադրէ գործօն փրոֆիլին միացումէն ի վեր անցած ժամերն ու վայրկեանները։ Խաղի մը ծրագրին կապուած փրոֆիլը կը միանայ, երբ խաղը սկսի, ուստի հաշիւը այդ նստաշրջանինն է։ «Սկզբնական» փրոֆիլին տակ հաշիւը կը սկսի շարժիչին մեկնարկէն։</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Պաստառը կը ցուցադրէ ձեր ընտրած պատկերը՝ իր սեփական չափով։ Պաստառէն մեծ պատկերի պարագային կ'երեւի պաստառի չափով պատուհան մը, որ «Տեղաշարժել ստեղնաշարի պաստառի պատկերը» մաքրօն կը շարժէ։ S.T.R.I.K.E. 7-ի վրայ պաստառին վրայով քաշուած մատը նոյնպէս կը շարժէ զայն։</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Պաստառը կը ցուցադրէ վայրկենաչափը, որ «Վայրկենաչափ» մաքրօն կը գործարկէ, կը դադրեցնէ եւ կը վերակայէ։ Բոլոր պաստառները նոյն վայրկենաչափը կը ցուցադրեն։</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Պաստառը կը ցուցադրէ ամենէն ցած թիւով խցիկին մէջ գտնուող DualShock 4-ի կամ DualSense-ի լուսաշերտին գոյնը։ Միագոյն պաստառը անոր պայծառութիւնը կը ցուցադրէ կէտերու նախշով։ Քանի դեռ գոյն մը չէ հասած լուսաշերտի մը, PadForge-ը ոչինչ չի ցուցադրեր։</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Պաստառը կը ցուցադրէ այս պաստառին սնուցած ամենէն ցած թիւով խցիկին մէջ գտնուող DualShock 4-ի կամ DualSense-ի լուսաշերտին գոյնը, իսկ եթէ ոչ մէկ խցիկ կը սնուցէ՝ բոլոր խցիկներէն ամենէն ցած թիւովին մէջ գտնուողինը։ Միագոյն պաստառը անոր պայծառութիւնը կը ցուցադրէ կէտերու նախշով։ Քանի դեռ գոյն մը չէ հասած լուսաշերտի մը, PadForge-ը ոչինչ չի ցուցադրեր։</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Պատկերներ (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Բոլոր նիշքերը (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Տեղաշարժ</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Տեղաշարժ X</value></data>
@@ -4298,11 +4295,11 @@
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>S.T.R.I.K.E. 7 SDK-ի ներբեռնումը չի համապատասխաներ իր ծանօթ SHA-256-ին, ուստի անկէ ոչինչ պահուեցաւ։</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Visual C++ 2008 գործարկման միջավայրը տակաւին կը պակսի, թէեւ անոր տեղադրիչը աշխատեցաւ։</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Ցուցադրել ստեղնաշարի պաստառ</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Նկարներ կը ցուցադրէ ընտրուած տեսակի բոլոր ստեղնաշարի պաստառներուն վրայ, ապա իւրաքանչիւր պաստառ կը վերադարձնէ իր եղանակին։</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Նկարներ կը ցուցադրէ այս խցիկը սնուցող՝ ընտրուած տեսակի իւրաքանչիւր ստեղնաշարի պաստառին վրայ, ապա իւրաքանչիւր պաստառ կը վերադարձնէ իր եղանակին։</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Ցուցադրել {0} նկարներ՝ {1} × {2} ms, կրկնութիւններու թիւ՝ {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Նկարները կը յարմարցուին պաստառին։ Միագոյն պաստառի վրայ անոնք 160 × 43 սեւ ու ճերմակ փիքսէլ են, G19-ի պաստառին վրայ՝ 320 × 240, իսկ Arx Control-ի եւ S.T.R.I.K.E. 7-ի համար՝ 480 × 320։ Պատկերի ամենակարճ տեւողութիւնը երկվայրկեանի մէկ տասներորդն է։</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Ստեղնաշարի պաստառի եղանակ</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Ստեղնաշարի պաստառի տեսակ մը կ'անցընէ ուրիշ եղանակի եւ զայն կը պահէ իբրեւ այդ պաստառին կարգաւորումը։</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Այս խցիկը սնուցող՝ ընտրուած տեսակի իւրաքանչիւր ստեղնաշարի պաստառ կ'անցընէ ուրիշ եղանակի եւ զայն կը պահէ իբրեւ այդ պաստառին կարգաւորումը։</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} կը ցուցադրէ՝ {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Եղանակը կը մնայ, մինչեւ որ ուրիշ մաքրօ մը կամ պաստառին պատուհանը զայն փոխէ։</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Վայրկենաչափ</value></data>
@@ -4311,9 +4308,9 @@
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Վերակայել վայրկենաչափը</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Վերակայելը կը կեցնէ վայրկենաչափը եւ զայն կը դարձնէ զրոյի։ «Վայրկենաչափ» եղանակին մէջ գտնուող բոլոր ստեղնաշարի պաստառները նոյն վայրկենաչափը կը ցուցադրեն։</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Տեղաշարժել ստեղնաշարի պաստառի պատկերը</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Իւրաքանչիւր ստեղնաշարի պաստառի պատուհանը կը տեղաշարժէ պաստառէն մեծ պատկերի մը վրայով, օրինակ՝ քարտէսի մը համար։</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Այս խցիկը սնուցող իւրաքանչիւր ստեղնաշարի պաստառի պատուհանը կը տեղաշարժէ պաստառէն մեծ պատկերի մը վրայով, օրինակ՝ քարտէսի մը համար։</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Տեղաշարժել նկարները՝ {0}, {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Կը տեղաշարժէ պաստառի իւրաքանչիւր տեսակ, որ իրմէ մեծ ընտրուած պատկեր մը կը ցուցադրէ։ Պատուհանը կը կենայ պատկերին եզրերուն վրայ։</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Կը տեղաշարժէ իւրաքանչիւր պաստառ, որ այս խցիկը կը սնուցէ եւ իրմէ մեծ ընտրուած պատկեր մը կը ցուցադրէ։ Պատուհանը կը կենայ պատկերին եզրերուն վրայ։</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Պաստառ</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Գործողութիւն</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Ուղղութիւն</value></data>
@@ -4395,6 +4392,6 @@
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Առաւելագոյն ուժը, որ Falcon-ը կը դնէ բռնակին վրայ՝ 1-էն 8 Ն։</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>Ն</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Վերակայել ուժի սահմանը</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Չափաբերել հասողութիւնը</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Կը չափէ, թէ բռնակը որքան հեռու կը շարժի։ Չափումին չորս վայրկեաններուն ընթացքին զայն շարժեցէք դէպի իր հասողութեան բոլոր եզրերը։ Այդ ընթացքին ուժերը կը դադրին։</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>Չափաբերել հասողութիւնը</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Կը չափէ, թէ բռնակը որքան հեռու կը շարժի։ Չափումին չորս վայրկեաններուն ընթացքին զայն շարժեցէք դէպի իր հասողութեան բոլոր եզրերը։ Այդ ընթացքին ուժերը կը դադրին։</value></data>
 </root>

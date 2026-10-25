@@ -2857,15 +2857,16 @@ namespace PadForge.Common.Input
         internal static Action<int, string, int, int> MacroDreamcastSink = PadForge.Services.DreamcastScreenService.RequestShow;
 
         /// <summary>Where the four keyboard screen actions go (#519): the
-        /// screen service's queue. Seams so a test can watch both dispatch
+        /// screen service's queue, with the slot whose screens they play on,
+        /// the Dreamcast sink's rule. Seams so a test can watch both dispatch
         /// loops.</summary>
-        internal static Action<PadForge.Common.Input.KeyboardScreens.KeyboardScreenKind, string, int, int> MacroKeyboardScreenShowSink
+        internal static Action<int, PadForge.Common.Input.KeyboardScreens.KeyboardScreenKind, string, int, int> MacroKeyboardScreenShowSink
             = PadForge.Services.KeyboardScreenService.RequestShow;
-        internal static Action<PadForge.Common.Input.KeyboardScreens.KeyboardScreenKind, PadForge.Services.KeyboardScreenMode> MacroKeyboardScreenModeSink
+        internal static Action<int, PadForge.Common.Input.KeyboardScreens.KeyboardScreenKind, PadForge.Services.KeyboardScreenMode> MacroKeyboardScreenModeSink
             = PadForge.Services.KeyboardScreenService.RequestMode;
         internal static Action<PadForge.Services.KeyboardScreenStopwatchAction> MacroStopwatchSink
             = PadForge.Services.KeyboardScreenService.RequestStopwatch;
-        internal static Action<PadForge.Services.KeyboardScreenPanDirection, int> MacroKeyboardScreenPanSink
+        internal static Action<int, PadForge.Services.KeyboardScreenPanDirection, int> MacroKeyboardScreenPanSink
             = PadForge.Services.KeyboardScreenService.RequestPan;
 
         /// <summary>Executes a sequential (non-continuous) action with advance logic.</summary>
@@ -2985,14 +2986,15 @@ namespace PadForge.Common.Input
                 case MacroActionType.ShowKeyboardScreen:
                     // Keyboard screens (#519): single-frame fires, the
                     // Dreamcast screen's shape. The screen service plays,
-                    // switches, times and pans on its own tick.
-                    MacroKeyboardScreenShowSink(action.ScreenKind, action.ScreenFrames,
+                    // switches, times and pans on its own tick, on the
+                    // screens whose rows feed this slot.
+                    MacroKeyboardScreenShowSink(macro.PadIndex, action.ScreenKind, action.ScreenFrames,
                         action.ScreenFrameMs, action.ScreenRepeat);
                     AdvanceAction(macro);
                     break;
 
                 case MacroActionType.KeyboardScreenMode:
-                    MacroKeyboardScreenModeSink(action.ScreenKind, action.ScreenMode);
+                    MacroKeyboardScreenModeSink(macro.PadIndex, action.ScreenKind, action.ScreenMode);
                     AdvanceAction(macro);
                     break;
 
@@ -3002,7 +3004,7 @@ namespace PadForge.Common.Input
                     break;
 
                 case MacroActionType.PanKeyboardScreen:
-                    MacroKeyboardScreenPanSink(action.PanDirection, action.PanStep);
+                    MacroKeyboardScreenPanSink(macro.PadIndex, action.PanDirection, action.PanStep);
                     AdvanceAction(macro);
                     break;
 
@@ -5348,14 +5350,15 @@ namespace PadForge.Common.Input
                 case MacroActionType.ShowKeyboardScreen:
                     // Keyboard screens (#519): single-frame fires, the
                     // Dreamcast screen's shape. The screen service plays,
-                    // switches, times and pans on its own tick.
-                    MacroKeyboardScreenShowSink(action.ScreenKind, action.ScreenFrames,
+                    // switches, times and pans on its own tick, on the
+                    // screens whose rows feed this slot.
+                    MacroKeyboardScreenShowSink(macro.PadIndex, action.ScreenKind, action.ScreenFrames,
                         action.ScreenFrameMs, action.ScreenRepeat);
                     AdvanceAction(macro);
                     break;
 
                 case MacroActionType.KeyboardScreenMode:
-                    MacroKeyboardScreenModeSink(action.ScreenKind, action.ScreenMode);
+                    MacroKeyboardScreenModeSink(macro.PadIndex, action.ScreenKind, action.ScreenMode);
                     AdvanceAction(macro);
                     break;
 
@@ -5365,7 +5368,7 @@ namespace PadForge.Common.Input
                     break;
 
                 case MacroActionType.PanKeyboardScreen:
-                    MacroKeyboardScreenPanSink(action.PanDirection, action.PanStep);
+                    MacroKeyboardScreenPanSink(macro.PadIndex, action.PanDirection, action.PanStep);
                     AdvanceAction(macro);
                     break;
 

@@ -452,8 +452,8 @@ namespace PadForge.Common.Input
             // --- Phase 1i: head tracker, OpenTrack UDP + FreeTrack (issue #355) ---
             changed |= UpdateHeadTrackerDevice();
             changed |= UpdateLogitechGKeysDevice();
-            // --- Phase 1j2: the keys beside the keyboard screens (issue #519) ---
-            changed |= UpdateKeyboardScreenKeysDevice();
+            // --- Phase 1j2: the keyboard screens, a row each (issue #519) ---
+            changed |= UpdateKeyboardScreenDevices();
             // --- Phase 1j3: Novint Falcons through Force Dimension's library (issue #521) ---
             changed |= UpdateFalconDevices();
 

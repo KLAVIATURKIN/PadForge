@@ -870,6 +870,7 @@
   <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
   <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>pio</value></data>
   <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>ma ke kelepona</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Papakaumaka papa pihi</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Hana</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>

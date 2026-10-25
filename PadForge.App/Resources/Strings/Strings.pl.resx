@@ -323,14 +323,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>Odczytuj klawiatury analogowe</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Odczytuje głębokość wciśnięcia każdego klawisza na klawiaturach analogowych firm Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA i innych producentów, każdą jako osobny wiersz urządzenia. Dokumentacja wymienia wszystkie obsługiwane modele. Klawiatury Razer wymagają uruchomionego programu Razer Synapse. Większość pozostałych jest odczytywana kanałem, z którego korzysta ich własny konfigurator, więc zamknij go, gdy ta opcja jest włączona.</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>Nie znaleziono obsługiwanej klawiatury analogowej.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>Odczyt: {0}.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>Uruchom Razer Synapse, aby odczytywać: {0}.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>Uruchom Razer Synapse, aby odczytywać: {0}.</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Odczytuj adaptery Bliss-Box</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>Komunikuje się z adapterami Bliss-Box przez ich API. Wiersz każdego portu podaje nazwę podłączonego do niego kontrolera i jego przycisków, odczytuje siłę nacisku w kontrolerze DualShock 2, wibruje za pomocą własnych poleceń silników adaptera oraz udostępnia akcje ekranu Dreamcast, Controller Pak i numeru gracza. Gdy ta opcja jest włączona, zamknij Bliss-Box API Tool i DeviceBuddy, ponieważ komunikują się z adapterem tym samym kanałem. Gdy ta opcja jest włączona, PadForge odczytuje każdy port w układzie własnym adaptera zamiast przez mapowanie gamepada SDL, więc po jej włączeniu lub wyłączeniu zmapuj port ponownie.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Nie znaleziono portu Bliss-Box.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>Odczyt: {0}.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>port {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>łączenie</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>brak kontrolera</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>Typ {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Kontroler webowy</value></data>
@@ -4292,7 +4288,7 @@ Czy PadForge ma je teraz odinstalować? Wymaga to uprawnień administratora i mo
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>Format haptyki PCM konsoli PS5, 16-bitowy ze znakiem przy 3 kHz, który rozstrzygnął kwestię 8-bitowego kodowania haptyki Bluetooth ze znakiem. AGPL-3.0, wykorzystane wyłącznie jako dokumentacja, kod na licencji AGPL nie jest rozpowszechniany.</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Ekrany klawiatur</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Rysuje na ekranach wbudowanych w klawiatury GamePanel firmy Logitech i Mad Catz S.T.R.I.K.E. 7 oraz na telefonie przez Logitech Arx Control: nazwę profilu, zegar, czas gry, stoper, obraz albo kolor paska świetlnego DualShock 4 lub DualSense. Klawisze obok tych ekranów stają się przyciskami w wierszu Klawisze ekranów klawiatury.</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Rysuje na ekranach wbudowanych w klawiatury GamePanel firmy Logitech i Mad Catz S.T.R.I.K.E. 7 oraz na telefonie przez Logitech Arx Control: nazwę profilu, zegar, czas gry, stoper, obraz albo kolor paska świetlnego DualShock 4 lub DualSense. Każdy ekran ma własny wiersz na stronie Urządzenia, w którym ustawiasz, co pokazuje. Klawisze obok ekranu są przyciskami jego wiersza.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Steruj ekranami klawiatur</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Rysuje na ekranach Logitech G15, G15 v2, G510, G13, Z-10, GamePanel i G19, w Arx Control oraz na Mad Catz S.T.R.I.K.E. 7. Gdy działa Logitech Gaming Software, PadForge rysuje za jego pośrednictwem. Bez niego PadForge zapisuje obraz na ekranach monochromatycznych przez HID i wiąże WinUSB z interfejsem ekranu G19. Wyłączenie tej opcji oddaje ekran G19 systemowi Windows.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Ekran monochromatyczny…</value></data>
@@ -4332,7 +4328,8 @@ Czy PadForge ma je teraz odinstalować? Wymaga to uprawnień administratora i mo
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>nie znaleziono ekranu</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, oczekiwanie na kolor paska świetlnego</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, nie wybrano obrazu</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Klawisze ekranów klawiatury</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Gdy działa Logitech Gaming Software, każdy ekran tego rodzaju pokazuje obraz ustawiony dla: {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Ekran klawiatury</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Klawisz ekranu {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Klawisz apletu</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Ekran w lewo</value></data>
@@ -4351,7 +4348,7 @@ Czy PadForge ma je teraz odinstalować? Wymaga to uprawnień administratora i mo
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Ekran pokazuje godziny i minuty od przełączenia na aktywny profil. Profil powiązany z programem gry włącza się przy uruchomieniu gry, więc licznik obejmuje tę sesję. W profilu „Domyślny” licznik liczy od uruchomienia silnika.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Ekran pokazuje wybrany obraz w jego własnym rozmiarze. Obraz większy niż ekran pokazuje okno o rozmiarze ekranu, które przesuwa makro Przesuń obraz ekranu klawiatury. Na S.T.R.I.K.E. 7 przesuwa je też palec przeciągnięty po ekranie.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Ekran pokazuje stoper, który makro Stoper uruchamia, wstrzymuje i zeruje. Każdy ekran pokazuje ten sam stoper.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Ekran pokazuje kolor paska świetlnego w DualShock 4 lub DualSense w najniższym slocie. Ekran monochromatyczny pokazuje jego jasność jako wzór z kropek. Dopóki kolor nie dotrze do paska świetlnego, PadForge niczego nie pokazuje.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Ekran pokazuje kolor paska świetlnego w DualShock 4 lub DualSense w najniższym slocie, który zasila ten ekran, albo w najniższym slocie ze wszystkich, gdy ekran nie zasila żadnego. Ekran monochromatyczny pokazuje jego jasność jako wzór z kropek. Dopóki kolor nie dotrze do paska świetlnego, PadForge niczego nie pokazuje.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Obrazy (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Wszystkie pliki (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Przesunięcie</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Przesunięcie X</value></data>
@@ -4363,11 +4360,11 @@ Czy PadForge ma je teraz odinstalować? Wymaga to uprawnień administratora i mo
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Pobrany pakiet SDK do S.T.R.I.K.E. 7 nie zgadza się ze znaną sumą SHA-256, więc nic z niego nie zachowano.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Środowiska uruchomieniowego Visual C++ 2008 nadal brakuje po uruchomieniu jego instalatora.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Pokaż ekran klawiatury</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Odtwarza obrazy na każdym ekranie klawiatury wybranego rodzaju, a potem przywraca każdemu ekranowi jego własny tryb.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Odtwarza obrazy na każdym ekranie klawiatury wybranego rodzaju, który zasila ten slot, a potem przywraca każdemu ekranowi jego własny tryb.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Pokaż obrazy {0}: {1} × {2} ms, liczba powtórzeń {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Obrazy są dopasowywane do ekranu: 160 na 43 czarno-białe piksele na ekranie monochromatycznym, 320 na 240 na ekranie G19 oraz 480 na 320 dla Arx Control i S.T.R.I.K.E. 7. Najkrótszy czas klatki to jedna dziesiąta sekundy.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Tryb ekranu klawiatury</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Przełącza rodzaj ekranu klawiatury na inny tryb i zapamiętuje go jako ustawienie tego ekranu.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Przełącza na inny tryb każdy ekran klawiatury wybranego rodzaju, który zasila ten slot, i zapamiętuje go jako ustawienie tego ekranu.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} pokazuje: {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Tryb obowiązuje, dopóki inne makro lub okno dialogowe ekranu go nie zmieni.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Stoper</value></data>
@@ -4376,9 +4373,9 @@ Czy PadForge ma je teraz odinstalować? Wymaga to uprawnień administratora i mo
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Resetuj stoper</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Reset zatrzymuje stoper i ustawia go z powrotem na zero. Każdy ekran klawiatury w trybie Stoper pokazuje ten sam stoper.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Przesuń obraz ekranu klawiatury</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Przesuwa okno każdego ekranu klawiatury po obrazie większym niż ekran, na przykład po mapie.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Przesuwa okno każdego ekranu klawiatury, który zasila ten slot, po obrazie większym niż ekran, na przykład po mapie.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Przesuń obrazy o {0} i {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Przesuwa każdy rodzaj ekranu, który pokazuje wybrany obraz większy od niego. Okno zatrzymuje się na krawędziach obrazu.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Przesuwa każdy ekran, który zasila ten slot i pokazuje wybrany obraz większy od niego. Okno zatrzymuje się na krawędziach obrazu.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Ekran</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Akcja</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Kierunek</value></data>
@@ -4460,6 +4457,6 @@ Czy PadForge ma je teraz odinstalować? Wymaga to uprawnień administratora i mo
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Największa siła, jaką Falcon wywiera na uchwyt, od 1 do 8 niutonów.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Resetuj limit siły</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Kalibruj zasięg</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mierzy, jak daleko przesuwa się uchwyt. Przesuń go do każdej krawędzi zasięgu w ciągu czterech sekund pomiaru. Siły są w tym czasie wyłączone.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>Kalibruj zasięg</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mierzy, jak daleko przesuwa się uchwyt. Przesuń go do każdej krawędzi zasięgu w ciągu czterech sekund pomiaru. Siły są w tym czasie wyłączone.</value></data>
 </root>

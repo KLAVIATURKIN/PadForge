@@ -323,14 +323,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>Citire tastaturi analogice</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Citește cât de mult este apăsată fiecare tastă pe tastaturile analogice de la Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA și alți producători, fiecare ca rând de dispozitiv separat. Documentația enumeră toate modelele acceptate. Tastaturile Razer necesită Razer Synapse în execuție. Majoritatea celorlalte sunt citite prin canalul folosit de propriul lor configurator, așa că închideți configuratorul cât timp această opțiune este activă.</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>Nu s-a găsit nicio tastatură analogică acceptată.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>Se citește {0}.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>Porniți Razer Synapse pentru a citi {0}.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>Porniți Razer Synapse pentru a citi {0}.</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Citire adaptoare Bliss-Box</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>Comunică cu adaptoarele Bliss-Box prin API-ul lor. Rândul fiecărui port afișează controlerul conectat la el și butoanele acestuia, citește presiunea unui DualShock 2, vibrează prin comenzile proprii de motor ale adaptorului și oferă acțiunile pentru ecranul Dreamcast, Controller Pak și numărul jucătorului. Închideți Bliss-Box API Tool și DeviceBuddy cât timp această opțiune este activă, deoarece comunică cu adaptorul prin același canal. Cât timp această opțiune este activă, PadForge citește fiecare port în aranjamentul propriu al adaptorului, nu prin maparea SDL pentru gamepad, așa că mapați din nou un port după ce o activați sau o dezactivați.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Nu s-a găsit niciun port Bliss-Box.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>Se citește {0}.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>portul {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>se conectează</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>niciun controler</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>Tipul {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Controler web</value></data>
@@ -4292,7 +4288,7 @@ Doriți ca PadForge să le dezinstaleze acum? Este nevoie de drepturi de adminis
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>Formatul PCM haptic al PS5, 16 biți cu semn la 3 kHz, care a lămurit codificarea haptică Bluetooth de 8 biți cu semn. AGPL-3.0, citit doar ca documentație, nu este inclus niciun cod AGPL.</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Ecrane de tastatură</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Desenează pe ecranele integrate în tastaturile GamePanel de la Logitech și în Mad Catz S.T.R.I.K.E. 7, precum și pe un telefon prin Logitech Arx Control: profilul, un ceas, timpul de joc, un cronometru, o imagine sau culoarea barei luminoase a unui DualShock 4 sau DualSense. Tastele de lângă aceste ecrane devin butoane pe rândul Taste de ecran ale tastaturii.</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Desenează pe ecranele integrate în tastaturile GamePanel de la Logitech și în Mad Catz S.T.R.I.K.E. 7, precum și pe un telefon prin Logitech Arx Control: profilul, un ceas, timpul de joc, un cronometru, o imagine sau culoarea barei luminoase a unui DualShock 4 sau DualSense. Fiecare ecran are propriul rând pe pagina Dispozitive, unde setați ce afișează. Tastele de lângă un ecran sunt butoanele rândului său.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Controlare ecrane de tastatură</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Desenează pe ecranele Logitech G15, G15 v2, G510, G13, Z-10, GamePanel și G19, pe Arx Control și pe Mad Catz S.T.R.I.K.E. 7. Cât timp rulează Logitech Gaming Software, PadForge desenează prin intermediul acestuia. Fără el, PadForge scrie pe ecranele monocrome prin HID și leagă WinUSB de interfața de ecran a lui G19. Dezactivarea acestei opțiuni returnează ecranul lui G19 către Windows.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Ecran monocrom…</value></data>
@@ -4332,7 +4328,8 @@ Doriți ca PadForge să le dezinstaleze acum? Este nevoie de drepturi de adminis
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>nu s-a găsit niciun ecran</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, se așteaptă o culoare a barei luminoase</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, nicio imagine aleasă</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Taste de ecran ale tastaturii</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Cât timp rulează Logitech Gaming Software, fiecare ecran de acest fel afișează imaginea setată pentru {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Ecran de tastatură</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Tasta de ecran {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Tasta de applet</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Ecran stânga</value></data>
@@ -4351,7 +4348,7 @@ Doriți ca PadForge să le dezinstaleze acum? Este nevoie de drepturi de adminis
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Ecranul afișează orele și minutele de când s-a activat profilul activ. Un profil legat de programul unui joc se activează când pornește jocul, deci contorul măsoară acea sesiune. Sub profilul implicit, contorul pornește de la începutul motorului.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Ecranul afișează o imagine pe care o alegeți, la dimensiunea ei proprie. O imagine mai mare decât ecranul se afișează printr-o fereastră de dimensiunea ecranului, pe care o deplasează macrocomanda Panoramare imagine pe ecranul tastaturii. Pe S.T.R.I.K.E. 7, un deget tras pe ecran o deplasează și el.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Ecranul afișează cronometrul, pe care macrocomanda Cronometru îl pornește, îl întrerupe și îl resetează. Toate ecranele afișează același cronometru.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Ecranul afișează culoarea barei luminoase a DualShock 4 sau DualSense din cel mai mic slot. Un ecran monocrom îi afișează luminozitatea ca model de puncte. Până când o culoare ajunge la o bară luminoasă, PadForge nu afișează nimic.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Ecranul afișează culoarea barei luminoase a DualShock 4 sau DualSense din cel mai mic slot alimentat de acest ecran, sau din cel mai mic slot dintre toate când ecranul nu alimentează niciunul. Un ecran monocrom îi afișează luminozitatea ca model de puncte. Până când o culoare ajunge la o bară luminoasă, PadForge nu afișează nimic.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Imagini (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Toate fișierele (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Panoramare</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Panoramare X</value></data>
@@ -4363,11 +4360,11 @@ Doriți ca PadForge să le dezinstaleze acum? Este nevoie de drepturi de adminis
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Descărcarea SDK-ului S.T.R.I.K.E. 7 nu se potrivește cu SHA-256-ul cunoscut, așa că nu s-a păstrat nimic din ea.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Mediul de execuție Visual C++ 2008 lipsește în continuare după rularea programului de instalare.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Afișare ecran de tastatură</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Redă imagini pe fiecare ecran de tastatură de tipul ales, apoi readuce fiecare ecran la modul propriu.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Redă imagini pe fiecare ecran de tastatură de tipul ales care alimentează acest slot, apoi readuce fiecare ecran la modul propriu.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Afișare imagini {0}: {1} × {2} ms, număr de repetări {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Imaginile se adaptează la ecran: 160 pe 43 de pixeli alb-negru pe un ecran monocrom, 320 pe 240 pe cel al lui G19 și 480 pe 320 pentru Arx Control și S.T.R.I.K.E. 7. O zecime de secundă este cea mai scurtă durată a cadrului.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Mod ecran de tastatură</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Comută un tip de ecran de tastatură în alt mod și îl păstrează ca setare a acelui ecran.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Comută fiecare ecran de tastatură de tipul ales care alimentează acest slot în alt mod și îl păstrează ca setare a acelui ecran.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} afișează {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Modul rămâne până când îl schimbă o altă macrocomandă sau dialogul ecranului.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Cronometru</value></data>
@@ -4376,9 +4373,9 @@ Doriți ca PadForge să le dezinstaleze acum? Este nevoie de drepturi de adminis
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Resetare cronometru</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Resetarea oprește cronometrul și îl readuce la zero. Fiecare ecran de tastatură în modul Cronometru afișează același cronometru.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Panoramare imagine pe ecranul tastaturii</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Deplasează fereastra fiecărui ecran de tastatură peste o imagine mai mare decât ecranul, de exemplu pentru o hartă.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Deplasează fereastra fiecărui ecran de tastatură care alimentează acest slot peste o imagine mai mare decât ecranul, de exemplu pentru o hartă.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Panoramare imagini cu {0} pe {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Deplasează fiecare tip de ecran care afișează o imagine aleasă mai mare decât el. Fereastra se oprește la marginile imaginii.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Deplasează fiecare ecran care alimentează acest slot și afișează o imagine aleasă mai mare decât el. Fereastra se oprește la marginile imaginii.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Ecran</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Acțiune</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Direcție</value></data>
@@ -4460,6 +4457,6 @@ Doriți ca PadForge să le dezinstaleze acum? Este nevoie de drepturi de adminis
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Forța maximă pe care Falcon o aplică mânerului, de la 1 la 8 newtoni.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Resetare limită de forță</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Calibrare cursă</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Măsoară cât de departe se deplasează mânerul. Mutați-l la fiecare margine a cursei sale în cele patru secunde cât rulează măsurarea. Între timp, forțele se opresc.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>Calibrare cursă</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Măsoară cât de departe se deplasează mânerul. Mutați-l la fiecare margine a cursei sale în cele patru secunde cât rulează măsurarea. Între timp, forțele se opresc.</value></data>
 </root>

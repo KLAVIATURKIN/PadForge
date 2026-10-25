@@ -8071,16 +8071,6 @@
                                     <TextBlock Text="{Binding Pad_Falcon_NewtonsUnit, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource DzPercent}"/>
                                     <ui:Button Command="{Binding ResetFalconForceCapCommand}" Style="{StaticResource ResetButton}" ToolTip="{Binding Pad_Falcon_ResetForceCap, Source={x:Static strings:Strings.Instance}}"/>
                                 </StackPanel>
-
-                                <!-- Calibrate: a four-second sweep of the reach -->
-                                <StackPanel Orientation="Horizontal">
-                                    <Button Content="{Binding Pad_Falcon_Calibrate, Source={x:Static strings:Strings.Instance}}"
-                                            ToolTip="{Binding Pad_Falcon_Calibrate_Tooltip, Source={x:Static strings:Strings.Instance}}"
-                                            Command="{Binding FalconCalibrateCommand}" Padding="12,6" VerticalAlignment="Center"/>
-                                    <TextBlock common:LiveText.Polite="True" Text="{Binding FalconCalibrationStatus}"
-                                               TextWrapping="Wrap" VerticalAlignment="Center" Margin="12,0,0,0" MaxWidth="520"
-                                               Foreground="{DynamicResource EmberBrush}"/>
-                                </StackPanel>
                             </StackPanel>
                         </Border>
 

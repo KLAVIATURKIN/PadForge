@@ -462,16 +462,6 @@
                                Visibility="{Binding KeyboardScreensStatus, Converter={StaticResource StringToVisibility}}"
                                TextWrapping="Wrap" Margin="0,0,0,8"
                                Foreground="{DynamicResource EmberBrush}"/>
-                    <WrapPanel Visibility="{Binding KeyboardScreensEnabled, Converter={StaticResource BoolToVisibilityConverter}}">
-                        <Button Content="{Binding KeyboardScreens_Configure_Monochrome, Source={x:Static strings:Strings.Instance}}"
-                                Command="{Binding ConfigureKeyboardScreenCommand}" CommandParameter="Monochrome" Margin="0,0,8,6"/>
-                        <Button Content="{Binding KeyboardScreens_Configure_Color, Source={x:Static strings:Strings.Instance}}"
-                                Command="{Binding ConfigureKeyboardScreenCommand}" CommandParameter="Color" Margin="0,0,8,6"/>
-                        <Button Content="{Binding KeyboardScreens_Configure_Arx, Source={x:Static strings:Strings.Instance}}"
-                                Command="{Binding ConfigureKeyboardScreenCommand}" CommandParameter="Arx" Margin="0,0,8,6"/>
-                        <Button Content="{Binding KeyboardScreens_Configure_Strike7, Source={x:Static strings:Strings.Instance}}"
-                                Command="{Binding ConfigureKeyboardScreenCommand}" CommandParameter="Strike7" Margin="0,0,8,6"/>
-                    </WrapPanel>
                     <!-- The S.T.R.I.K.E. 7's library: Mad Catz's SDK fetched at
                          the user's click, or a copy the user has, and the
                          Visual C++ 2008 runtime it links. -->

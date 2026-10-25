@@ -1764,6 +1764,7 @@
   <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Efijerin'ny fitendry</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Mampiseho zavatra amin'ny efijery mipetaka amin'ny fitendry GamePanel an'ny Logitech sy ny Mad Catz S.T.R.I.K.E. 7, ary amin'ny finday amin'ny alalan'ny Logitech Arx Control: ny profil, famantaranandro, ny fotoana nilalaovana, chronomètre, sary, na ny lokon'ny lightbar amin'ny DualShock 4 na DualSense. Samy manana ny andalany manokana ao amin'ny pejy Fitaovana ny efijery tsirairay, ary eo no ifidiananao izay asehony. Ny bokotra fitendry eo akaikin'ny efijery dia bokotra amin'ny andalany.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Ampiasao ny efijerin'ny fitendry</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Efijery mainty sy fotsy…</value></data>
   <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Efijery miloko…</value></data>
@@ -1799,7 +1800,8 @@
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>tsy nahitana efijery</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, miandry lokon'ny lightbar</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, tsy misy sary nofidiana</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Bokotry ny efijerin'ny fitendry</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Raha mandeha ny Logitech Gaming Software, dia mampiseho ny sary voafaritra ho an'ny {0} ny efijery rehetra amin'ity karazana ity.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Efijerin'ny fitendry</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Bokotry ny efijery {0}</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Efijery havia</value></data>
   <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Efijery havanana</value></data>
@@ -1813,7 +1815,7 @@
   <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Mampiseho ny laharan'ny profil mavitrika ao amin'ny lisitry ny profil ny efijery. 0 ny profil par défaut.</value></data>
   <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Mampiseho ny sarin'ny profil mavitrika ny efijery, na ny anarany raha tsy manana sary izy. Samy manana ny sariny ny profil tsirairay.</value></data>
   <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Mampiseho ny ora ny efijery.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Mampiseho ny lokon'ny lightbar amin'ny DualShock 4 na DualSense ao amin'ny slot ambany indrindra ny efijery. Ny efijery mainty sy fotsy dia mampiseho ny hazavany amin'ny alalan'ny teboka. Raha tsy mbola misy loko tonga amin'ny lightbar, dia tsy mampiseho na inona na inona ny PadForge.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Mampiseho ny lokon'ny lightbar amin'ny DualShock 4 na DualSense ao amin'ny slot ambany indrindra mifandray aminy ny efijery, na ao amin'ny slot ambany indrindra amin'ny rehetra raha tsy misy slot mifandray aminy. Ny efijery mainty sy fotsy dia mampiseho ny hazavany amin'ny alalan'ny teboka. Raha tsy mbola misy loko tonga amin'ny lightbar, dia tsy mampiseho na inona na inona ny PadForge.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Sary (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Rakitra rehetra (*.*)|*.*</value></data>
   <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>Napetraka ho {1} ny {0}.</value></data>
   <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Misintona ny SDK S.T.R.I.K.E. 7 an'ny Mad Catz…</value></data>
@@ -1822,13 +1824,15 @@
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Tsy mifanaraka amin'ny SHA-256 fantatra ny SDK S.T.R.I.K.E. 7 nosintonina, koa tsy nisy notehirizina tamin'izany.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Mbola tsy eo ihany ny runtime Visual C++ 2008 na dia efa nandeha aza ny mpametraka azy.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Asehoy ny efijerin'ny fitendry</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Mampiseho sary amin'ny efijerin'ny fitendry rehetra amin'ilay karazana nofidiana, avy eo mamerina ny efijery tsirairay amin'ny mode-ny.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Mampiseho sary amin'ny efijerin'ny fitendry tsirairay amin'ilay karazana nofidiana izay mifandray amin'ity slot ity, avy eo mamerina ny efijery tsirairay amin'ny mode-ny.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Asehoy ny sary amin'ny {0}: {1} × {2} ms, isan'ny famerenana {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Ampifanarahina amin'ny efijery ny sary: piksely mainty sy fotsy 160 amin'ny 43 amin'ny efijery mainty sy fotsy, 320 amin'ny 240 amin'ny an'ny G19, ary 480 amin'ny 320 ho an'ny Arx Control sy ny S.T.R.I.K.E. 7. Ampahafolon'ny segondra no fotoana fohy indrindra isaky ny sary.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Mode an'ny efijerin'ny fitendry</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Manova karazana efijerin'ny fitendry iray ho amin'ny mode hafa ary mitahiry izany ho fikirakirana an'io efijery io.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Manova ho amin'ny mode hafa ny efijerin'ny fitendry tsirairay amin'ilay karazana nofidiana izay mifandray amin'ity slot ity, ary mitahiry izany ho fikirakirana an'io efijery io.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>Mampiseho {1} ny {0}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Mijanona ny mode mandra-panovan'ny macro hafa na ny varavarankelin'ny efijery azy.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Mampihetsika ny varavarankelin'ny efijerin'ny fitendry tsirairay mifandray amin'ity slot ity eo amin'ny sary lehibe noho ny efijery, ho an'ny sarintany.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Mampihetsika ny efijery tsirairay mifandray amin'ity slot ity sady mampiseho sary nofidiana lehibe noho izy. Mijanona eo amin'ny sisin'ilay sary ny varavarankely.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Efijery</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Hetsika</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Lalana</value></data>
@@ -1906,6 +1910,6 @@
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Ny hery betsaka indrindra apetraky ny Falcon amin'ny tahony, 1 ka hatramin'ny 8 newton.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Avereno ny fetran'ny hery</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Refeso ny halavirana</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mandrefy ny halaviran'ny dian'ny tahony. Afindrao amin'ny sisiny rehetra izy mandritra ny efatra segondra hanaovana ny fandrefesana. Mijanona ny hery mandritra izany.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>Refeso ny halavirana</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mandrefy ny halaviran'ny dian'ny tahony. Afindrao amin'ny sisiny rehetra izy mandritra ny efatra segondra hanaovana ny fandrefesana. Mijanona ny hery mandritra izany.</value></data>
 </root>

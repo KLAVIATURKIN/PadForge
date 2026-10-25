@@ -835,7 +835,7 @@
   <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>V.E.N.O.M. screen pe PadForge choose karo</value></data>
   <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>V.E.N.O.M. screen pe</value></data>
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>koi screen nahi mila</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Keyboard screen ke key</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Keyboard ke screen</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Screen ke key {0}</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Screen Baaya</value></data>
   <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Screen Daaya</value></data>

@@ -287,14 +287,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>Analoge Tastaturen lesen</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Liest, wie tief jede Taste gedrückt ist, auf analogen Tastaturen von Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA und weiteren Herstellern, jeweils als eigene Gerätezeile. Die Dokumentation listet jedes unterstützte Modell auf. Razer-Tastaturen erfordern ein laufendes Razer Synapse. Die meisten anderen werden über den Kanal abgefragt, den ihre eigene Konfigurationssoftware nutzt. Schließen Sie diese Software, solange diese Option aktiv ist.</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>Keine unterstützte analoge Tastatur gefunden.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>Liest {0}.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>Starten Sie Razer Synapse, um {0} zu lesen.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>Starten Sie Razer Synapse, um {0} zu lesen.</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Bliss-Box-Adapter lesen</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>Spricht Bliss-Box-Adapter über ihre API an. Die Zeile jedes Anschlusses nennt den eingesteckten Controller und seine Tasten, liest den Druck eines DualShock 2, lässt ihn über die eigenen Motorbefehle des Adapters vibrieren und bietet die Aktionen für den Dreamcast-Bildschirm, das Controller Pak und die Spielernummer. Schließen Sie das Bliss-Box API Tool und DeviceBuddy, solange diese Option aktiv ist, da beide über denselben Kanal mit dem Adapter sprechen. Solange diese Option aktiv ist, liest PadForge jeden Anschluss im eigenen Layout des Adapters statt über die Gamepad-Zuordnung von SDL. Ordnen Sie einen Anschluss daher nach dem Ein- oder Ausschalten neu zu.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Kein Bliss-Box-Anschluss gefunden.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>Liest {0}.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>Anschluss {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>wird verbunden</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>kein Controller</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>Typ {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Web-Controller</value></data>
@@ -4243,7 +4239,7 @@ Sollen sie jetzt deinstalliert werden? Dies erfordert erhöhte Rechte und kann e
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>Das PCM-Format der PS5-Haptik, vorzeichenbehaftete 16 Bit bei 3 kHz, das die vorzeichenbehaftete 8-Bit-Kodierung der Bluetooth-Haptik geklärt hat. AGPL-3.0, nur als Dokumentation gelesen, kein AGPL-Code wird ausgeliefert.</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Tastatur-Bildschirme</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Zeichnet auf den eingebauten Bildschirmen der GamePanel-Tastaturen von Logitech und der Mad Catz S.T.R.I.K.E. 7 sowie über Logitech Arx Control auf einem Smartphone: das Profil, eine Uhrzeit, die Spielzeit, eine Stoppuhr, ein Bild oder die Farbe der Lightbar eines DualShock 4 oder DualSense. In der Zeile „Tastatur-Bildschirmtasten“ lassen sich die Tasten neben diesen Bildschirmen zuordnen.</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Zeichnet auf den eingebauten Bildschirmen der GamePanel-Tastaturen von Logitech und der Mad Catz S.T.R.I.K.E. 7 sowie über Logitech Arx Control auf einem Smartphone: das Profil, eine Uhrzeit, die Spielzeit, eine Stoppuhr, ein Bild oder die Farbe der Lightbar eines DualShock 4 oder DualSense. Jeder Bildschirm erhält auf der Seite „Geräte“ eine eigene Zeile, in der Sie festlegen, was er zeigt. Die Tasten neben einem Bildschirm sind die Tasten seiner Zeile.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Tastatur-Bildschirme ansteuern</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Zeichnet auf den Bildschirmen der Logitech G15, G15 v2, G510, G13, Z-10, GamePanel und G19, auf Arx Control und auf der Mad Catz S.T.R.I.K.E. 7. Solange Logitech Gaming Software läuft, zeichnet PadForge darüber. Ohne sie schreibt PadForge die einfarbigen Bildschirme per HID und bindet WinUSB an die Bildschirmschnittstelle der G19. Wird dies ausgeschaltet, erhält Windows den Bildschirm der G19 zurück.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Einfarbiger Bildschirm…</value></data>
@@ -4283,7 +4279,8 @@ Sollen sie jetzt deinstalliert werden? Dies erfordert erhöhte Rechte und kann e
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>kein Bildschirm gefunden</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, wartet auf eine Lightbar-Farbe</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, kein Bild gewählt</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Tastatur-Bildschirmtasten</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Solange Logitech Gaming Software läuft, zeigt jeder Bildschirm dieser Art das für {0} eingestellte Bild.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Tastatur-Bildschirm</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Bildschirmtaste {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Applet-Taste</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Bildschirm Links</value></data>
@@ -4302,7 +4299,7 @@ Sollen sie jetzt deinstalliert werden? Dies erfordert erhöhte Rechte und kann e
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Der Bildschirm zeigt die Stunden und Minuten seit dem Wechsel zum aktiven Profil. Ein Profil, das an das Programm eines Spiels gebunden ist, wird beim Start des Spiels aktiv, die Zählung gilt also für diese Sitzung. Unter dem Profil „Standard“ zählt sie ab dem Start der Engine.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Der Bildschirm zeigt ein von Ihnen gewähltes Bild in seiner eigenen Größe. Ist das Bild größer als der Bildschirm, zeigt der Bildschirm einen Ausschnitt in Bildschirmgröße, den das Makro „Tastatur-Bildschirmbild verschieben“ bewegt. Auf der S.T.R.I.K.E. 7 bewegt ihn auch ein Finger, der über den Bildschirm gezogen wird.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Der Bildschirm zeigt die Stoppuhr, die das Makro „Stoppuhr“ startet, pausiert und zurücksetzt. Alle Bildschirme zeigen dieselbe Stoppuhr.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Der Bildschirm zeigt die Farbe der Lightbar des DualShock 4 oder DualSense im niedrigsten Slot. Ein einfarbiger Bildschirm zeigt deren Helligkeit als Punktmuster. Solange keine Farbe bei einer Lightbar ankommt, zeigt PadForge nichts an.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Der Bildschirm zeigt die Farbe der Lightbar des DualShock 4 oder DualSense im niedrigsten Slot, den dieser Bildschirm speist, oder im niedrigsten Slot überhaupt, wenn er keinen speist. Ein einfarbiger Bildschirm zeigt deren Helligkeit als Punktmuster. Solange keine Farbe bei einer Lightbar ankommt, zeigt PadForge nichts an.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Bilder (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Alle Dateien (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Verschieben</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Verschieben X</value></data>
@@ -4314,11 +4311,11 @@ Sollen sie jetzt deinstalliert werden? Dies erfordert erhöhte Rechte und kann e
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Der Download des S.T.R.I.K.E. 7 SDK stimmt nicht mit dem bekannten SHA-256 überein, daher wurde nichts davon behalten.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Die Visual C++ 2008 Runtime fehlt nach der Ausführung ihres Installationsprogramms weiterhin.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Tastatur-Bildschirm anzeigen</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Spielt Bilder auf jedem Tastatur-Bildschirm der gewählten Art ab und setzt danach jeden Bildschirm auf seinen eigenen Modus zurück.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Spielt Bilder auf jedem Tastatur-Bildschirm der gewählten Art ab, der diesen Slot speist, und setzt danach jeden Bildschirm auf seinen eigenen Modus zurück.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>{0}-Bilder zeigen: {1} × {2} ms, Durchläufe {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Bilder werden an den Bildschirm angepasst: 160 mal 43 Schwarzweißpixel auf einem einfarbigen Bildschirm, 320 mal 240 auf dem der G19 und 480 mal 320 für Arx Control und die S.T.R.I.K.E. 7. Eine Zehntelsekunde ist die kürzeste Bilddauer.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Tastatur-Bildschirmmodus</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Schaltet eine Art von Tastatur-Bildschirm auf einen anderen Modus um und behält ihn als Einstellung dieses Bildschirms.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Schaltet jeden Tastatur-Bildschirm der gewählten Art, der diesen Slot speist, auf einen anderen Modus um und behält ihn als Einstellung dieses Bildschirms.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} zeigt {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Der Modus bleibt, bis ein anderes Makro oder der Dialog des Bildschirms ihn ändert.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Stoppuhr</value></data>
@@ -4327,9 +4324,9 @@ Sollen sie jetzt deinstalliert werden? Dies erfordert erhöhte Rechte und kann e
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Stoppuhr zurücksetzen</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Zurücksetzen hält die Stoppuhr an und stellt sie auf null. Alle Tastatur-Bildschirme im Modus „Stoppuhr“ zeigen dieselbe Stoppuhr.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Tastatur-Bildschirmbild verschieben</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Verschiebt den Ausschnitt jedes Tastatur-Bildschirms über einem Bild, das größer als der Bildschirm ist, etwa für eine Karte.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Verschiebt den Ausschnitt jedes Tastatur-Bildschirms, der diesen Slot speist, über einem Bild, das größer als der Bildschirm ist, etwa für eine Karte.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Bilder verschieben: {0} × {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Bewegt jede Art von Bildschirm, die ein gewähltes, größeres Bild zeigt. Der Ausschnitt stoppt an den Rändern des Bildes.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Bewegt jeden Bildschirm, der diesen Slot speist und ein gewähltes, größeres Bild zeigt. Der Ausschnitt stoppt an den Rändern des Bildes.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Bildschirm</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Aktion</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Richtung</value></data>
@@ -4411,6 +4408,6 @@ Sollen sie jetzt deinstalliert werden? Dies erfordert erhöhte Rechte und kann e
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Die maximale Kraft, die der Falcon auf den Griff ausübt, von 1 bis 8 Newton.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Kraftbegrenzung zurücksetzen</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Reichweite kalibrieren</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Misst, wie weit sich der Griff bewegt. Fahren Sie vier Sekunden lang, solange der Durchlauf läuft, an jeden Rand der Reichweite. Die Kräfte pausieren währenddessen.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>Reichweite kalibrieren</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Misst, wie weit sich der Griff bewegt. Fahren Sie vier Sekunden lang, solange der Durchlauf läuft, an jeden Rand der Reichweite. Die Kräfte pausieren währenddessen.</value></data>
 </root>

@@ -1,8 +1,10 @@
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using PadForge.Common.Input;
 using PadForge.Common.Input.KeyboardScreens;
+using PadForge.Engine;
+using PadForge.Engine.Data;
+using PadForge.ViewModels;
 
 namespace PadForge.Services
 {
@@ -50,10 +52,12 @@ namespace PadForge.Services
         }
 
         /// <summary>
-        /// The keyboard screens' lines under the Settings switch (#519): one
-        /// per kind, naming what draws it or why nothing does. Empty while
-        /// the feature is off or the engine is stopped, which collapses the
-        /// lines, the Bliss-Box shape.
+        /// The keyboard screens' lines under the Settings switch (#519): only
+        /// what belongs to the feature as a whole, the vendor libraries and no
+        /// screen found. Each screen's own line is on its row's panel
+        /// (<see cref="UpdateKeyboardScreenDeviceRow"/>). Empty while the
+        /// feature is off or the engine is stopped, which collapses the lines,
+        /// the Bliss-Box shape.
         /// </summary>
         private void UpdateKeyboardScreensStatus()
         {
@@ -61,11 +65,27 @@ namespace PadForge.Services
             var im = _inputManager;
             string status = string.Empty;
             if (im != null && im.IsRunning && settings.KeyboardScreensEnabled && _keyboardScreens?.Running == true)
-                status = string.Join(Environment.NewLine,
-                    KeyboardScreenFormats.Kinds.Select(kind => _keyboardScreens.StatusLine(kind)));
+                status = _keyboardScreens.SubsystemLines();
             if (string.Equals(_keyboardScreensStatusLast, status, StringComparison.Ordinal)) return;
             _keyboardScreensStatusLast = status;
             settings.KeyboardScreensStatus = status;
+        }
+
+        /// <summary>
+        /// The selected row's keyboard screen line and button (#519), on the
+        /// Devices page's tick: what draws the screen or why nothing does,
+        /// and the button that opens its dialog, the Dreamcast Screen
+        /// button's place. A row that is not a present screen shows
+        /// neither.
+        /// </summary>
+        private void UpdateKeyboardScreenDeviceRow(DeviceRowViewModel row, UserDevice ud)
+        {
+            var screen = _mainVm.Settings.KeyboardScreensEnabled && _keyboardScreens?.Running == true
+                         && ud.CapType == InputDeviceType.KeyboardScreenKeys
+                ? _keyboardScreens.ScreenOf(ud.InstanceGuid) : null;
+            row.KeyboardScreenLine = screen == null ? string.Empty : _keyboardScreens.StatusLine(screen);
+            row.KeyboardScreenButtonText = screen == null ? string.Empty : KeyboardScreenService.ButtonText(screen.Kind);
+            row.ShowKeyboardScreen = screen != null && ud.IsOnline;
         }
     }
 }

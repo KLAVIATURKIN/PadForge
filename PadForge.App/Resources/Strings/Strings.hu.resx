@@ -323,14 +323,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>Analóg billentyűzetek olvasása</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Beolvassa, hogy milyen mélyen van lenyomva az egyes billentyű a Wooting, a Razer, a SteelSeries, a Keychron, a NuPhy, a DrunkDeer, az AULA és más gyártók analóg billentyűzetein. Mindegyik külön eszközsorként jelenik meg. A támogatott modellek teljes listája a dokumentációban található. A Razer billentyűzetekhez futnia kell a Razer Synapse programnak. A többiek nagy részét a program ugyanazon a csatornán olvassa, amelyet a saját konfigurálóprogramjuk használ, ezért amíg ez be van kapcsolva, zárja be a konfigurálóprogramot.</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>Nem található támogatott analóg billentyűzet.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>Olvasás: {0}.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>Indítsa el a Razer Synapse programot a következő olvasásához: {0}.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>Indítsa el a Razer Synapse programot a következő olvasásához: {0}.</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Bliss-Box adapterek olvasása</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>A Bliss-Box adapterekkel azok API-ján keresztül kommunikál. Minden port sora megnevezi a portra csatlakoztatott kontrollert és annak gombjait, beolvassa a DualShock 2 nyomásértékeit, az adapter saját motorparancsaival rezegtet, és felkínálja a Dreamcast-képernyő, a Controller Pak és a játékosszám műveleteit. Amíg ez be van kapcsolva, zárja be a Bliss-Box API Tool és a DeviceBuddy programot, mert ezek ugyanazon a csatornán kommunikálnak az adapterrel. Amíg ez be van kapcsolva, a PadForge minden portot az adapter saját kiosztásában olvas, nem pedig az SDL gamepad-hozzárendelésén keresztül, ezért a be- vagy kikapcsolás után rendelje hozzá újra a portot.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Nem található Bliss-Box port.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>Olvasás: {0}.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>{0}. port ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>csatlakozás</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>nincs kontroller</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>{0}. típus</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Webes kontroller</value></data>
@@ -4292,7 +4288,7 @@ Szeretné, hogy a PadForge most eltávolítsa őket? Ehhez rendszergazdai jogosu
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>A PS5 haptikus PCM-formátuma (előjeles 16 bit, 3 kHz), amely eldöntötte az előjeles 8 bites Bluetooth-haptika kódolásának kérdését. AGPL-3.0, kizárólag dokumentációként olvasva, a program nem tartalmaz AGPL-kódot.</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Billentyűzetképernyők</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Rajzol a Logitech GamePanel billentyűzeteibe és a Mad Catz S.T.R.I.K.E. 7 beépített képernyőire, valamint egy telefonra a Logitech Arx Control segítségével: a profilt, egy órát, a játékidőt, egy stopperórát, egy képet vagy egy DualShock 4 vagy DualSense fénysáv színét. A képernyők melletti billentyűk gombokká válnak a Billentyűzetképernyő-gombok sorban.</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Rajzol a Logitech GamePanel billentyűzeteibe és a Mad Catz S.T.R.I.K.E. 7 beépített képernyőire, valamint egy telefonra a Logitech Arx Control segítségével: a profilt, egy órát, a játékidőt, egy stopperórát, egy képet vagy egy DualShock 4 vagy DualSense fénysáv színét. Minden képernyő külön sort kap az Eszközök oldalon, ahol beállíthatja, mit mutasson. A képernyő melletti billentyűk a sorának gombjai.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Billentyűzetképernyők vezérlése</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Rajzol a Logitech G15, G15 v2, G510, G13, Z-10, GamePanel és G19 képernyőjére, az Arx Control alkalmazásra és a Mad Catz S.T.R.I.K.E. 7-re. Amíg a Logitech Gaming Software fut, a PadForge azon keresztül rajzol. Nélküle a PadForge HID-en át írja a monokróm képernyőket, és a WinUSB-t a G19 képernyőinterfészéhez köti. A kikapcsolás visszaadja a G19 képernyőjét a Windowsnak.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Monokróm képernyő…</value></data>
@@ -4332,7 +4328,8 @@ Szeretné, hogy a PadForge most eltávolítsa őket? Ehhez rendszergazdai jogosu
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>nincs képernyő</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, várakozás fénysáv színére</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, nincs kép kiválasztva</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Billentyűzetképernyő-gombok</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Amíg a Logitech Gaming Software fut, ennek a fajtának minden képernyője a következőhöz beállított képet mutatja: {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Billentyűzetképernyő</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>{0}. képernyőgomb</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Applet-gomb</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Képernyő balra</value></data>
@@ -4351,7 +4348,7 @@ Szeretné, hogy a PadForge most eltávolítsa őket? Ehhez rendszergazdai jogosu
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>A képernyő az aktív profil bekapcsolása óta eltelt órákat és perceket mutatja. A játék programjához kötött profil a játék indulásakor kapcsol be, ezért a számláló az adott munkamenetet méri. Az Alapértelmezett profil alatt a motor indításától számol.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>A képernyő egy Ön által választott képet mutat, eredeti méretében. A képernyőnél nagyobb kép esetén a képernyő méretű ablakot mutat, amelyet a Billentyűzetképernyő-kép pásztázása makró mozgat. Az S.T.R.I.K.E. 7-en a képernyőn végighúzott ujj is mozgatja.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>A képernyő a stopperórát mutatja, amelyet a Stopperóra makró elindít, szüneteltet és visszaállít. Minden képernyő ugyanazt a stopperórát mutatja.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>A képernyő a legalacsonyabb foglalatban lévő DualShock 4 vagy DualSense fénysávjának színét mutatja. A monokróm képernyő a fényerőt pontmintával jeleníti meg. Amíg nem érkezik szín a fénysávhoz, a PadForge nem jelenít meg semmit.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>A képernyő annak a DualShock 4 vagy DualSense fénysávjának színét mutatja, amely a legalacsonyabb olyan foglalatban van, amelyet ez a képernyő táplál. Ha egyet sem táplál, az összes foglalat közül a legalacsonyabban lévőét mutatja. A monokróm képernyő a fényerőt pontmintával jeleníti meg. Amíg nem érkezik szín a fénysávhoz, a PadForge nem jelenít meg semmit.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Képek (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Minden fájl (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Pásztázás</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Pásztázás X</value></data>
@@ -4363,11 +4360,11 @@ Szeretné, hogy a PadForge most eltávolítsa őket? Ehhez rendszergazdai jogosu
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>A S.T.R.I.K.E. 7 SDK letöltése nem egyezik az ismert SHA-256 értékkel, ezért semmi sem maradt meg belőle.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>A Visual C++ 2008 futtatókörnyezet a telepítő lefutása után is hiányzik.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Billentyűzetképernyő megjelenítése</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Képeket játszik le a kiválasztott fajtájú összes billentyűzetképernyőn, majd minden képernyőt visszaállít a saját módjára.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Képeket játszik le a kiválasztott fajtájú minden olyan billentyűzetképernyőn, amely a foglalatot táplálja, majd minden képernyőt visszaállít a saját módjára.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>{0} képeinek megjelenítése: {1} × {2} ms, ismétlések száma: {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>A képek a képernyőhöz igazodnak: monokróm képernyőn 160 × 43 fekete-fehér képpont, a G19-én 320 × 240, az Arx Control és az S.T.R.I.K.E. 7 esetén 480 × 320. A legrövidebb képkockaidő egy tizedmásodperc.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Billentyűzetképernyő módja</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>A billentyűzetképernyő egy fajtáját másik módra állítja, és megtartja a képernyő beállításaként.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>A kiválasztott fajtájú minden olyan billentyűzetképernyőt, amely a foglalatot táplálja, másik módra állít, és megtartja a képernyő beállításaként.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} mutatja: {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>A mód addig marad, amíg egy másik makró vagy a képernyő párbeszédpanelje meg nem változtatja.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Stopperóra</value></data>
@@ -4376,9 +4373,9 @@ Szeretné, hogy a PadForge most eltávolítsa őket? Ehhez rendszergazdai jogosu
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Stopperóra visszaállítása</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>A visszaállítás leállítja a stopperórát, és nullára állítja. A Stopperóra módú összes billentyűzetképernyő ugyanazt a stopperórát mutatja.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Billentyűzetképernyő-kép pásztázása</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Térképhez a képernyőnél nagyobb kép fölött mozgatja az egyes billentyűzetképernyők ablakát.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Térképhez a képernyőnél nagyobb kép fölött mozgatja a foglalatot tápláló egyes billentyűzetképernyők ablakát.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Képek pásztázása: {0}, {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Minden olyan képernyőfajtát mozgat, amely önmagánál nagyobb kiválasztott képet mutat. Az ablak megáll a kép szélein.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Minden olyan képernyőt mozgat, amely a foglalatot táplálja, és önmagánál nagyobb kiválasztott képet mutat. Az ablak megáll a kép szélein.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Képernyő</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Művelet</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Irány</value></data>
@@ -4460,6 +4457,6 @@ Szeretné, hogy a PadForge most eltávolítsa őket? Ehhez rendszergazdai jogosu
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>A legnagyobb erő, amelyet a Falcon a fogantyúra kifejt, 1 és 8 newton között.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Erőkorlát visszaállítása</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Mozgástartomány kalibrálása</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Megméri, mekkora utat tesz meg a fogantyú. Mozgassa a mozgástartomány minden széléig a mérés négy másodperce alatt. Közben az erők szünetelnek.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>Mozgástartomány kalibrálása</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Megméri, mekkora utat tesz meg a fogantyú. Mozgassa a mozgástartomány minden széléig a mérés négy másodperce alatt. Közben az erők szünetelnek.</value></data>
 </root>

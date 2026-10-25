@@ -1085,7 +1085,8 @@
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>mayong screen na nahanap</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, naghahalat nin kolor kan lightbar</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, mayong napiling litrato</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Mga key kan screen kan keyboard</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Mientras nakabukas an Logitech Gaming Software, an lambang screen kan klaseng ini nagpapahiling kan litratong itinao para sa {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Screen kan keyboard</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Key {0} kan screen</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Screen Wala</value></data>
   <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Screen Tuo</value></data>

@@ -228,12 +228,8 @@
   <data name="Macro_EmptyHint" xml:space="preserve"><value>Pilia ang usa ka macro sa wala, o pislita ang Idugang aron maghimo og bag-o.</value></data>
   <data name="Dashboard_Services" xml:space="preserve"><value>Mga serbisyo</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>Walay nakit-an nga suportado nga analog keyboard.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>Nagbasa sa {0}.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>Sugdi ang Razer Synapse aron mabasa ang {0}.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>Sugdi ang Razer Synapse aron mabasa ang {0}.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Walay nakit-an nga Bliss-Box port.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>Nagbasa sa {0}.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>port {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>nagkonektar</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>walay controller</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>Tipo {0}</value></data>
   <data name="Dashboard_WebFooter" xml:space="preserve"><value>Pagkonektar gikan sa browser sa phone o tablet aron gamiton kini isip gamepad.</value></data>
@@ -3226,7 +3222,7 @@ Gusto ba nimo nga i-uninstall kini sa PadForge karon? Kinahanglan kini og elevat
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>Ang PS5 haptic PCM format, signed 16-bit sa 3 kHz, nga misulbad sa signed 8-bit Bluetooth haptics encoding. AGPL-3.0, gibasa isip dokumentasyon lang, walay AGPL code nga gilakip.</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Mga screen sa keyboard</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Magpakita sa mga screen nga naa sa mga GamePanel keyboard sa Logitech ug sa Mad Catz S.T.R.I.K.E. 7, ug sa usa ka phone pinaagi sa Logitech Arx Control: ang profile, orasan, oras sa pagdula, stopwatch, hulagway, o ang kolor sa lightbar sa DualShock 4 o DualSense. Ang mga key tupad sa maong mga screen mahimong mga button sa laray nga Mga key sa screen sa keyboard.</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Magpakita sa mga screen nga naa sa mga GamePanel keyboard sa Logitech ug sa Mad Catz S.T.R.I.K.E. 7, ug sa usa ka phone pinaagi sa Logitech Arx Control: ang profile, orasan, oras sa pagdula, stopwatch, hulagway, o ang kolor sa lightbar sa DualShock 4 o DualSense. Ang matag screen adunay kaugalingong laray sa panid nga Mga device, diin imong pilion kon unsay ipakita niini. Ang mga key tupad sa usa ka screen mao ang mga button sa laray niini.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Kontrolaha ang mga screen sa keyboard</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Magpakita sa mga screen sa Logitech G15, G15 v2, G510, G13, Z-10, GamePanel, ug G19, sa Arx Control, ug sa Mad Catz S.T.R.I.K.E. 7. Samtang nagdagan ang Logitech Gaming Software, mopakita ang PadForge pinaagi niini. Kon wala kini, isulat sa PadForge ang mga monochrome nga screen pinaagi sa HID ug ihigot ang WinUSB sa screen interface sa G19. Kon patyon kini, ibalik ngadto sa Windows ang screen sa G19.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Monochrome nga screen…</value></data>
@@ -3266,7 +3262,8 @@ Gusto ba nimo nga i-uninstall kini sa PadForge karon? Kinahanglan kini og elevat
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>walay screen nga nakit-an</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, naghulat og kolor sa lightbar</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, walay hulagway nga gipili</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Mga key sa screen sa keyboard</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Samtang nagdagan ang Logitech Gaming Software, ang tanang screen niini nga klase magpakita sa hulagway nga gipili para sa {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Screen sa keyboard</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Key {0} sa screen</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Applet key</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Pawala sa screen</value></data>
@@ -3285,7 +3282,7 @@ Gusto ba nimo nga i-uninstall kini sa PadForge karon? Kinahanglan kini og elevat
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Ipakita sa screen ang mga oras ug minuto sukad nibalhin ang aktibong profile. Ang profile nga nakahigot sa programa sa usa ka dula mobalhin kon magsugod ang dula, busa ang ihap mao ang maong sesyon. Ubos sa profile nga Default, moihap kini sukad sa pagsugod sa engine.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Ipakita sa screen ang hulagway nga imong gipili, sa kaugalingong gidak-on niini. Kon mas dako ang hulagway kaysa screen, usa ka bintana nga kasinggidak-on sa screen ang ipakita, nga gilihok sa macro nga "I-pan ang hulagway sa screen sa keyboard". Sa S.T.R.I.K.E. 7, molihok usab kini kon iguyod ang tudlo latas sa screen.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Ipakita sa screen ang stopwatch, nga gisugdan, gi-pause, ug gi-reset sa macro nga Stopwatch. Parehas nga stopwatch ang ipakita sa tanang screen.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Ipakita sa screen ang kolor sa lightbar sa DualShock 4 o DualSense nga naa sa pinakaubos nga slot. Ang monochrome nga screen mopakita sa kahayag niini isip pattern sa mga tuldok. Hangtod moabot ang kolor sa lightbar, walay ipakita ang PadForge.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Ipakita sa screen ang kolor sa lightbar sa DualShock 4 o DualSense nga naa sa pinakaubos nga slot nga gisuplayan niini nga screen, o sa pinakaubos sa tanang slot kon wala kini nagsuplay bisan usa. Ang monochrome nga screen mopakita sa kahayag niini isip pattern sa mga tuldok. Hangtod moabot ang kolor sa lightbar, walay ipakita ang PadForge.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Mga hulagway (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Tanang file (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>I-pan</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>I-pan X</value></data>
@@ -3297,11 +3294,11 @@ Gusto ba nimo nga i-uninstall kini sa PadForge karon? Kinahanglan kini og elevat
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Ang na-download nga S.T.R.I.K.E. 7 SDK dili motakdo sa nailhan nga SHA-256 niini, busa walay gitipigan gikan niini.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Wala gihapoy Visual C++ 2008 runtime human midagan ang installer niini.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Ipakita ang screen sa keyboard</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Magpakita og mga hulagway sa matag screen sa keyboard sa gipili nga klase, dayon ibalik ang matag screen sa kaugalingong mode niini.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Magpakita og mga hulagway sa matag screen sa keyboard sa gipili nga klase nga nagsuplay niini nga slot, dayon ibalik ang matag screen sa kaugalingong mode niini.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Ipakita ang mga hulagway sa {0}: {1} × {2} ms, ihap sa pagbalik {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Ang mga hulagway gipahaum sa screen: 160 por 43 nga itom ug puti nga pixel sa monochrome nga screen, 320 por 240 sa G19, ug 480 por 320 para sa Arx Control ug sa S.T.R.I.K.E. 7. Ang ikanapulo sa usa ka segundo mao ang pinakamubo nga oras sa frame.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Mode sa screen sa keyboard</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Ibalhin ang usa ka klase sa screen sa keyboard ngadto sa laing mode ug tipigan kini isip setting sa maong screen.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Ibalhin ngadto sa laing mode ang matag screen sa keyboard sa gipili nga klase nga nagsuplay niini nga slot, ug tipigan kini isip setting sa maong screen.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>Ang {0} mopakita sa {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Magpabilin ang mode hangtod usbon kini sa laing macro o sa dialog sa screen.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Stopwatch</value></data>
@@ -3310,9 +3307,9 @@ Gusto ba nimo nga i-uninstall kini sa PadForge karon? Kinahanglan kini og elevat
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>I-reset ang stopwatch</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Ang i-reset mohunong sa stopwatch ug ibalik kini sa zero. Parehas nga stopwatch ang ipakita sa matag screen sa keyboard nga naa sa Stopwatch mode.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>I-pan ang hulagway sa screen sa keyboard</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Ilihok ang bintana sa matag screen sa keyboard ibabaw sa hulagway nga mas dako kaysa screen, para sa mapa.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Ilihok ang bintana sa matag screen sa keyboard nga nagsuplay niini nga slot ibabaw sa hulagway nga mas dako kaysa screen, para sa mapa.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>I-pan ang mga hulagway {0} por {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Molihok sa matag klase sa screen nga nagpakita og gipili nga hulagway nga mas dako kaysa niini. Mohunong ang bintana sa mga ngilit sa hulagway.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Molihok sa matag screen nga nagsuplay niini nga slot ug nagpakita og gipili nga hulagway nga mas dako kaysa niini. Mohunong ang bintana sa mga ngilit sa hulagway.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Screen</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Aksyon</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Direksyon</value></data>
@@ -3393,6 +3390,6 @@ Gusto ba nimo nga i-uninstall kini sa PadForge karon? Kinahanglan kini og elevat
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Ang pinakadako nga kusog nga ibutang sa Falcon sa kuptanan, gikan sa 1 hangtod 8 ka newton.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>I-reset ang limitasyon sa kusog</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>I-calibrate ang abot</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mosukod kung unsa ka layo molihok ang kuptanan. Ilihok kini ngadto sa matag ngilit sa abot niini sulod sa upat ka segundo nga nagdagan ang pagsukod. Mohunong una ang mga kusog samtang nagsukod.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>I-calibrate ang abot</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mosukod kung unsa ka layo molihok ang kuptanan. Ilihok kini ngadto sa matag ngilit sa abot niini sulod sa upat ka segundo nga nagdagan ang pagsukod. Mohunong una ang mga kusog samtang nagsukod.</value></data>
 </root>

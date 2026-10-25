@@ -323,14 +323,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>อ่านคีย์บอร์ดแอนะล็อก</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>อ่านระยะที่กดของทุกคีย์บนคีย์บอร์ดแอนะล็อกจาก Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA และผู้ผลิตรายอื่น โดยแต่ละตัวจะเป็นแถวอุปกรณ์ของตัวเอง เอกสารประกอบมีรายชื่อทุกรุ่นที่รองรับ คีย์บอร์ด Razer ต้องเปิด Razer Synapse ไว้ ส่วนใหญ่ที่เหลือจะอ่านผ่านช่องทางเดียวกับที่โปรแกรมตั้งค่าของคีย์บอร์ดนั้นใช้ จึงควรปิดโปรแกรมตั้งค่าขณะเปิดตัวเลือกนี้</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>ไม่พบคีย์บอร์ดแอนะล็อกที่รองรับ</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>กำลังอ่าน {0}</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>เปิด Razer Synapse เพื่ออ่าน {0}</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>เปิด Razer Synapse เพื่ออ่าน {0}</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>อ่านอะแดปเตอร์ Bliss-Box</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>สื่อสารกับอะแดปเตอร์ Bliss-Box ผ่าน API ของอะแดปเตอร์ แถวของแต่ละพอร์ตจะบอกชื่อคอนโทรลเลอร์ที่เสียบอยู่และปุ่มของคอนโทรลเลอร์นั้น อ่านแรงกดของ DualShock 2 สั่นผ่านคำสั่งมอเตอร์ของอะแดปเตอร์เอง และมีการทำงานสำหรับหน้าจอ Dreamcast, Controller Pak และหมายเลขผู้เล่น ปิด Bliss-Box API Tool และ DeviceBuddy ขณะเปิดตัวเลือกนี้ เพราะทั้งสองสื่อสารกับอะแดปเตอร์ผ่านช่องทางเดียวกัน ขณะเปิดตัวเลือกนี้ PadForge จะอ่านแต่ละพอร์ตตามเลย์เอาต์ของอะแดปเตอร์เองแทนการอ่านผ่านการแมปเกมแพดของ SDL จึงต้องแมปพอร์ตใหม่หลังจากเปิดหรือปิดตัวเลือกนี้</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>ไม่พบพอร์ต Bliss-Box</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>กำลังอ่าน {0}</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>พอร์ต {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>กำลังเชื่อมต่อ</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>ไม่มีคอนโทรลเลอร์</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>ประเภท {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>คอนโทรลเลอร์บนเว็บ</value></data>
@@ -4292,7 +4288,7 @@
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>รูปแบบ PCM แฮปติกของ PS5 แบบ 16 บิตมีเครื่องหมายที่ 3 kHz ซึ่งใช้ยืนยันการเข้ารหัสแฮปติก Bluetooth แบบ 8 บิตมีเครื่องหมาย สัญญาอนุญาต AGPL-3.0 ใช้อ่านเป็นเอกสารอ้างอิงเท่านั้น ไม่มีโค้ด AGPL รวมอยู่ในโปรแกรม</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>หน้าจอคีย์บอร์ด</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>วาดบนหน้าจอที่ติดมากับคีย์บอร์ด GamePanel ของ Logitech และ Mad Catz S.T.R.I.K.E. 7 รวมถึงบนโทรศัพท์ผ่าน Logitech Arx Control ได้แก่ โปรไฟล์ นาฬิกา เวลาเล่น นาฬิกาจับเวลา รูปภาพ หรือสีของแถบไฟบน DualShock 4 หรือ DualSense คีย์ข้างหน้าจอเหล่านั้นจะกลายเป็นปุ่มในแถวคีย์หน้าจอคีย์บอร์ด</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>วาดบนหน้าจอที่ติดมากับคีย์บอร์ด GamePanel ของ Logitech และ Mad Catz S.T.R.I.K.E. 7 รวมถึงบนโทรศัพท์ผ่าน Logitech Arx Control ได้แก่ โปรไฟล์ นาฬิกา เวลาเล่น นาฬิกาจับเวลา รูปภาพ หรือสีของแถบไฟบน DualShock 4 หรือ DualSense แต่ละหน้าจอมีแถวของตัวเองในหน้าอุปกรณ์ ซึ่งคุณใช้ตั้งค่าว่าจะแสดงอะไร คีย์ข้างหน้าจอคือปุ่มของแถวนั้น</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>ควบคุมหน้าจอคีย์บอร์ด</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>วาดบนหน้าจอของ Logitech G15, G15 v2, G510, G13, Z-10, GamePanel และ G19 บน Arx Control และบน Mad Catz S.T.R.I.K.E. 7 ขณะที่ Logitech Gaming Software ทำงานอยู่ PadForge จะวาดผ่านซอฟต์แวร์นั้น หากไม่มี PadForge จะเขียนลงหน้าจอขาวดำผ่าน HID และผูก WinUSB กับอินเทอร์เฟซหน้าจอของ G19 การปิดตัวเลือกนี้จะคืนหน้าจอของ G19 ให้ Windows</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>หน้าจอขาวดำ…</value></data>
@@ -4332,7 +4328,8 @@
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>ไม่พบหน้าจอ</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0} กำลังรอสีแถบไฟ</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0} ยังไม่ได้เลือกรูปภาพ</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>คีย์หน้าจอคีย์บอร์ด</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>ขณะที่ Logitech Gaming Software ทำงานอยู่ ทุกหน้าจอประเภทนี้จะแสดงรูปภาพที่ตั้งไว้สำหรับ {0}</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>หน้าจอคีย์บอร์ด</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>คีย์หน้าจอ {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>คีย์แอปเพล็ต</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>หน้าจอ ซ้าย</value></data>
@@ -4351,7 +4348,7 @@
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>หน้าจอแสดงชั่วโมงและนาทีนับจากที่โปรไฟล์ที่ใช้งานอยู่เริ่มทำงาน โปรไฟล์ที่ผูกกับโปรแกรมของเกมจะเริ่มทำงานเมื่อเกมเริ่ม ค่าที่นับจึงเป็นรอบการเล่นนั้น ภายใต้โปรไฟล์ค่าเริ่มต้น จะนับตั้งแต่เอนจินเริ่มทำงาน</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>หน้าจอแสดงรูปภาพที่คุณเลือกในขนาดเดิม รูปภาพที่ใหญ่กว่าหน้าจอจะแสดงเป็นหน้าต่างขนาดเท่าหน้าจอ ซึ่งแมโคร เลื่อนรูปภาพหน้าจอคีย์บอร์ด เป็นผู้ย้าย บน S.T.R.I.K.E. 7 การลากนิ้วบนหน้าจอก็ย้ายได้เช่นกัน</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>หน้าจอแสดงนาฬิกาจับเวลา ซึ่งแมโครนาฬิกาจับเวลาใช้เริ่ม หยุดชั่วคราว และรีเซ็ต ทุกหน้าจอแสดงนาฬิกาจับเวลาเดียวกัน</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>หน้าจอแสดงสีของแถบไฟบน DualShock 4 หรือ DualSense ในช่องที่มีหมายเลขต่ำสุด หน้าจอขาวดำแสดงความสว่างเป็นลายจุด หากยังไม่มีสีส่งถึงแถบไฟ PadForge จะไม่แสดงอะไร</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>หน้าจอแสดงสีของแถบไฟบน DualShock 4 หรือ DualSense ในช่องที่มีหมายเลขต่ำสุดที่หน้าจอนี้ป้อน หรือในช่องที่มีหมายเลขต่ำสุดจากทั้งหมดเมื่อไม่ได้ป้อนช่องใดเลย หน้าจอขาวดำแสดงความสว่างเป็นลายจุด หากยังไม่มีสีส่งถึงแถบไฟ PadForge จะไม่แสดงอะไร</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>รูปภาพ (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|ไฟล์ทั้งหมด (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>เลื่อน</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>เลื่อน X</value></data>
@@ -4363,11 +4360,11 @@
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>ไฟล์ดาวน์โหลด SDK ของ S.T.R.I.K.E. 7 ไม่ตรงกับ SHA-256 ที่ทราบ จึงไม่เก็บสิ่งใดจากไฟล์นั้นไว้</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>รันไทม์ Visual C++ 2008 ยังขาดอยู่หลังจากตัวติดตั้งทำงานแล้ว</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>แสดงหน้าจอคีย์บอร์ด</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>เล่นรูปภาพบนหน้าจอคีย์บอร์ดทุกเครื่องของประเภทที่เลือก แล้วคืนแต่ละหน้าจอสู่โหมดของตัวเอง</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>เล่นรูปภาพบนหน้าจอคีย์บอร์ดแต่ละเครื่องของประเภทที่เลือกซึ่งป้อนช่องนี้ แล้วคืนแต่ละหน้าจอสู่โหมดของตัวเอง</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>แสดงรูปภาพ {0}: {1} × {2} ms จำนวนครั้งที่ทำซ้ำ {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>รูปภาพจะถูกปรับให้พอดีกับหน้าจอ: 160 × 43 พิกเซลขาวดำบนหน้าจอขาวดำ 320 × 240 บนหน้าจอของ G19 และ 480 × 320 สำหรับ Arx Control และ S.T.R.I.K.E. 7 เวลาต่อเฟรมสั้นที่สุดคือ 0.1 วินาที</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>โหมดหน้าจอคีย์บอร์ด</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>สลับหน้าจอคีย์บอร์ดประเภทหนึ่งไปเป็นอีกโหมด และเก็บไว้เป็นการตั้งค่าของหน้าจอนั้น</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>สลับหน้าจอคีย์บอร์ดแต่ละเครื่องของประเภทที่เลือกซึ่งป้อนช่องนี้ไปเป็นอีกโหมด และเก็บไว้เป็นการตั้งค่าของหน้าจอนั้น</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} แสดง {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>โหมดจะคงอยู่จนกว่าแมโครอื่นหรือกล่องโต้ตอบของหน้าจอจะเปลี่ยน</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>นาฬิกาจับเวลา</value></data>
@@ -4376,9 +4373,9 @@
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>รีเซ็ตนาฬิกาจับเวลา</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>รีเซ็ตจะหยุดนาฬิกาจับเวลาและตั้งกลับเป็นศูนย์ ทุกหน้าจอคีย์บอร์ดในโหมดนาฬิกาจับเวลาแสดงนาฬิกาจับเวลาเดียวกัน</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>เลื่อนรูปภาพหน้าจอคีย์บอร์ด</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>ย้ายหน้าต่างของแต่ละหน้าจอคีย์บอร์ดไปบนรูปภาพที่ใหญ่กว่าหน้าจอ สำหรับแผนที่</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>ย้ายหน้าต่างของแต่ละหน้าจอคีย์บอร์ดที่ป้อนช่องนี้ไปบนรูปภาพที่ใหญ่กว่าหน้าจอ สำหรับแผนที่</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>เลื่อนรูปภาพ {0} × {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>ย้ายหน้าจอทุกประเภทที่แสดงรูปภาพที่เลือกซึ่งใหญ่กว่าหน้าจอ หน้าต่างจะหยุดที่ขอบของรูปภาพ</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>ย้ายแต่ละหน้าจอที่ป้อนช่องนี้และแสดงรูปภาพที่เลือกซึ่งใหญ่กว่าตัวเอง หน้าต่างจะหยุดที่ขอบของรูปภาพ</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>หน้าจอ</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>การทำงาน</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>ทิศทาง</value></data>
@@ -4460,6 +4457,6 @@
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>แรงสูงสุดที่ Falcon กระทำต่อด้ามจับ ตั้งได้ตั้งแต่ 1 ถึง 8 นิวตัน</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>รีเซ็ตขีดจำกัดแรง</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>ปรับเทียบระยะเอื้อม</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>วัดว่าด้ามจับเคลื่อนที่ได้ไกลเพียงใด ขยับให้สุดทุกขอบของระยะเอื้อมตลอดสี่วินาทีที่การวัดทำงาน ระหว่างนั้นแรงทั้งหมดจะหยุดพัก</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>ปรับเทียบระยะเอื้อม</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>วัดว่าด้ามจับเคลื่อนที่ได้ไกลเพียงใด ขยับให้สุดทุกขอบของระยะเอื้อมตลอดสี่วินาทีที่การวัดทำงาน ระหว่างนั้นแรงทั้งหมดจะหยุดพัก</value></data>
 </root>

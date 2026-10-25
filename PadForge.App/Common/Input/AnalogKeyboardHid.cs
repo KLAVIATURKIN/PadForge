@@ -220,7 +220,7 @@ namespace PadForge.Common.Input
                 ? mi : -1;
         }
 
-        private static string GetInterfacePath(IntPtr set, ref SonyHeadsetHid.SP_DEVICE_INTERFACE_DATA iface, out uint devInst)
+        internal static string GetInterfacePath(IntPtr set, ref SonyHeadsetHid.SP_DEVICE_INTERFACE_DATA iface, out uint devInst)
         {
             devInst = 0;
             var devInfo = new SonyHeadsetHid.SP_DEVINFO_DATA { cbSize = Marshal.SizeOf<SonyHeadsetHid.SP_DEVINFO_DATA>() };
@@ -373,7 +373,7 @@ namespace PadForge.Common.Input
 
         /// <summary>DEVPKEY_Device_ContainerId of the collection's devnode, as
         /// a lowercase GUID string, or empty.</summary>
-        private static string ContainerId(uint devInst)
+        internal static string ContainerId(uint devInst)
         {
             if (devInst == 0) return string.Empty;
             var key = new DEVPROPKEY { fmtid = new Guid("8c7ed206-3f8a-4827-b3ab-ae9e1faefc6c"), pid = 2 };

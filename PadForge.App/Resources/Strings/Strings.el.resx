@@ -323,14 +323,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>Ανάγνωση αναλογικών πληκτρολογίων</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Διαβάζει πόσο βαθιά πατιέται κάθε πλήκτρο σε αναλογικά πληκτρολόγια των Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA και άλλων κατασκευαστών, το καθένα ως ξεχωριστή γραμμή συσκευής. Η τεκμηρίωση αναφέρει όλα τα υποστηριζόμενα μοντέλα. Τα πληκτρολόγια Razer χρειάζονται το Razer Synapse σε λειτουργία. Τα περισσότερα από τα υπόλοιπα διαβάζονται μέσω του καναλιού που χρησιμοποιεί το δικό τους πρόγραμμα ρύθμισης, γι' αυτό κλείστε το πρόγραμμα ρύθμισης όσο αυτή η επιλογή είναι ενεργή.</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>Δεν βρέθηκε υποστηριζόμενο αναλογικό πληκτρολόγιο.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>Ανάγνωση: {0}.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>Εκκινήστε το Razer Synapse για ανάγνωση: {0}.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>Εκκινήστε το Razer Synapse για ανάγνωση: {0}.</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Ανάγνωση προσαρμογέων Bliss-Box</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>Επικοινωνεί με τους προσαρμογείς Bliss-Box μέσω του API τους. Η γραμμή κάθε θύρας ονομάζει το χειριστήριο που είναι συνδεδεμένο σε αυτήν και τα κουμπιά του, διαβάζει την πίεση ενός DualShock 2, δονεί μέσω των εντολών κινητήρα του ίδιου του προσαρμογέα και προσφέρει τις ενέργειες για την οθόνη του Dreamcast, το Controller Pak και τον αριθμό παίκτη. Κλείστε το Bliss-Box API Tool και το DeviceBuddy όσο αυτή η επιλογή είναι ενεργή, επειδή επικοινωνούν με τον προσαρμογέα μέσω του ίδιου καναλιού. Όσο είναι ενεργή, το PadForge διαβάζει κάθε θύρα με τη διάταξη του ίδιου του προσαρμογέα και όχι μέσω της αντιστοίχισης χειριστηρίου του SDL, γι' αυτό αντιστοιχίστε ξανά μια θύρα αφού ενεργοποιήσετε ή απενεργοποιήσετε αυτή την επιλογή.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Δεν βρέθηκε θύρα Bliss-Box.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>Ανάγνωση: {0}.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>θύρα {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>γίνεται σύνδεση</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>κανένα χειριστήριο</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>Τύπος {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Χειριστήριο web</value></data>
@@ -4292,7 +4288,7 @@
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>Η μορφή PCM απτικής ανάδρασης του PS5, προσημασμένη 16 bit στα 3 kHz, που καθόρισε την προσημασμένη κωδικοποίηση απτικής ανάδρασης 8 bit μέσω Bluetooth. AGPL-3.0, μελετήθηκε μόνο ως τεκμηρίωση, δεν διανέμεται κώδικας AGPL.</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Οθόνες πληκτρολογίου</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Σχεδιάζει στις οθόνες που είναι ενσωματωμένες στα πληκτρολόγια GamePanel της Logitech και στο Mad Catz S.T.R.I.K.E. 7, καθώς και σε τηλέφωνο μέσω του Logitech Arx Control: το προφίλ, ένα ρολόι, τον χρόνο παιχνιδιού, ένα χρονόμετρο, μια εικόνα ή το χρώμα της φωτεινής μπάρας ενός DualShock 4 ή DualSense. Τα πλήκτρα δίπλα σε αυτές τις οθόνες γίνονται κουμπιά στη γραμμή «Πλήκτρα οθόνης πληκτρολογίου».</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Σχεδιάζει στις οθόνες που είναι ενσωματωμένες στα πληκτρολόγια GamePanel της Logitech και στο Mad Catz S.T.R.I.K.E. 7, καθώς και σε τηλέφωνο μέσω του Logitech Arx Control: το προφίλ, ένα ρολόι, τον χρόνο παιχνιδιού, ένα χρονόμετρο, μια εικόνα ή το χρώμα της φωτεινής μπάρας ενός DualShock 4 ή DualSense. Κάθε οθόνη έχει τη δική της γραμμή στη σελίδα Συσκευές, όπου ορίζετε τι δείχνει. Τα πλήκτρα δίπλα σε μια οθόνη είναι τα κουμπιά της γραμμής της.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Οδήγηση οθονών πληκτρολογίου</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Σχεδιάζει στις οθόνες των Logitech G15, G15 v2, G510, G13, Z-10, GamePanel και G19, στο Arx Control και στο Mad Catz S.T.R.I.K.E. 7. Όσο εκτελείται το Logitech Gaming Software, το PadForge σχεδιάζει μέσω αυτού. Χωρίς αυτό, το PadForge γράφει στις μονόχρωμες οθόνες μέσω HID και συνδέει το WinUSB στη διεπαφή οθόνης του G19. Η απενεργοποίηση αυτής της επιλογής επιστρέφει την οθόνη του G19 στα Windows.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Μονόχρωμη οθόνη…</value></data>
@@ -4332,7 +4328,8 @@
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>δεν βρέθηκε οθόνη</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, αναμονή για χρώμα φωτεινής μπάρας</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, δεν έχει επιλεγεί εικόνα</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Πλήκτρα οθόνης πληκτρολογίου</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Όσο εκτελείται το Logitech Gaming Software, κάθε οθόνη αυτού του είδους δείχνει την εικόνα που έχει οριστεί για το {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Οθόνη πληκτρολογίου</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Πλήκτρο οθόνης {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Πλήκτρο μικροεφαρμογής</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Αριστερά οθόνης</value></data>
@@ -4351,7 +4348,7 @@
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Η οθόνη δείχνει τις ώρες και τα λεπτά από τη στιγμή που ενεργοποιήθηκε το ενεργό προφίλ. Ένα προφίλ συνδεδεμένο με το πρόγραμμα ενός παιχνιδιού ενεργοποιείται όταν ξεκινά το παιχνίδι, οπότε η μέτρηση αφορά εκείνη τη συνεδρία. Στο προφίλ «Προεπιλεγμένο» η μέτρηση ξεκινά από την εκκίνηση της μηχανής.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Η οθόνη δείχνει μια εικόνα της επιλογής σας, στο δικό της μέγεθος. Μια εικόνα μεγαλύτερη από την οθόνη εμφανίζεται μέσα από ένα παράθυρο στο μέγεθος της οθόνης, το οποίο μετακινεί η μακροεντολή «Μετακίνηση εικόνας οθόνης πληκτρολογίου». Στο S.T.R.I.K.E. 7 το μετακινεί και ένα δάχτυλο που σέρνεται στην οθόνη.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Η οθόνη δείχνει το χρονόμετρο, το οποίο η μακροεντολή «Χρονόμετρο» ξεκινά, διακόπτει και μηδενίζει. Όλες οι οθόνες δείχνουν το ίδιο χρονόμετρο.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Η οθόνη δείχνει το χρώμα της φωτεινής μπάρας του DualShock 4 ή DualSense στη χαμηλότερη υποδοχή. Μια μονόχρωμη οθόνη δείχνει τη φωτεινότητά της ως μοτίβο κουκκίδων. Μέχρι να φτάσει χρώμα σε φωτεινή μπάρα, το PadForge δεν δείχνει τίποτα.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Η οθόνη δείχνει το χρώμα της φωτεινής μπάρας του DualShock 4 ή DualSense στη χαμηλότερη υποδοχή που τροφοδοτεί αυτή η οθόνη ή, όταν δεν τροφοδοτεί καμία, στη χαμηλότερη υποδοχή από όλες. Μια μονόχρωμη οθόνη δείχνει τη φωτεινότητά της ως μοτίβο κουκκίδων. Μέχρι να φτάσει χρώμα σε φωτεινή μπάρα, το PadForge δεν δείχνει τίποτα.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Εικόνες (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Όλα τα αρχεία (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Μετακίνηση</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Μετακίνηση X</value></data>
@@ -4363,11 +4360,11 @@
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Η λήψη του SDK του S.T.R.I.K.E. 7 δεν ταιριάζει με το γνωστό SHA-256, οπότε δεν κρατήθηκε τίποτα από αυτήν.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Το περιβάλλον εκτέλεσης Visual C++ 2008 εξακολουθεί να λείπει μετά την εκτέλεση του προγράμματος εγκατάστασής του.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Εμφάνιση οθόνης πληκτρολογίου</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Αναπαράγει εικόνες σε κάθε οθόνη πληκτρολογίου του επιλεγμένου είδους και έπειτα επαναφέρει κάθε οθόνη στη δική της λειτουργία.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Αναπαράγει εικόνες σε κάθε οθόνη πληκτρολογίου του επιλεγμένου είδους που τροφοδοτεί αυτή την υποδοχή και έπειτα επαναφέρει κάθε οθόνη στη δική της λειτουργία.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Εμφάνιση εικόνων {0}: {1} × {2} ms, πλήθος επαναλήψεων {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Οι εικόνες προσαρμόζονται στην οθόνη: 160 επί 43 ασπρόμαυρα εικονοστοιχεία σε μονόχρωμη οθόνη, 320 επί 240 στο G19 και 480 επί 320 για το Arx Control και το S.T.R.I.K.E. 7. Το ένα δέκατο του δευτερολέπτου είναι ο μικρότερος χρόνος καρέ.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Λειτουργία οθόνης πληκτρολογίου</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Αλλάζει ένα είδος οθόνης πληκτρολογίου σε άλλη λειτουργία και την κρατά ως ρύθμιση αυτής της οθόνης.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Αλλάζει σε άλλη λειτουργία κάθε οθόνη πληκτρολογίου του επιλεγμένου είδους που τροφοδοτεί αυτή την υποδοχή και την κρατά ως ρύθμιση αυτής της οθόνης.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} δείχνει {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Η λειτουργία μένει μέχρι να την αλλάξει άλλη μακροεντολή ή το παράθυρο διαλόγου της οθόνης.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Χρονόμετρο</value></data>
@@ -4376,9 +4373,9 @@
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Μηδενισμός χρονομέτρου</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Ο μηδενισμός σταματά το χρονόμετρο και το επαναφέρει στο μηδέν. Κάθε οθόνη πληκτρολογίου στη λειτουργία Χρονόμετρο δείχνει το ίδιο χρονόμετρο.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Μετακίνηση εικόνας οθόνης πληκτρολογίου</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Μετακινεί το παράθυρο κάθε οθόνης πληκτρολογίου πάνω σε μια εικόνα μεγαλύτερη από την οθόνη, για παράδειγμα έναν χάρτη.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Μετακινεί το παράθυρο κάθε οθόνης πληκτρολογίου που τροφοδοτεί αυτή την υποδοχή πάνω σε μια εικόνα μεγαλύτερη από την οθόνη, για παράδειγμα έναν χάρτη.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Μετακίνηση εικόνων κατά {0} επί {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Μετακινεί κάθε είδος οθόνης που δείχνει επιλεγμένη εικόνα μεγαλύτερη από την ίδια. Το παράθυρο σταματά στα όρια της εικόνας.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Μετακινεί κάθε οθόνη που τροφοδοτεί αυτή την υποδοχή και δείχνει επιλεγμένη εικόνα μεγαλύτερη από την ίδια. Το παράθυρο σταματά στα όρια της εικόνας.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Οθόνη</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Ενέργεια</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Κατεύθυνση</value></data>
@@ -4460,6 +4457,6 @@
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Η μέγιστη δύναμη που ασκεί το Falcon στη λαβή, από 1 έως 8 νιούτον.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Επαναφορά ορίου δύναμης</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Βαθμονόμηση εύρους κίνησης</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Μετρά πόσο μακριά διανύει η λαβή. Μετακινήστε την σε κάθε άκρο του εύρους κίνησής της για τα τέσσερα δευτερόλεπτα που διαρκεί η σάρωση. Στο μεταξύ οι δυνάμεις σταματούν.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>Βαθμονόμηση εύρους κίνησης</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Μετρά πόσο μακριά διανύει η λαβή. Μετακινήστε την σε κάθε άκρο του εύρους κίνησής της για τα τέσσερα δευτερόλεπτα που διαρκεί η σάρωση. Στο μεταξύ οι δυνάμεις σταματούν.</value></data>
 </root>

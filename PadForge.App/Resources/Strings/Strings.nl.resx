@@ -287,14 +287,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>Analoge toetsenborden lezen</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Leest hoe ver elke toets is ingedrukt op analoge toetsenborden van Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA en andere fabrikanten, elk als eigen apparaatregel. De documentatie noemt elk ondersteund model. Razer-toetsenborden vereisen dat Razer Synapse draait. De meeste andere worden uitgelezen via het kanaal dat hun eigen configuratiesoftware gebruikt, dus sluit die software zolang dit aan staat.</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>Geen ondersteund analoog toetsenbord gevonden.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>Leest {0}.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>Start Razer Synapse om {0} te lezen.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>Start Razer Synapse om {0} te lezen.</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Bliss-Box-adapters lezen</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>Communiceert met Bliss-Box-adapters via hun API. De regel van elke poort noemt de aangesloten controller en zijn knoppen, leest de druk van een DualShock 2, laat trillen via de eigen motoropdrachten van de adapter en biedt de acties voor het Dreamcast-scherm, het Controller Pak en het spelernummer. Sluit Bliss-Box API Tool en DeviceBuddy zolang dit aan staat, omdat ze via hetzelfde kanaal met de adapter praten. Zolang dit aan staat, leest PadForge elke poort in de eigen indeling van de adapter in plaats van via SDL's gamepad-toewijzing. Wijs een poort daarom opnieuw toe na het aan- of uitzetten.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Geen Bliss-Box-poort gevonden.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>Leest {0}.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>poort {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>verbinden</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>geen controller</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>Type {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Webcontroller</value></data>
@@ -4263,7 +4259,7 @@ Wil je dat PadForge ze nu verwijdert? Hiervoor zijn verhoogde rechten nodig en h
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>Het PCM-formaat van de PS5-haptiek, 16 bits met teken op 3 kHz, dat de 8-bitcodering met teken van de Bluetooth-haptiek vastlegde. AGPL-3.0, alleen als documentatie gelezen, er wordt geen AGPL-code meegeleverd.</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Toetsenbordschermen</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Tekent op de schermen in de GamePanel-toetsenborden van Logitech en de Mad Catz S.T.R.I.K.E. 7, en via Logitech Arx Control op een telefoon: het profiel, een klok, speeltijd, een stopwatch, een afbeelding of de kleur van de lightbar van een DualShock 4 of DualSense. De toetsen naast die schermen worden knoppen in de rij Toetsenbordschermtoetsen.</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Tekent op de schermen in de GamePanel-toetsenborden van Logitech en de Mad Catz S.T.R.I.K.E. 7, en via Logitech Arx Control op een telefoon: het profiel, een klok, speeltijd, een stopwatch, een afbeelding of de kleur van de lightbar van een DualShock 4 of DualSense. Elk scherm krijgt een eigen rij op de pagina Apparaten, waar wordt ingesteld wat het toont. De toetsen naast een scherm zijn de knoppen van de rij.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Toetsenbordschermen aansturen</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Tekent op de schermen van de Logitech G15, G15 v2, G510, G13, Z-10, GamePanel en G19, op Arx Control en op de Mad Catz S.T.R.I.K.E. 7. Terwijl Logitech Gaming Software draait, tekent PadForge via die software. Zonder die software schrijft PadForge de monochrome schermen via HID en koppelt het WinUSB aan de scherminterface van de G19. Uitschakelen geeft het scherm van de G19 terug aan Windows.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Monochroom scherm…</value></data>
@@ -4303,7 +4299,8 @@ Wil je dat PadForge ze nu verwijdert? Hiervoor zijn verhoogde rechten nodig en h
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>geen scherm gevonden</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, wacht op een lightbarkleur</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, geen afbeelding gekozen</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Toetsenbordschermtoetsen</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Zolang Logitech Gaming Software draait, toont elk scherm van dit type de afbeelding die voor {0} is ingesteld.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Toetsenbordscherm</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Schermtoets {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Applettoets</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Scherm links</value></data>
@@ -4322,7 +4319,7 @@ Wil je dat PadForge ze nu verwijdert? Hiervoor zijn verhoogde rechten nodig en h
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Het scherm toont de uren en minuten sinds het actieve profiel is ingeschakeld. Een profiel dat aan het programma van een spel is gekoppeld, wordt ingeschakeld wanneer het spel start, dus de teller geldt voor die sessie. Onder het profiel Standaard telt de teller vanaf de start van de engine.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Het scherm toont een gekozen afbeelding op de eigen grootte. Een afbeelding die groter is dan het scherm, toont een venster ter grootte van het scherm, dat de macro Afbeelding op toetsenbordscherm verschuiven verplaatst. Op de S.T.R.I.K.E. 7 verplaatst een over het scherm gesleepte vinger het ook.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Het scherm toont de stopwatch, die de macro Stopwatch start, pauzeert en reset. Elk scherm toont dezelfde stopwatch.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Het scherm toont de kleur van de lightbar van de DualShock 4 of DualSense in het laagste slot. Een monochroom scherm toont de helderheid als stippenpatroon. Zolang er geen kleur bij een lightbar is aangekomen, toont PadForge niets.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Het scherm toont de kleur van de lightbar van de DualShock 4 of DualSense in het laagste slot dat dit scherm voedt, of in het laagste slot van allemaal als het er geen voedt. Een monochroom scherm toont de helderheid als stippenpatroon. Zolang er geen kleur bij een lightbar is aangekomen, toont PadForge niets.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Afbeeldingen (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Alle bestanden (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Verschuiven</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Verschuiven X</value></data>
@@ -4334,11 +4331,11 @@ Wil je dat PadForge ze nu verwijdert? Hiervoor zijn verhoogde rechten nodig en h
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>De download van de S.T.R.I.K.E. 7-SDK komt niet overeen met de bekende SHA-256, dus er is niets van bewaard.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>De Visual C++ 2008-runtime ontbreekt nog nadat het installatieprogramma is uitgevoerd.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Toetsenbordscherm tonen</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Speelt afbeeldingen af op elk toetsenbordscherm van het gekozen type en zet daarna elk scherm terug naar zijn eigen modus.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Speelt afbeeldingen af op elk toetsenbordscherm van het gekozen type dat dit slot voedt, en zet daarna elk scherm terug naar zijn eigen modus.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Afbeeldingen tonen op {0}: {1} × {2} ms, aantal herhalingen {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Afbeeldingen worden aangepast aan het scherm: 160 bij 43 zwart-witpixels op een monochroom scherm, 320 bij 240 op dat van de G19 en 480 bij 320 voor Arx Control en de S.T.R.I.K.E. 7. Een tiende seconde is de kortste tijd per afbeelding.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Modus van toetsenbordscherm</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Schakelt een type toetsenbordscherm over naar een andere modus en bewaart die als instelling van dat scherm.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Schakelt elk toetsenbordscherm van het gekozen type dat dit slot voedt over naar een andere modus en bewaart die als instelling van dat scherm.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} toont {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>De modus blijft staan tot een andere macro of het dialoogvenster van het scherm hem wijzigt.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Stopwatch</value></data>
@@ -4347,9 +4344,9 @@ Wil je dat PadForge ze nu verwijdert? Hiervoor zijn verhoogde rechten nodig en h
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Stopwatch resetten</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Resetten stopt de stopwatch en zet hem terug op nul. Elk toetsenbordscherm in de modus Stopwatch toont dezelfde stopwatch.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Afbeelding op toetsenbordscherm verschuiven</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Verschuift het venster van elk toetsenbordscherm over een afbeelding die groter is dan het scherm, bijvoorbeeld voor een kaart.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Verschuift het venster van elk toetsenbordscherm dat dit slot voedt over een afbeelding die groter is dan het scherm, bijvoorbeeld voor een kaart.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Afbeeldingen verschuiven met {0} bij {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Verschuift elk type scherm dat een gekozen afbeelding toont die groter is dan het scherm zelf. Het venster stopt aan de randen van de afbeelding.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Verschuift elk scherm dat dit slot voedt en een gekozen afbeelding toont die groter is dan het scherm zelf. Het venster stopt aan de randen van de afbeelding.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Scherm</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Actie</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Richting</value></data>
@@ -4431,6 +4428,6 @@ Wil je dat PadForge ze nu verwijdert? Hiervoor zijn verhoogde rechten nodig en h
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>De maximale kracht die de Falcon op de handgreep zet, van 1 tot 8 newton.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Krachtlimiet resetten</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Bereik kalibreren</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Meet hoe ver de handgreep reikt. Beweeg hem naar elke rand van het bereik gedurende de vier seconden dat de meting loopt. De krachten rusten intussen.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>Bereik kalibreren</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Meet hoe ver de handgreep reikt. Beweeg hem naar elke rand van het bereik gedurende de vier seconden dat de meting loopt. De krachten rusten intussen.</value></data>
 </root>

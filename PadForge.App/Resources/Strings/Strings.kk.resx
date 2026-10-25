@@ -308,14 +308,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>Аналогтық пернетақталарды оқу</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA және басқа өндірушілердің аналогтық пернетақталарында әр перненің қаншалықты басылғанын оқиды, әрқайсысы жеке құрылғы жолы ретінде шығады. Қолдау көрсетілетін барлық модельдер құжаттамада келтірілген. Razer пернетақталары үшін Razer Synapse іске қосулы болуы керек. Қалғандарының көбі өз конфигураторы пайдаланатын арна арқылы оқылады, сондықтан бұл параметр қосулы кезде конфигураторды жабыңыз.</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>Қолдау көрсетілетін аналогтық пернетақта табылмады.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>Оқылуда: {0}.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>{0} құрылғысын оқу үшін Razer Synapse бағдарламасын іске қосыңыз.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>{0} құрылғысын оқу үшін Razer Synapse бағдарламасын іске қосыңыз.</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Bliss-Box адаптерлерін оқу</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>Bliss-Box адаптерлерімен олардың API арқылы байланысады. Әр порттың жолы оған қосылған контроллер мен оның түймелерін атайды, DualShock 2 басу күшін оқиды, адаптердің өз мотор командалары арқылы дірілдетеді және Dreamcast экраны, Controller Pak және ойыншы нөмірі әрекеттерін ұсынады. Бұл параметр қосулы кезде Bliss-Box API Tool мен DeviceBuddy бағдарламаларын жабыңыз, себебі олар адаптермен сол арна арқылы байланысады. Бұл қосулы кезде PadForge әр портты SDL геймпад тағайындауы арқылы емес, адаптердің өз схемасы бойынша оқиды, сондықтан мұны қосқаннан не өшіргеннен кейін портты қайта тағайындаңыз.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Bliss-Box порты табылмады.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>Оқылуда: {0}.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>порт {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>қосылуда</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>контроллер жоқ</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>Түр {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Веб-контроллер</value></data>
@@ -4267,7 +4263,7 @@ PadForge оларды қазір жойсын ба? Ол үшін әкімші �
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PS5 хаптикалық PCM пішімі, 3 kHz жиілігінде таңбалы 16 биттік, ол таңбалы 8 биттік Bluetooth хаптика кодтауын анықтады. AGPL-3.0, тек құжаттама ретінде оқылған, AGPL коды жеткізілмейді.</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Пернетақта экрандары</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Logitech GamePanel пернетақталарына және Mad Catz S.T.R.I.K.E. 7 пернетақтасына орнатылған экрандарда, сондай-ақ Logitech Arx Control арқылы телефонда мыналарды көрсетеді: профиль, сағат, ойын уақыты, секундомер, сурет немесе DualShock 4 не DualSense жарық жолағының түсі. Осы экрандардың жанындағы пернелер Пернетақта экранының пернелері қатарында түймеге айналады.</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Logitech GamePanel пернетақталарына және Mad Catz S.T.R.I.K.E. 7 пернетақтасына орнатылған экрандарда, сондай-ақ Logitech Arx Control арқылы телефонда мыналарды көрсетеді: профиль, сағат, ойын уақыты, секундомер, сурет немесе DualShock 4 не DualSense жарық жолағының түсі. Әр экранның Құрылғылар бетінде өз қатары бар, онда оның нені көрсететінін таңдайсыз. Экранның жанындағы пернелер оның қатарының түймелері болады.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Пернетақта экрандарын басқару</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Logitech G15, G15 v2, G510, G13, Z-10, GamePanel және G19 экрандарында, Arx Control қолданбасында және Mad Catz S.T.R.I.K.E. 7 пернетақтасында көрсетеді. Logitech Gaming Software жұмыс істеп тұрғанда, PadForge соның арқылы бейнелейді. Ол болмаса, PadForge монохромды экрандарға HID арқылы жазады және WinUSB драйверін G19 экранының интерфейсіне байлайды. Өшірсеңіз, G19 экраны Windows жүйесіне қайтарылады.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Монохромды экран…</value></data>
@@ -4307,7 +4303,8 @@ PadForge оларды қазір жойсын ба? Ол үшін әкімші �
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>экран табылмады</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, жарық жолағының түсі күтілуде</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, сурет таңдалмаған</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Пернетақта экранының пернелері</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Logitech Gaming Software жұмыс істеп тұрғанда, осы түрдегі әр экран {0} үшін орнатылған суретті көрсетеді.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Пернетақта экраны</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Экран пернесі {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Апплет пернесі</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Экран: солға</value></data>
@@ -4326,7 +4323,7 @@ PadForge оларды қазір жойсын ба? Ол үшін әкімші �
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Экран белсенді профиль қосылғаннан бері өткен сағаттар мен минуттарды көрсетеді. Ойын бағдарламасына байланған профиль ойын басталғанда қосылады, сондықтан санақ сол сеанс үшін жүреді. Әдепкі профильде санақ қозғалтқыш іске қосылғаннан басталады.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Экран өзіңіз таңдаған суретті өз өлшемімен көрсетеді. Экраннан үлкен сурет болса, экран өлшеміндегі терезе көрсетіледі, оны «Пернетақта экранының суретін жылжыту» макросы жылжытады. S.T.R.I.K.E. 7 пернетақтасында экран бойымен сүйреген саусақ та оны жылжытады.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Экран секундомерді көрсетеді, оны «Секундомер» макросы бастайды, кідіртеді және қалпына келтіреді. Барлық экран бір секундомерді көрсетеді.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Экран ең төмен ұяшықтағы DualShock 4 немесе DualSense жарық жолағының түсін көрсетеді. Монохромды экран оның жарықтығын нүктелер өрнегі ретінде көрсетеді. Жарық жолағына түс жеткенше PadForge ештеңе көрсетпейді.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Экран осы экран кіріс беретін ең төмен ұяшықтағы, ал ешқайсысына кіріс бермесе, барлық ұяшықтардың ең төменгісіндегі DualShock 4 немесе DualSense жарық жолағының түсін көрсетеді. Монохромды экран оның жарықтығын нүктелер өрнегі ретінде көрсетеді. Жарық жолағына түс жеткенше PadForge ештеңе көрсетпейді.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Суреттер (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Барлық файлдар (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Жылжыту</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>X бойынша жылжыту</value></data>
@@ -4338,11 +4335,11 @@ PadForge оларды қазір жойсын ба? Ол үшін әкімші �
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>S.T.R.I.K.E. 7 SDK жүктемесі белгілі SHA-256 мәніне сәйкес келмейді, сондықтан одан ештеңе сақталмады.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Орнатушы жұмыс істегеннен кейін де Visual C++ 2008 орындау ортасы әлі жоқ.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Пернетақта экранын көрсету</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Таңдалған түрдегі әр пернетақта экранында суреттерді ойнатады, содан кейін әр экранды өз режиміне қайтарады.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Таңдалған түрдегі осы ұяшыққа кіріс беретін әр пернетақта экранында суреттерді ойнатады, содан кейін әр экранды өз режиміне қайтарады.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>{0} суреттерін көрсету: {1} × {2} мс, қайталау саны {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Суреттер экранға сәйкестендіріледі: монохромды экранда 160 × 43 ақ-қара пиксель, G19 экранында 320 × 240, Arx Control және S.T.R.I.K.E. 7 үшін 480 × 320. Кадр уақытының ең қысқа мәні секундтың оннан бірі.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Пернетақта экранының режимі</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Пернетақта экранының түрін басқа режимге ауыстырады және оны сол экранның параметрі ретінде сақтайды.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Осы ұяшыққа кіріс беретін таңдалған түрдегі әр пернетақта экранын басқа режимге ауыстырады және оны сол экранның параметрі ретінде сақтайды.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} {1} көрсетеді</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Режим басқа макрос немесе экранның диалогы өзгертпейінше сақталады.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Секундомер</value></data>
@@ -4351,9 +4348,9 @@ PadForge оларды қазір жойсын ба? Ол үшін әкімші �
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Секундомерді қалпына келтіру</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Қалпына келтіру секундомерді тоқтатып, нөлге қайтарады. Секундомер режимі бар барлық пернетақта экраны бір секундомерді көрсетеді.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Пернетақта экранының суретін жылжыту</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Экраннан үлкен суреттің үстінде әр пернетақта экранының терезесін жылжытады, мысалы, карта үшін.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Осы ұяшыққа кіріс беретін әр пернетақта экранының терезесін экраннан үлкен сурет үстінде жылжытады, мысалы, карта үшін.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Суреттерді {0}, {1} px жылжыту</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Өзінен үлкен таңдалған суретті көрсететін экранның әр түрін жылжытады. Терезе сурет шетінде тоқтайды.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Осы ұяшыққа кіріс беретін және өзінен үлкен таңдалған суретті көрсететін әр экранды жылжытады. Терезе сурет шетінде тоқтайды.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Экран</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Әрекет</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Бағыт</value></data>
@@ -4435,6 +4432,6 @@ PadForge оларды қазір жойсын ба? Ол үшін әкімші �
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Falcon тұтқаға түсіретін ең көп күш, 1-ден 8 ньютонға дейін.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Күш шегін қалпына келтіру</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Ауқымды калибрлеу</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Тұтқаның қаншалықты алысқа жылжитынын өлшейді. Сыпыру жүретін төрт секунд бойы оны ауқымының барлық шетіне жылжытыңыз. Осы кезде күштер тоқтайды.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>Ауқымды калибрлеу</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Тұтқаның қаншалықты алысқа жылжитынын өлшейді. Сыпыру жүретін төрт секунд бойы оны ауқымының барлық шетіне жылжытыңыз. Осы кезде күштер тоқтайды.</value></data>
 </root>

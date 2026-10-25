@@ -4567,19 +4567,6 @@ namespace PadForge.ViewModels
         /// <summary>The force cap in newtons.</summary>
         public int FalconForceCap { get => _falconForceCap; set => SetProperty(ref _falconForceCap, Math.Clamp(value, 1, 8)); }
 
-        private string _falconCalibrationStatus = string.Empty;
-        /// <summary>The Calibrate row's line: the reach in use, a sweep
-        /// running, or how the last sweep went.</summary>
-        public string FalconCalibrationStatus { get => _falconCalibrationStatus; set => SetProperty(ref _falconCalibrationStatus, value ?? string.Empty); }
-
-        /// <summary>The Calibrate button, for the window to start a sweep on
-        /// the selected Falcon.</summary>
-        public event EventHandler FalconCalibrateRequested;
-
-        private RelayCommand _falconCalibrateCommand;
-        public RelayCommand FalconCalibrateCommand =>
-            _falconCalibrateCommand ??= new RelayCommand(() => FalconCalibrateRequested?.Invoke(this, EventArgs.Empty));
-
         private RelayCommand _resetFalconSpringCommand, _resetFalconKickCommand, _resetFalconShakeCommand,
             _resetFalconGravityCommand, _resetFalconForceCapCommand, _resetFalconAllCommand;
         public RelayCommand ResetFalconSpringCommand => _resetFalconSpringCommand ??= new RelayCommand(() => FalconSpring = 100);

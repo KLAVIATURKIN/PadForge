@@ -910,6 +910,8 @@
   <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>qalisa Logitech Gaming Software</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, e emetse mmala wa lightbar</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, ha ho setshwantsho se kgethilweng</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Ha Logitech Gaming Software e ntse e sebetsa, screen e nngwe le e nngwe ya mofuta ona e bontsha setshwantsho se behilweng bakeng sa {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Screen ya keyboard</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Ditshwantsho (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Difaele tsohle (*.*)|*.*</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} e bontsha {1}</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Ketso</value></data>

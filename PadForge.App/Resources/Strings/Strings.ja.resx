@@ -287,14 +287,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>アナログキーボードを読み取る</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Wooting、Razer、SteelSeries、Keychron、NuPhy、DrunkDeer、AULA などのアナログキーボードで、各キーの押し込み量を読み取り、それぞれを独立したデバイス行にします。対応モデルの一覧はドキュメントにあります。Razer 製キーボードには Razer Synapse の実行が必要です。その他の多くは各社の設定ソフトが使う経路で問い合わせて読み取るため、この設定がオンの間は設定ソフトを閉じてください。</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>対応するアナログキーボードが見つかりません。</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>{0} を読み取り中。</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>{0} を読み取るには Razer Synapse を起動してください。</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>{0} を読み取るには Razer Synapse を起動してください。</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Bliss-Box アダプターを読み取る</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>Bliss-Box アダプターと API で通信します。各ポートの行には接続中のコントローラーとボタン名が表示され、DualShock 2 の感圧値を読み取り、アダプター自身のモーターコマンドで振動させ、Dreamcast 画面、コントローラパック、プレイヤー番号の操作を提供します。Bliss-Box API Tool と DeviceBuddy は同じ経路でアダプターと通信するため、この設定がオンの間は閉じてください。この設定がオンの間、PadForge は各ポートを SDL のゲームパッドマッピングではなくアダプター自身のレイアウトで読み取るため、オン・オフを切り替えた後はポートを再度マッピングしてください。</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Bliss-Box のポートが見つかりません。</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>{0} を読み取り中。</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>ポート {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>接続中</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>コントローラーなし</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>タイプ {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Web コントローラー</value></data>
@@ -4243,7 +4239,7 @@
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PS5 の触覚 PCM 形式 (符号付き 16 ビット、3 kHz)。Bluetooth 触覚の符号付き 8 ビット エンコードを確定させました。AGPL-3.0、ドキュメントとしてのみ参照、AGPL コードは同梱しません。</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>キーボード画面</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Logitech の GamePanel キーボードと Mad Catz S.T.R.I.K.E. 7 に内蔵された画面、およびスマートフォン上の Logitech Arx Control に、プロファイル、時計、プレイ時間、ストップウォッチ、画像、DualShock 4 または DualSense のライトバーの色を表示します。画面の横にあるキーは、キーボード画面キーの行でボタンとして割り当てられます。</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Logitech の GamePanel キーボードと Mad Catz S.T.R.I.K.E. 7 に内蔵された画面、およびスマートフォン上の Logitech Arx Control に、プロファイル、時計、プレイ時間、ストップウォッチ、画像、DualShock 4 または DualSense のライトバーの色を表示します。各画面にはデバイスページに専用の行があり、そこで表示内容を設定します。画面の横にあるキーは、その行のボタンになります。</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>キーボード画面を制御する</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Logitech G15、G15 v2、G510、G13、Z-10、GamePanel、G19 の画面、Arx Control、Mad Catz S.T.R.I.K.E. 7 に表示します。Logitech Gaming Software の実行中は、PadForge はそれを介して表示します。実行していない場合、PadForge は HID でモノクロ画面に書き込み、G19 の画面インターフェイスに WinUSB をバインドします。オフにすると、G19 の画面は Windows に返されます。</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>モノクロ画面…</value></data>
@@ -4283,7 +4279,8 @@
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>画面が見つかりません</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}、ライトバーの色を待機中</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}、画像が未選択</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>キーボード画面キー</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Logitech Gaming Software の実行中は、この種類のすべての画面に {0} 用に設定した画像が表示されます。</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>キーボード画面</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>画面キー {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>アプレットキー</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>画面 左</value></data>
@@ -4302,7 +4299,7 @@
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>画面にアクティブなプロファイルが切り替わってからの経過時間 (時間と分) を表示します。ゲームのプログラムに関連付けたプロファイルはゲームの開始時に切り替わるため、そのセッションの時間になります。デフォルトのプロファイルでは、エンジンの開始から数えます。</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>画面に選んだ画像を元のサイズで表示します。画面より大きい画像では、画面と同じサイズの範囲が表示され、キーボード画面の画像をパンするマクロで動かせます。S.T.R.I.K.E. 7 では、画面上で指をドラッグしても動かせます。</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>画面にストップウォッチを表示します。ストップウォッチは、ストップウォッチのマクロで開始、一時停止、リセットします。すべての画面で同じストップウォッチが表示されます。</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>画面に、最も小さいスロットの DualShock 4 または DualSense のライトバーの色を表示します。モノクロ画面では、明るさをドットパターンで表示します。ライトバーに色が届くまで、PadForge は何も表示しません。</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>画面に、この画面が入力するスロットのうち最も小さいスロットの DualShock 4 または DualSense のライトバーの色を表示します。入力するスロットがない場合は、すべてのスロットのうち最も小さいスロットが対象です。モノクロ画面では、明るさをドットパターンで表示します。ライトバーに色が届くまで、PadForge は何も表示しません。</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>画像 (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|すべてのファイル (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>パン</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>パン X</value></data>
@@ -4314,11 +4311,11 @@
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>ダウンロードした S.T.R.I.K.E. 7 SDK が既知の SHA-256 と一致しないため、そこから何も保存しませんでした。</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>インストーラーの実行後も、Visual C++ 2008 ランタイムがまだありません。</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>キーボード画面を表示</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>選んだ種類のすべてのキーボード画面で画像を再生し、その後、各画面を元のモードに戻します。</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>このスロットに入力する、選んだ種類の各キーボード画面で画像を再生し、その後、各画面を元のモードに戻します。</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>{0} の画像 {1} 枚を各 {2} ms で {3} 回表示</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>画像は画面に合わせて調整されます。モノクロ画面は 160 × 43 の白黒ピクセル、G19 は 320 × 240、Arx Control と S.T.R.I.K.E. 7 は 480 × 320 です。フレーム時間は最短で 0.1 秒です。</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>キーボード画面のモード</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>キーボード画面の種類を別のモードに切り替え、その画面の設定として保持します。</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>このスロットに入力する、選んだ種類の各キーボード画面を別のモードに切り替え、その画面の設定として保持します。</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} に {1} を表示</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>モードは、別のマクロまたは画面のダイアログで変更するまで維持されます。</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>ストップウォッチ</value></data>
@@ -4327,9 +4324,9 @@
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>ストップウォッチをリセット</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>リセットするとストップウォッチが止まり、ゼロに戻ります。ストップウォッチモードのすべてのキーボード画面で、同じストップウォッチが表示されます。</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>キーボード画面の画像をパン</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>画面より大きい画像上で、各キーボード画面の表示範囲を動かします。地図などに使えます。</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>このスロットに入力する各キーボード画面の表示範囲を、画面より大きい画像上で動かします。地図などに使えます。</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>画像を横 {0} px、縦 {1} px パン</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>自分より大きい選択画像を表示しているすべての種類の画面を動かします。表示範囲は画像の端で止まります。</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>このスロットに入力する画面のうち、自分より大きい選択画像を表示しているものを動かします。表示範囲は画像の端で止まります。</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>画面</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>操作</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>方向</value></data>
@@ -4411,6 +4408,6 @@
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Falcon がハンドルに加える力の最大値です。1 ～ 8 ニュートンで指定します。</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>力の上限をリセット</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>可動範囲をキャリブレーション</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>ハンドルが動く範囲を測定します。スイープが実行される 4 秒間に、ハンドルを可動範囲のすべての端まで動かしてください。その間、力は加わりません。</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>可動範囲をキャリブレーション</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>ハンドルが動く範囲を測定します。スイープが実行される 4 秒間に、ハンドルを可動範囲のすべての端まで動かしてください。その間、力は加わりません。</value></data>
 </root>

@@ -323,14 +323,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>Đọc bàn phím analog</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Đọc độ sâu nhấn của từng phím trên bàn phím analog của Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA và các hãng khác, mỗi bàn phím là một hàng thiết bị riêng. Tài liệu liệt kê mọi mẫu được hỗ trợ. Bàn phím Razer cần Razer Synapse đang chạy. Phần lớn các bàn phím còn lại được đọc qua chính kênh mà phần mềm cấu hình của chúng sử dụng, vì vậy hãy đóng phần mềm cấu hình khi bật tùy chọn này.</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>Không tìm thấy bàn phím analog nào được hỗ trợ.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>Đang đọc {0}.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>Hãy khởi động Razer Synapse để đọc {0}.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>Hãy khởi động Razer Synapse để đọc {0}.</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Đọc bộ chuyển đổi Bliss-Box</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>Giao tiếp với bộ chuyển đổi Bliss-Box thông qua API của chúng. Hàng của mỗi cổng nêu tên tay cầm đang cắm vào cổng đó cùng các nút của nó, đọc lực nhấn của DualShock 2, rung bằng chính các lệnh mô-tơ của bộ chuyển đổi, và cung cấp các thao tác màn hình Dreamcast, Controller Pak và số thứ tự người chơi. Hãy đóng Bliss-Box API Tool và DeviceBuddy khi bật tùy chọn này, vì chúng giao tiếp với bộ chuyển đổi qua cùng một kênh. Khi bật tùy chọn này, PadForge đọc từng cổng theo bố cục riêng của bộ chuyển đổi thay vì qua ánh xạ tay cầm của SDL, vì vậy hãy ánh xạ lại cổng sau khi bật hoặc tắt tùy chọn này.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Không tìm thấy cổng Bliss-Box nào.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>Đang đọc {0}.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>cổng {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>đang kết nối</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>không có tay cầm</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>Loại {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Tay cầm web</value></data>
@@ -4292,7 +4288,7 @@ Bạn có muốn PadForge gỡ cài đặt chúng ngay bây giờ không? Việc
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>Định dạng PCM xúc giác của PS5, 16-bit có dấu ở 3 kHz, cơ sở để xác định cách mã hóa xúc giác Bluetooth 8-bit có dấu. AGPL-3.0, chỉ được đọc làm tài liệu, không có mã AGPL nào được phát hành kèm.</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Màn hình bàn phím</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Vẽ lên các màn hình tích hợp trong bàn phím GamePanel của Logitech và Mad Catz S.T.R.I.K.E. 7, cũng như trên điện thoại qua Logitech Arx Control: hồ sơ, đồng hồ, thời gian chơi, đồng hồ bấm giờ, một hình ảnh, hoặc màu thanh đèn của tay cầm DualShock 4 hoặc DualSense. Các phím cạnh những màn hình này trở thành nút trên hàng Phím màn hình bàn phím.</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Vẽ lên các màn hình tích hợp trong bàn phím GamePanel của Logitech và Mad Catz S.T.R.I.K.E. 7, cũng như trên điện thoại qua Logitech Arx Control: hồ sơ, đồng hồ, thời gian chơi, đồng hồ bấm giờ, một hình ảnh, hoặc màu thanh đèn của tay cầm DualShock 4 hoặc DualSense. Mỗi màn hình có một hàng riêng trên trang Thiết bị, nơi bạn đặt nội dung nó hiển thị. Các phím cạnh một màn hình là các nút của hàng đó.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Điều khiển màn hình bàn phím</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Vẽ lên màn hình của Logitech G15, G15 v2, G510, G13, Z-10, GamePanel và G19, lên Arx Control, và lên Mad Catz S.T.R.I.K.E. 7. Khi Logitech Gaming Software đang chạy, PadForge vẽ thông qua nó. Nếu không có, PadForge ghi vào các màn hình đơn sắc qua HID và gắn WinUSB vào giao diện màn hình của G19. Tắt tùy chọn này sẽ trả màn hình của G19 lại cho Windows.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Màn hình đơn sắc…</value></data>
@@ -4332,7 +4328,8 @@ Bạn có muốn PadForge gỡ cài đặt chúng ngay bây giờ không? Việc
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>không tìm thấy màn hình</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, đang chờ màu thanh đèn</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, chưa chọn hình</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Phím màn hình bàn phím</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Khi Logitech Gaming Software đang chạy, mọi màn hình thuộc loại này đều hiển thị hình đã đặt cho {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Màn hình bàn phím</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Phím màn hình {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Phím applet</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Màn hình Trái</value></data>
@@ -4351,7 +4348,7 @@ Bạn có muốn PadForge gỡ cài đặt chúng ngay bây giờ không? Việc
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Màn hình hiển thị số giờ và phút kể từ khi hồ sơ đang hoạt động được chuyển sang. Hồ sơ gắn với chương trình của một trò chơi sẽ được chuyển sang khi trò chơi bắt đầu, nên số đếm là của phiên đó. Với hồ sơ Mặc định, số đếm tính từ lúc engine khởi động.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Màn hình hiển thị một hình bạn chọn, theo kích thước gốc của nó. Hình lớn hơn màn hình sẽ hiển thị một khung có kích thước bằng màn hình, và macro Dịch hình màn hình bàn phím di chuyển khung đó. Trên S.T.R.I.K.E. 7, kéo ngón tay trên màn hình cũng di chuyển khung.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Màn hình hiển thị đồng hồ bấm giờ, do macro Đồng hồ bấm giờ bắt đầu, tạm dừng và đặt lại. Mọi màn hình đều hiển thị cùng một đồng hồ bấm giờ.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Màn hình hiển thị màu thanh đèn của DualShock 4 hoặc DualSense ở khe thấp nhất. Màn hình đơn sắc hiển thị độ sáng của nó bằng một mẫu chấm. Cho đến khi có màu truyền đến thanh đèn, PadForge không hiển thị gì.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Màn hình hiển thị màu thanh đèn của DualShock 4 hoặc DualSense ở khe thấp nhất mà màn hình này cấp cho, hoặc ở khe thấp nhất trong tất cả khi nó không cấp cho khe nào. Màn hình đơn sắc hiển thị độ sáng của nó bằng một mẫu chấm. Cho đến khi có màu truyền đến thanh đèn, PadForge không hiển thị gì.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Hình (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Tất cả tệp (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Dịch khung</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Dịch khung X</value></data>
@@ -4363,11 +4360,11 @@ Bạn có muốn PadForge gỡ cài đặt chúng ngay bây giờ không? Việc
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Bản tải xuống SDK S.T.R.I.K.E. 7 không khớp với SHA-256 đã biết, nên không giữ lại gì từ nó.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Runtime Visual C++ 2008 vẫn còn thiếu sau khi trình cài đặt của nó đã chạy.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Hiện màn hình bàn phím</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Phát các hình trên mọi màn hình bàn phím thuộc loại đã chọn, rồi đưa mỗi màn hình về chế độ riêng của nó.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Phát các hình trên từng màn hình bàn phím thuộc loại đã chọn đang cấp cho khe này, rồi đưa mỗi màn hình về chế độ riêng của nó.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Hiện hình {0}: {1} × {2} ms, số lần lặp {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Hình được vừa khít với màn hình: 160 × 43 pixel đen trắng trên màn hình đơn sắc, 320 × 240 trên màn hình của G19, và 480 × 320 cho Arx Control và S.T.R.I.K.E. 7. Thời gian khung hình ngắn nhất là một phần mười giây.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Chế độ màn hình bàn phím</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Chuyển một loại màn hình bàn phím sang chế độ khác và giữ nó làm thiết lập của màn hình đó.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Chuyển từng màn hình bàn phím thuộc loại đã chọn đang cấp cho khe này sang chế độ khác, và giữ nó làm thiết lập của màn hình đó.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} hiển thị {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Chế độ được giữ cho đến khi một macro khác hoặc hộp thoại của màn hình thay đổi nó.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Đồng hồ bấm giờ</value></data>
@@ -4376,9 +4373,9 @@ Bạn có muốn PadForge gỡ cài đặt chúng ngay bây giờ không? Việc
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Đặt lại đồng hồ bấm giờ</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Đặt lại sẽ dừng đồng hồ bấm giờ và đưa về không. Mọi màn hình bàn phím ở chế độ Đồng hồ bấm giờ đều hiển thị cùng một đồng hồ bấm giờ.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Dịch hình màn hình bàn phím</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Di chuyển khung của mỗi màn hình bàn phím trên một hình lớn hơn màn hình, chẳng hạn một bản đồ.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Di chuyển khung của từng màn hình bàn phím đang cấp cho khe này trên một hình lớn hơn màn hình, chẳng hạn một bản đồ.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Dịch hình theo {0} và {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Di chuyển mọi loại màn hình đang hiển thị một hình đã chọn lớn hơn chính nó. Khung dừng ở mép hình.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Di chuyển từng màn hình đang cấp cho khe này và hiển thị một hình đã chọn lớn hơn chính nó. Khung dừng ở mép hình.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Màn hình</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Hành động</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Hướng</value></data>
@@ -4460,6 +4457,6 @@ Bạn có muốn PadForge gỡ cài đặt chúng ngay bây giờ không? Việc
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Lực tối đa Falcon tác dụng lên tay nắm, từ 1 đến 8 newton.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Đặt lại giới hạn lực</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Hiệu chỉnh tầm với</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Đo quãng đường tay nắm di chuyển được. Hãy di chuyển nó tới mọi mép của tầm với trong bốn giây quét đang chạy. Các lực nghỉ trong lúc đó.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>Hiệu chỉnh tầm với</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Đo quãng đường tay nắm di chuyển được. Hãy di chuyển nó tới mọi mép của tầm với trong bốn giây quét đang chạy. Các lực nghỉ trong lúc đó.</value></data>
 </root>

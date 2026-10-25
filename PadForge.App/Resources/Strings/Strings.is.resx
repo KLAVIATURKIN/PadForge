@@ -323,14 +323,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>Lesa hliðræn lyklaborð</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Les hversu langt hverjum lykli er ýtt niður á hliðrænum lyklaborðum frá Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA og öðrum framleiðendum, hvert sem sína eigin línu í tækjalistanum. Hjálparskjölin telja upp allar studdar gerðir. Razer-lyklaborð þurfa að hafa Razer Synapse í gangi. Flest hinna eru lesin um sömu rás og eigið stillingaforrit þeirra notar, svo lokaðu stillingaforritinu á meðan kveikt er á þessu.</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>Ekkert stutt hliðrænt lyklaborð fannst.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>Les {0}.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>Ræstu Razer Synapse til að lesa {0}.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>Ræstu Razer Synapse til að lesa {0}.</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Lesa Bliss-Box-millistykki</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>Á samskipti við Bliss-Box-millistykki í gegnum API þeirra. Lína hvers tengis sýnir hvaða leikjastýring er tengd í það og hnappa hennar, les þrýsting DualShock 2, titrar með eigin mótorskipunum millistykkisins og býður upp á aðgerðir fyrir Dreamcast-skjáinn, Controller Pak og númer spilara. Lokaðu Bliss-Box API Tool og DeviceBuddy á meðan kveikt er á þessu, því þau eiga samskipti við millistykkið um sömu rás. Á meðan kveikt er á þessu les PadForge hvert tengi eftir eigin uppsetningu millistykkisins í stað vörpunar SDL fyrir leikjastýringar, svo varpaðu tengi aftur eftir að kveikt eða slökkt er á þessu.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Ekkert Bliss-Box-tengi fannst.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>Les {0}.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>tengi {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>tengist</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>engin leikjastýring</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>Gerð {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Vefstýring</value></data>
@@ -4292,7 +4288,7 @@ Viltu að PadForge fjarlægi þá núna? Þetta krefst stjórnandaréttinda og g
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PCM-snið PS5 snertisvörunar, 16 bita með formerki við 3 kHz, sem skar úr um 8 bita kóðun Bluetooth-snertisvörunar með formerki. AGPL-3.0, aðeins lesið sem skjöl, enginn AGPL-kóði fylgir með.</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Skjáir lyklaborðs</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Teiknar á skjáina sem eru innbyggðir í GamePanel-lyklaborð frá Logitech og Mad Catz S.T.R.I.K.E. 7, og á síma í gegnum Logitech Arx Control: sniðið, klukku, spilatíma, skeiðklukku, mynd eða lit ljósrandar á DualShock 4 eða DualSense. Lyklarnir við hlið þessara skjáa verða hnappar í röðinni Skjályklar lyklaborðs.</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Teiknar á skjáina sem eru innbyggðir í GamePanel-lyklaborð frá Logitech og Mad Catz S.T.R.I.K.E. 7, og á síma í gegnum Logitech Arx Control: sniðið, klukku, spilatíma, skeiðklukku, mynd eða lit ljósrandar á DualShock 4 eða DualSense. Hver skjár fær sína eigin röð á síðunni Tæki, þar sem þú stillir hvað hann sýnir. Lyklarnir við hlið skjás eru hnappar raðarinnar hans.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Stjórna skjáum lyklaborðs</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Teiknar á skjái Logitech G15, G15 v2, G510, G13, Z-10, GamePanel og G19, á Arx Control og á Mad Catz S.T.R.I.K.E. 7. Á meðan Logitech Gaming Software er í gangi teiknar PadForge í gegnum það. Án þess skrifar PadForge á einlitu skjáina yfir HID og tengir WinUSB við skjáviðmót G19. Ef slökkt er á þessu fær Windows skjá G19 aftur.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Einlitur skjár…</value></data>
@@ -4332,7 +4328,8 @@ Viltu að PadForge fjarlægi þá núna? Þetta krefst stjórnandaréttinda og g
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>enginn skjár fannst</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, bíður eftir lit ljósrandar</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, engin mynd valin</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Skjályklar lyklaborðs</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Meðan Logitech Gaming Software er í gangi sýnir hver skjár af þessu tagi myndina sem er stillt fyrir {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Skjár lyklaborðs</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Skjálykill {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Smáforritslykill</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Skjár vinstri</value></data>
@@ -4351,7 +4348,7 @@ Viltu að PadForge fjarlægi þá núna? Þetta krefst stjórnandaréttinda og g
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Skjárinn sýnir klukkustundir og mínútur frá því að virka sniðið tók gildi. Snið sem er tengt forriti leiks tekur gildi þegar leikurinn ræsist, svo talningin nær yfir þá lotu. Undir sjálfgefna sniðinu telur hún frá ræsingu vélarinnar.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Skjárinn sýnir mynd að eigin vali í upprunalegri stærð. Mynd sem er stærri en skjárinn sýnir glugga á stærð skjásins, sem fjölvinn Færa mynd á skjá lyklaborðs hreyfir. Á S.T.R.I.K.E. 7 hreyfir fingur sem dreginn er yfir skjáinn hann líka.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Skjárinn sýnir skeiðklukkuna, sem skeiðklukkufjölvinn ræsir, setur á bið og endurstillir. Allir skjáir sýna sömu skeiðklukku.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Skjárinn sýnir lit ljósrandarinnar á DualShock 4 eða DualSense í lægstu raufinni. Einlitur skjár sýnir birtustig hennar sem punktamynstur. Þar til litur berst ljósrönd sýnir PadForge ekkert.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Skjárinn sýnir lit ljósrandarinnar á DualShock 4 eða DualSense í lægstu raufinni sem þessi skjár tengist, eða í lægstu raufinni af öllum þegar hann tengist engri. Einlitur skjár sýnir birtustig hennar sem punktamynstur. Þar til litur berst ljósrönd sýnir PadForge ekkert.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Myndir (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Allar skrár (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Færa</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Færa X</value></data>
@@ -4363,11 +4360,11 @@ Viltu að PadForge fjarlægi þá núna? Þetta krefst stjórnandaréttinda og g
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Niðurhal S.T.R.I.K.E. 7 SDK samsvarar ekki þekktu SHA-256, svo engu úr því var haldið.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Visual C++ 2008 keyrsluumhverfið vantar enn eftir að uppsetningarforritið keyrði.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Sýna skjá lyklaborðs</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Spilar myndir á hverjum lyklaborðsskjá af völdu tagi og skilar síðan hverjum skjá í sinn eigin ham.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Spilar myndir á hverjum lyklaborðsskjá af völdu tagi sem tengist þessari rauf og skilar síðan hverjum skjá í sinn eigin ham.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Sýna {0} myndir: {1} × {2} ms, fjöldi endurtekninga {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Myndir eru lagaðar að skjánum: 160 × 43 svarthvítir punktar á einlitum skjá, 320 × 240 á skjá G19 og 480 × 320 fyrir Arx Control og S.T.R.I.K.E. 7. Stysti rammatími er tíundi hluti úr sekúndu.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Ham skjás lyklaborðs</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Skiptir tilteknu tagi lyklaborðsskjás yfir í annan ham og vistar hann sem stillingu þess skjás.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Skiptir hverjum lyklaborðsskjá af völdu tagi sem tengist þessari rauf yfir í annan ham og vistar hann sem stillingu þess skjás.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} sýnir {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Hamurinn helst þar til annar fjölvi eða gluggi skjásins breytir honum.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Skeiðklukka</value></data>
@@ -4376,9 +4373,9 @@ Viltu að PadForge fjarlægi þá núna? Þetta krefst stjórnandaréttinda og g
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Endurstilla skeiðklukku</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Endurstilling stöðvar skeiðklukkuna og setur hana á núll. Allir lyklaborðsskjáir í skeiðklukkuham sýna sömu skeiðklukku.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Færa mynd á skjá lyklaborðs</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Færir glugga hvers lyklaborðsskjás yfir mynd sem er stærri en skjárinn, fyrir kort.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Færir glugga hvers lyklaborðsskjás sem tengist þessari rauf yfir mynd sem er stærri en skjárinn, fyrir kort.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Færa myndir um {0} og {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Færir alla skjái sem sýna valda mynd sem er stærri en þeir sjálfir. Glugginn stöðvast við brúnir myndarinnar.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Færir hvern skjá sem tengist þessari rauf og sýnir valda mynd sem er stærri en hann sjálfur. Glugginn stöðvast við brúnir myndarinnar.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Skjár</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Aðgerð</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Stefna</value></data>
@@ -4460,6 +4457,6 @@ Viltu að PadForge fjarlægi þá núna? Þetta krefst stjórnandaréttinda og g
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Mesti kraftur sem Falcon-tækið setur á handfangið, frá 1 til 8 njútonum.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Endurstilla kraftmörk</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Kvarða seilingu</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mælir hve langt handfangið færist. Færðu það að hverri brún seilingarinnar þær fjórar sekúndur sem yfirferðin stendur. Kraftarnir hvíla á meðan.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>Kvarða seilingu</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mælir hve langt handfangið færist. Færðu það að hverri brún seilingarinnar þær fjórar sekúndur sem yfirferðin stendur. Kraftarnir hvíla á meðan.</value></data>
 </root>

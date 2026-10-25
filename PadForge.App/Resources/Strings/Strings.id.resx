@@ -323,14 +323,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>Baca keyboard analog</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Membaca seberapa dalam setiap tombol ditekan pada keyboard analog dari Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA, dan produsen lain, masing-masing sebagai baris perangkat tersendiri. Dokumentasi memuat daftar setiap model yang didukung. Keyboard Razer memerlukan Razer Synapse yang sedang berjalan. Sebagian besar lainnya dibaca melalui saluran yang dipakai konfiguratornya sendiri, jadi tutup konfigurator itu selama opsi ini aktif.</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>Tidak ditemukan keyboard analog yang didukung.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>Membaca {0}.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>Jalankan Razer Synapse untuk membaca {0}.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>Jalankan Razer Synapse untuk membaca {0}.</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Baca adaptor Bliss-Box</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>Berkomunikasi dengan adaptor Bliss-Box melalui API-nya. Baris setiap port menyebutkan nama kontroler yang dicolokkan ke port itu beserta tombol-tombolnya, membaca tekanan DualShock 2, menggetarkan lewat perintah motor milik adaptor itu sendiri, dan menyediakan tindakan layar Dreamcast, Controller Pak, serta nomor pemain. Tutup Bliss-Box API Tool dan DeviceBuddy selama opsi ini aktif, karena keduanya berkomunikasi dengan adaptor melalui saluran yang sama. Selama opsi ini aktif, PadForge membaca setiap port dalam tata letak adaptor itu sendiri, bukan melalui pemetaan gamepad SDL, jadi petakan ulang port setelah mengaktifkan atau menonaktifkan opsi ini.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Tidak ditemukan port Bliss-Box.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>Membaca {0}.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>port {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>menyambungkan</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>tidak ada kontroler</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>Jenis {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Kontroler web</value></data>
@@ -4292,7 +4288,7 @@ Apakah Anda ingin PadForge menghapus instalannya sekarang? Tindakan ini memerluk
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>Format PCM haptik PS5, 16-bit bertanda pada 3 kHz, yang memastikan pengodean haptik Bluetooth 8-bit bertanda. AGPL-3.0, dibaca hanya sebagai dokumentasi, tidak ada kode AGPL yang disertakan.</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Layar Keyboard</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Menggambar di layar bawaan keyboard GamePanel Logitech dan Mad Catz S.T.R.I.K.E. 7, serta di ponsel melalui Logitech Arx Control: profil, jam, waktu bermain, stopwatch, gambar, atau warna bilah lampu DualShock 4 atau DualSense. Tombol di samping layar tersebut menjadi tombol pada baris Tombol Layar Keyboard.</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Menggambar di layar bawaan keyboard GamePanel Logitech dan Mad Catz S.T.R.I.K.E. 7, serta di ponsel melalui Logitech Arx Control: profil, jam, waktu bermain, stopwatch, gambar, atau warna bilah lampu DualShock 4 atau DualSense. Setiap layar memiliki barisnya sendiri di halaman Perangkat, tempat Anda mengatur apa yang ditampilkannya. Tombol di samping layar adalah tombol pada barisnya.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Kendalikan Layar Keyboard</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Menggambar di layar Logitech G15, G15 v2, G510, G13, Z-10, GamePanel, dan G19, di Arx Control, serta di Mad Catz S.T.R.I.K.E. 7. Selama Logitech Gaming Software berjalan, PadForge menggambar melaluinya. Tanpa itu, PadForge menulis ke layar monokrom lewat HID dan mengikat WinUSB ke antarmuka layar G19. Menonaktifkan opsi ini mengembalikan layar G19 ke Windows.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Layar Monokrom…</value></data>
@@ -4332,7 +4328,8 @@ Apakah Anda ingin PadForge menghapus instalannya sekarang? Tindakan ini memerluk
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>layar tidak ditemukan</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, menunggu warna bilah lampu</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, belum ada gambar yang dipilih</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Tombol Layar Keyboard</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Selama Logitech Gaming Software berjalan, setiap layar dari jenis ini menampilkan gambar yang ditetapkan untuk {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Layar Keyboard</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Tombol Layar {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Tombol Applet</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Layar Kiri</value></data>
@@ -4351,7 +4348,7 @@ Apakah Anda ingin PadForge menghapus instalannya sekarang? Tindakan ini memerluk
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Layar menampilkan jam dan menit sejak profil aktif diterapkan. Profil yang terikat pada program sebuah game diterapkan saat game dimulai, sehingga hitungannya adalah sesi itu. Di bawah profil Default, hitungan dimulai sejak engine dijalankan.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Layar menampilkan gambar pilihan Anda dalam ukuran aslinya. Gambar yang lebih besar dari layar ditampilkan lewat jendela seukuran layar, yang digeser oleh makro Geser Gambar Layar Keyboard. Di S.T.R.I.K.E. 7, jari yang digeser di layar juga menggesernya.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Layar menampilkan stopwatch, yang dimulai, dijeda, dan diatur ulang oleh makro Stopwatch. Semua layar menampilkan stopwatch yang sama.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Layar menampilkan warna bilah lampu pada DualShock 4 atau DualSense di slot terendah. Layar monokrom menampilkan kecerahannya sebagai pola titik. Sebelum ada warna yang sampai ke bilah lampu, PadForge tidak menampilkan apa pun.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Layar menampilkan warna bilah lampu pada DualShock 4 atau DualSense di slot terendah yang dipasok layar ini, atau di slot terendah secara keseluruhan bila layar ini tidak memasok slot mana pun. Layar monokrom menampilkan kecerahannya sebagai pola titik. Sebelum ada warna yang sampai ke bilah lampu, PadForge tidak menampilkan apa pun.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Gambar (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Semua File (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Geser</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Geser X</value></data>
@@ -4363,11 +4360,11 @@ Apakah Anda ingin PadForge menghapus instalannya sekarang? Tindakan ini memerluk
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Unduhan SDK S.T.R.I.K.E. 7 tidak cocok dengan SHA-256 yang diketahui, jadi tidak ada yang disimpan darinya.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Runtime Visual C++ 2008 masih belum ada setelah penginstalnya dijalankan.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Tampilkan Layar Keyboard</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Memutar gambar di setiap layar keyboard dari jenis yang dipilih, lalu mengembalikan setiap layar ke modenya sendiri.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Memutar gambar pada setiap layar keyboard dari jenis yang dipilih yang memasok slot ini, lalu mengembalikan setiap layar ke modenya sendiri.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Tampilkan gambar {0}: {1} × {2} ms, jumlah pengulangan {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Gambar disesuaikan dengan layar: 160 kali 43 piksel hitam putih pada layar monokrom, 320 kali 240 pada layar G19, dan 480 kali 320 untuk Arx Control dan S.T.R.I.K.E. 7. Sepersepuluh detik adalah waktu frame terpendek.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Mode Layar Keyboard</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Mengalihkan satu jenis layar keyboard ke mode lain dan menyimpannya sebagai pengaturan layar itu.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Mengalihkan setiap layar keyboard dari jenis yang dipilih yang memasok slot ini ke mode lain, dan menyimpannya sebagai pengaturan layar itu.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} menampilkan {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Mode bertahan sampai makro lain atau dialog layar mengubahnya.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Stopwatch</value></data>
@@ -4376,9 +4373,9 @@ Apakah Anda ingin PadForge menghapus instalannya sekarang? Tindakan ini memerluk
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Atur Ulang Stopwatch</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Atur ulang menghentikan stopwatch dan mengembalikannya ke nol. Setiap layar keyboard dalam mode Stopwatch menampilkan stopwatch yang sama.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Geser Gambar Layar Keyboard</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Menggeser jendela setiap layar keyboard di atas gambar yang lebih besar dari layar, misalnya untuk peta.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Menggeser jendela setiap layar keyboard yang memasok slot ini di atas gambar yang lebih besar dari layar, misalnya untuk peta.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Geser gambar {0} kali {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Menggeser setiap jenis layar yang menampilkan gambar pilihan yang lebih besar dari layarnya. Jendela berhenti di tepi gambar.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Menggeser setiap layar yang memasok slot ini dan menampilkan gambar pilihan yang lebih besar dari layarnya. Jendela berhenti di tepi gambar.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Layar</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Aksi</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Arah</value></data>
@@ -4460,6 +4457,6 @@ Apakah Anda ingin PadForge menghapus instalannya sekarang? Tindakan ini memerluk
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Gaya terbesar yang diberikan Falcon pada gagang, dari 1 hingga 8 newton.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Atur ulang batas gaya</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Kalibrasikan jangkauan</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mengukur sejauh mana gagang bergerak. Gerakkan ke setiap tepi jangkauannya selama empat detik penyapuan berlangsung. Gaya dihentikan selama itu.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>Kalibrasikan jangkauan</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mengukur sejauh mana gagang bergerak. Gerakkan ke setiap tepi jangkauannya selama empat detik penyapuan berlangsung. Gaya dihentikan selama itu.</value></data>
 </root>

@@ -5,7 +5,8 @@ namespace PadForge.Common.Input.KeyboardScreens
     /// <summary>
     /// The Logitech screens drawn through LGS's LCD library (issue #519):
     /// the monochrome GamePanel screens, the G19's color screen and LGS's
-    /// LCD Emulator.
+    /// LCD Emulator beside them. LGS takes one picture for every screen of
+    /// a type, so the host hands it each kind's leading screen's picture.
     ///
     /// <para>The applet is registered only for the kinds that have something
     /// to show, so a kind set to Off stays with LGS's own applets, and a
@@ -13,7 +14,9 @@ namespace PadForge.Common.Input.KeyboardScreens
     /// means LGS is not running, and it is tried again every
     /// <see cref="InitRetryMs"/>. <c>LogiLcdUpdate</c> runs on every pass,
     /// as logitech-lcd's examples call it every frame, and the keys are read
-    /// after it: LGS reports them to the applet in front alone.</para>
+    /// after it: LGS reports them to the applet in front alone. LGS names no
+    /// keyboard a key came from, so the host gives each one to a screen
+    /// (<see cref="ButtonFlags"/>).</para>
     ///
     /// <para>The library is loaded once for the process and never freed
     /// (<see cref="LogitechLcdLibrary"/>). Every call is made on the host's
@@ -28,7 +31,6 @@ namespace PadForge.Common.Input.KeyboardScreens
         /// applet leaves LGS, so a mode switched in passing does not take it
         /// down and back up.</summary>
         private const int IdleShutdownMs = 2000;
-        private const string KeysSource = "lgs";
 
         private static readonly object s_loadLock = new();
         private static LogitechLcdLibrary s_library;
@@ -44,6 +46,11 @@ namespace PadForge.Common.Input.KeyboardScreens
         public bool Active { get; private set; }
         public bool MonoConnected { get; private set; }
         public bool ColorConnected { get; private set; }
+
+        /// <summary>LGS's button flags held now
+        /// (<see cref="KeyboardScreenFormats.LgsButtons"/>), zero while the
+        /// applet is down.</summary>
+        public int ButtonFlags { get; private set; }
 
         /// <summary>Why the library is not loaded: "gate", "missing", "load"
         /// or "exports", or empty once it is.</summary>
@@ -72,6 +79,7 @@ namespace PadForge.Common.Input.KeyboardScreens
             if (lib == null)
             {
                 Active = MonoConnected = ColorConnected = false;
+                ButtonFlags = 0;
                 return;
             }
 
@@ -111,10 +119,10 @@ namespace PadForge.Common.Input.KeyboardScreens
                 _colorWritten = colorVersion;
             lib.Update();
 
-            int bits = 0;
-            foreach (var (flag, button) in KeyboardScreenFormats.LgsButtons)
-                if (lib.IsButtonPressed(flag)) bits |= 1 << button;
-            KeyboardScreenKeys.Report(KeysSource, bits);
+            int flags = 0;
+            foreach (var (flag, _, _) in KeyboardScreenFormats.LgsButtons)
+                if (lib.IsButtonPressed(flag)) flags |= flag;
+            ButtonFlags = flags;
 
             if (now >= _nextConnected)
             {
@@ -128,9 +136,9 @@ namespace PadForge.Common.Input.KeyboardScreens
         {
             lib.Shutdown();
             Active = MonoConnected = ColorConnected = false;
+            ButtonFlags = 0;
             _types = 0;
             _idleSince = -1;
-            KeyboardScreenKeys.Clear(KeysSource);
         }
 
         public void Dispose()

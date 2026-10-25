@@ -1337,7 +1337,8 @@
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>wala sing screen nga nakita</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, nagahulat sang kolor sang lightbar</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, wala sing napili nga litrato</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Mga key sang screen sang keyboard</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Samtang nagadalagan ang Logitech Gaming Software, ang kada screen sini nga klase nagapakita sang litrato nga gin-set para sa {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Screen sang keyboard</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Key {0} sang screen</value></data>
   <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Ginapakita sang screen ang ngalan sang aktibo nga profile kag nagasunod ini sa kada ilis sang profile.</value></data>
   <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Ginapakita sang screen ang lugar sang aktibo nga profile sa listahan sang profile. 0 ang Default nga profile.</value></data>
@@ -1346,7 +1347,9 @@
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Mga litrato (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Tanan nga file (*.*)|*.*</value></data>
   <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Ginada-download ang S.T.R.I.K.E. 7 SDK sang Mad Catz…</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Ipakita ang screen sang keyboard</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Nagapakita sang mga litrato sa kada screen sang keyboard sang ginpili nga klase nga nagahatag sang input sa sini nga slot, dayon ginabalik ang kada screen sa iya kaugalingon nga mode.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Mode sang screen sang keyboard</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Ginabaylo ang kada screen sang keyboard sang ginpili nga klase nga nagahatag sang input sa sini nga slot sa iban nga mode, kag ginatipigan ini bilang setting sang sina nga screen.</value></data>
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>I-reset ang stopwatch</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Aksyon</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Direksyon</value></data>

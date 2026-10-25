@@ -435,29 +435,13 @@ namespace PadForge.Views
             BindActiveModelView();
         }
 
-        /// <summary>The pad (slot) and Falcon whose reach line the card last
-        /// showed, so a sync for the same selection leaves a calibration's
-        /// result in place.</summary>
-        private (int Pad, Guid Falcon) _falconLineFor;
-
-        /// <summary>The Falcon card (#521): shown for a Falcon row, with the
-        /// reach that Falcon uses when it becomes the selected device. A sweep
-        /// running keeps its own line.</summary>
+        /// <summary>The Falcon card (#521): shown for a Falcon row. It holds
+        /// this slot's settings only. The Falcon's reach belongs to the
+        /// device, so Calibrate Reach is on its Devices panel.</summary>
         private void SyncFalconCard(PadForge.Engine.Data.UserDevice falconRow)
         {
             if (FalconCard != null)
                 FalconCard.Visibility = falconRow != null ? Visibility.Visible : Visibility.Collapsed;
-            if (falconRow == null || DataContext is not PadViewModel vm)
-            {
-                _falconLineFor = default;
-                return;
-            }
-            var key = (vm.PadIndex, falconRow.InstanceGuid);
-            if (_falconLineFor == key) return;
-            _falconLineFor = key;
-            if (falconRow.Device is PadForge.Common.Input.Falcon.FalconDevice open && open.IsCalibrating) return;
-            vm.FalconCalibrationStatus = PadForge.Services.InputService.FalconReachLine(
-                PadForge.Common.Input.Falcon.FalconDevice.ParseReach(falconRow.FalconCalibration));
         }
 
         private void SyncTabVisibility()

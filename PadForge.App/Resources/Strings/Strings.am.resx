@@ -308,14 +308,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>አናሎግ የቁልፍ ሰሌዳዎችን አንብብ</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>ከWooting፣ Razer፣ SteelSeries፣ Keychron፣ NuPhy፣ DrunkDeer፣ AULA እና ከሌሎች አምራቾች በሚመጡ አናሎግ የቁልፍ ሰሌዳዎች ላይ እያንዳንዱ ቁልፍ ምን ያህል እንደተጫነ ያነባል፣ እያንዳንዱንም እንደ የራሱ የመሣሪያ ረድፍ። ሰነዱ የሚደገፉትን ሞዴሎች ሁሉ ይዘረዝራል። የRazer የቁልፍ ሰሌዳዎች Razer Synapse እየሄደ እንዲሆን ይፈልጋሉ። አብዛኞቹ ሌሎች የሚነበቡት የራሳቸው ማዋቀሪያ በሚጠቀምበት ቻናል ስለሆነ፣ ይህ በርቶ ሳለ ማዋቀሪያውን ይዝጉ።</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>የሚደገፍ አናሎግ የቁልፍ ሰሌዳ አልተገኘም።</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>{0} በማንበብ ላይ።</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>{0}ን ለማንበብ Razer Synapseን ያስጀምሩ።</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>{0}ን ለማንበብ Razer Synapseን ያስጀምሩ።</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>የBliss-Box አስማሚዎችን አንብብ</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>ከBliss-Box አስማሚዎች ጋር በAPI በኩል ይገናኛል። የእያንዳንዱ ወደብ ረድፍ የተሰካውን መቆጣጠሪያ እና አዝራሮቹን ይሰይማል፣ የDualShock 2 ግፊትን ያነባል፣ በአስማሚው የራሱ የሞተር ትዕዛዞች ይንዘረዘራል፣ እንዲሁም የDreamcast ማያ ገጽ፣ Controller Pak እና የተጫዋች ቁጥር እርምጃዎችን ያቀርባል። ይህ በርቶ ሳለ Bliss-Box API Tool እና DeviceBuddyን ይዝጉ፣ ምክንያቱም ከአስማሚው ጋር በተመሳሳይ ቻናል ይገናኛሉ። ይህ በርቶ ሳለ PadForge እያንዳንዱን ወደብ በSDL የጌምፓድ ማዛመጃ ሳይሆን በአስማሚው የራሱ አቀማመጥ ያነባል፣ ስለዚህ ይህን ካበሩ ወይም ካጠፉ በኋላ ወደቡን እንደገና ያዛምዱ።</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>ምንም የBliss-Box ወደብ አልተገኘም።</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>{0} በማንበብ ላይ።</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>ወደብ {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>በመገናኘት ላይ</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>መቆጣጠሪያ የለም</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>ዓይነት {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>የድር መቆጣጠሪያ</value></data>
@@ -4235,7 +4231,7 @@ PadForge አሁን እንዲያራግፋቸው ይፈልጋሉ? ይህ የአስ
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>የPS5 ሃፕቲክ PCM ቅርጸት፣ ባለ 16-ቢት ምልክት ያለው በ3 kHz፣ ይህም ባለ 8-ቢት ምልክት ያለውን የBluetooth ሃፕቲክስ ኢንኮዲንግ ወስኗል። AGPL-3.0፣ እንደ ሰነድ ብቻ ተነቧል፣ ምንም የAGPL ኮድ አይካተትም።</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>የቁልፍ ሰሌዳ ማያ ገጾች</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>በLogitech GamePanel የቁልፍ ሰሌዳዎች እና በMad Catz S.T.R.I.K.E. 7 ውስጥ በተሠሩት ማያ ገጾች ላይ፣ እንዲሁም በLogitech Arx Control በኩል በስልክ ላይ ይስላል፦ መገለጫውን፣ ሰዓትን፣ የጨዋታ ጊዜን፣ የሩጫ ሰዓትን፣ ምስልን ወይም የDualShock 4 ወይም DualSense የብርሃን አሞሌ ቀለምን። ከእነዚህ ማያ ገጾች አጠገብ ያሉት ቁልፎች በ«የቁልፍ ሰሌዳ ማያ ገጽ ቁልፎች» ረድፍ ላይ አዝራሮች ይሆናሉ።</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>በLogitech GamePanel የቁልፍ ሰሌዳዎች እና በMad Catz S.T.R.I.K.E. 7 ውስጥ በተሠሩት ማያ ገጾች ላይ፣ እንዲሁም በLogitech Arx Control በኩል በስልክ ላይ ይስላል፦ መገለጫውን፣ ሰዓትን፣ የጨዋታ ጊዜን፣ የሩጫ ሰዓትን፣ ምስልን ወይም የDualShock 4 ወይም DualSense የብርሃን አሞሌ ቀለምን። እያንዳንዱ ማያ ገጽ በ«መሣሪያዎች» ገጽ ላይ የራሱ ረድፍ አለው፣ እዚያም የሚያሳየውን ይመርጣሉ። ከማያ ገጹ አጠገብ ያሉት ቁልፎች የረድፉ አዝራሮች ናቸው።</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>የቁልፍ ሰሌዳ ማያ ገጾችን ተቆጣጠር</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>በLogitech G15፣ G15 v2፣ G510፣ G13፣ Z-10፣ GamePanel እና G19 ማያ ገጾች፣ በArx Control እና በMad Catz S.T.R.I.K.E. 7 ላይ ይስላል። Logitech Gaming Software ሲሠራ PadForge በእሱ በኩል ይስላል። ያለ እሱ PadForge ባለአንድ ቀለም ማያ ገጾቹን በHID በኩል ይጽፋል፣ WinUSBንም ከG19 የማያ ገጽ በይነገጽ ጋር ያገናኛል። ይህን ማጥፋት የG19ን ማያ ገጽ ለWindows ይመልሳል።</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>ባለአንድ ቀለም ማያ ገጽ…</value></data>
@@ -4275,7 +4271,8 @@ PadForge አሁን እንዲያራግፋቸው ይፈልጋሉ? ይህ የአስ
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>ምንም ማያ ገጽ አልተገኘም</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}፣ የብርሃን አሞሌ ቀለም በመጠበቅ ላይ</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}፣ ምንም ምስል አልተመረጠም</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>የቁልፍ ሰሌዳ ማያ ገጽ ቁልፎች</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Logitech Gaming Software እየሠራ እያለ፣ የዚህ ዓይነት ሁሉም ማያ ገጾች ለ{0} የተዘጋጀውን ምስል ያሳያሉ።</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>የቁልፍ ሰሌዳ ማያ ገጽ</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>የማያ ገጽ ቁልፍ {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>የአፕሌት ቁልፍ</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>ማያ ገጽ ወደ ግራ</value></data>
@@ -4294,7 +4291,7 @@ PadForge አሁን እንዲያራግፋቸው ይፈልጋሉ? ይህ የአስ
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>ማያ ገጹ ንቁው መገለጫ ከገባ ጀምሮ ያለፉትን ሰዓታትና ደቂቃዎች ያሳያል። ከአንድ ጨዋታ ፕሮግራም ጋር የተሳሰረ መገለጫ ጨዋታው ሲጀምር ይገባል፣ ስለዚህ ቆጠራው የዚያ ክፍለ ጊዜ ነው። በ«ነባሪ» መገለጫ ስር ኢንጂኑ ከጀመረ ጀምሮ ይቆጥራል።</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>ማያ ገጹ የተመረጠውን ምስል በራሱ መጠን ያሳያል። ከማያ ገጹ የሚበልጥ ምስል የማያ ገጹን መጠን የሚያህል መስኮት ያሳያል፤ ይህንንም «የቁልፍ ሰሌዳ ማያ ገጽ ምስልን አንቀሳቅስ» ማክሮ ያንቀሳቅሰዋል። በS.T.R.I.K.E. 7 ላይ በማያ ገጹ ላይ የሚጎተት ጣትም ያንቀሳቅሰዋል።</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>ማያ ገጹ የሩጫ ሰዓቱን ያሳያል። «የሩጫ ሰዓት» ማክሮ ያስጀምረዋል፣ ለአፍታ ያቆመዋል፣ ዳግም ያስጀምረዋል። ሁሉም ማያ ገጾች አንድ አይነት የሩጫ ሰዓት ያሳያሉ።</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>ማያ ገጹ ዝቅተኛ ቁጥር ባለው ቦታ ላይ ያለውን የDualShock 4 ወይም DualSense የብርሃን አሞሌ ቀለም ያሳያል። ባለአንድ ቀለም ማያ ገጽ ብሩህነቱን በነጥብ ንድፍ ያሳያል። ቀለም የብርሃን አሞሌ ላይ እስኪደርስ ድረስ PadForge ምንም አያሳይም።</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>ማያ ገጹ ይህ ማያ ገጽ ከሚመግባቸው ቦታዎች ዝቅተኛ ቁጥር ባለው ቦታ ላይ፣ ምንም ቦታ የማይመግብ ከሆነ ደግሞ ከሁሉም ቦታዎች ዝቅተኛ ቁጥር ባለው ቦታ ላይ ያለውን የDualShock 4 ወይም DualSense የብርሃን አሞሌ ቀለም ያሳያል። ባለአንድ ቀለም ማያ ገጽ ብሩህነቱን በነጥብ ንድፍ ያሳያል። ቀለም የብርሃን አሞሌ ላይ እስኪደርስ ድረስ PadForge ምንም አያሳይም።</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>ምስሎች (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|ሁሉም ፋይሎች (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>ማንቀሳቀሻ</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>ማንቀሳቀሻ X</value></data>
@@ -4306,11 +4303,11 @@ PadForge አሁን እንዲያራግፋቸው ይፈልጋሉ? ይህ የአስ
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>የS.T.R.I.K.E. 7 SDK ማውረጃው ከሚታወቀው SHA-256 ጋር አይዛመድም፣ ስለዚህ ከእሱ ምንም አልተቀመጠም።</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>ጫኚው ከሠራ በኋላም የVisual C++ 2008 ራንታይም አሁንም የለም።</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>የቁልፍ ሰሌዳ ማያ ገጽ አሳይ</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>በተመረጠው ዓይነት ባሉ ሁሉም የቁልፍ ሰሌዳ ማያ ገጾች ላይ ስዕሎችን ያጫውታል፣ ከዚያም እያንዳንዱን ማያ ገጽ ወደ ራሱ ሁነታ ይመልሳል።</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>ይህን ቦታ በሚመግብ፣ የተመረጠው ዓይነት በሆነ እያንዳንዱ የቁልፍ ሰሌዳ ማያ ገጽ ላይ ስዕሎችን ያጫውታል፣ ከዚያም እያንዳንዱን ማያ ገጽ ወደ ራሱ ሁነታ ይመልሳል።</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>የ{0} ስዕሎችን አሳይ፦ {1} × {2} ms፣ የድግግሞሽ ብዛት {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>ስዕሎች ከማያ ገጹ ጋር እንዲገጥሙ ይደረጋሉ፦ በባለአንድ ቀለም ማያ ገጽ 160 በ43 ጥቁርና ነጭ ፒክሰሎች፣ በG19 ላይ 320 በ240፣ ለArx Control እና ለS.T.R.I.K.E. 7 ደግሞ 480 በ320። አጭሩ የፍሬም ጊዜ የሰከንድ አንድ አስረኛ ነው።</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>የቁልፍ ሰሌዳ ማያ ገጽ ሁነታ</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>አንድን ዓይነት የቁልፍ ሰሌዳ ማያ ገጽ ወደ ሌላ ሁነታ ይቀይራል፣ እንደ የዚያ ማያ ገጽ ቅንብርም ያስቀምጠዋል።</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>ይህን ቦታ የሚመግብ፣ የተመረጠው ዓይነት የሆነ እያንዳንዱን የቁልፍ ሰሌዳ ማያ ገጽ ወደ ሌላ ሁነታ ይቀይራል፣ እንደ የዚያ ማያ ገጽ ቅንብርም ያስቀምጠዋል።</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} {1} ያሳያል</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>ሁነታው ሌላ ማክሮ ወይም የማያ ገጹ መገናኛ ሳጥን እስኪቀይረው ድረስ ይቆያል።</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>የሩጫ ሰዓት</value></data>
@@ -4319,9 +4316,9 @@ PadForge አሁን እንዲያራግፋቸው ይፈልጋሉ? ይህ የአስ
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>የሩጫ ሰዓትን ዳግም አስጀምር</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>ዳግም ማስጀመር የሩጫ ሰዓቱን ያቆምና ወደ ዜሮ ይመልሰዋል። በሩጫ ሰዓት ሁነታ ላይ ያሉ ሁሉም የቁልፍ ሰሌዳ ማያ ገጾች አንድ አይነት የሩጫ ሰዓት ያሳያሉ።</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>የቁልፍ ሰሌዳ ማያ ገጽ ምስልን አንቀሳቅስ</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>ከማያ ገጹ በሚበልጥ ምስል ላይ የእያንዳንዱን የቁልፍ ሰሌዳ ማያ ገጽ መስኮት ያንቀሳቅሳል፣ ለምሳሌ ለካርታ።</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>ከማያ ገጹ በሚበልጥ ምስል ላይ ይህን ቦታ የሚመግብ የእያንዳንዱን የቁልፍ ሰሌዳ ማያ ገጽ መስኮት ያንቀሳቅሳል፣ ለምሳሌ ለካርታ።</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>ስዕሎችን {0} በ{1} px አንቀሳቅስ</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>ከራሱ የሚበልጥ የተመረጠ ምስል የሚያሳይ ማንኛውንም ዓይነት ማያ ገጽ ያንቀሳቅሳል። መስኮቱ በምስሉ ጠርዞች ላይ ይቆማል።</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>ይህን ቦታ የሚመግብና ከራሱ የሚበልጥ የተመረጠ ምስል የሚያሳይ እያንዳንዱን ማያ ገጽ ያንቀሳቅሳል። መስኮቱ በምስሉ ጠርዞች ላይ ይቆማል።</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>ማያ ገጽ</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>እርምጃ</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>አቅጣጫ</value></data>
@@ -4403,6 +4400,6 @@ PadForge አሁን እንዲያራግፋቸው ይፈልጋሉ? ይህ የአስ
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Falcon በእጀታው ላይ የሚያደርገው ከፍተኛ ኃይል፣ ከ1 እስከ 8 ኒውተን።</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>የኃይል ገደብን ዳግም አስጀምር</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>ርቀትን አስተካክል</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>እጀታው ምን ያህል እንደሚጓዝ ይለካል። ልኬቱ በሚሄድባቸው አራት ሰከንዶች ውስጥ ወደ እያንዳንዱ የርቀቱ ጠርዝ አንቀሳቅሰው። በዚህ ጊዜ ኃይሎቹ ያርፋሉ።</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>ርቀትን አስተካክል</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>እጀታው ምን ያህል እንደሚጓዝ ይለካል። ልኬቱ በሚሄድባቸው አራት ሰከንዶች ውስጥ ወደ እያንዳንዱ የርቀቱ ጠርዝ አንቀሳቅሰው። በዚህ ጊዜ ኃይሎቹ ያርፋሉ።</value></data>
 </root>

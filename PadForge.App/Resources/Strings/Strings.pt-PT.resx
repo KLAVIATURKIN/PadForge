@@ -308,14 +308,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>Ler teclados analógicos</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Lê até que ponto cada tecla está premida em teclados analógicos da Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA e de outros fabricantes, cada um como a sua própria linha de dispositivo. A documentação indica todos os modelos suportados. Os teclados Razer precisam do Razer Synapse em execução. A maioria dos restantes é lida através do canal que o respetivo configurador utiliza, por isso feche o configurador enquanto esta opção estiver ligada.</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>Não foi encontrado nenhum teclado analógico suportado.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>A ler {0}.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>Inicie o Razer Synapse para ler {0}.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>Inicie o Razer Synapse para ler {0}.</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Ler adaptadores Bliss-Box</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>Comunica com os adaptadores Bliss-Box através da respetiva API. A linha de cada porta indica o nome do comando que lhe está ligado e os respetivos botões, lê a pressão de um DualShock 2, vibra através das instruções de motor do próprio adaptador e oferece as ações de ecrã da Dreamcast, Controller Pak e número de jogador. Feche o Bliss-Box API Tool e o DeviceBuddy enquanto esta opção estiver ligada, uma vez que comunicam com o adaptador pelo mesmo canal. Enquanto esta opção estiver ligada, o PadForge lê cada porta na disposição do próprio adaptador em vez de usar o mapeamento de gamepad do SDL, por isso volte a mapear uma porta depois de ligar ou desligar esta opção.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Não foi encontrada nenhuma porta Bliss-Box.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>A ler {0}.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>porta {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>a ligar</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>sem comando</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>Tipo {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Comando web</value></data>
@@ -4272,7 +4268,7 @@ Pretende que o PadForge os desinstale agora? Esta operação requer elevação e
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>O formato PCM háptico da PS5, de 16 bits com sinal a 3 kHz, que definiu a codificação háptica Bluetooth de 8 bits com sinal. AGPL-3.0, lido apenas como documentação, nenhum código AGPL é distribuído.</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Ecrãs do teclado</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Desenha nos ecrãs integrados nos teclados GamePanel da Logitech e no Mad Catz S.T.R.I.K.E. 7, e num telemóvel através do Logitech Arx Control: o perfil, um relógio, o tempo de jogo, um cronómetro, uma imagem ou a cor da barra de luz de um DualShock 4 ou DualSense. As teclas junto a esses ecrãs tornam-se botões na linha Teclas de ecrã do teclado.</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Desenha nos ecrãs integrados nos teclados GamePanel da Logitech e no Mad Catz S.T.R.I.K.E. 7, e num telemóvel através do Logitech Arx Control: o perfil, um relógio, o tempo de jogo, um cronómetro, uma imagem ou a cor da barra de luz de um DualShock 4 ou DualSense. Cada ecrã tem a sua própria linha na página Dispositivos, onde define o que mostra. As teclas junto a um ecrã são os botões da respetiva linha.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Controlar ecrãs do teclado</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Desenha nos ecrãs do Logitech G15, G15 v2, G510, G13, Z-10, GamePanel e G19, no Arx Control e no Mad Catz S.T.R.I.K.E. 7. Enquanto o Logitech Gaming Software está em execução, o PadForge desenha através dele. Sem ele, o PadForge escreve nos ecrãs monocromáticos por HID e associa o WinUSB à interface de ecrã do G19. Desativar esta opção devolve o ecrã do G19 ao Windows.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Ecrã monocromático…</value></data>
@@ -4312,7 +4308,8 @@ Pretende que o PadForge os desinstale agora? Esta operação requer elevação e
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>nenhum ecrã encontrado</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, a aguardar uma cor da barra de luz</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, nenhuma imagem escolhida</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Teclas de ecrã do teclado</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Enquanto o Logitech Gaming Software estiver em execução, todos os ecrãs deste tipo mostram a imagem definida para {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Ecrã do teclado</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Tecla de ecrã {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Tecla de applet</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Esquerda do ecrã</value></data>
@@ -4331,7 +4328,7 @@ Pretende que o PadForge os desinstale agora? Esta operação requer elevação e
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>O ecrã mostra as horas e os minutos desde que o perfil ativo foi ativado. Um perfil associado ao programa de um jogo é ativado quando o jogo arranca, pelo que a contagem corresponde a essa sessão. Com o perfil Predefinido, a contagem começa no arranque do motor.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>O ecrã mostra uma imagem à sua escolha, no tamanho original. Uma imagem maior do que o ecrã mostra uma janela do tamanho do ecrã, que a macro Deslocar imagem do ecrã do teclado move. No S.T.R.I.K.E. 7, arrastar um dedo pelo ecrã também a move.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>O ecrã mostra o cronómetro, que a macro Cronómetro inicia, pausa e repõe. Todos os ecrãs mostram o mesmo cronómetro.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>O ecrã mostra a cor da barra de luz do DualShock 4 ou DualSense no slot mais baixo. Um ecrã monocromático mostra o respetivo brilho como um padrão de pontos. Enquanto nenhuma cor chegar a uma barra de luz, o PadForge não mostra nada.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>O ecrã mostra a cor da barra de luz do DualShock 4 ou DualSense no slot mais baixo que este ecrã alimenta ou, se não alimentar nenhum, no slot mais baixo de todos. Um ecrã monocromático mostra o respetivo brilho como um padrão de pontos. Enquanto nenhuma cor chegar a uma barra de luz, o PadForge não mostra nada.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Imagens (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Todos os ficheiros (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Deslocar</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Deslocar X</value></data>
@@ -4343,11 +4340,11 @@ Pretende que o PadForge os desinstale agora? Esta operação requer elevação e
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>A transferência do SDK do S.T.R.I.K.E. 7 não corresponde ao SHA-256 conhecido, pelo que nada dela foi guardado.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>O runtime do Visual C++ 2008 continua em falta depois de o instalador ser executado.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Mostrar ecrã do teclado</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Reproduz imagens em todos os ecrãs do teclado do tipo escolhido e depois devolve cada ecrã ao seu próprio modo.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Reproduz imagens em cada ecrã do teclado do tipo escolhido que alimente este slot e depois devolve cada ecrã ao seu próprio modo.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Mostrar imagens de {0}: {1} × {2} ms, número de repetições {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>As imagens são ajustadas ao ecrã: 160 por 43 píxeis a preto e branco num ecrã monocromático, 320 por 240 no do G19 e 480 por 320 no Arx Control e no S.T.R.I.K.E. 7. Um décimo de segundo é o tempo mínimo por imagem.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Modo do ecrã do teclado</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Muda um tipo de ecrã do teclado para outro modo e guarda-o como definição desse ecrã.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Muda para outro modo cada ecrã do teclado do tipo escolhido que alimente este slot e guarda-o como definição desse ecrã.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} mostra {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>O modo mantém-se até outra macro ou a caixa de diálogo do ecrã o alterar.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Cronómetro</value></data>
@@ -4356,9 +4353,9 @@ Pretende que o PadForge os desinstale agora? Esta operação requer elevação e
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Repor cronómetro</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Repor para o cronómetro e põe-no a zero. Todos os ecrãs do teclado no modo Cronómetro mostram o mesmo cronómetro.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Deslocar imagem do ecrã do teclado</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Move a janela de cada ecrã do teclado sobre uma imagem maior do que o ecrã, por exemplo um mapa.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Move a janela de cada ecrã do teclado que alimente este slot sobre uma imagem maior do que o ecrã, por exemplo um mapa.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Deslocar imagens {0} por {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Move todos os tipos de ecrã que mostram uma imagem escolhida maior do que o próprio ecrã. A janela não passa dos limites da imagem.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Move cada ecrã que alimente este slot e mostre uma imagem escolhida maior do que o próprio ecrã. A janela não passa dos limites da imagem.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Ecrã</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Ação</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Direção</value></data>
@@ -4440,6 +4437,6 @@ Pretende que o PadForge os desinstale agora? Esta operação requer elevação e
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>A força máxima que o Falcon aplica à pega, de 1 a 8 newtons.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Repor limite de força</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Calibrar alcance</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mede a distância que a pega percorre. Mova-a para todos os limites do seu alcance durante os quatro segundos do varrimento. As forças ficam em repouso entretanto.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>Calibrar alcance</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mede a distância que a pega percorre. Mova-a para todos os limites do seu alcance durante os quatro segundos do varrimento. As forças ficam em repouso entretanto.</value></data>
 </root>

@@ -76,7 +76,9 @@ namespace PadForge.Tests
             Assert.Equal("Super Action Controller", BlissBoxControllers.Name(34, 4));
             string names = Repo("PadForge.App", "Services", "InputService.BlissBox.cs");
             Assert.Contains("?? string.Format(CultureInfo.CurrentCulture, Strings.Instance.BlissBox_TypeNumber_Format, info.Type);", names);
-            Assert.Contains("return info == null ? Strings.Instance.BlissBox_NoController : ControllerName(info);", names);
+            // The Settings line names no port (the owner's rule, 2026-10-25):
+            // each port's controller is on its own row's line.
+            Assert.Contains("if (BlissBoxRuntime.Ports.Length == 0) status = Strings.Instance.Settings_BlissBoxStatus_None;", names);
             Assert.Contains("live == null ? s.BlissBox_NoController : ControllerName(live), FirmwareText(info));", names);
             Assert.Equal("DualShock 2", BlissBoxControllers.Name(121, 3));
             // Two codes name different controllers on each generation: GPA
@@ -1496,10 +1498,11 @@ namespace PadForge.Tests
             int stop = code.IndexOf("                _inputManager.Stop();", StringComparison.Ordinal);
             int refresh = code.IndexOf("                    UpdateHeadTrackingStatus();\n                    UpdateGKeysStatus();\n                    UpdateAnalogKeyboardsStatus();\n                    UpdateBlissBoxStatus();", StringComparison.Ordinal);
             Assert.True(stop > 0 && refresh > stop);
-            Assert.Contains("UpdateBlissBoxDeviceRow(selected, selectedDevice);", code);
+            Assert.Contains("UpdateDevicePanelLines(selected, selectedDevice);", code);
+            Assert.Contains("        private void UpdateDevicePanelLines(DeviceRowViewModel row, UserDevice ud)\n        {\n            UpdateBlissBoxDeviceRow(row, ud);", code);
             // A row selected while the engine is stopped clears the line and
             // actions it kept from when the engine ran.
-            Assert.Contains("            UpdateBlissBoxDeviceRow(selected, ud);\n\n            // Build the structural layout from cached capabilities.", code);
+            Assert.Contains("            UpdateDevicePanelLines(selected, ud);\n\n            // Build the structural layout from cached capabilities.", code);
             // Identify hands back the level the row's snapshot holds, which a
             // Remote Link peer's steady level would otherwise lose.
             Assert.Contains("                        Buzz(65535, 65535);\n                        await System.Threading.Tasks.Task.Delay(500).ConfigureAwait(false);\n                        Restore();", code);

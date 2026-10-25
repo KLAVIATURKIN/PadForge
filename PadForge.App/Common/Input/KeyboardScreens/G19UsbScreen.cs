@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -8,10 +9,11 @@ using PadForge.Services;
 namespace PadForge.Common.Input.KeyboardScreens
 {
     /// <summary>
-    /// The G19's color screen drawn without LGS (issue #519), over WinUSB on
+    /// One G19's color screen drawn without LGS (issue #519), over WinUSB on
     /// interface 0 of 046D:C229: frames to bulk OUT endpoint 0x02, the
     /// display keys from interrupt IN endpoint 0x81 (gnome15 pylibg19
-    /// g19.py, G19USB G19Constants.cs).
+    /// g19.py, G19USB G19Constants.cs). <see cref="G19UsbScreens"/> keeps
+    /// one for each G19 plugged in, by the instance ID of its interface 0.
     ///
     /// <para>Interface 0 is bound to WinUSB through
     /// <see cref="VendorUsbDriverInstaller"/> and its rules: only from no
@@ -29,9 +31,9 @@ namespace PadForge.Common.Input.KeyboardScreens
     /// </summary>
     internal sealed class G19UsbScreen : IDisposable
     {
-        private const ushort Vid = KeyboardScreenDevices.LogitechVid;
-        private const ushort Pid = KeyboardScreenDevices.G19;
-        private const int LookMs = 5000;
+        internal const ushort Vid = KeyboardScreenDevices.LogitechVid;
+        internal const ushort Pid = KeyboardScreenDevices.G19;
+        internal const int LookMs = 5000;
         private const int BindRetryMs = 60000;
         private const string KeysSource = "g19";
 
@@ -39,6 +41,7 @@ namespace PadForge.Common.Input.KeyboardScreens
         public enum State { None, Binding, OtherDriver, Open }
 
         private readonly Action<string> _log;
+        private readonly string _instanceId;
         private IntPtr _dev = InvalidHandle;
         private IntPtr _ifh;
         private byte _outPipe, _inPipe;
@@ -55,18 +58,26 @@ namespace PadForge.Common.Input.KeyboardScreens
         /// vendor's, for the status line.</summary>
         public string OtherDriver { get; private set; } = string.Empty;
 
-        public G19UsbScreen(Action<string> log) => _log = log ?? (_ => { });
+        public G19UsbScreen(string instanceId, Action<string> log)
+        {
+            _instanceId = instanceId;
+            _log = log ?? (_ => { });
+            Info = KeyboardScreenInfo.G19(instanceId);
+        }
+
+        /// <summary>The screen this G19 is.</summary>
+        public KeyboardScreenInfo Info { get; }
 
         /// <summary>One worker pass. <paramref name="mayBind"/> is false while
         /// LGS draws the screens. A screen already on PadForge's binding is
         /// drawn either way: LGS cannot reach it then.</summary>
-        public void Step(byte[] frame, long version, bool mayBind, long now)
+        public void Step(byte[] frame, long version, bool mayBind, long now, List<VendorUsbDriverInstaller.UsbNode> nodes)
         {
             if (!_open)
             {
                 if (_binding || now < _nextLook) return;
                 _nextLook = now + LookMs;
-                Look(mayBind, now);
+                Look(mayBind, now, nodes);
                 if (!_open) return;
             }
 
@@ -91,10 +102,9 @@ namespace PadForge.Common.Input.KeyboardScreens
             }
         }
 
-        private void Look(bool mayBind, long now)
+        private void Look(bool mayBind, long now, List<VendorUsbDriverInstaller.UsbNode> nodes)
         {
-            var nodes = VendorUsbDriverInstaller.ListPresentUsbNodes();
-            var node = nodes?.FirstOrDefault(n => n.Vid == Vid && n.Pid == Pid && n.Interface == 0) ?? default;
+            var node = nodes?.FirstOrDefault(n => string.Equals(n.InstanceId, _instanceId, StringComparison.OrdinalIgnoreCase)) ?? default;
             if (string.IsNullOrEmpty(node.InstanceId))
             {
                 Current = State.None;
@@ -204,7 +214,7 @@ namespace PadForge.Common.Input.KeyboardScreens
                 if (WinUsb_ReadPipe(_ifh, _inPipe, buffer, (uint)buffer.Length, out uint got, IntPtr.Zero))
                 {
                     int bits = KeyboardScreenFormats.DecodeG19Keys(buffer.AsSpan(0, (int)Math.Min(got, (uint)buffer.Length)));
-                    if (bits >= 0) KeyboardScreenKeys.Report(KeysSource, bits);
+                    if (bits >= 0) KeyboardScreenKeys.Report(Info.Id, KeysSource, bits);
                     continue;
                 }
                 int error = Marshal.GetLastWin32Error();
@@ -213,7 +223,7 @@ namespace PadForge.Common.Input.KeyboardScreens
                 // handle, and the next look opens it again.
                 break;
             }
-            KeyboardScreenKeys.Clear(KeysSource);
+            KeyboardScreenKeys.Clear(Info.Id, KeysSource);
         }
 
         private void Close()
@@ -232,22 +242,25 @@ namespace PadForge.Common.Input.KeyboardScreens
             _dev = InvalidHandle;
             _nextLook = 0;
             Current = State.None;
-            KeyboardScreenKeys.Clear(KeysSource);
+            KeyboardScreenKeys.Clear(Info.Id, KeysSource);
         }
 
         public void Dispose() => Close();
 
-        /// <summary>Gives interface 0 back to Windows when it is on
-        /// PadForge's WinUSB package, for the feature switched off. Blocks
-        /// for seconds, so the caller runs it off the UI thread.</summary>
+        /// <summary>Gives every G19's interface 0 that is on PadForge's
+        /// WinUSB package back to Windows, for the feature switched off.
+        /// Blocks for seconds, so the caller runs it off the UI thread.</summary>
         public static void Restore(Action<string> log)
         {
             var nodes = VendorUsbDriverInstaller.ListPresentUsbNodes();
-            var node = nodes?.FirstOrDefault(n => n.Vid == Vid && n.Pid == Pid && n.Interface == 0) ?? default;
-            if (string.IsNullOrEmpty(node.InstanceId)) return;
-            if (!(node.Service ?? string.Empty).Equals("WINUSB", StringComparison.OrdinalIgnoreCase)) return;
-            if (!VendorUsbDriverInstaller.HasActiveInterface(node.InstanceId)) return;
-            VendorUsbDriverInstaller.Restore(node.InstanceId, log ?? (_ => { }), CancellationToken.None);
+            if (nodes == null) return;
+            foreach (var node in nodes)
+            {
+                if (node.Vid != Vid || node.Pid != Pid || node.Interface != 0 || string.IsNullOrEmpty(node.InstanceId)) continue;
+                if (!(node.Service ?? string.Empty).Equals("WINUSB", StringComparison.OrdinalIgnoreCase)) continue;
+                if (!VendorUsbDriverInstaller.HasActiveInterface(node.InstanceId)) continue;
+                VendorUsbDriverInstaller.Restore(node.InstanceId, log ?? (_ => { }), CancellationToken.None);
+            }
         }
 
         // ── WinUSB interop, Ds3DirectService's declarations ─────────────
@@ -277,5 +290,77 @@ namespace PadForge.Common.Input.KeyboardScreens
         [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         private static extern IntPtr CreateFile(string name, uint access, uint share, IntPtr sa, uint disp, uint flags, IntPtr tmpl);
         [DllImport("kernel32.dll", SetLastError = true)] private static extern bool CloseHandle(IntPtr h);
+    }
+
+    /// <summary>
+    /// Every G19 plugged in (issue #519), a <see cref="G19UsbScreen"/> each,
+    /// found by the instance ID of its interface 0 on a look every
+    /// <see cref="G19UsbScreen.LookMs"/>. A G19 that leaves takes its screen
+    /// and its keys with it. Runs on the host's worker.
+    /// </summary>
+    internal sealed class G19UsbScreens : IDisposable
+    {
+        private readonly Action<string> _log;
+        private readonly Dictionary<string, G19UsbScreen> _screens = new(StringComparer.OrdinalIgnoreCase);
+        private List<VendorUsbDriverInstaller.UsbNode> _nodes = new();
+        private long _nextLook;
+
+        public G19UsbScreens(Action<string> log) => _log = log ?? (_ => { });
+
+        /// <summary>The G19s plugged in, in id order.</summary>
+        public IReadOnlyList<KeyboardScreenInfo> Screens { get; private set; } = Array.Empty<KeyboardScreenInfo>();
+
+        /// <summary>The G19 a screen id names, or null.</summary>
+        public G19UsbScreen Find(string id)
+        {
+            foreach (var screen in _screens.Values)
+                if (string.Equals(screen.Info.Id, id, StringComparison.Ordinal)) return screen;
+            return null;
+        }
+
+        /// <summary>One worker pass. <paramref name="mayBind"/> is false while
+        /// LGS draws the screens.</summary>
+        public void Step(Func<string, (byte[] Frame, long Version)> frameOf, bool mayBind, long now)
+        {
+            if (now >= _nextLook)
+            {
+                _nextLook = now + G19UsbScreen.LookMs;
+                _nodes = VendorUsbDriverInstaller.ListPresentUsbNodes() ?? new List<VendorUsbDriverInstaller.UsbNode>();
+                var present = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                foreach (var node in _nodes)
+                {
+                    if (node.Vid != G19UsbScreen.Vid || node.Pid != G19UsbScreen.Pid || node.Interface != 0
+                        || string.IsNullOrEmpty(node.InstanceId)) continue;
+                    present.Add(node.InstanceId);
+                    if (!_screens.ContainsKey(node.InstanceId))
+                        _screens[node.InstanceId] = new G19UsbScreen(node.InstanceId, _log);
+                }
+                foreach (string gone in _screens.Keys.Where(id => !present.Contains(id)).ToList())
+                {
+                    var screen = _screens[gone];
+                    _screens.Remove(gone);
+                    screen.Dispose();
+                    KeyboardScreenKeys.ClearScreen(screen.Info.Id);
+                }
+                Screens = _screens.Values.Select(s => s.Info).OrderBy(s => s.Id, StringComparer.Ordinal).ToArray();
+            }
+            foreach (var screen in _screens.Values)
+            {
+                var (frame, version) = frameOf(screen.Info.Id);
+                try { screen.Step(frame, version, mayBind, now, _nodes); }
+                catch (Exception ex) { _log("G19 screen: pass failed: " + ex.Message); }
+            }
+        }
+
+        public void Dispose()
+        {
+            foreach (var screen in _screens.Values)
+            {
+                screen.Dispose();
+                KeyboardScreenKeys.ClearScreen(screen.Info.Id);
+            }
+            _screens.Clear();
+            Screens = Array.Empty<KeyboardScreenInfo>();
+        }
     }
 }

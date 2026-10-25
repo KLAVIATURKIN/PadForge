@@ -308,14 +308,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>អានក្ដារចុចអាណាឡូក</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>អានថាគ្រាប់ចុចនីមួយៗត្រូវបានចុចជ្រៅប៉ុណ្ណា លើក្ដារចុចអាណាឡូកពី Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA និងក្រុមហ៊ុនផលិតផ្សេងទៀត ដោយនីមួយៗជាជួរឧបករណ៍ដាច់ដោយឡែក។ ឯកសារណែនាំរាយបញ្ជីម៉ូដែលទាំងអស់ដែលគាំទ្រ។ ក្ដារចុច Razer ត្រូវការ Razer Synapse កំពុងដំណើរការ។ ក្ដារចុចផ្សេងទៀតភាគច្រើនត្រូវបានអានតាមឆានែលដែលកម្មវិធីកំណត់រចនាសម្ព័ន្ធរបស់វាប្រើ ដូច្នេះសូមបិទកម្មវិធីកំណត់រចនាសម្ព័ន្ធនោះ ពេលមុខងារនេះបើក។</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>រកមិនឃើញក្ដារចុចអាណាឡូកដែលគាំទ្រទេ។</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>កំពុងអាន {0}។</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>ចាប់ផ្ដើម Razer Synapse ដើម្បីអាន {0}។</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>ចាប់ផ្ដើម Razer Synapse ដើម្បីអាន {0}។</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>អានអាដាប់ទ័រ Bliss-Box</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>ទាក់ទងជាមួយអាដាប់ទ័រ Bliss-Box តាមរយៈ API របស់វា។ ជួរនៃច្រកនីមួយៗបង្ហាញឈ្មោះឧបករណ៍បញ្ជាដែលដោតក្នុងវា និងប៊ូតុងរបស់វា អានសម្ពាធរបស់ DualShock 2 ញ័រតាមពាក្យបញ្ជាម៉ូទ័ររបស់អាដាប់ទ័រផ្ទាល់ ហើយផ្ដល់សកម្មភាពអេក្រង់ Dreamcast, Controller Pak និងលេខអ្នកលេង។ សូមបិទ Bliss-Box API Tool និង DeviceBuddy ពេលមុខងារនេះបើក ព្រោះពួកវាទាក់ទងជាមួយអាដាប់ទ័រតាមឆានែលដូចគ្នា។ ពេលមុខងារនេះបើក PadForge អានច្រកនីមួយៗតាមប្លង់របស់អាដាប់ទ័រផ្ទាល់ ជំនួសឲ្យការម៉ាបហ្គេមផេដរបស់ SDL ដូច្នេះសូមម៉ាបច្រកម្ដងទៀត បន្ទាប់ពីបើក ឬបិទមុខងារនេះ។</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>រកមិនឃើញច្រក Bliss-Box ទេ។</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>កំពុងអាន {0}។</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>ច្រក {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>កំពុងភ្ជាប់</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>គ្មានឧបករណ៍បញ្ជា</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>ប្រភេទ {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>ឧបករណ៍បញ្ជាតាមវេប</value></data>
@@ -4267,7 +4263,7 @@
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>ទម្រង់ PCM ការញ័រលម្អិត PS5 ដែលជា 16 ប៊ីតមានសញ្ញា នៅ 3 kHz ដែលបានដោះស្រាយការអ៊ិនកូដការញ័រលម្អិត Bluetooth 8 ប៊ីតមានសញ្ញា។ AGPL-3.0 អានជាឯកសារតែប៉ុណ្ណោះ មិនមានកូដ AGPL ណាមួយត្រូវបានដាក់បញ្ចូលទេ។</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>អេក្រង់ក្ដារចុច</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>បង្ហាញលើអេក្រង់ដែលភ្ជាប់មកជាមួយក្ដារចុច GamePanel របស់ Logitech និង Mad Catz S.T.R.I.K.E. 7 ហើយលើទូរស័ព្ទតាមរយៈ Logitech Arx Control៖ ប្រូហ្វាល់ នាឡិកា រយៈពេលលេង នាឡិកាវាស់ពេល រូបភាព ឬពណ៌របារភ្លើងរបស់ DualShock 4 ឬ DualSense។ គ្រាប់ចុចនៅក្បែរអេក្រង់ទាំងនោះក្លាយជាប៊ូតុងនៅលើជួរ «គ្រាប់ចុចអេក្រង់ក្ដារចុច»។</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>បង្ហាញលើអេក្រង់ដែលភ្ជាប់មកជាមួយក្ដារចុច GamePanel របស់ Logitech និង Mad Catz S.T.R.I.K.E. 7 ហើយលើទូរស័ព្ទតាមរយៈ Logitech Arx Control៖ ប្រូហ្វាល់ នាឡិកា រយៈពេលលេង នាឡិកាវាស់ពេល រូបភាព ឬពណ៌របារភ្លើងរបស់ DualShock 4 ឬ DualSense។ អេក្រង់នីមួយៗមានជួរផ្ទាល់ខ្លួននៅលើទំព័រ «ឧបករណ៍» ដែលអ្នកកំណត់អ្វីដែលវាបង្ហាញ។ គ្រាប់ចុចនៅក្បែរអេក្រង់មួយ គឺជាប៊ូតុងនៃជួររបស់អេក្រង់នោះ។</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>បញ្ជាអេក្រង់ក្ដារចុច</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>បង្ហាញលើអេក្រង់ Logitech G15, G15 v2, G510, G13, Z-10, GamePanel និង G19 លើ Arx Control និងលើ Mad Catz S.T.R.I.K.E. 7។ ពេល Logitech Gaming Software កំពុងដំណើរការ PadForge បង្ហាញតាមរយៈវា។ បើគ្មានវា PadForge សរសេរទៅអេក្រង់ខ្មៅសតាម HID ហើយភ្ជាប់ WinUSB ទៅចំណុចប្រទាក់អេក្រង់របស់ G19។ ការបិទមុខងារនេះប្រគល់អេក្រង់របស់ G19 ទៅ Windows វិញ។</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>អេក្រង់ខ្មៅស…</value></data>
@@ -4307,7 +4303,8 @@
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>រកមិនឃើញអេក្រង់</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0} កំពុងរង់ចាំពណ៌របារភ្លើង</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0} មិនទាន់បានជ្រើសរូបភាព</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>គ្រាប់ចុចអេក្រង់ក្ដារចុច</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>ពេល Logitech Gaming Software កំពុងដំណើរការ អេក្រង់ទាំងអស់នៃប្រភេទនេះបង្ហាញរូបភាពដែលបានកំណត់សម្រាប់ {0}។</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>អេក្រង់ក្ដារចុច</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>គ្រាប់ចុចអេក្រង់ {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>គ្រាប់ចុចកម្មវិធីតូច</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>អេក្រង់ ឆ្វេង</value></data>
@@ -4326,7 +4323,7 @@
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>អេក្រង់បង្ហាញចំនួនម៉ោង និងនាទី តាំងពីប្រូហ្វាល់សកម្មត្រូវបានប្ដូរចូល។ ប្រូហ្វាល់ដែលភ្ជាប់នឹងកម្មវិធីហ្គេមមួយ ប្ដូរចូលនៅពេលហ្គេមចាប់ផ្ដើម ដូច្នេះការរាប់គឺវគ្គលេងនោះ។ ក្រោមប្រូហ្វាល់ «លំនាំដើម» វារាប់ចាប់ពីពេលម៉ាស៊ីនដំណើរការចាប់ផ្ដើម។</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>អេក្រង់បង្ហាញរូបភាពដែលអ្នកជ្រើស តាមទំហំដើមរបស់វា។ រូបភាពដែលធំជាងអេក្រង់ បង្ហាញជាផ្ទាំងមួយទំហំប៉ុនអេក្រង់ ដែលម៉ាក្រូ «រំកិលរូបភាពអេក្រង់ក្ដារចុច» ផ្លាស់ទី។ នៅលើ S.T.R.I.K.E. 7 ម្រាមដៃដែលអូសលើអេក្រង់ក៏ផ្លាស់ទីវាដែរ។</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>អេក្រង់បង្ហាញនាឡិកាវាស់ពេល ដែលម៉ាក្រូ «នាឡិកាវាស់ពេល» ចាប់ផ្ដើម ផ្អាក និងកំណត់ឡើងវិញ។ អេក្រង់ទាំងអស់បង្ហាញនាឡិកាវាស់ពេលតែមួយ។</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>អេក្រង់បង្ហាញពណ៌របារភ្លើងនៅលើ DualShock 4 ឬ DualSense ក្នុងរន្ធលេខទាបបំផុត។ អេក្រង់ខ្មៅសបង្ហាញកម្រិតពន្លឺរបស់វាជាលំនាំចំណុច។ រហូតដល់មានពណ៌ទៅដល់របារភ្លើង PadForge មិនបង្ហាញអ្វីទេ។</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>អេក្រង់បង្ហាញពណ៌របារភ្លើងនៅលើ DualShock 4 ឬ DualSense ក្នុងរន្ធលេខទាបបំផុតដែលអេក្រង់នេះផ្ដល់ទិន្នន័យដល់ ឬក្នុងរន្ធលេខទាបបំផុតក្នុងចំណោមរន្ធទាំងអស់ នៅពេលវាមិនផ្ដល់ទិន្នន័យដល់រន្ធណាមួយ។ អេក្រង់ខ្មៅសបង្ហាញកម្រិតពន្លឺរបស់វាជាលំនាំចំណុច។ រហូតដល់មានពណ៌ទៅដល់របារភ្លើង PadForge មិនបង្ហាញអ្វីទេ។</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>រូបភាព (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|ឯកសារទាំងអស់ (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>រំកិល</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>រំកិល X</value></data>
@@ -4338,11 +4335,11 @@
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>ការទាញយក SDK S.T.R.I.K.E. 7 មិនត្រូវគ្នានឹង SHA-256 ដែលគេស្គាល់ទេ ដូច្នេះមិនបានរក្សាទុកអ្វីពីវាឡើយ។</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>កម្មវិធីដំណើរការ Visual C++ 2008 នៅតែខ្វះ បន្ទាប់ពីកម្មវិធីដំឡើងរបស់វាបានដំណើរការរួច។</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>បង្ហាញអេក្រង់ក្ដារចុច</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>ចាក់រូបភាពលើអេក្រង់ក្ដារចុចទាំងអស់នៃប្រភេទដែលបានជ្រើស បន្ទាប់មកប្រគល់អេក្រង់នីមួយៗទៅរបៀបរបស់វាវិញ។</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>ចាក់រូបភាពលើអេក្រង់ក្ដារចុចនីមួយៗនៃប្រភេទដែលបានជ្រើស ដែលផ្ដល់ទិន្នន័យដល់រន្ធនេះ បន្ទាប់មកប្រគល់អេក្រង់នីមួយៗទៅរបៀបរបស់វាវិញ។</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>បង្ហាញរូបភាព {0}៖ {1} × {2} ms ចំនួនដងធ្វើម្ដងទៀត {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>រូបភាពត្រូវបានធ្វើឲ្យសមនឹងអេក្រង់៖ 160 គុណ 43 ភីកសែលខ្មៅស លើអេក្រង់ខ្មៅស 320 គុណ 240 លើអេក្រង់របស់ G19 និង 480 គុណ 320 សម្រាប់ Arx Control និង S.T.R.I.K.E. 7។ មួយភាគដប់នៃវិនាទី គឺជារយៈពេលស៊ុមខ្លីបំផុត។</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>របៀបអេក្រង់ក្ដារចុច</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>ប្ដូរប្រភេទអេក្រង់ក្ដារចុចមួយទៅរបៀបផ្សេង ហើយរក្សាវាទុកជាការកំណត់របស់អេក្រង់នោះ។</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>ប្ដូរអេក្រង់ក្ដារចុចនីមួយៗនៃប្រភេទដែលបានជ្រើស ដែលផ្ដល់ទិន្នន័យដល់រន្ធនេះ ទៅរបៀបផ្សេង ហើយរក្សាវាទុកជាការកំណត់របស់អេក្រង់នោះ។</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} បង្ហាញ {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>របៀបនេះនៅដដែល រហូតដល់ម៉ាក្រូផ្សេង ឬប្រអប់សន្ទនារបស់អេក្រង់ប្ដូរវា។</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>នាឡិកាវាស់ពេល</value></data>
@@ -4351,9 +4348,9 @@
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>កំណត់នាឡិកាវាស់ពេលឡើងវិញ</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>«កំណត់ឡើងវិញ» បញ្ឈប់នាឡិកាវាស់ពេល ហើយកំណត់វាត្រឡប់ទៅសូន្យវិញ។ អេក្រង់ក្ដារចុចទាំងអស់ក្នុងរបៀប «នាឡិកាវាស់ពេល» បង្ហាញនាឡិកាវាស់ពេលតែមួយ។</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>រំកិលរូបភាពអេក្រង់ក្ដារចុច</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>ផ្លាស់ទីផ្ទាំងរបស់អេក្រង់ក្ដារចុចនីមួយៗលើរូបភាពដែលធំជាងអេក្រង់ ដូចជាផែនទី។</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>ផ្លាស់ទីផ្ទាំងរបស់អេក្រង់ក្ដារចុចនីមួយៗដែលផ្ដល់ទិន្នន័យដល់រន្ធនេះ លើរូបភាពដែលធំជាងអេក្រង់ ដូចជាផែនទី។</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>រំកិលរូបភាព {0} និង {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>ផ្លាស់ទីអេក្រង់គ្រប់ប្រភេទដែលបង្ហាញរូបភាពដែលបានជ្រើស ហើយធំជាងខ្លួន។ ផ្ទាំងឈប់នៅគែមរូបភាព។</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>ផ្លាស់ទីអេក្រង់នីមួយៗដែលផ្ដល់ទិន្នន័យដល់រន្ធនេះ ហើយបង្ហាញរូបភាពដែលបានជ្រើសដែលធំជាងខ្លួន។ ផ្ទាំងឈប់នៅគែមរូបភាព។</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>អេក្រង់</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>សកម្មភាព</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>ទិសដៅ</value></data>
@@ -4435,6 +4432,6 @@
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>កម្លាំងអតិបរមាដែល Falcon ដាក់លើដៃកាន់ ពី 1 ដល់ 8 ញូតុន។</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>កំណត់ដែនកំណត់កម្លាំងឡើងវិញ</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>ក្រិតចម្ងាយផ្លាស់ទី</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>វាស់ថាដៃកាន់ផ្លាស់ទីបានឆ្ងាយប៉ុណ្ណា។ ផ្លាស់ទីវាទៅគ្រប់គែមនៃចម្ងាយផ្លាស់ទីរបស់វា ក្នុងរយៈពេលបួនវិនាទីដែលការវាស់ដំណើរការ។ កម្លាំងត្រូវបានផ្អាកក្នុងពេលនោះ។</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>ក្រិតចម្ងាយផ្លាស់ទី</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>វាស់ថាដៃកាន់ផ្លាស់ទីបានឆ្ងាយប៉ុណ្ណា។ ផ្លាស់ទីវាទៅគ្រប់គែមនៃចម្ងាយផ្លាស់ទីរបស់វា ក្នុងរយៈពេលបួនវិនាទីដែលការវាស់ដំណើរការ។ កម្លាំងត្រូវបានផ្អាកក្នុងពេលនោះ។</value></data>
 </root>

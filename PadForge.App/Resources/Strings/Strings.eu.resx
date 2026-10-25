@@ -308,14 +308,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>Irakurri teklatu analogikoak</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Tekla bakoitza zenbateraino sakatzen den irakurtzen du Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA eta beste fabrikatzaile batzuen teklatu analogikoetan, bakoitza bere gailu-errenkadan. Dokumentazioak onartutako modelo guztiak zerrendatzen ditu. Razer teklatuek Razer Synapse exekutatzen egotea behar dute. Gainerako gehienak beren konfiguratzaileak erabiltzen duen kanalaren bidez irakurtzen dira. Beraz, itxi konfiguratzailea aukera hau aktibatuta dagoen bitartean.</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>Ez da onartutako teklatu analogikorik aurkitu.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>{0} irakurtzen.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>Abiarazi Razer Synapse {0} irakurtzeko.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>Abiarazi Razer Synapse {0} irakurtzeko.</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Irakurri Bliss-Box egokigailuak</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>Bliss-Box egokigailuekin haien API-aren bidez komunikatzen da. Ataka bakoitzaren errenkadak bertan konektatutako kontrolagailua eta haren botoiak izendatzen ditu, DualShock 2 baten presioa irakurtzen du, egokigailuaren beraren motor-komandoen bidez bibratzen du, eta Dreamcast pantailaren, Controller Pak-aren eta jokalari-zenbakiaren ekintzak eskaintzen ditu. Itxi Bliss-Box API Tool eta DeviceBuddy aukera hau aktibatuta dagoen bitartean, kanal beretik komunikatzen baitira egokigailuarekin. Aukera hau aktibatuta dagoen bitartean, PadForge-k ataka bakoitza egokigailuaren beraren antolamenduan irakurtzen du, SDL-ren gamepad-esleipenaren bidez irakurri beharrean. Beraz, esleitu berriro ataka bat aukera hau aktibatu edo desaktibatu ondoren.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Ez da Bliss-Box atakarik aurkitu.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>{0} irakurtzen.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>{0}. ataka ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>konektatzen</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>kontrolagailurik ez</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>{0}. mota</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Web-kontrolagailua</value></data>
@@ -4264,7 +4260,7 @@ PadForge-k orain desinstalatzea nahi duzu? Horrek administratzaile-baimenak beha
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PS5-en PCM formatu haptikoa, 16 biteko zeinuduna 3 kHz-tan, zeinak Bluetooth bidezko zeinudun 8 biteko kodeketa haptikoa argitu zuen. AGPL-3.0, dokumentazio gisa soilik irakurria, ez da AGPL koderik banatzen.</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Teklatuko pantailak</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Logitech-en GamePanel teklatuen eta Mad Catz S.T.R.I.K.E. 7 teklatuaren pantailetan marrazten du, baita telefono batean ere Logitech Arx Control bidez: profila, erlojua, jolas-denbora, kronometroa, irudi bat edo DualShock 4 edo DualSense kontrolagailu baten argi-barraren kolorea. Pantaila horien ondoko teklak botoi bihurtzen dira Teklatuko pantailen teklak errenkadan.</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Logitech-en GamePanel teklatuen eta Mad Catz S.T.R.I.K.E. 7 teklatuaren pantailetan marrazten du, baita telefono batean ere Logitech Arx Control bidez: profila, erlojua, jolas-denbora, kronometroa, irudi bat edo DualShock 4 edo DualSense kontrolagailu baten argi-barraren kolorea. Pantaila bakoitzak bere errenkada du Gailuak orrian, eta bertan ezartzen da zer erakusten duen. Pantaila baten ondoko teklak bere errenkadako botoiak dira.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Kontrolatu teklatuko pantailak</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Logitech G15, G15 v2, G510, G13, Z-10, GamePanel eta G19 pantailetan, Arx Control-en eta Mad Catz S.T.R.I.K.E. 7 teklatuan marrazten du. Logitech Gaming Software martxan dagoen bitartean, PadForge-k horren bidez marrazten du. Hori gabe, PadForge-k pantaila monokromoetan HID bidez idazten du eta WinUSB lotzen dio G19ren pantaila-interfazeari. Hau desaktibatzean, G19ren pantaila Windows-i itzultzen zaio.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Pantaila monokromoa…</value></data>
@@ -4304,7 +4300,8 @@ PadForge-k orain desinstalatzea nahi duzu? Horrek administratzaile-baimenak beha
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>ez da pantailarik aurkitu</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, argi-barraren kolorearen zain</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, irudirik aukeratu gabe</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Teklatuko pantailen teklak</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Logitech Gaming Software martxan dagoen bitartean, mota honetako pantaila guztiek {0} errenkadan ezarritako irudia erakusten dute.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Teklatuko pantaila</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Pantailako tekla {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Appleten tekla</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Pantailako ezkerra</value></data>
@@ -4323,7 +4320,7 @@ PadForge-k orain desinstalatzea nahi duzu? Horrek administratzaile-baimenak beha
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Pantailak profil aktiboa aktibatu zenetik igarotako orduak eta minutuak erakusten ditu. Jokoaren programari lotutako profila jokoa hasten denean aktibatzen da, beraz zenbaketa saio horren denbora da. Profil lehenetsiarekin, motorra abiarazi zenetik kontatzen da.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Pantailak zuk aukeratutako irudi bat erakusten du, bere tamainan. Pantaila baino handiagoa den irudi batek pantailaren tamainako leiho bat erakusten du, eta Mugitu teklatuko pantailaren irudia makroak mugitzen du. S.T.R.I.K.E. 7-n, pantailan zehar eramandako hatzak ere mugitzen du.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Pantailak kronometroa erakusten du, Kronometroa makroak abiarazi, pausatu eta berrezartzen duena. Pantaila guztiek kronometro bera erakusten dute.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Pantailak zirrikitu baxuenean dagoen DualShock 4 edo DualSense kontrolagailuaren argi-barraren kolorea erakusten du. Pantaila monokromo batek bere distira puntu-eredu gisa erakusten du. Kolorea argi-barra batera iritsi arte, PadForge-k ez du ezer erakusten.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Pantailak DualShock 4 edo DualSense kontrolagailuaren argi-barraren kolorea erakusten du, pantaila honek elikatzen duen zirrikitu baxuenean, edo, bat ere elikatzen ez badu, zirrikitu guztien artean baxuenean. Pantaila monokromo batek bere distira puntu-eredu gisa erakusten du. Kolorea argi-barra batera iritsi arte, PadForge-k ez du ezer erakusten.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Irudiak (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Fitxategi guztiak (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Desplazamendua</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>X desplazamendua</value></data>
@@ -4335,11 +4332,11 @@ PadForge-k orain desinstalatzea nahi duzu? Horrek administratzaile-baimenak beha
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>S.T.R.I.K.E. 7 SDK deskargak ez dator bat ezagutzen duen SHA-256 balioarekin, beraz ez da ezer gorde.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Visual C++ 2008 exekuzio-ingurunea falta da oraindik instalatzailea exekutatu ondoren.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Erakutsi teklatuko pantaila</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Aukeratutako motako teklatuko pantaila guztietan irudiak erreproduzitzen ditu, eta gero pantaila bakoitza bere modura itzultzen du.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Aukeratutako motako eta zirrikitu hau elikatzen duen teklatuko pantaila bakoitzean irudiak erreproduzitzen ditu, eta gero pantaila bakoitza bere modura itzultzen du.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Erakutsi {0} irudiak: {1} × {2} ms, errepikapenak: {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Irudiak pantailara egokitzen dira: 160 × 43 pixel zuri-beltzak pantaila monokromoan, 320 × 240 G19renean eta 480 × 320 Arx Control-en eta S.T.R.I.K.E. 7-n. Segundo-hamarren bat da irudi-denbora txikiena.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Teklatuko pantailaren modua</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Teklatuko pantaila mota bat beste modu batera aldatzen du eta pantaila horren ezarpen gisa gordetzen du.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Aukeratutako motako eta zirrikitu hau elikatzen duen teklatuko pantaila bakoitza beste modu batera aldatzen du, eta pantaila horren ezarpen gisa gordetzen du.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} hau erakusten du: {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Modua beste makro batek edo pantailaren elkarrizketa-koadroak aldatu arte irauten du.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Kronometroa</value></data>
@@ -4348,9 +4345,9 @@ PadForge-k orain desinstalatzea nahi duzu? Horrek administratzaile-baimenak beha
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Berrezarri kronometroa</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Berrezartzeak kronometroa gelditzen du eta zerora itzultzen du. Kronometro moduko teklatuko pantaila guztiek kronometro bera erakusten dute.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Mugitu teklatuko pantailaren irudia</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Pantaila baino handiagoa den irudi baten gainean teklatuko pantaila bakoitzaren leihoa mugitzen du, esaterako mapa bat ikusteko.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Zirrikitu hau elikatzen duen teklatuko pantaila bakoitzaren leihoa pantaila baino handiagoa den irudi baten gainean mugitzen du, esaterako mapa bat ikusteko.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Mugitu irudiak {0} × {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Aukeratutako irudi bat bera baino handiagoa erakusten duen pantaila mota guztiak mugitzen ditu. Leihoa irudiaren ertzetan gelditzen da.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Zirrikitu hau elikatzen duen eta bera baino handiagoa den aukeratutako irudi bat erakusten duen pantaila bakoitza mugitzen du. Leihoa irudiaren ertzetan gelditzen da.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Pantaila</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Ekintza</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Norabidea</value></data>
@@ -4432,6 +4429,6 @@ PadForge-k orain desinstalatzea nahi duzu? Horrek administratzaile-baimenak beha
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Falcon-ak heldulekuan jartzen duen indar handiena, 1etik 8 newtonera.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Berrezarri indar-muga</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Kalibratu heina</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Heldulekua zenbat urrutira mugitzen den neurtzen du. Mugitu bere heinaren ertz guztietara miaketak irauten duen lau segundoetan. Indarrak atseden hartzen dute bitartean.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>Kalibratu heina</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Heldulekua zenbat urrutira mugitzen den neurtzen du. Mugitu bere heinaren ertz guztietara miaketak irauten duen lau segundoetan. Indarrak atseden hartzen dute bitartean.</value></data>
 </root>

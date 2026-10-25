@@ -287,14 +287,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>Leer teclados analógicos</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Lee cuánto se presiona cada tecla en los teclados analógicos de Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA y otros fabricantes, cada uno como su propia fila de dispositivo. La documentación enumera todos los modelos compatibles. Los teclados Razer requieren Razer Synapse en ejecución. La mayoría de los demás se leen por el canal que usa su propio configurador, así que cierra el configurador mientras esto esté activado.</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>No se encontró ningún teclado analógico compatible.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>Leyendo {0}.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>Inicia Razer Synapse para leer {0}.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>Inicia Razer Synapse para leer {0}.</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Leer adaptadores Bliss-Box</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>Se comunica con los adaptadores Bliss-Box a través de su API. La fila de cada puerto nombra el mando conectado y sus botones, lee la presión de un DualShock 2, hace vibrar con los propios comandos de motor del adaptador y ofrece las acciones de pantalla de Dreamcast, Controller Pak y número de jugador. Cierra Bliss-Box API Tool y DeviceBuddy mientras esto esté activado, ya que hablan con el adaptador por el mismo canal. Mientras esto esté activado, PadForge lee cada puerto con la distribución propia del adaptador en lugar de la asignación de mando de SDL, así que vuelve a asignar un puerto después de activarlo o desactivarlo.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>No se encontró ningún puerto Bliss-Box.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>Leyendo {0}.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>puerto {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>conectando</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>sin mando</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>Tipo {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Control web</value></data>
@@ -4243,7 +4239,7 @@ Hay una copia de la versión anterior en esta carpeta: {1}</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>El formato PCM háptico de la PS5, 16 bits con signo a 3 kHz, que resolvió la codificación háptica de 8 bits con signo por Bluetooth. AGPL-3.0, leído solo como documentación, no se distribuye código AGPL.</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Pantallas del teclado</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Dibuja en las pantallas integradas de los teclados GamePanel de Logitech y del Mad Catz S.T.R.I.K.E. 7, y en un teléfono mediante Logitech Arx Control: el perfil, un reloj, el tiempo de juego, un cronómetro, una imagen o el color de la barra de luz de un mando DualShock 4 o DualSense. Las teclas junto a esas pantallas pasan a ser botones en la fila Teclas de pantalla del teclado.</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Dibuja en las pantallas integradas de los teclados GamePanel de Logitech y del Mad Catz S.T.R.I.K.E. 7, y en un teléfono mediante Logitech Arx Control: el perfil, un reloj, el tiempo de juego, un cronómetro, una imagen o el color de la barra de luz de un mando DualShock 4 o DualSense. Cada pantalla tiene su propia fila en la página Dispositivos, donde se elige lo que muestra. Las teclas junto a una pantalla son los botones de su fila.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Controlar pantallas del teclado</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Dibuja en las pantallas del Logitech G15, G15 v2, G510, G13, Z-10, GamePanel y G19, en Arx Control y en el Mad Catz S.T.R.I.K.E. 7. Mientras Logitech Gaming Software está en ejecución, PadForge dibuja a través de él. Sin él, PadForge escribe en las pantallas monocromas por HID y enlaza WinUSB con la interfaz de pantalla del G19. Al desactivar esta opción, la pantalla del G19 vuelve a Windows.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Pantalla monocroma…</value></data>
@@ -4283,7 +4279,8 @@ Hay una copia de la versión anterior en esta carpeta: {1}</value></data>
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>no se encontró ninguna pantalla</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, esperando un color de la barra de luz</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, sin imagen elegida</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Teclas de pantalla del teclado</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Mientras Logitech Gaming Software está en ejecución, todas las pantallas de este tipo muestran la imagen definida para {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Pantalla del teclado</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Tecla de pantalla {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Tecla de applet</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Pantalla: izquierda</value></data>
@@ -4302,7 +4299,7 @@ Hay una copia de la versión anterior en esta carpeta: {1}</value></data>
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>La pantalla muestra las horas y los minutos desde que se activó el perfil actual. Un perfil vinculado al programa de un juego se activa cuando el juego se inicia, así que la cuenta corresponde a esa sesión. Con el perfil Predeterminado, la cuenta empieza al iniciarse el motor.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>La pantalla muestra una imagen que usted elige, en su tamaño original. Si la imagen es mayor que la pantalla, se muestra una ventana del tamaño de la pantalla, que la macro Desplazar imagen de la pantalla del teclado mueve. En el S.T.R.I.K.E. 7, también se mueve arrastrando un dedo por la pantalla.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>La pantalla muestra el cronómetro, que la macro Cronómetro inicia, pausa y restablece. Todas las pantallas muestran el mismo cronómetro.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>La pantalla muestra el color de la barra de luz del DualShock 4 o DualSense de la ranura más baja. Una pantalla monocroma muestra su brillo como un patrón de puntos. Hasta que un color llegue a una barra de luz, PadForge no muestra nada.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>La pantalla muestra el color de la barra de luz del DualShock 4 o DualSense de la ranura más baja que alimenta esta pantalla, o de la ranura más baja de todas cuando no alimenta ninguna. Una pantalla monocroma muestra su brillo como un patrón de puntos. Hasta que un color llegue a una barra de luz, PadForge no muestra nada.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Imágenes (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Todos los archivos (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Desplazar</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Desplazar X</value></data>
@@ -4314,11 +4311,11 @@ Hay una copia de la versión anterior en esta carpeta: {1}</value></data>
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>La descarga del SDK del S.T.R.I.K.E. 7 no coincide con su SHA-256 conocido, así que no se conservó nada de ella.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Visual C++ 2008 Runtime sigue sin estar instalado tras ejecutarse su instalador.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Mostrar pantalla del teclado</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Reproduce imágenes en todas las pantallas de teclado del tipo elegido y después devuelve cada pantalla a su propio modo.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Reproduce imágenes en cada pantalla de teclado del tipo elegido que alimenta esta ranura y después devuelve cada pantalla a su propio modo.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Mostrar imágenes de {0}: {1} × {2} ms, repeticiones {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Las imágenes se ajustan a la pantalla: 160 por 43 píxeles en blanco y negro en una pantalla monocroma, 320 por 240 en la del G19 y 480 por 320 en Arx Control y el S.T.R.I.K.E. 7. Una décima de segundo es el tiempo mínimo por imagen.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Modo de pantalla del teclado</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Cambia un tipo de pantalla de teclado a otro modo y lo conserva como configuración de esa pantalla.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Cambia a otro modo cada pantalla de teclado del tipo elegido que alimenta esta ranura y lo conserva como configuración de esa pantalla.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} muestra {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>El modo se mantiene hasta que otra macro o el cuadro de diálogo de la pantalla lo cambie.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Cronómetro</value></data>
@@ -4327,9 +4324,9 @@ Hay una copia de la versión anterior en esta carpeta: {1}</value></data>
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Restablecer cronómetro</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Restablecer detiene el cronómetro y lo vuelve a cero. Todas las pantallas de teclado en modo Cronómetro muestran el mismo cronómetro.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Desplazar imagen de la pantalla del teclado</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Mueve la ventana de cada pantalla de teclado sobre una imagen mayor que la pantalla, por ejemplo un mapa.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Mueve la ventana de cada pantalla de teclado que alimenta esta ranura sobre una imagen mayor que la pantalla, por ejemplo un mapa.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Desplazar imágenes {0} por {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Mueve todos los tipos de pantalla que muestran una imagen elegida mayor que ellos. La ventana se detiene en los bordes de la imagen.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Mueve cada pantalla que alimenta esta ranura y muestra una imagen elegida mayor que ella. La ventana se detiene en los bordes de la imagen.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Pantalla</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Acción</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Dirección</value></data>
@@ -4411,6 +4408,6 @@ Hay una copia de la versión anterior en esta carpeta: {1}</value></data>
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>La máxima fuerza que el Falcon aplica al mango, de 1 a 8 newtons.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Restablecer límite de fuerza</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Calibrar alcance</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mide hasta dónde llega el mango. Muévalo hasta todos los bordes de su alcance durante los cuatro segundos que dura el barrido. Mientras tanto, las fuerzas se detienen.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>Calibrar alcance</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mide hasta dónde llega el mango. Muévalo hasta todos los bordes de su alcance durante los cuatro segundos que dura el barrido. Mientras tanto, las fuerzas se detienen.</value></data>
 </root>

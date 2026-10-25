@@ -1669,7 +1669,8 @@
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>a kò rí ìbòjú kankan</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, ń dúró de àwọ̀ lightbar</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, a kò tíì yan àwòrán</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Àwọn kọ́kọ́rọ́ ìbòjú pátákó ìtẹ̀wé</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Nígbà tí Logitech Gaming Software bá ń ṣiṣẹ́, gbogbo ìbòjú irú yìí ni yóò fi àwòrán tí a ṣètò fún {0} hàn.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Ìbòjú pátákó ìtẹ̀wé</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Kọ́kọ́rọ́ ìbòjú {0}</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Òsì ìbòjú</value></data>
   <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Ọ̀tún ìbòjú</value></data>

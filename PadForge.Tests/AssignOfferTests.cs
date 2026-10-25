@@ -103,6 +103,7 @@ namespace PadForge.Tests
         [InlineData(InputDeviceType.Mouse, false)]
         [InlineData(InputDeviceType.Touchpad, false)]
         [InlineData(InputDeviceType.ConsumerControl, false)]
+        [InlineData(InputDeviceType.KeyboardScreenKeys, false)]
         [InlineData(InputDeviceType.Gamepad, true)]
         [InlineData(InputDeviceType.Joystick, true)]
         public void Eligibility_DesktopPeripheralsNeverOffered(int capType, bool expected)

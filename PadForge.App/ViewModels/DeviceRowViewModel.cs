@@ -1050,6 +1050,70 @@ namespace PadForge.ViewModels
             set => SetProperty(ref _blissBoxIdle, value);
         }
 
+        private string _keyboardScreenLine = string.Empty;
+        /// <summary>A keyboard screen's line (issue #519): what draws the
+        /// screen or why nothing does, and whose picture Logitech Gaming
+        /// Software shows when it shares one. Empty for every other row.</summary>
+        public string KeyboardScreenLine
+        {
+            get => _keyboardScreenLine;
+            set => SetProperty(ref _keyboardScreenLine, value ?? string.Empty);
+        }
+
+        private string _keyboardScreenButtonText = string.Empty;
+        /// <summary>The screen dialog's button, named for the kind of screen
+        /// the way Dreamcast Screen… is.</summary>
+        public string KeyboardScreenButtonText
+        {
+            get => _keyboardScreenButtonText;
+            set => SetProperty(ref _keyboardScreenButtonText, value ?? string.Empty);
+        }
+
+        private bool _showKeyboardScreen;
+        /// <summary>The row is a present keyboard screen, so its dialog can
+        /// open.</summary>
+        public bool ShowKeyboardScreen
+        {
+            get => _showKeyboardScreen;
+            set => SetProperty(ref _showKeyboardScreen, value);
+        }
+
+        private string _falconLine = string.Empty;
+        /// <summary>An open Novint Falcon's line (issue #521): a homing
+        /// prompt for its first seconds, then its rate. Empty for every other
+        /// row.</summary>
+        public string FalconLine
+        {
+            get => _falconLine;
+            set => SetProperty(ref _falconLine, value ?? string.Empty);
+        }
+
+        private bool _showFalconCalibrate;
+        /// <summary>The row is an open Falcon, so its reach can be
+        /// calibrated.</summary>
+        public bool ShowFalconCalibrate
+        {
+            get => _showFalconCalibrate;
+            set => SetProperty(ref _showFalconCalibrate, value);
+        }
+
+        private string _falconCalibrationStatus = string.Empty;
+        /// <summary>The reach the Falcon uses, or how its sweep went.</summary>
+        public string FalconCalibrationStatus
+        {
+            get => _falconCalibrationStatus;
+            set => SetProperty(ref _falconCalibrationStatus, value ?? string.Empty);
+        }
+
+        private string _analogKeyboardLine = string.Empty;
+        /// <summary>An analog keyboard's line (issue #468): a Razer keyboard
+        /// that waits for Razer Synapse says so. Empty otherwise.</summary>
+        public string AnalogKeyboardLine
+        {
+            get => _analogKeyboardLine;
+            set => SetProperty(ref _analogKeyboardLine, value ?? string.Empty);
+        }
+
         /// <summary>The beam-count window the gun's aim scales by. A Wii
         /// Remote's window is in pointer counts no one reads, so its line says
         /// only whether it is calibrated.</summary>

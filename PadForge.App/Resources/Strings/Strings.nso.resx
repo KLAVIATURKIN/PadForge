@@ -1005,6 +1005,7 @@
   <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Disekirini tša khiipoto</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>E thala disekirining tšeo di agilwego ka gare ga dikhiipoto tša GamePanel tša Logitech le Mad Catz S.T.R.I.K.E. 7, le mogaleng ka Logitech Arx Control: profaele, sešupanako, nako ya go bapala, stopwatch, seswantšho, goba mmala wa lightbar ya DualShock 4 goba DualSense. Sekirini se sengwe le se sengwe se hwetša mothaladi wa sona letlakaleng la Didirišwa, moo o beakanyago seo se se bontšhago. Dikhii tšeo di lego kgauswi le sekirini ke dikonope tša mothaladi wa sona.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Laola disekirini tša khiipoto</value></data>
   <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Sekirini sa mebala…</value></data>
   <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
@@ -1027,7 +1028,8 @@
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>ga go na sekirini se se hweditšwego</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, e letile mmala wa lightbar</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, ga go seswantšho se se kgethilwego</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Dikhii tša sekirini sa khiipoto</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Ge Logitech Gaming Software e šoma, sekirini se sengwe le se sengwe sa mohuta wo se bontšha seswantšho seo se beetšwego {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Sekirini sa khiipoto</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Khii ya sekirini {0}</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Sekirini: Lanngele</value></data>
   <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Sekirini: Lagoja</value></data>

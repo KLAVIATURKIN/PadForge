@@ -1510,6 +1510,7 @@
   <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Mugaragaza za mwandikisho</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Yerekana kuri mugaragaza ziri muri mwandikisho za GamePanel za Logitech no muri Mad Catz S.T.R.I.K.E. 7, no kuri telefoni binyuze muri Logitech Arx Control: umwirondoro, isaha, igihe cyo gukina, kubara igihe, ifoto, cyangwa ibara rya lightbar ya DualShock 4 cyangwa DualSense. Buri mugaragaza ifite umurongo wayo ku rupapuro rw'Ibikoresho, aho uhitamo ibyo yerekana. Imfunguzo ziri iruhande rwa mugaragaza ni buto z'umurongo wayo.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Koresha mugaragaza za mwandikisho</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Mugaragaza y'umukara n'umweru…</value></data>
   <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Mugaragaza y'amabara…</value></data>
@@ -1536,7 +1537,8 @@
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>nta mugaragaza yabonetse</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, birategereza ibara rya lightbar</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, nta foto yahiswemo</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Imfunguzo za mugaragaza za mwandikisho</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Mu gihe Logitech Gaming Software ikora, buri mugaragaza y'ubu bwoko yerekana ifoto yashyiriweho {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Mugaragaza ya mwandikisho</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Urufunguzo rwa mugaragaza {0}</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Mugaragaza: Ibumoso</value></data>
   <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Mugaragaza: Iburyo</value></data>
@@ -1550,15 +1552,18 @@
   <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Mugaragaza yerekana umwanya w'umwirondoro ukoreshwa ku rutonde rw'imyirondoro. Umwirondoro wa Mburabuzi ni 0.</value></data>
   <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Mugaragaza yerekana ifoto y'umwirondoro ukoreshwa, cyangwa izina ryawo iyo nta foto ufite. Buri mwirondoro ugira ifoto yawo.</value></data>
   <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Mugaragaza yerekana isaha.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Mugaragaza yerekana ibara rya lightbar ya DualShock 4 cyangwa DualSense iri mu mwanya ufite nomero ntoya mu yo iyi mugaragaza ihujwe na yo, cyangwa mu mwanya ufite nomero ntoya kuruta iyindi yose iyo nta wo ihujwe na wo. Mugaragaza y'umukara n'umweru yerekana urumuri rwaryo mu ishusho y'utudomo. Igihe nta bara riragera kuri lightbar, PadForge nta cyo yerekana.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Amafoto (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Dosiye zose (*.*)|*.*</value></data>
   <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0} yashyizwe kuri {1}.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Erekana mugaragaza ya mwandikisho</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Yerekana amafoto kuri buri mugaragaza ya mwandikisho y'ubwoko bwahiswemo, hanyuma igasubiza buri mugaragaza ku buryo bwayo.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Yerekana amafoto kuri buri mugaragaza ya mwandikisho y'ubwoko bwahiswemo ihujwe n'uyu mwanya, hanyuma igasubiza buri mugaragaza ku buryo bwayo.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Erekana amafoto {0}: {1} × {2} ms, inshuro zo gusubiramo {3}</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Uburyo bwa mugaragaza ya mwandikisho</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Ihindura uburyo bw'ubwoko bwa mugaragaza ya mwandikisho, kandi ikabubika nk'igenamiterere ry'iyo mugaragaza.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Ihindurira buri mugaragaza ya mwandikisho y'ubwoko bwahiswemo ihujwe n'uyu mwanya ku bundi buryo, kandi ikabubika nk'igenamiterere ry'iyo mugaragaza.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} yerekana {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Uburyo buguma uko buri kugeza indi macro cyangwa idirishya rya mugaragaza ribuhinduye.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Yimura idirishya rya buri mugaragaza ya mwandikisho ihujwe n'uyu mwanya hejuru y'ifoto nini kuruta mugaragaza, nko ku ikarita.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Yimura buri mugaragaza ihujwe n'uyu mwanya kandi yerekana ifoto yahiswemo nini kuruta yo ubwayo. Idirishya rihagarara ku mpera z'ifoto.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Mugaragaza</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Igikorwa</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Icyerekezo</value></data>

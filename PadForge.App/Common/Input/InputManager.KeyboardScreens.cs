@@ -1,101 +1,137 @@
 using System;
+using System.Collections.Generic;
+using PadForge.Common.Input.KeyboardScreens;
 using PadForge.Engine.Data;
 
 namespace PadForge.Common.Input
 {
     public partial class InputManager
     {
-        // The keys beside the keyboard screens (issue #519). The row reads a
-        // static the screen engines fill and opens without any I/O, so the
-        // poll thread runs its whole lifecycle, the G-key row's shape.
-        private volatile KeyboardScreenKeysDevice _keyboardScreenKeysDevice;
-        private readonly object _keyboardScreenKeysLock = new object();
-        private volatile bool _keyboardScreenKeysInputsSuppressed;
-        private int _keyboardScreenKeysVersion;
+        // The keyboard screens (issue #519), a row each. The screen host finds
+        // the screens on its worker and publishes them, and the poll thread
+        // registers and retires the rows, the Falcons' shape. A row reads a
+        // static the engines fill and opens without any I/O.
+        private readonly Dictionary<string, KeyboardScreenDevice> _keyboardScreenRows = new(StringComparer.Ordinal);
+        private readonly object _keyboardScreenLock = new object();
+        private volatile bool _keyboardScreenInputsSuppressed;
+        private volatile bool _keyboardScreenAnyRows;
+        private KeyboardScreenInfo[] _keyboardScreensSeen = Array.Empty<KeyboardScreenInfo>();
+        private int _keyboardScreenVersion;
 
-        /// <summary>The live Keyboard Screen Keys row, null while the feature
-        /// is off.</summary>
-        internal KeyboardScreenKeysDevice KeyboardScreenKeysRow => _keyboardScreenKeysDevice;
-
-        /// <summary>Phase 1j2 (issue #519). One row while the feature is on,
-        /// recreated when the user removes it from the Devices page, the
-        /// G-key row's rule. Off with nothing to retire: two volatile reads
-        /// and out.</summary>
-        private bool UpdateKeyboardScreenKeysDevice()
+        /// <summary>The open screen rows, for the Devices page.</summary>
+        internal KeyboardScreenDevice[] KeyboardScreenRows
         {
-            if (_keyboardScreenKeysInputsSuppressed)
+            get
+            {
+                lock (_keyboardScreenLock)
+                {
+                    var rows = new KeyboardScreenDevice[_keyboardScreenRows.Count];
+                    _keyboardScreenRows.Values.CopyTo(rows, 0);
+                    return rows;
+                }
+            }
+        }
+
+        /// <summary>Phase 1j2 (issue #519). A row per present screen while
+        /// the feature is on, recreated when the user removes one from the
+        /// Devices page while its screen is still there, the G-key row's
+        /// rule. Off with nothing to retire: two volatile reads and
+        /// out.</summary>
+        private bool UpdateKeyboardScreenDevices()
+        {
+            if (_keyboardScreenInputsSuppressed)
                 return false;
 
             bool enabled = KeyboardScreensRuntime.Enabled;
-            if (!enabled && _keyboardScreenKeysDevice == null)
+            if (!enabled && !_keyboardScreenAnyRows)
                 return false;
 
+            var screens = enabled ? KeyboardScreensRuntime.Screens : Array.Empty<KeyboardScreenInfo>();
             bool changed = false;
-            lock (_keyboardScreenKeysLock)
+            lock (_keyboardScreenLock)
             {
-                if (_keyboardScreenKeysInputsSuppressed)
+                if (_keyboardScreenInputsSuppressed)
                     return false;
 
-                var dev = _keyboardScreenKeysDevice;
-                if (dev != null)
+                bool reconfigured = _keyboardScreenVersion != KeyboardScreensRuntime.Version;
+                _keyboardScreenVersion = KeyboardScreensRuntime.Version;
+                if (_keyboardScreenRows.Count > 0)
                 {
-                    bool removedByUser = FindOnlineDeviceByInstanceGuid(dev.InstanceGuid) == null;
-                    bool reconfigured = _keyboardScreenKeysVersion != KeyboardScreensRuntime.Version;
-                    if (!enabled || removedByUser || reconfigured)
+                    List<string> gone = null;
+                    foreach (var (id, dev) in _keyboardScreenRows)
                     {
-                        RetireKeyboardScreenKeysRow();
-                        MarkChanged(ref changed, "screenkeys", !enabled ? "- (feature off)"
-                            : removedByUser ? "- (removed by user)" : "- (reconfigured)");
+                        bool present = Array.IndexOf(screens, dev.Screen) >= 0;
+                        bool removedByUser = FindOnlineDeviceByInstanceGuid(dev.InstanceGuid) == null;
+                        if (!present || removedByUser || reconfigured)
+                            (gone ??= new List<string>()).Add(id);
+                    }
+                    if (gone != null)
+                    {
+                        foreach (string id in gone)
+                        {
+                            var dev = _keyboardScreenRows[id];
+                            RetireKeyboardScreenRow(dev);
+                            _keyboardScreenRows.Remove(id);
+                            MarkChanged(ref changed, "screen", "- " + dev.DevicePath);
+                        }
                     }
                 }
 
-                if (enabled && _keyboardScreenKeysDevice == null)
+                if (!ReferenceEquals(screens, _keyboardScreensSeen) || changed)
                 {
-                    try
+                    _keyboardScreensSeen = screens;
+                    foreach (var screen in screens)
                     {
-                        var created = new KeyboardScreenKeysDevice();
-                        if (created.Open())
+                        if (_keyboardScreenRows.ContainsKey(screen.Id)) continue;
+                        try
                         {
+                            var created = new KeyboardScreenDevice(screen);
+                            if (!created.Open())
+                            {
+                                created.Dispose();
+                                continue;
+                            }
                             UserDevice ud = FindOrCreateUserDevice(created.InstanceGuid, created.ProductGuid);
                             ud.LoadFromExternalDevice(created);
                             ud.IsOnline = true;
-                            _keyboardScreenKeysDevice = created;
-                            _keyboardScreenKeysVersion = KeyboardScreensRuntime.Version;
-                            MarkChanged(ref changed, "screenkeys", "+");
+                            _keyboardScreenRows[screen.Id] = created;
+                            MarkChanged(ref changed, "screen", "+ " + created.DevicePath);
                         }
-                        else created.Dispose();
-                    }
-                    catch (Exception ex)
-                    {
-                        RaiseError("Error opening the Keyboard Screen Keys device", ex);
+                        catch (Exception ex)
+                        {
+                            RaiseError("Error opening a keyboard screen's row", ex);
+                        }
                     }
                 }
+                _keyboardScreenAnyRows = _keyboardScreenRows.Count > 0;
             }
             return changed;
         }
 
-        // Caller holds _keyboardScreenKeysLock.
-        private void RetireKeyboardScreenKeysRow()
+        // Caller holds _keyboardScreenLock.
+        private void RetireKeyboardScreenRow(KeyboardScreenDevice dev)
         {
-            var dev = _keyboardScreenKeysDevice;
-            if (dev == null) return;
             var ud = FindOnlineDeviceByInstanceGuid(dev.InstanceGuid);
             if (ud != null)
             {
                 ud.IsOnline = false;
                 ud.Device = null;
+                // A key held at retire time would stay stamped on the slot's
+                // output, the analog keyboards' reason.
                 NeutralizeMappedOutputsFor(ud);
             }
             dev.Dispose();
-            _keyboardScreenKeysDevice = null;
         }
 
-        public void ShutdownKeyboardScreenKeysInputs()
+        public void ShutdownKeyboardScreenInputs()
         {
-            _keyboardScreenKeysInputsSuppressed = true;
-            lock (_keyboardScreenKeysLock)
+            _keyboardScreenInputsSuppressed = true;
+            lock (_keyboardScreenLock)
             {
-                RetireKeyboardScreenKeysRow();
+                foreach (var dev in _keyboardScreenRows.Values)
+                    RetireKeyboardScreenRow(dev);
+                _keyboardScreenRows.Clear();
+                _keyboardScreenAnyRows = false;
             }
         }
     }

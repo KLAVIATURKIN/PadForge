@@ -308,14 +308,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>Darllen Bysellfyrddau Analog</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Yn darllen pa mor bell mae pob bysell wedi'i phwyso ar fysellfyrddau analog gan Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA, a gwneuthurwyr eraill, pob un fel rhes ddyfais ei hun. Mae'r ddogfennaeth yn rhestru pob model a gefnogir. Mae bysellfyrddau Razer angen Razer Synapse yn rhedeg. Mae'r rhan fwyaf o'r lleill yn cael eu darllen dros y sianel y mae eu ffurfweddwr eu hunain yn ei defnyddio, felly caewch y ffurfweddwr tra bydd hwn ymlaen.</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>Heb ganfod bysellfwrdd analog a gefnogir.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>Yn darllen {0}.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>Cychwynnwch Razer Synapse i ddarllen {0}.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>Cychwynnwch Razer Synapse i ddarllen {0}.</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Darllen Addasyddion Bliss-Box</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>Yn siarad ag addasyddion Bliss-Box drwy eu API. Mae rhes pob porth yn enwi'r rheolydd sydd wedi'i blygio iddo a'i fotymau, yn darllen gwasgedd DualShock 2, yn dirgrynu drwy orchmynion modur yr addasydd ei hun, ac yn cynnig y gweithredoedd sgrin Dreamcast, Controller Pak, a rhif chwaraewr. Caewch Bliss-Box API Tool a DeviceBuddy tra bydd hwn ymlaen, gan eu bod yn siarad â'r addasydd dros yr un sianel. Tra bydd hwn ymlaen, mae PadForge yn darllen pob porth yn nhrefn yr addasydd ei hun yn lle drwy fapio gamepad SDL, felly mapiwch borth eto ar ôl troi hwn ymlaen neu i ffwrdd.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Heb ganfod porth Bliss-Box.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>Yn darllen {0}.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>porth {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>yn cysylltu</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>dim rheolydd</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>Math {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Rheolydd Gwe</value></data>
@@ -4243,7 +4239,7 @@ Hoffech chi i PadForge eu dadosod nawr? Mae hyn angen caniatâd gweinyddwr ac ef
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>Fformat PCM haptig PS5, 16-did gydag arwydd ar 3 kHz, a setlodd amgodio haptig Bluetooth 8-did gydag arwydd. AGPL-3.0, wedi'i ddarllen fel dogfennaeth yn unig, ni ddosberthir cod AGPL.</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Sgriniau Bysellfwrdd</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Yn tynnu ar y sgriniau sydd wedi'u hadeiladu i mewn i fysellfyrddau GamePanel Logitech a'r Mad Catz S.T.R.I.K.E. 7, ac ar ffôn drwy Logitech Arx Control: y proffil, cloc, amser chwarae, stopwats, llun, neu liw bar golau DualShock 4 neu DualSense. Mae'r bysellau wrth ymyl y sgriniau hynny'n dod yn fotymau ar res Bysellau Sgrin Bysellfwrdd.</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Yn tynnu ar y sgriniau sydd wedi'u hadeiladu i mewn i fysellfyrddau GamePanel Logitech a'r Mad Catz S.T.R.I.K.E. 7, ac ar ffôn drwy Logitech Arx Control: y proffil, cloc, amser chwarae, stopwats, llun, neu liw bar golau DualShock 4 neu DualSense. Mae gan bob sgrin ei rhes ei hun ar y dudalen Dyfeisiau, lle rydych yn gosod beth mae'n ei ddangos. Bysellau wrth ymyl sgrin yw botymau ei rhes.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Rheoli Sgriniau Bysellfwrdd</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Yn tynnu ar sgriniau'r Logitech G15, G15 v2, G510, G13, Z-10, GamePanel, a G19, ar Arx Control, ac ar y Mad Catz S.T.R.I.K.E. 7. Tra bydd Logitech Gaming Software yn rhedeg, mae PadForge yn tynnu drwyddo. Hebddo, mae PadForge yn ysgrifennu i'r sgriniau unlliw dros HID ac yn rhwymo WinUSB i ryngwyneb sgrin y G19. Mae diffodd hyn yn rhoi sgrin y G19 yn ôl i Windows.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Sgrin Unlliw…</value></data>
@@ -4283,7 +4279,8 @@ Hoffech chi i PadForge eu dadosod nawr? Mae hyn angen caniatâd gweinyddwr ac ef
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>heb ddod o hyd i sgrin</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, yn aros am liw bar golau</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, heb ddewis llun</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Bysellau Sgrin Bysellfwrdd</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Tra bydd Logitech Gaming Software yn rhedeg, mae pob sgrin o'r math hwn yn dangos y llun a osodwyd ar gyfer {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Sgrin Bysellfwrdd</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Bysell Sgrin {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Bysell Applet</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Sgrin I'r Chwith</value></data>
@@ -4302,7 +4299,7 @@ Hoffech chi i PadForge eu dadosod nawr? Mae hyn angen caniatâd gweinyddwr ac ef
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Mae'r sgrin yn dangos yr oriau a'r munudau ers i'r proffil gweithredol ddod i rym. Mae proffil sydd wedi'i glymu wrth raglen gêm yn dod i rym pan fydd y gêm yn dechrau, felly'r sesiwn honno yw'r cyfrif. Dan y proffil Rhagosodedig, mae'n cyfrif o ddechrau'r injan.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Mae'r sgrin yn dangos llun a ddewiswch, ar ei faint ei hun. Mae llun sy'n fwy na'r sgrin yn dangos ffenestr o faint y sgrin, a symudir gan facro Panio Llun Sgrin Bysellfwrdd. Ar y S.T.R.I.K.E. 7, mae bys a lusgir ar draws y sgrin yn ei symud hefyd.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Mae'r sgrin yn dangos y stopwats, y mae'r macro Stopwats yn ei gychwyn, ei oedi a'i ailosod. Mae pob sgrin yn dangos yr un stopwats.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Mae'r sgrin yn dangos lliw'r bar golau ar y DualShock 4 neu'r DualSense yn y slot isaf. Mae sgrin unlliw yn dangos ei ddisgleirdeb fel patrwm dotiau. Nes bydd lliw yn cyrraedd bar golau, nid yw PadForge yn dangos dim.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Mae'r sgrin yn dangos lliw'r bar golau ar y DualShock 4 neu'r DualSense yn y slot isaf y mae'r sgrin hon yn ei fwydo, neu yn y slot isaf oll pan nad yw'n bwydo'r un. Mae sgrin unlliw yn dangos ei ddisgleirdeb fel patrwm dotiau. Nes bydd lliw yn cyrraedd bar golau, nid yw PadForge yn dangos dim.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Lluniau (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Pob Ffeil (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Panio</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Panio X</value></data>
@@ -4314,11 +4311,11 @@ Hoffech chi i PadForge eu dadosod nawr? Mae hyn angen caniatâd gweinyddwr ac ef
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Nid yw lawrlwythiad SDK S.T.R.I.K.E. 7 yn cyfateb i'w SHA-256 hysbys, felly ni chadwyd dim ohono.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Mae amser rhedeg Visual C++ 2008 yn dal ar goll ar ôl i'w osodwr redeg.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Dangos Sgrin Bysellfwrdd</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Yn chwarae lluniau ar bob sgrin bysellfwrdd o'r math a ddewiswyd, yna'n dychwelyd pob sgrin i'w modd ei hun.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Yn chwarae lluniau ar bob sgrin bysellfwrdd o'r math a ddewiswyd sy'n bwydo'r slot hwn, yna'n dychwelyd pob sgrin i'w modd ei hun.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Dangos lluniau {0}: {1} × {2} ms, cyfrif ailadrodd {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Caiff lluniau eu ffitio i'r sgrin: 160 wrth 43 picsel du a gwyn ar sgrin unlliw, 320 wrth 240 ar un y G19, a 480 wrth 320 ar gyfer Arx Control a'r S.T.R.I.K.E. 7. Un rhan o ddeg o eiliad yw'r amser ffrâm byrraf.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Modd Sgrin Bysellfwrdd</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Yn newid math o sgrin bysellfwrdd i fodd arall ac yn ei gadw fel gosodiad y sgrin honno.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Yn newid pob sgrin bysellfwrdd o'r math a ddewiswyd sy'n bwydo'r slot hwn i fodd arall, ac yn ei chadw fel gosodiad y sgrin honno.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>Mae {0} yn dangos {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Mae'r modd yn aros nes i facro arall neu ddeialog y sgrin ei newid.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Stopwats</value></data>
@@ -4327,9 +4324,9 @@ Hoffech chi i PadForge eu dadosod nawr? Mae hyn angen caniatâd gweinyddwr ac ef
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Ailosod y Stopwats</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Mae ailosod yn atal y stopwats ac yn ei osod yn ôl i sero. Mae pob sgrin bysellfwrdd yn y modd Stopwats yn dangos yr un stopwats.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Panio Llun Sgrin Bysellfwrdd</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Yn symud ffenestr pob sgrin bysellfwrdd dros lun sy'n fwy na'r sgrin, ar gyfer map.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Yn symud ffenestr pob sgrin bysellfwrdd sy'n bwydo'r slot hwn dros lun sy'n fwy na'r sgrin, ar gyfer map.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Panio lluniau {0} wrth {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Yn symud pob math o sgrin sy'n dangos llun a ddewiswyd sy'n fwy na hi ei hun. Mae'r ffenestr yn stopio ar ymylon y llun.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Yn symud pob sgrin sy'n bwydo'r slot hwn ac yn dangos llun a ddewiswyd sy'n fwy na hi ei hun. Mae'r ffenestr yn stopio ar ymylon y llun.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Sgrin</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Gweithred</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Cyfeiriad</value></data>
@@ -4411,6 +4408,6 @@ Hoffech chi i PadForge eu dadosod nawr? Mae hyn angen caniatâd gweinyddwr ac ef
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Y grym mwyaf y mae'r Falcon yn ei roi ar y carn, o 1 i 8 newton.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Ailosod Terfyn Grym</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Graddnodi Cyrhaeddiad</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Yn mesur pa mor bell y mae'r carn yn teithio. Symudwch ef i bob ymyl ei gyrhaeddiad am y pedair eiliad y mae'r mesuriad yn rhedeg. Mae'r grymoedd yn gorffwys yn y cyfamser.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>Graddnodi Cyrhaeddiad</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Yn mesur pa mor bell y mae'r carn yn teithio. Symudwch ef i bob ymyl ei gyrhaeddiad am y pedair eiliad y mae'r mesuriad yn rhedeg. Mae'r grymoedd yn gorffwys yn y cyfamser.</value></data>
 </root>

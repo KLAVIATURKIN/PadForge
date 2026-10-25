@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using PadForge.Common.Input;
 using PadForge.Common.Input.Falcon;
+using PadForge.Engine;
 using PadForge.Engine.Data;
 using PadForge.Resources.Strings;
 using PadForge.ViewModels;
@@ -18,6 +19,7 @@ namespace PadForge.Services
         private const int FalconHomingHintMs = 20000;
 
         private string _falconStatusLast;
+        private Guid _falconRowShown;
 
         /// <summary>The Falcon section of a device's settings into the pad's
         /// view model (#521), the wheel fields' neighbor.</summary>
@@ -55,9 +57,10 @@ namespace PadForge.Services
         internal FalconDevice FindFalcon(Guid instanceGuid)
             => _inputManager?.FalconRows.FirstOrDefault(f => f.InstanceGuid == instanceGuid);
 
-        /// <summary>The Settings card's lines (#521): the library, then each
-        /// open Falcon, or why none opened. Empty while the switch is off or
-        /// the engine is stopped.</summary>
+        /// <summary>The Settings card's lines (#521): the library, and why no
+        /// Falcon opened when none did. Each open Falcon's own line is on its
+        /// row's panel (<see cref="UpdateFalconDeviceRow"/>). Empty while
+        /// the switch is off or the engine is stopped.</summary>
         private void UpdateFalconStatus()
         {
             var settings = _mainVm.Settings;
@@ -91,17 +94,6 @@ namespace PadForge.Services
                 }
 
                 var rows = im.FalconRows;
-                long now = Environment.TickCount64;
-                foreach (var falcon in rows.OrderBy(f => f.Index))
-                {
-                    string name = falcon.Serial.HasValue
-                        ? string.Format(culture, s.Falcon_Name_Format, falcon.Serial.Value)
-                        : string.Format(culture, s.Falcon_Name_Format, falcon.Index + 1);
-                    string state = now - falcon.OpenedAtTicks < FalconHomingHintMs ? s.Falcon_Status_Home
-                        : falcon.RateKhz > 0 ? string.Format(culture, s.Falcon_Status_Rate_Format, falcon.RateKhz)
-                        : s.Falcon_Status_Open;
-                    lines.Add(string.Format(culture, s.Falcon_Status_Line_Format, name, state));
-                }
                 // The Install button: a Falcon with no driver, and an SDK
                 // folder that holds Force Dimension's package, which the
                 // sweep found on its worker.
@@ -124,8 +116,43 @@ namespace PadForge.Services
             settings.FalconStatus = status;
         }
 
-        /// <summary>The Calibrate row's line for the selected device: the
-        /// reach it uses, in millimeters.</summary>
+        /// <summary>
+        /// The selected row's Falcon line and Calibrate Reach (#521), on the
+        /// Devices page's tick: the Falcon's name and how it runs, a homing
+        /// prompt for its first seconds, then its rate. The calibration line
+        /// shows the reach the Falcon uses each time its row is selected,
+        /// until a sweep replaces it. A row that is no open Falcon shows
+        /// neither.
+        /// </summary>
+        private void UpdateFalconDeviceRow(DeviceRowViewModel row, UserDevice ud)
+        {
+            bool newlySelected = _falconRowShown != ud.InstanceGuid;
+            _falconRowShown = ud.InstanceGuid;
+            var falcon = FalconRuntime.Enabled && ud.CapType == InputDeviceType.NovintFalcon ? FindFalcon(ud.InstanceGuid) : null;
+            if (falcon == null || !falcon.IsAttached)
+            {
+                row.FalconLine = string.Empty;
+                row.ShowFalconCalibrate = false;
+                return;
+            }
+            var s = Strings.Instance;
+            var culture = CultureInfo.CurrentCulture;
+            string name = falcon.Serial.HasValue
+                ? string.Format(culture, s.Falcon_Name_Format, falcon.Serial.Value)
+                : string.Format(culture, s.Falcon_Name_Format, falcon.Index + 1);
+            long now = Environment.TickCount64;
+            string state = now - falcon.OpenedAtTicks < FalconHomingHintMs ? s.Falcon_Status_Home
+                : falcon.RateKhz > 0 ? string.Format(culture, s.Falcon_Status_Rate_Format, falcon.RateKhz)
+                : s.Falcon_Status_Open;
+            row.FalconLine = string.Format(culture, s.Falcon_Status_Line_Format, name, state);
+            row.ShowFalconCalibrate = true;
+            // A sweep running keeps its own line.
+            if ((newlySelected || string.IsNullOrEmpty(row.FalconCalibrationStatus)) && !falcon.IsCalibrating)
+                row.FalconCalibrationStatus = FalconReachLine(FalconDevice.ParseReach(ud.FalconCalibration));
+        }
+
+        /// <summary>The calibration line: the reach a Falcon uses, in
+        /// millimeters.</summary>
         internal static string FalconReachLine(FalconReach reach)
             => string.Format(CultureInfo.CurrentCulture, Strings.Instance.Falcon_Reach_Format,
                 reach.Y * 1000.0, reach.Z * 1000.0, reach.X * 1000.0);

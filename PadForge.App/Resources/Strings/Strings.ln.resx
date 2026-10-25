@@ -1522,6 +1522,7 @@ Olingi PadForge elongola yango sikoyo? Esengeli na ba droit ya administrateur mp
   <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Ba écran ya clavier</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Elakisaka na ba écran oyo ezali na kati ya ba clavier GamePanel ya Logitech mpe ya Mad Catz S.T.R.I.K.E. 7, mpe na telefone na nzela ya Logitech Arx Control: profil, ngonga, ntango ya lisano, chronomètre, elilingi, to langi ya barre lumineuse ya DualShock 4 to DualSense. Écran mokomoko ezali na ligne na yango moko na lokasa ya Ba appareil, epai oponaka oyo ekolakisa. Ba touche oyo ezali pembeni ya écran ezali ba bouton ya ligne na yango.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Salela ba écran ya clavier</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Écran monochrome…</value></data>
   <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Écran ya langi…</value></data>
@@ -1548,7 +1549,8 @@ Olingi PadForge elongola yango sikoyo? Esengeli na ba droit ya administrateur mp
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>écran ezwami te</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, ezali kozela langi ya barre lumineuse</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, elili eponami te</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Ba touche ya écran ya clavier</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Tango Logitech Gaming Software ezali kosala, écran nyonso ya lolenge oyo ekolakisa elilingi oyo etiamaki mpo na {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Écran ya clavier</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Touche ya écran {0}</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Écran lobɔkɔ ya mwasi</value></data>
   <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Écran lobɔkɔ ya mobali</value></data>

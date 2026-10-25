@@ -1715,6 +1715,7 @@
   <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Iskiriinii kiiboordii</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Iskiriinii kiiboordii GamePanel kan Logitech fi Mad Catz S.T.R.I.K.E. 7 keessatti ijaaraman irratti, akkasumas bilbila irratti karaa Logitech Arx Control, waan kana agarsiisa: piroofaayilii, sa'aatii, yeroo taphaa, sa'aatii yeroo safaru, suuraa, ykn halluu lightbar DualShock 4 ykn DualSense. Iskiriiniin hundi fuula Meeshaalee irratti tarree mataa isaa qaba, achitti waan inni agarsiisu filatta. Furtuuwwan iskiriinii cinaa jiran qabduuwwan tarree isaati.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Iskiriinii kiiboordii hojjechiisi</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Iskiriinii halluu tokkoo…</value></data>
   <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Iskiriinii halluu…</value></data>
@@ -1743,7 +1744,8 @@
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>iskiriiniin hin argamne</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, halluu lightbar eeggachaa jira</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, suuraan hin filatamne</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Furtuuwwan iskiriinii kiiboordii</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Yeroo Logitech Gaming Software hojjetu, iskiriiniin gosa kanaa hundi suuraa {0} irratti qindaa'e agarsiisa.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Iskiriinii kiiboordii</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Furtuu iskiriinii {0}</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Iskiriinii bitaa</value></data>
   <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Iskiriinii mirga</value></data>
@@ -1756,13 +1758,18 @@
   <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Iskiriiniin maqaa piroofaayilii hojii irra jiruu agarsiisa, jijjiirraa piroofaayilii hundas hordofa.</value></data>
   <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Iskiriiniin suuraa piroofaayilii hojii irra jiruu agarsiisa, yoo suuraa hin qabaanne immoo maqaa isaa. Piroofaayiliin tokkoon tokkoon suuraa mataa isaa qaba.</value></data>
   <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Iskiriiniin yeroo guyyaa agarsiisa.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Iskiriiniin kun halluu lightbar DualShock 4 ykn DualSense kan iddoo lakkoofsa xiqqaa qabu, iddoowwan iskiriiniin kun galtee kennuuf keessaa, agarsiisa. Yoo iddoo tokkoofuu galtee hin kennine, iddoowwan hunda keessaa kan lakkoofsa xiqqaa qabu fudhata. Iskiriiniin halluu tokkoo ifa halluu sanaa akka bifa tuqaalee agarsiisa. Hanga halluun tokko lightbar bira ga'utti, PadForge homaa hin agarsiisu.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Fakkiiwwan (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Faayiloota hunda (*.*)|*.*</value></data>
   <data name="Status_DownloadingStrike7" xml:space="preserve"><value>SDK S.T.R.I.K.E. 7 kan Mad Catz buufachaa jira…</value></data>
   <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 amma {0} fe'a.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Iskiriinii kiiboordii agarsiisi</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Iskiriinii kiiboordii gosa filatame kan iddoo kanaaf galtee kennu hunda irratti suuraawwan agarsiisa, achiis iskiriinii tokkoon tokkoon gara haala mataa isaatti deebisa.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>{0} suuraa agarsiisi: {1} × {2} ms, lakkoofsa irra deebii {3}</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Haala iskiriinii kiiboordii</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Iskiriinii kiiboordii gosa filatame kan iddoo kanaaf galtee kennu hunda gara haala biraatti jijjiira, haala sanas akka qindaa'ina iskiriinii sanaatti olkaa'a.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} {1} agarsiisa</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Foddaa iskiriinii kiiboordii iddoo kanaaf galtee kennu hundaa suuraa iskiriinicha caalaa guddaa irra socho'sa, kaartaadhaaf.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Iskiriinii iddoo kanaaf galtee kennuu fi suuraa filatame kan isa caalaa guddaa agarsiisu hunda socho'sa. Foddaan qarqara suuraa irratti dhaabata.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Iskiriinii</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Gocha</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Kallattii</value></data>

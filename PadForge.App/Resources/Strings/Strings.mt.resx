@@ -308,14 +308,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>Aqra tastieri analogi</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Jaqra kemm hu magħfus kull tast fuq tastieri analogi minn Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA u manifatturi oħra, kull waħda bħala ringiela ta' apparat għaliha. Id-dokumentazzjoni telenka kull mudell appoġġjat. It-tastieri Razer jeħtieġu li Razer Synapse ikun għaddej. Il-biċċa l-kbira tal-oħrajn jinqraw permezz tal-kanal li juża l-configurator tagħhom stess, għalhekk agħlaq il-configurator waqt li din l-għażla tkun mixgħula.</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>Ma nstabet l-ebda tastiera analoga appoġġjata.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>Qed jaqra {0}.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>Ibda Razer Synapse biex taqra {0}.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>Ibda Razer Synapse biex taqra {0}.</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Aqra adapters Bliss-Box</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>Jitkellem mal-adapters Bliss-Box permezz tal-API tagħhom. Ir-ringiela ta' kull port issemmi l-kontrollur imqabbad fih u l-buttuni tiegħu, taqra l-pressjoni ta' DualShock 2, tagħmel rumble permezz tal-kmandi tal-mutur tal-adapter stess, u toffri l-azzjonijiet tal-iskrin Dreamcast, tal-Controller Pak u tan-numru tal-plejer. Agħlaq il-Bliss-Box API Tool u DeviceBuddy waqt li din l-għażla tkun mixgħula, għax jitkellmu mal-adapter fuq l-istess kanal. Waqt li din l-għażla tkun mixgħula, PadForge jaqra kull port fit-tqassim tal-adapter stess minflok permezz tal-mappjar tal-gamepad ta' SDL, għalhekk erġa' agħmel il-mappjar ta' port wara li tixgħel jew titfi din l-għażla.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Ma nstab l-ebda port Bliss-Box.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>Qed jaqra {0}.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>port {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>qed jqabbad</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>l-ebda kontrollur</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>Tip {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Web controller</value></data>
@@ -4203,7 +4199,7 @@ Trid li PadForge jiddiżinstallahom issa? Dan jeħtieġ permessi ta' amministrat
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>Il-format PCM tal-haptics tal-PS5, 16-il bit b'sinjal f'3 kHz, li stabbilixxa l-kodifikazzjoni tal-haptics Bluetooth ta' 8 bits b'sinjal. AGPL-3.0, moqri biss bħala dokumentazzjoni, l-ebda kodiċi AGPL ma jiġi inkluż.</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Skrins tat-tastiera</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Ipinġi fuq l-iskrins mibnija fit-tastieri GamePanel ta' Logitech u fil-Mad Catz S.T.R.I.K.E. 7, u fuq telefon permezz ta' Logitech Arx Control: il-profil, arloġġ, il-ħin tal-logħob, kronometru, stampa, jew il-kulur tal-lightbar ta' DualShock 4 jew DualSense. It-tasti ħdejn dawk l-iskrins isiru buttuni fir-ringiela Tasti tal-iskrin tat-tastiera.</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Ipinġi fuq l-iskrins mibnija fit-tastieri GamePanel ta' Logitech u fil-Mad Catz S.T.R.I.K.E. 7, u fuq telefon permezz ta' Logitech Arx Control: il-profil, arloġġ, il-ħin tal-logħob, kronometru, stampa, jew il-kulur tal-lightbar ta' DualShock 4 jew DualSense. Kull skrin għandu r-ringiela tiegħu fil-paġna Apparati, fejn tagħżel x'juri. It-tasti ħdejn skrin huma l-buttuni tar-ringiela tiegħu.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Ħaddem l-iskrins tat-tastiera</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Ipinġi fuq l-iskrins tal-Logitech G15, G15 v2, G510, G13, Z-10, GamePanel u G19, fuq Arx Control, u fuq il-Mad Catz S.T.R.I.K.E. 7. Waqt li Logitech Gaming Software ikun qed jaħdem, PadForge jpinġi permezz tiegħu. Mingħajru, PadForge jikteb fuq l-iskrins monokromatiċi permezz ta' HID u jorbot WinUSB mal-interface tal-iskrin tal-G19. Meta titfi din l-għażla, l-iskrin tal-G19 jingħata lura lil Windows.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Skrin monokromatiku…</value></data>
@@ -4243,7 +4239,8 @@ Trid li PadForge jiddiżinstallahom issa? Dan jeħtieġ permessi ta' amministrat
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>ebda skrin ma nstab</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, qed jistenna kulur tal-lightbar</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, ebda stampa magħżula</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Tasti tal-iskrin tat-tastiera</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Waqt li Logitech Gaming Software ikun qed jaħdem, kull skrin ta' dan it-tip juri l-istampa magħżula għal {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Skrin tat-tastiera</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Tast tal-iskrin {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Tast tal-applet</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Skrin xellug</value></data>
@@ -4262,7 +4259,7 @@ Trid li PadForge jiddiżinstallahom issa? Dan jeħtieġ permessi ta' amministrat
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>L-iskrin juri s-sigħat u l-minuti minn meta l-profil attiv daħal fis-seħħ. Profil marbut mal-programm ta' logħba jidħol fis-seħħ meta tibda l-logħba, għalhekk l-għadd huwa dik is-sessjoni. Taħt il-profil Default jgħodd mill-bidu tal-engine.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>L-iskrin juri stampa li tagħżel int, fid-daqs tagħha. Stampa akbar mill-iskrin turi tieqa daqs l-iskrin, li l-makro “Ċaqlaq l-istampa tal-iskrin tat-tastiera” iċaqlaqha. Fuq is-S.T.R.I.K.E. 7, saba' mkaxkar fuq l-iskrin iċaqlaqha wkoll.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>L-iskrin juri l-kronometru, li l-makro Kronometru jibdih, jagħmillu pawsa u jirrisettjah. Kull skrin juri l-istess kronometru.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>L-iskrin juri l-kulur tal-lightbar fuq id-DualShock 4 jew id-DualSense fis-slot bl-iżgħar numru. Skrin monokromatiku juri l-luminożità tiegħu bħala disinn ta' tikek. Sakemm kulur ma jasalx għand lightbar, PadForge ma juri xejn.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>L-iskrin juri l-kulur tal-lightbar fuq id-DualShock 4 jew id-DualSense fis-slot bl-iżgħar numru li dan l-iskrin jitma', jew fis-slot bl-iżgħar numru minn kollha meta ma jitma' l-ebda slot. Skrin monokromatiku juri l-luminożità tiegħu bħala disinn ta' tikek. Sakemm kulur ma jasalx għand lightbar, PadForge ma juri xejn.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Stampi (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Il-fajls kollha (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Ċaqlaq</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Ċaqlaq X</value></data>
@@ -4274,11 +4271,11 @@ Trid li PadForge jiddiżinstallahom issa? Dan jeħtieġ permessi ta' amministrat
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Id-download tal-SDK tas-S.T.R.I.K.E. 7 ma jaqbilx mas-SHA-256 magħruf tiegħu, għalhekk ma nżamm xejn minnu.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Ir-runtime Visual C++ 2008 għadu nieqes wara li ħadem l-installer tiegħu.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Uri l-iskrin tat-tastiera</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Juri stampi fuq kull skrin tat-tastiera tat-tip magħżul, imbagħad jerġa' jpoġġi kull skrin fil-mod tiegħu.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Juri stampi fuq kull skrin tat-tastiera tat-tip magħżul li jitma' dan is-slot, imbagħad jerġa' jpoġġi kull skrin fil-mod tiegħu.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Uri stampi ta' {0}: {1} × {2} ms, għadd ta' ripetizzjonijiet {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>L-istampi jiġu adattati għall-iskrin: 160 × 43 pixel iswed u abjad fuq skrin monokromatiku, 320 × 240 fuq dak tal-G19, u 480 × 320 għal Arx Control u s-S.T.R.I.K.E. 7. L-iqsar ħin tal-frejm huwa għaxar ta' sekonda.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Mod tal-iskrin tat-tastiera</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Jaqleb tip ta' skrin tat-tastiera għal mod ieħor u jżommu bħala s-setting ta' dak l-iskrin.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Jaqleb kull skrin tat-tastiera tat-tip magħżul li jitma' dan is-slot għal mod ieħor, u jżommu bħala s-setting ta' dak l-iskrin.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} juri {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Il-mod jibqa' sakemm makro ieħor jew id-djalogu tal-iskrin ibiddlu.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Kronometru</value></data>
@@ -4287,9 +4284,9 @@ Trid li PadForge jiddiżinstallahom issa? Dan jeħtieġ permessi ta' amministrat
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Irrisettja l-kronometru</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>“Irrisettja” jwaqqaf il-kronometru u jerġa' jpoġġih fuq żero. Kull skrin tat-tastiera fil-mod Kronometru juri l-istess kronometru.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Ċaqlaq l-istampa tal-iskrin tat-tastiera</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Iċaqlaq it-tieqa ta' kull skrin tat-tastiera fuq stampa akbar mill-iskrin, bħal għal mappa.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Iċaqlaq it-tieqa ta' kull skrin tat-tastiera li jitma' dan is-slot fuq stampa akbar mill-iskrin, bħal għal mappa.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Ċaqlaq l-istampi b'{0} u {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Iċaqlaq kull tip ta' skrin li juri stampa magħżula akbar minnu nnifsu. It-tieqa tieqaf fit-truf tal-istampa.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Iċaqlaq kull skrin li jitma' dan is-slot u juri stampa magħżula akbar minnu nnifsu. It-tieqa tieqaf fit-truf tal-istampa.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Skrin</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Azzjoni</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Direzzjoni</value></data>
@@ -4371,6 +4368,6 @@ Trid li PadForge jiddiżinstallahom issa? Dan jeħtieġ permessi ta' amministrat
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>L-akbar forza li l-Falcon ipoġġi fuq il-maqbad, minn 1 sa 8 newtons.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Irrisettja l-limitu tal-forza</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Ikkalibra l-medda</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Ikejjel kemm jimxi l-maqbad. Ċaqalqu sa kull tarf tal-medda tiegħu għall-erba' sekondi li jdum il-kejl. Il-forzi jieqfu sadanittant.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>Ikkalibra l-medda</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Ikejjel kemm jimxi l-maqbad. Ċaqalqu sa kull tarf tal-medda tiegħu għall-erba' sekondi li jdum il-kejl. Il-forzi jieqfu sadanittant.</value></data>
 </root>

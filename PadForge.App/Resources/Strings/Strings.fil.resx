@@ -308,14 +308,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>Basahin ang mga analog keyboard</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Binabasa kung gaano kalalim ang pagkakapindot ng bawat key sa mga analog keyboard mula sa Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA, at iba pang gumagawa, bawat isa bilang sariling hilera ng device. Nakalista sa dokumentasyon ang bawat sinusuportahang modelo. Kailangang tumatakbo ang Razer Synapse para sa mga Razer keyboard. Karamihan sa iba ay binabasa sa channel na ginagamit ng sarili nilang configurator, kaya isara ang configurator habang naka-on ito.</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>Walang nakitang sinusuportahang analog keyboard.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>Binabasa ang {0}.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>Simulan ang Razer Synapse para mabasa ang {0}.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>Simulan ang Razer Synapse para mabasa ang {0}.</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Basahin ang mga Bliss-Box adapter</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>Kumakausap sa mga Bliss-Box adapter sa pamamagitan ng API nila. Ipinapakita ng hilera ng bawat port ang controller na nakasaksak dito at ang mga button nito, binabasa ang pressure ng DualShock 2, nagpapa-rumble gamit ang sariling motor command ng adapter, at nag-aalok ng mga aksyon para sa Dreamcast screen, Controller Pak, at numero ng player. Isara ang Bliss-Box API Tool at DeviceBuddy habang naka-on ito, dahil iisang channel ang ginagamit nila sa adapter. Habang naka-on ito, binabasa ng PadForge ang bawat port sa sariling layout ng adapter sa halip na sa gamepad mapping ng SDL, kaya i-map muli ang port pagkatapos i-on o i-off ito.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Walang nakitang Bliss-Box port.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>Binabasa ang {0}.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>port {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>kumokonekta</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>walang controller</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>Uri {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Web controller</value></data>
@@ -4085,7 +4081,7 @@ Gusto mo bang i-uninstall na ang mga ito ng PadForge ngayon? Nangangailangan ito
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>Ang PS5 haptic PCM format, signed 16-bit sa 3 kHz, na nagpasya sa signed 8-bit na Bluetooth haptics encoding. AGPL-3.0, binasa bilang dokumentasyon lamang, walang AGPL code na kasama.</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Mga Screen ng Keyboard</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Gumuguhit sa mga screen na nakapaloob sa mga GamePanel keyboard ng Logitech at sa Mad Catz S.T.R.I.K.E. 7, at sa isang telepono sa pamamagitan ng Logitech Arx Control: ang profile, orasan, oras ng paglalaro, stopwatch, larawan, o kulay ng lightbar ng DualShock 4 o DualSense. Ang mga key sa tabi ng mga screen na iyon ay nagiging mga button sa hanay na Mga Key ng Screen ng Keyboard.</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Gumuguhit sa mga screen na nakapaloob sa mga GamePanel keyboard ng Logitech at sa Mad Catz S.T.R.I.K.E. 7, at sa isang telepono sa pamamagitan ng Logitech Arx Control: ang profile, orasan, oras ng paglalaro, stopwatch, larawan, o kulay ng lightbar ng DualShock 4 o DualSense. Bawat screen ay may sariling hanay sa pahina ng Mga Device, kung saan itinatakda mo kung ano ang ipinapakita nito. Ang mga key sa tabi ng isang screen ay ang mga button ng hanay nito.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Kontrolin ang mga Screen ng Keyboard</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Gumuguhit sa mga screen ng Logitech G15, G15 v2, G510, G13, Z-10, GamePanel, at G19, sa Arx Control, at sa Mad Catz S.T.R.I.K.E. 7. Habang tumatakbo ang Logitech Gaming Software, gumuguhit ang PadForge sa pamamagitan nito. Kapag wala ito, isinusulat ng PadForge ang mga monochrome na screen sa HID at iniuugnay ang WinUSB sa screen interface ng G19. Kapag in-off ito, ibabalik sa Windows ang screen ng G19.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Monochrome na Screen…</value></data>
@@ -4125,7 +4121,8 @@ Gusto mo bang i-uninstall na ang mga ito ng PadForge ngayon? Nangangailangan ito
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>walang nahanap na screen</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, naghihintay ng kulay ng lightbar</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, walang napiling larawan</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Mga Key ng Screen ng Keyboard</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Habang tumatakbo ang Logitech Gaming Software, ipinapakita ng bawat screen ng ganitong uri ang larawang itinakda para sa {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Screen ng Keyboard</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Key ng Screen {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Key ng Applet</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Pakaliwa ng Screen</value></data>
@@ -4144,7 +4141,7 @@ Gusto mo bang i-uninstall na ang mga ito ng PadForge ngayon? Nangangailangan ito
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Ipinapakita ng screen ang mga oras at minuto mula nang pumasok ang aktibong profile. Pumapasok ang profile na nakatali sa program ng isang laro kapag nagsimula ang laro, kaya ang bilang ay para sa session na iyon. Sa ilalim ng Default na profile, nagbibilang ito mula sa pagsisimula ng engine.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Ipinapakita ng screen ang larawang pipiliin mo, sa sarili nitong laki. Ang larawang mas malaki kaysa sa screen ay nagpapakita ng bintana na kasinlaki ng screen, na inililipat ng macro na I-pan ang Larawan ng Screen ng Keyboard. Sa S.T.R.I.K.E. 7, nililipat din ito ng daliring hinihila sa screen.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Ipinapakita ng screen ang stopwatch, na sinisimulan, ipinapause, at ni-reset ng macro na Stopwatch. Iisang stopwatch ang ipinapakita ng bawat screen.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Ipinapakita ng screen ang kulay ng lightbar ng DualShock 4 o DualSense sa pinakamababang slot. Ipinapakita ng monochrome na screen ang liwanag nito bilang dot pattern. Hangga't walang kulay na umaabot sa lightbar, walang ipinapakita ang PadForge.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Ipinapakita ng screen ang kulay ng lightbar ng DualShock 4 o DualSense sa pinakamababang slot na pinapakain ng screen na ito, o sa pinakamababang slot sa lahat kapag wala itong pinapakain. Ipinapakita ng monochrome na screen ang liwanag nito bilang dot pattern. Hangga't walang kulay na umaabot sa lightbar, walang ipinapakita ang PadForge.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Mga Larawan (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Lahat ng File (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Pan</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Pan X</value></data>
@@ -4156,11 +4153,11 @@ Gusto mo bang i-uninstall na ang mga ito ng PadForge ngayon? Nangangailangan ito
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Hindi tugma ang na-download na SDK ng S.T.R.I.K.E. 7 sa kilalang SHA-256 nito, kaya walang itinago mula rito.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Nawawala pa rin ang Visual C++ 2008 runtime pagkatapos tumakbo ang installer nito.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Ipakita ang Screen ng Keyboard</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Nagpapalabas ng mga larawan sa bawat screen ng keyboard na may napiling uri, pagkatapos ay ibinabalik ang bawat screen sa sarili nitong mode.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Nagpapalabas ng mga larawan sa bawat screen ng keyboard na may napiling uri na nagpapakain sa slot na ito, pagkatapos ay ibinabalik ang bawat screen sa sarili nitong mode.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Ipakita ang {0} na larawan: {1} × {2} ms, bilang ng ulit {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Iniaangkop ang mga larawan sa screen: 160 by 43 na black and white na pixel sa monochrome na screen, 320 by 240 sa G19, at 480 by 320 para sa Arx Control at sa S.T.R.I.K.E. 7. Ang ikasampung bahagi ng segundo ang pinakamaikling frame time.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Mode ng Screen ng Keyboard</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Inililipat ang isang uri ng screen ng keyboard sa ibang mode at itinatago ito bilang setting ng screen na iyon.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Inililipat sa ibang mode ang bawat screen ng keyboard na may napiling uri na nagpapakain sa slot na ito, at itinatago ito bilang setting ng screen na iyon.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>Ipinapakita ng {0} ang {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Mananatili ang mode hanggang baguhin ito ng ibang macro o ng dialog ng screen.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Stopwatch</value></data>
@@ -4169,9 +4166,9 @@ Gusto mo bang i-uninstall na ang mga ito ng PadForge ngayon? Nangangailangan ito
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>I-reset ang Stopwatch</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Itinitigil ng reset ang stopwatch at ibinabalik ito sa zero. Iisang stopwatch ang ipinapakita ng bawat screen ng keyboard na nasa mode na Stopwatch.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>I-pan ang Larawan ng Screen ng Keyboard</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Inililipat ang bintana ng bawat screen ng keyboard sa isang larawang mas malaki kaysa sa screen, para sa mapa.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Inililipat ang bintana ng bawat screen ng keyboard na nagpapakain sa slot na ito sa isang larawang mas malaki kaysa sa screen, para sa mapa.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>I-pan ang mga larawan nang {0} by {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Inililipat ang bawat uri ng screen na nagpapakita ng piniling larawang mas malaki rito. Humihinto ang bintana sa mga gilid ng larawan.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Inililipat ang bawat screen na nagpapakain sa slot na ito at nagpapakita ng piniling larawang mas malaki rito. Humihinto ang bintana sa mga gilid ng larawan.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Screen</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Aksyon</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Direksyon</value></data>
@@ -4253,6 +4250,6 @@ Gusto mo bang i-uninstall na ang mga ito ng PadForge ngayon? Nangangailangan ito
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Pinakamalakas na force na inilalagay ng Falcon sa handle, mula 1 hanggang 8 newton.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>I-reset ang Force Limit</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>I-calibrate ang Abot</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Sinusukat kung gaano kalayo ang nilalakbay ng handle. Igalaw ito sa bawat gilid ng abot nito sa loob ng apat na segundong tumatakbo ang sweep. Humihinto muna ang mga force.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>I-calibrate ang Abot</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Sinusukat kung gaano kalayo ang nilalakbay ng handle. Igalaw ito sa bawat gilid ng abot nito sa loob ng apat na segundong tumatakbo ang sweep. Humihinto muna ang mga force.</value></data>
 </root>

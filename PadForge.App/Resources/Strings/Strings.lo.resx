@@ -308,14 +308,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>ອ່ານແປ້ນພິມອະນາລັອກ</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>ອ່ານວ່າແຕ່ລະປຸ່ມຖືກກົດລົງເລິກປານໃດ ໃນແປ້ນພິມອະນາລັອກຈາກ Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA ແລະ ຜູ້ຜະລິດອື່ນໆ, ແຕ່ລະອັນເປັນແຖວອຸປະກອນຂອງຕົນເອງ. ເອກະສານມີລາຍຊື່ທຸກລຸ້ນທີ່ຮອງຮັບ. ແປ້ນພິມ Razer ຕ້ອງມີ Razer Synapse ເຮັດວຽກຢູ່. ອັນອື່ນສ່ວນຫຼາຍຖືກອ່ານຜ່ານຊ່ອງທາງດຽວກັບທີ່ໂປຣແກຣມຕັ້ງຄ່າຂອງມັນເອງໃຊ້, ສະນັ້ນໃຫ້ປິດໂປຣແກຣມຕັ້ງຄ່ານັ້ນໃນຂະນະທີ່ເປີດອັນນີ້.</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>ບໍ່ພົບແປ້ນພິມອະນາລັອກທີ່ຮອງຮັບ.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>ກຳລັງອ່ານ {0}.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>ເປີດ Razer Synapse ເພື່ອອ່ານ {0}.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>ເປີດ Razer Synapse ເພື່ອອ່ານ {0}.</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>ອ່ານອະແດັບເຕີ Bliss-Box</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>ສື່ສານກັບອະແດັບເຕີ Bliss-Box ຜ່ານ API ຂອງມັນ. ແຖວຂອງແຕ່ລະພອດບອກຊື່ຕົວຄວບຄຸມທີ່ສຽບຢູ່ ແລະ ປຸ່ມຂອງມັນ, ອ່ານແຮງກົດຂອງ DualShock 2, ສັ່ນຜ່ານຄຳສັ່ງມໍເຕີຂອງອະແດັບເຕີເອງ, ແລະ ມີຄຳສັ່ງໜ້າຈໍ Dreamcast, Controller Pak ແລະ ໝາຍເລກຜູ້ຫຼິ້ນ. ປິດ Bliss-Box API Tool ແລະ DeviceBuddy ໃນຂະນະທີ່ເປີດອັນນີ້, ເພາະພວກມັນສື່ສານກັບອະແດັບເຕີຜ່ານຊ່ອງທາງດຽວກັນ. ໃນຂະນະທີ່ເປີດອັນນີ້, PadForge ອ່ານແຕ່ລະພອດຕາມຮູບແບບຂອງອະແດັບເຕີເອງ ແທນທີ່ຈະຜ່ານການແມັບເກມແພດຂອງ SDL, ສະນັ້ນໃຫ້ແມັບພອດຄືນໃໝ່ຫຼັງຈາກເປີດ ຫຼື ປິດອັນນີ້.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>ບໍ່ພົບພອດ Bliss-Box.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>ກຳລັງອ່ານ {0}.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>ພອດ {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>ກຳລັງເຊື່ອມຕໍ່</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>ບໍ່ມີຕົວຄວບຄຸມ</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>ປະເພດ {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>ຕົວຄວບຄຸມເວັບ</value></data>
@@ -4252,7 +4248,7 @@
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>ຮູບແບບ PCM ແຮັບຕິກຂອງ PS5 ແບບ 16 ບິດມີເຄື່ອງໝາຍທີ່ 3 kHz ເຊິ່ງໄດ້ຢືນຢັນການເຂົ້າລະຫັດແຮັບຕິກ Bluetooth ແບບ 8 ບິດມີເຄື່ອງໝາຍ AGPL-3.0, ອ່ານເປັນເອກະສານເທົ່ານັ້ນ, ບໍ່ມີໂຄດ AGPL ຖືກລວມມາ</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>ໜ້າຈໍແປ້ນພິມ</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>ແຕ້ມລົງເທິງໜ້າຈໍທີ່ມີໃນແປ້ນພິມ GamePanel ຂອງ Logitech ແລະ Mad Catz S.T.R.I.K.E. 7, ແລະ ເທິງໂທລະສັບຜ່ານ Logitech Arx Control: ໂປຣໄຟລ໌, ໂມງ, ເວລາຫຼິ້ນ, ໂມງຈັບເວລາ, ຮູບ, ຫຼື ສີແຖບໄຟຂອງ DualShock 4 ຫຼື DualSense. ປຸ່ມທີ່ຢູ່ຂ້າງໜ້າຈໍເຫຼົ່ານັ້ນຈະກາຍເປັນປຸ່ມໃນແຖວ ປຸ່ມໜ້າຈໍແປ້ນພິມ.</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>ແຕ້ມລົງເທິງໜ້າຈໍທີ່ມີໃນແປ້ນພິມ GamePanel ຂອງ Logitech ແລະ Mad Catz S.T.R.I.K.E. 7, ແລະ ເທິງໂທລະສັບຜ່ານ Logitech Arx Control: ໂປຣໄຟລ໌, ໂມງ, ເວລາຫຼິ້ນ, ໂມງຈັບເວລາ, ຮູບ, ຫຼື ສີແຖບໄຟຂອງ DualShock 4 ຫຼື DualSense. ແຕ່ລະໜ້າຈໍມີແຖວຂອງມັນເອງໃນໜ້າ ອຸປະກອນ, ບ່ອນທີ່ທ່ານກຳນົດສິ່ງທີ່ມັນສະແດງ. ປຸ່ມທີ່ຢູ່ຂ້າງໜ້າຈໍແມ່ນປຸ່ມຂອງແຖວນັ້ນ.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>ຄວບຄຸມໜ້າຈໍແປ້ນພິມ</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>ແຕ້ມລົງເທິງໜ້າຈໍ Logitech G15, G15 v2, G510, G13, Z-10, GamePanel ແລະ G19, ເທິງ Arx Control, ແລະ ເທິງ Mad Catz S.T.R.I.K.E. 7. ໃນຂະນະທີ່ Logitech Gaming Software ເຮັດວຽກຢູ່, PadForge ແຕ້ມຜ່ານມັນ. ຖ້າບໍ່ມີມັນ, PadForge ຂຽນລົງໜ້າຈໍຂາວດຳຜ່ານ HID ແລະ ຜູກ WinUSB ກັບອິນເຕີເຟສໜ້າຈໍຂອງ G19. ການປິດອັນນີ້ຈະຄືນໜ້າຈໍຂອງ G19 ໃຫ້ Windows.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>ໜ້າຈໍຂາວດຳ…</value></data>
@@ -4292,7 +4288,8 @@
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>ບໍ່ພົບໜ້າຈໍ</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, ກຳລັງລໍຖ້າສີແຖບໄຟ</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, ບໍ່ໄດ້ເລືອກຮູບ</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>ປຸ່ມໜ້າຈໍແປ້ນພິມ</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>ໃນຂະນະທີ່ Logitech Gaming Software ກຳລັງເຮັດວຽກ, ທຸກໜ້າຈໍປະເພດນີ້ຈະສະແດງຮູບທີ່ຕັ້ງໄວ້ສຳລັບ {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>ໜ້າຈໍແປ້ນພິມ</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>ປຸ່ມໜ້າຈໍ {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>ປຸ່ມແອັບເພລັດ</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>ໜ້າຈໍ ຊ້າຍ</value></data>
@@ -4311,7 +4308,7 @@
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>ໜ້າຈໍສະແດງຊົ່ວໂມງ ແລະ ນາທີ ນັບຕັ້ງແຕ່ໂປຣໄຟລ໌ທີ່ໃຊ້ຢູ່ຖືກສະຫຼັບເຂົ້າມາ. ໂປຣໄຟລ໌ທີ່ຜູກກັບໂປຣແກຣມຂອງເກມຈະຖືກສະຫຼັບເຂົ້າມາເມື່ອເກມເລີ່ມ, ສະນັ້ນການນັບຈຶ່ງແມ່ນເຊດຊັນນັ້ນ. ພາຍໃຕ້ໂປຣໄຟລ໌ ຄ່າເລີ່ມຕົ້ນ ມັນນັບຈາກຕອນທີ່ເອັນຈິນເລີ່ມ.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>ໜ້າຈໍສະແດງຮູບທີ່ທ່ານເລືອກ ໃນຂະໜາດຂອງມັນເອງ. ຮູບທີ່ໃຫຍ່ກວ່າໜ້າຈໍຈະສະແດງເປັນໜ້າຕ່າງຂະໜາດເທົ່າໜ້າຈໍ, ເຊິ່ງມາໂຄຣ ເລື່ອນຮູບໜ້າຈໍແປ້ນພິມ ຈະຍ້າຍມັນ. ເທິງ S.T.R.I.K.E. 7 ການລາກນິ້ວຜ່ານໜ້າຈໍກໍຍ້າຍມັນໄດ້ເຊັ່ນກັນ.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>ໜ້າຈໍສະແດງໂມງຈັບເວລາ, ເຊິ່ງມາໂຄຣ ໂມງຈັບເວລາ ເລີ່ມ, ຢຸດຊົ່ວຄາວ ແລະ ຄືນຄ່າ. ທຸກໜ້າຈໍສະແດງໂມງຈັບເວລາດຽວກັນ.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>ໜ້າຈໍສະແດງສີຂອງແຖບໄຟເທິງ DualShock 4 ຫຼື DualSense ໃນຊ່ອງທີ່ຕ່ຳສຸດ. ໜ້າຈໍຂາວດຳສະແດງຄວາມສະຫວ່າງຂອງມັນເປັນຮູບແບບຈຸດ. ຈົນກວ່າສີຈະໄປເຖິງແຖບໄຟ, PadForge ບໍ່ສະແດງຫຍັງ.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>ໜ້າຈໍສະແດງສີຂອງແຖບໄຟເທິງ DualShock 4 ຫຼື DualSense ໃນຊ່ອງທີ່ຕ່ຳສຸດທີ່ໜ້າຈໍນີ້ສົ່ງຂໍ້ມູນເຂົ້າ, ຫຼື ໃນຊ່ອງທີ່ຕ່ຳສຸດຂອງທັງໝົດ ເມື່ອມັນບໍ່ໄດ້ສົ່ງຂໍ້ມູນເຂົ້າຊ່ອງໃດເລີຍ. ໜ້າຈໍຂາວດຳສະແດງຄວາມສະຫວ່າງຂອງມັນເປັນຮູບແບບຈຸດ. ຈົນກວ່າສີຈະໄປເຖິງແຖບໄຟ, PadForge ບໍ່ສະແດງຫຍັງ.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>ຮູບ (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|ໄຟລ໌ທັງໝົດ (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>ເລື່ອນ</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>ເລື່ອນ X</value></data>
@@ -4323,11 +4320,11 @@
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>ໄຟລ໌ດາວໂຫຼດ SDK S.T.R.I.K.E. 7 ບໍ່ກົງກັບ SHA-256 ທີ່ຮູ້ຈັກ, ສະນັ້ນຈຶ່ງບໍ່ໄດ້ເກັບຫຍັງຈາກມັນໄວ້.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>ຍັງບໍ່ມີຣັນທາມ Visual C++ 2008 ຫຼັງຈາກຕົວຕິດຕັ້ງຂອງມັນເຮັດວຽກແລ້ວ.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>ສະແດງໜ້າຈໍແປ້ນພິມ</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>ຫຼິ້ນຮູບເທິງທຸກໜ້າຈໍແປ້ນພິມຂອງປະເພດທີ່ເລືອກ, ແລ້ວສົ່ງແຕ່ລະໜ້າຈໍກັບຄືນສູ່ໂໝດຂອງມັນເອງ.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>ຫຼິ້ນຮູບເທິງແຕ່ລະໜ້າຈໍແປ້ນພິມຂອງປະເພດທີ່ເລືອກ ທີ່ສົ່ງຂໍ້ມູນເຂົ້າຊ່ອງນີ້, ແລ້ວສົ່ງແຕ່ລະໜ້າຈໍກັບຄືນສູ່ໂໝດຂອງມັນເອງ.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>ສະແດງຮູບ {0}: {1} × {2} ms, ຈຳນວນເທື່ອຊ້ຳ {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>ຮູບຈະຖືກປັບໃຫ້ພໍດີກັບໜ້າຈໍ: 160 × 43 ພິກເຊລຂາວດຳ ເທິງໜ້າຈໍຂາວດຳ, 320 × 240 ເທິງໜ້າຈໍຂອງ G19, ແລະ 480 × 320 ສຳລັບ Arx Control ແລະ S.T.R.I.K.E. 7. ໜຶ່ງສ່ວນສິບວິນາທີແມ່ນເວລາຕໍ່ເຟຣມທີ່ສັ້ນທີ່ສຸດ.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>ໂໝດໜ້າຈໍແປ້ນພິມ</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>ສະຫຼັບໜ້າຈໍແປ້ນພິມປະເພດໜຶ່ງໄປເປັນໂໝດອື່ນ ແລະ ເກັບມັນໄວ້ເປັນການຕັ້ງຄ່າຂອງໜ້າຈໍນັ້ນ.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>ສະຫຼັບແຕ່ລະໜ້າຈໍແປ້ນພິມຂອງປະເພດທີ່ເລືອກ ທີ່ສົ່ງຂໍ້ມູນເຂົ້າຊ່ອງນີ້ ໄປເປັນໂໝດອື່ນ, ແລະ ເກັບມັນໄວ້ເປັນການຕັ້ງຄ່າຂອງໜ້າຈໍນັ້ນ.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} ສະແດງ {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>ໂໝດຈະຄົງຢູ່ຈົນກວ່າມາໂຄຣອື່ນ ຫຼື ກ່ອງໂຕ້ຕອບຂອງໜ້າຈໍຈະປ່ຽນມັນ.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>ໂມງຈັບເວລາ</value></data>
@@ -4336,9 +4333,9 @@
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>ຄືນຄ່າໂມງຈັບເວລາ</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>ຄືນຄ່າຈະຢຸດໂມງຈັບເວລາ ແລະ ຕັ້ງມັນກັບເປັນສູນ. ທຸກໜ້າຈໍແປ້ນພິມໃນໂໝດ ໂມງຈັບເວລາ ສະແດງໂມງຈັບເວລາດຽວກັນ.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>ເລື່ອນຮູບໜ້າຈໍແປ້ນພິມ</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>ຍ້າຍໜ້າຕ່າງຂອງແຕ່ລະໜ້າຈໍແປ້ນພິມໄປທົ່ວຮູບທີ່ໃຫຍ່ກວ່າໜ້າຈໍ, ສຳລັບແຜນທີ່.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>ຍ້າຍໜ້າຕ່າງຂອງແຕ່ລະໜ້າຈໍແປ້ນພິມທີ່ສົ່ງຂໍ້ມູນເຂົ້າຊ່ອງນີ້ ໄປທົ່ວຮູບທີ່ໃຫຍ່ກວ່າໜ້າຈໍ, ສຳລັບແຜນທີ່.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>ເລື່ອນຮູບ {0}, {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>ຍ້າຍທຸກປະເພດໜ້າຈໍທີ່ສະແດງຮູບທີ່ເລືອກ ທີ່ໃຫຍ່ກວ່າຕົວມັນເອງ. ໜ້າຕ່າງຈະຢຸດຢູ່ທີ່ຂອບຂອງຮູບ.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>ຍ້າຍແຕ່ລະໜ້າຈໍທີ່ສົ່ງຂໍ້ມູນເຂົ້າຊ່ອງນີ້ ແລະ ສະແດງຮູບທີ່ເລືອກ ທີ່ໃຫຍ່ກວ່າຕົວມັນເອງ. ໜ້າຕ່າງຈະຢຸດຢູ່ທີ່ຂອບຂອງຮູບ.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>ໜ້າຈໍ</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>ການກະທຳ</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>ທິດທາງ</value></data>
@@ -4420,6 +4417,6 @@
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>ແຮງສູງສຸດທີ່ Falcon ໃສ່ໃຫ້ດ້າມຈັບ, ຈາກ 1 ຫາ 8 ນິວຕັນ.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>ຄືນຄ່າຂີດຈຳກັດແຮງ</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>ປັບທຽບໄລຍະເຄື່ອນທີ່</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>ວັດແທກວ່າດ້າມຈັບເຄື່ອນທີ່ໄດ້ໄກເທົ່າໃດ. ເລື່ອນມັນໄປທຸກຂອບຂອງໄລຍະເຄື່ອນທີ່ຕະຫຼອດສີ່ວິນາທີທີ່ການກວາດເຮັດວຽກ. ແຮງຕ່າງໆຈະຢຸດພັກໃນລະຫວ່າງນັ້ນ.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>ປັບທຽບໄລຍະເຄື່ອນທີ່</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>ວັດແທກວ່າດ້າມຈັບເຄື່ອນທີ່ໄດ້ໄກເທົ່າໃດ. ເລື່ອນມັນໄປທຸກຂອບຂອງໄລຍະເຄື່ອນທີ່ຕະຫຼອດສີ່ວິນາທີທີ່ການກວາດເຮັດວຽກ. ແຮງຕ່າງໆຈະຢຸດພັກໃນລະຫວ່າງນັ້ນ.</value></data>
 </root>

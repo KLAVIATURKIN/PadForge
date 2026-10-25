@@ -287,14 +287,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>读取模拟键盘</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>读取 Wooting、Razer、SteelSeries、Keychron、NuPhy、DrunkDeer、AULA 等厂商的模拟键盘上每个键的按下深度，每个设备单独成行。文档列出了所有支持的型号。Razer 键盘需要运行 Razer Synapse。其他大多数键盘通过其配置软件使用的通道询问读取，因此开启此项时请关闭配置软件。</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>未找到受支持的模拟键盘。</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>正在读取 {0}。</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>请启动 Razer Synapse 以读取 {0}。</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>请启动 Razer Synapse 以读取 {0}。</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>读取 Bliss-Box 适配器</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>通过 API 与 Bliss-Box 适配器通信。每个端口的行会显示所插控制器及其按键名称，读取 DualShock 2 的压力，用适配器自身的马达命令振动，并提供 Dreamcast 屏幕、控制器记忆卡和玩家编号操作。开启此项时请关闭 Bliss-Box API Tool 和 DeviceBuddy，因为它们通过同一通道与适配器通信。开启此项时，PadForge 按适配器自身的布局读取每个端口，而非通过 SDL 的手柄映射，因此开关此项后请重新映射端口。</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>未找到 Bliss-Box 端口。</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>正在读取 {0}。</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>端口 {0}（{1}）</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>正在连接</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>无控制器</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>类型 {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>网页控制器</value></data>
@@ -4243,7 +4239,7 @@
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PS5 触觉 PCM 格式（有符号 16 位，3 kHz），由此确定了蓝牙触觉的有符号 8 位编码。AGPL-3.0，仅作文档参考，不随附任何 AGPL 代码。</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>键盘屏幕</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>在罗技 GamePanel 键盘和 Mad Catz S.T.R.I.K.E. 7 内置的屏幕上绘制内容，也可通过 Logitech Arx Control 在手机上绘制：配置文件、时钟、游戏时间、秒表、图片，或 DualShock 4、DualSense 灯条的颜色。这些屏幕旁的按键会成为“键盘屏幕按键”行中的按钮。</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>在罗技 GamePanel 键盘和 Mad Catz S.T.R.I.K.E. 7 内置的屏幕上绘制内容，也可通过 Logitech Arx Control 在手机上绘制：配置文件、时钟、游戏时间、秒表、图片，或 DualShock 4、DualSense 灯条的颜色。每个屏幕在“设备”页面上都有自己的一行，可在那里设置它显示的内容。屏幕旁的按键是该行的按钮。</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>驱动键盘屏幕</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>在 Logitech G15、G15 v2、G510、G13、Z-10、GamePanel 和 G19 的屏幕上、Arx Control 上以及 Mad Catz S.T.R.I.K.E. 7 上绘制内容。Logitech Gaming Software 运行时，PadForge 通过它绘制。没有它时，PadForge 通过 HID 写入单色屏幕，并将 WinUSB 绑定到 G19 的屏幕接口。关闭此项会把 G19 的屏幕交还给 Windows。</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>单色屏幕…</value></data>
@@ -4283,7 +4279,8 @@
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>未找到屏幕</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}，正在等待灯条颜色</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}，未选择图片</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>键盘屏幕按键</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Logitech Gaming Software 运行期间，此类的每个屏幕都显示为 {0} 设置的图片。</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>键盘屏幕</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>屏幕键 {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>小程序键</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>屏幕左</value></data>
@@ -4302,7 +4299,7 @@
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>屏幕显示自当前配置文件切入以来的小时和分钟数。绑定到某个游戏程序的配置文件会在游戏启动时切入，因此计时就是这一次游戏。在默认配置文件下，则从引擎启动时开始计时。</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>屏幕按原始大小显示你选择的图片。比屏幕大的图片会显示一个与屏幕等大的窗口，“平移键盘屏幕图片”宏可以移动该窗口。在 S.T.R.I.K.E. 7 上，用手指在屏幕上拖动也可以移动它。</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>屏幕显示秒表，秒表由“秒表”宏启动、暂停和重置。所有屏幕显示的是同一个秒表。</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>屏幕显示最低编号插槽中 DualShock 4 或 DualSense 灯条的颜色。单色屏幕以点阵图案显示其亮度。在颜色传到灯条之前，PadForge 不显示任何内容。</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>屏幕显示此屏幕所供给的最低编号插槽中 DualShock 4 或 DualSense 灯条的颜色；若它没有供给任何插槽，则显示所有插槽中最低编号者的灯条颜色。单色屏幕以点阵图案显示其亮度。在颜色传到灯条之前，PadForge 不显示任何内容。</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>图片 (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|所有文件 (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>平移</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>平移 X</value></data>
@@ -4314,11 +4311,11 @@
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>下载的 S.T.R.I.K.E. 7 SDK 与已知的 SHA-256 不符，因此未保留其中任何内容。</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Visual C++ 2008 运行时的安装程序运行后，该运行时仍然缺失。</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>显示键盘屏幕</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>在所选类型的每个键盘屏幕上播放图片，然后让每个屏幕回到各自的模式。</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>在所选类型中为此槽位提供输入的每个键盘屏幕上播放图片，然后让每个屏幕回到各自的模式。</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>显示 {0} 图片：{1} × {2} 毫秒，重复 {3} 次</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>图片会适配屏幕：单色屏幕为 160 × 43 黑白像素，G19 的屏幕为 320 × 240，Arx Control 和 S.T.R.I.K.E. 7 为 480 × 320。每张最短时长为十分之一秒。</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>键盘屏幕模式</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>将某类键盘屏幕切换到另一种模式，并保存为该屏幕的设置。</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>将所选类型中为此槽位提供输入的每个键盘屏幕切换到另一种模式，并保存为该屏幕的设置。</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} 显示 {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>该模式会一直保持，直到其他宏或该屏幕的对话框更改它。</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>秒表</value></data>
@@ -4327,9 +4324,9 @@
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>重置秒表</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>重置会停止秒表并将其归零。处于“秒表”模式的所有键盘屏幕显示的是同一个秒表。</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>平移键盘屏幕图片</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>让每个键盘屏幕的窗口在比屏幕大的图片上移动，例如用于地图。</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>让为此槽位提供输入的每个键盘屏幕的窗口在比屏幕大的图片上移动，例如用于地图。</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>平移图片 {0}，{1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>移动所有显示了比自身更大的所选图片的屏幕。窗口会停在图片的边缘。</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>移动为此槽位提供输入、且显示了比自身更大的所选图片的每个屏幕。窗口会停在图片的边缘。</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>屏幕</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>操作</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>方向</value></data>
@@ -4411,6 +4408,6 @@
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Falcon 施加在握柄上的最大力，范围为 1 到 8 牛顿。</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>重置力限制</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>校准行程</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>测量握柄的移动范围。在扫描进行的 4 秒内，将其移动到行程的每个边缘。期间各种力会停止。</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>校准行程</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>测量握柄的移动范围。在扫描进行的 4 秒内，将其移动到行程的每个边缘。期间各种力会停止。</value></data>
 </root>

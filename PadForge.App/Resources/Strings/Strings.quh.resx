@@ -1283,7 +1283,8 @@
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>mana ima pantallapas tarikunchu</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, lightbarpa llimp'inta suyachkan</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, mana rikch'ay akllasqachu</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Teclado pantallapa teclankuna</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Logitech Gaming Software llamk'achkaptinqa, kay laya tukuy pantallakuna {0}-paq churasqa imagenta rikuchinku.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Teclado pantalla</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Pantalla tecla {0}</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Pantalla lloq'eman</value></data>
   <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Pantalla pañaman</value></data>

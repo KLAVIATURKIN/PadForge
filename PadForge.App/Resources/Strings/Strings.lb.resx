@@ -306,14 +306,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>Analog Tastature liesen</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Liest, wéi déif all Tast gedréckt ass, op analoge Tastature vu Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA an anere Fabrikanten, all eenzel als eegen Zeil an der Apparatelëscht. D'Dokumentatioun lëscht all ënnerstëtzte Modell op. Razer-Tastature brauchen e lafent Razer Synapse. Déi meescht aner ginn iwwer de Kanal gelies, deen hir eege Konfiguratiounssoftware benotzt, also maacht déi Software zou, soulaang dës Optioun un ass.</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>Keng ënnerstëtzt analog Tastatur fonnt.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>Liest {0}.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>Start Razer Synapse, fir {0} ze liesen.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>Start Razer Synapse, fir {0} ze liesen.</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Bliss-Box-Adaptere liesen</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>Kommunizéiert iwwer hir API mat Bliss-Box-Adapteren. D'Zeil vun all Port nennt de Controller, deen do dra stécht, a seng Knäppercher, liest den Drock vun engem DualShock 2, léisst en iwwer d'eege Motorbefeeler vum Adapter vibréieren a bitt d'Aktioune fir den Dreamcast-Bildschierm, de Controller Pak an d'Spillernummer. Maacht de Bliss-Box API Tool an DeviceBuddy zou, soulaang dës Optioun un ass, well si iwwer dee selwechte Kanal mam Adapter schwätzen. Soulaang dës Optioun un ass, liest PadForge all Port am eegene Layout vum Adapter amplaz iwwer d'Gamepad-Zouuerdnung vu SDL, also ordnet e Port nei zou, nodeems Dir dës Optioun un- oder ausgeschalt hutt.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Kee Bliss-Box-Port fonnt.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>Liest {0}.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>Port {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>gëtt verbonnen</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>kee Controller</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>Typ {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Web-Controller</value></data>
@@ -4248,7 +4244,7 @@ Soll PadForge se elo desinstalléieren? Dat brauch Administratorrechter a ka e M
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>De PCM-Format vun der PS5-Haptik, signéiert 16 Bit bei 3 kHz, deen déi signéiert 8-Bit-Kodéierung vun der Bluetooth-Haptik gekläert huet. AGPL-3.0, nëmmen als Dokumentatioun gelies, et gëtt kee AGPL-Code matgeliwwert.</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Tastatur-Écranen</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Weist op den Écranen, déi an d'GamePanel-Tastature vu Logitech an an d'Mad Catz S.T.R.I.K.E. 7 agebaut sinn, an iwwer Logitech Arx Control op engem Handy: d'Profil, eng Auer, d'Spillzäit, eng Stoppauer, e Bild oder d'Faarf vum Liichtbalken vun engem DualShock 4 oder DualSense. D'Tasten nieft dësen Écranen ginn zu Knäppercher an der Zeil „Tastatur-Écran-Tasten“.</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Weist op den Écranen, déi an d'GamePanel-Tastature vu Logitech an an d'Mad Catz S.T.R.I.K.E. 7 agebaut sinn, an iwwer Logitech Arx Control op engem Handy: d'Profil, eng Auer, d'Spillzäit, eng Stoppauer, e Bild oder d'Faarf vum Liichtbalken vun engem DualShock 4 oder DualSense. All Écran kritt seng eege Zeil op der Säit „Apparater“, wou Dir astellt, wat en weist. D'Tasten nieft engem Écran sinn d'Knäppercher vu senger Zeil.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Tastatur-Écranen ustéieren</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Weist eppes op den Écrane vun de Logitech G15, G15 v2, G510, G13, Z-10, GamePanel a G19, op Arx Control an op der Mad Catz S.T.R.I.K.E. 7. Wann d'Logitech Gaming Software leeft, mécht PadForge dat doriwwer. Ouni se schreift PadForge d'monochrom Écranen iwwer HID a bënnt WinUSB un d'Écran-Interface vum G19. Wann dëst ausgeschalt gëtt, kritt Windows den Écran vum G19 erëm.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Monochrom-Écran…</value></data>
@@ -4288,7 +4284,8 @@ Soll PadForge se elo desinstalléieren? Dat brauch Administratorrechter a ka e M
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>keen Écran fonnt</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, waart op eng Liichtbalken-Faarf</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, kee Bild gewielt</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Tastatur-Écran-Tasten</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Wärend d'Logitech Gaming Software leeft, weist all Écran vun dëser Aart d'Bild, dat fir {0} agestallt ass.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Tastatur-Écran</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Écran-Tast {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Applet-Tast</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Écran lénks</value></data>
@@ -4307,7 +4304,7 @@ Soll PadForge se elo desinstalléieren? Dat brauch Administratorrechter a ka e M
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Den Écran weist d'Stonnen a Minutten zënter dem leschte Profilwiessel. E Profil, dat un de Programm vun engem Spill gebonnen ass, gëtt aktiv, wann d'Spill start, sou datt d'Zielung déi Sessioun ass. Beim Standardprofil zielt et vum Start vun der Engine un.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Den Écran weist e Bild, dat Dir wielt, a senger eegener Gréisst. Bei engem Bild, dat méi grouss ass wéi den Écran, gëtt eng Fënster an der Gréisst vum Écran gewisen, déi de Makro „Bild um Tastatur-Écran verschieben“ beweegt. Op der S.T.R.I.K.E. 7 beweegt e Fanger, deen iwwer den Écran gezunn gëtt, se och.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Den Écran weist d'Stoppauer, déi de Makro „Stoppauer“ start, pauséiert an zrécksetzt. All Écran weist déiselwecht Stoppauer.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Den Écran weist d'Faarf vum Liichtbalken vum DualShock 4 oder DualSense am niddregste Slot. E monochromen Écran weist hir Hellegkeet als Punktmuster. Bis eng Faarf bei engem Liichtbalken ukënnt, weist PadForge näischt.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Den Écran weist d'Faarf vum Liichtbalken vum DualShock 4 oder DualSense am niddregste Slot, deen dësen Écran fiddert, oder am niddregste Slot vun allen, wann en keen fiddert. E monochromen Écran weist hir Hellegkeet als Punktmuster. Bis eng Faarf bei engem Liichtbalken ukënnt, weist PadForge näischt.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Biller (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|All Fichieren (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Verschiebung</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>X-Verschiebung</value></data>
@@ -4319,11 +4316,11 @@ Soll PadForge se elo desinstalléieren? Dat brauch Administratorrechter a ka e M
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Den Download vum S.T.R.I.K.E. 7-SDK entsprécht net sengem bekannte SHA-256, dofir gouf näischt dovun behalen.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>D'Visual C++ 2008-Runtime feelt nach ëmmer, nodeems hiren Installateur gelaf ass.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Tastatur-Écran weisen</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Spillt Biller op all Tastatur-Écran vun der gewielter Aart of a setzt dono all Écran zréck op säin eegene Modus.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Weist Biller op all Tastatur-Écran vun der gewielter Aart, deen dëse Slot fiddert, a setzt dono all Écran zréck op säin eegene Modus.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>{0}-Biller weisen: {1} × {2} ms, Unzuel Widderhuelungen {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>D'Biller ginn un den Écran ugepasst: 160 op 43 schwaarz-wäiss Pixel op engem monochromen Écran, 320 op 240 op deem vum G19 an 480 op 320 fir Arx Control an d'S.T.R.I.K.E. 7. En Zéngtel vun enger Sekonn ass déi kierzste Bildzäit.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Tastatur-Écran-Modus</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Schalt eng Aart vu Tastatur-Écran op en anere Modus a behält dee Modus als Astellung vun deem Écran.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Schalt all Tastatur-Écran vun der gewielter Aart, deen dëse Slot fiddert, op en anere Modus a behält dee Modus als Astellung vun deem Écran.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} weist {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>De Modus bleift, bis en anere Makro oder den Dialog vum Écran en ännert.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Stoppauer</value></data>
@@ -4332,9 +4329,9 @@ Soll PadForge se elo desinstalléieren? Dat brauch Administratorrechter a ka e M
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Stoppauer zrécksetzen</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Zrécksetzen stoppt d'Stoppauer a setzt se op null zréck. All Tastatur-Écran am Modus „Stoppauer“ weist déiselwecht Stoppauer.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Bild um Tastatur-Écran verschieben</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Beweegt d'Fënster vun all Tastatur-Écran iwwer e Bild, dat méi grouss ass wéi den Écran, zum Beispill fir eng Kaart.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Beweegt d'Fënster vun all Tastatur-Écran, deen dëse Slot fiddert, iwwer e Bild, dat méi grouss ass wéi den Écran, zum Beispill fir eng Kaart.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Biller verschieben: {0} op {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Beweegt all Aart vun Écran, deen e gewielt Bild weist, dat méi grouss ass wéi en selwer. D'Fënster bleift un de Kante vum Bild stoen.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Beweegt all Écran, deen dëse Slot fiddert an e gewielt Bild weist, dat méi grouss ass wéi en selwer. D'Fënster bleift un de Kante vum Bild stoen.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Écran</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Aktioun</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Richtung</value></data>
@@ -4414,6 +4411,6 @@ Soll PadForge se elo desinstalléieren? Dat brauch Administratorrechter a ka e M
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Déi maximal Kraaft, déi de Falcon op de Grëff bréngt, vun 1 bis 8 Newton.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Kraaftlimit zrécksetzen</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Reechwäit kalibréieren</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Moosst, wéi wäit de Grëff sech beweegt. Beweegt en während de véier Sekonnen, déi d'Messung dauert, bis un all Rand vu senger Reechwäit. D'Kräfte sinn an där Zäit aus.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>Reechwäit kalibréieren</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Moosst, wéi wäit de Grëff sech beweegt. Beweegt en während de véier Sekonnen, déi d'Messung dauert, bis un all Rand vu senger Reechwäit. D'Kräfte sinn an där Zäit aus.</value></data>
 </root>

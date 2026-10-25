@@ -1048,7 +1048,8 @@
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>awan ti nasarakan a screen</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, agur-uray iti kolor ti lightbar</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, awan ti napili a ladawan</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Dagiti key ti screen ti keyboard</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Bayat nga agandar ti Logitech Gaming Software, ipakpakita ti tunggal screen iti daytoy a kita ti ladawan a naikeddeng para iti {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Screen ti keyboard</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Key ti screen {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Key ti applet</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Screen kannigid</value></data>

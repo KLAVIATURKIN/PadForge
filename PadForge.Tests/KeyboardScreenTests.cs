@@ -210,56 +210,132 @@ namespace PadForge.Tests
         public void LgsButtonFlags_MapToTheRowsButtons()
         {
             Assert.Equal(11, KeyboardScreenFormats.LgsButtons.Length);
-            Assert.Contains((0x0001, KeyboardScreenFormats.MonoKey1), KeyboardScreenFormats.LgsButtons);
-            Assert.Contains((0x4000, KeyboardScreenFormats.G19Menu), KeyboardScreenFormats.LgsButtons);
-            Assert.DoesNotContain(KeyboardScreenFormats.LgsButtons, b => b.Button == KeyboardScreenFormats.MonoAppletKey);
-            Assert.DoesNotContain(KeyboardScreenFormats.LgsButtons, b => b.Button == KeyboardScreenFormats.G19Settings);
+            Assert.Contains((0x0001, KeyboardScreenKind.Monochrome, KeyboardScreenFormats.MonoKey1), KeyboardScreenFormats.LgsButtons);
+            Assert.Contains((0x4000, KeyboardScreenKind.Color, KeyboardScreenFormats.G19Menu), KeyboardScreenFormats.LgsButtons);
+            Assert.DoesNotContain(KeyboardScreenFormats.LgsButtons,
+                b => b.Kind == KeyboardScreenKind.Monochrome && b.Button == KeyboardScreenFormats.MonoAppletKey);
+            Assert.DoesNotContain(KeyboardScreenFormats.LgsButtons,
+                b => b.Kind == KeyboardScreenKind.Color && b.Button == KeyboardScreenFormats.G19Settings);
+            Assert.All(KeyboardScreenFormats.LgsButtons,
+                b => Assert.InRange(b.Button, 0, KeyboardScreenFormats.KeyCountOf(b.Kind) - 1));
         }
 
         /// <summary>A tap that starts and ends between two polls still reads
-        /// pressed once, the G-key row's rule.</summary>
+        /// pressed once, the G-key row's rule. Two engines on one screen both
+        /// reach its row, and two screens stay apart.</summary>
         [Fact]
-        public void ATapBetweenPolls_IsHeldForThePulse()
+        public void ATapBetweenPolls_IsHeldForThePulse_AndTwoScreensStayApart()
         {
-            KeyboardScreenKeys.ClearAll();
+            string one = "test-" + Guid.NewGuid().ToString("N"), two = "test-" + Guid.NewGuid().ToString("N");
             try
             {
-                KeyboardScreenKeys.Report("test", 1 << 2);
-                KeyboardScreenKeys.Report("test", 0);
-                var buttons = new bool[KeyboardScreenFormats.KeyCount];
+                KeyboardScreenKeys.Report(one, "hid", 1 << 2);
+                KeyboardScreenKeys.Report(one, "hid", 0);
+                var buttons = new bool[KeyboardScreenFormats.MaxKeys];
                 long now = Environment.TickCount64;
-                KeyboardScreenKeys.Read(buttons, now);
+                KeyboardScreenKeys.Read(one, buttons, now);
                 Assert.True(buttons[2]);
-                KeyboardScreenKeys.Read(buttons, now + KeyboardScreenKeys.PulseMs + 1);
+                KeyboardScreenKeys.Read(one, buttons, now + KeyboardScreenKeys.PulseMs + 1);
                 Assert.False(buttons[2]);
 
-                // Two engines hold keys at once, and the row reads both.
-                KeyboardScreenKeys.Report("a", 1 << 0);
-                KeyboardScreenKeys.Report("b", 1 << 5);
-                KeyboardScreenKeys.Read(buttons, now + 10_000);
+                // Two engines hold keys of one screen at once, and its row reads both.
+                KeyboardScreenKeys.Report(one, "lgs", 1 << 0);
+                KeyboardScreenKeys.Report(one, "hid", 1 << 4);
+                KeyboardScreenKeys.Read(one, buttons, now + 10_000);
                 Assert.True(buttons[0]);
-                Assert.True(buttons[5]);
-                KeyboardScreenKeys.Clear("a");
-                KeyboardScreenKeys.Read(buttons, now + 20_000);
+                Assert.True(buttons[4]);
+                KeyboardScreenKeys.Clear(one, "lgs");
+                KeyboardScreenKeys.Read(one, buttons, now + 20_000);
                 Assert.False(buttons[0]);
-                Assert.True(buttons[5]);
+                Assert.True(buttons[4]);
+
+                // A key on the other keyboard never reaches this one's row.
+                KeyboardScreenKeys.Report(two, "hid", 1 << 1);
+                KeyboardScreenKeys.Read(one, buttons, now + 30_000);
+                Assert.False(buttons[1]);
+                KeyboardScreenKeys.Read(two, buttons, now + 30_000);
+                Assert.True(buttons[1]);
+                Assert.False(buttons[4]);
+
+                // A screen that left reads nothing.
+                KeyboardScreenKeys.ClearScreen(two);
+                KeyboardScreenKeys.Read(two, buttons, now + 40_000);
+                Assert.DoesNotContain(true, buttons);
             }
             finally
             {
-                KeyboardScreenKeys.ClearAll();
+                KeyboardScreenKeys.ClearScreen(one);
+                KeyboardScreenKeys.ClearScreen(two);
             }
         }
 
         // ── Which engine draws ──
 
         [Theory]
-        [InlineData(false, false, false, true)]
-        [InlineData(false, true, false, true)]
-        [InlineData(true, true, true, false)]
-        [InlineData(true, true, false, true)]
-        [InlineData(true, false, false, false)]
-        public void TheMonochromeDirectWriter_StandsDownWhileLgsDraws(bool lgs, bool frame, bool lgsSees, bool draws)
-            => Assert.Equal(draws, KeyboardScreenHost.MonoDrawsDirectly(lgs, frame, lgsSees));
+        [InlineData(false, false, true)]
+        [InlineData(false, true, true)]
+        [InlineData(true, true, false)]
+        [InlineData(true, false, true)]
+        public void TheMonochromeDirectWriter_StandsDownWhileLgsDraws(bool lgs, bool lgsSees, bool draws)
+            => Assert.Equal(draws, KeyboardScreenHost.MonoDrawsDirectly(lgs, lgsSees));
+
+        /// <summary>LGS takes one picture per kind, so it shows the first
+        /// screen of each kind in id order, and the other screens' rows name
+        /// that screen.</summary>
+        [Fact]
+        public void LgsShowsTheFirstScreenOfEachKind()
+        {
+            var g510 = KeyboardScreenInfo.Monochrome(KeyboardScreenDevices.G510, "{bbbb0000-0000-0000-0000-000000000000}", "p1");
+            var g15 = KeyboardScreenInfo.Monochrome(KeyboardScreenDevices.G15, "{aaaa0000-0000-0000-0000-000000000000}", "p2");
+            var g19 = KeyboardScreenInfo.G19(@"USB\VID_046D&PID_C229&MI_00\7&1&0&0000");
+            var screens = new[] { g510, g19, g15, KeyboardScreenInfo.Arx() };
+            // hid:046d:c222:... (the G15) sorts before hid:046d:c22d:... (the G510).
+            Assert.Equal(g15, KeyboardScreenHost.Leader(screens, KeyboardScreenKind.Monochrome));
+            Assert.Equal(g19, KeyboardScreenHost.Leader(screens, KeyboardScreenKind.Color));
+            Assert.Null(KeyboardScreenHost.Leader(new[] { g510 }, KeyboardScreenKind.Color));
+        }
+
+        /// <summary>A keyboard's collections share its USB IDs and Windows'
+        /// container, so they are one screen. Two keyboards are two, and the
+        /// same keyboard found again is the same row.</summary>
+        [Fact]
+        public void EachKeyboardIsItsOwnScreen_ByItsContainer()
+        {
+            const string container = "{12345678-1234-1234-1234-123456789ABC}";
+            var a = KeyboardScreenInfo.Monochrome(KeyboardScreenDevices.G15, container, @"\\?\hid#vid_046d&pid_c222&mi_01&col01#x");
+            var b = KeyboardScreenInfo.Monochrome(KeyboardScreenDevices.G15, container, @"\\?\hid#vid_046d&pid_c222&mi_01&col02#x");
+            var other = KeyboardScreenInfo.Monochrome(KeyboardScreenDevices.G15, "{87654321-1234-1234-1234-123456789ABC}", "p");
+            Assert.Equal(a, b);
+            Assert.Equal(a.RowGuid, b.RowGuid);
+            Assert.NotEqual(a.Id, other.Id);
+            Assert.NotEqual(a.RowGuid, other.RowGuid);
+            Assert.Equal("Logitech G15 Screen", a.Name);
+            Assert.Equal("G15", a.Model);
+            // No container named: the collection's own path keeps it apart.
+            var lone = KeyboardScreenInfo.Monochrome(KeyboardScreenDevices.G13, "", @"\\?\HID#VID_046D&PID_C21C#Y");
+            Assert.Equal(@"hid:\\?\hid#vid_046d&pid_c21c#y", lone.Id);
+            Assert.Equal(KeyboardScreenInfo.G19("X").RowGuid, KeyboardScreenInfo.G19("x").RowGuid);
+        }
+
+        /// <summary>A keyboard screen macro plays on the screens whose rows
+        /// feed its slot, the Dreamcast macro's rule, and on no other.</summary>
+        [Fact]
+        public void AMacro_ReachesOnlyTheScreensThatFeedItsSlot()
+        {
+            var first = KeyboardScreenInfo.Monochrome(KeyboardScreenDevices.G15, "{aaaa0000-0000-0000-0000-000000000000}", "p1");
+            var second = KeyboardScreenInfo.Monochrome(KeyboardScreenDevices.G510, "{bbbb0000-0000-0000-0000-000000000000}", "p2");
+            var arx = KeyboardScreenInfo.Arx();
+            var slots = new Dictionary<Guid, HashSet<int>>
+            {
+                [first.RowGuid] = new() { 0 },
+                [second.RowGuid] = new() { 1, 2 },
+            };
+            HashSet<int> SlotsOf(Guid row) => slots.TryGetValue(row, out var s) ? s : new HashSet<int>();
+            var screens = new[] { first, second, arx };
+            Assert.Equal(new[] { first }, KeyboardScreenService.Feeding(screens, 0, SlotsOf));
+            Assert.Equal(new[] { second }, KeyboardScreenService.Feeding(screens, 2, SlotsOf));
+            Assert.Empty(KeyboardScreenService.Feeding(screens, 5, SlotsOf));
+        }
 
         [Fact]
         public void TheG19_IsBoundOnlyWhileLgsIsAway()
@@ -284,17 +360,50 @@ namespace PadForge.Tests
 
         // ── The keys row and the macros keep their numbers ──
 
+        /// <summary>Each screen is a row of type 42 with its own kind's keys:
+        /// five on a monochrome screen, eight on a G19, none on Arx Control
+        /// or the S.T.R.I.K.E. 7, whose rows carry the screen alone.</summary>
         [Fact]
-        public void TheKeysRow_IsDeviceType42_AndAnswersNoAnyDeviceSource()
+        public void EachScreenRow_IsDeviceType42_WithItsKindsKeys()
         {
             Assert.Equal(42, InputDeviceType.KeyboardScreenKeys);
             Assert.False(InputDeviceType.AnswersAnyDeviceSources(InputDeviceType.KeyboardScreenKeys));
-            using var row = new KeyboardScreenKeysDevice();
-            Assert.Equal(InputDeviceType.KeyboardScreenKeys, row.GetInputDeviceType());
-            Assert.Equal(13, row.NumButtons);
-            Assert.Equal(13, row.GetDeviceObjects().Length);
-            Assert.Equal(0x4B53, row.VendorId);
-            Assert.Equal(0x4B4B, row.ProductId);
+            var cases = new (KeyboardScreenInfo Screen, int Keys, ushort Pid)[]
+            {
+                (KeyboardScreenInfo.Monochrome(KeyboardScreenDevices.G510, "{aaaa0000-0000-0000-0000-000000000000}", "p"), 5, 0x4B4D),
+                (KeyboardScreenInfo.G19(@"USB\VID_046D&PID_C229&MI_00\7&1&0&0000"), 8, 0x4B43),
+                (KeyboardScreenInfo.Arx(), 0, 0x4B41),
+                (KeyboardScreenInfo.Strike7(), 0, 0x4B37),
+            };
+            foreach (var (screen, keys, pid) in cases)
+            {
+                using var row = new KeyboardScreenDevice(screen);
+                Assert.Equal(InputDeviceType.KeyboardScreenKeys, row.GetInputDeviceType());
+                Assert.Equal(keys, row.NumButtons);
+                Assert.Equal(keys, row.GetDeviceObjects().Length);
+                Assert.Equal(0x4B53, row.VendorId);
+                Assert.Equal(pid, row.ProductId);
+                Assert.Equal(screen.RowGuid, row.InstanceGuid);
+                Assert.Equal(screen.Name, row.Name);
+            }
+        }
+
+        /// <summary>The owner's rule (2026-10-25): the Settings page never
+        /// sets anything for one device. The keyboard screens' dialogs and a
+        /// Falcon's Calibrate Reach are on the device's panel on the Devices
+        /// page, and the pad page holds only what belongs to a slot.</summary>
+        [Fact]
+        public void DeviceActions_LiveOnTheDevicesPage_NeverInSettings()
+        {
+            string settings = File.ReadAllText(RepoFile("PadForge.App", "Views", "SettingsPage.xaml"));
+            string devices = File.ReadAllText(RepoFile("PadForge.App", "Views", "DevicesPage.xaml"));
+            string pad = File.ReadAllText(RepoFile("PadForge.App", "Views", "PadPage.xaml"));
+            foreach (string kind in new[] { "Monochrome", "Color", "Arx", "Strike7" })
+                Assert.DoesNotContain("KeyboardScreens_Configure_" + kind, settings);
+            Assert.DoesNotContain("Calibrate", settings);
+            Assert.DoesNotContain("Falcon_Calibrate", pad);
+            Assert.Contains("Click=\"KeyboardScreen_Click\"", devices);
+            Assert.Contains("Click=\"FalconCalibrate_Click\"", devices);
         }
 
         [Fact]
@@ -319,10 +428,10 @@ namespace PadForge.Tests
             string source = File.ReadAllText(RepoFile("PadForge.App", "Common", "Input", "InputManager.Step4b.EvaluateMacros.cs"));
             foreach (string call in new[]
             {
-                "MacroKeyboardScreenShowSink(action.ScreenKind, action.ScreenFrames,",
-                "MacroKeyboardScreenModeSink(action.ScreenKind, action.ScreenMode);",
+                "MacroKeyboardScreenShowSink(macro.PadIndex, action.ScreenKind, action.ScreenFrames,",
+                "MacroKeyboardScreenModeSink(macro.PadIndex, action.ScreenKind, action.ScreenMode);",
                 "MacroStopwatchSink(action.StopwatchAction);",
-                "MacroKeyboardScreenPanSink(action.PanDirection, action.PanStep);",
+                "MacroKeyboardScreenPanSink(macro.PadIndex, action.PanDirection, action.PanStep);",
             })
                 Assert.Equal(2, CountOf(source, call));
         }
@@ -365,22 +474,28 @@ namespace PadForge.Tests
 
         // ── Settings ──
 
+        /// <summary>Each screen's choices are kept by its row, BlissBoxPortData's
+        /// cleanup: an entry with no readable row, one left at every default
+        /// and a second entry for one row go, and an unknown mode is put back
+        /// to the default.</summary>
         [Fact]
         public void TheScreensList_IsCleanedOnLoad()
         {
+            Guid g15 = Guid.NewGuid(), g19 = Guid.NewGuid(), arx = Guid.NewGuid();
             var list = KeyboardScreenData.Normalize(new[]
             {
                 null,
-                new KeyboardScreenData { Kind = KeyboardScreenKind.Color, Mode = KeyboardScreenMode.Clock, PanX = -5 },
-                new KeyboardScreenData { Kind = KeyboardScreenKind.Color, Mode = KeyboardScreenMode.Picture },
-                new KeyboardScreenData { Kind = (KeyboardScreenKind)9, Mode = KeyboardScreenMode.Clock },
-                new KeyboardScreenData { Kind = KeyboardScreenKind.Arx, Mode = (KeyboardScreenMode)42, Picture = "map.png" },
-                new KeyboardScreenData { Kind = KeyboardScreenKind.Strike7 },
+                new KeyboardScreenData { Device = g19.ToString("N"), Mode = KeyboardScreenMode.Clock, PanX = -5 },
+                new KeyboardScreenData { Device = g19.ToString("D"), Mode = KeyboardScreenMode.Picture },
+                new KeyboardScreenData { Device = "not a device", Mode = KeyboardScreenMode.Clock },
+                new KeyboardScreenData { Device = arx.ToString("D"), Mode = (KeyboardScreenMode)42, Picture = "map.png" },
+                new KeyboardScreenData { Device = g15.ToString("D") },
             });
             Assert.Equal(2, list.Count);
+            Assert.Equal(g19.ToString("D"), list[0].Device);
             Assert.Equal(KeyboardScreenMode.Clock, list[0].Mode);
             Assert.Equal(0, list[0].PanX);
-            Assert.Equal(KeyboardScreenKind.Arx, list[1].Kind);
+            Assert.Equal(arx.ToString("D"), list[1].Device);
             Assert.Equal(KeyboardScreenData.DefaultMode, list[1].Mode);
             Assert.Empty(KeyboardScreenData.Normalize(null));
         }
@@ -388,13 +503,14 @@ namespace PadForge.Tests
         [Fact]
         public void TheScreens_RoundTripThroughTheSettingsXml()
         {
+            Guid g510 = Guid.NewGuid(), strike7 = Guid.NewGuid();
             var data = new AppSettingsData
             {
                 KeyboardScreensEnabled = true,
                 KeyboardScreens = new[]
                 {
-                    new KeyboardScreenData { Kind = KeyboardScreenKind.Monochrome, Mode = KeyboardScreenMode.PlayTime },
-                    new KeyboardScreenData { Kind = KeyboardScreenKind.Strike7, Mode = KeyboardScreenMode.Picture, Picture = "maps\\world.png", PanX = 300, PanY = 120 },
+                    new KeyboardScreenData { Device = g510.ToString("D"), Mode = KeyboardScreenMode.PlayTime },
+                    new KeyboardScreenData { Device = strike7.ToString("D"), Mode = KeyboardScreenMode.Picture, Picture = "maps\\world.png", PanX = 300, PanY = 120 },
                 },
                 DefaultProfileKeyboardScreenPicture = "default.png",
                 Strike7LibraryPath = "C:\\Tools\\Strike7API.dll",
@@ -404,7 +520,7 @@ namespace PadForge.Tests
             serializer.Serialize(writer, data);
             string xml = writer.ToString();
             Assert.Contains("<KeyboardScreens>", xml);
-            Assert.Contains("Kind=\"Strike7\"", xml);
+            Assert.Contains("Device=\"" + strike7.ToString("D") + "\"", xml);
             var back = (AppSettingsData)serializer.Deserialize(new StringReader(xml));
             Assert.True(back.KeyboardScreensEnabled);
             Assert.Equal(2, back.KeyboardScreens.Length);
@@ -550,6 +666,34 @@ namespace PadForge.Tests
 
             where.Clear();
             Assert.False(LightbarColors.TryGetLowest(OnItsSlot, out _));
+        }
+
+        /// <summary>A screen whose row feeds slots follows the lowest of
+        /// those slots, so player two's keyboard shows player two's color.
+        /// A screen that feeds none follows the lowest slot of all.</summary>
+        [Fact]
+        public void TheLightbarColor_FollowsTheSlotsTheScreenFeeds()
+        {
+            Guid a = Guid.NewGuid(), b = Guid.NewGuid();
+            var where = new Dictionary<Guid, int> { [a] = 1, [b] = 2 };
+            bool OnItsSlot(Guid device, int slot) => where.TryGetValue(device, out int now) && now == slot;
+            LightbarColors.Record(1, a, 1, 2, 3);
+            LightbarColors.Record(2, b, 4, 5, 6);
+            try
+            {
+                Assert.True(LightbarColors.TryGetLowest(OnItsSlot, slot => slot == 2, out var color));
+                Assert.Equal(((byte)4, (byte)5, (byte)6), color);
+                Assert.True(LightbarColors.TryGetLowest(OnItsSlot, slot => slot == 1 || slot == 2, out color));
+                Assert.Equal(((byte)1, (byte)2, (byte)3), color);
+                Assert.False(LightbarColors.TryGetLowest(OnItsSlot, slot => slot == 7, out _));
+                Assert.True(LightbarColors.TryGetLowest(OnItsSlot, null, out color));
+                Assert.Equal(((byte)1, (byte)2, (byte)3), color);
+            }
+            finally
+            {
+                where.Clear();
+                LightbarColors.TryGetLowest(OnItsSlot, out _);
+            }
         }
 
         [Fact]

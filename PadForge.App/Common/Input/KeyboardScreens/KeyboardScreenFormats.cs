@@ -2,9 +2,10 @@ using System;
 
 namespace PadForge.Common.Input.KeyboardScreens
 {
-    /// <summary>The kinds of keyboard screen (issue #519). Every present
-    /// screen of a kind shows that kind's picture. The settings file stores
-    /// the names, so none is renamed, and the values stay as numbered.</summary>
+    /// <summary>The kinds of keyboard screen (issue #519): a screen's size,
+    /// its keys and the engine that draws it. Each present screen has its
+    /// own row and settings. The settings file stores the names, so none is
+    /// renamed, and the values stay as numbered.</summary>
     public enum KeyboardScreenKind
     {
         /// <summary>The 160 by 43 one-bit screen of the G15, G15 v2, G510,
@@ -151,13 +152,25 @@ namespace PadForge.Common.Input.KeyboardScreens
 
         // ── The screen keys ─────────────────────────────────────────────
 
-        /// <summary>The Keyboard Screen Keys row: one fixed layout whichever
-        /// engine reads a key, so a saved mapping keeps its key.</summary>
-        public const int KeyCount = 13;
+        /// <summary>A screen row's keys: the four keys under a monochrome
+        /// screen and its round applet key, or the G19's eight display keys.
+        /// One layout per kind whichever engine reads a key, so a saved
+        /// mapping keeps its key. Arx Control and the S.T.R.I.K.E. 7 have
+        /// none.</summary>
+        public const int MaxKeys = 8;
         public const int MonoKey1 = 0;       // to MonoKey1 + 3, left to right
         public const int MonoAppletKey = 4;
-        public const int G19Left = 5, G19Right = 6, G19Ok = 7, G19Cancel = 8, G19Up = 9, G19Down = 10, G19Menu = 11;
-        public const int G19Settings = 12;
+        public const int MonoKeyCount = 5;
+        public const int G19Left = 0, G19Right = 1, G19Ok = 2, G19Cancel = 3, G19Up = 4, G19Down = 5, G19Menu = 6;
+        public const int G19Settings = 7;
+        public const int G19KeyCount = 8;
+
+        public static int KeyCountOf(KeyboardScreenKind kind) => kind switch
+        {
+            KeyboardScreenKind.Monochrome => MonoKeyCount,
+            KeyboardScreenKind.Color => G19KeyCount,
+            _ => 0,
+        };
 
         /// <summary>The monochrome keys of one HID input report as the row's
         /// bits, or -1 when the report is not that device's key report. The
@@ -217,14 +230,17 @@ namespace PadForge.Common.Input.KeyboardScreens
         }
 
         /// <summary>LGS's button flags (LogitechLCDLib.h LOGI_LCD_MONO_BUTTON_0
-        /// to _3, LOGI_LCD_COLOR_BUTTON_LEFT to _MENU) and the row's button
-        /// each one is. LGS keeps the round applet key and the G19's settings
-        /// key for itself.</summary>
-        public static readonly (int Flag, int Button)[] LgsButtons =
+        /// to _3, LOGI_LCD_COLOR_BUTTON_LEFT to _MENU), the kind of screen
+        /// each belongs to and its button on that screen's row. LGS keeps the
+        /// round applet key and the G19's settings key for itself.</summary>
+        public static readonly (int Flag, KeyboardScreenKind Kind, int Button)[] LgsButtons =
         {
-            (0x0001, MonoKey1), (0x0002, MonoKey1 + 1), (0x0004, MonoKey1 + 2), (0x0008, MonoKey1 + 3),
-            (0x0100, G19Left), (0x0200, G19Right), (0x0400, G19Ok), (0x0800, G19Cancel),
-            (0x1000, G19Up), (0x2000, G19Down), (0x4000, G19Menu),
+            (0x0001, KeyboardScreenKind.Monochrome, MonoKey1), (0x0002, KeyboardScreenKind.Monochrome, MonoKey1 + 1),
+            (0x0004, KeyboardScreenKind.Monochrome, MonoKey1 + 2), (0x0008, KeyboardScreenKind.Monochrome, MonoKey1 + 3),
+            (0x0100, KeyboardScreenKind.Color, G19Left), (0x0200, KeyboardScreenKind.Color, G19Right),
+            (0x0400, KeyboardScreenKind.Color, G19Ok), (0x0800, KeyboardScreenKind.Color, G19Cancel),
+            (0x1000, KeyboardScreenKind.Color, G19Up), (0x2000, KeyboardScreenKind.Color, G19Down),
+            (0x4000, KeyboardScreenKind.Color, G19Menu),
         };
     }
 

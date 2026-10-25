@@ -2601,7 +2601,7 @@ namespace PadForge.Services
                     UpdateFalconStatus();
                     if (_mainVm.Devices.SelectedDevice is { } selected
                         && FindUserDevice(selected.InstanceGuid) is { } selectedDevice)
-                        UpdateBlissBoxDeviceRow(selected, selectedDevice);
+                        UpdateDevicePanelLines(selected, selectedDevice);
                 });
                 UserEffectsDispatcher.SlotButtonsProvider = null;
                 UserEffectsDispatcher.SlotRumbleForDeviceProvider = null;
@@ -4470,9 +4470,10 @@ namespace PadForge.Services
                 return;
             }
 
-            // A port row keeps the Bliss-Box line and actions it showed while
-            // the engine ran, and no port is open now, so this clears them.
-            UpdateBlissBoxDeviceRow(selected, ud);
+            // A row keeps the panel lines and actions it showed while the
+            // engine ran, and no port, screen or Falcon is open now, so this
+            // clears them.
+            UpdateDevicePanelLines(selected, ud);
 
             // Build the structural layout from cached capabilities.
             if (selected.InstanceGuid != devVm.LastRawStateDeviceGuid)
@@ -4935,6 +4936,9 @@ namespace PadForge.Services
         {
             if (ud == null || ud.InstanceGuid == Guid.Empty) return false;
             if (ud.IsKeyboard || ud.IsMouse || ud.IsTouchpad || ud.IsConsumerControl) return false;
+            // A keyboard screen's row (#519) is the same desktop peripheral,
+            // and Arx Control's and the S.T.R.I.K.E. 7's have no keys at all.
+            if (ud.CapType == InputDeviceType.KeyboardScreenKeys) return false;
             if (IsVirtualOrShadowDevice(ud)) return false;
             return true;
         }
@@ -5300,11 +5304,11 @@ namespace PadForge.Services
 
         /// <summary>
         /// The analog keyboard line under the Settings switch (issue #468):
-        /// the keyboards with an open row, and the Razer ones among them that
-        /// wait for Synapse. An open row is not proof of depths: a MAD68 Pro R
-        /// whose recovery has used its two cycles for the minute also stays
-        /// quiet, and the line does not say so. Empty while the feature is
-        /// off, which collapses the line, the G-keys shape.
+        /// that no supported keyboard was found, when none was. Each keyboard
+        /// is its own row, and a Razer one waiting for Synapse says so on its
+        /// panel (<see cref="UpdateAnalogKeyboardDeviceRow"/>), never here.
+        /// Empty while the feature is off or a keyboard is open, which
+        /// collapses the line, the G-keys shape.
         /// </summary>
         private void UpdateAnalogKeyboardsStatus()
         {
@@ -5313,36 +5317,46 @@ namespace PadForge.Services
             string status = string.Empty;
             if (im != null && im.IsRunning && settings.AnalogKeyboardsEnabled)
             {
-                var s = Strings.Instance;
-                var rows = im.AnalogKeyboards;
-                if (rows.Length == 0)
-                {
-                    status = s.Settings_AnalogKeyboardsStatus_None;
-                }
-                else
-                {
-                    var reading = new List<string>(rows.Length);
-                    var waiting = new List<string>();
-                    foreach (var row in rows)
-                    {
-                        if (row.NeedsSynapse && !row.SynapseRunning) waiting.Add(row.Name);
-                        else reading.Add(row.Name);
-                    }
-                    var culture = System.Globalization.CultureInfo.CurrentCulture;
-                    if (reading.Count > 0)
-                        status = string.Format(culture, s.Settings_AnalogKeyboardsStatus_Reading_Format,
-                            string.Join(", ", reading));
-                    if (waiting.Count > 0)
-                    {
-                        string line = string.Format(culture, s.Settings_AnalogKeyboardsStatus_Synapse_Format,
-                            string.Join(", ", waiting));
-                        status = status.Length == 0 ? line : status + " " + line;
-                    }
-                }
+                if (im.AnalogKeyboards.Length == 0) status = Strings.Instance.Settings_AnalogKeyboardsStatus_None;
             }
             if (string.Equals(_analogKeyboardsStatusLast, status, StringComparison.Ordinal)) return;
             _analogKeyboardsStatusLast = status;
             settings.AnalogKeyboardsStatus = status;
+        }
+
+        /// <summary>The selected row's panel on the Devices page: every line
+        /// and action that belongs to one device, which the Settings page
+        /// never shows.</summary>
+        private void UpdateDevicePanelLines(DeviceRowViewModel row, UserDevice ud)
+        {
+            UpdateBlissBoxDeviceRow(row, ud);
+            UpdateKeyboardScreenDeviceRow(row, ud);
+            UpdateFalconDeviceRow(row, ud);
+            UpdateAnalogKeyboardDeviceRow(row, ud);
+        }
+
+        /// <summary>
+        /// The selected row's analog keyboard line (#468), on the Devices
+        /// page's tick: a Razer keyboard that waits for Razer Synapse says so
+        /// on its own panel. Every other row shows none.
+        /// </summary>
+        private void UpdateAnalogKeyboardDeviceRow(DeviceRowViewModel row, UserDevice ud)
+        {
+            string line = string.Empty;
+            var im = _inputManager;
+            if (im != null && im.IsRunning && _mainVm.Settings.AnalogKeyboardsEnabled
+                && ud.CapType == InputDeviceType.AnalogKeyboard)
+            {
+                foreach (var keyboard in im.AnalogKeyboards)
+                {
+                    if (keyboard.InstanceGuid != ud.InstanceGuid) continue;
+                    if (keyboard.NeedsSynapse && !keyboard.SynapseRunning)
+                        line = string.Format(System.Globalization.CultureInfo.CurrentCulture,
+                            Strings.Instance.AnalogKeyboard_Synapse_Format, keyboard.Name);
+                    break;
+                }
+            }
+            row.AnalogKeyboardLine = line;
         }
 
         /// <summary>The device object the Devices page preview was last built
@@ -5368,8 +5382,10 @@ namespace PadForge.Services
                 return;
             }
 
-            // A Bliss-Box port's line, actions and pressure chips (#469).
-            UpdateBlissBoxDeviceRow(selected, ud);
+            // A Bliss-Box port's line, actions and pressure chips (#469), a
+            // keyboard screen's line and dialog (#519), a Falcon's line and
+            // Calibrate Reach (#521), an analog keyboard's Synapse line (#468).
+            UpdateDevicePanelLines(selected, ud);
 
             // Rebuild collections when the selected device changes, or when
             // the same row was opened again: a Bliss-Box port the switch moved

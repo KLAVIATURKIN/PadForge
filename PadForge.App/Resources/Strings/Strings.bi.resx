@@ -164,12 +164,8 @@
   <data name="Pad_ScopeDevice" xml:space="preserve"><value>Divaes</value></data>
   <data name="Dashboard_Port" xml:space="preserve"><value>Pot</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>I no faenem wan analog kiboad we PadForge i save ridim.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>I stap ridim {0}.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>Statem Razer Synapse blong ridim {0}.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>Statem Razer Synapse blong ridim {0}.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>I no faenem wan pot blong Bliss-Box.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>I stap ridim {0}.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>pot {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>i stap konek</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>i no gat kontrola</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>Kaen {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Web kontrola</value></data>
@@ -1399,6 +1395,7 @@
   <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Ol skrin blong kiboad</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>PadForge i droem long ol skrin we oli stap insaed long ol kiboad GamePanel blong Logitech mo Mad Catz S.T.R.I.K.E. 7, mo long wan fon tru long Logitech Arx Control: profael, wan klok, taem blong plei, wan stopwatch, wan pija, no kala blong laetba blong wan DualShock 4 no DualSense. Evri skrin i gat rao blong hem long pej blong Ol divaes, we yu jusum wanem we hem i soem. Ol ki klosap long wan skrin oli ol baton blong rao blong hem.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Kontrolem ol skrin blong kiboad</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Skrin blak mo waet…</value></data>
   <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Skrin blong kala…</value></data>
@@ -1428,7 +1425,8 @@
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>i no faenem skrin</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, i stap wet long kala blong laetba</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, yu no jusum pikja yet</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Ol ki blong skrin blong kiboad</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Taem Logitech Gaming Software i stap ron, evri skrin blong kaen ia i soem pija we oli setem blong {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Skrin blong kiboad</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Ki {0} blong skrin</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Skrin Lef</value></data>
   <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Skrin Raet</value></data>
@@ -1497,6 +1495,6 @@
   <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Baton 3</value></data>
   <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Baton 4</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Mesarem hamas longwe</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mesarem hamas longwe hanel i save go. Muvum i go kasem evri saed blong hem long fo sekon we mesarem i ron. Ol fos oli stop long taem ia.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>Mesarem hamas longwe</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mesarem hamas longwe hanel i save go. Muvum i go kasem evri saed blong hem long fo sekon we mesarem i ron. Ol fos oli stop long taem ia.</value></data>
 </root>

@@ -1022,6 +1022,8 @@
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>ndojejuhúi mba'erechaha</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, oha'arõ barra de luz sa'y</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, ndojeporavói ta'ãnga</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Logitech Gaming Software omba'apo aja, opaite mba'erechaha ko'ãichagua ohechauka ta'anga oñemoĩva'ekue {0}-pe.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Teclado mba'erechaha</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Mba'erechaha tecla {0}</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Mba'erechaha asu</value></data>
   <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Mba'erechaha akatúa</value></data>

@@ -176,9 +176,6 @@
   <data name="FirstRun_Done" xml:space="preserve"><value>Pinis</value></data>
   <data name="Tour_Cards_Title" xml:space="preserve"><value>Ol virtual kontrola</value></data>
   <data name="Pad_ScopeDevice" xml:space="preserve"><value>Masin</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>Ritim {0}.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>Ritim {0}.</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>i konek nau</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>nogat kontrola</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>Kain {0}</value></data>
   <data name="Dashboard_WebPlainLocalOnly" xml:space="preserve"><value>Dispela PC tasol</value></data>
@@ -1542,7 +1539,7 @@
   <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Ol skrin bilong kibod</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Em i soim samting long ol skrin i stap insait long ol kibod GamePanel bilong Logitech na Mad Catz S.T.R.I.K.E. 7, na long fon long rot bilong Logitech Arx Control: profail, klok, taim bilong pilai, stopwatch, piksa, o kala bilong lait bilong DualShock 4 o DualSense. Ol ki long sait bilong ol dispela skrin i kamap ol baten long lain Ol ki bilong skrin bilong kibod.</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Em i soim samting long ol skrin i stap insait long ol kibod GamePanel bilong Logitech na Mad Catz S.T.R.I.K.E. 7, na long fon long rot bilong Logitech Arx Control: profail, klok, taim bilong pilai, stopwatch, piksa, o kala bilong lait bilong DualShock 4 o DualSense. Olgeta skrin i gat lain bilong en yet long pes Ol masin, we yu makim wanem samting em i soim. Ol ki long sait bilong wanpela skrin i ol baten bilong lain bilong en.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Bosim ol skrin bilong kibod</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Em i soim samting long ol skrin bilong Logitech G15, G15 v2, G510, G13, Z-10, GamePanel na G19, long Arx Control, na long Mad Catz S.T.R.I.K.E. 7. Taim Logitech Gaming Software i wok, PadForge i soim samting long rot bilong en. Sapos em i no wok, PadForge i raitim ol skrin blak na wait long rot bilong HID na i putim draiva WinUSB long skrin bilong G19. Sapos yu tanim dispela i of, skrin bilong G19 i go bek long Windows.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Skrin blak na wait…</value></data>
@@ -1580,7 +1577,8 @@
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>i no painim skrin</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, i wet long kala bilong lait</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, yu no makim piksa</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Ol ki bilong skrin bilong kibod</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Taim Logitech Gaming Software i wok, olgeta skrin bilong dispela kain i soim piksa ol i makim bilong {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Skrin bilong kibod</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Ki {0} bilong skrin</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Skrin lephan</value></data>
   <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Skrin raithan</value></data>
@@ -1597,7 +1595,7 @@
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Skrin i soim ol aua na minit i go pinis bihain long profail i wok nau i kirap. Profail i pas long program bilong wanpela gem i kirap taim gem i stat, olsem na kaunim em i dispela taim bilong pilai. Long profail Default, em i kaunim long taim injin i stat.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Skrin i soim piksa yu makim, long sais bilong en yet. Sapos piksa i bikpela long skrin, skrin i soim wanpela hap bilong en i gat sais olsem skrin, na makro Muvim piksa bilong skrin bilong kibod i muvim dispela hap. Long S.T.R.I.K.E. 7, sapos yu pulim pinga long skrin, em tu i muvim.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Skrin i soim stopwatch, em makro Stopwatch i statim, i stopim liklik, na i resetim. Olgeta skrin i soim wankain stopwatch.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Skrin i soim kala bilong lait long DualShock 4 o DualSense i stap long slot i gat namba i liklik tru. Skrin blak na wait i soim lait i strong olsem ol liklik dot. Inap long taim wanpela kala i kamap long lait, PadForge i no soim wanpela samting.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Skrin i soim kala bilong lait long DualShock 4 o DualSense i stap long slot i gat namba i liklik tru we dispela skrin i givim input long en, o long slot i gat namba i liklik tru long olgeta slot sapos em i no givim input long wanpela slot. Skrin blak na wait i soim lait i strong olsem ol liklik dot. Inap long taim wanpela kala i kamap long lait, PadForge i no soim wanpela samting.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Ol piksa (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Olgeta fail (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Muvim</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Muvim X</value></data>
@@ -1609,11 +1607,11 @@
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>SDK bilong S.T.R.I.K.E. 7 yu daunlodim i no stret wantaim SHA-256 ol i save long en, olsem na PadForge i no holim wanpela samting bilong en.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Runtime bilong Visual C++ 2008 i no stap yet bihain long instola bilong en i ran pinis.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Soim skrin bilong kibod</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Em i soim ol piksa long olgeta skrin bilong kibod bilong kain yu makim, na bihain em i bringim olgeta skrin i go bek long pasin bilong en yet.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Em i soim ol piksa long olgeta skrin bilong kibod bilong kain yu makim i givim input long dispela slot, na bihain em i bringim olgeta skrin i go bek long pasin bilong en yet.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Soim ol piksa bilong {0}: {1} × {2} ms, namba bilong mekim gen {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Ol piksa i fit long skrin: 160 long 43 piksel blak na wait long skrin blak na wait, 320 long 240 long skrin bilong G19, na 480 long 320 long Arx Control na S.T.R.I.K.E. 7. Wan long ten bilong sekon em i taim i sotpela tru bilong wanpela piksa.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Pasin bilong skrin bilong kibod</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Em i senisim wanpela kain skrin bilong kibod i go long narapela pasin na i holim olsem seting bilong dispela skrin.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Em i senisim olgeta skrin bilong kibod bilong kain yu makim i givim input long dispela slot i go long narapela pasin, na i holim olsem seting bilong dispela skrin.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} i soim {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Pasin i stap inap long taim narapela makro o windo bilong skrin i senisim.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Stopwatch</value></data>
@@ -1622,9 +1620,9 @@
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Resetim stopwatch</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Reset i stopim stopwatch na i putim i go bek long 0. Olgeta skrin bilong kibod long pasin Stopwatch i soim wankain stopwatch.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Muvim piksa bilong skrin bilong kibod</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Em i muvim windo bilong olgeta skrin bilong kibod antap long piksa i bikpela long skrin, olsem long map.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Em i muvim windo bilong olgeta skrin bilong kibod i givim input long dispela slot antap long piksa i bikpela long skrin, olsem long map.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Muvim ol piksa {0} long {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Em i muvim olgeta kain skrin i soim piksa yu makim i bikpela long skrin. Windo i stop long arere bilong piksa.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Em i muvim olgeta skrin i givim input long dispela slot na i soim piksa yu makim i bikpela long skrin. Windo i stop long arere bilong piksa.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Skrin</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Wok</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Rot</value></data>

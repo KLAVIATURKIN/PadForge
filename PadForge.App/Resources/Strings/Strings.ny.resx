@@ -1193,7 +1193,8 @@
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>palibe sikirini yomwe yapezeka</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, ikudikira mtundu wa lightbar</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, palibe chithunzi chosankhidwa</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Makiyi a sikirini ya kiibodi</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Pamene Logitech Gaming Software ikugwira ntchito, sikirini iliyonse ya mtundu uwu imaonetsa chithunzi chomwe chakhazikitsidwa cha {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Sikirini ya kiibodi</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Kiyi ya sikirini {0}</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Sikirini kumanzere</value></data>
   <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Sikirini kumanja</value></data>

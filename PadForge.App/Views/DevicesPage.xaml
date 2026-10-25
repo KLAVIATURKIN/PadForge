@@ -1005,6 +1005,44 @@
                                            TextWrapping="Wrap"/>
                             </CheckBox>
                         </DockPanel>
+                        <!-- Keyboard screen (#519): what draws this screen, and its
+                             dialog, named for the kind of screen the way the
+                             Dreamcast Screen button is. Each screen is its own
+                             row, so two keyboards keep their own choices. -->
+                        <TextBlock Text="{Binding SelectedDevice.KeyboardScreenLine}" TextWrapping="Wrap"
+                                   FontSize="11" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,0,8"
+                                   Visibility="{Binding SelectedDevice.KeyboardScreenLine, Converter={StaticResource StringToVisibility}}"/>
+                        <Button Content="{Binding SelectedDevice.KeyboardScreenButtonText}" Margin="0,6,0,8"
+                                Padding="8,4" HorizontalAlignment="Left"
+                                Click="KeyboardScreen_Click"
+                                Visibility="{Binding SelectedDevice.ShowKeyboardScreen, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <Button.Style>
+                                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}"/>
+                            </Button.Style>
+                        </Button>
+                        <!-- Novint Falcon (#521): how this Falcon runs, and its
+                             reach sweep, which belongs to the device and every
+                             slot it feeds. -->
+                        <TextBlock Text="{Binding SelectedDevice.FalconLine}" TextWrapping="Wrap"
+                                   FontSize="11" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,0,8"
+                                   Visibility="{Binding SelectedDevice.FalconLine, Converter={StaticResource StringToVisibility}}"/>
+                        <Button Content="{Binding Falcon_Calibrate, Source={x:Static strings:Strings.Instance}}" Margin="0,6,0,8"
+                                Padding="8,4" HorizontalAlignment="Left"
+                                Click="FalconCalibrate_Click"
+                                ToolTip="{Binding Falcon_Calibrate_Tooltip, Source={x:Static strings:Strings.Instance}}"
+                                Visibility="{Binding SelectedDevice.ShowFalconCalibrate, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <Button.Style>
+                                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}"/>
+                            </Button.Style>
+                        </Button>
+                        <TextBlock common:LiveText.Polite="True" Text="{Binding SelectedDevice.FalconCalibrationStatus}" TextWrapping="Wrap"
+                                   FontSize="11" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,0,8"
+                                   Visibility="{Binding SelectedDevice.ShowFalconCalibrate, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                        <!-- Analog keyboard (#468): a Razer keyboard waiting for
+                             Razer Synapse says so on its own panel. -->
+                        <TextBlock Text="{Binding SelectedDevice.AnalogKeyboardLine}" TextWrapping="Wrap"
+                                   FontSize="11" Foreground="{DynamicResource EmberBrush}" Margin="0,0,0,8"
+                                   Visibility="{Binding SelectedDevice.AnalogKeyboardLine, Converter={StaticResource StringToVisibility}}"/>
                         <!-- Vendor daemon notice (#343): the vendor's own tool keeps
                              reacting to these buttons until it is stopped. -->
                         <TextBlock Text="{Binding SelectedDevice.HandheldDaemonWarning}" TextWrapping="Wrap"

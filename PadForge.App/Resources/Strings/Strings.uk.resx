@@ -308,14 +308,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>Зчитувати аналогові клавіатури</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Зчитує, наскільки глибоко натиснуто кожну клавішу на аналогових клавіатурах Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA та інших виробників, кожну як окремий рядок пристрою. Усі підтримувані моделі перелічено в документації. Клавіатурам Razer потрібна запущена програма Razer Synapse. Більшість інших зчитуються через той самий канал, що й їхній власний конфігуратор, тому закрийте конфігуратор, поки це ввімкнено.</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>Підтримуваних аналогових клавіатур не знайдено.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>Зчитується: {0}.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>Запустіть Razer Synapse, щоб зчитувати {0}.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>Запустіть Razer Synapse, щоб зчитувати {0}.</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Зчитувати адаптери Bliss-Box</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>Спілкується з адаптерами Bliss-Box через їхній API. Рядок кожного порту називає підключений до нього контролер і його кнопки, зчитує силу натискання DualShock 2, вмикає вібрацію власними командами моторів адаптера та пропонує дії для екрана Dreamcast, Controller Pak і номера гравця. Поки це ввімкнено, закрийте Bliss-Box API Tool і DeviceBuddy, бо вони спілкуються з адаптером через той самий канал. Поки це ввімкнено, PadForge зчитує кожен порт у власній розкладці адаптера, а не через прив'язку геймпада SDL, тому після ввімкнення або вимкнення прив'яжіть порт заново.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Портів Bliss-Box не знайдено.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>Зчитується: {0}.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>порт {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>підключення</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>немає контролера</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>Тип {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Вебконтролер</value></data>
@@ -4268,7 +4264,7 @@
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>Формат тактильного PCM для PS5, знаковий 16-бітний на 3 kHz, який визначив знакове 8-бітне кодування тактильного відгуку через Bluetooth. AGPL-3.0, використано лише як документацію, код під AGPL не постачається.</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Екрани клавіатур</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Малює на екранах, вбудованих у клавіатури Logitech GamePanel і Mad Catz S.T.R.I.K.E. 7, а також на телефоні через Logitech Arx Control: профіль, годинник, час гри, секундомір, зображення або колір світлової панелі DualShock 4 чи DualSense. Клавіші поруч із цими екранами стають кнопками в рядку «Клавіші екранів клавіатур».</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Малює на екранах, вбудованих у клавіатури Logitech GamePanel і Mad Catz S.T.R.I.K.E. 7, а також на телефоні через Logitech Arx Control: профіль, годинник, час гри, секундомір, зображення або колір світлової панелі DualShock 4 чи DualSense. Кожен екран має власний рядок на сторінці «Пристрої», де можна налаштувати, що він показує. Клавіші поруч з екраном є кнопками його рядка.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Керувати екранами клавіатур</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Малює на екранах Logitech G15, G15 v2, G510, G13, Z-10, GamePanel і G19, на Arx Control та на Mad Catz S.T.R.I.K.E. 7. Поки працює Logitech Gaming Software, PadForge малює через нього. Без нього PadForge записує на монохромні екрани через HID і прив'язує WinUSB до інтерфейсу екрана G19. Якщо вимкнути цей параметр, екран G19 повертається Windows.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Монохромний екран…</value></data>
@@ -4308,7 +4304,8 @@
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>екран не знайдено</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, очікується колір світлової панелі</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, зображення не вибрано</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Клавіші екранів клавіатур</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Поки працює Logitech Gaming Software, кожен екран цього типу показує зображення, задане для {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Екран клавіатури</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Клавіша екрана {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Клавіша аплетів</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Екран: вліво</value></data>
@@ -4327,7 +4324,7 @@
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Екран показує години й хвилини з моменту, коли активний профіль було ввімкнено. Профіль, прив'язаний до програми гри, вмикається під час запуску гри, тож відлік іде за цей сеанс. Під типовим профілем відлік іде від запуску рушія.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Екран показує вибране вами зображення в його власному розмірі. Якщо зображення більше за екран, видно вікно розміром з екран, яке переміщує макрос «Зсунути зображення на екрані клавіатури». На S.T.R.I.K.E. 7 його також переміщує палець, проведений по екрану.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Екран показує секундомір, який макрос «Секундомір» запускає, ставить на паузу та скидає. Усі екрани показують той самий секундомір.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Екран показує колір світлової панелі DualShock 4 або DualSense у слоті з найменшим номером. Монохромний екран показує її яскравість візерунком із точок. Доки колір не дійде до світлової панелі, PadForge нічого не показує.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Екран показує колір світлової панелі DualShock 4 або DualSense у слоті з найменшим номером, у який цей екран подає дані, або в слоті з найменшим номером серед усіх, якщо він не подає дані ні в один. Монохромний екран показує її яскравість візерунком із точок. Доки колір не дійде до світлової панелі, PadForge нічого не показує.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Зображення (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Усі файли (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Зсув</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Зсув X</value></data>
@@ -4339,11 +4336,11 @@
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Завантажений SDK для S.T.R.I.K.E. 7 не збігається з відомою контрольною сумою SHA-256, тому нічого з нього не збережено.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Середовище виконання Visual C++ 2008 досі відсутнє після роботи його інсталятора.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Показати на екрані клавіатури</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Показує зображення на кожному екрані клавіатури вибраного типу, а потім повертає кожен екран до його режиму.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Показує зображення на кожному екрані клавіатури вибраного типу, що подає дані в цей слот, а потім повертає кожен екран до його режиму.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Показати зображення ({0}): {1} × {2} мс, повторень: {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Зображення підганяються під екран: 160 на 43 чорно-білих пікселі на монохромному екрані, 320 на 240 на екрані G19 і 480 на 320 для Arx Control та S.T.R.I.K.E. 7. Найкоротший час кадру становить одну десяту секунди.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Режим екрана клавіатури</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Перемикає екран клавіатури вибраного типу на інший режим і зберігає його як налаштування цього екрана.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Перемикає кожен екран клавіатури вибраного типу, що подає дані в цей слот, на інший режим і зберігає його як налаштування цього екрана.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} показує: {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Режим діє, доки його не змінить інший макрос або діалог екрана.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Секундомір</value></data>
@@ -4352,9 +4349,9 @@
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Скинути секундомір</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Скидання зупиняє секундомір і повертає його до нуля. Усі екрани клавіатур у режимі «Секундомір» показують той самий секундомір.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Зсунути зображення на екрані клавіатури</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Переміщує вікно кожного екрана клавіатури по зображенню, більшому за екран, наприклад по карті.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Переміщує вікно кожного екрана клавіатури, що подає дані в цей слот, по зображенню, більшому за екран, наприклад по карті.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Зсув зображень: {0} і {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Переміщує кожен тип екрана, що показує вибране зображення, більше за себе. Вікно зупиняється на краях зображення.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Переміщує кожен екран, що подає дані в цей слот і показує вибране зображення, більше за себе. Вікно зупиняється на краях зображення.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Екран</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Дія</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Напрямок</value></data>
@@ -4436,6 +4433,6 @@
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Найбільша сила, з якою Falcon діє на рукоятку, від 1 до 8 ньютонів.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>Н</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Скинути обмеження сили</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Калібрувати хід</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Вимірює, як далеко проходить рукоятка. Доведіть її до кожного краю ходу протягом чотирьох секунд обходу. Сили тим часом вимкнено.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>Калібрувати хід</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Вимірює, як далеко проходить рукоятка. Доведіть її до кожного краю ходу протягом чотирьох секунд обходу. Сили тим часом вимкнено.</value></data>
 </root>

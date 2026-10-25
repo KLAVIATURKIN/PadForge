@@ -323,14 +323,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>Очитавање аналогних тастатура</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Очитава колико је сваки тастер притиснут на аналогним тастатурама произвођача Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA и других, свака као засебан ред уређаја. Документација наводи сваки подржани модел. За Razer тастатуре мора бити покренут Razer Synapse. Већина осталих се очитава преко канала који користи њихов програм за подешавање, па затворите тај програм док је ово укључено.</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>Није пронађена ниједна подржана аналогна тастатура.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>Очитава се {0}.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>Покрените Razer Synapse да бисте очитали {0}.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>Покрените Razer Synapse да бисте очитали {0}.</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Очитавање Bliss-Box адаптера</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>Комуницира са Bliss-Box адаптерима преко њиховог API-ја. Ред сваког порта наводи контролер прикључен у њега и његова дугмад, очитава притисак на DualShock 2, вибрира преко сопствених команди мотора адаптера и нуди радње за Dreamcast екран, Controller Pak и број играча. Затворите Bliss-Box API Tool и DeviceBuddy док је ово укључено, јер они комуницирају са адаптером преко истог канала. Док је ово укључено, PadForge очитава сваки порт у распореду самог адаптера уместо преко SDL мапирања гејмпеда, па поново мапирајте порт након укључивања или искључивања ове опције.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Није пронађен ниједан Bliss-Box порт.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>Очитава се {0}.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>порт {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>повезивање</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>нема контролера</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>Тип {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Веб контролер</value></data>
@@ -4292,7 +4288,7 @@
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PS5 формат хаптичког PCM звука, 16-битни са знаком на 3 kHz, који је разјаснио 8-битно кодирање Bluetooth хаптике са знаком. AGPL-3.0, коришћено само као документација, не испоручује се AGPL код.</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Екрани тастатуре</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Црта на екранима уграђеним у Logitech GamePanel тастатуре и Mad Catz S.T.R.I.K.E. 7, као и на телефону преко Logitech Arx Control: профил, сат, време играња, штоперицу, слику или боју светлосне траке на DualShock 4 или DualSense контролеру. Тастери поред тих екрана постају дугмад у реду Тастери екрана тастатуре.</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Црта на екранима уграђеним у Logitech GamePanel тастатуре и Mad Catz S.T.R.I.K.E. 7, као и на телефону преко Logitech Arx Control: профил, сат, време играња, штоперицу, слику или боју светлосне траке на DualShock 4 или DualSense контролеру. Сваки екран има свој ред на страници Уређаји, где подешавате шта приказује. Тастери поред екрана су дугмад његовог реда.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Управљај екранима тастатуре</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Црта на екранима G15, G15 v2, G510, G13, Z-10, GamePanel и G19, на Arx Control и на Mad Catz S.T.R.I.K.E. 7. Док је покренут Logitech Gaming Software, PadForge црта преко њега. Без њега PadForge пише на једнобојне екране преко HID-а и повезује WinUSB са интерфејсом екрана тастатуре G19. Искључивање ове опције враћа екран G19 систему Windows.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Једнобојни екран…</value></data>
@@ -4332,7 +4328,8 @@
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>екран није пронађен</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, чека се боја светлосне траке</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, слика није изабрана</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Тастери екрана тастатуре</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Док Logitech Gaming Software ради, сваки екран ове врсте приказује слику подешену за {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Екран тастатуре</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Тастер екрана {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Тастер аплета</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Екран лево</value></data>
@@ -4351,7 +4348,7 @@
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Екран приказује сате и минуте откако је активни профил постао активан. Профил везан за програм неке игре постаје активан када се игра покрене, па је бројање за ту сесију. Под подразумеваним профилом броји се од покретања механизма.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Екран приказује слику коју изаберете, у њеној величини. Слика већа од екрана приказује се кроз прозор величине екрана, који помера макро Помери слику на екрану тастатуре. На S.T.R.I.K.E. 7 слику помера и прст превучен преко екрана.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Екран приказује штоперицу, коју макро Штоперица покреће, паузира и ресетује. Сви екрани приказују исту штоперицу.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Екран приказује боју светлосне траке на DualShock 4 или DualSense контролеру у најнижем слоту. Једнобојни екран приказује њену осветљеност као шару тачака. Док боја не стигне до светлосне траке, PadForge не приказује ништа.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Екран приказује боју светлосне траке на DualShock 4 или DualSense контролеру у најнижем слоту коме овај екран шаље улаз, или у најнижем слоту од свих ако не шаље ниједном. Једнобојни екран приказује њену осветљеност као шару тачака. Док боја не стигне до светлосне траке, PadForge не приказује ништа.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Слике (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Све датотеке (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Померање</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Померање X</value></data>
@@ -4363,11 +4360,11 @@
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Преузети SDK за S.T.R.I.K.E. 7 не одговара познатом SHA-256, зато ништа из њега није задржано.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Окружење Visual C++ 2008 и даље недостаје након покретања његовог инсталера.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Прикажи екран тастатуре</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Приказује слике на сваком екрану тастатуре изабране врсте, а затим враћа сваки екран у његов режим.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Приказује слике на сваком екрану тастатуре изабране врсте који шаље улаз овом слоту, а затим враћа сваки екран у његов режим.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Прикажи {0} слике: {1} × {2} мс, број понављања {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Слике се прилагођавају екрану: 160 са 43 црно-бела пиксела на једнобојном екрану, 320 са 240 на екрану G19 и 480 са 320 за Arx Control и S.T.R.I.K.E. 7. Најкраће трајање кадра је десетина секунде.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Режим екрана тастатуре</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Пребацује врсту екрана тастатуре у други режим и памти га као подешавање тог екрана.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Пребацује сваки екран тастатуре изабране врсте који шаље улаз овом слоту у други режим и памти га као подешавање тог екрана.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} приказује {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Режим остаје док га други макро или дијалог екрана не промени.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Штоперица</value></data>
@@ -4376,9 +4373,9 @@
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Ресетуј штоперицу</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Ресетовање зауставља штоперицу и враћа је на нулу. Сваки екран тастатуре у режиму Штоперица приказује исту штоперицу.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Помери слику на екрану тастатуре</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Помера прозор сваког екрана тастатуре преко слике веће од екрана, на пример за мапу.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Помера прозор сваког екрана тастатуре који шаље улаз овом слоту преко слике веће од екрана, на пример за мапу.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Помери слике за {0} × {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Помера сваку врсту екрана која приказује изабрану слику већу од себе. Прозор се зауставља на ивицама слике.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Помера сваки екран који шаље улаз овом слоту и приказује изабрану слику већу од себе. Прозор се зауставља на ивицама слике.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Екран</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Радња</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Смер</value></data>
@@ -4460,6 +4457,6 @@
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Највећа сила којом Falcon делује на ручку, од 1 до 8 њутна.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Ресетуј ограничење силе</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Калибриши домет</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Мери колико далеко ручка путује. Померајте је до сваке ивице њеног домета током четири секунде колико мерење траје. Силе за то време мирују.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>Калибриши домет</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Мери колико далеко ручка путује. Померајте је до сваке ивице њеног домета током четири секунде колико мерење траје. Силе за то време мирују.</value></data>
 </root>

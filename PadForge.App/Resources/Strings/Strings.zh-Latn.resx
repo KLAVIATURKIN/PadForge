@@ -308,14 +308,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>Dúqǔ mónǐ jiànpán</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Dúqǔ Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA děng chǎngshāng de mónǐ jiànpán shàng měi gè jiàn bèi ànxià de shēndù, měi gè jiànpán dōu dānlì chéng háng. Wéndàng lièchū le suǒyǒu zhīchí de xínghào. Razer jiànpán xūyào yùnxíng Razer Synapse. Qítā dà duōshù jiànpán tōngguò qí pèizhì ruǎnjiàn suǒ yòng de tōngdào dúqǔ, yīncǐ kāiqǐ cǐ xiàng shí qǐng guānbì pèizhì ruǎnjiàn.</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>Wèi zhǎodào shòu zhīchí de mónǐ jiànpán.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>Zhèngzài dúqǔ {0}.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>Qǐng qǐdòng Razer Synapse yǐ dúqǔ {0}.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>Qǐng qǐdòng Razer Synapse yǐ dúqǔ {0}.</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Dúqǔ Bliss-Box shìpèiqì</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>Tōngguò API yǔ Bliss-Box shìpèiqì tōngxìn. Měi gè duānkǒu de háng huì xiǎnshì suǒ chā de kòngzhìqì jí qí ànniǔ míngchēng, dúqǔ DualShock 2 de yālì, yòng shìpèiqì zìshēn de mǎdá mìnglìng zhèndòng, bìng tígōng Dreamcast píngmù, Controller Pak hé wánjiā biānhào cāozuò. Kāiqǐ cǐ xiàng shí qǐng guānbì Bliss-Box API Tool hé DeviceBuddy, yīnwèi tāmen tōngguò tóng yí tōngdào yǔ shìpèiqì tōngxìn. Kāiqǐ cǐ xiàng shí, PadForge àn shìpèiqì zìshēn de bùjú dúqǔ měi gè duānkǒu, ér bú shì tōngguò SDL de yóuxì shǒubǐng yìngshè, yīncǐ kāiguān cǐ xiàng hòu qǐng chóngxīn yìngshè duānkǒu.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Wèi zhǎodào Bliss-Box duānkǒu.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>Zhèngzài dúqǔ {0}.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>duānkǒu {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>zhèngzài liánjiē</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>wú kòngzhìqì</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>Lèixíng {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Wǎngyè kòngzhìqì</value></data>
@@ -4169,7 +4165,7 @@ Yào ràng PadForge xiànzài xièzài tāmen ma? Cǐ cāozuò xūyào tíshēng
   <data name="About_X1nputDesc" xml:space="preserve"><value>Xbox chōngjī bānjī de 9 zìjié bàogào jí qí xiěrù lùjìng, yóu araghon007 tígōng. MIT.</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PS5 chùgǎn PCM géshì, yǒu fúhào 16 wèi, 3 kHz, yóucǐ quèdìng le Lányá chùgǎn de yǒu fúhào 8 wèi biānmǎ. AGPL-3.0, jǐn zuòwéi wéndàng yuèdú, bù suí fù rènhé AGPL dàimǎ.</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Jiànpán píngmù</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Zài Logitech GamePanel jiànpán hé Mad Catz S.T.R.I.K.E. 7 nèizhì de píngmù shàng, yǐjí tōngguò Logitech Arx Control zài shǒujī shàng huìzhì: pèizhì wénjiàn, shízhōng, yóuxì shíjiān, miǎobiǎo, yī zhāng túpiàn, huò DualShock 4 huò DualSense dēngtiáo de yánsè. Zhèxiē píngmù pángbiān de jiàn huì chéngwéi “Jiànpán píngmù jiàn” yī háng zhōng de ànniǔ.</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Zài Logitech GamePanel jiànpán hé Mad Catz S.T.R.I.K.E. 7 nèizhì de píngmù shàng, yǐjí tōngguò Logitech Arx Control zài shǒujī shàng huìzhì: pèizhì wénjiàn, shízhōng, yóuxì shíjiān, miǎobiǎo, yī zhāng túpiàn, huò DualShock 4 huò DualSense dēngtiáo de yánsè. Měi gè píngmù zài “Shèbèi” yèmiàn shàng dōu yǒu zìjǐ de yī háng, nín zài nàli shèzhì tā xiǎnshì shénme. Píngmù pángbiān de jiàn shì gāi háng de ànniǔ.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Qūdòng jiànpán píngmù</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Zài Logitech G15, G15 v2, G510, G13, Z-10, GamePanel hé G19 de píngmù shàng, zài Arx Control shàng, yǐjí zài Mad Catz S.T.R.I.K.E. 7 shàng huìzhì. Logitech Gaming Software yùnxíng shí, PadForge tōngguò tā huìzhì. Méiyǒu tā shí, PadForge tōngguò HID xiě dānsè píngmù, bìng bǎ WinUSB bǎngdìng dào G19 píngmù de jiēkǒu. Guānbì cǐ xiàng huì bǎ G19 de píngmù huán gěi Windows.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Dānsè píngmù…</value></data>
@@ -4209,7 +4205,8 @@ Yào ràng PadForge xiànzài xièzài tāmen ma? Cǐ cāozuò xūyào tíshēng
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>wèi zhǎodào píngmù</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, děngdài dēngtiáo yánsè</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, wèi xuǎnzé túpiàn</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Jiànpán píngmù jiàn</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Logitech Gaming Software yùnxíng qījiān, zhè lèi píngmù de měi yī gè dōu xiǎnshì wèi {0} shèzhì de túpiàn.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Jiànpán píngmù</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Píngmù jiàn {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Xiǎo chéngxù jiàn</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Píngmù zuǒ</value></data>
@@ -4228,7 +4225,7 @@ Yào ràng PadForge xiànzài xièzài tāmen ma? Cǐ cāozuò xūyào tíshēng
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Píngmù xiǎnshì zìcóng dāngqián pèizhì wénjiàn qiēhuàn shēngxiào yǐlái de xiǎoshí hé fēnzhōng shù. Yǔ yóuxì chéngxù guānlián de pèizhì wénjiàn zài yóuxì qǐdòng shí shēngxiào, yīncǐ jìshí jiùshì nà yī cì yóuxì de shíjiān. Zài mòrèn pèizhì wénjiàn xià, cóng yǐnqíng qǐdòng shí kāishǐ jìshí.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Píngmù yǐ túpiàn běnshēn de dàxiǎo xiǎnshì nín xuǎnzé de túpiàn. Rúguǒ túpiàn bǐ píngmù dà, zhǐ xiǎnshì yī gè yǔ píngmù děng dà de chuāngkǒu, “Píngyí jiànpán píngmù túpiàn” hóng kěyǐ yídòng zhège chuāngkǒu. Zài S.T.R.I.K.E. 7 shàng, yòng shǒuzhǐ zài píngmù shàng tuōdòng yě néng yídòng tā.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Píngmù xiǎnshì miǎobiǎo, ér miǎobiǎo hóng kěyǐ qǐdòng, zàntíng hé chóngzhì tā. Suǒyǒu píngmù xiǎnshì tóng yī gè miǎobiǎo.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Píngmù xiǎnshì zuì dī cáowèi zhōng DualShock 4 huò DualSense dēngtiáo de yánsè. Dānsè píngmù yòng diǎnzhèn túàn xiǎnshì qí liángdù. Zài yánsè chuándì dào dēngtiáo zhīqián, PadForge bù xiǎnshì rènhé nèiróng.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Píngmù xiǎnshì gāi píngmù wèi zhī tígōng shūrù de zuì dī cáowèi zhōng DualShock 4 huò DualSense dēngtiáo de yánsè. Rúguǒ tā bù wèi rènhé cáowèi tígōng shūrù, zé xiǎnshì suǒyǒu cáowèi zhōng zuì dī de nàge. Dānsè píngmù yòng diǎnzhèn tú'àn xiǎnshì qí liángdù. Zài yánsè chuándì dào dēngtiáo zhīqián, PadForge bù xiǎnshì rènhé nèiróng.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Túpiàn (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Suǒyǒu wénjiàn (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Píngyí</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Píngyí X</value></data>
@@ -4240,11 +4237,11 @@ Yào ràng PadForge xiànzài xièzài tāmen ma? Cǐ cāozuò xūyào tíshēng
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>S.T.R.I.K.E. 7 SDK de xiàzài nèiróng yǔ yǐzhī de SHA-256 bù fú, yīncǐ wèi bǎoliú qízhōng de rènhé nèiróng.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Ānzhuāng chéngxù yùnxíng hòu, réng quēshǎo Visual C++ 2008 yùnxíngshí.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Xiǎnshì jiànpán píngmù</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Zài suǒ xuǎn lèixíng de měi gè jiànpán píngmù shàng bōfàng túpiàn, ránhòu shǐ měi gè píngmù huīfù dào gèzì de móshì.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Zài wèi cǐ cáowèi tígōng shūrù de suǒ xuǎn lèixíng de měi gè jiànpán píngmù shàng bōfàng túpiàn, ránhòu shǐ měi gè píngmù huīfù dào gèzì de móshì.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Xiǎnshì {0} túpiàn: {1} × {2} ms, chóngfù cìshù {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Túpiàn huì shìyìng píngmù: dānsè píngmù wèi 160 × 43 hēibái xiàngsù, G19 de píngmù wèi 320 × 240, Arx Control hé S.T.R.I.K.E. 7 wèi 480 × 320. Zuì duǎn de zhēn shíjiān shì shí fēn zhī yī miǎo.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Jiànpán píngmù móshì</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Bǎ mǒu lèi jiànpán píngmù qiēhuàn dào lìng yī zhǒng móshì, bìng bǎ tā bǎocún wèi gāi píngmù de shèzhì.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Bǎ wèi cǐ cáowèi tígōng shūrù de suǒ xuǎn lèixíng de měi gè jiànpán píngmù qiēhuàn dào lìng yī zhǒng móshì, bìng bǎ tā bǎocún wèi gāi píngmù de shèzhì.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} xiǎnshì {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Gāi móshì yīzhí bǎochí, zhídào lìng yī gè hóng huò gāi píngmù de duìhuàkuāng gēnggǎi tā.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Miǎobiǎo</value></data>
@@ -4253,9 +4250,9 @@ Yào ràng PadForge xiànzài xièzài tāmen ma? Cǐ cāozuò xūyào tíshēng
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Chóngzhì miǎobiǎo</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Chóngzhì huì tíngzhǐ miǎobiǎo bìng bǎ tā guīlíng. Suǒyǒu zài miǎobiǎo móshì xià de jiànpán píngmù xiǎnshì tóng yī gè miǎobiǎo.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Píngyí jiànpán píngmù túpiàn</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Zài bǐ píngmù dà de túpiàn shàng yídòng měi gè jiànpán píngmù de chuāngkǒu, kěyòng yú dìtú.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Zài bǐ píngmù dà de túpiàn shàng yídòng wèi cǐ cáowèi tígōng shūrù de měi gè jiànpán píngmù de chuāngkǒu, kěyòng yú dìtú.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Píngyí túpiàn {0}, {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Yídòng měi zhǒng xiǎnshì bǐ zìshēn dà de suǒ xuǎn túpiàn de píngmù. Chuāngkǒu zài túpiàn biānyuán tíngzhǐ.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Yídòng wèi cǐ cáowèi tígōng shūrù, qiě xiǎnshì bǐ zìshēn dà de suǒ xuǎn túpiàn de měi gè píngmù. Chuāngkǒu zài túpiàn biānyuán tíngzhǐ.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Píngmù</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Dòngzuò</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Fāngxiàng</value></data>
@@ -4337,6 +4334,6 @@ Yào ràng PadForge xiànzài xièzài tāmen ma? Cǐ cāozuò xūyào tíshēng
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Falcon shīyú wòbǐng de zuìdà lì, fànwéi 1 zhì 8 niúdùn.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Chóngzhì lì shàngxiàn</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Jiàozhǔn xíngchéng</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Cèliáng wòbǐng yídòng de jùlí. Zài sǎomiáo yùnxíng de sì miǎo nèi, bǎ tā yídòng dào xíngchéng de měi gè biānyuán. Qījiān lì huì tíngzhǐ.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>Jiàozhǔn xíngchéng</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Cèliáng wòbǐng yídòng de jùlí. Zài sǎomiáo yùnxíng de sì miǎo nèi, bǎ tā yídòng dào xíngchéng de měi gè biānyuán. Qījiān lì huì tíngzhǐ.</value></data>
 </root>

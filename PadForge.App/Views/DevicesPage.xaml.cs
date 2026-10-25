@@ -561,6 +561,14 @@ namespace PadForge.Views
         private void NativeArrows_Click(object sender, RoutedEventArgs e)
             => (DataContext as ViewModels.DevicesViewModel)?.RequestBlissBox(ViewModels.BlissBoxAction.NativeArrows);
 
+        // ── Keyboard screen (issue #519) and Novint Falcon (issue #521) ──
+
+        private void KeyboardScreen_Click(object sender, RoutedEventArgs e)
+            => (DataContext as ViewModels.DevicesViewModel)?.RequestKeyboardScreen();
+
+        private void FalconCalibrate_Click(object sender, RoutedEventArgs e)
+            => (DataContext as ViewModels.DevicesViewModel)?.RequestFalconCalibrate();
+
         // ── Handheld hidden buttons (issue #343) ──
 
         private void LearnHandheldButton_Click(object sender, RoutedEventArgs e)

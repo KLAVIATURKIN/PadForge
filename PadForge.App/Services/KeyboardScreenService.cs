@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Xml.Serialization;
@@ -13,10 +14,10 @@ using PadForge.Resources.Strings;
 
 namespace PadForge.Services
 {
-    /// <summary>What a kind of keyboard screen shows (issue #519). The VMU's
-    /// list in the VMU's order (<see cref="DreamcastScreenMode"/>), with a
-    /// stopwatch and the light bar's color appended. The settings file stores
-    /// the names, so none is renamed, and the values stay as numbered.</summary>
+    /// <summary>What a keyboard screen shows (issue #519). The VMU's list in
+    /// the VMU's order (<see cref="DreamcastScreenMode"/>), with a stopwatch
+    /// and the light bar's color appended. The settings file stores the
+    /// names, so none is renamed, and the values stay as numbered.</summary>
     public enum KeyboardScreenMode
     {
         /// <summary>Nothing from PadForge. Under LGS the screen stays with
@@ -34,8 +35,9 @@ namespace PadForge.Services
         Picture = 6,
         /// <summary>The timer the Stopwatch macro runs.</summary>
         Stopwatch = 7,
-        /// <summary>The color of the lowest slot's DualShock 4 or DualSense
-        /// light bar, @eVenent's light bar sync mode (discussion #507).</summary>
+        /// <summary>The color of a DualShock 4 or DualSense light bar in the
+        /// lowest slot the screen feeds, @eVenent's light bar sync mode
+        /// (discussion #507).</summary>
         Lightbar = 8,
     }
 
@@ -56,8 +58,9 @@ namespace PadForge.Services
         Down = 3,
     }
 
-    /// <summary>One kind of keyboard screen's choices (issue #519), kept in
-    /// the settings file by the kind.</summary>
+    /// <summary>One keyboard screen's choices (issue #519), kept in the
+    /// settings file by the screen's row, the way
+    /// <see cref="BlissBoxPortData"/> keeps a Dreamcast pad's.</summary>
     public class KeyboardScreenData
     {
         /// <summary>The mode a screen shows until the user picks another: the
@@ -65,7 +68,8 @@ namespace PadForge.Services
         /// else is set.</summary>
         public const KeyboardScreenMode DefaultMode = KeyboardScreenMode.Lightbar;
 
-        [XmlAttribute] public KeyboardScreenKind Kind { get; set; }
+        /// <summary>The screen's row, its InstanceGuid.</summary>
+        [XmlAttribute] public string Device { get; set; } = string.Empty;
 
         [XmlElement] public KeyboardScreenMode Mode { get; set; } = DefaultMode;
 
@@ -81,24 +85,25 @@ namespace PadForge.Services
         [XmlIgnore]
         internal bool IsDefault => Mode == DefaultMode && string.IsNullOrEmpty(Picture) && PanX == 0 && PanY == 0;
 
-        /// <summary>The loaded list with undefined kinds and entries left at
-        /// every default dropped, a mode the file names that no build knows
+        /// <summary>The loaded list with unreadable devices and entries left
+        /// at every default dropped, a mode the file names that no build knows
         /// put back to the default, a negative pan put to zero, and of a
-        /// kind's other entries the first one kept, BlissBoxPortData's
+        /// device's other entries the first one kept, BlissBoxPortData's
         /// cleanup.</summary>
         internal static List<KeyboardScreenData> Normalize(KeyboardScreenData[] screens)
         {
             var list = new List<KeyboardScreenData>();
             if (screens == null) return list;
-            var seen = new HashSet<KeyboardScreenKind>();
+            var seen = new HashSet<Guid>();
             foreach (var screen in screens)
             {
-                if (screen == null || !Enum.IsDefined(typeof(KeyboardScreenKind), screen.Kind)) continue;
+                if (screen == null || !Guid.TryParse(screen.Device, out var guid)) continue;
                 if (!Enum.IsDefined(typeof(KeyboardScreenMode), screen.Mode)) screen.Mode = DefaultMode;
                 if (screen.PanX < 0) screen.PanX = 0;
                 if (screen.PanY < 0) screen.PanY = 0;
                 if (string.IsNullOrWhiteSpace(screen.Picture)) screen.Picture = null;
-                if (screen.IsDefault || !seen.Add(screen.Kind)) continue;
+                if (screen.IsDefault || !seen.Add(guid)) continue;
+                screen.Device = guid.ToString("D");
                 list.Add(screen);
             }
             return list;
@@ -106,13 +111,15 @@ namespace PadForge.Services
     }
 
     /// <summary>
-    /// The keyboard screens (issue #519): a mode per kind of screen, the
-    /// macros' shows, stopwatch and pan, and the engine host that writes the
-    /// pictures. <see cref="DreamcastScreenService"/>'s shape: ticked on the
-    /// UI thread, where WPF draws, from the UI timer while the engine runs,
-    /// whether or not PadForge has focus, with macro requests queued from the
-    /// poll thread. The engine's stop resets it (<see cref="Reset"/>), which
-    /// closes the host and the screens' sessions.
+    /// The keyboard screens (issue #519): a mode per screen, kept by the
+    /// screen's row, the macros' shows, stopwatch and pan, and the engine
+    /// host that writes the pictures. <see cref="DreamcastScreenService"/>'s
+    /// shape: ticked on the UI thread, where WPF draws, from the UI timer
+    /// while the engine runs, whether or not PadForge has focus, with macro
+    /// requests queued from the poll thread. A macro plays on the screens
+    /// whose rows feed its slot, the Dreamcast macro's rule. The engine's
+    /// stop resets it (<see cref="Reset"/>), which closes the host and the
+    /// screens' sessions.
     ///
     /// <para>A Show Keyboard Screen macro plays over whatever the mode shows
     /// and hands the screen back when it ends.</para>
@@ -133,10 +140,10 @@ namespace PadForge.Services
         internal const string Strike7LibrarySha256 = "86808D4FCE73E05D06CE01A1269D8FD711F45B8A31A6BE0AF648DCF8F1E9194C";
 
         private abstract record Request;
-        private sealed record ShowRequest(KeyboardScreenKind Kind, string Frames, int FrameMs, int Repeat) : Request;
-        private sealed record ModeRequest(KeyboardScreenKind Kind, KeyboardScreenMode Mode) : Request;
+        private sealed record ShowRequest(int PadIndex, KeyboardScreenKind Kind, string Frames, int FrameMs, int Repeat) : Request;
+        private sealed record ModeRequest(int PadIndex, KeyboardScreenKind Kind, KeyboardScreenMode Mode) : Request;
         private sealed record StopwatchRequest(KeyboardScreenStopwatchAction Action) : Request;
-        private sealed record PanRequest(KeyboardScreenPanDirection Direction, int Step) : Request;
+        private sealed record PanRequest(int PadIndex, KeyboardScreenPanDirection Direction, int Step) : Request;
 
         private static readonly ConcurrentQueue<Request> _requests = new();
 
@@ -144,14 +151,14 @@ namespace PadForge.Services
         private readonly Action _markDirty;
         private readonly Action<string> _log;
         private KeyboardScreenHost _host;
-        private readonly Dictionary<KeyboardScreenKind, KeyboardScreenShow> _shows = new();
-        /// <summary>Each kind's last composed picture and what it shows. A
+        private readonly Dictionary<string, KeyboardScreenShow> _shows = new(StringComparer.Ordinal);
+        /// <summary>Each screen's last composed picture and what it shows. A
         /// frame of the larger screens is over half a megabyte and the tick
         /// runs four times a second, so a picture is drawn again only when
         /// what it shows changes.</summary>
-        private readonly Dictionary<KeyboardScreenKind, (string What, byte[] Frame)> _composed = new();
+        private readonly Dictionary<string, (string What, byte[] Frame)> _composed = new(StringComparer.Ordinal);
         private readonly Dictionary<string, BitmapSource> _pictures = new(StringComparer.OrdinalIgnoreCase);
-        private readonly Dictionary<KeyboardScreenKind, Shown> _shown = new();
+        private readonly Dictionary<string, Shown> _shown = new(StringComparer.Ordinal);
         private long _nextTick;
         private bool _playStarted;
         private string _playProfile;
@@ -162,8 +169,8 @@ namespace PadForge.Services
         private static bool _stopwatchRunning;
         private static long _stopwatchElapsed, _stopwatchSince;
 
-        /// <summary>Why a kind shows nothing in a mode that shows something,
-        /// for its status line.</summary>
+        /// <summary>Why a screen shows nothing in a mode that shows something,
+        /// for its line.</summary>
         internal enum Blank { None, Off, NoLightbar, NoPicture }
 
         private readonly record struct Shown(Blank Blank);
@@ -186,22 +193,24 @@ namespace PadForge.Services
             _requests.Enqueue(request);
         }
 
-        /// <summary>Show Keyboard Screen: frames over the kind's mode.</summary>
-        public static void RequestShow(KeyboardScreenKind kind, string frames, int frameMs, int repeat)
-            => Enqueue(new ShowRequest(kind, frames, frameMs, repeat));
+        /// <summary>Show Keyboard Screen: frames over the mode of each screen
+        /// of the kind that feeds the slot.</summary>
+        public static void RequestShow(int padIndex, KeyboardScreenKind kind, string frames, int frameMs, int repeat)
+            => Enqueue(new ShowRequest(padIndex, kind, frames, frameMs, repeat));
 
-        /// <summary>Keyboard Screen Mode: the kind's mode, kept as its
-        /// setting.</summary>
-        public static void RequestMode(KeyboardScreenKind kind, KeyboardScreenMode mode)
-            => Enqueue(new ModeRequest(kind, mode));
+        /// <summary>Keyboard Screen Mode: the mode of each screen of the kind
+        /// that feeds the slot, kept as its setting.</summary>
+        public static void RequestMode(int padIndex, KeyboardScreenKind kind, KeyboardScreenMode mode)
+            => Enqueue(new ModeRequest(padIndex, kind, mode));
 
         public static void RequestStopwatch(KeyboardScreenStopwatchAction action)
             => Enqueue(new StopwatchRequest(action));
 
-        /// <summary>Pan Keyboard Screen Picture: moves every kind's window over
-        /// its picture, stopping at the picture's edges.</summary>
-        public static void RequestPan(KeyboardScreenPanDirection direction, int step)
-            => Enqueue(new PanRequest(direction, step));
+        /// <summary>Pan Keyboard Screen Picture: moves the window of each
+        /// screen that feeds the slot over its picture, stopping at the
+        /// picture's edges.</summary>
+        public static void RequestPan(int padIndex, KeyboardScreenPanDirection direction, int step)
+            => Enqueue(new PanRequest(padIndex, direction, step));
 
         internal static int PendingRequests => _requests.Count;
 
@@ -214,21 +223,22 @@ namespace PadForge.Services
         //  Settings
         // ─────────────────────────────────────────────
 
-        public KeyboardScreenData Get(KeyboardScreenKind kind)
+        public KeyboardScreenData Get(Guid device)
         {
+            string key = device.ToString("D");
             foreach (var screen in _settings.KeyboardScreens)
-                if (screen.Kind == kind) return screen;
+                if (string.Equals(screen.Device, key, StringComparison.OrdinalIgnoreCase)) return screen;
             return null;
         }
 
-        /// <summary>Changes a kind's choices, drops an entry left at every
+        /// <summary>Changes a screen's choices, drops an entry left at every
         /// default, and marks the settings to save.</summary>
-        public void Update(KeyboardScreenKind kind, Action<KeyboardScreenData> change)
+        public void Update(Guid device, Action<KeyboardScreenData> change)
         {
-            var screen = Get(kind);
+            var screen = Get(device);
             if (screen == null)
             {
-                screen = new KeyboardScreenData { Kind = kind };
+                screen = new KeyboardScreenData { Device = device.ToString("D") };
                 _settings.KeyboardScreens.Add(screen);
             }
             change(screen);
@@ -237,6 +247,18 @@ namespace PadForge.Services
             _composed.Clear();
             _nextTick = 0;
             _markDirty();
+        }
+
+        /// <summary>The screens present now, empty while the service is not
+        /// running.</summary>
+        internal KeyboardScreenInfo[] Screens => _host?.Screens ?? Array.Empty<KeyboardScreenInfo>();
+
+        /// <summary>The present screen a row is, or null.</summary>
+        internal KeyboardScreenInfo ScreenOf(Guid row)
+        {
+            foreach (var screen in Screens)
+                if (screen.RowGuid == row) return screen;
+            return null;
         }
 
         // ─────────────────────────────────────────────
@@ -252,21 +274,31 @@ namespace PadForge.Services
             if (now < _nextTick) return;
 
             EnsureHost();
-            while (_requests.TryDequeue(out var request)) Apply(request, now);
+            var screens = _host.Screens;
+            while (_requests.TryDequeue(out var request)) Apply(request, screens, now);
             TrackPlayTime(now);
 
             while (_host.TryTakeDrag(out int dx, out int dy))
-                PanKind(KeyboardScreenKind.Strike7, dx, dy);
+            {
+                var strike7 = Array.Find(screens, s => s.Kind == KeyboardScreenKind.Strike7);
+                if (strike7 != null) PanScreen(strike7, dx, dy);
+            }
 
             _host.SetStrike7Library(Strike7LibraryPath(out string sha256), sha256);
-            foreach (var kind in KeyboardScreenFormats.Kinds)
+            var present = new HashSet<string>(StringComparer.Ordinal);
+            foreach (var screen in screens)
             {
-                byte[] frame = ShowFrame(kind, now);
+                present.Add(screen.Id);
+                byte[] frame = ShowFrame(screen.Id, now);
                 var blank = Blank.None;
-                frame ??= Compose(kind, Get(kind), now, out blank);
-                _shown[kind] = new Shown(blank);
-                _host.Publish(kind, frame);
+                frame ??= Compose(screen, Get(screen.RowGuid), now, out blank);
+                _shown[screen.Id] = new Shown(blank);
+                _host.Publish(screen.Id, frame);
             }
+            // A screen that left takes its show and its picture with it.
+            foreach (string gone in _shows.Keys.Where(id => !present.Contains(id)).ToList()) _shows.Remove(gone);
+            foreach (string gone in _composed.Keys.Where(id => !present.Contains(id)).ToList()) _composed.Remove(gone);
+            foreach (string gone in _shown.Keys.Where(id => !present.Contains(id)).ToList()) _shown.Remove(gone);
             _nextTick = now + (_shows.Count > 0 ? 0 : TickMs);
         }
 
@@ -307,24 +339,29 @@ namespace PadForge.Services
             _composed.Clear();
             _playStarted = false;
             DropRequests();
+            KeyboardScreensRuntime.Screens = Array.Empty<KeyboardScreenInfo>();
             KeyboardScreenKeys.ClearAll();
             LightbarColors.Clear();
         }
 
         internal bool Running => _host != null;
 
-        private void Apply(Request request, long now)
+        private void Apply(Request request, KeyboardScreenInfo[] screens, long now)
         {
             switch (request)
             {
                 case ShowRequest show:
                 {
                     var frames = DecodeFrames(show.Kind, show.Frames);
-                    if (frames.Count > 0) _shows[show.Kind] = new KeyboardScreenShow(frames, show.FrameMs, show.Repeat, now);
+                    if (frames.Count == 0) break;
+                    foreach (var screen in Feeding(screens, show.PadIndex))
+                        if (screen.Kind == show.Kind)
+                            _shows[screen.Id] = new KeyboardScreenShow(frames, show.FrameMs, show.Repeat, now);
                     break;
                 }
                 case ModeRequest mode when Enum.IsDefined(typeof(KeyboardScreenMode), mode.Mode):
-                    Update(mode.Kind, d => d.Mode = mode.Mode);
+                    foreach (var screen in Feeding(screens, mode.PadIndex))
+                        if (screen.Kind == mode.Kind) Update(screen.RowGuid, d => d.Mode = mode.Mode);
                     break;
                 case StopwatchRequest stopwatch:
                     Stopwatch(stopwatch.Action, now);
@@ -339,24 +376,52 @@ namespace PadForge.Services
                         KeyboardScreenPanDirection.Up => (0, -step),
                         _ => (0, step),
                     };
-                    foreach (var kind in KeyboardScreenFormats.Kinds) PanKind(kind, dx, dy);
+                    foreach (var screen in Feeding(screens, pan.PadIndex)) PanScreen(screen, dx, dy);
                     break;
                 }
             }
         }
 
-        /// <summary>Moves a kind's window over its picture, held to the
-        /// picture's edges. A kind with no picture is left as it is.</summary>
-        private void PanKind(KeyboardScreenKind kind, int dx, int dy)
+        /// <summary>The screens whose rows feed the slot.</summary>
+        internal static List<KeyboardScreenInfo> Feeding(IReadOnlyList<KeyboardScreenInfo> screens, int padIndex)
+            => Feeding(screens, padIndex, SlotsFed);
+
+        /// <summary>The same, with the slots each row feeds given.</summary>
+        internal static List<KeyboardScreenInfo> Feeding(IReadOnlyList<KeyboardScreenInfo> screens, int padIndex,
+            Func<Guid, HashSet<int>> slotsOf)
         {
-            var data = Get(kind);
+            var list = new List<KeyboardScreenInfo>();
+            foreach (var screen in screens)
+                if (slotsOf(screen.RowGuid).Contains(padIndex)) list.Add(screen);
+            return list;
+        }
+
+        /// <summary>The slots a row feeds.</summary>
+        internal static HashSet<int> SlotsFed(Guid row)
+        {
+            var slots = new HashSet<int>();
+            var settings = SettingsManager.UserSettings;
+            if (settings == null) return slots;
+            lock (settings.SyncRoot)
+            {
+                foreach (var us in settings.Items)
+                    if (us != null && us.InstanceGuid == row && us.MapTo >= 0) slots.Add(us.MapTo);
+            }
+            return slots;
+        }
+
+        /// <summary>Moves a screen's window over its picture, held to the
+        /// picture's edges. A screen with no picture is left as it is.</summary>
+        private void PanScreen(KeyboardScreenInfo screen, int dx, int dy)
+        {
+            var data = Get(screen.RowGuid);
             var picture = Picture(data?.Picture);
             if (picture == null) return;
-            var (maxX, maxY) = KeyboardScreenRenderer.PanLimits(picture, kind);
+            var (maxX, maxY) = KeyboardScreenRenderer.PanLimits(picture, screen.Kind);
             int x = Math.Clamp(data.PanX + dx, 0, maxX), y = Math.Clamp(data.PanY + dy, 0, maxY);
             if (x == data.PanX && y == data.PanY) return;
             var pictures = new Dictionary<string, BitmapSource>(_pictures, StringComparer.OrdinalIgnoreCase);
-            Update(kind, d =>
+            Update(screen.RowGuid, d =>
             {
                 d.PanX = x;
                 d.PanY = y;
@@ -396,11 +461,11 @@ namespace PadForge.Services
                 return TimeSpan.FromMilliseconds(Math.Max(0, _stopwatchElapsed + (_stopwatchRunning ? now - _stopwatchSince : 0)));
         }
 
-        private byte[] ShowFrame(KeyboardScreenKind kind, long now)
+        private byte[] ShowFrame(string screen, long now)
         {
-            if (!_shows.TryGetValue(kind, out var show)) return null;
+            if (!_shows.TryGetValue(screen, out var show)) return null;
             var frame = show.Frame(now);
-            if (frame == null) _shows.Remove(kind);
+            if (frame == null) _shows.Remove(screen);
             return frame;
         }
 
@@ -408,45 +473,46 @@ namespace PadForge.Services
         //  What a mode shows
         // ─────────────────────────────────────────────
 
-        /// <summary>The picture a kind's mode shows now, or null for nothing
+        /// <summary>The picture a screen's mode shows now, or null for nothing
         /// with <paramref name="blank"/> saying why.</summary>
-        internal byte[] Compose(KeyboardScreenKind kind, KeyboardScreenData data, long now, out Blank blank)
+        internal byte[] Compose(KeyboardScreenInfo screen, KeyboardScreenData data, long now, out Blank blank)
         {
             blank = Blank.None;
+            var kind = screen.Kind;
             var mode = data?.Mode ?? KeyboardScreenData.DefaultMode;
             switch (mode)
             {
                 case KeyboardScreenMode.ProfileName:
-                    return Text(kind, DreamcastScreenService.ActiveProfileName());
+                    return Text(screen, DreamcastScreenService.ActiveProfileName());
                 case KeyboardScreenMode.ProfileNumber:
-                    return Text(kind, DreamcastScreenService.ActiveProfileNumber().ToString(CultureInfo.InvariantCulture));
+                    return Text(screen, DreamcastScreenService.ActiveProfileNumber().ToString(CultureInfo.InvariantCulture));
                 case KeyboardScreenMode.ProfilePicture:
                 {
                     string path = ActiveProfilePicture();
                     var picture = Picture(path);
                     return picture != null
-                        ? Memo(kind, "fitted|" + path, () => KeyboardScreenRenderer.RenderFitted(picture, kind))
-                        : Text(kind, DreamcastScreenService.ActiveProfileName());
+                        ? Memo(screen.Id, "fitted|" + path, () => KeyboardScreenRenderer.RenderFitted(picture, kind))
+                        : Text(screen, DreamcastScreenService.ActiveProfileName());
                 }
                 case KeyboardScreenMode.Clock:
-                    return Text(kind, DateTime.Now.ToString("HH:mm", CultureInfo.InvariantCulture));
+                    return Text(screen, DateTime.Now.ToString("HH:mm", CultureInfo.InvariantCulture));
                 case KeyboardScreenMode.PlayTime:
-                    return Text(kind, DreamcastScreenService.FormatPlayTime(
+                    return Text(screen, DreamcastScreenService.FormatPlayTime(
                         TimeSpan.FromMilliseconds(Math.Max(0, now - (_playStarted ? _playStart : now)))));
                 case KeyboardScreenMode.Picture:
                 {
                     var picture = Picture(data?.Picture);
                     if (picture != null)
-                        return Memo(kind, string.Format(CultureInfo.InvariantCulture, "window|{0}|{1}|{2}", data.Picture, data.PanX, data.PanY),
+                        return Memo(screen.Id, string.Format(CultureInfo.InvariantCulture, "window|{0}|{1}|{2}", data.Picture, data.PanX, data.PanY),
                             () => KeyboardScreenRenderer.RenderWindow(picture, kind, data.PanX, data.PanY));
                     blank = Blank.NoPicture;
                     return null;
                 }
                 case KeyboardScreenMode.Stopwatch:
-                    return Text(kind, FormatStopwatch(StopwatchTime(now)));
+                    return Text(screen, FormatStopwatch(StopwatchTime(now)));
                 case KeyboardScreenMode.Lightbar:
-                    if (LightbarColors.TryGetLowest(IsOnItsSlot, out var color))
-                        return Memo(kind, string.Format(CultureInfo.InvariantCulture, "color|{0}|{1}|{2}", color.R, color.G, color.B),
+                    if (LightbarColors.TryGetLowest(IsOnItsSlot, SlotFilter(screen.RowGuid), out var color))
+                        return Memo(screen.Id, string.Format(CultureInfo.InvariantCulture, "color|{0}|{1}|{2}", color.R, color.G, color.B),
                             () => KeyboardScreenRenderer.RenderColor(color.R, color.G, color.B, kind));
                     blank = Blank.NoLightbar;
                     return null;
@@ -454,6 +520,14 @@ namespace PadForge.Services
                     blank = Blank.Off;
                     return null;
             }
+        }
+
+        /// <summary>The slots whose light bar a screen follows: the ones its
+        /// row feeds, or every slot when it feeds none.</summary>
+        internal static Func<int, bool> SlotFilter(Guid row)
+        {
+            var slots = SlotsFed(row);
+            return slots.Count == 0 ? null : slots.Contains;
         }
 
         /// <summary>Whether a pad whose light bar color is on record is still
@@ -483,17 +557,17 @@ namespace PadForge.Services
                 ? string.Format(CultureInfo.InvariantCulture, "{0}:{1:D2}:{2:D2}", (int)time.TotalHours, time.Minutes, time.Seconds)
                 : string.Format(CultureInfo.InvariantCulture, "{0}:{1:D2}", time.Minutes, time.Seconds);
 
-        private byte[] Text(KeyboardScreenKind kind, string text)
-            => Memo(kind, "text|" + text, () => KeyboardScreenRenderer.RenderText(text, kind));
+        private byte[] Text(KeyboardScreenInfo screen, string text)
+            => Memo(screen.Id, "text|" + text, () => KeyboardScreenRenderer.RenderText(text, screen.Kind));
 
-        /// <summary>A kind's picture of <paramref name="what"/>, drawn only
-        /// when the kind last showed something else.</summary>
-        private byte[] Memo(KeyboardScreenKind kind, string what, Func<byte[]> draw)
+        /// <summary>A screen's picture of <paramref name="what"/>, drawn only
+        /// when the screen last showed something else.</summary>
+        private byte[] Memo(string screen, string what, Func<byte[]> draw)
         {
-            if (_composed.TryGetValue(kind, out var last) && string.Equals(last.What, what, StringComparison.Ordinal))
+            if (_composed.TryGetValue(screen, out var last) && string.Equals(last.What, what, StringComparison.Ordinal))
                 return last.Frame;
             byte[] frame = draw();
-            _composed[kind] = (what, frame);
+            _composed[screen] = (what, frame);
             return frame;
         }
 
@@ -515,11 +589,12 @@ namespace PadForge.Services
             return SettingsManager.Profiles.Find(p => p.Id == id)?.KeyboardScreenPicture;
         }
 
-        /// <summary>What a kind's dialog previews for a mode and a picture,
+        /// <summary>What a screen's dialog previews for a mode and a picture,
         /// drawn the way the screen draws it.</summary>
-        internal byte[] Preview(KeyboardScreenKind kind, KeyboardScreenData data, string profilePicture, string profileName)
+        internal byte[] Preview(KeyboardScreenInfo screen, KeyboardScreenData data, string profilePicture, string profileName)
         {
             long now = Environment.TickCount64;
+            var kind = screen.Kind;
             if (data?.Mode == KeyboardScreenMode.ProfilePicture)
             {
                 var picture = KeyboardScreenRenderer.LoadPicture(profilePicture);
@@ -532,52 +607,98 @@ namespace PadForge.Services
                 var picture = KeyboardScreenRenderer.LoadPicture(data.Picture);
                 return picture == null ? null : KeyboardScreenRenderer.RenderWindow(picture, kind, data.PanX, data.PanY);
             }
-            return Compose(kind, data, now, out _);
+            // The screen's own picture stays as the screen shows it.
+            bool had = _composed.TryGetValue(screen.Id, out var kept);
+            var frame = Compose(screen, data, now, out _);
+            if (had) _composed[screen.Id] = kept;
+            else _composed.Remove(screen.Id);
+            return frame;
         }
 
-        /// <summary>A kind's status line: what draws it, or why nothing
-        /// does. Empty while the service is not running.</summary>
-        internal string StatusLine(KeyboardScreenKind kind)
+        /// <summary>A screen's line for its panel on the Devices page: what
+        /// draws it, or why nothing does, and when Logitech Gaming Software
+        /// shows one picture on every screen of its kind, whose. Empty while
+        /// the service is not running.</summary>
+        internal string StatusLine(KeyboardScreenInfo screen)
+        {
+            if (_host == null || screen == null) return string.Empty;
+            var s = Strings.Instance;
+            var culture = CultureInfo.CurrentCulture;
+            string line;
+            var shown = _shown.TryGetValue(screen.Id, out var sh) ? sh.Blank : Blank.None;
+            var status = _host.StatusOf(screen.Id);
+            if (shown == Blank.Off)
+                line = string.Format(culture, s.KeyboardScreens_Status_Line_Format, KindName(screen.Kind), s.KeyboardScreens_Status_Off);
+            else if (shown != Blank.None && status.Route is KeyboardScreenRoute.ArxNotRunning or KeyboardScreenRoute.Strike7NotRunning)
+            {
+                // A vendor applet is closed while its screen has nothing to
+                // show, so its route says nothing about the vendor's
+                // software. The line names the wait alone.
+                line = string.Format(culture, shown == Blank.NoLightbar
+                    ? s.KeyboardScreens_Status_NoLightbar_Format : s.KeyboardScreens_Status_NoPicture_Format, KindName(screen.Kind));
+            }
+            else
+            {
+                string what = RouteText(status);
+                if (shown == Blank.NoLightbar) what = string.Format(culture, s.KeyboardScreens_Status_NoLightbar_Format, what);
+                else if (shown == Blank.NoPicture) what = string.Format(culture, s.KeyboardScreens_Status_NoPicture_Format, what);
+                line = string.Format(culture, s.KeyboardScreens_Status_Line_Format, KindName(screen.Kind), what);
+            }
+            var leader = _host.SharedLeader(screen.Kind);
+            if (leader != null)
+                line += Environment.NewLine + string.Format(culture, s.KeyboardScreens_LgsShared_Format, leader.Name);
+            return line;
+        }
+
+        /// <summary>The Settings card's lines: only what belongs to the
+        /// feature as a whole. Arx Control's and the S.T.R.I.K.E. 7's
+        /// libraries while neither has a screen, and no screen found when
+        /// there is none at all. Each screen's own line is on its row. Empty
+        /// while the service is not running.</summary>
+        internal string SubsystemLines()
         {
             if (_host == null) return string.Empty;
             var s = Strings.Instance;
             var culture = CultureInfo.CurrentCulture;
-            string what;
-            var shown = _shown.TryGetValue(kind, out var sh) ? sh.Blank : Blank.None;
-            if (shown == Blank.Off) what = s.KeyboardScreens_Status_Off;
-            else
-            {
-                var status = _host.StatusOf(kind);
-                what = status.Route switch
-                {
-                    KeyboardScreenRoute.Lgs => s.KeyboardScreens_Status_Lgs,
-                    KeyboardScreenRoute.Direct => string.Format(culture, s.KeyboardScreens_Status_Direct_Format, status.Detail),
-                    KeyboardScreenRoute.G19Preparing => s.KeyboardScreens_Status_G19Preparing,
-                    KeyboardScreenRoute.G19OtherDriver => string.Format(culture, s.KeyboardScreens_Status_G19OtherDriver_Format, status.Detail),
-                    KeyboardScreenRoute.ArxNoLibrary => s.KeyboardScreens_Status_ArxNoLibrary,
-                    KeyboardScreenRoute.ArxNotRunning => s.KeyboardScreens_Status_ArxNotRunning,
-                    KeyboardScreenRoute.ArxWaiting => s.KeyboardScreens_Status_ArxWaiting,
-                    KeyboardScreenRoute.ArxOnPhone => s.KeyboardScreens_Status_ArxOnPhone,
-                    KeyboardScreenRoute.Strike7NoLibrary => s.KeyboardScreens_Status_Strike7NoLibrary,
-                    KeyboardScreenRoute.Strike7Changed => s.KeyboardScreens_Status_Strike7Changed,
-                    KeyboardScreenRoute.Strike7NeedsRuntime => s.KeyboardScreens_Status_Strike7NeedsRuntime,
-                    KeyboardScreenRoute.Strike7LoadFailed => s.KeyboardScreens_Status_Strike7LoadFailed,
-                    KeyboardScreenRoute.Strike7NotRunning => s.KeyboardScreens_Status_Strike7NotRunning,
-                    KeyboardScreenRoute.Strike7Waiting => s.KeyboardScreens_Status_Strike7Waiting,
-                    KeyboardScreenRoute.Strike7Showing => s.KeyboardScreens_Status_Strike7Showing,
-                    KeyboardScreenRoute.NotOnArm64 => s.Common_NotAvailableOnArm64,
-                    _ => s.KeyboardScreens_Status_NotFound,
-                };
-                if (shown == Blank.NoLightbar) what = string.Format(culture, s.KeyboardScreens_Status_NoLightbar_Format, what);
-                else if (shown == Blank.NoPicture) what = string.Format(culture, s.KeyboardScreens_Status_NoPicture_Format, what);
-            }
-            return string.Format(culture, s.KeyboardScreens_Status_Line_Format, KindName(kind), what);
+            var screens = _host.Screens;
+            var lines = new List<string>();
+            if (!Array.Exists(screens, x => x.Kind == KeyboardScreenKind.Arx))
+                lines.Add(string.Format(culture, s.KeyboardScreens_Status_Line_Format,
+                    KindName(KeyboardScreenKind.Arx), RouteText(_host.ArxStatus)));
+            if (!Array.Exists(screens, x => x.Kind == KeyboardScreenKind.Strike7))
+                lines.Add(string.Format(culture, s.KeyboardScreens_Status_Line_Format,
+                    KindName(KeyboardScreenKind.Strike7), RouteText(_host.Strike7Status)));
+            if (screens.Length == 0)
+                lines.Add(string.Format(culture, s.KeyboardScreens_Status_Line_Format,
+                    s.Settings_KeyboardScreens_Title, s.KeyboardScreens_Status_NotFound));
+            return string.Join(Environment.NewLine, lines);
         }
 
-        /// <summary>The route a kind's screen takes now, for the Settings
-        /// card's buttons.</summary>
-        internal KeyboardScreenRoute RouteOf(KeyboardScreenKind kind)
-            => _host?.StatusOf(kind).Route ?? KeyboardScreenRoute.NotFound;
+        private static string RouteText(KeyboardScreenStatus status)
+        {
+            var s = Strings.Instance;
+            var culture = CultureInfo.CurrentCulture;
+            return status.Route switch
+            {
+                KeyboardScreenRoute.Lgs => s.KeyboardScreens_Status_Lgs,
+                KeyboardScreenRoute.Direct => string.Format(culture, s.KeyboardScreens_Status_Direct_Format, status.Detail),
+                KeyboardScreenRoute.G19Preparing => s.KeyboardScreens_Status_G19Preparing,
+                KeyboardScreenRoute.G19OtherDriver => string.Format(culture, s.KeyboardScreens_Status_G19OtherDriver_Format, status.Detail),
+                KeyboardScreenRoute.ArxNoLibrary => s.KeyboardScreens_Status_ArxNoLibrary,
+                KeyboardScreenRoute.ArxNotRunning => s.KeyboardScreens_Status_ArxNotRunning,
+                KeyboardScreenRoute.ArxWaiting => s.KeyboardScreens_Status_ArxWaiting,
+                KeyboardScreenRoute.ArxOnPhone => s.KeyboardScreens_Status_ArxOnPhone,
+                KeyboardScreenRoute.Strike7NoLibrary => s.KeyboardScreens_Status_Strike7NoLibrary,
+                KeyboardScreenRoute.Strike7Changed => s.KeyboardScreens_Status_Strike7Changed,
+                KeyboardScreenRoute.Strike7NeedsRuntime => s.KeyboardScreens_Status_Strike7NeedsRuntime,
+                KeyboardScreenRoute.Strike7LoadFailed => s.KeyboardScreens_Status_Strike7LoadFailed,
+                KeyboardScreenRoute.Strike7NotRunning => s.KeyboardScreens_Status_Strike7NotRunning,
+                KeyboardScreenRoute.Strike7Waiting => s.KeyboardScreens_Status_Strike7Waiting,
+                KeyboardScreenRoute.Strike7Showing => s.KeyboardScreens_Status_Strike7Showing,
+                KeyboardScreenRoute.NotOnArm64 => s.Common_NotAvailableOnArm64,
+                _ => s.KeyboardScreens_Status_NotFound,
+            };
+        }
 
         internal static string KindName(KeyboardScreenKind kind)
         {
@@ -588,6 +709,20 @@ namespace PadForge.Services
                 KeyboardScreenKind.Color => s.KeyboardScreens_Kind_Color,
                 KeyboardScreenKind.Arx => s.KeyboardScreens_Kind_Arx,
                 _ => s.KeyboardScreens_Kind_Strike7,
+            };
+        }
+
+        /// <summary>The label of a screen row's button on the Devices page,
+        /// which names the kind of screen the way Dreamcast Screen… does.</summary>
+        internal static string ButtonText(KeyboardScreenKind kind)
+        {
+            var s = Strings.Instance;
+            return kind switch
+            {
+                KeyboardScreenKind.Monochrome => s.KeyboardScreens_Configure_Monochrome,
+                KeyboardScreenKind.Color => s.KeyboardScreens_Configure_Color,
+                KeyboardScreenKind.Arx => s.KeyboardScreens_Configure_Arx,
+                _ => s.KeyboardScreens_Configure_Strike7,
             };
         }
 
@@ -703,9 +838,9 @@ namespace PadForge.Services
         }
     }
 
-    /// <summary>A Show Keyboard Screen action playing on one kind of screen
-    /// (#519): each frame for its frame time, the frames repeated the given
-    /// number of times.</summary>
+    /// <summary>A Show Keyboard Screen action playing on one screen (#519):
+    /// each frame for its frame time, the frames repeated the given number
+    /// of times.</summary>
     internal sealed class KeyboardScreenShow
     {
         private readonly List<byte[]> _frames;

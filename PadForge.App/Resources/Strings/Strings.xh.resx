@@ -1500,7 +1500,8 @@
   <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>kwisikrini se-V.E.N.O.M.</value></data>
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>akukho sikrini sifunyenweyo</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, akukho mfanekiso ukhethiweyo</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Amaqhosha esikrini sekhibhodi</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Xa i-Logitech Gaming Software isebenza, zonke izikrini zolu hlobo zibonisa umfanekiso osetelwe {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Isikrini sekhibhodi</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Iqhosha lesikrini {0}</value></data>
   <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Isikrini sibonisa ixesha losuku.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Imifanekiso (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Zonke iifayile (*.*)|*.*</value></data>

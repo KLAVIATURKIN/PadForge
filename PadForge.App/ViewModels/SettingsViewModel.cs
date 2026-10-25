@@ -1453,16 +1453,9 @@ namespace PadForge.ViewModels
         /// null for the copy PadForge downloads.</summary>
         public string Strike7LibraryPath { get; set; }
 
-        private CommunityToolkit.Mvvm.Input.RelayCommand<string> _configureKeyboardScreenCommand;
         private RelayCommand _downloadStrike7LibraryCommand;
         private RelayCommand _pickStrike7LibraryCommand;
         private RelayCommand _installVc2008RuntimeCommand;
-
-        /// <summary>Opens the Keyboard Screen dialog for the kind its
-        /// parameter names (#519).</summary>
-        public CommunityToolkit.Mvvm.Input.RelayCommand<string> ConfigureKeyboardScreenCommand =>
-            _configureKeyboardScreenCommand ??= new CommunityToolkit.Mvvm.Input.RelayCommand<string>(
-                kind => ConfigureKeyboardScreenRequested?.Invoke(this, kind));
 
         /// <summary>Downloads Mad Catz's SDK and keeps its x64 library (#519).</summary>
         public RelayCommand DownloadStrike7LibraryCommand =>
@@ -1480,7 +1473,6 @@ namespace PadForge.ViewModels
             _installVc2008RuntimeCommand ??= new RelayCommand(
                 () => InstallVc2008RuntimeRequested?.Invoke(this, EventArgs.Empty));
 
-        public event EventHandler<string> ConfigureKeyboardScreenRequested;
         public event EventHandler DownloadStrike7LibraryRequested;
         public event EventHandler PickStrike7LibraryRequested;
         public event EventHandler InstallVc2008RuntimeRequested;

@@ -1128,7 +1128,8 @@
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>ahụghị ihuenyo ọ bụla</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, na-eche agba lightbar</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, ahọrọghị foto</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Key ihuenyo keyboard</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Mgbe Logitech Gaming Software na-arụ ọrụ, ihuenyo ọ bụla nke ụdị a na-egosi foto edobere maka {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Ihuenyo keyboard</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Key ihuenyo {0}</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Ihuenyo aka ekpe</value></data>
   <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Ihuenyo aka nri</value></data>

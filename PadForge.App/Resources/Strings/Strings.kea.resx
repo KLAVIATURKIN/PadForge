@@ -2612,7 +2612,8 @@
   <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>skodji PadForge na ekrã V.E.N.O.M.</value></data>
   <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>na ekrã V.E.N.O.M.</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, ta spera kor di lightbar</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Tékla di ekrã di tekladu</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Óras ki Logitech Gaming Software sta ta funsiona, tudu ekrã di es tipu ta mostra imajen difinidu pa {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Ekrã di tekladu</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Tékla di ekrã {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Tékla di applet</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Ekrã Skerda</value></data>

@@ -308,14 +308,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>خوێندنەوەی تەختەکلیلە ئەنالۆگەکان</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>دەخوێنێتەوە هەر کلیلێک تا چەند داگیراوە لەسەر تەختەکلیلە ئەنالۆگەکانی Wooting، Razer، SteelSeries، Keychron، NuPhy، DrunkDeer، AULA و دروستکەرانی تر، هەر یەکەیان وەک ڕیزی ئامێری خۆی. بەڵگەنامەکان هەموو مۆدێلە پشتگیریکراوەکان دەژمێرن. تەختەکلیلەکانی Razer پێویستیان بە کارکردنی Razer Synapse هەیە. زۆربەی ئەوانی تر لە ڕێگەی هەمان کەناڵەوە دەخوێندرێنەوە کە ڕێکخەرەکەی خۆیان بەکاری دەهێنێت، بۆیە کاتێک ئەمە کارایە ڕێکخەرەکە دابخە.</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>هیچ تەختەکلیلێکی ئەنالۆگی پشتگیریکراو نەدۆزرایەوە.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>خوێندنەوەی {0}.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>Razer Synapse دەست پێبکە بۆ خوێندنەوەی {0}.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>Razer Synapse دەست پێبکە بۆ خوێندنەوەی {0}.</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>خوێندنەوەی ئەداپتەرەکانی Bliss-Box</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>لە ڕێگەی API یەکەیانەوە قسە لەگەڵ ئەداپتەرەکانی Bliss-Box دەکات. ڕیزی هەر پۆرتێک ناوی ئەو کۆنترۆڵەرەی پێوەی بەستراوە و دوگمەکانی دەنووسێت، پەستانی DualShock 2 دەخوێنێتەوە، لە ڕێگەی فەرمانەکانی مۆتۆری خودی ئەداپتەرەکەوە دەلەرزێنێت، و کردارەکانی شاشەی Dreamcast، Controller Pak و ژمارەی یاریزان پێشکەش دەکات. کاتێک ئەمە کارایە Bliss-Box API Tool و DeviceBuddy دابخە، چونکە ئەوان لە ڕێگەی هەمان کەناڵەوە قسە لەگەڵ ئەداپتەرەکە دەکەن. کاتێک ئەمە کارایە، PadForge هەر پۆرتێک بە ڕیزبەندی خودی ئەداپتەرەکە دەخوێنێتەوە نەک لە ڕێگەی بەستنەوەی گەیمپادی SDL ەوە، بۆیە دوای کارا یان ناکاراکردنی ئەمە پۆرتەکان دووبارە ببەستەوە.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>هیچ پۆرتێکی Bliss-Box نەدۆزرایەوە.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>خوێندنەوەی {0}.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>پۆرتی {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>پەیوەست دەبێت</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>بێ کۆنترۆڵەر</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>جۆری {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>کۆنترۆڵەری وێب</value></data>
@@ -4258,7 +4254,7 @@
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>شێوازی PCM ی هاپتیکی PS5، 16-بیتی نیشانەدار بە 3 kHz، کە کۆدکردنی هاپتیکی Bluetooth ی 8-بیتی نیشانەداری یەکلا کردەوە. AGPL-3.0، تەنها وەک بەڵگەنامە خوێندراوەتەوە، هیچ کۆدێکی AGPL لەگەڵ بەرنامەکەدا نییە.</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>شاشەکانی تەختەکلیل</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>لەسەر ئەو شاشانە دەکێشێت کە لەناو تەختەکلیلەکانی GamePanel ی Logitech و Mad Catz S.T.R.I.K.E. 7 دان، و لەسەر مۆبایل لە ڕێگەی Logitech Arx Control: پرۆفایل، کاتژمێر، کاتی یاریکردن، کاتپێو، وێنە، یان ڕەنگی شریتی ڕووناکیی DualShock 4 یان DualSense. کلیلەکانی تەنیشت ئەو شاشانە دەبنە دوگمە لە ڕیزی کلیلەکانی شاشەی تەختەکلیل.</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>لەسەر ئەو شاشانە دەکێشێت کە لەناو تەختەکلیلەکانی GamePanel ی Logitech و Mad Catz S.T.R.I.K.E. 7 دان، و لەسەر مۆبایل لە ڕێگەی Logitech Arx Control: پرۆفایل، کاتژمێر، کاتی یاریکردن، کاتپێو، وێنە، یان ڕەنگی شریتی ڕووناکیی DualShock 4 یان DualSense. هەر شاشەیەک ڕیزی خۆی لە پەڕەی ئامێرەکان هەیە، کە لەوێ دیاری دەکەیت چی پیشان بدات. کلیلەکانی تەنیشت شاشەیەک دوگمەکانی ڕیزەکەین.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>بەڕێوەبردنی شاشەکانی تەختەکلیل</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>لەسەر شاشەکانی Logitech G15، G15 v2، G510، G13، Z-10، GamePanel و G19، لەسەر Arx Control و لەسەر Mad Catz S.T.R.I.K.E. 7 دەکێشێت. کاتێک Logitech Gaming Software کاردەکات، PadForge لە ڕێگەی ئەوەوە دەکێشێت. بەبێ ئەو، PadForge شاشە یەکڕەنگەکان لە ڕێگەی HID دەنووسێت و WinUSB بە ڕووکاری شاشەی G19 دەبەستێتەوە. کوژاندنەوەی ئەمە شاشەی G19 دەداتەوە بە Windows.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>شاشەی یەکڕەنگ…</value></data>
@@ -4298,7 +4294,8 @@
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>هیچ شاشەیەک نەدۆزرایەوە</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}، چاوەڕوانی ڕەنگی شریتی ڕووناکی</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}، هیچ وێنەیەک هەڵنەبژێردراوە</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>کلیلەکانی شاشەی تەختەکلیل</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>کاتێک Logitech Gaming Software کار دەکات، هەموو شاشەیەکی ئەم جۆرە ئەو وێنەیە پیشان دەدات کە بۆ {0} دانراوە.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>شاشەی تەختەکلیل</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>کلیلی شاشە {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>کلیلی ئەپلێت</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>چەپی شاشە</value></data>
@@ -4317,7 +4314,7 @@
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>شاشەکە ئەو کاتژمێر و خولەکانە پیشان دەدات کە لەوەتەی پرۆفایلی چالاک چالاک بووە تێپەڕیون. پرۆفایلێک کە بە بەرنامەی یارییەکەوە بەسترابێت کاتێک یارییەکە دەست پێدەکات چالاک دەبێت، بۆیە ژماردنەکە ئەو دانیشتنەیە. لەژێر پرۆفایلی بنەڕەت لە دەستپێکردنی بزوێنەرەکەوە دەژمێرێت.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>شاشەکە وێنەیەک کە تۆ هەڵیدەبژێریت بە قەبارەی خۆی پیشان دەدات. وێنەیەک کە لە شاشەکە گەورەتر بێت پەنجەرەیەک بە قەبارەی شاشەکە پیشان دەدات، کە ماکرۆی «جووڵاندنی وێنەی شاشەی تەختەکلیل» دەیجووڵێنێت. لەسەر S.T.R.I.K.E. 7 ڕاکێشانی پەنجە بەسەر شاشەکەدا ئەویش دەجووڵێنێت.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>شاشەکە کاتپێوەکە پیشان دەدات، کە ماکرۆی «کاتپێو» دەستی پێدەکات، ڕایدەگرێت و سفری دەکاتەوە. هەموو شاشەکان هەمان کاتپێو پیشان دەدەن.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>شاشەکە ڕەنگی شریتی ڕووناکیی DualShock 4 یان DualSense لە نزمترین شوێندا پیشان دەدات. شاشەی یەکڕەنگ ئاستی ڕووناکییەکەی وەک نەخشێکی خاڵ پیشان دەدات. تا ڕەنگێک نەگاتە شریتی ڕووناکی، PadForge هیچ پیشان نادات.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>شاشەکە ڕەنگی شریتی ڕووناکیی DualShock 4 یان DualSense لە نزمترین شوێندا کە ئەم شاشەیە پڕی دەکاتەوە پیشان دەدات، یان لە نزمترین شوێنی هەموویان کاتێک هیچ شوێنێک پڕ ناکاتەوە. شاشەی یەکڕەنگ ئاستی ڕووناکییەکەی وەک نەخشێکی خاڵ پیشان دەدات. تا ڕەنگێک نەگاتە شریتی ڕووناکی، PadForge هیچ پیشان نادات.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>وێنەکان (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|هەموو پەڕگەکان (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>جووڵاندن</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>جووڵاندنی X</value></data>
@@ -4329,11 +4326,11 @@
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>داگرتنی SDK ی S.T.R.I.K.E. 7 لەگەڵ SHA-256 ناسراوەکەی ناگونجێت، بۆیە هیچ شتێکی لێ هەڵنەگیرا.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>ڕەنتایمی Visual C++ 2008 هێشتا بوونی نییە دوای ئەوەی دامەزرێنەرەکەی کاری کرد.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>نیشاندانی شاشەی تەختەکلیل</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>وێنەکان لەسەر هەموو شاشەیەکی تەختەکلیلی جۆری هەڵبژێردراو پیشان دەدات، پاشان هەر شاشەیەک دەگەڕێنێتەوە بۆ دۆخی خۆی.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>وێنەکان لەسەر هەر شاشەیەکی تەختەکلیلی جۆری هەڵبژێردراو کە ئەم شوێنە پڕ دەکاتەوە پیشان دەدات، پاشان هەر شاشەیەک دەگەڕێنێتەوە بۆ دۆخی خۆی.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>نیشاندانی وێنەکانی {0}: {1} × {2} ms، ژمارەی دووبارەکردنەوە {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>وێنەکان لەگەڵ شاشەکە دەگونجێنرێن: 160 لە 43 پیکسڵی ڕەش و سپی لەسەر شاشەی یەکڕەنگ، 320 لە 240 لەسەر شاشەی G19، و 480 لە 320 بۆ Arx Control و S.T.R.I.K.E. 7. کورتترین ماوەی چوارچێوە یەک لە دەی چرکەیەکە.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>دۆخی شاشەی تەختەکلیل</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>جۆرێکی شاشەی تەختەکلیل دەگۆڕێت بۆ دۆخێکی تر و وەک ڕێکخستنی ئەو شاشەیە دەیهێڵێتەوە.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>هەر شاشەیەکی تەختەکلیلی جۆری هەڵبژێردراو کە ئەم شوێنە پڕ دەکاتەوە دەگۆڕێت بۆ دۆخێکی تر، و وەک ڕێکخستنی ئەو شاشەیە دەیهێڵێتەوە.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} {1} پیشان دەدات</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>دۆخەکە دەمێنێتەوە تا ماکرۆیەکی تر یان دیالۆگی شاشەکە بیگۆڕێت.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>کاتپێو</value></data>
@@ -4342,9 +4339,9 @@
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>سفرکردنەوەی کاتپێو</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>سفرکردنەوە کاتپێوەکە دەوەستێنێت و دەیگەڕێنێتەوە بۆ سفر. هەموو شاشەیەکی تەختەکلیل لە دۆخی کاتپێودا هەمان کاتپێو پیشان دەدات.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>جووڵاندنی وێنەی شاشەی تەختەکلیل</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>پەنجەرەی هەر شاشەیەکی تەختەکلیل بەسەر وێنەیەکی گەورەتر لە شاشەکەدا دەجووڵێنێت، بۆ نەخشە.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>پەنجەرەی هەر شاشەیەکی تەختەکلیل کە ئەم شوێنە پڕ دەکاتەوە بەسەر وێنەیەکی گەورەتر لە شاشەکەدا دەجووڵێنێت، بۆ نەخشە.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>جووڵاندنی وێنەکان بە {0} و {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>هەموو جۆرە شاشەیەک دەجووڵێنێت کە وێنەیەکی هەڵبژێردراوی گەورەتر لە خۆی پیشان دەدات. پەنجەرەکە لە لێوارەکانی وێنەکەدا دەوەستێت.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>هەر شاشەیەک دەجووڵێنێت کە ئەم شوێنە پڕ دەکاتەوە و وێنەیەکی هەڵبژێردراوی گەورەتر لە خۆی پیشان دەدات. پەنجەرەکە لە لێوارەکانی وێنەکەدا دەوەستێت.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>شاشە</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>کردار</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>ئاراستە</value></data>
@@ -4426,6 +4423,6 @@
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>زۆرترین هێز کە Falcon دەیخاتە سەر دەسکەکە، لە 1 تا 8 نیوتن.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>گەڕاندنەوەی سنووری هێز</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>کالیبرەکردنی مەودای جووڵە</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>پێوانەی ئەوە دەکات کە دەسکەکە چەند دەجووڵێت. بۆ ئەو چوار چرکەیەی پشکنینەکە کار دەکات، بیجووڵێنە بۆ هەموو لێوارەکانی مەودای جووڵەکەی. لەو ماوەیەدا هێزەکان ڕادەوەستن.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>کالیبرەکردنی مەودای جووڵە</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>پێوانەی ئەوە دەکات کە دەسکەکە چەند دەجووڵێت. بۆ ئەو چوار چرکەیەی پشکنینەکە کار دەکات، بیجووڵێنە بۆ هەموو لێوارەکانی مەودای جووڵەکەی. لەو ماوەیەدا هێزەکان ڕادەوەستن.</value></data>
 </root>

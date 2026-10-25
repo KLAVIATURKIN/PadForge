@@ -41,8 +41,10 @@ namespace PadForge.Services
         }
 
         /// <summary>
-        /// The Bliss-Box line under the Settings switch (#469): each port and
-        /// the controller in it. Empty while the feature is off, which
+        /// The Bliss-Box line under the Settings switch (#469): that no port
+        /// was found, when none was. Each port's controller and firmware are
+        /// on its row's panel (<see cref="UpdateBlissBoxDeviceRow"/>), never
+        /// here. Empty while the feature is off or a port is open, which
         /// collapses the line, the analog keyboards shape.
         /// </summary>
         private void UpdateBlissBoxStatus()
@@ -52,26 +54,11 @@ namespace PadForge.Services
             string status = string.Empty;
             if (im != null && im.IsRunning && settings.BlissBoxEnabled)
             {
-                var s = Strings.Instance;
-                var culture = CultureInfo.CurrentCulture;
-                var ports = BlissBoxRuntime.Ports;
-                status = ports.Length == 0
-                    ? s.Settings_BlissBoxStatus_None
-                    : string.Format(culture, s.Settings_BlissBoxStatus_Reading_Format,
-                        string.Join(", ", ports.OrderBy(p => p.Session.Player).Select(p =>
-                            string.Format(culture, s.Settings_BlissBoxStatus_Port_Format,
-                                p.Session.Player, PortContents(p)))));
+                if (BlissBoxRuntime.Ports.Length == 0) status = Strings.Instance.Settings_BlissBoxStatus_None;
             }
             if (string.Equals(_blissBoxStatusLast, status, StringComparison.Ordinal)) return;
             _blissBoxStatusLast = status;
             settings.BlissBoxStatus = status;
-        }
-
-        private static string PortContents(BlissBoxPort port)
-        {
-            if (!port.IsOpen || port.Session.Info == null) return Strings.Instance.BlissBox_Connecting;
-            var info = port.Session.LiveInfo;
-            return info == null ? Strings.Instance.BlissBox_NoController : ControllerName(info);
         }
 
         /// <summary>The controller's name on the adapter's firmware, or its

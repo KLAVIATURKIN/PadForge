@@ -323,14 +323,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>Číst analogové klávesnice</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Čte hloubku stisku každé klávesy na analogových klávesnicích značek Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA a dalších výrobců, každou jako samostatný řádek zařízení. Všechny podporované modely uvádí dokumentace. Klávesnice Razer vyžadují spuštěný Razer Synapse. Většina ostatních se čte kanálem, který používá jejich vlastní konfigurátor, takže ho nechte zavřený, dokud je tato volba zapnutá.</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>Nebyla nalezena žádná podporovaná analogová klávesnice.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>Čte se {0}.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>Chcete-li číst {0}, spusťte Razer Synapse.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>Chcete-li číst {0}, spusťte Razer Synapse.</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Číst adaptéry Bliss-Box</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>Komunikuje s adaptéry Bliss-Box přes jejich API. Řádek každého portu uvádí název připojeného ovladače a jeho tlačítek, čte tlak tlačítek ovladače DualShock 2, vibruje pomocí vlastních příkazů adaptéru pro motory a nabízí akce pro obrazovku Dreamcastu, Controller Pak a číslo hráče. Dokud je tato volba zapnutá, mějte zavřené nástroje Bliss-Box API Tool a DeviceBuddy, protože s adaptérem komunikují stejným kanálem. Dokud je tato volba zapnutá, čte PadForge každý port ve vlastním rozložení adaptéru místo mapování gamepadu z SDL, takže po jejím zapnutí nebo vypnutí port namapujte znovu.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Nebyl nalezen žádný port Bliss-Box.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>Čte se {0}.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>port {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>připojování</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>žádný ovladač</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>Typ {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Webový ovladač</value></data>
@@ -4292,7 +4288,7 @@ Má je PadForge teď odinstalovat? Vyžaduje to zvýšená oprávnění a může
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>Formát haptického PCM ovladače PS5, 16bitový se znaménkem při 3 kHz, podle kterého se ustálilo kódování haptiky přes Bluetooth jako 8bitové se znaménkem. AGPL-3.0, čteno jen jako dokumentace, žádný kód pod AGPL se nedodává.</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Obrazovky klávesnice</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Kreslí na obrazovky zabudované do klávesnic Logitech GamePanel a Mad Catz S.T.R.I.K.E. 7 a na telefon přes Logitech Arx Control: profil, hodiny, herní dobu, stopky, obrázek nebo barvu světelného panelu ovladače DualShock 4 či DualSense. Klávesy vedle těchto obrazovek se stanou tlačítky v řádku Klávesy obrazovek klávesnice.</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Kreslí na obrazovky zabudované do klávesnic Logitech GamePanel a Mad Catz S.T.R.I.K.E. 7 a na telefon přes Logitech Arx Control: profil, hodiny, herní dobu, stopky, obrázek nebo barvu světelného panelu ovladače DualShock 4 či DualSense. Každá obrazovka má vlastní řádek na stránce Zařízení, kde nastavíte, co zobrazuje. Klávesy vedle obrazovky jsou tlačítka jejího řádku.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Ovládat obrazovky klávesnice</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Kreslí na obrazovky Logitech G15, G15 v2, G510, G13, Z-10, GamePanel a G19, na Arx Control a na Mad Catz S.T.R.I.K.E. 7. Když běží Logitech Gaming Software, PadForge kreslí přes něj. Bez něj PadForge zapisuje na monochromatické obrazovky přes HID a připojuje WinUSB k rozhraní obrazovky G19. Po vypnutí se obrazovka G19 vrátí Windows.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Monochromatická obrazovka…</value></data>
@@ -4332,7 +4328,8 @@ Má je PadForge teď odinstalovat? Vyžaduje to zvýšená oprávnění a může
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>žádná obrazovka nenalezena</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, čeká se na barvu světelného panelu</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, nebyl vybrán žádný obrázek</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Klávesy obrazovek klávesnice</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Dokud běží Logitech Gaming Software, zobrazuje každá obrazovka tohoto druhu obrázek nastavený pro zařízení {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Obrazovka klávesnice</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Klávesa obrazovky {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Klávesa appletu</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Obrazovka vlevo</value></data>
@@ -4351,7 +4348,7 @@ Má je PadForge teď odinstalovat? Vyžaduje to zvýšená oprávnění a může
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Obrazovka zobrazuje hodiny a minuty od přepnutí na aktivní profil. Profil svázaný s programem hry se přepne při spuštění hry, takže se počítá doba této relace. U výchozího profilu se počítá od spuštění enginu.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Obrazovka zobrazuje obrázek, který vyberete, v jeho vlastní velikosti. Obrázek větší než obrazovka se zobrazí jako výřez velikosti obrazovky, který posouvá makro Posunout obrázek na obrazovce klávesnice. Na S.T.R.I.K.E. 7 ho posouvá i prst tažený po obrazovce.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Obrazovka zobrazuje stopky, které makro Stopky spouští, pozastavuje a resetuje. Všechny obrazovky zobrazují stejné stopky.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Obrazovka zobrazuje barvu světelného panelu ovladače DualShock 4 nebo DualSense v nejnižším slotu. Monochromatická obrazovka zobrazuje jeho jas jako bodový vzor. Dokud barva nedorazí na světelný panel, PadForge nezobrazuje nic.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Obrazovka zobrazuje barvu světelného panelu ovladače DualShock 4 nebo DualSense v nejnižším slotu, který tato obrazovka napájí, nebo v nejnižším slotu vůbec, pokud nenapájí žádný. Monochromatická obrazovka zobrazuje jeho jas jako bodový vzor. Dokud barva nedorazí na světelný panel, PadForge nezobrazuje nic.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Obrázky (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Všechny soubory (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Posun</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Posun X</value></data>
@@ -4363,11 +4360,11 @@ Má je PadForge teď odinstalovat? Vyžaduje to zvýšená oprávnění a může
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Stažená sada SDK pro S.T.R.I.K.E. 7 neodpovídá známému SHA-256, proto nebylo nic z ní ponecháno.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Běhové prostředí Visual C++ 2008 po spuštění instalátoru stále chybí.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Zobrazit na obrazovce klávesnice</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Přehraje obrázky na každé obrazovce klávesnice vybraného druhu a poté vrátí každou obrazovku do jejího režimu.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Přehraje obrázky na každé obrazovce klávesnice vybraného druhu, která napájí tento slot, a poté vrátí každou obrazovku do jejího režimu.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Zobrazit obrázky ({0}): {1} × {2} ms, počet opakování {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Obrázky se přizpůsobí obrazovce: 160 × 43 černobílých pixelů na monochromatické obrazovce, 320 × 240 na obrazovce G19 a 480 × 320 pro Arx Control a S.T.R.I.K.E. 7. Nejkratší doba snímku je desetina sekundy.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Režim obrazovky klávesnice</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Přepne druh obrazovky klávesnice do jiného režimu a uloží ho jako nastavení této obrazovky.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Přepne každou obrazovku klávesnice vybraného druhu, která napájí tento slot, do jiného režimu a uloží ho jako nastavení této obrazovky.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} zobrazuje: {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Režim zůstane, dokud ho nezmění jiné makro nebo dialog obrazovky.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Stopky</value></data>
@@ -4376,9 +4373,9 @@ Má je PadForge teď odinstalovat? Vyžaduje to zvýšená oprávnění a může
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Resetovat stopky</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Reset zastaví stopky a nastaví je zpět na nulu. Všechny obrazovky klávesnice v režimu Stopky zobrazují stejné stopky.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Posunout obrázek na obrazovce klávesnice</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Posune výřez každé obrazovky klávesnice po obrázku větším než obrazovka, například po mapě.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Posune výřez každé obrazovky klávesnice, která napájí tento slot, po obrázku větším než obrazovka, například po mapě.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Posunout obrázky o {0} × {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Posune každý druh obrazovky, který zobrazuje vybraný obrázek větší než on sám. Výřez se zastaví na okrajích obrázku.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Posune každou obrazovku, která napájí tento slot a zobrazuje vybraný obrázek větší než ona sama. Výřez se zastaví na okrajích obrázku.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Obrazovka</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Akce</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Směr</value></data>
@@ -4460,6 +4457,6 @@ Má je PadForge teď odinstalovat? Vyžaduje to zvýšená oprávnění a může
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Největší síla, kterou Falcon působí na rukojeť, od 1 do 8 newtonů.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Resetovat limit síly</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Kalibrovat dosah</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Změří, jak daleko se rukojeť pohybuje. Po čtyři sekundy měření ji přesuňte ke všem okrajům dosahu. Síly se mezitím vypnou.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>Kalibrovat dosah</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Změří, jak daleko se rukojeť pohybuje. Po čtyři sekundy měření ji přesuňte ke všem okrajům dosahu. Síly se mezitím vypnou.</value></data>
 </root>

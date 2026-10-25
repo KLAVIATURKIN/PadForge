@@ -306,14 +306,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>Soma kibodi za analogi</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Husoma kila kitufe kimebonyezwa umbali gani kwenye kibodi za analogi kutoka Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA, na watengenezaji wengine, kila moja kama safu ya kifaa chake. Nyaraka zinaorodhesha kila modeli inayotumika. Kibodi za Razer zinahitaji Razer Synapse iwe inaendesha. Nyingi za zingine husomwa kupitia njia ambayo kisanidi chake chenyewe hutumia, kwa hiyo funga kisanidi wakati hili limewashwa.</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>Hakuna kibodi ya analogi inayotumika iliyopatikana.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>Inasoma {0}.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>Anzisha Razer Synapse ili kusoma {0}.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>Anzisha Razer Synapse ili kusoma {0}.</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Soma adapta za Bliss-Box</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>Huzungumza na adapta za Bliss-Box kupitia API yao. Safu ya kila mlango inataja kidhibiti kilichochomekwa humo na vitufe vyake, husoma shinikizo la DualShock 2, hutetemesha kupitia amri za motor za adapta yenyewe, na hutoa vitendo vya skrini ya Dreamcast, Controller Pak, na namba ya mchezaji. Funga Bliss-Box API Tool na DeviceBuddy wakati hili limewashwa, kwa kuwa huzungumza na adapta kupitia njia ileile. Hili likiwa limewashwa, PadForge husoma kila mlango katika mpangilio wa adapta yenyewe badala ya kupitia ramani ya gamepad ya SDL, kwa hiyo panga ramani ya mlango tena baada ya kuwasha au kuzima hili.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Hakuna mlango wa Bliss-Box uliopatikana.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>Inasoma {0}.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>mlango {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>inaunganisha</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>hakuna kidhibiti</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>Aina {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Kidhibiti cha wavuti</value></data>
@@ -4202,7 +4198,7 @@ Ungependa PadForge iviondoe sasa? Hii inahitaji ruhusa za msimamizi na inaweza k
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>Muundo wa PCM ya haptic ya PS5, biti 16 zenye ishara kwa 3 kHz, ulioamua usimbaji wa haptics wa Bluetooth wa biti 8 zenye ishara. AGPL-3.0, imesomwa kama nyaraka pekee, hakuna msimbo wa AGPL unaosafirishwa.</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Skrini za Kibodi</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Huchora kwenye skrini zilizojengewa ndani ya kibodi za GamePanel za Logitech na Mad Catz S.T.R.I.K.E. 7, na kwenye simu kupitia Logitech Arx Control: wasifu, saa, muda wa kucheza, stopwatch, picha, au rangi ya lightbar ya DualShock 4 au DualSense. Vitufe vilivyo kando ya skrini hizo huwa vitufe vinavyoweza kuwekewa ramani kwenye safu ya Vitufe vya Skrini ya Kibodi.</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Huchora kwenye skrini zilizojengewa ndani ya kibodi za GamePanel za Logitech na Mad Catz S.T.R.I.K.E. 7, na kwenye simu kupitia Logitech Arx Control: wasifu, saa, muda wa kucheza, stopwatch, picha, au rangi ya lightbar ya DualShock 4 au DualSense. Kila skrini ina safu yake kwenye ukurasa wa Vifaa, ambapo unaweka kinachoonyeshwa. Vitufe vilivyo kando ya skrini ni vitufe vya safu yake.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Endesha Skrini za Kibodi</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Huchora kwenye skrini za Logitech G15, G15 v2, G510, G13, Z-10, GamePanel na G19, kwenye Arx Control, na kwenye Mad Catz S.T.R.I.K.E. 7. Logitech Gaming Software inapoendeshwa, PadForge huchora kupitia hiyo. Bila hiyo, PadForge huandika kwenye skrini za monochrome kupitia HID na kuunganisha WinUSB kwenye kiolesura cha skrini cha G19. Ukizima hii, skrini ya G19 hurudishwa kwa Windows.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Skrini ya Monochrome…</value></data>
@@ -4242,7 +4238,8 @@ Ungependa PadForge iviondoe sasa? Hii inahitaji ruhusa za msimamizi na inaweza k
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>hakuna skrini iliyopatikana</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, inasubiri rangi ya lightbar</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, hakuna picha iliyochaguliwa</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Vitufe vya Skrini ya Kibodi</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Wakati Logitech Gaming Software inaendeshwa, kila skrini ya aina hii huonyesha picha iliyowekwa kwa {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Skrini ya Kibodi</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Kitufe cha Skrini {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Kitufe cha Applet</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Skrini Kushoto</value></data>
@@ -4261,7 +4258,7 @@ Ungependa PadForge iviondoe sasa? Hii inahitaji ruhusa za msimamizi na inaweza k
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Skrini huonyesha saa na dakika tangu wasifu unaotumika ulipowashwa. Wasifu uliounganishwa na programu ya mchezo huwashwa mchezo unapoanza, kwa hivyo hesabu ni ya kipindi hicho. Chini ya wasifu Chaguomsingi, hesabu huanza injini inapoanza.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Skrini huonyesha picha unayochagua, kwa ukubwa wake. Picha kubwa kuliko skrini huonyesha dirisha lenye ukubwa wa skrini, ambalo makro ya Sogeza Picha ya Skrini ya Kibodi huliendesha. Kwenye S.T.R.I.K.E. 7, kidole kinachoburutwa kwenye skrini pia huisogeza.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Skrini huonyesha stopwatch, ambayo makro ya Stopwatch huanza, husitisha na kuweka upya. Kila skrini huonyesha stopwatch ile ile.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Skrini huonyesha rangi ya lightbar ya DualShock 4 au DualSense iliyo kwenye nafasi ya chini kabisa. Skrini ya monochrome huonyesha mwangaza wake kama muundo wa nukta. Hadi rangi ifike kwenye lightbar, PadForge haonyeshi chochote.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Skrini huonyesha rangi ya lightbar ya DualShock 4 au DualSense iliyo kwenye nafasi ya chini kabisa ambayo skrini hii inalisha, au kwenye nafasi ya chini kabisa ya zote iwapo haililishi nafasi yoyote. Skrini ya monochrome huonyesha mwangaza wake kama muundo wa nukta. Hadi rangi ifike kwenye lightbar, PadForge haonyeshi chochote.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Picha (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Faili Zote (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Sogeza</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Sogeza X</value></data>
@@ -4273,11 +4270,11 @@ Ungependa PadForge iviondoe sasa? Hii inahitaji ruhusa za msimamizi na inaweza k
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Upakuaji wa SDK ya S.T.R.I.K.E. 7 haulingani na SHA-256 yake inayojulikana, kwa hivyo hakuna kilichohifadhiwa kutoka kwake.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Runtime ya Visual C++ 2008 bado haipo baada ya kisakinishi chake kuendeshwa.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Onyesha Skrini ya Kibodi</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Huonyesha picha kwenye kila skrini ya kibodi ya aina iliyochaguliwa, kisha hurudisha kila skrini kwenye hali yake yenyewe.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Huonyesha picha kwenye kila skrini ya kibodi ya aina iliyochaguliwa inayolisha nafasi hii, kisha hurudisha kila skrini kwenye hali yake yenyewe.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Onyesha picha za {0}: {1} × {2} ms, idadi ya marudio {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Picha hurekebishwa ili ziingie kwenye skrini: pikseli 160 kwa 43 nyeusi na nyeupe kwenye skrini ya monochrome, 320 kwa 240 kwenye ya G19, na 480 kwa 320 kwa Arx Control na S.T.R.I.K.E. 7. Moja ya kumi ya sekunde ndiyo muda mfupi zaidi wa fremu.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Hali ya Skrini ya Kibodi</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Hubadilisha aina ya skrini ya kibodi kuwa hali nyingine na kuiweka kama mpangilio wa skrini hiyo.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Hubadilisha kila skrini ya kibodi ya aina iliyochaguliwa inayolisha nafasi hii kuwa hali nyingine, na kuiweka kama mpangilio wa skrini hiyo.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} inaonyesha {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Hali hubaki hadi makro nyingine au kidirisha cha skrini kiibadilishe.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Stopwatch</value></data>
@@ -4286,9 +4283,9 @@ Ungependa PadForge iviondoe sasa? Hii inahitaji ruhusa za msimamizi na inaweza k
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Weka Upya Stopwatch</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Kuweka upya husimamisha stopwatch na kuirudisha kuwa sifuri. Kila skrini ya kibodi katika hali ya Stopwatch huonyesha stopwatch ile ile.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Sogeza Picha ya Skrini ya Kibodi</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Husogeza dirisha la kila skrini ya kibodi juu ya picha kubwa kuliko skrini, kwa ajili ya ramani.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Husogeza dirisha la kila skrini ya kibodi inayolisha nafasi hii juu ya picha kubwa kuliko skrini, kwa ajili ya ramani.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Sogeza picha {0} kwa {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Husogeza kila aina ya skrini inayoonyesha picha iliyochaguliwa kubwa kuliko yenyewe. Dirisha husimama kwenye kingo za picha.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Husogeza kila skrini inayolisha nafasi hii na kuonyesha picha iliyochaguliwa kubwa kuliko yenyewe. Dirisha husimama kwenye kingo za picha.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Skrini</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Kitendo</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Mwelekeo</value></data>
@@ -4370,6 +4367,6 @@ Ungependa PadForge iviondoe sasa? Hii inahitaji ruhusa za msimamizi na inaweza k
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Nguvu ya juu zaidi ambayo Falcon huweka kwenye kishikio, kuanzia newtoni 1 hadi 8.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Weka Upya Kikomo cha Nguvu</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Sawazisha Masafa</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Hupima umbali ambao kishikio husafiri. Kisogeze hadi kila ukingo wa masafa yake kwa sekunde nne ambazo kipimo kinaendelea. Nguvu hupumzika wakati huo.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>Sawazisha Masafa</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Hupima umbali ambao kishikio husafiri. Kisogeze hadi kila ukingo wa masafa yake kwa sekunde nne ambazo kipimo kinaendelea. Nguvu hupumzika wakati huo.</value></data>
 </root>

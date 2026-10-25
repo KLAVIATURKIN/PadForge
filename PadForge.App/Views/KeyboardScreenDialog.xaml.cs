@@ -12,14 +12,16 @@ using PadForge.Services;
 namespace PadForge.Views
 {
     /// <summary>
-    /// What one kind of keyboard screen shows (issue #519), the Dreamcast
-    /// Screen dialog's shape. Works on a copy: nothing reaches the screen or
-    /// the profile until Save. The preview is drawn by the same composition
-    /// the screen service writes, at the screen's own pixels.
+    /// What one keyboard screen shows (issue #519), the Dreamcast Screen
+    /// dialog's shape, opened from the screen's row on the Devices page.
+    /// Works on a copy: nothing reaches the screen or the profile until Save.
+    /// The preview is drawn by the same composition the screen service
+    /// writes, at the screen's own pixels.
     /// </summary>
     public partial class KeyboardScreenDialog : Wpf.Ui.Controls.FluentWindow
     {
         private readonly KeyboardScreenService _service;
+        private readonly KeyboardScreenInfo _screen;
         private readonly KeyboardScreenKind _kind;
         private readonly string _profileName;
         private KeyboardScreenMode _mode;
@@ -28,13 +30,14 @@ namespace PadForge.Views
         private string _profilePicture;
         private bool _saved;
 
-        private KeyboardScreenDialog(KeyboardScreenService service, KeyboardScreenKind kind, KeyboardScreenData current,
+        private KeyboardScreenDialog(KeyboardScreenService service, KeyboardScreenInfo screen, KeyboardScreenData current,
             string profileName, string profilePicture, string detail)
         {
             InitializeComponent();
             MouseLeftButtonDown += (_, __) => { try { DragMove(); } catch { } };
             _service = service;
-            _kind = kind;
+            _screen = screen;
+            var kind = _kind = screen.Kind;
             _profileName = profileName ?? string.Empty;
             _mode = current?.Mode ?? KeyboardScreenData.DefaultMode;
             _picture = current?.Picture;
@@ -44,7 +47,7 @@ namespace PadForge.Views
 
             var s = Strings.Instance;
             var culture = CultureInfo.CurrentCulture;
-            Title = KeyboardScreenService.KindName(kind);
+            Title = screen.Name;
             TitleText.Text = Title;
             DetailText.Text = detail ?? string.Empty;
             DetailText.Visibility = string.IsNullOrEmpty(detail) ? Visibility.Collapsed : Visibility.Visible;
@@ -72,10 +75,10 @@ namespace PadForge.Views
         /// <summary>The choices the user saved, or null when canceled.</summary>
         public sealed record Result(KeyboardScreenMode Mode, string Picture, int PanX, int PanY, string ProfilePicture);
 
-        internal static Result Show(Window owner, KeyboardScreenService service, KeyboardScreenKind kind,
+        internal static Result Show(Window owner, KeyboardScreenService service, KeyboardScreenInfo screen,
             KeyboardScreenData current, string profileName, string profilePicture, string detail)
         {
-            var dialog = new KeyboardScreenDialog(service, kind, current, profileName, profilePicture, detail);
+            var dialog = new KeyboardScreenDialog(service, screen, current, profileName, profilePicture, detail);
             if (owner != null) dialog.Owner = owner;
             else dialog.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             dialog.ShowDialog();
@@ -130,9 +133,9 @@ namespace PadForge.Views
             PanXBox.Text = _panX.ToString(CultureInfo.CurrentCulture);
             PanYBox.Text = _panY.ToString(CultureInfo.CurrentCulture);
 
-            var image = _service.Preview(_kind, new KeyboardScreenData
+            var image = _service.Preview(_screen, new KeyboardScreenData
             {
-                Kind = _kind,
+                Device = _screen.RowGuid.ToString("D"),
                 Mode = _mode,
                 Picture = _picture,
                 PanX = _panX,

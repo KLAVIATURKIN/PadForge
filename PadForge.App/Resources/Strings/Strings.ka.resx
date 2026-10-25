@@ -308,14 +308,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>ანალოგური კლავიატურების წაკითხვა</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>კითხულობს, რამდენად არის დაჭერილი ყოველი კლავიში ანალოგურ კლავიატურებზე Wooting-ის, Razer-ის, SteelSeries-ის, Keychron-ის, NuPhy-ის, DrunkDeer-ის, AULA-ს და სხვა მწარმოებლებისგან, თითოეული საკუთარი მოწყობილობის რიგად. დოკუმენტაცია ჩამოთვლის ყველა მხარდაჭერილ მოდელს. Razer-ის კლავიატურებს სჭირდება გაშვებული Razer Synapse. დანარჩენთა უმეტესობა იკითხება არხით, რომელსაც მათი საკუთარი კონფიგურატორი იყენებს, ამიტომ ამის ჩართვისას დახურეთ კონფიგურატორი.</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>მხარდაჭერილი ანალოგური კლავიატურა ვერ მოიძებნა.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>იკითხება {0}.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>გაუშვით Razer Synapse, რომ წაიკითხოთ {0}.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>გაუშვით Razer Synapse, რომ წაიკითხოთ {0}.</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Bliss-Box ადაპტერების წაკითხვა</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>ესაუბრება Bliss-Box ადაპტერებს მათი API-ით. თითოეული პორტის რიგი ასახელებს მასში ჩართულ კონტროლერს და მის ღილაკებს, კითხულობს DualShock 2-ის დაწოლას, ვიბრაციას აგზავნის ადაპტერის საკუთარი ძრავის ბრძანებებით და გთავაზობთ Dreamcast-ის ეკრანის, Controller Pak-ისა და მოთამაშის ნომრის მოქმედებებს. ამის ჩართვისას დახურეთ Bliss-Box API Tool და DeviceBuddy, რადგან ისინი ადაპტერს იმავე არხით ესაუბრებიან. ამის ჩართვისას PadForge თითოეულ პორტს კითხულობს ადაპტერის საკუთარი განლაგებით და არა SDL-ის გეიმპადის მიბმით, ამიტომ პორტი ხელახლა მიაბით ამის ჩართვის ან გამორთვის შემდეგ.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Bliss-Box პორტი ვერ მოიძებნა.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>იკითხება {0}.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>პორტი {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>უკავშირდება</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>კონტროლერი არ არის</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>ტიპი {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>ვებ-კონტროლერი</value></data>
@@ -4258,7 +4254,7 @@
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PS5-ის ჰაპტიკური PCM ფორმატი, ნიშნიანი 16-ბიტიანი 3 kHz-ზე, რომელმაც ნიშნიანი 8-ბიტიანი Bluetooth ჰაპტიკის კოდირება დაადგინა. AGPL-3.0, წაკითხულია მხოლოდ როგორც დოკუმენტაცია, AGPL კოდი არ შედის.</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>კლავიატურის ეკრანები</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>ხატავს Logitech-ის GamePanel კლავიატურებსა და Mad Catz S.T.R.I.K.E. 7-ში ჩაშენებულ ეკრანებზე და ტელეფონზე Logitech Arx Control-ის მეშვეობით: პროფილს, საათს, თამაშის დროს, წამზომს, სურათს ან DualShock 4-ის ან DualSense-ის შუქის ზოლის ფერს. ამ ეკრანების გვერდით მდებარე კლავიშები ღილაკებად იქცევა რიგში „კლავიატურის ეკრანის კლავიშები“.</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>ხატავს Logitech-ის GamePanel კლავიატურებსა და Mad Catz S.T.R.I.K.E. 7-ში ჩაშენებულ ეკრანებზე და ტელეფონზე Logitech Arx Control-ის მეშვეობით: პროფილს, საათს, თამაშის დროს, წამზომს, სურათს ან DualShock 4-ის ან DualSense-ის შუქის ზოლის ფერს. თითოეულ ეკრანს მოწყობილობების გვერდზე თავისი რიგი აქვს, სადაც ირჩევთ, რას აჩვენებს. ეკრანის გვერდით მდებარე კლავიშები მისი რიგის ღილაკებია.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>კლავიატურის ეკრანების მართვა</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>ხატავს Logitech G15, G15 v2, G510, G13, Z-10, GamePanel და G19 ეკრანებზე, Arx Control-ზე და Mad Catz S.T.R.I.K.E. 7-ზე. სანამ Logitech Gaming Software მუშაობს, PadForge მისი მეშვეობით ხატავს. მის გარეშე PadForge მონოქრომულ ეკრანებზე HID-ით წერს და G19-ის ეკრანის ინტერფეისს WinUSB-ს უკავშირებს. ამის გამორთვა G19-ის ეკრანს Windows-ს უბრუნებს.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>მონოქრომული ეკრანი…</value></data>
@@ -4298,7 +4294,8 @@
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>ეკრანი ვერ მოიძებნა</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, ელოდება შუქის ზოლის ფერს</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, სურათი არჩეული არ არის</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>კლავიატურის ეკრანის კლავიშები</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>სანამ Logitech Gaming Software მუშაობს, ამ ტიპის ყველა ეკრანი აჩვენებს სურათს, რომელიც {0}-ისთვისაა დაყენებული.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>კლავიატურის ეკრანი</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>ეკრანის კლავიში {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>აპლეტის კლავიში</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>ეკრანის მარცხენა</value></data>
@@ -4317,7 +4314,7 @@
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>ეკრანი აჩვენებს საათებსა და წუთებს აქტიური პროფილის ჩართვიდან. თამაშის პროგრამაზე მიბმული პროფილი თამაშის გაშვებისას ირთვება, ამიტომ ათვლა ამ სესიას ეხება. ნაგულისხმევი პროფილის დროს ათვლა ძრავის გაშვებიდან მიდის.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>ეკრანი აჩვენებს თქვენს მიერ არჩეულ სურათს მისივე ზომით. ეკრანზე დიდი სურათიდან ეკრანის ზომის ფანჯარა ჩანს, რომელსაც მაკრო „კლავიატურის ეკრანის სურათის გადაადგილება“ ამოძრავებს. S.T.R.I.K.E. 7-ზე მას ეკრანზე გადაჩოჩებული თითიც ამოძრავებს.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>ეკრანი აჩვენებს წამზომს, რომელსაც მაკრო „წამზომი“ იწყებს, აპაუზებს და ნულზე აბრუნებს. ყველა ეკრანი ერთსა და იმავე წამზომს აჩვენებს.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>ეკრანი აჩვენებს DualShock 4-ის ან DualSense-ის შუქის ზოლის ფერს ყველაზე დაბალ სლოტში. მონოქრომული ეკრანი მის სიკაშკაშეს წერტილოვანი ნიმუშით აჩვენებს. სანამ ფერი შუქის ზოლამდე არ მივა, PadForge არაფერს აჩვენებს.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>ეკრანი აჩვენებს DualShock 4-ის ან DualSense-ის შუქის ზოლის ფერს ყველაზე დაბალ სლოტში, რომელსაც ეს ეკრანი კვებავს, ხოლო თუ არცერთს არ კვებავს, ყველა სლოტში ყველაზე დაბალში. მონოქრომული ეკრანი მის სიკაშკაშეს წერტილოვანი ნიმუშით აჩვენებს. სანამ ფერი შუქის ზოლამდე არ მივა, PadForge არაფერს აჩვენებს.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>სურათები (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|ყველა ფაილი (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>გადაადგილება</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>გადაადგილება X</value></data>
@@ -4329,11 +4326,11 @@
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>S.T.R.I.K.E. 7 SDK-ს ჩამოტვირთვა არ ემთხვევა ცნობილ SHA-256-ს, ამიტომ მისგან არაფერი შენახულა.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Visual C++ 2008 გაშვების გარემო ინსტალერის გაშვების შემდეგაც აკლია.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>კლავიატურის ეკრანის ჩვენება</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>აჩვენებს სურათებს არჩეული ტიპის ყველა კლავიატურის ეკრანზე, შემდეგ კი თითოეულ ეკრანს თავის რეჟიმს უბრუნებს.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>აჩვენებს სურათებს არჩეული ტიპის თითოეულ კლავიატურის ეკრანზე, რომელიც ამ სლოტს კვებავს, შემდეგ კი თითოეულ ეკრანს თავის რეჟიმს უბრუნებს.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>{0} სურათების ჩვენება: {1} × {2} მწ, გამეორება {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>სურათები ეკრანს ერგება: 160 × 43 შავ-თეთრი პიქსელი მონოქრომულ ეკრანზე, 320 × 240 G19-ის ეკრანზე და 480 × 320 Arx Control-სა და S.T.R.I.K.E. 7-ზე. კადრის უმოკლესი დრო წამის მეათედია.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>კლავიატურის ეკრანის რეჟიმი</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>კლავიატურის ეკრანის ტიპს სხვა რეჟიმზე ცვლის და ამ ეკრანის პარამეტრად ინახავს.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>არჩეული ტიპის თითოეულ კლავიატურის ეკრანს, რომელიც ამ სლოტს კვებავს, სხვა რეჟიმზე ცვლის და ამ ეკრანის პარამეტრად ინახავს.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} აჩვენებს: {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>რეჟიმი რჩება, სანამ სხვა მაკრო ან ეკრანის დიალოგი არ შეცვლის.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>წამზომი</value></data>
@@ -4342,9 +4339,9 @@
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>წამზომის განულება</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>განულება წამზომს აჩერებს და ნულზე აბრუნებს. წამზომის რეჟიმში მყოფი ყველა კლავიატურის ეკრანი ერთსა და იმავე წამზომს აჩვენებს.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>კლავიატურის ეკრანის სურათის გადაადგილება</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>კლავიატურის თითოეული ეკრანის ფანჯარას ეკრანზე დიდ სურათზე ამოძრავებს, მაგალითად რუკისთვის.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>ამ სლოტს მკვებავი კლავიატურის თითოეული ეკრანის ფანჯარას ეკრანზე დიდ სურათზე ამოძრავებს, მაგალითად რუკისთვის.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>სურათების გადაადგილება: {0} და {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>ამოძრავებს ყველა ტიპის ეკრანს, რომელიც საკუთარ ზომაზე დიდ არჩეულ სურათს აჩვენებს. ფანჯარა სურათის კიდეებთან ჩერდება.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>ამოძრავებს ამ სლოტის მკვებავ თითოეულ ეკრანს, რომელიც საკუთარ ზომაზე დიდ არჩეულ სურათს აჩვენებს. ფანჯარა სურათის კიდეებთან ჩერდება.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>ეკრანი</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>მოქმედება</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>მიმართულება</value></data>
@@ -4426,6 +4423,6 @@
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>მაქსიმალური ძალა, რომელსაც Falcon სახელურზე ახდენს, 1-დან 8 ნიუტონამდე.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>ძალის ლიმიტის საწყისზე დაბრუნება</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>დიაპაზონის კალიბრაცია</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>ზომავს, რამდენად შორს გადაადგილდება სახელური. ოთხი წამის განმავლობაში, სანამ გაზომვა მიმდინარეობს, გადაატარეთ ყველა კიდემდე. ძალები ამ დროს ითიშება.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>დიაპაზონის კალიბრაცია</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>ზომავს, რამდენად შორს გადაადგილდება სახელური. ოთხი წამის განმავლობაში, სანამ გაზომვა მიმდინარეობს, გადაატარეთ ყველა კიდემდე. ძალები ამ დროს ითიშება.</value></data>
 </root>

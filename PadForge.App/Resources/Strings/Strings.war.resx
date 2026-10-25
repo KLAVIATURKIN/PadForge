@@ -167,10 +167,7 @@
   <data name="Tour_Slots_Title" xml:space="preserve"><value>Mga slot</value></data>
   <data name="Tour_Cards_Title" xml:space="preserve"><value>Mga virtual nga controller</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>Waray nakita nga suportado nga analog keyboard.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>Ginbabasa an {0}.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Waray nakita nga Bliss-Box port.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>Ginbabasa an {0}.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>port {0} ({1})</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>waray controller</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>Tipo {0}</value></data>
   <data name="Dashboard_WebPlainLocalOnly" xml:space="preserve"><value>Ini la nga PC</value></data>
@@ -1206,6 +1203,7 @@
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>waray screen nga nakit-an</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, naghuhulat hin kolor han lightbar</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, waray napili nga litrato</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Screen han keyboard</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Key han screen {0}</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Screen Wala</value></data>
   <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Screen Too</value></data>

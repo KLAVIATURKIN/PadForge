@@ -308,14 +308,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>Lexo tastierat analoge</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Lexon sa është shtypur çdo tast në tastierat analoge nga Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA dhe prodhues të tjerë, secila si rresht i veçantë pajisjeje. Dokumentacioni liston çdo model të mbështetur. Tastierat Razer kërkojnë që Razer Synapse të jetë në punë. Shumica e të tjerave lexohen përmes kanalit që përdor konfiguruesi i tyre, ndaj mbylle konfiguruesin ndërsa kjo është aktive.</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>Nuk u gjet asnjë tastierë analoge e mbështetur.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>Po lexohet {0}.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>Nise Razer Synapse për të lexuar {0}.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>Nise Razer Synapse për të lexuar {0}.</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Lexo përshtatësit Bliss-Box</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>Komunikon me përshtatësit Bliss-Box përmes API-t të tyre. Rreshti i çdo porte emërton kontrolluesin e futur në të dhe butonat e tij, lexon presionin e një DualShock 2, bën dridhje përmes komandave të motorit të vetë përshtatësit dhe ofron veprimet për ekranin Dreamcast, Controller Pak dhe numrin e lojtarit. Mbyll Bliss-Box API Tool dhe DeviceBuddy ndërsa kjo është aktive, pasi komunikojnë me përshtatësin përmes të njëjtit kanal. Ndërsa kjo është aktive, PadForge lexon çdo portë sipas strukturës së vetë përshtatësit, në vend të hartëzimit të gamepad-it të SDL, ndaj hartëzo përsëri një portë pasi ta aktivizosh ose çaktivizosh.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Nuk u gjet asnjë portë Bliss-Box.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>Po lexohet {0}.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>porta {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>po lidhet</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>pa kontrollues</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>Lloji {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Kontrolluesi në web</value></data>
@@ -4218,7 +4214,7 @@ Doni që PadForge t'i çinstalojë tani? Kjo kërkon privilegje administratori d
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>Formati PCM haptik i PS5, 16-bit me shenjë në 3 kHz, që vendosi kodimin haptik Bluetooth 8-bit me shenjë. AGPL-3.0, lexuar vetëm si dokumentim, nuk përfshihet kod AGPL.</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Ekranet e tastierës</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Vizaton në ekranet e integruara në tastierat GamePanel të Logitech dhe në Mad Catz S.T.R.I.K.E. 7, si dhe në një telefon përmes Logitech Arx Control: profilin, orën, kohën e lojës, një kronometër, një imazh ose ngjyrën e shiritit të dritës të një kontrolluesi DualShock 4 ose DualSense. Tastet pranë këtyre ekraneve bëhen butona në rreshtin Tastet e ekranit të tastierës.</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Vizaton në ekranet e integruara në tastierat GamePanel të Logitech dhe në Mad Catz S.T.R.I.K.E. 7, si dhe në një telefon përmes Logitech Arx Control: profilin, orën, kohën e lojës, një kronometër, një imazh ose ngjyrën e shiritit të dritës të një kontrolluesi DualShock 4 ose DualSense. Çdo ekran ka rreshtin e vet në faqen Pajisjet, ku caktoni çfarë shfaq. Tastet pranë një ekrani janë butonat e rreshtit të tij.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Drejto ekranet e tastierës</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Vizaton në ekranet e Logitech G15, G15 v2, G510, G13, Z-10, GamePanel dhe G19, në Arx Control dhe në Mad Catz S.T.R.I.K.E. 7. Kur Logitech Gaming Software është në punë, PadForge vizaton përmes tij. Pa të, PadForge shkruan ekranet monokrome përmes HID dhe lidh WinUSB me ndërfaqen e ekranit të G19. Kur çaktivizohet, ekrani i G19 i kthehet Windows.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Ekrani monokrom…</value></data>
@@ -4258,7 +4254,8 @@ Doni që PadForge t'i çinstalojë tani? Kjo kërkon privilegje administratori d
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>nuk u gjet asnjë ekran</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, në pritje të një ngjyre të shiritit të dritës</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, nuk është zgjedhur asnjë imazh</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Tastet e ekranit të tastierës</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Gjatë punës së Logitech Gaming Software, çdo ekran i këtij lloji shfaq imazhin e caktuar për {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Ekran tastiere</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Tasti {0} i ekranit</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Tasti Applet</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Ekrani majtas</value></data>
@@ -4277,7 +4274,7 @@ Doni që PadForge t'i çinstalojë tani? Kjo kërkon privilegje administratori d
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Ekrani shfaq orët dhe minutat që nga hyrja në fuqi e profilit aktiv. Një profil i lidhur me programin e një loje hyn në fuqi kur nis loja, prandaj numërimi është ai i sesionit. Nën profilin Parazgjedhje numëron nga nisja e motorit.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Ekrani shfaq një imazh që zgjidhni, në madhësinë e tij. Një imazh më i madh se ekrani shfaq një dritare sa ekrani, që e lëviz makroja Lëviz imazhin e ekranit të tastierës. Në S.T.R.I.K.E. 7, një gisht i zvarritur mbi ekran e lëviz gjithashtu.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Ekrani shfaq kronometrin, që e nis, e ndalon pak dhe e rivendos makroja Kronometër. Çdo ekran shfaq të njëjtin kronometër.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Ekrani shfaq ngjyrën e shiritit të dritës të DualShock 4 ose DualSense në slotin më të ulët. Një ekran monokrom e shfaq shkëlqimin si model pikash. Deri sa një ngjyrë të arrijë te një shirit drite, PadForge nuk shfaq asgjë.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Ekrani shfaq ngjyrën e shiritit të dritës të DualShock 4 ose DualSense në slotin më të ulët që ushqen ky ekran, ose në slotin më të ulët nga të gjithë kur nuk ushqen asnjë. Një ekran monokrom e shfaq shkëlqimin si model pikash. Deri sa një ngjyrë të arrijë te një shirit drite, PadForge nuk shfaq asgjë.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Imazhet (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Të gjithë skedarët (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Lëviz</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Lëviz X</value></data>
@@ -4289,11 +4286,11 @@ Doni që PadForge t'i çinstalojë tani? Kjo kërkon privilegje administratori d
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Shkarkimi i SDK-së së S.T.R.I.K.E. 7 nuk përputhet me SHA-256 e saj të njohur, prandaj nuk u ruajt asgjë prej tij.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Runtime-i Visual C++ 2008 mungon ende pas ekzekutimit të instaluesit të tij.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Shfaq ekranin e tastierës</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Luan imazhe në çdo ekran tastiere të llojit të zgjedhur, pastaj kthen çdo ekran në mënyrën e vet.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Luan imazhe në çdo ekran tastiere të llojit të zgjedhur që ushqen këtë slot, pastaj kthen çdo ekran në mënyrën e vet.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Shfaq {0} imazhe: {1} × {2} ms, numri i përsëritjeve {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Imazhet përshtaten me ekranin: 160 me 43 piksel bardh e zi në një ekran monokrom, 320 me 240 në atë të G19 dhe 480 me 320 për Arx Control dhe S.T.R.I.K.E. 7. Një e dhjeta e sekondës është koha më e shkurtër e kuadrit.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Mënyra e ekranit të tastierës</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Kalon një lloj ekrani tastiere në një mënyrë tjetër dhe e ruan si cilësim të atij ekrani.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Kalon çdo ekran tastiere të llojit të zgjedhur që ushqen këtë slot në një mënyrë tjetër dhe e ruan si cilësim të atij ekrani.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} shfaq {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Mënyra mbetet derisa e ndryshon një makro tjetër ose dialogu i ekranit.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Kronometër</value></data>
@@ -4302,9 +4299,9 @@ Doni që PadForge t'i çinstalojë tani? Kjo kërkon privilegje administratori d
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Rivendos kronometrin</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Rivendosja e ndalon kronometrin dhe e kthen në zero. Çdo ekran tastiere në mënyrën Kronometër shfaq të njëjtin kronometër.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Lëviz imazhin e ekranit të tastierës</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Lëviz dritaren e çdo ekrani tastiere mbi një imazh më të madh se ekrani, për një hartë.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Lëviz dritaren e çdo ekrani tastiere që ushqen këtë slot mbi një imazh më të madh se ekrani, për një hartë.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Lëviz imazhet me {0} dhe {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Lëviz çdo lloj ekrani që shfaq një imazh të zgjedhur më të madh se vetja. Dritarja ndalon te skajet e imazhit.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Lëviz çdo ekran që ushqen këtë slot dhe shfaq një imazh të zgjedhur më të madh se vetja. Dritarja ndalon te skajet e imazhit.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Ekrani</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Veprimi</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Drejtimi</value></data>
@@ -4386,6 +4383,6 @@ Doni që PadForge t'i çinstalojë tani? Kjo kërkon privilegje administratori d
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Forca më e madhe që Falcon i jep dorezës, nga 1 deri në 8 njuton.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Rivendos kufirin e forcës</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Kalibro shtrirjen</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mat sa largë udhëton doreza. Lëvize deri në çdo skaj të shtrirjes gjatë katër sekondave që zgjat skanimi. Forcat pushojnë ndërkohë.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>Kalibro shtrirjen</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mat sa largë udhëton doreza. Lëvize deri në çdo skaj të shtrirjes gjatë katër sekondave që zgjat skanimi. Forcat pushojnë ndërkohë.</value></data>
 </root>

@@ -132,6 +132,17 @@ namespace PadForge.ViewModels
         public event EventHandler<BlissBoxAction> BlissBoxActionRequested;
         public void RequestBlissBox(BlissBoxAction action) => BlissBoxActionRequested?.Invoke(this, action);
 
+        /// <summary>Raised by a keyboard screen row's button (issue #519).
+        /// MainWindow opens that screen's dialog.</summary>
+        public event EventHandler KeyboardScreenRequested;
+        public void RequestKeyboardScreen() => KeyboardScreenRequested?.Invoke(this, EventArgs.Empty);
+
+        /// <summary>Raised by a Falcon row's Calibrate Reach (issue #521).
+        /// MainWindow runs the sweep and keeps the result on the
+        /// device.</summary>
+        public event EventHandler FalconCalibrateRequested;
+        public void RequestFalconCalibrate() => FalconCalibrateRequested?.Invoke(this, EventArgs.Empty);
+
         /// <summary>Reads the offer for the selected device. Only a row whose
         /// IDs belong to an opt-in device costs a sweep of the USB
         /// nodes.</summary>

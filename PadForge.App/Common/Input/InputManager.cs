@@ -4249,7 +4249,7 @@ namespace PadForge.Common.Input
             ShutdownHandheldInputs();
             ShutdownHeadTrackerInputs();
             ShutdownLogitechGKeysInputs();
-            ShutdownKeyboardScreenKeysInputs();
+            ShutdownKeyboardScreenInputs();
             ShutdownFalconInputs();
             ShutdownPeripheralRows();
             ShutdownTouchSenseMice();

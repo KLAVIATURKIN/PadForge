@@ -673,6 +673,8 @@
   <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>kamataʻi ʻa e polokalama S.T.R.I.K.E. 7</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, ʻoku tatali ki ha lanu ʻo e lightbar</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, ʻoku teʻeki fili ha fakatātā</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Lolotonga ʻoku lele ʻa e Logitech Gaming Software, ʻoku fakahāhā ʻe he sikilini kotoa pē ʻo e faʻahinga ko ʻení ʻa e fakatātā kuo fokotuʻu ki he {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Sikilini ʻo e keyboard</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Toʻohema/Toʻomataʻu</value></data>

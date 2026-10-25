@@ -347,9 +347,12 @@ namespace PadForge.Tests
             // bind's own default drivers (none and HidUsb), only while LGS
             // is away, and is no opt-in of the confirm's kinds.
             string g19 = AuditDelta20261002Tests.RepoText("PadForge.App", "Common", "Input", "KeyboardScreens", "G19UsbScreen.cs");
-            Assert.Contains("private const ushort Vid = KeyboardScreenDevices.LogitechVid;", g19);
-            Assert.Contains("private const ushort Pid = KeyboardScreenDevices.G19;", g19);
-            Assert.Contains("n.Vid == Vid && n.Pid == Pid && n.Interface == 0", g19);
+            Assert.Contains("internal const ushort Vid = KeyboardScreenDevices.LogitechVid;", g19);
+            Assert.Contains("internal const ushort Pid = KeyboardScreenDevices.G19;", g19);
+            // A screen is made only for a G19's interface 0, and each one
+            // binds its own node.
+            Assert.Contains("node.Vid != G19UsbScreen.Vid || node.Pid != G19UsbScreen.Pid || node.Interface != 0", g19);
+            Assert.Contains("string.Equals(n.InstanceId, _instanceId, StringComparison.OrdinalIgnoreCase)", g19);
             Assert.Contains("if (!mayBind || now < _nextBind) return;", g19);
             Assert.Contains("VendorUsbDriverInstaller.Bind(plan, node.InstanceId, nodes, _log, CancellationToken.None);", g19);
             Assert.DoesNotContain("OptIn", g19);

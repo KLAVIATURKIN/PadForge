@@ -323,14 +323,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>Les analoge tastaturer</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Leser hvor langt hver tast er trykket ned på analoge tastaturer fra Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA og andre produsenter, hvert som sin egen enhetsrad. Dokumentasjonen viser alle støttede modeller. Razer-tastaturer krever at Razer Synapse kjører. De fleste andre leses over den samme kanalen som deres eget konfigurasjonsprogram bruker, så lukk konfigurasjonsprogrammet mens dette er på.</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>Fant ikke noe støttet analogt tastatur.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>Leser {0}.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>Start Razer Synapse for å lese {0}.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>Start Razer Synapse for å lese {0}.</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Les Bliss-Box-adaptere</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>Kommuniserer med Bliss-Box-adaptere gjennom deres API. Raden for hver port viser kontrolleren som er koblet til porten og knappene på den, leser trykkverdiene fra en DualShock 2, vibrerer via adapterens egne motorkommandoer og tilbyr handlingene for Dreamcast-skjermen, Controller Pak og spillernummer. Lukk Bliss-Box API Tool og DeviceBuddy mens dette er på, siden de kommuniserer med adapteren over samme kanal. Mens dette er på, leser PadForge hver port i adapterens eget oppsett i stedet for gjennom gamepad-tilordningen i SDL, så tilordne porten på nytt etter at du slår dette av eller på.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Fant ingen Bliss-Box-port.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>Leser {0}.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>port {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>kobler til</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>ingen kontroller</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>Type {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Nettkontroller</value></data>
@@ -4292,7 +4288,7 @@ Vil du at PadForge skal avinstallere dem nå? Dette krever administratorrettighe
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>Det haptiske PCM-formatet til PS5, 16 bit med fortegn ved 3 kHz, som avgjorde den haptiske kodingen på 8 bit med fortegn over Bluetooth. AGPL-3.0, kun lest som dokumentasjon, ingen AGPL-kode følger med.</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Tastaturskjermer</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Tegner på skjermene som er bygget inn i Logitechs GamePanel-tastaturer og Mad Catz S.T.R.I.K.E. 7, og på en telefon via Logitech Arx Control: profilen, en klokke, spilletid, en stoppeklokke, et bilde eller fargen på lyslisten til en DualShock 4- eller DualSense-kontroller. Tastene ved siden av skjermene blir knapper på raden Tastaturskjermtaster.</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Tegner på skjermene som er bygget inn i Logitechs GamePanel-tastaturer og Mad Catz S.T.R.I.K.E. 7, og på en telefon via Logitech Arx Control: profilen, en klokke, spilletid, en stoppeklokke, et bilde eller fargen på lyslisten til en DualShock 4- eller DualSense-kontroller. Hver skjerm får sin egen rad på Enheter-siden, der du velger hva den viser. Tastene ved siden av en skjerm er knappene på raden.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Styr tastaturskjermer</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Tegner på skjermene til Logitech G15, G15 v2, G510, G13, Z-10, GamePanel og G19, på Arx Control og på Mad Catz S.T.R.I.K.E. 7. Mens Logitech Gaming Software kjører, tegner PadForge gjennom den. Uten den skriver PadForge til de monokrome skjermene over HID og binder WinUSB til skjermgrensesnittet på G19. Når dette slås av, gis G19-skjermen tilbake til Windows.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Monokrom skjerm…</value></data>
@@ -4332,7 +4328,8 @@ Vil du at PadForge skal avinstallere dem nå? Dette krever administratorrettighe
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>ingen skjerm funnet</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, venter på en lyslistfarge</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, ingen bilde valgt</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Tastaturskjermtaster</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Mens Logitech Gaming Software kjører, viser alle skjermer av denne typen bildet som er satt for {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Tastaturskjerm</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Skjermtast {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Applettast</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Skjerm venstre</value></data>
@@ -4351,7 +4348,7 @@ Vil du at PadForge skal avinstallere dem nå? Dette krever administratorrettighe
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Skjermen viser timer og minutter siden den aktive profilen ble byttet inn. En profil som er knyttet til et spillprogram, byttes inn når spillet starter, så telleren viser den økten. Under standardprofilen teller den fra programmets oppstart.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Skjermen viser et bilde du velger, i full størrelse. Et bilde som er større enn skjermen, vises som et utsnitt på skjermens størrelse, som makroen Panorer bilde på tastaturskjerm flytter. På S.T.R.I.K.E. 7 flytter også en finger som dras over skjermen utsnittet.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Skjermen viser stoppeklokken, som makroen Stoppeklokke starter, setter på pause og nullstiller. Alle skjermer viser den samme stoppeklokken.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Skjermen viser fargen på lyslisten til DualShock 4- eller DualSense-kontrolleren i det laveste sporet. En monokrom skjerm viser lysstyrken som et punktmønster. Inntil en farge når en lyslist, viser PadForge ingenting.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Skjermen viser fargen på lyslisten til DualShock 4- eller DualSense-kontrolleren i det laveste sporet som denne skjermen forsyner, eller i det laveste sporet av alle når den ikke forsyner noe. En monokrom skjerm viser lysstyrken som et punktmønster. Inntil en farge når en lyslist, viser PadForge ingenting.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Bilder (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Alle filer (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Panorer</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Panorer X</value></data>
@@ -4363,11 +4360,11 @@ Vil du at PadForge skal avinstallere dem nå? Dette krever administratorrettighe
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Nedlastingen av S.T.R.I.K.E. 7 SDK stemmer ikke med den kjente SHA-256-verdien, så ingenting fra den ble beholdt.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Visual C++ 2008-kjøretidsmiljøet mangler fortsatt etter at installasjonsprogrammet kjørte.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Vis tastaturskjerm</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Spiller av bilder på alle tastaturskjermer av den valgte typen, og setter deretter hver skjerm tilbake til sin egen modus.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Spiller av bilder på hver tastaturskjerm av den valgte typen som forsyner dette sporet, og setter deretter hver skjerm tilbake til sin egen modus.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Vis bilder på {0}: {1} × {2} ms, gjentakelser {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Bilder tilpasses skjermen: 160 × 43 svart-hvite piksler på en monokrom skjerm, 320 × 240 på G19, og 480 × 320 for Arx Control og S.T.R.I.K.E. 7. Et tidels sekund er korteste bildetid.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Tastaturskjermmodus</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Bytter en type tastaturskjerm til en annen modus og beholder den som skjermens innstilling.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Bytter hver tastaturskjerm av den valgte typen som forsyner dette sporet, til en annen modus, og beholder den som skjermens innstilling.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} viser {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Modusen blir stående til en annen makro eller skjermens dialog endrer den.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Stoppeklokke</value></data>
@@ -4376,9 +4373,9 @@ Vil du at PadForge skal avinstallere dem nå? Dette krever administratorrettighe
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Nullstill stoppeklokken</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Nullstilling stopper stoppeklokken og setter den tilbake til null. Alle tastaturskjermer i stoppeklokkemodus viser den samme stoppeklokken.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Panorer bilde på tastaturskjerm</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Flytter hver tastaturskjerms utsnitt over et bilde som er større enn skjermen, for eksempel et kart.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Flytter utsnittet til hver tastaturskjerm som forsyner dette sporet, over et bilde som er større enn skjermen, for eksempel et kart.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Panorer bilder med {0} × {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Flytter alle typer skjermer som viser et valgt bilde som er større enn skjermen. Utsnittet stopper ved kanten av bildet.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Flytter hver skjerm som forsyner dette sporet og viser et valgt bilde som er større enn skjermen. Utsnittet stopper ved kanten av bildet.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Skjerm</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Handling</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Retning</value></data>
@@ -4460,6 +4457,6 @@ Vil du at PadForge skal avinstallere dem nå? Dette krever administratorrettighe
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Den største kraften Falcon legger på håndtaket, fra 1 til 8 newton.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Tilbakestill kraftgrense</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Kalibrer rekkevidde</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Måler hvor langt håndtaket beveger seg. Flytt det til alle ytterkanter av rekkevidden i de fire sekundene målingen pågår. Kreftene hviler i mellomtiden.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>Kalibrer rekkevidde</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Måler hvor langt håndtaket beveger seg. Flytt det til alle ytterkanter av rekkevidden i de fire sekundene målingen pågår. Kreftene hviler i mellomtiden.</value></data>
 </root>

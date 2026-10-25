@@ -308,14 +308,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>Baca Papan Kekunci Analog</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Membaca sejauh mana setiap kekunci ditekan pada papan kekunci analog daripada Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA, dan pembuat lain, setiap satu sebagai barisan peranti sendiri. Dokumentasi menyenaraikan setiap model yang disokong. Papan kekunci Razer memerlukan Razer Synapse berjalan. Kebanyakan yang lain dibaca melalui saluran yang digunakan oleh konfigurator mereka sendiri, jadi tutup konfigurator semasa ini dihidupkan.</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>Tiada papan kekunci analog yang disokong ditemui.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>Membaca {0}.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>Mulakan Razer Synapse untuk membaca {0}.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>Mulakan Razer Synapse untuk membaca {0}.</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Baca Penyesuai Bliss-Box</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>Berhubung dengan penyesuai Bliss-Box melalui API-nya. Baris setiap port menamakan pengawal yang dipalamkan padanya dan butangnya, membaca tekanan DualShock 2, menggetar melalui arahan motor penyesuai sendiri, dan menawarkan tindakan skrin Dreamcast, Controller Pak, dan nombor pemain. Tutup Bliss-Box API Tool dan DeviceBuddy semasa ini dihidupkan, kerana keduanya berhubung dengan penyesuai melalui saluran yang sama. Semasa ini dihidupkan, PadForge membaca setiap port dalam reka letak penyesuai sendiri dan bukan melalui pemetaan gamepad SDL, jadi petakan port sekali lagi selepas menghidupkan atau mematikannya.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Tiada port Bliss-Box ditemui.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>Membaca {0}.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>port {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>menyambung</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>tiada pengawal</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>Jenis {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Pengawal Web</value></data>
@@ -4268,7 +4264,7 @@ Adakah anda mahu PadForge menyahpasangnya sekarang? Ini memerlukan peninggian ke
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>Format PCM haptik PS5, 16-bit bertanda pada 3 kHz, yang menyelesaikan pengekodan haptik Bluetooth 8-bit bertanda. AGPL-3.0, dibaca sebagai dokumentasi sahaja, tiada kod AGPL disertakan.</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Skrin Papan Kekunci</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Melukis pada skrin terbina dalam papan kekunci GamePanel Logitech dan Mad Catz S.T.R.I.K.E. 7, dan pada telefon melalui Logitech Arx Control: profil, jam, masa bermain, jam randik, gambar, atau warna bar cahaya DualShock 4 atau DualSense. Kekunci di sebelah skrin tersebut menjadi butang pada baris Kekunci Skrin Papan Kekunci.</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Melukis pada skrin terbina dalam papan kekunci GamePanel Logitech dan Mad Catz S.T.R.I.K.E. 7, dan pada telefon melalui Logitech Arx Control: profil, jam, masa bermain, jam randik, gambar, atau warna bar cahaya DualShock 4 atau DualSense. Setiap skrin mendapat barisnya sendiri pada halaman Peranti, tempat anda menetapkan apa yang dipaparkannya. Kekunci di sebelah skrin ialah butang baris tersebut.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Kawal Skrin Papan Kekunci</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Melukis pada skrin G15, G15 v2, G510, G13, Z-10, GamePanel dan G19 Logitech, pada Arx Control, dan pada Mad Catz S.T.R.I.K.E. 7. Semasa Logitech Gaming Software berjalan, PadForge melukis melaluinya. Tanpanya, PadForge menulis ke skrin monokrom melalui HID dan mengikat WinUSB pada antara muka skrin G19. Mematikan ini mengembalikan skrin G19 kepada Windows.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Skrin Monokrom…</value></data>
@@ -4308,7 +4304,8 @@ Adakah anda mahu PadForge menyahpasangnya sekarang? Ini memerlukan peninggian ke
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>tiada skrin ditemui</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, menunggu warna bar cahaya</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, tiada gambar dipilih</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Kekunci Skrin Papan Kekunci</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Semasa Logitech Gaming Software berjalan, setiap skrin jenis ini memaparkan gambar yang ditetapkan untuk {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Skrin Papan Kekunci</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Kekunci Skrin {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Kekunci Applet</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Skrin Kiri</value></data>
@@ -4327,7 +4324,7 @@ Adakah anda mahu PadForge menyahpasangnya sekarang? Ini memerlukan peninggian ke
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Skrin memaparkan jam dan minit sejak profil aktif ditukar masuk. Profil yang dikaitkan dengan program sesuatu permainan ditukar masuk apabila permainan bermula, jadi kiraan itu ialah sesi tersebut. Di bawah profil Lalai, ia dikira dari permulaan enjin.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Skrin memaparkan gambar pilihan anda, pada saiznya sendiri. Gambar yang lebih besar daripada skrin menunjukkan tetingkap seukuran skrin, yang digerakkan oleh makro Pan Gambar Skrin Papan Kekunci. Pada S.T.R.I.K.E. 7, jari yang diseret merentasi skrin juga menggerakkannya.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Skrin memaparkan jam randik, yang dimulakan, dijedakan dan ditetapkan semula oleh makro Jam Randik. Setiap skrin memaparkan jam randik yang sama.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Skrin memaparkan warna bar cahaya pada DualShock 4 atau DualSense dalam slot terendah. Skrin monokrom memaparkan kecerahannya sebagai corak titik. Selagi tiada warna sampai ke bar cahaya, PadForge tidak memaparkan apa-apa.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Skrin memaparkan warna bar cahaya pada DualShock 4 atau DualSense dalam slot terendah yang dibekalkan oleh skrin ini, atau dalam slot terendah keseluruhan jika skrin ini tidak membekalkan mana-mana slot. Skrin monokrom memaparkan kecerahannya sebagai corak titik. Selagi tiada warna sampai ke bar cahaya, PadForge tidak memaparkan apa-apa.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Gambar (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Semua Fail (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Pan</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Pan X</value></data>
@@ -4339,11 +4336,11 @@ Adakah anda mahu PadForge menyahpasangnya sekarang? Ini memerlukan peninggian ke
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Muat turun SDK S.T.R.I.K.E. 7 tidak sepadan dengan SHA-256 yang diketahui, jadi tiada apa-apa daripadanya disimpan.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Masa jalan Visual C++ 2008 masih tiada selepas pemasangnya dijalankan.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Tunjukkan Skrin Papan Kekunci</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Memainkan gambar pada setiap skrin papan kekunci jenis yang dipilih, kemudian mengembalikan setiap skrin kepada modnya sendiri.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Memainkan gambar pada setiap skrin papan kekunci jenis yang dipilih yang membekalkan slot ini, kemudian memulangkan setiap skrin kepada modnya sendiri.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Tunjukkan gambar {0}: {1} × {2} ms, bilangan ulangan {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Gambar disesuaikan dengan skrin: 160 kali 43 piksel hitam putih pada skrin monokrom, 320 kali 240 pada skrin G19, dan 480 kali 320 untuk Arx Control dan S.T.R.I.K.E. 7. Satu persepuluh saat ialah masa bingkai terpendek.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Mod Skrin Papan Kekunci</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Menukar satu jenis skrin papan kekunci kepada mod lain dan menyimpannya sebagai tetapan skrin itu.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Menukar setiap skrin papan kekunci jenis yang dipilih yang membekalkan slot ini kepada mod lain, dan menyimpannya sebagai tetapan skrin itu.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} memaparkan {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Mod kekal sehingga makro lain atau dialog skrin mengubahnya.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Jam Randik</value></data>
@@ -4352,9 +4349,9 @@ Adakah anda mahu PadForge menyahpasangnya sekarang? Ini memerlukan peninggian ke
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Tetapkan Semula Jam Randik</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Tetap semula menghentikan jam randik dan menetapkannya kembali kepada sifar. Setiap skrin papan kekunci dalam mod Jam Randik memaparkan jam randik yang sama.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Pan Gambar Skrin Papan Kekunci</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Menggerakkan tetingkap setiap skrin papan kekunci di atas gambar yang lebih besar daripada skrin, contohnya peta.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Menggerakkan tetingkap setiap skrin papan kekunci yang membekalkan slot ini di atas gambar yang lebih besar daripada skrin, contohnya peta.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Pan gambar {0} kali {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Menggerakkan setiap jenis skrin yang memaparkan gambar pilihan yang lebih besar daripada dirinya. Tetingkap berhenti pada tepi gambar.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Menggerakkan setiap skrin yang membekalkan slot ini dan memaparkan gambar pilihan yang lebih besar daripada dirinya. Tetingkap berhenti pada tepi gambar.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Skrin</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Tindakan</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Arah</value></data>
@@ -4436,6 +4433,6 @@ Adakah anda mahu PadForge menyahpasangnya sekarang? Ini memerlukan peninggian ke
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Daya paling besar yang dikenakan Falcon pada pemegang, dari 1 hingga 8 newton.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Tetap Semula Had Daya</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Tentukur Jangkauan</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mengukur sejauh mana pemegang bergerak. Gerakkan ke setiap hujung jangkauannya selama empat saat sapuan berjalan. Daya direhatkan sementara itu.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>Tentukur Jangkauan</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mengukur sejauh mana pemegang bergerak. Gerakkan ke setiap hujung jangkauannya selama empat saat sapuan berjalan. Daya direhatkan sementara itu.</value></data>
 </root>

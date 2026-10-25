@@ -323,14 +323,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>అనలాగ్ కీబోర్డ్‌లను చదువు</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA మరియు ఇతర తయారీదారుల అనలాగ్ కీబోర్డ్‌లలో ప్రతి కీ ఎంత లోతుగా నొక్కబడిందో చదువుతుంది, ప్రతిదాన్ని ఒక్కో పరికరం వరుసగా చూపిస్తుంది. మద్దతు ఉన్న ప్రతి మోడల్‌ను డాక్యుమెంటేషన్ జాబితా చేస్తుంది. Razer కీబోర్డ్‌లకు Razer Synapse నడుస్తూ ఉండాలి. మిగిలిన వాటిలో చాలా వాటిని వాటి స్వంత కాన్ఫిగరేటర్ ఉపయోగించే ఛానెల్ ద్వారా చదువుతారు, కాబట్టి ఇది ఆన్‌లో ఉన్నప్పుడు కాన్ఫిగరేటర్‌ను మూసివేయండి.</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>మద్దతు ఉన్న అనలాగ్ కీబోర్డ్ కనుగొనబడలేదు.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>{0} చదువుతోంది.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>{0} చదవడానికి Razer Synapse ప్రారంభించండి.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>{0} చదవడానికి Razer Synapse ప్రారంభించండి.</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Bliss-Box అడాప్టర్లను చదువు</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>Bliss-Box అడాప్టర్లతో వాటి API ద్వారా మాట్లాడుతుంది. ప్రతి పోర్ట్ వరుస దానికి ప్లగ్ చేసిన కంట్రోలర్ పేరును, దాని బటన్లను చూపుతుంది, DualShock 2 ఒత్తిడిని చదువుతుంది, అడాప్టర్ స్వంత మోటార్ కమాండ్ల ద్వారా రంబుల్ చేస్తుంది, Dreamcast స్క్రీన్, Controller Pak, ప్లేయర్ నంబర్ చర్యలను అందిస్తుంది. ఇది ఆన్‌లో ఉన్నప్పుడు Bliss-Box API Tool, DeviceBuddyలను మూసివేయండి, ఎందుకంటే అవి అదే ఛానెల్ ద్వారా అడాప్టర్‌తో మాట్లాడతాయి. ఇది ఆన్‌లో ఉన్నప్పుడు PadForge ప్రతి పోర్ట్‌ను SDL గేమ్‌ప్యాడ్ మ్యాపింగ్ ద్వారా కాకుండా అడాప్టర్ స్వంత లేఅవుట్‌లో చదువుతుంది, కాబట్టి దీన్ని ఆన్ లేదా ఆఫ్ చేసిన తర్వాత పోర్ట్‌ను మళ్లీ మ్యాప్ చేయండి.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Bliss-Box పోర్ట్ కనుగొనబడలేదు.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>{0} చదువుతోంది.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>పోర్ట్ {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>కనెక్ట్ అవుతోంది</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>కంట్రోలర్ లేదు</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>రకం {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>వెబ్ కంట్రోలర్</value></data>
@@ -4292,7 +4288,7 @@ PadForge వాటిని ఇప్పుడు అన్ఇన్స్టా
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PS5 హాప్టిక్ PCM ఫార్మాట్, 3 kHz వద్ద సంతకం ఉన్న 16-బిట్, ఇది సంతకం ఉన్న 8-బిట్ Bluetooth హాప్టిక్స్ ఎన్కోడింగ్ను నిర్ణయించింది. AGPL-3.0, డాక్యుమెంటేషన్గా మాత్రమే చదవబడింది, AGPL కోడ్ ఏదీ పంపిణీ చేయబడదు.</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>కీబోర్డ్ స్క్రీన్లు</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Logitech GamePanel కీబోర్డులలోని స్క్రీన్లపై, Mad Catz S.T.R.I.K.E. 7 మీద, అలాగే Logitech Arx Control ద్వారా ఫోన్ మీద గీస్తుంది: ప్రొఫైల్, గడియారం, ఆట సమయం, స్టాప్వాచ్, చిత్రం, లేదా DualShock 4 లేదా DualSense లైట్ బార్ రంగు. ఆ స్క్రీన్ల పక్కన ఉన్న కీలు కీబోర్డ్ స్క్రీన్ కీలు వరుసలో బటన్లు అవుతాయి.</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Logitech GamePanel కీబోర్డులలోని స్క్రీన్లపై, Mad Catz S.T.R.I.K.E. 7 మీద, అలాగే Logitech Arx Control ద్వారా ఫోన్ మీద గీస్తుంది: ప్రొఫైల్, గడియారం, ఆట సమయం, స్టాప్వాచ్, చిత్రం, లేదా DualShock 4 లేదా DualSense లైట్ బార్ రంగు. ప్రతి స్క్రీన్కు పరికరాలు పేజీలో దాని స్వంత వరుస ఉంటుంది, అక్కడ అది ఏమి చూపాలో సెట్ చేస్తారు. స్క్రీన్ పక్కన ఉన్న కీలు దాని వరుసలోని బటన్లు.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>కీబోర్డ్ స్క్రీన్లను నడిపించు</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Logitech G15, G15 v2, G510, G13, Z-10, GamePanel, G19 స్క్రీన్ల మీద, Arx Control మీద, Mad Catz S.T.R.I.K.E. 7 మీద గీస్తుంది. Logitech Gaming Software నడుస్తున్నప్పుడు PadForge దాని ద్వారా గీస్తుంది. అది లేకపోతే PadForge మోనోక్రోమ్ స్క్రీన్లకు HID ద్వారా రాస్తుంది మరియు G19 స్క్రీన్ ఇంటర్ఫేస్కు WinUSB బైండ్ చేస్తుంది. దీన్ని ఆపివేస్తే G19 స్క్రీన్ మళ్ళీ Windows కు వెళ్తుంది.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>మోనోక్రోమ్ స్క్రీన్…</value></data>
@@ -4332,7 +4328,8 @@ PadForge వాటిని ఇప్పుడు అన్ఇన్స్టా
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>స్క్రీన్ కనబడలేదు</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, లైట్ బార్ రంగు కోసం వేచి ఉంది</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, చిత్రం ఎంచుకోలేదు</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>కీబోర్డ్ స్క్రీన్ కీలు</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Logitech Gaming Software నడుస్తున్నప్పుడు, ఈ రకం స్క్రీన్లన్నీ {0} కోసం సెట్ చేసిన చిత్రాన్నే చూపుతాయి.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>కీబోర్డ్ స్క్రీన్</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>స్క్రీన్ కీ {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>యాప్లెట్ కీ</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>స్క్రీన్ ఎడమ</value></data>
@@ -4351,7 +4348,7 @@ PadForge వాటిని ఇప్పుడు అన్ఇన్స్టా
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>చురుకైన ప్రొఫైల్ మారినప్పటి నుండి గడిచిన గంటలు, నిమిషాలను స్క్రీన్ చూపుతుంది. ఆటకు చెందిన ప్రోగ్రామ్తో ముడిపడిన ప్రొఫైల్ ఆట మొదలైనప్పుడు అమల్లోకి వస్తుంది, కాబట్టి లెక్క ఆ సెషన్దే. డిఫాల్ట్ ప్రొఫైల్లో ఇంజిన్ ప్రారంభం నుండి లెక్కిస్తుంది.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>స్క్రీన్ మీరు ఎంచుకున్న చిత్రాన్ని దాని స్వంత పరిమాణంలో చూపుతుంది. స్క్రీన్ కంటే పెద్ద చిత్రం విషయంలో స్క్రీన్ పరిమాణంలో ఒక విండో కనిపిస్తుంది, దాన్ని కీబోర్డ్ స్క్రీన్ చిత్రాన్ని పాన్ చేయి మాక్రో కదిలిస్తుంది. S.T.R.I.K.E. 7 మీద స్క్రీన్ అంతటా వేలిని లాగినా అది కదులుతుంది.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>స్టాప్వాచ్ మాక్రో ప్రారంభించే, పాజ్ చేసే, రీసెట్ చేసే స్టాప్వాచ్ను స్క్రీన్ చూపుతుంది. అన్ని స్క్రీన్లు ఒకే స్టాప్వాచ్ను చూపుతాయి.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>స్క్రీన్ అతి తక్కువ స్లాట్లోని DualShock 4 లేదా DualSense లైట్ బార్ రంగును చూపుతుంది. మోనోక్రోమ్ స్క్రీన్ దాని ప్రకాశాన్ని చుక్కల నమూనాగా చూపుతుంది. లైట్ బార్కు రంగు చేరే వరకు PadForge ఏమీ చూపదు.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>స్క్రీన్ ఇన్పుట్ ఇచ్చే అతి తక్కువ స్లాట్లోని DualShock 4 లేదా DualSense లైట్ బార్ రంగును చూపుతుంది. అది దేనికీ ఇన్పుట్ ఇవ్వకపోతే అన్ని స్లాట్లలో అతి తక్కువ స్లాట్లోనిది చూపుతుంది. మోనోక్రోమ్ స్క్రీన్ దాని ప్రకాశాన్ని చుక్కల నమూనాగా చూపుతుంది. లైట్ బార్కు రంగు చేరే వరకు PadForge ఏమీ చూపదు.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>చిత్రాలు (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|అన్ని ఫైళ్లు (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>పాన్</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>పాన్ X</value></data>
@@ -4363,11 +4360,11 @@ PadForge వాటిని ఇప్పుడు అన్ఇన్స్టా
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>S.T.R.I.K.E. 7 SDK డౌన్లోడ్ తెలిసిన SHA-256 తో సరిపోలలేదు, కాబట్టి దాని నుండి ఏదీ ఉంచబడలేదు.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>ఇన్స్టాలర్ నడిచిన తర్వాత కూడా Visual C++ 2008 రన్టైమ్ ఇంకా లేదు.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>కీబోర్డ్ స్క్రీన్ చూపు</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>ఎంచుకున్న రకంలోని ప్రతి కీబోర్డ్ స్క్రీన్ మీద చిత్రాలను ప్లే చేసి, తర్వాత ప్రతి స్క్రీన్ను దాని స్వంత మోడ్కు తిరిగి పంపుతుంది.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>ఈ స్లాట్కు ఇన్పుట్ ఇచ్చే, ఎంచుకున్న రకంలోని ప్రతి కీబోర్డ్ స్క్రీన్ మీద చిత్రాలను ప్లే చేసి, తర్వాత ప్రతి స్క్రీన్ను దాని స్వంత మోడ్కు తిరిగి పంపుతుంది.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>{0} చిత్రాలు చూపు: {1} × {2} ms, పునరావృత సంఖ్య {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>చిత్రాలు స్క్రీన్కు సరిపోయేలా మార్చబడతాయి: మోనోక్రోమ్ స్క్రీన్లో 160 × 43 నలుపు-తెలుపు పిక్సెల్లు, G19 స్క్రీన్లో 320 × 240, Arx Control మరియు S.T.R.I.K.E. 7 కు 480 × 320. ఫ్రేమ్ సమయం కనీసం సెకనులో పదో వంతు.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>కీబోర్డ్ స్క్రీన్ మోడ్</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>ఒక రకం కీబోర్డ్ స్క్రీన్ను మరో మోడ్కు మారుస్తుంది మరియు దాన్ని ఆ స్క్రీన్ సెట్టింగ్గా ఉంచుతుంది.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>ఈ స్లాట్కు ఇన్పుట్ ఇచ్చే, ఎంచుకున్న రకంలోని ప్రతి కీబోర్డ్ స్క్రీన్ను మరో మోడ్కు మారుస్తుంది మరియు దాన్ని ఆ స్క్రీన్ సెట్టింగ్గా ఉంచుతుంది.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} {1} చూపుతుంది</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>మరో మాక్రో లేదా స్క్రీన్ డైలాగ్ మార్చే వరకు మోడ్ అలాగే ఉంటుంది.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>స్టాప్వాచ్</value></data>
@@ -4376,9 +4373,9 @@ PadForge వాటిని ఇప్పుడు అన్ఇన్స్టా
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>స్టాప్వాచ్ రీసెట్ చేయి</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>రీసెట్ స్టాప్వాచ్ను ఆపి సున్నాకు తిరిగి పెడుతుంది. స్టాప్వాచ్ మోడ్లోని ప్రతి కీబోర్డ్ స్క్రీన్ ఒకే స్టాప్వాచ్ను చూపుతుంది.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>కీబోర్డ్ స్క్రీన్ చిత్రాన్ని పాన్ చేయి</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>స్క్రీన్ కంటే పెద్ద చిత్రం మీద ప్రతి కీబోర్డ్ స్క్రీన్ విండోను కదిలిస్తుంది, ఉదాహరణకు మ్యాప్ కోసం.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>స్క్రీన్ కంటే పెద్ద చిత్రం మీద, ఈ స్లాట్కు ఇన్పుట్ ఇచ్చే ప్రతి కీబోర్డ్ స్క్రీన్ విండోను కదిలిస్తుంది, ఉదాహరణకు మ్యాప్ కోసం.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>చిత్రాలను {0} బై {1} px పాన్ చేయి</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>తన కంటే పెద్ద ఎంచుకున్న చిత్రాన్ని చూపే ప్రతి రకం స్క్రీన్ను కదిలిస్తుంది. విండో చిత్రం అంచుల వద్ద ఆగుతుంది.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>ఈ స్లాట్కు ఇన్పుట్ ఇచ్చే, తన కంటే పెద్ద ఎంచుకున్న చిత్రాన్ని చూపే ప్రతి స్క్రీన్ను కదిలిస్తుంది. విండో చిత్రం అంచుల వద్ద ఆగుతుంది.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>స్క్రీన్</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>చర్య</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>దిశ</value></data>
@@ -4460,6 +4457,6 @@ PadForge వాటిని ఇప్పుడు అన్ఇన్స్టా
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Falcon హ్యాండిల్‌పై పెట్టే గరిష్ఠ ఫోర్స్, 1 నుండి 8 న్యూటన్ల వరకు.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>ఫోర్స్ లిమిట్ రీసెట్ చేయి</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>పరిధిని క్రమాంకనం చేయి</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>హ్యాండిల్ ఎంత దూరం కదులుతుందో కొలుస్తుంది. స్వీప్ నడిచే నాలుగు సెకన్ల పాటు దాన్ని దాని పరిధి యొక్క ప్రతి అంచుకు కదిలించండి. ఈలోగా ఫోర్స్‌లు విశ్రాంతిలో ఉంటాయి.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>పరిధిని క్రమాంకనం చేయి</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>హ్యాండిల్ ఎంత దూరం కదులుతుందో కొలుస్తుంది. స్వీప్ నడిచే నాలుగు సెకన్ల పాటు దాన్ని దాని పరిధి యొక్క ప్రతి అంచుకు కదిలించండి. ఈలోగా ఫోర్స్‌లు విశ్రాంతిలో ఉంటాయి.</value></data>
 </root>

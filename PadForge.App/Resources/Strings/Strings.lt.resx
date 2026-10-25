@@ -306,14 +306,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>Skaityti analogines klaviatūras</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Skaito, kaip giliai paspaustas kiekvienas klavišas „Wooting“, „Razer“, „SteelSeries“, „Keychron“, „NuPhy“, „DrunkDeer“, „AULA“ ir kitų gamintojų analoginėse klaviatūrose. Kiekviena klaviatūra rodoma kaip atskira įrenginio eilutė. Visi palaikomi modeliai išvardyti dokumentacijoje. „Razer“ klaviatūroms reikia veikiančios „Razer Synapse“. Daugumos kitų duomenys skaitomi tuo pačiu kanalu, kurį naudoja jų konfigūravimo programa, todėl, kol ši parinktis įjungta, konfigūravimo programą uždarykite.</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>Nerasta palaikomos analoginės klaviatūros.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>Skaitoma: {0}.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>Norėdami skaityti {0}, paleiskite „Razer Synapse“.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>Norėdami skaityti {0}, paleiskite „Razer Synapse“.</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Skaityti „Bliss-Box“ adapterius</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>Bendrauja su „Bliss-Box“ adapteriais per jų API. Kiekvieno prievado eilutėje nurodomas prie jo prijungtas valdiklis ir jo mygtukai, skaitomas „DualShock 2“ mygtukų paspaudimo stiprumas, vibracija valdoma paties adapterio variklių komandomis, siūlomi „Dreamcast“ ekrano, „Controller Pak“ ir žaidėjo numerio veiksmai. Kol ši parinktis įjungta, uždarykite „Bliss-Box API Tool“ ir „DeviceBuddy“, nes jie su adapteriu bendrauja tuo pačiu kanalu. Kol ši parinktis įjungta, „PadForge“ kiekvieną prievadą skaito pagal paties adapterio išdėstymą, o ne per SDL žaidimų pultų priskyrimą, todėl ją įjungę ar išjungę prievadą priskirkite iš naujo.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Nerasta „Bliss-Box“ prievado.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>Skaitoma: {0}.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>prievadas {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>jungiamasi</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>nėra valdiklio</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>Tipas {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Žiniatinklio valdiklis</value></data>
@@ -4267,7 +4263,7 @@ Ar norite, kad „PadForge“ jas dabar pašalintų? Tam reikia administratoriau
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PS5 haptikos PCM formatas, 16 bitų su ženklu, 3 kHz, kuris padėjo nustatyti 8 bitų su ženklu Bluetooth haptikos kodavimą. AGPL-3.0, skaityta tik kaip dokumentacija, jokio AGPL kodo neįtraukiama.</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Klaviatūros ekranai</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Piešia „Logitech“ GamePanel klaviatūrų ir „Mad Catz“ S.T.R.I.K.E. 7 įmontuotuose ekranuose bei telefone per Logitech Arx Control: profilį, laikrodį, žaidimo laiką, chronometrą, paveikslėlį arba „DualShock 4“ ar „DualSense“ šviesos juostos spalvą. Šalia ekranų esantys klavišai tampa mygtukais eilutėje „Klaviatūros ekrano klavišai“.</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Piešia „Logitech“ GamePanel klaviatūrų ir „Mad Catz“ S.T.R.I.K.E. 7 įmontuotuose ekranuose bei telefone per Logitech Arx Control: profilį, laikrodį, žaidimo laiką, chronometrą, paveikslėlį arba „DualShock 4“ ar „DualSense“ šviesos juostos spalvą. Kiekvienas ekranas turi savo eilutę puslapyje „Įrenginiai“, kurioje nustatoma, ką jis rodo. Šalia ekrano esantys klavišai yra jo eilutės mygtukai.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Valdyti klaviatūros ekranus</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Piešia G15, G15 v2, G510, G13, Z-10, GamePanel ir G19 ekranuose, Arx Control bei „Mad Catz“ S.T.R.I.K.E. 7. Kai veikia „Logitech Gaming Software“, PadForge piešia per ją. Be jos PadForge vienspalvius ekranus valdo per HID, o WinUSB priskiria G19 ekrano sąsajai. Išjungus šią parinktį, G19 ekranas grąžinamas „Windows“.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Vienspalvis ekranas…</value></data>
@@ -4307,7 +4303,8 @@ Ar norite, kad „PadForge“ jas dabar pašalintų? Tam reikia administratoriau
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>ekrano nerasta</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, laukiama šviesos juostos spalvos</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, paveikslėlis nepasirinktas</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Klaviatūros ekrano klavišai</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Kol veikia „Logitech Gaming Software“, kiekvienas šio tipo ekranas rodo paveikslėlį, nustatytą eilutei „{0}“.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Klaviatūros ekranas</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Ekrano klavišas {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Programėlės klavišas</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Ekranas: kairėn</value></data>
@@ -4326,7 +4323,7 @@ Ar norite, kad „PadForge“ jas dabar pašalintų? Tam reikia administratoriau
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Ekrane rodomos valandos ir minutės nuo to laiko, kai buvo perjungtas aktyvus profilis. Su žaidimo programa susietas profilis įsijungia, kai žaidimas paleidžiamas, todėl skaičiuojamas to seanso laikas. Esant numatytajam profiliui, skaičiuojama nuo PadForge modulio paleidimo.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Ekrane rodomas jūsų pasirinktas paveikslėlis jo paties dydžiu. Jei paveikslėlis didesnis už ekraną, rodomas ekrano dydžio langas, kurį perkelia makrokomanda „Klaviatūros ekrano paveikslėlio panoravimas“. S.T.R.I.K.E. 7 ekrane jį perkelia ir per ekraną nutempiamas pirštas.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Ekrane rodomas chronometras, kurį paleidžia, pristabdo ir nustato iš naujo makrokomanda „Chronometras“. Visi ekranai rodo tą patį chronometrą.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Ekrane rodoma „DualShock 4“ ar „DualSense“ šviesos juostos spalva, kai valdiklis yra žemiausiame lizde. Vienspalvis ekranas rodo jos ryškumą taškų raštu. Kol spalva nepasiekia šviesos juostos, PadForge nieko nerodo.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Ekrane rodoma „DualShock 4“ ar „DualSense“ šviesos juostos spalva, kai valdiklis yra žemiausiame lizde, kurį šis ekranas aprūpina duomenimis, o jei jis neaprūpina nė vieno, žemiausiame iš visų lizdų. Vienspalvis ekranas rodo jos ryškumą taškų raštu. Kol spalva nepasiekia šviesos juostos, PadForge nieko nerodo.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Paveikslėliai (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Visi failai (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Panoravimas</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Panoravimas X</value></data>
@@ -4338,11 +4335,11 @@ Ar norite, kad „PadForge“ jas dabar pašalintų? Tam reikia administratoriau
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Atsisiųstas S.T.R.I.K.E. 7 SDK neatitinka žinomo SHA-256, todėl nieko iš jo neišsaugota.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Paleidus diegimo programą, „Visual C++ 2008“ vykdymo aplinkos vis dar nėra.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Rodyti klaviatūros ekraną</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Rodo paveikslėlius kiekviename pasirinkto tipo klaviatūros ekrane, paskui grąžina kiekvieną ekraną į jo paties režimą.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Rodo paveikslėlius kiekviename pasirinkto tipo klaviatūros ekrane, kuris teikia duomenis šiam lizdui, paskui grąžina kiekvieną ekraną į jo paties režimą.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Rodyti {0} paveikslėlius: {1} × {2} ms, kartojimų skaičius {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Paveikslėliai pritaikomi ekranui: 160 × 43 nespalvotų taškų vienspalviame ekrane, 320 × 240 G19 ekrane ir 480 × 320 Arx Control bei S.T.R.I.K.E. 7 ekranuose. Trumpiausia kadro trukmė yra viena dešimtoji sekundės.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Klaviatūros ekrano režimas</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Perjungia klaviatūros ekrano tipą į kitą režimą ir išsaugo jį kaip to ekrano nustatymą.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Perjungia kiekvieną pasirinkto tipo klaviatūros ekraną, kuris teikia duomenis šiam lizdui, į kitą režimą ir išsaugo jį kaip to ekrano nustatymą.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0}: rodoma {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Režimas išlieka, kol jį pakeičia kita makrokomanda arba ekrano dialogas.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Chronometras</value></data>
@@ -4351,9 +4348,9 @@ Ar norite, kad „PadForge“ jas dabar pašalintų? Tam reikia administratoriau
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Nustatyti chronometrą iš naujo</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Nustatymas iš naujo sustabdo chronometrą ir grąžina jį į nulį. Visi chronometro režimu veikiantys klaviatūros ekranai rodo tą patį chronometrą.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Klaviatūros ekrano paveikslėlio panoravimas</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Perkelia kiekvieno klaviatūros ekrano langą per paveikslėlį, didesnį už ekraną, pavyzdžiui, žemėlapį.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Perkelia kiekvieno šiam lizdui duomenis teikiančio klaviatūros ekrano langą per paveikslėlį, didesnį už ekraną, pavyzdžiui, žemėlapį.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Panoruoti paveikslėlius {0} × {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Perkelia kiekvieno tipo ekraną, kuriame rodomas už jį didesnis pasirinktas paveikslėlis. Langas sustoja paveikslėlio kraštuose.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Perkelia kiekvieną šiam lizdui duomenis teikiantį ekraną, kuriame rodomas už jį didesnis pasirinktas paveikslėlis. Langas sustoja paveikslėlio kraštuose.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Ekranas</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Veiksmas</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Kryptis</value></data>
@@ -4435,6 +4432,6 @@ Ar norite, kad „PadForge“ jas dabar pašalintų? Tam reikia administratoriau
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Didžiausia jėga, kuria Falcon veikia rankeną, nuo 1 iki 8 niutonų.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Nustatyti jėgos ribą iš naujo</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Kalibruoti siekį</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Matuoja, kiek toli nukeliauja rankena. Keturias sekundes, kol vyksta matavimas, pastumkite ją į kiekvieną siekio kraštą. Tuo metu jėgos nusiramina.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>Kalibruoti siekį</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Matuoja, kiek toli nukeliauja rankena. Keturias sekundes, kol vyksta matavimas, pastumkite ją į kiekvieną siekio kraštą. Tuo metu jėgos nusiramina.</value></data>
 </root>

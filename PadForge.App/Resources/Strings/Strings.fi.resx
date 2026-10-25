@@ -323,14 +323,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>Lue analogiset näppäimistöt</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Lukee jokaisen näppäimen painallussyvyyden analogisista näppäimistöistä (Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA ja muut valmistajat), kunkin omana laiterivinään. Dokumentaatiossa luetellaan kaikki tuetut mallit. Razer-näppäimistöt vaativat, että Razer Synapse on käynnissä. Useimpia muita luetaan samaa kanavaa pitkin, jota niiden oma määritysohjelma käyttää, joten sulje määritysohjelma, kun tämä on käytössä.</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>Tuettua analogista näppäimistöä ei löytynyt.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>Luetaan: {0}.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>Käynnistä Razer Synapse, niin {0} voidaan lukea.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>Käynnistä Razer Synapse, niin {0} voidaan lukea.</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Lue Bliss-Box-sovittimet</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>Kommunikoi Bliss-Box-sovittimien kanssa niiden API:n kautta. Kunkin portin rivi nimeää siihen kytketyn ohjaimen ja sen painikkeet, lukee DualShock 2 -ohjaimen painikkeiden paineen, tärisee sovittimen omilla moottorikomennoilla ja tarjoaa Dreamcast-näytön, Controller Pakin ja pelaajanumeron toiminnot. Sulje Bliss-Box API Tool ja DeviceBuddy, kun tämä on käytössä, koska ne käyttävät sovitinta samaa kanavaa pitkin. Kun tämä on käytössä, PadForge lukee jokaisen portin sovittimen omassa asettelussa SDL:n peliohjainmäärityksen sijaan, joten määritä portti uudelleen, kun otat tämän käyttöön tai poistat sen käytöstä.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Bliss-Box-porttia ei löytynyt.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>Luetaan: {0}.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>portti {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>yhdistetään</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>ei ohjainta</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>Tyyppi {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Web-ohjain</value></data>
@@ -4292,7 +4288,7 @@ Haluatko, että PadForge poistaa niiden asennuksen nyt? Tämä vaatii järjestel
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PS5-ohjaimen haptinen PCM-muoto, etumerkillinen 16-bittinen 3 kHz:n taajuudella, joka ratkaisi etumerkillisen 8-bittisen Bluetooth-haptiikkakoodauksen. AGPL-3.0, käytetty vain dokumentaationa, AGPL-koodia ei toimiteta.</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Näppäimistön näytöt</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Piirtää Logitechin GamePanel-näppäimistöjen ja Mad Catz S.T.R.I.K.E. 7:n sisäänrakennetuille näytöille sekä puhelimeen Logitech Arx Controlin kautta: profiili, kello, peliaika, sekuntikello, kuva tai DualShock 4- tai DualSense-ohjaimen valopalkin väri. Näyttöjen vieressä olevista näppäimistä tulee painikkeita Näppäimistön näyttönäppäimet -riville.</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Piirtää Logitechin GamePanel-näppäimistöjen ja Mad Catz S.T.R.I.K.E. 7:n sisäänrakennetuille näytöille sekä puhelimeen Logitech Arx Controlin kautta: profiili, kello, peliaika, sekuntikello, kuva tai DualShock 4- tai DualSense-ohjaimen valopalkin väri. Jokaisella näytöllä on oma rivinsä Laitteet-sivulla, jossa asetat, mitä se näyttää. Näytön vieressä olevat näppäimet ovat sen rivin painikkeita.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Ohjaa näppäimistön näyttöjä</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Piirtää Logitech G15-, G15 v2-, G510-, G13-, Z-10-, GamePanel- ja G19-näytöille, Arx Controlille sekä Mad Catz S.T.R.I.K.E. 7:lle. Kun Logitech Gaming Software on käynnissä, PadForge piirtää sen kautta. Ilman sitä PadForge kirjoittaa yksivärisille näytöille HID:n kautta ja sitoo WinUSB:n G19:n näyttörajapintaan. Kun tämä on pois päältä, G19:n näyttö palautuu Windowsille.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Yksivärinen näyttö…</value></data>
@@ -4332,7 +4328,8 @@ Haluatko, että PadForge poistaa niiden asennuksen nyt? Tämä vaatii järjestel
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>näyttöä ei löytynyt</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, odotetaan valopalkin väriä</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, kuvaa ei ole valittu</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Näppäimistön näyttönäppäimet</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Kun Logitech Gaming Software on käynnissä, jokainen tämän tyyppinen näyttö näyttää kohteelle {0} asetetun kuvan.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Näppäimistön näyttö</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Näyttönäppäin {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Sovelmanäppäin</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Näytön vasen</value></data>
@@ -4351,7 +4348,7 @@ Haluatko, että PadForge poistaa niiden asennuksen nyt? Tämä vaatii järjestel
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Näyttö näyttää tunnit ja minuutit siitä, kun aktiivinen profiili otettiin käyttöön. Pelin ohjelmaan sidottu profiili otetaan käyttöön, kun peli käynnistyy, joten laskuri kattaa kyseisen istunnon. Profiilissa Oletus laskenta alkaa ohjelmamoottorin käynnistyksestä.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Näyttö näyttää valitsemasi kuvan alkuperäisessä koossa. Näyttöä suuremmasta kuvasta näytetään näytön kokoinen ikkuna, jota makro Panoroi näppäimistön näytön kuvaa siirtää. S.T.R.I.K.E. 7:ssä myös näytön poikki vedetty sormi siirtää sitä.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Näyttö näyttää sekuntikellon, jonka Sekuntikello-makro käynnistää, keskeyttää ja nollaa. Kaikki näytöt näyttävät saman sekuntikellon.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Näyttö näyttää alimmassa paikassa olevan DualShock 4- tai DualSense-ohjaimen valopalkin värin. Yksivärinen näyttö näyttää sen kirkkauden pistekuviona. Kunnes valopalkille on tullut väri, PadForge ei näytä mitään.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Näyttö näyttää DualShock 4- tai DualSense-ohjaimen valopalkin värin alimmassa paikassa, johon tämä näyttö syöttää, tai kaikista alimmassa paikassa, jos se ei syötä mihinkään. Yksivärinen näyttö näyttää sen kirkkauden pistekuviona. Kunnes valopalkille on tullut väri, PadForge ei näytä mitään.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Kuvat (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Kaikki tiedostot (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Panorointi</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Panoroi X</value></data>
@@ -4363,11 +4360,11 @@ Haluatko, että PadForge poistaa niiden asennuksen nyt? Tämä vaatii järjestel
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Ladatun S.T.R.I.K.E. 7 SDK:n SHA-256 ei vastaa tunnettua arvoa, joten mitään siitä ei säilytetty.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Visual C++ 2008 -ajoympäristö puuttuu edelleen asentajan ajon jälkeen.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Näytä näppäimistön näytöllä</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Toistaa kuvia jokaisella valitun tyyppisellä näppäimistön näytöllä ja palauttaa sitten kunkin näytön omaan tilaansa.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Toistaa kuvia jokaisella valitun tyyppisellä näppäimistön näytöllä, joka syöttää tähän paikkaan, ja palauttaa sitten kunkin näytön omaan tilaansa.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Näytä kuvat, {0}: {1} × {2} ms, toistokertoja {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Kuvat sovitetaan näyttöön: yksivärisellä näytöllä 160 × 43 mustavalkoista pikseliä, G19:n näytöllä 320 × 240 sekä Arx Controlilla ja S.T.R.I.K.E. 7:llä 480 × 320. Lyhin kuvan kesto on kymmenesosasekunti.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Näppäimistön näytön tila</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Vaihtaa näppäimistön näytön tyypin toiseen tilaan ja säilyttää sen kyseisen näytön asetuksena.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Vaihtaa jokaisen valitun tyyppisen näppäimistön näytön, joka syöttää tähän paikkaan, toiseen tilaan ja säilyttää sen kyseisen näytön asetuksena.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} näyttää: {1}</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Tila pysyy, kunnes toinen makro tai näytön valintaikkuna muuttaa sitä.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Sekuntikello</value></data>
@@ -4376,9 +4373,9 @@ Haluatko, että PadForge poistaa niiden asennuksen nyt? Tämä vaatii järjestel
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Nollaa sekuntikello</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Nollaus pysäyttää sekuntikellon ja palauttaa sen nollaan. Kaikki Sekuntikello-tilassa olevat näppäimistön näytöt näyttävät saman sekuntikellon.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Panoroi näppäimistön näytön kuvaa</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Siirtää kunkin näppäimistön näytön ikkunaa näyttöä suuremman kuvan päällä, esimerkiksi karttaa varten.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Siirtää jokaisen tähän paikkaan syöttävän näppäimistön näytön ikkunaa näyttöä suuremman kuvan päällä, esimerkiksi karttaa varten.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Panoroi kuvia: X {0}, Y {1} px</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Siirtää jokaista näyttötyyppiä, jolla näkyy valittu itseään suurempi kuva. Ikkuna pysähtyy kuvan reunoihin.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Siirtää jokaista tähän paikkaan syöttävää näyttöä, jolla näkyy valittu itseään suurempi kuva. Ikkuna pysähtyy kuvan reunoihin.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Näyttö</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Toiminto</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Suunta</value></data>
@@ -4460,6 +4457,6 @@ Haluatko, että PadForge poistaa niiden asennuksen nyt? Tämä vaatii järjestel
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Suurin voima, jonka Falcon kohdistaa kahvaan: 1–8 newtonia.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Palauta voimarajoitus</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Kalibroi ulottuma</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mittaa, kuinka pitkälle kahva liikkuu. Siirrä se ulottuman jokaiseen reunaan neljän sekunnin ajan, jonka mittaus kestää. Voimat lepäävät sillä välin.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>Kalibroi ulottuma</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mittaa, kuinka pitkälle kahva liikkuu. Siirrä se ulottuman jokaiseen reunaan neljän sekunnin ajan, jonka mittaus kestää. Voimat lepäävät sillä välin.</value></data>
 </root>

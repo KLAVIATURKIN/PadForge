@@ -406,14 +406,10 @@ public class Strings : INotifyPropertyChanged
     public string Settings_AnalogKeyboards => Get("Settings_AnalogKeyboards");
     public string Settings_AnalogKeyboardsTooltip => Get("Settings_AnalogKeyboardsTooltip");
     public string Settings_AnalogKeyboardsStatus_None => Get("Settings_AnalogKeyboardsStatus_None");
-    public string Settings_AnalogKeyboardsStatus_Reading_Format => Get("Settings_AnalogKeyboardsStatus_Reading_Format");
-    public string Settings_AnalogKeyboardsStatus_Synapse_Format => Get("Settings_AnalogKeyboardsStatus_Synapse_Format");
+    public string AnalogKeyboard_Synapse_Format => Get("AnalogKeyboard_Synapse_Format");
     public string Settings_BlissBox => Get("Settings_BlissBox");
     public string Settings_BlissBoxTooltip => Get("Settings_BlissBoxTooltip");
     public string Settings_BlissBoxStatus_None => Get("Settings_BlissBoxStatus_None");
-    public string Settings_BlissBoxStatus_Reading_Format => Get("Settings_BlissBoxStatus_Reading_Format");
-    public string Settings_BlissBoxStatus_Port_Format => Get("Settings_BlissBoxStatus_Port_Format");
-    public string BlissBox_Connecting => Get("BlissBox_Connecting");
     public string BlissBox_NoController => Get("BlissBox_NoController");
     public string BlissBox_TypeNumber_Format => Get("BlissBox_TypeNumber_Format");
     public string Dashboard_WebController => Get("Dashboard_WebController");
@@ -4094,6 +4090,7 @@ public class Strings : INotifyPropertyChanged
     public string KeyboardScreens_Status_NotFound => Get("KeyboardScreens_Status_NotFound");
     public string KeyboardScreens_Status_NoLightbar_Format => Get("KeyboardScreens_Status_NoLightbar_Format");
     public string KeyboardScreens_Status_NoPicture_Format => Get("KeyboardScreens_Status_NoPicture_Format");
+    public string KeyboardScreens_LgsShared_Format => Get("KeyboardScreens_LgsShared_Format");
     public string DeviceType_KeyboardScreenKeys => Get("DeviceType_KeyboardScreenKeys");
     public string KeyboardScreenKey_Mono_Format => Get("KeyboardScreenKey_Mono_Format");
     public string KeyboardScreenKey_Applet => Get("KeyboardScreenKey_Applet");
@@ -4222,6 +4219,6 @@ public class Strings : INotifyPropertyChanged
     public string Pad_Falcon_ForceCap_Tooltip => Get("Pad_Falcon_ForceCap_Tooltip");
     public string Pad_Falcon_NewtonsUnit => Get("Pad_Falcon_NewtonsUnit");
     public string Pad_Falcon_ResetForceCap => Get("Pad_Falcon_ResetForceCap");
-    public string Pad_Falcon_Calibrate => Get("Pad_Falcon_Calibrate");
-    public string Pad_Falcon_Calibrate_Tooltip => Get("Pad_Falcon_Calibrate_Tooltip");
+    public string Falcon_Calibrate => Get("Falcon_Calibrate");
+    public string Falcon_Calibrate_Tooltip => Get("Falcon_Calibrate_Tooltip");
 }

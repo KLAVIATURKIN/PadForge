@@ -12,16 +12,17 @@ namespace PadForge
 {
     public partial class MainWindow
     {
-        /// <summary>The Keyboard Screens card's buttons (issue #519): a kind's
-        /// dialog, Mad Catz's SDK fetched at the user's click, a
-        /// Strike7API.dll the user has, and the Visual C++ 2008 runtime that
-        /// library links.</summary>
+        /// <summary>The keyboard screens' actions (issue #519): a screen row's
+        /// dialog from its panel on the Devices page, and on the Settings
+        /// card Mad Catz's SDK fetched at the user's click, a Strike7API.dll
+        /// the user has, and the Visual C++ 2008 runtime that library
+        /// links.</summary>
         private void WireKeyboardScreens()
         {
             var settings = _viewModel.Settings;
-            settings.ConfigureKeyboardScreenRequested += (_, kindName) =>
+            _viewModel.Devices.KeyboardScreenRequested += (_, _) =>
             {
-                if (Enum.TryParse(kindName, out KeyboardScreenKind kind)) ConfigureKeyboardScreen(kind);
+                if (_viewModel.Devices.SelectedDevice is { } row) ConfigureKeyboardScreen(row.InstanceGuid);
             };
 
             settings.DownloadStrike7LibraryRequested += async (_, _) =>
@@ -60,21 +61,23 @@ namespace PadForge
             };
         }
 
-        /// <summary>Opens one kind's dialog and keeps what was saved: the
-        /// kind's mode, picture and pan, and the active profile's picture.</summary>
-        private void ConfigureKeyboardScreen(KeyboardScreenKind kind)
+        /// <summary>Opens one screen's dialog and keeps what was saved: the
+        /// screen's mode, picture and pan, kept by its row, and the active
+        /// profile's picture.</summary>
+        private void ConfigureKeyboardScreen(Guid row)
         {
             var service = _inputService?.KeyboardScreens;
-            if (service == null) return;
+            var screen = service?.ScreenOf(row);
+            if (screen == null) return;
             string profileId = SettingsManager.ActiveProfileId;
             var profile = string.IsNullOrEmpty(profileId) ? null : SettingsManager.Profiles.Find(p => p.Id == profileId);
             string profilePicture = profile != null ? profile.KeyboardScreenPicture : _viewModel.Settings.DefaultProfileKeyboardScreenPicture;
-            var choice = KeyboardScreenDialog.Show(this, service, kind, service.Get(kind),
-                DreamcastScreenService.ActiveProfileName(), profilePicture, service.StatusLine(kind));
+            var choice = KeyboardScreenDialog.Show(this, service, screen, service.Get(row),
+                DreamcastScreenService.ActiveProfileName(), profilePicture, service.StatusLine(screen));
             if (choice == null) return;
             if (profile != null) profile.KeyboardScreenPicture = choice.ProfilePicture;
             else _viewModel.Settings.DefaultProfileKeyboardScreenPicture = choice.ProfilePicture;
-            service.Update(kind, d =>
+            service.Update(row, d =>
             {
                 d.Mode = choice.Mode;
                 d.Picture = choice.Picture;
@@ -82,7 +85,7 @@ namespace PadForge
                 d.PanY = choice.PanY;
             });
             _viewModel.SetStatus(string.Format(CultureInfo.CurrentCulture, Strings.Instance.Status_KeyboardScreen_Format,
-                KeyboardScreenService.KindName(kind), KeyboardScreenService.ModeName(choice.Mode)));
+                screen.Name, KeyboardScreenService.ModeName(choice.Mode)));
         }
     }
 }

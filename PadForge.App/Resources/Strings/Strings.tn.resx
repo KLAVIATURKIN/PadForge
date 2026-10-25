@@ -929,7 +929,8 @@
   <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>mo mogaleng</value></data>
   <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>mo sekirining sa V.E.N.O.M.</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, ga go na setshwantsho se se tlhophilweng</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Dikonopo tsa sekirini sa keyboard</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Fa Logitech Gaming Software e ntse e dira, sekirini sengwe le sengwe sa mofuta ono se bontsha setshwantsho se se beetsweng {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Sekirini sa keyboard</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Konopo ya sekirini {0}</value></data>
   <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Sekirini se bontsha nako ya letsatsi.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Ditshwantsho (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Difaele tsotlhe (*.*)|*.*</value></data>

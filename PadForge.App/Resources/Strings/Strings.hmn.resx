@@ -1245,6 +1245,8 @@
   <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>qhib lub software S.T.R.I.K.E. 7</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, tos xim lightbar</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, tsis tau xaiv duab</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Thaum Logitech Gaming Software khiav, txhua lub screen hom no qhia daim duab uas teeb tsa rau {0}.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Screen ntawm keyboard</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Duab (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Txhua cov ntaub ntawv (*.*)|*.*</value></data>
   <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0} teeb tsa rau {1}.</value></data>
   <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Tab tom rub Mad Catz S.T.R.I.K.E. 7 SDK…</value></data>

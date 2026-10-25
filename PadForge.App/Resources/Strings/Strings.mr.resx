@@ -308,14 +308,10 @@
   <data name="Settings_AnalogKeyboards" xml:space="preserve"><value>ॲनालॉग कीबोर्ड वाचा</value></data>
   <data name="Settings_AnalogKeyboardsTooltip" xml:space="preserve"><value>Wooting, Razer, SteelSeries, Keychron, NuPhy, DrunkDeer, AULA आणि इतर उत्पादकांच्या ॲनालॉग कीबोर्डवर प्रत्येक की किती दाबली आहे ते वाचते, प्रत्येक स्वतंत्र डिव्हाइस रो म्हणून. समर्थित सर्व मॉडेलची यादी दस्तऐवजीकरणात आहे. Razer कीबोर्डसाठी Razer Synapse चालू असणे आवश्यक. इतर बहुतेक त्यांच्या स्वतःच्या कॉन्फिगरेटरने वापरलेल्या चॅनेलवरून वाचले जातात, म्हणून हे चालू असताना कॉन्फिगरेटर बंद करा.</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>समर्थित ॲनालॉग कीबोर्ड आढळला नाही.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Reading_Format" xml:space="preserve"><value>{0} वाचत आहे.</value></data>
-  <data name="Settings_AnalogKeyboardsStatus_Synapse_Format" xml:space="preserve"><value>{0} वाचण्यासाठी Razer Synapse सुरू करा.</value></data>
+  <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>{0} वाचण्यासाठी Razer Synapse सुरू करा.</value></data>
   <data name="Settings_BlissBox" xml:space="preserve"><value>Bliss-Box अडॅप्टर वाचा</value></data>
   <data name="Settings_BlissBoxTooltip" xml:space="preserve"><value>Bliss-Box अडॅप्टरशी त्यांच्या API द्वारे संवाद साधते. प्रत्येक पोर्टची रो त्यात जोडलेला कंट्रोलर आणि त्याची बटणे दाखवते, DualShock 2 चा दाब वाचते, अडॅप्टरच्या स्वतःच्या मोटर कमांडद्वारे कंपन करते, आणि Dreamcast स्क्रीन, Controller Pak आणि प्लेअर क्रमांक क्रिया देते. हे चालू असताना Bliss-Box API Tool आणि DeviceBuddy बंद करा, कारण ते अडॅप्टरशी त्याच चॅनेलवरून संवाद साधतात. हे चालू असताना PadForge प्रत्येक पोर्ट SDL च्या गेमपॅड मॅपिंगऐवजी अडॅप्टरच्या स्वतःच्या लेआउटमध्ये वाचते, म्हणून हे चालू किंवा बंद केल्यानंतर पोर्ट पुन्हा मॅप करा.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Bliss-Box पोर्ट आढळला नाही.</value></data>
-  <data name="Settings_BlissBoxStatus_Reading_Format" xml:space="preserve"><value>{0} वाचत आहे.</value></data>
-  <data name="Settings_BlissBoxStatus_Port_Format" xml:space="preserve"><value>पोर्ट {0} ({1})</value></data>
-  <data name="BlissBox_Connecting" xml:space="preserve"><value>जोडत आहे</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>कंट्रोलर नाही</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>प्रकार {0}</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>वेब कंट्रोलर</value></data>
@@ -4252,7 +4248,7 @@ PadForge ने ते आता अनइन्स्टॉल करावे�
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PS5 हॅप्टिक PCM स्वरूप, 3 kHz वर सही केलेले 16-बिट, ज्याने सही केलेल्या 8-बिट ब्लूटूथ हॅप्टिक्स एन्कोडिंगचा निर्णय केला. AGPL-3.0, फक्त दस्तऐवजीकरण म्हणून वाचले, कोणताही AGPL कोड समाविष्ट नाही.</value></data>
   <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>कीबोर्ड स्क्रीन</value></data>
-  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Logitech च्या GamePanel कीबोर्डमधील आणि Mad Catz S.T.R.I.K.E. 7 मधील स्क्रीनवर, तसेच Logitech Arx Control द्वारे फोनवर चित्र काढते: प्रोफाइल, घड्याळ, खेळण्याचा वेळ, स्टॉपवॉच, चित्र किंवा DualShock 4 अथवा DualSense लाइटबारचा रंग. या स्क्रीनच्या बाजूच्या की कीबोर्ड स्क्रीन की ओळीत बटणे बनतात.</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Logitech च्या GamePanel कीबोर्डमधील आणि Mad Catz S.T.R.I.K.E. 7 मधील स्क्रीनवर, तसेच Logitech Arx Control द्वारे फोनवर चित्र काढते: प्रोफाइल, घड्याळ, खेळण्याचा वेळ, स्टॉपवॉच, चित्र किंवा DualShock 4 अथवा DualSense लाइटबारचा रंग. प्रत्येक स्क्रीनला डिव्हाइस पानावर स्वतःची ओळ मिळते, जिथे ती काय दाखवते ते तुम्ही ठरवता. स्क्रीनच्या बाजूच्या की त्या ओळीची बटणे आहेत.</value></data>
   <data name="Settings_KeyboardScreens" xml:space="preserve"><value>कीबोर्ड स्क्रीन चालवा</value></data>
   <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Logitech G15, G15 v2, G510, G13, Z-10, GamePanel आणि G19 च्या स्क्रीनवर, Arx Control वर आणि Mad Catz S.T.R.I.K.E. 7 वर चित्र काढते. Logitech Gaming Software चालू असताना PadForge त्याच्या मार्फत चित्र काढते. ते नसल्यास PadForge मोनोक्रोम स्क्रीन HID वरून लिहिते आणि G19 च्या स्क्रीन इंटरफेसला WinUSB बांधते. हे बंद केल्यास G19 ची स्क्रीन Windows ला परत मिळते.</value></data>
   <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>मोनोक्रोम स्क्रीन…</value></data>
@@ -4292,7 +4288,8 @@ PadForge ने ते आता अनइन्स्टॉल करावे�
   <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>स्क्रीन आढळली नाही</value></data>
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, लाइटबार रंगाची वाट पाहत आहे</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, चित्र निवडलेले नाही</value></data>
-  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>कीबोर्ड स्क्रीन की</value></data>
+  <data name="KeyboardScreens_LgsShared_Format" xml:space="preserve"><value>Logitech Gaming Software चालू असताना, या प्रकारची प्रत्येक स्क्रीन {0} साठी ठरवलेले चित्र दाखवते.</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>कीबोर्ड स्क्रीन</value></data>
   <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>स्क्रीन की {0}</value></data>
   <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>ॲपलेट की</value></data>
   <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>स्क्रीन डावी</value></data>
@@ -4311,7 +4308,7 @@ PadForge ने ते आता अनइन्स्टॉल करावे�
   <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>स्क्रीन सक्रिय प्रोफाइल सुरू झाल्यापासूनचे तास आणि मिनिटे दाखवते. गेमच्या प्रोग्रामशी जोडलेले प्रोफाइल गेम सुरू होताना सुरू होते, म्हणून मोजणी त्या सत्राची असते. डिफॉल्ट प्रोफाइलमध्ये मोजणी इंजिन सुरू झाल्यापासून होते.</value></data>
   <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>स्क्रीन तुम्ही निवडलेले चित्र त्याच्या स्वतःच्या आकारात दाखवते. स्क्रीनपेक्षा मोठे चित्र स्क्रीनच्या आकाराची एक खिडकी दाखवते, जी कीबोर्ड स्क्रीन चित्र पॅन मॅक्रो हलवतो. S.T.R.I.K.E. 7 वर स्क्रीनवर बोट ओढूनही ती हलते.</value></data>
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>स्क्रीन स्टॉपवॉच दाखवते, जे स्टॉपवॉच मॅक्रो सुरू करतो, थांबवतो आणि रीसेट करतो. प्रत्येक स्क्रीन तेच स्टॉपवॉच दाखवते.</value></data>
-  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>स्क्रीन सर्वात कमी स्लॉटमधील DualShock 4 किंवा DualSense च्या लाइटबारचा रंग दाखवते. मोनोक्रोम स्क्रीन त्याची चमक ठिपक्यांच्या नमुन्यात दाखवते. लाइटबारपर्यंत रंग पोहोचेपर्यंत PadForge काहीही दाखवत नाही.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>स्क्रीन, ती ज्या स्लॉटला जोडते त्यांपैकी सर्वात कमी स्लॉटमधील DualShock 4 किंवा DualSense च्या लाइटबारचा रंग दाखवते. ती एकाही स्लॉटला जोडत नसल्यास सर्व स्लॉटमधील सर्वात कमी स्लॉटचा रंग दाखवते. मोनोक्रोम स्क्रीन त्याची चमक ठिपक्यांच्या नमुन्यात दाखवते. लाइटबारपर्यंत रंग पोहोचेपर्यंत PadForge काहीही दाखवत नाही.</value></data>
   <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>चित्रे (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|सर्व फाइल (*.*)|*.*</value></data>
   <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>पॅन</value></data>
   <data name="KeyboardScreen_PanX" xml:space="preserve"><value>पॅन X</value></data>
@@ -4323,11 +4320,11 @@ PadForge ने ते आता अनइन्स्टॉल करावे�
   <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>S.T.R.I.K.E. 7 SDK डाउनलोड ज्ञात SHA-256 शी जुळत नाही, म्हणून त्यातील काहीही ठेवले नाही.</value></data>
   <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>इन्स्टॉलर चालल्यानंतरही Visual C++ 2008 रनटाइम अजून नाही.</value></data>
   <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>कीबोर्ड स्क्रीन दाखवा</value></data>
-  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>निवडलेल्या प्रकारच्या प्रत्येक कीबोर्ड स्क्रीनवर चित्रे चालवते, मग प्रत्येक स्क्रीनला तिच्या स्वतःच्या मोडवर परत आणते.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>या स्लॉटला जोडणाऱ्या, निवडलेल्या प्रकारच्या प्रत्येक कीबोर्ड स्क्रीनवर चित्रे चालवते, मग प्रत्येक स्क्रीनला तिच्या स्वतःच्या मोडवर परत आणते.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>{0} चित्रे दाखवा: {1} × {2} ms, पुनरावृत्ती संख्या {3}</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>चित्रे स्क्रीनला बसवली जातात: मोनोक्रोम स्क्रीनवर 160 बाय 43 कृष्णधवल पिक्सेल, G19 च्या स्क्रीनवर 320 बाय 240, आणि Arx Control व S.T.R.I.K.E. 7 साठी 480 बाय 320. फ्रेमचा सर्वात कमी वेळ एक दशांश सेकंद आहे.</value></data>
   <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>कीबोर्ड स्क्रीन मोड</value></data>
-  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>कीबोर्ड स्क्रीनचा एक प्रकार दुसऱ्या मोडवर बदलते आणि तो त्या स्क्रीनची सेटिंग म्हणून ठेवते.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>या स्लॉटला जोडणाऱ्या, निवडलेल्या प्रकारच्या प्रत्येक कीबोर्ड स्क्रीनला दुसऱ्या मोडवर बदलते आणि ती त्या स्क्रीनची सेटिंग म्हणून ठेवते.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} {1} दाखवते</value></data>
   <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>दुसरा मॅक्रो किंवा स्क्रीनचा डायलॉग तो बदलेपर्यंत मोड तसाच राहतो.</value></data>
   <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>स्टॉपवॉच</value></data>
@@ -4336,9 +4333,9 @@ PadForge ने ते आता अनइन्स्टॉल करावे�
   <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>स्टॉपवॉच रीसेट करा</value></data>
   <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>रीसेट स्टॉपवॉच थांबवते आणि शून्यावर आणते. स्टॉपवॉच मोडमधील प्रत्येक कीबोर्ड स्क्रीन तेच स्टॉपवॉच दाखवते.</value></data>
   <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>कीबोर्ड स्क्रीन चित्र पॅन करा</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>स्क्रीनपेक्षा मोठ्या चित्रावर, उदाहरणार्थ नकाशावर, प्रत्येक कीबोर्ड स्क्रीनची खिडकी हलवते.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>या स्लॉटला जोडणाऱ्या प्रत्येक कीबोर्ड स्क्रीनची खिडकी स्क्रीनपेक्षा मोठ्या चित्रावर, उदाहरणार्थ नकाशासाठी, हलवते.</value></data>
   <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>चित्रे {0} बाय {1} px पॅन करा</value></data>
-  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>निवडलेले, स्वतःपेक्षा मोठे चित्र दाखवणारा प्रत्येक प्रकारचा स्क्रीन हलवते. खिडकी चित्राच्या कडांवर थांबते.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>या स्लॉटला जोडणारी आणि निवडलेले, स्वतःपेक्षा मोठे चित्र दाखवणारी प्रत्येक स्क्रीन हलवते. खिडकी चित्राच्या कडांवर थांबते.</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>स्क्रीन</value></data>
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>क्रिया</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>दिशा</value></data>
@@ -4420,6 +4417,6 @@ PadForge ने ते आता अनइन्स्टॉल करावे�
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Falcon हँडलवर लावतो ते सर्वाधिक बल, 1 ते 8 न्यूटन.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>बल मर्यादा रीसेट करा</value></data>
-  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>पोहोच कॅलिब्रेट करा</value></data>
-  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>हँडल किती दूर जाते ते मोजते. स्वीप चालू असलेल्या चार सेकंदांत ते त्याच्या पोहोचेच्या प्रत्येक कडेपर्यंत हलवा. तोपर्यंत बले थांबलेली असतात.</value></data>
+  <data name="Falcon_Calibrate" xml:space="preserve"><value>पोहोच कॅलिब्रेट करा</value></data>
+  <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>हँडल किती दूर जाते ते मोजते. स्वीप चालू असलेल्या चार सेकंदांत ते त्याच्या पोहोचेच्या प्रत्येक कडेपर्यंत हलवा. तोपर्यंत बले थांबलेली असतात.</value></data>
 </root>
