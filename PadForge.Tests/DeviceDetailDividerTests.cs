@@ -1,3 +1,8 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
 using PadForge.ViewModels;
 using Xunit;
 
@@ -171,10 +176,47 @@ namespace PadForge.Tests
         [InlineData("steelseriesgg://local")]
         [InlineData("razersensa://local")]
         [InlineData("lightunit://0123456789abcdef0123456789abcdef")]
+        [InlineData("keyboardscreen://hid:046d:c222:{00000000-0000-0000-0000-000000000000}")]
+        [InlineData("keyboardscreen://arx")]
+        [InlineData("falcon://11204")]
         public void EverySyntheticPath_IsInternalVirtual(string devicePath)
         {
             var vm = new DeviceRowViewModel { DevicePath = devicePath };
             Assert.True(vm.IsInternalVirtual, devicePath + " must not offer HidHide toggles");
+        }
+
+        /// <summary>
+        /// Every scheme the source assigns to a row's DevicePath answers
+        /// IsInternalVirtual, read from the app and the engine, so a new or
+        /// renamed scheme cannot slip past the hand-written list above.
+        ///
+        /// <para>When each keyboard screen got its own row (#519), the rows
+        /// moved to keyboardscreen:// and the list kept the old
+        /// keyboardscreenkeys://, so every screen row offered HidHide toggles
+        /// that could never do anything.</para>
+        /// </summary>
+        [Fact]
+        public void EverySchemeTheSourceAssigns_IsInternalVirtual()
+        {
+            var dir = new DirectoryInfo(Directory.GetCurrentDirectory());
+            while (dir != null && !File.Exists(Path.Combine(dir.FullName, "SharedVersion.cs"))) dir = dir.Parent;
+            Assert.NotNull(dir);
+            var schemes = new SortedSet<string>(StringComparer.Ordinal);
+            foreach (string project in new[] { "PadForge.App", "PadForge.Engine" })
+                foreach (string file in Directory.EnumerateFiles(Path.Combine(dir.FullName, project), "*.cs", SearchOption.AllDirectories))
+                {
+                    string rel = Path.GetRelativePath(dir.FullName, file);
+                    if (rel.Split(Path.DirectorySeparatorChar).Any(s => s is "obj" or "bin")) continue;
+                    foreach (Match m in Regex.Matches(File.ReadAllText(file), @"DevicePath\s*=\s*\$?""([a-z0-9]+://)"))
+                        schemes.Add(m.Groups[1].Value);
+                }
+            // A merged row answers IsAggregate instead, pinned below.
+            schemes.Remove("aggregate://");
+            Assert.Contains("keyboardscreen://", schemes);
+            Assert.Contains("falcon://", schemes);
+            foreach (string scheme in schemes)
+                Assert.True(new DeviceRowViewModel { DevicePath = scheme + "x" }.IsInternalVirtual,
+                    scheme + " rows would offer HidHide toggles that can never do anything");
         }
 
         /// <summary>The vendor rows (#494) stand for a vendor's software, not

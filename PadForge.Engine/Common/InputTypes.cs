@@ -141,10 +141,11 @@ namespace PadForge.Engine
         public const int PeripheralLighting = 40;
         public const int PeripheralHaptics = 41;
 
-        // The keys beside a keyboard's screen (issue #519): the four under a
-        // Logitech monochrome screen and its round applet key, and the G19's
-        // seven display keys and settings key, one fixed layout of 13
-        // buttons whichever engine reads them.
+        // One keyboard screen's row (issue #519), with the keys beside that
+        // screen: the four under a Logitech monochrome screen and its round
+        // applet key, five buttons, or the G19's seven display keys and its
+        // settings key, eight, whichever engine reads them. The Arx Control
+        // and S.T.R.I.K.E. 7 rows carry no keys.
         public const int KeyboardScreenKeys = 42;
 
         // A Novint Falcon opened through Force Dimension's library (issue
@@ -168,8 +169,8 @@ namespace PadForge.Engine
         /// sub-state, and a zeroed trigger axis reads as half pull through
         /// the wildcard, so it stays out for the #431 reason. A Web Menus
         /// phone has no inputs at all, so the same zeroed axes keep it out,
-        /// and so do the lighting and haptic rows (#494). The keyboard
-        /// screen keys number their own 13 buttons from 0, the G-keys'
+        /// and so do the lighting and haptic rows (#494). A keyboard
+        /// screen's keys number their own buttons from 0, the G-keys'
         /// reason (#519). A resting Falcon reads center on all three axes,
         /// the head tracker's reason, so it stays out too (#521).</summary>
         public static bool AnswersAnyDeviceSources(int capType) => capType switch

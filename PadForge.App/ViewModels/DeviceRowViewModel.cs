@@ -754,9 +754,9 @@ namespace PadForge.ViewModels
              // section with toggles that could never do anything.
              || _devicePath.StartsWith("openxr://", StringComparison.Ordinal)
              || _devicePath.StartsWith("logigkeys://", StringComparison.Ordinal)
-             // The keyboard screen keys row (#519) gathers keys the screen
-             // engines read, the G-keys row's case.
-             || _devicePath.StartsWith("keyboardscreenkeys://", StringComparison.Ordinal)
+             // A keyboard screen's row (#519) gathers the keys its screen
+             // engine reads, the G-keys row's case.
+             || _devicePath.StartsWith("keyboardscreen://", StringComparison.Ordinal)
              // A Falcon (#521) is read through Force Dimension's library on
              // its WinUSB driver, so HidHide has no HID instance to cloak.
              || _devicePath.StartsWith("falcon://", StringComparison.Ordinal)

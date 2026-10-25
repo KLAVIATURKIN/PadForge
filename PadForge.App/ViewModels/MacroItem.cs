@@ -4705,8 +4705,8 @@ namespace PadForge.ViewModels
         }
 
         private PadForge.Services.KeyboardScreenMode _screenMode = PadForge.Services.KeyboardScreenData.DefaultMode;
-        /// <summary>Keyboard Screen Mode (#519): the mode the kind switches
-        /// to.</summary>
+        /// <summary>Keyboard Screen Mode (#519): the mode the screens of the
+        /// kind switch to.</summary>
         public PadForge.Services.KeyboardScreenMode ScreenMode
         {
             get => _screenMode;
@@ -6889,18 +6889,20 @@ namespace PadForge.ViewModels
         /// macro moves on. At the tail, and its ordinal is pinned.</summary>
         ShowDreamcastScreen = 57,
 
-        /// <summary>Plays one to eight pictures on every keyboard screen of
-        /// <see cref="MacroAction.ScreenKind"/> (issue #519, asked in
-        /// discussion #507): each for <see cref="MacroAction.ScreenFrameMs"/>,
-        /// the whole set <see cref="MacroAction.ScreenRepeat"/> times, over
-        /// whatever the kind's mode shows, which returns when the pictures
-        /// end. One-shot, the <see cref="ShowDreamcastScreen"/> shape.
-        /// Ordinal pinned.</summary>
+        /// <summary>Plays one to eight pictures on each keyboard screen of
+        /// <see cref="MacroAction.ScreenKind"/> whose row feeds the macro's
+        /// slot (issue #519, asked in discussion #507): each for
+        /// <see cref="MacroAction.ScreenFrameMs"/>, the whole set
+        /// <see cref="MacroAction.ScreenRepeat"/> times, over whatever that
+        /// screen's mode shows, which returns when the pictures end. One-shot,
+        /// the <see cref="ShowDreamcastScreen"/> shape and slot rule. Ordinal
+        /// pinned.</summary>
         ShowKeyboardScreen = 58,
 
-        /// <summary>Switches a kind of keyboard screen to
-        /// <see cref="MacroAction.ScreenMode"/>, kept as the kind's setting
-        /// (#519). One-shot. Ordinal pinned.</summary>
+        /// <summary>Switches each keyboard screen of
+        /// <see cref="MacroAction.ScreenKind"/> whose row feeds the macro's
+        /// slot to <see cref="MacroAction.ScreenMode"/>, kept as that screen's
+        /// setting (#519). One-shot. Ordinal pinned.</summary>
         KeyboardScreenMode = 59,
 
         /// <summary>Starts or pauses, or resets, the keyboard screens' one
@@ -6908,7 +6910,8 @@ namespace PadForge.ViewModels
         /// Ordinal pinned.</summary>
         Stopwatch = 60,
 
-        /// <summary>Moves every keyboard screen's window over its picture by
+        /// <summary>Moves the window of each keyboard screen whose row feeds
+        /// the macro's slot over its picture by
         /// <see cref="MacroAction.PanStep"/> pixels toward
         /// <see cref="MacroAction.PanDirection"/>, stopping at the picture's
         /// edges (#519), for a map larger than the screen. One-shot. Ordinal
