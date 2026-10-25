@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
 using PadForge.Common.Input;
+using PadForge.Engine;
 using PadForge.Services;
 using Xunit;
 
@@ -360,6 +362,84 @@ namespace PadForge.Tests
         }
 
         [Fact]
+        public void TheControllerOrder_IsTheDashboardsOrder_OfLiveSlotsWithAnOnlineSonyPad()
+        {
+            var savedDevices = SettingsManager.UserDevices;
+            var savedSettings = SettingsManager.UserSettings;
+            var savedXbox = SettingsManager.XboxSlotOrder;
+            var savedPlayStation = SettingsManager.PlayStationSlotOrder;
+            var savedNintendo = SettingsManager.NintendoSlotOrder;
+            var savedExtended = SettingsManager.ExtendedSlotOrder;
+            var savedKeyboardMouse = SettingsManager.KeyboardMouseSlotOrder;
+            var savedMidi = SettingsManager.MidiSlotOrder;
+            var savedVr = SettingsManager.VrSlotOrder;
+            var savedCreated = (bool[])SettingsManager.SlotCreated.Clone();
+            var savedEnabled = (bool[])SettingsManager.SlotEnabled.Clone();
+            try
+            {
+                GameModEffects.OrderedSlotsOverrideForTest = null;
+
+                // Pad index i takes the i-th device: a wheel, a DualSense, an
+                // offline DualSense, a DualSense Edge on a disabled slot, and
+                // a DualShock 4.
+                var devices = new DeviceCollection();
+                var settings = new SettingsCollection();
+                foreach (var (vendorId, productId, online) in new (ushort, ushort, bool)[]
+                {
+                    (0x046D, 0xC24F, true), (0x054C, 0x0CE6, true), (0x054C, 0x0CE6, false),
+                    (0x054C, 0x0DF2, true), (0x054C, 0x09CC, true),
+                })
+                {
+                    var id = Guid.NewGuid();
+                    devices.Items.Add(new PadForge.Engine.Data.UserDevice
+                    {
+                        InstanceGuid = id, ProductGuid = id, VendorId = vendorId, ProdId = productId,
+                        IsOnline = online, IsEnabled = true,
+                    });
+                    settings.Items.Add(new PadForge.Engine.Data.UserSetting { InstanceGuid = id, MapTo = settings.Items.Count });
+                }
+                SettingsManager.UserDevices = devices;
+                SettingsManager.UserSettings = settings;
+
+                Array.Clear(SettingsManager.SlotCreated, 0, SettingsManager.SlotCreated.Length);
+                for (int i = 0; i < 5; i++)
+                {
+                    SettingsManager.SlotCreated[i] = true;
+                    SettingsManager.SlotEnabled[i] = i != 3;
+                }
+                // The Dashboard numbers pads 0, 4 and 1 as 1, 2 and 3 in the
+                // Xbox group, then pads 2 and 3 in the PlayStation group.
+                SettingsManager.XboxSlotOrder = new List<int> { 0, 4, 1 };
+                SettingsManager.PlayStationSlotOrder = new List<int> { 2, 3 };
+                SettingsManager.NintendoSlotOrder = new List<int>();
+                SettingsManager.ExtendedSlotOrder = new List<int>();
+                SettingsManager.KeyboardMouseSlotOrder = new List<int>();
+                SettingsManager.MidiSlotOrder = new List<int>();
+                SettingsManager.VrSlotOrder = new List<int>();
+
+                // The DualShock 4 on pad 4, numbered 2, is the mods'
+                // controller 0, ahead of the DualSense on pad 1, numbered 3,
+                // though its pad index is higher. The wheel's pad, the offline
+                // pad's and the disabled one are not addressable.
+                Assert.Equal(new[] { 4, 1 }, GameModEffects.OrderedSlots());
+            }
+            finally
+            {
+                SettingsManager.UserDevices = savedDevices;
+                SettingsManager.UserSettings = savedSettings;
+                SettingsManager.XboxSlotOrder = savedXbox;
+                SettingsManager.PlayStationSlotOrder = savedPlayStation;
+                SettingsManager.NintendoSlotOrder = savedNintendo;
+                SettingsManager.ExtendedSlotOrder = savedExtended;
+                SettingsManager.KeyboardMouseSlotOrder = savedKeyboardMouse;
+                SettingsManager.MidiSlotOrder = savedMidi;
+                SettingsManager.VrSlotOrder = savedVr;
+                Array.Copy(savedCreated, SettingsManager.SlotCreated, savedCreated.Length);
+                Array.Copy(savedEnabled, SettingsManager.SlotEnabled, savedEnabled.Length);
+            }
+        }
+
+        [Fact]
         public void TheSameValueFromAnotherSender_ChangesOnlyItsOwner()
         {
             Send(@"{""instructions"":[{""type"":2,""parameters"":[0,9,9,9]}]}", Mod);
@@ -417,6 +497,65 @@ namespace PadForge.Tests
         [InlineData(65534, 255, 0)]
         public void TheThreshold_HoldsATriggerAt0BelowItsPoint(int trigger, int point, int reported)
             => Assert.Equal((ushort)reported, GameModEffects.ApplyThreshold((ushort)trigger, (byte)point));
+
+        [Theory]
+        [InlineData(short.MinValue, 120, short.MinValue)]
+        [InlineData(120 * 257 - 32768 - 1, 120, short.MinValue)]
+        [InlineData(120 * 257 - 32768, 120, 120 * 257 - 32768)]
+        [InlineData(short.MaxValue, 255, short.MaxValue)]
+        [InlineData(short.MaxValue - 1, 255, short.MinValue)]
+        [InlineData(-5, 0, -5)]
+        public void ARawTrigger_RestsBelowItsPoint(int trigger, int point, int reported)
+            => Assert.Equal((short)reported, GameModEffects.ApplyRawThreshold((short)trigger, (byte)point));
+
+        [Theory]
+        // Sticks, triggers, axes, then the left and right trigger axes the
+        // interleaved layout gives (ComputeAxisLayout, IsTriggerSlot).
+        [InlineData(2, 2, 6, 2, 5)]
+        [InlineData(0, 2, 2, 0, 1)]
+        [InlineData(3, 1, 7, 2, -1)]
+        [InlineData(1, 3, 5, 2, 3)]
+        public void RawThresholds_FindTheLayoutsTriggerPair_InACopy(int sticks, int triggers, int axisCount,
+            int leftAxis, int rightAxis)
+        {
+            var layout = new CustomControllerLayout { Sticks = sticks, Triggers = triggers, Axes = axisCount };
+            var raw = RawHidState.Create(axisCount, 16, 1);
+            // The triggers sit at 60%, between the points 120 (47%) and 200
+            // (78%), so each rests only under the 200. Every other axis sits
+            // at 52%, which the 200 would rest if it landed there. Run once
+            // each way round, a wrong point or a wrong axis on either side
+            // changes the frame.
+            for (int i = 0; i < axisCount; i++) raw.Axes[i] = 1234;
+            raw.Axes[leftAxis] = 6553;
+            if (rightAxis >= 0) raw.Axes[rightAxis] = 6553;
+            var before = (short[])raw.Axes.Clone();
+            short[] scratch = null;
+
+            foreach (var (left, right, restingAxis) in new[] { (120, 200, rightAxis), (200, 120, leftAxis) })
+            {
+                var thresholded = GameModEffects.ApplyRawThresholds(in raw, in layout, (byte)left, (byte)right, ref scratch);
+
+                Assert.Same(scratch, thresholded.Axes);
+                Assert.Same(raw.Buttons, thresholded.Buttons);
+                Assert.Equal(before, raw.Axes);
+                for (int i = 0; i < axisCount; i++)
+                {
+                    short expected = i == restingAxis ? short.MinValue : before[i];
+                    Assert.Equal(expected, thresholded.Axes[i]);
+                }
+            }
+        }
+
+        [Fact]
+        public void RawThresholds_LeaveAFrameWithoutTriggerAxesAlone()
+        {
+            var layout = new CustomControllerLayout { Sticks = 2, Triggers = 0, Axes = 4 };
+            var raw = RawHidState.Create(4, 16, 1);
+            short[] scratch = null;
+            var thresholded = GameModEffects.ApplyRawThresholds(in raw, in layout, 120, 120, ref scratch);
+            Assert.Same(raw.Axes, thresholded.Axes);
+            Assert.Null(scratch);
+        }
 
         [Fact]
         public void TheThresholdRead_UsesTheCachedOrder()
@@ -515,10 +654,22 @@ namespace PadForge.Tests
             Assert.Contains("| ModHoldEnded(_prevModPips, ud.InstanceGuid, modFill.PlayerLights);", code);
             Assert.Equal(2, CountOf(code, "LightPeripheral(ud, perDeviceCfgs, rawAudioPeak, nowMs, playerNumber, ModColor(modHold))"));
 
+            // Step 5 reads the thresholds twice: on the raw surface of an
+            // Extended or Nintendo slot and on every other slot's gamepad
+            // state, each after its button SOCD and on a copy.
             string step5 = Source("PadForge.App", "Common", "Input", "InputManager.Step5.VirtualDevices.cs");
+            const string read = "GameModEffects.ThresholdsForSlot(padIndex, out byte modLeftPoint, out byte modRightPoint);";
+            Assert.Equal(2, CountOf(step5, read));
+            int rawSocd = step5.IndexOf("socdExt.ApplyExtended(CombinedRawHidStates[padIndex].Buttons);", StringComparison.Ordinal);
+            int rawRead = step5.IndexOf(read, rawSocd, StringComparison.Ordinal);
             int socd = step5.IndexOf("gpOut.Buttons = socdGp.ApplyGamepad(gpOut.Buttons);", StringComparison.Ordinal);
-            int threshold = step5.IndexOf("GameModEffects.ThresholdsForSlot(padIndex, out byte modLeftPoint, out byte modRightPoint);", StringComparison.Ordinal);
-            Assert.True(socd > 0 && threshold > socd);
+            int threshold = step5.IndexOf(read, socd, StringComparison.Ordinal);
+            Assert.True(rawSocd > 0 && rawRead > rawSocd && socd > rawRead && threshold > socd);
+            string rawBranch = step5.Substring(rawRead, socd - rawRead);
+            Assert.Matches(@"valvePacker\.Pack\(\s*rawOut,", rawBranch);
+            Assert.Matches(@"ExtendedReportPacker\.Pack\(\s*rawOut, layout, _extendedReportScratch\)", rawBranch);
+            Assert.Matches(@"hmExt\.SubmitRawHidState\(\s*rawOut,", rawBranch);
+            Assert.DoesNotContain("CombinedRawHidStates[padIndex]", rawBranch);
         }
 
         // ── Server ──

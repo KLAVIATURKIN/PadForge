@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using PadForge.Engine;
 using PadForge.Engine.Data;
 
 namespace PadForge.Common.Input
@@ -499,6 +500,44 @@ namespace PadForge.Common.Input
         /// 0-65535 one.</summary>
         internal static ushort ApplyThreshold(ushort trigger, byte point)
             => point == 0 || trigger >= point * 257 ? trigger : (ushort)0;
+
+        /// <summary>The thresholds on an Extended or Nintendo slot's raw
+        /// frame. The layout's first trigger axis is the left trigger and its
+        /// second the right, the pair BuildRawHidState hands HIDMaestro as
+        /// the profile's named triggers. A raw trigger rests at
+        /// short.MinValue, so a pull below the point becomes that. The axes
+        /// are copied into <paramref name="scratch"/> and the returned frame
+        /// points at the copy, so the combined state the pad page reads keeps
+        /// the real pull. Buttons are untouched: a digital trigger such as a
+        /// Nintendo controller's ZL has no pull left to compare.</summary>
+        internal static RawHidState ApplyRawThresholds(in RawHidState raw, in CustomControllerLayout layout,
+            byte left, byte right, ref short[] scratch)
+        {
+            var axes = raw.Axes;
+            if (axes == null || (left == 0 && right == 0)) return raw;
+            int leftAxis = -1, rightAxis = -1;
+            for (int i = 0; i < axes.Length; i++)
+            {
+                if (!layout.IsTriggerSlot(i)) continue;
+                if (leftAxis < 0) leftAxis = i;
+                else { rightAxis = i; break; }
+            }
+            if (leftAxis < 0) return raw;
+
+            if (scratch == null || scratch.Length != axes.Length) scratch = new short[axes.Length];
+            Array.Copy(axes, scratch, axes.Length);
+            if (left != 0) scratch[leftAxis] = ApplyRawThreshold(scratch[leftAxis], left);
+            if (right != 0 && rightAxis >= 0) scratch[rightAxis] = ApplyRawThreshold(scratch[rightAxis], right);
+            var copy = raw;
+            copy.Axes = scratch;
+            return copy;
+        }
+
+        /// <summary><see cref="ApplyThreshold"/> on a raw trigger, whose
+        /// short.MinValue to short.MaxValue range is the 0-65535 one shifted
+        /// by 32768.</summary>
+        internal static short ApplyRawThreshold(short trigger, byte point)
+            => ApplyThreshold((ushort)(trigger + 32768), point) == 0 ? short.MinValue : trigger;
 
         /// <summary>Test seam: drops every hold and the cached order.</summary>
         internal static void ResetForTest()

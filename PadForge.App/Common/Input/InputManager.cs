@@ -733,6 +733,11 @@ namespace PadForge.Common.Input
         /// it.</summary>
         private readonly byte[] _extendedReportScratch = new byte[ExtendedReportPacker.MaxReportSize];
 
+        /// <summary>Axes of a raw-surface frame that carries a game mod's
+        /// trigger thresholds (#529), so the thresholds never reach the
+        /// combined state the pad page reads. Poll thread only.</summary>
+        private short[] _modRawAxesScratch;
+
         /// <summary>
         /// DSU motion server reference. When set, the polling thread broadcasts
         /// motion data to subscribed clients after snapshotting sensor data.

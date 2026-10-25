@@ -2306,6 +2306,19 @@ namespace PadForge.Common.Input
                             var socdExt = ResolveSlotSocd(padIndex, extendedIndices: true);
                             if (socdExt != null)
                                 socdExt.ApplyExtended(CombinedRawHidStates[padIndex].Buttons);
+                            // A game mod's TriggerThreshold (#529) on the raw
+                            // trigger axes, in a copy, as the gamepad path
+                            // below applies it to its local state: the pad
+                            // page still reads the real pull. Every submit
+                            // below takes rawOut.
+                            var rawOut = CombinedRawHidStates[padIndex];
+                            if (GameModEffects.AnyHeld)
+                            {
+                                GameModEffects.ThresholdsForSlot(padIndex, out byte modLeftPoint, out byte modRightPoint);
+                                if (modLeftPoint != 0 || modRightPoint != 0)
+                                    rawOut = GameModEffects.ApplyRawThresholds(in rawOut, in layout,
+                                        modLeftPoint, modRightPoint, ref _modRawAxesScratch);
+                            }
                             // Valve persona (#338): a slot on a Valve
                             // profile submits the pad's native frame instead
                             // of the field-encoded raw surface, exactly the
@@ -2318,7 +2331,7 @@ namespace PadForge.Common.Input
                             if (valvePacker != null)
                             {
                                 valvePacker.Pack(
-                                    CombinedRawHidStates[padIndex],
+                                    rawOut,
                                     CombinedTouchpadStates[padIndex],
                                     MotionSnapshots[padIndex],
                                     unchecked((uint)_deckFrameCounter++),
@@ -2337,14 +2350,14 @@ namespace PadForge.Common.Input
                                 // frame is packed against the descriptor this
                                 // slot's own build emitted and submitted raw.
                                 int packedLen = ExtendedReportPacker.Pack(
-                                    CombinedRawHidStates[padIndex], layout, _extendedReportScratch);
+                                    rawOut, layout, _extendedReportScratch);
                                 if (packedLen > 0)
                                     hmExt.SubmitPackedExtendedReport(
                                         new ReadOnlySpan<byte>(_extendedReportScratch, 0, packedLen));
                             }
                             else
                             hmExt.SubmitRawHidState(
-                                CombinedRawHidStates[padIndex],
+                                rawOut,
                                 layout.Sticks,
                                 layout.Triggers,
                                 // IMU channel (HM v1.3.18): the slot's
