@@ -4113,13 +4113,15 @@
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>Се чекаат податоци од споделената меморија на FreeTrack.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>Споделената меморија на FreeTrack не е достапна.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Вибрации според аголот на управување</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Додава непрекинати вибрации додека избраната оска на виртуелната палка се оддалечува од центарот. Го користи мапираниот излез од сите доделени извори. Негативното движење го управува левиот мотор, позитивното десниот. За излез Xbox и PlayStation со уреди со вибрации. Нативната повратна сила на воланите е исклучена.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Додава непрекинати вибрации додека избраната оска на виртуелната палка се оддалечува од центарот. Го користи мапираниот излез од сите доделени извори. Со „Поделено по насока“ негативното движење го управува левиот мотор, а позитивното десниот. Со „Лев мотор“ или „Десен мотор“ двете насоки одат на тој еден мотор. За излез Xbox и PlayStation со уреди со вибрации. Нативната повратна сила на воланите е исклучена.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Овозможи вибрации според аголот на управување</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Виртуелна оска</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Лева палка X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Лева палка Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Десна палка X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Десна палка Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Мотор</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Поделено по насока</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Мртва зона во центарот</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Ресетирај на исклучено</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Ресетирај на „Лева палка X“</value></data>

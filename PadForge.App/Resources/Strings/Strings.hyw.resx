@@ -4049,13 +4049,15 @@
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>Կը սպասէ FreeTrack համատեղ յիշողութեան տուեալներուն։</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>FreeTrack համատեղ յիշողութիւնը անմատչելի է։</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Ղեկի անկիւնի թրթռում</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Կ'աւելցնէ շարունակական թրթռում, երբ ընտրուած վիրթուալ լծակի առանցքը կեդրոնէն կը հեռանայ։ Կը գործածէ բոլոր նշանակուած աղբիւրներուն համապատասխանեցուած ելքը։ Բացասական շարժումը կը գործարկէ ձախ մոթորը, դրականը՝ աջը։ Xbox եւ PlayStation ելքի համար՝ թրթռումով սարքերով։ Ղեկերու սեփական ուժային արձագանգը բացառուած է։</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Կ'աւելցնէ շարունակական թրթռում, երբ ընտրուած վիրթուալ լծակի առանցքը կեդրոնէն կը հեռանայ։ Կը գործածէ բոլոր նշանակուած աղբիւրներուն համապատասխանեցուած ելքը։ «Բաժնուած ըստ ուղղութեան» ընտրանքով բացասական շարժումը կը գործարկէ ձախ մոթորը, դրականը՝ աջը։ «Ձախ մոթոր» կամ «Աջ մոթոր» երկու ուղղութիւններն ալ կը դնէ այդ մէկ մոթորին վրայ։ Xbox եւ PlayStation ելքի համար՝ թրթռումով սարքերով։ Ղեկերու սեփական ուժային արձագանգը բացառուած է։</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Միացնել ղեկի անկիւնի թրթռումը</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Վիրթուալ առանցք</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Ձախ լծակ X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Ձախ լծակ Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Աջ լծակ X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Աջ լծակ Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Մոթոր</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Բաժնուած ըստ ուղղութեան</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Կեդրոնի մեռեալ գօտի</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Վերակայել (անջատուած)</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Վերակայել (ձախ լծակ X)</value></data>

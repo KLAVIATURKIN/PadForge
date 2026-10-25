@@ -4113,13 +4113,15 @@
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>در انتظار داده‌های حافظه مشترک FreeTrack.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>حافظه مشترک FreeTrack در دسترس نیست.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>لرزش زاویه هدایت</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>با دور شدن محور استیک مجازی انتخاب‌شده از مرکز، لرزش پیوسته‌ای اضافه می‌کند. از خروجی نگاشت‌شده همه منبع‌های اختصاص‌یافته استفاده می‌کند. حرکت منفی موتور چپ و حرکت مثبت موتور راست را به کار می‌اندازد. برای خروجی Xbox و PlayStation با دستگاه‌های دارای لرزش. فورس فیدبک بومی فرمان شامل نمی‌شود.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>با دور شدن محور استیک مجازی انتخاب‌شده از مرکز، لرزش پیوسته‌ای اضافه می‌کند. از خروجی نگاشت‌شده همه منبع‌های اختصاص‌یافته استفاده می‌کند. با «تقسیم بر اساس جهت»، حرکت منفی موتور چپ و حرکت مثبت موتور راست را به کار می‌اندازد. «موتور چپ» یا «موتور راست» هر دو جهت را روی همان یک موتور می‌گذارد. برای خروجی Xbox و PlayStation با دستگاه‌های دارای لرزش. فورس فیدبک بومی فرمان شامل نمی‌شود.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>فعال کردن لرزش زاویه هدایت</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>محور مجازی</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>استیک چپ X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>استیک چپ Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>استیک راست X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>استیک راست Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>موتور</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>تقسیم بر اساس جهت</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>ناحیه مرده مرکز</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>بازنشانی به خاموش</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>بازنشانی به استیک چپ X</value></data>

@@ -4039,13 +4039,15 @@ Doni që PadForge t'i çinstalojë tani? Kjo kërkon privilegje administratori d
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>Po pritet për të dhënat e memories së përbashkët FreeTrack.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>Memoria e përbashkët FreeTrack nuk është e disponueshme.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Dridhja e këndit të drejtimit</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Shton dridhje të vazhdueshme ndërsa boshti i zgjedhur virtual i levës largohet nga qendra. Përdor daljen e hartëzuar nga të gjitha burimet e caktuara. Lëvizja negative drejton motorin e majtë, ajo pozitive motorin e djathtë. Për dalje Xbox dhe PlayStation me pajisje dridhjeje. Force feedback-u vendas i timonit përjashtohet.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Shton dridhje të vazhdueshme ndërsa boshti i zgjedhur virtual i levës largohet nga qendra. Përdor daljen e hartëzuar nga të gjitha burimet e caktuara. Me "Ndarë sipas drejtimit", lëvizja negative drejton motorin e majtë dhe ajo pozitive motorin e djathtë. "Motori i majtë" ose "Motori i djathtë" i vendos të dyja drejtimet në atë motor. Për dalje Xbox dhe PlayStation me pajisje dridhjeje. Force feedback-u vendas i timonit përjashtohet.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Aktivizo dridhjen e këndit të drejtimit</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Boshti virtual</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Leva e majtë X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Leva e majtë Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Leva e djathtë X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Leva e djathtë Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motori</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Ndarë sipas drejtimit</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Zona e vdekur e qendrës</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Rivendos në fikur</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Rivendos te Leva e majtë X</value></data>

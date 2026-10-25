@@ -2052,11 +2052,14 @@
   <data name="RemoteLink_AssignmentNoSlots" xml:space="preserve">
     <value>Dala isilawuli esibonakalayo kwenye i-PC, bese uvuselela.</value>
   </data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Ingeza ukudlidliza okuqhubekayo njengoba i-eksisi yenduku ebonakalayo ekhethiwe isuka esikhungweni. Isebenzisa okukhiphayo okumephiwe kuyo yonke imithombo eyabelwe. Ngokuthi "Hlukanisa ngohlangothi", ukunyakaza okunegethivu kusebenzisa imoto engakwesokunxele, okuphozithivu kusebenzise imoto engakwesokudla. Ngokuthi "Imoto engakwesokunxele" noma "Imoto engakwesokudla", zombili izinhlangothi zisebenzisa leyo moto eyodwa. Okokuphuma kwe-Xbox ne-PlayStation kanye nezidivayisi ezidlidlizayo. Impendulo yamandla yesondo uqobo ayifakiwe.</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>I-eksisi ebonakalayo</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Induku yesobunxele X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Induku yesobunxele Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Induku yesokudla X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Induku yesokudla Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Imoto</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Hlukanisa ngohlangothi</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Indawo efile yesikhungo</value></data>
   <data name="Pad_SteeringAngleRumble_ResetStrength" xml:space="preserve"><value>Setha kabusha amandla (50%)</value></data>
   <data name="Pad_SteeringAngleRumble_ResetDeadzone" xml:space="preserve"><value>Setha kabusha indawo efile yesikhungo (2%)</value></data>

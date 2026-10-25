@@ -1013,6 +1013,7 @@
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Kaliwang stick Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Tuong stick X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Tuong stick Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motor</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>I-reset sa kaliwang stick X</value></data>
   <data name="Pad_SteeringAngleRumble_ResetStrength" xml:space="preserve"><value>I-reset an kusog (50%)</value></data>
   <data name="ResetLabel_Profile" xml:space="preserve"><value>Profile</value></data>

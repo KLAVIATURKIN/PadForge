@@ -8277,6 +8277,16 @@
                                                    ToolTip="{Binding Pad_SteeringAngleRumble_ResetAxis, Source={x:Static strings:Strings.Instance}}"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                        <TextBlock Text="{Binding Pad_SteeringAngleRumble_Motor,Source={x:Static strings:Strings.Instance}}" Style="{StaticResource DzLabel}"/>
+                                        <ComboBox x:Name="SteeringAngleRumbleMotorPicker" SelectedIndex="{Binding SteeringAngleRumbleMotor, Mode=TwoWay}" MinWidth="220"
+                                                  IsEnabled="{Binding SteeringAngleRumbleEnabled}">
+                                            <ComboBoxItem Content="{Binding Pad_SteeringAngleRumble_MotorSplit, Source={x:Static strings:Strings.Instance}}"/>
+                                            <ComboBoxItem Content="{Binding Pad_LeftMotorLabel, Source={x:Static strings:Strings.Instance}}"/>
+                                            <ComboBoxItem Content="{Binding Pad_RightMotorLabel, Source={x:Static strings:Strings.Instance}}"/>
+                                        </ComboBox>
+                                        <reset:SettingResetButton Command="{Binding ResetSteeringAngleRumbleMotorCommand}" SettingLabel="{Binding Pad_SteeringAngleRumble_Motor, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_PadViewModel_SteeringAngleRumbleMotor"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                                         <TextBlock Text="{Binding Pad_AT_Strength, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource DzLabel}"/>
                                         <Slider Value="{Binding SteeringAngleRumbleStrength, Mode=TwoWay}" Minimum="0" Maximum="100" Style="{StaticResource DzSlider}" IsEnabled="{Binding SteeringAngleRumbleEnabled}"/>
                                         <TextBox Text="{Binding SteeringAngleRumbleStrength, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Style="{StaticResource DzValueEdit}" IsEnabled="{Binding SteeringAngleRumbleEnabled}"/>

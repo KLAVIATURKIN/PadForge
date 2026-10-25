@@ -1451,6 +1451,8 @@ Olingi PadForge elongola yango sikoyo? Esengeli na ba droit ya administrateur mp
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Stick ya mwasi Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Stick ya mobali X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Stick ya mobali Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Moteur</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Kokabola na ngámbo</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Zone morte ya katikati</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Kozongisa na Stick ya mwasi X</value></data>
   <data name="Pad_SteeringAngleRumble_ResetStrength" xml:space="preserve"><value>Kozongisa makasi (50%)</value></data>

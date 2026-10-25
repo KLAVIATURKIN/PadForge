@@ -1344,11 +1344,14 @@
   <data name="RemoteLink_AssignmentBusy" xml:space="preserve">
     <value>Stap wet long narafala PC...</value>
   </data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>I givim seksek we i no stop taem aksis blong virtual stik we yu jusum i muv i go longwe long medel. I yusum aotput blong mapping blong evri divaes we i stap long slot ia. Wetem "Seraotem folem daereksen", muvmen long saed blong negatif i mekem lef mota i wok, mo muvmen long saed blong positif i mekem raet mota i wok. "Lef mota" o "Raet mota" i putum tufala daereksen long wan mota ia nomo. Blong Xbox mo PlayStation aotput wetem ol divaes we i gat seksek. Force feedback blong wil hemwan i no stap insaed.</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Virtual aksis</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Lef stik X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Lef stik Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Raet stik X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Raet stik Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Mota</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Seraotem folem daereksen</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Dedzon long medel</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Putum bak long of</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Putum bak long lef stik X</value></data>

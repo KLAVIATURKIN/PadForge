@@ -969,10 +969,13 @@
   <data name="RemoteLink_AssignmentBusy" xml:space="preserve">
     <value>Agur-uray iti sabali a PC...</value>
   </data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Agnayon iti agtultuloy a rumble bayat nga umadayo iti tengnga ti napili a virtual stick axis. Usarenna ti output dagiti mapping manipud kadagiti amin a naituding a source. No "Naisina segun iti direksion", ti negatibo a panagkuti ket mapan iti kannigid a motor ken ti positibo a panagkuti ket mapan iti kannawan. Ti "Kannigid a motor" wenno "Kannawan a motor" ket mangikabil iti dua a direksion iti dayta maymaysa a motor. Para iti Xbox ken PlayStation nga output nga addaan kadagiti rumble a device. Saan a mairaman ti native a force feedback ti wheel.</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Kanigid a Stick X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Kanigid a Stick Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Kannawan a Stick X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Kannawan a Stick Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motor</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Naisina segun iti direksion</value></data>
   <data name="ResetLabel_Profile" xml:space="preserve"><value>Profile</value></data>
   <data name="About_Nefcon" xml:space="preserve"><value>nefcon</value></data>
   <data name="About_Kaldi" xml:space="preserve"><value>Kaldi, OpenFst, OpenBLAS, ken CLAPACK</value></data>

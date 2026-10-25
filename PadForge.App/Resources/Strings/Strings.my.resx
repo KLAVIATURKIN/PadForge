@@ -4083,13 +4083,15 @@ PadForge က ၎င်းတို့ကို ယခုပင် ဖြုတ�
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>FreeTrack မျှဝေမှတ်ဉာဏ် ဒေတာကို စောင့်နေသည်။</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>FreeTrack မျှဝေမှတ်ဉာဏ် မရနိုင်ပါ။</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>စတီယာရင်ထောင့် တုန်ခါမှု</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>ရွေးထားသော ဗာချွယ်စတစ်ဝင်ရိုး ဗဟိုမှ ဝေးလာသည်နှင့်အမျှ စဉ်ဆက်မပြတ် တုန်ခါမှုကို ထည့်သည်။ သတ်မှတ်ထားသော ရင်းမြစ်အားလုံးမှ မက်ပင်းလုပ်ထားသော အထွက်ကို အသုံးပြုသည်။ အနုတ်လှုပ်ရှားမှုက ဘယ်မော်တာကို၊ အပေါင်းလှုပ်ရှားမှုက ညာမော်တာကို မောင်းနှင်သည်။ တုန်ခါမှု စက်ပစ္စည်းများပါသော Xbox နှင့် PlayStation အထွက်အတွက်။ စတီယာရင်ဘီး၏ ကိုယ်ပိုင် အားပြန်တုံ့ပြန်မှုကို ချန်လှပ်ထားသည်။</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>ရွေးထားသော ဗာချွယ်စတစ်ဝင်ရိုး ဗဟိုမှ ဝေးလာသည်နှင့်အမျှ စဉ်ဆက်မပြတ် တုန်ခါမှုကို ထည့်သည်။ သတ်မှတ်ထားသော ရင်းမြစ်အားလုံးမှ မက်ပင်းလုပ်ထားသော အထွက်ကို အသုံးပြုသည်။ “ဦးတည်ရာအလိုက် ခွဲခြား” ကို ရွေးထားလျှင် အနုတ်လှုပ်ရှားမှုက ဘယ်မော်တာကို၊ အပေါင်းလှုပ်ရှားမှုက ညာမော်တာကို မောင်းနှင်သည်။ “ဘယ်မော်တာ” သို့မဟုတ် “ညာမော်တာ” ကို ရွေးထားလျှင် ဦးတည်ရာနှစ်ခုလုံးကို ထိုမော်တာတစ်ခုတည်းပေါ်တွင် ထားသည်။ တုန်ခါမှု စက်ပစ္စည်းများပါသော Xbox နှင့် PlayStation အထွက်အတွက်။ စတီယာရင်ဘီး၏ ကိုယ်ပိုင် အားပြန်တုံ့ပြန်မှုကို ချန်လှပ်ထားသည်။</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>စတီယာရင်ထောင့် တုန်ခါမှု ဖွင့်ရန်</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>ဗာချွယ် ဝင်ရိုး</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>ဘယ်စတစ် X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>ဘယ်စတစ် Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>ညာစတစ် X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>ညာစတစ် Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>မော်တာ</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>ဦးတည်ရာအလိုက် ခွဲခြား</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>ဗဟို ဒက်ဇုန်</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>ပိတ်ခြင်းသို့ ပြန်လည်သတ်မှတ်</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>ဘယ်စတစ် X သို့ ပြန်လည်သတ်မှတ်</value></data>

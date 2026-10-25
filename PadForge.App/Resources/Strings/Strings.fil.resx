@@ -3906,13 +3906,15 @@ Gusto mo bang i-uninstall na ang mga ito ng PadForge ngayon? Nangangailangan ito
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>Naghihintay ng data ng FreeTrack shared memory.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>Hindi available ang FreeTrack shared memory.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Steering Angle Rumble</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Nagdaragdag ng tuloy-tuloy na rumble habang lumalayo sa gitna ang napiling virtual stick axis. Ginagamit ang mapped output mula sa lahat ng naka-assign na source. Ang negatibong galaw ay nagpapagana sa kaliwang motor, ang positibo sa kanan. Para sa Xbox at PlayStation output na may mga rumble device. Hindi kasama ang native wheel force feedback.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Nagdaragdag ng tuloy-tuloy na rumble habang lumalayo sa gitna ang napiling virtual stick axis. Ginagamit ang mapped output mula sa lahat ng naka-assign na source. Sa Hatiin ayon sa Direksyon, ang negatibong galaw ay nagpapagana sa kaliwang motor at ang positibo sa kanan. Ang Kaliwang Motor o Kanang Motor ay naglalagay ng magkabilang direksyon sa iisang motor. Para sa Xbox at PlayStation output na may mga rumble device. Hindi kasama ang native wheel force feedback.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>I-enable ang Steering Angle Rumble</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Virtual Axis</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Kaliwang Stick X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Kaliwang Stick Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Kanang Stick X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Kanang Stick Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motor</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Hatiin ayon sa Direksyon</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Center Deadzone</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>I-reset sa Off</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>I-reset sa Kaliwang Stick X</value></data>

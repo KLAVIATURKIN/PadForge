@@ -4113,13 +4113,15 @@ Má je PadForge teď odinstalovat? Vyžaduje to zvýšená oprávnění a může
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>Čeká se na data sdílené paměti FreeTrack.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>Sdílená paměť FreeTrack není k dispozici.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Vibrace podle úhlu řízení</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Přidává nepřetržité vibrace, jak se vybraná osa virtuální páčky vzdaluje od středu. Používá namapovaný výstup ze všech přiřazených zdrojů. Záporný pohyb řídí levý motor, kladný pravý. Pro výstup Xbox a PlayStation se zařízeními s vibracemi. Nativní silová zpětná vazba volantů je vyloučena.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Přidává nepřetržité vibrace, jak se vybraná osa virtuální páčky vzdaluje od středu. Používá namapovaný výstup ze všech přiřazených zdrojů. S volbou Rozdělit podle směru záporný pohyb řídí levý motor a kladný pravý. Volba Levý motor nebo Pravý motor přesune oba směry na tento jediný motor. Pro výstup Xbox a PlayStation se zařízeními s vibracemi. Nativní silová zpětná vazba volantů je vyloučena.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Povolit vibrace podle úhlu řízení</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Virtuální osa</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Levá páčka X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Levá páčka Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Pravá páčka X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Pravá páčka Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motor</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Rozdělit podle směru</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Středová mrtvá zóna</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Resetovat na vypnuto</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Resetovat na Levá páčka X</value></data>

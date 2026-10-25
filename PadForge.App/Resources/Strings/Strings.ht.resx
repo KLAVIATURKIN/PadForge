@@ -3445,13 +3445,15 @@ Gen yon kopi vèsyon anvan an nan dosye sa a: {1}</value></data>
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>Ap tann done nan memwa pataje FreeTrack.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>Memwa pataje FreeTrack pa disponib.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Vibrasyon selon ang direksyon</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Ajoute yon vibrasyon kontinyèl pandan aks stick vityèl ou chwazi a ap deplase lwen sant lan. Li sèvi ak sòti ki asiye nan tout sous ki atribiye yo. Mouvman negatif fè motè gòch la mache, mouvman pozitif fè motè dwat la mache. Pou sòti Xbox ak PlayStation ak aparèy ki ka vibre. Retou fòs natif volan yo pa enkli.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Ajoute yon vibrasyon kontinyèl pandan aks stick vityèl ou chwazi a ap deplase lwen sant lan. Li sèvi ak sòti ki asiye nan tout sous ki atribiye yo. Avèk «Separe selon direksyon», mouvman negatif fè motè gòch la mache, mouvman pozitif fè motè dwat la mache. «Motè gòch» oswa «Motè dwat» mete toude direksyon yo sou motè sa a sèlman. Pou sòti Xbox ak PlayStation ak aparèy ki ka vibre. Retou fòs natif volan yo pa enkli.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Aktive vibrasyon selon ang direksyon</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Aks vityèl</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Stick gòch X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Stick gòch Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Stick dwat X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Stick dwat Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motè</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Separe selon direksyon</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Zòn mò sant</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Remèt sou Etenn</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Remèt sou Stick gòch X</value></data>

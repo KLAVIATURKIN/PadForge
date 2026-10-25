@@ -853,6 +853,7 @@
   <data name="RemoteLink_AssignmentBusy" xml:space="preserve">
     <value>E emetse PC e nngwe...</value>
   </data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motor</value></data>
   <data name="ResetLabel_Profile" xml:space="preserve"><value>Profaele</value></data>
   <data name="Status_SteamCmdTimedOut" xml:space="preserve"><value>steamcmd ha ya qeta ka hare ho metsotso e 60.</value></data>
   <data name="About_Nefcon" xml:space="preserve"><value>nefcon</value></data>

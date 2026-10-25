@@ -4080,13 +4080,15 @@ PadForge ने ते आता अनइन्स्टॉल करावे�
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>FreeTrack शेअर्ड मेमरी डेटाची वाट पाहत आहे.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>FreeTrack शेअर्ड मेमरी उपलब्ध नाही.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>स्टीअरिंग कोन कंपन</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>निवडलेला व्हर्च्युअल स्टिक अक्ष केंद्रापासून दूर जाताना सतत कंपन जोडते. सर्व नेमलेल्या स्रोतांचे मॅप केलेले आउटपुट वापरते. ऋण हालचाल डावी मोटर चालवते, धन हालचाल उजवी. कंपन डिव्हाइस असलेल्या Xbox आणि PlayStation आउटपुटसाठी. नेटिव्ह व्हील फोर्स फीडबॅक वगळलेले आहे.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>निवडलेला व्हर्च्युअल स्टिक अक्ष केंद्रापासून दूर जाताना सतत कंपन जोडते. सर्व नेमलेल्या स्रोतांचे मॅप केलेले आउटपुट वापरते. दिशेनुसार विभाजन निवडल्यास ऋण हालचाल डावी मोटर चालवते, धन हालचाल उजवी. डावी मोटर किंवा उजवी मोटर निवडल्यास दोन्ही दिशा त्याच एका मोटरवर चालतात. कंपन डिव्हाइस असलेल्या Xbox आणि PlayStation आउटपुटसाठी. नेटिव्ह व्हील फोर्स फीडबॅक वगळलेले आहे.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>स्टीअरिंग कोन कंपन सक्षम करा</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>व्हर्च्युअल अक्ष</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>डावी स्टिक X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>डावी स्टिक Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>उजवी स्टिक X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>उजवी स्टिक Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>मोटर</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>दिशेनुसार विभाजन</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>केंद्र डेडझोन</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>बंद वर रीसेट करा</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>डावी स्टिक X वर रीसेट करा</value></data>

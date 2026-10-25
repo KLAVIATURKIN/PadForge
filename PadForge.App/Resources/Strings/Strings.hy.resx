@@ -4053,13 +4053,15 @@
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>Սպասում է FreeTrack-ի ընդհանուր հիշողության տվյալներին։</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>FreeTrack-ի ընդհանուր հիշողությունը հասանելի չէ։</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Ղեկի անկյան թրթռոց</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Ավելացնում է անընդհատ թրթռոց, երբ ընտրված վիրտուալ ձողի առանցքը հեռանում է կենտրոնից։ Օգտագործում է բոլոր նշանակված աղբյուրների կապակցված ելքը։ Բացասական շարժումը վարում է ձախ թրթռաշարժիչը, դրականը՝ աջը։ Xbox-ի և PlayStation-ի ելքի համար՝ թրթռոցով սարքերով։ Բնիկ ղեկի հետադարձ ուժը բացառված է։</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Ավելացնում է անընդհատ թրթռոց, երբ ընտրված վիրտուալ ձողի առանցքը հեռանում է կենտրոնից։ Օգտագործում է բոլոր նշանակված աղբյուրների կապակցված ելքը։ «Բաժանել ըստ ուղղության» ռեժիմում բացասական շարժումը վարում է ձախ թրթռաշարժիչը, դրականը՝ աջը։ «Ձախ թրթռաշարժիչ» կամ «Աջ թրթռաշարժիչ» ընտրելիս երկու ուղղություններն էլ գնում են այդ մեկ թրթռաշարժիչին։ Xbox-ի և PlayStation-ի ելքի համար՝ թրթռոցով սարքերով։ Բնիկ ղեկի հետադարձ ուժը բացառված է։</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Միացնել ղեկի անկյան թրթռոցը</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Վիրտուալ առանցք</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Ձախ ձող X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Ձախ ձող Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Աջ ձող X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Աջ ձող Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Թրթռաշարժիչ</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Բաժանել ըստ ուղղության</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Կենտրոնի մեռյալ գոտի</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Վերականգնել՝ անջատված</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Վերականգնել՝ Ձախ ձող X</value></data>

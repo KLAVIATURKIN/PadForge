@@ -4079,13 +4079,15 @@
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>چاوەڕوانی داتای بیرگەی هاوبەشی FreeTrack.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>بیرگەی هاوبەشی FreeTrack بەردەست نییە.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>لەرزینی گۆشەی سوکان</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>لەرزینی بەردەوام زیاد دەکات کاتێک تەوەرە مەجازییە هەڵبژێردراوەکەی ستیک لە ناوەند دوور دەکەوێتەوە. دەرچووی بەستراو لە هەموو سەرچاوە دیاریکراوەکان بەکاردەهێنێت. جووڵەی نەرێنی مۆتۆری چەپ دەخاتە کار، جووڵەی ئەرێنی مۆتۆری ڕاست. بۆ دەرچووی Xbox و PlayStation لەگەڵ ئامێرەکانی لەرزین. فیدباکی هێزی خۆماڵیی سوکان لێی دەرکراوە.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>لەرزینی بەردەوام زیاد دەکات کاتێک تەوەرە مەجازییە هەڵبژێردراوەکەی ستیک لە ناوەند دوور دەکەوێتەوە. دەرچووی بەستراو لە هەموو سەرچاوە دیاریکراوەکان بەکاردەهێنێت. لەگەڵ «دابەشکردن بەپێی ئاراستە»، جووڵەی نەرێنی مۆتۆری چەپ دەخاتە کار و جووڵەی ئەرێنی مۆتۆری ڕاست. «مۆتۆری چەپ» یان «مۆتۆری ڕاست» هەردوو ئاراستەکە دەخاتە سەر ئەو یەک مۆتۆرە. بۆ دەرچووی Xbox و PlayStation لەگەڵ ئامێرەکانی لەرزین. فیدباکی هێزی خۆماڵیی سوکان لێی دەرکراوە.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>چالاککردنی لەرزینی گۆشەی سوکان</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>تەوەری مەجازی</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>ستیکی چەپ X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>ستیکی چەپ Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>ستیکی ڕاست X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>ستیکی ڕاست Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>مۆتۆر</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>دابەشکردن بەپێی ئاراستە</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>ناوچەی مردووی ناوەند</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>گەڕاندنەوە بۆ کوژاوە</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>گەڕاندنەوە بۆ ستیکی چەپ X</value></data>

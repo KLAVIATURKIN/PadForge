@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using PadForge.Common.Input;
 using PadForge.Engine;
@@ -30,6 +31,32 @@ public class SteeringAngleRumbleTests
     {
         SteeringAngleRumble.Compute(SteeringAngleRumble.Pack(new Gamepad { ThumbLX = (short)axis }),
             Enabled(), out var l, out var r);
+        Assert.Equal(left, l);
+        Assert.Equal(right, r);
+    }
+
+    /// <summary>#510: Left Motor or Right Motor takes both turns at the level the split
+    /// gives each side. "0", and any value the engine does not know, splits by direction.</summary>
+    [Theory]
+    [InlineData("1", -32768, 65535, 0)]
+    [InlineData("1", 32767, 65535, 0)]
+    [InlineData("1", 0, 0, 0)]
+    [InlineData("2", -32768, 0, 65535)]
+    [InlineData("2", 32767, 0, 65535)]
+    [InlineData("2", -16384, 0, 32768)]
+    [InlineData("0", -32768, 65535, 0)]
+    [InlineData("0", 32767, 0, 65535)]
+    [InlineData("", 32767, 0, 65535)]
+    [InlineData(null, -32768, 65535, 0)]
+    [InlineData("3", 32767, 0, 65535)]
+    [InlineData("-1", -32768, 65535, 0)]
+    [InlineData("left", 32767, 0, 65535)]
+    public void TheMotorSettingPutsBothTurnsOnOneMotorOrSplitsThem(string motor, int axis, int left, int right)
+    {
+        var ps = Enabled();
+        ps.SteeringAngleRumbleMotor = motor;
+        SteeringAngleRumble.Compute(SteeringAngleRumble.Pack(new Gamepad { ThumbLX = (short)axis }),
+            ps, out var l, out var r);
         Assert.Equal(left, l);
         Assert.Equal(right, r);
     }
@@ -108,6 +135,7 @@ public class SteeringAngleRumbleTests
         using var rig = new Rig();
         var ps = Enabled("73", "7");
         ps.SteeringAngleRumbleAxis = "2";
+        ps.SteeringAngleRumbleMotor = "2";
         foreach (string name in SettingNames)
         {
             var copy = ps.CloneDeep();
@@ -136,6 +164,7 @@ public class SteeringAngleRumbleTests
         Assert.Equal(2, vm.SteeringAngleRumbleAxis);
         Assert.Equal(73, vm.SteeringAngleRumbleStrength);
         Assert.Equal(7, vm.SteeringAngleRumbleDeadzone);
+        Assert.Equal(2, vm.SteeringAngleRumbleMotor);
         settings.UpdatePadSettingsFromViewModels();
         AssertSettings(ps, rig.Assignment.GetPadSetting());
         vm.ResetSteeringAngleRumbleCommand.Execute(null);
@@ -143,13 +172,58 @@ public class SteeringAngleRumbleTests
         Assert.Equal(0, vm.SteeringAngleRumbleAxis);
         Assert.Equal(50, vm.SteeringAngleRumbleStrength);
         Assert.Equal(2, vm.SteeringAngleRumbleDeadzone);
+        Assert.Equal(0, vm.SteeringAngleRumbleMotor);
+        vm.SteeringAngleRumbleMotor = 1;
+        vm.ResetSteeringAngleRumbleMotorCommand.Execute(null);
+        Assert.Equal(0, vm.SteeringAngleRumbleMotor);
         vm.SteeringAngleRumbleEnabled = true;
+        vm.SteeringAngleRumbleMotor = 2;
         vm.ResetAllSettings();
         Assert.False(vm.SteeringAngleRumbleEnabled);
+        Assert.Equal(0, vm.SteeringAngleRumbleMotor);
+    }
+
+    /// <summary>The picker shows what the engine plays: a value the engine reads as split
+    /// shows as Split by Direction, not as the nearest choice.</summary>
+    [Fact]
+    public void AMotorValueTheEngineDoesNotKnowShowsAsSplit()
+    {
+        using var rig = new Rig();
+        var vm = new MainViewModel().Pads[0];
+        vm.SteeringAngleRumbleMotor = 2;
+        Assert.Equal(2, vm.SteeringAngleRumbleMotor);
+        vm.SteeringAngleRumbleMotor = 7;
+        Assert.Equal(0, vm.SteeringAngleRumbleMotor);
+        vm.SteeringAngleRumbleMotor = -1;
+        Assert.Equal(0, vm.SteeringAngleRumbleMotor);
+        var ps = Enabled();
+        ps.SteeringAngleRumbleMotor = "9";
+        InputService.LoadPadSettingIntoViewModel(vm, ps);
+        Assert.Equal(0, vm.SteeringAngleRumbleMotor);
+    }
+
+    /// <summary>The picker's position is the stored value, so its items stay in the
+    /// engine's order: split, left, right.</summary>
+    [Fact]
+    public void TheMotorPickerListsTheChoicesInTheEnginesOrder()
+    {
+        var dir = new DirectoryInfo(Directory.GetCurrentDirectory());
+        while (dir != null && !File.Exists(Path.Combine(dir.FullName, "SharedVersion.cs"))) dir = dir.Parent;
+        Assert.NotNull(dir);
+        string xaml = File.ReadAllText(Path.Combine(dir.FullName, "PadForge.App", "Views", "PadPage.xaml"));
+        int start = xaml.IndexOf("x:Name=\"SteeringAngleRumbleMotorPicker\"", StringComparison.Ordinal);
+        Assert.True(start > 0, "the motor picker was not found");
+        int end = xaml.IndexOf("</StackPanel>", start, StringComparison.Ordinal);
+        string row = xaml[start..end];
+        Assert.Contains("SelectedIndex=\"{Binding SteeringAngleRumbleMotor, Mode=TwoWay}\"", row);
+        Assert.Equal(new[] { "Pad_SteeringAngleRumble_MotorSplit", "Pad_LeftMotorLabel", "Pad_RightMotorLabel" },
+            Regex.Matches(row, @"<ComboBoxItem Content=""\{Binding (\w+),").Select(m => m.Groups[1].Value));
+        Assert.Contains("ResetSteeringAngleRumbleMotorCommand", row);
+        Assert.Contains("SettingLabel=\"{Binding Pad_SteeringAngleRumble_Motor,", row);
     }
 
     private static readonly string[] SettingNames = { "SteeringAngleRumbleEnabled", "SteeringAngleRumbleAxis",
-        "SteeringAngleRumbleStrength", "SteeringAngleRumbleDeadzone" };
+        "SteeringAngleRumbleStrength", "SteeringAngleRumbleDeadzone", "SteeringAngleRumbleMotor" };
     private static void AssertSettings(PadSetting a, PadSetting b)
     {
         foreach (string name in SettingNames)
@@ -188,6 +262,28 @@ public class SteeringAngleRumbleTests
         int count = rig.Output.Sent.Count;
         rig.Feedback();
         Assert.Equal(count, rig.Output.Sent.Count);
+    }
+
+    /// <summary>#510: the picked motor is named the way game rumble names it. Overall
+    /// Gain, the motor strengths and Swap Left and Right Motors apply afterward, so with
+    /// Swap on the picked motor swaps too.</summary>
+    [Fact]
+    public void ThePickedMotorTakesBothTurnsAndSwapsLikeGameRumble()
+    {
+        using var rig = new Rig();
+        var ps = rig.Assignment.GetPadSetting();
+        ps.SteeringAngleRumbleMotor = "1";
+        rig.Publish(short.MaxValue);
+        rig.Feedback();
+        Assert.Equal((ushort.MaxValue, (ushort)0), rig.Output.Sent.Last());
+        ps.ForceSwapMotor = "1";
+        rig.Feedback();
+        Assert.Equal(((ushort)0, ushort.MaxValue), rig.Output.Sent.Last());
+        ps.ForceSwapMotor = "0";
+        ps.SteeringAngleRumbleMotor = "2";
+        rig.Publish(short.MinValue);
+        rig.Feedback();
+        Assert.Equal(((ushort)0, ushort.MaxValue), rig.Output.Sent.Last());
     }
 
     [Fact]

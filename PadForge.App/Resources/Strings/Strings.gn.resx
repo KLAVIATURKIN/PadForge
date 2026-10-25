@@ -959,6 +959,7 @@
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Palanca asu Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Palanca akatúa X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Palanca akatúa Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motor</value></data>
   <data name="ResetLabel_Profile" xml:space="preserve"><value>Perfil</value></data>
   <data name="About_Nefcon" xml:space="preserve"><value>nefcon</value></data>
   <data name="About_Kaldi" xml:space="preserve"><value>Kaldi, OpenFst, OpenBLAS ha CLAPACK</value></data>

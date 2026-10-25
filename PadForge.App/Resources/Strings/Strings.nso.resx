@@ -961,6 +961,7 @@
   <data name="RemoteLink_AssignmentProfile_Format" xml:space="preserve">
     <value>Profaele: {0}</value>
   </data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motoro</value></data>
   <data name="ResetLabel_Profile" xml:space="preserve"><value>Profaele</value></data>
   <data name="About_Nefcon" xml:space="preserve"><value>nefcon</value></data>
   <data name="About_Kaldi" xml:space="preserve"><value>Kaldi, OpenFst, OpenBLAS le CLAPACK</value></data>

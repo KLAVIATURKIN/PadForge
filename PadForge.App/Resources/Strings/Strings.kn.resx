@@ -4074,13 +4074,15 @@ PadForge ಅವುಗಳನ್ನು ಈಗ ಅನ್‌ಇನ್‌ಸ್ಟಾ
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>FreeTrack ಹಂಚಿಕೆಯ ಮೆಮೊರಿ ಡೇಟಾಗಾಗಿ ಕಾಯಲಾಗುತ್ತಿದೆ.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>FreeTrack ಹಂಚಿಕೆಯ ಮೆಮೊರಿ ಲಭ್ಯವಿಲ್ಲ.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>ಸ್ಟೀರಿಂಗ್ ಕೋನ ಕಂಪನ</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>ಆಯ್ದ ವರ್ಚುವಲ್ ಸ್ಟಿಕ್ ಅಕ್ಷ ಕೇಂದ್ರದಿಂದ ದೂರ ಸರಿದಂತೆ ನಿರಂತರ ಕಂಪನ ಸೇರಿಸುತ್ತದೆ. ನಿಯೋಜಿತ ಎಲ್ಲ ಮೂಲಗಳ ಮ್ಯಾಪ್ ಮಾಡಿದ ಔಟ್‌ಪುಟ್ ಬಳಸುತ್ತದೆ. ಋಣಾತ್ಮಕ ಚಲನೆ ಎಡ ಮೋಟಾರ್ ಅನ್ನು, ಧನಾತ್ಮಕ ಚಲನೆ ಬಲ ಮೋಟಾರ್ ಅನ್ನು ಚಾಲಿಸುತ್ತದೆ. ಕಂಪನ ಸಾಧನಗಳಿರುವ Xbox ಮತ್ತು PlayStation ಔಟ್‌ಪುಟ್‌ಗಾಗಿ. ಸ್ಥಳೀಯ ಸ್ಟೀರಿಂಗ್ ವೀಲ್ ಫೋರ್ಸ್ ಫೀಡ್‌ಬ್ಯಾಕ್ ಹೊರತುಪಡಿಸಲಾಗಿದೆ.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>ಆಯ್ದ ವರ್ಚುವಲ್ ಸ್ಟಿಕ್ ಅಕ್ಷ ಕೇಂದ್ರದಿಂದ ದೂರ ಸರಿದಂತೆ ನಿರಂತರ ಕಂಪನ ಸೇರಿಸುತ್ತದೆ. ನಿಯೋಜಿತ ಎಲ್ಲ ಮೂಲಗಳ ಮ್ಯಾಪ್ ಮಾಡಿದ ಔಟ್‌ಪುಟ್ ಬಳಸುತ್ತದೆ. ದಿಕ್ಕಿನ ಪ್ರಕಾರ ವಿಭಜನೆ ಆಯ್ಕೆಯಲ್ಲಿ ಋಣಾತ್ಮಕ ಚಲನೆ ಎಡ ಮೋಟಾರ್ ಅನ್ನು, ಧನಾತ್ಮಕ ಚಲನೆ ಬಲ ಮೋಟಾರ್ ಅನ್ನು ಚಾಲಿಸುತ್ತದೆ. ಎಡ ಮೋಟಾರ್ ಅಥವಾ ಬಲ ಮೋಟಾರ್ ಆರಿಸಿದರೆ ಎರಡೂ ದಿಕ್ಕುಗಳು ಆ ಒಂದೇ ಮೋಟಾರ್‌ನಲ್ಲಿ ಕಂಪಿಸುತ್ತವೆ. ಕಂಪನ ಸಾಧನಗಳಿರುವ Xbox ಮತ್ತು PlayStation ಔಟ್‌ಪುಟ್‌ಗಾಗಿ. ಸ್ಥಳೀಯ ಸ್ಟೀರಿಂಗ್ ವೀಲ್ ಫೋರ್ಸ್ ಫೀಡ್‌ಬ್ಯಾಕ್ ಹೊರತುಪಡಿಸಲಾಗಿದೆ.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>ಸ್ಟೀರಿಂಗ್ ಕೋನ ಕಂಪನ ಸಕ್ರಿಯಗೊಳಿಸಿ</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>ವರ್ಚುವಲ್ ಅಕ್ಷ</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>ಎಡ ಸ್ಟಿಕ್ X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>ಎಡ ಸ್ಟಿಕ್ Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>ಬಲ ಸ್ಟಿಕ್ X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>ಬಲ ಸ್ಟಿಕ್ Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>ಮೋಟಾರ್</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>ದಿಕ್ಕಿನ ಪ್ರಕಾರ ವಿಭಜನೆ</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>ಕೇಂದ್ರ ಡೆಡ್ ಜೋನ್</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>ಆಫ್‌ಗೆ ಮರುಹೊಂದಿಸು</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>ಎಡ ಸ್ಟಿಕ್ X ಗೆ ಮರುಹೊಂದಿಸು</value></data>

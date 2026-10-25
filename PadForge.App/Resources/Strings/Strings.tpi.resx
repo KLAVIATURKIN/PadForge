@@ -1485,10 +1485,13 @@
   <data name="RemoteLink_AssignmentBusy" xml:space="preserve">
     <value>Wet long narapela PC...</value>
   </data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Em i putim guria oltaim taim eksis bilong virtual stik yu makim i muv i go longwe long namel. Em i yusim aut bilong mapin long olgeta sos yu putim. Long "Skelim long sait", muv long sait negatif i kirapim lephan mota na muv long sait positiv i kirapim raithan mota. "Lephan mota" o "Raithan mota" i putim tupela sait long dispela wanpela mota tasol. Em i bilong Xbox na PlayStation aut wantaim ol masin i gat guria. Force feedback bilong stiaring wil yet i no insait.</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Stik long han kais X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Stik long han kais Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Stik long han sut X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Stik long han sut Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Mota</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Skelim long sait</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Reset i go long Of</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Reset i go long Stik long han kais X</value></data>
   <data name="ResetLabel_Profile" xml:space="preserve"><value>Profail</value></data>

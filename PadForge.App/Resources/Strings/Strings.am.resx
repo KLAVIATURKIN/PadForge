@@ -4056,13 +4056,15 @@ PadForge አሁን እንዲያራግፋቸው ይፈልጋሉ? ይህ የአስ
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>የFreeTrack የጋራ ማህደረ ትውስታ ውሂብን በመጠበቅ ላይ።</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>የFreeTrack የጋራ ማህደረ ትውስታ አይገኝም።</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>የመሪ ማዕዘን ንዝረት</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>የተመረጠው ምናባዊ የስቲክ ዘንግ ከመሃል ሲርቅ ቀጣይነት ያለው ንዝረት ያክላል። ከሁሉም የተመደቡ ምንጮች የተዛመደውን ውጤት ይጠቀማል። አሉታዊ እንቅስቃሴ የግራውን ሞተር፣ አዎንታዊ እንቅስቃሴ የቀኙን ያንቀሳቅሳል። ለXbox እና PlayStation ውጤት ከንዝረት መሣሪያዎች ጋር። የመሪው ቤተኛ የኃይል ግብረመልስ አይካተትም።</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>የተመረጠው ምናባዊ የስቲክ ዘንግ ከመሃል ሲርቅ ቀጣይነት ያለው ንዝረት ያክላል። ከሁሉም የተመደቡ ምንጮች የተዛመደውን ውጤት ይጠቀማል። «በአቅጣጫ የተከፈለ» ሲመረጥ፣ አሉታዊ እንቅስቃሴ የግራውን ሞተር፣ አዎንታዊ እንቅስቃሴ ደግሞ የቀኙን ያንቀሳቅሳል። «የግራ ሞተር» ወይም «የቀኝ ሞተር» ሁለቱንም አቅጣጫዎች በዚያ አንድ ሞተር ላይ ያደርጋል። ለXbox እና PlayStation ውጤት ከንዝረት መሣሪያዎች ጋር። የመሪው ቤተኛ የኃይል ግብረመልስ አይካተትም።</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>የመሪ ማዕዘን ንዝረትን አንቃ</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>ምናባዊ ዘንግ</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>የግራ ስቲክ X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>የግራ ስቲክ Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>የቀኝ ስቲክ X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>የቀኝ ስቲክ Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>ሞተር</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>በአቅጣጫ የተከፈለ</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>የመሃል የሞተ ቀጠና</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>ወደ «ጠፍቷል» ዳግም አስጀምር</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>ወደ «የግራ ስቲክ X» ዳግም አስጀምር</value></data>

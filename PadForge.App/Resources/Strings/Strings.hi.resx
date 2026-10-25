@@ -4113,13 +4113,15 @@
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>FreeTrack की साझा मेमोरी के डेटा की प्रतीक्षा है।</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>FreeTrack की साझा मेमोरी उपलब्ध नहीं है।</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>स्टीयरिंग कोण रंबल</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>चुना गया वर्चुअल स्टिक अक्ष जैसे-जैसे केंद्र से दूर जाता है, लगातार रंबल जोड़ता है। सभी असाइन किए गए स्रोतों के मैप किए गए आउटपुट का उपयोग करता है। ऋणात्मक गति बाईं मोटर चलाती है, धनात्मक गति दाईं। रंबल डिवाइस वाले Xbox और PlayStation आउटपुट के लिए। व्हील का अपना फ़ोर्स फ़ीडबैक इसमें शामिल नहीं है।</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>चुना गया वर्चुअल स्टिक अक्ष जैसे-जैसे केंद्र से दूर जाता है, लगातार रंबल जोड़ता है। सभी असाइन किए गए स्रोतों के मैप किए गए आउटपुट का उपयोग करता है। दिशा के अनुसार विभाजित चुनने पर ऋणात्मक गति बाईं मोटर चलाती है और धनात्मक गति दाईं मोटर। बाईं मोटर या दाईं मोटर चुनने पर दोनों दिशाएँ उसी एक मोटर पर चलती हैं। रंबल डिवाइस वाले Xbox और PlayStation आउटपुट के लिए। व्हील का अपना फ़ोर्स फ़ीडबैक इसमें शामिल नहीं है।</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>स्टीयरिंग कोण रंबल सक्षम करें</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>वर्चुअल अक्ष</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>बाईं स्टिक X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>बाईं स्टिक Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>दाईं स्टिक X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>दाईं स्टिक Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>मोटर</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>दिशा के अनुसार विभाजित</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>केंद्र डेडज़ोन</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>बंद पर रीसेट करें</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>बाईं स्टिक X पर रीसेट करें</value></data>

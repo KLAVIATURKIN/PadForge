@@ -4087,13 +4087,15 @@
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>ველოდებით FreeTrack-ის გაზიარებული მეხსიერების მონაცემებს.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>FreeTrack-ის გაზიარებული მეხსიერება მიუწვდომელია.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>საჭის კუთხის ვიბრაცია</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>ამატებს უწყვეტ ვიბრაციას, როცა არჩეული ვირტუალური სტიკის ღერძი ცენტრიდან დაშორდება. იყენებს ყველა მიმაგრებული წყაროს მიბმულ გამოსავალს. უარყოფითი მოძრაობა მარცხენა ძრავას მართავს, დადებითი მარჯვენას. განკუთვნილია Xbox-ისა და PlayStation-ის გამოსავლისთვის ვიბრაციის მქონე მოწყობილობებით. საჭის ძალისმიერი უკუკავშირი არ შედის.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>ამატებს უწყვეტ ვიბრაციას, როცა არჩეული ვირტუალური სტიკის ღერძი ცენტრიდან დაშორდება. იყენებს ყველა მიმაგრებული წყაროს მიბმულ გამოსავალს. პარამეტრით „მიმართულების მიხედვით გაყოფა“ უარყოფითი მოძრაობა მარცხენა ძრავას მართავს, დადებითი მარჯვენას. „მარცხენა ძრავა“ ან „მარჯვენა ძრავა“ ორივე მიმართულებას ამ ერთ ძრავაზე აყენებს. განკუთვნილია Xbox-ისა და PlayStation-ის გამოსავლისთვის ვიბრაციის მქონე მოწყობილობებით. საჭის ძალისმიერი უკუკავშირი არ შედის.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>საჭის კუთხის ვიბრაციის ჩართვა</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>ვირტუალური ღერძი</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>მარცხენა სტიკი X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>მარცხენა სტიკი Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>მარჯვენა სტიკი X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>მარჯვენა სტიკი Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>ძრავა</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>მიმართულების მიხედვით გაყოფა</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>ცენტრის მკვდარი ზონა</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>გამორთულზე დაბრუნება</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>დაბრუნება: მარცხენა სტიკი X</value></data>

@@ -1532,6 +1532,7 @@ namespace PadForge
                         nameof(PadViewModel.SteeringAngleRumbleAxis) or
                         nameof(PadViewModel.SteeringAngleRumbleStrength) or
                         nameof(PadViewModel.SteeringAngleRumbleDeadzone) or
+                        nameof(PadViewModel.SteeringAngleRumbleMotor) or
                         nameof(PadViewModel.SteeringLockRumbleEnabled) or
                         nameof(PadViewModel.SteeringLockTriggerVibEnabled) or
                         nameof(PadViewModel.SteeringLockLightbarEnabled) or

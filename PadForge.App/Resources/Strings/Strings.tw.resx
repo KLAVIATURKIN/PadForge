@@ -611,6 +611,7 @@
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Benkum stick Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Nifa stick X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Nifa stick Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motor</value></data>
   <data name="ResetLabel_Profile" xml:space="preserve"><value>Profile</value></data>
   <data name="About_Nefcon" xml:space="preserve"><value>nefcon</value></data>
   <data name="About_Kaldi" xml:space="preserve"><value>Kaldi, OpenFst, OpenBLAS, ne CLAPACK</value></data>

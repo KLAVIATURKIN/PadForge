@@ -1652,11 +1652,14 @@
   <data name="RemoteLink_AssignmentBusy" xml:space="preserve">
     <value>PC isa kaan eegaa jira...</value>
   </data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Yeroo aksisiin sitikii fakkeessaa filatame giddu-galeessa irraa fagaatu raafama itti fufaa ida'a. Bu'aa walqabsiifame madda ramadaman hunda irraa fayyadama. "Kallattiin qoodi" yoo filatame, sochiin gara negaatiivii mootora bitaa, sochiin gara pozatiivii immoo mootora mirgaa socho'a. "Mootora bitaa" ykn "Mootora mirgaa" kallattii lamaanuu mootora tokko sana irratti kaa'a. Bu'aa Xbox fi PlayStation meeshaalee raafama qabaniif. Force feedback geengoo konkolaataa kan ofii isaa hin hammatamu.</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Aksisii fakkeessaa</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Sitikii bitaa X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Sitikii bitaa Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Sitikii mirgaa X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Sitikii mirgaa Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Mootora</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Kallattiin qoodi</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Deedzoonii giddu-galeessaa</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Gara cufaatti deebisi</value></data>
   <data name="Pad_SteeringAngleRumble_ResetStrength" xml:space="preserve"><value>Cimina deebisi (50%)</value></data>

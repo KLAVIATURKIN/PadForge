@@ -4113,13 +4113,15 @@
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>Ожидание данных из общей памяти FreeTrack.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>Общая память FreeTrack недоступна.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Вибрация по углу руления</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Добавляет непрерывную вибрацию по мере того, как выбранная ось виртуального стика уходит от центра. Использует назначенный выход всех назначенных источников. Отрицательное движение управляет левым мотором, положительное правым. Для выхода Xbox и PlayStation с устройствами, поддерживающими вибрацию. Собственная силовая обратная связь рулей не используется.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Добавляет непрерывную вибрацию по мере того, как выбранная ось виртуального стика уходит от центра. Использует назначенный выход всех назначенных источников. Если выбрано «По направлению», отрицательное движение управляет левым мотором, положительное правым. «Левый мотор» или «Правый мотор» направляет оба направления на этот один мотор. Для выхода Xbox и PlayStation с устройствами, поддерживающими вибрацию. Собственная силовая обратная связь рулей не используется.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Включить вибрацию по углу руления</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Виртуальная ось</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Левый стик X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Левый стик Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Правый стик X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Правый стик Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Мотор</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>По направлению</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Мертвая зона в центре</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Сбросить на «Выкл.»</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Сбросить на «Левый стик X»</value></data>

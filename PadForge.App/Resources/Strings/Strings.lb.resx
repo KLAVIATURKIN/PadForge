@@ -4069,13 +4069,15 @@ Soll PadForge se elo desinstalléieren? Dat brauch Administratorrechter a ka e M
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>Waart op Daten am gedeelte FreeTrack-Späicher.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>De gedeelte FreeTrack-Späicher ass net disponibel.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Steierwénkel-Vibratioun</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Setzt eng kontinuéierlech Vibratioun derbäi, wa sech déi gewielte virtuell Stick-Achs vun der Mëtt ewech beweegt. Benotzt déi zougeuerdent Ausgab vun alle zougewisene Quellen. Negativ Beweegung dreift de lénke Motor un, positiv Beweegung de rietsen. Fir Xbox- a PlayStation-Ausgab mat Vibratiounsapparater. D'Force Feedback vum Steierrad selwer ass ausgeschloss.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Setzt eng kontinuéierlech Vibratioun derbäi, wa sech déi gewielte virtuell Stick-Achs vun der Mëtt ewech beweegt. Benotzt déi zougeuerdent Ausgab vun alle zougewisene Quellen. Mat „No Richtung opgedeelt“ dreift negativ Beweegung de lénke Motor un a positiv Beweegung de rietsen. „Motor lénks“ oder „Motor riets“ leet béid Richtungen op dee jeeweilege Motor. Fir Xbox- a PlayStation-Ausgab mat Vibratiounsapparater. D'Force Feedback vum Steierrad selwer ass ausgeschloss.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Steierwénkel-Vibratioun aktivéieren</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Virtuell Achs</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Lénke Stick X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Lénke Stick Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Rietse Stick X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Rietse Stick Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motor</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>No Richtung opgedeelt</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Doudzon an der Mëtt</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Op Aus zrécksetzen</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Op lénke Stick X zrécksetzen</value></data>

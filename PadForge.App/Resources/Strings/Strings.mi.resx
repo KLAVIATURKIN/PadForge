@@ -1531,6 +1531,8 @@
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Stick mauī Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Stick matau X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Stick matau Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Mōta</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Wehe mā te ahunga</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Tautuhi anō ki Weto</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Tautuhi anō ki Stick mauī X</value></data>
   <data name="ResetLabel_Profile" xml:space="preserve"><value>Kōtaha</value></data>

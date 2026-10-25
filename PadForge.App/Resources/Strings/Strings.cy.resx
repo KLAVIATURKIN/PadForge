@@ -4078,13 +4078,15 @@ Hoffech chi i PadForge eu dadosod nawr? Mae hyn angen caniatâd gweinyddwr ac ef
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>Yn aros am ddata cof a rennir FreeTrack.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>Nid yw cof a rennir FreeTrack ar gael.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Dirgryniad Ongl Llywio</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Yn ychwanegu dirgryniad parhaus wrth i'r echelin ffon rithwir ddewisedig symud i ffwrdd o'r canol. Yn defnyddio'r allbwn mapiedig o'r holl ffynonellau a neilltuwyd. Mae symudiad negyddol yn gyrru'r modur chwith, symudiad positif y dde. Ar gyfer allbwn Xbox a PlayStation gyda dyfeisiau dirgryniad. Eithrir adborth grym olwyn brodorol.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Yn ychwanegu dirgryniad parhaus wrth i'r echelin ffon rithwir ddewisedig symud i ffwrdd o'r canol. Yn defnyddio'r allbwn mapiedig o'r holl ffynonellau a neilltuwyd. Gyda Hollti yn ôl Cyfeiriad, mae symudiad negyddol yn gyrru'r modur chwith a symudiad positif y dde. Mae Modur Chwith neu Modur Dde yn rhoi'r ddau gyfeiriad ar yr un modur hwnnw. Ar gyfer allbwn Xbox a PlayStation gyda dyfeisiau dirgryniad. Eithrir adborth grym olwyn brodorol.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Galluogi Dirgryniad Ongl Llywio</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Echelin Rithwir</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Ffon Chwith X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Ffon Chwith Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Ffon Dde X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Ffon Dde Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Modur</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Hollti yn ôl Cyfeiriad</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Parth Marw y Canol</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Ailosod i Ffwrdd</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Ailosod i Ffon Chwith X</value></data>

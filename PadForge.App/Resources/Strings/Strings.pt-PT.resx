@@ -4093,13 +4093,15 @@ Pretende que o PadForge os desinstale agora? Esta operação requer elevação e
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>A aguardar dados da memória partilhada do FreeTrack.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>A memória partilhada do FreeTrack não está disponível.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Vibração por ângulo de direção</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Acrescenta vibração contínua à medida que o eixo de manípulo virtual selecionado se afasta do centro. Usa a saída mapeada de todas as origens atribuídas. O movimento negativo aciona o motor esquerdo e o movimento positivo o direito. Para saída Xbox e PlayStation com dispositivos de vibração. O force feedback nativo dos volantes fica excluído.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Acrescenta vibração contínua à medida que o eixo de manípulo virtual selecionado se afasta do centro. Usa a saída mapeada de todas as origens atribuídas. Com Dividir por direção, o movimento negativo aciona o motor esquerdo e o movimento positivo o direito. Motor esquerdo ou Motor direito coloca as duas direções nesse único motor. Para saída Xbox e PlayStation com dispositivos de vibração. O force feedback nativo dos volantes fica excluído.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Ativar vibração por ângulo de direção</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Eixo virtual</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Manípulo esquerdo X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Manípulo esquerdo Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Manípulo direito X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Manípulo direito Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motor</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Dividir por direção</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Zona morta central</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Repor para desligado</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Repor para Manípulo esquerdo X</value></data>

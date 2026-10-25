@@ -4113,13 +4113,15 @@ PadForge వాటిని ఇప్పుడు అన్ఇన్స్టా
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>FreeTrack షేర్డ్ మెమరీ డేటా కోసం వేచి ఉంది.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>FreeTrack షేర్డ్ మెమరీ అందుబాటులో లేదు.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>స్టీరింగ్ యాంగిల్ రంబుల్</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>ఎంచుకున్న వర్చువల్ స్టిక్ అక్షం మధ్య నుండి దూరంగా కదిలేకొద్దీ నిరంతర రంబుల్ను జోడిస్తుంది. కేటాయించిన అన్ని మూలాల మ్యాప్ అయిన అవుట్పుట్ను ఉపయోగిస్తుంది. ప్రతికూల కదలిక ఎడమ మోటార్ను, ధనాత్మక కదలిక కుడి మోటార్ను నడుపుతాయి. రంబుల్ పరికరాలతో Xbox మరియు PlayStation అవుట్పుట్ కోసం. నేటివ్ వీల్ ఫోర్స్ ఫీడ్బ్యాక్ మినహాయించబడింది.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>ఎంచుకున్న వర్చువల్ స్టిక్ అక్షం మధ్య నుండి దూరంగా కదిలేకొద్దీ నిరంతర రంబుల్ను జోడిస్తుంది. కేటాయించిన అన్ని మూలాల మ్యాప్ అయిన అవుట్పుట్ను ఉపయోగిస్తుంది. దిశ వారీగా విభజన ఎంచుకుంటే, ప్రతికూల కదలిక ఎడమ మోటార్ను, ధనాత్మక కదలిక కుడి మోటార్ను నడుపుతాయి. ఎడమ మోటార్ లేదా కుడి మోటార్ ఎంచుకుంటే రెండు దిశలూ ఆ ఒక్క మోటార్లోనే ప్లే అవుతాయి. రంబుల్ పరికరాలతో Xbox మరియు PlayStation అవుట్పుట్ కోసం. నేటివ్ వీల్ ఫోర్స్ ఫీడ్బ్యాక్ మినహాయించబడింది.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>స్టీరింగ్ యాంగిల్ రంబుల్ను ప్రారంభించు</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>వర్చువల్ అక్షం</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>ఎడమ స్టిక్ X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>ఎడమ స్టిక్ Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>కుడి స్టిక్ X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>కుడి స్టిక్ Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>మోటార్</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>దిశ వారీగా విభజన</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>మధ్య డెడ్ జోన్</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>ఆఫ్కు రీసెట్ చేయి</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>ఎడమ స్టిక్ X కు రీసెట్ చేయి</value></data>

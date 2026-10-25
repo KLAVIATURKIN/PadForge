@@ -4088,13 +4088,15 @@ Ar norite, kad „PadForge“ jas dabar pašalintų? Tam reikia administratoriau
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>Laukiama FreeTrack bendrosios atminties duomenų.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>FreeTrack bendroji atmintis nepasiekiama.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Vibracija pagal vairo kampą</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Prideda nuolatinę vibraciją, kai pasirinkta virtualios svirtelės ašis tolsta nuo centro. Naudoja visų priskirtų šaltinių priskirtą išvestį. Neigiamas judesys valdo kairįjį variklį, teigiamas – dešinįjį. Skirta „Xbox“ ir „PlayStation“ išvesčiai su vibruojančiais įrenginiais. Vairų jėgos grįžtamasis ryšys netaikomas.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Prideda nuolatinę vibraciją, kai pasirinkta virtualios svirtelės ašis tolsta nuo centro. Naudoja visų priskirtų šaltinių priskirtą išvestį. Pasirinkus „Padalyti pagal kryptį“, neigiamas judesys valdo kairįjį variklį, teigiamas – dešinįjį. Pasirinkus „Kairysis variklis“ arba „Dešinysis variklis“, abi kryptys vibruoja per tą vieną variklį. Skirta „Xbox“ ir „PlayStation“ išvesčiai su vibruojančiais įrenginiais. Vairų jėgos grįžtamasis ryšys netaikomas.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Įjungti vibraciją pagal vairo kampą</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Virtuali ašis</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Kairioji svirtelė X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Kairioji svirtelė Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Dešinioji svirtelė X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Dešinioji svirtelė Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Variklis</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Padalyti pagal kryptį</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Centro nejautros zona</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Atkurti išjungtą būseną</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Atkurti „Kairioji svirtelė X“</value></data>

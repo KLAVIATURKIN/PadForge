@@ -4049,13 +4049,15 @@ PadForge විසින් ඒවා දැන් අස්ථාපනය ක�
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>FreeTrack හවුල් මතක දත්ත සඳහා රැඳී සිටිමින්.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>FreeTrack හවුල් මතකය ලබා ගත නොහැක.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>සුක්කානම් කෝණ කම්පනය</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>තෝරාගත් අතථ්‍ය ස්ටික් අක්ෂය මධ්‍යයෙන් ඉවතට යන විට අඛණ්ඩ කම්පනයක් එක් කරයි. පවරා ඇති සියලු මූලාශ්‍රවලින් සිතියම්ගත ප්‍රතිදානය භාවිත කරයි. සෘණ චලනය වම් මෝටරය ධාවනය කරන අතර, ධන චලනය දකුණු මෝටරය ධාවනය කරයි. කම්පන උපාංග සහිත Xbox සහ PlayStation ප්‍රතිදානය සඳහා. ස්වදේශීය සුක්කානම් බල ප්‍රතිපෝෂණය ඇතුළත් නොවේ.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>තෝරාගත් අතථ්‍ය ස්ටික් අක්ෂය මධ්‍යයෙන් ඉවතට යන විට අඛණ්ඩ කම්පනයක් එක් කරයි. පවරා ඇති සියලු මූලාශ්‍රවලින් සිතියම්ගත ප්‍රතිදානය භාවිත කරයි. "දිශාව අනුව බෙදීම" තෝරා ඇති විට, සෘණ චලනය වම් මෝටරය ධාවනය කරන අතර, ධන චලනය දකුණු මෝටරය ධාවනය කරයි. "වම් මෝටරය" හෝ "දකුණු මෝටරය" දිශා දෙකම එම එක් මෝටරයට යොමු කරයි. කම්පන උපාංග සහිත Xbox සහ PlayStation ප්‍රතිදානය සඳහා. ස්වදේශීය සුක්කානම් බල ප්‍රතිපෝෂණය ඇතුළත් නොවේ.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>සුක්කානම් කෝණ කම්පනය සක්‍රිය කරන්න</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>අතථ්‍ය අක්ෂය</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>වම් ස්ටික් X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>වම් ස්ටික් Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>දකුණු ස්ටික් X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>දකුණු ස්ටික් Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>මෝටරය</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>දිශාව අනුව බෙදීම</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>මධ්‍ය ඩෙඩ්සෝන්</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>අක්‍රිය ලෙස යළි සකසන්න</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>වම් ස්ටික් X වෙත යළි සකසන්න</value></data>

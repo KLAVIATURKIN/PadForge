@@ -4074,13 +4074,15 @@ PadForge одоо тэдгээрийг устгах уу? Үүнд админи�
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>FreeTrack хуваалцсан санах ойн өгөгдлийг хүлээж байна.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>FreeTrack хуваалцсан санах ой боломжгүй байна.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Жолооны өнцгийн чичиргээ</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Сонгосон виртуал стикийн тэнхлэг төвөөс холдох тусам тасралтгүй чичиргээ нэмнэ. Хуваарилсан бүх эх үүсвэрийн оноолтын гаралтыг ашиглана. Сөрөг хөдөлгөөн зүүн моторыг, эерэг хөдөлгөөн баруун моторыг ажиллуулна. Чичиргээтэй төхөөрөмжтэй Xbox ба PlayStation гаралтад зориулагдсан. Жолооны уугуул хүчний эргэх холбоо хамаарахгүй.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Сонгосон виртуал стикийн тэнхлэг төвөөс холдох тусам тасралтгүй чичиргээ нэмнэ. Хуваарилсан бүх эх үүсвэрийн оноолтын гаралтыг ашиглана. «Чиглэлээр хуваах» сонголтод сөрөг хөдөлгөөн зүүн моторыг, эерэг хөдөлгөөн баруун моторыг ажиллуулна. «Зүүн мотор» эсвэл «Баруун мотор» сонголт хоёр чиглэлийг хоёуланг нь тухайн нэг моторт өгнө. Чичиргээтэй төхөөрөмжтэй Xbox ба PlayStation гаралтад зориулагдсан. Жолооны уугуул хүчний эргэх холбоо хамаарахгүй.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Жолооны өнцгийн чичиргээг идэвхжүүлэх</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Виртуал тэнхлэг</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Зүүн стик X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Зүүн стик Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Баруун стик X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Баруун стик Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Мотор</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Чиглэлээр хуваах</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Төвийн үхсэн бүс</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Дахин тохируулах (идэвхгүй)</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Дахин тохируулах (зүүн стик X)</value></data>

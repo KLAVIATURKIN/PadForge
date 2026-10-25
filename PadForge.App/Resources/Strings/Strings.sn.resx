@@ -1108,6 +1108,8 @@
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Stick yekuruboshwe Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Stick yekurudyi X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Stick yekurudyi Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Mota</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Patsanura nedivi</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Deadzone yepakati</value></data>
   <data name="Pad_SteeringAngleRumble_ResetStrength" xml:space="preserve"><value>Dzorera simba (50%)</value></data>
   <data name="Pad_SteeringAngleRumble_ResetDeadzone" xml:space="preserve"><value>Dzorera deadzone yepakati (2%)</value></data>

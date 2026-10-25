@@ -3047,13 +3047,15 @@ Gusto ba nimo nga i-uninstall kini sa PadForge karon? Kinahanglan kini og elevat
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>Naghulat sa data sa FreeTrack shared memory.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>Dili magamit ang FreeTrack shared memory.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Rumble sa anggulo sa steering</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Magdugang og padayon nga rumble samtang ang napiling virtual nga axis sa stick molihok palayo sa sentro. Gigamit ang na-map nga output gikan sa tanang na-assign nga source. Ang negatibo nga lihok mopaandar sa wala nga motor, ang positibo sa tuo. Para sa Xbox ug PlayStation nga output nga adunay rumble nga device. Wala apil ang native nga force feedback sa manibela.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Magdugang og padayon nga rumble samtang ang napiling virtual nga axis sa stick molihok palayo sa sentro. Gigamit ang na-map nga output gikan sa tanang na-assign nga source. Kon "Gibahin sumala sa direksyon" ang napili, ang negatibo nga lihok mopaandar sa wala nga motor ug ang positibo sa tuo. Ang "Wala nga motor" o "Tuo nga motor" magbutang sa duha ka direksyon sa maong usa ka motor. Para sa Xbox ug PlayStation nga output nga adunay rumble nga device. Wala apil ang native nga force feedback sa manibela.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>I-enable ang rumble sa anggulo sa steering</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Virtual nga axis</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Wala nga stick X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Wala nga stick Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Tuo nga stick X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Tuo nga stick Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motor</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Gibahin sumala sa direksyon</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Deadzone sa sentro</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>I-reset sa Patay</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>I-reset sa Wala nga stick X</value></data>

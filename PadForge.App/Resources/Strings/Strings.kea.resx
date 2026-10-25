@@ -2510,6 +2510,8 @@
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Stick skerdu Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Stick direitu X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Stick direitu Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motor</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Un motor pa kada direson</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Zona morta sentral</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Ripoi pa dizligadu</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Ripoi pa stick skerdu X</value></data>

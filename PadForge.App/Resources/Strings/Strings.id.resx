@@ -4113,13 +4113,15 @@ Apakah Anda ingin PadForge menghapus instalannya sekarang? Tindakan ini memerluk
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>Menunggu data memori bersama FreeTrack.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>Memori bersama FreeTrack tidak tersedia.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Getaran sudut kemudi</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Menambahkan getaran terus-menerus saat sumbu stik virtual yang dipilih bergerak menjauhi tengah. Memakai output terpetakan dari semua sumber yang ditetapkan. Gerakan negatif menggerakkan motor kiri, gerakan positif motor kanan. Untuk output Xbox dan PlayStation dengan perangkat bergetar. Force feedback asli setir tidak termasuk.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Menambahkan getaran terus-menerus saat sumbu stik virtual yang dipilih bergerak menjauhi tengah. Memakai output terpetakan dari semua sumber yang ditetapkan. Dengan Dipisah menurut arah, gerakan negatif menggerakkan motor kiri dan gerakan positif motor kanan. Motor kiri atau Motor kanan menempatkan kedua arah pada satu motor itu. Untuk output Xbox dan PlayStation dengan perangkat bergetar. Force feedback asli setir tidak termasuk.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Aktifkan getaran sudut kemudi</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Sumbu virtual</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Stik kiri X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Stik kiri Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Stik kanan X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Stik kanan Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motor</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Dipisah menurut arah</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Zona mati tengah</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Atur ulang ke nonaktif</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Atur ulang ke Stik kiri X</value></data>

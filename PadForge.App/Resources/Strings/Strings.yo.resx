@@ -1579,10 +1579,13 @@
   <data name="RemoteLink_AssignmentBusy" xml:space="preserve">
     <value>Ń dúró de PC kejì...</value>
   </data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Ó ń fi ìmìtìtì tí kò dáwọ́ dúró kún un bí ákísì ọ̀pá àfarawé tí a yàn ṣe ń kúrò ní àárín. Ó ń lo àbájáde ìsopọ̀ láti gbogbo orísun tí a yàn sí i. Pẹ̀lú “Pín nípa ìhà”, yíyí sí òsì ń mi mọ́tò òsì, yíyí sí ọ̀tún sì ń mi mọ́tò ọ̀tún. “Mọ́tò òsì” tàbí “Mọ́tò ọ̀tún” ń fi ìhà méjèèjì sórí mọ́tò kan náà. Fún àbájáde Xbox àti PlayStation pẹ̀lú àwọn ẹ̀rọ tí ó ní ìmìtìtì. Force feedback àbínibí ti kẹ̀kẹ́ ìdarí kò sí nínú rẹ̀.</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Ọ̀pá òsì X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Ọ̀pá òsì Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Ọ̀pá ọ̀tún X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Ọ̀pá ọ̀tún Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Mọ́tò</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Pín nípa ìhà</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Deadzone àárín</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Tún tò sí Ọ̀pá òsì X</value></data>
   <data name="Pad_SteeringAngleRumble_ResetStrength" xml:space="preserve"><value>Tún agbára tò (50%)</value></data>

@@ -4094,13 +4094,15 @@
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>بانتظار بيانات الذاكرة المشتركة FreeTrack.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>الذاكرة المشتركة FreeTrack غير متوفرة.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>اهتزاز زاوية التوجيه</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>يضيف اهتزازا مستمرا كلما ابتعد محور العصا الظاهرية المحدد عن المركز. يستخدم المخرج المعين من كل المصادر المعينة. الحركة السالبة تشغّل المحرك الأيسر والموجبة الأيمن. لإخراج Xbox وPlayStation مع أجهزة تدعم الاهتزاز. ردود فعل القوة الأصلية لعجلات القيادة مستثناة.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>يضيف اهتزازا مستمرا كلما ابتعد محور العصا الظاهرية المحدد عن المركز. يستخدم المخرج المعين من كل المصادر المعينة. مع تقسيم حسب الاتجاه، تشغّل الحركة السالبة المحرك الأيسر والموجبة الأيمن. اختيار المحرك الأيسر أو المحرك الأيمن يضع الاتجاهين على ذلك المحرك وحده. لإخراج Xbox وPlayStation مع أجهزة تدعم الاهتزاز. ردود فعل القوة الأصلية لعجلات القيادة مستثناة.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>تفعيل اهتزاز زاوية التوجيه</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>المحور الظاهري</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>العصا اليسرى X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>العصا اليسرى Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>العصا اليمنى X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>العصا اليمنى Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>المحرك</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>تقسيم حسب الاتجاه</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>المنطقة الميتة المركزية</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>إعادة الضبط إلى «إيقاف»</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>إعادة الضبط إلى «العصا اليسرى X»</value></data>

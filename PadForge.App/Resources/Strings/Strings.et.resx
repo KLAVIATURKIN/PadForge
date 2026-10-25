@@ -4091,13 +4091,15 @@ Kas soovite, et PadForge need nüüd desinstalliks? Selleks on vaja kõrgendatud
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>FreeTrack-ühismälu andmete ootamine.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>FreeTrack-ühismälu pole saadaval.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Roolinurga vibratsioon</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Lisab pideva vibratsiooni, kui valitud virtuaalne kangitelg liigub keskelt eemale. Kasutab kõigi määratud allikate vastendatud väljundit. Negatiivne liikumine juhib vasakut mootorit, positiivne paremat. Xbox- ja PlayStation-väljundile vibratsiooniga seadmetega. Rooli algne jõutagasiside on välja jäetud.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Lisab pideva vibratsiooni, kui valitud virtuaalne kangitelg liigub keskelt eemale. Kasutab kõigi määratud allikate vastendatud väljundit. Valiku Suuna järgi jagatud korral juhib negatiivne liikumine vasakut mootorit ja positiivne paremat. Valik Vasak mootor või Parem mootor suunab mõlemad suunad sellele ühele mootorile. Xbox- ja PlayStation-väljundile vibratsiooniga seadmetega. Rooli algne jõutagasiside on välja jäetud.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Luba roolinurga vibratsioon</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Virtuaalne telg</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Vasak kang X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Vasak kang Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Parem kang X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Parem kang Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Mootor</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Suuna järgi jagatud</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Keskme surnud tsoon</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Lähtesta: väljas</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Lähtesta: vasak kang X</value></data>

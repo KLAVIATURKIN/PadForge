@@ -4024,13 +4024,15 @@ Trid li PadForge jiddiżinstallahom issa? Dan jeħtieġ permessi ta' amministrat
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>Qed jistenna d-data tal-memorja kondiviża ta' FreeTrack.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>Il-memorja kondiviża ta' FreeTrack mhix disponibbli.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Rumble tal-angolu tat-tmun</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Iżid rumble kontinwu hekk kif l-assi virtwali magħżul tal-istick jitbiegħed miċ-ċentru. Juża l-output immappjat mis-sorsi assenjati kollha. Il-moviment negattiv iħaddem il-mutur tax-xellug, u l-moviment pożittiv dak tal-lemin. Għall-output Xbox u PlayStation b'apparati tar-rumble. Il-force feedback nattiv tar-rota tas-sewqan huwa eskluż.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Iżid rumble kontinwu hekk kif l-assi virtwali magħżul tal-istick jitbiegħed miċ-ċentru. Juża l-output immappjat mis-sorsi assenjati kollha. Bl-għażla “Maqsum skont id-direzzjoni”, il-moviment negattiv iħaddem il-mutur tax-xellug u l-moviment pożittiv dak tal-lemin. “Mutur tax-xellug” jew “Mutur tal-lemin” ipoġġi ż-żewġ direzzjonijiet fuq dak il-mutur waħdu. Għall-output Xbox u PlayStation b'apparati tar-rumble. Il-force feedback nattiv tar-rota tas-sewqan huwa eskluż.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Ixgħel ir-rumble tal-angolu tat-tmun</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Assi virtwali</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Stick tax-xellug X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Stick tax-xellug Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Stick tal-lemin X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Stick tal-lemin Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Mutur</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Maqsum skont id-direzzjoni</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Żona mejta taċ-ċentru</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Irrisettja għal mitfi</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Irrisettja għal Stick tax-xellug X</value></data>

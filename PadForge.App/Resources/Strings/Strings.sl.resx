@@ -4113,13 +4113,15 @@ Ali želite, da jih PadForge zdaj odstrani? To zahteva skrbniške pravice in lah
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>Čakanje na podatke skupnega pomnilnika FreeTrack.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>Skupni pomnilnik FreeTrack ni na voljo.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Vibriranje glede na kot krmiljenja</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Doda neprekinjeno vibriranje, ko se izbrana os navidezne palice oddaljuje od središča. Uporablja preslikani izhod vseh dodeljenih virov. Negativno gibanje poganja levi motor, pozitivno desnega. Za izhod Xbox in PlayStation z napravami z vibriranjem. Izvorna povratna sila volana je izključena.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Doda neprekinjeno vibriranje, ko se izbrana os navidezne palice oddaljuje od središča. Uporablja preslikani izhod vseh dodeljenih virov. Pri možnosti Razdeli po smeri negativno gibanje poganja levi motor, pozitivno pa desnega. Če izberete Levi motor ali Desni motor, sta obe smeri na tem enem motorju. Za izhod Xbox in PlayStation z napravami z vibriranjem. Izvorna povratna sila volana je izključena.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Omogoči vibriranje glede na kot krmiljenja</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Navidezna os</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Leva palica X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Leva palica Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Desna palica X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Desna palica Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motor</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Razdeli po smeri</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Mrtvo območje v središču</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Ponastavi na izklopljeno</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Ponastavi na levo palico X</value></data>

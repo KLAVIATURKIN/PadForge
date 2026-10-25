@@ -4113,13 +4113,15 @@ Szeretné, hogy a PadForge most eltávolítsa őket? Ehhez rendszergazdai jogosu
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>Várakozás a FreeTrack megosztott memória adataira.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>A FreeTrack megosztott memória nem érhető el.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Kormányszögtől függő rezgés</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Folyamatos rezgést ad, ahogy a kiválasztott virtuális kartengely eltávolodik a középponttól. Az összes hozzárendelt forrás hozzárendelt kimenetét használja. A negatív irányú mozgás a bal, a pozitív a jobb motort hajtja. Rezgésre képes eszközökkel rendelkező Xbox és PlayStation kimenethez. A kormányok natív erő-visszacsatolása nem tartozik ide.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Folyamatos rezgést ad, ahogy a kiválasztott virtuális kartengely eltávolodik a középponttól. Az összes hozzárendelt forrás hozzárendelt kimenetét használja. Az Irányonként külön beállításnál a negatív irányú mozgás a bal, a pozitív a jobb motort hajtja. A Bal motor vagy a Jobb motor mindkét irányt arra az egy motorra teszi. Rezgésre képes eszközökkel rendelkező Xbox és PlayStation kimenethez. A kormányok natív erő-visszacsatolása nem tartozik ide.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Kormányszögtől függő rezgés engedélyezése</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Virtuális tengely</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Bal kar X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Bal kar Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Jobb kar X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Jobb kar Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motor</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Irányonként külön</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Középső holtzóna</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Visszaállítás kikapcsoltra</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Visszaállítás Bal kar X-re</value></data>

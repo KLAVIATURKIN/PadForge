@@ -3932,13 +3932,15 @@ Wil jy hê PadForge moet dit nou deïnstalleer? Dit vereis verhoogde regte en ka
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>Wag vir FreeTrack se gedeelde geheuedata.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>FreeTrack se gedeelde geheue is nie beskikbaar nie.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Vibrasie volgens stuurhoek</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Voeg deurlopende vibrasie by namate die gekose virtuele stokkie-as van die middel af beweeg. Gebruik die gekarteerde uitvoer van alle toegewysde bronne. Negatiewe beweging dryf die linkermotor, positiewe beweging die regter. Vir Xbox- en PlayStation-uitvoer met vibrasietoestelle. Inheemse stuurwiel-kragterugvoer is uitgesluit.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Voeg deurlopende vibrasie by namate die gekose virtuele stokkie-as van die middel af beweeg. Gebruik die gekarteerde uitvoer van alle toegewysde bronne. Met Verdeel volgens rigting dryf negatiewe beweging die linkermotor en positiewe beweging die regtermotor. Linkermotor of Regtermotor plaas albei rigtings op daardie een motor. Vir Xbox- en PlayStation-uitvoer met vibrasietoestelle. Inheemse stuurwiel-kragterugvoer is uitgesluit.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Skakel stuurhoekvibrasie aan</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Virtuele as</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Linkerstokkie X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Linkerstokkie Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Regterstokkie X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Regterstokkie Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motor</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Verdeel volgens rigting</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Middel-dooisone</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Stel terug na af</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Stel terug na linkerstokkie X</value></data>

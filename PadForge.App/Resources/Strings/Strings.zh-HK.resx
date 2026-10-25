@@ -4113,13 +4113,15 @@
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>正在等待 FreeTrack 共用記憶體數據。</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>FreeTrack 共用記憶體無法使用。</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>轉向角度震動</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>所選的虛擬搖桿軸離開中心時，加入持續震動。使用來自所有已指派來源的對應後輸出。負向移動驅動左馬達，正向移動驅動右馬達。適用於配合震動裝置的 Xbox 和 PlayStation 輸出。不包括方向盤的原生力回饋。</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>所選的虛擬搖桿軸離開中心時，加入持續震動。使用來自所有已指派來源的對應後輸出。選用「按方向分開」時，負向移動驅動左馬達，正向移動驅動右馬達。選用「左馬達」或「右馬達」時，兩個方向都使用該馬達。適用於配合震動裝置的 Xbox 和 PlayStation 輸出。不包括方向盤的原生力回饋。</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>啟用轉向角度震動</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>虛擬軸</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>左搖桿 X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>左搖桿 Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>右搖桿 X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>右搖桿 Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>馬達</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>按方向分開</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>中央死區</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>重設為關閉</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>重設為左搖桿 X</value></data>

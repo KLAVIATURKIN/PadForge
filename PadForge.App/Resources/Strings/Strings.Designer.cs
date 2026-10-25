@@ -3882,6 +3882,8 @@ public class Strings : INotifyPropertyChanged
     public string Pad_SteeringAngleRumble_LY => Get("Pad_SteeringAngleRumble_LY");
     public string Pad_SteeringAngleRumble_RX => Get("Pad_SteeringAngleRumble_RX");
     public string Pad_SteeringAngleRumble_RY => Get("Pad_SteeringAngleRumble_RY");
+    public string Pad_SteeringAngleRumble_Motor => Get("Pad_SteeringAngleRumble_Motor");
+    public string Pad_SteeringAngleRumble_MotorSplit => Get("Pad_SteeringAngleRumble_MotorSplit");
     public string Pad_SteeringAngleRumble_Deadzone => Get("Pad_SteeringAngleRumble_Deadzone");
     public string Common_ResetToOff => Get("Common_ResetToOff");
     public string Pad_SteeringAngleRumble_ResetAxis => Get("Pad_SteeringAngleRumble_ResetAxis");

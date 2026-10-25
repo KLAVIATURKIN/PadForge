@@ -4113,13 +4113,15 @@ Doriți ca PadForge să le dezinstaleze acum? Este nevoie de drepturi de adminis
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>Se așteaptă date din memoria partajată FreeTrack.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>Memoria partajată FreeTrack nu este disponibilă.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Vibrații după unghiul de virare</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Adaugă vibrații continue pe măsură ce axa de stick virtuală selectată se depărtează de centru. Folosește ieșirea mapată de la toate sursele atribuite. Mișcarea negativă acționează motorul stâng, iar cea pozitivă pe cel drept. Pentru ieșirea Xbox și PlayStation cu dispozitive cu vibrații. Force feedback-ul nativ al volanului este exclus.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Adaugă vibrații continue pe măsură ce axa de stick virtuală selectată se depărtează de centru. Folosește ieșirea mapată de la toate sursele atribuite. Cu Împărțit pe direcție, mișcarea negativă acționează motorul stâng, iar cea pozitivă motorul drept. Motor stâng sau Motor drept pune ambele direcții pe acel motor. Pentru ieșirea Xbox și PlayStation cu dispozitive cu vibrații. Force feedback-ul nativ al volanului este exclus.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Activare vibrații după unghiul de virare</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Axă virtuală</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Stick stâng X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Stick stâng Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Stick drept X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Stick drept Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motor</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Împărțit pe direcție</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Zonă moartă centrală</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Resetare la Dezactivat</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Resetare la Stick stâng X</value></data>

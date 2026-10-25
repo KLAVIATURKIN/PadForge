@@ -4113,13 +4113,15 @@ Vill du att PadForge avinstallerar dem nu? Detta kräver förhöjd behörighet o
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>Väntar på data från det delade FreeTrack-minnet.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>Det delade FreeTrack-minnet är inte tillgängligt.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Vibration efter styrvinkel</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Lägger till kontinuerlig vibration när den valda virtuella spakaxeln rör sig bort från mitten. Använder den mappade utdatan från alla tilldelade källor. Negativ rörelse driver vänster motor, positiv rörelse höger. För Xbox- och PlayStation-utdata med vibrationsenheter. Rattens egen kraftåterkoppling omfattas inte.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Lägger till kontinuerlig vibration när den valda virtuella spakaxeln rör sig bort från mitten. Använder den mappade utdatan från alla tilldelade källor. Med Dela efter riktning driver negativ rörelse vänster motor och positiv rörelse höger. Vänster motor eller Höger motor lägger båda riktningarna på just den motorn. För Xbox- och PlayStation-utdata med vibrationsenheter. Rattens egen kraftåterkoppling omfattas inte.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Aktivera vibration efter styrvinkel</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Virtuell axel</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Vänster spak X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Vänster spak Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Höger spak X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Höger spak Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motor</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Dela efter riktning</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Dödzon i mitten</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Återställ till av</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Återställ till Vänster spak X</value></data>

@@ -27,7 +27,9 @@ namespace PadForge.Engine
             double travel = value < 0 ? -(double)value / 32768.0 : value / 32767.0;
             double level = Math.Max(0, (travel - deadzone) / (1 - deadzone));
             ushort motor = (ushort)Math.Round(level * strength / 100.0 * ushort.MaxValue);
-            if (value < 0) left = motor;
+            // Both turns on one motor, or split by direction (#510).
+            int to = Parse(ps.SteeringAngleRumbleMotor, 0);
+            if (to == 1 || (to != 2 && value < 0)) left = motor;
             else right = motor;
         }
 

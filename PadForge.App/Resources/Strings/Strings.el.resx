@@ -4113,13 +4113,15 @@
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>Αναμονή για δεδομένα από την κοινόχρηστη μνήμη FreeTrack.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>Η κοινόχρηστη μνήμη FreeTrack δεν είναι διαθέσιμη.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Δόνηση γωνίας τιμονιού</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Προσθέτει συνεχή δόνηση καθώς ο επιλεγμένος εικονικός άξονας μοχλού απομακρύνεται από το κέντρο. Χρησιμοποιεί την αντιστοιχισμένη έξοδο από όλες τις ανατεθειμένες πηγές. Η αρνητική κίνηση οδηγεί τον αριστερό κινητήρα, η θετική τον δεξιό. Για έξοδο Xbox και PlayStation με συσκευές δόνησης. Η εγγενής ανάδραση δύναμης των τιμονιερών εξαιρείται.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Προσθέτει συνεχή δόνηση καθώς ο επιλεγμένος εικονικός άξονας μοχλού απομακρύνεται από το κέντρο. Χρησιμοποιεί την αντιστοιχισμένη έξοδο από όλες τις ανατεθειμένες πηγές. Με την επιλογή Διαχωρισμός ανά κατεύθυνση, η αρνητική κίνηση οδηγεί τον αριστερό κινητήρα και η θετική τον δεξιό. Η επιλογή Αριστερός κινητήρας ή Δεξιός κινητήρας βάζει και τις δύο κατευθύνσεις σε αυτόν τον κινητήρα. Για έξοδο Xbox και PlayStation με συσκευές δόνησης. Η εγγενής ανάδραση δύναμης των τιμονιερών εξαιρείται.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Ενεργοποίηση δόνησης γωνίας τιμονιού</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Εικονικός άξονας</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Αριστερός μοχλός X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Αριστερός μοχλός Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Δεξιός μοχλός X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Δεξιός μοχλός Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Κινητήρας</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Διαχωρισμός ανά κατεύθυνση</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Κεντρική νεκρή ζώνη</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Επαναφορά σε ανενεργό</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Επαναφορά σε «Αριστερός μοχλός X»</value></data>

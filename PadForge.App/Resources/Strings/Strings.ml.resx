@@ -4058,13 +4058,15 @@ PadForge ഇവ ഇപ്പോൾ അൺഇൻസ്റ്റാൾ ചെയ�
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>FreeTrack ഷെയേർഡ് മെമ്മറി ഡേറ്റയ്ക്കായി കാത്തിരിക്കുന്നു.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>FreeTrack ഷെയേർഡ് മെമ്മറി ലഭ്യമല്ല.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>സ്റ്റിയറിംഗ് ആംഗിൾ റംബിൾ</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>തിരഞ്ഞെടുത്ത വെർച്വൽ സ്റ്റിക്ക് ആക്സിസ് മധ്യത്തിൽ നിന്ന് അകലുമ്പോൾ തുടർച്ചയായ റംബിൾ ചേർക്കുന്നു. അസൈൻ ചെയ്ത എല്ലാ ഉറവിടങ്ങളുടെയും മാപ്പ് ചെയ്ത ഔട്ട്പുട്ട് ഉപയോഗിക്കുന്നു. നെഗറ്റീവ് ചലനം ഇടത് മോട്ടോറിനെയും പോസിറ്റീവ് ചലനം വലത് മോട്ടോറിനെയും പ്രവർത്തിപ്പിക്കുന്നു. റംബിൾ ഉപകരണങ്ങളുള്ള Xbox, PlayStation ഔട്ട്പുട്ടിനുള്ളത്. നേറ്റീവ് വീൽ ഫോഴ്സ് ഫീഡ്ബാക്ക് ഒഴിവാക്കിയിരിക്കുന്നു.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>തിരഞ്ഞെടുത്ത വെർച്വൽ സ്റ്റിക്ക് ആക്സിസ് മധ്യത്തിൽ നിന്ന് അകലുമ്പോൾ തുടർച്ചയായ റംബിൾ ചേർക്കുന്നു. അസൈൻ ചെയ്ത എല്ലാ ഉറവിടങ്ങളുടെയും മാപ്പ് ചെയ്ത ഔട്ട്പുട്ട് ഉപയോഗിക്കുന്നു. ദിശ അനുസരിച്ച് വിഭജിക്കുക എന്നതിൽ നെഗറ്റീവ് ചലനം ഇടത് മോട്ടോറിനെയും പോസിറ്റീവ് ചലനം വലത് മോട്ടോറിനെയും പ്രവർത്തിപ്പിക്കുന്നു. ഇടത് മോട്ടോർ അല്ലെങ്കിൽ വലത് മോട്ടോർ തിരഞ്ഞെടുത്താൽ രണ്ട് ദിശകളും ആ ഒറ്റ മോട്ടോറിൽ പ്രവർത്തിക്കും. റംബിൾ ഉപകരണങ്ങളുള്ള Xbox, PlayStation ഔട്ട്പുട്ടിനുള്ളത്. നേറ്റീവ് വീൽ ഫോഴ്സ് ഫീഡ്ബാക്ക് ഒഴിവാക്കിയിരിക്കുന്നു.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>സ്റ്റിയറിംഗ് ആംഗിൾ റംബിൾ പ്രവർത്തനക്ഷമമാക്കുക</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>വെർച്വൽ ആക്സിസ്</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>ഇടത് സ്റ്റിക്ക് X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>ഇടത് സ്റ്റിക്ക് Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>വലത് സ്റ്റിക്ക് X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>വലത് സ്റ്റിക്ക് Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>മോട്ടോർ</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>ദിശ അനുസരിച്ച് വിഭജിക്കുക</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>മധ്യ ഡെഡ് സോൺ</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>ഓഫ് എന്നതിലേക്ക് പുനഃസജ്ജമാക്കുക</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>ഇടത് സ്റ്റിക്ക് X എന്നതിലേക്ക് പുനഃസജ്ജമാക്കുക</value></data>

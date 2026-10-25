@@ -1173,6 +1173,8 @@
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Stick sab laug Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Stick sab xis X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Stick sab xis Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motor</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Faib raws sab</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Deadzone nruab nrab</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Rov teeb tsa dua mus rau Kaw</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Rov teeb tsa dua mus rau Stick sab laug X</value></data>

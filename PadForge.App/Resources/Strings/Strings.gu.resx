@@ -4083,13 +4083,15 @@
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>FreeTrack શેર્ડ મેમરી ડેટાની રાહ જોવાય છે.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>FreeTrack શેર્ડ મેમરી ઉપલબ્ધ નથી.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>સ્ટીયરિંગ એંગલ રમ્બલ</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>પસંદ કરેલ વર્ચ્યુઅલ સ્ટિક અક્ષ કેન્દ્રથી દૂર જાય તેમ સતત રમ્બલ ઉમેરે છે. બધા અસાઇન કરેલા સ્રોતોનું મેપ કરેલ આઉટપુટ વાપરે છે. નકારાત્મક હિલચાલ ડાબી મોટર ચલાવે છે, સકારાત્મક હિલચાલ જમણી. રમ્બલ ઉપકરણો સાથે Xbox અને PlayStation આઉટપુટ માટે. નેટિવ વ્હીલ ફોર્સ ફીડબેક બાકાત છે.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>પસંદ કરેલ વર્ચ્યુઅલ સ્ટિક અક્ષ કેન્દ્રથી દૂર જાય તેમ સતત રમ્બલ ઉમેરે છે. બધા અસાઇન કરેલા સ્રોતોનું મેપ કરેલ આઉટપુટ વાપરે છે. દિશા પ્રમાણે વિભાજિત સાથે, નકારાત્મક હિલચાલ ડાબી મોટર ચલાવે છે અને સકારાત્મક હિલચાલ જમણી. ડાબી મોટર અથવા જમણી મોટર બંને દિશાઓને તે એક જ મોટર પર મૂકે છે. રમ્બલ ઉપકરણો સાથે Xbox અને PlayStation આઉટપુટ માટે. નેટિવ વ્હીલ ફોર્સ ફીડબેક બાકાત છે.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>સ્ટીયરિંગ એંગલ રમ્બલ ચાલુ કરો</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>વર્ચ્યુઅલ અક્ષ</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>ડાબી સ્ટિક X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>ડાબી સ્ટિક Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>જમણી સ્ટિક X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>જમણી સ્ટિક Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>મોટર</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>દિશા પ્રમાણે વિભાજિત</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>કેન્દ્ર ડેડઝોન</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>બંધ પર રીસેટ કરો</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>ડાબી સ્ટિક X પર રીસેટ કરો</value></data>

@@ -373,6 +373,10 @@ namespace PadForge.Engine.Data
         [XmlElement] public string SteeringAngleRumbleAxis { get; set; } = "0";
         [XmlElement] public string SteeringAngleRumbleStrength { get; set; } = "50";
         [XmlElement] public string SteeringAngleRumbleDeadzone { get; set; } = "2";
+        /// <summary>The motor the cue plays on (#510): "0" puts left turns on the left
+        /// motor and right turns on the right, "1" both on the left motor, "2" both on
+        /// the right. Any other value splits as "0" does.</summary>
+        [XmlElement] public string SteeringAngleRumbleMotor { get; set; } = "0";
 
         /// <summary>Rumble pulse on steering lock entry. "0"/"1".</summary>
         [XmlElement] public string SteeringLockRumbleEnabled       { get; set; } = "0";
@@ -1631,6 +1635,7 @@ namespace PadForge.Engine.Data
             sb.Append(SteeringAngleRumbleAxis); sb.Append('|');
             sb.Append(SteeringAngleRumbleStrength); sb.Append('|');
             sb.Append(SteeringAngleRumbleDeadzone); sb.Append('|');
+            sb.Append(SteeringAngleRumbleMotor); sb.Append('|');
             sb.Append(SteeringLockRumbleEnabled); sb.Append('|');
             sb.Append(SteeringLockTriggerVibEnabled); sb.Append('|');
             sb.Append(SteeringLockLightbarEnabled); sb.Append('|');
@@ -2356,6 +2361,7 @@ namespace PadForge.Engine.Data
             nameof(FalconShake), nameof(FalconBraceButton), nameof(FalconPreloadButton),
             nameof(FalconGravity), nameof(FalconForceCap),
             nameof(SteeringAngleRumbleEnabled), nameof(SteeringAngleRumbleAxis), nameof(SteeringAngleRumbleStrength), nameof(SteeringAngleRumbleDeadzone),
+            nameof(SteeringAngleRumbleMotor),
             // Steering at-lock feedback (#94)
             nameof(SteeringLockRumbleEnabled), nameof(SteeringLockTriggerVibEnabled),
             nameof(SteeringLockLightbarEnabled), nameof(SteeringLockATResistanceEnabled),

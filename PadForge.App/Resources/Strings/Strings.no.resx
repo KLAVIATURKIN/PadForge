@@ -4113,13 +4113,15 @@ Vil du at PadForge skal avinstallere dem nå? Dette krever administratorrettighe
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>Venter på data fra delt minne for FreeTrack.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>Delt minne for FreeTrack er ikke tilgjengelig.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Vibrasjon etter styrevinkel</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Legger til kontinuerlig vibrasjon når den valgte virtuelle stikkeaksen beveger seg bort fra midten. Bruker den tilordnede utgangen fra alle tilordnede kilder. Negativ bevegelse driver venstre motor, positiv bevegelse høyre. For utgang som Xbox og PlayStation med enheter som kan vibrere. Innebygd force feedback i ratt er utelatt.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Legger til kontinuerlig vibrasjon når den valgte virtuelle stikkeaksen beveger seg bort fra midten. Bruker den tilordnede utgangen fra alle tilordnede kilder. Med Delt etter retning driver negativ bevegelse venstre motor og positiv bevegelse høyre. Venstre motor eller Høyre motor legger begge retninger på den ene motoren. For utgang som Xbox og PlayStation med enheter som kan vibrere. Innebygd force feedback i ratt er utelatt.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Aktiver vibrasjon etter styrevinkel</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Virtuell akse</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Venstre stikke X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Venstre stikke Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Høyre stikke X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Høyre stikke Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motor</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Delt etter retning</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Dødsone i midten</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Tilbakestill til av</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Tilbakestill til venstre stikke X</value></data>

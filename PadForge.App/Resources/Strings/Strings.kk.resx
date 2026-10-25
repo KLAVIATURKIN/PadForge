@@ -4088,13 +4088,15 @@ PadForge оларды қазір жойсын ба? Ол үшін әкімші �
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>FreeTrack ортақ жады деректері күтілуде.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>FreeTrack ортақ жадысы қолжетімсіз.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Рөл бұрышы дірілі</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Таңдалған виртуалды стик осі центрден алыстаған сайын үздіксіз діріл қосады. Барлық тағайындалған көздердің тағайындалған шығысын қолданады. Теріс қозғалыс сол моторды, оң қозғалыс оң моторды басқарады. Діріл құрылғылары бар Xbox және PlayStation шығысы үшін. Төл рөлдің күштік кері байланысы қосылмайды.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Таңдалған виртуалды стик осі центрден алыстаған сайын үздіксіз діріл қосады. Барлық тағайындалған көздердің тағайындалған шығысын қолданады. Бағыт бойынша бөлу режимінде теріс қозғалыс сол моторды, оң қозғалыс оң моторды басқарады. Сол мотор немесе Оң мотор таңдалса, екі бағыт та сол бір моторға беріледі. Діріл құрылғылары бар Xbox және PlayStation шығысы үшін. Төл рөлдің күштік кері байланысы қосылмайды.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Рөл бұрышы дірілін қосу</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Виртуалды ось</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Сол жақ стик X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Сол жақ стик Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Оң жақ стик X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Оң жақ стик Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Мотор</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Бағыт бойынша бөлу</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Орталық өлі аймақ</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Өшірулі күйге қайтару</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Сол жақ стик X күйіне қайтару</value></data>

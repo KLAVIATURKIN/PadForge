@@ -4113,13 +4113,15 @@ PadForge இப்போதே அவற்றை நிறுவல் நீ�
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>FreeTrack பகிர்ந்த நினைவகத் தரவுக்காகக் காத்திருக்கிறது.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>FreeTrack பகிர்ந்த நினைவகம் கிடைக்கவில்லை.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>ஸ்டீயரிங் கோண அதிர்வு</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>தேர்ந்தெடுத்த மெய்நிகர் ஸ்டிக் அச்சு மையத்திலிருந்து விலகும்போது தொடர்ச்சியான அதிர்வைச் சேர்க்கும். ஒதுக்கப்பட்ட எல்லா மூலங்களிலிருந்தும் மேப் செய்யப்பட்ட வெளியீட்டைப் பயன்படுத்தும். எதிர்மறை நகர்வு இடது மோட்டாரையும், நேர்மறை நகர்வு வலது மோட்டாரையும் இயக்கும். அதிர்வுச் சாதனங்களுடன் கூடிய Xbox மற்றும் PlayStation வெளியீட்டுக்கானது. நேட்டிவ் வீல் ஃபோர்ஸ் ஃபீட்பேக் இதில் அடங்காது.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>தேர்ந்தெடுத்த மெய்நிகர் ஸ்டிக் அச்சு மையத்திலிருந்து விலகும்போது தொடர்ச்சியான அதிர்வைச் சேர்க்கும். ஒதுக்கப்பட்ட எல்லா மூலங்களிலிருந்தும் மேப் செய்யப்பட்ட வெளியீட்டைப் பயன்படுத்தும். திசைப்படி பிரிப்பு தேர்வில், எதிர்மறை நகர்வு இடது மோட்டாரையும், நேர்மறை நகர்வு வலது மோட்டாரையும் இயக்கும். இடது மோட்டார் அல்லது வலது மோட்டார் தேர்வில் இரு திசைகளும் அந்த ஒரே மோட்டாரில் இயங்கும். அதிர்வுச் சாதனங்களுடன் கூடிய Xbox மற்றும் PlayStation வெளியீட்டுக்கானது. நேட்டிவ் வீல் ஃபோர்ஸ் ஃபீட்பேக் இதில் அடங்காது.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>ஸ்டீயரிங் கோண அதிர்வை இயக்கு</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>மெய்நிகர் அச்சு</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>இடது ஸ்டிக் X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>இடது ஸ்டிக் Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>வலது ஸ்டிக் X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>வலது ஸ்டிக் Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>மோட்டார்</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>திசைப்படி பிரிப்பு</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>மைய டெட்ஜோன்</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>ஆஃப் நிலைக்கு மீட்டமை</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>இடது ஸ்டிக் X-க்கு மீட்டமை</value></data>

@@ -4113,13 +4113,15 @@ PadForge bunları şimdi kaldırsın mı? Bu işlem yönetici izni gerektirir ve
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>FreeTrack paylaşılan bellek verisi bekleniyor.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>FreeTrack paylaşılan belleği kullanılamıyor.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Direksiyon açısı titreşimi</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Seçili sanal çubuk ekseni merkezden uzaklaştıkça sürekli titreşim ekler. Atanmış tüm kaynakların eşlenmiş çıkışını kullanır. Negatif hareket sol motoru, pozitif hareket sağ motoru sürer. Titreşimli cihazlarla Xbox ve PlayStation çıkışı içindir. Direksiyonların kendi kuvvet geri bildirimi kapsam dışıdır.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Seçili sanal çubuk ekseni merkezden uzaklaştıkça sürekli titreşim ekler. Atanmış tüm kaynakların eşlenmiş çıkışını kullanır. Yöne göre ayır seçiliyken negatif hareket sol motoru, pozitif hareket sağ motoru sürer. Sol motor veya Sağ motor seçilirse her iki yön de yalnızca o motora verilir. Titreşimli cihazlarla Xbox ve PlayStation çıkışı içindir. Direksiyonların kendi kuvvet geri bildirimi kapsam dışıdır.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Direksiyon açısı titreşimini etkinleştir</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Sanal eksen</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Sol çubuk X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Sol çubuk Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Sağ çubuk X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Sağ çubuk Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motor</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Yöne göre ayır</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Merkez ölü bölgesi</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Kapalıya sıfırla</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Sol çubuk X değerine sıfırla</value></data>

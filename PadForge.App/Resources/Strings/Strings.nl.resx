@@ -4084,13 +4084,15 @@ Wil je dat PadForge ze nu verwijdert? Hiervoor zijn verhoogde rechten nodig en h
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>Wachten op gegevens in het gedeelde geheugen van FreeTrack.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>Het gedeelde geheugen van FreeTrack is niet beschikbaar.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Trilling op basis van stuurhoek</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Voegt doorlopende trilling toe naarmate de gekozen virtuele stickas verder van het midden beweegt. Gebruikt de toegewezen uitvoer van alle bronnen. Negatieve beweging stuurt de linkermotor aan, positieve beweging de rechter. Voor Xbox- en PlayStation-uitvoer met trilapparaten. Native forcefeedback van stuurwielen is uitgesloten.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Voegt doorlopende trilling toe naarmate de gekozen virtuele stickas verder van het midden beweegt. Gebruikt de toegewezen uitvoer van alle bronnen. Bij Splitsen per richting stuurt negatieve beweging de linkermotor aan en positieve beweging de rechtermotor. Linkermotor of Rechtermotor zet beide richtingen op die ene motor. Voor Xbox- en PlayStation-uitvoer met trilapparaten. Native forcefeedback van stuurwielen is uitgesloten.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Stuurhoektrilling inschakelen</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Virtuele as</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Linkerstick X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Linkerstick Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Rechterstick X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Rechterstick Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motor</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Splitsen per richting</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Dode zone rond midden</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Terugzetten naar Uit</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Terugzetten naar Linkerstick X</value></data>

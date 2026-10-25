@@ -4113,13 +4113,15 @@
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>กำลังรอข้อมูลหน่วยความจำที่ใช้ร่วมกันของ FreeTrack</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>หน่วยความจำที่ใช้ร่วมกันของ FreeTrack ไม่พร้อมใช้งาน</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>การสั่นตามมุมการบังคับเลี้ยว</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>เพิ่มการสั่นต่อเนื่องเมื่อแกนสติ๊กเสมือนที่เลือกเคลื่อนออกจากกึ่งกลาง ใช้เอาต์พุตที่แมปจากแหล่งที่มาทั้งหมดที่กำหนดไว้ การเคลื่อนที่ทางลบจะขับมอเตอร์ซ้าย การเคลื่อนที่ทางบวกจะขับมอเตอร์ขวา สำหรับเอาต์พุต Xbox และ PlayStation ที่มีอุปกรณ์ซึ่งสั่นได้ ไม่รวมฟอร์ซฟีดแบ็กของพวงมาลัยโดยตรง</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>เพิ่มการสั่นต่อเนื่องเมื่อแกนสติ๊กเสมือนที่เลือกเคลื่อนออกจากกึ่งกลาง ใช้เอาต์พุตที่แมปจากแหล่งที่มาทั้งหมดที่กำหนดไว้ เมื่อเลือก แยกตามทิศทาง การเคลื่อนที่ทางลบจะขับมอเตอร์ซ้าย และการเคลื่อนที่ทางบวกจะขับมอเตอร์ขวา ถ้าเลือก มอเตอร์ซ้าย หรือ มอเตอร์ขวา ทั้งสองทิศทางจะใช้มอเตอร์ตัวนั้นตัวเดียว สำหรับเอาต์พุต Xbox และ PlayStation ที่มีอุปกรณ์ซึ่งสั่นได้ ไม่รวมฟอร์ซฟีดแบ็กของพวงมาลัยโดยตรง</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>เปิดใช้การสั่นตามมุมการบังคับเลี้ยว</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>แกนเสมือน</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>สติ๊กซ้าย X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>สติ๊กซ้าย Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>สติ๊กขวา X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>สติ๊กขวา Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>มอเตอร์</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>แยกตามทิศทาง</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>เดดโซนกึ่งกลาง</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>รีเซ็ตเป็นปิด</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>รีเซ็ตเป็นสติ๊กซ้าย X</value></data>

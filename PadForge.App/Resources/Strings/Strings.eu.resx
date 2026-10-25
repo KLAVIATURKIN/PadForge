@@ -4085,13 +4085,15 @@ PadForge-k orain desinstalatzea nahi duzu? Horrek administratzaile-baimenak beha
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>FreeTrack-en memoria partekatuko datuen zain.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>FreeTrack-en memoria partekatua ez dago erabilgarri.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Gidatze-angeluaren bibrazioa</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Bibrazio jarraitua gehitzen du hautatutako palanka birtualaren ardatza erditik urruntzen den neurrian. Esleitutako iturri guztien esleitutako irteera erabiltzen du. Mugimendu negatiboak ezkerreko motorra gidatzen du, positiboak eskuinekoa. Xbox eta PlayStation irteerarako, bibrazio-gailuekin. Bolanteen jatorrizko indar-atzeraelikadura baztertuta dago.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Bibrazio jarraitua gehitzen du hautatutako palanka birtualaren ardatza erditik urruntzen den neurrian. Esleitutako iturri guztien esleitutako irteera erabiltzen du. «Banatu norabidearen arabera» aukeran, mugimendu negatiboak ezkerreko motorra gidatzen du eta positiboak eskuinekoa. «Ezkerreko motorra» edo «Eskuineko motorra» aukerak bi norabideak motor horretan jartzen ditu. Xbox eta PlayStation irteerarako, bibrazio-gailuekin. Bolanteen jatorrizko indar-atzeraelikadura baztertuta dago.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Gaitu gidatze-angeluaren bibrazioa</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Ardatz birtuala</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Ezkerreko palanka X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Ezkerreko palanka Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Eskuineko palanka X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Eskuineko palanka Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motorra</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Banatu norabidearen arabera</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Erdiko gune hila</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Berrezarri desaktibatzera</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Berrezarri Ezkerreko palanka X-ra</value></data>

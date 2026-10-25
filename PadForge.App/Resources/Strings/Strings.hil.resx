@@ -1247,10 +1247,13 @@
   <data name="Tablet_InputWaiting" xml:space="preserve"><value>Nagahulat sang input sang tablet</value></data>
   <data name="Tablet_InputCaptured" xml:space="preserve"><value>Nakuha sang PadForge</value></data>
   <data name="Tablet_CaptureFailed_Format" xml:space="preserve"><value>Indi makuha ang {0}</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Nagadugang sang padayon nga rumble samtang ang napili nga axis sang virtual stick nagahulag palayo sa tunga. Ginagamit ang na-map nga output halin sa tanan nga gin-assign nga source. Kon "Ginbahin suno sa direksyon" ang napili, ang negatibo nga hulag nagapahulag sang wala nga motor kag ang positibo nga hulag sang tuo. Ang "Wala nga motor" ukon "Tuo nga motor" nagabutang sang duha ka direksyon sa amo nga isa ka motor. Para sa Xbox kag PlayStation nga output nga may rumble device. Wala ginalakip ang native nga force feedback sang manibela.</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Wala nga stick X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Wala nga stick Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Tuo nga stick X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Tuo nga stick Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motor</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Ginbahin suno sa direksyon</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Deadzone sa tunga</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>I-reset sa wala nga stick X</value></data>
   <data name="Pad_SteeringAngleRumble_ResetStrength" xml:space="preserve"><value>I-reset ang kusog (50%)</value></data>

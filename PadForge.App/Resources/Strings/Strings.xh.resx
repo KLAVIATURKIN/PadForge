@@ -1426,11 +1426,14 @@
   <data name="RemoteLink_AssignmentBusy" xml:space="preserve">
     <value>Kulindwe enye i-PC...</value>
   </data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Yongeza ukungcangcazela okuqhubekayo njengoko i-axis yentonga ebonakalayo ekhethiweyo isuka embindini. Isebenzisa isiphumo semephu esivela kuyo yonke imithombo eyabelweyo. Xa kukhethwe "Yahlula ngokwecala", intshukumo eya ngasekhohlo iqhuba imoto yasekhohlo, eya ngasekunene iqhuba eyasekunene. "Imoto yasekhohlo" okanye "Imoto yasekunene" ibeka omabini amacala kuloo moto inye. Isetyenziselwa isiphumo se-Xbox nese-PlayStation kunye nezixhobo ezingcangcazelayo. I-force feedback yevili yangqo ayibandakanywa.</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>I-axis ebonakalayo</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Intonga yasekhohlo X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Intonga yasekhohlo Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Intonga yasekunene X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Intonga yasekunene Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Imoto</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Yahlula ngokwecala</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>I-deadzone yasembindini</value></data>
   <data name="Pad_SteeringAngleRumble_ResetDeadzone" xml:space="preserve"><value>Seta kwakhona i-deadzone yasembindini (2%)</value></data>
   <data name="ResetLabel_Profile" xml:space="preserve"><value>Iprofayile</value></data>

@@ -4113,13 +4113,15 @@ Haluatko, että PadForge poistaa niiden asennuksen nyt? Tämä vaatii järjestel
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>Odotetaan FreeTrack-jaetun muistin tietoja.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>FreeTrack-jaettu muisti ei ole käytettävissä.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Ohjauskulman tärinä</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Lisää jatkuvaa tärinää, kun valittu virtuaalisen sauvan akseli liikkuu pois keskeltä. Käyttää kaikkien liitettyjen lähteiden määritettyä lähtöä. Negatiivinen liike ohjaa vasenta moottoria, positiivinen oikeaa. Xbox- ja PlayStation-lähdölle tärinälaitteiden kanssa. Rattien oma voimapalaute ei sisälly.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Lisää jatkuvaa tärinää, kun valittu virtuaalisen sauvan akseli liikkuu pois keskeltä. Käyttää kaikkien liitettyjen lähteiden määritettyä lähtöä. Valinnalla Jaa suunnan mukaan negatiivinen liike ohjaa vasenta moottoria ja positiivinen oikeaa. Valinnalla Vasen moottori tai Oikea moottori molemmat suunnat toistuvat vain tällä moottorilla. Xbox- ja PlayStation-lähdölle tärinälaitteiden kanssa. Rattien oma voimapalaute ei sisälly.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Ota ohjauskulman tärinä käyttöön</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Virtuaaliakseli</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Vasen sauva X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Vasen sauva Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Oikea sauva X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Oikea sauva Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Moottori</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Jaa suunnan mukaan</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Keskikohdan kuollut alue</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Palauta pois päältä</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Palauta: Vasen sauva X</value></data>

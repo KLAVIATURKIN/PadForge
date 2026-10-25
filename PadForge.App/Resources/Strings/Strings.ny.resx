@@ -1121,6 +1121,8 @@
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Stick yakumanzere Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Stick yakumanja X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Stick yakumanja Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Mota</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Gawani malinga ndi mbali</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Deadzone yapakati</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Bwezeretsani ku Stick yakumanzere X</value></data>
   <data name="ResetLabel_Profile" xml:space="preserve"><value>Mbiri</value></data>

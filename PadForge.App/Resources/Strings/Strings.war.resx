@@ -1127,11 +1127,14 @@
   <data name="RemoteLink_AssignmentProfile_Format" xml:space="preserve">
     <value>Profile: {0}</value>
   </data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Nagdudugang hin padayon nga rumble samtang nahirayo ha tunga an napili nga virtual nga stick axis. Naggagamit han mapped nga output tikang ha ngatanan nga assigned nga source. Kon "Bulag kada direksyon", an negatibo nga paglihok nagpapalihok han wala nga motor ngan an positibo nga paglihok han tuo. An "Wala nga motor" o "Tuo nga motor" nagbubutang han duha nga direksyon ha usa la nga motor. Para ha Xbox ngan PlayStation nga output nga may rumble nga device. Diri kaapi an native nga force feedback han manibela.</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Virtual nga axis</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Wala nga stick X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Wala nga stick Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Too nga stick X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Too nga stick Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motor</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Bulag kada direksyon</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Deadzone ha tunga</value></data>
   <data name="ResetLabel_Profile" xml:space="preserve"><value>Profile</value></data>
   <data name="About_Nefcon" xml:space="preserve"><value>nefcon</value></data>

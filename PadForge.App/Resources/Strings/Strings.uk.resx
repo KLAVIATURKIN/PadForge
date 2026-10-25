@@ -4089,13 +4089,15 @@
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>Очікування даних спільної пам'яті FreeTrack.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>Спільна пам'ять FreeTrack недоступна.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Вібрація за кутом керма</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Додає безперервну вібрацію, коли вибрана вісь віртуального стіка відходить від центру. Використовує прив'язаний вихід з усіх призначених джерел. Від'ємний рух керує лівим мотором, додатний правим. Для виходу Xbox і PlayStation із пристроями з вібрацією. Рідний силовий зворотний зв'язок керма не враховується.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Додає безперервну вібрацію, коли вибрана вісь віртуального стіка відходить від центру. Використовує прив'язаний вихід з усіх призначених джерел. Для варіанта «Розділення за напрямком» від'ємний рух керує лівим мотором, а додатний правим. Варіант «Лівий мотор» або «Правий мотор» спрямовує обидва напрямки на цей один мотор. Для виходу Xbox і PlayStation із пристроями з вібрацією. Рідний силовий зворотний зв'язок керма не враховується.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Увімкнути вібрацію за кутом керма</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Віртуальна вісь</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Лівий стік X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Лівий стік Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Правий стік X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Правий стік Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Мотор</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Розділення за напрямком</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Центральна мертва зона</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Скинути до «Вимкнено»</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Скинути до «Лівий стік X»</value></data>

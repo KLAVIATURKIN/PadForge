@@ -548,6 +548,7 @@
   <data name="RemoteLink_AssignmentBusy" xml:space="preserve">
     <value>A witi ewe pwal eú PC...</value>
   </data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motor</value></data>
   <data name="Status_InstallerTimedOut" xml:space="preserve"><value>Ewe installer a chúen angang mwirin úlúngát minich.</value></data>
   <data name="Status_SteamCmdTimedOut" xml:space="preserve"><value>steamcmd ese wes lón 60 minich.</value></data>
   <data name="About_Nefcon" xml:space="preserve"><value>nefcon</value></data>

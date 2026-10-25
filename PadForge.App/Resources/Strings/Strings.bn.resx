@@ -4113,13 +4113,15 @@ PadForge কি এখনই সেগুলো আনইনস্টল কর�
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>FreeTrack শেয়ার্ড মেমরির ডেটার অপেক্ষায়।</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>FreeTrack শেয়ার্ড মেমরি উপলব্ধ নয়।</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>স্টিয়ারিং কোণের রাম্বল</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>নির্বাচিত ভার্চুয়াল স্টিক অক্ষ কেন্দ্র থেকে যত সরে, তত একটানা রাম্বল যোগ করে। বরাদ্দ করা সব উৎসের ম্যাপ করা আউটপুট ব্যবহার করে। ঋণাত্মক দিকের নড়াচড়া বাম মোটর চালায়, ধনাত্মক দিকের নড়াচড়া ডান মোটর। রাম্বল ডিভাইসসহ Xbox ও PlayStation আউটপুটের জন্য। হুইলের নিজস্ব ফোর্স ফিডব্যাক এর বাইরে।</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>নির্বাচিত ভার্চুয়াল স্টিক অক্ষ কেন্দ্র থেকে যত সরে, তত একটানা রাম্বল যোগ করে। বরাদ্দ করা সব উৎসের ম্যাপ করা আউটপুট ব্যবহার করে। দিক অনুযায়ী বিভক্ত বেছে নিলে ঋণাত্মক দিকের নড়াচড়া বাম মোটর চালায়, ধনাত্মক দিকের নড়াচড়া ডান মোটর। বাম মোটর বা ডান মোটর বেছে নিলে দুই দিকই সেই একটি মোটরে চলে। রাম্বল ডিভাইসসহ Xbox ও PlayStation আউটপুটের জন্য। হুইলের নিজস্ব ফোর্স ফিডব্যাক এর বাইরে।</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>স্টিয়ারিং কোণের রাম্বল সক্ষম করুন</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>ভার্চুয়াল অক্ষ</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>বাম স্টিক X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>বাম স্টিক Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>ডান স্টিক X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>ডান স্টিক Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>মোটর</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>দিক অনুযায়ী বিভক্ত</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>কেন্দ্রের ডেডজোন</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>বন্ধ অবস্থায় রিসেট করুন</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>বাম স্টিক X-এ রিসেট করুন</value></data>

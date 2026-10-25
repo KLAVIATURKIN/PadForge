@@ -2155,11 +2155,14 @@
   <data name="RemoteLink_AssignmentBusy" xml:space="preserve">
     <value>Ta warda riba e otro PC...</value>
   </data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Ta agregá vibrashon kontinuo segun e eje virtual selekshoná ta move leu for di sentro. Ta usa e output asigná di tur fuente asigná. Ku "Dividí pa direkshon", movementu negativo ta aktivá e motor robes i movementu positivo e motor drechi. "Motor robes" òf "Motor drechi" ta pone tur dos direkshon riba e motor ei so. Pa output di Xbox i PlayStation ku aparato ku vibrashon. No ta inkluí force feedback nativo di stür.</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Eje virtual</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Stick robes X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Stick robes Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Stick drechi X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Stick drechi Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motor</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Dividí pa direkshon</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Zona morto di sentro</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Reset na stick robes X</value></data>
   <data name="Pad_SteeringAngleRumble_ResetStrength" xml:space="preserve"><value>Reset forsa (50%)</value></data>

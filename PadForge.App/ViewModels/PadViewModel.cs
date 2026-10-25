@@ -4870,6 +4870,10 @@ namespace PadForge.ViewModels
         public int SteeringAngleRumbleStrength { get => _steeringAngleRumbleStrength; set => SetProperty(ref _steeringAngleRumbleStrength, Math.Clamp(value, 0, 100)); }
         private int _steeringAngleRumbleDeadzone = 2;
         public int SteeringAngleRumbleDeadzone { get => _steeringAngleRumbleDeadzone; set => SetProperty(ref _steeringAngleRumbleDeadzone, Math.Clamp(value, 0, 25)); }
+        private int _steeringAngleRumbleMotor = 0;
+        /// <summary>0 splits by direction, 1 the left motor, 2 the right (#510). Any other
+        /// value reads as 0, as the engine reads it.</summary>
+        public int SteeringAngleRumbleMotor { get => _steeringAngleRumbleMotor; set => SetProperty(ref _steeringAngleRumbleMotor, value is >= 0 and <= 2 ? value : 0); }
 
         private ICommand _resetSteeringAngleRumbleCommand;
         public ICommand ResetSteeringAngleRumbleCommand => _resetSteeringAngleRumbleCommand ??= new RelayCommand(ResetSteeringAngleRumble);
@@ -4882,6 +4886,8 @@ namespace PadForge.ViewModels
         public ICommand ResetSteeringAngleRumbleStrengthCommand => _resetSteeringAngleRumbleStrengthCommand ??= new RelayCommand(() => SteeringAngleRumbleStrength = 50);
         private ICommand _resetSteeringAngleRumbleDeadzoneCommand;
         public ICommand ResetSteeringAngleRumbleDeadzoneCommand => _resetSteeringAngleRumbleDeadzoneCommand ??= new RelayCommand(() => SteeringAngleRumbleDeadzone = 2);
+        private ICommand _resetSteeringAngleRumbleMotorCommand;
+        public ICommand ResetSteeringAngleRumbleMotorCommand => _resetSteeringAngleRumbleMotorCommand ??= new RelayCommand(() => SteeringAngleRumbleMotor = 0);
 
         private void ResetSteeringAngleRumble()
         {
@@ -4889,6 +4895,7 @@ namespace PadForge.ViewModels
             SteeringAngleRumbleAxis = 0;
             SteeringAngleRumbleStrength = 50;
             SteeringAngleRumbleDeadzone = 2;
+            SteeringAngleRumbleMotor = 0;
         }
 
         private bool _steeringLockRumbleEnabled;

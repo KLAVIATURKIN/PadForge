@@ -4113,13 +4113,15 @@
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>FreeTrack شیئرڈ میموری ڈیٹا کا انتظار ہے۔</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>FreeTrack شیئرڈ میموری دستیاب نہیں۔</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>اسٹیئرنگ زاویے کا رمبل</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>جیسے جیسے منتخب ورچوئل اسٹک محور مرکز سے دور جاتا ہے، مسلسل رمبل شامل کرتا ہے۔ تمام تفویض کردہ ماخذ کا میپ شدہ آؤٹ پٹ استعمال کرتا ہے۔ منفی حرکت بائیں موٹر کو چلاتی ہے، مثبت حرکت دائیں کو۔ رمبل والے آلات کے ساتھ Xbox اور PlayStation آؤٹ پٹ کے لیے۔ اسٹیئرنگ وہیل کا اپنا فورس فیڈبیک اس میں شامل نہیں۔</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>جیسے جیسے منتخب ورچوئل اسٹک محور مرکز سے دور جاتا ہے، مسلسل رمبل شامل کرتا ہے۔ تمام تفویض کردہ ماخذ کا میپ شدہ آؤٹ پٹ استعمال کرتا ہے۔ سمت کے مطابق تقسیم کے ساتھ، منفی حرکت بائیں موٹر کو چلاتی ہے اور مثبت حرکت دائیں موٹر کو۔ بائیں موٹر یا دائیں موٹر منتخب کرنے پر دونوں سمتیں اسی ایک موٹر پر چلتی ہیں۔ رمبل والے آلات کے ساتھ Xbox اور PlayStation آؤٹ پٹ کے لیے۔ اسٹیئرنگ وہیل کا اپنا فورس فیڈبیک اس میں شامل نہیں۔</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>اسٹیئرنگ زاویے کا رمبل فعال کریں</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>ورچوئل محور</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>بائیں اسٹک X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>بائیں اسٹک Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>دائیں اسٹک X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>دائیں اسٹک Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>موٹر</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>سمت کے مطابق تقسیم</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>مرکزی ڈیڈ زون</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>آف پر ری سیٹ کریں</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>بائیں اسٹک X پر ری سیٹ کریں</value></data>

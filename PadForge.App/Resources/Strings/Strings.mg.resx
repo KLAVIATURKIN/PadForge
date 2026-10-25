@@ -1718,6 +1718,8 @@
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Stick ankavia Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Stick ankavanana X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Stick ankavanana Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motera</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Mizara araka ny lalana</value></data>
   <data name="ResetLabel_Profile" xml:space="preserve"><value>Profil</value></data>
   <data name="Status_SteamCmdTimedOut" xml:space="preserve"><value>Tsy vita tao anatin'ny 60 minitra ny steamcmd.</value></data>
   <data name="Status_RemovingLegacyDrivers" xml:space="preserve"><value>Manala ireo pilote taloha…</value></data>

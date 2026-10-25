@@ -4113,13 +4113,15 @@ Vai vēlaties, lai PadForge tos tagad atinstalē? Tam nepieciešamas paaugstinā
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>Gaida FreeTrack koplietojamās atmiņas datus.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>FreeTrack koplietojamā atmiņa nav pieejama.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Stūrēšanas leņķa vibrācija</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Pievieno nepārtrauktu vibrāciju, kad atlasītā virtuālās sviras ass attālinās no centra. Izmanto piesaistīto izvadi no visiem piešķirtajiem avotiem. Negatīva kustība darbina kreiso motoru, pozitīva kustība labo. Paredzēts Xbox un PlayStation izvadei ar vibrācijas ierīcēm. Stūru iebūvētā spēka atgriezeniskā saite netiek ietverta.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Pievieno nepārtrauktu vibrāciju, kad atlasītā virtuālās sviras ass attālinās no centra. Izmanto piesaistīto izvadi no visiem piešķirtajiem avotiem. Ar iestatījumu Sadalīt pēc virziena negatīva kustība darbina kreiso motoru, pozitīva kustība labo. Izvēloties Kreisais motors vai Labais motors, abi virzieni darbina tikai šo motoru. Paredzēts Xbox un PlayStation izvadei ar vibrācijas ierīcēm. Stūru iebūvētā spēka atgriezeniskā saite netiek ietverta.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Iespējot stūrēšanas leņķa vibrāciju</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Virtuālā ass</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Kreisā svira X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Kreisā svira Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Labā svira X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Labā svira Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motors</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Sadalīt pēc virziena</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Centra nejutības zona</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Atiestatīt uz „Izslēgts”</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Atiestatīt uz „Kreisā svira X”</value></data>

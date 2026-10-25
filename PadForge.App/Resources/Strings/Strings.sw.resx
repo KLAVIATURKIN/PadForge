@@ -4031,13 +4031,15 @@ Ungependa PadForge iviondoe sasa? Hii inahitaji ruhusa za msimamizi na inaweza k
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>Inasubiri data ya shared memory ya FreeTrack.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>Shared memory ya FreeTrack haipatikani.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Mtetemo wa Pembe ya Usukani</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Huongeza mtetemo endelevu mhimili pepe wa kijiti uliochaguliwa unavyosogea mbali na kituo. Hutumia matokeo yaliyoramaniwa kutoka vyanzo vyote vilivyoagizwa. Mwendo hasi huendesha motor ya kushoto, chanya motor ya kulia. Kwa matokeo ya Xbox na PlayStation yenye vifaa vya mtetemo. Force feedback asilia ya usukani haijumuishwi.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Huongeza mtetemo endelevu mhimili pepe wa kijiti uliochaguliwa unavyosogea mbali na kituo. Hutumia matokeo yaliyoramaniwa kutoka vyanzo vyote vilivyoagizwa. Kwa Gawanya kwa Mwelekeo, mwendo hasi huendesha motor ya kushoto na mwendo chanya motor ya kulia. Motor ya Kushoto au Motor ya Kulia huweka pande zote mbili kwenye motor hiyo moja. Kwa matokeo ya Xbox na PlayStation yenye vifaa vya mtetemo. Force feedback asilia ya usukani haijumuishwi.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Washa Mtetemo wa Pembe ya Usukani</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Mhimili Pepe</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Kijiti cha Kushoto X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Kijiti cha Kushoto Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Kijiti cha Kulia X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Kijiti cha Kulia Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motor</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Gawanya kwa Mwelekeo</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Deadzone ya Kituo</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Weka Upya kuwa Imezimwa</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Weka Upya kuwa Kijiti cha Kushoto X</value></data>

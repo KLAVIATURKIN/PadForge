@@ -1461,6 +1461,8 @@
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Agati k'ibumoso Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Agati k'iburyo X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Agati k'iburyo Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Moteri</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Gutandukanya hakurikijwe icyerekezo</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Deadzone yo hagati</value></data>
   <data name="ResetLabel_Profile" xml:space="preserve"><value>Umwirondoro</value></data>
   <data name="ResetLabel_LowColor" xml:space="preserve"><value>Ibara ryo hasi</value></data>

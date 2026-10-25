@@ -4088,13 +4088,15 @@
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>កំពុងរង់ចាំទិន្នន័យអង្គចងចាំរួម FreeTrack។</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>អង្គចងចាំរួម FreeTrack មិនអាចប្រើបានទេ។</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>ការញ័រតាមមុំចង្កូត</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>បន្ថែមការញ័របន្តបន្ទាប់ ខណៈអ័ក្សដងបញ្ជានិម្មិតដែលបានជ្រើសរើសផ្លាស់ទីឆ្ងាយពីកណ្ដាល។ ប្រើលទ្ធផលដែលបានម៉ាបពីប្រភពដែលបានចាត់តាំងទាំងអស់។ ចលនាអវិជ្ជមានបើកម៉ូទ័រឆ្វេង ចលនាវិជ្ជមានបើកម៉ូទ័រស្ដាំ។ សម្រាប់លទ្ធផល Xbox និង PlayStation ជាមួយឧបករណ៍ដែលមានការញ័រ។ កម្លាំងតបដើមរបស់ចង្កូតមិនត្រូវបានរាប់បញ្ចូលទេ។</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>បន្ថែមការញ័របន្តបន្ទាប់ ខណៈអ័ក្សដងបញ្ជានិម្មិតដែលបានជ្រើសរើសផ្លាស់ទីឆ្ងាយពីកណ្ដាល។ ប្រើលទ្ធផលដែលបានម៉ាបពីប្រភពដែលបានចាត់តាំងទាំងអស់។ នៅពេលជ្រើស «បែងចែកតាមទិសដៅ» ចលនាអវិជ្ជមានបើកម៉ូទ័រឆ្វេង ហើយចលនាវិជ្ជមានបើកម៉ូទ័រស្ដាំ។ «ម៉ូទ័រឆ្វេង» ឬ «ម៉ូទ័រស្ដាំ» ដាក់ទិសទាំងពីរលើម៉ូទ័រតែមួយនោះ។ សម្រាប់លទ្ធផល Xbox និង PlayStation ជាមួយឧបករណ៍ដែលមានការញ័រ។ កម្លាំងតបដើមរបស់ចង្កូតមិនត្រូវបានរាប់បញ្ចូលទេ។</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>បើកការញ័រតាមមុំចង្កូត</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>អ័ក្សនិម្មិត</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>ដងបញ្ជាឆ្វេង X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>ដងបញ្ជាឆ្វេង Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>ដងបញ្ជាស្ដាំ X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>ដងបញ្ជាស្ដាំ Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>ម៉ូទ័រ</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>បែងចែកតាមទិសដៅ</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>តំបន់ងាប់កណ្ដាល</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>កំណត់ឡើងវិញទៅបិទ</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>កំណត់ឡើងវិញទៅដងបញ្ជាឆ្វេង X</value></data>

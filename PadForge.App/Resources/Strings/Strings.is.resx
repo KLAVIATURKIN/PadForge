@@ -4113,13 +4113,15 @@ Viltu að PadForge fjarlægi þá núna? Þetta krefst stjórnandaréttinda og g
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>Bíður eftir gögnum úr sameiginlegu minni FreeTrack.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>Sameiginlegt minni FreeTrack er ekki tiltækt.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Titringur eftir stýrishorni</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Bætir við samfelldum titringi þegar valinn ás sýndarpinna færist frá miðju. Notar varpað úttak frá öllum úthlutuðum uppsprettum. Neikvæð hreyfing knýr vinstri mótorinn, jákvæð hreyfing þann hægri. Fyrir Xbox- og PlayStation-úttak með titringstækjum. Innbyggð kraftsvörun stýra er undanskilin.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Bætir við samfelldum titringi þegar valinn ás sýndarpinna færist frá miðju. Notar varpað úttak frá öllum úthlutuðum uppsprettum. Með Skipt eftir stefnu knýr neikvæð hreyfing vinstri mótorinn og jákvæð hreyfing þann hægri. Vinstri mótor eða Hægri mótor setur báðar áttir á þann eina mótor. Fyrir Xbox- og PlayStation-úttak með titringstækjum. Innbyggð kraftsvörun stýra er undanskilin.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Virkja titring eftir stýrishorni</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Sýndarás</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Vinstri pinni X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Vinstri pinni Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Hægri pinni X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Hægri pinni Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Mótor</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Skipt eftir stefnu</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Dautt svæði í miðju</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Endurstilla á slökkt</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Endurstilla á vinstri pinna X</value></data>

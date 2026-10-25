@@ -4074,13 +4074,15 @@
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>ກຳລັງລໍຖ້າຂໍ້ມູນໜ່ວຍຄວາມຈຳຮ່ວມຂອງ FreeTrack</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>ໜ່ວຍຄວາມຈຳຮ່ວມຂອງ FreeTrack ບໍ່ພ້ອມໃຊ້ງານ</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>ການສັ່ນຕາມມຸມພວງມາໄລ</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>ເພີ່ມການສັ່ນຕໍ່ເນື່ອງເມື່ອແກນສະຕິກສະເໝືອນທີ່ເລືອກເຄື່ອນອອກຈາກຈຸດກາງ ໃຊ້ຜົນອອກທີ່ແມັບແລ້ວຈາກທຸກແຫຼ່ງທີ່ກຳນົດໄວ້ ການເຄື່ອນທີ່ທາງລົບຂັບມໍເຕີຊ້າຍ ທາງບວກຂັບມໍເຕີຂວາ ສຳລັບຜົນອອກ Xbox ແລະ PlayStation ທີ່ມີອຸປະກອນສັ່ນ ບໍ່ລວມແຮງສະທ້ອນກັບຂອງພວງມາໄລແບບເນທີຟ</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>ເພີ່ມການສັ່ນຕໍ່ເນື່ອງເມື່ອແກນສະຕິກສະເໝືອນທີ່ເລືອກເຄື່ອນອອກຈາກຈຸດກາງ ໃຊ້ຜົນອອກທີ່ແມັບແລ້ວຈາກທຸກແຫຼ່ງທີ່ກຳນົດໄວ້ ເມື່ອເລືອກ “ແຍກຕາມທິດທາງ” ການເຄື່ອນທີ່ທາງລົບຂັບມໍເຕີຊ້າຍ ທາງບວກຂັບມໍເຕີຂວາ “ມໍເຕີຊ້າຍ” ຫຼື “ມໍເຕີຂວາ” ຈະໃຫ້ທັງສອງທິດທາງໃຊ້ມໍເຕີນັ້ນພຽງໂຕດຽວ ສຳລັບຜົນອອກ Xbox ແລະ PlayStation ທີ່ມີອຸປະກອນສັ່ນ ບໍ່ລວມແຮງສະທ້ອນກັບຂອງພວງມາໄລແບບເນທີຟ</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>ເປີດໃຊ້ການສັ່ນຕາມມຸມພວງມາໄລ</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>ແກນສະເໝືອນ</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>ສະຕິກຊ້າຍ X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>ສະຕິກຊ້າຍ Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>ສະຕິກຂວາ X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>ສະຕິກຂວາ Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>ມໍເຕີ</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>ແຍກຕາມທິດທາງ</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>ເດດໂຊນຈຸດກາງ</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>ຄືນຄ່າເປັນປິດ</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>ຄືນຄ່າເປັນສະຕິກຊ້າຍ X</value></data>

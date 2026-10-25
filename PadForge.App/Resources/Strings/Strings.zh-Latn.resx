@@ -4029,13 +4029,15 @@ Yào ràng PadForge xiànzài xièzài tāmen ma? Cǐ cāozuò xūyào tíshēng
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>Zhèngzài děngdài FreeTrack gòngxiǎng nèicún shùjù.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>FreeTrack gòngxiǎng nèicún bùkěyòng.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Zhuǎnxiàng jiǎodù zhèndòng</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Suí suǒ xuǎn xūnǐ yáogǎn zhóu lí zhōngxīn yuè yuǎn, chíxù zhèndòng yuè qiáng. Shǐyòng suǒyǒu yǐ fēnpèi lái yuán yìngshè hòu de shūchū. Fù fāngxiàng qūdòng zuǒ mǎdá, zhèng fāngxiàng qūdòng yòu mǎdá. Shìyòng yú shǐyòng zhèndòng shèbèi de Xbox hé PlayStation shūchū, bù yòng yú fāngxiàngpán de yuánshēng lìfǎnkuì.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Suí suǒ xuǎn xūnǐ yáogǎn zhóu lí zhōngxīn yuè yuǎn, chíxù zhèndòng yuè qiáng. Shǐyòng suǒyǒu yǐ fēnpèi lái yuán yìngshè hòu de shūchū. Xuǎnzé “Àn fāngxiàng fēnkāi” shí, fù fāngxiàng qūdòng zuǒ mǎdá, zhèng fāngxiàng qūdòng yòu mǎdá. Xuǎnzé “Zuǒ mǎdá” huò “Yòu mǎdá” zé liǎng gè fāngxiàng dōu zài nà yī gè mǎdá shàng zhèndòng. Shìyòng yú shǐyòng zhèndòng shèbèi de Xbox hé PlayStation shūchū, bù yòng yú fāngxiàngpán de yuánshēng lìfǎnkuì.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Qǐyòng zhuǎnxiàng jiǎodù zhèndòng</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Xūnǐ zhóu</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Zuǒ yáogǎn X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Zuǒ yáogǎn Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Yòu yáogǎn X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Yòu yáogǎn Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Mǎdá</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Àn fāngxiàng fēnkāi</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Zhōngxīn sǐqū</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Chóngzhì wéi guānbì</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Chóngzhì wéi zuǒ yáogǎn X</value></data>

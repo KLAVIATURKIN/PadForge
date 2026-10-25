@@ -4093,13 +4093,15 @@ Vols que PadForge els desinstal·li ara? Cal elevar els permisos i pot trigar un
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>S'estan esperant dades de la memòria compartida de FreeTrack.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>La memòria compartida de FreeTrack no està disponible.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Vibració segons l'angle de direcció</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Afegeix una vibració contínua a mesura que l'eix de palanca virtual seleccionat s'allunya del centre. Fa servir la sortida assignada de totes les fonts assignades. El moviment negatiu acciona el motor esquerre i el positiu, el dret. Per a sortides Xbox i PlayStation amb dispositius de vibració. S'exclou la retroacció de força nativa dels volants.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Afegeix una vibració contínua a mesura que l'eix de palanca virtual seleccionat s'allunya del centre. Fa servir la sortida assignada de totes les fonts assignades. Amb Dividit per direcció, el moviment negatiu acciona el motor esquerre i el positiu, el dret. Motor esquerre o Motor dret posa les dues direccions en aquell únic motor. Per a sortides Xbox i PlayStation amb dispositius de vibració. S'exclou la retroacció de força nativa dels volants.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Activa la vibració segons l'angle de direcció</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Eix virtual</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Palanca esquerra X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Palanca esquerra Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Palanca dreta X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Palanca dreta Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motor</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Dividit per direcció</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Zona morta central</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Restableix a desactivat</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Restableix a Palanca esquerra X</value></data>

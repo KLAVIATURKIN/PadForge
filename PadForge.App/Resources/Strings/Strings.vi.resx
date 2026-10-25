@@ -4113,13 +4113,15 @@ Bạn có muốn PadForge gỡ cài đặt chúng ngay bây giờ không? Việc
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>Đang chờ dữ liệu bộ nhớ dùng chung FreeTrack.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>Bộ nhớ dùng chung FreeTrack không khả dụng.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Rung theo góc lái</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Thêm rung liên tục khi trục cần analog ảo đã chọn di chuyển ra xa tâm. Dùng đầu ra đã ánh xạ từ mọi nguồn đã gán. Chuyển động âm điều khiển mô-tơ trái, chuyển động dương điều khiển mô-tơ phải. Dành cho đầu ra Xbox và PlayStation với thiết bị có rung. Không bao gồm phản hồi lực gốc của vô lăng.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Thêm rung liên tục khi trục cần analog ảo đã chọn di chuyển ra xa tâm. Dùng đầu ra đã ánh xạ từ mọi nguồn đã gán. Với Chia theo hướng, chuyển động âm điều khiển mô-tơ trái và chuyển động dương điều khiển mô-tơ phải. Mô-tơ trái hoặc Mô-tơ phải đặt cả hai hướng lên đúng mô-tơ đó. Dành cho đầu ra Xbox và PlayStation với thiết bị có rung. Không bao gồm phản hồi lực gốc của vô lăng.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Bật rung theo góc lái</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Trục ảo</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Cần trái X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Cần trái Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Cần phải X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Cần phải Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Mô-tơ</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Chia theo hướng</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Vùng chết ở tâm</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Đặt lại về Tắt</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Đặt lại về Cần trái X</value></data>

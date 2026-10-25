@@ -4089,13 +4089,15 @@ Adakah anda mahu PadForge menyahpasangnya sekarang? Ini memerlukan peninggian ke
   <data name="HeadTracker_StatusFreeTrackWaiting" xml:space="preserve"><value>Menunggu data memori kongsi FreeTrack.</value></data>
   <data name="HeadTracker_StatusFreeTrackUnavailable" xml:space="preserve"><value>Memori kongsi FreeTrack tidak tersedia.</value></data>
   <data name="Pad_SteeringAngleRumble_Header" xml:space="preserve"><value>Getaran Sudut Stereng</value></data>
-  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Menambah getaran berterusan apabila paksi kayu bedik maya yang dipilih bergerak menjauhi tengah. Menggunakan output terpeta daripada semua sumber yang diumpukkan. Gerakan negatif memacu motor kiri, gerakan positif motor kanan. Untuk output Xbox dan PlayStation dengan peranti getaran. Maklum balas daya roda asli dikecualikan.</value></data>
+  <data name="Pad_SteeringAngleRumble_Description" xml:space="preserve"><value>Menambah getaran berterusan apabila paksi kayu bedik maya yang dipilih bergerak menjauhi tengah. Menggunakan output terpeta daripada semua sumber yang diumpukkan. Dengan Pisah Mengikut Arah, gerakan negatif memacu motor kiri dan gerakan positif motor kanan. Motor Kiri atau Motor Kanan meletakkan kedua-dua arah pada satu motor itu. Untuk output Xbox dan PlayStation dengan peranti getaran. Maklum balas daya roda asli dikecualikan.</value></data>
   <data name="Pad_SteeringAngleRumble_Enable" xml:space="preserve"><value>Dayakan Getaran Sudut Stereng</value></data>
   <data name="Pad_SteeringAngleRumble_Axis" xml:space="preserve"><value>Paksi Maya</value></data>
   <data name="Pad_SteeringAngleRumble_LX" xml:space="preserve"><value>Kayu Bedik Kiri X</value></data>
   <data name="Pad_SteeringAngleRumble_LY" xml:space="preserve"><value>Kayu Bedik Kiri Y</value></data>
   <data name="Pad_SteeringAngleRumble_RX" xml:space="preserve"><value>Kayu Bedik Kanan X</value></data>
   <data name="Pad_SteeringAngleRumble_RY" xml:space="preserve"><value>Kayu Bedik Kanan Y</value></data>
+  <data name="Pad_SteeringAngleRumble_Motor" xml:space="preserve"><value>Motor</value></data>
+  <data name="Pad_SteeringAngleRumble_MotorSplit" xml:space="preserve"><value>Pisah Mengikut Arah</value></data>
   <data name="Pad_SteeringAngleRumble_Deadzone" xml:space="preserve"><value>Zon Mati Tengah</value></data>
   <data name="Common_ResetToOff" xml:space="preserve"><value>Tetap Semula kepada Mati</value></data>
   <data name="Pad_SteeringAngleRumble_ResetAxis" xml:space="preserve"><value>Tetap Semula kepada Kayu Bedik Kiri X</value></data>
